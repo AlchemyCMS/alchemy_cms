@@ -1,5 +1,7 @@
 /* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css */
 
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css */
+
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -425,7 +427,7 @@ form.create_right {
 	padding: 6px 32px 2px 8px;
 	margin-top: 2px;
 	margin-bottom: 2px;
-	background: #aed66d url(../images/gui/shading.png) repeat-x 0 12px;
+	background: #b3ccdb url(../images/gui/shading.png) repeat-x 0 12px;
 	white-space: nowrap;
 	text-shadow: #fff 0 1px 2px;
 	font-weight: bold;

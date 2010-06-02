@@ -1,5 +1,7 @@
 /* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_base.css */
 
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_base.css */
+
 /* @override http://localhost:3000/plugin_assets/alchemy/stylesheets/wa_base.css */
 
 div#wa_user_signup {
@@ -83,7 +85,7 @@ div#wa_toolbar form a.search_field_clear,
 .wa_search_and_create form a.search_field_clear {
 	width: 15px;
 	height: 15px;
-	background: #b5b5b5 url(../images/gui/close.png) no-repeat 0 -1px;
+	background: #b3ccdb url(../images/gui/close.png) no-repeat 0 -1px;
 	position: absolute;
 	right: 8px;
 	top: 3px;
@@ -205,12 +207,12 @@ div.wa_legend div#language_select {
 
 .wa_drop_down_select div.wa_drop_down_select_body a:hover {
 	text-decoration: none;
-	background-color: #c6d6ad;
+	background-color: #b3ccdb;
 	color: #333;
 }
 
 .wa_drop_down_select div.wa_drop_down_select_body a.selected {
-	background-color: #c6d6ad;
+	background-color: #b3ccdb;
 	color: #333;
 }
 
@@ -2554,7 +2556,7 @@ div.pagination .disabled {
 }
 
 div.pagination .current {
-	background-color: #aed66d;
+	background-color: #b3ccdb;
 	color: white;
 	border: 1px solid #8a8a8a;
 }
@@ -2610,7 +2612,7 @@ div.wa_search_and_create label {
 }
 
 #toolbar_links a.active {
-	background-color: #aed66d;
+	background-color: #b3ccdb;
 	color: white;
 	border: 1px solid #8a8a8a;
 }

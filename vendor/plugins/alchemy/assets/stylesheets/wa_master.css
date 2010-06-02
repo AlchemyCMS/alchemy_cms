@@ -1,5 +1,7 @@
 /* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_master.css */
 
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_master.css */
+
 html {
 	margin: 0;
 	padding: 0;
@@ -94,7 +96,7 @@ div#top_frame {
 
 #wa_top_menu_background {
 	height: 40px;
-	background: #aed66d url(../images/gui/shading_inv.png) repeat-x 0 0;
+	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x 0 0;
 }
 
 #top_frame_switch {

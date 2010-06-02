@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-02 15:40+0200\n"
+"POT-Creation-Date: 2010-06-02 18:06+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
-#: app/views/admin/index.html.erb:31
+#: app/views/admin/index.html.erb:13
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 "Alchemy ist freie Software und benutzt selbst freie Software und Ressourcen:"
@@ -108,7 +108,7 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
-#: app/views/admin/index.html.erb:43
+#: app/views/admin/index.html.erb:25
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
@@ -162,7 +162,7 @@ msgstr "%{name} wurde aktualisiert"
 msgid "Username"
 msgstr "Benutzername"
 
-#: app/views/admin/index.html.erb:30
+#: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr "Version"
 
@@ -657,7 +657,7 @@ msgstr "Das Molekül konnte nicht gelöscht werden."
 msgid "element_of_type"
 msgstr "Molekül"
 
-#: app/controllers/admin_controller.rb:65 app/views/wa_molecules/update.rjs:7
+#: app/controllers/admin_controller.rb:66 app/views/wa_molecules/update.rjs:7
 msgid "element_saved"
 msgstr "Molekül wurde gespeichert."
 
@@ -705,10 +705,6 @@ msgstr "Frau"
 msgid "file"
 msgstr "Datei"
 
-#: app/views/admin/index.html.erb:19
-msgid "file_archive"
-msgstr "Dateien"
-
 #: app/controllers/wa_files_controller.rb:100
 msgid "file_rename_error"
 msgstr "Datei konnte nicht umbenannt werden."
@@ -723,27 +719,6 @@ msgstr "Dateien"
 msgid "height"
 msgstr "Höhe"
 
-#: app/views/admin/index.html.erb:20
-msgid "help: file_archive"
-msgstr ""
-"Dies ist das zentrale Dateiarchiv. Hier können Sie PDF,- Audio- und "
-"Videodateien hinaufladen und dann auf den Seiten zuweisen."
-
-#: app/views/admin/index.html.erb:16
-msgid "help: image_archive"
-msgstr ""
-"Dies ist das zentrale Bilderarchiv. Laden Sie Bilder, die Sie auf den Seiten "
-"verwenden wollen, hier hoch."
-
-#: app/views/admin/index.html.erb:12
-msgid "help: sitemap"
-msgstr "Klicken Sie auf den Namen einer Seite um deren Inhalt zu bearbeiten."
-
-#: app/views/admin/index.html.erb:24
-msgid "help: users"
-msgstr ""
-"Hier können Sie neue Benutzer anlegen und vorhandene Benutzer bearbeiten."
-
 #: app/views/wa_molecules/_wa_molecule_head.html.erb:34
 msgid "hide_element_content"
 msgstr "Molekül einklappen"
@@ -751,10 +726,6 @@ msgstr "Molekül einklappen"
 #: app/views/wa_atom_pictures/edit.html.erb:26
 msgid "image_alt_tag"
 msgstr "Alt-Tag"
-
-#: app/views/admin/index.html.erb:15
-msgid "image_archive"
-msgstr "Bilder"
 
 #: app/views/wa_atom_pictures/edit.html.erb:12
 msgid "image_caption"
@@ -828,7 +799,7 @@ msgstr "Intern"
 msgid "link_title"
 msgstr "Linktitel"
 
-#: app/controllers/admin_controller.rb:50
+#: app/controllers/admin_controller.rb:51
 msgid "logged_out"
 msgstr "Sie wurden abgemeldet."
 
@@ -876,7 +847,15 @@ msgstr "Bild wird vermisst."
 msgid "module: dashboard"
 msgstr "Home"
 
-#: lib/alchemy_core_modules.rb:5
+#: lib/alchemy_core_modules.rb:7
+msgid "module: files"
+msgstr "Dateien"
+
+#: lib/alchemy_core_modules.rb:8
+msgid "module: images"
+msgstr "Bilder"
+
+#: lib/alchemy_core_modules.rb:6
 msgid "module: library"
 msgstr "Bibliothek"
 
@@ -885,6 +864,10 @@ msgid "module: pages"
 msgstr "Seiten"
 
 #: lib/alchemy_core_modules.rb:4
+msgid "module: systempages"
+msgstr "Layout-Seiten"
+
+#: lib/alchemy_core_modules.rb:5
 msgid "module: users"
 msgstr "Benutzer"
 
@@ -1182,10 +1165,6 @@ msgstr "Navigation anzeigen"
 msgid "show_page_in_sitemap"
 msgstr "Seite in der Sitemap zeigen"
 
-#: app/views/admin/index.html.erb:10
-msgid "sitemap"
-msgstr "Seiten"
-
 #: app/views/wa_images/_filter_and_size_bar.html.erb:24
 msgid "small_thumbnails"
 msgstr "kleine Miniaturbilder"
@@ -1276,10 +1255,6 @@ msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 msgid "username"
 msgstr "Benutzername"
 
-#: app/views/admin/index.html.erb:23
-msgid "users"
-msgstr "Benutzer"
-
 #: app/views/wa_molecules/_save_and_delete_buttons.html.erb:40
 msgid "visible"
 msgstr "sichtbar"
@@ -1304,7 +1279,7 @@ msgstr "Oder wollen Sie eine neue leere Sprache erstellen?"
 msgid "want_to_make_copy_of_existing_language"
 msgstr "Wollen Sie eine Kopie einer vorhanden Sprache machen?"
 
-#: app/controllers/admin_controller.rb:32
+#: app/controllers/admin_controller.rb:33
 msgid "welcome_please_identify_notice"
 msgstr "Willkommen! Bitte identifizieren Sie sich."
 

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-02 15:40+0200\n"
+"POT-Creation-Date: 2010-06-02 18:06+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Adobe Website"
 msgstr ""
 
-#: app/views/admin/index.html.erb:31
+#: app/views/admin/index.html.erb:13
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:43
+#: app/views/admin/index.html.erb:25
 msgid "Read the License"
 msgstr ""
 
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: app/views/admin/index.html.erb:30
+#: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr ""
 
@@ -652,7 +652,7 @@ msgstr ""
 msgid "element_of_type"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:65 app/views/wa_molecules/update.rjs:7
+#: app/controllers/admin_controller.rb:66 app/views/wa_molecules/update.rjs:7
 msgid "element_saved"
 msgstr ""
 
@@ -696,10 +696,6 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: app/views/admin/index.html.erb:19
-msgid "file_archive"
-msgstr ""
-
 #: app/controllers/wa_files_controller.rb:100
 msgid "file_rename_error"
 msgstr ""
@@ -714,32 +710,12 @@ msgstr ""
 msgid "height"
 msgstr ""
 
-#: app/views/admin/index.html.erb:20
-msgid "help: file_archive"
-msgstr ""
-
-#: app/views/admin/index.html.erb:16
-msgid "help: image_archive"
-msgstr ""
-
-#: app/views/admin/index.html.erb:12
-msgid "help: sitemap"
-msgstr ""
-
-#: app/views/admin/index.html.erb:24
-msgid "help: users"
-msgstr ""
-
 #: app/views/wa_molecules/_wa_molecule_head.html.erb:34
 msgid "hide_element_content"
 msgstr ""
 
 #: app/views/wa_atom_pictures/edit.html.erb:26
 msgid "image_alt_tag"
-msgstr ""
-
-#: app/views/admin/index.html.erb:15
-msgid "image_archive"
 msgstr ""
 
 #: app/views/wa_atom_pictures/edit.html.erb:12
@@ -814,7 +790,7 @@ msgstr ""
 msgid "link_title"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:50
+#: app/controllers/admin_controller.rb:51
 msgid "logged_out"
 msgstr ""
 
@@ -862,7 +838,15 @@ msgstr ""
 msgid "module: dashboard"
 msgstr ""
 
-#: lib/alchemy_core_modules.rb:5
+#: lib/alchemy_core_modules.rb:7
+msgid "module: files"
+msgstr ""
+
+#: lib/alchemy_core_modules.rb:8
+msgid "module: images"
+msgstr ""
+
+#: lib/alchemy_core_modules.rb:6
 msgid "module: library"
 msgstr ""
 
@@ -871,6 +855,10 @@ msgid "module: pages"
 msgstr ""
 
 #: lib/alchemy_core_modules.rb:4
+msgid "module: systempages"
+msgstr ""
+
+#: lib/alchemy_core_modules.rb:5
 msgid "module: users"
 msgstr ""
 
@@ -1156,10 +1144,6 @@ msgstr ""
 msgid "show_page_in_sitemap"
 msgstr ""
 
-#: app/views/admin/index.html.erb:10
-msgid "sitemap"
-msgstr ""
-
 #: app/views/wa_images/_filter_and_size_bar.html.erb:24
 msgid "small_thumbnails"
 msgstr ""
@@ -1250,10 +1234,6 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: app/views/admin/index.html.erb:23
-msgid "users"
-msgstr ""
-
 #: app/views/wa_molecules/_save_and_delete_buttons.html.erb:40
 msgid "visible"
 msgstr ""
@@ -1278,7 +1258,7 @@ msgstr ""
 msgid "want_to_make_copy_of_existing_language"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:32
+#: app/controllers/admin_controller.rb:33
 msgid "welcome_please_identify_notice"
 msgstr ""
 

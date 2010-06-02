@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-02 15:40+0200\n"
+"POT-Creation-Date: 2010-06-02 18:06+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Adobe Website"
 msgstr ""
 
-#: app/views/admin/index.html.erb:31
+#: app/views/admin/index.html.erb:13
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:43
+#: app/views/admin/index.html.erb:25
 msgid "Read the License"
 msgstr ""
 
@@ -155,7 +155,7 @@ msgstr "User: '%{name}' updated"
 msgid "Username"
 msgstr "Username"
 
-#: app/views/admin/index.html.erb:30
+#: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr ""
 
@@ -649,7 +649,7 @@ msgstr "Molecule could not be deleted."
 msgid "element_of_type"
 msgstr "Molecule"
 
-#: app/controllers/admin_controller.rb:65 app/views/wa_molecules/update.rjs:7
+#: app/controllers/admin_controller.rb:66 app/views/wa_molecules/update.rjs:7
 msgid "element_saved"
 msgstr "Saved element."
 
@@ -696,10 +696,6 @@ msgstr "Female"
 msgid "file"
 msgstr "File"
 
-#: app/views/admin/index.html.erb:19
-msgid "file_archive"
-msgstr "Files"
-
 #: app/controllers/wa_files_controller.rb:100
 msgid "file_rename_error"
 msgstr "Error renaming file."
@@ -714,23 +710,6 @@ msgstr "files"
 msgid "height"
 msgstr "Height"
 
-#: app/views/admin/index.html.erb:20
-msgid "help: file_archive"
-msgstr "Upload audio, video and documents here."
-
-#: app/views/admin/index.html.erb:16
-msgid "help: image_archive"
-msgstr ""
-"Upload images to this central archive and assign them on pages in the cms."
-
-#: app/views/admin/index.html.erb:12
-msgid "help: sitemap"
-msgstr "Create new pages here. To edit the contents of a page click its name."
-
-#: app/views/admin/index.html.erb:24
-msgid "help: users"
-msgstr "Create and edit users here."
-
 #: app/views/wa_molecules/_wa_molecule_head.html.erb:34
 msgid "hide_element_content"
 msgstr "Hide this elements content."
@@ -738,10 +717,6 @@ msgstr "Hide this elements content."
 #: app/views/wa_atom_pictures/edit.html.erb:26
 msgid "image_alt_tag"
 msgstr "Alt-tag"
-
-#: app/views/admin/index.html.erb:15
-msgid "image_archive"
-msgstr "Images"
 
 #: app/views/wa_atom_pictures/edit.html.erb:12
 msgid "image_caption"
@@ -815,7 +790,7 @@ msgstr "Internal"
 msgid "link_title"
 msgstr "Linktitle"
 
-#: app/controllers/admin_controller.rb:50
+#: app/controllers/admin_controller.rb:51
 msgid "logged_out"
 msgstr "You logged out successfully."
 
@@ -863,7 +838,15 @@ msgstr "Missing image"
 msgid "module: dashboard"
 msgstr "Home"
 
-#: lib/alchemy_core_modules.rb:5
+#: lib/alchemy_core_modules.rb:7
+msgid "module: files"
+msgstr "Files"
+
+#: lib/alchemy_core_modules.rb:8
+msgid "module: images"
+msgstr "Images"
+
+#: lib/alchemy_core_modules.rb:6
 msgid "module: library"
 msgstr "Library"
 
@@ -872,6 +855,10 @@ msgid "module: pages"
 msgstr "Pages"
 
 #: lib/alchemy_core_modules.rb:4
+msgid "module: systempages"
+msgstr "Layout-Pages"
+
+#: lib/alchemy_core_modules.rb:5
 msgid "module: users"
 msgstr "Users"
 
@@ -1165,10 +1152,6 @@ msgstr "Show in navigation"
 msgid "show_page_in_sitemap"
 msgstr "Show page in sitemap."
 
-#: app/views/admin/index.html.erb:10
-msgid "sitemap"
-msgstr "Pages"
-
 #: app/views/wa_images/_filter_and_size_bar.html.erb:24
 msgid "small_thumbnails"
 msgstr "Small thumbnails"
@@ -1259,10 +1242,6 @@ msgstr "The pages urlname is too short (minimum of 3 characters)"
 msgid "username"
 msgstr "Username"
 
-#: app/views/admin/index.html.erb:23
-msgid "users"
-msgstr "Users"
-
 #: app/views/wa_molecules/_save_and_delete_buttons.html.erb:40
 msgid "visible"
 msgstr "visible"
@@ -1287,7 +1266,7 @@ msgstr "Or do you want to create a new empty language?"
 msgid "want_to_make_copy_of_existing_language"
 msgstr "Do you want to copy an existing language?"
 
-#: app/controllers/admin_controller.rb:32
+#: app/controllers/admin_controller.rb:33
 msgid "welcome_please_identify_notice"
 msgstr "Welcome! Please identify."
 
