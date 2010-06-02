@@ -1,23 +1,23 @@
-module Washapp
+module Alchemy
   module Controller
 
-    mattr_accessor :washapp_plugins_settings
+    mattr_accessor :alchemy_plugins_settings
     mattr_accessor :current_language
     
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
       base.send :include, WaNotice
-      base.send :helper_method, :plugin_conf, :washapp_plugins_settings, :wa_plugins, :wa_plugin
+      base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :wa_plugins, :wa_plugin
     end
 
     def initialize
       super
-      self.washapp_plugins_settings = Hash.new
+      self.alchemy_plugins_settings = Hash.new
       plugins_settings_yaml = plugins_config_ymls
       plugins_settings_yaml.each do |settings|
         sets = YAML.load_file(settings)
-        self.washapp_plugins_settings[sets["name"]] = sets
+        self.alchemy_plugins_settings[sets["name"]] = sets
       end
     end
 
@@ -27,7 +27,7 @@ module Washapp
     
     module ClassMethods
       
-      def belongs_to_washapp_plugin(plugin_name)
+      def belongs_to_alchemy_plugin(plugin_name)
         send :layout, "wa_admin"
       end
       
@@ -36,15 +36,15 @@ module Washapp
     module InstanceMethods
 
       def plugin_conf(plugin_name)
-        washapp_plugins_settings[plugin_name]["settings"]
+        alchemy_plugins_settings[plugin_name]["settings"]
       end
 
-      # returns an array with all washapp plugins including the washapp core as first entry.
-      # For your own plugin see config.yml in vendor/plugins/washapp/config/washapp folder
+      # returns an array with all alchemy plugins including the alchemy core as first entry.
+      # For your own plugin see config.yml in vendor/plugins/alchemy/config/alchemy folder
       def wa_plugins
         ymls = plugins_config_ymls
         plugins = []
-        wa_config = ymls.detect { |c| c.include?('vendor/plugins/washapp') }
+        wa_config = ymls.detect { |c| c.include?('vendor/plugins/alchemy') }
         wa_config_yml = YAML.load_file(wa_config)
         if wa_config_yml
           wa_pl = wa_config_yml["wa_plugins"]
@@ -67,7 +67,7 @@ module Washapp
         return plugins
       end
 
-      # returns the washapp plugin found by name, or by hash of controller and action
+      # returns the alchemy plugin found by name, or by hash of controller and action
       def wa_plugin(name)
         if name.is_a? String
           wa_plugins.detect{ |p| p["name"] == name }
@@ -85,11 +85,11 @@ module Washapp
     private
 
       def plugins_config_ymls
-        Dir.glob("vendor/plugins/*/config/washapp/config.yml")
+        Dir.glob("vendor/plugins/*/config/alchemy/config.yml")
       end
 
     end
 
   end
 end
-ActionController::Base.send(:include, Washapp::Controller) if defined?(ActionController)
+ActionController::Base.send(:include, Alchemy::Controller) if defined?(ActionController)

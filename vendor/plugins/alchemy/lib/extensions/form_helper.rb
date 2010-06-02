@@ -1,2 +1,2 @@
-ActionView::Helpers::FormBuilder.send(:include, Washapp::FormBuilder)
-ActionView::Base.send(:include, Washapp::ActionView)
+ActionView::Helpers::FormBuilder.send(:include, Alchemy::FormBuilder)
+ActionView::Base.send(:include, Alchemy::ActionView)

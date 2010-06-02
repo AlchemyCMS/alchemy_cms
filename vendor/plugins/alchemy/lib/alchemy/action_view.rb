@@ -1,4 +1,4 @@
-module Washapp::ActionView
+module Alchemy::ActionView
   
   # values = [[], []]
   def wa_select_tag(name, values, selected_value, options = {})
@@ -17,7 +17,7 @@ module Washapp::ActionView
     else
       select_box_content = selected_value[0]
     end
-    html = Washapp::ActionView.get_html_scaffold(:prefix, id, select_box_content, '', options)
+    html = Alchemy::ActionView.get_html_scaffold(:prefix, id, select_box_content, '', options)
     unless options[:prompt].blank? || nothing_selected
       html += %(<a href="#" rel="">#{options[:prompt]}</a>)
     end
@@ -27,13 +27,13 @@ module Washapp::ActionView
         <a href="#" rel="#{value[1]}" title="#{value[0]}" class="#{selected ? 'selected' : nil}">#{value[0]}</a>
       )
     end
-    html += Washapp::ActionView.get_html_scaffold(:suffix, '', '', '', options)
+    html += Alchemy::ActionView.get_html_scaffold(:suffix, '', '', '', options)
     if !options[:prompt].blank? && nothing_selected
       html += self.hidden_field_tag(name)
     else
       html += self.hidden_field_tag(name, (values[0][1] rescue '&nbsp;'))
     end
-    html += Washapp::ActionView.get_html_scaffold(:js, id, '', name, options)
+    html += Alchemy::ActionView.get_html_scaffold(:js, id, '', name, options)
     return html
   end
 

@@ -8,10 +8,10 @@ class WaPageLayout
   end
 
   def self.get_layouts
-    if File.exists? "#{RAILS_ROOT}/config/washapp/page_layouts.yml"
-      layouts = YAML.load_file( "#{RAILS_ROOT}/config/washapp/page_layouts.yml" )
-    elsif File.exists? "#{RAILS_ROOT}/config/washapp/page_layouts.yml"
-      layouts = YAML.load_file( "#{RAILS_ROOT}/config/washapp/page_layouts.yml" )
+    if File.exists? "#{RAILS_ROOT}/config/alchemy/page_layouts.yml"
+      layouts = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/page_layouts.yml" )
+    elsif File.exists? "#{RAILS_ROOT}/config/alchemy/page_layouts.yml"
+      layouts = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/page_layouts.yml" )
     else
       raise "Could not read page_layouts.yml"
     end

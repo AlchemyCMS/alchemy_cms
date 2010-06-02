@@ -4,18 +4,18 @@ class WaConfigure < ActionController::Base
     if name.class == String
       name = name.to_sym
     end
-    if File.exists? "#{RAILS_ROOT}/config/washapp/config_#{RAILS_ENV}.yml"
-      config_1 = YAML.load_file( "#{RAILS_ROOT}/config/washapp/config_#{RAILS_ENV}.yml" )
+    if File.exists? "#{RAILS_ROOT}/config/alchemy/config_#{RAILS_ENV}.yml"
+      config_1 = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/config_#{RAILS_ENV}.yml" )
     else
       config_1 = {}
     end
-    if File.exists? "#{RAILS_ROOT}/config/washapp/config.yml"
-      config_2 = YAML.load_file( "#{RAILS_ROOT}/config/washapp/config.yml" )
+    if File.exists? "#{RAILS_ROOT}/config/alchemy/config.yml"
+      config_2 = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/config.yml" )
     else
       config_2 = {}
     end
-    if File.exists? "#{RAILS_ROOT}/vendor/plugins/washapp/config/washapp/config.yml"
-      config_3 = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/washapp/config/washapp/config.yml" )
+    if File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/config.yml"
+      config_3 = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/config.yml" )
     else
       config_3 = {}
     end

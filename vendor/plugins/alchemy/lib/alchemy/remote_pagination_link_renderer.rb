@@ -1,5 +1,5 @@
 # This is for will_paginate
-module Washapp
+module Alchemy
   
   class RemotePaginationLinkRenderer < WillPaginate::LinkRenderer
   

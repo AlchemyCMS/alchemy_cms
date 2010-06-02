@@ -1,6 +1,6 @@
-module Washapp::FormBuilder
+module Alchemy::FormBuilder
   
-  # Javascript driven washapp style dropdown selectbox for ActionView::Helpers::FormBuilder objects
+  # Javascript driven alchemy style dropdown selectbox for ActionView::Helpers::FormBuilder objects
   def wa_select(method, values, options = {})
     wa_selectbox(object, method, values, options)
   end
@@ -21,7 +21,7 @@ module Washapp::FormBuilder
     else
       select_box_content = selected_value[0]
     end
-    html = Washapp::ActionView.get_html_scaffold(:prefix, id, select_box_content, '', options)
+    html = Alchemy::ActionView.get_html_scaffold(:prefix, id, select_box_content, '', options)
     unless options[:prompt].blank? || nothing_selected
       html += %(<a href="#" rel="">#{options[:prompt]}</a>)
     end
@@ -31,9 +31,9 @@ module Washapp::FormBuilder
         <a href="#" rel="#{value[1]}" title="#{value[0]}" class="#{selected ? 'selected' : nil}">#{value[0]}</a>
       )
     end
-    html += Washapp::ActionView.get_html_scaffold(:suffix, '', '', '')
+    html += Alchemy::ActionView.get_html_scaffold(:suffix, '', '', '')
     html += self.hidden_field(method, :value => (nothing_selected ? values[0][1] : selected_value[1]))
-    html += Washapp::ActionView.get_html_scaffold(:js, id, '', [object.class.to_s.underscore, method].join('_'))
+    html += Alchemy::ActionView.get_html_scaffold(:js, id, '', [object.class.to_s.underscore, method].join('_'))
     return html
   end
 
