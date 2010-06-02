@@ -1,7 +1,7 @@
 class WaFilesController < ApplicationController
   
   protect_from_forgery :except => [:create]
-  layout 'alchemy'
+  layout 'admin'
   
   before_filter :set_translation, :except => [:show, :download]
   filter_access_to :all, :except => [:show, :download]

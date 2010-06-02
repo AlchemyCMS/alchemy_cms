@@ -3,7 +3,9 @@ require 'extensions/form_helper'
 require 'alchemy/controller'
 require 'injections/attachment_fu_mime_type'
 
-Ddb::Userstamp.compatibility_mode = true
+if defined?(Ddb::Userstamp)
+  Ddb::Userstamp.compatibility_mode = true
+end
 
 ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 

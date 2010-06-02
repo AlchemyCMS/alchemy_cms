@@ -1,7 +1,7 @@
 class WaImagesController < ApplicationController
   
   protect_from_forgery :except => [:create]
-  layout 'alchemy'
+  layout 'admin'
   
   before_filter :set_translation, :except => [:show, :thumb]
   

@@ -43,7 +43,7 @@ class WaPagesController < ApplicationController
       create_new_rootpage
       flash[:notice] = _("WaAdmin|new rootpage created")
     end
-    render :layout => 'alchemy'
+    render :layout => 'admin'
   end
   
   def fold
@@ -55,7 +55,7 @@ class WaPagesController < ApplicationController
   
   def systempages
     @system_root = WaPage.systemroot.first
-    render :layout => 'alchemy'
+    render :layout => 'admin'
   end
   
   def new
@@ -178,7 +178,7 @@ class WaPagesController < ApplicationController
       redirect_to wa_pages_path
     else
       @wa_page.lock(current_user)
-      render :layout => 'alchemy'
+      render :layout => 'admin'
     end
   end
   
