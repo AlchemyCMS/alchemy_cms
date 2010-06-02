@@ -1,9 +1,9 @@
-# Copyright:: 2007-2010 macabi GmbH
-# Author::    Thomas von Deyen
-# Date::      13.01.2010
-# 
-# All methods (helpers) in this helper are used by washAPP to render molecules, atoms and layouts on the WaPage.
-# You can call this helper the most important part of washAPP. This helper is washAPP, actually :)
+# Copyright: 2007-2010 Thomas von Deyen and Carsten Fregin
+# Author:    Thomas von Deyen
+# Date:      02.06.2010
+# License:   GPL
+# All methods (helpers) in this helper are used by Alchemy to render molecules, atoms and layouts on the WaPage.
+# You can call this helper the most important part of Alchemy. This helper is Alchemy, actually :)
 #
 # TODO: list all important infos here.
 # 
@@ -101,7 +101,7 @@ module ApplicationHelper
       options = default_options.merge(options)
       molecule.store_page(current_page) if part == :view
       path1 = "#{RAILS_ROOT}/app/views/wa_molecules/"
-      path2 = "#{RAILS_ROOT}/vendor/plugins/washapp/app/views/wa_molecules/"
+      path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/wa_molecules/"
       partial_name = "_#{molecule.name.underscore}_#{part}.html.erb"
       if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
         render(
@@ -360,22 +360,22 @@ module ApplicationHelper
 
   # = This helper takes care of all important meta tags for your current_page.
   # ---
-  # The meta data is been taken from the current_page.title, current_page.meta_description, current_page.meta_keywords, current_page.updated_at and current_page.language database entries managed by the washAPP user via the washAPP cockpit.
+  # The meta data is been taken from the current_page.title, current_page.meta_description, current_page.meta_keywords, current_page.updated_at and current_page.language database entries managed by the Alchemy user via the Alchemy cockpit.
   #
-  # Assume that the user has entered following data into the washAPP cockpit of the WaPage "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
+  # Assume that the user has entered following data into the Alchemy cockpit of the WaPage "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
   #
   # Title = Homepage
-  # Description = The homepage of macabi gmbh - germany. We produced washapp and develop individual software solutions written in rubyonrails.
-  # Keywords: washapp, ruby, rubyonrails, rails, software, development, html, javascript, ajax
+  # Description = Your page description
+  # Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
   # 
-  # Then placing render_meta_data(:title_prefix => "macabi", :title_seperator => "::") into the <head> part of the wa_pages.html.erb layout produces:
+  # Then placing render_meta_data(:title_prefix => "company", :title_seperator => "::") into the <head> part of the wa_pages.html.erb layout produces:
   #
   # <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   # <meta http-equiv="Content-Language" content="de" />
-  # <title>macabi :: #{current_page.title}</title>
-  # <meta name="description" content="The homepage of macabi gmbh - germany. We produced washapp and develop individual software solutions written in rubyonrails." />
-  # <meta name="keywords" content="washapp, ruby, rubyonrails, rails, software, development, html, javascript, ajax" />
-  # <meta name="generator" content="washAPP 2.2" />
+  # <title>Company :: #{current_page.title}</title>
+  # <meta name="description" content="Your page description" />
+  # <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax" />
+  # <meta name="generator" content="Alchemy VERSION" />
   # <meta name="date" content="Tue Dec 16 10:21:26 +0100 2008" />
   # <meta name="robots" content="index, follow" />
   # 
@@ -405,7 +405,7 @@ module ApplicationHelper
       #{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
       #{render_meta_tag( :name => "description", :content => description)}
       #{render_meta_tag( :name => "keywords", :content => keywords)}
-      <meta name="generator" content="washAPP #{configuration(:washapp_version)}" />
+      <meta name="generator" content="Alchemy #{configuration(:alchemy_version)}" />
       <meta name="date" content="#{current_page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
@@ -490,7 +490,7 @@ module ApplicationHelper
   #
   # As you can see: Everything you need.
   #
-  # Not pleased with the way washAPP produces the navigation structure?
+  # Not pleased with the way Alchemy produces the navigation structure?
   # Then feel free to overwrite the partials (_navigation_renderer.html.erb and _navigation_link.html.erb) found in views/wa_pages/partials/ or pass different partials via the options :navigation_partial and :navigation_link_partial.
   #
   # == The options are:
@@ -498,9 +498,9 @@ module ApplicationHelper
   # :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
   # :from_page => WaPage.language_root session[:language]      Do you want to render a navigation from a different page then the current_page? Then pass the WaPage object here.
   # :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
-  # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced washAPP webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
-  # :navigation_link_partial => "navigation_link"         washAPP places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
-  # :show_nonactive => false                              Commonly washAPP only displays the submenu of the active page (if :submenu => true). If you want to display all child pages then pass true (together with :submenu => true of course). E.g. for the popular css-driven dropdownmenues these days.
+  # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
+  # :navigation_link_partial => "navigation_link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
+  # :show_nonactive => false                              Commonly Alchemy only displays the submenu of the active page (if :submenu => true). If you want to display all child pages then pass true (together with :submenu => true of course). E.g. for the popular css-driven dropdownmenues these days.
   # :show_title => true                                  For our beloved SEOs :). Appends a title attribute to all links and places the page.title content into it.
   def render_navigation(options = {})
     default_options = {
@@ -619,13 +619,13 @@ module ApplicationHelper
     link_to name, show_page_url(urlname, p), :class => (css_class unless css_class.empty?)
   end  
   
-  # Returns true if the current_user (The logged-in washAPP User) has the admin role.
+  # Returns true if the current_user (The logged-in Alchemy User) has the admin role.
   def is_admin?
     return false if !current_user
     current_user.admin?
   end
   
-  # This helper renders the link for a protoypejs-window overlay. We use this for our fancy modal overlay windows in the washAPP cockpit.
+  # This helper renders the link for a protoypejs-window overlay. We use this for our fancy modal overlay windows in the Alchemy cockpit.
   def link_to_wa_window(content, url, options={}, html_options={})
     default_options = {
       :size => "100x100",
@@ -727,7 +727,7 @@ module ApplicationHelper
   end
   
   # Renders an image_tag with .png for file.suffix.
-  # The images are in vendor/plugins/washapp/assets/images/file_icons
+  # The images are in vendor/plugins/alchemy/assets/images/file_icons
   # Fileicons so far:
   # GIF
   # PDF
@@ -738,23 +738,23 @@ module ApplicationHelper
   # Empty File
   def render_file_icon file
     if file.filename.split(".").last == "pdf"
-      img_tag = "#{image_tag("file_icons/pdf.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/pdf.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "flv"
-      img_tag = "#{image_tag("file_icons/flv.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/flv.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "gif"
-      img_tag = "#{image_tag("file_icons/gif.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/gif.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "zip"
-      img_tag = "#{image_tag("file_icons/zip.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/zip.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "mp3"
-      img_tag = "#{image_tag("file_icons/mp3.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/mp3.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "swf"
-      img_tag = "#{image_tag("file_icons/swf.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/swf.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "doc"
-      img_tag = "#{image_tag("file_icons/doc.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/doc.png", :plugin => :alchemy)}"
     elsif file.filename.split(".").last == "jpg"
-      img_tag = "#{image_tag("file_icons/jpg.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/jpg.png", :plugin => :alchemy)}"
     else
-      img_tag = "#{image_tag("file_icons/file.png", :plugin => :washapp)}"
+      img_tag = "#{image_tag("file_icons/file.png", :plugin => :alchemy)}"
     end
   end
   
@@ -770,7 +770,7 @@ module ApplicationHelper
       :render_format => "html"
     }
     options = default_options.merge(options)
-    if File.exists?("#{RAILS_ROOT}/app/views/page_layouts/_#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{RAILS_ROOT}/vendor/plugins/washapp/app/views/page_layouts/_#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb")
+    if File.exists?("#{RAILS_ROOT}/app/views/page_layouts/_#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/page_layouts/_#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb")
       render :partial => "page_layouts/#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb"
     else
       render :partial => "page_layouts/standard"
@@ -804,21 +804,21 @@ module ApplicationHelper
     "http://" + request.env["HTTP_HOST"] + "/" + molecule.wa_page.urlname + "##{molecule.name}_#{molecule.id}"  
   end
 
-  # Used for language selector in washAPP cockpit sitemap. So the user can select the language branche of the page.
+  # Used for language selector in Alchemy cockpit sitemap. So the user can select the language branche of the page.
   def language_codes_for_select
     configuration(:languages).collect{ |language|
       language[:language_code]
     }
   end
 
-  # Used for translations selector in washAPP cockpit user settings.
+  # Used for translations selector in Alchemy cockpit user settings.
   def translations_for_select
     configuration(:translations).collect{ |translation|
       [translation[:language], translation[:language_code]]
     }
   end
 
-  # Used by washAPP to display a javascript driven filter for lists in the washAPP cockpit.
+  # Used by Alchemy to display a javascript driven filter for lists in the Alchemy cockpit.
   def js_filter_field options = {}
     default_options = {
       :class => "thin_border js_filter_field",
@@ -978,7 +978,7 @@ module ApplicationHelper
     return molecule
   end
 
-  # This helper renderes the picture editor for the wa_molecules on the washAPP Desktop.
+  # This helper renderes the picture editor for the wa_molecules on the Alchemy Desktop.
   # It brings full functionality for adding images to the wa_molecule, deleting images from it and sorting them via drag'n'drop.
   # Just place this helper inside your wa_molecule editor view, pass the wa_molecule as parameter and that's it.
   #
@@ -1046,7 +1046,7 @@ module ApplicationHelper
   
   # TOOD: include these via asset_packer yml file
   def stylesheets_from_plugins
-    Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").select{|s| !s.include? "vendor/plugins/washapp"}.inject("") do |acc, s|
+    Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
       acc << stylesheet_link_tag(filename, :plugin => plugin)
@@ -1055,28 +1055,28 @@ module ApplicationHelper
 
   # TOOD: include these via asset_packer yml file  
   def javascripts_from_plugins
-    Dir.glob("vendor/plugins/*/assets/javascripts/*.js").select{|s| !s.include? "vendor/plugins/washapp"}.inject("") do |acc, s|
+    Dir.glob("vendor/plugins/*/assets/javascripts/*.js").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
       acc << javascript_include_tag(filename, :plugin => plugin)
     end
   end
 
-  def washapp_main_navigation
+  def admin_main_navigation
     navigation_entries = wa_plugins.collect{ |p| p["navigation"] }
     render :partial => 'layouts/partials/wa_mainnavigation_entry', :collection => navigation_entries.flatten
   end
 
   #:nodoc:
-  def render_washapp_subnavigation(entries)
+  def render_admin_subnavigation(entries)
     render :partial => "layouts/partials/wa_subnavigation", :locals => {:entries => entries}
   end
 
-  def washapp_subnavigation
+  def admin_subnavigation
     plugin = wa_plugin(:controller => params[:controller], :action => params[:action])
     unless plugin.nil?
       entries = plugin["navigation"]['sub_navigation']
-      render_washapp_subnavigation(entries) unless entries.nil?
+      render_admin_subnavigation(entries) unless entries.nil?
     else
       ""
     end
@@ -1100,7 +1100,7 @@ module ApplicationHelper
     preview_frame
   end
   
-  def washapp_mainnavi_active?(mainnav)
+  def admin_mainnavi_active?(mainnav)
     subnavi = mainnav["sub_navigation"]
     nested = mainnav["nested"]
     if !subnavi.blank?

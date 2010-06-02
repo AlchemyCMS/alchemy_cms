@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   
   include FastGettext::Translation
-  include Washapp
+  include Alchemy
   include Userstamp
   
   protect_from_forgery
@@ -154,7 +154,7 @@ private
   end
   
   def set_stamper
-    FastGettext.text_domain = 'washapp'
+    FastGettext.text_domain = 'alchemy'
     WaUser.stamper = self.current_user
   end
   
@@ -165,7 +165,7 @@ private
 protected
 
   def set_gettext_locale
-    FastGettext.text_domain = 'washapp'
+    FastGettext.text_domain = 'alchemy'
     FastGettext.available_locales = ['de','en'] #all you want to allow
     super
     session[:language] ||= configuration(:default_language)
@@ -178,7 +178,7 @@ protected
       if current_user.role == 'registered'
         redirect_to root_path
       else
-        redirect_to washapp_path
+        redirect_to admin_path
       end
     else
       store_location
@@ -187,7 +187,7 @@ protected
     end
   end
   
-  def redirect_back_or_to_default(default_path = washapp_path)
+  def redirect_back_or_to_default(default_path = admin_path)
     if request.env["HTTP_REFERER"].blank?
       redirect_to default_path
     else

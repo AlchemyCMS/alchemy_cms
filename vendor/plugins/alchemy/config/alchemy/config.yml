@@ -1,9 +1,9 @@
-:washapp_version: 3.0
+:alchemy_version: 4.0
 :show_rootname: a name
 :mailer:
     :forward_to_page: false
     :mail_sucess_page: root
-    :mail_from: 'washAPP <mail@washapp.de>'
+    :mail_from: 'Alchemy <mail@alchemy.de>'
 :visible: true
 :sitemap: 
   :show_root: true
@@ -26,7 +26,7 @@
 
 #language settings
 :default_language: de
-:default_washapp_language: de
+:default_alchemy_language: de
 :show_real_root: false
 :languages:
     - :language_code: de
@@ -46,12 +46,12 @@
 
 :user_roles: [registered, author, editor, admin]
 
-# This is the wa_plugins notation. to render the mainnavi we split washapp into three plugins.
+# This is the wa_plugins notation. to render the mainnavi we split alchemy into three plugins.
 # to make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
-# folder with a washapp folder in it. place a config.yml in this washapp folder.
+# folder with a alchemy folder in it. place a config.yml in this alchemy folder.
 #
 # vendor/plugins/MY_PLUGIN_NAME/init.rb
-# vendor/plugins/MY_PLUGIN_NAME/config/washapp/config.yml
+# vendor/plugins/MY_PLUGIN_NAME/config/alchemy/config.yml
 #
 # Example config.yml
 # 
@@ -79,9 +79,9 @@ wa_plugins:
   - name: dashboard
     navigation:
       name: ''
-      controller: washapp
+      controller: admin
       action: index
-      image: /plugin_assets/washapp/images/washapp-icon.png
+      image: /plugin_assets/alchemy/images/alchemy-icon.png
   
   - name: wa_cms
     preview_frame:
@@ -93,7 +93,7 @@ wa_plugins:
       name: 'module: pages'
       controller: wa_pages
       action: index
-      image: /plugin_assets/washapp/images/icons/pages.png
+      image: /plugin_assets/alchemy/images/icons/pages.png
       sub_navigation:
         - name: sitemap
           controller: wa_pages
@@ -110,14 +110,14 @@ wa_plugins:
       name: 'module: users'
       controller: wa_users
       action: index
-      image: /plugin_assets/washapp/images/icons/users.png
+      image: /plugin_assets/alchemy/images/icons/users.png
 
   - name: wa_archive
     navigation:
       controller: wa_images
       action: index
       name: 'module: library'
-      image: /plugin_assets/washapp/images/icons/library.png
+      image: /plugin_assets/alchemy/images/icons/library.png
       sub_navigation:
         - name: image_archive
           controller: wa_images

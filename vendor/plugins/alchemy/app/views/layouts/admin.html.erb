@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
-		<title>washAPP <%= configuration(:washapp_version) %></title>
+		<title>washAPP <%= configuration(:alchemy_version) %></title>
 		<!--[if IE 6]>
 			<link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" />
 		<![endif]-->
@@ -17,7 +17,7 @@
 		<%#= overlay for indication of loading %>
 		<div id="overlay">
 			<div id="overlay_text_box">
-				<%= image_tag('ajax_loader.gif', :plugin => 'washapp', :id => 'ajax_loader') %>
+				<%= image_tag('ajax_loader.gif', :plugin => 'alchemy', :id => 'ajax_loader') %>
 				<span id="overlay_text"><%= _("please_wait") %></span>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 				<div id="wa_top_menu_content">
 					<div id="wa_top_navi">
 						<%= yield(:navigation) %>
-						<%= washapp_main_navigation %>
+						<%= admin_main_navigation %>
 					</div>
 				</div>
 				<%- if current_user -%>
@@ -49,17 +49,17 @@
 		<div id="left_frame" style="width: <%= yield(:framesize) || '100%' %>">
 			<div id="wa_main_content">
 				<%= error_messages_for( 'wa_page') %>
-				<%= washapp_subnavigation %>
+				<%= admin_subnavigation %>
 				<%= yield %>
 			</div>
 		</div>
 		<%- if target_url = frame_requested? -%>
 		<div id="preview" style="top: 37px; left: 401px;">
 			<div id="top_frame_switch">
-				<img src="/plugin_assets/washapp/images/gui/top_bar_close.gif" id="top_switch_image" onclick="switchDiv('top_frame');" alt="leftFrameSwitchArrow" />
+				<img src="/plugin_assets/alchemy/images/gui/top_bar_close.gif" id="top_switch_image" onclick="switchDiv('top_frame');" alt="leftFrameSwitchArrow" />
 			</div>
 			<div id="left_frame_switch">
-				<img src="/plugin_assets/washapp/images/gui/left_bar_close.gif" id="left_switch_image" onclick="switchDiv('left_frame');" alt="leftFrameSwitchArrow" />
+				<img src="/plugin_assets/alchemy/images/gui/left_bar_close.gif" id="left_switch_image" onclick="switchDiv('left_frame');" alt="leftFrameSwitchArrow" />
 			</div>
 			<iframe id="iframe" src="<%= generate_preview_url(target_url) %>" scrolling="auto" frameborder="0"></iframe>
 		</div>

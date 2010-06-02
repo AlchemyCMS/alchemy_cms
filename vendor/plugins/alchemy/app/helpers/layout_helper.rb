@@ -17,7 +17,7 @@ module LayoutHelper
   end
   
   def javascript(*args)
-    args = args.map { |arg| arg == :defaults ? arg : "/plugin_assets/washapp/javascripts/" + arg.to_s }
+    args = args.map { |arg| arg == :defaults ? arg : "/plugin_assets/alchemy/javascripts/" + arg.to_s }
     content_for(:javascripts) { javascript_include_tag(*args) }
   end
   

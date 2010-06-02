@@ -5,7 +5,7 @@ javascripts:
   - effects
   - window
   - window_effects
-  - washapp
+  - alchemy
   - wa_selectbox
   - wa_size_frames
 - login:
@@ -13,14 +13,14 @@ javascripts:
    - effects
    - window
    - window_effects
-   - washapp
+   - alchemy
    - wa_size_frames
 - sitemap:
    - prototype
    - effects
    - window
    - window_effects
-   - washapp
+   - alchemy
    - wa_editor
    - wa_selectbox
    - wa_size_frames
@@ -35,7 +35,7 @@ javascripts:
    - dragdrop
    - window
    - window_effects
-   - washapp
+   - alchemy
    - wa_selectbox
    - wa_size_frames
 - archive:
@@ -44,7 +44,7 @@ javascripts:
   - controls
   - window
   - window_effects
-  - washapp
+  - alchemy
   - wa_selectbox
   - wa_size_frames
   - swfupload/swfupload
