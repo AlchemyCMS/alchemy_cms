@@ -12,7 +12,7 @@
 
 #language settings
 :default_language: de
-:default_washapp_language: de
+:default_alchemy_language: de
 :show_real_root: false
 :languages:
     - :language_code: de

@@ -51,7 +51,7 @@ namespace :alchemy do
     run "ln -nfs #{shared_path}/cache/wa_images/ #{current_path}/public/wa_images"
   end
 
-  desc "Update washAPP and generates migrations to finally migrate"
+  desc "Update Alchemy and generates migrations to finally migrate"
   task :update, :roles => :app do
     run "cd #{current_path} && svn update --username #{scm_user} --password #{scm_password} vendor/plugins/alchemy"
     run "cd #{current_path} && RAILS_ENV=production script/generate plugin_migration"
