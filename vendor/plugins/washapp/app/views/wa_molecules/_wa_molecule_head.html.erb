@@ -1,0 +1,39 @@
+<div class="wa_molecule_head">
+  <div class="molecule_handle">
+		<%= image_tag("molecules/molecule_pic.gif", :plugin => "washapp", :title => "#{wa_molecule.name}", :class => "molecule_image", :alt => "") -%>
+		<%= image_tag("molecules/molecule_#{wa_molecule.public? ? 'public' : 'draft'}.gif", :plugin => 'washapp', :class => "molecule_status", :alt => "") %>
+  </div>
+	<span class="wa_molecule_heading">
+	  <%= content_tag("span", wa_molecule.display_name, :class => "preview_text_molecule_name") %>
+	  <%- if !wa_molecule.preview_text.blank? -%>
+	  	&nbsp;<%= content_tag("span", wa_molecule.preview_text, :class => "preview_text_quote") %>
+	  <%- end -%>
+	</span>
+	<span class="ajax_folder">
+		<%= image_tag(
+			"ajax_loader.gif",
+			:plugin => "washapp", 
+			:style => "display: none",
+			:id => "molecule_#{wa_molecule.id}_folder_spinner",
+			:class => "molecule_folder_spinner"
+		) %>
+		<%= link_to_remote(
+			"",
+			:url => {
+				:controller => "wa_molecules",
+				:action => "toggle_fold",
+				:id => wa_molecule.id,
+				:wa_page_id => @wa_page.id
+			},
+			:loading => %(
+				$('molecule_#{wa_molecule.id}_folder').hide();
+				$('molecule_#{wa_molecule.id}_folder_spinner').show();
+			),
+			:html => {
+				:class => (wa_molecule.folded? ? 'show_options' : 'hide_options'),
+				:title => (wa_molecule.folded? ? _('show_element_content') : _('hide_element_content')),
+				:id => "molecule_#{wa_molecule.id}_folder"
+			}
+		) %>
+	</span>
+</div>

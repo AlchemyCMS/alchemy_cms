@@ -1,0 +1,5 @@
+<%- if wa_atom.atom.date.blank? -%>
+<%= Time.now.strftime(options[:date_format]) %>
+<%- else -%>
+<%= wa_atom.atom.date.strftime(options[:date_format]) %>
+<%- end -%>

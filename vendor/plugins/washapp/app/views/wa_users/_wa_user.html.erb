@@ -1,0 +1,33 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td class="icon"><%= content_tag 'span', '', :class => "icon user#{wa_user.gender == 'female' ? ' female' : ' male'}" -%></td>
+	<td class="login"><%= wa_user.login %></td>
+	<td class="name"><%= wa_user.fullname -%></td>
+	<td class="email"><%= wa_user.email %></td>
+	<td class="role"><%= I18n.t("user_roles.#{wa_user.role}") %></td>
+	<td class="tools">
+		<%- permitted_to?(:destroy, :wa_users) do -%>
+		<%= delete_with_confirmation_link(
+			'',
+			_("confirm_to_delete_wa_user"),
+			wa_user_path(wa_user),
+			:title => _('delete_user'),
+			:class => "icon user_delete#{wa_user.gender == 'female' ? ' female' : ' male'}"
+		) -%>
+		<%- end -%>
+		<%- permitted_to?(:edit, wa_user) do -%>
+		<%= link_to_wa_window(
+			'',
+			edit_wa_user_path(wa_user),
+			{
+				:title => _('edit_user'),
+				:size => '380x330',
+				:overflow => true
+			},
+			{
+				:class => "icon user_edit#{wa_user.gender == 'female' ? ' female' : ' male'}",
+				:title => _('edit_user')
+			}
+		) -%>
+		<%- end -%>
+	</td>
+</tr>

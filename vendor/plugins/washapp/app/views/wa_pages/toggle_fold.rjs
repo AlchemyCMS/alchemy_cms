@@ -1,0 +1,1 @@
+page.replace "molecule_#{@wa_molecule.id}", :partial => "wa_molecules/#{@wa_molecule.name.underscore}_editor", :locals => {:wa_molecule => @wa_molecule}

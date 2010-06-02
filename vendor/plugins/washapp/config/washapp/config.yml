@@ -1,0 +1,127 @@
+:washapp_version: 3.0
+:show_rootname: a name
+:mailer:
+    :forward_to_page: false
+    :mail_sucess_page: root
+    :mail_from: 'washAPP <mail@washapp.de>'
+:visible: true
+:sitemap: 
+  :show_root: true
+  :show_flag: false
+:prince_port: 3001
+:auto_logout_time: 15
+:redirect_index: true
+:redirect_to_public_child: true
+# enable ferret search engine?
+:ferret: false
+
+#enable wapage caching?
+:cache_wa_pages: true
+
+#image settings
+:output_image_jpg_quality: 85
+:preprocess_image_resize: 1000x1000
+:image_store_format: png
+:image_output_format: jpg
+
+#language settings
+:default_language: de
+:default_washapp_language: de
+:show_real_root: false
+:languages:
+    - :language_code: de
+      :language: Deutsch
+      :frontpage_name: Startseite
+      :page_layout: standard
+    - :language_code: en
+      :language: English
+      :frontpage_name: Frontpage
+      :page_layout: standard
+
+:translations:
+  - :language_code: de
+    :language: Deutsch
+  - :language_code: en
+    :language: English
+
+:user_roles: [registered, author, editor, admin]
+
+# This is the wa_plugins notation. to render the mainnavi we split washapp into three plugins.
+# to make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
+# folder with a washapp folder in it. place a config.yml in this washapp folder.
+#
+# vendor/plugins/MY_PLUGIN_NAME/init.rb
+# vendor/plugins/MY_PLUGIN_NAME/config/washapp/config.yml
+#
+# Example config.yml
+# 
+# name: PLUGIN_NAME
+# settings: PUT SOME SETTINGS HERE
+# preview_frame: IF YOU WANT TO USE THE WASHAPP PREVIEW FRAME!
+# navigation:
+#   name: NAME IN WASHAPP NAVIGATION
+#   controller: controller_name
+#   action: action_of_controller
+#   image: /plugin_assets/PLUGIN_NAME/images/NAVIGATION_IMAGE.png
+#   sub_navigation:
+#     - name: subnavigation_entry
+#       controller: controller_name
+#       action: action_of_controller
+#     - name: subnavigation_entry
+#       controller: controller_name
+#       action: action_of_controller
+#     - name: subnavigation_entry
+#       controller: controller_name
+#       action: action_of_controller
+
+wa_plugins:
+
+  - name: dashboard
+    navigation:
+      name: ''
+      controller: washapp
+      action: index
+      image: /plugin_assets/washapp/images/washapp-icon.png
+  
+  - name: wa_cms
+    preview_frame:
+      controller: wa_pages
+      action: edit_content
+      target_controller: wa_pages
+      target_action: preview
+    navigation:
+      name: 'module: pages'
+      controller: wa_pages
+      action: index
+      image: /plugin_assets/washapp/images/icons/pages.png
+      sub_navigation:
+        - name: sitemap
+          controller: wa_pages
+          action: index
+        - name: systempages
+          controller: wa_pages
+          action: systempages
+      nested:
+        - controller: wa_pages
+          action: edit_content
+
+  - name: users
+    navigation:
+      name: 'module: users'
+      controller: wa_users
+      action: index
+      image: /plugin_assets/washapp/images/icons/users.png
+
+  - name: wa_archive
+    navigation:
+      controller: wa_images
+      action: index
+      name: 'module: library'
+      image: /plugin_assets/washapp/images/icons/library.png
+      sub_navigation:
+        - name: image_archive
+          controller: wa_images
+          action: index
+        - name: file_archive
+          controller: wa_files
+          action: index

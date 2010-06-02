@@ -1,0 +1,40 @@
+<%- if @molecules.blank? -%>
+	<p><%= _('no_more_molecules_to_add') %></p>
+<%- else -%>
+	<% remote_form_for(
+		WaMolecule.new,
+		:loading => %(
+			$('place_molecule_#{molecule_before.id rescue ''}_spinner').show();
+			$$('#add_molecule_#{molecule_before.id rescue ''} input.button').first().hide();
+		),
+		:complete => %(
+			new Ajax.Request(
+				'/wa_molecules/new?close=true&molecule_before_id=#{molecule_before.id rescue ''}&page_id=#{@wa_page.id}',
+				{asynchronous:true, evalScripts:true}
+			);
+			reloadPreview();
+		),
+		:html => {:class => "add_molecule_content"}
+	) do |form| %>
+		<%= hidden_field_tag('wa_page_id', @wa_page.id) %>
+		<%= hidden_field_tag('molecule_before_id', molecule_before.blank? ? nil : molecule_before.id) %>
+		<span><%= _("element_of_type") %>:</span>
+		<%= form.wa_select(
+			'name',
+			molecules_for_select(@molecules),
+			:prompt => _('select_molecule')
+		) -%>
+		<%= form.submit(
+			_('add'),
+			:class => 'button',
+			:name => nil
+		) %>
+		<%= image_tag(
+			"ajax_loader.gif",
+			:plugin => "washapp",
+			:id => "place_molecule_#{molecule_before.id rescue ''}_spinner",
+			:class => "place_molecule_spinner",
+			:style => "display: none"
+		) %>
+	<% end %>
+<%- end -%>

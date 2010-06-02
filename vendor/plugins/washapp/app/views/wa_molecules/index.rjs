@@ -1,0 +1,27 @@
+page.replace_html(
+  "molecules_for_page_#{@wa_page_id}",
+  wa_select_tag(
+    "molecule_from_page_#{@wa_page_id}_to_link",
+    @wa_molecules.collect{ |m| [m.display_name_with_preview_text, "##{m.dom_id}"] },
+    '',
+    {
+      :prompt => _('choose_molecule_to_link'),
+      :class => "molecules_from_page_selector",
+      :onchange => "$('page_anchor').value = value",
+      :title => _("choose_molecule_as_target")
+    }
+  )
+)
+page.insert_html(
+  "bottom",
+  "molecules_for_page_#{@wa_page_id}",
+  link_to_function(
+    "–",
+    "hideMoleculesFromPageSelector(#{@wa_page_id})",
+    :class => "close_molecules_from_page_selector", 
+    :title => _("remove")
+  )
+)
+unless @wa_molecules.first.blank?
+  page << "$('page_anchor').value = '##{@wa_molecules.first.dom_id}'"
+end

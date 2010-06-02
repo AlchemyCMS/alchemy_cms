@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+delynn:
+  id: 1
+  name: DeLynn
+  creator_id: 1
+  updater_id: 1
+nicole:
+  id: 2
+  name: Nicole
+  creator_id: 2
+  updater_id: 2

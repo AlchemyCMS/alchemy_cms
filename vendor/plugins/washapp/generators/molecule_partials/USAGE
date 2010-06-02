@@ -1,0 +1,2 @@
+this is the washAPP molecule partials generator
+it generates the editor and view partials for the molecules defined in config/washapp/molecules.yml

@@ -1,0 +1,8 @@
+page.replace_html(
+  @container_id,
+  :partial => "wa_molecules/#{@wa_molecule.name}_view.html.erb",
+  :locals => {
+    :wa_molecule => @wa_molecule,
+    :options => @options
+  }
+)

@@ -1,0 +1,388 @@
+/* washAPP TinyMCE Overlay */
+
+/* Reset */
+
+.washapp, .washapp div, .washapp span, .washapp a {
+	vertical-align: baseline;
+	text-align: left;
+	position: absolute;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	font-family: Tahoma, Arial, sans-serif;
+	font-size: 12px;
+	color: #000;
+	text-decoration: none;
+	font-weight: normal;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	display: block;
+	background-color: transparent;
+}
+
+/* General */
+
+.washapp {
+	position: absolute;
+	direction: ltr;
+	border: 1px solid #9c9d9c;
+}
+
+.washapp .mceWrapper {
+	position: static
+}
+
+.mceEventBlocker {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%
+}
+
+.washapp .mcePlaceHolder {
+	border: 1px solid #000;
+	background: #888;
+	top: 0;
+	left: 0;
+	opacity: 0.5;
+	-ms-filter: 'alpha(opacity=50)';
+	filter: alpha(opacity=50)
+}
+
+.washapp_modalBlocker {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #f4f4f4;
+	opacity: 0.6;
+	-ms-filter: 'alpha(opacity=60)';
+	filter: alpha(opacity=60);
+	display: none
+}
+
+/* Top */
+
+.washapp .mceTop, .washapp .mceTop div {
+	top: 0;
+	width: 100%;
+	height: 33px;
+}
+
+.washapp .mceTop .mceLeft {
+	width: 2px;
+}
+
+.washapp .mceTop .mceCenter {
+	right: 2px;
+	width: 100%;
+	height: 29px;
+	background: #77aad5 url(../../../../../../images/gui/shading.png) repeat-x 0 10px;
+	border-bottom: 2px solid white;
+}
+
+.washapp .mceTop .mceRight {
+	right: 0;
+	width: 2px;
+	height: 33px;
+}
+
+.washapp .mceTop span {
+	width: 100%;
+	text-align: left;
+	vertical-align: middle;
+	line-height: 31px;
+	font-weight: bold;
+	color: white;
+	padding-left: 12px;
+}
+
+/* Middle */
+
+.washapp .mceMiddle, .washapp .mceMiddle div {
+	top: 0
+}
+
+.washapp .mceMiddle {
+	width: 100%;
+	height: 100%;
+	/*clip: rect(23px auto auto auto)*/
+}
+
+.washapp .mceMiddle .mceLeft {
+	left: 0;
+	width: 2px;
+	height: 100%;
+	background-color: white;
+}
+
+.washapp .mceMiddle span {
+	top: 31px;
+	left: 2px;
+	width: 100%;
+	height: 100%;
+	background: #FFF
+}
+
+.washapp .mceMiddle .mceRight {
+	right: 0;
+	width: 2px;
+	height: 100%;
+	background-color: white;
+}
+
+/* Bottom */
+
+.washapp .mceBottom, .washapp .mceBottom div {
+	height: 2px}
+
+.washapp .mceBottom {
+	left: 0;
+	bottom: 0;
+	width: 100%
+}
+
+.washapp .mceBottom div {
+	top: 0
+}
+
+.washapp .mceBottom .mceLeft {
+	left: 0;
+	width: 5px;
+}
+
+.washapp .mceBottom .mceCenter {
+	width: 100%;
+	left: 0;
+	background-color: white;
+}
+
+.washapp .mceBottom .mceRight {
+	right: 0;
+	width: 5px;
+}
+
+.washapp .mceBottom span {
+	display: none
+}
+
+.washapp .mceStatusbar .mceBottom, .washapp .mceStatusbar .mceBottom div {
+	height: 23px
+}
+
+.washapp .mceStatusbar .mceBottom .mceLeft {
+
+}
+
+.washapp .mceStatusbar .mceBottom .mceCenter {
+
+}
+
+.washapp .mceStatusbar .mceBottom .mceRight {
+
+}
+
+.washapp .mceStatusbar .mceBottom span {
+	display: block;
+	left: 7px;
+	font-family: Tahoma, Arial, sans-serif;
+	font-size: 12px;
+	line-height: 23px
+}
+
+/* Actions */
+
+.washapp a {
+	width: 29px;
+	height: 16px;
+	top: 3px;
+}
+
+.washapp .mceClose {
+	right: 8px;
+	background: url(../../../../../../images/gui/close.png) 0 0;
+	width: 16px;
+	height: 16px;
+	top: 8px;
+}
+
+.washapp .mceMin {
+	display: none;
+	right: 68px;
+}
+
+.washapp .mceMed {
+	display: none;
+	right: 37px;
+}
+
+.washapp .mceMax {
+	display: none;
+	right: 37px;
+}
+
+.washapp .mceMove {
+	display: none;
+	width: 100%;
+	cursor: move;
+	height: 26px;
+}
+
+.washapp .mceMovable .mceMove {
+	display: block
+}
+
+/* Resize */
+
+.washapp .mceResize {
+	top: auto;
+	left: auto;
+	display: none;
+	width: 2px;
+	height: 2px;
+	background: white no-repeat 0 -75px;
+}
+
+.washapp .mceResizable .mceResize {
+	display: block
+}
+
+.washapp .mceResizable .mceMin, .washapp .mceMax {
+	display: none
+}
+
+.washapp .mceMinimizable .mceMin {
+	display: block
+}
+
+.washapp .mceMaximizable .mceMax {
+	display: block
+}
+
+.washapp .mceMaximized .mceMed {
+	display: block
+}
+
+.washapp .mceMaximized .mceMax {
+	display: none
+}
+
+.washapp a.mceResizeN {
+	top: 0;
+	left: 0;
+	width: 100%;
+	cursor: n-resize
+}
+
+.washapp a.mceResizeNW {
+	top: 0;
+	left: 0;
+	cursor: nw-resize
+}
+
+.washapp a.mceResizeNE {
+	top: 0;
+	right: 0;
+	cursor: ne-resize
+}
+
+.washapp a.mceResizeW {
+	top: 0;
+	left: 0;
+	height: 100%;
+	cursor: w-resize;
+}
+
+.washapp a.mceResizeE {
+	top: 0;
+	right: 0;
+	height: 100%;
+	cursor: e-resize
+}
+
+.washapp a.mceResizeS {
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	cursor: s-resize
+}
+
+.washapp a.mceResizeSW {
+	bottom: 0;
+	left: 0;
+	cursor: sw-resize
+}
+
+.washapp a.mceResizeSE {
+	bottom: 0;
+	right: 0;
+	cursor: se-resize
+}
+
+/* Alert/Confirm */
+
+.washapp .mceButton {
+	font-weight: bold;
+	bottom: 10px;
+	width: 80px;
+	height: 31px;
+	/*background: url(img/button.gif);*/
+	line-height: 31px;
+	vertical-align: middle;
+	text-align: center;
+	outline: 0
+}
+
+.washapp .mceMiddle .mceIcon {
+	left: 15px;
+	top: 35px;
+	width: 16px;
+	height: 16px;
+}
+
+.washapp .mceAlert .mceMiddle span, .washapp .mceConfirm .mceMiddle span {
+	background: transparent;
+	left: 60px;
+	top: 35px;
+	width: 320px;
+	height: 50px;
+	font-weight: bold;
+	overflow: auto;
+	white-space: normal
+}
+
+.washapp a:hover {
+	font-weight: bold;
+}
+
+.washapp .mceAlert .mceMiddle, .washapp .mceConfirm .mceMiddle {
+	background: #D6D7D5
+}
+
+.washapp .mceAlert .mceOk {
+	left: 50%;
+	top: auto;
+	margin-left: -40px
+}
+
+.washapp .mceAlert .mceIcon {
+	/*background: url(img/alert.gif)*/
+}
+
+.washapp .mceConfirm .mceOk {
+	left: 50%;
+	top: auto;
+	margin-left: -90px
+}
+
+.washapp .mceConfirm .mceCancel {
+	left: 50%;
+	top: auto
+}
+
+.washapp .mceConfirm .mceIcon {
+	/*background: url(img/confirm.gif)*/
+}

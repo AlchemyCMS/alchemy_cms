@@ -1,0 +1,62 @@
+<div class="wa_atom_editor" id="<%= atom_dom_id(wa_atom) %>">
+
+<%- if wa_atom.settings[:display_as] == "checkbox" -%>
+
+	<%= check_box_tag(
+		"atoms[atom_#{wa_atom.id}][content]",
+		"1",
+		wa_atom.atom.content == "1",
+		:id => "atoms_#{wa_atom.id}_content",
+		:onclick => "if (this.checked) {var e = $('atoms_atom_#{wa_atom.id}_hidden'); if(e){e.remove();}} else {var e = new Element('input', {type: 'hidden', value: 0, name: 'atoms[atom_#{wa_atom.id}][content]', id: 'atoms_atom_#{wa_atom.id}_hidden'}); Element.insert(this, {after: e});}"
+	) %>
+	<label for="atoms_<%= wa_atom.id %>_content" style="display: inline">
+		<%= t("atom_names.#{wa_atom.name}") %>
+	</label>
+
+<%- elsif wa_atom.settings[:display_as] == "select" -%>
+
+	<label><%= t("atom_names.#{wa_atom.name}") %></label>
+	<%= select_tag(
+		"atoms[atom_#{wa_atom.id}][content]",
+		options_for_select(options[:select_values], wa_atom.atom.content),
+		:id => "atoms_#{wa_atom.id}_content",
+		:class => options[:css_class]
+	) %>
+
+<%- else -%>
+
+	<label>
+		<%= t("atom_names.#{wa_atom.name}") %>
+		<%= delete_with_confirmation_link(
+			wa_icon('delete-small'),
+			_('Do you really want to delete this atom?'),
+			wa_atom_path(wa_atom),
+			:class => 'wa_icon_button small',
+			:title => _('Remove this atom')
+		) if wa_atom.settings[:deletable] %>
+	</label>
+	<%= text_field_tag(
+		"atoms[atom_#{wa_atom.id}][content]",
+		wa_atom.atom.content,
+		:class => "thin_border #{wa_atom.settings[:linkable] ? 'text_with_icon' : 'text_long'}",
+		:id => "atoms_#{wa_atom.id}_content"
+	) %>
+	<%- if wa_atom.settings[:linkable] -%>
+	<span id="wa_atom_<%= wa_atom.id %>_link_and_title" style="display: none">
+		<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][link]", wa_atom.atom.link, :id => "atom_#{wa_atom.id}_link" %>
+		<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][title]", wa_atom.atom.title, :id => "atom_#{wa_atom.id}_link_title" %>
+		<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][link_class_name]", wa_atom.atom.link_class_name, :id => "atom_#{wa_atom.id}_link_class_name" %>
+		<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][open_link_in_new_window]", wa_atom.atom.open_link_in_new_window ? "1" : "0", :id => "atom_#{wa_atom.id}_link_target" %>
+	</span>
+	<a
+		href="#"
+		onclick="wa_link_window(this, 420); return false;"
+		title="<%= _('place_link') %>"
+		class="wa_icon_button"
+		name="wa_atom_text_<%= wa_atom.id %>"
+	><span class="icon link"></span></a>
+	<%- end -%>
+
+<%- end -%>
+
+</div>

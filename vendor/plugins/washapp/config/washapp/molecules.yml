@@ -1,0 +1,77 @@
+# organize your molecule layouts here
+#
+# Please use this Layout to add new molecules
+#
+# Some unique name for your Molecule: 
+#   - name: a_unique_name
+#     display_name: Some nice Display Name
+#     unique: Bool //pass true if this molecule only can be displayed once on page
+#     wa_atoms:
+#     - name: head
+#       type: WaAtomText
+#     - name: text
+#       type: WaAtomRtf
+#
+# Atom-Types are: WaAtomText, WaAtomRtf, WaAtomPicture, WaAtomFlash, WaAtomSitemap, WaAtomDate, WaAtomHtml
+#
+# If you want an atom to be the preview text for the molecule then use the flag take_me_for_preview: true
+# 
+
+- name: text
+  display_name: Text
+  wa_atoms: 
+  - name: head
+    type: WaAtomText
+  - name: text
+    type: WaAtomRtf
+
+- name: date
+  display_name: Termin
+  wa_atoms: 
+  - name: date
+    type: WaAtomDate
+    
+- name: google_map
+  display_name: Google Map
+  unique: true
+  wa_atoms:
+  - name: head
+    type: WaAtomText
+  - name: text
+    type: WaAtomRtf
+  - name: map
+    type: WaAtomHtml
+        
+- name: bild_mit_text
+  display_name: Bild mit Text
+  wa_atoms:
+  - name: bild
+    type: WaAtomPicture
+  - name: headline
+    type: WaAtomText
+  - name: text
+    type: WaAtomRtf
+
+- name: picture_gallery
+  display_name: Bildergalerie
+  wa_atoms:
+  - name: gallery_name
+    type: WaAtomText
+  - name: picture1
+    type: WaAtomPicture
+
+- name: file_download
+  display_name: Datei download
+  wa_atoms:
+  - name: file
+    type: WaAtomFile
+
+- name: contactform
+  display_name: Kontaktformular
+  wa_atoms:
+  - name: mail_from
+    type: WaAtomText
+  - name: mail_to
+    type: WaAtomText
+  - name: subject
+    type: WaAtomText

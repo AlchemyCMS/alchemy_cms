@@ -1,0 +1,16 @@
+<div class="wa_add_atom" id="add_atom_<%= molecule.id %>">
+	<%= link_to_wa_window(
+		"",
+		url_for(
+			:controller => 'wa_images',
+			:action => 'archive_overlay',
+			:wa_molecule_id => molecule,
+			:options => options
+		),
+		{
+			:title => _('assign_image'),
+			:size => '780x450',
+			:resizable => true
+		}
+	) %>
+</div>

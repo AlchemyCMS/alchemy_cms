@@ -1,0 +1,31 @@
+<div class="<%= wa_atom.atom_type.tableize %>">
+	<table border="0" cellspacing="0" cellpadding="0" class="wa_atom_editor_table">
+		<tr>
+			<td class="wa_atom_editor_atom_type">Typ:</td>
+			<td class="wa_atom_editor_atom_name">Label:</td>
+			<td>Form schließen?</td>
+		</tr>
+		<tr>
+			<td><%= wa_atom.atom_type.gsub(/WaAtom/, "") %></td>
+			<td>
+				<%= text_field(
+					"atom",
+					"label",
+					:value => wa_atom.atom.label,
+					:name => "atoms[atom_#{wa_atom.id}][label]",
+					:id => "atom_#{wa_atom.id}_label",
+					:class => "thin_border"
+				) %>
+			</td>
+			<td style="text-align:center">
+				<%= check_box(
+					"atom",
+					"close_form",
+					:name => "atoms[atom_#{wa_atom.id}][close_form]",
+					:id => "atom_#{wa_atom.id}_close_form",
+					:checked => (wa_atom.atom.close_form? ? "checked" : nil)
+				) %>
+			</td>
+		</tr>
+	</table>
+</div>

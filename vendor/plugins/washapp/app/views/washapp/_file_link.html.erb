@@ -1,0 +1,40 @@
+<div id="wa_file_links" style="display: none" class="wa_overlay_tab_body">
+	<h2>
+		<%= _("choose_file_to_link") %>
+	</h2>
+	<table class="window_form">
+		<tr>
+			<td class="label">
+				<label for="public_filename" class="medium"><%= _("file") %></label>
+			</td>
+			<td class="select">
+				<%= wa_select_tag "public_filename", WaFile.all.collect{ |f| [f.name, f.public_filename] }, '',:style => "width: 100%" %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<label for="file_link_title" class="medium">
+					<%= _("link_title") %>
+				</label>
+			</td>
+			<td class="input">
+				<%= text_field_tag "file_link_title", {}, :class => 'thin_border auto_resize' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="checkbox">
+        <%= check_box_tag 'file_link_target' %>
+			</td>
+			<td>
+        <label for="file_link_target" class="very_long"><%= _("target_blank") %></label>
+			</td>
+		</tr>
+	</table>
+	<p>
+    <%= link_to_function(
+      _("apply"),
+      "waCreateLink('file', $('public_filename').value, $('file_link_title').value, $('file_link_target').checked); wa_overlay.close()",
+      :class => 'button'
+    ) %>
+	</p>
+</div>

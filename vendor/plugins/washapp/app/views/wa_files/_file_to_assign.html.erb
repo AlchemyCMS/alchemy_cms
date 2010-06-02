@@ -1,0 +1,19 @@
+<%-
+  prefix = "<div class=\"wa_assign_file_file_icon\">"
+  suffix = "</div><div class=\"wa_assign_file_file_name\">#{file_to_assign.filename}</div>"
+-%>
+<%- img_tag = "#{prefix}#{render_file_icon file_to_assign}#{suffix}" -%>
+<div class="wa_assign_file_file" name="<%= file_to_assign.filename %>">
+  <%= link_to_remote(
+    img_tag,
+      :url => {
+        :controller => :wa_atom_files,
+        :action => :assign,
+        :wa_file_id => file_to_assign.id,
+        :id => @wa_atom.id,
+        :options => @options
+      },
+      :method => 'post',
+      :html => {:title => file_to_assign.filename}
+    ) %>
+</div>

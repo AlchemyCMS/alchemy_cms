@@ -1,0 +1,39 @@
+/* @override http://0.0.0.0:3000/plugin_assets/washapp/stylesheets/wa_login.css */
+
+#wa_login {
+	width: 300px;
+	padding: 8px;
+	overflow: auto;
+	background-color: #dedede;
+	border: 1px solid #c2c2c2;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	margin: 150px auto 0;
+}
+
+form#wa_login.new_wa_user_session {
+	text-align: right;
+}
+
+div.wa_flash {
+	width: 300px;
+	margin: 150px auto -100px;
+}
+
+#wa_login .thin_border {
+	width: 195px;
+	float: right;
+}
+
+#wa_login_notice {
+	overflow: auto;
+	padding: 8px;
+	background-color: #fff;
+	text-align: left;
+}
+
+#wa_login label {
+	margin-right: 8px;
+}

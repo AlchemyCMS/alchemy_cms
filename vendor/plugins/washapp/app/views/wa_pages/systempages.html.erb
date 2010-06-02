@@ -1,0 +1,8 @@
+<%- wa_assets_set(:sitemap) -%>
+
+<div class="wa_legend">
+	&nbsp;
+</div>
+<ul class="wa_list" id="systempages">
+	<%= render :partial => "systempage", :collection => @system_root.children %>
+</ul>

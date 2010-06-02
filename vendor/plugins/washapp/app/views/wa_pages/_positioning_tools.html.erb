@@ -1,0 +1,90 @@
+<span class="wa_navigation_position_tools">
+	<%- if wa_page.language_level > 1 -%>
+		<%= link_to_remote(
+			'',
+			:url => {
+				:controller => 'wa_pages',
+				:action => "move",
+				:direction => 'left',
+				:id => wa_page.id
+			},
+			:html => {
+				:title => _('move_level_up'),
+				:class => 'move_left'
+			}
+		) %>
+	<%- else -%>
+		<span class="move_left disabled" title="<%= _("disabled") %>"></span>
+	<%- end -%>
+	<%- if wa_page.self_and_siblings.index(wa_page) > 0 -%>
+		<%= link_to_remote(
+			'',
+			:url => {
+				:controller => 'wa_pages',
+				:action => 'move',
+				:direction => 'up',
+				:id => wa_page.id
+			},
+			:html => {
+				:title => _('move_position_up'),
+				:class => 'move_up'
+			}
+		) -%>
+	<%- else -%>
+		<span class="move_up disabled" title="<%= _("disabled") %>"></span>
+	<%- end -%>
+	<%- if wa_page.self_and_siblings.index(wa_page) < wa_page.self_and_siblings.size - 1 && wa_page.language_level != 0 -%>
+		<%= link_to_remote(
+			'',
+			:url => {
+				:controller => 'wa_pages',
+				:action => 'move',
+				:direction => 'down',
+				:id => wa_page.id
+			},
+			:html => {
+				:title => _('move_position_down'),
+				:class => 'move_down'
+			}
+		) %>
+	<%- else -%>
+		<span class="move_down disabled" title="<%= _("disabled") %>"></span>
+	<%- end -%>
+	<%- if wa_page.self_and_siblings.index(wa_page) > 0 && wa_page.language_level < 3 -%>
+		<%- unless wa_page.children.empty? -%>
+			<%- unless wa_page.children.first.language_level > 2  -%>
+				<%= link_to_remote(
+					'',
+					:url => {
+						:controller => 'wa_pages',
+						:action => 'move',
+						:direction => 'right',
+						:id => wa_page.id
+					},
+					:html => {
+						:title => _('move_level_down'),
+						:class => 'move_right'
+					}
+				) %>
+			<%- else -%>
+				<span class="move_right disabled" title="<%= _("disabled") %>"></span>
+			<%- end -%>
+		<%- else -%>
+			<%= link_to_remote(
+				'',
+				:url => {
+					:controller => 'wa_pages',
+					:action => 'move',
+					:direction => 'right',
+					:id => wa_page.id
+				},
+				:html => {
+					:title => _('move_level_down'),
+					:class => 'move_right'
+				}
+			) %>
+		<%- end -%>
+	<%- else -%>
+		<span class="move_right disabled" title="<%= _("disabled") %>"></span>
+	<%- end -%>
+</span>

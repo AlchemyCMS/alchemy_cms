@@ -1,0 +1,17 @@
+<div class="bild_mit_text" id="<%= molecule_dom_id(wa_molecule) %>">
+	<div class="bild_mit_text_images">
+		<%- wa_molecule.wa_atoms.find_all_by_atom_type("WaAtomPicture").each do |atom| -%>
+		<div class="bild_mit_text_image">
+			<%= atom.atom.crop_from %>
+			<%= atom.atom.crop_size %>
+			<%= render_atom_view(atom, :image_size => "250x200", :crop => true) %>
+		</div>
+		<%- end -%>
+	</div>
+	<div class="headline">
+    	<%= render_atom_view_by_name(wa_molecule, 'headline') %>
+	</div>
+	<div class="text">
+		<%= render_atom_view_by_name(wa_molecule, 'text') %>
+	</div>
+</div>

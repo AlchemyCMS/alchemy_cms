@@ -1,0 +1,56 @@
+body {
+	background-color: #bbd65e;
+	color: gray;
+	font: 12px sans-serif;
+	margin: 0;
+}
+
+#logo div img {
+	width: 177px;
+	height: 48px;
+}
+
+a {
+	color: #000;
+}
+
+div#browser_recommendation {
+	display:none;
+}
+
+div#login_page {
+	margin-top: 45px;
+}
+
+#login_page form {
+	margin: 10px;
+}
+
+div#wa_login {
+	width: 190px;
+	text-align: right;
+	padding: 0;
+	overflow: auto;
+}
+
+div#wa_login .input_field {
+	padding: 1px;
+	height: 18px;
+	font: 12px sans-serif;
+	width: 82px;
+	float:right;
+	border: 1px solid gray;
+	-webkit-border-radius: 4px;
+	font-size: 12px;
+}
+
+#wa_login .login_button {
+	float: right;
+	color: #82a800;
+	font: 12px sans-serif;
+	width: 86px;
+	background-color: white;
+	height: 20px;
+	border: 1px solid gray;
+	-webkit-border-radius: 4px;
+}

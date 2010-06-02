@@ -1,0 +1,82 @@
+--- 
+javascripts:
+- default:
+  - prototype
+  - effects
+  - window
+  - window_effects
+  - washapp
+  - wa_selectbox
+  - wa_size_frames
+- login:
+   - prototype
+   - effects
+   - window
+   - window_effects
+   - washapp
+   - wa_size_frames
+- sitemap:
+   - prototype
+   - effects
+   - window
+   - window_effects
+   - washapp
+   - wa_editor
+   - wa_selectbox
+   - wa_size_frames
+   - tooltip
+- edit_page:
+   - prototype
+   - effects
+   - controls
+   - slider
+   - livepipe
+   - scrollbar
+   - dragdrop
+   - window
+   - window_effects
+   - washapp
+   - wa_selectbox
+   - wa_size_frames
+- archive:
+  - prototype
+  - effects
+  - controls
+  - window
+  - window_effects
+  - washapp
+  - wa_selectbox
+  - wa_size_frames
+  - swfupload/swfupload
+  - swfupload/handlers
+  - swfupload/fileprogress
+  - swfupload/queue
+
+stylesheets:
+- default:
+   - wa_master
+   - wa_base
+   - wa_overlay_window
+- login:
+   - wa_master
+   - wa_base
+   - wa_login
+   - wa_overlay_window
+- sitemap:
+   - wa_master
+   - wa_base
+   - wa_overlay_window
+   - wa_tooltip
+- edit_page:
+   - wa_master
+   - wa_base
+   - wa_molecules
+   - wa_atoms
+   - wa_overlay_window
+   - wa_tooltip
+- archive:
+  - wa_master
+  - wa_base
+  - wa_overlay_window
+  - wa_tooltip
+  

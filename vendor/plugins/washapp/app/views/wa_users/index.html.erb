@@ -1,0 +1,39 @@
+<%- wa_assets_set(:default) -%>
+<div class="wa_search_and_create">
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
+			<%- permitted_to?(:new, :wa_users) do -%>
+			<%= link_to_wa_window(
+				content_tag('span', '', :class => 'icon user_add'),
+				new_wa_user_path,
+				{
+					:title => _('create_user'),
+					:size => "380x330",
+					:overflow => true
+				}, {
+					:class => 'wa_icon_button',
+					:title => _('create_user')
+				}
+			) -%><br />
+			<label><%= _('create_user') %></label>
+			<%- end -%>
+		</div>
+	</div>
+	<%= render :partial => 'partials/search_form' %>
+</div>
+
+<%= render :partial => "partials/flash_notice" %>
+
+<table class="wa_list" id="wa_user_list">
+	<%- unless @wa_users.blank? -%>
+	<tr>
+		<th class="icon"></th>
+		<th class="login"><%= WaUser.human_attribute_name("login") %></th>
+		<th class="name"><%= WaUser.human_attribute_name("name") %></th>
+		<th class="email"><%= WaUser.human_attribute_name("email") %></th>
+		<th class="role"><%= WaUser.human_attribute_name("role") %></th>
+		<th class="tools"></th>
+	</tr>
+	<%- end -%>
+	<%= render @wa_users %>
+</table>

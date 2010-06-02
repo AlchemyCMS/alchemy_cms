@@ -1,0 +1,63 @@
+<div class="image_assign_filter_and_image_sizing">
+	<%= render(
+		:partial => 'partials/remote_search_form',
+		:locals => {
+			:with => "'remote=true'+'&wa_molecule_id='+$('wa_molecule_id').value+'&wa_atom_id='+$('wa_atom_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
+			:action => 'archive_overlay'
+		}
+	) %>
+	<span class="image_sizing">
+		<label><%= _("thumbnail_size") %>:</label>
+		<%= link_to_remote(
+			"",
+			:url => {
+				:action => "archive_overlay",
+				:size => "small",
+				:wa_atom_id => @wa_atom,
+				:wa_molecule_id => @wa_molecule.id,
+				:swap => @swap,
+				:page => params[:page],
+				:remote => true,
+				:options => @options
+			},
+			:html => {
+				:title => _("small_thumbnails"),
+				:class => "image_size_small"
+			}
+		) %>
+    <%= link_to_remote(
+	    "",
+      :url => {
+        :action => "archive_overlay",
+        :size => "medium",
+        :wa_atom_id => @wa_atom,
+				:wa_molecule_id => @wa_molecule.id,
+        :swap => @swap,
+				:page => params[:page],
+				:remote => true,
+				:options => @options
+			},
+			:html => {
+	      :title => _("medium_thumbnails"),
+				:class => "image_size_medium"
+			}
+		) %>
+    <%= link_to_remote(
+    	"",
+      :url => {
+        :action => "archive_overlay",
+        :size => "large",
+        :wa_atom_id => @wa_atom,
+				:wa_molecule_id => @wa_molecule.id,
+        :swap => @swap,
+				:page => params[:page],
+				:remote => true,
+				:options => @options
+      },
+      :html => {
+        :title => _("big_thumbnails"),
+        :class => "image_size_large"
+      }
+    ) %>
+  </span>
+</div>

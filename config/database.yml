@@ -1,0 +1,25 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: washapp_dev
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: washapp_dev_test
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: washapp_dev_prod
+  username: root
+  password: 
+  host: localhost
+  socket: /tmp/mysql.sock
+  #socket: /var/run/mysqld/mysqld.sock

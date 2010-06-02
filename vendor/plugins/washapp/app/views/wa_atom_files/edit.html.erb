@@ -1,0 +1,104 @@
+<% remote_form_for(:atom, @file_atom, :url => {
+    :action => 'update',
+    :id => @atom
+  },
+  :method => "put",
+  :html => {
+    :class => "with_padding"
+  }
+) do |f| %>
+  <%- if @atom.atom_type == "WaAtomFile" -%>
+  <table border="0" cellspacing="4" cellpadding="0">
+    <tr>
+      <td><%= f.label "title", _("title") %></td>
+      <td><%= f.text_field "title", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "css_class", _("align_in_text") %></td>
+      <td><%= f.select "css_class", [[_("left"), "left"], [_("right"), "right"], [_("above"), "no_float"]] %></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:right">
+        <%= submit_tag _("save"), :class => 'button' %>
+      </td>
+    </tr>
+  </table>
+  <%- elsif @atom.atom_type == "WaAtomFlash" -%>
+  <table border="0" cellspacing="4" cellpadding="0">
+    <tr>
+      <td><%= f.label "width", _("width") %></td>
+      <td><%= f.text_field "width", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "height", _("height") %></td>
+      <td><%= f.text_field "height", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "player_version", _("player_version") %></td>
+      <td><%= f.text_field "player_version", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:right">
+        <%= submit_tag _("save"), :class => 'button' %>
+      </td>
+    </tr>
+  </table>
+  <%- elsif @atom.atom_type == "WaAtomFlashvideo" -%>
+  <table border="0" cellspacing="4" cellpadding="0">
+    <tr>
+      <td><%= f.label "width", _("width") %></td>
+      <td><%= f.text_field "width", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "height", _("height") %></td>
+      <td><%= f.text_field "height", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "allow_fullscreen", _("allow_fullscreen") %></td>
+      <td><%= f.check_box "allow_fullscreen" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "show_eq", _("show_eq") %></td>
+      <td><%= f.check_box "show_eq" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "show_navigation", _("show_navigation") %></td>
+      <td><%= f.check_box "show_navigation" %></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:right">
+        <%= submit_tag _("save"), :class => 'button' %>
+      </td>
+    </tr>
+  </table>
+  <%- elsif @atom.atom_type == "WaAtomAudio" -%>
+  <table border="0" cellspacing="4" cellpadding="0">
+    <tr>
+      <td><%= f.label "width", _("width") %></td>
+      <td><%= f.text_field "width", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "height", _("height") %></td>
+      <td><%= f.text_field "height", :class => 'thin_border long' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "show_eq", _("show_eq") %></td>
+      <td><%= f.check_box "show_eq" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "show_navigation", _("show_navigation") %></td>
+      <td><%= f.check_box "show_navigation" %></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:right">
+        <%= submit_tag _("save"), :class => 'button' %>
+      </td>
+    </tr>
+  </table>
+  <%- end -%>
+<%- end -%>
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+  wa_overlay.updateHeight();
+// ]]>
+</script>

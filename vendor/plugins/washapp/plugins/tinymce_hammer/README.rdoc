@@ -1,0 +1,155 @@
+= tinymce_hammer
+
+See the plugin website for guides/tutorials: http://tinymcehammer.lanalot.com/
+
+tinymce_hammer makes its easy to user the TinyMCE WYSIWYG editor inside a Ruby
+On Rails (2.3+) application.  What it does:
+
+* Easy to use, two-step installation and you are ready to go.  Form helpers are
+  provided for most common cases.
+
+* Flexible, need to lazy load TinyMCE w/javascript?  Need two different editors
+  on the same page?  Want to user your own form helpers? No problem.
+
+* Fast, TinyMCE requests lots of .js files for the most basic of editor
+  configurations.  It does all this over XMLHttpRequest.  tinymce_hammer
+  eliminates this by combining all required library files (plugins, themes,
+  languages, etc) into one javascript file.
+
+== Installation
+
+1. Download and this plugin and copy to vendor/plugins/tinymce_hammer
+2. Run the following generator:
+
+    script/generate tinymce_installation
+
+   This will install TinyMCE to:
+
+     RAILS_ROOT/public/javascript/tiny_mce
+
+   If you need a different install path for TinyMCE see the configuration
+   section below for instructions on changing the default path.
+
+== Basic Usage
+
+The easiest way to use tinymce_hammer involves 2 steps:
+
+1. Call the follow function in your layout/template.  It can go anywhere
+   really, but inside the head tags is prefered:
+
+     <%= init_tinymce_hammer_if_required %>
+
+2. Use one of the following 3 methods to add a tinymce enabled textarea tag
+   to your page.
+
+=== Example 1: tinymce_tag (form tag helper)
+
+This is your basic drop-in replacement for text_area_tag:
+
+  <%= tinymce_tag('comment[body]', 'Your comment goes here ...') %>
+
+=== Example 2: tinymce (form helper)
+
+This is just like the text_area helper, it assumes there is an instance
+variable, and if found will pull data from that to populate the field with.
+
+  <%= tinymce(:comment, :body) %>
+
+=== Example 3: tinymce (form builder helper)
+
+  <%- form_for @comment do |form| -%>
+    <%= form.label :body %>
+    <%= form.tinymce :body %>
+  <% end %>
+
+== Advanced Usage
+
+The basic examples above get a TinyMCE editor up and running quickly.  You
+might have more specific needs that the basic approach doesn't fill.  You
+might:
+
+* want to lazy load TinyMCE dynamically after page load
+* only want the combined javascript TinyMCE file provided by tinymce_hammer
+* require multiple editors on the same page that are configured differently
+* need to register javascript callbacks with TinyMCE
+
+In all of the above cases its best to load the combined JS file and call
+the tinyMCE.init() javascript function yourself.  I'll leave that up to you
+how and when.  The url to the combine file is:
+
+  /javascripts/tinymce_hammer.js
+
+It works great to lazy load (I personally use LazyLoad from
+http://wonko.com/post/painless_javascript_lazy_loading_with_lazyload).  
+
+== Configuration
+
+tinymce_hammer has five configuration options.  Its best to place them in an
+intializer (like config/initializer/tinymce_hammer.rb).  Here they are with their
+default values: 
+
+* Tinymce::Hammer.install_path  
+
+    '/javascripts/tiny_mce'
+
+* Tinymce::Hammer.plugins       
+
+    ['paste']
+
+* Tinymce::Hammer.languages     
+
+    ['en']
+
+* Tinymce::Hammer.themes        
+
+    ['advanced']
+
+* Tinymce::Hammer.init          
+
+    [
+      [:paste_convert_headers_to_strong, true],
+      [:paste_convert_middot_lists, true],
+      [:paste_remove_spans, true],
+      [:paste_remove_styles, true],
+      [:paste_strip_class_attributes, true],
+      [:theme, 'advanced'],
+      [:theme_advanced_toolbar_align, 'left'],
+      [:theme_advanced_toolbar_location, 'top'],
+      [:theme_advanced_buttons1, 'undo,redo,cut,copy,paste,pastetext,|,bold,italic,strikethrough,blockquote,charmap,bullist,numlist,removeformat,|,link,unlink,image,|,cleanup,code'],
+      [:theme_advanced_buttons2, ''],
+      [:theme_advanced_buttons3, ''],
+      [:valid_elements, "a[href|title],blockquote[cite],br,caption,cite,code,dl,dt,dd,em,i,img[src|alt|title|width|height|align],li,ol,p,pre,q[cite],small,strike,strong/b,sub,sup,u,ul"],
+    ]
+
+NOTE: install_path is the path inside public to your TinyMCE installation.
+
+NOTE: please don't set the <tt>mode</tt> option for the init.  This is managed
+by tinymce_hammer.  If this doesn't work for your, try the advanced usage.
+
+== Sample Configuration
+
+  Tinymce::Hammer.install_path = '/javascripts/lib/tiny_mce'
+
+  Tinymce::Hammer.plugins = %w(safari table paste tabfocus)
+
+  Tinymce::Hammer.init = [
+    [:paste_convert_headers_to_strong, true],
+    [:paste_convert_middot_lists, true],
+    [:paste_remove_spans, true],
+    [:paste_remove_styles, true],
+    [:paste_strip_class_attributes, true],
+    [:theme, 'advanced'],
+    [:theme_advanced_toolbar_align, 'left'],
+    [:theme_advanced_toolbar_location, 'top'],
+    [:theme_advanced_buttons1, 'undo,redo,cut,copy,paste,pastetext,|,bold,italic,strikethrough,blockquote,charmap,bullist,numlist,removeformat,|,link,unlink,image,|,cleanup,code'],
+    [:theme_advanced_buttons2, ''],
+    [:theme_advanced_buttons3, ''],
+    [:valid_elements, "a[href|title],blockquote[cite],br,caption,cite,code,dl,dt,dd,em,i,img[src|alt|title|width|height|align],li,ol,p,pre,q[cite],small,strike,strong/b,sub,sup,u,ul"],
+  ]
+
+== Questions
+
+The best way to get help is to post to the mailing list (google group).  
+
+  http://groups.google.com/group/tinymce_hammer/topics
+

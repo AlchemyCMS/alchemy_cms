@@ -1,0 +1,38 @@
+h1. I18nLabel
+
+Since labels don't use I18n in Rails 2.2 (I was too late in submitting the
+patch), we'd have to make due with a plugin.
+
+Installation and configuration consists of 1 easy steps:
+
+# Run:
+
+  ./script/plugin install git://github.com/iain/i18n_label.git
+
+
+h1. Example
+
+In your translation file:
+
+  en-US:
+    activerecord:
+      attributes:
+        topic:
+          name: A nice name
+
+In your view:
+
+  <% form_for @topic do |f| %>
+    <%= f.label :name %>
+  <% end %>
+
+The result is:
+
+  &lt;label for="topic_name">A nice name</label> (please ignore the minor problem with html in github)
+
+
+
+For more information about where to put your translations, 
+visit "my blog":http://iain.nl/2008/09/translating-activerecord/
+
+Copyright (c) 2008 "Iain Hecker":http://iain.nl/, released under the MIT license

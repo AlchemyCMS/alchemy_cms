@@ -1,0 +1,36 @@
+<%- wa_assets_set('login') -%>
+
+<% form_for @wa_user_session, :url => {:controller => 'Washapp', :action => 'login'}, :html => { :id => "wa_login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
+	<%= f.error_messages %>
+	<table border="0" cellspacing="1" cellpadding="1">
+		<tr>
+			<td class="label">
+				<%= f.label :login, _("username") %>
+			</td>
+			<td class="input">
+				<%= f.text_field :login,	:class => 'thin_border' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :password, _("password") %>
+			</td>
+			<td class="input">
+				<%= f.password_field :password, :class => 'thin_border' %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<%= hidden_field_tag "redirect_url", params[:redirect_url] %>
+				<%= f.submit _('login'), :class => 'button', :name => nil %>
+			</td>
+		</tr>
+	</table>
+<% end %>
+<%- content_for :javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+	$('wa_user_session_login').focus();
+// ]]>
+</script>
+<%- end -%>

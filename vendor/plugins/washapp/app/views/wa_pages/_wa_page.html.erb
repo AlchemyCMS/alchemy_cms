@@ -1,0 +1,69 @@
+<li id="page_<%= wa_page.id %>">
+	<div class="sitemap_left_images">
+		<%- cache("page_#{wa_page.id}_for_user_#{current_user.id}_lines") do -%>
+		<%= render_sitemap_lines(wa_page, !wa_page.children.blank?) %>
+		<%- end -%>
+		<%- cache("page_#{wa_page.id}_for_user_#{current_user.id}_status") do -%>
+		<%= render(
+			:partial => 'wa_page_status',
+			:locals => {
+				:wa_page => wa_page
+			}
+		) -%>
+		<%- end -%>
+	</div>
+	<div class="sitemap_right_tools">
+		<%- cache("page_#{wa_page.id}_for_user_#{current_user.id}_tools") do -%>
+		<%- if !wa_page.systempage? -%>
+			<%- permitted_to?(:edit, wa_page) do -%>
+			<%= link_to_wa_window(
+				"",
+				edit_wa_page_path(wa_page),
+				{
+					:title => _('edit_page_properties'),
+					:size => '380x490'
+				},
+				:class => 'edit_page_names_button',
+				:title => _('edit_page_properties')
+			) -%>
+			<%- end -%>
+		<%- end -%>
+		<%- permitted_to?(:move, :wa_pages) do -%>
+		<%= render(
+			:partial => 'positioning_tools',
+			:locals => {
+				:wa_page => wa_page
+			}
+		) -%>
+		<%- end -%>
+		<%= render(
+			:partial => 'wa_page_tools',
+			:locals => {
+				:wa_page => wa_page
+			}
+		) -%>
+		<%- end -%>
+	</div>
+	<div class="page_infos">
+		<%- if wa_page.restricted -%>
+			<%= image_tag('icons/locked.png', :plugin => :washapp, :class => 'page_restricted', :title => _('page_restricted')) %>
+		<%- end -%>
+	</div>
+	<div class="wa_sitemap_sitename">
+	<%- if !wa_page.locked_for(current_user) -%>
+		<%= link_to(
+			wa_page.name,
+			edit_content_wa_page_path(wa_page),
+			:title => _("edit_page"),
+			:class => "wa_sitemap_pagename_link"
+		) -%>	
+	<%- else -%>
+		<%= wa_page.name %>
+	<%- end -%>
+	</div>
+	<%- unless wa_page.folded?(current_user) && wa_page.children.empty? -%>
+		<ul id="page_<%= wa_page.id %>_children" style="display: <%= wa_page.folded?(current_user.id)  ? "none" : "hidden" %>" class="dragable">
+			<%= render :partial => 'wa_page', :collection => wa_page.children %>
+		</ul>
+	<%- end -%>
+</li>

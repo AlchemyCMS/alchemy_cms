@@ -1,0 +1,16 @@
+<% form_tag({:action => 'index'}, :method => :get) do %>
+	<div class="search_field">
+		<%= text_field_tag("query", params['query'], :class => 'thin_border', :id => "search_input_field") %>
+		<%= link_to(
+				"",
+				url_for(
+					:action => :index
+				),
+				:class => "search_field_clear",
+				:id => "search_field_clear",
+				:title => _("click_to_show_all"),
+				:style => (params[:query].nil? ? "display:none" : "display:block")
+			) %>
+	</div><br />
+	<label><%= _('search') %></label>
+<% end %>

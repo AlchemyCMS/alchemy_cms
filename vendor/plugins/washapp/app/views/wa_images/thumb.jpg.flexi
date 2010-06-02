@@ -1,0 +1,5 @@
+@image.operate do |image|
+  image.resize(@size, :padding => true) unless @size.nil?
+  image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
+  image
+end

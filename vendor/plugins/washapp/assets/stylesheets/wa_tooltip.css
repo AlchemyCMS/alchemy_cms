@@ -1,0 +1,145 @@
+form.create_right {
+	float: left;
+	clear: both;
+}
+
+.overlay_wa_tooltip {
+	background-color: #000;
+	filter: alpha(opacity=60);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+}
+
+.wa_tooltip_buttons {
+	display: none;
+}
+
+/* North-West corner */
+
+.wa_tooltip_nw {
+	background-color: #fff;
+	width: 2px;
+	height: 2px;
+	font-size: 0;
+	border-left: 2px solid #77aad5;
+	border-top: 2px solid #77aad5;
+}
+
+/* North border */
+
+.wa_tooltip_n {
+	background-color: #fff;
+	height: 2px;
+	font-size: 0;
+	border-top: 2px solid #77aad5;
+}
+
+/* North-East corner */
+
+.wa_tooltip_ne {
+	background-color: #fff;
+	width: 2px;
+	height: 2px;
+	font-size: 0;
+	border-right: 2px solid #77aad5;
+	border-top: 2px solid #77aad5;
+}
+
+/* West border */
+
+.wa_tooltip_w {
+	background-color: #fff;
+	width: 2px;
+	font-size: 0;
+	border-left: 2px solid #77aad5;
+}
+
+/* East border */
+
+.wa_tooltip_e {
+	background-color: #fff;
+	width: 2px;
+	font-size: 0;
+	border-right: 2px solid #77aad5;
+}
+
+/* South-West corner */
+
+.wa_tooltip_sw {
+	background-color: #fff;
+	width: 2px;
+	height: 2px;
+	font-size: 0;
+	border-left: 2px solid #77aad5;
+	border-bottom: 2px solid #77aad5;
+}
+
+/* South border */
+
+.wa_tooltip_s {
+	background-color: #fff;
+	height: 2px;
+	font-size: 0;
+	border-bottom: 2px solid #77aad5;
+}
+
+/* South-East corner */
+
+.wa_tooltip_se {
+	background-color: #fff;
+	width: 2px;
+	height: 2px;
+	font-size: 0;
+	border-right: 2px solid #77aad5;
+	border-bottom: 2px solid #77aad5;
+}
+
+/* Resize button */
+
+.wa_tooltip_sizer {
+	background-color: #fff;
+	width: 2px;
+	height: 2px;
+	font-size: 0;
+	border-right: 2px solid #77aad5;
+	border-bottom: 2px solid #77aad5;
+}
+
+/* Close button */
+
+.wa_tooltip_close {
+	display: none;
+}
+
+/* Title bar */
+
+.wa_tooltip_title {
+	display: none;
+}
+
+/* Content div (not used for url) */
+
+.wa_tooltip_content {
+	color: #000;
+	background: #f4f4f4 url(../images/icons/information.png) no-repeat 4px 4px;
+	overflow: auto;
+	opacity: 0.9;
+	font-size: 10px;
+}
+
+.wa_tooltip_content p {
+	padding: 4px;
+	margin: 0;
+	font-size: 10px;
+}
+
+.wa_tooltip_content h1 {
+	padding: 4px 4px 4px 24px;
+	margin: 0;
+	font-size: 10px;
+	line-height: 16px;
+}
+
+.wa_tooltip_content a img {
+	border-style: none;
+}

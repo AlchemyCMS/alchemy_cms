@@ -1,0 +1,46 @@
+# organize your molecule layouts here
+#
+# Please use this Layout to add new molecules
+#
+# Some unique name for your Molecule: 
+#   - name: a_unique_name
+#     display_name: Some nice Display Name
+#     unique: Boolean
+#     wa_atoms:
+#     - name: head
+#       type: WaAtomText
+#     - name: text
+#       type: WaAtomRtf
+#       take_me_for_preview: Boolean
+#
+# Atom-Types are: WaAtomText, WaAtomRtf, WaAtomPicture, WaAtomFlash, WaAtomSitemap, WaAtomDate, WaAtomHtml
+#
+# If you want an atom to be the preview text for the molecule then use the flag take_me_for_preview: true
+# If no atom is flagged as preview_atom the first one will be taken.
+
+- name: bild_mit_text
+  display_name: Bild mit Text
+  wa_atoms:
+  - name: bild
+    type: WaAtomPicture
+  - name: headline
+    type: WaAtomText
+    take_me_for_preview: true
+  - name: text
+    type: WaAtomRtf
+
+- name: headline
+  display_name: Überschrift
+  wa_atoms:
+  - name: headline
+    type: WaAtomText
+
+- name: news
+  display_name: News
+  wa_atoms:
+  - name: date
+    type: WaAtomDate
+  - name: headline
+    type: WaAtomText
+  - name: body
+    type: WaAtomRtf

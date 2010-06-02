@@ -1,0 +1,135 @@
+* Rails 3 support
+
+* Support shallow nested resources [jjb]
+
+* Allow multiple authorization rules files [kaichen]
+
+** RELEASE 0.4 (November 15, 2009) **
+
+* Implemented controller namespace handling [sb]
+
+* Improved if_attribute to allow nesting of has_many associations [sb]
+
+* Improved if_permitted_to: allow has_many associations and improved context inference [sb]
+
+* Added option on handling non-existant auto-loaded object [sb]
+
+* Added with_user as module method [sb]
+
+* Change support i18n [sb]
+
+** RELEASE 0.3.2.3 (October 12, 2009) **
+
+* Switched to gemcutter [sb]
+
+* Fixed has_role? for guest user. Closes #8 [sb]
+
+* Fixed unnecessary DB query with named scopes [sb, ledermann]
+
+* Change support: suggestions: grouping, sorting by affected users [sb]
+
+* Fixed context inference from AR objects for STI by switching to #class.name.tableize [sb]
+
+* Allow multiple contexts as arguments to has_permission_on [Jeroen van Dijk]
+
+** RELEASE 0.3.2.2 (August 27, 2009) **
+
+* Fix without_access_control test cases [sb]
+
+* Fixed error on debug logging (Closes #6) [sb]
+
+* Fixed without_access_control instance method in TestHelper [sb]
+
+** RELEASE 0.3.2.1 (August 14, 2009) **
+
+* Fix gemspec for Rdoc generation [sb]
+
+** RELEASE 0.3.2 (August 13, 2009) **
+
+* Fix for model-level permitted_to?/! [sb]
+
+** RELEASE 0.3.1 (August 12, 2009) **
+
+* Change Support: Suggestion grouping, sort by affected users [sb]
+
+* Changed context derived from objects to #class.name.tableize to fix STI [sb]
+
+* Simplified controller authorization with filter_resource_access [sb]
+
+* Allow passing explicit context in addition to object in permitted_to? [Olly Lylo, sb]
+
+* Change Supporter: suggest changes to authorization rules [sb]
+
+* Added permitted_to!/? in model [Eike Carls]
+
+* New test helper: should_(not_)_be_allowed_to(privilege, object_or_context) [sb]
+
+** RELEASE 0.3 (April 20, 2009) **
+
+* New option :join_by for has_permission_on to allow AND'ing of statements in one has_permission_on block [sb]
+
+* Allow using_access_control to be called directly on ActiveRecord::Base, globally enabling model security [sb]
+
+* New operator:  intersects_with, comparing two Enumerables in if_attribute [sb]
+
+* Improved if_permitted_to syntax:  if the attribute is left out, permissions are checked on for the current object [sb]
+
+* Added #has_role_with_hierarchy? method to retrieve explicit and calculated roles [jeremyf]
+
+* Added a simple rules analyzer to help improve authorization rules [sb]
+
+* Gemified plugin.  Needed to restructure the lib path contents [sb]
+
+* Added handling of Authorization::AuthorizationInController::ClassMethods.filter_access_to parameters that are of the form [:show, :update] instead of just :show, :update. [jeremyf]
+
+* Added authorization usage helper for checking filter_access_to usage in controllers [sb]
+
+* Added a authorization rules browser.  See README for more information [sb]
+
+* Added Model.using_access_control? to check if a model has model security activated [sb]
+
+* Changed Authorization::ObligationScope#map_table_alias_for [Brian Langenfeld]
+  * Fixed to prevent bad aliases from being produced.
+
+* Changed Authorization::Attribute#validate? [Brian Langenfeld]
+  * Encountering a nil value when evaluating an attribute now raises a NilAttributeValueError, instead of an AuthorizationError.  We leave it to the caller to decide what to do about it.
+
+* Changed Authorization::Engine#permit! [Brian Langenfeld]
+  * We now convert incoming privileges to symbols (e.g. 'read' is made equivalent to :read).  This ensures the privileges will match those defined in the authorization rules file.
+  * The method now properly infers context when checking against an association (e.g. user.posts).  We do this by leveraging ActiveRecord builder method 'new' to instantiate a proper object we can work with.
+  * When testing rules for positive results (via Authorization::Attribute#validate?), we now rescue NilAttributeValueError exceptions, simply causing the rule to return a negative result (instead of barfing).
+
+* Changed Authorization::ObligationScope#rebuild_join_options! [Brian Langenfeld]
+  * If we're dealing with multiple obligations we have to check (i.e. ones that result in OR'd conditions), we now use :include instead of :joins for our generated scope.  This does seem like a kludge, but until ActiveRecord scopes support unions (for checking obligations individually and consolidating the results), we don't have much choice.  Something to revisit later, for sure.
+
+** RELEASE 0.2 (February 2, 2009) **
+
+* added negative operators: is_not, not_in, does_not_contain [sb]
+
+* changed user.roles to user.role_symbols to reduce interferance with associations [sb]
+
+* Ruby 1.9 and Rails 2.3 compatibility [sb]
+
+* if_permitted_to for has_permission_on blocks for DRYer auth rules [sb]
+
+* ObligationScope rewrite of query rewriting [Brian Langenfeld]
+
+* changed exception hierarchy to begin at StandardError [sb]
+
+* :is_in operator [sb]
+
+* added has_role? helper [sb]
+
+* made plugin thread-safe [sb]
+
+* added maintenance and test helpers [sb]
+
+* changed default permission denied response to 403 Forbidden [sb]
+
+* descriptions for titles and roles [sb]
+
+* fixed for PostgreSQL [Mark Mansour]
+
+* improved DSL syntax: allow for array of contexts in has_permission_on [sb]
+
+** RELEASE 0.1 (August 22, 2008) **

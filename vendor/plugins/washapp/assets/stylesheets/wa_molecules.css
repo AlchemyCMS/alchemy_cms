@@ -1,0 +1,342 @@
+/* @override http://0.0.0.0:3000/plugin_assets/washapp/stylesheets/wa_molecules.css */
+
+input.text_with_icon {
+	width: 343px;
+	float: left;
+}
+
+.wa_molecule_editor p.footnote {
+	clear: both;
+	float: left;
+	font-size: 10px;
+	margin-top: 4px;
+	width: 100%;
+}
+
+.wa_molecule_heading .preview_text_quote {
+	font-size: 12px;
+	font-style: italic;
+}
+
+span.preview_text_molecule_name {
+	font-size: 12px;
+	text-shadow: #efefef 1px 1px 1px;
+}
+
+img.add_molecule_spinner {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	left: 5px;
+	bottom: 6px;
+}
+
+#wa_molecule_area h2#no_molecules_on_page_notice {
+	padding: 8px;
+	text-align: center;
+}
+
+.molecule_handle {
+	cursor: move;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	left: 8px;
+	top: 9px;
+}
+
+.molecule_handle img {
+	position: absolute;
+}
+
+.molecule_handle img.molecule_image {
+	z-index: 0;
+}
+
+/*.molecule_handle img.molecule_status {
+	z-index: 1;
+}*/
+
+div.wa_delete_and_save_buttons span.wa_molecule_public {
+	float: left;
+	margin-left: 82px;
+	margin-top: 1px;
+}
+
+.wa_molecule_head_all {
+	overflow: auto;
+	width: 374px;
+}
+
+.wa_molecule_head_left {
+	float: left;
+	width: 230px;
+	overflow: auto;
+	padding-bottom: 10px;
+}
+
+.wa_molecule_head_right {
+	float: left;
+	width: 144px;
+	overflow: auto;
+	margin: 0px;
+	padding: 0px;
+	padding-bottom: 10px;
+}
+
+.wa_add_atom {
+	float: left;
+	margin: 2px 1px 2px 2px;
+	width: 120px;
+	padding: 0;
+}
+
+.wa_add_atom a {
+	color: #6c6c6c;
+	text-decoration: none;
+	background: #e3e3e3 url(../images/icons/add_picture.png) no-repeat center center;
+	overflow: hidden;
+	border: 1px dashed #c0c0c0;
+	text-align: center;
+	font-weight: bold;
+	line-height: 104px;
+	border-radius: 8px;
+	font-size: 40px;
+	display: block;
+	height: 121px;
+	margin-top: 0;
+}
+
+.wa_add_atom a.assign {
+	background: #e3e3e3 url(../images/icons/assign_picture.png) no-repeat center center;
+}
+
+.wa_add_atom a:hover {
+	text-decoration: none;
+	background-color: #d9d9d9;
+}
+
+.wa_delete_and_save_buttons {
+	padding: 8px;
+	border-top-style: none;
+	position: relative;
+	background-color: #e3e3e3;
+	width: 100%;
+	height: 18px;
+	margin-left: -8px;
+}
+
+.wa_delete_and_save_buttons .wa_molecule_tools {
+	float: left;
+	margin-right: 8px;
+}
+
+.wa_delete_and_save_buttons .wa_save {
+	width: 86px;
+	text-align: right;
+	position: absolute;
+	right: 8px;
+	bottom: 6px;
+}
+
+.ajax_folder {
+	position: absolute;
+	right: 8px;
+	top: 8px;
+}
+
+.wa_molecule_heading {
+	padding: 0;
+	z-index: 0;
+	width: 322px;
+	overflow: hidden;
+	white-space: nowrap;
+	position: absolute;
+	left: 35px;
+	top: 11px;
+}
+
+div.wa_molecule_editor {
+	border: 1px solid #b8b8b8;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background-color: #e3e3e3;
+}
+
+div.wa_molecule_editor form {
+	margin: 4px 0 0;
+	padding: 0 8px;
+	overflow: hidden;
+	background-color: #ededed;
+}
+
+.wa_molecule_tools a {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 4px;
+}
+
+.wa_molecule_tools a:active {
+	background-position: 0 1px;
+	outline: none;
+}
+
+a.delete_molecule_button {
+	background: url(../images/icons/trash.png) no-repeat;
+}
+
+div.wa_molecule_tools {
+	height: 20px;
+}
+
+span.molecule_tools_icons {
+	float: left;
+}
+
+a.wa_molecule_copy_button {
+	background: url(../images/icons/copy.png) no-repeat 0px 0;
+}
+
+a.wa_molecule_move_button {
+	background: url(../images/icons/cut.png) no-repeat 0 0;
+}
+
+.wa_molecule_head {
+	padding: 8px 0 6px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 0;
+	background-color: #e3e3e3;
+	border-top-color: #e3e3e3;
+	height: 20px;
+}
+
+form.add_gallery_to_index {
+	overflow: auto;
+}
+
+div.picture_gallery_images {
+	margin-top: 8px;
+	height: 100%;
+	padding-top: 1px;
+	padding-bottom: 2px;
+	overflow: hidden;
+	margin-bottom: 8px;
+	background-color: #e3e3e3;
+	border: 1px solid #c3c3c3;
+	padding-left: 1px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+div.picture_detail div.picture_image img.img_paddingtop {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.gallery_index div.picture_gallery_images {
+	margin-top: 8px;
+	height: 100%;
+	border: 1px inset #b1b1b1;
+	padding-left: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	overflow: hidden;
+	margin-bottom: 11px;
+	width: 374px;
+	margin-left: 7px;
+}
+
+form.add_gallery_to_index span {
+	float: left;
+	padding-top: 3px;
+}
+
+form.add_gallery_to_index select {
+	float: left;
+}
+
+/* @group add moclecule */
+
+.wa_add_molecule {
+	background: white;
+	margin: 0;
+	padding: 8px;
+	position: relative;
+	height: 20px;
+}
+
+.wa_add_molecule p {
+	line-height: 21px;
+}
+
+.wa_add_molecule form {
+	line-height: 21px;
+}
+
+div#wa_molecule_area {
+	padding: 2px;
+	margin: 0;
+	background-color: #ffffff;
+}
+
+.wa_add_molecule span {
+	float: left;
+}
+
+.wa_add_molecule select {
+	float: left;
+	width: 185px;
+	margin: 0 8px;
+}
+
+.add_molecule_content input.button {
+	float: right;
+}
+
+/* @end */
+
+.place_molecule_spinner {
+	position: absolute;
+	right: 8px;
+	width: 24px;
+	height: 24px;
+	top: 5px;
+}
+
+div.wa_atom_editor a.wa_icon_button {
+	margin: 0 0 0 8px;
+}
+
+div.wa_atom_editor a.wa_icon_button.small {
+}
+
+a.show_options {
+	background: url(../images/gui/expand.png) no-repeat 0 0;
+	height: 19px;
+	width: 18px;
+	text-decoration: none;
+	display: block;
+}
+
+a.show_options:active {
+	text-decoration: none;
+	background-position: 0 1px;
+}
+
+a.hide_options {
+	background: url(../images/gui/expand.png) no-repeat -19px 0;
+	height: 19px;
+	width: 18px;
+	text-decoration: none;
+	display: block;
+}
+
+a.hide_options:active {
+	text-decoration: none;
+	background-position: 0 1px;
+}

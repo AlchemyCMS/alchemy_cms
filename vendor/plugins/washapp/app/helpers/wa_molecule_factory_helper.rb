@@ -1,0 +1,2 @@
+module WaMoleculeFactoryHelper
+end

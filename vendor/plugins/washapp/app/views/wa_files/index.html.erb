@@ -1,0 +1,31 @@
+<%- wa_assets_set(:archive) -%>
+<div id="wa_toolbar">
+	<%- permitted_to?(:new, :wa_files) do -%>
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
+			<%= link_to_wa_window(
+				content_tag('span', '', :class => 'icon upload'),
+				new_wa_file_path,
+				{
+					:title => _('upload_file'),
+					:size => '355x320'
+				},
+				:title => _('upload_file'),
+				:class => 'wa_icon_button'
+			) %><br />
+			<label><%= _('upload_file') %></label>
+		</div>
+	</div>
+	<div class="toolbar_spacer"></div>
+	<%- end -%>
+	<div id="toolbar_links">
+		<%= render :partial => 'partials/per_page_links', :locals => {:label => _('files'), :values => ['20', '50', 'all']} %>
+	</div>
+	<%= render :partial => 'partials/search_form' %>
+</div>
+
+<%= render :partial => "partials/flash_notice" %>
+
+<div id="wa_archiveall">
+	<%= render :partial => 'files_list' %>
+</div>

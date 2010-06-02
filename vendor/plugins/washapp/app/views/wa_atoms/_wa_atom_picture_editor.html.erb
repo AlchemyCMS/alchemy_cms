@@ -1,0 +1,39 @@
+<div id="picture_<%= wa_atom.id %>" class="<%= 'dragable_picture' if options[:dragable] %>">
+	<%- if wa_atom.atom.wa_image.nil? -%>
+	<%= render :partial => "wa_molecules/assign_picture_atom", :locals => {:wa_atom => wa_atom, :options => options} %>
+	<%- else -%>
+	<div class="picture_detail">
+		<div class="picture_handle" title="<%= _('drag_to_sort') if options[:dragable] %>"></div>
+		<div class="picture_atom_spinner">
+			<%= image_tag("ajax_loader.gif", :plugin => "washapp", :alt => '') %>
+		</div>
+		<div class="picture_image" style="display: none;">
+			<%= image_tag(
+				thumbnail_url(:id => wa_atom.atom.wa_image, :size => "111x93"),
+				:alt => wa_atom.atom.wa_image.name,
+				:class => 'img_paddingtop',
+				:title => _("image_name") + ": #{wa_atom.atom.wa_image.name}",
+				:onload => %(
+					this.up().previous().hide();
+					this.up().appear({duration: 0.6});
+				)
+			) %>
+			<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][wa_image_id]", wa_atom.atom.wa_image.id %>
+		</div>
+		<div class="edit_images_bottom">
+			<%= render(
+				:partial => 'wa_atoms/partials/wa_picture_tools',
+				:locals => {
+					:wa_atom => wa_atom,
+					:options => options
+				}
+			) %>
+		</div>
+	</div>
+	<%- end -%>
+	<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][link]", wa_atom.atom.link, :id => "atom_#{wa_atom.id}_link" %>
+	<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][link_title]", wa_atom.atom.link_title, :id => "atom_#{wa_atom.id}_link_title" %>
+	<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][link_class_name]", wa_atom.atom.link_class_name, :id => "atom_#{wa_atom.id}_link_class_name" %>
+	<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][open_link_in_new_window]", wa_atom.atom.open_link_in_new_window ? '1' : '0', :id => "atom_#{wa_atom.id}_link_target" %>
+	<%= hidden_field_tag "atoms[atom_#{wa_atom.id}][image_size]", wa_atom.atom.image_size, :id => "atom_#{wa_atom.id}_image_size" %>
+</div>

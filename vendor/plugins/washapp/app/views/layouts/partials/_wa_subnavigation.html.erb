@@ -1,0 +1,15 @@
+<div id="wa_subnavigation">
+<%- entries.each do |e| -%>
+	<%- permitted_to?(e["action"].to_sym, e["controller"].to_sym) do -%>
+	<%= link_to(
+		_(e["name"]),
+		{
+			:controller => e["controller"],
+			:action => e["action"]
+		},
+		:onclick => 'pleaseWaitOverlay();',
+		:class => params[:controller] == e["controller"] && params[:action] == e["action"] ? 'active' : nil
+	) %>
+	<%- end -%>
+<%- end -%>
+</div>

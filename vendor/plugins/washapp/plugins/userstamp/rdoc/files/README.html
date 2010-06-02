@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sat Apr 05 15:01:24 -0600 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Userstamp Plugin (v 2.0)</h1>
+<h2>Overview</h2>
+<p>
+The Userstamp Plugin extends <a
+href="http://api.rubyonrails.com/classes/ActiveRecord/Base.html">ActiveRecord::Base</a>
+to add automatic updating of &#8216;creator&#8217;, &#8216;updater&#8217;,
+and &#8216;deleter&#8217; attributes. It is based loosely on the <a
+href="http://api.rubyonrails.com/classes/ActiveRecord/Timestamp.html">ActiveRecord::Timestamp</a>
+module.
+</p>
+<p>
+Two class methods (<tt>model_stamper</tt> and <tt>stampable</tt>) are
+implemented in this plugin. The <tt>model_stamper</tt> method is used in
+models that are responsible for creating, updating, or deleting other
+objects. The <tt>stampable</tt> method is used in models that are subject
+to being created, updated, or deleted by &#8216;stampers&#8217;.
+</p>
+<h2>Installation</h2>
+<p>
+Installation of the plugin can be done using the built in Rails plugin
+script. Issue the following command from the root of your application:
+</p>
+<pre>
+  script/plugin install git://github.com/delynn/userstamp.git
+</pre>
+<p>
+Once installed you will need to restart your application for the plugin to
+be loaded into the Rails environment.
+</p>
+<p>
+You might also be interested in using <a
+href="http://piston.rubyforge.org/index.html">Piston</a> to manage the
+importing and future updating of this plugin.
+</p>
+<h2>Usage</h2>
+<p>
+In this new version of the Userstamp plug-in, the assumption is that you
+have two different categories of objects; those that mani˝pulate, and
+those that are manipulated. For those objects that are being manipulated
+there&#8216;s the Stampable module and for the manipulators there&#8216;s
+the Stamper module. There&#8216;s also the actual Userstamp module for your
+controllers that assists in setting up your environment on a per request
+basis.
+</p>
+<p>
+To better understand how all this works, I think an example is in order.
+For this example we will assume that a weblog application is comprised of
+User and Post objects. The first thing we need to do is create the
+migrations for these objects, and the plug-in gives you a
+<tt>userstamps</tt> method for very easily doing this:
+</p>
+<pre>
+  class CreateUsers &lt; ActiveRecord::Migration
+    def self.up
+      create_table :users, :force =&gt; true do |t|
+        t.timestamps
+        t.userstamps
+        t.name
+      end
+    end
+
+    def self.down
+      drop_table :users
+    end
+  end
+
+  class CreatePosts &lt; ActiveRecord::Migration
+    def self.up
+      create_table :posts, :force =&gt; true do |t|
+        t.timestamps
+        t.userstamps
+        t.title
+      end
+    end
+
+    def self.down
+      drop_table :posts
+    end
+  end
+</pre>
+<p>
+Second, since Users are going to manipulate other objects in our project,
+we&#8216;ll use the <tt>model_stamper</tt> method in our User class:
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    model_stamper
+  end
+</pre>
+<p>
+Finally, we need to setup a controller to set the current user of the
+application. It&#8216;s recommended that you do this in your
+ApplicationController:
+</p>
+<pre>
+  class ApplicationController &lt; ActionController::Base
+    include Userstamp
+  end
+</pre>
+<p>
+If all you are interested in is making sure all tables that have the proper
+columns are stamped by the currently logged in user you can stop right
+here. More than likely you want all your associations setup on your stamped
+objects, and that&#8216;s where the <tt>stampable</tt> class method comes
+in. So in our example we&#8216;ll want to use this method in both our User
+and Post classes:
+</p>
+<pre>
+  class User &lt; ActiveRecord::Base
+    model_stamper
+    stampable
+  end
+
+  class Post &lt; ActiveRecord::Base
+    stampable
+  end
+</pre>
+<p>
+Okay, so what all have we done? The <tt>model_stamper</tt> class method
+injects two methods into the User class. They are stamper= and stamper and
+look like this:
+</p>
+<pre>
+  def stamper=(object)
+    object_stamper = if object.is_a?(ActiveRecord::Base)
+      object.send(&quot;#{object.class.primary_key}&quot;.to_sym)
+    else
+      object
+    end
+
+    Thread.current[&quot;#{self.to_s.downcase}_#{self.object_id}_stamper&quot;] = object_stamper
+  end
+
+  def stamper
+    Thread.current[&quot;#{self.to_s.downcase}_#{self.object_id}_stamper&quot;]
+  end
+</pre>
+<p>
+The big change with this new version is that we are now using
+Thread.current to save the current stamper so as to avoid conflict with
+concurrent requests.
+</p>
+<p>
+The <tt>stampable</tt> method allows you to customize what columns will get
+stamped, and also creates the <tt>creator</tt>, <tt>updater</tt>, and
+<tt>deleter</tt> associations.
+</p>
+<p>
+The Userstamp module that we included into our ApplicationController uses
+the setter method to set which user is currently making the request. By
+default the &#8216;set_stampers&#8217; method works perfectly with the <a
+href="http://svn.techno-weenie.net/projects/plugins/restful_authentication">RestfulAuthentication</a>
+plug-in:
+</p>
+<pre>
+  def set_stampers
+    User.stamper = self.current_user
+  end
+</pre>
+<p>
+If you aren&#8216;t using ActsAsAuthenticated, then you need to create your
+own version of the <tt>set_stampers</tt> method in the controller where
+you&#8216;ve included the Userstamp module.
+</p>
+<p>
+Now, let&#8216;s get back to the Stampable module (since it really is the
+interesting one). The Stampable module sets up before_* filters that are
+responsible for setting those attributes at the appropriate times. It also
+creates the belongs_to relationships for you.
+</p>
+<p>
+If you need to customize the columns that are stamped, the
+<tt>stampable</tt> method can be completely customized. Here&#8216;s an
+quick example:
+</p>
+<pre>
+  class Post &lt; ActiveRecord::Base
+    acts_as_stampable :stamper_class_name =&gt; :person,
+                      :creator_attribute  =&gt; :create_user,
+                      :updater_attribute  =&gt; :update_user,
+                      :deleter_attribute  =&gt; :delete_user
+  end
+</pre>
+<p>
+If you are upgrading your application from the old version of Userstamp,
+there is a compatibility mode to have the plug-in use the old
+&quot;_by&quot; columns by default. To enable this mode, add the following
+line to the RAILS_ROOT/config/environment.rb file:
+</p>
+<pre>
+  Ddb::Userstamp.compatibility_mode = true
+</pre>
+<p>
+If you are having a difficult time getting the Userstamp plug-in to work, I
+recommend you checkout the sample application that I created. You can find
+this application on <a
+href="http://github.com/delynn/userstamp_sample">GitHub</a>
+</p>
+<h2>Uninstall</h2>
+<p>
+Uninstalling the plugin can be done using the built in Rails plugin script.
+Issue the following command from the root of your application:
+</p>
+<pre>
+  script/plugin remove userstamp
+</pre>
+<h2>Documentation</h2>
+<p>
+RDoc has been run on the plugin directory and is available in the doc
+directory.
+</p>
+<h2>Running Unit Tests</h2>
+<p>
+There are extensive unit tests in the &quot;test&quot; directory of the
+plugin. These test can be run individually by executing the following
+command from the userstamp directory:
+</p>
+<pre>
+ ruby test/compatibility_stamping_test.rb
+ ruby test/stamping_test.rb
+ ruby test/userstamp_controller_test.rb
+</pre>
+<h2>Bugs &amp; Feedback</h2>
+<p>
+Bug reports and feedback are welcome via my delynn+userstamp@gmail.com
+email address. I also encouraged everyone to clone the git repository and
+make modifications&#8212;I&#8216;ll be more than happy to merge any changes
+from other people&#8216;s branches that would be beneficial to the whole
+project.
+</p>
+<h2>Credits and Special Thanks</h2>
+<p>
+The original idea for this plugin came from the Rails Wiki article entitled
+<a
+href="http://wiki.rubyonrails.com/rails/pages/ExtendingActiveRecordExample">Extending
+ActiveRecord</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
