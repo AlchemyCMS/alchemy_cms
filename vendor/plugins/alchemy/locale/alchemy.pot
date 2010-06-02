@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-05-14 12:16+0200\n"
+"POT-Creation-Date: 2010-06-02 15:25+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,10 @@ msgstr ""
 
 #: app/views/partials/_upload_form.html.erb:22
 msgid "Adobe Website"
+msgstr ""
+
+#: app/views/admin/index.html.erb:31
+msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
 #: app/views/partials/_upload_form.html.erb:19
@@ -56,7 +60,7 @@ msgstr ""
 msgid "File: '%{name}' deleted successfully"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:13
+#: app/views/wa_mailer/new_washapp_user_mail.erb:13
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
@@ -82,11 +86,11 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:10
+#: app/views/wa_mailer/new_washapp_user_mail.erb:10
 msgid "Password"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:16
+#: app/controllers/admin_controller.rb:16
 msgid "Please Signup"
 msgstr ""
 
@@ -102,7 +106,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:43
+#: app/views/admin/index.html.erb:43
 msgid "Read the License"
 msgstr ""
 
@@ -134,7 +138,7 @@ msgstr ""
 msgid "This page is locked by %{name}"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:3
+#: app/views/wa_mailer/new_washapp_user_mail.erb:3
 msgid "To manage your website open a browser and go to"
 msgstr ""
 
@@ -150,11 +154,11 @@ msgstr ""
 msgid "User: '%{name}' updated"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:9
+#: app/views/wa_mailer/new_washapp_user_mail.erb:9
 msgid "Username"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:30
+#: app/views/admin/index.html.erb:30
 msgid "Version"
 msgstr ""
 
@@ -342,8 +346,8 @@ msgstr ""
 msgid "WaUser|Role"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:1
-#: app/views/alchemy/index.html.erb:7
+#: app/views/admin/index.html.erb:7
+#: app/views/wa_mailer/new_washapp_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr ""
 
@@ -355,12 +359,12 @@ msgstr ""
 msgid "You can get the latest version on the %{link}"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:7
-msgid "Your credentials are"
-msgstr ""
-
 #: app/models/wa_mailer.rb:23
 msgid "Your Alchemy Login"
+msgstr ""
+
+#: app/views/wa_mailer/new_washapp_user_mail.erb:7
+msgid "Your credentials are"
 msgstr ""
 
 #: app/views/wa_pages/new.html.erb:7
@@ -402,10 +406,10 @@ msgstr ""
 msgid "allow_fullscreen"
 msgstr ""
 
-#: app/views/alchemy/_contactform_links.html.erb:47
-#: app/views/alchemy/_external_link.html.erb:42
-#: app/views/alchemy/_file_link.html.erb:35
-#: app/views/alchemy/_internal_link.html.erb:41
+#: app/views/admin/_contactform_links.html.erb:47
+#: app/views/admin/_external_link.html.erb:42
+#: app/views/admin/_file_link.html.erb:35
+#: app/views/admin/_internal_link.html.erb:41
 msgid "apply"
 msgstr ""
 
@@ -444,7 +448,7 @@ msgstr ""
 msgid "atom_not_successfully_deleted"
 msgstr ""
 
-#: app/views/layouts/login.html.erb:28 app/views/layouts/alchemy.html.erb:44
+#: app/views/layouts/admin.html.erb:44 app/views/layouts/login.html.erb:28
 msgid "back to site"
 msgstr ""
 
@@ -456,7 +460,7 @@ msgstr ""
 msgid "browse"
 msgstr ""
 
-#: app/views/alchemy/_file_link.html.erb:3
+#: app/views/admin/_file_link.html.erb:3
 msgid "choose_file_to_link"
 msgstr ""
 
@@ -511,7 +515,7 @@ msgstr ""
 msgid "copy_element"
 msgstr ""
 
-#: app/views/alchemy/infos.html.erb:4
+#: app/views/admin/infos.html.erb:4
 msgid "copyright_notice"
 msgstr ""
 
@@ -648,12 +652,11 @@ msgstr ""
 msgid "element_of_type"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:65
-#: app/views/wa_molecules/update.rjs:7
+#: app/controllers/admin_controller.rb:65 app/views/wa_molecules/update.rjs:7
 msgid "element_saved"
 msgstr ""
 
-#: app/views/alchemy/_external_link.html.erb:3
+#: app/views/admin/_external_link.html.erb:3
 msgid "enter_external_link"
 msgstr ""
 
@@ -689,11 +692,11 @@ msgstr ""
 msgid "female"
 msgstr ""
 
-#: app/views/alchemy/_file_link.html.erb:8
+#: app/views/admin/_file_link.html.erb:8
 msgid "file"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:19
+#: app/views/admin/index.html.erb:19
 msgid "file_archive"
 msgstr ""
 
@@ -711,19 +714,19 @@ msgstr ""
 msgid "height"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:20
+#: app/views/admin/index.html.erb:20
 msgid "help: file_archive"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:16
+#: app/views/admin/index.html.erb:16
 msgid "help: image_archive"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:12
+#: app/views/admin/index.html.erb:12
 msgid "help: sitemap"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:24
+#: app/views/admin/index.html.erb:24
 msgid "help: users"
 msgstr ""
 
@@ -735,7 +738,7 @@ msgstr ""
 msgid "image_alt_tag"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:15
+#: app/views/admin/index.html.erb:15
 msgid "image_archive"
 msgstr ""
 
@@ -760,7 +763,7 @@ msgstr ""
 msgid "images"
 msgstr ""
 
-#: app/views/alchemy/_internal_link.html.erb:3
+#: app/views/admin/_internal_link.html.erb:3
 msgid "internal_link_headline"
 msgstr ""
 
@@ -789,41 +792,41 @@ msgstr ""
 msgid "link_image"
 msgstr ""
 
-#: app/views/alchemy/link_to_page.html.erb:13
+#: app/views/admin/link_to_page.html.erb:13
 msgid "link_overlay_tab_label.contactform"
 msgstr ""
 
-#: app/views/alchemy/link_to_page.html.erb:6
+#: app/views/admin/link_to_page.html.erb:6
 msgid "link_overlay_tab_label.external"
 msgstr ""
 
-#: app/views/alchemy/link_to_page.html.erb:9
+#: app/views/admin/link_to_page.html.erb:9
 msgid "link_overlay_tab_label.file"
 msgstr ""
 
-#: app/views/alchemy/link_to_page.html.erb:3
+#: app/views/admin/link_to_page.html.erb:3
 msgid "link_overlay_tab_label.internal"
 msgstr ""
 
-#: app/views/alchemy/_contactform_links.html.erb:37
-#: app/views/alchemy/_external_link.html.erb:27
-#: app/views/alchemy/_file_link.html.erb:17
+#: app/views/admin/_contactform_links.html.erb:37
+#: app/views/admin/_external_link.html.erb:27
+#: app/views/admin/_file_link.html.erb:17
 msgid "link_title"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:50
+#: app/controllers/admin_controller.rb:50
 msgid "logged_out"
 msgstr ""
 
-#: app/views/alchemy/login.html.erb:25
+#: app/views/admin/login.html.erb:25
 msgid "login"
 msgstr ""
 
-#: app/views/layouts/alchemy.html.erb:36 app/views/layouts/alchemy.html.erb:38
+#: app/views/layouts/admin.html.erb:36 app/views/layouts/admin.html.erb:38
 msgid "logout"
 msgstr ""
 
-#: app/views/alchemy/_contactform_links.html.erb:23
+#: app/views/admin/_contactform_links.html.erb:23
 msgid "mail_to"
 msgstr ""
 
@@ -831,7 +834,7 @@ msgstr ""
 msgid "male"
 msgstr ""
 
-#: app/views/alchemy/signup.html.erb:50
+#: app/views/admin/signup.html.erb:50
 msgid "mandatory fields"
 msgstr ""
 
@@ -1026,7 +1029,7 @@ msgstr ""
 msgid "pagination.previous_page"
 msgstr ""
 
-#: app/views/alchemy/login.html.erb:16
+#: app/views/admin/login.html.erb:16
 msgid "password"
 msgstr ""
 
@@ -1042,7 +1045,7 @@ msgstr ""
 msgid "please enter a name"
 msgstr ""
 
-#: app/views/alchemy/_contactform_links.html.erb:3
+#: app/views/admin/_contactform_links.html.erb:3
 msgid "please enter subject and mail address"
 msgstr ""
 
@@ -1054,7 +1057,7 @@ msgstr ""
 msgid "please_confirm"
 msgstr ""
 
-#: app/views/layouts/login.html.erb:21 app/views/layouts/alchemy.html.erb:21
+#: app/views/layouts/admin.html.erb:21 app/views/layouts/login.html.erb:21
 msgid "please_wait"
 msgstr ""
 
@@ -1096,7 +1099,7 @@ msgstr ""
 msgid "root_page_not_deletable"
 msgstr ""
 
-#: app/views/wa_atom_files/edit.html.erb:22
+#: app/views/admin/signup.html.erb:45 app/views/wa_atom_files/edit.html.erb:22
 #: app/views/wa_atom_files/edit.html.erb:42
 #: app/views/wa_atom_files/edit.html.erb:70
 #: app/views/wa_atom_files/edit.html.erb:94
@@ -1106,7 +1109,6 @@ msgstr ""
 #: app/views/wa_images/_image.html.erb:46
 #: app/views/wa_molecules/_save_and_delete_buttons.html.erb:47
 #: app/views/wa_pages/edit.html.erb:68 app/views/wa_users/_form.html.erb:43
-#: app/views/alchemy/signup.html.erb:45
 msgid "save"
 msgstr ""
 
@@ -1141,7 +1143,7 @@ msgstr ""
 msgid "show_eq"
 msgstr ""
 
-#: app/views/alchemy/_wa_page_for_links.html.erb:20
+#: app/views/admin/_wa_page_for_links.html.erb:20
 msgid "show_molecules_from_page"
 msgstr ""
 
@@ -1154,7 +1156,7 @@ msgstr ""
 msgid "show_page_in_sitemap"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:10
+#: app/views/admin/index.html.erb:10
 msgid "sitemap"
 msgstr ""
 
@@ -1162,7 +1164,7 @@ msgstr ""
 msgid "small_thumbnails"
 msgstr ""
 
-#: app/views/alchemy/_contactform_links.html.erb:15
+#: app/views/admin/_contactform_links.html.erb:15
 msgid "subject"
 msgstr ""
 
@@ -1187,9 +1189,9 @@ msgstr ""
 msgid "swfupload: cancel_uploads"
 msgstr ""
 
-#: app/views/alchemy/_external_link.html.erb:36
-#: app/views/alchemy/_file_link.html.erb:29
-#: app/views/alchemy/_internal_link.html.erb:33
+#: app/views/admin/_external_link.html.erb:36
+#: app/views/admin/_file_link.html.erb:29
+#: app/views/admin/_internal_link.html.erb:33
 msgid "target_blank"
 msgstr ""
 
@@ -1244,11 +1246,11 @@ msgstr ""
 msgid "urlname_to_short"
 msgstr ""
 
-#: app/views/alchemy/login.html.erb:8
+#: app/views/admin/login.html.erb:8
 msgid "username"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:23
+#: app/views/admin/index.html.erb:23
 msgid "users"
 msgstr ""
 
@@ -1260,7 +1262,7 @@ msgstr ""
 msgid "wa_molecule_editor_not_found"
 msgstr ""
 
-#: app/views/alchemy/_wa_page_for_links.html.erb:39
+#: app/views/admin/_wa_page_for_links.html.erb:39
 msgid "wa_page_for_links.choose_page %{name}"
 msgstr ""
 
@@ -1276,11 +1278,7 @@ msgstr ""
 msgid "want_to_make_copy_of_existing_language"
 msgstr ""
 
-#: app/views/alchemy/index.html.erb:31
-msgid "Alchemy is free software and itself uses free software and resources:"
-msgstr ""
-
-#: app/controllers/alchemy_controller.rb:32
+#: app/controllers/admin_controller.rb:32
 msgid "welcome_please_identify_notice"
 msgstr ""
 
