@@ -11,7 +11,7 @@
 		      </div>
 		      <div id="page_selector_container">
 		        <ul id="wa_sitemap">
-		          <%= render :partial => 'wa_page_for_links', :object => @wa_page_root, :locals => {:area_name => @area_name} %>
+		          <%= render :partial => 'page_for_links', :object => @page_root, :locals => {:area_name => @area_name} %>
 		        </ul>
 		      </div>
 		    </div>
@@ -45,5 +45,5 @@
 	</p>
 </div>
 <%- javascript_tag do -%>
-  wa_page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
+  page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
 <%- end -%>

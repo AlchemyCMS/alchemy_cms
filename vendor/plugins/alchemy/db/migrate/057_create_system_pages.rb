@@ -1,9 +1,9 @@
 class CreateSystemPages < ActiveRecord::Migration
   def self.up
-    add_column(:wa_pages, :systempage, :boolean, :default => false)
-    WaPage.reset_column_information
-    root = WaPage.root
-    systemroot = WaPage.create(
+    add_column(:pages, :systempage, :boolean, :default => false)
+    Page.reset_column_information
+    root = Page.root
+    systemroot = Page.create(
       :name => "Systemroot",
       :urlname => "systemroot",
       :systempage => true,
@@ -11,7 +11,7 @@ class CreateSystemPages < ActiveRecord::Migration
       :do_not_autogenerate => true
     )
     systemroot.move_to_child_of root
-    header = WaPage.create(
+    header = Page.create(
       :name => "Header",
       :urlname => "system_header",
       :systempage => true,
@@ -20,7 +20,7 @@ class CreateSystemPages < ActiveRecord::Migration
       :do_not_autogenerate => true
     )
     header.move_to_child_of systemroot
-    footer = WaPage.create(
+    footer = Page.create(
       :name => "Footer",
       :urlname => "system_footer",
       :systempage => true,
@@ -32,10 +32,10 @@ class CreateSystemPages < ActiveRecord::Migration
   end
 
   def self.down
-    WaPage.reset_column_information
-    WaPage.find_by_name_and_systempage("Header", true).destroy
-    WaPage.find_by_name_and_systempage("Footer", true).destroy
-    WaPage.find_by_name_and_systempage("Systemroot", true).destroy
-    remove_column(:wa_pages, :systempage)
+    Page.reset_column_information
+    Page.find_by_name_and_systempage("Header", true).destroy
+    Page.find_by_name_and_systempage("Footer", true).destroy
+    Page.find_by_name_and_systempage("Systemroot", true).destroy
+    remove_column(:pages, :systempage)
   end
 end

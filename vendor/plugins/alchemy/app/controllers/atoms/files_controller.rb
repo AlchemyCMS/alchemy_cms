@@ -5,27 +5,27 @@ class Atoms::FilesController < ApplicationController
   filter_access_to :all
   
   def edit
-    @atom = WaAtom.find(params[:id])
+    @atom = Atom.find(params[:id])
     @file_atom = @atom.atom
     render :layout => false
   end
   
   def update
-    @wa_atom = WaAtom.find(params[:id])
-    @wa_atom.atom.update_attributes(params[:atom])
+    @atom = Atom.find(params[:id])
+    @atom.atom.update_attributes(params[:atom])
     render :update do |page|
       page << "wa_overlay.close(); reloadPreview()"
     end
   end
   
   def assign
-    @wa_atom = WaAtom.find_by_id(params[:id])
+    @atom = Atom.find_by_id(params[:id])
     @wa_file = File.find_by_id(params[:wa_file_id])
-    @wa_atom.atom.wa_file = @wa_file
-    @wa_atom.atom.save
-    @wa_atom.save
+    @atom.atom.wa_file = @wa_file
+    @atom.atom.save
+    @atom.save
     render :update do |page|
-      page.replace "wa_file_#{@wa_atom.id}", :partial => "wa_atoms/wa_atom_file_editor", :locals => {:wa_atom => @wa_atom, :options => params[:options]}
+      page.replace "wa_file_#{@atom.id}", :partial => "atoms/atom_file_editor", :locals => {:atom => @atom, :options => params[:options]}
       page << "reloadPreview();wa_overlay.close()"
     end
   end

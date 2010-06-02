@@ -5,37 +5,37 @@ class Atoms::PicturesController < ApplicationController
   filter_access_to :all
   
   def edit
-    @wa_atom_picture = WaAtomPicture.find(params[:id])
+    @atom_picture = Atoms::Picture.find(params[:id])
     @options = params[:options]
     render :layout => false
   end
   
   def update
-    @wa_atom_picture = WaAtomPicture.find(params[:id])
-    @wa_atom_picture.update_attributes(params[:wa_atom_picture])
+    @atom_picture = Atoms::Picture.find(params[:id])
+    @atom_picture.update_attributes(params[:atom_picture])
     render :update do |page|
       page << "wa_overlay.close(); reloadPreview()"
     end
   end
   
   def assign
-    @wa_atom = WaAtom.find_by_id(params[:id])
-    @wa_image = Image.find_by_id(params[:wa_image_id])
-    @wa_atom.atom.wa_image = @wa_image
-    @wa_atom.atom.save
-    @wa_atom.save
+    @atom = Atom.find_by_id(params[:id])
+    @image = Image.find_by_id(params[:wa_image_id])
+    @atom.atom.wa_image = @image
+    @atom.atom.save
+    @atom.save
     render :update do |page|
-      dom_string = params[:swap] ? "picture" : "assign_atom_#{@wa_atom.wa_molecule.id}"
-      page.replace "#{dom_string}_#{@wa_atom.id}", :partial => "wa_atoms/wa_atom_picture_editor", :locals => {:wa_atom => @wa_atom, :options => params[:options]}
-      if @wa_atom.wa_molecule.wa_atoms.find_all_by_atom_type("WaAtomPicture").size > 1
-        WaConfigure.sortable_atoms(page, @wa_atom.wa_molecule)
+      dom_string = params[:swap] ? "picture" : "assign_atom_#{@atom.molecule.id}"
+      page.replace "#{dom_string}_#{@atom.id}", :partial => "atoms/atom_picture_editor", :locals => {:atom => @atom, :options => params[:options]}
+      if @atom.molecule.atoms.find_all_by_atom_type("Atoms::Picture").size > 1
+        Alchemy::Configuration.sortable_atoms(page, @atom.molecule)
       end
       page << "reloadPreview()"
     end
   end
   
   def save_link
-    @atom = WaAtom.find(params[:id])
+    @atom = Atom.find(params[:id])
     @picture_atom = @atom.atom
     @picture_atom.link = params[:link]
     @picture_atom.link_title = params[:title]
@@ -43,23 +43,23 @@ class Atoms::PicturesController < ApplicationController
     if @picture_atom.save
       render :update do |page|
         page << "Windows.closeAll();reloadPreview()"
-        WaNotice.show_via_ajax(page, _("saved_link"))
+        Alchemy::Notice.show_via_ajax(page, _("saved_link"))
       end
     end
   end
   
   def destroy
-    wa_atom = WaAtom.find_by_id(params[:id])
-    wa_molecule = wa_atom.wa_molecule
-    wa_molecule.wa_atoms.delete wa_atom
-    picture_atoms = wa_molecule.wa_atoms.find_all_by_atom_type("WaAtomPicture")
+    atom = Atom.find_by_id(params[:id])
+    molecule = atom.molecule
+    molecule.atoms.delete atom
+    picture_atoms = molecule.atoms.find_all_by_atom_type("Atoms::Picture")
     render :update do |page|
       page.replace(
-        "molecule_#{wa_molecule.id}_atoms",
-        :partial => "wa_molecules/wa_picture_editor",
+        "molecule_#{molecule.id}_atoms",
+        :partial => "molecules/wa_picture_editor",
         :locals => {
           :picture_atoms => picture_atoms,
-          :wa_molecule => wa_molecule,
+          :molecule => molecule,
           :options => params[:options]
         }
       )

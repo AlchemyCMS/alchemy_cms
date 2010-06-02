@@ -34,11 +34,11 @@ class Alchemy::ContactFormController < ApplicationController
       )
       session[:mail_data] = nil
       if !params[:mail_data][:redirect_to].blank?
-        redirect_to :controller => 'wa_pages', :action => 'show', :urlname => params[:mail_data][:redirect_to]
+        redirect_to :controller => 'pages', :action => 'show', :urlname => params[:mail_data][:redirect_to]
       elsif(configuration(:mailer)[:forward_to_page])
-        redirect_to :controller => 'wa_pages', :action => 'show', :urlname => configuration(:mailer)[:mail_sucess_page]
+        redirect_to :controller => 'pages', :action => 'show', :urlname => configuration(:mailer)[:mail_sucess_page]
       else
-        redirect_to :controller => 'wa_pages', :action => 'show', :urlname => WaPage.root.urlname
+        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.root.urlname
       end
     else
       redirect_to :back

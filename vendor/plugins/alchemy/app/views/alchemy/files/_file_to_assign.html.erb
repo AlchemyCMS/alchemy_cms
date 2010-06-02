@@ -7,10 +7,10 @@
   <%= link_to_remote(
     img_tag,
       :url => {
-        :controller => :wa_atom_files,
+        :controller => :atom_files,
         :action => :assign,
         :wa_file_id => file_to_assign.id,
-        :id => @wa_atom.id,
+        :id => @atom.id,
         :options => @options
       },
       :method => 'post',

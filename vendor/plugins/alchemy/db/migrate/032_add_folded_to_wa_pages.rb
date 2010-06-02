@@ -1,9 +1,9 @@
-class AddFoldedToWaPages < ActiveRecord::Migration
+class AddFoldedToPages < ActiveRecord::Migration
   def self.up
-    add_column :wa_pages, :folded, :boolean, :default => false
+    add_column :pages, :folded, :boolean, :default => false
   end
 
   def self.down
-    remove_column :wa_pages, :folded
+    remove_column :pages, :folded
   end
 end

@@ -308,7 +308,7 @@ form.create_right {
 	font-size: 0;
 }
 
-#wa_page_select {
+#page_select {
 	width: 120px;
 	margin-left: 8px;
 }
@@ -455,15 +455,15 @@ form.create_right {
 	border-width: 1px;
 }
 
-select#wa_page_layout {
+select#page_layout {
 	width: 120px;
 }
 
-input#wa_page_name {
+input#page_name {
 	width: 126px;
 }
 
-#wa_page_names #wa_page_name {
+#page_names #page_name {
 	width: 231px;
 }
 

@@ -1,9 +1,9 @@
-<div class="wa_file" id="wa_file_<%= wa_atom.id %>">
+<div class="wa_file" id="wa_file_<%= atom.id %>">
 	<div class="file_icon">
-	<%- if wa_atom.atom.wa_file.nil? -%>
+	<%- if atom.atom.wa_file.nil? -%>
 		<%= link_to_wa_window("",
 			archive_overlay_wa_files_path(
-				:wa_atom_id => wa_atom.id,
+				:atom_id => atom.id,
 				:only => options[:file_assign_show_only],
 				:except => options[:file_assign_do_not_show],
 				:options => options
@@ -17,19 +17,19 @@
 			:title => _('assign_file')
 		) %>
 	<%- else -%>
-		<%= render_file_icon(wa_atom.atom.wa_file) %>
+		<%= render_file_icon(atom.atom.wa_file) %>
 	<%- end -%>
 	</div>
 	<div class="file_name">
-		<%= wa_atom.atom.wa_file.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
+		<%= atom.atom.wa_file.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
 	</div>
-	<%- unless wa_atom.atom.wa_file.nil? -%>
-	<div class="wa_atom_file_tools">
+	<%- unless atom.atom.wa_file.nil? -%>
+	<div class="atom_file_tools">
 		<%= link_to_wa_window("",
 			url_for(
-				:controller => 'wa_atom_files',
+				:controller => 'atom_files',
 				:action => 'edit',
-				:id => wa_atom
+				:id => atom
 			),
 			{
 				:title => _('edit_file_properties'),
@@ -40,7 +40,7 @@
 		) %>
 		<%= link_to_wa_window("",
 			archive_overlay_wa_files_path(
-				:wa_atom_id => wa_atom.id,
+				:atom_id => atom.id,
 				:only => options[:file_assign_show_only],
 				:except => options[:file_assign_do_not_show],
 				:options => options

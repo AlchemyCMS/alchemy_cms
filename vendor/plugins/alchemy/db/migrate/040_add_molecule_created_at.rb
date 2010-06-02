@@ -1,7 +1,7 @@
 class AddMoleculeCreatedAt < ActiveRecord::Migration
   def self.up
-    add_column "wa_molecules", "created_at", :datetime
-    add_column "wa_molecules", "updated_at", :datetime
+    add_column "molecules", "created_at", :datetime
+    add_column "molecules", "updated_at", :datetime
     Molecule.reset_column_information
     Molecule.find(:all).each do |molecule|
       molecule.created_at = Time.now
@@ -11,8 +11,8 @@ class AddMoleculeCreatedAt < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column "wa_molecules", "created_at"
-    remove_column "wa_molecules", "updated_at"
+    remove_column "molecules", "created_at"
+    remove_column "molecules", "updated_at"
   end
 
 end

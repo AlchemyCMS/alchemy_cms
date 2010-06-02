@@ -1,9 +1,9 @@
 class AddMoleculeFolded < ActiveRecord::Migration
   def self.up
-    add_column(:wa_molecules, :folded, :boolean, :default => true)
+    add_column(:molecules, :folded, :boolean, :default => true)
   end
 
   def self.down
-    remove_column(:wa_molecules, :folded)
+    remove_column(:molecules, :folded)
   end
 end

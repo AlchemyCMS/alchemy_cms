@@ -4,8 +4,8 @@ function parseInternalLink(area_name, page_name, href, atom_id, url_prefix) {
     if (area_name == "") {
         save_atom(atom_id, href, link_title, false);
     }
-    else if (area_name == "wa_atom_text") {
-        set_atom_content('wa_atom_' + atom_id + '_link_and_title', href, link_title);
+    else if (area_name == "atom_text") {
+        set_atom_content('atom_' + atom_id + '_link_and_title', href, link_title);
     }
     else {
         e = getFrameWindow(area_name);
@@ -34,8 +34,8 @@ function parseExternalLink(area_name, atom_id, url_prefix)
     if (area_name == "") {
         save_atom(atom_id, href, link_title, link_target);
     }
-    else if (area_name == "wa_atom_text") {
-        set_atom_content('wa_atom_' + atom_id + '_link_and_title', href, link_title);
+    else if (area_name == "atom_text") {
+        set_atom_content('atom_' + atom_id + '_link_and_title', href, link_title);
     }
     else {
         e = getFrameWindow(area_name);
@@ -57,8 +57,8 @@ function parseFileLink(area_name, file_path, file_name, atom_id, url_prefix, new
     if (area_name == "") {
         save_atom(atom_id, file_path, link_title, false);
     }
-    else if (area_name == "wa_atom_text") {
-        set_atom_content('wa_atom_' + atom_id + '_link_and_title', file_path, link_title);
+    else if (area_name == "atom_text") {
+        set_atom_content('atom_' + atom_id + '_link_and_title', file_path, link_title);
     }
     else {
         e = getFrameWindow(area_name);
@@ -79,7 +79,7 @@ function parseFileLink(area_name, file_path, file_name, atom_id, url_prefix, new
 
 function save_atom(atom_id, link, title, link_target) {
     new Ajax.Request(
-        '/wa_atom_pictures/save_link/' + atom_id + '?link=' + link + '&title=' + title + '&blank=' + link_target, {
+        '/atom_pictures/save_link/' + atom_id + '?link=' + link + '&title=' + title + '&blank=' + link_target, {
             asynchronous: true,
             evalScripts: true
         }
@@ -88,6 +88,6 @@ function save_atom(atom_id, link, title, link_target) {
 
 function set_atom_content(dom_id, link, title) {
     var container = $(dom_id);
-    container.down('input.wa_atom_text_link', 0).value = link;
-    container.down('input.wa_atom_text_title', 0).value = title;
+    container.down('input.atom_text_link', 0).value = link;
+    container.down('input.atom_text_title', 0).value = title;
 }

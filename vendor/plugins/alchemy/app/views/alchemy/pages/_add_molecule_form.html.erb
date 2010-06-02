@@ -9,14 +9,14 @@
 		),
 		:complete => %(
 			new Ajax.Request(
-				'/wa_molecules/new?close=true&molecule_before_id=#{molecule_before.id rescue ''}&page_id=#{@wa_page.id}',
+				'/molecules/new?close=true&molecule_before_id=#{molecule_before.id rescue ''}&page_id=#{@page.id}',
 				{asynchronous:true, evalScripts:true}
 			);
 			reloadPreview();
 		),
 		:html => {:class => "add_molecule_content"}
 	) do |form| %>
-		<%= hidden_field_tag('wa_page_id', @wa_page.id) %>
+		<%= hidden_field_tag('page_id', @page.id) %>
 		<%= hidden_field_tag('molecule_before_id', molecule_before.blank? ? nil : molecule_before.id) %>
 		<span><%= _("element_of_type") %>:</span>
 		<%= form.wa_select(

@@ -7,7 +7,7 @@ module Alchemy
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
-      base.send :include, WaNotice
+      base.send :include, Alchemy::Notice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :wa_plugins, :wa_plugin
     end
 
@@ -22,7 +22,7 @@ module Alchemy
     end
 
     def self.multi_language?
-      WaConfigure.parameter(:languages).size > 1
+      Alchemy::Configuration.parameter(:languages).size > 1
     end
     
     module ClassMethods

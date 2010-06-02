@@ -3,9 +3,9 @@
 		"",
 		_("confirm_to_delete_image"),
 		url_for(
-			:controller => 'wa_atom_pictures',
+			:controller => 'atom_pictures',
 			:action => 'destroy',
-			:id => wa_atom,
+			:id => atom,
 			:options => options
 		),
 		{
@@ -19,8 +19,8 @@
 		url_for(
 			:controller => 'wa_images',
 			:action => 'archive_overlay',
-			:wa_molecule_id => wa_atom.wa_molecule,
-			:wa_atom_id => wa_atom,
+			:molecule_id => atom.molecule,
+			:atom_id => atom,
 			:swap => true,
 			:options => options
 		),
@@ -34,20 +34,20 @@
 	) %>
 </div>
 <div class="picture_tool_button">
-	<%= link_to_function '', "wa_link_window(this, 420)", :class => (wa_atom.atom.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "wa_atom_picture_#{wa_atom.id}", :id => "edit_link_#{wa_atom.id}" %>
+	<%= link_to_function '', "wa_link_window(this, 420)", :class => (atom.atom.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "atom_picture_#{atom.id}", :id => "edit_link_#{atom.id}" %>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_function(
 		"",
-		"$('atom_#{wa_atom.id}_link').value='';$('atom_#{wa_atom.id}_link_title').value='';$('atom_#{wa_atom.id}_link_class_name').value='';$('atom_#{wa_atom.id}_link_target').value='';$('edit_link_#{wa_atom.id}').removeClassName('linked')",
+		"$('atom_#{atom.id}_link').value='';$('atom_#{atom.id}_link_title').value='';$('atom_#{atom.id}_link_class_name').value='';$('atom_#{atom.id}_link_target').value='';$('edit_link_#{atom.id}').removeClassName('linked')",
 		:class => 'remove_link',
 		:title => _('unlink')
 	) %>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_wa_window("",
-		edit_wa_atom_picture_path(
-			:id => wa_atom.atom.id,
+		edit_atom_picture_path(
+			:id => atom.atom.id,
 	    	:options => options
 	    ),
 	    {

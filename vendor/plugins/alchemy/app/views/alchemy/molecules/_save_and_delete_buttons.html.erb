@@ -1,9 +1,9 @@
 <div class="wa_delete_and_save_buttons">
-	<span class="wa_molecule_tools">
+	<span class="molecule_tools">
 		<%= delete_with_confirmation_link(
 			"",
 			_("confirm_to_delete_element"),
-			wa_molecule_path(wa_molecule),
+			molecule_path(molecule),
 			{
 				:class => "delete_molecule_button",
 				:title => _("delete_element")
@@ -12,38 +12,38 @@
 		<%= link_to_remote(
 			"",
 			:url => {
-				:controller => "wa_molecules",
+				:controller => "molecules",
 				:action => "copy_to_clipboard",
-				:id => wa_molecule.id,
+				:id => molecule.id,
 				:method => "move"
 			},
 			:html => {
-				:class => "wa_molecule_move_button",
+				:class => "molecule_move_button",
 				:title => _("cut_element")
 			}
 		) %>
 		<%= link_to_remote(
 			"",
 			:url => {
-				:controller => "wa_molecules",
+				:controller => "molecules",
 				:action => "copy_to_clipboard",
-				:id => wa_molecule.id
+				:id => molecule.id
 			},
 			:html => {
-				:class => "wa_molecule_copy_button",
+				:class => "molecule_copy_button",
 				:title => _("copy_element")
 			}
 		) %>
 	</span>
-	<span class="wa_molecule_public">
-		<%= check_box_tag "public", "1", wa_molecule.public?, :id => "molecule_#{wa_molecule.id}_public" -%>
-		<%= label_tag "molecule_#{wa_molecule.id}_public", _("visible") -%>
+	<span class="molecule_public">
+		<%= check_box_tag "public", "1", molecule.public?, :id => "molecule_#{molecule.id}_public" -%>
+		<%= label_tag "molecule_#{molecule.id}_public", _("visible") -%>
 	</span>
-	<div id="wa_molecule_<%= wa_molecule.id %>_spinner" class="wa_molecule_spinner" style="display:none">
+	<div id="molecule_<%= molecule.id %>_spinner" class="molecule_spinner" style="display:none">
 		<span class="spinner_wait_text"><%= _("saving") -%></span>
 		<%= image_tag('ajax_loader.gif', :plugin => "alchemy") %>
 	</div>
-	<span class="wa_save" id="molecule_<%= wa_molecule.id %>_save">
+	<span class="wa_save" id="molecule_<%= molecule.id %>_save">
 		<%= submit_tag( _('save'), :class => 'button', :name => nil) %>
 	</span>
 </div>

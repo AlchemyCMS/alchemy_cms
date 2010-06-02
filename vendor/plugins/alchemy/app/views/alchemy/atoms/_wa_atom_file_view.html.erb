@@ -1,6 +1,6 @@
 <%= link_to(
-	h(wa_atom.atom.wa_file.name),
-	download_file_path(:id => wa_atom.atom.wa_file.id, :name => wa_atom.atom.wa_file.filename),
-	:class => "file_link #{wa_atom.atom.css_class.blank? ? "" : wa_atom.atom.css_class}",
-	:title => "#{wa_atom.atom.title.blank? ? wa_atom.atom.wa_file.filename : wa_atom.atom.title}"
-) if wa_atom.atom.wa_file %>
+	h(atom.atom.wa_file.name),
+	download_file_path(:id => atom.atom.wa_file.id, :name => atom.atom.wa_file.filename),
+	:class => "file_link #{atom.atom.css_class.blank? ? "" : atom.atom.css_class}",
+	:title => "#{atom.atom.title.blank? ? atom.atom.wa_file.filename : atom.atom.title}"
+) if atom.atom.wa_file %>

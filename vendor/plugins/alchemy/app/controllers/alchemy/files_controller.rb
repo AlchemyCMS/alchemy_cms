@@ -113,7 +113,7 @@ class Alchemy::FilesController < ApplicationController
   end
   
   def archive_overlay
-    @wa_atom = WaAtom.find(params[:wa_atom_id])
+    @atom = Atom.find(params[:atom_id])
     @options = params[:options]
     if !params[:only].blank?
       condition = "filename LIKE '%.#{params[:only].join("' OR filename LIKE '%.")}'"

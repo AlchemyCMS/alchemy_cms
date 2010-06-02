@@ -9,18 +9,18 @@
 <ul id="wa_sitemap" class="wa_list">
 	<li class="legend">
 		<span class="right">
-			<%- permitted_to?(:move, :wa_pages) do -%>
+			<%- permitted_to?(:move, :pages) do -%>
 			<span class="page_infos">
 				Infos
 			</span>
 			<span class="page_move">Bewegen</span>
 			<%- end -%>
 		</span>
-		<span class="wa_page_name">
+		<span class="page_name">
 			Name
 		</span>
 	</li>
-	<%= render :partial => 'wa_page', :object => @wa_page_root %>
+	<%= render :partial => 'page', :object => @page_root %>
 </ul>
 
 <%- content_for :javascripts do -%>

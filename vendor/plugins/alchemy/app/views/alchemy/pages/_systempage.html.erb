@@ -1,9 +1,9 @@
 <li>
 	<div class="sitemap_left_images">
 		<%= render(
-			:partial => 'wa_page_status',
+			:partial => 'page_status',
 			:locals => {
-				:wa_page => systempage
+				:page => systempage
 			}
 		) -%>
 	</div>
@@ -11,7 +11,7 @@
 	<% unless systempage.locked_for(current_user) -%>
 	<%= link_to(
 			systempage.name, {
-				:controller => 'wa_pages',
+				:controller => 'pages',
 				:action => 'edit_content',
 				:id => systempage,
 				:systempage => true

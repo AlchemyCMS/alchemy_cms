@@ -25,7 +25,7 @@
 <%= render :partial => "partials/flash_notice" %>
 
 <table class="wa_list" id="wa_user_list">
-	<%- unless @wa_users.blank? -%>
+	<%- unless @users.blank? -%>
 	<tr>
 		<th class="icon"></th>
 		<th class="login"><%= User.human_attribute_name("login") %></th>
@@ -35,5 +35,5 @@
 		<th class="tools"></th>
 	</tr>
 	<%- end -%>
-	<%= render @wa_users %>
+	<%= render @users %>
 </table>

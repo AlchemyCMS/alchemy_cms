@@ -8,7 +8,7 @@
 		<%- action_method = params[:wa_image_assign_method] -%>
 	<%- else -%>
 		<%- action_url = create_or_assign_url(image_to_assign, @options, @swap) -%>
-		<%- action_method = @wa_atom.blank? ? 'post' : 'put' -%>
+		<%- action_method = @atom.blank? ? 'post' : 'put' -%>
 	<%- end -%>
 	<%= link_to_remote(
 			image_tag(

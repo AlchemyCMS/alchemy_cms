@@ -9,7 +9,7 @@ class Alchemy::UsersController < ApplicationController
   
   def index
     if !params[:query].blank?
-      @wa_users = User.find(:all, :conditions => [
+      @users = User.find(:all, :conditions => [
         "wa_users.login LIKE ? OR wa_users.email LIKE ? OR wa_users.firstname LIKE ? OR wa_users.lastname LIKE ?",
         "%#{params[:query]}%",
         "%#{params[:query]}%",
@@ -18,28 +18,28 @@ class Alchemy::UsersController < ApplicationController
       ],
       :order => 'login')
     else
-      @wa_users = User.all
+      @users = User.all
     end
   end
 
   def new
-    @wa_user = User.new
+    @user = User.new
     render :layout => false
   end
   
   def create
-    @wa_user = User.new(params[:wa_user])
-    if @wa_user.save
-      if @wa_user.role == "registered"
-        Mailer.deliver_new_user_mail(@wa_user, request)
+    @user = User.new(params[:wa_user])
+    if @user.save
+      if @user.role == "registered"
+        Mailer.deliver_new_user_mail(@user, request)
       else
-        Mailer.deliver_new_alchemy_user_mail(@wa_user, request)
+        Mailer.deliver_new_alchemy_user_mail(@user, request)
       end
     end
     render_errors_or_redirect(
-      @wa_user,
+      @user,
       wa_users_path,
-      ( _("User: '%{name}' created") % {:name => @wa_user.name} )
+      ( _("User: '%{name}' created") % {:name => @user.name} )
     )
   end
     
@@ -50,18 +50,18 @@ class Alchemy::UsersController < ApplicationController
   
   def update
     # User is fetched via before filter from authentication plugin
-    @wa_user.update_attributes(params[:wa_user])
+    @user.update_attributes(params[:wa_user])
     render_errors_or_redirect(
-      @wa_user,
+      @user,
       wa_users_path,
-      ( _("User: '%{name}' updated") % {:name => @wa_user.name} )
+      ( _("User: '%{name}' updated") % {:name => @user.name} )
     )
   end
   
   def destroy
     # User is fetched via before filter from authentication plugin
-    name = @wa_user.name
-    if @wa_user.destroy
+    name = @user.name
+    if @user.destroy
       flash[:notice] = ( _("User: '%{name}' deleted") % {:name => name} )
     end
     render :update do |page|

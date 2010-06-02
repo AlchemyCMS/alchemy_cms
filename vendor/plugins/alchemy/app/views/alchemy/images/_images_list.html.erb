@@ -1,14 +1,14 @@
-<%- if @wa_images.blank? && params[:query].nil? -%>
+<%- if @images.blank? && params[:query].nil? -%>
 	<p class="padding_left_right">
 		<%= _("no_images_in_archive") %>
 	</p>
-<%- elsif @wa_images.blank? -%>
+<%- elsif @images.blank? -%>
 	<p class="padding_left_right">
 		<%= _("no_search_results") %>
 	</p>
 <%- else  -%>
-	<%= render :partial => 'partials/pagination_links', :locals => {:items => @wa_images} %>
+	<%= render :partial => 'partials/pagination_links', :locals => {:items => @images} %>
 	<div id="images">
-		<%= render(:partial => 'image', :collection => @wa_images) %>
+		<%= render(:partial => 'image', :collection => @images) %>
 	</div>
 <%- end -%>

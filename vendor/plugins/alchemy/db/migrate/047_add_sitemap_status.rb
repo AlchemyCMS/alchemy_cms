@@ -1,9 +1,9 @@
 class AddSitemapStatus < ActiveRecord::Migration
   def self.up
-    unless WaPage.first.respond_to?(:sitemap)
-      add_column :wa_pages, :sitemap, :boolean, :default => true
-      WaPage.reset_column_information
-      for page in WaPage.find(:all)
+    unless Page.first.respond_to?(:sitemap)
+      add_column :pages, :sitemap, :boolean, :default => true
+      Page.reset_column_information
+      for page in Page.find(:all)
         page.sitemap = page.public
         page.save!
       end
@@ -11,6 +11,6 @@ class AddSitemapStatus < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :wa_pages, "sitemap"
+    remove_column :pages, "sitemap"
   end
 end

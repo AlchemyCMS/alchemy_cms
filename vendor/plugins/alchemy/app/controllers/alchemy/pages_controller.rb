@@ -15,15 +15,15 @@ class Alchemy::PagesController < ApplicationController
     :layout => false,
     :cache_path => Proc.new { |c| c.multi_language? ? "#{c.session[:language]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
-      if WaConfigure.parameter(:cache_wa_pages)
-        page = WaPage.find_by_urlname_and_language_and_public(
+      if Alchemy::Configuration.parameter(:cache_pages)
+        page = Page.find_by_urlname_and_language_and_public(
           c.params[:urlname],
           Alchemy::Controller.current_language,
           true,
           :select => 'page_layout, language, urlname'
         )
         if page
-          pagelayout = WaPageLayout.get(page.page_layout)
+          pagelayout = Alchemy::PageLayout.get(page.page_layout)
           pagelayout['cache'].nil? || pagelayout['cache']
         end
       else
@@ -31,15 +31,15 @@ class Alchemy::PagesController < ApplicationController
       end
     }
   )
-  cache_sweeper :wa_pages_sweeper, :if => Proc.new { |c| WaConfigure.parameter(:cache_wa_pages) }
+  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
-    @wa_page_root = WaPage.find(
+    @page_root = Page.find(
       :first,
       :include => [:children],
       :conditions => {:language_root_for => session[:language]}
     )
-    if @wa_page_root.nil?
+    if @page_root.nil?
       create_new_rootpage
       flash[:notice] = _("WaAdmin|new rootpage created")
     end
@@ -47,43 +47,43 @@ class Alchemy::PagesController < ApplicationController
   end
   
   def fold
-    # @wa_page is fetched via before filter
-    @wa_page.fold(current_user.id, !@wa_page.folded?(current_user.id))
-    @wa_page.save
+    # @page is fetched via before filter
+    @page.fold(current_user.id, !@page.folded?(current_user.id))
+    @page.save
     render :nothing => true
   end
   
   def systempages
-    @system_root = WaPage.systemroot.first
+    @system_root = Page.systemroot.first
     render :layout => 'admin'
   end
   
   def new
     @parent_id = params[:parent_id]
-    @wa_page = WaPage.new
+    @page = Page.new
     render :layout => false
   end
   
   def create
     begin
-      parent = WaPage.find(params[:wa_page][:parent_id])
-      page_layout = WaPageLayout.get(params[:wa_page][:page_layout])
-      params[:wa_page][:created_by] = current_user.id
-      params[:wa_page][:updated_by] = current_user.id
-      params[:wa_page][:language] = parent.language
-      params[:wa_page][:systempage] = ((page_layout["systempage"] == true) rescue false)
-      page = WaPage.create(params[:wa_page])
+      parent = Page.find(params[:page][:parent_id])
+      page_layout = Alchemy::PageLayout.get(params[:page][:page_layout])
+      params[:page][:created_by] = current_user.id
+      params[:page][:updated_by] = current_user.id
+      params[:page][:language] = parent.language
+      params[:page][:systempage] = ((page_layout["systempage"] == true) rescue false)
+      page = Page.create(params[:page])
       if page.valid?
         page.move_to_child_of parent
       end
-      render_errors_or_redirect(page, wa_pages_path, _("page '%{name}' created.") % {:name => page.name})
+      render_errors_or_redirect(page, pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue
       log_error($!)
     end
   end
   
   def show
-    # @wa_page is fetched via before filter
+    # @page is fetched via before filter
     # rendering page and querying for search results if any query is present
     if configuration(:ferret) && !params[:query].blank?
       perform_search
@@ -101,22 +101,22 @@ class Alchemy::PagesController < ApplicationController
   
   def update
     # fetching page via before filter
-    params[:wa_page][:updated_by] = current_user.id
-    @wa_page.update_attributes(params[:wa_page])
-    render_errors_or_redirect(@wa_page, request.referer, _("Page %{name} saved") % {:name => @wa_page.name})
+    params[:page][:updated_by] = current_user.id
+    @page.update_attributes(params[:page])
+    render_errors_or_redirect(@page, request.referer, _("Page %{name} saved") % {:name => @page.name})
   end
   
   def destroy
     # fetching page via before filter
-    name = @wa_page.name
-    if @wa_page.destroy
+    name = @page.name
+    if @page.destroy
       render :update do |page|
         page.replace_html(
           "wa_sitemap",
-          :partial => 'wa_page',
-          :object => WaPage.language_root(session[:language])
+          :partial => 'page',
+          :object => Page.language_root(session[:language])
         )
-        WaNotice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+        Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
       end
     end
   end
@@ -124,10 +124,10 @@ class Alchemy::PagesController < ApplicationController
   # Leaves the page editing mode and unlocks the page for other users
   def unlock
     # fetching page via before filter
-    @wa_page.unlock
-    flash[:notice] = _("unlocked_page_%{name}") % {:name => @wa_page.name}
+    @page.unlock
+    flash[:notice] = _("unlocked_page_%{name}") % {:name => @page.name}
     if params[:redirect_to].blank?
-      redirect_to wa_pages_path
+      redirect_to pages_path
     else
       redirect_to(params[:redirect_to])
     end
@@ -136,55 +136,55 @@ class Alchemy::PagesController < ApplicationController
   # Sweeps the page cache
   def publish
     # fetching page via before filter
-    @wa_page.save
-    flash[:notice] = _("page_published") % {:name => @wa_page.name}
-    redirect_back_or_to_default(wa_pages_path)
+    @page.save
+    flash[:notice] = _("page_published") % {:name => @page.name}
+    redirect_back_or_to_default(pages_path)
   end
   
   def move
     # fetching page via before filter
-    @wa_page_root = WaPage.language_root(session[:language])
-    my_position = @wa_page.self_and_siblings.index(@wa_page)
+    @page_root = Page.language_root(session[:language])
+    my_position = @page.self_and_siblings.index(@page)
     case params[:direction]
     when 'up'
       then
-      @wa_page.move_to_left_of @wa_page.self_and_siblings[my_position - 1]
+      @page.move_to_left_of @page.self_and_siblings[my_position - 1]
     when 'down'
       then 
-      @wa_page.move_to_right_of @wa_page.self_and_siblings[my_position + 1]
+      @page.move_to_right_of @page.self_and_siblings[my_position + 1]
     when 'left'
       then
-      @wa_page.move_to_right_of @wa_page.parent
+      @page.move_to_right_of @page.parent
     when 'right'
-      @wa_page.move_to_child_of @wa_page.self_and_siblings[my_position - 1]
+      @page.move_to_child_of @page.self_and_siblings[my_position - 1]
     end
     # We have to save the page for triggering the cache_sweeper, because betternestedset uses transactions.
     # And the sweeper does not get triggered by transactions.
-    @wa_page.save
+    @page.save
   end
   
   def edit_content
-    @wa_page = WaPage.find(
+    @page = Page.find(
       params[:id],
       :include => {
-        :wa_molecules => :wa_atoms
+        :molecules => :atoms
       }
     )
     @systempage = !params[:systempage].blank? && params[:systempage] == 'true'
-    @created_by = User.find(@wa_page.created_by).login rescue ""
-    @updated_by = User.find(@wa_page.updated_by).login rescue ""
-    if @wa_page.locked? && @wa_page.locker != current_user
-      flash[:notice] = _("This page is locked by %{name}") % {:name => (@wa_page.locker.name rescue _('unknown'))}
-      redirect_to wa_pages_path
+    @created_by = User.find(@page.created_by).login rescue ""
+    @updated_by = User.find(@page.updated_by).login rescue ""
+    if @page.locked? && @page.locker != current_user
+      flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
+      redirect_to pages_path
     else
-      @wa_page.lock(current_user)
+      @page.lock(current_user)
       render :layout => 'admin'
     end
   end
   
   def create_language
-    created_languages = WaPage.language_roots.collect(&:language)
-    all_languages = WaConfigure.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
+    created_languages = Page.language_roots.collect(&:language)
+    all_languages = Alchemy::Configuration.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
     @languages = all_languages.select{ |lang| created_languages.include?(lang[1]) }
     lang = configuration(:languages).detect { |l| l[:language_code] == params[:language_code] }
     @language = [
@@ -198,14 +198,14 @@ class Alchemy::PagesController < ApplicationController
     set_language(params[:languages][:new_lang])
     begin
       # copy language root from old to new language
-      original_language_root = WaPage.find_by_language_root_for(params[:languages][:old_lang])
-      new_language_root = WaPage.copy(
+      original_language_root = Page.find_by_language_root_for(params[:languages][:old_lang])
+      new_language_root = Page.copy(
         original_language_root,
         :language => params[:languages][:new_lang],
         :language_root_for => params[:languages][:new_lang],
         :public => false
       )
-      new_language_root.move_to_child_of WaPage.root
+      new_language_root.move_to_child_of Page.root
       copy_child_pages(original_language_root, new_language_root)
       flash[:notice] = _('language_pages_copied')
     rescue
@@ -217,7 +217,7 @@ class Alchemy::PagesController < ApplicationController
   
   # renders a Google conform sitemap in xml
   def sitemap
-    @wa_pages = WaPage.find_all_by_sitemap_and_public(true, true)
+    @pages = Page.find_all_by_sitemap_and_public(true, true)
     respond_to do |format|
       format.xml { render :layout => "sitemap" }
     end
@@ -228,12 +228,12 @@ class Alchemy::PagesController < ApplicationController
   end
   
   def switch_language
-    if WaPage.find_by_language_root_for(params[:language], :select => 'id').nil?
+    if Page.find_by_language_root_for(params[:language], :select => 'id').nil?
       title = _('create_new_language')
       render :update do |page|
         page << %(wa_overlay_window(
           '#{url_for(
-            :controller => :wa_pages,
+            :controller => :pages,
             :action => :create_language,
             :language_code => params[:language]
           )}',
@@ -249,10 +249,10 @@ class Alchemy::PagesController < ApplicationController
       set_language(params[:language])
       if request.xhr?
         render :update do |page|
-          page.redirect_to wa_pages_url
+          page.redirect_to pages_url
         end
       else
-        redirect_to wa_pages_url
+        redirect_to pages_url
       end
     end
   end
@@ -261,7 +261,7 @@ private
   
   def copy_child_pages(source_page, new_page)
     source_page.children.each do |child_page|
-      new_child = WaPage.copy(child_page, :language => new_page.language, :public => false)
+      new_child = Page.copy(child_page, :language => new_page.language, :public => false)
       new_child.move_to_child_of new_page
       unless child_page.children.blank?
         copy_child_pages(child_page, new_child)
@@ -271,7 +271,7 @@ private
   
   def create_new_rootpage
     lang = configuration(:languages).detect{ |l| l[:language_code] == session[:language] }
-    @wa_page_root = WaPage.create(
+    @page_root = Page.create(
       :name => lang[:frontpage_name],
       :page_layout => lang[:page_layout],
       :language => lang[:language_code],
@@ -279,23 +279,23 @@ private
       :public => false,
       :visible => true
     )
-    @wa_page_root.move_to_child_of WaPage.root
+    @page_root.move_to_child_of Page.root
   end
   
   def get_page_from_urlname
     if params[:urlname].blank?
-      @wa_page = WaPage.find_by_language_root_for(session[:language])
+      @page = Page.find_by_language_root_for(session[:language])
     else
-      @wa_page = WaPage.find_by_urlname_and_language(params[:urlname], session[:language])
+      @page = Page.find_by_urlname_and_language(params[:urlname], session[:language])
     end
-    if @wa_page.blank?
+    if @page.blank?
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
-    elsif @wa_page.has_controller?
-      redirect_to(@wa_page.controller_and_action)
-    elsif configuration(:redirect_to_public_child) && !@wa_page.public?
+    elsif @page.has_controller?
+      redirect_to(@page.controller_and_action)
+    elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @wa_page.urlname, :lang => session[:language])
+      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language])
     end
   end
   
@@ -313,8 +313,8 @@ private
   end
   
   def redirect_to_public_child
-    @wa_page = find_first_public(@wa_page)
-    if @wa_page
+    @page = find_first_public(@page)
+    if @page
       redirect_page
     else
       render :file => "#{Rails.root}/public/404.html", :status => 404
@@ -326,8 +326,8 @@ private
     redirect_to(
       send(
         "show_page_#{multi_language? ? 'with_language_' : nil }path".to_sym, {
-          :lang => (multi_language? ? @wa_page.language : nil),
-          :urlname => @wa_page.urlname
+          :lang => (multi_language? ? @page.language : nil),
+          :urlname => @page.urlname
         }.merge(@additional_params)
       ),
       :status => 301
@@ -341,7 +341,7 @@ private
   end
   
   def get_page_from_id
-    @wa_page = WaPage.find(params[:id])
+    @page = Page.find(params[:id])
   end
   
   def perform_search

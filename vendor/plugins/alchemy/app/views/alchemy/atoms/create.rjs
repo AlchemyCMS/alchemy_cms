@@ -1,25 +1,25 @@
-case @wa_atom.atom_type
-when "WaAtomPicture"
+case @atom.atom_type
+when "Atoms::Picture"
   page.insert_html(
     :before,
-    "add_atom_#{@wa_molecule.id}",
-    :partial => "wa_atom_picture_editor",
+    "add_atom_#{@molecule.id}",
+    :partial => "atom_picture_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :atom => @atom,
       :options => @options
     }
   )
   if @dragable
-    WaConfigure.sortable_atoms(page, @wa_molecule)
+    Alchemy::Configuration.sortable_atoms(page, @molecule)
   end
   page << "reloadPreview()"
 when "WaAtomText"
   page.insert_html(
     :before,
-    "add_atom_for_molecule_#{@wa_molecule.id}",
-    :partial => "wa_atom_text_editor",
+    "add_atom_for_molecule_#{@molecule.id}",
+    :partial => "atom_text_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :atom => @atom,
       :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
     }
   )
@@ -27,10 +27,10 @@ when "WaAtomText"
 when "WaAtomRtf"
   page.insert_html(
     :before,
-    "add_atom_for_molecule_#{@wa_molecule.id}",
-    :partial => "wa_atom_rtf_editor",
+    "add_atom_for_molecule_#{@molecule.id}",
+    :partial => "atom_rtf_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :atom => @atom,
       :options => (@options.nil? ? {} : @options)
     }
   )
@@ -39,13 +39,13 @@ when "WaAtomRtf"
 else
   page.insert_html(
     :before,
-    "add_atom_for_molecule_#{@wa_molecule.id}",
-    :partial => "#{@wa_atom.atom_type.underscore}_editor",
+    "add_atom_for_molecule_#{@molecule.id}",
+    :partial => "#{@atom.atom_type.underscore}_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :atom => @atom,
       :options => (@options.nil? ? {} : @options)
     }
   )
   page << "wa_overlay.close()"
 end
-WaNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @wa_atom.name})
+Alchemy::Notice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @atom.name})

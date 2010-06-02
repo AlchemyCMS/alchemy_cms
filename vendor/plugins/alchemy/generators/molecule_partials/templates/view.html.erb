@@ -1,13 +1,13 @@
-<div class="<%= molecule_name %>" id="<%%= molecule_dom_id(wa_molecule) %>">
+<div class="<%= molecule_name %>" id="<%%= molecule_dom_id(molecule) %>">
 <%- unless atoms.blank? -%>
 	<%- atoms.each do |atom| -%>
-		<%- unless atom["type"] == "WaAtomPicture" -%>
+		<%- unless atom["type"] == "Atoms::Picture" -%>
 	<div class="<%= atom["name"] %>">
-		<%%= render_atom_view_by_name(wa_molecule, '<%= atom["name"] %>') %>
+		<%%= render_atom_view_by_name(molecule, '<%= atom["name"] %>') %>
 	</div>
 		<%- else -%>
 	<div class="<%= molecule_name %>_images">
-		<%%- wa_molecule.wa_atoms.find_all_by_atom_type("WaAtomPicture").each do |atom| -%>
+		<%%- molecule.atoms.find_all_by_atom_type("Atoms::Picture").each do |atom| -%>
 		<div class="<%= molecule_name %>_image">
 			<%%= render_atom_view(atom, :image_size => "160x120") %>
 		</div>

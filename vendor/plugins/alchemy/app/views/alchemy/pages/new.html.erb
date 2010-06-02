@@ -1,5 +1,5 @@
 <div class="with_padding">
-<% remote_form_for(@wa_page, :url => "/wa_pages/create") do |f| %>
+<% remote_form_for(@page, :url => "/pages/create") do |f| %>
 	<div id="errors" style="display:none"></div>
 	<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
 		<tr>
@@ -7,7 +7,7 @@
 				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
 			</td>
 			<td class="second_row">
-				<%= f.wa_select('page_layout', WaPageLayout.get_layouts_for_select(session[:language])) %>
+				<%= f.wa_select('page_layout', Alchemy::PageLayout.get_layouts_for_select(session[:language])) %>
 			</td>
 		</tr>
 		<tr>

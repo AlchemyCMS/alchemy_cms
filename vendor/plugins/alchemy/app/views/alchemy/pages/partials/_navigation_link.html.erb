@@ -6,7 +6,7 @@ end
  -%>
 <%= link_to(
 		h(navigation_link.name),
-		page.merge({ :controller => 'wa_pages', :action => 'show', :lang => (multi_language? ? session[:language] : nil)}),
+		page.merge({ :controller => 'pages', :action => 'show', :lang => (multi_language? ? session[:language] : nil)}),
 		{
 			:class => (page_active?(navigation_link) ? 'active' : nil),
 			:title => (options[:show_title] == true ? navigation_link.title : nil)

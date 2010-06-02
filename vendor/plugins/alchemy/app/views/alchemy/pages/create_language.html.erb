@@ -1,4 +1,4 @@
-<%- form_tag("/wa_pages/copy_language", :class => "with_padding") do -%>
+<%- form_tag("/pages/copy_language", :class => "with_padding") do -%>
 	<h1><%= _("language_does_not_exist") %></h1>
 	<p><%= _("want_to_make_copy_of_existing_language") %></p>
 	<table>
@@ -19,7 +19,7 @@
 				<%= link_to(
 					_("%{language}_as_new_language") % {:language => @language[0]},
 					{
-						:controller => "wa_pages",
+						:controller => "pages",
 						:action => "switch_language",
 						:lang => @language[1]
 					},

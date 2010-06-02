@@ -1,10 +1,9 @@
-class WaAtomRtf < ActiveRecord::Base
+class AtomsRichtext < ActiveRecord::Base
   
-  acts_as_ferret(:fields => {:stripped_content => {:store => :yes}}, :remote => false) if WaConfigure.parameter(:ferret) == true
-  stampable :stamper_class_name => :wa_user
+  acts_as_ferret(:fields => {:stripped_content => {:store => :yes}}, :remote => false) if Alchemy::Configuration.parameter(:ferret) == true
+  stampable
   before_save :strip_content
-  before_save :check_ferret_indexing if WaConfigure.parameter(:ferret) == true
-  has_many :wa_rtf_translations
+  before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
   
   def check_ferret_indexing
     if self.do_not_index

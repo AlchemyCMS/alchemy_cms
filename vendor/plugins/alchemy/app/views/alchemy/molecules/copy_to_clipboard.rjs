@@ -1,7 +1,7 @@
 if session[:clipboard][:method] == "move"
   page.remove "dragable_#{@molecule.id}"
-  WaConfigure.sortable_molecules(page)
-  WaNotice.show_via_ajax(page, _("element_%{name}_moved_to_clipboard") % {:name => @molecule.display_name})
+  Alchemy::Configuration.sortable_molecules(page)
+  Alchemy::Notice.show_via_ajax(page, _("element_%{name}_moved_to_clipboard") % {:name => @molecule.display_name})
 else
-  WaNotice.show_via_ajax(page, _("element_%{name}_copied_to_clipboard") % {:name => @molecule.display_name})
+  Alchemy::Notice.show_via_ajax(page, _("element_%{name}_copied_to_clipboard") % {:name => @molecule.display_name})
 end

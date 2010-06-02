@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
   
   def configuration(name)
-    return WaConfigure.parameter(name)
+    return Alchemy::Configuration.parameter(name)
   end
   
   def set_language(lang = nil)
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     unless request.xhr?
       session[:wa_redirect_url] = request.url
     end
-    inactivity_time = WaConfigure.parameter(:auto_logout_time)
+    inactivity_time = Alchemy::Configuration.parameter(:auto_logout_time)
     if !session['auto_logout_timer'].nil? && session['auto_logout_timer'] < inactivity_time.minutes.ago
       if request.xhr?
         render :update do |page|

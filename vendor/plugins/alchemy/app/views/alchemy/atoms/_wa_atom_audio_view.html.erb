@@ -1,4 +1,4 @@
-<%- unless wa_atom.atom.wa_file.nil? -%>
+<%- unless atom.atom.wa_file.nil? -%>
 <%- unless options[:player_cover_image].blank? -%>
   <%- i_height = options[:player_cover_image].image_height.to_f -%>
   <%- i_width = options[:player_cover_image].image_width.to_f -%>
@@ -6,28 +6,28 @@
   <%- width = (options[:player_cover_image_width] rescue 320) -%>
   <%- height = width * ratio -%>
 <%- else -%>
-  <%- width = wa_atom.atom.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : wa_atom.atom.width -%>
-  <%- height = wa_atom.atom.height.blank? ? (options[:player_size].split('x')[1] rescue 20) : wa_atom.atom.height -%>
+  <%- width = atom.atom.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : atom.atom.width -%>
+  <%- height = atom.atom.height.blank? ? (options[:player_size].split('x')[1] rescue 20) : atom.atom.height -%>
 <%- end -%>
-<div id="wa_audio_player_<%= wa_atom.id %>">
+<div id="wa_audio_player_<%= atom.id %>">
   To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
 </div>
 <script type="text/javascript" charset="utf-8">
 //<!--[CDATA[
-	var wa_audio_player_<%= wa_atom.id %> = new SWFObject("/mediaplayer.swf", "mediaplayer", <%= width %>, <%= height %>, "8");
-	wa_audio_player_<%= wa_atom.id %>.addVariable("width", <%= width %>);
-	wa_audio_player_<%= wa_atom.id %>.addVariable("height", <%= height %>);
-	wa_audio_player_<%= wa_atom.id %>.addVariable("backcolor", '<%= options[:player_backcolor] || "0xFFFFFF" %>');
-	wa_audio_player_<%= wa_atom.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
-	wa_audio_player_<%= wa_atom.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
-	wa_audio_player_<%= wa_atom.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
-	wa_audio_player_<%= wa_atom.id %>.addVariable("showeq", '<%= wa_atom.atom.show_eq ? "true" : "false" %>');
-	wa_audio_player_<%= wa_atom.id %>.addVariable("shownavigation", '<%= wa_atom.atom.show_navigation ? "true" : "false" %>');
-	wa_audio_player_<%= wa_atom.id %>.addVariable("file", '<%= wa_atom.atom.wa_file.public_filename %>');
+	var wa_audio_player_<%= atom.id %> = new SWFObject("/mediaplayer.swf", "mediaplayer", <%= width %>, <%= height %>, "8");
+	wa_audio_player_<%= atom.id %>.addVariable("width", <%= width %>);
+	wa_audio_player_<%= atom.id %>.addVariable("height", <%= height %>);
+	wa_audio_player_<%= atom.id %>.addVariable("backcolor", '<%= options[:player_backcolor] || "0xFFFFFF" %>');
+	wa_audio_player_<%= atom.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
+	wa_audio_player_<%= atom.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
+	wa_audio_player_<%= atom.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
+	wa_audio_player_<%= atom.id %>.addVariable("showeq", '<%= atom.atom.show_eq ? "true" : "false" %>');
+	wa_audio_player_<%= atom.id %>.addVariable("shownavigation", '<%= atom.atom.show_navigation ? "true" : "false" %>');
+	wa_audio_player_<%= atom.id %>.addVariable("file", '<%= atom.atom.wa_file.public_filename %>');
 	<%- unless options[:player_cover_image].blank? -%>
-	wa_audio_player_<%= wa_atom.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
+	wa_audio_player_<%= atom.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
   <%- end -%>
-	wa_audio_player_<%= wa_atom.id %>.write("wa_audio_player_<%= wa_atom.id %>");
+	wa_audio_player_<%= atom.id %>.write("wa_audio_player_<%= atom.id %>");
 //]]-->
 </script>
 <%- end -%>

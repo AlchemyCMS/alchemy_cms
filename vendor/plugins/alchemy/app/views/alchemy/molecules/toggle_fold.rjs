@@ -1,13 +1,13 @@
 if @error
-  page.replace("molecule_#{@wa_molecule.id}_folder_spinner", "<span class='error_icon' title='#{@error}'>!</span>")
+  page.replace("molecule_#{@molecule.id}_folder_spinner", "<span class='error_icon' title='#{@error}'>!</span>")
 else
   page.replace(
-    "dragable_#{@wa_molecule.id}",
-    :partial => "wa_molecule",
-    :object => @wa_molecule,
+    "dragable_#{@molecule.id}",
+    :partial => "molecule",
+    :object => @molecule,
     :locals => {:open_molecule_selector => false}
   )
-  WaConfigure.sortable_molecules(page)
+  Alchemy::Configuration.sortable_molecules(page)
   page << "setFrameSize()"
   page << "TinymceHammer.init()"
 end

@@ -1,9 +1,9 @@
-class RenameWaPagesLayoutToPageLayout < ActiveRecord::Migration
+class RenamePagesLayoutToPageLayout < ActiveRecord::Migration
   def self.up
-    rename_column :wa_pages, :layout, :page_layout
+    rename_column :pages, :layout, :page_layout
   end
 
   def self.down
-    rename_column :wa_pages, :page_layout, :layout
+    rename_column :pages, :page_layout, :layout
   end
 end

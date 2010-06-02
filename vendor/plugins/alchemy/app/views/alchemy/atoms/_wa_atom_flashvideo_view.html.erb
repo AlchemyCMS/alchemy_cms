@@ -1,14 +1,14 @@
-<%- unless wa_atom.atom.wa_file.nil? -%>
-<%- width = wa_atom.atom.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : wa_atom.atom.width -%>
-<%- height = wa_atom.atom.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : wa_atom.atom.height -%>
-<div id="wa_video_player_<%= wa_atom.id %>">
+<%- unless atom.atom.wa_file.nil? -%>
+<%- width = atom.atom.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : atom.atom.width -%>
+<%- height = atom.atom.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : atom.atom.height -%>
+<div id="wa_video_player_<%= atom.id %>">
   To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
 </div>
 <script type="text/javascript" charset="utf-8">
 	var flashvars = {
 		width: <%= width %>,
 		height: <%= height %>,
-		file: '<%= wa_atom.atom.wa_file.public_filename %>',
+		file: '<%= atom.atom.wa_file.public_filename %>',
 		<%- unless options[:player_cover_image].blank? -%>
 		image: '<%= "/" + options[:player_cover_image].public_file_path %>',
 		<%- end -%>
@@ -16,8 +16,8 @@
 		backcolor: '<%= options[:player_backcolor] || "0xFFFFFF" %>',
 		lightcolor: '<%= options[:player_lightcolor] || "0xEDEDED" %>',
 		screencolor: '<%= options[:player_screencolor] || "0x000000" %>',
-		shownavigation: '<%= wa_atom.atom.show_navigation ? "true" : "false" %>',
-		showeq: '<%= wa_atom.atom.show_eq ? "true" : "false" %>',
+		shownavigation: '<%= atom.atom.show_navigation ? "true" : "false" %>',
+		showeq: '<%= atom.atom.show_eq ? "true" : "false" %>',
 		autorewind: "on",
 		volume: 90,
 		loop: "off",
@@ -27,9 +27,9 @@
 	var params = {
 		menu: false,
 		quality: "high",
-		allowfullscreen: '<%= wa_atom.atom.allow_fullscreen ? "true" : "false" %>'
+		allowfullscreen: '<%= atom.atom.allow_fullscreen ? "true" : "false" %>'
 	};
 	var attributes = {};
-	swfobject.embedSWF( "/mediaplayer.swf", "wa_video_player_<%= wa_atom.id %>", <%= width %>, <%= height %>, "9", false, flashvars, params, attributes);
+	swfobject.embedSWF( "/mediaplayer.swf", "wa_video_player_<%= atom.id %>", <%= width %>, <%= height %>, "9", false, flashvars, params, attributes);
 </script>
 <%- end -%>

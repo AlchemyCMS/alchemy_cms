@@ -2,7 +2,7 @@
 	<%= render(
 		:partial => 'partials/remote_search_form',
 		:locals => {
-			:with => "'remote=true'+'&wa_molecule_id='+$('wa_molecule_id').value+'&wa_atom_id='+$('wa_atom_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
+			:with => "'remote=true'+'&molecule_id='+$('molecule_id').value+'&atom_id='+$('atom_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
 			:action => 'archive_overlay'
 		}
 	) %>
@@ -13,8 +13,8 @@
 			:url => {
 				:action => "archive_overlay",
 				:size => "small",
-				:wa_atom_id => @wa_atom,
-				:wa_molecule_id => @wa_molecule.id,
+				:atom_id => @atom,
+				:molecule_id => @molecule.id,
 				:swap => @swap,
 				:page => params[:page],
 				:remote => true,
@@ -30,8 +30,8 @@
       :url => {
         :action => "archive_overlay",
         :size => "medium",
-        :wa_atom_id => @wa_atom,
-				:wa_molecule_id => @wa_molecule.id,
+        :atom_id => @atom,
+				:molecule_id => @molecule.id,
         :swap => @swap,
 				:page => params[:page],
 				:remote => true,
@@ -47,8 +47,8 @@
       :url => {
         :action => "archive_overlay",
         :size => "large",
-        :wa_atom_id => @wa_atom,
-				:wa_molecule_id => @wa_molecule.id,
+        :atom_id => @atom,
+				:molecule_id => @molecule.id,
         :swap => @swap,
 				:page => params[:page],
 				:remote => true,

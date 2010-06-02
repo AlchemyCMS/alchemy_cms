@@ -2,7 +2,7 @@
 # Author:    Thomas von Deyen
 # Date:      02.06.2010
 # License:   GPL
-# All methods (helpers) in this helper are used by Alchemy to render molecules, atoms and layouts on the WaPage.
+# All methods (helpers) in this helper are used by Alchemy to render molecules, atoms and layouts on the Page.
 # You can call this helper the most important part of Alchemy. This helper is Alchemy, actually :)
 #
 # TODO: list all important infos here.
@@ -11,7 +11,7 @@
 # ---
 #
 # 1. The most important helpers for webdevelopers are the render_navigation(), render_molecules() and the render_page_layout() helpers.
-# 2. The currently displayed page can be accessed with the current_page() helper. This is actually the page found via WaPage.find_by_name("some_url_name") page
+# 2. The currently displayed page can be accessed with the current_page() helper. This is actually the page found via Page.find_by_name("some_url_name") page
 # 3. All important meta data from current_page will be rendered via the render_meta_data() helper.
 
 module ApplicationHelper
@@ -19,7 +19,7 @@ module ApplicationHelper
   include FastGettext::Translation
 
   def configuration(name)
-    return WaConfigure.parameter(name)
+    return Alchemy::Configuration.parameter(name)
   end
 
   # Did not know of the truncate helepr form rails at this time.
@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def get_atom(molecule, position)
-    return molecule.wa_atoms[position - 1]
+    return molecule.atoms[position - 1]
   end
 
   # Renders all molecules from current_page.
@@ -45,7 +45,7 @@ module ApplicationHelper
   # == Options are:
   # :only => []                 A list of molecule names to be rendered only. Very usefull if you want to render a specific molecule type in a special html part (e.g.. <div>) of your page and all other molecules in another part.
   # :except => []               A list of molecule names to be rendered. The opposite of the only option.
-  # :from_page                  The WaPage.page_layout string from which the molecules are rendered from, or you even pass a WaPage object.
+  # :from_page                  The Page.page_layout string from which the molecules are rendered from, or you even pass a Page object.
   # :count                      The amount of molecules to be rendered (beginns with first molecule found)
   #
   # This helper also stores all pages where molecules gets rendered on, so we can sweep them later if caching expires!
@@ -61,20 +61,20 @@ module ApplicationHelper
     if options[:from_page].blank?
       page = current_page
     else
-      if options[:from_page].class == WaPage
+      if options[:from_page].class == Page
         page = options[:from_page]
       else
-        page = WaPage.find_by_page_layout_and_language(options[:from_page], session[:language])
+        page = Page.find_by_page_layout_and_language(options[:from_page], session[:language])
       end
     end
     if page.blank?
       logger.warn %(\n
-        ++++ WARNING: WaPage is nil in render_molecules() helper ++++
+        ++++ WARNING: Page is nil in render_molecules() helper ++++
         Maybe options[:from_page] references to a page that is not created yet?\n
       )
       return ""
     else
-      show_non_public = configuration(:cache_wa_pages) ? false : defined?(current_user)
+      show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
       all_molecules = page.find_molecules(options, show_non_public)
       molecule_string = ""
       all_molecules.each do |molecule|
@@ -92,7 +92,7 @@ module ApplicationHelper
         ++++ WARNING: Molecule is nil.\n
         Usage: render_molecule(molecule, part, options = {})\n
       )
-      render :partial => "wa_molecules/#{part}_not_found", :locals => {:name => 'nil'}
+      render :partial => "molecules/#{part}_not_found", :locals => {:name => 'nil'}
     else
       default_options = {
         :shorten_to => nil,
@@ -100,14 +100,14 @@ module ApplicationHelper
       }
       options = default_options.merge(options)
       molecule.store_page(current_page) if part == :view
-      path1 = "#{RAILS_ROOT}/app/views/wa_molecules/"
-      path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/wa_molecules/"
+      path1 = "#{RAILS_ROOT}/app/views/molecules/"
+      path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/molecules/"
       partial_name = "_#{molecule.name.underscore}_#{part}.html.erb"
       if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
         render(
-          :partial => "wa_molecules/#{molecule.name.underscore}_#{part}.#{options[:render_format]}.erb",
+          :partial => "molecules/#{molecule.name.underscore}_#{part}.#{options[:render_format]}.erb",
           :locals => {
-            :wa_molecule => molecule,
+            :molecule => molecule,
             :options => options
           }
         )
@@ -120,7 +120,7 @@ module ApplicationHelper
           Use ./script/generate molecule_partials to generate them.
           Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb!\n
         )
-        render :partial => "wa_molecules/#{part}_not_found", :locals => {:name => molecule.name}
+        render :partial => "molecules/#{part}_not_found", :locals => {:name => molecule.name}
       end
     end
   end
@@ -128,17 +128,17 @@ module ApplicationHelper
   # DEPRICATED: It is useless to render a helper that only renders a partial.
   # Unless it is something the website producer uses. But this is not the case here.
   def render_molecule_head molecule
-    render :partial => "wa_molecules/partials/wa_molecule_head", :locals => {:wa_molecule_head => molecule}
+    render :partial => "molecules/partials/molecule_head", :locals => {:molecule_head => molecule}
   end
 
   # Renders the WaAtom partial that is given (:editor, or :view).
   # You can pass several options that are used by the different atoms.
   #
   # For the view partial:
-  # :image_size => "111x93"                        Used by WaAtomPicture to render the image via RMagick to that size.
+  # :image_size => "111x93"                        Used by Atoms::Picture to render the image via RMagick to that size.
   # :css_class => ""                               This css class gets attached to the atom view.
   # :date_format => "Am %d. %m. %Y, um %H:%Mh"     Espacially fot the WaAtomDate. See Date.strftime for date formatting.
-  # :caption => true                               Pass true to enable that the WaAtomPicture.caption value gets rendered.
+  # :caption => true                               Pass true to enable that the Atoms::Picture.caption value gets rendered.
   # :blank_value => ""                             Pass a String that gets rendered if the atom.content is blank.
   #
   # For the editor partial:
@@ -153,7 +153,7 @@ module ApplicationHelper
       return part == :view ? "" : "<p class=\"atom_editor_error\">" + _("atom_not_found") + "</p>"
     elsif atom.atom.nil?
       logger.warn %(\n
-        ++++ WARNING: WaAtom.atom is nil!\n
+        ++++ WARNING: Atom.atom is nil!\n
         Please delete the molecule and create it again!
       )
       return part == :view ? "" : "<p class=\"atom_editor_error\">" + _("atom_atom_not_found") + "</p>"
@@ -175,21 +175,21 @@ module ApplicationHelper
     options_for_partial = defaults[('for_' + part.to_s).to_sym].merge(options[('for_' + part.to_s).to_sym])
     options = options.merge(defaults)
     render(
-      :partial => "wa_atoms/#{atom.atom.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
+      :partial => "atoms/#{atom.atom.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
       :locals => {
-        :wa_atom => atom,
+        :atom => atom,
         :options => options_for_partial
       }
     )
   end
 
-  # Renders the WaAtom editor partial from the given WaAtom.
+  # Renders the WaAtom editor partial from the given Atom.
   # For options see -> render_atom
   def render_atom_editor(atom, options = {})
     render_atom(atom, :editor, :for_editor => options)
   end
 
-  # Renders the WaAtom view partial from the given WaAtom.
+  # Renders the WaAtom view partial from the given Atom.
   # For options see -> render_atom
   def render_atom_view(atom, options = {})
     render_atom(atom, :view, :for_view => options)
@@ -199,18 +199,18 @@ module ApplicationHelper
   # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first atom found for this type will be rendered.
   # For options see -> render_atom
-  def render_atom_editor_by_type(wa_molecule, type, position = nil, options = {})
-    if wa_molecule.blank?
+  def render_atom_editor_by_type(molecule, type, position = nil, options = {})
+    if molecule.blank?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_view(wa_molecule, position, options = {})\n
+        Usage: render_atom_view(molecule, position, options = {})\n
       )
       return "<p class='molecule_error'>" + _("no_molecule_given") + "</p>"
     end
     if position.nil?
-      atom = wa_molecule.atom_by_type(type)
+      atom = molecule.atom_by_type(type)
     else
-      atom = wa_molecule.wa_atoms.find_by_atom_type_and_position(type, position)
+      atom = molecule.atoms.find_by_atom_type_and_position(type, position)
     end
     render_atom(atom, :editor, :for_editor => options)
   end
@@ -219,75 +219,75 @@ module ApplicationHelper
   # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first atom found for this type will be rendered.
   # For options see -> render_atom
-  def render_atom_view_by_type(wa_molecule, type, position, options = {})
-    if wa_molecule.blank?
+  def render_atom_view_by_type(molecule, type, position, options = {})
+    if molecule.blank?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_view(wa_molecule, position, options = {})\n
+        Usage: render_atom_view(molecule, position, options = {})\n
       )
       return ""
     end
     if position.nil?
-      atom = wa_molecule.atom_by_type(type)
+      atom = molecule.atom_by_type(type)
     else
-      atom = wa_molecule.wa_atoms.find_by_atom_type_and_position(type, position)
+      atom = molecule.atoms.find_by_atom_type_and_position(type, position)
     end
     render_atom(atom, :view, :for_view => options)
   end
 
   # Renders the WaAtom view partial from the given Molecule by position (e.g. 1).
   # For options see -> render_atom
-  def render_atom_view_by_position(wa_molecule, position, options = {})
-    if wa_molecule.blank?
+  def render_atom_view_by_position(molecule, position, options = {})
+    if molecule.blank?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_view_by_position(wa_molecule, position, options = {})\n
+        Usage: render_atom_view_by_position(molecule, position, options = {})\n
       )
       return ""
     end
-    atom = wa_molecule.wa_atoms.find_by_position(position)
+    atom = molecule.atoms.find_by_position(position)
     render_atom(atom, :view, :for_view => options)
   end
 
   # Renders the WaAtom editor partial from the given Molecule by position (e.g. 1).
   # For options see -> render_atom
-  def render_atom_editor_by_position(wa_molecule, position, options = {})
-    if wa_molecule.blank?
+  def render_atom_editor_by_position(molecule, position, options = {})
+    if molecule.blank?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_view_by_position(wa_molecule, position, options = {})\n
+        Usage: render_atom_view_by_position(molecule, position, options = {})\n
       )
       return ""
     end
-    atom = wa_molecule.wa_atoms.find_by_position(position)
+    atom = molecule.atoms.find_by_position(position)
     render_atom(atom, :editor, :for_editor => options)
   end
 
-  # Renders the WaAtom editor partial found in views/wa_atoms/ for the atom with name inside the passed Molecule.
+  # Renders the WaAtom editor partial found in views/atoms/ for the atom with name inside the passed Molecule.
   # For options see -> render_atom
-  def render_atom_editor_by_name(wa_molecule, name, options = {})
-    if wa_molecule.blank?
+  def render_atom_editor_by_name(molecule, name, options = {})
+    if molecule.blank?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_view(wa_molecule, position, options = {})\n
+        Usage: render_atom_view(molecule, position, options = {})\n
       )
       return "<p class='molecule_error'>" + _("no_molecule_given") + "</p>"
     end
-    atom = wa_molecule.atom_by_name(name)
+    atom = molecule.atom_by_name(name)
     render_atom(atom, :editor, :for_editor => options)
   end
 
   # Renders the WaAtom view partial from the passed Molecule for passed atom name.
   # For options see -> render_atom
-  def render_atom_view_by_name(wa_molecule, name, options = {})
-    if wa_molecule.blank?
+  def render_atom_view_by_name(molecule, name, options = {})
+    if molecule.blank?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_view(wa_molecule, position, options = {})\n
+        Usage: render_atom_view(molecule, position, options = {})\n
       )
       return ""
     end
-    atom = wa_molecule.atom_by_name(name)
+    atom = molecule.atom_by_name(name)
     render_atom(atom, :view, :for_view => options)
   end
 
@@ -362,13 +362,13 @@ module ApplicationHelper
   # ---
   # The meta data is been taken from the current_page.title, current_page.meta_description, current_page.meta_keywords, current_page.updated_at and current_page.language database entries managed by the Alchemy user via the Alchemy cockpit.
   #
-  # Assume that the user has entered following data into the Alchemy cockpit of the WaPage "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
+  # Assume that the user has entered following data into the Alchemy cockpit of the Page "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
   #
   # Title = Homepage
   # Description = Your page description
   # Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
   # 
-  # Then placing render_meta_data(:title_prefix => "company", :title_seperator => "::") into the <head> part of the wa_pages.html.erb layout produces:
+  # Then placing render_meta_data(:title_prefix => "company", :title_seperator => "::") into the <head> part of the pages.html.erb layout produces:
   #
   # <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   # <meta http-equiv="Content-Language" content="de" />
@@ -388,13 +388,13 @@ module ApplicationHelper
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
     if current_page.meta_description.blank?
-      description = WaPage.language_root(session[:language]).meta_description
+      description = Page.language_root(session[:language]).meta_description
     else
       description = current_page.meta_description
     end
     #render meta keywords of the root page from language if the current meta keywords is empty
     if current_page.meta_keywords.blank?
-      keywords = WaPage.language_root(session[:language]).meta_keywords
+      keywords = Page.language_root(session[:language]).meta_keywords
     else
       keywords = current_page.meta_keywords
     end
@@ -425,8 +425,8 @@ module ApplicationHelper
   # Returns a html string for a linked breadcrump to current_page.
   # == Options:
   # :seperator => %(<span class="seperator">></span>)      Maybe you don't want this seperator. Pass another one.
-  # :page => current_page                                  Pass a different WaPage instead of the default current_page.
-  # :without => nil                                        Pass WaPage object that should not be displayed inside the breadcrumb.
+  # :page => current_page                                  Pass a different Page instead of the default current_page.
+  # :without => nil                                        Pass Page object that should not be displayed inside the breadcrumb.
   def render_breadcrumb(options={})
     default_options = {
       :seperator => %(<span class="seperator">></span>),
@@ -436,7 +436,7 @@ module ApplicationHelper
     options = default_options.merge(options)
     bc = ""
     pages = breadcrumb(options[:page])
-    pages.delete(WaPage.root)
+    pages.delete(Page.root)
     unless options[:without].nil?
       unless options[:without].class == Array
         pages.delete(options[:without])
@@ -452,7 +452,7 @@ module ApplicationHelper
       elsif page == pages.first
         css_class = "first"
       end
-      if (page == WaPage.language_root(session[:language]))
+      if (page == Page.language_root(session[:language]))
         if configuration(:redirect_index)
           url = show_page_url(:urlname => page.urlname)
         else
@@ -471,7 +471,7 @@ module ApplicationHelper
 
   # returns true if page is in the active branch
   def page_active? page
-    @breadcrumb ||= breadcrumb(@wa_page)
+    @breadcrumb ||= breadcrumb(@page)
     @breadcrumb.include? page
   end
 
@@ -491,12 +491,12 @@ module ApplicationHelper
   # As you can see: Everything you need.
   #
   # Not pleased with the way Alchemy produces the navigation structure?
-  # Then feel free to overwrite the partials (_navigation_renderer.html.erb and _navigation_link.html.erb) found in views/wa_pages/partials/ or pass different partials via the options :navigation_partial and :navigation_link_partial.
+  # Then feel free to overwrite the partials (_navigation_renderer.html.erb and _navigation_link.html.erb) found in views/pages/partials/ or pass different partials via the options :navigation_partial and :navigation_link_partial.
   #
   # == The options are:
   #
   # :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
-  # :from_page => WaPage.language_root session[:language]      Do you want to render a navigation from a different page then the current_page? Then pass the WaPage object here.
+  # :from_page => Page.language_root session[:language]      Do you want to render a navigation from a different page then the current_page? Then pass the Page object here.
   # :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
   # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
   # :navigation_link_partial => "navigation_link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
@@ -508,8 +508,8 @@ module ApplicationHelper
       :all_sub_menues => false,
       :from_page => root_page,
       :spacer => "",
-      :navigation_partial => "wa_pages/partials/navigation_renderer",
-      :navigation_link_partial => "wa_pages/partials/navigation_link",
+      :navigation_partial => "pages/partials/navigation_renderer",
+      :navigation_link_partial => "pages/partials/navigation_link",
       :show_nonactive => false,
       :restricted_only => nil,
       :show_title => true,
@@ -530,7 +530,7 @@ module ApplicationHelper
       if options[:restricted_only].nil?
         conditions.delete(:restricted)
       end
-      pages = WaPage.all(
+      pages = Page.all(
         :conditions => conditions,
         :order => "lft ASC"
       )
@@ -553,8 +553,8 @@ module ApplicationHelper
       :from_page => root_page,
       :spacer => "",
       :pagination => {},
-      :navigation_partial => "wa_pages/partials/navigation_renderer",
-      :navigation_link_partial => "wa_pages/partials/navigation_link",
+      :navigation_partial => "pages/partials/navigation_renderer",
+      :navigation_link_partial => "pages/partials/navigation_link",
       :show_nonactive => false,
       :show_title => true,
       :level => 1
@@ -568,7 +568,7 @@ module ApplicationHelper
     else
       pagination_options = options[:pagination].stringify_keys["level_#{options[:from_page].depth}"]
       find_conditions = { :parent_id => options[:from_page].id, :visible => true }
-      pages = WaPage.all(
+      pages = Page.all(
         :page => pagination_options,
         :conditions => find_conditions,
         :order => "lft ASC"
@@ -585,8 +585,8 @@ module ApplicationHelper
       :submenu => true,
       :from_page => current_page,
       :spacer => "",
-      :navigation_partial => "wa_pages/partials/navigation_renderer",
-      :navigation_link_partial => "wa_pages/partials/navigation_link",
+      :navigation_partial => "pages/partials/navigation_renderer",
+      :navigation_link_partial => "pages/partials/navigation_link",
       :show_nonactive => false
     }
     options = default_options.merge(options)
@@ -662,15 +662,15 @@ module ApplicationHelper
     if foldable && !site.children.empty?
       link_to_remote('',
         :url => {
-          :controller => :wa_pages,
+          :controller => :pages,
           :action => :fold,
           :id => site.id
         },
         :complete => %(
           fold_page(#{site.id});
           wa_overlay.updateHeight();
-          if (wa_page_select_scrollbar) {
-            wa_page_select_scrollbar.recalculateLayout();
+          if (page_select_scrollbar) {
+            page_select_scrollbar.recalculateLayout();
           }
         ),
         :html => {
@@ -686,35 +686,35 @@ module ApplicationHelper
   end
 
   # Renders the sitemap lines for WaAdmin.index
-  def render_sitemap_lines(wa_page, foldable)
-    last_page = (wa_page.self_and_siblings.last == wa_page)
+  def render_sitemap_lines(page, foldable)
+    last_page = (page.self_and_siblings.last == page)
     lines = ""
-    case wa_page.language_level
+    case page.language_level
 
       when 1 then
-        lines += render_sitemap_folder(wa_page, (last_page ? 4 : 1), foldable)
+        lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
     	  return lines
 
       when 2 then
         # Erste Reihe leer oder Linie?
-        if wa_page.parent == wa_page.parent.self_and_siblings.last
+        if page.parent == page.parent.self_and_siblings.last
       		lines += '<span class="sitemap_line_spacer"></span>'
         else
       		lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
       	end
       	# zweite Reihe Mittellinie oder Endlinie?
-      	lines += render_sitemap_folder(wa_page, (last_page ? 4 : 1), foldable)
+      	lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
     	  return lines
 
       when 3 then
         # Erste Reihe leer oder Linie?
-        if wa_page.parent.parent == wa_page.parent.parent.self_and_siblings.last
+        if page.parent.parent == page.parent.parent.self_and_siblings.last
       	  lines += '<span class="sitemap_line_spacer"></span>'
         else
       		lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
       	end
         # zweite Reihe leer, oder Linie?
-        if wa_page.parent == wa_page.parent.self_and_siblings.last
+        if page.parent == page.parent.self_and_siblings.last
           lines += '<span class="sitemap_line_spacer"></span>'
         else
           lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
@@ -770,38 +770,38 @@ module ApplicationHelper
       :render_format => "html"
     }
     options = default_options.merge(options)
-    if File.exists?("#{RAILS_ROOT}/app/views/page_layouts/_#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/page_layouts/_#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb")
-      render :partial => "page_layouts/#{@wa_page.page_layout.downcase}.#{options[:render_format]}.erb"
+    if File.exists?("#{RAILS_ROOT}/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb")
+      render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
     else
       render :partial => "page_layouts/standard"
     end
   end
   
-  # returns @wa_page set in the action (e.g. WaPage.by_name)
+  # returns @page set in the action (e.g. Page.by_name)
   def current_page
-    if @wa_page.nil?
+    if @page.nil?
       logger.warn %(\n
-        ++++ WARNING: @wa_page is not set. Rendering Rootpage instead.\n
+        ++++ WARNING: @page is not set. Rendering Rootpage instead.\n
       )
-      return @wa_page = root_page
+      return @page = root_page
     else
-      @wa_page
+      @page
     end
   end
 
   # returns the current language root
   def root_page
-    @root_page ||= WaPage.language_root(session[:language])
+    @root_page ||= Page.language_root(session[:language])
   end
   
-  # Returns true if the current_page is the root_page in the nested set of WaPages, false if not.
+  # Returns true if the current_page is the root_page in the nested set of Pages, false if not.
   def root_page?
     current_page == root_page
   end
   
-  # Returns the full url containing host, wa_page and anchor for the given molecule
+  # Returns the full url containing host, page and anchor for the given molecule
   def full_url_for_molecule molecule
-    "http://" + request.env["HTTP_HOST"] + "/" + molecule.wa_page.urlname + "##{molecule.name}_#{molecule.id}"  
+    "http://" + request.env["HTTP_HOST"] + "/" + molecule.page.urlname + "##{molecule.name}_#{molecule.id}"  
   end
 
   # Used for language selector in Alchemy cockpit sitemap. So the user can select the language branche of the page.
@@ -888,7 +888,7 @@ module ApplicationHelper
     )
   end
 
-  def wa_page_selector(wa_molecule, atom_name, options = {}, select_options = {})
+  def page_selector(molecule, atom_name, options = {}, select_options = {})
     default_options = {
       :except => {
         :page_layout => [""]
@@ -898,7 +898,7 @@ module ApplicationHelper
       }
     }
     options = default_options.merge(options)
-    atom = wa_molecule.atom_by_name(atom_name)
+    atom = molecule.atom_by_name(atom_name)
     if atom.nil?
       logger.warn %(\n
         ++++ WARNING: WaAtom is nil!\n
@@ -906,11 +906,11 @@ module ApplicationHelper
       return "<p class=\"atom_editor_error\">" + _("atom_not_found") + "</p>"
     elsif atom.atom.nil?
       logger.warn %(\n
-        ++++ WARNING: WaAtom.atom is nil!\n
+        ++++ WARNING: Atom.atom is nil!\n
       )
       return "<p class=\"atom_editor_error\">" + _("atom_atom_not_found") + "</p>"
     end
-    pages = WaPage.find(
+    pages = Page.find(
       :all,
       :conditions => {
         :language => session[:language],
@@ -920,18 +920,18 @@ module ApplicationHelper
     )
     select_tag(
       "atoms[atom_#{atom.id}][content]",
-      wa_pages_for_select(pages, atom.atom.content),
+      pages_for_select(pages, atom.atom.content),
       select_options
     )
   end
 
-  # Returns all WaPages found in the database as an array for the rails select_tag helper.
+  # Returns all Pages found in the database as an array for the rails select_tag helper.
   # You can pass a collection of pages to only returns these pages as array.
-  # Pass an WaPage.name or WaPage.urlname as second parameter to pass as selected for the options_for_select helper.
-  def wa_pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
+  # Pass an Page.name or Page.urlname as second parameter to pass as selected for the options_for_select helper.
+  def pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
     result = [[prompt, ""]]
     if pages.blank?
-      pages = WaPage.find_all_by_language_and_public(session[:language], true)
+      pages = Page.find_all_by_language_and_public(session[:language], true)
     end
     pages.each do |p|
       result << [p.send(:name), p.send(:urlname)]
@@ -960,7 +960,7 @@ module ApplicationHelper
     molecules.reverse
   end
 
-  # Returns the public molecule found by Molecule.name from the given public WaPage, either by WaPage.id or by WaPage.urlname
+  # Returns the public molecule found by Molecule.name from the given public Page, either by Page.id or by Page.urlname
   def molecule_from_page(options = {})
     default_options = {
       :page_urlname => "",
@@ -969,50 +969,50 @@ module ApplicationHelper
     }
     options = default_options.merge(options)
     if options[:page_id].blank?
-      page = WaPage.find_by_urlname_and_public(options[:page_urlname], true)
+      page = Page.find_by_urlname_and_public(options[:page_urlname], true)
     else
-      page = WaPage.find_by_id_and_public(options[:page_id], true)
+      page = Page.find_by_id_and_public(options[:page_id], true)
     end
     return "" if page.blank?
-    molecule = page.wa_molecules.find_by_name_and_public(options[:molecule_name], true)
+    molecule = page.molecules.find_by_name_and_public(options[:molecule_name], true)
     return molecule
   end
 
-  # This helper renderes the picture editor for the wa_molecules on the Alchemy Desktop.
-  # It brings full functionality for adding images to the wa_molecule, deleting images from it and sorting them via drag'n'drop.
-  # Just place this helper inside your wa_molecule editor view, pass the wa_molecule as parameter and that's it.
+  # This helper renderes the picture editor for the molecules on the Alchemy Desktop.
+  # It brings full functionality for adding images to the molecule, deleting images from it and sorting them via drag'n'drop.
+  # Just place this helper inside your molecule editor view, pass the molecule as parameter and that's it.
   #
   # Options:
   # :last_image_deletable (boolean), default true. This option handels the possibility to delete the last image. Maybe your customer don't want an image in his molecule for a particular reason, then this options is the right one for you.
   # :maximum_amount_of_images (integer), default nil. This option let you handle the amount of images your customer can add to this molecule.
-  def render_picture_editor(wa_molecule, options={})
+  def render_picture_editor(molecule, options={})
     default_options = {
       :last_image_deletable => true,
       :maximum_amount_of_images => nil,
       :refresh_sortable => true
     }
     options = default_options.merge(options)
-    picture_atoms = wa_molecule.all_atoms_by_type("WaAtomPicture")
+    picture_atoms = molecule.all_atoms_by_type("Atoms::Picture")
     render(
-      :partial => "wa_molecules/wa_picture_editor",
+      :partial => "molecules/wa_picture_editor",
       :locals => {
         :picture_atoms => picture_atoms,
-        :wa_molecule => wa_molecule,
+        :molecule => molecule,
         :options => options
       }
     )
   end
   
-  def render_atom_selection_editor(wa_molecule, atom, select_options)
+  def render_atom_selection_editor(molecule, atom, select_options)
     if atom.class == String
-       atom = wa_molecule.wa_atoms.find_by_name(atom)
+       atom = molecule.atoms.find_by_name(atom)
     else
-      atom = wa_molecule.wa_atoms[atom - 1]
+      atom = molecule.atoms[atom - 1]
     end
     if atom.atom.nil?
       logger.warn %(\n
         ++++ WARNING: Molecule is nil!\n
-        Usage: render_atom_editor_by_position(wa_molecule, position, options = {})\n
+        Usage: render_atom_editor_by_position(molecule, position, options = {})\n
       )
       return _("atom_atom_not_found")
     end
@@ -1023,9 +1023,9 @@ module ApplicationHelper
     )
   end
   
-  def picture_editor_sortable(wa_molecule_id)
+  def picture_editor_sortable(molecule_id)
     sortable_element(
-      "molecule_#{wa_molecule_id}_atoms",
+      "molecule_#{molecule_id}_atoms",
       :scroll => 'window',
       :tag => 'div',
       :only => 'dragable_picture',
@@ -1033,9 +1033,9 @@ module ApplicationHelper
       :constraint => '',
       :overlap => 'horizontal',
       :url => {
-        :controller => 'wa_atoms',
+        :controller => 'atoms',
         :action => "order",
-        :wa_molecule_id => wa_molecule_id
+        :molecule_id => molecule_id
       }
     )
   end
@@ -1122,19 +1122,19 @@ module ApplicationHelper
   end
   
   # Returns a string for the id attribute of a html element for the given molecule
-  def molecule_dom_id(wa_molecule)
-    return "" if wa_molecule.nil?
-    "#{wa_molecule.name}_#{wa_molecule.id}"
+  def molecule_dom_id(molecule)
+    return "" if molecule.nil?
+    "#{molecule.name}_#{molecule.id}"
   end
   
   # Returns a string for the id attribute of a html element for the given atom
-  def atom_dom_id(wa_atom)
-    return "" if wa_atom.nil?
-    if wa_atom.class == String
-      a = WaAtom.find_by_name(wa_atom)
+  def atom_dom_id(atom)
+    return "" if atom.nil?
+    if atom.class == String
+      a = Atom.find_by_name(atom)
       return "" if a.nil?
     else
-      a = wa_atom
+      a = atom
     end
     "#{a.atom_type.underscore}_#{a.id}"
   end
@@ -1155,23 +1155,23 @@ module ApplicationHelper
     pathname
   end
   
-  def render_new_atom_link(wa_molecule)
+  def render_new_atom_link(molecule)
     link_to_wa_window(
       _('add new atom'),
-      new_wa_molecule_wa_atom_path(wa_molecule),
+      new_molecule_atom_path(molecule),
       {
         :size => '305x40',
         :title => _('Select an atom'),
         :overflow => true
       },
       {
-        :id => "add_atom_for_molecule_#{wa_molecule.id}",
+        :id => "add_atom_for_molecule_#{molecule.id}",
         :class => 'button new_atom_link'
       }
     )
   end
   
-  def render_create_atom_link(wa_molecule, options = {})
+  def render_create_atom_link(molecule, options = {})
     defaults = {
       :label => _('add new atom')
     }
@@ -1179,16 +1179,16 @@ module ApplicationHelper
     link_to_remote(
       options[:label],
       {
-        :url => wa_atoms_path(
-          :wa_atom => {
+        :url => atoms_path(
+          :atom => {
             :name => options[:atom_name],
-            :wa_molecule_id => wa_molecule.id
+            :molecule_id => molecule.id
           }
         ),
         :method => 'post'
       },
       {
-        :id => "add_atom_for_molecule_#{wa_molecule.id}",
+        :id => "add_atom_for_molecule_#{molecule.id}",
         :class => 'button new_atom_link'
       }
     )

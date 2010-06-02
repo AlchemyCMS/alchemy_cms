@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   
   model_stamper
-  stampable :stamper_class_name => :wa_user
+  stampable
   acts_as_authentic do |c|
     c.transition_from_restful_authentication = true
     if Rails.env == 'production'
@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
     end
   end
   
-  has_many :wa_foldeds
+  has_many :foldeds
   
   after_destroy :unlock_pages
   
-  ROLES = WaConfigure.parameter(:user_roles)#%w[registered author editor admin]
+  ROLES = Alchemy::Configuration.parameter(:user_roles)#%w[registered author editor admin]
   
   def role_symbols
     [role.to_sym]
@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   alias :admin? :is_admin?
   
   def unlock_pages
-    for page in WaPage.find(:all, :conditions => {:locked_by => self.id})
+    for page in Page.find(:all, :conditions => {:locked_by => self.id})
       page.unlock
     end
   end

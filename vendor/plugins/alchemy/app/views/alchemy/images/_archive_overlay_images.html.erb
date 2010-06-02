@@ -5,7 +5,7 @@
 <%- if @images.empty? -%>
 	<p><%= _("no_images_in_archive") %></p>
 <%- else -%>
-	<%= render :partial => 'partials/remote_pagination_links', :locals => {:items => @images, :with => "'remote=true'+'&wa_molecule_id='+$('wa_molecule_id').value+'&wa_atom_id='+$('wa_atom_id').value+'&swap='+$('swap').value"} %>
+	<%= render :partial => 'partials/remote_pagination_links', :locals => {:items => @images, :with => "'remote=true'+'&molecule_id='+$('molecule_id').value+'&atom_id='+$('atom_id').value+'&swap='+$('swap').value"} %>
 	<%= render :partial => "image_to_assign", :collection => @images, :locals => {:options => @options, :size => @size} %>
 <%- end -%>
 </div>

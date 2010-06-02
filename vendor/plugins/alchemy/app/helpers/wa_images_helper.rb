@@ -1,23 +1,23 @@
 module ImagesHelper
   
   def create_or_assign_url(image_to_assign, options, swap)
-    if @wa_atom.nil?
+    if @atom.nil?
       {
-        :controller => :wa_atoms,
+        :controller => :atoms,
         :action => :create,
         :wa_image_id => image_to_assign.id,
-        :wa_atom => {
-          :atom_type => "WaAtomPicture",
-          :wa_molecule_id => (@wa_molecule.nil? ? nil : @wa_molecule.id)
+        :atom => {
+          :atom_type => "Atoms::Picture",
+          :molecule_id => (@molecule.nil? ? nil : @molecule.id)
         },
         :options => options
       }
     else
       {
-        :controller => :wa_atom_pictures,
+        :controller => :atom_pictures,
         :action => :assign,
         :wa_image_id => image_to_assign.id,
-        :id => @wa_atom.id,
+        :id => @atom.id,
         :options => options,
         :swap => swap
       }

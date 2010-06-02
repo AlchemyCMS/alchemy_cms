@@ -1,6 +1,8 @@
-class WaAtomPicture < ActiveRecord::Base
-  stampable :stamper_class_name => :wa_user
-  belongs_to :wa_image
+class AtomPicture < ActiveRecord::Base
+  
+  stampable
+  
+  belongs_to :image
   before_save :replace_newlines
   
   def replace_newlines
@@ -8,7 +10,7 @@ class WaAtomPicture < ActiveRecord::Base
   end
   
   def content
-    self.wa_image
+    self.image
   end
   
 end

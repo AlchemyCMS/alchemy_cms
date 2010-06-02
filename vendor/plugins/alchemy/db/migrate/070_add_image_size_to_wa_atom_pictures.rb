@@ -1,9 +1,9 @@
-class AddImageSizeToWaAtomPictures < ActiveRecord::Migration
+class AddImageSizeToAtoms::Pictures < ActiveRecord::Migration
   def self.up
-    add_column :wa_atom_pictures, :image_size, :string
+    add_column :atom_pictures, :image_size, :string
   end
 
   def self.down
-    remove_column :wa_atom_pictures, :image_size
+    remove_column :atom_pictures, :image_size
   end
 end

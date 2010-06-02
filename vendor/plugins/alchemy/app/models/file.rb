@@ -2,11 +2,11 @@ class File < ActiveRecord::Base
   
   has_attachment(
     :storage => :file_system,
-    :file_system_path => 'public/uploads/files',
+    :file_system_path => 'uploads/files',
     :size => 0.kilobytes..1000.megabytes
   )
   
-  stampable :stamper_class_name => :wa_user
+  stampable
   
   validates_as_attachment
   

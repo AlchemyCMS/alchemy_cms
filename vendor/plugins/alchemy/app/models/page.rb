@@ -1,14 +1,14 @@
-class WaPage < ActiveRecord::Base
+class Page < ActiveRecord::Base
   acts_as_nested_set
-  stampable :stamper_class_name => :wa_user
-  has_many :wa_foldeds
-  has_many :wa_molecules, :order => :position, :dependent => :destroy
+  stampable
+  has_many :foldeds
+  has_many :molecules, :order => :position, :dependent => :destroy
   has_and_belongs_to_many :to_be_sweeped_molecules, :class_name => 'Molecule', :uniq => true
   
   validates_presence_of :name, :message => N_("please enter a name")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   
-  # Checking urlname twice, because of downwards compatibility, when WaPage.language was no attribute.
+  # Checking urlname twice, because of downwards compatibility, when Page.language was no attribute.
   # Very important for migrating from 0 and for old alchemy installations.
   # Do not remove!
   validates_uniqueness_of(
@@ -34,8 +34,8 @@ class WaPage < ActiveRecord::Base
   before_destroy :check_if_root
   
   # necessary. otherwise the migrations fail
-  if WaPage.root
-    named_scope :systemroot, :conditions => {:parent_id => WaPage.root.id, :systempage => true}, :limit => 1
+  if Page.root
+    named_scope :systemroot, :conditions => {:parent_id => Page.root.id, :systempage => true}, :limit => 1
   end
   
   named_scope :language_roots, :conditions => "language_root_for IS NOT NULL"
@@ -44,15 +44,15 @@ class WaPage < ActiveRecord::Base
   # Collection is an array of strings from molecule names. E.g.: ['text', 'headline']
   # Returns only public ones
   def find_selected_molecules(options, show_non_public = false)
-    public_condition = show_non_public ? nil : ' AND wa_molecules.public = 1'
+    public_condition = show_non_public ? nil : ' AND molecules.public = 1'
     if !options[:except].blank?
-      condition = ["wa_molecules.name NOT IN (?)#{public_condition}", options[:except]]
+      condition = ["molecules.name NOT IN (?)#{public_condition}", options[:except]]
     elsif !options[:only].blank?
-      condition = ["wa_molecules.name IN (?)#{public_condition}", options[:only]]
+      condition = ["molecules.name IN (?)#{public_condition}", options[:only]]
     else
       condition = show_non_public.nil? ? nil : {:public => true}
     end
-    return self.wa_molecules.find(:all, :conditions => condition, :limit => options[:count], :order => options[:random].blank? ? nil : "RAND()")
+    return self.molecules.find(:all, :conditions => condition, :limit => options[:count], :order => options[:random].blank? ? nil : "RAND()")
   end
   
   def find_molecules(options, show_non_public = false)
@@ -113,7 +113,7 @@ class WaPage < ActiveRecord::Base
   end
 
   def public_molecules
-    self.wa_molecules.select{ |m| m.public? }
+    self.molecules.select{ |m| m.public? }
   end
   
   # Returns the name of the creator of this page.
@@ -137,7 +137,7 @@ class WaPage < ActiveRecord::Base
     @current_editor.name
   end
   
-  # Returns true if the WaPage is locked for user. So the user cannot edit this page.
+  # Returns true if the Page is locked for user. So the user cannot edit this page.
   def locked_for(user)
     raise "User is nil" if user.nil?
     locked_by == user.id
@@ -148,19 +148,19 @@ class WaPage < ActiveRecord::Base
   end
   
   def fold(user_id, status)
-    wa_folded = WaFolded.find_or_create_by_wa_user_id_and_wa_page_id(user_id, self.id)
+    wa_folded = WaFolded.find_or_create_by_wa_user_id_and_page_id(user_id, self.id)
     wa_folded.update_attributes(:folded => status)
     wa_folded.save
   end
   
   def folded?(user_id)
-    wa_folded = WaFolded.find_by_wa_user_id_and_wa_page_id(user_id, self.id)
+    wa_folded = WaFolded.find_by_wa_user_id_and_page_id(user_id, self.id)
     return false if wa_folded.nil?
     wa_folded.folded
   end
   
   def molecules_by_type type
-    wa_molecules.select{|m| type.include? m.name}
+    molecules.select{|m| type.include? m.name}
   end
   
   # Returns the translated explanation of seven the page stati.
@@ -219,7 +219,7 @@ class WaPage < ActiveRecord::Base
   end
   
   def has_controller?
-    !WaPageLayout.get(self.page_layout).nil? && !WaPageLayout.get(self.page_layout)["controller"].blank?
+    !Alchemy::PageLayout.get(self.page_layout).nil? && !Alchemy::PageLayout.get(self.page_layout)["controller"].blank?
   end
   
   def controller_and_action
@@ -232,14 +232,14 @@ class WaPage < ActiveRecord::Base
     find_by_language_root_for(language)
   end
   
-  # Returns the level reduced by one, because of the WaPage.root.
+  # Returns the level reduced by one, because of the Page.root.
   # Do we really need this? This is only cosmetically, isn't it?
   def language_level
     depth - 1
   end
   
   def is_root? language
-    WaPage.language_root( language) == self
+    Page.language_root( language) == self
   end
 
   def parent_language
@@ -256,7 +256,7 @@ class WaPage < ActiveRecord::Base
   end
 
   def layout_description
-    WaPageLayout.get(self.page_layout)
+    Alchemy::PageLayout.get(self.page_layout)
   end
   
   def layout_display_name
@@ -322,21 +322,21 @@ private
     end
   end
 
-  # Creates a copy of source and a copy of wa_molecules from source
-  # pass any kind of WaPage.attributes as a difference to source
+  # Creates a copy of source and a copy of molecules from source
+  # pass any kind of Page.attributes as a difference to source
   # it also prevents the molecule auto_generator from running
   def self.copy(source, differences = {})
     attributes = source.attributes.merge(differences)
     attributes.merge!(:do_not_autogenerate => true, :do_not_sweep => true)
-    wa_page = self.new(attributes.except("id"))
-    if wa_page.save
-      source.wa_molecules.each do |molecule|
-        new_molecule = Molecule.copy(molecule, :wa_page_id => wa_page.id)
+    page = self.new(attributes.except("id"))
+    if page.save
+      source.molecules.each do |molecule|
+        new_molecule = Molecule.copy(molecule, :page_id => page.id)
         new_molecule.move_to_bottom
       end
-      return wa_page
+      return page
     else
-      raise "Error while WaPage.copy: #{wa_page.errors.map{ |e| e[0] + ': ' + e[1] }}"
+      raise "Error while Page.copy: #{page.errors.map{ |e| e[0] + ': ' + e[1] }}"
     end
   end
 

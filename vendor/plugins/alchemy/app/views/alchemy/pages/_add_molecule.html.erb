@@ -8,9 +8,9 @@
 	) %>
 	<%= link_to_remote(
 		"",
-		:url => new_wa_molecule_path(
+		:url => new_molecule_path(
 			:open => !open_molecule_selector,
-			:page_id => @wa_page.id,
+			:page_id => @page.id,
 			:molecule_before_id => molecule_before
 		),
 		:loading => %(
@@ -22,6 +22,6 @@
 		}
 	) -%>
 	<%- if open_molecule_selector -%>
-		<%= render :partial => 'wa_pages/add_molecule_form', :locals => {:molecule_before => molecule_before} %>
+		<%= render :partial => 'pages/add_molecule_form', :locals => {:molecule_before => molecule_before} %>
 	<%- end -%>
 </div>

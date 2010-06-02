@@ -12,13 +12,13 @@ class Alchemy::ImagesController < ApplicationController
   
   def index
     if params[:per_page] == 'all'
-      @wa_images = Image.find(
+      @images = Image.find(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'"
       )
     else
-      @wa_images = Image.paginate(
+      @images = Image.paginate(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'",
@@ -29,23 +29,23 @@ class Alchemy::ImagesController < ApplicationController
   end
   
   def new
-    @wa_image = Image.new
+    @image = Image.new
     render :layout => false
   end
   
   def create
-    @wa_image = Image.new(:image_file => params[:Filedata])
-    @wa_image.name = @wa_image.image_filename
-    @wa_image.save
+    @image = Image.new(:image_file => params[:Filedata])
+    @image.name = @image.image_filename
+    @image.save
     
     if params[:per_page] == 'all'
-      @wa_images = Image.find(
+      @images = Image.find(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'"
       )
     else
-      @wa_images = Image.paginate(
+      @images = Image.paginate(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'",
@@ -59,7 +59,7 @@ class Alchemy::ImagesController < ApplicationController
   end
   
   def add_upload_form
-    @wa_image = Image.new
+    @image = Image.new
     render :update do |page|
       page.insert_html :bottom, 'input_fields', :partial => 'upload_form', :locals => {:delete_button => true}
       page << "wa_overlay.updateHeight()"
@@ -67,7 +67,7 @@ class Alchemy::ImagesController < ApplicationController
   end
 
   def archive_overlay
-    @wa_molecule = Molecule.find_by_id(params[:wa_molecule_id])
+    @molecule = Molecule.find_by_id(params[:molecule_id])
     @images = Image.paginate(
       :all,
       :order => :name,
@@ -75,7 +75,7 @@ class Alchemy::ImagesController < ApplicationController
       :per_page => 32,
       :conditions => "name LIKE '%#{params[:query]}%'"
     )
-    @wa_atom = WaAtom.find_by_id(params[:wa_atom_id])
+    @atom = Atom.find_by_id(params[:atom_id])
     @swap = params[:swap]
     @size = params[:size] || 'small'
     @options = params[:options]
@@ -95,15 +95,15 @@ class Alchemy::ImagesController < ApplicationController
     if @image.save
       render :update do |page|
         page.replace "wa_image_#{@image.id}", :partial => "wa_images/image", :locals => {:image => @image}
-        WaNotice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @image.name} ))
+        Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @image.name} ))
       end
     end
   end
   
   def destroy
-    @wa_image = Image.find(params[:id])
-    name = @wa_image.name
-    @wa_image.destroy
+    @image = Image.find(params[:id])
+    name = @image.name
+    @image.destroy
     render :update do |page|
       flash[:notice] = ( _("Image: '%{name}' deleted successfully") % {:name => name} )
       page.redirect_to wa_images_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])

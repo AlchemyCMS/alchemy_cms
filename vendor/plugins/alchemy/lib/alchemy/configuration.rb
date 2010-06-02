@@ -1,4 +1,4 @@
-class WaConfigure < ActionController::Base
+class Alchemy::Configuration < ActionController::Base
   
   def self.parameter(name)
     if name.class == String
@@ -25,9 +25,9 @@ class WaConfigure < ActionController::Base
   
   def self.sortable_molecules(page)
     page.sortable(
-      "wa_molecule_area",
+      "molecule_area",
       :url => {
-        :controller => 'wa_molecules',
+        :controller => 'molecules',
         :action => "order"
       },
       :scroll => "window",
@@ -38,9 +38,9 @@ class WaConfigure < ActionController::Base
     )
   end
   
-  def self.sortable_atoms(page, wa_molecule)
+  def self.sortable_atoms(page, molecule)
     page.sortable(
-      "molecule_#{wa_molecule.id}_atoms",
+      "molecule_#{molecule.id}_atoms",
       :scroll => 'window',
       :tag => 'div',
       :only => 'dragable_picture',
@@ -48,9 +48,9 @@ class WaConfigure < ActionController::Base
       :constraint => '',
       :overlap => 'horizontal',
       :url => {
-        :controller => 'wa_atoms',
+        :controller => 'atoms',
         :action => "order",
-        :wa_molecule_id => wa_molecule.id
+        :molecule_id => molecule.id
       }
     )
   end

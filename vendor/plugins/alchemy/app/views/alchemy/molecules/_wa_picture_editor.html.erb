@@ -1,4 +1,4 @@
-<div class="picture_gallery_images" id="molecule_<%= wa_molecule.id %>_atoms">
+<div class="picture_gallery_images" id="molecule_<%= molecule.id %>_atoms">
 	<%- for atom in picture_atoms do -%>
 		<%= render_atom_editor(atom, {
 			:dragable => picture_atoms.size > 1
@@ -6,10 +6,10 @@
 	<%- end -%>
 	<%- if options[:maximum_amount_of_images].blank? || picture_atoms.length < options[:maximum_amount_of_images].to_i -%>
 		<%= render(
-			:partial => 'wa_molecules/add_atom',
+			:partial => 'molecules/add_atom',
 			:locals => {
-				:molecule => wa_molecule,
-				:atom_type => "WaAtomPicture",
+				:molecule => molecule,
+				:atom_type => "Atoms::Picture",
 				:link_text => _("add_image_to_molecule"),
 				:options => options
 			}
@@ -17,5 +17,5 @@
 	<%- end -%>
 </div>
 <%- if picture_atoms.size > 1 -%>
-	<%= picture_editor_sortable(wa_molecule.id) %>
+	<%= picture_editor_sortable(molecule.id) %>
 <%- end -%>

@@ -1,9 +1,9 @@
 page.replace(
   "dragable_#{@molecule.id}",
-  :partial => "wa_molecule",
+  :partial => "molecule",
   :object => @molecule
 )
-WaConfigure.sortable_molecules(page)
-WaNotice.show_via_ajax(page, _("element_saved"))
+Alchemy::Configuration.sortable_molecules(page)
+Alchemy::Notice.show_via_ajax(page, _("element_saved"))
 page.call 'reloadPreview'
 page.call 'TinymceHammer.init' if @has_rtf_atoms

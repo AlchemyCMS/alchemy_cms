@@ -1,21 +1,21 @@
-class WaPagesSweeper < ActionController::Caching::Sweeper
+class PagesSweeper < ActionController::Caching::Sweeper
   
-  observe WaPage
+  observe Page
   
   def after_update(page)
-    expire_wa_page(page)
+    expire_page(page)
     check_multipage_molecules(page)
   end
   
   def after_destroy(page)
-    expire_wa_page(page)
+    expire_page(page)
     check_multipage_molecules(page)
   end
   
 private
   
   def check_multipage_molecules(page)
-    page.wa_molecules.each do |molecule|
+    page.molecules.each do |molecule|
       # are their pages beneath mine?
       if !molecule.to_be_sweeped_pages.detect{ |p| p != page }.nil?
         # yepp! there are more pages then mine
@@ -23,14 +23,14 @@ private
         if !pages.blank?
           # expire current page, even if it's locked
           pages.push(page).each do |page|
-            expire_wa_page(page)
+            expire_wpage(page)
           end
         end
       end
     end
   end
   
-  def expire_wa_page(page)
+  def expire_page(page)
     if Alchemy::Controller.multi_language?
       expire_action("#{page.language}/#{page.urlname_was}") unless page.do_not_sweep
     else

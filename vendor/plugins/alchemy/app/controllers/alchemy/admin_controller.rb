@@ -14,11 +14,11 @@ class Alchemy::AdminController < ApplicationController
     if request.get?
       redirect_to admin_path if User.count != 0
       flash[:explain] = _("Please Signup")
-      @wa_user = User.new
+      @user = User.new
     else
-      @wa_user = User.new(params[:wa_user].merge({:role => 'admin'}))
-      if @wa_user.save
-        Mailer.deliver_new_alchemy_user_mail(@wa_user, request)
+      @user = User.new(params[:wa_user].merge({:role => 'admin'}))
+      if @user.save
+        Mailer.deliver_new_alchemy_user_mail(@user, request)
         redirect_to :action => :index
       end
     end
@@ -29,12 +29,12 @@ class Alchemy::AdminController < ApplicationController
       redirect_to :action => 'signup'
     else
       if request.get?
-        @wa_user_session = UserSession.new()
+        @user_session = UserSession.new()
         flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
         render :layout => 'login'
       else
-        @wa_user_session = UserSession.new(params[:wa_user_session])
-        if @wa_user_session.save
+        @user_session = UserSession.new(params[:wa_user_session])
+        if @user_session.save
           if session[:redirect_url].blank?
             redirect_to :action => :index
           else
@@ -49,9 +49,9 @@ class Alchemy::AdminController < ApplicationController
   
   def logout
     message = params[:message] || _("logged_out")
-    @wa_user_session = UserSession.find
-    if @wa_user_session
-      @wa_user_session.destroy
+    @user_session = UserSession.find
+    if @user_session
+      @user_session.destroy
       current_user.unlock_pages if current_user
     end
     flash[:info] = message
@@ -59,33 +59,33 @@ class Alchemy::AdminController < ApplicationController
   end
   
   def save_atom
-    atom = WaAtom.find(params[:id]).atom
-    wa_molecule = WaAtom.find(params[:id]).wa_molecule_id
-    wa_page = Molecule.find(wa_molecule).wa_page_id
+    atom = Atom.find(params[:id]).atom
+    molecule = Atom.find(params[:id]).molecule_id
+    page = Molecule.find(molecule).page_id
     if atom.update_attributes(params[:this_atom])
       flash[:notice] = _("element_saved")
     end
-    redirect_to :controller => "wa_pages", :action => 'edit', :id => wa_page
+    redirect_to :controller => "pages", :action => 'edit', :id => page
   end
   
   def save_contentposition
     unless params[:wa_sitemap].nil?
-      parent = WaPage.find(:first, :conditions => {:parent_id => nil})
+      parent = Page.find(:first, :conditions => {:parent_id => nil})
       for pages in params[:wa_sitemap]["0"]
         for page in pages
           unless page["id"].nil? || page["id"] == "id"
-            p = WaPage.find(page["id"])
+            p = Page.find(page["id"])
             p.move_to_child_of parent
           end
         end
       end
     end
     unless params[:wa_sitemap_2].nil?
-      parent = WaPage.find(params[:wa_sitemap_2]["id"]).parent_id
+      parent = Page.find(params[:wa_sitemap_2]["id"]).parent_id
       for pages in params[:wa_sitemap_2]["0"]
         for page in pages
           unless page["id"].nil? || page["id"] == "id"
-            p = WaPage.find(page["id"])
+            p = Page.find(page["id"])
             p.move_to_child_of parent
           end
         end
@@ -97,14 +97,14 @@ class Alchemy::AdminController < ApplicationController
   def link_to_page
     @url_prefix = ""
     if configuration(:show_real_root)
-      @wa_page_root = WaPage.root
+      @page_root = Page.root
     else
-      @wa_page_root = WaPage.find_by_language_root_for(session[:language])
+      @page_root = Page.find_by_language_root_for(session[:language])
     end    
     @area_name = params[:area_name]
-    @atom_id = params[:wa_atom_id]
+    @atom_id = params[:atom_id]
     if params[:link_urls_for] == "newsletter"
-      # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the wa_atom_rtfs and replace this string with recipient.id before sending the newsletter.
+      # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the atom_rtfs and replace this string with recipient.id before sending the newsletter.
       #@url_prefix = "#{get_server}/recipients/reacts"
       @url_prefix = get_server
     end

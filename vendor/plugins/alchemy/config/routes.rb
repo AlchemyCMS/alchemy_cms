@@ -1,16 +1,16 @@
-@languages ||= WaConfigure.parameter(:languages).collect{ |l| l[:language_code] }
+@languages ||= Alchemy::Configuration.parameter(:languages).collect{ |l| l[:language_code] }
 @lang_regex ||= Regexp.new(@languages.join('|'))
 
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => 'wa_pages', :action => 'show'
+  map.root :controller => 'pages', :action => 'show'
   map.login "/admin/login", :controller => "admin", :action => "login"
   map.logout "/admin/logout", :controller => "admin", :action => "logout"
-  map.systempages "/wa_pages/systempages", :controller => "wa_pages", :action => "systempages"
+  map.systempages "/pages/systempages", :controller => "pages", :action => "systempages"
   map.resources :wa_users
   map.resources :wa_user_sessions
   map.resources :wa_mails
   map.resources(
-    :wa_pages,
+    :pages,
     :collection => {
       :switch_language => :get,
       :create_language => :get,
@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
       :unlock => :post,
       :edit_content => :get
     },
-    :has_many => [:wa_molecules],
+    :has_many => [:molecules],
     :shallow => true
   )
   map.resources(
@@ -41,16 +41,16 @@ ActionController::Routing::Routes.draw do |map|
     :download => :get,
     :add_upload_form => :get
   }
-  map.resources :wa_atoms
-  map.resources :wa_atom_pictures
-  map.resources :wa_atom_files
-  map.resources :wa_molecules, :has_many => :wa_atoms, :shallow => true
+  map.resources :atoms
+  map.resources :atom_pictures
+  map.resources :atom_files
+  map.resources :molecules, :has_many => :atoms, :shallow => true
   map.show_image '/wa_images/show/:id/:size/:name.:format', :controller => 'wa_images', :action => 'show'
   map.thumbnail '/wa_images/thumb/:id/:size/thumbnail.jpg', :controller => 'wa_images', :action => 'thumb'
   map.download_file '/wa_files/:id/download/:name', :controller => 'wa_files', :action => 'download'
   map.admin '/admin', :controller => 'admin', :action => 'index'
-  map.show_language_root '/:lang', :controller => 'wa_pages', :action => 'show', :lang => @lang_regex
-  map.show_page '/:urlname', :controller => 'wa_pages', :action => 'show'
-  map.show_page_with_language '/:lang/:urlname', :controller => 'wa_pages', :action => 'show', :lang => @lang_regex
+  map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
+  map.show_page '/:urlname', :controller => 'pages', :action => 'show'
+  map.show_page_with_language '/:lang/:urlname', :controller => 'pages', :action => 'show', :lang => @lang_regex
   map.connect ':controller/:action/:id'
 end

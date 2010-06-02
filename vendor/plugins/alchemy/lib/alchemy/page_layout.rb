@@ -1,4 +1,4 @@
-class WaPageLayout
+class Alchemy::PageLayout
   
   def self.molecule_names_for(page_layout)
     page_layouts = self.get_layouts
@@ -49,7 +49,7 @@ class WaPageLayout
   end
   
   def self.has_another_page_this_layout?( layout, language)
-    !WaPage.find(:all, :conditions => {:page_layout => layout, :language => language}).blank?
+    !Page.find(:all, :conditions => {:page_layout => layout, :language => language}).blank?
   end
   
 end
