@@ -1,6 +1,6 @@
 module WaPagesHelper
   
-  # DEPRICATED! Use WaMolecule.preview_text instead.
+  # DEPRICATED! Use Molecule.preview_text instead.
   def get_preview_text molecule
     molecule.preview_text
   end

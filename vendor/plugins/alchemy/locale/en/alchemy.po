@@ -168,63 +168,63 @@ msgid "WaAdmin|new rootpage created"
 msgstr "Created new rootpage."
 
 #: locale/model_attributes.rb:1
-msgid "WaFile"
+msgid "File"
 msgstr "File"
 
 #: locale/model_attributes.rb:6
-msgid "WaFile|Content type"
+msgid "File|Content type"
 msgstr "Filetype"
 
 #: locale/model_attributes.rb:4
-msgid "WaFile|Created at"
+msgid "File|Created at"
 msgstr "Created At"
 
 #: locale/model_attributes.rb:3
-msgid "WaFile|Filename"
+msgid "File|Filename"
 msgstr "Filename"
 
 #: locale/model_attributes.rb:2
-msgid "WaFile|Name"
+msgid "File|Name"
 msgstr "Name"
 
 #: locale/model_attributes.rb:5
-msgid "WaFile|Size"
+msgid "File|Size"
 msgstr "Filesize"
 
 #: locale/model_attributes.rb:8
-msgid "WaImage"
+msgid "Image"
 msgstr "Image"
 
 #: locale/model_attributes.rb:10
-msgid "WaImage|Image filename"
+msgid "Image|Image filename"
 msgstr "Filename"
 
 #: locale/model_attributes.rb:12
-msgid "WaImage|Image height"
+msgid "Image|Image height"
 msgstr "Imageheight"
 
 #: locale/model_attributes.rb:11
-msgid "WaImage|Image width"
+msgid "Image|Image width"
 msgstr "Imagewidth"
 
 #: locale/model_attributes.rb:9
-msgid "WaImage|Name"
+msgid "Image|Name"
 msgstr "Name"
 
 #: locale/model_attributes.rb:14
-msgid "WaMolecule"
+msgid "Molecule"
 msgstr "Molecule"
 
 #: locale/model_attributes.rb:16
-msgid "WaMolecule|Display name"
+msgid "Molecule|Display name"
 msgstr "Name"
 
 #: locale/model_attributes.rb:15
-msgid "WaMolecule|Name"
+msgid "Molecule|Name"
 msgstr "Name"
 
 #: locale/model_attributes.rb:17
-msgid "WaMolecule|Public"
+msgid "Molecule|Public"
 msgstr "visible"
 
 #: locale/model_attributes.rb:19
@@ -300,47 +300,47 @@ msgid "WaPage|Visible"
 msgstr "show in navigation"
 
 #: locale/model_attributes.rb:38
-msgid "WaUser"
+msgid "User"
 msgstr "User"
 
 #: locale/model_attributes.rb:41
-msgid "WaUser|Email"
+msgid "User|Email"
 msgstr "Email"
 
 #: locale/model_attributes.rb:43
-msgid "WaUser|Firstname"
+msgid "User|Firstname"
 msgstr "Firstname"
 
 #: locale/model_attributes.rb:40
-msgid "WaUser|Gender"
+msgid "User|Gender"
 msgstr "Gender"
 
 #: locale/model_attributes.rb:45
-msgid "WaUser|Language"
+msgid "User|Language"
 msgstr "Language"
 
 #: locale/model_attributes.rb:44
-msgid "WaUser|Lastname"
+msgid "User|Lastname"
 msgstr "Lastname"
 
 #: locale/model_attributes.rb:42
-msgid "WaUser|Login"
+msgid "User|Login"
 msgstr "Username"
 
 #: locale/model_attributes.rb:39
-msgid "WaUser|Name"
+msgid "User|Name"
 msgstr "Name"
 
 #: locale/model_attributes.rb:47
-msgid "WaUser|Password"
+msgid "User|Password"
 msgstr "Password"
 
 #: locale/model_attributes.rb:48
-msgid "WaUser|Password confirmation"
+msgid "User|Password confirmation"
 msgstr "Password confirmation"
 
 #: locale/model_attributes.rb:46
-msgid "WaUser|Role"
+msgid "User|Role"
 msgstr "Userrole"
 
 #: app/views/admin/index.html.erb:7

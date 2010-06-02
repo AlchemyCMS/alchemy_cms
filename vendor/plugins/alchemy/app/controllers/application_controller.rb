@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
-    @current_user_session = WaUserSession.find
+    @current_user_session = UserSession.find
   end  
   
   def logged_in?
@@ -123,7 +123,7 @@ private
   
   def wa_handle_exception(e)
     logger.error %(
-      +++++++++ WaMolecule.toggle_fold: #{e} +++++++++++++
+      +++++++++ Molecule.toggle_fold: #{e} +++++++++++++
       object: #{e.record.class}, id: #{e.record.id}, name: #{e.record.name}
       #{e.record.errors.full_messages}
     )
@@ -155,11 +155,11 @@ private
   
   def set_stamper
     FastGettext.text_domain = 'alchemy'
-    WaUser.stamper = self.current_user
+    User.stamper = self.current_user
   end
   
   def reset_stamper
-    WaUser.reset_stamper
+    User.reset_stamper
   end
   
 protected

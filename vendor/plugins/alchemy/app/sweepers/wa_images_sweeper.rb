@@ -1,5 +1,5 @@
-class WaImagesSweeper < ActionController::Caching::Sweeper
-  observe WaImage
+class ImagesSweeper < ActionController::Caching::Sweeper
+  observe Image
 
   def after_save(image)
     expire_cache_for(image)

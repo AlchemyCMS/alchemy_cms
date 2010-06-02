@@ -1,4 +1,4 @@
-module WaImagesHelper
+module ImagesHelper
   
   def create_or_assign_url(image_to_assign, options, swap)
     if @wa_atom.nil?

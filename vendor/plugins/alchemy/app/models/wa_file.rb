@@ -1,4 +1,4 @@
-class WaFile < ActiveRecord::Base
+class File < ActiveRecord::Base
   
   has_attachment(
     :storage => :file_system,

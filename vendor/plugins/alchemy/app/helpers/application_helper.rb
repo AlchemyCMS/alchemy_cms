@@ -84,7 +84,7 @@ module ApplicationHelper
     end
   end
 
-  # This helper renders the WaMolecule partial for either the view or the editor part.
+  # This helper renders the Molecule partial for either the view or the editor part.
   # Generate molecule partials with ./script/generate molecule_partials
   def render_molecule(molecule, part = :view, options = {})
     if molecule.blank?
@@ -195,14 +195,14 @@ module ApplicationHelper
     render_atom(atom, :view, :for_view => options)
   end
 
-  # Renders the WaAtom editor partial from the given WaMolecule for the atom_type (e.g. WaAtomRtf).
+  # Renders the WaAtom editor partial from the given Molecule for the atom_type (e.g. WaAtomRtf).
   # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first atom found for this type will be rendered.
   # For options see -> render_atom
   def render_atom_editor_by_type(wa_molecule, type, position = nil, options = {})
     if wa_molecule.blank?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_view(wa_molecule, position, options = {})\n
       )
       return "<p class='molecule_error'>" + _("no_molecule_given") + "</p>"
@@ -215,14 +215,14 @@ module ApplicationHelper
     render_atom(atom, :editor, :for_editor => options)
   end
 
-  # Renders the WaAtom view partial from the given WaMolecule for the atom_type (e.g. WaAtomRtf).
+  # Renders the WaAtom view partial from the given Molecule for the atom_type (e.g. WaAtomRtf).
   # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first atom found for this type will be rendered.
   # For options see -> render_atom
   def render_atom_view_by_type(wa_molecule, type, position, options = {})
     if wa_molecule.blank?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_view(wa_molecule, position, options = {})\n
       )
       return ""
@@ -235,12 +235,12 @@ module ApplicationHelper
     render_atom(atom, :view, :for_view => options)
   end
 
-  # Renders the WaAtom view partial from the given WaMolecule by position (e.g. 1).
+  # Renders the WaAtom view partial from the given Molecule by position (e.g. 1).
   # For options see -> render_atom
   def render_atom_view_by_position(wa_molecule, position, options = {})
     if wa_molecule.blank?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_view_by_position(wa_molecule, position, options = {})\n
       )
       return ""
@@ -249,12 +249,12 @@ module ApplicationHelper
     render_atom(atom, :view, :for_view => options)
   end
 
-  # Renders the WaAtom editor partial from the given WaMolecule by position (e.g. 1).
+  # Renders the WaAtom editor partial from the given Molecule by position (e.g. 1).
   # For options see -> render_atom
   def render_atom_editor_by_position(wa_molecule, position, options = {})
     if wa_molecule.blank?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_view_by_position(wa_molecule, position, options = {})\n
       )
       return ""
@@ -263,12 +263,12 @@ module ApplicationHelper
     render_atom(atom, :editor, :for_editor => options)
   end
 
-  # Renders the WaAtom editor partial found in views/wa_atoms/ for the atom with name inside the passed WaMolecule.
+  # Renders the WaAtom editor partial found in views/wa_atoms/ for the atom with name inside the passed Molecule.
   # For options see -> render_atom
   def render_atom_editor_by_name(wa_molecule, name, options = {})
     if wa_molecule.blank?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_view(wa_molecule, position, options = {})\n
       )
       return "<p class='molecule_error'>" + _("no_molecule_given") + "</p>"
@@ -277,12 +277,12 @@ module ApplicationHelper
     render_atom(atom, :editor, :for_editor => options)
   end
 
-  # Renders the WaAtom view partial from the passed WaMolecule for passed atom name.
+  # Renders the WaAtom view partial from the passed Molecule for passed atom name.
   # For options see -> render_atom
   def render_atom_view_by_name(wa_molecule, name, options = {})
     if wa_molecule.blank?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_view(wa_molecule, position, options = {})\n
       )
       return ""
@@ -868,7 +868,7 @@ module ApplicationHelper
     return [] if molecules.nil?
     options = molecules.collect{|p| [p["display_name"], p["name"]]}
     unless session[:clipboard].nil?
-      pastable_molecule = WaMolecule.get_from_clipboard(session[:clipboard])
+      pastable_molecule = Molecule.get_from_clipboard(session[:clipboard])
       if !pastable_molecule.nil?
         options << [
           _("'%{name}' from_clipboard") % {:name => "#{pastable_molecule.display_name_with_preview_text}"},
@@ -939,14 +939,14 @@ module ApplicationHelper
     options_for_select(result, selected)
   end
 
-  # Returns all public molecules found by WaMolecule.name.
+  # Returns all public molecules found by Molecule.name.
   # Pass a count to return only an limited amount of molecules.
   def all_molecules_by_name(name, options = {})
     default_options = {
       :count => nil
     }
     options = default_options.merge(options)
-    all_molecules = WaMolecule.find_all_by_name_and_public(name, true)
+    all_molecules = Molecule.find_all_by_name_and_public(name, true)
     molecules = []
     all_molecules.each_with_index do |molecule, i|
       unless options[:count].nil?
@@ -960,7 +960,7 @@ module ApplicationHelper
     molecules.reverse
   end
 
-  # Returns the public molecule found by WaMolecule.name from the given public WaPage, either by WaPage.id or by WaPage.urlname
+  # Returns the public molecule found by Molecule.name from the given public WaPage, either by WaPage.id or by WaPage.urlname
   def molecule_from_page(options = {})
     default_options = {
       :page_urlname => "",
@@ -1011,7 +1011,7 @@ module ApplicationHelper
     end
     if atom.atom.nil?
       logger.warn %(\n
-        ++++ WARNING: WaMolecule is nil!\n
+        ++++ WARNING: Molecule is nil!\n
         Usage: render_atom_editor_by_position(wa_molecule, position, options = {})\n
       )
       return _("atom_atom_not_found")
