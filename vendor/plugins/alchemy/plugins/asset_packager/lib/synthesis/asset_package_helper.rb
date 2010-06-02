@@ -14,7 +14,7 @@ module Synthesis
         AssetPackage.sources_from_targets("javascripts", sources)
       )
       
-      sources.collect {|source| javascript_include_tag(source, options.merge(:plugin => 'washapp')) }.join("\n")
+      sources.collect {|source| javascript_include_tag(source, options.merge(:plugin => 'alchemy')) }.join("\n")
     end
 
     def stylesheet_link_merged(*sources)
@@ -26,7 +26,7 @@ module Synthesis
         AssetPackage.sources_from_targets("stylesheets", sources)
       )
       
-      sources.uniq.collect { |source| stylesheet_link_tag(source, options.merge(:plugin => 'washapp')) }.join("\n")
+      sources.uniq.collect { |source| stylesheet_link_tag(source, options.merge(:plugin => 'alchemy')) }.join("\n")
     end
 
   end

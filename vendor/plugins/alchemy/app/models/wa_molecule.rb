@@ -63,7 +63,7 @@ class WaMolecule < ActiveRecord::Base
     self.wa_atoms.find_all_by_atom_type(atom_type)
   end
   
-  # creates a new molecule for wa_page as described in /config/washapp/molecules.yml from molecule_name
+  # creates a new molecule for wa_page as described in /config/alchemy/molecules.yml from molecule_name
   def self.create_from_scratch(wa_page_id, molecule_name)
     molecule_scratch = WaMolecule.descriptions.select{ |m| m["name"] == molecule_name }.first
     raise "Could not find molecule: #{molecule_name}" if molecule_scratch.nil?
@@ -87,12 +87,12 @@ class WaMolecule < ActiveRecord::Base
   end
 
   def self.descriptions
-    if File.exists? "#{RAILS_ROOT}/config/washapp/molecules.yml"
-      @molecules = YAML.load_file( "#{RAILS_ROOT}/config/washapp/molecules.yml" )
-    elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/washapp/config/washapp/molecules.yml"
-      @molecules = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/washapp/config/washapp/molecules.yml" )
+    if File.exists? "#{RAILS_ROOT}/config/alchemy/molecules.yml"
+      @molecules = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/molecules.yml" )
+    elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/molecules.yml"
+      @molecules = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/molecules.yml" )
     else
-      raise "Could not read config/washapp/molecules.yml"
+      raise "Could not read config/alchemy/molecules.yml"
     end
   end
   

@@ -15,7 +15,7 @@
 		<div class="first_column">
 			<%= render :partial => 'wa_page_status', :locals => {:wa_page => @wa_page} %>
 			<span class="wa_page_name">
-				<%= @wa_page.name %>&nbsp;<%= image_tag("flags/#{session[:language]}.png", :plugin => :washapp) if configuration(:languages).size > 1 && !@systempage %>
+				<%= @wa_page.name %>&nbsp;<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@systempage %>
 			</span>
 		</div>
 		<div class="second_column">

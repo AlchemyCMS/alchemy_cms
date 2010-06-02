@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
-		<title>washAPP <%= configuration(:washapp_version) %></title>
+		<title>Alchemy <%= configuration(:alchemy_version) %></title>
 		<!--[if IE 6]>
 			<link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" />
 		<![endif]-->
@@ -17,7 +17,7 @@
 		<%#= overlay for indication of loading %>
 		<div id="overlay">
 			<div id="overlay_text_box">
-				<%= image_tag('ajax_loader.gif', :plugin => 'washapp', :id => 'ajax_loader') %>
+				<%= image_tag('ajax_loader.gif', :plugin => 'alchemy', :id => 'ajax_loader') %>
 				<span id="overlay_text"><%= _("please_wait") %></span>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 				<div class="wa_flash info" style="<%= flash[:info].blank? ? "display: none" : "display: block" %>">
 					<%= flash[:info] %>
 				</div>
-				<%= washapp_subnavigation %>
+				<%= alchemy_subnavigation %>
 				<%= yield %>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 class WaImagesController < ApplicationController
   
   protect_from_forgery :except => [:create]
-  layout 'washapp'
+  layout 'alchemy'
   
   before_filter :set_translation, :except => [:show, :thumb]
   
@@ -53,7 +53,7 @@ class WaImagesController < ApplicationController
         :per_page => (params[:per_page] || 32)
       )
     end
-    if params[:_washapp_session].blank?
+    if params[:_alchemy_session].blank?
       redirect_to :action => :index
     end
   end

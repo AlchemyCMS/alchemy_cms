@@ -1,6 +1,6 @@
 <%- wa_assets_set('login') -%>
 
-<% form_for @wa_user_session, :url => {:controller => 'Washapp', :action => 'login'}, :html => { :id => "wa_login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
+<% form_for @wa_user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "wa_login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
 	<%= f.error_messages %>
 	<table border="0" cellspacing="1" cellpadding="1">
 		<tr>

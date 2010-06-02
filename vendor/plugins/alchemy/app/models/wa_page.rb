@@ -9,7 +9,7 @@ class WaPage < ActiveRecord::Base
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   
   # Checking urlname twice, because of downwards compatibility, when WaPage.language was no attribute.
-  # Very important for migrating from 0 and for old washapp installations.
+  # Very important for migrating from 0 and for old alchemy installations.
   # Do not remove!
   validates_uniqueness_of(
     :urlname,

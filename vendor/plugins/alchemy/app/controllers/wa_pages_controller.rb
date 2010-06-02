@@ -18,7 +18,7 @@ class WaPagesController < ApplicationController
       if WaConfigure.parameter(:cache_wa_pages)
         page = WaPage.find_by_urlname_and_language_and_public(
           c.params[:urlname],
-          Washapp::Controller.current_language,
+          Alchemy::Controller.current_language,
           true,
           :select => 'page_layout, language, urlname'
         )
@@ -43,7 +43,7 @@ class WaPagesController < ApplicationController
       create_new_rootpage
       flash[:notice] = _("WaAdmin|new rootpage created")
     end
-    render :layout => 'washapp'
+    render :layout => 'alchemy'
   end
   
   def fold
@@ -55,7 +55,7 @@ class WaPagesController < ApplicationController
   
   def systempages
     @system_root = WaPage.systemroot.first
-    render :layout => 'washapp'
+    render :layout => 'alchemy'
   end
   
   def new
@@ -178,7 +178,7 @@ class WaPagesController < ApplicationController
       redirect_to wa_pages_path
     else
       @wa_page.lock(current_user)
-      render :layout => 'washapp'
+      render :layout => 'alchemy'
     end
   end
   

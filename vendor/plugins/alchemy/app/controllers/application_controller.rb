@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   
   def set_language(lang = nil)
     session[:language] = detect_language_in_config(params[:lang] || lang)
-    Washapp::Controller.current_language = session[:language]
+    Alchemy::Controller.current_language = session[:language]
   end
   
   def multi_language?
@@ -140,7 +140,7 @@ private
         language = detect_language_in_config(params[:lang])
       end
       session[:language] = language
-      Washapp::Controller.current_language = session[:language]
+      Alchemy::Controller.current_language = session[:language]
       I18n.locale = session[:language]
     end
   end
@@ -169,7 +169,7 @@ protected
     FastGettext.available_locales = ['de','en'] #all you want to allow
     super
     session[:language] ||= configuration(:default_language)
-    Washapp::Controller.current_language = session[:language]
+    Alchemy::Controller.current_language = session[:language]
   end
   
   def permission_denied

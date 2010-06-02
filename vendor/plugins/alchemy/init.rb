@@ -1,6 +1,6 @@
 require 'extensions/hash'
 require 'extensions/form_helper'
-require 'washapp/controller'
+require 'alchemy/controller'
 require 'injections/attachment_fu_mime_type'
 
 Ddb::Userstamp.compatibility_mode = true
@@ -8,12 +8,12 @@ Ddb::Userstamp.compatibility_mode = true
 ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 
 if defined?(FastGettext)
-  FastGettext.add_text_domain 'washapp', :path => File.join(RAILS_ROOT, 'vendor/plugins/washapp/locale')
-  FastGettext.text_domain = 'washapp'
+  FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
+  FastGettext.text_domain = 'alchemy'
 end
 
 ActionController::Base.session = {
-  :key => '_washapp_session',
+  :key => '_alchemy_session',
   :secret => 'ef0af4870c35c7c9ca584e5b5382ac187c5731b839f663ad4cee2e72625c1bd006d7b934265d43d34b102ed10a657f0aa5b9512b4ae328314f3416e30b0746cd'
 }
 
@@ -23,7 +23,7 @@ ActionController::Dispatcher.middleware.insert_before(
   ActionController::Base.session_options[:key]
 )
 
-Tinymce::Hammer.install_path = '/plugin_assets/washapp/javascripts/tiny_mce'
+Tinymce::Hammer.install_path = '/plugin_assets/alchemy/javascripts/tiny_mce'
 Tinymce::Hammer.plugins = %w(safari paste fullscreen inlinepopups wa_link)
 Tinymce::Hammer.languages = ['de', 'en']
 Tinymce::Hammer.init = [
@@ -35,9 +35,9 @@ Tinymce::Hammer.init = [
   [:theme, 'advanced'],
   [:skin, 'o2k7'],
   [:skin_variant, 'silver'],
-  [:inlinepopups_skin, 'washapp'],
-  [:popup_css, "/plugin_assets/washapp/stylesheets/wa_tinymce_dialog.css"],
-  [:content_css, "/plugin_assets/washapp/stylesheets/wa_tinymce_content.css"],
+  [:inlinepopups_skin, 'alchemy'],
+  [:popup_css, "/plugin_assets/alchemy/stylesheets/wa_tinymce_dialog.css"],
+  [:content_css, "/plugin_assets/alchemy/stylesheets/wa_tinymce_content.css"],
   [:dialog_type, "modal"],
   [:width, "378"],
   [:height, '185'],

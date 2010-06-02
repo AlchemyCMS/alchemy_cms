@@ -21,7 +21,7 @@ class WaMoleculesController < ApplicationController
     @molecules = WaMolecule.all_for_layout(@wa_page, @wa_page.page_layout)
   end
   
-  # Creates a molecule as discribed in config/washapp/molecules.yml on wa_page via AJAX.
+  # Creates a molecule as discribed in config/alchemy/molecules.yml on wa_page via AJAX.
   def create
     begin
       if params[:wa_molecule][:name].blank?

@@ -1,8 +1,8 @@
-/* washAPP TinyMCE Overlay */
+/* Alchemy TinyMCE Overlay */
 
 /* Reset */
 
-.washapp, .washapp div, .washapp span, .washapp a {
+.alchemy, .alchemy div, .alchemy span, .alchemy a {
 	vertical-align: baseline;
 	text-align: left;
 	position: absolute;
@@ -23,13 +23,13 @@
 
 /* General */
 
-.washapp {
+.alchemy {
 	position: absolute;
 	direction: ltr;
 	border: 1px solid #9c9d9c;
 }
 
-.washapp .mceWrapper {
+.alchemy .mceWrapper {
 	position: static
 }
 
@@ -41,7 +41,7 @@
 	height: 100%
 }
 
-.washapp .mcePlaceHolder {
+.alchemy .mcePlaceHolder {
 	border: 1px solid #000;
 	background: #888;
 	top: 0;
@@ -51,7 +51,7 @@
 	filter: alpha(opacity=50)
 }
 
-.washapp_modalBlocker {
+.alchemy_modalBlocker {
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -66,17 +66,17 @@
 
 /* Top */
 
-.washapp .mceTop, .washapp .mceTop div {
+.alchemy .mceTop, .alchemy .mceTop div {
 	top: 0;
 	width: 100%;
 	height: 33px;
 }
 
-.washapp .mceTop .mceLeft {
+.alchemy .mceTop .mceLeft {
 	width: 2px;
 }
 
-.washapp .mceTop .mceCenter {
+.alchemy .mceTop .mceCenter {
 	right: 2px;
 	width: 100%;
 	height: 29px;
@@ -84,13 +84,13 @@
 	border-bottom: 2px solid white;
 }
 
-.washapp .mceTop .mceRight {
+.alchemy .mceTop .mceRight {
 	right: 0;
 	width: 2px;
 	height: 33px;
 }
 
-.washapp .mceTop span {
+.alchemy .mceTop span {
 	width: 100%;
 	text-align: left;
 	vertical-align: middle;
@@ -102,24 +102,24 @@
 
 /* Middle */
 
-.washapp .mceMiddle, .washapp .mceMiddle div {
+.alchemy .mceMiddle, .alchemy .mceMiddle div {
 	top: 0
 }
 
-.washapp .mceMiddle {
+.alchemy .mceMiddle {
 	width: 100%;
 	height: 100%;
 	/*clip: rect(23px auto auto auto)*/
 }
 
-.washapp .mceMiddle .mceLeft {
+.alchemy .mceMiddle .mceLeft {
 	left: 0;
 	width: 2px;
 	height: 100%;
 	background-color: white;
 }
 
-.washapp .mceMiddle span {
+.alchemy .mceMiddle span {
 	top: 31px;
 	left: 2px;
 	width: 100%;
@@ -127,7 +127,7 @@
 	background: #FFF
 }
 
-.washapp .mceMiddle .mceRight {
+.alchemy .mceMiddle .mceRight {
 	right: 0;
 	width: 2px;
 	height: 100%;
@@ -136,56 +136,56 @@
 
 /* Bottom */
 
-.washapp .mceBottom, .washapp .mceBottom div {
+.alchemy .mceBottom, .alchemy .mceBottom div {
 	height: 2px}
 
-.washapp .mceBottom {
+.alchemy .mceBottom {
 	left: 0;
 	bottom: 0;
 	width: 100%
 }
 
-.washapp .mceBottom div {
+.alchemy .mceBottom div {
 	top: 0
 }
 
-.washapp .mceBottom .mceLeft {
+.alchemy .mceBottom .mceLeft {
 	left: 0;
 	width: 5px;
 }
 
-.washapp .mceBottom .mceCenter {
+.alchemy .mceBottom .mceCenter {
 	width: 100%;
 	left: 0;
 	background-color: white;
 }
 
-.washapp .mceBottom .mceRight {
+.alchemy .mceBottom .mceRight {
 	right: 0;
 	width: 5px;
 }
 
-.washapp .mceBottom span {
+.alchemy .mceBottom span {
 	display: none
 }
 
-.washapp .mceStatusbar .mceBottom, .washapp .mceStatusbar .mceBottom div {
+.alchemy .mceStatusbar .mceBottom, .alchemy .mceStatusbar .mceBottom div {
 	height: 23px
 }
 
-.washapp .mceStatusbar .mceBottom .mceLeft {
+.alchemy .mceStatusbar .mceBottom .mceLeft {
 
 }
 
-.washapp .mceStatusbar .mceBottom .mceCenter {
+.alchemy .mceStatusbar .mceBottom .mceCenter {
 
 }
 
-.washapp .mceStatusbar .mceBottom .mceRight {
+.alchemy .mceStatusbar .mceBottom .mceRight {
 
 }
 
-.washapp .mceStatusbar .mceBottom span {
+.alchemy .mceStatusbar .mceBottom span {
 	display: block;
 	left: 7px;
 	font-family: Tahoma, Arial, sans-serif;
@@ -195,13 +195,13 @@
 
 /* Actions */
 
-.washapp a {
+.alchemy a {
 	width: 29px;
 	height: 16px;
 	top: 3px;
 }
 
-.washapp .mceClose {
+.alchemy .mceClose {
 	right: 8px;
 	background: url(../../../../../../images/gui/close.png) 0 0;
 	width: 16px;
@@ -209,35 +209,35 @@
 	top: 8px;
 }
 
-.washapp .mceMin {
+.alchemy .mceMin {
 	display: none;
 	right: 68px;
 }
 
-.washapp .mceMed {
+.alchemy .mceMed {
 	display: none;
 	right: 37px;
 }
 
-.washapp .mceMax {
+.alchemy .mceMax {
 	display: none;
 	right: 37px;
 }
 
-.washapp .mceMove {
+.alchemy .mceMove {
 	display: none;
 	width: 100%;
 	cursor: move;
 	height: 26px;
 }
 
-.washapp .mceMovable .mceMove {
+.alchemy .mceMovable .mceMove {
 	display: block
 }
 
 /* Resize */
 
-.washapp .mceResize {
+.alchemy .mceResize {
 	top: auto;
 	left: auto;
 	display: none;
@@ -246,77 +246,77 @@
 	background: white no-repeat 0 -75px;
 }
 
-.washapp .mceResizable .mceResize {
+.alchemy .mceResizable .mceResize {
 	display: block
 }
 
-.washapp .mceResizable .mceMin, .washapp .mceMax {
+.alchemy .mceResizable .mceMin, .alchemy .mceMax {
 	display: none
 }
 
-.washapp .mceMinimizable .mceMin {
+.alchemy .mceMinimizable .mceMin {
 	display: block
 }
 
-.washapp .mceMaximizable .mceMax {
+.alchemy .mceMaximizable .mceMax {
 	display: block
 }
 
-.washapp .mceMaximized .mceMed {
+.alchemy .mceMaximized .mceMed {
 	display: block
 }
 
-.washapp .mceMaximized .mceMax {
+.alchemy .mceMaximized .mceMax {
 	display: none
 }
 
-.washapp a.mceResizeN {
+.alchemy a.mceResizeN {
 	top: 0;
 	left: 0;
 	width: 100%;
 	cursor: n-resize
 }
 
-.washapp a.mceResizeNW {
+.alchemy a.mceResizeNW {
 	top: 0;
 	left: 0;
 	cursor: nw-resize
 }
 
-.washapp a.mceResizeNE {
+.alchemy a.mceResizeNE {
 	top: 0;
 	right: 0;
 	cursor: ne-resize
 }
 
-.washapp a.mceResizeW {
+.alchemy a.mceResizeW {
 	top: 0;
 	left: 0;
 	height: 100%;
 	cursor: w-resize;
 }
 
-.washapp a.mceResizeE {
+.alchemy a.mceResizeE {
 	top: 0;
 	right: 0;
 	height: 100%;
 	cursor: e-resize
 }
 
-.washapp a.mceResizeS {
+.alchemy a.mceResizeS {
 	bottom: 0;
 	left: 0;
 	width: 100%;
 	cursor: s-resize
 }
 
-.washapp a.mceResizeSW {
+.alchemy a.mceResizeSW {
 	bottom: 0;
 	left: 0;
 	cursor: sw-resize
 }
 
-.washapp a.mceResizeSE {
+.alchemy a.mceResizeSE {
 	bottom: 0;
 	right: 0;
 	cursor: se-resize
@@ -324,7 +324,7 @@
 
 /* Alert/Confirm */
 
-.washapp .mceButton {
+.alchemy .mceButton {
 	font-weight: bold;
 	bottom: 10px;
 	width: 80px;
@@ -336,14 +336,14 @@
 	outline: 0
 }
 
-.washapp .mceMiddle .mceIcon {
+.alchemy .mceMiddle .mceIcon {
 	left: 15px;
 	top: 35px;
 	width: 16px;
 	height: 16px;
 }
 
-.washapp .mceAlert .mceMiddle span, .washapp .mceConfirm .mceMiddle span {
+.alchemy .mceAlert .mceMiddle span, .alchemy .mceConfirm .mceMiddle span {
 	background: transparent;
 	left: 60px;
 	top: 35px;
@@ -354,35 +354,35 @@
 	white-space: normal
 }
 
-.washapp a:hover {
+.alchemy a:hover {
 	font-weight: bold;
 }
 
-.washapp .mceAlert .mceMiddle, .washapp .mceConfirm .mceMiddle {
+.alchemy .mceAlert .mceMiddle, .alchemy .mceConfirm .mceMiddle {
 	background: #D6D7D5
 }
 
-.washapp .mceAlert .mceOk {
+.alchemy .mceAlert .mceOk {
 	left: 50%;
 	top: auto;
 	margin-left: -40px
 }
 
-.washapp .mceAlert .mceIcon {
+.alchemy .mceAlert .mceIcon {
 	/*background: url(img/alert.gif)*/
 }
 
-.washapp .mceConfirm .mceOk {
+.alchemy .mceConfirm .mceOk {
 	left: 50%;
 	top: auto;
 	margin-left: -90px
 }
 
-.washapp .mceConfirm .mceCancel {
+.alchemy .mceConfirm .mceCancel {
 	left: 50%;
 	top: auto
 }
 
-.washapp .mceConfirm .mceIcon {
+.alchemy .mceConfirm .mceIcon {
 	/*background: url(img/confirm.gif)*/
 }

@@ -28,12 +28,12 @@ class MoleculePartialsGenerator < Rails::Generator::Base
   private
     
     def get_molecules_from_yaml
-      if File.exists? "#{RAILS_ROOT}/config/washapp/molecules.yml"
-        @molecules = YAML.load_file( "#{RAILS_ROOT}/config/washapp/molecules.yml" )
-      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/washapp/config/washapp/molecules.yml"
-        @molecules = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/washapp/config/washapp/molecules.yml" )
+      if File.exists? "#{RAILS_ROOT}/config/alchemy/molecules.yml"
+        @molecules = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/molecules.yml" )
+      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/molecules.yml"
+        @molecules = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/molecules.yml" )
       else
-        raise "Could not read config/washapp/molecules.yml"
+        raise "Could not read config/alchemy/molecules.yml"
       end
     end
 

@@ -1,7 +1,7 @@
 <div class="wa_molecule_head">
   <div class="molecule_handle">
-		<%= image_tag("molecules/molecule_pic.gif", :plugin => "washapp", :title => "#{wa_molecule.name}", :class => "molecule_image", :alt => "") -%>
-		<%= image_tag("molecules/molecule_#{wa_molecule.public? ? 'public' : 'draft'}.gif", :plugin => 'washapp', :class => "molecule_status", :alt => "") %>
+		<%= image_tag("molecules/molecule_pic.gif", :plugin => "alchemy", :title => "#{wa_molecule.name}", :class => "molecule_image", :alt => "") -%>
+		<%= image_tag("molecules/molecule_#{wa_molecule.public? ? 'public' : 'draft'}.gif", :plugin => 'alchemy', :class => "molecule_status", :alt => "") %>
   </div>
 	<span class="wa_molecule_heading">
 	  <%= content_tag("span", wa_molecule.display_name, :class => "preview_text_molecule_name") %>
@@ -12,7 +12,7 @@
 	<span class="ajax_folder">
 		<%= image_tag(
 			"ajax_loader.gif",
-			:plugin => "washapp", 
+			:plugin => "alchemy", 
 			:style => "display: none",
 			:id => "molecule_#{wa_molecule.id}_folder_spinner",
 			:class => "molecule_folder_spinner"

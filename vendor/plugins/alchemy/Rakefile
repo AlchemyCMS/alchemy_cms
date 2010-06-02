@@ -5,17 +5,17 @@ require 'rake/rdoctask'
 desc 'Default: run unit tests.'
 task :default => :test
 
-desc 'Test the washapp plugin.'
+desc 'Test the alchemy plugin.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
 
-desc 'Generate documentation for the washapp plugin.'
+desc 'Generate documentation for the alchemy plugin.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Washapp'
+  rdoc.title    = 'Alchemy'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
@@ -53,7 +53,7 @@ namespace :gettext do
 
     if GetText.respond_to? :update_pofiles_org
       GetText.update_pofiles_org(
-        "washapp",
+        "alchemy",
         Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,haml,rjs}"),
         "version 2.0",
         :po_root => 'locale',
@@ -72,7 +72,7 @@ namespace :gettext do
 
       #parse files.. (models are simply parsed as ruby files)
       GetText.update_pofiles(
-        "washapp",
+        "alchemy",
         Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,haml,rjs}"),
         "version 2.0",
         'locale'

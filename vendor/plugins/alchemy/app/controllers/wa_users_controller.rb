@@ -1,6 +1,6 @@
 class WaUsersController < ApplicationController
 
-  layout 'washapp'
+  layout 'alchemy'
   
   filter_access_to [:edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :new, :create], :attribute_check => false
@@ -33,7 +33,7 @@ class WaUsersController < ApplicationController
       if @wa_user.role == "registered"
         WaMailer.deliver_new_user_mail(@wa_user, request)
       else
-        WaMailer.deliver_new_washapp_user_mail(@wa_user, request)
+        WaMailer.deliver_new_alchemy_user_mail(@wa_user, request)
       end
     end
     render_errors_or_redirect(

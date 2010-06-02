@@ -1,6 +1,6 @@
-/* @override http://0.0.0.0:3000/plugin_assets/washapp/stylesheets/wa_base.css */
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_base.css */
 
-/* @override http://localhost:3000/plugin_assets/washapp/stylesheets/wa_base.css */
+/* @override http://localhost:3000/plugin_assets/alchemy/stylesheets/wa_base.css */
 
 div#wa_user_signup {
 	width: 380px;
@@ -380,7 +380,7 @@ div#page {
 	/* needed for footer positioning*/
 }
 
-#washapp {
+#alchemy {
 	min-height: 100%;
 	background: #ededed repeat-y;
 	position: relative; /* IE6: treaded as min-height*/
@@ -1695,7 +1695,7 @@ table.wa_list td.icon .icon {
 	width: 380px;
 	padding: 8px 6px 10px;
 	overflow: auto;
-	background: url(../images/washapp/dottet.gif) repeat-x 0 bottom;
+	background: url(../images/alchemy/dottet.gif) repeat-x 0 bottom;
 	margin: 0;
 }
 
@@ -2183,7 +2183,7 @@ a.rename_link {
 }
 
 a.delete_link {
-	background: url(../images/washapp/trash.png) no-repeat 0 0;
+	background: url(../images/alchemy/trash.png) no-repeat 0 0;
 }
 
 ul#all_files {

@@ -44,10 +44,10 @@
 		
 		getInfo : function() {
 			return {
-				longname : 'Link overlay plugin for washAPP',
+				longname : 'Link overlay plugin for Alchemy',
 				author : 'Thomas von Deyen',
 				authorurl : 'http://thomas.vondeyen.com',
-				infourl : 'http://washapp.vondeyen.com',
+				infourl : 'http://alchemy.vondeyen.com',
 				version : "0.2"
 			};
 		}

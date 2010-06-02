@@ -1,6 +1,6 @@
 class WaAtomFilesController < ApplicationController
   
-  layout 'washapp'
+  layout 'alchemy'
   
   filter_access_to :all
   

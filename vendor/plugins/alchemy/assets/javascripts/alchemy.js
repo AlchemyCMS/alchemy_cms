@@ -24,7 +24,7 @@ function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, 
 		method: 'get',
 		onLoading: function () {
 			var spinner = new Image();
-			spinner.src = "/plugin_assets/washapp/images/ajax_loader.gif";
+			spinner.src = "/plugin_assets/alchemy/images/ajax_loader.gif";
 			spinner.setStyle({
 				marginLeft: (size_x - 32) / 2 + 'px',
 				marginTop: (size_y - 32) / 2 + 'px'
@@ -95,7 +95,7 @@ function wa_link_window(selElem, width) {
     // IE 7 Syntax Error: Bezeichner erwartet.
     wa_overlay.tiny_ed = selElem;
     //
-    wa_overlay.setAjaxContent('/washapp/link_to_page', {method: 'get'});
+    wa_overlay.setAjaxContent('/alchemy/link_to_page', {method: 'get'});
     wa_overlay.showCenter('modal');
 }
 

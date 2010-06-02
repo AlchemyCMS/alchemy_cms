@@ -1,7 +1,7 @@
 class WaFilesController < ApplicationController
   
   protect_from_forgery :except => [:create]
-  layout 'washapp'
+  layout 'alchemy'
   
   before_filter :set_translation, :except => [:show, :download]
   filter_access_to :all, :except => [:show, :download]
@@ -51,7 +51,7 @@ class WaFilesController < ApplicationController
         :per_page => (params[:per_page] || 20)
       )
     end
-    if params[:_washapp_session].blank?
+    if params[:_alchemy_session].blank?
       redirect_to :action => :index
     end
   end
