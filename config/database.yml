@@ -1,7 +1,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: washapp_dev
+  database: alchemy_dev
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -9,7 +9,7 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: washapp_dev_test
+  database: alchemy_dev_test
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -17,7 +17,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: washapp_dev_prod
+  database: alchemy_dev_prod
   username: root
   password: 
   host: localhost

@@ -3,8 +3,8 @@
 
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'wa_pages', :action => 'show'
-  map.login "/washapp/login", :controller => "washapp", :action => "login"
-  map.logout "/washapp/logout", :controller => "washapp", :action => "logout"
+  map.login "/admin/login", :controller => "admin", :action => "login"
+  map.logout "/admin/logout", :controller => "admin", :action => "logout"
   map.systempages "/wa_pages/systempages", :controller => "wa_pages", :action => "systempages"
   map.resources :wa_users
   map.resources :wa_user_sessions
@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   map.show_image '/wa_images/show/:id/:size/:name.:format', :controller => 'wa_images', :action => 'show'
   map.thumbnail '/wa_images/thumb/:id/:size/thumbnail.jpg', :controller => 'wa_images', :action => 'thumb'
   map.download_file '/wa_files/:id/download/:name', :controller => 'wa_files', :action => 'download'
-  map.washapp '/washapp', :controller => 'washapp', :action => 'index'
+  map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'wa_pages', :action => 'show', :lang => @lang_regex
   map.show_page '/:urlname', :controller => 'wa_pages', :action => 'show'
   map.show_page_with_language '/:lang/:urlname', :controller => 'wa_pages', :action => 'show', :lang => @lang_regex

@@ -22,7 +22,7 @@ authorization do
   
   role :author do
     includes :registered
-    has_permission_on :washapp, :to => [:login_to]
+    has_permission_on :admin, :to => [:login_to]
     has_permission_on :wa_pages, :to => [:index, :fold, :edit_content]
     has_permission_on :wa_molecules, :to => [:manage_molecules]
     has_permission_on :wa_images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
@@ -78,7 +78,7 @@ privileges do
     includes :edit_content, :unlock, :preview, :publish
   end
   
-  privilege :login_to, :washapp do
+  privilege :login_to, :admin do
     includes :index, :login, :logout
   end
   

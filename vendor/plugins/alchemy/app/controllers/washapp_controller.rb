@@ -1,4 +1,4 @@
-class WashappController < ApplicationController
+class AdminController < ApplicationController
   
   before_filter :set_translation
   
@@ -6,13 +6,13 @@ class WashappController < ApplicationController
   
   def index
     # Hello!
-    @washapp_version = configuration(:washapp_version)
+    @alchemy_version = configuration(:alchemy_version)
   end
   
   # Signup only works if no user is present in database.
   def signup
     if request.get?
-      redirect_to washapp_path if WaUser.count != 0
+      redirect_to admin_path if WaUser.count != 0
       flash[:explain] = _("Please Signup")
       @wa_user = WaUser.new
     else
@@ -114,7 +114,7 @@ class WashappController < ApplicationController
   end
   
   def infos
-    @version = configuration(:washapp_version)
+    @version = configuration(:alchemy_version)
     render :layout => false
   end
     

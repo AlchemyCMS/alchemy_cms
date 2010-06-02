@@ -11,7 +11,7 @@ role :web, "78.47.48.250"
 role :db,  "78.47.48.250", :primary => true
 
 # set the public webserver path
-set :deploy_to, "/var/www/#{user}/html/washapp"
+set :deploy_to, "/var/www/#{user}/html/alchemy"
 
 # set the apps repository url
 set :repository_url, "http://svn.vondeyen.com/customers/#{application}"
@@ -28,10 +28,10 @@ set :repository, Proc.new{ "--username #{scm_user} --password #{scm_password} #{
 
 before "deploy:restart", "deploy:migrate"
 
-after "deploy:setup", "washapp:create_shared_folders"
-after "deploy:symlink", "washapp:symlink_folders"
+after "deploy:setup", "alchemy:create_shared_folders"
+after "deploy:symlink", "alchemy:symlink_folders"
 
-namespace :washapp do
+namespace :alchemy do
 
   desc "Creates the uploads and images cache directory in the shared folder"
   task :create_shared_folders, :roles => :app do
@@ -53,7 +53,7 @@ namespace :washapp do
 
   desc "Update washAPP and generates migrations to finally migrate"
   task :update, :roles => :app do
-    run "cd #{current_path} && svn update --username #{scm_user} --password #{scm_password} vendor/plugins/washapp"
+    run "cd #{current_path} && svn update --username #{scm_user} --password #{scm_password} vendor/plugins/alchemy"
     run "cd #{current_path} && RAILS_ENV=production script/generate plugin_migration"
     deploy.migrate
     deploy.restart
@@ -72,17 +72,17 @@ namespace :washapp do
 
   desc "Get all live data (images, files and database) from remote server"
   task :get_all_live_data do
-    washapp.get_db_dump
-    washapp.get_images
-    washapp.get_files
+    alchemy.get_db_dump
+    alchemy.get_images
+    alchemy.get_files
   end
 
   desc "Get all live data (images, files and database) from remote server and replace the local data with it"
   task :clone_live do
-    washapp.get_all_live_data
-    washapp.import_images
-    washapp.import_files
-    washapp.import_db
+    alchemy.get_all_live_data
+    alchemy.import_images
+    alchemy.import_files
+    alchemy.import_db
   end
 
   desc "Zip all uploaded images and store them in shared/uploads folder on server"
@@ -103,19 +103,19 @@ namespace :washapp do
 
   desc "Get images zip from remote server and store it in public/uploads/images.tar.gz"
   task :get_images do
-    washapp.zip_images
+    alchemy.zip_images
     download "#{deploy_to}/shared/uploads/images.tar.gz", "public/uploads/images.tar.gz"
   end
 
   desc "Get files zip from remote server and store it in public/uploads/files.tar.gz"
   task :get_files do
-    washapp.zip_files
+    alchemy.zip_files
     download "#{deploy_to}/shared/uploads/files.tar.gz", "public/uploads/files.tar.gz"
   end
 
   desc "Get db dump from remote server and store it in db/<Time>.sql"
   task :get_db_dump do
-    washapp.dump_db
+    alchemy.dump_db
     download "#{deploy_to}/shared/dump_#{@datestring}.sql", "db/dump_#{@datestring}.sql"
   end
 
@@ -139,10 +139,10 @@ namespace :washapp do
     `mysql -uroot #{db_settings['database']} < db/dump_#{@datestring}.sql`
   end
   
-  desc "PRIVATE! Release a new washapp Version. ONLY FOR internal usage!"
+  desc "PRIVATE! Release a new alchemy Version. ONLY FOR internal usage!"
   task :release do
-    system('svn remove -m "removing for new release" http://svn.washapp.de/releases/3.0/')
-    system('svn copy -m "new release" http://svn.washapp.de/trunk http://svn.washapp.de/releases/3.0')
+    system('svn remove -m "removing for new release" http://svn.vondeyen.com/releases/0.1beta/')
+    system('svn copy -m "new release" http://svn.vondeyen.com/alchemy/trunk http://svn.vondeyen.com/alchemy/releases/0.1beta')
   end
   
 end
