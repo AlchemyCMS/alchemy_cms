@@ -70,8 +70,8 @@ stylesheets:
 - edit_page:
    - wa_master
    - wa_base
-   - molecules
-   - atoms
+   - wa_molecules
+   - wa_atoms
    - wa_overlay_window
    - wa_tooltip
 - archive:

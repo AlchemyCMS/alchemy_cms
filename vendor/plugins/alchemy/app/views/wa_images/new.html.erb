@@ -1,0 +1,20 @@
+<% form_for(@wa_image, :html => {:multipart => true}) do |f| %>
+	<%= render(
+		:partial => "partials/upload_form",
+		:locals => {
+			:file_types => [
+				'*.jpg',
+				'*.jpeg',
+				'*.gif',
+				'*.png',
+				'*.tif',
+				'*.tiff',
+				'*.psd',
+				'*.pdf'
+			],
+			:file_types_description => _('images'),
+			:model_name => 'wa_image',
+			:item_type => _('images')
+		}
+	) %>
+<% end %>

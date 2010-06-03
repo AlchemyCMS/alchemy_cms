@@ -1,11 +1,11 @@
-class AddPageLockedStatus < ActiveRecord::Migration
+class AddWaPageLockedStatus < ActiveRecord::Migration
   def self.up
-    add_column(:pages, :locked, :boolean)
-    add_column(:pages, :locked_by, :string)
+    add_column(:wa_pages, :locked, :boolean)
+    add_column(:wa_pages, :locked_by, :string)
   end
 
   def self.down
-    remove_column(:pages, :locked)
-    remove_column(:pages, :locked_by)
+    remove_column(:wa_pages, :locked)
+    remove_column(:wa_pages, :locked_by)
   end
 end

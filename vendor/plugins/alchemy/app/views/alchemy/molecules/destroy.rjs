@@ -1,9 +1,0 @@
-page.remove("dragable_#{@molecule.id}")
-if @page.molecules.empty?
-  page << remote_function(:url => {:controller => "molecules", :action => "new", :page_id => @page.id, :open => true})
-else
-  Alchemy::Configuration.sortable_molecules(page)
-end
-Alchemy::Notice.show_via_ajax(page, _("element_deleted_successful"))
-page << "reloadPreview()"
-page << "setFrameSize()"

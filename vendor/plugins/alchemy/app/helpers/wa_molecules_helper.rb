@@ -1,3 +1,3 @@
-module MoleculesHelper
+module WaMoleculesHelper
 
 end

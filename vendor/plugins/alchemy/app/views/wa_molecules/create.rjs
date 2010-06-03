@@ -1,0 +1,19 @@
+if @after_molecule.nil?
+  page.insert_html(
+    :top,
+    "wa_molecule_area",
+    :partial => "wa_molecule",
+    :object => @new_molecule
+  )
+else
+  page.insert_html(
+    :after,
+    "dragable_#{@after_molecule.id}",
+    :partial => "wa_molecule",
+    :object => @new_molecule
+  )  
+end
+WaConfigure.sortable_molecules(page)
+WaNotice.show_via_ajax(page, _("successfully_added_element"))
+page << "setFrameSize()"
+page << "TinymceHammer.init()"

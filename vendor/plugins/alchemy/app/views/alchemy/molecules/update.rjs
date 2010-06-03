@@ -1,9 +1,0 @@
-page.replace(
-  "dragable_#{@molecule.id}",
-  :partial => "molecule",
-  :object => @molecule
-)
-Alchemy::Configuration.sortable_molecules(page)
-Alchemy::Notice.show_via_ajax(page, _("element_saved"))
-page.call 'reloadPreview'
-page.call 'TinymceHammer.init' if @has_rtf_atoms

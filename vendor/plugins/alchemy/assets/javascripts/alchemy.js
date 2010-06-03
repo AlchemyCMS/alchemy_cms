@@ -100,7 +100,7 @@ function wa_link_window(selElem, width) {
 }
 
 function OverlayForMolecules(show) {
-	var a = $$(".atom_fckeditor");
+	var a = $$(".wa_atom_fckeditor");
 	if (show) {
 		a.invoke('hide');
 	}
@@ -223,11 +223,11 @@ function waCreateLink(link_type, url, title, extern) {
 			});
 	} else {
 		// aka: we are linking an atom
-		var atom_type = tiny_ed.name.gsub('atom_', '').split('_')[0];
+		var atom_type = tiny_ed.name.gsub('wa_atom_', '').split('_')[0];
 		switch (atom_type) {
-			case "picture": var atom_id = tiny_ed.name.gsub('atom_picture_', '');
+			case "picture": var atom_id = tiny_ed.name.gsub('wa_atom_picture_', '');
 			break;
-			case "text": var atom_id = tiny_ed.name.gsub('atom_text_', '');
+			case "text": var atom_id = tiny_ed.name.gsub('wa_atom_text_', '');
 			break;
 		}
 		$('atom_' + atom_id + '_link').value = url;
@@ -277,11 +277,11 @@ function select_link_tab() {
     if (tiny_ed.selection == undefined) {
         var tmp_link = document.createElement("a");
         var selection = tiny_ed;
-				var atom_type = tiny_ed.name.gsub('atom_', '').split('_')[0];
+				var atom_type = tiny_ed.name.gsub('wa_atom_', '').split('_')[0];
 				switch (atom_type) {
-					case "picture": var atom_id = tiny_ed.name.gsub('atom_picture_', '');
+					case "picture": var atom_id = tiny_ed.name.gsub('wa_atom_picture_', '');
 					break;
-					case "text": var atom_id = tiny_ed.name.gsub('atom_text_', '');
+					case "text": var atom_id = tiny_ed.name.gsub('wa_atom_text_', '');
 					break;
 				}
         tmp_link.href = $('atom_' + atom_id + '_link').value;
@@ -307,12 +307,12 @@ function select_link_tab() {
           if (sitemap_line) {
             // select the line where the link was detected in.
             sitemap_line.addClassName("selected_page");
-            page_select_scrollbar.scrollTo(sitemap_line.up('li'));
+            wa_page_select_scrollbar.scrollTo(sitemap_line.up('li'));
             // is there an anchor in the url? then request the molecule selector via ajax and select the correct value. yeah!
             if (internal_anchor) {
               var select_container = $(sitemap_line).adjacent('.molecules_for_page').first();
               select_container.show();
-              new Ajax.Request("/molecules/?page_urlname=" + internal_urlname.split('/').last(), {
+              new Ajax.Request("/wa_molecules/?wa_page_urlname=" + internal_urlname.split('/').last(), {
                 method: 'get',
                 onComplete: function() {
                   var wa_select = select_container.down('.wa_drop_down_select');
@@ -364,15 +364,15 @@ function fadeWaFlashNotice() {
 
 function showMoleculesFromPageSelector (id) {
     $('molecules_for_page_' + id).show();
-    page_select_scrollbar.scrollTo($('wa_sitemap_sitename_' + id));
-    page_select_scrollbar.recalculateLayout();
+    wa_page_select_scrollbar.scrollTo($('wa_sitemap_sitename_' + id));
+    wa_page_select_scrollbar.recalculateLayout();
 }
 
 function hideMoleculesFromPageSelector (id) {
     $('molecules_for_page_' + id).hide();
     $('page_anchor').removeAttribute('value');
-    page_select_scrollbar.scrollTo($('wa_sitemap_sitename_' + id));
-    page_select_scrollbar.recalculateLayout();
+    wa_page_select_scrollbar.scrollTo($('wa_sitemap_sitename_' + id));
+    wa_page_select_scrollbar.recalculateLayout();
 }
 
 function wa_fade_image(image) {
@@ -392,7 +392,7 @@ function saveRtfAtoms (molecule_id) {
 			var content = editor.getContent();
 			$(editor.editorId).value = content;
 			//removing the editor instance before adding it dynamically after saving
-			$(editor.editorId).previous('div.atom_rtf_loader').show();
+			$(editor.editorId).previous('div.wa_atom_rtf_loader').show();
 			tinyMCE.execCommand(
 				'mceRemoveControl',
 				true,

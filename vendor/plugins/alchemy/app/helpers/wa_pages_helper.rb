@@ -1,6 +1,6 @@
-module PagesHelper
+module WaPagesHelper
   
-  # DEPRICATED! Use Molecule.preview_text instead.
+  # DEPRICATED! Use WaMolecule.preview_text instead.
   def get_preview_text molecule
     molecule.preview_text
   end
@@ -10,10 +10,10 @@ module PagesHelper
     s.blank? ? "" : "class='#{s}'"
   end
   
-  def picture_atom_caption atom
-    return "" if atom.nil?
-    return "" if atom.atom.nil?
-    atom.atom.caption
+  def picture_atom_caption wa_atom
+    return "" if wa_atom.nil?
+    return "" if wa_atom.atom.nil?
+    wa_atom.atom.caption
   end
   
   def wa_form_select(name, select_options, options={})
@@ -40,8 +40,8 @@ module PagesHelper
     bla += hidden_field_tag "mail_data[#{name}]", 0, :id => nil
   end
   
-  def wa_form_label(molecule, name, options={})
-    label_tag "mail_data_#{name}", render_atom_view_by_name(molecule, name), options
+  def wa_form_label(wa_molecule, name, options={})
+    label_tag "mail_data_#{name}", render_atom_view_by_name(wa_molecule, name), options
   end
   
   def wa_form_reset_button(name, options={})

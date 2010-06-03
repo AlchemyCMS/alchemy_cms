@@ -9,17 +9,17 @@ class MoleculePartialsGenerator < Rails::Generator::Base
   
   def manifest
     record do |m|
-      m.directory "app/views/molecules"
+      m.directory "app/views/wa_molecules"
       @molecules.each do |molecule|
         m.template(
           "editor.html.erb",
-          "app/views/molecules/_#{molecule["name"]}_editor.html.erb",
-          :assigns => { :atoms => molecule["atoms"] }
+          "app/views/wa_molecules/_#{molecule["name"]}_editor.html.erb",
+          :assigns => { :atoms => molecule["wa_atoms"] }
         )
         m.template(
           "view.html.erb",
-          "app/views/molecules/_#{molecule["name"]}_view.html.erb",
-          :assigns => { :atoms => molecule["atoms"], :molecule_name => molecule["name"] }
+          "app/views/wa_molecules/_#{molecule["name"]}_view.html.erb",
+          :assigns => { :atoms => molecule["wa_atoms"], :molecule_name => molecule["name"] }
         )
       end
     end

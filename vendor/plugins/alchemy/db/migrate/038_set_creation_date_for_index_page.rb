@@ -1,6 +1,6 @@
 class SetCreationDateForIndexPage < ActiveRecord::Migration
   def self.up
-    root = Page.root
+    root = WaPage.root
     root.created_at = Time.now
     root.created_by = 1
     root.updated_at = Time.now
@@ -9,7 +9,7 @@ class SetCreationDateForIndexPage < ActiveRecord::Migration
   end
 
   def self.down
-    root = Page.root
+    root = WaPage.root
     root.created_at = nil
     root.created_by = nil
     root.updated_at = nil

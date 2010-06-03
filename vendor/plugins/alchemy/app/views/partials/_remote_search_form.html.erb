@@ -5,8 +5,8 @@
 	},
 	:method => :get
 ) do %>
-	<%= hidden_field_tag "molecule_id", @molecule.id %>
-	<%= hidden_field_tag( "atom_id", (@atom.id rescue nil)) %>
+	<%= hidden_field_tag "wa_molecule_id", @wa_molecule.id %>
+	<%= hidden_field_tag( "wa_atom_id", (@wa_atom.id rescue nil)) %>
 	<%= hidden_field_tag "swap", @swap %>
 	<%= hidden_field_tag "remote", 'true' %>
 	<div class="search_field">

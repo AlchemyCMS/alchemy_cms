@@ -1,7 +1,0 @@
-<div class="atom_editor atom_rtf_editor" id="<%= "molecule_#{atom.molecule.id}_atom_#{atom.id}" %>">
-	<label><%= t("atom_names.#{atom.name}") %></label>
-	<div class="atom_rtf_loader" style="display: none">
-		<%= image_tag('ajax_loader.gif', :plugin => 'alchemy') %>
-	</div>
-	<%= tinymce_tag("atoms[atom_#{atom.id}]", atom.atom.content) %>
-</div>

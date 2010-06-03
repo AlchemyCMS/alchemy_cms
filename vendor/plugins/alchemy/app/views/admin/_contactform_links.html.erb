@@ -1,0 +1,57 @@
+<div id="contactform_links" style="display: none" class="wa_overlay_tab_body">
+	<h2>
+		<%= _("please enter subject and mail address") %>
+	</h2>
+	<table class="window_form">
+		<%= hidden_field_tag(
+			'contactform_url',
+			"/#{@url_prefix}" + WaPage.find_by_page_layout_and_language(
+				configuration(:mailer)[:form_layout_name],
+				session[:language]
+			).urlname
+		) %>
+		<tr>
+			<td class="label">
+				<label for="contactform_subject" class="medium"><%= _("subject") %></label>
+			</td>
+			<td class="input">
+				<%= text_field_tag "contactform_subject", {}, :class => "thin_border auto_resize" %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<label for="contactform_mailto" class="medium"><%= _("mail_to") %></label>
+			</td>
+			<td class="input">
+				<%= wa_select_tag(
+					"contactform_mailto",
+					configuration(:mailer)[:mail_addresses].map{ |a| [t('mailer.mail_addresses.'+a[0]), a[0]] },
+					'',
+					:style => "width: 100%"
+				) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<label for="contactform_link_title" class="medium">
+					<%= _("link_title") %>
+				</label>
+			</td>
+			<td class="input">
+				<%= text_field_tag "contactform_link_title", {}, :class => 'thin_border auto_resize' %>
+			</td>
+		</tr>
+	</table>
+	<p>
+		<%= link_to_function(
+			_("apply"),
+			"waCreateLink(
+				'contact',
+				$('contactform_url').value + '?subject=' + encodeURIComponent($('contactform_subject').value) + '&mail_to=' + encodeURIComponent($('contactform_mailto').value),
+				$('contactform_link_title').value,
+				false
+			); wa_overlay.close()",
+			:class => 'button'
+		) %>
+	</p>
+</div>

@@ -1,7 +1,7 @@
 class CreateWaAtoms < ActiveRecord::Migration
   def self.up
-    create_table :atoms do |t|
-      t.column :molecule_id, :integer
+    create_table :wa_atoms do |t|
+      t.column :wa_molecule_id, :integer
       t.column :atom_id, :integer
       t.column :atom_type, :string
       t.column :position, :integer
@@ -9,6 +9,6 @@ class CreateWaAtoms < ActiveRecord::Migration
     end
   end
   def self.down
-    drop_table :atoms
+    drop_table :wa_atoms
   end
 end

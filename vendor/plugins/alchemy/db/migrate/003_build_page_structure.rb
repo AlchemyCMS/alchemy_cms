@@ -1,13 +1,13 @@
 class BuildPageStructure < ActiveRecord::Migration
   def self.up
-    root = Page.create(
+    root = WaPage.create(
       :name => "Startseite",
       :urlname => "startseite",
       :public => true,
       :visible => true,
       :do_not_autogenerate => true
     )
-    demo = Page.create(
+    demo = WaPage.create(
       :name => "Seite1",
       :urlname => "seite1",
       :public => true,

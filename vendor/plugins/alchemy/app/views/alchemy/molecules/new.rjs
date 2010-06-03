@@ -1,5 +1,0 @@
-page.replace(
-  "add_molecule_#{@molecule_before.id rescue ''}",
-  :partial => "pages/add_molecule",
-  :locals => {:molecule_before => @molecule_before, :open_molecule_selector => (params[:open] == 'true')}
-)

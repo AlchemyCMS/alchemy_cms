@@ -1,6 +1,6 @@
 class CreateWaAtomFlashes < ActiveRecord::Migration
   def self.up
-    create_table :atom_flashes do |t|
+    create_table :wa_atom_flashes do |t|
       #render_content in model
       #render_editor in model
       t.column :content,  :string
@@ -8,6 +8,6 @@ class CreateWaAtomFlashes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :atom_flashes
+    drop_table :wa_atom_flashes
   end
 end

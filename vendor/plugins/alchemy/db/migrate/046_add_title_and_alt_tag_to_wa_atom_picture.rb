@@ -1,9 +1,9 @@
-class AddTitleAndAltTagToAtoms::Picture < ActiveRecord::Migration
+class AddTitleAndAltTagToWaAtomPicture < ActiveRecord::Migration
   def self.up
-    add_column :atom_pictures, "title", :string, :default => ""
-    add_column :atom_pictures, "alt_tag", :string, :default => ""
-    Atoms::Picture.reset_column_information
-    Atoms::Picture.find(:all).each do |a|
+    add_column :wa_atom_pictures, "title", :string, :default => ""
+    add_column :wa_atom_pictures, "alt_tag", :string, :default => ""
+    WaAtomPicture.reset_column_information
+    WaAtomPicture.find(:all).each do |a|
       a.title = ""
       a.alt_tag = ""
       a.save
@@ -11,7 +11,7 @@ class AddTitleAndAltTagToAtoms::Picture < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :atom_pictures, "title"
-    remove_column :atom_pictures, "alt_tag"
+    remove_column :wa_atom_pictures, "title"
+    remove_column :wa_atom_pictures, "alt_tag"
   end
 end

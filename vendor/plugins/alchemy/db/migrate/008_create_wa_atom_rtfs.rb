@@ -1,6 +1,6 @@
 class CreateWaAtomRtfs < ActiveRecord::Migration
   def self.up
-    create_table :atom_rtfs do |t|
+    create_table :wa_atom_rtfs do |t|
       #render_content in model
       #render_editor in model
       t.column :content,  :text
@@ -8,6 +8,6 @@ class CreateWaAtomRtfs < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :atom_rtfs
+    drop_table :wa_atom_rtfs
   end
 end

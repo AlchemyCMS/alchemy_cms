@@ -8,7 +8,7 @@ class AddUserstampsAndTimestampsForEverything < ActiveRecord::Migration
     change_table :wa_files do |t|
       t.userstamps
     end
-    change_table :molecules do |t|
+    change_table :wa_molecules do |t|
       t.userstamps
     end
     change_table :wa_users do |t|
@@ -25,7 +25,7 @@ class AddUserstampsAndTimestampsForEverything < ActiveRecord::Migration
       t.remove_timestamps
       t.remove_userstamps
     end
-    change_table :molecules do |t|
+    change_table :wa_molecules do |t|
       t.remove_timestamps
       t.remove_userstamps
     end

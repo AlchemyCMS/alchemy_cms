@@ -1,6 +1,6 @@
-class AddPages < ActiveRecord::Migration
+class AddWaPages < ActiveRecord::Migration
   def self.up
-    create_table :pages do |t|
+    create_table :wa_pages do |t|
       t.column :name, :string
       t.column :urlname, :string
       t.column :title, :string
@@ -13,6 +13,6 @@ class AddPages < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :pages
+    drop_table :wa_pages
   end
 end

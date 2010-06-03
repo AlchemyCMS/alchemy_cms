@@ -1,7 +1,7 @@
 class AddStrippedContentToRtfAtoms < ActiveRecord::Migration
   
   def self.up
-    add_column(:atom_rtfs, :stripped_content, :text, :default => "")
+    add_column(:wa_atom_rtfs, :stripped_content, :text, :default => "")
     WaAtomRtf.reset_column_information
     WaAtomRtf.find(:all).each do |a|
       a.save
@@ -9,7 +9,7 @@ class AddStrippedContentToRtfAtoms < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column(:atom_rtfs, :stripped_content)
+    remove_column(:wa_atom_rtfs, :stripped_content)
   end
   
 end

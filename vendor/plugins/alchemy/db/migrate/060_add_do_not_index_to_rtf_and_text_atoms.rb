@@ -1,7 +1,7 @@
 class AddDoNotIndexToRtfAndTextAtoms < ActiveRecord::Migration
   def self.up
-    add_column :atom_rtfs, :do_not_index, :boolean, :default => false
-    add_column :atom_texts, :do_not_index, :boolean, :default => false
+    add_column :wa_atom_rtfs, :do_not_index, :boolean, :default => false
+    add_column :wa_atom_texts, :do_not_index, :boolean, :default => false
 
     WaAtomText.reset_column_information
     WaAtomText.find(:all).each do |atom|
@@ -17,7 +17,7 @@ class AddDoNotIndexToRtfAndTextAtoms < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :atom_texts, :do_not_index
-    remove_column :atom_rtfs, :do_not_index
+    remove_column :wa_atom_texts, :do_not_index
+    remove_column :wa_atom_rtfs, :do_not_index
   end
 end

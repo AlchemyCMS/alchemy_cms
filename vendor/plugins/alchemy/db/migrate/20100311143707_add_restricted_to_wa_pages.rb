@@ -1,9 +1,9 @@
-class AddRestrictedToPages < ActiveRecord::Migration
+class AddRestrictedToWaPages < ActiveRecord::Migration
   def self.up
-    add_column :pages, :restricted, :boolean, :default => false
+    add_column :wa_pages, :restricted, :boolean, :default => false
   end
 
   def self.down
-    remove_column :pages, :restricted
+    remove_column :wa_pages, :restricted
   end
 end

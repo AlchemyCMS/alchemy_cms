@@ -1,13 +1,13 @@
 class AddPublicToWaAtomRtfsAndWaAtomTexts < ActiveRecord::Migration
   def self.up
-    add_column :atom_rtfs, :public, :boolean
-    add_column :atom_texts, :public, :boolean
+    add_column :wa_atom_rtfs, :public, :boolean
+    add_column :wa_atom_texts, :public, :boolean
 
     WaAtomText.reset_column_information
     WaAtomText.find(:all).each do |atom|
-      atom = Atom.find_by_atom_id(atom.id)
-      unless atom.nil?
-        mol = atom.molecule
+      wa_atom = WaAtom.find_by_atom_id(atom.id)
+      unless wa_atom.nil?
+        mol = wa_atom.wa_molecule
         unless mol.nil?
           atom.public = mol.public?
           atom.save
@@ -17,9 +17,9 @@ class AddPublicToWaAtomRtfsAndWaAtomTexts < ActiveRecord::Migration
 
     WaAtomRtf.reset_column_information
     WaAtomRtf.find(:all).each do |atom|
-      atom = Atom.find_by_atom_id(atom.id)
-      unless atom.nil?
-        mol = atom.molecule
+      wa_atom = WaAtom.find_by_atom_id(atom.id)
+      unless wa_atom.nil?
+        mol = wa_atom.wa_molecule
         unless mol.nil?
           atom.public = mol.public?
           atom.save
@@ -29,7 +29,7 @@ class AddPublicToWaAtomRtfsAndWaAtomTexts < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :atom_texts, :do_not_index
-    remove_column :atom_rtfs, :do_not_index
+    remove_column :wa_atom_texts, :do_not_index
+    remove_column :wa_atom_rtfs, :do_not_index
   end
 end

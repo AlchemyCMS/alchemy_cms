@@ -1,0 +1,27 @@
+<%- has_rtf_atoms = wa_molecule.wa_atoms.detect { |atom| atom.atom_type == 'WaAtomRtf' } -%>
+
+<div class="dragable" id="<%= "dragable_#{wa_molecule.id}" %>">
+	<div class="wa_molecule_editor" id="molecule_<%= wa_molecule.id %>">
+		<%= render :partial => "wa_molecules/wa_molecule_head", :locals => {:wa_molecule => wa_molecule} %>
+		<%- if !wa_molecule.folded? -%>
+			<% form_remote_tag(
+				:url => wa_molecule_path(wa_molecule),
+				:method => :put,
+				:before => (has_rtf_atoms ? "saveRtfAtoms(#{wa_molecule.id})" : nil),
+				:loading => %(
+					$('molecule_#{wa_molecule.id}_save').hide();
+					$('wa_molecule_#{wa_molecule.id}_spinner').show();
+				),
+				:html => {
+					:id => "molecule_#{wa_molecule.id}_form"
+				}
+			) do %>
+				<div id="wa_molecule_<%= wa_molecule.id %>_content" class="wa_molecule_content">
+					<%= render_editor(wa_molecule) %>
+				</div>
+				<%= render :partial => 'wa_molecules/save_and_delete_buttons', :locals => {:wa_molecule => wa_molecule} %>
+			<% end %>
+		<%- end -%>
+	</div>
+	<%= render :partial => 'wa_pages/add_molecule', :locals => {:molecule_before => wa_molecule, :open_molecule_selector => false} %>
+</div>

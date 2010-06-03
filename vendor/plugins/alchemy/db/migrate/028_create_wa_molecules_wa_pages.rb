@@ -1,12 +1,12 @@
-class CreateWaMoleculesPages < ActiveRecord::Migration
+class CreateWaMoleculesWaPages < ActiveRecord::Migration
   def self.up
-    create_table :molecules_pages, :id => false do |t|
-      t.column :molecule_id, :integer
-      t.column :page_id, :integer
+    create_table :wa_molecules_wa_pages, :id => false do |t|
+      t.column :wa_molecule_id, :integer
+      t.column :wa_page_id, :integer
     end
   end
 
   def self.down
-    drop_table :molecules_pages
+    drop_table :wa_molecules_wa_pages
   end
 end

@@ -1,0 +1,5 @@
+<%- if options[:shorten_to].blank? -%>
+	<%= wa_atom.content %>
+<%- else -%>
+	<%= wa_atom.content.split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…') %>
+<%- end -%>

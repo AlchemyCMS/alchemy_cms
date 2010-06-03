@@ -1,0 +1,15 @@
+<% remote_form_for @wa_atom, :html => {:class => 'with_padding'} do |f| %>
+	<%= f.error_messages %>
+	<%= f.hidden_field :wa_molecule_id %>
+	<table>
+		<tr>
+			<td>
+				<%= f.wa_select 'name', @atoms.map{ |a| [t("atom_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
+				<%= hidden_field_tag('options', @options) %>
+			</td>
+			<td>
+				&nbsp;<%= f.submit _('save'), :class => 'button' %>
+			</td>
+		</tr>
+	</table>
+<% end %>

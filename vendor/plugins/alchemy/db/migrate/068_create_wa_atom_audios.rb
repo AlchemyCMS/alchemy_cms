@@ -1,6 +1,6 @@
 class CreateWaAtomAudios < ActiveRecord::Migration
   def self.up
-    create_table :atom_audios do |t|
+    create_table :wa_atom_audios do |t|
       t.integer :wa_file_id
       t.integer :width
       t.integer :height
@@ -10,6 +10,6 @@ class CreateWaAtomAudios < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :atom_audios
+    drop_table :wa_atom_audios
   end
 end

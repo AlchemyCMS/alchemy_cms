@@ -16,7 +16,7 @@
 :ferret: false
 
 #enable wapage caching?
-:cache_pages: true
+:cache_wa_pages: true
 
 #image settings
 :output_image_jpg_quality: 85
@@ -85,24 +85,24 @@ wa_plugins:
   
   - name: wa_cms
     preview_frame:
-      controller: pages
+      controller: wa_pages
       action: edit_content
-      target_controller: pages
+      target_controller: wa_pages
       target_action: preview
     navigation:
       name: 'module: pages'
-      controller: pages
+      controller: wa_pages
       action: index
       image: /plugin_assets/alchemy/images/icons/pages.png
       sub_navigation:
         - name: 'module: pages'
-          controller: pages
+          controller: wa_pages
           action: index
         - name: 'module: systempages'
-          controller: pages
+          controller: wa_pages
           action: systempages
       nested:
-        - controller: pages
+        - controller: wa_pages
           action: edit_content
 
   - name: users

@@ -1,0 +1,21 @@
+<div class="<%= wa_atom.atom_type.tableize %>">
+	<table border="0" cellspacing="0" cellpadding="0" class="wa_atom_editor_table">
+		<tr>
+			<td class="wa_atom_editor_atom_type">Typ:</td>
+			<td>Aktion:</td>
+		</tr>
+		<tr>
+			<td><%= wa_atom.atom_type.gsub(/WaAtom/, "") %></td>
+			<td>
+				<%= text_field(
+					"atom",
+					"name",
+					:value => wa_atom.atom.action,
+					:name => "atoms[atom_#{wa_atom.id}][action]",
+					:id => "atom_#{wa_atom.id}_action",
+					:class => "thin_border"
+				) %>
+			</td>
+		</tr>
+	</table>
+</div>

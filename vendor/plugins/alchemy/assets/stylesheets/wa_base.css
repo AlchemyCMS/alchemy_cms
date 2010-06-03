@@ -113,7 +113,7 @@ div.wa_legend div#language_select {
 	float: left;
 }
 
-#new_molecule .wa_drop_down_select {
+#new_wa_molecule .wa_drop_down_select {
 	float: left;
 	line-height: normal;
 	margin-left: 8px;
@@ -370,7 +370,7 @@ div#wa_site_infos {
 	padding: 0;
 }
 
-div#page_editing_title {
+div#wa_page_editing_title {
 	float: left;
 }
 
@@ -760,7 +760,7 @@ ul.wa_list .wa_sitemap_sitename {
 	overflow: hidden;
 }
 
-#wa_sitemap li.legend span.page_name {
+#wa_sitemap li.legend span.wa_page_name {
 	margin-left: 24px;
 	line-height: 28px;
 }
@@ -938,11 +938,11 @@ ul#wa_sitemap a.delete_page {
 
 /* @group page_editing */
 
-div#page_editing_head {
+div#wa_page_editing_head {
 	height: 25px;
 }
 
-#page_editing_head span img.link_arrow {
+#wa_page_editing_head span img.link_arrow {
 	margin-right: 4px;
 	float: right;
 	margin-left: 8px;
@@ -954,7 +954,7 @@ div#page_editing_head {
 	float: left;
 }
 
-.page_name {
+.wa_page_name {
 	bottom: 3px;
 	font-weight: bold;
 	position: relative;
@@ -963,7 +963,7 @@ div#page_editing_head {
 	line-height: 25px;
 }
 
-#page_names td {
+#wa_page_names td {
 	height: 22px;
 	padding-bottom: 4px;
 	vertical-align: top;
@@ -987,11 +987,11 @@ span.arrow_for_button {
 	margin-left: 4px;
 }
 
-#page_names textarea {
+#wa_page_names textarea {
 	height: 78px;
 }
 
-page_names #page_meta_description {
+wa_page_names #page_meta_description {
 	
 }
 
@@ -1005,17 +1005,17 @@ a.edit_page_names_button {
 
 /* @end */
 
-#page_editing_head .site_status {
+#wa_page_editing_head .site_status {
 	margin: 0 4px 0 0;
 	float: left;
 }
 
-div.page_options {
+div.wa_page_options {
 	overflow: auto;
 	margin-bottom: 4px;
 }
 
-.page_options input {
+.wa_page_options input {
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	width: 210px;
 	float: left;
@@ -1024,13 +1024,13 @@ div.page_options {
 	margin: 1px;
 }
 
-div.page_options label {
+div.wa_page_options label {
 	float: left;
 	width: 80px;
 	padding-top: 2px;
 }
 
-div#page_options_button {
+div#wa_page_options_button {
 	float: right;
 	width: 30px;
 }
@@ -1051,7 +1051,7 @@ form {
 	overflow: auto;
 }*/
 
-form#page_naming_form {
+form#wa_page_naming_form {
 	margin: 0;
 }
 
@@ -1091,18 +1091,18 @@ div#page_editing_menu {
 	width: 90px;
 }
 
-div#page_editing_fckeditor {
+div#wa_page_editing_fckeditor {
 	overflow: auto;
 	margin-bottom: 5px;
 	padding: 1px;
 }
 
-div#page_editing_submit {
+div#wa_page_editing_submit {
 	overflow: auto;
 	padding: 1px;
 }
 
-#page_naming_tools a {
+#wa_page_naming_tools a {
 	border-style: none;
 	padding: 3px 0 0;
 	float: right;
@@ -1111,7 +1111,7 @@ div#page_editing_submit {
 	margin-bottom: 0;
 }
 
-#page_naming_tools img {
+#wa_page_naming_tools img {
 	border-style: none;
 	float: left;
 	padding: 0;
@@ -1661,7 +1661,7 @@ div#right_columns {
 	text-align: right;
 }
 
-div#page_naming_tools {
+div#wa_page_naming_tools {
 	overflow: auto;
 	padding: 0;
 	margin: 0 0 10px;
@@ -2072,11 +2072,11 @@ div.archive_image_spinner {
 	text-decoration: underline;
 }
 
-.atom_bigtext_editor {
+.wa_atom_bigtext_editor {
 	float: left;
 }
 
-.atom_bigtext_editor textarea {
+.wa_atom_bigtext_editor textarea {
 	margin-top: 6px;
 	border-width: 1px;
 	height: 35px;
@@ -2086,7 +2086,7 @@ div.archive_image_spinner {
 	font-size: 12px;
 }
 
-.atom_picture_editor_elements {
+.wa_atom_picture_editor_elements {
 	width: 374px;
 	overflow: auto;
 	padding-bottom: 10px;
@@ -2431,7 +2431,7 @@ select.select_box {
 	padding: 8px 8px 4px;
 }
 
-.molecule_spinner {
+.wa_molecule_spinner {
 	float: right;
 	height: 23px;
 	position: relative;
@@ -2447,7 +2447,7 @@ select.select_box {
 	right: -2px;
 }
 
-.molecule_spinner img {
+.wa_molecule_spinner img {
 	bottom: 1px;
 	float: left;
 	position: relative;
@@ -2506,7 +2506,7 @@ div.sitemap_right_tools a.edit_page_names_button {
 	margin-right: 8px;
 }
 
-div.molecule_head span.ajax_folder span.error_icon {
+div.wa_molecule_head span.ajax_folder span.error_icon {
 	float: left;
 	width: 14px;
 	height: 15px;

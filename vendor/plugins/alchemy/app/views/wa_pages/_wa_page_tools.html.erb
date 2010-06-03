@@ -1,0 +1,35 @@
+<%- permitted_to?([:new, :destroy], :wa_pages) do -%>
+<span class="wa_sitemap_sitetools">
+	<%- unless wa_page.is_root?(session[:language]) -%>
+	<%- permitted_to?(:destroy, :wa_pages) do -%>
+	<%= delete_with_confirmation_link(
+			"",
+			_("confirm_to_delete_page"),
+			url_for(
+				:controller => 'wa_pages',
+				:action => 'destroy',
+				:id => wa_page.id
+			),
+			{
+				:class => "delete_page",
+				:title => _("delete_page")
+			}
+		) -%>
+	<%- end -%>
+	<%- else -%>
+		<span class="icon_spacer"></span>
+	<%- end -%>
+	<%- if wa_page.language_level < 3 -%>
+		<%- permitted_to?(:new, :wa_pages) do -%>
+		<%= link_to_wa_window("", new_wa_page_path(:parent_id => wa_page.id), {
+				:title => _('create_page'),
+				:size => '275x90',
+				:overflow => true
+			},
+			:class => 'add_page',
+			:title => _('create_page')
+		) -%>
+		<%- end -%>
+	<%- end -%>
+</span>
+<%- end -%>

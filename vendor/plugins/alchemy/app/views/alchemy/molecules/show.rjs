@@ -1,8 +1,0 @@
-page.replace_html(
-  @container_id,
-  :partial => "molecules/#{@molecule.name}_view.html.erb",
-  :locals => {
-    :molecule => @molecule,
-    :options => @options
-  }
-)

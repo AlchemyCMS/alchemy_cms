@@ -6,20 +6,20 @@
 #   - name: a_unique_name
 #     display_name: Some nice Display Name
 #     unique: Bool //pass true if this molecule only can be displayed once on page
-#     atoms:
+#     wa_atoms:
 #     - name: head
 #       type: WaAtomText
 #     - name: text
 #       type: WaAtomRtf
 #
-# Atom-Types are: WaAtomText, WaAtomRtf, Atoms::Picture, WaAtomFlash, WaAtomSitemap, WaAtomDate, WaAtomHtml
+# Atom-Types are: WaAtomText, WaAtomRtf, WaAtomPicture, WaAtomFlash, WaAtomSitemap, WaAtomDate, WaAtomHtml
 #
 # If you want an atom to be the preview text for the molecule then use the flag take_me_for_preview: true
 # 
 
 - name: text
   display_name: Text
-  atoms: 
+  wa_atoms: 
   - name: head
     type: WaAtomText
   - name: text
@@ -27,14 +27,14 @@
 
 - name: date
   display_name: Termin
-  atoms: 
+  wa_atoms: 
   - name: date
     type: WaAtomDate
     
 - name: google_map
   display_name: Google Map
   unique: true
-  atoms:
+  wa_atoms:
   - name: head
     type: WaAtomText
   - name: text
@@ -44,9 +44,9 @@
         
 - name: bild_mit_text
   display_name: Bild mit Text
-  atoms:
+  wa_atoms:
   - name: bild
-    type: Atoms::Picture
+    type: WaAtomPicture
   - name: headline
     type: WaAtomText
   - name: text
@@ -54,21 +54,21 @@
 
 - name: picture_gallery
   display_name: Bildergalerie
-  atoms:
+  wa_atoms:
   - name: gallery_name
     type: WaAtomText
   - name: picture1
-    type: Atoms::Picture
+    type: WaAtomPicture
 
 - name: file_download
   display_name: Datei download
-  atoms:
+  wa_atoms:
   - name: file
     type: WaAtomFile
 
 - name: contactform
   display_name: Kontaktformular
-  atoms:
+  wa_atoms:
   - name: mail_from
     type: WaAtomText
   - name: mail_to

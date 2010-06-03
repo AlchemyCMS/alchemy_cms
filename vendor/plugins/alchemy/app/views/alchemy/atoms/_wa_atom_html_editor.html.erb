@@ -1,9 +1,0 @@
-<div class="atom_editor atom_text_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
-	<label><%= t("atom_names.#{atom.name}") %></label>
-	<%= text_field_tag(
-		"atoms[atom_#{atom.id}][content]",
-		atom.atom.content,
-		:class => options[:css_class],
-		:id => "atoms_#{atom.id}_content"
-	) %>
-</div>

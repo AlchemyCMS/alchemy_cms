@@ -1,0 +1,1 @@
+page.replace "wa_page_naming_tools", :partial => "wa_admin/partials/page_naming_tools", :url => {:options => @options}

@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
   
   def configuration(name)
-    return Alchemy::Configuration.parameter(name)
+    return WaConfigure.parameter(name)
   end
   
   def set_language(lang = nil)
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     unless request.xhr?
       session[:wa_redirect_url] = request.url
     end
-    inactivity_time = Alchemy::Configuration.parameter(:auto_logout_time)
+    inactivity_time = WaConfigure.parameter(:auto_logout_time)
     if !session['auto_logout_timer'].nil? && session['auto_logout_timer'] < inactivity_time.minutes.ago
       if request.xhr?
         render :update do |page|
@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
+    @current_user_session = WaUserSession.find
   end  
   
   def logged_in?
@@ -123,7 +123,7 @@ private
   
   def wa_handle_exception(e)
     logger.error %(
-      +++++++++ Molecule.toggle_fold: #{e} +++++++++++++
+      +++++++++ WaMolecule.toggle_fold: #{e} +++++++++++++
       object: #{e.record.class}, id: #{e.record.id}, name: #{e.record.name}
       #{e.record.errors.full_messages}
     )
@@ -155,11 +155,11 @@ private
   
   def set_stamper
     FastGettext.text_domain = 'alchemy'
-    User.stamper = self.current_user
+    WaUser.stamper = self.current_user
   end
   
   def reset_stamper
-    User.reset_stamper
+    WaUser.reset_stamper
   end
   
 protected
