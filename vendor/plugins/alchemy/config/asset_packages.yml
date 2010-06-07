@@ -6,24 +6,23 @@ javascripts:
   - window
   - window_effects
   - alchemy
-  - wa_selectbox
-  - wa_size_frames
+  - alchemy_selectbox
+  - alchemy_frame
 - login:
    - prototype
    - effects
    - window
    - window_effects
    - alchemy
-   - wa_size_frames
+   - alchemy_frame
 - sitemap:
    - prototype
    - effects
    - window
    - window_effects
    - alchemy
-   - wa_editor
-   - wa_selectbox
-   - wa_size_frames
+   - alchemy_selectbox
+   - alchemy_frame
    - tooltip
 - edit_page:
    - prototype
@@ -36,8 +35,8 @@ javascripts:
    - window
    - window_effects
    - alchemy
-   - wa_selectbox
-   - wa_size_frames
+   - alchemy_selectbox
+   - alchemy_frame
 - archive:
   - prototype
   - effects
@@ -45,8 +44,8 @@ javascripts:
   - window
   - window_effects
   - alchemy
-  - wa_selectbox
-  - wa_size_frames
+  - alchemy_selectbox
+  - alchemy_frame
   - swfupload/swfupload
   - swfupload/handlers
   - swfupload/fileprogress
@@ -74,4 +73,3 @@ stylesheets:
   - alchemy
   - alchemy_window
   - alchemy_tooltip
-  
