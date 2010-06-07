@@ -42,11 +42,11 @@ msgstr "Bild löschen"
 
 #: app/views/wa_atoms/_wa_atom_text_editor.html.erb:32
 msgid "Do you really want to delete this atom?"
-msgstr "Wollen Sie dieses Atom wirklich löschen?"
+msgstr "Wollen Sie dieses Inhalt wirklich löschen?"
 
 #: locale/model_attributes.rb:14
 msgid "Element"
-msgstr "Molekül"
+msgstr "Element"
 
 #: locale/model_attributes.rb:16
 msgid "Element|Display name"
@@ -246,11 +246,11 @@ msgstr "Lizenz lesen"
 
 #: app/views/wa_atoms/_wa_atom_text_editor.html.erb:35
 msgid "Remove this atom"
-msgstr "Dieses Atom entfernen"
+msgstr "Dieses Inhalt entfernen"
 
 #: app/helpers/application_helper.rb:1164
 msgid "Select an atom"
-msgstr "Wählen Sie ein Atom aus"
+msgstr "Wählen Sie ein Inhalt aus"
 
 #: app/views/wa_atoms/create.rjs:51
 msgid "Successfully added %{atom}"
@@ -387,15 +387,15 @@ msgstr "hinzufügen"
 #: app/helpers/application_helper.rb:1160
 #: app/helpers/application_helper.rb:1176
 msgid "add new atom"
-msgstr "+ ein Atom hinzufügen"
+msgstr "+ ein Inhalt hinzufügen"
 
-#: app/views/elements/_wa_picture_editor.html.erb:13
+#: app/views/elements/_picture_editor.html.erb:13
 msgid "add_image_to_element"
 msgstr "Bild hinzufügen"
 
 #: app/controllers/elements_controller.rb:63
 msgid "adding_element_not_successful"
-msgstr "Es konnte kein Molekül hinzugefügt werden."
+msgstr "Es konnte kein Element hinzugefügt werden."
 
 #: app/views/wa_atom_files/edit.html.erb:17
 #: app/views/wa_atom_pictures/edit.html.erb:30
@@ -438,19 +438,19 @@ msgstr "Bild hinzufügen."
 #: app/helpers/application_helper.rb:159 app/helpers/application_helper.rb:911
 #: app/helpers/application_helper.rb:1017
 msgid "atom_atom_not_found"
-msgstr "Atom Content wurde nicht gefunden."
+msgstr "Inhalt Content wurde nicht gefunden."
 
 #: app/helpers/application_helper.rb:153 app/helpers/application_helper.rb:906
 msgid "atom_not_found"
-msgstr "Atom wurde nicht gefunden."
+msgstr "Inhalt wurde nicht gefunden."
 
 #: app/controllers/contents_controller.rb:34
 msgid "atom_not_successfully_added"
-msgstr "Das Atom konnte nicht hinzugefügt werden."
+msgstr "Das Inhalt konnte nicht hinzugefügt werden."
 
 #: app/controllers/contents_controller.rb:75
 msgid "atom_not_successfully_deleted"
-msgstr "Das Atom konnte nicht gelöscht werden."
+msgstr "Das Inhalt konnte nicht gelöscht werden."
 
 #: app/views/layouts/admin.html.erb:43 app/views/layouts/login.html.erb:27
 msgid "back to site"
@@ -470,7 +470,7 @@ msgstr "Wählen Sie ein Element dieser Seite als Ziel"
 
 #: app/views/elements/index.rjs:8
 msgid "choose_element_to_link"
-msgstr "Bitte wählen Sie ein Molekül"
+msgstr "Bitte wählen Sie ein Element"
 
 #: app/views/admin/_file_link.html.erb:3
 msgid "choose_file_to_link"
@@ -484,7 +484,7 @@ msgstr "wieder alles anzeigen"
 
 #: app/views/elements/_save_and_delete_buttons.html.erb:5
 msgid "confirm_to_delete_element"
-msgstr "Wollen Sie dieses Molekül wirklich löschen?"
+msgstr "Wollen Sie dieses Element wirklich löschen?"
 
 #: app/views/files/_file.html.erb:33
 msgid "confirm_to_delete_file"
@@ -517,7 +517,7 @@ msgstr "kopieren"
 
 #: app/views/elements/_save_and_delete_buttons.html.erb:34
 msgid "copy_element"
-msgstr "Molekül kopieren"
+msgstr "Element kopieren"
 
 #: app/views/admin/infos.html.erb:4
 msgid "copyright_notice"
@@ -555,11 +555,11 @@ msgstr "Wird momentan bearbeitet von"
 
 #: app/views/elements/_save_and_delete_buttons.html.erb:22
 msgid "cut_element"
-msgstr "Molekül ausschneiden"
+msgstr "Element ausschneiden"
 
 #: app/views/elements/_save_and_delete_buttons.html.erb:9
 msgid "delete_element"
-msgstr "Molekül löschen"
+msgstr "Element löschen"
 
 #: app/views/files/_file.html.erb:42
 msgid "delete_file"
@@ -630,40 +630,40 @@ msgstr "Benutzer bearbeiten"
 
 #: app/views/elements/copy_to_clipboard.rjs:6
 msgid "element_%{name}_copied_to_clipboard"
-msgstr "Das Molekül '%{name}' wurde in die Zwischenablage kopiert."
+msgstr "Das Element '%{name}' wurde in die Zwischenablage kopiert."
 
 #: app/views/elements/copy_to_clipboard.rjs:4
 msgid "element_%{name}_moved_to_clipboard"
-msgstr "Das Molekül '%{name}' wurde in die Zwischenablage bewegt."
+msgstr "Das Element '%{name}' wurde in die Zwischenablage bewegt."
 
 #: app/controllers/elements_controller.rb:167
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
-"Das Molekül '%{name}' konnte nicht in die Zwischenablage kopiert werden."
+"Das Element '%{name}' konnte nicht in die Zwischenablage kopiert werden."
 
 #: app/views/elements/destroy.rjs:7
 msgid "element_deleted_successful"
-msgstr "Molekül wurde gelöscht."
+msgstr "Element wurde gelöscht."
 
 #: app/views/elements/_editor_not_found.html.erb:1
 msgid "element_editor_not_found"
-msgstr "Bei diesem Molekül ist ein Fehler aufgetreten"
+msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 
 #: app/controllers/elements_controller.rb:129
 msgid "element_not_saved"
-msgstr "Molekül konnte nicht gespeichert werden."
+msgstr "Element konnte nicht gespeichert werden."
 
 #: app/controllers/elements_controller.rb:148
 msgid "element_not_successfully_deleted"
-msgstr "Das Molekül konnte nicht gelöscht werden."
+msgstr "Das Element konnte nicht gelöscht werden."
 
 #: app/views/wa_pages/_add_molecule_form.html.erb:21
 msgid "element_of_type"
-msgstr "Molekül"
+msgstr "Element"
 
 #: app/controllers/admin_controller.rb:66 app/views/elements/update.rjs:7
 msgid "element_saved"
-msgstr "Molekül wurde gespeichert."
+msgstr "Element wurde gespeichert."
 
 #: app/views/admin/_external_link.html.erb:3
 msgid "enter_external_link"
@@ -725,7 +725,7 @@ msgstr "Höhe"
 
 #: app/views/elements/_element_head.html.erb:34
 msgid "hide_element_content"
-msgstr "Molekül einklappen"
+msgstr "Element einklappen"
 
 #: app/views/wa_atom_pictures/edit.html.erb:26
 msgid "image_alt_tag"
@@ -910,7 +910,7 @@ msgstr "Nein"
 
 #: app/helpers/application_helper.rb:208 app/helpers/application_helper.rb:274
 msgid "no_element_given"
-msgstr "Kein Molekül angegeben."
+msgstr "Kein Element angegeben."
 
 #: app/views/files/_files_list.html.erb:3
 msgid "no_files_in_archive"
@@ -923,7 +923,7 @@ msgstr "Sie haben keine Bilder in Ihrem Archiv"
 
 #: app/views/wa_pages/_add_molecule_form.html.erb:2
 msgid "no_more_elements_to_add"
-msgstr "Keine weiteren Moleküle verfügbar."
+msgstr "Keine weiteren Elemente verfügbar."
 
 #: app/views/files/_files_list.html.erb:7
 #: app/views/wa_images/_images_list.html.erb:7
@@ -1068,7 +1068,7 @@ msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
 #: app/controllers/elements_controller.rb:29
 msgid "please_choose_a_element_name"
-msgstr "Wählen Sie ein Molekül aus"
+msgstr "Wählen Sie ein Element aus"
 
 #: app/helpers/application_helper.rb:886
 msgid "please_confirm"
@@ -1150,15 +1150,15 @@ msgstr "Suchmaschinen"
 
 #: app/views/wa_pages/_add_molecule_form.html.erb:25
 msgid "select_element"
-msgstr "Molekül wählen"
+msgstr "Element wählen"
 
 #: app/views/elements/_element_head.html.erb:34
 msgid "show_element_content"
-msgstr "Molekül ausklappen"
+msgstr "Element ausklappen"
 
 #: app/views/admin/_wa_page_for_links.html.erb:20
 msgid "show_elements_from_page"
-msgstr "Moleküle dieser Seite anzeigen"
+msgstr "Elemente dieser Seite anzeigen"
 
 #: app/views/wa_atom_files/edit.html.erb:61
 #: app/views/wa_atom_files/edit.html.erb:85
@@ -1184,15 +1184,15 @@ msgstr "Betreff"
 
 #: app/views/elements/create.rjs:17
 msgid "successfully_added_element"
-msgstr "Molekül wurde hinzugefügt."
+msgstr "Element wurde hinzugefügt."
 
 #: app/controllers/contents_controller.rb:54
 msgid "successfully_saved_atom_position"
-msgstr "Die Atomposition wurde gespeichert"
+msgstr "Die Inhaltposition wurde gespeichert"
 
 #: app/controllers/elements_controller.rb:178
 msgid "successfully_saved_element_position"
-msgstr "Die Molekülposition wurde gespeichert."
+msgstr "Die Elementposition wurde gespeichert."
 
 #: app/views/wa_atoms/partials/_wa_picture_tools.html.erb:28
 #: app/views/wa_atoms/partials/_wa_picture_tools.html.erb:32

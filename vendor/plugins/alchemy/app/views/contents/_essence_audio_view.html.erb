@@ -1,4 +1,4 @@
-<%- unless content.atom.file.nil? -%>
+<%- unless content.essence.file.nil? -%>
 <%- unless options[:player_cover_image].blank? -%>
   <%- i_height = options[:player_cover_image].image_height.to_f -%>
   <%- i_width = options[:player_cover_image].image_width.to_f -%>
@@ -6,8 +6,8 @@
   <%- width = (options[:player_cover_image_width] rescue 320) -%>
   <%- height = width * ratio -%>
 <%- else -%>
-  <%- width = content.atom.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.atom.width -%>
-  <%- height = content.atom.height.blank? ? (options[:player_size].split('x')[1] rescue 20) : content.atom.height -%>
+  <%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.essence.width -%>
+  <%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 20) : content.essence.height -%>
 <%- end -%>
 <div id="wa_audio_player_<%= content.id %>">
   To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
@@ -21,9 +21,9 @@
 	wa_audio_player_<%= content.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
 	wa_audio_player_<%= content.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
 	wa_audio_player_<%= content.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
-	wa_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.atom.show_eq ? "true" : "false" %>');
-	wa_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.atom.show_navigation ? "true" : "false" %>');
-	wa_audio_player_<%= content.id %>.addVariable("file", '<%= content.atom.file.public_filename %>');
+	wa_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.essence.show_eq ? "true" : "false" %>');
+	wa_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.essence.show_navigation ? "true" : "false" %>');
+	wa_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.file.public_filename %>');
 	<%- unless options[:player_cover_image].blank? -%>
 	wa_audio_player_<%= content.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
   <%- end -%>

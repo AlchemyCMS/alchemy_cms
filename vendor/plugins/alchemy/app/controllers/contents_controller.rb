@@ -23,8 +23,8 @@ class ContentsController < ApplicationController
           :dragable => @dragable
         )
         unless params[:image_id].blank?
-          @content.atom.image_id = params[:image_id]
-          @content.atom.save
+          @content.essence.image_id = params[:image_id]
+          @content.essence.save
         end
       end
     rescue Exception => e
@@ -61,10 +61,10 @@ class ContentsController < ApplicationController
       atom = Content.find(params[:id])
       element = atom.element
       atom_name = atom.name
-      atom_dom_id = "#{atom.essence_type.underscore}_#{atom.id}"
+      content_dom_id = "#{atom.essence_type.underscore}_#{atom.id}"
       if atom.destroy
         render :update do |page|
-          page.remove(atom_dom_id)
+          page.remove(content_dom_id)
           WaNotice.show_via_ajax(page, _("Successfully deleted %{atom}") % {:atom => atom_name})
           page << "reloadPreview()"
         end

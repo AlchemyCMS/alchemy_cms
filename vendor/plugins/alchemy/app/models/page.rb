@@ -15,7 +15,6 @@ class Page < ActiveRecord::Base
   after_save :update_depth, :set_restrictions_to_child_pages
   before_validation_on_create :set_url_name, :set_title
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
-  before_destroy :check_if_root
   
   # necessary. otherwise the migrations fail
   if Page.root
@@ -84,18 +83,6 @@ class Page < ActiveRecord::Base
     self.save
   end
   
-  def check_if_root
-    if self.parent_id.nil?
-      raise _("root_page_not_deletable")
-      return false
-    end
-  end
-  
-  def update_infos(user)
-    self.created_by = user.id if self.created_by.nil?
-    self.updated_by = user.id
-  end
-
   def public_elements
     self.elements.select{ |m| m.public? }
   end

@@ -12,7 +12,7 @@ class EssenceFilesController < ApplicationController
   
   def update
     @content = Content.find(params[:id])
-    @content.atom.update_attributes(params[:atom])
+    @content.essence.update_attributes(params[:atom])
     render :update do |page|
       page << "wa_overlay.close(); reloadPreview()"
     end
@@ -21,8 +21,8 @@ class EssenceFilesController < ApplicationController
   def assign
     @content = Content.find_by_id(params[:id])
     @file = File.find_by_id(params[:file_id])
-    @content.atom.file = @file
-    @content.atom.save
+    @content.essence.file = @file
+    @content.essence.save
     @content.save
     render :update do |page|
       page.replace "file_#{@content.id}", :partial => "contents/content_file_editor", :locals => {:content => @content, :options => params[:options]}

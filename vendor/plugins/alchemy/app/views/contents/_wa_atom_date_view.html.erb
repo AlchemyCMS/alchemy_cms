@@ -1,5 +1,0 @@
-<%- if content.atom.date.blank? -%>
-<%= Time.now.strftime(options[:date_format]) %>
-<%- else -%>
-<%= content.atom.date.strftime(options[:date_format]) %>
-<%- end -%>

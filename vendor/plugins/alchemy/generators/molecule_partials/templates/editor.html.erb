@@ -1,7 +1,7 @@
 <%- unless atoms.blank? -%>
 	<%- atoms.each do |atom| -%>
 		<%- unless atom["type"] == "EssencePicture" -%>
-<%%= render_atom_editor_by_name(element, '<%= atom["name"] %>') %>
+<%%= render_content_editor_by_name(element, '<%= atom["name"] %>') %>
 		<%- else -%>
 <%%= render_picture_editor(element) %>
 		<%- end -%>

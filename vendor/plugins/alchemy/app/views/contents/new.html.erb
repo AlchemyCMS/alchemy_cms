@@ -4,7 +4,7 @@
 	<table>
 		<tr>
 			<td>
-				<%= f.wa_select 'name', @atoms.map{ |a| [t("atom_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
+				<%= f.wa_select 'name', @atoms.map{ |a| [t("content_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
 				<%= hidden_field_tag('options', @options) %>
 			</td>
 			<td>

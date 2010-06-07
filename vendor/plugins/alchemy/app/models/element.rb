@@ -9,10 +9,10 @@ class Element < ActiveRecord::Base
 
   validates_uniqueness_of :position, :scope => :page_id
 
-  before_destroy :remove_atoms
+  before_destroy :remove_contents
 
-  attr_accessor :create_atoms_after_create
-  after_create :create_atoms, :unless => Proc.new { |m| m.create_atoms_after_create == false }
+  attr_accessor :create_contents_after_create
+  after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
@@ -41,25 +41,25 @@ class Element < ActiveRecord::Base
     end
   end
   
-  def remove_atoms
-    self.contents.each do |atom|
-      atom.destroy
+  def remove_contents
+    self.contents.each do |content|
+      content.destroy
     end
   end
   
-  def atom_by_name(name)
+  def content_by_name(name)
     self.contents.find_by_name(name)
   end
 
-  def atom_by_type(essence_type)
+  def content_by_type(essence_type)
     self.contents.find_by_essence_type(essence_type)
   end
 
-  def all_atoms_by_name(name)
+  def all_contents_by_name(name)
     self.contents.find_all_by_name(name)
   end
 
-  def all_atoms_by_type(essence_type)
+  def all_contents_by_type(essence_type)
     self.contents.find_all_by_essence_type(essence_type)
   end
   
@@ -68,7 +68,7 @@ class Element < ActiveRecord::Base
     element_scratch = Element.descriptions.select{ |m| m["name"] == element_name }.first
     raise "Could not find element: #{element_name}" if element_scratch.nil?
     element_scratch.delete("contents")
-    element_scratch.delete("available_atoms")
+    element_scratch.delete("available_contents")
     element = Element.new(
       element_scratch.merge({:page_id => page_id})
     )
@@ -96,29 +96,29 @@ class Element < ActiveRecord::Base
     end
   end
   
-  # Selects the atom in the element.yml description that is flagged as take_me_for_preview or takes the first atom if only one atom exists for element.
-  # Then selects the atom from the element that is equivalent to this flagged atom to display its contect as preview text for element editor
+  # Selects the content in the element.yml description that is flagged as take_me_for_preview or takes the first content if only one content exists for element.
+  # Then selects the content from the element that is equivalent to this flagged content to display its contect as preview text for element editor
   def preview_text
     text = ""
     begin
       my_contents = my_description["contents"]
       unless my_contents.blank?
-        atom_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first
-        if atom_flagged_as_preview.blank?
-          atom_to_take_as_preview = my_contents.first
+        content_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first
+        if content_flagged_as_preview.blank?
+          content_to_take_as_preview = my_contents.first
         else
-          atom_to_take_as_preview = atom_flagged_as_preview
+          content_to_take_as_preview = content_flagged_as_preview
         end
-        preview_atom = self.contents.select{ |atom| atom.name == atom_to_take_as_preview["name"] }.first
-        unless preview_atom.blank?
-          if preview_atom.essence_type == "EssenceRichtext"
-            text = preview_atom.atom.stripped_content.to_s
-          elsif preview_atom.essence_type == "EssenceText"
-            text = preview_atom.atom.content.to_s
-          elsif preview_atom.essence_type == "EssencePicture"
-            text = (preview_atom.atom.image.name rescue "")
-          elsif preview_atom.essence_type == "EssenceFile" || preview_atom.essence_type == "EssenceFlash" || preview_atom.essence_type == "EssenceFlashvideo"
-            text = (preview_atom.atom.file.name rescue "")
+        preview_content = self.contents.select{ |content| content.name == content_to_take_as_preview["name"] }.first
+        unless preview_content.blank?
+          if preview_content.essence_type == "EssenceRichtext"
+            text = preview_content.essence.stripped_body.to_s
+          elsif preview_content.essence_type == "EssenceText"
+            text = preview_content.essence.body.to_s
+          elsif preview_content.essence_type == "EssencePicture"
+            text = (preview_content.essence.image.name rescue "")
+          elsif preview_content.essence_type == "EssenceFile" || preview_content.essence_type == "EssenceFlash" || preview_content.essence_type == "EssenceFlashvideo"
+            text = (preview_content.essence.file.name rescue "")
           else
             text = ""
           end
@@ -163,8 +163,8 @@ class Element < ActiveRecord::Base
   end
   
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
-  def available_atoms
-    my_description['available_atoms']
+  def available_contents
+    my_description['available_contents']
   end
   
   # returns the description of the element with my name in element.yml
@@ -206,23 +206,23 @@ private
   def self.copy(source, differences = {})
     differences[:position] = nil
     attributes = source.attributes.except("id").merge(differences)
-    element = self.create!(attributes.merge(:create_atoms_after_create => false, :id => nil))
+    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil))
     source.contents.each do |content|
-      new_atom = Content.copy(content, :element_id => element.id)
-      new_atom.move_to_bottom
+      new_content = Content.copy(content, :element_id => element.id)
+      new_content.move_to_bottom
     end
     element
   end
   
-  # creates the atoms for this element as described in the elements.yml
-  def create_atoms
+  # creates the contents for this element as described in the elements.yml
+  def create_contents
     element_scratch = my_description
-    atoms = []
+    contents = []
     if element_scratch["contents"].blank?
-      logger.warn "\n++++++\nWARNING! Could not find any atom descriptions for element: #{self.name}\n++++++++\n"
+      logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
-      element_scratch["contents"].each do |atom_hash|
-        atoms << Content.create_from_scratch(self, atom_hash.symbolize_keys, {:created_from_element => true})
+      element_scratch["contents"].each do |content_hash|
+        contents << Content.create_from_scratch(self, content_hash.symbolize_keys, {:created_from_element => true})
       end
     end
   end

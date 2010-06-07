@@ -79,50 +79,49 @@ class ElementsController < ApplicationController
       #save all contents in this element
       for content in @element.contents
         # this is so god damn ugly. can't wait for rails 2.3 and multiple updates for nested forms
-        if content.content_type == "EssenceText"
+        if content.essence_type == "EssenceText"
           # downwards compatibility
           unless params[:contents].blank?
             unless params[:contents]["content_#{content.id}"].blank?
-              if params[:contents]["content_#{content.id}"]["content"].nil?
-                content.atom.content = params[:contents]["content_#{content.id}"].to_s
+              if params[:contents]["content_#{content.id}"]["body"].nil?
+                content.essence.body = params[:contents]["content_#{content.id}"].to_s
               else
-                content.atom.content = params[:contents]["content_#{content.id}"]["content"].to_s
+                content.essence.body = params[:contents]["content_#{content.id}"]["body"].to_s
               end
             #
-            content.atom.link = params[:contents]["content_#{content.id}"]["link"].to_s
-            content.atom.title = params[:contents]["content_#{content.id}"]["title"].to_s
-            content.atom.link_class_name = params[:contents]["content_#{content.id}"]["link_class_name"].to_s
-            content.atom.open_link_in_new_window = params[:contents]["content_#{content.id}"]["open_link_in_new_window"] == 1 ? true : false
-            content.atom.public = !params["public"].nil?
-            content.atom.save!
+            content.essence.link = params[:contents]["content_#{content.id}"]["link"].to_s
+            content.essence.title = params[:contents]["content_#{content.id}"]["title"].to_s
+            content.essence.link_class_name = params[:contents]["content_#{content.id}"]["link_class_name"].to_s
+            content.essence.open_link_in_new_window = params[:contents]["content_#{content.id}"]["open_link_in_new_window"] == 1 ? true : false
+            content.essence.public = !params["public"].nil?
+            content.essence.save!
             end
           end
-        elsif content.content_type == "EssenceRichtext"
-          content.atom.content = params[:contents]["content_#{content.id}"]
-          content.atom.public = !params["public"].nil?
-          content.atom.save!
-        elsif content.content_type == "ContentHtml"
-          content.atom.content = params[:contents]["content_#{content.id}"]["content"].to_s
-          content.atom.save!
-        elsif content.content_type == "ContentDate"
-          content.atom.date = DateTime.strptime(params[:date].values.join('-'), @@date_parts[0, params[:date].length].join("-"))
-          content.atom.save!
-        elsif content.content_type == "EssencePicture"
-          content.atom.link = params[:contents]["content_#{content.id}"]["link"]
-          content.atom.link_title = params[:contents]["content_#{content.id}"]["link_title"]
-          content.atom.link_class_name = params[:contents]["content_#{content.id}"]["link_class_name"]
-          content.atom.open_link_in_new_window = params[:contents]["content_#{content.id}"]["open_link_in_new_window"]
-          content.atom.image_id = params[:contents]["content_#{content.id}"]["image_id"]
-          content.atom.caption = params[:images]["caption_#{content.content.id}"] unless params[:images].nil?
-          content.atom.save!
+        elsif content.essence_type == "EssenceRichtext"
+          content.essence.body = params[:contents]["content_#{content.id}"]
+          content.essence.public = !params["public"].nil?
+          content.essence.save!
+        elsif content.essence_type == "EssenceHtml"
+          content.essence.source = params[:contents]["content_#{content.id}"]["content"].to_s
+          content.essence.save!
+        elsif content.essence_type == "EssenceDate"
+          content.essence.date = DateTime.strptime(params[:date].values.join('-'), @@date_parts[0, params[:date].length].join("-"))
+          content.essence.save!
+        elsif content.essence_type == "EssencePicture"
+          content.essence.link = params[:contents]["content_#{content.id}"]["link"]
+          content.essence.link_title = params[:contents]["content_#{content.id}"]["link_title"]
+          content.essence.link_class_name = params[:contents]["content_#{content.id}"]["link_class_name"]
+          content.essence.open_link_in_new_window = params[:contents]["content_#{content.id}"]["open_link_in_new_window"]
+          content.essence.image_id = params[:contents]["content_#{content.id}"]["image_id"]
+          content.essence.caption = params[:images]["caption_#{content.essence.id}"] unless params[:images].nil?
+          content.essence.save!
         end
       end
       # update the updated_at and updated_by values for the page this element lies on.
       @page = Page.find(@element.page_id)
-      @page.update_infos( current_user)
       @element.public = !params[:public].nil?
       @element.save!
-      @has_rtf_atoms = @element.contents.detect { |content| content.content_type == 'EssenceRichtext' }
+      @has_rtf_atoms = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
     rescue
       log_error($!)
       render :update do |page|
@@ -136,14 +135,13 @@ class ElementsController < ApplicationController
     begin
       @element = Element.find_by_id(params[:id])
       @page = @element.page
-      @page.update_infos current_user
       if @element.destroy
         unless session[:clipboard].nil?
           session[:clipboard] = nil if session[:clipboard][:element_id] == params[:id]
         end
       end
     rescue
-      log_error($!)
+      log_error($@)
       render :update do |page|
         WaNotice.show_via_ajax(page, _("element_not_successfully_deleted"), :error)
       end

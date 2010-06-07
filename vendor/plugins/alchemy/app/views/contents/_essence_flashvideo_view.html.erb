@@ -1,6 +1,6 @@
-<%- unless content.atom.file.nil? -%>
-<%- width = content.atom.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.atom.width -%>
-<%- height = content.atom.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : content.atom.height -%>
+<%- unless content.essence.file.nil? -%>
+<%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.essence.width -%>
+<%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : content.essence.height -%>
 <div id="wa_video_player_<%= content.id %>">
   To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
 </div>
@@ -8,7 +8,7 @@
 	var flashvars = {
 		width: <%= width %>,
 		height: <%= height %>,
-		file: '<%= content.atom.file.public_filename %>',
+		file: '<%= content.essence.file.public_filename %>',
 		<%- unless options[:player_cover_image].blank? -%>
 		image: '<%= "/" + options[:player_cover_image].public_file_path %>',
 		<%- end -%>
@@ -16,8 +16,8 @@
 		backcolor: '<%= options[:player_backcolor] || "0xFFFFFF" %>',
 		lightcolor: '<%= options[:player_lightcolor] || "0xEDEDED" %>',
 		screencolor: '<%= options[:player_screencolor] || "0x000000" %>',
-		shownavigation: '<%= content.atom.show_navigation ? "true" : "false" %>',
-		showeq: '<%= content.atom.show_eq ? "true" : "false" %>',
+		shownavigation: '<%= content.essence.show_navigation ? "true" : "false" %>',
+		showeq: '<%= content.essence.show_eq ? "true" : "false" %>',
 		autorewind: "on",
 		volume: 90,
 		loop: "off",
@@ -27,7 +27,7 @@
 	var params = {
 		menu: false,
 		quality: "high",
-		allowfullscreen: '<%= content.atom.allow_fullscreen ? "true" : "false" %>'
+		allowfullscreen: '<%= content.essence.allow_fullscreen ? "true" : "false" %>'
 	};
 	var attributes = {};
 	swfobject.embedSWF( "/mediaplayer.swf", "wa_video_player_<%= content.id %>", <%= width %>, <%= height %>, "9", false, flashvars, params, attributes);

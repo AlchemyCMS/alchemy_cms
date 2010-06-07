@@ -382,7 +382,7 @@ msgstr "add"
 msgid "add new atom"
 msgstr "+ add new atom"
 
-#: app/views/elements/_wa_picture_editor.html.erb:13
+#: app/views/elements/_picture_editor.html.erb:13
 msgid "add_image_to_element"
 msgstr "Add an image."
 
@@ -431,19 +431,19 @@ msgstr "Assign an image"
 #: app/helpers/application_helper.rb:159 app/helpers/application_helper.rb:911
 #: app/helpers/application_helper.rb:1017
 msgid "atom_atom_not_found"
-msgstr "Atom Content not found."
+msgstr "Content Content not found."
 
 #: app/helpers/application_helper.rb:153 app/helpers/application_helper.rb:906
 msgid "atom_not_found"
-msgstr "Atom not found."
+msgstr "Content not found."
 
 #: app/controllers/contents_controller.rb:34
 msgid "atom_not_successfully_added"
-msgstr "Atom could not be added."
+msgstr "Content could not be added."
 
 #: app/controllers/contents_controller.rb:75
 msgid "atom_not_successfully_deleted"
-msgstr "Atom could not be deleted."
+msgstr "Content could not be deleted."
 
 #: app/views/layouts/admin.html.erb:43 app/views/layouts/login.html.erb:27
 msgid "back to site"
@@ -1175,7 +1175,7 @@ msgstr "Succesfully added new element."
 
 #: app/controllers/contents_controller.rb:54
 msgid "successfully_saved_atom_position"
-msgstr "Atomposition saved"
+msgstr "Contentposition saved"
 
 #: app/controllers/elements_controller.rb:178
 msgid "successfully_saved_element_position"

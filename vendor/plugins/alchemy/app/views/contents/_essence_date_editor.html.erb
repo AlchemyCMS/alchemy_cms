@@ -1,6 +1,6 @@
-<%- @date = content.atom -%>
+<%- @date = content.essence -%>
 <div class="content_editor">
-	<label><%= t("atom_names.#{content.name}") %></label>
+	<label><%= t("content_names.#{content.name}") %></label>
 	<%= datetime_select(
 		"date",
 		:date,

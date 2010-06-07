@@ -1,6 +1,6 @@
 <div class="file" id="file_<%= content.id %>">
 	<div class="file_icon">
-	<%- if content.atom.file.nil? -%>
+	<%- if content.essence.file.nil? -%>
 		<%= link_to_wa_window("",
 			archive_overlay_files_path(
 				:content_id => content.id,
@@ -17,13 +17,13 @@
 			:title => _('assign_file')
 		) %>
 	<%- else -%>
-		<%= render_file_icon(content.atom.file) %>
+		<%= render_file_icon(content.essence.file) %>
 	<%- end -%>
 	</div>
 	<div class="file_name">
-		<%= content.atom.file.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
+		<%= content.essence.file.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
 	</div>
-	<%- unless content.atom.file.nil? -%>
+	<%- unless content.essence.file.nil? -%>
 	<div class="content_file_tools">
 		<%= link_to_wa_window("",
 			url_for(

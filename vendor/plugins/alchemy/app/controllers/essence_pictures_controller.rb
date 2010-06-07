@@ -21,8 +21,8 @@ class EssencePicturesController < ApplicationController
   def assign
     @content = Content.find_by_id(params[:id])
     @image = Image.find_by_id(params[:image_id])
-    @content.atom.image = @image
-    @content.atom.save
+    @content.essence.image = @image
+    @content.essence.save
     @content.save
     render :update do |page|
       dom_string = params[:swap] ? "picture" : "assign_atom_#{@content.element.id}"
@@ -56,7 +56,7 @@ class EssencePicturesController < ApplicationController
     render :update do |page|
       page.replace(
         "element_#{element.id}_atoms",
-        :partial => "elements/wa_picture_editor",
+        :partial => "elements/picture_editor",
         :locals => {
           :picture_atoms => picture_atoms,
           :element => element,

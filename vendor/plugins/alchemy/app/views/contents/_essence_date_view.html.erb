@@ -1,0 +1,5 @@
+<%- if content.essence.date.blank? -%>
+<%= Time.now.strftime(options[:date_format]) %>
+<%- else -%>
+<%= content.essence.date.strftime(options[:date_format]) %>
+<%- end -%>

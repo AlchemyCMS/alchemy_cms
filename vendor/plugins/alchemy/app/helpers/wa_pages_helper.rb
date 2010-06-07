@@ -12,8 +12,8 @@ module PagesHelper
   
   def picture_atom_caption content
     return "" if content.nil?
-    return "" if content.atom.nil?
-    content.atom.caption
+    return "" if content.essence.nil?
+    content.essence.caption
   end
   
   def wa_form_select(name, select_options, options={})
@@ -41,7 +41,7 @@ module PagesHelper
   end
   
   def wa_form_label(element, name, options={})
-    label_tag "mail_data_#{name}", render_atom_view_by_name(element, name), options
+    label_tag "mail_data_#{name}", render_content_view_by_name(element, name), options
   end
   
   def wa_form_reset_button(name, options={})

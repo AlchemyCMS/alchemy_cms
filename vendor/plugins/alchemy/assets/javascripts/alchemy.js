@@ -384,7 +384,7 @@ function wa_fade_image(image) {
 }
 
 // Used for saving the rtf atom content from tinymce.
-function saveRtfAtoms (element_id) {
+function saveRtfContents (element_id) {
 	var element = $('element_'+element_id);
 	if (element) {
 		var rtf_atoms = element.select('textarea.tinymce');

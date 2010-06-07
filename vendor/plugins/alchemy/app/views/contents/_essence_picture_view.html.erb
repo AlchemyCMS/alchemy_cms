@@ -1,0 +1,36 @@
+<%- unless content.essence.image.nil? -%>
+	<%- image_size = content.essence.image_size.blank? ? options[:image_size] : content.essence.image_size -%>
+	
+	<%- img_tag = image_tag(
+		show_image_path(
+			:id => content.essence.image.id,
+			:name => content.essence.image.urlname,
+			:size => image_size,
+			:crop => options[:crop],
+			:upsample  => options[:upsample],
+			:padding => options[:padding],
+			:format => (options[:format].blank? ? configuration(:image_output_format) : options[:format])
+		),
+		:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
+		:title => (content.essence.title.blank? ? nil : content.essence.title),
+		:class => (options[:css_class].blank? ? nil : options[:css_class]),
+		:id => dom_id(content.essence.image)
+	) -%>
+	
+	<%- caption = (content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.image)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
+
+	<%- if content.essence.link.blank? -%>
+		<%= img_tag %>
+		<%- unless content.essence.caption.blank? -%>
+			<%= caption %>
+		<%- end -%>
+	<%- else -%>
+		<%= link_to(
+			content.essence.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
+			url_for(content.essence.link),
+			:title => content.essence.link_title,
+			:target => (content.essence.open_link_in_new_window? ? "_blank" : "")
+		) %>
+	<%- end -%>
+
+<%- end -%>

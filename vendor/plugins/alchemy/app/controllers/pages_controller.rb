@@ -68,8 +68,6 @@ class PagesController < ApplicationController
     begin
       parent = Page.find(params[:page][:parent_id])
       page_layout = PageLayout.get(params[:page][:page_layout])
-      params[:page][:created_by] = current_user.id
-      params[:page][:updated_by] = current_user.id
       params[:page][:language] = parent.language
       params[:page][:systempage] = ((page_layout["systempage"] == true) rescue false)
       page = Page.create(params[:page])

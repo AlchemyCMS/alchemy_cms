@@ -1,7 +1,7 @@
-<%- unless content.atom.file.nil? -%>
-<%- width = content.atom.width.blank? ? (options[:flash_movie_size].split('x')[0] rescue 320) : content.atom.width -%>
-<%- height = content.atom.height.blank? ? (options[:flash_movie_size].split('x')[1] rescue 200) : content.atom.height -%>
-<%- player_version = content.atom.player_version.blank? ? "8" : content.atom.player_version -%>
+<%- unless content.essence.file.nil? -%>
+<%- width = content.essence.width.blank? ? (options[:flash_movie_size].split('x')[0] rescue 320) : content.essence.width -%>
+<%- height = content.essence.height.blank? ? (options[:flash_movie_size].split('x')[1] rescue 200) : content.essence.height -%>
+<%- player_version = content.essence.player_version.blank? ? "8" : content.essence.player_version -%>
 <div class="flash_film">
 	<div id="swf_container_<%= content.id %>">
 		Sie brauchen den neusten <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> und Sie müssen JavaScript aktivieren.
@@ -11,7 +11,7 @@
 		var params = {};
 		var attributes = {};
 		swfobject.embedSWF(
-			"<%= content.atom.file.public_filename %>",
+			"<%= content.essence.file.public_filename %>",
 			"swf_container_<%= content.id %>",
 			'<%= width %>',
 			'<%= height %>',

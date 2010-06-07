@@ -3,13 +3,13 @@
 	<%- atoms.each do |atom| -%>
 		<%- unless atom["type"] == "EssencePicture" -%>
 	<div class="<%= atom["name"] %>">
-		<%%= render_atom_view_by_name(element, '<%= atom["name"] %>') %>
+		<%%= render_content_view_by_name(element, '<%= atom["name"] %>') %>
 	</div>
 		<%- else -%>
 	<div class="<%= element_name %>_images">
 		<%%- element.contents.find_all_by_essence_type("EssencePicture").each do |atom| -%>
 		<div class="<%= element_name %>_image">
-			<%%= render_atom_view(atom, :image_size => "160x120") %>
+			<%%= render_content_view(atom, :image_size => "160x120") %>
 		</div>
 		<%%- end -%>
 	</div>

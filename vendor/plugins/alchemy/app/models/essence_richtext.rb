@@ -12,7 +12,7 @@ class EssenceRichtext < ActiveRecord::Base
   end
   
   def strip_content
-    self.stripped_content = strip_tags(self.content)
+    self.stripped_body = strip_tags(self.body)
   end
   
   def strip_tags(html)

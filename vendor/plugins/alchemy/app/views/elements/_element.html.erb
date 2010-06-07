@@ -7,7 +7,7 @@
 			<% form_remote_tag(
 				:url => element_path(element),
 				:method => :put,
-				:before => (has_rtf_atoms ? "saveRtfAtoms(#{element.id})" : nil),
+				:before => (has_rtf_atoms ? "saveRtfContents(#{element.id})" : nil),
 				:loading => %(
 					$('element_#{element.id}_save').hide();
 					$('element_#{element.id}_spinner').show();

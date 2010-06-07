@@ -34,7 +34,7 @@
 	) %>
 </div>
 <div class="picture_tool_button">
-	<%= link_to_function '', "wa_link_window(this, 420)", :class => (content.atom.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "content_picture_#{content.id}", :id => "edit_link_#{content.id}" %>
+	<%= link_to_function '', "wa_link_window(this, 420)", :class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "content_picture_#{content.id}", :id => "edit_link_#{content.id}" %>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_function(
@@ -47,7 +47,7 @@
 <div class="picture_tool_button">
 	<%= link_to_wa_window("",
 		edit_content_picture_path(
-			:id => content.atom.id,
+			:id => content.essence.id,
 	    	:options => options
 	    ),
 	    {

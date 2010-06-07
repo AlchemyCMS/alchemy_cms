@@ -385,7 +385,7 @@ msgstr ""
 msgid "add new atom"
 msgstr ""
 
-#: app/views/elements/_wa_picture_editor.html.erb:13
+#: app/views/elements/_picture_editor.html.erb:13
 msgid "add_image_to_element"
 msgstr ""
 

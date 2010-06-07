@@ -1,7 +1,7 @@
 <div class="content_editor content_rtf_editor" id="<%= "element_#{content.element.id}_atom_#{content.id}" %>">
-	<label><%= t("atom_names.#{content.name}") %></label>
+	<label><%= t("content_names.#{content.name}") %></label>
 	<div class="content_rtf_loader" style="display: none">
 		<%= image_tag('ajax_loader.gif', :plugin => 'alchemy') %>
 	</div>
-	<%= tinymce_tag("atoms[atom_#{content.id}]", content.atom.content) %>
+	<%= tinymce_tag("contents[content_#{content.id}]", content.essence.body) %>
 </div>

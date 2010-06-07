@@ -2,7 +2,7 @@
 # Author:    Thomas von Deyen
 # Date:      02.06.2010
 # License:   GPL
-# All methods (helpers) in this helper are used by Alchemy to render elements, atoms and layouts on the Page.
+# All methods (helpers) in this helper are used by Alchemy to render elements, contents and layouts on the Page.
 # You can call this helper the most important part of Alchemy. This helper is Alchemy, actually :)
 #
 # TODO: list all important infos here.
@@ -36,7 +36,7 @@ module ApplicationHelper
     render_element(element, :editor)
   end
 
-  def get_atom(element, position)
+  def get_content(element, position)
     return element.contents[position - 1]
   end
 
@@ -89,7 +89,7 @@ module ApplicationHelper
   def render_element(element, part = :view, options = {})
     if element.blank?
       logger.warn %(\n
-        ++++ WARNING: Molecule is nil.\n
+        ++++ WARNING: Element is nil.\n
         Usage: render_element(element, part, options = {})\n
       )
       render :partial => "elements/#{part}_not_found", :locals => {:name => 'nil'}
@@ -113,7 +113,7 @@ module ApplicationHelper
         )
       else
         logger.warn %(\n
-          ++++ WARNING: Molecule #{part} partial not found for #{element.name}.\n
+          ++++ WARNING: Element #{part} partial not found for #{element.name}.\n
           Looking for #{partial_name}, but not found
           neither in #{path1}
           nor in #{path2}
@@ -132,31 +132,31 @@ module ApplicationHelper
   end
 
   # Renders the Content partial that is given (:editor, or :view).
-  # You can pass several options that are used by the different atoms.
+  # You can pass several options that are used by the different contents.
   #
   # For the view partial:
   # :image_size => "111x93"                        Used by EssencePicture to render the image via RMagick to that size.
-  # :css_class => ""                               This css class gets attached to the atom view.
-  # :date_format => "Am %d. %m. %Y, um %H:%Mh"     Espacially fot the ContentDate. See Date.strftime for date formatting.
+  # :css_class => ""                               This css class gets attached to the content view.
+  # :date_format => "Am %d. %m. %Y, um %H:%Mh"     Espacially fot the EssenceDate. See Date.strftime for date formatting.
   # :caption => true                               Pass true to enable that the EssencePicture.caption value gets rendered.
-  # :blank_value => ""                             Pass a String that gets rendered if the atom.content is blank.
+  # :blank_value => ""                             Pass a String that gets rendered if the content.essence is blank.
   #
   # For the editor partial:
-  # :css_class => ""                               This css class gets attached to the atom editor.
+  # :css_class => ""                               This css class gets attached to the content editor.
   # :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
-  def render_atom(atom, part = :view, options = {})
-    if atom.nil?
+  def render_content(content, part = :view, options = {})
+    if content.nil?
       logger.warn %(\n
         ++++ WARNING: Content is nil!\n
-        Usage: render_atom(atom, part, options = {})\n
+        Usage: render_content(content, part, options = {})\n
       )
-      return part == :view ? "" : "<p class=\"atom_editor_error\">" + _("atom_not_found") + "</p>"
-    elsif atom.atom.nil?
+      return part == :view ? "" : "<p class=\"content_editor_error\">" + _("content_not_found") + "</p>"
+    elsif content.essence.nil?
       logger.warn %(\n
-        ++++ WARNING: Content.atom is nil!\n
+        ++++ WARNING: Content.essence is nil!\n
         Please delete the element and create it again!
       )
-      return part == :view ? "" : "<p class=\"atom_editor_error\">" + _("atom_atom_not_found") + "</p>"
+      return part == :view ? "" : "<p class=\"content_editor_error\">" + _("content_essence_not_found") + "</p>"
     end
     defaults = {
       :for_editor => {
@@ -175,120 +175,120 @@ module ApplicationHelper
     options_for_partial = defaults[('for_' + part.to_s).to_sym].merge(options[('for_' + part.to_s).to_sym])
     options = options.merge(defaults)
     render(
-      :partial => "contents/#{atom.atom.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
+      :partial => "contents/#{content.essence.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
       :locals => {
-        :content => atom,
+        :content => content,
         :options => options_for_partial
       }
     )
   end
 
   # Renders the Content editor partial from the given Content.
-  # For options see -> render_atom
-  def render_atom_editor(atom, options = {})
-    render_atom(atom, :editor, :for_editor => options)
+  # For options see -> render_content
+  def render_content_editor(content, options = {})
+    render_content(content, :editor, :for_editor => options)
   end
 
   # Renders the Content view partial from the given Content.
-  # For options see -> render_atom
-  def render_atom_view(atom, options = {})
-    render_atom(atom, :view, :for_view => options)
+  # For options see -> render_content
+  def render_content_view(content, options = {})
+    render_content(content, :view, :for_view => options)
   end
 
   # Renders the Content editor partial from the given Element for the essence_type (e.g. EssenceRichtext).
-  # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
-  # Otherwise the first atom found for this type will be rendered.
-  # For options see -> render_atom
-  def render_atom_editor_by_type(element, type, position = nil, options = {})
+  # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
+  # Otherwise the first content found for this type will be rendered.
+  # For options see -> render_content
+  def render_content_editor_by_type(element, type, position = nil, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_view(element, position, options = {})\n
+        Usage: render_content_view(element, position, options = {})\n
       )
       return "<p class='element_error'>" + _("no_element_given") + "</p>"
     end
     if position.nil?
-      atom = element.atom_by_type(type)
+      content = element.content_by_type(type)
     else
-      atom = element.contents.find_by_essence_type_and_position(type, position)
+      content = element.contents.find_by_essence_type_and_position(type, position)
     end
-    render_atom(atom, :editor, :for_editor => options)
+    render_content(content, :editor, :for_editor => options)
   end
 
   # Renders the Content view partial from the given Element for the essence_type (e.g. EssenceRichtext).
-  # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
-  # Otherwise the first atom found for this type will be rendered.
-  # For options see -> render_atom
-  def render_atom_view_by_type(element, type, position, options = {})
+  # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
+  # Otherwise the first content found for this type will be rendered.
+  # For options see -> render_content
+  def render_content_view_by_type(element, type, position, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_view(element, position, options = {})\n
+        Usage: render_content_view(element, position, options = {})\n
       )
       return ""
     end
     if position.nil?
-      atom = element.atom_by_type(type)
+      content = element.content_by_type(type)
     else
-      atom = element.contents.find_by_essence_type_and_position(type, position)
+      content = element.contents.find_by_essence_type_and_position(type, position)
     end
-    render_atom(atom, :view, :for_view => options)
+    render_content(content, :view, :for_view => options)
   end
 
   # Renders the Content view partial from the given Element by position (e.g. 1).
-  # For options see -> render_atom
-  def render_atom_view_by_position(element, position, options = {})
+  # For options see -> render_content
+  def render_content_view_by_position(element, position, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_view_by_position(element, position, options = {})\n
+        Usage: render_content_view_by_position(element, position, options = {})\n
       )
       return ""
     end
-    atom = element.contents.find_by_position(position)
-    render_atom(atom, :view, :for_view => options)
+    content = element.contents.find_by_position(position)
+    render_content(content, :view, :for_view => options)
   end
 
   # Renders the Content editor partial from the given Element by position (e.g. 1).
-  # For options see -> render_atom
-  def render_atom_editor_by_position(element, position, options = {})
+  # For options see -> render_content
+  def render_content_editor_by_position(element, position, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_view_by_position(element, position, options = {})\n
+        Usage: render_content_view_by_position(element, position, options = {})\n
       )
       return ""
     end
-    atom = element.contents.find_by_position(position)
-    render_atom(atom, :editor, :for_editor => options)
+    content = element.contents.find_by_position(position)
+    render_content(content, :editor, :for_editor => options)
   end
 
-  # Renders the Content editor partial found in views/contents/ for the atom with name inside the passed Element.
-  # For options see -> render_atom
-  def render_atom_editor_by_name(element, name, options = {})
+  # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
+  # For options see -> render_content
+  def render_content_editor_by_name(element, name, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_view(element, position, options = {})\n
+        Usage: render_content_view(element, position, options = {})\n
       )
       return "<p class='element_error'>" + _("no_element_given") + "</p>"
     end
-    atom = element.atom_by_name(name)
-    render_atom(atom, :editor, :for_editor => options)
+    content = element.content_by_name(name)
+    render_content(content, :editor, :for_editor => options)
   end
 
-  # Renders the Content view partial from the passed Element for passed atom name.
-  # For options see -> render_atom
-  def render_atom_view_by_name(element, name, options = {})
+  # Renders the Content view partial from the passed Element for passed content name.
+  # For options see -> render_content
+  def render_content_view_by_name(element, name, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_view(element, position, options = {})\n
+        Usage: render_content_view(element, position, options = {})\n
       )
       return ""
     end
-    atom = element.atom_by_name(name)
-    render_atom(atom, :view, :for_view => options)
+    content = element.content_by_name(name)
+    render_content(content, :view, :for_view => options)
   end
 
   # Returns current_page.title
@@ -841,28 +841,6 @@ module ApplicationHelper
     filter_field
   end
 
-  # This is the call for the javascript RTF Editor displayed in the editor views of the EssenceRichtext atoms.
-  def wa_editor(editor_id, atom_id, div_to_insert, klass, method, lang, options)
-    lang = lang || "de"
-    html_string = %(
-      <script type="text/javascript" charset="utf-8">
-      //<![CDATA[
-        wa_editor(
-          "#{editor_id}",
-          "wa_editor_rtfarea",
-          "#{div_to_insert}",
-          "#{klass}",
-          "#{method}",
-          "#{atom_id}",
-          "#{options[:link_urls_for].to_s}"
-        );
-      //]]>
-      </script>
-      <input type="hidden" name="atoms[atom_#{atom_id}]" id="rtf_atom_#{atom_id}_content" class="rtf_atom_content" atom_id="#{atom_id}" />
-    )
-    render :inline => html_string
-  end
-
   # returns all elements that could be placed on that page because of the pages layout as array to be used in wa_select form builder
   def elements_for_select(elements)
     return [] if elements.nil?
@@ -888,7 +866,7 @@ module ApplicationHelper
     )
   end
 
-  def page_selector(element, atom_name, options = {}, select_options = {})
+  def page_selector(element, content_name, options = {}, select_options = {})
     default_options = {
       :except => {
         :page_layout => [""]
@@ -898,17 +876,17 @@ module ApplicationHelper
       }
     }
     options = default_options.merge(options)
-    atom = element.atom_by_name(atom_name)
-    if atom.nil?
+    content = element.content_by_name(content_name)
+    if content.nil?
       logger.warn %(\n
         ++++ WARNING: Content is nil!\n
       )
-      return "<p class=\"atom_editor_error\">" + _("atom_not_found") + "</p>"
-    elsif atom.atom.nil?
+      return "<p class=\"content_editor_error\">" + _("content_not_found") + "</p>"
+    elsif content.essence.nil?
       logger.warn %(\n
-        ++++ WARNING: Content.atom is nil!\n
+        ++++ WARNING: Content.essence is nil!\n
       )
-      return "<p class=\"atom_editor_error\">" + _("atom_atom_not_found") + "</p>"
+      return "<p class=\"content_editor_error\">" + _("content_essence_not_found") + "</p>"
     end
     pages = Page.find(
       :all,
@@ -919,8 +897,8 @@ module ApplicationHelper
       }
     )
     select_tag(
-      "atoms[atom_#{atom.id}][content]",
-      pages_for_select(pages, atom.atom.content),
+      "contents[content_#{content.id}][content]",
+      pages_for_select(pages, content.essence.content),
       select_options
     )
   end
@@ -992,40 +970,40 @@ module ApplicationHelper
       :refresh_sortable => true
     }
     options = default_options.merge(options)
-    picture_atoms = element.all_atoms_by_type("EssencePicture")
+    picture_contents = element.all_contents_by_type("EssencePicture")
     render(
-      :partial => "elements/wa_picture_editor",
+      :partial => "elements/picture_editor",
       :locals => {
-        :picture_atoms => picture_atoms,
+        :picture_contents => picture_contents,
         :element => element,
         :options => options
       }
     )
   end
   
-  def render_atom_selection_editor(element, atom, select_options)
-    if atom.class == String
-       atom = element.contents.find_by_name(atom)
+  def render_content_selection_editor(element, content, select_options)
+    if content.class == String
+       content = element.contents.find_by_name(content)
     else
-      atom = element.contents[atom - 1]
+      content = element.contents[content - 1]
     end
-    if atom.atom.nil?
+    if content.essence.nil?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_atom_editor_by_position(element, position, options = {})\n
+        Usage: render_content_editor_by_position(element, position, options = {})\n
       )
-      return _("atom_atom_not_found")
+      return _("content_essence_not_found")
     end
-    select_options = options_for_select(select_options, atom.atom.content)
+    select_options = options_for_select(select_options, content.essence.content)
     select_tag(
-      "atoms[atom_#{atom.id}]",
+      "contents[content_#{content.id}]",
       select_options
     )
   end
   
   def picture_editor_sortable(element_id)
     sortable_element(
-      "element_#{element_id}_atoms",
+      "element_#{element_id}_contents",
       :scroll => 'window',
       :tag => 'div',
       :only => 'dragable_picture',
@@ -1127,8 +1105,8 @@ module ApplicationHelper
     "#{element.name}_#{element.id}"
   end
   
-  # Returns a string for the id attribute of a html element for the given atom
-  def atom_dom_id(content)
+  # Returns a string for the id attribute of a html element for the given content
+  def content_dom_id(content)
     return "" if content.nil?
     if content.class == String
       a = Content.find_by_name(content)
@@ -1155,25 +1133,25 @@ module ApplicationHelper
     pathname
   end
   
-  def render_new_atom_link(element)
+  def render_new_content_link(element)
     link_to_wa_window(
-      _('add new atom'),
+      _('add new content'),
       new_element_content_path(element),
       {
         :size => '305x40',
-        :title => _('Select an atom'),
+        :title => _('Select an content'),
         :overflow => true
       },
       {
-        :id => "add_atom_for_element_#{element.id}",
-        :class => 'button new_atom_link'
+        :id => "add_content_for_element_#{element.id}",
+        :class => 'button new_content_link'
       }
     )
   end
   
-  def render_create_atom_link(element, options = {})
+  def render_create_content_link(element, options = {})
     defaults = {
-      :label => _('add new atom')
+      :label => _('add new content')
     }
     options = defaults.merge(options)
     link_to_remote(
@@ -1181,15 +1159,15 @@ module ApplicationHelper
       {
         :url => contents_path(
           :content => {
-            :name => options[:atom_name],
+            :name => options[:content_name],
             :element_id => element.id
           }
         ),
         :method => 'post'
       },
       {
-        :id => "add_atom_for_element_#{element.id}",
-        :class => 'button new_atom_link'
+        :id => "add_content_for_element_#{element.id}",
+        :class => 'button new_content_link'
       }
     )
   end
