@@ -54,29 +54,24 @@ javascripts:
 
 stylesheets:
 - default:
-   - wa_master
-   - wa_base
-   - wa_overlay_window
+   - alchemy
+   - alchemy_window
 - login:
-   - wa_master
-   - wa_base
-   - wa_login
-   - wa_overlay_window
+   - alchemy
+   - alchemy_login
+   - alchemy_window
 - sitemap:
-   - wa_master
-   - wa_base
-   - wa_overlay_window
-   - wa_tooltip
+   - alchemy
+   - alchemy_window
+   - alchemy_tooltip
 - edit_page:
-   - wa_master
-   - wa_base
+   - alchemy
    - wa_molecules
    - wa_atoms
-   - wa_overlay_window
-   - wa_tooltip
+   - alchemy_window
+   - alchemy_tooltip
 - archive:
-  - wa_master
-  - wa_base
-  - wa_overlay_window
-  - wa_tooltip
+  - alchemy
+  - alchemy_window
+  - alchemy_tooltip
   
