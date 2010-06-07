@@ -1,0 +1,40 @@
+<%- if @elements.blank? -%>
+	<p><%= _('no_more_elements_to_add') %></p>
+<%- else -%>
+	<% remote_form_for(
+		Element.new,
+		:loading => %(
+			$('place_element_#{element_before.id rescue ''}_spinner').show();
+			$$('#add_element_#{element_before.id rescue ''} input.button').first().hide();
+		),
+		:complete => %(
+			new Ajax.Request(
+				'/elements/new?close=true&element_before_id=#{element_before.id rescue ''}&page_id=#{@page.id}',
+				{asynchronous:true, evalScripts:true}
+			);
+			reloadPreview();
+		),
+		:html => {:class => "add_element_content"}
+	) do |form| %>
+		<%= hidden_field_tag('page_id', @page.id) %>
+		<%= hidden_field_tag('element_before_id', element_before.blank? ? nil : element_before.id) %>
+		<span><%= _("element_of_type") %>:</span>
+		<%= form.wa_select(
+			'name',
+			elements_for_select(@elements),
+			:prompt => _('select_element')
+		) -%>
+		<%= form.submit(
+			_('add'),
+			:class => 'button',
+			:name => nil
+		) %>
+		<%= image_tag(
+			"ajax_loader.gif",
+			:plugin => "alchemy",
+			:id => "place_element_#{element_before.id rescue ''}_spinner",
+			:class => "place_element_spinner",
+			:style => "display: none"
+		) %>
+	<% end %>
+<%- end -%>

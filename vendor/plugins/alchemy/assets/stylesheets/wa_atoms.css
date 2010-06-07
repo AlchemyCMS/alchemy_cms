@@ -1,4 +1,4 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_atoms.css */
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/contents.css */
 
 .picture_tool_button {
 	float: left;
@@ -92,7 +92,7 @@ a.swap_picture {
 	left: 39px;
 }
 
-div.wa_file {
+div.file {
 	padding: 0;
 	height: 43px;
 	margin-top: 6px;
@@ -126,7 +126,7 @@ div.file_name {
 	padding: 14px 8px;
 }
 
-div.wa_atom_file_tools {
+div.content_file_tools {
 	height: 41px;
 	float: left;
 	padding-left: 2px;
@@ -134,7 +134,7 @@ div.wa_atom_file_tools {
 	padding-right: 2px;
 }
 
-div.wa_atom_file_tools a{
+div.content_file_tools a{
 	text-decoration: none;
 	width: 19px;
 	display: block;
@@ -143,41 +143,41 @@ div.wa_atom_file_tools a{
 	background-repeat: no-repeat;
 }
 
-div.wa_atom_file_tools a:active {
+div.content_file_tools a:active {
 	background-position: 0 1px;
 	text-decoration: none;
 	outline: none;
 }
 
-div.wa_atom_file_tools a.assign_file {
+div.content_file_tools a.assign_file {
 	margin-top: 0;
 	background-image: url(../images/icons/swap_file.png);
 }
 
-div.wa_atom_file_tools a.edit_file {
+div.content_file_tools a.edit_file {
 	background-image: url(../images/icons/edit.png);
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
 
-td.wa_atom_editor_atom_type {
+td.content_editor_atom_type {
 	width: 90px;
 	height: 20px;
 }
 
-table.wa_atom_editor_table {
+table.content_editor_table {
 	margin-bottom: 8px;
 }
 
-td.wa_atom_editor_atom_name {
+td.content_editor_atom_name {
 	width: 222px;
 }
 
-.wa_atom_editor_table .thin_border {
+.content_editor_table .thin_border {
 	width: 210px;
 }
 
-div.wa_atom_editor label.inline {
+div.content_editor label.inline {
 	display: inline-block;
 	min-width: 90px;
 	margin-right: 4px;
@@ -190,7 +190,7 @@ a.new_atom_link {
 	margin-top: 4px;
 }
 
-div.wa_atom_rtf_loader {
+div.content_rtf_loader {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -201,13 +201,13 @@ div.wa_atom_rtf_loader {
 	opacity: 0.95;
 }
 
-div.wa_atom_rtf_loader img {
+div.content_rtf_loader img {
 	position: absolute;
 	top: 43%;
 	left: 46%;
 }
 
-div.wa_atom_text_editor.text_short {
+div.content_text_editor.text_short {
 	margin-top: 0;
 	margin-bottom: 0;
 	display: inline;
@@ -224,30 +224,30 @@ select.long {
 	padding: 0;
 }
 
-div.wa_atom_text_editor input.text_short {
+div.content_text_editor input.text_short {
 	border-width: 1px;
 	width: 50px;
 	margin-right: 4px;
 	padding: 2px;
 }
 
-div.wa_atom_editor {
+div.content_editor {
 	margin-bottom: 8px;
 	margin-top: 8px;
 	overflow: hidden;
 	position: relative;
 }
 
-div.wa_atom_editor label {
+div.content_editor label {
 	display: block;
 	margin-bottom: 0.5em;
 }
 
-div.wa_atom_editor label a.icon_button.small {
+div.content_editor label a.icon_button.small {
 	display: none;
 }
 
-div.wa_atom_editor:hover label a.icon_button.small {
+div.content_editor:hover label a.icon_button.small {
 	display: inline-block;
 }
 
@@ -266,7 +266,7 @@ div.wa_atom_editor:hover label a.icon_button.small {
 	background-position: -640px 0;
 }
 
-.wa_atom_rtf_text_area {
+.content_rtf_text_area {
 	display: none;
 }
 
@@ -275,7 +275,7 @@ div.wa_atom_editor:hover label a.icon_button.small {
 	width: 376px;
 }
 
-.wa_atom_rtf_editor div.editable_area_container {
+.content_rtf_editor div.editable_area_container {
 	padding: 4px;
 	border: 1px solid #c3c3c3;
 	border-top-style: none;
@@ -285,14 +285,14 @@ div.wa_atom_editor:hover label a.icon_button.small {
 	background: white url(../images/gui/shading_inv.png) repeat-x 0 -5px;
 }
 
-.wa_atom_rtf_editor div.editable_area {
+.content_rtf_editor div.editable_area {
 	outline: none;
 	overflow-y: visible;
 	overflow-x: auto;
 	min-height: 105px;
 }
 
-.wa_atom_rtf_editor .editable_area a {
+.content_rtf_editor .editable_area a {
 	color: #1c18f2;
 	text-decoration: underline;
 }
@@ -312,7 +312,7 @@ div.nicEdit-button {
 	outline: none;
 }
 
-div.pictures_for_molecule {
+div.pictures_for_element {
 	overflow: auto;
 	margin-top: 4px;
 }

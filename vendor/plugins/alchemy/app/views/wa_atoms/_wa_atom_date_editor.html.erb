@@ -1,6 +1,6 @@
-<%- @date = wa_atom.atom -%>
-<div class="wa_atom_editor">
-	<label><%= t("atom_names.#{wa_atom.name}") %></label>
+<%- @date = content.atom -%>
+<div class="content_editor">
+	<label><%= t("atom_names.#{content.name}") %></label>
 	<%= datetime_select(
 		"date",
 		:date,

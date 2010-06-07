@@ -151,9 +151,9 @@ en:
       not_approved: "Dieser Account wurde noch nicht freigeschaltet."
       no_authentication_details: 'Sie haben keinen Benutzernamen und/oder Passwort eingegeben.'
     models:
-      wa_user_session: Session
+      user_session: Session
     attributes:
-      wa_user_session:
+      user_session:
         username: "Benutzername"
         email: "Email"
         password: Passwort

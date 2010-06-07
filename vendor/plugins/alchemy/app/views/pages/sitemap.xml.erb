@@ -1,0 +1,8 @@
+<%- @pages.each do |page| -%>
+<url>
+  <loc><%= multi_language? ? show_page_with_language_url(:urlname => page.urlname, :lang => page.language) : show_page_url(page.urlname) %></loc>
+  <lastmod><%= page.updated_at %></lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>1</priority>
+</url>
+<%- end -%>

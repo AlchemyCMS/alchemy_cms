@@ -65,8 +65,8 @@ stylesheets:
    - alchemy_tooltip
 - edit_page:
    - alchemy
-   - wa_molecules
-   - wa_atoms
+   - elements
+   - contents
    - alchemy_window
    - alchemy_tooltip
 - archive:

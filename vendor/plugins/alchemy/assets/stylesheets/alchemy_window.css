@@ -308,7 +308,7 @@ form.create_right {
 	font-size: 0;
 }
 
-#wa_page_select {
+#page_select {
 	width: 120px;
 	margin-left: 8px;
 }
@@ -433,7 +433,7 @@ form.create_right {
 	font-weight: bold;
 }
 
-#new_wa_file div.with_padding div.info {
+#new_file div.with_padding div.info {
 	margin-bottom: 8px;
 }
 
@@ -455,15 +455,15 @@ form.create_right {
 	border-width: 1px;
 }
 
-select#wa_page_layout {
+select#page_layout {
 	width: 120px;
 }
 
-input#wa_page_name {
+input#page_name {
 	width: 126px;
 }
 
-#wa_page_names #wa_page_name {
+#page_names #page_name {
 	width: 231px;
 }
 
@@ -551,7 +551,7 @@ div.wa_assign_file_file_icon {
 	border-style: none;
 }
 
-#wa_sitemap_external_links form {
+#sitemap_external_links form {
 	margin-left: 5px;
 	margin-bottom: 4px;
 }
@@ -576,23 +576,23 @@ div#tabbar_and_content {
 #internal_link_title {
 }
 
-/*#wa_sitemap_for_links ul {
+/*#sitemap_for_links ul {
 	list-style-type: none;
 	display: block;
 	margin: 0;
 	padding: 0;
 }*/
 
-ul#wa_sitemap {
+ul#sitemap {
 	padding: 0 16px 0 0;
 }
 
-/*#wa_sitemap_for_links ul li {
+/*#sitemap_for_links ul li {
 	list-style-type: none;
 	display: block;
 }*/
 
-#wa_sitemap_for_links ul li span.wa_sitemap_sitename {
+#sitemap_for_links ul li span.sitemap_sitename {
 	background-color: #f9f9f9;
 	width: 311px;
 	margin: 6px 0 0;
@@ -602,7 +602,7 @@ ul#wa_sitemap {
 	line-height: 18px;
 }
 
-#wa_sitemap_for_links ul li ul li span.wa_sitemap_sitename {
+#sitemap_for_links ul li ul li span.sitemap_sitename {
 	float: left;
 	background-color: #f9f9f9;
 	width: 290px;
@@ -611,7 +611,7 @@ ul#wa_sitemap {
 	height: 14px;
 }
 
-#wa_sitemap_for_links ul li ul li ul li span.wa_sitemap_sitename {
+#sitemap_for_links ul li ul li ul li span.sitemap_sitename {
 	float: left;
 	background-color: #f9f9f9;
 	width: 269px;
@@ -620,7 +620,7 @@ ul#wa_sitemap {
 	height: 14px;
 }
 
-#wa_sitemap_for_links ul li ul li ul li ul li span.wa_sitemap_sitename {
+#sitemap_for_links ul li ul li ul li ul li span.sitemap_sitename {
 	float: left;
 	background-color: #f9f9f9;
 	width: 248px;
@@ -629,7 +629,7 @@ ul#wa_sitemap {
 	height: 14px;
 }
 
-#wa_sitemap_for_links img.site_status {
+#sitemap_for_links img.site_status {
 	float: left;
 	border-style: none;
 	margin-bottom: 0px;
@@ -639,13 +639,13 @@ ul#wa_sitemap {
 	margin-right: 4px;
 }
 
-#wa_sitemap_for_links ul li img {
+#sitemap_for_links ul li img {
 	border-width: 0;
 	border-style: none;
 	float: left;
 }
 
-#wa_sitemap_for_links .wa_sitemap_row {
+#sitemap_for_links .sitemap_row {
 	padding: 0;
 	margin: 0px;
 	font-size: 12px;
@@ -654,11 +654,11 @@ ul#wa_sitemap {
 	height: 28px;
 }
 
-.molecules_from_page_selector {
+.elements_from_page_selector {
 	width: 218px;
 }
 
-div.molecules_for_page {
+div.elements_for_page {
 	position: absolute;
 	right: 23px;
 	top: -4px;
@@ -677,7 +677,7 @@ div.sitemap_right_tools {
 	position: relative;
 }
 
-a.close_molecules_from_page_selector {
+a.close_elements_from_page_selector {
 	padding-left: 4px;
 	font-size: 18px;
 	float: right;
@@ -691,24 +691,24 @@ a.close_molecules_from_page_selector {
 	margin-top: 2px;
 }
 
-.molecules_for_page img {
+.elements_for_page img {
 	width: 20px;
 	height: 20px;
 }
 
-#wa_sitemap_for_links ul .wa_sitemap_row a {
+#sitemap_for_links ul .sitemap_row a {
 	color: black;
 	text-decoration: none;
 	display: block;
 	outline: none;
 }
 
-#wa_sitemap_for_links a.show_molecules_to_link {
+#sitemap_for_links a.show_elements_to_link {
 	float: left;
 	width: 19px;
 	height: 19px;
 	position: relative;
-	background: url(../images/molecules/bildtext.gif) no-repeat 0 0;
+	background: url(../images/elements/bildtext.gif) no-repeat 0 0;
 }
 
 .bordertop_white {
@@ -745,22 +745,22 @@ div#wa_assign_file_list {
 	clear: both;
 }
 
-ul#wa_sitemap li .wa_sitemap_sitename.selected_page {
+ul#sitemap li .sitemap_sitename.selected_page {
 	background-color: #d1d1d1;
 	color: #fff;
 }
 
-#wa_sitemap_for_links ul li span.wa_sitemap_sitename.selected_page a {
+#sitemap_for_links ul li span.sitemap_sitename.selected_page a {
 	font-weight: bold;
 	padding-left: 4px;
 }
 
-#wa_sitemap_for_links a.wa_sitemap_pagename_link:hover {
+#sitemap_for_links a.sitemap_pagename_link:hover {
 	background-image: none;
 	padding-left: 4px;
 }
 
-#wa_sitemap_for_links ul li span.wa_sitemap_sitename a:hover {
+#sitemap_for_links ul li span.sitemap_sitename a:hover {
 	font-weight: bold;
 }
 
@@ -815,7 +815,7 @@ div.add_upload_form_button {
 	width: 80px;
 }
 
-.molecules_for_page .wa_drop_down_select {
+.elements_for_page .alchemy_selectbox {
 	float: left;
 	width: 217px;
 }

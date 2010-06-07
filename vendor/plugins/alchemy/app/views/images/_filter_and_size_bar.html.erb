@@ -1,0 +1,63 @@
+<div class="image_assign_filter_and_image_sizing">
+	<%= render(
+		:partial => 'partials/remote_search_form',
+		:locals => {
+			:with => "'remote=true'+'&element_id='+$('element_id').value+'&content_id='+$('content_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
+			:action => 'archive_overlay'
+		}
+	) %>
+	<span class="image_sizing">
+		<label><%= _("thumbnail_size") %>:</label>
+		<%= link_to_remote(
+			"",
+			:url => {
+				:action => "archive_overlay",
+				:size => "small",
+				:content_id => @content,
+				:element_id => @element.id,
+				:swap => @swap,
+				:page => params[:page],
+				:remote => true,
+				:options => @options
+			},
+			:html => {
+				:title => _("small_thumbnails"),
+				:class => "image_size_small"
+			}
+		) %>
+    <%= link_to_remote(
+	    "",
+      :url => {
+        :action => "archive_overlay",
+        :size => "medium",
+        :content_id => @content,
+				:element_id => @element.id,
+        :swap => @swap,
+				:page => params[:page],
+				:remote => true,
+				:options => @options
+			},
+			:html => {
+	      :title => _("medium_thumbnails"),
+				:class => "image_size_medium"
+			}
+		) %>
+    <%= link_to_remote(
+    	"",
+      :url => {
+        :action => "archive_overlay",
+        :size => "large",
+        :content_id => @content,
+				:element_id => @element.id,
+        :swap => @swap,
+				:page => params[:page],
+				:remote => true,
+				:options => @options
+      },
+      :html => {
+        :title => _("big_thumbnails"),
+        :class => "image_size_large"
+      }
+    ) %>
+  </span>
+</div>

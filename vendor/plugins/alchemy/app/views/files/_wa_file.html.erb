@@ -1,0 +1,58 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td class="icon">
+		<%= content_tag('span', '', :class => "icon #{file.icon_css_class}") %>
+	</td>
+	<td class="name">
+		<%- if permitted_to?(:show, :files) -%>
+		<%= link_to(
+			file.name,
+			file_path(file),
+			:popup => true,
+			:title => _('View File')
+		) %>
+		<%- else -%>
+		<%= file.name %>
+		<%- end -%>
+	</td>
+	<td class="file_name"><%= file.filename %></td>
+	<td class="file_type"><%= mime_to_human(file.content_type) %></td>
+	<td class="file_size"><%= number_to_human_size(file.size) %></td>
+	<td class="date"><%= l(file.created_at) %></td>
+	<td class="tools long">
+		<%- permitted_to?(:download, :files) do -%>
+		<%= link_to(
+			"",
+			file_path(file, :download => true),
+			:title => (_("download_file_'%{filename}'") % {:filename => file.filename}),
+			:class => "icon file_download"
+		) %>
+		<%- end -%>
+		<%- permitted_to?(:destroy, :files) do -%>
+		<%= delete_with_confirmation_link(
+			"",
+			_("confirm_to_delete_file"),
+			file_path(
+				:id => file,
+				:query => params[:query],
+				:page => params[:page],
+				:per_page => params[:per_page]
+			),
+			{
+				:class => 'icon file_delete',
+				:title => _('delete_file')
+			}
+		) -%>
+		<%- end -%>
+		<%- permitted_to?(:edit, :files) do -%>
+		<%= link_to_wa_window("",
+			edit_file_path(file, :query => params[:query], :page => params[:page]),
+			{
+				:title => _('rename_file'),
+				:size => '380x45'
+			},
+			:class => 'icon file_edit',
+			:title => _('rename_file')
+		) -%>
+		<%- end -%>
+	</td>
+</tr>

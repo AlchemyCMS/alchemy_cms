@@ -1,9 +1,9 @@
 <%- unless atoms.blank? -%>
 	<%- atoms.each do |atom| -%>
-		<%- unless atom["type"] == "WaAtomPicture" -%>
-<%%= render_atom_editor_by_name(wa_molecule, '<%= atom["name"] %>') %>
+		<%- unless atom["type"] == "EssencePicture" -%>
+<%%= render_atom_editor_by_name(element, '<%= atom["name"] %>') %>
 		<%- else -%>
-<%%= render_picture_editor(wa_molecule) %>
+<%%= render_picture_editor(element) %>
 		<%- end -%>
 	<%- end -%>
 <%- end -%>

@@ -1,0 +1,69 @@
+<li id="page_<%= page.id %>">
+	<div class="sitemap_left_images">
+		<%- cache("page_#{page.id}_for_user_#{current_user.id}_lines") do -%>
+		<%= render_sitemap_lines(page, !page.children.blank?) %>
+		<%- end -%>
+		<%- cache("page_#{page.id}_for_user_#{current_user.id}_status") do -%>
+		<%= render(
+			:partial => 'page_status',
+			:locals => {
+				:page => page
+			}
+		) -%>
+		<%- end -%>
+	</div>
+	<div class="sitemap_right_tools">
+		<%- cache("page_#{page.id}_for_user_#{current_user.id}_tools") do -%>
+		<%- if !page.systempage? -%>
+			<%- permitted_to?(:edit, page) do -%>
+			<%= link_to_wa_window(
+				"",
+				edit_page_path(page),
+				{
+					:title => _('edit_page_properties'),
+					:size => '380x490'
+				},
+				:class => 'edit_page_names_button',
+				:title => _('edit_page_properties')
+			) -%>
+			<%- end -%>
+		<%- end -%>
+		<%- permitted_to?(:move, :pages) do -%>
+		<%= render(
+			:partial => 'positioning_tools',
+			:locals => {
+				:page => page
+			}
+		) -%>
+		<%- end -%>
+		<%= render(
+			:partial => 'page_tools',
+			:locals => {
+				:page => page
+			}
+		) -%>
+		<%- end -%>
+	</div>
+	<div class="page_infos">
+		<%- if page.restricted -%>
+			<%= image_tag('icons/locked.png', :plugin => :alchemy, :class => 'page_restricted', :title => _('page_restricted')) %>
+		<%- end -%>
+	</div>
+	<div class="sitemap_sitename">
+	<%- if !page.locked_for(current_user) -%>
+		<%= link_to(
+			page.name,
+			edit_content_page_path(page),
+			:title => _("edit_page"),
+			:class => "sitemap_pagename_link"
+		) -%>	
+	<%- else -%>
+		<%= page.name %>
+	<%- end -%>
+	</div>
+	<%- unless page.folded?(current_user) && page.children.empty? -%>
+		<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="dragable">
+			<%= render :partial => 'page', :collection => page.children %>
+		</ul>
+	<%- end -%>
+</li>

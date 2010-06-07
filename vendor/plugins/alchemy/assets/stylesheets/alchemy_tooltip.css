@@ -3,20 +3,20 @@ form.create_right {
 	clear: both;
 }
 
-.overlay_wa_tooltip {
+.overlay_alchemy_tooltip {
 	background-color: #000;
 	filter: alpha(opacity=60);
 	-moz-opacity: 0.6;
 	opacity: 0.6;
 }
 
-.wa_tooltip_buttons {
+.alchemy_tooltip_buttons {
 	display: none;
 }
 
 /* North-West corner */
 
-.wa_tooltip_nw {
+.alchemy_tooltip_nw {
 	background-color: #fff;
 	width: 2px;
 	height: 2px;
@@ -27,7 +27,7 @@ form.create_right {
 
 /* North border */
 
-.wa_tooltip_n {
+.alchemy_tooltip_n {
 	background-color: #fff;
 	height: 2px;
 	font-size: 0;
@@ -36,7 +36,7 @@ form.create_right {
 
 /* North-East corner */
 
-.wa_tooltip_ne {
+.alchemy_tooltip_ne {
 	background-color: #fff;
 	width: 2px;
 	height: 2px;
@@ -47,7 +47,7 @@ form.create_right {
 
 /* West border */
 
-.wa_tooltip_w {
+.alchemy_tooltip_w {
 	background-color: #fff;
 	width: 2px;
 	font-size: 0;
@@ -56,7 +56,7 @@ form.create_right {
 
 /* East border */
 
-.wa_tooltip_e {
+.alchemy_tooltip_e {
 	background-color: #fff;
 	width: 2px;
 	font-size: 0;
@@ -65,7 +65,7 @@ form.create_right {
 
 /* South-West corner */
 
-.wa_tooltip_sw {
+.alchemy_tooltip_sw {
 	background-color: #fff;
 	width: 2px;
 	height: 2px;
@@ -76,7 +76,7 @@ form.create_right {
 
 /* South border */
 
-.wa_tooltip_s {
+.alchemy_tooltip_s {
 	background-color: #fff;
 	height: 2px;
 	font-size: 0;
@@ -85,7 +85,7 @@ form.create_right {
 
 /* South-East corner */
 
-.wa_tooltip_se {
+.alchemy_tooltip_se {
 	background-color: #fff;
 	width: 2px;
 	height: 2px;
@@ -96,7 +96,7 @@ form.create_right {
 
 /* Resize button */
 
-.wa_tooltip_sizer {
+.alchemy_tooltip_sizer {
 	background-color: #fff;
 	width: 2px;
 	height: 2px;
@@ -107,19 +107,19 @@ form.create_right {
 
 /* Close button */
 
-.wa_tooltip_close {
+.alchemy_tooltip_close {
 	display: none;
 }
 
 /* Title bar */
 
-.wa_tooltip_title {
+.alchemy_tooltip_title {
 	display: none;
 }
 
 /* Content div (not used for url) */
 
-.wa_tooltip_content {
+.alchemy_tooltip_content {
 	color: #000;
 	background: #f4f4f4 url(../images/icons/information.png) no-repeat 4px 4px;
 	overflow: auto;
@@ -127,19 +127,19 @@ form.create_right {
 	font-size: 10px;
 }
 
-.wa_tooltip_content p {
+.alchemy_tooltip_content p {
 	padding: 4px;
 	margin: 0;
 	font-size: 10px;
 }
 
-.wa_tooltip_content h1 {
+.alchemy_tooltip_content h1 {
 	padding: 4px 4px 4px 24px;
 	margin: 0;
 	font-size: 10px;
 	line-height: 16px;
 }
 
-.wa_tooltip_content a img {
+.alchemy_tooltip_content a img {
 	border-style: none;
 }

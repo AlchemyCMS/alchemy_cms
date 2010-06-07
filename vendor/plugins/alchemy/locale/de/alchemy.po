@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-07 15:24+0200\n"
+"POT-Creation-Date: 2010-06-07 17:44+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -44,17 +44,57 @@ msgstr "Bild löschen"
 msgid "Do you really want to delete this atom?"
 msgstr "Wollen Sie dieses Atom wirklich löschen?"
 
+#: locale/model_attributes.rb:14
+msgid "Element"
+msgstr "Molekül"
+
+#: locale/model_attributes.rb:16
+msgid "Element|Display name"
+msgstr "Name"
+
+#: locale/model_attributes.rb:15
+msgid "Element|Name"
+msgstr "Name"
+
+#: locale/model_attributes.rb:17
+msgid "Element|Public"
+msgstr "sichtbar"
+
 #: app/views/partials/_upload_form.html.erb:27
 msgid "Error with the Flash® Uploader!"
 msgstr "Fehler mit dem Flash® Uploader!"
 
-#: app/controllers/wa_files_controller.rb:94
+#: locale/model_attributes.rb:1
+msgid "File"
+msgstr "Datei"
+
+#: app/controllers/files_controller.rb:94
 msgid "File renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Datei wurde erfolgreich von: '%{from}' nach '%{to}' umbenannt."
 
-#: app/controllers/wa_files_controller.rb:110
+#: app/controllers/files_controller.rb:110
 msgid "File: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
+
+#: locale/model_attributes.rb:6
+msgid "File|Content type"
+msgstr "Dateityp"
+
+#: locale/model_attributes.rb:4
+msgid "File|Created at"
+msgstr "Erstellt Am"
+
+#: locale/model_attributes.rb:3
+msgid "File|Filename"
+msgstr "Dateiname"
+
+#: locale/model_attributes.rb:2
+msgid "File|Name"
+msgstr "Name"
+
+#: locale/model_attributes.rb:5
+msgid "File|Size"
+msgstr "Dateigröße"
 
 #: app/views/wa_mailer/new_alchemy_user_mail.erb:13
 msgid "Have much fun with Alchemy!"
@@ -68,21 +108,113 @@ msgstr ""
 "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur "
 "%{link}"
 
-#: app/controllers/wa_images_controller.rb:98
+#: locale/model_attributes.rb:8
+msgid "Image"
+msgstr "Bild"
+
+#: app/controllers/images_controller.rb:98
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 
-#: app/controllers/wa_images_controller.rb:108
+#: app/controllers/images_controller.rb:108
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/wa_pages_controller.rb:119
+#: locale/model_attributes.rb:10
+msgid "Image|Image filename"
+msgstr "Dateiname"
+
+#: locale/model_attributes.rb:12
+msgid "Image|Image height"
+msgstr "Bildhöhe"
+
+#: locale/model_attributes.rb:11
+msgid "Image|Image width"
+msgstr "Bildbreite"
+
+#: locale/model_attributes.rb:9
+msgid "Image|Name"
+msgstr "Name"
+
+#: locale/model_attributes.rb:19
+msgid "Page"
+msgstr "Seite"
+
+#: app/controllers/pages_controller.rb:119
 msgid "Page %{name} deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/wa_pages_controller.rb:106
+#: app/controllers/pages_controller.rb:106
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
+
+#: locale/model_attributes.rb:35
+msgid "Page|Created at"
+msgstr "Erstellt Am"
+
+#: locale/model_attributes.rb:32
+msgid "Page|Language"
+msgstr "Sprache"
+
+#: locale/model_attributes.rb:29
+msgid "Page|Locked"
+msgstr "Die Seite ist gesperrt"
+
+#: locale/model_attributes.rb:30
+msgid "Page|Locked by"
+msgstr "Gesperrt durch"
+
+#: locale/model_attributes.rb:24
+msgid "Page|Meta description"
+msgstr "Meta Beschreibung"
+
+#: locale/model_attributes.rb:25
+msgid "Page|Meta keywords"
+msgstr "Meta Schlagwörter"
+
+#: locale/model_attributes.rb:20
+msgid "Page|Name"
+msgstr "Name"
+
+#: locale/model_attributes.rb:23
+msgid "Page|Page layout"
+msgstr "Seitentyp"
+
+#: locale/model_attributes.rb:27
+msgid "Page|Public"
+msgstr "Seite veröffentlichen"
+
+#: locale/model_attributes.rb:26
+msgid "Page|Resctricted"
+msgstr "Seite schützen"
+
+#: locale/model_attributes.rb:34
+msgid "Page|Robot follow"
+msgstr "den Robot Links folgen lassen"
+
+#: locale/model_attributes.rb:33
+msgid "Page|Robot index"
+msgstr "durch Robot indizieren"
+
+#: locale/model_attributes.rb:31
+msgid "Page|Sitemap"
+msgstr "in der Seitemap anzeigen"
+
+#: locale/model_attributes.rb:22
+msgid "Page|Title"
+msgstr "Seitentitel"
+
+#: locale/model_attributes.rb:36
+msgid "Page|Updated at"
+msgstr "Erstellt Am"
+
+#: locale/model_attributes.rb:21
+msgid "Page|Urlname"
+msgstr "URL-Name"
+
+#: locale/model_attributes.rb:28
+msgid "Page|Visible"
+msgstr "in der Navigation anzeigen"
 
 #: app/views/wa_mailer/new_alchemy_user_mail.erb:10
 msgid "Password"
@@ -124,7 +256,7 @@ msgstr "Wählen Sie ein Atom aus"
 msgid "Successfully added %{atom}"
 msgstr "%{atom} wurde hinzugefügt"
 
-#: app/controllers/wa_atoms_controller.rb:68
+#: app/controllers/contents_controller.rb:68
 msgid "Successfully deleted %{atom}"
 msgstr "%{atom} wurde gelöscht"
 
@@ -136,7 +268,7 @@ msgstr "Auf den Flash® Uploader wechseln"
 msgid "The sitemap is autogenerated."
 msgstr "Die Sitemap wird automatisch generiert"
 
-#: app/controllers/wa_pages_controller.rb:177
+#: app/controllers/pages_controller.rb:177
 msgid "This page is locked by %{name}"
 msgstr "Diese Seite wird gerade von %{name} blockiert"
 
@@ -146,15 +278,19 @@ msgstr ""
 "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden "
 "Link"
 
-#: app/controllers/wa_users_controller.rb:42
+#: locale/model_attributes.rb:38
+msgid "User"
+msgstr "Name"
+
+#: app/controllers/users_controller.rb:42
 msgid "User: '%{name}' created"
 msgstr "%{name} wurde erstellt"
 
-#: app/controllers/wa_users_controller.rb:65
+#: app/controllers/users_controller.rb:65
 msgid "User: '%{name}' deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/wa_users_controller.rb:57
+#: app/controllers/users_controller.rb:57
 msgid "User: '%{name}' updated"
 msgstr "%{name} wurde aktualisiert"
 
@@ -162,193 +298,57 @@ msgstr "%{name} wurde aktualisiert"
 msgid "Username"
 msgstr "Benutzername"
 
+#: locale/model_attributes.rb:41
+msgid "User|Email"
+msgstr "Email"
+
+#: locale/model_attributes.rb:43
+msgid "User|Firstname"
+msgstr "Vorname"
+
+#: locale/model_attributes.rb:40
+msgid "User|Gender"
+msgstr "Anrede"
+
+#: locale/model_attributes.rb:45
+msgid "User|Language"
+msgstr "Sprache"
+
+#: locale/model_attributes.rb:44
+msgid "User|Lastname"
+msgstr "Nachname"
+
+#: locale/model_attributes.rb:42
+msgid "User|Login"
+msgstr "Benutzername"
+
+#: locale/model_attributes.rb:39
+msgid "User|Name"
+msgstr "Name"
+
+#: locale/model_attributes.rb:47
+msgid "User|Password"
+msgstr "Passwort"
+
+#: locale/model_attributes.rb:48
+msgid "User|Password confirmation"
+msgstr "Passwort Bestätigung"
+
+#: locale/model_attributes.rb:46
+msgid "User|Role"
+msgstr "Benutzerrolle"
+
 #: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr "Version"
 
-#: app/views/wa_files/_wa_file.html.erb:11
+#: app/views/files/_file.html.erb:11
 msgid "View File"
 msgstr "Datei anzeigen"
 
-#: app/controllers/wa_pages_controller.rb:44
+#: app/controllers/pages_controller.rb:44
 msgid "WaAdmin|new rootpage created"
 msgstr "Neue Rootpage wurde erstellt."
-
-#: locale/model_attributes.rb:1
-msgid "WaFile"
-msgstr "Datei"
-
-#: locale/model_attributes.rb:6
-msgid "WaFile|Content type"
-msgstr "Dateityp"
-
-#: locale/model_attributes.rb:4
-msgid "WaFile|Created at"
-msgstr "Erstellt Am"
-
-#: locale/model_attributes.rb:3
-msgid "WaFile|Filename"
-msgstr "Dateiname"
-
-#: locale/model_attributes.rb:2
-msgid "WaFile|Name"
-msgstr "Name"
-
-#: locale/model_attributes.rb:5
-msgid "WaFile|Size"
-msgstr "Dateigröße"
-
-#: locale/model_attributes.rb:8
-msgid "WaImage"
-msgstr "Bild"
-
-#: locale/model_attributes.rb:10
-msgid "WaImage|Image filename"
-msgstr "Dateiname"
-
-#: locale/model_attributes.rb:12
-msgid "WaImage|Image height"
-msgstr "Bildhöhe"
-
-#: locale/model_attributes.rb:11
-msgid "WaImage|Image width"
-msgstr "Bildbreite"
-
-#: locale/model_attributes.rb:9
-msgid "WaImage|Name"
-msgstr "Name"
-
-#: locale/model_attributes.rb:14
-msgid "WaMolecule"
-msgstr "Molekül"
-
-#: locale/model_attributes.rb:16
-msgid "WaMolecule|Display name"
-msgstr "Name"
-
-#: locale/model_attributes.rb:15
-msgid "WaMolecule|Name"
-msgstr "Name"
-
-#: locale/model_attributes.rb:17
-msgid "WaMolecule|Public"
-msgstr "sichtbar"
-
-#: locale/model_attributes.rb:19
-msgid "WaPage"
-msgstr "Seite"
-
-#: locale/model_attributes.rb:35
-msgid "WaPage|Created at"
-msgstr "Erstellt Am"
-
-#: locale/model_attributes.rb:32
-msgid "WaPage|Language"
-msgstr "Sprache"
-
-#: locale/model_attributes.rb:29
-msgid "WaPage|Locked"
-msgstr "Die Seite ist gesperrt"
-
-#: locale/model_attributes.rb:30
-msgid "WaPage|Locked by"
-msgstr "Gesperrt durch"
-
-#: locale/model_attributes.rb:24
-msgid "WaPage|Meta description"
-msgstr "Meta Beschreibung"
-
-#: locale/model_attributes.rb:25
-msgid "WaPage|Meta keywords"
-msgstr "Meta Schlagwörter"
-
-#: locale/model_attributes.rb:20
-msgid "WaPage|Name"
-msgstr "Name"
-
-#: locale/model_attributes.rb:23
-msgid "WaPage|Page layout"
-msgstr "Seitentyp"
-
-#: locale/model_attributes.rb:27
-msgid "WaPage|Public"
-msgstr "Seite veröffentlichen"
-
-#: locale/model_attributes.rb:26
-msgid "WaPage|Resctricted"
-msgstr "Seite schützen"
-
-#: locale/model_attributes.rb:34
-msgid "WaPage|Robot follow"
-msgstr "den Robot Links folgen lassen"
-
-#: locale/model_attributes.rb:33
-msgid "WaPage|Robot index"
-msgstr "durch Robot indizieren"
-
-#: locale/model_attributes.rb:31
-msgid "WaPage|Sitemap"
-msgstr "in der Seitemap anzeigen"
-
-#: locale/model_attributes.rb:22
-msgid "WaPage|Title"
-msgstr "Seitentitel"
-
-#: locale/model_attributes.rb:36
-msgid "WaPage|Updated at"
-msgstr "Erstellt Am"
-
-#: locale/model_attributes.rb:21
-msgid "WaPage|Urlname"
-msgstr "URL-Name"
-
-#: locale/model_attributes.rb:28
-msgid "WaPage|Visible"
-msgstr "in der Navigation anzeigen"
-
-#: locale/model_attributes.rb:38
-msgid "WaUser"
-msgstr "Name"
-
-#: locale/model_attributes.rb:41
-msgid "WaUser|Email"
-msgstr "Email"
-
-#: locale/model_attributes.rb:43
-msgid "WaUser|Firstname"
-msgstr "Vorname"
-
-#: locale/model_attributes.rb:40
-msgid "WaUser|Gender"
-msgstr "Anrede"
-
-#: locale/model_attributes.rb:45
-msgid "WaUser|Language"
-msgstr "Sprache"
-
-#: locale/model_attributes.rb:44
-msgid "WaUser|Lastname"
-msgstr "Nachname"
-
-#: locale/model_attributes.rb:42
-msgid "WaUser|Login"
-msgstr "Benutzername"
-
-#: locale/model_attributes.rb:39
-msgid "WaUser|Name"
-msgstr "Name"
-
-#: locale/model_attributes.rb:47
-msgid "WaUser|Password"
-msgstr "Passwort"
-
-#: locale/model_attributes.rb:48
-msgid "WaUser|Password confirmation"
-msgstr "Passwort Bestätigung"
-
-#: locale/model_attributes.rb:46
-msgid "WaUser|Role"
-msgstr "Benutzerrolle"
 
 #: app/views/admin/index.html.erb:7
 #: app/views/wa_mailer/new_alchemy_user_mail.erb:1
@@ -389,11 +389,11 @@ msgstr "hinzufügen"
 msgid "add new atom"
 msgstr "+ ein Atom hinzufügen"
 
-#: app/views/wa_molecules/_wa_picture_editor.html.erb:13
-msgid "add_image_to_molecule"
+#: app/views/elements/_wa_picture_editor.html.erb:13
+msgid "add_image_to_element"
 msgstr "Bild hinzufügen"
 
-#: app/controllers/wa_molecules_controller.rb:63
+#: app/controllers/elements_controller.rb:63
 msgid "adding_element_not_successful"
 msgstr "Es konnte kein Molekül hinzugefügt werden."
 
@@ -428,10 +428,10 @@ msgstr "Datei zuweisen"
 msgid "assign_file_from_archive"
 msgstr "Datei aus dem Archiv zuweisen"
 
+#: app/views/elements/_add_atom.html.erb:11
+#: app/views/elements/_assign_picture_atom.html.erb:12
+#: app/views/elements/_assign_picture_atom.html.erb:17
 #: app/views/wa_images/_image_to_assign.html.erb:29
-#: app/views/wa_molecules/_add_atom.html.erb:11
-#: app/views/wa_molecules/_assign_picture_atom.html.erb:12
-#: app/views/wa_molecules/_assign_picture_atom.html.erb:17
 msgid "assign_image"
 msgstr "Bild hinzufügen."
 
@@ -444,15 +444,15 @@ msgstr "Atom Content wurde nicht gefunden."
 msgid "atom_not_found"
 msgstr "Atom wurde nicht gefunden."
 
-#: app/controllers/wa_atoms_controller.rb:34
+#: app/controllers/contents_controller.rb:34
 msgid "atom_not_successfully_added"
 msgstr "Das Atom konnte nicht hinzugefügt werden."
 
-#: app/controllers/wa_atoms_controller.rb:75
+#: app/controllers/contents_controller.rb:75
 msgid "atom_not_successfully_deleted"
 msgstr "Das Atom konnte nicht gelöscht werden."
 
-#: app/views/layouts/admin.html.erb:44 app/views/layouts/login.html.erb:28
+#: app/views/layouts/admin.html.erb:43 app/views/layouts/login.html.erb:27
 msgid "back to site"
 msgstr "zurück zur Homepage"
 
@@ -464,17 +464,17 @@ msgstr "große Miniaturbilder"
 msgid "browse"
 msgstr "durchsuchen"
 
+#: app/views/elements/index.rjs:11
+msgid "choose_element_as_target"
+msgstr "Wählen Sie ein Element dieser Seite als Ziel"
+
+#: app/views/elements/index.rjs:8
+msgid "choose_element_to_link"
+msgstr "Bitte wählen Sie ein Molekül"
+
 #: app/views/admin/_file_link.html.erb:3
 msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
-
-#: app/views/wa_molecules/index.rjs:11
-msgid "choose_molecule_as_target"
-msgstr "Wählen Sie ein Element dieser Seite als Ziel"
-
-#: app/views/wa_molecules/index.rjs:8
-msgid "choose_molecule_to_link"
-msgstr "Bitte wählen Sie ein Molekül"
 
 #: app/helpers/application_helper.rb:837
 #: app/views/partials/_remote_search_form.html.erb:26
@@ -482,11 +482,11 @@ msgstr "Bitte wählen Sie ein Molekül"
 msgid "click_to_show_all"
 msgstr "wieder alles anzeigen"
 
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:5
+#: app/views/elements/_save_and_delete_buttons.html.erb:5
 msgid "confirm_to_delete_element"
 msgstr "Wollen Sie dieses Molekül wirklich löschen?"
 
-#: app/views/wa_files/_wa_file.html.erb:33
+#: app/views/files/_file.html.erb:33
 msgid "confirm_to_delete_file"
 msgstr "Wollen Sie diese Datei wirklich vom Server löschen?"
 
@@ -503,7 +503,7 @@ msgid "confirm_to_delete_page"
 msgstr "Wollen Sie diese Seite wirklich löschen?"
 
 #: app/views/wa_users/_wa_user.html.erb:11
-msgid "confirm_to_delete_wa_user"
+msgid "confirm_to_delete_user"
 msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 
 #: app/controllers/application_controller.rb:79
@@ -515,7 +515,7 @@ msgstr "Sie wurden auf Grund von Inaktivität abgemeldet."
 msgid "copy"
 msgstr "kopieren"
 
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:34
+#: app/views/elements/_save_and_delete_buttons.html.erb:34
 msgid "copy_element"
 msgstr "Molekül kopieren"
 
@@ -527,7 +527,7 @@ msgstr "&copy; 2007-2010 macabi GmbH"
 msgid "create"
 msgstr "anlegen"
 
-#: app/controllers/wa_pages_controller.rb:232
+#: app/controllers/pages_controller.rb:232
 msgid "create_new_language"
 msgstr "Einen neuen Sprachbaum erstellen"
 
@@ -553,15 +553,15 @@ msgstr "Bild beschneiden."
 msgid "currently_edited_by"
 msgstr "Wird momentan bearbeitet von"
 
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:22
+#: app/views/elements/_save_and_delete_buttons.html.erb:22
 msgid "cut_element"
 msgstr "Molekül ausschneiden"
 
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:9
+#: app/views/elements/_save_and_delete_buttons.html.erb:9
 msgid "delete_element"
 msgstr "Molekül löschen"
 
-#: app/views/wa_files/_wa_file.html.erb:42
+#: app/views/files/_file.html.erb:42
 msgid "delete_file"
 msgstr "Datei vom Server löschen"
 
@@ -585,15 +585,15 @@ msgstr "Benutzer löschen"
 msgid "disabled"
 msgstr "Deaktiviert"
 
-#: app/helpers/wa_files_helper.rb:4
+#: app/helpers/files_helper.rb:4
 msgid "document"
 msgstr "Dokument"
 
-#: app/views/wa_files/new.html.erb:6
+#: app/views/files/new.html.erb:6
 msgid "documents"
 msgstr "Dateien"
 
-#: app/views/wa_files/_wa_file.html.erb:26
+#: app/views/files/_file.html.erb:26
 msgid "download_file_'%{filename}'"
 msgstr "'%{filename}' runterladen"
 
@@ -628,28 +628,32 @@ msgstr "Seiteneigenschaften bearbeiten"
 msgid "edit_user"
 msgstr "Benutzer bearbeiten"
 
-#: app/views/wa_molecules/copy_to_clipboard.rjs:6
+#: app/views/elements/copy_to_clipboard.rjs:6
 msgid "element_%{name}_copied_to_clipboard"
 msgstr "Das Molekül '%{name}' wurde in die Zwischenablage kopiert."
 
-#: app/views/wa_molecules/copy_to_clipboard.rjs:4
+#: app/views/elements/copy_to_clipboard.rjs:4
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Das Molekül '%{name}' wurde in die Zwischenablage bewegt."
 
-#: app/controllers/wa_molecules_controller.rb:182
+#: app/controllers/elements_controller.rb:167
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 "Das Molekül '%{name}' konnte nicht in die Zwischenablage kopiert werden."
 
-#: app/views/wa_molecules/destroy.rjs:7
+#: app/views/elements/destroy.rjs:7
 msgid "element_deleted_successful"
 msgstr "Molekül wurde gelöscht."
 
-#: app/controllers/wa_molecules_controller.rb:144
+#: app/views/elements/_editor_not_found.html.erb:1
+msgid "element_editor_not_found"
+msgstr "Bei diesem Molekül ist ein Fehler aufgetreten"
+
+#: app/controllers/elements_controller.rb:129
 msgid "element_not_saved"
 msgstr "Molekül konnte nicht gespeichert werden."
 
-#: app/controllers/wa_molecules_controller.rb:163
+#: app/controllers/elements_controller.rb:148
 msgid "element_not_successfully_deleted"
 msgstr "Das Molekül konnte nicht gelöscht werden."
 
@@ -657,7 +661,7 @@ msgstr "Das Molekül konnte nicht gelöscht werden."
 msgid "element_of_type"
 msgstr "Molekül"
 
-#: app/controllers/admin_controller.rb:66 app/views/wa_molecules/update.rjs:7
+#: app/controllers/admin_controller.rb:66 app/views/elements/update.rjs:7
 msgid "element_saved"
 msgstr "Molekül wurde gespeichert."
 
@@ -697,7 +701,7 @@ msgstr "Wählen Sie alle %{name} aus, die Sie gleichzeitig hochladen wollen"
 msgid "explain_upload.step3"
 msgstr "Klicken Sie auf 'öffnen'. Das Hochladen beginnt!"
 
-#: app/models/wa_user.rb:58
+#: app/models/user.rb:58
 msgid "female"
 msgstr "Frau"
 
@@ -705,11 +709,11 @@ msgstr "Frau"
 msgid "file"
 msgstr "Datei"
 
-#: app/controllers/wa_files_controller.rb:100
+#: app/controllers/files_controller.rb:100
 msgid "file_rename_error"
 msgstr "Datei konnte nicht umbenannt werden."
 
-#: app/views/wa_files/index.html.erb:22 app/views/wa_files/new.html.erb:8
+#: app/views/files/index.html.erb:22 app/views/files/new.html.erb:8
 msgid "files"
 msgstr "Dateien"
 
@@ -719,7 +723,7 @@ msgstr "Dateien"
 msgid "height"
 msgstr "Höhe"
 
-#: app/views/wa_molecules/_wa_molecule_head.html.erb:34
+#: app/views/elements/_element_head.html.erb:34
 msgid "hide_element_content"
 msgstr "Molekül einklappen"
 
@@ -760,11 +764,11 @@ msgstr "Sprache"
 msgid "language_does_not_exist"
 msgstr "Diese Sprache existiert noch nicht"
 
-#: app/controllers/wa_pages_controller.rb:210
+#: app/controllers/pages_controller.rb:210
 msgid "language_pages_copied"
 msgstr "Die Sprache wurde kopiert"
 
-#: app/controllers/wa_pages_controller.rb:213
+#: app/controllers/pages_controller.rb:213
 msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren der Sparche sind Fehler aufgetreten"
 
@@ -807,7 +811,7 @@ msgstr "Sie wurden abgemeldet."
 msgid "login"
 msgstr "anmelden"
 
-#: app/views/layouts/admin.html.erb:36 app/views/layouts/admin.html.erb:38
+#: app/views/layouts/admin.html.erb:35 app/views/layouts/admin.html.erb:37
 msgid "logout"
 msgstr "abmelden"
 
@@ -815,7 +819,7 @@ msgstr "abmelden"
 msgid "mail_to"
 msgstr "Empfängeradresse"
 
-#: app/models/wa_user.rb:57
+#: app/models/user.rb:57
 msgid "male"
 msgstr "Herr"
 
@@ -839,7 +843,7 @@ msgstr "Meta Beschreibung"
 msgid "meta_keywords"
 msgstr "Meta Schlagwörter"
 
-#: app/models/wa_image.rb:7
+#: app/models/image.rb:7
 msgid "missing_image"
 msgstr "Bild wird vermisst."
 
@@ -888,17 +892,9 @@ msgstr "Eine Position runter"
 msgid "move_position_up"
 msgstr "Eine Position hoch"
 
-#: app/views/wa_files/edit.html.erb:4
+#: app/views/files/edit.html.erb:4
 msgid "name"
 msgstr "Name"
-
-#: app/models/wa_page.rb:22
-msgid "name_already_taken"
-msgstr "Dieser Name ist schon vergeben."
-
-#: app/models/wa_page.rb:16
-msgid "name_already_taken_in_this_language"
-msgstr "Diesen Namen gibt es in dieser Sprache schon"
 
 #: app/views/wa_pages/edit.html.erb:32
 msgid "names"
@@ -912,7 +908,11 @@ msgstr "Navigationsname"
 msgid "no"
 msgstr "Nein"
 
-#: app/views/wa_files/_files_list.html.erb:3
+#: app/helpers/application_helper.rb:208 app/helpers/application_helper.rb:274
+msgid "no_element_given"
+msgstr "Kein Molekül angegeben."
+
+#: app/views/files/_files_list.html.erb:3
 msgid "no_files_in_archive"
 msgstr "Sie haben noch keine Dateien in Ihrem Archiv."
 
@@ -921,20 +921,16 @@ msgstr "Sie haben noch keine Dateien in Ihrem Archiv."
 msgid "no_images_in_archive"
 msgstr "Sie haben keine Bilder in Ihrem Archiv"
 
-#: app/helpers/application_helper.rb:208 app/helpers/application_helper.rb:274
-msgid "no_molecule_given"
-msgstr "Kein Molekül angegeben."
-
 #: app/views/wa_pages/_add_molecule_form.html.erb:2
-msgid "no_more_molecules_to_add"
+msgid "no_more_elements_to_add"
 msgstr "Keine weiteren Moleküle verfügbar."
 
-#: app/views/wa_files/_files_list.html.erb:7
+#: app/views/files/_files_list.html.erb:7
 #: app/views/wa_images/_images_list.html.erb:7
 msgid "no_search_results"
 msgstr "Keine Suchergebnisse."
 
-#: app/models/wa_image.rb:8
+#: app/models/image.rb:8
 msgid "not a valid image"
 msgstr "Keine valide Bilddatei."
 
@@ -943,9 +939,13 @@ msgstr "Keine valide Bilddatei."
 msgid "not_authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
-#: app/controllers/wa_pages_controller.rb:79
+#: app/controllers/pages_controller.rb:79
 msgid "page '%{name}' created."
 msgstr "Seite '%{name}' wurde erstellt."
+
+#: app/views/admin/_wa_page_for_links.html.erb:39
+msgid "page_for_links.choose_page %{name}"
+msgstr "%{name} wählen"
 
 #: app/views/wa_pages/locked.html.erb:2
 msgid "page_locked"
@@ -959,7 +959,7 @@ msgstr "Seiteneigenschaften"
 msgid "page_public"
 msgstr "Seite veröffentlichen"
 
-#: app/controllers/wa_pages_controller.rb:140
+#: app/controllers/pages_controller.rb:140
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
@@ -971,45 +971,45 @@ msgstr "Seite schützen"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/wa_page.rb:189
+#: app/models/page.rb:173
 msgid "page_status_invisible_public"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
 
-#: app/models/wa_page.rb:177
+#: app/models/page.rb:161
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
 "Diese Seite wird gerade bearbeitet."
 
-#: app/models/wa_page.rb:192
+#: app/models/page.rb:176
 msgid "page_status_invisible_unpublic"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
 
-#: app/models/wa_page.rb:180
+#: app/models/page.rb:164
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet"
 
-#: app/models/wa_page.rb:183
+#: app/models/page.rb:167
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
 
-#: app/models/wa_page.rb:171
+#: app/models/page.rb:155
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
 "wird gerade bearbeitet."
 
-#: app/models/wa_page.rb:186
+#: app/models/page.rb:170
 msgid "page_status_visible_unpublic"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
-#: app/models/wa_page.rb:174
+#: app/models/page.rb:158
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
@@ -1027,6 +1027,10 @@ msgstr "Typ"
 #: app/views/wa_pages/edit.html.erb:20
 msgid "page_visible_in_navigation"
 msgstr "Seite in der Navigation zeigen"
+
+#: app/views/wa_pages/edit.html.erb:64
+msgid "pages.update.comma_seperated"
+msgstr "Durch Kommata getrennt eingeben"
 
 #: app/views/partials/_per_page_links.html.erb:16
 msgid "pagination.%{label}_per_page"
@@ -1054,7 +1058,7 @@ msgstr "Text verlinken"
 msgid "player_version"
 msgstr "Flashplayer Version"
 
-#: app/models/wa_page.rb:8
+#: app/models/page.rb:8
 msgid "please enter a name"
 msgstr "Bitte geben Sie einen Namen ein."
 
@@ -1062,15 +1066,15 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/controllers/wa_molecules_controller.rb:29
-msgid "please_choose_a_molecule_name"
+#: app/controllers/elements_controller.rb:29
+msgid "please_choose_a_element_name"
 msgstr "Wählen Sie ein Molekül aus"
 
 #: app/helpers/application_helper.rb:886
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
-#: app/views/layouts/admin.html.erb:21 app/views/layouts/login.html.erb:21
+#: app/views/layouts/admin.html.erb:20 app/views/layouts/login.html.erb:20
 msgid "please_wait"
 msgstr "Bitte warten"
 
@@ -1082,12 +1086,12 @@ msgstr "Status veröffentlichen"
 msgid "regular method"
 msgstr "herkömmlichen Methode"
 
-#: app/views/wa_molecules/index.rjs:22
+#: app/views/elements/index.rjs:22
 msgid "remove"
 msgstr "entfernen"
 
-#: app/views/wa_files/_wa_file.html.erb:50
-#: app/views/wa_files/_wa_file.html.erb:54
+#: app/views/files/_file.html.erb:50
+#: app/views/files/_file.html.erb:54
 msgid "rename_file"
 msgstr "Datei umbenennen"
 
@@ -1108,20 +1112,21 @@ msgstr "den Robot Links folgen lassen"
 msgid "robot_index"
 msgstr "durch Robot indizieren"
 
-#: app/models/wa_page.rb:105
+#: app/models/page.rb:89
 msgid "root_page_not_deletable"
 msgstr "Die Hauptseite darf nicht gelöscht werden"
 
-#: app/views/admin/signup.html.erb:45 app/views/wa_atom_files/edit.html.erb:22
+#: app/views/admin/signup.html.erb:45
+#: app/views/elements/_save_and_delete_buttons.html.erb:47
+#: app/views/wa_atom_files/edit.html.erb:22
 #: app/views/wa_atom_files/edit.html.erb:42
 #: app/views/wa_atom_files/edit.html.erb:70
 #: app/views/wa_atom_files/edit.html.erb:94
 #: app/views/wa_atom_pictures/edit.html.erb:43
-#: app/views/wa_atoms/new.html.erb:11 app/views/wa_files/edit.html.erb:8
+#: app/views/wa_atoms/new.html.erb:11 app/views/files/edit.html.erb:8
 #: app/views/wa_images/_image.html.erb:45
-#: app/views/wa_images/_image.html.erb:46
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:47
-#: app/views/wa_pages/edit.html.erb:68 app/views/wa_users/_form.html.erb:43
+#: app/views/wa_images/_image.html.erb:46 app/views/wa_pages/edit.html.erb:68
+#: app/views/wa_users/_form.html.erb:43
 msgid "save"
 msgstr "speichern"
 
@@ -1129,7 +1134,7 @@ msgstr "speichern"
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
 
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:43
+#: app/views/elements/_save_and_delete_buttons.html.erb:43
 msgid "saving"
 msgstr "speichert"
 
@@ -1144,21 +1149,21 @@ msgid "search_engines"
 msgstr "Suchmaschinen"
 
 #: app/views/wa_pages/_add_molecule_form.html.erb:25
-msgid "select_molecule"
+msgid "select_element"
 msgstr "Molekül wählen"
 
-#: app/views/wa_molecules/_wa_molecule_head.html.erb:34
+#: app/views/elements/_element_head.html.erb:34
 msgid "show_element_content"
 msgstr "Molekül ausklappen"
+
+#: app/views/admin/_wa_page_for_links.html.erb:20
+msgid "show_elements_from_page"
+msgstr "Moleküle dieser Seite anzeigen"
 
 #: app/views/wa_atom_files/edit.html.erb:61
 #: app/views/wa_atom_files/edit.html.erb:85
 msgid "show_eq"
 msgstr "EQ anzeigen"
-
-#: app/views/admin/_wa_page_for_links.html.erb:20
-msgid "show_molecules_from_page"
-msgstr "Moleküle dieser Seite anzeigen"
 
 #: app/views/wa_atom_files/edit.html.erb:65
 #: app/views/wa_atom_files/edit.html.erb:89
@@ -1177,16 +1182,16 @@ msgstr "kleine Miniaturbilder"
 msgid "subject"
 msgstr "Betreff"
 
-#: app/views/wa_molecules/create.rjs:17
+#: app/views/elements/create.rjs:17
 msgid "successfully_added_element"
 msgstr "Molekül wurde hinzugefügt."
 
-#: app/controllers/wa_atoms_controller.rb:54
+#: app/controllers/contents_controller.rb:54
 msgid "successfully_saved_atom_position"
 msgstr "Die Atomposition wurde gespeichert"
 
-#: app/controllers/wa_molecules_controller.rb:193
-msgid "successfully_saved_molecule_position"
+#: app/controllers/elements_controller.rb:178
+msgid "successfully_saved_element_position"
 msgstr "Die Molekülposition wurde gespeichert."
 
 #: app/views/wa_atoms/partials/_wa_picture_tools.html.erb:28
@@ -1212,8 +1217,8 @@ msgstr "Miniaturbildergröße"
 msgid "title"
 msgstr "Titel"
 
-#: app/controllers/wa_pages_controller.rb:177 app/models/wa_page.rb:122
-#: app/models/wa_page.rb:129 app/models/wa_page.rb:136
+#: app/controllers/pages_controller.rb:177 app/models/page.rb:106
+#: app/models/page.rb:113 app/models/page.rb:120
 msgid "unknown"
 msgstr "unbekannt"
 
@@ -1225,7 +1230,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/wa_pages_controller.rb:128
+#: app/controllers/pages_controller.rb:128
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 
@@ -1237,8 +1242,8 @@ msgstr "Bearbeitet am"
 msgid "upload"
 msgstr "Datei hochladen"
 
-#: app/views/wa_files/index.html.erb:10 app/views/wa_files/index.html.erb:13
-#: app/views/wa_files/index.html.erb:16
+#: app/views/files/index.html.erb:10 app/views/files/index.html.erb:13
+#: app/views/files/index.html.erb:16
 msgid "upload_file"
 msgstr "Datei(en) hochladen"
 
@@ -1251,7 +1256,7 @@ msgstr "Bild(er) hochladen"
 msgid "url_name"
 msgstr "URL-Name"
 
-#: app/models/wa_page.rb:9
+#: app/models/page.rb:9
 msgid "urlname_to_short"
 msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 
@@ -1259,21 +1264,9 @@ msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 msgid "username"
 msgstr "Benutzername"
 
-#: app/views/wa_molecules/_save_and_delete_buttons.html.erb:40
+#: app/views/elements/_save_and_delete_buttons.html.erb:40
 msgid "visible"
 msgstr "sichtbar"
-
-#: app/views/wa_molecules/_editor_not_found.html.erb:1
-msgid "wa_molecule_editor_not_found"
-msgstr "Bei diesem Molekül ist ein Fehler aufgetreten"
-
-#: app/views/admin/_wa_page_for_links.html.erb:39
-msgid "wa_page_for_links.choose_page %{name}"
-msgstr "%{name} wählen"
-
-#: app/views/wa_pages/edit.html.erb:64
-msgid "wa_pages.update.comma_seperated"
-msgstr "Durch Kommata getrennt eingeben"
 
 #: app/views/wa_pages/create_language.html.erb:15
 msgid "want_to_create_new_language"
@@ -1304,3 +1297,9 @@ msgstr "Ja"
 #: app/views/wa_images/_image.html.erb:10
 msgid "zoom_image"
 msgstr "Bild in voller Größe anzeigen."
+
+#~ msgid "name_already_taken"
+#~ msgstr "Dieser Name ist schon vergeben."
+
+#~ msgid "name_already_taken_in_this_language"
+#~ msgstr "Diesen Namen gibt es in dieser Sprache schon"

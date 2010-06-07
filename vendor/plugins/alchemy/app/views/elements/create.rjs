@@ -1,0 +1,21 @@
+if @after_element.nil?
+  page.insert_html(
+    :top,
+    "element_area",
+    :partial => "element",
+    :object => @new_element
+  )
+else
+  page.insert_html(
+    :after,
+    "dragable_#{@after_element.id}",
+    :partial => "element",
+    :object => @new_element
+  )  
+end
+WaConfigure.sortable_elements(page)
+WaNotice.show_via_ajax(page, _("successfully_added_element"))
+page << "TinymceHammer.init()"
+page << "reloadPreview()"
+page << "tool_window.updateHeight();"
+page << "preview_frame.updateSize();"

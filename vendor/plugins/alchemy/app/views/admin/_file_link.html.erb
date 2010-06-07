@@ -1,4 +1,4 @@
-<div id="wa_file_links" style="display: none" class="wa_overlay_tab_body">
+<div id="file_links" style="display: none" class="wa_overlay_tab_body">
 	<h2>
 		<%= _("choose_file_to_link") %>
 	</h2>
@@ -8,7 +8,7 @@
 				<label for="public_filename" class="medium"><%= _("file") %></label>
 			</td>
 			<td class="select">
-				<%= wa_select_tag "public_filename", WaFile.all.collect{ |f| [f.name, f.public_filename] }, '',:style => "width: 100%" %>
+				<%= wa_select_tag "public_filename", File.all.collect{ |f| [f.name, f.public_filename] }, '',:style => "width: 100%" %>
 			</td>
 		</tr>
 		<tr>

@@ -1,8 +1,0 @@
-<%- @wa_pages.each do |wa_page| -%>
-<url>
-  <loc><%= multi_language? ? show_page_with_language_url(:urlname => wa_page.urlname, :lang => wa_page.language) : show_page_url(wa_page.urlname) %></loc>
-  <lastmod><%= wa_page.updated_at %></lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>1</priority>
-</url>
-<%- end -%>

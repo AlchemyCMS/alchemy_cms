@@ -1,4 +1,4 @@
-* html ul#wa_sitemap li .wa_sitemap_row {
+* html ul#sitemap li .sitemap_row {
 	padding: 0px;
 	margin: -4px;
 	overflow: auto;
@@ -7,7 +7,7 @@
 	font-size:12px;
 }
 
-* html #wa_sitemap_for_links .wa_sitemap_row {
+* html #sitemap_for_links .sitemap_row {
 	padding: 0px;
 	margin: -4px;
 	overflow: auto;

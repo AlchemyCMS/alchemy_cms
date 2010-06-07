@@ -23,24 +23,24 @@ class WaConfigure < ActionController::Base
     return @config[name]
   end
   
-  def self.sortable_molecules(page)
+  def self.sortable_elements(page)
     page.sortable(
-      "wa_molecule_area",
+      "element_area",
       :url => {
-        :controller => 'wa_molecules',
+        :controller => 'elements',
         :action => "order"
       },
       :scroll => "window",
       :tag => 'div',
       :only => 'dragable',
       :dropOnEmpty => false,
-      :handle => 'molecule_handle'
+      :handle => 'element_handle'
     )
   end
   
-  def self.sortable_atoms(page, wa_molecule)
+  def self.sortable_atoms(page, element)
     page.sortable(
-      "molecule_#{wa_molecule.id}_atoms",
+      "element_#{element.id}_atoms",
       :scroll => 'window',
       :tag => 'div',
       :only => 'dragable_picture',
@@ -48,9 +48,9 @@ class WaConfigure < ActionController::Base
       :constraint => '',
       :overlap => 'horizontal',
       :url => {
-        :controller => 'wa_atoms',
+        :controller => 'contents',
         :action => "order",
-        :wa_molecule_id => wa_molecule.id
+        :element_id => element.id
       }
     )
   end

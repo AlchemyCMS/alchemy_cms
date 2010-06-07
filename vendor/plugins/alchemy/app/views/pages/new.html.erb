@@ -1,0 +1,30 @@
+<div class="with_padding">
+<% remote_form_for(@page, :url => "/pages/create") do |f| %>
+	<div id="errors" style="display:none"></div>
+	<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
+		<tr>
+			<td class="first_row">
+				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
+			</td>
+			<td class="second_row">
+				<%= f.wa_select('page_layout', PageLayout.get_layouts_for_select(session[:language])) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="first_row">
+				<%= f.label("name", _("with_name")) %>
+			</td>
+			<td class="second_row">
+				<%= f.text_field("name", :size => 15, :class => "thin_border") %>
+			</td>
+		</tr>
+		<tr>
+			<td class="first_row">&nbsp;</td>
+			<td class="second_row">
+				<%= f.hidden_field("parent_id", :value => @parent_id) %>
+				<%= submit_tag _("create"), :class => 'button' %>
+			</td>
+		</tr>
+	</table>
+<% end %>
+</div>

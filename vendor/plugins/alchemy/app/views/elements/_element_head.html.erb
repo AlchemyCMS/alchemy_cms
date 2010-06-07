@@ -1,0 +1,39 @@
+<div class="element_head">
+  <div class="element_handle">
+		<%= image_tag("elements/element_pic.gif", :plugin => "alchemy", :title => "#{element.name}", :class => "element_image", :alt => "") -%>
+		<%= image_tag("elements/element_#{element.public? ? 'public' : 'draft'}.gif", :plugin => 'alchemy', :class => "element_status", :alt => "") %>
+  </div>
+	<span class="element_heading">
+	  <%= content_tag("span", element.display_name, :class => "preview_text_element_name") %>
+	  <%- if !element.preview_text.blank? -%>
+	  	&nbsp;<%= content_tag("span", element.preview_text, :class => "preview_text_quote") %>
+	  <%- end -%>
+	</span>
+	<span class="ajax_folder">
+		<%= image_tag(
+			"ajax_loader.gif",
+			:plugin => "alchemy", 
+			:style => "display: none",
+			:id => "element_#{element.id}_folder_spinner",
+			:class => "element_folder_spinner"
+		) %>
+		<%= link_to_remote(
+			"",
+			:url => {
+				:controller => "elements",
+				:action => "toggle_fold",
+				:id => element.id,
+				:page_id => @page.id
+			},
+			:loading => %(
+				$('element_#{element.id}_folder').hide();
+				$('element_#{element.id}_folder_spinner').show();
+			),
+			:html => {
+				:class => (element.folded? ? 'show_options' : 'hide_options'),
+				:title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
+				:id => "element_#{element.id}_folder"
+			}
+		) %>
+	</span>
+</div>

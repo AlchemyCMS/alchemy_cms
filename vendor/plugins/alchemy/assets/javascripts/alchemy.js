@@ -102,7 +102,7 @@ function wa_link_window(selElem, width) {
 }
 
 function OverlayForMolecules(show) {
-	var a = $$(".wa_atom_fckeditor");
+	var a = $$(".content_fckeditor");
 	if (show) {
 		a.invoke('hide');
 	}
@@ -186,17 +186,17 @@ function toggle_label (element, labelA, labelB) {
 
 function selectPageForInternalLink (selected_element, urlname) {
     $('page_anchor').removeAttribute('value'); // We have to remove the Attribute. If not the value does not get updated.
-    $$('.molecules_for_page').invoke('hide');
+    $$('.elements_for_page').invoke('hide');
     $('internal_urlname').value = '/' + urlname;
-    $$('#wa_sitemap_for_links .selected_page').invoke('removeClassName', 'selected_page');
-    var sel = $('wa_sitemap_sitename_' + selected_element);
+    $$('#sitemap_for_links .selected_page').invoke('removeClassName', 'selected_page');
+    var sel = $('sitemap_sitename_' + selected_element);
     sel.addClassName('selected_page');
     sel.name = urlname;
 }
 
 function selectFileForFileLink(selected_element, public_filename) {
     $('public_filename').value = public_filename;
-    $$('#wa_file_links .selected_file').invoke('removeClassName', 'selected_file');
+    $$('#file_links .selected_file').invoke('removeClassName', 'selected_file');
     $('wa_assign_file_' + selected_element).addClassName('selected_file');
 }
 
@@ -224,11 +224,11 @@ function waCreateLink(link_type, url, title, extern) {
 			});
 	} else {
 		// aka: we are linking an atom
-		var atom_type = tiny_ed.name.gsub('wa_atom_', '').split('_')[0];
+		var atom_type = tiny_ed.name.gsub('content_', '').split('_')[0];
 		switch (atom_type) {
-			case "picture": var atom_id = tiny_ed.name.gsub('wa_atom_picture_', '');
+			case "picture": var atom_id = tiny_ed.name.gsub('content_picture_', '');
 			break;
-			case "text": var atom_id = tiny_ed.name.gsub('wa_atom_text_', '');
+			case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
 			break;
 		}
 		$('atom_' + atom_id + '_link').value = url;
@@ -278,11 +278,11 @@ function select_link_tab() {
     if (tiny_ed.selection == undefined) {
         var tmp_link = document.createElement("a");
         var selection = tiny_ed;
-				var atom_type = tiny_ed.name.gsub('wa_atom_', '').split('_')[0];
+				var atom_type = tiny_ed.name.gsub('content_', '').split('_')[0];
 				switch (atom_type) {
-					case "picture": var atom_id = tiny_ed.name.gsub('wa_atom_picture_', '');
+					case "picture": var atom_id = tiny_ed.name.gsub('content_picture_', '');
 					break;
-					case "text": var atom_id = tiny_ed.name.gsub('wa_atom_text_', '');
+					case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
 					break;
 				}
         tmp_link.href = $('atom_' + atom_id + '_link').value;
@@ -298,25 +298,25 @@ function select_link_tab() {
         if ((link.className == '') || link.className == 'internal') {
           var internal_anchor = link.hash.split('#')[1];
           var internal_urlname = link.pathname;
-          show_overlay_tab('wa_sitemap_for_links', $('tab_for_wa_sitemap_for_links'));
+          show_overlay_tab('sitemap_for_links', $('tab_for_sitemap_for_links'));
           $('internal_link_title').value = title;
           $('internal_urlname').value = internal_urlname;
           $('internal_link_target').checked = (link.target == "_blank");
-          var sitemap_line = $$('.wa_sitemap_sitename').detect(function(f) {
+          var sitemap_line = $$('.sitemap_sitename').detect(function(f) {
               return internal_urlname == f.readAttribute('name');
           });
           if (sitemap_line) {
             // select the line where the link was detected in.
             sitemap_line.addClassName("selected_page");
-            wa_page_select_scrollbar.scrollTo(sitemap_line.up('li'));
-            // is there an anchor in the url? then request the molecule selector via ajax and select the correct value. yeah!
+            page_select_scrollbar.scrollTo(sitemap_line.up('li'));
+            // is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
             if (internal_anchor) {
-              var select_container = $(sitemap_line).adjacent('.molecules_for_page').first();
+              var select_container = $(sitemap_line).adjacent('.elements_for_page').first();
               select_container.show();
-              new Ajax.Request("/wa_molecules/?wa_page_urlname=" + internal_urlname.split('/').last(), {
+              new Ajax.Request("/elements/?page_urlname=" + internal_urlname.split('/').last(), {
                 method: 'get',
                 onComplete: function() {
-                  var wa_select = select_container.down('.wa_drop_down_select');
+                  var wa_select = select_container.down('.alchemy_selectbox');
                   $('page_anchor').value = '#' + internal_anchor;
                   // sadly this does not work here. maybe later i have the knowledge to fix this.
                   var select = waSelectbox.findSelectById(wa_select.identify());
@@ -327,8 +327,8 @@ function select_link_tab() {
           }
         }
         if ( link.className == 'external' ) {
-            show_overlay_tab('wa_sitemap_external_links', $('tab_for_wa_sitemap_external_links'));
-            protocols = $('url_protocol_select').select('.wa_drop_down_select_body a').pluck('rel');
+            show_overlay_tab('sitemap_external_links', $('tab_for_sitemap_external_links'));
+            protocols = $('url_protocol_select').select('.alchemy_selectbox_body a').pluck('rel');
             protocols.each(function(p) {
                 if ( link.href.startsWith(p) ) {
                     $('external_url').value = link.href.gsub(p, "");
@@ -339,7 +339,7 @@ function select_link_tab() {
             });
         }
         if ( link.className == 'file' ) {
-            show_overlay_tab('wa_file_links', $('tab_for_wa_file_links'));
+            show_overlay_tab('file_links', $('tab_for_file_links'));
             $('file_link_title').value = title;
             $('public_filename_select').fire('wa_select:select', {value: link.pathname});
             $('file_link_target').checked = link.target == "_blank";
@@ -359,21 +359,21 @@ function select_link_tab() {
 }
 
 function fadeWaFlashNotice() {
-    $('wa_flash_notice').fade({duration:0.5});
+    $('flash_notice').fade({duration:0.5});
     setFrameSize();
 }
 
 function showMoleculesFromPageSelector (id) {
-    $('molecules_for_page_' + id).show();
-    wa_page_select_scrollbar.scrollTo($('wa_sitemap_sitename_' + id));
-    wa_page_select_scrollbar.recalculateLayout();
+    $('elements_for_page_' + id).show();
+    page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
+    page_select_scrollbar.recalculateLayout();
 }
 
 function hideMoleculesFromPageSelector (id) {
-    $('molecules_for_page_' + id).hide();
+    $('elements_for_page_' + id).hide();
     $('page_anchor').removeAttribute('value');
-    wa_page_select_scrollbar.scrollTo($('wa_sitemap_sitename_' + id));
-    wa_page_select_scrollbar.recalculateLayout();
+    page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
+    page_select_scrollbar.recalculateLayout();
 }
 
 function wa_fade_image(image) {
@@ -384,16 +384,16 @@ function wa_fade_image(image) {
 }
 
 // Used for saving the rtf atom content from tinymce.
-function saveRtfAtoms (molecule_id) {
-	var molecule = $('molecule_'+molecule_id);
-	if (molecule) {
-		var rtf_atoms = molecule.select('textarea.tinymce');
+function saveRtfAtoms (element_id) {
+	var element = $('element_'+element_id);
+	if (element) {
+		var rtf_atoms = element.select('textarea.tinymce');
 		rtf_atoms.each(function (atom) {
 			var editor = tinyMCE.get(atom.id);
 			var content = editor.getContent();
 			$(editor.editorId).value = content;
 			//removing the editor instance before adding it dynamically after saving
-			$(editor.editorId).previous('div.wa_atom_rtf_loader').show();
+			$(editor.editorId).previous('div.content_rtf_loader').show();
 			tinyMCE.execCommand(
 				'mceRemoveControl',
 				true,

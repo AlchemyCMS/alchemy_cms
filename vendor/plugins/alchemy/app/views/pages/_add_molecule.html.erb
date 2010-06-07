@@ -1,0 +1,27 @@
+<div class="wa_add_element" id="add_element_<%= element_before.id rescue '' %>">
+	<%= image_tag(
+		"ajax_loader.gif",
+		:plugin => "alchemy",
+		:id => "add_element_#{element_before.id rescue ''}_spinner",
+		:class => "add_element_spinner",
+		:style => "display: none"
+	) %>
+	<%= link_to_remote(
+		"",
+		:url => new_element_path(
+			:open => !open_element_selector,
+			:page_id => @page.id,
+			:element_before_id => element_before
+		),
+		:loading => %(
+			$$('#add_element_#{element_before.id rescue ''} a.hide_element_selector').first().hide();
+			$('add_element_#{element_before.id rescue ''}_spinner').show();
+		),
+		:html => {
+			:class => "#{open_element_selector ? 'hide' : 'show'}_element_selector"
+		}
+	) -%>
+	<%- if open_element_selector -%>
+		<%= render :partial => 'pages/add_element_form', :locals => {:element_before => element_before} %>
+	<%- end -%>
+</div>

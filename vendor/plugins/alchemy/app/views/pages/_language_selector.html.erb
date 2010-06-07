@@ -1,0 +1,18 @@
+<div class="button_with_label">
+	<%= wa_select_tag(
+		'language',
+		configuration(:languages).collect { |l| [
+			l[:language],
+			l[:language_code]
+		] },
+		session[:language],
+		:onchange => %(
+			new Ajax.Request('/pages/switch_language', {
+				asynchronous: true,
+				evalScripts: true,
+				parameters: {language: value}
+			});
+		)
+	) %>
+	<label><%= _("language") %></label>
+</div>

@@ -1,48 +1,48 @@
 <li>
 	<div class="sitemap_left_images">
-		<%= render_sitemap_lines(wa_page_for_links, !wa_page_for_links.children.blank?) %>
+		<%= render_sitemap_lines(page_for_links, !page_for_links.children.blank?) %>
 		<%= render(
-			:partial => 'wa_pages/wa_page_status',
+			:partial => 'pages/page_status',
 			:locals => {
-				:wa_page => wa_page_for_links
+				:page => page_for_links
 			}
 		) -%>
 	</div>
 	<div class="sitemap_right_tools">
 		<%= link_to_remote(
 			"&nbsp;",
-			:url => wa_page_wa_molecules_path(wa_page_for_links),
+			:url => page_elements_path(page_for_links),
 			:method => :get,
-			:before => "selectPageForInternalLink('#{wa_page_for_links.id}', '#{@url_prefix + wa_page_for_links.urlname}'); $$('#wa_page_for_links .molecules_for_page').invoke('hide')",
-			:loading => "showMoleculesFromPageSelector(#{wa_page_for_links.id})",
+			:before => "selectPageForInternalLink('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); $$('#page_for_links .elements_for_page').invoke('hide')",
+			:loading => "showMoleculesFromPageSelector(#{page_for_links.id})",
 			:html => {
-				:class => "show_molecules_to_link",
-				:title => _('show_molecules_from_page')
+				:class => "show_elements_to_link",
+				:title => _('show_elements_from_page')
 			}
 		) %>
-		<div id="molecules_for_page_<%= wa_page_for_links.id %>" style="display: none" class="molecules_for_page">
+		<div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
 			<%= image_tag("ajax_loader.gif", :plugin => "alchemy") %>
 		</div>
 	</div>
-	<div class="wa_sitemap_sitename" id="wa_sitemap_sitename_<%= wa_page_for_links.id %>" name="<%= parse_sitemap_name(wa_page_for_links) %>">
+	<div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
 		<%= link_to_function(
-			wa_page_for_links.name,
+			page_for_links.name,
 			%(
 				selectPageForInternalLink(
-					'#{wa_page_for_links.id}',
-					'#{@url_prefix + wa_page_for_links.urlname}'
+					'#{page_for_links.id}',
+					'#{@url_prefix + page_for_links.urlname}'
 				);
-				wa_page_select_scrollbar.scrollTo(
-					this.up('.wa_sitemap_sitename')
+				page_select_scrollbar.scrollTo(
+					this.up('.sitemap_sitename')
 				)
 			),
-			:title => (_('wa_page_for_links.choose_page %{name}') % {:name => wa_page_for_links.name}),
-			:class => 'wa_sitemap_pagename_link'
+			:title => (_('page_for_links.choose_page %{name}') % {:name => page_for_links.name}),
+			:class => 'sitemap_pagename_link'
 		) %>
 	</div>
-	<%- if !wa_page_for_links.children.empty? -%>
-	<ul id="page_<%= wa_page_for_links.id %>_children">
-		<%= render :partial => 'wa_page_for_links', :collection => wa_page_for_links.children, :locals => {:area_name => @area_name} %>
+	<%- if !page_for_links.children.empty? -%>
+	<ul id="page_<%= page_for_links.id %>_children">
+		<%= render :partial => 'page_for_links', :collection => page_for_links.children, :locals => {:area_name => @area_name} %>
 	</ul>
 	<%- end -%>
 </li>

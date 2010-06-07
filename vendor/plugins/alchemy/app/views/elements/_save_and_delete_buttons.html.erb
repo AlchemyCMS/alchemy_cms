@@ -1,0 +1,49 @@
+<div class="wa_delete_and_save_buttons">
+	<span class="element_tools">
+		<%= delete_with_confirmation_link(
+			"",
+			_("confirm_to_delete_element"),
+			element_path(element),
+			{
+				:class => "delete_element_button",
+				:title => _("delete_element")
+			}
+		) -%>
+		<%= link_to_remote(
+			"",
+			:url => {
+				:controller => "elements",
+				:action => "copy_to_clipboard",
+				:id => element.id,
+				:method => "move"
+			},
+			:html => {
+				:class => "element_move_button",
+				:title => _("cut_element")
+			}
+		) %>
+		<%= link_to_remote(
+			"",
+			:url => {
+				:controller => "elements",
+				:action => "copy_to_clipboard",
+				:id => element.id
+			},
+			:html => {
+				:class => "element_copy_button",
+				:title => _("copy_element")
+			}
+		) %>
+	</span>
+	<span class="element_public">
+		<%= check_box_tag "public", "1", element.public?, :id => "element_#{element.id}_public" -%>
+		<%= label_tag "element_#{element.id}_public", _("visible") -%>
+	</span>
+	<div id="element_<%= element.id %>_spinner" class="element_spinner" style="display:none">
+		<span class="spinner_wait_text"><%= _("saving") -%></span>
+		<%= image_tag('ajax_loader.gif', :plugin => "alchemy") %>
+	</div>
+	<span class="wa_save" id="element_<%= element.id %>_save">
+		<%= submit_tag( _('save'), :class => 'button', :name => nil) %>
+	</span>
+</div>

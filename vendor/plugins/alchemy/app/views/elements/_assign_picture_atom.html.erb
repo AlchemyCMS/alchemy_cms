@@ -1,0 +1,19 @@
+<div class="wa_add_atom wa_assign_atom" id="assign_atom_<%= content.element.id %>_<%= content.id %>">
+	<%= link_to_wa_window(
+		"",
+		url_for(
+			:controller => 'images',
+			:action => 'archive_overlay',
+			:element_id => content.element,
+			:content_id => content,
+			:options => options
+		),
+		{
+			:title => _('assign_image'),
+			:size => '780x450',
+			:resizable => 'true'
+		},
+		:class => 'assign',
+		:title => _('assign_image')
+	) %>
+</div>

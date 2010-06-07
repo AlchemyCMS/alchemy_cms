@@ -1,0 +1,8 @@
+page.replace_html(
+  @container_id,
+  :partial => "elements/#{@element.name}_view.html.erb",
+  :locals => {
+    :element => @element,
+    :options => @options
+  }
+)

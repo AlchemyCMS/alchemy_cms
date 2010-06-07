@@ -1,35 +1,35 @@
-<%- unless wa_atom.atom.wa_image.nil? -%>
-	<%- image_size = wa_atom.atom.image_size.blank? ? options[:image_size] : wa_atom.atom.image_size -%>
+<%- unless content.atom.image.nil? -%>
+	<%- image_size = content.atom.image_size.blank? ? options[:image_size] : content.atom.image_size -%>
 	
 	<%- img_tag = image_tag(
 		show_image_path(
-			:id => wa_atom.atom.wa_image.id,
-			:name => wa_atom.atom.wa_image.urlname,
+			:id => content.atom.image.id,
+			:name => content.atom.image.urlname,
 			:size => image_size,
 			:crop => options[:crop],
 			:upsample  => options[:upsample],
 			:padding => options[:padding],
 			:format => (options[:format].blank? ? configuration(:image_output_format) : options[:format])
 		),
-		:alt => (wa_atom.atom.alt_tag.blank? ? nil : wa_atom.atom.alt_tag),
-		:title => (wa_atom.atom.title.blank? ? nil : wa_atom.atom.title),
+		:alt => (content.atom.alt_tag.blank? ? nil : content.atom.alt_tag),
+		:title => (content.atom.title.blank? ? nil : content.atom.title),
 		:class => (options[:css_class].blank? ? nil : options[:css_class]),
-		:id => dom_id(wa_atom.atom.wa_image)
+		:id => dom_id(content.atom.image)
 	) -%>
 	
-	<%- caption = (content_tag("div", wa_atom.atom.caption, :id => "#{dom_id(wa_atom.atom.wa_image)}_caption", :class => "wa_image_caption") unless (options[:show_caption] == false)) -%>
+	<%- caption = (content_tag("div", content.atom.caption, :id => "#{dom_id(content.atom.image)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
 
-	<%- if wa_atom.atom.link.blank? -%>
+	<%- if content.atom.link.blank? -%>
 		<%= img_tag %>
-		<%- unless wa_atom.atom.caption.blank? -%>
+		<%- unless content.atom.caption.blank? -%>
 			<%= caption %>
 		<%- end -%>
 	<%- else -%>
 		<%= link_to(
-			wa_atom.atom.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
-			url_for(wa_atom.atom.link),
-			:title => wa_atom.atom.link_title,
-			:target => (wa_atom.atom.open_link_in_new_window? ? "_blank" : "")
+			content.atom.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
+			url_for(content.atom.link),
+			:title => content.atom.link_title,
+			:target => (content.atom.open_link_in_new_window? ? "_blank" : "")
 		) %>
 	<%- end -%>
 

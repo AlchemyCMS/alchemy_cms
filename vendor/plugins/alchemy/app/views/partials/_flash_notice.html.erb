@@ -1,8 +1,8 @@
-<div id="wa_flash_notices" style="<%= flash.keys.blank? ? "display: none" : "display: block" %>" >
-	<div style="<%= flash[:notice].blank? ? "display: none" : "display: block" %>" class="wa_flash notice">
+<div id="flash_notices" style="<%= flash.keys.blank? ? "display: none" : "display: block" %>" >
+	<div style="<%= flash[:notice].blank? ? "display: none" : "display: block" %>" class="flash notice">
 		<%= flash[:notice] %>
 	</div>
-	<div style="<%= flash[:error].blank? ? "display: none" : "display: block" %>" class="wa_flash error">
+	<div style="<%= flash[:error].blank? ? "display: none" : "display: block" %>" class="flash error">
 		<%= flash[:error] %>
 	</div>
 </div>

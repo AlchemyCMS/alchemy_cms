@@ -1,4 +1,4 @@
-:alchemy_version: 4.0
+:alchemy_version: 1.0beta
 :show_rootname: a name
 :mailer:
     :forward_to_page: false
@@ -16,7 +16,7 @@
 :ferret: false
 
 #enable wapage caching?
-:cache_wa_pages: true
+:cache_pages: true
 
 #image settings
 :output_image_jpg_quality: 85
@@ -85,43 +85,43 @@ wa_plugins:
   
   - name: wa_cms
     preview_frame:
-      controller: wa_pages
+      controller: pages
       action: edit_content
-      target_controller: wa_pages
+      target_controller: pages
       target_action: preview
     navigation:
       name: 'module: pages'
-      controller: wa_pages
+      controller: pages
       action: index
       image: /plugin_assets/alchemy/images/icons/pages.png
       sub_navigation:
         - name: 'module: pages'
-          controller: wa_pages
+          controller: pages
           action: index
         - name: 'module: systempages'
-          controller: wa_pages
+          controller: pages
           action: systempages
       nested:
-        - controller: wa_pages
+        - controller: pages
           action: edit_content
 
   - name: users
     navigation:
       name: 'module: users'
-      controller: wa_users
+      controller: users
       action: index
       image: /plugin_assets/alchemy/images/icons/users.png
 
   - name: wa_archive
     navigation:
-      controller: wa_images
+      controller: images
       action: index
       name: 'module: library'
       image: /plugin_assets/alchemy/images/icons/library.png
       sub_navigation:
         - name: 'module: images'
-          controller: wa_images
+          controller: images
           action: index
         - name: 'module: files'
-          controller: wa_files
+          controller: files
           action: index

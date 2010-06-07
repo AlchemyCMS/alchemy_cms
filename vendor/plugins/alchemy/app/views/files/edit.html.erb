@@ -1,0 +1,12 @@
+<% form_for( @file, :url => {:action => :update, :query => params[:query], :page => params[:page]}, :html => {:class => " with_padding"}) do |f| -%>
+		<div class="emulated_table_row">
+			<span class="first_column">
+				<%= f.label( 'name', _('name'), :class => "short") %>
+			</span>
+			<span class="second_column">
+				<%= f.text_field( 'name', :class => 'thin_border long') %>
+				<%= submit_tag( _('save'), :class => 'button') %>
+			</span>
+		</div>
+	</div>
+<% end %>

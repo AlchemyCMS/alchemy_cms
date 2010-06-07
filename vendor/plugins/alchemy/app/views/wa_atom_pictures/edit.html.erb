@@ -1,8 +1,8 @@
-<% remote_form_for(@wa_atom_picture, :html => {:class => "with_padding"}) do |f| %>
+<% remote_form_for(@content_picture, :html => {:class => "with_padding"}) do |f| %>
 	<%- if @options[:image_cropper] -%>
 	<h1><%= _("crop_image") %></h1>
 	<div id="image_crop">
-		<%= image_tag show_image_path(@picture_atom.wa_image, :format => "jpg", :size => "365x365"), :id => "imageToCrop" %>
+		<%= image_tag show_image_path(@picture_atom.image, :format => "jpg", :size => "365x365"), :id => "imageToCrop" %>
 		<%= f.hidden_field "crop_from" %>
 		<%= f.hidden_field "crop_size" %>
 	</div>

@@ -40,14 +40,14 @@ module Alchemy::ActionView
   def self.get_html_scaffold(part, id, content, hidden_field_id, options = {})
     html_scaffold = {
       :prefix => %(
-        <div class="wa_drop_down_select" id="#{id}" class="#{options[:class]}" style="#{options[:style]}">
-    	    <div class="wa_drop_down_select_link_bg">
-    		    <a href="#" class="wa_drop_down_select_link">
-    		      <span class="wa_drop_down_select_link_content">#{content}</span>
-      		    <span class="wa_drop_down_select_link_arrow"></span>
+        <div class="alchemy_selectbox" id="#{id}" class="#{options[:class]}" style="#{options[:style]}">
+    	    <div class="alchemy_selectbox_link_bg">
+    		    <a href="#" class="alchemy_selectbox_link">
+    		      <span class="alchemy_selectbox_link_content">#{content}</span>
+      		    <span class="alchemy_selectbox_link_arrow"></span>
     		    </a>
     	    </div>
-    	    <div class="wa_drop_down_select_body" style="display: none;">
+    	    <div class="alchemy_selectbox_body" style="display: none;">
       ),
       :suffix => %(
       	  </div>

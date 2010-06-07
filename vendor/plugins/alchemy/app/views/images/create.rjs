@@ -1,0 +1,1 @@
+page.replace_html("archive_all", :partial => 'images_list')

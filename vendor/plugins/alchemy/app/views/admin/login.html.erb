@@ -1,6 +1,6 @@
 <%- wa_assets_set('login') -%>
 
-<% form_for @wa_user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "wa_login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
+<% form_for @user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
 	<%= f.error_messages %>
 	<table border="0" cellspacing="1" cellpadding="1">
 		<tr>
@@ -30,7 +30,7 @@
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
-	$('wa_user_session_login').focus();
+	$('user_session_login').focus();
 // ]]>
 </script>
 <%- end -%>

@@ -1,0 +1,21 @@
+<div class="picture_gallery_images" id="element_<%= element.id %>_atoms">
+	<%- for atom in picture_atoms do -%>
+		<%= render_atom_editor(atom, {
+			:dragable => picture_atoms.size > 1
+		}.merge(options)) %>
+	<%- end -%>
+	<%- if options[:maximum_amount_of_images].blank? || picture_atoms.length < options[:maximum_amount_of_images].to_i -%>
+		<%= render(
+			:partial => 'elements/add_atom',
+			:locals => {
+				:element => element,
+				:atom_type => "EssencePicture",
+				:link_text => _("add_image_to_element"),
+				:options => options
+			}
+		) %>
+	<%- end -%>
+</div>
+<%- if picture_atoms.size > 1 -%>
+	<%= picture_editor_sortable(element.id) %>
+<%- end -%>

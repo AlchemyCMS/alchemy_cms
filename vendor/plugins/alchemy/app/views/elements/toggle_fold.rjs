@@ -1,0 +1,13 @@
+if @error
+  page.replace("element_#{@element.id}_folder_spinner", "<span class='error_icon' title='#{@error}'>!</span>")
+else
+  page.replace(
+    "dragable_#{@element.id}",
+    :partial => "element",
+    :object => @element,
+    :locals => {:open_element_selector => false}
+  )
+  WaConfigure.sortable_elements(page)
+  page << "tool_window.updateHeight();"
+  page << "TinymceHammer.init()"
+end

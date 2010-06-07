@@ -15,11 +15,11 @@ class WaContactFormController < ApplicationController
     if check_data
       session[:mail_data][:ip] = request.remote_ip
       unless params[:mail_data][:contact_form_id].blank?
-        contact_form_molecule = WaMolecule.find(params[:mail_data][:contact_form_id].to_i)
-        unless contact_form_molecule.nil?
-          mail_to = contact_form_molecule.atom_by_name("mail_to").atom.content
-          mail_from = contact_form_molecule.atom_by_name("mail_from").atom.content
-          subject = contact_form_molecule.atom_by_name("subject").atom.content
+        contact_form_element = Element.find(params[:mail_data][:contact_form_id].to_i)
+        unless contact_form_element.nil?
+          mail_to = contact_form_element.atom_by_name("mail_to").atom.content
+          mail_from = contact_form_element.atom_by_name("mail_from").atom.content
+          subject = contact_form_element.atom_by_name("subject").atom.content
         end
       end
       mail_to = @@mail_to if mail_to.blank?
@@ -34,11 +34,11 @@ class WaContactFormController < ApplicationController
       )
       session[:mail_data] = nil
       if !params[:mail_data][:redirect_to].blank?
-        redirect_to :controller => 'wa_pages', :action => 'show', :urlname => params[:mail_data][:redirect_to]
+        redirect_to :controller => 'pages', :action => 'show', :urlname => params[:mail_data][:redirect_to]
       elsif(configuration(:mailer)[:forward_to_page])
-        redirect_to :controller => 'wa_pages', :action => 'show', :urlname => configuration(:mailer)[:mail_sucess_page]
+        redirect_to :controller => 'pages', :action => 'show', :urlname => configuration(:mailer)[:mail_sucess_page]
       else
-        redirect_to :controller => 'wa_pages', :action => 'show', :urlname => WaPage.root.urlname
+        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.root.urlname
       end
     else
       redirect_to :back

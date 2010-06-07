@@ -1,6 +1,4 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_login.css */
-
-#wa_login {
+#login {
 	width: 300px;
 	padding: 8px;
 	overflow: auto;
@@ -13,27 +11,27 @@
 	margin: 150px auto 0;
 }
 
-form#wa_login.new_wa_user_session {
+form#login.new_user_session {
 	text-align: right;
 }
 
-div.wa_flash {
+div.flash {
 	width: 300px;
 	margin: 150px auto -100px;
 }
 
-#wa_login .thin_border {
+#login .thin_border {
 	width: 195px;
 	float: right;
 }
 
-#wa_login_notice {
+#login_notice {
 	overflow: auto;
 	padding: 8px;
 	background-color: #fff;
 	text-align: left;
 }
 
-#wa_login label {
+#login label {
 	margin-right: 8px;
 }

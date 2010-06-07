@@ -1,1 +1,0 @@
-page.replace_html("wa_archiveall", :partial => 'files_list')

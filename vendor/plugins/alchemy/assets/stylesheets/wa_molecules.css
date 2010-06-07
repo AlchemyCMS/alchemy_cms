@@ -1,11 +1,11 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_molecules.css */
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/elements.css */
 
 input.text_with_icon {
 	width: 343px;
 	float: left;
 }
 
-.wa_molecule_editor p.footnote {
+.element_editor p.footnote {
 	clear: both;
 	float: left;
 	font-size: 10px;
@@ -13,17 +13,17 @@ input.text_with_icon {
 	width: 100%;
 }
 
-.wa_molecule_heading .preview_text_quote {
+.element_heading .preview_text_quote {
 	font-size: 12px;
 	font-style: italic;
 }
 
-span.preview_text_molecule_name {
+span.preview_text_element_name {
 	font-size: 12px;
 	text-shadow: #efefef 1px 1px 1px;
 }
 
-img.add_molecule_spinner {
+img.add_element_spinner {
 	width: 24px;
 	height: 24px;
 	position: absolute;
@@ -31,12 +31,12 @@ img.add_molecule_spinner {
 	bottom: 6px;
 }
 
-#wa_molecule_area h2#no_molecules_on_page_notice {
+#element_area h2#no_elements_on_page_notice {
 	padding: 8px;
 	text-align: center;
 }
 
-.molecule_handle {
+.element_handle {
 	cursor: move;
 	width: 20px;
 	height: 20px;
@@ -45,37 +45,37 @@ img.add_molecule_spinner {
 	top: 9px;
 }
 
-.molecule_handle img {
+.element_handle img {
 	position: absolute;
 }
 
-.molecule_handle img.molecule_image {
+.element_handle img.element_image {
 	z-index: 0;
 }
 
-/*.molecule_handle img.molecule_status {
+/*.element_handle img.element_status {
 	z-index: 1;
 }*/
 
-div.wa_delete_and_save_buttons span.wa_molecule_public {
+div.wa_delete_and_save_buttons span.element_public {
 	float: left;
 	margin-left: 82px;
 	margin-top: 1px;
 }
 
-.wa_molecule_head_all {
+.element_head_all {
 	overflow: auto;
 	width: 374px;
 }
 
-.wa_molecule_head_left {
+.element_head_left {
 	float: left;
 	width: 230px;
 	overflow: auto;
 	padding-bottom: 10px;
 }
 
-.wa_molecule_head_right {
+.element_head_right {
 	float: left;
 	width: 144px;
 	overflow: auto;
@@ -126,7 +126,7 @@ div.wa_delete_and_save_buttons span.wa_molecule_public {
 	margin-left: -8px;
 }
 
-.wa_delete_and_save_buttons .wa_molecule_tools {
+.wa_delete_and_save_buttons .element_tools {
 	float: left;
 	margin-right: 8px;
 }
@@ -145,7 +145,7 @@ div.wa_delete_and_save_buttons span.wa_molecule_public {
 	top: 8px;
 }
 
-.wa_molecule_heading {
+.element_heading {
 	padding: 0;
 	z-index: 0;
 	width: 322px;
@@ -156,7 +156,7 @@ div.wa_delete_and_save_buttons span.wa_molecule_public {
 	top: 11px;
 }
 
-div.wa_molecule_editor {
+div.element_editor {
 	border: 1px solid #b8b8b8;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
@@ -164,46 +164,46 @@ div.wa_molecule_editor {
 	background-color: #e3e3e3;
 }
 
-div.wa_molecule_editor form {
+div.element_editor form {
 	margin: 4px 0 0;
 	padding: 0 8px;
 	overflow: hidden;
 	background-color: #ededed;
 }
 
-.wa_molecule_tools a {
+.element_tools a {
 	width: 18px;
 	height: 18px;
 	float: left;
 	margin-right: 4px;
 }
 
-.wa_molecule_tools a:active {
+.element_tools a:active {
 	background-position: 0 1px;
 	outline: none;
 }
 
-a.delete_molecule_button {
+a.delete_element_button {
 	background: url(../images/icons/trash.png) no-repeat;
 }
 
-div.wa_molecule_tools {
+div.element_tools {
 	height: 20px;
 }
 
-span.molecule_tools_icons {
+span.element_tools_icons {
 	float: left;
 }
 
-a.wa_molecule_copy_button {
+a.element_copy_button {
 	background: url(../images/icons/copy.png) no-repeat 0px 0;
 }
 
-a.wa_molecule_move_button {
+a.element_move_button {
 	background: url(../images/icons/cut.png) no-repeat 0 0;
 }
 
-.wa_molecule_head {
+.element_head {
 	padding: 8px 0 6px;
 	position: relative;
 	overflow: hidden;
@@ -262,7 +262,7 @@ form.add_gallery_to_index select {
 
 /* @group add moclecule */
 
-.wa_add_molecule {
+.wa_add_element {
 	background: white;
 	margin: 0;
 	padding: 8px;
@@ -270,37 +270,37 @@ form.add_gallery_to_index select {
 	height: 20px;
 }
 
-.wa_add_molecule p {
+.wa_add_element p {
 	line-height: 21px;
 }
 
-.wa_add_molecule form {
+.wa_add_element form {
 	line-height: 21px;
 }
 
-div#wa_molecule_area {
+div#element_area {
 	padding: 2px;
 	margin: 0;
 	background-color: #ffffff;
 }
 
-.wa_add_molecule span {
+.wa_add_element span {
 	float: left;
 }
 
-.wa_add_molecule select {
+.wa_add_element select {
 	float: left;
 	width: 185px;
 	margin: 0 8px;
 }
 
-.add_molecule_content input.button {
+.add_element_content input.button {
 	float: right;
 }
 
 /* @end */
 
-.place_molecule_spinner {
+.place_element_spinner {
 	position: absolute;
 	right: 8px;
 	width: 24px;
@@ -308,11 +308,11 @@ div#wa_molecule_area {
 	top: 5px;
 }
 
-div.wa_atom_editor a.icon_button {
+div.content_editor a.icon_button {
 	margin: 0 0 0 8px;
 }
 
-div.wa_atom_editor a.icon_button.small {
+div.content_editor a.icon_button.small {
 }
 
 a.show_options {

@@ -4,22 +4,22 @@ class MoleculePartialsGenerator < Rails::Generator::Base
   def initialize(runtime_args, runtime_options={})
     super
       @options[:collision] = :skip
-      @molecules = get_molecules_from_yaml
+      @elements = get_elements_from_yaml
   end
   
   def manifest
     record do |m|
-      m.directory "app/views/wa_molecules"
-      @molecules.each do |molecule|
+      m.directory "app/views/elements"
+      @elements.each do |element|
         m.template(
           "editor.html.erb",
-          "app/views/wa_molecules/_#{molecule["name"]}_editor.html.erb",
-          :assigns => { :atoms => molecule["wa_atoms"] }
+          "app/views/elements/_#{element["name"]}_editor.html.erb",
+          :assigns => { :atoms => element["contents"] }
         )
         m.template(
           "view.html.erb",
-          "app/views/wa_molecules/_#{molecule["name"]}_view.html.erb",
-          :assigns => { :atoms => molecule["wa_atoms"], :molecule_name => molecule["name"] }
+          "app/views/elements/_#{element["name"]}_view.html.erb",
+          :assigns => { :atoms => element["contents"], :element_name => element["name"] }
         )
       end
     end
@@ -27,13 +27,13 @@ class MoleculePartialsGenerator < Rails::Generator::Base
 
   private
     
-    def get_molecules_from_yaml
-      if File.exists? "#{RAILS_ROOT}/config/alchemy/molecules.yml"
-        @molecules = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/molecules.yml" )
-      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/molecules.yml"
-        @molecules = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/molecules.yml" )
+    def get_elements_from_yaml
+      if File.exists? "#{RAILS_ROOT}/config/alchemy/elements.yml"
+        @elements = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/elements.yml" )
+      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml"
+        @elements = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
       else
-        raise "Could not read config/alchemy/molecules.yml"
+        raise "Could not read config/alchemy/elements.yml"
       end
     end
 

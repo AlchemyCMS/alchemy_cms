@@ -1,4 +1,4 @@
-<div id="wa_sitemap_for_links" class="wa_overlay_tab_body">
+<div id="sitemap_for_links" class="wa_overlay_tab_body">
 	<h2>
 		<%= _("internal_link_headline") %>
 	</h2>
@@ -10,8 +10,8 @@
 		        <div id="scrollbar_handle"></div>
 		      </div>
 		      <div id="page_selector_container">
-		        <ul id="wa_sitemap">
-		          <%= render :partial => 'wa_page_for_links', :object => @wa_page_root, :locals => {:area_name => @area_name} %>
+		        <ul id="sitemap">
+		          <%= render :partial => 'page_for_links', :object => @page_root, :locals => {:area_name => @area_name} %>
 		        </ul>
 		      </div>
 		    </div>
@@ -45,5 +45,5 @@
 	</p>
 </div>
 <%- javascript_tag do -%>
-  wa_page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
+  page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
 <%- end -%>

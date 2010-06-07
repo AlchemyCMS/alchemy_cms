@@ -87,7 +87,7 @@ var waSelectbox = Class.create({
   }),
   
   updateSelectLink: (function(element) {
-    element.up().previous().down().down('.wa_drop_down_select_link_content').update(element.innerHTML);
+    element.up().previous().down().down('.alchemy_selectbox_link_content').update(element.innerHTML);
   }),
   
   findValue: (function(value) {

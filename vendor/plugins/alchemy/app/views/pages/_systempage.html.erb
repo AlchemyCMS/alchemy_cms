@@ -1,0 +1,26 @@
+<li>
+	<div class="sitemap_left_images">
+		<%= render(
+			:partial => 'page_status',
+			:locals => {
+				:page => systempage
+			}
+		) -%>
+	</div>
+	<div class="sitemap_sitename">
+	<% unless systempage.locked_for(current_user) -%>
+	<%= link_to(
+			systempage.name, {
+				:controller => 'pages',
+				:action => 'edit_content',
+				:id => systempage,
+				:systempage => true
+			},
+			:title => _("edit_page"),
+			:class => "sitemap_pagename_link"
+		) -%>
+	<% else -%>
+		<%= systempage.name %>
+	<% end -%>
+	</div>
+</li>

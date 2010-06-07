@@ -1,36 +1,36 @@
-case @wa_atom.atom_type
-when "WaAtomPicture"
+case @content.atom_type
+when "EssencePicture"
   page.insert_html(
     :before,
-    "add_atom_#{@wa_molecule.id}",
-    :partial => "wa_atom_picture_editor",
+    "add_atom_#{@element.id}",
+    :partial => "content_picture_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :content => @content,
       :options => @options
     }
   )
   if @dragable
-    WaConfigure.sortable_atoms(page, @wa_molecule)
+    WaConfigure.sortable_atoms(page, @element)
   end
   page << "reloadPreview()"
-when "WaAtomText"
+when "EssenceText"
   page.insert_html(
     :before,
-    "add_atom_for_molecule_#{@wa_molecule.id}",
-    :partial => "wa_atom_text_editor",
+    "add_atom_for_element_#{@element.id}",
+    :partial => "content_text_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :content => @content,
       :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
     }
   )
   page << "reloadPreview(); if(typeof(wa_overlay)!='undefined') { wa_overlay.close(); }"
-when "WaAtomRtf"
+when "EssenceRichtext"
   page.insert_html(
     :before,
-    "add_atom_for_molecule_#{@wa_molecule.id}",
-    :partial => "wa_atom_rtf_editor",
+    "add_atom_for_element_#{@element.id}",
+    :partial => "content_rtf_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :content => @content,
       :options => (@options.nil? ? {} : @options)
     }
   )
@@ -39,13 +39,13 @@ when "WaAtomRtf"
 else
   page.insert_html(
     :before,
-    "add_atom_for_molecule_#{@wa_molecule.id}",
-    :partial => "#{@wa_atom.atom_type.underscore}_editor",
+    "add_atom_for_element_#{@element.id}",
+    :partial => "#{@content.atom_type.underscore}_editor",
     :locals => {
-      :wa_atom => @wa_atom,
+      :content => @content,
       :options => (@options.nil? ? {} : @options)
     }
   )
   page << "wa_overlay.close()"
 end
-WaNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @wa_atom.name})
+WaNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @content.name})
