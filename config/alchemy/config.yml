@@ -8,7 +8,7 @@
 :image_output_format: jpg
 
 #enable wapage caching?
-:cache_wa_pages: true
+:cache_pages: true
 
 #language settings
 :default_language: de

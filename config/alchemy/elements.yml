@@ -1,0 +1,46 @@
+# organize your element layouts here
+#
+# Please use this Layout to add new elements
+#
+# Some unique name for your Element: 
+#   - name: a_unique_name
+#     display_name: Some nice Display Name
+#     unique: Boolean
+#     contents:
+#     - name: head
+#       type: EssenceText
+#     - name: text
+#       type: EssenceRichtext
+#       take_me_for_preview: Boolean
+#
+# Essence-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
+#
+# If you want an content to be the preview text for the element then use the flag take_me_for_preview: true
+# If no content is flagged as preview_content the first one will be taken.
+
+- name: bild_mit_text
+  display_name: Bild mit Text
+  contents:
+  - name: bild
+    type: EssencePicture
+  - name: headline
+    type: EssenceText
+    take_me_for_preview: true
+  - name: text
+    type: EssenceRichtext
+
+- name: headline
+  display_name: Überschrift
+  contents:
+  - name: headline
+    type: EssenceText
+
+- name: news
+  display_name: News
+  contents:
+  - name: date
+    type: Essenceate
+  - name: headline
+    type: EssenceText
+  - name: body
+    type: EssenceRichtext

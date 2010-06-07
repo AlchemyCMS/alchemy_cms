@@ -1,7 +1,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: alchemy_dev
+  database: alchemy_1_0_beta_dev
   username: root
   password:
   socket: /tmp/mysql.sock

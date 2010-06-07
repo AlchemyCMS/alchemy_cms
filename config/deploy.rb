@@ -39,7 +39,7 @@ namespace :alchemy do
     run "mkdir -p #{shared_path}/uploads/images"
     run "mkdir -p #{shared_path}/uploads/files"
     run "mkdir -p #{shared_path}/cache"
-    run "mkdir -p #{shared_path}/cache/wa_images"
+    run "mkdir -p #{shared_path}/cache/images"
   end
 
   desc "Sets the symlinks for uploads and images cache folder"
@@ -47,8 +47,8 @@ namespace :alchemy do
     run "rm -rf #{current_path}/public/uploads/*"
     run "ln -nfs #{shared_path}/uploads/images/ #{current_path}/public/uploads/images"
     run "ln -nfs #{shared_path}/uploads/files/ #{current_path}/public/uploads/files"
-    run "rm -rf #{current_path}/public/wa_images"
-    run "ln -nfs #{shared_path}/cache/wa_images/ #{current_path}/public/wa_images"
+    run "rm -rf #{current_path}/public/images"
+    run "ln -nfs #{shared_path}/cache/images/ #{current_path}/public/images"
   end
 
   desc "Update Alchemy and generates migrations to finally migrate"
@@ -62,10 +62,10 @@ namespace :alchemy do
   desc "Copies local cache to shared cache folder"
   task :copy_cache, :roles => :app do
     run "mkdir -p #{shared_path}/cache"
-    run "mkdir -p #{shared_path}/cache/wa_images"
-    run "cp -R #{current_path}/public/wa_images/* #{shared_path}/cache/wa_images/"
-    run "rm -rf #{current_path}/public/wa_images"
-    run "ln -nfs #{shared_path}/cache/wa_images #{current_path}/public/"
+    run "mkdir -p #{shared_path}/cache/images"
+    run "cp -R #{current_path}/public/images/* #{shared_path}/cache/images/"
+    run "rm -rf #{current_path}/public/images"
+    run "ln -nfs #{shared_path}/cache/images #{current_path}/public/"
   end
 
   @datestring = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
