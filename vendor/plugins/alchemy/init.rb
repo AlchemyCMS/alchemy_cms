@@ -26,7 +26,7 @@ ActionController::Dispatcher.middleware.insert_before(
 )
 
 Tinymce::Hammer.install_path = '/plugin_assets/alchemy/javascripts/tiny_mce'
-Tinymce::Hammer.plugins = %w(safari paste fullscreen inlinepopups wa_link)
+Tinymce::Hammer.plugins = %w(safari paste fullscreen inlinepopups alchemy_link)
 Tinymce::Hammer.languages = ['de', 'en']
 Tinymce::Hammer.init = [
   [:paste_convert_headers_to_strong, true],
