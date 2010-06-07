@@ -1,4 +1,4 @@
-<%- has_rtf_atoms = element.contents.detect { |atom| atom.atom_type == 'EssenceRichtext' } -%>
+<%- has_rtf_atoms = element.contents.detect { |atom| atom.essence_type == 'EssenceRichtext' } -%>
 
 <div class="dragable" id="<%= "dragable_#{element.id}" %>">
 	<div class="element_editor" id="element_<%= element.id %>">

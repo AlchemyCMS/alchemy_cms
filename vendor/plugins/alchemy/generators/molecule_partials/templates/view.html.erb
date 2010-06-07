@@ -7,7 +7,7 @@
 	</div>
 		<%- else -%>
 	<div class="<%= element_name %>_images">
-		<%%- element.contents.find_all_by_atom_type("EssencePicture").each do |atom| -%>
+		<%%- element.contents.find_all_by_essence_type("EssencePicture").each do |atom| -%>
 		<div class="<%= element_name %>_image">
 			<%%= render_atom_view(atom, :image_size => "160x120") %>
 		</div>

@@ -27,7 +27,7 @@ class EssencePicturesController < ApplicationController
     render :update do |page|
       dom_string = params[:swap] ? "picture" : "assign_atom_#{@content.element.id}"
       page.replace "#{dom_string}_#{@content.id}", :partial => "contents/content_picture_editor", :locals => {:content => @content, :options => params[:options]}
-      if @content.element.contents.find_all_by_atom_type("EssencePicture").size > 1
+      if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
         WaConfigure.sortable_atoms(page, @content.element)
       end
       page << "reloadPreview()"
@@ -52,7 +52,7 @@ class EssencePicturesController < ApplicationController
     content = Content.find_by_id(params[:id])
     element = content.element
     element.contents.delete content
-    picture_atoms = element.contents.find_all_by_atom_type("EssencePicture")
+    picture_atoms = element.contents.find_all_by_essence_type("EssencePicture")
     render :update do |page|
       page.replace(
         "element_#{element.id}_atoms",

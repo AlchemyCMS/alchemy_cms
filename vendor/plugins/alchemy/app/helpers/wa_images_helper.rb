@@ -7,7 +7,7 @@ module ImagesHelper
         :action => :create,
         :image_id => image_to_assign.id,
         :content => {
-          :atom_type => "EssencePicture",
+          :essence_type => "EssencePicture",
           :element_id => (@element.nil? ? nil : @element.id)
         },
         :options => options

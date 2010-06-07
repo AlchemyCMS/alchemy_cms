@@ -16,8 +16,8 @@ class ContentsController < ApplicationController
       @element = Element.find(params[:content][:element_id])
       @content = Content.create_from_scratch(@element, params[:content])
       @options = params[:options]
-      if @content.atom_type == "EssencePicture"
-        atoms_of_this_type = @element.contents.find_all_by_atom_type('EssencePicture')
+      if @content.essence_type == "EssencePicture"
+        atoms_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
         @dragable = atoms_of_this_type.length > 1
         @options = @options.merge(
           :dragable => @dragable
@@ -61,7 +61,7 @@ class ContentsController < ApplicationController
       atom = Content.find(params[:id])
       element = atom.element
       atom_name = atom.name
-      atom_dom_id = "#{atom.atom_type.underscore}_#{atom.id}"
+      atom_dom_id = "#{atom.essence_type.underscore}_#{atom.id}"
       if atom.destroy
         render :update do |page|
           page.remove(atom_dom_id)

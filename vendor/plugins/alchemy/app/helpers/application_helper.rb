@@ -195,7 +195,7 @@ module ApplicationHelper
     render_atom(atom, :view, :for_view => options)
   end
 
-  # Renders the Content editor partial from the given Element for the atom_type (e.g. EssenceRichtext).
+  # Renders the Content editor partial from the given Element for the essence_type (e.g. EssenceRichtext).
   # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first atom found for this type will be rendered.
   # For options see -> render_atom
@@ -210,12 +210,12 @@ module ApplicationHelper
     if position.nil?
       atom = element.atom_by_type(type)
     else
-      atom = element.contents.find_by_atom_type_and_position(type, position)
+      atom = element.contents.find_by_essence_type_and_position(type, position)
     end
     render_atom(atom, :editor, :for_editor => options)
   end
 
-  # Renders the Content view partial from the given Element for the atom_type (e.g. EssenceRichtext).
+  # Renders the Content view partial from the given Element for the essence_type (e.g. EssenceRichtext).
   # For multiple atoms of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first atom found for this type will be rendered.
   # For options see -> render_atom
@@ -230,7 +230,7 @@ module ApplicationHelper
     if position.nil?
       atom = element.atom_by_type(type)
     else
-      atom = element.contents.find_by_atom_type_and_position(type, position)
+      atom = element.contents.find_by_essence_type_and_position(type, position)
     end
     render_atom(atom, :view, :for_view => options)
   end
@@ -1136,7 +1136,7 @@ module ApplicationHelper
     else
       a = content
     end
-    "#{a.atom_type.underscore}_#{a.id}"
+    "#{a.essence_type.underscore}_#{a.id}"
   end
   
   # Helper for including the nescessary javascripts and stylesheets for the different views.

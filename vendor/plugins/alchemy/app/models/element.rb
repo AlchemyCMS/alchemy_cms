@@ -51,16 +51,16 @@ class Element < ActiveRecord::Base
     self.contents.find_by_name(name)
   end
 
-  def atom_by_type(atom_type)
-    self.contents.find_by_atom_type(atom_type)
+  def atom_by_type(essence_type)
+    self.contents.find_by_essence_type(essence_type)
   end
 
   def all_atoms_by_name(name)
     self.contents.find_all_by_name(name)
   end
 
-  def all_atoms_by_type(atom_type)
-    self.contents.find_all_by_atom_type(atom_type)
+  def all_atoms_by_type(essence_type)
+    self.contents.find_all_by_essence_type(essence_type)
   end
   
   # creates a new element for page as described in /config/alchemy/elements.yml from element_name
@@ -111,13 +111,13 @@ class Element < ActiveRecord::Base
         end
         preview_atom = self.contents.select{ |atom| atom.name == atom_to_take_as_preview["name"] }.first
         unless preview_atom.blank?
-          if preview_atom.atom_type == "EssenceRichtext"
+          if preview_atom.essence_type == "EssenceRichtext"
             text = preview_atom.atom.stripped_content.to_s
-          elsif preview_atom.atom_type == "EssenceText"
+          elsif preview_atom.essence_type == "EssenceText"
             text = preview_atom.atom.content.to_s
-          elsif preview_atom.atom_type == "EssencePicture"
+          elsif preview_atom.essence_type == "EssencePicture"
             text = (preview_atom.atom.image.name rescue "")
-          elsif preview_atom.atom_type == "EssenceFile" || preview_atom.atom_type == "EssenceFlash" || preview_atom.atom_type == "EssenceFlashvideo"
+          elsif preview_atom.essence_type == "EssenceFile" || preview_atom.essence_type == "EssenceFlash" || preview_atom.essence_type == "EssenceFlashvideo"
             text = (preview_atom.atom.file.name rescue "")
           else
             text = ""
@@ -162,7 +162,7 @@ class Element < ActiveRecord::Base
     self.find(clipboard[:element_id])
   end
   
-  # returns the collection of available atom_types that can be created for this element depending on its description in elements.yml
+  # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
   def available_atoms
     my_description['available_atoms']
   end

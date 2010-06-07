@@ -1,11 +1,11 @@
-<div class="<%= content.atom_type.tableize %>">
+<div class="<%= content.essence_type.tableize %>">
 	<table border="0" cellspacing="0" cellpadding="0" class="content_editor_table">
 		<tr>
-			<td class="content_editor_atom_type">Typ:</td>
+			<td class="content_editor_essence_type">Typ:</td>
 			<td>Aktion:</td>
 		</tr>
 		<tr>
-			<td><%= content.atom_type.gsub(/Content/, "") %></td>
+			<td><%= content.essence_type.gsub(/Content/, "") %></td>
 			<td>
 				<%= text_field(
 					"atom",

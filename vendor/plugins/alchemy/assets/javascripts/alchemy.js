@@ -224,8 +224,8 @@ function waCreateLink(link_type, url, title, extern) {
 			});
 	} else {
 		// aka: we are linking an atom
-		var atom_type = tiny_ed.name.gsub('content_', '').split('_')[0];
-		switch (atom_type) {
+		var essence_type = tiny_ed.name.gsub('content_', '').split('_')[0];
+		switch (essence_type) {
 			case "picture": var atom_id = tiny_ed.name.gsub('content_picture_', '');
 			break;
 			case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
@@ -278,8 +278,8 @@ function select_link_tab() {
     if (tiny_ed.selection == undefined) {
         var tmp_link = document.createElement("a");
         var selection = tiny_ed;
-				var atom_type = tiny_ed.name.gsub('content_', '').split('_')[0];
-				switch (atom_type) {
+				var essence_type = tiny_ed.name.gsub('content_', '').split('_')[0];
+				switch (essence_type) {
 					case "picture": var atom_id = tiny_ed.name.gsub('content_picture_', '');
 					break;
 					case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');

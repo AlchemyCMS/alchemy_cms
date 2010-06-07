@@ -1,4 +1,4 @@
-case @content.atom_type
+case @content.essence_type
 when "EssencePicture"
   page.insert_html(
     :before,
@@ -40,7 +40,7 @@ else
   page.insert_html(
     :before,
     "add_atom_for_element_#{@element.id}",
-    :partial => "#{@content.atom_type.underscore}_editor",
+    :partial => "#{@content.essence_type.underscore}_editor",
     :locals => {
       :content => @content,
       :options => (@options.nil? ? {} : @options)
