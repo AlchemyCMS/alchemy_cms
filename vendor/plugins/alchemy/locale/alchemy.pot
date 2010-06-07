@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-07 22:42+0200\n"
+"POT-Creation-Date: 2010-06-07 22:55+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -338,7 +338,7 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: app/views/files/_wa_file.html.erb:11
+#: app/views/attachements/_wa_file.html.erb:11
 msgid "View File"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 msgid "confirm_to_delete_element"
 msgstr ""
 
-#: app/views/files/_wa_file.html.erb:33
+#: app/views/attachements/_wa_file.html.erb:33
 msgid "confirm_to_delete_file"
 msgstr ""
 
@@ -557,7 +557,7 @@ msgstr ""
 msgid "delete_element"
 msgstr ""
 
-#: app/views/files/_wa_file.html.erb:42
+#: app/views/attachements/_wa_file.html.erb:42
 msgid "delete_file"
 msgstr ""
 
@@ -585,11 +585,11 @@ msgstr ""
 msgid "document"
 msgstr ""
 
-#: app/views/files/new.html.erb:6
+#: app/views/attachements/new.html.erb:6
 msgid "documents"
 msgstr ""
 
-#: app/views/files/_wa_file.html.erb:26
+#: app/views/attachements/_wa_file.html.erb:26
 msgid "download_file_'%{filename}'"
 msgstr ""
 
@@ -701,7 +701,8 @@ msgstr ""
 msgid "file_rename_error"
 msgstr ""
 
-#: app/views/files/index.html.erb:22 app/views/files/new.html.erb:8
+#: app/views/attachements/index.html.erb:22
+#: app/views/attachements/new.html.erb:8
 msgid "files"
 msgstr ""
 
@@ -835,12 +836,12 @@ msgstr ""
 msgid "missing_image"
 msgstr ""
 
-#: lib/alchemy_core_modules.rb:2
-msgid "module: dashboard"
+#: lib/alchemy_core_modules.rb:7
+msgid "module: attachements"
 msgstr ""
 
-#: lib/alchemy_core_modules.rb:7
-msgid "module: files"
+#: lib/alchemy_core_modules.rb:2
+msgid "module: dashboard"
 msgstr ""
 
 #: lib/alchemy_core_modules.rb:8
@@ -880,7 +881,7 @@ msgstr ""
 msgid "move_position_up"
 msgstr ""
 
-#: app/views/files/edit.html.erb:4
+#: app/views/attachements/edit.html.erb:4
 msgid "name"
 msgstr ""
 
@@ -900,7 +901,7 @@ msgstr ""
 msgid "no_element_given"
 msgstr ""
 
-#: app/views/files/_files_list.html.erb:3
+#: app/views/attachements/_files_list.html.erb:3
 msgid "no_files_in_archive"
 msgstr ""
 
@@ -913,7 +914,7 @@ msgstr ""
 msgid "no_more_elements_to_add"
 msgstr ""
 
-#: app/views/files/_files_list.html.erb:7
+#: app/views/attachements/_files_list.html.erb:7
 #: app/views/images/_images_list.html.erb:7
 msgid "no_search_results"
 msgstr ""
@@ -1065,7 +1066,8 @@ msgstr ""
 msgid "remove"
 msgstr ""
 
-#: app/views/files/_wa_file.html.erb:50 app/views/files/_wa_file.html.erb:54
+#: app/views/attachements/_wa_file.html.erb:50
+#: app/views/attachements/_wa_file.html.erb:54
 msgid "rename_file"
 msgstr ""
 
@@ -1086,13 +1088,14 @@ msgstr ""
 msgid "robot_index"
 msgstr ""
 
-#: app/views/admin/signup.html.erb:45 app/views/contents/new.html.erb:11
+#: app/views/admin/signup.html.erb:45 app/views/attachements/edit.html.erb:8
+#: app/views/contents/new.html.erb:11
 #: app/views/elements/_save_and_delete_buttons.html.erb:47
 #: app/views/essence_files/edit.html.erb:22
 #: app/views/essence_files/edit.html.erb:42
 #: app/views/essence_files/edit.html.erb:70
 #: app/views/essence_files/edit.html.erb:94
-#: app/views/essence_pictures/edit.html.erb:43 app/views/files/edit.html.erb:8
+#: app/views/essence_pictures/edit.html.erb:43
 #: app/views/images/_image.html.erb:45 app/views/images/_image.html.erb:46
 #: app/views/pages/edit.html.erb:68 app/views/users/_form.html.erb:43
 msgid "save"
@@ -1210,8 +1213,9 @@ msgstr ""
 msgid "upload"
 msgstr ""
 
-#: app/views/files/index.html.erb:10 app/views/files/index.html.erb:13
-#: app/views/files/index.html.erb:16
+#: app/views/attachements/index.html.erb:10
+#: app/views/attachements/index.html.erb:13
+#: app/views/attachements/index.html.erb:16
 msgid "upload_file"
 msgstr ""
 

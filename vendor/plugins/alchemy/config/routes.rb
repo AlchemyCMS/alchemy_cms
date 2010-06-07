@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
       :remove => :delete
     }
   )
-  map.resources :files, :collection => {
+  map.resources :attachements, :collection => {
     :archive_overlay => :get,
     :download => :get,
     :add_upload_form => :get
@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :elements, :has_many => :contents, :shallow => true
   map.show_image '/images/show/:id/:size/:name.:format', :controller => 'images', :action => 'show'
   map.thumbnail '/images/thumb/:id/:size/thumbnail.jpg', :controller => 'images', :action => 'thumb'
-  map.download_file '/files/:id/download/:name', :controller => 'files', :action => 'download'
+  map.download_file '/attachements/:id/download/:name', :controller => 'attachements', :action => 'download'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
   map.show_page '/:urlname', :controller => 'pages', :action => 'show'

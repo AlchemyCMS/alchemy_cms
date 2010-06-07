@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-07 22:42+0200\n"
+"POT-Creation-Date: 2010-06-07 22:55+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -335,7 +335,7 @@ msgstr "Userrole"
 msgid "Version"
 msgstr ""
 
-#: app/views/files/_wa_file.html.erb:11
+#: app/views/attachements/_wa_file.html.erb:11
 msgid "View File"
 msgstr ""
 
@@ -470,7 +470,7 @@ msgstr "Click to show all again."
 msgid "confirm_to_delete_element"
 msgstr "Do you really want to delete this page?"
 
-#: app/views/files/_wa_file.html.erb:33
+#: app/views/attachements/_wa_file.html.erb:33
 msgid "confirm_to_delete_file"
 msgstr "Do you really want to delete this file from the server?"
 
@@ -554,7 +554,7 @@ msgstr "Cut this element."
 msgid "delete_element"
 msgstr "Delete this element."
 
-#: app/views/files/_wa_file.html.erb:42
+#: app/views/attachements/_wa_file.html.erb:42
 msgid "delete_file"
 msgstr "Delete this file from server."
 
@@ -582,11 +582,11 @@ msgstr "disabled"
 msgid "document"
 msgstr "File"
 
-#: app/views/files/new.html.erb:6
+#: app/views/attachements/new.html.erb:6
 msgid "documents"
 msgstr "Files"
 
-#: app/views/files/_wa_file.html.erb:26
+#: app/views/attachements/_wa_file.html.erb:26
 msgid "download_file_'%{filename}'"
 msgstr "Download file '%{filename}'"
 
@@ -701,7 +701,8 @@ msgstr "File"
 msgid "file_rename_error"
 msgstr "Error renaming file."
 
-#: app/views/files/index.html.erb:22 app/views/files/new.html.erb:8
+#: app/views/attachements/index.html.erb:22
+#: app/views/attachements/new.html.erb:8
 msgid "files"
 msgstr "files"
 
@@ -835,13 +836,13 @@ msgstr "Meta-Keywords"
 msgid "missing_image"
 msgstr "Missing image"
 
+#: lib/alchemy_core_modules.rb:7
+msgid "module: attachements"
+msgstr "Files"
+
 #: lib/alchemy_core_modules.rb:2
 msgid "module: dashboard"
 msgstr "Home"
-
-#: lib/alchemy_core_modules.rb:7
-msgid "module: files"
-msgstr "Files"
 
 #: lib/alchemy_core_modules.rb:8
 msgid "module: images"
@@ -880,7 +881,7 @@ msgstr "Move this page one position down."
 msgid "move_position_up"
 msgstr "Move this page one position up."
 
-#: app/views/files/edit.html.erb:4
+#: app/views/attachements/edit.html.erb:4
 msgid "name"
 msgstr "Name"
 
@@ -900,7 +901,7 @@ msgstr "no"
 msgid "no_element_given"
 msgstr "No element given."
 
-#: app/views/files/_files_list.html.erb:3
+#: app/views/attachements/_files_list.html.erb:3
 msgid "no_files_in_archive"
 msgstr "You do not have any files in your archive."
 
@@ -913,7 +914,7 @@ msgstr "You don't have any images in your archive."
 msgid "no_more_elements_to_add"
 msgstr "No more elements avaible."
 
-#: app/views/files/_files_list.html.erb:7
+#: app/views/attachements/_files_list.html.erb:7
 #: app/views/images/_images_list.html.erb:7
 msgid "no_search_results"
 msgstr "Your search did not return any results."
@@ -1073,7 +1074,8 @@ msgstr ""
 msgid "remove"
 msgstr "remove"
 
-#: app/views/files/_wa_file.html.erb:50 app/views/files/_wa_file.html.erb:54
+#: app/views/attachements/_wa_file.html.erb:50
+#: app/views/attachements/_wa_file.html.erb:54
 msgid "rename_file"
 msgstr "Rename this file."
 
@@ -1094,13 +1096,14 @@ msgstr "robot may follow links."
 msgid "robot_index"
 msgstr "allow robot to index."
 
-#: app/views/admin/signup.html.erb:45 app/views/contents/new.html.erb:11
+#: app/views/admin/signup.html.erb:45 app/views/attachements/edit.html.erb:8
+#: app/views/contents/new.html.erb:11
 #: app/views/elements/_save_and_delete_buttons.html.erb:47
 #: app/views/essence_files/edit.html.erb:22
 #: app/views/essence_files/edit.html.erb:42
 #: app/views/essence_files/edit.html.erb:70
 #: app/views/essence_files/edit.html.erb:94
-#: app/views/essence_pictures/edit.html.erb:43 app/views/files/edit.html.erb:8
+#: app/views/essence_pictures/edit.html.erb:43
 #: app/views/images/_image.html.erb:45 app/views/images/_image.html.erb:46
 #: app/views/pages/edit.html.erb:68 app/views/users/_form.html.erb:43
 msgid "save"
@@ -1218,8 +1221,9 @@ msgstr "Updated at"
 msgid "upload"
 msgstr "upload"
 
-#: app/views/files/index.html.erb:10 app/views/files/index.html.erb:13
-#: app/views/files/index.html.erb:16
+#: app/views/attachements/index.html.erb:10
+#: app/views/attachements/index.html.erb:13
+#: app/views/attachements/index.html.erb:16
 msgid "upload_file"
 msgstr "Upload file(s)."
 

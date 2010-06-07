@@ -26,7 +26,7 @@ authorization do
     has_permission_on :pages, :to => [:index, :fold, :edit_content]
     has_permission_on :elements, :to => [:manage_elements]
     has_permission_on :images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
-    has_permission_on :files, :to => [:index, :archive_overlay]
+    has_permission_on :attachements, :to => [:index, :archive_overlay]
     has_permission_on :contents, :to => [:manage_atoms]
     has_permission_on :content_pictures, :to => [:manage_picture_atoms]
     has_permission_on :content_files, :to => [:manage_file_atoms]
@@ -35,7 +35,7 @@ authorization do
   
   role :editor do
     includes :author
-    has_permission_on :files, :to => [:manage]
+    has_permission_on :attachements, :to => [:manage]
     has_permission_on :images, :to => [:manage]
     has_permission_on :pages, :to => [:manage_pages]
   end
