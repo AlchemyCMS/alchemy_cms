@@ -1,0 +1,11 @@
+<div class="news" id="<%= element_dom_id(element) %>">
+  <div class="date">
+    <%= render_atom_view_by_name(element, 'date') %>
+  </div>
+  <div class="headline">
+    <%= render_atom_view_by_name(element, 'headline') %>
+  </div>
+  <div class="body">
+    <%= render_atom_view_by_name(element, 'body') %>
+  </div>
+</div>

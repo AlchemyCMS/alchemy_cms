@@ -1,6 +1,6 @@
-<div class="bild_mit_text" id="<%= molecule_dom_id(wa_molecule) %>">
+<div class="bild_mit_text" id="<%= element_dom_id(element) %>">
 	<div class="bild_mit_text_images">
-		<%- wa_molecule.wa_atoms.find_all_by_atom_type("WaAtomPicture").each do |atom| -%>
+		<%- element.contents.find_all_by_essence_type("EssencePicture").each do |atom| -%>
 		<div class="bild_mit_text_image">
 			<%= atom.atom.crop_from %>
 			<%= atom.atom.crop_size %>
@@ -9,9 +9,9 @@
 		<%- end -%>
 	</div>
 	<div class="headline">
-    	<%= render_atom_view_by_name(wa_molecule, 'headline') %>
+    	<%= render_atom_view_by_name(element, 'headline') %>
 	</div>
 	<div class="text">
-		<%= render_atom_view_by_name(wa_molecule, 'text') %>
+		<%= render_atom_view_by_name(element, 'text') %>
 	</div>
 </div>
