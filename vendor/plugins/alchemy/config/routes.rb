@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show'
   map.login "/admin/login", :controller => "admin", :action => "login"
   map.logout "/admin/logout", :controller => "admin", :action => "logout"
-  map.systempages "/pages/systempages", :controller => "pages", :action => "systempages"
+  map.layoutpages "/pages/layoutpages", :controller => "pages", :action => "layoutpages"
   map.resources :users
   map.resources :user_sessions
   map.resources :wa_mails
@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => {
       :switch_language => :get,
       :create_language => :get,
-      :systempages => :get,
+      :layoutpages => :get,
       :order => :post,
       :sitemap => :get
     },

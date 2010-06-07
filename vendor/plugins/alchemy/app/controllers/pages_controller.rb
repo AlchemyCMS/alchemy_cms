@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :edit, :update, :move, :fold, :destroy]
   
   filter_access_to [:show, :unlock, :publish, :preview, :edit, :edit_content, :update, :move, :destroy], :attribute_check => true
-  filter_access_to [:index, :systempages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
+  filter_access_to [:index, :layoutpages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
   
   caches_action(
     :show,
@@ -53,8 +53,8 @@ class PagesController < ApplicationController
     render :nothing => true
   end
   
-  def systempages
-    @system_root = Page.systemroot.first
+  def layoutpages
+    @layout_root = Page.layout_root
     render :layout => 'admin'
   end
   
@@ -69,7 +69,7 @@ class PagesController < ApplicationController
       parent = Page.find(params[:page][:parent_id])
       page_layout = PageLayout.get(params[:page][:page_layout])
       params[:page][:language] = parent.language
-      params[:page][:systempage] = ((page_layout["systempage"] == true) rescue false)
+      params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
       page = Page.create(params[:page])
       if page.valid?
         page.move_to_child_of parent
@@ -167,7 +167,7 @@ class PagesController < ApplicationController
         :elements => :contents
       }
     )
-    @systempage = !params[:systempage].blank? && params[:systempage] == 'true'
+    @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
     @created_by = User.find(@page.created_by).login rescue ""
     @updated_by = User.find(@page.updated_by).login rescue ""
     if @page.locked? && @page.locker != current_user

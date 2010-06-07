@@ -1,0 +1,8 @@
+<%- wa_assets_set(:sitemap) -%>
+
+<div id="toolbar">
+	&nbsp;
+</div>
+<ul class="list" id="layoutpages">
+	<%= render :partial => "layoutpage", :collection => @layout_root.children %>
+</ul>

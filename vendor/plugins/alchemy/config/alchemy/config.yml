@@ -83,7 +83,7 @@ wa_plugins:
       action: index
       image: /plugin_assets/alchemy/images/icons/home.png
   
-  - name: wa_cms
+  - name: pages
     preview_frame:
       controller: pages
       action: edit_content
@@ -98,9 +98,9 @@ wa_plugins:
         - name: 'module: pages'
           controller: pages
           action: index
-        - name: 'module: systempages'
+        - name: 'module: layoutpages'
           controller: pages
-          action: systempages
+          action: layoutpages
       nested:
         - controller: pages
           action: edit_content
@@ -112,7 +112,7 @@ wa_plugins:
       action: index
       image: /plugin_assets/alchemy/images/icons/users.png
 
-  - name: wa_archive
+  - name: archive
     navigation:
       controller: images
       action: index
@@ -122,6 +122,6 @@ wa_plugins:
         - name: 'module: images'
           controller: images
           action: index
-        - name: 'module: files'
-          controller: files
+        - name: 'module: attachements'
+          controller: attachements
           action: index

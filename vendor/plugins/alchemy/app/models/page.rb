@@ -17,8 +17,11 @@ class Page < ActiveRecord::Base
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
   
   # necessary. otherwise the migrations fail
-  if Page.root
-    named_scope :systemroot, :conditions => {:parent_id => Page.root.id, :systempage => true}, :limit => 1
+  
+  def self.layout_root
+    if Page.root
+      Page.find :first, :conditions => {:parent_id => Page.root.id, :layoutpage => true}
+    end
   end
   
   named_scope :language_roots, :conditions => "language_root_for IS NOT NULL"

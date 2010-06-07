@@ -14,7 +14,7 @@
 	</div>
 	<div class="sitemap_right_tools">
 		<%- cache("page_#{page.id}_for_user_#{current_user.id}_tools") do -%>
-		<%- if !page.systempage? -%>
+		<%- if !page.layoutpage? -%>
 			<%- permitted_to?(:edit, page) do -%>
 			<%= link_to_wa_window(
 				"",

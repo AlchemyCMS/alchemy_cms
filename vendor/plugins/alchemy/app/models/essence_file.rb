@@ -1,5 +1,5 @@
 class EssenceFile < ActiveRecord::Base
-  belongs_to :file
+  belongs_to :attachment
   stampable
   
 end

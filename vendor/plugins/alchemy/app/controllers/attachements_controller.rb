@@ -1,4 +1,4 @@
-class FilesController < ApplicationController
+class AttachementsController < ApplicationController
   
   protect_from_forgery :except => [:create]
   layout 'admin'
@@ -9,13 +9,13 @@ class FilesController < ApplicationController
   def index
     cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
     if params[:per_page] == 'all'
-      @files = File.find(
+      @files = Attachement.find(
         :all,
         :order => :name,
         :conditions => cond
       )
     else
-      @files = File.paginate(
+      @files = Attachement.paginate(
         :all,
         :order => :name,
         :conditions => cond,
@@ -26,24 +26,24 @@ class FilesController < ApplicationController
   end
   
   def new
-    @file = File.new
+    @file = Attachement.new
     render :layout => false
   end
   
   def create
-    @file = File.new(:uploaded_data => params[:Filedata])
+    @file = Attachement.new(:uploaded_data => params[:Filedata])
     @file.name = @file.filename
     @file.save
     
     cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
     if params[:per_page] == 'all'
-      @files = File.find(
+      @files = Attachement.find(
         :all,
         :order => :name,
         :conditions => cond
       )
     else
-      @files = File.paginate(
+      @files = Attachement.paginate(
         :all,
         :order => :name,
         :conditions => cond,
@@ -58,7 +58,7 @@ class FilesController < ApplicationController
   
   # sends file inline. i.e. for viewing pdfs/movies in browser
   def show
-    @file = File.find(params[:id])
+    @file = Attachement.find(params[:id])
     #render :layout => 'false'
     send_file(
       "#{RAILS_ROOT}/public" + @file.public_filename, {
@@ -71,7 +71,7 @@ class FilesController < ApplicationController
   
   # sends file as attachment. aka download
   def download
-    @file = File.find(params[:id])
+    @file = Attachement.find(params[:id])
     send_file(
       @file.full_filename, {
         :name => @file.filename,
@@ -82,13 +82,13 @@ class FilesController < ApplicationController
   end
   
   def edit
-    @file = File.find(params[:id])
+    @file = Attachement.find(params[:id])
     render :layout => false
   end
   
   def update
     begin
-      @file = File.find(params[:id])
+      @file = Attachement.find(params[:id])
       oldname = @file.name
       if @file.update_attributes(params[:file])
         flash[:notice] = _("File renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @file.name}
@@ -103,7 +103,7 @@ class FilesController < ApplicationController
   end
   
   def destroy
-    @file = File.find(params[:id])
+    @file = Attachement.find(params[:id])
     name = @file.name
     @file.destroy
     render :update do |page|
@@ -122,7 +122,7 @@ class FilesController < ApplicationController
     else
       condition = ""
     end
-    @files = File.all(:order => :name, :conditions => condition)
+    @files = Attachement.all(:order => :name, :conditions => condition)
     render :layout => false
   end
   

@@ -1,4 +1,4 @@
-class File < ActiveRecord::Base
+class Attachement < ActiveRecord::Base
   
   has_attachment(
     :storage => :file_system,

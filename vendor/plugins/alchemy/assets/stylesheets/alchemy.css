@@ -740,7 +740,7 @@ ul#sitemap ul {
 }
 
 ul#sitemap li,
-ul#systempages li {
+ul#layoutpages li {
 	list-style-type: none;
 	margin: 0;
 	line-height: 14px;
@@ -1327,7 +1327,7 @@ ul.list li.legend {
 	font-weight: bold;
 }
 
-#systempages li img.site_status {
+#layoutpages li img.site_status {
 	float: left;
 }
 

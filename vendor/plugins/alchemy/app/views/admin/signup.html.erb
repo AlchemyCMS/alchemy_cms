@@ -34,11 +34,11 @@
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'password', User.human_attribute_name(:password) %><small>*</small></td>
-				<td><%= f.password_field 'password', :class => 'thin_border medium_long' -%></td>
+				<td><%= f.password_field 'password', :class => 'thin_border medium_long', :autocomplete => "off" -%></td>
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'password_confirmation', User.human_attribute_name(:password_confirmation) %><small>*</small></td>
-				<td><%= f.password_field 'password_confirmation', :class => 'thin_border medium_long' -%></td>
+				<td><%= f.password_field 'password_confirmation', :class => 'thin_border medium_long', :autocomplete => "off" -%></td>
 			</tr>
 			<tr>
 				<td height="25px" colspan="2" align="right">
