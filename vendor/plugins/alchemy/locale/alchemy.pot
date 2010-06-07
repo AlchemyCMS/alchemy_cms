@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-02 18:06+0200\n"
+"POT-Creation-Date: 2010-06-07 15:24+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -614,8 +614,8 @@ msgstr ""
 
 #: app/views/wa_pages/_wa_page.html.erb:23
 #: app/views/wa_pages/_wa_page.html.erb:27
-#: app/views/wa_pages/edit_content.html.erb:27
-#: app/views/wa_pages/edit_content.html.erb:31
+#: app/views/wa_pages/edit_content.html.erb:52
+#: app/views/wa_pages/edit_content.html.erb:56
 msgid "edit_page_properties"
 msgstr ""
 
@@ -660,11 +660,11 @@ msgstr ""
 msgid "enter_external_link"
 msgstr ""
 
-#: app/views/wa_pages/edit_content.html.erb:43
+#: app/views/wa_pages/edit_content.html.erb:39
 msgid "explain_publishing"
 msgstr ""
 
-#: app/views/wa_pages/edit_content.html.erb:54
+#: app/views/wa_pages/edit_content.html.erb:27
 msgid "explain_unlocking"
 msgstr ""
 
@@ -743,7 +743,7 @@ msgstr ""
 msgid "internal_link_headline"
 msgstr ""
 
-#: app/views/wa_pages/_language_selector.html.erb:1
+#: app/views/wa_pages/_language_selector.html.erb:17
 msgid "language"
 msgstr ""
 
@@ -942,6 +942,10 @@ msgstr ""
 msgid "page_locked"
 msgstr ""
 
+#: app/views/wa_pages/edit_content.html.erb:58
+msgid "page_properties"
+msgstr ""
+
 #: app/views/wa_pages/edit.html.erb:22
 msgid "page_public"
 msgstr ""
@@ -1049,7 +1053,7 @@ msgstr ""
 msgid "please_wait"
 msgstr ""
 
-#: app/views/wa_pages/edit_content.html.erb:43
+#: app/views/wa_pages/edit_content.html.erb:42
 msgid "publish_page"
 msgstr ""
 
@@ -1196,7 +1200,7 @@ msgstr ""
 msgid "unlink"
 msgstr ""
 
-#: app/views/wa_pages/edit_content.html.erb:54
+#: app/views/wa_pages/edit_content.html.erb:30
 msgid "unlock_page"
 msgstr ""
 

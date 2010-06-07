@@ -5,5 +5,7 @@ page.replace(
 )
 WaConfigure.sortable_molecules(page)
 WaNotice.show_via_ajax(page, _("element_saved"))
-page.call 'reloadPreview'
+page << "reloadPreview()"
+page << "tool_window.updateHeight();"
+page << "preview_frame.updateSize();"
 page.call 'TinymceHammer.init' if @has_rtf_atoms

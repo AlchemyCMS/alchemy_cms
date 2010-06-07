@@ -1194,7 +1194,7 @@ module ApplicationHelper
     )
   end
   
-  # Returns a icon suitable for a link with css class 'wa_icon_button'
+  # Returns a icon suitable for a link with css class 'icon_button'
   def wa_icon(icon_class)
     content_tag('span', '', :class => "icon #{icon_class}")
   end

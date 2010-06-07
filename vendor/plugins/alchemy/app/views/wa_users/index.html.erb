@@ -1,5 +1,5 @@
 <%- wa_assets_set(:default) -%>
-<div class="wa_search_and_create">
+<div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
 			<%- permitted_to?(:new, :wa_users) do -%>
@@ -11,7 +11,7 @@
 					:size => "380x330",
 					:overflow => true
 				}, {
-					:class => 'wa_icon_button',
+					:class => 'icon_button',
 					:title => _('create_user')
 				}
 			) -%><br />

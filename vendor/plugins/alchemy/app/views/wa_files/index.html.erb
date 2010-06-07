@@ -1,5 +1,5 @@
 <%- wa_assets_set(:archive) -%>
-<div id="wa_toolbar">
+<div id="toolbar">
 	<%- permitted_to?(:new, :wa_files) do -%>
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
@@ -11,7 +11,7 @@
 					:size => '355x320'
 				},
 				:title => _('upload_file'),
-				:class => 'wa_icon_button'
+				:class => 'icon_button'
 			) %><br />
 			<label><%= _('upload_file') %></label>
 		</div>

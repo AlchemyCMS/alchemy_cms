@@ -308,11 +308,11 @@ div#wa_molecule_area {
 	top: 5px;
 }
 
-div.wa_atom_editor a.wa_icon_button {
+div.wa_atom_editor a.icon_button {
 	margin: 0 0 0 8px;
 }
 
-div.wa_atom_editor a.wa_icon_button.small {
+div.wa_atom_editor a.icon_button.small {
 }
 
 a.show_options {

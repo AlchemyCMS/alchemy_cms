@@ -1,7 +1,5 @@
 <%- wa_assets_set(:edit_page) -%>
 
-<%- content_for(:framesize) { '400px' } -%>
-
 <%- content_for(:javascript_includes) do -%>
 	<%= tinymce_hammer_javascript_tags %>
 <%- end -%>
@@ -10,57 +8,68 @@
 	<%= render :partial => 'partials/flash_notice' %>
 </div>
 
-<div class="wa_legend">
-	<div id="wa_page_editing_head">
-		<div class="first_column">
-			<%= render :partial => 'wa_page_status', :locals => {:wa_page => @wa_page} %>
-			<span class="wa_page_name">
-				<%= @wa_page.name %>&nbsp;<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@systempage %>
-			</span>
-		</div>
-		<div class="second_column">
-			<%- unless @wa_page.systempage? -%>
-			<%= link_to_wa_window(
-				"",
-				edit_wa_page_path(@wa_page),
-				{
-					:title => _('edit_page_properties'),
-					:size => '380x490'
-				},
-				:class => 'edit_page_names_button',
-				:title => _('edit_page_properties')
-			) -%>
-			<%- end -%>
-		</div>
-	</div>
-	<div id="page_status_options">
-		<div class="first_column">
-			<%- if configuration(:cache_wa_pages) -%>
-				<% form_tag(
-					publish_wa_page_path(@wa_page),
-					:onsubmit => "pleaseWaitOverlay();"
-				) do -%>
-					<%= submit_tag( _("publish_page"), :class => 'button', :name => nil, :title => _('explain_publishing')) %>
-				<% end -%>
-			<%- end -%>
-		</div>
-		<div class="second_column">
+<div id="wa_subnavigation">
+	<span class="page_status_and_name">
+		<%= render :partial => 'wa_page_status', :locals => {:wa_page => @wa_page} %>
+		<%= @wa_page.name %>&nbsp;<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@systempage %>
+	</span>
+</div>
+
+<div id="toolbar">
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
 			<% form_tag(
 				unlock_wa_page_path(
 					@wa_page,
 					:redirect_to => @systempage ? systempages_path : wa_pages_path
 				)
 			) do %>
-				<%= submit_tag(_("unlock_page"), :class => 'button', :name => nil, :title => _('explain_unlocking')) %>
+				<button class="icon_button" title="<%= _('explain_unlocking') %>">
+					<%= image_tag('icons/cross.png', :plugin => 'alchemy') %>
+				</button><br />
+				<label><%= _("unlock_page") %></label>
 			<% end %>
 		</div>
+		<div class="button_with_label">
+			<%- if configuration(:cache_wa_pages) -%>
+				<% form_tag(
+					publish_wa_page_path(@wa_page),
+					:onsubmit => "pleaseWaitOverlay();"
+				) do -%>
+					<button class="icon_button" title="<%= _('explain_publishing') %>">
+						<%= image_tag('icons/globe-green.png', :plugin => 'alchemy') %>
+					</button><br />
+					<label><%= _("publish_page") %></label>
+				<% end -%>
+			<%- end -%>
+		</div>
+		<%- unless @wa_page.systempage? -%>
+		<div class="button_with_label">
+			<%= link_to_wa_window(
+				content_tag('span', '', :class => 'icon settings'),
+				edit_wa_page_path(@wa_page),
+				{
+					:title => _('edit_page_properties'),
+					:size => '380x490'
+				},
+				:class => 'icon_button',
+				:title => _('edit_page_properties')
+			) -%><br />
+			<label><%= _('page_properties') %></label>
+		</div>
+		<%- end -%>
 	</div>
 </div>
 
-<%= render :partial => 'add_molecule', :locals => {:molecule_before => nil, :open_molecule_selector => false} %>
+<div id="page_edit_tools" style="width: 400px">
+	<%= render :partial => 'add_molecule', :locals => {:molecule_before => nil, :open_molecule_selector => false} %>
+	<div id="wa_molecule_area">
+		<%= render :partial => @wa_page.wa_molecules, :locals => {:open_molecule_selector => false} %>
+	</div>
+</div>
 
-<div id="wa_molecule_area">
-	<%= render :partial => @wa_page.wa_molecules, :locals => {:open_molecule_selector => false} %>
+<div id="preview">
+	<iframe id="preview_frame" src="<%= generate_preview_url(frame_requested?) %>" scrolling="auto" frameborder="0"></iframe>
 </div>
 
 <%- content_for :javascripts do -%>
@@ -76,4 +85,34 @@
 		:dropOnEmpty => false,
 		:handle => 'molecule_handle'
 	) %>
+	<script type="text/javascript" charset="utf-8">
+	//<!--[CDATA[
+		document.observe("dom:loaded", function() {
+			preview_frame = new AlchemyPreviewFrame('preview_frame');
+			tool_window = new Window({
+				className: 'wa_window',
+				title: 'huhu',
+				right: 10,
+				top: 200,
+				width: 400,
+				height: 600,
+				minWidth: 400,
+				minHeight: 600,
+				maximizable: false,
+				minimizable: true,
+				resizable: true,
+				draggable: true,
+				zIndex: 300000,
+				closable: false,
+				destroyOnClose: true,
+				recenterAuto: false,
+				effectOptions: {
+					duration: 0.2
+				}
+			});
+			tool_window.setContent('page_edit_tools', true, true);
+			tool_window.showCenter(false, 150, document.viewport.getDimensions().width - 450);
+		});
+	//]]-->
+	</script>
 <%- end -%>

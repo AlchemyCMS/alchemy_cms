@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-02 18:06+0200\n"
+"POT-Creation-Date: 2010-06-07 15:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -611,8 +611,8 @@ msgstr "Edit this page."
 
 #: app/views/wa_pages/_wa_page.html.erb:23
 #: app/views/wa_pages/_wa_page.html.erb:27
-#: app/views/wa_pages/edit_content.html.erb:27
-#: app/views/wa_pages/edit_content.html.erb:31
+#: app/views/wa_pages/edit_content.html.erb:52
+#: app/views/wa_pages/edit_content.html.erb:56
 msgid "edit_page_properties"
 msgstr "Edit the page properties."
 
@@ -657,12 +657,12 @@ msgstr "Saved element."
 msgid "enter_external_link"
 msgstr "Please enter the URL you want to link with"
 
-#: app/views/wa_pages/edit_content.html.erb:43
+#: app/views/wa_pages/edit_content.html.erb:39
 msgid "explain_publishing"
 msgstr ""
 "Remove the cached version of this page from the server and create a new one."
 
-#: app/views/wa_pages/edit_content.html.erb:54
+#: app/views/wa_pages/edit_content.html.erb:27
 msgid "explain_unlocking"
 msgstr "Leave page and unlock it for other users."
 
@@ -743,7 +743,7 @@ msgstr "images"
 msgid "internal_link_headline"
 msgstr "Choose a page to link to."
 
-#: app/views/wa_pages/_language_selector.html.erb:1
+#: app/views/wa_pages/_language_selector.html.erb:17
 msgid "language"
 msgstr "Language"
 
@@ -942,6 +942,10 @@ msgstr "Page: '%{name}' created."
 msgid "page_locked"
 msgstr "This page is locked by another user."
 
+#: app/views/wa_pages/edit_content.html.erb:58
+msgid "page_properties"
+msgstr "page properties"
+
 #: app/views/wa_pages/edit.html.erb:22
 msgid "page_public"
 msgstr "Publish page"
@@ -1057,7 +1061,7 @@ msgstr "Please confirm"
 msgid "please_wait"
 msgstr "Please wait"
 
-#: app/views/wa_pages/edit_content.html.erb:43
+#: app/views/wa_pages/edit_content.html.erb:42
 msgid "publish_page"
 msgstr "Publish state"
 
@@ -1204,7 +1208,7 @@ msgstr "unknown"
 msgid "unlink"
 msgstr "Remove link from this image."
 
-#: app/views/wa_pages/edit_content.html.erb:54
+#: app/views/wa_pages/edit_content.html.erb:30
 msgid "unlock_page"
 msgstr "Leave page"
 

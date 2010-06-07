@@ -15,5 +15,7 @@ else
 end
 WaConfigure.sortable_molecules(page)
 WaNotice.show_via_ajax(page, _("successfully_added_element"))
-page << "setFrameSize()"
 page << "TinymceHammer.init()"
+page << "reloadPreview()"
+page << "tool_window.updateHeight();"
+page << "preview_frame.updateSize();"

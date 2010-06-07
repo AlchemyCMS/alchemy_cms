@@ -243,11 +243,11 @@ div.wa_atom_editor label {
 	margin-bottom: 0.5em;
 }
 
-div.wa_atom_editor label a.wa_icon_button.small {
+div.wa_atom_editor label a.icon_button.small {
 	display: none;
 }
 
-div.wa_atom_editor:hover label a.wa_icon_button.small {
+div.wa_atom_editor:hover label a.icon_button.small {
 	display: inline-block;
 }
 
@@ -255,7 +255,7 @@ div.wa_atom_editor:hover label a.wa_icon_button.small {
 	background-position: -500px 0;
 }
 
-.wa_icon_button span.icon.link {
+.icon_button span.icon.link {
 	background-image: url(../javascripts/tiny_mce/themes/advanced/img/icons.gif);
 	background-position: -502px -3px;
 	left: 2px;

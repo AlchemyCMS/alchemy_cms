@@ -31,7 +31,7 @@
 			wa_icon('delete-small'),
 			_('Do you really want to delete this atom?'),
 			wa_atom_path(wa_atom),
-			:class => 'wa_icon_button small',
+			:class => 'icon_button small',
 			:title => _('Remove this atom')
 		) if wa_atom.settings[:deletable] %>
 	</label>
@@ -52,7 +52,7 @@
 		href="#"
 		onclick="wa_link_window(this, 420); return false;"
 		title="<%= _('place_link') %>"
-		class="wa_icon_button"
+		class="icon_button"
 		name="wa_atom_text_<%= wa_atom.id %>"
 	><span class="icon link"></span></a>
 	<%- end -%>

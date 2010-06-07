@@ -1,10 +1,10 @@
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy.css */
+
 html {
-	margin: 0;
-	padding: 0;
 	height: 100%;
 }
 
-body {
+body#alchemy {
 	margin: 0;
 	padding: 0;
 	color: #333;
@@ -79,6 +79,10 @@ div#top_frame {
 	padding: 0;
 }
 
+#preview_frame {
+	background-color: white;
+}
+
 #wa_top_menu {
 	white-space: nowrap;
 	background-color: #e3e3e3;
@@ -95,61 +99,12 @@ div#top_frame {
 	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x 0 0;
 }
 
-#top_frame_switch {
-	width: 50px;
-	height: 15px;
-	position: absolute;
-	left: 46%;
-	font-size: 9px;
-	text-align: center;
-	cursor: pointer;
-	z-index: 1;
-	top: -1px;
-}
-
 /* @end */
-
-/* @group left_frame */
-
-div#left_frame {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background-color: #ededed;
-}
-
-#left_frame_switch {
-	position: absolute;
-	top: 250px;
-	background-color: silver;
-	width: 15px;
-	height: 50px;
-	font-size: 8px;
-	cursor: pointer;
-	text-align: center;
-	overflow: hidden;
-	left: -1px;
-	z-index: 1;
-}
 
 #wa_main_content {
 	background-color: #ededed;
 	padding-top: 46px;
 	position: relative;
-}
-
-/* @end */
-
-div#preview {
-	position: absolute;
-	z-index: 0;
-	border-top-style: solid;
-	border-top-width: 1px;
-	border-left-width: 1px;
-	border-left-style: solid;
-	border-color: #c0c0c0;
 }
 
 div#wa_user_signup {
@@ -229,8 +184,7 @@ a.drop_down_select img {
 	margin-right: 4px;
 }
 
-div#wa_toolbar form a.search_field_clear,
-.wa_search_and_create form a.search_field_clear {
+div#toolbar form a.search_field_clear {
 	width: 15px;
 	height: 15px;
 	background: #b3ccdb url(../images/gui/close.png) no-repeat 0 -1px;
@@ -249,6 +203,10 @@ div.wa_drop_down_select {
 	width: 130px;
 	margin: 0;
 	z-index: 10;
+}
+
+#language_select {
+	margin-bottom: 4px;
 }
 
 div.wa_legend label {
@@ -530,17 +488,6 @@ div#page {
 	/* needed for footer positioning*/
 }
 
-#alchemy {
-	min-height: 100%;
-	background: #ededed repeat-y;
-	position: relative; /* IE6: treaded as min-height*/
-	min-height:100%;
-	margin: 0;
-	clear: both;
-	float: left;
-	width: 100%;
-}
-
 #wa_archiveall .edit_images_bottom span {
 	width: 19px;
 	height: 19px;
@@ -613,6 +560,25 @@ a.hide_molecule_selector {
 	padding: 2px 8px;
 	height: 19px;
 	text-shadow: #fff 0 1px 2px;
+}
+
+#wa_subnavigation span.page_status_and_name {
+	float: left;
+	padding: 4px 8px 2px;
+	height: 17px;
+	background-color: #e3e3e3;
+	text-shadow: #fff 0 1px 2px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	cursor: default;
+}
+
+#wa_subnavigation span.page_status_and_name img {
+	float: none;
+	position: relative;
+	top: 1px;
 }
 
 #dashboard div.dashboard_tip {
@@ -728,10 +694,6 @@ div.wa_help_entry {
 	padding-top: 10px;
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
-}
-
-#wa_preview {
-	float: left;
 }
 
 img.link_arrow {
@@ -927,7 +889,7 @@ div.page_infos {
 
 ul#wa_sitemap li .wa_sitemap_sitename:hover,
 ul.wa_list li .wa_sitemap_sitename:hover{
-	background-color: #fffcd6;
+	background-color: #fffdef;
 }
 
 #sideboard div.sideboard_widget img {
@@ -941,6 +903,10 @@ ul.wa_list li .wa_sitemap_sitename:hover{
 	margin: 5px 3px 5px 1px;
 	background-repeat: no-repeat;
 	background-image: url('../images/icons/page_status.png');
+}
+
+#wa_subnavigation span.page_status_and_name span.site_status {
+	margin: 0 4px 0 0;
 }
 
 #wa_sitemap img.link_arrow {
@@ -1086,29 +1052,15 @@ ul#wa_sitemap a.delete_page {
 
 /* @group page_editing */
 
-div#wa_page_editing_head {
-	height: 25px;
-}
-
-#wa_page_editing_head span img.link_arrow {
-	margin-right: 4px;
-	float: right;
-	margin-left: 8px;
-}
-
-.wa_legend .first_column {
-	white-space: nowrap;
-	width: 201px;
+div#page_editing_head {
 	float: left;
-}
-
-.wa_page_name {
-	bottom: 3px;
-	font-weight: bold;
-	position: relative;
-	overflow: hidden;
-	float: left;
-	line-height: 25px;
+	margin-right: 8px;
+	padding-right: 8px;
+	border-right-style: dotted;
+	border-right-width: 1px;
+	line-height: 35px;
+	padding-top: 8px;
+	height: 27px;
 }
 
 #wa_page_names td {
@@ -1153,7 +1105,7 @@ a.edit_page_names_button {
 
 /* @end */
 
-#wa_page_editing_head .site_status {
+#page_editing_head .site_status {
 	margin: 0 4px 0 0;
 	float: left;
 }
@@ -1184,9 +1136,11 @@ div#wa_page_options_button {
 }
 
 div#page_status_options {
-	padding-top: 16px;
-	overflow: hidden;
-	clear: both;
+	float: left;
+}
+
+button.icon_button.publish {
+	
 }
 
 form {
@@ -1363,42 +1317,42 @@ div#wa_user_list_legend {
 	text-decoration: none;
 }
 
-
-
 #wa_user_add span {
 	float: right;
 	width: 150px;
 }
 
-div#wa_toolbar,
-div.wa_search_and_create {
+#toolbar {
 	padding: 12px 8px;
 	border-bottom: 1px solid white;
 	height: 36px;
 	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 42px;
 }
 
-div#wa_toolbar form,
-div.wa_search_and_create form {
+#toolbar form {
 	margin: 0 0 0 8px;
 	float: right;
 	text-align: center;
 }
 
-div#wa_toolbar div.search_field, 
-.wa_search_and_create div.search_field {
+#toolbar_buttons div.button_with_label form {
+	margin: 0;
+	float: none;
+}
+
+#toolbar div.search_field {
 	position: relative;
 	float: left;
 	margin-bottom: 4px;
 }
 
-div.wa_search_and_create div p {
+#toolbar div p {
 	float: right;
 	margin: 3px 4px 0 0;
 	padding: 0;
 }
 
-div#wa_toolbar div.toolbar_spacer {
+div#toolbar div.toolbar_spacer {
 	float: left;
 	width: 1px;
 	height: 37px;
@@ -1408,8 +1362,7 @@ div#wa_toolbar div.toolbar_spacer {
 	margin-left: 4px;
 }
 
-div#wa_toolbar a.button,
-div.wa_search_and_create a.button {
+div#toolbar a.button {
 	width: 25px;
 	height: 21px;
 	text-decoration: none;
@@ -1422,8 +1375,7 @@ div.wa_search_and_create a.button {
 	background-position: 0 0;
 }
 
-div#wa_toolbar a.button:active, 
-div.wa_search_and_create a.button:active {
+div#toolbar a.button:active {
 	text-decoration: none;
 	background-position: 0 -21px;
 }
@@ -1434,7 +1386,28 @@ div#toolbar_buttons span.file_upload {
 
 /* @group add, edit and delete buttons */
 
-a.wa_icon_button {
+button.icon_button {
+	background: #eaeaea url(../images/gui/button_shading.png) repeat-x 0 0;
+	border: 1px solid #9c9d9c;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	margin-bottom: 4px;
+	cursor: pointer;
+	padding: 2px;
+	height: 21px;
+	line-height: 19px;
+	font-size: 0;
+	width: 22px;
+}
+
+button.icon_button img {
+	margin: 0;
+	border-style: none;
+	border-width: 0;
+}
+
+a.icon_button {
 	float: left;
 	width: 19px;
 	height: 19px;
@@ -1451,7 +1424,7 @@ a.wa_icon_button {
 	position: relative;
 }
 
-a.wa_icon_button.small {
+a.icon_button.small {
 	width: 11px;
 	height: 11px;
 	float: none;
@@ -1460,26 +1433,26 @@ a.wa_icon_button.small {
 	vertical-align: -1px;
 }
 
-a.wa_icon_button.old_icon {
+a.icon_button.old_icon {
 	width: 20px;
 	height: 19px;
 }
 
-a.wa_icon_button:hover {
+a.icon_button:hover {
 	text-decoration: none;
 }
 
-a.wa_icon_button:active {
+a.icon_button:active {
 	background-position: 0 -19px;
 }
 
-a.wa_icon_button img {
+a.icon_button img {
 	position: absolute;
 	top: 2px;
 	left: 3px;
 }
 
-a.wa_icon_button span.icon {
+a.icon_button span.icon {
 	position: absolute;
 	top: 2px;
 	left: 3px;
@@ -1489,7 +1462,7 @@ a.wa_icon_button span.icon {
 	display: inline-block;
 }
 
-a.wa_icon_button.small span.icon {
+a.icon_button.small span.icon {
 	top: 2px;
 	left: 2px;
 	width: 9px;
@@ -1501,7 +1474,7 @@ span.icon.delete-small {
 	background-image: url(../images/icons/minus-small.png);
 }
 
-a.wa_icon_button span.old_icon {
+a.icon_button span.old_icon {
 	position: relative;
 	background-repeat: no-repeat;
 	width: 22px;
@@ -1511,12 +1484,12 @@ a.wa_icon_button span.old_icon {
 	left: -1px;
 }
 
-a.wa_icon_button.old_icon img {
+a.icon_button.old_icon img {
 	top: 0;
 	left: 1px;
 }
 
-div.table_right span.tools a.wa_icon_button img {
+div.table_right span.tools a.icon_button img {
 	left: -1px;
 }
 
@@ -1561,7 +1534,7 @@ table.wa_list tr.odd td {
 }
 
 table.wa_list tr.even td {
-	background-color: #ebf6df;
+	background-color: #eaf3f9;
 }
 
 .wa_list li.table_row {
@@ -1606,11 +1579,11 @@ ul.wa_list li.legend .wa_list_1stcol {
 }
 
 ul.wa_list li .wa_list_row.even {
-	background-color: #ebf6df;
+	background-color: #eaf3f9;
 }
 
 ul.wa_list li:hover .wa_list_row {
-	background-color: #fffcd6;
+	background-color: #fffdef;
 }
 
 #systempages li img.site_status {
@@ -1940,7 +1913,7 @@ table.wa_list tr td.icon {
 }
 
 table.wa_list tr:hover td {
-	background-color: #fffcd6;
+	background-color: #fffdef;
 }
 
 td.file_type {
@@ -2458,6 +2431,10 @@ a.icon.user_edit.female {
 	background: url(../images/icons/user-icons.png) -96px 0;
 }
 
+span.icon.settings {
+	background: url(../images/icons/gear.png) -1px 0;
+}
+
 span.icon.upload {
 	background: url(../images/icons/upload.png) 0 0;
 }
@@ -2731,7 +2708,7 @@ div#toolbar_buttons div.button_with_label {
 	float: left;
 }
 
-div#toolbar_buttons div.button_with_label a.wa_icon_button {
+div#toolbar_buttons div.button_with_label a.icon_button {
 	float: none;
 	margin-right: auto;
 	margin-left: auto;
@@ -2741,8 +2718,7 @@ div#toolbar_buttons div.button_with_label a.wa_icon_button {
 	position: relative;
 }
 
-div#wa_toolbar label,
-div.wa_search_and_create label {
+div#toolbar label {
 	font-size: 10px;
 	text-shadow: #fff 0 1px 2px;
 }

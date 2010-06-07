@@ -13,7 +13,7 @@
 		<%= yield :javascript_includes %>
 	</head>
 	
-	<body>
+	<body id="alchemy">
 		<%#= overlay for indication of loading %>
 		<div id="overlay">
 			<div id="overlay_text_box">
@@ -46,42 +46,10 @@
 				<div id="wa_top_menu_background"></div>
 			</div>
 		</div>
-		<div id="left_frame" style="width: <%= yield(:framesize) || '100%' %>">
-			<div id="wa_main_content">
-				<%= error_messages_for( 'wa_page') %>
-				<%= admin_subnavigation %>
-				<%= yield %>
-			</div>
+		<div id="wa_main_content">
+			<%= admin_subnavigation %>
+			<%= yield %>
 		</div>
-		<%- if target_url = frame_requested? -%>
-		<div id="preview" style="top: 37px; left: 401px;">
-			<div id="top_frame_switch">
-				<img src="/plugin_assets/alchemy/images/gui/top_bar_close.gif" id="top_switch_image" onclick="switchDiv('top_frame');" alt="leftFrameSwitchArrow" />
-			</div>
-			<div id="left_frame_switch">
-				<img src="/plugin_assets/alchemy/images/gui/left_bar_close.gif" id="left_switch_image" onclick="switchDiv('left_frame');" alt="leftFrameSwitchArrow" />
-			</div>
-			<iframe id="iframe" src="<%= generate_preview_url(target_url) %>" scrolling="auto" frameborder="0"></iframe>
-		</div>
-		<%- end -%>
 		<%= yield(:javascripts) %>
-		<script type="text/javascript" charset="utf-8">
-		//<!--[CDATA[
-			document.observe("dom:loaded", function() {
-				<%- if frame_requested? -%>
-				setDivStati();
-				setFrameSize();
-				<%- end -%>
-			});
-			<%- if frame_requested? -%>
-			Event.observe(window, 'resize', function() {
-				setFrameSize();
-			});
-			Event.observe(window, 'change', function() {
-				setFrameSize();
-			});
-			<%- end -%>
-		//]]-->
-		</script>
 	</body>
 </html>

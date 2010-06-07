@@ -1,3 +1,5 @@
+var is_ie = (document.all) ? true : false;
+
 function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, overflow){
 	overflow == undefined ? overflow = false : overflow = overflow;
 	wa_overlay = new Window({
@@ -130,7 +132,7 @@ function fold_page(id) {
 }
 
 function reloadPreview() {
-    var frame = $('iframe');
+    var frame = $('preview_frame');
     if (frame){
         if (is_ie) {
             var doc = frame.contentWindow.document;
@@ -141,7 +143,6 @@ function reloadPreview() {
             doc.location.reload(true);
         }
     }
-    setFrameSize();
 }
 
 function wa_filter(selector){

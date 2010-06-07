@@ -52,7 +52,7 @@ Object.extend(Object.extend(Effect.ResizeWindow.prototype, Effect.Base.prototype
     }      
     this.r2.setStyle({height: height});
     this.window.setSize(width, height);
-		this.window._center();
+		//this.window._center();
 
     //this.window.setLocation(top, left);
   },

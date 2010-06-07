@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-02 18:06+0200\n"
+"POT-Creation-Date: 2010-06-07 15:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -618,8 +618,8 @@ msgstr "Seite bearbeiten"
 
 #: app/views/wa_pages/_wa_page.html.erb:23
 #: app/views/wa_pages/_wa_page.html.erb:27
-#: app/views/wa_pages/edit_content.html.erb:27
-#: app/views/wa_pages/edit_content.html.erb:31
+#: app/views/wa_pages/edit_content.html.erb:52
+#: app/views/wa_pages/edit_content.html.erb:56
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
@@ -666,11 +666,11 @@ msgid "enter_external_link"
 msgstr ""
 "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
 
-#: app/views/wa_pages/edit_content.html.erb:43
+#: app/views/wa_pages/edit_content.html.erb:39
 msgid "explain_publishing"
 msgstr "Die gecachte Version vom Server löschen und eine neue erstellen"
 
-#: app/views/wa_pages/edit_content.html.erb:54
+#: app/views/wa_pages/edit_content.html.erb:27
 msgid "explain_unlocking"
 msgstr "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
 
@@ -752,7 +752,7 @@ msgstr "Bilder"
 msgid "internal_link_headline"
 msgstr "Wählen Sie eine Seite zum verlinken."
 
-#: app/views/wa_pages/_language_selector.html.erb:1
+#: app/views/wa_pages/_language_selector.html.erb:17
 msgid "language"
 msgstr "Sprache"
 
@@ -951,6 +951,10 @@ msgstr "Seite '%{name}' wurde erstellt."
 msgid "page_locked"
 msgstr "Die Seite ist gesperrt"
 
+#: app/views/wa_pages/edit_content.html.erb:58
+msgid "page_properties"
+msgstr "Seiteneigenschaften"
+
 #: app/views/wa_pages/edit.html.erb:22
 msgid "page_public"
 msgstr "Seite veröffentlichen"
@@ -1070,7 +1074,7 @@ msgstr "Bitte bestätigen"
 msgid "please_wait"
 msgstr "Bitte warten"
 
-#: app/views/wa_pages/edit_content.html.erb:43
+#: app/views/wa_pages/edit_content.html.erb:42
 msgid "publish_page"
 msgstr "Status veröffentlichen"
 
@@ -1217,7 +1221,7 @@ msgstr "unbekannt"
 msgid "unlink"
 msgstr "Link entfernen"
 
-#: app/views/wa_pages/edit_content.html.erb:54
+#: app/views/wa_pages/edit_content.html.erb:30
 msgid "unlock_page"
 msgstr "Seite verlassen"
 

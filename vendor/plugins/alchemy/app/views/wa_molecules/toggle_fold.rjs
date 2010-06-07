@@ -8,6 +8,6 @@ else
     :locals => {:open_molecule_selector => false}
   )
   WaConfigure.sortable_molecules(page)
-  page << "setFrameSize()"
+  page << "tool_window.updateHeight();"
   page << "TinymceHammer.init()"
 end
