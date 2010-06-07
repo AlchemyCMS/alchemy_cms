@@ -55,7 +55,7 @@ privileges do
   end
   
   privilege :manage_pages, :pages do
-    includes :manage, :switch_language, :create_language, :systempages, :move, :edit_content
+    includes :manage, :switch_language, :create_language, :layoutpages, :move, :edit_content
   end
   
   privilege :manage_elements, :elements do
