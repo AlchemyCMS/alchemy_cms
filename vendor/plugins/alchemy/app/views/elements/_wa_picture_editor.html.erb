@@ -1,6 +1,6 @@
 <div class="picture_gallery_images" id="element_<%= element.id %>_atoms">
 	<%- for atom in picture_atoms do -%>
-		<%= render_atom_editor(atom, {
+		<%= render_content_editor(atom, {
 			:dragable => picture_atoms.size > 1
 		}.merge(options)) %>
 	<%- end -%>
