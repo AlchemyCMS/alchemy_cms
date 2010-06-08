@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-07 22:55+0200\n"
+"POT-Creation-Date: 2010-06-09 00:39+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,10 @@ msgstr ""
 
 #: locale/model_attributes.rb:14
 msgid "Element"
+msgstr ""
+
+#: app/views/pages/edit_content.html.erb:80
+msgid "Elements"
 msgstr ""
 
 #: locale/model_attributes.rb:16
@@ -136,6 +140,11 @@ msgstr ""
 
 #: locale/model_attributes.rb:9
 msgid "Image|Name"
+msgstr ""
+
+#: app/views/pages/edit_content.html.erb:22
+#: app/views/pages/edit_content.html.erb:24
+msgid "Open Elements panel"
 msgstr ""
 
 #: locale/model_attributes.rb:19
@@ -338,7 +347,7 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: app/views/attachements/_wa_file.html.erb:11
+#: app/views/attachements/_attachement.html.erb:11
 msgid "View File"
 msgstr ""
 
@@ -376,7 +385,7 @@ msgstr ""
 msgid "above"
 msgstr ""
 
-#: app/views/pages/_add_element_form.html.erb:28
+#: app/views/elements/_add_element_form.html.erb:28
 msgid "add"
 msgstr ""
 
@@ -389,7 +398,7 @@ msgstr ""
 msgid "add_image_to_element"
 msgstr ""
 
-#: app/controllers/elements_controller.rb:63
+#: app/controllers/elements_controller.rb:73
 msgid "adding_element_not_successful"
 msgstr ""
 
@@ -424,7 +433,7 @@ msgstr ""
 msgid "assign_file_from_archive"
 msgstr ""
 
-#: app/views/elements/_add_atom.html.erb:11
+#: app/views/elements/_add_content.html.erb:11
 #: app/views/elements/_assign_picture_atom.html.erb:12
 #: app/views/elements/_assign_picture_atom.html.erb:17
 #: app/views/images/_image_to_assign.html.erb:29
@@ -437,10 +446,6 @@ msgstr ""
 
 #: app/controllers/contents_controller.rb:75
 msgid "atom_not_successfully_deleted"
-msgstr ""
-
-#: app/views/layouts/admin.html.erb:43 app/views/layouts/login.html.erb:27
-msgid "back to site"
 msgstr ""
 
 #: app/views/images/_filter_and_size_bar.html.erb:58
@@ -473,7 +478,7 @@ msgstr ""
 msgid "confirm_to_delete_element"
 msgstr ""
 
-#: app/views/attachements/_wa_file.html.erb:33
+#: app/views/attachements/_attachement.html.erb:33
 msgid "confirm_to_delete_file"
 msgstr ""
 
@@ -557,7 +562,7 @@ msgstr ""
 msgid "delete_element"
 msgstr ""
 
-#: app/views/attachements/_wa_file.html.erb:42
+#: app/views/attachements/_attachement.html.erb:42
 msgid "delete_file"
 msgstr ""
 
@@ -581,7 +586,7 @@ msgstr ""
 msgid "disabled"
 msgstr ""
 
-#: app/helpers/wa_files_helper.rb:4
+#: app/helpers/attachements_helper.rb:4
 msgid "document"
 msgstr ""
 
@@ -589,7 +594,7 @@ msgstr ""
 msgid "documents"
 msgstr ""
 
-#: app/views/attachements/_wa_file.html.erb:26
+#: app/views/attachements/_attachement.html.erb:26
 msgid "download_file_'%{filename}'"
 msgstr ""
 
@@ -612,8 +617,8 @@ msgid "edit_page"
 msgstr ""
 
 #: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit_content.html.erb:52
-#: app/views/pages/edit_content.html.erb:56
+#: app/views/pages/edit_content.html.erb:58
+#: app/views/pages/edit_content.html.erb:62
 msgid "edit_page_properties"
 msgstr ""
 
@@ -629,7 +634,7 @@ msgstr ""
 msgid "element_%{name}_moved_to_clipboard"
 msgstr ""
 
-#: app/controllers/elements_controller.rb:165
+#: app/controllers/elements_controller.rb:175
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 
@@ -641,15 +646,15 @@ msgstr ""
 msgid "element_editor_not_found"
 msgstr ""
 
-#: app/controllers/elements_controller.rb:128
+#: app/controllers/elements_controller.rb:138
 msgid "element_not_saved"
 msgstr ""
 
-#: app/controllers/elements_controller.rb:146
+#: app/controllers/elements_controller.rb:156
 msgid "element_not_successfully_deleted"
 msgstr ""
 
-#: app/views/pages/_add_element_form.html.erb:21
+#: app/views/elements/_add_element_form.html.erb:21
 msgid "element_of_type"
 msgstr ""
 
@@ -661,11 +666,11 @@ msgstr ""
 msgid "enter_external_link"
 msgstr ""
 
-#: app/views/pages/edit_content.html.erb:39
+#: app/views/pages/edit_content.html.erb:45
 msgid "explain_publishing"
 msgstr ""
 
-#: app/views/pages/edit_content.html.erb:27
+#: app/views/pages/edit_content.html.erb:33
 msgid "explain_unlocking"
 msgstr ""
 
@@ -712,8 +717,12 @@ msgstr ""
 msgid "height"
 msgstr ""
 
-#: app/views/elements/_element_head.html.erb:34
+#: app/views/elements/_element_head.html.erb:38
 msgid "hide_element_content"
+msgstr ""
+
+#: lib/alchemy_core_modules.rb:10
+msgid "home"
 msgstr ""
 
 #: app/views/essence_pictures/edit.html.erb:26
@@ -800,7 +809,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: app/views/layouts/admin.html.erb:35 app/views/layouts/admin.html.erb:37
+#: lib/alchemy_core_modules.rb:9
 msgid "logout"
 msgstr ""
 
@@ -910,7 +919,7 @@ msgstr ""
 msgid "no_images_in_archive"
 msgstr ""
 
-#: app/views/pages/_add_element_form.html.erb:2
+#: app/views/elements/_add_element_form.html.erb:2
 msgid "no_more_elements_to_add"
 msgstr ""
 
@@ -940,7 +949,7 @@ msgstr ""
 msgid "page_locked"
 msgstr ""
 
-#: app/views/pages/edit_content.html.erb:58
+#: app/views/pages/edit_content.html.erb:64
 msgid "page_properties"
 msgstr ""
 
@@ -1042,7 +1051,7 @@ msgstr ""
 msgid "please enter subject and mail address"
 msgstr ""
 
-#: app/controllers/elements_controller.rb:29
+#: app/controllers/elements_controller.rb:39
 msgid "please_choose_a_element_name"
 msgstr ""
 
@@ -1054,7 +1063,7 @@ msgstr ""
 msgid "please_wait"
 msgstr ""
 
-#: app/views/pages/edit_content.html.erb:42
+#: app/views/pages/edit_content.html.erb:48
 msgid "publish_page"
 msgstr ""
 
@@ -1066,8 +1075,8 @@ msgstr ""
 msgid "remove"
 msgstr ""
 
-#: app/views/attachements/_wa_file.html.erb:50
-#: app/views/attachements/_wa_file.html.erb:54
+#: app/views/attachements/_attachement.html.erb:50
+#: app/views/attachements/_attachement.html.erb:54
 msgid "rename_file"
 msgstr ""
 
@@ -1119,11 +1128,11 @@ msgstr ""
 msgid "search_engines"
 msgstr ""
 
-#: app/views/pages/_add_element_form.html.erb:25
+#: app/views/elements/_add_element_form.html.erb:25
 msgid "select_element"
 msgstr ""
 
-#: app/views/elements/_element_head.html.erb:34
+#: app/views/elements/_element_head.html.erb:38
 msgid "show_element_content"
 msgstr ""
 
@@ -1161,7 +1170,7 @@ msgstr ""
 msgid "successfully_saved_atom_position"
 msgstr ""
 
-#: app/controllers/elements_controller.rb:176
+#: app/controllers/elements_controller.rb:186
 msgid "successfully_saved_element_position"
 msgstr ""
 
@@ -1197,7 +1206,7 @@ msgstr ""
 msgid "unlink"
 msgstr ""
 
-#: app/views/pages/edit_content.html.erb:30
+#: app/views/pages/edit_content.html.erb:36
 msgid "unlock_page"
 msgstr ""
 

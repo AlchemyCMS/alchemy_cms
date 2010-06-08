@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-07 22:55+0200\n"
+"POT-Creation-Date: 2010-06-09 00:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,10 @@ msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 #: locale/model_attributes.rb:14
 msgid "Element"
 msgstr "Element"
+
+#: app/views/pages/edit_content.html.erb:80
+msgid "Elements"
+msgstr "Elemente"
 
 #: locale/model_attributes.rb:16
 msgid "Element|Display name"
@@ -135,6 +139,11 @@ msgstr "Bildbreite"
 #: locale/model_attributes.rb:9
 msgid "Image|Name"
 msgstr "Name"
+
+#: app/views/pages/edit_content.html.erb:22
+#: app/views/pages/edit_content.html.erb:24
+msgid "Open Elements panel"
+msgstr "Elemente-Fenster öffnen"
 
 #: locale/model_attributes.rb:19
 msgid "Page"
@@ -342,7 +351,7 @@ msgstr "Benutzerrolle"
 msgid "Version"
 msgstr "Version"
 
-#: app/views/attachements/_wa_file.html.erb:11
+#: app/views/attachements/_attachement.html.erb:11
 msgid "View File"
 msgstr "Datei anzeigen"
 
@@ -380,7 +389,7 @@ msgstr "Eine Seite des Typs"
 msgid "above"
 msgstr "darüber"
 
-#: app/views/pages/_add_element_form.html.erb:28
+#: app/views/elements/_add_element_form.html.erb:28
 msgid "add"
 msgstr "hinzufügen"
 
@@ -393,7 +402,7 @@ msgstr "+ einen Inhalt hinzufügen"
 msgid "add_image_to_element"
 msgstr "Bild hinzufügen"
 
-#: app/controllers/elements_controller.rb:63
+#: app/controllers/elements_controller.rb:73
 msgid "adding_element_not_successful"
 msgstr "Es konnte kein Element hinzugefügt werden."
 
@@ -428,7 +437,7 @@ msgstr "Datei zuweisen"
 msgid "assign_file_from_archive"
 msgstr "Datei aus dem Archiv zuweisen"
 
-#: app/views/elements/_add_atom.html.erb:11
+#: app/views/elements/_add_content.html.erb:11
 #: app/views/elements/_assign_picture_atom.html.erb:12
 #: app/views/elements/_assign_picture_atom.html.erb:17
 #: app/views/images/_image_to_assign.html.erb:29
@@ -442,10 +451,6 @@ msgstr "Das Inhalt konnte nicht hinzugefügt werden."
 #: app/controllers/contents_controller.rb:75
 msgid "atom_not_successfully_deleted"
 msgstr "Das Inhalt konnte nicht gelöscht werden."
-
-#: app/views/layouts/admin.html.erb:43 app/views/layouts/login.html.erb:27
-msgid "back to site"
-msgstr "zurück zur Homepage"
 
 #: app/views/images/_filter_and_size_bar.html.erb:58
 msgid "big_thumbnails"
@@ -477,7 +482,7 @@ msgstr "wieder alles anzeigen"
 msgid "confirm_to_delete_element"
 msgstr "Wollen Sie dieses Element wirklich löschen?"
 
-#: app/views/attachements/_wa_file.html.erb:33
+#: app/views/attachements/_attachement.html.erb:33
 msgid "confirm_to_delete_file"
 msgstr "Wollen Sie diese Datei wirklich vom Server löschen?"
 
@@ -561,7 +566,7 @@ msgstr "Element ausschneiden"
 msgid "delete_element"
 msgstr "Element löschen"
 
-#: app/views/attachements/_wa_file.html.erb:42
+#: app/views/attachements/_attachement.html.erb:42
 msgid "delete_file"
 msgstr "Datei vom Server löschen"
 
@@ -585,7 +590,7 @@ msgstr "Benutzer löschen"
 msgid "disabled"
 msgstr "Deaktiviert"
 
-#: app/helpers/wa_files_helper.rb:4
+#: app/helpers/attachements_helper.rb:4
 msgid "document"
 msgstr "Dokument"
 
@@ -593,7 +598,7 @@ msgstr "Dokument"
 msgid "documents"
 msgstr "Dateien"
 
-#: app/views/attachements/_wa_file.html.erb:26
+#: app/views/attachements/_attachement.html.erb:26
 msgid "download_file_'%{filename}'"
 msgstr "'%{filename}' runterladen"
 
@@ -616,8 +621,8 @@ msgid "edit_page"
 msgstr "Seite bearbeiten"
 
 #: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit_content.html.erb:52
-#: app/views/pages/edit_content.html.erb:56
+#: app/views/pages/edit_content.html.erb:58
+#: app/views/pages/edit_content.html.erb:62
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
@@ -633,7 +638,7 @@ msgstr "Das Element '%{name}' wurde in die Zwischenablage kopiert."
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Das Element '%{name}' wurde in die Zwischenablage bewegt."
 
-#: app/controllers/elements_controller.rb:165
+#: app/controllers/elements_controller.rb:175
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 "Das Element '%{name}' konnte nicht in die Zwischenablage kopiert werden."
@@ -646,15 +651,15 @@ msgstr "Element wurde gelöscht."
 msgid "element_editor_not_found"
 msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 
-#: app/controllers/elements_controller.rb:128
+#: app/controllers/elements_controller.rb:138
 msgid "element_not_saved"
 msgstr "Element konnte nicht gespeichert werden."
 
-#: app/controllers/elements_controller.rb:146
+#: app/controllers/elements_controller.rb:156
 msgid "element_not_successfully_deleted"
 msgstr "Das Element konnte nicht gelöscht werden."
 
-#: app/views/pages/_add_element_form.html.erb:21
+#: app/views/elements/_add_element_form.html.erb:21
 msgid "element_of_type"
 msgstr "Element"
 
@@ -667,11 +672,11 @@ msgid "enter_external_link"
 msgstr ""
 "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
 
-#: app/views/pages/edit_content.html.erb:39
+#: app/views/pages/edit_content.html.erb:45
 msgid "explain_publishing"
 msgstr "Die gecachte Version vom Server löschen und eine neue erstellen"
 
-#: app/views/pages/edit_content.html.erb:27
+#: app/views/pages/edit_content.html.erb:33
 msgid "explain_unlocking"
 msgstr "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
 
@@ -721,9 +726,13 @@ msgstr "Dateien"
 msgid "height"
 msgstr "Höhe"
 
-#: app/views/elements/_element_head.html.erb:34
+#: app/views/elements/_element_head.html.erb:38
 msgid "hide_element_content"
 msgstr "Element einklappen"
+
+#: lib/alchemy_core_modules.rb:10
+msgid "home"
+msgstr "Home"
 
 #: app/views/essence_pictures/edit.html.erb:26
 msgid "image_alt_tag"
@@ -809,7 +818,7 @@ msgstr "Sie wurden abgemeldet."
 msgid "login"
 msgstr "anmelden"
 
-#: app/views/layouts/admin.html.erb:35 app/views/layouts/admin.html.erb:37
+#: lib/alchemy_core_modules.rb:9
 msgid "logout"
 msgstr "abmelden"
 
@@ -919,7 +928,7 @@ msgstr "Sie haben noch keine Dateien in Ihrem Archiv."
 msgid "no_images_in_archive"
 msgstr "Sie haben keine Bilder in Ihrem Archiv"
 
-#: app/views/pages/_add_element_form.html.erb:2
+#: app/views/elements/_add_element_form.html.erb:2
 msgid "no_more_elements_to_add"
 msgstr "Keine weiteren Elemente verfügbar."
 
@@ -949,7 +958,7 @@ msgstr "%{name} wählen"
 msgid "page_locked"
 msgstr "Die Seite ist gesperrt"
 
-#: app/views/pages/edit_content.html.erb:58
+#: app/views/pages/edit_content.html.erb:64
 msgid "page_properties"
 msgstr "Seiteneigenschaften"
 
@@ -1063,7 +1072,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/controllers/elements_controller.rb:29
+#: app/controllers/elements_controller.rb:39
 msgid "please_choose_a_element_name"
 msgstr "Wählen Sie ein Element aus"
 
@@ -1075,7 +1084,7 @@ msgstr "Bitte bestätigen"
 msgid "please_wait"
 msgstr "Bitte warten"
 
-#: app/views/pages/edit_content.html.erb:42
+#: app/views/pages/edit_content.html.erb:48
 msgid "publish_page"
 msgstr "Status veröffentlichen"
 
@@ -1087,8 +1096,8 @@ msgstr "herkömmlichen Methode"
 msgid "remove"
 msgstr "entfernen"
 
-#: app/views/attachements/_wa_file.html.erb:50
-#: app/views/attachements/_wa_file.html.erb:54
+#: app/views/attachements/_attachement.html.erb:50
+#: app/views/attachements/_attachement.html.erb:54
 msgid "rename_file"
 msgstr "Datei umbenennen"
 
@@ -1140,11 +1149,11 @@ msgstr "suchen"
 msgid "search_engines"
 msgstr "Suchmaschinen"
 
-#: app/views/pages/_add_element_form.html.erb:25
+#: app/views/elements/_add_element_form.html.erb:25
 msgid "select_element"
 msgstr "Element wählen"
 
-#: app/views/elements/_element_head.html.erb:34
+#: app/views/elements/_element_head.html.erb:38
 msgid "show_element_content"
 msgstr "Element ausklappen"
 
@@ -1182,7 +1191,7 @@ msgstr "Element wurde hinzugefügt."
 msgid "successfully_saved_atom_position"
 msgstr "Die Inhaltposition wurde gespeichert"
 
-#: app/controllers/elements_controller.rb:176
+#: app/controllers/elements_controller.rb:186
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 
@@ -1218,7 +1227,7 @@ msgstr "unbekannt"
 msgid "unlink"
 msgstr "Link entfernen"
 
-#: app/views/pages/edit_content.html.erb:30
+#: app/views/pages/edit_content.html.erb:36
 msgid "unlock_page"
 msgstr "Seite verlassen"
 

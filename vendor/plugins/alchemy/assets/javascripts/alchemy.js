@@ -1,5 +1,34 @@
 var is_ie = (document.all) ? true : false;
 
+function openElementsWindow (page_id, title) {
+	$('ElementsWindowButton').hide();
+	tool_window = new Window({
+		className: 'alchemy_window',
+		title: title,
+		width: 420,
+		height: 400,
+		minWidth: 420,
+		minHeight: 200,
+		maxHeight: document.viewport.getDimensions().height - 100,
+		maximizable: false,
+		minimizable: true,
+		resizable: true,
+		draggable: true,
+		zIndex: 300000,
+		closable: true,
+		destroyOnClose: true,
+		recenterAuto: false,
+		effectOptions: {
+			duration: 0.2
+		},
+		onClose: function () {
+			$('ElementsWindowButton').show();
+		}
+	});
+	tool_window.setAjaxContent('/elements/list?page_id=' + page_id, {method: 'get'});
+	tool_window.showCenter(false, 50, document.viewport.getDimensions().width - 450);
+}
+
 function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, overflow){
 	overflow == undefined ? overflow = false : overflow = overflow;
 	wa_overlay = new Window({

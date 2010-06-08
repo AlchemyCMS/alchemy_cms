@@ -28,8 +28,8 @@ authorization do
     has_permission_on :images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
     has_permission_on :attachements, :to => [:index, :archive_overlay]
     has_permission_on :contents, :to => [:manage_atoms]
-    has_permission_on :content_pictures, :to => [:manage_picture_atoms]
-    has_permission_on :content_files, :to => [:manage_file_atoms]
+    has_permission_on :essence_pictures, :to => [:manage_picture_atoms]
+    has_permission_on :essence_files, :to => [:manage_file_atoms]
     has_permission_on :users, :to => [:index]
   end
   
@@ -66,11 +66,11 @@ privileges do
     includes :manage, :order
   end
   
-  privilege :manage_picture_atoms, :content_pictures do
+  privilege :manage_picture_atoms, :essence_pictures do
     includes :manage, :save_link, :assign
   end
   
-  privilege :manage_file_atoms, :content_files do
+  privilege :manage_file_atoms, :essence_files do
     includes :manage, :assign
   end
   

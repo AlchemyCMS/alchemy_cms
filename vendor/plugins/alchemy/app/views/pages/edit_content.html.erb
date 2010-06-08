@@ -15,15 +15,6 @@
 	<div id="toolbar">
 		<div id="toolbar_buttons">
 			<div class="button_with_label">
-				<%= link_to_function(
-					content_tag('span', '', :class => 'icon settings'),
-					"alert('huhu')",
-					:class => 'icon_button',
-					:title => _('Open Elements panel')
-				) -%><br />
-				<label><%= _('Open Elements panel') %></label>
-			</div>
-			<div class="button_with_label">
 				<% form_tag(
 					unlock_page_path(
 						@page,
@@ -64,6 +55,15 @@
 				<label><%= _('page_properties') %></label>
 			</div>
 			<%- end -%>
+			<div class="button_with_label" id="ElementsWindowButton" style="display: none">
+				<%= link_to_function(
+					content_tag('span', '', :class => 'icon elements_window'),
+					"openElementsWindow(#{@page.id}, '#{_('Elements')}')",
+					:class => 'icon_button',
+					:title => _('Open Elements panel')
+				) -%><br />
+				<label><%= _('Open Elements panel') %></label>
+			</div>
 		</div>
 	</div>
 	<%= render :partial => 'partials/flash_notice' %>
@@ -77,28 +77,7 @@
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
-			tool_window = new Window({
-				className: 'alchemy_window',
-				title: 'huhu',
-				width: 420,
-				height: 400,
-				minWidth: 420,
-				minHeight: 200,
-				maxHeight: document.viewport.getDimensions().height - 100,
-				maximizable: false,
-				minimizable: true,
-				resizable: true,
-				draggable: true,
-				zIndex: 300000,
-				closable: true,
-				destroyOnClose: true,
-				recenterAuto: false,
-				effectOptions: {
-					duration: 0.2
-				}
-			});
-			tool_window.setAjaxContent('/elements/list?page_id=<%= @page.id %>', {method: 'get'});
-			tool_window.showCenter(false, 50, document.viewport.getDimensions().width - 450);
+			openElementsWindow(<%= @page.id %>, '<%= _('Elements') %>');
 		});
 	//]]-->
 	</script>

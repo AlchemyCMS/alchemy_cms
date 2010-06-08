@@ -1930,6 +1930,10 @@ span.icon.file {
 	background: url(../images/icons/file-icons.png) -16px 0;
 }
 
+span.icon.elements_window {
+	background: url(../images/icons/elements_window.png) 0 0;
+}
+
 a.icon.file_download {
 	background: url(../images/icons/file-icons.png) -240px 0;
 }
