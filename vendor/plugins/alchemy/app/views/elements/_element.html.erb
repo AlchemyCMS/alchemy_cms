@@ -2,7 +2,7 @@
 
 <div class="dragable" id="<%= "dragable_#{element.id}" %>">
 	<div class="element_editor" id="element_<%= element.id %>">
-		<%= render :partial => "elements/element_head", :locals => {:element => element} %>
+		<%= render :partial => "element_head", :locals => {:element => element} %>
 		<%- if !element.folded? -%>
 			<% form_remote_tag(
 				:url => element_path(element),
@@ -23,9 +23,9 @@
 				<div id="element_<%= element.id %>_content" class="element_content">
 					<%= render_editor(element) %>
 				</div>
-				<%= render :partial => 'elements/save_and_delete_buttons', :locals => {:element => element} %>
+				<%= render :partial => 'save_and_delete_buttons', :locals => {:element => element} %>
 			<% end %>
 		<%- end -%>
 	</div>
-	<%= render :partial => 'pages/add_element', :locals => {:element_before => element, :open_element_selector => false} %>
+	<%= render :partial => 'add_element', :locals => {:element_before => element, :open_element_selector => false} %>
 </div>

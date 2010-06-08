@@ -24,10 +24,10 @@
 		<%= content.essence.file.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
 	</div>
 	<%- unless content.essence.file.nil? -%>
-	<div class="content_file_tools">
+	<div class="essence_file_tools">
 		<%= link_to_overlay_window("",
 			url_for(
-				:controller => 'content_files',
+				:controller => 'essence_files',
 				:action => 'edit',
 				:id => content
 			),

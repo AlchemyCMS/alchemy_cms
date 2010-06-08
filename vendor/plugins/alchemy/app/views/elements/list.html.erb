@@ -1,0 +1,17 @@
+<%= render :partial => 'add_element', :locals => {:element_before => nil, :open_element_selector => false} %>
+<div id="element_area">
+	<%= render :partial => @page.elements, :locals => {:open_element_selector => false} %>
+</div>
+
+<%= sortable_element(
+	"element_area",
+	:url => {
+		:controller => 'elements',
+		:action => "order"
+	},
+	:scroll => "window",
+	:tag => 'div',
+	:only => 'dragable',
+	:dropOnEmpty => false,
+	:handle => 'element_handle'
+) %>

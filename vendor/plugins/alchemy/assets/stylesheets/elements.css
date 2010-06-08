@@ -84,14 +84,14 @@ div.wa_delete_and_save_buttons span.element_public {
 	padding-bottom: 10px;
 }
 
-.wa_add_atom {
+.add_content {
 	float: left;
 	margin: 2px 1px 2px 2px;
 	width: 120px;
 	padding: 0;
 }
 
-.wa_add_atom a {
+.add_content a {
 	color: #6c6c6c;
 	text-decoration: none;
 	background: #e3e3e3 url(../images/icons/add_picture.png) no-repeat center center;
@@ -107,11 +107,11 @@ div.wa_delete_and_save_buttons span.element_public {
 	margin-top: 0;
 }
 
-.wa_add_atom a.assign {
+.add_content a.assign {
 	background: #e3e3e3 url(../images/icons/assign_picture.png) no-repeat center center;
 }
 
-.wa_add_atom a:hover {
+.add_content a:hover {
 	text-decoration: none;
 	background-color: #d9d9d9;
 }

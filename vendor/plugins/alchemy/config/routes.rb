@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :user_sessions
   map.resources :wa_mails
+  map.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get}
   map.resources(
     :pages,
     :collection => {
@@ -42,9 +43,8 @@ ActionController::Routing::Routes.draw do |map|
     :add_upload_form => :get
   }
   map.resources :contents
-  map.resources :content_pictures
-  map.resources :content_files
-  map.resources :elements, :has_many => :contents, :shallow => true
+  map.resources :essence_pictures
+  map.resources :essence_files
   map.show_image '/images/show/:id/:size/:name.:format', :controller => 'images', :action => 'show'
   map.thumbnail '/images/thumb/:id/:size/thumbnail.jpg', :controller => 'images', :action => 'thumb'
   map.download_file '/attachements/:id/download/:name', :controller => 'attachements', :action => 'download'

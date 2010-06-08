@@ -15,6 +15,16 @@ class ElementsController < ApplicationController
     @elements = Element.find_all_by_page_id_and_public(@page_id, true)
   end
   
+  def list
+    @page = Page.find(
+      params[:page_id],
+      :include => {
+        :elements => :contents
+      }
+    )
+    render :layout => false
+  end
+  
   def new
     @page = Page.find_by_id(params[:page_id])
     @element_before = Element.find_by_id(params[:element_before_id], :select => :id)

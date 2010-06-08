@@ -14,7 +14,7 @@ module ImagesHelper
       }
     else
       {
-        :controller => :content_pictures,
+        :controller => :essence_pictures,
         :action => :assign,
         :image_id => image_to_assign.id,
         :id => @content.id,

@@ -2,8 +2,8 @@ case @content.essence_type
 when "EssencePicture"
   page.insert_html(
     :before,
-    "add_atom_#{@element.id}",
-    :partial => "content_picture_editor",
+    "add_content_#{@element.id}",
+    :partial => "essence_picture_editor",
     :locals => {
       :content => @content,
       :options => @options
@@ -16,7 +16,7 @@ when "EssencePicture"
 when "EssenceText"
   page.insert_html(
     :before,
-    "add_atom_for_element_#{@element.id}",
+    "add_content_for_element_#{@element.id}",
     :partial => "content_text_editor",
     :locals => {
       :content => @content,
@@ -27,7 +27,7 @@ when "EssenceText"
 when "EssenceRichtext"
   page.insert_html(
     :before,
-    "add_atom_for_element_#{@element.id}",
+    "add_content_for_element_#{@element.id}",
     :partial => "content_rtf_editor",
     :locals => {
       :content => @content,
@@ -39,7 +39,7 @@ when "EssenceRichtext"
 else
   page.insert_html(
     :before,
-    "add_atom_for_element_#{@element.id}",
+    "add_content_for_element_#{@element.id}",
     :partial => "#{@content.essence_type.underscore}_editor",
     :locals => {
       :content => @content,

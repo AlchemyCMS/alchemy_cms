@@ -1,5 +1,5 @@
 <%- unless content.essence.image.nil? -%>
-	<%- image_size = content.essence.image_size.blank? ? options[:image_size] : content.essence.image_size -%>
+	<%- image_size = options[:image_size] -%>
 	
 	<%- img_tag = image_tag(
 		show_image_path(

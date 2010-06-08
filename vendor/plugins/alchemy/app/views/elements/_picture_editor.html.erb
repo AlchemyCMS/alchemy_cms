@@ -1,4 +1,4 @@
-<div class="picture_gallery_images" id="element_<%= element.id %>_atoms">
+<div class="picture_gallery_images" id="element_<%= element.id %>_contents">
 	<%- for picture_content in picture_contents do -%>
 		<%= render_content_editor(picture_content, {
 			:dragable => picture_contents.size > 1
@@ -6,7 +6,7 @@
 	<%- end -%>
 	<%- if options[:maximum_amount_of_images].blank? || picture_contents.length < options[:maximum_amount_of_images].to_i -%>
 		<%= render(
-			:partial => 'elements/add_atom',
+			:partial => 'elements/add_content',
 			:locals => {
 				:element => element,
 				:essence_type => "EssencePicture",

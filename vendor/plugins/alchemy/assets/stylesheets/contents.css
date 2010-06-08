@@ -126,7 +126,7 @@ div.file_name {
 	padding: 14px 8px;
 }
 
-div.content_file_tools {
+div.essence_file_tools {
 	height: 41px;
 	float: left;
 	padding-left: 2px;
@@ -134,7 +134,7 @@ div.content_file_tools {
 	padding-right: 2px;
 }
 
-div.content_file_tools a{
+div.essence_file_tools a{
 	text-decoration: none;
 	width: 19px;
 	display: block;
@@ -143,18 +143,18 @@ div.content_file_tools a{
 	background-repeat: no-repeat;
 }
 
-div.content_file_tools a:active {
+div.essence_file_tools a:active {
 	background-position: 0 1px;
 	text-decoration: none;
 	outline: none;
 }
 
-div.content_file_tools a.assign_file {
+div.essence_file_tools a.assign_file {
 	margin-top: 0;
 	background-image: url(../images/icons/swap_file.png);
 }
 
-div.content_file_tools a.edit_file {
+div.essence_file_tools a.edit_file {
 	background-image: url(../images/icons/edit.png);
 	margin-top: 2px;
 	margin-bottom: 2px;

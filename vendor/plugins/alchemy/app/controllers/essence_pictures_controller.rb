@@ -5,14 +5,14 @@ class EssencePicturesController < ApplicationController
   filter_access_to :all
   
   def edit
-    @content_picture = EssencePicture.find(params[:id])
+    @essence_picture = EssencePicture.find(params[:id])
     @options = params[:options]
     render :layout => false
   end
   
   def update
-    @content_picture = EssencePicture.find(params[:id])
-    @content_picture.update_attributes(params[:content_picture])
+    @essence_picture = EssencePicture.find(params[:id])
+    @essence_picture.update_attributes(params[:essence_picture])
     render :update do |page|
       page << "wa_overlay.close(); reloadPreview()"
     end
@@ -25,8 +25,8 @@ class EssencePicturesController < ApplicationController
     @content.essence.save
     @content.save
     render :update do |page|
-      dom_string = params[:swap] ? "picture" : "assign_atom_#{@content.element.id}"
-      page.replace "#{dom_string}_#{@content.id}", :partial => "contents/content_picture_editor", :locals => {:content => @content, :options => params[:options]}
+      dom_string = params[:swap] ? "picture" : "assign_content_#{@content.element.id}"
+      page.replace "#{dom_string}_#{@content.id}", :partial => "contents/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
       if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
         WaConfigure.sortable_atoms(page, @content.element)
       end
@@ -52,13 +52,13 @@ class EssencePicturesController < ApplicationController
     content = Content.find_by_id(params[:id])
     element = content.element
     element.contents.delete content
-    picture_atoms = element.contents.find_all_by_essence_type("EssencePicture")
+    picture_contents = element.contents.find_all_by_essence_type("EssencePicture")
     render :update do |page|
       page.replace(
-        "element_#{element.id}_atoms",
+        "element_#{element.id}_contents",
         :partial => "elements/picture_editor",
         :locals => {
-          :picture_atoms => picture_atoms,
+          :picture_contents => picture_contents,
           :element => element,
           :options => params[:options]
         }

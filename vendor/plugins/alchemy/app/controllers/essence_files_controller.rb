@@ -25,7 +25,7 @@ class EssenceFilesController < ApplicationController
     @content.essence.save
     @content.save
     render :update do |page|
-      page.replace "file_#{@content.id}", :partial => "contents/content_file_editor", :locals => {:content => @content, :options => params[:options]}
+      page.replace "file_#{@content.id}", :partial => "contents/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
       page << "reloadPreview();wa_overlay.close()"
     end
   end

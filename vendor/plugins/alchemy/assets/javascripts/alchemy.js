@@ -226,7 +226,7 @@ function waCreateLink(link_type, url, title, extern) {
 		// aka: we are linking an atom
 		var essence_type = tiny_ed.name.gsub('content_', '').split('_')[0];
 		switch (essence_type) {
-			case "picture": var atom_id = tiny_ed.name.gsub('content_picture_', '');
+			case "picture": var atom_id = tiny_ed.name.gsub('essence_picture_', '');
 			break;
 			case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
 			break;
@@ -280,7 +280,7 @@ function select_link_tab() {
         var selection = tiny_ed;
 				var essence_type = tiny_ed.name.gsub('content_', '').split('_')[0];
 				switch (essence_type) {
-					case "picture": var atom_id = tiny_ed.name.gsub('content_picture_', '');
+					case "picture": var atom_id = tiny_ed.name.gsub('essence_picture_', '');
 					break;
 					case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
 					break;

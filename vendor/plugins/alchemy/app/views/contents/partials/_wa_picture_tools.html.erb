@@ -3,7 +3,7 @@
 		"",
 		_("confirm_to_delete_image"),
 		url_for(
-			:controller => 'content_pictures',
+			:controller => 'essence_pictures',
 			:action => 'destroy',
 			:id => content,
 			:options => options
@@ -34,7 +34,7 @@
 	) %>
 </div>
 <div class="picture_tool_button">
-	<%= link_to_function '', "wa_link_window(this, 420)", :class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "content_picture_#{content.id}", :id => "edit_link_#{content.id}" %>
+	<%= link_to_function '', "wa_link_window(this, 420)", :class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "essence_picture_#{content.id}", :id => "edit_link_#{content.id}" %>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_function(
@@ -46,7 +46,7 @@
 </div>
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",
-		edit_content_picture_path(
+		edit_essence_picture_path(
 			:id => content.essence.id,
 	    	:options => options
 	    ),
