@@ -3,7 +3,7 @@
 	<%- permitted_to?(:new, :attachements) do -%>
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
-			<%= link_to_wa_window(
+			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon upload'),
 				new_attachement_path,
 				{

@@ -21,7 +21,7 @@
 	<%- end -%>
 	<%- if page.language_level < 3 -%>
 		<%- permitted_to?(:new, :pages) do -%>
-		<%= link_to_wa_window("", new_page_path(:parent_id => page.id), {
+		<%= link_to_overlay_window("", new_page_path(:parent_id => page.id), {
 				:title => _('create_page'),
 				:size => '275x90',
 				:overflow => true

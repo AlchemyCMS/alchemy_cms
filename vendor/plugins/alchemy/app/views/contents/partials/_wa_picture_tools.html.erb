@@ -15,7 +15,7 @@
 	) -%>
 </div>
 <div class="picture_tool_button">
-	<%= link_to_wa_window("",
+	<%= link_to_overlay_window("",
 		url_for(
 			:controller => 'images',
 			:action => 'archive_overlay',
@@ -45,7 +45,7 @@
 	) %>
 </div>
 <div class="picture_tool_button">
-	<%= link_to_wa_window("",
+	<%= link_to_overlay_window("",
 		edit_content_picture_path(
 			:id => content.essence.id,
 	    	:options => options

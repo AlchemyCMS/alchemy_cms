@@ -44,7 +44,7 @@
 		) -%>
 		<%- end -%>
 		<%- permitted_to?(:edit, :attachements) do -%>
-		<%= link_to_wa_window("",
+		<%= link_to_overlay_window("",
 			edit_attachement_path(attachement, :query => params[:query], :page => params[:page]),
 			{
 				:title => _('rename_file'),

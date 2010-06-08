@@ -1,7 +1,7 @@
 <div class="file" id="file_<%= content.id %>">
 	<div class="file_icon">
 	<%- if content.essence.file.nil? -%>
-		<%= link_to_wa_window("",
+		<%= link_to_overlay_window("",
 			archive_overlay_files_path(
 				:content_id => content.id,
 				:only => options[:file_assign_show_only],
@@ -25,7 +25,7 @@
 	</div>
 	<%- unless content.essence.file.nil? -%>
 	<div class="content_file_tools">
-		<%= link_to_wa_window("",
+		<%= link_to_overlay_window("",
 			url_for(
 				:controller => 'content_files',
 				:action => 'edit',
@@ -38,7 +38,7 @@
 			:class => 'edit_file',
 			:title => _('edit_file_properties')
 		) %>
-		<%= link_to_wa_window("",
+		<%= link_to_overlay_window("",
 			archive_overlay_files_path(
 				:content_id => content.id,
 				:only => options[:file_assign_show_only],

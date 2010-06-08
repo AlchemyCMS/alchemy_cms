@@ -15,7 +15,7 @@
 		) -%>
 		<%- end -%>
 		<%- permitted_to?(:edit, user) do -%>
-		<%= link_to_wa_window(
+		<%= link_to_overlay_window(
 			'',
 			edit_user_path(user),
 			{

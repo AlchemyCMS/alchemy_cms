@@ -3,7 +3,7 @@ var is_ie = (document.all) ? true : false;
 function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, overflow){
 	overflow == undefined ? overflow = false : overflow = overflow;
 	wa_overlay = new Window({
-		className: 'wa_window',
+		className: 'alchemy_window',
 		title: title,
 		width: size_x,
 		height: size_y,
@@ -31,7 +31,7 @@ function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, 
 				marginLeft: (size_x - 32) / 2 + 'px',
 				marginTop: (size_y - 32) / 2 + 'px'
 			});
-			$$('div.wa_window_content')[0].insert(spinner);
+			$$('div.alchemy_window_content')[0].insert(spinner);
 			wa_overlay.spinner = spinner;
 		},
 		onComplete: function () {
@@ -55,7 +55,7 @@ function image_zoom(url, title, width, height) {
 		window_height = document.viewport.getHeight() - 50;
 	}
 	image_window = new Window({
-		className: "wa_window",
+		className: "alchemy_window",
 		title: title,
 		width: window_width,
 		height: window_height,
@@ -77,7 +77,7 @@ function image_zoom(url, title, width, height) {
 
 function wa_link_window(selElem, width) {
     wa_overlay = new Window({
-        className: "wa_window",
+        className: "alchemy_window",
         title: 'Link setzen',
         width: width,
         height: '410',

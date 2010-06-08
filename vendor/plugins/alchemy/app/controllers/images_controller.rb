@@ -81,7 +81,7 @@ class ImagesController < ApplicationController
     @options = params[:options]
     if params[:remote] == 'true'
       render :update do |page|
-        page.replace_html 'wa_window_body', :partial => 'archive_overlay_images'        
+        page.replace_html 'alchemy_window_body', :partial => 'archive_overlay_images'        
       end
     else
       render :layout => false      

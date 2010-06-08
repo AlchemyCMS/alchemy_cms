@@ -1,8 +1,6 @@
-/* @override 
-	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css
-	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css
-	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
-*/
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css */
+
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css */
 
 .overlay_dialog {
 	background-color: #666666;
@@ -40,7 +38,7 @@
 
 .dialog {
 	display: block;
-	position: fixed;
+	position: absolute;
 	-webkit-box-shadow: #333 0px 4px 8px;
 	-moz-box-shadow: #333 0px 4px 8px;
 	-o-box-shadow: #333 0px 4px 8px;
@@ -75,7 +73,7 @@ textarea#atom_caption {
 	height: 61px;
 }
 
-.wa_window_content form.with_padding table td {
+.alchemy_window_content form.with_padding table td {
 	vertical-align: top;
 }
 
@@ -273,7 +271,7 @@ form.create_right {
 	clear: both;
 }
 
-.overlay_wa_window {
+.overlay_alchemy_window {
 	background-color: #f4f4f4;
 	filter: alpha(opacity=60);
 	-moz-opacity: 0.6;
@@ -282,24 +280,24 @@ form.create_right {
 	overflow: auto;
 }
 
-.wa_window_buttons {
+.alchemy_window_buttons {
 	display: none;
 }
 
-#wa_confirm_dialog .wa_window_buttons {
+#wa_confirm_dialog .alchemy_window_buttons {
 	display: block;
 	text-align: right;
 	margin-top: 8px;
 	padding-right: 8px;
 }
 
-#wa_confirm_dialog_content div.wa_window_message {
+#wa_confirm_dialog_content div.alchemy_window_message {
 	padding: 8px;
 }
 
 /* North-West corner */
 
-.wa_window_nw {
+.alchemy_window_nw {
 	background: white none repeat scroll 0%;
 	border-top: 1px solid #9c9d9c;
 	border-left: 1px solid #9c9d9c;
@@ -317,7 +315,7 @@ form.create_right {
 
 /* North border */
 
-.wa_window_n {
+.alchemy_window_n {
 	background: #fff repeat-x 0 2px;
 	margin-top: 2px;
 	margin-bottom: 2px;
@@ -328,7 +326,7 @@ form.create_right {
 
 /* North-East corner */
 
-.wa_window_ne {
+.alchemy_window_ne {
 	background: white;
 	border-top: 1px solid #9c9d9c;
 	border-right: 1px solid #9c9d9c;
@@ -341,7 +339,7 @@ form.create_right {
 
 /* West border */
 
-.wa_window_w {
+.alchemy_window_w {
 	background-color: white;
 	border-left-width: 1px;
 	border-left-color: #9c9d9c;
@@ -352,7 +350,7 @@ form.create_right {
 
 /* East border */
 
-.wa_window_e {
+.alchemy_window_e {
 	background-color: white;
 	border-right-width: 1px;
 	border-right-color: #9c9d9c;
@@ -363,7 +361,7 @@ form.create_right {
 
 /* South-West corner */
 
-.wa_window_sw {
+.alchemy_window_sw {
 	background: white;
 	border-left: 1px solid #9c9d9c;
 	border-bottom: 1px solid #9c9d9c;
@@ -374,7 +372,7 @@ form.create_right {
 
 /* South border */
 
-.wa_window_s {
+.alchemy_window_s {
 	background: white;
 	height: 4px;
 	border-bottom: 1px solid #9c9d9c;
@@ -383,7 +381,7 @@ form.create_right {
 
 /* South-East corner */
 
-.wa_window_se {
+.alchemy_window_se {
 	background: white;
 	border-right: 2px solid #9c9d9c;
 	border-bottom: 2px solid #9c9d9c;
@@ -395,7 +393,7 @@ form.create_right {
 
 /* Resize button */
 
-.wa_window_sizer {
+.alchemy_window_sizer {
 	width: 6px;
 	height: 6px;
 	background: transparent url(../images/gui/resize.gif) no-repeat -5px -7px;
@@ -407,7 +405,7 @@ form.create_right {
 
 /* Close button */
 
-.wa_window_close {
+.alchemy_window_close {
 	width: 16px;
 	height: 16px;
 	background: transparent url(../images/gui/close.png) no-repeat 0 0;
@@ -420,7 +418,7 @@ form.create_right {
 
 /* Title bar */
 
-.wa_window_title {
+.alchemy_window_title {
 	height: 20px;
 	font-size: 12px;
 	text-align: left;
@@ -469,7 +467,7 @@ input#page_name {
 	width: 231px;
 }
 
-.wa_window_content {
+.alchemy_window_content {
 	background: #ededed;
 	overflow: auto;
 }
@@ -549,7 +547,7 @@ div.wa_assign_file_file_icon {
 	margin-top: 1px;
 }
 
-.wa_window_content a img {
+.alchemy_window_content a img {
 	border-style: none;
 }
 
@@ -806,7 +804,7 @@ div.add_upload_form_button {
 	width: 195px;
 }
 
-.wa_window_content table.window_form {
+.alchemy_window_content table.window_form {
 	width: 100%;
 }
 
@@ -828,7 +826,7 @@ table.window_form td.input {
 	padding-right: 4px;
 }
 
-.wa_window_content p {
+.alchemy_window_content p {
 	min-height: 21px;
 }
 
@@ -840,41 +838,41 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-.wa_window_content input.auto_resize {
+.alchemy_window_content input.auto_resize {
 	width: 100%;
 }
 
-.wa_window_content select.auto_resize {
+.alchemy_window_content select.auto_resize {
 	width: 100%;
 }
 
-.wa_window_content td.medium {
+.alchemy_window_content td.medium {
 	width: 76px;
 }
 
-.wa_window_content .medium_long {
+.alchemy_window_content .medium_long {
 	width: 129px;
 }
 
-.wa_window_content .long {
+.alchemy_window_content .long {
 	width: 231px;
 	margin: 0;
 }
 
-.wa_window_content .very_long {
+.alchemy_window_content .very_long {
 	width: 300px;
 	margin: 0;
 }
 
-.wa_window_content select.very_long {
+.alchemy_window_content select.very_long {
 	width: 306px;
 }
 
-.wa_window_content .short {
+.alchemy_window_content .short {
 	width: 40px;
 }
 
-.wa_window_content p a.button {
+.alchemy_window_content p a.button {
 	float: right;
 }
 

@@ -42,7 +42,7 @@
 			</div>
 			<%- unless @page.layoutpage? -%>
 			<div class="button_with_label">
-				<%= link_to_wa_window(
+				<%= link_to_overlay_window(
 					content_tag('span', '', :class => 'icon settings'),
 					edit_page_path(@page),
 					{
@@ -88,7 +88,7 @@
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
 			tool_window = new Window({
-				className: 'wa_window',
+				className: 'alchemy_window',
 				title: 'huhu',
 				width: 420,
 				height: 400,
@@ -100,7 +100,7 @@
 				resizable: true,
 				draggable: true,
 				zIndex: 300000,
-				closable: false,
+				closable: true,
 				destroyOnClose: true,
 				recenterAuto: false,
 				effectOptions: {
