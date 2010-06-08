@@ -7,5 +7,5 @@ WaConfigure.sortable_elements(page)
 WaNotice.show_via_ajax(page, _("element_saved"))
 page << "reloadPreview()"
 page << "tool_window.updateHeight();"
-page << "preview_frame.updateSize();"
+page << "main_frame.updateSize();"
 page.call 'TinymceHammer.init' if @has_rtf_atoms

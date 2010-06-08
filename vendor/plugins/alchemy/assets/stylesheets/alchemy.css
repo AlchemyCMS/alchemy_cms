@@ -73,6 +73,16 @@ div#overlay_text_box img {
 	background-color: white;
 	width: 100%;
 	height: 100%;
+	position: relative;
+	top: 84px;
+}
+
+div#top_menu {
+	position: fixed;
+	top: 0;
+	left: 84px;
+	width: 100%;
+	z-index: 5;
 }
 
 #main_menu {
@@ -85,25 +95,9 @@ div#overlay_text_box img {
 	width: 84px;
 }
 
-div#top_menu {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	line-height: 36px;
-	height: 36px;
-	z-index: 1;
-}
-
-#top_menu_background {
-	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x;
-	width: 100%;
-	height: 36px;
-}
-
 #main_menu_content {
 	float: left;
-	padding: 34px 0 0 4px;
+	padding: 8px 0 0 4px;
 }
 
 #main_menu_background {
@@ -117,8 +111,8 @@ div#top_menu {
 #main_content {
 	background-color: #ededed;
 	position: absolute;
-	top: 44px;
-	left: 92px;
+	top: 0;
+	left: 84px;
 	height: 100%;
 	width: 100%;
 }
@@ -499,10 +493,10 @@ a.hide_element_selector {
 }
 
 #sub_navigation {
-	height: 23px;
-	line-height: 20px;
-	background-color: #ededed;
-	padding-left: 4px;
+	height: 24px;
+	line-height: 24px;
+	padding-left: 8px;
+	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x;
 }
 
 #sub_navigation img {
@@ -511,15 +505,15 @@ a.hide_element_selector {
 
 #sub_navigation a {
 	float: left;
-	padding: 2px 8px;
-	height: 19px;
+	padding: 0px 8px;
+	height: 24px;
 	text-shadow: #fff 0 1px 2px;
 }
 
 #sub_navigation span.page_status_and_name {
 	float: left;
-	padding: 4px 8px 2px;
-	height: 17px;
+	padding: 0 8px;
+	height: 24px;
 	background-color: #e3e3e3;
 	text-shadow: #fff 0 1px 2px;
 	-webkit-user-select: none;
@@ -562,8 +556,8 @@ a.hide_element_selector {
 
 #sub_navigation a.active {
 	float: left;
-	padding: 2px 8px;
-	height: 19px;
+	padding: 0px 8px;
+	height: 24px;
 	background-color: #e3e3e3;
 	text-shadow: #fff 0 1px 2px;
 	-webkit-user-select: none;
@@ -837,7 +831,7 @@ ul.list li .sitemap_sitename:hover{
 }
 
 #sub_navigation span.page_status_and_name span.site_status {
-	margin: 0 4px 0 0;
+	margin: 2px 4px 0 0;
 }
 
 #sitemap img.link_arrow {
@@ -1102,7 +1096,7 @@ div#user_list_legend {
 
 #toolbar {
 	padding: 12px 8px;
-	border-bottom: 1px solid white;
+	/*border-bottom: 1px solid white;*/
 	height: 36px;
 	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 42px;
 }

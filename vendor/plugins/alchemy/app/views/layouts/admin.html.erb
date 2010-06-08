@@ -21,22 +21,6 @@
 			</div>
 		</div>
 		<%#= overlay end %>
-		<div id="top_menu">
-			<%- if current_user -%>
-			<div id="userinfo">
-				<%= link_to(
-					"&raquo; #{current_user.login} " + _("logout"),
-					logout_url,
-					:title => _('logout'),
-					:onclick => 'pleaseWaitOverlay()'
-				) %>
-			</div>
-			<%- end -%>
-			<div id="back_to_site">
-				<%= link_to "&raquo; " + _("back to site"), root_url %>
-			</div>
-			<div id="top_menu_background"></div>
-		</div>
 		<div id="main_menu">
 			<div id="main_menu_content">
 				<div id="main_navi">
@@ -53,7 +37,7 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 		// <![CDATA[
-			new AlchemyFrameSet('main_content');
+			var main_frame = new AlchemyFrameSet('main_content');
 		// ]]>
 		</script>
 	</body>

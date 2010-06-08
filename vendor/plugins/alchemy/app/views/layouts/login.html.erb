@@ -21,12 +21,6 @@
 			</div>
 		</div>
 		<%#= overlay end %>
-		<div id="main_menu">
-			<div id="back_to_site">
-				<%= link_to "&raquo; " + _("back to site"), root_url %>
-			</div>
-			<div id="main_menu_background"></div>
-		</div>
 		<div id="main_content">
 			<div class="flash info" style="<%= flash[:info].blank? ? "display: none" : "display: block" %>">
 				<%= flash[:info] %>
@@ -35,5 +29,10 @@
 			<%= yield %>
 		</div>
 		<%= yield(:javascripts) %>
+		<script type="text/javascript" charset="utf-8">
+		// <![CDATA[
+			var main_frame = new AlchemyFrameSet('main_content');
+		// ]]>
+		</script>
 	</body>
 </html>

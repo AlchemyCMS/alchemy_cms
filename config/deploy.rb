@@ -1,20 +1,20 @@
 # set the applicationname here
-set :application, "customer_name"
+set :application, "alchemy"
 
 # ssh user settings. please change to customers
-set :user, "user"
-set :password, "secret"
+set :user, "web6"
+set :password, "3KH7zUjU"
 
 # please set domain names
-role :app, "78.47.48.250"
-role :web, "78.47.48.250"
-role :db,  "78.47.48.250", :primary => true
+role :app, "vondeyen.com"
+role :web, "vondeyen.com"
+role :db,  "vondeyen.com", :primary => true
 
 # set the public webserver path
 set :deploy_to, "/var/www/#{user}/html/alchemy"
 
 # set the apps repository url
-set :repository_url, "http://svn.vondeyen.com/customers/#{application}"
+set :repository_url, "http://svn.vondeyen.com/#{application}/trunk"
 
 ##### DO NOT CHANGE BELOW THIS LINE #########
 

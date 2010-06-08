@@ -18,4 +18,4 @@ WaNotice.show_via_ajax(page, _("successfully_added_element"))
 page << "TinymceHammer.init()"
 page << "reloadPreview()"
 page << "tool_window.updateHeight();"
-page << "preview_frame.updateSize();"
+page << "main_frame.updateSize();"
