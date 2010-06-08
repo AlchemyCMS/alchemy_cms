@@ -626,7 +626,7 @@ module ApplicationHelper
   end
   
   # This helper renders the link for a protoypejs-window overlay. We use this for our fancy modal overlay windows in the Alchemy cockpit.
-  def link_to_wa_window(content, url, options={}, html_options={})
+  def link_to_overlay_window(content, url, options={}, html_options={})
     default_options = {
       :size => "100x100",
       :resizable => false,
@@ -861,7 +861,7 @@ module ApplicationHelper
     ajax = remote_function(:url => url, :success => "confirm.close()", :method => :delete)
     link_to_function(
       link_string,
-      "confirm = Dialog.confirm( '#{message}', {width:300, height: 80, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'wa_confirm_dialog', className: 'wa_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
+      "confirm = Dialog.confirm( '#{message}', {width:300, height: 80, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'wa_confirm_dialog', className: 'alchemy_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
       html_options
     )
   end
@@ -1134,7 +1134,7 @@ module ApplicationHelper
   end
   
   def render_new_content_link(element)
-    link_to_wa_window(
+    link_to_overlay_window(
       _('add new content'),
       new_element_content_path(element),
       {
