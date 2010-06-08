@@ -17,9 +17,8 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: alchemy_dev_prod
-  username: root
-  password: 
+  database: usr_web6_6
+  username: web6
+  password: m0fwts5m
   host: localhost
-  socket: /tmp/mysql.sock
-  #socket: /var/run/mysqld/mysqld.sock
+  socket: /var/run/mysqld/mysqld.sock
