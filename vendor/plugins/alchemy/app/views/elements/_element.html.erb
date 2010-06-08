@@ -12,6 +12,10 @@
 					$('element_#{element.id}_save').hide();
 					$('element_#{element.id}_spinner').show();
 				),
+				:complete => %(
+					$('element_#{element.id}_save').show();
+					$('element_#{element.id}_spinner').hide();
+				),
 				:html => {
 					:id => "element_#{element.id}_form"
 				}

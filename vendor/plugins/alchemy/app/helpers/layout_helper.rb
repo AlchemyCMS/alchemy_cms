@@ -30,7 +30,7 @@ module LayoutHelper
     if asset_type == "image"
       images_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
     elsif asset_type == "file"
-      files_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
+      attachements_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
     end
   end
   

@@ -29,6 +29,10 @@
 				$('element_#{element.id}_folder').hide();
 				$('element_#{element.id}_folder_spinner').show();
 			),
+			:complete => %(
+				$('element_#{element.id}_folder').show();
+				$('element_#{element.id}_folder_spinner').hide();
+			),
 			:html => {
 				:class => (element.folded? ? 'show_options' : 'hide_options'),
 				:title => (element.folded? ? _('show_element_content') : _('hide_element_content')),

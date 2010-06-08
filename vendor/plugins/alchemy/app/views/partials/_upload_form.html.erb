@@ -47,7 +47,7 @@
 
 <div id="divStatus" class="with_padding" style="display: none"></div>
 <div id="divFileProgressContainer">
-	<div class="fieldset flash" id="fsUploadProgress"></div>
+	<div id="fsUploadProgress"></div>
 </div>
 
 <%- session_key = ActionController::Base.session_options[:key] -%>
@@ -72,7 +72,7 @@
 				progressTarget : "fsUploadProgress",
 				cancelButtonId : "btnCancel"
 			},
-			debug: true,
+			debug: false,
 			button_image_url: "/plugin_assets/alchemy/images/swfupload/browse_button.png",
 			button_width: "120",
 			button_height: "21",

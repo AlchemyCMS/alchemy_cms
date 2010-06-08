@@ -99,7 +99,7 @@ class AttachementsController < ApplicationController
       log_error($!)
       flash[:error] = _('file_rename_error')
     end
-    redirect_to files_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page])
+    redirect_to attachements_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page])
   end
   
   def destroy
@@ -108,7 +108,7 @@ class AttachementsController < ApplicationController
     @file.destroy
     render :update do |page|
       flash[:notice] = ( _("File: '%{name}' deleted successfully") % {:name => name} )
-      page.redirect_to files_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
+      page.redirect_to attachements_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
     end
   end
   

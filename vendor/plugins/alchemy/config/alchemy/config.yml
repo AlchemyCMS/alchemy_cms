@@ -78,7 +78,7 @@ wa_plugins:
 
   - name: dashboard
     navigation:
-      name: ''
+      name: 'home'
       controller: admin
       action: index
       image: /plugin_assets/alchemy/images/icons/home.png

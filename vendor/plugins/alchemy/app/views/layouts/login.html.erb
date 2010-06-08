@@ -21,22 +21,18 @@
 			</div>
 		</div>
 		<%#= overlay end %>
-		<div id="top_frame">
-			<div id="top_menu">
-				<div id="back_to_site">
-					<%= link_to "&raquo; " + _("back to site"), root_url %>
-				</div>
-				<div id="top_menu_background"></div>
+		<div id="main_menu">
+			<div id="back_to_site">
+				<%= link_to "&raquo; " + _("back to site"), root_url %>
 			</div>
+			<div id="main_menu_background"></div>
 		</div>
-		<div id="left_frame" style="width: 100%;">
-			<div id="main_content">
-				<div class="flash info" style="<%= flash[:info].blank? ? "display: none" : "display: block" %>">
-					<%= flash[:info] %>
-				</div>
-				<%= admin_subnavigation %>
-				<%= yield %>
+		<div id="main_content">
+			<div class="flash info" style="<%= flash[:info].blank? ? "display: none" : "display: block" %>">
+				<%= flash[:info] %>
 			</div>
+			<%= admin_subnavigation %>
+			<%= yield %>
 		</div>
 		<%= yield(:javascripts) %>
 	</body>

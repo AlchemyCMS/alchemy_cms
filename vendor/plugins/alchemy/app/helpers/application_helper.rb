@@ -1042,7 +1042,7 @@ module ApplicationHelper
 
   def admin_main_navigation
     navigation_entries = wa_plugins.collect{ |p| p["navigation"] }
-    render :partial => 'layouts/partials/wa_mainnavigation_entry', :collection => navigation_entries.flatten
+    render :partial => 'layouts/partials/mainnavigation_entry', :collection => navigation_entries.flatten
   end
 
   #:nodoc:

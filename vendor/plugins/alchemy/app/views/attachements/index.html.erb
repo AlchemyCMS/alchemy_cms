@@ -1,11 +1,11 @@
 <%- wa_assets_set(:archive) -%>
 <div id="toolbar">
-	<%- permitted_to?(:new, :files) do -%>
+	<%- permitted_to?(:new, :attachements) do -%>
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
 			<%= link_to_wa_window(
 				content_tag('span', '', :class => 'icon upload'),
-				new_file_path,
+				new_attachement_path,
 				{
 					:title => _('upload_file'),
 					:size => '355x320'
