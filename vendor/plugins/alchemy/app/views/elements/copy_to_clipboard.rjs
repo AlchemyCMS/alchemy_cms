@@ -1,6 +1,6 @@
 if session[:clipboard][:method] == "move"
   page.remove "dragable_#{@element.id}"
-  WaConfigure.sortable_elements(page)
+  Configuration.sortable_elements(page)
   WaNotice.show_via_ajax(page, _("element_%{name}_moved_to_clipboard") % {:name => @element.display_name})
 else
   WaNotice.show_via_ajax(page, _("element_%{name}_copied_to_clipboard") % {:name => @element.display_name})

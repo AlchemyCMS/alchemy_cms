@@ -162,6 +162,7 @@ div.element_editor {
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	background-color: #e3e3e3;
+	margin-bottom: 8px;
 }
 
 div.element_editor form {
@@ -263,7 +264,6 @@ form.add_gallery_to_index select {
 /* @group add moclecule */
 
 .wa_add_element {
-	background: white;
 	margin: 0;
 	padding: 8px;
 	position: relative;
@@ -279,9 +279,9 @@ form.add_gallery_to_index select {
 }
 
 div#element_area {
-	padding: 2px;
+	padding: 8px 8px 0;
 	margin: 0;
-	background-color: #ffffff;
+	overflow: hidden;
 }
 
 .wa_add_element span {

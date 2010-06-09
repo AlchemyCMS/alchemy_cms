@@ -41,7 +41,7 @@ Tinymce::Hammer.init = [
   [:popup_css, "/plugin_assets/alchemy/stylesheets/alchemy_tinymce_dialog.css"],
   [:content_css, "/plugin_assets/alchemy/stylesheets/alchemy_tinymce_content.css"],
   [:dialog_type, "modal"],
-  [:width, "378"],
+  [:width, "100%"],
   [:height, '185'],
   [:theme_advanced_toolbar_align, 'left'],
   [:theme_advanced_toolbar_location, 'top'],

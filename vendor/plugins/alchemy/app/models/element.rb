@@ -63,15 +63,21 @@ class Element < ActiveRecord::Base
     self.contents.find_all_by_essence_type(essence_type)
   end
   
-  # creates a new element for page as described in /config/alchemy/elements.yml from element_name
-  def self.create_from_scratch(page_id, element_name)
-    element_scratch = Element.descriptions.select{ |m| m["name"] == element_name }.first
-    raise "Could not find element: #{element_name}" if element_scratch.nil?
+  # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
+  def self.new_from_scratch(attributes)
+    element_scratch = Element.descriptions.select{ |m| m["name"] == attributes['name'] }.first
+    raise "Could not find element: #{attributes['name']}" if element_scratch.nil?
     element_scratch.delete("contents")
     element_scratch.delete("available_contents")
     element = Element.new(
-      element_scratch.merge({:page_id => page_id})
+      element_scratch.merge({:page_id => attributes['page_id']})
     )
+    element
+  end
+  
+  # Inits a new element for page as described in /config/alchemy/elements.yml from element_name and saves it
+  def self.create_from_scratch(attributes)
+    element = Element.new_from_scratch(attributes)
     element.save!
     element
   end

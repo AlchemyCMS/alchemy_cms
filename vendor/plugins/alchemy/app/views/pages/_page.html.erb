@@ -18,7 +18,7 @@
 			<%- permitted_to?(:edit, page) do -%>
 			<%= link_to_overlay_window(
 				"",
-				edit_page_path(page),
+				configure_page_path(page),
 				{
 					:title => _('edit_page_properties'),
 					:size => '380x490'
@@ -53,7 +53,7 @@
 	<%- if !page.locked_for(current_user) -%>
 		<%= link_to(
 			page.name,
-			edit_content_page_path(page),
+			edit_page_path(page),
 			:title => _("edit_page"),
 			:class => "sitemap_pagename_link"
 		) -%>	

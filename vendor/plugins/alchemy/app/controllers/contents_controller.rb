@@ -40,7 +40,7 @@ class ContentsController < ApplicationController
     atom = Content.find(params[:id])
     atom.atom.update_attributes(params[:atom])
     render :update do |page|
-      page << "wa_overlay.close();reloadPreview()"
+      page << "alchemy_window.close();reloadPreview()"
     end
   end
   

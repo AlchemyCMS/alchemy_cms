@@ -19,7 +19,7 @@ module ApplicationHelper
   include FastGettext::Translation
 
   def configuration(name)
-    return WaConfigure.parameter(name)
+    return Configuration.parameter(name)
   end
 
   # Did not know of the truncate helepr form rails at this time.
@@ -635,7 +635,7 @@ module ApplicationHelper
     options = default_options.merge(options)
     link_to_function(
       content,
-      "wa_overlay_window(
+      "openOverlayWindow(
         \'#{url}\',
         \'#{options[:title]}\',
         \'#{options[:size].split('x')[0]}\',
@@ -668,7 +668,7 @@ module ApplicationHelper
         },
         :complete => %(
           fold_page(#{site.id});
-          wa_overlay.updateHeight();
+          alchemy_window.updateHeight();
           if (page_select_scrollbar) {
             page_select_scrollbar.recalculateLayout();
           }
@@ -1089,14 +1089,14 @@ module ApplicationHelper
     end
   end
   
-  #generates the url for the preview frame.
-  #target_url must contain target_controller and target_action or be blank
-  def generate_preview_url target_url
-    if target_url.blank?
-      preview_url = url_for(:controller => "/wa_preview_content", :action => "show_content", :for => params)
-    else
-      preview_url = url_for(:controller => ('/' + target_url["target_controller"]), :action => target_url["target_action"], :id => params[:id])
-    end
+  # Generates the url for the preview frame.
+  # target_url must contain target_controller and target_action.
+  def generate_preview_url(target_url)
+    preview_url = url_for(
+      :controller => ('/' + target_url["target_controller"]),
+      :action => target_url["target_action"],
+      :id => params[:id]
+    )
   end
   
   # Returns a string for the id attribute of a html element for the given element

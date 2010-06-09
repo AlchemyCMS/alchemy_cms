@@ -39,7 +39,7 @@
   display_name: News
   contents:
   - name: date
-    type: Essenceate
+    type: EssenceDate
   - name: headline
     type: EssenceText
   - name: body

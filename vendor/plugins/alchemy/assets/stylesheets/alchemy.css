@@ -28,6 +28,17 @@ a img {
 	border: none;
 }
 
+#corner {
+	z-index: 3;
+	width: 84px;
+	height: 10px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: url(../images/gui/shading_inv.png) repeat-x;
+	font-size: 0;
+}
+
 /* @group overlay */
 
 div#overlay {
@@ -1934,6 +1945,10 @@ span.icon.elements_window {
 	background: url(../images/icons/elements_window.png) 0 0;
 }
 
+span.icon.new_element {
+	background: url(../images/icons/new_element.png) 0 0;
+}
+
 a.icon.file_download {
 	background: url(../images/icons/file-icons.png) -240px 0;
 }
@@ -2134,6 +2149,21 @@ div#toolbar_buttons div.button_with_label {
 	float: left;
 	text-align: center;
 	margin-right: 8px;
+}
+
+div#toolbar_buttons div.button_with_label.disabled {
+	position: relative;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+div#toolbar_buttons div.button_with_label .disabledButton {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
 }
 
 #per_page_links {

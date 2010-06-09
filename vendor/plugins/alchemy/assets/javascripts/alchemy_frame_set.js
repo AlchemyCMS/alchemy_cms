@@ -12,17 +12,21 @@ var AlchemyFrameSet = Class.create({
 		this.element = $(element);
 		this.preview_frame = $('preview_frame');
 		this.addObservers();
-		this.updateSize();
+		this.resize();
 	},
 	
 	addObservers: (function () {
 		Event.observe(window, 'resize', function () {
-			this.updateSize();
-			if (this.preview_frame) {
-				this.updateFrameSize();
-			}
+			this.resize();
 		}.bind(this));
 	}),
+	
+	resize: function() {
+		this.updateSize();
+		if (this.preview_frame) {
+			this.updateFrameSize();
+		}
+	},
 	
 	updateSize: function () {
 		var view_height = document.viewport.getDimensions().height;

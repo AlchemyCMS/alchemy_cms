@@ -14,7 +14,7 @@ class EssencePicturesController < ApplicationController
     @essence_picture = EssencePicture.find(params[:id])
     @essence_picture.update_attributes(params[:essence_picture])
     render :update do |page|
-      page << "wa_overlay.close(); reloadPreview()"
+      page << "alchemy_window.close(); reloadPreview()"
     end
   end
   
@@ -28,7 +28,7 @@ class EssencePicturesController < ApplicationController
       dom_string = params[:swap] ? "picture" : "assign_content_#{@content.element.id}"
       page.replace "#{dom_string}_#{@content.id}", :partial => "contents/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
       if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-        WaConfigure.sortable_atoms(page, @content.element)
+        Configuration.sortable_atoms(page, @content.element)
       end
       page << "reloadPreview()"
     end

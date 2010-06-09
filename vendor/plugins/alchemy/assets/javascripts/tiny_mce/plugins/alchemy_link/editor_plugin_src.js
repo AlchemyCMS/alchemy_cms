@@ -9,7 +9,7 @@
 				'class' : 'wa_link',
 				onclick : function() {
 					ed.focus();
-					wa_link_window(ed, (ed.settings.wa_link_overlay_width || 408));
+					openLinkWindow(ed, (ed.settings.wa_link_overlay_width || 408));
 				}
 			});
 			ed.addButton('wa_unlink', {

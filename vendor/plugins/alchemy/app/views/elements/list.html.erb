@@ -1,6 +1,5 @@
-<%= render :partial => 'add_element', :locals => {:element_before => nil, :open_element_selector => false} %>
 <div id="element_area">
-	<%= render :partial => @page.elements, :locals => {:open_element_selector => false} %>
+	<%= render :partial => @page.elements %>
 </div>
 
 <%= sortable_element(
@@ -11,7 +10,13 @@
 	},
 	:scroll => "window",
 	:tag => 'div',
-	:only => 'dragable',
+	:only => 'element_editor',
 	:dropOnEmpty => false,
 	:handle => 'element_handle'
 ) %>
+
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+	TinymceHammer.init();
+// ]]>
+</script>

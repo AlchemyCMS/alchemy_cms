@@ -12,7 +12,7 @@
 	<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display:none" />
 	<p style="margin-top: 8px" id="choose_alternative_uploader">
 		<small>
-			<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="$('choose_alternative_uploader').hide();$('alternativeUpload').show();$('SWFUpload_0').hide();wa_overlay.updateHeight();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+			<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="$('choose_alternative_uploader').hide();$('alternativeUpload').show();$('SWFUpload_0').hide();alchemy_window.updateHeight();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
 		</small>
 	</p>
 	<div id="swfUploadFlashError" style="display: none">
@@ -36,7 +36,7 @@
 		<p>
 			<small>
 				<a href="#" 
-				onclick="$('choose_alternative_uploader').show();$('alternativeUpload').hide();$('SWFUpload_0').show();wa_overlay.updateHeight();" 
+				onclick="$('choose_alternative_uploader').show();$('alternativeUpload').hide();$('SWFUpload_0').show();alchemy_window.updateHeight();" 
 				style="text-decoration: underline">
 					<%= _('Switch to Flash® Uploader') %>
 				</a>
@@ -84,7 +84,7 @@
 			swfupload_load_failed_handler: function () {
 				$('swfUploadFlashError').show();
 				$('alternativeUpload').show();
-				wa_overlay.updateHeight();
+				alchemy_window.updateHeight();
 			},
 			file_queued_handler : fileQueued,
 			file_queue_error_handler : fileQueueError,

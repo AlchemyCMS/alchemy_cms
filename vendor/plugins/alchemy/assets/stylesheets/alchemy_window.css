@@ -1,6 +1,6 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css */
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
 
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/wa_overlay_window.css */
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
 
 .overlay_dialog {
 	background-color: #666666;
@@ -563,7 +563,7 @@ input#link_to_text {
 	width: 229px;
 }
 
-.wa_overlay_tab_body {
+.alchemy_window_tab_body {
 	background-color: #ededed;
 	padding: 8px;
 	margin: 0;

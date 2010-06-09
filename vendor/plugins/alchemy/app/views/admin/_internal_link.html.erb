@@ -1,4 +1,4 @@
-<div id="sitemap_for_links" class="wa_overlay_tab_body">
+<div id="sitemap_for_links" class="alchemy_window_tab_body">
 	<h2>
 		<%= _("internal_link_headline") %>
 	</h2>
@@ -39,7 +39,7 @@
     <%= hidden_field_tag( "page_anchor" ) %>
     <%= link_to_function(
       _("apply"),
-      "waCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); wa_overlay.close()",
+      "waCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); alchemy_window.close()",
       :class => 'button'
     ) %>
 	</p>

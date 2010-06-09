@@ -1,4 +1,4 @@
-@languages ||= WaConfigure.parameter(:languages).collect{ |l| l[:language_code] }
+@languages ||= Configuration.parameter(:languages).collect{ |l| l[:language_code] }
 @lang_regex ||= Regexp.new(@languages.join('|'))
 
 ActionController::Routing::Routes.draw do |map|
@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
       :publish => :post,
       :unlock => :post,
-      :edit_content => :get
+      :configure => :get
     },
     :has_many => [:elements],
     :shallow => true

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-09 00:39+0200\n"
+"POT-Creation-Date: 2010-06-09 13:27+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,10 @@ msgstr ""
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
+#: app/views/pages/edit.html.erb:72
+msgid "Choose Element"
+msgstr ""
+
 #: app/views/partials/_upload_form.html.erb:19
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr ""
@@ -45,9 +49,9 @@ msgstr ""
 
 #: locale/model_attributes.rb:14
 msgid "Element"
-msgstr "Molecule"
+msgstr ""
 
-#: app/views/pages/edit_content.html.erb:80
+#: app/views/pages/edit.html.erb:96
 msgid "Elements"
 msgstr ""
 
@@ -137,9 +141,12 @@ msgstr "Imagewidth"
 msgid "Image|Name"
 msgstr "Name"
 
-#: app/views/pages/edit_content.html.erb:22
-#: app/views/pages/edit_content.html.erb:24
-msgid "Open Elements panel"
+#: app/views/pages/edit.html.erb:77 app/views/pages/edit.html.erb:81
+msgid "New Element"
+msgstr ""
+
+#: app/views/pages/edit.html.erb:63 app/views/pages/edit.html.erb:65
+msgid "Show Elements"
 msgstr ""
 
 #: locale/model_attributes.rb:19
@@ -382,7 +389,7 @@ msgstr "A page of type"
 msgid "above"
 msgstr "above"
 
-#: app/views/elements/_add_element_form.html.erb:28
+#: app/views/elements/new.html.erb:21
 msgid "add"
 msgstr "add"
 
@@ -395,7 +402,7 @@ msgstr ""
 msgid "add_image_to_element"
 msgstr "Add an image."
 
-#: app/controllers/elements_controller.rb:73
+#: app/controllers/elements_controller.rb:50
 msgid "adding_element_not_successful"
 msgstr "Could not add element."
 
@@ -614,8 +621,7 @@ msgid "edit_page"
 msgstr "Edit this page."
 
 #: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit_content.html.erb:58
-#: app/views/pages/edit_content.html.erb:62
+#: app/views/pages/edit.html.erb:49 app/views/pages/edit.html.erb:53
 msgid "edit_page_properties"
 msgstr "Edit the page properties."
 
@@ -631,7 +637,7 @@ msgstr "Copied element %{name} to clipboard"
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Moved element %{name} to clipboard."
 
-#: app/controllers/elements_controller.rb:175
+#: app/controllers/elements_controller.rb:152
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr "Error while moving element %{name} to clipboard."
 
@@ -643,15 +649,15 @@ msgstr "Deleted element."
 msgid "element_editor_not_found"
 msgstr "Error within this Molecule"
 
-#: app/controllers/elements_controller.rb:138
+#: app/controllers/elements_controller.rb:115
 msgid "element_not_saved"
 msgstr "Molecule could not be saved."
 
-#: app/controllers/elements_controller.rb:156
+#: app/controllers/elements_controller.rb:133
 msgid "element_not_successfully_deleted"
 msgstr "Molecule could not be deleted."
 
-#: app/views/elements/_add_element_form.html.erb:21
+#: app/views/elements/new.html.erb:14
 msgid "element_of_type"
 msgstr "Molecule"
 
@@ -663,12 +669,12 @@ msgstr "Saved element."
 msgid "enter_external_link"
 msgstr "Please enter the URL you want to link with"
 
-#: app/views/pages/edit_content.html.erb:45
+#: app/views/pages/edit.html.erb:36
 msgid "explain_publishing"
 msgstr ""
 "Remove the cached version of this page from the server and create a new one."
 
-#: app/views/pages/edit_content.html.erb:33
+#: app/views/pages/edit.html.erb:24
 msgid "explain_unlocking"
 msgstr "Leave page and unlock it for other users."
 
@@ -829,15 +835,15 @@ msgstr "Mandatory fields"
 msgid "medium_thumbnails"
 msgstr "Medium thumbnails"
 
-#: app/views/pages/edit.html.erb:47
+#: app/views/pages/configure.html.erb:47
 msgid "meta_data"
 msgstr "Meta-Data"
 
-#: app/views/pages/edit.html.erb:57
+#: app/views/pages/configure.html.erb:57
 msgid "meta_description"
 msgstr "Meta-Description"
 
-#: app/views/pages/edit.html.erb:61
+#: app/views/pages/configure.html.erb:61
 msgid "meta_keywords"
 msgstr "Meta-Keywords"
 
@@ -894,11 +900,11 @@ msgstr "Move this page one position up."
 msgid "name"
 msgstr "Name"
 
-#: app/views/pages/edit.html.erb:32
+#: app/views/pages/configure.html.erb:32
 msgid "names"
 msgstr "Names"
 
-#: app/views/pages/edit.html.erb:35
+#: app/views/pages/configure.html.erb:35
 msgid "navigation_name"
 msgstr "Navigationname"
 
@@ -919,7 +925,7 @@ msgstr "You do not have any files in your archive."
 msgid "no_images_in_archive"
 msgstr "You don't have any images in your archive."
 
-#: app/views/elements/_add_element_form.html.erb:2
+#: app/views/elements/new.html.erb:3
 msgid "no_more_elements_to_add"
 msgstr "No more elements avaible."
 
@@ -949,11 +955,11 @@ msgstr "Choose %{name}"
 msgid "page_locked"
 msgstr "This page is locked by another user."
 
-#: app/views/pages/edit_content.html.erb:64
+#: app/views/pages/edit.html.erb:55
 msgid "page_properties"
 msgstr "page properties"
 
-#: app/views/pages/edit.html.erb:22
+#: app/views/pages/configure.html.erb:22
 msgid "page_public"
 msgstr "Publish page"
 
@@ -961,11 +967,11 @@ msgstr "Publish page"
 msgid "page_published"
 msgstr "Published page."
 
-#: app/views/pages/_page.html.erb:49 app/views/pages/edit.html.erb:24
+#: app/views/pages/_page.html.erb:49 app/views/pages/configure.html.erb:24
 msgid "page_restricted"
 msgstr "Page restricted"
 
-#: app/views/pages/edit.html.erb:17
+#: app/views/pages/configure.html.erb:17
 msgid "page_status"
 msgstr "Status"
 
@@ -1009,19 +1015,20 @@ msgstr ""
 "Page is visible in navigation but unpublic. Page is currently locked for "
 "editing."
 
-#: app/views/pages/edit.html.erb:43
+#: app/views/pages/configure.html.erb:43
 msgid "page_title"
 msgstr "Title"
 
-#: app/views/pages/_page_status.html.erb:5 app/views/pages/edit.html.erb:10
+#: app/views/pages/_page_status.html.erb:5
+#: app/views/pages/configure.html.erb:10
 msgid "page_type"
 msgstr "Type"
 
-#: app/views/pages/edit.html.erb:20
+#: app/views/pages/configure.html.erb:20
 msgid "page_visible_in_navigation"
 msgstr "Page visible in the navigation"
 
-#: app/views/pages/edit.html.erb:64
+#: app/views/pages/configure.html.erb:64
 msgid "pages.update.comma_seperated"
 msgstr "Separated by comma"
 
@@ -1059,10 +1066,6 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/controllers/elements_controller.rb:39
-msgid "please_choose_a_element_name"
-msgstr "Please choose a element"
-
 #: app/helpers/application_helper.rb:864
 msgid "please_confirm"
 msgstr "Please confirm"
@@ -1071,7 +1074,7 @@ msgstr "Please confirm"
 msgid "please_wait"
 msgstr "Please wait"
 
-#: app/views/pages/edit_content.html.erb:48
+#: app/views/pages/edit.html.erb:39
 msgid "publish_page"
 msgstr "Publish state"
 
@@ -1097,11 +1100,11 @@ msgstr "Rename this image"
 msgid "right"
 msgstr "right"
 
-#: app/views/pages/edit.html.erb:53
+#: app/views/pages/configure.html.erb:53
 msgid "robot_follow"
 msgstr "robot may follow links."
 
-#: app/views/pages/edit.html.erb:52
+#: app/views/pages/configure.html.erb:52
 msgid "robot_index"
 msgstr "allow robot to index."
 
@@ -1114,7 +1117,7 @@ msgstr "allow robot to index."
 #: app/views/essence_files/edit.html.erb:94
 #: app/views/essence_pictures/edit.html.erb:43
 #: app/views/images/_image.html.erb:45 app/views/images/_image.html.erb:46
-#: app/views/pages/edit.html.erb:68 app/views/users/_form.html.erb:43
+#: app/views/pages/configure.html.erb:68 app/views/users/_form.html.erb:43
 msgid "save"
 msgstr "save"
 
@@ -1132,11 +1135,11 @@ msgstr "saving"
 msgid "search"
 msgstr "search"
 
-#: app/views/pages/edit.html.erb:50
+#: app/views/pages/configure.html.erb:50
 msgid "search_engines"
 msgstr "Searchengines"
 
-#: app/views/elements/_add_element_form.html.erb:25
+#: app/views/elements/new.html.erb:18
 msgid "select_element"
 msgstr "Select element"
 
@@ -1158,7 +1161,7 @@ msgstr "Show EQ"
 msgid "show_navigation"
 msgstr "Show in navigation"
 
-#: app/views/pages/edit.html.erb:27
+#: app/views/pages/configure.html.erb:27
 msgid "show_page_in_sitemap"
 msgstr "Show page in sitemap."
 
@@ -1170,7 +1173,7 @@ msgstr "Small thumbnails"
 msgid "subject"
 msgstr ""
 
-#: app/views/elements/create.rjs:17
+#: app/views/elements/create.rjs:8
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
@@ -1178,7 +1181,7 @@ msgstr "Succesfully added new element."
 msgid "successfully_saved_atom_position"
 msgstr "Contentposition saved"
 
-#: app/controllers/elements_controller.rb:186
+#: app/controllers/elements_controller.rb:163
 msgid "successfully_saved_element_position"
 msgstr "Moleculeposition updated succesfully."
 
@@ -1214,7 +1217,7 @@ msgstr "unknown"
 msgid "unlink"
 msgstr "Remove link from this image."
 
-#: app/views/pages/edit_content.html.erb:36
+#: app/views/pages/edit.html.erb:27
 msgid "unlock_page"
 msgstr "Leave page"
 
@@ -1241,7 +1244,7 @@ msgstr "Upload file(s)."
 msgid "upload_image"
 msgstr "Upload image(s)."
 
-#: app/views/pages/edit.html.erb:39
+#: app/views/pages/configure.html.erb:39
 msgid "url_name"
 msgstr "URL-Name"
 

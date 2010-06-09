@@ -55,11 +55,11 @@ privileges do
   end
   
   privilege :manage_pages, :pages do
-    includes :manage, :switch_language, :create_language, :layoutpages, :move, :edit_content
+    includes :manage, :switch_language, :create_language, :layoutpages, :move, :configure
   end
   
   privilege :manage_elements, :elements do
-    includes :manage, :copy_to_clipboard, :order, :toggle_fold
+    includes :manage, :copy_to_clipboard, :order, :fold
   end
   
   privilege :manage_atoms, :contents do
@@ -75,7 +75,7 @@ privileges do
   end
   
   privilege :edit_content, :pages do
-    includes :edit_content, :unlock, :preview, :publish
+    includes :edit, :unlock, :preview, :publish
   end
   
   privilege :login_to, :admin do

@@ -1,4 +1,4 @@
-class WaConfigure < ActionController::Base
+class Configuration < ActionController::Base
   
   def self.parameter(name)
     if name.class == String
@@ -32,7 +32,7 @@ class WaConfigure < ActionController::Base
       },
       :scroll => "window",
       :tag => 'div',
-      :only => 'dragable',
+      :only => 'element_editor',
       :dropOnEmpty => false,
       :handle => 'element_handle'
     )

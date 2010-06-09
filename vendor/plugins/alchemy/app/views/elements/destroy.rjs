@@ -2,7 +2,7 @@ page.remove("dragable_#{@element.id}")
 if @page.elements.empty?
   page << remote_function(:url => {:controller => "elements", :action => "new", :page_id => @page.id, :open => true})
 else
-  WaConfigure.sortable_elements(page)
+  Configuration.sortable_elements(page)
 end
 WaNotice.show_via_ajax(page, _("element_deleted_successful"))
 page << "reloadPreview()"

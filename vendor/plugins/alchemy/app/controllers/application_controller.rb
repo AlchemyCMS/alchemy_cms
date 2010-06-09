@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
       render :update do |page|
         page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
         page.show "errors"
-        page << "wa_overlay.updateHeight()"
+        page << "alchemy_window.updateHeight()"
       end
     end
   end
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
   
   def configuration(name)
-    return WaConfigure.parameter(name)
+    return Configuration.parameter(name)
   end
   
   def set_language(lang = nil)
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     unless request.xhr?
       session[:wa_redirect_url] = request.url
     end
-    inactivity_time = WaConfigure.parameter(:auto_logout_time)
+    inactivity_time = Configuration.parameter(:auto_logout_time)
     if !session['auto_logout_timer'].nil? && session['auto_logout_timer'] < inactivity_time.minutes.ago
       if request.xhr?
         render :update do |page|

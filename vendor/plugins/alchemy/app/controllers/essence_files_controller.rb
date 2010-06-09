@@ -14,7 +14,7 @@ class EssenceFilesController < ApplicationController
     @content = Content.find(params[:id])
     @content.essence.update_attributes(params[:atom])
     render :update do |page|
-      page << "wa_overlay.close(); reloadPreview()"
+      page << "alchemy_window.close(); reloadPreview()"
     end
   end
   
@@ -26,7 +26,7 @@ class EssenceFilesController < ApplicationController
     @content.save
     render :update do |page|
       page.replace "file_#{@content.id}", :partial => "contents/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
-      page << "reloadPreview();wa_overlay.close()"
+      page << "reloadPreview();alchemy_window.close()"
     end
   end
   

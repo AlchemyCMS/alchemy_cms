@@ -10,7 +10,7 @@ when "EssencePicture"
     }
   )
   if @dragable
-    WaConfigure.sortable_atoms(page, @element)
+    Configuration.sortable_atoms(page, @element)
   end
   page << "reloadPreview()"
 when "EssenceText"
@@ -23,7 +23,7 @@ when "EssenceText"
       :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
     }
   )
-  page << "reloadPreview(); if(typeof(wa_overlay)!='undefined') { wa_overlay.close(); }"
+  page << "reloadPreview(); if(typeof(alchemy_window)!='undefined') { alchemy_window.close(); }"
 when "EssenceRichtext"
   page.insert_html(
     :before,
@@ -35,7 +35,7 @@ when "EssenceRichtext"
     }
   )
   page.call 'TinymceHammer.init'
-  page << "wa_overlay.close()"
+  page << "alchemy_window.close()"
 else
   page.insert_html(
     :before,
@@ -46,6 +46,6 @@ else
       :options => (@options.nil? ? {} : @options)
     }
   )
-  page << "wa_overlay.close()"
+  page << "alchemy_window.close()"
 end
 WaNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @content.name})

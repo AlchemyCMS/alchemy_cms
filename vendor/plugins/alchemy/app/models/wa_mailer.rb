@@ -11,7 +11,7 @@ class WaMailer < ActionMailer::Base
   
   def new_user_mail(user, request)
     recipients(user.email)
-    from(WaConfigure.parameter(:mailer)[:mail_from])
+    from(Configuration.parameter(:mailer)[:mail_from])
     subject( I18n.t("wa_mailer.new_user_mail.subject") )
     sent_on(Time.now)
     body({:user => user, :url => "#{request.protocol}#{request.host}/admin/login"})
@@ -19,7 +19,7 @@ class WaMailer < ActionMailer::Base
   
   def new_alchemy_user_mail(user, request)
     recipients(user.email)
-    from(WaConfigure.parameter(:mailer)[:mail_from])
+    from(Configuration.parameter(:mailer)[:mail_from])
     subject( _("Your Alchemy Login") )
     sent_on(Time.now)
     body({:user => user, :url => "#{request.protocol}#{request.host}/admin"})

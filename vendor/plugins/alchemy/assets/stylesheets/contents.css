@@ -215,7 +215,7 @@ div.content_text_editor.text_short {
 
 input.long,
 input.text_long {
-	width: 372px;
+	width: 100%;
 }
 
 select.long {

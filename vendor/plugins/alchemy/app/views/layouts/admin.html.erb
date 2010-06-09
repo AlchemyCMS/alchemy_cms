@@ -21,6 +21,7 @@
 			</div>
 		</div>
 		<%#= overlay end %>
+		<div id="corner"></div>
 		<div id="main_menu">
 			<div id="main_menu_content">
 				<div id="main_navi">
@@ -37,7 +38,9 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 		// <![CDATA[
-			var main_frame = new AlchemyFrameSet('main_content');
+			document.observe('dom:loaded', function () {
+				main_frame = new AlchemyFrameSet('main_content');
+			});
 		// ]]>
 		</script>
 	</body>

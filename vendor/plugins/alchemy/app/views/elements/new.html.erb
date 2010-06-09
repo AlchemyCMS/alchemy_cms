@@ -1,0 +1,27 @@
+<div class="wa_add_element">
+<%- if @elements.blank? -%>
+	<p><%= _('no_more_elements_to_add') %></p>
+<%- else -%>
+	<% remote_form_for(
+		@element,
+		:complete => %(
+			
+			reloadPreview();
+		),
+		:html => {:class => "add_element_content"}
+	) do |form| %>
+		<%= form.hidden_field('page_id') %>
+		<span><%= _("element_of_type") %>:</span>
+		<%= form.wa_select(
+			'name',
+			elements_for_select(@elements),
+			:prompt => _('select_element')
+		) -%>
+		<%= form.submit(
+			_('add'),
+			:class => 'button',
+			:name => nil
+		) %>
+	<% end %>
+<%- end -%>
+</div>

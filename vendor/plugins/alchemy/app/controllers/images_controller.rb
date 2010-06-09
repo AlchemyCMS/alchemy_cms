@@ -62,7 +62,7 @@ class ImagesController < ApplicationController
     @image = Image.new
     render :update do |page|
       page.insert_html :bottom, 'input_fields', :partial => 'upload_form', :locals => {:delete_button => true}
-      page << "wa_overlay.updateHeight()"
+      page << "alchemy_window.updateHeight()"
     end
   end
 

@@ -1,31 +1,28 @@
 <%- has_rtf_atoms = element.contents.detect { |atom| atom.essence_type == 'EssenceRichtext' } -%>
 
-<div class="dragable" id="<%= "dragable_#{element.id}" %>">
-	<div class="element_editor" id="element_<%= element.id %>">
-		<%= render :partial => "element_head", :locals => {:element => element} %>
-		<%- if !element.folded? -%>
-			<% form_remote_tag(
-				:url => element_path(element),
-				:method => :put,
-				:before => (has_rtf_atoms ? "saveRtfContents(#{element.id})" : nil),
-				:loading => %(
-					$('element_#{element.id}_save').hide();
-					$('element_#{element.id}_spinner').show();
-				),
-				:complete => %(
-					$('element_#{element.id}_save').show();
-					$('element_#{element.id}_spinner').hide();
-				),
-				:html => {
-					:id => "element_#{element.id}_form"
-				}
-			) do %>
-				<div id="element_<%= element.id %>_content" class="element_content">
-					<%= render_editor(element) %>
-				</div>
-				<%= render :partial => 'save_and_delete_buttons', :locals => {:element => element} %>
-			<% end %>
-		<%- end -%>
-	</div>
-	<%= render :partial => 'add_element', :locals => {:element_before => element, :open_element_selector => false} %>
+<div class="element_editor" id="element_<%= element.id %>">
+	<%= render :partial => "element_head", :locals => {:element => element} %>
+	<%- if !element.folded? -%>
+		<% form_remote_tag(
+			:url => element_path(element),
+			:method => :put,
+			:before => (has_rtf_atoms ? "saveRtfContents(#{element.id})" : nil),
+			:loading => %(
+				$('element_#{element.id}_save').hide();
+				$('element_#{element.id}_spinner').show();
+			),
+			:complete => %(
+				$('element_#{element.id}_save').show();
+				$('element_#{element.id}_spinner').hide();
+			),
+			:html => {
+				:id => "element_#{element.id}_form"
+			}
+		) do %>
+			<div id="element_<%= element.id %>_content" class="element_content">
+				<%= render_editor(element) %>
+			</div>
+			<%= render :partial => 'save_and_delete_buttons', :locals => {:element => element} %>
+		<% end %>
+	<%- end -%>
 </div>

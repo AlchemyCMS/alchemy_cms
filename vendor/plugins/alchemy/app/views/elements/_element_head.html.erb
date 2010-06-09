@@ -21,11 +21,11 @@
 			"",
 			:url => {
 				:controller => "elements",
-				:action => "toggle_fold",
+				:action => "fold",
 				:id => element.id,
 				:page_id => @page.id
 			},
-			:loading => %(
+			:before => %(
 				$('element_#{element.id}_folder').hide();
 				$('element_#{element.id}_folder_spinner').show();
 			),

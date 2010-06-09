@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   
   after_destroy :unlock_pages
   
-  ROLES = WaConfigure.parameter(:user_roles)#%w[registered author editor admin]
+  ROLES = Configuration.parameter(:user_roles)#%w[registered author editor admin]
   
   def role_symbols
     [role.to_sym]

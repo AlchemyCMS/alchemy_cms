@@ -86,7 +86,7 @@ wa_plugins:
   - name: pages
     preview_frame:
       controller: pages
-      action: edit_content
+      action: edit
       target_controller: pages
       target_action: preview
     navigation:

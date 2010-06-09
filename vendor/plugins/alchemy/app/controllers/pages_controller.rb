@@ -5,9 +5,9 @@ class PagesController < ApplicationController
   before_filter :set_language_from_client, :only => [:show, :sitemap]
   before_filter :set_translation, :except => [:show, :preview]
   before_filter :get_page_from_urlname, :only => [:show, :sitemap]
-  before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :edit, :update, :move, :fold, :destroy]
+  before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :move, :fold, :destroy]
   
-  filter_access_to [:show, :unlock, :publish, :preview, :edit, :edit_content, :update, :move, :destroy], :attribute_check => true
+  filter_access_to [:show, :unlock, :publish, :preview, :configure, :edit, :update, :move, :destroy], :attribute_check => true
   filter_access_to [:index, :layoutpages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
   
   caches_action(
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     :layout => false,
     :cache_path => Proc.new { |c| c.multi_language? ? "#{c.session[:language]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
-      if WaConfigure.parameter(:cache_pages)
+      if Configuration.parameter(:cache_pages)
         page = Page.find_by_urlname_and_language_and_public(
           c.params[:urlname],
           Alchemy::Controller.current_language,
@@ -31,7 +31,7 @@ class PagesController < ApplicationController
       end
     }
   )
-  cache_sweeper :pages_sweeper, :if => Proc.new { |c| WaConfigure.parameter(:cache_pages) }
+  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Configuration.parameter(:cache_pages) }
   
   def index
     @page_root = Page.find(
@@ -92,7 +92,7 @@ class PagesController < ApplicationController
     # fetching page via before filter
   end
   
-  def edit
+  def configure
     # fetching page via before filter
     render :layout => false
   end
@@ -160,7 +160,7 @@ class PagesController < ApplicationController
     @page.save
   end
   
-  def edit_content
+  def edit
     @page = Page.find(
       params[:id],
       :include => {
@@ -181,7 +181,7 @@ class PagesController < ApplicationController
   
   def create_language
     created_languages = Page.language_roots.collect(&:language)
-    all_languages = WaConfigure.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
+    all_languages = Configuration.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
     @languages = all_languages.select{ |lang| created_languages.include?(lang[1]) }
     lang = configuration(:languages).detect { |l| l[:language_code] == params[:language_code] }
     @language = [
@@ -228,7 +228,7 @@ class PagesController < ApplicationController
     if Page.find_by_language_root_for(params[:language], :select => 'id').nil?
       title = _('create_new_language')
       render :update do |page|
-        page << %(wa_overlay_window(
+        page << %(openOverlayWindow(
           '#{url_for(
             :controller => :pages,
             :action => :create_language,

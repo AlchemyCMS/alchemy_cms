@@ -27,44 +27,21 @@ class ElementsController < ApplicationController
   
   def new
     @page = Page.find_by_id(params[:page_id])
-    @element_before = Element.find_by_id(params[:element_before_id], :select => :id)
+    @element = @page.elements.build
     @elements = Element.all_for_layout(@page, @page.page_layout)
   end
   
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
   def create
     begin
-      if params[:element][:name].blank?
-        render :update do |page|
-          WaNotice.show_via_ajax(page, _("please_choose_a_element_name"))
-        end
+      @element = Element.new_from_scratch(params[:element])
+      @page = @element.page
+      if @element.save
+        flash[:notice] = 'Element toll'
+        edit_page_path(@page)
       else
-        @page = Page.find(params[:page_id])
-        unless params[:element_before_id].blank?
-          @after_element = Element.find(params[:element_before_id])
-        end
-        if params[:element][:name] == "paste_from_clipboard"
-          element = Element.get_from_clipboard(session[:clipboard])
-          @new_element = Element.paste_from_clipboard(
-            @page.id,
-            element,
-            session[:clipboard][:method],
-            (@after_element.blank? ? 0 : (@after_element.position + 1))
-          )
-          if @new_element && session[:clipboard][:method] == 'move'
-            session[:clipboard] = nil
-          end
-        else
-          @new_element = Element.create_from_scratch(
-            @page.id,
-            params[:element][:name]
-          )
-          unless @after_element.blank?
-            @new_element.insert_at(@after_element.position + 1)
-          else
-            @new_element.insert_at 1
-            @page.save
-          end
+        render :update do |page|
+          page.replace(:errors, 'fehler')
         end
       end
     rescue
@@ -188,7 +165,7 @@ class ElementsController < ApplicationController
     end
   end
   
-  def toggle_fold
+  def fold
     @page = Page.find(params[:page_id], :select => :id)
     @element = Element.find(params[:id])
     @element.folded = !@element.folded

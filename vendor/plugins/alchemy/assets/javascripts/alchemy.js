@@ -1,15 +1,27 @@
 var is_ie = (document.all) ? true : false;
 
+function toggleButton (id, action) {
+	var button = $(id);
+	if (action == 'disable') {
+		button.addClassName('disabled');
+		var div = new Element('div', {'class' : 'disabledButton'});
+		button.insert({top: div});
+	} else if (action == 'enable') {
+		button.removeClassName('disabled');
+		button.down('div.disabledButton').remove();
+	};
+}
+
 function openElementsWindow (page_id, title) {
-	$('ElementsWindowButton').hide();
+	toggleButton('ElementsWindowButton', 'disable');
 	tool_window = new Window({
 		className: 'alchemy_window',
 		title: title,
-		width: 420,
-		height: 400,
-		minWidth: 420,
-		minHeight: 200,
-		maxHeight: document.viewport.getDimensions().height - 100,
+		width: 424,
+		height: document.viewport.getDimensions().height - 180,
+		minWidth: 424,
+		minHeight: 300,
+		maxHeight: document.viewport.getDimensions().height - 180,
 		maximizable: false,
 		minimizable: true,
 		resizable: true,
@@ -22,16 +34,16 @@ function openElementsWindow (page_id, title) {
 			duration: 0.2
 		},
 		onClose: function () {
-			$('ElementsWindowButton').show();
+			toggleButton('ElementsWindowButton', 'enable');
 		}
 	});
 	tool_window.setAjaxContent('/elements/list?page_id=' + page_id, {method: 'get'});
-	tool_window.showCenter(false, 50, document.viewport.getDimensions().width - 450);
+	tool_window.showCenter(false, 104, document.viewport.getDimensions().width - 450);
 }
 
-function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, overflow){
+function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, overflow){
 	overflow == undefined ? overflow = false : overflow = overflow;
-	wa_overlay = new Window({
+	alchemy_window = new Window({
 		className: 'alchemy_window',
 		title: title,
 		width: size_x,
@@ -50,8 +62,8 @@ function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, 
 			duration: 0.2
 		}
 	});
-	wa_overlay.setZIndex(10);
-	wa_overlay.setAjaxContent(action_url, {
+	alchemy_window.setZIndex(10);
+	alchemy_window.setAjaxContent(action_url, {
 		method: 'get',
 		onLoading: function () {
 			var spinner = new Image();
@@ -61,17 +73,17 @@ function wa_overlay_window(action_url, title, size_x, size_y, resizable, modal, 
 				marginTop: (size_y - 32) / 2 + 'px'
 			});
 			$$('div.alchemy_window_content')[0].insert(spinner);
-			wa_overlay.spinner = spinner;
+			alchemy_window.spinner = spinner;
 		},
 		onComplete: function () {
-			wa_overlay.spinner.remove();
+			alchemy_window.spinner.remove();
 		}
 	});
 	if (overflow == 'true') {
-		wa_overlay.getContent().setStyle({overflow: 'visible'});
-		wa_overlay.getContent().up().setStyle({overflow: 'visible'});
+		alchemy_window.getContent().setStyle({overflow: 'visible'});
+		alchemy_window.getContent().up().setStyle({overflow: 'visible'});
 	};
-	wa_overlay.showCenter(modal == 'true' ? 'modal' : null);
+	alchemy_window.showCenter(modal == 'true' ? 'modal' : null);
 }
 
 function image_zoom(url, title, width, height) {
@@ -104,8 +116,8 @@ function image_zoom(url, title, width, height) {
 	image_window.showCenter();
 }
 
-function wa_link_window(selElem, width) {
-    wa_overlay = new Window({
+function openLinkWindow(selElem, width) {
+    link_window = new Window({
         className: "alchemy_window",
         title: 'Link setzen',
         width: width,
@@ -124,10 +136,10 @@ function wa_link_window(selElem, width) {
         }
     });
     // IE 7 Syntax Error: Bezeichner erwartet.
-    wa_overlay.tiny_ed = selElem;
+    link_window.tiny_ed = selElem;
     //
-    wa_overlay.setAjaxContent('/alchemy/link_to_page', {method: 'get'});
-    wa_overlay.showCenter('modal');
+    link_window.setAjaxContent('/alchemy/link_to_page', {method: 'get'});
+    link_window.showCenter('modal');
 }
 
 function OverlayForMolecules(show) {
@@ -192,8 +204,8 @@ function mass_set_selected(select, selector, hiddenElementParentCount) {
 }
 
 function hide_overlay_tabs () {
-	$$('.wa_overlay_tab_body').invoke('hide');
-	$$('.wa_overlay_tab').invoke('removeClassName', 'active');
+	$$('.alchemy_window_tab_body').invoke('hide');
+	$$('.alchemy_window_tab').invoke('removeClassName', 'active');
 }
 
 function show_overlay_tab (id, tab) {
@@ -242,7 +254,7 @@ function waUnLink (ed) {
 }
 
 function waCreateLink(link_type, url, title, extern) { 
-	var tiny_ed = wa_overlay.tiny_ed;
+	var tiny_ed = alchemy_window.tiny_ed;
 	if (tiny_ed.selection) {
 			// aka we are linking text inside of TinyMCE 
 			tiny_ed.execCommand('mceInsertLink', false, {
@@ -269,7 +281,7 @@ function waCreateLink(link_type, url, title, extern) {
 
 // creates a link to a javascript function
 function waCreateLinkToFunction(link_type, func, title) {  
-  var tiny_ed = wa_overlay.tiny_ed;
+  var tiny_ed = alchemy_window.tiny_ed;
   if (tiny_ed.selection) {
     if( tiny_ed.selection.getNode().nodeName == "A" ) {
       // updating link
@@ -303,7 +315,7 @@ function waCreateLinkToFunction(link_type, func, title) {
 // Füllt ausserdem die Felder aus (title, href, etc.).
 // Klassisches "javascript-mit-der-groben-kelle".
 function select_link_tab() {
-    var tiny_ed = wa_overlay.tiny_ed;
+    var tiny_ed = alchemy_window.tiny_ed;
     if (tiny_ed.selection == undefined) {
         var tmp_link = document.createElement("a");
         var selection = tiny_ed;
