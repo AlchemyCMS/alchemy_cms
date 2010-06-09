@@ -530,9 +530,7 @@ a.hide_element_selector {
 }
 
 #sub_navigation span.page_status_and_name {
-	float: left;
 	padding: 0 8px;
-	height: 24px;
 	background-color: #e3e3e3;
 	text-shadow: #fff 0 1px 2px;
 	-webkit-user-select: none;
@@ -540,12 +538,23 @@ a.hide_element_selector {
 	-o-user-select: none;
 	user-select: none;
 	cursor: default;
+	line-height: 20px;
+	float: left;
 }
 
 #sub_navigation span.page_status_and_name img {
 	float: none;
 	position: relative;
-	top: 1px;
+	bottom: 1px;
+	margin-right: 3px;
+}
+
+#sub_navigation span.page_status_and_name span.page_name {
+	display: inline-block;
+	position: relative;
+	bottom: 3px;
+	margin-right: 16px;
+	margin-left: 4px;
 }
 
 #dashboard div.dashboard_tip {
@@ -821,13 +830,53 @@ ul.list .sitemap_sitename {
 div.page_infos {
 	float: right;
 	padding: 2px;
-	width: 16px;
+	width: 66px;
 	margin: 4px;
 	background-color: white;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	height: 17px;
+}
+
+.page_status {
+	width: 16px;
+	height: 16px;
+	background-repeat: no-repeat;
+	float: left;
+	margin: 1px 2px 1px 4px;
+}
+
+#sub_navigation span.page_status_and_name span.page_status {
+	float: none;
+	display: inline-block;
+	position: relative;
+	top: 2px;
+	margin-left: 2px;
+}
+
+span.page_status.restricted {
+	background: url(../images/icons/lock.png) 0 0;
+}
+
+span.page_status.not_restricted {
+	background: url(../images/icons/lock.png) -16px 0;
+}
+
+span.page_status.visible {
+	background: url(../images/icons/page_visible.png) 0 0;
+}
+
+span.page_status.not_visible {
+	background: url(../images/icons/page_visible.png) -16px 0;
+}
+
+span.page_status.public {
+	background: url(../images/icons/page_public.png) 0 0;
+}
+
+span.page_status.not_public {
+	background: url(../images/icons/page_public.png) 16px 0;
 }
 
 ul#sitemap li .sitemap_sitename:hover,
@@ -841,15 +890,24 @@ ul.list li .sitemap_sitename:hover{
 
 .site_status {
 	float: left;
-	width: 17px;
-	height: 18px;
-	margin: 5px 3px 5px 1px;
-	background-repeat: no-repeat;
-	background-image: url('../images/icons/page_status.png');
+	width: 16px;
+	height: 16px;
+	background: url('../images/icons/page.png') no-repeat 0 0;
+	margin-right: 3px;
+	margin-top: 6px;
+	margin-left: 1px;
+}
+
+.site_status.locked {
+	background-position: -16px 0;
 }
 
 #sub_navigation span.page_status_and_name span.site_status {
-	margin: 2px 4px 0 0;
+	float: none;
+	display: inline-block;
+	margin-right: 4px;
+	margin-left: 0;
+	margin-bottom: 0;
 }
 
 #sitemap img.link_arrow {
@@ -861,10 +919,6 @@ ul#sitemap li img {
 	border-width: 0;
 	border-style: none;
 	float: left;
-}
-
-ul#sitemap li img.page_restricted {
-	float: right;
 }
 
 .sitemap_sitestatus {
@@ -944,9 +998,8 @@ ul#sitemap li img.page_restricted {
 	float: left;
 	width: 15px;
 	height: 27px;
-	background-image: url(../images/gui/sitemap_lines.png);
-	background-repeat: no-repeat;
 	margin: 0 2px 1px 4px;
+	background: url(../images/gui/sitemap_lines.png) no-repeat;
 }
 
 a.folder_link {
@@ -963,30 +1016,15 @@ a.folder_link {
 }
 
 .sitemap_sitetools .icon_spacer {
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	margin-left: 4px;
 	float: left;
+	margin-right: 3px;
 }
 
 .sitemap_sitetools a {
-	margin: 0 0 0 4px;
-	padding: 0;
-	border-style: none;
-	width: 19px;
-	height: 19px;
-	text-decoration: none;
-	float: left;
-	background-repeat: no-repeat;
-	background-position: 2px 1px;
-}
 
-ul#sitemap a.add_page {
-	background-image: url(../images/icons/site_add.gif);
-}
-
-ul#sitemap a.delete_page {
-	background-image: url(../images/icons/site_delete.gif);
 }
 
 /* @end */
@@ -1032,14 +1070,6 @@ span.arrow_for_button {
 
 page_names #page_meta_description {
 	
-}
-
-a.edit_page_names_button {
-	display: block;
-	width: 18px;
-	height: 20px;
-	background: url(../images/icons/gear.png) no-repeat 0 0;
-	float: left;
 }
 
 /* @end */
@@ -1178,14 +1208,14 @@ div#toolbar_buttons span.file_upload {
 
 button.icon_button {
 	background: #eaeaea url(../images/gui/button_shading.png) repeat-x 0 0;
-	border: 1px solid #9c9d9c;
+	border: 1px solid #bdbebd;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	margin-bottom: 4px;
 	cursor: pointer;
 	padding: 2px;
-	height: 21px;
+	height: 22px;
 	line-height: 19px;
 	font-size: 0;
 	width: 22px;
@@ -1199,11 +1229,11 @@ button.icon_button img {
 
 a.icon_button {
 	float: left;
-	width: 19px;
-	height: 19px;
+	width: 20px;
+	height: 20px;
 	background: #eaeaea url(../images/gui/button_shading.png) repeat-x 0 0;
 	margin-right: 4px;
-	border: 1px solid #9c9d9c;
+	border: 1px solid #bdbebd;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -1212,6 +1242,16 @@ a.icon_button {
 	user-select: none;
 	overflow: hidden;
 	position: relative;
+}
+
+div.sitemap_right_tools a.icon_button {
+	margin-top: -1px;
+	margin-right: 5px;
+}
+
+div.sitemap_right_tools .sitemap_sitetools a.icon_button {
+	margin-right: 2px;
+	margin-top: -1px;
 }
 
 a.icon_button.small {
@@ -1245,7 +1285,7 @@ a.icon_button img {
 a.icon_button span.icon {
 	position: absolute;
 	top: 2px;
-	left: 3px;
+	left: 2px;
 	background-repeat: no-repeat;
 	width: 16px;
 	height: 16px;
@@ -1386,7 +1426,7 @@ ul.list li.legend {
 }
 
 #sitemap li.legend span.right span.page_infos {
-	margin-right: 24px;
+	margin-right: 48px;
 	display: inline-block;
 	width: 40px;
 	text-align: center;
@@ -1893,7 +1933,7 @@ a.icon.user_edit.female {
 }
 
 span.icon.settings {
-	background: url(../images/icons/gear.png) -1px 0;
+	background: url(../images/icons/gear.png) 0 0;
 }
 
 span.icon.upload {
@@ -1968,8 +2008,20 @@ a.icon.file_edit {
 	background: url(../images/icons/file-icons.png) -32px 0;
 }
 
+span.icon.add_page {
+	background: url(../images/icons/page.png) -48px 0;
+}
+
+span.icon.delete_page {
+	background: url(../images/icons/page.png) -32px 0;
+}
+
 a.icon.user_delete {
 	background: url(../images/icons/user-icons.png) -16px 0;
+}
+
+span.icon.configure_page {
+	background: url(../images/icons/gear.png) 0 0;
 }
 
 a.icon.user_delete.female {
@@ -2081,11 +2133,6 @@ span.spinner_wait_text {
 	float: right;
 }
 
-div.sitemap_right_tools a.edit_page_names_button {
-	margin-left: 2px;
-	margin-right: 8px;
-}
-
 div.element_head span.ajax_folder span.error_icon {
 	float: left;
 	width: 14px;
@@ -2156,6 +2203,7 @@ div#toolbar_buttons div.button_with_label {
 	float: left;
 	text-align: center;
 	margin-right: 8px;
+	margin-left: 8px;
 }
 
 div#toolbar_buttons div.button_with_label.disabled {
@@ -2184,7 +2232,6 @@ div#toolbar_buttons div.button_with_label a.icon_button {
 	margin-left: auto;
 	margin-bottom: 4px;
 	display: inline-block;
-	padding-right: 2px;
 	position: relative;
 }
 

@@ -7,8 +7,10 @@
 <div id="top_menu">
 	<div id="sub_navigation">
 		<span class="page_status_and_name">
+			<%#= render :partial => 'page_icon', :locals => {:page => @page} %>
+			<span class="page_name"><%= @page.name %></span>
+			<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@layoutpage %>
 			<%= render :partial => 'page_status', :locals => {:page => @page} %>
-			<%= @page.name %>&nbsp;<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@layoutpage %>
 		</span>
 	</div>
 	<div id="toolbar">

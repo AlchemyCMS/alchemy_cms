@@ -168,7 +168,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  # Returns the status code. Used by humanized_status and the page status icon inside the sitemap rendered by WaAdmin.index.
+  # Returns the status code. Used by humanized_status and the page status icon inside the sitemap rendered by Pages.index.
   def status
     if self.locked
       if self.public? && self.visible?
