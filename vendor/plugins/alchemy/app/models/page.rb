@@ -114,8 +114,11 @@ class Page < ActiveRecord::Base
   # Returns true if the Page is locked for user. So the user cannot edit this page.
   def locked_for(user)
     raise "User is nil" if user.nil?
-    return false if !self.locked?
-    locked_by != user.id
+    if self.locked? && locked_by != user.id
+      return true
+    else
+      return false
+    end
   end
   
   def locker
