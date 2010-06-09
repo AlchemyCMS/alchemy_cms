@@ -746,9 +746,7 @@ a.sitemap_pagename_link {
 	color: black;
 	text-decoration: none;
 	white-space: nowrap;
-	padding: 3px 4px;
 	display: block;
-	height: 14px;
 }
 
 a.sitemap_pagename_link:hover {
@@ -810,8 +808,8 @@ ul.list .sitemap_sitename {
 	margin-left: 0;
 	margin-top: 4px;
 	margin-bottom: 4px;
-	padding: 0;
-	line-height: 14px;
+	padding: 0 0 0 4px;
+	line-height: 21px;
 	overflow: hidden;
 }
 
@@ -829,7 +827,7 @@ div.page_infos {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	height: 16px;
+	height: 17px;
 }
 
 ul#sitemap li .sitemap_sitename:hover,
@@ -890,7 +888,7 @@ ul#sitemap li img.page_restricted {
 	text-decoration: none;
 	float: left;
 	width: 16px;
-	height: 18px;
+	height: 19px;
 	border: 1px solid #fff;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;

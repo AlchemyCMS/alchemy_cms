@@ -76,7 +76,7 @@ class Page < ActiveRecord::Base
   def lock(user)
     self.locked = true
     self.locked_by = user.id
-    self.save
+    self.save(false)
   end
   
   def unlock
@@ -114,7 +114,8 @@ class Page < ActiveRecord::Base
   # Returns true if the Page is locked for user. So the user cannot edit this page.
   def locked_for(user)
     raise "User is nil" if user.nil?
-    locked_by == user.id
+    return false if !self.locked?
+    locked_by != user.id
   end
   
   def locker
@@ -290,7 +291,7 @@ private
     to_auto_generate_elements = self.layout_description["autogenerate"]
     unless (to_auto_generate_elements.blank?)
       to_auto_generate_elements.each do |element|
-        element = Element.create_from_scratch(self.id, element)
+        element = Element.create_from_scratch({'page_id' => self.id, 'name' => element})
         element.move_to_bottom
       end
     end

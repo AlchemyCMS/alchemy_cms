@@ -1,17 +1,17 @@
-class WaMailsController < ApplicationController
+class MailsController < ApplicationController
   
   def new
-    @wa_mail = WaMail.new
+    @mail = Mail.new
     @page = Page.find_by_page_layout(Configuration.parameter(:mailer)[:form_layout_name])
     render :layout => 'pages'
   end
   
   def create
-    @wa_mail = WaMail.new(params[:wa_mail])
-    @wa_mail.ip = request.remote_ip
-    element = Element.find_by_id(@wa_mail.contact_form_id)
+    @mail = Mail.new(params[:mail])
+    @mail.ip = request.remote_ip
+    element = Element.find_by_id(@mail.contact_form_id)
     @page = element.page
-    if @wa_mail.save
+    if @mail.save
       if params[:mail_to].blank?
         mail_to = element.atom_by_name("mail_to").content
       else
@@ -19,8 +19,8 @@ class WaMailsController < ApplicationController
       end
       mail_from = element.atom_by_name("mail_from").content
       subject = element.atom_by_name("subject").content
-      WaMailer.deliver_mail(
-        @wa_mail,
+      Mailer.deliver_mail(
+        @mail,
         mail_to,
         mail_from,
         subject

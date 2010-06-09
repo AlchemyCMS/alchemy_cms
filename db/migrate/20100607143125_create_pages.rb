@@ -16,7 +16,7 @@ class CreatePages < ActiveRecord::Migration
       t.boolean :visible, :default => false
       t.boolean :public, :default => false
       t.boolean :locked, :default => false
-      t.boolean :locked_by
+      t.integer :locked_by
       t.boolean :restricted, :default => false
       t.boolean :robot_index, :default => true
       t.boolean :robot_follow, :default => true

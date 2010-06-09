@@ -1,4 +1,4 @@
-class WaMail < ActiveRecord::Base
+class Mail < ActiveRecord::Base
   tableless :columns => [
     [:contact_form_id, :integer],
     [:ip, :string]

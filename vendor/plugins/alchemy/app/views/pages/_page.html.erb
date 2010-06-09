@@ -15,7 +15,7 @@
 	<div class="sitemap_right_tools">
 		<%- cache("page_#{page.id}_for_user_#{current_user.id}_tools") do -%>
 		<%- if !page.layoutpage? -%>
-			<%- permitted_to?(:edit, page) do -%>
+			<%- permitted_to?(:configure, page) do -%>
 			<%= link_to_overlay_window(
 				"",
 				configure_page_path(page),
@@ -50,15 +50,15 @@
 		<%- end -%>
 	</div>
 	<div class="sitemap_sitename">
-	<%- if !page.locked_for(current_user) -%>
+	<%- if page.locked_for(current_user) -%>
+		<%= page.name %>
+	<%- else -%>
 		<%= link_to(
 			page.name,
 			edit_page_path(page),
 			:title => _("edit_page"),
 			:class => "sitemap_pagename_link"
-		) -%>	
-	<%- else -%>
-		<%= page.name %>
+		) -%>
 	<%- end -%>
 	</div>
 	<%- unless page.folded?(current_user) && page.children.empty? -%>

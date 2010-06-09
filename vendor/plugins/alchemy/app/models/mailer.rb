@@ -1,4 +1,4 @@
-class WaMailer < ActionMailer::Base
+class Mailer < ActionMailer::Base
   
   def mail(mail_data, mail_to, mail_from, subject)
     # Email header info MUST be added here
@@ -12,7 +12,7 @@ class WaMailer < ActionMailer::Base
   def new_user_mail(user, request)
     recipients(user.email)
     from(Configuration.parameter(:mailer)[:mail_from])
-    subject( I18n.t("wa_mailer.new_user_mail.subject") )
+    subject( I18n.t("mailer.new_user_mail.subject") )
     sent_on(Time.now)
     body({:user => user, :url => "#{request.protocol}#{request.host}/admin/login"})
   end
