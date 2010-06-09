@@ -31,9 +31,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       if @user.role == "registered"
-        WaMailer.deliver_new_user_mail(@user, request)
+        Mailer.deliver_new_user_mail(@user, request)
       else
-        WaMailer.deliver_new_alchemy_user_mail(@user, request)
+        Mailer.deliver_new_alchemy_user_mail(@user, request)
       end
     end
     render_errors_or_redirect(

@@ -18,7 +18,7 @@ class AdminController < ApplicationController
     else
       @user = User.new(params[:user].merge({:role => 'admin'}))
       if @user.save
-        WaMailer.deliver_new_alchemy_user_mail(@user, request)
+        Mailer.deliver_new_alchemy_user_mail(@user, request)
         redirect_to :action => :index
       end
     end
