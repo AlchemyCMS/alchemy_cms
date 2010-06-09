@@ -103,7 +103,7 @@ wa_plugins:
           action: layoutpages
       nested:
         - controller: pages
-          action: edit_content
+          action: edit
 
   - name: users
     navigation:

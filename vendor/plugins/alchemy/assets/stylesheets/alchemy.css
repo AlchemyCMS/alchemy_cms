@@ -39,6 +39,14 @@ a img {
 	font-size: 0;
 }
 
+div#flash_notices {
+	position: fixed;
+	right: 0;
+	z-index: 100;
+	width: 300px;
+	top: 0;
+}
+
 /* @group overlay */
 
 div#overlay {
