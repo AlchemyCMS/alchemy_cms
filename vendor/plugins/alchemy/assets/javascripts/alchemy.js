@@ -26,7 +26,7 @@ function openElementsWindow (page_id, title) {
 		minimizable: true,
 		resizable: true,
 		draggable: true,
-		zIndex: 300000,
+		zIndex: 30000,
 		closable: true,
 		destroyOnClose: true,
 		recenterAuto: false,
