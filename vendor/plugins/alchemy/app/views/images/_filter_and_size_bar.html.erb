@@ -1,11 +1,4 @@
 <div class="image_assign_filter_and_image_sizing">
-	<%= render(
-		:partial => 'partials/remote_search_form',
-		:locals => {
-			:with => "'remote=true'+'&element_id='+$('element_id').value+'&content_id='+$('content_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
-			:action => 'archive_overlay'
-		}
-	) %>
 	<span class="image_sizing">
 		<label><%= _("thumbnail_size") %>:</label>
 		<%= link_to_remote(
@@ -60,4 +53,11 @@
       }
     ) %>
   </span>
+	<%= render(
+		:partial => 'partials/remote_search_form',
+		:locals => {
+			:with => "'remote=true'+'&element_id='+$('element_id').value+'&content_id='+$('content_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
+			:action => 'archive_overlay'
+		}
+	) %>
 </div>

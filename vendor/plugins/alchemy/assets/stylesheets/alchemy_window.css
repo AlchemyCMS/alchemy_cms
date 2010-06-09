@@ -121,6 +121,7 @@ div.image_assign_filter_and_image_sizing {
 	width: 100%;
 	position: relative;
 	height: 20px;
+	margin-bottom: 12px;
 }
 
 #wa_assign_image_list {
@@ -159,7 +160,7 @@ div.image_assign_filter_and_image_sizing span.image_sizing a.image_size_large {
 }
 
 div.image_assign_filter_and_image_sizing span.image_sizing {
-	float: right;
+	float: left;
 }
 
 div.image_assign_filter_and_image_sizing span.image_sizing label {
@@ -181,6 +182,15 @@ div.wa_assign_image_list_detail {
 	padding: 4px;
 	position: relative;
 	overflow: hidden;
+	border: 1px solid #c0c0c0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: #999 0px 1px 3px;
+	-moz-box-shadow: #999 0px 1px 3px;
+	-o-box-shadow: #999 0px 1px 3px;
+	box-shadow: #999 0px 1px 3px;
 }
 
 #wa_assign_image_list div.wa_assign_image_list_detail.small {
@@ -514,17 +524,17 @@ input#user_admin {
 }
 
 div.image_assign_filter_and_image_sizing form {
-	float: left;
+	float: right;
 	width: 309px;
 }
 
 div.image_assign_filter_and_image_sizing form div.search_field {
-	float: left;
 	margin-right: 8px;
+	float: left;
 }
 
 div.image_assign_filter_and_image_sizing form input.button {
-	float: left;
+	float: right;
 }
 
 div.wa_assign_file_file {

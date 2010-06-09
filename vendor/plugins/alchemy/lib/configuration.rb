@@ -40,7 +40,7 @@ class Configuration < ActionController::Base
   
   def self.sortable_atoms(page, element)
     page.sortable(
-      "element_#{element.id}_atoms",
+      "element_#{element.id}_contents",
       :scroll => 'window',
       :tag => 'div',
       :only => 'dragable_picture',

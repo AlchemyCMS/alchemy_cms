@@ -85,7 +85,7 @@ a.swap_picture {
 	cursor: move;
 }
 
-.picture_atom_spinner {
+.picture_content_spinner {
 	position: absolute;
 	z-index: 0;
 	top: 35px;

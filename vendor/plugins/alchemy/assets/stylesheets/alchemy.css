@@ -673,6 +673,7 @@ img.link_arrow_left {
 
 #main_navi a.main_navi_entry:hover {
 	cursor: pointer;
+	text-decoration: none;
 }
 
 #main_navi a.main_navi_entry:hover span.tab-center span {
@@ -1039,7 +1040,7 @@ a.edit_page_names_button {
 	display: block;
 	width: 18px;
 	height: 20px;
-	background: url(../images/icons/site_edit.png) no-repeat 0 0;
+	background: url(../images/icons/gear.png) no-repeat 0 0;
 	float: left;
 }
 
