@@ -1,5 +1,5 @@
 de:
-    wa_mailer:
+    mailer:
       new_user_mail:
         subject: 'Ihre Zugangsdaten zu meiner Seite'
         welcome: 'Willkommen auf meiner Seite'

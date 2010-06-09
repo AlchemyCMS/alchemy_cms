@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.layoutpages "/pages/layoutpages", :controller => "pages", :action => "layoutpages"
   map.resources :users
   map.resources :user_sessions
-  map.resources :wa_mails
+  map.resources :mails
   map.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get}
   map.resources(
     :pages,

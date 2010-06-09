@@ -103,7 +103,7 @@ msgstr "Name"
 msgid "File|Size"
 msgstr "Filesize"
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:13
+#: app/views/mailer/new_alchemy_user_mail.erb:13
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgstr "Urlname"
 msgid "Page|Visible"
 msgstr "show in navigation"
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:10
+#: app/views/mailer/new_alchemy_user_mail.erb:10
 msgid "Password"
 msgstr "Password"
 
@@ -283,7 +283,7 @@ msgstr ""
 msgid "This page is locked by %{name}"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:3
+#: app/views/mailer/new_alchemy_user_mail.erb:3
 msgid "To manage your website open a browser and go to"
 msgstr ""
 
@@ -303,7 +303,7 @@ msgstr "User: '%{name}' deleted"
 msgid "User: '%{name}' updated"
 msgstr "User: '%{name}' updated"
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:9
+#: app/views/mailer/new_alchemy_user_mail.erb:9
 msgid "Username"
 msgstr "Username"
 
@@ -360,7 +360,7 @@ msgid "WaAdmin|new rootpage created"
 msgstr "Created new rootpage."
 
 #: app/views/admin/index.html.erb:7
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:1
+#: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Welcome to Alchemy"
 
@@ -372,11 +372,11 @@ msgstr "You are not authorized."
 msgid "You can get the latest version on the %{link}"
 msgstr ""
 
-#: app/models/wa_mailer.rb:23
+#: app/models/mailer.rb:23
 msgid "Your Alchemy Login"
 msgstr ""
 
-#: app/views/wa_mailer/new_alchemy_user_mail.erb:7
+#: app/views/mailer/new_alchemy_user_mail.erb:7
 msgid "Your credentials are"
 msgstr ""
 
