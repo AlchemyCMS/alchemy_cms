@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-09 18:24+0200\n"
+"POT-Creation-Date: 2010-06-09 13:27+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr ""
 msgid "Adobe Website"
 msgstr ""
 
-#: app/views/admin/index.html.erb:11
+#: app/views/admin/index.html.erb:13
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:71
+#: app/views/pages/edit.html.erb:72
 msgid "Choose Element"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:94
+#: app/views/pages/edit.html.erb:96
 msgid "Elements"
 msgstr ""
 
@@ -141,8 +141,12 @@ msgstr "Imagewidth"
 msgid "Image|Name"
 msgstr "Name"
 
-#: app/views/pages/edit.html.erb:76 app/views/pages/edit.html.erb:80
+#: app/views/pages/edit.html.erb:77 app/views/pages/edit.html.erb:81
 msgid "New Element"
+msgstr ""
+
+#: app/views/pages/edit.html.erb:63 app/views/pages/edit.html.erb:65
+msgid "Show Elements"
 msgstr ""
 
 #: locale/model_attributes.rb:19
@@ -247,7 +251,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:23
+#: app/views/admin/index.html.erb:25
 msgid "Read the License"
 msgstr ""
 
@@ -257,10 +261,6 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:1142
 msgid "Select an content"
-msgstr ""
-
-#: app/views/pages/edit.html.erb:62 app/views/pages/edit.html.erb:64
-msgid "Show Elements"
 msgstr ""
 
 #: app/views/contents/create.rjs:51
@@ -347,7 +347,7 @@ msgstr "Password confirmation"
 msgid "User|Role"
 msgstr "Userrole"
 
-#: app/views/admin/index.html.erb:10
+#: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr ""
 
@@ -359,7 +359,7 @@ msgstr ""
 msgid "WaAdmin|new rootpage created"
 msgstr "Created new rootpage."
 
-#: app/views/admin/index.html.erb:5
+#: app/views/admin/index.html.erb:7
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Welcome to Alchemy"
@@ -452,7 +452,7 @@ msgstr "Content could not be added."
 msgid "atom_not_successfully_deleted"
 msgstr "Content could not be deleted."
 
-#: app/views/images/_filter_and_size_bar.html.erb:51
+#: app/views/images/_filter_and_size_bar.html.erb:58
 msgid "big_thumbnails"
 msgstr "Big thumbnails"
 
@@ -478,7 +478,7 @@ msgstr "Please choose a file to link"
 msgid "click_to_show_all"
 msgstr "Click to show all again."
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:5
+#: app/views/elements/_element_foot.html.erb:5
 msgid "confirm_to_delete_element"
 msgstr "Do you really want to delete this page?"
 
@@ -520,7 +520,7 @@ msgstr "You've got logged out because of inactivity"
 msgid "copy"
 msgstr "copy"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:34
+#: app/views/elements/_element_foot.html.erb:34
 msgid "copy_element"
 msgstr "Copy this element."
 
@@ -558,11 +558,11 @@ msgstr "Crop this image."
 msgid "currently_edited_by"
 msgstr "This page is currently locked by"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:22
+#: app/views/elements/_element_foot.html.erb:22
 msgid "cut_element"
 msgstr "Cut this element."
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:9
+#: app/views/elements/_element_foot.html.erb:9
 msgid "delete_element"
 msgstr "Delete this element."
 
@@ -621,7 +621,7 @@ msgid "edit_page"
 msgstr "Edit this page."
 
 #: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit.html.erb:48 app/views/pages/edit.html.erb:52
+#: app/views/pages/edit.html.erb:49 app/views/pages/edit.html.erb:53
 msgid "edit_page_properties"
 msgstr "Edit the page properties."
 
@@ -669,12 +669,12 @@ msgstr "Saved element."
 msgid "enter_external_link"
 msgstr "Please enter the URL you want to link with"
 
-#: app/views/pages/edit.html.erb:35
+#: app/views/pages/edit.html.erb:36
 msgid "explain_publishing"
 msgstr ""
 "Remove the cached version of this page from the server and create a new one."
 
-#: app/views/pages/edit.html.erb:23
+#: app/views/pages/edit.html.erb:24
 msgid "explain_unlocking"
 msgstr "Leave page and unlock it for other users."
 
@@ -831,7 +831,7 @@ msgstr "Male"
 msgid "mandatory fields"
 msgstr "Mandatory fields"
 
-#: app/views/images/_filter_and_size_bar.html.erb:34
+#: app/views/images/_filter_and_size_bar.html.erb:41
 msgid "medium_thumbnails"
 msgstr "Medium thumbnails"
 
@@ -955,7 +955,7 @@ msgstr "Choose %{name}"
 msgid "page_locked"
 msgstr "This page is locked by another user."
 
-#: app/views/pages/edit.html.erb:54
+#: app/views/pages/edit.html.erb:55
 msgid "page_properties"
 msgstr "page properties"
 
@@ -1074,7 +1074,7 @@ msgstr "Please confirm"
 msgid "please_wait"
 msgstr "Please wait"
 
-#: app/views/pages/edit.html.erb:38
+#: app/views/pages/edit.html.erb:39
 msgid "publish_page"
 msgstr "Publish state"
 
@@ -1110,7 +1110,7 @@ msgstr "allow robot to index."
 
 #: app/views/admin/signup.html.erb:45 app/views/attachements/edit.html.erb:8
 #: app/views/contents/new.html.erb:11
-#: app/views/elements/_save_and_delete_buttons.html.erb:47
+#: app/views/elements/_element_foot.html.erb:47
 #: app/views/essence_files/edit.html.erb:22
 #: app/views/essence_files/edit.html.erb:42
 #: app/views/essence_files/edit.html.erb:70
@@ -1125,7 +1125,7 @@ msgstr "save"
 msgid "saved_link"
 msgstr "Link saved."
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:43
+#: app/views/elements/_element_foot.html.erb:43
 msgid "saving"
 msgstr "saving"
 
@@ -1165,7 +1165,7 @@ msgstr "Show in navigation"
 msgid "show_page_in_sitemap"
 msgstr "Show page in sitemap."
 
-#: app/views/images/_filter_and_size_bar.html.erb:17
+#: app/views/images/_filter_and_size_bar.html.erb:24
 msgid "small_thumbnails"
 msgstr "Small thumbnails"
 
@@ -1200,7 +1200,7 @@ msgstr "Cancel uploads"
 msgid "target_blank"
 msgstr "Open link in new window"
 
-#: app/views/images/_filter_and_size_bar.html.erb:3
+#: app/views/images/_filter_and_size_bar.html.erb:10
 msgid "thumbnail_size"
 msgstr "Thumbnail size"
 
@@ -1217,7 +1217,7 @@ msgstr "unknown"
 msgid "unlink"
 msgstr "Remove link from this image."
 
-#: app/views/pages/edit.html.erb:26
+#: app/views/pages/edit.html.erb:27
 msgid "unlock_page"
 msgstr "Leave page"
 
@@ -1256,7 +1256,7 @@ msgstr "The pages urlname is too short (minimum of 3 characters)"
 msgid "username"
 msgstr "Username"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:40
+#: app/views/elements/_element_foot.html.erb:40
 msgid "visible"
 msgstr "visible"
 

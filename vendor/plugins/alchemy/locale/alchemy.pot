@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-09 18:24+0200\n"
+"POT-Creation-Date: 2010-06-09 13:27+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -32,11 +32,11 @@ msgstr ""
 msgid "Adobe Website"
 msgstr ""
 
-#: app/views/admin/index.html.erb:11
+#: app/views/admin/index.html.erb:13
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:71
+#: app/views/pages/edit.html.erb:72
 msgid "Choose Element"
 msgstr ""
 
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:94
+#: app/views/pages/edit.html.erb:96
 msgid "Elements"
 msgstr ""
 
@@ -146,8 +146,12 @@ msgstr ""
 msgid "Image|Name"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:76 app/views/pages/edit.html.erb:80
+#: app/views/pages/edit.html.erb:77 app/views/pages/edit.html.erb:81
 msgid "New Element"
+msgstr ""
+
+#: app/views/pages/edit.html.erb:63 app/views/pages/edit.html.erb:65
+msgid "Open Elements panel"
 msgstr ""
 
 #: locale/model_attributes.rb:19
@@ -250,7 +254,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:23
+#: app/views/admin/index.html.erb:25
 msgid "Read the License"
 msgstr ""
 
@@ -260,10 +264,6 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:1142
 msgid "Select an content"
-msgstr ""
-
-#: app/views/pages/edit.html.erb:62 app/views/pages/edit.html.erb:64
-msgid "Show Elements"
 msgstr ""
 
 #: app/views/contents/create.rjs:51
@@ -350,7 +350,7 @@ msgstr ""
 msgid "User|Role"
 msgstr ""
 
-#: app/views/admin/index.html.erb:10
+#: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr ""
 
@@ -362,7 +362,7 @@ msgstr ""
 msgid "WaAdmin|new rootpage created"
 msgstr ""
 
-#: app/views/admin/index.html.erb:5
+#: app/views/admin/index.html.erb:7
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr ""
@@ -455,7 +455,7 @@ msgstr ""
 msgid "atom_not_successfully_deleted"
 msgstr ""
 
-#: app/views/images/_filter_and_size_bar.html.erb:51
+#: app/views/images/_filter_and_size_bar.html.erb:58
 msgid "big_thumbnails"
 msgstr ""
 
@@ -481,7 +481,7 @@ msgstr ""
 msgid "click_to_show_all"
 msgstr ""
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:5
+#: app/views/elements/_element_foot.html.erb:5
 msgid "confirm_to_delete_element"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgstr ""
 msgid "copy"
 msgstr ""
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:34
+#: app/views/elements/_element_foot.html.erb:34
 msgid "copy_element"
 msgstr ""
 
@@ -561,11 +561,11 @@ msgstr ""
 msgid "currently_edited_by"
 msgstr ""
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:22
+#: app/views/elements/_element_foot.html.erb:22
 msgid "cut_element"
 msgstr ""
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:9
+#: app/views/elements/_element_foot.html.erb:9
 msgid "delete_element"
 msgstr ""
 
@@ -624,7 +624,7 @@ msgid "edit_page"
 msgstr ""
 
 #: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit.html.erb:48 app/views/pages/edit.html.erb:52
+#: app/views/pages/edit.html.erb:49 app/views/pages/edit.html.erb:53
 msgid "edit_page_properties"
 msgstr ""
 
@@ -672,11 +672,11 @@ msgstr ""
 msgid "enter_external_link"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:35
+#: app/views/pages/edit.html.erb:36
 msgid "explain_publishing"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:23
+#: app/views/pages/edit.html.erb:24
 msgid "explain_unlocking"
 msgstr ""
 
@@ -831,7 +831,7 @@ msgstr ""
 msgid "mandatory fields"
 msgstr ""
 
-#: app/views/images/_filter_and_size_bar.html.erb:34
+#: app/views/images/_filter_and_size_bar.html.erb:41
 msgid "medium_thumbnails"
 msgstr ""
 
@@ -955,7 +955,7 @@ msgstr ""
 msgid "page_locked"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:54
+#: app/views/pages/edit.html.erb:55
 msgid "page_properties"
 msgstr ""
 
@@ -1066,7 +1066,7 @@ msgstr ""
 msgid "please_wait"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:38
+#: app/views/pages/edit.html.erb:39
 msgid "publish_page"
 msgstr ""
 
@@ -1102,7 +1102,7 @@ msgstr ""
 
 #: app/views/admin/signup.html.erb:45 app/views/attachements/edit.html.erb:8
 #: app/views/contents/new.html.erb:11
-#: app/views/elements/_save_and_delete_buttons.html.erb:47
+#: app/views/elements/_element_foot.html.erb:47
 #: app/views/essence_files/edit.html.erb:22
 #: app/views/essence_files/edit.html.erb:42
 #: app/views/essence_files/edit.html.erb:70
@@ -1117,7 +1117,7 @@ msgstr ""
 msgid "saved_link"
 msgstr ""
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:43
+#: app/views/elements/_element_foot.html.erb:43
 msgid "saving"
 msgstr ""
 
@@ -1157,7 +1157,7 @@ msgstr ""
 msgid "show_page_in_sitemap"
 msgstr ""
 
-#: app/views/images/_filter_and_size_bar.html.erb:17
+#: app/views/images/_filter_and_size_bar.html.erb:24
 msgid "small_thumbnails"
 msgstr ""
 
@@ -1192,7 +1192,7 @@ msgstr ""
 msgid "target_blank"
 msgstr ""
 
-#: app/views/images/_filter_and_size_bar.html.erb:3
+#: app/views/images/_filter_and_size_bar.html.erb:10
 msgid "thumbnail_size"
 msgstr ""
 
@@ -1209,7 +1209,7 @@ msgstr ""
 msgid "unlink"
 msgstr ""
 
-#: app/views/pages/edit.html.erb:26
+#: app/views/pages/edit.html.erb:27
 msgid "unlock_page"
 msgstr ""
 
@@ -1248,7 +1248,7 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:40
+#: app/views/elements/_element_foot.html.erb:40
 msgid "visible"
 msgstr ""
 

@@ -62,7 +62,7 @@ img.add_element_spinner {
 	z-index: 1;	position: absolute;
 }
 
-div.wa_delete_and_save_buttons span.element_public {
+div.element_foot span.element_public {
 	float: left;
 	margin-top: 1px;
 }
@@ -118,7 +118,7 @@ div.wa_delete_and_save_buttons span.element_public {
 	background-position: -24px 0;
 }
 
-.wa_delete_and_save_buttons {
+.element_foot {
 	padding: 8px;
 	border-top-style: none;
 	position: relative;
@@ -128,14 +128,12 @@ div.wa_delete_and_save_buttons span.element_public {
 	margin-left: -8px;
 }
 
-.wa_delete_and_save_buttons .element_tools {
+.element_foot .element_tools {
 	float: left;
 	margin-right: 8px;
 }
 
-.wa_delete_and_save_buttons .wa_save {
-	width: 86px;
-	text-align: right;
+.element_foot .button {
 	position: absolute;
 	right: 8px;
 	bottom: 6px;
@@ -165,6 +163,10 @@ div.element_editor {
 	border-radius: 2px;
 	background-color: #f0e8d7;
 	margin-bottom: 8px;
+}
+
+div.element_editor.selected {
+	outline: 2px solid blue;
 }
 
 div.element_editor form {

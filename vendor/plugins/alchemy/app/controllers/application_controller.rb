@@ -121,7 +121,7 @@ private
     end
   end
   
-  def wa_handle_exception(e)
+  def exception_handler(e)
     logger.error %(
       +++++++++ Element.toggle_fold: #{e} +++++++++++++
       object: #{e.record.class}, id: #{e.record.id}, name: #{e.record.name}

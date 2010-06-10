@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-09 18:24+0200\n"
+"POT-Creation-Date: 2010-06-09 13:27+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,12 +27,12 @@ msgstr ""
 msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
-#: app/views/admin/index.html.erb:11
+#: app/views/admin/index.html.erb:13
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 "Alchemy ist freie Software und benutzt selbst freie Software und Ressourcen:"
 
-#: app/views/pages/edit.html.erb:71
+#: app/views/pages/edit.html.erb:72
 msgid "Choose Element"
 msgstr "Element auswählen"
 
@@ -52,7 +52,7 @@ msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 msgid "Element"
 msgstr "Element"
 
-#: app/views/pages/edit.html.erb:94
+#: app/views/pages/edit.html.erb:96
 msgid "Elements"
 msgstr "Elemente"
 
@@ -144,9 +144,13 @@ msgstr "Bildbreite"
 msgid "Image|Name"
 msgstr "Name"
 
-#: app/views/pages/edit.html.erb:76 app/views/pages/edit.html.erb:80
+#: app/views/pages/edit.html.erb:77 app/views/pages/edit.html.erb:81
 msgid "New Element"
 msgstr "Neues Element"
+
+#: app/views/pages/edit.html.erb:63 app/views/pages/edit.html.erb:65
+msgid "Show Elements"
+msgstr "Elemente Anzeigen"
 
 #: locale/model_attributes.rb:19
 msgid "Page"
@@ -252,7 +256,7 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
-#: app/views/admin/index.html.erb:23
+#: app/views/admin/index.html.erb:25
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
@@ -263,10 +267,6 @@ msgstr "Diesen Inhalt entfernen"
 #: app/helpers/application_helper.rb:1142
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
-
-#: app/views/pages/edit.html.erb:62 app/views/pages/edit.html.erb:64
-msgid "Show Elements"
-msgstr "Elemente Anzeigen"
 
 #: app/views/contents/create.rjs:51
 msgid "Successfully added %{atom}"
@@ -354,7 +354,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/views/admin/index.html.erb:10
+#: app/views/admin/index.html.erb:12
 msgid "Version"
 msgstr "Version"
 
@@ -366,7 +366,7 @@ msgstr "Datei anzeigen"
 msgid "WaAdmin|new rootpage created"
 msgstr "Neue Rootpage wurde erstellt."
 
-#: app/views/admin/index.html.erb:5
+#: app/views/admin/index.html.erb:7
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
@@ -459,7 +459,7 @@ msgstr "Das Inhalt konnte nicht hinzugefügt werden."
 msgid "atom_not_successfully_deleted"
 msgstr "Das Inhalt konnte nicht gelöscht werden."
 
-#: app/views/images/_filter_and_size_bar.html.erb:51
+#: app/views/images/_filter_and_size_bar.html.erb:58
 msgid "big_thumbnails"
 msgstr "große Miniaturbilder"
 
@@ -485,7 +485,7 @@ msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 msgid "click_to_show_all"
 msgstr "wieder alles anzeigen"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:5
+#: app/views/elements/_element_foot.html.erb:5
 msgid "confirm_to_delete_element"
 msgstr "Wollen Sie dieses Element wirklich löschen?"
 
@@ -527,7 +527,7 @@ msgstr "Sie wurden auf Grund von Inaktivität abgemeldet."
 msgid "copy"
 msgstr "kopieren"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:34
+#: app/views/elements/_element_foot.html.erb:34
 msgid "copy_element"
 msgstr "Element kopieren"
 
@@ -565,11 +565,11 @@ msgstr "Bild beschneiden."
 msgid "currently_edited_by"
 msgstr "Wird momentan bearbeitet von"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:22
+#: app/views/elements/_element_foot.html.erb:22
 msgid "cut_element"
 msgstr "Element ausschneiden"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:9
+#: app/views/elements/_element_foot.html.erb:9
 msgid "delete_element"
 msgstr "Element löschen"
 
@@ -628,7 +628,7 @@ msgid "edit_page"
 msgstr "Seite bearbeiten"
 
 #: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit.html.erb:48 app/views/pages/edit.html.erb:52
+#: app/views/pages/edit.html.erb:49 app/views/pages/edit.html.erb:53
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
@@ -678,11 +678,11 @@ msgid "enter_external_link"
 msgstr ""
 "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
 
-#: app/views/pages/edit.html.erb:35
+#: app/views/pages/edit.html.erb:36
 msgid "explain_publishing"
 msgstr "Die gecachte Version vom Server löschen und eine neue erstellen"
 
-#: app/views/pages/edit.html.erb:23
+#: app/views/pages/edit.html.erb:24
 msgid "explain_unlocking"
 msgstr "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
 
@@ -840,7 +840,7 @@ msgstr "Herr"
 msgid "mandatory fields"
 msgstr "Pflichtfelder"
 
-#: app/views/images/_filter_and_size_bar.html.erb:34
+#: app/views/images/_filter_and_size_bar.html.erb:41
 msgid "medium_thumbnails"
 msgstr "mittlere Miniaturbilder"
 
@@ -964,7 +964,7 @@ msgstr "%{name} wählen"
 msgid "page_locked"
 msgstr "Die Seite ist gesperrt"
 
-#: app/views/pages/edit.html.erb:54
+#: app/views/pages/edit.html.erb:55
 msgid "page_properties"
 msgstr "Seiteneigenschaften"
 
@@ -1087,7 +1087,7 @@ msgstr "Bitte bestätigen"
 msgid "please_wait"
 msgstr "Bitte warten"
 
-#: app/views/pages/edit.html.erb:38
+#: app/views/pages/edit.html.erb:39
 msgid "publish_page"
 msgstr "Status veröffentlichen"
 
@@ -1123,7 +1123,7 @@ msgstr "durch Robot indizieren"
 
 #: app/views/admin/signup.html.erb:45 app/views/attachements/edit.html.erb:8
 #: app/views/contents/new.html.erb:11
-#: app/views/elements/_save_and_delete_buttons.html.erb:47
+#: app/views/elements/_element_foot.html.erb:47
 #: app/views/essence_files/edit.html.erb:22
 #: app/views/essence_files/edit.html.erb:42
 #: app/views/essence_files/edit.html.erb:70
@@ -1138,7 +1138,7 @@ msgstr "speichern"
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:43
+#: app/views/elements/_element_foot.html.erb:43
 msgid "saving"
 msgstr "speichert"
 
@@ -1178,7 +1178,7 @@ msgstr "Navigation anzeigen"
 msgid "show_page_in_sitemap"
 msgstr "Seite in der Sitemap zeigen"
 
-#: app/views/images/_filter_and_size_bar.html.erb:17
+#: app/views/images/_filter_and_size_bar.html.erb:24
 msgid "small_thumbnails"
 msgstr "kleine Miniaturbilder"
 
@@ -1213,7 +1213,7 @@ msgstr "Hochladen abbrechen"
 msgid "target_blank"
 msgstr "In einem neuen Fenster öffnen"
 
-#: app/views/images/_filter_and_size_bar.html.erb:3
+#: app/views/images/_filter_and_size_bar.html.erb:10
 msgid "thumbnail_size"
 msgstr "Miniaturbildergröße"
 
@@ -1230,7 +1230,7 @@ msgstr "unbekannt"
 msgid "unlink"
 msgstr "Link entfernen"
 
-#: app/views/pages/edit.html.erb:26
+#: app/views/pages/edit.html.erb:27
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
@@ -1269,7 +1269,7 @@ msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 msgid "username"
 msgstr "Benutzername"
 
-#: app/views/elements/_save_and_delete_buttons.html.erb:40
+#: app/views/elements/_element_foot.html.erb:40
 msgid "visible"
 msgstr "sichtbar"
 

@@ -8,6 +8,6 @@ else
     :locals => {:open_element_selector => false}
   )
   Configuration.sortable_elements(page)
-  page << "tool_window.updateHeight();"
+  page << "elements_window.updateHeight();"
   page << "TinymceHammer.init()"
 end

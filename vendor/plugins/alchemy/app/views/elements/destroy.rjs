@@ -6,5 +6,5 @@ else
 end
 WaNotice.show_via_ajax(page, _("element_deleted_successful"))
 page << "reloadPreview()"
-page << "tool_window.updateHeight();"
+page << "elements_window.updateHeight();"
 page << "main_frame.updateSize();"

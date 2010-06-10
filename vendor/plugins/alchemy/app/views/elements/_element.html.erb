@@ -1,6 +1,6 @@
 <%- has_rtf_atoms = element.contents.detect { |atom| atom.essence_type == 'EssenceRichtext' } -%>
 
-<div class="element_editor" id="element_<%= element.id %>">
+<div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
 	<%= render :partial => "element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
 		<% form_remote_tag(
@@ -22,7 +22,35 @@
 			<div id="element_<%= element.id %>_content" class="element_content">
 				<%= render_editor(element) %>
 			</div>
-			<%= render :partial => 'save_and_delete_buttons', :locals => {:element => element} %>
+			<%= render :partial => 'element_foot', :locals => {:element => element} %>
 		<% end %>
 	<%- end -%>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+	$('element_<%= element.id %>').observe('alchemy:expand_element', function (e) {
+		var el_ed = e.element();
+		var id = e.memo.element_id;
+		if (el_ed.hasClassName('folded')) {
+			new Ajax.Request(
+				'/elements/fold?id='+id,
+				{
+					request: 'post',
+					onComplete: function () {
+						$('element_<%= element.id %>').addClassName('selected');
+					}
+				}
+			);
+		};
+		e.stop();
+	});
+// ]]>
+</script>
+<%- if has_rtf_atoms -%>
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+	TinymceHammer.init();
+// ]]>
+</script>
+<%- end -%>

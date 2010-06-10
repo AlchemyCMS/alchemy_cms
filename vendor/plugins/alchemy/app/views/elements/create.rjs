@@ -9,5 +9,5 @@ WaNotice.show_via_ajax(page, _("successfully_added_element"))
 page << "TinymceHammer.init()"
 page << "reloadPreview()"
 page << "alchemy_window.close();"
-page << "if(tool_window){tool_window.updateHeight();}"
+page << "if(elements_window){elements_window.updateHeight();}"
 page << "main_frame.updateSize();"

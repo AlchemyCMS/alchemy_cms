@@ -14,7 +14,7 @@ function toggleButton (id, action) {
 
 function openElementsWindow (page_id, title) {
 	toggleButton('ElementsWindowButton', 'disable');
-	tool_window = new Window({
+	elements_window = new Window({
 		className: 'alchemy_window',
 		title: title,
 		width: 424,
@@ -37,8 +37,8 @@ function openElementsWindow (page_id, title) {
 			toggleButton('ElementsWindowButton', 'enable');
 		}
 	});
-	tool_window.setAjaxContent('/elements/list?page_id=' + page_id, {method: 'get'});
-	tool_window.showCenter(false, 104, document.viewport.getDimensions().width - 450);
+	elements_window.setAjaxContent('/elements/list?page_id=' + page_id, {method: 'get'});
+	elements_window.showCenter(false, 104, document.viewport.getDimensions().width - 450);
 }
 
 function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, overflow){

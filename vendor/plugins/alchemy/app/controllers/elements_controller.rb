@@ -166,12 +166,12 @@ class ElementsController < ApplicationController
   end
   
   def fold
-    @page = Page.find(params[:page_id], :select => :id)
     @element = Element.find(params[:id])
+    @page = @element.page
     @element.folded = !@element.folded
-    @element.save!
+    @element.save(false)
   rescue => exception
-    wa_handle_exception(exception)
+    exception_handler(exception)
     @error = exception
   end
   
