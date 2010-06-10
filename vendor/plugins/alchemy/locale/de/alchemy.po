@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-09 13:27+0200\n"
+"POT-Creation-Date: 2010-06-10 13:07+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,12 +27,12 @@ msgstr ""
 msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
-#: app/views/admin/index.html.erb:13
+#: app/views/admin/index.html.erb:11
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 "Alchemy ist freie Software und benutzt selbst freie Software und Ressourcen:"
 
-#: app/views/pages/edit.html.erb:72
+#: app/views/pages/edit.html.erb:73
 msgid "Choose Element"
 msgstr "Element auswählen"
 
@@ -144,13 +144,9 @@ msgstr "Bildbreite"
 msgid "Image|Name"
 msgstr "Name"
 
-#: app/views/pages/edit.html.erb:77 app/views/pages/edit.html.erb:81
+#: app/views/pages/edit.html.erb:78 app/views/pages/edit.html.erb:82
 msgid "New Element"
 msgstr "Neues Element"
-
-#: app/views/pages/edit.html.erb:63 app/views/pages/edit.html.erb:65
-msgid "Show Elements"
-msgstr "Elemente Anzeigen"
 
 #: locale/model_attributes.rb:19
 msgid "Page"
@@ -256,7 +252,7 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
-#: app/views/admin/index.html.erb:25
+#: app/views/admin/index.html.erb:23
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
@@ -267,6 +263,10 @@ msgstr "Diesen Inhalt entfernen"
 #: app/helpers/application_helper.rb:1142
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
+
+#: app/views/pages/edit.html.erb:64 app/views/pages/edit.html.erb:66
+msgid "Show Elements"
+msgstr "Elemente Anzeigen"
 
 #: app/views/contents/create.rjs:51
 msgid "Successfully added %{atom}"
@@ -354,7 +354,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/views/admin/index.html.erb:12
+#: app/views/admin/index.html.erb:10
 msgid "Version"
 msgstr "Version"
 
@@ -366,7 +366,7 @@ msgstr "Datei anzeigen"
 msgid "WaAdmin|new rootpage created"
 msgstr "Neue Rootpage wurde erstellt."
 
-#: app/views/admin/index.html.erb:7
+#: app/views/admin/index.html.erb:5
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
@@ -459,7 +459,7 @@ msgstr "Das Inhalt konnte nicht hinzugefügt werden."
 msgid "atom_not_successfully_deleted"
 msgstr "Das Inhalt konnte nicht gelöscht werden."
 
-#: app/views/images/_filter_and_size_bar.html.erb:58
+#: app/views/images/_filter_and_size_bar.html.erb:51
 msgid "big_thumbnails"
 msgstr "große Miniaturbilder"
 
@@ -543,8 +543,8 @@ msgstr "anlegen"
 msgid "create_new_language"
 msgstr "Einen neuen Sprachbaum erstellen"
 
-#: app/views/pages/_page_tools.html.erb:25
-#: app/views/pages/_page_tools.html.erb:30
+#: app/views/pages/_page_tools.html.erb:28
+#: app/views/pages/_page_tools.html.erb:33
 msgid "create_page"
 msgstr "Eine Seite anlegen"
 
@@ -553,7 +553,7 @@ msgstr "Eine Seite anlegen"
 msgid "create_user"
 msgstr "Einen Benutzer anlegen"
 
-#: app/views/pages/_page_status.html.erb:11
+#: app/views/pages/_page_icon.html.erb:11
 msgid "created_at"
 msgstr "Erstellt am"
 
@@ -561,7 +561,7 @@ msgstr "Erstellt am"
 msgid "crop_image"
 msgstr "Bild beschneiden."
 
-#: app/views/pages/_page_status.html.erb:20
+#: app/views/pages/_page_icon.html.erb:20
 msgid "currently_edited_by"
 msgstr "Wird momentan bearbeitet von"
 
@@ -623,12 +623,12 @@ msgstr "Dateieigenschaften bearbeiten"
 msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
-#: app/views/pages/_page.html.erb:57 app/views/pages/_systempage.html.erb:19
+#: app/views/pages/_page.html.erb:51 app/views/pages/_systempage.html.erb:19
 msgid "edit_page"
 msgstr "Seite bearbeiten"
 
-#: app/views/pages/_page.html.erb:23 app/views/pages/_page.html.erb:27
-#: app/views/pages/edit.html.erb:49 app/views/pages/edit.html.erb:53
+#: app/views/pages/_page.html.erb:18 app/views/pages/_page.html.erb:22
+#: app/views/pages/edit.html.erb:50 app/views/pages/edit.html.erb:54
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
@@ -678,11 +678,11 @@ msgid "enter_external_link"
 msgstr ""
 "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
 
-#: app/views/pages/edit.html.erb:36
+#: app/views/pages/edit.html.erb:37
 msgid "explain_publishing"
 msgstr "Die gecachte Version vom Server löschen und eine neue erstellen"
 
-#: app/views/pages/edit.html.erb:24
+#: app/views/pages/edit.html.erb:25
 msgid "explain_unlocking"
 msgstr "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
 
@@ -840,7 +840,7 @@ msgstr "Herr"
 msgid "mandatory fields"
 msgstr "Pflichtfelder"
 
-#: app/views/images/_filter_and_size_bar.html.erb:41
+#: app/views/images/_filter_and_size_bar.html.erb:34
 msgid "medium_thumbnails"
 msgstr "mittlere Miniaturbilder"
 
@@ -964,7 +964,7 @@ msgstr "%{name} wählen"
 msgid "page_locked"
 msgstr "Die Seite ist gesperrt"
 
-#: app/views/pages/edit.html.erb:55
+#: app/views/pages/edit.html.erb:56
 msgid "page_properties"
 msgstr "Seiteneigenschaften"
 
@@ -976,7 +976,7 @@ msgstr "Seite veröffentlichen"
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
-#: app/views/pages/_page.html.erb:49 app/views/pages/configure.html.erb:24
+#: app/views/pages/configure.html.erb:24
 msgid "page_restricted"
 msgstr "Seite schützen"
 
@@ -984,45 +984,45 @@ msgstr "Seite schützen"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:163
+#: app/models/page.rb:167
 msgid "page_status_invisible_public"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
 
-#: app/models/page.rb:151
+#: app/models/page.rb:155
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
 "Diese Seite wird gerade bearbeitet."
 
-#: app/models/page.rb:166
+#: app/models/page.rb:170
 msgid "page_status_invisible_unpublic"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
 
-#: app/models/page.rb:154
+#: app/models/page.rb:158
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet"
 
-#: app/models/page.rb:157
+#: app/models/page.rb:161
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
 
-#: app/models/page.rb:145
+#: app/models/page.rb:149
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
 "wird gerade bearbeitet."
 
-#: app/models/page.rb:160
+#: app/models/page.rb:164
 msgid "page_status_visible_unpublic"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
-#: app/models/page.rb:148
+#: app/models/page.rb:152
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
@@ -1032,8 +1032,7 @@ msgstr ""
 msgid "page_title"
 msgstr "Seitentitel"
 
-#: app/views/pages/_page_status.html.erb:5
-#: app/views/pages/configure.html.erb:10
+#: app/views/pages/_page_icon.html.erb:5 app/views/pages/configure.html.erb:10
 msgid "page_type"
 msgstr "Typ"
 
@@ -1087,7 +1086,7 @@ msgstr "Bitte bestätigen"
 msgid "please_wait"
 msgstr "Bitte warten"
 
-#: app/views/pages/edit.html.erb:39
+#: app/views/pages/edit.html.erb:40
 msgid "publish_page"
 msgstr "Status veröffentlichen"
 
@@ -1178,7 +1177,7 @@ msgstr "Navigation anzeigen"
 msgid "show_page_in_sitemap"
 msgstr "Seite in der Sitemap zeigen"
 
-#: app/views/images/_filter_and_size_bar.html.erb:24
+#: app/views/images/_filter_and_size_bar.html.erb:17
 msgid "small_thumbnails"
 msgstr "kleine Miniaturbilder"
 
@@ -1213,7 +1212,7 @@ msgstr "Hochladen abbrechen"
 msgid "target_blank"
 msgstr "In einem neuen Fenster öffnen"
 
-#: app/views/images/_filter_and_size_bar.html.erb:10
+#: app/views/images/_filter_and_size_bar.html.erb:3
 msgid "thumbnail_size"
 msgstr "Miniaturbildergröße"
 
@@ -1230,7 +1229,7 @@ msgstr "unbekannt"
 msgid "unlink"
 msgstr "Link entfernen"
 
-#: app/views/pages/edit.html.erb:27
+#: app/views/pages/edit.html.erb:28
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
@@ -1238,7 +1237,7 @@ msgstr "Seite verlassen"
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 
-#: app/views/pages/_page_status.html.erb:15
+#: app/views/pages/_page_icon.html.erb:15
 msgid "updated_at"
 msgstr "Bearbeitet am"
 
