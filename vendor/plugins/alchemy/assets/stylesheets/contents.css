@@ -241,6 +241,8 @@ div.content_editor {
 div.content_editor label {
 	display: block;
 	margin-bottom: 0.5em;
+	font-size: 10px;
+	text-shadow: #fff5e1 1px 1px 0;
 }
 
 div.content_editor label a.icon_button.small {

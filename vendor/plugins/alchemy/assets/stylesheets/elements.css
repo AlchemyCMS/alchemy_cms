@@ -14,13 +14,16 @@ input.text_with_icon {
 }
 
 .element_heading .preview_text_quote {
-	font-size: 12px;
+	font-size: 10px;
 	font-style: italic;
+	line-height: 15px;
 }
 
 span.preview_text_element_name {
-	font-size: 12px;
+	font-size: 10px;
 	text-shadow: #efefef 1px 1px 1px;
+	font-weight: bold;
+	line-height: 15px;
 }
 
 img.add_element_spinner {
@@ -45,21 +48,22 @@ img.add_element_spinner {
 	top: 9px;
 }
 
-.element_handle img {
-	position: absolute;
-}
-
-.element_handle img.element_image {
+.element_handle .element_icon {
 	z-index: 0;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(../images/icons/element-icons.png) no-repeat -80px 0;
 }
 
-/*.element_handle img.element_status {
-	z-index: 1;
-}*/
+.element_handle img.element_status {
+	z-index: 1;	position: absolute;
+}
 
 div.wa_delete_and_save_buttons span.element_public {
 	float: left;
-	margin-left: 82px;
 	margin-top: 1px;
 }
 
@@ -89,38 +93,36 @@ div.wa_delete_and_save_buttons span.element_public {
 	margin: 2px 1px 2px 2px;
 	width: 120px;
 	padding: 0;
+	background-color: #f0e8d7;
 }
 
 .add_content a {
 	color: #6c6c6c;
 	text-decoration: none;
-	background: #e3e3e3 url(../images/icons/add_picture.png) no-repeat center center;
+	background: url(../images/icons/image-essence.png) no-repeat 0 0;
 	overflow: hidden;
-	border: 1px dashed #c0c0c0;
 	text-align: center;
 	font-weight: bold;
 	line-height: 104px;
-	border-radius: 8px;
+	border-radius: 3px;
 	font-size: 40px;
 	display: block;
-	height: 121px;
-	margin-top: 0;
+	height: 24px;
+	margin-top: 48px;
+	width: 24px;
+	margin-bottom: 48px;
+	margin: 48px;
 }
 
 .add_content a.assign {
-	background: #e3e3e3 url(../images/icons/assign_picture.png) no-repeat center center;
-}
-
-.add_content a:hover {
-	text-decoration: none;
-	background-color: #d9d9d9;
+	background-position: -24px 0;
 }
 
 .wa_delete_and_save_buttons {
 	padding: 8px;
 	border-top-style: none;
 	position: relative;
-	background-color: #e3e3e3;
+	background-color: #e5dcca;
 	width: 100%;
 	height: 18px;
 	margin-left: -8px;
@@ -161,7 +163,7 @@ div.element_editor {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	background-color: #e3e3e3;
+	background-color: #f0e8d7;
 	margin-bottom: 8px;
 }
 
@@ -169,23 +171,17 @@ div.element_editor form {
 	margin: 4px 0 0;
 	padding: 0 8px;
 	overflow: hidden;
-	background-color: #ededed;
 }
 
 .element_tools a {
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
 	float: left;
-	margin-right: 4px;
-}
-
-.element_tools a:active {
-	background-position: 0 1px;
-	outline: none;
+	margin: 1px 4px 1px 1px;
 }
 
 a.delete_element_button {
-	background: url(../images/icons/trash.png) no-repeat;
+	background: url(../images/icons/element-icons.png) no-repeat;
 }
 
 div.element_tools {
@@ -197,11 +193,11 @@ span.element_tools_icons {
 }
 
 a.element_copy_button {
-	background: url(../images/icons/copy.png) no-repeat 0px 0;
+	background: url(../images/icons/element-icons.png) no-repeat -32px 0;
 }
 
 a.element_move_button {
-	background: url(../images/icons/cut.png) no-repeat 0 0;
+	background: url(../images/icons/element-icons.png) no-repeat -16px 0;
 }
 
 .element_head {
@@ -209,9 +205,9 @@ a.element_move_button {
 	position: relative;
 	overflow: hidden;
 	margin-bottom: 0;
-	background-color: #e3e3e3;
 	border-top-color: #e3e3e3;
 	height: 20px;
+	background-color: #e5dcca;
 }
 
 form.add_gallery_to_index {
@@ -225,12 +221,12 @@ div.picture_gallery_images {
 	padding-bottom: 2px;
 	overflow: hidden;
 	margin-bottom: 8px;
-	background-color: #e3e3e3;
-	border: 1px solid #c3c3c3;
+	border: 1px inset #cecece;
 	padding-left: 1px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
+	background-color: #e5dcca;
 }
 
 div.picture_detail div.picture_image img.img_paddingtop {
@@ -315,28 +311,21 @@ div.content_editor a.icon_button {
 div.content_editor a.icon_button.small {
 }
 
-a.show_options {
-	background: url(../images/gui/expand.png) no-repeat 0 0;
-	height: 19px;
-	width: 18px;
+a.expand_element {
+	background: url(../images/icons/element-icons.png) no-repeat -48px 0;
+	height: 16px;
+	width: 16px;
 	text-decoration: none;
 	display: block;
+	margin: 1px;
 }
 
-a.show_options:active {
-	text-decoration: none;
-	background-position: 0 1px;
-}
-
-a.hide_options {
-	background: url(../images/gui/expand.png) no-repeat -19px 0;
-	height: 19px;
-	width: 18px;
+a.fold_element {
+	background: url(../images/icons/element-icons.png) no-repeat -64px 0;
+	height: 16px;
+	width: 16px;
 	text-decoration: none;
 	display: block;
+	margin: 1px;
 }
 
-a.hide_options:active {
-	text-decoration: none;
-	background-position: 0 1px;
-}

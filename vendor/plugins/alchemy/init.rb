@@ -36,7 +36,6 @@ Tinymce::Hammer.init = [
   [:paste_strip_class_attributes, true],
   [:theme, 'advanced'],
   [:skin, 'o2k7'],
-  [:skin_variant, 'silver'],
   [:inlinepopups_skin, 'alchemy'],
   [:popup_css, "/plugin_assets/alchemy/stylesheets/alchemy_tinymce_dialog.css"],
   [:content_css, "/plugin_assets/alchemy/stylesheets/alchemy_tinymce_content.css"],

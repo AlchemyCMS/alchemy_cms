@@ -1,6 +1,6 @@
 <div class="element_head">
   <div class="element_handle">
-		<%= image_tag("elements/element_pic.gif", :plugin => "alchemy", :title => "#{element.name}", :class => "element_image", :alt => "") -%>
+		<span class="element_icon" title="<%= element.name %>"></span>
 		<%= image_tag("elements/element_#{element.public? ? 'public' : 'draft'}.gif", :plugin => 'alchemy', :class => "element_status", :alt => "") %>
   </div>
 	<span class="element_heading">
@@ -34,7 +34,7 @@
 				$('element_#{element.id}_folder_spinner').hide();
 			),
 			:html => {
-				:class => (element.folded? ? 'show_options' : 'hide_options'),
+				:class => (element.folded? ? 'expand_element' : 'fold_element'),
 				:title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
 				:id => "element_#{element.id}_folder"
 			}

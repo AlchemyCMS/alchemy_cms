@@ -759,8 +759,6 @@ a.sitemap_pagename_link {
 }
 
 a.sitemap_pagename_link:hover {
-	padding-left: 24px;
-	background: url(../images/icons/edit.png) no-repeat 4px 3px;
 	text-decoration: underline;
 }
 
