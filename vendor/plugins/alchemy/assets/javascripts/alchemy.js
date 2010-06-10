@@ -1,5 +1,12 @@
 var is_ie = (document.all) ? true : false;
 
+function scrollToElement (id) {
+	var el_ed = $('element_'+id);
+	var offset = el_ed.positionedOffset();
+	var container = $$('.alchemy_window_content .alchemy_window_content').first();
+	container.scrollTop += offset.top - 41;
+}
+
 function toggleButton (id, action) {
 	var button = $(id);
 	if (action == 'disable') {

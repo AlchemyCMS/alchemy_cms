@@ -40,8 +40,6 @@
 			ed.removeClassName('selected');
 		});
 		el_ed.addClassName('selected');
-		var offset = el_ed.positionedOffset();
-		var container = $$('.alchemy_window_content .alchemy_window_content').first();
 		if (el_ed.hasClassName('folded')) {
 			new Ajax.Request(
 				'/elements/fold?id='+id,
@@ -49,12 +47,12 @@
 					request: 'post',
 					onComplete: function () {
 						$('element_<%= element.id %>').addClassName('selected');
-						container.scrollTop += offset.top - 41;
+						scrollToElement(id);
 					}
 				}
 			);
 		} else if (current_selected != el_ed) {
-			container.scrollTop += offset.top - 41;
+			scrollToElement(id);
 		}
 		e.stop();
 	});
