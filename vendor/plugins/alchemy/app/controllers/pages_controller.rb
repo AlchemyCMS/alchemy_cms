@@ -90,6 +90,7 @@ class PagesController < ApplicationController
   
   def preview
     # fetching page via before filter
+    @preview_mode = true
   end
   
   def configure
