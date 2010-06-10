@@ -29,9 +29,22 @@
 
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
-	$('element_<%= element.id %>').observe('alchemy:expand_element', function (e) {
+	$('element_<%= element.id %>').observe('alchemy:select_element', function (e) {
 		var el_ed = e.element();
 		var id = e.memo.element_id;
+		var editors = $$('#element_area .element_editor');
+		var current_selected = editors.detect(function (editor) {
+			return editor.hasClassName('selected');
+		});
+		editors.each(function (ed) {
+			ed.removeClassName('selected');
+		});
+		el_ed.addClassName('selected');
+		var offset = el_ed.positionedOffset();
+		var container = $$('.alchemy_window_content .alchemy_window_content').first();
+		if (current_selected != el_ed) {
+			container.scrollTop += offset.top - 41;
+		};
 		if (el_ed.hasClassName('folded')) {
 			new Ajax.Request(
 				'/elements/fold?id='+id,
@@ -47,10 +60,3 @@
 	});
 // ]]>
 </script>
-<%- if has_rtf_atoms -%>
-<script type="text/javascript" charset="utf-8">
-// <![CDATA[
-	TinymceHammer.init();
-// ]]>
-</script>
-<%- end -%>

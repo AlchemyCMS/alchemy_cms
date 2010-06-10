@@ -24,7 +24,7 @@
 			elements.each(function (el) {
 				el.observe('mouseover', function (e) {
 					var t = e.currentTarget;
-					t.setStyle({outline: '2px solid blue'});
+					t.setStyle({outline: '2px solid #bba589'});
 				});
 				el.observe('mouseout', function (e) {
 					var t = e.currentTarget;
@@ -33,19 +33,12 @@
 				el.observe('click', function (e) {
 					var target = e.currentTarget;
 					var t_id = target.id.replace(/\D/g,'');
-					editors = window.parent.$$('#element_area .element_editor');
-					editors.each(function (ed) {
-						ed.removeClassName('selected');
-					});
+					var editors = window.parent.$$('#element_area .element_editor');
 					var cur_ed = editors.detect(function (ed) {
 						var ed_id = ed.id.replace(/\D/g,'');
 						return ed_id === t_id;
 					});
-					cur_ed.addClassName('selected');
-					cur_ed.fire('alchemy:expand_element', {element_id: t_id});
-					var of = cur_ed.positionedOffset();
-					var par = cur_ed.getOffsetParent();
-					window.parent.$$('.alchemy_window_content .alchemy_window_content').first().scrollTop = of.top;
+					cur_ed.fire('alchemy:select_element', {element_id: t_id});
 				});
 			});
 		// ]]>
