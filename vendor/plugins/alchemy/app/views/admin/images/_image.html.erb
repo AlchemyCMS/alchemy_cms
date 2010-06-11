@@ -12,12 +12,12 @@
 			),
 			"image_zoom('images/show_in_window/#{image.id}', '#{image.name}', #{image.image_width || 320}, #{image.image_height || 240})"
 		) %>
-		<%- permitted_to?(:destroy, :images) do -%>
+		<%- permitted_to?(:destroy, :admin_images) do -%>
 		<span class="picture_tool_delete">
 			<%= delete_with_confirmation_link(
 				"",
 				_("confirm_to_delete_image_from_server"),
-				image_path(
+				admin_image_path(
 					:id => image,
 					:query => params[:query],
 					:page => params[:page],
@@ -32,12 +32,12 @@
 	</div>
 	<%# leave this as one line, or the inplace editor renders a textarea instead of an input field %>
 	<span class="picture_name" title="<%= image.name %>" id="image_<%= dom_id(image) %>_name"><%= image.name.empty? ? nil : shorten(image.name, 25) %></span>
-	<%- permitted_to?(:edit, :images) do -%>
+	<%- permitted_to?(:edit, :admin_images) do -%>
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
 		new Ajax.InPlaceEditor(
 			'image_<%= dom_id(image) %>_name',
-			'/images/update/<%= image.id %>',
+			'/admin/images/update/<%= image.id %>',
 			{
 				highlightcolor: '#fff', 
 				cancelText: 'x',

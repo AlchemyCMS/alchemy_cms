@@ -1,6 +1,6 @@
-class EssencePicturesController < ApplicationController
+class Admin::EssencePicturesController < ApplicationController
   
-  layout 'alchemy'
+  layout 'admin'
   
   filter_access_to :all
   

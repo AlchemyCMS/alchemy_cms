@@ -2,10 +2,10 @@
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
-			<%- permitted_to?(:new, :users) do -%>
+			<%- permitted_to?(:new, :admin_users) do -%>
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon user_add'),
-				new_user_path,
+				new_admin_user_path,
 				{
 					:title => _('create_user'),
 					:size => "380x330",

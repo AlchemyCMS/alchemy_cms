@@ -22,16 +22,16 @@
 		<%- permitted_to?(:download, :attachements) do -%>
 		<%= link_to(
 			"",
-			attachement_path(attachement, :download => true),
+			download_attachement_path(attachement),
 			:title => (_("download_file_'%{filename}'") % {:filename => attachement.filename}),
 			:class => "icon file_download"
 		) %>
 		<%- end -%>
-		<%- permitted_to?(:destroy, :attachements) do -%>
+		<%- permitted_to?(:destroy, :admin_attachements) do -%>
 		<%= delete_with_confirmation_link(
 			"",
 			_("confirm_to_delete_file"),
-			attachement_path(
+			admin_attachement_path(
 				:id => attachement,
 				:query => params[:query],
 				:page => params[:page],
@@ -43,9 +43,9 @@
 			}
 		) -%>
 		<%- end -%>
-		<%- permitted_to?(:edit, :attachements) do -%>
+		<%- permitted_to?(:edit, :admin_attachements) do -%>
 		<%= link_to_overlay_window("",
-			edit_attachement_path(attachement, :query => params[:query], :page => params[:page]),
+			edit_admin_attachement_path(attachement, :query => params[:query], :page => params[:page]),
 			{
 				:title => _('rename_file'),
 				:size => '380x45'

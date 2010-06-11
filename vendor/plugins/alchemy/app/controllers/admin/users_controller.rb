@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
 
   layout 'admin'
   
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     end
     render_errors_or_redirect(
       @user,
-      users_path,
+      admin_users_path,
       ( _("User: '%{name}' created") % {:name => @user.name} )
     )
   end
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     @user.update_attributes(params[:user])
     render_errors_or_redirect(
       @user,
-      users_path,
+      admin_users_path,
       ( _("User: '%{name}' updated") % {:name => @user.name} )
     )
   end
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       flash[:notice] = ( _("User: '%{name}' deleted") % {:name => name} )
     end
     render :update do |page|
-      page.redirect_to users_path
+      page.redirect_to admin_users_path
     end
   end
   

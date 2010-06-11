@@ -41,7 +41,7 @@ module PagesHelper
   end
   
   def alchemy_form_label(element, name, options={})
-    label_tag "mail_data_#{name}", render_content_view_by_name(element, name), options
+    label_tag "mail_data_#{name}", render_essence_view_by_name(element, name), options
   end
   
   def alchemy_form_reset_button(name, options={})

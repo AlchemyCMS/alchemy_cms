@@ -28,9 +28,9 @@ module LayoutHelper
   def new_asset_path_with_session_information(asset_type)
     session_key = ActionController::Base.session_options[:key]
     if asset_type == "image"
-      images_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
+      admin_images_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
     elsif asset_type == "file"
-      attachements_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
+      admin_attachements_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
     end
   end
   

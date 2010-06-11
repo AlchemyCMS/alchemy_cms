@@ -1,12 +1,12 @@
-class EssenceFilesController < ApplicationController
+class Admin::EssenceFilesController < ApplicationController
   
-  layout 'alchemy'
+  layout 'admin'
   
   filter_access_to :all
   
   def edit
     @atom = Content.find(params[:id])
-    @file_atom = @atom.atom
+    @attachement_atom = @atom.atom
     render :layout => false
   end
   
@@ -20,8 +20,8 @@ class EssenceFilesController < ApplicationController
   
   def assign
     @content = Content.find_by_id(params[:id])
-    @file = File.find_by_id(params[:file_id])
-    @content.essence.file = @file
+    @attachement = File.find_by_id(params[:file_id])
+    @content.essence.file = @attachement
     @content.essence.save
     @content.save
     render :update do |page|

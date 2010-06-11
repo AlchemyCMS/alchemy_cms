@@ -1,4 +1,4 @@
-class ElementsController < ApplicationController
+class Admin::ElementsController < ApplicationController
   
   before_filter :set_translation
   
@@ -38,7 +38,7 @@ class ElementsController < ApplicationController
       @page = @element.page
       if @element.save
         flash[:notice] = 'Element toll'
-        edit_page_path(@page)
+        edit_admin_page_path(@page)
       else
         render :update do |page|
           page.replace(:errors, 'fehler')

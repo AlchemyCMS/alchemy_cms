@@ -1,13 +1,13 @@
-class ImagesController < ApplicationController
+class Admin::ImagesController < ApplicationController
   
   protect_from_forgery :except => [:create]
   layout 'admin'
   
-  before_filter :set_translation, :except => [:show, :thumb]
+  before_filter :set_translation, :except => [:thumb]
   
-  filter_access_to :all, :except => [:show]
+  filter_access_to :all
   
-  caches_page :show, :show_in_window, :thumb
+  caches_page :show_in_window, :thumb
   cache_sweeper :images_sweeper, :only => [:update]
   
   def index
@@ -65,7 +65,7 @@ class ImagesController < ApplicationController
       page << "alchemy_window.updateHeight()"
     end
   end
-
+  
   def archive_overlay
     @element = Element.find_by_id(params[:element_id])
     @images = Image.paginate(
@@ -81,20 +81,20 @@ class ImagesController < ApplicationController
     @options = params[:options]
     if params[:remote] == 'true'
       render :update do |page|
-        page.replace_html 'alchemy_window_body', :partial => 'archive_overlay_images'        
+        page.replace_html 'alchemy_window_body', :partial => 'archive_overlay_images'
       end
     else
-      render :layout => false      
+      render :layout => false
     end
   end
-
+  
   def update
     @image = Image.find(params[:id])
     oldname = @image.name
     @image.name = params[:value]
     if @image.save
       render :update do |page|
-        page.replace "image_#{@image.id}", :partial => "images/image", :locals => {:image => @image}
+        page.replace "image_#{@image.id}", :partial => "image", :locals => {:image => @image}
         AlchemyNotice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @image.name} ))
       end
     end
@@ -106,23 +106,10 @@ class ImagesController < ApplicationController
     @image.destroy
     render :update do |page|
       flash[:notice] = ( _("Image: '%{name}' deleted successfully") % {:name => name} )
-      page.redirect_to images_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
+      page.redirect_to admin_images_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
     end
   end
   
-  def show
-    @image = Image.find(params[:id])
-    @size = params[:size]
-    @crop = !params[:crop].nil?
-    @padding = params[:padding]
-    @upsample = !params[:upsample].nil? ? true : false
-    @options = params[:options]
-    respond_to do |format|
-      format.jpg
-      format.png
-    end
-  end
-
   def thumb
     @image = Image.find(params[:id])
     case params[:size]
@@ -143,7 +130,7 @@ class ImagesController < ApplicationController
       format.jpg
     end
   end
-
+  
   def show_in_window
     @image = Image.find(params[:id])
     render :layout => "image_in_window"

@@ -144,11 +144,11 @@ module ApplicationHelper
   # For the editor partial:
   # :css_class => ""                               This css class gets attached to the content editor.
   # :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
-  def render_content(content, part = :view, options = {})
+  def render_essence(content, part = :view, options = {})
     if content.nil?
       logger.warn %(\n
         ++++ WARNING: Content is nil!\n
-        Usage: render_content(content, part, options = {})\n
+        Usage: render_essence(content, part, options = {})\n
       )
       return part == :view ? "" : "<p class=\"content_editor_error\">" + _("content_not_found") + "</p>"
     elsif content.essence.nil?
@@ -175,7 +175,7 @@ module ApplicationHelper
     options_for_partial = defaults[('for_' + part.to_s).to_sym].merge(options[('for_' + part.to_s).to_sym])
     options = options.merge(defaults)
     render(
-      :partial => "contents/#{content.essence.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
+      :partial => "essences/#{content.essence.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
       :locals => {
         :content => content,
         :options => options_for_partial
@@ -184,26 +184,26 @@ module ApplicationHelper
   end
 
   # Renders the Content editor partial from the given Content.
-  # For options see -> render_content
-  def render_content_editor(content, options = {})
-    render_content(content, :editor, :for_editor => options)
+  # For options see -> render_essence
+  def render_essence_editor(content, options = {})
+    render_essence(content, :editor, :for_editor => options)
   end
 
   # Renders the Content view partial from the given Content.
-  # For options see -> render_content
-  def render_content_view(content, options = {})
-    render_content(content, :view, :for_view => options)
+  # For options see -> render_essence
+  def render_essence_view(content, options = {})
+    render_essence(content, :view, :for_view => options)
   end
 
   # Renders the Content editor partial from the given Element for the essence_type (e.g. EssenceRichtext).
   # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first content found for this type will be rendered.
-  # For options see -> render_content
-  def render_content_editor_by_type(element, type, position = nil, options = {})
+  # For options see -> render_essence
+  def render_essence_editor_by_type(element, type, position = nil, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_view(element, position, options = {})\n
+        Usage: render_essence_view(element, position, options = {})\n
       )
       return "<p class='element_error'>" + _("no_element_given") + "</p>"
     end
@@ -212,18 +212,18 @@ module ApplicationHelper
     else
       content = element.contents.find_by_essence_type_and_position(type, position)
     end
-    render_content(content, :editor, :for_editor => options)
+    render_essence(content, :editor, :for_editor => options)
   end
 
   # Renders the Content view partial from the given Element for the essence_type (e.g. EssenceRichtext).
   # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first content found for this type will be rendered.
-  # For options see -> render_content
-  def render_content_view_by_type(element, type, position, options = {})
+  # For options see -> render_essence
+  def render_essence_view_by_type(element, type, position, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_view(element, position, options = {})\n
+        Usage: render_essence_view(element, position, options = {})\n
       )
       return ""
     end
@@ -232,63 +232,63 @@ module ApplicationHelper
     else
       content = element.contents.find_by_essence_type_and_position(type, position)
     end
-    render_content(content, :view, :for_view => options)
+    render_essence(content, :view, :for_view => options)
   end
 
   # Renders the Content view partial from the given Element by position (e.g. 1).
-  # For options see -> render_content
-  def render_content_view_by_position(element, position, options = {})
+  # For options see -> render_essence
+  def render_essence_view_by_position(element, position, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_view_by_position(element, position, options = {})\n
+        Usage: render_essence_view_by_position(element, position, options = {})\n
       )
       return ""
     end
     content = element.contents.find_by_position(position)
-    render_content(content, :view, :for_view => options)
+    render_essence(content, :view, :for_view => options)
   end
 
   # Renders the Content editor partial from the given Element by position (e.g. 1).
-  # For options see -> render_content
-  def render_content_editor_by_position(element, position, options = {})
+  # For options see -> render_essence
+  def render_essence_editor_by_position(element, position, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_view_by_position(element, position, options = {})\n
+        Usage: render_essence_view_by_position(element, position, options = {})\n
       )
       return ""
     end
     content = element.contents.find_by_position(position)
-    render_content(content, :editor, :for_editor => options)
+    render_essence(content, :editor, :for_editor => options)
   end
 
   # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
-  # For options see -> render_content
-  def render_content_editor_by_name(element, name, options = {})
+  # For options see -> render_essence
+  def render_essence_editor_by_name(element, name, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_view(element, position, options = {})\n
+        Usage: render_essence_view(element, position, options = {})\n
       )
       return "<p class='element_error'>" + _("no_element_given") + "</p>"
     end
     content = element.content_by_name(name)
-    render_content(content, :editor, :for_editor => options)
+    render_essence(content, :editor, :for_editor => options)
   end
 
   # Renders the Content view partial from the passed Element for passed content name.
-  # For options see -> render_content
-  def render_content_view_by_name(element, name, options = {})
+  # For options see -> render_essence
+  def render_essence_view_by_name(element, name, options = {})
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_view(element, position, options = {})\n
+        Usage: render_essence_view(element, position, options = {})\n
       )
       return ""
     end
     content = element.content_by_name(name)
-    render_content(content, :view, :for_view => options)
+    render_essence(content, :view, :for_view => options)
   end
 
   # Returns current_page.title
@@ -508,8 +508,8 @@ module ApplicationHelper
       :all_sub_menues => false,
       :from_page => root_page,
       :spacer => "",
-      :navigation_partial => "pages/partials/navigation_renderer",
-      :navigation_link_partial => "pages/partials/navigation_link",
+      :navigation_partial => "partials/navigation_renderer",
+      :navigation_link_partial => "partials/navigation_link",
       :show_nonactive => false,
       :restricted_only => nil,
       :show_title => true,
@@ -981,7 +981,7 @@ module ApplicationHelper
     )
   end
   
-  def render_content_selection_editor(element, content, select_options)
+  def render_essence_selection_editor(element, content, select_options)
     if content.class == String
        content = element.contents.find_by_name(content)
     else
@@ -990,7 +990,7 @@ module ApplicationHelper
     if content.essence.nil?
       logger.warn %(\n
         ++++ WARNING: Element is nil!\n
-        Usage: render_content_editor_by_position(element, position, options = {})\n
+        Usage: render_essence_editor_by_position(element, position, options = {})\n
       )
       return _("content_essence_not_found")
     end

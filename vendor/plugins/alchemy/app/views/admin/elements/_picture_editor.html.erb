@@ -1,6 +1,6 @@
 <div class="picture_gallery_images" id="element_<%= element.id %>_contents">
 	<%- for picture_content in picture_contents do -%>
-		<%= render_content_editor(picture_content, {
+		<%= render_essence_editor(picture_content, {
 			:dragable => picture_contents.size > 1
 		}.merge(options)) %>
 	<%- end -%>

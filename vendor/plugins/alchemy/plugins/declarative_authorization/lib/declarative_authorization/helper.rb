@@ -11,17 +11,17 @@ module Authorization
     # 
     # Examples:
     #     <% permitted_to? :create, :users do %>
-    #     <%= link_to 'New', new_user_path %>
+    #     <%= link_to 'New', new_admin_user_path %>
     #     <% end %>
     #     ...
     #     <% if permitted_to? :create, :users %>
-    #     <%= link_to 'New', new_user_path %>
+    #     <%= link_to 'New', new_admin_user_path %>
     #     <% else %>
     #     You are not allowed to create new users!
     #     <% end %>
     #     ...
     #     <% for user in @users %>
-    #     <%= link_to 'Edit', edit_user_path(user) if permitted_to? :update, user %>
+    #     <%= link_to 'Edit', edit_admin_user_path(user) if permitted_to? :update, user %>
     #     <% end %>
     #
     # To pass in an object and override the context, you can use the optional

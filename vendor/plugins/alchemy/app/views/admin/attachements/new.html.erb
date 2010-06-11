@@ -1,6 +1,6 @@
-<% form_for @file, :html => {:multipart => true} do |f| %>
+<% form_for([:admin, @attachement], :html => {:multipart => true}) do |f| %>
 	<%= render(
-		:partial => "partials/upload_form",
+		:partial => "admin/partials/upload_form",
 		:locals => {
 			:file_types => ['*.*'],
 			:file_types_description => _('documents'),

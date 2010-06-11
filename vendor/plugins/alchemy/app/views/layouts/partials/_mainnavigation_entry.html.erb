@@ -1,8 +1,8 @@
-<%- permitted_to?(mainnavigation_entry["action"].to_sym, mainnavigation_entry["controller"].to_sym) do -%>
+<%- permitted_to?(mainnavigation_entry["action"].to_sym, mainnavigation_entry["controller"].gsub(/\//, '_').to_sym) do -%>
 
 <% link_to(
 	url_for(
-		:controller => mainnavigation_entry["controller"],
+		:controller => "/#{mainnavigation_entry['controller']}",
 		:action => mainnavigation_entry["action"]
 	),
 	:class => "main_navi_entry#{admin_mainnavi_active?(mainnavigation_entry) ? ' active' : nil }",

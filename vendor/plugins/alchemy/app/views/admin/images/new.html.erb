@@ -1,6 +1,6 @@
-<% form_for(@image, :html => {:multipart => true}) do |f| %>
+<% form_for([:admin, @image], :html => {:multipart => true}) do |f| %>
 	<%= render(
-		:partial => "partials/upload_form",
+		:partial => "admin/partials/upload_form",
 		:locals => {
 			:file_types => [
 				'*.jpg',

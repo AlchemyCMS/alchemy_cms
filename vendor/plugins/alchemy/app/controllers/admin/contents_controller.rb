@@ -1,6 +1,6 @@
-class ContentsController < ApplicationController
+class Admin::ContentsController < ApplicationController
   
-  layout 'alchemy'
+  layout 'admin'
   
   filter_access_to :all
   

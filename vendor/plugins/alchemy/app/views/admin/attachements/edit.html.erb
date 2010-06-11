@@ -1,4 +1,4 @@
-<% form_for( @file, :url => {:action => :update, :query => params[:query], :page => params[:page]}, :html => {:class => " with_padding"}) do |f| -%>
+<% form_for([:admin, @attachement], :url => {:action => :update, :query => params[:query], :page => params[:page]}, :html => {:class => " with_padding"}) do |f| -%>
 		<div class="emulated_table_row">
 			<span class="first_column">
 				<%= f.label( 'name', _('name'), :class => "short") %>

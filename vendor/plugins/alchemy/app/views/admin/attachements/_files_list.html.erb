@@ -1,15 +1,15 @@
-<%- if @files.blank? && params[:query].nil? -%>
+<%- if @attachements.blank? && params[:query].nil? -%>
 	<p class="padding_left_right" id="no_files_notice">
 		<%= _("no_files_in_archive") %>
 	</p>
-<%- elsif @files.blank? -%>
+<%- elsif @attachements.blank? -%>
 	<p class="padding_left_right">
 		<%= _("no_search_results") %>
 	</p>
 <%- end -%>
-<%= render :partial => 'partials/pagination_links', :locals => {:items => @files} %>
+<%= render :partial => 'partials/pagination_links', :locals => {:items => @attachements} %>
 <table id="all_files" class="list">
-	<%- unless @files.blank? -%>
+	<%- unless @attachements.blank? -%>
 	<tr>
 		<th class="icon"></th>
 		<th class="name"><%= Attachement.human_attribute_name('name') %></th>
@@ -20,5 +20,5 @@
 		<th class="tools"></th>
 	</tr>
 	<%- end -%>
-	<%= render(:partial => @files) %>
+	<%= render(:partial => @attachements) %>
 </table>
