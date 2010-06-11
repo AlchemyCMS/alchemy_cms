@@ -124,7 +124,7 @@ div.image_assign_filter_and_image_sizing {
 	margin-bottom: 12px;
 }
 
-#wa_assign_image_list {
+#assign_image_list {
 	overflow: auto;
 	margin-top: 8px;
 	clear: both;
@@ -174,7 +174,7 @@ a.image_size_large:hover {
 	background-position: -19px;
 }
 
-div.wa_assign_image_list_detail {
+div.assign_image_list_detail {
 	background-color: #ffffff;
 	text-align: center;
 	float: left;
@@ -193,22 +193,22 @@ div.wa_assign_image_list_detail {
 	box-shadow: #999 0px 1px 3px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail.small {
+#assign_image_list div.assign_image_list_detail.small {
 	width: 80px;
 	height: 75px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail.medium {
+#assign_image_list div.assign_image_list_detail.medium {
 	width: 160px;
 	height: 135px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail.large {
+#assign_image_list div.assign_image_list_detail.large {
 	width: 240px;
 	height: 195px;
 }
 
-div.wa_assign_image_list_image {
+div.assign_image_list_image {
 	background-color: #ededed;
 	text-align: center;
 	overflow: hidden;
@@ -219,38 +219,38 @@ div.overlay_image_spinner {
 	z-index: 0;
 }
 
-.wa_assign_image_list_detail.small div.overlay_image_spinner {
+.assign_image_list_detail.small div.overlay_image_spinner {
 	top: 19px;
 	left: 26px;
 }
 
-.wa_assign_image_list_detail.medium div.overlay_image_spinner {
+.assign_image_list_detail.medium div.overlay_image_spinner {
 	top: 48px;
 	left: 67px;
 }
 
-.wa_assign_image_list_detail.large div.overlay_image_spinner {
+.assign_image_list_detail.large div.overlay_image_spinner {
 	top: 80px;
 	left: 103px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail.small div.wa_assign_image_list_image {
+#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image {
 	height: 60px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail.medium div.wa_assign_image_list_image {
+#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image {
 	height: 120px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail.large div.wa_assign_image_list_image {
+#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image {
 	height: 180px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_image img {
+#assign_image_list div.assign_image_list_image img {
 	border-style: none;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_image span {
+#assign_image_list div.assign_image_list_image span {
 	
 }
 
@@ -294,14 +294,14 @@ form.create_right {
 	display: none;
 }
 
-#wa_confirm_dialog .alchemy_window_buttons {
+#alchemy_confirm_window .alchemy_window_buttons {
 	display: block;
 	text-align: right;
 	margin-top: 8px;
 	padding-right: 8px;
 }
 
-#wa_confirm_dialog_content div.alchemy_window_message {
+#alchemy_confirm_window_content div.alchemy_window_message {
 	padding: 8px;
 }
 
@@ -508,7 +508,7 @@ input#user_admin {
 	line-height: 19px;
 }
 
-#wa_assign_image_list div.wa_assign_image_list_detail .image_to_assign_name {
+#assign_image_list div.assign_image_list_detail .image_to_assign_name {
 	white-space: nowrap;
 	overflow: hidden;
 	padding-top: 3px;
@@ -519,7 +519,7 @@ input#user_admin {
 	width: 79px;
 }
 
-#wa_assign_image_list div.pagination {
+#assign_image_list div.pagination {
 	margin-bottom: 8px;
 }
 
@@ -537,14 +537,14 @@ div.image_assign_filter_and_image_sizing form input.button {
 	float: right;
 }
 
-div.wa_assign_file_file {
+div.assign_file_file {
 	text-align: center;
 	background-color: white;
 	width: 100%;
 	margin-bottom: 4px;
 }
 
-#wa_assign_file_list div.wa_assign_file_file a {
+#assign_file_list div.assign_file_file a {
 	overflow: hidden;
 	display: block;
 	height: 39px;
@@ -552,7 +552,7 @@ div.wa_assign_file_file {
 	text-align: left;
 }
 
-div.wa_assign_file_file_icon {
+div.assign_file_file_icon {
 	float: left;
 	margin-top: 1px;
 }
@@ -749,7 +749,7 @@ div.overlay_tab_bar {
 	background-color: transparent;
 }
 
-div#wa_assign_file_list {
+div#assign_file_list {
 	margin-bottom: 8px;
 	margin-top: 8px;
 	clear: both;
@@ -774,7 +774,7 @@ ul#sitemap li .sitemap_sitename.selected_page {
 	font-weight: bold;
 }
 
-div.wa_assign_file_file_name {
+div.assign_file_file_name {
 	margin-left: 4px;
 	margin-top: 14px;
 	float: left;
@@ -786,7 +786,7 @@ div.wa_assign_file_file_name {
 	overflow: hidden;
 }
 
-div.wa_assign_file_file_icon img {
+div.assign_file_file_icon img {
 	margin-top: 2px;
 }
 
@@ -938,7 +938,7 @@ div.emulate_table p {
 	width: 100%;
 }
 
-.wa_assign_file_file.selected_file {
+.assign_file_file.selected_file {
 	background-color: #d1d1d1;
 }
 

@@ -1,6 +1,6 @@
 page.replace_html(
   "elements_for_page_#{@page_id}",
-  wa_select_tag(
+  alchemy_selectbox_tag(
     "element_from_page_#{@page_id}_to_link",
     @elements.collect{ |m| [m.display_name_with_preview_text, "##{m.dom_id}"] },
     '',

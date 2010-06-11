@@ -1,7 +1,7 @@
 <%- unless content.essence.file.nil? -%>
 <%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.essence.width -%>
 <%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : content.essence.height -%>
-<div id="wa_video_player_<%= content.id %>">
+<div id="alchemy_video_player_<%= content.id %>">
   To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
 </div>
 <script type="text/javascript" charset="utf-8">
@@ -30,6 +30,6 @@
 		allowfullscreen: '<%= content.essence.allow_fullscreen ? "true" : "false" %>'
 	};
 	var attributes = {};
-	swfobject.embedSWF( "/mediaplayer.swf", "wa_video_player_<%= content.id %>", <%= width %>, <%= height %>, "9", false, flashvars, params, attributes);
+	swfobject.embedSWF( "/mediaplayer.swf", "alchemy_video_player_<%= content.id %>", <%= width %>, <%= height %>, "9", false, flashvars, params, attributes);
 </script>
 <%- end -%>

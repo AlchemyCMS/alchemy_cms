@@ -266,18 +266,18 @@ form.add_gallery_to_index select {
 
 /* @group add moclecule */
 
-.wa_add_element {
+.new_alchemy_element {
 	margin: 0;
 	padding: 8px;
 	position: relative;
 	height: 20px;
 }
 
-.wa_add_element p {
+.new_alchemy_element p {
 	line-height: 21px;
 }
 
-.wa_add_element form {
+.new_alchemy_element form {
 	line-height: 21px;
 }
 
@@ -287,11 +287,11 @@ div#element_area {
 	overflow: hidden;
 }
 
-.wa_add_element span {
+.new_alchemy_element span {
 	float: left;
 }
 
-.wa_add_element select {
+.new_alchemy_element select {
 	float: left;
 	width: 185px;
 	margin: 0 8px;

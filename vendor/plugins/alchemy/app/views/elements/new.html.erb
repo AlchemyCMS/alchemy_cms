@@ -1,4 +1,4 @@
-<div class="wa_add_element">
+<div class="new_alchemy_element">
 <%- if @elements.blank? -%>
 	<p><%= _('no_more_elements_to_add') %></p>
 <%- else -%>
@@ -12,7 +12,7 @@
 	) do |form| %>
 		<%= form.hidden_field('page_id') %>
 		<span><%= _("element_of_type") %>:</span>
-		<%= form.wa_select(
+		<%= form.alchemy_selectbox(
 			'name',
 			elements_for_select(@elements),
 			:prompt => _('select_element')

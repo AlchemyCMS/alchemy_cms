@@ -9,25 +9,25 @@
   <%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.essence.width -%>
   <%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 20) : content.essence.height -%>
 <%- end -%>
-<div id="wa_audio_player_<%= content.id %>">
+<div id="alchemy_audio_player_<%= content.id %>">
   To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
 </div>
 <script type="text/javascript" charset="utf-8">
 //<!--[CDATA[
-	var wa_audio_player_<%= content.id %> = new SWFObject("/mediaplayer.swf", "mediaplayer", <%= width %>, <%= height %>, "8");
-	wa_audio_player_<%= content.id %>.addVariable("width", <%= width %>);
-	wa_audio_player_<%= content.id %>.addVariable("height", <%= height %>);
-	wa_audio_player_<%= content.id %>.addVariable("backcolor", '<%= options[:player_backcolor] || "0xFFFFFF" %>');
-	wa_audio_player_<%= content.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
-	wa_audio_player_<%= content.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
-	wa_audio_player_<%= content.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
-	wa_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.essence.show_eq ? "true" : "false" %>');
-	wa_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.essence.show_navigation ? "true" : "false" %>');
-	wa_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.file.public_filename %>');
+	var alchemy_audio_player_<%= content.id %> = new SWFObject("/mediaplayer.swf", "mediaplayer", <%= width %>, <%= height %>, "8");
+	alchemy_audio_player_<%= content.id %>.addVariable("width", <%= width %>);
+	alchemy_audio_player_<%= content.id %>.addVariable("height", <%= height %>);
+	alchemy_audio_player_<%= content.id %>.addVariable("backcolor", '<%= options[:player_backcolor] || "0xFFFFFF" %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.essence.show_eq ? "true" : "false" %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.essence.show_navigation ? "true" : "false" %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.file.public_filename %>');
 	<%- unless options[:player_cover_image].blank? -%>
-	wa_audio_player_<%= content.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
   <%- end -%>
-	wa_audio_player_<%= content.id %>.write("wa_audio_player_<%= content.id %>");
+	alchemy_audio_player_<%= content.id %>.write("alchemy_audio_player_<%= content.id %>");
 //]]-->
 </script>
 <%- end -%>

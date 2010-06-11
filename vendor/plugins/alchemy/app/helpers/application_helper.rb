@@ -822,7 +822,7 @@ module ApplicationHelper
   def js_filter_field options = {}
     default_options = {
       :class => "thin_border js_filter_field",
-      :onkeyup => "wa_filter('#wa_contact_list li')",
+      :onkeyup => "alchemyListFilter('#contact_list li')",
       :id => "search_field"
     }
     options = default_options.merge(options)
@@ -841,7 +841,7 @@ module ApplicationHelper
     filter_field
   end
 
-  # returns all elements that could be placed on that page because of the pages layout as array to be used in wa_select form builder
+  # returns all elements that could be placed on that page because of the pages layout as array to be used in alchemy_selectbox form builder
   def elements_for_select(elements)
     return [] if elements.nil?
     options = elements.collect{|p| [p["display_name"], p["name"]]}
@@ -861,7 +861,7 @@ module ApplicationHelper
     ajax = remote_function(:url => url, :success => "confirm.close()", :method => :delete)
     link_to_function(
       link_string,
-      "confirm = Dialog.confirm( '#{message}', {width:300, height: 80, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'wa_confirm_dialog', className: 'alchemy_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
+      "confirm = Dialog.confirm( '#{message}', {width:300, height: 80, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'alchemy_confirm_window', className: 'alchemy_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
       html_options
     )
   end
@@ -1041,7 +1041,7 @@ module ApplicationHelper
   end
 
   def admin_main_navigation
-    navigation_entries = wa_plugins.collect{ |p| p["navigation"] }
+    navigation_entries = alchemy_plugins.collect{ |p| p["navigation"] }
     render :partial => 'layouts/partials/mainnavigation_entry', :collection => navigation_entries.flatten
   end
 
@@ -1051,7 +1051,7 @@ module ApplicationHelper
   end
 
   def admin_subnavigation
-    plugin = wa_plugin(:controller => params[:controller], :action => params[:action])
+    plugin = alchemy_plugin(:controller => params[:controller], :action => params[:action])
     unless plugin.nil?
       entries = plugin["navigation"]['sub_navigation']
       render_admin_subnavigation(entries) unless entries.nil?
@@ -1063,7 +1063,7 @@ module ApplicationHelper
   #true if the current controller/action pair wants to display content other than the default.
   def frame_requested?
     preview_frame = {}
-    plugin = wa_plugins.detect do |p|
+    plugin = alchemy_plugins.detect do |p|
       unless p["preview_frame"].nil?
         if p['preview_frame'].is_a?(Array)
           preview_frame = p['preview_frame'].detect(){ |f| f["controller"] == params[:controller] && f["action"] == params[:action] }
@@ -1119,7 +1119,7 @@ module ApplicationHelper
   
   # Helper for including the nescessary javascripts and stylesheets for the different views.
   # Together with the asset_packager plugin we achieve a lot better load time.
-  def wa_assets_set(setname = 'default')
+  def alchemy_assets_set(setname = 'default')
     content_for(:javascript_includes){ javascript_include_merged(setname.to_sym) }
     content_for(:stylesheets){ stylesheet_link_merged(setname.to_sym) }
   end
@@ -1173,7 +1173,7 @@ module ApplicationHelper
   end
   
   # Returns a icon suitable for a link with css class 'icon_button'
-  def wa_icon(icon_class)
+  def render_icon(icon_class)
     content_tag('span', '', :class => "icon #{icon_class}")
   end
   

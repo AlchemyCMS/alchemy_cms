@@ -32,7 +32,7 @@ var waSelectbox = Class.create({
         Element.observe(v, 'click', this.handleSelect.bind(this));
       }.bind(this));      
     }
-    Element.observe(this.element, 'wa_select:select', function(e) {
+    Element.observe(this.element, 'alchemy_selectbox:select', function(e) {
       this.selectValue(e.memo.value);
     }.bind(this));
     // attaching custom function to select element. so now we can select a value by calling select.waSelectValue(value)

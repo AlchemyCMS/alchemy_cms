@@ -253,7 +253,7 @@ div.content_editor:hover label a.icon_button.small {
 	display: inline-block;
 }
 
-.o2k7Skin span.wa_link {
+.o2k7Skin span.alchemy_link {
 	background-position: -500px 0;
 }
 
@@ -264,17 +264,12 @@ div.content_editor:hover label a.icon_button.small {
 	top: 2px;
 }
 
-.o2k7Skin span.wa_unlink {
+.o2k7Skin span.alchemy_unlink {
 	background-position: -640px 0;
 }
 
 .content_rtf_text_area {
 	display: none;
-}
-
-.wa_editor_panel {
-	height: 26px;
-	width: 376px;
 }
 
 .content_rtf_editor div.editable_area_container {

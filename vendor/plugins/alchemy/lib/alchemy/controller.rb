@@ -8,7 +8,7 @@ module Alchemy
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
       base.send :include, WaNotice
-      base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :wa_plugins, :wa_plugin
+      base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
 
     def initialize
@@ -28,7 +28,7 @@ module Alchemy
     module ClassMethods
       
       def belongs_to_alchemy_plugin(plugin_name)
-        send :layout, "wa_admin"
+        send :layout, "admin"
       end
       
     end
@@ -41,16 +41,16 @@ module Alchemy
 
       # returns an array with all alchemy plugins including the alchemy core as first entry.
       # For your own plugin see config.yml in vendor/plugins/alchemy/config/alchemy folder
-      def wa_plugins
+      def alchemy_plugins
         ymls = plugins_config_ymls
         plugins = []
-        wa_config = ymls.detect { |c| c.include?('vendor/plugins/alchemy') }
-        wa_config_yml = YAML.load_file(wa_config)
-        if wa_config_yml
-          wa_pl = wa_config_yml["wa_plugins"]
-          plugins += wa_pl
+        alchemy_config = ymls.detect { |c| c.include?('vendor/plugins/alchemy') }
+        alchemy_config_yml = YAML.load_file(alchemy_config)
+        if alchemy_config_yml
+          alchemy_plugins = alchemy_config_yml["alchemy_plugins"]
+          plugins += alchemy_plugins
         end
-        ymls.delete(wa_config)
+        ymls.delete(alchemy_config)
         begin
           ymls = ymls.sort(){ |x, y| YAML.load_file(x)['order'] <=> YAML.load_file(y)['order'] }
         rescue Exception => e
@@ -68,11 +68,11 @@ module Alchemy
       end
 
       # returns the alchemy plugin found by name, or by hash of controller and action
-      def wa_plugin(name)
+      def alchemy_plugin(name)
         if name.is_a? String
-          wa_plugins.detect{ |p| p["name"] == name }
+          alchemy_plugins.detect{ |p| p["name"] == name }
         elsif name.is_a? Hash
-          wa_plugins.detect do |p| 
+          alchemy_plugins.detect do |p| 
             if !p["navigation"]["sub_navigation"].nil?
               p["navigation"]["sub_navigation"].detect do |s| 
                 s["controller"] == name[:controller] && s["action"] == name[:action]

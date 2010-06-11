@@ -7,7 +7,7 @@
 				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
 			</td>
 			<td class="second_row">
-				<%= f.wa_select('page_layout', PageLayout.get_layouts_for_select(session[:language])) %>
+				<%= f.alchemy_selectbox('page_layout', PageLayout.get_layouts_for_select(session[:language])) %>
 			</td>
 		</tr>
 		<tr>

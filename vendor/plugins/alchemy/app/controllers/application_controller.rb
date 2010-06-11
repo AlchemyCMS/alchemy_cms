@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   def auto_logout?
     return false if Rails.env == 'development'
     unless request.xhr?
-      session[:wa_redirect_url] = request.url
+      session[:redirect_url_url] = request.url
     end
     inactivity_time = Configuration.parameter(:auto_logout_time)
     if !session['auto_logout_timer'].nil? && session['auto_logout_timer'] < inactivity_time.minutes.ago
@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
           page.redirect_to(
             logout_url(
               :message => _("controllers.application.inactivity_logout"),
-              :redirect_url => session[:wa_redirect_url]
+              :redirect_url => session[:redirect_url_url]
             )
           )
         end
@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
         redirect_to(
           logout_url(
             :message => _("controllers.application.inactivity_logout"),
-            :redirect_url => session[:wa_redirect_url]
+            :redirect_url => session[:redirect_url_url]
           )
         )
       end

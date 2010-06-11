@@ -46,7 +46,7 @@ Tinymce::Hammer.init = [
   [:theme_advanced_toolbar_align, 'left'],
   [:theme_advanced_toolbar_location, 'top'],
   [:theme_advanced_statusbar_location, 'bottom'],
-  [:theme_advanced_buttons1, 'bold,italic,underline,strikethrough,sub,sup,|,numlist,bullist,indent,outdent,|,wa_link,wa_unlink,|,removeformat,cleanup,|,fullscreen'],
+  [:theme_advanced_buttons1, 'bold,italic,underline,strikethrough,sub,sup,|,numlist,bullist,indent,outdent,|,alchemy_link,alchemy_unlink,|,removeformat,cleanup,|,fullscreen'],
   [:theme_advanced_buttons2, 'pastetext,pasteword,charmap,code'],
   [:theme_advanced_buttons3, ''],
   [:theme_advanced_resizing, 'true'],

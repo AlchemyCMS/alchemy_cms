@@ -1,7 +1,7 @@
 module Alchemy::ActionView
   
   # values = [[], []]
-  def wa_select_tag(name, values, selected_value, options = {})
+  def alchemy_selectbox_tag(name, values, selected_value, options = {})
     id = name.gsub(/(\[|\])/, '_') + '_select'
     selected_value = values.detect(){ |v| v[1] == selected_value }
     nothing_selected = selected_value.blank?
@@ -56,7 +56,7 @@ module Alchemy::ActionView
       :js => %(
         <script type="text/javascript" charset="utf-8">
         //<!--[CDATA[
-      	  wa_select_#{id} = new waSelectbox('#{id}', {
+      	  alchemy_selectbox_#{id} = new waSelectbox('#{id}', {
       	    update: '#{hidden_field_id}',
       	    afterSelect: function(value) {
       	      #{options[:onchange]}

@@ -1,8 +1,8 @@
-<div class="wa_assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= image_to_assign.name %>">
+<div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= image_to_assign.name %>">
 	<div class="overlay_image_spinner">
 		<%= image_tag("ajax_loader.gif", :plugin => "alchemy", :alt => '') %>
 	</div>
-	<div class="wa_assign_image_list_image" style="display: none;">
+	<div class="assign_image_list_image" style="display: none;">
 	<%- unless params[:image_assign_url].blank? -%>
 		<%- action_url = params[:image_assign_url] + "?image_id=#{image_to_assign.id}" -%>
 		<%- action_method = params[:image_assign_method] -%>

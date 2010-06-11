@@ -1,8 +1,8 @@
 <div class="with_padding">
   <div class="image_assign_filter_and_image_sizing">
-    <%= js_filter_field( :onkeyup => "wa_filter('.wa_assign_file_file')") %>
+    <%= js_filter_field( :onkeyup => "alchemyListFilter('.assign_file_file')") %>
   </div>
-  <div id="wa_assign_file_list">
+  <div id="assign_file_list">
     <%= render :partial => 'file_to_assign', :collection => @files %>
   </div>
 </div>

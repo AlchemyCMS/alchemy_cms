@@ -1,12 +1,12 @@
 module Alchemy::FormBuilder
   
   # Javascript driven alchemy style dropdown selectbox for ActionView::Helpers::FormBuilder objects
-  def wa_select(method, values, options = {})
-    wa_selectbox(object, method, values, options)
+  def alchemy_selectbox(method, values, options = {})
+    alchemy_selectboxbox(object, method, values, options)
   end
 
-  # returns the html tags and javascript tag for the wa_select form_builder method
-  def wa_selectbox(object, method, values, options = {})
+  # returns the html tags and javascript tag for the alchemy_selectbox form_builder method
+  def alchemy_selectboxbox(object, method, values, options = {})
     id = [object.class.to_s.underscore, method, 'select'].join('_')
     selected_value = values.detect(){ |v| v[1] == object.send(method) }
     nothing_selected = selected_value.blank?

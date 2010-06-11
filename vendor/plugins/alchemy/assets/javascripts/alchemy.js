@@ -193,7 +193,7 @@ function reloadPreview() {
     }
 }
 
-function wa_filter(selector){
+function alchemyListFilter(selector){
 	text = $('search_field').value.toLowerCase();
 	boxes = $$(selector);
 	for (var i=0; i < boxes.length; i++) {
@@ -245,7 +245,7 @@ function selectPageForInternalLink (selected_element, urlname) {
 function selectFileForFileLink(selected_element, public_filename) {
     $('public_filename').value = public_filename;
     $$('#file_links .selected_file').invoke('removeClassName', 'selected_file');
-    $('wa_assign_file_' + selected_element).addClassName('selected_file');
+    $('assign_file_' + selected_element).addClassName('selected_file');
 }
 
 function waUnLink (ed) {
@@ -253,8 +253,8 @@ function waUnLink (ed) {
     var content = link.innerHTML;
     ed.dom.remove(link);
     ed.selection.setContent(content);
-    var unlink_button = ed.controlManager.get('wa_unlink');
-    var link_button = ed.controlManager.get('wa_link');
+    var unlink_button = ed.controlManager.get('alchemy_unlink');
+    var link_button = ed.controlManager.get('alchemy_link');
     unlink_button.setDisabled(true);
     link_button.setDisabled(true);
     link_button.setActive(false);
@@ -364,10 +364,10 @@ function select_link_tab() {
               new Ajax.Request("/elements/?page_urlname=" + internal_urlname.split('/').last(), {
                 method: 'get',
                 onComplete: function() {
-                  var wa_select = select_container.down('.alchemy_selectbox');
+                  var alchemy_selectbox = select_container.down('.alchemy_selectbox');
                   $('page_anchor').value = '#' + internal_anchor;
                   // sadly this does not work here. maybe later i have the knowledge to fix this.
-                  var select = waSelectbox.findSelectById(wa_select.identify());
+                  var select = waSelectbox.findSelectById(alchemy_selectbox.identify());
                   select.selectValue('#' + internal_anchor);
                 }
               });
@@ -380,7 +380,7 @@ function select_link_tab() {
             protocols.each(function(p) {
                 if ( link.href.startsWith(p) ) {
                     $('external_url').value = link.href.gsub(p, "");
-                    $('url_protocol_select').fire('wa_select:select', {value: p});
+                    $('url_protocol_select').fire('alchemy_selectbox:select', {value: p});
                     $('extern_link_title').value = title;
                     $('link_target').checked = (link.target == "_blank");
                 }
@@ -389,7 +389,7 @@ function select_link_tab() {
         if ( link.className == 'file' ) {
             show_overlay_tab('file_links', $('tab_for_file_links'));
             $('file_link_title').value = title;
-            $('public_filename_select').fire('wa_select:select', {value: link.pathname});
+            $('public_filename_select').fire('alchemy_selectbox:select', {value: link.pathname});
             $('file_link_target').checked = link.target == "_blank";
         }
         if ( link.className == 'contact' ) {
@@ -424,7 +424,7 @@ function hideMoleculesFromPageSelector (id) {
     page_select_scrollbar.recalculateLayout();
 }
 
-function wa_fade_image(image) {
+function alchemyImageFade(image) {
 	try {
 		image.up().up().previous().hide();
 		image.up().up().appear({duration: 0.6});

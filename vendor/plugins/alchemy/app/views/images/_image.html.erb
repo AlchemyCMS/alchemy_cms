@@ -8,7 +8,7 @@
 				thumbnail_url(:id => image, :size => "111x93"),
 				:alt => image.name,
 				:title => _('zoom_image'),
-				:onload => 'wa_fade_image(this);'
+				:onload => 'alchemyImageFade(this);'
 			),
 			"image_zoom('images/show_in_window/#{image.id}', '#{image.name}', #{image.image_width || 320}, #{image.image_height || 240})"
 		) %>

@@ -23,7 +23,7 @@
 				<label for="contactform_mailto" class="medium"><%= _("mail_to") %></label>
 			</td>
 			<td class="input">
-				<%= wa_select_tag(
+				<%= alchemy_selectbox_tag(
 					"contactform_mailto",
 					configuration(:mailer)[:mail_addresses].map{ |a| [t('mailer.mail_addresses.'+a[0]), a[0]] },
 					'',

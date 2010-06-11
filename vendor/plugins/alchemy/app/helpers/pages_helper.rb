@@ -16,11 +16,11 @@ module PagesHelper
     content.essence.caption
   end
   
-  def wa_form_select(name, select_options, options={})
+  def alchemy_form_select(name, select_options, options={})
     select "mail_data", name, select_options, :selected => (session[:mail_data][name.to_sym] rescue "")
   end
   
-  def wa_form_input_field(name, options = {})
+  def alchemy_form_input_field(name, options = {})
     if options[:value].blank? && session[:mail_data].blank?
       value = nil
     elsif options[:value].blank? && !session[:mail_data].blank?
@@ -31,25 +31,25 @@ module PagesHelper
     text_field("mail_data", name, {:value => value}.merge(options))
   end
   
-  def wa_form_text_area(name, options={})
+  def alchemy_form_text_area(name, options={})
     text_area "mail_data", name, :class => options[:class], :value => (session[:mail_data][name.to_sym] rescue "")
   end
   
-  def wa_form_check_box(name, options={})
+  def alchemy_form_check_box(name, options={})
     bla = check_box_tag "mail_data[#{name}]", 1, (session[:mail_data][name.to_sym] == "0" ? false : true rescue false)
     bla += hidden_field_tag "mail_data[#{name}]", 0, :id => nil
   end
   
-  def wa_form_label(element, name, options={})
+  def alchemy_form_label(element, name, options={})
     label_tag "mail_data_#{name}", render_content_view_by_name(element, name), options
   end
   
-  def wa_form_reset_button(name, options={})
+  def alchemy_form_reset_button(name, options={})
     button_to_function(
       name,
       remote_function(
         :url => {
-          :controller => "wa_contact_form",
+          :controller => "contact_form",
           :action => "clear_session"
         },
         :before => %(

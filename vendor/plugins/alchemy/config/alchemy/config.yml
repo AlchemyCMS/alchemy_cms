@@ -46,7 +46,7 @@
 
 :user_roles: [registered, author, editor, admin]
 
-# This is the wa_plugins notation. to render the mainnavi we split alchemy into three plugins.
+# This is the alchemy_plugins notation. to render the mainnavi we split alchemy into three plugins.
 # to make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
 # folder with a alchemy folder in it. place a config.yml in this alchemy folder.
 #
@@ -74,7 +74,7 @@
 #       controller: controller_name
 #       action: action_of_controller
 
-wa_plugins:
+alchemy_plugins:
 
   - name: dashboard
     navigation:

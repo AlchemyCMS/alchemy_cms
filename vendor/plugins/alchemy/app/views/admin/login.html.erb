@@ -1,4 +1,4 @@
-<%- wa_assets_set('login') -%>
+<%- alchemy_assets_set('login') -%>
 
 <% form_for @user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
 	<%= f.error_messages %>
