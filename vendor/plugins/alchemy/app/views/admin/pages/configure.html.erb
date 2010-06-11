@@ -1,6 +1,5 @@
 <% remote_form_for(
-	@page,
-	:url => "/pages/update/#{@page.id}",
+	[:admin, @page],
 	:complete => "reloadPreview();",
 	:html => {:class => "with_padding"}
 ) do |f| %>
@@ -10,7 +9,6 @@
 			<td><%= _("page_type") %>: </td>
 			<td>
 			  <%= @page.layout_display_name %>
-			  <%#= f.select( "layout", PageLayout.get_layouts_for_select(session[:language]), {}, :disabled => true) %>
 			</td>
 		</tr>
 		<tr>

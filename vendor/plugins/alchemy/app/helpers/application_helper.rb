@@ -972,7 +972,7 @@ module ApplicationHelper
     options = default_options.merge(options)
     picture_contents = element.all_contents_by_type("EssencePicture")
     render(
-      :partial => "elements/picture_editor",
+      :partial => "admin/elements/picture_editor",
       :locals => {
         :picture_contents => picture_contents,
         :element => element,

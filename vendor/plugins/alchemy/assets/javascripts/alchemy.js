@@ -44,7 +44,7 @@ function openElementsWindow (page_id, title) {
 			toggleButton('ElementsWindowButton', 'enable');
 		}
 	});
-	elements_window.setAjaxContent('/elements/list?page_id=' + page_id, {method: 'get'});
+	elements_window.setAjaxContent('/admin/elements/list?page_id=' + page_id, {method: 'get'});
 	elements_window.showCenter(false, 104, document.viewport.getDimensions().width - 450);
 }
 

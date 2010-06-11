@@ -4,7 +4,7 @@
 	<%= render :partial => "element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
 		<% form_remote_tag(
-			:url => element_path(element),
+			:url => admin_element_path(element),
 			:method => :put,
 			:before => (has_rtf_atoms ? "saveRtfContents(#{element.id})" : nil),
 			:loading => %(

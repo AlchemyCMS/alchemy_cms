@@ -51,7 +51,7 @@ class Admin::PagesController < ApplicationController
       if page.valid?
         page.move_to_child_of parent
       end
-      render_errors_or_redirect(page, pages_path, _("page '%{name}' created.") % {:name => page.name})
+      render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue
       log_error($!)
     end
@@ -59,6 +59,7 @@ class Admin::PagesController < ApplicationController
   
   def preview
     # fetching page via before filter
+    render :layout => 'pages'
     @preview_mode = true
   end
   
@@ -94,7 +95,7 @@ class Admin::PagesController < ApplicationController
     @page.unlock
     flash[:notice] = _("unlocked_page_%{name}") % {:name => @page.name}
     if params[:redirect_to].blank?
-      redirect_to pages_path
+      redirect_to admin_pages_path
     else
       redirect_to(params[:redirect_to])
     end
@@ -105,7 +106,7 @@ class Admin::PagesController < ApplicationController
     # fetching page via before filter
     @page.save
     flash[:notice] = _("page_published") % {:name => @page.name}
-    redirect_back_or_to_default(pages_path)
+    redirect_back_or_to_default(admin_pages_path)
   end
   
   def move
@@ -142,7 +143,7 @@ class Admin::PagesController < ApplicationController
     @updated_by = User.find(@page.updated_by).login rescue ""
     if @page.locked? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
-      redirect_to pages_path
+      redirect_to admin_pages_path
     else
       @page.lock(current_user)
       render :layout => 'admin'

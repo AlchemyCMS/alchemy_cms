@@ -24,7 +24,7 @@ authorization do
   role :author do
     includes :registered
     has_permission_on :admin, :to => [:login_to]
-    has_permission_on :admin_pages, :to => [:index, :fold, :edit_content]
+    has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content]
     has_permission_on :admin_elements, :to => [:manage_elements]
     has_permission_on :admin_images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
     has_permission_on :admin_attachements, :to => [:index, :archive_overlay]
@@ -55,27 +55,27 @@ privileges do
     includes :index, :new, :create, :show, :edit, :update, :destroy
   end
   
-  privilege :manage_pages, :pages do
+  privilege :manage_pages, :admin_pages do
     includes :manage, :switch_language, :create_language, :layoutpages, :move, :configure
   end
   
-  privilege :manage_elements, :elements do
+  privilege :manage_elements, :admin_elements do
     includes :manage, :copy_to_clipboard, :order, :fold
   end
   
-  privilege :manage_contents, :contents do
+  privilege :manage_contents, :admin_contents do
     includes :manage, :order
   end
   
-  privilege :manage_picture_essences, :essence_pictures do
+  privilege :manage_picture_essences, :admin_essence_pictures do
     includes :manage, :save_link, :assign
   end
   
-  privilege :manage_file_essences, :essence_files do
+  privilege :manage_file_essences, :admin_essence_files do
     includes :manage, :assign
   end
   
-  privilege :edit_content, :pages do
+  privilege :edit_page_content, :admin_pages do
     includes :edit, :unlock, :preview, :publish
   end
   

@@ -13,7 +13,7 @@
 			<%- permitted_to?(:configure, page) do -%>
 			<%= link_to_overlay_window(
 				"<span class='icon configure_page'></span>",
-				configure_page_path(page),
+				configure_admin_page_path(page),
 				{
 					:title => _('edit_page_properties'),
 					:size => '380x490'

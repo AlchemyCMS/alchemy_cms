@@ -3,7 +3,7 @@
 	<p><%= _('no_more_elements_to_add') %></p>
 <%- else -%>
 	<% remote_form_for(
-		@element,
+		[:admin, @element],
 		:complete => %(
 			
 			reloadPreview();

@@ -6,7 +6,7 @@
 	<%- end -%>
 	<%- if options[:maximum_amount_of_images].blank? || picture_contents.length < options[:maximum_amount_of_images].to_i -%>
 		<%= render(
-			:partial => 'elements/add_content',
+			:partial => 'admin/elements/add_content',
 			:locals => {
 				:element => element,
 				:essence_type => "EssencePicture",

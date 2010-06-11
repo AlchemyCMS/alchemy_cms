@@ -26,7 +26,7 @@ class Admin::EssencePicturesController < ApplicationController
     @content.save
     render :update do |page|
       dom_string = params[:swap] ? "picture" : "assign_content_#{@content.element.id}"
-      page.replace "#{dom_string}_#{@content.id}", :partial => "contents/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
+      page.replace "#{dom_string}_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
       if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
         Configuration.sortable_atoms(page, @content.element)
       end
@@ -56,7 +56,7 @@ class Admin::EssencePicturesController < ApplicationController
     render :update do |page|
       page.replace(
         "element_#{element.id}_contents",
-        :partial => "elements/picture_editor",
+        :partial => "admin/elements/picture_editor",
         :locals => {
           :picture_contents => picture_contents,
           :element => element,

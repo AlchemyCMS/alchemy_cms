@@ -1,4 +1,4 @@
-module ImagesHelper
+module Admin::ImagesHelper
   
   def create_or_assign_url(image_to_assign, options, swap)
     if @content.nil?

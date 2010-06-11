@@ -17,9 +17,9 @@
 		<div id="toolbar_buttons">
 			<div class="button_with_label">
 				<% form_tag(
-					unlock_page_path(
+					unlock_admin_page_path(
 						@page,
-						:redirect_to => @layoutpage ? layoutpages_path : pages_path
+						:redirect_to => @layoutpage ? layoutpages_path : admin_pages_path
 					)
 				) do %>
 					<button class="icon_button" title="<%= _('explain_unlocking') %>">
@@ -31,7 +31,7 @@
 			<div class="button_with_label">
 				<%- if configuration(:cache_pages) -%>
 					<% form_tag(
-						publish_page_path(@page),
+						publish_admin_page_path(@page),
 						:onsubmit => "pleaseWaitOverlay();"
 					) do -%>
 						<button class="icon_button" title="<%= _('explain_publishing') %>">
@@ -45,7 +45,7 @@
 			<div class="button_with_label">
 				<%= link_to_overlay_window(
 					content_tag('span', '', :class => 'icon settings'),
-					configure_page_path(@page),
+					configure_admin_page_path(@page),
 					{
 						:title => _('edit_page_properties'),
 						:size => '380x490'
@@ -68,7 +68,7 @@
 			<div class="button_with_label">
 				<%= link_to_overlay_window(
 					content_tag('span', '', :class => 'icon new_element'),
-					new_element_path(:page_id => @page.id),
+					new_admin_element_path(:page_id => @page.id),
 					{
 						:title => _('Choose Element'),
 						:size => '380x50',

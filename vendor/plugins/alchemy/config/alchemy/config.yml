@@ -87,7 +87,7 @@ alchemy_plugins:
     preview_frame:
       controller: 'admin/pages'
       action: edit
-      target_controller: pages
+      target_controller: 'admin/pages'
       target_action: preview
     navigation:
       name: 'module: pages'
@@ -102,7 +102,7 @@ alchemy_plugins:
           controller: 'admin/pages'
           action: layoutpages
       nested:
-        - controller: pages
+        - controller: 'admin/pages'
           action: edit
 
   - name: users
