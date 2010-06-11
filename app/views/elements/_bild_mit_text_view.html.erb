@@ -2,14 +2,14 @@
 	<div class="bild_mit_text_images">
 		<%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
 		<div class="bild_mit_text_image">
-			<%= render_content_view(content, :image_size => "250x200", :crop => true) %>
+			<%= render_essence_view(content, :image_size => "250x200", :crop => true) %>
 		</div>
 		<%- end -%>
 	</div>
 	<div class="headline">
-		<%= render_content_view_by_name(element, 'headline') %>
+		<%= render_essence_view_by_name(element, 'headline') %>
 	</div>
 	<div class="text">
-		<%= render_content_view_by_name(element, 'text') %>
+		<%= render_essence_view_by_name(element, 'text') %>
 	</div>
 </div>

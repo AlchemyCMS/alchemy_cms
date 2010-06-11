@@ -8,6 +8,7 @@ authorization do
       if_attribute :public => true
     end
     has_permission_on :images, :to => [:show]
+    has_permission_on :attachements, :to => [:show, :download]
   end
   
   role :registered do
@@ -15,7 +16,7 @@ authorization do
     has_permission_on :pages, :to => [:show] do
       if_attribute :public => true
     end
-    has_permission_on :users, :to => [:edit, :update] do
+    has_permission_on [:admin, :users], :to => [:edit, :update] do
       if_attribute :id => is {user.id}
     end
   end
@@ -23,26 +24,26 @@ authorization do
   role :author do
     includes :registered
     has_permission_on :admin, :to => [:login_to]
-    has_permission_on :pages, :to => [:index, :fold, :edit_content]
-    has_permission_on :elements, :to => [:manage_elements]
-    has_permission_on :images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
-    has_permission_on :attachements, :to => [:index, :archive_overlay]
-    has_permission_on :contents, :to => [:manage_atoms]
-    has_permission_on :essence_pictures, :to => [:manage_picture_atoms]
-    has_permission_on :essence_files, :to => [:manage_file_atoms]
-    has_permission_on :users, :to => [:index]
+    has_permission_on :admin_pages, :to => [:index, :fold, :edit_content]
+    has_permission_on :admin_elements, :to => [:manage_elements]
+    has_permission_on :admin_images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
+    has_permission_on :admin_attachements, :to => [:index, :archive_overlay]
+    has_permission_on :admin_contents, :to => [:manage_contents]
+    has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
+    has_permission_on :admin_essence_files, :to => [:manage_file_essences]
+    has_permission_on :admin_users, :to => [:index]
   end
   
   role :editor do
     includes :author
-    has_permission_on :attachements, :to => [:manage]
-    has_permission_on :images, :to => [:manage]
-    has_permission_on :pages, :to => [:manage_pages]
+    has_permission_on :admin_attachements, :to => [:manage]
+    has_permission_on :admin_images, :to => [:manage]
+    has_permission_on :admin_pages, :to => [:manage_pages]
   end
   
   role :admin do
     includes :editor
-    has_permission_on :users, :to => [:manage]
+    has_permission_on :admin_users, :to => [:manage]
     has_permission_on :authorization_rules, :to => :read
   end
   
@@ -62,15 +63,15 @@ privileges do
     includes :manage, :copy_to_clipboard, :order, :fold
   end
   
-  privilege :manage_atoms, :contents do
+  privilege :manage_contents, :contents do
     includes :manage, :order
   end
   
-  privilege :manage_picture_atoms, :essence_pictures do
+  privilege :manage_picture_essences, :essence_pictures do
     includes :manage, :save_link, :assign
   end
   
-  privilege :manage_file_atoms, :essence_files do
+  privilege :manage_file_essences, :essence_files do
     includes :manage, :assign
   end
   

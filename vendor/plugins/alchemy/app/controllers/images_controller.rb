@@ -1,0 +1,18 @@
+class ImagesController < ApplicationController
+  
+  caches_page :show
+  
+  def show
+    @image = Image.find(params[:id])
+    @size = params[:size]
+    @crop = !params[:crop].nil?
+    @padding = params[:padding]
+    @upsample = !params[:upsample].nil? ? true : false
+    @options = params[:options]
+    respond_to do |format|
+      format.jpg
+      format.png
+    end
+  end
+  
+end
