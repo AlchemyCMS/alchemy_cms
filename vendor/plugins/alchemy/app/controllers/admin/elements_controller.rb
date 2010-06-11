@@ -47,7 +47,7 @@ class Admin::ElementsController < ApplicationController
     rescue
       log_error($!)
       render :update do |page|
-        AlchemyNotice.show_via_ajax(page, _("adding_element_not_successful"), :error)
+        Alchemy::Notice.show_via_ajax(page, _("adding_element_not_successful"), :error)
       end
     end
   end
@@ -112,7 +112,7 @@ class Admin::ElementsController < ApplicationController
     rescue
       log_error($!)
       render :update do |page|
-        AlchemyNotice.show_via_ajax(page, _("element_not_saved"), :error)
+        Alchemy::Notice.show_via_ajax(page, _("element_not_saved"), :error)
       end
     end
   end
@@ -130,7 +130,7 @@ class Admin::ElementsController < ApplicationController
     rescue
       log_error($@)
       render :update do |page|
-        AlchemyNotice.show_via_ajax(page, _("element_not_successfully_deleted"), :error)
+        Alchemy::Notice.show_via_ajax(page, _("element_not_successfully_deleted"), :error)
       end
     end
   end
@@ -149,7 +149,7 @@ class Admin::ElementsController < ApplicationController
     rescue
       log_error($!)
       render :update do |page|
-        AlchemyNotice.show_via_ajax(page, _("element_%{name}_not_moved_to_clipboard") % {:name => @element.display_name}, :error)
+        Alchemy::Notice.show_via_ajax(page, _("element_%{name}_not_moved_to_clipboard") % {:name => @element.display_name}, :error)
       end
     end
   end
@@ -160,7 +160,7 @@ class Admin::ElementsController < ApplicationController
       element.move_to_bottom
     end
     render :update do |page|
-      AlchemyNotice.show_via_ajax(page, _("successfully_saved_element_position"))
+      Alchemy::Notice.show_via_ajax(page, _("successfully_saved_element_position"))
       page << "reloadPreview();"
     end
   end

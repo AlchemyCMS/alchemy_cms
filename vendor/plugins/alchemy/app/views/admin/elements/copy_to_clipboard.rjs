@@ -1,7 +1,7 @@
 if session[:clipboard][:method] == "move"
   page.remove "element_#{@element.id}"
-  Configuration.sortable_elements(page)
-  AlchemyNotice.show_via_ajax(page, _("element_%{name}_moved_to_clipboard") % {:name => @element.display_name})
+  Alchemy::Configuration.sortable_elements(page)
+  Alchemy::Notice.show_via_ajax(page, _("element_%{name}_moved_to_clipboard") % {:name => @element.display_name})
 else
-  AlchemyNotice.show_via_ajax(page, _("element_%{name}_copied_to_clipboard") % {:name => @element.display_name})
+  Alchemy::Notice.show_via_ajax(page, _("element_%{name}_copied_to_clipboard") % {:name => @element.display_name})
 end

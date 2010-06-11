@@ -28,7 +28,7 @@ class Admin::EssencePicturesController < ApplicationController
       dom_string = params[:swap] ? "picture" : "assign_content_#{@content.element.id}"
       page.replace "#{dom_string}_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
       if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-        Configuration.sortable_atoms(page, @content.element)
+        Alchemy::Configuration.sortable_atoms(page, @content.element)
       end
       page << "reloadPreview()"
     end
@@ -43,7 +43,7 @@ class Admin::EssencePicturesController < ApplicationController
     if @picture_atom.save
       render :update do |page|
         page << "Windows.closeAll();reloadPreview()"
-        AlchemyNotice.show_via_ajax(page, _("saved_link"))
+        Alchemy::Notice.show_via_ajax(page, _("saved_link"))
       end
     end
   end

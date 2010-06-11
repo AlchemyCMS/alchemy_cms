@@ -4,8 +4,8 @@ page.insert_html(
   :partial => "element",
   :object => @element
 )
-Configuration.sortable_elements(page)
-AlchemyNotice.show_via_ajax(page, _("successfully_added_element"))
+Alchemy::Configuration.sortable_elements(page)
+Alchemy::Notice.show_via_ajax(page, _("successfully_added_element"))
 page << "TinymceHammer.init()"
 page << "reloadPreview()"
 page << "alchemy_window.close();"

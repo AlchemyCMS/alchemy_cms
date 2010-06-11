@@ -95,7 +95,7 @@ class Admin::ImagesController < ApplicationController
     if @image.save
       render :update do |page|
         page.replace "image_#{@image.id}", :partial => "image", :locals => {:image => @image}
-        AlchemyNotice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @image.name} ))
+        Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @image.name} ))
       end
     end
   end

@@ -2,9 +2,9 @@ page.remove("element_#{@element.id}")
 if @page.elements.empty?
   page << remote_function(:url => {:controller => "elements", :action => "new", :page_id => @page.id, :open => true})
 else
-  Configuration.sortable_elements(page)
+  Alchemy::Configuration.sortable_elements(page)
 end
-AlchemyNotice.show_via_ajax(page, _("element_deleted_successful"))
+Alchemy::Notice.show_via_ajax(page, _("element_deleted_successful"))
 page << "reloadPreview()"
 page << "elements_window.updateHeight();"
 page << "main_frame.updateSize();"

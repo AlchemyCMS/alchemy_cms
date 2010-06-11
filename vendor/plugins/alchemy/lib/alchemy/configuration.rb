@@ -1,4 +1,4 @@
-class Configuration < ActionController::Base
+class Alchemy::Configuration < ActionController::Base
   
   def self.parameter(name)
     if name.class == String

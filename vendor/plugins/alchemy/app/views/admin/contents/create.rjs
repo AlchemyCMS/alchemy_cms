@@ -10,7 +10,7 @@ when "EssencePicture"
     }
   )
   if @dragable
-    Configuration.sortable_atoms(page, @element)
+    Alchemy::Configuration.sortable_atoms(page, @element)
   end
   page << "reloadPreview()"
 when "EssenceText"
@@ -48,4 +48,4 @@ else
   )
   page << "alchemy_window.close()"
 end
-AlchemyNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @content.name})
+Alchemy::Notice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @content.name})

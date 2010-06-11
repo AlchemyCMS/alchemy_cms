@@ -1,4 +1,4 @@
-module AlchemyNotice
+module Alchemy::Notice
   
   FLASH_NOTICE_STARTCOLOR = "#FFFFFF"
   FLASH_NOTICE_ENDCOLOR = "#E2EFD3"

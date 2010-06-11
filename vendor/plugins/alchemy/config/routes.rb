@@ -1,4 +1,4 @@
-@languages ||= Configuration.parameter(:languages).collect{ |l| l[:language_code] }
+@languages ||= Alchemy::Configuration.parameter(:languages).collect{ |l| l[:language_code] }
 @lang_regex ||= Regexp.new(@languages.join('|'))
 
 ActionController::Routing::Routes.draw do |map|

@@ -7,7 +7,7 @@ else
     :object => @element,
     :locals => {:open_element_selector => false}
   )
-  Configuration.sortable_elements(page)
+  Alchemy::Configuration.sortable_elements(page)
   page << "elements_window.updateHeight();"
   page << "TinymceHammer.init()"
 end

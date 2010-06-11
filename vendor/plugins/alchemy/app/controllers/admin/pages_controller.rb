@@ -8,7 +8,7 @@ class Admin::PagesController < ApplicationController
   filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :move, :destroy], :attribute_check => true
   filter_access_to [:index, :layoutpages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
   
-  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Configuration.parameter(:cache_pages) }
+  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
     @page_root = Page.find(
@@ -84,7 +84,7 @@ class Admin::PagesController < ApplicationController
           :partial => 'page',
           :object => Page.language_root(session[:language])
         )
-        AlchemyNotice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+        Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
       end
     end
   end
@@ -152,7 +152,7 @@ class Admin::PagesController < ApplicationController
   
   def create_language
     created_languages = Page.language_roots.collect(&:language)
-    all_languages = Configuration.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
+    all_languages = Alchemy::Configuration.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
     @languages = all_languages.select{ |lang| created_languages.include?(lang[1]) }
     lang = configuration(:languages).detect { |l| l[:language_code] == params[:language_code] }
     @language = [

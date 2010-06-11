@@ -10,7 +10,7 @@ class PagesController < ApplicationController
     :layout => false,
     :cache_path => Proc.new { |c| c.multi_language? ? "#{c.session[:language]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
-      if Configuration.parameter(:cache_pages)
+      if Alchemy::Configuration.parameter(:cache_pages)
         page = Page.find_by_urlname_and_language_and_public(
           c.params[:urlname],
           Alchemy::Controller.current_language,
