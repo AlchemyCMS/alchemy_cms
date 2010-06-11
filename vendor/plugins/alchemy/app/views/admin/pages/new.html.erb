@@ -1,5 +1,5 @@
 <div class="with_padding">
-<% remote_form_for(@page, :url => "/pages/create") do |f| %>
+<% remote_form_for([:admin, @page]) do |f| %>
 	<div id="errors" style="display:none"></div>
 	<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
 		<tr>

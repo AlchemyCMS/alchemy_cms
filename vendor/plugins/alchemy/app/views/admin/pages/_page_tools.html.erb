@@ -1,7 +1,7 @@
-<%- permitted_to?([:new, :destroy], :pages) do -%>
+<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
 <span class="sitemap_sitetools">
 	<%- unless page.is_root?(session[:language]) -%>
-	<%- permitted_to?(:destroy, :pages) do -%>
+	<%- permitted_to?(:destroy, :admin_pages) do -%>
 	<%= delete_with_confirmation_link(
 			"<span class='icon delete_page'></span>",
 			_("confirm_to_delete_page"),
@@ -20,10 +20,10 @@
 		<span class="icon_spacer"></span>
 	<%- end -%>
 	<%- if page.language_level < 3 -%>
-		<%- permitted_to?(:new, :pages) do -%>
+		<%- permitted_to?(:new, :admin_pages) do -%>
 		<%= link_to_overlay_window(
 			"<span class='icon add_page'></span>",
-			new_page_path(:parent_id => page.id),
+			new_admin_page_path(:parent_id => page.id),
 			{
 				:title => _('create_page'),
 				:size => '275x90',

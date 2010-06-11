@@ -10,7 +10,7 @@
 	</div>
 	<div class="sitemap_right_tools">
 		<%- if !page.layoutpage? -%>
-			<%- permitted_to?(:configure, page) do -%>
+			<%- permitted_to?(:configure, :admin_pages) do -%>
 			<%= link_to_overlay_window(
 				"<span class='icon configure_page'></span>",
 				configure_admin_page_path(page),
@@ -23,7 +23,7 @@
 			) -%>
 			<%- end -%>
 		<%- end -%>
-		<%- permitted_to?(:move, :pages) do -%>
+		<%- permitted_to?(:move, :admin_pages) do -%>
 		<%= render(
 			:partial => 'positioning_tools',
 			:locals => {
