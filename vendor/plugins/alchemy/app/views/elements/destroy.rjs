@@ -4,7 +4,7 @@ if @page.elements.empty?
 else
   Configuration.sortable_elements(page)
 end
-WaNotice.show_via_ajax(page, _("element_deleted_successful"))
+AlchemyNotice.show_via_ajax(page, _("element_deleted_successful"))
 page << "reloadPreview()"
 page << "elements_window.updateHeight();"
 page << "main_frame.updateSize();"

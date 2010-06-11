@@ -48,4 +48,4 @@ else
   )
   page << "alchemy_window.close()"
 end
-WaNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @content.name})
+AlchemyNotice.show_via_ajax(page, _("Successfully added %{atom}") % {:atom => @content.name})

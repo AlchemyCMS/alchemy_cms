@@ -31,7 +31,7 @@ class ContentsController < ApplicationController
       logger.error(e)
       logger.error(e.backtrace.join("\n"))
       render :update do |page|
-        WaNotice.show_via_ajax(page, _("atom_not_successfully_added"), :error)
+        AlchemyNotice.show_via_ajax(page, _("atom_not_successfully_added"), :error)
       end
     end
   end
@@ -51,7 +51,7 @@ class ContentsController < ApplicationController
       content.move_to_bottom
     end
     render :update do |page|
-      WaNotice.show_via_ajax(page, _("successfully_saved_atom_position"))
+      AlchemyNotice.show_via_ajax(page, _("successfully_saved_atom_position"))
       page << "reloadPreview()"
     end
   end
@@ -65,14 +65,14 @@ class ContentsController < ApplicationController
       if atom.destroy
         render :update do |page|
           page.remove(content_dom_id)
-          WaNotice.show_via_ajax(page, _("Successfully deleted %{atom}") % {:atom => atom_name})
+          AlchemyNotice.show_via_ajax(page, _("Successfully deleted %{atom}") % {:atom => atom_name})
           page << "reloadPreview()"
         end
       end
     rescue
       log_error($!)
       render :update do |page|
-        WaNotice.show_via_ajax(page, _("atom_not_successfully_deleted"), :error)
+        AlchemyNotice.show_via_ajax(page, _("atom_not_successfully_deleted"), :error)
       end
     end
   end

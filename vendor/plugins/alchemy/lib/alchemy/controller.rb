@@ -7,7 +7,7 @@ module Alchemy
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
-      base.send :include, WaNotice
+      base.send :include, AlchemyNotice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
 

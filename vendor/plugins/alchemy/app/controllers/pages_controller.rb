@@ -114,7 +114,7 @@ class PagesController < ApplicationController
           :partial => 'page',
           :object => Page.language_root(session[:language])
         )
-        WaNotice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+        AlchemyNotice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
       end
     end
   end

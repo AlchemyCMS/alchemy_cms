@@ -4,7 +4,7 @@ page.replace(
   :object => @element
 )
 Configuration.sortable_elements(page)
-WaNotice.show_via_ajax(page, _("element_saved"))
+AlchemyNotice.show_via_ajax(page, _("element_saved"))
 page << "reloadPreview()"
 page << "main_frame.updateSize();"
 page.call 'TinymceHammer.init' if @has_rtf_atoms

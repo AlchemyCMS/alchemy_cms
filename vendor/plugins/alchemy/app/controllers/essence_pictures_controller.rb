@@ -43,7 +43,7 @@ class EssencePicturesController < ApplicationController
     if @picture_atom.save
       render :update do |page|
         page << "Windows.closeAll();reloadPreview()"
-        WaNotice.show_via_ajax(page, _("saved_link"))
+        AlchemyNotice.show_via_ajax(page, _("saved_link"))
       end
     end
   end
