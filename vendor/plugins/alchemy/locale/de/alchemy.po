@@ -363,7 +363,7 @@ msgid "View File"
 msgstr "Datei anzeigen"
 
 #: app/controllers/pages_controller.rb:44
-msgid "WaAdmin|new rootpage created"
+msgid "Admin|new rootpage created"
 msgstr "Neue Rootpage wurde erstellt."
 
 #: app/views/admin/index.html.erb:5

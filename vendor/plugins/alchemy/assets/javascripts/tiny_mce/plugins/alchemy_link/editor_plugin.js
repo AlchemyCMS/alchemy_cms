@@ -18,7 +18,7 @@
 				'class' : 'alchemy_unlink',
 				onclick : function() {
 					ed.focus();
-					waUnLink(ed);
+					alchemyUnlink(ed);
 				}
 			});
 			ed.onNodeChange.add(function(ed, cm, n, co) {

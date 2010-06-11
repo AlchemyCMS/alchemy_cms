@@ -39,7 +39,7 @@
     <%= hidden_field_tag( "page_anchor" ) %>
     <%= link_to_function(
       _("apply"),
-      "waCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); alchemy_window.close()",
+      "alchemyCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); alchemy_window.close()",
       :class => 'button'
     ) %>
 	</p>

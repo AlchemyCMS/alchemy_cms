@@ -248,7 +248,7 @@ function selectFileForFileLink(selected_element, public_filename) {
     $('assign_file_' + selected_element).addClassName('selected_file');
 }
 
-function waUnLink (ed) {
+function alchemyUnlink (ed) {
     var link = ed.selection.getNode();
     var content = link.innerHTML;
     ed.dom.remove(link);
@@ -260,7 +260,7 @@ function waUnLink (ed) {
     link_button.setActive(false);
 }
 
-function waCreateLink(link_type, url, title, extern) { 
+function alchemyCreateLink(link_type, url, title, extern) { 
 	var tiny_ed = alchemy_window.tiny_ed;
 	if (tiny_ed.selection) {
 			// aka we are linking text inside of TinyMCE 
@@ -287,7 +287,7 @@ function waCreateLink(link_type, url, title, extern) {
 }
 
 // creates a link to a javascript function
-function waCreateLinkToFunction(link_type, func, title) {  
+function alchemyCreateLinkToFunction(link_type, func, title) {  
   var tiny_ed = alchemy_window.tiny_ed;
   if (tiny_ed.selection) {
     if( tiny_ed.selection.getNode().nodeName == "A" ) {
@@ -367,7 +367,7 @@ function select_link_tab() {
                   var alchemy_selectbox = select_container.down('.alchemy_selectbox');
                   $('page_anchor').value = '#' + internal_anchor;
                   // sadly this does not work here. maybe later i have the knowledge to fix this.
-                  var select = waSelectbox.findSelectById(alchemy_selectbox.identify());
+                  var select = alchemySelectbox.findSelectById(alchemy_selectbox.identify());
                   select.selectValue('#' + internal_anchor);
                 }
               });

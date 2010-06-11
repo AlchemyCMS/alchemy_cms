@@ -648,7 +648,7 @@ module ApplicationHelper
     )
   end
   
-  # Used for rendering the folder link in WaAdmin.index sitemap.
+  # Used for rendering the folder link in Admin.index sitemap.
   def render_sitemap_folder(site, image_pos, foldable = true)
     if foldable
       x_pos = (image_pos + 1 + (site.folded?(current_user.id) ? 1 : 0)) * 15
@@ -685,7 +685,7 @@ module ApplicationHelper
     end
   end
 
-  # Renders the sitemap lines for WaAdmin.index
+  # Renders the sitemap lines for Admin.index
   def render_sitemap_lines(page, foldable)
     last_page = (page.self_and_siblings.last == page)
     lines = ""

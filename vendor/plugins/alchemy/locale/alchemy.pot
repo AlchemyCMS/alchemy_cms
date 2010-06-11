@@ -359,7 +359,7 @@ msgid "View File"
 msgstr ""
 
 #: app/controllers/pages_controller.rb:44
-msgid "WaAdmin|new rootpage created"
+msgid "Admin|new rootpage created"
 msgstr ""
 
 #: app/views/admin/index.html.erb:5

@@ -1,4 +1,4 @@
-var waSelectbox = Class.create({
+var alchemySelectbox = Class.create({
   initialize: function(element) {
     var defaults = {
       update: {}
@@ -11,8 +11,8 @@ var waSelectbox = Class.create({
     if (this.boxbody) {
       this.values = this.boxbody.select('a');
     }
-    if (!waSelectbox.selects) {
-      waSelectbox.selects = [];      
+    if (!alchemySelectbox.selects) {
+      alchemySelectbox.selects = [];      
     }
     this.attachEvents();
   },
@@ -35,12 +35,12 @@ var waSelectbox = Class.create({
     Element.observe(this.element, 'alchemy_selectbox:select', function(e) {
       this.selectValue(e.memo.value);
     }.bind(this));
-    // attaching custom function to select element. so now we can select a value by calling select.waSelectValue(value)
+    // attaching custom function to select element. so now we can select a value by calling select.alchemySelectValue(value)
     this.element.selectValue = function(value) {
       this.selectValue(value);
     }.bind(this);
     
-    waSelectbox.selects.push(this);
+    alchemySelectbox.selects.push(this);
     
   }),
   
@@ -98,8 +98,8 @@ var waSelectbox = Class.create({
 
 });
 
-waSelectbox.findSelectById = function(id) {
-  return waSelectbox.selects.detect(function(s) {
+alchemySelectbox.findSelectById = function(id) {
+  return alchemySelectbox.selects.detect(function(s) {
     return s.element.identify() == id;
   })
 }

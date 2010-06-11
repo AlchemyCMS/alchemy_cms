@@ -56,7 +56,7 @@ module Alchemy::ActionView
       :js => %(
         <script type="text/javascript" charset="utf-8">
         //<!--[CDATA[
-      	  alchemy_selectbox_#{id} = new waSelectbox('#{id}', {
+      	  alchemy_selectbox_#{id} = new alchemySelectbox('#{id}', {
       	    update: '#{hidden_field_id}',
       	    afterSelect: function(value) {
       	      #{options[:onchange]}

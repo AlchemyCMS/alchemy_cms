@@ -41,7 +41,7 @@ class PagesController < ApplicationController
     )
     if @page_root.nil?
       create_new_rootpage
-      flash[:notice] = _("WaAdmin|new rootpage created")
+      flash[:notice] = _("Admin|new rootpage created")
     end
     render :layout => 'admin'
   end
