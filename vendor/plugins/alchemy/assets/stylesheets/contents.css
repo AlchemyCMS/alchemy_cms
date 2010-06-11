@@ -8,23 +8,20 @@
 
 .picture_tool_button a {
 	text-decoration: none;
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
 	display: block;
 	background-position: 0 0;
 	background-repeat: no-repeat;
+	margin: 1px;
 }
 
 .picture_tool_button a:hover {
 	text-decoration: none;
 }
 
-.picture_tool_button a:active {
-	background-position: 0 1px;
-}
-
 a.picture_delete {
-	background-image: url(../images/icons/trash.png);
+	background: url(../images/icons/element-icons.png) 0 0;
 }
 
 img.picture_delete-disabled {
@@ -36,11 +33,7 @@ img.picture_delete-disabled {
 }
 
 a.edit_picture {
-	background: url(../images/icons/edit.png) no-repeat 0 0;
-}
-
-a.edit_link {
-	background: url(../images/icons/link.png) 0 0;
+	background: url(../images/icons/gear.png) no-repeat 0 0;
 }
 
 a.edit_link.linked {
@@ -55,7 +48,7 @@ a.remove_link {
 }
 
 a.swap_picture {
-	background: url(../images/icons/swap_picture.png) no-repeat 0 0;
+	background: url(../images/icons/image-swap.png) no-repeat 0 0;
 	margin-right: 0;
 }
 
@@ -257,9 +250,17 @@ div.content_editor:hover label a.icon_button.small {
 	background-position: -500px 0;
 }
 
-.icon_button span.icon.link {
+.icon_button span.icon.link,
+a.edit_link {
 	background-image: url(../javascripts/tiny_mce/themes/advanced/img/icons.gif);
 	background-position: -502px -3px;
+	left: 2px;
+	top: 2px;
+}
+
+a.remove_link {
+	background-image: url(../javascripts/tiny_mce/themes/advanced/img/icons.gif);
+	background-position: -642px -3px;
 	left: 2px;
 	top: 2px;
 }
