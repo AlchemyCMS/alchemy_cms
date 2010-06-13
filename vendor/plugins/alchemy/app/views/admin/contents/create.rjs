@@ -13,6 +13,7 @@ when "EssencePicture"
     Alchemy::Configuration.sortable_atoms(page, @element)
   end
   page << "reloadPreview()"
+  page << "alchemy_window.close()"
 when "EssenceText"
   page.insert_html(
     :before,

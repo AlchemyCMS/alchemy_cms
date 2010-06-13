@@ -16,6 +16,10 @@ class Admin::ContentsController < ApplicationController
       @element = Element.find(params[:content][:element_id])
       @content = Content.create_from_scratch(@element, params[:content])
       @options = params[:options]
+      # If options params come from Flash uploader then we have to parse them as hash.
+      if @options.is_a?(String)
+        @options = Rack::Utils.parse_query(@options)
+      end
       if @content.essence_type == "EssencePicture"
         atoms_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
         @dragable = atoms_of_this_type.length > 1
@@ -46,12 +50,12 @@ class Admin::ContentsController < ApplicationController
   
   def order
     element = Element.find(params[:element_id])
-    for atom_id in params["element_#{element.id}_atoms"]
-      content = Content.find(atom_id)
+    for content_id in params["element_#{element.id}_contents"]
+      content = Content.find(content_id)
       content.move_to_bottom
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("successfully_saved_atom_position"))
+      Alchemy::Notice.show_via_ajax(page, _("Successfully saved content position"))
       page << "reloadPreview()"
     end
   end

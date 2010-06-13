@@ -31,6 +31,7 @@ class Admin::EssencePicturesController < ApplicationController
         Alchemy::Configuration.sortable_atoms(page, @content.element)
       end
       page << "reloadPreview()"
+      page << "alchemy_window.close()"
     end
   end
   

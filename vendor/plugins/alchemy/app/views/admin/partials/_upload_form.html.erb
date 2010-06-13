@@ -52,25 +52,27 @@
 
 <%- session_key = ActionController::Base.session_options[:key] -%>
 
+<%- post_params = {
+	:query => params[:query] || '',
+	:page => params[:page] || 1,
+	:per_page => params[:per_page] || 32,
+	:while_assigning => @while_assigning ? "true" : "false",
+	:content_id => @content.blank? ? nil : @content.id,
+	:element_id => @element.id,
+	:swap => @swap ? "true" : "false",
+	:size => @size,
+	:options => @options.to_param
+}.delete_if{|k,v|v.nil?}.to_json -%>
+
+<%= post_params %>
+
 <script type='text/javascript'>
 	try {
 		var settings = {
 			flash_url : "/plugin_assets/alchemy/javascripts/swfupload/swfupload.swf",
 			flash9_url : "/plugin_assets/alchemy/javascripts/swfupload/swfupload.swf",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
-			post_params: {
-				query: '<%= params[:query] %>',
-				page: '<%= params[:page] %>',
-				per_page: '<%= params[:per_page] %>',
-				while_assigning: '<%= @while_assigning ? "true" : "false" %>',
-				content_id: '<%= @content.blank? ? "null" : @content.id %>',
-				element_id: '<%= @element.blank? ? "null" : @element.id %>',
-				swap: '<%= @swap ? "true" : "false" %>',
-				size: '<%= @size.blank? ? "small" : @size %>',
-				page: '<%= @page.blank? ? "1" : @page %>',
-				per_page: '<%= @per_page.blank? ? "32" : @per_page %>',
-				swap: '<%= @swap ? "true" : "false" %>'
-			},
+			post_params: <%= post_params %>,
 			file_size_limit : "500 MB",
 			file_types : "<%= file_types.join(';') %>",
 			file_types_description : "<%= file_types_description %>",
@@ -104,6 +106,7 @@
 			upload_complete_handler : uploadComplete,
 			queue_complete_handler : queueComplete
 		};
+		console.info('settings: ', settings);
 		var swfu = new SWFUpload(settings);
 		swfu.window_mode = "opaque";
 	} catch(err) {

@@ -1,7 +1,7 @@
 <div class="picture_gallery_images" id="element_<%= element.id %>_contents">
 	<%- for picture_content in picture_contents do -%>
 		<%= render_essence_editor(picture_content, {
-			:dragable => picture_contents.size > 1
+			:dragable => (picture_contents.size > 1)
 		}.merge(options)) %>
 	<%- end -%>
 	<%- if options[:maximum_amount_of_images].blank? || picture_contents.length < options[:maximum_amount_of_images].to_i -%>
@@ -11,7 +11,8 @@
 				:element => element,
 				:essence_type => "EssencePicture",
 				:link_text => _("add_image_to_element"),
-				:options => options
+				:options => options,
+				:dragable => (picture_contents.size > 1)
 			}
 		) %>
 	<%- end -%>

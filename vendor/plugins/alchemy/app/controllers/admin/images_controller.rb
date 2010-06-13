@@ -49,7 +49,7 @@ class Admin::ImagesController < ApplicationController
     @image.save
     @while_assigning = params[:while_assigning] == 'true'
     if @while_assigning
-      @content = Content.find(params[:content_id], :select => 'id') if params[:content_id] != 'null'
+      @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
       @size = params[:size]
       @options = params[:options]

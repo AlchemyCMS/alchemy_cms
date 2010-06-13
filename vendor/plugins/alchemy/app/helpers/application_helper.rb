@@ -961,7 +961,6 @@ module ApplicationHelper
   # Just place this helper inside your element editor view, pass the element as parameter and that's it.
   #
   # Options:
-  # :last_image_deletable (boolean), default true. This option handels the possibility to delete the last image. Maybe your customer don't want an image in his element for a particular reason, then this options is the right one for you.
   # :maximum_amount_of_images (integer), default nil. This option let you handle the amount of images your customer can add to this element.
   def render_picture_editor(element, options={})
     default_options = {
