@@ -8,7 +8,7 @@ module Admin::ImagesHelper
         :image_id => image_to_assign.id,
         :content => {
           :essence_type => "EssencePicture",
-          :element_id => (@element.nil? ? nil : @element.id)
+          :element_id => @element.id
         },
         :options => options
       }
@@ -18,8 +18,7 @@ module Admin::ImagesHelper
         :action => :assign,
         :image_id => image_to_assign.id,
         :id => @content.id,
-        :options => options,
-        :swap => swap
+        :options => options
       }
     end
   end

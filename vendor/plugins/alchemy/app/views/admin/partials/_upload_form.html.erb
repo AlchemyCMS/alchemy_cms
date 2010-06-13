@@ -59,7 +59,6 @@
 	:while_assigning => @while_assigning ? "true" : "false",
 	:content_id => @content.blank? ? nil : @content.id,
 	:element_id => @element.id,
-	:swap => @swap ? "true" : "false",
 	:size => @size,
 	:options => @options.to_param
 }.delete_if{|k,v|v.nil?}.to_json -%>

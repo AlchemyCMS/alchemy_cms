@@ -19,14 +19,24 @@ class Admin::EssencePicturesController < ApplicationController
   end
   
   def assign
-    @content = Content.find_by_id(params[:id])
-    @image = Image.find_by_id(params[:image_id])
+    @content = Content.find(params[:id])
+    @image = Image.find(params[:image_id])
     @content.essence.image = @image
     @content.essence.save
     @content.save
+    @options = params[:options]
+    # If options params come from Flash uploader then we have to parse them as hash.
+    @element = @content.element
+    atoms_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
+    @dragable = atoms_of_this_type.length > 1
+    if @options.is_a?(String)
+      @options = Rack::Utils.parse_query(@options)
+    end
+    @options = @options.merge(
+      :dragable => @dragable
+    )
     render :update do |page|
-      dom_string = params[:swap] ? "picture" : "assign_content_#{@content.element.id}"
-      page.replace "#{dom_string}_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
+      page.replace "picture_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => @options}
       if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
         Alchemy::Configuration.sortable_atoms(page, @content.element)
       end

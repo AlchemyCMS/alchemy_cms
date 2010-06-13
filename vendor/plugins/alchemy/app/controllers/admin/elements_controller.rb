@@ -37,8 +37,7 @@ class Admin::ElementsController < ApplicationController
       @element = Element.new_from_scratch(params[:element])
       @page = @element.page
       if @element.save
-        flash[:notice] = 'Element toll'
-        edit_admin_page_path(@page)
+        # rendering via rjs template
       else
         render :update do |page|
           page.replace(:errors, 'fehler')

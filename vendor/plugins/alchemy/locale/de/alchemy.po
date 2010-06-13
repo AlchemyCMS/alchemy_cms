@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-13 18:08+0200\n"
+"POT-Creation-Date: 2010-06-13 20:11+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 "Alchemy ist freie Software und benutzt selbst freie Software und Ressourcen:"
 
-#: app/views/admin/pages/edit.html.erb:73
+#: app/views/admin/pages/edit.html.erb:64
 msgid "Choose Element"
 msgstr "Element auswählen"
 
@@ -56,7 +56,7 @@ msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 msgid "Element"
 msgstr "Element"
 
-#: app/views/admin/pages/edit.html.erb:92
+#: app/views/admin/pages/edit.html.erb:83
 msgid "Elements"
 msgstr "Elemente"
 
@@ -124,11 +124,11 @@ msgstr ""
 msgid "Image"
 msgstr "Bild"
 
-#: app/controllers/admin/images_controller.rb:110
+#: app/controllers/admin/images_controller.rb:108
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 
-#: app/controllers/admin/images_controller.rb:120
+#: app/controllers/admin/images_controller.rb:118
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
@@ -148,8 +148,12 @@ msgstr "Bildbreite"
 msgid "Image|Name"
 msgstr "Name"
 
-#: app/views/admin/pages/edit.html.erb:78
-#: app/views/admin/pages/edit.html.erb:82
+#: app/views/essences/_essence_picture_editor.html.erb:6
+msgid "Mising Image"
+msgstr "Bild fehlt"
+
+#: app/views/admin/pages/edit.html.erb:69
+#: app/views/admin/pages/edit.html.erb:73
 msgid "New Element"
 msgstr "Neues Element"
 
@@ -165,7 +169,7 @@ msgstr "%{name} wurde gelöscht"
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
-#: app/views/admin/pages/edit.html.erb:93
+#: app/views/admin/pages/edit.html.erb:84
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
@@ -272,11 +276,6 @@ msgstr "Diesen Inhalt entfernen"
 #: app/helpers/application_helper.rb:1141
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
-
-#: app/views/admin/pages/edit.html.erb:64
-#: app/views/admin/pages/edit.html.erb:66
-msgid "Show Elements"
-msgstr "Elemente Anzeigen"
 
 #: app/views/admin/contents/create.rjs:52
 msgid "Successfully added %{atom}"
@@ -406,7 +405,7 @@ msgstr "Eine Seite des Typs"
 msgid "above"
 msgstr "darüber"
 
-#: app/views/admin/elements/new.html.erb:21
+#: app/views/admin/elements/new.html.erb:17
 msgid "add"
 msgstr "hinzufügen"
 
@@ -419,7 +418,7 @@ msgstr "+ einen Inhalt hinzufügen"
 msgid "add_image_to_element"
 msgstr "Bild hinzufügen"
 
-#: app/controllers/admin/elements_controller.rb:50
+#: app/controllers/admin/elements_controller.rb:49
 msgid "adding_element_not_successful"
 msgstr "Es konnte kein Element hinzugefügt werden."
 
@@ -455,8 +454,6 @@ msgid "assign_file_from_archive"
 msgstr "Datei aus dem Archiv zuweisen"
 
 #: app/views/admin/elements/_add_content.html.erb:11
-#: app/views/admin/elements/_assign_picture.html.erb:12
-#: app/views/admin/elements/_assign_picture.html.erb:17
 #: app/views/admin/images/_image_to_assign.html.erb:29
 msgid "assign_image"
 msgstr "Bild hinzufügen."
@@ -473,7 +470,7 @@ msgstr "Das Inhalt konnte nicht gelöscht werden."
 msgid "big_thumbnails"
 msgstr "große Miniaturbilder"
 
-#: app/views/admin/partials/_upload_form.html.erb:90
+#: app/views/admin/partials/_upload_form.html.erb:87
 msgid "browse"
 msgstr "durchsuchen"
 
@@ -620,7 +617,7 @@ msgstr "Dateien"
 msgid "download_file_'%{filename}'"
 msgstr "'%{filename}' runterladen"
 
-#: app/views/essences/_essence_picture_editor.html.erb:6
+#: app/views/essences/_essence_picture_editor.html.erb:9
 msgid "drag_to_sort"
 msgstr "Mit der Maus halten und verschieben"
 
@@ -659,7 +656,7 @@ msgstr "Das Element '%{name}' wurde in die Zwischenablage kopiert."
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Das Element '%{name}' wurde in die Zwischenablage bewegt."
 
-#: app/controllers/admin/elements_controller.rb:152
+#: app/controllers/admin/elements_controller.rb:151
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 "Das Element '%{name}' konnte nicht in die Zwischenablage kopiert werden."
@@ -672,15 +669,15 @@ msgstr "Element wurde gelöscht."
 msgid "element_editor_not_found"
 msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 
-#: app/controllers/admin/elements_controller.rb:115
+#: app/controllers/admin/elements_controller.rb:114
 msgid "element_not_saved"
 msgstr "Element konnte nicht gespeichert werden."
 
-#: app/controllers/admin/elements_controller.rb:133
+#: app/controllers/admin/elements_controller.rb:132
 msgid "element_not_successfully_deleted"
 msgstr "Das Element konnte nicht gelöscht werden."
 
-#: app/views/admin/elements/new.html.erb:14
+#: app/views/admin/elements/new.html.erb:10
 msgid "element_of_type"
 msgstr "Element"
 
@@ -764,7 +761,7 @@ msgstr "Alt-Tag"
 msgid "image_caption"
 msgstr "Bildunterschrift"
 
-#: app/views/essences/_essence_picture_editor.html.erb:15
+#: app/views/essences/_essence_picture_editor.html.erb:18
 msgid "image_name"
 msgstr "Name"
 
@@ -1153,7 +1150,7 @@ msgstr "durch Robot indizieren"
 msgid "save"
 msgstr "speichern"
 
-#: app/controllers/admin/essence_pictures_controller.rb:47
+#: app/controllers/admin/essence_pictures_controller.rb:57
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
 
@@ -1171,7 +1168,7 @@ msgstr "suchen"
 msgid "search_engines"
 msgstr "Suchmaschinen"
 
-#: app/views/admin/elements/new.html.erb:18
+#: app/views/admin/elements/new.html.erb:14
 msgid "select_element"
 msgstr "Element wählen"
 
@@ -1209,7 +1206,7 @@ msgstr "Betreff"
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:163
+#: app/controllers/admin/elements_controller.rb:162
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 
@@ -1267,6 +1264,8 @@ msgstr "Datei hochladen"
 msgid "upload_file"
 msgstr "Datei(en) hochladen"
 
+#: app/views/admin/images/_filter_and_size_bar.html.erb:72
+#: app/views/admin/images/_filter_and_size_bar.html.erb:76
 #: app/views/admin/images/index.html.erb:10
 #: app/views/admin/images/index.html.erb:14
 #: app/views/admin/images/index.html.erb:16

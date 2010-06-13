@@ -56,15 +56,6 @@
 				<label><%= _('page_properties') %></label>
 			</div>
 			<%- end -%>
-			<div class="button_with_label disabled" id="ElementsWindowButton">
-				<%= link_to_function(
-					content_tag('span', '', :class => 'icon elements_window'),
-					"openElementsWindow(#{@page.id}, '#{_('Elements')}')",
-					:class => 'icon_button',
-					:title => _('Show Elements')
-				) -%><br />
-				<label><%= _('Show Elements') %></label>
-			</div>
 			<div class="button_with_label">
 				<%= link_to_overlay_window(
 					content_tag('span', '', :class => 'icon new_element'),

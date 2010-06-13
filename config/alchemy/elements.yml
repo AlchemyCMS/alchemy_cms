@@ -21,8 +21,6 @@
 - name: bild_mit_text
   display_name: Bild mit Text
   contents:
-  - name: bild
-    type: EssencePicture
   - name: headline
     type: EssenceText
     take_me_for_preview: true

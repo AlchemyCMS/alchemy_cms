@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-13 18:08+0200\n"
+"POT-Creation-Date: 2010-06-13 20:11+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:73
+#: app/views/admin/pages/edit.html.erb:64
 msgid "Choose Element"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:92
+#: app/views/admin/pages/edit.html.erb:83
 msgid "Elements"
 msgstr ""
 
@@ -121,11 +121,11 @@ msgstr ""
 msgid "Image"
 msgstr "Image"
 
-#: app/controllers/admin/images_controller.rb:110
+#: app/controllers/admin/images_controller.rb:108
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
-#: app/controllers/admin/images_controller.rb:120
+#: app/controllers/admin/images_controller.rb:118
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
@@ -145,8 +145,12 @@ msgstr "Imagewidth"
 msgid "Image|Name"
 msgstr "Name"
 
-#: app/views/admin/pages/edit.html.erb:78
-#: app/views/admin/pages/edit.html.erb:82
+#: app/views/essences/_essence_picture_editor.html.erb:6
+msgid "Mising Image"
+msgstr ""
+
+#: app/views/admin/pages/edit.html.erb:69
+#: app/views/admin/pages/edit.html.erb:73
 msgid "New Element"
 msgstr ""
 
@@ -162,7 +166,7 @@ msgstr "Page: '%{name}' deleted."
 msgid "Page %{name} saved"
 msgstr "Page: '%{name}' saved."
 
-#: app/views/admin/pages/edit.html.erb:93
+#: app/views/admin/pages/edit.html.erb:84
 msgid "Page Preview"
 msgstr ""
 
@@ -266,11 +270,6 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:1141
 msgid "Select an content"
-msgstr ""
-
-#: app/views/admin/pages/edit.html.erb:64
-#: app/views/admin/pages/edit.html.erb:66
-msgid "Show Elements"
 msgstr ""
 
 #: app/views/admin/contents/create.rjs:52
@@ -399,7 +398,7 @@ msgstr "A page of type"
 msgid "above"
 msgstr "above"
 
-#: app/views/admin/elements/new.html.erb:21
+#: app/views/admin/elements/new.html.erb:17
 msgid "add"
 msgstr "add"
 
@@ -412,7 +411,7 @@ msgstr ""
 msgid "add_image_to_element"
 msgstr "Add an image."
 
-#: app/controllers/admin/elements_controller.rb:50
+#: app/controllers/admin/elements_controller.rb:49
 msgid "adding_element_not_successful"
 msgstr "Could not add element."
 
@@ -448,8 +447,6 @@ msgid "assign_file_from_archive"
 msgstr "assign a file from your archive"
 
 #: app/views/admin/elements/_add_content.html.erb:11
-#: app/views/admin/elements/_assign_picture.html.erb:12
-#: app/views/admin/elements/_assign_picture.html.erb:17
 #: app/views/admin/images/_image_to_assign.html.erb:29
 msgid "assign_image"
 msgstr "Assign an image"
@@ -466,7 +463,7 @@ msgstr "Content could not be deleted."
 msgid "big_thumbnails"
 msgstr "Big thumbnails"
 
-#: app/views/admin/partials/_upload_form.html.erb:90
+#: app/views/admin/partials/_upload_form.html.erb:87
 msgid "browse"
 msgstr "browse"
 
@@ -613,7 +610,7 @@ msgstr "Files"
 msgid "download_file_'%{filename}'"
 msgstr "Download file '%{filename}'"
 
-#: app/views/essences/_essence_picture_editor.html.erb:6
+#: app/views/essences/_essence_picture_editor.html.erb:9
 msgid "drag_to_sort"
 msgstr "Drag'n'Drop to sort images"
 
@@ -652,7 +649,7 @@ msgstr "Copied element %{name} to clipboard"
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Moved element %{name} to clipboard."
 
-#: app/controllers/admin/elements_controller.rb:152
+#: app/controllers/admin/elements_controller.rb:151
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr "Error while moving element %{name} to clipboard."
 
@@ -664,15 +661,15 @@ msgstr "Deleted element."
 msgid "element_editor_not_found"
 msgstr "Error within this Molecule"
 
-#: app/controllers/admin/elements_controller.rb:115
+#: app/controllers/admin/elements_controller.rb:114
 msgid "element_not_saved"
 msgstr "Molecule could not be saved."
 
-#: app/controllers/admin/elements_controller.rb:133
+#: app/controllers/admin/elements_controller.rb:132
 msgid "element_not_successfully_deleted"
 msgstr "Molecule could not be deleted."
 
-#: app/views/admin/elements/new.html.erb:14
+#: app/views/admin/elements/new.html.erb:10
 msgid "element_of_type"
 msgstr "Molecule"
 
@@ -755,7 +752,7 @@ msgstr "Alt-tag"
 msgid "image_caption"
 msgstr "Caption"
 
-#: app/views/essences/_essence_picture_editor.html.erb:15
+#: app/views/essences/_essence_picture_editor.html.erb:18
 msgid "image_name"
 msgstr "Name"
 
@@ -1140,7 +1137,7 @@ msgstr "allow robot to index."
 msgid "save"
 msgstr "save"
 
-#: app/controllers/admin/essence_pictures_controller.rb:47
+#: app/controllers/admin/essence_pictures_controller.rb:57
 msgid "saved_link"
 msgstr "Link saved."
 
@@ -1158,7 +1155,7 @@ msgstr "search"
 msgid "search_engines"
 msgstr "Searchengines"
 
-#: app/views/admin/elements/new.html.erb:18
+#: app/views/admin/elements/new.html.erb:14
 msgid "select_element"
 msgstr "Select element"
 
@@ -1196,7 +1193,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
-#: app/controllers/admin/elements_controller.rb:163
+#: app/controllers/admin/elements_controller.rb:162
 msgid "successfully_saved_element_position"
 msgstr "Moleculeposition updated succesfully."
 
@@ -1254,6 +1251,8 @@ msgstr "upload"
 msgid "upload_file"
 msgstr "Upload file(s)."
 
+#: app/views/admin/images/_filter_and_size_bar.html.erb:72
+#: app/views/admin/images/_filter_and_size_bar.html.erb:76
 #: app/views/admin/images/index.html.erb:10
 #: app/views/admin/images/index.html.erb:14
 #: app/views/admin/images/index.html.erb:16

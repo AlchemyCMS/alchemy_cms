@@ -4,10 +4,6 @@
 <%- else -%>
 	<% remote_form_for(
 		[:admin, @element],
-		:complete => %(
-			
-			reloadPreview();
-		),
 		:html => {:class => "add_element_content"}
 	) do |form| %>
 		<%= form.hidden_field('page_id') %>

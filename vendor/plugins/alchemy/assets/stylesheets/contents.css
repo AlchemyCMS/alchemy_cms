@@ -36,6 +36,17 @@ a.edit_picture {
 	background: url(../images/icons/gear.png) no-repeat 0 0;
 }
 
+.picture_detail div.missing_image {
+	height: 96px;
+	text-align: center;
+	line-height: 65px;
+}
+
+.picture_detail div.missing_image img {
+	position: relative;
+	top: 21px;
+}
+
 a.edit_link.linked {
 	border: 1px solid grey;
 	width: 19px;
@@ -54,11 +65,12 @@ a.swap_picture {
 
 .edit_images_bottom {
 	width: 113px;
-	padding-left: 5px;
 	height: 19px;
 	position: absolute;
 	z-index: 0;
-	bottom: 2px;
+	bottom: 4px;
+	left: 4px;
+	padding-left: 4px;
 }
 
 .picture_detail .picture_handle {

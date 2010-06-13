@@ -38,7 +38,6 @@ class Admin::ImagesController < ApplicationController
       @options = params[:options]
       @page = params[:page]
       @per_page = params[:per_page]
-      @swap = params[:swap]
     end
     render :layout => false
   end
@@ -55,7 +54,6 @@ class Admin::ImagesController < ApplicationController
       @options = params[:options]
       @page = params[:page]
       @per_page = params[:per_page]
-      @swap = params[:swap]
     end
     
     if params[:per_page] == 'all'

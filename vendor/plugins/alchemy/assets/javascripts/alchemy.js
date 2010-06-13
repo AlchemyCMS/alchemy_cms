@@ -38,16 +38,12 @@ function openPreviewWindow (id, title) {
 		recenterAuto: false,
 		effectOptions: {
 			duration: 0.2
-		},
-		onClose: function () {
-			//toggleButton('ElementsWindowButton', 'enable');
 		}
 	});
 	preview_window.showCenter(false, 90, 90);
 }
 
 function openElementsWindow (page_id, title) {
-	toggleButton('ElementsWindowButton', 'disable');
 	elements_window = new Window({
 		className: 'alchemy_window',
 		title: title,
@@ -61,14 +57,11 @@ function openElementsWindow (page_id, title) {
 		resizable: true,
 		draggable: true,
 		zIndex: 30000,
-		closable: true,
+		closable: false,
 		destroyOnClose: true,
 		recenterAuto: false,
 		effectOptions: {
 			duration: 0.2
-		},
-		onClose: function () {
-			toggleButton('ElementsWindowButton', 'enable');
 		}
 	});
 	elements_window.setAjaxContent('/admin/elements/list?page_id=' + page_id, {method: 'get'});
@@ -94,6 +87,9 @@ function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, 
 		recenterAuto: false,
 		effectOptions: {
 			duration: 0.2
+		},
+		onClose: function () {
+			delete window.alchemy_window;
 		}
 	});
 	alchemy_window.setZIndex(10);

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-13 18:08+0200\n"
+"POT-Creation-Date: 2010-06-13 20:11+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:73
+#: app/views/admin/pages/edit.html.erb:64
 msgid "Choose Element"
 msgstr ""
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:92
+#: app/views/admin/pages/edit.html.erb:83
 msgid "Elements"
 msgstr ""
 
@@ -126,11 +126,11 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: app/controllers/admin/images_controller.rb:110
+#: app/controllers/admin/images_controller.rb:108
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
-#: app/controllers/admin/images_controller.rb:120
+#: app/controllers/admin/images_controller.rb:118
 msgid "Image: '%{name}' deleted successfully"
 msgstr ""
 
@@ -150,8 +150,12 @@ msgstr ""
 msgid "Image|Name"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:78
-#: app/views/admin/pages/edit.html.erb:82
+#: app/views/essences/_essence_picture_editor.html.erb:6
+msgid "Mising Image"
+msgstr ""
+
+#: app/views/admin/pages/edit.html.erb:69
+#: app/views/admin/pages/edit.html.erb:73
 msgid "New Element"
 msgstr ""
 
@@ -167,7 +171,7 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:93
+#: app/views/admin/pages/edit.html.erb:84
 msgid "Page Preview"
 msgstr ""
 
@@ -269,11 +273,6 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:1141
 msgid "Select an content"
-msgstr ""
-
-#: app/views/admin/pages/edit.html.erb:64
-#: app/views/admin/pages/edit.html.erb:66
-msgid "Show Elements"
 msgstr ""
 
 #: app/views/admin/contents/create.rjs:52
@@ -402,7 +401,7 @@ msgstr ""
 msgid "above"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:21
+#: app/views/admin/elements/new.html.erb:17
 msgid "add"
 msgstr ""
 
@@ -415,7 +414,7 @@ msgstr ""
 msgid "add_image_to_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:50
+#: app/controllers/admin/elements_controller.rb:49
 msgid "adding_element_not_successful"
 msgstr ""
 
@@ -451,8 +450,6 @@ msgid "assign_file_from_archive"
 msgstr ""
 
 #: app/views/admin/elements/_add_content.html.erb:11
-#: app/views/admin/elements/_assign_picture.html.erb:12
-#: app/views/admin/elements/_assign_picture.html.erb:17
 #: app/views/admin/images/_image_to_assign.html.erb:29
 msgid "assign_image"
 msgstr ""
@@ -469,7 +466,7 @@ msgstr ""
 msgid "big_thumbnails"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:90
+#: app/views/admin/partials/_upload_form.html.erb:87
 msgid "browse"
 msgstr ""
 
@@ -616,7 +613,7 @@ msgstr ""
 msgid "download_file_'%{filename}'"
 msgstr ""
 
-#: app/views/essences/_essence_picture_editor.html.erb:6
+#: app/views/essences/_essence_picture_editor.html.erb:9
 msgid "drag_to_sort"
 msgstr ""
 
@@ -655,7 +652,7 @@ msgstr ""
 msgid "element_%{name}_moved_to_clipboard"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:152
+#: app/controllers/admin/elements_controller.rb:151
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 
@@ -667,15 +664,15 @@ msgstr ""
 msgid "element_editor_not_found"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:115
+#: app/controllers/admin/elements_controller.rb:114
 msgid "element_not_saved"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:133
+#: app/controllers/admin/elements_controller.rb:132
 msgid "element_not_successfully_deleted"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:14
+#: app/views/admin/elements/new.html.erb:10
 msgid "element_of_type"
 msgstr ""
 
@@ -755,7 +752,7 @@ msgstr ""
 msgid "image_caption"
 msgstr ""
 
-#: app/views/essences/_essence_picture_editor.html.erb:15
+#: app/views/essences/_essence_picture_editor.html.erb:18
 msgid "image_name"
 msgstr ""
 
@@ -1132,7 +1129,7 @@ msgstr ""
 msgid "save"
 msgstr ""
 
-#: app/controllers/admin/essence_pictures_controller.rb:47
+#: app/controllers/admin/essence_pictures_controller.rb:57
 msgid "saved_link"
 msgstr ""
 
@@ -1150,7 +1147,7 @@ msgstr ""
 msgid "search_engines"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:18
+#: app/views/admin/elements/new.html.erb:14
 msgid "select_element"
 msgstr ""
 
@@ -1188,7 +1185,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:163
+#: app/controllers/admin/elements_controller.rb:162
 msgid "successfully_saved_element_position"
 msgstr ""
 
@@ -1246,6 +1243,8 @@ msgstr ""
 msgid "upload_file"
 msgstr ""
 
+#: app/views/admin/images/_filter_and_size_bar.html.erb:72
+#: app/views/admin/images/_filter_and_size_bar.html.erb:76
 #: app/views/admin/images/index.html.erb:10
 #: app/views/admin/images/index.html.erb:14
 #: app/views/admin/images/index.html.erb:16
