@@ -59,6 +59,7 @@ var AlchemyElementEditorSelector = Class.create({
 				frame_el.setStyle({outline: 'none'});
 			})
 			selected_el.setStyle({outline: '2px solid #bba589'});
+			selected_el.scrollTo();
 		});
 	})
 	
