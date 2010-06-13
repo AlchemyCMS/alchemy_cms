@@ -19,16 +19,43 @@ function toggleButton (id, action) {
 	};
 }
 
+function openPreviewWindow (id, title) {
+	preview_window = new Window({
+		url: '/admin/pages/preview/'+id,
+		className: 'alchemy_window',
+		title: title,
+		width: 900,
+		height: document.viewport.getDimensions().height - 128,
+		minWidth: 600,
+		minHeight: 300,
+		maximizable: false,
+		minimizable: true,
+		resizable: true,
+		draggable: false,
+		zIndex: 30000,
+		closable: false,
+		destroyOnClose: true,
+		recenterAuto: false,
+		effectOptions: {
+			duration: 0.2
+		},
+		onClose: function () {
+			//toggleButton('ElementsWindowButton', 'enable');
+		}
+	});
+	preview_window.showCenter(false, 90, 90);
+}
+
 function openElementsWindow (page_id, title) {
 	toggleButton('ElementsWindowButton', 'disable');
 	elements_window = new Window({
 		className: 'alchemy_window',
 		title: title,
 		width: 424,
-		height: document.viewport.getDimensions().height - 180,
+		height: document.viewport.getDimensions().height - 148,
 		minWidth: 424,
 		minHeight: 300,
-		maxHeight: document.viewport.getDimensions().height - 180,
+		maxHeight: document.viewport.getDimensions().height - 148,
 		maximizable: false,
 		minimizable: true,
 		resizable: true,
@@ -45,7 +72,7 @@ function openElementsWindow (page_id, title) {
 		}
 	});
 	elements_window.setAjaxContent('/admin/elements/list?page_id=' + page_id, {method: 'get'});
-	elements_window.showCenter(false, 104, document.viewport.getDimensions().width - 450);
+	elements_window.showCenter(false, 100, document.viewport.getDimensions().width - 450);
 }
 
 function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, overflow){
@@ -180,17 +207,7 @@ function fold_page(id) {
 }
 
 function reloadPreview() {
-    var frame = $('preview_frame');
-    if (frame){
-        if (is_ie) {
-            var doc = frame.contentWindow.document;
-        } else {
-            var doc = frame.contentDocument;
-        }
-        if (doc) {
-            doc.location.reload(true);
-        }
-    }
+	preview_window.refresh();
 }
 
 function alchemyListFilter(selector){

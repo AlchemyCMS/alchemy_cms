@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-11 15:35+0200\n"
+"POT-Creation-Date: 2010-06-13 13:21+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -164,6 +164,10 @@ msgstr "%{name} wurde gelöscht"
 #: app/controllers/admin/pages_controller.rb:74
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
+
+#: app/views/admin/pages/edit.html.erb:97
+msgid "Page Preview"
+msgstr "Seitenvorschau"
 
 #: locale/model_attributes.rb:35
 msgid "Page|Created at"

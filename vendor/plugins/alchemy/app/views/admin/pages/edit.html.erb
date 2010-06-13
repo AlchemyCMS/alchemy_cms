@@ -85,7 +85,7 @@
 	</div>
 </div>
 
-<div id="preview">
+<div id="preview" style="display: none">
 	<iframe id="preview_frame" src="<%= generate_preview_url(frame_requested?) %>" scrolling="auto" frameborder="0"></iframe>
 </div>
 
@@ -94,6 +94,7 @@
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
 			openElementsWindow(<%= @page.id %>, '<%= _('Elements') %>');
+			openPreviewWindow(<%= @page.id %>, '<%= _('Page Preview') %>');
 		});
 	//]]-->
 	</script>

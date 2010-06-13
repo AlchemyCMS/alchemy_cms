@@ -7,7 +7,7 @@ page.insert_html(
 Alchemy::Configuration.sortable_elements(page)
 Alchemy::Notice.show_via_ajax(page, _("successfully_added_element"))
 page << "TinymceHammer.init()"
-page << "reloadPreview()"
+page << "preview_window.refresh();"
 page << "alchemy_window.close();"
 page << "if(elements_window){elements_window.updateHeight();}"
 page << "main_frame.updateSize();"
