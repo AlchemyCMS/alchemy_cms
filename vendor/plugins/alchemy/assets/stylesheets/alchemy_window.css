@@ -40,7 +40,7 @@
 
 .dialog {
 	display: block;
-	position: fixed;
+	position: absolute;
 	-webkit-box-shadow: #333 0px 4px 8px;
 	-moz-box-shadow: #333 0px 4px 8px;
 	-o-box-shadow: #333 0px 4px 8px;

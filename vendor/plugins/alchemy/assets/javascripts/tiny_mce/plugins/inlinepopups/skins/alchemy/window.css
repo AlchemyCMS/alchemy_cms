@@ -26,14 +26,13 @@
 /* General */
 
 .alchemy {
-	position: fixed;
+	position: absolute;
 	direction: ltr;
 	border: 1px solid #9c9d9c;
 	-webkit-box-shadow: #333 0px 4px 8px;
 	-moz-box-shadow: #333 0px 4px 8px;
 	-o-box-shadow: #333 0px 4px 8px;
 	box-shadow: #333 0px 4px 8px;
-
 }
 
 .alchemy .mceWrapper {
