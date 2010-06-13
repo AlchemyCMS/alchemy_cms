@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-13 13:21+0200\n"
+"POT-Creation-Date: 2010-06-13 18:08+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 msgid "Element"
 msgstr "Element"
 
-#: app/views/admin/pages/edit.html.erb:96
+#: app/views/admin/pages/edit.html.erb:92
 msgid "Elements"
 msgstr "Elemente"
 
@@ -124,11 +124,11 @@ msgstr ""
 msgid "Image"
 msgstr "Bild"
 
-#: app/controllers/admin/images_controller.rb:98
+#: app/controllers/admin/images_controller.rb:110
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 
-#: app/controllers/admin/images_controller.rb:108
+#: app/controllers/admin/images_controller.rb:120
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
@@ -165,7 +165,7 @@ msgstr "%{name} wurde gelöscht"
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
-#: app/views/admin/pages/edit.html.erb:97
+#: app/views/admin/pages/edit.html.erb:93
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
@@ -269,7 +269,7 @@ msgstr "Lizenz lesen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/application_helper.rb:1142
+#: app/helpers/application_helper.rb:1141
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -278,13 +278,17 @@ msgstr "Wählen Sie einen Inhalt aus"
 msgid "Show Elements"
 msgstr "Elemente Anzeigen"
 
-#: app/views/admin/contents/create.rjs:51
+#: app/views/admin/contents/create.rjs:52
 msgid "Successfully added %{atom}"
 msgstr "%{atom} wurde hinzugefügt"
 
-#: app/controllers/admin/contents_controller.rb:68
+#: app/controllers/admin/contents_controller.rb:72
 msgid "Successfully deleted %{atom}"
 msgstr "%{atom} wurde gelöscht"
+
+#: app/controllers/admin/contents_controller.rb:58
+msgid "Successfully saved content position"
+msgstr "Die Position wurde gespeichert."
 
 #: app/views/admin/partials/_upload_form.html.erb:41
 msgid "Switch to Flash® Uploader"
@@ -406,8 +410,8 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/application_helper.rb:1138
-#: app/helpers/application_helper.rb:1154
+#: app/helpers/application_helper.rb:1137
+#: app/helpers/application_helper.rb:1153
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -424,7 +428,7 @@ msgstr "Es konnte kein Element hinzugefügt werden."
 msgid "align_in_text"
 msgstr "Im Text anordnen"
 
-#: app/views/partials/_per_page_links.html.erb:5
+#: app/views/admin/partials/_per_page_links.html.erb:5
 msgid "all"
 msgstr "alle"
 
@@ -457,11 +461,11 @@ msgstr "Datei aus dem Archiv zuweisen"
 msgid "assign_image"
 msgstr "Bild hinzufügen."
 
-#: app/controllers/admin/contents_controller.rb:34
+#: app/controllers/admin/contents_controller.rb:38
 msgid "atom_not_successfully_added"
 msgstr "Das Inhalt konnte nicht hinzugefügt werden."
 
-#: app/controllers/admin/contents_controller.rb:75
+#: app/controllers/admin/contents_controller.rb:79
 msgid "atom_not_successfully_deleted"
 msgstr "Das Inhalt konnte nicht gelöscht werden."
 
@@ -469,7 +473,7 @@ msgstr "Das Inhalt konnte nicht gelöscht werden."
 msgid "big_thumbnails"
 msgstr "große Miniaturbilder"
 
-#: app/views/admin/partials/_upload_form.html.erb:80
+#: app/views/admin/partials/_upload_form.html.erb:90
 msgid "browse"
 msgstr "durchsuchen"
 
@@ -486,8 +490,8 @@ msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
 #: app/helpers/application_helper.rb:837
-#: app/views/partials/_remote_search_form.html.erb:26
-#: app/views/partials/_search_form.html.erb:11
+#: app/views/admin/partials/_remote_search_form.html.erb:26
+#: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
 msgstr "wieder alles anzeigen"
 
@@ -516,7 +520,7 @@ msgid "confirm_to_delete_user"
 msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 
 #: app/helpers/application_helper.rb:159 app/helpers/application_helper.rb:889
-#: app/helpers/application_helper.rb:995
+#: app/helpers/application_helper.rb:994
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
@@ -1058,17 +1062,17 @@ msgstr "Seite in der Navigation zeigen"
 msgid "pages.update.comma_seperated"
 msgstr "Durch Kommata getrennt eingeben"
 
-#: app/views/partials/_per_page_links.html.erb:16
+#: app/views/admin/partials/_per_page_links.html.erb:16
 msgid "pagination.%{label}_per_page"
 msgstr "%{label} pro Seite"
 
-#: app/views/partials/_pagination_links.html.erb:5
-#: app/views/partials/_remote_pagination_links.html.erb:5
+#: app/views/admin/partials/_pagination_links.html.erb:5
+#: app/views/admin/partials/_remote_pagination_links.html.erb:5
 msgid "pagination.next_page"
 msgstr "nächste Seite"
 
-#: app/views/partials/_pagination_links.html.erb:4
-#: app/views/partials/_remote_pagination_links.html.erb:4
+#: app/views/admin/partials/_pagination_links.html.erb:4
+#: app/views/admin/partials/_remote_pagination_links.html.erb:4
 msgid "pagination.previous_page"
 msgstr "vorherige Seite"
 
@@ -1149,7 +1153,7 @@ msgstr "durch Robot indizieren"
 msgid "save"
 msgstr "speichern"
 
-#: app/controllers/admin/essence_pictures_controller.rb:46
+#: app/controllers/admin/essence_pictures_controller.rb:47
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
 
@@ -1158,8 +1162,8 @@ msgid "saving"
 msgstr "speichert"
 
 #: app/helpers/application_helper.rb:839
-#: app/views/partials/_remote_search_form.html.erb:30
-#: app/views/partials/_search_form.html.erb:15
+#: app/views/admin/partials/_remote_search_form.html.erb:30
+#: app/views/admin/partials/_search_form.html.erb:15
 msgid "search"
 msgstr "suchen"
 
@@ -1204,10 +1208,6 @@ msgstr "Betreff"
 #: app/views/admin/elements/create.rjs:8
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
-
-#: app/controllers/admin/contents_controller.rb:54
-msgid "successfully_saved_atom_position"
-msgstr "Die Inhaltposition wurde gespeichert"
 
 #: app/controllers/admin/elements_controller.rb:163
 msgid "successfully_saved_element_position"

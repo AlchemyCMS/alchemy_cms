@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-13 13:21+0200\n"
+"POT-Creation-Date: 2010-06-13 18:08+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:96
+#: app/views/admin/pages/edit.html.erb:92
 msgid "Elements"
 msgstr ""
 
@@ -126,11 +126,11 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: app/controllers/admin/images_controller.rb:98
+#: app/controllers/admin/images_controller.rb:110
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
-#: app/controllers/admin/images_controller.rb:108
+#: app/controllers/admin/images_controller.rb:120
 msgid "Image: '%{name}' deleted successfully"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:97
+#: app/views/admin/pages/edit.html.erb:93
 msgid "Page Preview"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1142
+#: app/helpers/application_helper.rb:1141
 msgid "Select an content"
 msgstr ""
 
@@ -276,12 +276,16 @@ msgstr ""
 msgid "Show Elements"
 msgstr ""
 
-#: app/views/admin/contents/create.rjs:51
+#: app/views/admin/contents/create.rjs:52
 msgid "Successfully added %{atom}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:68
+#: app/controllers/admin/contents_controller.rb:72
 msgid "Successfully deleted %{atom}"
+msgstr ""
+
+#: app/controllers/admin/contents_controller.rb:58
+msgid "Successfully saved content position"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:41
@@ -402,8 +406,8 @@ msgstr ""
 msgid "add"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1138
-#: app/helpers/application_helper.rb:1154
+#: app/helpers/application_helper.rb:1137
+#: app/helpers/application_helper.rb:1153
 msgid "add new content"
 msgstr ""
 
@@ -420,7 +424,7 @@ msgstr ""
 msgid "align_in_text"
 msgstr ""
 
-#: app/views/partials/_per_page_links.html.erb:5
+#: app/views/admin/partials/_per_page_links.html.erb:5
 msgid "all"
 msgstr ""
 
@@ -453,11 +457,11 @@ msgstr ""
 msgid "assign_image"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:34
+#: app/controllers/admin/contents_controller.rb:38
 msgid "atom_not_successfully_added"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:75
+#: app/controllers/admin/contents_controller.rb:79
 msgid "atom_not_successfully_deleted"
 msgstr ""
 
@@ -465,7 +469,7 @@ msgstr ""
 msgid "big_thumbnails"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:80
+#: app/views/admin/partials/_upload_form.html.erb:90
 msgid "browse"
 msgstr ""
 
@@ -482,8 +486,8 @@ msgid "choose_file_to_link"
 msgstr ""
 
 #: app/helpers/application_helper.rb:837
-#: app/views/partials/_remote_search_form.html.erb:26
-#: app/views/partials/_search_form.html.erb:11
+#: app/views/admin/partials/_remote_search_form.html.erb:26
+#: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
 msgstr ""
 
@@ -512,7 +516,7 @@ msgid "confirm_to_delete_user"
 msgstr ""
 
 #: app/helpers/application_helper.rb:159 app/helpers/application_helper.rb:889
-#: app/helpers/application_helper.rb:995
+#: app/helpers/application_helper.rb:994
 msgid "content_essence_not_found"
 msgstr ""
 
@@ -1037,17 +1041,17 @@ msgstr ""
 msgid "pages.update.comma_seperated"
 msgstr ""
 
-#: app/views/partials/_per_page_links.html.erb:16
+#: app/views/admin/partials/_per_page_links.html.erb:16
 msgid "pagination.%{label}_per_page"
 msgstr ""
 
-#: app/views/partials/_pagination_links.html.erb:5
-#: app/views/partials/_remote_pagination_links.html.erb:5
+#: app/views/admin/partials/_pagination_links.html.erb:5
+#: app/views/admin/partials/_remote_pagination_links.html.erb:5
 msgid "pagination.next_page"
 msgstr ""
 
-#: app/views/partials/_pagination_links.html.erb:4
-#: app/views/partials/_remote_pagination_links.html.erb:4
+#: app/views/admin/partials/_pagination_links.html.erb:4
+#: app/views/admin/partials/_remote_pagination_links.html.erb:4
 msgid "pagination.previous_page"
 msgstr ""
 
@@ -1128,7 +1132,7 @@ msgstr ""
 msgid "save"
 msgstr ""
 
-#: app/controllers/admin/essence_pictures_controller.rb:46
+#: app/controllers/admin/essence_pictures_controller.rb:47
 msgid "saved_link"
 msgstr ""
 
@@ -1137,8 +1141,8 @@ msgid "saving"
 msgstr ""
 
 #: app/helpers/application_helper.rb:839
-#: app/views/partials/_remote_search_form.html.erb:30
-#: app/views/partials/_search_form.html.erb:15
+#: app/views/admin/partials/_remote_search_form.html.erb:30
+#: app/views/admin/partials/_search_form.html.erb:15
 msgid "search"
 msgstr ""
 
@@ -1182,10 +1186,6 @@ msgstr ""
 
 #: app/views/admin/elements/create.rjs:8
 msgid "successfully_added_element"
-msgstr ""
-
-#: app/controllers/admin/contents_controller.rb:54
-msgid "successfully_saved_atom_position"
 msgstr ""
 
 #: app/controllers/admin/elements_controller.rb:163
