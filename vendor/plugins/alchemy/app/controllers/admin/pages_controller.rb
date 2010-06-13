@@ -59,8 +59,8 @@ class Admin::PagesController < ApplicationController
   
   def preview
     # fetching page via before filter
-    render :layout => 'pages'
     @preview_mode = true
+    render :layout => 'pages'
   end
   
   def configure

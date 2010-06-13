@@ -37,6 +37,7 @@ javascripts:
    - alchemy
    - alchemy_selectbox
    - alchemy_frame_set
+   - alchemy_element_editor_selector
 - archive:
   - prototype
   - effects
