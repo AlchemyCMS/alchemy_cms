@@ -54,7 +54,7 @@
 		) %>
 	</span>
 	<%= link_to_overlay_window(
-		'upload',
+		render_icon('upload'),
 		url_for(
 			:controller => 'admin/images',
 			:action => 'new',
@@ -68,10 +68,13 @@
 			:options => @options
 		),
 		{
-			:size => "300x400",
-			:title => 'upload'
+			:size => "355x320",
+			:title => _('upload_image')
 		},
-		{}
+		{
+			:class => 'icon_button',
+			:title => _('upload_image')
+		}
 	) %>
 	<%= render(
 		:partial => 'admin/partials/remote_search_form',

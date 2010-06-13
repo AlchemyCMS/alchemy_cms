@@ -64,8 +64,6 @@
 	:options => @options.to_param
 }.delete_if{|k,v|v.nil?}.to_json -%>
 
-<%= post_params %>
-
 <script type='text/javascript'>
 	try {
 		var settings = {
@@ -106,7 +104,6 @@
 			upload_complete_handler : uploadComplete,
 			queue_complete_handler : queueComplete
 		};
-		console.info('settings: ', settings);
 		var swfu = new SWFUpload(settings);
 		swfu.window_mode = "opaque";
 	} catch(err) {
