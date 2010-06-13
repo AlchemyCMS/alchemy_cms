@@ -7,7 +7,7 @@
 		<%= _("no_search_results") %>
 	</p>
 <%- end -%>
-<%= render :partial => 'partials/pagination_links', :locals => {:items => @attachements} %>
+<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @attachements} %>
 <table id="all_files" class="list">
 	<%- unless @attachements.blank? -%>
 	<tr>

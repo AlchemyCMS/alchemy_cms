@@ -61,7 +61,15 @@
 			post_params: {
 				query: '<%= params[:query] %>',
 				page: '<%= params[:page] %>',
-				per_page: '<%= params[:per_page] %>'
+				per_page: '<%= params[:per_page] %>',
+				while_assigning: '<%= @while_assigning ? "true" : "false" %>',
+				content_id: '<%= @content.blank? ? "null" : @content.id %>',
+				element_id: '<%= @element.blank? ? "null" : @element.id %>',
+				swap: '<%= @swap ? "true" : "false" %>',
+				size: '<%= @size.blank? ? "small" : @size %>',
+				page: '<%= @page.blank? ? "1" : @page %>',
+				per_page: '<%= @per_page.blank? ? "32" : @per_page %>',
+				swap: '<%= @swap ? "true" : "false" %>'
 			},
 			file_size_limit : "500 MB",
 			file_types : "<%= file_types.join(';') %>",

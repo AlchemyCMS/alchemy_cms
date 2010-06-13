@@ -30,6 +30,16 @@ class Admin::ImagesController < ApplicationController
   
   def new
     @image = Image.new
+    @while_assigning = params[:while_assigning] == 'true'
+    if @while_assigning
+      @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
+      @element = Element.find(params[:element_id], :select => 'id')
+      @size = params[:size]
+      @options = params[:options]
+      @page = params[:page]
+      @per_page = params[:per_page]
+      @swap = params[:swap]
+    end
     render :layout => false
   end
   
@@ -37,6 +47,16 @@ class Admin::ImagesController < ApplicationController
     @image = Image.new(:image_file => params[:Filedata])
     @image.name = @image.image_filename
     @image.save
+    @while_assigning = params[:while_assigning] == 'true'
+    if @while_assigning
+      @content = Content.find(params[:content_id], :select => 'id') if params[:content_id] != 'null'
+      @element = Element.find(params[:element_id], :select => 'id')
+      @size = params[:size]
+      @options = params[:options]
+      @page = params[:page]
+      @per_page = params[:per_page]
+      @swap = params[:swap]
+    end
     
     if params[:per_page] == 'all'
       @images = Image.find(
@@ -54,20 +74,13 @@ class Admin::ImagesController < ApplicationController
       )
     end
     if params[:_alchemy_session].blank?
-      redirect_to :action => :index
-    end
-  end
-  
-  def add_upload_form
-    @image = Image.new
-    render :update do |page|
-      page.insert_html :bottom, 'input_fields', :partial => 'upload_form', :locals => {:delete_button => true}
-      page << "alchemy_window.updateHeight()"
+      redirect_to :back
     end
   end
   
   def archive_overlay
-    @element = Element.find_by_id(params[:element_id])
+    @content = Content.find_by_id(params[:content_id], :select => 'id')
+    @element = Element.find_by_id(params[:element_id], :select => 'id')
     @images = Image.paginate(
       :all,
       :order => :name,
@@ -75,7 +88,6 @@ class Admin::ImagesController < ApplicationController
       :per_page => 32,
       :conditions => "name LIKE '%#{params[:query]}%'"
     )
-    @content = Content.find_by_id(params[:content_id])
     @swap = params[:swap]
     @size = params[:size] || 'small'
     @options = params[:options]

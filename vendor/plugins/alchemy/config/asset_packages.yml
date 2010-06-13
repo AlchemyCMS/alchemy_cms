@@ -38,6 +38,10 @@ javascripts:
    - alchemy_selectbox
    - alchemy_frame_set
    - alchemy_element_editor_selector
+   - swfupload/swfupload
+   - swfupload/handlers
+   - swfupload/fileprogress
+   - swfupload/queue
 - archive:
   - prototype
   - effects

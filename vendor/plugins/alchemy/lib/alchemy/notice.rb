@@ -15,7 +15,7 @@ private
   def self.show_notice(page, message, style = :notice)
     flash = {}
     flash[style.to_sym] = message
-    page.replace("flash_notices", :partial => "partials/flash_notice", :locals => {:flash => flash})
+    page.replace("flash_notices", :partial => "admin/partials/flash_notice", :locals => {:flash => flash})
     page.show("flash_notices")
     page << %(
 new Effect.Highlight(

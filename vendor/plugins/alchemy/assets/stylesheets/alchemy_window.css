@@ -2,6 +2,8 @@
 
 /* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
 
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
+
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -38,7 +40,7 @@
 
 .dialog {
 	display: block;
-	position: absolute;
+	position: fixed;
 	-webkit-box-shadow: #333 0px 4px 8px;
 	-moz-box-shadow: #333 0px 4px 8px;
 	-o-box-shadow: #333 0px 4px 8px;

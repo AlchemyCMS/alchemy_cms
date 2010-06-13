@@ -7,7 +7,7 @@
 		<%= _("no_search_results") %>
 	</p>
 <%- else  -%>
-	<%= render :partial => 'partials/pagination_links', :locals => {:items => @images} %>
+	<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @images} %>
 	<div id="images">
 		<%= render(:partial => 'image', :collection => @images) %>
 	</div>
