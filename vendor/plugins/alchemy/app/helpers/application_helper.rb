@@ -1176,4 +1176,22 @@ module ApplicationHelper
     content_tag('span', '', :class => "icon #{icon_class}")
   end
   
+  def alchemy_preview_mode_code
+    if @preview_mode
+      str = javascript_include_merged(:preview)
+      str += %(
+        <script type="text/javascript" charset="utf-8">
+        // <![CDATA[
+          document.observe('dom:loaded', function() {
+            new AlchemyElementSelector();
+          });
+        // ]]>
+        </script>
+      )
+      return str
+    else
+      return nil
+    end
+  end
+  
 end

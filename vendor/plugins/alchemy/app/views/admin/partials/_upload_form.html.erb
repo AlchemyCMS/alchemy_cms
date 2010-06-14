@@ -58,7 +58,7 @@
 	:per_page => params[:per_page] || 32,
 	:while_assigning => @while_assigning ? "true" : "false",
 	:content_id => @content.blank? ? nil : @content.id,
-	:element_id => @element.id,
+	:element_id => @element.blank? ? nil : @element.id,
 	:size => @size,
 	:options => @options.to_param
 }.delete_if{|k,v|v.nil?}.to_json -%>

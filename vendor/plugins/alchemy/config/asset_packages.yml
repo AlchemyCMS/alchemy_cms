@@ -42,6 +42,9 @@ javascripts:
    - swfupload/handlers
    - swfupload/fileprogress
    - swfupload/queue
+- preview:
+  - prototype
+  - alchemy_element_selector
 - archive:
   - prototype
   - effects
