@@ -720,10 +720,13 @@ a.close_elements_from_page_selector {
 
 #sitemap_for_links a.show_elements_to_link {
 	float: left;
-	width: 19px;
-	height: 19px;
+	width: 16px;
+	height: 16px;
 	position: relative;
-	background: url(../images/elements/bildtext.gif) no-repeat 0 0;
+	background: url(../images/icons/elements_window.png) no-repeat 0 0;
+	margin: 2px;
+	font-size: 0;
+	text-decoration: none;
 }
 
 .bordertop_white {
