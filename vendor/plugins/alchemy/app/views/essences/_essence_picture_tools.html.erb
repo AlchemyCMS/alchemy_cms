@@ -39,7 +39,7 @@
 <div class="picture_tool_button">
 	<%= link_to_function(
 		"",
-		"$('atom_#{content.id}_link').value='';$('atom_#{content.id}_link_title').value='';$('atom_#{content.id}_link_class_name').value='';$('atom_#{content.id}_link_target').value='';$('edit_link_#{content.id}').removeClassName('linked')",
+		"$('essence_#{content.id}_link').value='';$('essence_#{content.id}_link_title').value='';$('essence_#{content.id}_link_class_name').value='';$('essence_#{content.id}_link_target').value='';$('edit_link_#{content.id}').removeClassName('linked')",
 		:class => 'remove_link',
 		:title => _('unlink')
 	) %>
@@ -48,11 +48,11 @@
 	<%= link_to_overlay_window("",
 		edit_admin_essence_picture_path(
 			:id => content.essence.id,
-	    	:options => options
-	    ),
-	    {
+			:options => options
+		),
+		{
 			:title => _('edit_image_properties'),
-	    	:size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '365x200' : '365x180') : (options[:manual_image_size] ? '365x160' : '365x150'))
+			:size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '365x200' : '365x180') : (options[:manual_image_size] ? '365x160' : '365x150'))
 		},
 		:class => 'edit_picture',
 		:title => _('edit_image_properties')

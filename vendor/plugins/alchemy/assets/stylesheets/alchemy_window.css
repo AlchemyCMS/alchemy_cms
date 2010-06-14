@@ -578,7 +578,7 @@ input#link_to_text {
 	width: 229px;
 }
 
-.alchemy_window_tab_body {
+.link_window_tab_body {
 	background-color: #ededed;
 	padding: 8px;
 	margin: 0;
@@ -736,15 +736,13 @@ a.close_elements_from_page_selector {
 
 div.overlay_tab_bar {
 	min-width: 396px;
-	font-size: 12px;
-	font-weight: bold;
-	color: white;
 	margin: 0;
 	height: 23px;
 	white-space: nowrap;
 	overflow: hidden;
-	border-bottom: 2px solid white;
-	background: #aed66d url(../images/gui/shading_inv.png) repeat-x 0 0;
+	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x 0 0;
+	padding: 4px 4px 0;
+	text-shadow: #fff 0 1px 2px;
 }
 
 .overlay_tab_bar span {
@@ -809,6 +807,7 @@ div.add_upload_form_button {
 	color: black;
 	background-color: #ededed;
 	cursor: default;
+	text-shadow: none;
 }
 
 #external_link_table .padding_right {

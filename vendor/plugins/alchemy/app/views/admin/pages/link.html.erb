@@ -1,15 +1,15 @@
 <div class="overlay_tab_bar">
-	<span onclick="show_overlay_tab('sitemap_for_links', this);" class="alchemy_window_tab active" id="tab_for_sitemap_for_links">
+	<span onclick="showLinkWindowTab('sitemap_for_links', this);" class="link_window_tab active" id="tab_for_sitemap_for_links">
 		<%= _('link_overlay_tab_label.internal') %>
 	</span>
-	<span onclick="show_overlay_tab('sitemap_external_links', this);" class="alchemy_window_tab" id="tab_for_sitemap_external_links">
+	<span onclick="showLinkWindowTab('sitemap_external_links', this);" class="link_window_tab" id="tab_for_sitemap_external_links">
 		<%= _('link_overlay_tab_label.external') %>
 	</span>
-	<span onclick="show_overlay_tab('file_links', this);" class="alchemy_window_tab" id="tab_for_file_links">
+	<span onclick="showLinkWindowTab('file_links', this);" class="link_window_tab" id="tab_for_file_links">
 		<%= _('link_overlay_tab_label.file') %>
 	</span>
 	<%- if configuration(:mailer)[:contactform_linking] -%>
-	<span onclick="show_overlay_tab('contactform_links', this);" class="alchemy_window_tab" id="tab_for_contactform_links">
+	<span onclick="showLinkWindowTab('contactform_links', this);" class="link_window_tab" id="tab_for_contactform_links">
 		<%= _('link_overlay_tab_label.contactform') %>
 	</span>
 	<%- end -%>
@@ -21,7 +21,7 @@
 	<%= render :partial => 'contactform_links' %>
 <%- end -%>
 <%- javascript_tag do -%>
-  if (alchemy_window.tiny_ed) {
-    select_link_tab();
+  if (link_window.tiny_ed) {
+    selectLinkWindowTab();
   }
 <%- end -%>

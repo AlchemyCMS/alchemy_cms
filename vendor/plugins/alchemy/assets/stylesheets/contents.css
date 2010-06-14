@@ -48,9 +48,18 @@ a.edit_picture {
 }
 
 a.edit_link.linked {
-	border: 1px solid grey;
-	width: 19px;
+	border: 1px solid #bbb;
+	width: 18px;
 	height: 18px;
+	background-color: #f8d87b;
+	background-position: -501px -2px;
+	top: -1px;
+	position: relative;
+	left: 0;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
 }
 
 a.remove_link {
@@ -195,7 +204,7 @@ a.new_atom_link {
 	margin-top: 4px;
 }
 
-div.content_rtf_loader {
+div.essence_richtext_loader {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -206,7 +215,7 @@ div.content_rtf_loader {
 	opacity: 0.95;
 }
 
-div.content_rtf_loader img {
+div.essence_richtext_loader img {
 	position: absolute;
 	top: 43%;
 	left: 46%;

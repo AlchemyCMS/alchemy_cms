@@ -24,7 +24,7 @@ authorization do
   role :author do
     includes :registered
     has_permission_on :admin, :to => [:login_to]
-    has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content]
+    has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :admin_elements, :to => [:manage_elements]
     has_permission_on :admin_images, :to => [:index, :archive_overlay, :thumb, :show_in_window]
     has_permission_on :admin_attachements, :to => [:index, :archive_overlay]

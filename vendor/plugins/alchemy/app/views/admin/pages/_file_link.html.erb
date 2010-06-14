@@ -1,4 +1,4 @@
-<div id="file_links" style="display: none" class="alchemy_window_tab_body">
+<div id="file_links" style="display: none" class="link_window_tab_body">
 	<h2>
 		<%= _("choose_file_to_link") %>
 	</h2>
@@ -8,7 +8,7 @@
 				<label for="public_filename" class="medium"><%= _("file") %></label>
 			</td>
 			<td class="select">
-				<%= alchemy_selectbox_tag "public_filename", File.all.collect{ |f| [f.name, f.public_filename] }, '',:style => "width: 100%" %>
+				<%= alchemy_selectbox_tag "public_filename", Attachement.all.collect{ |f| [f.name, f.public_filename] }, '',:style => "width: 100%" %>
 			</td>
 		</tr>
 		<tr>
@@ -33,7 +33,7 @@
 	<p>
     <%= link_to_function(
       _("apply"),
-      "alchemyCreateLink('file', $('public_filename').value, $('file_link_title').value, $('file_link_target').checked); alchemy_window.close()",
+      "alchemyCreateLink('file', $('public_filename').value, $('file_link_title').value, $('file_link_target').checked); link_window.close()",
       :class => 'button'
     ) %>
 	</p>

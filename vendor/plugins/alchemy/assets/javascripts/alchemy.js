@@ -116,7 +116,7 @@ function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, 
 	alchemy_window.showCenter(modal == 'true' ? 'modal' : null);
 }
 
-function image_zoom(url, title, width, height) {
+function zoomImage(url, title, width, height) {
 	var window_height = height;
 	var window_width = width;
 	if (width > document.viewport.getWidth()) {
@@ -141,35 +141,38 @@ function image_zoom(url, title, width, height) {
 		zIndex: 300000,
 		effectOptions: {
 			duration: 0.2
+		},
+		onClose: function () {
+			delete window.image_window;
 		}
 	});
 	image_window.showCenter();
 }
 
 function openLinkWindow(selElem, width) {
-    link_window = new Window({
-        className: "alchemy_window",
-        title: 'Link setzen',
-        width: width,
-        height: '410',
-        zIndex: 300000,
-        maximizable: false,
-        resizable: true,
-        draggable: true,
-        closable: true,
-        destroyOnClose: true,
-        recenterAuto: false,
-        showEffect: Effect.Appear,
-        hideEffect: Effect.Fade,
-        effectOptions: {
-            duration: 0.2
-        }
-    });
-    // IE 7 Syntax Error: Bezeichner erwartet.
-    link_window.tiny_ed = selElem;
-    //
-    link_window.setAjaxContent('/alchemy/link_to_page', {method: 'get'});
-    link_window.showCenter('modal');
+	link_window = new Window({
+		className: "alchemy_window",
+		title: 'Link setzen',
+		width: width,
+		height: '410',
+		zIndex: 300000,
+		maximizable: false,
+		resizable: true,
+		draggable: true,
+		closable: true,
+		destroyOnClose: true,
+		recenterAuto: false,
+		showEffect: Effect.Appear,
+		hideEffect: Effect.Fade,
+		effectOptions: {
+			duration: 0.2
+		}
+	});
+	// IE 7 Syntax Error: Bezeichner erwartet.
+	link_window.tiny_ed = selElem;
+	//
+	link_window.setAjaxContent('/admin/pages/link', {method: 'get'});
+	link_window.showCenter('modal');
 }
 
 function OverlayForMolecules(show) {
@@ -224,57 +227,57 @@ function mass_set_selected(select, selector, hiddenElementParentCount) {
 }
 
 function hide_overlay_tabs () {
-	$$('.alchemy_window_tab_body').invoke('hide');
-	$$('.alchemy_window_tab').invoke('removeClassName', 'active');
+	$$('.link_window_tab_body').invoke('hide');
+	$$('.link_window_tab').invoke('removeClassName', 'active');
 }
 
-function show_overlay_tab (id, tab) {
+function showLinkWindowTab (id, tab) {
 	hide_overlay_tabs();
 	$(id).show();
 	tab.addClassName('active');
 }
 
 function toggle_label (element, labelA, labelB) {
-    element = $(element);
-    if (element) {
-        if (element.tagName == "INPUT") {
-            element.value = (element.value == labelA ? labelB : labelA);
-        } else {
-            element.update(element.innerHTML == labelA ? labelB : labelA);
-        }
-    }
+	element = $(element);
+	if (element) {
+		if (element.tagName == "INPUT") {
+			element.value = (element.value == labelA ? labelB : labelA);
+		} else {
+			element.update(element.innerHTML == labelA ? labelB : labelA);
+		}
+	}
 }
 
 function selectPageForInternalLink (selected_element, urlname) {
-    $('page_anchor').removeAttribute('value'); // We have to remove the Attribute. If not the value does not get updated.
-    $$('.elements_for_page').invoke('hide');
-    $('internal_urlname').value = '/' + urlname;
-    $$('#sitemap_for_links .selected_page').invoke('removeClassName', 'selected_page');
-    var sel = $('sitemap_sitename_' + selected_element);
-    sel.addClassName('selected_page');
-    sel.name = urlname;
+	$('page_anchor').removeAttribute('value'); // We have to remove the Attribute. If not the value does not get updated.
+	$$('.elements_for_page').invoke('hide');
+	$('internal_urlname').value = '/' + urlname;
+	$$('#sitemap_for_links .selected_page').invoke('removeClassName', 'selected_page');
+	var sel = $('sitemap_sitename_' + selected_element);
+	sel.addClassName('selected_page');
+	sel.name = urlname;
 }
 
 function selectFileForFileLink(selected_element, public_filename) {
-    $('public_filename').value = public_filename;
-    $$('#file_links .selected_file').invoke('removeClassName', 'selected_file');
-    $('assign_file_' + selected_element).addClassName('selected_file');
+	$('public_filename').value = public_filename;
+	$$('#file_links .selected_file').invoke('removeClassName', 'selected_file');
+	$('assign_file_' + selected_element).addClassName('selected_file');
 }
 
 function alchemyUnlink (ed) {
-    var link = ed.selection.getNode();
-    var content = link.innerHTML;
-    ed.dom.remove(link);
-    ed.selection.setContent(content);
-    var unlink_button = ed.controlManager.get('alchemy_unlink');
-    var link_button = ed.controlManager.get('alchemy_link');
-    unlink_button.setDisabled(true);
-    link_button.setDisabled(true);
-    link_button.setActive(false);
+	var link = ed.selection.getNode();
+	var content = link.innerHTML;
+	ed.dom.remove(link);
+	ed.selection.setContent(content);
+	var unlink_button = ed.controlManager.get('alchemy_unlink');
+	var link_button = ed.controlManager.get('alchemy_link');
+	unlink_button.setDisabled(true);
+	link_button.setDisabled(true);
+	link_button.setActive(false);
 }
 
 function alchemyCreateLink(link_type, url, title, extern) { 
-	var tiny_ed = alchemy_window.tiny_ed;
+	var tiny_ed = link_window.tiny_ed;
 	if (tiny_ed.selection) {
 			// aka we are linking text inside of TinyMCE 
 			tiny_ed.execCommand('mceInsertLink', false, {
@@ -285,23 +288,23 @@ function alchemyCreateLink(link_type, url, title, extern) {
 			});
 	} else {
 		// aka: we are linking an atom
-		var essence_type = tiny_ed.name.gsub('content_', '').split('_')[0];
+		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
-			case "picture": var atom_id = tiny_ed.name.gsub('essence_picture_', '');
+			case "picture": var content_id = tiny_ed.name.gsub('essence_picture_', '');
 			break;
-			case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
+			case "text": var content_id = tiny_ed.name.gsub('content_text_', '');
 			break;
 		}
-		$('atom_' + atom_id + '_link').value = url;
-		$('atom_' + atom_id + '_link_title').value = title;
-		$('atom_' + atom_id + '_link_class_name').value = link_type;
-		$('atom_' + atom_id + '_link_target').value = (extern ? '1' : '0');
+		$('content_' + content_id + '_link').value = url;
+		$('content_' + content_id + '_link_title').value = title;
+		$('content_' + content_id + '_link_class_name').value = link_type;
+		$('content_' + content_id + '_link_target').value = (extern ? '1' : '0');
 	}
 }
 
 // creates a link to a javascript function
 function alchemyCreateLinkToFunction(link_type, func, title) {  
-  var tiny_ed = alchemy_window.tiny_ed;
+  var tiny_ed = link_window.tiny_ed;
   if (tiny_ed.selection) {
     if( tiny_ed.selection.getNode().nodeName == "A" ) {
       // updating link
@@ -334,89 +337,93 @@ function alchemyCreateLinkToFunction(link_type, func, title) {
 // der entsprechende Tab im verlinken Overlay angezeigt wird.
 // Füllt ausserdem die Felder aus (title, href, etc.).
 // Klassisches "javascript-mit-der-groben-kelle".
-function select_link_tab() {
-    var tiny_ed = alchemy_window.tiny_ed;
-    if (tiny_ed.selection == undefined) {
-        var tmp_link = document.createElement("a");
-        var selection = tiny_ed;
-				var essence_type = tiny_ed.name.gsub('content_', '').split('_')[0];
-				switch (essence_type) {
-					case "picture": var atom_id = tiny_ed.name.gsub('essence_picture_', '');
-					break;
-					case "text": var atom_id = tiny_ed.name.gsub('content_text_', '');
-					break;
+function selectLinkWindowTab() {
+	var tiny_ed = link_window.tiny_ed;
+	if (tiny_ed.selection == undefined) {
+		var tmp_link = document.createElement("a");
+		var selection = tiny_ed;
+		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
+		switch (essence_type) {
+			case "picture":
+				var content_id = tiny_ed.name.gsub('essence_picture_', '');
+				break;
+			case "text":
+				var content_id = tiny_ed.name.gsub('essence_text_', '');
+				break;
+		}
+		tmp_link.href = $('content_' + content_id + '_link').value;
+		tmp_link.title = $('content_' + content_id + '_link_title').value;
+		tmp_link.target = ($('content_' + content_id + '_link_target').value == '1' ? '_blank' : '');
+		tmp_link.className = $('content_' + content_id + '_link_class_name').value;
+		var link = tmp_link;
+	} else {
+		var link = tiny_ed.selection.getNode();
+	}
+	if (link.nodeName == "A") {
+		var title = link.title == null ? "" : link.title;
+		if ((link.className == '') || link.className == 'internal') {
+			var internal_anchor = link.hash.split('#')[1];
+			var internal_urlname = link.pathname;
+			showLinkWindowTab('sitemap_for_links', $('tab_for_sitemap_for_links'));
+			$('internal_link_title').value = title;
+			$('internal_urlname').value = internal_urlname;
+			$('internal_link_target').checked = (link.target == "_blank");
+			var sitemap_line = $$('.sitemap_sitename').detect(function(f) {
+				return internal_urlname == f.readAttribute('name');
+			});
+			if (sitemap_line) {
+				// select the line where the link was detected in.
+				sitemap_line.addClassName("selected_page");
+				page_select_scrollbar.scrollTo(sitemap_line.up('li'));
+				// is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
+				if (internal_anchor) {
+					var select_container = $(sitemap_line).adjacent('.elements_for_page').first();
+					select_container.show();
+					new Ajax.Request("/admin/elements/?page_urlname=" + internal_urlname.split('/').last(), {
+						method: 'get',
+						onComplete: function() {
+							var alchemy_selectbox = select_container.down('.alchemy_selectbox');
+							$('page_anchor').value = '#' + internal_anchor;
+							// sadly this does not work here. maybe later i have the knowledge to fix this.
+							console.info('alchemy_selectbox: ', alchemy_selectbox);
+							var select = AlchemySelectbox.findSelectById(alchemy_selectbox.id);
+							console.info('select: ', select);
+							select.fire('alchemy_selectbox:select', {value: '#' + internal_anchor});
+						}
+					});
 				}
-        tmp_link.href = $('atom_' + atom_id + '_link').value;
-        tmp_link.title = $('atom_' + atom_id + '_link_title').value;
-        tmp_link.target = ($('atom_' + atom_id + '_link_target').value == '1' ? '_blank' : '');
-        tmp_link.className = $('atom_' + atom_id + '_link_class_name').value;
-        var link = tmp_link;
-    } else {
-        var link = tiny_ed.selection.getNode();
-    }
-    if (link.nodeName == "A") {
-        var title = link.title == null ? "" : link.title;
-        if ((link.className == '') || link.className == 'internal') {
-          var internal_anchor = link.hash.split('#')[1];
-          var internal_urlname = link.pathname;
-          show_overlay_tab('sitemap_for_links', $('tab_for_sitemap_for_links'));
-          $('internal_link_title').value = title;
-          $('internal_urlname').value = internal_urlname;
-          $('internal_link_target').checked = (link.target == "_blank");
-          var sitemap_line = $$('.sitemap_sitename').detect(function(f) {
-              return internal_urlname == f.readAttribute('name');
-          });
-          if (sitemap_line) {
-            // select the line where the link was detected in.
-            sitemap_line.addClassName("selected_page");
-            page_select_scrollbar.scrollTo(sitemap_line.up('li'));
-            // is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
-            if (internal_anchor) {
-              var select_container = $(sitemap_line).adjacent('.elements_for_page').first();
-              select_container.show();
-              new Ajax.Request("/elements/?page_urlname=" + internal_urlname.split('/').last(), {
-                method: 'get',
-                onComplete: function() {
-                  var alchemy_selectbox = select_container.down('.alchemy_selectbox');
-                  $('page_anchor').value = '#' + internal_anchor;
-                  // sadly this does not work here. maybe later i have the knowledge to fix this.
-                  var select = alchemySelectbox.findSelectById(alchemy_selectbox.identify());
-                  select.selectValue('#' + internal_anchor);
-                }
-              });
-            }
-          }
-        }
-        if ( link.className == 'external' ) {
-            show_overlay_tab('sitemap_external_links', $('tab_for_sitemap_external_links'));
-            protocols = $('url_protocol_select').select('.alchemy_selectbox_body a').pluck('rel');
-            protocols.each(function(p) {
-                if ( link.href.startsWith(p) ) {
-                    $('external_url').value = link.href.gsub(p, "");
-                    $('url_protocol_select').fire('alchemy_selectbox:select', {value: p});
-                    $('extern_link_title').value = title;
-                    $('link_target').checked = (link.target == "_blank");
-                }
-            });
-        }
-        if ( link.className == 'file' ) {
-            show_overlay_tab('file_links', $('tab_for_file_links'));
-            $('file_link_title').value = title;
-            $('public_filename_select').fire('alchemy_selectbox:select', {value: link.pathname});
-            $('file_link_target').checked = link.target == "_blank";
-        }
-        if ( link.className == 'contact' ) {
-						var link_url = link.pathname;
-						var link_params = link.href.split('?')[1];
-						var link_subject = link_params.split('&')[0];
-						var link_mailto = link_params.split('&')[1];
-						show_overlay_tab('contactform_links', $('tab_for_contactform_links'));
-						$('contactform_link_title').value = title;
-						$('contactform_url').value = link_url;
-						$('contactform_subject').value = unescape(link_subject.gsub(/subject=/,''));
-						$('contactform_mailto').value = link_mailto.gsub(/mail_to=/,'');
-        }
-    }
+			}
+		}
+		if ( link.className == 'external' ) {
+			showLinkWindowTab('sitemap_external_links', $('tab_for_sitemap_external_links'));
+			protocols = $('url_protocol_select').select('.alchemy_selectbox_body a').pluck('rel');
+			protocols.each(function(p) {
+				if ( link.href.startsWith(p) ) {
+					$('external_url').value = link.href.gsub(p, "");
+					$('url_protocol_select').fire('alchemy_selectbox:select', {value: p});
+					$('extern_link_title').value = title;
+					$('link_target').checked = (link.target == "_blank");
+				}
+			});
+		}
+		if ( link.className == 'file' ) {
+			showLinkWindowTab('file_links', $('tab_for_file_links'));
+			$('file_link_title').value = title;
+			$('public_filename_select').fire('alchemy_selectbox:select', {value: link.pathname});
+			$('file_link_target').checked = link.target == "_blank";
+		}
+		if ( link.className == 'contact' ) {
+			var link_url = link.pathname;
+			var link_params = link.href.split('?')[1];
+			var link_subject = link_params.split('&')[0];
+			var link_mailto = link_params.split('&')[1];
+			showLinkWindowTab('contactform_links', $('tab_for_contactform_links'));
+			$('contactform_link_title').value = title;
+			$('contactform_url').value = link_url;
+			$('contactform_subject').value = unescape(link_subject.gsub(/subject=/,''));
+			$('contactform_mailto').value = link_mailto.gsub(/mail_to=/,'');
+		}
+	}
 }
 
 function fadeWaFlashNotice() {
@@ -454,7 +461,7 @@ function saveRtfContents (element_id) {
 			var content = editor.getContent();
 			$(editor.editorId).value = content;
 			//removing the editor instance before adding it dynamically after saving
-			$(editor.editorId).previous('div.content_rtf_loader').show();
+			$(editor.editorId).previous('div.essence_richtext_loader').show();
 			tinyMCE.execCommand(
 				'mceRemoveControl',
 				true,

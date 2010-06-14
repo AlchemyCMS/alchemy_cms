@@ -10,7 +10,7 @@
 				:title => _('zoom_image'),
 				:onload => 'alchemyImageFade(this);'
 			),
-			"image_zoom('images/show_in_window/#{image.id}', '#{image.name}', #{image.image_width || 320}, #{image.image_height || 240})"
+			"zoomImage('images/show_in_window/#{image.id}', '#{image.name}', #{image.image_width || 320}, #{image.image_height || 240})"
 		) %>
 		<%- permitted_to?(:destroy, :admin_images) do -%>
 		<span class="picture_tool_delete">

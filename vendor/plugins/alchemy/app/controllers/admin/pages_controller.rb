@@ -6,7 +6,7 @@ class Admin::PagesController < ApplicationController
   before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :move, :fold, :destroy]
   
   filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :move, :destroy], :attribute_check => true
-  filter_access_to [:index, :layoutpages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
+  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
   
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
@@ -21,6 +21,26 @@ class Admin::PagesController < ApplicationController
       flash[:notice] = _("Admin|new rootpage created")
     end
     render :layout => 'admin'
+  end
+  
+  def link
+    @url_prefix = ""
+    if configuration(:show_real_root)
+      @page_root = Page.root
+    else
+      @page_root = Page.find_by_language_root_for(session[:language])
+    end    
+    @area_name = params[:area_name]
+    @atom_id = params[:content_id]
+    if params[:link_urls_for] == "newsletter"
+      # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
+      #@url_prefix = "#{get_server}/recipients/reacts"
+      @url_prefix = get_server
+    end
+    if multi_language?
+      @url_prefix = "#{session[:language]}/"
+    end
+    render :layout => false
   end
   
   def fold

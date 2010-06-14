@@ -2,7 +2,7 @@
 	<div class="sitemap_left_images">
 		<%= render_sitemap_lines(page_for_links, !page_for_links.children.blank?) %>
 		<%= render(
-			:partial => 'pages/page_status',
+			:partial => 'page_icon',
 			:locals => {
 				:page => page_for_links
 			}
@@ -11,7 +11,7 @@
 	<div class="sitemap_right_tools">
 		<%= link_to_remote(
 			"&nbsp;",
-			:url => page_elements_path(page_for_links),
+			:url => admin_page_elements_path(page_for_links),
 			:method => :get,
 			:before => "selectPageForInternalLink('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); $$('#page_for_links .elements_for_page').invoke('hide')",
 			:loading => "showMoleculesFromPageSelector(#{page_for_links.id})",

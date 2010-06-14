@@ -94,26 +94,6 @@ class AdminController < ApplicationController
     redirect_to :action => 'index'
   end
   
-  def link_to_page
-    @url_prefix = ""
-    if configuration(:show_real_root)
-      @page_root = Page.root
-    else
-      @page_root = Page.find_by_language_root_for(session[:language])
-    end    
-    @area_name = params[:area_name]
-    @atom_id = params[:content_id]
-    if params[:link_urls_for] == "newsletter"
-      # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
-      #@url_prefix = "#{get_server}/recipients/reacts"
-      @url_prefix = get_server
-    end
-    if multi_language?
-      @url_prefix = "#{session[:language]}/"
-    end
-    render :layout => false
-  end
-  
   def infos
     @version = configuration(:alchemy_version)
     render :layout => false

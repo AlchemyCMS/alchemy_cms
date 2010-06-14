@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
       :collection => {
         :switch_language => :get,
         :create_language => :get,
+        :link => :get,
         :layoutpages => :get,
         :order => :post,
       },
