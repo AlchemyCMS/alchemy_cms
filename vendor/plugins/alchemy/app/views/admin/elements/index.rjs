@@ -17,7 +17,7 @@ page.insert_html(
   "elements_for_page_#{@page_id}",
   link_to_function(
     "–",
-    "hideMoleculesFromPageSelector(#{@page_id})",
+    "hideElementsFromPageSelector(#{@page_id})",
     :class => "close_elements_from_page_selector", 
     :title => _("remove")
   )

@@ -13,20 +13,6 @@ class ApplicationController < ActionController::Base
   helper_method :get_server, :configuration, :multi_language?, :current_user
   helper :errors, :layout
   
-  def check_authorization
-    unless current_user == :false
-      unless current_user.has_right_for?(self.class.controller_path, action_name)
-        flash[:notice] = _("not_authorized")
-        if request.xhr?
-          render :text => _("not_authorized")
-        else
-          redirect_to :back
-        end
-        return false
-      end
-    end
-  end
-  
   def render_errors_or_redirect object, redicrect_url, flash_notice
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
@@ -65,35 +51,6 @@ class ApplicationController < ActionController::Base
     configuration(:languages).size > 1
   end
   
-  def auto_logout?
-    return false if Rails.env == 'development'
-    unless request.xhr?
-      session[:redirect_url_url] = request.url
-    end
-    inactivity_time = Alchemy::Configuration.parameter(:auto_logout_time)
-    if !session['auto_logout_timer'].nil? && session['auto_logout_timer'] < inactivity_time.minutes.ago
-      if request.xhr?
-        render :update do |page|
-          page.redirect_to(
-            logout_url(
-              :message => _("controllers.application.inactivity_logout"),
-              :redirect_url => session[:redirect_url_url]
-            )
-          )
-        end
-      else
-        redirect_to(
-          logout_url(
-            :message => _("controllers.application.inactivity_logout"),
-            :redirect_url => session[:redirect_url_url]
-          )
-        )
-      end
-    else
-      session['auto_logout_timer'] = Time.now
-    end
-  end
-  
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
@@ -123,7 +80,7 @@ private
   
   def exception_handler(e)
     logger.error %(
-      +++++++++ Element.toggle_fold: #{e} +++++++++++++
+      +++++++++ #{e} +++++++++++++
       object: #{e.record.class}, id: #{e.record.id}, name: #{e.record.name}
       #{e.record.errors.full_messages}
     )
@@ -163,7 +120,7 @@ private
   end
   
 protected
-
+  
   def set_gettext_locale
     FastGettext.text_domain = 'alchemy'
     FastGettext.available_locales = ['de','en'] #all you want to allow
@@ -181,9 +138,15 @@ protected
         redirect_to admin_path
       end
     else
-      store_location
       flash[:info] = _('Please log in')
-      redirect_to login_path
+      if request.xhr?
+        render :update do |page|
+          page.redirect_to login_path
+        end
+      else
+        store_location
+        redirect_to login_path
+      end
     end
   end
   

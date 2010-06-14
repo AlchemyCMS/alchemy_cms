@@ -168,9 +168,11 @@ function openLinkWindow(selElem, width) {
 			duration: 0.2
 		}
 	});
-	// IE 7 Syntax Error: Bezeichner erwartet.
-	link_window.tiny_ed = selElem;
-	//
+	link_window.tinyMCE = {}
+	link_window.tinyMCE = {
+		editorInstance: selElem,
+		selectionBookmark: selElem.selection ? selElem.selection.getBookmark() : null
+	};
 	link_window.setAjaxContent('/admin/pages/link', {method: 'get'});
 	link_window.showCenter('modal');
 }
@@ -276,11 +278,21 @@ function alchemyUnlink (ed) {
 	link_button.setActive(false);
 }
 
+function removePictureLink (content_id) {
+	$('content_'+content_id+'_link').value='';
+	$('content_'+content_id+'_link_title').value='';
+	$('content_'+content_id+'_link_class_name').value='';
+	$('content_'+content_id+'_link_target').value='';
+	$('edit_link_'+content_id).removeClassName('linked');
+}
+
 function alchemyCreateLink(link_type, url, title, extern) { 
-	var tiny_ed = link_window.tiny_ed;
+	var tiny_ed = link_window.tinyMCE.editorInstance;
 	if (tiny_ed.selection) {
 			// aka we are linking text inside of TinyMCE 
-			tiny_ed.execCommand('mceInsertLink', false, {
+			// var bm = link_window.tinyMCE.selectionBookmark;
+			// tiny_ed.selection.moveToBookmark(bm);
+			var l = tiny_ed.execCommand('mceInsertLink', false, {
 				href: url,
 				'class': link_type,
 				title: title,
@@ -290,10 +302,12 @@ function alchemyCreateLink(link_type, url, title, extern) {
 		// aka: we are linking an atom
 		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
-			case "picture": var content_id = tiny_ed.name.gsub('essence_picture_', '');
-			break;
-			case "text": var content_id = tiny_ed.name.gsub('content_text_', '');
-			break;
+			case "picture":
+				var content_id = tiny_ed.name.gsub('essence_picture_', '');
+				break;
+			case "text":
+				var content_id = tiny_ed.name.gsub('content_text_', '');
+				break;
 		}
 		$('content_' + content_id + '_link').value = url;
 		$('content_' + content_id + '_link_title').value = title;
@@ -303,34 +317,34 @@ function alchemyCreateLink(link_type, url, title, extern) {
 }
 
 // creates a link to a javascript function
-function alchemyCreateLinkToFunction(link_type, func, title) {  
-  var tiny_ed = link_window.tiny_ed;
-  if (tiny_ed.selection) {
-    if( tiny_ed.selection.getNode().nodeName == "A" ) {
-      // updating link
-      var link = tiny_ed.selection.getNode();
-      tiny_ed.dom.setAttribs(link, {
-        href : '#',
-        title: title,
-        'class': link_type,
-        onclick: func
-      });
-    } else {
-      // creating new link
-      var link = tiny_ed.dom.create(
-        'a',
-        {
-          href : '#',
-          title: title,
-          'class': link_type,
-          onclick: func
-        },
-        tiny_ed.selection.getContent()
-      );
-      tiny_ed.selection.setNode(link);
-    }
-    tiny_ed.save();
-  }
+function alchemyCreateLinkToFunction(link_type, func, title) { 
+	var tiny_ed = link_window.tinyMCE.editorInstance;
+	if (tiny_ed.selection) {
+		if( tiny_ed.selection.getNode().nodeName == "A" ) {
+			// updating link
+			var link = tiny_ed.selection.getNode();
+			tiny_ed.dom.setAttribs(link, {
+				href : '#',
+				title: title,
+				'class': link_type,
+				onclick: func
+			});
+		} else {
+			// creating new link
+			var link = tiny_ed.dom.create(
+				'a',
+				{
+					href : '#',
+					title: title,
+					'class': link_type,
+					onclick: func
+				},
+				tiny_ed.selection.getContent()
+			);
+			tiny_ed.selection.setNode(link);
+		}
+		tiny_ed.save();
+	}
 }
 
 // Das Monster das dafür sorgt, dass wenn man einen link im TinyMCE ausgewählt hat
@@ -338,8 +352,8 @@ function alchemyCreateLinkToFunction(link_type, func, title) {
 // Füllt ausserdem die Felder aus (title, href, etc.).
 // Klassisches "javascript-mit-der-groben-kelle".
 function selectLinkWindowTab() {
-	var tiny_ed = link_window.tiny_ed;
-	if (tiny_ed.selection == undefined) {
+	var tiny_ed = link_window.tinyMCE.editorInstance;
+	if (typeof(tiny_ed.selection) == 'undefined') {
 		var tmp_link = document.createElement("a");
 		var selection = tiny_ed;
 		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
@@ -357,6 +371,8 @@ function selectLinkWindowTab() {
 		tmp_link.className = $('content_' + content_id + '_link_class_name').value;
 		var link = tmp_link;
 	} else {
+		var bm = link_window.tinyMCE.selectionBookmark;
+		tiny_ed.selection.moveToBookmark(bm);
 		var link = tiny_ed.selection.getNode();
 	}
 	if (link.nodeName == "A") {
@@ -385,9 +401,7 @@ function selectLinkWindowTab() {
 							var alchemy_selectbox = select_container.down('.alchemy_selectbox');
 							$('page_anchor').value = '#' + internal_anchor;
 							// sadly this does not work here. maybe later i have the knowledge to fix this.
-							console.info('alchemy_selectbox: ', alchemy_selectbox);
 							var select = AlchemySelectbox.findSelectById(alchemy_selectbox.id);
-							console.info('select: ', select);
 							select.fire('alchemy_selectbox:select', {value: '#' + internal_anchor});
 						}
 					});
@@ -426,22 +440,17 @@ function selectLinkWindowTab() {
 	}
 }
 
-function fadeWaFlashNotice() {
-    $('flash_notice').fade({duration:0.5});
-    setFrameSize();
+function showElementsFromPageSelector (id) {
+	$('elements_for_page_' + id).show();
+	page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
+	page_select_scrollbar.recalculateLayout();
 }
 
-function showMoleculesFromPageSelector (id) {
-    $('elements_for_page_' + id).show();
-    page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
-    page_select_scrollbar.recalculateLayout();
-}
-
-function hideMoleculesFromPageSelector (id) {
-    $('elements_for_page_' + id).hide();
-    $('page_anchor').removeAttribute('value');
-    page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
-    page_select_scrollbar.recalculateLayout();
+function hideElementsFromPageSelector (id) {
+	$('elements_for_page_' + id).hide();
+	$('page_anchor').removeAttribute('value');
+	page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
+	page_select_scrollbar.recalculateLayout();
 }
 
 function alchemyImageFade(image) {

@@ -771,11 +771,6 @@ ul#sitemap li .sitemap_sitename.selected_page {
 	padding-left: 4px;
 }
 
-#sitemap_for_links a.sitemap_pagename_link:hover {
-	background-image: none;
-	padding-left: 4px;
-}
-
 #sitemap_for_links ul li span.sitemap_sitename a:hover {
 	font-weight: bold;
 }

@@ -14,7 +14,7 @@
 			:url => admin_page_elements_path(page_for_links),
 			:method => :get,
 			:before => "selectPageForInternalLink('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); $$('#page_for_links .elements_for_page').invoke('hide')",
-			:loading => "showMoleculesFromPageSelector(#{page_for_links.id})",
+			:loading => "showElementsFromPageSelector(#{page_for_links.id})",
 			:html => {
 				:class => "show_elements_to_link",
 				:title => _('show_elements_from_page')

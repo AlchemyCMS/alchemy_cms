@@ -34,12 +34,19 @@
 	) %>
 </div>
 <div class="picture_tool_button">
-	<%= link_to_function '', "openLinkWindow(this, 420)", :class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'), :title => _('link_image'), :name => "essence_picture_#{content.id}", :id => "edit_link_#{content.id}" %>
+	<%= link_to_function(
+		'',
+		"openLinkWindow(this, 420)",
+		:class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'),
+		:title => _('link_image'),
+		:name => "essence_picture_#{content.id}",
+		:id => "edit_link_#{content.id}"
+	) %>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_function(
 		"",
-		"$('essence_#{content.id}_link').value='';$('essence_#{content.id}_link_title').value='';$('essence_#{content.id}_link_class_name').value='';$('essence_#{content.id}_link_target').value='';$('edit_link_#{content.id}').removeClassName('linked')",
+		"removePictureLink(#{content.id})",
 		:class => 'remove_link',
 		:title => _('unlink')
 	) %>
