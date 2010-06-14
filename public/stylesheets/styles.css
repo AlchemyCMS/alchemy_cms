@@ -1,0 +1,37 @@
+/* @override http://0.0.0.0:3000/stylesheets/styles.css */
+
+body {
+	font: 12px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	margin: 1em;
+	color: #333;
+}
+
+a {
+	color: black;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a img {
+	border: none;
+}
+
+h1 {
+	font-size: 1.6em;
+	text-transform: uppercase;
+}
+
+h2 {
+	font-size: 1.2em;
+	text-transform: uppercase;
+}
+
+div#page {
+	width: 800px;
+	margin: 0 auto;
+	background-color: #f1f1f1;
+	padding: 1em;
+}

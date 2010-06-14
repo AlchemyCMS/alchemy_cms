@@ -1,9 +1,5 @@
 /* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
 
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
-
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
-
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -480,8 +476,15 @@ input#page_name {
 }
 
 .alchemy_window_content {
-	background: #ededed;
 	overflow: auto;
+}
+
+.alchemy_window_content .alchemy_window_content {
+	background-color: #ededed;
+}
+
+.alchemy_window_content iframe {
+	background: #ffffff;
 }
 
 input.with_border {
