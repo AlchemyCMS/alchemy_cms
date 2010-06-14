@@ -42,7 +42,7 @@
   - name: map
     type: EssenceHtml
         
-- name: bild_mit_text
+- name: article
   display_name: Bild mit Text
   contents:
   - name: bild

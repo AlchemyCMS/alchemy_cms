@@ -4,7 +4,7 @@ function scrollToElement (id) {
 	var el_ed = $('element_'+id);
 	var offset = el_ed.positionedOffset();
 	var container = $$('.alchemy_window_content .alchemy_window_content').first();
-	container.scrollTop += offset.top - 41;
+	container.scrollTop = offset.top - 41;
 }
 
 function toggleButton (id, action) {
@@ -24,7 +24,7 @@ function openPreviewWindow (id, title) {
 		url: '/admin/pages/preview/'+id,
 		className: 'alchemy_window',
 		title: title,
-		width: 900,
+		width: document.viewport.getDimensions().width - 570,
 		height: document.viewport.getDimensions().height - 128,
 		minWidth: 600,
 		minHeight: 300,

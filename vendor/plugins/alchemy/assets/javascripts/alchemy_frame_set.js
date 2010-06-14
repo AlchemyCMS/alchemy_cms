@@ -10,7 +10,6 @@ var AlchemyFrameSet = Class.create({
 		var options = Object.extend(defaults, arguments[1] || { });
 		this.options = options;
 		this.element = $(element);
-		this.preview_frame = $('preview_frame');
 		this.addObservers();
 		this.resize();
 	},
@@ -23,9 +22,6 @@ var AlchemyFrameSet = Class.create({
 	
 	resize: function() {
 		this.updateSize();
-		if (this.preview_frame) {
-			this.updateFrameSize();
-		}
 	},
 	
 	updateSize: function () {
@@ -39,15 +35,6 @@ var AlchemyFrameSet = Class.create({
 		});
 		this.content_height = height;
 		this.content_width = width;
-	},
-	
-	updateFrameSize: function () {
-		var height = this.content_height - this.options.preview_top_menu;
-		var width = this.content_width;
-		this.preview_frame.setStyle({
-			width: width + 'px',
-			height: height + 'px'
-		});
 	}
 	
 });

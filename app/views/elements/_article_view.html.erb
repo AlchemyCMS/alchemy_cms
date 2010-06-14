@@ -1,7 +1,7 @@
-<div class="bild_mit_text alchemy_element" id="<%= element_dom_id(element) %>">
-	<div class="bild_mit_text_images">
+<div class="article alchemy_element" id="<%= element_dom_id(element) %>">
+	<div class="article_images">
 		<%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
-		<div class="bild_mit_text_image">
+		<div class="article_image <%= content.essence.css_class %>">
 			<%= render_essence_view(content, :image_size => "250x200", :crop => true) %>
 		</div>
 		<%- end -%>

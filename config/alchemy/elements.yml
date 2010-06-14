@@ -18,8 +18,8 @@
 # If you want an content to be the preview text for the element then use the flag take_me_for_preview: true
 # If no content is flagged as preview_content the first one will be taken.
 
-- name: bild_mit_text
-  display_name: Bild mit Text
+- name: article
+  display_name: Artikelabsatz
   contents:
   - name: headline
     type: EssenceText

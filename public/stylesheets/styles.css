@@ -1,5 +1,3 @@
-/* @override http://0.0.0.0:3000/stylesheets/styles.css */
-
 body {
 	font: 12px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	margin: 1em;
@@ -34,4 +32,23 @@ div#page {
 	margin: 0 auto;
 	background-color: #f1f1f1;
 	padding: 1em;
+}
+
+div.article_image.no_float {
+	float: none;
+	margin: 0;
+}
+
+div.article_image.left {
+	float: left;
+	margin-right: 1em;
+}
+
+div.article_image.right {
+	float: right;
+	margin-left: 1em;
+}
+
+div.image_caption {
+	font-size: 0.8em;
 }
