@@ -51,6 +51,7 @@ function openElementsWindow (page_id, title) {
 		height: document.viewport.getDimensions().height - 148,
 		minWidth: 424,
 		minHeight: 300,
+		maxHeight: document.viewport.getDimensions().height - 148,
 		maximizable: false,
 		minimizable: false,
 		resizable: true,
