@@ -562,6 +562,7 @@ a.hide_element_selector {
 	line-height: 24px;
 	padding-left: 8px;
 	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x;
+	border-bottom: 1px solid #afafaf;
 }
 
 #sub_navigation img {
@@ -599,7 +600,7 @@ a.hide_element_selector {
 #sub_navigation a {
 	float: left;
 	padding: 0px 8px;
-	height: 22px;
+	height: 21px;
 	text-shadow: #fff 0 0px 4px;
 	margin-top: 2px;
 	background: #CCC;
@@ -609,6 +610,9 @@ a.hide_element_selector {
 	-moz-border-radius: 7px 7px 0 0;
 	-o-border-radius: 7px 7px 0 0;
 	border-radius: 7px 7px 0 0;
+	border: 1px solid #afafaf;
+	border-bottom-style: none;
+	margin-right: 1px;
 }
 
 #sub_navigation a:hover {
@@ -1191,9 +1195,13 @@ div#user_list_legend {
 
 #toolbar {
 	padding: 12px 8px;
-	/*border-bottom: 1px solid white;*/
 	height: 36px;
 	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 42px;
+	margin-left: 8px;
+	margin-right: 8px;
+	border: 1px solid #afafaf;
+	border-top-style: none;
+	border-radius: 0 0 7px 7px;
 }
 
 #toolbar form {
