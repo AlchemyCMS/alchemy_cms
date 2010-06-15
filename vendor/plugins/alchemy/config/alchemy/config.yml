@@ -82,7 +82,11 @@ alchemy_plugins:
       controller: 'admin'
       action: index
       image: /plugin_assets/alchemy/images/icons/home.png
-  
+      sub_navigation:
+        - name: 'home'
+          controller: 'admin'
+          action: index
+    
   - name: pages
     preview_frame:
       controller: 'admin/pages'
@@ -111,7 +115,11 @@ alchemy_plugins:
       controller: 'admin/users'
       action: index
       image: /plugin_assets/alchemy/images/icons/users.png
-
+      sub_navigation:
+        - name: 'module: users'
+          controller: 'admin/users'
+          action: index
+        
   - name: archive
     navigation:
       controller: 'admin/images'
