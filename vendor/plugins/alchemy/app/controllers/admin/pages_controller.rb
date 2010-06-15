@@ -229,10 +229,10 @@ class Admin::PagesController < ApplicationController
       set_language(params[:language])
       if request.xhr?
         render :update do |page|
-          page.redirect_to pages_url
+          page.redirect_to admin_pages_path
         end
       else
-        redirect_to pages_url
+        redirect_to admin_pages_path
       end
     end
   end
