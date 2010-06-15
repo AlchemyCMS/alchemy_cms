@@ -97,9 +97,9 @@ div#overlay_text_box img {
 }
 
 div#top_menu {
-	position: fixed;
+	position: absolute;
 	top: 0;
-	left: 84px;
+	left: 0;
 	width: 100%;
 	z-index: 5;
 }
@@ -107,21 +107,10 @@ div#top_menu {
 #main_menu {
 	white-space: nowrap;
 	z-index: 0;
-	background-color: #CCC;
 	height: 100%;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
-	width: 84px;
-}
-
-#main_menu_content {
-	float: left;
-	position: relative;
-	z-index: 10;
-	padding: 0px;
-	margin: 2px 0 0 0;
-	background: transparent;
 	width: 84px;
 }
 
@@ -129,6 +118,30 @@ div#top_menu {
 	height: 100%;
 	width: 84px;
 	background: #b2ccdb url(../images/gui/shading_90.png) repeat-y -8px;
+	z-index: 0;
+	position: absolute;
+}
+
+#logout {
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	width: 76px;
+	padding: 4px 4px 8px;
+}
+
+#logout a {
+	display: block;
+}
+
+#logout a:hover {
+	text-decoration: none;
+}
+
+#logout img {
+	margin-bottom: 4px;
 }
 
 /* @end */
@@ -558,11 +571,12 @@ a.hide_element_selector {
 }
 
 #sub_navigation {
-	height: 24px;
+	height: 22px;
 	line-height: 24px;
 	padding-left: 8px;
 	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x;
 	border-bottom: 1px solid #afafaf;
+	padding-top: 4px;
 }
 
 #sub_navigation img {
@@ -602,7 +616,6 @@ a.hide_element_selector {
 	padding: 0px 8px;
 	height: 21px;
 	text-shadow: #fff 0 0px 4px;
-	margin-top: 2px;
 	background: #CCC;
 	color: #666;
 	-webkit-border-top-right-radius: 7px 7px;
@@ -617,7 +630,8 @@ a.hide_element_selector {
 
 #sub_navigation a:hover {
 	color: #333;
-	text-decoration: underline;
+	text-decoration: none;
+	background-color: white;
 }
 
 #sub_navigation a.active {
@@ -706,7 +720,9 @@ img.link_arrow_left {
 
 #main_navi {
 	padding-left: 4px;
-	padding-top: 22px;
+	padding-top: 26px;
+	position: absolute;
+	z-index: 1;
 }
 
 #main_menu a {
@@ -742,8 +758,7 @@ img.link_arrow_left {
 #main_navi a.main_navi_entry:hover {
 	cursor: pointer;
 	text-decoration: none;
-	background: #eee;
-	z-index: 11;
+	background: #fff;
 }
 
 #main_navi a.main_navi_entry img {
@@ -765,7 +780,6 @@ img.link_arrow_left {
 	background: #ededed;
 	color: #333;
 	padding: 0;
-	z-index: 9;
 	cursor: default;
 }
 
@@ -1204,6 +1218,9 @@ div#user_list_legend {
 	margin-right: 8px;
 	border: 1px solid #afafaf;
 	border-top-style: none;
+	-webkit-border-radius: 0 0 7px 7px;
+	-moz-border-radius: 0 0 7px 7px;
+	-o-border-radius: 0 0 7px 7px;
 	border-radius: 0 0 7px 7px;
 }
 

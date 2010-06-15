@@ -23,13 +23,17 @@
 		<%#= overlay end %>
 		<div id="corner"></div>
 		<div id="main_menu">
-			<div id="main_menu_content">
-				<div id="main_navi">
-					<%= yield(:navigation) %>
-					<%= admin_main_navigation %>
-				</div>
+			<div id="main_navi">
+				<%= yield(:navigation) %>
+				<%= admin_main_navigation %>
 			</div>
 			<div id="main_menu_background"></div>
+			<div id="logout">
+				<% link_to(logout_path) do %>
+					<%= image_tag('icons/exit.png', :plugin => 'alchemy') %><br />
+					<%= _('logout') %>
+				<% end %>
+			</div>
 		</div>
 		<%= render :partial => 'admin/partials/flash_notice' %>
 		<div id="main_content">

@@ -125,10 +125,3 @@ alchemy_plugins:
         - name: 'module: attachements'
           controller: 'admin/attachements'
           action: index
-
-  - name: logout
-    navigation:
-      controller: 'admin'
-      action: logout
-      name: 'logout'
-      image: /plugin_assets/alchemy/images/icons/exit.png
