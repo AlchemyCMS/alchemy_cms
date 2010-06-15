@@ -594,6 +594,14 @@ a.hide_element_selector {
 	cursor: default;
 	line-height: 20px;
 	float: left;
+	-webkit-border-top-right-radius: 7px 7px;
+	-webkit-border-top-left-radius: 7px 7px;
+	-moz-border-radius: 7px 7px 0 0;
+	-o-border-radius: 7px 7px 0 0;
+	border-radius: 7px 7px 0 0;
+	border: 1px solid #afafaf;
+	border-bottom-style: none;
+	height: 22px;
 }
 
 #sub_navigation span.page_status_and_name img {
