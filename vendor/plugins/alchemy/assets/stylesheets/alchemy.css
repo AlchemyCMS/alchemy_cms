@@ -718,7 +718,7 @@ img.link_arrow_left {
 	overflow: hidden;
 	display: block;
 	z-index: 10;
-	width: 80px;
+	width: 79px;
 	background: #cdcdcd;
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -726,8 +726,10 @@ img.link_arrow_left {
 	-moz-border-radius: 7px 0px 0px 7px;
 	-o-border-radius: 7px 0px 0px 7px;
 	border-radius: 7px 0px 0px 7px;
-	margin-bottom: 0;
+	margin-bottom: 1px;
 	margin-top: 0;
+	border: 1px solid #afafaf;
+	border-right-style: none;
 }
 
 #main_navi a.main_navi_entry:hover {
