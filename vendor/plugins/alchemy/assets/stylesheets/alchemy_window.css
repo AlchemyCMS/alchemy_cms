@@ -42,6 +42,9 @@
 	-o-box-shadow: #333 0px 4px 8px;
 	box-shadow: #333 0px 4px 8px;
 	overflow: visible;
+	-webkit-border-radius: 7px 7px 7px 7px; 
+	-moz-border-radius: 0px 0px 7px 7px;
+	border-radius: 7px 0px 0px 7px;
 }
 
 .dialog table.table_window {
