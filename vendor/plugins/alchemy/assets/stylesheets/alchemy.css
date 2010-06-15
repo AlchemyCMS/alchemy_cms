@@ -625,7 +625,7 @@ a.hide_element_selector {
 	height: 21px;
 	text-shadow: #fff 0 0px 4px;
 	background: #CCC;
-	color: #666;
+	color: #666;	
 	-webkit-border-top-right-radius: 7px 7px;
 	-webkit-border-top-left-radius: 7px 7px;
 	-moz-border-radius: 7px 7px 0 0;
@@ -644,6 +644,7 @@ a.hide_element_selector {
 
 #sub_navigation a.active {
 	float: left;
+	position: relative;
 	padding: 0px 8px;
 	height: 22px;
 	color: #333;
@@ -654,11 +655,11 @@ a.hide_element_selector {
 	-o-user-select: none;
 	user-select: none;
 	cursor: default;
-	-webkit-border-top-right-radius: 7px 7px;
-	-webkit-border-top-left-radius: 7px 7px;
-	-moz-border-radius: 7px 7px 0 0;
-	-o-border-radius: 7px 7px 0 0;
-	border-radius: 7px 7px 0 0;
+	z-index: 10;	
+	-webkit-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
+	-moz-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
+	-o-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
+	box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
 }
 
 #sub_navigation a.active:hover {
@@ -1220,6 +1221,8 @@ div#user_list_legend {
 }
 
 #toolbar {
+	position: relative;
+	z-index: 11;
 	padding: 12px 8px;
 	height: 36px;
 	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 42px;
