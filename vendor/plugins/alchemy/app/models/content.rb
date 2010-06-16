@@ -46,18 +46,14 @@ class Content < ActiveRecord::Base
   
   # Settings from the elements.yml definition
   def settings()
-    defaults = {
-      :display_as => 'text_field',
-      :deletable => false
-    }
     description = my_description()
     if description.blank?
       description = my_description(:from_available_essences => true)
     end
     return {} if description.blank?
     settings = description['settings']
-    return defaults if settings.blank?
-    settings.merge(defaults).symbolize_keys!
+    return {} if settings.blank?
+    settings.symbolize_keys
   end
   
   # makes a copy of source and copies the polymorphic associated essence
