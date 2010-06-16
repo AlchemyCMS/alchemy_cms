@@ -6,20 +6,20 @@
 #   - name: a_unique_name
 #     display_name: Some nice Display Name
 #     unique: Bool //pass true if this element only can be displayed once on page
-#     essences:
+#     contents:
 #     - name: head
 #       type: EssenceText
 #     - name: text
 #       type: EssenceRichtext
 #
-# Essence-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
+# Content-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
 #
-# If you want an essence to be the preview text for the element then use the flag take_me_for_preview: true
+# If you want an content to be the preview text for the element then use the flag take_me_for_preview: true
 # 
 
 - name: text
   display_name: Text
-  essences: 
+  contents: 
   - name: head
     type: EssenceText
   - name: text
@@ -27,14 +27,14 @@
 
 - name: date
   display_name: Termin
-  essences: 
+  contents: 
   - name: date
     type: EssenceDate
     
 - name: google_map
   display_name: Google Map
   unique: true
-  essences:
+  contents:
   - name: head
     type: EssenceText
   - name: text
@@ -44,7 +44,7 @@
         
 - name: article
   display_name: Bild mit Text
-  essences:
+  contents:
   - name: bild
     type: EssencePicture
   - name: headline
@@ -54,7 +54,7 @@
 
 - name: picture_gallery
   display_name: Bildergalerie
-  essences:
+  contents:
   - name: gallery_name
     type: EssenceText
   - name: picture1
@@ -62,13 +62,13 @@
 
 - name: file_download
   display_name: Datei download
-  essences:
+  contents:
   - name: file
     type: EssenceFile
 
 - name: contactform
   display_name: Kontaktformular
-  essences:
+  contents:
   - name: mail_from
     type: EssenceText
   - name: mail_to

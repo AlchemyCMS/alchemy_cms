@@ -82,7 +82,7 @@ private
   
   # Returns the array with the hashes for all available contents for element in the elements.yml file
   def self.available_essences_for(element)
-    element.my_description['available_essences']
+    element.my_description['available_contents']
   end
   
   # Returns the array with the hashes for all contents for element in the elements.yml file

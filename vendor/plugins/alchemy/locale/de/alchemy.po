@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-16 09:32+0200\n"
+"POT-Creation-Date: 2010-06-16 16:36+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -278,12 +278,12 @@ msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
 #: app/views/admin/contents/create.rjs:52
-msgid "Successfully added %{atom}"
-msgstr "%{atom} wurde hinzugefügt"
+msgid "Successfully added %{content}"
+msgstr "%{content} wurde hinzugefügt"
 
 #: app/controllers/admin/contents_controller.rb:72
-msgid "Successfully deleted %{atom}"
-msgstr "%{atom} wurde gelöscht"
+msgid "Successfully deleted %{content}"
+msgstr "%{content} wurde gelöscht"
 
 #: app/controllers/admin/contents_controller.rb:58
 msgid "Successfully saved content position"
@@ -400,8 +400,8 @@ msgstr "Ihre Zugangsdaten lauten"
 msgid "a_page_of_type"
 msgstr "Eine Seite des Typs"
 
-#: app/views/admin/essence_files/edit.html.erb:18
-#: app/views/admin/essence_pictures/edit.html.erb:32
+#: app/views/admin/essence_files/edit.html.erb:16
+#: app/views/admin/essence_pictures/edit.html.erb:24
 msgid "above"
 msgstr "darüber"
 
@@ -422,8 +422,8 @@ msgstr "Bild hinzufügen"
 msgid "adding_element_not_successful"
 msgstr "Es konnte kein Element hinzugefügt werden."
 
-#: app/views/admin/essence_files/edit.html.erb:17
-#: app/views/admin/essence_pictures/edit.html.erb:30
+#: app/views/admin/essence_files/edit.html.erb:15
+#: app/views/admin/essence_pictures/edit.html.erb:22
 msgid "align_in_text"
 msgstr "Im Text anordnen"
 
@@ -431,7 +431,7 @@ msgstr "Im Text anordnen"
 msgid "all"
 msgstr "alle"
 
-#: app/views/admin/essence_files/edit.html.erb:57
+#: app/views/admin/essence_files/edit.html.erb:55
 msgid "allow_fullscreen"
 msgstr "Vollbild ansicht"
 
@@ -457,14 +457,6 @@ msgstr "Datei aus dem Archiv zuweisen"
 #: app/views/admin/images/_image_to_assign.html.erb:29
 msgid "assign_image"
 msgstr "Bild hinzufügen."
-
-#: app/controllers/admin/contents_controller.rb:38
-msgid "atom_not_successfully_added"
-msgstr "Das Inhalt konnte nicht hinzugefügt werden."
-
-#: app/controllers/admin/contents_controller.rb:79
-msgid "atom_not_successfully_deleted"
-msgstr "Das Inhalt konnte nicht gelöscht werden."
 
 #: app/views/admin/images/_filter_and_size_bar.html.erb:51
 msgid "big_thumbnails"
@@ -525,6 +517,14 @@ msgstr "Essenz wurde nicht gefunden"
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
+#: app/controllers/admin/contents_controller.rb:38
+msgid "content_not_successfully_added"
+msgstr "Der Inhalt konnte nicht hinzugefügt werden."
+
+#: app/controllers/admin/contents_controller.rb:79
+msgid "content_not_successfully_deleted"
+msgstr "Der Inhalt konnte nicht gelöscht werden."
+
 #: app/views/admin/pages/create_language.html.erb:11
 msgid "copy"
 msgstr "kopieren"
@@ -559,10 +559,6 @@ msgstr "Einen Benutzer anlegen"
 #: app/views/admin/pages/_page_icon.html.erb:11
 msgid "created_at"
 msgstr "Erstellt am"
-
-#: app/views/admin/essence_pictures/edit.html.erb:3
-msgid "crop_image"
-msgstr "Bild beschneiden."
 
 #: app/views/admin/pages/_page_icon.html.erb:20
 msgid "currently_edited_by"
@@ -676,7 +672,6 @@ msgstr "Das Element konnte nicht gelöscht werden."
 msgid "element_of_type"
 msgstr "Element"
 
-#: app/controllers/admin_controller.rb:66
 #: app/views/admin/elements/update.rjs:7
 msgid "element_saved"
 msgstr "Element wurde gespeichert."
@@ -734,9 +729,9 @@ msgstr "Datei konnte nicht umbenannt werden."
 msgid "files"
 msgstr "Dateien"
 
-#: app/views/admin/essence_files/edit.html.erb:33
-#: app/views/admin/essence_files/edit.html.erb:53
-#: app/views/admin/essence_files/edit.html.erb:81
+#: app/views/admin/essence_files/edit.html.erb:31
+#: app/views/admin/essence_files/edit.html.erb:51
+#: app/views/admin/essence_files/edit.html.erb:79
 msgid "height"
 msgstr "Höhe"
 
@@ -748,11 +743,11 @@ msgstr "Element einklappen"
 msgid "home"
 msgstr "Home"
 
-#: app/views/admin/essence_pictures/edit.html.erb:26
+#: app/views/admin/essence_pictures/edit.html.erb:18
 msgid "image_alt_tag"
 msgstr "Alt-Tag"
 
-#: app/views/admin/essence_pictures/edit.html.erb:12
+#: app/views/admin/essence_pictures/edit.html.erb:4
 msgid "image_caption"
 msgstr "Bildunterschrift"
 
@@ -760,11 +755,11 @@ msgstr "Bildunterschrift"
 msgid "image_name"
 msgstr "Name"
 
-#: app/views/admin/essence_pictures/edit.html.erb:37
+#: app/views/admin/essence_pictures/edit.html.erb:29
 msgid "image_size"
 msgstr "Bildgröße"
 
-#: app/views/admin/essence_pictures/edit.html.erb:22
+#: app/views/admin/essence_pictures/edit.html.erb:14
 msgid "image_title"
 msgstr "Titel-Tag"
 
@@ -794,8 +789,8 @@ msgstr "Die Sprache wurde kopiert"
 msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren der Sparche sind Fehler aufgetreten"
 
-#: app/views/admin/essence_files/edit.html.erb:18
-#: app/views/admin/essence_pictures/edit.html.erb:32
+#: app/views/admin/essence_files/edit.html.erb:16
+#: app/views/admin/essence_pictures/edit.html.erb:24
 msgid "left"
 msgstr "links"
 
@@ -1071,7 +1066,7 @@ msgstr "Passwort"
 msgid "place_link"
 msgstr "Text verlinken"
 
-#: app/views/admin/essence_files/edit.html.erb:37
+#: app/views/admin/essence_files/edit.html.erb:35
 msgid "player_version"
 msgstr "Flashplayer Version"
 
@@ -1112,8 +1107,8 @@ msgstr "Datei umbenennen"
 msgid "rename_image"
 msgstr "Bild umbenennen."
 
-#: app/views/admin/essence_files/edit.html.erb:18
-#: app/views/admin/essence_pictures/edit.html.erb:32
+#: app/views/admin/essence_files/edit.html.erb:16
+#: app/views/admin/essence_pictures/edit.html.erb:24
 msgid "right"
 msgstr "rechts"
 
@@ -1128,11 +1123,11 @@ msgstr "durch Robot indizieren"
 #: app/views/admin/attachements/edit.html.erb:8
 #: app/views/admin/contents/new.html.erb:11
 #: app/views/admin/elements/_element_foot.html.erb:47
-#: app/views/admin/essence_files/edit.html.erb:22
-#: app/views/admin/essence_files/edit.html.erb:42
-#: app/views/admin/essence_files/edit.html.erb:70
-#: app/views/admin/essence_files/edit.html.erb:94
-#: app/views/admin/essence_pictures/edit.html.erb:43
+#: app/views/admin/essence_files/edit.html.erb:20
+#: app/views/admin/essence_files/edit.html.erb:40
+#: app/views/admin/essence_files/edit.html.erb:68
+#: app/views/admin/essence_files/edit.html.erb:92
+#: app/views/admin/essence_pictures/edit.html.erb:35
 #: app/views/admin/images/_image.html.erb:45
 #: app/views/admin/images/_image.html.erb:46
 #: app/views/admin/pages/configure.html.erb:66
@@ -1170,13 +1165,13 @@ msgstr "Element ausklappen"
 msgid "show_elements_from_page"
 msgstr "Elemente dieser Seite anzeigen"
 
-#: app/views/admin/essence_files/edit.html.erb:61
-#: app/views/admin/essence_files/edit.html.erb:85
+#: app/views/admin/essence_files/edit.html.erb:59
+#: app/views/admin/essence_files/edit.html.erb:83
 msgid "show_eq"
 msgstr "EQ anzeigen"
 
-#: app/views/admin/essence_files/edit.html.erb:65
-#: app/views/admin/essence_files/edit.html.erb:89
+#: app/views/admin/essence_files/edit.html.erb:63
+#: app/views/admin/essence_files/edit.html.erb:87
 msgid "show_navigation"
 msgstr "Navigation anzeigen"
 
@@ -1219,7 +1214,7 @@ msgstr "In einem neuen Fenster öffnen"
 msgid "thumbnail_size"
 msgstr "Miniaturbildergröße"
 
-#: app/views/admin/essence_files/edit.html.erb:13
+#: app/views/admin/essence_files/edit.html.erb:11
 msgid "title"
 msgstr "Titel"
 
@@ -1290,9 +1285,9 @@ msgstr "Wollen Sie eine Kopie einer vorhanden Sprache machen?"
 msgid "welcome_please_identify_notice"
 msgstr "Willkommen! Bitte identifizieren Sie sich."
 
-#: app/views/admin/essence_files/edit.html.erb:29
-#: app/views/admin/essence_files/edit.html.erb:49
-#: app/views/admin/essence_files/edit.html.erb:77
+#: app/views/admin/essence_files/edit.html.erb:27
+#: app/views/admin/essence_files/edit.html.erb:47
+#: app/views/admin/essence_files/edit.html.erb:75
 msgid "width"
 msgstr "Breite"
 

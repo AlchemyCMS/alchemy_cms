@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-16 09:32+0200\n"
+"POT-Creation-Date: 2010-06-16 16:36+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -276,11 +276,11 @@ msgid "Select an content"
 msgstr ""
 
 #: app/views/admin/contents/create.rjs:52
-msgid "Successfully added %{atom}"
+msgid "Successfully added %{content}"
 msgstr ""
 
 #: app/controllers/admin/contents_controller.rb:72
-msgid "Successfully deleted %{atom}"
+msgid "Successfully deleted %{content}"
 msgstr ""
 
 #: app/controllers/admin/contents_controller.rb:58
@@ -396,8 +396,8 @@ msgstr ""
 msgid "a_page_of_type"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:18
-#: app/views/admin/essence_pictures/edit.html.erb:32
+#: app/views/admin/essence_files/edit.html.erb:16
+#: app/views/admin/essence_pictures/edit.html.erb:24
 msgid "above"
 msgstr ""
 
@@ -418,8 +418,8 @@ msgstr ""
 msgid "adding_element_not_successful"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:17
-#: app/views/admin/essence_pictures/edit.html.erb:30
+#: app/views/admin/essence_files/edit.html.erb:15
+#: app/views/admin/essence_pictures/edit.html.erb:22
 msgid "align_in_text"
 msgstr ""
 
@@ -427,7 +427,7 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:57
+#: app/views/admin/essence_files/edit.html.erb:55
 msgid "allow_fullscreen"
 msgstr ""
 
@@ -452,14 +452,6 @@ msgstr ""
 #: app/views/admin/elements/_add_content.html.erb:11
 #: app/views/admin/images/_image_to_assign.html.erb:29
 msgid "assign_image"
-msgstr ""
-
-#: app/controllers/admin/contents_controller.rb:38
-msgid "atom_not_successfully_added"
-msgstr ""
-
-#: app/controllers/admin/contents_controller.rb:79
-msgid "atom_not_successfully_deleted"
 msgstr ""
 
 #: app/views/admin/images/_filter_and_size_bar.html.erb:51
@@ -521,6 +513,14 @@ msgstr ""
 msgid "content_not_found"
 msgstr ""
 
+#: app/controllers/admin/contents_controller.rb:38
+msgid "content_not_successfully_added"
+msgstr ""
+
+#: app/controllers/admin/contents_controller.rb:79
+msgid "content_not_successfully_deleted"
+msgstr ""
+
 #: app/views/admin/pages/create_language.html.erb:11
 msgid "copy"
 msgstr ""
@@ -554,10 +554,6 @@ msgstr ""
 
 #: app/views/admin/pages/_page_icon.html.erb:11
 msgid "created_at"
-msgstr ""
-
-#: app/views/admin/essence_pictures/edit.html.erb:3
-msgid "crop_image"
 msgstr ""
 
 #: app/views/admin/pages/_page_icon.html.erb:20
@@ -671,7 +667,6 @@ msgstr ""
 msgid "element_of_type"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:66
 #: app/views/admin/elements/update.rjs:7
 msgid "element_saved"
 msgstr ""
@@ -725,9 +720,9 @@ msgstr ""
 msgid "files"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:33
-#: app/views/admin/essence_files/edit.html.erb:53
-#: app/views/admin/essence_files/edit.html.erb:81
+#: app/views/admin/essence_files/edit.html.erb:31
+#: app/views/admin/essence_files/edit.html.erb:51
+#: app/views/admin/essence_files/edit.html.erb:79
 msgid "height"
 msgstr ""
 
@@ -739,11 +734,11 @@ msgstr ""
 msgid "home"
 msgstr ""
 
-#: app/views/admin/essence_pictures/edit.html.erb:26
+#: app/views/admin/essence_pictures/edit.html.erb:18
 msgid "image_alt_tag"
 msgstr ""
 
-#: app/views/admin/essence_pictures/edit.html.erb:12
+#: app/views/admin/essence_pictures/edit.html.erb:4
 msgid "image_caption"
 msgstr ""
 
@@ -751,11 +746,11 @@ msgstr ""
 msgid "image_name"
 msgstr ""
 
-#: app/views/admin/essence_pictures/edit.html.erb:37
+#: app/views/admin/essence_pictures/edit.html.erb:29
 msgid "image_size"
 msgstr ""
 
-#: app/views/admin/essence_pictures/edit.html.erb:22
+#: app/views/admin/essence_pictures/edit.html.erb:14
 msgid "image_title"
 msgstr ""
 
@@ -785,8 +780,8 @@ msgstr ""
 msgid "language_pages_could_not_be_copied"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:18
-#: app/views/admin/essence_pictures/edit.html.erb:32
+#: app/views/admin/essence_files/edit.html.erb:16
+#: app/views/admin/essence_pictures/edit.html.erb:24
 msgid "left"
 msgstr ""
 
@@ -1050,7 +1045,7 @@ msgstr ""
 msgid "place_link"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:37
+#: app/views/admin/essence_files/edit.html.erb:35
 msgid "player_version"
 msgstr ""
 
@@ -1091,8 +1086,8 @@ msgstr ""
 msgid "rename_image"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:18
-#: app/views/admin/essence_pictures/edit.html.erb:32
+#: app/views/admin/essence_files/edit.html.erb:16
+#: app/views/admin/essence_pictures/edit.html.erb:24
 msgid "right"
 msgstr ""
 
@@ -1107,11 +1102,11 @@ msgstr ""
 #: app/views/admin/attachements/edit.html.erb:8
 #: app/views/admin/contents/new.html.erb:11
 #: app/views/admin/elements/_element_foot.html.erb:47
-#: app/views/admin/essence_files/edit.html.erb:22
-#: app/views/admin/essence_files/edit.html.erb:42
-#: app/views/admin/essence_files/edit.html.erb:70
-#: app/views/admin/essence_files/edit.html.erb:94
-#: app/views/admin/essence_pictures/edit.html.erb:43
+#: app/views/admin/essence_files/edit.html.erb:20
+#: app/views/admin/essence_files/edit.html.erb:40
+#: app/views/admin/essence_files/edit.html.erb:68
+#: app/views/admin/essence_files/edit.html.erb:92
+#: app/views/admin/essence_pictures/edit.html.erb:35
 #: app/views/admin/images/_image.html.erb:45
 #: app/views/admin/images/_image.html.erb:46
 #: app/views/admin/pages/configure.html.erb:66
@@ -1149,13 +1144,13 @@ msgstr ""
 msgid "show_elements_from_page"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:61
-#: app/views/admin/essence_files/edit.html.erb:85
+#: app/views/admin/essence_files/edit.html.erb:59
+#: app/views/admin/essence_files/edit.html.erb:83
 msgid "show_eq"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:65
-#: app/views/admin/essence_files/edit.html.erb:89
+#: app/views/admin/essence_files/edit.html.erb:63
+#: app/views/admin/essence_files/edit.html.erb:87
 msgid "show_navigation"
 msgstr ""
 
@@ -1198,7 +1193,7 @@ msgstr ""
 msgid "thumbnail_size"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:13
+#: app/views/admin/essence_files/edit.html.erb:11
 msgid "title"
 msgstr ""
 
@@ -1269,9 +1264,9 @@ msgstr ""
 msgid "welcome_please_identify_notice"
 msgstr ""
 
-#: app/views/admin/essence_files/edit.html.erb:29
-#: app/views/admin/essence_files/edit.html.erb:49
-#: app/views/admin/essence_files/edit.html.erb:77
+#: app/views/admin/essence_files/edit.html.erb:27
+#: app/views/admin/essence_files/edit.html.erb:47
+#: app/views/admin/essence_files/edit.html.erb:75
 msgid "width"
 msgstr ""
 
