@@ -88,7 +88,7 @@ class Admin::ElementsController < ApplicationController
           content.essence.public = !params["public"].nil?
           content.essence.save!
         elsif content.essence_type == "EssenceHtml"
-          content.essence.source = params[:contents]["content_#{content.id}"]["content"].to_s
+          content.essence.source = params[:contents]["content_#{content.id}"]["source"].to_s
           content.essence.save!
         elsif content.essence_type == "EssenceDate"
           content.essence.date = DateTime.strptime(params[:date].values.join('-'), @@date_parts[0, params[:date].length].join("-"))
