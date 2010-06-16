@@ -26,12 +26,12 @@
 				}
 			) %>
 	<%- end -%>
-		<%= render(:partial => "/contents/content_sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
+		<%= render(:partial => "elements/sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
   </li>
 	<%- else #page not public -%>
 	<li>
     <span><%= page.sitemap? ? page.name : "&nbsp;" %></span>
-    <%= render(:partial => "/contents/content_sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
+    <%= render(:partial => "elements/sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
 	</li>
 	<%- end -%>
 <%- end -%>
