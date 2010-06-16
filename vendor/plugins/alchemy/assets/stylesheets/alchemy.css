@@ -763,10 +763,6 @@ img.link_arrow_left {
 	margin-top: 0;
 	border: 1px solid #afafaf;
 	border-right-style: none;
-	-webkit-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
-	-moz-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
-	-o-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
-	box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
 	padding-bottom: 6px;
 	text-shadow: #fff 0 0px 4px;
 }
@@ -791,6 +787,10 @@ img.link_arrow_left {
 	color: #333;
 	cursor: default;
 	text-shadow: #fff 0 1px 2px;
+	-webkit-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
+	-moz-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
+	-o-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
+	box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
 }
 
 #main_navi #active img {
