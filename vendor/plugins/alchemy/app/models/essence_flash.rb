@@ -1,5 +1,5 @@
 class EssenceFlash < ActiveRecord::Base
-  belongs_to :file
+  belongs_to :attachement
   stampable
   
 end

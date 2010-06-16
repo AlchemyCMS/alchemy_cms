@@ -1,6 +1,6 @@
 <%= link_to(
-	h(content.essence.file.name),
-	download_attachement_path(:id => content.essence.file.id, :name => content.essence.file.filename),
+	h(content.essence.attachement.name),
+	download_attachement_path(:id => content.essence.attachement.id, :name => content.essence.attachement.filename),
 	:class => "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
-	:title => "#{content.essence.title.blank? ? content.essence.file.filename : content.essence.title}"
-) if content.essence.file %>
+	:title => "#{content.essence.title.blank? ? content.essence.attachement.filename : content.essence.title}"
+) if content.essence.attachement %>

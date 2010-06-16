@@ -1,4 +1,4 @@
-<%- unless content.essence.file.nil? -%>
+<%- unless content.essence.attachement.nil? -%>
 <%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.essence.width -%>
 <%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : content.essence.height -%>
 <div id="alchemy_video_player_<%= content.id %>">
@@ -8,7 +8,7 @@
 	var flashvars = {
 		width: <%= width %>,
 		height: <%= height %>,
-		file: '<%= content.essence.file.public_filename %>',
+		file: '<%= content.essence.attachement.public_filename %>',
 		<%- unless options[:player_cover_image].blank? -%>
 		image: '<%= "/" + options[:player_cover_image].public_file_path %>',
 		<%- end -%>
