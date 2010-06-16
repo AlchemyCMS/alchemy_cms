@@ -1,15 +1,15 @@
 <div class="<%= element_name %>" id="<%%= element_dom_id(element) %>">
-<%- unless atoms.blank? -%>
-	<%- atoms.each do |atom| -%>
-		<%- unless atom["type"] == "EssencePicture" -%>
-	<div class="<%= atom["name"] %>">
-		<%%= render_essence_view_by_name(element, '<%= atom["name"] %>') %>
+<%- unless contents.blank? -%>
+	<%- contents.each do |content| -%>
+		<%- unless content["type"] == "EssencePicture" -%>
+	<div class="<%= content["name"] %>">
+		<%%= render_essence_view_by_name(element, '<%= content["name"] %>') %>
 	</div>
 		<%- else -%>
 	<div class="<%= element_name %>_images">
-		<%%- element.contents.find_all_by_essence_type("EssencePicture").each do |atom| -%>
+		<%%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
 		<div class="<%= element_name %>_image">
-			<%%= render_essence_view(atom, :image_size => "160x120") %>
+			<%%= render_essence_view(content, :image_size => "160x120") %>
 		</div>
 		<%%- end -%>
 	</div>

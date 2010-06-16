@@ -183,10 +183,6 @@ table.content_editor_table {
 	margin-bottom: 8px;
 }
 
-td.content_editor_atom_name {
-	width: 222px;
-}
-
 .content_editor_table .thin_border {
 	width: 210px;
 }
@@ -197,7 +193,7 @@ div.content_editor label.inline {
 	margin-right: 4px;
 }
 
-a.new_atom_link {
+a.new_content_link {
 	float: none;
 	display: inline-block;
 	margin-bottom: 8px;

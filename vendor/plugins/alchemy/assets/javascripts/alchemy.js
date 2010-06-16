@@ -299,7 +299,7 @@ function alchemyCreateLink(link_type, url, title, extern) {
 				target: (extern ? '_blank' : null)
 			});
 	} else {
-		// aka: we are linking an atom
+		// aka: we are linking an content
 		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
 			case "picture":
@@ -460,13 +460,13 @@ function alchemyImageFade(image) {
 	} catch(e){};
 }
 
-// Used for saving the rtf atom content from tinymce.
-function saveRtfContents (element_id) {
+// Used for saving the richtext essence from tinymce.
+function saveRichtextEssences (element_id) {
 	var element = $('element_'+element_id);
 	if (element) {
-		var rtf_atoms = element.select('textarea.tinymce');
-		rtf_atoms.each(function (atom) {
-			var editor = tinyMCE.get(atom.id);
+		var richtext_essences = element.select('textarea.tinymce');
+		richtext_essences.each(function (essence) {
+			var editor = tinyMCE.get(essence.id);
 			var content = editor.getContent();
 			$(editor.editorId).value = content;
 			//removing the editor instance before adding it dynamically after saving
@@ -476,6 +476,6 @@ function saveRtfContents (element_id) {
 				true,
 				editor.editorId
 			);
-		});		
+		});
 	}
 }

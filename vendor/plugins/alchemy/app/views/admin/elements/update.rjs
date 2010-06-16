@@ -7,4 +7,4 @@ Alchemy::Configuration.sortable_elements(page)
 Alchemy::Notice.show_via_ajax(page, _("element_saved"))
 page << "preview_window.refresh();"
 page << "main_frame.updateSize();"
-page.call 'TinymceHammer.init' if @has_rtf_atoms
+page.call 'TinymceHammer.init' if @has_richtext_essence

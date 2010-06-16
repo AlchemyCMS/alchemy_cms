@@ -6,7 +6,7 @@ class Admin::ContentsController < ApplicationController
   
   def new
     @element = Element.find(params[:element_id])
-    @atoms = @element.available_atoms
+    @contents = @element.available_contents
     @content = @element.contents.build
     render :layout => false
   end
@@ -21,8 +21,8 @@ class Admin::ContentsController < ApplicationController
         @options = Rack::Utils.parse_query(@options)
       end
       if @content.essence_type == "EssencePicture"
-        atoms_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
-        @dragable = atoms_of_this_type.length > 1
+        contents_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
+        @dragable = contents_of_this_type.length > 1
         @options = @options.merge(
           :dragable => @dragable
         )
@@ -35,14 +35,14 @@ class Admin::ContentsController < ApplicationController
       logger.error(e)
       logger.error(e.backtrace.join("\n"))
       render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("atom_not_successfully_added"), :error)
+        Alchemy::Notice.show_via_ajax(page, _("content_not_successfully_added"), :error)
       end
     end
   end
   
   def update
-    atom = Content.find(params[:id])
-    atom.atom.update_attributes(params[:atom])
+    content = Content.find(params[:id])
+    content.content.update_attributes(params[:content])
     render :update do |page|
       page << "alchemy_window.close();reloadPreview()"
     end
@@ -62,21 +62,21 @@ class Admin::ContentsController < ApplicationController
   
   def destroy
     begin
-      atom = Content.find(params[:id])
-      element = atom.element
-      atom_name = atom.name
-      content_dom_id = "#{atom.essence_type.underscore}_#{atom.id}"
-      if atom.destroy
+      content = Content.find(params[:id])
+      element = content.element
+      content_name = content.name
+      content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
+      if content.destroy
         render :update do |page|
           page.remove(content_dom_id)
-          Alchemy::Notice.show_via_ajax(page, _("Successfully deleted %{atom}") % {:atom => atom_name})
+          Alchemy::Notice.show_via_ajax(page, _("Successfully deleted %{content}") % {:content => content_name})
           page << "reloadPreview()"
         end
       end
     rescue
       log_error($!)
       render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("atom_not_successfully_deleted"), :error)
+        Alchemy::Notice.show_via_ajax(page, _("content_not_successfully_deleted"), :error)
       end
     end
   end

@@ -13,12 +13,12 @@ class MailsController < ApplicationController
     @page = element.page
     if @mail.save
       if params[:mail_to].blank?
-        mail_to = element.atom_by_name("mail_to").content
+        mail_to = element.content_by_name("mail_to").content
       else
         mail_to = Alchemy::Configuration.parameter(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
       end
-      mail_from = element.atom_by_name("mail_from").content
-      subject = element.atom_by_name("subject").content
+      mail_from = element.content_by_name("mail_from").content
+      subject = element.content_by_name("subject").content
       Mailer.deliver_mail(
         @mail,
         mail_to,
@@ -33,8 +33,8 @@ class MailsController < ApplicationController
           :urlname => success_page.urlname,
           :lang => multi_language ? session[:language] : nil
         )
-      elsif !element.atom_by_name("success_page").blank?
-        redirect_to show_page_url(element.atom_by_name("success_page").content)
+      elsif !element.content_by_name("success_page").blank?
+        redirect_to show_page_url(element.content_by_name("success_page").content)
       else
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root(session[:language]).urlname
       end

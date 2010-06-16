@@ -5,14 +5,14 @@ class Admin::EssenceFilesController < ApplicationController
   filter_access_to :all
   
   def edit
-    @atom = Content.find(params[:id])
-    @attachement_atom = @atom.atom
+    @content = Content.find(params[:id])
+    @essence_file = @content.essence
     render :layout => false
   end
   
   def update
-    @content = Content.find(params[:id])
-    @content.essence.update_attributes(params[:atom])
+    @essence_file = EssenceFile.find(params[:id])
+    @essence_file.update_attributes(params[:essence_file])
     render :update do |page|
       page << "alchemy_window.close(); reloadPreview()"
     end

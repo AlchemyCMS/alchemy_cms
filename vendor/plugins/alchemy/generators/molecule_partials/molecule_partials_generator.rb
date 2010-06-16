@@ -14,12 +14,12 @@ class MoleculePartialsGenerator < Rails::Generator::Base
         m.template(
           "editor.html.erb",
           "app/views/elements/_#{element["name"]}_editor.html.erb",
-          :assigns => { :atoms => element["contents"] }
+          :assigns => { :contents => element["contents"] }
         )
         m.template(
           "view.html.erb",
           "app/views/elements/_#{element["name"]}_view.html.erb",
-          :assigns => { :atoms => element["contents"], :element_name => element["name"] }
+          :assigns => { :contents => element["contents"], :element_name => element["name"] }
         )
       end
     end

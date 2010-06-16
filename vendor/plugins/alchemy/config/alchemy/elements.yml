@@ -1,25 +1,25 @@
-# organize your element layouts here
+# Organize your element layouts here
 #
-# Please use this Layout to add new elements
+# Please use this format to add new elements
 #
-# Some unique name for your Molecule: 
+# Some unique name for your Element: 
 #   - name: a_unique_name
 #     display_name: Some nice Display Name
 #     unique: Bool //pass true if this element only can be displayed once on page
-#     contents:
+#     essences:
 #     - name: head
 #       type: EssenceText
 #     - name: text
 #       type: EssenceRichtext
 #
-# Content-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, ContentSitemap, EssenceDate, EssenceHtml
+# Essence-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
 #
-# If you want an atom to be the preview text for the element then use the flag take_me_for_preview: true
+# If you want an essence to be the preview text for the element then use the flag take_me_for_preview: true
 # 
 
 - name: text
   display_name: Text
-  contents: 
+  essences: 
   - name: head
     type: EssenceText
   - name: text
@@ -27,14 +27,14 @@
 
 - name: date
   display_name: Termin
-  contents: 
+  essences: 
   - name: date
     type: EssenceDate
     
 - name: google_map
   display_name: Google Map
   unique: true
-  contents:
+  essences:
   - name: head
     type: EssenceText
   - name: text
@@ -44,7 +44,7 @@
         
 - name: article
   display_name: Bild mit Text
-  contents:
+  essences:
   - name: bild
     type: EssencePicture
   - name: headline
@@ -54,7 +54,7 @@
 
 - name: picture_gallery
   display_name: Bildergalerie
-  contents:
+  essences:
   - name: gallery_name
     type: EssenceText
   - name: picture1
@@ -62,13 +62,13 @@
 
 - name: file_download
   display_name: Datei download
-  contents:
+  essences:
   - name: file
     type: EssenceFile
 
 - name: contactform
   display_name: Kontaktformular
-  contents:
+  essences:
   - name: mail_from
     type: EssenceText
   - name: mail_to

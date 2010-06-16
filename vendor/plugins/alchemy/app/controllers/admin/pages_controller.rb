@@ -31,7 +31,7 @@ class Admin::PagesController < ApplicationController
       @page_root = Page.find_by_language_root_for(session[:language])
     end    
     @area_name = params[:area_name]
-    @atom_id = params[:content_id]
+    @content_id = params[:content_id]
     if params[:link_urls_for] == "newsletter"
       # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
       #@url_prefix = "#{get_server}/recipients/reacts"

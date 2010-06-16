@@ -107,7 +107,7 @@ class Admin::ElementsController < ApplicationController
       @page = Page.find(@element.page_id)
       @element.public = !params[:public].nil?
       @element.save!
-      @has_rtf_atoms = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
+      @has_richtext_essence = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
     rescue
       log_error($!)
       render :update do |page|

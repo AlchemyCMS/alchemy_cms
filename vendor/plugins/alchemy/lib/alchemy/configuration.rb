@@ -38,7 +38,7 @@ class Alchemy::Configuration < ActionController::Base
     )
   end
   
-  def self.sortable_atoms(page, element)
+  def self.sortable_contents(page, element)
     page.sortable(
       "element_#{element.id}_contents",
       :scroll => 'window',

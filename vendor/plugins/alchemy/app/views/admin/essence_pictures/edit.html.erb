@@ -1,22 +1,14 @@
 <% remote_form_for([:admin, @essence_picture], :html => {:class => "with_padding"}) do |f| %>
-	<%- if @options[:image_cropper] -%>
-	<h1><%= _("crop_image") %></h1>
-	<div id="image_crop">
-		<%= image_tag show_image_path(@picture_atom.image, :format => "jpg", :size => "365x365"), :id => "imageToCrop" %>
-		<%= f.hidden_field "crop_from" %>
-		<%= f.hidden_field "crop_size" %>
-	</div>
-	<%- end -%>
 	<table border="0" cellspacing="4" cellpadding="0">
 		<tr>
 			<td><%= f.label "caption", _("image_caption") %></td>
 			<td>
 				<%- if @options[:caption_as_textarea] -%>
 				<%= f.text_area "caption", :class => 'thin_border' %>
-	        	<%- else -%>
-	        	<%= f.text_field "caption", :class => 'thin_border long' %>
-	        	<%- end -%>
-      		</td>
+				<%- else -%>
+				<%= f.text_field "caption", :class => 'thin_border long' %>
+				<%- end -%>
+			</td>
 		</tr>
 		<tr>
 			<td><%= f.label "title", _("image_title") %></td>
@@ -50,8 +42,8 @@
 	function onEndCrop( coords, dimensions ) {
 		var scale = <%= @options[:image_size] %> / $('imageToCrop').getHeight();
 		console.log(scale);
-		$('atom_crop_from').value = coords.x1 + "x" + coords.y1;
-		$('atom_crop_size').value = dimensions.width + "x" + dimensions.height;
+		$('content_crop_from').value = coords.x1 + "x" + coords.y1;
+		$('content_crop_size').value = dimensions.width + "x" + dimensions.height;
 	}
 	new Cropper.Img( 
 		'imageToCrop', { 

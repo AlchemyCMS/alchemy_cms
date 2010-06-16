@@ -1,4 +1,4 @@
-<%- has_rtf_atoms = element.contents.detect { |atom| atom.essence_type == 'EssenceRichtext' } -%>
+<%- has_richtext_essence = element.contents.detect { |content| content.essence_type == 'EssenceRichtext' } -%>
 
 <div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
 	<%= render :partial => "element_head", :locals => {:element => element} %>
@@ -6,7 +6,7 @@
 		<% form_remote_tag(
 			:url => admin_element_path(element),
 			:method => :put,
-			:before => (has_rtf_atoms ? "saveRtfContents(#{element.id})" : nil),
+			:before => (has_richtext_essence ? "saveRichtextEssences(#{element.id})" : nil),
 			:loading => %(
 				$('element_#{element.id}_save').hide();
 				$('element_#{element.id}_spinner').show();

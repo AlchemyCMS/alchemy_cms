@@ -58,16 +58,6 @@ class AdminController < ApplicationController
     redirect_to root_url
   end
   
-  def save_atom
-    atom = Content.find(params[:id]).atom
-    element = Content.find(params[:id]).element_id
-    page = Element.find(element).page_id
-    if atom.update_attributes(params[:this_atom])
-      flash[:notice] = _("element_saved")
-    end
-    redirect_to :controller => "pages", :action => 'edit', :id => page
-  end
-  
   def save_contentposition
     unless params[:sitemap].nil?
       parent = Page.find(:first, :conditions => {:parent_id => nil})

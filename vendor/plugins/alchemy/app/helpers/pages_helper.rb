@@ -10,7 +10,7 @@ module PagesHelper
     s.blank? ? "" : "class='#{s}'"
   end
   
-  def picture_atom_caption content
+  def picture_essence_caption(content)
     return "" if content.nil?
     return "" if content.essence.nil?
     content.essence.caption
