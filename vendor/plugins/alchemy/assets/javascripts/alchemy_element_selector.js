@@ -4,7 +4,7 @@ var AlchemyElementSelector = Class.create({
 		var defaults = { };
 		var options = Object.extend(defaults, arguments[0] || { });
 		this.options = options;
-		this.elements = $$('.alchemy_element');
+		this.elements = $$('.alchemy_preview_element');
 		this.observeElements();
 	},
 	

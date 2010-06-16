@@ -50,7 +50,7 @@ var AlchemyElementEditorSelector = Class.create({
 			scrollToElement(id);
 			var iframe = preview_window.getContent();
 			var frame_win = iframe.contentWindow;
-			var frame_els = frame_win.$$('.alchemy_element');
+			var frame_els = frame_win.$$('.alchemy_preview_element');
 			var selected_el = frame_els.detect(function (frame_el) {
 				var el_id = frame_el.id.replace(/\D/g,'');
 				return el_id == id;
