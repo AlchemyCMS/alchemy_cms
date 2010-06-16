@@ -187,6 +187,7 @@ de:
       image/x-psd: 'Photoshop-Datei'
       image/gif: 'GIF-Bild'
       image/jpeg: 'JPG-Bild'
+      image/png: 'PNG-Bild'
       video/x-msvideo: 'AVI-Video'
       image/tiff: 'TIFF-Bild'
       

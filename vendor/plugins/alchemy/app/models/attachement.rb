@@ -42,6 +42,8 @@ class Attachement < ActiveRecord::Base
       then "image"
     when "image/jpeg"
       then "image"
+    when "image/png"
+      then "image"
     when "image/tiff"
       then "image"
     when "image/x-psd"

@@ -178,6 +178,7 @@ en:
     video/quicktime: 'Quicktime-Video'
     image/x-psd: 'Photoshop-File'
     image/gif: 'GIF-Image'
+    image/png: 'PNG-Image'
     image/jpeg: 'JPG-Image'
     video/x-msvideo: 'AVI-Video'
     image/tiff: 'TIFF-Image'
