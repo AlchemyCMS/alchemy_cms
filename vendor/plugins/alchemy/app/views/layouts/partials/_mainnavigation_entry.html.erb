@@ -1,4 +1,7 @@
-<%- permitted_to?(mainnavigation_entry["action"].to_sym, mainnavigation_entry["controller"].gsub(/\//, '_').to_sym) do -%>
+<%- permitted_to?(
+	mainnavigation_entry["action"].to_sym,
+	mainnavigation_entry["controller"].gsub(/\//, '_').to_sym
+) do -%>
 
 <% link_to(
 	url_for(
@@ -8,14 +11,8 @@
 	:class => "main_navi_entry#{admin_mainnavi_active?(mainnavigation_entry) ? ' active' : nil }",
 	:onclick => 'pleaseWaitOverlay();'
 ) do %>
-	<span class="tab-top"></span>
-	<span class="tab-center">
-		<%= image_tag mainnavigation_entry["image"] %>
-		<%- unless mainnavigation_entry["name"].blank? -%>
-		<span><%= _(mainnavigation_entry["name"]) -%></span>
-		<%- end -%>
-	</span>
-	<span class="tab-bottom"></span>
+	<%= image_tag mainnavigation_entry["image"] %><br />
+	<span><%= _(mainnavigation_entry["name"]) -%></span>
 <% end %>
 
 <%- end -%>

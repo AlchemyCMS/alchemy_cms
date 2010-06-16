@@ -25,7 +25,7 @@ function openPreviewWindow (id, title) {
 		className: 'alchemy_window',
 		title: title,
 		width: document.viewport.getDimensions().width - 570,
-		height: document.viewport.getDimensions().height - 128,
+		height: document.viewport.getDimensions().height - 135,
 		minWidth: 600,
 		minHeight: 300,
 		maximizable: false,
@@ -40,7 +40,7 @@ function openPreviewWindow (id, title) {
 			duration: 0.2
 		}
 	});
-	preview_window.showCenter(false, 90, 90);
+	preview_window.showCenter(false, 97, 92);
 }
 
 function openElementsWindow (page_id, title) {
@@ -48,10 +48,10 @@ function openElementsWindow (page_id, title) {
 		className: 'alchemy_window',
 		title: title,
 		width: 424,
-		height: document.viewport.getDimensions().height - 148,
+		height: document.viewport.getDimensions().height - 155,
 		minWidth: 424,
 		minHeight: 300,
-		maxHeight: document.viewport.getDimensions().height - 148,
+		maxHeight: document.viewport.getDimensions().height - 155,
 		maximizable: false,
 		minimizable: false,
 		resizable: true,
@@ -65,7 +65,7 @@ function openElementsWindow (page_id, title) {
 		}
 	});
 	elements_window.setAjaxContent('/admin/elements/list?page_id=' + page_id, {method: 'get'});
-	elements_window.showCenter(false, 100, document.viewport.getDimensions().width - 450);
+	elements_window.showCenter(false, 107, document.viewport.getDimensions().width - 450);
 }
 
 function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, overflow){
