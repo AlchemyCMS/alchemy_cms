@@ -105,7 +105,6 @@ module ApplicationHelper
       partial_name = "_#{element.name.underscore}_#{part}.html.erb"
       if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
         if @preview_mode
-          logger.info "\n§§§ @preview_mode: #{@preview_mode}\n"
           render(
             :partial => 'admin/elements/element_preview',
             :locals => {
