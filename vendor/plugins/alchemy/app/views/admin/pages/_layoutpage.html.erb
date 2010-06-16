@@ -1,18 +1,21 @@
 <li>
 	<div class="sitemap_left_images">
 		<%= render(
-			:partial => 'page_status',
+			:partial => 'page_icon',
 			:locals => {
 				:page => layoutpage
 			}
 		) -%>
 	</div>
+	<div class="page_infos">
+		<%= render :partial => 'page_status', :locals => {:page => layoutpage} %>
+	</div>
 	<div class="sitemap_sitename">
 	<% unless layoutpage.locked_for(current_user) -%>
 	<%= link_to(
 			layoutpage.name, {
-				:controller => 'pages',
-				:action => 'edit_content',
+				:controller => 'admin/pages',
+				:action => 'edit',
 				:id => layoutpage,
 				:layoutpage => true
 			},

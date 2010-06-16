@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show'
   map.login "/admin/login", :controller => "admin", :action => "login"
   map.logout "/admin/logout", :controller => "admin", :action => "logout"
-  map.layoutpages "/pages/layoutpages", :controller => "pages", :action => "layoutpages"
+  map.admin_layoutpages "/admin/pages/layoutpages", :controller => "admin/pages", :action => "layoutpages"
   map.resources :attachements, :member => {:download => :get}
   map.namespace :admin do |admin|
     admin.resources :users
