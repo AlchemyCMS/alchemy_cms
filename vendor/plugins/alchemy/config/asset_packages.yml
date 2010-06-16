@@ -2,11 +2,7 @@
 javascripts:
 - default:
   - prototype
-  - effects
-  - window
-  - window_effects
   - alchemy
-  - alchemy_selectbox
   - alchemy_frame_set
 - login:
    - prototype

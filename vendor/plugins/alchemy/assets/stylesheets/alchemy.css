@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -175,12 +177,12 @@ div#user_signup {
 
 div#sideboard {
 	float: right;
-	width: 300px;
+	width: 400px;
 }
 
 div#license {
 	overflow: auto;
-	height: 19em;
+	height: 24em;
 	background-color: white;
 }
 
@@ -213,8 +215,9 @@ ul li {
 }
 
 #dashboard h1 {
-	font-size: 1.5em;
+	font-size: 2em;
 	margin-bottom: 1em;
+	text-shadow: #fff 1px 1px 2px;
 }
 
 div#explanation {
@@ -600,6 +603,10 @@ a.hide_element_selector {
 	border: 1px solid #afafaf;
 	border-bottom-style: none;
 	height: 22px;
+	-webkit-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
+	-moz-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
+	-o-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
+	box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
 }
 
 #sub_navigation span.page_status_and_name img {
@@ -623,7 +630,7 @@ a.hide_element_selector {
 	height: 21px;
 	text-shadow: #fff 0 0px 4px;
 	background: #CCC;
-	color: #666;	
+	color: #555;	
 	-webkit-border-top-right-radius: 7px 7px;
 	-webkit-border-top-left-radius: 7px 7px;
 	-moz-border-radius: 7px 7px 0 0;
@@ -739,6 +746,7 @@ img.link_arrow_left {
 }
 
 #main_navi a.main_navi_entry {
+	color: #555;
 	position: relative;
 	text-align: center;
 	overflow: hidden;
@@ -775,6 +783,7 @@ img.link_arrow_left {
 	width: 24px;
 	display: inline-block;
 	margin-bottom: 4px;
+	margin-top: 2px;
 }
 
 #main_navi a.main_navi_entry.active {
@@ -865,8 +874,9 @@ ul.list .sitemap_sitename {
 	margin-top: 4px;
 	margin-bottom: 4px;
 	padding: 0 0 0 4px;
-	line-height: 21px;
+	line-height: 22px;
 	overflow: hidden;
+	height: 22px;
 }
 
 #sitemap li.legend span.page_name {
@@ -883,7 +893,7 @@ div.page_infos {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	height: 17px;
+	height: 18px;
 }
 
 .page_status {
@@ -933,6 +943,7 @@ ul.list li .sitemap_sitename:hover{
 
 #sideboard div.sideboard_widget img {
 	margin-bottom: 16px;
+	float: none;
 }
 
 .site_status {
@@ -989,7 +1000,7 @@ ul#sitemap li img {
 	text-decoration: none;
 	float: left;
 	width: 16px;
-	height: 19px;
+	height: 20px;
 	border: 1px solid #fff;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
@@ -1203,6 +1214,7 @@ div#user_list_legend {
 	-moz-border-radius: 0 0 7px 7px;
 	-o-border-radius: 0 0 7px 7px;
 	border-radius: 0 0 7px 7px;
+	overflow: hidden;
 }
 
 #toolbar form {
@@ -1263,8 +1275,8 @@ div#toolbar_buttons span.file_upload {
 /* @group add, edit and delete buttons */
 
 button.icon_button {
-	background: #eaeaea url(../images/gui/button_shading.png) repeat-x 0 0;
-	border: 1px solid #bdbebd;
+	background: #f7f7f7 url(../images/gui/shading.png) repeat-x 0 2px;
+	border: 1px solid #9a9a9a;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -1278,7 +1290,15 @@ button.icon_button {
 }
 
 button.icon_button:hover {
-	background: white;
+	background-color: #e6f0f5;
+	color: #666;
+	border: 1px solid #888;
+	text-shadow: 0 1px 4px #fff;
+	text-decoration: none;
+}
+
+button.icon_button:active {
+	background-color: #cdd6db;
 }
 
 button.icon_button img {
@@ -1291,9 +1311,12 @@ a.icon_button {
 	float: left;
 	width: 20px;
 	height: 20px;
-	background: #eaeaea url(../images/gui/button_shading.png) repeat-x 0 0;
+	background-color: #f7f7f7;
+	background-image: url(../images/gui/shading.png);
+	background-repeat: repeat-x;
+	background-position: 0 1px;
 	margin-right: 4px;
-	border: 1px solid #bdbebd;
+	border: 1px solid #9a9a9a;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -1329,12 +1352,15 @@ a.icon_button.old_icon {
 }
 
 a.icon_button:hover {
+	background-color: #e6f0f5;
+	color: #666;
+	border: 1px solid #888;
+	text-shadow: 0 1px 4px #fff;
 	text-decoration: none;
-	background: white;
 }
 
 a.icon_button:active {
-	background: 0 -19px;
+	background-color: #cdd6db;
 }
 
 a.icon_button img {
@@ -1394,8 +1420,8 @@ div.table_right span.tools a.icon_button img {
 table.list {
 	width: 100%;
 	border-style: none;
-	border-spacing: 0;
-	padding: 16px;
+	border-spacing: 0 4px;
+	padding: 8px;
 }
 
 table.list td,
@@ -2218,21 +2244,25 @@ div.pagination {
 
 div.pagination .prev_page {
 	margin-right: 16px;
+	float: left;
 }
 
 div.pagination .next_page {
 	margin-left: 16px;
+	float: right;
 }
 
 div.pagination a,
 div.pagination span {
-	padding: 2px 4px;
+	padding: 2px 6px;
 	border: 1px solid #c0c0c0;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-o-border-radius: 2px;
 	border-radius: 2px;
-	background: white url(../images/gui/shading.png) repeat-x;
+	background: white url(../images/gui/shading.png) repeat-x 0 2px;
+	height: 17px;
+	line-height: 17px;
 }
 
 div.pagination a:hover {
@@ -2244,9 +2274,10 @@ div.pagination .disabled {
 }
 
 div.pagination .current {
-	background-color: #b3ccdb;
-	color: white;
-	border: 1px solid #8a8a8a;
+	background-color: #e6f0f5;
+	color: #666;
+	border: 1px solid #888;
+	text-shadow: 0 1px 4px #fff;
 }
 
 #toolbar_links {
@@ -2307,21 +2338,38 @@ div.button_with_label:hover label {
 }
 
 #toolbar_links a {
-	padding: 2px 4px;
+	padding: 3px 4px;
 	border: 1px solid #9a9a9a;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-o-border-radius: 2px;
 	border-radius: 2px;
 	margin-right: 4px;
-	background: white url(../images/gui/shading.png) repeat-x;
+	background: white url(../images/gui/shading.png) repeat-x 0 2px;
 	text-decoration: none;
 }
 
+#toolbar_links a:hover {
+	background-color: #e6f0f5;
+	color: #666;
+	border: 1px solid #888;
+	text-shadow: 0 1px 4px #fff;
+	text-decoration: none;
+}
+
+#toolbar_links a:active {
+	background-color: #cdd6db;
+}
+
+div#per_page_values {
+	margin-bottom: 1px;
+}
+
 #toolbar_links a.active {
-	background-color: #b3ccdb;
-	color: white;
-	border: 1px solid #8a8a8a;
+	background-color: #e6f0f5;
+	color: #666;
+	border: 1px solid #888;
+	text-shadow: 0 1px 4px #fff;
 }
 
 #errorExplanation {
