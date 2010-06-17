@@ -4,16 +4,14 @@ class User < ActiveRecord::Base
   stampable
   acts_as_authentic do |c|
     c.transition_from_restful_authentication = true
-    if Rails.env == 'production'
-      c.logged_in_timeout = 15.minutes
-    end
+    c.logged_in_timeout = Alchemy::Configuration.parameter(:auto_logout_time).minutes
   end
   
   has_many :folded_pages
   
   after_destroy :unlock_pages
   
-  ROLES = Alchemy::Configuration.parameter(:user_roles)#%w[registered author editor admin]
+  ROLES = Alchemy::Configuration.parameter(:user_roles)
   
   def role_symbols
     [role.to_sym]

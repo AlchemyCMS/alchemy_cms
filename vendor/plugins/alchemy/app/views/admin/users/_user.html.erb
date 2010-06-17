@@ -1,6 +1,6 @@
 <tr class="<%= cycle('odd', 'even') %>">
 	<td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" -%></td>
-	<td class="login"><%= user.login %></td>
+	<td class="login"><%= user.login %> <%= user.logged_in? %></td>
 	<td class="name"><%= user.fullname -%></td>
 	<td class="email"><%= user.email %></td>
 	<td class="role"><%= I18n.t("user_roles.#{user.role}") %></td>

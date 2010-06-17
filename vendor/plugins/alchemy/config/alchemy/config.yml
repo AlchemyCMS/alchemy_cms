@@ -9,7 +9,7 @@
   :show_root: true
   :show_flag: false
 :prince_port: 3001
-:auto_logout_time: 15
+:auto_logout_time: 1
 :redirect_index: true
 :redirect_to_public_child: true
 # enable ferret search engine?
@@ -46,9 +46,9 @@
 
 :user_roles: [registered, author, editor, admin]
 
-# This is the alchemy_plugins notation. to render the mainnavi we split alchemy into three plugins.
-# to make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
-# folder with a alchemy folder in it. place a config.yml in this alchemy folder.
+# This is the alchemy_plugins notation. To render the mainnavi we split alchemy into three plugins.
+# To make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
+# folder with a alchemy folder in it. Place a config.yml in this alchemy folder.
 #
 # vendor/plugins/MY_PLUGIN_NAME/init.rb
 # vendor/plugins/MY_PLUGIN_NAME/config/alchemy/config.yml
