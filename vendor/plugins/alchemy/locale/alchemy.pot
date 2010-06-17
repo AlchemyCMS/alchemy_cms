@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-17 22:19+0200\n"
+"POT-Creation-Date: 2010-06-17 23:16+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr ""
 
-#: app/helpers/application_helper.rb:862
+#: app/helpers/application_helper.rb:855
 msgid "'%{name}' from_clipboard"
 msgstr ""
 
@@ -150,8 +150,16 @@ msgstr ""
 msgid "Image|Name"
 msgstr ""
 
+#: app/views/admin/pages/index.html.erb:14
+msgid "Infos"
+msgstr ""
+
 #: app/views/essences/_essence_picture_editor.html.erb:6
 msgid "Mising Image"
+msgstr ""
+
+#: app/views/admin/pages/index.html.erb:16
+msgid "Move"
 msgstr ""
 
 #: app/views/admin/pages/edit.html.erb:68
@@ -295,7 +303,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1151
+#: app/helpers/application_helper.rb:1144
 msgid "Select an content"
 msgstr ""
 
@@ -433,8 +441,8 @@ msgstr ""
 msgid "add"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1147
-#: app/helpers/application_helper.rb:1163
+#: app/helpers/application_helper.rb:1140
+#: app/helpers/application_helper.rb:1156
 msgid "add new content"
 msgstr ""
 
@@ -502,7 +510,7 @@ msgstr ""
 msgid "choose_file_to_link"
 msgstr ""
 
-#: app/helpers/application_helper.rb:847
+#: app/helpers/application_helper.rb:840
 #: app/views/admin/partials/_remote_search_form.html.erb:26
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -524,7 +532,7 @@ msgstr ""
 msgid "confirm_to_delete_image_from_server"
 msgstr ""
 
-#: app/views/admin/pages/_page_tools.html.erb:7
+#: app/views/admin/pages/_page.html.erb:124
 msgid "confirm_to_delete_page"
 msgstr ""
 
@@ -532,12 +540,12 @@ msgstr ""
 msgid "confirm_to_delete_user"
 msgstr ""
 
-#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:899
-#: app/helpers/application_helper.rb:1004
+#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:892
+#: app/helpers/application_helper.rb:997
 msgid "content_essence_not_found"
 msgstr ""
 
-#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:894
+#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:887
 msgid "content_not_found"
 msgstr ""
 
@@ -569,8 +577,8 @@ msgstr ""
 msgid "create_new_language"
 msgstr ""
 
-#: app/views/admin/pages/_page_tools.html.erb:28
-#: app/views/admin/pages/_page_tools.html.erb:33
+#: app/views/admin/pages/_page.html.erb:145
+#: app/views/admin/pages/_page.html.erb:150
 msgid "create_page"
 msgstr ""
 
@@ -604,7 +612,7 @@ msgstr ""
 msgid "delete_image"
 msgstr ""
 
-#: app/views/admin/pages/_page_tools.html.erb:15
+#: app/views/admin/pages/_page.html.erb:132
 msgid "delete_page"
 msgstr ""
 
@@ -612,11 +620,11 @@ msgstr ""
 msgid "delete_user"
 msgstr ""
 
-#: app/views/admin/pages/_positioning_tools.html.erb:17
-#: app/views/admin/pages/_positioning_tools.html.erb:34
-#: app/views/admin/pages/_positioning_tools.html.erb:51
-#: app/views/admin/pages/_positioning_tools.html.erb:70
-#: app/views/admin/pages/_positioning_tools.html.erb:88
+#: app/views/admin/pages/_page.html.erb:43
+#: app/views/admin/pages/_page.html.erb:60
+#: app/views/admin/pages/_page.html.erb:77
+#: app/views/admin/pages/_page.html.erb:96
+#: app/views/admin/pages/_page.html.erb:114
 msgid "disabled"
 msgstr ""
 
@@ -647,7 +655,7 @@ msgid "edit_image_properties"
 msgstr ""
 
 #: app/views/admin/pages/_layoutpage.html.erb:21
-#: app/views/admin/pages/_page.html.erb:48
+#: app/views/admin/pages/_page.html.erb:164
 msgid "edit_page"
 msgstr ""
 
@@ -911,20 +919,20 @@ msgstr ""
 msgid "module: users"
 msgstr ""
 
-#: app/views/admin/pages/_positioning_tools.html.erb:65
-#: app/views/admin/pages/_positioning_tools.html.erb:82
+#: app/views/admin/pages/_page.html.erb:91
+#: app/views/admin/pages/_page.html.erb:108
 msgid "move_level_down"
 msgstr ""
 
-#: app/views/admin/pages/_positioning_tools.html.erb:12
+#: app/views/admin/pages/_page.html.erb:38
 msgid "move_level_up"
 msgstr ""
 
-#: app/views/admin/pages/_positioning_tools.html.erb:46
+#: app/views/admin/pages/_page.html.erb:72
 msgid "move_position_down"
 msgstr ""
 
-#: app/views/admin/pages/_positioning_tools.html.erb:29
+#: app/views/admin/pages/_page.html.erb:55
 msgid "move_position_up"
 msgstr ""
 
@@ -940,7 +948,7 @@ msgstr ""
 msgid "navigation_name"
 msgstr ""
 
-#: app/helpers/application_helper.rb:874
+#: app/helpers/application_helper.rb:867
 msgid "no"
 msgstr ""
 
@@ -1085,7 +1093,7 @@ msgstr ""
 msgid "please enter subject and mail address"
 msgstr ""
 
-#: app/helpers/application_helper.rb:874
+#: app/helpers/application_helper.rb:867
 msgid "please_confirm"
 msgstr ""
 
@@ -1150,7 +1158,7 @@ msgstr ""
 msgid "saving"
 msgstr ""
 
-#: app/helpers/application_helper.rb:849
+#: app/helpers/application_helper.rb:842
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:15
 msgid "search"
@@ -1302,7 +1310,7 @@ msgstr ""
 msgid "with_name"
 msgstr ""
 
-#: app/helpers/application_helper.rb:874
+#: app/helpers/application_helper.rb:867
 msgid "yes"
 msgstr ""
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-17 22:19+0200\n"
+"POT-Creation-Date: 2010-06-17 23:16+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "%{language} als neue Sprache anlegen"
 
-#: app/helpers/application_helper.rb:862
+#: app/helpers/application_helper.rb:855
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' aus der Zwischenablage"
 
@@ -148,9 +148,17 @@ msgstr "Bildbreite"
 msgid "Image|Name"
 msgstr "Name"
 
+#: app/views/admin/pages/index.html.erb:14
+msgid "Infos"
+msgstr "Infos"
+
 #: app/views/essences/_essence_picture_editor.html.erb:6
 msgid "Mising Image"
 msgstr "Bild fehlt"
+
+#: app/views/admin/pages/index.html.erb:16
+msgid "Move"
+msgstr "Bewegen"
 
 #: app/views/admin/pages/edit.html.erb:68
 #: app/views/admin/pages/edit.html.erb:72
@@ -297,7 +305,7 @@ msgstr "Lizenz lesen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/application_helper.rb:1151
+#: app/helpers/application_helper.rb:1144
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -437,8 +445,8 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/application_helper.rb:1147
-#: app/helpers/application_helper.rb:1163
+#: app/helpers/application_helper.rb:1140
+#: app/helpers/application_helper.rb:1156
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -506,7 +514,7 @@ msgstr "Bitte wählen Sie ein Element"
 msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
-#: app/helpers/application_helper.rb:847
+#: app/helpers/application_helper.rb:840
 #: app/views/admin/partials/_remote_search_form.html.erb:26
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -528,7 +536,7 @@ msgstr "Wollen Sie dieses Bild wirklich löschen?"
 msgid "confirm_to_delete_image_from_server"
 msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 
-#: app/views/admin/pages/_page_tools.html.erb:7
+#: app/views/admin/pages/_page.html.erb:124
 msgid "confirm_to_delete_page"
 msgstr "Wollen Sie diese Seite wirklich löschen?"
 
@@ -536,12 +544,12 @@ msgstr "Wollen Sie diese Seite wirklich löschen?"
 msgid "confirm_to_delete_user"
 msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 
-#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:899
-#: app/helpers/application_helper.rb:1004
+#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:892
+#: app/helpers/application_helper.rb:997
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:894
+#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:887
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
@@ -573,8 +581,8 @@ msgstr "anlegen"
 msgid "create_new_language"
 msgstr "Einen neuen Sprachbaum erstellen"
 
-#: app/views/admin/pages/_page_tools.html.erb:28
-#: app/views/admin/pages/_page_tools.html.erb:33
+#: app/views/admin/pages/_page.html.erb:145
+#: app/views/admin/pages/_page.html.erb:150
 msgid "create_page"
 msgstr "Eine Seite anlegen"
 
@@ -608,7 +616,7 @@ msgstr "Datei vom Server löschen"
 msgid "delete_image"
 msgstr "Bild löschen."
 
-#: app/views/admin/pages/_page_tools.html.erb:15
+#: app/views/admin/pages/_page.html.erb:132
 msgid "delete_page"
 msgstr "Seite löschen"
 
@@ -616,11 +624,11 @@ msgstr "Seite löschen"
 msgid "delete_user"
 msgstr "Benutzer löschen"
 
-#: app/views/admin/pages/_positioning_tools.html.erb:17
-#: app/views/admin/pages/_positioning_tools.html.erb:34
-#: app/views/admin/pages/_positioning_tools.html.erb:51
-#: app/views/admin/pages/_positioning_tools.html.erb:70
-#: app/views/admin/pages/_positioning_tools.html.erb:88
+#: app/views/admin/pages/_page.html.erb:43
+#: app/views/admin/pages/_page.html.erb:60
+#: app/views/admin/pages/_page.html.erb:77
+#: app/views/admin/pages/_page.html.erb:96
+#: app/views/admin/pages/_page.html.erb:114
 msgid "disabled"
 msgstr "Deaktiviert"
 
@@ -651,7 +659,7 @@ msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
 #: app/views/admin/pages/_layoutpage.html.erb:21
-#: app/views/admin/pages/_page.html.erb:48
+#: app/views/admin/pages/_page.html.erb:164
 msgid "edit_page"
 msgstr "Seite bearbeiten"
 
@@ -920,20 +928,20 @@ msgstr "Seiten"
 msgid "module: users"
 msgstr "Benutzer"
 
-#: app/views/admin/pages/_positioning_tools.html.erb:65
-#: app/views/admin/pages/_positioning_tools.html.erb:82
+#: app/views/admin/pages/_page.html.erb:91
+#: app/views/admin/pages/_page.html.erb:108
 msgid "move_level_down"
 msgstr "Eine Ebene tiefer"
 
-#: app/views/admin/pages/_positioning_tools.html.erb:12
+#: app/views/admin/pages/_page.html.erb:38
 msgid "move_level_up"
 msgstr "Eine Ebene hoch"
 
-#: app/views/admin/pages/_positioning_tools.html.erb:46
+#: app/views/admin/pages/_page.html.erb:72
 msgid "move_position_down"
 msgstr "Eine Position runter"
 
-#: app/views/admin/pages/_positioning_tools.html.erb:29
+#: app/views/admin/pages/_page.html.erb:55
 msgid "move_position_up"
 msgstr "Eine Position hoch"
 
@@ -949,7 +957,7 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/application_helper.rb:874
+#: app/helpers/application_helper.rb:867
 msgid "no"
 msgstr "Nein"
 
@@ -1106,7 +1114,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/application_helper.rb:874
+#: app/helpers/application_helper.rb:867
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1171,7 +1179,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/application_helper.rb:849
+#: app/helpers/application_helper.rb:842
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:15
 msgid "search"
@@ -1323,7 +1331,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/application_helper.rb:874
+#: app/helpers/application_helper.rb:867
 msgid "yes"
 msgstr "Ja"
 
