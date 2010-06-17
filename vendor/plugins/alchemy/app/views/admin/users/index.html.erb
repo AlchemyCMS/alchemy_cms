@@ -26,6 +26,7 @@
 	<%- unless @users.blank? -%>
 	<tr>
 		<th class="icon"></th>
+		<th class="login_status"></th>
 		<th class="login"><%= User.human_attribute_name("login") %></th>
 		<th class="name"><%= User.human_attribute_name("name") %></th>
 		<th class="email"><%= User.human_attribute_name("email") %></th>

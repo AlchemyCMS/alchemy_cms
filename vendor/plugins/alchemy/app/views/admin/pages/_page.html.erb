@@ -42,16 +42,12 @@
 		<%= render :partial => 'page_status', :locals => {:page => page} %>
 	</div>
 	<div class="sitemap_sitename">
-	<%- if page.locked_for(current_user) -%>
-		<%= page.name %>
-	<%- else -%>
 		<%= link_to(
 			page.name,
 			edit_admin_page_path(page),
 			:title => _("edit_page"),
 			:class => "sitemap_pagename_link"
 		) -%>
-	<%- end -%>
 	</div>
 	<%- unless page.folded?(current_user) && page.children.empty? -%>
 		<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="dragable">

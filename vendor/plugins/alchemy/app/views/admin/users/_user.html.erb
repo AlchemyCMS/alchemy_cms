@@ -1,6 +1,14 @@
 <tr class="<%= cycle('odd', 'even') %>">
 	<td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" -%></td>
-	<td class="login"><%= user.login %> <%= user.logged_in? %></td>
+	<td>
+		<%= image_tag(
+			"icons/#{user.logged_in? ? 'online' : 'offline'}.png",
+			:plugin => 'alchemy',
+			:alt => '',
+			:class => 'login_status'
+		) %>
+	</td>
+	<td class="login"><%= user.login %></td>
 	<td class="name"><%= user.fullname -%></td>
 	<td class="email"><%= user.email %></td>
 	<td class="role"><%= I18n.t("user_roles.#{user.role}") %></td>

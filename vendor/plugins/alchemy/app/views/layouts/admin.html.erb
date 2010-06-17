@@ -36,6 +36,9 @@
 			</div>
 		</div>
 		<%= render :partial => 'admin/partials/flash_notice' %>
+		<div id="user_info">
+			<%= _('You are') %> <%= current_user.name %>
+		</div>
 		<div id="main_content">
 			<%= admin_subnavigation %>
 			<%= yield %>

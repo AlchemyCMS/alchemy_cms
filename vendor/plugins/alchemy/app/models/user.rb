@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :folded_pages
   
-  after_destroy :unlock_pages
+  before_destroy :unlock_pages
   
   ROLES = Alchemy::Configuration.parameter(:user_roles)
   
@@ -28,23 +28,19 @@ class User < ActiveRecord::Base
     end
   end
   
-  # returns the firstname and lastname as a string
-  #if both are blank, returns the login
+  # Returns the firstname and lastname as a string
+  # If both are blank, returns the login
   # options
-  #   :flipped=false  #returns lastname, firstname
-  def fullname options = {}
+  #   :flipped=false  : returns "lastname, firstname"
+  def fullname(options = {})
     unless(self.lastname.blank? && self.firstname.blank?)
       options = (default_options = { :flipped => false }.merge(options))
       options[:flipped] ? "#{self.lastname}, #{self.firstname}".squeeze(" ") : "#{self.firstname} #{self.lastname}".squeeze(" ")
     else
-      ""
+      self.login
     end
   end
-  
-  def name
-    return login if fullname.blank?
-    fullname
-  end
+  alias :name :fullname
   
   def self.human_rolename(role)
     I18n.t("user_roles.#{role}")

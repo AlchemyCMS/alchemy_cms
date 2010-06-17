@@ -13,7 +13,6 @@ class Admin::PagesController < ApplicationController
   def index
     @page_root = Page.find(
       :first,
-      :include => [:children],
       :conditions => {:language_root_for => session[:language]}
     )
     if @page_root.nil?
@@ -152,16 +151,9 @@ class Admin::PagesController < ApplicationController
   end
   
   def edit
-    @page = Page.find(
-      params[:id],
-      :include => {
-        :elements => :contents
-      }
-    )
+    @page = Page.find(params[:id])
     @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
-    @created_by = User.find(@page.created_by).login rescue ""
-    @updated_by = User.find(@page.updated_by).login rescue ""
-    if @page.locked? && @page.locker != current_user
+    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
       redirect_to admin_pages_path
     else

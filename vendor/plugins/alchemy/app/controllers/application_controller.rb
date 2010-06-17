@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :login, :password, :password_confirmation
   
   before_filter :set_gettext_locale
-  before_filter { |c| Authorization.current_user = c.current_user }
   
   helper_method :get_server, :configuration, :multi_language?, :current_user
   helper :errors, :layout
@@ -59,13 +58,17 @@ class ApplicationController < ActionController::Base
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
-  end  
+  end
   
   def logged_in?
-    current_user
+    !current_user.blank?
   end
   
 private
+  
+  def last_request_update_allowed?
+    true #action_name =! "update_session_time_left"
+  end
   
   def detect_language_in_config(lang)
     detected_lang = configuration(:languages).detect{ |language|

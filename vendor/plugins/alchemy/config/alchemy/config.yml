@@ -9,7 +9,7 @@
   :show_root: true
   :show_flag: false
 :prince_port: 3001
-:auto_logout_time: 1
+:auto_logout_time: 10
 :redirect_index: true
 :redirect_to_public_child: true
 # enable ferret search engine?

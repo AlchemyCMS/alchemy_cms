@@ -52,7 +52,6 @@ class AdminController < ApplicationController
     @user_session = UserSession.find
     if @user_session
       @user_session.destroy
-      current_user.unlock_pages if current_user
     end
     flash[:info] = message
     redirect_to root_url

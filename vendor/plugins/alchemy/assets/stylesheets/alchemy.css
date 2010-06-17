@@ -156,6 +156,14 @@ div#top_menu {
 	width: 100%;
 }
 
+div#user_info {
+	position: absolute;
+	z-index: 10;
+	right: 10px;
+	line-height: 27px;
+	font-size: 11px;
+}
+
 div#user_signup {
 	width: 380px;
 	margin-right: auto;
@@ -1433,6 +1441,10 @@ table.list th {
 	text-align: left;
 	height: 22px;
 	vertical-align: top;
+}
+
+th.login_status {
+	width: 16px;
 }
 
 table.list tr.odd td {
