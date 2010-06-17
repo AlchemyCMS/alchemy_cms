@@ -695,45 +695,38 @@ module ApplicationHelper
     end
   end
 
-  # Renders the sitemap lines for Admin.index
+  # Renders the sitemap lines for Admin::Pages.index
   def render_sitemap_lines(page, foldable)
     last_page = (page.self_and_siblings.last == page)
     lines = ""
-    case page.language_level
-
-      when 1 then
-        lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
-    	  return lines
-
-      when 2 then
-        # Erste Reihe leer oder Linie?
-        if page.parent == page.parent.self_and_siblings.last
-      		lines += '<span class="sitemap_line_spacer"></span>'
-        else
-      		lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
-      	end
-      	# zweite Reihe Mittellinie oder Endlinie?
-      	lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
-    	  return lines
-
-      when 3 then
-        # Erste Reihe leer oder Linie?
-        if page.parent.parent == page.parent.parent.self_and_siblings.last
-      	  lines += '<span class="sitemap_line_spacer"></span>'
-        else
-      		lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
-      	end
-        # zweite Reihe leer, oder Linie?
-        if page.parent == page.parent.self_and_siblings.last
-          lines += '<span class="sitemap_line_spacer"></span>'
-        else
-          lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
-      	end
-        # dritte Reihe Mittellinie, oder Endlinie?
-        lines += %(<span style="background-position: -#{last_page ? 60 : 15}px 0;" class="sitemap_line"></span>)
-    	  return lines
-
+    if page.language_level == 1
+      lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
+    elsif page.language_level == 2
+      # First row empty or line?
+      if page.parent == page.parent.self_and_siblings.last
+        lines += '<span class="sitemap_line_spacer"></span>'
+      else
+        lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
+      end
+      # Second row middleline or endline?
+      lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
+    elsif page.language_level == 3
+      # First row empty or line?
+      if page.parent.parent == page.parent.parent.self_and_siblings.last
+        lines += '<span class="sitemap_line_spacer"></span>'
+      else
+        lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
+      end
+      # Second row empty, or line?
+      if page.parent == page.parent.self_and_siblings.last
+        lines += '<span class="sitemap_line_spacer"></span>'
+      else
+        lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
+      end
+      # Third row middleline, or endline?
+      lines += %(<span style="background-position: -#{last_page ? 60 : 15}px 0;" class="sitemap_line"></span>)
     end
+    return lines
   end
   
   # Renders an image_tag with .png for file.suffix.

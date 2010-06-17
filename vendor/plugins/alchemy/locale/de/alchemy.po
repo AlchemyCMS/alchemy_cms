@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-17 20:41+0200\n"
+"POT-Creation-Date: 2010-06-17 22:19+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -173,6 +173,30 @@ msgstr "%{name} wurde gespeichert"
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
+#: app/views/admin/pages/_page_status.html.erb:1
+msgid "Page not public"
+msgstr "Seite nicht veröffentlicht"
+
+#: app/views/admin/pages/_page_status.html.erb:3
+msgid "Page not restricted"
+msgstr "Seite nicht geschützt"
+
+#: app/views/admin/pages/_page_status.html.erb:2
+msgid "Page not visible"
+msgstr "Seite nicht in der Navigation sichtbar"
+
+#: app/views/admin/pages/_page_status.html.erb:1
+msgid "Page public"
+msgstr "Seite veröffentlicht"
+
+#: app/views/admin/pages/_page_status.html.erb:3
+msgid "Page restricted"
+msgstr "Seite geschützt"
+
+#: app/views/admin/pages/_page_status.html.erb:2
+msgid "Page visible"
+msgstr "Seite in der Navigation sichtbar"
+
 #: locale/model_attributes.rb:35
 msgid "Page|Created at"
 msgstr "Erstellt Am"
@@ -257,7 +281,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
 "haben."
 
-#: app/controllers/application_controller.rb:136
+#: app/controllers/application_controller.rb:144
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
@@ -384,7 +408,7 @@ msgstr "Willkommen in Alchemy!"
 msgid "You are"
 msgstr "Sie sind"
 
-#: app/controllers/application_controller.rb:129
+#: app/controllers/application_controller.rb:137
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
@@ -508,7 +532,7 @@ msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 msgid "confirm_to_delete_page"
 msgstr "Wollen Sie diese Seite wirklich löschen?"
 
-#: app/views/admin/users/_user.html.erb:14
+#: app/views/admin/users/_user.html.erb:19
 msgid "confirm_to_delete_user"
 msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 
@@ -588,7 +612,7 @@ msgstr "Bild löschen."
 msgid "delete_page"
 msgstr "Seite löschen"
 
-#: app/views/admin/users/_user.html.erb:16
+#: app/views/admin/users/_user.html.erb:21
 msgid "delete_user"
 msgstr "Benutzer löschen"
 
@@ -626,8 +650,8 @@ msgstr "Dateieigenschaften bearbeiten"
 msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
-#: app/views/admin/pages/_layoutpage.html.erb:22
-#: app/views/admin/pages/_page.html.erb:51
+#: app/views/admin/pages/_layoutpage.html.erb:21
+#: app/views/admin/pages/_page.html.erb:48
 msgid "edit_page"
 msgstr "Seite bearbeiten"
 
@@ -638,8 +662,8 @@ msgstr "Seite bearbeiten"
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
-#: app/views/admin/users/_user.html.erb:25
-#: app/views/admin/users/_user.html.erb:31
+#: app/views/admin/users/_user.html.erb:30
+#: app/views/admin/users/_user.html.erb:36
 msgid "edit_user"
 msgstr "Benutzer bearbeiten"
 
@@ -716,7 +740,7 @@ msgstr "Wählen Sie alle %{name} aus, die Sie gleichzeitig hochladen wollen"
 msgid "explain_upload.step3"
 msgstr "Klicken Sie auf 'öffnen'. Das Hochladen beginnt!"
 
-#: app/models/user.rb:56
+#: app/models/user.rb:52
 msgid "female"
 msgstr "Frau"
 
@@ -840,7 +864,7 @@ msgstr "abmelden"
 msgid "mail_to"
 msgstr "Empfängeradresse"
 
-#: app/models/user.rb:55
+#: app/models/user.rb:51
 msgid "male"
 msgstr "Herr"
 
@@ -987,45 +1011,45 @@ msgstr "Seite schützen"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:167
+#: app/models/page.rb:157
 msgid "page_status_invisible_public"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
 
-#: app/models/page.rb:155
+#: app/models/page.rb:145
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
 "Diese Seite wird gerade bearbeitet."
 
-#: app/models/page.rb:170
+#: app/models/page.rb:160
 msgid "page_status_invisible_unpublic"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
 
-#: app/models/page.rb:158
+#: app/models/page.rb:148
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet"
 
-#: app/models/page.rb:161
+#: app/models/page.rb:151
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
 
-#: app/models/page.rb:149
+#: app/models/page.rb:139
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
 "wird gerade bearbeitet."
 
-#: app/models/page.rb:164
+#: app/models/page.rb:154
 msgid "page_status_visible_unpublic"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
-#: app/models/page.rb:152
+#: app/models/page.rb:142
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "

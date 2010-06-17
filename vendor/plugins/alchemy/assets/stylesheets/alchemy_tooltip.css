@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_tooltip.css */
+
 form.create_right {
 	float: left;
 	clear: both;
@@ -18,91 +20,77 @@ form.create_right {
 
 .alchemy_tooltip_nw {
 	background-color: #fff;
-	width: 2px;
-	height: 2px;
+	width: 0px;
+	height: 0px;
 	font-size: 0;
-	border-left: 2px solid #77aad5;
-	border-top: 2px solid #77aad5;
 }
 
 /* North border */
 
 .alchemy_tooltip_n {
 	background-color: #fff;
-	height: 2px;
+	height: 0px;
 	font-size: 0;
-	border-top: 2px solid #77aad5;
 }
 
 /* North-East corner */
 
 .alchemy_tooltip_ne {
 	background-color: #fff;
-	width: 2px;
-	height: 2px;
+	width: 0px;
+	height: 0px;
 	font-size: 0;
-	border-right: 2px solid #77aad5;
-	border-top: 2px solid #77aad5;
 }
 
 /* West border */
 
 .alchemy_tooltip_w {
 	background-color: #fff;
-	width: 2px;
+	width: 0px;
 	font-size: 0;
-	border-left: 2px solid #77aad5;
 }
 
 /* East border */
 
 .alchemy_tooltip_e {
 	background-color: #fff;
-	width: 2px;
+	width: 0px;
 	font-size: 0;
-	border-right: 2px solid #77aad5;
 }
 
 /* South-West corner */
 
 .alchemy_tooltip_sw {
 	background-color: #fff;
-	width: 2px;
-	height: 2px;
+	width: 0px;
+	height: 0px;
 	font-size: 0;
-	border-left: 2px solid #77aad5;
-	border-bottom: 2px solid #77aad5;
 }
 
 /* South border */
 
 .alchemy_tooltip_s {
 	background-color: #fff;
-	height: 2px;
+	height: 0;
 	font-size: 0;
-	border-bottom: 2px solid #77aad5;
 }
 
 /* South-East corner */
 
 .alchemy_tooltip_se {
 	background-color: #fff;
-	width: 2px;
-	height: 2px;
+	width: 0px;
+	height: 0px;
 	font-size: 0;
-	border-right: 2px solid #77aad5;
-	border-bottom: 2px solid #77aad5;
 }
 
 /* Resize button */
 
 .alchemy_tooltip_sizer {
 	background-color: #fff;
-	width: 2px;
-	height: 2px;
+	width: 0px;
+	height: 0px;
 	font-size: 0;
-	border-right: 2px solid #77aad5;
-	border-bottom: 2px solid #77aad5;
 }
 
 /* Close button */
@@ -121,9 +109,8 @@ form.create_right {
 
 .alchemy_tooltip_content {
 	color: #000;
-	background: #f4f4f4 url(../images/icons/information.png) no-repeat 4px 4px;
+	background: #f3f3e7 url(../images/icons/information.png) no-repeat 4px 4px;
 	overflow: auto;
-	opacity: 0.9;
 	font-size: 10px;
 }
 

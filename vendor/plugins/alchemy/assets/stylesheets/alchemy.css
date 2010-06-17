@@ -149,7 +149,6 @@ div#top_menu {
 #main_content {
 	background-color: #ededed;
 	position: absolute;
-	z-index: 8;
 	top: 0;
 	left: 84px;
 	height: 100%;
@@ -855,6 +854,7 @@ ul#layoutpages li {
 
 div.sitemap_left_images {
 	float: left;
+	height: 30px;
 }
 
 div.sitemap_right_tools {
@@ -959,8 +959,8 @@ ul.list li .sitemap_sitename:hover{
 	width: 16px;
 	height: 16px;
 	background: url('../images/icons/page.png') no-repeat 0 0;
-	margin-right: 3px;
-	margin-top: 6px;
+	margin-right: 4px;
+	margin-top: 7px;
 	margin-left: 1px;
 }
 
@@ -1063,7 +1063,7 @@ ul#sitemap li img {
 .sitemap_line {
 	float: left;
 	width: 15px;
-	height: 27px;
+	height: 30px;
 	margin: 0 2px 1px 4px;
 	background: url(../images/gui/sitemap_lines.png) no-repeat;
 }

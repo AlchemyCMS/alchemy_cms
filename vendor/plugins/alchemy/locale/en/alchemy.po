@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-17 20:41+0200\n"
+"POT-Creation-Date: 2010-06-17 22:19+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -170,6 +170,30 @@ msgstr "Page: '%{name}' saved."
 msgid "Page Preview"
 msgstr ""
 
+#: app/views/admin/pages/_page_status.html.erb:1
+msgid "Page not public"
+msgstr ""
+
+#: app/views/admin/pages/_page_status.html.erb:3
+msgid "Page not restricted"
+msgstr ""
+
+#: app/views/admin/pages/_page_status.html.erb:2
+msgid "Page not visible"
+msgstr ""
+
+#: app/views/admin/pages/_page_status.html.erb:1
+msgid "Page public"
+msgstr ""
+
+#: app/views/admin/pages/_page_status.html.erb:3
+msgid "Page restricted"
+msgstr ""
+
+#: app/views/admin/pages/_page_status.html.erb:2
+msgid "Page visible"
+msgstr ""
+
 #: locale/model_attributes.rb:35
 msgid "Page|Created at"
 msgstr "Created At"
@@ -252,7 +276,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/application_controller.rb:136
+#: app/controllers/application_controller.rb:144
 msgid "Please log in"
 msgstr ""
 
@@ -377,7 +401,7 @@ msgstr "Welcome to Alchemy"
 msgid "You are"
 msgstr ""
 
-#: app/controllers/application_controller.rb:129
+#: app/controllers/application_controller.rb:137
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
@@ -501,7 +525,7 @@ msgstr "Do you really want to delete this image from the server?"
 msgid "confirm_to_delete_page"
 msgstr "Do you really want to delete this page?"
 
-#: app/views/admin/users/_user.html.erb:14
+#: app/views/admin/users/_user.html.erb:19
 msgid "confirm_to_delete_user"
 msgstr "Do you really want to delete this user?"
 
@@ -581,7 +605,7 @@ msgstr "Remove this image."
 msgid "delete_page"
 msgstr "Delete this page."
 
-#: app/views/admin/users/_user.html.erb:16
+#: app/views/admin/users/_user.html.erb:21
 msgid "delete_user"
 msgstr "Delete this user."
 
@@ -619,8 +643,8 @@ msgstr "Edit Fileproperties"
 msgid "edit_image_properties"
 msgstr "Edit image properties."
 
-#: app/views/admin/pages/_layoutpage.html.erb:22
-#: app/views/admin/pages/_page.html.erb:51
+#: app/views/admin/pages/_layoutpage.html.erb:21
+#: app/views/admin/pages/_page.html.erb:48
 msgid "edit_page"
 msgstr "Edit this page."
 
@@ -631,8 +655,8 @@ msgstr "Edit this page."
 msgid "edit_page_properties"
 msgstr "Edit the page properties."
 
-#: app/views/admin/users/_user.html.erb:25
-#: app/views/admin/users/_user.html.erb:31
+#: app/views/admin/users/_user.html.erb:30
+#: app/views/admin/users/_user.html.erb:36
 msgid "edit_user"
 msgstr "Edit this users properties."
 
@@ -707,7 +731,7 @@ msgstr "Select all the %{name} you want to upload"
 msgid "explain_upload.step3"
 msgstr "Click the 'open' button. The upload starts!"
 
-#: app/models/user.rb:56
+#: app/models/user.rb:52
 msgid "female"
 msgstr "Female"
 
@@ -831,7 +855,7 @@ msgstr "logout"
 msgid "mail_to"
 msgstr "Recipient"
 
-#: app/models/user.rb:55
+#: app/models/user.rb:51
 msgid "male"
 msgstr "Male"
 
@@ -978,41 +1002,41 @@ msgstr "Page restricted"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:167
+#: app/models/page.rb:157
 msgid "page_status_invisible_public"
 msgstr "Page is invisible in navigation but public."
 
-#: app/models/page.rb:155
+#: app/models/page.rb:145
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Page is invisible in navigation but public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:170
+#: app/models/page.rb:160
 msgid "page_status_invisible_unpublic"
 msgstr "Page is invisible in navigation and unpublic."
 
-#: app/models/page.rb:158
+#: app/models/page.rb:148
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Page is invisible in navigation and unpublic. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:161
+#: app/models/page.rb:151
 msgid "page_status_visible_public"
 msgstr "Page is visible in navigation and public."
 
-#: app/models/page.rb:149
+#: app/models/page.rb:139
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Page is visible in navigation and public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:164
+#: app/models/page.rb:154
 msgid "page_status_visible_unpublic"
 msgstr "Page is visible in navigation but unpublic."
 
-#: app/models/page.rb:152
+#: app/models/page.rb:142
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Page is visible in navigation but unpublic. Page is currently locked for "

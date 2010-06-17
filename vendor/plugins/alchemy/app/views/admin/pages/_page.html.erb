@@ -24,19 +24,135 @@
 			<%- end -%>
 		<%- end -%>
 		<%- permitted_to?(:move, :admin_pages) do -%>
-		<%= render(
-			:partial => 'positioning_tools',
-			:locals => {
-				:page => page
-			}
-		) -%>
+		<span class="navigation_position_tools">
+			<%- if page.language_level > 1 -%>
+				<%= link_to_remote(
+					'',
+					:url => {
+						:controller => 'pages',
+						:action => "move",
+						:direction => 'left',
+						:id => page.id
+					},
+					:html => {
+						:title => _('move_level_up'),
+						:class => 'move_left'
+					}
+				) %>
+			<%- else -%>
+				<span class="move_left disabled" title="<%= _("disabled") %>"></span>
+			<%- end -%>
+			<%- if page.self_and_siblings.index(page) > 0 -%>
+				<%= link_to_remote(
+					'',
+					:url => {
+						:controller => 'pages',
+						:action => 'move',
+						:direction => 'up',
+						:id => page.id
+					},
+					:html => {
+						:title => _('move_position_up'),
+						:class => 'move_up'
+					}
+				) -%>
+			<%- else -%>
+				<span class="move_up disabled" title="<%= _("disabled") %>"></span>
+			<%- end -%>
+			<%- if page.self_and_siblings.index(page) < page.self_and_siblings.size - 1 && page.language_level != 0 -%>
+				<%= link_to_remote(
+					'',
+					:url => {
+						:controller => 'pages',
+						:action => 'move',
+						:direction => 'down',
+						:id => page.id
+					},
+					:html => {
+						:title => _('move_position_down'),
+						:class => 'move_down'
+					}
+				) %>
+			<%- else -%>
+				<span class="move_down disabled" title="<%= _("disabled") %>"></span>
+			<%- end -%>
+			<%- if page.self_and_siblings.index(page) > 0 && page.language_level < 3 -%>
+				<%- unless page.children.empty? -%>
+					<%- unless page.children.first.language_level > 2  -%>
+						<%= link_to_remote(
+							'',
+							:url => {
+								:controller => 'pages',
+								:action => 'move',
+								:direction => 'right',
+								:id => page.id
+							},
+							:html => {
+								:title => _('move_level_down'),
+								:class => 'move_right'
+							}
+						) %>
+					<%- else -%>
+						<span class="move_right disabled" title="<%= _("disabled") %>"></span>
+					<%- end -%>
+				<%- else -%>
+					<%= link_to_remote(
+						'',
+						:url => {
+							:controller => 'pages',
+							:action => 'move',
+							:direction => 'right',
+							:id => page.id
+						},
+						:html => {
+							:title => _('move_level_down'),
+							:class => 'move_right'
+						}
+					) %>
+				<%- end -%>
+			<%- else -%>
+				<span class="move_right disabled" title="<%= _("disabled") %>"></span>
+			<%- end -%>
+		</span>
 		<%- end -%>
-		<%= render(
-			:partial => 'page_tools',
-			:locals => {
-				:page => page
-			}
-		) -%>
+		<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
+		<span class="sitemap_sitetools">
+			<%- unless page.is_root?(session[:language]) -%>
+			<%- permitted_to?(:destroy, :admin_pages) do -%>
+			<%= delete_with_confirmation_link(
+					"<span class='icon delete_page'></span>",
+					_("confirm_to_delete_page"),
+					url_for(
+						:controller => 'pages',
+						:action => 'destroy',
+						:id => page.id
+					),
+					{
+						:class => "icon_button",
+						:title => _("delete_page")
+					}
+				) -%>
+			<%- end -%>
+			<%- else -%>
+				<span class="icon_spacer"></span>
+			<%- end -%>
+			<%- if page.language_level < 3 -%>
+				<%- permitted_to?(:new, :admin_pages) do -%>
+				<%= link_to_overlay_window(
+					"<span class='icon add_page'></span>",
+					new_admin_page_path(:parent_id => page.id),
+					{
+						:title => _('create_page'),
+						:size => '275x90',
+						:overflow => true
+					},
+					:class => 'icon_button',
+					:title => _('create_page')
+				) -%>
+				<%- end -%>
+			<%- end -%>
+		</span>
+		<%- end -%>
 	</div>
 	<div class="page_infos">
 		<%= render :partial => 'page_status', :locals => {:page => page} %>

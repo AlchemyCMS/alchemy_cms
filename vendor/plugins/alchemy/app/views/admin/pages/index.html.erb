@@ -9,11 +9,11 @@
 <ul id="sitemap" class="list">
 	<li class="legend">
 		<span class="right">
-			<%- permitted_to?(:move, :pages) do -%>
+			<%- permitted_to?(:move, :admin_pages) do -%>
 			<span class="page_infos">
-				Infos
+				<%= _('Infos') %>
 			</span>
-			<span class="page_move">Bewegen</span>
+			<span class="page_move"><%= _('Move') %></span>
 			<%- end -%>
 		</span>
 		<span class="page_name">
@@ -28,7 +28,8 @@
 // <![CDATA[
 	TooltipManager.init(
 		"tooltip",
-		"", {
+		"",
+		{
 			showEffect: Element.show,
 			hideEffect: Element.hide,
 			className: "alchemy_tooltip",
