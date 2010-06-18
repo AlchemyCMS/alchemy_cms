@@ -197,16 +197,19 @@ class Admin::PagesController < ApplicationController
   
   def sort
     params['page_3_children'].keys.each do |page_id|
-      page = Page.find(page_id)
+      @page = Page.find(page_id)
       if !params['page_3_children'][page_id]['left_id'].blank?
         left = Page.find(params['page_3_children'][page_id]['left_id'])
-        page.move_to_right_of(left)
+        @page.move_to_right_of(left)
       elsif !params['page_3_children'][page_id]['parent_id'].blank?
         new_parent = Page.find(params['page_3_children'][page_id]['parent_id'])
-        page.move_to_child_of(new_parent)
+        @page.move_to_child_of(new_parent)
       end
     end
-    render :nothing => true
+    name = @page.name
+    render :update do |page|
+      Alchemy::Notice.show_via_ajax(page, _("Page %{name} moved") % {:name => name})
+    end
   end
   
   def switch_language

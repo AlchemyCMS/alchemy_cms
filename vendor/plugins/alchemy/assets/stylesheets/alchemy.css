@@ -846,23 +846,22 @@ ul#sitemap ul {
 ul#sitemap li,
 ul#layoutpages li {
 	list-style-type: none;
-	margin: 0;
-	line-height: 14px;
 	display: block;
-	padding-right: 0;
-	padding-left: 22px;
-	clear: both;
+	padding: 0;
+	overflow: hidden;
+	margin: 0 0 0 22px;
 }
 
 div.sitemap_left_images {
 	float: left;
-	height: 30px;
+	margin-top: 4px;
 }
 
 div.sitemap_right_tools {
 	margin-left: 8px;
 	float: right;
 	padding: 1px;
+	margin-top: 4px;
 }
 
 ul#sitemap li .sitemap_toolrow,
@@ -880,12 +879,11 @@ ul.list .sitemap_sitename {
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	margin-left: 0;
-	margin-top: 4px;
-	margin-bottom: 4px;
 	padding: 0 0 0 4px;
 	line-height: 22px;
 	overflow: hidden;
-	height: 22px;
+	margin-bottom: 4px;
+	margin-top: 4px;
 }
 
 #sitemap li.legend span.page_name {
@@ -903,6 +901,7 @@ div.page_infos {
 	height: 18px;
 	float: right;
 	margin-left: 2px;
+	margin-top: 4px;
 }
 
 .page_status {

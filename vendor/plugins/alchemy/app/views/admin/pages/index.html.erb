@@ -40,7 +40,18 @@
 		$$('#sitemap .draggable')[0],
 		{
 			onDrop: function(drag, drop, event) {
-				new Ajax.Request('/admin/pages/sort', {postBody: drag.to_params()});
+				pleaseWaitOverlay();
+				new Ajax.Request(
+					'/admin/pages/sort',
+					{
+						postBody: drag.to_params(),
+						onComplete: function () {
+							var overlay = $('overlay');
+							if (overlay)
+								overlay.style.visibility = 'hidden';
+						}
+					}
+				);
 			}
 		}
 	);
