@@ -1,6 +1,6 @@
 <li id="page_<%= page.id %>">
 	<div class="sitemap_left_images">
-		<%= render_sitemap_lines(page, !page.children.blank?) %>
+		<%#= render_sitemap_lines(page, !page.children.blank?) %>
 		<%= render(
 			:partial => 'page_icon',
 			:locals => {
@@ -22,98 +22,6 @@
 				:title => _('edit_page_properties')
 			) -%>
 			<%- end -%>
-		<%- end -%>
-		<%- permitted_to?(:move, :admin_pages) do -%>
-		<span class="navigation_position_tools">
-			<%- if page.language_level > 1 -%>
-				<%= link_to_remote(
-					'',
-					:url => {
-						:controller => 'pages',
-						:action => "move",
-						:direction => 'left',
-						:id => page.id
-					},
-					:html => {
-						:title => _('move_level_up'),
-						:class => 'move_left'
-					}
-				) %>
-			<%- else -%>
-				<span class="move_left disabled" title="<%= _("disabled") %>"></span>
-			<%- end -%>
-			<%- if page.self_and_siblings.index(page) > 0 -%>
-				<%= link_to_remote(
-					'',
-					:url => {
-						:controller => 'pages',
-						:action => 'move',
-						:direction => 'up',
-						:id => page.id
-					},
-					:html => {
-						:title => _('move_position_up'),
-						:class => 'move_up'
-					}
-				) -%>
-			<%- else -%>
-				<span class="move_up disabled" title="<%= _("disabled") %>"></span>
-			<%- end -%>
-			<%- if page.self_and_siblings.index(page) < page.self_and_siblings.size - 1 && page.language_level != 0 -%>
-				<%= link_to_remote(
-					'',
-					:url => {
-						:controller => 'pages',
-						:action => 'move',
-						:direction => 'down',
-						:id => page.id
-					},
-					:html => {
-						:title => _('move_position_down'),
-						:class => 'move_down'
-					}
-				) %>
-			<%- else -%>
-				<span class="move_down disabled" title="<%= _("disabled") %>"></span>
-			<%- end -%>
-			<%- if page.self_and_siblings.index(page) > 0 && page.language_level < 3 -%>
-				<%- unless page.children.empty? -%>
-					<%- unless page.children.first.language_level > 2  -%>
-						<%= link_to_remote(
-							'',
-							:url => {
-								:controller => 'pages',
-								:action => 'move',
-								:direction => 'right',
-								:id => page.id
-							},
-							:html => {
-								:title => _('move_level_down'),
-								:class => 'move_right'
-							}
-						) %>
-					<%- else -%>
-						<span class="move_right disabled" title="<%= _("disabled") %>"></span>
-					<%- end -%>
-				<%- else -%>
-					<%= link_to_remote(
-						'',
-						:url => {
-							:controller => 'pages',
-							:action => 'move',
-							:direction => 'right',
-							:id => page.id
-						},
-						:html => {
-							:title => _('move_level_down'),
-							:class => 'move_right'
-						}
-					) %>
-				<%- end -%>
-			<%- else -%>
-				<span class="move_right disabled" title="<%= _("disabled") %>"></span>
-			<%- end -%>
-		</span>
 		<%- end -%>
 		<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
 		<span class="sitemap_sitetools">
@@ -166,7 +74,7 @@
 		) -%>
 	</div>
 	<%- unless page.folded?(current_user) && page.children.empty? -%>
-		<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="dragable">
+		<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="draggable">
 			<%= render :partial => 'page', :collection => page.children %>
 		</ul>
 	<%- end -%>

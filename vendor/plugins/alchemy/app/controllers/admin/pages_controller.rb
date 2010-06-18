@@ -196,7 +196,17 @@ class Admin::PagesController < ApplicationController
   end
   
   def sort
-    #
+    params['page_3_children'].keys.each do |page_id|
+      page = Page.find(page_id)
+      if !params['page_3_children'][page_id]['left_id'].blank?
+        left = Page.find(params['page_3_children'][page_id]['left_id'])
+        page.move_to_right_of(left)
+      elsif !params['page_3_children'][page_id]['parent_id'].blank?
+        new_parent = Page.find(params['page_3_children'][page_id]['parent_id'])
+        page.move_to_child_of(new_parent)
+      end
+    end
+    render :nothing => true
   end
   
   def switch_language

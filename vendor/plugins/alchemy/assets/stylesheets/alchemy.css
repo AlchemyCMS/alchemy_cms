@@ -849,11 +849,9 @@ ul#layoutpages li {
 	margin: 0;
 	line-height: 14px;
 	display: block;
-	padding-left: 0;
 	padding-right: 0;
-	float: left;
+	padding-left: 22px;
 	clear: both;
-	width: 100%;
 }
 
 div.sitemap_left_images {
@@ -862,10 +860,9 @@ div.sitemap_left_images {
 }
 
 div.sitemap_right_tools {
+	margin-left: 8px;
 	float: right;
-	margin-bottom: 0;
-	margin-left: 4px;
-	margin-top: 5px;
+	padding: 1px;
 }
 
 ul#sitemap li .sitemap_toolrow,
@@ -897,15 +894,15 @@ ul.list .sitemap_sitename {
 }
 
 div.page_infos {
-	float: right;
 	padding: 2px;
 	width: 66px;
-	margin: 4px;
 	background-color: white;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	height: 18px;
+	float: right;
+	margin-left: 2px;
 }
 
 .page_status {
@@ -964,8 +961,8 @@ ul.list li .sitemap_sitename:hover{
 	height: 16px;
 	background: url('../images/icons/page.png') no-repeat 0 0;
 	margin-right: 4px;
-	margin-top: 7px;
 	margin-left: 1px;
+	margin-top: 3px;
 }
 
 .site_status.locked {
@@ -1473,22 +1470,34 @@ ul.list {
 	margin: 0;
 	padding: 8px;
 	list-style-type: none;
-	overflow: auto;
-	clear: both;
 }
 
 ul#sitemap.list {
-	padding: 16px;
+	padding: 16px 16px 16px 0;
+}
+
+#sitemap .drop_hover {
+	background: url(../images/gui/drag.png) no-repeat bottom left;
+}
+
+#sitemap .drop_top {
+	background-position: top left;
+}
+
+#sitemap .drop_bottom {
+	background-position: bottom left;
+}
+
+#sitemap .drop_insert {
+	background-position: 20px 100%;
 }
 
 ul.list li {
-	width: 100%;
 	list-style-type: none;
 	min-height: 26px;
-	display: block;
-	clear: both;
 	border-width: 0;
 	border-style: none;
+	display: block;
 }
 
 ul.list li.legend {

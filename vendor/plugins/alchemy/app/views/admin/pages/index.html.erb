@@ -9,20 +9,17 @@
 <ul id="sitemap" class="list">
 	<li class="legend">
 		<span class="right">
-			<%- permitted_to?(:move, :admin_pages) do -%>
 			<span class="page_infos">
 				<%= _('Infos') %>
 			</span>
-			<span class="page_move"><%= _('Move') %></span>
-			<%- end -%>
 		</span>
 		<span class="page_name">
-			Name
+			<%= _('Name') %>
 		</span>
 	</li>
 	<%= render :partial => 'page', :object => @page_root %>
 </ul>
-
+<div id="log"></div>
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
@@ -39,6 +36,15 @@
 			resizable: false
 		}
 	);
+	var tree = new SortableTree(
+		$$('#sitemap .draggable')[0],
+		{
+			onDrop: function(drag, drop, event) {
+				new Ajax.Request('/admin/pages/sort', {postBody: drag.to_params()});
+			}
+		}
+	);
+	tree.setSortable();
 // ]]>
 </script>
 <%- end -%>

@@ -120,10 +120,10 @@ function zoomImage(url, title, width, height) {
 	var window_height = height;
 	var window_width = width;
 	if (width > document.viewport.getWidth()) {
-		window_width = document.viewport.getWidth() - 30;
+		window_width = document.viewport.getWidth() - 50;
 	}
 	if (height > document.viewport.getHeight()) {
-		window_height = document.viewport.getHeight() - 50;
+		window_height = document.viewport.getHeight() - 100;
 	}
 	image_window = new Window({
 		className: "alchemy_window",

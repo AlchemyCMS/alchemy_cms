@@ -1,8 +1,7 @@
 <%- alchemy_assets_set(:sitemap) -%>
-
-<div id="toolbar">
-	&nbsp;
-</div>
+<%- content_for :toolbar do -%>
+<div id="toolbar"></div>
+<%- end -%>
 <ul class="list" id="layoutpages">
 	<%= render :partial => "layoutpage", :collection => @layout_root.children %>
 </ul>

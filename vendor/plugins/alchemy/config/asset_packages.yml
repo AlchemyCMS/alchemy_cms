@@ -25,6 +25,8 @@ javascripts:
    - alchemy_selectbox
    - alchemy_frame_set
    - tooltip
+   - dragdrop
+   - sortable_tree
 - edit_page:
    - prototype
    - effects
