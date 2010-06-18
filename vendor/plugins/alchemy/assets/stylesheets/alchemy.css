@@ -97,10 +97,9 @@ div#overlay_text_box img {
 }
 
 div#top_menu {
-	position: absolute;
+	position: fixed;
 	top: 0;
-	left: 0;
-	width: 100%;
+	left: 84px;
 	z-index: 5;
 }
 
@@ -108,10 +107,11 @@ div#top_menu {
 	white-space: nowrap;
 	z-index: 0;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 84px;
+	overflow: hidden;
 }
 
 #main_menu_background {
@@ -150,17 +150,20 @@ div#top_menu {
 	background-color: #ededed;
 	position: absolute;
 	top: 0;
-	left: 84px;
+	left: 0;
 	height: 100%;
 	width: 100%;
+	margin-left: 84px;
+	margin-top: 90px;
 }
 
 div#user_info {
 	position: absolute;
 	z-index: 10;
-	right: 10px;
 	line-height: 27px;
 	font-size: 11px;
+	right: 10px;
+	top: 0;
 }
 
 div#user_signup {
@@ -184,7 +187,7 @@ div#user_signup {
 
 div#sideboard {
 	float: right;
-	width: 400px;
+	width: 190px;
 }
 
 div#license {
@@ -522,22 +525,21 @@ div#page {
 }
 
 .picture_tool_delete {
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
 	position: absolute;
-	bottom: 0;
-	left: 0;
 	display: none;
 	background-color: white;
-	padding-right: 2px;
-	padding-top: 1px;
+	top: 0;
+	right: 0;
+	padding: 1px;
 }
 
 .picture_image .picture_tool_delete a{
 	display: block;
 	width: 18px;
 	height: 18px;
-	background: url(../images/icons/trash.png) no-repeat 1px 0;
+	background: url(../images/icons/remove.png) no-repeat 1px 0;
 	cursor: pointer;
 }
 
@@ -585,6 +587,8 @@ a.hide_element_selector {
 	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x;
 	border-bottom: 1px solid #afafaf;
 	padding-top: 4px;
+	z-index: 5;
+	position: relative;
 }
 
 #sub_navigation img {
@@ -758,7 +762,7 @@ img.link_arrow_left {
 	text-align: center;
 	overflow: hidden;
 	display: block;
-	width: 80px;
+	width: 79px;
 	background: #cdcdcd;
 	padding-top: 8px;
 	-webkit-border-top-left-radius: 7px 7px;
@@ -1209,12 +1213,10 @@ div#user_list_legend {
 }
 
 #toolbar {
-	position: relative;
-	z-index: 11;
+	z-index: 10;
 	padding: 12px 8px;
 	height: 36px;
 	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 42px;
-	margin-left: 8px;
 	margin-right: 8px;
 	border: 1px solid #afafaf;
 	border-top-style: none;
@@ -1222,6 +1224,8 @@ div#user_list_legend {
 	-moz-border-radius: 0 0 7px 7px;
 	-o-border-radius: 0 0 7px 7px;
 	border-radius: 0 0 7px 7px;
+	position: relative;
+	margin-left: 8px;
 }
 
 #toolbar form {
@@ -1428,7 +1432,7 @@ table.list {
 	width: 100%;
 	border-style: none;
 	border-spacing: 0 4px;
-	padding: 8px;
+	padding: 0;
 }
 
 table.list td,
@@ -1700,9 +1704,9 @@ a.button:active,
 	border-width: 1px;
 	padding: 1px;
 	height: 15px;
-	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	margin: 0 0 8px 0;
 	width: 108px;
+	font: 12px "Courier New", Courier, mono;
 }
 
 form.add_gallery_to_index select {
@@ -1712,8 +1716,7 @@ form.add_gallery_to_index select {
 }
 
 #archive_all {
-	padding: 8px;
-	overflow: visible;
+	padding: 16px;
 	margin-top: 8px;
 }
 
@@ -1731,7 +1734,7 @@ form.add_gallery_to_index select {
 
 div#archive_all .picture_detail {
 	padding: 2px 0 0;
-	margin: 0 8px 8px 0;
+	margin: 0 16px 16px 0;
 	height: 118px;
 	width: 118px;
 }
@@ -1749,8 +1752,8 @@ div#archive_all .picture_detail {
 	bottom: 3px;
 	left: 4px;
 	cursor: text;
-	font: 11px/10px "Comic Sans MS", "Marker Felt", serif;
-	text-transform: uppercase;
+	font-family: "Courier New", Courier, mono;
+	line-height: 11px;
 }
 
 div.archive_image_spinner {
@@ -2251,6 +2254,8 @@ div.pagination {
 	text-align: center;
 	line-height: 24px;
 	height: 24px;
+	width: 100%;
+	margin-bottom: 8px;
 }
 
 div.pagination .prev_page {
@@ -2277,6 +2282,10 @@ div.pagination span {
 }
 
 div.pagination a:hover {
+	background-color: #e6f0f5;
+	color: #666;
+	border: 1px solid #888;
+	text-shadow: 0 1px 4px #fff;
 	text-decoration: none;
 }
 

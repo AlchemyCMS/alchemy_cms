@@ -1,4 +1,5 @@
 <%- alchemy_assets_set(:archive) -%>
+<%- content_for(:toolbar) do -%>
 <div id="toolbar">
 	<%- permitted_to?(:new, :admin_images) do -%>
 	<div id="toolbar_buttons">
@@ -23,7 +24,7 @@
 	</div>
 	<%= render :partial => 'admin/partials/search_form' %>
 </div>
-
+<%- end -%>
 <div id="archive_all">
 	<%= render :partial => 'images_list' %>
 </div>

@@ -31,7 +31,7 @@ function openPreviewWindow (id, title) {
 		maximizable: false,
 		minimizable: false,
 		resizable: true,
-		draggable: false,
+		draggable: true,
 		zIndex: 30000,
 		closable: false,
 		destroyOnClose: true,

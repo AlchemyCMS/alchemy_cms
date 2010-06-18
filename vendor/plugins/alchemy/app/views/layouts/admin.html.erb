@@ -35,12 +35,15 @@
 				<% end %>
 			</div>
 		</div>
-		<%= render :partial => 'admin/partials/flash_notice' %>
-		<div id="user_info">
-			<%= _('You are') %> <%= current_user.name %>
+		<div id="top_menu">
+			<%= yield(:subnavi) || admin_subnavigation %>
+			<%= yield(:toolbar) %>
+			<div id="user_info">
+				<%= _('You are') %> <%= current_user.name %>
+			</div>
 		</div>
+		<%= render :partial => 'admin/partials/flash_notice' %>
 		<div id="main_content">
-			<%= admin_subnavigation %>
 			<%= yield %>
 		</div>
 		<%= yield(:javascripts) %>

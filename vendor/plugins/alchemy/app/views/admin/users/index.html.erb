@@ -1,4 +1,5 @@
 <%- alchemy_assets_set(:default) -%>
+<%- content_for(:toolbar) do -%>
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
@@ -21,18 +22,20 @@
 	</div>
 	<%= render :partial => 'admin/partials/search_form' %>
 </div>
-
-<table class="list" id="user_list">
-	<%- unless @users.blank? -%>
-	<tr>
-		<th class="icon"></th>
-		<th class="login_status"></th>
-		<th class="login"><%= User.human_attribute_name("login") %></th>
-		<th class="name"><%= User.human_attribute_name("name") %></th>
-		<th class="email"><%= User.human_attribute_name("email") %></th>
-		<th class="role"><%= User.human_attribute_name("role") %></th>
-		<th class="tools"></th>
-	</tr>
-	<%- end -%>
-	<%= render @users %>
-</table>
+<%- end -%>
+<div id="archive_all">
+	<table class="list" id="user_list">
+		<%- unless @users.blank? -%>
+		<tr>
+			<th class="icon"></th>
+			<th class="login_status"></th>
+			<th class="login"><%= User.human_attribute_name("login") %></th>
+			<th class="name"><%= User.human_attribute_name("name") %></th>
+			<th class="email"><%= User.human_attribute_name("email") %></th>
+			<th class="role"><%= User.human_attribute_name("role") %></th>
+			<th class="tools"></th>
+		</tr>
+		<%- end -%>
+		<%= render @users %>
+	</table>
+</div>

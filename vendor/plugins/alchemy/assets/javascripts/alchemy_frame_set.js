@@ -1,15 +1,15 @@
 var AlchemyFrameSet = Class.create({
 	
-	initialize: function(element) {
+	initialize: function() {
 		var defaults = {
-			top: 0,
+			top: 90,
 			left: 84,
-			right: 0,
-			preview_top_menu: 84
+			right: 0
 		};
-		var options = Object.extend(defaults, arguments[1] || { });
+		var options = Object.extend(defaults, arguments[0] || { });
 		this.options = options;
-		this.element = $(element);
+		this.mainFrame = $('main_content');
+		this.topFrame = $('top_menu');
 		this.addObservers();
 		this.resize();
 	},
@@ -27,14 +27,17 @@ var AlchemyFrameSet = Class.create({
 	updateSize: function () {
 		var view_height = document.viewport.getDimensions().height;
 		var view_width = document.viewport.getDimensions().width;
-		var height = view_height - this.options.top;
+		var mainFrameHeight = view_height - this.options.top;
+		var topFrameHeight = this.options.top;
 		var width = view_width - this.options.left - this.options.right;
-		this.element.setStyle({
+		this.mainFrame.setStyle({
 			width: width + 'px',
-			height: height + 'px'
+			height: mainFrameHeight + 'px'
 		});
-		this.content_height = height;
-		this.content_width = width;
+		this.topFrame.setStyle({
+			width: width + 'px',
+			height: topFrameHeight + 'px'
+		});
 	}
 	
 });

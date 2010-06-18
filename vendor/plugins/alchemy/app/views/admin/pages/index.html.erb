@@ -1,11 +1,11 @@
 <%- alchemy_assets_set(:sitemap) -%>
-
+<%- content_for :toolbar do -%>
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<%= render :partial => 'language_selector' if configuration(:languages).size > 1 %>
 	</div>
 </div>
-
+<%- end -%>
 <ul id="sitemap" class="list">
 	<li class="legend">
 		<span class="right">
