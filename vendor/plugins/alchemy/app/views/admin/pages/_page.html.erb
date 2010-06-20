@@ -1,50 +1,50 @@
-<li id="page_<%= page.id %>">
-	<div class="sitemap_left_images">
-		<%#= render_sitemap_lines(page, !page.children.blank?) %>
-		<%= render(
-			:partial => 'page_icon',
-			:locals => {
-				:page => page
-			}
-		) -%>
-	</div>
-	<div class="sitemap_right_tools">
-		<%- if !page.layoutpage? -%>
-			<%- permitted_to?(:configure, :admin_pages) do -%>
-			<%= link_to_overlay_window(
-				"<span class='icon configure_page'></span>",
-				configure_admin_page_path(page),
-				{
-					:title => _('edit_page_properties'),
-					:size => '380x490'
-				},
-				:class => 'icon_button',
-				:title => _('edit_page_properties')
+<li id="page_<%= page.id %>" class="page_level_<%= page.level %>">
+	<div class="sitemap_page">
+		<div class="sitemap_left_images">
+			<%= sitemapFolderLink(page, _('Show/Hide Childpages')) if !page.children.blank? %>
+			<%= render(
+				:partial => 'page_icon',
+				:locals => {
+					:page => page
+				}
 			) -%>
-			<%- end -%>
-		<%- end -%>
-		<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
-		<span class="sitemap_sitetools">
-			<%- unless page.is_root?(session[:language]) -%>
-			<%- permitted_to?(:destroy, :admin_pages) do -%>
-			<%= delete_with_confirmation_link(
-					"<span class='icon delete_page'></span>",
-					_("confirm_to_delete_page"),
-					url_for(
-						:controller => 'pages',
-						:action => 'destroy',
-						:id => page.id
-					),
+		</div>
+		<div class="sitemap_right_tools">
+			<%- if !page.layoutpage? -%>
+				<%- permitted_to?(:configure, :admin_pages) do -%>
+				<%= link_to_overlay_window(
+					"<span class='icon configure_page'></span>",
+					configure_admin_page_path(page),
 					{
-						:class => "icon_button",
-						:title => _("delete_page")
-					}
+						:title => _('edit_page_properties'),
+						:size => '380x490'
+					},
+					:class => 'icon_button',
+					:title => _('edit_page_properties')
 				) -%>
+				<%- end -%>
 			<%- end -%>
-			<%- else -%>
-				<span class="icon_spacer"></span>
-			<%- end -%>
-			<%- if page.language_level < 3 -%>
+			<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
+			<span class="sitemap_sitetools">
+				<%- unless page.is_root?(session[:language]) -%>
+				<%- permitted_to?(:destroy, :admin_pages) do -%>
+				<%= delete_with_confirmation_link(
+						"<span class='icon delete_page'></span>",
+						_("confirm_to_delete_page"),
+						url_for(
+							:controller => 'pages',
+							:action => 'destroy',
+							:id => page.id
+						),
+						{
+							:class => "icon_button",
+							:title => _("delete_page")
+						}
+					) -%>
+				<%- end -%>
+				<%- else -%>
+					<span class="icon_spacer"></span>
+				<%- end -%>
 				<%- permitted_to?(:new, :admin_pages) do -%>
 				<%= link_to_overlay_window(
 					"<span class='icon add_page'></span>",
@@ -58,24 +58,24 @@
 					:title => _('create_page')
 				) -%>
 				<%- end -%>
+			</span>
 			<%- end -%>
-		</span>
-		<%- end -%>
-	</div>
-	<div class="page_infos">
-		<%= render :partial => 'page_status', :locals => {:page => page} %>
-	</div>
-	<div class="sitemap_sitename">
-		<%= link_to(
-			page.name,
-			edit_admin_page_path(page),
-			:title => _("edit_page"),
-			:class => "sitemap_pagename_link"
-		) -%>
+		</div>
+		<div class="page_infos">
+			<%= render :partial => 'page_status', :locals => {:page => page} %>
+		</div>
+		<div class="sitemap_sitename">
+			<%= link_to(
+				page.name,
+				edit_admin_page_path(page),
+				:title => _("edit_page"),
+				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+			) -%>
+		</div>
 	</div>
 	<%- unless page.folded?(current_user) && page.children.empty? -%>
-		<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="draggable">
-			<%= render :partial => 'page', :collection => page.children %>
-		</ul>
+	<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="draggable">
+		<%= render :partial => 'page', :collection => page.children %>
+	</ul>
 	<%- end -%>
 </li>

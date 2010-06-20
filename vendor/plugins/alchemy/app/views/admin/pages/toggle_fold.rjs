@@ -1,1 +1,0 @@
-page.replace "element_#{@element.id}", :partial => "elements/#{@element.name.underscore}_editor", :locals => {:element => @element}

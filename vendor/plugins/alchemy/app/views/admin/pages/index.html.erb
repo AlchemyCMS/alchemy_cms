@@ -1,4 +1,5 @@
 <%- alchemy_assets_set(:sitemap) -%>
+
 <%- content_for :toolbar do -%>
 <div id="toolbar">
 	<div id="toolbar_buttons">
@@ -6,20 +7,18 @@
 	</div>
 </div>
 <%- end -%>
-<ul id="sitemap" class="list">
-	<li class="legend">
-		<span class="right">
-			<span class="page_infos">
-				<%= _('Infos') %>
-			</span>
-		</span>
-		<span class="page_name">
-			<%= _('Name') %>
-		</span>
-	</li>
-	<%= render :partial => 'page', :object => @page_root %>
-</ul>
-<div id="log"></div>
+
+<h2 id="sitemap_heading">
+	<span class="page_name"><%= _('Name') %></span>
+	<span class="page_infos"><%= _('Status') %></span>
+</h2>
+
+<%= render :partial => 'sitemap' %>
+
+<p class="footnote">
+	<%= _('Explain|Sitemap|Dragndrop sorting') %>
+</p>
+
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
@@ -36,26 +35,6 @@
 			resizable: false
 		}
 	);
-	var tree = new SortableTree(
-		$$('#sitemap .draggable')[0],
-		{
-			onDrop: function(drag, drop, event) {
-				pleaseWaitOverlay();
-				new Ajax.Request(
-					'/admin/pages/sort',
-					{
-						postBody: drag.to_params(),
-						onComplete: function () {
-							var overlay = $('overlay');
-							if (overlay)
-								overlay.style.visibility = 'hidden';
-						}
-					}
-				);
-			}
-		}
-	);
-	tree.setSortable();
 // ]]>
 </script>
 <%- end -%>

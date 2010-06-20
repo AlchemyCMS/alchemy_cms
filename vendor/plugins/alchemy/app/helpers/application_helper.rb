@@ -589,7 +589,7 @@ module ApplicationHelper
   
   # Renders the same html structure like the render_navigation() helper, but renders only child pages from current_page.
   # Shows the child pages of the active child page as default.
-  # Take this helpr if you want to render the subnavigation independent from the mainnavigation. E.g. to place it in a different <div> on your page.
+  # Take this helper if you want to render the subnavigation independent from the mainnavigation. E.g. to place it in a different <div> on your page.
   def render_subnavigation options = {}
     default_options = {
       :submenu => true,
@@ -604,11 +604,11 @@ module ApplicationHelper
       logger.warn("WARNING: No page for subnavigation found!")
       return ""
     else
-      if options[:from_page].language_level == 1
+      if options[:from_page].level == 2
         pages = options[:from_page].children
-      elsif options[:from_page].language_level == 2
+      elsif options[:from_page].level == 3
         pages = options[:from_page].parent.children
-      elsif options[:from_page].language_level == 3
+      elsif options[:from_page].level == 4
         pages = options[:from_page].parent.self_and_siblings
       else
         pages = options[:from_page].self_and_siblings
@@ -658,75 +658,26 @@ module ApplicationHelper
     )
   end
   
-  # Used for rendering the folder link in Admin.index sitemap.
-  def render_sitemap_folder(site, image_pos, foldable = true)
-    if foldable
-      x_pos = (image_pos + 1 + (site.folded?(current_user.id) ? 1 : 0)) * 15
-    else
-      x_pos = image_pos * 15
-    end
-    style = "background-position: -#{x_pos}px 0;"
-    line_image = %(
-      <span style="#{style}" class="sitemap_line"></span>
+  # Used for rendering the folder link in Admin::Pages.index sitemap.
+  def sitemapFolderLink(page, title)
+    return '' if page.level == 1
+    css_class = page.folded?(current_user.id) ? 'folded' : 'collapsed'
+    link_to_remote(
+      '',
+      :url => {
+        :controller => 'admin/pages',
+        :action => :fold,
+        :id => page.id
+      },
+      :complete => %(
+        foldPage(#{page.id})
+      ),
+      :html => {
+        :class => "page_folder #{css_class}",
+        :title => title,
+        :id => "fold_button_#{page.id}"
+      }
     )
-    if foldable && !site.children.empty?
-      link_to_remote('',
-        :url => {
-          :controller => :pages,
-          :action => :fold,
-          :id => site.id
-        },
-        :complete => %(
-          fold_page(#{site.id});
-          alchemy_window.updateHeight();
-          if (page_select_scrollbar) {
-            page_select_scrollbar.recalculateLayout();
-          }
-        ),
-        :html => {
-          :class => "sitemap_line folder_link",
-          :title => "Unterseiten anzeigen/verstecken",
-          :style => style,
-          :id => "fold_button_#{site.id}"
-        }
-      )
-    else
-      line_image
-    end
-  end
-
-  # Renders the sitemap lines for Admin::Pages.index
-  def render_sitemap_lines(page, foldable)
-    last_page = (page.self_and_siblings.last == page)
-    lines = ""
-    if page.language_level == 1
-      lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
-    elsif page.language_level == 2
-      # First row empty or line?
-      if page.parent == page.parent.self_and_siblings.last
-        lines += '<span class="sitemap_line_spacer"></span>'
-      else
-        lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
-      end
-      # Second row middleline or endline?
-      lines += render_sitemap_folder(page, (last_page ? 4 : 1), foldable)
-    elsif page.language_level == 3
-      # First row empty or line?
-      if page.parent.parent == page.parent.parent.self_and_siblings.last
-        lines += '<span class="sitemap_line_spacer"></span>'
-      else
-        lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
-      end
-      # Second row empty, or line?
-      if page.parent == page.parent.self_and_siblings.last
-        lines += '<span class="sitemap_line_spacer"></span>'
-      else
-        lines += '<span style="background-position: 0 0;" class="sitemap_line"></span>'
-      end
-      # Third row middleline, or endline?
-      lines += %(<span style="background-position: -#{last_page ? 60 : 15}px 0;" class="sitemap_line"></span>)
-    end
-    return lines
   end
   
   # Renders an image_tag with .png for file.suffix.

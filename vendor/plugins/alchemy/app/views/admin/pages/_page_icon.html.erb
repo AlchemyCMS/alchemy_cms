@@ -1,4 +1,4 @@
-<span class="site_status tooltip html_tooltip_<%= page.id %><%= page.locked ? ' locked' : '' %>" >
+<span class="site_status <%= page.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= page.id %><%= page.locked ? ' locked' : '' %>" >
 </span>
 <div id="tooltip_<%= page.id %>" style="display: none;">
 	<h1>

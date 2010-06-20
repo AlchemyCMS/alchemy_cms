@@ -1,0 +1,77 @@
+<ul id="sitemap" class="list">
+	<div class="page_root">
+		<div class="sitemap_page">
+			<div class="sitemap_left_images">
+				<%= render(
+					:partial => 'page_icon',
+					:locals => {
+						:page => @page_root
+					}
+				) -%>
+			</div>
+			<div class="sitemap_right_tools">
+				<%- permitted_to?(:configure, :admin_pages) do -%>
+				<%= link_to_overlay_window(
+					"<span class='icon configure_page'></span>",
+					configure_admin_page_path(@page_root),
+					{
+						:title => _('edit_page_properties'),
+						:size => '380x490'
+					},
+					:class => 'icon_button',
+					:title => _('edit_page_properties')
+				) -%>
+				<%- end -%>
+				<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
+				<span class="sitemap_sitetools">
+					<%- permitted_to?(:destroy, :admin_pages) do -%>
+					<%= delete_with_confirmation_link(
+						"<span class='icon delete_page'></span>",
+						_("confirm_to_delete_page"),
+						url_for(
+							:controller => 'pages',
+							:action => 'destroy',
+							:id => @page_root.id
+						),
+						{
+							:class => "icon_button",
+							:title => _("delete_page")
+						}
+					) -%>
+					<%- end -%>
+					<%- permitted_to?(:new, :admin_pages) do -%>
+					<%= link_to_overlay_window(
+						"<span class='icon add_page'></span>",
+						new_admin_page_path(:parent_id => @page_root.id),
+						{
+							:title => _('create_page'),
+							:size => '275x90',
+							:overflow => true
+						},
+						:class => 'icon_button',
+						:title => _('create_page')
+					) -%>
+					<%- end -%>
+				</span>
+				<%- end -%>
+			</div>
+			<div class="page_infos">
+				<%= render :partial => 'page_status', :locals => {:page => @page_root} %>
+			</div>
+			<div class="sitemap_sitename">
+				<%= link_to(
+					@page_root.name,
+					edit_admin_page_path(@page_root),
+					:title => _("edit_page"),
+					:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+				) -%>
+			</div>
+		</div>
+	</div>
+	<%= render :partial => 'page', :collection => @page_root.children %>
+</ul>
+<%- permitted_to?(:move, :admin_pages) do -%>
+<%- javascript_tag do -%>
+	createSortableTree();
+<%- end -%>
+<%- end -%>

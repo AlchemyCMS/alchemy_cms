@@ -12,7 +12,7 @@ class Page < ActiveRecord::Base
   attr_accessor :do_not_sweep
   
   before_save :set_url_name
-  after_save :update_depth, :set_restrictions_to_child_pages
+  after_save :set_restrictions_to_child_pages
   before_validation_on_create :set_url_name, :set_title
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
   
@@ -200,16 +200,10 @@ class Page < ActiveRecord::Base
     find_by_language_root_for(language)
   end
   
-  # Returns the level reduced by one, because of the Page.root.
-  # Do we really need this? This is only cosmetically, isn't it?
-  def language_level
-    depth - 1
-  end
-  
   def is_root? language
     Page.language_root( language) == self
   end
-
+  
   def parent_language
     parent = self
     while parent.parent && parent.language_root_for.blank?
@@ -245,16 +239,8 @@ class Page < ActiveRecord::Base
     self.public_was != self.public
   end
   
-  def update_depth
-    return if !self.respond_to?(:depth)
-    unless self.level == self.depth
-      self.update_attribute(:depth, self.level)
-      self.children.each{ |child| child.update_depth }
-    end
-  end
-  
   def set_restrictions_to_child_pages
-    return nil if !defined? self.restricted
+    return nil if self.restricted_was == self.restricted
     descendants.each do |child|
       child.restricted = restricted
       child.save

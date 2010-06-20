@@ -3,18 +3,15 @@ class Admin::PagesController < ApplicationController
   layout 'admin'
   
   before_filter :set_translation, :except => [:preview]
-  before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :move, :fold, :destroy]
+  before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :fold, :destroy]
   
-  filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :move, :destroy], :attribute_check => true
-  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold], :attribute_check => false
+  filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :destroy], :attribute_check => true
+  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move], :attribute_check => false
   
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
-    @page_root = Page.find(
-      :first,
-      :conditions => {:language_root_for => session[:language]}
-    )
+    @page_root = Page.language_root(session[:language])
     if @page_root.nil?
       create_new_rootpage
       flash[:notice] = _("Admin|new rootpage created")
@@ -128,28 +125,6 @@ class Admin::PagesController < ApplicationController
     redirect_back_or_to_default(admin_pages_path)
   end
   
-  def move
-    # fetching page via before filter
-    @page_root = Page.language_root(session[:language])
-    my_position = @page.self_and_siblings.index(@page)
-    case params[:direction]
-    when 'up'
-      then
-      @page.move_to_left_of @page.self_and_siblings[my_position - 1]
-    when 'down'
-      then 
-      @page.move_to_right_of @page.self_and_siblings[my_position + 1]
-    when 'left'
-      then
-      @page.move_to_right_of @page.parent
-    when 'right'
-      @page.move_to_child_of @page.self_and_siblings[my_position - 1]
-    end
-    # We have to save the page for triggering the cache_sweeper, because betternestedset uses transactions.
-    # And the sweeper does not get triggered by transactions.
-    @page.save
-  end
-  
   def edit
     @page = Page.find(params[:id])
     @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
@@ -195,20 +170,25 @@ class Admin::PagesController < ApplicationController
     redirect_to :action => :index
   end
   
-  def sort
-    params['page_3_children'].keys.each do |page_id|
+  def move
+    @page_root = Page.language_root(session[:language])
+    params['sitemap'].keys.each do |page_id|
       @page = Page.find(page_id)
-      if !params['page_3_children'][page_id]['left_id'].blank?
-        left = Page.find(params['page_3_children'][page_id]['left_id'])
+      if !params['sitemap'][page_id]['left_id'].blank?
+        left = Page.find(params['sitemap'][page_id]['left_id'])
         @page.move_to_right_of(left)
-      elsif !params['page_3_children'][page_id]['parent_id'].blank?
-        new_parent = Page.find(params['page_3_children'][page_id]['parent_id'])
+      elsif !params['sitemap'][page_id]['parent_id'].blank?
+        if params['sitemap'][page_id]['parent_id'] == 'null'
+          new_parent = @page_root
+        else
+          new_parent = Page.find(params['sitemap'][page_id]['parent_id'])
+        end
         @page.move_to_child_of(new_parent)
       end
     end
-    name = @page.name
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("Page %{name} moved") % {:name => name})
+      Alchemy::Notice.show_via_ajax(page, _("Page %{name} moved") % {:name => @page.name})
+      page.replace 'sitemap', :partial => 'sitemap'
     end
   end
   

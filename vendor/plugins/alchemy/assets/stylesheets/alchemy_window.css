@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
+
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -687,10 +689,6 @@ div.elements_for_page {
 	-moz-box-shadow: #9ea09f 2px 2px 2px;
 	-o-box-shadow: #9ea09f 2px 2px 2px;
 	box-shadow: #9ea09f 2px 2px 2px;
-}
-
-div.sitemap_right_tools {
-	position: relative;
 }
 
 a.close_elements_from_page_selector {

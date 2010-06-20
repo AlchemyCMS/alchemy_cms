@@ -42,7 +42,6 @@ SortableTree.Node = Class.create({
 			droppable: {},
 			draggable: {}
     }, options || {});
-
     this.droppable_options = Object.extend({
       onHover:      function(drag, drop, overlap){ this.onHover(drag, drop, overlap); }.bind(this),
       onDrop:       function(drag, drop, event){ this.onDrop(drag, drop, event); }.bind(this), 

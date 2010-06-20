@@ -1,9 +1,14 @@
-<%- p = {:urlname => navigation_image_link.urlname} -%>
-<%- (navigation_image_link.language_level+1).times{ |l| p["navigation_level_#{l}_page"] = params["navigation_level_#{l}_page"] } -%>
-<%- if page_active? navigation_image_link -%>
-	<%#= link_to navigation_image_link.name, p.merge({ :controller => 'pages', :action => 'show'}), {:class => 'active'}%>	
-	<%= link_to ("", p.merge({ :controller => 'pages', :action => 'show'}), {:class => 'active '+ navigation_image_link.urlname})%>
-<%- else -%>
-	<%#= link_to navigation_image_link.name, p.merge({ :controller => 'pages', :action => 'show'}) %>
-	<%= link_to ("", p.merge({ :controller => 'pages', :action => 'show'}), {:class => navigation_image_link.urlname} )%>
-<%- end -%>
+<%= link_to(
+	"",
+	{
+		:urlname => navigation_image_link.urlname
+	}.merge(
+		{
+			:controller => 'pages',
+			:action => 'show'
+		}
+	),
+	{
+		:class => page_active?(navigation_image_link) ? "active #{navigation_image_link.urlname}" : navigation_image_link.urlname
+	}
+)%>
