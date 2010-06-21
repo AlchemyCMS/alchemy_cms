@@ -14,7 +14,7 @@
 	<td class="role"><%= I18n.t("user_roles.#{user.role}") %></td>
 	<td class="tools">
 		<%- permitted_to?(:destroy, :admin_users) do -%>
-		<%= delete_with_confirmation_link(
+		<%= link_to_confirmation_window(
 			'',
 			_("confirm_to_delete_user"),
 			admin_user_path(user),

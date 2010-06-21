@@ -1,6 +1,6 @@
 <div class="element_foot">
 	<span class="element_tools">
-		<%= delete_with_confirmation_link(
+		<%= link_to_confirmation_window(
 			"",
 			_("confirm_to_delete_element"),
 			admin_element_path(element),

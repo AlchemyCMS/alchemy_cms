@@ -28,7 +28,7 @@
 			<span class="sitemap_sitetools">
 				<%- unless page.is_root?(session[:language]) -%>
 				<%- permitted_to?(:destroy, :admin_pages) do -%>
-				<%= delete_with_confirmation_link(
+				<%= link_to_confirmation_window(
 						"<span class='icon delete_page'></span>",
 						_("confirm_to_delete_page"),
 						url_for(

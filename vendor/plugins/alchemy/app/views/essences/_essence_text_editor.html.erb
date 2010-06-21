@@ -26,7 +26,7 @@
 
 	<label>
 		<%= t("content_names.#{content.name}") %>
-		<%= delete_with_confirmation_link(
+		<%= link_to_confirmation_window(
 			render_icon('delete-small'),
 			_('Do you really want to delete this content?'),
 			content_path(content),

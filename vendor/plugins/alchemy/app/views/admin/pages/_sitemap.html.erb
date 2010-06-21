@@ -25,7 +25,7 @@
 				<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
 				<span class="sitemap_sitetools">
 					<%- permitted_to?(:destroy, :admin_pages) do -%>
-					<%= delete_with_confirmation_link(
+					<%= link_to_confirmation_window(
 						"<span class='icon delete_page'></span>",
 						_("confirm_to_delete_page"),
 						url_for(
