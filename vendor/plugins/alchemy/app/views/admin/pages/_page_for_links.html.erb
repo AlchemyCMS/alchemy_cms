@@ -1,44 +1,45 @@
 <li>
-	<div class="sitemap_left_images">
-		<%= render_sitemap_lines(page_for_links, !page_for_links.children.blank?) %>
-		<%= render(
-			:partial => 'page_icon',
-			:locals => {
-				:page => page_for_links
-			}
-		) -%>
-	</div>
-	<div class="sitemap_right_tools">
-		<%= link_to_remote(
-			"&nbsp;",
-			:url => admin_page_elements_path(page_for_links),
-			:method => :get,
-			:before => "selectPageForInternalLink('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); $$('#page_for_links .elements_for_page').invoke('hide')",
-			:loading => "showElementsFromPageSelector(#{page_for_links.id})",
-			:html => {
-				:class => "show_elements_to_link",
-				:title => _('show_elements_from_page')
-			}
-		) %>
-		<div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
-			<%= image_tag("ajax_loader.gif", :plugin => "alchemy") %>
+	<div class="sitemap_page ">
+		<div class="sitemap_left_images">
+			<%= render(
+				:partial => 'page_icon',
+				:locals => {
+					:page => page_for_links
+				}
+			) -%>
 		</div>
-	</div>
-	<div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
-		<%= link_to_function(
-			page_for_links.name,
-			%(
-				selectPageForInternalLink(
-					'#{page_for_links.id}',
-					'#{@url_prefix + page_for_links.urlname}'
-				);
-				page_select_scrollbar.scrollTo(
-					this.up('.sitemap_sitename')
-				)
-			),
-			:title => (_('page_for_links.choose_page %{name}') % {:name => page_for_links.name}),
-			:class => 'sitemap_pagename_link'
-		) %>
+		<div class="sitemap_right_tools">
+			<%= link_to_remote(
+				"&nbsp;",
+				:url => admin_page_elements_path(page_for_links),
+				:method => :get,
+				:before => "selectPageForInternalLink('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); $$('#page_for_links .elements_for_page').invoke('hide')",
+				:loading => "showElementsFromPageSelector(#{page_for_links.id})",
+				:html => {
+					:class => "show_elements_to_link",
+					:title => _('show_elements_from_page')
+				}
+			) %>
+			<div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
+				<%= image_tag("ajax_loader.gif", :plugin => "alchemy") %>
+			</div>
+		</div>
+		<div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
+			<%= link_to_function(
+				page_for_links.name,
+				%(
+					selectPageForInternalLink(
+						'#{page_for_links.id}',
+						'#{@url_prefix + page_for_links.urlname}'
+					);
+					page_select_scrollbar.scrollTo(
+						this.up('.sitemap_sitename')
+					)
+				),
+				:title => (_('page_for_links.choose_page %{name}') % {:name => page_for_links.name}),
+				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+			) %>
+		</div>
 	</div>
 	<%- if !page_for_links.children.empty? -%>
 	<ul id="page_<%= page_for_links.id %>_children">

@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
+/* @override 
+	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
+	http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
+*/
 
 .overlay_dialog {
 	background-color: #666666;
@@ -84,7 +87,7 @@ textarea#essence_picture_caption {
 
 #page_selector_container {
 	height: 230px;
-	background-color: #e4e4e4;
+	background-color: #ededed;
 	margin-bottom: 4px;
 	border: 1px inset #e8e8e8;
 	overflow: hidden;
@@ -603,6 +606,15 @@ div#tabbar_and_content {
 
 ul#sitemap {
 	padding: 0 16px 0 0;
+	margin: 0;
+}
+
+ul#sitemap li {
+	margin-left: 0;
+}
+
+ul#sitemap li li {
+	margin-left: 22px;
 }
 
 /*#sitemap_for_links ul li {
@@ -679,30 +691,32 @@ ul#sitemap {
 div.elements_for_page {
 	position: absolute;
 	right: 23px;
-	top: -4px;
+	top: 0;
 	z-index: 15;
 	background-color: white;
 	width: 242px;
-	padding: 2px 6px;
+	padding: 4px;
 	border: 1px solid #9c9d9c;
-	-webkit-box-shadow: #9ea09f 2px 2px 2px;
-	-moz-box-shadow: #9ea09f 2px 2px 2px;
-	-o-box-shadow: #9ea09f 2px 2px 2px;
-	box-shadow: #9ea09f 2px 2px 2px;
+	-webkit-box-shadow: #9ea09f 0px 0px 4px;
+	-moz-box-shadow: #9ea09f 0px 0px 4px;
+	-o-box-shadow: #9ea09f 0px 0px 4px;
+	box-shadow: #9ea09f 0px 0px 4px;
+	line-height: 13px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
 }
 
 a.close_elements_from_page_selector {
 	padding-left: 4px;
-	font-size: 18px;
+	font-size: 0;
 	float: right;
 	padding-right: 2px;
-	font-weight: bold;
-	line-height: 14px;
-	background-color: #ededed;
-	border: 1px solid #afafaf;
 	width: 11px;
 	height: 16px;
-	margin-top: 2px;
+	margin-top: 3px;
+	background: url(../images/icons/remove.png) no-repeat;
 }
 
 .elements_for_page img {
@@ -760,9 +774,9 @@ div#assign_file_list {
 	clear: both;
 }
 
-ul#sitemap li .sitemap_sitename.selected_page {
+ul#sitemap li .sitemap_sitename.selected_page a{
 	background-color: #d1d1d1;
-	color: #fff;
+	font-weight: bold;
 }
 
 #sitemap_for_links ul li span.sitemap_sitename.selected_page a {
