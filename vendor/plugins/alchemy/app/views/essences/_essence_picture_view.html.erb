@@ -1,10 +1,10 @@
-<%- unless content.essence.image.nil? -%>
+<%- unless content.essence.picture.nil? -%>
 	<%- image_size = options[:image_size] -%>
 	
 	<%- img_tag = image_tag(
 		show_image_path(
-			:id => content.essence.image.id,
-			:name => content.essence.image.urlname,
+			:id => content.essence.picture.id,
+			:name => content.essence.picture.urlname,
 			:size => image_size,
 			:crop => options[:crop],
 			:upsample  => options[:upsample],
@@ -14,10 +14,10 @@
 		:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
 		:title => (content.essence.title.blank? ? nil : content.essence.title),
 		:class => (options[:css_class].blank? ? nil : options[:css_class]),
-		:id => dom_id(content.essence.image)
+		:id => dom_id(content.essence.picture)
 	) -%>
 	
-	<%- caption = (content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.image)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
+	<%- caption = (content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
 
 	<%- if content.essence.link.blank? -%>
 		<%= img_tag %>

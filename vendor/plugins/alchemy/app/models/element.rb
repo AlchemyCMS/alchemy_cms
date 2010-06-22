@@ -122,7 +122,7 @@ class Element < ActiveRecord::Base
           elsif preview_content.essence_type == "EssenceText"
             text = preview_content.essence.body.to_s
           elsif preview_content.essence_type == "EssencePicture"
-            text = (preview_content.essence.image.name rescue "")
+            text = (preview_content.essence.picture.name rescue "")
           elsif preview_content.essence_type == "EssenceFile" || preview_content.essence_type == "EssenceFlash" || preview_content.essence_type == "EssenceFlashvideo"
             text = (preview_content.essence.file.name rescue "")
           else

@@ -1,6 +1,6 @@
 class EssencePicture < ActiveRecord::Base
   stampable
-  belongs_to :image
+  belongs_to :picture
   before_save :replace_newlines
   
   def replace_newlines

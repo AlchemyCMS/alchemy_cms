@@ -1,22 +1,22 @@
-<div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= image_to_assign.name %>">
+<div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= picture_to_assign.name %>">
 	<div class="overlay_image_spinner">
 		<%= image_tag("ajax_loader.gif", :plugin => "alchemy", :alt => '') %>
 	</div>
 	<div class="assign_image_list_image" style="display: none;">
 	<%- unless params[:image_assign_url].blank? -%>
-		<%- action_url = params[:image_assign_url] + "?image_id=#{image_to_assign.id}" -%>
+		<%- action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" -%>
 		<%- action_method = params[:image_assign_method] -%>
 	<%- else -%>
-		<%- action_url = create_or_assign_url(image_to_assign, @options, @swap) -%>
+		<%- action_url = create_or_assign_url(picture_to_assign, @options, @swap) -%>
 		<%- action_method = @content.blank? ? 'post' : 'put' -%>
 	<%- end -%>
 	<%= link_to_remote(
 			image_tag(
 				thumbnail_url(
-					:id => image_to_assign,
+					:id => picture_to_assign,
 					:size => size
 				),
-				:alt => image_to_assign.name,
+				:alt => picture_to_assign.name,
 				:onload => %(
 					this.up().up().previous().hide();
 					this.up().up().appear({duration: 0.6});
@@ -30,7 +30,7 @@
 			}
 		) %>
 	</div>
-	<div class="image_to_assign_name" title="<%= image_to_assign.name %>">
-		<%= image_to_assign.name.empty? ? "&nbsp;" : image_to_assign.name %>
+	<div class="picture_to_assign_name" title="<%= picture_to_assign.name %>">
+		<%= picture_to_assign.name.empty? ? "&nbsp;" : picture_to_assign.name %>
 	</div>
 </div>

@@ -1,4 +1,4 @@
-class PictureController < ApplicationController
+class PicturesController < ApplicationController
   
   caches_page :show
   

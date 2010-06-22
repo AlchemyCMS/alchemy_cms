@@ -1,5 +1,5 @@
 if @while_assigning
   page.replace_html("alchemy_window_body", :partial => 'archive_overlay_images')
 else
-  page.replace_html("archive_all", :partial => 'images_list')
+  page.replace_html("archive_all", :partial => 'pictures_list')
 end

@@ -6,6 +6,6 @@
 	<p><%= _("no_images_in_archive") %></p>
 <%- else -%>
 	<%= render :partial => 'admin/partials/remote_pagination_links', :locals => {:items => @pictures, :with => "'remote=true'+'&element_id='+$('element_id').value+'&content_id='+$('content_id').value+'&swap='+$('swap').value"} %>
-	<%= render :partial => "image_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
+	<%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
 <%- end -%>
 </div>

@@ -2,7 +2,7 @@ class CreateEssencePictures < ActiveRecord::Migration
   
   def self.up
     create_table :essence_pictures, :force => true do |t|
-      t.integer :image_id
+      t.integer :picture_id
       t.string :caption
       t.string :title
       t.string :alt_tag

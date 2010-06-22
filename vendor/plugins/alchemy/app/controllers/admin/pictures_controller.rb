@@ -8,7 +8,7 @@ class Admin::PicturesController < ApplicationController
   filter_access_to :all
   
   caches_page :show_in_window, :thumb
-  cache_sweeper :images_sweeper, :only => [:update]
+  cache_sweeper :pictures_sweeper, :only => [:update]
   
   def index
     if params[:per_page] == 'all'

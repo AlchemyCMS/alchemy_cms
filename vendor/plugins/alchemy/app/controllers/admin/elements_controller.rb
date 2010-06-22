@@ -98,7 +98,7 @@ class Admin::ElementsController < ApplicationController
           content.essence.link_title = params[:contents]["content_#{content.id}"]["link_title"]
           content.essence.link_class_name = params[:contents]["content_#{content.id}"]["link_class_name"]
           content.essence.open_link_in_new_window = params[:contents]["content_#{content.id}"]["open_link_in_new_window"]
-          content.essence.image_id = params[:contents]["content_#{content.id}"]["image_id"]
+          content.essence.picture_id = params[:contents]["content_#{content.id}"]["picture_id"]
           content.essence.caption = params[:images]["caption_#{content.essence.id}"] unless params[:images].nil?
           content.essence.save!
         end

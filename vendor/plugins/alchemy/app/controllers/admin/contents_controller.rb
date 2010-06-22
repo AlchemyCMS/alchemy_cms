@@ -26,8 +26,8 @@ class Admin::ContentsController < ApplicationController
         @options = @options.merge(
           :dragable => @dragable
         )
-        unless params[:image_id].blank?
-          @content.essence.image_id = params[:image_id]
+        unless params[:picture_id].blank?
+          @content.essence.picture_id = params[:picture_id]
           @content.essence.save
         end
       end

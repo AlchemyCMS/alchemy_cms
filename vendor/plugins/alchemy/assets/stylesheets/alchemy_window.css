@@ -514,7 +514,7 @@ input#user_admin {
 	line-height: 19px;
 }
 
-#assign_image_list div.assign_image_list_detail .image_to_assign_name {
+#assign_image_list div.assign_image_list_detail .picture_to_assign_name {
 	white-space: nowrap;
 	overflow: hidden;
 	padding-top: 3px;

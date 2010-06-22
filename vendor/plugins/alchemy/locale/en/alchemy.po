@@ -501,7 +501,7 @@ msgid "assign_file_from_archive"
 msgstr "assign a file from your archive"
 
 #: app/views/admin/elements/_add_content.html.erb:11
-#: app/views/admin/pictures/_image_to_assign.html.erb:29
+#: app/views/admin/pictures/_picture_to_assign.html.erb:29
 msgid "assign_image"
 msgstr "Assign an image"
 
@@ -961,7 +961,7 @@ msgid "no_files_in_archive"
 msgstr "You do not have any files in your archive."
 
 #: app/views/admin/pictures/_archive_overlay_images.html.erb:6
-#: app/views/admin/pictures/_images_list.html.erb:3
+#: app/views/admin/pictures/_pictures_list.html.erb:3
 msgid "no_images_in_archive"
 msgstr "You don't have any images in your archive."
 
@@ -970,7 +970,7 @@ msgid "no_more_elements_to_add"
 msgstr "No more elements avaible."
 
 #: app/views/admin/attachements/_files_list.html.erb:7
-#: app/views/admin/pictures/_images_list.html.erb:7
+#: app/views/admin/pictures/_pictures_list.html.erb:7
 msgid "no_search_results"
 msgstr "Your search did not return any results."
 
