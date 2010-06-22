@@ -33,22 +33,22 @@ after "deploy:symlink", "alchemy:symlink_folders"
 
 namespace :alchemy do
 
-  desc "Creates the uploads and images cache directory in the shared folder"
+  desc "Creates the uploads and pictures cache directory in the shared folder"
   task :create_shared_folders, :roles => :app do
     run "mkdir -p #{shared_path}/uploads"
-    run "mkdir -p #{shared_path}/uploads/images"
-    run "mkdir -p #{shared_path}/uploads/files"
+    run "mkdir -p #{shared_path}/uploads/pictures"
+    run "mkdir -p #{shared_path}/uploads/attachments"
     run "mkdir -p #{shared_path}/cache"
-    run "mkdir -p #{shared_path}/cache/images"
+    run "mkdir -p #{shared_path}/cache/pictures"
   end
 
-  desc "Sets the symlinks for uploads and images cache folder"
+  desc "Sets the symlinks for uploads and pictures cache folder"
   task :symlink_folders, :roles => :app do
-    run "rm -rf #{current_path}/public/uploads/*"
-    run "ln -nfs #{shared_path}/uploads/images/ #{current_path}/public/uploads/images"
-    run "ln -nfs #{shared_path}/uploads/files/ #{current_path}/public/uploads/files"
-    run "rm -rf #{current_path}/public/images"
-    run "ln -nfs #{shared_path}/cache/images/ #{current_path}/public/images"
+    run "rm -rf #{current_path}/uploads/*"
+    run "ln -nfs #{shared_path}/uploads/pictures/ #{current_path}/uploads/pictures"
+    run "ln -nfs #{shared_path}/uploads/attachments/ #{current_path}/uploads/attachments"
+    run "rm -rf #{current_path}/public/pictures"
+    run "ln -nfs #{shared_path}/cache/pictures/ #{current_path}/public/pictures"
   end
 
   desc "Update Alchemy and generates migrations to finally migrate"
@@ -62,37 +62,37 @@ namespace :alchemy do
   desc "Copies local cache to shared cache folder"
   task :copy_cache, :roles => :app do
     run "mkdir -p #{shared_path}/cache"
-    run "mkdir -p #{shared_path}/cache/images"
-    run "cp -R #{current_path}/public/images/* #{shared_path}/cache/images/"
-    run "rm -rf #{current_path}/public/images"
-    run "ln -nfs #{shared_path}/cache/images #{current_path}/public/"
+    run "mkdir -p #{shared_path}/cache/pictures"
+    run "cp -R #{current_path}/public/pictures/* #{shared_path}/cache/pictures/"
+    run "rm -rf #{current_path}/public/pictures"
+    run "ln -nfs #{shared_path}/cache/pictures #{current_path}/public/"
   end
 
   @datestring = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
 
-  desc "Get all live data (images, files and database) from remote server"
+  desc "Get all live data (pictures, attachments and database) from remote server"
   task :get_all_live_data do
     alchemy.get_db_dump
-    alchemy.get_images
-    alchemy.get_files
+    alchemy.get_pictures
+    alchemy.get_attachments
   end
 
-  desc "Get all live data (images, files and database) from remote server and replace the local data with it"
+  desc "Get all live data (pictures, attachments and database) from remote server and replace the local data with it"
   task :clone_live do
     alchemy.get_all_live_data
-    alchemy.import_images
-    alchemy.import_files
+    alchemy.import_pictures
+    alchemy.import_attachments
     alchemy.import_db
   end
 
-  desc "Zip all uploaded images and store them in shared/uploads folder on server"
-  task :zip_images do
-    run "cd #{deploy_to}/shared/uploads && tar cfz images.tar.gz images/"
+  desc "Zip all uploaded pictures and store them in shared/uploads folder on server"
+  task :zip_pictures do
+    run "cd #{deploy_to}/shared/uploads && tar cfz pictures.tar.gz pictures/"
   end
 
-  desc "Zip all uploaded files and store them in shared/uploads folder on server"
-  task :zip_files do
-    run "cd #{deploy_to}/shared/uploads && tar cfz files.tar.gz files/"
+  desc "Zip all uploaded attachments and store them in shared/uploads folder on server"
+  task :zip_attachments do
+    run "cd #{deploy_to}/shared/uploads && tar cfz attachments.tar.gz attachments/"
   end
 
   desc "Make database dump and store into backup folder"
@@ -101,16 +101,16 @@ namespace :alchemy do
     run "cd #{deploy_to}/shared && mysqldump -u#{db_settings['username']} -p#{db_settings['password']} -S#{db_settings['socket']} -h#{db_settings['host']} #{db_settings['database']} > dump_#{@datestring}.sql"
   end
 
-  desc "Get images zip from remote server and store it in public/uploads/images.tar.gz"
-  task :get_images do
-    alchemy.zip_images
-    download "#{deploy_to}/shared/uploads/images.tar.gz", "public/uploads/images.tar.gz"
+  desc "Get pictures zip from remote server and store it in uploads/pictures.tar.gz"
+  task :get_pictures do
+    alchemy.zip_pictures
+    download "#{deploy_to}/shared/uploads/pictures.tar.gz", "uploads/pictures.tar.gz"
   end
 
-  desc "Get files zip from remote server and store it in public/uploads/files.tar.gz"
-  task :get_files do
-    alchemy.zip_files
-    download "#{deploy_to}/shared/uploads/files.tar.gz", "public/uploads/files.tar.gz"
+  desc "Get attachments zip from remote server and store it in uploads/attachments.tar.gz"
+  task :get_attachments do
+    alchemy.zip_attachments
+    download "#{deploy_to}/shared/uploads/attachments.tar.gz", "uploads/attachments.tar.gz"
   end
 
   desc "Get db dump from remote server and store it in db/<Time>.sql"
@@ -119,16 +119,16 @@ namespace :alchemy do
     download "#{deploy_to}/shared/dump_#{@datestring}.sql", "db/dump_#{@datestring}.sql"
   end
 
-  desc "Extracts the images.tar.gz into the uploads/images folder"
-  task :import_images do
-    `rm -rf public/uploads/images`
-    `cd public/uploads/ && tar xzf images.tar.gz`
+  desc "Extracts the pictures.tar.gz into the uploads/pictures folder"
+  task :import_pictures do
+    `rm -rf uploads/pictures`
+    `cd uploads/ && tar xzf pictures.tar.gz`
   end
 
-  desc "Extracts the files.tar.gz into the uploads/files folder"
-  task :import_files do
-    `rm -rf public/uploads/files`
-    `cd public/uploads/ && tar xzf files.tar.gz`
+  desc "Extracts the attachments.tar.gz into the uploads/attachments folder"
+  task :import_attachments do
+    `rm -rf uploads/attachments`
+    `cd uploads/ && tar xzf attachments.tar.gz`
   end
 
   desc "Imports the database file"
