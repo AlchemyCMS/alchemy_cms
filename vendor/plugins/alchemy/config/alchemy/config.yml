@@ -122,13 +122,13 @@ alchemy_plugins:
         
   - name: archive
     navigation:
-      controller: 'admin/images'
+      controller: 'admin/pictures'
       action: index
       name: 'module: library'
       image: /plugin_assets/alchemy/images/icons/library.png
       sub_navigation:
         - name: 'module: images'
-          controller: 'admin/images'
+          controller: 'admin/pictures'
           action: index
         - name: 'module: attachements'
           controller: 'admin/attachements'
