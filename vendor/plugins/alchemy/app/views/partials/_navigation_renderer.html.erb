@@ -1,5 +1,5 @@
 <%- unless pages.blank? -%>
-<ul class="navigation_level_<%= pages.first.level %>">
+<ul class="navigation_level_<%= pages.first.level - 1 %>">
 <%- pages.each do |page| -%>
 	<%- position = 'first' if page == pages.to_a.first -%>
 	<%- position = 'last' if page == pages.to_a.last -%>
