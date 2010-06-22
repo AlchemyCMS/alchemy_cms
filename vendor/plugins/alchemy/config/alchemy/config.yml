@@ -130,6 +130,6 @@ alchemy_plugins:
         - name: 'module: images'
           controller: 'admin/pictures'
           action: index
-        - name: 'module: attachements'
-          controller: 'admin/attachements'
+        - name: 'module: attachments'
+          controller: 'admin/attachments'
           action: index

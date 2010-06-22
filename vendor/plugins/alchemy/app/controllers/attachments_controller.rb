@@ -4,7 +4,8 @@ class AttachmentsController < ApplicationController
   def show
     @attachment = Attachment.find(params[:id])
     send_file(
-      "#{RAILS_ROOT}/public" + @attachment.public_filename, {
+      @attachment.public_filename,
+      {
         :name => @attachment.filename,
         :type => @attachment.content_type,
         :disposition => 'inline'

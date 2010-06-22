@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-22 15:51+0200\n"
+"POT-Creation-Date: 2010-06-22 16:38+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -36,27 +36,27 @@ msgid "Alchemy is free software and itself uses free software and resources:"
 msgstr ""
 
 #: locale/model_attributes.rb:1
-msgid "Attachement"
+msgid "Attachment"
 msgstr "File"
 
 #: locale/model_attributes.rb:6
-msgid "Attachement|Content type"
+msgid "Attachment|Content type"
 msgstr "Filetype"
 
 #: locale/model_attributes.rb:4
-msgid "Attachement|Created at"
+msgid "Attachment|Created at"
 msgstr "Created At"
 
 #: locale/model_attributes.rb:3
-msgid "Attachement|Filename"
+msgid "Attachment|Filename"
 msgstr "Filename"
 
 #: locale/model_attributes.rb:2
-msgid "Attachement|Name"
+msgid "Attachment|Name"
 msgstr "Name"
 
 #: locale/model_attributes.rb:5
-msgid "Attachement|Size"
+msgid "Attachment|Size"
 msgstr "Filesize"
 
 #: app/views/admin/pages/edit.html.erb:64
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr ""
 
-#: app/views/admin/pictures/_image.html.erb:27
+#: app/views/admin/pictures/_picture.html.erb:27
 msgid "Delete image"
 msgstr "Remove this image."
 
@@ -414,7 +414,7 @@ msgstr "Userrole"
 msgid "Version"
 msgstr ""
 
-#: app/views/admin/attachements/_attachement.html.erb:11
+#: app/views/admin/attachments/_attachment.html.erb:11
 msgid "View File"
 msgstr ""
 
@@ -535,7 +535,7 @@ msgstr "Click to show all again."
 msgid "confirm_to_delete_element"
 msgstr "Do you really want to delete this page?"
 
-#: app/views/admin/attachements/_attachement.html.erb:33
+#: app/views/admin/attachments/_attachment.html.erb:33
 msgid "confirm_to_delete_file"
 msgstr "Do you really want to delete this file from the server?"
 
@@ -543,7 +543,7 @@ msgstr "Do you really want to delete this file from the server?"
 msgid "confirm_to_delete_image"
 msgstr "Do you really want to delete this image from server?"
 
-#: app/views/admin/pictures/_image.html.erb:19
+#: app/views/admin/pictures/_picture.html.erb:19
 msgid "confirm_to_delete_image_from_server"
 msgstr "Do you really want to delete this image from the server?"
 
@@ -622,7 +622,7 @@ msgstr "Cut this element."
 msgid "delete_element"
 msgstr "Delete this element."
 
-#: app/views/admin/attachements/_attachement.html.erb:42
+#: app/views/admin/attachments/_attachment.html.erb:42
 msgid "delete_file"
 msgstr "Delete this file from server."
 
@@ -643,11 +643,11 @@ msgstr "Delete this user."
 msgid "document"
 msgstr "File"
 
-#: app/views/admin/attachements/new.html.erb:6
+#: app/views/admin/attachments/new.html.erb:6
 msgid "documents"
 msgstr "Files"
 
-#: app/views/admin/attachements/_attachement.html.erb:26
+#: app/views/admin/attachments/_attachment.html.erb:26
 msgid "download_file_'%{filename}'"
 msgstr "Download file '%{filename}'"
 
@@ -768,8 +768,8 @@ msgstr "File"
 msgid "file_rename_error"
 msgstr "Error renaming file."
 
-#: app/views/admin/attachements/index.html.erb:23
-#: app/views/admin/attachements/new.html.erb:8
+#: app/views/admin/attachments/index.html.erb:23
+#: app/views/admin/attachments/new.html.erb:8
 msgid "files"
 msgstr "files"
 
@@ -909,7 +909,7 @@ msgid "missing_image"
 msgstr "Missing image"
 
 #: lib/alchemy_core_modules.rb:7
-msgid "module: attachements"
+msgid "module: attachments"
 msgstr "Files"
 
 #: lib/alchemy_core_modules.rb:2
@@ -936,7 +936,7 @@ msgstr "Pages"
 msgid "module: users"
 msgstr "Users"
 
-#: app/views/admin/attachements/edit.html.erb:4
+#: app/views/admin/attachments/edit.html.erb:4
 msgid "name"
 msgstr "Name"
 
@@ -956,7 +956,7 @@ msgstr "no"
 msgid "no_element_given"
 msgstr "No element given."
 
-#: app/views/admin/attachements/_files_list.html.erb:3
+#: app/views/admin/attachments/_files_list.html.erb:3
 msgid "no_files_in_archive"
 msgstr "You do not have any files in your archive."
 
@@ -969,7 +969,7 @@ msgstr "You don't have any images in your archive."
 msgid "no_more_elements_to_add"
 msgstr "No more elements avaible."
 
-#: app/views/admin/attachements/_files_list.html.erb:7
+#: app/views/admin/attachments/_files_list.html.erb:7
 #: app/views/admin/pictures/_pictures_list.html.erb:7
 msgid "no_search_results"
 msgstr "Your search did not return any results."
@@ -1121,12 +1121,12 @@ msgstr ""
 msgid "remove"
 msgstr "remove"
 
-#: app/views/admin/attachements/_attachement.html.erb:50
-#: app/views/admin/attachements/_attachement.html.erb:54
+#: app/views/admin/attachments/_attachment.html.erb:50
+#: app/views/admin/attachments/_attachment.html.erb:54
 msgid "rename_file"
 msgstr "Rename this file."
 
-#: app/views/admin/pictures/_image.html.erb:44
+#: app/views/admin/pictures/_picture.html.erb:44
 msgid "rename_image"
 msgstr "Rename this image"
 
@@ -1143,7 +1143,7 @@ msgstr "robot may follow links."
 msgid "robot_index"
 msgstr "allow robot to index."
 
-#: app/views/admin/attachements/edit.html.erb:8
+#: app/views/admin/attachments/edit.html.erb:8
 #: app/views/admin/contents/new.html.erb:11
 #: app/views/admin/elements/_element_foot.html.erb:47
 #: app/views/admin/essence_files/edit.html.erb:20
@@ -1152,8 +1152,8 @@ msgstr "allow robot to index."
 #: app/views/admin/essence_files/edit.html.erb:92
 #: app/views/admin/essence_pictures/edit.html.erb:35
 #: app/views/admin/pages/configure.html.erb:66
-#: app/views/admin/pictures/_image.html.erb:45
-#: app/views/admin/pictures/_image.html.erb:46
+#: app/views/admin/pictures/_picture.html.erb:45
+#: app/views/admin/pictures/_picture.html.erb:46
 #: app/views/admin/signup.html.erb:50 app/views/admin/users/_form.html.erb:43
 msgid "save"
 msgstr "save"
@@ -1266,9 +1266,9 @@ msgstr "Updated at"
 msgid "upload"
 msgstr "upload"
 
-#: app/views/admin/attachements/index.html.erb:11
-#: app/views/admin/attachements/index.html.erb:14
-#: app/views/admin/attachements/index.html.erb:17
+#: app/views/admin/attachments/index.html.erb:11
+#: app/views/admin/attachments/index.html.erb:14
+#: app/views/admin/attachments/index.html.erb:17
 msgid "upload_file"
 msgstr "Upload file(s)."
 
@@ -1322,6 +1322,6 @@ msgstr "Name"
 msgid "yes"
 msgstr "yes"
 
-#: app/views/admin/pictures/_image.html.erb:10
+#: app/views/admin/pictures/_picture.html.erb:10
 msgid "zoom_image"
 msgstr "Zoom this image."

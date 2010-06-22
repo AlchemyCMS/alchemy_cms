@@ -1,7 +1,7 @@
 class CreateEssenceFiles < ActiveRecord::Migration
   def self.up
     create_table :essence_files, :force => true do |t|
-      t.integer :attachement_id
+      t.integer :attachment_id
       t.string :title
       t.string :css_class
       t.userstamps

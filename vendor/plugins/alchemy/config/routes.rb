@@ -5,8 +5,9 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show'
   map.login "/admin/login", :controller => "admin", :action => "login"
   map.logout "/admin/logout", :controller => "admin", :action => "logout"
+  map.download '/attachments/:id/download/:name', :controller => 'attachments', :action => 'download'
+  map.show_attachment '/attachments/:id/show', :controller => 'attachments', :action => 'show'
   map.admin_layoutpages "/admin/pages/layoutpages", :controller => "admin/pages", :action => "layoutpages"
-  map.resources :attachements, :member => {:download => :get}
   map.namespace :admin do |admin|
     admin.resources :users
     admin.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get}
@@ -37,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
         :remove => :delete
       }
     )
-    admin.resources :attachements, :collection => {
+    admin.resources :attachments, :collection => {
       :archive_overlay => :get,
       :download => :get,
       :add_upload_form => :get

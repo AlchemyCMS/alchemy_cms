@@ -1,7 +1,7 @@
 class CreateEssenceAudios < ActiveRecord::Migration
   def self.up
     create_table :essence_audios, :force => true do |t|
-      t.integer :attachement_id
+      t.integer :attachment_id
       t.integer :width, :default => 400
       t.integer :height, :default => 300
       t.boolean :show_eq, :default => true

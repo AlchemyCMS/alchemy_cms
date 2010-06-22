@@ -8,7 +8,7 @@ authorization do
       if_attribute :public => true
     end
     has_permission_on :pictures, :to => [:show]
-    has_permission_on :attachements, :to => [:show, :download]
+    has_permission_on :attachments, :to => [:show, :download]
   end
   
   role :registered do
@@ -27,7 +27,7 @@ authorization do
     has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :admin_elements, :to => [:manage_elements]
     has_permission_on :admin_pictures, :to => [:index, :archive_overlay, :thumb, :show_in_window]
-    has_permission_on :admin_attachements, :to => [:index, :archive_overlay]
+    has_permission_on :admin_attachments, :to => [:index, :archive_overlay]
     has_permission_on :admin_contents, :to => [:manage_contents]
     has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
@@ -36,7 +36,7 @@ authorization do
   
   role :editor do
     includes :author
-    has_permission_on :admin_attachements, :to => [:manage]
+    has_permission_on :admin_attachments, :to => [:manage]
     has_permission_on :admin_pictures, :to => [:manage]
     has_permission_on :admin_pages, :to => [:manage_pages]
   end
