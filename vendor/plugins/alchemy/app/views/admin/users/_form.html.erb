@@ -4,7 +4,7 @@
 		<table border="0" cellspacing="4" cellpadding="0">
 			<tr>
 				<td height="25px"><%= f.label 'gender', User.human_attribute_name(:gender) %>: </td>
-				<td><%= f.alchemy_selectbox 'gender', User.genders_for_select, :class => 'long' -%></td>
+				<td><%= f.alchemy_selectbox 'gender', User.genders_for_select, :prompt => 'Bitte auswählen', :class => 'long' -%></td>
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'firstname', User.human_attribute_name(:firstname) %>: </td>
