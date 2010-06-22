@@ -101,4 +101,27 @@ class Admin::AttachmentsController < ApplicationController
     render :layout => false
   end
   
+  def show
+    @attachment = Attachment.find(params[:id])
+    send_file(
+      @attachment.public_filename,
+      {
+        :name => @attachment.filename,
+        :type => @attachment.content_type,
+        :disposition => 'inline'
+      }
+    )
+  end
+  
+  def download
+    @attachment = Attachment.find(params[:id])
+    send_file(
+      @attachment.full_filename, {
+        :name => @attachment.filename,
+        :type => @attachment.content_type,
+        :disposition => 'attachment'
+      }
+    )
+  end
+  
 end

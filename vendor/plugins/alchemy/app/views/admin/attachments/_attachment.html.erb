@@ -6,7 +6,7 @@
 		<%- if permitted_to?(:show, :attachments) -%>
 		<%= link_to(
 			attachment.name,
-			show_attachment_path(attachment),
+			admin_attachment_path(attachment),
 			:popup => true,
 			:title => _('View File')
 		) %>
@@ -22,7 +22,7 @@
 		<%- permitted_to?(:download, :attachments) do -%>
 		<%= link_to(
 			"",
-			download_path(:id => attachment.id, :name => attachment.name),
+			download_admin_attachment_path(attachment),
 			:title => (_("download_file_'%{filename}'") % {:filename => attachment.filename}),
 			:class => "icon file_download"
 		) %>

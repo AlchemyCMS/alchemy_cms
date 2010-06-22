@@ -8,7 +8,12 @@
 				<label for="public_filename" class="medium"><%= _("file") %></label>
 			</td>
 			<td class="select">
-				<%= alchemy_selectbox_tag "public_filename", Attachment.all.collect{ |f| [f.name, download_path(:id => f.id, :name => f.name)] }, '',:style => "width: 100%" %>
+				<%= alchemy_selectbox_tag(
+					"public_filename",
+					Attachment.all.collect{ |f| [f.name, download_attachment_path(:id => f.id, :name => f.name)] },
+					'',
+					:style => "width: 100%"
+				) %>
 			</td>
 		</tr>
 		<tr>
