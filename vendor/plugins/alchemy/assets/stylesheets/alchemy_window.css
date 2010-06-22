@@ -1,8 +1,3 @@
-/* @override 
-	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
-	http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
-*/
-
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -597,30 +592,18 @@ div#tabbar_and_content {
 #internal_link_title {
 }
 
-/*#sitemap_for_links ul {
-	list-style-type: none;
-	display: block;
-	margin: 0;
-	padding: 0;
-}*/
-
-ul#sitemap {
+.alchemy_window_content ul#sitemap {
 	padding: 0 16px 0 0;
 	margin: 0;
 }
 
-ul#sitemap li {
+.alchemy_window_content ul#sitemap li {
 	margin-left: 0;
 }
 
-ul#sitemap li li {
+.alchemy_window_content ul#sitemap li li {
 	margin-left: 22px;
 }
-
-/*#sitemap_for_links ul li {
-	list-style-type: none;
-	display: block;
-}*/
 
 #sitemap_for_links ul li span.sitemap_sitename {
 	background-color: #f9f9f9;
