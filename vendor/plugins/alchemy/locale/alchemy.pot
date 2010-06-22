@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-20 16:32+0200\n"
+"POT-Creation-Date: 2010-06-22 14:31+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -285,6 +285,10 @@ msgstr ""
 
 #: app/controllers/admin_controller.rb:16
 msgid "Please Signup"
+msgstr ""
+
+#: app/views/admin/users/_form.html.erb:7
+msgid "Please choose"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:20

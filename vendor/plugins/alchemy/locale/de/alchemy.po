@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-20 16:32+0200\n"
+"POT-Creation-Date: 2010-06-22 14:31+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -103,8 +103,8 @@ msgstr "Fehler mit dem Flash® Uploader!"
 #: app/views/admin/pages/index.html.erb:19
 msgid "Explain|Sitemap|Dragndrop sorting"
 msgstr ""
-"Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest und "
-"bewegen Sie sie an ihre neue Position."
+"Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest "
+"und bewegen Sie sie an ihre neue Position."
 
 #: app/controllers/admin/attachements_controller.rb:69
 msgid "File renamed successfully from: '%{from}' to '%{to}'"
@@ -288,6 +288,10 @@ msgid "Please Signup"
 msgstr ""
 "Willkommen in Alchemy! Um Ihre Homepage bearbeiten zu können, müssen Sie als "
 "erstes einen Admin Benutzer einrichten."
+
+#: app/views/admin/users/_form.html.erb:7
+msgid "Please choose"
+msgstr "Bitte wählen"
 
 #: app/views/admin/partials/_upload_form.html.erb:20
 msgid "Please consider that you have at least version 9.0.28 installed."

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-20 16:32+0200\n"
+"POT-Creation-Date: 2010-06-22 14:31+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -285,6 +285,10 @@ msgid "Please Signup"
 msgstr ""
 "Welcome to Alchemy. In order to manage your site, you first have to signup "
 "an admin account!"
+
+#: app/views/admin/users/_form.html.erb:7
+msgid "Please choose"
+msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:20
 msgid "Please consider that you have at least version 9.0.28 installed."
