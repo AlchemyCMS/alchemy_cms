@@ -1,4 +1,4 @@
-class Admin::ImagesController < ApplicationController
+class Admin::PicturesController < ApplicationController
   
   protect_from_forgery :except => [:create]
   layout 'admin'
@@ -12,13 +12,13 @@ class Admin::ImagesController < ApplicationController
   
   def index
     if params[:per_page] == 'all'
-      @images = Image.find(
+      @pictures = Picture.find(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'"
       )
     else
-      @images = Image.paginate(
+      @pictures = Picture.paginate(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'",
@@ -29,7 +29,7 @@ class Admin::ImagesController < ApplicationController
   end
   
   def new
-    @image = Image.new
+    @picture = Picture.new
     @while_assigning = params[:while_assigning] == 'true'
     if @while_assigning
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
@@ -43,9 +43,9 @@ class Admin::ImagesController < ApplicationController
   end
   
   def create
-    @image = Image.new(:image_file => params[:Filedata])
-    @image.name = @image.image_filename
-    @image.save
+    @picture = Picture.new(:image_file => params[:Filedata])
+    @picture.name = @picture.image_filename
+    @picture.save
     @while_assigning = params[:while_assigning] == 'true'
     if @while_assigning
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
@@ -57,13 +57,13 @@ class Admin::ImagesController < ApplicationController
     end
     
     if params[:per_page] == 'all'
-      @images = Image.find(
+      @pictures = Picture.find(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'"
       )
     else
-      @images = Image.paginate(
+      @pictures = Picture.paginate(
         :all,
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'",
@@ -79,7 +79,7 @@ class Admin::ImagesController < ApplicationController
   def archive_overlay
     @content = Content.find_by_id(params[:content_id], :select => 'id')
     @element = Element.find_by_id(params[:element_id], :select => 'id')
-    @images = Image.paginate(
+    @pictures = Picture.paginate(
       :all,
       :order => :name,
       :page => params[:page] || 1,
@@ -99,21 +99,21 @@ class Admin::ImagesController < ApplicationController
   end
   
   def update
-    @image = Image.find(params[:id])
-    oldname = @image.name
-    @image.name = params[:value]
-    if @image.save
+    @picture = Picture.find(params[:id])
+    oldname = @picture.name
+    @picture.name = params[:value]
+    if @picture.save
       render :update do |page|
-        page.replace "image_#{@image.id}", :partial => "image", :locals => {:image => @image}
-        Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @image.name} ))
+        page.replace "image_#{@picture.id}", :partial => "image", :locals => {:image => @picture}
+        Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
       end
     end
   end
   
   def destroy
-    @image = Image.find(params[:id])
-    name = @image.name
-    @image.destroy
+    @picture = Picture.find(params[:id])
+    name = @picture.name
+    @picture.destroy
     render :update do |page|
       flash[:notice] = ( _("Image: '%{name}' deleted successfully") % {:name => name} )
       page.redirect_to admin_images_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
@@ -121,7 +121,7 @@ class Admin::ImagesController < ApplicationController
   end
   
   def thumb
-    @image = Image.find(params[:id])
+    @picture = Picture.find(params[:id])
     case params[:size]
     when "small"
       then
@@ -142,7 +142,7 @@ class Admin::ImagesController < ApplicationController
   end
   
   def show_in_window
-    @image = Image.find(params[:id])
+    @picture = Picture.find(params[:id])
     render :layout => "image_in_window"
   end
   

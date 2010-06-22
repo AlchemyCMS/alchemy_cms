@@ -1,9 +1,9 @@
-class ImagesController < ApplicationController
+class PictureController < ApplicationController
   
   caches_page :show
   
   def show
-    @image = Image.find(params[:id])
+    @picture = Picture.find(params[:id])
     @size = params[:size]
     @crop = !params[:crop].nil?
     @padding = params[:padding]

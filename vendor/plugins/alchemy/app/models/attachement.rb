@@ -2,7 +2,7 @@ class Attachement < ActiveRecord::Base
   
   has_attachment(
     :storage => :file_system,
-    :file_system_path => 'public/uploads/files',
+    :file_system_path => 'uploads/attachements',
     :size => 0.kilobytes..1000.megabytes
   )
   

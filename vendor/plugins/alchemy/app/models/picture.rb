@@ -1,7 +1,7 @@
-class Image < ActiveRecord::Base
+class Picture < ActiveRecord::Base
   
   acts_as_fleximage do
-    image_directory           'public/uploads/images'
+    image_directory           'uploads/pictures'
     image_storage_format      Alchemy::Configuration.parameter(:image_store_format).to_sym
     require_image             true
     missing_image_message     N_("missing_image")

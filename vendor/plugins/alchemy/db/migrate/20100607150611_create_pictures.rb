@@ -1,6 +1,6 @@
-class CreateImages < ActiveRecord::Migration
+class CreatePictures < ActiveRecord::Migration
   def self.up
-    create_table :images, :force => true do |t|
+    create_table :pictures, :force => true do |t|
       t.string :name
       t.string :image_filename
       t.integer :image_width
@@ -11,6 +11,6 @@ class CreateImages < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :images
+    drop_table :pictures
   end
 end

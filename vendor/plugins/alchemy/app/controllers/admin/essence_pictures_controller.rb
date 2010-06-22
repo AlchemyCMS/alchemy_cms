@@ -20,8 +20,8 @@ class Admin::EssencePicturesController < ApplicationController
   
   def assign
     @content = Content.find(params[:id])
-    @image = Image.find(params[:image_id])
-    @content.essence.image = @image
+    @picture = Picture.find(params[:image_id])
+    @content.essence.image = @picture
     @content.essence.save
     @content.save
     @options = params[:options]
