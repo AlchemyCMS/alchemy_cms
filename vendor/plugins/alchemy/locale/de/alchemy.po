@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-22 14:31+0200\n"
+"POT-Creation-Date: 2010-06-22 15:51+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "Element auswählen"
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
 
-#: app/views/admin/images/_image.html.erb:27
+#: app/views/admin/pictures/_image.html.erb:27
 msgid "Delete image"
 msgstr "Bild löschen"
 
@@ -126,33 +126,13 @@ msgstr ""
 "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur "
 "%{link}"
 
-#: locale/model_attributes.rb:8
-msgid "Image"
-msgstr "Bild"
-
-#: app/controllers/admin/images_controller.rb:108
+#: app/controllers/admin/pictures_controller.rb:108
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 
-#: app/controllers/admin/images_controller.rb:118
+#: app/controllers/admin/pictures_controller.rb:118
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
-
-#: locale/model_attributes.rb:10
-msgid "Image|Image filename"
-msgstr "Dateiname"
-
-#: locale/model_attributes.rb:12
-msgid "Image|Image height"
-msgstr "Bildhöhe"
-
-#: locale/model_attributes.rb:11
-msgid "Image|Image width"
-msgstr "Bildbreite"
-
-#: locale/model_attributes.rb:9
-msgid "Image|Name"
-msgstr "Name"
 
 #: app/views/essences/_essence_picture_editor.html.erb:6
 msgid "Mising Image"
@@ -282,6 +262,26 @@ msgstr "in der Navigation anzeigen"
 #: app/views/mailer/new_alchemy_user_mail.erb:10
 msgid "Password"
 msgstr "Passwort"
+
+#: locale/model_attributes.rb:8
+msgid "Picture"
+msgstr "Bild"
+
+#: locale/model_attributes.rb:10
+msgid "Picture|Image filename"
+msgstr "Dateiname"
+
+#: locale/model_attributes.rb:12
+msgid "Picture|Image height"
+msgstr "Bildhöhe"
+
+#: locale/model_attributes.rb:11
+msgid "Picture|Image width"
+msgstr "Bildbreite"
+
+#: locale/model_attributes.rb:9
+msgid "Picture|Name"
+msgstr "Name"
 
 #: app/controllers/admin_controller.rb:16
 msgid "Please Signup"
@@ -508,11 +508,11 @@ msgid "assign_file_from_archive"
 msgstr "Datei aus dem Archiv zuweisen"
 
 #: app/views/admin/elements/_add_content.html.erb:11
-#: app/views/admin/images/_image_to_assign.html.erb:29
+#: app/views/admin/pictures/_image_to_assign.html.erb:29
 msgid "assign_image"
 msgstr "Bild hinzufügen."
 
-#: app/views/admin/images/_filter_and_size_bar.html.erb:51
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:51
 msgid "big_thumbnails"
 msgstr "große Miniaturbilder"
 
@@ -550,7 +550,7 @@ msgstr "Wollen Sie diese Datei wirklich vom Server löschen?"
 msgid "confirm_to_delete_image"
 msgstr "Wollen Sie dieses Bild wirklich löschen?"
 
-#: app/views/admin/images/_image.html.erb:19
+#: app/views/admin/pictures/_image.html.erb:19
 msgid "confirm_to_delete_image_from_server"
 msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 
@@ -816,9 +816,9 @@ msgstr "Bildgröße"
 msgid "image_title"
 msgstr "Titel-Tag"
 
-#: app/views/admin/images/index.html.erb:23
-#: app/views/admin/images/new.html.erb:15
-#: app/views/admin/images/new.html.erb:17
+#: app/views/admin/pictures/index.html.erb:23
+#: app/views/admin/pictures/new.html.erb:15
+#: app/views/admin/pictures/new.html.erb:17
 msgid "images"
 msgstr "Bilder"
 
@@ -897,7 +897,7 @@ msgstr "Herr"
 msgid "mandatory fields"
 msgstr "Pflichtfelder"
 
-#: app/views/admin/images/_filter_and_size_bar.html.erb:34
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:34
 msgid "medium_thumbnails"
 msgstr "mittlere Miniaturbilder"
 
@@ -913,7 +913,7 @@ msgstr "Meta Beschreibung"
 msgid "meta_keywords"
 msgstr "Meta Schlagwörter"
 
-#: app/models/image.rb:7
+#: app/models/picture.rb:7
 msgid "missing_image"
 msgstr "Bild wird vermisst."
 
@@ -969,8 +969,8 @@ msgstr "Kein Element angegeben."
 msgid "no_files_in_archive"
 msgstr "Sie haben noch keine Dateien in Ihrem Archiv."
 
-#: app/views/admin/images/_archive_overlay_images.html.erb:6
-#: app/views/admin/images/_images_list.html.erb:3
+#: app/views/admin/pictures/_archive_overlay_images.html.erb:6
+#: app/views/admin/pictures/_images_list.html.erb:3
 msgid "no_images_in_archive"
 msgstr "Sie haben keine Bilder in Ihrem Archiv"
 
@@ -979,11 +979,11 @@ msgid "no_more_elements_to_add"
 msgstr "Keine weiteren Elemente verfügbar."
 
 #: app/views/admin/attachements/_files_list.html.erb:7
-#: app/views/admin/images/_images_list.html.erb:7
+#: app/views/admin/pictures/_images_list.html.erb:7
 msgid "no_search_results"
 msgstr "Keine Suchergebnisse."
 
-#: app/models/image.rb:8
+#: app/models/picture.rb:8
 msgid "not a valid image"
 msgstr "Keine valide Bilddatei."
 
@@ -1139,7 +1139,7 @@ msgstr "entfernen"
 msgid "rename_file"
 msgstr "Datei umbenennen"
 
-#: app/views/admin/images/_image.html.erb:44
+#: app/views/admin/pictures/_image.html.erb:44
 msgid "rename_image"
 msgstr "Bild umbenennen."
 
@@ -1164,9 +1164,9 @@ msgstr "durch Robot indizieren"
 #: app/views/admin/essence_files/edit.html.erb:68
 #: app/views/admin/essence_files/edit.html.erb:92
 #: app/views/admin/essence_pictures/edit.html.erb:35
-#: app/views/admin/images/_image.html.erb:45
-#: app/views/admin/images/_image.html.erb:46
 #: app/views/admin/pages/configure.html.erb:66
+#: app/views/admin/pictures/_image.html.erb:45
+#: app/views/admin/pictures/_image.html.erb:46
 #: app/views/admin/signup.html.erb:50 app/views/admin/users/_form.html.erb:43
 msgid "save"
 msgstr "speichern"
@@ -1215,7 +1215,7 @@ msgstr "Navigation anzeigen"
 msgid "show_page_in_sitemap"
 msgstr "Seite in der Sitemap zeigen"
 
-#: app/views/admin/images/_filter_and_size_bar.html.erb:17
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:17
 msgid "small_thumbnails"
 msgstr "kleine Miniaturbilder"
 
@@ -1246,7 +1246,7 @@ msgstr "Hochladen abbrechen"
 msgid "target_blank"
 msgstr "In einem neuen Fenster öffnen"
 
-#: app/views/admin/images/_filter_and_size_bar.html.erb:3
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:3
 msgid "thumbnail_size"
 msgstr "Miniaturbildergröße"
 
@@ -1285,11 +1285,11 @@ msgstr "Datei hochladen"
 msgid "upload_file"
 msgstr "Datei(en) hochladen"
 
-#: app/views/admin/images/_filter_and_size_bar.html.erb:72
-#: app/views/admin/images/_filter_and_size_bar.html.erb:76
-#: app/views/admin/images/index.html.erb:11
-#: app/views/admin/images/index.html.erb:15
-#: app/views/admin/images/index.html.erb:17
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:72
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:76
+#: app/views/admin/pictures/index.html.erb:11
+#: app/views/admin/pictures/index.html.erb:15
+#: app/views/admin/pictures/index.html.erb:17
 msgid "upload_image"
 msgstr "Bild(er) hochladen"
 
@@ -1335,6 +1335,6 @@ msgstr "mit dem Namen"
 msgid "yes"
 msgstr "Ja"
 
-#: app/views/admin/images/_image.html.erb:10
+#: app/views/admin/pictures/_image.html.erb:10
 msgid "zoom_image"
 msgstr "Bild in voller Größe anzeigen."

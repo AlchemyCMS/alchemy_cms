@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
       :shallow => true
     )
     admin.resources(
-      :images,
+      :pictures,
       :collection => {
         :archive_overlay => :get,
         :add_upload_form => :get
@@ -48,8 +48,8 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :user_sessions
   map.resources :mails
-  map.show_image '/images/show/:id/:size/:name.:format', :controller => 'images', :action => 'show'
-  map.thumbnail '/admin/images/thumb/:id/:size/thumbnail.jpg', :controller => 'admin/images', :action => 'thumb'
+  map.show_image '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
+  map.thumbnail '/admin/pictures/thumb/:id/:size/thumbnail.jpg', :controller => 'admin/pictures', :action => 'thumb'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
   map.show_page '/:urlname', :controller => 'pages', :action => 'show'
