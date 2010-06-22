@@ -1,4 +1,4 @@
-<%- unless content.essence.attachement.nil? -%>
+<%- unless content.essence.attachment.nil? -%>
 <%- width = content.essence.width.blank? ? (options[:flash_movie_size].split('x')[0] rescue 320) : content.essence.width -%>
 <%- height = content.essence.height.blank? ? (options[:flash_movie_size].split('x')[1] rescue 200) : content.essence.height -%>
 <%- player_version = content.essence.player_version.blank? ? "8" : content.essence.player_version -%>
@@ -11,7 +11,7 @@
 		var params = {};
 		var attributes = {};
 		swfobject.embedSWF(
-			"<%= content.essence.attachement.public_filename %>",
+			"<%= content.essence.attachment.public_filename %>",
 			"swf_container_<%= content.id %>",
 			'<%= width %>',
 			'<%= height %>',

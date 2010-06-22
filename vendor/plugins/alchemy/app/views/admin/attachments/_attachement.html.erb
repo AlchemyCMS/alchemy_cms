@@ -1,0 +1,58 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td class="icon">
+		<%= content_tag('span', '', :class => "icon #{attachment.icon_css_class}") %>
+	</td>
+	<td class="name">
+		<%- if permitted_to?(:show, :attachments) -%>
+		<%= link_to(
+			attachment.name,
+			attachment_path(attachment),
+			:popup => true,
+			:title => _('View File')
+		) %>
+		<%- else -%>
+		<%= attachment.name %>
+		<%- end -%>
+	</td>
+	<td class="file_name"><%= attachment.filename %></td>
+	<td class="file_type"><%= mime_to_human(attachment.content_type) %></td>
+	<td class="file_size"><%= number_to_human_size(attachment.size) %></td>
+	<td class="date"><%= l(attachment.created_at) %></td>
+	<td class="tools long">
+		<%- permitted_to?(:download, :attachments) do -%>
+		<%= link_to(
+			"",
+			download_attachment_path(attachment),
+			:title => (_("download_file_'%{filename}'") % {:filename => attachment.filename}),
+			:class => "icon file_download"
+		) %>
+		<%- end -%>
+		<%- permitted_to?(:destroy, :admin_attachments) do -%>
+		<%= link_to_confirmation_window(
+			"",
+			_("confirm_to_delete_file"),
+			admin_attachment_path(
+				:id => attachment,
+				:query => params[:query],
+				:page => params[:page],
+				:per_page => params[:per_page]
+			),
+			{
+				:class => 'icon file_delete',
+				:title => _('delete_file')
+			}
+		) -%>
+		<%- end -%>
+		<%- permitted_to?(:edit, :admin_attachments) do -%>
+		<%= link_to_overlay_window("",
+			edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
+			{
+				:title => _('rename_file'),
+				:size => '380x45'
+			},
+			:class => 'icon file_edit',
+			:title => _('rename_file')
+		) -%>
+		<%- end -%>
+	</td>
+</tr>

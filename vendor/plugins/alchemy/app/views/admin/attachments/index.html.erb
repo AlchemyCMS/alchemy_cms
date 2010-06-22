@@ -1,12 +1,12 @@
 <%- alchemy_assets_set(:archive) -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">
-	<%- permitted_to?(:new, :admin_attachements) do -%>
+	<%- permitted_to?(:new, :admin_attachments) do -%>
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon upload'),
-				new_admin_attachement_path,
+				new_admin_attachment_path,
 				{
 					:title => _('upload_file'),
 					:size => '355x320'

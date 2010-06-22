@@ -20,8 +20,8 @@ class Admin::EssenceFilesController < ApplicationController
   
   def assign
     @content = Content.find_by_id(params[:id])
-    @attachement = Attachement.find_by_id(params[:attachement_id])
-    @content.essence.file = @attachement
+    @attachment = Attachment.find_by_id(params[:attachment_id])
+    @content.essence.file = @attachment
     @content.essence.save
     @content.save
     render :update do |page|

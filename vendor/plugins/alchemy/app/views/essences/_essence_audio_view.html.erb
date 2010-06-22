@@ -1,4 +1,4 @@
-<%- unless content.essence.attachement.nil? -%>
+<%- unless content.essence.attachment.nil? -%>
 <%- unless options[:player_cover_image].blank? -%>
   <%- i_height = options[:player_cover_image].image_height.to_f -%>
   <%- i_width = options[:player_cover_image].image_width.to_f -%>
@@ -23,7 +23,7 @@
 	alchemy_audio_player_<%= content.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
 	alchemy_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.essence.show_eq ? "true" : "false" %>');
 	alchemy_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.essence.show_navigation ? "true" : "false" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.attachement.public_filename %>');
+	alchemy_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.attachment.public_filename %>');
 	<%- unless options[:player_cover_image].blank? -%>
 	alchemy_audio_player_<%= content.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
   <%- end -%>

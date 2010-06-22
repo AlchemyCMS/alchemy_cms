@@ -1,0 +1,24 @@
+<%- if @attachments.blank? && params[:query].nil? -%>
+	<p class="padding_left_right" id="no_files_notice">
+		<%= _("no_files_in_archive") %>
+	</p>
+<%- elsif @attachments.blank? -%>
+	<p class="padding_left_right">
+		<%= _("no_search_results") %>
+	</p>
+<%- end -%>
+<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @attachments} %>
+<table id="all_files" class="list">
+	<%- unless @attachments.blank? -%>
+	<tr>
+		<th class="icon"></th>
+		<th class="name"><%= Attachment.human_attribute_name('name') %></th>
+		<th class="file_name"><%= Attachment.human_attribute_name('filename') %></th>
+		<th class="file_type"><%= Attachment.human_attribute_name('content_type') %></th>
+		<th class="file_size"><%= Attachment.human_attribute_name('size') %></th>
+		<th class="date"><%= Attachment.human_attribute_name('created_at') %></th>
+		<th class="tools"></th>
+	</tr>
+	<%- end -%>
+	<%= render(:partial => @attachments) %>
+</table>

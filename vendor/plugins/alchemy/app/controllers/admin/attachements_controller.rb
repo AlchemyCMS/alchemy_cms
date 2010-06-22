@@ -1,4 +1,4 @@
-class Admin::AttachementsController < ApplicationController
+class Admin::AttachmentsController < ApplicationController
   
   protect_from_forgery :except => [:create]
   layout 'admin'
@@ -9,13 +9,13 @@ class Admin::AttachementsController < ApplicationController
   def index
     cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
     if params[:per_page] == 'all'
-      @attachements = Attachement.find(
+      @attachments = Attachment.find(
         :all,
         :order => :name,
         :conditions => cond
       )
     else
-      @attachements = Attachement.paginate(
+      @attachments = Attachment.paginate(
         :all,
         :order => :name,
         :conditions => cond,
@@ -26,24 +26,24 @@ class Admin::AttachementsController < ApplicationController
   end
   
   def new
-    @attachement = Attachement.new
+    @attachment = Attachment.new
     render :layout => false
   end
   
   def create
-    @attachement = Attachement.new(:uploaded_data => params[:Filedata])
-    @attachement.name = @attachement.filename
-    @attachement.save
+    @attachment = Attachment.new(:uploaded_data => params[:Filedata])
+    @attachment.name = @attachment.filename
+    @attachment.save
     
     cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
     if params[:per_page] == 'all'
-      @attachements = Attachement.find(
+      @attachments = Attachment.find(
         :all,
         :order => :name,
         :conditions => cond
       )
     else
-      @attachements = Attachement.paginate(
+      @attachments = Attachment.paginate(
         :all,
         :order => :name,
         :conditions => cond,
@@ -57,16 +57,16 @@ class Admin::AttachementsController < ApplicationController
   end
   
   def edit
-    @attachement = Attachement.find(params[:id])
+    @attachment = Attachment.find(params[:id])
     render :layout => false
   end
   
   def update
     begin
-      @attachement = Attachement.find(params[:id])
-      oldname = @attachement.name
-      if @attachement.update_attributes(params[:attachement])
-        flash[:notice] = _("File renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @attachement.name}
+      @attachment = Attachment.find(params[:id])
+      oldname = @attachment.name
+      if @attachment.update_attributes(params[:attachment])
+        flash[:notice] = _("File renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @attachment.name}
       else
         render :action => "edit"
       end
@@ -74,16 +74,16 @@ class Admin::AttachementsController < ApplicationController
       log_error($!)
       flash[:error] = _('file_rename_error')
     end
-    redirect_to admin_attachements_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page])
+    redirect_to admin_attachments_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page])
   end
   
   def destroy
-    @attachement = Attachement.find(params[:id])
-    name = @attachement.name
-    @attachement.destroy
+    @attachment = Attachment.find(params[:id])
+    name = @attachment.name
+    @attachment.destroy
     render :update do |page|
       flash[:notice] = ( _("File: '%{name}' deleted successfully") % {:name => name} )
-      page.redirect_to admin_attachements_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
+      page.redirect_to admin_attachments_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
     end
   end
   
@@ -97,7 +97,7 @@ class Admin::AttachementsController < ApplicationController
     else
       condition = ""
     end
-    @attachements = Attachement.all(:order => :name, :conditions => condition)
+    @attachments = Attachment.all(:order => :name, :conditions => condition)
     render :layout => false
   end
   
