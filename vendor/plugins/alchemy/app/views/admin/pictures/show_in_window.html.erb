@@ -1,1 +1,1 @@
-<%= image_tag(@picture.public_file_path) %>
+<%= image_tag(show_picture_path(:id => @picture, :size => 'original', :name => @picture.name)) %>

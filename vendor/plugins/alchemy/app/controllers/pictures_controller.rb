@@ -12,6 +12,7 @@ class PicturesController < ApplicationController
     respond_to do |format|
       format.jpg
       format.png
+      format.gif
     end
   end
   

@@ -55,7 +55,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_sessions
   map.resources :elements, :only => :show
   map.resources :mails
-  map.show_image '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
+  map.show_picture '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
   map.thumbnail '/admin/pictures/thumb/:id/:size/thumbnail.jpg', :controller => 'admin/pictures', :action => 'thumb'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex

@@ -143,7 +143,7 @@ class Admin::PicturesController < ApplicationController
   
   def show_in_window
     @picture = Picture.find(params[:id])
-    render :layout => "image_in_window"
+    render :layout => 'picture_zoom'
   end
   
 end
