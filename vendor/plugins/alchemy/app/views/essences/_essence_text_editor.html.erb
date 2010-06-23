@@ -17,9 +17,14 @@
 	<label><%= t("content_names.#{content.name}") %></label>
 	<%= select_tag(
 		"contents[content_#{content.id}][body]",
-		options_for_select(options[:select_values], content.essence.body),
-		:id => "contents_#{content.id}_content",
-		:class => options[:css_class]
+		options_for_select(
+			options[:select_values],
+			content.essence.body
+		),
+		{
+			:class => options[:css_class],
+			:style => options[:style]
+		}
 	) %>
 
 <%- else -%>

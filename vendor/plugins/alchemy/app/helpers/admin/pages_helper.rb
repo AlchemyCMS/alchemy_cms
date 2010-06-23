@@ -1,3 +1,3 @@
 module Admin::PagesHelper
-  
+
 end

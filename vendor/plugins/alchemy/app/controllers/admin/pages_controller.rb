@@ -1,5 +1,7 @@
 class Admin::PagesController < ApplicationController
   
+  helper :pages
+  
   layout 'admin'
   
   before_filter :set_translation, :except => [:preview]
