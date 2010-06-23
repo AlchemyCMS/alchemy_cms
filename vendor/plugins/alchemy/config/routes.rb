@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "/admin/logout", :controller => "admin", :action => "logout"
   map.admin_layoutpages "/admin/pages/layoutpages", :controller => "admin/pages", :action => "layoutpages"
   map.download_attachment "/attachment/:id/download", :controller => 'attachments', :action => 'download'
+  map.show_attachment "/attachment/:id/show", :controller => 'attachments', :action => 'show'
   map.namespace :admin do |admin|
     admin.resources :users
     admin.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get}
