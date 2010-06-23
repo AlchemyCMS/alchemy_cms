@@ -595,8 +595,8 @@ module ApplicationHelper
       :submenu => true,
       :from_page => current_page,
       :spacer => "",
-      :navigation_partial => "pages/partials/navigation_renderer",
-      :navigation_link_partial => "pages/partials/navigation_link",
+      :navigation_partial => "partials/navigation_renderer",
+      :navigation_link_partial => "partials/navigation_link",
       :show_nonactive => false
     }
     options = default_options.merge(options)

@@ -87,6 +87,7 @@ class UpgradeDbForAlchemy < ActiveRecord::Migration
     # Changing WaAtoms to Essences
     ActiveRecord::Base.connection.update_sql("UPDATE contents set essence_type = REPLACE(essence_type, 'WaAtom', 'Essence')")
     ActiveRecord::Base.connection.update_sql("UPDATE contents set essence_type = REPLACE(essence_type, 'EssenceRtf', 'EssenceRichtext')")
+    ActiveRecord::Base.connection.update_sql("UPDATE contents set essence_type = REPLACE(essence_type, 'EssenceFlashvideo', 'EssenceVideo')")
     
     # Renaming old userstamp columns to new userstamp columns
     rename_column :essence_htmls, :content, :source
@@ -160,6 +161,7 @@ class UpgradeDbForAlchemy < ActiveRecord::Migration
     rename_column :elements, :creator_id, :created_by
     rename_column :contents, :updater_id, :updated_by
     rename_column :contents, :creator_id, :created_by
+    ActiveRecord::Base.connection.update_sql("UPDATE contents set essence_type = REPLACE(essence_type, 'EssenceVideo', 'EssenceFlashvideo')")
     ActiveRecord::Base.connection.update_sql("UPDATE contents set essence_type = REPLACE(essence_type, 'EssenceRichtext', 'EssenceRtf')")
     ActiveRecord::Base.connection.update_sql("UPDATE contents set essence_type = REPLACE(essence_type, 'Essence', 'WaAtom')")
     rename_column :pages, :layoutpage, :systempage
