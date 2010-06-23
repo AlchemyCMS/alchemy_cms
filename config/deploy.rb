@@ -33,7 +33,7 @@ after "deploy:symlink", "alchemy:symlink_folders"
 
 namespace :alchemy do
 
-  desc "Creates the uploads and pictures cache directory in the shared folder"
+  desc "Creates the uploads and picture cache directory in the shared folder"
   task :create_shared_folders, :roles => :app do
     run "mkdir -p #{shared_path}/uploads"
     run "mkdir -p #{shared_path}/uploads/pictures"
@@ -44,7 +44,7 @@ namespace :alchemy do
 
   desc "Sets the symlinks for uploads and pictures cache folder"
   task :symlink_folders, :roles => :app do
-    run "rm -rf #{current_path}/uploads/*"
+    run "rm -rf #{current_path}/public/uploads/*"
     run "ln -nfs #{shared_path}/uploads/pictures/ #{current_path}/uploads/pictures"
     run "ln -nfs #{shared_path}/uploads/attachments/ #{current_path}/uploads/attachments"
     run "rm -rf #{current_path}/public/pictures"
@@ -101,16 +101,16 @@ namespace :alchemy do
     run "cd #{deploy_to}/shared && mysqldump -u#{db_settings['username']} -p#{db_settings['password']} -S#{db_settings['socket']} -h#{db_settings['host']} #{db_settings['database']} > dump_#{@datestring}.sql"
   end
 
-  desc "Get pictures zip from remote server and store it in uploads/pictures.tar.gz"
+  desc "Get pictures zip from remote server and store it in public/uploads/pictures.tar.gz"
   task :get_pictures do
     alchemy.zip_pictures
-    download "#{deploy_to}/shared/uploads/pictures.tar.gz", "uploads/pictures.tar.gz"
+    download "#{deploy_to}/shared/uploads/pictures.tar.gz", "public/uploads/pictures.tar.gz"
   end
 
-  desc "Get attachments zip from remote server and store it in uploads/attachments.tar.gz"
+  desc "Get attachments zip from remote server and store it in public/uploads/attachments.tar.gz"
   task :get_attachments do
     alchemy.zip_attachments
-    download "#{deploy_to}/shared/uploads/attachments.tar.gz", "uploads/attachments.tar.gz"
+    download "#{deploy_to}/shared/uploads/attachments.tar.gz", "public/uploads/attachments.tar.gz"
   end
 
   desc "Get db dump from remote server and store it in db/<Time>.sql"
@@ -121,8 +121,8 @@ namespace :alchemy do
 
   desc "Extracts the pictures.tar.gz into the uploads/pictures folder"
   task :import_pictures do
-    `rm -rf uploads/pictures`
-    `cd uploads/ && tar xzf pictures.tar.gz`
+    `rm -rf /uploads/pictures`
+    `cd /uploads/ && tar xzf pictures.tar.gz`
   end
 
   desc "Extracts the attachments.tar.gz into the uploads/attachments folder"
@@ -145,6 +145,12 @@ namespace :alchemy do
     system('svn copy -m "new release" http://svn.vondeyen.com/alchemy/trunk http://svn.vondeyen.com/alchemy/releases/1.0')
   end
   
+  desc "Upgrade from old uploads storage folder structure"
+  task :upgrade_upload_storage do
+    run "mv #{shared_path}/uploads/images #{shared_path}/uploads/pictures"
+    run "mv #{shared_path}/uploads/files #{shared_path}/uploads/attachments"
+    run "mv #{shared_path}/cache/images #{shared_path}/cache/pictures"
+  end
 end
 
 namespace :ferret do

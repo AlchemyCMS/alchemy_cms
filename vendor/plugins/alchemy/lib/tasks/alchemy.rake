@@ -7,6 +7,7 @@ namespace 'alchemy' do
     Rake::Task['alchemy:upgrades:generate_migration'].invoke
     Rake::Task['alchemy:upgrades:auth_rules_file'].invoke
     Rake::Task['alchemy:upgrades:rename_files_and_folders'].invoke
+    Rake::Task['alchemy:upgrades:add_locales'].invoke
     Rake::Task['alchemy:upgrades:svn_commit'].invoke
     Rake::Task['alchemy:upgrades:cleanup'].invoke
   end
@@ -368,7 +369,7 @@ EOF
     desc "Updates the config/environment.rb file"
     task "environment_file" do
       s = <<EOF
-RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 require File.join(File.dirname(__FILE__), '../vendor/plugins/alchemy/plugins/engines/boot')
@@ -381,8 +382,8 @@ Rails::Initializer.run do |config|
   config.gem 'mime-types', :lib => "mime/types"
 
   config.plugin_paths << File.join(File.dirname(__FILE__), '../vendor/plugins/alchemy/plugins')
-  config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
-  config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
+  config.load_paths += %W( \#{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
+  config.load_paths += %W( \#{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
   config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
   config.i18n.default_locale = :de
   config.active_record.default_timezone = :berlin
@@ -407,6 +408,29 @@ EOF
       system("svn add lib/tasks/alchemy_plugins_tasks.rake")
       system("svn add db/migrate/*")
       system("svn commit -m 'upgraded to alchemy'")
+    end
+    
+    desc "Adding config/locale folder if not exists and place de.yml and en.yml file in it."
+    task "add_locales" do
+      de = <<EOF
+de:
+  content_names:
+    headline: 'Überschrift'
+    text: 'Text'
+    date: 'Datum'
+    body: 'Inhalt'
+EOF
+      en = <<EOF
+en:
+  content_names:
+    headline: 'Headline'
+    text: 'Text'
+    date: 'Date'
+    body: 'Content'
+EOF
+      Dir.mkdir('config/locales') if Dir.glob('config/locales').empty?
+      File.open('config/locales/de.yml', 'w') { |f| f.write(de) }
+      File.open('config/locales/en.yml', 'w') { |f| f.write(en) }
     end
     
     desc "Removing unused files and directories"
