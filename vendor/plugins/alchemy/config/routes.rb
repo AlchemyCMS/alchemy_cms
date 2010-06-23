@@ -53,6 +53,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :essence_files
   end
   map.resources :user_sessions
+  map.resources :elements, :only => :show
   map.resources :mails
   map.show_image '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
   map.thumbnail '/admin/pictures/thumb/:id/:size/thumbnail.jpg', :controller => 'admin/pictures', :action => 'thumb'

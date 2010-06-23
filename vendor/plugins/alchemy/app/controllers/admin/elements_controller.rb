@@ -4,7 +4,6 @@ class Admin::ElementsController < ApplicationController
   
   @@date_parts = ["%Y", "%m", "%d", "%H", "%M"]
   
-  filter_access_to [:show], :attribute_check => true
   filter_access_to [:new, :create, :order, :index], :attribute_check => false
   
   def index
@@ -49,13 +48,6 @@ class Admin::ElementsController < ApplicationController
         Alchemy::Notice.show_via_ajax(page, _("adding_element_not_successful"), :error)
       end
     end
-  end
-  
-  def show
-    @element = Element.find(params[:id])
-    @page = @element.page
-    @container_id = params[:container_id]
-    render :layout => false
   end
   
   def update
