@@ -1,5 +1,5 @@
 class Admin::PicturesController < ApplicationController
-  
+  require 'FileUtils'
   protect_from_forgery :except => [:create]
   layout 'admin'
   
@@ -103,7 +103,7 @@ class Admin::PicturesController < ApplicationController
     @picture.name = params[:value]
     if @picture.save
       render :update do |page|
-        page.replace "image_#{@picture.id}", :partial => "image", :locals => {:image => @picture}
+        page.replace "picture_#{@picture.id}", :partial => "picture", :locals => {:picture => @picture}
         Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
       end
     end
@@ -121,9 +121,9 @@ class Admin::PicturesController < ApplicationController
   
   def flush
     Picture.all.each do |picture|
-      system("rm -rf #{Rails.root}/public/pictures/show/#{picture.id}")
-      system("rm -rf #{Rails.root}/public/pictures/thumbnails/#{picture.id}")
-      system("rm -rf #{Rails.root}/public/pictures/zoom/#{picture.id}")
+      FileUtils.rm_rf("#{Rails.root}/public/pictures/show/#{picture.id}")
+      FileUtils.rm_rf("#{Rails.root}/public/pictures/thumbnails/#{picture.id}")
+      expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
     end
     render :update do |page|
       Alchemy::Notice.show_via_ajax(page, _('Picture cache flushed'))

@@ -1,7 +1,4 @@
-<div class="picture_detail" id="image_<%= picture.id %>" name="<%= picture.name %>">
-	<div class="archive_image_spinner">
-		<%= image_tag("ajax_loader.gif", :plugin => "alchemy", :alt => '') %>
-	</div>
+<div class="picture_detail" id="picture_<%= picture.id %>" name="<%= picture.name %>">
 	<%- permitted_to?(:destroy, :admin_pictures) do -%>
 	<span class="picture_tool_delete">
 		<%= link_to_confirmation_window(
@@ -19,6 +16,9 @@
 		) -%>
 	</span>
 	<%- end -%>
+	<div class="archive_image_spinner">
+		<%= image_tag("ajax_loader.gif", :plugin => "alchemy", :alt => '') %>
+	</div>
 	<div class="picture_image" style="display: none;">
 		<%= link_to_function(
 			image_tag(
