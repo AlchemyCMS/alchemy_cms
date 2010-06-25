@@ -24,10 +24,11 @@ authorization do
   role :author do
     includes :registered
     has_permission_on :admin, :to => [:login_to]
+    has_permission_on :pictures, :to => [:thumbnail, :zoom]
     has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :admin_elements, :to => [:manage_elements]
-    has_permission_on :admin_pictures, :to => [:index, :archive_overlay, :thumb, :show_in_window]
-    has_permission_on :admin_attachments, :to => [:index, :archive_overlay, :download, :show]
+    has_permission_on :admin_pictures, :to => [:index, :archive_overlay, :show_in_window]
+    has_permission_on :admin_attachments, :to => [:index, :archive_overlay, :show, :download]
     has_permission_on :admin_contents, :to => [:manage_contents]
     has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
@@ -37,7 +38,7 @@ authorization do
   role :editor do
     includes :author
     has_permission_on :admin_attachments, :to => [:manage]
-    has_permission_on :admin_pictures, :to => [:manage]
+    has_permission_on :admin_pictures, :to => [:manage, :flush]
     has_permission_on :admin_pages, :to => [:manage_pages]
   end
   
@@ -56,7 +57,7 @@ privileges do
   end
   
   privilege :manage_pages, :admin_pages do
-    includes :manage, :switch_language, :create_language, :layoutpages, :move, :configure
+    includes :manage, :switch_language, :create_language, :layoutpages, :move, :configure, :flush
   end
   
   privilege :manage_elements, :admin_elements do

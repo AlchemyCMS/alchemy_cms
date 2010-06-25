@@ -141,8 +141,8 @@ namespace :alchemy do
   
   desc "PRIVATE! Release a new alchemy Version. ONLY FOR internal usage!"
   task :release do
-    system('svn remove -m "removing for new release" http://svn.vondeyen.com/alchemy/releases/1.0')
-    system('svn copy -m "new release" http://svn.vondeyen.com/alchemy/trunk http://svn.vondeyen.com/alchemy/releases/1.0')
+    system('svn remove -m "removing for new release" http://svn.vondeyen.com/alchemy/releases/1.1')
+    system('svn copy -m "new release" http://svn.vondeyen.com/alchemy/trunk http://svn.vondeyen.com/alchemy/releases/1.1')
   end
   
   desc "Upgrade from old uploads storage folder structure"
