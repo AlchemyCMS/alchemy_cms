@@ -1,5 +1,4 @@
 class Admin::PicturesController < ApplicationController
-  require 'FileUtils'
   protect_from_forgery :except => [:create]
   layout 'admin'
   

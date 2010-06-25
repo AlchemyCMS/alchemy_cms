@@ -1,6 +1,5 @@
 class PicturesSweeper < ActionController::Caching::Sweeper
   observe Picture
-  require 'FileUtils'
   
   def after_update(picture)
     expire_cache_for(picture)
