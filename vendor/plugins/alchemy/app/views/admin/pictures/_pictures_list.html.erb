@@ -8,7 +8,5 @@
 	</p>
 <%- else  -%>
 	<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @pictures} %>
-	<div id="images">
-		<%= render(:partial => 'picture', :collection => @pictures) %>
-	</div>
+	<%= render(:partial => 'picture', :collection => @pictures) %>
 <%- end -%>

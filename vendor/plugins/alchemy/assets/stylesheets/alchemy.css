@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -545,14 +547,15 @@ div#page {
 	width: 16px;
 	height: 16px;
 	position: absolute;
-	display: none;
 	background-color: white;
-	top: 0;
-	right: 0;
+	top: 4px;
+	right: 4px;
 	padding: 1px;
+	z-index: 1;
+	display: none;
 }
 
-.picture_image .picture_tool_delete a{
+.picture_tool_delete a {
 	display: block;
 	width: 18px;
 	height: 18px;
@@ -1845,7 +1848,7 @@ div.archive_image_spinner {
 	height: 93px;
 }
 
-#archive_all .picture_image:hover .picture_tool_delete{
+#archive_all .picture_detail:hover .picture_tool_delete {
 	display: block;
 }
 
@@ -1871,6 +1874,7 @@ div.archive_image_spinner {
 	z-index: 10;
 	border-top-style: none;
 	left: -1px;
+	top: 98px;
 }
 
 .headline_text_editor {
@@ -2133,6 +2137,10 @@ span.icon.excel {
 
 span.icon.file {
 	background: url(../images/icons/file-icons.png) -16px 0;
+}
+
+span.icon.flush {
+	background: url(../images/icons/broom.png) 0 1px;
 }
 
 span.icon.elements_window {
