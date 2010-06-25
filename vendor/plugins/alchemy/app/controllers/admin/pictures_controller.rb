@@ -116,7 +116,7 @@ class Admin::PicturesController < ApplicationController
     @picture.destroy
     render :update do |page|
       flash[:notice] = ( _("Image: '%{name}' deleted successfully") % {:name => name} )
-      page.redirect_to admin_images_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
+      page.redirect_to admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
     end
   end
   

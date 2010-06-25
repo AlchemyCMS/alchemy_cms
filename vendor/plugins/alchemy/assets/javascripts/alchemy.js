@@ -87,9 +87,6 @@ function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, 
 		recenterAuto: false,
 		effectOptions: {
 			duration: 0.2
-		},
-		onClose: function () {
-			delete window.alchemy_window;
 		}
 	});
 	alchemy_window.setZIndex(10);

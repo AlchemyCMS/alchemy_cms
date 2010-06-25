@@ -41,7 +41,7 @@ class Admin::EssencePicturesController < ApplicationController
         Alchemy::Configuration.sortable_contents(page, @content.element)
       end
       page << "reloadPreview()"
-      page << "alchemy_window.close()"
+      page << "Windows.getFocusedWindow().close()"
     end
   end
   
