@@ -184,10 +184,13 @@ function OverlayForMolecules(show) {
 	}
 }
 
-function pleaseWaitOverlay(message) {
+function pleaseWaitOverlay(show) {
+	if (typeof(show) == 'undefined') {
+		show = true;
+	}
 	var overlay = $('overlay');
 	if (overlay)
-		overlay.style.visibility = 'visible';
+		overlay.style.visibility = show ? 'visible' : 'hidden';
 }
 
 function isIe() {

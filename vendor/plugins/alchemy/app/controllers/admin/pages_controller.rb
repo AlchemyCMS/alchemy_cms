@@ -8,7 +8,7 @@ class Admin::PagesController < ApplicationController
   before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :fold, :destroy]
   
   filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :destroy], :attribute_check => true
-  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move], :attribute_check => false
+  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move, :flush], :attribute_check => false
   
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
@@ -221,6 +221,19 @@ class Admin::PagesController < ApplicationController
       else
         redirect_to admin_pages_path
       end
+    end
+  end
+  
+  def flush
+    Page.flushable.each do |page|
+      if multi_language?
+        expire_action("#{session[:languge]}/#{page.urlname}")
+      else
+        expire_action("#{page.urlname}")
+      end
+    end
+    render :update do |page|
+      Alchemy::Notice.show_via_ajax(page, _('Page cache flushed'))
     end
   end
   

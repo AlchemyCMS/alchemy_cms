@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
         :link => :get,
         :layoutpages => :get,
         :move => :post,
+        :flush => :post
       },
       :member => {
         :publish => :post,
@@ -32,7 +33,8 @@ ActionController::Routing::Routes.draw do |map|
       :pictures,
       :collection => {
         :archive_overlay => :get,
-        :add_upload_form => :get
+        :add_upload_form => :get,
+        :flush => :post
       },
       :member => {
         :remove => :delete
@@ -56,7 +58,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :elements, :only => :show
   map.resources :mails
   map.show_picture '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
-  map.thumbnail '/admin/pictures/thumb/:id/:size/thumbnail.jpg', :controller => 'admin/pictures', :action => 'thumb'
+  map.zoom_picture '/pictures/zoom/:id/picture.png', :controller => 'pictures', :action => 'zoom'
+  map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
   map.show_page '/:urlname', :controller => 'pages', :action => 'show'

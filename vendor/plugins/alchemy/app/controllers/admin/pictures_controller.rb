@@ -3,12 +3,11 @@ class Admin::PicturesController < ApplicationController
   protect_from_forgery :except => [:create]
   layout 'admin'
   
-  before_filter :set_translation, :except => [:thumb]
+  before_filter :set_translation
   
   filter_access_to :all
   
-  caches_page :show_in_window, :thumb
-  cache_sweeper :pictures_sweeper, :only => [:update]
+  cache_sweeper :pictures_sweeper, :only => [:update, :destroy]
   
   def index
     if params[:per_page] == 'all'
@@ -120,24 +119,14 @@ class Admin::PicturesController < ApplicationController
     end
   end
   
-  def thumb
-    @picture = Picture.find(params[:id])
-    case params[:size]
-    when "small"
-      then
-      @size = "80x60"
-    when "medium"
-      then
-      @size = "160x120"
-    when "large"
-      then
-      @size = "240x180"
-    else
-      @size = "111x93"
+  def flush
+    Picture.all.each do |picture|
+      system("rm -rf #{Rails.root}/public/pictures/show/#{picture.id}")
+      system("rm -rf #{Rails.root}/public/pictures/thumbnails/#{picture.id}")
+      system("rm -rf #{Rails.root}/public/pictures/zoom/#{picture.id}")
     end
-    @crop = true
-    respond_to do |format|
-      format.jpg
+    render :update do |page|
+      Alchemy::Notice.show_via_ajax(page, _('Picture cache flushed'))
     end
   end
   

@@ -1,22 +1,20 @@
 class PicturesSweeper < ActionController::Caching::Sweeper
   observe Picture
-
+  
   def after_save(picture)
     expire_cache_for(picture)
   end
-
+  
   def after_destroy(picture)
     expire_cache_for(picture)
   end
-
-  private
-
+  
+private
+  
   def expire_cache_for(picture)
-    for format in ['jpg', 'png'] do
-      expire_page(:controller => 'pictures', :action => 'show', :id => picture, :name => picture.name, :format => format)
-    end
-    expire_page(:controller => 'pictures', :action => 'show_in_window', :id => picture, :format => 'jpg')
-    expire_page(:controller => 'pictures', :action => 'thumb', :id => picture, :format => 'jpg')
+    system("rm -rf #{Rails.root}/public/pictures/show/#{picture.id}")
+    system("rm -rf #{Rails.root}/public/pictures/thumbnails/#{picture.id}")
+    system("rm -rf #{Rails.root}/public/pictures/zoom/#{picture.id}")
   end
-
+  
 end

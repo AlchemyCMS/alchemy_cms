@@ -1,11 +1,9 @@
 @picture.operate do |image|
-  if @size != 'original'
-    image.resize(@size, :upsample => @upsample, :crop => @crop, :padding => @padding) unless @size.nil?
-    image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
-    unless @options.blank?
-      image.border(@options[:border]) unless @options[:border].nil?
-      image.shadow(@options[:shadow]) unless @options[:shadow].nil?
-    end
+  image.resize(@size, :upsample => @upsample, :crop => @crop, :padding => @padding) unless @size.nil?
+  image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
+  unless @options.blank?
+    image.border(@options[:border]) unless @options[:border].nil?
+    image.shadow(@options[:shadow]) unless @options[:shadow].nil?
   end
   image
 end

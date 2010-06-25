@@ -1,8 +1,8 @@
 <%- alchemy_assets_set(:archive) -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">
-	<%- permitted_to?(:new, :admin_pictures) do -%>
 	<div id="toolbar_buttons">
+		<%- permitted_to?(:new, :admin_pictures) do -%>
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon upload'),
@@ -16,9 +16,22 @@
 			) -%><br />
 			<label><%= _('upload_image') %></label>
 		</div>
+		<%- end -%>
+		<%- permitted_to?(:flush, :admin_pictures) do -%>
+		<div class="button_with_label">
+			<%= link_to_remote(
+				content_tag('span', '', :class => 'icon flush'),
+				:url => flush_admin_pictures_path,
+				:before => 'pleaseWaitOverlay();',
+				:complete => 'pleaseWaitOverlay(false);',
+				:html => {:class => 'icon_button',
+				:title => _('Flush picture cache')}
+			) -%><br />
+			<label><%= _('Flush picture cache') %></label>
+		</div>
+		<%- end -%>
 	</div>
 	<div class="toolbar_spacer"></div>
-	<%- end -%>
 	<div id="toolbar_links">
 		<%= render :partial => 'admin/partials/per_page_links', :locals => {:label => _('images'), :values => ['32', '64', 'all']} %>
 	</div>

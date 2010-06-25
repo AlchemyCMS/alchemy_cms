@@ -37,11 +37,11 @@ private
       expire_action("#{page.urlname_was}") unless page.do_not_sweep
     end
     #backend sitemap caches
-    unless page.do_not_sweep || page.nil? || current_user.nil?
-      expire_fragment("page_#{page.id}_for_user_#{current_user.id}_lines")
-      expire_fragment("page_#{page.id}_for_user_#{current_user.id}_status")
-      expire_fragment("page_#{page.id}_for_user_#{current_user.id}_tools")
-    end
+    # unless page.do_not_sweep || page.nil? || current_user.nil?
+    #   expire_fragment("page_#{page.id}_for_user_#{current_user.id}_lines")
+    #   expire_fragment("page_#{page.id}_for_user_#{current_user.id}_status")
+    #   expire_fragment("page_#{page.id}_for_user_#{current_user.id}_tools")
+    # end
   end
   
 end
