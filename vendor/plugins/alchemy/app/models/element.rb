@@ -220,6 +220,13 @@ private
     element
   end
   
+  # makes a copy of source and destroyes the source
+  def self.move(source, differences = {})
+    element = self.copy(source, differences)
+    source.destroy!
+    element
+  end
+  
   # creates the contents for this element as described in the elements.yml
   def create_contents
     element_scratch = my_description

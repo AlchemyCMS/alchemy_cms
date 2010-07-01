@@ -33,7 +33,12 @@ class Admin::ElementsController < ApplicationController
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
   def create
     begin
-      @element = Element.new_from_scratch(params[:element])
+      if params[:element][:name] == "paste_from_clipboard"
+        @element = Element.send(session[:clipboard][:method].to_sym, Element.find(session[:clipboard][:element_id]), {:page_id => params[:element][:page_id]})
+        session[:clipboard][:method] == 'move' ? session[:clipboard] = {} : nil
+      else
+        @element = Element.new_from_scratch(params[:element])
+      end
       @page = @element.page
       if @element.save
         # rendering via rjs template

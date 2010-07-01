@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-25 19:43+0200\n"
+"POT-Creation-Date: 2010-07-01 10:05+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "Element auswählen"
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
 
-#: app/views/admin/pictures/_picture.html.erb:27
+#: app/views/admin/pictures/_picture.html.erb:14
 msgid "Delete image"
 msgstr "Bild löschen"
 
@@ -136,11 +136,11 @@ msgstr ""
 "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur "
 "%{link}"
 
-#: app/controllers/admin/pictures_controller.rb:107
+#: app/controllers/admin/pictures_controller.rb:106
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 
-#: app/controllers/admin/pictures_controller.rb:117
+#: app/controllers/admin/pictures_controller.rb:116
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
@@ -281,7 +281,7 @@ msgstr "Passwort"
 msgid "Picture"
 msgstr "Bild"
 
-#: app/controllers/admin/pictures_controller.rb:129
+#: app/controllers/admin/pictures_controller.rb:128
 msgid "Picture cache flushed"
 msgstr "Bildercache wurde geleert"
 
@@ -304,8 +304,8 @@ msgstr "Name"
 #: app/controllers/admin_controller.rb:16
 msgid "Please Signup"
 msgstr ""
-"Willkommen in Alchemy! Um Ihre Homepage bearbeiten zu können, müssen Sie als "
-"erstes einen Admin Benutzer einrichten."
+"Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin "
+"Benutzer einrichten."
 
 #: app/views/admin/users/_form.html.erb:7
 msgid "Please choose"
@@ -443,12 +443,12 @@ msgstr "Version"
 msgid "View File"
 msgstr "Datei anzeigen"
 
-#: app/views/admin/index.html.erb:8
+#: app/views/admin/index.html.erb:8 app/views/admin/signup.html.erb:5
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
 
-#: app/views/layouts/admin.html.erb:42
+#: app/views/layouts/admin.html.erb:43
 msgid "You are"
 msgstr "Sie sind"
 
@@ -568,7 +568,7 @@ msgstr "Wollen Sie diese Datei wirklich vom Server löschen?"
 msgid "confirm_to_delete_image"
 msgstr "Wollen Sie dieses Bild wirklich löschen?"
 
-#: app/views/admin/pictures/_picture.html.erb:19
+#: app/views/admin/pictures/_picture.html.erb:6
 msgid "confirm_to_delete_image_from_server"
 msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 
@@ -895,7 +895,7 @@ msgstr "Linktitel"
 msgid "logged_out"
 msgstr "Sie wurden abgemeldet."
 
-#: app/views/admin/login.html.erb:25
+#: app/views/admin/login.html.erb:33
 msgid "login"
 msgstr "anmelden"
 
@@ -911,7 +911,7 @@ msgstr "Empfängeradresse"
 msgid "male"
 msgstr "Herr"
 
-#: app/views/admin/signup.html.erb:55
+#: app/views/admin/signup.html.erb:54
 msgid "mandatory fields"
 msgstr "Pflichtfelder"
 
@@ -1112,7 +1112,7 @@ msgstr "nächste Seite"
 msgid "pagination.previous_page"
 msgstr "vorherige Seite"
 
-#: app/views/admin/login.html.erb:16
+#: app/views/admin/login.html.erb:24
 msgid "password"
 msgstr "Passwort"
 
@@ -1185,7 +1185,7 @@ msgstr "durch Robot indizieren"
 #: app/views/admin/pages/configure.html.erb:66
 #: app/views/admin/pictures/_picture.html.erb:45
 #: app/views/admin/pictures/_picture.html.erb:46
-#: app/views/admin/signup.html.erb:50 app/views/admin/users/_form.html.erb:43
+#: app/views/admin/signup.html.erb:49 app/views/admin/users/_form.html.erb:43
 msgid "save"
 msgstr "speichern"
 
@@ -1319,7 +1319,7 @@ msgstr "URL-Name"
 msgid "urlname_to_short"
 msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 
-#: app/views/admin/login.html.erb:8
+#: app/views/admin/login.html.erb:16
 msgid "username"
 msgstr "Benutzername"
 
@@ -1353,6 +1353,6 @@ msgstr "mit dem Namen"
 msgid "yes"
 msgstr "Ja"
 
-#: app/views/admin/pictures/_picture.html.erb:10
+#: app/views/admin/pictures/_picture.html.erb:27
 msgid "zoom_image"
 msgstr "Bild in voller Größe anzeigen."

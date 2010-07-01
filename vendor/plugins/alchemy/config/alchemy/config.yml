@@ -3,7 +3,7 @@
 :mailer:
     :forward_to_page: false
     :mail_sucess_page: root
-    :mail_from: 'Alchemy <mail@alchemy.de>'
+    :mail_from: 'Alchemy <mail@alchemy.com>'
 :visible: true
 :sitemap: 
   :show_root: true

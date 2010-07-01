@@ -9,17 +9,17 @@ class Mailer < ActionMailer::Base
     body :mail_data => mail_data
   end
   
-  def new_user_mail(user, request)
+  def new_user_mail(user, request, mail_from = Alchemy::Configuration.parameter(:mailer)[:mail_from])
     recipients(user.email)
-    from(Alchemy::Configuration.parameter(:mailer)[:mail_from])
-    subject( I18n.t("mailer.new_user_mail.subject") )
+    from(mail_from)
+    subject(I18n.t("mailer.new_user_mail.subject"))
     sent_on(Time.now)
     body({:user => user, :url => "#{request.protocol}#{request.host}/admin/login"})
   end
   
-  def new_alchemy_user_mail(user, request)
+  def new_alchemy_user_mail(user, request, mail_from = Alchemy::Configuration.parameter(:mailer)[:mail_from])
     recipients(user.email)
-    from(Alchemy::Configuration.parameter(:mailer)[:mail_from])
+    from(mail_from)
     subject( _("Your Alchemy Login") )
     sent_on(Time.now)
     body({:user => user, :url => "#{request.protocol}#{request.host}/admin"})

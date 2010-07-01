@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-06-25 19:43+0200\n"
+"POT-Creation-Date: 2010-07-01 10:05+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr ""
 
-#: app/views/admin/pictures/_picture.html.erb:27
+#: app/views/admin/pictures/_picture.html.erb:14
 msgid "Delete image"
 msgstr "Remove this image."
 
@@ -133,11 +133,11 @@ msgid ""
 "{link}"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:107
+#: app/controllers/admin/pictures_controller.rb:106
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:117
+#: app/controllers/admin/pictures_controller.rb:116
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
@@ -278,7 +278,7 @@ msgstr "Password"
 msgid "Picture"
 msgstr "Picture"
 
-#: app/controllers/admin/pictures_controller.rb:129
+#: app/controllers/admin/pictures_controller.rb:128
 msgid "Picture cache flushed"
 msgstr ""
 
@@ -301,8 +301,7 @@ msgstr "Name"
 #: app/controllers/admin_controller.rb:16
 msgid "Please Signup"
 msgstr ""
-"Welcome to Alchemy. In order to manage your site, you first have to signup "
-"an admin account!"
+"In order to manage your site, you first have to signup an admin account!"
 
 #: app/views/admin/users/_form.html.erb:7
 msgid "Please choose"
@@ -436,12 +435,12 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
-#: app/views/admin/index.html.erb:8
+#: app/views/admin/index.html.erb:8 app/views/admin/signup.html.erb:5
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Welcome to Alchemy"
 
-#: app/views/layouts/admin.html.erb:42
+#: app/views/layouts/admin.html.erb:43
 msgid "You are"
 msgstr ""
 
@@ -561,7 +560,7 @@ msgstr "Do you really want to delete this file from the server?"
 msgid "confirm_to_delete_image"
 msgstr "Do you really want to delete this image from server?"
 
-#: app/views/admin/pictures/_picture.html.erb:19
+#: app/views/admin/pictures/_picture.html.erb:6
 msgid "confirm_to_delete_image_from_server"
 msgstr "Do you really want to delete this image from the server?"
 
@@ -886,7 +885,7 @@ msgstr "Linktitle"
 msgid "logged_out"
 msgstr "You logged out successfully."
 
-#: app/views/admin/login.html.erb:25
+#: app/views/admin/login.html.erb:33
 msgid "login"
 msgstr "login"
 
@@ -902,7 +901,7 @@ msgstr "Recipient"
 msgid "male"
 msgstr "Male"
 
-#: app/views/admin/signup.html.erb:55
+#: app/views/admin/signup.html.erb:54
 msgid "mandatory fields"
 msgstr "Mandatory fields"
 
@@ -1099,7 +1098,7 @@ msgstr "next page"
 msgid "pagination.previous_page"
 msgstr "previous page"
 
-#: app/views/admin/login.html.erb:16
+#: app/views/admin/login.html.erb:24
 msgid "password"
 msgstr "Password"
 
@@ -1172,7 +1171,7 @@ msgstr "allow robot to index."
 #: app/views/admin/pages/configure.html.erb:66
 #: app/views/admin/pictures/_picture.html.erb:45
 #: app/views/admin/pictures/_picture.html.erb:46
-#: app/views/admin/signup.html.erb:50 app/views/admin/users/_form.html.erb:43
+#: app/views/admin/signup.html.erb:49 app/views/admin/users/_form.html.erb:43
 msgid "save"
 msgstr "save"
 
@@ -1306,7 +1305,7 @@ msgstr "URL-Name"
 msgid "urlname_to_short"
 msgstr "The pages urlname is too short (minimum of 3 characters)"
 
-#: app/views/admin/login.html.erb:8
+#: app/views/admin/login.html.erb:16
 msgid "username"
 msgstr "Username"
 
@@ -1340,6 +1339,6 @@ msgstr "Name"
 msgid "yes"
 msgstr "yes"
 
-#: app/views/admin/pictures/_picture.html.erb:10
+#: app/views/admin/pictures/_picture.html.erb:27
 msgid "zoom_image"
 msgstr "Zoom this image."
