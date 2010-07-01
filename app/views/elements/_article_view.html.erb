@@ -1,15 +1,15 @@
-<div class="article alchemy_element" id="<%= element_dom_id(element) %>">
-	<div class="article_images">
-		<%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
-		<div class="article_image <%= content.essence.css_class %>">
-			<%= render_essence_view(content, :image_size => "250x200", :crop => true) %>
-		</div>
-		<%- end -%>
-	</div>
-	<h2>
-		<%= render_essence_view_by_name(element, 'headline') %>
-	</h2>
-	<div class="text">
-		<%= render_essence_view_by_name(element, 'text') %>
-	</div>
+<div class="article" id="<%= element_dom_id(element) %>">
+    <div class="article_images">
+        <%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
+        <div class="article_image <%= content.essence.css_class %>">
+            <%= render_essence_view(content, :image_size => "250x200", :crop => true) %>
+        </div>
+        <%- end -%>
+    </div>
+    <h2>
+        <%= render_essence_view_by_name(element, 'headline') %>
+    </h2>
+    <div class="text">
+        <%= render_essence_view_by_name(element, 'text') %>
+    </div>
 </div>

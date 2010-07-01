@@ -1,38 +1,38 @@
 <ul>
-<%- pages = [Page.language_root(session[:language])] if pages.nil? -%>
+<%- pages ||= [Page.language_root(session[:language])] -%>
 <%- pages.each do |page| -%>
 <%- position = "" -%>
 <%- position = position + "last" if pages.last == page -%>
 <%- position = position + "first" if pages.first == page -%>
-  <%- if page.public? -%>
-	<%- if (configuration(:sitemap)[:show_flag] == true && page.sitemap? ) -%>
-	<li id="sitemap_item_<%= page.urlname %>" <%= render_classes([position, page.page_layout]) %>>
-		<%= link_to(
-				h(page.name),
-				{
-					:controller => "pages",
-					:action => 'show',
-					:urlname => page.urlname
-				}
-			) %>
-	<%- elsif configuration(:sitemap)[:show_flag] == false -%>
-	<li id="sitemap_item_<%= page.urlname %>" <%= render_classes([position, page.page_layout]) %>>
-		<%= link_to(
-				h(page.name),
-				{
-					:controller => "pages",
-					:action => 'show',
-					:urlname => page.urlname
-				}
-			) %>
-	<%- end -%>
-		<%= render(:partial => "elements/sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
-  </li>
-	<%- else #page not public -%>
-	<li>
-    <span><%= page.sitemap? ? page.name : "&nbsp;" %></span>
+    <%- if page.public? -%>
+    <%- if (configuration(:sitemap)[:show_flag] == true && page.sitemap? ) -%>
+    <li id="sitemap_item_<%= page.urlname %>" <%= render_classes([position, page.page_layout]) %>>
+        <%= link_to(
+            h(page.name),
+            {
+                :controller => "pages",
+                :action => 'show',
+                :urlname => page.urlname
+            }
+        ) %>
+    <%- elsif configuration(:sitemap)[:show_flag] == false -%>
+    <li id="sitemap_item_<%= page.urlname %>" <%= render_classes([position, page.page_layout]) %>>
+        <%= link_to(
+            h(page.name),
+            {
+                :controller => "pages",
+                :action => 'show',
+                :urlname => page.urlname
+            }
+        ) %>
+    <%- end -%>
     <%= render(:partial => "elements/sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
-	</li>
-	<%- end -%>
+    </li>
+    <%- else #page not public -%>
+    <li>
+        <span><%= page.sitemap? ? page.name : "&nbsp;" %></span>
+        <%= render(:partial => "elements/sitemap_view", :locals => {:pages => page.children}) unless page.children.empty? %>
+    </li>
+    <%- end -%>
 <%- end -%>
 </ul>

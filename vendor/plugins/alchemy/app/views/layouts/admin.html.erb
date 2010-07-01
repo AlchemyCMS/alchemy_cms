@@ -39,7 +39,7 @@
 			<%= yield(:subnavi) || admin_subnavigation %>
 			<%= yield(:toolbar) %>
 			<div id="user_info">
-				<%= _('You are') %> <%= current_user.name %>
+				<%= _('You are') %> <%= current_user.name rescue "" %>
 			</div>
 		</div>
 		<%= render :partial => 'admin/partials/flash_notice' %>
