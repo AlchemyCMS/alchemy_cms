@@ -1,4 +1,4 @@
-class MoleculePartialsGenerator < Rails::Generator::Base
+class ElementPartialsGenerator < Rails::Generator::Base
   require 'yaml'
   
   def initialize(runtime_args, runtime_options={})
@@ -25,16 +25,16 @@ class MoleculePartialsGenerator < Rails::Generator::Base
     end
   end
 
-  private
-    
-    def get_elements_from_yaml
-      if File.exists? "#{RAILS_ROOT}/config/alchemy/elements.yml"
-        @elements = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/elements.yml" )
-      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml"
-        @elements = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
-      else
-        raise "Could not read config/alchemy/elements.yml"
-      end
+private
+  
+  def get_elements_from_yaml
+    if File.exists? "#{RAILS_ROOT}/config/alchemy/elements.yml"
+      @elements = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/elements.yml" )
+    elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml"
+      @elements = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
+    else
+      raise "Could not read config/alchemy/elements.yml"
     end
+  end
 
 end
