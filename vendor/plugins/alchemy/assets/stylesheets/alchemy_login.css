@@ -2,9 +2,6 @@
 
 div.login_signup_box {
 	width: 380px;
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 24px;
 	padding: 16px;
 	border: 1px solid #9a9a9a;
 	background-color: #dedede;
@@ -16,6 +13,7 @@ div.login_signup_box {
 	-moz-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
 	-o-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
 	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	margin: 2em auto;
 }
 
 #login table tbody tr td.label {
@@ -26,6 +24,18 @@ div.login_signup_box {
 	margin-top: 1em;
 	margin-bottom: 0;
 	font-size: 1.2em;
+}
+
+td.label {
+	line-height: 25px;
+	height: 25px;
+	width: 170px;
+	text-align: right;
+	padding-right: 4px;
+}
+
+td.submit {
+	text-align: right;
 }
 
 form#login.new_user_session {

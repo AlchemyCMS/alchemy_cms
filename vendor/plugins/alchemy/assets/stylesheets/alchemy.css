@@ -224,7 +224,6 @@ div#explanation {
 	margin-right: auto;
 	margin-left: auto;
 	padding: 16px;
-	margin-top: 50px;
 	background-color: #ffea00;
 	border: 1px solid #ffc000;
 	border-top: 10px solid #ffc000;
@@ -236,6 +235,7 @@ div#explanation {
 	-moz-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
 	-o-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
 	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	margin-top: 1em;
 }
 
 #main_navi a.homepage_link {
@@ -2431,16 +2431,33 @@ div#per_page_values {
 }
 
 #errorExplanation {
-	background: #cc0000;
-	padding: 8px;
+	background: #ffdfdf;
+	padding: 8px 8px 8px 16px;
 	text-align: left;
 	margin-bottom: 8px;
-	border: 1px solid #660000;
-	color: #FFF;
+	border: 1px solid #d08f91;
+	color: #690001;
 	-webkit-border-radius: 0 7px 7px 7px;
 	-moz-border-radius: 0 7px 7px 7px;
 	-o-border-radius: 0 7px 7px 7px;
 	border-radius: 0 7px 7px 7px;
+}
+
+#errorExplanation h2 {
+	font-size: 1.2em;
+}
+
+div.fieldWithErrors {
+	display: inline;
+}
+
+p.foot_note {
+	font-size: 0.8em;
+}
+
+#explanation p {
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 #errorExplanation ul {
