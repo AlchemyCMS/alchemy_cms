@@ -1,15 +1,15 @@
 <%- alchemy_assets_set('default') -%>
 
 <div id="explanation">
-	<p>	
+	<p>
 		<%= image_tag("alchemy-logo.png", :plugin => 'alchemy') %>
 	</p>
 	<p>
-		<%= flash[:explain] %>	
+		<%= flash[:explain] %>
 	</p>
 </div>
 
-<div id="user_signup">
+<div id="user_signup" class="login_signup_box">
 	<% form_for @user, :url => {:action => 'signup'} do |f| %>
 		<%= f.error_messages %>
 		<table border="0" cellspacing="4" cellpadding="0">

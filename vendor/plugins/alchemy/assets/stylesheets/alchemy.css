@@ -1,4 +1,7 @@
-/* @override http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy.css */
+/* @override 
+	http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy.css
+	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy.css
+*/
 
 html {
 	height: 100%;
@@ -169,25 +172,6 @@ div#user_info {
 	font-size: 11px;
 	right: 10px;
 	top: 0;
-}
-
-div#user_signup {
-	width: 380px;
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 24px;
-	padding: 16px;
-	border: 1px solid #9a9a9a;
-	background-color: #dedede;
-	-webkit-border-radius: 0 7px 7px 7px;
-	-moz-border-radius: 0 7px 7px 7px;
-	-o-border-radius: 0 7px 7px 7px;
-	border-radius: 0 7px 7px 7px;
-	-webkit-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	-moz-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	-o-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	
 }
 
 div#sideboard {
