@@ -7,6 +7,7 @@ class Page < ActiveRecord::Base
   
   validates_presence_of :name, :message => N_("please enter a name")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
+  validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language', :if => :urlname_entered?
   
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
