@@ -1407,6 +1407,18 @@ a.icon_button span.icon {
 	display: inline-block;
 }
 
+span.icon.zoom-out {
+	background: url(../images/icons/magnifier-zom.png) -1px 1px;
+}
+
+span.icon.zoom-equal {
+	background: url(../images/icons/magnifier-zom.png) -17px 1px;
+}
+
+span.icon.zoom-in {
+	background: url(../images/icons/magnifier-zom.png) -33px 1px;
+}
+
 a.icon_button.small span.icon {
 	top: 2px;
 	left: 2px;
@@ -1606,7 +1618,7 @@ input.button, .editor_ok_button, a.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
-	background: url(../images/gui/button_shading.png) repeat-x 0 0;
+	background: #f5f5f5 url(../images/gui/shading.png) repeat-x 0 8px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -1620,6 +1632,14 @@ input.button, .editor_ok_button {
 	padding-left: 8px;
 	padding-right: 8px;
 	padding-bottom: 2px;	
+}
+
+input.button:active,
+a.button:active,
+.editor_ok_button:active {
+	text-decoration: none;
+	background: #e5e5e5 url(../images/gui/shading_inv.png) repeat-x 0 -4px;
+	text-shadow: none;
 }
 
 .editor_ok_button {
@@ -1723,14 +1743,6 @@ a.editor_cancel {
 
 a.editor_cancel:active {
 	background-position: 0 -21px;
-}
-
-input.button:active,
-a.button:active,
-.editor_ok_button:active {
-	text-decoration: none;
-	background-position: 0 -19px;
-	border-color: #6d6e6e;
 }
 
 .editor_field {
@@ -2349,20 +2361,20 @@ div#toolbar_buttons {
 	margin-right: 6px;
 }
 
-div#toolbar_buttons div.button_with_label {
+div.button_with_label {
 	float: left;
 	text-align: center;
 	margin-right: 8px;
 	margin-left: 8px;
 }
 
-div#toolbar_buttons div.button_with_label.disabled {
+div.button_with_label.disabled {
 	position: relative;
 	opacity: 0.5;
 	filter: alpha(opacity=50);
 }
 
-div#toolbar_buttons div.button_with_label .disabledButton {
+div.button_with_label .disabledButton {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -2376,7 +2388,7 @@ div#toolbar_buttons div.button_with_label .disabledButton {
 	float: left;
 }
 
-div#toolbar_buttons div.button_with_label a.icon_button {
+div.button_with_label a.icon_button {
 	float: none;
 	margin-right: auto;
 	margin-left: auto;

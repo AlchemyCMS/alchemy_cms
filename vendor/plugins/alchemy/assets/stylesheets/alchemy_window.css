@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
+
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -119,8 +121,6 @@ div.image_assign_filter_and_image_sizing {
 	clear: both;
 	width: 100%;
 	position: relative;
-	height: 20px;
-	margin-bottom: 12px;
 }
 
 #assign_image_list {
@@ -129,48 +129,15 @@ div.image_assign_filter_and_image_sizing {
 	clear: both;
 }
 
-div.image_assign_filter_and_image_sizing span.image_sizing a {
-	margin-right: 2px;
-	width: 18px;
-	height: 19px;
-	float: left;
+div#overlay_toolbar label {
+	font-size: 10px;
+	text-shadow: #fff 0 1px 2px;
+	text-align: center;
 }
 
-div.image_assign_filter_and_image_sizing span.image_sizing a.image_size_small {
-	background: url(../images/icons/size_small.png) no-repeat -1px;
-}
-
-div.image_assign_filter_and_image_sizing span.image_sizing a.image_size_small:hover {
-	text-decoration: none;
-	background-position: -19px;
-}
-
-div.image_assign_filter_and_image_sizing span.image_sizing a.image_size_medium {
-	background: url(../images/icons/size_medium.png) no-repeat -1px;
-}
-
-div.image_assign_filter_and_image_sizing span.image_sizing a.image_size_medium:hover {
-	text-decoration: none;
-	background-position: -19px;
-}
-
-div.image_assign_filter_and_image_sizing span.image_sizing a.image_size_large {
-	background: url(../images/icons/size_large.png) no-repeat -1px;
-}
-
-div.image_assign_filter_and_image_sizing span.image_sizing {
-	float: left;
-}
-
-div.image_assign_filter_and_image_sizing span.image_sizing label {
-	float: left;
-	margin-right: 4px;
-	margin-top: 2px;
-}
-
-a.image_size_large:hover {
-	text-decoration: none;
-	background-position: -19px;
+label.sup {
+	position: relative;
+	bottom: 3px;
 }
 
 div.assign_image_list_detail {
@@ -531,7 +498,7 @@ input#user_admin {
 
 div.image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 309px;
+	width: 284px;
 }
 
 div.image_assign_filter_and_image_sizing form div.search_field {
@@ -948,4 +915,40 @@ div.info ol {
 div.info ol li {
 	text-indent: 0;
 	margin-bottom: 4px;
+}
+
+div#overlay_toolbar {
+	margin: -8px -8px 12px;
+	padding: 8px;
+	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 32px;
+	border: 1px solid #afafaf;
+	height: 35px;
+}
+
+div#overlay_toolbar div.toolbar_spacer {
+	float: left;
+	width: 1px;
+	height: 37px;
+	border-right-style: dotted;
+	border-right-width: 1px;
+	margin-right: 8px;
+	margin-left: 4px;
+}
+
+div#overlay_toolbar a.button {
+	width: 25px;
+	height: 21px;
+	text-decoration: none;
+	float: right;
+	border-width: 0;
+	border-style: none;
+	font-size: 0;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+div#overlay_toolbar a.button:active {
+	text-decoration: none;
+	background-position: 0 -21px;
 }

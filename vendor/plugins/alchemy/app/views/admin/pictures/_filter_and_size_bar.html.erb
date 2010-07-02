@@ -1,8 +1,7 @@
 <div class="image_assign_filter_and_image_sizing">
-	<span class="image_sizing">
-		<label><%= _("thumbnail_size") %>:</label>
+	<div class="button_with_label">
 		<%= link_to_remote(
-			"",
+			render_icon('zoom-out'),
 			:url => {
 				:action => "archive_overlay",
 				:size => "small",
@@ -15,11 +14,11 @@
 			},
 			:html => {
 				:title => _("small_thumbnails"),
-				:class => "image_size_small"
+				:class => "icon_button"
 			}
 		) %>
 		<%= link_to_remote(
-			"",
+			render_icon('zoom-equal'),
 			:url => {
 				:action => "archive_overlay",
 				:size => "medium",
@@ -32,11 +31,11 @@
 			},
 			:html => {
 				:title => _("medium_thumbnails"),
-				:class => "image_size_medium"
+				:class => "icon_button"
 			}
 		) %>
 		<%= link_to_remote(
-			"",
+			render_icon('zoom-in'),
 			:url => {
 				:action => "archive_overlay",
 				:size => "large",
@@ -49,33 +48,38 @@
 			},
 			:html => {
 				:title => _("big_thumbnails"),
-				:class => "image_size_large"
+				:class => "icon_button"
 			}
-		) %>
-	</span>
-	<%= link_to_overlay_window(
-		render_icon('upload'),
-		url_for(
-			:controller => 'admin/pictures',
-			:action => 'new',
-			:while_assigning => true,
-			:element_id => @element.blank? ? nil : @element.id,
-			:content_id => @content.blank? ? nil : @content.id,
-			:swap => @swap,
-			:page => params[:page],
-			:per_page => params[:per_page],
-			:size => @size,
-			:options => @options
-		),
-		{
-			:size => "355x320",
-			:title => _('upload_image')
-		},
-		{
-			:class => 'icon_button',
-			:title => _('upload_image')
-		}
-	) %>
+		) %><br />
+		<label class="sup"><%= _('Image size') %></label>
+	</div>
+	<div class="toolbar_spacer"></div>
+	<div class="button_with_label">
+        <%= link_to_overlay_window(
+    		render_icon('upload'),
+    		url_for(
+    			:controller => 'admin/pictures',
+    			:action => 'new',
+    			:while_assigning => true,
+    			:element_id => @element.blank? ? nil : @element.id,
+    			:content_id => @content.blank? ? nil : @content.id,
+    			:swap => @swap,
+    			:page => params[:page],
+    			:per_page => params[:per_page],
+    			:size => @size,
+    			:options => @options
+    		),
+    		{
+    			:size => "355x320",
+    			:title => _('upload_image')
+    		},
+    		{
+    			:class => 'icon_button',
+    			:title => _('upload_image')
+    		}
+    	) %><br />
+    	<label><%= _('upload_image') %></label>
+	</div>
 	<%= render(
 		:partial => 'admin/partials/remote_search_form',
 		:locals => {

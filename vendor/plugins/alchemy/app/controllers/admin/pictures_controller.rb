@@ -85,7 +85,7 @@ class Admin::PicturesController < ApplicationController
       :conditions => "name LIKE '%#{params[:query]}%'"
     )
     @swap = params[:swap]
-    @size = params[:size] || 'small'
+    @size = params[:size] || 'medium'
     @options = params[:options]
     if params[:remote] == 'true'
       render :update do |page|
