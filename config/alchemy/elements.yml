@@ -12,6 +12,10 @@
 #     - name: text
 #       type: EssenceRichtext
 #       take_me_for_preview: Boolean
+#     - name: check
+#       type: EssenceText
+#       settings:
+#         display_as: checkbox
 #
 # Content-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
 #
@@ -23,7 +27,6 @@
   contents:
   - name: headline
     type: EssenceText
-    take_me_for_preview: true
   - name: text
     type: EssenceRichtext
 
