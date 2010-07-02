@@ -421,7 +421,7 @@ module ApplicationHelper
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:urlname => @page.urlname, :lang => session[:language]) : show_page_url(:urlname => @page.urlname)}.rss" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => :feed, :urlname => @page.urlname, :lang => session[:language], :format => :rss) : show_page_url(:protocol => :feed, :urlname => @page.urlname, :format => :rss)}" />
     )
     end
     return meta_string
