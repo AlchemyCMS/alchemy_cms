@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
-  map.show_page '/:urlname', :controller => 'pages', :action => 'show'
-  map.show_page_with_language '/:lang/:urlname', :controller => 'pages', :action => 'show', :lang => @lang_regex
+  map.show_page '/:urlname.:format', :controller => 'pages', :action => 'show'
+  map.show_page_with_language '/:lang/:urlname.:format', :controller => 'pages', :action => 'show', :lang => @lang_regex
   map.connect ':controller/:action/:id'
 end

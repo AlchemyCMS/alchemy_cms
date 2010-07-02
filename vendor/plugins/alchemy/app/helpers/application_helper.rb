@@ -409,7 +409,7 @@ module ApplicationHelper
       keywords = current_page.meta_keywords
     end
     robot = "#{current_page.robot_index? ? "" : "no"}index, #{current_page.robot_follow? ? "" : "no"}follow"
-    %(
+    meta_string = %(
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       #{render_meta_content_language_tag}
       #{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
@@ -419,6 +419,12 @@ module ApplicationHelper
       <meta name="date" content="#{current_page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
+    if @page.contains_feed?
+    meta_string += %(
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:urlname => @page.urlname, :lang => session[:language]) : show_page_url(:urlname => @page.urlname)}.rss" />
+    )
+    end
+    return meta_string
   end
 
   # Returns an array of all pages in the same branch from current. Used internally to find the active page in navigations.

@@ -249,6 +249,10 @@ class Page < ActiveRecord::Base
     end
   end
   
+  def contains_feed?
+    self.layout_description['feed']
+  end
+  
 private
 
   def generate_url_name(url_name)

@@ -67,7 +67,7 @@ class Admin::PagesController < ApplicationController
       params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
       page = Page.create(params[:page])
       if page.valid?
-        page.move_to_child_of parent
+        parent.children.blank? ? page.move_to_child_of(parent) : page.move_to_left_of(parent.children.first)
       end
       render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue
