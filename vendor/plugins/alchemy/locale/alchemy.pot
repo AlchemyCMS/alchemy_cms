@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-01 10:05+0200\n"
+"POT-Creation-Date: 2010-07-02 12:00+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +138,10 @@ msgstr ""
 
 #: app/controllers/admin/pictures_controller.rb:106
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
+msgstr ""
+
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:54
+msgid "Image size"
 msgstr ""
 
 #: app/controllers/admin/pictures_controller.rb:116
@@ -369,6 +373,10 @@ msgstr ""
 msgid "To manage your website open a browser and go to"
 msgstr ""
 
+#: app/models/page.rb:10
+msgid "URL-Name already token"
+msgstr ""
+
 #: locale/model_attributes.rb:38
 msgid "User"
 msgstr ""
@@ -484,7 +492,7 @@ msgstr ""
 msgid "add_image_to_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:48
+#: app/controllers/admin/elements_controller.rb:53
 msgid "adding_element_not_successful"
 msgstr ""
 
@@ -524,7 +532,7 @@ msgstr ""
 msgid "assign_image"
 msgstr ""
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:51
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:50
 msgid "big_thumbnails"
 msgstr ""
 
@@ -712,7 +720,7 @@ msgstr ""
 msgid "element_%{name}_moved_to_clipboard"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:143
+#: app/controllers/admin/elements_controller.rb:148
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 
@@ -724,11 +732,11 @@ msgstr ""
 msgid "element_editor_not_found"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:106
+#: app/controllers/admin/elements_controller.rb:111
 msgid "element_not_saved"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:124
+#: app/controllers/admin/elements_controller.rb:129
 msgid "element_not_successfully_deleted"
 msgstr ""
 
@@ -888,7 +896,8 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: app/views/layouts/admin.html.erb:34 lib/alchemy_core_modules.rb:9
+#: app/views/layouts/admin.html.erb:34 app/views/layouts/login.html.erb:34
+#: lib/alchemy_core_modules.rb:9
 msgid "logout"
 msgstr ""
 
@@ -904,7 +913,7 @@ msgstr ""
 msgid "mandatory fields"
 msgstr ""
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:34
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:33
 msgid "medium_thumbnails"
 msgstr ""
 
@@ -1026,35 +1035,35 @@ msgstr ""
 msgid "page_status"
 msgstr ""
 
-#: app/models/page.rb:158
+#: app/models/page.rb:159
 msgid "page_status_invisible_public"
 msgstr ""
 
-#: app/models/page.rb:146
+#: app/models/page.rb:147
 msgid "page_status_invisible_public_locked"
 msgstr ""
 
-#: app/models/page.rb:161
+#: app/models/page.rb:162
 msgid "page_status_invisible_unpublic"
 msgstr ""
 
-#: app/models/page.rb:149
+#: app/models/page.rb:150
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 
-#: app/models/page.rb:152
+#: app/models/page.rb:153
 msgid "page_status_visible_public"
 msgstr ""
 
-#: app/models/page.rb:140
+#: app/models/page.rb:141
 msgid "page_status_visible_public_locked"
 msgstr ""
 
-#: app/models/page.rb:155
+#: app/models/page.rb:156
 msgid "page_status_visible_unpublic"
 msgstr ""
 
-#: app/models/page.rb:143
+#: app/models/page.rb:144
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 
@@ -1210,7 +1219,7 @@ msgstr ""
 msgid "show_page_in_sitemap"
 msgstr ""
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:17
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:16
 msgid "small_thumbnails"
 msgstr ""
 
@@ -1222,7 +1231,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:154
+#: app/controllers/admin/elements_controller.rb:159
 msgid "successfully_saved_element_position"
 msgstr ""
 
@@ -1241,16 +1250,12 @@ msgstr ""
 msgid "target_blank"
 msgstr ""
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:3
-msgid "thumbnail_size"
-msgstr ""
-
 #: app/views/admin/essence_files/edit.html.erb:11
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:134 app/models/page.rb:97
-#: app/models/page.rb:104 app/models/page.rb:111
+#: app/controllers/admin/pages_controller.rb:134 app/models/page.rb:98
+#: app/models/page.rb:105 app/models/page.rb:112
 msgid "unknown"
 msgstr ""
 
@@ -1280,8 +1285,9 @@ msgstr ""
 msgid "upload_file"
 msgstr ""
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:72
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:76
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:74
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:78
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:81
 #: app/views/admin/pictures/index.html.erb:11
 #: app/views/admin/pictures/index.html.erb:15
 #: app/views/admin/pictures/index.html.erb:17

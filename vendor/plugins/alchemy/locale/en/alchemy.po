@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-01 10:05+0200\n"
+"POT-Creation-Date: 2010-07-02 12:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -136,6 +136,10 @@ msgstr ""
 #: app/controllers/admin/pictures_controller.rb:106
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
+
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:54
+msgid "Image size"
+msgstr "Imagesize"
 
 #: app/controllers/admin/pictures_controller.rb:116
 msgid "Image: '%{name}' deleted successfully"
@@ -367,6 +371,10 @@ msgstr ""
 msgid "To manage your website open a browser and go to"
 msgstr ""
 
+#: app/models/page.rb:10
+msgid "URL-Name already token"
+msgstr ""
+
 #: locale/model_attributes.rb:38
 msgid "User"
 msgstr "User"
@@ -482,7 +490,7 @@ msgstr ""
 msgid "add_image_to_element"
 msgstr "Add an image."
 
-#: app/controllers/admin/elements_controller.rb:48
+#: app/controllers/admin/elements_controller.rb:53
 msgid "adding_element_not_successful"
 msgstr "Could not add element."
 
@@ -522,7 +530,7 @@ msgstr "assign a file from your archive"
 msgid "assign_image"
 msgstr "Assign an image"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:51
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:50
 msgid "big_thumbnails"
 msgstr "Big thumbnails"
 
@@ -710,7 +718,7 @@ msgstr "Copied element %{name} to clipboard"
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Moved element %{name} to clipboard."
 
-#: app/controllers/admin/elements_controller.rb:143
+#: app/controllers/admin/elements_controller.rb:148
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr "Error while moving element %{name} to clipboard."
 
@@ -722,11 +730,11 @@ msgstr "Deleted element."
 msgid "element_editor_not_found"
 msgstr "Error within this Element"
 
-#: app/controllers/admin/elements_controller.rb:106
+#: app/controllers/admin/elements_controller.rb:111
 msgid "element_not_saved"
 msgstr "Element could not be saved."
 
-#: app/controllers/admin/elements_controller.rb:124
+#: app/controllers/admin/elements_controller.rb:129
 msgid "element_not_successfully_deleted"
 msgstr "Element could not be deleted."
 
@@ -889,7 +897,8 @@ msgstr "You logged out successfully."
 msgid "login"
 msgstr "login"
 
-#: app/views/layouts/admin.html.erb:34 lib/alchemy_core_modules.rb:9
+#: app/views/layouts/admin.html.erb:34 app/views/layouts/login.html.erb:34
+#: lib/alchemy_core_modules.rb:9
 msgid "logout"
 msgstr "logout"
 
@@ -905,7 +914,7 @@ msgstr "Male"
 msgid "mandatory fields"
 msgstr "Mandatory fields"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:34
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:33
 msgid "medium_thumbnails"
 msgstr "Medium thumbnails"
 
@@ -1027,41 +1036,41 @@ msgstr "Page restricted"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:158
+#: app/models/page.rb:159
 msgid "page_status_invisible_public"
 msgstr "Page is invisible in navigation but public."
 
-#: app/models/page.rb:146
+#: app/models/page.rb:147
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Page is invisible in navigation but public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:161
+#: app/models/page.rb:162
 msgid "page_status_invisible_unpublic"
 msgstr "Page is invisible in navigation and unpublic."
 
-#: app/models/page.rb:149
+#: app/models/page.rb:150
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Page is invisible in navigation and unpublic. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:152
+#: app/models/page.rb:153
 msgid "page_status_visible_public"
 msgstr "Page is visible in navigation and public."
 
-#: app/models/page.rb:140
+#: app/models/page.rb:141
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Page is visible in navigation and public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:155
+#: app/models/page.rb:156
 msgid "page_status_visible_unpublic"
 msgstr "Page is visible in navigation but unpublic."
 
-#: app/models/page.rb:143
+#: app/models/page.rb:144
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Page is visible in navigation but unpublic. Page is currently locked for "
@@ -1219,7 +1228,7 @@ msgstr "Show in navigation"
 msgid "show_page_in_sitemap"
 msgstr "Show page in sitemap."
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:17
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:16
 msgid "small_thumbnails"
 msgstr "Small thumbnails"
 
@@ -1231,7 +1240,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
-#: app/controllers/admin/elements_controller.rb:154
+#: app/controllers/admin/elements_controller.rb:159
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
@@ -1250,16 +1259,12 @@ msgstr "Cancel uploads"
 msgid "target_blank"
 msgstr "Open link in new window"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:3
-msgid "thumbnail_size"
-msgstr "Thumbnail size"
-
 #: app/views/admin/essence_files/edit.html.erb:11
 msgid "title"
 msgstr "Title"
 
-#: app/controllers/admin/pages_controller.rb:134 app/models/page.rb:97
-#: app/models/page.rb:104 app/models/page.rb:111
+#: app/controllers/admin/pages_controller.rb:134 app/models/page.rb:98
+#: app/models/page.rb:105 app/models/page.rb:112
 msgid "unknown"
 msgstr "unknown"
 
@@ -1289,8 +1294,9 @@ msgstr "upload"
 msgid "upload_file"
 msgstr "Upload file(s)."
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:72
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:76
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:74
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:78
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:81
 #: app/views/admin/pictures/index.html.erb:11
 #: app/views/admin/pictures/index.html.erb:15
 #: app/views/admin/pictures/index.html.erb:17

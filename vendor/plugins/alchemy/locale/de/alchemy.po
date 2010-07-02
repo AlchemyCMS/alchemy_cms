@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-01 10:05+0200\n"
+"POT-Creation-Date: 2010-07-02 12:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,10 @@ msgstr ""
 #: app/controllers/admin/pictures_controller.rb:106
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
+
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:54
+msgid "Image size"
+msgstr "Bildgröße"
 
 #: app/controllers/admin/pictures_controller.rb:116
 msgid "Image: '%{name}' deleted successfully"
@@ -375,6 +379,10 @@ msgstr ""
 "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden "
 "Link"
 
+#: app/models/page.rb:10
+msgid "URL-Name already token"
+msgstr ""
+
 #: locale/model_attributes.rb:38
 msgid "User"
 msgstr "Name"
@@ -490,7 +498,7 @@ msgstr "+ einen Inhalt hinzufügen"
 msgid "add_image_to_element"
 msgstr "Bild hinzufügen"
 
-#: app/controllers/admin/elements_controller.rb:48
+#: app/controllers/admin/elements_controller.rb:53
 msgid "adding_element_not_successful"
 msgstr "Es konnte kein Element hinzugefügt werden."
 
@@ -530,7 +538,7 @@ msgstr "Datei aus dem Archiv zuweisen"
 msgid "assign_image"
 msgstr "Bild hinzufügen."
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:51
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:50
 msgid "big_thumbnails"
 msgstr "große Miniaturbilder"
 
@@ -718,7 +726,7 @@ msgstr "Das Element '%{name}' wurde in die Zwischenablage kopiert."
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Das Element '%{name}' wurde in die Zwischenablage bewegt."
 
-#: app/controllers/admin/elements_controller.rb:143
+#: app/controllers/admin/elements_controller.rb:148
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 "Das Element '%{name}' konnte nicht in die Zwischenablage kopiert werden."
@@ -731,11 +739,11 @@ msgstr "Element wurde gelöscht."
 msgid "element_editor_not_found"
 msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 
-#: app/controllers/admin/elements_controller.rb:106
+#: app/controllers/admin/elements_controller.rb:111
 msgid "element_not_saved"
 msgstr "Element konnte nicht gespeichert werden."
 
-#: app/controllers/admin/elements_controller.rb:124
+#: app/controllers/admin/elements_controller.rb:129
 msgid "element_not_successfully_deleted"
 msgstr "Das Element konnte nicht gelöscht werden."
 
@@ -899,7 +907,8 @@ msgstr "Sie wurden abgemeldet."
 msgid "login"
 msgstr "anmelden"
 
-#: app/views/layouts/admin.html.erb:34 lib/alchemy_core_modules.rb:9
+#: app/views/layouts/admin.html.erb:34 app/views/layouts/login.html.erb:34
+#: lib/alchemy_core_modules.rb:9
 msgid "logout"
 msgstr "abmelden"
 
@@ -915,7 +924,7 @@ msgstr "Herr"
 msgid "mandatory fields"
 msgstr "Pflichtfelder"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:34
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:33
 msgid "medium_thumbnails"
 msgstr "mittlere Miniaturbilder"
 
@@ -1037,45 +1046,45 @@ msgstr "Seite schützen"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:158
+#: app/models/page.rb:159
 msgid "page_status_invisible_public"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
 
-#: app/models/page.rb:146
+#: app/models/page.rb:147
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
 "Diese Seite wird gerade bearbeitet."
 
-#: app/models/page.rb:161
+#: app/models/page.rb:162
 msgid "page_status_invisible_unpublic"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
 
-#: app/models/page.rb:149
+#: app/models/page.rb:150
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet"
 
-#: app/models/page.rb:152
+#: app/models/page.rb:153
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
 
-#: app/models/page.rb:140
+#: app/models/page.rb:141
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
 "wird gerade bearbeitet."
 
-#: app/models/page.rb:155
+#: app/models/page.rb:156
 msgid "page_status_visible_unpublic"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
-#: app/models/page.rb:143
+#: app/models/page.rb:144
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
@@ -1233,7 +1242,7 @@ msgstr "Navigation anzeigen"
 msgid "show_page_in_sitemap"
 msgstr "Seite in der Sitemap zeigen"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:17
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:16
 msgid "small_thumbnails"
 msgstr "kleine Miniaturbilder"
 
@@ -1245,7 +1254,7 @@ msgstr "Betreff"
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:154
+#: app/controllers/admin/elements_controller.rb:159
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 
@@ -1264,16 +1273,12 @@ msgstr "Hochladen abbrechen"
 msgid "target_blank"
 msgstr "In einem neuen Fenster öffnen"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:3
-msgid "thumbnail_size"
-msgstr "Miniaturbildergröße"
-
 #: app/views/admin/essence_files/edit.html.erb:11
 msgid "title"
 msgstr "Titel"
 
-#: app/controllers/admin/pages_controller.rb:134 app/models/page.rb:97
-#: app/models/page.rb:104 app/models/page.rb:111
+#: app/controllers/admin/pages_controller.rb:134 app/models/page.rb:98
+#: app/models/page.rb:105 app/models/page.rb:112
 msgid "unknown"
 msgstr "unbekannt"
 
@@ -1303,8 +1308,9 @@ msgstr "Datei hochladen"
 msgid "upload_file"
 msgstr "Datei(en) hochladen"
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:72
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:76
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:74
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:78
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:81
 #: app/views/admin/pictures/index.html.erb:11
 #: app/views/admin/pictures/index.html.erb:15
 #: app/views/admin/pictures/index.html.erb:17

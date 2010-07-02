@@ -62,24 +62,17 @@ a.edit_link.linked {
 	border-radius: 2px;
 }
 
-a.remove_link {
-	background: url(../images/icons/unlink.png) 0 0;
-	margin-right: 0;
-}
-
 a.swap_picture {
 	background: url(../images/icons/image-swap.png) no-repeat 0 0;
 	margin-right: 0;
 }
 
 .edit_images_bottom {
-	width: 113px;
 	height: 19px;
 	position: absolute;
 	z-index: 0;
-	bottom: 4px;
-	left: 4px;
-	padding-left: 4px;
+	left: 5px;
+	bottom: 2px;
 }
 
 .picture_detail .picture_handle {

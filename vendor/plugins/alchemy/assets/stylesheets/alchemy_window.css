@@ -212,6 +212,10 @@ div.overlay_image_spinner {
 	height: 180px;
 }
 
+#assign_image_list div.assign_image_list_image a {
+	display: block;
+}
+
 #assign_image_list div.assign_image_list_image img {
 	border-style: none;
 }
@@ -485,11 +489,8 @@ input#user_admin {
 	white-space: nowrap;
 	overflow: hidden;
 	padding-top: 3px;
-	font-size: 10px;
-	position: absolute;
-	bottom: 4px;
-	left: 4px;
-	width: 79px;
+	display: block;
+	font: 12px "Courier New", Courier, mono;
 }
 
 #assign_image_list div.pagination {
@@ -498,11 +499,11 @@ input#user_admin {
 
 div.image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 284px;
+	width: 286px;
 }
 
 div.image_assign_filter_and_image_sizing form div.search_field {
-	margin-right: 8px;
+	margin-right: 4px;
 	float: left;
 }
 
