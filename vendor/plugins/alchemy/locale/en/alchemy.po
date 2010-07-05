@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-02 12:00+0200\n"
+"POT-Creation-Date: 2010-07-05 23:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "Create %{language} as a new language"
 
-#: app/helpers/application_helper.rb:806
+#: app/helpers/application_helper.rb:812
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' from clipboard"
 
@@ -331,7 +331,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1095
+#: app/helpers/application_helper.rb:1101
 msgid "Select an content"
 msgstr ""
 
@@ -481,8 +481,8 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/application_helper.rb:1091
-#: app/helpers/application_helper.rb:1107
+#: app/helpers/application_helper.rb:1097
+#: app/helpers/application_helper.rb:1113
 msgid "add new content"
 msgstr ""
 
@@ -550,7 +550,7 @@ msgstr "Please choose a element"
 msgid "choose_file_to_link"
 msgstr "Please choose a file to link"
 
-#: app/helpers/application_helper.rb:791
+#: app/helpers/application_helper.rb:797
 #: app/views/admin/partials/_remote_search_form.html.erb:26
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -581,12 +581,12 @@ msgstr "Do you really want to delete this page?"
 msgid "confirm_to_delete_user"
 msgstr "Do you really want to delete this user?"
 
-#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:843
-#: app/helpers/application_helper.rb:948
+#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:849
+#: app/helpers/application_helper.rb:954
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
-#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:838
+#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:844
 msgid "content_not_found"
 msgstr "Content not found."
 
@@ -726,7 +726,7 @@ msgstr "Error while moving element %{name} to clipboard."
 msgid "element_deleted_successful"
 msgstr "Deleted element."
 
-#: app/views/admin/elements/_editor_not_found.html.erb:1
+#: app/views/elements/_editor_not_found.html.erb:2
 msgid "element_editor_not_found"
 msgstr "Error within this Element"
 
@@ -974,7 +974,7 @@ msgstr "Names"
 msgid "navigation_name"
 msgstr "Navigationname"
 
-#: app/helpers/application_helper.rb:818
+#: app/helpers/application_helper.rb:824
 msgid "no"
 msgstr "no"
 
@@ -1127,7 +1127,7 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/helpers/application_helper.rb:818
+#: app/helpers/application_helper.rb:824
 msgid "please_confirm"
 msgstr "Please confirm"
 
@@ -1192,7 +1192,7 @@ msgstr "Link saved."
 msgid "saving"
 msgstr "saving"
 
-#: app/helpers/application_helper.rb:793
+#: app/helpers/application_helper.rb:799
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:15
 msgid "search"
@@ -1341,7 +1341,7 @@ msgstr "Width"
 msgid "with_name"
 msgstr "Name"
 
-#: app/helpers/application_helper.rb:818
+#: app/helpers/application_helper.rb:824
 msgid "yes"
 msgstr "yes"
 

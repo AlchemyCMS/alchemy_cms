@@ -23,4 +23,4 @@ en:
     send: 'send'
     message: 'Message'
     mandatory_fields: 'mandatory Felder'
-  
+    success_page: Success Page
