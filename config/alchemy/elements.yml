@@ -35,10 +35,12 @@
     type: EssenceRichtext
 
 - name: searchresult
+  unique: true
   display_name: Suchergebnis
 
 - name: contactform
   display_name: Kontaktformular
+  unique: true
   contents:
   - name: mail_from
     type: EssenceText
