@@ -130,7 +130,7 @@ module ApplicationHelper
           Use ./script/generate element_partials to generate them.
           Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb!\n
         )
-        render :partial => "elements/#{part}_not_found", :locals => {:name => element.name}
+        render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate element_partials to generate them."}
       end
     end
   end

@@ -5,6 +5,15 @@ input.text_with_icon {
 	float: left;
 }
 
+div.error {
+	padding: 8px 4px 8px 32px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
 .element_editor p.footnote {
 	clear: both;
 	float: left;

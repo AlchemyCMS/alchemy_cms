@@ -631,7 +631,7 @@ msgstr "Einen neuen Sprachbaum erstellen"
 #: app/views/admin/pages/_sitemap.html.erb:47
 #: app/views/admin/pages/_sitemap.html.erb:52
 msgid "create_page"
-msgstr "Eine Seite anlegen"
+msgstr "Eine Unterseite anlegen"
 
 #: app/views/admin/users/index.html.erb:11
 #: app/views/admin/users/index.html.erb:16

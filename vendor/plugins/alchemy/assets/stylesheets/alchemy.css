@@ -715,7 +715,7 @@ a.hide_element_selector {
 	margin-left: 4px;
 }
 
-.flash.error {
+.error {
 	border-color: #c49c9c;
 	color: #592e2e;
 	background: #efd3d3 url(../images/icons/exclamation-red.png) no-repeat 8px 8px;

@@ -1,4 +1,4 @@
-class ElementPartialsGenerator < Rails::Generator::Base
+class ElementsGenerator < Rails::Generator::Base
   require 'yaml'
   
   def initialize(runtime_args, runtime_options={})
