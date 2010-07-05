@@ -1,0 +1,18 @@
+<h1>Search Content (backend)</h1>
+<% form_tag :action => 'search' do %>
+  <fieldset>
+    <legend>Search</legend>
+    <input type="text" name="query" value="<%= h @query %>" />
+  </fieldset>
+  <%= submit_tag 'search' %>
+<% end %>
+
+<% if @results -%>
+<p>Your search for <%= h @query %> returned <%= @results.size %> Results:</p>
+<ul>
+  <% @results.each { |result| -%>
+  <li><%= link_to result.title, :action => 'show', :id => result %></li>
+  <% } -%>
+</ul>
+<% end -%>
+

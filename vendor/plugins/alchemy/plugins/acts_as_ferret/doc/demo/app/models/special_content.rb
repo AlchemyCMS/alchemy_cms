@@ -1,0 +1,3 @@
+class SpecialContent < ContentBase
+
+end

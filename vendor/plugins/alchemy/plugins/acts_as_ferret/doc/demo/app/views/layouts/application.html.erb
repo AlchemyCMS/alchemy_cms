@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>acts_as_ferret demo application</title>
+  <%= stylesheet_link_tag 'scaffold' %>
+</head>
+<body>
+  <ul>
+    <li><%= link_to 'Contents', contents_path %></li>
+    <li><%= link_to 'Search', search_path %></li>
+  </ul>
+
+  <p style="color: green"><%= flash[:notice] %></p>
+
+<%= yield %>
+
+</body>
+</html>

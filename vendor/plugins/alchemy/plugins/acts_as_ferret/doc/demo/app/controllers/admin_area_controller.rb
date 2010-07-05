@@ -1,0 +1,4 @@
+class AdminAreaController < ApplicationController
+
+end
+

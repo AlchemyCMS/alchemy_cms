@@ -1,0 +1,9 @@
+<h1>Editing content</h1>
+
+<% form_for :content, @content, content_path(@content), :html => { :method => :put } do |f| %>
+  <%= render :partial => 'form', :object => f %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', content_path(@content) %> |
+<%= link_to 'Back', contents_path %>

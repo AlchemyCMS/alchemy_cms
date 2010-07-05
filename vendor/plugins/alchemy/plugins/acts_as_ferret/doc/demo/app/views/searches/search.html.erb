@@ -1,0 +1,20 @@
+<h1>Search</h1>
+<% form_tag search_path do %>
+  <fieldset>
+    <legend>Search</legend>
+    <%= text_field_tag 'q', @search.query %>
+  </fieldset>
+  <%= submit_tag 'search' %>
+<% end %>
+
+<% if @results -%>
+
+  <p>Your search for <%= h @search.query %> returned <%= @results.total_hits %> Results:</p>
+
+  <p><%= will_paginate @results %></p>
+  <ul>
+    <%= render :partial => 'content', :collection => @results -%>
+  </ul>
+  <p><%= will_paginate @results %></p>
+
+<% end -%>

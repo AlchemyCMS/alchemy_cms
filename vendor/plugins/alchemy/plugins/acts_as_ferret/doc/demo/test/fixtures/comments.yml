@@ -1,0 +1,12 @@
+first:
+  id: 1
+  content: comment from fixture
+  content_id: 1
+another:
+  id: 2
+  content: second comment from fixture
+  content_id: 1
+comment_for_c2:
+  id: 3
+  content: regarding content 2
+  content_id: 2

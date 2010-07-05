@@ -1,0 +1,108 @@
+= WillPaginate
+
+Quick quiz: Where does pagination logic belong?
+
+  a) in the model;
+  b) in the controller;
+  c) in views;
+  d) all of the above.
+
+We think you know the answer (if you think hard enough).
+
+This plugin makes magic happen. You *will* paginate!
+
+
+== Example usage:
+
+Use a paginate finder in the controller:
+
+    @posts = Post.paginate_by_board_id @board.id, :page => params[:page]
+
+Yeah, +paginate+ works just like +find+ -- it just doesn't fetch all the records.
+Just don't forget to tell it which page you want!
+
+Render the posts in your view like you would normally do. When you need to render
+pagination, just stick this in:
+
+    <%= will_paginate @posts %>
+
+You're done. (Copy and paste the example fancy CSS styles from the bottom.)
+
+How does it know how much items to fetch per page? It asks your model by calling
++Post.per_page+. You can define it like this:
+
+    class Post < ActiveRecord::Base
+      cattr_reader :per_page
+      @@per_page = 50
+    end
+
+... or like this:
+
+    class Post < ActiveRecord::Base
+      def self.per_page
+        50
+      end
+    end
+
+... or don't worry about it at all. (WillPaginate defines it to be 30 if missing.)
+You can also specify the count explicitly when calling +paginate+:
+
+    @posts = Post.paginate :page => params[:page], :per_page => 50
+
+The +paginate+ finder wraps the original finder and returns your resultset that now has
+some new properties. You can use the collection as you would with any ActiveRecord
+resultset, but WillPaginate view helpers also need that object to be able to render pagination:
+
+    <ol>
+      <% for post in @posts -%>
+        <li>Render `post` in some nice way.</li>
+      <% end -%>
+    </ol>
+
+    <p>Now let's render us some pagination!</p>
+    <%= will_paginate @posts %>
+
+
+== Authors, credits
+
+  Ruby port by:           PJ Hyett, Mislav Marohnić (Sulien)
+  Contributors:           K. Adam Christensen, Chris Wanstrath, Dr. Nic Williams
+  Original announcement:  http://errtheblog.com/post/929 
+  Original PHP source:    http://www.strangerstudios.com/sandbox/pagination/diggstyle.php
+
+REPORT BUGS on Lighthouse: http://err.lighthouseapp.com/projects/466-plugins/overview
+
+
+== Want Digg style?
+
+Copy the following css into your stylesheet for a good start:
+
+  .pagination {
+    padding: 3px;
+    margin: 3px;
+  }
+  .pagination a {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #aaaadd;
+    text-decoration: none;
+    color: #000099;
+  }
+  .pagination a:hover, .pagination a:active {
+    border: 1px solid #000099;
+    color: #000;
+  }
+  .pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #000099;
+    font-weight: bold;
+    background-color: #000099;
+    color: #FFF;
+  }
+  .pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #eee;
+    color: #ddd;
+  }
