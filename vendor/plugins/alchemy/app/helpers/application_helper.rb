@@ -857,8 +857,8 @@ module ApplicationHelper
       }
     )
     select_tag(
-      "contents[content_#{content.id}][content]",
-      pages_for_select(pages, content.essence.content),
+      "contents[content_#{content.id}][body]",
+      pages_for_select(pages, content.essence.body),
       select_options
     )
   end

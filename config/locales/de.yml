@@ -1,6 +1,25 @@
 de:
+
   content_names:
     headline: 'Überschrift'
     text: 'Text'
     date: 'Datum'
     body: 'Inhalt'
+    mail_from: 'Absender (e-Mail)'
+    mail_to: 'Empfänger (e-Mail)'
+    subject: 'Betreff'
+
+  contactform_labels:
+    salutation: 'Anrede'
+    mr: 'Herr'
+    mrs: 'Frau'
+    firstname: 'Vorname'
+    lastname: 'Nachname'
+    strasse: 'Straße'
+    plz: 'PLZ'
+    ort: 'Ort'
+    phone: 'Telefon'
+    email: 'Email'
+    send: 'abschicken'
+    message: 'Nachricht'
+    mandatory_fields: 'notwendige Felder'

@@ -1,27 +1,3 @@
-# organize your element layouts here
-#
-# Please use this Layout to add new elements
-#
-# Some unique name for your Element: 
-#   - name: a_unique_name
-#     display_name: Some nice Display Name
-#     unique: Boolean
-#     contents:
-#     - name: head
-#       type: EssenceText
-#     - name: text
-#       type: EssenceRichtext
-#       take_me_for_preview: Boolean
-#     - name: check
-#       type: EssenceText
-#       settings:
-#         display_as: checkbox
-#
-# Content-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
-#
-# If you want an content to be the preview text for the element then use the flag take_me_for_preview: true
-# If no content is flagged as preview_content the first one will be taken.
-
 - name: article
   display_name: Artikelabsatz
   contents:
@@ -30,8 +6,20 @@
   - name: text
     type: EssenceRichtext
 
+- name: text
+  display_name: Text
+  contents:
+  - name: text
+    type: EssenceRichtext
+
 - name: headline
   display_name: Überschrift
+  contents:
+  - name: headline
+    type: EssenceText
+
+- name: subheadline
+  display_name: Zwischenüberschrift
   contents:
   - name: headline
     type: EssenceText
@@ -45,3 +33,21 @@
     type: EssenceText
   - name: body
     type: EssenceRichtext
+
+- name: searchresult
+  display_name: Suchergebnis
+
+- name: contactform
+  display_name: Kontaktformular
+  contents:
+  - name: mail_from
+    type: EssenceText
+  - name: mail_to
+    type: EssenceText
+  - name: subject
+    type: EssenceText
+  - name: success_page
+    type: EssenceText
+  
+- name: gallery
+  display_name: Bildergalerie

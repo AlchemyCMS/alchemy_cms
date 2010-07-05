@@ -1,7 +1,26 @@
 en:
+
   content_names:
     headline: 'Headline'
     text: 'Text'
     date: 'Date'
     body: 'Content'
-    
+    mail_from: 'Sender (e-Mail)'
+    mail_to: 'Receiver (e-Mail)'
+    subject: 'Subject'
+
+  contactform_labels:
+    salutation: 'Salutation'
+    mr: 'Mr'
+    mrs: 'Mrs'
+    firstname: 'Firstname'
+    lastname: 'Lastname'
+    strasse: 'Street'
+    plz: 'ZIP'
+    ort: 'City'
+    phone: 'Telephone'
+    email: 'Email'
+    send: 'send'
+    message: 'Message'
+    mandatory_fields: 'mandatory Felder'
+  
