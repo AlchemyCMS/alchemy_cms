@@ -1,5 +1,5 @@
 <%- if options[:shorten_to].blank? -%>
 	<%= content.essence.body %>
 <%- else -%>
-	<%= content.essence.split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…') %>
+	<%= content.essence.body.split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…') %>
 <%- end -%>

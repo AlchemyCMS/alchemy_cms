@@ -881,21 +881,20 @@ module ApplicationHelper
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
     default_options = {
-      :count => nil
+      :count => :all,
+      :from_page => :all,
+      :language => session[:language]
     }
     options = default_options.merge(options)
-    all_elements = Element.find_all_by_name_and_public(name, true)
-    elements = []
-    all_elements.each_with_index do |element, i|
-      unless options[:count].nil?
-        if i < options[:count]
-          elements << element
-        end
-      else
-        elements << element
-      end
+    if options[:from_page] == :all
+      elements = Element.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+    elsif options[:from_page].class == String
+      page = Page.find_by_page_layout_and_language(options[:from_page], options[:language])
+      return [] if page.blank?
+      elements = page.elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+    else
+      elements = options[:from_page].elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
     end
-    elements.reverse
   end
 
   # Returns the public element found by Element.name from the given public Page, either by Page.id or by Page.urlname
