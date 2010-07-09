@@ -47,7 +47,8 @@ module ApplicationHelper
   # :except => []               A list of element names to be rendered. The opposite of the only option.
   # :from_page                  The Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
   # :count                      The amount of elements to be rendered (beginns with first element found)
-  #
+  # :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
+  # 
   # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
   def render_elements(options = {})
     default_options = {
@@ -55,7 +56,8 @@ module ApplicationHelper
       :only => [],
       :from_page => "",
       :count => nil,
-      :render_format => "html"
+      :render_format => "html",
+      :fallback => nil
     }
     options = default_options.merge(options)
     if options[:from_page].blank?
@@ -77,6 +79,12 @@ module ApplicationHelper
       show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
       all_elements = page.find_elements(options, show_non_public)
       element_string = ""
+      if options[:fallback]
+        unless all_elements.detect { |e| e.name == options[:fallback][:for] }
+          from = Page.find_by_page_layout(options[:fallback][:from])
+          all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
+        end
+      end
       all_elements.each do |element|
         element_string += render_element(element, :view, options)
       end
