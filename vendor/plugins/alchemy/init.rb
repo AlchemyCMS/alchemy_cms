@@ -3,16 +3,16 @@ require 'extensions/form_helper'
 require 'alchemy/controller'
 require 'injections/attachment_fu_mime_type'
 
-if defined?(Ddb::Userstamp)
-  Ddb::Userstamp.compatibility_mode = true
-end
+# if defined?(Ddb::Userstamp)
+#   Ddb::Userstamp.compatibility_mode = true
+# end
+
+Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/authorization_rules.rb")
 
 ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 
-if defined?(FastGettext)
-  FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
-  FastGettext.text_domain = 'alchemy'
-end
+FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
+FastGettext.text_domain = 'alchemy'
 
 ActionController::Base.session = {
   :key => '_alchemy_session',
