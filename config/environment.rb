@@ -11,6 +11,8 @@ Rails::Initializer.run do |config|
   config.gem 'mime-types', :lib => "mime/types"
   
   config.plugin_paths << File.join(File.dirname(__FILE__), '../vendor/plugins/alchemy/plugins')
+  config.plugin_paths << File.join(File.dirname(__FILE__), '../vendor/plugins/mailings/plugins')
+  config.plugins = [ :declarative_authorization, :all, :alchemy ]
   config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
   config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
   config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
