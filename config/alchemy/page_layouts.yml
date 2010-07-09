@@ -23,14 +23,14 @@
   elements: [headline, text, searchresult]
   autogenerate: [searchresult]
 
-- name: system_header
-  display_name: System Header
+- name: layout_header
+  display_name: Layout Header
   unique: true
   hide: true
   elements:
 
-- name: system_footer
-  display_name: System Footer
+- name: layout_footer
+  display_name: Layout Footer
   unique: true
   hide: true
   elements:
