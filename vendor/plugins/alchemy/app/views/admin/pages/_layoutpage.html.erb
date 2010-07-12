@@ -1,25 +1,20 @@
-<li>
-	<div class="sitemap_left_images">
-		<%= render(
-			:partial => 'page_icon',
-			:locals => {
-				:page => layoutpage
-			}
-		) -%>
-	</div>
-	<div class="page_infos">
-		<%= render :partial => 'page_status', :locals => {:page => layoutpage} %>
-	</div>
-	<div class="sitemap_sitename">
-	<%= link_to(
-			layoutpage.name, {
-				:controller => 'admin/pages',
-				:action => 'edit',
-				:id => layoutpage,
-				:layoutpage => true
-			},
-			:title => _("edit_page"),
-			:class => "sitemap_pagename_link"
-		) -%>
-	</div>
+<li class="page_level_<%= layoutpage.level %>">
+    <div class="sitemap_page">
+        <div class="sitemap_left_images">
+            <%= render(
+                :partial => 'page_icon',
+                :locals => {
+                    :page => layoutpage
+                }
+            ) -%>
+        </div>
+        <div class="sitemap_sitename">
+            <%= link_to(
+                layoutpage.name,
+                edit_admin_page_path(layoutpage, :layoutpage => true),
+                :title => _("edit_page"),
+                :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+            ) -%>
+        </div>
+    </div>
 </li>

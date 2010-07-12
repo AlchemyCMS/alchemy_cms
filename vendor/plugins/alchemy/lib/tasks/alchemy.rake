@@ -2,17 +2,23 @@ namespace 'alchemy' do
   
   desc 'Turns everything in Alchemy. Voodooo'
   task 'run_upgrade' do
+    Rake::Task['alchemy:upgrades:cleanup'].invoke
     Rake::Task['alchemy:upgrades:environment_file'].invoke
     Rake::Task['alchemy:upgrades:write_rake_task'].invoke
     Rake::Task['alchemy:upgrades:generate_migration'].invoke
-    Rake::Task['alchemy:upgrades:auth_rules_file'].invoke
     Rake::Task['alchemy:upgrades:rename_files_and_folders'].invoke
     Rake::Task['alchemy:upgrades:add_locales'].invoke
     Rake::Task['alchemy:upgrades:svn_commit'].invoke
-    Rake::Task['alchemy:upgrades:cleanup'].invoke
   end
   
   namespace 'upgrades' do
+    
+    desc "Removing unused files and directories"
+    task "cleanup" do
+      system('rm -rf vendor/plugins/webmate')
+      system('rm -rf public/plugin_assets/webmate')
+      system('rm config/initializers/fast_gettext.rb config/initializers/cache_storage.rb config/initializers/session_store.rb')
+    end
     
     desc 'Writes a rake file into lib/tasks to make all the Alchemy plugins tasks available'
     task 'write_rake_task' do
@@ -272,100 +278,6 @@ EOF
       Rake::Task['db:migrate'].invoke
     end
     
-    desc "Adding new authorization rules. Add your custom rules again after the update!"
-    task "auth_rules_file" do
-      s = <<EOF
-#Authorization Rules for Alchemy
-authorization do
-  
-  role :guest do
-    has_permission_on :pages, :to => [:show] do
-      if_attribute :public => true, :restricted => false
-    end
-    has_permission_on :elements, :to => [:show] do
-      if_attribute :public => true
-    end
-    has_permission_on :pictures, :to => [:show]
-    has_permission_on :attachments, :to => [:show, :download]
-  end
-  
-  role :registered do
-    includes :guest
-    has_permission_on :pages, :to => [:show] do
-      if_attribute :public => true
-    end
-    has_permission_on [:admin, :users], :to => [:edit, :update] do
-      if_attribute :id => is {user.id}
-    end
-  end
-  
-  role :author do
-    includes :registered
-    has_permission_on :admin, :to => [:login_to]
-    has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content, :link]
-    has_permission_on :admin_elements, :to => [:manage_elements]
-    has_permission_on :admin_pictures, :to => [:index, :archive_overlay, :thumb, :show_in_window]
-    has_permission_on :admin_attachments, :to => [:index, :archive_overlay, :show, :download]
-    has_permission_on :admin_contents, :to => [:manage_contents]
-    has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
-    has_permission_on :admin_essence_files, :to => [:manage_file_essences]
-    has_permission_on :admin_users, :to => [:index]
-  end
-  
-  role :editor do
-    includes :author
-    has_permission_on :admin_attachments, :to => [:manage]
-    has_permission_on :admin_pictures, :to => [:manage]
-    has_permission_on :admin_pages, :to => [:manage_pages]
-  end
-  
-  role :admin do
-    includes :editor
-    has_permission_on :admin_users, :to => [:manage]
-    has_permission_on :authorization_rules, :to => :read
-  end
-  
-end
-
-privileges do
-  
-  privilege :manage do
-    includes :index, :new, :create, :show, :edit, :update, :destroy
-  end
-  
-  privilege :manage_pages, :admin_pages do
-    includes :manage, :switch_language, :create_language, :layoutpages, :move, :configure
-  end
-  
-  privilege :manage_elements, :admin_elements do
-    includes :manage, :copy_to_clipboard, :order, :fold
-  end
-  
-  privilege :manage_contents, :admin_contents do
-    includes :manage, :order
-  end
-  
-  privilege :manage_picture_essences, :admin_essence_pictures do
-    includes :manage, :save_link, :assign
-  end
-  
-  privilege :manage_file_essences, :admin_essence_files do
-    includes :manage, :assign
-  end
-  
-  privilege :edit_page_content, :admin_pages do
-    includes :edit, :unlock, :preview, :publish
-  end
-  
-  privilege :login_to, :admin do
-    includes :index, :login, :logout
-  end
-  
-end
-EOF
-      File.open('config/authorization_rules.rb', 'w') { |f| f.write(s)}
-    end
-    
     desc "Updates the config/environment.rb file"
     task "environment_file" do
       s = <<EOF
@@ -382,6 +294,7 @@ Rails::Initializer.run do |config|
   config.gem 'mime-types', :lib => "mime/types"
 
   config.plugin_paths << File.join(File.dirname(__FILE__), '../vendor/plugins/alchemy/plugins')
+  config.plugins = [ :declarative_authorization, :all, :alchemy ]
   config.load_paths += %W( \#{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
   config.load_paths += %W( \#{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
   config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
@@ -431,13 +344,6 @@ EOF
       Dir.mkdir('config/locales') if Dir.glob('config/locales').empty?
       File.open('config/locales/de.yml', 'w') { |f| f.write(de) }
       File.open('config/locales/en.yml', 'w') { |f| f.write(en) }
-    end
-    
-    desc "Removing unused files and directories"
-    task "cleanup" do
-      system('rm -rf vendor/plugins/webmate')
-      system('rm -rf public/plugin_assets/webmate')
-      system('rm config/initializers/fast_gettext.rb config/initializers/cache_storage.rb config/initializers/session_store.rb')
     end
     
   end
