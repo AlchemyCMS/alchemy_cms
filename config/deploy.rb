@@ -4,6 +4,13 @@ set :application, "alchemy"
 # ssh user settings. please change to customers
 set :user, "web6"
 set :password, "3KH7zUjU"
+ssh_options[:port] = 12312
+
+set :database_user, "#{user}"
+set :database_password, "#{password}"
+set :database_name, "usr_#{user}_1"
+set :database_host, "localhost"
+set :database_socket, "/var/run/mysqld/mysqld.sock"
 
 # please set domain names
 role :app, "vondeyen.com"
@@ -22,33 +29,48 @@ set :scm, :subversion
 set :scm_user, "capistrano"
 set :scm_password, "C4p1fy"
 set :use_sudo, false
-set :port, 12312
 
 set :repository, Proc.new{ "--username #{scm_user} --password #{scm_password} #{repository_url}" }
 
 before "deploy:restart", "deploy:migrate"
 
 after "deploy:setup", "alchemy:create_shared_folders"
+after "deploy:symlink", "alchemy:create_database_yml"
 after "deploy:symlink", "alchemy:symlink_folders"
 
 namespace :alchemy do
 
-  desc "Creates the uploads and picture cache directory in the shared folder"
+  desc "Creates the uploads and pictures cache directory in the shared folder"
   task :create_shared_folders, :roles => :app do
-    run "mkdir -p #{shared_path}/uploads"
     run "mkdir -p #{shared_path}/uploads/pictures"
     run "mkdir -p #{shared_path}/uploads/attachments"
-    run "mkdir -p #{shared_path}/cache"
     run "mkdir -p #{shared_path}/cache/pictures"
   end
-
+  
+  desc "Creates the database.yml file for server database"
+  task :create_database_yml, :roles => :app do
+    db_config = ERB.new <<-EOF
+    production:
+      adapter: mysql
+      encoding: utf8
+      database: #{database_name}
+      username: #{database_user}
+      password: #{database_password}
+      host: #{database_host}
+      socket: #{database_socket}
+    EOF
+    run "mkdir -p #{shared_path}/config" 
+    put db_config.result, "#{shared_path}/config/database.yml"
+  end
+  
   desc "Sets the symlinks for uploads and pictures cache folder"
   task :symlink_folders, :roles => :app do
-    run "rm -rf #{current_path}/public/uploads/*"
+    run "rm -rf #{current_path}/uploads/*"
     run "ln -nfs #{shared_path}/uploads/pictures/ #{current_path}/uploads/pictures"
     run "ln -nfs #{shared_path}/uploads/attachments/ #{current_path}/uploads/attachments"
     run "rm -rf #{current_path}/public/pictures"
     run "ln -nfs #{shared_path}/cache/pictures/ #{current_path}/public/pictures"
+    run "ln -nfs #{shared_path}/config/database.yml #{current_path}/config/database.yml"
   end
 
   desc "Update Alchemy and generates migrations to finally migrate"
@@ -101,16 +123,16 @@ namespace :alchemy do
     run "cd #{deploy_to}/shared && mysqldump -u#{db_settings['username']} -p#{db_settings['password']} -S#{db_settings['socket']} -h#{db_settings['host']} #{db_settings['database']} > dump_#{@datestring}.sql"
   end
 
-  desc "Get pictures zip from remote server and store it in public/uploads/pictures.tar.gz"
+  desc "Get pictures zip from remote server and store it in uploads/pictures.tar.gz"
   task :get_pictures do
     alchemy.zip_pictures
-    download "#{deploy_to}/shared/uploads/pictures.tar.gz", "public/uploads/pictures.tar.gz"
+    download "#{deploy_to}/shared/uploads/pictures.tar.gz", "uploads/pictures.tar.gz"
   end
 
-  desc "Get attachments zip from remote server and store it in public/uploads/attachments.tar.gz"
+  desc "Get attachments zip from remote server and store it in uploads/attachments.tar.gz"
   task :get_attachments do
     alchemy.zip_attachments
-    download "#{deploy_to}/shared/uploads/attachments.tar.gz", "public/uploads/attachments.tar.gz"
+    download "#{deploy_to}/shared/uploads/attachments.tar.gz", "uploads/attachments.tar.gz"
   end
 
   desc "Get db dump from remote server and store it in db/<Time>.sql"
@@ -121,8 +143,8 @@ namespace :alchemy do
 
   desc "Extracts the pictures.tar.gz into the uploads/pictures folder"
   task :import_pictures do
-    `rm -rf /uploads/pictures`
-    `cd /uploads/ && tar xzf pictures.tar.gz`
+    `rm -rf uploads/pictures`
+    `cd uploads/ && tar xzf pictures.tar.gz`
   end
 
   desc "Extracts the attachments.tar.gz into the uploads/attachments folder"
@@ -139,42 +161,18 @@ namespace :alchemy do
     `mysql -uroot #{db_settings['database']} < db/dump_#{@datestring}.sql`
   end
   
-  desc "PRIVATE! Release a new alchemy Version. ONLY FOR internal usage!"
+  desc "PRIVATE! Release a new Alchemy Version. ONLY FOR internal usage!"
   task :release do
     system('svn remove -m "removing for new release" http://svn.vondeyen.com/alchemy/releases/1.1')
     system('svn copy -m "new release" http://svn.vondeyen.com/alchemy/trunk http://svn.vondeyen.com/alchemy/releases/1.1')
   end
   
-  desc "Upgrade from old uploads storage folder structure"
-  task :upgrade_upload_storage do
-    run "mv #{shared_path}/uploads/images #{shared_path}/uploads/pictures"
-    run "mv #{shared_path}/uploads/files #{shared_path}/uploads/attachments"
-    run "mv #{shared_path}/cache/images #{shared_path}/cache/pictures"
-  end
-end
-
-namespace :ferret do
-  desc "Start the ferret server"
-  task :start, :roles => :app do
-    run "cd #{current_path} && script/ferret_server start -eproduction"
-  end
-
-  desc "Stop the ferret server"
-  task :stop, :roles => :app do
-    run "cd #{current_path} && script/ferret_server stop -eproduction"
-  end
-
-  desc "Restart the ferret server"
-  task :restart, :roles => :app do
-    run "cd #{current_path} && script/ferret_server stop -eproduction"
-    run "cd #{current_path} && script/ferret_server start -eproduction"
-  end
 end
 
 namespace :deploy do
   desc "Overwrite for the internal Capistrano deploy:start task."
   task :start, :roles => :app do
-    run "echo 'Nothing to start, because mod_passenger is handeling everything. Hooray!'"
+    run "echo 'Nothing to start'"
   end
 
   desc "Restart the server"
