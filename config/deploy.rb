@@ -7,8 +7,8 @@ set :password, "3KH7zUjU"
 ssh_options[:port] = 12312
 
 set :database_user, "#{user}"
-set :database_password, "#{password}"
-set :database_name, "usr_#{user}_1"
+set :database_password, "m0fwts5m"
+set :database_name, "usr_#{user}_6"
 set :database_host, "localhost"
 set :database_socket, "/var/run/mysqld/mysqld.sock"
 
