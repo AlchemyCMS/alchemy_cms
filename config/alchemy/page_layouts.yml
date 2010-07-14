@@ -34,3 +34,9 @@
   unique: true
   hide: true
   elements:
+    
+- name: newsletter_layout
+  display_name: blaah Newsletter
+  unique: false
+  newsletter: true
+  elements:

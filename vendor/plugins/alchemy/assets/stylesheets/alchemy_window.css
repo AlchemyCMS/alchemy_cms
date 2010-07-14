@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css */
+/* @override 
+	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
+	http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy_window.css
+*/
 
 .overlay_dialog {
 	background-color: #666666;
@@ -789,6 +792,12 @@ div.add_upload_form_button {
 	padding-bottom: 2px;
 	padding-right: 4px;
 	width: 80px;
+	height: 25px;
+}
+
+.dialog table.table_window td.label.right {
+	text-align: right;
+	width: 50px;
 }
 
 .elements_for_page .alchemy_selectbox {
