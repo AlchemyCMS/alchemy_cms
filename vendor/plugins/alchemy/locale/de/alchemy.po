@@ -32,9 +32,9 @@ msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
 #: app/views/admin/index.html.erb:14
-msgid "Alchemy is free software and itself uses free software and resources:"
+msgid "Alchemy is open software and itself uses open software and free resources:"
 msgstr ""
-"Alchemy ist freie Software und benutzt selbst freie Software und Ressourcen:"
+"Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
 
 #: locale/model_attributes.rb:1
 msgid "Attachment"

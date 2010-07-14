@@ -93,7 +93,7 @@ module ApplicationHelper
   end
 
   # This helper renders the Element partial for either the view or the editor part.
-  # Generate element partials with ./script/generate element_partials
+  # Generate element partials with ./script/generate elements
   def render_element(element, part = :view, options = {})
     if element.blank?
       logger.warn %(\n
@@ -135,10 +135,10 @@ module ApplicationHelper
           Looking for #{partial_name}, but not found
           neither in #{path1}
           nor in #{path2}
-          Use ./script/generate element_partials to generate them.
+          Use ./script/generate elements to generate them.
           Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb!\n
         )
-        render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate element_partials to generate them."}
+        render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
       end
     end
   end

@@ -37,7 +37,7 @@ msgid "Adobe Website"
 msgstr ""
 
 #: app/views/admin/index.html.erb:14
-msgid "Alchemy is free software and itself uses free software and resources:"
+msgid "Alchemy is open software and itself uses open software and free resources:"
 msgstr ""
 
 #: locale/model_attributes.rb:1
