@@ -814,11 +814,7 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-.alchemy_window_content input.auto_resize {
-	width: 100%;
-}
-
-.alchemy_window_content select.auto_resize {
+.alchemy_window_content .auto_resize {
 	width: 100%;
 }
 

@@ -33,6 +33,16 @@
 		</tr>
 		<tr>
 			<td class="label">
+				<label for="contactform_body" class="medium">
+					<%= _("contactform_body") %>
+				</label>
+			</td>
+			<td class="input">
+				<%= text_area_tag "contactform_body", {}, :rows => 5, :class => 'thin_border auto_resize' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
 				<label for="contactform_link_title" class="medium">
 					<%= _("link_title") %>
 				</label>
@@ -47,7 +57,7 @@
 			_("apply"),
 			"alchemyCreateLink(
 				'contact',
-				$('contactform_url').value + '?subject=' + encodeURIComponent($('contactform_subject').value) + '&mail_to=' + encodeURIComponent($('contactform_mailto').value),
+				$('contactform_url').value + '?subject=' + encodeURIComponent($('contactform_subject').value) + '&mail_to=' + encodeURIComponent($('contactform_mailto').value) + '&body=' + encodeURIComponent($('contactform_body').value),
 				$('contactform_link_title').value,
 				false
 			); link_window.close()",

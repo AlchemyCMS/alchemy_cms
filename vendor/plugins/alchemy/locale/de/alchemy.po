@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-05 23:23+0200\n"
+"POT-Creation-Date: 2010-07-14 13:28+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "%{language} als neue Sprache anlegen"
 
-#: app/helpers/application_helper.rb:812
+#: app/helpers/application_helper.rb:820
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' aus der Zwischenablage"
 
@@ -32,9 +32,11 @@ msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
 #: app/views/admin/index.html.erb:14
-msgid "Alchemy is open software and itself uses open software and free resources:"
+msgid ""
+"Alchemy is open software and itself uses open software and free resources:"
 msgstr ""
-"Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
+"Alchemy ist offene Software und benutzt selbst offene Software und freie "
+"Ressourcen:"
 
 #: locale/model_attributes.rb:1
 msgid "Attachment"
@@ -337,7 +339,7 @@ msgstr "Lizenz lesen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/application_helper.rb:1101
+#: app/helpers/application_helper.rb:1108
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -489,8 +491,8 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/application_helper.rb:1097
-#: app/helpers/application_helper.rb:1113
+#: app/helpers/application_helper.rb:1104
+#: app/helpers/application_helper.rb:1120
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -515,7 +517,7 @@ msgstr "alle"
 msgid "allow_fullscreen"
 msgstr "Vollbild ansicht"
 
-#: app/views/admin/pages/_contactform_links.html.erb:47
+#: app/views/admin/pages/_contactform_links.html.erb:57
 #: app/views/admin/pages/_external_link.html.erb:42
 #: app/views/admin/pages/_file_link.html.erb:40
 #: app/views/admin/pages/_internal_link.html.erb:39
@@ -558,7 +560,7 @@ msgstr "Bitte wählen Sie ein Element"
 msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
-#: app/helpers/application_helper.rb:797
+#: app/helpers/application_helper.rb:805
 #: app/views/admin/partials/_remote_search_form.html.erb:26
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -589,12 +591,16 @@ msgstr "Wollen Sie diese Seite wirklich löschen?"
 msgid "confirm_to_delete_user"
 msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 
-#: app/helpers/application_helper.rb:169 app/helpers/application_helper.rb:849
-#: app/helpers/application_helper.rb:954
+#: app/views/admin/pages/_contactform_links.html.erb:37
+msgid "contactform_body"
+msgstr "Nachrichten Vorlage"
+
+#: app/helpers/application_helper.rb:177 app/helpers/application_helper.rb:857
+#: app/helpers/application_helper.rb:961
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/application_helper.rb:163 app/helpers/application_helper.rb:844
+#: app/helpers/application_helper.rb:171 app/helpers/application_helper.rb:852
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
@@ -698,7 +704,7 @@ msgstr "Dateieigenschaften bearbeiten"
 msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
-#: app/views/admin/pages/_layoutpage.html.erb:21
+#: app/views/admin/pages/_layoutpage.html.erb:15
 #: app/views/admin/pages/_page.html.erb:71
 #: app/views/admin/pages/_sitemap.html.erb:65
 msgid "edit_page"
@@ -893,7 +899,7 @@ msgstr "Datei"
 msgid "link_overlay_tab_label.internal"
 msgstr "Intern"
 
-#: app/views/admin/pages/_contactform_links.html.erb:37
+#: app/views/admin/pages/_contactform_links.html.erb:47
 #: app/views/admin/pages/_external_link.html.erb:27
 #: app/views/admin/pages/_file_link.html.erb:22
 msgid "link_title"
@@ -984,11 +990,11 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/application_helper.rb:824
+#: app/helpers/application_helper.rb:832
 msgid "no"
 msgstr "Nein"
 
-#: app/helpers/application_helper.rb:218 app/helpers/application_helper.rb:284
+#: app/helpers/application_helper.rb:226 app/helpers/application_helper.rb:292
 msgid "no_element_given"
 msgstr "Kein Element angegeben."
 
@@ -1141,7 +1147,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/application_helper.rb:824
+#: app/helpers/application_helper.rb:832
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1206,7 +1212,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/application_helper.rb:799
+#: app/helpers/application_helper.rb:807
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:15
 msgid "search"
@@ -1355,7 +1361,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/application_helper.rb:824
+#: app/helpers/application_helper.rb:832
 msgid "yes"
 msgstr "Ja"
 

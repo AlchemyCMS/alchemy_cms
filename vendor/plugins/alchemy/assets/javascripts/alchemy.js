@@ -434,10 +434,12 @@ function selectLinkWindowTab() {
 			var link_params = link.href.split('?')[1];
 			var link_subject = link_params.split('&')[0];
 			var link_mailto = link_params.split('&')[1];
+			var link_body = link_params.split('&')[2];
 			showLinkWindowTab('contactform_links', $('tab_for_contactform_links'));
 			$('contactform_link_title').value = title;
 			$('contactform_url').value = link_url;
 			$('contactform_subject').value = unescape(link_subject.gsub(/subject=/,''));
+			$('contactform_body').value = unescape(link_body.gsub(/body=/,''));
 			$('contactform_mailto').value = link_mailto.gsub(/mail_to=/,'');
 		}
 	}

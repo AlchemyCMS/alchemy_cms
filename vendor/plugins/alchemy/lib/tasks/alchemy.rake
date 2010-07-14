@@ -6,6 +6,7 @@ namespace 'alchemy' do
     Rake::Task['alchemy:upgrades:environment_file'].invoke
     Rake::Task['alchemy:upgrades:write_rake_task'].invoke
     Rake::Task['alchemy:upgrades:generate_migration'].invoke
+    Rake::Task['db:migrate'].invoke
     Rake::Task['alchemy:upgrades:rename_files_and_folders'].invoke
     Rake::Task['alchemy:upgrades:add_locales'].invoke
     Rake::Task['alchemy:upgrades:svn_commit'].invoke
@@ -275,7 +276,6 @@ class UpgradeDbForAlchemy < ActiveRecord::Migration
 end
 EOF
       File.open(migration_file, 'w') { |f| f.write(s)}
-      Rake::Task['db:migrate'].invoke
     end
     
     desc "Updates the config/environment.rb file"
