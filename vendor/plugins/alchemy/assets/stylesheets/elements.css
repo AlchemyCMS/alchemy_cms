@@ -1,5 +1,7 @@
 /* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/elements.css */
 
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/elements.css */
+
 input.text_with_icon {
 	width: 343px;
 	float: left;
@@ -346,3 +348,29 @@ a.fold_element {
 	margin: 1px;
 }
 
+.content_editor select.essence_editor_select {
+	-moz-border-radius: 2px 2px 2px 2px;
+	background: white;
+	border: 1px solid #9A9A9A;
+	font-size:11px;
+	height:21px;
+	line-height:21px;
+	padding:2px;
+}
+
+.content_editor select.essence_editor_select optgroup {
+	color: gray;
+	font-style: normal;
+	font-weight: bold;
+	text-indent: 8px;
+}
+
+.content_editor select.essence_editor_select option {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color: black;
+}
+
+.content_editor select.essence_editor_select optgroup option {
+	text-indent: 24px;
+}
