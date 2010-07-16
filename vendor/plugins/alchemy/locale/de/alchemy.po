@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-14 13:28+0200\n"
+"POT-Creation-Date: 2010-07-16 13:55+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
 msgid "Delete image"
 msgstr "Bild löschen"
 
-#: app/views/essences/_essence_text_editor.html.erb:36
+#: app/views/essences/_essence_text_editor.html.erb:47
 msgid "Do you really want to delete this content?"
 msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 
@@ -335,7 +335,7 @@ msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
-#: app/views/essences/_essence_text_editor.html.erb:39
+#: app/views/essences/_essence_text_editor.html.erb:50
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
@@ -362,6 +362,10 @@ msgstr "%{content} wurde gelöscht"
 #: app/controllers/admin/contents_controller.rb:58
 msgid "Successfully saved content position"
 msgstr "Die Position wurde gespeichert."
+
+#: app/views/admin/pages/edit.html.erb:40
+msgid "Sweepe cache"
+msgstr "Cache löschen"
 
 #: app/views/admin/partials/_upload_form.html.erb:41
 msgid "Switch to Flash® Uploader"
@@ -732,7 +736,7 @@ msgstr "Das Element '%{name}' wurde in die Zwischenablage kopiert."
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Das Element '%{name}' wurde in die Zwischenablage bewegt."
 
-#: app/controllers/admin/elements_controller.rb:148
+#: app/controllers/admin/elements_controller.rb:153
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 "Das Element '%{name}' konnte nicht in die Zwischenablage kopiert werden."
@@ -749,7 +753,7 @@ msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 msgid "element_not_saved"
 msgstr "Element konnte nicht gespeichert werden."
 
-#: app/controllers/admin/elements_controller.rb:129
+#: app/controllers/admin/elements_controller.rb:134
 msgid "element_not_successfully_deleted"
 msgstr "Das Element konnte nicht gelöscht werden."
 
@@ -768,7 +772,7 @@ msgstr ""
 
 #: app/views/admin/pages/edit.html.erb:37
 msgid "explain_publishing"
-msgstr "Die gecachte Version vom Server löschen und eine neue erstellen"
+msgstr "Die gecachte Version vom Server löschen"
 
 #: app/views/admin/pages/edit.html.erb:25
 msgid "explain_unlocking"
@@ -1131,7 +1135,7 @@ msgstr "vorherige Seite"
 msgid "password"
 msgstr "Passwort"
 
-#: app/views/essences/_essence_text_editor.html.erb:58
+#: app/views/essences/_essence_text_editor.html.erb:71
 msgid "place_link"
 msgstr "Text verlinken"
 
@@ -1154,10 +1158,6 @@ msgstr "Bitte bestätigen"
 #: app/views/layouts/admin.html.erb:20 app/views/layouts/login.html.erb:20
 msgid "please_wait"
 msgstr "Bitte warten"
-
-#: app/views/admin/pages/edit.html.erb:40
-msgid "publish_page"
-msgstr "Status veröffentlichen"
 
 #: app/views/admin/partials/_upload_form.html.erb:15
 msgid "regular method"
@@ -1260,7 +1260,7 @@ msgstr "Betreff"
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:159
+#: app/controllers/admin/elements_controller.rb:164
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 

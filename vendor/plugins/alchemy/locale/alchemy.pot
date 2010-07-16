@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-14 13:28+0200\n"
+"POT-Creation-Date: 2010-07-16 13:55+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Delete image"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:36
+#: app/views/essences/_essence_text_editor.html.erb:47
 msgid "Do you really want to delete this content?"
 msgstr ""
 
@@ -330,7 +330,7 @@ msgstr ""
 msgid "Read the License"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:39
+#: app/views/essences/_essence_text_editor.html.erb:50
 msgid "Remove this content"
 msgstr ""
 
@@ -356,6 +356,10 @@ msgstr ""
 
 #: app/controllers/admin/contents_controller.rb:58
 msgid "Successfully saved content position"
+msgstr ""
+
+#: app/views/admin/pages/edit.html.erb:40
+msgid "Sweepe cache"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:41
@@ -725,7 +729,7 @@ msgstr ""
 msgid "element_%{name}_moved_to_clipboard"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:148
+#: app/controllers/admin/elements_controller.rb:153
 msgid "element_%{name}_not_moved_to_clipboard"
 msgstr ""
 
@@ -741,7 +745,7 @@ msgstr ""
 msgid "element_not_saved"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:129
+#: app/controllers/admin/elements_controller.rb:134
 msgid "element_not_successfully_deleted"
 msgstr ""
 
@@ -1107,7 +1111,7 @@ msgstr ""
 msgid "password"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:58
+#: app/views/essences/_essence_text_editor.html.erb:71
 msgid "place_link"
 msgstr ""
 
@@ -1129,10 +1133,6 @@ msgstr ""
 
 #: app/views/layouts/admin.html.erb:20 app/views/layouts/login.html.erb:20
 msgid "please_wait"
-msgstr ""
-
-#: app/views/admin/pages/edit.html.erb:40
-msgid "publish_page"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:15
@@ -1236,7 +1236,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:159
+#: app/controllers/admin/elements_controller.rb:164
 msgid "successfully_saved_element_position"
 msgstr ""
 
