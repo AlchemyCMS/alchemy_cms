@@ -57,8 +57,8 @@ class Admin::ElementsController < ApplicationController
   
   def update
     # TODO: refactor this bastard. i bet to shrink this to 4 rows
+    @element = Element.find_by_id(params[:id])
     begin
-      @element = Element.find_by_id(params[:id])
       #save all contents in this element
       for content in @element.contents
         # this is so god damn ugly. can't wait for rails 2.3 and multiple updates for nested forms
@@ -105,10 +105,15 @@ class Admin::ElementsController < ApplicationController
       @element.public = !params[:public].nil?
       @element.save!
       @has_richtext_essence = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
-    rescue
+    rescue Exception => e
       log_error($!)
       render :update do |page|
         Alchemy::Notice.show_via_ajax(page, _("element_not_saved"), :error)
+      end
+      # rebuilding the ferret search engine indexes
+      if e == Ferret::FileNotFoundError
+        EssenceText.rebuild_index
+        EssenceRichtext.rebuild_index
       end
     end
   end
