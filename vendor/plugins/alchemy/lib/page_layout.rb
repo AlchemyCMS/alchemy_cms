@@ -2,9 +2,9 @@ class PageLayout
   
   def self.element_names_for(page_layout)
     page_layouts = self.get_layouts
-    layout_description = page_layouts.select{ |p| p["name"].downcase == page_layout.downcase }
+    layout_description = page_layouts.detect { |p| p["name"].downcase == page_layout.downcase }
     raise "No Layout Description for #{page_layout} found! in page_layouts.yml" if layout_description.blank?
-    layout_description.first["elements"]
+    layout_description["elements"]
   end
 
   def self.get_layouts
