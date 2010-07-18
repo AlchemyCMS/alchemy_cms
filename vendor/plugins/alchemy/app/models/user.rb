@@ -23,9 +23,13 @@ class User < ActiveRecord::Base
   alias :admin? :is_admin?
   
   def unlock_pages
-    for page in Page.find(:all, :conditions => {:locked_by => self.id})
+    for page in pages_locked_by_me
       page.unlock
     end
+  end
+  
+  def pages_locked_by_me
+    Page.find(:all, :conditions => {:locked => true, :locked_by => self.id})
   end
   
   # Returns the firstname and lastname as a string
