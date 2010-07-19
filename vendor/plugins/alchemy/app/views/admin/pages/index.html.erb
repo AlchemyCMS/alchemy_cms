@@ -12,6 +12,7 @@
                 ] },
                 session[:language],
                 :onchange => %(
+                    pleaseWaitOverlay();
                     new Ajax.Request('/admin/pages/switch_language', {
                         method: 'get',
                         parameters: {language: value}
