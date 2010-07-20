@@ -1,5 +1,5 @@
 <div class="content_editor content_text_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
-	<label><%= t("content_names.#{content.name}") %></label>
+	<label><%= t("content_names.#{content.name}", :default => content.name) %></label>
 	<%= text_field_tag(
 		"contents[content_#{content.id}][source]",
 		content.essence.source,
