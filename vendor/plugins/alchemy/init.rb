@@ -12,7 +12,6 @@ Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/
 ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 
 FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
-FastGettext.text_domain = 'alchemy'
 
 ActionController::Base.session = {
   :key => '_alchemy_session',

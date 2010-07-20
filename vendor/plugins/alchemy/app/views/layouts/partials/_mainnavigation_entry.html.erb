@@ -12,6 +12,8 @@
 	:onclick => 'pleaseWaitOverlay();'
 ) do %>
 	<%= image_tag mainnavigation_entry["image"] %><br />
+	<%# We have to set this explicit here, because Alchemy Modules come with their own TextDoamin %>
+	<%- FastGettext.text_domain = 'alchemy' -%>
 	<span><%= _(mainnavigation_entry["name"]) -%></span>
 <% end %>
 

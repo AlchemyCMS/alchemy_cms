@@ -53,3 +53,18 @@
   
 - name: gallery
   display_name: Bildergalerie
+
+- name: newsletter_article
+  display_name: Artikel
+  contents:
+  - name: headline
+    type: EssenceText
+  - name: text
+    type: EssenceRichtext
+
+- name: newsletter_intro
+  display_name: Intro
+  unique: true
+  contents:
+  - name: text
+    type: EssenceRichtext

@@ -36,7 +36,7 @@
   elements:
     
 - name: newsletter_layout
-  display_name: blaah Newsletter
+  display_name: Newsletter
   unique: false
   newsletter: true
-  elements:
+  elements: [newsletter_article, newsletter_intro]

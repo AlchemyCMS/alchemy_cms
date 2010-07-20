@@ -184,6 +184,7 @@ private
   def self.all_for_layout(page, page_layout = "standard")
     element_descriptions = Element.descriptions
     element_names = PageLayout.element_names_for(page_layout)
+    return [] if element_names.blank?
     return element_descriptions if element_names == "all"
     elements_for_layout = []
     for element_description in element_descriptions do

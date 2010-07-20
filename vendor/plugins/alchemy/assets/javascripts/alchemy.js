@@ -19,9 +19,9 @@ function toggleButton (id, action) {
 	};
 }
 
-function openPreviewWindow (id, title) {
+function openPreviewWindow (url, title) {
 	preview_window = new Window({
-		url: '/admin/pages/preview/'+id,
+		url: url,
 		className: 'alchemy_window',
 		title: title,
 		width: document.viewport.getDimensions().width - 570,
