@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<%= render_meta_data :title_prefix => render_elements(:from_page => Page.find(5), :only => ['sitename']), :title_seperator => "|" %>
-		<%= stylesheet_link_tag "base", :media => :screen %>
-		<%= stylesheet_link_tag "base", :media => :printer %>
-		<style type="text/css" media="screen">
-			#wrong-browser{padding:10px 12px;background-color:orange;color:#3e3e3e;position:fixed;top:0;z-index:100000;}
-			.bold {font-weight:bold;}
-		</style>
+    <head>
+        <%= render_meta_data :title_prefix => render_elements(:from_page => Page.find(5), :only => ['sitename']), :title_seperator => "|" %>
+        <%= stylesheet_link_tag "styles", :media => :screen %>
+        <%= stylesheet_link_tag "styles", :media => :printer %>
+        <style type="text/css" media="screen">
+            #wrong-browser{padding:10px 12px;background-color:orange;color:#3e3e3e;position:fixed;top:0;z-index:100000;}
+            .bold {font-weight:bold;}
+        </style>
 	</head>
 	<body>
 		<!--[if IE]>
