@@ -1,15 +1,19 @@
 <div class="article" id="<%= element_dom_id(element) %>">
-    <h2>
+    <div class="intro">
+        <%= render_essence_view_by_name(element, 'intro') %>
+    </div>
+    <h1 class="headline">
         <%= render_essence_view_by_name(element, 'headline') %>
-    </h2>
-    <div class="article_images">
-        <%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
-        <div class="article_image <%= content.essence.css_class %>">
-            <%= render_essence_view(content, :image_size => "250x200", :crop => true) %>
+    </h1>
+    <div class="text_bild_container">
+        <%- content = element.contents.find_by_essence_type("EssencePicture") -%>
+        <%- if content -%>
+        <div class="image <%= content.essence.css_class %>">
+            <%= render_essence_view(content, :image_size => "600x400", :crop => true) %>
         </div>
         <%- end -%>
-    </div>
-    <div class="text">
-        <%= render_essence_view_by_name(element, 'text') %>
+        <div class="text">
+            <%= render_essence_view_by_name(element, 'text') %>
+        </div>
     </div>
 </div>

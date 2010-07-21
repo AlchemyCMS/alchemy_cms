@@ -1,8 +1,12 @@
 - name: article
   display_name: Artikelabsatz
   contents:
+  - name: intro
+    type: EssenceText
   - name: headline
     type: EssenceText
+  - name: image
+    type: EssencePicture
   - name: text
     type: EssenceRichtext
 
@@ -17,6 +21,12 @@
   contents:
   - name: headline
     type: EssenceText
+
+- name: intro
+  display_name: Introtext
+  contents: 
+  - name: intro
+    type: EssenceRichtext
 
 - name: subheadline
   display_name: Zwischenüberschrift
