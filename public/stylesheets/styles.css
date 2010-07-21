@@ -216,6 +216,7 @@ div#header_image {
 	width: 900px;
 	overflow: hidden;
 	margin-bottom: 24px;
+	clear:both;
 }
 
 .intro {
