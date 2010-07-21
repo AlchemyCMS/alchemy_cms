@@ -1,21 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<%= render_meta_data(:title_prefix => 'Homepage') %>
-		<%= stylesheet_link_tag 'styles' %>
+		<%= render_meta_data :title_prefix => render_elements(:from_page => Page.find(5), :only => ['sitename']), :title_seperator => "|" %>
+		<%= stylesheet_link_tag "base", :media => :screen %>
+		<%= stylesheet_link_tag "base", :media => :printer %>
+		<style type="text/css" media="screen">
+			#wrong-browser{padding:10px 12px;background-color:orange;color:#3e3e3e;position:fixed;top:0;z-index:100000;}
+			.bold {font-weight:bold;}
+		</style>
 	</head>
 	<body>
+		<!--[if IE]>
+			<p id="wrong-browser">
+				<span class="bold">!!</span> Sorry pal, but you're using <span class="bold">the wrong browser</span>. Quick, pick a <span class="bold">real one</span>: <a href="http://www.getfirefox.com">Firefox</a>, <a href="http://www.apple.com/safari">Safari</a>, <a href="http://www.google.com/chrome">Chrome</a>, <a href="http://www.opera.com">Opera</a>
+			</p>
+		<![endif]-->
 		<div id="page">
-			<div id="header">
-				<div id="logo">
-					<%= link_to "Home", root_url %>
-				</div>
+			<div id="language_select">
+				<%= language_switches %>
 			</div>
-			<div id="navigation">
-				<%= render_navigation(:submenu => true) %>
+			<div id="breadcrump">
+                <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
 			</div>
-			<%= yield %>
+            <div id="header">
+                <div id="header_image">
+                    <%= render_elements :only => ["header"] %>
+                </div>
+                <div id="claim">
+                    <%= render_elements :only => ["claim"] %>
+                </div>
+                <div id="navigation">
+                    <%= render_navigation :all_sub_menues => true %>
+                </div>
+			</div>
+			<div id="content">
+				<%= yield %>
+			</div>
+			<div class="footer">
+				<%= render_elements(:from_page => Page.find(6), :only => ['footnote']) %>
+			</div>
 		</div>
 		<%= alchemy_preview_mode_code %>
 	</body>
