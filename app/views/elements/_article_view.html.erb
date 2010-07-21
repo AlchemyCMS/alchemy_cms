@@ -9,7 +9,7 @@
         <%- content = element.contents.find_by_essence_type("EssencePicture") -%>
         <%- if content -%>
         <div class="image <%= content.essence.css_class %>">
-            <%= render_essence_view(content, :image_size => "600x400", :crop => true) %>
+            <%= render_essence_view(content, :image_size => "450x300", :crop => true) %>
         </div>
         <%- end -%>
         <div class="text">

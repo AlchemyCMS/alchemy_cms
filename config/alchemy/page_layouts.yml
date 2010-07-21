@@ -1,7 +1,7 @@
 - name: standard
   display_name: Standard
-  elements: [headline, text, subheadline, article, gallery]
-  autogenerate: [headline, article]
+  elements: [article, claim, header, bild, bild_text, text, headline, intro, image_mosaic]
+  autogenerate: [header, claim, article]
 
 - name: contact
   display_name: Kontakt
@@ -27,13 +27,13 @@
   display_name: Layout Header
   unique: true
   hide: true
-  elements:
+  elements: [sitename]
 
 - name: layout_footer
   display_name: Layout Footer
   unique: true
   hide: true
-  elements:
+  elements: [footnote]
     
 - name: newsletter_layout
   display_name: Newsletter
