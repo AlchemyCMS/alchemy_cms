@@ -224,7 +224,7 @@ private
   # makes a copy of source and destroyes the source
   def self.move(source, differences = {})
     element = self.copy(source, differences)
-    source.destroy!
+    source.destroy
     element
   end
   
