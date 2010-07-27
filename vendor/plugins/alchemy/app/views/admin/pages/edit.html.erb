@@ -80,7 +80,7 @@
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
 			openElementsWindow(<%= @page.id %>, '<%= _('Elements') %>');
-			openPreviewWindow('/admin/pages/preview/'+<%= @page.id %>, '<%= _('Page Preview') %>');
+			openPreviewWindow('<%= preview_admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});
 	//]]-->
 	</script>
