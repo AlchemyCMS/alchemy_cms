@@ -7,7 +7,7 @@
 		<%- action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" -%>
 		<%- action_method = params[:image_assign_method] -%>
 	<%- else -%>
-		<%- action_url = create_or_assign_url(picture_to_assign, @options, @swap) -%>
+		<%- action_url = create_or_assign_url(picture_to_assign, @options) -%>
 		<%- action_method = @content.blank? ? 'post' : 'put' -%>
 	<%- end -%>
 	<%= link_to_remote(

@@ -1,6 +1,6 @@
 module Admin::PicturesHelper
   
-  def create_or_assign_url(picture_to_assign, options, swap)
+  def create_or_assign_url(picture_to_assign, options)
     if @content.nil?
       {
         :controller => :contents,

@@ -21,8 +21,8 @@ class Admin::ContentsController < ApplicationController
         @options = Rack::Utils.parse_query(@options)
       end
       if @content.essence_type == "EssencePicture"
-        contents_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
-        @dragable = contents_of_this_type.length > 1
+        @contents_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
+        @dragable = @contents_of_this_type.length > 1
         @options = @options.merge(
           :dragable => @dragable
         )

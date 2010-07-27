@@ -1,31 +1,30 @@
 <% form_remote_tag(
-	:url => {
-		:action => (action || 'index'),
-		:options => @options
-	},
-	:method => :get
+    :url => {
+        :action => (action || 'index'),
+        :options => @options
+    },
+    :method => :get
 ) do %>
-	<%= hidden_field_tag("element_id", (@element.id rescue nil)) %>
-	<%= hidden_field_tag("content_id", (@content.id rescue nil)) %>
-	<%= hidden_field_tag "swap", @swap %>
-	<%= hidden_field_tag "remote", 'true' %>
-	<div class="search_field">
-		<%= text_field_tag(
-			"query",
-			params['query'],
-			:class => 'thin_border',
-			:id => "search_input_field"
-		) %>
-		<%= link_to(
-			"",
-			url_for(
-				:action => :index
-			),
-			:class => "search_field_clear",
-			:id => "search_field_clear",
-			:title => _("click_to_show_all"),
-			:style => (params[:query].nil? ? "display: none" : "display: block")
-		) %>
-	</div>
-	<%= submit_tag _('search'), :name => nil, :class => 'button' %>
+    <%= hidden_field_tag("element_id", (@element.id rescue nil)) %>
+    <%= hidden_field_tag("content_id", (@content.id rescue nil)) %>
+    <%= hidden_field_tag "remote", 'true' %>
+    <div class="search_field">
+        <%= text_field_tag(
+            "query",
+            params['query'],
+            :class => 'thin_border',
+            :id => "search_input_field"
+        ) %>
+        <%= link_to(
+            "",
+            url_for(
+            	:action => :index
+            ),
+            :class => "search_field_clear",
+            :id => "search_field_clear",
+            :title => _("click_to_show_all"),
+            :style => (params[:query].nil? ? "display: none" : "display: block")
+        ) %>
+    </div>
+    <%= submit_tag _('search'), :name => nil, :class => 'button' %>
 <% end %>

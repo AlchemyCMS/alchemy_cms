@@ -84,7 +84,6 @@ class Admin::PicturesController < ApplicationController
       :per_page => 32,
       :conditions => "name LIKE '%#{params[:query]}%'"
     )
-    @swap = params[:swap]
     @size = params[:size] || 'medium'
     @options = params[:options]
     if params[:remote] == 'true'
