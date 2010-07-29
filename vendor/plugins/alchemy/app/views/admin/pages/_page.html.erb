@@ -17,7 +17,7 @@
 					configure_admin_page_path(page),
 					{
 						:title => _('edit_page_properties'),
-						:size => '380x490'
+						:size => page.redirects_to_external? ? '370x190' : '380x490'
 					},
 					:class => 'icon_button',
 					:title => _('edit_page_properties')
@@ -65,12 +65,16 @@
 			<%= render :partial => 'page_status', :locals => {:page => page} %>
 		</div>
 		<div class="sitemap_sitename">
+		    <%- if page.redirects_to_external? -%>
+		    <span class="sitemap_pagename_link <%= cycle('even', 'odd') %>"><%= page.name %></span>
+		    <%- else -%>
 			<%= link_to(
 				page.name,
 				edit_admin_page_path(page),
 				:title => _("edit_page"),
 				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
 			) -%>
+			<%- end -%>
 		</div>
 	</div>
 	<%- unless page.folded?(current_user) && page.children.empty? -%>

@@ -1,16 +1,25 @@
+<%- if navigation_link.redirects_to_external? -%>
 <%= link_to(
-	h(navigation_link.name),
-	{
-		:urlname => navigation_link.urlname
-	}.merge(
-		{
-			:controller => 'pages',
-			:action => 'show',
-			:lang => (multi_language? ? session[:language] : nil)
-		}
-	),
-	{
-		:class => (page_active?(navigation_link) ? 'active' : nil),
-		:title => (options[:show_title] == true ? navigation_link.title : nil)
-	}
+    h(navigation_link.name),
+    navigation_link.urlname,
+    :title => (options[:show_title] == true ? navigation_link.title : nil),
+    :popup => true
 ) %>
+<%- else -%>
+<%= link_to(
+    h(navigation_link.name),
+    {
+        :urlname => navigation_link.urlname
+    }.merge(
+        {
+            :controller => 'pages',
+            :action => 'show',
+            :lang => (multi_language? ? session[:language] : nil)
+        }
+    ),
+    {
+        :class => (page_active?(navigation_link) ? 'active' : nil),
+        :title => (options[:show_title] == true ? navigation_link.title : nil)
+    }
+) %>
+<%- end -%>

@@ -824,7 +824,7 @@ img.link_arrow_left {
 
 /* @group Sitemap */
 
-a.sitemap_pagename_link {
+.sitemap_pagename_link {
 	color: black;
 	text-decoration: none;
 	white-space: nowrap;
@@ -832,7 +832,7 @@ a.sitemap_pagename_link {
 	background-color: #fff;
 }
 
-a.sitemap_pagename_link.odd {
+.sitemap_pagename_link.odd {
 	background-color: #eaf3f9;
 }
 
@@ -869,7 +869,7 @@ div.sitemap_page {
 	padding-top: 4px;
 }
 
-div.sitemap_page:hover a.sitemap_pagename_link {
+div.sitemap_page:hover .sitemap_pagename_link {
 	background-color: #fdffdf;
 }
 

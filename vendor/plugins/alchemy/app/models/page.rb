@@ -15,7 +15,8 @@ class Page < ActiveRecord::Base
   
   before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
   after_save :set_restrictions_to_child_pages
-  before_validation_on_create :set_url_name, :set_title
+  before_validation_on_create :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
+  before_validation_on_create :set_title
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
   
   # necessary. otherwise the migrations fail
