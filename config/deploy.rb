@@ -1,27 +1,27 @@
 # set the applicationname here
-set :application, "alchemy"
+set :application, ""
 
 # ssh user settings. please change to customers
-set :user, "web6"
-set :password, "3KH7zUjU"
+set :user, ""
+set :password, ""
 ssh_options[:port] = 12312
 
 set :database_user, "#{user}"
-set :database_password, "m0fwts5m"
-set :database_name, "usr_#{user}_6"
+set :database_password, ""
+set :database_name, "usr_#{user}_1"
 set :database_host, "localhost"
 set :database_socket, "/var/run/mysqld/mysqld.sock"
 
 # please set domain names
-role :app, "vondeyen.com"
-role :web, "vondeyen.com"
-role :db,  "vondeyen.com", :primary => true
+role :app, ""
+role :web, ""
+role :db,  "", :primary => true
 
 # set the public webserver path
 set :deploy_to, "/var/www/#{user}/html/alchemy"
 
 # set the apps repository url
-set :repository_url, "http://svn.vondeyen.com/#{application}/trunk"
+set :repository_url, "http://svn.vondeyen.com/customers/#{application}"
 
 ##### DO NOT CHANGE BELOW THIS LINE #########
 

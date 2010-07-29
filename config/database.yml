@@ -1,7 +1,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: alchemy_1_0_beta_dev
+  database: alchemy_dev
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -9,7 +9,7 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: alchemy_dev_test
+  database: alchemy_test
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -17,8 +17,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: usr_web6_6
-  username: web6
-  password: m0fwts5m
-  host: localhost
-  socket: /var/run/mysqld/mysqld.sock
+  database: alchemy_dev
+  username: root
+  password:
+  socket: /tmp/mysql.sock
