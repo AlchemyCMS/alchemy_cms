@@ -256,7 +256,9 @@ class Page < ActiveRecord::Base
   
   # Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true
   def redirects_to_external?
-    self.layout_description["redirects_to_external"]
+    desc = self.layout_description
+    return false if desc.blank?
+    desc["redirects_to_external"]
   end
   
 private

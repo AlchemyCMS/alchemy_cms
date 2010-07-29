@@ -45,6 +45,15 @@
                 <td><%= f.password_field 'password_confirmation', :class => 'thin_border medium_long', :autocomplete => "off" -%></td>
             </tr>
             <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <%= check_box_tag('send_credentials', true, true) %>
+                    <%= label_tag('send_credentials', _('Send email with credentials')) %>
+                </td>
+            </tr>
+            <tr>
                 <td  class="submit" colspan="2">
                     <%= f.submit _('save'), :class => 'button' %>
                 </td>

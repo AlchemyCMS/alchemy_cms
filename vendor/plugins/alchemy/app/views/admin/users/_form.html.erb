@@ -39,6 +39,15 @@
 				<td><%= f.alchemy_selectbox :role, User::ROLES.map { |role| [User.human_rolename(role), role]}, :class => 'thin_border long' -%></td>
 			</tr>
 			<tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <%= check_box_tag('send_credentials', true, true) %>
+                    <%= label_tag('send_credentials', _('Send email with credentials')) %>
+                </td>
+            </tr>
+			<tr>
 				<td height="25px" colspan="2" align="right">
 					<%= f.submit _('save'), :class => 'button' %>
 				</td>

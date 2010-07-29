@@ -30,10 +30,10 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      if @user.role == "registered"
+      if @user.role == "registered" && params[:send_credentials]
         Mailer.deliver_new_user_mail(@user, request)
       else
-        Mailer.deliver_new_alchemy_user_mail(@user, request)
+        Mailer.deliver_new_alchemy_user_mail(@user, request) if params[:send_credentials]
       end
     end
     render_errors_or_redirect(
