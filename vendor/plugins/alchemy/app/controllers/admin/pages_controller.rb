@@ -83,7 +83,11 @@ class Admin::PagesController < ApplicationController
   
   def configure
     # fetching page via before filter
-    render :layout => false
+    if @page.redirects_to_external?
+      render :action => 'configure_external', :layout => false
+    else
+      render :layout => false
+    end
   end
   
   def update

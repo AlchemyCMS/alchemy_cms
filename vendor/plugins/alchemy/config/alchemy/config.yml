@@ -1,4 +1,4 @@
-:alchemy_version: 1.1
+:alchemy_version: 1.2
 :show_rootname: a name
 :mailer:
     :forward_to_page: false
@@ -8,7 +8,6 @@
 :sitemap: 
   :show_root: true
   :show_flag: false
-:prince_port: 3001
 :auto_logout_time: 10
 :redirect_index: true
 :redirect_to_public_child: true

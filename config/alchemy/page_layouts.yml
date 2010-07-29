@@ -40,3 +40,7 @@
   unique: false
   newsletter: true
   elements: [newsletter_article, newsletter_intro]
+
+- name: external
+  display_name: Externe Seite
+  redirects_to_external: true

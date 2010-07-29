@@ -8,11 +8,12 @@ class Page < ActiveRecord::Base
   validates_presence_of :name, :message => N_("please enter a name")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language', :if => :urlname_entered?
+  #validates_format_of :urlname, :with => /http/, :if => Proc.new { |page| page.redirects_to_external? }
   
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
   
-  before_save :set_url_name
+  before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
   after_save :set_restrictions_to_child_pages
   before_validation_on_create :set_url_name, :set_title
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
@@ -251,6 +252,11 @@ class Page < ActiveRecord::Base
   
   def contains_feed?
     self.layout_description['feed']
+  end
+  
+  # Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true
+  def redirects_to_external?
+    self.layout_description["redirects_to_external"]
   end
   
 private
