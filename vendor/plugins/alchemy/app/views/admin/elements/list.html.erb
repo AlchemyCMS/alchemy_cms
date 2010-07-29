@@ -4,10 +4,7 @@
 
 <%= sortable_element(
 	"element_area",
-	:url => {
-		:controller => 'elements',
-		:action => "order"
-	},
+	:url => order_admin_elements_path,
 	:scroll => "window",
 	:tag => 'div',
 	:only => 'element_editor',

@@ -10,7 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   map.show_attachment "/attachment/:id/show", :controller => 'attachments', :action => 'show'
   map.namespace :admin do |admin|
     admin.resources :users
-    admin.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get}
+    admin.resources :contents, :collection => {:order => :post}
+    admin.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get, :order => :post}
     admin.resources(
       :pages,
       :collection => {
@@ -51,7 +52,6 @@ ActionController::Routing::Routes.draw do |map|
         :download => :get
       }
     )
-    admin.resources :contents
     admin.resources :essence_pictures
     admin.resources :essence_files
   end

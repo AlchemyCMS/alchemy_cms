@@ -26,10 +26,7 @@ class Alchemy::Configuration < ActionController::Base
   def self.sortable_elements(page)
     page.sortable(
       "element_area",
-      :url => {
-        :controller => 'elements',
-        :action => "order"
-      },
+      :url => "/admin/elements/order",
       :scroll => "window",
       :tag => 'div',
       :only => 'element_editor',
@@ -47,11 +44,7 @@ class Alchemy::Configuration < ActionController::Base
       :handle => 'picture_handle',
       :constraint => '',
       :overlap => 'horizontal',
-      :url => {
-        :controller => 'contents',
-        :action => "order",
-        :element_id => element.id
-      }
+      :url => "/admin/contents/order?element_id=#{element.id}"
     )
   end
   

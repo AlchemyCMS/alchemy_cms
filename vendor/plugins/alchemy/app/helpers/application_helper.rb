@@ -976,11 +976,7 @@ module ApplicationHelper
       :handle => 'picture_handle',
       :constraint => '',
       :overlap => 'horizontal',
-      :url => {
-        :controller => 'contents',
-        :action => "order",
-        :element_id => element_id
-      }
+      :url => order_admin_contents_path(:element_id => element_id)
     )
   end
   
