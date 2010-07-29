@@ -51,6 +51,7 @@ class Admin::UsersController < ApplicationController
   def update
     # User is fetched via before filter from authentication plugin
     @user.update_attributes(params[:user])
+    Mailer.deliver_new_alchemy_user_mail(@user, request) if params[:send_credentials]
     render_errors_or_redirect(
       @user,
       admin_users_path,
