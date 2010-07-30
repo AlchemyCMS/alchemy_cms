@@ -229,9 +229,9 @@ class Admin::PagesController < ApplicationController
   end
   
   def flush
-    Page.flushable.each do |page|
+    Page.flushables(session[:language]).each do |page|
       if multi_language?
-        expire_action("#{session[:languge]}/#{page.urlname}")
+        expire_action("#{page.language}/#{page.urlname}")
       else
         expire_action("#{page.urlname}")
       end

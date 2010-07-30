@@ -28,7 +28,6 @@ class Page < ActiveRecord::Base
   end
   
   named_scope :language_roots, :conditions => "language_root_for IS NOT NULL"
-  named_scope :flushable, :conditions => {:public => true, :locked => false}
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -308,5 +307,11 @@ private
       raise "Error while Page.copy: #{page.errors.map{ |e| e[0] + ': ' + e[1] }}"
     end
   end
-
+  
+  # Returns all pages for langugae that are not locked and public.
+  # Used for flushing all page caches at once.
+  def self.flushables(language)
+    self.all(:conditions => {:public => true, :locked => false, :language => language})
+  end
+  
 end
