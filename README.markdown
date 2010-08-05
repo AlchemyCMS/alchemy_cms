@@ -12,7 +12,7 @@ Install
 
 In your Rails App folder enter:
 
-<script/plugin install git://github.com/tvdeyen/Alchemy.git>
+    script/plugin install git://github.com/tvdeyen/Alchemy.git
 
 Documentation
 -------------
