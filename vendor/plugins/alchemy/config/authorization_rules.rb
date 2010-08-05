@@ -32,6 +32,9 @@ authorization do
     has_permission_on :admin_contents, :to => [:manage_contents]
     has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
+    has_permission_on :admin_essence_videos, :to => [:update]
+    has_permission_on :admin_essence_flashes, :to => [:update]
+    has_permission_on :admin_essence_audios, :to => [:update]
     has_permission_on :admin_users, :to => [:index]
   end
   

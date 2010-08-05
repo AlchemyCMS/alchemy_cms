@@ -1,8 +1,8 @@
 <div class="file" id="file_<%= content.id %>">
 	<div class="file_icon">
-	<%- if content.essence.file.nil? -%>
+	<%- if content.essence.attachment.nil? -%>
 		<%= link_to_overlay_window("",
-			archive_overlay_files_path(
+			archive_overlay_admin_attachments_path(
 				:content_id => content.id,
 				:only => options[:file_assign_show_only],
 				:except => options[:file_assign_do_not_show],
@@ -17,13 +17,13 @@
 			:title => _('assign_file')
 		) %>
 	<%- else -%>
-		<%= render_file_icon(content.essence.file) %>
+		<%= render_file_icon(content.essence.attachment) %>
 	<%- end -%>
 	</div>
 	<div class="file_name">
-		<%= content.essence.file.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
+		<%= content.essence.attachment.name rescue "<span style='font-style:italic'> <- " + _('assign_file_from_archive') + "</span>" %>
 	</div>
-	<%- unless content.essence.file.nil? -%>
+	<%- unless content.essence.attachment.nil? -%>
 	<div class="essence_file_tools">
 		<%= link_to_overlay_window("",
 			url_for(
@@ -39,7 +39,7 @@
 			:title => _('edit_file_properties')
 		) %>
 		<%= link_to_overlay_window("",
-			archive_overlay_files_path(
+			archive_overlay_admin_attachments_path(
 				:content_id => content.id,
 				:only => options[:file_assign_show_only],
 				:except => options[:file_assign_do_not_show],

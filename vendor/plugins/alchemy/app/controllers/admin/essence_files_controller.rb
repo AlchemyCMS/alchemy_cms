@@ -21,11 +21,11 @@ class Admin::EssenceFilesController < ApplicationController
   def assign
     @content = Content.find_by_id(params[:id])
     @attachment = Attachment.find_by_id(params[:attachment_id])
-    @content.essence.file = @attachment
+    @content.essence.attachment = @attachment
     @content.essence.save
     @content.save
     render :update do |page|
-      page.replace "file_#{@content.id}", :partial => "contents/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
+      page.replace "file_#{@content.id}", :partial => "essences/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
       page << "reloadPreview();alchemy_window.close()"
     end
   end
