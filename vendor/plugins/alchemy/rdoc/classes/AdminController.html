@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: AdminController</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">AdminController</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/controllers/admin_controller_rb.html">
+                app/controllers/admin_controller.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="ApplicationController.html">
+                ApplicationController
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000003">index</a>&nbsp;&nbsp;
+      <a href="#M000008">infos</a>&nbsp;&nbsp;
+      <a href="#M000005">login</a>&nbsp;&nbsp;
+      <a href="#M000006">logout</a>&nbsp;&nbsp;
+      <a href="#M000007">save_contentposition</a>&nbsp;&nbsp;
+      <a href="#M000004">signup</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">index</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin_controller.rb, line 7</span>
+ 7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
+ 8:     <span class="ruby-comment cmt"># Hello!</span>
+ 9:     <span class="ruby-ivar">@alchemy_version</span> = <span class="ruby-identifier">configuration</span>(<span class="ruby-identifier">:alchemy_version</span>)
+10:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">infos</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin_controller.rb, line 88</span>
+88:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">infos</span>
+89:     <span class="ruby-ivar">@version</span> = <span class="ruby-identifier">configuration</span>(<span class="ruby-identifier">:alchemy_version</span>)
+90:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+91:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">login</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin_controller.rb, line 29</span>
+29:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">login</span>
+30:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+31:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'signup'</span>
+32:     <span class="ruby-keyword kw">else</span>
+33:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
+34:         <span class="ruby-ivar">@user_session</span> = <span class="ruby-constant">UserSession</span>.<span class="ruby-identifier">new</span>()
+35:         <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-identifier">:info</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:message</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;welcome_please_identify_notice&quot;</span>)
+36:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'login'</span>
+37:       <span class="ruby-keyword kw">else</span>
+38:         <span class="ruby-ivar">@user_session</span> = <span class="ruby-constant">UserSession</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user_session</span>])
+39:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user_session</span>.<span class="ruby-identifier">save</span>
+40:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:redirect_url</span>].<span class="ruby-identifier">blank?</span>
+41:             <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:index</span>
+42:           <span class="ruby-keyword kw">else</span>
+43:             <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:redirect_url</span>]
+44:           <span class="ruby-keyword kw">end</span>
+45:         <span class="ruby-keyword kw">else</span>
+46:           <span class="ruby-identifier">render</span> <span class="ruby-identifier">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'login'</span>
+47:         <span class="ruby-keyword kw">end</span>
+48:       <span class="ruby-keyword kw">end</span>
+49:     <span class="ruby-keyword kw">end</span>
+50:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">logout</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin_controller.rb, line 52</span>
+52:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logout</span>
+53:     <span class="ruby-identifier">message</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:message</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;logged_out&quot;</span>)
+54:     <span class="ruby-ivar">@user_session</span> = <span class="ruby-constant">UserSession</span>.<span class="ruby-identifier">find</span>
+55:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user_session</span>
+56:       <span class="ruby-ivar">@user_session</span>.<span class="ruby-identifier">destroy</span>
+57:     <span class="ruby-keyword kw">end</span>
+58:     <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:info</span>] = <span class="ruby-identifier">message</span>
+59:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_url</span>
+60:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">save_contentposition</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin_controller.rb, line 62</span>
+62:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_contentposition</span>
+63:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sitemap</span>].<span class="ruby-identifier">nil?</span>
+64:       <span class="ruby-identifier">parent</span> = <span class="ruby-constant">Page</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:parent_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>})
+65:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">pages</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sitemap</span>][<span class="ruby-value str">&quot;0&quot;</span>]
+66:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">page</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">pages</span>
+67:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">page</span>[<span class="ruby-value str">&quot;id&quot;</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">page</span>[<span class="ruby-value str">&quot;id&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;id&quot;</span>
+68:             <span class="ruby-identifier">p</span> = <span class="ruby-constant">Page</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">page</span>[<span class="ruby-value str">&quot;id&quot;</span>])
+69:             <span class="ruby-identifier">p</span>.<span class="ruby-identifier">move_to_child_of</span> <span class="ruby-identifier">parent</span>
+70:           <span class="ruby-keyword kw">end</span>
+71:         <span class="ruby-keyword kw">end</span>
+72:       <span class="ruby-keyword kw">end</span>
+73:     <span class="ruby-keyword kw">end</span>
+74:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sitemap_2</span>].<span class="ruby-identifier">nil?</span>
+75:       <span class="ruby-identifier">parent</span> = <span class="ruby-constant">Page</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sitemap_2</span>][<span class="ruby-value str">&quot;id&quot;</span>]).<span class="ruby-identifier">parent_id</span>
+76:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">pages</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sitemap_2</span>][<span class="ruby-value str">&quot;0&quot;</span>]
+77:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">page</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">pages</span>
+78:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">page</span>[<span class="ruby-value str">&quot;id&quot;</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">page</span>[<span class="ruby-value str">&quot;id&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;id&quot;</span>
+79:             <span class="ruby-identifier">p</span> = <span class="ruby-constant">Page</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">page</span>[<span class="ruby-value str">&quot;id&quot;</span>])
+80:             <span class="ruby-identifier">p</span>.<span class="ruby-identifier">move_to_child_of</span> <span class="ruby-identifier">parent</span>
+81:           <span class="ruby-keyword kw">end</span>
+82:         <span class="ruby-keyword kw">end</span>
+83:       <span class="ruby-keyword kw">end</span>
+84:     <span class="ruby-keyword kw">end</span>
+85:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'index'</span>
+86:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">signup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Signup only works if no user is present in database.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin_controller.rb, line 13</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signup</span>
+14:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
+15:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">admin_path</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+16:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:explain</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;Please Signup&quot;</span>)
+17:       <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>
+18:     <span class="ruby-keyword kw">else</span>
+19:       <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:user</span>].<span class="ruby-identifier">merge</span>({<span class="ruby-identifier">:role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'admin'</span>}))
+20:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">save</span>
+21:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:send_credentials</span>]
+22:           <span class="ruby-constant">Mailer</span>.<span class="ruby-identifier">deliver_new_alchemy_user_mail</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-identifier">request</span>)
+23:         <span class="ruby-keyword kw">end</span>
+24:         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:index</span>
+25:       <span class="ruby-keyword kw">end</span>
+26:     <span class="ruby-keyword kw">end</span>
+27:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
