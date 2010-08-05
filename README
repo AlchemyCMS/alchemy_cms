@@ -1,5 +1,29 @@
 Alchemy
 =======
-Version 4.0
 
-Alchemy is a fully featured CMS which beautifully integrates into rails.
+About
+-----
+
+Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
+
+Install
+-------
+
+In your Rails App folder enter:
+
+<script/plugin install git://github.com/tvdeyen/Alchemy.git>
+
+Documentation
+-------------
+
+http://api.alchemy-app.com
+
+Issue-Tracker
+-------------
+
+http://redmine.alchemy-app.com
+
+Sourecode
+---------
+
+http://github.com/tvdeyen/Alchemy
