@@ -65,7 +65,9 @@ class Element < ActiveRecord::Base
   
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
-    element_scratch = Element.descriptions.select{ |m| m["name"] == attributes['name'] }.first
+    element_descriptions = Element.descriptions
+    return if element_descriptions.blank?
+    element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
     raise "Could not find element: #{attributes['name']}" if element_scratch.nil?
     element_scratch.delete("contents")
     element_scratch.delete("available_contents")
@@ -78,8 +80,8 @@ class Element < ActiveRecord::Base
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name and saves it
   def self.create_from_scratch(attributes)
     element = Element.new_from_scratch(attributes)
-    element.save!
-    element
+    element.save if element
+    return element
   end
   
   # pastes a element from the clipboard in the session to page

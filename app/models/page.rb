@@ -285,7 +285,7 @@ private
     unless (to_auto_generate_elements.blank?)
       to_auto_generate_elements.each do |element|
         element = Element.create_from_scratch({'page_id' => self.id, 'name' => element})
-        element.move_to_bottom
+        element.move_to_bottom if element
       end
     end
   end
