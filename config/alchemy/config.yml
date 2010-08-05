@@ -1,14 +1,27 @@
+:alchemy_version: 1.1.1
+:show_rootname: a name
+:mailer:
+    :forward_to_page: false
+    :mail_sucess_page: root
+    :mail_from: 'Alchemy <mail@alchemy.com>'
+:visible: true
+:sitemap: 
+  :show_root: true
+  :show_flag: false
+:auto_logout_time: 10
+:redirect_index: true
+:redirect_to_public_child: true
 # enable ferret search engine?
-:ferret: true
+:ferret: false
+
+#enable wapage caching?
+:cache_pages: true
 
 #image settings
 :output_image_jpg_quality: 85
 :preprocess_image_resize: 1000x1000
 :image_store_format: png
 :image_output_format: jpg
-
-#enable wapage caching?
-:cache_pages: true
 
 #language settings
 :default_language: de
@@ -23,37 +36,99 @@
       :language: English
       :frontpage_name: Frontpage
       :page_layout: standard
+
 :translations:
   - :language_code: de
     :language: Deutsch
   - :language_code: en
     :language: English
 
-#contactform settings
-:mailer:
-  :form_layout_name: contact
-  :forward_to_page: false
-  :fields:
-    - - :salutation:
-      - :string
-    - - :firstname:
-      - :string
-    - - :lastname:
-      - :string
-    - - :address:
-      - :string
-    - - :zip:
-      - :string
-    - - :city:
-      - :string
-    - - :phone:
-      - :string
-    - - :email:
-      - :string
-    - - :message:
-      - :text
-  :validate_fields:
-    :lastname:
-      :message: Bitte geben Sie Ihren Namen an
-    :email:
-      :message: Bitte geben Sie Ihre Email Adresse an
+:user_roles: [registered, author, editor, admin]
+
+# This is the alchemy_plugins notation. To render the mainnavi we split alchemy into three plugins.
+# To make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
+# folder with a alchemy folder in it. Place a config.yml in this alchemy folder.
+#
+# vendor/plugins/MY_PLUGIN_NAME/init.rb
+# vendor/plugins/MY_PLUGIN_NAME/config/alchemy/config.yml
+#
+# Example config.yml
+# 
+# name: PLUGIN_NAME
+# settings: PUT SOME SETTINGS HERE
+# preview_frame: IF YOU WANT TO USE THE ALCHEMY PREVIEW FRAME!
+# navigation:
+#   name: NAME IN ALCHEMY NAVIGATION
+#   controller: controller_name
+#   action: action_of_controller
+#   image: /plugin_assets/PLUGIN_NAME/images/NAVIGATION_IMAGE.png
+#   sub_navigation:
+#     - name: subnavigation_entry
+#       controller: controller_name
+#       action: action_of_controller
+#     - name: subnavigation_entry
+#       controller: controller_name
+#       action: action_of_controller
+#     - name: subnavigation_entry
+#       controller: controller_name
+#       action: action_of_controller
+
+alchemy_plugins:
+
+  - name: dashboard
+    navigation:
+      name: 'home'
+      controller: 'admin'
+      action: index
+      image: /plugin_assets/alchemy/images/icons/home.png
+      sub_navigation:
+        - name: 'home'
+          controller: 'admin'
+          action: index
+    
+  - name: pages
+    preview_frame:
+      controller: 'admin/pages'
+      action: edit
+      target_controller: 'admin/pages'
+      target_action: preview
+    navigation:
+      name: 'module: pages'
+      controller: 'admin/pages'
+      action: index
+      image: /plugin_assets/alchemy/images/icons/pages.png
+      sub_navigation:
+        - name: 'module: pages'
+          controller: 'admin/pages'
+          action: index
+        - name: 'module: layoutpages'
+          controller: 'admin/pages'
+          action: layoutpages
+      nested:
+        - controller: 'admin/pages'
+          action: edit
+
+  - name: users
+    navigation:
+      name: 'module: users'
+      controller: 'admin/users'
+      action: index
+      image: /plugin_assets/alchemy/images/icons/users.png
+      sub_navigation:
+        - name: 'module: users'
+          controller: 'admin/users'
+          action: index
+        
+  - name: archive
+    navigation:
+      controller: 'admin/pictures'
+      action: index
+      name: 'module: library'
+      image: /plugin_assets/alchemy/images/icons/library.png
+      sub_navigation:
+        - name: 'module: images'
+          controller: 'admin/pictures'
+          action: index
+        - name: 'module: attachments'
+          controller: 'admin/attachments'
+          action: index

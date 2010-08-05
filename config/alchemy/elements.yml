@@ -1,106 +1,73 @@
-- name: article
-  display_name: Artikelabsatz
-  contents:
-  - name: intro
-    type: EssenceText
-  - name: headline
-    type: EssenceText
-  - name: image
-    type: EssencePicture
-  - name: text
-    type: EssenceRichtext
+# Organize your element layouts here
+#
+# Please use this format to add new elements
+#
+# Some unique name for your Element: 
+#   - name: a_unique_name
+#     display_name: Some nice Display Name
+#     unique: Bool //pass true if this element only can be displayed once on page
+#     contents:
+#     - name: head
+#       type: EssenceText
+#     - name: text
+#       type: EssenceRichtext
+#
+# Content-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
+#
+# If you want an content to be the preview text for the element then use the flag take_me_for_preview: true
+# 
 
 - name: text
   display_name: Text
-  contents:
+  contents: 
+  - name: head
+    type: EssenceText
   - name: text
     type: EssenceRichtext
 
-- name: bild
-  display_name: Bild
+- name: date
+  display_name: Termin
   contents: 
-  - name: image
-    type: EssencePicture
-
-- name: bild_text
-  display_name: Bild und Text
-  contents: 
-  - name: image
-    type: EssencePicture
-  - name: text
-    type: EssenceRichtext
-
-- name: headline
-  display_name: Überschrift
-  contents:
-  - name: headline
-    type: EssenceText
-
-- name: image_mosaic
-  display_name: Mosaik
-  contents: 
-  - name: image
-    type: EssencePicture
-  - name: caption
-    type: EssenceText
-
-- name: footnote
-  display_name: Fußnote
-  unique: true
-  contents:
-  - name: note
-    type: EssenceRichtext
-
-- name: sitename
-  display_name: Webseiten-Name
-  unique: true
-  contents:
-  - name: name
-    type: EssenceText
-
-- name: claim
-  display_name: Claim
-  unique: true
-  contents:
-  - name: claim
-    type: EssenceText
-
-- name: header
-  display_name: Header Bild
-  unique: true
-  contents:
-  - name: image
-    type: EssencePicture
-
-- name: intro
-  display_name: Introtext
-  contents: 
-  - name: intro
-    type: EssenceRichtext
-
-- name: subheadline
-  display_name: Zwischenüberschrift
-  contents:
-  - name: headline
-    type: EssenceText
-
-- name: news
-  display_name: News
-  contents:
   - name: date
     type: EssenceDate
+    
+- name: google_map
+  display_name: Google Map
+  unique: true
+  contents:
+  - name: head
+    type: EssenceText
+  - name: text
+    type: EssenceRichtext
+  - name: map
+    type: EssenceHtml
+        
+- name: article
+  display_name: Bild mit Text
+  contents:
+  - name: bild
+    type: EssencePicture
   - name: headline
     type: EssenceText
-  - name: body
+  - name: text
     type: EssenceRichtext
 
-- name: searchresult
-  unique: true
-  display_name: Suchergebnis
+- name: picture_gallery
+  display_name: Bildergalerie
+  contents:
+  - name: gallery_name
+    type: EssenceText
+  - name: picture1
+    type: EssencePicture
+
+- name: file_download
+  display_name: Datei download
+  contents:
+  - name: file
+    type: EssenceFile
 
 - name: contactform
   display_name: Kontaktformular
-  unique: true
   contents:
   - name: mail_from
     type: EssenceText
@@ -108,20 +75,3 @@
     type: EssenceText
   - name: subject
     type: EssenceText
-  - name: success_page
-    type: EssenceText
-
-- name: newsletter_article
-  display_name: Artikel
-  contents:
-  - name: headline
-    type: EssenceText
-  - name: text
-    type: EssenceRichtext
-
-- name: newsletter_intro
-  display_name: Intro
-  unique: true
-  contents:
-  - name: text
-    type: EssenceRichtext

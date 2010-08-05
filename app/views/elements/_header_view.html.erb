@@ -1,9 +1,0 @@
-<div class="header" id="<%= element_dom_id(element) %>">
-    <div class="header_images">
-        <%- element.contents.find_all_by_essence_type("EssencePicture").each do |content| -%>
-        <div class="header_image <%= content.essence.css_class %>">
-            <%= render_essence_view(content, :image_size => "160x120") %>
-        </div>
-        <%- end -%>
-    </div>
-</div>
