@@ -53,6 +53,32 @@ class Page < ActiveRecord::Base
     return all_elements
   end
   
+  # Finds the previous page on the same structure level. Otherwise it returns nil.
+  # Options:
+  # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
+  # => :public => boolean (standard: true) - next public page (true), skip public pages (false) 
+  def previous_page(options = {})
+    default_options = {
+      :restricted => nil,
+      :public => true
+    }
+    options = default_options.merge(options)
+    find_next_or_previous_page("previous", options)
+  end
+  
+  # Finds the next page on the same structure level. Otherwise it returns nil.
+  # Options:
+  # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
+  # => :public => boolean (standard: true) - next public page (true), skip public pages (false)
+  def next_page(options = {})
+    default_options = {
+      :restricted => nil,
+      :public => true
+    }
+    options = default_options.merge(options)
+    find_next_or_previous_page("next", options)
+  end
+  
   def name_entered?
     !self.name.blank?
   end
@@ -262,6 +288,25 @@ class Page < ActiveRecord::Base
   end
   
 private
+
+  def find_next_or_previous_page(direction = "next", options = {})
+    if direction == "previous"
+      step_direction = ["pages.rgt < ?", self.rgt]
+      order_direction = "rgt"
+    else
+      step_direction = ["pages.lft > ?", self.lft]
+      order_direction = "lft"
+    end
+    conditions = Page.merge_conditions(
+      {:parent_id => self.parent_id},
+      {:public => options[:public]},
+      step_direction
+    )
+    if !options[:restricted].nil?
+      conditions = Page.merge_conditions(conditions, {:restricted => options[:restricted]})
+    end
+    return Page.find :first, :conditions => conditions, :order => order_direction
+  end
 
   def generate_url_name(url_name)
     new_url_name = url_name.to_s.downcase
