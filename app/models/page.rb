@@ -291,8 +291,8 @@ private
 
   def find_next_or_previous_page(direction = "next", options = {})
     if direction == "previous"
-      step_direction = ["pages.rgt < ?", self.rgt]
-      order_direction = "rgt"
+      step_direction = ["pages.lft < ?", self.lft]
+      order_direction = "lft DESC"
     else
       step_direction = ["pages.lft > ?", self.lft]
       order_direction = "lft"
