@@ -1,0 +1,29 @@
+<div id="jscropper">
+    <%= image_tag(
+        zoom_picture_path(@essence_picture.picture),
+        :id => 'imageToCrop'
+    ) %>
+</div>
+
+<% remote_form_for([:admin, @essence_picture], :html => {:class => "with_padding"}) do |f| %>
+    <%= f.hidden_field :crop_from %>
+    <%= f.hidden_field :crop_size %>
+    <%= f.submit _("save"), :class => 'button' %>
+<%- end -%>
+
+<script type="text/javascript" charset="utf-8">
+    new AlchemyImageCropper('imageToCrop', {
+        ratioDim: { 
+            x: <%= @size_x %>, 
+            y: <%= @size_y %> 
+        },
+        onloadCoords: {
+            x1: <%= @initial_box[:x1] %>,
+            y1: <%= @initial_box[:y1] %>, 
+            x2: <%= @initial_box[:x2] %>, 
+            y2: <%= @initial_box[:y2] %>
+        },
+        minWidth: <%= @size_x %>,
+        minHeight: <%= @size_y %>
+    });
+</script>

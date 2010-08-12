@@ -10,11 +10,25 @@ class Admin::EssencePicturesController < ApplicationController
     render :layout => false
   end
   
+  def crop
+    @essence_picture = EssencePicture.find(params[:id])
+    @initial_box = {
+      :x1 => @essence_picture.crop_from.split('x')[0].to_i,
+      :y1 => @essence_picture.crop_from.split('x')[1].to_i,
+      :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
+      :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
+    }
+    @size_x = params[:size].split('x')[0]
+    @size_y = params[:size].split('x')[1]
+    render :layout => false
+  end
+  
   def update
     @essence_picture = EssencePicture.find(params[:id])
     @essence_picture.update_attributes(params[:essence_picture])
     render :update do |page|
-      page << "alchemy_window.close(); reloadPreview()"
+      page << "Windows.getFocusedWindow().close()"
+      page << "reloadPreview()"
     end
   end
   

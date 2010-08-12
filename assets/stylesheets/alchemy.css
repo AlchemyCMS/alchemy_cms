@@ -1,8 +1,3 @@
-/* @override 
-	http://localhost:3000/plugin_assets/alchemy/stylesheets/alchemy.css
-	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy.css
-*/
-
 html {
 	height: 100%;
 }
@@ -541,8 +536,8 @@ div#page {
 
 .picture_tool_delete a {
 	display: block;
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
 	background: url(../images/icons/remove.png) no-repeat 1px 0;
 	cursor: pointer;
 }

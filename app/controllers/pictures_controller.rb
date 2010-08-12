@@ -8,6 +8,8 @@ class PicturesController < ApplicationController
     @picture = Picture.find(params[:id])
     @size = params[:size]
     @crop = !params[:crop].nil?
+    @crop_from = params[:crop_from]
+    @crop_size = params[:crop_size]
     @padding = params[:padding]
     @upsample = !params[:upsample].nil? ? true : false
     @options = params[:options]

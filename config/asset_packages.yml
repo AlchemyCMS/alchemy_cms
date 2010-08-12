@@ -41,6 +41,8 @@ javascripts:
    - alchemy_selectbox
    - alchemy_frame_set
    - alchemy_element_editor_selector
+   - cropper
+   - alchemy_image_cropper
    - swfupload/swfupload
    - swfupload/handlers
    - swfupload/fileprogress
@@ -80,6 +82,7 @@ stylesheets:
    - contents
    - alchemy_window
    - alchemy_tooltip
+   - cropper
 - archive:
   - alchemy
   - alchemy_window

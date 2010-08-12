@@ -1,18 +1,10 @@
 <div class="picture_tool_button">
-	<%= link_to_confirmation_window(
-		"",
-		_("confirm_to_delete_image"),
-		url_for(
-			:controller => 'essence_pictures',
-			:action => 'destroy',
-			:id => content,
-			:options => options
-		),
-		{
-			:title => _("delete_image"),
-			:class => "picture_delete"
-		}
-	) -%>
+	<%= link_to_overlay_window(
+	    '',
+	    crop_admin_essence_picture_path(content.essence, :size => options[:image_size]),
+	    { :size => "800x600", :title => _('Edit Picturemask') },
+	    { :class => "edit_picture_mask", :title => _('Edit Picturemask') }
+	) %>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",

@@ -3,6 +3,8 @@
 
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show'
+  map.login "/admin/login", :controller => "admin", :action => "login"
+  map.logout "/admin/logout", :controller => "admin", :action => "logout"
   map.admin_layoutpages "/admin/pages/layoutpages", :controller => "admin/pages", :action => "layoutpages"
   map.download_attachment "/attachment/:id/download", :controller => 'attachments', :action => 'download'
   map.show_attachment "/attachment/:id/show", :controller => 'attachments', :action => 'show'
@@ -50,21 +52,16 @@ ActionController::Routing::Routes.draw do |map|
         :download => :get
       }
     )
-    admin.resources :essence_pictures
+    admin.resources :essence_pictures, :member => {:crop => :get}, :except => [:show, :new, :create]
     admin.resources :essence_files
-    admin.resources :essence_videos, :only => :update
-    admin.resources :essence_flashes, :only => :update
-    admin.resources :essence_audios, :only => :update
   end
-  map.login "/admin/login", :controller => "admin", :action => "login"
-  map.logout "/admin/logout", :controller => "admin", :action => "logout"
-  map.admin '/admin', :controller => 'admin', :action => 'index'
   map.resources :user_sessions
   map.resources :elements, :only => :show
   map.resources :mails
   map.show_picture '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
   map.zoom_picture '/pictures/zoom/:id/picture.png', :controller => 'pictures', :action => 'zoom'
   map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
+  map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
   map.show_page '/:urlname.:format', :controller => 'pages', :action => 'show'
   map.show_page_with_language '/:lang/:urlname.:format', :controller => 'pages', :action => 'show', :lang => @lang_regex

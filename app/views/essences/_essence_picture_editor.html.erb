@@ -1,4 +1,20 @@
-<div id="picture_<%= content.id %>" class="<%= 'dragable_picture' if options[:dragable] %>">
+<div id="picture_<%= content.id %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor' %>">
+	<span class="picture_tool_delete">
+        <%= link_to_confirmation_window(
+    		"",
+    		_("confirm_to_delete_image"),
+    		url_for(
+    			:controller => 'essence_pictures',
+    			:action => 'destroy',
+    			:id => content,
+    			:options => options
+    		),
+    		{
+    			:title => _("delete_image"),
+    			:class => "picture_delete"
+    		}
+    	) -%>
+	</span>
 	<div class="picture_detail">
 	<%- if content.essence.picture.nil? -%>
 		<div class="missing_image">

@@ -24,33 +24,10 @@
 				<%= f.select "css_class", [[_("left"), "left"], [_("right"), "right"], [_("above"), "no_float"]] %>
 			</td>
 		</tr>
-		<%- if @options[:manual_image_size] -%>
-		<tr>
-			<td><%= f.label "image_size", _("image_size") %></td>
-			<td><%= f.text_field "image_size", :class => "thin_border long" %></td>
-		</tr>
-		<%- end -%>
 		<tr>
 			<td colspan="2" style="text-align:right">
 				<%= submit_tag _("save"), :class => 'button' %>
 			</td>
 		</tr>
 	</table>
-<% end %>
-<%- if @options[:image_cropper] -%>
-<script type="text/javascript" charset="utf-8">
-	function onEndCrop( coords, dimensions ) {
-		var scale = <%= @options[:image_size] %> / $('imageToCrop').getHeight();
-		console.log(scale);
-		$('content_crop_from').value = coords.x1 + "x" + coords.y1;
-		$('content_crop_size').value = dimensions.width + "x" + dimensions.height;
-	}
-	new Cropper.Img( 
-		'imageToCrop', { 
-			ratioDim: { x: 220, y: 124 }, 
-			displayOnInit: true, 
-			onEndCrop: onEndCrop
-		} 
-	) 
-</script>
 <% end %>

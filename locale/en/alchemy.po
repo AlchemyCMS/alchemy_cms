@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-07-29 19:19+0200\n"
+"POT-Creation-Date: 2010-08-12 14:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +76,11 @@ msgstr "Remove this image."
 msgid "Do you really want to delete this content?"
 msgstr ""
 
+#: app/views/essences/_essence_picture_tools.html.erb:5
+#: app/views/essences/_essence_picture_tools.html.erb:6
+msgid "Edit Picturemask"
+msgstr ""
+
 #: locale/model_attributes.rb:14
 msgid "Element"
 msgstr ""
@@ -146,7 +151,7 @@ msgstr "Imagesize"
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
-#: app/views/essences/_essence_picture_editor.html.erb:6
+#: app/views/essences/_essence_picture_editor.html.erb:22
 msgid "Mising Image"
 msgstr ""
 
@@ -396,11 +401,11 @@ msgstr "User"
 msgid "User: '%{name}' created"
 msgstr "User: '%{name}' created"
 
-#: app/controllers/admin/users_controller.rb:65
+#: app/controllers/admin/users_controller.rb:66
 msgid "User: '%{name}' deleted"
 msgstr "User: '%{name}' deleted"
 
-#: app/controllers/admin/users_controller.rb:57
+#: app/controllers/admin/users_controller.rb:58
 msgid "User: '%{name}' updated"
 msgstr "User: '%{name}' updated"
 
@@ -577,7 +582,7 @@ msgstr "Do you really want to delete this page?"
 msgid "confirm_to_delete_file"
 msgstr "Do you really want to delete this file from the server?"
 
-#: app/views/essences/_essence_picture_tools.html.erb:4
+#: app/views/essences/_essence_picture_editor.html.erb:5
 msgid "confirm_to_delete_image"
 msgstr "Do you really want to delete this image from server?"
 
@@ -668,7 +673,7 @@ msgstr "Delete this element."
 msgid "delete_file"
 msgstr "Delete this file from server."
 
-#: app/views/essences/_essence_picture_tools.html.erb:12
+#: app/views/essences/_essence_picture_editor.html.erb:13
 msgid "delete_image"
 msgstr "Remove this image."
 
@@ -693,7 +698,7 @@ msgstr "Files"
 msgid "download_file_'%{filename}'"
 msgstr "Download file '%{filename}'"
 
-#: app/views/essences/_essence_picture_editor.html.erb:9
+#: app/views/essences/_essence_picture_editor.html.erb:25
 msgid "drag_to_sort"
 msgstr "Drag'n'Drop to sort images"
 
@@ -702,13 +707,13 @@ msgstr "Drag'n'Drop to sort images"
 msgid "edit_file_properties"
 msgstr "Edit Fileproperties"
 
-#: app/views/essences/_essence_picture_tools.html.erb:61
-#: app/views/essences/_essence_picture_tools.html.erb:65
+#: app/views/essences/_essence_picture_tools.html.erb:53
+#: app/views/essences/_essence_picture_tools.html.erb:57
 msgid "edit_image_properties"
 msgstr "Edit image properties."
 
 #: app/views/admin/pages/_layoutpage.html.erb:15
-#: app/views/admin/pages/_page.html.erb:71
+#: app/views/admin/pages/_page.html.erb:74
 #: app/views/admin/pages/_sitemap.html.erb:65
 msgid "edit_page"
 msgstr "Edit this page."
@@ -836,7 +841,7 @@ msgstr "Alt-tag"
 msgid "image_caption"
 msgstr "Caption"
 
-#: app/views/essences/_essence_picture_editor.html.erb:18
+#: app/views/essences/_essence_picture_editor.html.erb:34
 msgid "image_name"
 msgstr "Name"
 
@@ -879,7 +884,7 @@ msgstr "Error while copying langauge."
 msgid "left"
 msgstr "left"
 
-#: app/views/essences/_essence_picture_tools.html.erb:41
+#: app/views/essences/_essence_picture_tools.html.erb:33
 msgid "link_image"
 msgstr "Link this image."
 
@@ -1203,7 +1208,7 @@ msgstr "allow robot to index."
 msgid "save"
 msgstr "save"
 
-#: app/controllers/admin/essence_pictures_controller.rb:57
+#: app/controllers/admin/essence_pictures_controller.rb:71
 msgid "saved_link"
 msgstr "Link saved."
 
@@ -1264,8 +1269,8 @@ msgstr "Succesfully added new element."
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
-#: app/views/essences/_essence_picture_tools.html.erb:28
-#: app/views/essences/_essence_picture_tools.html.erb:32
+#: app/views/essences/_essence_picture_tools.html.erb:20
+#: app/views/essences/_essence_picture_tools.html.erb:24
 msgid "swap_image"
 msgstr "Change image."
 
@@ -1288,7 +1293,7 @@ msgstr "Title"
 msgid "unknown"
 msgstr "unknown"
 
-#: app/views/essences/_essence_picture_tools.html.erb:51
+#: app/views/essences/_essence_picture_tools.html.erb:43
 msgid "unlink"
 msgstr "Remove link from this image."
 

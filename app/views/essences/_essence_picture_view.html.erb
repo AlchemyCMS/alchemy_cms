@@ -7,6 +7,8 @@
 			:name => content.essence.picture.urlname,
 			:size => image_size,
 			:crop => options[:crop],
+			:crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
+			:crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil,
 			:upsample  => options[:upsample],
 			:padding => options[:padding],
 			:format => (options[:format].blank? ? configuration(:image_output_format) : options[:format])
