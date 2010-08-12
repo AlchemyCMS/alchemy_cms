@@ -558,7 +558,7 @@ a.hide_element_selector {
 	background: url(../images/gui/arrow_green_left.gif) no-repeat -1px 1px;
 }
 
-#dashboard div.dashboard_tip {
+div.tip {
 	background-color: #eff8d0;
 	border: 1px solid #cce21c;
 	padding: 8px;

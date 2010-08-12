@@ -1,10 +1,14 @@
-<div class="picture_tool_button">
+<div class="picture_tool_button<%= options[:crop] ? '' : ' disabled' %>">
+    <%- if options[:crop] -%>
 	<%= link_to_overlay_window(
 	    '',
 	    crop_admin_essence_picture_path(content.essence, :size => options[:image_size]),
-	    { :size => "800x600", :title => _('Edit Picturemask') },
+	    { :size => "fullscreen", :title => _('Edit Picturemask') },
 	    { :class => "edit_picture_mask", :title => _('Edit Picturemask') }
 	) %>
+	<%- else -%>
+	<a href="javascript:void(0)" class="edit_picture_mask"></a>
+	<%- end -%>
 </div>
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",

@@ -14,7 +14,6 @@ var AlchemyImageCropper = Class.create({
     };
     var options = Object.extend(defaults, arguments[1] || { });
     this.options = options;
-    console.info('this.options: ', this.options);
     this.element = $(element);
     new Cropper.Img( 
       this.element,

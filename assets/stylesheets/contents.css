@@ -1,7 +1,18 @@
+/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/contents.css?1281617757 */
+
 .picture_tool_button {
 	float: left;
 	margin-right: 2px;
 	margin-left: 2px;
+}
+
+.picture_tool_button.disabled {
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+}
+
+.picture_tool_button.disabled a {
+	cursor: default;
 }
 
 .picture_tool_button a {

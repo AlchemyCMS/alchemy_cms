@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-08-12 14:39+0200\n"
+"POT-Creation-Date: 2010-08-12 15:55+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -76,8 +76,8 @@ msgstr "Remove this image."
 msgid "Do you really want to delete this content?"
 msgstr ""
 
-#: app/views/essences/_essence_picture_tools.html.erb:5
 #: app/views/essences/_essence_picture_tools.html.erb:6
+#: app/views/essences/_essence_picture_tools.html.erb:7
 msgid "Edit Picturemask"
 msgstr ""
 
@@ -707,8 +707,8 @@ msgstr "Drag'n'Drop to sort images"
 msgid "edit_file_properties"
 msgstr "Edit Fileproperties"
 
-#: app/views/essences/_essence_picture_tools.html.erb:53
 #: app/views/essences/_essence_picture_tools.html.erb:57
+#: app/views/essences/_essence_picture_tools.html.erb:61
 msgid "edit_image_properties"
 msgstr "Edit image properties."
 
@@ -771,6 +771,10 @@ msgstr "Saved element."
 #: app/views/admin/pages/_external_link.html.erb:3
 msgid "enter_external_link"
 msgstr "Please enter the URL you want to link with"
+
+#: app/views/admin/essence_pictures/crop.html.erb:9
+msgid "explain cropping"
+msgstr "You may move and resize the frame to set the mask. If you are satisfied then click save."
 
 #: app/views/admin/pages/edit.html.erb:37
 msgid "explain_publishing"
@@ -845,10 +849,6 @@ msgstr "Caption"
 msgid "image_name"
 msgstr "Name"
 
-#: app/views/admin/essence_pictures/edit.html.erb:29
-msgid "image_size"
-msgstr "Imagesize"
-
 #: app/views/admin/essence_pictures/edit.html.erb:14
 msgid "image_title"
 msgstr "Title-tag"
@@ -884,7 +884,7 @@ msgstr "Error while copying langauge."
 msgid "left"
 msgstr "left"
 
-#: app/views/essences/_essence_picture_tools.html.erb:33
+#: app/views/essences/_essence_picture_tools.html.erb:37
 msgid "link_image"
 msgstr "Link this image."
 
@@ -1199,7 +1199,8 @@ msgstr "allow robot to index."
 #: app/views/admin/essence_files/edit.html.erb:40
 #: app/views/admin/essence_files/edit.html.erb:68
 #: app/views/admin/essence_files/edit.html.erb:92
-#: app/views/admin/essence_pictures/edit.html.erb:35
+#: app/views/admin/essence_pictures/crop.html.erb:15
+#: app/views/admin/essence_pictures/edit.html.erb:29
 #: app/views/admin/pages/configure.html.erb:66
 #: app/views/admin/pages/configure_external.html.erb:40
 #: app/views/admin/pictures/_picture.html.erb:45
@@ -1208,7 +1209,7 @@ msgstr "allow robot to index."
 msgid "save"
 msgstr "save"
 
-#: app/controllers/admin/essence_pictures_controller.rb:71
+#: app/controllers/admin/essence_pictures_controller.rb:73
 msgid "saved_link"
 msgstr "Link saved."
 
@@ -1269,8 +1270,8 @@ msgstr "Succesfully added new element."
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
-#: app/views/essences/_essence_picture_tools.html.erb:20
 #: app/views/essences/_essence_picture_tools.html.erb:24
+#: app/views/essences/_essence_picture_tools.html.erb:28
 msgid "swap_image"
 msgstr "Change image."
 
@@ -1293,7 +1294,7 @@ msgstr "Title"
 msgid "unknown"
 msgstr "unknown"
 
-#: app/views/essences/_essence_picture_tools.html.erb:43
+#: app/views/essences/_essence_picture_tools.html.erb:47
 msgid "unlink"
 msgstr "Remove link from this image."
 

@@ -12,12 +12,14 @@ class Admin::EssencePicturesController < ApplicationController
   
   def crop
     @essence_picture = EssencePicture.find(params[:id])
-    @initial_box = {
-      :x1 => @essence_picture.crop_from.split('x')[0].to_i,
-      :y1 => @essence_picture.crop_from.split('x')[1].to_i,
-      :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
-      :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
-    }
+    if !@essence_picture.crop_from.blank? && !@essence_picture.crop_size.blank?
+      @initial_box = {
+        :x1 => @essence_picture.crop_from.split('x')[0].to_i,
+        :y1 => @essence_picture.crop_from.split('x')[1].to_i,
+        :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
+        :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
+      }
+    end
     @size_x = params[:size].split('x')[0]
     @size_y = params[:size].split('x')[1]
     render :layout => false
