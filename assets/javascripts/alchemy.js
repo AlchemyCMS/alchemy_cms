@@ -70,6 +70,10 @@ function openElementsWindow (page_id, title) {
 
 function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, overflow){
 	overflow == undefined ? overflow = false : overflow = overflow;
+	if (size_x === 'fullscreen') {
+	  size_x = document.viewport.getWidth() - 50;
+		size_y = document.viewport.getHeight() - 100;
+	}
 	alchemy_window = new Window({
 		className: 'alchemy_window',
 		title: title,

@@ -662,8 +662,8 @@ module ApplicationHelper
       "openOverlayWindow(
         \'#{url}\',
         \'#{options[:title]}\',
-        \'#{options[:size].split('x')[0]}\',
-        \'#{options[:size].split('x')[1]}\',
+        \'#{options[:size].split('x')[0].to_s}\',
+        \'#{options[:size].split('x')[1].to_s}\',
         \'#{options[:resizable]}\',
         \'#{options[:modal]}\',
         \'#{options[:overflow]}\'
