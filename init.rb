@@ -13,11 +13,6 @@ ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 
 FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
 
-ActionController::Base.session = {
-  :key => '_alchemy_session',
-  :secret => 'ef0af4870c35c7c9ca584e5b5382ac187c5731b839f663ad4cee2e72625c1bd006d7b934265d43d34b102ed10a657f0aa5b9512b4ae328314f3416e30b0746cd'
-}
-
 ActionController::Dispatcher.middleware.insert_before(
   ActionController::Base.session_store,
   FlashSessionCookieMiddleware,

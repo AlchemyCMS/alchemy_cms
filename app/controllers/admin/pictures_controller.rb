@@ -69,7 +69,7 @@ class Admin::PicturesController < ApplicationController
         :per_page => (params[:per_page] || 32)
       )
     end
-    if params[:_alchemy_session].blank?
+    if params[ActionController::Base.session_options[:key].to_sym].blank?
       redirect_to :back
     end
   end
