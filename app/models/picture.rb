@@ -27,4 +27,16 @@ class Picture < ActiveRecord::Base
     self.name.blank? ? "image_#{self.id}" : self.name.split(/\./).first
   end
   
+  def landscape_format?
+    return (self.image_width > self.image_height) ? true : false
+  end
+  
+  def portrait_format?
+    return (self.image_width < self.image_height) ? true : false
+  end
+  
+  def square_format?
+    return (self.image_width == self.image_height) ? true : false
+  end
+  
 end
