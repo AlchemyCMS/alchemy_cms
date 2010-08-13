@@ -52,7 +52,8 @@ Unless we have a installscript (cooming soon...) you have to do following steps 
 Resources
 ---------
 
-* Homepage: <http://api.alchemy-app.com/>
+* Homepage: <http://alchemy-app.com/>
+* API Documentation: <http://api.alchemy-app.com/>
 * Issue-Tracker and Wiki: <http://redmine.alchemy-app.com/>
 * Sourcecode: <http://github.com/tvdeyen/alchemy/>
 
