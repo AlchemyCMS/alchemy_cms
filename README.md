@@ -14,7 +14,7 @@ Unless we have a installscript (cooming soon...) you have to do following steps 
 
 1. In your Rails App folder enter:
 
-        script/plugin install git://github.com/tvdeyen/Alchemy.git
+        script/plugin install git://github.com/tvdeyen/alchemy.git
 
 2. Then enter folowing lines into your config/environment.rb file
 
