@@ -1,8 +1,19 @@
-# Organize your element layouts here
+# In this configuration you setup alchemy´s element layouts.
 #
-# Please use this format to add new elements
+# Elements containing all necessary basic tools for applying alchemy.
+# They consists of composed contents (different essence-types) as shown in the illustration of an elements-sheme below.
 #
-# Some unique name for your Element: 
+# Sheme of element
+# =================================
+# #  Content 1 (EssenceText)      #
+# #                               #
+# #  Content 2 (EssencePicture)   #
+# #                               #
+# #  Content 3 (EssenceRichtext)  #
+# =================================
+#
+#
+# Example for a basic element layout
 #   - name: a_unique_name
 #     display_name: Some nice Display Name
 #     unique: Bool //pass true if this element only can be displayed once on page
@@ -12,10 +23,91 @@
 #     - name: text
 #       type: EssenceRichtext
 #
-# Content-Types are: EssenceText, EssenceRichtext, EssencePicture, EssenceFlash, EssenceSitemap, EssenceDate, EssenceHtml
 #
-# If you want an content to be the preview text for the element then use the flag take_me_for_preview: true
+# As already mentioned above, there are different content-types wich can be defined for each content in an element.
+# Defining these types is used to render predefined views in the element.
+#
+# Content-Types:
+#
+# * EssenceText (render essence with a single-lined inputfield)
+# * EssenceRichtext (render essence with a textarea and TinyMCE)
+# * EssencePicture (render essence containing a picture-editor)
+# * EssenceFlash (render essence with an embed flashmovie)
+# * EssenceDate (render essence as a date-selector)
+# * EssenceHtml (render essence as html-code)
 # 
+# After finishing the setup of your element layouts, you need to generate the files for the elements before using them in alchemy.
+# For creating these files, use the following command in your terminal
+# script/generate elements
+# 
+# All new elements will be created as two different files in ./app/views/elements
+# For each element there is an editor-view wich will be rendered in when applying alchemy and another view for the website´s frontend.
+# - app/views/elements/_elementsname_editor.html.erb
+# - app/views/elements/_elementsname_view.html.erb
+#
+# For most contents in an element you can specify additional options, so they get rendered in a specific way.
+# These options can be defined as symbols, but its too much to list them up here.
+# You can find these options described in the application_helper.rb, most of them at the render_essence method.
+#
+#
+# Setting a content as preview-text for the element
+# #################################################
+# You can set a content-essence as preview-text for its element like this
+# take_me_for_preview: true
+#
+#
+# Adding contents dynamically in the frontend
+# ###########################################
+# You are able to add content-essences dynamically to the element from the alchemy frontend.
+# You just have to make contents available for adding them.
+# This example enables this feature
+# 
+#   - name: headline
+#     display_name: Headline
+#     unique: false
+#     contents:
+#     - name: headline
+#       type: EssenceText
+#     - name: big_text
+#       type: EssenceRichtext
+#     available_contents:
+#     - name: big_text
+#       type: EssenceRichtext
+#
+# Now an alchemy user can add the content 'big_text' from the element as much as desired.
+#
+#
+# Not modifiable Elements
+# #######################
+# There are some elements you can render but not modify because they are statically and dont need any individualism.
+# * Sitemap (app/views/elements/_sitemap.html.erb)
+#
+#
+# Adding Stylesheets for contents
+# ###############################
+# You can add the possibility to access stylesheets for a specific content when using an element in alchemy´s frontend.
+# This feature needs to be enabled as shown in the example below.
+#
+#   - name: headline
+#     display_name: Headline
+#     unique: false 
+#     contents:
+#     - name: headline
+#       type: EssenceText
+#     - name: stylesheets
+#       type: EssenceText
+#       settings:
+#         display_as: select
+#
+# In this example there is a new content added with a setting option wich defines it should be displayed as a selectfield.
+# This selectfield wich will be added in the editor view, where you can pass classnames of your stylesheets to it as an array like this
+# <%= render_essence_editor_by_name(element, 'stylesheets', :select_values => [["No style", ""], ["Black", "black_headline"]]) %>
+#
+# In your website view you have to get the values of the stylesheets content
+# <h1 class="<%= render_essence_view_by_name(element, 'stylesheets') %>" id="<%= element_dom_id(element) %>">
+#   <%= render_essence_view_by_name(element, 'headline') %>
+# </h1>
+#
 
 - name: text
   display_name: Text

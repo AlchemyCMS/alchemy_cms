@@ -18,6 +18,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.title    = 'Alchemy'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README.markdown')
+  rdoc.rdoc_files.include('config/alchemy/elements.yml')
   rdoc.rdoc_files.include('lib/**/*.rb')
   rdoc.rdoc_files.include('app/controllers/*.rb')
   rdoc.rdoc_files.include('app/controllers/admin/*.rb')
