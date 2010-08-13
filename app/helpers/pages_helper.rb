@@ -5,25 +5,21 @@ module PagesHelper
     element.preview_text
   end
   
-  # :nodoc:
   def render_classes classes=[]
     s = classes.uniq.delete_if{|x| x == nil || x.blank?}.join(" ")
     s.blank? ? "" : "class='#{s}'"
   end
   
-  # :nodoc:
   def picture_essence_caption(content)
     return "" if content.nil?
     return "" if content.essence.nil?
     content.essence.caption
   end
   
-  # :nodoc:
   def alchemy_form_select(name, select_options, options={})
     select "mail_data", name, select_options, :selected => (session[:mail_data][name.to_sym] rescue "")
   end
   
-  # :nodoc:
   def alchemy_form_input_field(name, options = {})
     if options[:value].blank? && session[:mail_data].blank?
       value = nil
@@ -35,23 +31,19 @@ module PagesHelper
     text_field("mail_data", name, {:value => value}.merge(options))
   end
   
-  # :nodoc:
   def alchemy_form_text_area(name, options={})
     text_area "mail_data", name, :class => options[:class], :value => (session[:mail_data][name.to_sym] rescue "")
   end
   
-  # :nodoc:
   def alchemy_form_check_box(name, options={})
     bla = check_box_tag "mail_data[#{name}]", 1, (session[:mail_data][name.to_sym] == "0" ? false : true rescue false)
     bla += hidden_field_tag "mail_data[#{name}]", 0, :id => nil
   end
   
-  # :nodoc:
   def alchemy_form_label(element, name, options={})
     label_tag "mail_data_#{name}", render_essence_view_by_name(element, name), options
   end
   
-  # :nodoc:
   def alchemy_form_reset_button(name, options={})
     button_to_function(
       name,

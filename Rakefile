@@ -17,10 +17,12 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Alchemy'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('README.markdown')
   rdoc.rdoc_files.include('lib/**/*.rb')
   rdoc.rdoc_files.include('app/controllers/*.rb')
+  rdoc.rdoc_files.include('app/controllers/admin/*.rb')
   rdoc.rdoc_files.include('app/helpers/*.rb')
+  rdoc.rdoc_files.include('app/helpers/admin/*.rb')
   rdoc.rdoc_files.include('app/models/*.rb')
 end
 

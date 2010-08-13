@@ -1007,7 +1007,7 @@ module ApplicationHelper
     render :partial => 'layouts/partials/mainnavigation_entry', :collection => navigation_entries.flatten
   end
 
-  #:nodoc:
+  # Renders the Subnavigation for the admin interface.
   def render_admin_subnavigation(entries)
     render :partial => "layouts/partials/sub_navigation", :locals => {:entries => entries}
   end
@@ -1022,7 +1022,12 @@ module ApplicationHelper
     end
   end
   
-  #true if the current controller/action pair wants to display content other than the default.
+  # == DEPRICATED! 
+  # Page preview now renders inside an overlay window.
+  # 
+  # See: openPreviewWindow() => assets/javascripts/alchemy.js:22
+  # 
+  # Returns true if the current controller/action pair wants to display content other than the default.
   def frame_requested?
     preview_frame = {}
     plugin = alchemy_plugins.detect do |p|
