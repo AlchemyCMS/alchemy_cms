@@ -10,7 +10,7 @@ For more Information please visit http://alchemy-app.com
 Install
 -------
 
-Unless we have a installscript (cooming soon ^_^) you have to do following steps to install Alchemy:
+Unless we have a installscript (cooming soon...) you have to do following steps to install Alchemy:
 
 1. In your Rails App folder enter:
 
@@ -54,21 +54,21 @@ Unless we have a installscript (cooming soon ^_^) you have to do following steps
 Documentation
 -------------
 
-http://api.alchemy-app.com
+  http://api.alchemy-app.com
 
 Issue-Tracker and Wiki
 ----------------------
 
-http://redmine.alchemy-app.com
+  http://redmine.alchemy-app.com
 
 Sourecode
 ---------
 
-http://github.com/tvdeyen/alchemy
+  http://github.com/tvdeyen/alchemy
 
 License
 -------
 
-GPLv3
+  GPLv3
 
-http://www.gnu.org/licenses/gpl.html
+  http://www.gnu.org/licenses/gpl.html
