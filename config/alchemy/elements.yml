@@ -3,7 +3,7 @@
 # Elements containing all necessary basic tools for applying alchemy.
 # They consists of composed contents (different essence-types) as shown in the illustration of an elements-sheme below.
 #
-# Sheme of element
+# Scheme of an element
 # =================================
 # #  Content 1 (EssenceText)      #
 # #                               #
@@ -78,7 +78,7 @@
 #
 #
 # Not modifiable Elements
-# #######################
+# ####################### 
 # There are some elements you can render but not modify because they are statically and dont need any individualism.
 # * Sitemap (app/views/elements/_sitemap.html.erb)
 #
