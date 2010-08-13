@@ -25,17 +25,14 @@ class MailsController < ApplicationController
         mail_from,
         subject
       )
-      if configuration(:mailer)[:forward_to_page]
-        success_page = Page.find_by_page_layout_and_language(configuration(:mailer)[:success_page_layout], session[:language])
-        redirect_to(
-          :controller => 'pages',
-          :action => 'show',
-          :urlname => success_page.urlname,
-          :lang => multi_language ? session[:language] : nil
-        )
-      elsif !element.content_by_name("success_page").blank?
-        redirect_to show_page_url(element.content_by_name("success_page").essence.body)
+      if !element.content_by_name("success_page").essence.body.blank?
+        if multi_language?
+          redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => session[:language])
+        else
+          redirect_to show_page_url(:urlname => element.content_by_name("success_page").essence.body)
+        end
       else
+        flash[:notice] = I18n.t('contactform.messages.success')
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root(session[:language]).urlname
       end
     else
