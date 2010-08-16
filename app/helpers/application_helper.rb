@@ -572,7 +572,6 @@ module ApplicationHelper
       :level => 2
     }
     options = default_options.merge(options)
-    debugger
     if !options[:from_page].nil?
       if options[:from_page].children.blank? && options[:from_page].level > options[:level]
         options = options.merge(:from_page => Page.find(options[:from_page].parent_id))
