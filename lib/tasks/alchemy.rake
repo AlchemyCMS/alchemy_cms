@@ -349,3 +349,14 @@ EOF
   end
   
 end
+
+namespace :ferret do
+  desc "Updates the ferret index for the application."
+  task :rebuild_index => [ :environment ] do | t |
+    puts "Rebuilding Ferret Index for EssenceText"
+    EssenceText.rebuild_index
+    puts "Rebuilding Ferret Index for EssenceRichtext"
+    EssenceRichtext.rebuild_index
+    puts "Completed Ferret Index Rebuild"
+  end
+end

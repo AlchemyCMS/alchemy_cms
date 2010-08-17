@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-  title: title of item one
-  content: content of item one
-another:
-  id: 2
-  title: title of item two
-  content: content of item two
