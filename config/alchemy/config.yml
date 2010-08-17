@@ -1,4 +1,4 @@
-:alchemy_version: 1.2.2
+:alchemy_version: 1.2.3
 :show_rootname: a name
 :mailer:
     :forward_to_page: false
