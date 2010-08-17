@@ -3,7 +3,7 @@
 <%- pages.each do |page| -%>
 	<%- position = 'first' if page == pages.to_a.first -%>
 	<%- position = 'last' if page == pages.to_a.last -%>
-	<li class="<%= page.urlname -%> <%= position -%>">
+	<li class="<%= page.urlname -%> <%= position -%> <%= "active" if page_active?(page) %>">
 		<%= render :partial => options[:navigation_link_partial], :object => page, :locals => {:options => options} %>
 		<%- options[:from_page] = page -%>
 		<%- if options[:show_nonactive] -%>

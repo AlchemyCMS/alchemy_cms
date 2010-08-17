@@ -536,8 +536,7 @@ module ApplicationHelper
       :navigation_link_partial => "partials/navigation_link",
       :show_nonactive => false,
       :restricted_only => nil,
-      :show_title => true,
-      :level => 1
+      :show_title => true
     }
     options = default_options.merge(options)
     if options[:from_page].nil?
@@ -559,6 +558,27 @@ module ApplicationHelper
         :order => "lft ASC"
       )
       render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
+    end
+  end
+  
+  # Renders the children of the given page (standard is the current page), the given page and its siblings if there are no children, or it renders just nil.
+  # Use this helper if you want to render the subnavigation independent from the mainnavigation. E.g. to place it in a different layer on your website.
+  # If :from_page's level in the site-hierarchy is greater than :level (standard is 2) and the given page has no children, the returned output will be the :from_page and it's siblings
+  # This method will assign all its options to the the render_navigation method, so you are able to assign the same options as to the render_navigation method.
+  # Normally there is no need to change the level parameter, just in a few special cases.
+  def render_subnavigation(options = {})
+    default_options = {
+      :from_page => current_page,
+      :level => 2
+    }
+    options = default_options.merge(options)
+    if !options[:from_page].nil?
+      if options[:from_page].children.blank? && options[:from_page].level > options[:level]
+        options = options.merge(:from_page => Page.find(options[:from_page].parent_id))
+      end
+      render_navigation(options)
+    else
+      return nil
     end
   end
 
@@ -597,38 +617,6 @@ module ApplicationHelper
         :conditions => find_conditions,
         :order => "lft ASC"
       )
-      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
-    end
-  end
-  
-  # Renders the same html structure like the render_navigation() helper, but renders only child pages from current_page.
-  # Shows the child pages of the active child page as default.
-  # Take this helper if you want to render the subnavigation independent from the mainnavigation. E.g. to place it in a different <div> on your page.
-  def render_subnavigation options = {}
-    default_options = {
-      :submenu => true,
-      :from_page => current_page,
-      :spacer => "",
-      :navigation_partial => "partials/navigation_renderer",
-      :navigation_link_partial => "partials/navigation_link",
-      :show_nonactive => false
-    }
-    options = default_options.merge(options)
-    if options[:from_page].nil?
-      logger.warn("WARNING: No page for subnavigation found!")
-      return ""
-    else
-      if options[:from_page].level == 2
-        pages = options[:from_page].children
-      elsif options[:from_page].level == 3
-        pages = options[:from_page].parent.children
-      elsif options[:from_page].level == 4
-        pages = options[:from_page].parent.self_and_siblings
-      else
-        pages = options[:from_page].self_and_siblings
-      end
-      pages = pages.select{ |page| page.public? && page.visible?}
-      pages = pages.sort{|x, y| x.self_and_siblings.index(x) <=> y.self_and_siblings.index(y) }
       render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
     end
   end
