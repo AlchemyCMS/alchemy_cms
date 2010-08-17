@@ -48,7 +48,7 @@ class Admin::ElementsController < ApplicationController
           page.replace(:errors, 'fehler')
         end
       end
-    rescue
+    rescue Exception => e
       log_error($!)
       # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
       if e.class == Ferret::FileNotFoundError
