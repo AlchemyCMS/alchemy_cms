@@ -5,16 +5,24 @@ class EssenceRichtext < ActiveRecord::Base
   before_save :strip_content
   before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
   
+  # Returns the first 30 characters of self.stripped_body for the Element#preview_text method.
+  def preview_text
+    stripped_body.to_s[0..30]
+  end
+  
+  private
+  
+  def strip_content
+    self.stripped_body = strip_tags(self.body)
+  end
+  
   def check_ferret_indexing
     if self.do_not_index
       self.disable_ferret(:always)
     end
   end
   
-  def strip_content
-    self.stripped_body = strip_tags(self.body)
-  end
-  
+  # Stripping HTML Tags and only returns plain text.
   def strip_tags(html)
     return html if html.blank?
     if html.index("<")
