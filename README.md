@@ -24,8 +24,8 @@ Unless we have a installscript (cooming soon...) you have to do following steps 
 
     * Inside the config block:
 
-            config.gem 'ferret'
-            config.gem "grosser-fast_gettext", :version => '>=0.4.8', :lib => 'fast_gettext', :source => "http://gems.github.com" 
+            config.gem 'ferret', :version => '0.11.8.1', :source => "http://gems.github.com"
+            config.gem 'acts_as_ferret', :version => '>=0.4.8', :source => "http://gems.github.com"
             config.gem "gettext", :lib => false, :version => '>=1.9.3'
             config.gem "rmagick", :lib => "RMagick2" 
             config.gem 'mime-types', :lib => "mime/types" 
@@ -34,8 +34,6 @@ Unless we have a installscript (cooming soon...) you have to do following steps 
             config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
             config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
             config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
-            config.i18n.default_locale = :de
-            config.active_record.default_timezone = :berlin
 
 3. Place a `alchemy_plugin_tasks.rake` file in the `lib/tasks` folder with:
 
