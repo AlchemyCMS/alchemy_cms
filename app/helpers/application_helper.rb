@@ -573,7 +573,7 @@ module ApplicationHelper
     }
     options = default_options.merge(options)
     if !options[:from_page].nil?
-      if options[:from_page].children.blank? && options[:from_page].level > options[:level]
+      if (options[:from_page].children.blank? && options[:from_page].level > options[:level]) || !options[:from_page].children.select{ |page| !page.visible || !page.public }.blank?
         options = options.merge(:from_page => Page.find(options[:from_page].parent_id))
       end
       render_navigation(options)
