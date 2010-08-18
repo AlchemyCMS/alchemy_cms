@@ -2,11 +2,13 @@
 	<%- image_size = options[:image_size] -%>
 	
 	<%- img_tag = image_tag(
-		show_picture_path(
+		url_for(
+		    :controller => '/pictures',
+		    :action => 'show',
 			:id => content.essence.picture.id,
 			:name => content.essence.picture.urlname,
 			:size => image_size,
-			:crop => options[:crop],
+			:crop => options[:crop] ? 'crop' : nil,
 			:crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
 			:crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil,
 			:upsample  => options[:upsample],
