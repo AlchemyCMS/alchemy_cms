@@ -1,7 +1,7 @@
 # == This is the global Alchemy configuration file
 # Please override settings for your app in RAILS_ROOT/config/alchemy/config.yml of your application.
 
-:alchemy_version: 1.2.3
+:alchemy_version: 1.2.4
 :show_rootname: a name
 :mailer:
     :forward_to_page: false
