@@ -1,5 +1,7 @@
 class MailsController < ApplicationController
   
+  helper :pages
+  
   def new
     @mail = Mail.new
     @page = Page.find_by_page_layout(Alchemy::Configuration.parameter(:mailer)[:form_layout_name])
@@ -36,7 +38,13 @@ class MailsController < ApplicationController
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root(session[:language]).urlname
       end
     else
-      render :file => "app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb", :layout => 'pages'
+      if File.exists?("app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb")
+        render :file => "app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb", :layout => 'pages'
+      elsif File.exists?("vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb")
+        render :file => "vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb", :layout => 'pages'
+      else
+        render :file => "public/404.html", :status => 404
+      end
     end
   end
   

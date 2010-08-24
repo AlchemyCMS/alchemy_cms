@@ -12,7 +12,9 @@ var AlchemyElementSelector = Class.create({
 		this.elements.each(function (el) {
 			el.observe('mouseover', function (e) {
 				var t = e.currentTarget;
-				t.setStyle({outline: '2px solid #bba589'});
+				t.setStyle({
+  			  outline: '2px solid #bba589'
+  			});
 			});
 			el.observe('mouseout', function (e) {
 				var t = e.currentTarget;

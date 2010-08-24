@@ -1,23 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<%= render_meta_data(:title_prefix => 'Page') %>
-		<%= stylesheet_link_tag 'base' %>
-		<%= javascript_include_tag "application" %>
-		<%= javascript_include_tag "prototype" %>
+    <head>
+        <%= render_meta_data(
+            :title_prefix => render_elements(
+                :from_page => Page.find_by_page_layout('layout_header'),
+                :only => ['sitename']
+            ),
+            :title_seperator => "|"
+        ) %>
+        <%= stylesheet_link_tag "styles", :media => :screen %>
+        <%= stylesheet_link_tag "styles", :media => :printer %>
 	</head>
 	<body>
 		<div id="page">
-			<div id="header">
-				<div id="logo">
-					<%= link_to "Home", root_url %>
-				</div>
+			<div id="language_select">
+				<%= language_switches %>
 			</div>
-			<div id="navigation">
-				<%= render_navigation(:submenu => true) %>
+			<div id="breadcrump">
+                <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
 			</div>
-			<%= yield %>
+            <div id="header">
+                <div id="header_image">
+                    <%= render_elements(:only => 'header', :fallback => {:for => 'header', :from => 'layout_header'}) %>
+                </div>
+                <%- claim = render_elements :only => ["claim"] -%>
+                <%- if !claim.blank? -%>
+                <div id="claim">
+                    <%= claim %>
+                </div>
+                <%- end -%>
+                <div id="navigation">
+                    <%= render_navigation :all_sub_menues => true %>
+                </div>
+			</div>
+			<div id="content">
+				<%= yield %>
+			</div>
+			<div class="footer">
+				<%= render_elements(
+				    :from_page => Page.find_by_page_layout('layout_footer'),
+				    :only => ['footnote']
+				) %>
+			</div>
 		</div>
+		<%= alchemy_preview_mode_code %>
+		<script type="text/javascript"> 
+            var $buoop = {vs:{i:6,f:2,o:10.01,s:2,n:9}} 
+            $buoop.ol = window.onload; 
+            window.onload=function(){ 
+                if ($buoop.ol) $buoop.ol(); 
+                var e = document.createElement("script"); 
+                e.setAttribute("type", "text/javascript"); 
+                e.setAttribute("src", "http://browser-update.org/update.js"); 
+                document.body.appendChild(e); 
+            } 
+        </script>
 	</body>
 </html>

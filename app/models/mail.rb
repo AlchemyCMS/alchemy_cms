@@ -41,7 +41,6 @@
 #       :email:
 #         :message: blank_email
 
-
 class Mail < ActiveRecord::Base
   
   include Tableless
