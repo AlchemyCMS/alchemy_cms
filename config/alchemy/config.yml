@@ -106,7 +106,7 @@ alchemy_plugins:
       name: 'home'
       controller: 'admin'
       action: index
-      image: /plugin_assets/alchemy/images/icons/home.png
+      image: /images/alchemy/icons/home.png
       sub_navigation:
         - name: 'home'
           controller: 'admin'
@@ -122,7 +122,7 @@ alchemy_plugins:
       name: 'module: pages'
       controller: 'admin/pages'
       action: index
-      image: /plugin_assets/alchemy/images/icons/pages.png
+      image: /images/alchemy/icons/pages.png
       sub_navigation:
         - name: 'module: pages'
           controller: 'admin/pages'
@@ -139,7 +139,7 @@ alchemy_plugins:
       name: 'module: users'
       controller: 'admin/users'
       action: index
-      image: /plugin_assets/alchemy/images/icons/users.png
+      image: /images/alchemy/icons/users.png
       sub_navigation:
         - name: 'module: users'
           controller: 'admin/users'
@@ -150,7 +150,7 @@ alchemy_plugins:
       controller: 'admin/pictures'
       action: index
       name: 'module: library'
-      image: /plugin_assets/alchemy/images/icons/library.png
+      image: /images/alchemy/icons/library.png
       sub_navigation:
         - name: 'module: images'
           controller: 'admin/pictures'

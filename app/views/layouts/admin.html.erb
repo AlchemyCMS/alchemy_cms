@@ -16,7 +16,7 @@
 		<%#= overlay for indication of loading %>
 		<div id="overlay">
 			<div id="overlay_text_box">
-				<%= image_tag('ajax_loader.gif', :plugin => 'alchemy', :id => 'ajax_loader') %>
+				<%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
 				<span id="overlay_text"><%= _("please_wait") %></span>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 			<div id="main_menu_background"></div>
 			<div id="logout">
 				<% link_to(logout_path) do %>
-					<%= image_tag('icons/exit.png', :plugin => 'alchemy') %><br />
+					<%= image_tag('alchemy/icons/exit.png') %><br />
 					<%= _('logout') %>
 				<% end %>
 			</div>

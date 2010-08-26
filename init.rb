@@ -3,15 +3,15 @@ require 'extensions/form_helper'
 require 'alchemy/controller'
 require 'injections/attachment_fu_mime_type'
 
-# if defined?(Ddb::Userstamp)
-#   Ddb::Userstamp.compatibility_mode = true
-# end
-
-Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/authorization_rules.rb")
+if defined?(Authorization)
+  Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/authorization_rules.rb")
+end
 
 ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 
-FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
+if defined?(FastGettext)
+  FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
+end
 
 ActionController::Dispatcher.middleware.insert_before(
   ActionController::Base.session_store,
@@ -19,7 +19,7 @@ ActionController::Dispatcher.middleware.insert_before(
   ActionController::Base.session_options[:key]
 )
 
-Tinymce::Hammer.install_path = '/plugin_assets/alchemy/javascripts/tiny_mce'
+Tinymce::Hammer.install_path = '/javascripts/alchemy/tiny_mce'
 Tinymce::Hammer.plugins = %w(safari paste fullscreen inlinepopups alchemy_link)
 Tinymce::Hammer.languages = ['de', 'en']
 Tinymce::Hammer.init = [
@@ -32,8 +32,8 @@ Tinymce::Hammer.init = [
   [:skin, 'o2k7'],
   [:skin_variant, 'silver'],
   [:inlinepopups_skin, 'alchemy'],
-  [:popup_css, "/plugin_assets/alchemy/stylesheets/alchemy_tinymce_dialog.css"],
-  [:content_css, "/plugin_assets/alchemy/stylesheets/alchemy_tinymce_content.css"],
+  [:popup_css, "/stylesheets/alchemy/alchemy_tinymce_dialog.css"],
+  [:content_css, "/stylesheets/alchemy/alchemy_tinymce_content.css"],
   [:dialog_type, "modal"],
   [:width, "100%"],
   [:height, '185'],

@@ -7,7 +7,7 @@
 <div id="sub_navigation">
 	<span class="page_status_and_name">
 		<span class="page_name"><%= @page.name %></span>
-		<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@layoutpage %>
+		<%= image_tag("alchemy/flags/#{session[:language]}.png") if configuration(:languages).size > 1 && !@layoutpage %>
 		<%= render :partial => 'page_status', :locals => {:page => @page} %>
 	</span>
 </div>
@@ -23,7 +23,7 @@
 				)
 			) do %>
 				<button class="icon_button" title="<%= _('explain_unlocking') %>">
-					<%= image_tag('icons/cross.png', :plugin => 'alchemy') %>
+					<%= image_tag('alchemy/icons/cross.png') %>
 				</button><br />
 				<label><%= _("unlock_page") %></label>
 			<% end %>
@@ -35,7 +35,7 @@
 					:onsubmit => "pleaseWaitOverlay();"
 				) do -%>
 					<button class="icon_button" title="<%= _('explain_publishing') %>">
-						<%= image_tag('icons/broom.png', :plugin => 'alchemy') %>
+						<%= image_tag('alchemy/icons/broom.png') %>
 					</button><br />
 					<label><%= _("Sweepe cache") %></label>
 				<% end -%>

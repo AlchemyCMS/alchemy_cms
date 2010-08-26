@@ -2,8 +2,7 @@
 	<td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" -%></td>
 	<td>
 		<%= image_tag(
-			"icons/#{user.logged_in? ? 'online' : 'offline'}.png",
-			:plugin => 'alchemy',
+			"alchemy/icons/#{user.logged_in? ? 'online' : 'offline'}.png",
 			:alt => '',
 			:class => 'login_status'
 		) %>

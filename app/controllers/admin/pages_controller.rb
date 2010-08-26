@@ -203,11 +203,7 @@ class Admin::PagesController < ApplicationController
       title = _('create_new_language')
       render :update do |page|
         page << %(openOverlayWindow(
-          '#{url_for(
-            :controller => :pages,
-            :action => :create_language,
-            :language_code => params[:language]
-          )}',
+          '#{create_language_admin_pages_path(:language_code => params[:language])}',
           '#{title}',
           255,
           200,
@@ -215,6 +211,7 @@ class Admin::PagesController < ApplicationController
           'true',
           false
         ))
+        page << "pleaseWaitOverlay(false);"
       end
     else
       set_language(params[:language])

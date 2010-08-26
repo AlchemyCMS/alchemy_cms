@@ -127,7 +127,7 @@ protected
   def set_gettext_locale
     FastGettext.text_domain = 'alchemy'
     FastGettext.available_locales = ['de','en'] #all you want to allow
-    super
+    #super
     session[:language] ||= configuration(:default_language)
     Alchemy::Controller.current_language = session[:language]
   end

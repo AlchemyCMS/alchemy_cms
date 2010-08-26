@@ -682,36 +682,42 @@ module ApplicationHelper
     )
   end
   
-  # Renders an image_tag with .png for file.suffix.
+  # Renders an image_tag with an file icon for files suffix.
   # The images are in vendor/plugins/alchemy/assets/images/file_icons
-  # Fileicons so far:
-  # GIF
-  # PDF
-  # FLV (Flashvideo)
-  # ZIP
-  # SWF (Flashmovie)
-  # MP3
-  # Empty File
+  # They will be copyied into public/alchemy/file_icons on app launch.
+  # 
+  # ===Fileicons so far:
+  #
+  # * GIF
+  # * PDF
+  # * FLV (Flashvideo)
+  # * ZIP
+  # * SWF (Flashmovie)
+  # * MP3
+  # * Empty File
+  #
   def render_file_icon file
-    if file.filename.split(".").last == "pdf"
-      img_tag = "#{image_tag("file_icons/pdf.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "flv"
-      img_tag = "#{image_tag("file_icons/flv.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "gif"
-      img_tag = "#{image_tag("file_icons/gif.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "zip"
-      img_tag = "#{image_tag("file_icons/zip.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "mp3"
-      img_tag = "#{image_tag("file_icons/mp3.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "swf"
-      img_tag = "#{image_tag("file_icons/swf.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "doc"
-      img_tag = "#{image_tag("file_icons/doc.png", :plugin => :alchemy)}"
-    elsif file.filename.split(".").last == "jpg"
-      img_tag = "#{image_tag("file_icons/jpg.png", :plugin => :alchemy)}"
+    case file.filename.split(".").last
+      when "pdf"
+        then icon = "pdf.png"
+      when "flv"
+        then icon = "flv.png"
+      when "gif"
+        then icon = "gif.png"
+      when "zip"
+        then icon = "zip.png"
+      when "mp3"
+        then icon = "mp3.png"
+      when "swf"
+        then icon = "swf.png"
+      when "doc"
+        then icon = "doc.png"
+      when "jpg"
+        then icon = "jpg.png"
     else
-      img_tag = "#{image_tag("file_icons/file.png", :plugin => :alchemy)}"
+      icon = "file.png"
     end
+    image_tag("alchemy/file_icons/#{icon}")
   end
   
   # Renders an image_tag from for an image in public/images folder so it can be cached.
@@ -977,7 +983,7 @@ module ApplicationHelper
     Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
-      acc << stylesheet_link_tag(filename, :plugin => plugin)
+      acc << stylesheet_link_tag("#{plugin}/#{filename}")
     end
   end
 
@@ -986,7 +992,7 @@ module ApplicationHelper
     Dir.glob("vendor/plugins/*/assets/javascripts/*.js").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
-      acc << javascript_include_tag(filename, :plugin => plugin)
+      acc << javascript_include_tag("#{plugin}/#{filename}")
     end
   end
 
@@ -1073,7 +1079,7 @@ module ApplicationHelper
   end
   
   # Helper for including the nescessary javascripts and stylesheets for the different views.
-  # Together with the asset_packager plugin we achieve a lot better load time.
+  # Together with the asset_packager plugin we achieve a way better load time.
   def alchemy_assets_set(setname = 'default')
     content_for(:javascript_includes){ javascript_include_merged(setname.to_sym) }
     content_for(:stylesheets){ stylesheet_link_merged(setname.to_sym) }

@@ -85,7 +85,7 @@ a.mceMove {
 	right: 2px;
 	width: 100%;
 	height: 29px;
-	background: #b3ccdb url(../../../../../../images/gui/shading.png) repeat-x 0 12px;
+	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 12px;
 	border-bottom: 2px solid white;
 }
 
@@ -210,7 +210,7 @@ a.mceMove {
 
 .alchemy .mceClose {
 	right: 8px;
-	background: url(../../../../../../images/gui/close.png) 0 0;
+	background: url(/images/alchemy/gui/close.png) 0 0;
 	width: 16px;
 	height: 16px;
 	top: 8px;
@@ -377,7 +377,7 @@ a.mceMove {
 }
 
 .alchemy .mceAlert .mceIcon {
-	background: url(../../../../../../images/icons/exclamation.png)
+	background: url(/images/alchemy/icons/exclamation.png)
 }
 
 .alchemy .mceConfirm .mceOk {
@@ -392,5 +392,5 @@ a.mceMove {
 }
 
 .alchemy .mceConfirm .mceIcon {
-	background: url(../../../../../../images/icons/exclamation.png)
+	background: url(/images/alchemy/icons/exclamation.png)
 }

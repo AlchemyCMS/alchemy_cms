@@ -103,7 +103,7 @@ input.checkbox {
 	padding-right: 8px;
 	padding-bottom: 2px;	
 	margin: 0;
-	background: #eaeaea url(../images/gui/button_shading.png) repeat-x 0 0;
+	background: #eaeaea url(/images/alchemy/gui/button_shading.png) repeat-x 0 0;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -241,7 +241,7 @@ td.charmap, #charmap a {
 
 .tabs li {
 	float: left;
-	background: url(../images/gui/shading_inv.png) repeat-x 0 0;
+	background: url(/images/alchemy/gui/shading_inv.png) repeat-x 0 0;
 	margin: 0 2px 0 0;
 	padding: 0 0 0 10px;
 	line-height: 17px;

@@ -66,7 +66,7 @@ img.add_element_spinner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url(../images/icons/element-icons.png) no-repeat -80px 0;
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -80px 0;
 }
 
 .element_handle img.element_status {
@@ -111,7 +111,7 @@ div.element_foot span.element_public {
 .add_content a {
 	color: #6c6c6c;
 	text-decoration: none;
-	background: url(../images/icons/image-essence.png) no-repeat 0 0;
+	background: url(/images/alchemy/icons/image-essence.png) no-repeat 0 0;
 	overflow: hidden;
 	text-align: center;
 	font-weight: bold;
@@ -200,7 +200,7 @@ div.element_editor form {
 }
 
 a.delete_element_button {
-	background: url(../images/icons/element-icons.png) no-repeat;
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat;
 }
 
 div.element_tools {
@@ -212,11 +212,11 @@ span.element_tools_icons {
 }
 
 a.element_copy_button {
-	background: url(../images/icons/element-icons.png) no-repeat -32px 0;
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -32px 0;
 }
 
 a.element_move_button {
-	background: url(../images/icons/element-icons.png) no-repeat -16px 0;
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -16px 0;
 }
 
 .element_head {
@@ -331,7 +331,7 @@ div.content_editor a.icon_button.small {
 }
 
 a.expand_element {
-	background: url(../images/icons/element-icons.png) no-repeat -48px 0;
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -48px 0;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -340,7 +340,7 @@ a.expand_element {
 }
 
 a.fold_element {
-	background: url(../images/icons/element-icons.png) no-repeat -64px 0;
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -64px 0;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;

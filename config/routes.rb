@@ -29,7 +29,8 @@ ActionController::Routing::Routes.draw do |map|
         :preview => :get
       },
       :has_many => [:elements],
-      :shallow => true
+      :shallow => true,
+      :except => :show
     )
     admin.resources(
       :pictures,

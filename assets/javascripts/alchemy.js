@@ -98,7 +98,7 @@ function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, 
 		method: 'get',
 		onLoading: function () {
 			var spinner = new Image();
-			spinner.src = "/plugin_assets/alchemy/images/ajax_loader.gif";
+			spinner.src = "/images/alchemy/ajax_loader.gif";
 			spinner.setStyle({
 				marginLeft: (size_x - 32) / 2 + 'px',
 				marginTop: (size_y - 32) / 2 + 'px'

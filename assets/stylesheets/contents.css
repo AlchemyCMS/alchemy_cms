@@ -20,7 +20,7 @@
 	width: 16px;
 	height: 16px;
 	display: block;
-	background-image: url(../images/icons/picture_essence.png);
+	background-image: url(/images/alchemy/icons/picture_essence.png);
 	background-repeat: no-repeat;
 	margin: 1px;
 }
@@ -35,7 +35,7 @@
 
 .picture_tool_button a.edit_link,
 .icon_button span.icon.link {
-	background-image: url(../images/icons/picture_essence.png);
+	background-image: url(/images/alchemy/icons/picture_essence.png);
 	background-position: -32px 0;
 	left: 2px;
 	top: 2px;
@@ -88,7 +88,7 @@ div.essence_picture_editor:hover .picture_tool_delete {
 }
 
 a.picture_delete {
-	background: url(../images/icons/element-icons.png) 0 0;
+	background: url(/images/alchemy/icons/element-icons.png) 0 0;
 }
 
 img.picture_delete-disabled {
@@ -164,7 +164,7 @@ div.file_icon {
 div.file_icon a.assign_file {
 	display: block;
 	height: 36px;
-	background: url(../images/icons/assign_file.png) no-repeat -5px -1px;
+	background: url(/images/alchemy/icons/assign_file.png) no-repeat -5px -1px;
 	width: 34px;
 }
 
@@ -201,11 +201,11 @@ div.essence_file_tools a:active {
 
 div.essence_file_tools a.assign_file {
 	margin-top: 0;
-	background-image: url(../images/icons/swap_file.png);
+	background-image: url(/images/alchemy/icons/swap_file.png);
 }
 
 div.essence_file_tools a.edit_file {
-	background-image: url(../images/icons/edit.png);
+	background-image: url(/images/alchemy/icons/edit.png);
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
@@ -318,7 +318,7 @@ div.content_editor:hover label a.icon_button.small {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	background: white url(../images/gui/shading_inv.png) repeat-x 0 -5px;
+	background: white url(/images/alchemy/gui/shading_inv.png) repeat-x 0 -5px;
 }
 
 .content_rtf_editor div.editable_area {

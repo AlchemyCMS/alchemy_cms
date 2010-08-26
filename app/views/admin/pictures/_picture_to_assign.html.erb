@@ -1,6 +1,6 @@
 <div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= picture_to_assign.name %>">
 	<div class="overlay_image_spinner">
-		<%= image_tag("ajax_loader.gif", :plugin => "alchemy", :alt => '') %>
+		<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
 	</div>
 	<div class="assign_image_list_image" style="display: none;">
 	<%- unless params[:image_assign_url].blank? -%>

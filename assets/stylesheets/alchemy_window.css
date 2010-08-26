@@ -384,7 +384,7 @@ form.create_right {
 .alchemy_window_sizer {
 	width: 6px;
 	height: 6px;
-	background: transparent url(../images/gui/resize.gif) no-repeat -5px -7px;
+	background: transparent url(/images/alchemy/gui/resize.gif) no-repeat -5px -7px;
 	cursor: se-resize;
 	border-right: 1px solid #9c9d9c;
 	border-bottom: 1px solid #9c9d9c;
@@ -396,7 +396,7 @@ form.create_right {
 .alchemy_window_close {
 	width: 16px;
 	height: 16px;
-	background: transparent url(../images/gui/close.png) no-repeat 0 0;
+	background: transparent url(/images/alchemy/gui/close.png) no-repeat 0 0;
 	position: absolute;
 	top: 8px;
 	right: 8px;
@@ -415,7 +415,7 @@ form.create_right {
 	padding: 6px 32px 2px 8px;
 	margin-top: 2px;
 	margin-bottom: 2px;
-	background: #b3ccdb url(../images/gui/shading.png) repeat-x 0 12px;
+	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 12px;
 	white-space: nowrap;
 	text-shadow: #fff 0 1px 2px;
 	font-weight: bold;
@@ -675,7 +675,7 @@ a.close_elements_from_page_selector {
 	width: 11px;
 	height: 16px;
 	margin-top: 3px;
-	background: url(../images/icons/remove.png) no-repeat;
+	background: url(/images/alchemy/icons/remove.png) no-repeat;
 }
 
 .elements_for_page img {
@@ -695,7 +695,7 @@ a.close_elements_from_page_selector {
 	width: 16px;
 	height: 16px;
 	position: relative;
-	background: url(../images/icons/elements_window.png) no-repeat 0 0;
+	background: url(/images/alchemy/icons/elements_window.png) no-repeat 0 0;
 	margin: 2px;
 	font-size: 0;
 	text-decoration: none;
@@ -715,7 +715,7 @@ div.overlay_tab_bar {
 	height: 23px;
 	white-space: nowrap;
 	overflow: hidden;
-	background: #b3ccdb url(../images/gui/shading_inv.png) repeat-x 0 0;
+	background: #b3ccdb url(/images/alchemy/gui/shading_inv.png) repeat-x 0 0;
 	padding: 4px 4px 0;
 	text-shadow: #fff 0 1px 2px;
 }
@@ -931,7 +931,7 @@ div.info ol li {
 div#overlay_toolbar {
 	margin: -8px -8px 12px;
 	padding: 8px;
-	background: #e3e3e3 url(../images/gui/shading.png) repeat-x 0 32px;
+	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 32px;
 	border: 1px solid #afafaf;
 	height: 35px;
 }
