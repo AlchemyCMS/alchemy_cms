@@ -2,6 +2,7 @@ require 'extensions/hash'
 require 'extensions/form_helper'
 require 'alchemy/controller'
 require 'injections/attachment_fu_mime_type'
+require File.dirname(__FILE__) + '/app/middleware/flash_session_cookie_middleware.rb'
 
 if defined?(Authorization)
   Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/authorization_rules.rb")
@@ -13,11 +14,16 @@ if defined?(FastGettext)
   FastGettext.add_text_domain 'alchemy', :path => File.join(RAILS_ROOT, 'vendor/plugins/alchemy/locale')
 end
 
-ActionController::Dispatcher.middleware.insert_before(
-  ActionController::Base.session_store,
-  FlashSessionCookieMiddleware,
-  ActionController::Base.session_options[:key]
-)
+config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
+config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
+
+config.after_initialize do
+  ActionController::Dispatcher.middleware.insert_before(
+    ActionController::Base.session_store,
+    FlashSessionCookieMiddleware,
+    ActionController::Base.session_options[:key]
+  )
+end
 
 Tinymce::Hammer.install_path = '/javascripts/alchemy/tiny_mce'
 Tinymce::Hammer.plugins = %w(safari paste fullscreen inlinepopups alchemy_link)
