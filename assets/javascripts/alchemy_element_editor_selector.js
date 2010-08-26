@@ -36,8 +36,9 @@ var AlchemyElementEditorSelector = Class.create({
 			}
 			e.stop();
 		});
-		this.element.observe('click', function (e) {
-			var target = e.currentTarget;
+		var element_head = this.element.down('div.element_head');
+		element_head.observe('click', function (e) {
+			var target = e.currentTarget.up();
 			var id = target.id.replace(/\D/g,'');
 			var editors = $$('#element_area .element_editor');
 			var current_selected = editors.detect(function (editor) {
