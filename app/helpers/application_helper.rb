@@ -964,7 +964,7 @@ module ApplicationHelper
   def picture_editor_sortable(element_id)
     sortable_element(
       "element_#{element_id}_contents",
-      :scroll => 'window',
+      :scroll => "$('element_#{element_id}_contents').up().up().up().up().up('.alchemy_window_content')",
       :tag => 'div',
       :only => 'dragable_picture',
       :handle => 'picture_handle',

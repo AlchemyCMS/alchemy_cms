@@ -26,8 +26,9 @@ class Alchemy::Configuration < ActionController::Base
   def self.sortable_elements(page)
     page.sortable(
       "element_area",
-      :url => "/admin/elements/order",
-      :scroll => "window",
+      :constraint => '',
+      :url => order_admin_elements_path,
+      :scroll => "$('element_area').up('.alchemy_window_content')",
       :tag => 'div',
       :only => 'element_editor',
       :dropOnEmpty => false,
@@ -38,7 +39,7 @@ class Alchemy::Configuration < ActionController::Base
   def self.sortable_contents(page, element)
     page.sortable(
       "element_#{element.id}_contents",
-      :scroll => 'window',
+      :scroll => "$('element_#{element.id}_contents').up().up().up().up().up('.alchemy_window_content')",
       :tag => 'div',
       :only => 'dragable_picture',
       :handle => 'picture_handle',
@@ -47,5 +48,5 @@ class Alchemy::Configuration < ActionController::Base
       :url => "/admin/contents/order?element_id=#{element.id}"
     )
   end
-  
+
 end

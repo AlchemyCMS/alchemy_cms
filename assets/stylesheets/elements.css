@@ -374,3 +374,7 @@ a.fold_element {
 .content_editor select.essence_editor_select optgroup option {
 	text-indent: 24px;
 }
+
+.element_droppable {
+  border: 1px dashed #000;
+}
