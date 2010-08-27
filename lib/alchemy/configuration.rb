@@ -27,7 +27,7 @@ class Alchemy::Configuration < ActionController::Base
     page.sortable(
       "element_area",
       :constraint => '',
-      :url => order_admin_elements_path,
+      :url => '/admin/elements/order',
       :scroll => "$('element_area').up('.alchemy_window_content')",
       :tag => 'div',
       :only => 'element_editor',
