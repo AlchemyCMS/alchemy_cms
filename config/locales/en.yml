@@ -1,4 +1,9 @@
 en:
+  user_roles:
+    registered: "Registriert"
+    author: "Author"
+    editor: "Redakteur"
+    admin: "Administrator"
   
   date:
     formats:

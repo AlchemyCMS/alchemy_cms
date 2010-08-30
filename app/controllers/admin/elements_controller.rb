@@ -1,4 +1,6 @@
-class Admin::ElementsController < ApplicationController
+class Admin::ElementsController < AlchemyController
+  
+  layout 'alchemy'
   
   before_filter :set_translation
   
@@ -28,6 +30,7 @@ class Admin::ElementsController < ApplicationController
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
     @elements = Element.all_for_layout(@page, @page.page_layout)
+    render :layout => false
   end
   
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.

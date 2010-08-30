@@ -1,4 +1,4 @@
-class AttachmentsController < ApplicationController
+class AttachmentsController < AlchemyController
   
   # sends file inline. i.e. for viewing pdfs/movies in browser
   def show

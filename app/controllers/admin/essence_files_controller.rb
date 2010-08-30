@@ -1,6 +1,6 @@
-class Admin::EssenceFilesController < ApplicationController
+class Admin::EssenceFilesController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :all
   

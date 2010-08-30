@@ -1,11 +1,11 @@
-class Admin::PagesController < ApplicationController
+class Admin::PagesController < AlchemyController
   
   helper :pages
   
-  layout 'admin'
+  layout 'alchemy'
   
   before_filter :set_translation, :except => [:preview]
-  before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :fold, :destroy]
+  before_filter :get_page_from_id, :only => [:publish, :unlock, :show, :configure, :update, :fold, :destroy]
   
   filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move, :flush], :attribute_check => false
@@ -18,7 +18,77 @@ class Admin::PagesController < ApplicationController
       create_new_rootpage
       flash[:notice] = _("Admin|new rootpage created")
     end
-    render :layout => 'admin'
+  end
+  
+  def show
+    # fetching page via before filter
+    @preview_mode = true
+    render :layout => 'pages'
+  end
+  
+  def new
+    @parent_id = params[:parent_id]
+    @page = Page.new
+    render :layout => false
+  end
+  
+  def create
+    begin
+      parent = Page.find(params[:page][:parent_id])
+      page_layout = PageLayout.get(params[:page][:page_layout])
+      params[:page][:language] = parent.language
+      params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
+      page = Page.create(params[:page])
+      if page.valid?
+        page.move_to_child_of(parent)
+      end
+      render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
+    rescue
+      log_error($!)
+    end
+  end
+  
+  # Edit the content of the page and all its elements and contents.
+  def edit
+    @page = Page.find(params[:id])
+    @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
+    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
+      flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
+      redirect_to admin_pages_path
+    else
+      @page.lock(current_user)
+    end
+  end
+  
+  # Set page configuration like page names, meta tags and states.
+  def configure
+    # fetching page via before filter
+    if @page.redirects_to_external?
+      render :action => 'configure_external', :layout => false
+    else
+      render :layout => false
+    end
+  end
+  
+  def update
+    # fetching page via before filter
+    @page.update_attributes(params[:page])
+    render_errors_or_redirect(@page, request.referer, _("Page %{name} saved") % {:name => @page.name})
+  end
+  
+  def destroy
+    # fetching page via before filter
+    name = @page.name
+    if @page.destroy
+      render :update do |page|
+        page.replace_html(
+          "sitemap",
+          :partial => 'page',
+          :object => Page.language_root(session[:language])
+        )
+        Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+      end
+    end
   end
   
   def link
@@ -50,65 +120,6 @@ class Admin::PagesController < ApplicationController
   
   def layoutpages
     @layout_root = Page.layout_root
-    render :layout => 'admin'
-  end
-  
-  def new
-    @parent_id = params[:parent_id]
-    @page = Page.new
-    render :layout => false
-  end
-  
-  def create
-    begin
-      parent = Page.find(params[:page][:parent_id])
-      page_layout = PageLayout.get(params[:page][:page_layout])
-      params[:page][:language] = parent.language
-      params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
-      page = Page.create(params[:page])
-      if page.valid?
-        page.move_to_child_of(parent)
-      end
-      render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
-    rescue
-      log_error($!)
-    end
-  end
-  
-  def preview
-    # fetching page via before filter
-    @preview_mode = true
-    render :layout => 'pages'
-  end
-  
-  def configure
-    # fetching page via before filter
-    if @page.redirects_to_external?
-      render :action => 'configure_external', :layout => false
-    else
-      render :layout => false
-    end
-  end
-  
-  def update
-    # fetching page via before filter
-    @page.update_attributes(params[:page])
-    render_errors_or_redirect(@page, request.referer, _("Page %{name} saved") % {:name => @page.name})
-  end
-  
-  def destroy
-    # fetching page via before filter
-    name = @page.name
-    if @page.destroy
-      render :update do |page|
-        page.replace_html(
-          "sitemap",
-          :partial => 'page',
-          :object => Page.language_root(session[:language])
-        )
-        Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
-      end
-    end
   end
   
   # Leaves the page editing mode and unlocks the page for other users
@@ -129,18 +140,6 @@ class Admin::PagesController < ApplicationController
     @page.save
     flash[:notice] = _("page_published") % {:name => @page.name}
     redirect_back_or_to_default(admin_pages_path)
-  end
-  
-  def edit
-    @page = Page.find(params[:id])
-    @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
-    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
-      flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
-      redirect_to admin_pages_path
-    else
-      @page.lock(current_user)
-      render :layout => 'admin'
-    end
   end
   
   def create_language

@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
-		<title>Alchemy <%= configuration(:alchemy_version) %></title>
+		<title>Alchemy <%= Alchemy.version %></title>
 		<!--[if IE 6]>
 			<link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" />
 		<![endif]-->

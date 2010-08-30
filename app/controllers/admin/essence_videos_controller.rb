@@ -1,6 +1,6 @@
-class Admin::EssenceVideosController < ApplicationController
+class Admin::EssenceVideosController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :update
   

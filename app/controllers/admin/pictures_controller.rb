@@ -1,6 +1,6 @@
-class Admin::PicturesController < ApplicationController
+class Admin::PicturesController < AlchemyController
   protect_from_forgery :except => [:create]
-  layout 'admin'
+  layout 'alchemy'
   
   before_filter :set_translation
   

@@ -1,4 +1,10 @@
 de:
+  user_roles:
+    registered: "Registriert"
+    author: "Author"
+    editor: "Redakteur"
+    admin: "Administrator"
+  
   search:
     no_results: 'Ihre Suche ergab kein Ergebnis.'
     result_heading: 'Ihre Suche nach {{query}} ergab {{count}} Ergebnisse' 

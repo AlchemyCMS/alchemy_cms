@@ -1,6 +1,6 @@
-class Admin::EssenceAudiosController < ApplicationController
+class Admin::EssenceAudiosController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :update
   

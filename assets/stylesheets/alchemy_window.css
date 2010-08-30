@@ -455,13 +455,17 @@ input#page_name {
 	width: 231px;
 }
 
+td.alchemy_window_content {
+	background-color: #ededed;
+}
+
 div.alchemy_window_content {
 	overflow: auto;
 	position: relative;
 	background-color: #ededed;
 }
 
-div.alchemy_window_content iframe {
+td.alchemy_window_content iframe {
 	background: #ffffff;
 }
 

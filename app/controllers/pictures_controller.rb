@@ -1,4 +1,4 @@
-class PicturesController < ApplicationController
+class PicturesController < AlchemyController
   
   caches_page :show, :thumbnail, :zoom
   

@@ -108,6 +108,7 @@ class Element < ActiveRecord::Base
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
   # You can flag a Content as +take_me_for_preview+ to take this as preview.
   def preview_text
+    return "" if my_description.blank?
     my_contents = my_description["contents"]
     return "" if my_contents.blank?
     content_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first

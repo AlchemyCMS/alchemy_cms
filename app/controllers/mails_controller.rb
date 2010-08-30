@@ -1,4 +1,4 @@
-class MailsController < ApplicationController
+class MailsController < AlchemyController
   
   helper :pages
   

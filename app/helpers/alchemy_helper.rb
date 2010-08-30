@@ -14,8 +14,8 @@
 # 2. The currently displayed page can be accessed with the current_page() helper. This is actually the page found via Page.find_by_name("some_url_name") page
 # 3. All important meta data from current_page will be rendered via the render_meta_data() helper.
 
-module ApplicationHelper
-
+module AlchemyHelper
+  
   include FastGettext::Translation
 
   def configuration(name)
@@ -1079,10 +1079,17 @@ module ApplicationHelper
   end
   
   # Helper for including the nescessary javascripts and stylesheets for the different views.
-  # Together with the asset_packager plugin we achieve a way better load time.
+  # Together with the rails caching we achieve a good load time.
   def alchemy_assets_set(setname = 'default')
-    content_for(:javascript_includes){ javascript_include_merged(setname.to_sym) }
-    content_for(:stylesheets){ stylesheet_link_merged(setname.to_sym) }
+    asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
+    content_for(:javascript_includes) do 
+      js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
+      javascript_include_tag(js_set, :cache => setname)
+    end
+    content_for(:stylesheets) do 
+      css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
+      stylesheet_link_tag(css_set, :cache => setname)
+    end
   end
   
   def parse_sitemap_name(page)
@@ -1140,16 +1147,8 @@ module ApplicationHelper
   
   def alchemy_preview_mode_code
     if @preview_mode
-      str = javascript_include_merged(:preview)
-      str += %(
-        <script type="text/javascript" charset="utf-8">
-        // <![CDATA[
-          document.observe('dom:loaded', function() {
-            new AlchemyElementSelector();
-          });
-        // ]]>
-        </script>
-      )
+      str = javascript_include_tag("alchemy/prototype", "alchemy/alchemy_element_selector", :cache => :preview)
+      str += javascript_tag("document.observe('dom:loaded', function() { new AlchemyElementSelector(); });")
       return str
     else
       return nil
