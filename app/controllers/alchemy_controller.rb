@@ -176,7 +176,6 @@ protected
         end
       end
     else
-      debugger
       flash[:info] = _('Please log in')
       if request.xhr?
         render :update do |page|
