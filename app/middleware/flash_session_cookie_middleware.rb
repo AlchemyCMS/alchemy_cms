@@ -9,7 +9,6 @@ class FlashSessionCookieMiddleware
   def call(env)
     if env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
       params = ::Rack::Utils.parse_query(env['QUERY_STRING'])
-      puts "+++++++++ Session-key: #{@session_key}"
       env['HTTP_COOKIE'] = [ @session_key, params[@session_key] ].join('=').freeze unless params[@session_key].nil?
     end
     @app.call(env)

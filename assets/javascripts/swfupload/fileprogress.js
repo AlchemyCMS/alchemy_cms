@@ -148,7 +148,7 @@ FileProgress.prototype.appear = function () {
 	} else {
 		this.fileProgressWrapper.style.opacity = 1;
 	}
-		
+	
 	this.fileProgressWrapper.style.height = "";
 	
 	this.height = this.fileProgressWrapper.offsetHeight;
@@ -162,7 +162,7 @@ FileProgress.prototype.disappear = function () {
 
 	var reduceOpacityBy = 15;
 	var reduceHeightBy = 4;
-	var rate = 30;	// 15 fps
+	var rate = 30;// 15 fps
 
 	if (this.opacity > 0) {
 		this.opacity -= reduceOpacityBy;

@@ -152,8 +152,8 @@ function uploadError(file, errorCode, message) {
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
-    }
+		this.debug(ex);
+	}
 }
 
 function uploadComplete(file) {
@@ -167,5 +167,7 @@ function queueComplete(numFilesUploaded) {
 	status.show();
 	status.innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
 	$('btnCancel').hide();
-	alchemy_window.close();
+	setTimeout(function () {
+		alchemy_window.close();
+	}, 1000);
 }
