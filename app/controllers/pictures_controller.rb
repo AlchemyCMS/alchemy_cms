@@ -8,7 +8,7 @@ class PicturesController < AlchemyController
     @picture = Picture.find(params[:id])
     @size = params[:size]
     @crop = !params[:crop].nil?
-    @crop_from = params[:crop_from]
+    @crop_from = normalized_size(params[:crop_from])
     @crop_size = params[:crop_size]
     @padding = params[:padding]
     @upsample = !params[:upsample].nil? ? true : false
@@ -47,5 +47,13 @@ class PicturesController < AlchemyController
       format.png
     end
   end
-  
+
+private
+
+  def normalized_size(size)
+    size.split("x").map do |s| 
+      s.to_i < 0 ? 0 : s.to_i
+    end.join('x')
+  end
+
 end

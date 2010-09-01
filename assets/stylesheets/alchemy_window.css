@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy_window.css?1283181760 */
+
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -765,10 +767,6 @@ div.assign_file_file_icon img {
 	margin-top: 2px;
 }
 
-div.add_upload_form_button {
-	float: right;
-}
-
 .overlay_tab {
 	color: white;
 	background-color: #77aad5;
@@ -964,4 +962,35 @@ div#overlay_toolbar a.button {
 div#overlay_toolbar a.button:active {
 	text-decoration: none;
 	background-position: 0 -21px;
+}
+
+a.button_with_icon {
+	border: 1px solid #9a9a9a;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	-o-border-radius: 9px;
+	border-radius: 9px;
+	text-decoration: none;
+	padding: 2px 8px 1px;
+	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 0;
+}
+
+a.button_with_icon span.icon.add {
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -49px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	margin-right: 4px;
+}
+
+a.icon.remove {
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -64px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	margin-right: 4px;
 }

@@ -1749,12 +1749,6 @@ a.editor_cancel:active {
 	font: 12px "Courier New", Courier, mono;
 }
 
-form.add_gallery_to_index select {
-	width: 130px;
-	border-width: 1px;
-	margin-right: 2px;
-}
-
 #archive_all {
 	padding: 16px;
 	margin-top: 8px;
@@ -2006,10 +2000,6 @@ form#archive_upload_form {
 	padding: 4px;
 	overflow: auto;
 	width: 390px;
-}
-
-a.add_field:hover, a.add_field:active {
-	background-position: right;
 }
 
 img.image_in_text {
