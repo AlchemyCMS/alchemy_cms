@@ -51,6 +51,7 @@ class PicturesController < AlchemyController
 private
 
   def normalized_size(size)
+    return "" if size.blank?
     size.split("x").map do |s| 
       s.to_i < 0 ? 0 : s.to_i
     end.join('x')
