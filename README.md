@@ -35,7 +35,18 @@ Unless we have a installscript (cooming soon...) you have to do following steps 
             config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
             config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
 
-3. Then create your database and migrate:
+3. Then install these plugins:
+
+        script/plugin install git://github.com/rails/acts_as_list.git
+        script/plugin install git://github.com/tvdeyen/alchemy.git
+        script/plugin install git://github.com/sbecker/asset_packager.git
+        script/plugin install git://github.com/technoweenie/attachment_fu.git
+        script/plugin install git://github.com/iain/i18n_label.git
+        script/plugin install git://github.com/trevorrowe/tinymce_hammer.git
+        script/plugin install git://github.com/delynn/userstamp.git
+        script/plugin install git://github.com/mattetti/mimetype-fu.git
+
+4. Then create your database and migrate:
 
         rake db:create
         rake db:migrate:alchemy
