@@ -211,6 +211,7 @@ class Admin::PagesController < ApplicationController
           'true',
           false
         ))
+        page << "pleaseWaitOverlay(false);"
       end
     else
       set_language(params[:language])
