@@ -2,6 +2,8 @@ class AdminController < AlchemyController
   
   filter_access_to :index
   
+  layout 'alchemy'
+  
   def index
     @alchemy_version = Alchemy.version
   end
