@@ -1,6 +1,6 @@
 <%- @date = content.essence -%>
 <div class="content_editor">
-	<label><%= t("content_names.#{content.name}", :default => content.name) %></label>
+	<label><%= t("content_names.#{content.name}", :default => content.name.capitalize) %></label>
 	<%= datetime_select(
 		"date",
 		:date,

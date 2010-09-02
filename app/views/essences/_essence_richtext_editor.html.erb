@@ -1,5 +1,5 @@
 <div class="content_editor content_rtf_editor" id="<%= "element_#{content.element.id}_content_#{content.id}" %>">
-    <label><%= t("content_names.#{content.name}", :default => content.name) %></label>
+    <label><%= t("content_names.#{content.name}", :default => content.name.capitalize) %></label>
     <div class="essence_richtext_loader" style="display: none">
         <%= image_tag('alchemy/ajax_loader.gif') %>
     </div>

@@ -10,7 +10,7 @@
     :onclick => "if (this.checked) {var e = $('contents_content_#{content.id}_hidden'); if(e){e.remove();}} else {var e = new Element('input', {type: 'hidden', value: 0, name: 'contents[content_#{content.id}][body]', id: 'contents_content_#{content.id}_hidden'}); Element.insert(this, {after: e});}"
 ) %>
 <label for="contents_<%= content.id %>_content" style="display: inline">
-    <%= t("content_names.#{content.name}", :default => content.name) %>
+    <%= t("content_names.#{content.name}", :default => content.name.capitalize) %>
 </label>
 
 <%- elsif content.settings[:display_as] == "select" -%>
@@ -41,7 +41,7 @@
 <%- else -%>
 
 <label>
-    <%= t("content_names.#{content.name}", :default => content.name) %>
+    <%= t("content_names.#{content.name}", :default => content.name.capitalize) %>
     <%= link_to_confirmation_window(
         render_icon('delete-small'),
         _('Do you really want to delete this content?'),
