@@ -82,6 +82,7 @@ stylesheets:
   - alchemy/alchemy_window
   - alchemy/alchemy_tooltip
   - alchemy/cropper
+  - alchemy/flags
 - archive:
   - alchemy/alchemy
   - alchemy/alchemy_window

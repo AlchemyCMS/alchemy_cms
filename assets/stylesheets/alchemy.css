@@ -619,9 +619,10 @@ div.tip {
 	box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
 }
 
-#sub_navigation span.page_status_and_name img {
+#sub_navigation span.page_status_and_name .flag {
 	float: none;
 	position: relative;
+	display: inline-block;
 	bottom: 1px;
 	margin-right: 3px;
 }

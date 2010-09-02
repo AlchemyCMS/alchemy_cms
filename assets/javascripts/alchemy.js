@@ -45,7 +45,7 @@ function openPreviewWindow (url, title) {
 	preview_window.showCenter(false, 97, 92);
 }
 
-function openElementsWindow (page_id, title) {
+function openElementsWindow (path, title) {
 	elements_window = new Window({
 		className: 'alchemy_window',
 		title: title,
@@ -66,7 +66,7 @@ function openElementsWindow (page_id, title) {
 			duration: 0.2
 		}
 	});
-	elements_window.setAjaxContent('/admin/elements/list?page_id=' + page_id, {method: 'get'});
+	elements_window.setAjaxContent(path, {method: 'get'});
 	elements_window.showCenter(false, 107, document.viewport.getDimensions().width - 450);
 }
 

@@ -7,7 +7,9 @@
 <div id="sub_navigation">
 	<span class="page_status_and_name">
 		<span class="page_name"><%= @page.name %></span>
-		<%= image_tag("alchemy/flags/#{session[:language]}.png") if configuration(:languages).size > 1 && !@layoutpage %>
+		<%- if configuration(:languages).size > 1 && !@layoutpage -%>
+		<span class="flag <%= session[:language] %>"></span>
+		<%- end -%>
 		<%= render :partial => 'page_status', :locals => {:page => @page} %>
 	</span>
 </div>
@@ -79,7 +81,7 @@
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
-			openElementsWindow(<%= @page.id %>, '<%= _('Elements') %>');
+			openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
 			openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});
 	//]]-->
