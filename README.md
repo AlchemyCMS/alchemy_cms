@@ -20,22 +20,22 @@ Unless we have a installscript (cooming soon...) you have to do following steps 
 
     * Inside the config block:
 
-			config.gem 'acts_as_ferret', :version => '>=0.4.8'
-			config.gem 'authlogic', :version => '>=2.1.2'
-			config.gem 'awesome_nested_set', :version => '>=1.4.3'
-			config.gem 'declarative_authorization', :version => '>=0.4.1'
-			config.gem "fleximage", :version => ">=1.0.1"
-			config.gem 'fast_gettext', :version => '>=0.4.8'
-			config.gem 'gettext_i18n_rails', :version => '>=0.2.3'
-			config.gem 'gettext', :lib => false, :version => '>=1.9.3'
-			config.gem 'rmagick', :lib => "RMagick2", :version => '>=2.12.2'
-			config.gem 'tvdeyen-ferret', :version => '>=0.11.8.1', :lib => 'ferret'
-			config.gem 'will_paginate', :version => '>=2.3.12'
-		
-	        config.plugins = [ :all, :alchemy ]
-	        config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
-	        config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
-	        config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
+        config.gem 'acts_as_ferret', :version => '>=0.4.8'
+        config.gem 'authlogic', :version => '>=2.1.2'
+        config.gem 'awesome_nested_set', :version => '>=1.4.3'
+        config.gem 'declarative_authorization', :version => '>=0.4.1'
+        config.gem "fleximage", :version => ">=1.0.1"
+        config.gem 'fast_gettext', :version => '>=0.4.8'
+        config.gem 'gettext_i18n_rails', :version => '>=0.2.3'
+        config.gem 'gettext', :lib => false, :version => '>=1.9.3'
+        config.gem 'rmagick', :lib => "RMagick2", :version => '>=2.12.2'
+        config.gem 'tvdeyen-ferret', :version => '>=0.11.8.1', :lib => 'ferret'
+        config.gem 'will_paginate', :version => '>=2.3.12'
+        
+        config.plugins = [ :all, :alchemy ]
+        config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/sweepers )
+        config.load_paths += %W( #{RAILS_ROOT}/vendor/plugins/alchemy/app/middleware )
+        config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
 
 3. Then create your database and migrate:
 
