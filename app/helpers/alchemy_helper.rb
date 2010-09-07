@@ -179,21 +179,22 @@ module AlchemyHelper
     defaults = {
       :for_editor => {
         :as => 'text_field',
-        :css_class => 'long'
+        :css_class => 'long',
+        :render_format => "html"
       },
       :for_view => {
         :image_size => "120x90",
         :css_class => "",
         :date_format => "%d. %m. %Y, %H:%Mh",
         :caption => true,
-        :blank_value => ""
-      },
-      :render_format => "html"
+        :blank_value => "",
+        :render_format => "html"
+      }
     }
     options_for_partial = defaults[('for_' + part.to_s).to_sym].merge(options[('for_' + part.to_s).to_sym])
     options = options.merge(defaults)
     render(
-      :partial => "essences/#{content.essence.class.name.underscore}_#{part.to_s}.#{options[:render_format]}.erb",
+      :partial => "essences/#{content.essence.class.name.underscore}_#{part.to_s}.#{options_for_partial[:render_format]}.erb",
       :locals => {
         :content => content,
         :options => options_for_partial
