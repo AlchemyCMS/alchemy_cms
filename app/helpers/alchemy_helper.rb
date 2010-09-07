@@ -1084,11 +1084,11 @@ module AlchemyHelper
     asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
     content_for(:javascript_includes) do 
       js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
-      javascript_include_tag(js_set, :cache => setname.to_s)
+      javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)
     end
     content_for(:stylesheets) do 
       css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
-      stylesheet_link_tag(css_set, :cache => setname.to_s)
+      stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s)
     end
   end
   
