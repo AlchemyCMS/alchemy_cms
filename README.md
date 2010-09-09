@@ -48,7 +48,6 @@ If you want to install Alchemy inside an existing Rails project, then follow the
 3. Then install these plugins:
 
         script/plugin install git://github.com/rails/acts_as_list.git
-        script/plugin install git://github.com/tvdeyen/alchemy.git
         script/plugin install git://github.com/technoweenie/attachment_fu.git
         script/plugin install git://github.com/iain/i18n_label.git
         script/plugin install git://github.com/trevorrowe/tinymce_hammer.git
