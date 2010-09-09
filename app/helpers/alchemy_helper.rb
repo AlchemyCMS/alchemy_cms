@@ -1148,7 +1148,7 @@ module AlchemyHelper
   
   def alchemy_preview_mode_code
     if @preview_mode
-      str = javascript_include_tag("alchemy/prototype", "alchemy/alchemy_element_selector", :cache => :preview)
+      str = javascript_include_tag("alchemy/prototype", "alchemy/alchemy_element_selector", :cache => 'preview')
       str += javascript_tag("document.observe('dom:loaded', function() { new AlchemyElementSelector(); });")
       return str
     else
