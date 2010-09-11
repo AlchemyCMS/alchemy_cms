@@ -24,7 +24,11 @@ class Picture < ActiveRecord::Base
   end
   
   def urlname
-    self.name.blank? ? "image_#{self.id}" : self.name.split(/\./).first
+    if self.name.blank?
+     "image_#{self.id}"
+   else
+     CGI.escape(self.name.gsub(/\.(gif|png|jpg|jpeg|tiff|tif)/, ''))
+   end
   end
   
   # Returning true if picture's width is greater than it's height
