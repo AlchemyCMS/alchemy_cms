@@ -10,9 +10,9 @@ class AdminController < AlchemyController
   
   # Signup only works if no user is present in database.
   def signup
+    flash[:explain] = _("Please Signup")
     if request.get?
       redirect_to admin_path if User.count != 0
-      flash[:explain] = _("Please Signup")
       @user = User.new
     else
       @user = User.new(params[:user].merge({:role => 'admin'}))
