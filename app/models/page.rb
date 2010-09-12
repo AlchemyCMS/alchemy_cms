@@ -287,6 +287,11 @@ class Page < ActiveRecord::Base
     desc["redirects_to_external"]
   end
   
+  # Returns an array of all pages currently locked by user
+  def self.all_locked_by(user)
+    find_all_by_locked_and_locked_by(true, user.id)
+  end
+  
 private
 
   def find_next_or_previous_page(direction = "next", options = {})
