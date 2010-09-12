@@ -1799,13 +1799,12 @@ div.archive_image_spinner {
 }
 
 .picture_detail {
-	width: 119px;
+	width: 118px;
 	height: 118px;
 	padding: 2px 0 0;
 	margin: 2px 1px 2px 2px;
 	background-color: #fff;
 	float: left;
-	width: 118px;
 	padding: 3px 0 0;
 	border: 1px solid #c0c0c0;
 	position: relative;

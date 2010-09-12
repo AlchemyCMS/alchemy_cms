@@ -46,6 +46,8 @@ javascripts:
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
   - alchemy/swfupload/queue
+  - alchemy/jquery-1.4.2.min
+  - alchemy/jquery-ui-1.8.4.custom.min
 - preview:
   - alchemy/prototype
   - alchemy/alchemy_element_selector

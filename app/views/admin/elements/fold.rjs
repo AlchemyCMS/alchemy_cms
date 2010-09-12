@@ -7,11 +7,11 @@ else
     :object => @element,
     :locals => {:open_element_selector => false}
   )
-  Alchemy::Configuration.sortable_elements(page)
-  page << "elements_window.updateHeight();"
+  page << "jQuery('#element_area').sortable('refresh')"
+  page << "elements_window.updateHeight()"
   if !@element.folded
-    page << "scrollToElement(#{@element.id});"
-    page << "$('element_#{@element.id}').addClassName('selected');"
+    page << "scrollToElement(#{@element.id})"
+    page << "$('element_#{@element.id}').addClassName('selected')"
   end
   page << "TinymceHammer.init()"
 end

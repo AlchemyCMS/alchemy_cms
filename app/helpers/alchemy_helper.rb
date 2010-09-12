@@ -962,19 +962,6 @@ module AlchemyHelper
     )
   end
   
-  def picture_editor_sortable(element_id)
-    sortable_element(
-      "element_#{element_id}_contents",
-      :scroll => "$('element_#{element_id}_contents').up().up().up().up().up('.alchemy_window_content')",
-      :tag => 'div',
-      :only => 'dragable_picture',
-      :handle => 'picture_handle',
-      :constraint => '',
-      :overlap => 'horizontal',
-      :url => order_admin_contents_path(:element_id => element_id)
-    )
-  end
-  
   def current_language
     session[:language]
   end

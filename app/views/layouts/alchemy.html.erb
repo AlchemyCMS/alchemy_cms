@@ -10,6 +10,11 @@
 		<![endif]-->
 		<%= yield :stylesheets %>
 		<%= yield :javascript_includes %>
+        <script type="text/javascript" charset="utf-8">
+        // <![CDATA[
+            jQuery.noConflict();
+        // ]]>
+        </script>
 	</head>
 	
 	<body id="alchemy">

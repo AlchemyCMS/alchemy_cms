@@ -176,7 +176,7 @@ class Admin::ElementsController < AlchemyController
   end
   
   def order
-    for element in params[:element_area]
+    for element in params[:element_ids]
       element = Element.find(element)
       element.move_to_bottom
     end

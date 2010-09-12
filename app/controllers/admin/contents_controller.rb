@@ -49,9 +49,8 @@ class Admin::ContentsController < AlchemyController
   end
   
   def order
-    element = Element.find(params[:element_id])
-    for content_id in params["element_#{element.id}_contents"]
-      content = Content.find(content_id)
+    for id in params[:content_ids]
+      content = Content.find(id)
       content.move_to_bottom
     end
     render :update do |page|

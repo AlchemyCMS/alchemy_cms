@@ -54,7 +54,7 @@ class Admin::EssencePicturesController < AlchemyController
     render :update do |page|
       page.replace "picture_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => @options}
       if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-        Alchemy::Configuration.sortable_contents(page, @content.element)
+        page << "jQuery('#element_#{@content.element.id}_contents').sortable('refresh');"
       end
       page << "reloadPreview()"
       page << "Windows.getFocusedWindow().close()"

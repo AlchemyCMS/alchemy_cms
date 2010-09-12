@@ -1,20 +1,36 @@
 <div id="element_area">
-	<%= render :partial => @page.elements %>
+    <%= render :partial => @page.elements %>
 </div>
 
-<%= sortable_element(
-	"element_area",
-	:constraint => '',
-	:url => order_admin_elements_path,
-	:scroll => "$('element_area').up('.alchemy_window_content')",
-	:tag => 'div',
-	:only => 'element_editor',
-	:dropOnEmpty => false,
-	:handle => 'element_handle'
-) %>
+<script type="text/javascript" charset="utf-8">
+    jQuery('#element_area').sortable({
+        items: 'div.element_editor',
+        handle: '.element_handle',
+        axis: 'y',
+        placeholder: 'droppable_element_placeholder',
+        forcePlaceholderSize: true,
+        opacity: 0.5,
+        cursor: 'move',
+        tolerance: 'pointer',
+        update: function(event, ui) {
+            var ids = jQuery.map(jQuery(event.target).children(), function (child) {
+                return child.id.gsub(/element_/, '');
+            });
+            jQuery(event.target).css("cursor", "progress");
+            jQuery.ajax({
+                url: '/admin/elements/order',
+                type: 'POST',
+                data: "authenticity_token=" + encodeURIComponent('<%= form_authenticity_token %>') + "&" + jQuery.param({element_ids: ids}),
+                complete: function () {
+                    jQuery(event.target).css("cursor", "auto");
+                }
+            });
+        }
+    });
+</script>
 
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
-	TinymceHammer.init();
+    TinymceHammer.init();
 // ]]>
 </script>

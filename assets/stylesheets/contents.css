@@ -368,3 +368,13 @@ textarea.tinymce {
 	margin-right: 10px;
 	border-width: 1px;
 }
+
+.droppable_content_placeholder {
+	border: 1px dotted #bba589;
+	background-color: #f0e8d7;
+	float: left;
+	width: 118px;
+	height: 119px;
+	padding: 2px 0 0;
+	margin: 2px 1px 2px 2px;
+}

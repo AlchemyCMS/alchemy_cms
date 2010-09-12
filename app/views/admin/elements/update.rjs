@@ -3,7 +3,7 @@ page.replace(
   :partial => "element",
   :object => @element
 )
-Alchemy::Configuration.sortable_elements(page)
+page << "jQuery('#element_area').sortable('refresh');"(page)
 Alchemy::Notice.show_via_ajax(page, _("element_saved"))
 page << "preview_window.refresh();"
 page << "main_frame.updateSize();"
