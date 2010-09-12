@@ -43,7 +43,10 @@ class Admin::PagesController < AlchemyController
         page.move_to_child_of(parent)
       end
       render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
-    rescue
+    rescue Exception => e
+      render :update do |page|
+        Alchemy::Notice.show_via_ajax(page, _("Error while creating page: %{error}") % {:error => e}, :error)
+      end
       log_error($!)
     end
   end

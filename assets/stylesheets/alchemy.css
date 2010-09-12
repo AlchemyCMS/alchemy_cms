@@ -45,7 +45,7 @@ a img {
 div#flash_notices {
 	position: fixed;
 	right: 0;
-	z-index: 100;
+	z-index: 400000;
 	width: 300px;
 	top: 0;
 }
