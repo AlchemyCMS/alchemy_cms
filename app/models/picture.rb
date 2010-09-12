@@ -27,7 +27,7 @@ class Picture < ActiveRecord::Base
     if self.name.blank?
      "image_#{self.id}"
    else
-     CGI.escape(self.name.gsub(/\.(gif|png|jpg|jpeg|tiff|tif)/, ''))
+     CGI.escape(self.name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
    end
   end
   
