@@ -167,7 +167,7 @@ class Element < ActiveRecord::Base
   
   def self.get_from_clipboard(clipboard)
     return nil if clipboard.blank?
-    self.find(clipboard[:element_id])
+    self.find_by_id(clipboard[:element_id])
   end
   
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
