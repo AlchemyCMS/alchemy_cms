@@ -1,16 +1,33 @@
 namespace :db do
   namespace :migrate do
-    description = "Migrate the database through scripts in vendor/plugins/alchemy/lib/db/migrate"
-    description << "and update db/schema.rb by invoking db:schema:dump."
-    description << "Target specific version with VERSION=x. Turn off output with VERBOSE=false."
-
-    desc description
+    desc "Runs the Alchemy database migrations"
     task :alchemy => :environment do
-      ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-      ActiveRecord::Migrator.migrate(File.join(File.dirname(__FILE__), "../../db/migrate/"), ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
-      Rake::Task["db:schema:dump"].invoke if ActiveRecord::Base.schema_format == :ruby
+      if ActiveRecord::Base.connection.execute("SHOW TABLES").num_rows == 0
+        ActiveRecord::Base.connection.execute(
+          "CREATE TABLE `#{ActiveRecord::Migrator.schema_migrations_table_name}` (
+            `version` varchar(255) NOT NULL,
+            UNIQUE KEY `unique_#{ActiveRecord::Migrator.schema_migrations_table_name}` (`version`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+        )
+      end
+      Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
     end
   end
+  
+  namespace :convert do
+    desc "Convert the schema_migrations table to alchemy layout"
+    task :alchemy_migrations => :environment do
+      if Alchemy::Migrator.schema_already_converted?
+        puts('Already converted')
+        abort
+      else
+        ActiveRecord::Base.connection.update(
+          "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN (#{Alchemy::Migrator.available_versions.join(',')})"
+        )
+      end
+    end
+  end
+  
 end
 
 namespace 'alchemy' do
