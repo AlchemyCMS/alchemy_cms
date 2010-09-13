@@ -3,8 +3,8 @@ page.replace(
   :partial => "element",
   :object => @element
 )
-page << "jQuery('#element_area').sortable('refresh');"(page)
+page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show_via_ajax(page, _("element_saved"))
-page << "preview_window.refresh();"
-page << "main_frame.updateSize();"
+page << "preview_window.refresh()"
+page << "main_frame.updateSize()"
 page.call 'TinymceHammer.init' if @has_richtext_essence
