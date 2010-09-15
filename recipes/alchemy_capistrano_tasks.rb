@@ -3,29 +3,51 @@
 
 namespace :alchemy do
   
-  # This task creates the shared folders for uploads, picture cache and ferret index while setting up your server.
-  # Call after deploy:setup like +after "deploy:setup", "alchemy:create_shared_folders"+ in your +deploy.rb+.
-  desc "Creates the uploads and picture cache directory in the shared folder. Call after deploy:setup"
-  task :create_shared_folders, :roles => :app do
-    run "mkdir -p #{shared_path}/uploads"
-    run "mkdir -p #{shared_path}/index"
-    run "mkdir -p #{shared_path}/uploads/pictures"
-    run "mkdir -p #{shared_path}/uploads/attachments"
-    run "mkdir -p #{shared_path}/cache"
-    run "mkdir -p #{shared_path}/cache/pictures"
+  namespace :shared_folders do
+    
+    # This task creates the shared folders for uploads, picture cache and ferret index while setting up your server.
+    # Call after deploy:setup like +after "deploy:setup", "alchemy:create_shared_folders"+ in your +deploy.rb+.
+    desc "Creates the uploads and picture cache directory in the shared folder. Call after deploy:setup"
+    task :create, :roles => :app do
+      run "mkdir -p #{shared_path}/uploads"
+      run "mkdir -p #{shared_path}/index"
+      run "mkdir -p #{shared_path}/uploads/pictures"
+      run "mkdir -p #{shared_path}/uploads/attachments"
+      run "mkdir -p #{shared_path}/cache"
+      run "mkdir -p #{shared_path}/cache/pictures"
+    end
+    
+    # This task sets the symlinks for uploads, picture cache and ferret index folder.
+    # Call after deploy:symlink like +after "deploy:symlink", "alchemy:symlink_folders"+ in your +deploy.rb+.
+    desc "Sets the symlinks for uploads, picture cache and ferret index folder. Call after deploy:symlink"
+    task :symlink, :roles => :app do
+      run "rm -rf #{current_path}/public/uploads/*"
+      run "ln -nfs #{shared_path}/uploads/pictures/ #{current_path}/uploads/pictures"
+      run "ln -nfs #{shared_path}/uploads/attachments/ #{current_path}/uploads/attachments"
+      run "rm -rf #{current_path}/public/pictures"
+      run "ln -nfs #{shared_path}/cache/pictures/ #{current_path}/public/pictures"
+      run "rm -rf #{current_path}/index"
+      run "ln -nfs #{shared_path}/index/ #{current_path}/index"
+    end
+    
   end
   
-  # This task sets the symlinks for uploads, picture cache and ferret index folder.
-  # Call after deploy:symlink like +after "deploy:symlink", "alchemy:symlink_folders"+ in your +deploy.rb+.
-  desc "Sets the symlinks for uploads, picture cache and ferret index folder. Call after deploy:symlink"
-  task :symlink_folders, :roles => :app do
-    run "rm -rf #{current_path}/public/uploads/*"
-    run "ln -nfs #{shared_path}/uploads/pictures/ #{current_path}/uploads/pictures"
-    run "ln -nfs #{shared_path}/uploads/attachments/ #{current_path}/uploads/attachments"
-    run "rm -rf #{current_path}/public/pictures"
-    run "ln -nfs #{shared_path}/cache/pictures/ #{current_path}/public/pictures"
-    run "rm -rf #{current_path}/index"
-    run "ln -nfs #{shared_path}/index/ #{current_path}/index"
+  namespace :assets do
+    
+    desc "Copies all assets from Alchemy plugin folder to public folder"
+    task :copy do
+      run "cd #{current_path} && RAILS_ENV=production rake alchemy:assets:copy:all"
+    end
+    
+  end
+  
+  namespace :db do
+    
+    desc "Migrate Alchemys database schema"
+    task :migrate, :roles => :app, :except => { :no_release => true } do
+      run "cd #{current_path} && RAILS_ENV=production rake db:migrate:alchemy"
+    end
+    
   end
   
 end

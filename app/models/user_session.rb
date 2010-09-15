@@ -4,7 +4,7 @@ class UserSession < Authlogic::Session::Base
   before_destroy :unlock_pages
   
   def unlock_pages
-    self.record.unlock_pages
+    self.user.unlock_pages if self.user
   end
   
 end

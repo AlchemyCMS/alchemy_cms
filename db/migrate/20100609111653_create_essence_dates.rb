@@ -1,6 +1,6 @@
 class CreateEssenceDates < ActiveRecord::Migration
   def self.up
-    create_table :essence_dates, :force => true do |t|
+    create_table :essence_dates do |t|
       t.datetime :date
       t.userstamps
       t.timestamps

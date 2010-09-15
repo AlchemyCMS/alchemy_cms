@@ -1,6 +1,6 @@
 class CreateEssenceHtmls < ActiveRecord::Migration
   def self.up
-    create_table :essence_htmls, :force => true do |t|
+    create_table :essence_htmls do |t|
       t.string :source
       t.userstamps
       t.timestamps

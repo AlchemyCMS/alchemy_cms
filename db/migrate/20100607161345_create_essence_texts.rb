@@ -1,6 +1,6 @@
 class CreateEssenceTexts < ActiveRecord::Migration
   def self.up
-    create_table :essence_texts, :force => true do |t|
+    create_table :essence_texts do |t|
       t.text :body
       t.string :link
       t.string :title

@@ -1,6 +1,6 @@
 class CreateEssenceVideos < ActiveRecord::Migration
   def self.up
-    create_table :essence_videos, :force => true do |t|
+    create_table :essence_videos do |t|
       t.integer :attachment_id
       t.integer :width, :default => 400
       t.integer :height, :default => 300

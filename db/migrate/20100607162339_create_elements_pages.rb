@@ -1,6 +1,6 @@
 class CreateElementsPages < ActiveRecord::Migration
   def self.up
-    create_table :elements_pages, :id => false do |t|
+    create_table :elements_pages do |t|
       t.integer :element_id
       t.integer :page_id
     end

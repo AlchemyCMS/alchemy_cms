@@ -1,6 +1,6 @@
 class CreateEssenceFlashes < ActiveRecord::Migration
   def self.up
-    create_table :essence_flashes, :force => true do |t|
+    create_table :essence_flashes do |t|
       t.integer :attachment_id
       t.integer :width, :default => 400
       t.integer :height, :default => 300
