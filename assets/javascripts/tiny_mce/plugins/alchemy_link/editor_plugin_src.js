@@ -39,7 +39,7 @@
 		},
 		
 		createControl : function(n, cm) {
-					return null;
+			return null;
 		},
 		
 		getInfo : function() {
@@ -47,7 +47,7 @@
 				longname : 'Link overlay plugin for Alchemy',
 				author : 'Thomas von Deyen',
 				authorurl : 'http://thomas.vondeyen.com',
-				infourl : 'http://alchemy.vondeyen.com',
+				infourl : 'http://alchemy-app.com',
 				version : "0.2"
 			};
 		}
