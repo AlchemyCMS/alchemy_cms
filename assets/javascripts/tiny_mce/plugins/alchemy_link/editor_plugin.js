@@ -9,7 +9,15 @@
 				'class' : 'alchemy_link',
 				onclick : function() {
 					ed.focus();
-					openLinkWindow(ed, (ed.settings.alchemy_link_overlay_width || 408));
+					openLinkWindow(
+						{
+							node: ed.selection.getNode(),
+							bookmark: ed.selection.getBookmark(),
+							selection: ed.selection,
+							editor: ed
+						},
+						(ed.settings.alchemy_link_overlay_width || 408)
+					);
 				}
 			});
 			ed.addButton('alchemy_unlink', {
@@ -48,7 +56,7 @@
 				author : 'Thomas von Deyen',
 				authorurl : 'http://thomas.vondeyen.com',
 				infourl : 'http://alchemy-app.com',
-				version : "0.2"
+				version : "0.3"
 			};
 		}
 	});
