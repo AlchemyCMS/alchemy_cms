@@ -4,10 +4,10 @@ module Alchemy
   
   class Engine < Rails::Engine
     
-    paths.config              = File.join(File.dirname(__FILE__), '..', 'config')
-    paths.config.initializers = File.join(File.dirname(__FILE__), '..', 'config', 'initializers')
-    paths.config.locales      = File.join(File.dirname(__FILE__), '..', 'config', 'locales')
-    paths.config.routes       = File.join(File.dirname(__FILE__), '..', 'config', 'routes.rb')
+    paths.config              = 'config'
+    paths.config.initializers = 'config/initializers'
+    paths.config.locales      = 'config/locales'
+    paths.config.routes       = 'config/routes.rb'
     
     initializer "session.flash_session_cookie" do |app|
       app.config.middleware.use(FlashSessionCookieMiddleware, ActionController::Base.session_options[:key])
