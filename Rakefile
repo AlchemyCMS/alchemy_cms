@@ -17,23 +17,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Alchemy'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.markdown')
-  rdoc.rdoc_files.include('config/alchemy/elements.yml')
+  rdoc.rdoc_files.include('README.md')
+  rdoc.rdoc_files.include('config/alchemy/*.yml')
   rdoc.rdoc_files.include('lib/**/*.rb')
-  rdoc.rdoc_files.include('app/controllers/*.rb')
-  rdoc.rdoc_files.include('app/controllers/admin/*.rb')
-  rdoc.rdoc_files.include('app/helpers/*.rb')
-  rdoc.rdoc_files.include('app/helpers/admin/*.rb')
-  rdoc.rdoc_files.include('app/models/*.rb')
-end
-
-namespace 'views' do
-  desc 'Renames all your rhtml views to erb'
-  task 'rename' do
-    Dir.glob('app/views/**/*.rhtml').each do |file|
-      puts `svn mv #{file} #{file.gsub(/\.rhtml$/, '.html.erb')}`
-    end
-  end
+  rdoc.rdoc_files.include('app/**/*.rb')
 end
 
 namespace :gettext do
@@ -108,4 +95,31 @@ namespace :gettext do
       :ignore_tables=>[/^sitemap_/,/_versions$/,'schema_migrations']
     )
   end
+end
+
+require "lib/alchemy.rb"
+begin
+  require "jeweler"
+  Jeweler::Tasks.new do |gem|
+    gem.name = "alchemy"
+    gem.version = Alchemy.version
+    gem.summary = "WebCMS for Rails 3"
+    gem.files = Dir["{lib}/**/*", "{app}/**/*", "{config}/**/*", "{assets}/**/*", "{db}/**/*", "{generators}/**/*", "{locale}/**/*", "{recipes}/**/*", "{test}/**/*"]
+    gem.email = "nicolas.merouze@gmail.com"
+    gem.homepage = "http://github.com/tvdeyen/alchemy"
+    gem.authors = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin", "Florian Raffel"]
+    gem.add_dependency 'acts_as_ferret', '0.4.8'
+    gem.add_dependency 'authlogic', '>=2.1.2'
+    gem.add_dependency 'awesome_nested_set', '>=1.4.3'
+    gem.add_dependency 'declarative_authorization', '>=0.5.0'
+    gem.add_dependency "fleximage", ">=1.0.1"
+    gem.add_dependency 'fast_gettext', '>=0.4.8'
+    gem.add_dependency 'gettext_i18n_rails', '>=0.2.3'
+    gem.add_dependency 'rmagick', '>=2.12.2'
+    gem.add_dependency 'tvdeyen-ferret', '>=0.11.8.1'
+    gem.add_dependency 'will_paginate', '>=2.3.12'
+    gem.add_dependency 'mimetype-fu'
+  end
+rescue
+  puts "Jeweler or one of its dependencies is not installed."
 end

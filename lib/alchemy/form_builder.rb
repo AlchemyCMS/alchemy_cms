@@ -38,3 +38,4 @@ module Alchemy::FormBuilder
   end
 
 end
+ActionView::Helpers::FormBuilder.send(:include, Alchemy::FormBuilder)

@@ -70,3 +70,4 @@ module Alchemy::ActionView
   end
   
 end
+ActionView::Base.send(:include, Alchemy::ActionView)
