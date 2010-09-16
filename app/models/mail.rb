@@ -47,11 +47,11 @@ class Mail < ActiveRecord::Base
   
   column :contact_form_id, :integer
   column :ip, :string
-  Alchemy::Configuration.parameter(:mailer)[:fields].each do |field|
+  Alchemy::Config.get(:mailer)[:fields].each do |field|
     column(field.keys.first.to_sym, field[field.keys.first.to_s].to_sym)
   end
   
-  validate_fields = Alchemy::Configuration.parameter(:mailer)[:validate_fields]
+  validate_fields = Alchemy::Config.get(:mailer)[:validate_fields]
   validate_fields.each do |field|
     validates_presence_of field[0], :message => I18n.t("contactform.validations.#{field[1][:message].to_s}")
     if field[0].to_s.include?('email')

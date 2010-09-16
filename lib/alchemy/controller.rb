@@ -1,16 +1,16 @@
 module Alchemy
   module Controller
-
+    
     mattr_accessor :alchemy_plugins_settings
     mattr_accessor :current_language
     
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
-      base.send :include, Alchemy::Notice
+      #base.send :include, Alchemy::Notice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
-
+    
     def initialize
       super
       self.alchemy_plugins_settings = Hash.new
@@ -20,9 +20,9 @@ module Alchemy
         self.alchemy_plugins_settings[sets["name"]] = sets
       end
     end
-
+    
     def self.multi_language?
-      Alchemy::Configuration.parameter(:languages).size > 1
+      Alchemy::Config.get(:languages).size > 1
     end
     
     module ClassMethods
@@ -32,13 +32,13 @@ module Alchemy
       end
       
     end
-
+    
     module InstanceMethods
-
+      
       def plugin_conf(plugin_name)
         alchemy_plugins_settings[plugin_name]["settings"]
       end
-
+      
       # returns an array with all alchemy plugins including the alchemy core as first entry.
       # For your own plugin see config.yml in vendor/plugins/alchemy/config/alchemy folder
       def alchemy_plugins
@@ -66,7 +66,7 @@ module Alchemy
         end
         return plugins
       end
-
+      
       # returns the alchemy plugin found by name, or by hash of controller and action
       def alchemy_plugin(name)
         if name.is_a? String
@@ -81,15 +81,15 @@ module Alchemy
           end
         end
       end
-
+      
     private
-
+    
       def plugins_config_ymls
         Dir.glob("vendor/plugins/*/config/alchemy/config.yml")
       end
-
+      
     end
-
+    
   end
 end
 ActionController::Base.send(:include, Alchemy::Controller) if defined?(ActionController)

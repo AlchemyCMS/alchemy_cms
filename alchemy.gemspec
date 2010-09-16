@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin", "Florian Raffel"]
   s.date = %q{2010-09-16}
+  s.description = %q{A WebCMS for Rails 3}
   s.email = %q{nicolas.merouze@gmail.com}
   s.extra_rdoc_files = [
     "README.md"
@@ -499,17 +500,16 @@ Gem::Specification.new do |s|
      "locale/en/alchemy.po",
      "locale/model_attributes.rb",
      "recipes/alchemy_capistrano_tasks.rb",
-     "test/functional/wa_pages_controller_test.rb",
      "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/tvdeyen/alchemy}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{alchemy}
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{WebCMS for Rails 3}
+  s.summary = %q{Alchemy WebCMS}
   s.test_files = [
-    "test/functional/wa_pages_controller_test.rb",
-     "test/test_helper.rb"
+    "test/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -517,41 +517,41 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<acts_as_ferret>, ["= 0.4.8"])
+      s.add_runtime_dependency(%q<acts_as_ferret>, [">= 0.5.1"])
       s.add_runtime_dependency(%q<authlogic>, [">= 2.1.2"])
       s.add_runtime_dependency(%q<awesome_nested_set>, [">= 1.4.3"])
-      s.add_runtime_dependency(%q<declarative_authorization>, [">= 0.5.0"])
+      s.add_runtime_dependency(%q<declarative_authorization>, [">= 0.5"])
       s.add_runtime_dependency(%q<fleximage>, [">= 1.0.1"])
       s.add_runtime_dependency(%q<fast_gettext>, [">= 0.4.8"])
       s.add_runtime_dependency(%q<gettext_i18n_rails>, [">= 0.2.3"])
       s.add_runtime_dependency(%q<rmagick>, [">= 2.12.2"])
-      s.add_runtime_dependency(%q<tvdeyen-ferret>, [">= 0.11.8.1"])
-      s.add_runtime_dependency(%q<will_paginate>, [">= 2.3.12"])
+      s.add_runtime_dependency(%q<tvdeyen-ferret>, [">= 0"])
+      s.add_runtime_dependency(%q<will_paginate>, [">= 3.0.pre2"])
       s.add_runtime_dependency(%q<mimetype-fu>, [">= 0"])
     else
-      s.add_dependency(%q<acts_as_ferret>, ["= 0.4.8"])
+      s.add_dependency(%q<acts_as_ferret>, [">= 0.5.1"])
       s.add_dependency(%q<authlogic>, [">= 2.1.2"])
       s.add_dependency(%q<awesome_nested_set>, [">= 1.4.3"])
-      s.add_dependency(%q<declarative_authorization>, [">= 0.5.0"])
+      s.add_dependency(%q<declarative_authorization>, [">= 0.5"])
       s.add_dependency(%q<fleximage>, [">= 1.0.1"])
       s.add_dependency(%q<fast_gettext>, [">= 0.4.8"])
       s.add_dependency(%q<gettext_i18n_rails>, [">= 0.2.3"])
       s.add_dependency(%q<rmagick>, [">= 2.12.2"])
-      s.add_dependency(%q<tvdeyen-ferret>, [">= 0.11.8.1"])
-      s.add_dependency(%q<will_paginate>, [">= 2.3.12"])
+      s.add_dependency(%q<tvdeyen-ferret>, [">= 0"])
+      s.add_dependency(%q<will_paginate>, [">= 3.0.pre2"])
       s.add_dependency(%q<mimetype-fu>, [">= 0"])
     end
   else
-    s.add_dependency(%q<acts_as_ferret>, ["= 0.4.8"])
+    s.add_dependency(%q<acts_as_ferret>, [">= 0.5.1"])
     s.add_dependency(%q<authlogic>, [">= 2.1.2"])
     s.add_dependency(%q<awesome_nested_set>, [">= 1.4.3"])
-    s.add_dependency(%q<declarative_authorization>, [">= 0.5.0"])
+    s.add_dependency(%q<declarative_authorization>, [">= 0.5"])
     s.add_dependency(%q<fleximage>, [">= 1.0.1"])
     s.add_dependency(%q<fast_gettext>, [">= 0.4.8"])
     s.add_dependency(%q<gettext_i18n_rails>, [">= 0.2.3"])
     s.add_dependency(%q<rmagick>, [">= 2.12.2"])
-    s.add_dependency(%q<tvdeyen-ferret>, [">= 0.11.8.1"])
-    s.add_dependency(%q<will_paginate>, [">= 2.3.12"])
+    s.add_dependency(%q<tvdeyen-ferret>, [">= 0"])
+    s.add_dependency(%q<will_paginate>, [">= 3.0.pre2"])
     s.add_dependency(%q<mimetype-fu>, [">= 0"])
   end
 end

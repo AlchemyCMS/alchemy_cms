@@ -2,16 +2,16 @@ class Picture < ActiveRecord::Base
   
   acts_as_fleximage do
     image_directory           'uploads/pictures'
-    image_storage_format      Alchemy::Configuration.parameter(:image_store_format).to_sym
+    image_storage_format      Alchemy::Config.get(:image_store_format).to_sym
     require_image             true
     missing_image_message     N_("missing_image")
     invalid_image_message     N_("not a valid image")
-    if Alchemy::Configuration.parameter(:image_output_format) == "jpg"
-      output_image_jpg_quality  Alchemy::Configuration.parameter(:output_image_jpg_quality)
+    if Alchemy::Config.get(:image_output_format) == "jpg"
+      output_image_jpg_quality  Alchemy::Config.get(:output_image_jpg_quality)
     end
-    unless Alchemy::Configuration.parameter(:preprocess_image_resize).blank?
+    unless Alchemy::Config.get(:preprocess_image_resize).blank?
       preprocess_image do |image|
-        image.resize Alchemy::Configuration.parameter(:preprocess_image_resize)
+        image.resize Alchemy::Config.get(:preprocess_image_resize)
       end
     end
   end

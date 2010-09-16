@@ -19,7 +19,7 @@ module AlchemyHelper
   include FastGettext::Translation
 
   def configuration(name)
-    return Alchemy::Configuration.parameter(name)
+    return Alchemy::Config.get(name)
   end
 
   # Did not know of the truncate helepr form rails at this time.

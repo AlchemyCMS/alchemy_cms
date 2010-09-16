@@ -1,9 +1,9 @@
 class EssenceRichtext < ActiveRecord::Base
   
-  acts_as_ferret(:fields => {:stripped_body => {:store => :yes}}, :remote => false) if Alchemy::Configuration.parameter(:ferret) == true
+  acts_as_ferret(:fields => {:stripped_body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
   stampable
   before_save :strip_content
-  before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
+  before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
   
   # Returns the first 30 characters of self.stripped_body for the Element#preview_text method.
   def preview_text

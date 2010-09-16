@@ -41,7 +41,7 @@ class AlchemyController < ApplicationController
   end
 
   def configuration(name)
-    return Alchemy::Configuration.parameter(name)
+    return Alchemy::Config.get(name)
   end
 
   def set_language(lang = nil)

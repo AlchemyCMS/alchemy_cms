@@ -51,7 +51,7 @@ class Admin::AttachmentsController < AlchemyController
         :per_page => (params[:per_page] || 20)
       )
     end
-    if params[ActionController::Base.session_options[:key]].blank?
+    if params[ActionController::Base.session[:key]].blank?
       redirect_to :action => :index
     end
   end

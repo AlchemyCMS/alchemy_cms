@@ -10,7 +10,7 @@ class Admin::PagesController < AlchemyController
   filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move, :flush], :attribute_check => false
   
-  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
+  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
   
   def index
     @page_root = Page.language_root(session[:language])
@@ -147,7 +147,7 @@ class Admin::PagesController < AlchemyController
   
   def create_language
     created_languages = Page.language_roots.collect(&:language)
-    all_languages = Alchemy::Configuration.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
+    all_languages = Alchemy::Config.get(:languages).collect{ |l| [l[:language], l[:language_code]] }
     @languages = all_languages.select{ |lang| created_languages.include?(lang[1]) }
     lang = configuration(:languages).detect { |l| l[:language_code] == params[:language_code] }
     @language = [

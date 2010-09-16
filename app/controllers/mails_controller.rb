@@ -4,7 +4,7 @@ class MailsController < AlchemyController
   
   def new
     @mail = Mail.new
-    @page = Page.find_by_page_layout(Alchemy::Configuration.parameter(:mailer)[:form_layout_name])
+    @page = Page.find_by_page_layout(Alchemy::Config.get(:mailer)[:form_layout_name])
     render :layout => 'pages'
   end
   
@@ -17,7 +17,7 @@ class MailsController < AlchemyController
       if params[:mail_to].blank?
         mail_to = element.content_by_name("mail_to").essence.body
       else
-        mail_to = Alchemy::Configuration.parameter(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
+        mail_to = Alchemy::Config.get(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
       end
       mail_from = element.content_by_name("mail_from").essence.body
       subject = element.content_by_name("subject").essence.body

@@ -1,8 +1,8 @@
 class EssenceText < ActiveRecord::Base
   
-  acts_as_ferret(:fields => {:body => {:store => :yes}}, :remote => false) if Alchemy::Configuration.parameter(:ferret) == true
+  acts_as_ferret(:fields => {:body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
   stampable
-  before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
+  before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
   
   # Returns the first 30 characters of self.body for the Element#preview_text method.
   def preview_text

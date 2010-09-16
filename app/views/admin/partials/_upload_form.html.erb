@@ -50,7 +50,7 @@
 	<div id="fsUploadProgress"></div>
 </div>
 
-<%- session_key = ActionController::Base.session_options[:key] -%>
+<%- session_key = ActionController::Base.session[:key] -%>
 
 <%- post_params = {
 	:query => params[:query] || '',
