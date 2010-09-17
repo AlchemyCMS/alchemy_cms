@@ -46,9 +46,7 @@
 </div>
 
 <div id="divStatus" class="with_padding" style="display: none"></div>
-<div id="divFileProgressContainer">
-	<div id="fsUploadProgress"></div>
-</div>
+<div id="uploadProgressContainer"></div>
 
 <%- session_key = ActionController::Base.session_options[:key] -%>
 
@@ -76,7 +74,7 @@
 			file_upload_limit : 500,
 			file_queue_limit : 0,
 			custom_settings : {
-				progressTarget : "fsUploadProgress",
+				progressTarget : "uploadProgressContainer",
 				cancelButtonId : "btnCancel"
 			},
 			debug: false,
@@ -85,8 +83,8 @@
 			button_height: "21",
 			button_placeholder_id: "spanButtonPlaceHolder",
 			button_text: "<span class='swfButtonText'><%= _('browse') %></span>",
-			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 21px; padding-left: 8px; padding-right: 8px; padding-bottom: 2px;}',
-			button_text_left_padding: 1,
+			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 21px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 3px}',
+			button_text_left_padding: 0,
 			button_text_top_padding: 2,
 			swfupload_load_failed_handler: function () {
 				$('swfUploadFlashError').show();
@@ -113,3 +111,6 @@
 		$('flash_upload_error_explaination').show();
 	};
 </script>
+<div id="SWFUpload_Console">
+    
+</div>

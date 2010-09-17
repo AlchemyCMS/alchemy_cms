@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-09-12 17:42+0200\n"
+"POT-Creation-Date: 2010-09-17 20:47+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -122,11 +122,19 @@ msgstr ""
 msgid "Explain|Sitemap|Dragndrop sorting"
 msgstr ""
 
-#: app/controllers/admin/attachments_controller.rb:69
+#: app/controllers/admin/attachments_controller.rb:54
+msgid "File %{name} uploaded succesfully"
+msgstr ""
+
+#: app/controllers/admin/attachments_controller.rb:78
 msgid "File renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
-#: app/controllers/admin/attachments_controller.rb:85
+#: app/controllers/admin/attachments_controller.rb:62
+msgid "File upload error: %{error}"
+msgstr ""
+
+#: app/controllers/admin/attachments_controller.rb:94
 msgid "File: '%{name}' deleted successfully"
 msgstr ""
 
@@ -150,7 +158,7 @@ msgid ""
 "{link}"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:105
+#: app/controllers/admin/pictures_controller.rb:114
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
@@ -158,7 +166,7 @@ msgstr ""
 msgid "Image size"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:115
+#: app/controllers/admin/pictures_controller.rb:124
 msgid "Image: '%{name}' deleted successfully"
 msgstr ""
 
@@ -308,8 +316,16 @@ msgstr ""
 msgid "Picture"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:127
+#: app/controllers/admin/pictures_controller.rb:72
+msgid "Picture %{name} uploaded succesfully"
+msgstr ""
+
+#: app/controllers/admin/pictures_controller.rb:136
 msgid "Picture cache flushed"
+msgstr ""
+
+#: app/controllers/admin/pictures_controller.rb:80
+msgid "Picture upload error: %{error}"
 msgstr ""
 
 #: locale/model_attributes.rb:10
@@ -356,7 +372,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1111
+#: app/helpers/alchemy_helper.rb:1098
 msgid "Select an content"
 msgstr ""
 
@@ -376,11 +392,11 @@ msgstr ""
 msgid "Successfully added %{content}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:72
+#: app/controllers/admin/contents_controller.rb:71
 msgid "Successfully deleted %{content}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:58
+#: app/controllers/admin/contents_controller.rb:57
 msgid "Successfully saved content position"
 msgstr ""
 
@@ -489,7 +505,7 @@ msgstr ""
 msgid "Welcome to Alchemy"
 msgstr ""
 
-#: app/views/layouts/alchemy.html.erb:43
+#: app/views/layouts/alchemy.html.erb:50
 msgid "You are"
 msgstr ""
 
@@ -522,7 +538,7 @@ msgstr ""
 msgid "add"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1107 app/helpers/alchemy_helper.rb:1123
+#: app/helpers/alchemy_helper.rb:1094 app/helpers/alchemy_helper.rb:1110
 msgid "add new content"
 msgstr ""
 
@@ -574,7 +590,7 @@ msgstr ""
 msgid "big_thumbnails"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:87
+#: app/views/admin/partials/_upload_form.html.erb:85
 msgid "browse"
 msgstr ""
 
@@ -638,7 +654,7 @@ msgstr ""
 msgid "content_not_successfully_added"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:79
+#: app/controllers/admin/contents_controller.rb:78
 msgid "content_not_successfully_deleted"
 msgstr ""
 
@@ -834,7 +850,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: app/controllers/admin/attachments_controller.rb:75
+#: app/controllers/admin/attachments_controller.rb:84
 msgid "file_rename_error"
 msgstr ""
 
@@ -938,7 +954,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: app/views/layouts/alchemy.html.erb:34 app/views/layouts/login.html.erb:34
+#: app/views/layouts/alchemy.html.erb:41 app/views/layouts/login.html.erb:34
 #: lib/alchemy_core_modules.rb:9
 msgid "logout"
 msgstr ""
@@ -1170,7 +1186,7 @@ msgstr ""
 msgid "please_confirm"
 msgstr ""
 
-#: app/views/layouts/alchemy.html.erb:20 app/views/layouts/login.html.erb:20
+#: app/views/layouts/alchemy.html.erb:27 app/views/layouts/login.html.erb:20
 msgid "please_wait"
 msgstr ""
 
@@ -1221,7 +1237,7 @@ msgstr ""
 msgid "save"
 msgstr ""
 
-#: app/controllers/admin/essence_pictures_controller.rb:73
+#: app/controllers/admin/essence_pictures_controller.rb:65
 msgid "saved_link"
 msgstr ""
 

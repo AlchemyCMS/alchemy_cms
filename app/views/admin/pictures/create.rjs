@@ -3,3 +3,4 @@ if @while_assigning
 else
   page.replace_html("archive_all", :partial => 'pictures_list')
 end
+Alchemy::Notice.show_via_ajax(page, @message)

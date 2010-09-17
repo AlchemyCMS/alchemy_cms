@@ -998,3 +998,89 @@ a.icon.remove {
 	top: 3px;
 	margin-right: 4px;
 }
+
+#uploadProgressContainer {
+	overflow: hidden;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0 8px;
+}
+
+#uploadProgressContainer .progressWrapper {
+	padding: 8px;
+	background-color: #e3e3e3;
+	position: relative;
+	margin-bottom: 8px;
+	border: 1px solid #9e9e9e;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#uploadProgressContainer .progressName,
+#uploadProgressContainer .progressBarStatus {
+	margin-bottom: 4px;
+}
+
+#uploadProgressContainer .progressBarStatus {
+	font-size: 10px;
+}
+
+#uploadProgressContainer .progressName {
+	text-shadow: 0 1px 2px #FFFFFF;
+}
+
+#uploadProgressContainer .progressBarContainer {
+	background-color:#F9F9F9;
+	background-image:url("/images/alchemy/gui/shading_inv.png");
+	background-position:0 -2px;
+	background-repeat:repeat-x;
+	border:1px solid #9E9E9E;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	height:16px;
+	overflow: hidden;
+	width:100%;
+}
+
+#uploadProgressContainer .progressBarInProgress {
+	background: #77AAD5 url("/images/alchemy/gui/shading.png") repeat-x 0 2px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarComplete {
+	background: #00D827 url("/images/alchemy/gui/shading.png") repeat-x 0 4px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarError {
+	background: #F00 url("/images/alchemy/gui/shading.png") repeat-x 0 4px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarCanceled {
+	background: #E4E4E4 url("/images/alchemy/gui/shading.png") repeat-x 0 4px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressCancel {
+	background: #f1f1f1 url(/images/alchemy/icons/cross-small.png) no-repeat;
+	border: 1px solid #9e9e9e;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	width: 15px;
+	height: 16px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
+#btnCancel {
+	float: right;
+}

@@ -41,36 +41,45 @@ class Admin::PicturesController < AlchemyController
   end
   
   def create
-    @picture = Picture.new(:image_file => params[:Filedata])
-    @picture.name = @picture.image_filename
-    @picture.save
-    @while_assigning = params[:while_assigning] == 'true'
-    if @while_assigning
-      @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
-      @element = Element.find(params[:element_id], :select => 'id')
-      @size = params[:size]
-      @options = params[:options]
-      @page = params[:page]
-      @per_page = params[:per_page]
-    end
-    
-    if params[:per_page] == 'all'
-      @pictures = Picture.find(
-        :all,
-        :order => :name,
-        :conditions => "name LIKE '%#{params[:query]}%'"
-      )
-    else
-      @pictures = Picture.paginate(
-        :all,
-        :order => :name,
-        :conditions => "name LIKE '%#{params[:query]}%'",
-        :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || 32)
-      )
-    end
-    if params[ActionController::Base.session_options[:key].to_sym].blank?
-      redirect_to :back
+    begin
+      @picture = Picture.new(:image_file => params[:Filedata])
+      @picture.name = @picture.image_filename
+      @picture.save
+      @while_assigning = params[:while_assigning] == 'true'
+      if @while_assigning
+        @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
+        @element = Element.find(params[:element_id], :select => 'id')
+        @size = params[:size]
+        @options = params[:options]
+        @page = params[:page]
+        @per_page = params[:per_page]
+      end
+      if params[:per_page] == 'all'
+        @pictures = Picture.find(
+          :all,
+          :order => :name,
+          :conditions => "name LIKE '%#{params[:query]}%'"
+        )
+      else
+        @pictures = Picture.paginate(
+          :all,
+          :order => :name,
+          :conditions => "name LIKE '%#{params[:query]}%'",
+          :page => (params[:page] || 1),
+          :per_page => (params[:per_page] || 32)
+        )
+      end
+      @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}
+      if params[ActionController::Base.session_options[:key].to_sym].blank?
+        flash[:notice] = @message
+        redirect_to :back
+      end
+    rescue Exception => e
+      log.error $!
+      render :update do |page|
+        notice = _('Picture upload error: %{error}') % {:error => e}
+        Alchemy::Notice.show_via_ajax(page, notice, :error)
+      end
     end
   end
   

@@ -12,7 +12,9 @@
 		<%= yield :javascript_includes %>
         <script type="text/javascript" charset="utf-8">
         // <![CDATA[
-            jQuery.noConflict();
+            if(typeof(jQuery)=='function') {
+                jQuery.noConflict();
+            }
         // ]]>
         </script>
 	</head>

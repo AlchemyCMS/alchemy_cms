@@ -45,8 +45,8 @@ function fileQueueError(file, errorCode, message) {
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
-    }
+		this.debug(ex);
+	}
 }
 
 function fileDialogComplete(numFilesSelected, numFilesQueued) {
@@ -54,11 +54,10 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
 		if (numFilesSelected > 0) {
 			document.getElementById(this.customSettings.cancelButtonId).disabled = false;
 		}
-		
 		/* I want auto start the upload and I can do that here */
 		this.startUpload();
 	} catch (ex)  {
-        this.debug(ex);
+		this.debug(ex);
 	}
 }
 
@@ -94,7 +93,6 @@ function uploadProgress(file, bytesLoaded, bytesTotal) {
 function uploadSuccess(file, serverData) {
 	eval(serverData);
 	try {
-		//console.log(serverData);
 		var progress = new FileProgress(file, this.customSettings.progressTarget);
 		progress.setComplete();
 		progress.setStatus("Complete.");
@@ -169,5 +167,5 @@ function queueComplete(numFilesUploaded) {
 	$('btnCancel').hide();
 	setTimeout(function () {
 		alchemy_window.close();
-	}, 1000);
+	}, 1500);
 }
