@@ -32,9 +32,8 @@ class Admin::ContentsController < AlchemyController
         end
       end
     rescue Exception => e
-      logger.error(e)
-      logger.error(e.backtrace.join("\n"))
-      render :update do |page|
+      log_error($!)
+      render :update, :status => 500 do |page|
         Alchemy::Notice.show_via_ajax(page, _("content_not_successfully_added"), :error)
       end
     end

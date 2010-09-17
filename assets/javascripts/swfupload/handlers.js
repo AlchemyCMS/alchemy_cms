@@ -167,5 +167,5 @@ function queueComplete(numFilesUploaded) {
 	$('btnCancel').hide();
 	setTimeout(function () {
 		alchemy_window.close();
-	}, 1500);
+	}, 2500);
 }

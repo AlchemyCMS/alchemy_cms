@@ -57,8 +57,8 @@ class Admin::AttachmentsController < AlchemyController
         redirect_to :action => :index
       end
     rescue Exception => e
-      log.error $!
-      render :update do |page|
+      log_error $!
+      render :update, :status => 500 do |page|
         notice = _('File upload error: %{error}') % {:error => e}
         Alchemy::Notice.show_via_ajax(page, notice, :error)
       end
