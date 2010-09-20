@@ -1,6 +1,6 @@
 class PagesController < AlchemyController
   
-  before_filter :set_language_from_client, :only => Proc.new { |bf| debugger }#[:show, :sitemap]
+  before_filter :set_language_from_client, :only => [:show, :sitemap]
   before_filter :get_page_from_urlname, :only => [:show, :sitemap]
   
   filter_access_to :show, :attribute_check => true
