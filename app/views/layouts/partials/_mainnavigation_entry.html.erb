@@ -1,20 +1,23 @@
 <%- permitted_to?(
-	mainnavigation_entry["action"].to_sym,
-	mainnavigation_entry["controller"].gsub(/\//, '_').to_sym
+    mainnavigation_entry["action"].to_sym,
+    mainnavigation_entry["controller"].gsub(/\//, '_').to_sym
 ) do -%>
 
 <% link_to(
-	url_for(
-		:controller => "/#{mainnavigation_entry['controller']}",
-		:action => mainnavigation_entry["action"]
-	),
-	:class => "main_navi_entry#{admin_mainnavi_active?(mainnavigation_entry) ? ' active' : nil }",
-	:onclick => 'pleaseWaitOverlay();'
+    url_for(
+        :controller => "/#{mainnavigation_entry['controller']}",
+        :action => mainnavigation_entry["action"]
+    ),
+    :class => "main_navi_entry#{admin_mainnavi_active?(mainnavigation_entry) ? ' active' : nil }",
+    :onclick => 'pleaseWaitOverlay();'
 ) do %>
-	<%= image_tag mainnavigation_entry["image"] %><br />
-	<%# We have to set this explicit here, because Alchemy Modules come with their own TextDoamin %>
-	<%- FastGettext.text_domain = 'alchemy' -%>
-	<span><%= _(mainnavigation_entry["name"]) -%></span>
+    <span class="module icon <%= mainnavigation_entry["icon"] %>"></span><br />
+    <%# 
+        We have to set the FastGettext.text_domain explicitly here, 
+        because Alchemy Modules come with their own TextDomain
+    %>
+    <%- FastGettext.text_domain = 'alchemy' -%>
+    <span><%= _(mainnavigation_entry["name"]) -%></span>
 <% end %>
 
 <%- end -%>

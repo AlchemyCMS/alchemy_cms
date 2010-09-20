@@ -109,7 +109,7 @@ form.create_right {
 
 .alchemy_tooltip_content {
 	color: #000;
-	background: #f3f3e7 url(/images/alchemy/icons/information.png) no-repeat 4px 4px;
+	background: #f3f3e7 url(/images/alchemy/icons/information-white.png) no-repeat 4px 4px;
 	overflow: auto;
 	font-size: 10px;
 }

@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -310,7 +312,7 @@ div.alchemy_selectbox {
 	border: 1px solid #afafaf;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
-	background: url(/images/alchemy/gui/button_shading.png) repeat-x 0 0;
+	background: #f7f7f7 url(/images/alchemy/gui/shading.png) repeat-x 0 -77px;
 	z-index: 10;
 	position: absolute;
 	width: 100%;
@@ -336,7 +338,7 @@ div.alchemy_selectbox {
 }
 
 .alchemy_selectbox_link_bg:active {
-	background-position: 0 -19px;
+	background-color: #cdd6db;
 }
 
 .alchemy_selectbox div.alchemy_selectbox_body {
@@ -465,7 +467,6 @@ p {
 p.footnote {
 	margin: 16px;
 	padding: 8px 8px 8px 32px;
-	background: #eaf4f9 url(/images/alchemy/icons/information-white.png) no-repeat 8px 8px;
 	line-height: 17px;
 	color: #333;
 	border: 1px solid #0b5c84;
@@ -474,6 +475,8 @@ p.footnote {
 	-o-border-radius: 8px;
 	border-radius: 8px;
 	font-size: 10px;
+	background-color: #eaf4f9;
+	position: relative;
 }
 
 p.no_padding {
@@ -928,7 +931,7 @@ div.page_infos {
 	height: 20px;
 	float: right;
 	border-left: 1px solid #ededed;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 3px;
+	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 	padding: 1px;
 }
 
@@ -949,27 +952,27 @@ div.page_infos {
 }
 
 span.page_status.restricted {
-	background: url(/images/alchemy/icons/lock.png) 0 0;
+	background: url(/images/alchemy/icons.png) -128px -24px;
 }
 
 span.page_status.not_restricted {
-	background: url(/images/alchemy/icons/lock.png) -16px 0;
+	background: url(/images/alchemy/icons.png) -144px -24px;
 }
 
 span.page_status.visible {
-	background: url(/images/alchemy/icons/page_visible.png) 0 0;
+	background: url(/images/alchemy/icons.png) -64px -24px;
 }
 
 span.page_status.not_visible {
-	background: url(/images/alchemy/icons/page_visible.png) -16px 0;
+	background: url(/images/alchemy/icons.png) -80px -24px;
 }
 
 span.page_status.public {
-	background: url(/images/alchemy/icons/page_public.png) 0 0;
+	background: url(/images/alchemy/icons.png) -96px -24px;
 }
 
 span.page_status.not_public {
-	background: url(/images/alchemy/icons/page_public.png) 16px 0;
+	background: url(/images/alchemy/icons.png) -112px -24px;
 }
 
 #sideboard div.sideboard_widget img {
@@ -981,11 +984,11 @@ span.page_status.not_public {
 	float: left;
 	width: 16px;
 	height: 16px;
-	background: url(/images/alchemy/icons/page.png) no-repeat 0 0;
+	background: url(/images/alchemy/icons.png) no-repeat 0 -24px;
 }
 
 .site_status.locked {
-	background-position: -16px 0;
+	background-position: -16px -24px;
 }
 
 #sub_navigation span.page_status_and_name span.site_status {
@@ -1232,7 +1235,7 @@ div#user_list_legend {
 	z-index: 10;
 	padding: 12px 8px;
 	height: 36px;
-	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 42px;
+	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -40px;
 	margin-right: 8px;
 	border: 1px solid #afafaf;
 	border-top-style: none;
@@ -1341,7 +1344,7 @@ a.icon_button {
 	background-color: #f7f7f7;
 	background-image: url(/images/alchemy/gui/shading.png);
 	background-repeat: repeat-x;
-	background-position: 0 1px;
+	background-position: 0 -75px;
 	margin-right: 8px;
 	border: 1px solid #9a9a9a;
 	-webkit-border-radius: 2px;
@@ -1393,14 +1396,49 @@ a.icon_button img {
 	left: 3px;
 }
 
+span.icon {
+	display: inline-block;
+	background: url(/images/alchemy/icons.png) no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+#main_content p.footnote span.icon.info {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+span.icon.module {
+	width: 24px;
+	height: 24px;
+	margin-bottom: 4px;
+}
+
+span.module.home {
+	background-position: 0 0;
+}
+
+span.module.pages {
+	background-position: -24px 0;
+}
+
+span.module.users {
+	background-position: -48px 0;
+}
+
+span.module.library {
+	background-position: -72px 0;
+}
+
+span.module.exit {
+	background-position: -96px 0;
+}
+
 a.icon_button span.icon {
 	position: absolute;
 	top: 2px;
 	left: 2px;
-	background-repeat: no-repeat;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
 }
 
 span.icon.zoom-out {
@@ -1614,7 +1652,7 @@ input.button, .editor_ok_button, a.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
-	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 8px;
+	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -1634,8 +1672,8 @@ input.button:active,
 a.button:active,
 .editor_ok_button:active {
 	text-decoration: none;
-	background: #e5e5e5 url(/images/alchemy/gui/shading_inv.png) repeat-x 0 -4px;
 	text-shadow: none;
+	background-color: #e5e5e5;
 }
 
 .editor_ok_button {
@@ -2030,6 +2068,7 @@ textarea.thin_border {
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	height: auto;
+	background-image: none;
 }
 
 .thin_border,
@@ -2042,7 +2081,7 @@ textarea.thin_border {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	background: #ffffff url(/images/alchemy/gui/shading_inv.png) repeat-x 0 -5px;
+	background-color: #f9f9f9;
 }
 
 span.icon.user_add {
@@ -2122,7 +2161,11 @@ span.icon.file {
 }
 
 span.icon.flush {
-	background: url(/images/alchemy/icons/broom.png) 0 1px;
+	background-position: -176px -24px;
+}
+
+span.icon.info {
+	background-position: -32px -88px;
 }
 
 span.icon.elements_window {
@@ -2146,11 +2189,11 @@ a.icon.file_edit {
 }
 
 span.icon.add_page {
-	background: url(/images/alchemy/icons/page.png) -48px 0;
+	background: url(/images/alchemy/icons.png) -48px -24px;
 }
 
 span.icon.delete_page {
-	background: url(/images/alchemy/icons/page.png) -32px 0;
+	background: url(/images/alchemy/icons.png) -32px -24px;
 }
 
 a.icon.user_delete {
@@ -2158,7 +2201,7 @@ a.icon.user_delete {
 }
 
 span.icon.configure_page {
-	background: url(/images/alchemy/icons/gear.png) 0 0;
+	background: url(/images/alchemy/icons.png) -160px -24px;
 }
 
 a.icon.user_delete.female {

@@ -1,4 +1,6 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_login.css */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/alchemy_login.css
+*/
 
 div.login_signup_box {
 	width: 380px;

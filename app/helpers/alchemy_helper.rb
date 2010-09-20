@@ -1128,7 +1128,7 @@ module AlchemyHelper
     )
   end
   
-  # Returns a icon suitable for a link with css class 'icon_button'
+  # Returns an icon
   def render_icon(icon_class)
     content_tag('span', '', :class => "icon #{icon_class}")
   end
