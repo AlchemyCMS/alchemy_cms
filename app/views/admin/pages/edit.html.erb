@@ -33,7 +33,7 @@
 				)
 			) do %>
 				<button class="icon_button" title="<%= _('explain_unlocking') %>">
-					<%= image_tag('alchemy/icons/cross.png') %>
+					<%= render_icon('close') %>
 				</button><br />
 				<label><%= _("unlock_page") %></label>
 			<% end %>
@@ -45,7 +45,7 @@
 					:onsubmit => "pleaseWaitOverlay();"
 				) do -%>
 					<button class="icon_button" title="<%= _('explain_publishing') %>">
-						<%= image_tag('alchemy/icons/broom.png') %>
+						<%= render_icon('flush') %>
 					</button><br />
 					<label><%= _("Sweepe cache") %></label>
 				<% end -%>
@@ -54,7 +54,7 @@
 		<%- unless @page.layoutpage? -%>
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
-				content_tag('span', '', :class => 'icon settings'),
+				render_icon('settings'),
 				configure_admin_page_path(@page),
 				{
 					:title => _('edit_page_properties'),
@@ -68,7 +68,7 @@
 		<%- end -%>
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
-				content_tag('span', '', :class => 'icon new_element'),
+				render_icon('new_element'),
 				new_admin_element_path(:page_id => @page.id),
 				{
 					:title => _('Choose Element'),

@@ -1,9 +1,10 @@
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy_tinymce_dialog.css */
+
 /* Generic */
 
 body {
-	font-family: Tahoma, Arial, sans-serif;
-	font-size: 12px;
-	color: #000;
+	font: 12px "Lucida Grande",Arial,sans-serif;
+	color: #333;
 	background: #ededed;
 	padding: 0;
 	margin: 8px 8px 0 8px;
@@ -11,11 +12,6 @@ body {
 
 html {
 	background: #ededed;
-}
-
-td {
-	font-family: Tahoma, Arial, sans-serif;
-	font-size: 12px;
 }
 
 textarea {
@@ -41,8 +37,6 @@ fieldset {
 	margin: 0;
 	padding: 4px;
 	border: 1px solid #919B9C;
-	font-family: Tahoma, Arial, sans-serif;
-	font-size: 12px;
 }
 
 legend {
@@ -69,8 +63,7 @@ input {
 }
 
 input, select, textarea {
-	font-family: Tahoma, Arial, sans-serif;
-	font-size: 12px;
+	font: 12px "Lucida Grande",Arial,sans-serif;
 }
 
 input, select, textarea {
@@ -96,14 +89,14 @@ input.checkbox {
 /* Buttons */
 
 #insert, #cancel, input.button, .updateButton {
-	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
+	font: 11px "Lucida Grande", Arial, sans-serif;
 	border: 1px solid #9a9a9a;
 	height: 21px;
 	padding-left: 8px;
 	padding-right: 8px;
 	padding-bottom: 2px;	
 	margin: 0;
-	background: #eaeaea url(/images/alchemy/gui/button_shading.png) repeat-x 0 0;
+	background: #eaeaea url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -202,7 +195,7 @@ td.charmap, #charmap a {
 
 #charmap #codeN {
 	font-size: 10px;
-	font-family: Tahoma, Arial, sans-serif;
+	font-family: "Lucida Grande", Arial, sans-serif;
 	text-align: center
 }
 
@@ -241,7 +234,7 @@ td.charmap, #charmap a {
 
 .tabs li {
 	float: left;
-	background: url(/images/alchemy/gui/shading_inv.png) repeat-x 0 0;
+	background: url(/images/alchemy/gui/shading.png) repeat-x 0 0;
 	margin: 0 2px 0 0;
 	padding: 0 0 0 10px;
 	line-height: 17px;
@@ -270,7 +263,7 @@ td.charmap, #charmap a {
 
 .tabs a {
 	text-decoration: none;
-	font-family: Tahoma, Arial, sans-serif;
+	font-family: "Lucida Grande",Arial,sans-serif;
 	font-size: 10px;
 }
 

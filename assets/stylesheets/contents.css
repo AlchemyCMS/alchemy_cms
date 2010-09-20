@@ -1,4 +1,6 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/contents.css?1281617757 */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/contents.css
+*/
 
 .picture_tool_button {
 	float: left;
@@ -20,7 +22,7 @@
 	width: 16px;
 	height: 16px;
 	display: block;
-	background-image: url(/images/alchemy/icons/picture_essence.png);
+	background-image: url(/images/alchemy/icons.png);
 	background-repeat: no-repeat;
 	margin: 1px;
 }
@@ -30,13 +32,13 @@
 }
 
 .picture_tool_button a.edit_picture {
-	background-position: -64px 0;
+	background-position: -192px -40px;
 }
 
 .picture_tool_button a.edit_link,
 .icon_button span.icon.link {
-	background-image: url(/images/alchemy/icons/picture_essence.png);
-	background-position: -32px 0;
+	background-image: url(/images/alchemy/icons.png);
+	background-position: -160px -40px;
 	left: 2px;
 	top: 2px;
 }
@@ -74,25 +76,17 @@ div.essence_picture_editor:hover .picture_tool_delete {
 }
 
 .picture_tool_button a.swap_picture {
-	background-position: -16px 0;
+	background-position: -144px -40px;
 	margin-right: 0;
 }
 
 .picture_tool_button a.edit_picture_mask {
-	background-position: 0 0;
+	background-position: -128px -40px;
 	margin-right: 0;
 }
 
 .picture_tool_button a.remove_link {
-	background-position: -48px 0;
-}
-
-a.picture_delete {
-	background: url(/images/alchemy/icons/element-icons.png) 0 0;
-}
-
-img.picture_delete-disabled {
-	margin-right: 6px;
+	background-position: -176px -40px;
 }
 
 .dragable_picture {
@@ -102,10 +96,10 @@ img.picture_delete-disabled {
 .picture_detail div.missing_image {
 	height: 96px;
 	text-align: center;
-	line-height: 65px;
+	line-height: 99px;
 }
 
-.picture_detail div.missing_image img {
+.picture_detail div.missing_image span.icon {
 	position: relative;
 	top: 21px;
 }

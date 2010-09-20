@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/elements.css */
+
 input.text_with_icon {
 	width: 343px;
 	float: left;
@@ -48,8 +50,8 @@ img.add_element_spinner {
 
 .element_handle {
 	cursor: move;
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 	position: absolute;
 	left: 8px;
 	top: 9px;
@@ -62,11 +64,13 @@ img.add_element_spinner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -80px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -112px -40px;
 }
 
-.element_handle img.element_status {
+.element_handle span.icon {
 	z-index: 1;	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 div.element_foot span.element_public {
@@ -98,16 +102,16 @@ div.element_foot span.element_public {
 .add_content {
 	float: left;
 	margin: 2px 1px 2px 2px;
-	width: 120px;
+	width: 118px;
 	padding: 0;
 	background-color: #f0e8d7;
-	height: 123px;
+	border: 1px solid #c2baab;
+	border-radius: 3px;
+	height: 121px;
 }
 
 .add_content a {
-	color: #6c6c6c;
 	text-decoration: none;
-	background: url(/images/alchemy/icons/image-essence.png) no-repeat 0 0;
 	overflow: hidden;
 	text-align: center;
 	font-weight: bold;
@@ -115,15 +119,16 @@ div.element_foot span.element_public {
 	border-radius: 3px;
 	font-size: 40px;
 	display: block;
-	height: 24px;
-	margin-top: 48px;
-	width: 24px;
-	margin-bottom: 48px;
-	margin: 48px;
+	height: 100%;
+	width: 100%;
+	position: relative;
 }
 
-.add_content a.assign {
-	background-position: -24px 0;
+.add_content a .icon.assign {
+	background: url(/images/alchemy/icons.png) no-repeat -144px -40px;
+	position: absolute;
+	top: 54px;
+	left: 51px;
 }
 
 .element_foot {
@@ -188,17 +193,6 @@ div.element_editor form {
 	overflow: hidden;
 }
 
-.element_tools a {
-	width: 16px;
-	height: 16px;
-	float: left;
-	margin: 1px 4px 1px 1px;
-}
-
-a.delete_element_button {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat;
-}
-
 div.element_tools {
 	height: 20px;
 }
@@ -207,12 +201,23 @@ span.element_tools_icons {
 	float: left;
 }
 
+.element_tools a {
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 1px 4px 1px 1px;
+}
+
+a.delete_element_button {
+	background: url(/images/alchemy/icons.png) no-repeat -32px -40px;
+}
+
 a.element_copy_button {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -32px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -64px -40px;
 }
 
 a.element_move_button {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -16px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -48px -40px;
 }
 
 .element_head {
@@ -327,7 +332,7 @@ div.content_editor a.icon_button.small {
 }
 
 a.expand_element {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -48px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -80px -40px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -336,7 +341,7 @@ a.expand_element {
 }
 
 a.fold_element {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -64px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -96px -40px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
