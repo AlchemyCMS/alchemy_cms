@@ -4,10 +4,10 @@ class Admin::PagesController < AlchemyController
   
   layout 'alchemy'
   
-  before_filter :set_translation, :except => [:preview]
-  before_filter :get_page_from_id, :only => [:publish, :unlock, :show, :configure, :update, :fold, :destroy]
+  before_filter :set_translation, :except => [:show]
+  before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy]
   
-  filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :destroy], :attribute_check => true
+  filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move, :flush], :attribute_check => false
   
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
@@ -53,7 +53,7 @@ class Admin::PagesController < AlchemyController
   
   # Edit the content of the page and all its elements and contents.
   def edit
-    @page = Page.find(params[:id])
+    # fetching page via before filter
     @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
     if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
