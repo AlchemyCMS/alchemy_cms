@@ -13,6 +13,7 @@ class MailsController < AlchemyController
     @mail.ip = request.remote_ip
     element = Element.find_by_id(@mail.contact_form_id)
     @page = element.page
+    
     if @mail.save
       if params[:mail_to].blank?
         mail_to = element.content_by_name("mail_to").essence.body
@@ -21,12 +22,9 @@ class MailsController < AlchemyController
       end
       mail_from = element.content_by_name("mail_from").essence.body
       subject = element.content_by_name("subject").essence.body
-      Mailer.deliver_mail(
-        @mail,
-        mail_to,
-        mail_from,
-        subject
-      )
+      
+      Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
+      
       if !element.content_by_name("success_page").essence.body.blank?
         if multi_language?
           redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => session[:language])
@@ -46,6 +44,7 @@ class MailsController < AlchemyController
         render :file => "public/404.html", :status => 404
       end
     end
+    
   end
   
 end
