@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-09-17 20:47+0200\n"
+"POT-Creation-Date: 2010-09-22 15:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgstr "Fehler mit dem Flash® Uploader!"
 msgid "Excerpt"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:49
+#: app/views/admin/pages/index.html.erb:50
 msgid "Explain|Sitemap|Dragndrop sorting"
 msgstr ""
 "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest "
@@ -159,7 +159,7 @@ msgstr ""
 "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur "
 "%{link}"
 
-#: app/controllers/admin/pictures_controller.rb:114
+#: app/controllers/admin/pictures_controller.rb:113
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 
@@ -167,7 +167,11 @@ msgstr "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
 msgid "Image size"
 msgstr "Bildgröße"
 
-#: app/controllers/admin/pictures_controller.rb:124
+#: app/views/admin/essence_pictures/update.rjs:2
+msgid "Image updated successfully"
+msgstr "Bild wurde gespeichert"
+
+#: app/controllers/admin/pictures_controller.rb:122
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
@@ -321,7 +325,7 @@ msgstr "Bild"
 msgid "Picture %{name} uploaded succesfully"
 msgstr "Bild %{name} wurde hochgeladen"
 
-#: app/controllers/admin/pictures_controller.rb:136
+#: app/controllers/admin/pictures_controller.rb:134
 msgid "Picture cache flushed"
 msgstr "Bildercache wurde geleert"
 
@@ -397,11 +401,11 @@ msgstr ""
 msgid "Successfully added %{content}"
 msgstr "%{content} wurde hinzugefügt"
 
-#: app/controllers/admin/contents_controller.rb:71
+#: app/controllers/admin/contents_controller.rb:70
 msgid "Successfully deleted %{content}"
 msgstr "%{content} wurde gelöscht"
 
-#: app/controllers/admin/contents_controller.rb:57
+#: app/controllers/admin/contents_controller.rb:56
 msgid "Successfully saved content position"
 msgstr "Die Position wurde gespeichert."
 
@@ -525,7 +529,7 @@ msgstr "Sie sind dazu nicht authorisiert."
 msgid "You can get the latest version on the %{link}"
 msgstr "Sie können die aktuelle Version auf der %{link} laden."
 
-#: app/models/mailer.rb:23
+#: app/models/mailer.rb:22
 msgid "Your Alchemy Login"
 msgstr "Ihre Alchemy Zugangsdaten"
 
@@ -538,7 +542,7 @@ msgid "a_page_of_type"
 msgstr "Eine Seite des Typs"
 
 #: app/views/admin/essence_files/edit.html.erb:16
-#: app/views/admin/essence_pictures/edit.html.erb:25
+#: app/views/admin/essence_pictures/edit.html.erb:29
 msgid "above"
 msgstr "darüber"
 
@@ -559,7 +563,7 @@ msgid "adding_element_not_successful"
 msgstr "Es konnte kein Element hinzugefügt werden."
 
 #: app/views/admin/essence_files/edit.html.erb:15
-#: app/views/admin/essence_pictures/edit.html.erb:23
+#: app/views/admin/essence_pictures/edit.html.erb:27
 msgid "align_in_text"
 msgstr "Im Text anordnen"
 
@@ -641,7 +645,7 @@ msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 msgid "confirm_to_delete_page"
 msgstr "Wollen Sie diese Seite wirklich löschen?"
 
-#: app/views/admin/users/_user.html.erb:18
+#: app/views/admin/users/_user.html.erb:14
 msgid "confirm_to_delete_user"
 msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 
@@ -658,11 +662,11 @@ msgstr "Essenz wurde nicht gefunden"
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
-#: app/controllers/admin/contents_controller.rb:38
+#: app/controllers/admin/contents_controller.rb:37
 msgid "content_not_successfully_added"
 msgstr "Der Inhalt konnte nicht hinzugefügt werden."
 
-#: app/controllers/admin/contents_controller.rb:78
+#: app/controllers/admin/contents_controller.rb:77
 msgid "content_not_successfully_deleted"
 msgstr "Der Inhalt konnte nicht gelöscht werden."
 
@@ -728,7 +732,7 @@ msgstr "Bild löschen."
 msgid "delete_page"
 msgstr "Seite löschen"
 
-#: app/views/admin/users/_user.html.erb:20
+#: app/views/admin/users/_user.html.erb:16
 msgid "delete_user"
 msgstr "Benutzer löschen"
 
@@ -753,8 +757,8 @@ msgstr "Mit der Maus halten und verschieben"
 msgid "edit_file_properties"
 msgstr "Dateieigenschaften bearbeiten"
 
-#: app/views/essences/_essence_picture_tools.html.erb:57
-#: app/views/essences/_essence_picture_tools.html.erb:61
+#: app/views/essences/_essence_picture_tools.html.erb:58
+#: app/views/essences/_essence_picture_tools.html.erb:62
 msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
@@ -773,8 +777,8 @@ msgstr "Seite bearbeiten"
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
-#: app/views/admin/users/_user.html.erb:29
-#: app/views/admin/users/_user.html.erb:35
+#: app/views/admin/users/_user.html.erb:25
+#: app/views/admin/users/_user.html.erb:31
 msgid "edit_user"
 msgstr "Benutzer bearbeiten"
 
@@ -889,19 +893,19 @@ msgstr "Element einklappen"
 msgid "home"
 msgstr "Home"
 
-#: app/views/admin/essence_pictures/edit.html.erb:18
+#: app/views/admin/essence_pictures/edit.html.erb:22
 msgid "image_alt_tag"
 msgstr "Alt-Tag"
 
-#: app/views/admin/essence_pictures/edit.html.erb:4
+#: app/views/admin/essence_pictures/edit.html.erb:8
 msgid "image_caption"
 msgstr "Bildunterschrift"
 
-#: app/views/essences/_essence_picture_editor.html.erb:34
+#: app/views/essences/_essence_picture_editor.html.erb:41
 msgid "image_name"
 msgstr "Name"
 
-#: app/views/admin/essence_pictures/edit.html.erb:14
+#: app/views/admin/essence_pictures/edit.html.erb:18
 msgid "image_title"
 msgstr "Titel-Tag"
 
@@ -932,7 +936,7 @@ msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren der Sparche sind Fehler aufgetreten"
 
 #: app/views/admin/essence_files/edit.html.erb:16
-#: app/views/admin/essence_pictures/edit.html.erb:25
+#: app/views/admin/essence_pictures/edit.html.erb:29
 msgid "left"
 msgstr "links"
 
@@ -1236,7 +1240,7 @@ msgid "rename_image"
 msgstr "Bild umbenennen."
 
 #: app/views/admin/essence_files/edit.html.erb:16
-#: app/views/admin/essence_pictures/edit.html.erb:25
+#: app/views/admin/essence_pictures/edit.html.erb:29
 msgid "right"
 msgstr "rechts"
 
@@ -1255,8 +1259,8 @@ msgstr "durch Robot indizieren"
 #: app/views/admin/essence_files/edit.html.erb:40
 #: app/views/admin/essence_files/edit.html.erb:68
 #: app/views/admin/essence_files/edit.html.erb:92
-#: app/views/admin/essence_pictures/crop.html.erb:15
-#: app/views/admin/essence_pictures/edit.html.erb:31
+#: app/views/admin/essence_pictures/crop.html.erb:20
+#: app/views/admin/essence_pictures/edit.html.erb:36
 #: app/views/admin/pages/configure.html.erb:66
 #: app/views/admin/pages/configure_external.html.erb:40
 #: app/views/admin/pictures/_picture.html.erb:45
