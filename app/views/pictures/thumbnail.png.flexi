@@ -1,5 +1,13 @@
 @picture.operate do |image|
-  image.resize(@size, :padding => '#666666') unless @size.nil?
-  image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
+  if @crop
+    image.crop(
+      :from => params[:crop_from],
+      :size => params[:crop_size]
+    )
+    image.resize(@size, :padding => '#666666') unless @size.nil?
+  else
+    image.resize(@size, :padding => '#666666') unless @size.nil?
+    image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
+  end
   image
 end

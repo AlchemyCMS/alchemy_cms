@@ -1,4 +1,8 @@
-<% remote_form_for([:admin, @essence_picture], :html => {:class => "with_padding"}) do |f| %>
+<% remote_form_for(
+    @essence_picture,
+    :url => admin_essence_picture_path(@essence_picture, :options => @options),
+    :html => {:class => "with_padding"}
+) do |f| %>
 	<table border="0" cellspacing="4" cellpadding="0">
 		<tr>
 			<td class="label"><%= f.label "caption", _("image_caption") %></td>
@@ -28,6 +32,7 @@
 		<%- end -%>
 		<tr>
 			<td colspan="2" style="text-align:right">
+			    <%= hidden_field_tag 'content_id', @content.id %>
 				<%= submit_tag _("save"), :class => 'button' %>
 			</td>
 		</tr>

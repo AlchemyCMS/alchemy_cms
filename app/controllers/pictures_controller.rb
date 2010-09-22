@@ -35,7 +35,7 @@ class PicturesController < AlchemyController
     else
       @size = "111x93"
     end
-    @crop = true
+    @crop = !params[:crop_size].blank? && !params[:crop_from].blank?
     respond_to do |format|
       format.png
     end

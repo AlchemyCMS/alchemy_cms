@@ -6,12 +6,15 @@ class Admin::EssencePicturesController < AlchemyController
   
   def edit
     @essence_picture = EssencePicture.find(params[:id])
+    @content = Content.find(params[:content_id])
     @options = params[:options]
     render :layout => false
   end
   
   def crop
     @essence_picture = EssencePicture.find(params[:id])
+    @content = Content.find(params[:content_id])
+    @options = params[:options]
     if !@essence_picture.crop_from.blank? && !@essence_picture.crop_size.blank?
       @initial_box = {
         :x1 => @essence_picture.crop_from.split('x')[0].to_i,
@@ -28,10 +31,7 @@ class Admin::EssencePicturesController < AlchemyController
   def update
     @essence_picture = EssencePicture.find(params[:id])
     @essence_picture.update_attributes(params[:essence_picture])
-    render :update do |page|
-      page << "Windows.getFocusedWindow().close()"
-      page << "reloadPreview()"
-    end
+    @content = Content.find(params[:content_id])
   end
   
   def assign

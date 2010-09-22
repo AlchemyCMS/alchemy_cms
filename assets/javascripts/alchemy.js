@@ -282,10 +282,11 @@ function removePictureLink (content_id) {
 }
 
 function alchemyCreateLink(link_type, url, title, extern) { 
-	var tiny_ed = link_window.linked_element.editor;
-	if (tiny_ed.selection) {
+	var element = link_window.linked_element;
+	if (element.editor) {
 			// aka we are linking text inside of TinyMCE 
-			var l = tiny_ed.execCommand('mceInsertLink', false, {
+			var editor = element.editor;
+			var l = editor.execCommand('mceInsertLink', false, {
 				href: url,
 				'class': link_type,
 				title: title,
@@ -293,13 +294,13 @@ function alchemyCreateLink(link_type, url, title, extern) {
 			});
 	} else {
 		// aka: we are linking an content
-		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
+		var essence_type = element.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
 			case "picture":
-				var content_id = tiny_ed.name.gsub('essence_picture_', '');
+				var content_id = element.name.gsub('essence_picture_', '');
 				break;
 			case "text":
-				var content_id = tiny_ed.name.gsub('content_text_', '');
+				var content_id = element.name.gsub('content_text_', '');
 				break;
 		}
 		$('content_' + content_id + '_link').value = url;
@@ -346,15 +347,15 @@ function selectLinkWindowTab() {
 	var linked_element = link_window.linked_element;
 	
 	// Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
-	if (typeof(linked_element) != 'object') {
+	if (linked_element.nodeType) {
 		var tmp_link = document.createElement("a");
-		var essence_type = node.name.gsub('essence_', '').split('_')[0];
+		var essence_type = linked_element.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
 			case "picture":
-				var content_id = node.name.gsub('essence_picture_', '');
+				var content_id = linked_element.name.gsub('essence_picture_', '');
 				break;
 			case "text":
-				var content_id = node.name.gsub('essence_text_', '');
+				var content_id = linked_element.name.gsub('essence_text_', '');
 				break;
 		}
 		tmp_link.href = $('content_' + content_id + '_link').value;
