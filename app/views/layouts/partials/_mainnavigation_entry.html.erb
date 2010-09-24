@@ -11,7 +11,12 @@
     :class => "main_navi_entry#{admin_mainnavi_active?(mainnavigation_entry) ? ' active' : nil }",
     :onclick => 'pleaseWaitOverlay();'
 ) do %>
+    <%- if mainnavigation_entry["icon"].blank? -%>
+    <%= image_tag(mainnavigation_entry["image"]) %>
+    <br />
+    <%- else -%>
     <span class="module icon <%= mainnavigation_entry["icon"] %>"></span><br />
+    <%- end -%>
     <%# 
         We have to set the FastGettext.text_domain explicitly here, 
         because Alchemy Modules come with their own TextDomain
