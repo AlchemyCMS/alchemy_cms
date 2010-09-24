@@ -105,8 +105,8 @@ class Admin::PagesController < AlchemyController
     @content_id = params[:content_id]
     if params[:link_urls_for] == "newsletter"
       # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
-      #@url_prefix = "#{get_server}/recipients/reacts"
-      @url_prefix = get_server
+      #@url_prefix = "#{current_server}/recipients/reacts"
+      @url_prefix = current_server
     end
     if multi_language?
       @url_prefix = "#{session[:language]}/"

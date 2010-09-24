@@ -12,7 +12,7 @@ class AlchemyController < ApplicationController
   before_filter :set_gettext_locale
   before_filter :set_translation
 
-  helper_method :get_server, :configuration, :multi_language?, :current_user
+  helper_method :current_server, :configuration, :multi_language?, :current_user
   helper :errors, :layout
 
   def render_errors_or_redirect object, redicrect_url, flash_notice
@@ -27,19 +27,18 @@ class AlchemyController < ApplicationController
       end
     end
   end
-
-  # returns the request.env[HTTP_HOST] for local or for live webservers. important for mod_rewrite proxy based webs
-  def get_server
-    # for local servers
-    if request.env["HTTP_X_FORWARDED_HOST"].nil?
-      adress = request.env["HTTP_HOST"]
-    #for remote servers
+  
+  # Returns a host string with the domain the app is running on.
+  def current_server
+    # For local development server
+    if request.port != 80
+      "http://#{request.host}:#{request.port}"
+    # For remote production server
     else
-      adress = request.env["HTTP_X_FORWARDED_HOST"]
+      "http://#{request.host}"
     end
-    "http://#{adress}"
   end
-
+  
   def configuration(name)
     return Alchemy::Configuration.parameter(name)
   end
