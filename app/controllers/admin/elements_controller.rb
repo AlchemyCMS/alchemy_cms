@@ -116,7 +116,7 @@ class Admin::ElementsController < AlchemyController
         end
       end
       # update the updated_at and updated_by values for the page this element lies on.
-      @page = Page.find(@element.page_id)
+      @page = @element.page
       @element.public = !params[:public].nil?
       @element.save!
       @has_richtext_essence = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
