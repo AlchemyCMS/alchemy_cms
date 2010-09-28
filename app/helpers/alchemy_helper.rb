@@ -66,7 +66,7 @@ module AlchemyHelper
       if options[:from_page].class == Page
         page = options[:from_page]
       else
-        page = Page.find_by_page_layout_and_language(options[:from_page], session[:language])
+        page = Page.find_all_by_page_layout_and_language(options[:from_page], session[:language])
       end
     end
     if page.blank?
@@ -77,7 +77,11 @@ module AlchemyHelper
       return ""
     else
       show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
-      all_elements = page.find_elements(options, show_non_public)
+      if page.class == Array
+        all_elements = page.collect { |p| p.find_elements(options, show_non_public) }.flatten
+      else
+        all_elements = page.find_elements(options, show_non_public)
+      end
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
