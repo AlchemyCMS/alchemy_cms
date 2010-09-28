@@ -74,6 +74,12 @@ class Content < ActiveRecord::Base
     Content.description_for(self.element, self.name, options)
   end
   
+  # Calls the ingredient method on the essence
+  def ingredient
+    return nil if self.essence.blank?
+    self.essence.ingredient
+  end
+  
 private
   
   # Returns the array with the hashes for all available contents for element in the elements.yml file

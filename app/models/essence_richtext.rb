@@ -10,6 +10,11 @@ class EssenceRichtext < ActiveRecord::Base
     stripped_body.to_s[0..30]
   end
   
+  # Returns self.body. Used for Content#ingredient method.
+  def ingredient
+    self.body
+  end
+  
   private
   
   def strip_content

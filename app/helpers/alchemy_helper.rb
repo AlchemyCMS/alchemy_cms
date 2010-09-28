@@ -48,8 +48,11 @@ module AlchemyHelper
   # :from_page                  The Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
   # :count                      The amount of elements to be rendered (beginns with first element found)
   # :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
-  # 
+  # :sort_by => Content#name    A Content name to sort the elements by
+  # :reverse_sort => boolean    Reverse the sort result
+  #
   # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
+  #
   def render_elements(options = {})
     default_options = {
       :except => [],
@@ -81,6 +84,10 @@ module AlchemyHelper
         all_elements = page.collect { |p| p.find_elements(options, show_non_public) }.flatten
       else
         all_elements = page.find_elements(options, show_non_public)
+      end
+      unless options[:sort_by].blank?
+        all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
+        all_elements.reverse! if options[:reverse_sort]
       end
       element_string = ""
       if options[:fallback]

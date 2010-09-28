@@ -8,4 +8,9 @@ class EssenceFile < ActiveRecord::Base
     attachment.name.to_s
   end
   
+  # Returns self.attachment. Used for Content#ingredient method.
+  def ingredient
+    self.attachment
+  end
+  
 end

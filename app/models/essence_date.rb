@@ -7,4 +7,9 @@ class EssenceDate < ActiveRecord::Base
     I18n.l(date)
   end
   
+  # Returns self.date. Used for Content#ingredient method.
+  def ingredient
+    self.date
+  end
+  
 end

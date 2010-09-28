@@ -6,4 +6,9 @@ class EssenceHtml < ActiveRecord::Base
     CGI.escapeHTML(source.to_s)[0..30]
   end
   
+  # Returns self.source. Used for Content#ingredient method.
+  def ingredient
+    self.source
+  end
+  
 end

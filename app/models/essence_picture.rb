@@ -14,4 +14,9 @@ class EssencePicture < ActiveRecord::Base
     picture.name.to_s
   end
   
+  # Returns self.picture. Used for Content#ingredient method.
+  def ingredient
+    self.picture
+  end
+  
 end
