@@ -112,7 +112,7 @@
 #
 
 - name: article
-  display_name: Artikelabsatz
+  display_name: Standard-Artikel
   contents:
   - name: intro
     type: EssenceText
@@ -155,7 +155,7 @@
     type: EssenceRichtext
 
 - name: headline
-  display_name: Überschrift
+  display_name: Überschrift 2
   contents:
   - name: headline
     type: EssenceText
@@ -197,15 +197,15 @@
     type: EssencePicture
 
 - name: intro
-  display_name: Introtext
-  contents: 
+  display_name: Überschrift 1
+  contents:
   - name: intro
     type: EssenceRichtext
 
 - name: subheadline
   display_name: Zwischenüberschrift
   contents:
-  - name: headline
+  - name: subheadline
     type: EssenceText
 
 - name: news
@@ -213,7 +213,7 @@
   contents:
   - name: date
     type: EssenceDate
-  - name: headline
+  - name: news_headline
     type: EssenceText
   - name: body
     type: EssenceRichtext
