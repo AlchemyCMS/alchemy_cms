@@ -2,12 +2,26 @@
 	<div class="page_root">
 		<div class="sitemap_page">
 			<div class="sitemap_left_images">
-				<%= render(
-					:partial => 'page_icon',
-					:locals => {
-						:page => @page_root
-					}
-				) -%>
+                <span class="site_status <%= @page_root.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= @page_root.id %><%= @page_root.locked ? ' locked' : '' %>" ></span>
+                <div id="tooltip_<%= @page_root.id %>" style="display: none;">
+                	<h1><%= _("page_type") %>: <%= @page_root.layout_display_name %></h1>
+                	<p>
+                		<%= @page_root.humanized_status %>
+                	</p>
+                	<p>
+                		<strong><%= _("created_at") %>:</strong><br />
+                		<%= l(@page_root.created_at) %> von <%= @page_root.creator %>
+                	</p>
+                	<p>
+                		<strong><%= _("updated_at") %>:</strong><br />
+                		<%= l(@page_root.updated_at) %> durch <%= @page_root.updater %>
+                	</p>
+                	<%- if @page_root.locked? -%>
+                	<p>
+                		<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= @page_root.current_editor %></span>
+                	</p>
+                	<%- end -%>
+                </div>
 			</div>
 			<div class="sitemap_right_tools">
 				<%- permitted_to?(:configure, :admin_pages) do -%>
@@ -56,7 +70,9 @@
 				<%- end -%>
 			</div>
 			<div class="page_infos">
-				<%= render :partial => 'page_status', :locals => {:page => @page_root} %>
+				<span class="page_status <%= @page_root.public ? 'public' : 'not_public' %>" title="<%= @page_root.public ? _('Page public') : _('Page not public') %>"></span>
+                <span class="page_status <%= @page_root.visible ? 'visible' : 'not_visible' %>" title="<%= @page_root.visible ? _('Page visible') : _('Page not visible') %>"></span>
+                <span class="page_status <%= @page_root.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page_root.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
 			</div>
 			<div class="sitemap_sitename">
 				<%= link_to(
@@ -72,6 +88,6 @@
 </ul>
 <%- permitted_to?(:move, :admin_pages) do -%>
 <%- javascript_tag do -%>
-	createSortableTree();
+    createSortableTree();
 <%- end -%>
 <%- end -%>
