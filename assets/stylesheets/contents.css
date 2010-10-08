@@ -1,6 +1,4 @@
-/* @override 
-	http://0.0.0.0:3000/stylesheets/alchemy/contents.css
-*/
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/contents.css */
 
 .picture_tool_button {
 	float: left;
@@ -138,28 +136,33 @@ div.essence_picture_editor:hover .picture_tool_delete {
 
 div.file {
 	padding: 0;
-	height: 43px;
-	margin-top: 6px;
+	margin-top: 8px;
 	margin-bottom: 4px;
 	border: 1px solid #c0c0c0;
 	background-color: #f3f3f3;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	height: 24px;
 }
 
 div.file_icon {
 	text-align: center;
 	float: left;
-	background-color: white;
-	padding-top: 5px;
-	height: 38px;
-	padding-left: 3px;
-	padding-right: 4px;
+	height: 24px;
+	width: 24px;
+}
+
+div.file_icon span.icon {
+	margin: 4px;
 }
 
 div.file_icon a.assign_file {
 	display: block;
-	height: 36px;
-	background: url(/images/alchemy/icons/assign_file.png) no-repeat -5px -1px;
-	width: 34px;
+	height: 16px;
+	background: url(/images/alchemy/assign_file.png) no-repeat 0 0;
+	width: 16px;
+	margin: 4px;
 }
 
 div.file_name {
@@ -167,41 +170,31 @@ div.file_name {
 	overflow: hidden;
 	float: left;
 	width: 293px;
-	padding: 14px 8px;
+	line-height: 24px;
+	font-size: 10px;
 }
 
 div.essence_file_tools {
-	height: 41px;
-	float: left;
-	padding-left: 2px;
+	height: 24px;
+	float: right;
 	background-color: white;
-	padding-right: 2px;
+	width: 48px;
 }
 
 div.essence_file_tools a{
 	text-decoration: none;
-	width: 19px;
-	display: block;
-	height: 19px;
-	background-position: 0 0;
-	background-repeat: no-repeat;
-}
-
-div.essence_file_tools a:active {
-	background-position: 0 1px;
-	text-decoration: none;
-	outline: none;
+	width: 16px;
+	height: 16px;
+	margin: 4px;
+	float: left;
 }
 
 div.essence_file_tools a.assign_file {
-	margin-top: 0;
-	background-image: url(/images/alchemy/icons/swap_file.png);
+	background-image: url(/images/alchemy/swap_file.png);
 }
 
 div.essence_file_tools a.edit_file {
-	background-image: url(/images/alchemy/icons/edit.png);
-	margin-top: 2px;
-	margin-bottom: 2px;
+	background: url(/images/alchemy/icons.png) -16px -24px;
 }
 
 td.content_editor_essence_type {

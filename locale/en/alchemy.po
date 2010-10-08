@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-09-22 15:02+0200\n"
+"POT-Creation-Date: 2010-10-08 13:12+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "Create %{language} as a new language"
 
-#: app/helpers/alchemy_helper.rb:815
+#: app/helpers/alchemy_helper.rb:826
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' from clipboard"
 
@@ -358,7 +358,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:179
+#: app/controllers/alchemy_controller.rb:178
 msgid "Please log in"
 msgstr ""
 
@@ -374,7 +374,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1098
+#: app/helpers/alchemy_helper.rb:1109
 msgid "Select an content"
 msgstr ""
 
@@ -511,7 +511,7 @@ msgstr "Welcome to Alchemy"
 msgid "You are"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:168
+#: app/controllers/alchemy_controller.rb:167
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
@@ -540,7 +540,7 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/alchemy_helper.rb:1094 app/helpers/alchemy_helper.rb:1110
+#: app/helpers/alchemy_helper.rb:1105 app/helpers/alchemy_helper.rb:1121
 msgid "add new content"
 msgstr ""
 
@@ -572,14 +572,14 @@ msgstr "Allow fullscreen"
 msgid "apply"
 msgstr "apply"
 
-#: app/views/essences/_essence_file_editor.html.erb:12
-#: app/views/essences/_essence_file_editor.html.erb:17
-#: app/views/essences/_essence_file_editor.html.erb:49
-#: app/views/essences/_essence_file_editor.html.erb:54
+#: app/views/essences/_essence_file_editor.html.erb:16
+#: app/views/essences/_essence_file_editor.html.erb:21
+#: app/views/essences/_essence_file_editor.html.erb:40
+#: app/views/essences/_essence_file_editor.html.erb:45
 msgid "assign_file"
 msgstr "Assign a file."
 
-#: app/views/essences/_essence_file_editor.html.erb:24
+#: app/views/essences/_essence_file_editor.html.erb:28
 msgid "assign_file_from_archive"
 msgstr "assign a file from your archive"
 
@@ -587,6 +587,10 @@ msgstr "assign a file from your archive"
 #: app/views/admin/pictures/_picture_to_assign.html.erb:28
 msgid "assign_image"
 msgstr "Assign an image"
+
+#: app/views/admin/essence_files/edit.html.erb:59
+msgid "auto_play"
+msgstr "Play movie after load"
 
 #: app/views/admin/pictures/_filter_and_size_bar.html.erb:50
 msgid "big_thumbnails"
@@ -608,7 +612,7 @@ msgstr "Please choose a element"
 msgid "choose_file_to_link"
 msgstr "Please choose a file to link"
 
-#: app/helpers/alchemy_helper.rb:800
+#: app/helpers/alchemy_helper.rb:811
 #: app/views/admin/partials/_remote_search_form.html.erb:25
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -643,12 +647,12 @@ msgstr "Do you really want to delete this user?"
 msgid "contactform_body"
 msgstr "Message Template"
 
-#: app/helpers/alchemy_helper.rb:177 app/helpers/alchemy_helper.rb:852
-#: app/helpers/alchemy_helper.rb:956
+#: app/helpers/alchemy_helper.rb:188 app/helpers/alchemy_helper.rb:863
+#: app/helpers/alchemy_helper.rb:967
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
-#: app/helpers/alchemy_helper.rb:171 app/helpers/alchemy_helper.rb:847
+#: app/helpers/alchemy_helper.rb:182 app/helpers/alchemy_helper.rb:858
 msgid "content_not_found"
 msgstr "Content not found."
 
@@ -742,8 +746,8 @@ msgstr "Download file '%{filename}'"
 msgid "drag_to_sort"
 msgstr "Drag'n'Drop to sort images"
 
-#: app/views/essences/_essence_file_editor.html.erb:35
-#: app/views/essences/_essence_file_editor.html.erb:39
+#: app/views/essences/_essence_file_editor.html.erb:54
+#: app/views/essences/_essence_file_editor.html.erb:58
 msgid "edit_file_properties"
 msgstr "Edit Fileproperties"
 
@@ -1039,11 +1043,11 @@ msgstr "Names"
 msgid "navigation_name"
 msgstr "Navigationname"
 
-#: app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:838
 msgid "no"
 msgstr "no"
 
-#: app/helpers/alchemy_helper.rb:227 app/helpers/alchemy_helper.rb:293
+#: app/helpers/alchemy_helper.rb:238 app/helpers/alchemy_helper.rb:304
 msgid "no_element_given"
 msgstr "No element given."
 
@@ -1196,7 +1200,7 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:838
 msgid "please_confirm"
 msgstr "Please confirm"
 
@@ -1259,7 +1263,7 @@ msgstr "Link saved."
 msgid "saving"
 msgstr "saving"
 
-#: app/helpers/alchemy_helper.rb:802
+#: app/helpers/alchemy_helper.rb:813
 #: app/views/admin/partials/_remote_search_form.html.erb:29
 #: app/views/admin/partials/_search_form.html.erb:15
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1282,7 +1286,6 @@ msgstr "Show content of this element."
 msgid "show_elements_from_page"
 msgstr "Show all elements from this page"
 
-#: app/views/admin/essence_files/edit.html.erb:59
 #: app/views/admin/essence_files/edit.html.erb:83
 msgid "show_eq"
 msgstr "Show EQ"
@@ -1410,7 +1413,7 @@ msgstr "Width"
 msgid "with_name"
 msgstr "Name"
 
-#: app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:838
 msgid "yes"
 msgstr "yes"
 

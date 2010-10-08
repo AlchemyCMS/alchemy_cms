@@ -54,6 +54,7 @@ ActionController::Routing::Routes.draw do |map|
     )
     admin.resources :essence_pictures, :member => {:crop => :get}, :except => [:show, :new, :create]
     admin.resources :essence_files
+    admin.resources :essence_videos
   end
   map.resources :user_sessions
   map.resources :elements, :only => :show

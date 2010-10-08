@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy_window.css */
+
 .overlay_dialog {
 	background-color: #666666;
 	filter: alpha(opacity=60);
@@ -537,14 +539,14 @@ div.assign_file_file {
 #assign_file_list div.assign_file_file a {
 	overflow: hidden;
 	display: block;
-	height: 39px;
 	padding-right: 4px;
 	text-align: left;
+	line-height: 25px;
 }
 
 div.assign_file_file_icon {
 	float: left;
-	margin-top: 1px;
+	margin: 4px;
 }
 
 .alchemy_window_content a img {
@@ -756,8 +758,6 @@ ul#sitemap li .sitemap_sitename.selected_page a{
 }
 
 div.assign_file_file_name {
-	margin-left: 4px;
-	margin-top: 14px;
 	float: left;
 }
 
@@ -938,6 +938,11 @@ div#overlay_toolbar {
 	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -45px;
 	border: 1px solid #afafaf;
 	height: 35px;
+}
+
+#overlay_toolbar div.js_filter_field_box {
+	margin-top: 6px;
+	margin-right: 8px;
 }
 
 div#overlay_toolbar div.toolbar_spacer {
