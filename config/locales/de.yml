@@ -212,11 +212,14 @@ de:
     image: 'Bild(er)'
     mail_from: 'Absender (E-Mail)'
     mail_to: 'Empfänger (E-Mail)'
+    caption: "Bildunterschrift"
     subject: 'Betreff'
     intro: "Überschrift 1"
     headline: "Überschrift 2"
     subheadline: "Unterüberschrift"
     news_headline: "News Überschrift"
+    image_mosaic:
+      caption: "Mosaik Bildunterschrift"
   
   mime_types:
     audio/mp4: 'MP4-Audio'

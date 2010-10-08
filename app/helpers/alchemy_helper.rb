@@ -320,6 +320,20 @@ module AlchemyHelper
     content = element.content_by_name(name)
     render_essence(content, :view, :for_view => options)
   end
+  
+  
+  # Renders the name of elements content or the default name defined in elements.yml
+  def render_content_name(content)
+    if content.blank?
+      logger.warn %(\n
+        ++++ WARNING: Content is nil!\n
+        Usage: render_content_name(content)\n
+      )
+      return ""
+    else
+      I18n.t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, "Noo"])
+    end
+  end
 
   # Returns current_page.title
   #
