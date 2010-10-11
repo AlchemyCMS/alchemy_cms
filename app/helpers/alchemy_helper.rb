@@ -331,7 +331,7 @@ module AlchemyHelper
       )
       return ""
     else
-      I18n.t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, "Noo"])
+      t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, content.name.capitalize])
     end
   end
 
