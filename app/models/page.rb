@@ -189,7 +189,7 @@ class Page < ActiveRecord::Base
       return _('page_status_invisible_unpublic')
     end
   end
-
+  
   # Returns the status code. Used by humanized_status and the page status icon inside the sitemap rendered by Pages.index.
   def status
     if self.locked
@@ -245,11 +245,18 @@ class Page < ActiveRecord::Base
     end
     parent_lang
   end
-
+  
+  # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
   def layout_description
-    PageLayout.get(self.page_layout)
+    page_layout = PageLayout.get(self.page_layout)
+    if page_layout.nil?
+      raise "PageLayout description not found for layout: #{self.page_layout}"
+    else
+      return page_layout
+    end
   end
   
+  # Returns the self#page_layout display_name from config/alchemy/page_layouts.yml file.
   def layout_display_name
     unless layout_description.blank?
       if layout_description["display_name"].blank?
@@ -293,7 +300,7 @@ class Page < ActiveRecord::Base
   end
   
 private
-
+  
   def find_next_or_previous_page(direction = "next", options = {})
     if direction == "previous"
       step_direction = ["pages.lft < ?", self.lft]
@@ -312,7 +319,7 @@ private
     end
     return Page.find :first, :conditions => conditions, :order => order_direction
   end
-
+  
   def generate_url_name(url_name)
     new_url_name = url_name.to_s.downcase
     new_url_name = new_url_name.gsub(/[ä]/, 'ae')
@@ -329,20 +336,21 @@ private
     new_url_name
   end
   
-  # Look in the layout_descripion, if there are elements to autogenerate. If so, generate them.
+  # Looks in the layout_descripion, if there are elements to autogenerate.
+  # If so, it generates them.
   def autogenerate_elements
-    to_auto_generate_elements = self.layout_description["autogenerate"]
-    unless (to_auto_generate_elements.blank?)
-      to_auto_generate_elements.each do |element|
+    elements = self.layout_description["autogenerate"]
+    unless (elements.blank?)
+      elements.each do |element|
         element = Element.create_from_scratch({'page_id' => self.id, 'name' => element})
         element.move_to_bottom if element
       end
     end
   end
-
-  # Creates a copy of source and a copy of elements from source
-  # pass any kind of Page.attributes as a difference to source
-  # it also prevents the element auto_generator from running
+  
+  # Creates a copy of source (an Page object) and does a copy of all elements depending to source.
+  # You can pass any kind of Page#attributes as a difference to source.
+  # Notice: It prevents the element auto_generator from running.
   def self.copy(source, differences = {})
     attributes = source.attributes.merge(differences)
     attributes.merge!(:do_not_autogenerate => true, :do_not_sweep => true)
@@ -354,7 +362,7 @@ private
       end
       return page
     else
-      raise "Error while Page.copy: #{page.errors.map{ |e| e[0] + ': ' + e[1] }}"
+      raise "Error while Page.copy: #{page.errors.full_messages}"
     end
   end
   
