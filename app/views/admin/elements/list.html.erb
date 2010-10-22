@@ -25,6 +25,22 @@
                     jQuery(event.target).css("cursor", "auto");
                 }
             });
+        },
+        start: function (event, ui) {
+            var item = ui.item[0];
+            var textareas = $(item).select('textarea.tinymce');
+            textareas.each(function (textarea) {
+                var editor = tinyMCE.get(textarea.id);
+                editor.save();
+                tinyMCE.execCommand(
+                    'mceRemoveControl',
+                    true,
+                    editor.editorId
+                );
+            });
+        },
+        stop: function (event, ui) {
+            TinymceHammer.init();
         }
     });
 </script>

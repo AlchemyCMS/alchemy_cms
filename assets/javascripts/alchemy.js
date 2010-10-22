@@ -474,8 +474,7 @@ function saveRichtextEssences (element_id) {
 		var richtext_essences = element.select('textarea.tinymce');
 		richtext_essences.each(function (essence) {
 			var editor = tinyMCE.get(essence.id);
-			var content = editor.getContent();
-			$(editor.editorId).value = content;
+			editor.save();
 			//removing the editor instance before adding it dynamically after saving
 			$(editor.editorId).previous('div.essence_richtext_loader').show();
 			tinyMCE.execCommand(
