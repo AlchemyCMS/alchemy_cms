@@ -23,7 +23,7 @@
 	
 	<%- caption = (content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
 
-	<%- if content.essence.link.blank? -%>
+	<%- if content.essence.link.blank? || options[:disable_link] -%>
 		<%= img_tag %>
 		<%- unless content.essence.caption.blank? -%>
 			<%= caption %>
