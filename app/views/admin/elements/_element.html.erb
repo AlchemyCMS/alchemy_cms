@@ -3,21 +3,11 @@
 <div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
 	<%= render :partial => "element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
-		<% form_remote_tag(
-			:url => admin_element_path(element),
+		<% form_tag(
+			admin_element_path(element),
 			:method => :put,
-			:before => (has_richtext_essence ? "saveRichtextEssences(#{element.id})" : nil),
-			:loading => %(
-				$('element_#{element.id}_save').hide();
-				$('element_#{element.id}_spinner').show();
-			),
-			:complete => %(
-				$('element_#{element.id}_save').show();
-				$('element_#{element.id}_spinner').hide();
-			),
-			:html => {
-				:id => "element_#{element.id}_form"
-			}
+			:onsubmit => "saveElement(this, '#{element.id}'); return false;",
+			:id => "element_#{element.id}_form"
 		) do %>
 			<div id="element_<%= element.id %>_content" class="element_content">
 				<%= render_editor(element) %>
