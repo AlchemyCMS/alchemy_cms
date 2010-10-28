@@ -15,8 +15,14 @@ class Admin::PagesController < ApplicationController
   def index
     @page_root = Page.language_root(session[:language])
     if @page_root.nil?
-      create_new_rootpage
-      flash[:notice] = _("Admin|new rootpage created")
+      begin
+        create_new_rootpage
+        flash[:notice] = _("Admin|new rootpage created")
+      rescue
+        log_error($!)
+        flash[:notice] = _('root_page_could_not_be_created')
+        redirect_to :admin
+      end
     end
     render :layout => 'admin'
   end
