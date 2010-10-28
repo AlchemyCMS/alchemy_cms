@@ -1,6 +1,6 @@
-class Admin::EssenceFlashesController < ApplicationController
+class Admin::EssenceFlashesController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :update
   

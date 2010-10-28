@@ -1,12 +1,7 @@
 <li>
 	<div class="sitemap_page ">
 		<div class="sitemap_left_images">
-			<%= render(
-				:partial => 'page_icon',
-				:locals => {
-					:page => page_for_links
-				}
-			) -%>
+			<span class="site_status <%= page_for_links.locked ? ' locked' : '' %>" ></span>
 		</div>
 		<div class="sitemap_right_tools">
 			<%= link_to_remote(
@@ -21,7 +16,7 @@
 				}
 			) %>
 			<div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
-				<%= image_tag("ajax_loader.gif", :plugin => "alchemy") %>
+				<%= image_tag("alchemy/ajax_loader.gif") %>
 			</div>
 		</div>
 		<div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">

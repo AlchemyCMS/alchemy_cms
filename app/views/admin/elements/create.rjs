@@ -4,10 +4,10 @@ page.insert_html(
   :partial => "element",
   :object => @element
 )
-Alchemy::Configuration.sortable_elements(page)
+page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show_via_ajax(page, _("successfully_added_element"))
-page << "alchemy_window.close();"
+page << "alchemy_window.close()"
 page << "TinymceHammer.init()"
-page << "preview_window.refresh();"
-page << "elements_window.updateHeight();"
-page << "scrollToElement('#{@element.id}');"
+page << "preview_window.refresh()"
+page << "elements_window.updateHeight()"
+page << "scrollToElement('#{@element.id}')"

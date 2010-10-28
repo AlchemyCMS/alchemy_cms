@@ -1,6 +1,6 @@
 if session[:clipboard][:method] == "move"
   page.remove "element_#{@element.id}"
-  Alchemy::Configuration.sortable_elements(page)
+  page << "jQuery('#element_area').sortable('refresh');"
   Alchemy::Notice.show_via_ajax(page, _("element_%{name}_moved_to_clipboard") % {:name => @element.display_name})
 else
   Alchemy::Notice.show_via_ajax(page, _("element_%{name}_copied_to_clipboard") % {:name => @element.display_name})

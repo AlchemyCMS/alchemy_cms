@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_tooltip.css */
+/* @override 
+	http://0.0.0.0:3000/plugin_assets/alchemy/stylesheets/alchemy_tooltip.css
+	http://0.0.0.0:3000/stylesheets/alchemy/alchemy_tooltip.css
+*/
 
 form.create_right {
 	float: left;
@@ -20,8 +23,8 @@ form.create_right {
 
 .alchemy_tooltip_nw {
 	background-color: #fff;
-	width: 0px;
-	height: 0px;
+	width: 1px;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -29,7 +32,7 @@ form.create_right {
 
 .alchemy_tooltip_n {
 	background-color: #fff;
-	height: 0px;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -37,8 +40,8 @@ form.create_right {
 
 .alchemy_tooltip_ne {
 	background-color: #fff;
-	width: 0px;
-	height: 0px;
+	width: 1px;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -46,7 +49,7 @@ form.create_right {
 
 .alchemy_tooltip_w {
 	background-color: #fff;
-	width: 0px;
+	width: 1px;
 	font-size: 0;
 }
 
@@ -54,7 +57,7 @@ form.create_right {
 
 .alchemy_tooltip_e {
 	background-color: #fff;
-	width: 0px;
+	width: 1px;
 	font-size: 0;
 }
 
@@ -62,8 +65,8 @@ form.create_right {
 
 .alchemy_tooltip_sw {
 	background-color: #fff;
-	width: 0px;
-	height: 0px;
+	width: 1px;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -71,7 +74,7 @@ form.create_right {
 
 .alchemy_tooltip_s {
 	background-color: #fff;
-	height: 0;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -79,8 +82,8 @@ form.create_right {
 
 .alchemy_tooltip_se {
 	background-color: #fff;
-	width: 0px;
-	height: 0px;
+	width: 1px;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -88,8 +91,8 @@ form.create_right {
 
 .alchemy_tooltip_sizer {
 	background-color: #fff;
-	width: 0px;
-	height: 0px;
+	width: 1px;
+	height: 1px;
 	font-size: 0;
 }
 
@@ -108,21 +111,19 @@ form.create_right {
 /* Content div (not used for url) */
 
 .alchemy_tooltip_content {
-	color: #000;
-	background: #f3f3e7 url(../images/icons/information.png) no-repeat 4px 4px;
+	color: #333;
+	background-color: rgba(178,204,219,0.7);
 	overflow: auto;
 	font-size: 10px;
 }
 
 .alchemy_tooltip_content p {
-	padding: 4px;
-	margin: 0;
+	margin: 4px 8px;
 	font-size: 10px;
 }
 
 .alchemy_tooltip_content h1 {
-	padding: 4px 4px 4px 24px;
-	margin: 0;
+	margin: 4px 8px;
 	font-size: 10px;
 	line-height: 16px;
 }

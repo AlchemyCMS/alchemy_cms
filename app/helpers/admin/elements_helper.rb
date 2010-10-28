@@ -13,7 +13,7 @@ module Admin::ElementsHelper
     )
     if options[:grouped_by_page] && options[:from_page] == :all
       elements_for_options = {}
-      pages = elements.collect(&:page).uniq
+      pages = elements.collect(&:page).compact.uniq
       pages.sort{ |x,y| x.name <=> y.name }.each do |page|
         page_elements = page.elements.select { |e| e.name == name }
         elements_for_options[page.name] = page_elements.map { |pe| [pe.preview_text, pe.id.to_s] }

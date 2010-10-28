@@ -1,17 +1,20 @@
-class Admin::EssencePicturesController < ApplicationController
+class Admin::EssencePicturesController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :all
   
   def edit
     @essence_picture = EssencePicture.find(params[:id])
+    @content = Content.find(params[:content_id])
     @options = params[:options]
     render :layout => false
   end
   
   def crop
     @essence_picture = EssencePicture.find(params[:id])
+    @content = Content.find(params[:content_id])
+    @options = params[:options]
     if !@essence_picture.crop_from.blank? && !@essence_picture.crop_size.blank?
       @initial_box = {
         :x1 => @essence_picture.crop_from.split('x')[0].to_i,
@@ -28,10 +31,7 @@ class Admin::EssencePicturesController < ApplicationController
   def update
     @essence_picture = EssencePicture.find(params[:id])
     @essence_picture.update_attributes(params[:essence_picture])
-    render :update do |page|
-      page << "Windows.getFocusedWindow().close()"
-      page << "reloadPreview()"
-    end
+    @content = Content.find(params[:content_id])
   end
   
   def assign
@@ -51,14 +51,6 @@ class Admin::EssencePicturesController < ApplicationController
     @options = @options.merge(
       :dragable => @dragable
     )
-    render :update do |page|
-      page.replace "picture_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => @options}
-      if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-        Alchemy::Configuration.sortable_contents(page, @content.element)
-      end
-      page << "reloadPreview()"
-      page << "Windows.getFocusedWindow().close()"
-    end
   end
   
   def save_link

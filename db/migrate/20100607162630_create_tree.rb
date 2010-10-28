@@ -2,14 +2,10 @@ class CreateTree < ActiveRecord::Migration
   def self.up
     root = Page.create(
       :name => 'Root',
-      :page_layout => '',
-      :language => '',
       :do_not_autogenerate => true
     )
     layoutroot = Page.create(
       :name => 'LayoutRoot',
-      :page_layout => '',
-      :language => '',
       :do_not_autogenerate => true,
       :layoutpage => true
     )

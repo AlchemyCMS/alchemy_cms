@@ -1,15 +1,5 @@
-/* Demo Note:  This demo uses a FileProgress class that handles the UI for displaying the file name and percent complete.
-The FileProgress class is not part of SWFUpload.
-*/
-
-
 /* **********************
-   Event Handlers
-   These are my custom event handlers to make my
-   web application behave the way I went when SWFUpload
-   completes different tasks.  These aren't part of the SWFUpload
-   package.  They are part of my application.  Without these none
-   of the actions SWFUpload makes will show up in my application.
+   Alchemy SWFUpload Event Handlers
    ********************** */
 function fileQueued(file) {
 	try {
@@ -55,8 +45,8 @@ function fileQueueError(file, errorCode, message) {
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
-    }
+		this.debug(ex);
+	}
 }
 
 function fileDialogComplete(numFilesSelected, numFilesQueued) {
@@ -64,11 +54,10 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
 		if (numFilesSelected > 0) {
 			document.getElementById(this.customSettings.cancelButtonId).disabled = false;
 		}
-		
 		/* I want auto start the upload and I can do that here */
 		this.startUpload();
 	} catch (ex)  {
-        this.debug(ex);
+		this.debug(ex);
 	}
 }
 
@@ -104,7 +93,6 @@ function uploadProgress(file, bytesLoaded, bytesTotal) {
 function uploadSuccess(file, serverData) {
 	eval(serverData);
 	try {
-		//console.log(serverData);
 		var progress = new FileProgress(file, this.customSettings.progressTarget);
 		progress.setComplete();
 		progress.setStatus("Complete.");
@@ -162,8 +150,8 @@ function uploadError(file, errorCode, message) {
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
-    }
+		this.debug(ex);
+	}
 }
 
 function uploadComplete(file) {
@@ -177,4 +165,7 @@ function queueComplete(numFilesUploaded) {
 	status.show();
 	status.innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
 	$('btnCancel').hide();
+	setTimeout(function () {
+		alchemy_window.close();
+	}, 2500);
 }

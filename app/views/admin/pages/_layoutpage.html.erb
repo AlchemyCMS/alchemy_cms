@@ -1,12 +1,26 @@
 <li class="page_level_<%= layoutpage.level %>">
     <div class="sitemap_page">
         <div class="sitemap_left_images">
-            <%= render(
-                :partial => 'page_icon',
-                :locals => {
-                    :page => layoutpage
-                }
-            ) -%>
+            <span class="site_status <%= layoutpage.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= layoutpage.id %><%= layoutpage.locked ? ' locked' : '' %>" ></span>
+            <div id="tooltip_<%= layoutpage.id %>" style="display: none;">
+                <h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
+                <p>
+                    <%= page.humanized_status %>
+                </p>
+                <p>
+                    <strong><%= _("created_at") %>:</strong><br />
+                    <%= l(page.created_at) %> von <%= page.creator %>
+                </p>
+                <p>
+                    <strong><%= _("updated_at") %>:</strong><br />
+                    <%= l(page.updated_at) %> durch <%= page.updater %>
+                </p>
+                <%- if page.locked? -%>
+                <p>
+                    <%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
+                </p>
+                <%- end -%>
+            </div>
         </div>
         <div class="sitemap_sitename">
             <%= link_to(

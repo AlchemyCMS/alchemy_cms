@@ -34,6 +34,9 @@ function FileProgress(file, targetID) {
 		progressText.className = "progressName";
 		progressText.appendChild(document.createTextNode(file.name));
 
+		var progressBarContainer = document.createElement("div");
+		progressBarContainer.className = "progressBarContainer";
+
 		var progressBar = document.createElement("div");
 		progressBar.className = "progressBarInProgress";
 
@@ -44,7 +47,8 @@ function FileProgress(file, targetID) {
 		this.fileProgressElement.appendChild(progressCancel);
 		this.fileProgressElement.appendChild(progressText);
 		this.fileProgressElement.appendChild(progressStatus);
-		this.fileProgressElement.appendChild(progressBar);
+		this.fileProgressElement.appendChild(progressBarContainer);
+		progressBarContainer.appendChild(progressBar);
 
 		this.fileProgressWrapper.appendChild(this.fileProgressElement);
 
@@ -57,7 +61,6 @@ function FileProgress(file, targetID) {
 	this.height = this.fileProgressWrapper.offsetHeight;
 	this.setTimer(null);
 
-
 }
 
 FileProgress.prototype.setTimer = function (timer) {
@@ -69,53 +72,49 @@ FileProgress.prototype.getTimer = function (timer) {
 
 FileProgress.prototype.reset = function () {
 	this.fileProgressElement.className = "progressContainer";
-
 	this.fileProgressElement.childNodes[2].innerHTML = "&nbsp;";
 	this.fileProgressElement.childNodes[2].className = "progressBarStatus";
-	
-	this.fileProgressElement.childNodes[3].className = "progressBarInProgress";
-	this.fileProgressElement.childNodes[3].style.width = "0%";
-	
-	this.appear();	
+	this.fileProgressElement.childNodes[3].className = "progressBarContainer";
+	this.fileProgressElement.childNodes[3].childNodes[0].className = "progressBarInProgress";
+	this.fileProgressElement.childNodes[3].childNodes[0].style.width = "0%";
+	this.appear();
 };
 
 FileProgress.prototype.setProgress = function (percentage) {
-	this.fileProgressElement.className = "progressContainer green";
-	this.fileProgressElement.childNodes[3].className = "progressBarInProgress";
-	this.fileProgressElement.childNodes[3].style.width = percentage + "%";
-
-	this.appear();	
-};
-FileProgress.prototype.setComplete = function () {
-	this.fileProgressElement.className = "progressContainer blue";
-	this.fileProgressElement.childNodes[3].className = "progressBarComplete";
-	this.fileProgressElement.childNodes[3].style.width = "";
-
-	var oSelf = this;
-	this.setTimer(setTimeout(function () {
-		oSelf.disappear();
-	}, 500));
-};
-FileProgress.prototype.setError = function () {
-	this.fileProgressElement.className = "progressContainer red";
-	this.fileProgressElement.childNodes[3].className = "progressBarError";
-	this.fileProgressElement.childNodes[3].style.width = "";
-
-	var oSelf = this;
-	this.setTimer(setTimeout(function () {
-		oSelf.disappear();
-	}, 1000));
-};
-FileProgress.prototype.setCancelled = function () {
 	this.fileProgressElement.className = "progressContainer";
-	this.fileProgressElement.childNodes[3].className = "progressBarError";
-	this.fileProgressElement.childNodes[3].style.width = "";
+	this.fileProgressElement.childNodes[3].className = "progressBarContainer";
+	this.fileProgressElement.childNodes[3].childNodes[0].style.width = percentage + "%";
+	this.fileProgressElement.childNodes[3].childNodes[0].className = "progressBarInProgress";
+	this.appear();
+};
 
+FileProgress.prototype.setComplete = function () {
+	this.fileProgressElement.className = "progressContainer";
+	this.fileProgressElement.childNodes[3].className = "progressBarContainer";
+	this.fileProgressElement.childNodes[3].childNodes[0].style.width = "100%";
+	this.fileProgressElement.childNodes[3].childNodes[0].className = "progressBarComplete";
 	var oSelf = this;
 	this.setTimer(setTimeout(function () {
 		oSelf.disappear();
-	}, 500));
+	}, 1500));
 };
+
+FileProgress.prototype.setError = function () {
+	this.fileProgressElement.className = "progressContainer";
+	this.fileProgressElement.childNodes[3].className = "progressBarContainer";
+	this.fileProgressElement.childNodes[3].childNodes[0].style.width = "100%";
+	this.fileProgressElement.childNodes[3].childNodes[0].className = "progressBarError";
+};
+
+FileProgress.prototype.setCancelled = function () {
+	this.fileProgressElement.childNodes[3].className = "progressBarContainer";
+	this.fileProgressElement.childNodes[3].childNodes[0].style.width = "100%";
+	this.fileProgressElement.childNodes[3].childNodes[0].className = "progressBarCanceled";
+	this.setTimer(setTimeout(function () {
+		oSelf.disappear();
+	}, 1500));
+};
+
 FileProgress.prototype.setStatus = function (status) {
 	this.fileProgressElement.childNodes[2].innerHTML = status;
 };
@@ -148,7 +147,7 @@ FileProgress.prototype.appear = function () {
 	} else {
 		this.fileProgressWrapper.style.opacity = 1;
 	}
-		
+	
 	this.fileProgressWrapper.style.height = "";
 	
 	this.height = this.fileProgressWrapper.offsetHeight;
@@ -161,8 +160,8 @@ FileProgress.prototype.appear = function () {
 FileProgress.prototype.disappear = function () {
 
 	var reduceOpacityBy = 15;
-	var reduceHeightBy = 4;
-	var rate = 30;	// 15 fps
+	var reduceHeightBy = 8;
+	var rate = 30;// 15 fps
 
 	if (this.opacity > 0) {
 		this.opacity -= reduceOpacityBy;

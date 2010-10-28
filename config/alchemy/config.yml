@@ -1,9 +1,11 @@
-:alchemy_version: 1.2.0
+# == This is the global Alchemy configuration file
+# Please override settings for your app in RAILS_ROOT/config/alchemy/config.yml of your application.
+
 :show_rootname: a name
 :mailer:
     :forward_to_page: false
     :mail_sucess_page: root
-    :mail_from: 'Alchemy <mail@alchemy.com>'
+    :mail_from: 'alchemy <mail@alchemy.com>'
 :visible: true
 :sitemap: 
   :show_root: true
@@ -11,43 +13,66 @@
 :auto_logout_time: 10
 :redirect_index: true
 :redirect_to_public_child: true
-# enable ferret search engine?
-:ferret: false
 
-#enable wapage caching?
+# Ferret fulltext search.
+:ferret: true
+
+# Page caching. Pass false to disable it globally.
 :cache_pages: true
 
-#image settings
+# Picture settings
 :output_image_jpg_quality: 85
 :preprocess_image_resize: 1000x1000
 :image_store_format: png
 :image_output_format: jpg
 
-#language settings
+# Language settings
 :default_language: de
 :default_alchemy_language: de
 :show_real_root: false
 :languages:
-    - :language_code: de
-      :language: Deutsch
-      :frontpage_name: Startseite
-      :page_layout: standard
-    - :language_code: en
-      :language: English
-      :frontpage_name: Frontpage
-      :page_layout: standard
+  - :language_code: de
+    :language: Deutsch
+    :frontpage_name: Startseite
+    :page_layout: intro
+  - :language_code: en
+    :language: English
+    :frontpage_name: Frontpage
+    :page_layout: intro
 
+# Set available translations for your customers.
 :translations:
   - :language_code: de
     :language: Deutsch
   - :language_code: en
     :language: English
 
+# Contactform settings
+:mailer:
+  :form_layout_name: contact
+  :fields:
+    - salutation: string
+    - firstname: string
+    - lastname: string
+    - address: string
+    - zip: string
+    - city: string
+    - phone: string
+    - email: string
+    - message: text
+  :validate_fields:
+    :lastname:
+      :message: blank_lastname
+    :email:
+      :message: blank_email
+
+# User roles.
 :user_roles: [registered, author, editor, admin]
 
-# This is the alchemy_plugins notation. To render the mainnavi we split alchemy into three plugins.
+# == This is the Alchemy plugin configuration.
+# To render the mainnavigation we split Alchemy into three plugins.
 # To make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
-# folder with a alchemy folder in it. Place a config.yml in this alchemy folder.
+# folder with a Alchemy folder in it. Place a config.yml in this Alchemy folder.
 #
 # vendor/plugins/MY_PLUGIN_NAME/init.rb
 # vendor/plugins/MY_PLUGIN_NAME/config/alchemy/config.yml
@@ -78,12 +103,12 @@ alchemy_plugins:
   - name: dashboard
     navigation:
       name: 'home'
-      controller: 'admin'
+      controller: admin
       action: index
-      image: /plugin_assets/alchemy/images/icons/home.png
+      icon: home
       sub_navigation:
         - name: 'home'
-          controller: 'admin'
+          controller: admin
           action: index
     
   - name: pages
@@ -96,7 +121,7 @@ alchemy_plugins:
       name: 'module: pages'
       controller: 'admin/pages'
       action: index
-      image: /plugin_assets/alchemy/images/icons/pages.png
+      icon: pages
       sub_navigation:
         - name: 'module: pages'
           controller: 'admin/pages'
@@ -113,7 +138,7 @@ alchemy_plugins:
       name: 'module: users'
       controller: 'admin/users'
       action: index
-      image: /plugin_assets/alchemy/images/icons/users.png
+      icon: users
       sub_navigation:
         - name: 'module: users'
           controller: 'admin/users'
@@ -124,7 +149,7 @@ alchemy_plugins:
       controller: 'admin/pictures'
       action: index
       name: 'module: library'
-      image: /plugin_assets/alchemy/images/icons/library.png
+      icon: library
       sub_navigation:
         - name: 'module: images'
           controller: 'admin/pictures'

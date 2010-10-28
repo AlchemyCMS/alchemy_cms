@@ -1,4 +1,4 @@
-class PicturesController < ApplicationController
+class PicturesController < AlchemyController
   
   caches_page :show, :thumbnail, :zoom
   
@@ -8,7 +8,7 @@ class PicturesController < ApplicationController
     @picture = Picture.find(params[:id])
     @size = params[:size]
     @crop = !params[:crop].nil?
-    @crop_from = params[:crop_from]
+    @crop_from = normalized_size(params[:crop_from])
     @crop_size = params[:crop_size]
     @padding = params[:padding]
     @upsample = !params[:upsample].nil? ? true : false
@@ -35,7 +35,7 @@ class PicturesController < ApplicationController
     else
       @size = "111x93"
     end
-    @crop = true
+    @crop = !params[:crop_size].blank? && !params[:crop_from].blank?
     respond_to do |format|
       format.png
     end
@@ -47,5 +47,14 @@ class PicturesController < ApplicationController
       format.png
     end
   end
-  
+
+private
+
+  def normalized_size(size)
+    return "" if size.blank?
+    size.split("x").map do |s| 
+      s.to_i < 0 ? 0 : s.to_i
+    end.join('x')
+  end
+
 end

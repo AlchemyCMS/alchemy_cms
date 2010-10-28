@@ -1,11 +1,11 @@
 class CreateEssenceVideos < ActiveRecord::Migration
   def self.up
-    create_table :essence_videos, :force => true do |t|
+    create_table :essence_videos do |t|
       t.integer :attachment_id
-      t.integer :width, :default => 400
-      t.integer :height, :default => 300
-      t.boolean :allow_fullscreeen, :default => true
-      t.boolean :show_eq, :default => true
+      t.integer :width
+      t.integer :height
+      t.boolean :allow_fullscreen, :default => true
+      t.boolean :auto_play, :default => false
       t.boolean :show_navigation, :default => true
       t.userstamps
       t.timestamps

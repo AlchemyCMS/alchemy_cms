@@ -1,6 +1,6 @@
 class CreateContents < ActiveRecord::Migration
   def self.up
-    create_table :contents, :force => true do |t|
+    create_table :contents do |t|
       t.string :name
       t.string :essence_type
       t.integer :essence_id

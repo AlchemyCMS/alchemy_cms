@@ -23,29 +23,4 @@ class Alchemy::Configuration < ActionController::Base
     return @config[name]
   end
   
-  def self.sortable_elements(page)
-    page.sortable(
-      "element_area",
-      :url => "/admin/elements/order",
-      :scroll => "window",
-      :tag => 'div',
-      :only => 'element_editor',
-      :dropOnEmpty => false,
-      :handle => 'element_handle'
-    )
-  end
-  
-  def self.sortable_contents(page, element)
-    page.sortable(
-      "element_#{element.id}_contents",
-      :scroll => 'window',
-      :tag => 'div',
-      :only => 'dragable_picture',
-      :handle => 'picture_handle',
-      :constraint => '',
-      :overlap => 'horizontal',
-      :url => "/admin/contents/order?element_id=#{element.id}"
-    )
-  end
-  
 end

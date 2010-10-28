@@ -65,6 +65,7 @@ class Element < ActiveRecord::Base
   
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
+    attributes.stringify_keys!
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
     element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
@@ -93,7 +94,7 @@ class Element < ActiveRecord::Base
     end
     copy
   end
-
+  
   def self.descriptions
     if File.exists? "#{RAILS_ROOT}/config/alchemy/elements.yml"
       @elements = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/elements.yml" )
@@ -104,46 +105,45 @@ class Element < ActiveRecord::Base
     end
   end
   
-  # Selects the content in the element.yml description that is flagged as take_me_for_preview or takes the first content if only one content exists for element.
-  # Then selects the content from the element that is equivalent to this flagged content to display its contect as preview text for element editor
+  # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
+  # You can flag a Content as +take_me_for_preview+ to take this as preview.
   def preview_text
-    text = ""
-    begin
-      my_contents = my_description["contents"]
-      unless my_contents.blank?
-        content_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first
-        if content_flagged_as_preview.blank?
-          content_to_take_as_preview = my_contents.first
-        else
-          content_to_take_as_preview = content_flagged_as_preview
-        end
-        preview_content = self.contents.select{ |content| content.name == content_to_take_as_preview["name"] }.first
-        unless preview_content.blank?
-          if preview_content.essence_type == "EssenceRichtext"
-            text = preview_content.essence.stripped_body.to_s
-          elsif preview_content.essence_type == "EssenceText"
-            text = preview_content.essence.body.to_s
-          elsif preview_content.essence_type == "EssencePicture"
-            text = (preview_content.essence.picture.name rescue "")
-          elsif preview_content.essence_type == "EssenceFile" || preview_content.essence_type == "EssenceFlash" || preview_content.essence_type == "EssenceFlashvideo"
-            text = (preview_content.essence.file.name rescue "")
-          else
-            text = ""
-          end
-        else
-          text = ""
-        end
-      end
-    rescue
-      logger.error("#{$!}\n#{$@.join('\n')}")
-      text = ""
+    return "" if my_description.blank?
+    my_contents = my_description["contents"]
+    return "" if my_contents.blank?
+    content_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first
+    if content_flagged_as_preview.blank?
+      content_to_take_as_preview = my_contents.first
+    else
+      content_to_take_as_preview = content_flagged_as_preview
     end
-    text.size > 30 ? text = (text[0..30] + "...") : text
-    text
+    preview_content = self.contents.select{ |content| content.name == content_to_take_as_preview["name"] }.first
+    return "" if preview_content.blank? || preview_content.essence.blank?
+    text = preview_content.essence.preview_text
+    text.size > 30 ? text[0..30] + "..." : text
   end
   
+  # Generates a preview text containing Element#display_name and Element#preview_text.
+  # It is displayed inside the head of the Element in the Elements.list overlay window from the Alchemy Admin::Page#edit view.
+  # 
+  # === Example
+  # 
+  # A Element described as:
+  #  
+  #     - name: funky_element
+  #       display_name: Funky Element
+  #       contents:
+  #       - name: headline
+  #         type: EssenceText
+  #       - name: text
+  #         type EssenceRichtext
+  #         take_me_for_preview: true
+  # 
+  # With "I want to tell you a funky story" as stripped_body for the EssenceRichtext Content produces:
+  # 
+  # Funky Element: I want to tell ...
   def display_name_with_preview_text
-    display_name + ": " + preview_text
+    "#{display_name}: #{preview_text}"
   end
   
   def dom_id
@@ -167,7 +167,7 @@ class Element < ActiveRecord::Base
   
   def self.get_from_clipboard(clipboard)
     return nil if clipboard.blank?
-    self.find(clipboard[:element_id])
+    self.find_by_id(clipboard[:element_id])
   end
   
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml

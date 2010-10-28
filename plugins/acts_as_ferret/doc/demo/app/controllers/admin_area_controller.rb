@@ -1,4 +1,0 @@
-class AdminAreaController < ApplicationController
-
-end
-

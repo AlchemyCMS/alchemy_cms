@@ -1,6 +1,6 @@
-class Admin::EssenceFilesController < ApplicationController
+class Admin::EssenceFilesController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :all
   
@@ -25,7 +25,7 @@ class Admin::EssenceFilesController < ApplicationController
     @content.essence.save
     @content.save
     render :update do |page|
-      page.replace "file_#{@content.id}", :partial => "essences/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
+      page.replace "#{@content.essence_type.underscore}_#{@content.id}", :partial => "essences/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
       page << "reloadPreview();alchemy_window.close()"
     end
   end

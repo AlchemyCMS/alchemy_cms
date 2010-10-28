@@ -1,4 +1,6 @@
-class Admin::ElementsController < ApplicationController
+class Admin::ElementsController < AlchemyController
+  
+  layout 'alchemy'
   
   before_filter :set_translation
   
@@ -28,9 +30,11 @@ class Admin::ElementsController < ApplicationController
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
     @elements = Element.all_for_layout(@page, @page.page_layout)
+    render :layout => false
   end
   
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
+  # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.
   def create
     begin
       if params[:element][:name] == "paste_from_clipboard"
@@ -47,16 +51,27 @@ class Admin::ElementsController < ApplicationController
           page.replace(:errors, 'fehler')
         end
       end
-    rescue
+    rescue Exception => e
       log_error($!)
-      render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("adding_element_not_successful"), :error)
+      # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
+      if e.class == Ferret::FileNotFoundError
+        EssenceText.rebuild_index
+        EssenceRichtext.rebuild_index
+        render :update do |page|
+          Alchemy::Notice.show_via_ajax(page, _("Index Error after creating Element. Please reload page!"), :error)
+        end
+      # Displaying error notice
+      else
+        render :update do |page|
+          Alchemy::Notice.show_via_ajax(page, _("adding_element_not_successful"), :error)
+        end
       end
     end
   end
   
+  # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.
+  # TODO: refactor this bastard. i bet to shrink this to 4 rows.
   def update
-    # TODO: refactor this bastard. i bet to shrink this to 4 rows
     @element = Element.find_by_id(params[:id])
     begin
       #save all contents in this element
@@ -101,19 +116,24 @@ class Admin::ElementsController < ApplicationController
         end
       end
       # update the updated_at and updated_by values for the page this element lies on.
-      @page = Page.find(@element.page_id)
+      @page = @element.page
       @element.public = !params[:public].nil?
       @element.save!
       @has_richtext_essence = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
     rescue Exception => e
       log_error($!)
-      render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("element_not_saved"), :error)
-      end
-      # rebuilding the ferret search engine indexes
-      if e == Ferret::FileNotFoundError
+      # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
+      if e.class == Ferret::FileNotFoundError
         EssenceText.rebuild_index
         EssenceRichtext.rebuild_index
+        render :update do |page|
+          Alchemy::Notice.show_via_ajax(page, _("Index Error after saving Element. Please try again!"), :error)
+        end
+      # Displaying error notice
+      else
+        render :update do |page|
+          Alchemy::Notice.show_via_ajax(page, _("element_not_saved"), :error)
+        end
       end
     end
   end
@@ -156,7 +176,7 @@ class Admin::ElementsController < ApplicationController
   end
   
   def order
-    for element in params[:element_area]
+    for element in params[:element_ids]
       element = Element.find(element)
       element.move_to_bottom
     end

@@ -1,8 +1,12 @@
-<% remote_form_for([:admin, @essence_picture], :html => {:class => "with_padding"}) do |f| %>
+<% remote_form_for(
+    @essence_picture,
+    :url => admin_essence_picture_path(@essence_picture, :options => @options),
+    :html => {:class => "with_padding"}
+) do |f| %>
 	<table border="0" cellspacing="4" cellpadding="0">
 		<tr>
-			<td><%= f.label "caption", _("image_caption") %></td>
-			<td>
+			<td class="label"><%= f.label "caption", _("image_caption") %></td>
+			<td class="input">
 				<%- if @options[:caption_as_textarea] -%>
 				<%= f.text_area "caption", :class => 'thin_border' %>
 				<%- else -%>
@@ -18,14 +22,17 @@
 			<td><%= f.label "alt_tag", _("image_alt_tag") %></td>
 			<td><%= f.text_field "alt_tag", :class => 'thin_border long' %></td>
 		</tr>
+		<%- if @options[:image_float_selector] -%>
 		<tr>
 			<td><%= f.label "css_class", _("align_in_text") %></td>
 			<td>
 				<%= f.select "css_class", [[_("left"), "left"], [_("right"), "right"], [_("above"), "no_float"]] %>
 			</td>
 		</tr>
+		<%- end -%>
 		<tr>
 			<td colspan="2" style="text-align:right">
+			    <%= hidden_field_tag 'content_id', @content.id %>
 				<%= submit_tag _("save"), :class => 'button' %>
 			</td>
 		</tr>

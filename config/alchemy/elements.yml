@@ -1,19 +1,22 @@
-# In this configuration you setup alchemy´s element layouts.
-#
-# Elements containing all necessary basic tools for applying alchemy.
+# == In this configuration you setup Alchemy´s element layouts.
+# 
+# *Notice. Please place your own version of this file inside +RAILS_ROOT/config/alchemy/+.*
+# 
+# Elements containing all necessary basic tools for displaying and editing content inside Alchemy.
 # They consists of composed contents (different essence-types) as shown in the illustration of an elements-sheme below.
 #
-# Scheme of an element
-# =================================
-# #  Content 1 (EssenceText)      #
-# #                               #
-# #  Content 2 (EssencePicture)   #
-# #                               #
-# #  Content 3 (EssenceRichtext)  #
-# =================================
+# == Schema of an element
+# 
+#   =================================
+#   #  Content 1 (EssenceText)      #
+#   #                               #
+#   #  Content 2 (EssencePicture)   #
+#   #                               #
+#   #  Content 3 (EssenceRichtext)  #
+#   =================================
 #
-#
-# Example for a basic element layout
+# == Example of a basic element layout
+# 
 #   - name: a_unique_name
 #     display_name: Some nice Display Name
 #     unique: Bool //pass true if this element only can be displayed once on page
@@ -23,42 +26,42 @@
 #     - name: text
 #       type: EssenceRichtext
 #
-#
 # As already mentioned above, there are different content-types wich can be defined for each content in an element.
 # Defining these types is used to render predefined views in the element.
 #
-# Content-Types:
+# == Content-Types:
 #
-# * EssenceText (render essence with a single-lined inputfield)
-# * EssenceRichtext (render essence with a textarea and TinyMCE)
-# * EssencePicture (render essence containing a picture-editor)
-# * EssenceFlash (render essence with an embed flashmovie)
-# * EssenceDate (render essence as a date-selector)
-# * EssenceHtml (render essence as html-code)
+# * EssenceText               (Used to store a String (max. 255 Chars.) i.e. a headline, or productname. The editor is renderd as a single-lined input field. The view output will be sanitized and escaped. So it's XSS save.)
+# * EssenceRichtext           (Used to store editable richtext. Editor is rendered as a textarea with TinyMCE Editor.)
+# * EssencePicture            (Used to store picture ids from pictures assigned through the library. The editor is rendered as a picture-editor collection with a lot of options (i.e. image cropper). The view renders the assigned picture, resizes it, crops it and caches the result.)
+# * EssenceFlash              (Used to store attachment ids from attachments assigned through the library. The view renders an embeded object.)
+# * EssenceDate               (Used to store a DateTime object. The view output is passed through Rails I18n Library, so it will be fully localized.)
+# * EssenceHtml               (Used to store a String (max. 255 Chars.). The view output renders the raw, not sanitized or unescaped String. So be carefull!)
 # 
-# After finishing the setup of your element layouts, you need to generate the files for the elements before using them in alchemy.
-# For creating these files, use the following command in your terminal
-# script/generate elements
+# After finishing the setup of your element layouts, you need to generate the files for the elements before using them in Alchemy.
+# For creating these files, use the following command in your terminal:
 # 
-# All new elements will be created as two different files in ./app/views/elements
-# For each element there is an editor-view wich will be rendered in when applying alchemy and another view for the website´s frontend.
-# - app/views/elements/_elementsname_editor.html.erb
-# - app/views/elements/_elementsname_view.html.erb
-#
+#   script/generate elements
+# 
+# All new elements will be created as two different partials in RAILS_ROOT/app/views/elements.
+# For each element there is an editor-view wich will be rendered when editing them in Alchemy and another view for the website´s frontend.
+# 
+#   app/views/elements/_elementsname_editor.html.erb
+#   app/views/elements/_elementsname_view.html.erb
+# 
 # For most contents in an element you can specify additional options, so they get rendered in a specific way.
 # These options can be defined as symbols, but its too much to list them up here.
 # You can find these options described in the application_helper.rb, most of them at the render_essence method.
 #
-#
-# Setting a content as preview-text for the element
-# #################################################
+# == Setting a content as preview-text for the element
+# 
 # You can set a content-essence as preview-text for its element like this
 # take_me_for_preview: true
 #
 #
-# Adding contents dynamically in the frontend
-# ###########################################
-# You are able to add content-essences dynamically to the element from the alchemy frontend.
+# == Adding contents dynamically in the frontend
+# 
+# You are able to add content-essences dynamically to the element from the Alchemy frontend.
 # You just have to make contents available for adding them.
 # This example enables this feature
 # 
@@ -74,18 +77,17 @@
 #     - name: big_text
 #       type: EssenceRichtext
 #
-# Now an alchemy user can add the content 'big_text' from the element as much as desired.
+# Now an Alchemy user can add the content 'big_text' from the element as much as desired.
 #
 #
-# Not modifiable Elements
-# ####################### 
+# == Not modifiable Elements
+# 
 # There are some elements you can render but not modify because they are statically and dont need any individualism.
 # * Sitemap (app/views/elements/_sitemap.html.erb)
 #
-#
-# Adding Stylesheets for contents
-# ###############################
-# You can add the possibility to access stylesheets for a specific content when using an element in alchemy´s frontend.
+# == Adding Stylesheets for contents
+# 
+# You can add the possibility to access stylesheets for a specific content when using an element in Alchemy´s frontend.
 # This feature needs to be enabled as shown in the example below.
 #
 #   - name: headline
@@ -109,61 +111,126 @@
 # </h1>
 #
 
-- name: text
-  display_name: Text
-  contents: 
-  - name: head
-    type: EssenceText
-  - name: text
-    type: EssenceRichtext
-
-- name: date
-  display_name: Termin
-  contents: 
-  - name: date
-    type: EssenceDate
-    
-- name: google_map
-  display_name: Google Map
-  unique: true
-  contents:
-  - name: head
-    type: EssenceText
-  - name: text
-    type: EssenceRichtext
-  - name: map
-    type: EssenceHtml
-        
 - name: article
-  display_name: Bild mit Text
+  display_name: Standard-Artikel
   contents:
-  - name: bild
-    type: EssencePicture
+  - name: intro
+    type: EssenceText
   - name: headline
     type: EssenceText
+  - name: image
+    type: EssencePicture
   - name: text
     type: EssenceRichtext
 
-- name: picture_gallery
-  display_name: Bildergalerie
+- name: intro_image_text
+  display_name: Intro-Artikel
+  unique: true
   contents:
-  - name: gallery_name
+  - name: headline
     type: EssenceText
-  - name: picture1
+  - name: image
+    type: EssencePicture
+  - name: text
+    type: EssenceRichtext
+  
+- name: text
+  display_name: Text
+  contents:
+  - name: text
+    type: EssenceRichtext
+
+- name: bild
+  display_name: Bild
+  contents: 
+  - name: image
     type: EssencePicture
 
-- name: file_download
-  display_name: Datei download
+- name: bild_text
+  display_name: Bild und Text
+  contents: 
+  - name: image
+    type: EssencePicture
+  - name: text
+    type: EssenceRichtext
+
+- name: headline
+  display_name: Überschrift 2
   contents:
-  - name: file
-    type: EssenceFile
+  - name: headline
+    type: EssenceText
+
+- name: image_mosaic
+  display_name: Mosaik
+  contents: 
+  - name: image
+    type: EssencePicture
+  - name: caption
+    type: EssenceText
+
+- name: footnote
+  display_name: Fußnote
+  unique: true
+  contents:
+  - name: note
+    type: EssenceRichtext
+
+- name: sitename
+  display_name: Webseiten-Name
+  unique: true
+  contents:
+  - name: name
+    type: EssenceText
+
+- name: claim
+  display_name: Claim
+  unique: true
+  contents:
+  - name: claim
+    type: EssenceText
+
+- name: header
+  display_name: Header Bild
+  unique: true
+  contents:
+  - name: image
+    type: EssencePicture
+
+- name: intro
+  display_name: Überschrift 1
+  contents:
+  - name: intro
+    type: EssenceRichtext
+
+- name: subheadline
+  display_name: Zwischenüberschrift
+  contents:
+  - name: subheadline
+    type: EssenceText
+
+- name: news
+  display_name: News
+  contents:
+  - name: date
+    type: EssenceDate
+  - name: news_headline
+    type: EssenceText
+  - name: body
+    type: EssenceRichtext
+
+- name: searchresult
+  unique: true
+  display_name: Suchergebnis
 
 - name: contactform
   display_name: Kontaktformular
+  unique: true
   contents:
   - name: mail_from
     type: EssenceText
   - name: mail_to
     type: EssenceText
   - name: subject
+    type: EssenceText
+  - name: success_page
     type: EssenceText

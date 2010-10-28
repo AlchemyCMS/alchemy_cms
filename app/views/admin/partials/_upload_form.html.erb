@@ -46,9 +46,7 @@
 </div>
 
 <div id="divStatus" class="with_padding" style="display: none"></div>
-<div id="divFileProgressContainer">
-	<div id="fsUploadProgress"></div>
-</div>
+<div id="uploadProgressContainer"></div>
 
 <%- session_key = ActionController::Base.session_options[:key] -%>
 
@@ -66,8 +64,8 @@
 <script type='text/javascript'>
 	try {
 		var settings = {
-			flash_url : "/plugin_assets/alchemy/javascripts/swfupload/swfupload.swf",
-			flash9_url : "/plugin_assets/alchemy/javascripts/swfupload/swfupload.swf",
+			flash_url : "/javascripts/alchemy/swfupload/swfupload.swf",
+			flash9_url : "/javascripts/alchemy/swfupload/swfupload.swf",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
 			post_params: <%= post_params %>,
 			file_size_limit : "500 MB",
@@ -76,17 +74,17 @@
 			file_upload_limit : 500,
 			file_queue_limit : 0,
 			custom_settings : {
-				progressTarget : "fsUploadProgress",
+				progressTarget : "uploadProgressContainer",
 				cancelButtonId : "btnCancel"
 			},
 			debug: false,
-			button_image_url: "/plugin_assets/alchemy/images/swfupload/browse_button.png",
+			button_image_url: "/images/alchemy/swfupload/browse_button.png",
 			button_width: "120",
 			button_height: "21",
 			button_placeholder_id: "spanButtonPlaceHolder",
 			button_text: "<span class='swfButtonText'><%= _('browse') %></span>",
-			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 21px; padding-left: 8px; padding-right: 8px; padding-bottom: 2px;}',
-			button_text_left_padding: 1,
+			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 21px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 3px}',
+			button_text_left_padding: 0,
 			button_text_top_padding: 2,
 			swfupload_load_failed_handler: function () {
 				$('swfUploadFlashError').show();
@@ -113,3 +111,6 @@
 		$('flash_upload_error_explaination').show();
 	};
 </script>
+<div id="SWFUpload_Console">
+    
+</div>

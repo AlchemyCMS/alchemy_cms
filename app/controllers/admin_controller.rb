@@ -1,19 +1,18 @@
-class AdminController < ApplicationController
-  
-  before_filter :set_translation
+class AdminController < AlchemyController
   
   filter_access_to :index
   
+  layout 'alchemy'
+  
   def index
-    # Hello!
-    @alchemy_version = configuration(:alchemy_version)
+    @alchemy_version = Alchemy.version
   end
   
   # Signup only works if no user is present in database.
   def signup
+    flash[:explain] = _("Please Signup")
     if request.get?
       redirect_to admin_path if User.count != 0
-      flash[:explain] = _("Please Signup")
       @user = User.new
     else
       @user = User.new(params[:user].merge({:role => 'admin'}))
@@ -59,35 +58,4 @@ class AdminController < ApplicationController
     redirect_to root_url
   end
   
-  def save_contentposition
-    unless params[:sitemap].nil?
-      parent = Page.find(:first, :conditions => {:parent_id => nil})
-      for pages in params[:sitemap]["0"]
-        for page in pages
-          unless page["id"].nil? || page["id"] == "id"
-            p = Page.find(page["id"])
-            p.move_to_child_of parent
-          end
-        end
-      end
-    end
-    unless params[:sitemap_2].nil?
-      parent = Page.find(params[:sitemap_2]["id"]).parent_id
-      for pages in params[:sitemap_2]["0"]
-        for page in pages
-          unless page["id"].nil? || page["id"] == "id"
-            p = Page.find(page["id"])
-            p.move_to_child_of parent
-          end
-        end
-      end
-    end
-    redirect_to :action => 'index'
-  end
-  
-  def infos
-    @version = configuration(:alchemy_version)
-    render :layout => false
-  end
-    
 end

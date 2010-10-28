@@ -1,4 +1,4 @@
-class ElementsController < ApplicationController
+class ElementsController < AlchemyController
   
   filter_access_to [:show], :attribute_check => true
   

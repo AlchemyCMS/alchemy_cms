@@ -1,6 +1,6 @@
 class CreatePages < ActiveRecord::Migration
   def self.up
-    create_table :pages, :force => true do |t|
+    create_table :pages do |t|
       t.string :name
       t.string :urlname
       t.string :title

@@ -1,3 +1,35 @@
+namespace :db do
+  namespace :migrate do
+    desc "Runs the Alchemy database migrations"
+    task :alchemy => :environment do
+      if ActiveRecord::Base.connection.execute("SHOW TABLES").num_rows == 0
+        ActiveRecord::Base.connection.execute(
+          "CREATE TABLE `#{ActiveRecord::Migrator.schema_migrations_table_name}` (
+            `version` varchar(255) NOT NULL,
+            UNIQUE KEY `unique_#{ActiveRecord::Migrator.schema_migrations_table_name}` (`version`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+        )
+      end
+      Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
+    end
+  end
+  
+  namespace :convert do
+    desc "Convert the schema_migrations table to alchemy layout"
+    task :alchemy_migrations => :environment do
+      if Alchemy::Migrator.schema_already_converted?
+        puts('Already converted')
+        abort
+      else
+        ActiveRecord::Base.connection.update(
+          "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN (#{Alchemy::Migrator.available_versions.join(',')})"
+        )
+      end
+    end
+  end
+  
+end
+
 namespace 'alchemy' do
   
   desc 'Turns everything in Alchemy. Voodooo'
@@ -10,6 +42,47 @@ namespace 'alchemy' do
     Rake::Task['alchemy:upgrades:rename_files_and_folders'].invoke
     Rake::Task['alchemy:upgrades:add_locales'].invoke
     Rake::Task['alchemy:upgrades:svn_commit'].invoke
+  end
+  
+  namespace 'migrations' do
+    desc "Syncs Alchemy migrations into db/migrate"
+    task 'sync' do
+      system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
+    end
+  end
+  
+  namespace 'assets' do
+    namespace 'copy' do
+      
+      desc "Copy all assets for Alchemy into apps public folder"
+      task "all" do
+        Rake::Task['alchemy:assets:copy:javascripts'].invoke
+        Rake::Task['alchemy:assets:copy:stylesheets'].invoke
+        Rake::Task['alchemy:assets:copy:images'].invoke
+      end
+      
+      desc "Copy javascripts for Alchemy into apps public folder"
+      task "javascripts" do
+        system "rm -rf #{Rails.root}/public/javascripts/alchemy"
+        system "mkdir -p #{Rails.root}/public/javascripts/alchemy"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts', '*')} #{RAILS_ROOT}/public/javascripts/alchemy/"
+      end
+      
+      desc "Copy stylesheets for Alchemy into apps public folder"
+      task "stylesheets" do
+        system "rm -rf #{Rails.root}/public/stylesheets/alchemy"
+        system "mkdir -p #{Rails.root}/public/stylesheets/alchemy"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets', '*')} #{RAILS_ROOT}/public/stylesheets/alchemy/"
+      end
+      
+      desc "Copy images for Alchemy into apps public folder"
+      task "images" do
+        system "rm -rf #{Rails.root}/public/images/alchemy"
+        system "mkdir -p #{Rails.root}/public/images/alchemy"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images', '*')} #{RAILS_ROOT}/public/images/alchemy/"
+      end
+      
+    end
   end
   
   namespace 'upgrades' do
@@ -348,4 +421,15 @@ EOF
     
   end
   
+end
+
+namespace :ferret do
+  desc "Updates the ferret index for the application."
+  task :rebuild_index => [ :environment ] do | t |
+    puts "Rebuilding Ferret Index for EssenceText"
+    EssenceText.rebuild_index
+    puts "Rebuilding Ferret Index for EssenceRichtext"
+    EssenceRichtext.rebuild_index
+    puts "Completed Ferret Index Rebuild"
+  end
 end

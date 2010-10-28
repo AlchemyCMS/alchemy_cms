@@ -10,7 +10,7 @@ when "EssencePicture"
     }
   )
   if @dragable
-    Alchemy::Configuration.sortable_contents(page, @element)
+    page << "jQuery('#element_#{@element.id}_contents').sortable('refresh')"
   end
   if !@options[:maximum_amount_of_images].blank? && (@contents_of_this_type.length >= @options[:maximum_amount_of_images].to_i)
     page.remove "add_content_#{@element.id}"

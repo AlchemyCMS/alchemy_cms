@@ -9,9 +9,14 @@
     <%= _('explain cropping') %>
 </div>
 
-<% remote_form_for([:admin, @essence_picture], :html => {:class => "with_padding"}) do |f| %>
+<% remote_form_for(
+    @essence_picture,
+    :url => admin_essence_picture_path(@essence_picture, :options => @options),
+    :html => {:class => "with_padding"}
+) do |f| %>
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
+    <%= hidden_field_tag 'content_id', @content.id %>
     <%= f.submit _("save"), :class => 'button' %>
 <%- end -%>
 

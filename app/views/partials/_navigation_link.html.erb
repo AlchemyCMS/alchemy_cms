@@ -8,15 +8,7 @@
 <%- else -%>
 <%= link_to(
     h(navigation_link.name),
-    {
-        :urlname => navigation_link.urlname
-    }.merge(
-        {
-            :controller => 'pages',
-            :action => 'show',
-            :lang => (multi_language? ? session[:language] : nil)
-        }
-    ),
+    "#{multi_language? ? '/' + session[:language] : nil}/#{navigation_link.urlname}",
     {
         :class => (page_active?(navigation_link) ? 'active' : nil),
         :title => (options[:show_title] == true ? navigation_link.title : nil)

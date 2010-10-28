@@ -1,0 +1,92 @@
+<% form_for(@mail ||= Mail.new, :html => {:id => "contact"}) do |f| %>
+    <%= f.error_messages %>
+    <%= f.hidden_field "contact_form_id", :value => element.id %>
+    <%= hidden_field_tag "mail_to", params[:mail_to] %>
+    <table class="contactform">
+    	<tr>
+    		<td class="label">
+    			<label for="mail_salutation">
+    				<%= t('contactform.labels.salutation') %>
+    			</label>
+    		</td>
+    		<td class="field">
+    			<%= f.select(
+    				:salutation,
+    				[
+    					[t('contactform.labels.mr')],
+    					[t('contactform.labels.mrs')]
+    				],
+    				:prompt => t('contactform.labels.choose'),
+    				:class => "select"
+    			) %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="label">
+    			<label for="mail_firstname">
+    				<%= t('contactform.labels.firstname') %>
+    			</label>
+    		</td>
+    		<td class="field">
+    			<%= f.text_field(:firstname, :class => "field") %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="label">
+    			<label for="mail_lastname">
+    				<%= t('contactform.labels.lastname') %>
+    			</label><small>*</small>
+    		</td>
+    		<td class="field">
+    			<%= f.text_field(:lastname, :class => "field") %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="label">
+    			<label for="mail_address">
+    				<%= t('contactform.labels.address') %>
+    			</label>
+    		</td>
+    		<td class="field">
+    			<%= f.text_field :address, :class => 'field' %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="label">
+    			<label for="mail_zip">
+    				<%= t('contactform.labels.zip') %>
+    			</label>
+    		</td>
+    		<td class="field">
+    			<%= f.text_field :zip, :class => 'field short' %>
+    			<%= f.text_field :city, :class => 'field medium' %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="label">
+    			<label for="mail_phone">
+    				<%= t('contactform.labels.phone') %>
+    			</label>
+    		</td>
+    		<td class="field">
+    			<%= f.text_field :phone, :class => 'field' %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="label">
+    			<label for="mail_email">
+    				<%= t('contactform.labels.email') %>
+    			</label><small>*</small>
+    		</td>
+    		<td class="field">
+    			<%= f.text_field :email, :class => 'field' %>
+    		</td>
+    	</tr>
+    </table>
+    <div id="message">
+        <%= f.text_area :message %>
+    </div>
+    <p class="right">
+    	<%= f.submit t('contactform.labels.send'), :name => nil, :class => 'button' %>
+    </p>
+<% end %>

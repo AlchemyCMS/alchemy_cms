@@ -1,6 +1,6 @@
 class CreateEssenceRichtexts < ActiveRecord::Migration
   def self.up
-    create_table :essence_richtexts, :force => true do |t|
+    create_table :essence_richtexts do |t|
       t.text :body
       t.text :stripped_body
       t.boolean :do_not_index, :default => false

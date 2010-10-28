@@ -5,11 +5,23 @@
 <%- end -%>
 <%- content_for(:subnavi) do -%>
 <div id="sub_navigation">
+    <%- for page in Page.all_locked_by(current_user) do -%>
+    <%- if @page == page -%>
 	<span class="page_status_and_name">
-		<span class="page_name"><%= @page.name %></span>
-		<%= image_tag("flags/#{session[:language]}.png", :plugin => :alchemy) if configuration(:languages).size > 1 && !@layoutpage %>
-		<%= render :partial => 'page_status', :locals => {:page => @page} %>
+		<span class="page_name"><%= page.name %></span>
+		<%- if configuration(:languages).size > 1 && !@layoutpage -%>
+		<span class="flag <%= session[:language] %>"></span>
+		<%- end -%>
+		<span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? _('Page public') : _('Page not public') %>"></span>
+        <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.visible ? _('Page visible') : _('Page not visible') %>"></span>
+        <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
 	</span>
+    <%- else -%>
+    <% link_to edit_admin_page_path(page) do %>
+    <span class="page_name"><%= page.name %></span>
+    <% end %>
+    <%- end -%>
+	<%- end -%>
 </div>
 <%- end -%>
 <%- content_for(:toolbar) do -%>
@@ -23,7 +35,7 @@
 				)
 			) do %>
 				<button class="icon_button" title="<%= _('explain_unlocking') %>">
-					<%= image_tag('icons/cross.png', :plugin => 'alchemy') %>
+					<%= render_icon('close') %>
 				</button><br />
 				<label><%= _("unlock_page") %></label>
 			<% end %>
@@ -35,7 +47,7 @@
 					:onsubmit => "pleaseWaitOverlay();"
 				) do -%>
 					<button class="icon_button" title="<%= _('explain_publishing') %>">
-						<%= image_tag('icons/broom.png', :plugin => 'alchemy') %>
+						<%= render_icon('flush') %>
 					</button><br />
 					<label><%= _("Sweepe cache") %></label>
 				<% end -%>
@@ -44,7 +56,7 @@
 		<%- unless @page.layoutpage? -%>
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
-				content_tag('span', '', :class => 'icon settings'),
+				render_icon('settings'),
 				configure_admin_page_path(@page),
 				{
 					:title => _('edit_page_properties'),
@@ -58,7 +70,7 @@
 		<%- end -%>
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
-				content_tag('span', '', :class => 'icon new_element'),
+				render_icon('new_element'),
 				new_admin_element_path(:page_id => @page.id),
 				{
 					:title => _('Choose Element'),
@@ -79,8 +91,8 @@
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
-			openElementsWindow(<%= @page.id %>, '<%= _('Elements') %>');
-			openPreviewWindow('<%= preview_admin_page_url(@page) %>', '<%= _('Page Preview') %>');
+			openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
+			openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});
 	//]]-->
 	</script>

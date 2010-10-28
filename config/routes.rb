@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
       :pages,
       :collection => {
         :switch_language => :get,
-        :create_language => :post,
+        :create_language => :get,
         :link => :get,
         :layoutpages => :get,
         :move => :post,
@@ -54,12 +54,16 @@ ActionController::Routing::Routes.draw do |map|
     )
     admin.resources :essence_pictures, :member => {:crop => :get}, :except => [:show, :new, :create]
     admin.resources :essence_files
+    admin.resources :essence_videos
   end
   map.resources :user_sessions
   map.resources :elements, :only => :show
   map.resources :mails
+  map.show_cropped_picture '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format', :controller => 'pictures', :action => 'show'
+  map.show_picture_with_crop '/pictures/show/:id/:size/:crop/:name.:format', :controller => 'pictures', :action => 'show'
   map.show_picture '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
   map.zoom_picture '/pictures/zoom/:id/picture.png', :controller => 'pictures', :action => 'zoom'
+  map.croppped_thumbnail '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex

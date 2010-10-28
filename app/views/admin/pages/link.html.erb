@@ -21,7 +21,7 @@
 	<%= render :partial => 'contactform_links' %>
 <%- end -%>
 <%- javascript_tag do -%>
-  if (link_window.tinyMCE) {
+  if (link_window.linked_element) {
     selectLinkWindowTab();
   }
 <%- end -%>

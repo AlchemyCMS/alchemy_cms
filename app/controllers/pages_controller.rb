@@ -1,9 +1,9 @@
-class PagesController < ApplicationController
+class PagesController < AlchemyController
   
   before_filter :set_language_from_client, :only => [:show, :sitemap]
   before_filter :get_page_from_urlname, :only => [:show, :sitemap]
   
-  filter_access_to [:show], :attribute_check => true
+  filter_access_to :show, :attribute_check => true
   
   caches_action(
     :show,

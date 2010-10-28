@@ -1,13 +1,13 @@
-class Admin::PagesController < ApplicationController
+class Admin::PagesController < AlchemyController
   
   helper :pages
   
-  layout 'admin'
+  layout 'alchemy'
   
-  before_filter :set_translation, :except => [:preview]
-  before_filter :get_page_from_id, :only => [:publish, :unlock, :preview, :configure, :update, :fold, :destroy]
+  before_filter :set_translation, :except => [:show]
+  before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy]
   
-  filter_access_to [:unlock, :publish, :preview, :configure, :edit, :update, :destroy], :attribute_check => true
+  filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move, :flush], :attribute_check => false
   
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
@@ -24,39 +24,12 @@ class Admin::PagesController < ApplicationController
         redirect_to :admin
       end
     end
-    render :layout => 'admin'
   end
   
-  def link
-    @url_prefix = ""
-    if configuration(:show_real_root)
-      @page_root = Page.root
-    else
-      @page_root = Page.find_by_language_root_for(session[:language])
-    end    
-    @area_name = params[:area_name]
-    @content_id = params[:content_id]
-    if params[:link_urls_for] == "newsletter"
-      # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
-      #@url_prefix = "#{get_server}/recipients/reacts"
-      @url_prefix = get_server
-    end
-    if multi_language?
-      @url_prefix = "#{session[:language]}/"
-    end
-    render :layout => false
-  end
-  
-  def fold
-    # @page is fetched via before filter
-    @page.fold(current_user.id, !@page.folded?(current_user.id))
-    @page.save
-    render :nothing => true
-  end
-  
-  def layoutpages
-    @layout_root = Page.layout_root
-    render :layout => 'admin'
+  def show
+    # fetching page via before filter
+    @preview_mode = true
+    render :layout => 'pages'
   end
   
   def new
@@ -76,17 +49,27 @@ class Admin::PagesController < ApplicationController
         page.move_to_child_of(parent)
       end
       render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
-    rescue
+    rescue Exception => e
+      render :update do |page|
+        Alchemy::Notice.show_via_ajax(page, _("Error while creating page: %{error}") % {:error => e}, :error)
+      end
       log_error($!)
     end
   end
   
-  def preview
+  # Edit the content of the page and all its elements and contents.
+  def edit
     # fetching page via before filter
-    @preview_mode = true
-    render :layout => 'pages'
+    @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
+    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
+      flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
+      redirect_to admin_pages_path
+    else
+      @page.lock(current_user)
+    end
   end
   
+  # Set page configuration like page names, meta tags and states.
   def configure
     # fetching page via before filter
     if @page.redirects_to_external?
@@ -117,6 +100,37 @@ class Admin::PagesController < ApplicationController
     end
   end
   
+  def link
+    @url_prefix = ""
+    if configuration(:show_real_root)
+      @page_root = Page.root
+    else
+      @page_root = Page.find_by_language_root_for(session[:language])
+    end    
+    @area_name = params[:area_name]
+    @content_id = params[:content_id]
+    if params[:link_urls_for] == "newsletter"
+      # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
+      #@url_prefix = "#{current_server}/recipients/reacts"
+      @url_prefix = current_server
+    end
+    if multi_language?
+      @url_prefix = "#{session[:language]}/"
+    end
+    render :layout => false
+  end
+  
+  def fold
+    # @page is fetched via before filter
+    @page.fold(current_user.id, !@page.folded?(current_user.id))
+    @page.save
+    render :nothing => true
+  end
+  
+  def layoutpages
+    @layout_root = Page.layout_root
+  end
+  
   # Leaves the page editing mode and unlocks the page for other users
   def unlock
     # fetching page via before filter
@@ -135,18 +149,6 @@ class Admin::PagesController < ApplicationController
     @page.save
     flash[:notice] = _("page_published") % {:name => @page.name}
     redirect_back_or_to_default(admin_pages_path)
-  end
-  
-  def edit
-    @page = Page.find(params[:id])
-    @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
-    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
-      flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
-      redirect_to admin_pages_path
-    else
-      @page.lock(current_user)
-      render :layout => 'admin'
-    end
   end
   
   def create_language
@@ -209,11 +211,7 @@ class Admin::PagesController < ApplicationController
       title = _('create_new_language')
       render :update do |page|
         page << %(openOverlayWindow(
-          '#{url_for(
-            :controller => :pages,
-            :action => :create_language,
-            :language_code => params[:language]
-          )}',
+          '#{create_language_admin_pages_path(:language_code => params[:language])}',
           '#{title}',
           255,
           200,
@@ -221,6 +219,7 @@ class Admin::PagesController < ApplicationController
           'true',
           false
         ))
+        page << "pleaseWaitOverlay(false);"
       end
     else
       set_language(params[:language])

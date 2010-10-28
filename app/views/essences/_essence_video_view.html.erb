@@ -1,35 +1,35 @@
 <%- unless content.essence.attachment.nil? -%>
-<%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 320) : content.essence.width -%>
-<%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 240) : content.essence.height -%>
-<div id="alchemy_video_player_<%= content.id %>">
-  To watch this video, you need the latest <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash-Player</a> and active javascript in your browser.
-</div>
+
+<%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 480) : content.essence.width -%>
+<%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 320) : content.essence.height -%>
+
+<a  href="<%= show_attachment_path(content.essence.attachment) %>" 
+    id="player_<%= content.id %>" 
+    style="width: <%= width %>px; height: <%= height %>px; display: block">
+</a>
 <script type="text/javascript" charset="utf-8">
-	var flashvars = {
-		width: <%= width %>,
-		height: <%= height %>,
-		file: '<%= content.essence.attachment.public_filename %>',
-		<%- unless options[:player_cover_image].blank? -%>
-		image: '<%= "/" + options[:player_cover_image].public_file_path %>',
-		<%- end -%>
-		frontcolor: '<%= options[:player_frontcolor] || "0x000000" %>',
-		backcolor: '<%= options[:player_backcolor] || "0xFFFFFF" %>',
-		lightcolor: '<%= options[:player_lightcolor] || "0xEDEDED" %>',
-		screencolor: '<%= options[:player_screencolor] || "0x000000" %>',
-		shownavigation: '<%= content.essence.show_navigation ? "true" : "false" %>',
-		showeq: '<%= content.essence.show_eq ? "true" : "false" %>',
-		autorewind: "on",
-		volume: 90,
-		loop: "off",
-		mute: "off",
-		muteonly: "off"
-	};
-	var params = {
-		menu: false,
-		quality: "high",
-		allowfullscreen: '<%= content.essence.allow_fullscreen ? "true" : "false" %>'
-	};
-	var attributes = {};
-	swfobject.embedSWF( "/mediaplayer.swf", "alchemy_video_player_<%= content.id %>", <%= width %>, <%= height %>, "9", false, flashvars, params, attributes);
+    flowplayer("player_<%= content.id %>",
+        {
+            src: "/flowplayer-3.2.5.swf",
+            allowfullscreen: <%= content.essence.allow_fullscreen %>
+        },
+        {
+            clip: {
+                autoBuffering: true,
+                autoPlay: false,
+                scaling: 'fit'
+            },
+            plugins: {
+                controls:
+                <%- if content.essence.show_navigation -%>
+                {
+                        fullscreen: <%= content.essence.allow_fullscreen %>
+                }
+                <%- else -%>
+                null
+                <%- end -%>
+            }
+        }
+    );
 </script>
 <%- end -%>

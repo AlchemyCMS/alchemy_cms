@@ -2,12 +2,26 @@
 	<div class="sitemap_page">
 		<div class="sitemap_left_images">
 			<%= sitemapFolderLink(page, _('Show/Hide Childpages')) if !page.children.blank? %>
-			<%= render(
-				:partial => 'page_icon',
-				:locals => {
-					:page => page
-				}
-			) -%>
+			<span class="site_status <%= page.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= page.id %><%= page.locked ? ' locked' : '' %>" ></span>
+            <div id="tooltip_<%= page.id %>" style="display: none;">
+            	<h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
+            	<p>
+            		<%= page.humanized_status %>
+            	</p>
+            	<p>
+            		<strong><%= _("created_at") %>:</strong><br />
+            		<%= l(page.created_at) %> von <%= page.creator %>
+            	</p>
+            	<p>
+            		<strong><%= _("updated_at") %>:</strong><br />
+            		<%= l(page.updated_at) %> durch <%= page.updater %>
+            	</p>
+            	<%- if page.locked? -%>
+            	<p>
+            		<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
+            	</p>
+            	<%- end -%>
+            </div>
 		</div>
 		<div class="sitemap_right_tools">
 			<%- if !page.layoutpage? -%>
@@ -62,7 +76,9 @@
 			<%- end -%>
 		</div>
 		<div class="page_infos">
-			<%= render :partial => 'page_status', :locals => {:page => page} %>
+			<span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.public ? _('Page public') : _('Page not public') %>"></span>
+            <span class="page_status <%= page.visible ? 'visible' : 'not_visible' %>" title="<%= page.visible ? _('Page visible') : _('Page not visible') %>"></span>
+            <span class="page_status <%= page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
 		</div>
 		<div class="sitemap_sitename">
 		    <%- if page.redirects_to_external? -%>

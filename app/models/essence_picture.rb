@@ -8,4 +8,15 @@ class EssencePicture < ActiveRecord::Base
     caption.gsub!(/(\r\n|\r|\n)/, "<br/>")
   end
   
+  # Returns self.picture.name for the Element#preview_text method.
+  def preview_text
+    return "" if picture.blank?
+    picture.name.to_s
+  end
+  
+  # Returns self.picture. Used for Content#ingredient method.
+  def ingredient
+    self.picture
+  end
+  
 end

@@ -16,7 +16,7 @@ authorization do
     has_permission_on :pages, :to => [:show] do
       if_attribute :public => true
     end
-    has_permission_on [:admin, :users], :to => [:edit, :update] do
+    has_permission_on :admin_users, :to => [:edit, :update] do
       if_attribute :id => is {user.id}
     end
   end
@@ -77,7 +77,7 @@ privileges do
   end
   
   privilege :edit_page_content, :admin_pages do
-    includes :edit, :unlock, :preview, :publish
+    includes :edit, :unlock, :show, :publish
   end
   
   privilege :login_to, :admin do

@@ -30,14 +30,18 @@ var AlchemyFrameSet = Class.create({
 		var mainFrameHeight = view_height - this.options.top;
 		var topFrameHeight = this.options.top;
 		var width = view_width - this.options.left - this.options.right;
-		this.mainFrame.setStyle({
-			width: width + 'px',
-			height: mainFrameHeight + 'px'
-		});
-		this.topFrame.setStyle({
-			width: width + 'px',
-			height: topFrameHeight + 'px'
-		});
+		if (this.mainFrame) {
+			this.mainFrame.setStyle({
+				width: width + 'px',
+				height: mainFrameHeight + 'px'
+			});
+		}
+		if (this.topFrame) {
+			this.topFrame.setStyle({
+				width: width + 'px',
+				height: topFrameHeight + 'px'
+			});
+		}
 	}
 	
 });

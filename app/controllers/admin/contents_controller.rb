@@ -1,6 +1,6 @@
-class Admin::ContentsController < ApplicationController
+class Admin::ContentsController < AlchemyController
   
-  layout 'admin'
+  layout 'alchemy'
   
   filter_access_to :all
   
@@ -32,9 +32,8 @@ class Admin::ContentsController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error(e)
-      logger.error(e.backtrace.join("\n"))
-      render :update do |page|
+      log_error($!)
+      render :update, :status => 500 do |page|
         Alchemy::Notice.show_via_ajax(page, _("content_not_successfully_added"), :error)
       end
     end
@@ -49,9 +48,8 @@ class Admin::ContentsController < ApplicationController
   end
   
   def order
-    element = Element.find(params[:element_id])
-    for content_id in params["element_#{element.id}_contents"]
-      content = Content.find(content_id)
+    for id in params[:content_ids]
+      content = Content.find(id)
       content.move_to_bottom
     end
     render :update do |page|

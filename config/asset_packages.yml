@@ -1,89 +1,91 @@
 --- 
 javascripts:
 - default:
-  - prototype
-  - alchemy
-  - effects
-  - alchemy
-  - alchemy_selectbox
-  - window
-  - window_effects
-  - alchemy_frame_set
+  - alchemy/prototype
+  - alchemy/effects
+  - alchemy/alchemy
+  - alchemy/alchemy_selectbox
+  - alchemy/window
+  - alchemy/window_effects
+  - alchemy/alchemy_frame_set
 - login:
-   - prototype
-   - effects
-   - window
-   - window_effects
-   - alchemy
-   - alchemy_frame_set
+  - alchemy/prototype
+  - alchemy/effects
+  - alchemy/window
+  - alchemy/window_effects
+  - alchemy/alchemy
+  - alchemy/alchemy_frame_set
 - sitemap:
-   - prototype
-   - effects
-   - window
-   - window_effects
-   - alchemy
-   - alchemy_selectbox
-   - alchemy_frame_set
-   - tooltip
-   - dragdrop
-   - sortable_tree
+  - alchemy/prototype
+  - alchemy/effects
+  - alchemy/window
+  - alchemy/window_effects
+  - alchemy/alchemy
+  - alchemy/alchemy_selectbox
+  - alchemy/alchemy_frame_set
+  - alchemy/tooltip
+  - alchemy/dragdrop
+  - alchemy/sortable_tree
 - edit_page:
-   - prototype
-   - effects
-   - controls
-   - slider
-   - livepipe
-   - scrollbar
-   - dragdrop
-   - window
-   - window_effects
-   - alchemy
-   - alchemy_selectbox
-   - alchemy_frame_set
-   - alchemy_element_editor_selector
-   - cropper
-   - alchemy_image_cropper
-   - swfupload/swfupload
-   - swfupload/handlers
-   - swfupload/fileprogress
-   - swfupload/queue
+  - alchemy/prototype
+  - alchemy/effects
+  - alchemy/controls
+  - alchemy/slider
+  - alchemy/livepipe
+  - alchemy/scrollbar
+  - alchemy/dragdrop
+  - alchemy/window
+  - alchemy/window_effects
+  - alchemy/alchemy
+  - alchemy/alchemy_selectbox
+  - alchemy/alchemy_frame_set
+  - alchemy/alchemy_element_editor_selector
+  - alchemy/cropper
+  - alchemy/alchemy_image_cropper
+  - alchemy/swfupload/swfupload
+  - alchemy/swfupload/handlers
+  - alchemy/swfupload/fileprogress
+  - alchemy/swfupload/queue
+  - alchemy/jquery-1.4.2.min
+  - alchemy/jquery-ui-1.8.4.custom.min
 - preview:
-  - prototype
-  - alchemy_element_selector
+  - alchemy/prototype
+  - alchemy/alchemy_element_selector
 - archive:
-  - prototype
-  - effects
-  - controls
-  - window
-  - window_effects
-  - alchemy
-  - alchemy_selectbox
-  - alchemy_frame_set
-  - swfupload/swfupload
-  - swfupload/handlers
-  - swfupload/fileprogress
-  - swfupload/queue
+  - alchemy/prototype
+  - alchemy/effects
+  - alchemy/controls
+  - alchemy/window
+  - alchemy/window_effects
+  - alchemy/alchemy
+  - alchemy/alchemy_selectbox
+  - alchemy/alchemy_frame_set
+  - alchemy/swfupload/swfupload
+  - alchemy/swfupload/handlers
+  - alchemy/swfupload/fileprogress
+  - alchemy/swfupload/queue
 
 stylesheets:
 - default:
-   - alchemy
-   - alchemy_window
+  - alchemy/alchemy
+  - alchemy/alchemy_window
 - login:
-   - alchemy
-   - alchemy_login
-   - alchemy_window
+  - alchemy/alchemy
+  - alchemy/alchemy_login
+  - alchemy/alchemy_window
 - sitemap:
-   - alchemy
-   - alchemy_window
-   - alchemy_tooltip
+  - alchemy/alchemy
+  - alchemy/alchemy_window
+  - alchemy/alchemy_tooltip
 - edit_page:
-   - alchemy
-   - elements
-   - contents
-   - alchemy_window
-   - alchemy_tooltip
-   - cropper
+  - alchemy/alchemy
+  - alchemy/elements
+  - alchemy/contents
+  - alchemy/alchemy_window
+  - alchemy/alchemy_tooltip
+  - alchemy/cropper
+  - alchemy/flags
 - archive:
-  - alchemy
-  - alchemy_window
-  - alchemy_tooltip
+  - alchemy/alchemy
+  - alchemy/alchemy_window
+  - alchemy/alchemy_tooltip

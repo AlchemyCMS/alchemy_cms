@@ -2,9 +2,11 @@ var is_ie = (document.all) ? true : false;
 
 function scrollToElement (id) {
 	var el_ed = $('element_'+id);
-	var offset = el_ed.positionedOffset();
-	var container = $$('.alchemy_window_content .alchemy_window_content').first();
-	container.scrollTop = offset.top - 41;
+	if (el_ed) {
+    var offset = el_ed.positionedOffset();
+    var container = $$('.alchemy_window_content .alchemy_window_content').first();
+    container.scrollTop = offset.top - 41;
+	}
 }
 
 function toggleButton (id, action) {
@@ -43,7 +45,7 @@ function openPreviewWindow (url, title) {
 	preview_window.showCenter(false, 97, 92);
 }
 
-function openElementsWindow (page_id, title) {
+function openElementsWindow (path, title) {
 	elements_window = new Window({
 		className: 'alchemy_window',
 		title: title,
@@ -64,7 +66,7 @@ function openElementsWindow (page_id, title) {
 			duration: 0.2
 		}
 	});
-	elements_window.setAjaxContent('/admin/elements/list?page_id=' + page_id, {method: 'get'});
+	elements_window.setAjaxContent(path, {method: 'get'});
 	elements_window.showCenter(false, 107, document.viewport.getDimensions().width - 450);
 }
 
@@ -98,7 +100,7 @@ function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, 
 		method: 'get',
 		onLoading: function () {
 			var spinner = new Image();
-			spinner.src = "/plugin_assets/alchemy/images/ajax_loader.gif";
+			spinner.src = "/images/alchemy/ajax_loader.gif";
 			spinner.setStyle({
 				marginLeft: (size_x - 32) / 2 + 'px',
 				marginTop: (size_y - 32) / 2 + 'px'
@@ -150,7 +152,7 @@ function zoomImage(url, title, width, height) {
 	image_window.showCenter();
 }
 
-function openLinkWindow(selElem, width) {
+function openLinkWindow(linked_element, width) {
 	link_window = new Window({
 		className: "alchemy_window",
 		title: 'Link setzen',
@@ -169,23 +171,9 @@ function openLinkWindow(selElem, width) {
 			duration: 0.2
 		}
 	});
-	link_window.tinyMCE = {}
-	link_window.tinyMCE = {
-		editorInstance: selElem,
-		selectionBookmark: selElem.selection ? selElem.selection.getBookmark() : null
-	};
+	link_window.linked_element = linked_element;
 	link_window.setAjaxContent('/admin/pages/link', {method: 'get'});
 	link_window.showCenter('modal');
-}
-
-function OverlayForMolecules(show) {
-	var a = $$(".content_fckeditor");
-	if (show) {
-		a.invoke('hide');
-	}
-	else {
-		a.invoke('show');
-	}
 }
 
 function pleaseWaitOverlay(show) {
@@ -294,12 +282,11 @@ function removePictureLink (content_id) {
 }
 
 function alchemyCreateLink(link_type, url, title, extern) { 
-	var tiny_ed = link_window.tinyMCE.editorInstance;
-	if (tiny_ed.selection) {
+	var element = link_window.linked_element;
+	if (element.editor) {
 			// aka we are linking text inside of TinyMCE 
-			// var bm = link_window.tinyMCE.selectionBookmark;
-			// tiny_ed.selection.moveToBookmark(bm);
-			var l = tiny_ed.execCommand('mceInsertLink', false, {
+			var editor = element.editor;
+			var l = editor.execCommand('mceInsertLink', false, {
 				href: url,
 				'class': link_type,
 				title: title,
@@ -307,13 +294,13 @@ function alchemyCreateLink(link_type, url, title, extern) {
 			});
 	} else {
 		// aka: we are linking an content
-		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
+		var essence_type = element.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
 			case "picture":
-				var content_id = tiny_ed.name.gsub('essence_picture_', '');
+				var content_id = element.name.gsub('essence_picture_', '');
 				break;
 			case "text":
-				var content_id = tiny_ed.name.gsub('content_text_', '');
+				var content_id = element.name.gsub('content_text_', '');
 				break;
 		}
 		$('content_' + content_id + '_link').value = url;
@@ -325,7 +312,7 @@ function alchemyCreateLink(link_type, url, title, extern) {
 
 // creates a link to a javascript function
 function alchemyCreateLinkToFunction(link_type, func, title) { 
-	var tiny_ed = link_window.tinyMCE.editorInstance;
+	var tiny_ed = link_window.linked_element.editor;
 	if (tiny_ed.selection) {
 		if( tiny_ed.selection.getNode().nodeName == "A" ) {
 			// updating link
@@ -354,22 +341,21 @@ function alchemyCreateLinkToFunction(link_type, func, title) {
 	}
 }
 
-// Das Monster das dafür sorgt, dass wenn man einen link im TinyMCE ausgewählt hat
-// der entsprechende Tab im verlinken Overlay angezeigt wird.
-// Füllt ausserdem die Felder aus (title, href, etc.).
-// Klassisches "javascript-mit-der-groben-kelle".
+// Selects the tab for kind of link and fills all fields.
+// TODO: Make this a class!
 function selectLinkWindowTab() {
-	var tiny_ed = link_window.tinyMCE.editorInstance;
-	if (typeof(tiny_ed.selection) == 'undefined') {
+	var linked_element = link_window.linked_element;
+	
+	// Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
+	if (linked_element.nodeType) {
 		var tmp_link = document.createElement("a");
-		var selection = tiny_ed;
-		var essence_type = tiny_ed.name.gsub('essence_', '').split('_')[0];
+		var essence_type = linked_element.name.gsub('essence_', '').split('_')[0];
 		switch (essence_type) {
 			case "picture":
-				var content_id = tiny_ed.name.gsub('essence_picture_', '');
+				var content_id = linked_element.name.gsub('essence_picture_', '');
 				break;
 			case "text":
-				var content_id = tiny_ed.name.gsub('essence_text_', '');
+				var content_id = linked_element.name.gsub('essence_text_', '');
 				break;
 		}
 		tmp_link.href = $('content_' + content_id + '_link').value;
@@ -377,13 +363,19 @@ function selectLinkWindowTab() {
 		tmp_link.target = ($('content_' + content_id + '_link_target').value == '1' ? '_blank' : '');
 		tmp_link.className = $('content_' + content_id + '_link_class_name').value;
 		var link = tmp_link;
-	} else {
-		var bm = link_window.tinyMCE.selectionBookmark;
-		tiny_ed.selection.moveToBookmark(bm);
-		var link = tiny_ed.selection.getNode();
 	}
+	
+	// Restoring the bookmarked selection inside the TinyMCE of an EssenceRichtext.
+	else {
+		var link = linked_element.node;
+		linked_element.selection.moveToBookmark(linked_element.bookmark);
+	}
+	
+	// Checking of what kind the link is (internal, external, file or contact_form).
 	if (link.nodeName == "A") {
 		var title = link.title == null ? "" : link.title;
+		
+		// Handling an internal link.
 		if ((link.className == '') || link.className == 'internal') {
 			var internal_anchor = link.hash.split('#')[1];
 			var internal_urlname = link.pathname;
@@ -395,7 +387,7 @@ function selectLinkWindowTab() {
 				return internal_urlname == f.readAttribute('name');
 			});
 			if (sitemap_line) {
-				// select the line where the link was detected in.
+				// Select the line where the link was detected in.
 				sitemap_line.addClassName("selected_page");
 				page_select_scrollbar.scrollTo(sitemap_line.up('li'));
 				// is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
@@ -407,7 +399,7 @@ function selectLinkWindowTab() {
 						onComplete: function() {
 							var alchemy_selectbox = select_container.down('.alchemy_selectbox');
 							$('page_anchor').value = '#' + internal_anchor;
-							// sadly this does not work here. maybe later i have the knowledge to fix this.
+							// badly this does not work here. maybe later i have the knowledge to fix this.
 							var select = AlchemySelectbox.findSelectById(alchemy_selectbox.id);
 							select.fire('alchemy_selectbox:select', {value: '#' + internal_anchor});
 						}
@@ -415,6 +407,8 @@ function selectLinkWindowTab() {
 				}
 			}
 		}
+		
+		// Handling an external link.
 		if ( link.className == 'external' ) {
 			showLinkWindowTab('sitemap_external_links', $('tab_for_sitemap_external_links'));
 			protocols = $('url_protocol_select').select('.alchemy_selectbox_body a').pluck('rel');
@@ -427,12 +421,16 @@ function selectLinkWindowTab() {
 				}
 			});
 		}
+		
+		// Handling a file link.
 		if ( link.className == 'file' ) {
 			showLinkWindowTab('file_links', $('tab_for_file_links'));
 			$('file_link_title').value = title;
 			$('public_filename_select').fire('alchemy_selectbox:select', {value: link.pathname});
 			$('file_link_target').checked = link.target == "_blank";
 		}
+		
+		// Handling a contactform link.
 		if ( link.className == 'contact' ) {
 			var link_url = link.pathname;
 			var link_params = link.href.split('?')[1];
@@ -476,8 +474,7 @@ function saveRichtextEssences (element_id) {
 		var richtext_essences = element.select('textarea.tinymce');
 		richtext_essences.each(function (essence) {
 			var editor = tinyMCE.get(essence.id);
-			var content = editor.getContent();
-			$(editor.editorId).value = content;
+			editor.save();
 			//removing the editor instance before adding it dynamically after saving
 			$(editor.editorId).previous('div.essence_richtext_loader').show();
 			tinyMCE.execCommand(
