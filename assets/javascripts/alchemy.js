@@ -493,12 +493,14 @@ function alchemyImageFade(image) {
 function saveElement(form, element_id) {
     var rtf_contents = $$('#element_'+element_id+' div.content_rtf_editor');
     if (rtf_contents.size() > 0) {
+        // collecting all rtf elements and fire the saveElementAjaxRequest after the last tinymce.save event!
         rtf_contents.each(function (rtf_content) {
             var text_area = rtf_content.down('textarea');
             var editor = tinyMCE.get(text_area.id);
             if (rtf_content == rtf_contents.last()) {
                 editor.onSaveContent.add(function(ed, o) {
-                    saveElementAjaxRequest(form, element_id);
+                    // delaying the ajax call, so that tinymce has enough time to save the content.
+                    setTimeout(function(){saveElementAjaxRequest(form, element_id);}, 500);
                 });
             }
             //removing the editor instance before adding it dynamically after saving

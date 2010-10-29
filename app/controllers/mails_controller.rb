@@ -5,7 +5,7 @@ class MailsController < AlchemyController
   def new
     @mail = Mail.new
     @page = Page.find_by_page_layout(Alchemy::Configuration.parameter(:mailer)[:form_layout_name])
-    render :layout => 'pages'
+    render :template => '/pages/show', :layout => 'pages'
   end
   
   def create
@@ -13,7 +13,6 @@ class MailsController < AlchemyController
     @mail.ip = request.remote_ip
     element = Element.find_by_id(@mail.contact_form_id)
     @page = element.page
-    
     if @mail.save
       if params[:mail_to].blank?
         mail_to = element.content_by_name("mail_to").essence.body
@@ -36,13 +35,7 @@ class MailsController < AlchemyController
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root(session[:language]).urlname
       end
     else
-      if File.exists?("app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb")
-        render :file => "app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb", :layout => 'pages'
-      elsif File.exists?("vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb")
-        render :file => "vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.underscore}.html.erb", :layout => 'pages'
-      else
-        render :file => "public/404.html", :status => 404
-      end
+      render :template => '/pages/show', :layout => 'pages'
     end
     
   end
