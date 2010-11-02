@@ -12,7 +12,7 @@ class PicturesController < AlchemyController
     @crop_size = params[:crop_size]
     @padding = params[:padding]
     @upsample = !params[:upsample].nil? ? true : false
-    @options = params[:options]
+    @effects = params[:effects]
     respond_to do |format|
       format.jpg
       format.png
