@@ -12,4 +12,19 @@ class Language < ActiveRecord::Base
     Language.all( :conditions => "code IN ('#{created.join('\',\'')}')" )
   end
   
+  def self.all_for_created_language_trees
+    created_languages = Page.language_roots.collect(&:language)
+    Language.all_for_collection(created_languages)
+  end
+  
+  def self.find_code_for(code)
+    l = Language.find_by_code(code, :select => :code)
+    return nil if l.blank?
+    l.code
+  end
+  
+  def self.all_codes_for_published
+    Language.all(:select => :code, :conditions => {:public => true}).collect(&:code)
+  end
+  
 end

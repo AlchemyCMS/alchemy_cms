@@ -8,22 +8,12 @@ class Admin::PagesController < AlchemyController
   before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy]
   
   filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
-  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create_language, :create, :fold, :move, :flush], :attribute_check => false
+  filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
   
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
     @page_root = Page.language_root(session[:language])
-    # if @page_root.nil?
-    #   begin
-    #     create_new_rootpage
-    #     flash[:notice] = _("Admin|new rootpage created")
-    #   rescue
-    #     log_error($!)
-    #     flash[:notice] = _('root_page_could_not_be_created')
-    #     redirect_to :admin
-    #   end
-    # end
   end
   
   def show
@@ -158,15 +148,8 @@ class Admin::PagesController < AlchemyController
     redirect_back_or_to_default(admin_pages_path)
   end
   
-  def create_language
-    created_languages = Page.language_roots.collect(&:language)
-    @languages = Language.all_for_collection(created_languages)
-    @language = Language.find_by_code(params[:language_code])
-    render :layout => false
-  end
-  
   def copy_language
-    set_language(params[:languages][:new_lang])
+    set_language_to(params[:languages][:new_lang])
     begin
       # copy language root from old to new language
       original_language_root = Page.find_by_language_root_for(params[:languages][:old_lang])
@@ -209,29 +192,13 @@ class Admin::PagesController < AlchemyController
   end
   
   def switch_language
-    if Page.find_by_language_root_for(params[:language], :select => 'id').nil?
-      title = _('create_new_language')
+    set_language_to(params[:language])
+    if request.xhr?
       render :update do |page|
-        page << %(openOverlayWindow(
-          '#{create_language_admin_pages_path(:language_code => params[:language])}',
-          '#{title}',
-          255,
-          200,
-          false,
-          'true',
-          false
-        ))
-        page << "pleaseWaitOverlay(false);"
+        page.redirect_to admin_pages_path
       end
     else
-      set_language(params[:language])
-      if request.xhr?
-        render :update do |page|
-          page.redirect_to admin_pages_path
-        end
-      else
-        redirect_to admin_pages_path
-      end
+      redirect_to admin_pages_path
     end
   end
   

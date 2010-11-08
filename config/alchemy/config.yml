@@ -33,6 +33,8 @@
   - :language_code: en
     :language: English
 
+:default_language: de
+
 # Contactform settings
 :mailer:
   :form_layout_name: contact

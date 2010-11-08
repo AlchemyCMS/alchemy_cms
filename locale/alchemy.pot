@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-11-08 16:38+0100\n"
+"POT-Creation-Date: 2010-11-08 19:10+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,6 @@ msgstr ""
 #: app/views/admin/partials/_upload_form.html.erb:22
 msgid ""
 "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>"
-msgstr ""
-
-#: app/controllers/admin/pages_controller.rb:20
-msgid "Admin|new rootpage created"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:22
@@ -106,7 +102,7 @@ msgstr ""
 msgid "Element|Public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:54
+#: app/controllers/admin/pages_controller.rb:44
 msgid "Error while creating page: %{error}"
 msgstr ""
 
@@ -118,7 +114,7 @@ msgstr ""
 msgid "Excerpt"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:50
+#: app/views/admin/pages/index.html.erb:49
 msgid "Explain|Sitemap|Dragndrop sorting"
 msgstr ""
 
@@ -138,8 +134,8 @@ msgstr ""
 msgid "File: '%{name}' deleted successfully"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:32
-#: app/views/admin/pages/index.html.erb:34
+#: app/views/admin/pages/index.html.erb:31
+#: app/views/admin/pages/index.html.erb:33
 msgid "Flush page cache"
 msgstr ""
 
@@ -186,16 +182,20 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: app/controllers/admin/languages_controller.rb:24
+#: app/controllers/admin/languages_controller.rb:35
 msgid "Language '%{name}' created"
 msgstr ""
 
-#: app/controllers/admin/languages_controller.rb:40
+#: app/controllers/admin/languages_controller.rb:51
 msgid "Language '%{name}' destroyed"
 msgstr ""
 
-#: app/controllers/admin/languages_controller.rb:33
+#: app/controllers/admin/languages_controller.rb:44
 msgid "Language '%{name}' updated"
+msgstr ""
+
+#: app/views/admin/pages/index.html.erb:20
+msgid "Language tree"
 msgstr ""
 
 #: locale/model_attributes.rb:52
@@ -226,7 +226,7 @@ msgstr ""
 msgid "Mising Image"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:42
+#: app/views/admin/pages/index.html.erb:43
 msgid "Name"
 msgstr ""
 
@@ -240,15 +240,15 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:98
+#: app/controllers/admin/pages_controller.rb:90
 msgid "Page %{name} deleted"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:204
+#: app/controllers/admin/pages_controller.rb:196
 msgid "Page %{name} moved"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:85
+#: app/controllers/admin/pages_controller.rb:75
 msgid "Page %{name} saved"
 msgstr ""
 
@@ -256,41 +256,41 @@ msgstr ""
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:245
+#: app/controllers/admin/pages_controller.rb:237
 msgid "Page cache flushed"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:79
+#: app/views/admin/pages/_page.html.erb:75
 #: app/views/admin/pages/_sitemap.html.erb:73
 #: app/views/admin/pages/edit.html.erb:15
 msgid "Page not public"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:81
+#: app/views/admin/pages/_page.html.erb:77
 #: app/views/admin/pages/_sitemap.html.erb:75
 #: app/views/admin/pages/edit.html.erb:17
 msgid "Page not restricted"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:80
+#: app/views/admin/pages/_page.html.erb:76
 #: app/views/admin/pages/_sitemap.html.erb:74
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page not visible"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:79
+#: app/views/admin/pages/_page.html.erb:75
 #: app/views/admin/pages/_sitemap.html.erb:73
 #: app/views/admin/pages/edit.html.erb:15
 msgid "Page public"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:81
+#: app/views/admin/pages/_page.html.erb:77
 #: app/views/admin/pages/_sitemap.html.erb:75
 #: app/views/admin/pages/edit.html.erb:17
 msgid "Page restricted"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:80
+#: app/views/admin/pages/_page.html.erb:76
 #: app/views/admin/pages/_sitemap.html.erb:74
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page visible"
@@ -412,7 +412,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:178
+#: app/controllers/alchemy_controller.rb:145
 msgid "Please log in"
 msgstr ""
 
@@ -440,7 +440,7 @@ msgstr ""
 msgid "Show/Hide Childpages"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:43
+#: app/views/admin/pages/index.html.erb:44
 msgid "Status"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 msgid "This element displays the search and the searchresults."
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:65
+#: app/controllers/admin/pages_controller.rb:55
 msgid "This page is locked by %{name}"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgstr ""
 msgid "Welcome to Alchemy"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:167
+#: app/controllers/alchemy_controller.rb:134
 msgid "You are not authorized"
 msgstr ""
 
@@ -684,11 +684,11 @@ msgstr ""
 msgid "confirm_to_delete_image_from_server"
 msgstr ""
 
-#: app/views/admin/languages/_language.html.erb:12
+#: app/views/admin/languages/_language.html.erb:14
 msgid "confirm_to_delete_language"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:47
+#: app/views/admin/pages/_page.html.erb:46
 #: app/views/admin/pages/_sitemap.html.erb:44
 msgid "confirm_to_delete_page"
 msgstr ""
@@ -740,12 +740,12 @@ msgstr ""
 msgid "create_language"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:211
+#: app/controllers/admin/pages_controller.rb:203
 msgid "create_new_language"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:67
-#: app/views/admin/pages/_page.html.erb:72
+#: app/views/admin/pages/_page.html.erb:63
+#: app/views/admin/pages/_page.html.erb:68
 #: app/views/admin/pages/_sitemap.html.erb:61
 #: app/views/admin/pages/_sitemap.html.erb:66
 msgid "create_page"
@@ -785,11 +785,11 @@ msgstr ""
 msgid "delete_image"
 msgstr ""
 
-#: app/views/admin/languages/_language.html.erb:14
+#: app/views/admin/languages/_language.html.erb:16
 msgid "delete_language"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:55
+#: app/views/admin/pages/_page.html.erb:54
 #: app/views/admin/pages/_sitemap.html.erb:52
 msgid "delete_page"
 msgstr ""
@@ -824,13 +824,13 @@ msgstr ""
 msgid "edit_image_properties"
 msgstr ""
 
-#: app/views/admin/languages/_language.html.erb:23
-#: app/views/admin/languages/_language.html.erb:29
+#: app/views/admin/languages/_language.html.erb:25
+#: app/views/admin/languages/_language.html.erb:31
 msgid "edit_language"
 msgstr ""
 
 #: app/views/admin/pages/_layoutpage.html.erb:29
-#: app/views/admin/pages/_page.html.erb:90
+#: app/views/admin/pages/_page.html.erb:86
 #: app/views/admin/pages/_sitemap.html.erb:81
 msgid "edit_page"
 msgstr ""
@@ -978,19 +978,15 @@ msgstr ""
 msgid "internal_link_headline"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:22
-msgid "language"
-msgstr ""
-
 #: app/views/admin/pages/create_language.html.erb:2
 msgid "language_does_not_exist"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:179
+#: app/controllers/admin/pages_controller.rb:171
 msgid "language_pages_copied"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:182
+#: app/controllers/admin/pages_controller.rb:174
 msgid "language_pages_could_not_be_copied"
 msgstr ""
 
@@ -1146,7 +1142,7 @@ msgstr ""
 msgid "not a valid image"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:51
+#: app/controllers/admin/pages_controller.rb:41
 msgid "page '%{name}' created."
 msgstr ""
 
@@ -1166,7 +1162,7 @@ msgstr ""
 msgid "page_public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:150
+#: app/controllers/admin/pages_controller.rb:147
 msgid "page_published"
 msgstr ""
 
@@ -1305,10 +1301,6 @@ msgstr ""
 msgid "robot_index"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:23
-msgid "root_page_could_not_be_created"
-msgstr ""
-
 #: app/views/admin/attachments/edit.html.erb:8
 #: app/views/admin/contents/new.html.erb:11
 #: app/views/admin/elements/_element_foot.html.erb:48
@@ -1407,7 +1399,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:65 app/models/page.rb:125
+#: app/controllers/admin/pages_controller.rb:55 app/models/page.rb:125
 #: app/models/page.rb:132 app/models/page.rb:139
 msgid "unknown"
 msgstr ""
@@ -1420,7 +1412,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:138
+#: app/controllers/admin/pages_controller.rb:135
 msgid "unlocked_page_%{name}"
 msgstr ""
 

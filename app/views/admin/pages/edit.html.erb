@@ -9,7 +9,7 @@
     <%- if @page == page -%>
 	<span class="page_status_and_name">
 		<span class="page_name"><%= page.name %></span>
-		<%- if configuration(:languages).size > 1 && !@layoutpage -%>
+		<%- if multi_language? && !@layoutpage -%>
 		<span class="flag <%= session[:language] %>"></span>
 		<%- end -%>
 		<span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? _('Page public') : _('Page not public') %>"></span>

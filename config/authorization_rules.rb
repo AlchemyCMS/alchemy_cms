@@ -58,7 +58,7 @@ privileges do
   end
   
   privilege :manage_pages, :admin_pages do
-    includes :manage, :switch_language, :create_language, :layoutpages, :move, :configure, :flush
+    includes :manage, :switch_language, :layoutpages, :move, :configure, :flush
   end
   
   privilege :manage_elements, :admin_elements do

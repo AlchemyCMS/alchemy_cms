@@ -16,7 +16,7 @@
                     });
                 )
             ) %>
-            <label><%= _("language") %></label>
+            <label><%= _("Language tree") %></label>
         </div>
         <%- permitted_to?(:flush, :admin_pages) do -%>
         <div class="button_with_label">
@@ -50,16 +50,38 @@
 <%- else -%>
 
 <div id="archive_all">
-	<h2>Startseite dieser Sprache existiert nicht!</h2>
-	<p>Wollen Sie jetzt eine anlegen?</p>
+	<h1><%= _("language_does_not_exist") %>!</h1>
 	<%- lang = Language.find_by_code(session[:language]) -%>
+	<%- languages = Language.all_for_created_language_trees -%>
+	<%- if lang -%>
+	<p><%= _("want_to_make_copy_of_existing_language") %></p>
+	<%- form_tag("/admin/pages/copy_language") do -%>
+		<table>
+		    <tr>
+		        <td class="input">
+		            <%= alchemy_selectbox_tag("languages[old_lang]", languages.map{ |l| [l.name, l.code] }, :class => "medium_long", :style => "float:left") %>
+		            <%= hidden_field_tag("languages[new_lang]", lang.code) %>
+		        </td>
+		        <td class="">
+		            &nbsp;<%= submit_tag _("copy"), :class => 'button' %>
+		        </td>
+		    </tr>
+		</table>
+	<%- end -%>
+	<p>
+	    <br />
+	    <%= _("want_to_create_new_language") %>
+	</p>
 	<% remote_form_for([:admin, @page ||= Page.new]) do |form| %>
 		<%= form.hidden_field :name, :value => lang.frontpage_name %>
 		<%= form.hidden_field :language, :value => lang.code %>
 		<%= form.hidden_field :page_layout, :value => lang.page_layout %>
 		<%= form.hidden_field :language_root_for, :value => lang.code %>
-		<%= form.submit("anlegen", :class => 'button') %>
+		<%= form.submit(_("%{language}_as_new_language") % {:language => lang.name}, :class => 'button') %>
 	<% end %>
+	<%- else -%>
+	<p>Die Sprache für den Code '<%= session[:language] %>' existiert noch nicht. Bitte legen Sie erst eine Sprache für '<%= session[:language] %>' an.</p>
+	<%- end -%>
 </div>
 
 <%- end -%>

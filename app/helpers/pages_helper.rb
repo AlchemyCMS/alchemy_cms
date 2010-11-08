@@ -72,7 +72,7 @@ module PagesHelper
   
   def language_switches
     links = []
-    Page.find(:all, :conditions => "language_root_for IS NOT NULL AND public=1").each do |page|
+    Page.public_language_roots.each do |page|
       links << link_to(page.language.upcase, show_page_with_language_url(:urlname => page.urlname, :lang => page.language), :class => (session[:language] == page.language ? 'active' : nil))
     end
     links.join("<span class='seperator'></span>")

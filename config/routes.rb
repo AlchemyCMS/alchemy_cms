@@ -1,6 +1,7 @@
-@languages ||= Alchemy::Configuration.parameter(:languages).collect{ |l| l[:language_code] }
-@lang_regex ||= Regexp.new(@languages.join('|'))
-
+if Language.table_exists?
+  @language_codes = Language.all_codes_for_published
+  @lang_regex = Regexp.new(@language_codes.join('|'))
+end
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show'
   map.login "/admin/login", :controller => "admin", :action => "login"
@@ -67,8 +68,8 @@ ActionController::Routing::Routes.draw do |map|
   map.croppped_thumbnail '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.admin '/admin', :controller => 'admin', :action => 'index'
-  map.show_language_root '/:lang', :controller => 'pages', :action => 'show', :lang => @lang_regex
-  map.show_page '/:urlname.:format', :controller => 'pages', :action => 'show'
-  map.show_page_with_language '/:lang/:urlname.:format', :controller => 'pages', :action => 'show', :lang => @lang_regex
+  map.show_language_root '/:lang', :controller => :pages, :action => :show, :lang => @lang_regex
+  map.show_page '/:urlname.:format', :controller => :pages, :action => :show
+  map.show_page_with_language '/:lang/:urlname.:format', :controller => :pages, :action => :show, :lang => @lang_regex
   map.connect ':controller/:action/:id'
 end

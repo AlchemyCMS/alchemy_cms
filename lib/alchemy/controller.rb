@@ -22,7 +22,7 @@ module Alchemy
     end
 
     def self.multi_language?
-      Alchemy::Configuration.parameter(:languages).size > 1
+      Language.count > 1
     end
     
     module ClassMethods

@@ -226,6 +226,7 @@ class Page < ActiveRecord::Base
   end
   
   def self.language_root(language)
+    return nil if language.nil?
     find_by_language_root_for(language)
   end
   
@@ -297,6 +298,11 @@ class Page < ActiveRecord::Base
   # Returns an array of all pages currently locked by user
   def self.all_locked_by(user)
     find_all_by_locked_and_locked_by(true, user.id)
+  end
+  
+  def self.public_language_roots
+    public_language_codes = Language.all_codes_for_published
+    all(:conditions => "language_root_for IS NOT NULL AND language IN ('#{public_language_codes.join('\',\'')}')")
   end
   
 private

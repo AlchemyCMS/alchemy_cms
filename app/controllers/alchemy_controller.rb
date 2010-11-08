@@ -11,6 +11,7 @@ class AlchemyController < ApplicationController
 
   before_filter :set_gettext_locale
   before_filter :set_translation
+  before_filter :set_language
 
   helper_method :current_server, :configuration, :multi_language?, :current_user
   helper :errors, :layout
@@ -42,75 +43,41 @@ class AlchemyController < ApplicationController
   def configuration(name)
     return Alchemy::Configuration.parameter(name)
   end
-
-  def set_language(lang = nil)
-    session[:language] = detect_language_in_config(params[:lang] || lang)
-    Alchemy::Controller.current_language = session[:language]
+  
+  def set_language_to(lang = nil)
+    language_code = Language.find_code_for(params[:lang] || lang)
+    if language_code
+      session[:language] = language_code
+      Alchemy::Controller.current_language = session[:language]
+    else
+      logger.error "+++++++ Language not found for code: #{language_code}"
+    end
   end
-
+  
   def multi_language?
-    configuration(:languages).size > 1
+    Language.count > 1
   end
-
+  
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
   end
-
+  
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
   end
-
+  
   def logged_in?
     !current_user.blank?
   end
   
-  # DEPRICATED?
-  #
-  # def save_contentposition
-  #   unless params[:sitemap].nil?
-  #     parent = Page.find(:first, :conditions => {:parent_id => nil})
-  #     for pages in params[:sitemap]["0"]
-  #       for page in pages
-  #         unless page["id"].nil? || page["id"] == "id"
-  #           p = Page.find(page["id"])
-  #           p.move_to_child_of parent
-  #         end
-  #       end
-  #     end
-  #   end
-  #   unless params[:sitemap_2].nil?
-  #     parent = Page.find(params[:sitemap_2]["id"]).parent_id
-  #     for pages in params[:sitemap_2]["0"]
-  #       for page in pages
-  #         unless page["id"].nil? || page["id"] == "id"
-  #           p = Page.find(page["id"])
-  #           p.move_to_child_of parent
-  #         end
-  #       end
-  #     end
-  #   end
-  #   redirect_to :action => 'index'
-  # end
-  
 private
-
+  
   def last_request_update_allowed?
     true #action_name =! "update_session_time_left"
   end
-
-  def detect_language_in_config(lang)
-    detected_lang = configuration(:languages).detect{ |language|
-      language[:language_code] == lang
-    }
-    if detected_lang.blank?
-      return configuration(:default_language)
-    else
-      return detected_lang[:language_code]
-    end
-  end
-
+  
   def exception_handler(e)
     logger.error %(
       +++++++++ #{e} +++++++++++++
@@ -118,50 +85,55 @@ private
       #{e.record.errors.full_messages}
     )
   end
-
+  
   def set_language_from_client
-    unless logged_in?
-      if params[:lang].blank?
-        unless request.env['HTTP_ACCEPT_LANGUAGE'].blank?
-          lang = request.env['HTTP_ACCEPT_LANGUAGE'][0..1]
-        end
-        language = detect_language_in_config(lang)
-      else
-        language = detect_language_in_config(params[:lang])
-      end
+    if params[:lang].blank?
+      lang = request.env['HTTP_ACCEPT_LANGUAGE'][0..1] unless request.env['HTTP_ACCEPT_LANGUAGE'].blank?
+      language_code = lang
+    else
+      language_code = params[:lang]
+    end
+    language = Language.find_code_for(language_code)
+    if language.blank?
+      logger.error "+++++++ Language not found for code: #{language_code}"
+      render :file => Rails.root + 'public/404.html', :code => 404
+    else
       session[:language] = language
       Alchemy::Controller.current_language = session[:language]
       I18n.locale = session[:language]
     end
   end
-
-  def set_translation
-    FastGettext.locale = current_user.language unless current_user == :false || current_user.blank?
-  end
-
+  
   def store_location
     session[:redirect_url] = request.url
   end
-
+  
   def set_stamper
     FastGettext.text_domain = 'alchemy'
     User.stamper = self.current_user
   end
-
+  
   def reset_stamper
     User.reset_stamper
   end
-
+  
 protected
-
+  
   def set_gettext_locale
     FastGettext.text_domain = 'alchemy'
-    FastGettext.available_locales = ['de','en'] #all you want to allow
-    #super
-    session[:language] ||= configuration(:default_language)
-    Alchemy::Controller.current_language = session[:language]
+    FastGettext.available_locales = configuration(:translations).collect { |l| l[:language_code] }
   end
-
+  
+  def set_translation
+    FastGettext.locale = current_user.language unless current_user == :false || current_user.blank?
+  end
+  
+  def set_language
+    session[:language] ||= configuration(:default_language).blank? ? 'de' : configuration(:default_language)
+    Alchemy::Controller.current_language = session[:language]
+    I18n.locale = session[:language]
+  end
+  
   def permission_denied
     if current_user
       flash[:error] = _('You are not authorized')

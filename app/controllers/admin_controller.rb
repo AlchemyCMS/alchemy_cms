@@ -1,6 +1,7 @@
 class AdminController < AlchemyController
   
   filter_access_to :index
+  before_filter :set_translation
   
   layout 'alchemy'
   

@@ -1,6 +1,7 @@
 class Admin::LanguagesController < AlchemyController
   
-  before_filter :find_language, :only => [:show, :edit, :update, :destroy]
+  filter_resource_access
+  before_filter :set_translation
   
   def index
     if !params[:query].blank?
