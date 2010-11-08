@@ -26,20 +26,6 @@
 :image_store_format: png
 :image_output_format: jpg
 
-# Language settings
-:default_language: de
-:default_alchemy_language: de
-:show_real_root: false
-:languages:
-  - :language_code: de
-    :language: Deutsch
-    :frontpage_name: Startseite
-    :page_layout: intro
-  - :language_code: en
-    :language: English
-    :frontpage_name: Frontpage
-    :page_layout: intro
-
 # Set available translations for your customers.
 :translations:
   - :language_code: de
