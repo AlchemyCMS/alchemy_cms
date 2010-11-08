@@ -53,12 +53,12 @@ private
     end
     if @page.blank?
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
-    elsif @page.has_controller?
-      redirect_to(@page.controller_and_action)
-    elsif configuration(:redirect_to_public_child) && !@page.public?
-      redirect_to_public_child
     elsif multi_language? && params[:lang].blank?
       redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language])
+    elsif configuration(:redirect_to_public_child) && !@page.public?
+      redirect_to_public_child
+    elsif @page.has_controller?
+      redirect_to(@page.controller_and_action)
     end
   end
   

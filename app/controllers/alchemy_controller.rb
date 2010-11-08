@@ -95,7 +95,7 @@ private
     end
     language = Language.find_code_for(language_code)
     if language.blank?
-      logger.error "+++++++ Language not found for code: #{language_code}"
+      logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
     else
       session[:language] = language

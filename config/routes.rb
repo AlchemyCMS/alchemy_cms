@@ -1,7 +1,4 @@
-if Language.table_exists?
-  @language_codes = Language.all_codes_for_published
-  @lang_regex = Regexp.new(@language_codes.join('|'))
-end
+@lang_regex = /[a-z]{2}/
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show'
   map.login "/admin/login", :controller => "admin", :action => "login"
