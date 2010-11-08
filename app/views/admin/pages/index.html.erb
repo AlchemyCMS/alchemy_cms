@@ -6,10 +6,7 @@
         <div class="button_with_label">
             <%= alchemy_selectbox_tag(
                 'language',
-                configuration(:languages).collect { |l| [
-                    l[:language],
-                    l[:language_code]
-                ] },
+                Language.all.map { |l| [l.name, l.code] },
                 session[:language],
                 :onchange => %(
                     pleaseWaitOverlay();
@@ -38,17 +35,34 @@
 </div>
 <%- end -%>
 
+<%- if @page_root -%>
+
 <h2 id="sitemap_heading">
     <span class="page_name"><%= _('Name') %></span>
     <span class="page_infos"><%= _('Status') %></span>
 </h2>
-
 <%= render :partial => 'sitemap' %>
-
 <p class="footnote">
     <%= render_icon('info') %>
     <%= _('Explain|Sitemap|Dragndrop sorting') %>
 </p>
+
+<%- else -%>
+
+<div id="archive_all">
+	<h2>Startseite dieser Sprache existiert nicht!</h2>
+	<p>Wollen Sie jetzt eine anlegen?</p>
+	<%- lang = Language.find_by_code(session[:language]) -%>
+	<% remote_form_for([:admin, @page ||= Page.new]) do |form| %>
+		<%= form.hidden_field :name, :value => lang.frontpage_name %>
+		<%= form.hidden_field :language, :value => lang.code %>
+		<%= form.hidden_field :page_layout, :value => lang.page_layout %>
+		<%= form.hidden_field :language_root_for, :value => lang.code %>
+		<%= form.submit("anlegen", :class => 'button') %>
+	<% end %>
+</div>
+
+<%- end -%>
 
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">

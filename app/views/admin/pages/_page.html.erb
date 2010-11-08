@@ -40,7 +40,6 @@
 			<%- end -%>
 			<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
 			<span class="sitemap_sitetools">
-				<%- unless page.is_root?(session[:language]) -%>
 				<%- permitted_to?(:destroy, :admin_pages) do -%>
 				<%= link_to_confirmation_window(
 						"<span class='icon delete_page'></span>",
@@ -55,9 +54,6 @@
 							:title => _("delete_page")
 						}
 					) -%>
-				<%- end -%>
-				<%- else -%>
-					<span class="icon_spacer"></span>
 				<%- end -%>
 				<%- permitted_to?(:new, :admin_pages) do -%>
 				<%= link_to_overlay_window(

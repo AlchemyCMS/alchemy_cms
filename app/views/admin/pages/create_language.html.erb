@@ -4,8 +4,8 @@
     <table>
         <tr>
             <td class="input">
-                <%= alchemy_selectbox_tag("languages[old_lang]", @languages, :class => "medium_long", :style => "float:left") %>
-                <%= hidden_field_tag("languages[new_lang]", @language[1]) %>
+                <%= alchemy_selectbox_tag("languages[old_lang]", @languages.map{ |l| [l.name, l.code] }, :class => "medium_long", :style => "float:left") %>
+                <%= hidden_field_tag("languages[new_lang]", @language.code) %>
             </td>
             <td class="">
                 &nbsp;<%= submit_tag _("copy"), :class => 'button' %>
@@ -20,11 +20,11 @@
         <tr>
             <td class="submit">
                 <%= link_to(
-                    _("%{language}_as_new_language") % {:language => @language[0]},
+                    _("%{language}_as_new_language") % {:language => @language.name},
                     {
                         :controller => "pages",
                         :action => "switch_language",
-                        :lang => @language[1]
+                        :lang => @language.code
                     },
                     :class => 'button',
                     :style => "float:right"

@@ -133,6 +133,17 @@ alchemy_plugins:
         - controller: 'admin/pages'
           action: edit
 
+  - name: languages
+    navigation:
+      name: 'module: languages'
+      controller: 'admin/languages'
+      action: index
+      icon: languages
+      sub_navigation:
+        - name: 'module: languages'
+          controller: 'admin/languages'
+          action: index
+
   - name: users
     navigation:
       name: 'module: users'

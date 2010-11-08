@@ -45,6 +45,7 @@ authorization do
   role :admin do
     includes :editor
     has_permission_on :admin_users, :to => [:manage]
+    has_permission_on :admin_languages, :to => [:manage]
     has_permission_on :authorization_rules, :to => :read
   end
   

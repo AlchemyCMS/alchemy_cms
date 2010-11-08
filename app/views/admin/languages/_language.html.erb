@@ -1,0 +1,36 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td>
+		<%= render_icon('language') %>
+	</td>
+	<td class="name"><%= language.name -%></td>
+	<td class="code"><%= language.code %></td>
+	<td class="name"><%= language.frontpage_name %></td>
+	<td class="name"><%= language.page_layout %></td>
+	<td class="public"><%= render_icon language.public? %></td>
+	<td class="tools">
+		<%- permitted_to?(:destroy, :admin_languages) do -%>
+		<%= link_to_confirmation_window(
+			'',
+			_("confirm_to_delete_language"),
+			admin_language_path(language),
+			:title => _('delete_language'),
+			:class => "icon language_delete"
+		) -%>
+		<%- end -%>
+		<%- permitted_to?(:edit, :admin_languages) do -%>
+		<%= link_to_overlay_window(
+			'',
+			edit_admin_language_path(language),
+			{
+				:title => _('edit_language'),
+				:size => '400x180',
+				:overflow => true
+			},
+			{
+				:class => "icon language_edit",
+				:title => _('edit_language')
+			}
+		) -%>
+		<%- end -%>
+	</td>
+</tr>

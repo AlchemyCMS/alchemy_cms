@@ -1439,6 +1439,10 @@ span.module.library {
 	background-position: -72px 0;
 }
 
+span.module.languages {
+	background-position: -120px 0;
+}
+
 span.module.exit {
 	background-position: -96px 0;
 }
@@ -2100,8 +2104,16 @@ span.icon.user_add {
 	background: url(/images/alchemy/icons.png) -48px -56px;
 }
 
+span.icon.language_add {
+	background: url(/images/alchemy/icons.png) -16px -120px;
+}
+
 span.icon.user {
 	background: url(/images/alchemy/icons.png) 0 -56px;
+}
+
+span.icon.language {
+	background: url(/images/alchemy/icons.png) 0 -120px;
 }
 
 span.icon.user.female {
@@ -2110,6 +2122,10 @@ span.icon.user.female {
 
 a.icon.user_edit {
 	background: url(/images/alchemy/icons.png) -32px -56px;
+}
+
+a.icon.language_edit {
+	background: url(/images/alchemy/icons.png) -32px -120px;
 }
 
 a.icon.user_edit.female {
@@ -2196,8 +2212,16 @@ span.icon.tick {
 	background-position: -48px -88px;
 }
 
+span.icon.true {
+	background-position: -48px -88px;
+}
+
 span.icon.error {
 	background-position: -16px -88px;
+}
+
+span.icon.false {
+	background-image: none;
 }
 
 span.icon.warning {
@@ -2238,6 +2262,10 @@ span.icon.delete_page {
 
 a.icon.user_delete {
 	background: url(/images/alchemy/icons.png) -16px -56px;
+}
+
+a.icon.language_delete {
+	background: url(/images/alchemy/icons.png) -48px -120px;
 }
 
 span.icon.configure_page {

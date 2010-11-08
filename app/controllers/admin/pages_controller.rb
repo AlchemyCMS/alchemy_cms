@@ -14,16 +14,16 @@ class Admin::PagesController < AlchemyController
   
   def index
     @page_root = Page.language_root(session[:language])
-    if @page_root.nil?
-      begin
-        create_new_rootpage
-        flash[:notice] = _("Admin|new rootpage created")
-      rescue
-        log_error($!)
-        flash[:notice] = _('root_page_could_not_be_created')
-        redirect_to :admin
-      end
-    end
+    # if @page_root.nil?
+    #   begin
+    #     create_new_rootpage
+    #     flash[:notice] = _("Admin|new rootpage created")
+    #   rescue
+    #     log_error($!)
+    #     flash[:notice] = _('root_page_could_not_be_created')
+    #     redirect_to :admin
+    #   end
+    # end
   end
   
   def show
@@ -40,12 +40,12 @@ class Admin::PagesController < AlchemyController
   
   def create
     begin
-      parent = Page.find(params[:page][:parent_id])
+      parent = Page.find_by_id(params[:page][:parent_id])
       page_layout = PageLayout.get(params[:page][:page_layout])
-      params[:page][:language] = parent.language
+      params[:page][:language] ||= parent.language
       params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
       page = Page.create(params[:page])
-      if page.valid?
+      if page.valid? && parent
         page.move_to_child_of(parent)
       end
       render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
@@ -89,13 +89,20 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     name = @page.name
     if @page.destroy
-      render :update do |page|
-        page.replace_html(
-          "sitemap",
-          :partial => 'page',
-          :object => Page.language_root(session[:language])
-        )
-        Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+      @root_page = Page.language_root(session[:language])
+      if @root_page
+        render :update do |page|
+          page.replace_html(
+            "sitemap",
+            :partial => 'page',
+            :object => @root_page
+          )
+          Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+        end
+      else
+        render :update do |page|
+          page.redirect_to admin_pages_url
+        end
       end
     end
   end
@@ -106,7 +113,7 @@ class Admin::PagesController < AlchemyController
       @page_root = Page.root
     else
       @page_root = Page.find_by_language_root_for(session[:language])
-    end    
+    end
     @area_name = params[:area_name]
     @content_id = params[:content_id]
     if params[:link_urls_for] == "newsletter"
@@ -153,13 +160,8 @@ class Admin::PagesController < AlchemyController
   
   def create_language
     created_languages = Page.language_roots.collect(&:language)
-    all_languages = Alchemy::Configuration.parameter(:languages).collect{ |l| [l[:language], l[:language_code]] }
-    @languages = all_languages.select{ |lang| created_languages.include?(lang[1]) }
-    lang = configuration(:languages).detect { |l| l[:language_code] == params[:language_code] }
-    @language = [
-      lang[:language],
-      params[:language_code]
-    ]
+    @languages = Language.all_for_collection(created_languages)
+    @language = Language.find_by_code(params[:language_code])
     render :layout => false
   end
   
