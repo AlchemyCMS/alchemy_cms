@@ -1,6 +1,5 @@
 <%- unless content.essence.picture.nil? -%>
 	<%- image_size = options[:image_size] -%>
-	
 	<%- img_tag = image_tag(
 		url_for(
 		    :controller => '/pictures',
@@ -13,7 +12,8 @@
 			:crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil,
 			:upsample  => options[:upsample],
 			:padding => options[:padding],
-			:format => (options[:format].blank? ? configuration(:image_output_format) : options[:format])
+			:format => (options[:format].blank? ? configuration(:image_output_format) : options[:format]),
+			:effects => options[:effects].blank? ? nil : options[:effects]
 		),
 		:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
 		:title => (content.essence.title.blank? ? nil : content.essence.title),
