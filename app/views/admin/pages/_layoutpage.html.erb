@@ -3,21 +3,21 @@
         <div class="sitemap_left_images">
             <span class="site_status <%= layoutpage.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= layoutpage.id %><%= layoutpage.locked ? ' locked' : '' %>" ></span>
             <div id="tooltip_<%= layoutpage.id %>" style="display: none;">
-                <h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
+                <h1><%= _("page_type") %>: <%= layoutpage.layout_display_name %></h1>
                 <p>
-                    <%= page.humanized_status %>
+                    <%= layoutpage.humanized_status %>
                 </p>
                 <p>
                     <strong><%= _("created_at") %>:</strong><br />
-                    <%= l(page.created_at) %> von <%= page.creator %>
+                    <%= l(layoutpage.created_at) %> von <%= layoutpage.creator %>
                 </p>
                 <p>
                     <strong><%= _("updated_at") %>:</strong><br />
-                    <%= l(page.updated_at) %> durch <%= page.updater %>
+                    <%= l(layoutpage.updated_at) %> durch <%= layoutpage.updater %>
                 </p>
-                <%- if page.locked? -%>
+                <%- if layoutpage.locked? -%>
                 <p>
-                    <%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
+                    <%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= layoutpage.current_editor %></span>
                 </p>
                 <%- end -%>
             </div>
