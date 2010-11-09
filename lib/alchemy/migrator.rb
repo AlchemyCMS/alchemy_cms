@@ -29,8 +29,8 @@ class Alchemy::Migrator < ActiveRecord::Migrator
     def schema_already_converted?
       db_versions = ActiveRecord::Base.connection.select_values(
         "SELECT version FROM #{schema_migrations_table_name}"
-      ).delete_if{ |v| v.match(/-alchemy/) == nil }
-      db_versions.length == available_versions.length
+      ).delete_if{ |v| v.match(/^[0-9]{14}-alchemy$/) == nil }
+      db_versions.length != 0 || db_versions.length == available_versions.length
     end
     
   end

@@ -10,10 +10,16 @@ namespace :db do
           ) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
         )
       end
-      Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
+      if Alchemy::Migrator.schema_already_converted?
+        Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
+      else
+        puts "Error!! Database not converted!!"
+        puts "Please run rake db:convert:alchemy_migrations"
+      end
     end
   end
   
+  # TODO: fix this
   namespace :convert do
     desc "Convert the schema_migrations table to alchemy layout"
     task :alchemy_migrations => :environment do
@@ -22,7 +28,7 @@ namespace :db do
         abort
       else
         ActiveRecord::Base.connection.update(
-          "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN (#{Alchemy::Migrator.available_versions.join(',')})"
+          "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN ('#{Alchemy::Migrator.available_versions.join('\',\'')}')"
         )
       end
     end
