@@ -7,6 +7,11 @@ About
 Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
 For more Information please visit http://alchemy-app.com
 
+Rails Version
+-------------
+
+Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.9 and Ruby 1.8.7.
+
 Install via Rails template:
 ---------------------------
 
@@ -29,20 +34,20 @@ If you want to install Alchemy inside an existing Rails project, then follow the
 
 2. Then enter following lines into the config block of your config/environment.rb file
 
-        config.gem 'acts_as_ferret', :version => '0.4.8'
+        config.gem 'acts_as_ferret', :version => '0.4.8.2'
         config.gem 'authlogic', :version => '>=2.1.2'
         config.gem 'awesome_nested_set', :version => '>=1.4.3'
         config.gem 'declarative_authorization', :version => '>=0.4.1'
-        config.gem "fleximage", :version => ">=1.0.1"
+        config.gem "fleximage", :version => ">=1.0.4"
         config.gem 'fast_gettext', :version => '>=0.4.8'
         config.gem 'gettext_i18n_rails', :version => '>=0.2.3'
         config.gem 'gettext', :lib => false, :version => '>=1.9.3'
         config.gem 'rmagick', :lib => "RMagick2", :version => '>=2.12.2'
-        config.gem 'tvdeyen-ferret', :version => '>=0.11.8.1', :lib => 'ferret'
-        config.gem 'will_paginate', :version => '>=2.3.12'
+        config.gem 'jk-ferret', :version => '>=0.11.8.2', :lib => 'ferret'
+        config.gem 'will_paginate', :version => '2.3.15'
         config.gem 'mimetype-fu', :version => '>=0.1.2', :lib => 'mimetype_fu'
-        config.load_paths += %W( vendor/plugins/alchemy/app/sweepers )
-        config.load_paths += %W( vendor/plugins/alchemy/app/middleware )
+        config.autoload_paths += %W( vendor/plugins/alchemy/app/sweepers )
+        config.autoload_paths += %W( vendor/plugins/alchemy/app/middleware )
         config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
 
 3. Then install these plugins:
