@@ -19,8 +19,8 @@ class MailsController < AlchemyController
       else
         mail_to = Alchemy::Configuration.parameter(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
       end
-      mail_from = element.content_by_name("mail_from").essence.body
-      subject = element.content_by_name("subject").essence.body
+      mail_from = element.content_by_name("mail_from").essence.body rescue Alchemy::Configuration.parameter(:mailer)[:mail_from]
+      subject = element.content_by_name("subject").essence.body rescue Alchemy::Configuration.parameter(:mailer)[:subject]
       
       Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
       

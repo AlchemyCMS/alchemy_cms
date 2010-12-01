@@ -2,37 +2,33 @@ namespace :db do
   namespace :migrate do
     desc "Runs the Alchemy database migrations"
     task :alchemy => :environment do
-      if ActiveRecord::Base.connection.execute("SHOW TABLES").num_rows == 0
-        ActiveRecord::Base.connection.execute(
-          "CREATE TABLE `#{ActiveRecord::Migrator.schema_migrations_table_name}` (
-            `version` varchar(255) NOT NULL,
-            UNIQUE KEY `unique_#{ActiveRecord::Migrator.schema_migrations_table_name}` (`version`)
-          ) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
-        )
-      end
+      Alchemy::Migrator.create_schema_migrations_table if Alchemy::Migrator.schema_migrations_table_missing?
       if Alchemy::Migrator.schema_already_converted?
-        Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
+        if Alchemy::Migrator.available_database_versions.length != Alchemy::Migrator.available_versions.length
+          Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
+        else
+          puts "No Migration required."
+        end
       else
-        puts "Error!! Database not converted!!"
-        puts "Please run rake db:convert:alchemy_migrations"
+        puts "Error!! Database has no correct schema migrations table!!"
       end
     end
   end
   
-  # TODO: fix this
-  namespace :convert do
-    desc "Convert the schema_migrations table to alchemy layout"
-    task :alchemy_migrations => :environment do
-      if Alchemy::Migrator.schema_already_converted?
-        puts('Already converted')
-        abort
-      else
-        ActiveRecord::Base.connection.update(
-          "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN ('#{Alchemy::Migrator.available_versions.join('\',\'')}')"
-        )
-      end
-    end
-  end
+  # TODO: fix schema convertion task
+  # namespace :convert do
+  #   desc "Convert the schema_migrations table to alchemy layout"
+  #   task :alchemy_migrations => :environment do
+  #     if Alchemy::Migrator.schema_already_converted?
+  #       puts('Already converted')
+  #       abort
+  #     else
+  #       ActiveRecord::Base.connection.update(
+  #         "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN ('#{Alchemy::Migrator.available_versions.join('\',\'')}')"
+  #       )
+  #     end
+  #   end
+  # end
   
 end
 

@@ -5,7 +5,8 @@
 :mailer:
     :forward_to_page: false
     :mail_sucess_page: root
-    :mail_from: 'alchemy <mail@alchemy.com>'
+    :mail_from: 'Alchemy CMS Mailer <mail@alchemy.com>'
+    :subject: 'Neue Nachricht vom Kontaktformular'
 :visible: true
 :sitemap: 
   :show_root: true
