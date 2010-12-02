@@ -3,14 +3,10 @@ namespace :db do
     desc "Runs the Alchemy database migrations"
     task :alchemy => :environment do
       Alchemy::Migrator.create_schema_migrations_table if Alchemy::Migrator.schema_migrations_table_missing?
-      if Alchemy::Migrator.schema_already_converted?
-        if Alchemy::Migrator.available_database_versions.length != Alchemy::Migrator.available_versions.length
-          Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
-        else
-          puts "No Migration required."
-        end
+      if Alchemy::Migrator.available_database_versions.length != Alchemy::Migrator.available_versions.length
+        Alchemy::Migrator.run_migration(Alchemy::Migrator.available_versions.max)
       else
-        puts "Error!! Database has no correct schema migrations table!!"
+        puts "No Migration required."
       end
     end
   end

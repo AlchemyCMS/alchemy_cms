@@ -32,11 +32,6 @@ class Alchemy::Migrator < ActiveRecord::Migrator
       )
     end
     
-    def schema_already_converted?
-      db_versions = available_database_versions.delete_if{ |v| v.match(/^[0-9]{14}-alchemy$/) == nil }
-      db_versions.length != 0
-    end
-    
     def create_schema_migrations_table
       puts "Creating #{ActiveRecord::Migrator.schema_migrations_table_name} table."
       ActiveRecord::Base.connection.execute("
