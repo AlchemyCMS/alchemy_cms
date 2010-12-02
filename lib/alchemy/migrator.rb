@@ -39,7 +39,10 @@ class Alchemy::Migrator < ActiveRecord::Migrator
     
     def create_schema_migrations_table
       puts "Creating #{ActiveRecord::Migrator.schema_migrations_table_name} table."
-      ActiveRecord::Base.connection.execute("CREATE TABLE `#{ActiveRecord::Migrator.schema_migrations_table_name}` (`version` varchar(255) NOT NULL, UNIQUE KEY `unique_#{ActiveRecord::Migrator.schema_migrations_table_name}` (`version`) ENGINE=InnoDB DEFAULT CHARSET=latin1;")
+      ActiveRecord::Base.connection.execute("
+        CREATE TABLE `#{ActiveRecord::Migrator.schema_migrations_table_name}` (
+          `version` varchar(255) NOT NULL, UNIQUE KEY `unique_#{ActiveRecord::Migrator.schema_migrations_table_name}` (`version`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=latin1;")
     end
     
     def schema_migrations_table_missing?
