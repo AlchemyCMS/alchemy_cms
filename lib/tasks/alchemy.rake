@@ -49,6 +49,48 @@ namespace 'alchemy' do
     end
   end
   
+  namespace 'app_structure' do
+    namespace 'create' do
+    
+      desc "Creates all necessary folders and files needed for creating your own pagelayouts and elements for your website"
+      task "all" do
+        Rake::Task['alchemy:app_structure:create:config'].invoke
+        Rake::Task['alchemy:app_structure:create:page_layouts'].invoke
+        Rake::Task['alchemy:app_structure:create:elements'].invoke
+      end
+      
+      desc "Creates alchemys configuration folder including its necessary files."
+      task "config" do
+        if File.directory? "#{Rails.root}/config/alchemy"
+          puts "Task Aborted: Config folder already exists: #{Rails.root}/config/alchemy"
+        else
+          system "mkdir -p #{Rails.root}/config/alchemy"
+          system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', '*')} #{RAILS_ROOT}/config/alchemy/"
+          puts "Created folder with configuration files:\n#{Rails.root}/config/alchemy"
+        end
+      end
+      
+      desc "Creates alchemys pagelayout folder."
+      task "page_layouts" do
+        if File.directory? "#{Rails.root}/app/views/page_layouts"
+          puts "Task Aborted: page_layouts folder already exists: #{Rails.root}/app/views/page_layouts"
+        else
+          system "mkdir -p #{Rails.root}/app/views/page_layouts"
+        end
+      end
+      
+      desc "Creates alchemys elements folder."
+      task "elements" do
+        if File.directory? "#{Rails.root}/app/views/elements"
+          puts "Task Aborted: elements folder already exists: #{Rails.root}/app/views/elements"
+        else
+          system "mkdir -p #{Rails.root}/app/views/elements"
+        end
+      end
+      
+    end    
+  end
+  
   namespace 'assets' do
     namespace 'copy' do
       
