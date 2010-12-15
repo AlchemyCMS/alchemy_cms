@@ -1117,7 +1117,7 @@ module AlchemyHelper
   def render_new_content_link(element)
     link_to_overlay_window(
       _('add new content'),
-      new_element_content_path(element),
+      new_admin_element_content_path(element),
       {
         :size => '305x40',
         :title => _('Select an content'),
