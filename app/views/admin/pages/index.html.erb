@@ -5,14 +5,14 @@
     <div id="toolbar_buttons">
         <div class="button_with_label">
             <%= alchemy_selectbox_tag(
-                'language',
-                Language.all.map { |l| [l.name, l.code] },
-                session[:language],
+                'language_id',
+                Language.all.map { |l| [l.name, l.id] },
+                session[:language_id],
                 :onchange => %(
                     pleaseWaitOverlay();
                     new Ajax.Request('/admin/pages/switch_language', {
                         method: 'get',
-                        parameters: {language: value}
+                        parameters: {language_id: value}
                     });
                 )
             ) %>
@@ -51,7 +51,7 @@
 
 <div id="archive_all">
 	<h1><%= _("language_does_not_exist") %>!</h1>
-	<%- lang = Language.find_by_code(session[:language]) -%>
+	<%- lang = Language.find(session[:language_id]) -%>
 	<%- languages = Language.all_for_created_language_trees -%>
 	<%- if lang -%>
 	<p><%= _("want_to_make_copy_of_existing_language") %></p>
@@ -59,8 +59,8 @@
 		<table>
 		    <tr>
 		        <td class="input">
-		            <%= alchemy_selectbox_tag("languages[old_lang]", languages.map{ |l| [l.name, l.code] }, :class => "medium_long", :style => "float:left") %>
-		            <%= hidden_field_tag("languages[new_lang]", lang.code) %>
+		            <%= alchemy_selectbox_tag("languages[old_lang_id]", languages.map{ |l| [l.name, l.id] }, :class => "medium_long", :style => "float:left") %>
+		            <%= hidden_field_tag("languages[new_lang_id]", lang.id) %>
 		        </td>
 		        <td class="">
 		            &nbsp;<%= submit_tag _("copy"), :class => 'button' %>
@@ -72,15 +72,16 @@
 	    <br />
 	    <%= _("want_to_create_new_language") %>
 	</p>
-	<% remote_form_for([:admin, @page ||= Page.new]) do |form| %>
+	<% remote_form_for([:admin, Page.new]) do |form| %>
 		<%= form.hidden_field :name, :value => lang.frontpage_name %>
-		<%= form.hidden_field :language, :value => lang.code %>
+		<%= form.hidden_field :language_id, :value => lang.id %>
+		<%= form.hidden_field :language_code, :value => lang.code %>
 		<%= form.hidden_field :page_layout, :value => lang.page_layout %>
-		<%= form.hidden_field :language_root_for, :value => lang.code %>
+		<%= form.hidden_field :language_root, :value => true %>
 		<%= form.submit(_("%{language}_as_new_language") % {:language => lang.name}, :class => 'button') %>
 	<% end %>
 	<%- else -%>
-	<p>Die Sprache für den Code '<%= session[:language] %>' existiert noch nicht. Bitte legen Sie erst eine Sprache für '<%= session[:language] %>' an.</p>
+	<p>Diese Sprache existiert noch nicht. Bitte legen Sie diese Sprache erst in den Sprachen an.</p>
 	<%- end -%>
 </div>
 

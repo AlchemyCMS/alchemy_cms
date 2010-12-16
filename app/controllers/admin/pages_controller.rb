@@ -13,7 +13,7 @@ class Admin::PagesController < AlchemyController
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
-    @page_root = Page.language_root(session[:language])
+    @page_root = Page.find_language_root_for(session[:language_id])
   end
   
   def show
@@ -30,9 +30,10 @@ class Admin::PagesController < AlchemyController
   
   def create
     begin
-      parent = Page.find_by_id(params[:page][:parent_id])
+      parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
       page_layout = PageLayout.get(params[:page][:page_layout])
-      params[:page][:language] ||= parent.language
+      params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
+      params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
       params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
       page = Page.create(params[:page])
       if page.valid? && parent
@@ -79,7 +80,7 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     name = @page.name
     if @page.destroy
-      @root_page = Page.language_root(session[:language])
+      @root_page = Page.find_language_root_for(session[:language_id])
       if @root_page
         render :update do |page|
           page.replace_html(
@@ -102,7 +103,7 @@ class Admin::PagesController < AlchemyController
     if configuration(:show_real_root)
       @page_root = Page.root
     else
-      @page_root = Page.find_by_language_root_for(session[:language])
+      @page_root = Page.find_language_root_for(session[:language_id])
     end
     @area_name = params[:area_name]
     @content_id = params[:content_id]
@@ -112,7 +113,7 @@ class Admin::PagesController < AlchemyController
       @url_prefix = current_server
     end
     if multi_language?
-      @url_prefix = "#{session[:language]}/"
+      @url_prefix = "#{session[:language_id]}/"
     end
     render :layout => false
   end
@@ -149,14 +150,14 @@ class Admin::PagesController < AlchemyController
   end
   
   def copy_language
-    set_language_to(params[:languages][:new_lang])
+    set_language_to(params[:languages][:new_lang_id])
     begin
       # copy language root from old to new language
-      original_language_root = Page.find_by_language_root_for(params[:languages][:old_lang])
+      original_language_root = Page.find_language_root_for(params[:languages][:old_lang_id])
       new_language_root = Page.copy(
         original_language_root,
-        :language => params[:languages][:new_lang],
-        :language_root_for => params[:languages][:new_lang],
+        :language_id => params[:languages][:new_lang_id],
+        :language_code => Alchemy::Controller.current_language.code,
         :public => false
       )
       new_language_root.move_to_child_of Page.root
@@ -164,13 +165,13 @@ class Admin::PagesController < AlchemyController
       flash[:notice] = _('language_pages_copied')
     rescue
       log_error($!)
-      flash[:notice] = _('language_pages_could_not_be_copied')
+      flash[:error] = _('language_pages_could_not_be_copied')
     end
     redirect_to :action => :index
   end
   
   def move
-    @page_root = Page.language_root(session[:language])
+    @page_root = Page.find_language_root_for(session[:language_id])
     params['sitemap'].keys.each do |page_id|
       @page = Page.find(page_id)
       if !params['sitemap'][page_id]['left_id'].blank?
@@ -192,7 +193,7 @@ class Admin::PagesController < AlchemyController
   end
   
   def switch_language
-    set_language_to(params[:language])
+    set_language_to(params[:language_id])
     if request.xhr?
       render :update do |page|
         page.redirect_to admin_pages_path
@@ -203,9 +204,9 @@ class Admin::PagesController < AlchemyController
   end
   
   def flush
-    Page.flushables(session[:language]).each do |page|
+    Page.flushables(session[:language_id]).each do |page|
       if multi_language?
-        expire_action("#{page.language}/#{page.urlname}")
+        expire_action("#{page.language_code}/#{page.urlname}")
       else
         expire_action("#{page.urlname}")
       end
@@ -219,25 +220,12 @@ private
   
   def copy_child_pages(source_page, new_page)
     source_page.children.each do |child_page|
-      new_child = Page.copy(child_page, :language => new_page.language, :public => false)
+      new_child = Page.copy(child_page, :language_id => new_page.language_id, :language_code => new_page.language_code, :public => false)
       new_child.move_to_child_of new_page
       unless child_page.children.blank?
         copy_child_pages(child_page, new_child)
       end
     end
-  end
-  
-  def create_new_rootpage
-    lang = configuration(:languages).detect{ |l| l[:language_code] == session[:language] }
-    @page_root = Page.create(
-      :name => lang[:frontpage_name],
-      :page_layout => lang[:page_layout],
-      :language => lang[:language_code],
-      :language_root_for => lang[:language_code],
-      :public => false,
-      :visible => true
-    )
-    @page_root.move_to_child_of Page.root
   end
   
   def get_page_from_id

@@ -7,7 +7,7 @@
 			'contactform_url',
 			"/#{@url_prefix}" + Page.find_by_page_layout_and_language(
 				configuration(:mailer)[:form_layout_name],
-				session[:language]
+				session[:language_id]
 			).urlname
 		) %>
 		<tr>

@@ -69,7 +69,7 @@ module AlchemyHelper
       if options[:from_page].class == Page
         page = options[:from_page]
       else
-        page = Page.find_all_by_page_layout_and_language(options[:from_page], session[:language])
+        page = Page.find_all_by_page_layout_and_language(options[:from_page], session[:language_id])
       end
     end
     if page.blank?
@@ -432,13 +432,13 @@ module AlchemyHelper
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
     if current_page.meta_description.blank?
-      description = Page.language_root(session[:language]).meta_description
+      description = Page.find_language_root_for(session[:language_id]).meta_description
     else
       description = current_page.meta_description
     end
     #render meta keywords of the root page from language if the current meta keywords is empty
     if current_page.meta_keywords.blank?
-      keywords = Page.language_root(session[:language]).meta_keywords
+      keywords = Page.find_language_root_for(session[:language_id]).meta_keywords
     else
       keywords = current_page.meta_keywords
     end
@@ -455,7 +455,7 @@ module AlchemyHelper
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => session[:language], :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => session[:language_id], :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
     return meta_string
@@ -502,7 +502,7 @@ module AlchemyHelper
       elsif page == pages.first
         css_class = "first"
       end
-      if (page == Page.language_root(session[:language]))
+      if (page == Page.find_language_root_for(session[:language_id]))
         if configuration(:redirect_index)
           url = show_page_url(:urlname => page.urlname)
         else
@@ -546,7 +546,7 @@ module AlchemyHelper
   # == The options are:
   #
   # :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
-  # :from_page => Page.language_root session[:language]      Do you want to render a navigation from a different page then the current_page? Then pass the Page object here.
+  # :from_page => Page.language_root session[:language_id]      Do you want to render a navigation from a different page then the current_page? Then pass the Page object here.
   # :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
   # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
   # :navigation_link_partial => "navigation_link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
@@ -562,7 +562,9 @@ module AlchemyHelper
       :navigation_link_partial => "partials/navigation_link",
       :show_nonactive => false,
       :restricted_only => nil,
-      :show_title => true
+      :show_title => true,
+      :reverse => false,
+      :reverse_children => false
     }
     options = default_options.merge(options)
     if options[:from_page].nil?
@@ -583,6 +585,9 @@ module AlchemyHelper
         :conditions => conditions,
         :order => "lft ASC"
       )
+      if options[:reverse]
+        pages.reverse!
+      end
       render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
     end
   end
@@ -779,7 +784,7 @@ module AlchemyHelper
 
   # returns the current language root
   def root_page
-    @root_page ||= Page.language_root(session[:language])
+    @root_page ||= Page.find_language_root_for(session[:language_id])
   end
   
   # Returns true if the current_page is the root_page in the nested set of Pages, false if not.
@@ -879,7 +884,7 @@ module AlchemyHelper
     pages = Page.find(
       :all,
       :conditions => {
-        :language => session[:language],
+        :language => session[:language_id],
         :page_layout => options[:only][:page_layout],
         :public => true
       }
@@ -897,7 +902,7 @@ module AlchemyHelper
   def pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
     result = [[prompt, ""]]
     if pages.blank?
-      pages = Page.find_all_by_language_and_public(session[:language], true)
+      pages = Page.find_all_by_language_and_public(session[:language_id], true)
     end
     pages.each do |p|
       result << [p.send(:name), p.send(:urlname)]
@@ -911,7 +916,7 @@ module AlchemyHelper
     default_options = {
       :count => :all,
       :from_page => :all,
-      :language => session[:language]
+      :language => session[:language_id]
     }
     options = default_options.merge(options)
     if options[:from_page] == :all
@@ -988,7 +993,7 @@ module AlchemyHelper
   end
   
   def current_language
-    session[:language]
+    session[:language_id]
   end
   
   # TOOD: include these via asset_packer yml file
@@ -1107,7 +1112,7 @@ module AlchemyHelper
   
   def parse_sitemap_name(page)
     if multi_language?
-      pathname = "/#{session[:language]}/#{page.urlname}"
+      pathname = "/#{session[:language_id]}/#{page.urlname}"
     else
       pathname = "/#{page.urlname}"
     end
@@ -1117,7 +1122,7 @@ module AlchemyHelper
   def render_new_content_link(element)
     link_to_overlay_window(
       _('add new content'),
-      new_element_content_path(element),
+      new_admin_element_content_path(element),
       {
         :size => '305x40',
         :title => _('Select an content'),

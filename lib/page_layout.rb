@@ -30,10 +30,10 @@ class PageLayout
     end
   end
   
-  def self.get_layouts_for_select(language)
+  def self.get_layouts_for_select(language_id)
     array = []
     self.get_layouts.each do |layout|
-      used = layout["unique"] && self.has_another_page_this_layout?(layout["name"], language)
+      used = layout["unique"] && self.has_another_page_this_layout?(layout["name"], language_id)
       if !(layout["hide"] == true) && !used && !(layout["newsletter"] == true)
         display_name = (layout["display_name"].blank? ? layout["name"].camelize : layout["display_name"])
         array << [display_name, layout["name"]]
@@ -48,8 +48,8 @@ class PageLayout
     a
   end
   
-  def self.has_another_page_this_layout?( layout, language)
-    !Page.find(:all, :conditions => {:page_layout => layout, :language => language}).blank?
+  def self.has_another_page_this_layout?(layout, language_id)
+    !Page.find(:all, :conditions => {:page_layout => layout, :language_id => language_id}).blank?
   end
   
 end
