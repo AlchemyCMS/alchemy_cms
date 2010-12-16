@@ -1,64 +1,107 @@
+# = Configuration
+#
 # == This is the global Alchemy configuration file
-# Please override settings for your app in RAILS_ROOT/config/alchemy/config.yml of your application.
+# Please override your apps settings in your config/alchemy/config.yml file.
+# You can use a handy rake task to generate it.
+#
+#   rake alchemy:app_structure:create:config
 
-:show_rootname: a name
-:mailer:
-    :forward_to_page: false
-    :mail_sucess_page: root
-    :mail_from: 'Alchemy CMS Mailer <mail@alchemy.com>'
-    :subject: 'Neue Nachricht vom Kontaktformular'
-:visible: true
-:sitemap: 
-  :show_root: true
-  :show_flag: false
+# The amount of time of inactivity in minutes after which the user is kicked out of his current session.
+# Only active in production environment!!!
 :auto_logout_time: 10
+
+# === Redirect options
+# redirect_index: You can set to redirect (an 301 permanent, for all you SEO geeks ^_^) to first child page (typically the homepage) the index/intro page if it's not visible.
+# So you don't get an 404 error if the language root page is not visible.
+# redirect_to_public_child: Alchemy redirects to the first public child page found, if a page is not visible.
 :redirect_index: true
 :redirect_to_public_child: true
 
-# Ferret fulltext search.
+# Enable the Ferret fulltext search engine.
 :ferret: true
 
-# Page caching. Pass false to disable it globally.
+# === Pagecaching
+# Enable/Disable pagecaching globally.
+# Hint: You can enable/disable page caching for single PageLayouts in the page_layout.yml file.
 :cache_pages: true
 
-# Picture settings
+# === Sitemap
+# Alchemy renders a nice HTML (<ul><li> style) and XML (Google conform!) Sitemap for you.
+# Just place a sitemap element for a page layout in your page_layouts.yml file. Alchemy does the rest.
+# ==== Options:
+# show_root: Show language root page in sitemap?
+# show_flag: enables the Checkbox in Page#update overlay. So your customer can set the visibilit of pages in the sitemap.
+:sitemap: 
+  :show_root: true
+  :show_flag: false
+
+# === Picture rendering settings
+# Alchemy uses Fleximage and RMagick to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
+# See https://github.com/Squeegy/fleximage for further infos.
+# ==== Options:
+# output_image_jpg_quality: If rendered as JPG this is the quality setting for it.
+# preprocess_image_resize: Large images are downsized after upload to save diskspace.
+# image_store_format: Masterimage storage format. Images are rendered from this master image, so a lossless format (png) is strongly recommended.
+# image_output_format: Globally image output format setting.
+# TIP: You can always override the output format in the options of your Essence. I.e. {:format => :gif}
 :output_image_jpg_quality: 85
 :preprocess_image_resize: 1000x1000
 :image_store_format: png
 :image_output_format: jpg
 
 # Set available translations for your customers.
+# Currently available translations are German and English.
 :translations:
   - :language_code: de
     :language: Deutsch
   - :language_code: en
     :language: English
 
+# Default language for your homepgae.
 :default_language: de
 
-# Contactform settings
+# === Mailer Settings:
+# To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
+# ==== Options:
+# fields: An Array from Hashes with fieldname as keys and type as values. Types are ActiveRecord column types (i.e. string, text, boolean, etc.).
+# validate_fields: A Hash with fieldname as key and a Hash (with :message as key and a message_id as value) as value
+# 
+# The message_id is passed through I18n.t so you can translate it in your language yml file:
+# 
+#   de:  
+#     contactform:
+#       validations:
+#         message_id: Translation
+# 
 :mailer:
-  :form_layout_name: contact
+  :page_layout_name: contact
+  :forward_to_page: false
+  :mail_success_page: thanks
   :fields:
     - salutation: string
     - firstname: string
     - lastname: string
-    - address: string
-    - zip: string
-    - city: string
+    - strasse: string
+    - plz: string
+    - ort: string
     - phone: string
     - email: string
+    - seminar: boolean
+    - newsletter: boolean
     - message: text
   :validate_fields:
     :lastname:
-      :message: blank_lastname
+      :message: enter_name
     :email:
-      :message: blank_email
+      :message: enter_mail
 
-# User roles.
+# === User roles
+# You can add own user roles. To set permissions for this roles please add an authorization_rules.rb file in your config folder.
+# Further documentation for the auth system used please visit:
+# https://github.com/stffn/declarative_authorization/blob/master/README.rdoc
 :user_roles: [registered, author, editor, admin]
 
-# == This is the Alchemy plugin configuration.
+# == Alchemy plugin configuration
 # To render the mainnavigation we split Alchemy into three plugins.
 # To make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
 # folder with a Alchemy folder in it. Place a config.yml in this Alchemy folder.

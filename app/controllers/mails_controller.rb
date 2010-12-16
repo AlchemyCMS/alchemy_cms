@@ -1,14 +1,59 @@
+# == Sending Mails:
+# To send Mails via contact forms you can create your form fields in the config.yml
+# === Example:
+# Make an Element with this options inside your elements.yml file:
+#
+#   - name: contact
+#     display_name: Kontaktformular
+#     contents:
+#     - name: mail_to
+#       type: EssenceText
+#     - name: subject
+#       type: EssenceText
+#     - name: mail_from
+#       type: EssenceText
+#     - name: success_page
+#       type: EssenceText
+#
+# The fields mail_to, mail_from, subject and success_page are recommended.
+# The MailsController uses them to send your mails. So your customer has full controll of these values inside his contactform element.
+# 
+# Then make a page layout for your contact page in the page_layouts.yml file:
+# 
+#   - name: contact
+#     display_name: Kontakt
+#     unique: true
+#     cache: false
+#     elements: [pageheading, heading, contact, bild, absatz, file_download]
+#     autogenerate: [contact]
+#     controller: mails
+#     action: new
+#
+# Disabling the page caching is stronlgy recommended! Also the controller and action settings are recommended.
+#
+# The editor view for your element should have this layout:
+# 
+#   <%= render_essence_editor_by_name(element, 'mail_from') %>
+#   <%= render_essence_editor_by_name(element, 'mail_to') %>
+#   <%= render_essence_editor_by_name(element, 'subject') %>
+#   <p>
+#     Folgeseite: <%= page_selector(element, 'success_page') %>
+#   </p>
+# 
+# Please have a look at the vendor/plugins/alchemy/config/config.yml file for further Mail settings.
+
 class MailsController < AlchemyController
   
   helper :pages
   
-  def new
+  def new#:nodoc:
     @mail = Mail.new
-    @page = Page.find_by_page_layout(Alchemy::Configuration.parameter(:mailer)[:form_layout_name])
+    @page = Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
+    raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
     render :template => '/pages/show', :layout => 'pages'
   end
   
-  def create
+  def create#:nodoc:
     @mail = Mail.new(params[:mail])
     @mail.ip = request.remote_ip
     element = Element.find_by_id(@mail.contact_form_id)
@@ -17,19 +62,21 @@ class MailsController < AlchemyController
       if params[:mail_to].blank?
         mail_to = element.content_by_name("mail_to").essence.body
       else
-        mail_to = Alchemy::Configuration.parameter(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
+        mail_to = configuration(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
       end
-      mail_from = element.content_by_name("mail_from").essence.body rescue Alchemy::Configuration.parameter(:mailer)[:mail_from]
-      subject = element.content_by_name("subject").essence.body rescue Alchemy::Configuration.parameter(:mailer)[:subject]
+      mail_from = element.content_by_name("mail_from").essence.body rescue configuration(:mailer)[:mail_from]
+      subject = element.content_by_name("subject").essence.body rescue configuration(:mailer)[:subject]
       
       Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
       
-      if !element.content_by_name("success_page").essence.body.blank?
+      if element.content_by_name("success_page") && element.content_by_name("success_page").essence.body
         if multi_language?
           redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => session[:language])
         else
           redirect_to show_page_url(:urlname => element.content_by_name("success_page").essence.body)
         end
+      elsif configuration(:mailer)[:forward_to_page] && configuration(:mailer)[:mail_success_page]
+        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_by_urlname(configuration(:mailer)[:mail_success_page]).urlname
       else
         flash[:notice] = I18n.t('contactform.messages.success')
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root(session[:language]).urlname
