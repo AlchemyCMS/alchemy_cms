@@ -8,7 +8,7 @@
 <%- else -%>
 <%= link_to(
     h(navigation_link.name),
-    "#{multi_language? ? '/' + session[:language] : nil}/#{navigation_link.urlname}",
+    "#{multi_language? ? '/' + session[:language_id] : nil}/#{navigation_link.urlname}",
     {
         :class => (page_active?(navigation_link) ? 'active' : nil),
         :title => (options[:show_title] == true ? navigation_link.title : nil)

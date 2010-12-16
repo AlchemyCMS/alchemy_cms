@@ -32,7 +32,7 @@ private
   
   def expire_page(page)
     if Alchemy::Controller.multi_language?
-      expire_action("#{page.language}/#{page.urlname_was}") unless page.do_not_sweep
+      expire_action("#{page.language.code}/#{page.urlname_was}") unless page.do_not_sweep
     else
       expire_action("#{page.urlname_was}") unless page.do_not_sweep
     end

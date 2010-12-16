@@ -4,10 +4,11 @@ class Page < ActiveRecord::Base
   has_many :folded_pages
   has_many :elements, :order => :position, :dependent => :destroy
   has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
+  belongs_to :language
   
   validates_presence_of :name, :message => N_("please enter a name")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
-  validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language', :if => :urlname_entered?
+  validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
   #validates_format_of :urlname, :with => /http/, :if => Proc.new { |page| page.redirects_to_external? }
   
   attr_accessor :do_not_autogenerate
@@ -27,7 +28,7 @@ class Page < ActiveRecord::Base
     end
   end
   
-  named_scope :language_roots, :conditions => "language_root_for IS NOT NULL"
+  named_scope :language_roots, :conditions => {:language_root => true}
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -77,6 +78,19 @@ class Page < ActiveRecord::Base
     }
     options = default_options.merge(options)
     find_next_or_previous_page("next", options)
+  end
+  
+  def find_first_public(page)
+    if(page.public == true)
+      return page
+    end
+    page.children.each do |child|
+      result = find_first_public(child)
+      if(result!=nil)
+        return result
+      end
+    end
+    return nil
   end
   
   def name_entered?
@@ -225,28 +239,6 @@ class Page < ActiveRecord::Base
     end
   end
   
-  def self.language_root(language)
-    return nil if language.nil?
-    find_by_language_root_for(language)
-  end
-  
-  def is_root? language
-    Page.language_root( language) == self
-  end
-  
-  def parent_language
-    parent = self
-    while parent.parent && parent.language_root_for.blank?
-      parent = parent.parent
-    end
-    unless parent.blank?
-      parent_lang = parent.language
-    else
-      parent_lang = self.language
-    end
-    parent_lang
-  end
-  
   # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
   def layout_description
     page_layout = PageLayout.get(self.page_layout)
@@ -302,7 +294,15 @@ class Page < ActiveRecord::Base
   
   def self.public_language_roots
     public_language_codes = Language.all_codes_for_published
-    all(:conditions => "language_root_for IS NOT NULL AND language IN ('#{public_language_codes.join('\',\'')}')")
+    all(:conditions => "language_root = 1 AND language_code IN ('#{public_language_codes.join('\',\'')}') AND public = 1")
+  end
+  
+  def first_public_child
+    self.children.detect{ |child| child.public? }
+  end
+  
+  def self.find_language_root_for(language_id)
+    self.language_roots.find_by_language_id(language_id)
   end
   
 private
@@ -375,7 +375,7 @@ private
   # Returns all pages for langugae that are not locked and public.
   # Used for flushing all page caches at once.
   def self.flushables(language)
-    self.all(:conditions => {:public => true, :locked => false, :language => language})
+    self.all(:conditions => {:public => true, :locked => false, :language_id => language.id})
   end
   
 end

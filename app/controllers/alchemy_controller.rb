@@ -44,18 +44,18 @@ class AlchemyController < ApplicationController
     return Alchemy::Configuration.parameter(name)
   end
   
-  def set_language_to(lang = nil)
-    language_code = Language.find_code_for(params[:lang] || lang)
-    if language_code
-      session[:language] = language_code
-      Alchemy::Controller.current_language = session[:language]
+  def set_language_to(language_id)
+    language = Language.find(language_id)
+    if language
+      session[:language_id] = language.id
+      Alchemy::Controller.current_language = language
     else
-      logger.error "+++++++ Language not found for code: #{language_code}"
+      logger.error "+++++++ Language not found for language_id: #{language_id}"
     end
   end
   
   def multi_language?
-    Language.count > 1
+    Language.count > 1 && Page.public_language_roots.count > 1
   end
   
   def current_user
@@ -93,14 +93,14 @@ private
     else
       language_code = params[:lang]
     end
-    language = Language.find_code_for(language_code)
+    language = Language.find_by_code(language_code)
     if language.blank?
       logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
     else
-      session[:language] = language
-      Alchemy::Controller.current_language = session[:language]
-      I18n.locale = session[:language]
+      session[:language_id] = language.id
+      Alchemy::Controller.current_language = language
+      I18n.locale = language.code
     end
   end
   
@@ -129,9 +129,12 @@ protected
   end
   
   def set_language
-    session[:language] ||= configuration(:default_language).blank? ? 'de' : configuration(:default_language)
-    Alchemy::Controller.current_language = session[:language]
-    I18n.locale = session[:language]
+    if session[:language_id].blank?
+      set_language_to_default
+    end
+  rescue
+    log_error($!)
+    flash[:error] = _('no_default_language_found')
   end
   
   def permission_denied
@@ -165,6 +168,13 @@ protected
     else
       redirect_to :back
     end
+  end
+  
+  def set_language_to_default
+    language = Language.get_default
+    session[:language_id] = language.id
+    Alchemy::Controller.current_language = language
+    I18n.locale = language.code
   end
   
 end

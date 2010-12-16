@@ -49,9 +49,18 @@ class Admin::LanguagesController < AlchemyController
   
   def destroy
     name = @language.name
-    @language.destroy
-    flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
+    logger.info("+++++++++++++++++++++++ #{@language.pages.inspect}")
+    if @language.destroy
+      flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
+      set_language_to_default
+    end
     render(:update) { |page| page.redirect_to(admin_languages_url) }
+  rescue Exception => e
+    render :update do |page|
+      page << "confirm.close();"
+      Alchemy::Notice.show_via_ajax(page, e, :error)
+    end
+    logger.error("++++++++++++++ #{e}")
   end
   
 private

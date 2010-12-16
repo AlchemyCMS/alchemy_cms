@@ -26,13 +26,14 @@ class MailsController < AlchemyController
       
       if !element.content_by_name("success_page").essence.body.blank?
         if multi_language?
-          redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => session[:language])
+          language = Language.find(session[:language_id])
+          redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => language.code)
         else
           redirect_to show_page_url(:urlname => element.content_by_name("success_page").essence.body)
         end
       else
         flash[:notice] = I18n.t('contactform.messages.success')
-        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root(session[:language]).urlname
+        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_language_root_for(session[:language_id]).urlname
       end
     else
       render :template => '/pages/show', :layout => 'pages'
