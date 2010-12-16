@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-16 20:01+0100\n"
+"POT-Creation-Date: 2010-12-16 22:12+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Element|Public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:47
+#: app/controllers/admin/pages_controller.rb:45
 msgid "Error while creating page: %{error}"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Language '%{name}' created"
 msgstr ""
 
-#: app/controllers/admin/languages_controller.rb:53
+#: app/controllers/admin/languages_controller.rb:54
 msgid "Language '%{name}' destroyed"
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Language '%{name}' updated"
 msgstr ""
 
-#: app/models/language.rb:10
+#: app/models/language.rb:11
 msgid "Language code is not valid. Only URL-friendly characters allowed."
 msgstr ""
 
@@ -248,15 +248,15 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:93
+#: app/controllers/admin/pages_controller.rb:91
 msgid "Page %{name} deleted"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:192
+#: app/controllers/admin/pages_controller.rb:190
 msgid "Page %{name} moved"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:78
+#: app/controllers/admin/pages_controller.rb:76
 msgid "Page %{name} saved"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:217
+#: app/controllers/admin/pages_controller.rb:215
 msgid "Page cache flushed"
 msgstr ""
 
@@ -420,7 +420,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:156
+#: app/controllers/alchemy_controller.rb:153
 msgid "Please log in"
 msgstr ""
 
@@ -480,7 +480,7 @@ msgstr ""
 msgid "This element displays the search and the searchresults."
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:58
+#: app/controllers/admin/pages_controller.rb:56
 msgid "This page is locked by %{name}"
 msgstr ""
 
@@ -569,7 +569,7 @@ msgstr ""
 msgid "Welcome to Alchemy"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:145
+#: app/controllers/alchemy_controller.rb:142
 msgid "You are not authorized"
 msgstr ""
 
@@ -829,7 +829,7 @@ msgid "edit_image_properties"
 msgstr ""
 
 #: app/views/admin/languages/_language.html.erb:26
-#: app/views/admin/languages/_language.html.erb:32
+#: app/views/admin/languages/_language.html.erb:33
 msgid "edit_language"
 msgstr ""
 
@@ -986,11 +986,11 @@ msgstr ""
 msgid "language_does_not_exist"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:167
+#: app/controllers/admin/pages_controller.rb:165
 msgid "language_pages_copied"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:170
+#: app/controllers/admin/pages_controller.rb:168
 msgid "language_pages_could_not_be_copied"
 msgstr ""
 
@@ -1120,7 +1120,7 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:140
+#: app/controllers/alchemy_controller.rb:137
 msgid "no_default_language_found"
 msgstr ""
 
@@ -1150,7 +1150,7 @@ msgstr ""
 msgid "not a valid image"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:44
+#: app/controllers/admin/pages_controller.rb:42
 msgid "page '%{name}' created."
 msgstr ""
 
@@ -1170,7 +1170,7 @@ msgstr ""
 msgid "page_public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:150
+#: app/controllers/admin/pages_controller.rb:148
 msgid "page_published"
 msgstr ""
 
@@ -1407,7 +1407,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:58 app/models/page.rb:139
+#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:139
 #: app/models/page.rb:146 app/models/page.rb:153
 msgid "unknown"
 msgstr ""
@@ -1420,7 +1420,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:138
+#: app/controllers/admin/pages_controller.rb:136
 msgid "unlocked_page_%{name}"
 msgstr ""
 
@@ -1473,7 +1473,7 @@ msgstr ""
 msgid "want_to_make_copy_of_existing_language"
 msgstr ""
 
-#: app/models/language.rb:33
+#: app/models/language.rb:34
 msgid "we_need_at_least_one_default"
 msgstr ""
 

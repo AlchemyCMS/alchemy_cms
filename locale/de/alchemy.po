@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-16 20:01+0100\n"
+"POT-Creation-Date: 2010-12-16 22:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgstr "Name"
 msgid "Element|Public"
 msgstr "sichtbar"
 
-#: app/controllers/admin/pages_controller.rb:47
+#: app/controllers/admin/pages_controller.rb:45
 msgid "Error while creating page: %{error}"
 msgstr "Es ist ein Fehler aufgetreten: %{error}"
 
@@ -189,7 +189,7 @@ msgstr "Sprache"
 msgid "Language '%{name}' created"
 msgstr "Sprache '%{name}' wurde erstellt."
 
-#: app/controllers/admin/languages_controller.rb:53
+#: app/controllers/admin/languages_controller.rb:54
 msgid "Language '%{name}' destroyed"
 msgstr "Sprache '%{name}' wurde gelöscht."
 
@@ -197,9 +197,10 @@ msgstr "Sprache '%{name}' wurde gelöscht."
 msgid "Language '%{name}' updated"
 msgstr "Sprache %{name} wurde aktualisiert"
 
-#: app/models/language.rb:10
+#: app/models/language.rb:11
 msgid "Language code is not valid. Only URL-friendly characters allowed."
-msgstr "Sprachkürzel ist nicht valide. Bitte keine Leer- und Sonderzeichen angeben."
+msgstr ""
+"Sprachkürzel ist nicht valide. Bitte keine Leer- und Sonderzeichen angeben."
 
 #: app/views/admin/pages/index.html.erb:19
 msgid "Language tree"
@@ -251,15 +252,15 @@ msgstr "Neues Element"
 msgid "Page"
 msgstr "Seite"
 
-#: app/controllers/admin/pages_controller.rb:93
+#: app/controllers/admin/pages_controller.rb:91
 msgid "Page %{name} deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/pages_controller.rb:192
+#: app/controllers/admin/pages_controller.rb:190
 msgid "Page %{name} moved"
 msgstr "%{name} wurde an die neue Position bewegt"
 
-#: app/controllers/admin/pages_controller.rb:78
+#: app/controllers/admin/pages_controller.rb:76
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
@@ -267,7 +268,7 @@ msgstr "%{name} wurde gespeichert"
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
-#: app/controllers/admin/pages_controller.rb:217
+#: app/controllers/admin/pages_controller.rb:215
 msgid "Page cache flushed"
 msgstr "Seitencache wurde geleert"
 
@@ -427,7 +428,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
 "haben."
 
-#: app/controllers/alchemy_controller.rb:156
+#: app/controllers/alchemy_controller.rb:153
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
@@ -488,7 +489,7 @@ msgid "This element displays the search and the searchresults."
 msgstr ""
 "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
 
-#: app/controllers/admin/pages_controller.rb:58
+#: app/controllers/admin/pages_controller.rb:56
 msgid "This page is locked by %{name}"
 msgstr "Diese Seite wird gerade von %{name} blockiert"
 
@@ -579,7 +580,7 @@ msgstr "Datei anzeigen"
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
 
-#: app/controllers/alchemy_controller.rb:145
+#: app/controllers/alchemy_controller.rb:142
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
@@ -841,7 +842,7 @@ msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
 #: app/views/admin/languages/_language.html.erb:26
-#: app/views/admin/languages/_language.html.erb:32
+#: app/views/admin/languages/_language.html.erb:33
 msgid "edit_language"
 msgstr "Sprache bearbeiten"
 
@@ -1006,11 +1007,11 @@ msgstr "Wählen Sie eine Seite zum verlinken."
 msgid "language_does_not_exist"
 msgstr "Dieser Sprachbaum existiert noch nicht"
 
-#: app/controllers/admin/pages_controller.rb:167
+#: app/controllers/admin/pages_controller.rb:165
 msgid "language_pages_copied"
 msgstr "Der Sprachbaum wurde kopiert"
 
-#: app/controllers/admin/pages_controller.rb:170
+#: app/controllers/admin/pages_controller.rb:168
 msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren des Sprachbaums sind Fehler aufgetreten"
 
@@ -1140,7 +1141,7 @@ msgstr "Navigationsname"
 msgid "no"
 msgstr "Nein"
 
-#: app/controllers/alchemy_controller.rb:140
+#: app/controllers/alchemy_controller.rb:137
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
@@ -1170,7 +1171,7 @@ msgstr "Keine Suchergebnisse."
 msgid "not a valid image"
 msgstr "Keine valide Bilddatei."
 
-#: app/controllers/admin/pages_controller.rb:44
+#: app/controllers/admin/pages_controller.rb:42
 msgid "page '%{name}' created."
 msgstr "Seite '%{name}' wurde erstellt."
 
@@ -1190,7 +1191,7 @@ msgstr "Seiteneigenschaften"
 msgid "page_public"
 msgstr "Seite veröffentlichen"
 
-#: app/controllers/admin/pages_controller.rb:150
+#: app/controllers/admin/pages_controller.rb:148
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
@@ -1439,7 +1440,7 @@ msgstr "In einem neuen Fenster öffnen"
 msgid "title"
 msgstr "Titel"
 
-#: app/controllers/admin/pages_controller.rb:58 app/models/page.rb:139
+#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:139
 #: app/models/page.rb:146 app/models/page.rb:153
 msgid "unknown"
 msgstr "unbekannt"
@@ -1452,7 +1453,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/admin/pages_controller.rb:138
+#: app/controllers/admin/pages_controller.rb:136
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 
@@ -1505,7 +1506,7 @@ msgstr "Oder wollen Sie einen neuen leeren Sprachbaum erstellen?"
 msgid "want_to_make_copy_of_existing_language"
 msgstr "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
 
-#: app/models/language.rb:33
+#: app/models/language.rb:34
 msgid "we_need_at_least_one_default"
 msgstr "Es muss eine Standardsprache geben"
 
