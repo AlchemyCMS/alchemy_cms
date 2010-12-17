@@ -106,7 +106,7 @@ private
     redirect_to(
       send(
         "show_page_#{multi_language? ? 'with_language_' : nil }path".to_sym, {
-          :lang => (multi_language? ? @page.language : nil),
+          :lang => (multi_language? ? @page.language_code : nil),
           :urlname => @page.urlname
         }.merge(@additional_params)
       ),
