@@ -6,12 +6,48 @@ en:
     admin: "Administrator"
     
   languages:
+    cn:
+      name: 'chinese'
+      title: 'chinese'
     de:
-      name: 'Deutsch'
-      title: 'Deutsch'
+      name: 'german'
+      title: 'german'
     en:
-      name: 'English'
-      title: 'English'
+      name: 'english'
+      title: 'english'
+    es:
+      name: 'spanish'
+      title: 'spanish'
+    fi:
+      name: 'finnish'
+      title: 'finnish'
+    fr:
+      name: 'french'
+      title: 'french'
+    it:
+      name: 'italian'
+      title: 'italian'
+    jp:
+      name: 'japanese'
+      title: 'japanese'
+    nl:
+      name: 'dutch'
+      title: 'dutch'
+    no:
+      name: 'norwegian'
+      title: 'norwegian'
+    pl:
+      name: 'polish'
+      title: 'polish'
+    pt:
+      name: 'portuguese'
+      title: 'portuguese'
+    ru:
+      name: 'russian'
+      title: 'russian'
+    se:
+      name: 'swedish'
+      title: 'swedish'
   
   date:
     formats:
