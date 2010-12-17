@@ -29,6 +29,7 @@ class Page < ActiveRecord::Base
   end
   
   named_scope :language_roots, :conditions => {:language_root => true}
+  named_scope :layoutpages, :conditions => {:layoutpage => true}
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -303,6 +304,14 @@ class Page < ActiveRecord::Base
   
   def self.find_language_root_for(language_id)
     self.language_roots.find_by_language_id(language_id)
+  end
+  
+  def self.layout_root_for(language_id)
+    find(:first, :conditions => {
+      :parent_id => Page.root.id,
+      :layoutpage => true,
+      :language_id => language_id}
+    )
   end
   
 private

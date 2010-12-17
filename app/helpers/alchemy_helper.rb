@@ -432,13 +432,13 @@ module AlchemyHelper
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
     if current_page.meta_description.blank?
-      description = Page.find_language_root_for(session[:language_id]).meta_description
+      description = Page.find_language_root_for(session[:language_id]).meta_description rescue ""
     else
       description = current_page.meta_description
     end
     #render meta keywords of the root page from language if the current meta keywords is empty
     if current_page.meta_keywords.blank?
-      keywords = Page.find_language_root_for(session[:language_id]).meta_keywords
+      keywords = Page.find_language_root_for(session[:language_id]).meta_keywords rescue ""
     else
       keywords = current_page.meta_keywords
     end

@@ -25,7 +25,7 @@
         <div class="sitemap_sitename">
             <%= link_to(
                 layoutpage.name,
-                edit_admin_page_path(layoutpage, :layoutpage => true),
+                edit_admin_page_path(layoutpage),
                 :title => _("edit_page"),
                 :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
             ) -%>

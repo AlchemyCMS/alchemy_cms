@@ -51,13 +51,14 @@ class Admin::PagesController < AlchemyController
   # Edit the content of the page and all its elements and contents.
   def edit
     # fetching page via before filter
-    @layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
+    #@layoutpage = !params[:layoutpage].blank? && params[:layoutpage] == 'true'
     if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
       redirect_to admin_pages_path
     else
       @page.lock(current_user)
     end
+    @layoutpage = @page.layoutpage?
   end
   
   # Set page configuration like page names, meta tags and states.
@@ -126,7 +127,7 @@ class Admin::PagesController < AlchemyController
   end
   
   def layoutpages
-    @layout_root = Page.layout_root
+    @layout_root = Page.layout_root_for(session[:language_id])
   end
   
   # Leaves the page editing mode and unlocks the page for other users
@@ -153,12 +154,17 @@ class Admin::PagesController < AlchemyController
     set_language_to(params[:languages][:new_lang_id])
     begin
       # copy language root from old to new language
-      original_language_root = Page.find_language_root_for(params[:languages][:old_lang_id])
+      if params[:layoutpage]
+        original_language_root = Page.layout_root_for(params[:languages][:old_lang_id])
+      else
+        original_language_root = Page.find_language_root_for(params[:languages][:old_lang_id])
+      end
       new_language_root = Page.copy(
         original_language_root,
         :language_id => params[:languages][:new_lang_id],
         :language_code => Alchemy::Controller.current_language.code,
-        :public => false
+        :public => false,
+        :layoutpage => params[:layoutpage]
       )
       new_language_root.move_to_child_of Page.root
       copy_child_pages(original_language_root, new_language_root)
@@ -167,7 +173,7 @@ class Admin::PagesController < AlchemyController
       log_error($!)
       flash[:error] = _('language_pages_could_not_be_copied')
     end
-    redirect_to :action => :index
+    redirect_to :action => params[:layoutpage] == "true" ? :layoutpages : :index
   end
   
   def move
@@ -194,12 +200,13 @@ class Admin::PagesController < AlchemyController
   
   def switch_language
     set_language_to(params[:language_id])
+    redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
     if request.xhr?
       render :update do |page|
-        page.redirect_to admin_pages_path
+        page.redirect_to redirect_path
       end
     else
-      redirect_to admin_pages_path
+      redirect_to redirect_path
     end
   end
   

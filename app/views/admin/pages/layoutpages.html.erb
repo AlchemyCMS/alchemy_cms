@@ -1,7 +1,29 @@
 <%- alchemy_assets_set(:sitemap) -%>
 <%- content_for :toolbar do -%>
-<div id="toolbar"></div>
+<div id="toolbar">
+	<div class="button_with_label">
+        <%= alchemy_selectbox_tag(
+            'language',
+            Language.all.map { |l| [l.name, l.id] },
+            session[:language_id],
+            :onchange => %(
+                pleaseWaitOverlay();
+                new Ajax.Request('/admin/pages/switch_language', {
+                    method: 'get',
+                    parameters: {language_id: value, layoutpages: true}
+                });
+            )
+        ) %>
+        <label><%= _("Language tree") %></label>
+    </div>
+</div>
 <%- end -%>
+<%- if @layout_root -%>
 <ul class="list" id="layoutpages">
     <%= render :partial => "layoutpage", :collection => @layout_root.children %>
 </ul>
+<%- else -%>
+
+<%= render :partial => 'create_language_form' %>
+
+<%- end -%>
