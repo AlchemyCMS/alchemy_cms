@@ -4,6 +4,14 @@ en:
     author: "Author"
     editor: "Redakteur"
     admin: "Administrator"
+    
+  languages:
+    de:
+      name: 'Deutsch'
+      title: 'Deutsch'
+    en:
+      name: 'English'
+      title: 'English'
   
   date:
     formats:

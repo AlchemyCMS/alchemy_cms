@@ -72,34 +72,52 @@ module PagesHelper
   
   def language_switches(options={})
     default_options = {
-      :linkname => "code",
+      :linkname => :name,
       :spacer => "",
-      :uppercase => true,
       :link_to_public_child => false,
       :show_title => true,
-      :reverse => false
+      :reverse => false,
+      :as_select_box => false
     }
     options = default_options.merge(options)
     if multi_language?
-      links = []
-      
+      languages = []
       Page.public_language_roots.each do |page|
         page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? page : page.first_public_child) : page)
-        if page.language.has_attribute?("#{options[:linkname]}")
-          linkname = page.language.send("#{options[:linkname]}")
-          linkname.upcase! if options[:uppercase]
-        else
+        active = session[:language_id] == page.language.id
+        if options[:linkname].to_sym == :code
           linkname = page.language.code
+        else
+          linkname = I18n.t("languages.#{page.language.code}.name")
         end
-        links << link_to(
-          linkname,
-          show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
-          :class => (session[:language_id] == page.language.id ? 'active' : nil),
-          :title => (options[:show_title] == true ? (linkname) : nil)
-        )
+        if options[:as_select_box]
+          languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
+        else
+          languages << link_to(
+            linkname,
+            show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
+            :class => (active ? 'active' : nil),
+            :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
+          )
+        end
       end
-      links.reverse! if options[:reverse]
-      links.join("<span class='seperator'>#{options[:spacer]}</span>")
+      if options[:as_select_box]
+        return select_tag(
+          'language',
+          options_for_select(
+            languages,
+            show_page_with_language_url(:urlname => @page.urlname, :lang => @page.language.code)
+          ),
+          :onchange => "window.location=this.value"
+        )
+      else
+        languages.reverse! if options[:reverse]
+        if options[:spacer].blank?
+          return languages
+        else
+          return languages.join(options[:spacer])
+        end
+      end
     else
       ""
     end
