@@ -33,6 +33,7 @@ class PagesController < AlchemyController
     if configuration(:ferret) && !params[:query].blank?
       perform_search
     end
+    render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
   
   # Renders a Google conform sitemap in xml
