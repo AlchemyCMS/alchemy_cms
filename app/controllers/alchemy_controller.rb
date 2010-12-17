@@ -55,7 +55,7 @@ class AlchemyController < ApplicationController
   end
   
   def multi_language?
-    Language.count > 1 && Page.public_language_roots.count > 1
+    Language.published.count > 1
   end
   
   def current_user

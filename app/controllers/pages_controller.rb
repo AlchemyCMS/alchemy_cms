@@ -59,6 +59,8 @@ private
       redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code)
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
+    elsif !multi_language? && !params[:lang].blank?
+      redirect_to show_page_path(:urlname => @page.urlname)
     elsif @page.has_controller?
       redirect_to(@page.controller_and_action)
     end
