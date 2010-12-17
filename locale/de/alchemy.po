@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-16 22:12+0100\n"
+"POT-Creation-Date: 2010-12-17 13:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -196,11 +196,6 @@ msgstr "Sprache '%{name}' wurde gelöscht."
 #: app/controllers/admin/languages_controller.rb:46
 msgid "Language '%{name}' updated"
 msgstr "Sprache %{name} wurde aktualisiert"
-
-#: app/models/language.rb:11
-msgid "Language code is not valid. Only URL-friendly characters allowed."
-msgstr ""
-"Sprachkürzel ist nicht valide. Bitte keine Leer- und Sonderzeichen angeben."
 
 #: app/views/admin/pages/index.html.erb:19
 msgid "Language tree"
@@ -428,7 +423,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
 "haben."
 
-#: app/controllers/alchemy_controller.rb:153
+#: app/controllers/alchemy_controller.rb:152
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
@@ -580,7 +575,7 @@ msgstr "Datei anzeigen"
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
 
-#: app/controllers/alchemy_controller.rb:142
+#: app/controllers/alchemy_controller.rb:141
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
@@ -1141,7 +1136,7 @@ msgstr "Navigationsname"
 msgid "no"
 msgstr "Nein"
 
-#: app/controllers/alchemy_controller.rb:137
+#: app/controllers/alchemy_controller.rb:136
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 

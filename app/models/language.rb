@@ -8,10 +8,10 @@ class Language < ActiveRecord::Base
   validate :presence_of_default_language
   has_many :pages
   after_destroy :delete_language_root_page
-  validates_format_of :code, :with => /^([a-z_A-Z0-9-]{2,})$/, :message => N_("Language code is not valid. Only URL-friendly characters allowed.")
+  validates_format_of :code, :with => /^[a-z]{2}$/
   before_destroy :check_for_default
   after_update :set_pages_language, :if => proc { |m| m.code_changed? }
-  before_update :remove_old_default, :if => proc { |m| m != Language.get_default }
+  before_update :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
   
   named_scope :published, :conditions => {:public => true}
   

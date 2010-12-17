@@ -3,13 +3,17 @@ class PagesSweeper < ActionController::Caching::Sweeper
   observe Page
   
   def after_update(page)
-    expire_page(page)
-    check_multipage_elements(page)
+    unless page.layoutpage?
+      expire_page(page)
+      check_multipage_elements(page)
+    end
   end
   
   def after_destroy(page)
-    expire_page(page)
-    check_multipage_elements(page)
+    unless page.layoutpage?
+      expire_page(page)
+      check_multipage_elements(page)
+    end
   end
   
 private

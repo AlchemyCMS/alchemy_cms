@@ -7,7 +7,7 @@ de:
   
   search:
     no_results: 'Ihre Suche ergab kein Ergebnis.'
-    result_heading: 'Ihre Suche nach {{query}} ergab {{count}} Ergebnisse' 
+    result_heading: 'Ihre Suche nach %{query} ergab %{count} Ergebnisse' 
   contactform:
     labels:
       salutation: 'Anrede'
@@ -86,35 +86,35 @@ de:
       less_than_x_seconds:
         zero: 'weniger als 1 Sekunde'
         one: 'weniger als 1 Sekunde'
-        other: 'weniger als {{count}} Sekunden'
+        other: 'weniger als %{count} Sekunden'
       x_seconds:
         one: '1 Sekunde'
-        other: '{{count}} Sekunden'
+        other: '%{count} Sekunden'
       less_than_x_minutes:
         zero: 'weniger als 1 Minute'
         one: 'weniger als eine Minute'
-        other: 'weniger als {{count}} Minuten'
+        other: 'weniger als %{count} Minuten'
       x_minutes:
         one: '1 Minute'
-        other: '{{count}} Minuten'
+        other: '%{count} Minuten'
       about_x_hours:
         one: 'etwa 1 Stunde'
-        other: 'etwa {{count}} Stunden'
+        other: 'etwa %{count} Stunden'
       x_days:
         one: '1 Tag'
-        other: '{{count}} Tage'
+        other: '%{count} Tage'
       about_x_months:
         one: 'etwa 1 Monat'
-        other: 'etwa {{count}} Monate'
+        other: 'etwa %{count} Monate'
       x_months:
         one: '1 Monat'
-        other: '{{count}} Monate'
+        other: '%{count} Monate'
       about_x_years:
         one: 'etwa 1 Jahr'
-        other: 'etwa {{count}} Jahre'
+        other: 'etwa %{count} Jahre'
       over_x_years:
         one: 'mehr als 1 Jahr'
-        other: 'mehr als {{count}} Jahre'
+        other: 'mehr als %{count} Jahre'
       prompts:
         second: "Sekunden"
         minute: "Minuten"
@@ -166,31 +166,36 @@ de:
     errors:
       template:
         header:
-          one:    "Konnte {{model}} nicht speichern: 1 Fehler."
-          other:  "Konnte {{model}} nicht speichern: {{count}} Fehler."
+          one:    "Konnte %{model} nicht speichern: 1 Fehler."
+          other:  "Konnte %{model} nicht speichern: %{count} Fehler."
         body: "Bitte überprüfen Sie:"
       messages:
-        inclusion: "{{attribute}} ist kein gültiger Wert"
-        exclusion: "{{attribute}} ist nicht verfügbar"
-        invalid: "{{attribute}} ist nicht gültig"
+        inclusion: "%{attribute} ist kein gültiger Wert"
+        exclusion: "%{attribute} ist nicht verfügbar"
+        invalid: "%{attribute} ist nicht gültig"
         record_invalid: 'Validierung ist fehlgeschlagen'
-        confirmation: "{{attribute}} stimmt nicht mit der Bestätigung überein"
-        accepted: "{{attribute}} muss akzeptiert werden"
-        empty: "{{attribute}} muss ausgefüllt werden"
-        blank: "{{attribute}} muss ausgefüllt werden"
-        too_long: "{{attribute}} ist zu lang (nicht mehr als {{count}} Zeichen)"
-        too_short: "{{attribute}} ist zu kurz (nicht weniger als {{count}} Zeichen)"
-        wrong_length: "{{attribute}} hat die falsche Länge (muss genau {{count}} Zeichen haben)"
-        taken: "{{attribute}} ist bereits vergeben"
-        not_a_number: "{{attribute}} ist keine Zahl"
-        greater_than: "{{attribute}} muss größer als {{count}} sein"
-        greater_than_or_equal_to: "{{attribute}} muss größer oder gleich {{count}} sein"
-        equal_to: "{{attribute}} muss genau {{count}} sein"
-        less_than: "{{attribute}} muss kleiner als {{count}} sein"
-        less_than_or_equal_to: "{{attribute}} muss kleiner oder gleich {{count}} sein"
-        odd: "{{attribute}} muss ungerade sein"
-        even: "{{attribute}} muss gerade sein"
-  
+        confirmation: "%{attribute} stimmt nicht mit der Bestätigung überein"
+        accepted: "%{attribute} muss akzeptiert werden"
+        empty: "%{attribute} muss ausgefüllt werden"
+        blank: "%{attribute} muss ausgefüllt werden"
+        too_long: "%{attribute} ist zu lang (nicht mehr als %{count} Zeichen)"
+        too_short: "%{attribute} ist zu kurz (nicht weniger als %{count} Zeichen)"
+        wrong_length: "%{attribute} hat die falsche Länge (muss genau %{count} Zeichen haben)"
+        taken: "%{attribute} ist bereits vergeben"
+        not_a_number: "%{attribute} ist keine Zahl"
+        greater_than: "%{attribute} muss größer als %{count} sein"
+        greater_than_or_equal_to: "%{attribute} muss größer oder gleich %{count} sein"
+        equal_to: "%{attribute} muss genau %{count} sein"
+        less_than: "%{attribute} muss kleiner als %{count} sein"
+        less_than_or_equal_to: "%{attribute} muss kleiner oder gleich %{count} sein"
+        odd: "%{attribute} muss ungerade sein"
+        even: "%{attribute} muss gerade sein"
+      models:
+        language:
+          attributes:
+            code:
+              invalid: 'Sprachkürzel ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
+          
   authlogic:
     error_messages:
       login_blank: "Benutzername wurde nicht angeben."

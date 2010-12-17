@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-16 22:12+0100\n"
+"POT-Creation-Date: 2010-12-17 13:37+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -192,10 +192,6 @@ msgstr ""
 
 #: app/controllers/admin/languages_controller.rb:46
 msgid "Language '%{name}' updated"
-msgstr ""
-
-#: app/models/language.rb:11
-msgid "Language code is not valid. Only URL-friendly characters allowed."
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:19
@@ -420,7 +416,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:153
+#: app/controllers/alchemy_controller.rb:152
 msgid "Please log in"
 msgstr ""
 
@@ -569,7 +565,7 @@ msgstr ""
 msgid "Welcome to Alchemy"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:142
+#: app/controllers/alchemy_controller.rb:141
 msgid "You are not authorized"
 msgstr ""
 
@@ -1120,7 +1116,7 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:137
+#: app/controllers/alchemy_controller.rb:136
 msgid "no_default_language_found"
 msgstr ""
 
