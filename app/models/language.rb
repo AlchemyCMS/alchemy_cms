@@ -6,6 +6,7 @@ class Language < ActiveRecord::Base
   validates_presence_of :frontpage_name
   validates_uniqueness_of :code
   validate :presence_of_default_language
+  validate :publicity_of_default_language
   has_many :pages
   after_destroy :delete_language_root_page
   validates_format_of :code, :with => /^[a-z]{2}$/
@@ -28,6 +29,15 @@ class Language < ActiveRecord::Base
   end
   
 private
+  
+  def publicity_of_default_language
+    if self.default? && !self.public?
+      errors.add_to_base(N_("Defaut language has to be public"))
+      return false
+    else
+      return true
+    end
+  end
 
   def presence_of_default_language
     if Language.get_default == self && self.default_changed?
