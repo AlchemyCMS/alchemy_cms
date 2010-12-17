@@ -72,6 +72,7 @@ module PagesHelper
   
   def language_switches(options={})
     default_options = {
+      :linkname => "code",
       :spacer => "",
       :uppercase => true,
       :link_to_public_child => false,
@@ -81,17 +82,23 @@ module PagesHelper
     options = default_options.merge(options)
     if multi_language?
       links = []
+      
       Page.public_language_roots.each do |page|
-        
         page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? page : page.first_public_child) : page)
-        
+        if page.language.has_attribute?("#{options[:linkname]}")
+          linkname = page.language.send("#{options[:linkname]}")
+          linkname.upcase! if options[:uppercase]
+        else
+          linkname = page.language.code
+        end
         links << link_to(
-          options[:uppercase] ? page.language : page.language, 
-          show_page_with_language_url(:urlname => page.urlname, :lang => page.language), 
-          :class => (session[:language_id] == page.language ? 'active' : nil),
-          :title => (options[:show_title] == true ? (options[:uppercase] ? page.language.upcase : page.language) : nil)
+          linkname,
+          show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
+          :class => (session[:language_id] == page.language.id ? 'active' : nil),
+          :title => (options[:show_title] == true ? (linkname) : nil)
         )
       end
+      links.reverse! if options[:reverse]
       links.join("<span class='seperator'>#{options[:spacer]}</span>")
     else
       ""

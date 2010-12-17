@@ -11,9 +11,9 @@ class PagesController < AlchemyController
     :cache_path => Proc.new { |c| c.multi_language? ? "#{c.session[:language_id]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
       if Alchemy::Configuration.parameter(:cache_pages)
-        page = Page.find_by_urlname_and_language_and_public(
+        page = Page.find_by_urlname_and_language_id_and_public(
           c.params[:urlname],
-          Alchemy::Controller.current_language,
+          Alchemy::Controller.current_language.id,
           true,
           :select => 'page_layout, language, urlname'
         )
@@ -49,12 +49,12 @@ private
     if params[:urlname].blank?
       @page = Page.find_language_root_for(session[:language_id])
     else
-      @page = Page.find_by_urlname_and_language(params[:urlname], session[:language_id])
+      @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
     end
     if @page.blank?
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language_id])
+      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code)
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
     elsif @page.has_controller?

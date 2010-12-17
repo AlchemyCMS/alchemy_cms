@@ -93,15 +93,14 @@ private
     else
       language_code = params[:lang]
     end
-    language = Language.find_by_code(language_code)
+    language = Language.find_by_code(language_code) || Language.get_default
     if language.blank?
       logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
-    else
-      session[:language_id] = language.id
-      Alchemy::Controller.current_language = language
-      I18n.locale = language.code
     end
+    session[:language_id] = language.id
+    Alchemy::Controller.current_language = language
+    I18n.locale = language.code
   end
   
   def store_location
