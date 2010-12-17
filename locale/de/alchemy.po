@@ -700,9 +700,7 @@ msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 
 #: app/views/admin/languages/_language.html.erb:15
 msgid "confirm_to_delete_language"
-msgstr ""
-"Wollen Sie diese Sprache wirklich löschen? Alle zugehörigen Seiten werden "
-"ebenfalls gelöscht!"
+msgstr "Wollen Sie diese Sprache wirklich löschen?<br/>ACHTUNG! Alle zugehörigen Seiten werden ebenfalls gelöscht!"
 
 #: app/views/admin/pages/_page.html.erb:46
 #: app/views/admin/pages/_sitemap.html.erb:44

@@ -69,7 +69,7 @@ module AlchemyHelper
       if options[:from_page].class == Page
         page = options[:from_page]
       else
-        page = Page.find_all_by_page_layout_and_language(options[:from_page], session[:language_id])
+        page = Page.find_all_by_page_layout_and_language_id(options[:from_page], session[:language_id])
       end
     end
     if page.blank?
@@ -854,7 +854,7 @@ module AlchemyHelper
     ajax = remote_function(:url => url, :success => "confirm.close()", :method => :delete)
     link_to_function(
       link_string,
-      "confirm = Dialog.confirm( '#{message}', {zIndex: 30000, width:300, height: 80, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'alchemy_confirm_window', className: 'alchemy_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
+      "confirm = Dialog.confirm( '#{message}', {zIndex: 30000, width:300, height: 100, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'alchemy_confirm_window', className: 'alchemy_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
       html_options
     )
   end
@@ -902,7 +902,7 @@ module AlchemyHelper
   def pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
     result = [[prompt, ""]]
     if pages.blank?
-      pages = Page.find_all_by_language_and_public(session[:language_id], true)
+      pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
     end
     pages.each do |p|
       result << [p.send(:name), p.send(:urlname)]
@@ -913,16 +913,16 @@ module AlchemyHelper
   # Returns all public elements found by Element.name.
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
+    logger.warn "+++++ Warning! options[:language] option not allowed any more in all_elements_by_name helper!" if !options[:language].blank?
     default_options = {
       :count => :all,
-      :from_page => :all,
-      :language => session[:language_id]
+      :from_page => :all
     }
     options = default_options.merge(options)
     if options[:from_page] == :all
       elements = Element.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
     elsif options[:from_page].class == String
-      page = Page.find_by_page_layout_and_language(options[:from_page], options[:language])
+      page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
       return [] if page.blank?
       elements = page.elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
     else

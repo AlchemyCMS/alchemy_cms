@@ -5,7 +5,7 @@
     <div id="toolbar_buttons">
         <div class="button_with_label">
             <%= alchemy_selectbox_tag(
-                'language_id',
+                'language',
                 Language.all.map { |l| [l.name, l.id] },
                 session[:language_id],
                 :onchange => %(
@@ -54,6 +54,7 @@
 	<%- lang = Language.find(session[:language_id]) -%>
 	<%- languages = Language.all_for_created_language_trees -%>
 	<%- if lang -%>
+	<%- if languages.size >= 1 -%>
 	<p><%= _("want_to_make_copy_of_existing_language") %></p>
 	<%- form_tag("/admin/pages/copy_language") do -%>
 		<table>
@@ -72,6 +73,7 @@
 	    <br />
 	    <%= _("want_to_create_new_language") %>
 	</p>
+	<%- end -%>
 	<% remote_form_for([:admin, Page.new]) do |form| %>
 		<%= form.hidden_field :name, :value => lang.frontpage_name %>
 		<%= form.hidden_field :language_id, :value => lang.id %>

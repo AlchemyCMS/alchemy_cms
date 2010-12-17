@@ -5,7 +5,7 @@
 	<table class="window_form">
 		<%= hidden_field_tag(
 			'contactform_url',
-			"/#{@url_prefix}" + Page.find_by_page_layout_and_language(
+			"/#{@url_prefix}" + Page.find_by_page_layout_and_language_id(
 				configuration(:mailer)[:form_layout_name],
 				session[:language_id]
 			).urlname
