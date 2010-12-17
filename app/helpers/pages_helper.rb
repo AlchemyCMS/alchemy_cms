@@ -36,8 +36,9 @@ module PagesHelper
   end
   
   def alchemy_form_check_box(name, options={})
-    bla = check_box_tag "mail_data[#{name}]", 1, (session[:mail_data][name.to_sym] == "0" ? false : true rescue false)
-    bla += hidden_field_tag "mail_data[#{name}]", 0, :id => nil
+    box = hidden_field_tag "mail_data[#{name}]", 0, :id => nil
+    box += check_box_tag("mail_data[#{name}]", 1, (session[:mail_data] && session[:mail_data][name.to_sym] == "1"))
+    box
   end
   
   def alchemy_form_label(element, name, options={})
