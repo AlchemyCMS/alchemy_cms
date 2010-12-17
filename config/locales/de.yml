@@ -52,12 +52,48 @@ de:
       admin: "Administrator"
   
   languages:
+    cn:
+      name: 'Chinesisch'
+      title: 'Chinesisch'
     de:
       name: 'Deutsch'
       title: 'Deutsch'
     en:
       name: 'English'
       title: 'English'
+    es:
+      name: 'Spanisch'
+      title: 'Spanisch'
+    fi:
+      name: 'Finnisch'
+      title: 'Finnisch'
+    fr:
+      name: 'Französisch'
+      title: 'Französisch'
+    it:
+      name: 'Italienisch'
+      title: 'Italienisch'
+    jp:
+      name: 'Japanisch'
+      title: 'Japanisch'
+    nl:
+      name: 'Niederländisch'
+      title: 'Niederländisch'
+    no:
+      name: 'Norwegisch'
+      title: 'Norwegisch'
+    pl:
+      name: 'Polnisch'
+      title: 'Polnisch'
+    pt:
+      name: 'Portugiesisch'
+      title: 'Portugiesisch'
+    ru:
+      name: 'Russisch'
+      title: 'Russisch'
+    se:
+      name: 'Schwedisch'
+      title: 'Schwedisch'
       
   date:
     formats:
