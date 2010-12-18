@@ -15,7 +15,7 @@ class PagesController < AlchemyController
           c.params[:urlname],
           Alchemy::Controller.current_language.id,
           true,
-          :select => 'page_layout, language, urlname'
+          :select => 'page_layout, language_id, urlname'
         )
         if page
           pagelayout = PageLayout.get(page.page_layout)
