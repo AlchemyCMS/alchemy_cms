@@ -884,7 +884,7 @@ module AlchemyHelper
     pages = Page.find(
       :all,
       :conditions => {
-        :language => session[:language_id],
+        :language_id => session[:language_id],
         :page_layout => options[:only][:page_layout],
         :public => true
       }
