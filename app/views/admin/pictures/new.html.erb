@@ -2,15 +2,7 @@
 	<%= render(
 		:partial => "admin/partials/upload_form",
 		:locals => {
-			:file_types => [
-				'*.jpg',
-				'*.jpeg',
-				'*.gif',
-				'*.png',
-				'*.tif',
-				'*.tiff',
-				'*.psd'
-			],
+			:file_types => configuration(:uploader)[:allowed_filetypes][:pictures],
 			:file_types_description => _('images'),
 			:model_name => 'picture',
 			:item_type => _('images')

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-17 13:37+0100\n"
+"POT-Creation-Date: 2010-12-20 22:17+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -10,7 +10,7 @@ msgstr ""
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
 
-#: app/views/admin/pages/index.html.erb:81
+#: app/views/admin/pages/_create_language_form.html.erb:36
 msgid "%{language}_as_new_language"
 msgstr "%{language} als neuen Sprachbaum anlegen"
 
@@ -18,12 +18,12 @@ msgstr "%{language} als neuen Sprachbaum anlegen"
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' aus der Zwischenablage"
 
-#: app/views/admin/partials/_upload_form.html.erb:22
+#: app/views/admin/partials/_upload_form.html.erb:23
 msgid ""
 "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:22
+#: app/views/admin/partials/_upload_form.html.erb:23
 msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
@@ -62,9 +62,13 @@ msgstr "Dateigröße"
 msgid "Choose Element"
 msgstr "Element auswählen"
 
-#: app/views/admin/partials/_upload_form.html.erb:19
+#: app/views/admin/partials/_upload_form.html.erb:20
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
+
+#: app/models/language.rb:35
+msgid "Defaut language has to be public"
+msgstr ""
 
 #: app/views/admin/pictures/_picture.html.erb:14
 msgid "Delete image"
@@ -103,7 +107,7 @@ msgstr "sichtbar"
 msgid "Error while creating page: %{error}"
 msgstr "Es ist ein Fehler aufgetreten: %{error}"
 
-#: app/views/admin/partials/_upload_form.html.erb:27
+#: app/views/admin/partials/_upload_form.html.erb:28
 msgid "Error with the Flash® Uploader!"
 msgstr "Fehler mit dem Flash® Uploader!"
 
@@ -147,7 +151,7 @@ msgstr "Bildercache leeren"
 msgid "Have much fun with Alchemy!"
 msgstr "Viel Spaß mit Alchemy!"
 
-#: app/views/admin/partials/_upload_form.html.erb:15
+#: app/views/admin/partials/_upload_form.html.erb:16
 msgid ""
 "If you have any problems using the Flash® uploader you can switch to the "
 "%{link}"
@@ -198,6 +202,7 @@ msgid "Language '%{name}' updated"
 msgstr "Sprache %{name} wurde aktualisiert"
 
 #: app/views/admin/pages/index.html.erb:19
+#: app/views/admin/pages/layoutpages.html.erb:17
 msgid "Language tree"
 msgstr "Sprachbaum"
 
@@ -247,15 +252,15 @@ msgstr "Neues Element"
 msgid "Page"
 msgstr "Seite"
 
-#: app/controllers/admin/pages_controller.rb:91
+#: app/controllers/admin/pages_controller.rb:92
 msgid "Page %{name} deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/pages_controller.rb:190
+#: app/controllers/admin/pages_controller.rb:196
 msgid "Page %{name} moved"
 msgstr "%{name} wurde an die neue Position bewegt"
 
-#: app/controllers/admin/pages_controller.rb:76
+#: app/controllers/admin/pages_controller.rb:77
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
@@ -263,7 +268,7 @@ msgstr "%{name} wurde gespeichert"
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
-#: app/controllers/admin/pages_controller.rb:215
+#: app/controllers/admin/pages_controller.rb:222
 msgid "Page cache flushed"
 msgstr "Seitencache wurde geleert"
 
@@ -417,7 +422,7 @@ msgstr ""
 msgid "Please choose"
 msgstr "Bitte wählen"
 
-#: app/views/admin/partials/_upload_form.html.erb:20
+#: app/views/admin/partials/_upload_form.html.erb:21
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
@@ -427,7 +432,7 @@ msgstr ""
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
-#: app/views/admin/partials/_upload_form.html.erb:29
+#: app/views/admin/partials/_upload_form.html.erb:30
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
@@ -471,7 +476,7 @@ msgstr "Die Position wurde gespeichert."
 msgid "Sweepe cache"
 msgstr "Cache löschen"
 
-#: app/views/admin/partials/_upload_form.html.erb:41
+#: app/views/admin/partials/_upload_form.html.erb:42
 msgid "Switch to Flash® Uploader"
 msgstr "Auf den Flash® Uploader wechseln"
 
@@ -579,9 +584,15 @@ msgstr "Willkommen in Alchemy!"
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
-#: app/views/admin/partials/_upload_form.html.erb:22
+#: app/views/admin/partials/_upload_form.html.erb:23
 msgid "You can get the latest version on the %{link}"
 msgstr "Sie können die aktuelle Version auf der %{link} laden."
+
+#: app/views/admin/partials/_upload_form.html.erb:13
+msgid ""
+"You may upload %{file_types_description} with following extensions: "
+"%{file_types}"
+msgstr "Sie können %{file_types_description} mit folgenden Endungen hochladen: %{file_types}"
 
 #: app/models/mailer.rb:22
 msgid "Your Alchemy Login"
@@ -700,7 +711,9 @@ msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 
 #: app/views/admin/languages/_language.html.erb:15
 msgid "confirm_to_delete_language"
-msgstr "Wollen Sie diese Sprache wirklich löschen?<br/>ACHTUNG! Alle zugehörigen Seiten werden ebenfalls gelöscht!"
+msgstr ""
+"Wollen Sie diese Sprache wirklich löschen?<br/>ACHTUNG! Alle zugehörigen "
+"Seiten werden ebenfalls gelöscht!"
 
 #: app/views/admin/pages/_page.html.erb:46
 #: app/views/admin/pages/_sitemap.html.erb:44
@@ -732,7 +745,7 @@ msgstr "Der Inhalt konnte nicht hinzugefügt werden."
 msgid "content_not_successfully_deleted"
 msgstr "Der Inhalt konnte nicht gelöscht werden."
 
-#: app/views/admin/pages/index.html.erb:66
+#: app/views/admin/pages/_create_language_form.html.erb:17
 msgid "copy"
 msgstr "kopieren"
 
@@ -987,8 +1000,8 @@ msgid "image_title"
 msgstr "Titel-Tag"
 
 #: app/views/admin/pictures/index.html.erb:36
-#: app/views/admin/pictures/new.html.erb:14
-#: app/views/admin/pictures/new.html.erb:16
+#: app/views/admin/pictures/new.html.erb:6
+#: app/views/admin/pictures/new.html.erb:8
 msgid "images"
 msgstr "Bilder"
 
@@ -996,15 +1009,15 @@ msgstr "Bilder"
 msgid "internal_link_headline"
 msgstr "Wählen Sie eine Seite zum verlinken."
 
-#: app/views/admin/pages/index.html.erb:53
+#: app/views/admin/pages/_create_language_form.html.erb:2
 msgid "language_does_not_exist"
 msgstr "Dieser Sprachbaum existiert noch nicht"
 
-#: app/controllers/admin/pages_controller.rb:165
+#: app/controllers/admin/pages_controller.rb:171
 msgid "language_pages_copied"
 msgstr "Der Sprachbaum wurde kopiert"
 
-#: app/controllers/admin/pages_controller.rb:168
+#: app/controllers/admin/pages_controller.rb:174
 msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren des Sprachbaums sind Fehler aufgetreten"
 
@@ -1184,7 +1197,7 @@ msgstr "Seiteneigenschaften"
 msgid "page_public"
 msgstr "Seite veröffentlichen"
 
-#: app/controllers/admin/pages_controller.rb:148
+#: app/controllers/admin/pages_controller.rb:149
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
@@ -1197,45 +1210,45 @@ msgstr "Seite schützen"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:200
+#: app/models/page.rb:203
 msgid "page_status_invisible_public"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
 
-#: app/models/page.rb:188
+#: app/models/page.rb:191
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
 "Diese Seite wird gerade bearbeitet."
 
-#: app/models/page.rb:203
+#: app/models/page.rb:206
 msgid "page_status_invisible_unpublic"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
 
-#: app/models/page.rb:191
+#: app/models/page.rb:194
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet"
 
-#: app/models/page.rb:194
+#: app/models/page.rb:197
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
 
-#: app/models/page.rb:182
+#: app/models/page.rb:185
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
 "wird gerade bearbeitet."
 
-#: app/models/page.rb:197
+#: app/models/page.rb:200
 msgid "page_status_visible_unpublic"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
-#: app/models/page.rb:185
+#: app/models/page.rb:188
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
@@ -1305,7 +1318,7 @@ msgstr "Bitte bestätigen"
 msgid "please_wait"
 msgstr "Bitte warten"
 
-#: app/views/admin/partials/_upload_form.html.erb:15
+#: app/views/admin/partials/_upload_form.html.erb:16
 msgid "regular method"
 msgstr "herkömmlichen Methode"
 
@@ -1433,8 +1446,8 @@ msgstr "In einem neuen Fenster öffnen"
 msgid "title"
 msgstr "Titel"
 
-#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:139
-#: app/models/page.rb:146 app/models/page.rb:153
+#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:142
+#: app/models/page.rb:149 app/models/page.rb:156
 msgid "unknown"
 msgstr "unbekannt"
 
@@ -1446,7 +1459,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/admin/pages_controller.rb:136
+#: app/controllers/admin/pages_controller.rb:137
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 
@@ -1456,7 +1469,7 @@ msgstr "Seite %{name} wurde freigegeben."
 msgid "updated_at"
 msgstr "Bearbeitet am"
 
-#: app/views/admin/partials/_upload_form.html.erb:34
+#: app/views/admin/partials/_upload_form.html.erb:35
 msgid "upload"
 msgstr "Datei hochladen"
 
@@ -1491,15 +1504,15 @@ msgstr "Benutzername"
 msgid "visible"
 msgstr "sichtbar"
 
-#: app/views/admin/pages/index.html.erb:73
+#: app/views/admin/pages/_create_language_form.html.erb:27
 msgid "want_to_create_new_language"
 msgstr "Oder wollen Sie einen neuen leeren Sprachbaum erstellen?"
 
-#: app/views/admin/pages/index.html.erb:57
+#: app/views/admin/pages/_create_language_form.html.erb:7
 msgid "want_to_make_copy_of_existing_language"
 msgstr "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
 
-#: app/models/language.rb:34
+#: app/models/language.rb:44
 msgid "we_need_at_least_one_default"
 msgstr "Es muss eine Standardsprache geben"
 

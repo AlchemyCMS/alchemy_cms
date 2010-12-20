@@ -101,6 +101,14 @@
 # https://github.com/stffn/declarative_authorization/blob/master/README.rdoc
 :user_roles: [registered, author, editor, admin]
 
+# === Uploader Settings
+# Allow filetypes to upload.
+# Pass * to allow all kind of files.
+:uploader:
+  :allowed_filetypes:
+    :pictures: [jpg, jpeg, gif, png, tif, tiff, psd]
+    :attachments: [jpg, jpeg, gif, png, tif, tiff, psd, pdf, mp3, mp4, mov, avi, m4v, flv, mpeg, zip, rar, tar, tar.gz, doc, docx, xls, xlsx, ppt, pptx, pages, numbers, keynote, vcf, csv, txt, rtf]
+
 # == Alchemy plugin configuration
 # To render the mainnavigation we split Alchemy into three plugins.
 # To make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config

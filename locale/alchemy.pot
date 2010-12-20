@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-17 13:37+0100\n"
+"POT-Creation-Date: 2010-12-20 22:17+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/views/admin/pages/index.html.erb:81
+#: app/views/admin/pages/_create_language_form.html.erb:36
 msgid "%{language}_as_new_language"
 msgstr ""
 
@@ -23,12 +23,12 @@ msgstr ""
 msgid "'%{name}' from_clipboard"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:22
+#: app/views/admin/partials/_upload_form.html.erb:23
 msgid ""
 "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:22
+#: app/views/admin/partials/_upload_form.html.erb:23
 msgid "Adobe Website"
 msgstr ""
 
@@ -65,8 +65,12 @@ msgstr ""
 msgid "Choose Element"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:19
+#: app/views/admin/partials/_upload_form.html.erb:20
 msgid "Could not load Adobe Flash® Plugin!"
+msgstr ""
+
+#: app/models/language.rb:35
+msgid "Defaut language has to be public"
 msgstr ""
 
 #: app/views/admin/pictures/_picture.html.erb:14
@@ -106,7 +110,7 @@ msgstr ""
 msgid "Error while creating page: %{error}"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:27
+#: app/views/admin/partials/_upload_form.html.erb:28
 msgid "Error with the Flash® Uploader!"
 msgstr ""
 
@@ -148,7 +152,7 @@ msgstr ""
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:15
+#: app/views/admin/partials/_upload_form.html.erb:16
 msgid ""
 "If you have any problems using the Flash® uploader you can switch to the "
 "%{link}"
@@ -195,6 +199,7 @@ msgid "Language '%{name}' updated"
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:19
+#: app/views/admin/pages/layoutpages.html.erb:17
 msgid "Language tree"
 msgstr ""
 
@@ -244,15 +249,15 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:91
+#: app/controllers/admin/pages_controller.rb:92
 msgid "Page %{name} deleted"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:190
+#: app/controllers/admin/pages_controller.rb:196
 msgid "Page %{name} moved"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:76
+#: app/controllers/admin/pages_controller.rb:77
 msgid "Page %{name} saved"
 msgstr ""
 
@@ -260,7 +265,7 @@ msgstr ""
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:215
+#: app/controllers/admin/pages_controller.rb:222
 msgid "Page cache flushed"
 msgstr ""
 
@@ -412,7 +417,7 @@ msgstr ""
 msgid "Please choose"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:20
+#: app/views/admin/partials/_upload_form.html.erb:21
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
@@ -420,7 +425,7 @@ msgstr ""
 msgid "Please log in"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:29
+#: app/views/admin/partials/_upload_form.html.erb:30
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
@@ -464,7 +469,7 @@ msgstr ""
 msgid "Sweepe cache"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:41
+#: app/views/admin/partials/_upload_form.html.erb:42
 msgid "Switch to Flash® Uploader"
 msgstr ""
 
@@ -569,8 +574,14 @@ msgstr ""
 msgid "You are not authorized"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:22
+#: app/views/admin/partials/_upload_form.html.erb:23
 msgid "You can get the latest version on the %{link}"
+msgstr ""
+
+#: app/views/admin/partials/_upload_form.html.erb:13
+msgid ""
+"You may upload %{file_types_description} with following extensions: "
+"%{file_types}"
 msgstr ""
 
 #: app/models/mailer.rb:22
@@ -722,7 +733,7 @@ msgstr ""
 msgid "content_not_successfully_deleted"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:66
+#: app/views/admin/pages/_create_language_form.html.erb:17
 msgid "copy"
 msgstr ""
 
@@ -969,8 +980,8 @@ msgid "image_title"
 msgstr ""
 
 #: app/views/admin/pictures/index.html.erb:36
-#: app/views/admin/pictures/new.html.erb:14
-#: app/views/admin/pictures/new.html.erb:16
+#: app/views/admin/pictures/new.html.erb:6
+#: app/views/admin/pictures/new.html.erb:8
 msgid "images"
 msgstr ""
 
@@ -978,15 +989,15 @@ msgstr ""
 msgid "internal_link_headline"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:53
+#: app/views/admin/pages/_create_language_form.html.erb:2
 msgid "language_does_not_exist"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:165
+#: app/controllers/admin/pages_controller.rb:171
 msgid "language_pages_copied"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:168
+#: app/controllers/admin/pages_controller.rb:174
 msgid "language_pages_could_not_be_copied"
 msgstr ""
 
@@ -1166,7 +1177,7 @@ msgstr ""
 msgid "page_public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:148
+#: app/controllers/admin/pages_controller.rb:149
 msgid "page_published"
 msgstr ""
 
@@ -1179,35 +1190,35 @@ msgstr ""
 msgid "page_status"
 msgstr ""
 
-#: app/models/page.rb:200
+#: app/models/page.rb:203
 msgid "page_status_invisible_public"
 msgstr ""
 
-#: app/models/page.rb:188
+#: app/models/page.rb:191
 msgid "page_status_invisible_public_locked"
 msgstr ""
 
-#: app/models/page.rb:203
+#: app/models/page.rb:206
 msgid "page_status_invisible_unpublic"
 msgstr ""
 
-#: app/models/page.rb:191
+#: app/models/page.rb:194
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 
-#: app/models/page.rb:194
+#: app/models/page.rb:197
 msgid "page_status_visible_public"
 msgstr ""
 
-#: app/models/page.rb:182
+#: app/models/page.rb:185
 msgid "page_status_visible_public_locked"
 msgstr ""
 
-#: app/models/page.rb:197
+#: app/models/page.rb:200
 msgid "page_status_visible_unpublic"
 msgstr ""
 
-#: app/models/page.rb:185
+#: app/models/page.rb:188
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 
@@ -1275,7 +1286,7 @@ msgstr ""
 msgid "please_wait"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:15
+#: app/views/admin/partials/_upload_form.html.erb:16
 msgid "regular method"
 msgstr ""
 
@@ -1403,8 +1414,8 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:139
-#: app/models/page.rb:146 app/models/page.rb:153
+#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:142
+#: app/models/page.rb:149 app/models/page.rb:156
 msgid "unknown"
 msgstr ""
 
@@ -1416,7 +1427,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:136
+#: app/controllers/admin/pages_controller.rb:137
 msgid "unlocked_page_%{name}"
 msgstr ""
 
@@ -1426,7 +1437,7 @@ msgstr ""
 msgid "updated_at"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:34
+#: app/views/admin/partials/_upload_form.html.erb:35
 msgid "upload"
 msgstr ""
 
@@ -1461,15 +1472,15 @@ msgstr ""
 msgid "visible"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:73
+#: app/views/admin/pages/_create_language_form.html.erb:27
 msgid "want_to_create_new_language"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:57
+#: app/views/admin/pages/_create_language_form.html.erb:7
 msgid "want_to_make_copy_of_existing_language"
 msgstr ""
 
-#: app/models/language.rb:34
+#: app/models/language.rb:44
 msgid "we_need_at_least_one_default"
 msgstr ""
 

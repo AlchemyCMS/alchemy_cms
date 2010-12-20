@@ -42,7 +42,7 @@ class Admin::UsersController < AlchemyController
       ( _("User: '%{name}' created") % {:name => @user.name} )
     )
   end
-    
+  
   def edit
     # User is fetched via before filter from authentication plugin
     render :layout => false
