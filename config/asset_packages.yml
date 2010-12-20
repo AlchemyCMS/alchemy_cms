@@ -14,6 +14,7 @@ javascripts:
   - alchemy/window
   - alchemy/window_effects
   - alchemy/alchemy
+  - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
 - sitemap:
   - alchemy/prototype

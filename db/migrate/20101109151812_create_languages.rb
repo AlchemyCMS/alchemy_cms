@@ -10,14 +10,6 @@ class CreateLanguages < ActiveRecord::Migration
       t.timestamps
       t.userstamps
     end
-    lang = Language.new(
-      :name => 'Deutsch',
-      :code => 'de',
-      :frontpage_name => 'Startseite',
-      :page_layout => 'intro',
-      :public => true
-    )
-    lang.save(false)
   end
   
   def self.down

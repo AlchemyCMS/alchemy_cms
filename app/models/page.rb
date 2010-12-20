@@ -13,8 +13,10 @@ class Page < ActiveRecord::Base
   
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
+  attr_accessor :do_not_validate_language
   
   before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
+  before_save :set_language_code
   after_save :set_restrictions_to_child_pages
   before_validation_on_create :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
   before_validation_on_create :set_title
@@ -385,6 +387,11 @@ private
   # Used for flushing all page caches at once.
   def self.flushables(language)
     self.all(:conditions => {:public => true, :locked => false, :language_id => language.id})
+  end
+  
+  def set_language_code
+    return false if self.language.blank?
+    self.language_code = self.language.code
   end
   
 end

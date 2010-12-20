@@ -63,7 +63,15 @@ If you want to install Alchemy inside an existing Rails project, then follow the
         rake db:create
         rake db:migrate:alchemy
 
-5. Copy Alchemy assets to public folder:
+5. Put this to your db/seeds.rb to create the page tree structure:
+
+        Alchemy::Seeder.seed!
+
+6. And seed the database:
+
+        rake db:seed
+
+7. Copy Alchemy assets to public folder:
 
         rake alchemy:assets:copy:all
 

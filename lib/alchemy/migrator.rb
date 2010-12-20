@@ -23,7 +23,7 @@ class Alchemy::Migrator < ActiveRecord::Migrator
     
     def available_versions
       files = Dir.glob(File.join(File.dirname(__FILE__), '..', '..', 'db/migrate/*'))
-      files.map { |f| f.gsub(/[^-0-9]/, '').to_i }
+      files.map { |f| File.basename(f).gsub(/[^-0-9]/, '').to_i }
     end
     
     def available_database_versions
