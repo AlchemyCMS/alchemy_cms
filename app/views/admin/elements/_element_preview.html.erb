@@ -3,7 +3,8 @@
 	:partial => "elements/#{element.name.underscore}_view.#{options[:render_format]}.erb",
 	:locals => {
 		:element => element,
-		:options => options
+		:options => options,
+		:counter => counter
 	}
 	) %>
 </div>

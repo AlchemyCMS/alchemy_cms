@@ -96,8 +96,8 @@ module AlchemyHelper
           all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
         end
       end
-      all_elements.each do |element|
-        element_string += render_element(element, :view, options)
+      all_elements.each_with_index do |element, i|
+        element_string += render_element(element, :view, options, i+1)
       end
       element_string
     end
@@ -105,7 +105,7 @@ module AlchemyHelper
 
   # This helper renders the Element partial for either the view or the editor part.
   # Generate element partials with ./script/generate elements
-  def render_element(element, part = :view, options = {})
+  def render_element(element, part = :view, options = {}, i = 1)
     if element.blank?
       logger.warn %(\n
         ++++ WARNING: Element is nil.\n
@@ -128,7 +128,8 @@ module AlchemyHelper
             :partial => 'admin/elements/element_preview',
             :locals => {
               :element => element,
-              :options => options
+              :options => options,
+              :counter => i
             }
           )
         else
@@ -136,7 +137,8 @@ module AlchemyHelper
             :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
             :locals => {
               :element => element,
-              :options => options
+              :options => options,
+              :counter => i
             }
           )
         end
