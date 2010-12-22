@@ -153,7 +153,7 @@ namespace 'alchemy' do
       
       desc "Create basic layout file for pages_controller."
       task "layout" do
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'app', 'views', 'layouts', '*')} #{RAILS_ROOT}/app/views/layouts/"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'app', 'views', 'layouts', 'pages.html.erb')} #{RAILS_ROOT}/app/views/layouts/"
         puts "Created layout file for your individual layout rendered by pages_controller:\n#{Rails.root}/app/views/page_layouts"
       end
       
