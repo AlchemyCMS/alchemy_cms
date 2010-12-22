@@ -73,10 +73,7 @@ module AlchemyHelper
       end
     end
     if page.blank?
-      logger.warn %(\n
-        ++++ WARNING: Page is nil in render_elements() helper ++++
-        Maybe options[:from_page] references to a page that is not created yet?\n
-      )
+      warning('Page is nil')
       return ""
     else
       show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
@@ -107,10 +104,7 @@ module AlchemyHelper
   # Generate element partials with ./script/generate elements
   def render_element(element, part = :view, options = {}, i = 1)
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil.\n
-        Usage: render_element(element, part, options = {})\n
-      )
+      warning('Element is nil')
       render :partial => "elements/#{part}_not_found", :locals => {:name => 'nil'}
     else
       default_options = {
@@ -143,14 +137,14 @@ module AlchemyHelper
           )
         end
       else
-        logger.warn %(\n
-          ++++ WARNING: Element #{part} partial not found for #{element.name}.\n
+        warning(%(
+          Element #{part} partial not found for #{element.name}.\n
           Looking for #{partial_name}, but not found
           neither in #{path1}
           nor in #{path2}
           Use ./script/generate elements to generate them.
-          Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb!\n
-        )
+          Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
+        ))
         render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
       end
     end
@@ -161,7 +155,7 @@ module AlchemyHelper
   def render_element_head element
     render :partial => "elements/partials/element_head", :locals => {:element_head => element}
   end
-
+  
   # Renders the Content partial that is given (:editor, or :view).
   # You can pass several options that are used by the different contents.
   #
@@ -177,17 +171,9 @@ module AlchemyHelper
   # :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
   def render_essence(content, part = :view, options = {})
     if content.nil?
-      logger.warn %(\n
-        ++++ WARNING: Content is nil!\n
-        Usage: render_essence(content, part, options = {})\n
-      )
-      return part == :view ? "" : "<p class=\"content_editor_error\">" + _("content_not_found") + "</p>"
+      return part == :view ? "" : warning('Content is nil', _("content_not_found"))
     elsif content.essence.nil?
-      logger.warn %(\n
-        ++++ WARNING: Content.essence is nil!\n
-        Please delete the element and create it again!
-      )
-      return part == :view ? "" : "<p class=\"content_editor_error\">" + _("content_essence_not_found") + "</p>"
+      return part == :view ? "" : warning('Essence is nil', _("content_essence_not_found"))
     end
     defaults = {
       :for_editor => {
@@ -233,11 +219,7 @@ module AlchemyHelper
   # For options see -> render_essence
   def render_essence_editor_by_type(element, type, position = nil, options = {})
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_view(element, position, options = {})\n
-      )
-      return "<p class='element_error'>" + _("no_element_given") + "</p>"
+      return warning('Element is nil', _("no_element_given"))
     end
     if position.nil?
       content = element.content_by_type(type)
@@ -253,10 +235,7 @@ module AlchemyHelper
   # For options see -> render_essence
   def render_essence_view_by_type(element, type, position, options = {})
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_view(element, position, options = {})\n
-      )
+      warning('Element is nil')
       return ""
     end
     if position.nil?
@@ -271,10 +250,7 @@ module AlchemyHelper
   # For options see -> render_essence
   def render_essence_view_by_position(element, position, options = {})
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_view_by_position(element, position, options = {})\n
-      )
+      warning('Element is nil')
       return ""
     end
     content = element.contents.find_by_position(position)
@@ -285,10 +261,7 @@ module AlchemyHelper
   # For options see -> render_essence
   def render_essence_editor_by_position(element, position, options = {})
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_view_by_position(element, position, options = {})\n
-      )
+      warning('Element is nil')
       return ""
     end
     content = element.contents.find_by_position(position)
@@ -299,11 +272,7 @@ module AlchemyHelper
   # For options see -> render_essence
   def render_essence_editor_by_name(element, name, options = {})
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_view(element, position, options = {})\n
-      )
-      return "<p class='element_error'>" + _("no_element_given") + "</p>"
+      return warning('Element is nil', _("no_element_given"))
     end
     content = element.content_by_name(name)
     render_essence(content, :editor, :for_editor => options)
@@ -313,28 +282,27 @@ module AlchemyHelper
   # For options see -> render_essence
   def render_essence_view_by_name(element, name, options = {})
     if element.blank?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_view(element, position, options = {})\n
-      )
+      warning('Element is nil')
       return ""
     end
     content = element.content_by_name(name)
     render_essence(content, :view, :for_view => options)
   end
   
-  
   # Renders the name of elements content or the default name defined in elements.yml
   def render_content_name(content)
     if content.blank?
-      logger.warn %(\n
-        ++++ WARNING: Content is nil!\n
-        Usage: render_content_name(content)\n
-      )
+      warning('Element is nil')
       return ""
     else
-      t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, content.name.capitalize])
+      content_name = t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, content.name.capitalize])
     end
+    if content.description.blank?
+      warning("Content #{content.name} is missing its description")
+      title = _("Warning: Content '%{contentname}' is missing its description.") % {:contentname => content.name}
+  	  content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name
+  	end
+  	content_name
   end
 
   # Returns current_page.title
@@ -570,9 +538,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     if options[:from_page].nil?
-      logger.warn %(\n
-        ++++ WARNING: options[:from_page] is nil in render_navigation()\n
-      )
+      warning('options[:from_page] is nil')
       return ""
     else
       conditions = {
@@ -638,9 +604,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     if options[:from_page].nil?
-      logger.warn %(\n
-        ++++ WARNING: options[:from_page] is nil in render_navigation()\n
-      )
+      warning('options[:from_page] is nil')
       return ""
     else
       pagination_options = options[:pagination].stringify_keys["level_#{options[:from_page].depth}"]
@@ -772,13 +736,21 @@ module AlchemyHelper
     end
   end
   
-  # returns @page set in the action (e.g. Page.by_name)
+  # Returns @current_language set in the action (e.g. Page.show)
+  def current_language
+    if @current_language.nil?
+      warning('@current_language is not set')
+      return nil
+    else
+      @current_language
+    end
+  end
+  
+  # Returns @page set in the action (e.g. Page.show)
   def current_page
     if @page.nil?
-      logger.warn %(\n
-        ++++ WARNING: @page is not set. Rendering Rootpage instead.\n
-      )
-      return @page = root_page
+      warning('@page is not set')
+      return nil
     else
       @page
     end
@@ -873,15 +845,9 @@ module AlchemyHelper
     options = default_options.merge(options)
     content = element.content_by_name(content_name)
     if content.nil?
-      logger.warn %(\n
-        ++++ WARNING: Content is nil!\n
-      )
-      return "<p class=\"content_editor_error\">" + _("content_not_found") + "</p>"
+      return warning('Content', _('content_not_found'))
     elsif content.essence.nil?
-      logger.warn %(\n
-        ++++ WARNING: Content.essence is nil!\n
-      )
-      return "<p class=\"content_editor_error\">" + _("content_essence_not_found") + "</p>"
+      return warning('Content', _('content_essence_not_found'))
     end
     pages = Page.find(
       :all,
@@ -915,7 +881,7 @@ module AlchemyHelper
   # Returns all public elements found by Element.name.
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
-    logger.warn "+++++ Warning! options[:language] option not allowed any more in all_elements_by_name helper!" if !options[:language].blank?
+    warning('options[:language] option not allowed any more in all_elements_by_name helper')
     default_options = {
       :count => :all,
       :from_page => :all
@@ -981,11 +947,7 @@ module AlchemyHelper
       content = element.contents[content - 1]
     end
     if content.essence.nil?
-      logger.warn %(\n
-        ++++ WARNING: Element is nil!\n
-        Usage: render_essence_editor_by_position(element, position, options = {})\n
-      )
-      return _("content_essence_not_found")
+      return warning('Element', _('content_essence_not_found'))
     end
     select_options = options_for_select(select_options, content.essence.content)
     select_tag(
@@ -1172,6 +1134,18 @@ module AlchemyHelper
       return str
     else
       return nil
+    end
+  end
+  
+  def warning(message, text = nil)
+    logger.warn %(\n
+      ++++ WARNING: #{message}! from: #{caller.first}\n
+    )
+    unless text.nil?
+      warning = content_tag('p', :class => 'content_editor_error') do
+        render_icon('warning') + text
+      end
+      return warning
     end
   end
   

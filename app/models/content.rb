@@ -12,8 +12,7 @@ class Content < ActiveRecord::Base
   validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
   
   # Creates a new Content as descriped in the elements.yml file
-  def self.create_from_scratch(element, essences_hash, options = {})
-    options = {:created_from_element => false}.merge(options)
+  def self.create_from_scratch(element, essences_hash)
     if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
       essences_of_same_type = element.contents.find_all_by_essence_type(essences_hash[:essence_type])
       description = {
@@ -21,11 +20,7 @@ class Content < ActiveRecord::Base
         'name' => "#{essences_hash[:essence_type].underscore}_#{essences_of_same_type.length + 1}"
       }
     else
-      description = Content.description_for(
-        element,
-        essences_hash[:name],
-        :from_available_essences => !options[:created_from_element]
-      )
+      description = element.content_description_for(essences_hash[:name])
     end
     raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
     essence_class = ObjectSpace.const_get(description['type'])
@@ -45,11 +40,7 @@ class Content < ActiveRecord::Base
   end
   
   # Settings from the elements.yml definition
-  def settings()
-    description = description()
-    #if description.blank? && 
-    #  description = description(:from_available_essences => true)
-    #end
+  def settings
     return nil if description.blank?
     settings = description['settings']
     return nil if settings.blank?
@@ -69,42 +60,25 @@ class Content < ActiveRecord::Base
   end
   
   # Returns my description hash from elements.yml
+  # Returns the description from available_contents if my own description is blank
   def description
-    Content.description_for(self.element, self.name, options)
+    if self.element.blank?
+      logger.warn("\n+++++++++++ Warning: Content with id #{self.id} is missing its Element\n")
+      return nil
+    else
+      desc = self.element.content_description_for(self.name)
+      if desc.blank?
+        desc = self.element.available_content_description_for(self.name)
+      else
+        return desc
+      end
+    end
   end
   
   # Calls the ingredient method on the essence
   def ingredient
     return nil if self.essence.blank?
     self.essence.ingredient
-  end
-  
-private
-  
-  # Returns the array with the hashes for all available contents for element in the elements.yml file
-  def self.available_essences_for(element)
-    element.description['available_contents']
-  end
-  
-  # Returns the array with the hashes for all contents for element in the elements.yml file
-  def self.contents_for(element)
-    if !element.description.blank?
-      return element.description['contents']
-    else
-      return nil
-    end
-  end
-  
-  # Returns the hash for essence_name in element of elements.yml, either from contents array, or from available_essences array.
-  # Options: from_available_essences (default false) detects the hash from the available_essences array if set to true
-  def self.description_for(element, essence_name, options={})
-    options = {:from_available_essences => false}.merge(options)
-    if options[:from_available_essences]
-      essences = self.available_essences_for(element)
-    else
-      essences = self.contents_for(element)
-    end
-    essences.detect{ |d| d['name'] == essence_name } if essences
   end
   
 end

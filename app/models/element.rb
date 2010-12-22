@@ -105,6 +105,34 @@ class Element < ActiveRecord::Base
     end
   end
   
+  # Returns the array with the hashes for all element contents in the elements.yml file
+  def content_descriptions
+    return nil if description.blank?
+    description['contents']
+  end
+  
+  # Returns the array with the hashes for all element available_contents in the elements.yml file
+  def available_content_descriptions
+    return nil if description.blank?
+    description['available_contents']
+  end
+  
+  # Returns the description for given content_name
+  def content_description_for(content_name)
+    if content_descriptions.blank?
+      logger.warn("\n+++++++++++ Warning: Element #{self.name} is missing the content description for #{content_name}\n")
+      return nil
+    else
+      content_descriptions.detect { |d| d['name'] == content_name }
+    end
+  end
+  
+  # Returns the description for given content_name inside the available_contents
+  def available_content_description_for(content_name)
+    return nil if available_content_descriptions.blank?
+    available_content_descriptions.detect { |d| d['name'] == content_name }
+  end
+  
   # returns the description of the element with my name in element.yml
   def description
     return nil if Element.descriptions.blank?
@@ -239,7 +267,7 @@ private
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
       element_scratch["contents"].each do |content_hash|
-        contents << Content.create_from_scratch(self, content_hash.symbolize_keys, {:created_from_element => true})
+        contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end
   end

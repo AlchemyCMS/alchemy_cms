@@ -81,13 +81,11 @@
     - salutation: string
     - firstname: string
     - lastname: string
-    - strasse: string
-    - plz: string
-    - ort: string
+    - address: string
+    - zip: string
+    - city: string
     - phone: string
     - email: string
-    - seminar: boolean
-    - newsletter: boolean
     - message: text
   :validate_fields:
     :lastname:
@@ -106,8 +104,8 @@
 # Pass * to allow all kind of files.
 :uploader:
   :allowed_filetypes:
-    :pictures: [jpg, jpeg, gif, png, tif, tiff, psd]
-    :attachments: [jpg, jpeg, gif, png, tif, tiff, psd, pdf, mp3, mp4, mov, avi, m4v, flv, mpeg, zip, rar, tar, tar.gz, doc, docx, xls, xlsx, ppt, pptx, pages, numbers, keynote, vcf, csv, txt, rtf]
+    :pictures: [jpg, jpeg, gif, png, psd, pdf]
+    :attachments: [*]
 
 # == Alchemy plugin configuration
 # To render the mainnavigation we split Alchemy into three plugins.

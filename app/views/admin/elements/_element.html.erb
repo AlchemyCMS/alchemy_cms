@@ -2,13 +2,6 @@
 
 <div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
 	<%= render :partial => "element_head", :locals => {:element => element} %>
-
-	<%- if element.description.nil? -%>
-	<p class="warning">
-		<%= _('Warning: Element "%{elementname}" is missing its description.') % {:elementname => element.name} %>
-	</p>
-	<%- end -%>
-
 	<%- if !element.folded? -%>
 		<% form_tag(
 			admin_element_path(element),

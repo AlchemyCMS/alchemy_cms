@@ -1,11 +1,5 @@
 <div class="content_editor" id="<%= content_dom_id(content) %>">
 
-<%- if content.description.nil? -%>
-<p class="warning">
-	<%= _('Warning: Content "%{contentname}" is missing its description.') % {:contentname => content.name} %>
-</p>
-<%- end -%>
-
 <%- if !content.settings.blank? && content.settings[:display_as] == "checkbox" -%>
 
 <%= check_box_tag(
@@ -59,7 +53,7 @@
 <%= text_field_tag(
     "contents[content_#{content.id}][body]",
     content.essence.body,
-    :class => "thin_border #{content.settings[:linkable] ? 'text_with_icon' : 'text_long'}",
+    :class => "thin_border #{!content.settings.blank? && content.settings[:linkable] ? 'text_with_icon' : 'text_long'}",
     :id => "contents_#{content.id}_content"
 ) %>
 

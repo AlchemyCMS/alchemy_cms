@@ -1,7 +1,11 @@
 <div class="element_head">
     <div class="element_handle">
         <span class="element_icon"></span>
+		<%- if element.description.nil? -%>
+		<span class="warning icon" title="<%= _("Warning: Element '%{elementname}' is missing its description.") % {:elementname => element.name} %>"></span>
+		<%- else -%>
         <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
+		<%- end -%>
     </div>
     <span class="element_heading">
         <%= content_tag("span", element.display_name, :class => "preview_text_element_name") %>

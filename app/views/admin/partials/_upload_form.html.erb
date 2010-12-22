@@ -10,7 +10,11 @@
 	</div>
 	<span id="spanButtonPlaceHolder"></span>
 	<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display:none" />
+	<%- if file_types.first == '*' -%>
+	<p><%= _('You may upload any file') %></p>
+	<%- else -%>
 	<p><%= _('You may upload %{file_types_description} with following extensions: %{file_types}') % {:file_types_description => file_types_description, :file_types => file_types.to_sentence} %>.</p>
+	<%- end -%>
 	<p style="margin-top: 8px" id="choose_alternative_uploader">
 		<small>
 			<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="$('choose_alternative_uploader').hide();$('alternativeUpload').show();$('SWFUpload_0').hide();alchemy_window.updateHeight();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-20 22:17+0100\n"
+"POT-Creation-Date: 2010-12-22 20:53+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -19,16 +19,16 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:845
+#: app/helpers/alchemy_helper.rb:819
 msgid "'%{name}' from_clipboard"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:23
+#: app/views/admin/partials/_upload_form.html.erb:27
 msgid ""
 "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:23
+#: app/views/admin/partials/_upload_form.html.erb:27
 msgid "Adobe Website"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Choose Element"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:20
+#: app/views/admin/partials/_upload_form.html.erb:24
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Error while creating page: %{error}"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:28
+#: app/views/admin/partials/_upload_form.html.erb:32
 msgid "Error with the Flash® Uploader!"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:16
+#: app/views/admin/partials/_upload_form.html.erb:20
 msgid ""
 "If you have any problems using the Flash® uploader you can switch to the "
 "%{link}"
@@ -417,7 +417,7 @@ msgstr ""
 msgid "Please choose"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:21
+#: app/views/admin/partials/_upload_form.html.erb:25
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Please log in"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:30
+#: app/views/admin/partials/_upload_form.html.erb:34
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
@@ -437,7 +437,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1128
+#: app/helpers/alchemy_helper.rb:1092
 msgid "Select an content"
 msgstr ""
 
@@ -469,7 +469,7 @@ msgstr ""
 msgid "Sweepe cache"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:42
+#: app/views/admin/partials/_upload_form.html.erb:46
 msgid "Switch to Flash® Uploader"
 msgstr ""
 
@@ -565,6 +565,14 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
+#: app/helpers/alchemy_helper.rb:302
+msgid "Warning: Content '%{contentname}' is missing its description."
+msgstr ""
+
+#: app/views/admin/elements/_element_head.html.erb:5
+msgid "Warning: Element '%{elementname}' is missing its description."
+msgstr ""
+
 #: app/views/admin/index.html.erb:8 app/views/admin/signup.html.erb:5
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
@@ -574,14 +582,18 @@ msgstr ""
 msgid "You are not authorized"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:23
+#: app/views/admin/partials/_upload_form.html.erb:27
 msgid "You can get the latest version on the %{link}"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:13
+#: app/views/admin/partials/_upload_form.html.erb:16
 msgid ""
 "You may upload %{file_types_description} with following extensions: "
 "%{file_types}"
+msgstr ""
+
+#: app/views/admin/partials/_upload_form.html.erb:14
+msgid "You may upload any file"
 msgstr ""
 
 #: app/models/mailer.rb:22
@@ -605,7 +617,7 @@ msgstr ""
 msgid "add"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1124 app/helpers/alchemy_helper.rb:1140
+#: app/helpers/alchemy_helper.rb:1088 app/helpers/alchemy_helper.rb:1104
 msgid "add new content"
 msgstr ""
 
@@ -661,7 +673,7 @@ msgstr ""
 msgid "big_thumbnails"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:85
+#: app/views/admin/partials/_upload_form.html.erb:89
 msgid "browse"
 msgstr ""
 
@@ -677,7 +689,7 @@ msgstr ""
 msgid "choose_file_to_link"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:830
+#: app/helpers/alchemy_helper.rb:804
 #: app/views/admin/partials/_remote_search_form.html.erb:25
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -716,12 +728,12 @@ msgstr ""
 msgid "contactform_body"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:188 app/helpers/alchemy_helper.rb:882
-#: app/helpers/alchemy_helper.rb:986
+#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:850
+#: app/helpers/alchemy_helper.rb:950
 msgid "content_essence_not_found"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:182 app/helpers/alchemy_helper.rb:877
+#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:848
 msgid "content_not_found"
 msgstr ""
 
@@ -955,7 +967,7 @@ msgstr ""
 msgid "height"
 msgstr ""
 
-#: app/views/admin/elements/_element_head.html.erb:37
+#: app/views/admin/elements/_element_head.html.erb:41
 msgid "hide_element_content"
 msgstr ""
 
@@ -1123,7 +1135,7 @@ msgstr ""
 msgid "navigation_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:857
+#: app/helpers/alchemy_helper.rb:831
 msgid "no"
 msgstr ""
 
@@ -1131,7 +1143,7 @@ msgstr ""
 msgid "no_default_language_found"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:238 app/helpers/alchemy_helper.rb:304
+#: app/helpers/alchemy_helper.rb:222 app/helpers/alchemy_helper.rb:275
 msgid "no_element_given"
 msgstr ""
 
@@ -1278,7 +1290,7 @@ msgstr ""
 msgid "please enter subject and mail address"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:857
+#: app/helpers/alchemy_helper.rb:831
 msgid "please_confirm"
 msgstr ""
 
@@ -1286,7 +1298,7 @@ msgstr ""
 msgid "please_wait"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:16
+#: app/views/admin/partials/_upload_form.html.erb:20
 msgid "regular method"
 msgstr ""
 
@@ -1342,7 +1354,7 @@ msgstr ""
 msgid "saving"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:832
+#: app/helpers/alchemy_helper.rb:806
 #: app/views/admin/partials/_remote_search_form.html.erb:29
 #: app/views/admin/partials/_search_form.html.erb:15
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1357,7 +1369,7 @@ msgstr ""
 msgid "select_element"
 msgstr ""
 
-#: app/views/admin/elements/_element_head.html.erb:37
+#: app/views/admin/elements/_element_head.html.erb:41
 msgid "show_element_content"
 msgstr ""
 
@@ -1437,7 +1449,7 @@ msgstr ""
 msgid "updated_at"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:35
+#: app/views/admin/partials/_upload_form.html.erb:39
 msgid "upload"
 msgstr ""
 
@@ -1498,7 +1510,7 @@ msgstr ""
 msgid "with_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:857
+#: app/helpers/alchemy_helper.rb:831
 msgid "yes"
 msgstr ""
 
