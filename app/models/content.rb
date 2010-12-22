@@ -46,13 +46,13 @@ class Content < ActiveRecord::Base
   
   # Settings from the elements.yml definition
   def settings()
-    description = my_description()
-    if description.blank?
-      description = my_description(:from_available_essences => true)
-    end
-    return {} if description.blank?
+    description = description()
+    #if description.blank? && 
+    #  description = description(:from_available_essences => true)
+    #end
+    return nil if description.blank?
     settings = description['settings']
-    return {} if settings.blank?
+    return nil if settings.blank?
     settings.symbolize_keys
   end
   
@@ -69,8 +69,7 @@ class Content < ActiveRecord::Base
   end
   
   # Returns my description hash from elements.yml
-  def my_description(options={})
-    options = {:from_available_essences => false}.merge(options)
+  def description
     Content.description_for(self.element, self.name, options)
   end
   
@@ -84,12 +83,16 @@ private
   
   # Returns the array with the hashes for all available contents for element in the elements.yml file
   def self.available_essences_for(element)
-    element.my_description['available_contents']
+    element.description['available_contents']
   end
   
   # Returns the array with the hashes for all contents for element in the elements.yml file
   def self.contents_for(element)
-    element.my_description['contents']
+    if !element.description.blank?
+      return element.description['contents']
+    else
+      return nil
+    end
   end
   
   # Returns the hash for essence_name in element of elements.yml, either from contents array, or from available_essences array.

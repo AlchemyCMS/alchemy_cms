@@ -1,6 +1,12 @@
 <div class="content_editor" id="<%= content_dom_id(content) %>">
 
-<%- if content.settings[:display_as] == "checkbox" -%>
+<%- if content.description.nil? -%>
+<p class="warning">
+	<%= _('Warning: Content "%{contentname}" is missing its description.') % {:contentname => content.name} %>
+</p>
+<%- end -%>
+
+<%- if !content.settings.blank? && content.settings[:display_as] == "checkbox" -%>
 
 <%= check_box_tag(
     "contents[content_#{content.id}][body]",
@@ -13,7 +19,7 @@
     <%= render_content_name(content) %>
 </label>
 
-<%- elsif content.settings[:display_as] == "select" -%>
+<%- elsif !content.settings.blank? && content.settings[:display_as] == "select" -%>
 
 <label><%= render_content_name(content) %></label>
 <%- if options[:select_values].is_a?(Hash)
@@ -48,7 +54,7 @@
         content_path(content),
         :class => 'icon_button small',
         :title => _('Remove this content')
-    ) if content.settings[:deletable] %>
+    ) if !content.settings.blank? && content.settings[:deletable] %>
 </label>
 <%= text_field_tag(
     "contents[content_#{content.id}][body]",
@@ -57,7 +63,7 @@
     :id => "contents_#{content.id}_content"
 ) %>
 
-<%- if content.settings[:linkable] -%>
+<%- if !content.settings.blank? && content.settings[:linkable] -%>
 
 <span id="content_<%= content.id %>_link_and_title" style="display: none">
     <%= hidden_field_tag "contents[content_#{content.id}][link]", content.essence.link, :id => "content_#{content.id}_link" %>

@@ -105,11 +105,17 @@ class Element < ActiveRecord::Base
     end
   end
   
+  # returns the description of the element with my name in element.yml
+  def description
+    return nil if Element.descriptions.blank?
+    Element.descriptions.detect{ |d| d['name'] == self.name }
+  end
+  
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
   # You can flag a Content as +take_me_for_preview+ to take this as preview.
   def preview_text
-    return "" if my_description.blank?
-    my_contents = my_description["contents"]
+    return "" if description.blank?
+    my_contents = description["contents"]
     return "" if my_contents.blank?
     content_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first
     if content_flagged_as_preview.blank?
@@ -172,12 +178,7 @@ class Element < ActiveRecord::Base
   
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
   def available_contents
-    my_description['available_contents']
-  end
-  
-  # returns the description of the element with my name in element.yml
-  def my_description
-    Element.descriptions.detect{ |d| d["name"] == self.name }
+    description['available_contents']
   end
   
 private
@@ -232,7 +233,7 @@ private
   
   # creates the contents for this element as described in the elements.yml
   def create_contents
-    element_scratch = my_description
+    element_scratch = description
     contents = []
     if element_scratch["contents"].blank?
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
