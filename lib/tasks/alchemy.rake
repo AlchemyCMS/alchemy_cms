@@ -84,21 +84,6 @@ namespace :db do
     
   end
   
-  # TODO: fix schema convertion task
-  # namespace :convert do
-  #   desc "Convert the schema_migrations table to alchemy layout"
-  #   task :alchemy_migrations => :environment do
-  #     if Alchemy::Migrator.schema_already_converted?
-  #       puts('Already converted')
-  #       abort
-  #     else
-  #       ActiveRecord::Base.connection.update(
-  #         "UPDATE #{ActiveRecord::Migrator.schema_migrations_table_name} SET version = INSERT(version, LENGTH(version), 8, '-alchemy') WHERE version IN ('#{Alchemy::Migrator.available_versions.join('\',\'')}')"
-  #       )
-  #     end
-  #   end
-  # end
-  
 end
 
 namespace 'alchemy' do
@@ -109,10 +94,9 @@ namespace 'alchemy' do
     Rake::Task['alchemy:upgrades:environment_file'].invoke
     Rake::Task['alchemy:upgrades:write_rake_task'].invoke
     Rake::Task['alchemy:upgrades:generate_migration'].invoke
-    #Rake::Task['db:migrate'].invoke
-    Rake::Task['alchemy:upgrades:rename_files_and_folders'].invoke
-    Rake::Task['alchemy:upgrades:add_locales'].invoke
-    #Rake::Task['alchemy:upgrades:svn_commit'].invoke
+    Rake::Task['alchemy:app_structure:create:all'].invoke
+    #Rake::Task['alchemy:upgrades:svn:rename'].invoke
+    #Rake::Task['alchemy:upgrades:svn:commit'].invoke
   end
   
   namespace 'migrations' do
@@ -347,7 +331,6 @@ class UpgradeDbForAlchemy < ActiveRecord::Migration
     execute("INSERT INTO schema_migrations SET version = '20100607153647-alchemy'")
     execute("INSERT INTO schema_migrations SET version = '20100607161345-alchemy'")
     execute("INSERT INTO schema_migrations SET version = '20100607162339-alchemy'")
-    execute("INSERT INTO schema_migrations SET version = '20100607162630-alchemy'")
     execute("INSERT INTO schema_migrations SET version = '20100607193638-alchemy'")
     execute("INSERT INTO schema_migrations SET version = '20100607193646-alchemy'")
     execute("INSERT INTO schema_migrations SET version = '20100607193653-alchemy'")
@@ -372,7 +355,7 @@ EOF
     desc "Updates the config/environment.rb file"
     task "environment_file" do
       s = <<EOF
-RAILS_GEM_VERSION = '2.3.9' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -399,47 +382,28 @@ EOF
       File.open('config/environment.rb', 'w') { |f| f.write(s)}
     end
     
-    desc "Renaming files and folders for svn repository"
-    task "rename_files_and_folders" do
-      system('svn rename config/webmate config/alchemy')
-      system('svn rename config/alchemy/molecules.yml config/alchemy/elements.yml')
-      system('svn rename app/views/wa_molecules app/views/elements')
-      system('svn rename app/views/layouts/wa_pages.html.erb app/views/layouts/pages.html.erb')
-      system('svn remove config/initializers/fast_gettext.rb config/initializers/cache_storage.rb')
+    namespace :svn do
+      
+      desc "Renaming files and folders for svn repository"
+      task "rename" do
+        system('svn rename config/webmate config/alchemy')
+        system('svn rename config/alchemy/molecules.yml config/alchemy/elements.yml')
+        system('svn rename app/views/wa_molecules app/views/elements')
+        system('svn rename app/views/layouts/wa_pages.html.erb app/views/layouts/pages.html.erb')
+        system('svn remove config/initializers/fast_gettext.rb config/initializers/cache_storage.rb')
+      end
+
+      desc "Commits everything into you svn repository"
+      task "commit" do
+        system("svn mkdir uploads")
+        system("svn propset svn:ignore '*' uploads/")
+        system("svn add lib/tasks/alchemy_plugins_tasks.rake")
+        system("svn add db/migrate/*")
+        system("svn commit -m 'upgraded to alchemy'")
+      end
+      
     end
-    
-    desc "Commits everything into you svn repository"
-    task "svn_commit" do
-      system("svn mkdir uploads")
-      system("svn propset svn:ignore '*' uploads/")
-      system("svn add lib/tasks/alchemy_plugins_tasks.rake")
-      system("svn add db/migrate/*")
-      system("svn commit -m 'upgraded to alchemy'")
-    end
-    
-    desc "Adding config/locale folder if not exists and place de.yml and en.yml file in it."
-    task "add_locales" do
-      de = <<EOF
-de:
-  content_names:
-    headline: 'Überschrift'
-    text: 'Text'
-    date: 'Datum'
-    body: 'Inhalt'
-EOF
-      en = <<EOF
-en:
-  content_names:
-    headline: 'Headline'
-    text: 'Text'
-    date: 'Date'
-    body: 'Content'
-EOF
-      Dir.mkdir('config/locales') if Dir.glob('config/locales').empty?
-      File.open('config/locales/de.yml', 'w') { |f| f.write(de) }
-      File.open('config/locales/en.yml', 'w') { |f| f.write(en) }
-    end
-    
+       
   end
   
 end
