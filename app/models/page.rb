@@ -316,6 +316,17 @@ class Page < ActiveRecord::Base
     )
   end
   
+  # Gets the language_root page for page
+  def get_language_root
+    return self if self.language_root
+    page = self
+    while page.parent do
+      page = page.parent
+      break if page.language_root?
+    end
+    return page
+  end
+  
 private
   
   def find_next_or_previous_page(direction = "next", options = {})
