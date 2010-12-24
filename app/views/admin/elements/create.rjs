@@ -6,8 +6,7 @@ page.insert_html(
 )
 page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show_via_ajax(page, _("successfully_added_element"))
-page << "alchemy_window.close()"
+page << "AlchemyWindow.dialog('close')"
 page << "TinymceHammer.init()"
-page << "preview_window.refresh()"
-page << "elements_window.updateHeight()"
+page << "AlchemyPreviewWindow.refresh()"
 page << "scrollToElement('#{@element.id}')"

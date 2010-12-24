@@ -8,7 +8,7 @@ class Admin::EssenceAudiosController < AlchemyController
     @essence_audio = EssenceAudio.find(params[:id])
     @essence_audio.update_attributes(params[:essence_audio])
     render :update do |page|
-      page << "alchemy_window.close(); reloadPreview()"
+      page << "AlchemyWindow.dialog('close'); reloadPreview()"
     end
   end
   

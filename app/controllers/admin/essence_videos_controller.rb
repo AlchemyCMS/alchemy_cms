@@ -8,7 +8,7 @@ class Admin::EssenceVideosController < AlchemyController
     @essence_video = EssenceVideo.find(params[:id])
     @essence_video.update_attributes(params[:essence_video])
     render :update do |page|
-      page << "alchemy_window.close(); reloadPreview()"
+      page << "AlchemyWindow.dialog('close'); reloadPreview()"
     end
   end
   

@@ -43,7 +43,7 @@ class Admin::ContentsController < AlchemyController
     content = Content.find(params[:id])
     content.content.update_attributes(params[:content])
     render :update do |page|
-      page << "alchemy_window.close();reloadPreview()"
+      page << "AlchemyWindow.dialog('close');reloadPreview()"
     end
   end
   

@@ -8,7 +8,6 @@ else
     :locals => {:open_element_selector => false}
   )
   page << "jQuery('#element_area').sortable('refresh')"
-  page << "elements_window.updateHeight()"
   if !@element.folded
     page << "scrollToElement(#{@element.id})"
     page << "$('element_#{@element.id}').addClassName('selected')"

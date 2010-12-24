@@ -91,8 +91,8 @@
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
 		document.observe("dom:loaded", function() {
-			openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
-			openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
+			AlOpenElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
+			AlOpenPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});
 	//]]-->
 	</script>

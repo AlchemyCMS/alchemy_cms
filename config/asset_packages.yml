@@ -5,28 +5,34 @@ javascripts:
   - alchemy/effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
-  - alchemy/window
-  - alchemy/window_effects
+  # - alchemy/window
+  # - alchemy/window_effects
   - alchemy/alchemy_frame_set
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
 - login:
   - alchemy/prototype
   - alchemy/effects
-  - alchemy/window
-  - alchemy/window_effects
+  # - alchemy/window
+  # - alchemy/window_effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
 - sitemap:
   - alchemy/prototype
   - alchemy/effects
-  - alchemy/window
-  - alchemy/window_effects
+  # - alchemy/window
+  # - alchemy/window_effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
   - alchemy/tooltip
   - alchemy/dragdrop
   - alchemy/sortable_tree
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
 - edit_page:
   - alchemy/prototype
   - alchemy/effects
@@ -35,8 +41,8 @@ javascripts:
   - alchemy/livepipe
   - alchemy/scrollbar
   - alchemy/dragdrop
-  - alchemy/window
-  - alchemy/window_effects
+  # - alchemy/window
+  # - alchemy/window_effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
@@ -47,8 +53,8 @@ javascripts:
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
   - alchemy/swfupload/queue
-  - alchemy/jquery-1.4.2.min
-  - alchemy/jquery-ui-1.8.4.custom.min
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
 - preview:
   - alchemy/prototype
   - alchemy/alchemy_element_selector
@@ -56,8 +62,8 @@ javascripts:
   - alchemy/prototype
   - alchemy/effects
   - alchemy/controls
-  - alchemy/window
-  - alchemy/window_effects
+  # - alchemy/window
+  # - alchemy/window_effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
@@ -65,19 +71,24 @@ javascripts:
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
   - alchemy/swfupload/queue
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
 
 stylesheets:
 - default:
   - alchemy/alchemy
   - alchemy/alchemy_window
+  - alchemy/jquery-ui-1.8.7.alchemy.css
 - login:
   - alchemy/alchemy
   - alchemy/alchemy_login
   - alchemy/alchemy_window
+  - alchemy/jquery-ui-1.8.7.alchemy.css
 - sitemap:
   - alchemy/alchemy
   - alchemy/alchemy_window
   - alchemy/alchemy_tooltip
+  - alchemy/jquery-ui-1.8.7.alchemy.css
 - edit_page:
   - alchemy/alchemy
   - alchemy/elements
@@ -86,7 +97,9 @@ stylesheets:
   - alchemy/alchemy_tooltip
   - alchemy/cropper
   - alchemy/flags
+  - alchemy/jquery-ui-1.8.7.alchemy.css
 - archive:
   - alchemy/alchemy
   - alchemy/alchemy_window
   - alchemy/alchemy_tooltip
+  - alchemy/jquery-ui-1.8.7.alchemy.css

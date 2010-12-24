@@ -644,7 +644,7 @@ module AlchemyHelper
     options = default_options.merge(options)
     link_to_function(
       content,
-      "openOverlayWindow(
+      "AlOverlayWindow(
         \'#{url}\',
         \'#{options[:title]}\',
         \'#{options[:size].split('x')[0].to_s}\',
@@ -823,16 +823,18 @@ module AlchemyHelper
     end
     options
   end
-
+  
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
-    ajax = remote_function(:url => url, :success => "confirm.close()", :method => :delete)
+    title = _("please_confirm")
+    ok_lable = _("yes")
+    cancel_lable = _("no")
     link_to_function(
       link_string,
-      "confirm = Dialog.confirm( '#{message}', {zIndex: 30000, width:300, height: 100, okLabel: '" + _("yes") + "', cancelLabel: '" + _("no") + "', buttonClass: 'button', id: 'alchemy_confirm_window', className: 'alchemy_window', closable: true, title: '" + _("please_confirm") + "', draggable: true, recenterAuto: false, effectOptions: {duration: 0.2}, cancel:function(){}, ok:function(){ " + ajax + " }} );",
+      "AlConfirmWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
       html_options
     )
   end
-
+  
   def page_selector(element, content_name, options = {}, select_options = {})
     default_options = {
       :except => {
@@ -1001,7 +1003,7 @@ module AlchemyHelper
   # == DEPRICATED! 
   # Page preview now renders inside an overlay window.
   # 
-  # See: openPreviewWindow() => assets/javascripts/alchemy.js:22
+  # See: AlOpenPreviewWindow() => assets/javascripts/alchemy.js:22
   # 
   # Returns true if the current controller/action pair wants to display content other than the default.
   def frame_requested?

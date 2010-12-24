@@ -4,7 +4,7 @@ function scrollToElement(id) {
     var el_ed = $('element_' + id);
     if (el_ed) {
         var offset = el_ed.positionedOffset();
-        var container = $$('.alchemy_window_content .alchemy_window_content').first();
+        var container = jQuery('#alchemyOverlay');
         container.scrollTop = offset.top - 41;
     }
 }
@@ -25,168 +25,243 @@ function toggleButton(id, action) {
     };
 }
 
-function openPreviewWindow(url, title) {
-    preview_window = new Window({
-        url: url,
-        className: 'alchemy_window',
-        title: title,
-        width: document.viewport.getDimensions().width - 570,
-        height: document.viewport.getDimensions().height - 135,
-        minWidth: 600,
-        minHeight: 300,
-        maximizable: false,
-        minimizable: false,
-        resizable: true,
-        draggable: true,
-        zIndex: 30000,
-        closable: false,
-        destroyOnClose: true,
-        recenterAuto: false,
-        effectOptions: {
-            duration: 0.2
-        }
-    });
-    preview_window.showCenter(false, 97, 92);
+var AlOpenPreviewWindow = function (url, title) {
+	var $iframe = jQuery('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
+	jQuery.fx.speeds._default = 400;
+	AlchemyPreviewWindow = $iframe.dialog({
+		modal: false, 
+    title: title,
+    width: jQuery(window).width() - 534,
+    height: jQuery(window).height() - 98,
+    minWidth: 600,
+    minHeight: 300,
+		show: "fade",
+		hide: "fade",
+		position: [92, 92],
+		autoResize: true,
+		closeOnEscape: false,
+		close: function(event, ui) { jQuery(this).dialog('destroy'); },
+		open: function (event, ui) { jQuery(this).css({width: '100%'}); }
+	});
+	AlchemyPreviewWindow.refresh = function () {
+		var $iframe = jQuery('#alchemyPreviewWindow');
+		$iframe.attr('src', $iframe.attr('src'));
+	}
+};
+
+var AlOpenElementsWindow = function (path, title) {
+	var $dialog = jQuery('<div style="display:none" id="alchemyOverlay"></div>');
+	jQuery.fx.speeds._default = 400;
+	AlchemyElementWindow = $dialog.dialog({
+		modal: false, 
+		minWidth: 424, 
+		minHeight: 300,
+		height: jQuery(window).height() - 98,
+		title: title,
+		show: "fade",
+		hide: "fade",
+		position: [jQuery(window).width() - 418, 92],
+		closeOnEscape: false,
+		open: function (event, ui) {
+			jQuery.ajax({
+				url: path,
+				success: function(data, textStatus, XMLHttpRequest) {
+					$dialog.html(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$dialog.html('<h1>' + XMLHttpRequest.status + '</h1>');
+					switch (XMLHttpRequest.status) {
+						case 404: $dialog.append('<p>Diese Seite wurde nicht gefunden!</p>');
+						break;
+						case 500: $dialog.append('<p>Entschuldigung!</p><p>Es ist leider ein Fehler passiert.</p>');
+						break;
+						default: $dialog.append('<p></p>');
+					}
+				}
+			});
+		},
+		close: function () {
+			$dialog.remove();
+		}
+	});
+};
+
+var AlConfirmWindow = function (url, title, message, ok_lable, cancel_label) {
+	var confirmation = jQuery('<div style="display:none" id="alchemyConfirmation"></div>').appendTo('body');
+	confirmation.html('<p>'+message+'</p>');
+	confirmation.dialog({
+		resizable: false,
+		minHeight: 100,
+		minWidth: 300,
+		modal: true,
+		title: title,
+		show: "fade",
+		hide: "fade",
+		buttons: {
+			'Ja': function() {
+				jQuery(this).dialog("close");
+				jQuery.ajax({
+					url: url,
+					type: 'delete'
+				});
+			},
+			'Nein': function() {
+				jQuery(this).dialog("close");
+			}
+		}
+	});
 }
 
-function openElementsWindow(path, title) {
-    elements_window = new Window({
-        className: 'alchemy_window',
-        title: title,
-        width: 424,
-        height: document.viewport.getDimensions().height - 155,
-        minWidth: 424,
-        minHeight: 300,
-        maxHeight: document.viewport.getDimensions().height - 155,
-        maximizable: false,
-        minimizable: false,
-        resizable: true,
-        draggable: true,
-        zIndex: 30000,
-        closable: false,
-        destroyOnClose: true,
-        recenterAuto: false,
-        effectOptions: {
-            duration: 0.2
-        }
-    });
-    elements_window.setAjaxContent(path, {
-        method: 'get'
-    });
-    elements_window.showCenter(false, 107, document.viewport.getDimensions().width - 450);
-}
-
-function openOverlayWindow(action_url, title, size_x, size_y, resizable, modal, overflow) {
+var AlOverlayWindow = function (action_url, title, size_x, size_y, resizable, modal, overflow) {
     overflow == undefined ? overflow = false: overflow = overflow;
     if (size_x === 'fullscreen') {
-        size_x = document.viewport.getWidth() - 50;
-        size_y = document.viewport.getHeight() - 100;
+        size_x = jQuery(window).width() - 50;
+        size_y = jQuery(window).height() - 50;
     }
-    alchemy_window = new Window({
-        className: 'alchemy_window',
-        title: title,
-        width: size_x,
-        height: size_y,
-        minWidth: size_x,
-        minHeight: size_y,
-        maximizable: false,
-        minimizable: false,
-        resizable: true,
-        draggable: true,
-        zIndex: 300000,
-        closable: true,
-        destroyOnClose: true,
-        recenterAuto: false,
-        effectOptions: {
-            duration: 0.2
-        }
-    });
-    alchemy_window.setZIndex(10);
-    alchemy_window.setAjaxContent(action_url, {
-        method: 'get',
-        onLoading: function() {
-            var spinner = new Image();
-            spinner.src = "/images/alchemy/ajax_loader.gif";
-            spinner.setStyle({
-                marginLeft: (size_x - 32) / 2 + 'px',
-                marginTop: (size_y - 32) / 2 + 'px'
-            });
-            $$('div.alchemy_window_content')[0].insert(spinner);
-            alchemy_window.spinner = spinner;
-        },
-        onComplete: function() {
-            alchemy_window.spinner.remove();
-        }
-    });
-    if (overflow == 'true') {
-        alchemy_window.getContent().setStyle({
-            overflow: 'visible'
-        });
-        alchemy_window.getContent().up().setStyle({
-            overflow: 'visible'
-        });
-    };
-    alchemy_window.showCenter(modal == 'true' ? 'modal': null);
-}
+		var $dialog = jQuery('<div style="display:none" id="alchemyOverlay"></div>');
+		$dialog.appendTo('body');
+		var $spinner = jQuery('<img src="/images/alchemy/ajax_loader.gif" />');
+		$spinner.css({
+			marginLeft: (size_x - 40) / 2,
+			marginTop: (size_y - 50) / 2
+		});
+		$dialog.html($spinner);
+		jQuery.fx.speeds._default = 400;
+		AlchemyWindow = $dialog.dialog({
+			modal: modal, 
+			minWidth: size_x, 
+			minHeight: size_y,
+			title: title,
+			resizable: resizable,
+			show: "fade",
+			hide: "fade",
+			open: function (event, ui) {
+				jQuery.ajax({
+					url: action_url,
+					success: function(data, textStatus, XMLHttpRequest) {
+						$dialog.html(data);
+						$dialog.css({overflow: overflow ? 'visible' : 'auto'});
+						jQuery('#alchemy .ui-dialog').css({overflow: overflow ? 'visible' : 'auto'});
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						$dialog.html('<h1>' + XMLHttpRequest.status + '</h1>');
+						switch (XMLHttpRequest.status) {
+							case 404: $dialog.append('<p>Diese Seite wurde nicht gefunden!</p>');
+							break;
+							case 500: $dialog.append('<p>Entschuldigung!</p><p>Es ist leider ein Fehler passiert.</p>');
+							break;
+							default: $dialog.append('<p></p>');
+						}
+					}
+				});
+			},
+			close: function () {
+				$dialog.remove();
+			}
+		});
+		return false;
+};
 
-function zoomImage(url, title, width, height) {
-    var window_height = height;
-    var window_width = width;
-    if (width > document.viewport.getWidth()) {
-        window_width = document.viewport.getWidth() - 50;
-    }
-    if (height > document.viewport.getHeight()) {
-        window_height = document.viewport.getHeight() - 100;
-    }
-    image_window = new Window({
-        className: "alchemy_window",
-        title: title,
-        width: window_width,
-        height: window_height,
-        minWidth: 320,
-        minHeight: 240,
-        url: url,
-        resizable: true,
-        destroyOnClose: true,
-        maximizable: false,
-        minimizable: false,
-        recenterAuto: false,
-        zIndex: 300000,
-        effectOptions: {
-            duration: 0.2
-        },
-        onClose: function() {
-            delete window.image_window;
-        }
-    });
-    image_window.showCenter();
-}
+var AlZoomImage = function(url, title, width, height) {
+	var window_height = height;
+	var window_width = width;
+	var $doc_width = jQuery(window).width();
+	var $doc_height = jQuery(window).height();
+	if (width > $doc_width) {
+	    window_width = $doc_width - 50;
+	}
+	if (height > $doc_height) {
+	    window_height = $doc_height - 50;
+	}
+	var $dialog = jQuery('<div style="display:none" id="alchemyOverlay"></div>');
+	$dialog.appendTo('body');
+	var $spinner = jQuery('<img src="/images/alchemy/ajax_loader.gif" />');
+	$spinner.css({
+		marginLeft: (window_width - 24) / 2,
+		marginTop: (window_height - 0) / 2
+	});
+	$dialog.html($spinner);
+	jQuery.fx.speeds._default = 400;
+	$dialog.dialog({
+		modal: false, 
+		minWidth: window_width < 320 ? 320 : window_width, 
+		minHeight: window_height < 240 ? 240 : window_height,
+		title: title,
+		show: "fade",
+		hide: "fade",
+		open: function (event, ui) {
+			jQuery.ajax({
+				url: url,
+				success: function(data, textStatus, XMLHttpRequest) {
+					$dialog.html(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$dialog.html('<h1>' + XMLHttpRequest.status + '</h1>');
+					switch (XMLHttpRequest.status) {
+						case 404: $dialog.append('<p>Diese Seite wurde nicht gefunden!</p>');
+						break;
+						case 500: $dialog.append('<p>Entschuldigung!</p><p>Es ist leider ein Fehler passiert.</p>');
+						break;
+						default: $dialog.append('<p></p>');
+					}
+				}
+			});
+		},
+		close: function () {
+			$dialog.remove();
+		}
+	});
+	return false;
+};
 
-function openLinkWindow(linked_element, width) {
-    link_window = new Window({
-        className: "alchemy_window",
-        title: 'Link setzen',
-        width: width,
-        height: '410',
-        zIndex: 300000,
-        maximizable: false,
-        resizable: true,
-        draggable: true,
-        closable: true,
-        destroyOnClose: true,
-        recenterAuto: false,
-        showEffect: Effect.Appear,
-        hideEffect: Effect.Fade,
-        effectOptions: {
-            duration: 0.2
-        }
-    });
-    link_window.linked_element = linked_element;
-    link_window.setAjaxContent('/admin/pages/link', {
-        method: 'get'
-    });
-    link_window.showCenter('modal');
-}
+var AlOpenLicencseWindow = function() {
+	var height = jQuery(window).height() - 150;
+	var $iframe = jQuery('<iframe src="http://www.gnu.org/licenses/gpl-3.0.txt"></iframe>');
+	$iframe.dialog({
+		bgiframe: true,
+		title: 'GNU GPL License',
+		width: 650,
+		height: height,
+		autoResize: true,
+		close: function(event, ui) { jQuery(this).dialog('destroy'); },
+		open: function (event, ui) { jQuery(this).css({width: 636}); }
+	});
+};
+
+var AlOpenLinkWindow = function (linked_element, width) {
+	var $dialog = jQuery('<div style="display:none" id="alchemyLinkOverlay"></div>');
+	jQuery.fx.speeds._default = 400;
+	link_window = $dialog.dialog({
+		modal: true, 
+		minWidth: width, 
+		minHeight: 410,
+		title: 'Link setzen',
+		show: "fade",
+		hide: "fade",
+		open: function (event, ui) {
+			jQuery.ajax({
+				url: '/admin/pages/link',
+				success: function(data, textStatus, XMLHttpRequest) {
+					$dialog.html(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$dialog.html('<h1>' + XMLHttpRequest.status + '</h1>');
+					switch (XMLHttpRequest.status) {
+						case 404: $dialog.append('<p>Diese Seite wurde nicht gefunden!</p>');
+						break;
+						case 500: $dialog.append('<p>Entschuldigung!</p><p>Es ist leider ein Fehler passiert.</p>');
+						break;
+						default: $dialog.append('<p></p>');
+					}
+				}
+			});
+		},
+		close: function () {
+			$dialog.remove();
+		}
+	});
+	link_window.linked_element = linked_element;
+};
 
 function pleaseWaitOverlay(show) {
     if (typeof(show) == 'undefined') {
@@ -215,7 +290,7 @@ function foldPage(id) {
 }
 
 function reloadPreview() {
-    preview_window.refresh();
+    AlchemyPreviewWindow.refresh();
 }
 
 function alchemyListFilter(selector) {

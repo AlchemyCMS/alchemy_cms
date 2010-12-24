@@ -464,8 +464,7 @@ p {
 	font-size: 12px;
 }
 
-p.footnote {
-	margin: 16px;
+div.info {
 	padding: 8px 8px 8px 32px;
 	line-height: 17px;
 	color: #333;
@@ -474,9 +473,13 @@ p.footnote {
 	-moz-border-radius: 8px;
 	-o-border-radius: 8px;
 	border-radius: 8px;
-	font-size: 10px;
 	background-color: #eaf4f9;
 	position: relative;
+}
+
+div.info.footnote {
+	font-size: 10px;
+	margin: 16px;
 }
 
 p.no_padding {
@@ -1411,7 +1414,7 @@ span.icon {
 	height: 16px;
 }
 
-#main_content p.footnote span.icon.info {
+body#alchemy div.info span.icon.info {
 	position: absolute;
 	top: 8px;
 	left: 8px;

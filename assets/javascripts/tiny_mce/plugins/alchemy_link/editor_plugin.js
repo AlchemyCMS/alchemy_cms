@@ -9,7 +9,7 @@
 				'class': 'alchemy_link',
 				onclick: function() {
 					ed.focus();
-					openLinkWindow({
+					AlOpenLinkWindow({
 						node: ed.selection.getNode(),
 						bookmark: ed.selection.getBookmark(),
 						selection: ed.selection,

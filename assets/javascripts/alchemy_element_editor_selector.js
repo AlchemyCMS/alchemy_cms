@@ -49,7 +49,7 @@ var AlchemyElementEditorSelector = Class.create({
 			});
 			target.addClassName('selected');
 			scrollToElement(id);
-			var iframe = preview_window.getContent();
+			var iframe = $('alchemyPreviewWindow');
 			var frame_win = iframe.contentWindow;
 			var frame_els = frame_win.$$('.alchemy_preview_element');
 			var selected_el = frame_els.detect(function (frame_el) {

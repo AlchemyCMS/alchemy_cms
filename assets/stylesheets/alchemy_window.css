@@ -1,12 +1,3 @@
-/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy_window.css */
-
-.overlay_dialog {
-	background-color: #666666;
-	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-}
-
 div#jscropper {
 	padding: 8px;
 	display: inline-block;
@@ -17,74 +8,12 @@ div#crop_explain.tip {
 	float: right;
 }
 
-.overlay___invisible__ {
-	background-color: #666666;
-	filter: alpha(opacity=0);
-	-moz-opacity: 0;
-	opacity: 0;
-}
-
-.top_draggable, .bottom_draggable {
-	cursor: move;
-}
-
-.status_bar {
-	font-size: 12px;
-}
-
-.status_bar input {
-	font-size: 12px;
-}
-
-.wired_frame {
-	display: block;
-	position: absolute;
-	border: 1px #000 dashed;
-}
-
-/* DO NOT CHANGE THESE VALUES*/
-
-.dialog {
-	display: block;
-	position: absolute;
-	-webkit-box-shadow: #333 0px 4px 8px;
-	-moz-box-shadow: #333 0px 4px 8px;
-	-o-box-shadow: #333 0px 4px 8px;
-	box-shadow: #333 0px 4px 8px;
-	overflow: visible;
-	-webkit-border-radius: 7px 7px 7px 7px; 
-	-moz-border-radius: 0px 0px 7px 7px;
-	border-radius: 7px 0px 0px 7px;
-}
-
-.dialog table.table_window {
-	border-collapse: collapse;
-	border-spacing: 0;
-	width: 100%;
-	margin: 0px;
-	padding: 0px;
-}
-
-.dialog table.table_window td,
-.dialog table.table_window th {
-	padding: 0;
-}
-
-.dialog table.table_window td.submit {
-	text-align: right;
-	padding-top: 4px;
-}
-
-.dialog .title_window {
-	-moz-user-select: none;
-}
-
 textarea#essence_picture_caption {
 	width: 233px;
 	height: 61px;
 }
 
-.alchemy_window_content form.with_padding table td {
+#alchemyOverlay form.with_padding table td {
 	vertical-align: top;
 }
 
@@ -256,184 +185,21 @@ div#errors {
 	padding: 0;
 }
 
-form.create_right {
-	float: left;
-	clear: both;
-}
-
-.overlay_alchemy_window {
-	background-color: #f4f4f4;
-	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	position: relative;
-	overflow: auto;
-}
-
-.alchemy_window_buttons {
-	display: none;
-}
-
-#alchemy_confirm_window .alchemy_window_buttons {
+#alchemyConfirmation .alchemy_window_buttons {
 	display: block;
 	text-align: right;
 	margin-top: 8px;
 	padding-right: 8px;
 }
 
-#alchemy_confirm_window_content div.alchemy_window_message {
+#alchemyConfirmation_content div.alchemy_window_message {
 	padding: 8px;
-}
-
-/* North-West corner */
-
-.alchemy_window_nw {
-	background: white none repeat scroll 0%;
-	border-top: 1px solid #9c9d9c;
-	border-left: 1px solid #9c9d9c;
-	height: 32px;
-	margin-bottom: 4px;
-	margin-top: 4px;
-	width: 2px;
-	font-size: 0;
 }
 
 #page_select {
 	width: 120px;
 	margin-left: 8px;
 }
-
-/* North border */
-
-.alchemy_window_n {
-	background: #fff repeat-x 0 2px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	border-top: 1px solid #9c9d9c;
-	height: 32px;
-	color: #fff;
-}
-
-/* North-East corner */
-
-.alchemy_window_ne {
-	background: white;
-	border-top: 1px solid #9c9d9c;
-	border-right: 1px solid #9c9d9c;
-	margin-top: 4px;
-	margin-bottom: 4px;
-	width: 2px;
-	height: 32px;
-	font-size: 0;
-}
-
-/* West border */
-
-.alchemy_window_w {
-	background-color: white;
-	border-left-width: 1px;
-	border-left-color: #9c9d9c;
-	border-left-style: solid;
-	width: 2px;
-	font-size: 0;
-}
-
-/* East border */
-
-.alchemy_window_e {
-	background-color: white;
-	border-right-width: 1px;
-	border-right-color: #9c9d9c;
-	border-right-style: solid;
-	width: 2px;
-	font-size: 0;
-}
-
-/* South-West corner */
-
-.alchemy_window_sw {
-	background: white;
-	border-left: 1px solid #9c9d9c;
-	border-bottom: 1px solid #9c9d9c;
-	width: 2px;
-	height: 4px;
-	font-size: 0;
-}
-
-/* South border */
-
-.alchemy_window_s {
-	background: white;
-	height: 4px;
-	border-bottom: 1px solid #9c9d9c;
-	font-size: 0;
-}
-
-/* South-East corner */
-
-.alchemy_window_se {
-	background: white;
-	border-right: 2px solid #9c9d9c;
-	border-bottom: 2px solid #9c9d9c;
-	width: 4px;
-	height: 4px;
-	vertical-align: top;
-	font-size: 0;
-}
-
-/* Resize button */
-
-.alchemy_window_sizer {
-	width: 6px;
-	height: 6px;
-	background: transparent url(/images/alchemy/gui/resize.gif) no-repeat -5px -7px;
-	cursor: se-resize;
-	border-right: 1px solid #9c9d9c;
-	border-bottom: 1px solid #9c9d9c;
-	font-size: 0;
-}
-
-/* Close button */
-
-.alchemy_window_close {
-	width: 16px;
-	height: 16px;
-	background: url(/images/alchemy/icons.png) no-repeat 0 -104px;
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	cursor: pointer;
-	z-index: 1000;
-}
-
-/* Title bar */
-
-.alchemy_window_title {
-	height: 20px;
-	font-size: 12px;
-	text-align: left;
-	color: #333;
-	overflow: hidden;
-	padding: 6px 32px 2px 8px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -72px;
-	white-space: nowrap;
-	text-shadow: #fff 0 1px 2px;
-	font-weight: bold;
-}
-
-div.info {
-	background: #e6f0f5 url(/images/alchemy/icons/information-white.png) no-repeat 8px 8px;
-	padding: 30px 8px 8px;
-	-moz-border-radius: 4px;
-	-moz-webkit-radius: 4px;
-	border-radius: 4px;
-	border: 1px solid #7489a7;
-	margin-bottom: 8px;
-}
-
-/* Content div (not used for url) */
 
 #new_page_form tbody tr td.second_row {
 	text-align: right;
@@ -461,20 +227,6 @@ input#page_name {
 
 #page_names #page_name {
 	width: 231px;
-}
-
-td.alchemy_window_content {
-	background-color: #ededed;
-}
-
-div.alchemy_window_content {
-	overflow: auto;
-	position: relative;
-	background-color: #ededed;
-}
-
-td.alchemy_window_content iframe {
-	background: #ffffff;
 }
 
 input.with_border {
@@ -549,7 +301,7 @@ div.assign_file_file_icon {
 	margin: 4px;
 }
 
-.alchemy_window_content a img {
+#alchemyOverlay a img {
 	border-style: none;
 }
 
@@ -578,16 +330,16 @@ div#tabbar_and_content {
 #internal_link_title {
 }
 
-.alchemy_window_content ul#sitemap {
+#alchemyOverlay ul#sitemap {
 	padding: 0 16px 0 0;
 	margin: 0;
 }
 
-.alchemy_window_content ul#sitemap li {
+#alchemyOverlay ul#sitemap li {
 	margin-left: 0;
 }
 
-.alchemy_window_content ul#sitemap li li {
+#alchemyOverlay ul#sitemap li li {
 	margin-left: 22px;
 }
 
@@ -792,11 +544,11 @@ div.assign_file_file_icon img {
 	width: 195px;
 }
 
-.alchemy_window_content table.window_form {
+#alchemyOverlay table.window_form {
 	width: 100%;
 }
 
-.dialog table.table_window td.label {
+#alchemyOverlay table.table_window td.label {
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-right: 4px;
@@ -804,7 +556,7 @@ div.assign_file_file_icon img {
 	height: 25px;
 }
 
-.dialog table.table_window td.label.right {
+#alchemyOverlay table.table_window td.label.right {
 	text-align: right;
 	width: 40px;
 }
@@ -820,7 +572,7 @@ table.window_form td.input {
 	padding-right: 4px;
 }
 
-.alchemy_window_content p {
+#alchemyOverlay p {
 	min-height: 21px;
 }
 
@@ -832,42 +584,42 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-.alchemy_window_content .auto_resize {
+#alchemyOverlay .auto_resize {
 	width: 100%;
 }
 
-.alchemy_window_content td.medium {
+#alchemyOverlay td.medium {
 	width: 76px;
 }
 
-.alchemy_window_content .medium_long {
+#alchemyOverlay .medium_long {
 	width: 129px;
 }
 
-.alchemy_window_content .long {
+#alchemyOverlay .long {
 	width: 231px;
 	margin: 0;
 }
 
-.alchemy_window_content .very_long {
+#alchemyOverlay .very_long {
 	width: 300px;
 	margin: 0;
 }
 
-.alchemy_window_content select.very_long {
+#alchemyOverlay select.very_long {
 	width: 306px;
 }
 
-.alchemy_window_content .short {
+#alchemyOverlay .short {
 	width: 40px;
 }
 
-.alchemy_window_content p a.button {
+#alchemyOverlay p a.button {
 	float: right;
 }
 
 div.emulate_table input.button:disabled {
-	color: grey;
+	color: gray;
 }
 
 div.emulate_table {
@@ -1090,4 +842,8 @@ a.icon.remove {
 object.swfupload {
 	margin-top: 16px;
 	margin-bottom: 16px;
+}
+
+#alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {
+	padding: 8px;
 }

@@ -138,7 +138,7 @@ class Admin::PicturesController < AlchemyController
   
   def show_in_window
     @picture = Picture.find(params[:id])
-    render :layout => 'picture_zoom'
+    render :layout => false
   end
   
 end

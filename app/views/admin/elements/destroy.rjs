@@ -6,5 +6,4 @@ else
 end
 Alchemy::Notice.show_via_ajax(page, _("element_deleted_successful"))
 page << "reloadPreview()"
-page << "elements_window.updateHeight()"
 page << "main_frame.updateSize()"
