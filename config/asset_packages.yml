@@ -3,46 +3,40 @@ javascripts:
 - default:
   - alchemy/prototype
   - alchemy/effects
-  - alchemy/alchemy
-  - alchemy/alchemy_selectbox
-  # - alchemy/window
-  # - alchemy/window_effects
-  - alchemy/alchemy_frame_set
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
+  - alchemy/alchemy
+  - alchemy/alchemy_selectbox
+  - alchemy/alchemy_frame_set
 - login:
   - alchemy/prototype
   - alchemy/effects
-  # - alchemy/window
-  # - alchemy/window_effects
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
-  - alchemy/jquery-1.4.4.min
-  - alchemy/jquery-ui-1.8.7.min
 - sitemap:
   - alchemy/prototype
   - alchemy/effects
-  # - alchemy/window
-  # - alchemy/window_effects
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
   - alchemy/tooltip
   - alchemy/dragdrop
   - alchemy/sortable_tree
-  - alchemy/jquery-1.4.4.min
-  - alchemy/jquery-ui-1.8.7.min
 - edit_page:
   - alchemy/prototype
   - alchemy/effects
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
   - alchemy/controls
   - alchemy/slider
   - alchemy/livepipe
   - alchemy/scrollbar
   - alchemy/dragdrop
-  # - alchemy/window
-  # - alchemy/window_effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
@@ -53,17 +47,16 @@ javascripts:
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
   - alchemy/swfupload/queue
-  - alchemy/jquery-1.4.4.min
-  - alchemy/jquery-ui-1.8.7.min
 - preview:
   - alchemy/prototype
   - alchemy/alchemy_element_selector
 - archive:
   - alchemy/prototype
   - alchemy/effects
+  - alchemy/jquery-1.4.4.min
+  - alchemy/jquery-ui-1.8.7.min
+  - alchemy/jquery.in-place-edit
   - alchemy/controls
-  # - alchemy/window
-  # - alchemy/window_effects
   - alchemy/alchemy
   - alchemy/alchemy_selectbox
   - alchemy/alchemy_frame_set
@@ -71,8 +64,6 @@ javascripts:
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
   - alchemy/swfupload/queue
-  - alchemy/jquery-1.4.4.min
-  - alchemy/jquery-ui-1.8.7.min
 
 stylesheets:
 - default:

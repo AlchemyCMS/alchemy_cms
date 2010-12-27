@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-22 20:53+0100\n"
+"POT-Creation-Date: 2010-12-27 16:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,12 +18,12 @@ msgstr "Create %{language} as a new language tree"
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' from clipboard"
 
-#: app/views/admin/partials/_upload_form.html.erb:27
+#: app/views/admin/partials/_upload_form.html.erb:28
 msgid ""
 "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:27
+#: app/views/admin/partials/_upload_form.html.erb:28
 msgid "Adobe Website"
 msgstr ""
 
@@ -60,7 +60,11 @@ msgstr "Filesize"
 msgid "Choose Element"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:24
+#: app/views/admin/pictures/_picture.html.erb:33
+msgid "Click to rename"
+msgstr ""
+
+#: app/views/admin/partials/_upload_form.html.erb:25
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr ""
 
@@ -105,7 +109,7 @@ msgstr "visible"
 msgid "Error while creating page: %{error}"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:32
+#: app/views/admin/partials/_upload_form.html.erb:33
 msgid "Error with the Flash® Uploader!"
 msgstr ""
 
@@ -149,13 +153,13 @@ msgstr ""
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:20
+#: app/views/admin/partials/_upload_form.html.erb:21
 msgid ""
 "If you have any problems using the Flash® uploader you can switch to the "
 "%{link}"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:114
+#: app/controllers/admin/pictures_controller.rb:120
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
@@ -167,7 +171,7 @@ msgstr "Imagesize"
 msgid "Image updated successfully"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:123
+#: app/controllers/admin/pictures_controller.rb:129
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
@@ -224,7 +228,7 @@ msgstr "Pagetype of frontpage"
 msgid "Language|Public"
 msgstr "public"
 
-#: app/views/layouts/alchemy.html.erb:50
+#: app/views/layouts/alchemy.html.erb:48
 msgid "Logged in as"
 msgstr ""
 
@@ -382,7 +386,7 @@ msgstr "Picture"
 msgid "Picture %{name} uploaded succesfully"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:135
+#: app/controllers/admin/pictures_controller.rb:141
 msgid "Picture cache flushed"
 msgstr ""
 
@@ -415,7 +419,7 @@ msgstr ""
 msgid "Please choose"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:25
+#: app/views/admin/partials/_upload_form.html.erb:26
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
@@ -423,11 +427,11 @@ msgstr ""
 msgid "Please log in"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:34
+#: app/views/admin/partials/_upload_form.html.erb:35
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:43
+#: app/views/admin/index.html.erb:49
 msgid "Read the License"
 msgstr ""
 
@@ -435,7 +439,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1092
+#: app/helpers/alchemy_helper.rb:1094
 msgid "Select an content"
 msgstr ""
 
@@ -467,7 +471,7 @@ msgstr ""
 msgid "Sweepe cache"
 msgstr "Delete Cache"
 
-#: app/views/admin/partials/_upload_form.html.erb:46
+#: app/views/admin/partials/_upload_form.html.erb:47
 msgid "Switch to Flash® Uploader"
 msgstr ""
 
@@ -580,17 +584,17 @@ msgstr "Welcome to Alchemy"
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
-#: app/views/admin/partials/_upload_form.html.erb:27
+#: app/views/admin/partials/_upload_form.html.erb:28
 msgid "You can get the latest version on the %{link}"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:16
+#: app/views/admin/partials/_upload_form.html.erb:17
 msgid ""
 "You may upload %{file_types_description} with following extensions: "
 "%{file_types}"
 msgstr ""
 
-#: app/views/admin/partials/_upload_form.html.erb:14
+#: app/views/admin/partials/_upload_form.html.erb:15
 msgid "You may upload any file"
 msgstr ""
 
@@ -615,7 +619,7 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/alchemy_helper.rb:1088 app/helpers/alchemy_helper.rb:1104
+#: app/helpers/alchemy_helper.rb:1090 app/helpers/alchemy_helper.rb:1106
 msgid "add new content"
 msgstr ""
 
@@ -671,9 +675,13 @@ msgstr "Play movie after load"
 msgid "big_thumbnails"
 msgstr "Big thumbnails"
 
-#: app/views/admin/partials/_upload_form.html.erb:89
+#: app/views/admin/partials/_upload_form.html.erb:90
 msgid "browse"
 msgstr "browse"
+
+#: app/views/admin/pictures/index.html.erb:50
+msgid "cancel"
+msgstr ""
 
 #: app/views/admin/elements/index.rjs:11
 msgid "choose_element_as_target"
@@ -728,12 +736,12 @@ msgstr "Do you really want to delete this user?"
 msgid "contactform_body"
 msgstr "Message Template"
 
-#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:850
-#: app/helpers/alchemy_helper.rb:950
+#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:852
+#: app/helpers/alchemy_helper.rb:952
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
-#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:848
+#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:850
 msgid "content_not_found"
 msgstr "Content not found."
 
@@ -926,25 +934,25 @@ msgstr "Remove the cached version of this page from the server."
 msgid "explain_unlocking"
 msgstr "Leave page and unlock it for other users."
 
-#: app/views/admin/partials/_upload_form.html.erb:9
+#: app/views/admin/partials/_upload_form.html.erb:10
 msgid "explain_upload.footnote_%{name}"
 msgstr ""
 "HINT! Hold the ctrl-button (cmd-button on a Mac) while clicking the %{name} "
 "with the mouse to upload multiple %{name} at once."
 
-#: app/views/admin/partials/_upload_form.html.erb:3
+#: app/views/admin/partials/_upload_form.html.erb:4
 msgid "explain_upload.intro_%{name}"
 msgstr "This is how the %{name} upload works"
 
-#: app/views/admin/partials/_upload_form.html.erb:5
+#: app/views/admin/partials/_upload_form.html.erb:6
 msgid "explain_upload.step1_%{name}"
 msgstr "Click the 'browse' button and navigate to your %{name} folder"
 
-#: app/views/admin/partials/_upload_form.html.erb:6
+#: app/views/admin/partials/_upload_form.html.erb:7
 msgid "explain_upload.step2_%{name}"
 msgstr "Select all the %{name} you want to upload"
 
-#: app/views/admin/partials/_upload_form.html.erb:7
+#: app/views/admin/partials/_upload_form.html.erb:8
 msgid "explain_upload.step3"
 msgstr "Click the 'open' button. The upload starts!"
 
@@ -1056,7 +1064,7 @@ msgstr "You logged out successfully."
 msgid "login"
 msgstr "login"
 
-#: app/views/layouts/alchemy.html.erb:41 app/views/layouts/login.html.erb:34
+#: app/views/layouts/alchemy.html.erb:39 app/views/layouts/login.html.erb:39
 #: lib/alchemy_core_modules.rb:10
 msgid "logout"
 msgstr "logout"
@@ -1139,7 +1147,7 @@ msgstr "Names"
 msgid "navigation_name"
 msgstr "Navigationname"
 
-#: app/helpers/alchemy_helper.rb:831
+#: app/helpers/alchemy_helper.rb:830
 msgid "no"
 msgstr "no"
 
@@ -1302,15 +1310,15 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/helpers/alchemy_helper.rb:831
+#: app/helpers/alchemy_helper.rb:828
 msgid "please_confirm"
 msgstr "Please confirm"
 
-#: app/views/layouts/alchemy.html.erb:27 app/views/layouts/login.html.erb:20
+#: app/views/layouts/alchemy.html.erb:25 app/views/layouts/login.html.erb:25
 msgid "please_wait"
 msgstr "Please wait"
 
-#: app/views/admin/partials/_upload_form.html.erb:20
+#: app/views/admin/partials/_upload_form.html.erb:21
 msgid "regular method"
 msgstr ""
 
@@ -1322,10 +1330,6 @@ msgstr "remove"
 #: app/views/admin/attachments/_attachment.html.erb:54
 msgid "rename_file"
 msgstr "Rename this file."
-
-#: app/views/admin/pictures/_picture.html.erb:44
-msgid "rename_image"
-msgstr "Rename this image"
 
 #: app/views/admin/essence_files/edit.html.erb:16
 #: app/views/admin/essence_pictures/edit.html.erb:29
@@ -1352,8 +1356,7 @@ msgstr "allow robot to index."
 #: app/views/admin/languages/_form.html.erb:31
 #: app/views/admin/pages/configure.html.erb:66
 #: app/views/admin/pages/configure_external.html.erb:40
-#: app/views/admin/pictures/_picture.html.erb:45
-#: app/views/admin/pictures/_picture.html.erb:46
+#: app/views/admin/pictures/index.html.erb:49
 #: app/views/admin/signup.html.erb:58 app/views/admin/users/_form.html.erb:52
 msgid "save"
 msgstr "save"
@@ -1424,7 +1427,7 @@ msgstr "Element position updated succesfully."
 msgid "swap_image"
 msgstr "Change image."
 
-#: app/views/admin/partials/_upload_form.html.erb:12
+#: app/views/admin/partials/_upload_form.html.erb:13
 msgid "swfupload: cancel_uploads"
 msgstr "Cancel uploads"
 
@@ -1461,7 +1464,7 @@ msgstr "Unlocked page %{name}."
 msgid "updated_at"
 msgstr "Updated at"
 
-#: app/views/admin/partials/_upload_form.html.erb:39
+#: app/views/admin/partials/_upload_form.html.erb:40
 msgid "upload"
 msgstr "upload"
 
@@ -1522,7 +1525,7 @@ msgstr "Width"
 msgid "with_name"
 msgstr "Name"
 
-#: app/helpers/alchemy_helper.rb:831
+#: app/helpers/alchemy_helper.rb:829
 msgid "yes"
 msgstr "yes"
 

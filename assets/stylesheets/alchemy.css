@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css
+	http://localhost:3000/stylesheets/alchemy/alchemy.css
+*/
 
 html {
 	height: 100%;
@@ -154,12 +157,8 @@ div#top_menu {
 #main_content {
 	background-color: #ededed;
 	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	margin-left: 84px;
-	margin-top: 90px;
+	top: 90px;
+	left: 84px;
 }
 
 div#user_info {
@@ -1671,7 +1670,8 @@ input#search_input_field {
 	padding-right: 8px;
 }
 
-input.button, .editor_ok_button, a.button {
+#alchemy input.button, 
+#alchemy a.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
@@ -1684,39 +1684,33 @@ input.button, .editor_ok_button, a.button {
 	text-shadow: #f2f2f2 1px 1px 0;
 }
 
-input.button, .editor_ok_button {
+#alchemy input.button {
 	height: 21px;
 	padding-left: 8px;
 	padding-right: 8px;
 	padding-bottom: 2px;	
 }
 
-input.button:active,
-a.button:active,
-.editor_ok_button:active {
+#alchemy input.button:active,
+#alchemy a.button:active {
 	text-decoration: none;
 	text-shadow: none;
 	background-color: #e5e5e5;
 }
 
-.editor_ok_button {
-	width: 87px;
-	margin-right: 1px;
-}
-
-a.button {
+#alchemy a.button {
 	padding: 3px 8px 2px;
 	text-decoration: none;
 	float: left;
 }
 
-table.list tr td.tools {
+#alchemy table.list tr td.tools {
 	width: 40px;
 	background-color: #ededed;
 }
 
-td.input,
-td.label {
+#alchemy td.input,
+#alchemy td.label {
 	vertical-align: top;
 }
 
@@ -1785,29 +1779,6 @@ td.role {
 	float: right;
 }
 
-a.editor_cancel {
-	color: #333;
-	font-size: 0;
-	width: 16px;
-	height: 16px;
-	float: right;
-	background: url(/images/alchemy/icons.png) no-repeat 0 -104px;
-	text-align: center;
-	line-height: 20px;
-	padding-left: 1px;
-	text-decoration: none;
-	margin-top: 3px;
-}
-
-.editor_field {
-	border-width: 1px;
-	padding: 1px;
-	height: 15px;
-	margin: 0 0 8px 0;
-	width: 108px;
-	font: 12px "Courier New", Courier, mono;
-}
-
 #archive_all {
 	padding: 16px;
 	margin-top: 8px;
@@ -1844,9 +1815,56 @@ div#archive_all .picture_detail {
 	position: absolute;
 	bottom: 3px;
 	left: 4px;
-	cursor: text;
 	font-family: "Courier New", Courier, mono;
 	line-height: 11px;
+}
+
+#archive_all .picture_name.rename.hover {
+	cursor: text;
+}
+
+#alchemy .inplace-edit {
+	background-color: #ededed;
+	position: absolute;
+	left: -20px;
+	top: -6px;
+	width: 204px;
+	z-index: 10;
+	height: 55px;
+	border: 1px solid #afafaf;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: #444 0px 1px 8px;
+	-moz-box-shadow: #444 0px 1px 8px;
+	-o-box-shadow: #444 0px 1px 8px;
+	box-shadow: #444 0px 1px 8px;
+}
+
+#alchemy .inplace-edit input.save-button {
+	float: right;
+}
+
+#alchemy .inplace-edit div.buttons input.cancel-button {
+	float: left;
+}
+
+#alchemy .inplace-edit div.buttons {
+	margin-top: 4px;
+	position: absolute;
+	bottom: 4px;
+	width: 196px;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+#alchemy .inplace-edit input.thin_border {
+	width: 190px;
+	font-family: "Courier New", Courier, mono;
+	position: absolute;
+	left: 4px;
+	top: 4px;
 }
 
 div.archive_image_spinner {
@@ -1906,18 +1924,6 @@ div.archive_image_spinner {
 	width: 100%;
 	height: 100%;
 	background-color: #666;
-}
-
-.inplaceeditor-form {
-	position: absolute;
-	background-color: #ffffff;
-	padding: 3px;
-	border: 1px solid #c0c0c0;
-	width: 112px;
-	z-index: 10;
-	border-top-style: none;
-	left: -1px;
-	top: 98px;
 }
 
 .headline_text_editor {
@@ -2255,6 +2261,10 @@ a.icon.file_edit {
 	background: url(/images/alchemy/icons.png) -32px -72px;
 }
 
+span.icon.edit {
+	background: url(/images/alchemy/icons.png) -192px -40px;
+}
+
 span.icon.add_page {
 	background: url(/images/alchemy/icons.png) -48px -24px;
 }
@@ -2311,7 +2321,7 @@ select.select_box {
 }
 
 .with_padding {
-	padding: 8px 8px 4px;
+	padding: 8px;
 }
 
 .element_spinner {

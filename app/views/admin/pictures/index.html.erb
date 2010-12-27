@@ -41,3 +41,15 @@
 <div id="archive_all">
 	<%= render :partial => 'pictures_list' %>
 </div>
+<%- content_for :javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(document).ready(function() {
+		Alchemy.inPlaceEditor({
+			save_label: "<%= _('save') %>",
+			cancel_label: "<%= _('cancel') %>"
+		});
+	});
+
+</script>
+<%- end -%>

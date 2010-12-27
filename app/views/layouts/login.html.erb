@@ -5,11 +5,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
         <title>Alchemy <%= configuration(:alchemy_version) %></title>
-        <!--[if IE 6]>
-            <link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" />
-        <![endif]-->
+        <!--[if IE 6]><link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" /><![endif]-->
         <%= yield :stylesheets %>
         <%= yield :javascript_includes %>
+        <script type="text/javascript" charset="utf-8">
+        // <![CDATA[
+            if(typeof(jQuery)=='function') {
+                jQuery.noConflict();
+            }
+        // ]]>
+        </script>
     </head>
     
     <body id="alchemy">
@@ -39,10 +44,5 @@
             <%= yield %>
         </div>
         <%= yield(:javascripts) %>
-        <script type="text/javascript" charset="utf-8">
-        // <![CDATA[
-            var main_frame = new AlchemyFrameSet('main_content');
-        // ]]>
-        </script>
     </body>
 </html>

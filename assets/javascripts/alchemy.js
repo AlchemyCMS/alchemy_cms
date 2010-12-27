@@ -1,3 +1,42 @@
+var Alchemy = {};
+
+Alchemy.inPlaceEditor = function (options) {
+	var defaults = {
+		save_label: 'save', 
+		cancel_label: 'cancel'
+	};
+	var settings = jQuery.extend({}, defaults, options);
+	var cancel_handler = function(element) {
+		jQuery(element).css({overflow: 'hidden'});
+		return true;
+	};
+	var submit_handler = function(element, id, value) {
+		jQuery(element).css({overflow: 'hidden'});
+		id = parseInt(id.gsub(/^[image_picture_]/, ''));
+		jQuery.ajax({url:'/admin/pictures/'+id, type: 'PUT', data: {name: value}});
+		return false;
+	};
+	
+	jQuery('#alchemy .rename').click(function () {
+		jQuery(this).css({overflow: 'visible'});
+	});
+	
+	jQuery('#alchemy .rename').inPlaceEdit({
+		submit : submit_handler,
+		cancel : cancel_handler,
+		onBlurDisabled : true,
+		html : ' \
+	          <div class="inplace-edit"> \
+	            <input type="text" value="" class="thin_border field" /> \
+	            <div class="buttons"> \
+	              <input type="button" value="'+settings.save_label+'" class="save-button button" /> \
+	              <input type="button" value="'+settings.cancel_label+'" class="cancel-button button" /> \
+	            </div> \
+	          </div>'
+	});
+	
+};
+
 var is_ie = (document.all) ? true: false;
 
 function scrollToElement(id) {
@@ -98,15 +137,15 @@ var AlConfirmWindow = function (url, title, message, ok_lable, cancel_label) {
 		show: "fade",
 		hide: "fade",
 		buttons: {
+			'Nein': function() {
+				jQuery(this).dialog("close");
+			},
 			'Ja': function() {
 				jQuery(this).dialog("close");
 				jQuery.ajax({
 					url: url,
 					type: 'delete'
 				});
-			},
-			'Nein': function() {
-				jQuery(this).dialog("close");
 			}
 		}
 	});
@@ -263,17 +302,16 @@ var AlOpenLinkWindow = function (linked_element, width) {
 	link_window.linked_element = linked_element;
 };
 
-function pleaseWaitOverlay(show) {
-    if (typeof(show) == 'undefined') {
-        show = true;
-    }
-    var overlay = $('overlay');
-    if (overlay)
-    overlay.style.visibility = show ? 'visible': 'hidden';
-}
+var pleaseWaitOverlay = function(show) {
+	if (typeof(show) == 'undefined') {
+		show = true;
+	}
+	var $overlay = jQuery('#overlay');
+	$overlay.css("visibility", show ? 'visible': 'hidden');
+};
 
 function isIe() {
-    return typeof document.all == 'object';
+	return typeof(document.all) == 'object';
 }
 
 function foldPage(id) {

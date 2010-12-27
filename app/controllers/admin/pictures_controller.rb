@@ -107,10 +107,16 @@ class Admin::PicturesController < AlchemyController
   def update
     @picture = Picture.find(params[:id])
     oldname = @picture.name
-    @picture.name = params[:value]
+    @picture.name = params[:name]
     @picture.save
     render :update do |page|
       page.replace "picture_#{@picture.id}", :partial => "picture", :locals => {:picture => @picture}
+      page << %(
+        Alchemy.inPlaceEditor({
+    			save_label: "#{ _('save') }",
+    			cancel_label: "#{ _('cancel') }"
+    		});
+      )
       Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
     end
   end
