@@ -644,7 +644,7 @@ module AlchemyHelper
     options = default_options.merge(options)
     link_to_function(
       content,
-      "AlOverlayWindow(
+      "Alchemy.openWindow(
         \'#{url}\',
         \'#{options[:title]}\',
         \'#{options[:size].split('x')[0].to_s}\',
@@ -789,7 +789,7 @@ module AlchemyHelper
   def js_filter_field options = {}
     default_options = {
       :class => "thin_border js_filter_field",
-      :onkeyup => "alchemyListFilter('#contact_list li')",
+      :onkeyup => "Alchemy.ListFilter('#contact_list li')",
       :id => "search_field"
     }
     options = default_options.merge(options)
@@ -830,7 +830,7 @@ module AlchemyHelper
     cancel_lable = _("no")
     link_to_function(
       link_string,
-      "AlConfirmWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
+      "Alchemy.openConfirmWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
       html_options
     )
   end
@@ -1003,7 +1003,7 @@ module AlchemyHelper
   # == DEPRICATED! 
   # Page preview now renders inside an overlay window.
   # 
-  # See: AlOpenPreviewWindow() => assets/javascripts/alchemy.js:22
+  # See: Alchemy.openPreviewWindow() => assets/javascripts/alchemy.js:22
   # 
   # Returns true if the current controller/action pair wants to display content other than the default.
   def frame_requested?
@@ -1131,7 +1131,8 @@ module AlchemyHelper
   
   def alchemy_preview_mode_code
     if @preview_mode
-      str = javascript_include_tag("alchemy/prototype", "alchemy/alchemy_element_selector", :cache => 'preview')
+      str = javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();}")
+      str += javascript_include_tag("alchemy/prototype", "alchemy/alchemy_element_selector", :cache => 'preview')
       str += javascript_tag("document.observe('dom:loaded', function() { new AlchemyElementSelector(); });")
       return str
     else

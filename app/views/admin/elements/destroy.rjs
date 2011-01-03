@@ -5,5 +5,4 @@ else
   page << "jQuery('#element_area').sortable('refresh')"
 end
 Alchemy::Notice.show_via_ajax(page, _("element_deleted_successful"))
-page << "reloadPreview()"
-page << "main_frame.updateSize()"
+page << "Alchemy.PreviewWindow.refresh()"

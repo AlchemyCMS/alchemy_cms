@@ -1,12 +1,10 @@
-<%- has_richtext_essence = element.contents.detect { |content| content.essence_type == 'EssenceRichtext' } -%>
-
 <div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
 	<%= render :partial => "element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
 		<% form_tag(
 			admin_element_path(element),
 			:method => :put,
-			:onsubmit => "saveElement(this, '#{element.id}'); return false;",
+			:onsubmit => "Alchemy.saveElement(this, '#{element.id}'); return false;",
 			:id => "element_#{element.id}_form"
 		) do %>
 			<div id="element_<%= element.id %>_content" class="element_content">

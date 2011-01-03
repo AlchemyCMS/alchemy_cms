@@ -25,9 +25,9 @@
 				thumbnail_url(:id => picture, :size => "111x93"),
 				:alt => picture.name,
 				:title => _('zoom_image'),
-				:onload => 'alchemyImageFade(this);'
+				:onload => 'Alchemy.fadeImage(this);'
 			),
-			"AlZoomImage('/admin/pictures/show_in_window/#{picture.id}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})"
+			"Alchemy.zoomImage('/admin/pictures/show_in_window/#{picture.id}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})"
 		) %>
 	</div>
 	<span class="picture_name<%= ' rename' if permitted_to?(:edit, :admin_pictures) -%>" title="<%= permitted_to?(:edit, :admin_pictures) ? picture.name + ' (' + _('Click to rename') + ')' : picture.name %>" id="image_<%= dom_id(picture) %>_name"><%= picture.name %></span>

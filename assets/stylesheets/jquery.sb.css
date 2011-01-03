@@ -1,0 +1,182 @@
+/* @override http://localhost:3000/stylesheets/alchemy/jquery.sb.css */
+
+/* always visible styles */
+
+#alchemy .selectbox {
+	display: inline-block;
+	*display: inline;
+	margin: 0;
+	position: relative;
+	zoom: 1;
+}
+
+#alchemy .selectbox .display {
+	border: 1px solid #abadb3;
+	cursor: default;
+	display: block;
+	font-weight: normal;
+	height: 19px;
+	line-height: 19px;
+	padding: 0 26px 0 5px;
+	position: relative;
+	text-decoration: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background: #f7f7f7 url(/images/alchemy/gui/shading.png) repeat-x 0 -77px;
+}
+
+#alchemy .selectbox.disabled .display {
+	color: #999;
+}
+
+#alchemy .selectbox.focused .display .text {
+	
+}
+
+#alchemy .selectbox .display:active {
+	border-color: #7b7d83;
+}
+
+#alchemy .selectbox .display:active .arrow_btn .arrow{
+	background-color: #9eb0ba;
+	background-position: right -19px;
+}
+
+#alchemy .selectbox .display.hover .arrow_btn .interior {
+	background-image: url(/images/alchemy/jquery-sb/select_arrow_bg_hover.gif);
+}
+
+#alchemy .selectbox .display .arrow_btn {
+	background: #fcfcfc;
+	display: block;
+	height: 19px;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 17px;
+}
+
+#alchemy .selectbox .display .arrow_btn .interior {
+	display: block;
+	height: 19px;
+}
+
+#alchemy .selectbox .display .arrow_btn .arrow {
+	background: transparent url(/images/alchemy/gui/dropdown_arrow.png) no-repeat 0 0;
+	display: block;
+	height: 19px;
+	width: 17px;
+}
+
+#alchemy .selectbox .value {
+	display: none;
+}
+
+/* dropdown styles */
+
+#alchemy .items {
+	background: #ededed;
+	border: 1px solid #828790;
+	display: block;
+	font-family: arial;
+	font-size: 13px;
+	list-style-type: none;
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0 0 1px 0;
+	z-index: 99999;
+	-moz-box-shadow: 0 3px 5px rgba(0,0,0,.5);
+	-webkit-box-shadow: 0 3px 5px rgba(0,0,0,.5);
+	box-shadow: 0 3px 5px rgba(0,0,0,.5);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+#alchemy .items.above {
+	
+}
+
+#alchemy .items li {
+	display: block;
+	margin: 0;
+	padding: 0;
+    white-space:nowrap;
+}
+
+#alchemy .items li:first-child {
+	margin-top: 0;
+}
+
+#alchemy .items li>a {
+	color: #000;
+	cursor: default;
+	display: block;
+	text-decoration: none;
+	padding: 2px 4px;
+}
+
+#alchemy .items li.selected a {
+	background-color: #b3ccdb;
+	color: #333;
+}
+
+#alchemy .items li.disabled a {
+	color: #999;
+}
+
+#alchemy .items li.hover>a {
+	background-color: #b3ccdb;
+	color: #333;
+}
+
+#alchemy .items .value {
+	display: none;
+}
+
+/* optgroup styles */
+
+#alchemy .items .optgroup .items {
+	border: none;
+	margin: 0;
+	padding: 0;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+#alchemy .items .optgroup>.label {
+	font-weight: bold;
+	line-height: 1em;
+}
+
+#alchemy .items .optgroup .items li>a {
+	padding-left: 1em;
+}
+
+#alchemy .items>li.first>a {
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+}
+
+#alchemy .items>li.last>a {
+	-moz-border-radius-bottomleft: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+}
+
+/* for optgroups */
+
+#alchemy .items>li>.label {
+	line-height: 27px;
+	padding: 4px 6px;
+}
+
+#alchemy .items>li>.items li>a {
+	padding: 4px 6px 4px 12px;
+}

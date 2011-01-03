@@ -1,4 +1,4 @@
-<div id="sitemap_external_links" style="display: none" class="link_window_tab_body">
+<div id="overlay_tab_external_link">
 	<h2>
 		<%= _("enter_external_link") %>
 	</h2>
@@ -40,7 +40,7 @@
 	<p>
 		<%= link_to_function(
 		  _('apply'),
-	    "alchemyCreateLink('external', $('url_protocol').value + $('external_url').value, $('extern_link_title').value, $('link_target').checked); link_window.close()",
+	    "alchemyCreateLink('external', $('url_protocol').value + $('external_url').value, $('extern_link_title').value, $('link_target').checked); Alchemy.CurrentLinkWindow.close()",
 		  :class => 'button'
 		) %>
 	</p>

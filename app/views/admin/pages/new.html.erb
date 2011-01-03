@@ -7,7 +7,7 @@
 				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
 			</td>
 			<td class="second_row">
-				<%= f.alchemy_selectbox('page_layout', PageLayout.get_layouts_for_select(session[:language_id])) %>
+				<%= f.select('page_layout', PageLayout.get_layouts_for_select(session[:language_id])) %>
 			</td>
 		</tr>
 		<tr>
@@ -28,3 +28,6 @@
 	</table>
 <% end %>
 </div>
+<script type="text/javascript" charset="utf-8">
+	jQuery('#page_page_layout').sb({animDuration: 0});
+</script>

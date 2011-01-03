@@ -22,8 +22,8 @@
 			<%= link_to_remote(
 				content_tag('span', '', :class => 'icon flush'),
 				:url => flush_admin_pictures_path,
-				:before => 'pleaseWaitOverlay();',
-				:complete => 'pleaseWaitOverlay(false);',
+				:before => 'Alchemy.pleaseWaitOverlay();',
+				:complete => 'Alchemy.pleaseWaitOverlay(false);',
 				:html => {:class => 'icon_button',
 				:title => _('Flush picture cache')}
 			) -%><br />

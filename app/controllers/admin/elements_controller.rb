@@ -182,13 +182,12 @@ class Admin::ElementsController < AlchemyController
     end
     render :update do |page|
       Alchemy::Notice.show_via_ajax(page, _("successfully_saved_element_position"))
-      page << "reloadPreview();"
+      page << "Alchemy.reloadPreview();"
     end
   end
   
   def fold
     @element = Element.find(params[:id])
-    @page = @element.page
     @element.folded = !@element.folded
     @element.save(false)
   rescue => exception

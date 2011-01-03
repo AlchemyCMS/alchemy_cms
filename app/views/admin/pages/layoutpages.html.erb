@@ -7,7 +7,7 @@
             Language.all.map { |l| [l.name, l.id] },
             session[:language_id],
             :onchange => %(
-                pleaseWaitOverlay();
+                Alchemy.pleaseWaitOverlay();
                 new Ajax.Request('/admin/pages/switch_language', {
                     method: 'get',
                     parameters: {language_id: value, layoutpages: true}

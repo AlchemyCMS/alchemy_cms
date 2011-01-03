@@ -43,7 +43,7 @@ class Admin::ContentsController < AlchemyController
     content = Content.find(params[:id])
     content.content.update_attributes(params[:content])
     render :update do |page|
-      page << "AlchemyWindow.dialog('close');reloadPreview()"
+      page << "Alchemy.CurrentWindow.close();Alchemy.reloadPreview()"
     end
   end
   
@@ -54,7 +54,7 @@ class Admin::ContentsController < AlchemyController
     end
     render :update do |page|
       Alchemy::Notice.show_via_ajax(page, _("Successfully saved content position"))
-      page << "reloadPreview()"
+      page << "Alchemy.reloadPreview()"
     end
   end
   
@@ -68,7 +68,7 @@ class Admin::ContentsController < AlchemyController
         render :update do |page|
           page.remove(content_dom_id)
           Alchemy::Notice.show_via_ajax(page, _("Successfully deleted %{content}") % {:content => content_name})
-          page << "reloadPreview()"
+          page << "Alchemy.reloadPreview()"
         end
       end
     rescue

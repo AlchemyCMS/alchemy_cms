@@ -57,7 +57,7 @@ div#flash_notices {
 
 /* @group overlay */
 
-div#overlay {
+#alchemy div#overlay {
 	visibility: hidden;
 	position: absolute;
 	left: 0px;
@@ -65,10 +65,8 @@ div#overlay {
 	width: 100%;
 	height: 100%;
 	z-index: 400000;
-	background-color: white;
-	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
+	background-color: rgba(255,255,255,0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60FFFFFF, endColorstr=#60FFFFFF);
 }
 
 #user_list li.table_row div.table_left span.icon img {
@@ -79,15 +77,14 @@ div#overlay {
 	left: -1px;
 }
 
-div#overlay_text_box {
-	background-color: white;
-	color: black;
+#alchemy div#overlay_text_box {
+	color: #333;
 	font-size: 18px;
 	text-align: center;
 	margin-top: 25%;
 }
 
-div#overlay_text_box img {
+#alchemy div#overlay_text_box img {
 	position: relative;
 	top: 9px;
 }
@@ -259,120 +256,15 @@ div#toolbar form a.search_field_clear {
 	border-radius: 2px;
 }
 
-div.alchemy_selectbox {
-	position: relative;
-	font-size: 11px;
-	height: 21px;
-	width: 130px;
-	margin: 0;
-	z-index: 10;
-}
-
 #language_select {
 	margin-bottom: 4px;
 }
 
-#new_element .alchemy_selectbox {
+#new_element .selectbox {
 	float: left;
 	line-height: normal;
 	margin-left: 8px;
 	width: 200px;
-}
-
-.alchemy_selectbox a.alchemy_selectbox_link {
-	padding: 3px 20px 2px 4px;
-	height: 15px;
-	display: block;
-	text-align: left;
-	white-space: nowrap;
-	overflow: hidden;
-	position: relative;
-	cursor: pointer;
-	color: #333;
-}
-
-.alchemy_selectbox .alchemy_selectbox_link_arrow {
-	background: url(/images/alchemy/gui/dropdown_arrow.png) no-repeat right 0;
-	width: 17px;
-	height: 20px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	font-size: 0;
-	z-index: 1;
-}
-
-.alchemy_selectbox a.alchemy_selectbox_link:active .alchemy_selectbox_link_arrow {
-	background-position: right -19px;
-}
-
-.alchemy_selectbox .alchemy_selectbox_link_bg {
-	height: 19px;
-	border: 1px solid #afafaf;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	background: #f7f7f7 url(/images/alchemy/gui/shading.png) repeat-x 0 -77px;
-	z-index: 10;
-	position: absolute;
-	width: 100%;
-}
-
-#language_select a.alchemy_selectbox_link img {
-	position: relative;
-	top: 1px;
-}
-
-.alchemy_selectbox a.alchemy_selectbox_link:hover {
-	text-decoration: none;
-	cursor: default;
-}
-
-.alchemy_selectbox a.alchemy_selectbox_link:focus {
-	outline: none;
-}
-
-.alchemy_selectbox a.alchemy_selectbox_link:active {
-	text-decoration: none;
-	cursor: default;
-}
-
-.alchemy_selectbox_link_bg:active {
-	background-color: #cdd6db;
-}
-
-.alchemy_selectbox div.alchemy_selectbox_body {
-	position: absolute;
-	top: 20px;
-	left: 0;
-	background-color: #ededed;
-	border: 1px solid #afafaf;
-	min-width: 100%;
-	z-index: 10;
-	-webkit-box-shadow: #333 0px 4px 4px;
-	-moz-box-shadow: #333 0px 4px 4px;
-	-o-box-shadow: #333 0px 4px 4px;
-	box-shadow: #333 0px 4px 4px;
-}
-
-.alchemy_selectbox div.alchemy_selectbox_body a {
-	cursor: default;
-	margin: 0;
-	padding: 4px;
-	display: block;
-	text-align: left;
-	color: #333;
-	white-space: nowrap;
-}
-
-.alchemy_selectbox div.alchemy_selectbox_body a:hover {
-	text-decoration: none;
-	background-color: #b3ccdb;
-	color: #333;
-}
-
-.alchemy_selectbox div.alchemy_selectbox_body a.selected {
-	background-color: #b3ccdb;
-	color: #333;
 }
 
 .js_filter_field_box {
@@ -1826,8 +1718,8 @@ div#archive_all .picture_detail {
 #alchemy .inplace-edit {
 	background-color: #ededed;
 	position: absolute;
-	left: -20px;
-	top: -6px;
+	left: -8px;
+	top: 0;
 	width: 204px;
 	z-index: 10;
 	height: 55px;
@@ -2431,10 +2323,10 @@ div#toolbar_buttons {
 }
 
 div.button_with_label {
-	float: left;
 	text-align: center;
 	margin-right: 8px;
 	margin-left: 8px;
+	float: left;
 }
 
 div.button_with_label.disabled {
@@ -2461,7 +2353,6 @@ div.button_with_label a.icon_button {
 	float: none;
 	margin-right: auto;
 	margin-left: auto;
-	margin-bottom: 4px;
 	display: inline-block;
 	position: relative;
 }
@@ -2469,6 +2360,8 @@ div.button_with_label a.icon_button {
 div#toolbar label {
 	font-size: 10px;
 	text-shadow: #fff 0 1px 2px;
+	margin-top: 4px;
+	display: block;
 }
 
 div.button_with_label:hover label {

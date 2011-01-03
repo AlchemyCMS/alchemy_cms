@@ -5,6 +5,5 @@ page.replace(
 )
 page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show_via_ajax(page, _("element_saved"))
-page << "AlchemyPreviewWindow.refresh()"
-page << "main_frame.updateSize()"
+page << "Alchemy.PreviewWindow.refresh()"
 page.call 'TinymceHammer.init' if @has_richtext_essence

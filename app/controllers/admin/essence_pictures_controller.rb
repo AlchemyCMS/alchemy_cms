@@ -61,7 +61,7 @@ class Admin::EssencePicturesController < AlchemyController
     @picture_essence.open_link_in_new_window = params[:blank]
     if @picture_essence.save
       render :update do |page|
-        page << "Windows.closeAll();reloadPreview()"
+        page << "Windows.closeAll();Alchemy.reloadPreview()"
         Alchemy::Notice.show_via_ajax(page, _("saved_link"))
       end
     end
@@ -82,7 +82,7 @@ class Admin::EssencePicturesController < AlchemyController
           :options => params[:options]
         }
       )
-      page << "reloadPreview()"
+      page << "Alchemy.reloadPreview()"
     end
   end
   

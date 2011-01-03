@@ -7,7 +7,7 @@
 			:controller => "/#{e['controller']}",
 			:action => e["action"]
 		},
-		:onclick => 'pleaseWaitOverlay();',
+		:onclick => 'Alchemy.pleaseWaitOverlay();',
 		:class => params[:controller] == e["controller"] && params[:action] == e["action"] ? 'active' : nil
 	) %>
 	<%- end -%>

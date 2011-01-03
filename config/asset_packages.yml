@@ -6,7 +6,7 @@ javascripts:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
+  - alchemy/jquery.sb.min
   - alchemy/alchemy_frame_set
 - login:
   - alchemy/prototype
@@ -14,7 +14,7 @@ javascripts:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
+  - alchemy/jquery.sb.min
   - alchemy/alchemy_frame_set
 - sitemap:
   - alchemy/prototype
@@ -22,7 +22,7 @@ javascripts:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
+  - alchemy/jquery.sb.min
   - alchemy/alchemy_frame_set
   - alchemy/tooltip
   - alchemy/dragdrop
@@ -38,7 +38,7 @@ javascripts:
   - alchemy/scrollbar
   - alchemy/dragdrop
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
+  - alchemy/jquery.sb.min
   - alchemy/alchemy_frame_set
   - alchemy/alchemy_element_editor_selector
   - alchemy/cropper
@@ -58,7 +58,7 @@ javascripts:
   - alchemy/jquery.in-place-edit
   - alchemy/controls
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
+  - alchemy/jquery.sb.min
   - alchemy/alchemy_frame_set
   - alchemy/swfupload/swfupload
   - alchemy/swfupload/handlers
@@ -70,16 +70,19 @@ stylesheets:
   - alchemy/alchemy
   - alchemy/alchemy_window
   - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery.sb
 - login:
   - alchemy/alchemy
   - alchemy/alchemy_login
   - alchemy/alchemy_window
   - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery.sb
 - sitemap:
   - alchemy/alchemy
   - alchemy/alchemy_window
   - alchemy/alchemy_tooltip
   - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery.sb
 - edit_page:
   - alchemy/alchemy
   - alchemy/elements
@@ -89,8 +92,10 @@ stylesheets:
   - alchemy/cropper
   - alchemy/flags
   - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery.sb
 - archive:
   - alchemy/alchemy
   - alchemy/alchemy_window
   - alchemy/alchemy_tooltip
   - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery.sb

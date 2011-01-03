@@ -1,4 +1,4 @@
-<div id="contactform_links" style="display: none" class="link_window_tab_body">
+<div id="overlay_tab_contactform_link">
 	<h2>
 		<%= _("please enter subject and mail address") %>
 	</h2>
@@ -60,7 +60,7 @@
 				$('contactform_url').value + '?subject=' + encodeURIComponent($('contactform_subject').value) + '&mail_to=' + encodeURIComponent($('contactform_mailto').value) + '&body=' + encodeURIComponent($('contactform_body').value),
 				$('contactform_link_title').value,
 				false
-			); link_window.close()",
+			); Alchemy.CurrentLinkWindow.close()",
 			:class => 'button'
 		) %>
 	</p>

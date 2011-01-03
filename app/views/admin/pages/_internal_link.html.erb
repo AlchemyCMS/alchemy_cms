@@ -1,4 +1,4 @@
-<div id="sitemap_for_links" class="link_window_tab_body">
+<div id="overlay_tab_internal_link">
 	<h2><%= _("internal_link_headline") %></h2>
 	<table class="window_form">
 		<tr>
@@ -37,11 +37,11 @@
 		<%= hidden_field_tag( "page_anchor" ) %>
 		<%= link_to_function(
 	      _("apply"),
-	      "alchemyCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); link_window.close()",
+	      "alchemyCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); Alchemy.CurrentLinkWindow.close()",
 	      :class => 'button'
 	    ) %>
 	</p>
+	<%- javascript_tag do -%>
+		page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
+	<%- end -%>
 </div>
-<%- javascript_tag do -%>
-	page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
-<%- end -%>

@@ -20,27 +20,12 @@
             :id => "element_#{element.id}_folder_spinner",
             :class => "element_folder_spinner"
         ) %>
-        <%= link_to_remote(
-            "",
-            :url => {
-                :controller => "elements",
-                :action => "fold",
-                :id => element.id,
-                :page_id => @page.id
-            },
-            :before => %(
-                $('element_#{element.id}_folder').hide();
-                $('element_#{element.id}_folder_spinner').show();
-            ),
-            :complete => %(
-                $('element_#{element.id}_folder').show();
-                $('element_#{element.id}_folder_spinner').hide();
-            ),
-            :html => {
-                :class => (element.folded? ? 'expand_element' : 'fold_element'),
-                :title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
-                :id => "element_#{element.id}_folder"
-            }
+		<%= link_to_function(
+			"",
+			"Alchemy.toggleElement(#{element.id}, '#{fold_admin_element_path(element)}', '#{form_authenticity_token}')",
+			:class => (element.folded? ? 'expand_element' : 'fold_element'),
+			:title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
+			:id => "element_#{element.id}_folder"
         ) %>
     </span>
 </div>

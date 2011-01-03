@@ -4,18 +4,16 @@
 <div id="toolbar">
     <div id="toolbar_buttons">
         <div class="button_with_label">
-            <%= alchemy_selectbox_tag(
-                'language',
-                Language.all.map { |l| [l.name, l.id] },
-                session[:language_id],
-                :onchange => %(
-                    pleaseWaitOverlay();
-                    new Ajax.Request('/admin/pages/switch_language', {
-                        method: 'get',
-                        parameters: {language_id: value}
-                    });
-                )
-            ) %>
+			<%= select_tag(
+				'language', 
+				options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+				:onchange => %(
+					Alchemy.pleaseWaitOverlay();
+					jQuery.get('/admin/pages/switch_language', {
+						language_id: this.value
+					});
+				)
+			) %>
             <label><%= _("Language tree") %></label>
         </div>
         <%- permitted_to?(:flush, :admin_pages) do -%>
@@ -23,8 +21,8 @@
             <%= link_to_remote(
                 content_tag('span', '', :class => 'icon flush'),
                 :url => flush_admin_pages_path,
-                :before => 'pleaseWaitOverlay();',
-                :complete => 'pleaseWaitOverlay(false);',
+                :before => 'Alchemy.pleaseWaitOverlay();',
+                :complete => 'Alchemy.pleaseWaitOverlay(false);',
                 :html => {:class => 'icon_button',
                 :title => _('Flush page cache')}
             ) -%><br />
@@ -69,6 +67,9 @@
             resizable: false
         }
     );
+	
+	jQuery('#alchemy select').sb({animDuration: 0});
+	
 // ]]>
 </script>
 <%- end -%>

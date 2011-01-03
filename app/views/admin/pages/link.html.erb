@@ -1,27 +1,28 @@
-<div class="overlay_tab_bar">
-	<span onclick="showLinkWindowTab('sitemap_for_links', this);" class="link_window_tab active" id="tab_for_sitemap_for_links">
-		<%= _('link_overlay_tab_label.internal') %>
-	</span>
-	<span onclick="showLinkWindowTab('sitemap_external_links', this);" class="link_window_tab" id="tab_for_sitemap_external_links">
-		<%= _('link_overlay_tab_label.external') %>
-	</span>
-	<span onclick="showLinkWindowTab('file_links', this);" class="link_window_tab" id="tab_for_file_links">
-		<%= _('link_overlay_tab_label.file') %>
-	</span>
+<div id="overlay_tabs">
+	<ul>
+		<li><a href="#overlay_tab_internal_link"><%= _('link_overlay_tab_label.internal') %></a></li>
+		<li><a href="#overlay_tab_external_link"><%= _('link_overlay_tab_label.external') %></a></li>
+		<li><a href="#overlay_tab_file_link"><%= _('link_overlay_tab_label.file') %></a></li>
+		<%- if configuration(:mailer)[:contactform_linking] -%>
+		<li><a href="#overlay_tab_contactform_link"><%= _('link_overlay_tab_label.contactform') %></a></li>
+		<%- end -%>
+	</ul>
+	<%= render :partial => 'internal_link' %>
+	<%= render :partial => 'external_link' %>
+	<%= render :partial => 'file_link' %>
 	<%- if configuration(:mailer)[:contactform_linking] -%>
-	<span onclick="showLinkWindowTab('contactform_links', this);" class="link_window_tab" id="tab_for_contactform_links">
-		<%= _('link_overlay_tab_label.contactform') %>
-	</span>
+	<%= render :partial => 'contactform_links' %>
 	<%- end -%>
 </div>
-<%= render :partial => 'internal_link' %>
-<%= render :partial => 'external_link' %>
-<%= render :partial => 'file_link' %>
-<%- if configuration(:mailer)[:contactform_linking] -%>
-	<%= render :partial => 'contactform_links' %>
-<%- end -%>
-<%- javascript_tag do -%>
-  if (link_window.linked_element) {
-    selectLinkWindowTab();
-  }
-<%- end -%>
+
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(function() {
+		jQuery( "#overlay_tabs" ).tabs();
+	});
+	
+	if (Alchemy.CurrentLinkWindow.linked_element) {
+		Alchemy.selectLinkWindowTab();
+	}
+
+</script>
