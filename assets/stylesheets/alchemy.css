@@ -57,7 +57,7 @@ div#flash_notices {
 
 /* @group overlay */
 
-#alchemy div#overlay {
+div#overlay {
 	visibility: hidden;
 	position: absolute;
 	left: 0px;
@@ -77,14 +77,14 @@ div#flash_notices {
 	left: -1px;
 }
 
-#alchemy div#overlay_text_box {
+div#overlay_text_box {
 	color: #333;
 	font-size: 18px;
 	text-align: center;
 	margin-top: 25%;
 }
 
-#alchemy div#overlay_text_box img {
+div#overlay_text_box img {
 	position: relative;
 	top: 9px;
 }
@@ -1305,7 +1305,7 @@ span.icon {
 	height: 16px;
 }
 
-body#alchemy div.info span.icon.info {
+div.info span.icon.info {
 	position: absolute;
 	top: 8px;
 	left: 8px;
@@ -1562,8 +1562,8 @@ input#search_input_field {
 	padding-right: 8px;
 }
 
-#alchemy input.button, 
-#alchemy a.button {
+input.button, 
+a.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
@@ -1576,33 +1576,33 @@ input#search_input_field {
 	text-shadow: #f2f2f2 1px 1px 0;
 }
 
-#alchemy input.button {
+input.button {
 	height: 21px;
 	padding-left: 8px;
 	padding-right: 8px;
 	padding-bottom: 2px;	
 }
 
-#alchemy input.button:active,
-#alchemy a.button:active {
+input.button:active,
+a.button:active {
 	text-decoration: none;
 	text-shadow: none;
 	background-color: #e5e5e5;
 }
 
-#alchemy a.button {
+a.button {
 	padding: 3px 8px 2px;
 	text-decoration: none;
 	float: left;
 }
 
-#alchemy table.list tr td.tools {
+table.list tr td.tools {
 	width: 40px;
 	background-color: #ededed;
 }
 
-#alchemy td.input,
-#alchemy td.label {
+td.input,
+td.label {
 	vertical-align: top;
 }
 
@@ -1715,7 +1715,7 @@ div#archive_all .picture_detail {
 	cursor: text;
 }
 
-#alchemy .inplace-edit {
+.inplace-edit {
 	background-color: #ededed;
 	position: absolute;
 	left: -8px;
@@ -1734,15 +1734,15 @@ div#archive_all .picture_detail {
 	box-shadow: #444 0px 1px 8px;
 }
 
-#alchemy .inplace-edit input.save-button {
+.inplace-edit input.save-button {
 	float: right;
 }
 
-#alchemy .inplace-edit div.buttons input.cancel-button {
+.inplace-edit div.buttons input.cancel-button {
 	float: left;
 }
 
-#alchemy .inplace-edit div.buttons {
+.inplace-edit div.buttons {
 	margin-top: 4px;
 	position: absolute;
 	bottom: 4px;
@@ -1751,7 +1751,7 @@ div#archive_all .picture_detail {
 	padding-left: 4px;
 }
 
-#alchemy .inplace-edit input.thin_border {
+.inplace-edit input.thin_border {
 	width: 190px;
 	font-family: "Courier New", Courier, mono;
 	position: absolute;

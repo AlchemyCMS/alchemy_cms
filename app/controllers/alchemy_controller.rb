@@ -24,7 +24,6 @@ class AlchemyController < ApplicationController
       render :update do |page|
         page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
         page.show "errors"
-        page << "alchemy_window.updateHeight()"
       end
     end
   end

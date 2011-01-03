@@ -8,12 +8,3 @@
 		<%= flash[:error] %>
 	</div>
 </div>
-<%- if flash[:error].blank? -%>
-<script type="text/javascript" charset="utf-8">
-// <![CDATA[
-	document.observe('dom:loaded', function () {
-		setTimeout("$('flash_notices').fade({duration: 0.7});", 5000);
-	})
-// ]]>
-</script>
-<%- end -%>

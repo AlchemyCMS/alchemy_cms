@@ -1,5 +1,7 @@
+// Setting jQueryUIs global animation duration
 jQuery.fx.speeds._default = 400;
 
+// The Alchemy JavaScript Object contains all Functions
 var Alchemy = {
 	
 	inPlaceEditor : function (options) {
@@ -174,6 +176,7 @@ var Alchemy = {
 						$dialog.html(data);
 						$dialog.css({overflow: overflow ? 'visible' : 'auto'});
 						$dialog.dialog('widget').css({overflow: overflow ? 'visible' : 'hidden'});
+						jQuery('#alchemyOverlay select').sb({animDuration: 0});
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -436,9 +439,12 @@ var Alchemy = {
 	
 	fadeImage : function(image) {
 		try {
-			image.parent().parent().previous().hide();
-			image.parent().parent().fadeIn(600);
-		} catch(e) {};
+			var $image = jQuery(image);
+			$image.parent().parent().prev().hide();
+			$image.parent().parent().fadeIn(600);
+		} catch(e) {
+			Alchemy.debug(e);
+		};
 	},
 	
 	saveElement : function(form, element_id) {
@@ -481,33 +487,47 @@ var Alchemy = {
 				jQuery('#element_'+element_id+'_spinner').hide();
 			}
 		});
+	},
+	
+	debug : function(e) {
+		if (window['console']) {
+			console.debug(e);
+		}
 	}
 	
 };
 
+// Call all Alchemy "onload" scripts
+jQuery(document).ready(function () {
+	jQuery('body#alchemy select').sb({animDuration: 0});
+	if (jQuery('#flash_notices').length > 0) {
+		jQuery('#flash_notices div[class!="flash error"] ').delay(5000).hide('drop', { direction: "up" }, 400);
+	}
+});
+
 function scrollToElement(id) {
-    var el_ed = $('element_' + id);
-    if (el_ed) {
-        var offset = el_ed.positionedOffset();
-        var container = jQuery('#alchemyOverlay');
-        container.scrollTop = offset.top - 41;
-    }
+	var el_ed = $('element_' + id);
+	if (el_ed) {
+		var offset = el_ed.positionedOffset();
+		var container = jQuery('#alchemyOverlay');
+		container.scrollTop = offset.top - 41;
+	}
 }
 
 function toggleButton(id, action) {
-    var button = $(id);
-    if (action == 'disable') {
-        button.addClassName('disabled');
-        var div = new Element('div', {
-            'class': 'disabledButton'
-        });
-        button.insert({
-            top: div
-        });
-    } else if (action == 'enable') {
-        button.removeClassName('disabled');
-        button.down('div.disabledButton').remove();
-    };
+	var button = $(id);
+	if (action == 'disable') {
+		button.addClassName('disabled');
+		var div = new Element('div', {
+			'class': 'disabledButton'
+		});
+		button.insert({
+			top: div
+		});
+	} else if (action == 'enable') {
+		button.removeClassName('disabled');
+		button.down('div.disabledButton').remove();
+	};
 }
 
 function isIe() {
