@@ -2,18 +2,17 @@
 <%- content_for :toolbar do -%>
 <div id="toolbar">
 	<div class="button_with_label">
-        <%= alchemy_selectbox_tag(
-            'language',
-            Language.all.map { |l| [l.name, l.id] },
-            session[:language_id],
-            :onchange => %(
-                Alchemy.pleaseWaitOverlay();
-                new Ajax.Request('/admin/pages/switch_language', {
-                    method: 'get',
-                    parameters: {language_id: value, layoutpages: true}
-                });
-            )
-        ) %>
+        <%= select_tag(
+			'language', 
+			options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+			:onchange => %(
+				Alchemy.pleaseWaitOverlay();
+				jQuery.get('/admin/pages/switch_language', {
+					language_id: this.value
+				});
+			),
+			:class => 'long'
+		) %>
         <label><%= _("Language tree") %></label>
     </div>
 </div>

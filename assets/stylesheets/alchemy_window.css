@@ -162,7 +162,7 @@ div.overlay_image_spinner {
 
 div#errors {
 	margin-bottom: 8px;
-	padding: 8px 8px 4px 30px;
+	padding: 8px 8px 4px 28px;
 	border-width: 1px;
 	border-style: solid;
 	-webkit-border-radius: 2px;
@@ -180,6 +180,7 @@ div#errors {
 #errors ul {
 	margin: 0;
 	padding: 0;
+	list-style-type: decimal;
 }
 
 #alchemyConfirmation .alchemy_window_buttons {
@@ -198,24 +199,20 @@ div#errors {
 	margin-left: 8px;
 }
 
-#new_page_form tbody tr td.second_row {
-	text-align: right;
-}
-
 #new_page_form th, #new_page_form td {
 	white-space: nowrap;
 	padding: 2px;
 }
 
 #new_page_form tbody tr td.second_row input#page_name {
-	width: 128px;
+	width: 150px;
 	padding: 2px;
 	margin: 0;
 	border-width: 1px;
 }
 
-select#page_layout {
-	width: 120px;
+#new_page_form tbody tr td.second_row div.selectbox a.display {
+	width: 123px;
 }
 
 input#page_name {

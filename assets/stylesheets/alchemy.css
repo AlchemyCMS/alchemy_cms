@@ -1597,6 +1597,10 @@ input.button {
 	padding-bottom: 2px;	
 }
 
+#new_page_form tbody tr td.second_row input.button {
+	float: right;
+}
+
 input.button:active,
 a.button:active {
 	text-decoration: none;

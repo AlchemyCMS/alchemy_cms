@@ -8,6 +8,7 @@
 	margin: 0;
 	position: relative;
 	zoom: 1;
+	font-size: 11px;
 }
 
 #alchemy .selectbox .display {
@@ -24,6 +25,18 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	background: #f7f7f7 url(/images/alchemy/gui/shading.png) repeat-x 0 -77px;
+}
+
+#alchemy .selectbox .display.long {
+	width: 100px;
+}
+
+#alchemy .selectbox .display.short {
+
+}
+
+#alchemy .selectbox .display.medium {
+
 }
 
 #alchemy .selectbox.disabled .display {
@@ -80,13 +93,10 @@
 	background: #ededed;
 	border: 1px solid #828790;
 	display: block;
-	font-family: arial;
-	font-size: 13px;
 	list-style-type: none;
 	margin: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
-	padding: 0 0 1px 0;
 	z-index: 99999;
 	-moz-box-shadow: 0 3px 5px rgba(0,0,0,.5);
 	-webkit-box-shadow: 0 3px 5px rgba(0,0,0,.5);
@@ -94,6 +104,13 @@
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+	padding: 0;
+	line-height: 15px;
+	font-size: 11px;
+}
+
+#new_page_form tbody tr td.second_row div.selectbox .display{
+	width: 100px;
 }
 
 #alchemy .items.above {
@@ -112,7 +129,7 @@
 }
 
 #alchemy .items li>a {
-	color: #000;
+	color: #333;
 	cursor: default;
 	display: block;
 	text-decoration: none;
