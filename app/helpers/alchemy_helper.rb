@@ -658,9 +658,15 @@ module AlchemyHelper
   end
   
   # Used for rendering the folder link in Admin::Pages.index sitemap.
-  def sitemapFolderLink(page, title)
+  def sitemapFolderLink(page)
     return '' if page.level == 1
-    css_class = page.folded?(current_user.id) ? 'folded' : 'collapsed'
+    if page.folded?(current_user.id)
+      css_class = 'folded'
+      title = _('Show childpages')
+    else
+      css_class = 'collapsed'
+      title = _('Hide childpages')
+    end
     link_to_remote(
       '',
       :url => {

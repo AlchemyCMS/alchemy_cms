@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-04 16:57+0100\n"
+"POT-Creation-Date: 2011-01-04 17:16+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:816
+#: app/helpers/alchemy_helper.rb:822
 msgid "'%{name}' from_clipboard"
 msgstr ""
 
@@ -158,6 +158,10 @@ msgstr ""
 
 #: app/views/mailer/new_alchemy_user_mail.erb:13
 msgid "Have much fun with Alchemy!"
+msgstr ""
+
+#: app/helpers/alchemy_helper.rb:668
+msgid "Hide childpages"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:21
@@ -445,7 +449,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1091
+#: app/helpers/alchemy_helper.rb:1097
 msgid "Select an content"
 msgstr ""
 
@@ -453,8 +457,8 @@ msgstr ""
 msgid "Send email with credentials"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:4
-msgid "Show/Hide Childpages"
+#: app/helpers/alchemy_helper.rb:665
+msgid "Show childpages"
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:38
@@ -630,7 +634,7 @@ msgstr ""
 msgid "add"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1087 app/helpers/alchemy_helper.rb:1103
+#: app/helpers/alchemy_helper.rb:1093 app/helpers/alchemy_helper.rb:1109
 msgid "add new content"
 msgstr ""
 
@@ -690,6 +694,7 @@ msgstr ""
 msgid "browse"
 msgstr ""
 
+#: app/views/admin/pages/index.html.erb:60
 #: app/views/admin/pictures/index.html.erb:50
 msgid "cancel"
 msgstr ""
@@ -706,7 +711,7 @@ msgstr ""
 msgid "choose_file_to_link"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:801
+#: app/helpers/alchemy_helper.rb:807
 #: app/views/admin/partials/_remote_search_form.html.erb:25
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -745,12 +750,12 @@ msgstr ""
 msgid "contactform_body"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:849
-#: app/helpers/alchemy_helper.rb:949
+#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:855
+#: app/helpers/alchemy_helper.rb:955
 msgid "content_essence_not_found"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:847
+#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:853
 msgid "content_not_found"
 msgstr ""
 
@@ -1152,7 +1157,7 @@ msgstr ""
 msgid "navigation_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:833
 msgid "no"
 msgstr ""
 
@@ -1307,7 +1312,7 @@ msgstr ""
 msgid "please enter subject and mail address"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:825
+#: app/helpers/alchemy_helper.rb:831
 msgid "please_confirm"
 msgstr ""
 
@@ -1358,7 +1363,7 @@ msgstr ""
 msgid "save"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:59
+#: app/views/admin/pages/index.html.erb:61
 msgid "save order"
 msgstr ""
 
@@ -1370,7 +1375,7 @@ msgstr ""
 msgid "saving"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:803
+#: app/helpers/alchemy_helper.rb:809
 #: app/views/admin/partials/_remote_search_form.html.erb:29
 #: app/views/admin/partials/_search_form.html.erb:15
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1526,7 +1531,7 @@ msgstr ""
 msgid "with_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:826
+#: app/helpers/alchemy_helper.rb:832
 msgid "yes"
 msgstr ""
 

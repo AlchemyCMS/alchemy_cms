@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-04 16:57+0100\n"
+"POT-Creation-Date: 2011-01-04 17:16+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "%{language} als neuen Sprachbaum anlegen"
 
-#: app/helpers/alchemy_helper.rb:816
+#: app/helpers/alchemy_helper.rb:822
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' aus der Zwischenablage"
 
@@ -117,7 +117,9 @@ msgstr "Fehler mit dem Flash® Uploader!"
 
 #: app/controllers/admin/pages_controller.rb:208
 msgid "Error: %{e}"
-msgstr "Es ist ein Fehler aufgetreten:\n%{e}"
+msgstr ""
+"Es ist ein Fehler aufgetreten:\n"
+"%{e}"
 
 #: app/views/elements/_searchresult_view.html.erb:22
 msgid "Excerpt"
@@ -158,6 +160,10 @@ msgstr "Bildercache leeren"
 #: app/views/mailer/new_alchemy_user_mail.erb:13
 msgid "Have much fun with Alchemy!"
 msgstr "Viel Spaß mit Alchemy!"
+
+#: app/helpers/alchemy_helper.rb:668
+msgid "Hide childpages"
+msgstr "Unterseiten ausblenden"
 
 #: app/views/admin/partials/_upload_form.html.erb:21
 msgid ""
@@ -452,7 +458,7 @@ msgstr "Lizenz lesen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/alchemy_helper.rb:1091
+#: app/helpers/alchemy_helper.rb:1097
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -460,9 +466,9 @@ msgstr "Wählen Sie einen Inhalt aus"
 msgid "Send email with credentials"
 msgstr "Sende Benutzerdaten per Email"
 
-#: app/views/admin/pages/_page.html.erb:4
-msgid "Show/Hide Childpages"
-msgstr "Unterseiten anzeigen/ausblenden"
+#: app/helpers/alchemy_helper.rb:665
+msgid "Show childpages"
+msgstr "Unterseiten anzeigen"
 
 #: app/views/admin/pages/index.html.erb:38
 #: app/views/admin/pages/index.html.erb:40
@@ -646,7 +652,7 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/alchemy_helper.rb:1087 app/helpers/alchemy_helper.rb:1103
+#: app/helpers/alchemy_helper.rb:1093 app/helpers/alchemy_helper.rb:1109
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -706,6 +712,7 @@ msgstr "große Miniaturbilder"
 msgid "browse"
 msgstr "durchsuchen"
 
+#: app/views/admin/pages/index.html.erb:60
 #: app/views/admin/pictures/index.html.erb:50
 msgid "cancel"
 msgstr "abbrechen"
@@ -722,7 +729,7 @@ msgstr "Bitte wählen Sie ein Element"
 msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
-#: app/helpers/alchemy_helper.rb:801
+#: app/helpers/alchemy_helper.rb:807
 #: app/views/admin/partials/_remote_search_form.html.erb:25
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -763,12 +770,12 @@ msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 msgid "contactform_body"
 msgstr "Nachrichten Vorlage"
 
-#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:849
-#: app/helpers/alchemy_helper.rb:949
+#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:855
+#: app/helpers/alchemy_helper.rb:955
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:847
+#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:853
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
@@ -1178,7 +1185,7 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:833
 msgid "no"
 msgstr "Nein"
 
@@ -1345,7 +1352,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/alchemy_helper.rb:825
+#: app/helpers/alchemy_helper.rb:831
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1396,7 +1403,7 @@ msgstr "durch Robot indizieren"
 msgid "save"
 msgstr "speichern"
 
-#: app/views/admin/pages/index.html.erb:59
+#: app/views/admin/pages/index.html.erb:61
 msgid "save order"
 msgstr "Sortierung speichern"
 
@@ -1408,7 +1415,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/alchemy_helper.rb:803
+#: app/helpers/alchemy_helper.rb:809
 #: app/views/admin/partials/_remote_search_form.html.erb:29
 #: app/views/admin/partials/_search_form.html.erb:15
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1564,7 +1571,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/alchemy_helper.rb:826
+#: app/helpers/alchemy_helper.rb:832
 msgid "yes"
 msgstr "Ja"
 
