@@ -5,7 +5,7 @@ class Admin::PagesController < AlchemyController
   layout 'alchemy'
   
   before_filter :set_translation, :except => [:show]
-  before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy]
+  before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy, :fold]
   
   filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
@@ -13,7 +13,7 @@ class Admin::PagesController < AlchemyController
   cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
-    @page_root = Page.find_language_root_for(session[:language_id])
+    @page_root = Page.language_root_for(session[:language_id])
   end
   
   def show
@@ -81,7 +81,7 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     name = @page.name
     if @page.destroy
-      @root_page = Page.find_language_root_for(session[:language_id])
+      @root_page = Page.language_root_for(session[:language_id])
       if @root_page
         render :update do |page|
           page.replace_html(
@@ -104,7 +104,7 @@ class Admin::PagesController < AlchemyController
     if configuration(:show_real_root)
       @page_root = Page.root
     else
-      @page_root = Page.find_language_root_for(session[:language_id])
+      @page_root = Page.language_root_for(session[:language_id])
     end
     @area_name = params[:area_name]
     @content_id = params[:content_id]
@@ -123,7 +123,9 @@ class Admin::PagesController < AlchemyController
     # @page is fetched via before filter
     @page.fold(current_user.id, !@page.folded?(current_user.id))
     @page.save
-    render :nothing => true
+    render :update do |page|
+      page.replace "page_#{@page.id}", :partial => 'page', :locals => {:page => @page}
+    end
   end
   
   def layoutpages
@@ -157,7 +159,7 @@ class Admin::PagesController < AlchemyController
       if params[:layoutpage]
         original_language_root = Page.layout_root_for(params[:languages][:old_lang_id])
       else
-        original_language_root = Page.find_language_root_for(params[:languages][:old_lang_id])
+        original_language_root = Page.language_root_for(params[:languages][:old_lang_id])
       end
       new_language_root = Page.copy(
         original_language_root,
@@ -176,25 +178,34 @@ class Admin::PagesController < AlchemyController
     redirect_to :action => params[:layoutpage] == "true" ? :layoutpages : :index
   end
   
-  def move
-    @page_root = Page.find_language_root_for(session[:language_id])
-    params['sitemap'].keys.each do |page_id|
-      @page = Page.find(page_id)
-      if !params['sitemap'][page_id]['left_id'].blank?
-        left = Page.find(params['sitemap'][page_id]['left_id'])
-        @page.move_to_right_of(left)
-      elsif !params['sitemap'][page_id]['parent_id'].blank?
-        if params['sitemap'][page_id]['parent_id'] == 'null'
-          new_parent = @page_root
-        else
-          new_parent = Page.find(params['sitemap'][page_id]['parent_id'])
-        end
-        @page.move_to_child_of(new_parent)
+  def sort
+    @page_root = Page.language_root_for(session[:language_id])
+    @sorting = !params[:sorting]
+  end
+  
+  def order
+    @page_root = Page.language_root_for(session[:language_id])
+    pages_from_raw_request.each do |page|
+      page_id = page.first[0]
+      parent_id = page.first[1]
+      if parent_id == 'root'
+        parent = @page_root
+      else
+        parent = Page.find(parent_id)
       end
+      page = Page.find(page_id)
+      page.move_to_child_of(parent)
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("Page %{name} moved") % {:name => @page.name})
+      Alchemy::Notice.show_via_ajax(page, _("Pages order saved"))
       page.replace 'sitemap', :partial => 'sitemap'
+      page.hide "page_sorting_notice"
+      page << "jQuery('#page_sorting_button').removeClass('active')"
+    end
+  rescue Exception => e
+    log_error(e)
+    render :update do |page|
+      Alchemy::Notice.show_via_ajax(page, _("Error: %{e}") % {:e => e}, :error)
     end
   end
   
@@ -237,6 +248,10 @@ private
   
   def get_page_from_id
     @page = Page.find(params[:id])
+  end
+  
+  def pages_from_raw_request
+    request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
   end
   
 end

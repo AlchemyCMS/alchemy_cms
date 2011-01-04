@@ -18,6 +18,7 @@ javascripts:
   - alchemy/alchemy
   - alchemy/jquery.sb.min
   - alchemy/alchemy_frame_set
+  - alchemy/jquery.ui.nestedSortable
 - edit_page:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min

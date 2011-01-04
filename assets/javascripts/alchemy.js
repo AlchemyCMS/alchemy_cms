@@ -489,6 +489,26 @@ var Alchemy = {
 		});
 	},
 	
+	PageSorter : function () {
+		jQuery('ul#sitemap').nestedSortable({
+			disableNesting: 'no-nest',
+			forcePlaceholderSize: true,
+			handle: 'span.handle',
+			items: 'li',
+			listType: 'ul',
+			opacity: .6,
+			placeholder: 'placeholder',
+			tabSize: 16,
+			tolerance: 'pointer',
+			toleranceElement: '> div'
+		});
+		
+		jQuery('#save_page_order').click(function(){
+			var params = jQuery('ul#sitemap').nestedSortable('serialize');
+			jQuery.post('/admin/pages/order', params);
+		});
+	},
+	
 	debug : function(e) {
 		if (window['console']) {
 			console.debug(e);
@@ -532,19 +552,6 @@ function toggleButton(id, action) {
 
 function isIe() {
 	return typeof(document.all) == 'object';
-}
-
-function foldPage(id) {
-    var button = $("fold_button_" + id);
-    var folded = button.hasClassName('folded');
-    if (folded) {
-        button.removeClassName('folded');
-        button.addClassName('collapsed');
-    } else {
-        button.removeClassName('collapsed');
-        button.addClassName('folded');
-    }
-    $("page_" + id + "_children").toggle();
 }
 
 function mass_set_selected(select, selector, hiddenElementParentCount) {
@@ -680,42 +687,6 @@ function hideElementsFromPageSelector(id) {
 	jQuery('#page_anchor').removeAttr('value');
 	page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
 	page_select_scrollbar.recalculateLayout();
-}
-
-function createSortableTree() {
-    var tree = new SortableTree(
-    $('sitemap'),
-    {
-        draggable: {
-            ghosting: true,
-            reverting: true,
-            handle: 'handle',
-            scroll: window,
-            starteffect: function(element) {
-                new Effect.Opacity(element, {
-                    from: 1.0,
-                    to: 0.2,
-                    duration: 0.2
-                });
-            }
-        },
-        onDrop: function(drag, drop, event) {
-            Alchemy.pleaseWaitOverlay();
-            new Ajax.Request(
-            '/admin/pages/move',
-            {
-                postBody: drag.to_params(),
-                onComplete: function() {
-                    var overlay = $('overlay');
-                    if (overlay)
-                    overlay.style.visibility = 'hidden';
-                }
-            }
-            );
-        }
-    }
-    );
-    tree.setSortable();
 }
 
 // Javascript extensions

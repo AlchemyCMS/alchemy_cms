@@ -304,7 +304,7 @@ class Page < ActiveRecord::Base
     self.children.detect{ |child| child.public? }
   end
   
-  def self.find_language_root_for(language_id)
+  def self.language_root_for(language_id)
     self.language_roots.find_by_language_id(language_id)
   end
   

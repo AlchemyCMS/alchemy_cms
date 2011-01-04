@@ -2,7 +2,7 @@
 	<div class="page_root">
 		<div class="sitemap_page">
 			<div class="sitemap_left_images">
-                <span class="site_status <%= @page_root.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= @page_root.id %><%= @page_root.locked ? ' locked' : '' %>" ></span>
+                <span class="site_status tooltip html_tooltip_<%= @page_root.id %><%= @page_root.locked ? ' locked' : '' %>" ></span>
                 <div id="tooltip_<%= @page_root.id %>" style="display: none;">
                 	<h1><%= _("page_type") %>: <%= @page_root.layout_display_name %></h1>
                 	<p>
@@ -86,8 +86,3 @@
 	</div>
 	<%= render :partial => 'page', :collection => @page_root.children %>
 </ul>
-<%- permitted_to?(:move, :admin_pages) do -%>
-<%- javascript_tag do -%>
-    createSortableTree();
-<%- end -%>
-<%- end -%>

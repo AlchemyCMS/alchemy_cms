@@ -402,13 +402,13 @@ module AlchemyHelper
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
     if current_page.meta_description.blank?
-      description = Page.find_language_root_for(session[:language_id]).meta_description rescue ""
+      description = Page.language_root_for(session[:language_id]).meta_description rescue ""
     else
       description = current_page.meta_description
     end
     #render meta keywords of the root page from language if the current meta keywords is empty
     if current_page.meta_keywords.blank?
-      keywords = Page.find_language_root_for(session[:language_id]).meta_keywords rescue ""
+      keywords = Page.language_root_for(session[:language_id]).meta_keywords rescue ""
     else
       keywords = current_page.meta_keywords
     end
@@ -472,7 +472,7 @@ module AlchemyHelper
       elsif page == pages.first
         css_class = "first"
       end
-      if (page == Page.find_language_root_for(session[:language_id]))
+      if (page == Page.language_root_for(session[:language_id]))
         if configuration(:redirect_index)
           url = show_page_url(:urlname => page.urlname)
         else
@@ -668,9 +668,6 @@ module AlchemyHelper
         :action => :fold,
         :id => page.id
       },
-      :complete => %(
-        foldPage(#{page.id})
-      ),
       :html => {
         :class => "page_folder #{css_class}",
         :title => title,
@@ -758,7 +755,7 @@ module AlchemyHelper
 
   # returns the current language root
   def root_page
-    @root_page ||= Page.find_language_root_for(session[:language_id])
+    @root_page ||= Page.language_root_for(session[:language_id])
   end
   
   # Returns true if the current_page is the root_page in the nested set of Pages, false if not.

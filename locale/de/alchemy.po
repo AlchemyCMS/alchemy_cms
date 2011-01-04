@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-12-27 16:10+0100\n"
+"POT-Creation-Date: 2011-01-04 16:57+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "%{language} als neuen Sprachbaum anlegen"
 
-#: app/helpers/alchemy_helper.rb:819
+#: app/helpers/alchemy_helper.rb:816
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' aus der Zwischenablage"
 
@@ -72,7 +72,7 @@ msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
 
 #: app/models/language.rb:35
 msgid "Defaut language has to be public"
-msgstr ""
+msgstr "Die Standardsprache muss veröffentlicht sein."
 
 #: app/views/admin/pictures/_picture.html.erb:14
 msgid "Delete image"
@@ -115,11 +115,15 @@ msgstr "Es ist ein Fehler aufgetreten: %{error}"
 msgid "Error with the Flash® Uploader!"
 msgstr "Fehler mit dem Flash® Uploader!"
 
+#: app/controllers/admin/pages_controller.rb:208
+msgid "Error: %{e}"
+msgstr "Es ist ein Fehler aufgetreten:\n%{e}"
+
 #: app/views/elements/_searchresult_view.html.erb:22
 msgid "Excerpt"
-msgstr ""
+msgstr "Auszug"
 
-#: app/views/admin/pages/index.html.erb:47
+#: app/views/admin/pages/index.html.erb:58
 msgid "Explain|Sitemap|Dragndrop sorting"
 msgstr ""
 "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest "
@@ -141,8 +145,8 @@ msgstr "Datei konnte nicht hochgeladen werden: %{error}"
 msgid "File: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
+#: app/views/admin/pages/index.html.erb:27
 #: app/views/admin/pages/index.html.erb:29
-#: app/views/admin/pages/index.html.erb:31
 msgid "Flush page cache"
 msgstr "Seitencache leeren"
 
@@ -205,7 +209,7 @@ msgstr "Sprache '%{name}' wurde gelöscht."
 msgid "Language '%{name}' updated"
 msgstr "Sprache %{name} wurde aktualisiert"
 
-#: app/views/admin/pages/index.html.erb:19
+#: app/views/admin/pages/index.html.erb:17
 #: app/views/admin/pages/layoutpages.html.erb:17
 msgid "Language tree"
 msgstr "Sprachbaum"
@@ -242,7 +246,7 @@ msgstr "Angemeldet als"
 msgid "Mising Image"
 msgstr "Bild fehlt"
 
-#: app/views/admin/pages/index.html.erb:41
+#: app/views/admin/pages/index.html.erb:50
 msgid "Name"
 msgstr "Name"
 
@@ -260,10 +264,6 @@ msgstr "Seite"
 msgid "Page %{name} deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/pages_controller.rb:196
-msgid "Page %{name} moved"
-msgstr "%{name} wurde an die neue Position bewegt"
-
 #: app/controllers/admin/pages_controller.rb:77
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
@@ -272,7 +272,7 @@ msgstr "%{name} wurde gespeichert"
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
-#: app/controllers/admin/pages_controller.rb:222
+#: app/controllers/admin/pages_controller.rb:233
 msgid "Page cache flushed"
 msgstr "Seitencache wurde geleert"
 
@@ -311,6 +311,10 @@ msgstr "Seite geschützt"
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page visible"
 msgstr "Seite in der Navigation sichtbar"
+
+#: app/controllers/admin/pages_controller.rb:200
+msgid "Pages order saved"
+msgstr "Seitensortierung wurde gespeichert"
 
 #: locale/model_attributes.rb:35
 msgid "Page|Created at"
@@ -432,7 +436,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
 "haben."
 
-#: app/controllers/alchemy_controller.rb:152
+#: app/controllers/alchemy_controller.rb:151
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
@@ -448,7 +452,7 @@ msgstr "Lizenz lesen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/alchemy_helper.rb:1094
+#: app/helpers/alchemy_helper.rb:1091
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -458,9 +462,14 @@ msgstr "Sende Benutzerdaten per Email"
 
 #: app/views/admin/pages/_page.html.erb:4
 msgid "Show/Hide Childpages"
-msgstr ""
+msgstr "Unterseiten anzeigen/ausblenden"
 
-#: app/views/admin/pages/index.html.erb:42
+#: app/views/admin/pages/index.html.erb:38
+#: app/views/admin/pages/index.html.erb:40
+msgid "Sort pages"
+msgstr "Seiten sortieren"
+
+#: app/views/admin/pages/index.html.erb:51
 msgid "Status"
 msgstr ""
 
@@ -596,7 +605,7 @@ msgstr ""
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
 
-#: app/controllers/alchemy_controller.rb:141
+#: app/controllers/alchemy_controller.rb:140
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
@@ -637,7 +646,7 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/alchemy_helper.rb:1090 app/helpers/alchemy_helper.rb:1106
+#: app/helpers/alchemy_helper.rb:1087 app/helpers/alchemy_helper.rb:1103
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -713,7 +722,7 @@ msgstr "Bitte wählen Sie ein Element"
 msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
-#: app/helpers/alchemy_helper.rb:804
+#: app/helpers/alchemy_helper.rb:801
 #: app/views/admin/partials/_remote_search_form.html.erb:25
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -754,12 +763,12 @@ msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 msgid "contactform_body"
 msgstr "Nachrichten Vorlage"
 
-#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:852
-#: app/helpers/alchemy_helper.rb:952
+#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:849
+#: app/helpers/alchemy_helper.rb:949
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:850
+#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:847
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
@@ -1001,7 +1010,7 @@ msgstr "Dateien"
 msgid "height"
 msgstr "Höhe"
 
-#: app/views/admin/elements/_element_head.html.erb:41
+#: app/views/admin/elements/_element_head.html.erb:27
 msgid "hide_element_content"
 msgstr "Element einklappen"
 
@@ -1039,11 +1048,11 @@ msgstr "Wählen Sie eine Seite zum verlinken."
 msgid "language_does_not_exist"
 msgstr "Dieser Sprachbaum existiert noch nicht"
 
-#: app/controllers/admin/pages_controller.rb:171
+#: app/controllers/admin/pages_controller.rb:173
 msgid "language_pages_copied"
 msgstr "Der Sprachbaum wurde kopiert"
 
-#: app/controllers/admin/pages_controller.rb:174
+#: app/controllers/admin/pages_controller.rb:176
 msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren des Sprachbaums sind Fehler aufgetreten"
 
@@ -1056,15 +1065,15 @@ msgstr "links"
 msgid "link_image"
 msgstr "Bild verlinken"
 
-#: app/views/admin/pages/link.html.erb:13
+#: app/views/admin/pages/link.html.erb:7
 msgid "link_overlay_tab_label.contactform"
 msgstr "Kontaktformular"
 
-#: app/views/admin/pages/link.html.erb:6
+#: app/views/admin/pages/link.html.erb:4
 msgid "link_overlay_tab_label.external"
 msgstr "Extern"
 
-#: app/views/admin/pages/link.html.erb:9
+#: app/views/admin/pages/link.html.erb:5
 msgid "link_overlay_tab_label.file"
 msgstr "Datei"
 
@@ -1169,11 +1178,11 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/alchemy_helper.rb:830
+#: app/helpers/alchemy_helper.rb:827
 msgid "no"
 msgstr "Nein"
 
-#: app/controllers/alchemy_controller.rb:136
+#: app/controllers/alchemy_controller.rb:135
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
@@ -1223,7 +1232,7 @@ msgstr "Seiteneigenschaften"
 msgid "page_public"
 msgstr "Seite veröffentlichen"
 
-#: app/controllers/admin/pages_controller.rb:149
+#: app/controllers/admin/pages_controller.rb:151
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
@@ -1336,7 +1345,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/alchemy_helper.rb:828
+#: app/helpers/alchemy_helper.rb:825
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1387,6 +1396,10 @@ msgstr "durch Robot indizieren"
 msgid "save"
 msgstr "speichern"
 
+#: app/views/admin/pages/index.html.erb:59
+msgid "save order"
+msgstr "Sortierung speichern"
+
 #: app/controllers/admin/essence_pictures_controller.rb:65
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
@@ -1395,7 +1408,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/alchemy_helper.rb:806
+#: app/helpers/alchemy_helper.rb:803
 #: app/views/admin/partials/_remote_search_form.html.erb:29
 #: app/views/admin/partials/_search_form.html.erb:15
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1410,7 +1423,7 @@ msgstr "Suchmaschinen"
 msgid "select_element"
 msgstr "Element wählen"
 
-#: app/views/admin/elements/_element_head.html.erb:41
+#: app/views/admin/elements/_element_head.html.erb:27
 msgid "show_element_content"
 msgstr "Element ausklappen"
 
@@ -1480,7 +1493,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/admin/pages_controller.rb:137
+#: app/controllers/admin/pages_controller.rb:139
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 
@@ -1551,7 +1564,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/alchemy_helper.rb:829
+#: app/helpers/alchemy_helper.rb:826
 msgid "yes"
 msgstr "Ja"
 

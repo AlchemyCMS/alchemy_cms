@@ -80,7 +80,7 @@ class MailsController < AlchemyController
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_by_urlname(configuration(:mailer)[:mail_success_page]).urlname
       else
         flash[:notice] = I18n.t('contactform.messages.success')
-        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_language_root_for(session[:language_id]).urlname
+        redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root_for(session[:language_id]).urlname
       end
     else
       render :template => '/pages/show', :layout => 'pages'

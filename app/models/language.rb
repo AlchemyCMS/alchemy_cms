@@ -64,7 +64,7 @@ private
   end
   
   def delete_language_root_page
-    page = Page.find_language_root_for(id)
+    page = Page.language_root_for(id)
     page.destroy if page
     layoutroot = Page.layout_root_for(id)
     layoutroot.destroy if layoutroot

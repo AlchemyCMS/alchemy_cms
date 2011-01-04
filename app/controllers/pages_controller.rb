@@ -48,7 +48,7 @@ private
   
   def get_page_from_urlname
     if params[:urlname].blank?
-      @page = Page.find_language_root_for(session[:language_id])
+      @page = Page.language_root_for(session[:language_id])
     else
       @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
     end

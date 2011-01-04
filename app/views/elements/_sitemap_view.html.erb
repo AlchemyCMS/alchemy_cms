@@ -1,5 +1,5 @@
 <ul>
-<%- pages ||= [Page.find_language_root_for(session[:language_id])] -%>
+<%- pages ||= [Page.language_root_for(session[:language_id])] -%>
 <%- pages.each do |page| -%>
 <%- position = "" -%>
 <%- position = position + "last" if pages.last == page -%>

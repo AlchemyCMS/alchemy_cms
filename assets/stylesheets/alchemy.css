@@ -373,6 +373,10 @@ div.info.footnote {
 	margin: 16px;
 }
 
+#main_content div.info {
+	margin: 16px;
+}
+
 p.no_padding {
 	padding: 0;
 	margin: 0;
@@ -756,9 +760,9 @@ ul#sitemap li,
 ul#layoutpages li {
 	list-style-type: none;
 	display: block;
-	margin-left: 22px;
+	margin-left: 0;
 	margin-bottom: 0;
-	padding-left: 0;
+	padding-left: 22px;
 	padding-right: 0;
 	line-height: 22px;
 }
@@ -1290,6 +1294,8 @@ a.icon_button:hover {
 
 a.icon_button:active {
 	background-color: #cdd6db;
+	border-style: inset;
+	border-color: #bfbfbf;
 }
 
 a.icon_button img {
@@ -1303,6 +1309,14 @@ span.icon {
 	background: url(/images/alchemy/icons.png) no-repeat;
 	width: 16px;
 	height: 16px;
+}
+
+span.icon.sort {
+	background-position: -64px -24px;
+}
+
+#page_sorting_notice p {
+	margin-top: 1em;
 }
 
 div.info span.icon.info {
@@ -2329,6 +2343,17 @@ div.button_with_label {
 	float: left;
 }
 
+div.button_with_label.active .icon_button {
+	background-color: #cdd6db;
+	border-style: inset;
+	border-color: #bfbfbf;
+}
+
+div#toolbar div.button_with_label.active label{
+	color: black;
+	text-shadow: white 0 0 2px;
+}
+
 div.button_with_label.disabled {
 	position: relative;
 	opacity: 0.5;
@@ -2443,4 +2468,10 @@ p.foot_note {
 	cursor: -moz-zoom-in;
 	cursor: -o-zoom-in;
 	cursor: zoom-in;
+}
+
+#sitemap .placeholder {
+	background-color: #e3e3e3;
+	margin-bottom: 0px;
+	margin-left: 22px;
 }

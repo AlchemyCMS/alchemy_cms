@@ -29,6 +29,17 @@
             <label><%= _('Flush page cache') %></label>
         </div>
         <%- end -%>
+        <%- permitted_to?(:sort, :admin_pages) do -%>
+        <div class="button_with_label" id="page_sorting_button">
+            <%= link_to_remote(
+                content_tag('span', '', :class => 'icon sort'),
+                :url => sort_admin_pages_path(:sorting => @sorting),
+                :html => {:class => 'icon_button',
+                :title => _('Sort pages')}
+            ) -%><br />
+            <label><%= _('Sort pages') %></label>
+        </div>
+        <%- end -%>
     </div>
 </div>
 <%- end -%>
@@ -39,35 +50,20 @@
     <span class="page_name"><%= _('Name') %></span>
     <span class="page_infos"><%= _('Status') %></span>
 </h2>
+
 <%= render :partial => 'sitemap' %>
-<div class="info footnote">
-    <%= render_icon('info') %>
-    <%= _('Explain|Sitemap|Dragndrop sorting') %>
+
+<div class="info" style="display: none" id="page_sorting_notice">
+	<%= render_icon('info') %>
+	<%= _('Explain|Sitemap|Dragndrop sorting') %>
+	<p>
+		<%= link_to( _('cancel'), admin_pages_path, :class => 'button' ) %>&nbsp;
+		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button' ) %>
+	</p>
 </div>
 
 <%- else -%>
 
 <%= render :partial => 'create_language_form' %>
 
-<%- end -%>
-
-<%- content_for :javascripts do -%>
-<script type="text/javascript" charset="utf-8">
-// <![CDATA[
-    TooltipManager.init(
-        "tooltip",
-        "",
-        {
-            showEffect: Element.show,
-            hideEffect: Element.hide,
-            className: "alchemy_tooltip",
-            delayOut: "0",
-            closable: false,
-            draggable: false,
-            resizable: false
-        }
-    );
-	
-// ]]>
-</script>
 <%- end -%>

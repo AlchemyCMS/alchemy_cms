@@ -1,8 +1,8 @@
 <li id="page_<%= page.id %>" class="page_level_<%= page.level %>">
 	<div class="sitemap_page">
 		<div class="sitemap_left_images">
-			<%= sitemapFolderLink(page, _('Show/Hide Childpages')) if !page.children.blank? %>
-			<span class="site_status <%= page.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= page.id %><%= page.locked ? ' locked' : '' %>" ></span>
+			<%= sitemapFolderLink(page, _('Show/Hide Childpages')) unless page.children.blank? || @sorting %>
+			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip html_tooltip_<%= page.id %><%= page.locked ? ' locked' : '' %>" ></span>
             <div id="tooltip_<%= page.id %>" style="display: none;">
             	<h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
             	<p>
@@ -81,7 +81,7 @@
 		    <span class="sitemap_pagename_link <%= cycle('even', 'odd') %>"><%= page.name %></span>
 		    <%- else -%>
 			<%= link_to(
-				page.name,
+				page.name + " #{page.id}",
 				edit_admin_page_path(page),
 				:title => _("edit_page"),
 				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
@@ -89,8 +89,8 @@
 			<%- end -%>
 		</div>
 	</div>
-	<%- unless page.folded?(current_user) && page.children.empty? -%>
-	<ul id="page_<%= page.id %>_children" style="display: <%= page.folded?(current_user.id)  ? "none" : "hidden" %>" class="draggable">
+	<%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
+	<ul id="page_<%= page.id %>_children">
 		<%= render :partial => 'page', :collection => page.children %>
 	</ul>
 	<%- end -%>
