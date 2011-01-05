@@ -179,12 +179,10 @@ div.element_editor {
 }
 
 div.element_editor.selected {
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-color: #bba589;
-	outline-width: 1px;
-	outline-color: #bba589;
-	outline-style: solid;
+	border-color: #ff5533;
+	-moz-box-shadow: 0 0 4px #666;
+	-webkit-box-shadow: 0 0 4px #666;
+	box-shadow: 0 0 4px #666;
 }
 
 div.element_editor form {

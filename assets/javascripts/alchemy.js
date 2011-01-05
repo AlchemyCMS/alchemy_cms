@@ -65,7 +65,7 @@ var Alchemy = {
 
 	openPreviewWindow : function (url, title) {
 		var $iframe = jQuery('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
-
+		$iframe.css({'background-color': '#ffffff'});
 		Alchemy.PreviewWindow = $iframe.dialog({
 			modal: false, 
 	    title: title,
@@ -81,7 +81,7 @@ var Alchemy = {
 			close: function(event, ui) { jQuery(this).dialog('destroy'); },
 			open: function (event, ui) { jQuery(this).css({width: '100%'}); }
 		});
-
+		
 		Alchemy.PreviewWindow.refresh = function () {
 			var $iframe = jQuery('#alchemyPreviewWindow');
 			$iframe.attr('src', $iframe.attr('src'));
@@ -496,7 +496,7 @@ var Alchemy = {
 			handle: 'span.handle',
 			items: 'li',
 			listType: 'ul',
-			opacity: .6,
+			opacity: 0.5,
 			placeholder: 'placeholder',
 			tabSize: 16,
 			tolerance: 'pointer',
@@ -509,6 +509,148 @@ var Alchemy = {
 		});
 	},
 	
+	ResizeFrame : function() {
+		var options = {
+			top: 90,
+			left: 84,
+			right: 0
+		};
+		var $mainFrame = jQuery('#main_content');
+		var $topFrame = jQuery('#top_menu');
+		var view_height = jQuery(window).height();
+		var view_width = jQuery(window).width();
+		var mainFrameHeight = view_height - options.top;
+		var topFrameHeight = options.top;
+		var width = view_width - options.left - options.right;
+		if ($mainFrame.length > 0) {
+			$mainFrame.css({
+				width: width,
+				height: mainFrameHeight
+			});
+		}
+		if ($topFrame.length > 0) {
+			$topFrame.css({
+				width: width,
+				height: topFrameHeight
+			});
+		}
+	},
+	
+	ElementSelector : function() {
+		
+		var $elements = jQuery('dd[rel=alchemy_element]');
+		var selected_style = {
+			outline: '1px solid #ff5533'
+		};
+		var reset_style = {
+			outline: '0 none'
+		}
+		
+		$elements.bind('mouseover', function(e) {
+			if (!jQuery(this).hasClass('selected'))
+				jQuery(this).css(selected_style);
+		});
+		
+		$elements.bind('mouseout', function() {
+			if (!jQuery(this).hasClass('selected'))
+				jQuery(this).css(reset_style);
+		});
+		
+		$elements.bind('AlchemySelectElement', function(e) {
+			e.preventDefault();
+			var $element = jQuery(this);
+			var $selected = $elements.closest('[class="selected"');
+			$elements.removeClass('selected');
+			$elements.css(reset_style);
+			jQuery(this).addClass('selected');
+			jQuery(this).css(selected_style);
+			//$element_editor.scrollTo();
+		});
+		
+		$elements.bind('click', function(e) {
+			e.preventDefault();
+			var target_id = this.id.replace(/\D/g,'');
+			var $element_editor = window.parent.jQuery('#element_area .element_editor').closest('[id*="'+target_id+'"]');
+			$element_editor.trigger('AlchemySelectElement', target_id);
+			jQuery(this).trigger('AlchemySelectElement');
+		});
+		
+	},
+	
+	ElementEditorSelector : function() {
+		var $elements = jQuery('#element_area .element_editor');
+		
+		$elements.bind('AlchemySelectElement', function (e) {
+			e.preventDefault();
+			var id = this.id.replace(/\D/g,'');
+			var $element = jQuery(this);
+			var $selected = $elements.closest('[class="selected"');
+			$elements.removeClass('selected');
+			$element.addClass('selected');
+			if ($element.hasClass('folded')) {
+				jQuery.post('/admin/elements/fold?id='+id);
+			} else if ($selected.val('id') != $element.val('id')) {
+				//$element.scrollTo();
+			}
+		});
+		
+		$elements.click(function(e) {
+			var id = this.id.replace(/\D/g,'');
+			var $element = jQuery(this);
+			var $selected = $elements.closest('[class="selected"');
+			$elements.removeClass('selected');
+			$element.addClass('selected');
+			//$element.scrollTo();
+			var $frame_elements = document.getElementById('alchemyPreviewWindow').contentWindow.jQuery('dd[rel=alchemy_element]');
+			var $selected_element = $frame_elements.closest('[id*="'+id+'"]');
+			$selected_element.trigger('AlchemySelectElement');
+		});
+		
+	},
+	
+	SortableElements : function(form_token) {
+		jQuery('#element_area').sortable({
+			items: 'div.element_editor',
+			handle: '.element_handle',
+			axis: 'y',
+			placeholder: 'droppable_element_placeholder',
+			forcePlaceholderSize: true,
+			opacity: 0.5,
+			cursor: 'move',
+			tolerance: 'pointer',
+			update: function(event, ui) {
+				var ids = jQuery.map(jQuery(event.target).children(), function(child) {
+					return child.id.replace(/element_/, '');
+				});
+				jQuery(event.target).css("cursor", "progress");
+				jQuery.ajax({
+					url: '/admin/elements/order',
+					type: 'POST',
+					data: "authenticity_token=" + encodeURIComponent(form_token) + "&" + jQuery.param({element_ids: ids}),
+					complete: function () {
+						jQuery(event.target).css("cursor", "auto");
+					}
+				});
+			},
+			start: function (event, ui) {
+				var item = ui.item[0];
+				var $textareas = jQuery(item).find('textarea.tinymce');
+				$textareas.each(function() {
+					var editor = tinyMCE.get(this.id);
+					editor.save();
+					tinyMCE.execCommand(
+						'mceRemoveControl',
+						true,
+						editor.editorId
+					);
+				});
+			},
+			stop: function (event, ui) {
+				TinymceHammer.init();
+			}
+    });
+	},
+	
 	debug : function(e) {
 		if (window['console']) {
 			console.debug(e);
@@ -519,10 +661,21 @@ var Alchemy = {
 
 // Call all Alchemy "onload" scripts
 jQuery(document).ready(function () {
-	jQuery('body#alchemy select').sb({animDuration: 0});
+	
+	Alchemy.ResizeFrame();
+	
+	if (typeof(jQuery.sb) === 'function') {
+		jQuery('body#alchemy select').sb({animDuration: 0});
+	}
+	
 	if (jQuery('#flash_notices').length > 0) {
 		jQuery('#flash_notices div[class!="flash error"] ').delay(5000).hide('drop', { direction: "up" }, 400);
 	}
+	
+});
+
+jQuery(window).resize(function() {
+	Alchemy.ResizeFrame();
 });
 
 function scrollToElement(id) {

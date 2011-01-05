@@ -7,11 +7,12 @@
 		:html => {:class => "add_element_content"}
 	) do |form| %>
 		<%= form.hidden_field('page_id') %>
-		<span><%= _("element_of_type") %>:</span>
-		<%= form.alchemy_selectbox(
+		<span style="margin-right: 16px"><%= _("element_of_type") %>:</span>
+		<%= form.select(
 			'name',
 			elements_for_select(@elements),
-			:prompt => _('select_element')
+			{:prompt => _('select_element')},
+			{:class => 'very_long'}
 		) -%>
 		<%= form.submit(
 			_('add'),

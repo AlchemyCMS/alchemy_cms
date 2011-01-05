@@ -1142,13 +1142,14 @@ div#user_list_legend {
 	padding: 12px 8px;
 	height: 36px;
 	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -40px;
-	margin-right: 8px;
+	margin-right: 0px;
 	border: 1px solid #afafaf;
 	border-top-style: none;
-	-webkit-border-radius: 0 0 7px 7px;
-	-moz-border-radius: 0 0 7px 7px;
-	-o-border-radius: 0 0 7px 7px;
-	border-radius: 0 0 7px 7px;
+	border-right-style: none;
+	-webkit-border-radius: 0 0 0 7px;
+	-moz-border-radius: 0 0 0 7px;
+	-o-border-radius: 0 0 0 7px;
+	border-radius: 0 0 0 7px;
 	position: relative;
 	margin-left: 8px;
 }
@@ -1216,7 +1217,6 @@ button.icon_button {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	margin-bottom: 4px;
 	cursor: pointer;
 	padding: 2px;
 	height: 22px;

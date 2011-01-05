@@ -3,46 +3,8 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-    jQuery('#element_area').sortable({
-        items: 'div.element_editor',
-        handle: '.element_handle',
-        axis: 'y',
-        placeholder: 'droppable_element_placeholder',
-        forcePlaceholderSize: true,
-        opacity: 0.5,
-        cursor: 'move',
-        tolerance: 'pointer',
-        update: function(event, ui) {
-            var ids = jQuery.map(jQuery(event.target).children(), function (child) {
-                return child.id.gsub(/element_/, '');
-            });
-            jQuery(event.target).css("cursor", "progress");
-            jQuery.ajax({
-                url: '/admin/elements/order',
-                type: 'POST',
-                data: "authenticity_token=" + encodeURIComponent('<%= form_authenticity_token %>') + "&" + jQuery.param({element_ids: ids}),
-                complete: function () {
-                    jQuery(event.target).css("cursor", "auto");
-                }
-            });
-        },
-        start: function (event, ui) {
-            var item = ui.item[0];
-            var textareas = $(item).select('textarea.tinymce');
-            textareas.each(function (textarea) {
-                var editor = tinyMCE.get(textarea.id);
-                editor.save();
-                tinyMCE.execCommand(
-                    'mceRemoveControl',
-                    true,
-                    editor.editorId
-                );
-            });
-        },
-        stop: function (event, ui) {
-            TinymceHammer.init();
-        }
-    });
+	Alchemy.SortableElements('<%= form_authenticity_token %>');
+	Alchemy.ElementEditorSelector();
 </script>
 
 <script type="text/javascript" charset="utf-8">

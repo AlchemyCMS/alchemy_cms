@@ -90,7 +90,7 @@
 <%- content_for :javascripts do -%>
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
-		document.observe("dom:loaded", function() {
+		jQuery(document).ready(function() {
 			Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
 			Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});

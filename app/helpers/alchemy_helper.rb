@@ -1003,29 +1003,6 @@ module AlchemyHelper
     end
   end
   
-  # == DEPRICATED! 
-  # Page preview now renders inside an overlay window.
-  # 
-  # See: Alchemy.openPreviewWindow() => assets/javascripts/alchemy.js:22
-  # 
-  # Returns true if the current controller/action pair wants to display content other than the default.
-  def frame_requested?
-    preview_frame = {}
-    plugin = alchemy_plugins.detect do |p|
-      unless p["preview_frame"].nil?
-        if p['preview_frame'].is_a?(Array)
-          preview_frame = p['preview_frame'].detect(){ |f| f["controller"] == params[:controller] && f["action"] == params[:action] }
-        else
-          if p["preview_frame"]["controller"] == params[:controller] && p["preview_frame"]["action"] == params[:action]
-            preview_frame = p["preview_frame"]
-          end
-        end
-      end
-    end
-    return false if plugin.blank?
-    preview_frame
-  end
-  
   def admin_mainnavi_active?(mainnav)
     subnavi = mainnav["sub_navigation"]
     nested = mainnav["nested"]
@@ -1134,9 +1111,9 @@ module AlchemyHelper
   
   def alchemy_preview_mode_code
     if @preview_mode
-      str = javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();}")
-      str += javascript_include_tag("alchemy/prototype", "alchemy/alchemy_element_selector", :cache => 'preview')
-      str += javascript_tag("document.observe('dom:loaded', function() { new AlchemyElementSelector(); });")
+      str = javascript_include_tag("alchemy/jquery-1.4.4.min", "alchemy/alchemy", :cache => 'preview')
+      str += javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();}")
+      str += javascript_tag("jQuery(document).ready(function(){Alchemy.ElementSelector();});")
       return str
     else
       return nil

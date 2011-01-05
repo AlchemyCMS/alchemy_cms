@@ -3,44 +3,39 @@ javascripts:
 - default:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
-  - alchemy/alchemy
   - alchemy/jquery.sb.min
-  - alchemy/alchemy_frame_set
+  - alchemy/alchemy
 - login:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
-  - alchemy/alchemy
   - alchemy/jquery.sb.min
-  - alchemy/alchemy_frame_set
+  - alchemy/alchemy
 - sitemap:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
-  - alchemy/alchemy
   - alchemy/jquery.sb.min
-  - alchemy/alchemy_frame_set
   - alchemy/jquery.ui.nestedSortable
+  - alchemy/alchemy
 - edit_page:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
-  - alchemy/alchemy
+  - alchemy/jquery.scrollTo-1.4.2-min
   - alchemy/jquery.sb.min
-  - alchemy/alchemy_frame_set
-  - alchemy/alchemy_element_editor_selector
-  - alchemy/alchemy_image_cropper
+  - alchemy/alchemy
+  #- alchemy/alchemy_image_cropper
   - alchemy/swfupload/swfupload
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
   - alchemy/swfupload/queue
 - preview:
   - alchemy/jquery-1.4.4.min
-  - alchemy/alchemy_element_selector
+  - alchemy/alchemy
 - archive:
   - alchemy/jquery-1.4.4.min
   - alchemy/jquery-ui-1.8.7.min
   - alchemy/jquery.in-place-edit
-  - alchemy/alchemy
   - alchemy/jquery.sb.min
-  - alchemy/alchemy_frame_set
+  - alchemy/alchemy
   - alchemy/swfupload/swfupload
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress

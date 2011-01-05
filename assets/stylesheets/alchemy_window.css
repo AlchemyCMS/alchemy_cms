@@ -547,7 +547,7 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-#alchemy .ui-dialog-content .auto_resize {
+#alchemy .ui-dialog-content input.auto_resize {
 	width: 100%;
 }
 
@@ -555,22 +555,23 @@ select#url_protocol.medium {
 	width: 76px;
 }
 
-#alchemy .ui-dialog-content .medium_long {
+#alchemy .ui-dialog-content input.medium_long {
 	width: 129px;
 }
 
-#alchemy .ui-dialog-content .long {
+#alchemy .ui-dialog-content input.long,
+#alchemy .ui-dialog-content textarea.long {
 	width: 231px;
 	margin: 0;
 }
 
-#alchemy .ui-dialog-content .very_long {
+#alchemy .ui-dialog-content input.very_long {
 	width: 300px;
 	margin: 0;
 }
 
-#alchemy .ui-dialog-content select.very_long {
-	width: 306px;
+#alchemy .ui-dialog-content .selectbox.very_long .display {
+	width: 160px;
 }
 
 #alchemy .ui-dialog-content .short {

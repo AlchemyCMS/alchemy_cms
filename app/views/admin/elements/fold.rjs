@@ -9,8 +9,9 @@ else
   )
   page << "jQuery('#element_area').sortable('refresh')"
   if !@element.folded
-    page << "scrollToElement(#{@element.id})"
-    page << "$('element_#{@element.id}').addClassName('selected')"
+    #page << "jQuery('#element_#{@element.id}').scrollTo()"
+    page << "jQuery('#element_#{@element.id}').addClass('selected')"
   end
   page << "TinymceHammer.init()"
+  page << "Alchemy.ElementEditorSelector()"
 end
