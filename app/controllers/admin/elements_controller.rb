@@ -45,10 +45,11 @@ class Admin::ElementsController < AlchemyController
       end
       @page = @element.page
       if @element.save
+        @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
         # rendering via rjs template
       else
         render :update do |page|
-          page.replace(:errors, 'fehler')
+          page.replace( :errors, _('Error') )
         end
       end
     rescue Exception => e
@@ -58,12 +59,13 @@ class Admin::ElementsController < AlchemyController
         EssenceText.rebuild_index
         EssenceRichtext.rebuild_index
         render :update do |page|
-          Alchemy::Notice.show_via_ajax(page, _("Index Error after creating Element. Please reload page!"), :error)
+          Alchemy::Notice.show(page, _("Index Error after creating Element. Please reload page!"), :error)
         end
       # Displaying error notice
       else
+        log_error(e)
         render :update do |page|
-          Alchemy::Notice.show_via_ajax(page, _("adding_element_not_successful"), :error)
+          Alchemy::Notice.show(page, _("Error: %{e}") % {:e => e}, :error)
         end
       end
     end
@@ -119,7 +121,7 @@ class Admin::ElementsController < AlchemyController
       @page = @element.page
       @element.public = !params[:public].nil?
       @element.save!
-      @has_richtext_essence = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
+      @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
     rescue Exception => e
       log_error($!)
       # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
@@ -127,12 +129,12 @@ class Admin::ElementsController < AlchemyController
         EssenceText.rebuild_index
         EssenceRichtext.rebuild_index
         render :update do |page|
-          Alchemy::Notice.show_via_ajax(page, _("Index Error after saving Element. Please try again!"), :error)
+          Alchemy::Notice.show(page, _("Index Error after saving Element. Please try again!"), :error)
         end
       # Displaying error notice
       else
         render :update do |page|
-          Alchemy::Notice.show_via_ajax(page, _("element_not_saved"), :error)
+          Alchemy::Notice.show(page, _("element_not_saved"), :error)
         end
       end
     end
@@ -151,7 +153,7 @@ class Admin::ElementsController < AlchemyController
     rescue
       log_error($@)
       render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("element_not_successfully_deleted"), :error)
+        Alchemy::Notice.show(page, _("element_not_successfully_deleted"), :error)
       end
     end
   end
@@ -170,7 +172,7 @@ class Admin::ElementsController < AlchemyController
     rescue
       log_error($!)
       render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("element_%{name}_not_moved_to_clipboard") % {:name => @element.display_name}, :error)
+        Alchemy::Notice.show(page, _("element_%{name}_not_moved_to_clipboard") % {:name => @element.display_name}, :error)
       end
     end
   end
@@ -181,7 +183,7 @@ class Admin::ElementsController < AlchemyController
       element.move_to_bottom
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("successfully_saved_element_position"))
+      Alchemy::Notice.show(page, _("successfully_saved_element_position"))
       page << "Alchemy.reloadPreview();"
     end
   end
@@ -190,6 +192,7 @@ class Admin::ElementsController < AlchemyController
     @element = Element.find(params[:id])
     @element.folded = !@element.folded
     @element.save(false)
+    @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
   rescue => exception
     exception_handler(exception)
     @error = exception

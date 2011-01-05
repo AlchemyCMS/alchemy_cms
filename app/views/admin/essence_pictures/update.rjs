@@ -1,5 +1,5 @@
 page.replace "picture_#{@content.id}", :partial => "/essences/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
-Alchemy::Notice.show_via_ajax(page, ( _("Image updated successfully") ))
+Alchemy::Notice.show(page, ( _("Image updated successfully") ))
 page << "Windows.getFocusedWindow().close()"
 page << "Alchemy.reloadPreview()"
 if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1

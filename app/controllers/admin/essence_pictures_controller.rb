@@ -62,7 +62,7 @@ class Admin::EssencePicturesController < AlchemyController
     if @picture_essence.save
       render :update do |page|
         page << "Windows.closeAll();Alchemy.reloadPreview()"
-        Alchemy::Notice.show_via_ajax(page, _("saved_link"))
+        Alchemy::Notice.show(page, _("saved_link"))
       end
     end
   end

@@ -78,7 +78,7 @@ class Admin::PicturesController < AlchemyController
       log_error $!
       render :update, :status => 500 do |page|
         notice = _('Picture upload error: %{error}') % {:error => e}
-        Alchemy::Notice.show_via_ajax(page, notice, :error)
+        Alchemy::Notice.show(page, notice, :error)
       end
     end
   end
@@ -117,7 +117,7 @@ class Admin::PicturesController < AlchemyController
     			cancel_label: "#{ _('cancel') }"
     		});
       )
-      Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
+      Alchemy::Notice.show(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
     end
   end
   
@@ -138,7 +138,7 @@ class Admin::PicturesController < AlchemyController
       expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _('Picture cache flushed'))
+      Alchemy::Notice.show(page, _('Picture cache flushed'))
     end
   end
   

@@ -34,7 +34,7 @@ class Admin::ContentsController < AlchemyController
     rescue Exception => e
       log_error($!)
       render :update, :status => 500 do |page|
-        Alchemy::Notice.show_via_ajax(page, _("content_not_successfully_added"), :error)
+        Alchemy::Notice.show(page, _("content_not_successfully_added"), :error)
       end
     end
   end
@@ -53,7 +53,7 @@ class Admin::ContentsController < AlchemyController
       content.move_to_bottom
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("Successfully saved content position"))
+      Alchemy::Notice.show(page, _("Successfully saved content position"))
       page << "Alchemy.reloadPreview()"
     end
   end
@@ -67,14 +67,14 @@ class Admin::ContentsController < AlchemyController
       if content.destroy
         render :update do |page|
           page.remove(content_dom_id)
-          Alchemy::Notice.show_via_ajax(page, _("Successfully deleted %{content}") % {:content => content_name})
+          Alchemy::Notice.show(page, _("Successfully deleted %{content}") % {:content => content_name})
           page << "Alchemy.reloadPreview()"
         end
       end
     rescue
       log_error($!)
       render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("content_not_successfully_deleted"), :error)
+        Alchemy::Notice.show(page, _("content_not_successfully_deleted"), :error)
       end
     end
   end

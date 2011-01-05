@@ -448,45 +448,49 @@ var Alchemy = {
 	},
 	
 	saveElement : function(form, element_id) {
-		var $rtf_contents = jQuery('#element_'+element_id+' div.content_rtf_editor');
-		if ($rtf_contents.size() > 0) {
-			// collecting all rtf elements and fire the Alchemy.saveElementAjaxRequest after the last tinymce.save event!
-			$rtf_contents.map(function() {
-				var $rtf_content = jQuery(this);
-				var $text_area = $rtf_content.children('textarea');
-				var editor = tinyMCE.get($text_area.attr('id'));
-				if ($rtf_content.get(0) == $rtf_contents.last().get(0)) {
-					editor.onSaveContent.add(function(ed, o) {
-						// delaying the ajax call, so that tinymce has enough time to save the content.
-						setTimeout(function(){Alchemy.saveElementAjaxRequest(form, element_id);}, 500);
-					});
-				}
-				//removing the editor instance before adding it dynamically after saving
-				// $(editor.editorId).previous('div.essence_richtext_loader').show();
-				// tinyMCE.execCommand('mceRemoveControl', true, editor.editorId);
-				editor.save();
-			});
-		} else {
-			Alchemy.saveElementAjaxRequest(form, element_id);
-		}
-		return false;
-	},
-	
-	saveElementAjaxRequest : function (form, element_id) {
-		//return true;
-		jQuery.ajax({
-			url: '/admin/elements/' + element_id,
-			type: 'PUT',
-			data: jQuery(form).serialize(),
-			beforeSend: function(request) {
-				jQuery('#element_'+element_id+'_save').hide();
-				jQuery('#element_'+element_id+'_spinner').show();
-			},
-			complete: function(request) {
-				jQuery('#element_'+element_id+'_save').show();
-				jQuery('#element_'+element_id+'_spinner').hide();
+		try {
+			var $rtf_contents = jQuery('#element_'+element_id+' div.content_rtf_editor');
+			var saveElementAjaxRequest = function (form, element_id) {
+				jQuery.ajax({
+					url: '/admin/elements/' + element_id,
+					type: 'PUT',
+					data: jQuery(form).serialize(),
+					beforeSend: function(request) {
+						jQuery('#element_'+element_id+'_save').hide();
+						jQuery('#element_'+element_id+'_spinner').show();
+					},
+					complete: function(request) {
+						jQuery('#element_'+element_id+'_save').show();
+						jQuery('#element_'+element_id+'_spinner').hide();
+					}
+				});
+			};
+
+			if ($rtf_contents.size() > 0) {
+				// collecting all rtf elements and fire the saveElementAjaxRequest after the last tinymce.save event!
+				$rtf_contents.map(function() {
+					var $rtf_content = jQuery(this);
+					var $text_area = $rtf_content.children('textarea');
+					var editor = tinyMCE.get($text_area.attr('id'));
+					editor.save();
+					if ($rtf_content.get(0) == $rtf_contents.last().get(0)) {
+						editor.onSaveContent.add(function(ed, o) {
+							// delaying the ajax call, so that tinymce has enough time to save the content.
+							setTimeout(function(){saveElementAjaxRequest(form, element_id);}, 500);
+						});
+					}
+					//removing the editor instance before adding it dynamically after saving
+					$text_area.prev().show();
+					tinyMCE.execCommand('mceRemoveControl', true, editor.editorId);
+				});
+			} else {
+				saveElementAjaxRequest(form, element_id);
 			}
-		});
+			return false;
+			
+		} catch(e) {
+			alert(e);
+		}
 	},
 	
 	PageSorter : function () {
@@ -589,7 +593,7 @@ var Alchemy = {
 			$element.addClass('selected');
 			if ($element.hasClass('folded')) {
 				jQuery.post('/admin/elements/fold?id='+id);
-			} else if ($selected.val('id') != $element.val('id')) {
+			} else if ($selected.attr('id') != $element.attr('id')) {
 				//$element.scrollTo();
 			}
 		});
@@ -651,6 +655,12 @@ var Alchemy = {
     });
 	},
 	
+	fadeNotices : function() {
+		jQuery('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
+			jQuery(this).remove();
+		});
+	},
+	
 	debug : function(e) {
 		if (window['console']) {
 			console.debug(e);
@@ -669,7 +679,7 @@ jQuery(document).ready(function () {
 	}
 	
 	if (jQuery('#flash_notices').length > 0) {
-		jQuery('#flash_notices div[class!="flash error"] ').delay(5000).hide('drop', { direction: "up" }, 400);
+		Alchemy.fadeNotices();
 	}
 	
 });

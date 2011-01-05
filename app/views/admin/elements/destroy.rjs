@@ -4,5 +4,5 @@ if @page.elements.empty?
 else
   page << "jQuery('#element_area').sortable('refresh')"
 end
-Alchemy::Notice.show_via_ajax(page, _("element_deleted_successful"))
+Alchemy::Notice.show(page, _("element_deleted_successful"))
 page << "Alchemy.PreviewWindow.refresh()"

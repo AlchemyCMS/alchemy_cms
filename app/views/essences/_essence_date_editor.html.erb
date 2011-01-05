@@ -1,5 +1,5 @@
 <%- @date = content.essence -%>
-<div class="content_editor">
+<div class="content_editor" id="<%= content_dom_id(content) %>">
 	<label><%= render_content_name(content) %></label>
 	<%= datetime_select(
 		"date",

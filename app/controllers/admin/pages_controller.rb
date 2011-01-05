@@ -42,7 +42,7 @@ class Admin::PagesController < AlchemyController
       render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue Exception => e
       render :update do |page|
-        Alchemy::Notice.show_via_ajax(page, _("Error while creating page: %{error}") % {:error => e}, :error)
+        Alchemy::Notice.show(page, _("Error while creating page: %{error}") % {:error => e}, :error)
       end
       log_error($!)
     end
@@ -89,7 +89,7 @@ class Admin::PagesController < AlchemyController
             :partial => 'page',
             :object => @root_page
           )
-          Alchemy::Notice.show_via_ajax(page, _("Page %{name} deleted") % {:name => name})
+          Alchemy::Notice.show(page, _("Page %{name} deleted") % {:name => name})
         end
       else
         render :update do |page|
@@ -197,7 +197,7 @@ class Admin::PagesController < AlchemyController
       page.move_to_child_of(parent)
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("Pages order saved"))
+      Alchemy::Notice.show(page, _("Pages order saved"))
       page.replace 'sitemap', :partial => 'sitemap'
       page.hide "page_sorting_notice"
       page << "jQuery('#page_sorting_button').removeClass('active')"
@@ -205,7 +205,7 @@ class Admin::PagesController < AlchemyController
   rescue Exception => e
     log_error(e)
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _("Error: %{e}") % {:e => e}, :error)
+      Alchemy::Notice.show(page, _("Error: %{e}") % {:e => e}, :error)
     end
   end
   
@@ -230,7 +230,7 @@ class Admin::PagesController < AlchemyController
       end
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _('Page cache flushed'))
+      Alchemy::Notice.show(page, _('Page cache flushed'))
     end
   end
   

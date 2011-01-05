@@ -52,4 +52,4 @@ else
   )
   page << "Alchemy.CurrentWindow.close()"
 end
-Alchemy::Notice.show_via_ajax(page, _("Successfully added %{content}") % {:content => @content.name})
+Alchemy::Notice.show(page, _("Successfully added %{content}") % {:content => @content.name})

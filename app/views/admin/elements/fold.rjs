@@ -8,10 +8,10 @@ else
     :locals => {:open_element_selector => false}
   )
   page << "jQuery('#element_area').sortable('refresh')"
-  if !@element.folded
+  unless @element.folded
     #page << "jQuery('#element_#{@element.id}').scrollTo()"
     page << "jQuery('#element_#{@element.id}').addClass('selected')"
+    page << "TinymceHammer.init()" unless @richtext_contents.blank?
   end
-  page << "TinymceHammer.init()"
   page << "Alchemy.ElementEditorSelector()"
 end
