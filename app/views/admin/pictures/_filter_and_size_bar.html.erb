@@ -83,7 +83,7 @@
 	<%= render(
 		:partial => 'admin/partials/remote_search_form',
 		:locals => {
-			:with => "'remote=true'+'&element_id='+$('element_id').value+'&content_id='+$('content_id').value+'&swap='+$('swap').value+'&options='+$('options').value",
+			:with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()+'&swap='+jQuery('#swap').val()+'&options='+jQuery('#options').val()",
 			:action => 'archive_overlay'
 		}
 	) %>

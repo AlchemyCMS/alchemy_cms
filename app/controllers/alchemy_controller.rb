@@ -77,12 +77,32 @@ private
     true #action_name =! "update_session_time_left"
   end
   
+  # Handles exceptions
   def exception_handler(e)
-    logger.error %(
-      +++++++++ #{e} +++++++++++++
-      object: #{e.record.class}, id: #{e.record.id}, name: #{e.record.name}
-      #{e.record.errors.full_messages}
-    )
+    exception_logger(e)
+    show_error_notice(e)
+    # TODO: Exception Mailer!
+  end
+  
+  # Logs the current exception to the error log.
+  def exception_logger(e)
+    message = "\n+++++++++ Error: #{e} +++++++++++++\n\n"
+    e.backtrace.each do |line|
+      message += "#{line}\n"
+    end
+    logger.error(message)
+  end
+  
+  # Displays an error notice in the Alchemy backend.
+  def show_error_notice(e)
+    notice = "Error: #{e}"
+    if request.xhr?
+      render :update do |page|
+        Alchemy::Notice.show(page, "Error: #{e}", :error)
+      end
+    else
+      flash[:error] = notice
+    end
   end
   
   def set_language_from_client

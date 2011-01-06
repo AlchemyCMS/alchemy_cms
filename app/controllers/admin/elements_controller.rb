@@ -53,7 +53,7 @@ class Admin::ElementsController < AlchemyController
         end
       end
     rescue Exception => e
-      log_error($!)
+      exception_logger(e)
       # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
       if e.class == Ferret::FileNotFoundError
         EssenceText.rebuild_index
@@ -63,10 +63,7 @@ class Admin::ElementsController < AlchemyController
         end
       # Displaying error notice
       else
-        log_error(e)
-        render :update do |page|
-          Alchemy::Notice.show(page, _("Error: %{e}") % {:e => e}, :error)
-        end
+        show_error_notice(e)
       end
     end
   end
@@ -123,7 +120,7 @@ class Admin::ElementsController < AlchemyController
       @element.save!
       @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
     rescue Exception => e
-      log_error($!)
+      exception_logger(e)
       # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
       if e.class == Ferret::FileNotFoundError
         EssenceText.rebuild_index
@@ -133,48 +130,36 @@ class Admin::ElementsController < AlchemyController
         end
       # Displaying error notice
       else
-        render :update do |page|
-          Alchemy::Notice.show(page, _("element_not_saved"), :error)
-        end
+        show_error_notice(e)
       end
     end
   end
   
   # Deletes the element with ajax and sets session[:clipboard].nil
   def destroy
-    begin
-      @element = Element.find_by_id(params[:id])
-      @page = @element.page
-      if @element.destroy
-        unless session[:clipboard].nil?
-          session[:clipboard] = nil if session[:clipboard][:element_id] == params[:id]
-        end
-      end
-    rescue
-      log_error($@)
-      render :update do |page|
-        Alchemy::Notice.show(page, _("element_not_successfully_deleted"), :error)
+    @element = Element.find_by_id(params[:id])
+    @page = @element.page
+    if @element.destroy
+      unless session[:clipboard].nil?
+        session[:clipboard] = nil if session[:clipboard][:element_id] == params[:id]
       end
     end
+  rescue Exception => e
+    exception_handler(e)
   end
   
   # Copies a element to the clipboard in the session
   def copy_to_clipboard
-    begin
-      @element = Element.find(params[:id])
-      session[:clipboard] = {}
-      session[:clipboard][:method] = params[:method]
-      session[:clipboard][:element_id] = @element.id
-      if session[:clipboard][:method] == "move"
-        @element.page_id = nil
-        @element.save!
-      end
-    rescue
-      log_error($!)
-      render :update do |page|
-        Alchemy::Notice.show(page, _("element_%{name}_not_moved_to_clipboard") % {:name => @element.display_name}, :error)
-      end
+    @element = Element.find(params[:id])
+    session[:clipboard] = {}
+    session[:clipboard][:method] = params[:method]
+    session[:clipboard][:element_id] = @element.id
+    if session[:clipboard][:method] == "move"
+      @element.page_id = nil
+      @element.save!
     end
+  rescue Exception => e
+    exception_handler(e)
   end
   
   def order
@@ -186,6 +171,8 @@ class Admin::ElementsController < AlchemyController
       Alchemy::Notice.show(page, _("successfully_saved_element_position"))
       page << "Alchemy.reloadPreview();"
     end
+  rescue Exception => e
+    exception_handler(e)
   end
   
   def fold
@@ -193,9 +180,8 @@ class Admin::ElementsController < AlchemyController
     @element.folded = !@element.folded
     @element.save(false)
     @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
-  rescue => exception
-    exception_handler(exception)
-    @error = exception
+  rescue Exception => e
+    exception_handler(e)
   end
   
 end

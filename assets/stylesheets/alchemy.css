@@ -244,7 +244,7 @@ a.drop_down_select img {
 	margin-right: 4px;
 }
 
-div#toolbar form a.search_field_clear {
+#alchemy a.search_field_clear {
 	width: 15px;
 	height: 15px;
 	background: url(/images/alchemy/icons.png) no-repeat 0 -104px;
@@ -1777,7 +1777,16 @@ div#archive_all .picture_detail {
 	top: 4px;
 }
 
-div.archive_image_spinner {
+div.spinner {
+	background-color: #ffffff;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+div.archive_image_spinner img {
 	position: absolute;
 	z-index: 0;
 	top: 35px;

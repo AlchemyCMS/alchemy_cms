@@ -116,22 +116,22 @@ div.assign_image_list_image {
 	overflow: hidden;
 }
 
-div.overlay_image_spinner {
+div.overlay_image_spinner img {
 	position: absolute;
 	z-index: 0;
 }
 
-.assign_image_list_detail.small div.overlay_image_spinner {
+.assign_image_list_detail.small div.overlay_image_spinner img {
 	top: 19px;
 	left: 26px;
 }
 
-.assign_image_list_detail.medium div.overlay_image_spinner {
+.assign_image_list_detail.medium div.overlay_image_spinner img {
 	top: 48px;
 	left: 67px;
 }
 
-.assign_image_list_detail.large div.overlay_image_spinner {
+.assign_image_list_detail.large div.overlay_image_spinner img {
 	top: 80px;
 	left: 103px;
 }

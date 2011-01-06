@@ -162,9 +162,9 @@ function uploadComplete(file) {
 
 function queueComplete(numFilesUploaded) {
 	var status = document.getElementById("divStatus");
-	status.show();
+	jQuery(status).show();
 	status.innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
-	$('btnCancel').hide();
+	jQuery('#btnCancel').hide();
 	setTimeout(function () {
 		Alchemy.CurrentWindow.close();
 	}, 2500);

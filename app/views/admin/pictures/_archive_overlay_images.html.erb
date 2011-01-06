@@ -9,7 +9,7 @@
         :partial => 'admin/partials/remote_pagination_links',
         :locals => {
             :items => @pictures,
-            :with => "'remote=true'+'&element_id='+$('element_id').value+'&content_id='+$('content_id').value"
+            :with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()"
         }
     ) %>
     <%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>

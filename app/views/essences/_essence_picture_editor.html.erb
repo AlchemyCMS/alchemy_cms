@@ -26,7 +26,7 @@
 		<div class="picture_content_spinner">
 			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
 		</div>
-		<div class="picture_image" style="display: none;">
+		<div class="picture_image">
 			<%= image_tag(
 				url_for(
 				    :controller => '/pictures',
@@ -39,10 +39,8 @@
 				:alt => content.essence.picture.name,
 				:class => 'img_paddingtop',
 				:title => _("image_name") + ": #{content.essence.picture.name}",
-				:onload => %(
-					this.up().previous().hide();
-					this.up().appear({duration: 0.6});
-				)
+				:onload => "Alchemy.fadeImage(this, '#picture_#{content.id} .picture_content_spinner');",
+				:style => "display: none;"
 			) %>
 			<%= hidden_field_tag "contents[content_#{content.id}][picture_id]", content.essence.picture.id %>
 		</div>

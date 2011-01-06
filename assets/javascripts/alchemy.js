@@ -485,11 +485,10 @@ var Alchemy = {
 		jQuery('#overlay_tabs').tabs("select", id);
 	},
 	
-	fadeImage : function(image) {
+	fadeImage : function(image, spinner_selector) {
 		try {
-			var $image = jQuery(image);
-			$image.parent().parent().prev().hide();
-			$image.parent().parent().fadeIn(600);
+			jQuery(spinner_selector).hide();
+			jQuery(image).fadeIn(600);
 		} catch(e) {
 			Alchemy.debug(e);
 		};
@@ -736,6 +735,13 @@ var Alchemy = {
 	fadeNotices : function() {
 		jQuery('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
 			jQuery(this).remove();
+		});
+		jQuery('#flash_notices div[class="flash error"]')
+		.css({cursor: 'pointer'})
+		.click(function() {
+			jQuery(this).hide('drop', { direction: "up" }, 400, function() {
+				jQuery(this).remove();
+			});
 		});
 	},
 	
