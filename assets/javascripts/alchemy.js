@@ -16,7 +16,7 @@ var Alchemy = {
 		};
 		var submit_handler = function(element, id, value) {
 			jQuery(element).css({overflow: 'hidden'});
-			id = parseInt(id.gsub(/^[image_picture_]/, ''));
+			id = parseInt(id.replace(/^image_picture_/, ''));
 			jQuery.ajax({url:'/admin/pictures/'+id, type: 'PUT', data: {name: value}});
 			return false;
 		};
@@ -454,14 +454,14 @@ var Alchemy = {
 	
 	createTempLink : function(linked_element) {
 		var $tmp_link = jQuery("<a></a>");
-		var essence_type = linked_element.attr('name').gsub('essence_', '').split('_')[0];
+		var essence_type = linked_element.attr('name').replace('essence_', '').split('_')[0];
 		var content_id = null;
 		switch (essence_type) {
 		case "picture":
-			content_id = linked_element.attr('name').gsub('essence_picture_', '');
+			content_id = linked_element.attr('name').replace('essence_picture_', '');
 			break;
 		case "text":
-			content_id = linked_element.attr('name').gsub('essence_text_', '');
+			content_id = linked_element.attr('name').replace('essence_text_', '');
 			break;
 		}
 		$tmp_link.attr('href', jQuery('#content_' + content_id + '_link').val());
