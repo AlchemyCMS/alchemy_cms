@@ -331,13 +331,14 @@ div#tabbar_and_content {
 
 #alchemy .ui-dialog-content ul#sitemap li {
 	margin-left: 0;
+	padding-left: 0;
 }
 
 #alchemy .ui-dialog-content ul#sitemap li li {
-	margin-left: 22px;
+	padding-left: 22px;
 }
 
-#sitemap_for_links ul li span.sitemap_sitename {
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename {
 	background-color: #f9f9f9;
 	width: 311px;
 	margin: 6px 0 0;
@@ -347,7 +348,7 @@ div#tabbar_and_content {
 	line-height: 18px;
 }
 
-#sitemap_for_links ul li ul li span.sitemap_sitename {
+#alchemy .ui-dialog-content ul#sitemap ul li ul li span.sitemap_sitename {
 	float: left;
 	background-color: #f9f9f9;
 	width: 290px;
@@ -356,7 +357,7 @@ div#tabbar_and_content {
 	height: 14px;
 }
 
-#sitemap_for_links ul li ul li ul li span.sitemap_sitename {
+#alchemy .ui-dialog-content ul#sitemap ul li ul li ul li span.sitemap_sitename {
 	float: left;
 	background-color: #f9f9f9;
 	width: 269px;
@@ -365,7 +366,7 @@ div#tabbar_and_content {
 	height: 14px;
 }
 
-#sitemap_for_links ul li ul li ul li ul li span.sitemap_sitename {
+#alchemy .ui-dialog-content ul#sitemap ul li ul li ul li ul li span.sitemap_sitename {
 	float: left;
 	background-color: #f9f9f9;
 	width: 248px;
@@ -374,7 +375,7 @@ div#tabbar_and_content {
 	height: 14px;
 }
 
-#sitemap_for_links img.site_status {
+#alchemy .ui-dialog-content ul#sitemap img.site_status {
 	float: left;
 	border-style: none;
 	margin-bottom: 0px;
@@ -384,13 +385,13 @@ div#tabbar_and_content {
 	margin-right: 4px;
 }
 
-#sitemap_for_links ul li img {
+#alchemy .ui-dialog-content ul#sitemap ul li img {
 	border-width: 0;
 	border-style: none;
 	float: left;
 }
 
-#sitemap_for_links .sitemap_row {
+#alchemy .ui-dialog-content ul#sitemap .sitemap_row {
 	padding: 0;
 	margin: 0px;
 	font-size: 12px;
@@ -400,7 +401,7 @@ div#tabbar_and_content {
 }
 
 .elements_from_page_selector {
-	width: 218px;
+	width: 185px;
 }
 
 div.elements_for_page {
@@ -429,7 +430,7 @@ a.close_elements_from_page_selector {
 	float: right;
 	padding-right: 2px;
 	width: 11px;
-	height: 16px;
+	height: 15px;
 	margin-top: 3px;
 	background: url(/images/alchemy/icons.png) no-repeat 0 -105px;
 }
@@ -439,14 +440,14 @@ a.close_elements_from_page_selector {
 	height: 20px;
 }
 
-#sitemap_for_links ul .sitemap_row a {
+#alchemy .ui-dialog-content ul#sitemap ul .sitemap_row a {
 	color: black;
 	text-decoration: none;
 	display: block;
 	outline: none;
 }
 
-#sitemap_for_links a.show_elements_to_link {
+#sitemap a.show_elements_to_link {
 	float: left;
 	width: 16px;
 	height: 16px;
@@ -476,12 +477,12 @@ ul#sitemap li .sitemap_sitename.selected_page a{
 	font-weight: bold;
 }
 
-#sitemap_for_links ul li span.sitemap_sitename.selected_page a {
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
 	font-weight: bold;
 	padding-left: 4px;
 }
 
-#sitemap_for_links ul li span.sitemap_sitename a:hover {
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename a:hover {
 	font-weight: bold;
 }
 

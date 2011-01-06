@@ -8,11 +8,10 @@
 				<label for="public_filename" class="medium"><%= _("file") %></label>
 			</td>
 			<td class="select">
-				<%= alchemy_selectbox_tag(
+				<%= select_tag(
 					"public_filename",
-					Attachment.all.collect{ |f| [f.name, download_attachment_path(:id => f.id, :name => f.name)] },
-					'',
-					:style => "width: 100%"
+					options_for_select(Attachment.all.collect{ |f| [f.name, download_attachment_path(:id => f.id, :name => f.name)] }),
+					:class => "very_long"
 				) %>
 			</td>
 		</tr>
@@ -23,23 +22,23 @@
 				</label>
 			</td>
 			<td class="input">
-				<%= text_field_tag "file_link_title", {}, :class => 'thin_border auto_resize' %>
+				<%= text_field_tag "file_link_title", {}, :class => 'thin_border auto_resize link_title' %>
 			</td>
 		</tr>
 		<tr>
 			<td class="checkbox">
-        <%= check_box_tag 'file_link_target' %>
+        		<%= check_box_tag 'file_link_target', nil, nil, :class => 'link_target' %>
 			</td>
 			<td>
-        <label for="file_link_target" class="very_long"><%= _("target_blank") %></label>
+        		<label for="file_link_target" class="very_long"><%= _("target_blank") %></label>
 			</td>
 		</tr>
 	</table>
 	<p>
-    <%= link_to_function(
-      _("apply"),
-      "alchemyCreateLink('file', $('public_filename').value, $('file_link_title').value, $('file_link_target').checked); Alchemy.CurrentLinkWindow.close()",
-      :class => 'button'
-    ) %>
+	    <%= link_to_function(
+			_("apply"),
+			"Alchemy.createLink('file', jQuery('#public_filename').val(), jQuery('#file_link_title').val(), jQuery('#file_link_target').attr('checked')); Alchemy.CurrentLinkWindow.close()",
+			:class => 'button'
+		) %>
 	</p>
 </div>

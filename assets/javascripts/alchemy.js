@@ -184,6 +184,7 @@ var Alchemy = {
 				});
 			},
 			close: function () {
+				jQuery('ul.items').remove();
 				$dialog.remove();
 			}
 		});
@@ -265,6 +266,7 @@ var Alchemy = {
 					url: '/admin/pages/link',
 					success: function(data, textStatus, XMLHttpRequest) {
 						$dialog.html(data);
+						jQuery('#alchemyLinkOverlay select').sb({animDuration: 0});
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -316,6 +318,44 @@ var Alchemy = {
 		});
 	},
 	
+	selectPageForInternalLink : function(selected_element, urlname) {
+		jQuery('#page_anchor').removeAttr('value');
+		// We have to remove the Attribute. If not the value does not get updated.
+		jQuery('.elements_for_page').hide();
+		jQuery('#internal_urlname').val('/' + urlname);
+		jQuery('#alchemyLinkOverlay #sitemap .selected_page').removeClass('selected_page');
+		jQuery('#sitemap_sitename_' + selected_element).addClass('selected_page').attr('name', urlname);
+	},
+	
+	createLink : function(link_type, url, title, extern) {
+		var element = Alchemy.CurrentLinkWindow.linked_element;
+		if (element.editor) {
+			// aka we are linking text inside of TinyMCE
+			var editor = element.editor;
+			var l = editor.execCommand('mceInsertLink', false, {
+				href: url,
+				'class': link_type,
+				title: title,
+				target: (extern ? '_blank': null)
+			});
+		} else {
+			// aka: we are linking an content
+			var essence_type = element.name.replace('essence_', '').split('_')[0];
+			switch (essence_type) {
+			case "picture":
+				var content_id = element.name.replace('essence_picture_', '');
+				break;
+			case "text":
+				var content_id = element.name.replace('content_text_', '');
+				break;
+			}
+			jQuery('#content_' + content_id + '_link').val(url);
+			jQuery('#content_' + content_id + '_link_title').val(title);
+			jQuery('#content_' + content_id + '_link_class_name').val(link_type);
+			jQuery('#content_' + content_id + '_link_target').val(extern ? '1': '0');
+		}
+	},
+	
 	// Selects the tab for kind of link and fills all fields.
 	selectLinkWindowTab : function() {
 		var linked_element = Alchemy.CurrentLinkWindow.linked_element;
@@ -332,6 +372,9 @@ var Alchemy = {
 			linked_element.selection.moveToBookmark(linked_element.bookmark);
 		}
 		
+		jQuery('#alchemyLinkOverlay .link_title').val(link.title);
+		jQuery('#alchemyLinkOverlay .link_target').attr('checked', link.target == "_blank");
+		
 		// Checking of what kind the link is (internal, external, file or contact_form).
 		if (link.nodeName == "A") {
 			var title = link.title == null ? "": link.title;
@@ -341,27 +384,17 @@ var Alchemy = {
 				var internal_anchor = link.hash.split('#')[1];
 				var internal_urlname = link.pathname;
 				Alchemy.showLinkWindowTab('#overlay_tab_internal_link');
-				jQuery('#internal_link_title').val(title);
 				jQuery('#internal_urlname').val(internal_urlname);
-				jQuery('#internal_link_target').checked = (link.target == "_blank");
-				var sitemap_line = jQuery('.sitemap_sitename').detect(function(f) {
-					return internal_urlname == f.readAttribute('name');
-				});
-				if (sitemap_line) {
+				var $sitemap_line = jQuery('.sitemap_sitename').closest('[name="'+internal_urlname+'"]');
+				if ($sitemap_line.length > 0) {
 					// Select the line where the link was detected in.
-					sitemap_line.addClassName("selected_page");
-					page_select_scrollbar.scrollTo(sitemap_line.up('li'));
+					$sitemap_line.addClass("selected_page");
+					//page_select_scrollbar.scrollTo($sitemap_line.parents('li'));
 					// is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
 					if (internal_anchor) {
-						var select_container = jQuery(sitemap_line).adjacent('.elements_for_page').first();
-						select_container.show();
-						jQuery.get(
-							"/admin/elements/?page_urlname=" + internal_urlname.split('/').last(),
-							function() {
-								var alchemy_selectbox = select_container.children('.alchemy_selectbox');
-								jQuery('#page_anchor').val('#' + internal_anchor);
-							}
-						);
+						var $select_container = $sitemap_line.parent().find('.elements_for_page');
+						$select_container.show();
+						jQuery.get("/admin/elements/?page_urlname=" + jQuery(internal_urlname.split('/')).last()[0] + '&internal_anchor=' + internal_anchor);
 					}
 				}
 			}
@@ -370,47 +403,53 @@ var Alchemy = {
 			if (link.className == 'external') {
 				Alchemy.showLinkWindowTab('#overlay_tab_external_link');				
 				var protocols = [];
-				jQuery('#url_protocol_select .alchemy_selectbox_body a').map(function() {
-					protocols.push(jQuery(this).attr('rel'));
+				jQuery('#url_protocol option').map(function() {
+					protocols.push(jQuery(this).attr('value'));
 				});
-				jQuery(protocols).map(function() {
-					protocol = this;
-					if (link.href.startsWith(protocol)) {
-						jQuery('#external_url').val(link.href.gsub(protocol, ""));
-						jQuery('#url_protocol_select').trigger('alchemy_selectbox:select', {
-							value: protocol
-						});
-						jQuery('#extern_link_title').val(title);
-						jQuery('#link_target').attr('checked', link.target == "_blank");
+				jQuery(protocols).each(function(index, value) {
+					if (link.href.beginsWith(value)) {
+						jQuery('#external_url').val(link.href.replace(value, ""));
+						jQuery('#url_protocol').val(value);
 					}
 				});
 			}
 			
 			// Handling a file link.
 			if (link.className == 'file') {
-				Alchemy.showLinkWindowTab('#overlay_tab_file_link');				
-				jQuery('#file_link_title').val(title);
-				jQuery('#public_filename_select').trigger('alchemy_selectbox:select', {
-					value: link.pathname
-				});
-				jQuery('#file_link_target').checked = link.target == "_blank";
+				Alchemy.showLinkWindowTab('#overlay_tab_file_link');
+				jQuery('#public_filename').val(link.pathname + link.search);
 			}
 			
 			// Handling a contactform link.
 			if (link.className == 'contact') {
 				var link_url = link.pathname;
-				var link_params = link.href.split('?')[1];
+				var link_params = link.search;
 				var link_subject = link_params.split('&')[0];
 				var link_mailto = link_params.split('&')[1];
 				var link_body = link_params.split('&')[2];
 				Alchemy.showLinkWindowTab('#overlay_tab_contactform_link');
-				jQuery('#contactform_link_title').val(title);
 				jQuery('#contactform_url').val(link_url);
-				jQuery('#contactform_subject').val(unescape(link_subject.gsub(/subject=/, '')));
-				jQuery('#contactform_body').val(unescape(link_body.gsub(/body=/, '')));
-				jQuery('#contactform_mailto').val(link_mailto.gsub(/mail_to=/, ''));
+				jQuery('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')));
+				jQuery('#contactform_body').val(unescape(link_body.replace(/body=/, '')));
+				jQuery('#contactform_mailto').val(link_mailto.replace(/mail_to=/, ''));
 			}
 		}
+	},
+	
+	showElementsFromPageSelector: function(id) {
+		jQuery('#elements_for_page_' + id + ' div.selectbox').remove();
+		jQuery('#elements_for_page_' + id).show();
+		
+		//page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
+		//page_select_scrollbar.recalculateLayout();
+	},
+	
+	hideElementsFromPageSelector: function(id) {
+		jQuery('#elements_for_page_' + id).hide();
+		jQuery('#elements_for_page_' + id + ' div.selectbox').remove();
+		jQuery('#page_anchor').removeAttr('value');
+		//page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
+		//page_select_scrollbar.recalculateLayout();
 	},
 	
 	createTempLink : function(linked_element) {
@@ -430,7 +469,7 @@ var Alchemy = {
 			$tmp_link.attr('target', '_blank');
 		}
 		$tmp_link.addClass(jQuery('#content_' + content_id + '_link_class_name').val());
-		return $tmp_link;
+		return $tmp_link.get(0);
 	},
 	
 	showLinkWindowTab : function(id) {
@@ -674,7 +713,7 @@ jQuery(document).ready(function () {
 	
 	Alchemy.ResizeFrame();
 	
-	if (typeof(jQuery.sb) === 'function') {
+	if (typeof(jQuery().sb) === 'function') {
 		jQuery('body#alchemy select').sb({animDuration: 0});
 	}
 	
@@ -739,17 +778,6 @@ function toggle_label(element, labelA, labelB) {
     }
 }
 
-function selectPageForInternalLink(selected_element, urlname) {
-    $('page_anchor').removeAttribute('value');
-    // We have to remove the Attribute. If not the value does not get updated.
-    $$('.elements_for_page').invoke('hide');
-    $('internal_urlname').value = '/' + urlname;
-    $$('#sitemap_for_links .selected_page').invoke('removeClassName', 'selected_page');
-    var sel = $('sitemap_sitename_' + selected_element);
-    sel.addClassName('selected_page');
-    sel.name = urlname;
-}
-
 function selectFileForFileLink(selected_element, public_filename) {
     jQuery('#public_filename').val(public_filename);
     jQuery('#file_links .selected_file').map(function() {
@@ -776,35 +804,6 @@ function removePictureLink(content_id) {
     jQuery('#content_' + content_id + '_link_class_name').val('');
     jQuery('#content_' + content_id + '_link_target').val('');
     jQuery('#edit_link_' + content_id).removeClass('linked');
-}
-
-function alchemyCreateLink(link_type, url, title, extern) {
-    var element = Alchemy.CurrentLinkWindow.linked_element;
-    if (element.editor) {
-        // aka we are linking text inside of TinyMCE
-        var editor = element.editor;
-        var l = editor.execCommand('mceInsertLink', false, {
-            href: url,
-            'class': link_type,
-            title: title,
-            target: (extern ? '_blank': null)
-        });
-    } else {
-        // aka: we are linking an content
-        var essence_type = element.name.gsub('essence_', '').split('_')[0];
-        switch (essence_type) {
-        case "picture":
-            var content_id = element.name.gsub('essence_picture_', '');
-            break;
-        case "text":
-            var content_id = element.name.gsub('content_text_', '');
-            break;
-        }
-        $('content_' + content_id + '_link').value = url;
-        $('content_' + content_id + '_link_title').value = title;
-        $('content_' + content_id + '_link_class_name').value = link_type;
-        $('content_' + content_id + '_link_target').value = (extern ? '1': '0');
-    }
 }
 
 // creates a link to a javascript function
@@ -837,19 +836,6 @@ function alchemyCreateLinkToFunction(link_type, func, title) {
 		}
 		tiny_ed.save();
 	}
-}
-
-function showElementsFromPageSelector(id) {
-	jQuery('#elements_for_page_' + id).show();
-	page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
-	page_select_scrollbar.recalculateLayout();
-}
-
-function hideElementsFromPageSelector(id) {
-	jQuery('#elements_for_page_' + id).hide();
-	jQuery('#page_anchor').removeAttr('value');
-	page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
-	page_select_scrollbar.recalculateLayout();
 }
 
 // Javascript extensions
