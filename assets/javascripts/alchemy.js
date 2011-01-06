@@ -341,12 +341,13 @@ var Alchemy = {
 		} else {
 			// aka: we are linking an content
 			var essence_type = element.name.replace('essence_', '').split('_')[0];
+			var content_id = null;
 			switch (essence_type) {
 			case "picture":
-				var content_id = element.name.replace('essence_picture_', '');
+				content_id = element.name.replace('essence_picture_', '');
 				break;
 			case "text":
-				var content_id = element.name.replace('content_text_', '');
+				content_id = element.name.replace('content_text_', '');
 				break;
 			}
 			jQuery('#content_' + content_id + '_link').val(url);
@@ -439,7 +440,6 @@ var Alchemy = {
 	showElementsFromPageSelector: function(id) {
 		jQuery('#elements_for_page_' + id + ' div.selectbox').remove();
 		jQuery('#elements_for_page_' + id).show();
-		
 		//page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
 		//page_select_scrollbar.recalculateLayout();
 	},
@@ -455,12 +455,13 @@ var Alchemy = {
 	createTempLink : function(linked_element) {
 		var $tmp_link = jQuery("<a></a>");
 		var essence_type = linked_element.attr('name').gsub('essence_', '').split('_')[0];
+		var content_id = null;
 		switch (essence_type) {
 		case "picture":
-			var content_id = linked_element.attr('name').gsub('essence_picture_', '');
+			content_id = linked_element.attr('name').gsub('essence_picture_', '');
 			break;
 		case "text":
-			var content_id = linked_element.attr('name').gsub('essence_text_', '');
+			content_id = linked_element.attr('name').gsub('essence_text_', '');
 			break;
 		}
 		$tmp_link.attr('href', jQuery('#content_' + content_id + '_link').val());
@@ -470,6 +471,14 @@ var Alchemy = {
 		}
 		$tmp_link.addClass(jQuery('#content_' + content_id + '_link_class_name').val());
 		return $tmp_link.get(0);
+	},
+	
+	removePictureLink : function(content_id) {
+		jQuery('#content_' + content_id + '_link').val('');
+		jQuery('#content_' + content_id + '_link_title').val('');
+		jQuery('#content_' + content_id + '_link_class_name').val('');
+		jQuery('#content_' + content_id + '_link_target').val('');
+		jQuery('#edit_link_' + content_id).removeClass('linked');
 	},
 	
 	showLinkWindowTab : function(id) {
@@ -587,7 +596,7 @@ var Alchemy = {
 		};
 		var reset_style = {
 			outline: '0 none'
-		}
+		};
 		
 		$elements.bind('mouseover', function(e) {
 			if (!jQuery(this).hasClass('selected'))
@@ -694,6 +703,36 @@ var Alchemy = {
     });
 	},
 	
+	Tooltips : function() {
+		var xOffset = 10;
+		var yOffset = 20;		
+		jQuery(".tooltip").hover(function(e) {
+			this.original_title = this.title;
+			if (this.original_title == '') {
+				this.tooltip_content = jQuery(this).next('.tooltip_content').html();
+			} else {
+				this.tooltip_content = this.original_title;
+			}
+			if (this.tooltip_content != null) {
+				this.title = "";
+				jQuery("body").append("<div id='tooltip'>"+ this.tooltip_content +"</div>");
+				jQuery("#tooltip")
+				.css("top",(e.pageY - xOffset) + "px")
+				.css("left",(e.pageX + yOffset) + "px")
+				.fadeIn(400);
+			}
+		},
+		function() {
+			this.title = this.original_title;
+			jQuery("#tooltip").remove();
+		});
+		jQuery(".tooltip").mousemove(function(e) {
+			jQuery("#tooltip")
+			.css("top",(e.pageY - xOffset) + "px")
+			.css("left",(e.pageX + yOffset) + "px");
+		});
+	},
+	
 	fadeNotices : function() {
 		jQuery('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
 			jQuery(this).remove();
@@ -712,6 +751,7 @@ var Alchemy = {
 jQuery(document).ready(function () {
 	
 	Alchemy.ResizeFrame();
+	Alchemy.Tooltips();
 	
 	if (typeof(jQuery().sb) === 'function') {
 		jQuery('body#alchemy select').sb({animDuration: 0});
@@ -727,124 +767,22 @@ jQuery(window).resize(function() {
 	Alchemy.ResizeFrame();
 });
 
-function scrollToElement(id) {
-	var el_ed = $('element_' + id);
-	if (el_ed) {
-		var offset = el_ed.positionedOffset();
-		var container = jQuery('#alchemyOverlay');
-		container.scrollTop = offset.top - 41;
-	}
-}
-
-function toggleButton(id, action) {
-	var button = $(id);
-	if (action == 'disable') {
-		button.addClassName('disabled');
-		var div = new Element('div', {
-			'class': 'disabledButton'
-		});
-		button.insert({
-			top: div
-		});
-	} else if (action == 'enable') {
-		button.removeClassName('disabled');
-		button.down('div.disabledButton').remove();
-	};
-}
-
-function isIe() {
-	return typeof(document.all) == 'object';
-}
-
-function mass_set_selected(select, selector, hiddenElementParentCount) {
-    boxes = $$(selector);
-    for (var i = 0; i < boxes.length; i++) {
-        hiddenElement = boxes[i];
-        $R(0, hiddenElementParentCount - 1).each(function(s) {
-            hiddenElement = hiddenElement.parentNode;
-        });
-        boxes[i].checked = (hiddenElement.style.display == "") ? (select == "inverse" ? !boxes[i].checked: select) : boxes[i].checked;
-    }
-}
-
-function toggle_label(element, labelA, labelB) {
-    element = $(element);
-    if (element) {
-        if (element.tagName == "INPUT") {
-            element.value = (element.value == labelA ? labelB: labelA);
-        } else {
-            element.update(element.innerHTML == labelA ? labelB: labelA);
-        }
-    }
-}
-
-function selectFileForFileLink(selected_element, public_filename) {
-    jQuery('#public_filename').val(public_filename);
-    jQuery('#file_links .selected_file').map(function() {
-    	jQuery(this).removeClass('selected_file');
-    });
-    jQuery('#assign_file_' + selected_element).addClass('selected_file');
-}
-
-function alchemyUnlink(ed) {
-    var link = ed.selection.getNode();
-    var content = link.innerHTML;
-    ed.dom.remove(link);
-    ed.selection.setContent(content);
-    var unlink_button = ed.controlManager.get('alchemy_unlink');
-    var link_button = ed.controlManager.get('alchemy_link');
-    unlink_button.setDisabled(true);
-    link_button.setDisabled(true);
-    link_button.setActive(false);
-}
-
-function removePictureLink(content_id) {
-    jQuery('#content_' + content_id + '_link').val('');
-    jQuery('#content_' + content_id + '_link_title').val('');
-    jQuery('#content_' + content_id + '_link_class_name').val('');
-    jQuery('#content_' + content_id + '_link_target').val('');
-    jQuery('#edit_link_' + content_id).removeClass('linked');
-}
-
-// creates a link to a javascript function
-function alchemyCreateLinkToFunction(link_type, func, title) {
-	var tiny_ed = Alchemy.CurrentLinkWindow.linked_element.editor;
-	var link = null;
-	if (tiny_ed.selection) {
-		if (tiny_ed.selection.getNode().nodeName == "A") {
-			// updating link
-			link = tiny_ed.selection.getNode();
-			tiny_ed.dom.setAttribs(link, {
-				href: '#',
-				title: title,
-				'class': link_type,
-				onclick: func
-			});
-		} else {
-			// creating new link
-			link = tiny_ed.dom.create(
-			'a',
-			{
-				href: '#',
-				title: title,
-				'class': link_type,
-				onclick: func
-			},
-			tiny_ed.selection.getContent()
-			);
-			tiny_ed.selection.setNode(link);
-		}
-		tiny_ed.save();
-	}
-}
-
 // Javascript extensions
 
-String.prototype.beginsWith = function(t, i) {if (i==false) { return 
-(t == this.substring(0, t.length)); } else { return (t.toLowerCase() 
-== this.substring(0, t.length).toLowerCase()); } } 
+String.prototype.beginsWith = function(t, i) {
+	if (i==false) {
+		return (t == this.substring(0, t.length));
+	}
+	else {
+		return (t.toLowerCase() == this.substring(0, t.length).toLowerCase());
+	}
+};
 
-String.prototype.endsWith = function(t, i) { if (i==false) { return (t 
-== this.substring(this.length - t.length)); } else { return 
-(t.toLowerCase() == this.substring(this.length - 
-t.length).toLowerCase()); } }
+String.prototype.endsWith = function(t, i) {
+	if (i==false) {
+		return (t == this.substring(this.length - t.length));
+	} 
+	else {
+		return (t.toLowerCase() == this.substring(this.length - t.length).toLowerCase());
+	}
+};

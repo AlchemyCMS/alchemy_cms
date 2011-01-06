@@ -2212,10 +2212,26 @@ select.select_box {
 	height: 21px;
 }
 
-.alchemy_tooltip {
-	background-color: white;
-	border: 1px solid black;
-	overflow: auto;
+#tooltip {
+	border: 1px solid #0b5c84;
+	color: #333333;
+	position: absolute;
+	display: none;
+	padding: 4px;
+	font-size: 11px;
+	max-width: 200px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 2px 8px #666;
+	-webkit-box-shadow: 0 2px 8px #666;
+	box-shadow: 0 2px 8px #666;
+	background-color: #eaf4f9;
+}
+
+#tooltip p,
+#tooltip h1 {
+	font-size: 11px;	
 }
 
 .date_select_without_time #date_date_4i{

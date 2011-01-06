@@ -2,26 +2,26 @@
 	<div class="sitemap_page">
 		<div class="sitemap_left_images">
 			<%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
-			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip html_tooltip_<%= page.id %><%= page.locked ? ' locked' : '' %>" ></span>
-            <div id="tooltip_<%= page.id %>" style="display: none;">
-            	<h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
-            	<p>
-            		<%= page.humanized_status %>
-            	</p>
-            	<p>
-            		<strong><%= _("created_at") %>:</strong><br />
-            		<%= l(page.created_at) %> von <%= page.creator %>
-            	</p>
-            	<p>
-            		<strong><%= _("updated_at") %>:</strong><br />
-            		<%= l(page.updated_at) %> durch <%= page.updater %>
-            	</p>
-            	<%- if page.locked? -%>
-            	<p>
-            		<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
-            	</p>
-            	<%- end -%>
-            </div>
+			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip <%= page.locked ? ' locked' : '' %>" ></span>
+			<div class="tooltip_content" style="display: none;">
+				<h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
+				<p>
+					<%= page.humanized_status %>
+				</p>
+				<p>
+					<strong><%= _("created_at") %>:</strong><br />
+					<%= l(page.created_at) %> von <%= page.creator %>
+				</p>
+				<p>
+					<strong><%= _("updated_at") %>:</strong><br />
+					<%= l(page.updated_at) %> durch <%= page.updater %>
+				</p>
+				<%- if page.locked? -%>
+				<p>
+					<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
+				</p>
+				<%- end -%>
+			</div>
 		</div>
 		<div class="sitemap_right_tools">
 			<%- if !page.layoutpage? -%>
