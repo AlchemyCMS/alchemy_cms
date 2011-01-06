@@ -1160,7 +1160,7 @@ div#user_list_legend {
 	text-align: center;
 }
 
-#toolbar_buttons div.button_with_label form {
+div.button_with_label form {
 	margin: 0;
 	float: none;
 }
@@ -2378,7 +2378,7 @@ div.button_with_label.active .icon_button {
 	border-color: #bfbfbf;
 }
 
-div#toolbar div.button_with_label.active label{
+div.button_with_label.active label{
 	color: black;
 	text-shadow: white 0 0 2px;
 }
@@ -2411,7 +2411,8 @@ div.button_with_label a.icon_button {
 	position: relative;
 }
 
-div#toolbar label {
+div#toolbar label,
+div#overlay_toolbar label {
 	font-size: 10px;
 	text-shadow: #fff 0 1px 2px;
 	margin-top: 4px;

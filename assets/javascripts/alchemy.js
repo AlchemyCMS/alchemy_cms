@@ -95,7 +95,7 @@ var Alchemy = {
 	},
 
 	openElementsWindow : function (path, title) {
-		var $dialog = jQuery('<div style="display:none" id="alchemyOverlay"></div>');
+		var $dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
 		$dialog.html(Alchemy.getOverlaySpinner({x: 424, y: 300}));
 		Alchemy.ElementsWindow = $dialog.dialog({
 			modal: false, 
@@ -187,13 +187,17 @@ var Alchemy = {
 				jQuery('ul.items').remove();
 				$dialog.remove();
 			}
-		});
-
-		Alchemy.CurrentWindow.close = function () {
+		});		
+	},
+	
+	closeCurrentWindow : function() {
+		if (Alchemy.CurrentWindow) {
 			Alchemy.CurrentWindow.dialog('close');
-			return true;
-		};
-
+			Alchemy.CurrentWindow = null;
+		} else {
+			jQuery('#alchemyOverlay').dialog('close');
+		}
+		return true;
 	},
 	
 	zoomImage : function(url, title, width, height) {

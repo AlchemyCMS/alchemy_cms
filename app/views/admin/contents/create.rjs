@@ -16,7 +16,7 @@ when "EssencePicture"
     page.remove "add_content_#{@element.id}"
   end
   page << "Alchemy.reloadPreview()"
-  page << "Alchemy.CurrentWindow.close()"
+  page << "Alchemy.closeCurrentWindow()"
 when "EssenceText"
   page.insert_html(
     :before,
@@ -27,7 +27,7 @@ when "EssenceText"
       :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
     }
   )
-  page << "Alchemy.reloadPreview(); if(typeof(alchemy_window)!='undefined') { Alchemy.CurrentWindow.close(); }"
+  page << "Alchemy.reloadPreview(); if(typeof(alchemy_window)!='undefined') { Alchemy.closeCurrentWindow(); }"
 when "EssenceRichtext"
   page.insert_html(
     :before,
@@ -39,7 +39,7 @@ when "EssenceRichtext"
     }
   )
   page.call 'TinymceHammer.init'
-  page << "Alchemy.CurrentWindow.close()"
+  page << "Alchemy.closeCurrentWindow()"
 else
   page.insert_html(
     :before,
@@ -50,6 +50,6 @@ else
       :options => (@options.nil? ? {} : @options)
     }
   )
-  page << "Alchemy.CurrentWindow.close()"
+  page << "Alchemy.closeCurrentWindow()"
 end
 Alchemy::Notice.show(page, _("Successfully added %{content}") % {:content => @content.name})

@@ -6,7 +6,7 @@ page.insert_html(
 )
 page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show(page, _("successfully_added_element"))
-page << "Alchemy.CurrentWindow.close()"
+page << "Alchemy.closeCurrentWindow()"
 @richtext_contents.each do |content|
   page << "TinymceHammer.addEditor('contents_content_#{content.id}')"
 end

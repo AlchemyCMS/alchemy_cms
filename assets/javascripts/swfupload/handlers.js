@@ -166,6 +166,6 @@ function queueComplete(numFilesUploaded) {
 	status.innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
 	jQuery('#btnCancel').hide();
 	setTimeout(function () {
-		Alchemy.CurrentWindow.close();
+		Alchemy.closeCurrentWindow();
 	}, 2500);
 }

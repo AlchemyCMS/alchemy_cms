@@ -8,7 +8,7 @@ class Admin::EssenceFlashesController < AlchemyController
     @essence_flash = EssenceFlash.find(params[:id])
     @essence_flash.update_attributes(params[:essence_flash])
     render :update do |page|
-      page << "Alchemy.CurrentWindow.close(); Alchemy.reloadPreview()"
+      page << "Alchemy.closeCurrentWindow(); Alchemy.reloadPreview()"
     end
   end
   

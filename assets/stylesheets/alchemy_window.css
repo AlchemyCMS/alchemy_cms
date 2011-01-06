@@ -60,9 +60,8 @@ div#page_selector_container.scrolling {
 }
 
 div.image_assign_filter_and_image_sizing {
-	clear: both;
 	width: 100%;
-	position: relative;
+	height: 40px;
 }
 
 #assign_image_list {
@@ -263,12 +262,14 @@ input#user_admin {
 
 div.image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 286px;
+	width: 290px;
+	height: 21px;
 }
 
 div.image_assign_filter_and_image_sizing form div.search_field {
 	margin-right: 4px;
 	float: left;
+	position: relative;
 }
 
 div.image_assign_filter_and_image_sizing form input.button {

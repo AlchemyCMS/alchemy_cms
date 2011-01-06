@@ -3,4 +3,4 @@ if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
   page << "jQuery('#element_#{@content.element.id}_contents').sortable('refresh')"
 end
 page << "Alchemy.reloadPreview()"
-page << "Alchemy.CurrentWindow.close()"
+page << "Alchemy.closeCurrentWindow()"
