@@ -18,7 +18,7 @@
 	<%- end -%>
 	<p style="margin-top: 8px" id="choose_alternative_uploader">
 		<small>
-			<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="$('choose_alternative_uploader').hide();$('alternativeUpload').show();$('SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+			<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('#SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
 		</small>
 	</p>
 	<div id="swfUploadFlashError" style="display: none">
@@ -42,7 +42,7 @@
 		<p>
 			<small>
 				<a href="#" 
-				onclick="$('choose_alternative_uploader').show();$('alternativeUpload').hide();$('SWFUpload_0').show();" 
+				onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('#SWFUpload_0').show();" 
 				style="text-decoration: underline">
 					<%= _('Switch to Flash® Uploader') %>
 				</a>
@@ -92,8 +92,8 @@
 			button_text_left_padding: 0,
 			button_text_top_padding: 2,
 			swfupload_load_failed_handler: function () {
-				$('swfUploadFlashError').show();
-				$('alternativeUpload').show();
+				jQuery('#swfUploadFlashError').show();
+				jQuery('#alternativeUpload').show();
 			},
 			file_queued_handler : fileQueued,
 			file_queue_error_handler : fileQueueError,
@@ -111,8 +111,8 @@
 		if (typeof(console) !== 'undefined' && console != null) {
 			console.error(err);
 		};
-		$('alternativeUpload').show();
-		$('flash_upload_error_explaination').show();
+		jQuery('#alternativeUpload').show();
+		jQuery('#flash_upload_error_explaination').show();
 	};
 </script>
 <div id="SWFUpload_Console">
