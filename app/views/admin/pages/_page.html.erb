@@ -81,7 +81,7 @@
 		    <span class="sitemap_pagename_link <%= cycle('even', 'odd') %>"><%= page.name %></span>
 		    <%- else -%>
 			<%= link_to(
-				page.name + " #{page.id}",
+				page.name,
 				edit_admin_page_path(page),
 				:title => _("edit_page"),
 				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
