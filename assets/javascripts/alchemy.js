@@ -67,19 +67,19 @@ var Alchemy = {
 		var $iframe = jQuery('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
 		$iframe.css({'background-color': '#ffffff'});
 		Alchemy.PreviewWindow = $iframe.dialog({
-			modal: false, 
-	    title: title,
-	    width: jQuery(window).width() - 534,
-	    height: jQuery(window).height() - 98,
-	    minWidth: 600,
-	    minHeight: 300,
-			show: "fade",
-			hide: "fade",
-			position: [92, 92],
-			autoResize: true,
-			closeOnEscape: false,
-			close: function(event, ui) { jQuery(this).dialog('destroy'); },
-			open: function (event, ui) { jQuery(this).css({width: '100%'}); }
+            modal: false, 
+            title: title,
+            width: jQuery(window).width() - 534,
+            height: jQuery(window).height() - 98,
+            minWidth: 600,
+            minHeight: 300,
+            show: "fade",
+            hide: "fade",
+            position: [92, 92],
+            autoResize: true,
+            closeOnEscape: false,
+            close: function(event, ui) { jQuery(this).dialog('destroy'); },
+            open: function (event, ui) { jQuery(this).css({width: '100%'}); }
 		});
 		
 		Alchemy.PreviewWindow.refresh = function () {
@@ -88,6 +88,13 @@ var Alchemy = {
 			return true;
 		};
 
+	},
+	
+	PreviewWindowExists : function() {
+	  if(Alchemy.PreviewWindow) {
+	      return true;
+	  }
+	  return false;
 	},
 
 	reloadPreview : function() {
