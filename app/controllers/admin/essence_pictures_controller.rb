@@ -61,7 +61,8 @@ class Admin::EssencePicturesController < AlchemyController
     @picture_essence.open_link_in_new_window = params[:blank]
     if @picture_essence.save
       render :update do |page|
-        page << "Windows.closeAll();Alchemy.reloadPreview()"
+        page << "Alchemy.closeCurrentWindow()"
+        page << "Alchemy.reloadPreview()"
         Alchemy::Notice.show(page, _("saved_link"))
       end
     end
