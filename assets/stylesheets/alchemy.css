@@ -2168,6 +2168,14 @@ span.icon.new_element {
 	background: url(/images/alchemy/icons.png) -192px -24px;
 }
 
+span.icon.element_window {
+	background: url(/images/alchemy/icons.png) -256px -40px;
+}
+
+span.icon.preview_window {
+	background: url(/images/alchemy/icons.png) -224px -24px;
+}
+
 a.icon.file_download {
 	background: url(/images/alchemy/icons.png) -240px -72px;
 }

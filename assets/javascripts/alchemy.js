@@ -78,8 +78,14 @@ var Alchemy = {
 			position: [92, 92],
 			autoResize: true,
 			closeOnEscape: false,
-			close: function(event, ui) { jQuery(this).dialog('destroy'); },
-			open: function (event, ui) { jQuery(this).css({width: '100%'}); }
+			close: function(event, ui) { 
+				jQuery(this).dialog('destroy'); 
+				Alchemy.PreviewWindowButton.show() 
+			},
+			open: function (event, ui) { 
+				jQuery(this).css({width: '100%'}); 
+				Alchemy.PreviewWindowButton.hide() 
+			}
 		});
 		
 		Alchemy.PreviewWindow.refresh = function () {
@@ -99,7 +105,31 @@ var Alchemy = {
 	reloadPreview : function() {
 		Alchemy.PreviewWindow.refresh();
 	},
-
+	
+	ElementsWindowButton : {
+		show: function() {
+			jQuery('div#show_element_window').show();
+		},
+		hide: function() {
+			jQuery('div#show_element_window').hide();
+		},
+		toggle: function() {
+			jQuery('div#show_element_window').toggle();
+		}
+	},
+	
+	PreviewWindowButton : {
+		show: function() {
+			jQuery('div#show_preview_window').show();
+		},
+		hide: function() {
+			jQuery('div#show_preview_window').hide();
+		},
+		toggle: function() {
+			jQuery('div#show_preview_window').toggle();
+		}
+	},
+	
 	openElementsWindow : function (path, title) {
 		var $dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
 		$dialog.html(Alchemy.getOverlaySpinner({x: 424, y: 300}));
@@ -118,6 +148,7 @@ var Alchemy = {
 					url: path,
 					success: function(data, textStatus, XMLHttpRequest) {
 						$dialog.html(data);
+						Alchemy.ElementsWindowButton.hide();
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -126,10 +157,11 @@ var Alchemy = {
 			},
 			close: function () {
 				$dialog.remove();
+				Alchemy.ElementsWindowButton.show();
 			}
 		});
 	},
-
+	
 	openConfirmWindow : function (url, title, message, ok_lable, cancel_label) {
 		var $confirmation = jQuery('<div style="display:none" id="alchemyConfirmation"></div>');
 		$confirmation.appendTo('body');

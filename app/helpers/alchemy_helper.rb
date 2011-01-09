@@ -809,7 +809,7 @@ module AlchemyHelper
       :id => "search_field"
     }
     options = default_options.merge(options)
-    options[:onkeyup] << ";$('search_field').value.length >= 1 ? $$('.js_filter_field_clear')[0].show() : $$('.js_filter_field_clear')[0].hide();"
+    options[:onkeyup] << ";jQuery('#search_field').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
     filter_field = "<div class=\"js_filter_field_box\">"
     filter_field << text_field_tag("filter", "", options)
     filter_field << link_to_function(

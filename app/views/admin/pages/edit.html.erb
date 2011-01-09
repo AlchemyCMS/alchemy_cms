@@ -84,6 +84,28 @@
 			) %><br />
 			<label><%= _('New Element') %></label>
 		</div>
+		<div class="button_with_label" id="show_preview_window" style="display: none">
+			<%= link_to_function(
+				render_icon('preview_window'),
+				"Alchemy.openPreviewWindow('#{admin_page_url(@page)}', '#{_('Page Preview')}')",
+				{
+					:title => _('Show Preview Window'),
+					:class => 'icon_button'
+				}
+			) %><br />
+			<label><%= _('Show Preview Window') %></label>
+		</div>
+		<div class="button_with_label" id="show_element_window" style="display: none">
+			<%= link_to_function(
+				render_icon('element_window'),
+				"Alchemy.openElementsWindow('#{list_admin_elements_path(:page_id => @page.id)}', '#{ _('Elements') }')",
+				{
+					:title => _('Show Elements Window'),
+					:class => 'icon_button'
+				}
+			) %><br />
+			<label><%= _('Show Elements Window') %></label>
+		</div>
 	</div>
 </div>
 <%- end -%>
