@@ -163,7 +163,7 @@ div.file_icon span.icon {
 div.file_icon a.assign_file {
 	display: block;
 	height: 16px;
-	background: url(/images/alchemy/assign_file.png) no-repeat 0 0;
+	background: url(/images/alchemy/icons.png) no-repeat -240px -24px;
 	width: 16px;
 	margin: 4px;
 }
@@ -193,7 +193,7 @@ div.essence_file_tools a{
 }
 
 div.essence_file_tools a.assign_file {
-	background-image: url(/images/alchemy/swap_file.png);
+	background: url(/images/alchemy/icons.png) -256px -24px;
 }
 
 div.essence_file_tools a.edit_file {
