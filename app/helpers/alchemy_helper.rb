@@ -1120,8 +1120,16 @@ module AlchemyHelper
   
   def alchemy_preview_mode_code
     if @preview_mode
-      str = javascript_include_tag("alchemy/jquery-1.4.4.min", "alchemy/alchemy", :cache => 'preview')
-      str += javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();}")
+      #jquery_script_tag = javascript_include_tag("alchemy/jquery-1.4.4.min", :cache => 'preview')
+      append_javascript = %(
+      var s = document.createElement('script');
+      s.src = '/javascripts/alchemy/jquery-1.4.4.min.js';
+      s.language = 'javascript';
+      s.type = 'text/javascript';
+      document.getElementsByTagName("body")[0].appendChild(s);
+      )
+      str = javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();} else {#{append_javascript}}")
+      str += javascript_include_tag("alchemy/alchemy", :cache => 'preview')
       str += javascript_tag("jQuery(document).ready(function(){Alchemy.ElementSelector();});")
       return str
     else
