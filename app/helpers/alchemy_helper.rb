@@ -354,7 +354,7 @@ module AlchemyHelper
       :content => ""
     }
     options = default_options.merge(options)
-    lang = (current_page.language.blank? ? options[:default_language] : current_page.language)
+    lang = (current_page.language.blank? ? options[:default_language] : current_page.language.code)
     %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" xml:lang="#{lang}" />)
   end
 
@@ -368,7 +368,7 @@ module AlchemyHelper
       :default_language => "de"
     }
     options = default_options.merge(options)
-    lang = (current_page.language.blank? ? options[:default_language] : current_page.language)
+    lang = (current_page.language.blank? ? options[:default_language] : current_page.language.code)
     %(<meta http-equiv="Content-Language" content="#{lang}" />)
   end
 
@@ -402,13 +402,13 @@ module AlchemyHelper
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
     if current_page.meta_description.blank?
-      description = Page.language_root_for(session[:language_id]).meta_description rescue ""
+      description = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_description rescue ""
     else
       description = current_page.meta_description
     end
     #render meta keywords of the root page from language if the current meta keywords is empty
     if current_page.meta_keywords.blank?
-      keywords = Page.language_root_for(session[:language_id]).meta_keywords rescue ""
+      keywords = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_keywords rescue ""
     else
       keywords = current_page.meta_keywords
     end
@@ -425,14 +425,14 @@ module AlchemyHelper
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => session[:language_id], :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => Alchemy::Controller.current_language.code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
     return meta_string
   end
 
   # Returns an array of all pages in the same branch from current. Used internally to find the active page in navigations.
-  def breadcrumb current
+  def breadcrumb(current)
     return [] if current.nil?
     result = Array.new
     result << current
@@ -442,19 +442,26 @@ module AlchemyHelper
     return result.reverse
   end
 
-  # Returns a html string for a linked breadcrump to current_page.
+  # Returns a html string for a linked breadcrumb from root to current_page.
   # == Options:
   # :seperator => %(<span class="seperator">></span>)      Maybe you don't want this seperator. Pass another one.
   # :page => current_page                                  Pass a different Page instead of the default current_page.
-  # :without => nil                                        Pass Page object that should not be displayed inside the breadcrumb.
+  # :without => nil                                        Pass Pageobject or array of Pages that must not be displayed.
+  # :public_only => false                                  Pass boolean for displaying hidden pages only.
+  # :visible_only => true                                  Pass boolean for displaying (in navigation) visible pages only.
+  # :restricted_only => false                              Pass boolean for displaying restricted pages only.
+  # :reverse => false                                      Pass boolean for displaying reversed breadcrumb.
   def render_breadcrumb(options={})
     default_options = {
-      :seperator => %(<span class="seperator">></span>),
+      :seperator => %(<span class="seperator">&gt;</span>),
       :page => current_page,
-      :without => nil
+      :without => nil,
+      :public_only => false,
+      :visible_only => true,
+      :restricted_only => false,
+      :reverse => false
     }
     options = default_options.merge(options)
-    bc = ""
     pages = breadcrumb(options[:page])
     pages.delete(Page.root)
     unless options[:without].nil?
@@ -464,29 +471,35 @@ module AlchemyHelper
         pages = pages - options[:without]
       end
     end
+    if(options[:visible_only])
+      pages.reject!{|p| !p.visible? }
+    end
+    if(options[:public_only])
+      pages.reject!{|p| !p.public? }
+    end
+    if(options[:restricted_only])
+      pages.reject!{|p| !p.restricted? }
+    end
+    if(options[:reverse])
+      pages.reverse!
+    end
+    bc = []
     pages.each do |page|
-      if page.name == current_page.name
-        css_class = "active"
-      elsif page == pages.last
-        css_class = "last"
+      urlname = page.urlname
+      (page.name == current_page.name) ? css_class = "active" : nil
+      if page == pages.last
+        css_class.blank? ? css_class = "last" : css_class = [css_class, "last"].join(" ")
       elsif page == pages.first
-        css_class = "first"
+        css_class.blank? ? css_class = "first" : css_class = [css_class, "last"].join(" ")
       end
-      if (page == Page.language_root_for(session[:language_id]))
-        if configuration(:redirect_index)
-          url = show_page_url(:urlname => page.urlname)
-        else
-          url = index_url
-        end
+      if multi_language? 
+        url = show_page_with_language_url(:urlname => urlname, :lang => Alchemy::Controller.current_language.code)
       else
-        url = show_page_url(:urlname => page.urlname)
+        url = show_page_url(:urlname => urlname)
       end
       bc << link_to( h(page.name), url, :class => css_class, :title => page.title )
-      unless page == pages.last
-        bc << options[:seperator]
-      end
     end
-    bc
+    bc.join(options[:seperator])
   end
 
   # returns true if page is in the active branch
@@ -761,7 +774,7 @@ module AlchemyHelper
 
   # returns the current language root
   def root_page
-    @root_page ||= Page.language_root_for(session[:language_id])
+    @root_page ||= Page.find_by_language_root_and_language_id(true, session[:language_id])
   end
   
   # Returns true if the current_page is the root_page in the nested set of Pages, false if not.
