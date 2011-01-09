@@ -19,7 +19,7 @@ class Admin::PagesController < AlchemyController
   def show
     # fetching page via before filter
     @preview_mode = true
-    render :layout => 'pages'
+    render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
   
   def new

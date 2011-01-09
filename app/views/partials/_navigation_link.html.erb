@@ -6,12 +6,15 @@
     :popup => true
 ) %>
 <%- else -%>
+<%- link_path = @preview_mode ? admin_page_path(navigation_link) : (multi_language? ? show_page_with_language_path(:urlname => navigation_link.urlname, :lang => navigation_link.language.code) : show_page_path(:urlname => navigation_link.urlname)) -%>
 <%= link_to(
     h(navigation_link.name),
-    "#{multi_language? ? '/' + navigation_link.language.code : nil}/#{navigation_link.urlname}",
+    link_path,
     {
         :class => (page_active?(navigation_link) ? 'active' : nil),
-        :title => (options[:show_title] == true ? navigation_link.title : nil)
+        :title => (options[:show_title] == true ? navigation_link.title : nil),
+		:name => navigation_link.urlname,
+		:lang => navigation_link.language.code
     }
 ) %>
 <%- end -%>
