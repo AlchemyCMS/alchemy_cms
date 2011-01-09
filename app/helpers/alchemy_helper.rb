@@ -974,10 +974,6 @@ module AlchemyHelper
     )
   end
   
-  def current_language
-    session[:language_id]
-  end
-  
   # TOOD: include these via asset_packer yml file
   def stylesheets_from_plugins
     Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
