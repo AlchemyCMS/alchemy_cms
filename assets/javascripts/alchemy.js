@@ -64,49 +64,55 @@ var Alchemy = {
 	},
 
 	openPreviewWindow : function (url, title) {
-		var $iframe = jQuery('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
-		$iframe.css({'background-color': '#ffffff'});
-		Alchemy.PreviewWindow = $iframe.dialog({
-			modal: false,
-			title: title,
-			width: jQuery(window).width() - 534,
-			height: jQuery(window).height() - 98,
-			minWidth: 600,
-			minHeight: 300,
-			show: "fade",
-			hide: "fade",
-			position: [92, 92],
-			autoResize: true,
-			closeOnEscape: false,
-			close: function(event, ui) { 
-				jQuery(this).dialog('destroy'); 
-				Alchemy.PreviewWindowButton.show() 
-			},
-			open: function (event, ui) { 
-				jQuery(this).css({width: '100%'}); 
-				Alchemy.PreviewWindowButton.hide() 
-			}
-		}).dialogExtend({
-			"maximize" : true,
-			"dblclick" : "maximize",
-			"icons": {
-				"maximize" : 'ui-icon-circle-plus',
-				"restore" : 'ui-icon-circle-minus'
-			},
-			"events" : {
-				beforeMaximize: function(evt, dlg) {
-					Alchemy.previewWindowPosition = jQuery('#alchemyPreviewWindow').dialog('widget').offset();
+		var $iframe = jQuery('#alchemyPreviewWindow');
+		if ($iframe.length === 0) {
+			$iframe = jQuery('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
+			$iframe.css({'background-color': '#ffffff'});
+			Alchemy.PreviewWindow = $iframe.dialog({
+				modal: false,
+				title: title,
+				width: jQuery(window).width() - 534,
+				height: jQuery(window).height() - 98,
+				minWidth: 600,
+				minHeight: 300,
+				show: "fade",
+				hide: "fade",
+				position: [92, 92],
+				autoResize: true,
+				closeOnEscape: false,
+				close: function(event, ui) { 
+					// jQuery(this).dialog('destroy'); 
+					Alchemy.PreviewWindowButton.show() 
+				},
+				open: function (event, ui) { 
+					jQuery(this).css({width: '100%'}); 
+					Alchemy.PreviewWindowButton.hide();
 					Alchemy.previewWindowFrameWidth = jQuery('#alchemyPreviewWindow').width();
+				}
+			}).dialogExtend({
+				"maximize" : true,
+				"dblclick" : "maximize",
+				"icons": {
+					"maximize" : 'ui-icon-circle-plus',
+					"restore" : 'ui-icon-circle-minus'
 				},
-				maximize : function(evt, dlg) {
-					jQuery('#alchemyPreviewWindow').css({width: "100%"});
-				},
-				restore : function(evt, dlg) {
-					jQuery('#alchemyPreviewWindow').dialog('widget').css(Alchemy.previewWindowPosition);
-					jQuery('#alchemyPreviewWindow').css({width: Alchemy.previewWindowFrameWidth});
-				} 
-			}
-		});
+				"events" : {
+					beforeMaximize: function(evt, dlg) {
+						Alchemy.previewWindowPosition = jQuery('#alchemyPreviewWindow').dialog('widget').offset();
+						Alchemy.previewWindowFrameWidth = jQuery('#alchemyPreviewWindow').width();
+					},
+					maximize : function(evt, dlg) {
+						jQuery('#alchemyPreviewWindow').css({width: "100%"});
+					},
+					restore : function(evt, dlg) {
+						jQuery('#alchemyPreviewWindow').dialog('widget').css(Alchemy.previewWindowPosition);
+						jQuery('#alchemyPreviewWindow').css({width: Alchemy.previewWindowFrameWidth});
+					} 
+				}
+			});
+		} else {
+			jQuery('#alchemyPreviewWindow').dialog('open');
+		}
 		Alchemy.PreviewWindow.refresh = function () {
 			var $iframe = jQuery('#alchemyPreviewWindow');
 			$iframe.attr('src', $iframe.attr('src'));
@@ -709,9 +715,8 @@ var Alchemy = {
 			$element.addClass('selected');
 			if ($element.hasClass('folded')) {
 				jQuery.post('/admin/elements/fold?id='+id);
-			} else if ($selected.attr('id') != $element.attr('id')) {
-				//$element.scrollTo();
 			}
+			jQuery('#alchemyElementWindow').scrollTo(this, {duration: 400});
 		});
 		
 		$elements.click(function(e) {
@@ -720,7 +725,7 @@ var Alchemy = {
 			var $selected = $elements.closest('[class="selected"');
 			$elements.removeClass('selected');
 			$element.addClass('selected');
-			//$element.scrollTo();
+			jQuery('#alchemyElementWindow').scrollTo(this, {duration: 400});
 			var $frame_elements = document.getElementById('alchemyPreviewWindow').contentWindow.jQuery('dd[rel=alchemy_element]');
 			var $selected_element = $frame_elements.closest('[id*="'+id+'"]');
 			$selected_element.trigger('AlchemySelectElement');
