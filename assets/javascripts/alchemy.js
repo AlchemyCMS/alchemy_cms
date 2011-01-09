@@ -155,34 +155,36 @@ var Alchemy = {
 		var $dialog = jQuery('#alchemyElementWindow');
 		if ($dialog.length === 0) {
 			$dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
+			$dialog.html(Alchemy.getOverlaySpinner({x: 424, y: 300}));
+			Alchemy.ElementsWindow = $dialog.dialog({
+				modal: false, 
+				minWidth: 424, 
+				minHeight: 300,
+				height: jQuery(window).height() - 98,
+				title: title,
+				show: "fade",
+				hide: "fade",
+				position: [jQuery(window).width() - 418, 92],
+				closeOnEscape: false,
+				open: function (event, ui) {
+					jQuery.ajax({
+						url: path,
+						success: function(data, textStatus, XMLHttpRequest) {
+							$dialog.html(data);
+							Alchemy.ElementsWindowButton.hide();
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
+						}
+					});
+				},
+				close: function () {
+					Alchemy.ElementsWindowButton.show();
+				}
+			});
+		} else {
+			$dialog.dialog('open');
 		}
-		$dialog.html(Alchemy.getOverlaySpinner({x: 424, y: 300}));
-		Alchemy.ElementsWindow = $dialog.dialog({
-			modal: false, 
-			minWidth: 424, 
-			minHeight: 300,
-			height: jQuery(window).height() - 98,
-			title: title,
-			show: "fade",
-			hide: "fade",
-			position: [jQuery(window).width() - 418, 92],
-			closeOnEscape: false,
-			open: function (event, ui) {
-				jQuery.ajax({
-					url: path,
-					success: function(data, textStatus, XMLHttpRequest) {
-						$dialog.html(data);
-						Alchemy.ElementsWindowButton.hide();
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
-					}
-				});
-			},
-			close: function () {
-				Alchemy.ElementsWindowButton.show();
-			}
-		});
 	},
 	
 	openConfirmWindow : function (url, title, message, ok_lable, cancel_label) {

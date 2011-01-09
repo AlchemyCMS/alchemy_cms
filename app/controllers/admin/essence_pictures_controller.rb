@@ -23,8 +23,11 @@ class Admin::EssencePicturesController < AlchemyController
         :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
       }
     end
-    @size_x = params[:size].split('x')[0]
-    @size_y = params[:size].split('x')[1]
+    @size_x, @size_y = 0, 0
+    if params[:size]
+      @size_x = params[:size].split('x')[0]
+      @size_y = params[:size].split('x')[1]
+    end
     render :layout => false
   end
   
