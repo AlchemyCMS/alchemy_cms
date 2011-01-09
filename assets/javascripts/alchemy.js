@@ -676,29 +676,33 @@ var Alchemy = {
 				jQuery(this).css(reset_style);
 		});
 		
-		$elements.bind('AlchemySelectElement', function(e) {
+		$elements.bind('Alchemy.SelectElement', function(e) {
 			e.preventDefault();
+			var offset = 20;
 			var $element = jQuery(this);
 			var $selected = $elements.closest('[class="selected"');
 			$elements.removeClass('selected');
 			$elements.css(reset_style);
 			jQuery(this).addClass('selected');
 			jQuery(this).css(selected_style);
-			//$element_editor.scrollTo();
+			jQuery('html, body').animate({
+				scrollTop: $element.offset().top - offset,
+				scrollLeft: $element.offset().left - offset
+			}, 400);
 		});
 		
 		$elements.bind('click', function(e) {
 			e.preventDefault();
 			var target_id = this.id.replace(/\D/g,'');
-			var $element_editor = window.parent.jQuery('#element_area .element_editor').closest('[id*="'+target_id+'"]');
-			$element_editor.trigger('AlchemySelectElement', target_id);
+			var $element_editor = window.parent.jQuery('#element_area .element_editor').closest('[id="element_'+target_id+'"]');
+			$element_editor.trigger('Alchemy.SelectElementEditor', target_id);
 			var $elementsWindow = window.parent.jQuery('#alchemyElementWindow');
 			if ($elementsWindow.dialog("isOpen")) {
 				$elementsWindow.dialog('moveToTop');
 			} else {
 				$elementsWindow.dialog('open');
 			}
-			jQuery(this).trigger('AlchemySelectElement');
+			jQuery(this).trigger('Alchemy.SelectElement');
 		});
 		
 	},
@@ -706,7 +710,7 @@ var Alchemy = {
 	ElementEditorSelector : function() {
 		var $elements = jQuery('#element_area .element_editor');
 		
-		$elements.bind('AlchemySelectElement', function (e) {
+		$elements.bind('Alchemy.SelectElementEditor', function (e) {
 			e.preventDefault();
 			var id = this.id.replace(/\D/g,'');
 			var $element = jQuery(this);
@@ -714,9 +718,12 @@ var Alchemy = {
 			$elements.removeClass('selected');
 			$element.addClass('selected');
 			if ($element.hasClass('folded')) {
-				jQuery.post('/admin/elements/fold?id='+id);
+				jQuery.post('/admin/elements/fold?id='+id, function() {
+					Alchemy.scrollToElementEditor('#element_'+id);
+				});
+			} else {
+				Alchemy.scrollToElementEditor(this);
 			}
-			jQuery('#alchemyElementWindow').scrollTo(this, {duration: 400});
 		});
 		
 		$elements.click(function(e) {
@@ -725,12 +732,16 @@ var Alchemy = {
 			var $selected = $elements.closest('[class="selected"');
 			$elements.removeClass('selected');
 			$element.addClass('selected');
-			jQuery('#alchemyElementWindow').scrollTo(this, {duration: 400});
+			Alchemy.scrollToElementEditor(this);
 			var $frame_elements = document.getElementById('alchemyPreviewWindow').contentWindow.jQuery('dd[rel=alchemy_element]');
-			var $selected_element = $frame_elements.closest('[id*="'+id+'"]');
-			$selected_element.trigger('AlchemySelectElement');
+			var $selected_element = $frame_elements.closest('[id="alchemy_element_preview_'+id+'"]');
+			$selected_element.trigger('Alchemy.SelectElement');
 		});
 		
+	},
+	
+	scrollToElementEditor: function(el) {
+		jQuery('#alchemyElementWindow').scrollTo(el, {duration: 400});
 	},
 	
 	SortableElements : function(form_token) {

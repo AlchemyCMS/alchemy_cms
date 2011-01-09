@@ -12,4 +12,5 @@ page << "Alchemy.closeCurrentWindow()"
 end
 page << "Alchemy.PreviewWindow.refresh()"
 page << "Alchemy.ElementEditorSelector()"
-#page << "jQuery('#element_#{@element.id}').scrollTo()"
+page << "Alchemy.scrollToElementEditor('#element_#{@element.id}')"
+page << "jQuery('#element_#{@element.id}').trigger('AlchemySelectElement')"
