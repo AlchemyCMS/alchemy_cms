@@ -86,8 +86,27 @@ var Alchemy = {
 				jQuery(this).css({width: '100%'}); 
 				Alchemy.PreviewWindowButton.hide() 
 			}
+		}).dialogExtend({
+			"maximize" : true,
+			"dblclick" : "maximize",
+			"icons": {
+				"maximize" : 'ui-icon-circle-plus',
+				"restore" : 'ui-icon-circle-minus'
+			},
+			"events" : {
+				beforeMaximize: function(evt, dlg) {
+					Alchemy.previewWindowPosition = jQuery('#alchemyPreviewWindow').dialog('widget').offset();
+					Alchemy.previewWindowFrameWidth = jQuery('#alchemyPreviewWindow').width();
+				},
+				maximize : function(evt, dlg) {
+					jQuery('#alchemyPreviewWindow').css({width: "100%"});
+				},
+				restore : function(evt, dlg) {
+					jQuery('#alchemyPreviewWindow').dialog('widget').css(Alchemy.previewWindowPosition);
+					jQuery('#alchemyPreviewWindow').css({width: Alchemy.previewWindowFrameWidth});
+				} 
+			}
 		});
-		
 		Alchemy.PreviewWindow.refresh = function () {
 			var $iframe = jQuery('#alchemyPreviewWindow');
 			$iframe.attr('src', $iframe.attr('src'));
@@ -131,7 +150,10 @@ var Alchemy = {
 	},
 	
 	openElementsWindow : function (path, title) {
-		var $dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
+		var $dialog = jQuery('#alchemyElementWindow');
+		if ($dialog.length === 0) {
+			$dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
+		}
 		$dialog.html(Alchemy.getOverlaySpinner({x: 424, y: 300}));
 		Alchemy.ElementsWindow = $dialog.dialog({
 			modal: false, 
@@ -156,7 +178,6 @@ var Alchemy = {
 				});
 			},
 			close: function () {
-				$dialog.remove();
 				Alchemy.ElementsWindowButton.show();
 			}
 		});
@@ -665,6 +686,12 @@ var Alchemy = {
 			var target_id = this.id.replace(/\D/g,'');
 			var $element_editor = window.parent.jQuery('#element_area .element_editor').closest('[id*="'+target_id+'"]');
 			$element_editor.trigger('AlchemySelectElement', target_id);
+			var $elementsWindow = window.parent.jQuery('#alchemyElementWindow');
+			if ($elementsWindow.dialog("isOpen")) {
+				$elementsWindow.dialog('moveToTop');
+			} else {
+				$elementsWindow.dialog('open');
+			}
 			jQuery(this).trigger('AlchemySelectElement');
 		});
 		

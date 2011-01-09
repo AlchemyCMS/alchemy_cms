@@ -19,7 +19,6 @@ body#alchemy {
 	font: 12px "Lucida Grande", Arial, sans-serif;
 	background-color: #ededed;
 	height: 100%;
-	position: relative;
 	cursor: default;
 }
 
@@ -110,7 +109,7 @@ div#top_menu {
 
 #main_menu {
 	white-space: nowrap;
-	z-index: 0;
+	z-index: 5;
 	height: 100%;
 	position: fixed;
 	top: 0;
@@ -156,6 +155,7 @@ div#top_menu {
 	position: absolute;
 	top: 90px;
 	left: 84px;
+	z-index: 0;
 }
 
 div#user_info {

@@ -1464,6 +1464,11 @@ button.ui-button::-moz-focus-inner {
 	height: 18px;
 }
 
+#alchemy .ui-dialog .ui-dialog-titlebar-maximize,
+#alchemy .ui-dialog .ui-dialog-titlebar-restore {
+	margin-right: 8px;
+}
+
 #alchemy .ui-dialog .ui-dialog-titlebar-close span {
 	display: block;
 	margin: 1px;
