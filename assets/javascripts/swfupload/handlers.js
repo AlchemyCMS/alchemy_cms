@@ -63,7 +63,7 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
 
 function uploadStart(file) {
 	try {
-		$('divFileProgressContainer').show();
+		jQuery('divFileProgressContainer').show();
 		/* I don't want to do any file validation or anything,  I'll just update the UI and
 		return true to indicate that the upload should start.
 		It's important to update the UI here because in Linux no uploadProgress events are called. The best
