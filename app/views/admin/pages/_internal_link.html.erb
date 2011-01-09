@@ -3,15 +3,10 @@
 	<table class="window_form">
 		<tr>
 			<td colspan="2">
-				<div id="page_selector_scroll_container">
-					<div id="scrollbar_track">
-						<div id="scrollbar_handle"></div>
-					</div>
-					<div id="page_selector_container">
-						<ul id="sitemap">
-							<%= render :partial => 'page_for_links', :object => @page_root, :locals => {:area_name => @area_name} %>
-						</ul>
-					</div>
+				<div id="page_selector_container">
+					<ul id="sitemap">
+						<%= render :partial => 'page_for_links', :object => @page_root, :locals => {:area_name => @area_name} %>
+					</ul>
 				</div>
 			</td>
 		</tr>

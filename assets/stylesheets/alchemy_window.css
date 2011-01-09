@@ -29,8 +29,8 @@ textarea#essence_picture_caption {
 	background-color: #ededed;
 	margin-bottom: 4px;
 	border: 1px inset #e8e8e8;
-	overflow: hidden;
-	padding: 4px 4px 0;
+	overflow: auto;
+	padding: 4px 0 0 4px;
 }
 
 #page_selector_scroll_container #scrollbar_track {
@@ -326,8 +326,8 @@ div#tabbar_and_content {
 }
 
 #alchemy .ui-dialog-content ul#sitemap {
-	padding: 0 16px 0 0;
 	margin: 0;
+	padding: 0 8px 8px 0;
 }
 
 #alchemy .ui-dialog-content ul#sitemap li {

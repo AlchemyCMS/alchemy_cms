@@ -92,10 +92,6 @@ var Alchemy = {
 			}).dialogExtend({
 				"maximize" : true,
 				"dblclick" : "maximize",
-				"icons": {
-					"maximize" : 'ui-icon-circle-plus',
-					"restore" : 'ui-icon-circle-minus'
-				},
 				"events" : {
 					beforeMaximize: function(evt, dlg) {
 						Alchemy.previewWindowPosition = jQuery('#alchemyPreviewWindow').dialog('widget').offset();
@@ -459,7 +455,7 @@ var Alchemy = {
 				if ($sitemap_line.length > 0) {
 					// Select the line where the link was detected in.
 					$sitemap_line.addClass("selected_page");
-					//page_select_scrollbar.scrollTo($sitemap_line.parents('li'));
+					jQuery('#page_selector_container').scrollTo($sitemap_line.parents('li'), {duration: 400, offset: -10});
 					// is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
 					if (internal_anchor) {
 						var $select_container = $sitemap_line.parent().find('.elements_for_page');
@@ -509,16 +505,14 @@ var Alchemy = {
 	showElementsFromPageSelector: function(id) {
 		jQuery('#elements_for_page_' + id + ' div.selectbox').remove();
 		jQuery('#elements_for_page_' + id).show();
-		//page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
-		//page_select_scrollbar.recalculateLayout();
+		jQuery('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
 	},
 	
 	hideElementsFromPageSelector: function(id) {
 		jQuery('#elements_for_page_' + id).hide();
 		jQuery('#elements_for_page_' + id + ' div.selectbox').remove();
 		jQuery('#page_anchor').removeAttr('value');
-		//page_select_scrollbar.scrollTo($('sitemap_sitename_' + id));
-		//page_select_scrollbar.recalculateLayout();
+		jQuery('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
 	},
 	
 	createTempLink : function(linked_element) {
@@ -741,7 +735,7 @@ var Alchemy = {
 	},
 	
 	scrollToElementEditor: function(el) {
-		jQuery('#alchemyElementWindow').scrollTo(el, {duration: 400});
+		jQuery('#alchemyElementWindow').scrollTo(el, {duration: 400, offset: -10});
 	},
 	
 	SortableElements : function(form_token) {
