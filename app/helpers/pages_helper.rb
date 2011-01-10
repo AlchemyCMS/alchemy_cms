@@ -97,11 +97,12 @@ module PagesHelper
           languages << link_to(
             linkname,
             show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
-            :class => (active ? 'active' : nil),
+            :class => "#{(active ? 'active ' : nil)}#{page.language.code}",
             :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
           )
         end
       end
+      languages.reverse! if options[:reverse]
       if options[:as_select_box]
         return select_tag(
           'language',
@@ -112,7 +113,6 @@ module PagesHelper
           :onchange => "window.location=this.value"
         )
       else
-        languages.reverse! if options[:reverse]
         if options[:spacer].blank?
           return languages
         else
