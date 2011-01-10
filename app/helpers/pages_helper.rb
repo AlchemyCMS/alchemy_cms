@@ -71,11 +71,13 @@ module PagesHelper
     )
   end
   
+  # helper for language switching
   def language_switches(options={})
     default_options = {
       :linkname => :name,
       :spacer => "",
-      :link_to_public_child => false,
+      :link_to_public_child => configuration(:redirect_to_public_child),
+      :link_to_page_with_layout => nil,
       :show_title => true,
       :reverse => false,
       :as_select_box => false
@@ -83,27 +85,35 @@ module PagesHelper
     options = default_options.merge(options)
     if multi_language?
       languages = []
-      Page.public_language_roots.each do |page|
-        page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? page : page.first_public_child) : page)
-        active = session[:language_id] == page.language.id
-        if options[:linkname]
-          if options[:linkname].to_sym == :code
-            linkname = page.language.code
-          else
-            linkname = I18n.t("languages.#{page.language.code}.name")
-          end
-        else
-          linkname = ""
+      pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
+      pages.each do |page|
+        if(options[:link_to_page_with_layout] != nil)
+          page_found_by_layout = Page.find_by_page_layout_and_language_id(options[:link_to_page_with_layout].to_s, page.language)
         end
-        if options[:as_select_box]
-          languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
-        else
-          languages << link_to(
-            linkname,
-            show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
-            :class => "#{(active ? 'active ' : nil)}#{page.language.code}",
-            :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
-          )
+        page = page_found_by_layout || page
+        page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? nil : page.first_public_child) : nil) if !page.public?
+        
+        if !page.blank?
+          active = session[:language_id] == page.language.id
+          if options[:linkname]
+            if options[:linkname].to_sym == :code
+              linkname = page.language.code
+            else
+              linkname = I18n.t("languages.#{page.language.code}.name")
+            end
+          else
+            linkname = ""
+          end
+          if options[:as_select_box]
+            languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
+          else
+            languages << link_to(
+              linkname,
+              show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
+              :class => "#{(active ? 'active ' : nil)}#{page.language.code}",
+              :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
+            )
+          end
         end
       end
       languages.reverse! if options[:reverse]
