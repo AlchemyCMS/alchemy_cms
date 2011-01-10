@@ -125,6 +125,7 @@ class Admin::PagesController < AlchemyController
     @page.save
     render :update do |page|
       page.replace "page_#{@page.id}", :partial => 'page', :locals => {:page => @page}
+      page << "Alchemy.Tooltips()"
     end
   end
   
