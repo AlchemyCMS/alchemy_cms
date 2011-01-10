@@ -86,10 +86,14 @@ module PagesHelper
       Page.public_language_roots.each do |page|
         page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? page : page.first_public_child) : page)
         active = session[:language_id] == page.language.id
-        if options[:linkname].to_sym == :code
-          linkname = page.language.code
+        if options[:linkname]
+          if options[:linkname].to_sym == :code
+            linkname = page.language.code
+          else
+            linkname = I18n.t("languages.#{page.language.code}.name")
+          end
         else
-          linkname = I18n.t("languages.#{page.language.code}.name")
+          linkname = ""
         end
         if options[:as_select_box]
           languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
