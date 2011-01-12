@@ -86,7 +86,7 @@ module PagesHelper
     if multi_language?
       languages = []
       pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
-      pages.each do |page|
+      pages.each_with_index do |page, i|
         if(options[:link_to_page_with_layout] != nil)
           page_found_by_layout = Page.find_by_page_layout_and_language_id(options[:link_to_page_with_layout].to_s, page.language)
         end
@@ -108,9 +108,9 @@ module PagesHelper
             languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
           else
             languages << link_to(
-              linkname,
+              "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}",
               show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
-              :class => "#{(active ? 'active ' : nil)}#{page.language.code}",
+              :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
               :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
             )
           end
