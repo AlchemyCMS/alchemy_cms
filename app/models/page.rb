@@ -20,7 +20,6 @@ class Page < ActiveRecord::Base
   before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
   before_save :set_language_code
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
-  after_create :set_page_layout
   after_save :set_restrictions_to_child_pages
   
   # necessary. otherwise the migrations fail
@@ -404,10 +403,6 @@ private
   def set_language_code
     return false if self.language.blank?
     self.language_code = self.language.code
-  end
-  
-  def set_page_layout
-    self.page_layout = Alchemy::PageLayout.get(params[:page][:page_layout])
   end
   
 end

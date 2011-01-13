@@ -2,26 +2,26 @@
 	<div class="page_root">
 		<div class="sitemap_page">
 			<div class="sitemap_left_images">
-                <span class="site_status tooltip html_tooltip_<%= @page_root.id %><%= @page_root.locked ? ' locked' : '' %>" ></span>
-                <div id="tooltip_<%= @page_root.id %>" style="display: none;">
-                	<h1><%= _("page_type") %>: <%= @page_root.layout_display_name %></h1>
-                	<p>
-                		<%= @page_root.humanized_status %>
-                	</p>
-                	<p>
-                		<strong><%= _("created_at") %>:</strong><br />
-                		<%= l(@page_root.created_at) %> von <%= @page_root.creator %>
-                	</p>
-                	<p>
-                		<strong><%= _("updated_at") %>:</strong><br />
-                		<%= l(@page_root.updated_at) %> durch <%= @page_root.updater %>
-                	</p>
-                	<%- if @page_root.locked? -%>
-                	<p>
-                		<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= @page_root.current_editor %></span>
-                	</p>
-                	<%- end -%>
-                </div>
+                <span class="site_status tooltip <%= @page_root.locked ? ' locked' : '' %>" ></span>
+                <div class="tooltip_content" style="display: none;">
+					<h1><%= _("page_type") %>: <%= @page_root.layout_display_name %></h1>
+					<p>
+						<%= @page_root.humanized_status %>
+					</p>
+					<p>
+						<strong><%= _("created_at") %>:</strong><br />
+						<%= l(@page_root.created_at) %> von <%= @page_root.creator %>
+					</p>
+					<p>
+						<strong><%= _("updated_at") %>:</strong><br />
+						<%= l(@page_root.updated_at) %> durch <%= @page_root.updater %>
+					</p>
+					<%- if @page_root.locked? -%>
+					<p>
+						<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= @page_root.current_editor %></span>
+					</p>
+					<%- end -%>
+				</div>
 			</div>
 			<div class="sitemap_right_tools">
 				<%- permitted_to?(:configure, :admin_pages) do -%>
