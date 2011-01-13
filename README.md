@@ -10,7 +10,7 @@ For more Information please visit http://alchemy-app.com
 Rails Version
 -------------
 
-Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.9 and Ruby 1.8.7.
+Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
 
 Install via Rails template:
 ---------------------------
@@ -55,6 +55,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
         script/plugin install git://github.com/rails/acts_as_list.git
         script/plugin install git://github.com/technoweenie/attachment_fu.git
         script/plugin install git://github.com/iain/i18n_label.git
+        script/plugin install git://github.com/aaronchi/jrails.git
         script/plugin install git://github.com/trevorrowe/tinymce_hammer.git
         script/plugin install git://github.com/delynn/userstamp.git
 
