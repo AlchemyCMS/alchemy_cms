@@ -54,6 +54,7 @@ class Admin::ContentsController < AlchemyController
     end
     render :update do |page|
       Alchemy::Notice.show(page, _("Successfully saved content position"))
+      page << "Alchemy.SortableContents('#{form_authenticity_token}')"
       page << "Alchemy.reloadPreview()"
     end
   end

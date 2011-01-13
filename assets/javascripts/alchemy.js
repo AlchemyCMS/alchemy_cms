@@ -783,6 +783,32 @@ var Alchemy = {
     });
 	},
 	
+	SortableContents : function(token) {
+		jQuery('#element_area .picture_gallery_images').sortable({
+			items: 'div.dragable_picture',
+			handle: 'div.picture_handle',
+			placeholder: 'droppable_content_placeholder',
+			opacity: 0.5,
+			cursor: 'move',
+			tolerance: 'pointer',
+			containment: 'parent',
+			update: function(event, ui) {
+				var ids = jQuery.map(jQuery(event.target).children('div.dragable_picture'), function (child) {
+					return child.id.replace(/picture_/, '');
+				});
+				jQuery(event.originalTarget).css("cursor", "progress");
+				jQuery.ajax({
+					url: '/admin/contents/order',
+					type: 'POST',
+					data: "authenticity_token=" + encodeURIComponent('<%= form_authenticity_token %>') + "&" + jQuery.param({content_ids: ids}),
+					complete: function () {
+						jQuery(event.originalTarget).css("cursor", "move");
+					}
+				});
+			}
+		});
+	},
+	
 	Tooltips : function() {
 		var xOffset = 10;
 		var yOffset = 20;		

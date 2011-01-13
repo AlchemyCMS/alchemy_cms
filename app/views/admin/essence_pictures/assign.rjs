@@ -1,6 +1,6 @@
 page.replace "picture_#{@content.id}", :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => @options}
 if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-  page << "jQuery('#element_#{@content.element.id}_contents').sortable('refresh')"
+  page << "Alchemy.SortableContent('#{form_authenticity_token}')"
 end
 page << "Alchemy.reloadPreview()"
 page << "Alchemy.closeCurrentWindow()"
