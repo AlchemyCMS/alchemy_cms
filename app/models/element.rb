@@ -188,7 +188,7 @@ class Element < ActiveRecord::Base
   def self.list_elements_by_layout(layout = "standard")
     elements = Element.descriptions
     result = []
-    page_layouts = PageLayout.get
+    page_layouts = Alchemy::PageLayout.get
     layout_elements = page_layouts.select{|p| p["name"] == layout}.first["elements"]
     return elements if layout_elements == "all"
     elements.each do |element|
@@ -214,7 +214,7 @@ private
   # List all elements by from page_layout
   def self.all_for_layout(page, page_layout = "standard")
     element_descriptions = Element.descriptions
-    element_names = PageLayout.element_names_for(page_layout)
+    element_names = Alchemy::PageLayout.element_names_for(page_layout)
     return [] if element_names.blank?
     return element_descriptions if element_names == "all"
     elements_for_layout = []

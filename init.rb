@@ -1,6 +1,5 @@
 require 'extensions/hash'
-require 'extensions/form_helper'
-require 'alchemy/controller'
+require 'alchemy'
 require 'injections/attachment_fu_mime_type'
 
 if defined?(Authorization)

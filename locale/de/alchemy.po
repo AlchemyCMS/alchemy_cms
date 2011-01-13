@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-09 16:04+0100\n"
+"POT-Creation-Date: 2011-01-13 14:01+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -109,17 +109,15 @@ msgstr "sichtbar"
 
 #: app/controllers/admin/elements_controller.rb:52
 msgid "Error"
-msgstr "Fehler:\n%{e}"
-
-#: app/controllers/admin/pages_controller.rb:45
-msgid "Error while creating page: %{error}"
-msgstr "Es ist ein Fehler aufgetreten: %{error}"
+msgstr ""
+"Fehler:\n"
+"%{e}"
 
 #: app/views/admin/partials/_upload_form.html.erb:33
 msgid "Error with the Flash® Uploader!"
 msgstr "Fehler mit dem Flash® Uploader!"
 
-#: app/controllers/admin/pages_controller.rb:208
+#: app/controllers/admin/pages_controller.rb:204
 msgid "Error: %{e}"
 msgstr ""
 "Es ist ein Fehler aufgetreten:\n"
@@ -270,11 +268,11 @@ msgstr "Neues Element"
 msgid "Page"
 msgstr "Seite"
 
-#: app/controllers/admin/pages_controller.rb:92
+#: app/controllers/admin/pages_controller.rb:87
 msgid "Page %{name} deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/pages_controller.rb:77
+#: app/controllers/admin/pages_controller.rb:72
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
@@ -282,47 +280,53 @@ msgstr "%{name} wurde gespeichert"
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
-#: app/controllers/admin/pages_controller.rb:233
+#: app/controllers/admin/pages_controller.rb:229
 msgid "Page cache flushed"
 msgstr "Seitencache wurde geleert"
 
 #: app/views/admin/pages/_page.html.erb:75
+#: app/views/admin/pages/_page_for_links.html.erb:23
 #: app/views/admin/pages/_sitemap.html.erb:73
 #: app/views/admin/pages/edit.html.erb:15
 msgid "Page not public"
 msgstr "Seite nicht veröffentlicht"
 
 #: app/views/admin/pages/_page.html.erb:77
+#: app/views/admin/pages/_page_for_links.html.erb:25
 #: app/views/admin/pages/_sitemap.html.erb:75
 #: app/views/admin/pages/edit.html.erb:17
 msgid "Page not restricted"
 msgstr "Seite nicht geschützt"
 
 #: app/views/admin/pages/_page.html.erb:76
+#: app/views/admin/pages/_page_for_links.html.erb:24
 #: app/views/admin/pages/_sitemap.html.erb:74
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page not visible"
 msgstr "Seite nicht in der Navigation sichtbar"
 
 #: app/views/admin/pages/_page.html.erb:75
+#: app/views/admin/pages/_page_for_links.html.erb:23
 #: app/views/admin/pages/_sitemap.html.erb:73
 #: app/views/admin/pages/edit.html.erb:15
 msgid "Page public"
 msgstr "Seite veröffentlicht"
 
 #: app/views/admin/pages/_page.html.erb:77
+#: app/views/admin/pages/_page_for_links.html.erb:25
 #: app/views/admin/pages/_sitemap.html.erb:75
 #: app/views/admin/pages/edit.html.erb:17
 msgid "Page restricted"
 msgstr "Seite geschützt"
 
 #: app/views/admin/pages/_page.html.erb:76
+#: app/views/admin/pages/_page_for_links.html.erb:24
 #: app/views/admin/pages/_sitemap.html.erb:74
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page visible"
 msgstr "Seite in der Navigation sichtbar"
 
-#: app/controllers/admin/pages_controller.rb:200
+#: app/controllers/admin/pages_controller.rb:196
 msgid "Pages order saved"
 msgstr "Seitensortierung wurde gespeichert"
 
@@ -432,9 +436,13 @@ msgstr ""
 "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin "
 "Benutzer einrichten."
 
-#: app/views/admin/users/_form.html.erb:7
+#: app/views/admin/users/_form.html.erb:7 lib/alchemy/page_layout.rb:35
 msgid "Please choose"
 msgstr "Bitte wählen"
+
+#: app/models/page.rb:10
+msgid "Please choose a page layout."
+msgstr "Bitte wählen Sie einen Seitentyp."
 
 #: app/views/admin/partials/_upload_form.html.erb:26
 msgid "Please consider that you have at least version 9.0.28 installed."
@@ -518,7 +526,7 @@ msgid "This element displays the search and the searchresults."
 msgstr ""
 "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
 
-#: app/controllers/admin/pages_controller.rb:56
+#: app/controllers/admin/pages_controller.rb:51
 msgid "This page is locked by %{name}"
 msgstr "Diese Seite wird gerade von %{name} blockiert"
 
@@ -532,7 +540,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: app/models/page.rb:11
+#: app/models/page.rb:12
 msgid "URL-Name already token"
 msgstr "Der URL-Name ist bereits vergeben."
 
@@ -686,7 +694,7 @@ msgstr "Vollbild ansicht"
 #: app/views/admin/pages/_contactform_links.html.erb:57
 #: app/views/admin/pages/_external_link.html.erb:41
 #: app/views/admin/pages/_file_link.html.erb:39
-#: app/views/admin/pages/_internal_link.html.erb:39
+#: app/views/admin/pages/_internal_link.html.erb:34
 msgid "apply"
 msgstr "übernehmen"
 
@@ -1048,11 +1056,11 @@ msgstr "Wählen Sie eine Seite zum verlinken."
 msgid "language_does_not_exist"
 msgstr "Dieser Sprachbaum existiert noch nicht"
 
-#: app/controllers/admin/pages_controller.rb:173
+#: app/controllers/admin/pages_controller.rb:169
 msgid "language_pages_copied"
 msgstr "Der Sprachbaum wurde kopiert"
 
-#: app/controllers/admin/pages_controller.rb:176
+#: app/controllers/admin/pages_controller.rb:172
 msgid "language_pages_could_not_be_copied"
 msgstr "Beim Kopieren des Sprachbaums sind Fehler aufgetreten"
 
@@ -1212,11 +1220,11 @@ msgstr "Keine Suchergebnisse."
 msgid "not a valid image"
 msgstr "Keine valide Bilddatei."
 
-#: app/controllers/admin/pages_controller.rb:42
+#: app/controllers/admin/pages_controller.rb:40
 msgid "page '%{name}' created."
 msgstr "Seite '%{name}' wurde erstellt."
 
-#: app/views/admin/pages/_page_for_links.html.erb:31
+#: app/views/admin/pages/_page_for_links.html.erb:36
 msgid "page_for_links.choose_page %{name}"
 msgstr "%{name} wählen"
 
@@ -1232,7 +1240,7 @@ msgstr "Seiteneigenschaften"
 msgid "page_public"
 msgstr "Seite veröffentlichen"
 
-#: app/controllers/admin/pages_controller.rb:151
+#: app/controllers/admin/pages_controller.rb:147
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
@@ -1245,45 +1253,45 @@ msgstr "Seite schützen"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:203
+#: app/models/page.rb:204
 msgid "page_status_invisible_public"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
 
-#: app/models/page.rb:191
+#: app/models/page.rb:192
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
 "Diese Seite wird gerade bearbeitet."
 
-#: app/models/page.rb:206
+#: app/models/page.rb:207
 msgid "page_status_invisible_unpublic"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
 
-#: app/models/page.rb:194
+#: app/models/page.rb:195
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet"
 
-#: app/models/page.rb:197
+#: app/models/page.rb:198
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
 
-#: app/models/page.rb:185
+#: app/models/page.rb:186
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
 "wird gerade bearbeitet."
 
-#: app/models/page.rb:200
+#: app/models/page.rb:201
 msgid "page_status_visible_unpublic"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
-#: app/models/page.rb:188
+#: app/models/page.rb:189
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
@@ -1400,7 +1408,7 @@ msgstr "speichern"
 msgid "save order"
 msgstr "Sortierung speichern"
 
-#: app/controllers/admin/essence_pictures_controller.rb:65
+#: app/controllers/admin/essence_pictures_controller.rb:69
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
 
@@ -1472,7 +1480,7 @@ msgstr "Hochladen abbrechen"
 
 #: app/views/admin/pages/_external_link.html.erb:35
 #: app/views/admin/pages/_file_link.html.erb:33
-#: app/views/admin/pages/_internal_link.html.erb:31
+#: app/views/admin/pages/_internal_link.html.erb:26
 msgid "target_blank"
 msgstr "In einem neuen Fenster öffnen"
 
@@ -1480,8 +1488,8 @@ msgstr "In einem neuen Fenster öffnen"
 msgid "title"
 msgstr "Titel"
 
-#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:142
-#: app/models/page.rb:149 app/models/page.rb:156
+#: app/controllers/admin/pages_controller.rb:51 app/models/page.rb:143
+#: app/models/page.rb:150 app/models/page.rb:157
 msgid "unknown"
 msgstr "unbekannt"
 
@@ -1493,7 +1501,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/admin/pages_controller.rb:139
+#: app/controllers/admin/pages_controller.rb:135
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 
@@ -1526,7 +1534,7 @@ msgstr "Bild(er) hochladen"
 msgid "url_name"
 msgstr "URL-Name"
 
-#: app/models/page.rb:10
+#: app/models/page.rb:11
 msgid "urlname_to_short"
 msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 

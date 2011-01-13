@@ -1,3 +1,6 @@
+require 'alchemy/controller'
+require 'alchemy/page_layout'
+
 module Alchemy
   
   def self.version

@@ -7,6 +7,7 @@ class Page < ActiveRecord::Base
   belongs_to :language
   
   validates_presence_of :name, :message => N_("please enter a name")
+  validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
   #validates_format_of :urlname, :with => /http/, :if => Proc.new { |page| page.redirects_to_external? }
@@ -16,11 +17,11 @@ class Page < ActiveRecord::Base
   attr_accessor :do_not_validate_language
   
   before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
+  before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
   before_save :set_language_code
-  after_save :set_restrictions_to_child_pages
-  before_validation_on_create :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
-  before_validation_on_create :set_title
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
+  after_create :set_page_layout
+  after_save :set_restrictions_to_child_pages
   
   # necessary. otherwise the migrations fail
   
@@ -233,7 +234,7 @@ class Page < ActiveRecord::Base
   end
   
   def has_controller?
-    !PageLayout.get(self.page_layout).nil? && !PageLayout.get(self.page_layout)["controller"].blank?
+    !Alchemy::PageLayout.get(self.page_layout).nil? && !Alchemy::PageLayout.get(self.page_layout)["controller"].blank?
   end
   
   def controller_and_action
@@ -244,7 +245,7 @@ class Page < ActiveRecord::Base
   
   # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
   def layout_description
-    page_layout = PageLayout.get(self.page_layout)
+    page_layout = Alchemy::PageLayout.get(self.page_layout)
     if page_layout.nil?
       raise "PageLayout description not found for layout: #{self.page_layout}"
     else
@@ -403,6 +404,10 @@ private
   def set_language_code
     return false if self.language.blank?
     self.language_code = self.language.code
+  end
+  
+  def set_page_layout
+    self.page_layout = Alchemy::PageLayout.get(params[:page][:page_layout])
   end
   
 end

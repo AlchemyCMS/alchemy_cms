@@ -31,20 +31,15 @@ class Admin::PagesController < AlchemyController
   def create
     begin
       parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
-      page_layout = PageLayout.get(params[:page][:page_layout])
       params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
       params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
-      params[:page][:layoutpage] = ((page_layout["layoutpage"] == true) rescue false)
       page = Page.create(params[:page])
       if page.valid? && parent
         page.move_to_child_of(parent)
       end
       render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue Exception => e
-      render :update do |page|
-        Alchemy::Notice.show(page, _("Error while creating page: %{error}") % {:error => e}, :error)
-      end
-      log_error($!)
+      exception_handler(e)
     end
   end
   

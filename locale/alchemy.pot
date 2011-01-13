@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-09 16:04+0100\n"
+"POT-Creation-Date: 2011-01-13 14:01+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -114,15 +114,11 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:45
-msgid "Error while creating page: %{error}"
-msgstr ""
-
 #: app/views/admin/partials/_upload_form.html.erb:33
 msgid "Error with the Flash® Uploader!"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:208
+#: app/controllers/admin/pages_controller.rb:204
 msgid "Error: %{e}"
 msgstr ""
 
@@ -265,11 +261,11 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:92
+#: app/controllers/admin/pages_controller.rb:87
 msgid "Page %{name} deleted"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:77
+#: app/controllers/admin/pages_controller.rb:72
 msgid "Page %{name} saved"
 msgstr ""
 
@@ -277,47 +273,53 @@ msgstr ""
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:233
+#: app/controllers/admin/pages_controller.rb:229
 msgid "Page cache flushed"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:75
+#: app/views/admin/pages/_page_for_links.html.erb:23
 #: app/views/admin/pages/_sitemap.html.erb:73
 #: app/views/admin/pages/edit.html.erb:15
 msgid "Page not public"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:77
+#: app/views/admin/pages/_page_for_links.html.erb:25
 #: app/views/admin/pages/_sitemap.html.erb:75
 #: app/views/admin/pages/edit.html.erb:17
 msgid "Page not restricted"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:76
+#: app/views/admin/pages/_page_for_links.html.erb:24
 #: app/views/admin/pages/_sitemap.html.erb:74
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page not visible"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:75
+#: app/views/admin/pages/_page_for_links.html.erb:23
 #: app/views/admin/pages/_sitemap.html.erb:73
 #: app/views/admin/pages/edit.html.erb:15
 msgid "Page public"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:77
+#: app/views/admin/pages/_page_for_links.html.erb:25
 #: app/views/admin/pages/_sitemap.html.erb:75
 #: app/views/admin/pages/edit.html.erb:17
 msgid "Page restricted"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:76
+#: app/views/admin/pages/_page_for_links.html.erb:24
 #: app/views/admin/pages/_sitemap.html.erb:74
 #: app/views/admin/pages/edit.html.erb:16
 msgid "Page visible"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:200
+#: app/controllers/admin/pages_controller.rb:196
 msgid "Pages order saved"
 msgstr ""
 
@@ -425,8 +427,12 @@ msgstr ""
 msgid "Please Signup"
 msgstr ""
 
-#: app/views/admin/users/_form.html.erb:7
+#: app/views/admin/users/_form.html.erb:7 lib/alchemy/page_layout.rb:35
 msgid "Please choose"
+msgstr ""
+
+#: app/models/page.rb:10
+msgid "Please choose a page layout."
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:26
@@ -508,7 +514,7 @@ msgstr ""
 msgid "This element displays the search and the searchresults."
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:56
+#: app/controllers/admin/pages_controller.rb:51
 msgid "This page is locked by %{name}"
 msgstr ""
 
@@ -520,7 +526,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: app/models/page.rb:11
+#: app/models/page.rb:12
 msgid "URL-Name already token"
 msgstr ""
 
@@ -668,7 +674,7 @@ msgstr ""
 #: app/views/admin/pages/_contactform_links.html.erb:57
 #: app/views/admin/pages/_external_link.html.erb:41
 #: app/views/admin/pages/_file_link.html.erb:39
-#: app/views/admin/pages/_internal_link.html.erb:39
+#: app/views/admin/pages/_internal_link.html.erb:34
 msgid "apply"
 msgstr ""
 
@@ -1021,11 +1027,11 @@ msgstr ""
 msgid "language_does_not_exist"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:173
+#: app/controllers/admin/pages_controller.rb:169
 msgid "language_pages_copied"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:176
+#: app/controllers/admin/pages_controller.rb:172
 msgid "language_pages_could_not_be_copied"
 msgstr ""
 
@@ -1185,11 +1191,11 @@ msgstr ""
 msgid "not a valid image"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:42
+#: app/controllers/admin/pages_controller.rb:40
 msgid "page '%{name}' created."
 msgstr ""
 
-#: app/views/admin/pages/_page_for_links.html.erb:31
+#: app/views/admin/pages/_page_for_links.html.erb:36
 msgid "page_for_links.choose_page %{name}"
 msgstr ""
 
@@ -1205,7 +1211,7 @@ msgstr ""
 msgid "page_public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:151
+#: app/controllers/admin/pages_controller.rb:147
 msgid "page_published"
 msgstr ""
 
@@ -1218,35 +1224,35 @@ msgstr ""
 msgid "page_status"
 msgstr ""
 
-#: app/models/page.rb:203
+#: app/models/page.rb:204
 msgid "page_status_invisible_public"
 msgstr ""
 
-#: app/models/page.rb:191
+#: app/models/page.rb:192
 msgid "page_status_invisible_public_locked"
 msgstr ""
 
-#: app/models/page.rb:206
+#: app/models/page.rb:207
 msgid "page_status_invisible_unpublic"
 msgstr ""
 
-#: app/models/page.rb:194
+#: app/models/page.rb:195
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 
-#: app/models/page.rb:197
+#: app/models/page.rb:198
 msgid "page_status_visible_public"
 msgstr ""
 
-#: app/models/page.rb:185
+#: app/models/page.rb:186
 msgid "page_status_visible_public_locked"
 msgstr ""
 
-#: app/models/page.rb:200
+#: app/models/page.rb:201
 msgid "page_status_visible_unpublic"
 msgstr ""
 
-#: app/models/page.rb:188
+#: app/models/page.rb:189
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 
@@ -1361,7 +1367,7 @@ msgstr ""
 msgid "save order"
 msgstr ""
 
-#: app/controllers/admin/essence_pictures_controller.rb:65
+#: app/controllers/admin/essence_pictures_controller.rb:69
 msgid "saved_link"
 msgstr ""
 
@@ -1433,7 +1439,7 @@ msgstr ""
 
 #: app/views/admin/pages/_external_link.html.erb:35
 #: app/views/admin/pages/_file_link.html.erb:33
-#: app/views/admin/pages/_internal_link.html.erb:31
+#: app/views/admin/pages/_internal_link.html.erb:26
 msgid "target_blank"
 msgstr ""
 
@@ -1441,8 +1447,8 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:56 app/models/page.rb:142
-#: app/models/page.rb:149 app/models/page.rb:156
+#: app/controllers/admin/pages_controller.rb:51 app/models/page.rb:143
+#: app/models/page.rb:150 app/models/page.rb:157
 msgid "unknown"
 msgstr ""
 
@@ -1454,7 +1460,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:139
+#: app/controllers/admin/pages_controller.rb:135
 msgid "unlocked_page_%{name}"
 msgstr ""
 
@@ -1487,7 +1493,7 @@ msgstr ""
 msgid "url_name"
 msgstr ""
 
-#: app/models/page.rb:10
+#: app/models/page.rb:11
 msgid "urlname_to_short"
 msgstr ""
 

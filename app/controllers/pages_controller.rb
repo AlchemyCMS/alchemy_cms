@@ -18,7 +18,7 @@ class PagesController < AlchemyController
           :select => 'page_layout, language_id, urlname'
         )
         if page
-          pagelayout = PageLayout.get(page.page_layout)
+          pagelayout = Alchemy::PageLayout.get(page.page_layout)
           pagelayout['cache'].nil? || pagelayout['cache']
         end
       else
