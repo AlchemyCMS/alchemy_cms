@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-13 14:01+0100\n"
+"POT-Creation-Date: 2011-01-14 21:08+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "%{language}_as_new_language"
 msgstr "%{language} als neuen Sprachbaum anlegen"
 
-#: app/helpers/alchemy_helper.rb:835
+#: app/helpers/alchemy_helper.rb:824
 msgid "'%{name}' from_clipboard"
 msgstr "'%{name}' aus der Zwischenablage"
 
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
-#: app/views/admin/index.html.erb:14
+#: app/views/admin/index.html.erb:39
 msgid ""
 "Alchemy is open software and itself uses open software and free resources:"
 msgstr ""
@@ -69,6 +69,10 @@ msgstr "Klicken zum umbenennen"
 #: app/views/admin/partials/_upload_form.html.erb:25
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
+
+#: app/views/admin/index.html.erb:19
+msgid "Currently locked pages"
+msgstr "Momentan bearbeitete Seiten"
 
 #: app/models/language.rb:35
 msgid "Defaut language has to be public"
@@ -163,7 +167,7 @@ msgstr "Bildercache leeren"
 msgid "Have much fun with Alchemy!"
 msgstr "Viel Spaß mit Alchemy!"
 
-#: app/helpers/alchemy_helper.rb:681
+#: app/helpers/alchemy_helper.rb:670
 msgid "Hide childpages"
 msgstr "Unterseiten ausblenden"
 
@@ -430,7 +434,7 @@ msgstr "Bildbreite"
 msgid "Picture|Name"
 msgstr "Name"
 
-#: app/controllers/admin_controller.rb:14
+#: app/controllers/admin_controller.rb:17
 msgid "Please Signup"
 msgstr ""
 "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin "
@@ -458,7 +462,7 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
-#: app/views/admin/index.html.erb:49
+#: app/views/admin/index.html.erb:74
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
@@ -466,7 +470,7 @@ msgstr "Lizenz lesen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/alchemy_helper.rb:1083
+#: app/helpers/alchemy_helper.rb:1072
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -484,7 +488,7 @@ msgstr "Elementeliste anzeigen"
 msgid "Show Preview Window"
 msgstr "Seitenvorschau anzeigen"
 
-#: app/helpers/alchemy_helper.rb:678
+#: app/helpers/alchemy_helper.rb:667
 msgid "Show childpages"
 msgstr "Unterseiten anzeigen"
 
@@ -501,7 +505,7 @@ msgstr ""
 msgid "Successfully added %{content}"
 msgstr "%{content} wurde hinzugefügt"
 
-#: app/controllers/admin/contents_controller.rb:70
+#: app/controllers/admin/contents_controller.rb:71
 msgid "Successfully deleted %{content}"
 msgstr "%{content} wurde gelöscht"
 
@@ -604,7 +608,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/views/admin/index.html.erb:13
+#: app/views/admin/index.html.erb:38
 msgid "Version"
 msgstr "Version"
 
@@ -612,7 +616,7 @@ msgstr "Version"
 msgid "View File"
 msgstr "Datei anzeigen"
 
-#: app/helpers/alchemy_helper.rb:302
+#: app/helpers/alchemy_helper.rb:291
 msgid "Warning: Content '%{contentname}' is missing its description."
 msgstr ""
 "Warnung: Für Content '%{contentname}' konnte die Vorlage nicht gefunden "
@@ -624,10 +628,18 @@ msgstr ""
 "Warnung: Für Element '%{elementname}' konnte die Vorlage nicht gefunden "
 "werden."
 
-#: app/views/admin/index.html.erb:8 app/views/admin/signup.html.erb:5
+#: app/views/admin/index.html.erb:8
+msgid "Welcome back, %{name}"
+msgstr "Willkommen zurück, %{name}!"
+
+#: app/views/admin/signup.html.erb:5
 #: app/views/mailer/new_alchemy_user_mail.erb:1
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
+
+#: app/views/admin/index.html.erb:27
+msgid "Who else is online"
+msgstr "Wer ist noch online"
 
 #: app/controllers/alchemy_controller.rb:160
 msgid "You are not authorized"
@@ -649,6 +661,10 @@ msgstr ""
 msgid "You may upload any file"
 msgstr "Sie können jede Art von Datei hochladen."
 
+#: app/views/admin/index.html.erb:9
+msgid "You were last time online at %{time}"
+msgstr "Sie waren zuletzt angemeldet am %{time}."
+
 #: app/models/mailer.rb:22
 msgid "Your Alchemy Login"
 msgstr "Ihre Alchemy Zugangsdaten"
@@ -656,6 +672,10 @@ msgstr "Ihre Alchemy Zugangsdaten"
 #: app/views/mailer/new_alchemy_user_mail.erb:7
 msgid "Your credentials are"
 msgstr "Ihre Zugangsdaten lauten"
+
+#: app/views/admin/index.html.erb:11
+msgid "Your last updated pages"
+msgstr "Ihre zuletzt bearbeiteten Seiten"
 
 #: app/views/admin/pages/new.html.erb:7
 msgid "a_page_of_type"
@@ -670,7 +690,7 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/alchemy_helper.rb:1079 app/helpers/alchemy_helper.rb:1095
+#: app/helpers/alchemy_helper.rb:1068 app/helpers/alchemy_helper.rb:1084
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -743,7 +763,7 @@ msgstr "Bitte wählen Sie ein Element"
 msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
-#: app/helpers/alchemy_helper.rb:820
+#: app/helpers/alchemy_helper.rb:809
 #: app/views/admin/partials/_remote_search_form.html.erb:25
 #: app/views/admin/partials/_search_form.html.erb:11
 msgid "click_to_show_all"
@@ -784,12 +804,12 @@ msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 msgid "contactform_body"
 msgstr "Nachrichten Vorlage"
 
-#: app/helpers/alchemy_helper.rb:176 app/helpers/alchemy_helper.rb:868
-#: app/helpers/alchemy_helper.rb:968
+#: app/helpers/alchemy_helper.rb:165 app/helpers/alchemy_helper.rb:857
+#: app/helpers/alchemy_helper.rb:957
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/alchemy_helper.rb:174 app/helpers/alchemy_helper.rb:866
+#: app/helpers/alchemy_helper.rb:163 app/helpers/alchemy_helper.rb:855
 msgid "content_not_found"
 msgstr "Inhalt wurde nicht gefunden."
 
@@ -797,7 +817,7 @@ msgstr "Inhalt wurde nicht gefunden."
 msgid "content_not_successfully_added"
 msgstr "Der Inhalt konnte nicht hinzugefügt werden."
 
-#: app/controllers/admin/contents_controller.rb:77
+#: app/controllers/admin/contents_controller.rb:78
 msgid "content_not_successfully_deleted"
 msgstr "Der Inhalt konnte nicht gelöscht werden."
 
@@ -1095,7 +1115,7 @@ msgstr "Intern"
 msgid "link_title"
 msgstr "Linktitel"
 
-#: app/controllers/admin_controller.rb:53
+#: app/controllers/admin_controller.rb:56
 msgid "logged_out"
 msgstr "Sie wurden abgemeldet."
 
@@ -1186,7 +1206,7 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/alchemy_helper.rb:846
+#: app/helpers/alchemy_helper.rb:835
 msgid "no"
 msgstr "Nein"
 
@@ -1194,7 +1214,7 @@ msgstr "Nein"
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
-#: app/helpers/alchemy_helper.rb:222 app/helpers/alchemy_helper.rb:275
+#: app/helpers/alchemy_helper.rb:211 app/helpers/alchemy_helper.rb:264
 msgid "no_element_given"
 msgstr "Kein Element angegeben."
 
@@ -1353,7 +1373,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/alchemy_helper.rb:844
+#: app/helpers/alchemy_helper.rb:833
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1416,7 +1436,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/alchemy_helper.rb:822
+#: app/helpers/alchemy_helper.rb:811
 #: app/views/admin/partials/_remote_search_form.html.erb:29
 #: app/views/admin/partials/_search_form.html.erb:15
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1558,7 +1578,7 @@ msgstr "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
 msgid "we_need_at_least_one_default"
 msgstr "Es muss eine Standardsprache geben"
 
-#: app/controllers/admin_controller.rb:35
+#: app/controllers/admin_controller.rb:38
 msgid "welcome_please_identify_notice"
 msgstr "Willkommen! Bitte identifizieren Sie sich."
 
@@ -1572,7 +1592,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/alchemy_helper.rb:845
+#: app/helpers/alchemy_helper.rb:834
 msgid "yes"
 msgstr "Ja"
 

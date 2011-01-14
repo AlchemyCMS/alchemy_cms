@@ -57,4 +57,10 @@ class User < ActiveRecord::Base
     ]
   end
   
+  def self.all_online(user)
+    users = User.logged_in
+    users.delete(user)
+    users
+  end
+  
 end

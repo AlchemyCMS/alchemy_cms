@@ -71,13 +71,13 @@ var Alchemy = {
 			Alchemy.PreviewWindow = $iframe.dialog({
 				modal: false,
 				title: title,
-				width: jQuery(window).width() - 534,
-				height: jQuery(window).height() - 98,
+				width: jQuery(window).width() - 512,
+				height: jQuery(window).height() - 94,
 				minWidth: 600,
 				minHeight: 300,
 				show: "fade",
 				hide: "fade",
-				position: [92, 92],
+				position: [73, 84],
 				autoResize: true,
 				closeOnEscape: false,
 				close: function(event, ui) { 
@@ -155,16 +155,16 @@ var Alchemy = {
 		var $dialog = jQuery('#alchemyElementWindow');
 		if ($dialog.length === 0) {
 			$dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
-			$dialog.html(Alchemy.getOverlaySpinner({x: 424, y: 300}));
+			$dialog.html(Alchemy.getOverlaySpinner({x: 420, y: 300}));
 			Alchemy.ElementsWindow = $dialog.dialog({
 				modal: false, 
-				minWidth: 424, 
+				minWidth: 422, 
 				minHeight: 300,
-				height: jQuery(window).height() - 98,
+				height: jQuery(window).height() - 94,
 				title: title,
 				show: "fade",
 				hide: "fade",
-				position: [jQuery(window).width() - 418, 92],
+				position: [jQuery(window).width() - 432, 84],
 				closeOnEscape: false,
 				open: function (event, ui) {
 					jQuery.ajax({
@@ -628,7 +628,7 @@ var Alchemy = {
 	ResizeFrame : function() {
 		var options = {
 			top: 90,
-			left: 84,
+			left: 65,
 			right: 0
 		};
 		var $mainFrame = jQuery('#main_content');

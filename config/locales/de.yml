@@ -105,9 +105,9 @@ de:
   
   time:
     formats:
-      default: "%d. %b. %Y, %H:%Mh"
-      short: "%d. %B, %H:%M Uhr"
-      long: "%A, %d. %B %Y, %H:%M Uhr"
+      default: "%d. %b. %Y, %H:%M Uhr"
+      short: "%d. %B, %H:%Mh"
+      long: "%A, %d. %B %Y um %H:%M Uhr"
       time: "%H:%M"
     am: "vormittags"
     pm: "nachmittags"

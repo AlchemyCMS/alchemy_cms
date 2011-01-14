@@ -32,6 +32,7 @@ class Page < ActiveRecord::Base
   
   named_scope :language_roots, :conditions => {:language_root => true}
   named_scope :layoutpages, :conditions => {:layoutpage => true}
+  named_scope :all_locked, :conditions => {:locked => true}
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -325,6 +326,10 @@ class Page < ActiveRecord::Base
       break if page.language_root?
     end
     return page
+  end
+  
+  def self.all_last_edited_from(user)
+    Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
   end
   
 private

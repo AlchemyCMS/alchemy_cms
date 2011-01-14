@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -32,7 +34,7 @@ a img {
 
 #corner {
 	z-index: 15;
-	width: 84px;
+	width: 65px;
 	height: 16px;
 	position: fixed;
 	left: 0;
@@ -98,7 +100,7 @@ div#overlay_text_box img {
 div#top_menu {
 	position: fixed;
 	top: 0;
-	left: 84px;
+	left: 65px;
 	z-index: 5;
 }
 
@@ -109,7 +111,7 @@ div#top_menu {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 84px;
+	width: 65px;
 	overflow: hidden;
 }
 
@@ -127,8 +129,9 @@ div#top_menu {
 	bottom: 0;
 	left: 0;
 	text-align: center;
-	width: 76px;
-	padding: 4px 4px 8px;
+	width: 65px;
+	padding-top: 4px;
+	padding-bottom: 8px;
 }
 
 #logout a {
@@ -149,7 +152,7 @@ div#top_menu {
 	background-color: #ededed;
 	position: absolute;
 	top: 90px;
-	left: 84px;
+	left: 65px;
 	z-index: 0;
 }
 
@@ -164,7 +167,8 @@ div#user_info {
 
 div#sideboard {
 	float: right;
-	width: 190px;
+	width: 240px;
+	margin-top: 54px;
 }
 
 div#license {
@@ -183,47 +187,78 @@ ul li {
 	margin-bottom: 0.5em;
 }
 
-#sideboard div.sideboard_widget {
+#dashboard {
+	overflow: auto;
+	float: left;
+	padding: 0 16px 16px;
+	width: 50%;
+}
+
+span.updated_at {
+	float: right;
+}
+
+div.widget {
 	padding: 8px;
-	margin: 8px 0;
-	background-color: #dedede;
-	border-width: 1px;
-	border-color: #9a9a9a;
+	margin: 16px 0;
+	background-color: #e3e3e3;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
+	-moz-box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
+	-o-box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
+	box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
+	border: 1px solid #afafaf;
 }
 
-#dashboard {
-	overflow: auto;
-	float: left;
-	padding: 16px;
+#dashboard div.widget ul {
+	padding: 0;
+	list-style-type: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	margin-right: -9px;
+	margin-left: -9px;
+	margin-bottom: -9px;
+	border: 1px solid #afafaf;
+}
+
+#dashboard div.widget ul li {
+	padding: 8px;
+	margin-bottom: 0;
+}
+
+#dashboard div.widget h2 {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+#dashboard h2 {
+	padding: 0;
+	margin-bottom: 2em;
 }
 
 #dashboard h1 {
 	font-size: 2em;
-	margin-bottom: 1em;
+	margin-bottom: 0;
 	text-shadow: #fff 1px 1px 2px;
 }
 
-div#explanation {
-	width: 380px;
+div#alchemy_greeting {
+	width: 396px;
 	margin-right: auto;
 	margin-left: auto;
-	padding: 16px;
-	background-color: #ffea00;
-	border: 1px solid #ffc000;
-	border-top: 10px solid #ffc000;
-	-webkit-border-radius: 0 7px 7px 7px;
-	-moz-border-radius: 0 7px 7px 7px;
-	-o-border-radius: 0 7px 7px 7px;
-	border-radius: 0 7px 7px 7px;
-	-webkit-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	-moz-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	-o-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
-	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	padding: 8px;
 	margin-top: 1em;
+	text-align: right;
+}
+
+#alchemy_greeting p {
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 #main_navi a.homepage_link {
@@ -246,9 +281,9 @@ a.drop_down_select img {
 	position: absolute;
 	right: 8px;
 	top: 3px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 #language_select {
@@ -301,9 +336,9 @@ a.drop_down_select img {
 	position: absolute;
 	right: 8px;
 	top: 3px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 h1 {
@@ -501,11 +536,11 @@ div.tip {
 	cursor: default;
 	line-height: 20px;
 	float: left;
-	-webkit-border-top-right-radius: 7px 7px;
-	-webkit-border-top-left-radius: 7px 7px;
-	-moz-border-radius: 7px 7px 0 0;
-	-o-border-radius: 7px 7px 0 0;
-	border-radius: 7px 7px 0 0;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
 	border: 1px solid #afafaf;
 	border-bottom-style: none;
 	height: 22px;
@@ -538,11 +573,11 @@ div.tip {
 	text-shadow: #fff 0 0px 4px;
 	background: #CCC;
 	color: #555;	
-	-webkit-border-top-right-radius: 7px 7px;
-	-webkit-border-top-left-radius: 7px 7px;
-	-moz-border-radius: 7px 7px 0 0;
-	-o-border-radius: 7px 7px 0 0;
-	border-radius: 7px 7px 0 0;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
 	border: 1px solid #afafaf;
 	border-bottom-style: none;
 	margin-right: 1px;
@@ -657,6 +692,7 @@ img.link_arrow_left {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
+	font-size: 10px;
 }
 
 #main_navi a.main_navi_entry {
@@ -665,19 +701,19 @@ img.link_arrow_left {
 	text-align: center;
 	overflow: hidden;
 	display: block;
-	width: 79px;
+	width: 60px;
 	background: #cdcdcd;
-	padding-top: 8px;
-	-webkit-border-top-left-radius: 7px 7px;
-	-webkit-border-bottom-left-radius: 7px 7px;
-	-moz-border-radius: 7px 0px 0px 7px;
-	-o-border-radius: 7px 0px 0px 7px;
-	border-radius: 7px 0px 0px 7px;
+	padding-top: 6px;
+	-webkit-border-top-left-radius: 5px 5px;
+	-webkit-border-bottom-left-radius: 5px 5px;
+	-moz-border-radius: 5px 0px 0px 5px;
+	-o-border-radius: 5px 0px 0px 5px;
+	border-radius: 5px 0px 0px 5px;
 	margin-bottom: 1px;
 	margin-top: 0;
 	border: 1px solid #afafaf;
 	border-right-style: none;
-	padding-bottom: 6px;
+	padding-bottom: 4px;
 	text-shadow: #fff 0 0px 4px;
 }
 
@@ -732,7 +768,7 @@ img.link_arrow_left {
 }
 
 .sitemap_pagename_link.odd {
-	background-color: #eaf3f9;
+	background-color: #fff;
 }
 
 a.sitemap_pagename_link:hover {
@@ -815,7 +851,7 @@ ul.list li .sitemap_toolrow {
 
 ul#sitemap .sitemap_sitename,
 ul.list .sitemap_sitename {
-  -moz-border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 3px 2px 2px 2px;
   background-color: #EDEDED;
   height: 22px;
   line-height: 22px;
@@ -824,9 +860,9 @@ ul.list .sitemap_sitename {
 
 div.page_infos {
 	width: 66px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	height: 20px;
 	float: right;
 	border-left: 1px solid #ededed;
@@ -932,9 +968,9 @@ ul#sitemap li img {
 	width: 16px;
 	height: 20px;
 	border: 1px solid #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .navigation_position_tools a:hover {
@@ -1132,17 +1168,17 @@ div#user_list_legend {
 
 #toolbar {
 	z-index: 10;
-	padding: 12px 8px;
+	padding: 8px;
 	height: 36px;
 	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -40px;
 	margin-right: 0px;
 	border: 1px solid #afafaf;
 	border-top-style: none;
 	border-right-style: none;
-	-webkit-border-radius: 0 0 0 7px;
-	-moz-border-radius: 0 0 0 7px;
-	-o-border-radius: 0 0 0 7px;
-	border-radius: 0 0 0 7px;
+	-webkit-border-radius: 0 0 0 5px;
+	-moz-border-radius: 0 0 0 5px;
+	-o-border-radius: 0 0 0 5px;
+	border-radius: 0 0 0 5px;
 	position: relative;
 	margin-left: 8px;
 }
@@ -1435,6 +1471,14 @@ table.list tr.even td {
 	background-color: #eaf3f9;
 }
 
+.even {
+	background-color: #eaf3f9;
+}
+
+.odd {
+	background-color: #fff;
+}
+
 .list li.table_row {
 	display: block;
 	margin: 0 0 8px;
@@ -1562,11 +1606,11 @@ table.list td.icon .icon {
 input#search_input_field {
 	width: 200px;
 	text-align: left;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	padding-left: 8px;
-	padding-right: 8px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 
 input.button, 
@@ -1574,24 +1618,35 @@ a.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
-	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -73px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	cursor: pointer;
 	color: #333;
 	text-shadow: #f2f2f2 1px 1px 0;
 }
 
 input.button {
-	height: 21px;
 	padding-left: 8px;
 	padding-right: 8px;
-	padding-bottom: 2px;	
+	padding-bottom: 2px;
+	height: 25px;
 }
 
 #new_page_form tbody tr td.second_row input.button {
 	float: right;
+}
+
+input.button:hover,
+input.button:focus,
+a.button:hover,
+a.button:focus {
+	text-decoration: none;
+	text-shadow: none;
+	border: 1px solid #888888;
+	background: #e6f0f5 url(/images/alchemy/gui/shading.png) repeat-x 50% -75px;
+	font-weight: normal;
 }
 
 input.button:active,
@@ -1934,9 +1989,9 @@ div.archive_pagination_links .first_page {
 .archive_pagination_links span, .archive_pagination_links a {
 	padding: 0;
 	color: #333;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	width: 21px;
 	height: 21px;
 	display: inline-block;
@@ -2002,9 +2057,9 @@ textarea.thin_border {
 	font: 12px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	padding: 2px;
 	border-width: 1px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	height: auto;
 }
 
@@ -2015,9 +2070,9 @@ textarea.thin_border {
 	font-size: 12px;
 	padding: 2px 2px 1px;
 	margin: 0;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	background: #fff;
 }
 
@@ -2215,9 +2270,9 @@ select.select_box {
 	padding: 1px;
 	margin: 0;
 	font-size: 12px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	background: #f4f4f4;
 	height: 21px;
 }
@@ -2327,10 +2382,10 @@ div.pagination a,
 div.pagination span {
 	padding: 2px 6px;
 	border: 1px solid #c0c0c0;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
 	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 	height: 17px;
 	line-height: 17px;
@@ -2428,10 +2483,10 @@ div.button_with_label:hover label {
 #toolbar_links a {
 	padding: 3px 4px;
 	border: 1px solid #9a9a9a;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
 	margin-right: 4px;
 	background: #fff url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 	text-decoration: none;
@@ -2483,11 +2538,6 @@ div.fieldWithErrors {
 
 p.foot_note {
 	font-size: 0.8em;
-}
-
-#explanation p {
-	margin-top: 1em;
-	margin-bottom: 1em;
 }
 
 #errorExplanation ul {

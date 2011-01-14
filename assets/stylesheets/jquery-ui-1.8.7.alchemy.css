@@ -140,10 +140,16 @@
 }
 
 #alchemy .ui-widget-header {
-	border: 1px solid #afafaf;
-	background: #b2ccdb url(/images/alchemy/jquery-ui/ui-bg_highlight-soft_100_b2ccdb_1x100.png) 50% 50% repeat-x;
+	border: 1px none #afafaf;
+	background: #c6dbe7 url(/images/alchemy/gui/shading.png) repeat-x 50% -66px;
 	color: #333333;
 	font-weight: bold;
+	-moz-border-radius-bottomleft:	0 !important;
+	-webkit-border-bottom-left-radius: 0 !important;
+	-moz-border-radius-bottomright:	0 !important;
+	-webkit-border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 #alchemy .ui-widget-header a {
@@ -154,10 +160,11 @@
 ----------------------------------*/
 
 #alchemy .ui-state-default, #alchemy .ui-widget-content .ui-state-default, #alchemy .ui-widget-header .ui-state-default {
-	border: 1px solid #c0c0c0;
-	background: #ededed url(/images/alchemy/jquery-ui/ui-bg_highlight-hard_100_ededed_1x100.png) 50% 50% repeat-x;
+	border: 1px solid #9a9a9a;
+	background: #ededed url(/images/alchemy/gui/shading.png) repeat-x 50% -67px;
 	font-weight: normal;
 	color: #333333;
+	text-shadow: #f2f2f2 1px 1px 0;
 }
 
 #alchemy .ui-state-default a, #alchemy .ui-state-default a:link, #alchemy .ui-state-default a:visited {
@@ -167,9 +174,9 @@
 
 #alchemy .ui-state-hover, #alchemy .ui-widget-content .ui-state-hover, #alchemy .ui-widget-header .ui-state-hover, #alchemy .ui-state-focus, #alchemy .ui-widget-content .ui-state-focus, #alchemy .ui-widget-header .ui-state-focus {
 	border: 1px solid #888888;
-	background: #e6f0f5 url(/images/alchemy/jquery-ui/ui-bg_highlight-hard_100_e6f0f5_1x100.png) 50% 50% repeat-x;
+	background: #e6f0f5 url(/images/alchemy/gui/shading.png) repeat-x 50% -65px;
 	font-weight: normal;
-	color: #666666;
+	color: #333;
 }
 
 #alchemy .ui-state-hover a, #alchemy .ui-state-hover a:hover {
@@ -178,10 +185,10 @@
 }
 
 #alchemy .ui-state-active, #alchemy .ui-widget-content .ui-state-active, #alchemy .ui-widget-header .ui-state-active {
-	border: 1px solid #afafaf;
-	background: #ededed repeat-x 50% 50%;
-	font-weight: normal;
 	color: #333333;
+	text-decoration: none;
+	text-shadow: none;
+	background-color: #e5e5e5;
 }
 
 #alchemy .ui-state-active a, #alchemy .ui-state-active a:link, #alchemy .ui-state-active a:visited {
@@ -244,11 +251,11 @@
 #alchemy .ui-icon {
 	width: 16px;
 	height: 16px;
-	background-image: url(/images/alchemy/jquery-ui/ui-icons_333333_256x240.png);
+	background-image: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png);
 }
 
 #alchemy .ui-widget-content .ui-icon {
-	background-image: url(/images/alchemy/jquery-ui/ui-icons_333333_256x240.png);
+	background-image: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png);
 }
 
 #alchemy .ui-widget-header .ui-icon {
@@ -256,7 +263,7 @@
 }
 
 #alchemy .ui-state-default .ui-icon {
-	background-image: url(/images/alchemy/jquery-ui/ui-icons_333333_256x240.png);
+	background-image: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png);
 }
 
 #alchemy .ui-state-hover .ui-icon, #alchemy .ui-state-focus .ui-icon {
@@ -264,7 +271,7 @@
 }
 
 #alchemy .ui-state-active .ui-icon {
-	background-image: url(/images/alchemy/jquery-ui/ui-icons_333333_256x240.png);
+	background-image: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png);
 }
 
 #alchemy .ui-state-highlight .ui-icon {
@@ -1049,9 +1056,8 @@
 /* Overlays */
 
 #alchemy .ui-widget-overlay {
-	background: #666666 url(/images/alchemy/jquery-ui/ui-bg_flat_100_666666_40x100.png) 50% 50% repeat-x;
-	opacity: .60;
-	filter: Alpha(Opacity=60);
+	background-color: rgba(255,255,255,0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60FFFFFF, endColorstr=#60FFFFFF);
 }
 
 #alchemy .ui-widget-shadow {
@@ -1315,13 +1321,13 @@
 #alchemy .ui-button {
 	display: inline-block;
 	position: relative;
-	padding: 0;
 	margin-right: .1em;
 	text-decoration: none !important;
 	cursor: pointer;
 	text-align: center;
 	zoom: 1;
 	overflow: visible;
+	padding: 0;
 }
 
 /* the overflow property removes extra width in IE */
@@ -1438,15 +1444,19 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-dialog {
 	position: absolute;
-	padding: .2em;
 	width: 300px;
 	overflow: hidden;
+	padding: 0;
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	-o-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar {
 	padding: 4px 8px;
 	position: relative;
-	margin-bottom: 2px;
+	margin-bottom: 0;
 }
 
 #alchemy .ui-dialog .ui-dialog-title {
@@ -1605,8 +1615,9 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-tabs {
 	position: relative;
-	padding: .2em;
+	padding: 2px;
 	zoom: 1;
+	margin: 2px;
 }
 
 /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */

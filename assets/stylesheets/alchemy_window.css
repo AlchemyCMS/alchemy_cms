@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/alchemy/alchemy_window.css */
+
 div#jscropper {
 	padding: 8px;
 	display: inline-block;
@@ -29,32 +31,6 @@ textarea#essence_picture_caption {
 	border: 1px inset #e8e8e8;
 	overflow: auto;
 	padding: 4px 0 0 4px;
-}
-
-#page_selector_scroll_container #scrollbar_track {
-	position: absolute;
-	top: 1px;
-	right: 2px;
-	width: 12px;
-	height: 230px;
-	background-color: transparent;
-	z-index: 1;
-}
-
-#page_selector_scroll_container #scrollbar_track #scrollbar_handle {
-	width: 10px;
-	background-color: #afafaf;
-	cursor: move;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	opacity: 0.9;
-	-moz-opacity: 0.9;
-	position: relative;
-	border: 1px solid #7e7e7e;
-}
-
-div#page_selector_container.scrolling {
-	padding-bottom: 2px;
 }
 
 div.image_assign_filter_and_image_sizing {
@@ -162,9 +138,9 @@ div#errors {
 	padding: 8px 8px 4px 28px;
 	border-width: 1px;
 	border-style: solid;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	border-color: #c49c9c;
 	color: #592e2e;
 	background-color: #efd3d3;
@@ -260,7 +236,7 @@ input#user_admin {
 
 div.image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 290px;
+	width: 280px;
 	height: 21px;
 }
 
@@ -689,27 +665,6 @@ div#overlay_toolbar a.button {
 div#overlay_toolbar a.button:active {
 	text-decoration: none;
 	background-position: 0 -21px;
-}
-
-a.button_with_icon {
-	border: 1px solid #9a9a9a;
-	-webkit-border-radius: 9px;
-	-moz-border-radius: 9px;
-	-o-border-radius: 9px;
-	border-radius: 9px;
-	text-decoration: none;
-	padding: 2px 8px 1px;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -80px;
-}
-
-a.button_with_icon span.icon.add {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -49px;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	position: relative;
-	top: 3px;
-	margin-right: 4px;
 }
 
 a.icon.remove {

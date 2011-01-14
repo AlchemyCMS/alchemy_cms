@@ -5,10 +5,35 @@
 <%- end -%>
 <div class="with_padding">
 	<div id="dashboard">
-		<h1><%= _('Welcome to Alchemy') %></h1>
+		<h1><%= _('Welcome back, %{name}') % {:name => current_user.firstname || current_user.login} %></h1>
+		<h2><%= _('You were last time online at %{time}') % {:time => l(current_user.last_login_at)} %></h2>
+		<div class="widget">
+			<h2><%= _('Your last updated pages') %>:</h2>
+			<ul>
+				<%- @last_edited_pages.each do |page| -%>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to page.name, edit_admin_page_path(page) %> <span class="updated_at"><%= l(page.updated_at) %></span></li>
+				<%- end -%>
+			</ul>
+		</div>
+		<div class="widget">
+			<h2><%= _('Currently locked pages') %>:</h2>
+			<ul>
+				<%- @locked_pages.each do |page| -%>
+				<li class="<%= cycle('even', 'odd') %>"><%= page.name %> <small>(<%= page.locker.name %>)</small></li>
+				<%- end -%>
+			</ul>
+		</div>
+		<div class="widget">
+			<h2><%= _('Who else is online') %>:</h2>
+			<ul>
+				<%- @online_users.each do |user| -%>
+				<li class="<%= cycle('even', 'odd') %>"><%= user.name %></li>
+				<%- end -%>
+			</ul>
+		</div>
 	</div>
 	<div id="sideboard">
-		<div class="sideboard_widget">
+		<div class="widget">
 			<%= image_tag("alchemy/alchemy-logo.png") %>
 			<p><%= _("Version") %>: <%= @alchemy_version %></p>
 			<p><%= _('Alchemy is open software and itself uses open software and free resources:') %></p>
@@ -17,16 +42,7 @@
 					<a href="http://rubyonrails.org" target="_blank">RubyOnRails</a>
 				</li>
 				<li>
-					<a href="http://www.prototypejs.org" target="_blank">Prototype JavaScript Framework</a>
-				</li>
-				<li>
-					<a href="http://prototype-window.xilinus.com" target="_blank">Prototype Window Class</a>
-				</li>
-				<li>
 					<a href="http://jquery.com" target="_blank">jQuery Javascript Library</a>
-				</li>
-				<li>
-					<a href="http://script.aculo.us/" target="_blank">script.aculo.us JavaScript Animation Framework</a>
 				</li>
 				<li>
 					<a href="http://jqueryui.com" target="_blank">jQuery UI Javascript GUI Library</a>
@@ -39,9 +55,6 @@
 				</li>
 				<li>
 					<a href="http://p.yusukekamiyamane.com" target="_blank">Fugue Icons by Yusuke Kamiyamane</a>
-				</li>
-				<li>
-					<a href="http://www.defusion.org.uk" target="_blank">jsCropperUI by David Spurr</a>
 				</li>
 			</ul>
 			<h2>
