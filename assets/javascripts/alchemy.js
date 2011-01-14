@@ -239,7 +239,7 @@ var Alchemy = {
 						$dialog.html(data);
 						$dialog.css({overflow: overflow ? 'visible' : 'auto'});
 						$dialog.dialog('widget').css({overflow: overflow ? 'visible' : 'hidden'});
-						jQuery('#alchemyOverlay select').sb({animDuration: 0});
+						Alchemy.SelectBox('#alchemyOverlay select');
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -333,7 +333,7 @@ var Alchemy = {
 					url: '/admin/pages/link',
 					success: function(data, textStatus, XMLHttpRequest) {
 						$dialog.html(data);
-						jQuery('#alchemyLinkOverlay select').sb({animDuration: 0});
+						Alchemy.SelectBox('#alchemyLinkOverlay select');
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -854,6 +854,10 @@ var Alchemy = {
 		});
 	},
 	
+	SelectBox : function(selector) {
+		jQuery(selector).sb({animDuration: 0, fixedWidth: false});
+	},
+	
 	fadeNotices : function() {
 		jQuery('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
 			jQuery(this).remove();
@@ -882,7 +886,7 @@ jQuery(document).ready(function () {
 	Alchemy.Tooltips();
 	
 	if (typeof(jQuery().sb) === 'function') {
-		jQuery('body#alchemy select').sb({animDuration: 0});
+		Alchemy.SelectBox('body#alchemy select');
 	}
 	
 	if (jQuery('#flash_notices').length > 0) {

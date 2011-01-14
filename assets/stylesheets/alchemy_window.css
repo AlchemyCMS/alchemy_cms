@@ -1,5 +1,3 @@
-/* @override http://localhost:3000/stylesheets/alchemy/alchemy_window.css */
-
 div#jscropper {
 	padding: 8px;
 	display: inline-block;
@@ -572,6 +570,8 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
+#alchemy .ui-dialog-content select.very_long,
+#alchemy .ui-dialog-content .selectbox.very_long,
 #alchemy .ui-dialog-content .selectbox.very_long .display {
 	width: 160px;
 }

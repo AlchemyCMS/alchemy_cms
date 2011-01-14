@@ -26,4 +26,4 @@ if params[:internal_anchor]
   page << "jQuery('select.elements_from_page_selector').val('##{params[:internal_anchor]}')"
   page << "jQuery('#page_anchor').val('##{params[:internal_anchor]}')"
 end
-page << "jQuery('#alchemyLinkOverlay select.elements_from_page_selector').sb({animDuration: 0})"
+page << "Alchemy.SelectBox('#alchemyLinkOverlay select.elements_from_page_selector')"
