@@ -1,4 +1,4 @@
-<div class="news" id="<%= element_dom_id(element) %>">
+<div class="news" id="<%= element_dom_id(element) %>" data-alchemy-element="<%= element.id %>">
     <div class="date">
         <%= render_essence_view_by_name(element, 'date', :date_format => "%d.%m.%Y") %>
     </div>

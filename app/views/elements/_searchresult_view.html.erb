@@ -1,4 +1,4 @@
-<div class="searchresult" id="<%= element_dom_id(element) %>">
+<div class="searchresult" id="<%= element_dom_id(element) %>" data-alchemy-element="<%= element.id %>">
     
     <% form_tag show_page_with_language_path(:urlname => "suche", :lang => session[:language_id]), :method => :get do %>
         <%= text_field_tag "query", params[:query], :class => 'field' %>

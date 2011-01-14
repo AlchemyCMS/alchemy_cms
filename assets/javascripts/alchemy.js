@@ -654,20 +654,35 @@ var Alchemy = {
 	
 	ElementSelector : function() {
 		
-		var $elements = jQuery('dd[rel=alchemy_element]');
+		var $elements = jQuery('[data-alchemy-element]');
 		var selected_style = {
-			outline: '1px solid #ff5533'
+			'outline-width'  				 : '2px',
+			'outline-style'  				 : 'solid',
+			'outline-color'  				 : '#DB694C',
+			'outline-offset' 				 : '4px',
+			'-moz-outline-radius' 	 : '4px',
+			'outline-radius'				 : '4px'
+		};
+		var hover_style = {
+			'outline-width'  			   : '2px',
+			'outline-style'  			   : 'solid',
+			'outline-color'  			   : '#98BAD5',
+			'outline-offset' 				 : '4px',
+			'-moz-outline-radius'		 : '4px',
+			'outline-radius'			   : '4px'
 		};
 		var reset_style = {
 			outline: '0 none'
 		};
 		
 		$elements.bind('mouseover', function(e) {
+			jQuery(this).attr('title', 'Klicken zum bearbeiten');
 			if (!jQuery(this).hasClass('selected'))
-				jQuery(this).css(selected_style);
+				jQuery(this).css(hover_style);
 		});
 		
 		$elements.bind('mouseout', function() {
+			jQuery(this).removeAttr('title');
 			if (!jQuery(this).hasClass('selected'))
 				jQuery(this).css(reset_style);
 		});
@@ -689,7 +704,7 @@ var Alchemy = {
 		
 		$elements.bind('click', function(e) {
 			e.preventDefault();
-			var target_id = this.id.replace(/\D/g,'');
+			var target_id = jQuery(this).data('alchemy-element');
 			var $element_editor = window.parent.jQuery('#element_area .element_editor').closest('[id="element_'+target_id+'"]');
 			$element_editor.trigger('Alchemy.SelectElementEditor', target_id);
 			var $elementsWindow = window.parent.jQuery('#alchemyElementWindow');
@@ -729,8 +744,8 @@ var Alchemy = {
 			$elements.removeClass('selected');
 			$element.addClass('selected');
 			Alchemy.scrollToElementEditor(this);
-			var $frame_elements = document.getElementById('alchemyPreviewWindow').contentWindow.jQuery('dd[rel=alchemy_element]');
-			var $selected_element = $frame_elements.closest('[id="alchemy_element_preview_'+id+'"]');
+			var $frame_elements = document.getElementById('alchemyPreviewWindow').contentWindow.jQuery('[data-alchemy-element]');
+			var $selected_element = $frame_elements.closest('[data-alchemy-element="'+id+'"]');
 			$selected_element.trigger('Alchemy.SelectElement');
 		});
 		

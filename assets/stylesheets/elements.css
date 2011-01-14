@@ -179,10 +179,10 @@ div.element_editor {
 }
 
 div.element_editor.selected {
-	border-color: #ff5533;
-	-moz-box-shadow: 0 0 4px #666;
-	-webkit-box-shadow: 0 0 4px #666;
-	box-shadow: 0 0 4px #666;
+	border-color: #DB694C;
+	-moz-box-shadow: 0 0 4px #DB694C;
+	-webkit-box-shadow: 0 0 4px #DB694C;
+	box-shadow: 0 0 4px #DB694C;
 }
 
 div.element_editor form {

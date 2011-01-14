@@ -1,4 +1,4 @@
-<div class="image_mosaic" id="<%= element_dom_id(element) %>">
+<div class="image_mosaic" id="<%= element_dom_id(element) %>" data-alchemy-element="<%= element.id %>">
     <div class="image_mosaic_images">
     <%- element.contents.find_all_by_essence_type("EssencePicture").each do |essence| -%>
         <div class="image_mosaic_image">

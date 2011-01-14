@@ -117,25 +117,14 @@ module AlchemyHelper
       path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
       partial_name = "_#{element.name.underscore}_#{part}.html.erb"
       if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
-        if @preview_mode
-          render(
-            :partial => 'admin/elements/element_preview',
-            :locals => {
-              :element => element,
-              :options => options,
-              :counter => i
-            }
-          )
-        else
-          render(
-            :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
-            :locals => {
-              :element => element,
-              :options => options,
-              :counter => i
-            }
-          )
-        end
+        render(
+          :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
+          :locals => {
+            :element => element,
+            :options => options,
+            :counter => i
+          }
+        )
       else
         warning(%(
           Element #{part} partial not found for #{element.name}.\n
