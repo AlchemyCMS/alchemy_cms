@@ -390,10 +390,10 @@ div.info {
 	line-height: 17px;
 	color: #333;
 	border: 1px solid #0b5c84;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-o-border-radius: 8px;
-	border-radius: 8px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
 	background-color: #eaf4f9;
 	position: relative;
 }
@@ -1657,9 +1657,10 @@ a.button:active {
 }
 
 a.button {
-	padding: 3px 8px 2px;
+	padding: 5px 8px;
 	text-decoration: none;
 	float: left;
+	line-height: 13px;
 }
 
 table.list tr td.tools {
