@@ -724,11 +724,11 @@ img.link_arrow_left {
 /* @group Sitemap */
 
 .sitemap_pagename_link {
+	background-color: #FFFFFF;
 	color: black;
-	text-decoration: none;
-	white-space: nowrap;
 	display: block;
-	background-color: #fff;
+	padding-left: 4px;
+	text-decoration: none;
 }
 
 .sitemap_pagename_link.odd {
@@ -815,13 +815,11 @@ ul.list li .sitemap_toolrow {
 
 ul#sitemap .sitemap_sitename,
 ul.list .sitemap_sitename {
-	background-color: #ededed;
-	white-space: nowrap;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	padding: 0 0 0 21px;
-	line-height: 22px;
+  -moz-border-radius: 2px 2px 2px 2px;
+  background-color: #EDEDED;
+  height: 22px;
+  line-height: 22px;
+  overflow: hidden;
 }
 
 div.page_infos {
