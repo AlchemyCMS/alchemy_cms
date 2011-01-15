@@ -858,6 +858,10 @@ var Alchemy = {
 		jQuery(selector).sb({animDuration: 0, fixedWidth: false});
 	},
 	
+	Buttons : function(options) {
+		jQuery("button, input:submit, a.button").button(options);
+	},
+	
 	fadeNotices : function() {
 		jQuery('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
 			jQuery(this).remove();
@@ -884,6 +888,7 @@ jQuery(document).ready(function () {
 	
 	Alchemy.ResizeFrame();
 	Alchemy.Tooltips();
+	//TODO: Alchemy.Buttons({icons: ''});
 	
 	if (typeof(jQuery().sb) === 'function') {
 		Alchemy.SelectBox('body#alchemy select');

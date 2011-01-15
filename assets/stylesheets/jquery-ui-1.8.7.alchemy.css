@@ -1615,16 +1615,21 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-tabs {
 	position: relative;
-	padding: 2px;
+	padding: 0;
 	zoom: 1;
-	margin: 2px;
+	margin: 0px;
+	border: none !important;
 }
 
 /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 
 #alchemy .ui-tabs .ui-tabs-nav {
+	padding: 4px 8px 0;
+	background: url(../../images/alchemy/gui/shading.png) 0 -60px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
 	margin: 0;
-	padding: .2em .2em 0;
 }
 
 #alchemy .ui-tabs .ui-tabs-nav li {
@@ -1640,13 +1645,15 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-tabs .ui-tabs-nav li a {
 	float: left;
-	padding: .5em 1em;
 	text-decoration: none;
+	padding: 6px 12px 5px;
 }
 
 #alchemy .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
 	margin-bottom: 0;
 	padding-bottom: 1px;
+	background: #EDEDED;
+	height: 25px;
 }
 
 #alchemy .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, #alchemy .ui-tabs .ui-tabs-nav li.ui-state-disabled a, #alchemy .ui-tabs .ui-tabs-nav li.ui-state-processing a {

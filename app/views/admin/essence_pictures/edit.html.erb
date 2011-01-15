@@ -24,9 +24,9 @@
 		</tr>
 		<%- if @options[:image_float_selector] -%>
 		<tr>
-			<td><%= f.label "css_class", _("align_in_text") %></td>
-			<td>
-				<%= f.select "css_class", [[_("left"), "left"], [_("right"), "right"], [_("above"), "no_float"]] %>
+			<td class="label"><%= f.label "css_class", _("align_in_text") %></td>
+			<td class="input">
+				<%= f.select "css_class", [[_("Layout default"), ""], [_("above"), "no_float"], [_("left"), "left"], [_("right"), "right"]] %>
 			</td>
 		</tr>
 		<%- end -%>

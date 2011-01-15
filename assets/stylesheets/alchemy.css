@@ -1666,11 +1666,18 @@ a.button {
 table.list tr td.tools {
 	width: 40px;
 	background-color: #ededed;
+	white-space: nowrap;
 }
 
 td.input,
 td.label {
 	vertical-align: top;
+}
+
+td.label {
+	white-space: nowrap;
+	padding: 4px 4px 0 0;
+	width: 80px;
 }
 
 table.list tr td.tools a {

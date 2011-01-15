@@ -16,8 +16,8 @@
 	cursor: default;
 	display: block;
 	font-weight: normal;
-	height: 19px;
-	line-height: 19px;
+	height: 23px;
+	line-height: 23px;
 	padding: 0 26px 0 5px;
 	position: relative;
 	text-decoration: none;
@@ -25,7 +25,7 @@
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	background: #f7f7f7 url(/images/alchemy/gui/shading.png) repeat-x 0 -77px;
+	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -69px;
 }
 
 #alchemy .selectbox .display.long {
@@ -52,19 +52,22 @@
 	border-color: #7b7d83;
 }
 
-#alchemy .selectbox .display:active .arrow_btn .arrow{
-	background-color: #9eb0ba;
-	background-position: right -19px;
+#alchemy .selectbox .display:active .arrow_btn .interior {
+	background: #e5e5e5 url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
+}
+
+#alchemy .selectbox .display.hover {
+	cursor: pointer;
 }
 
 #alchemy .selectbox .display.hover .arrow_btn .interior {
-	background-image: url(/images/alchemy/jquery-sb/select_arrow_bg_hover.gif);
+	background: #e6f0f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 }
 
 #alchemy .selectbox .display .arrow_btn {
-	background: #fcfcfc;
+	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -73px;
 	display: block;
-	height: 19px;
+	height: 23px;
 	padding: 0;
 	position: absolute;
 	right: 0;
@@ -74,14 +77,18 @@
 
 #alchemy .selectbox .display .arrow_btn .interior {
 	display: block;
-	height: 19px;
+	height: 23px;
 }
 
 #alchemy .selectbox .display .arrow_btn .arrow {
-	background: transparent url(/images/alchemy/gui/dropdown_arrow.png) no-repeat 0 0;
+	background: url(../../images/alchemy/jquery-ui/ui-icons_666666_256x240.png) no-repeat -64px -11px;
 	display: block;
-	height: 19px;
+	height: 23px;
 	width: 17px;
+}
+
+span.text {
+	line-height: 23px;
 }
 
 #alchemy .selectbox .value {
@@ -91,7 +98,7 @@
 /* dropdown styles */
 
 #alchemy .items {
-	background: #ededed;
+	background: #f5f5f5;
 	border: 1px solid #828790;
 	display: block;
 	list-style-type: none;
@@ -112,6 +119,10 @@
 
 #new_page_form tbody tr td.second_row div.selectbox .display{
 	width: 100px;
+}
+
+#alchemy .items.very_long {
+	min-width: 191px;
 }
 
 #alchemy .items.above {
@@ -138,7 +149,7 @@
 }
 
 #alchemy .items li.selected a {
-	background-color: #b3ccdb;
+	background-color: #e6f0f5;
 	color: #333;
 }
 
@@ -147,8 +158,9 @@
 }
 
 #alchemy .items li.hover>a {
-	background-color: #b3ccdb;
+	background-color: #e6f0f5;
 	color: #333;
+	cursor: pointer;
 }
 
 #alchemy .items .value {

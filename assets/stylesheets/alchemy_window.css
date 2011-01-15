@@ -31,6 +31,9 @@ textarea#essence_picture_caption {
 	border: 1px inset #e8e8e8;
 	overflow: auto;
 	padding: 4px 0 0 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 div.image_assign_filter_and_image_sizing {

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-14 21:08+0100\n"
+"POT-Creation-Date: 2011-01-15 17:49+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -109,10 +109,6 @@ msgstr "Name"
 msgid "Element|Public"
 msgstr "visible"
 
-#: app/controllers/admin/elements_controller.rb:52
-msgid "Error"
-msgstr ""
-
 #: app/views/admin/partials/_upload_form.html.erb:33
 msgid "Error with the Flash® Uploader!"
 msgstr ""
@@ -187,11 +183,7 @@ msgstr ""
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
-#: app/controllers/admin/elements_controller.rb:62
-msgid "Index Error after creating Element. Please reload page!"
-msgstr ""
-
-#: app/controllers/admin/elements_controller.rb:129
+#: app/controllers/admin/elements_controller.rb:114
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 
@@ -239,6 +231,10 @@ msgstr "Pagetype of frontpage"
 #: locale/model_attributes.rb:55
 msgid "Language|Public"
 msgstr "public"
+
+#: app/views/admin/essence_pictures/edit.html.erb:29
+msgid "Layout default"
+msgstr ""
 
 #: app/views/layouts/alchemy.html.erb:48
 msgid "Logged in as"
@@ -437,11 +433,15 @@ msgstr ""
 msgid "Please choose a page layout."
 msgstr ""
 
+#: app/models/element.rb:11
+msgid "Please choose an element."
+msgstr ""
+
 #: app/views/admin/partials/_upload_form.html.erb:26
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:171
+#: app/controllers/alchemy_controller.rb:175
 msgid "Please log in"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:74
+#: app/views/admin/index.html.erb:62
 msgid "Read the License"
 msgstr ""
 
@@ -621,7 +621,7 @@ msgstr "Welcome to Alchemy"
 msgid "Who else is online"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:160
+#: app/controllers/alchemy_controller.rb:164
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
@@ -664,7 +664,7 @@ msgstr "A page of type"
 msgid "above"
 msgstr "above"
 
-#: app/views/admin/elements/new.html.erb:18
+#: app/views/admin/elements/new.html.erb:19
 msgid "add"
 msgstr "add"
 
@@ -942,7 +942,7 @@ msgstr "Deleted element."
 msgid "element_editor_not_found"
 msgstr "Error within this Element"
 
-#: app/views/admin/elements/new.html.erb:10
+#: app/views/admin/elements/new.html.erb:11
 msgid "element_of_type"
 msgstr "Element"
 
@@ -1185,7 +1185,7 @@ msgstr "Navigationname"
 msgid "no"
 msgstr "no"
 
-#: app/controllers/alchemy_controller.rb:155
+#: app/controllers/alchemy_controller.rb:159
 msgid "no_default_language_found"
 msgstr "No default language found."
 
@@ -1418,7 +1418,7 @@ msgstr "search"
 msgid "search_engines"
 msgstr "Searchengines"
 
-#: app/views/admin/elements/new.html.erb:14
+#: app/views/admin/elements/new.html.erb:15
 msgid "select_element"
 msgstr "Select element"
 
@@ -1456,7 +1456,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
-#: app/controllers/admin/elements_controller.rb:171
+#: app/controllers/admin/elements_controller.rb:156
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 

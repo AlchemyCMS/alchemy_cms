@@ -16,16 +16,20 @@ class AlchemyController < ApplicationController
   helper_method :current_server, :configuration, :multi_language?, :current_user
   helper :errors, :layout
 
-  def render_errors_or_redirect object, redicrect_url, flash_notice
+  def render_errors_or_redirect(object, redicrect_url, flash_notice)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
-      render :update do |page| page.redirect_to redicrect_url end
+      render(:update) { |page| page.redirect_to(redicrect_url) }
     else
-      render :update do |page|
-        page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
-        page.show "errors"
-      end
+      render_remote_errors(object)
     end
+  end
+  
+  def render_remote_errors(object)
+    render :update do |page|
+      page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
+      page.show "errors"
+    end    
   end
   
   # Returns a host string with the domain the app is running on.

@@ -36,36 +36,21 @@ class Admin::ElementsController < AlchemyController
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
   # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.
   def create
-    begin
-      if params[:element][:name] == "paste_from_clipboard"
-        @element = Element.send(session[:clipboard][:method].to_sym, Element.find(session[:clipboard][:element_id]), {:page_id => params[:element][:page_id]})
-        session[:clipboard][:method] == 'move' ? session[:clipboard] = {} : nil
-      else
-        @element = Element.new_from_scratch(params[:element])
-      end
-      @page = @element.page
-      if @element.save
-        @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
-        # rendering via rjs template
-      else
-        render :update do |page|
-          page.replace( :errors, _('Error') )
-        end
-      end
-    rescue Exception => e
-      exception_logger(e)
-      # Rebuilding the ferret search engine indexes, if Ferret::FileNotFoundError raises
-      if e.class == Ferret::FileNotFoundError
-        EssenceText.rebuild_index
-        EssenceRichtext.rebuild_index
-        render :update do |page|
-          Alchemy::Notice.show(page, _("Index Error after creating Element. Please reload page!"), :error)
-        end
-      # Displaying error notice
-      else
-        show_error_notice(e)
-      end
+    if params[:element][:name] == "paste_from_clipboard"
+      @element = Element.send(session[:clipboard][:method].to_sym, Element.find(session[:clipboard][:element_id]), {:page_id => params[:element][:page_id]})
+      session[:clipboard][:method] == 'move' ? session[:clipboard] = {} : nil
+    else
+      @element = Element.new_from_scratch(params[:element])
     end
+    @page = @element.page
+    if @element.save
+      @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
+      # rendering via rjs template
+    else
+      render_remote_errors(@element)
+    end
+  rescue Exception => e
+    exception_handler(e)
   end
   
   # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.

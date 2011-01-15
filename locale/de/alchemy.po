@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-14 21:08+0100\n"
+"POT-Creation-Date: 2011-01-15 17:49+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -111,12 +111,6 @@ msgstr "Name"
 msgid "Element|Public"
 msgstr "sichtbar"
 
-#: app/controllers/admin/elements_controller.rb:52
-msgid "Error"
-msgstr ""
-"Fehler:\n"
-"%{e}"
-
 #: app/views/admin/partials/_upload_form.html.erb:33
 msgid "Error with the Flash® Uploader!"
 msgstr "Fehler mit dem Flash® Uploader!"
@@ -195,12 +189,7 @@ msgstr "Bild wurde gespeichert"
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/elements_controller.rb:62
-msgid "Index Error after creating Element. Please reload page!"
-msgstr ""
-"Indizierungsfehler nach dem Erstellen des Elements. Bitte Seite neu laden!"
-
-#: app/controllers/admin/elements_controller.rb:129
+#: app/controllers/admin/elements_controller.rb:114
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 "Indizierungsfehler beim Speichern des Elements. Bitte erneut versuchen!"
@@ -249,6 +238,10 @@ msgstr "Seitentyp der Startseite"
 #: locale/model_attributes.rb:55
 msgid "Language|Public"
 msgstr "Sprache veröffentlichen"
+
+#: app/views/admin/essence_pictures/edit.html.erb:29
+msgid "Layout default"
+msgstr "Standard des Layouts"
 
 #: app/views/layouts/alchemy.html.erb:48
 msgid "Logged in as"
@@ -448,13 +441,17 @@ msgstr "Bitte wählen"
 msgid "Please choose a page layout."
 msgstr "Bitte wählen Sie einen Seitentyp."
 
+#: app/models/element.rb:11
+msgid "Please choose an element."
+msgstr "Bitte wählen Sie ein Element."
+
 #: app/views/admin/partials/_upload_form.html.erb:26
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
 "haben."
 
-#: app/controllers/alchemy_controller.rb:171
+#: app/controllers/alchemy_controller.rb:175
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
@@ -462,7 +459,7 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
-#: app/views/admin/index.html.erb:74
+#: app/views/admin/index.html.erb:62
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
@@ -641,7 +638,7 @@ msgstr "Willkommen in Alchemy!"
 msgid "Who else is online"
 msgstr "Wer ist noch online"
 
-#: app/controllers/alchemy_controller.rb:160
+#: app/controllers/alchemy_controller.rb:164
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
@@ -686,7 +683,7 @@ msgstr "Eine Seite des Typs"
 msgid "above"
 msgstr "darüber"
 
-#: app/views/admin/elements/new.html.erb:18
+#: app/views/admin/elements/new.html.erb:19
 msgid "add"
 msgstr "hinzufügen"
 
@@ -964,7 +961,7 @@ msgstr "Element wurde gelöscht."
 msgid "element_editor_not_found"
 msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 
-#: app/views/admin/elements/new.html.erb:10
+#: app/views/admin/elements/new.html.erb:11
 msgid "element_of_type"
 msgstr "Element"
 
@@ -1210,7 +1207,7 @@ msgstr "Navigationsname"
 msgid "no"
 msgstr "Nein"
 
-#: app/controllers/alchemy_controller.rb:155
+#: app/controllers/alchemy_controller.rb:159
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
@@ -1447,7 +1444,7 @@ msgstr "suchen"
 msgid "search_engines"
 msgstr "Suchmaschinen"
 
-#: app/views/admin/elements/new.html.erb:14
+#: app/views/admin/elements/new.html.erb:15
 msgid "select_element"
 msgstr "Element wählen"
 
@@ -1485,7 +1482,7 @@ msgstr "Betreff"
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:171
+#: app/controllers/admin/elements_controller.rb:156
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 

@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/stylesheets/alchemy/elements.css */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
+	http://localhost:3000/stylesheets/alchemy/elements.css
+*/
 
 input.text_with_icon {
 	width: 343px;
@@ -281,7 +284,8 @@ form.add_gallery_to_index select {
 	margin: 0;
 	padding: 8px;
 	position: relative;
-	height: 20px;
+	min-height: 25px;
+	overflow: auto;
 }
 
 .new_alchemy_element p {
@@ -300,6 +304,7 @@ div#element_area {
 
 .new_alchemy_element span {
 	float: left;
+	line-height: 25px;
 }
 
 .new_alchemy_element select {

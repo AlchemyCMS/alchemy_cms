@@ -6,11 +6,12 @@ class Element < ActiveRecord::Base
   has_many :contents, :order => :position, :dependent => :destroy
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
-
+  
   validates_uniqueness_of :position, :scope => :page_id
-
+  validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
+  
   before_destroy :remove_contents
-
+  
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
@@ -65,11 +66,11 @@ class Element < ActiveRecord::Base
   
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
-    attributes.stringify_keys!
+    attributes.stringify_keys!    
+    return Element.new if attributes['name'].blank?
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
     element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
-    raise "Could not find element: #{attributes['name']}" if element_scratch.nil?
     element_scratch.delete("contents")
     element_scratch.delete("available_contents")
     element = Element.new(
