@@ -1806,7 +1806,7 @@ div#archive_all .picture_detail {
 	top: 0;
 	width: 204px;
 	z-index: 10;
-	height: 55px;
+	height: 65px;
 	border: 1px solid #afafaf;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -1836,7 +1836,7 @@ div#archive_all .picture_detail {
 }
 
 .inplace-edit input.thin_border {
-	width: 190px;
+	width: 186px;
 	font-family: "Courier New", Courier, mono;
 	position: absolute;
 	left: 4px;
@@ -2500,7 +2500,7 @@ div.button_with_label:hover label {
 }
 
 #toolbar_links a {
-	padding: 3px 4px;
+	padding: 4px;
 	border: 1px solid #9a9a9a;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -2524,7 +2524,8 @@ div.button_with_label:hover label {
 }
 
 div#per_page_values {
-	margin-bottom: 1px;
+	margin-top: 2px;
+	margin-bottom: 6px;
 }
 
 #toolbar_links a.active {
