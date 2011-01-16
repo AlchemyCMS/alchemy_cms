@@ -1126,6 +1126,12 @@ module AlchemyHelper
     end
   end
   
+  def element_preview_code(element)
+    if @preview_mode
+      "data-alchemy-element='#{element.id}'"
+    end
+  end
+  
   def warning(message, text = nil)
     logger.warn %(\n
       ++++ WARNING: #{message}! from: #{caller.first}\n

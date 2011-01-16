@@ -259,8 +259,8 @@ de:
     mail_to: 'Empfänger (E-Mail)'
     caption: "Bildunterschrift"
     subject: 'Betreff'
-    intro: "Überschrift 1"
-    headline: "Überschrift 2"
+    intro: "Einleitung"
+    headline: "Überschrift"
     subheadline: "Unterüberschrift"
     news_headline: "News Überschrift"
     image_mosaic:
