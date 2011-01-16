@@ -251,7 +251,7 @@ div.content_text_editor.text_short {
 
 input.long,
 input.text_long {
-	width: 100%;
+	width: 363px;
 }
 
 select.long {
@@ -279,6 +279,7 @@ div.content_editor label {
 	margin-bottom: 0.5em;
 	font-size: 10px;
 	text-shadow: #fff5e1 1px 1px 0;
+	line-height: 15px;
 }
 
 div.content_editor label span.warning.icon {

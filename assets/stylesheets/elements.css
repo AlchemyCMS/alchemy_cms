@@ -174,9 +174,9 @@ div.element_foot span.element_public {
 
 div.element_editor {
 	border: 1px solid #bba589;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	background-color: #f0e8d7;
 	margin-bottom: 8px;
 }
@@ -244,9 +244,9 @@ div.picture_gallery_images {
 	margin-bottom: 8px;
 	border: 1px inset #cecece;
 	padding-left: 1px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	background-color: #e5dcca;
 }
 

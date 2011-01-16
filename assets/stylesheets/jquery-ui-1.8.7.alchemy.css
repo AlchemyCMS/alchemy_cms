@@ -1454,7 +1454,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar {
-	padding: 4px 8px;
+	padding: 6px 8px;
 	position: relative;
 	margin-bottom: 0;
 }
@@ -1625,7 +1625,7 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-tabs .ui-tabs-nav {
 	padding: 4px 8px 0;
-	background: url(../../images/alchemy/gui/shading.png) 0 -60px;
+	background: #e5e5e5 url(../../images/alchemy/gui/shading.png) 0 -59px;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
@@ -1641,6 +1641,7 @@ button.ui-button::-moz-focus-inner {
 	border-bottom: 0 !important;
 	padding: 0;
 	white-space: nowrap;
+	background-color: #e5e5e5;
 }
 
 #alchemy .ui-tabs .ui-tabs-nav li a {

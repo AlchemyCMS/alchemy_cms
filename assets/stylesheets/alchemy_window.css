@@ -181,8 +181,7 @@ div#errors {
 }
 
 #new_page_form tbody tr td.second_row input#page_name {
-	width: 150px;
-	padding: 2px;
+	width: 144px;
 	margin: 0;
 	border-width: 1px;
 }
@@ -388,7 +387,7 @@ div.elements_for_page {
 	top: 0;
 	z-index: 15;
 	background-color: white;
-	width: 242px;
+	width: 206px;
 	padding: 4px;
 	border: 1px solid #9c9d9c;
 	-webkit-box-shadow: #9ea09f 0px 0px 4px;
@@ -409,7 +408,7 @@ a.close_elements_from_page_selector {
 	padding-right: 2px;
 	width: 11px;
 	height: 15px;
-	margin-top: 3px;
+	margin-top: 5px;
 	background: url(/images/alchemy/icons.png) no-repeat 0 -105px;
 }
 
@@ -451,8 +450,8 @@ div#assign_file_list {
 }
 
 ul#sitemap li .sitemap_sitename.selected_page a{
-	background-color: #d1d1d1;
-	font-weight: bold;
+	background-color: #DB694C;
+	color: #f5f5f5;
 }
 
 #alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
@@ -511,7 +510,7 @@ div.assign_file_file_icon img {
 table.window_form td.input {
 	padding-top: 2px;
 	padding-bottom: 2px;
-	padding-right: 4px;
+	padding-right: 0;
 }
 
 #alchemy .ui-dialog-content p {
@@ -527,7 +526,7 @@ select#url_protocol.medium {
 }
 
 #alchemy .ui-dialog-content input.auto_resize {
-	width: 100%;
+	width: 483px;
 }
 
 #alchemy .ui-dialog-content td.medium {
