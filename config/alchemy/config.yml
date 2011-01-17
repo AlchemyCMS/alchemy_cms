@@ -8,7 +8,7 @@
 
 # The amount of time of inactivity in minutes after which the user is kicked out of his current session.
 # Only active in production environment!!!
-:auto_logout_time: 10
+:auto_logout_time: 30
 
 # === Redirect options
 # redirect_index: You can set to redirect (an 301 permanent, for all you SEO geeks ^_^) to first child page (typically the homepage) the index/intro page if it's not visible.

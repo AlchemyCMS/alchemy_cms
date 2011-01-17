@@ -275,12 +275,12 @@ a.drop_down_select img {
 }
 
 #alchemy a.search_field_clear {
-	width: 15px;
-	height: 15px;
-	background: url(/images/alchemy/icons.png) no-repeat 0 -104px;
+	width: 16px;
+	height: 16px;
+	background: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png) no-repeat -80px -128px;
 	position: absolute;
 	right: 8px;
-	top: 3px;
+	top: 4px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -1398,15 +1398,15 @@ a.icon_button span.icon {
 }
 
 span.icon.zoom-out {
-	background: url(/images/alchemy/icons.png) -208px -39px;
+	background: url(/images/alchemy/icons.png) -208px -40px;
 }
 
 span.icon.zoom-equal {
-	background: url(/images/alchemy/icons.png) -224px -39px;
+	background: url(/images/alchemy/icons.png) -224px -40px;
 }
 
 span.icon.zoom-in {
-	background: url(/images/alchemy/icons.png) -240px -39px;
+	background: url(/images/alchemy/icons.png) -240px -40px;
 }
 
 a.icon_button.small span.icon {
@@ -1611,12 +1611,12 @@ table.list td.icon .icon {
 }
 
 input#search_input_field {
-	width: 200px;
+	width: 190px;
 	text-align: left;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 3px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
 	border-radius: 12px;
-	padding: 2px 8px 1px;
+	padding: 3px 12px 2px;
 }
 
 input.button, 

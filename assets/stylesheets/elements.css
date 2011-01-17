@@ -140,13 +140,14 @@ div.element_foot span.element_public {
 	position: relative;
 	background-color: #e5dcca;
 	width: 100%;
-	height: 18px;
+	height: 21px;
 	margin-left: -8px;
 }
 
 .element_foot .element_tools {
 	float: left;
 	margin-right: 8px;
+	margin-top: 3px;
 }
 
 .element_foot .button {
@@ -183,9 +184,9 @@ div.element_editor {
 
 div.element_editor.selected {
 	border-color: #DB694C;
-	-moz-box-shadow: 0 0 4px #DB694C;
-	-webkit-box-shadow: 0 0 4px #DB694C;
-	box-shadow: 0 0 4px #DB694C;
+	-moz-box-shadow: 0 0 2px #DB694C;
+	-webkit-box-shadow: 0 0 2px #DB694C;
+	box-shadow: 0 0 2px #DB694C;
 }
 
 div.element_editor form {
