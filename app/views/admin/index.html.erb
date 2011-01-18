@@ -6,30 +6,45 @@
 <div class="with_padding">
 	<div id="dashboard">
 		<h1><%= _('Welcome back, %{name}') % {:name => current_user.firstname || current_user.login} %></h1>
-		<h2><%= _('You were last time online at %{time}') % {:time => l(current_user.last_login_at)} %></h2>
+		<h2><%= _('You were last time online at %{time}') % {:time => l(current_user.last_login_at)} unless current_user.last_login_at.blank? %></h2>
+
 		<div class="widget">
 			<h2><%= _('Your last updated pages') %>:</h2>
+			<%- if @last_edited_pages.blank? -%>
+				<%= _('no pages') %>
+			<%- else -%>
 			<ul>
 				<%- @last_edited_pages.each do |page| -%>
-				<li class="<%= cycle('even', 'odd') %>"><%= link_to page.name, edit_admin_page_path(page) %> <small>(<%= l(page.updated_at) %>)</small></li>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by==current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
 				<%- end -%>
 			</ul>
+			<%- end -%>
 		</div>
+		
 		<div class="widget">
 			<h2><%= _('Currently locked pages') %>:</h2>
+			<%- if @locked_pages.blank? -%>
+				<%= _('no pages') %>
+			<%- else -%>
 			<ul>
 				<%- @locked_pages.each do |page| -%>
-				<li class="<%= cycle('even', 'odd') %>"><%= page.name %> <small>(<%= page.locker.name %>)</small></li>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if(current_user.id == page.locked_by, page.name, edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small></li>
 				<%- end -%>
 			</ul>
+			<%- end -%>
 		</div>
+		
 		<div class="widget">
 			<h2><%= _('Who else is online') %>:</h2>
+			<%- if @online_users.blank? -%>
+				<%= _('no users') %>
+			<%- else -%>
 			<ul>
 				<%- @online_users.each do |user| -%>
 				<li class="<%= cycle('even', 'odd') %>"><%= user.name %></li>
 				<%- end -%>
 			</ul>
+			<%- end -%>
 		</div>
 	</div>
 	<div id="sideboard">
