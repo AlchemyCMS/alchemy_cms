@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'role', User.human_attribute_name(:role) %>: </td>
-				<td><%= f.select :role, options_for_select(User::ROLES.map { |role| [User.human_rolename(role), role]}), {}, :class => 'long' -%></td>
+				<td><%= f.select :role, options_for_select(User::ROLES.map { |role| [User.human_rolename(role), role]}, @user.role), {}, :class => 'long' -%></td>
 			</tr>
 			<tr>
                 <td>

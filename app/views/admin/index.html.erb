@@ -5,7 +5,7 @@
 <%- end -%>
 <div class="with_padding">
 	<div id="dashboard">
-		<h1><%= _('Welcome back, %{name}') % {:name => current_user.firstname || current_user.login} %></h1>
+		<h1><%= _('Welcome back, %{name}') % {:name => current_user.firstname.blank? ? current_user.login : current_user.firstname} %></h1>
 		<h2><%= _('You were last time online at %{time}') % {:time => l(current_user.last_login_at)} unless current_user.last_login_at.blank? %></h2>
 
 		<div class="widget">
@@ -15,7 +15,7 @@
 			<%- else -%>
 			<ul>
 				<%- @last_edited_pages.each do |page| -%>
-				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by==current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
 				<%- end -%>
 			</ul>
 			<%- end -%>
