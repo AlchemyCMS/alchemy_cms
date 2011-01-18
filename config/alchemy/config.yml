@@ -17,7 +17,9 @@
 :redirect_index: true
 :redirect_to_public_child: true
 
-# Enable the Ferret fulltext search engine.
+# Enabling the Ferret fulltext search engine.
+# Tip! For best performance and stability install a crontab that reindexes ferrets search index periodly.
+# Example: cd ~/html/alchemy/current && RAILS_ENV=production rake ferret:rebuild_index
 :ferret: true
 
 # === Pagecaching
