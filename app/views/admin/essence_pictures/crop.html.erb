@@ -1,14 +1,6 @@
-<div id="jscropper">
-    <%= image_tag(
-        zoom_picture_path(@essence_picture.picture),
-        :id => 'imageToCrop'
-    ) %>
-</div>
-
 <div id="crop_explain" class="tip">
     <%= _('explain cropping') %>
 </div>
-
 <% remote_form_for(
     @essence_picture,
     :url => admin_essence_picture_path(@essence_picture, :options => @options),
@@ -18,8 +10,13 @@
     <%= f.hidden_field :crop_size %>
     <%= hidden_field_tag 'content_id', @content.id %>
     <%= f.submit _("save"), :class => 'button' %>
-<%- end -%>
-
+<%- end -%>	
+<div id="jscropper">
+    <%= image_tag(
+        zoom_picture_path(@essence_picture.picture),
+        :id => 'imageToCrop'
+    ) %>
+</div>
 <script type="text/javascript" charset="utf-8">
 	jQuery('#imageToCrop').Jcrop({
 		onSelect: function(coords) {

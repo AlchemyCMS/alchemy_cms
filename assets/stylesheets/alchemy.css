@@ -45,8 +45,98 @@ div#flash_notices {
 	position: fixed;
 	right: 0;
 	z-index: 400000;
-	width: 300px;
+	width: 348px;
 	top: 0;
+}
+
+.flash {
+	width: 300px;
+	padding: 8px 8px 8px 30px;
+	font-weight: bold;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	z-index: 1000;
+	opacity: 0.95;
+	filter: alpha(opacity=95);
+	margin: 4px;
+	position: relative;
+}
+
+.flash .icon {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+.flash.notice {
+	border-color: #9cc4a1;
+	color: #2e5934;
+	background-color: #e2efd3;
+}
+
+.flash.error {
+	border-color: #c49c9c;
+	color: #592e2e;
+	background-color: #efd3d3;
+}
+
+.flash.info {
+	border-color: #c4c19c;
+	color: #726d23;
+	background-color: #f3f0c1;
+}
+
+div.login_signup_box {
+	width: 380px;
+	padding: 16px;
+	border: 1px solid #9a9a9a;
+	background-color: #dedede;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	-moz-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	-o-box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
+	margin: 2em auto;
+}
+
+#login table tbody tr td.label {
+	width: 155px;
+}
+
+#alchemy_greeting h1 {
+	margin-top: 1em;
+	margin-bottom: 0;
+	font-size: 1.2em;
+}
+
+td.submit {
+	text-align: right;
+}
+
+form#login.new_user_session {
+	text-align: right;
+}
+
+#login .thin_border {
+	width: 195px;
+	float: right;
+}
+
+#login_notice {
+	overflow: auto;
+	padding: 8px;
+	background-color: #fff;
+	text-align: left;
+}
+
+#login label {
+	margin-right: 8px;
 }
 
 /* @group overlay */
@@ -475,22 +565,6 @@ div#page {
 	cursor: pointer;
 }
 
-a.show_element_selector {
-	margin-right: 8px;
-	width: 19px;
-	height: 19px;
-	float: left;
-	background: url(/images/alchemy/gui/arrow_green.gif) no-repeat 0 2px;
-}
-
-a.hide_element_selector {
-	margin-right: 8px;
-	width: 19px;
-	height: 19px;
-	float: left;
-	background: url(/images/alchemy/gui/arrow_green_left.gif) no-repeat -1px 1px;
-}
-
 div.tip {
 	background-color: #eff8d0;
 	border: 1px solid #cce21c;
@@ -617,68 +691,6 @@ div.tip {
 
 #archive_upload_delete {
 	float: right;
-}
-
-.flash {
-	padding: 8px 8px 8px 30px;
-	font-weight: bold;
-	border-width: 1px;
-	border-style: solid;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	z-index: 1000;
-	opacity: 0.95;
-	margin: 4px;
-	position: relative;
-}
-
-.flash .icon {
-	position: absolute;
-	top: 8px;
-	left: 8px;
-}
-
-.flash.notice {
-	border-color: #9cc4a1;
-	color: #2e5934;
-	background-color: #e2efd3;
-}
-
-.flash.error {
-	border-color: #c49c9c;
-	color: #592e2e;
-	background-color: #efd3d3;
-}
-
-#page_editing_notices div.flash {
-	margin-top: 0;
-	margin-right: 4px;
-	margin-left: 4px;
-}
-
-.flash.info {
-	border-color: #c4c19c;
-	color: #726d23;
-	background-color: #f3f0c1;
-	padding: 8px;
-}
-
-#help_page {
-	background-color: #ededed;
-	height: 100%;
-	min-height: 100%;
-	padding: 10px;
-}
-
-img.link_arrow {
-	margin-right: 4px;
-	float: right;
-}
-
-img.link_arrow_left {
-	margin-right: 4px;
-	float: left;
 }
 
 /* @group main_navi */
@@ -1065,43 +1077,14 @@ a.folder_link {
 
 /* @group page_editing */
 
-div#page_editing_head {
-	float: left;
-	margin-right: 8px;
-	padding-right: 8px;
-	border-right-style: dotted;
-	border-right-width: 1px;
-	line-height: 35px;
-	padding-top: 8px;
-	height: 27px;
-}
-
 #page_names td {
 	height: 22px;
 	padding-bottom: 4px;
 	vertical-align: top;
 }
 
-span.description_for_arrow {
-	float: left;
-	margin-top: 3px;
-}
-
-span.arrow_for_button {
-	float: left;
-	background-image: url(/images/alchemy/gui/arrow.gif);
-	width: 10px;
-	height: 19px;
-	margin-right: 4px;
-	margin-left: 4px;
-}
-
 #page_names textarea {
 	height: 78px;
-}
-
-page_names #page_meta_description {
-	
 }
 
 /* @end */
@@ -2615,4 +2598,782 @@ p.foot_note {
 	background-color: #e3e3e3;
 	margin-bottom: 0px;
 	margin-left: 22px;
+}
+
+div#jscropper {
+	padding: 8px;
+	display: inline-block;
+}
+
+div#crop_explain.tip {
+	margin-right: 8px;
+	float: right;
+}
+
+textarea#essence_picture_caption {
+	width: 233px;
+	height: 61px;
+}
+
+#alchemy .ui-dialog-content form.with_padding table td {
+	vertical-align: top;
+}
+
+#page_selector_scroll_container {
+	position: relative;
+	width: 100%;
+}
+
+#page_selector_container {
+	height: 230px;
+	background-color: #ededed;
+	margin-bottom: 4px;
+	border: 1px inset #e8e8e8;
+	overflow: auto;
+	padding: 4px 0 0 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+div.image_assign_filter_and_image_sizing {
+	width: 100%;
+	height: 40px;
+}
+
+#assign_image_list {
+	overflow: auto;
+	margin-top: 8px;
+	clear: both;
+}
+
+label.sup {
+	position: relative;
+	bottom: 3px;
+}
+
+div.assign_image_list_detail {
+	background-color: #ffffff;
+	text-align: center;
+	float: left;
+	margin: 0 6px 6px 0;
+	padding: 4px;
+	position: relative;
+	overflow: hidden;
+	border: 1px solid #c0c0c0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: #999 0px 1px 3px;
+	-moz-box-shadow: #999 0px 1px 3px;
+	-o-box-shadow: #999 0px 1px 3px;
+	box-shadow: #999 0px 1px 3px;
+}
+
+#assign_image_list div.assign_image_list_detail.small {
+	width: 80px;
+	height: 75px;
+}
+
+#assign_image_list div.assign_image_list_detail.medium {
+	width: 160px;
+	height: 135px;
+}
+
+#assign_image_list div.assign_image_list_detail.large {
+	width: 240px;
+	height: 195px;
+}
+
+div.assign_image_list_image {
+	background-color: #ededed;
+	text-align: center;
+	overflow: hidden;
+}
+
+div.overlay_image_spinner img {
+	position: absolute;
+	z-index: 0;
+}
+
+.assign_image_list_detail.small div.overlay_image_spinner img {
+	top: 19px;
+	left: 26px;
+}
+
+.assign_image_list_detail.medium div.overlay_image_spinner img {
+	top: 48px;
+	left: 67px;
+}
+
+.assign_image_list_detail.large div.overlay_image_spinner img {
+	top: 80px;
+	left: 103px;
+}
+
+#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image {
+	height: 60px;
+}
+
+#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image {
+	height: 120px;
+}
+
+#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image {
+	height: 180px;
+}
+
+#assign_image_list div.assign_image_list_image a {
+	display: block;
+}
+
+#assign_image_list div.assign_image_list_image img {
+	border-style: none;
+}
+
+#assign_image_list div.assign_image_list_image span {
+	
+}
+
+div#errors {
+	margin-bottom: 8px;
+	padding: 8px 8px 4px 28px;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-color: #c49c9c;
+	color: #592e2e;
+	background-color: #efd3d3;
+}
+
+#errors ul li {
+	margin-bottom: 0.5em;
+}
+
+#errors ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: decimal;
+}
+
+#alchemyConfirmation .alchemy_window_buttons {
+	display: block;
+	text-align: right;
+	margin-top: 8px;
+	padding-right: 8px;
+}
+
+#alchemyConfirmation_content div.alchemy_window_message {
+	padding: 8px;
+}
+
+#page_select {
+	width: 120px;
+	margin-left: 8px;
+}
+
+#new_page_form th, #new_page_form td {
+	white-space: nowrap;
+	padding: 2px;
+}
+
+#new_page_form tbody tr td.second_row input#page_name {
+	width: 144px;
+	margin: 0;
+	border-width: 1px;
+}
+
+#new_page_form tbody tr td.second_row div.selectbox a.display {
+	width: 123px;
+}
+
+input#page_name {
+	width: 126px;
+}
+
+#page_names #page_name {
+	width: 231px;
+}
+
+input.with_border {
+	margin: 0;
+	padding: 1px;
+	font-size: 12px;
+	border: 1px solid silver;
+}
+
+input#user_admin {
+	margin: 0 0 0 1px;
+	padding: 0;
+	border-width: 0;
+	border-style: none;
+}
+
+#image_edit div {
+	height: 25px;
+}
+
+#image_edit div span {
+	float: left;
+	padding: 0;
+	margin-right: 6px;
+	height: 17px;
+	line-height: 19px;
+}
+
+#assign_image_list div.assign_image_list_detail .picture_to_assign_name {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-top: 3px;
+	display: block;
+	font: 12px "Courier New", Courier, mono;
+}
+
+#assign_image_list div.pagination {
+	margin-bottom: 8px;
+}
+
+div.image_assign_filter_and_image_sizing form {
+	float: right;
+	width: 290px;
+	height: 23px;
+}
+
+div.image_assign_filter_and_image_sizing form div.search_field {
+	margin-right: 4px;
+	float: left;
+	position: relative;
+}
+
+div.image_assign_filter_and_image_sizing form input.button {
+	float: right;
+}
+
+div.assign_file_file {
+	text-align: center;
+	background-color: white;
+	width: 100%;
+	margin-bottom: 4px;
+}
+
+#assign_file_list div.assign_file_file a {
+	overflow: hidden;
+	display: block;
+	padding-right: 4px;
+	text-align: left;
+	line-height: 25px;
+}
+
+div.assign_file_file_icon {
+	float: left;
+	margin: 4px;
+}
+
+#alchemy .ui-dialog-content a img {
+	border-style: none;
+}
+
+#sitemap_external_links form {
+	margin-left: 5px;
+	margin-bottom: 4px;
+}
+
+input#link_to_text {
+	border-width: 1px;
+	font-size: 11px;
+	line-height: 11px;
+	width: 229px;
+}
+
+.link_window_tab_body {
+	background-color: #ededed;
+	padding: 8px;
+	margin: 0;
+}
+
+div#tabbar_and_content {
+	
+}
+
+#internal_link_title {
+}
+
+#alchemy .ui-dialog-content ul#sitemap {
+	margin: 0;
+	padding: 0 8px 8px 0;
+}
+
+#alchemy .ui-dialog-content ul#sitemap li {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#alchemy .ui-dialog-content ul#sitemap li li {
+	padding-left: 22px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename {
+	background-color: #f9f9f9;
+	width: 311px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+	float: left;
+	line-height: 18px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li ul li span.sitemap_sitename {
+	float: left;
+	background-color: #f9f9f9;
+	width: 290px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li ul li ul li span.sitemap_sitename {
+	float: left;
+	background-color: #f9f9f9;
+	width: 269px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li ul li ul li ul li span.sitemap_sitename {
+	float: left;
+	background-color: #f9f9f9;
+	width: 248px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap img.site_status {
+	float: left;
+	border-style: none;
+	margin-bottom: 0px;
+	border-width: 0;
+	padding: 0;
+	padding-top: 6px;
+	margin-right: 4px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li img {
+	border-width: 0;
+	border-style: none;
+	float: left;
+}
+
+#alchemy .ui-dialog-content ul#sitemap .sitemap_row {
+	padding: 0;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 22px;
+	position: relative;
+	height: 28px;
+}
+
+.elements_from_page_selector {
+	width: 185px;
+}
+
+div.elements_for_page {
+	position: absolute;
+	right: 23px;
+	top: 0;
+	z-index: 15;
+	background-color: white;
+	width: 206px;
+	padding: 4px;
+	border: 1px solid #9c9d9c;
+	-webkit-box-shadow: #9ea09f 0px 0px 4px;
+	-moz-box-shadow: #9ea09f 0px 0px 4px;
+	-o-box-shadow: #9ea09f 0px 0px 4px;
+	box-shadow: #9ea09f 0px 0px 4px;
+	line-height: 13px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+}
+
+a.close_elements_from_page_selector {
+	padding-left: 4px;
+	font-size: 0;
+	float: right;
+	padding-right: 2px;
+	width: 11px;
+	height: 15px;
+	margin-top: 5px;
+	background: url(/images/alchemy/icons.png) no-repeat 0 -105px;
+}
+
+.elements_for_page img {
+	width: 20px;
+	height: 20px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul .sitemap_row a {
+	color: black;
+	text-decoration: none;
+	display: block;
+	outline: none;
+}
+
+#sitemap a.show_elements_to_link {
+	float: left;
+	width: 16px;
+	height: 16px;
+	position: relative;
+	background: url(/images/alchemy/icons.png) no-repeat -256px -40px;
+	margin: 2px;
+	font-size: 0;
+	text-decoration: none;
+}
+
+.bordertop_white {
+	border-top: 4px solid white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	overflow: auto;
+	float: none;
+}
+
+div#assign_file_list {
+	margin-bottom: 8px;
+	margin-top: 8px;
+	clear: both;
+}
+
+ul#sitemap li .sitemap_sitename.selected_page a{
+	background-color: #DB694C;
+	color: #f5f5f5;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
+	font-weight: bold;
+	padding-left: 4px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename a:hover {
+	font-weight: bold;
+}
+
+div.assign_file_file_name {
+	float: left;
+}
+
+.selected_file a {
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+div.assign_file_file_icon img {
+	margin-top: 2px;
+}
+
+#external_link_table .padding_right {
+	padding-right: 8px;
+}
+
+#external_link_table .external_address_input {
+	width: 195px;
+}
+
+#alchemy .ui-dialog-content table.window_form {
+	width: 100%;
+}
+
+#alchemy .ui-dialog-content table.table_window td.label {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 4px;
+	width: 80px;
+	height: 25px;
+}
+
+#alchemy .ui-dialog-content table.table_window td.label.right {
+	text-align: right;
+	width: 40px;
+}
+
+.elements_for_page .alchemy_selectbox {
+	float: left;
+	width: 217px;
+}
+
+table.window_form td.input {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 0;
+}
+
+#alchemy .ui-dialog-content p {
+	min-height: 21px;
+}
+
+table.window_form td.checkbox {
+	text-align: left;
+}
+
+select#url_protocol.medium {
+	margin: 0;
+}
+
+#alchemy .ui-dialog-content input.auto_resize {
+	width: 483px;
+}
+
+#alchemy .ui-dialog-content td.medium {
+	width: 76px;
+}
+
+#alchemy .ui-dialog-content input.medium_long {
+	width: 129px;
+}
+
+#alchemy .ui-dialog-content input.long,
+#alchemy .ui-dialog-content textarea.long {
+	width: 231px;
+	margin: 0;
+}
+
+#alchemy .ui-dialog-content input.very_long {
+	width: 300px;
+	margin: 0;
+}
+
+#alchemy .ui-dialog-content select.very_long,
+#alchemy .ui-dialog-content .selectbox.very_long,
+#alchemy .ui-dialog-content .selectbox.very_long .display {
+	width: 160px;
+}
+
+#alchemy .ui-dialog-content .short {
+	width: 40px;
+}
+
+#alchemy .ui-dialog-content p a.button {
+	float: right;
+}
+
+div.emulate_table input.button:disabled {
+	color: gray;
+}
+
+div.emulate_table {
+	overflow: auto;
+}
+
+div.emulate_table label {
+	float: left;
+	width: 70px;
+	padding-top: 2px;
+}
+
+div.emulate_table .short_label {
+	width: 50px;
+	text-align: right;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+div.emulate_table input, div.emulate_table select {
+	float: left;
+}
+
+.emulated_table_row {
+	padding: 1px;
+	overflow: auto;
+	clear: both;
+	margin-bottom: 5px;
+	line-height: 21px;
+}
+
+.emulated_table_row span.first_column {
+	float: left;
+	margin-right: 4px;
+}
+
+div.emulate_table select.short {
+	border: 0px none;
+	padding: 2px;
+	width: 51px;
+}
+
+div.emulate_table p {
+	float: left;
+	clear: both;
+	margin-bottom: 4px;
+	padding: 0px;
+	width: 100%;
+}
+
+.assign_file_file.selected_file {
+	background-color: #d1d1d1;
+}
+
+div.info ol {
+	margin: 0 0 8px;
+	padding-left: 20px;
+}
+
+div.info ol li {
+	text-indent: 0;
+	margin-bottom: 4px;
+}
+
+div#overlay_toolbar {
+	margin: -8px -8px 12px;
+	padding: 8px;
+	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -45px;
+	border: 1px solid #afafaf;
+	height: 35px;
+}
+
+#overlay_toolbar div.js_filter_field_box {
+	margin-top: 6px;
+	margin-right: 8px;
+}
+
+div#overlay_toolbar div.toolbar_spacer {
+	float: left;
+	width: 1px;
+	height: 37px;
+	border-right-style: dotted;
+	border-right-width: 1px;
+	margin-right: 8px;
+	margin-left: 4px;
+}
+
+div#overlay_toolbar a.button {
+	width: 25px;
+	height: 21px;
+	text-decoration: none;
+	float: right;
+	border-width: 0;
+	border-style: none;
+	font-size: 0;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+div#overlay_toolbar a.button:active {
+	text-decoration: none;
+	background-position: 0 -21px;
+}
+
+a.icon.remove {
+	background: url(/images/alchemy/icons/element-icons.png) no-repeat -64px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	margin-right: 4px;
+}
+
+#uploadProgressContainer {
+	overflow: hidden;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0 8px;
+}
+
+#uploadProgressContainer .progressWrapper {
+	padding: 8px;
+	background-color: #e3e3e3;
+	position: relative;
+	margin-bottom: 8px;
+	border: 1px solid #9e9e9e;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#uploadProgressContainer .progressName,
+#uploadProgressContainer .progressBarStatus {
+	margin-bottom: 4px;
+}
+
+#uploadProgressContainer .progressBarStatus {
+	font-size: 10px;
+}
+
+#uploadProgressContainer .progressName {
+	text-shadow: 0 1px 2px #FFFFFF;
+}
+
+#uploadProgressContainer .progressBarContainer {
+	background: #F9F9F9 url("/images/alchemy/gui/shading.png") repeat-x 0 0;
+	border:1px solid #9E9E9E;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	height:16px;
+	overflow: hidden;
+	width:100%;
+}
+
+#uploadProgressContainer .progressBarInProgress {
+	background: #77AAD5 url("/images/alchemy/gui/shading.png") repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarComplete {
+	background: #00D827 url("/images/alchemy/gui/shading.png") repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarError {
+	background: #F00 url("/images/alchemy/gui/shading.png") repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarCanceled {
+	background: #E4E4E4 url("/images/alchemy/gui/shading.png") repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressCancel {
+	background: #f1f1f1 url(/images/alchemy/icons.png) no-repeat 0 -104px;
+	border: 1px solid #9e9e9e;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	width: 15px;
+	height: 16px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
+#btnCancel {
+	float: right;
+}
+
+object.swfupload {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+#alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {
+	padding: 8px;
+}
+
+#preview_load_info {
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 1px 0 0 -8px;
 }

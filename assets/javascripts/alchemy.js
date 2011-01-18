@@ -67,6 +67,9 @@ var Alchemy = {
 		var $iframe = jQuery('#alchemyPreviewWindow');
 		if ($iframe.length === 0) {
 			$iframe = jQuery('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
+			$iframe.load(function() {
+				jQuery('#preview_load_info').hide();
+			});
 			$iframe.css({'background-color': '#ffffff'});
 			Alchemy.PreviewWindow = $iframe.dialog({
 				modal: false,
@@ -80,6 +83,10 @@ var Alchemy = {
 				position: [73, 84],
 				autoResize: true,
 				closeOnEscape: false,
+				create: function() {
+					var $spinner = jQuery('<img src="/images/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
+					jQuery('#ui-dialog-title-alchemyPreviewWindow').after($spinner);
+				},
 				close: function(event, ui) { 
 					Alchemy.PreviewWindowButton.enable() 
 				},
@@ -110,18 +117,23 @@ var Alchemy = {
 		}
 		Alchemy.PreviewWindow.refresh = function () {
 			var $iframe = jQuery('#alchemyPreviewWindow');
+			jQuery('#preview_load_info').show();
+			$iframe.load(function() {
+				jQuery('#preview_load_info').hide();
+			});
 			$iframe.attr('src', $iframe.attr('src'));
 			return true;
 		};
 	},
 	
 	PreviewWindowExists : function() {
-	  if(Alchemy.PreviewWindow) {
-		return true;
-	  }
-	  return false;
+	  if (Alchemy.PreviewWindow) {
+			return true;
+	  } else {
+			return false;
+		}
 	},
-
+	
 	reloadPreview : function() {
 		Alchemy.PreviewWindow.refresh();
 	},

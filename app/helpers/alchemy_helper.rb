@@ -1042,7 +1042,7 @@ module AlchemyHelper
   
   # Helper for including the nescessary javascripts and stylesheets for the different views.
   # Together with the rails caching we achieve a good load time.
-  def alchemy_assets_set(setname = 'default')
+  def alchemy_assets_set(setname = 'combined')
     asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
     content_for(:javascript_includes) do 
       js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
@@ -1142,6 +1142,10 @@ module AlchemyHelper
       end
       return warning
     end
+  end
+  
+  def alchemy_combined_assets
+    alchemy_assets_set
   end
   
 end
