@@ -11,7 +11,7 @@
 			<h2><%= _('Your last updated pages') %>:</h2>
 			<ul>
 				<%- @last_edited_pages.each do |page| -%>
-				<li class="<%= cycle('even', 'odd') %>"><%= link_to page.name, edit_admin_page_path(page) %> <span class="updated_at"><%= l(page.updated_at) %></span></li>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to page.name, edit_admin_page_path(page) %> <small>(<%= l(page.updated_at) %>)</small></li>
 				<%- end -%>
 			</ul>
 		</div>
