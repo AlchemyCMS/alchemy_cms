@@ -1,4 +1,4 @@
-<ul id="<%= element_dom_id(element) %>" data-alchemy-element="<%= element.id %>" class="sitemap">
+<ul id="<%= element_dom_id(element) %>" class="sitemap" <%= element_preview_code(element) -%>>
 <%- pages ||= [Page.language_root_for(session[:language_id])] -%>
 <%- pages.each do |page| -%>
 <%- position = "" -%>
