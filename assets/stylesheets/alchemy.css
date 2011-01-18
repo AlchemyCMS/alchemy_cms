@@ -1,4 +1,7 @@
-/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
+/* @override 
+	http://localhost:3000/stylesheets/alchemy/alchemy.css
+	http://prev.magiclabs.de/stylesheets/alchemy/archive.css?1295348206
+*/
 
 html {
 	height: 100%;
@@ -1611,12 +1614,12 @@ table.list td.icon .icon {
 }
 
 input#search_input_field {
-	width: 190px;
+	width: 170px;
 	text-align: left;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	border-radius: 12px;
-	padding: 3px 12px 2px;
+	padding: 3px 24px 2px;
 }
 
 input.button, 
@@ -2278,6 +2281,10 @@ span.icon.configure_page {
 	background: url(/images/alchemy/icons.png) -160px -24px;
 }
 
+span.icon.search {
+	background: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png) -160px -112px;
+}
+
 a.icon.user_delete.female {
 	background: url(/images/alchemy/icons.png) -80px -56px;
 }
@@ -2398,22 +2405,22 @@ div.pagination .next_page {
 
 div.pagination a,
 div.pagination span {
-	padding: 2px 6px;
+	padding: 4px 8px;
 	border: 1px solid #c0c0c0;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
 	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	height: 17px;
-	line-height: 17px;
+	height: 23px;
+	line-height: 23px;
 }
 
 div.pagination a:hover {
 	background-color: #e6f0f5;
-	color: #666;
+	color: #333;
 	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
+	text-shadow: 0 1px 1px #fff;
 	text-decoration: none;
 }
 
@@ -2423,9 +2430,9 @@ div.pagination .disabled {
 
 div.pagination .current {
 	background-color: #e6f0f5;
-	color: #666;
+	color: #333;
 	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
+	text-shadow: 0px 1px 1px #fff;
 }
 
 #toolbar_links {
@@ -2511,11 +2518,17 @@ div.button_with_label:hover label {
 	text-decoration: none;
 }
 
+div.search_field span.icon {
+	position: absolute;
+	left: 6px;
+	top: 4px;
+}
+
 #toolbar_links a:hover {
 	background-color: #e6f0f5;
-	color: #666;
+	color: #333;
 	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
+	text-shadow: 0 1px 1px #fff;
 	text-decoration: none;
 }
 
@@ -2530,9 +2543,9 @@ div#per_page_values {
 
 #toolbar_links a.active {
 	background-color: #e6f0f5;
-	color: #666;
+	color: #333;
 	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
+	text-shadow: 0 1px 1px #fff;
 }
 
 #errorExplanation {
