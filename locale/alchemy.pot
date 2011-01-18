@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-15 17:49+0100\n"
+"POT-Creation-Date: 2011-01-18 18:32+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Adobe Website"
 msgstr ""
 
-#: app/views/admin/index.html.erb:39
+#: app/views/admin/index.html.erb:54
 msgid ""
 "Alchemy is open software and itself uses open software and free resources:"
 msgstr ""
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr ""
 
-#: app/views/admin/index.html.erb:19
+#: app/views/admin/index.html.erb:25
 msgid "Currently locked pages"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:116
+#: app/views/admin/pages/edit.html.erb:118
 msgid "Elements"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:119
 msgid "Page Preview"
 msgstr ""
 
@@ -451,7 +451,7 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
-#: app/views/admin/index.html.erb:62
+#: app/views/admin/index.html.erb:77
 msgid "Read the License"
 msgstr ""
 
@@ -467,13 +467,13 @@ msgstr ""
 msgid "Send email with credentials"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:103
-#: app/views/admin/pages/edit.html.erb:107
+#: app/views/admin/pages/edit.html.erb:105
+#: app/views/admin/pages/edit.html.erb:109
 msgid "Show Elements Window"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:92
-#: app/views/admin/pages/edit.html.erb:96
+#: app/views/admin/pages/edit.html.erb:94
+#: app/views/admin/pages/edit.html.erb:98
 msgid "Show Preview Window"
 msgstr ""
 
@@ -594,7 +594,7 @@ msgstr ""
 msgid "User|Role"
 msgstr ""
 
-#: app/views/admin/index.html.erb:38
+#: app/views/admin/index.html.erb:53
 msgid "Version"
 msgstr ""
 
@@ -619,7 +619,7 @@ msgstr ""
 msgid "Welcome to Alchemy"
 msgstr ""
 
-#: app/views/admin/index.html.erb:27
+#: app/views/admin/index.html.erb:38
 msgid "Who else is online"
 msgstr ""
 
@@ -653,7 +653,7 @@ msgstr ""
 msgid "Your credentials are"
 msgstr ""
 
-#: app/views/admin/index.html.erb:11
+#: app/views/admin/index.html.erb:12
 msgid "Your last updated pages"
 msgstr ""
 
@@ -744,8 +744,8 @@ msgid "choose_file_to_link"
 msgstr ""
 
 #: app/helpers/alchemy_helper.rb:809
-#: app/views/admin/partials/_remote_search_form.html.erb:25
-#: app/views/admin/partials/_search_form.html.erb:11
+#: app/views/admin/partials/_remote_search_form.html.erb:30
+#: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
 msgstr ""
 
@@ -1181,6 +1181,14 @@ msgstr ""
 msgid "no"
 msgstr ""
 
+#: app/views/admin/index.html.erb:14 app/views/admin/index.html.erb:27
+msgid "no pages"
+msgstr ""
+
+#: app/views/admin/index.html.erb:40
+msgid "no users"
+msgstr ""
+
 #: app/controllers/alchemy_controller.rb:159
 msgid "no_default_language_found"
 msgstr ""
@@ -1396,8 +1404,8 @@ msgid "saving"
 msgstr ""
 
 #: app/helpers/alchemy_helper.rb:811
-#: app/views/admin/partials/_remote_search_form.html.erb:29
-#: app/views/admin/partials/_search_form.html.erb:15
+#: app/views/admin/partials/_remote_search_form.html.erb:35
+#: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
 msgid "search"
 msgstr ""

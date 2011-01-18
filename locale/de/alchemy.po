@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-01-15 17:49+0100\n"
+"POT-Creation-Date: 2011-01-18 18:32+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Adobe Website"
 msgstr "Adobe Webseite"
 
-#: app/views/admin/index.html.erb:39
+#: app/views/admin/index.html.erb:54
 msgid ""
 "Alchemy is open software and itself uses open software and free resources:"
 msgstr ""
@@ -70,7 +70,7 @@ msgstr "Klicken zum umbenennen"
 msgid "Could not load Adobe Flash® Plugin!"
 msgstr "Adobe Flash® Plugin konnte nicht geladen werden!"
 
-#: app/views/admin/index.html.erb:19
+#: app/views/admin/index.html.erb:25
 msgid "Currently locked pages"
 msgstr "Momentan bearbeitete Seiten"
 
@@ -95,7 +95,7 @@ msgstr "Bildmaske bearbeiten"
 msgid "Element"
 msgstr "Element"
 
-#: app/views/admin/pages/edit.html.erb:116
+#: app/views/admin/pages/edit.html.erb:118
 msgid "Elements"
 msgstr "Elemente"
 
@@ -273,7 +273,7 @@ msgstr "%{name} wurde gelöscht"
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
-#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:119
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
@@ -459,7 +459,7 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
-#: app/views/admin/index.html.erb:62
+#: app/views/admin/index.html.erb:77
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
@@ -475,13 +475,13 @@ msgstr "Wählen Sie einen Inhalt aus"
 msgid "Send email with credentials"
 msgstr "Sende Benutzerdaten per Email"
 
-#: app/views/admin/pages/edit.html.erb:103
-#: app/views/admin/pages/edit.html.erb:107
+#: app/views/admin/pages/edit.html.erb:105
+#: app/views/admin/pages/edit.html.erb:109
 msgid "Show Elements Window"
 msgstr "Elementeliste anzeigen"
 
-#: app/views/admin/pages/edit.html.erb:92
-#: app/views/admin/pages/edit.html.erb:96
+#: app/views/admin/pages/edit.html.erb:94
+#: app/views/admin/pages/edit.html.erb:98
 msgid "Show Preview Window"
 msgstr "Seitenvorschau anzeigen"
 
@@ -605,7 +605,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/views/admin/index.html.erb:38
+#: app/views/admin/index.html.erb:53
 msgid "Version"
 msgstr "Version"
 
@@ -634,7 +634,7 @@ msgstr "Willkommen zurück, %{name}!"
 msgid "Welcome to Alchemy"
 msgstr "Willkommen in Alchemy!"
 
-#: app/views/admin/index.html.erb:27
+#: app/views/admin/index.html.erb:38
 msgid "Who else is online"
 msgstr "Wer ist noch online"
 
@@ -670,7 +670,7 @@ msgstr "Ihre Alchemy Zugangsdaten"
 msgid "Your credentials are"
 msgstr "Ihre Zugangsdaten lauten"
 
-#: app/views/admin/index.html.erb:11
+#: app/views/admin/index.html.erb:12
 msgid "Your last updated pages"
 msgstr "Ihre zuletzt bearbeiteten Seiten"
 
@@ -761,8 +761,8 @@ msgid "choose_file_to_link"
 msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
 #: app/helpers/alchemy_helper.rb:809
-#: app/views/admin/partials/_remote_search_form.html.erb:25
-#: app/views/admin/partials/_search_form.html.erb:11
+#: app/views/admin/partials/_remote_search_form.html.erb:30
+#: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
 msgstr "wieder alles anzeigen"
 
@@ -1207,6 +1207,14 @@ msgstr "Navigationsname"
 msgid "no"
 msgstr "Nein"
 
+#: app/views/admin/index.html.erb:14 app/views/admin/index.html.erb:27
+msgid "no pages"
+msgstr "Keine Seiten"
+
+#: app/views/admin/index.html.erb:40
+msgid "no users"
+msgstr "Keine Benutzer"
+
 #: app/controllers/alchemy_controller.rb:159
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
@@ -1434,8 +1442,8 @@ msgid "saving"
 msgstr "speichert"
 
 #: app/helpers/alchemy_helper.rb:811
-#: app/views/admin/partials/_remote_search_form.html.erb:29
-#: app/views/admin/partials/_search_form.html.erb:15
+#: app/views/admin/partials/_remote_search_form.html.erb:35
+#: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
 msgid "search"
 msgstr "suchen"
