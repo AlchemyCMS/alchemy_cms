@@ -81,12 +81,11 @@ var Alchemy = {
 				autoResize: true,
 				closeOnEscape: false,
 				close: function(event, ui) { 
-					// jQuery(this).dialog('destroy'); 
-					Alchemy.PreviewWindowButton.show() 
+					Alchemy.PreviewWindowButton.enable() 
 				},
 				open: function (event, ui) { 
 					jQuery(this).css({width: '100%'}); 
-					Alchemy.PreviewWindowButton.hide();
+					Alchemy.PreviewWindowButton.disable();
 					Alchemy.previewWindowFrameWidth = jQuery('#alchemyPreviewWindow').width();
 				}
 			}).dialogExtend({
@@ -128,26 +127,26 @@ var Alchemy = {
 	},
 	
 	ElementsWindowButton : {
-		show: function() {
-			jQuery('div#show_element_window').show();
+		enable: function() {
+			jQuery('div#show_element_window').removeClass('disabled');
 		},
-		hide: function() {
-			jQuery('div#show_element_window').hide();
+		disable: function() {
+			jQuery('div#show_element_window').addClass('disabled');
 		},
 		toggle: function() {
-			jQuery('div#show_element_window').toggle();
+			jQuery('div#show_element_window').toggleClass('disabled');
 		}
 	},
 	
 	PreviewWindowButton : {
-		show: function() {
-			jQuery('div#show_preview_window').show();
+		enable: function() {
+			jQuery('div#show_preview_window').removeClass('disabled');
 		},
-		hide: function() {
-			jQuery('div#show_preview_window').hide();
+		disable: function() {
+			jQuery('div#show_preview_window').addClass('disabled');
 		},
 		toggle: function() {
-			jQuery('div#show_preview_window').toggle();
+			jQuery('div#show_preview_window').toggleClass('disabled');
 		}
 	},
 	
@@ -166,20 +165,20 @@ var Alchemy = {
 				hide: "fade",
 				position: [jQuery(window).width() - 432, 84],
 				closeOnEscape: false,
-				open: function (event, ui) {
+				open: function(event, ui) {
+					Alchemy.ElementsWindowButton.disable();
 					jQuery.ajax({
 						url: path,
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
-							Alchemy.ElementsWindowButton.hide();
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
 						}
 					});
 				},
-				close: function () {
-					Alchemy.ElementsWindowButton.show();
+				close: function() {
+					Alchemy.ElementsWindowButton.enable();
 				}
 			});
 		} else {
@@ -312,7 +311,7 @@ var Alchemy = {
 			height: height,
 			autoResize: true,
 			close: function(event, ui) { jQuery(this).dialog('destroy'); },
-			open: function (event, ui) { jQuery(this).css({width: 636}); }
+			open: function (event, ui) { jQuery(this).css({width: '100%'}); }
 		});
 	},
 	

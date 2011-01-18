@@ -84,7 +84,9 @@
 			) %><br />
 			<label><%= _('New Element') %></label>
 		</div>
-		<div class="button_with_label" id="show_preview_window" style="display: none">
+	</div>
+	<div id="toolbar_buttons_right">
+		<div class="button_with_label" id="show_preview_window">
 			<%= link_to_function(
 				render_icon('preview_window'),
 				"Alchemy.openPreviewWindow('#{admin_page_url(@page)}', '#{_('Page Preview')}')",
@@ -95,7 +97,7 @@
 			) %><br />
 			<label><%= _('Show Preview Window') %></label>
 		</div>
-		<div class="button_with_label" id="show_element_window" style="display: none">
+		<div class="button_with_label" id="show_element_window">
 			<%= link_to_function(
 				render_icon('element_window'),
 				"Alchemy.openElementsWindow('#{list_admin_elements_path(:page_id => @page.id)}', '#{ _('Elements') }')",
