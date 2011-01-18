@@ -110,6 +110,7 @@ FileProgress.prototype.setCancelled = function () {
 	this.fileProgressElement.childNodes[3].className = "progressBarContainer";
 	this.fileProgressElement.childNodes[3].childNodes[0].style.width = "100%";
 	this.fileProgressElement.childNodes[3].childNodes[0].className = "progressBarCanceled";
+	var oSelf = this;
 	this.setTimer(setTimeout(function () {
 		oSelf.disappear();
 	}, 1500));
