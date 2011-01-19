@@ -518,12 +518,12 @@ module AlchemyHelper
   # == The options are:
   #
   # :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
-  # :from_page => Page.language_root session[:language_id]      Do you want to render a navigation from a different page then the current_page? Then pass the Page object here.
+  # :from_page => root_page                               Do you want to render a navigation from a different page then the current_page? Then pass an Page instance or a PageLayout name as string.
   # :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
   # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
   # :navigation_link_partial => "navigation_link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
   # :show_nonactive => false                              Commonly Alchemy only displays the submenu of the active page (if :submenu => true). If you want to display all child pages then pass true (together with :submenu => true of course). E.g. for the popular css-driven dropdownmenues these days.
-  # :show_title => true                                  For our beloved SEOs :). Appends a title attribute to all links and places the page.title content into it.
+  # :show_title => true                                   For our beloved SEOs :). Appends a title attribute to all links and places the page.title content into it.
   def render_navigation(options = {})
     default_options = {
       :submenu => false,
@@ -539,27 +539,28 @@ module AlchemyHelper
       :reverse_children => false
     }
     options = default_options.merge(options)
-    if options[:from_page].nil?
-      warning('options[:from_page] is nil')
+    if options[:from_page].blank?
+      warning('options[:from_page] is blank')
       return ""
-    else
-      conditions = {
-        :parent_id => options[:from_page].id,
-        :restricted => options[:restricted_only] || false,
-        :visible => true
-      }
-      if options[:restricted_only].nil?
-        conditions.delete(:restricted)
-      end
-      pages = Page.all(
-        :conditions => conditions,
-        :order => "lft ASC"
-      )
-      if options[:reverse]
-        pages.reverse!
-      end
-      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
+    elsif options[:from_page].is_a?(String)
+      options[:from_page] = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
     end
+    conditions = {
+      :parent_id => options[:from_page].id,
+      :restricted => options[:restricted_only] || false,
+      :visible => true
+    }
+    if options[:restricted_only].nil?
+      conditions.delete(:restricted)
+    end
+    pages = Page.all(
+      :conditions => conditions,
+      :order => "lft ASC"
+    )
+    if options[:reverse]
+      pages.reverse!
+    end
+    render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
   end
   
   # Renders the children of the given page (standard is the current page), the given page and its siblings if there are no children, or it renders just nil.
