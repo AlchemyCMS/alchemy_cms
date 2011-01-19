@@ -748,9 +748,10 @@ var Alchemy = {
 			}
 		});
 		
-		$elements.click(function(e) {
-			var id = this.id.replace(/\D/g,'');
-			var $element = jQuery(this);
+		jQuery('#element_area .element_editor .element_head').click(function(e) {
+			e.preventDefault();
+			var $element = jQuery(this).parent('.element_editor');
+			var id = $element.attr('id').replace(/\D/g,'');
 			var $selected = $elements.closest('[class="selected"');
 			$elements.removeClass('selected');
 			$element.addClass('selected');
@@ -826,7 +827,7 @@ var Alchemy = {
 				jQuery.ajax({
 					url: '/admin/contents/order',
 					type: 'POST',
-					data: "authenticity_token=" + encodeURIComponent('<%= form_authenticity_token %>') + "&" + jQuery.param({content_ids: ids}),
+					data: "authenticity_token=" + encodeURIComponent(token) + "&" + jQuery.param({content_ids: ids}),
 					complete: function () {
 						jQuery(event.originalTarget).css("cursor", "move");
 					}

@@ -9,9 +9,7 @@ when "EssencePicture"
       :options => @options
     }
   )
-  if @dragable
-    page << "jQuery('#element_#{@element.id}_contents').sortable('refresh')"
-  end
+  page << "Alchemy.SortableContents('#{form_authenticity_token}')"
   if !@options[:maximum_amount_of_images].blank? && (@contents_of_this_type.length >= @options[:maximum_amount_of_images].to_i)
     page.remove "add_content_#{@element.id}"
   end
@@ -27,7 +25,7 @@ when "EssenceText"
       :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
     }
   )
-  page << "Alchemy.reloadPreview(); if(typeof(alchemy_window)!='undefined') { Alchemy.closeCurrentWindow(); }"
+  page << "Alchemy.reloadPreview(); Alchemy.closeCurrentWindow();"
 when "EssenceRichtext"
   page.insert_html(
     :before,
