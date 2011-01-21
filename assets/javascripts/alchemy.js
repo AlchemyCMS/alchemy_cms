@@ -86,6 +86,10 @@ var Alchemy = {
 				create: function() {
 					var $spinner = jQuery('<img src="/images/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
 					jQuery('#ui-dialog-title-alchemyPreviewWindow').after($spinner);
+					var $reload = jQuery('<a href="#" class="ui-dialog-titlebar-refresh ui-corner-all" role="button"></a>')
+					$reload.append('<span class="ui-icon ui-icon-refresh">reload</span>');
+					jQuery('#ui-dialog-title-alchemyPreviewWindow').after($reload);
+					$reload.click(Alchemy.reloadPreview);
 				},
 				close: function(event, ui) { 
 					Alchemy.PreviewWindowButton.enable() 

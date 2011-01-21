@@ -172,7 +172,8 @@
 	text-decoration: none;
 }
 
-#alchemy .ui-state-hover, #alchemy .ui-widget-content .ui-state-hover, #alchemy .ui-widget-header .ui-state-hover, #alchemy .ui-state-focus, #alchemy .ui-widget-content .ui-state-focus, #alchemy .ui-widget-header .ui-state-focus {
+#alchemy .ui-state-hover, #alchemy .ui-widget-content .ui-state-hover, #alchemy .ui-widget-header .ui-state-hover, #alchemy .ui-state-focus, #alchemy .ui-widget-content .ui-state-focus, #alchemy .ui-widget-header .ui-state-focus, #alchemy .ui-dialog .ui-dialog-titlebar-refresh:hover, #alchemy .ui-dialog .ui-dialog-titlebar-refresh:focus
+ {
 	border: 1px solid #888888;
 	background: #e6f0f5 url(/images/alchemy/gui/shading.png) repeat-x 50% -65px;
 	font-weight: normal;
@@ -557,7 +558,7 @@
 }
 
 #alchemy .ui-icon-refresh {
-	background-position: -64px -80px;
+	background-position: -63px -79px;
 }
 
 #alchemy .ui-icon-shuffle {
@@ -1474,6 +1475,16 @@ button.ui-button::-moz-focus-inner {
 	height: 18px;
 }
 
+#alchemy .ui-dialog .ui-dialog-titlebar-refresh {
+	position: absolute;
+	right: 46px;
+	top: 50%;
+	width: 19px;
+	margin: -10px 0 0 0;
+	padding: 1px;
+	height: 18px;
+}
+
 #alchemy .ui-dialog .ui-dialog-titlebar-maximize,
 #alchemy .ui-dialog .ui-dialog-titlebar-restore {
 	margin-right: 8px;
@@ -1485,6 +1496,10 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar-close:hover, #alchemy .ui-dialog .ui-dialog-titlebar-close:focus {
+	padding: 0;
+}
+
+#alchemy .ui-dialog .ui-dialog-titlebar-refresh:hover, #alchemy .ui-dialog .ui-dialog-titlebar-refresh:focus {
 	padding: 0;
 }
 
