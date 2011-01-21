@@ -131,7 +131,7 @@
 
 #alchemy .ui-widget-content {
 	border: 1px solid #afafaf;
-	background: #ededed url(/images/alchemy/jquery-ui/ui-bg_flat_0_ededed_40x100.png) 50% 50% repeat-x;
+	background-color: #ededed;
 	color: #333333;
 }
 
