@@ -10,10 +10,10 @@ javascripts:
   - alchemy/jquery.scrollTo-1.4.2-min
   - alchemy/jquery.ui.nestedSortable
   - alchemy/alchemy
-  - alchemy/swfupload/fileprogress
-  - alchemy/swfupload/handlers
-  - alchemy/swfupload/queue
   - alchemy/swfupload/swfupload
+  - alchemy/swfupload/queue
+  - alchemy/swfupload/handlers
+  - alchemy/swfupload/fileprogress
 - preview:
   - alchemy/jquery-1.4.4.min
   - alchemy/alchemy
