@@ -109,7 +109,8 @@ class Admin::PagesController < AlchemyController
       @url_prefix = current_server
     end
     if multi_language?
-      @url_prefix = "#{session[:language_id]}/"
+      language = Language.find(session[:language_id])
+      @url_prefix = "#{language.code}/"
     end
     render :layout => false
   end
@@ -197,6 +198,7 @@ class Admin::PagesController < AlchemyController
       page.replace 'sitemap', :partial => 'sitemap'
       page.hide "page_sorting_notice"
       page << "jQuery('#page_sorting_button').removeClass('active')"
+      page << "Alchemy.pleaseWaitOverlay(false)"
     end
   rescue Exception => e
     log_error(e)

@@ -3110,7 +3110,7 @@ div.assign_file_file_icon img {
 table.window_form td.input {
 	padding-top: 2px;
 	padding-bottom: 2px;
-	padding-right: 0;
+	padding-right: 8px;
 }
 
 #alchemy .ui-dialog-content p {
@@ -3125,8 +3125,9 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-#alchemy .ui-dialog-content input.auto_resize {
-	width: 483px;
+#alchemy .ui-dialog-content input.auto_resize,
+#alchemy .ui-dialog-content textarea.auto_resize {
+	width: 100%;
 }
 
 #alchemy .ui-dialog-content td.medium {

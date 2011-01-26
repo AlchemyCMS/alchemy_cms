@@ -442,7 +442,7 @@ var Alchemy = {
 	// Selects the tab for kind of link and fills all fields.
 	selectLinkWindowTab : function() {
 		var linked_element = Alchemy.CurrentLinkWindow.linked_element;
-		var link = null;
+		var link;
 		
 		// Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
 		if (linked_element.nodeType) {
@@ -512,9 +512,9 @@ var Alchemy = {
 				var link_body = link_params.split('&')[2];
 				Alchemy.showLinkWindowTab('#overlay_tab_contactform_link');
 				jQuery('#contactform_url').val(link_url);
-				jQuery('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')));
-				jQuery('#contactform_body').val(unescape(link_body.replace(/body=/, '')));
-				jQuery('#contactform_mailto').val(link_mailto.replace(/mail_to=/, ''));
+				jQuery('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')).replace(/\?/, ''));
+				jQuery('#contactform_body').val(unescape(link_body.replace(/body=/, '')).replace(/\?/, ''));
+				jQuery('#contactform_mailto').val(link_mailto.replace(/mail_to=/, '').replace(/\?/, ''));
 			}
 		}
 	},
@@ -534,14 +534,14 @@ var Alchemy = {
 	
 	createTempLink : function(linked_element) {
 		var $tmp_link = jQuery("<a></a>");
-		var essence_type = linked_element.attr('name').replace('essence_', '').split('_')[0];
-		var content_id = null;
+		var essence_type = jQuery(linked_element).attr('name').replace('essence_', '').split('_')[0];
+		var content_id;
 		switch (essence_type) {
-		case "picture":
-			content_id = linked_element.attr('name').replace('essence_picture_', '');
+			case "picture":
+				content_id = jQuery(linked_element).attr('name').replace('essence_picture_', '');
 			break;
-		case "text":
-			content_id = linked_element.attr('name').replace('essence_text_', '');
+			case "text":
+				content_id = jQuery(linked_element).attr('name').replace('essence_text_', '');
 			break;
 		}
 		$tmp_link.attr('href', jQuery('#content_' + content_id + '_link').val());
@@ -550,7 +550,7 @@ var Alchemy = {
 			$tmp_link.attr('target', '_blank');
 		}
 		$tmp_link.addClass(jQuery('#content_' + content_id + '_link_class_name').val());
-		return $tmp_link.get(0);
+		return $tmp_link[0];
 	},
 	
 	removePictureLink : function(content_id) {

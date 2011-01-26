@@ -23,11 +23,10 @@
 				<label for="contactform_mailto" class="medium"><%= _("mail_to") %></label>
 			</td>
 			<td class="input">
-				<%= alchemy_selectbox_tag(
+				<%= select_tag(
 					"contactform_mailto",
-					configuration(:mailer)[:mail_addresses].map{ |a| [t('mailer.mail_addresses.'+a[0]), a[0]] },
-					'',
-					:style => "width: 100%"
+					options_for_select(configuration(:mailer)[:mail_addresses].map{ |a| [t('mailer.mail_addresses.'+a[0]), a[0]] }),
+					:style => "width: 300px"
 				) %>
 			</td>
 		</tr>
@@ -55,10 +54,10 @@
 	<p>
 		<%= link_to_function(
 			_("apply"),
-			"alchemyCreateLink(
+			"Alchemy.createLink(
 				'contact',
-				$('contactform_url').value + '?subject=' + encodeURIComponent($('contactform_subject').value) + '&mail_to=' + encodeURIComponent($('contactform_mailto').value) + '&body=' + encodeURIComponent($('contactform_body').value),
-				$('contactform_link_title').value,
+				jQuery('#contactform_url').val() + '?subject=' + encodeURIComponent(jQuery('#contactform_subject').val()) + '&mail_to=' + encodeURIComponent(jQuery('#contactform_mailto').val()) + '&body=' + encodeURIComponent(jQuery('#contactform_body').val()),
+				jQuery('#contactform_link_title').val(),
 				false
 			); Alchemy.CurrentLinkWindow.close()",
 			:class => 'button'

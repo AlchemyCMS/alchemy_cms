@@ -5,4 +5,5 @@ if @sorting
   page << "Alchemy.PageSorter()"
 else
   page.hide 'page_sorting_notice'
+  page << "Alchemy.pleaseWaitOverlay(false)"
 end

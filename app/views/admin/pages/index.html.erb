@@ -34,6 +34,8 @@
             <%= link_to_remote(
                 content_tag('span', '', :class => 'icon sort'),
                 :url => sort_admin_pages_path(:sorting => @sorting),
+				:before => 'Alchemy.pleaseWaitOverlay();',
+                :complete => 'Alchemy.pleaseWaitOverlay(false);',
                 :html => {:class => 'icon_button',
                 :title => _('Sort pages')}
             ) -%><br />
@@ -50,8 +52,8 @@
 	<%= render_icon('info') %>
 	<%= _('Explain|Sitemap|Dragndrop sorting') %>
 	<p>
-		<%= link_to( _('cancel'), admin_pages_path, :class => 'button' ) %>&nbsp;
-		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button' ) %>
+		<%= link_to( _('cancel'), admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
+		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>
 	</p>
 </div>
 
