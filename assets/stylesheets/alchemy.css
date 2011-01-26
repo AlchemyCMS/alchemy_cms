@@ -1749,7 +1749,6 @@ td.role {
 
 #archive_all {
 	padding: 16px;
-	margin-top: 8px;
 }
 
 #archive_all .padding_left_right {
@@ -2381,7 +2380,7 @@ div.pagination {
 	line-height: 24px;
 	height: 24px;
 	width: 100%;
-	margin-bottom: 8px;
+	margin-bottom: 16px;
 }
 
 div.pagination .prev_page {

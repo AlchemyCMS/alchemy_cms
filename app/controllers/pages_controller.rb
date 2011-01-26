@@ -30,7 +30,7 @@ class PagesController < AlchemyController
   def show
     # @page is fetched via before filter
     # rendering page and querying for search results if any query is present
-    @current_language = Alchemy::Controller.current_language
+    @language = Alchemy::Controller.current_language
     if configuration(:ferret) && !params[:query].blank?
       perform_search
     end
