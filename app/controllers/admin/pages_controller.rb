@@ -76,15 +76,15 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     name = @page.name
     if @page.destroy
-      @root_page = Page.language_root_for(session[:language_id])
-      if @root_page
+      @page_root = Page.language_root_for(session[:language_id])
+      if @page_root
         render :update do |page|
-          page.replace_html(
+          page.replace(
             "sitemap",
-            :partial => 'page',
-            :object => @root_page
+            :partial => 'sitemap'
           )
           Alchemy::Notice.show(page, _("Page %{name} deleted") % {:name => name})
+          page << "Alchemy.Tooltips()"
         end
       else
         render :update do |page|
@@ -199,12 +199,10 @@ class Admin::PagesController < AlchemyController
       page.hide "page_sorting_notice"
       page << "jQuery('#page_sorting_button').removeClass('active')"
       page << "Alchemy.pleaseWaitOverlay(false)"
+      page << "Alchemy.Tooltips()"
     end
   rescue Exception => e
-    log_error(e)
-    render :update do |page|
-      Alchemy::Notice.show(page, _("Error: %{e}") % {:e => e}, :error)
-    end
+    exception_handler(e)
   end
   
   def switch_language

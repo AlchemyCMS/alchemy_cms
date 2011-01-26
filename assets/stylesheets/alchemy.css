@@ -807,9 +807,16 @@ ul#layoutpages li {
 	display: block;
 	margin-left: 0;
 	margin-bottom: 0;
+	line-height: 22px;
+}
+
+ul#sitemap li {
 	padding-left: 22px;
 	padding-right: 0;
-	line-height: 22px;
+}
+
+ul#layoutpages li {
+	padding: 0;
 }
 
 div.sitemap_page {
