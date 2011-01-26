@@ -36,6 +36,7 @@
                 :url => sort_admin_pages_path(:sorting => @sorting),
 				:before => 'Alchemy.pleaseWaitOverlay();',
                 :complete => 'Alchemy.pleaseWaitOverlay(false);',
+				:method => :get,
                 :html => {:class => 'icon_button',
                 :title => _('Sort pages')}
             ) -%><br />
