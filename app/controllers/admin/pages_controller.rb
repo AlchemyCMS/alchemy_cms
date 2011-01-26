@@ -10,7 +10,7 @@ class Admin::PagesController < AlchemyController
   filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
   
-  cache_sweeper :pages_sweeper, :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
+  cache_sweeper :pages_sweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
   
   def index
     @page_root = Page.language_root_for(session[:language_id])

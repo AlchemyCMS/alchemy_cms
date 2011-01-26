@@ -8,7 +8,7 @@ class PagesController < AlchemyController
   caches_action(
     :show,
     :layout => false,
-    :cache_path => Proc.new { |c| c.multi_language? ? "#{c.session[:language_id]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
+    :cache_path => Proc.new { |c| c.multi_language? ? "#{Alchemy::Controller.current_language.code}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
       if Alchemy::Configuration.parameter(:cache_pages)
         page = Page.find_by_urlname_and_language_id_and_public(
@@ -30,6 +30,7 @@ class PagesController < AlchemyController
   def show
     # @page is fetched via before filter
     # rendering page and querying for search results if any query is present
+    @current_language = Alchemy::Controller.current_language
     if configuration(:ferret) && !params[:query].blank?
       perform_search
     end

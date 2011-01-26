@@ -46,13 +46,6 @@
 
 <%- if @page_root -%>
 
-<h2 id="sitemap_heading">
-    <span class="page_name"><%= _('Name') %></span>
-    <span class="page_infos"><%= _('Status') %></span>
-</h2>
-
-<%= render :partial => 'sitemap' %>
-
 <div class="info" style="display: none" id="page_sorting_notice">
 	<%= render_icon('info') %>
 	<%= _('Explain|Sitemap|Dragndrop sorting') %>
@@ -61,6 +54,13 @@
 		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button' ) %>
 	</p>
 </div>
+
+<h2 id="sitemap_heading">
+    <span class="page_name"><%= _('Name') %></span>
+    <span class="page_infos"><%= _('Status') %></span>
+</h2>
+
+<%= render :partial => 'sitemap' %>
 
 <%- else -%>
 
