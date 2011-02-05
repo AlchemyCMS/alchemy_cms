@@ -680,8 +680,8 @@ div.tip {
 
 #sub_navigation div.subnavi_tab.wide form {
 	position: absolute;
-	right: 4px;
-	top: 4px;
+	right: 3px;
+	top: 3px;
 }
 
 #sub_navigation a {
@@ -2234,6 +2234,9 @@ span.icon.close.small {
 	background: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png) -84px -132px;
 	width: 8px;
 	height: 8px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
 }
 
 span.icon.online {

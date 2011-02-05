@@ -110,7 +110,7 @@ class Admin::ElementsController < AlchemyController
     end
     render :update do |page|
       Alchemy::Notice.show(page, _("successfully_saved_element_position"))
-      page << "Alchemy.reloadPreview();"
+      page << "Alchemy.PreviewWindow.refresh()"
     end
   rescue Exception => e
     exception_handler(e)

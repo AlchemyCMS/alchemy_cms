@@ -167,39 +167,36 @@ var Alchemy = {
 	},
 	
 	openElementsWindow : function (path, title) {
-		var $dialog = jQuery('#alchemyElementWindow');
-		if ($dialog.length === 0) {
-			$dialog = jQuery('<div style="display:none" id="alchemyElementWindow"></div>');
-			$dialog.html(Alchemy.getOverlaySpinner({x: 420, y: 300}));
-			Alchemy.ElementsWindow = $dialog.dialog({
-				modal: false, 
-				minWidth: 422, 
-				minHeight: 300,
-				height: jQuery(window).height() - 94,
-				title: title,
-				show: "fade",
-				hide: "fade",
-				position: [jQuery(window).width() - 432, 84],
-				closeOnEscape: false,
-				open: function(event, ui) {
-					Alchemy.ElementsWindowButton.disable();
-					jQuery.ajax({
-						url: path,
-						success: function(data, textStatus, XMLHttpRequest) {
-							$dialog.html(data);
-						},
-						error: function(XMLHttpRequest, textStatus, errorThrown) {
-							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
-						}
-					});
-				},
-				close: function() {
-					Alchemy.ElementsWindowButton.enable();
-				}
-			});
-		} else {
-			$dialog.dialog('open');
-		}
+		var $dialog = jQuery('<div style="display: none" id="alchemyElementWindow"></div>');
+		$dialog.html(Alchemy.getOverlaySpinner({x: 420, y: 300}));
+		Alchemy.ElementsWindow = $dialog.dialog({
+			modal: false, 
+			minWidth: 422, 
+			minHeight: 300,
+			height: jQuery(window).height() - 94,
+			title: title,
+			show: "fade",
+			hide: "fade",
+			position: [jQuery(window).width() - 432, 84],
+			closeOnEscape: false,
+			open: function(event, ui) {
+				Alchemy.ElementsWindowButton.disable();
+				jQuery.ajax({
+					url: path,
+					success: function(data, textStatus, XMLHttpRequest) {
+						$dialog.html(data);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
+					}
+				});
+			},
+			close: function() {
+				$dialog.dialog("destroy");
+				jQuery('#alchemyElementWindow').remove();
+				Alchemy.ElementsWindowButton.enable();
+			}
+		});
 	},
 	
 	openConfirmWindow : function (url, title, message, ok_lable, cancel_label) {
@@ -583,7 +580,7 @@ var Alchemy = {
 			$rtf_contents.each(function() {
 				var id = jQuery(this).children('textarea').attr('id');
 				jQuery(this).find('.essence_richtext_loader').show();
-				tinyMCE.execCommand('mceRemoveControl', true, id);
+				tinymce.get(id).remove();
 			})
 		}
 	},
@@ -763,21 +760,17 @@ var Alchemy = {
 					}
 				});
 			},
-			start: function (event, ui) {
-				var item = ui.item[0];
-				var $textareas = jQuery(item).find('textarea.tinymce');
+			start: function(event, ui) {
+				var $textareas = ui.item.find('textarea.tinymce');
 				$textareas.each(function() {
-					var editor = tinyMCE.get(this.id);
-					editor.save();
-					tinyMCE.execCommand(
-						'mceRemoveControl',
-						true,
-						editor.editorId
-					);
+					tinymce.get(this.id).remove();
 				});
 			},
-			stop: function (event, ui) {
-				TinymceHammer.init();
+			stop: function(event, ui) {
+				var $textareas = ui.item.find('textarea.tinymce');
+				$textareas.each(function() {
+					TinymceHammer.addEditor(this.id);
+				});
 			}
     });
 	},

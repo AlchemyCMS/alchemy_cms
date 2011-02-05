@@ -10,14 +10,14 @@ else
   page << "jQuery('#element_area').sortable('refresh')"
   if @element.folded
     @richtext_contents.each do |content|
-      page << "tinyMCE.execCommand('mceRemoveControl', true, 'contents_content_#{content.id}')"
+      page << "tinymce.get('contents_content_#{content.id}_body').remove()"
     end
   else
     page << "jQuery('#element_#{@element.id}').addClass('selected')"
+    page << "Alchemy.SelectBox('#element_#{@element.id} select')"
     @richtext_contents.each do |content|
       page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
     end
-    page << "Alchemy.SelectBox('#element_#{@element.id} select')"
   end
   page << "Alchemy.ElementEditorSelector()"
 end
