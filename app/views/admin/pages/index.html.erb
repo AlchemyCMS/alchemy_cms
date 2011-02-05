@@ -1,21 +1,17 @@
 <%- alchemy_combined_assets -%>
 
 <%- content_for(:subnav_additions) do -%>
+<label><%= _('Active Pages') %> &raquo;</label>
 <%- Page.all_locked_by(current_user).each do |page| -%>
-<div class="subnavi_tab wide">
+<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
 	  <% link_to edit_admin_page_path(page) do %>
     <span class="page_name">
 	  	  <%= page.name %>
 	  </span>
 		<% end %>
-	  <% form_tag(
-	  	unlock_admin_page_path(
-	  		page,
-	  		:redirect_to => current_page
-	  	)
-	  ) do %>
+	  <% form_remote_tag(:url => unlock_admin_page_path(page)) do %>
 	  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
-	  		  <%= render_icon('close small') %>
+	  		    <%= render_icon('close small') %>
 	  	  </button>
 	  <% end %>
 </div>

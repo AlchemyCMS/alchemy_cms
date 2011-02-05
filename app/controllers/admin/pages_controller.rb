@@ -135,10 +135,18 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     @page.unlock
     flash[:notice] = _("unlocked_page_%{name}") % {:name => @page.name}
-    if params[:redirect_to].blank?
-      redirect_to admin_pages_path
+    if request.xhr?
+      render :update do |page|
+        page.remove "locked_page_#{@page.id}"
+        page << "jQuery('#page_#{@page.id} .site_status').removeClass('locked')"
+        Alchemy::Notice.show(page, flash[:notice])
+      end
     else
-      redirect_to(params[:redirect_to])
+      if params[:redirect_to].blank?
+        redirect_to admin_pages_path
+      else
+        redirect_to(params[:redirect_to])
+      end
     end
   end
   

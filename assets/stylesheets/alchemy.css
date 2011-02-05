@@ -603,6 +603,14 @@ div.tip {
 	height: 22px;
 }
 
+#subnav_additions label {
+	float: left;
+	font-size: 10px;
+	line-height: 25px;
+	height: 25px;
+	margin-right: 4px;
+}
+
 #sub_navigation img {
 	float: left;
 }
