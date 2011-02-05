@@ -8,7 +8,11 @@ else
     :locals => {:open_element_selector => false}
   )
   page << "jQuery('#element_area').sortable('refresh')"
-  unless @element.folded
+  if @element.folded
+    @richtext_contents.each do |content|
+      page << "tinyMCE.execCommand('mceRemoveControl', true, 'contents_content_#{content.id}')"
+    end
+  else
     page << "jQuery('#element_#{@element.id}').addClass('selected')"
     @richtext_contents.each do |content|
       page << "TinymceHammer.addEditor('contents_content_#{content.id}')"
