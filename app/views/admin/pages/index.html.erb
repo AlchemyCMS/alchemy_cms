@@ -1,8 +1,9 @@
 <%- alchemy_combined_assets -%>
 
 <%- content_for(:subnav_additions) do -%>
+<%- unless @locked_pages.blank? -%>
 <label><%= _('Active Pages') %> &raquo;</label>
-<%- Page.all_locked_by(current_user).each do |page| -%>
+<%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
 	  <% link_to edit_admin_page_path(page) do %>
     <span class="page_name">
@@ -15,6 +16,7 @@
 	  	  </button>
 	  <% end %>
 </div>
+<%- end -%>
 <%- end -%>
 <%- end -%>
 

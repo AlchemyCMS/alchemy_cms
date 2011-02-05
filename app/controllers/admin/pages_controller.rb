@@ -14,6 +14,7 @@ class Admin::PagesController < AlchemyController
   
   def index
     @page_root = Page.language_root_for(session[:language_id])
+    @locked_pages = Page.all_locked_by(current_user)
   end
   
   def show
@@ -139,6 +140,9 @@ class Admin::PagesController < AlchemyController
       render :update do |page|
         page.remove "locked_page_#{@page.id}"
         page << "jQuery('#page_#{@page.id} .site_status').removeClass('locked')"
+        if Page.all_locked_by(current_user).blank?
+          page << "jQuery('#subnav_additions label').hide()"
+        end
         Alchemy::Notice.show(page, flash[:notice])
       end
     else
