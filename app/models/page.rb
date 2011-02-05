@@ -401,8 +401,8 @@ private
   
   # Returns all pages for langugae that are not locked and public.
   # Used for flushing all page caches at once.
-  def self.flushables(language)
-    self.all(:conditions => {:public => true, :locked => false, :language_id => language.id})
+  def self.flushables(language_id)
+    self.all(:conditions => {:public => true, :locked => false, :language_id => language_id})
   end
   
   def set_language_code
