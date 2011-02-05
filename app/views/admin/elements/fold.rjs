@@ -9,9 +9,10 @@ else
   )
   page << "jQuery('#element_area').sortable('refresh')"
   unless @element.folded
-    #page << "jQuery('#element_#{@element.id}').scrollTo()"
     page << "jQuery('#element_#{@element.id}').addClass('selected')"
-    page << "TinymceHammer.init()" unless @richtext_contents.blank?
+    @richtext_contents.each do |content|
+      page << "TinymceHammer.addEditor('contents_content_#{content.id}')"
+    end
   end
   page << "Alchemy.ElementEditorSelector()"
 end
