@@ -170,8 +170,7 @@ class Admin::PagesController < AlchemyController
       copy_child_pages(original_language_root, new_language_root)
       flash[:notice] = _('language_pages_copied')
     rescue
-      log_error($!)
-      flash[:error] = _('language_pages_could_not_be_copied')
+      exception_logger($!)
     end
     redirect_to :action => params[:layoutpage] == "true" ? :layoutpages : :index
   end

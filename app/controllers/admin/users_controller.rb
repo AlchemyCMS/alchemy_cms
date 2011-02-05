@@ -41,6 +41,8 @@ class Admin::UsersController < AlchemyController
       admin_users_path,
       ( _("User: '%{name}' created") % {:name => @user.name} )
     )
+  rescue
+    exception_handler($!)
   end
   
   def edit
