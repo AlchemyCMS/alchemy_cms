@@ -19,4 +19,11 @@ class EssencePicture < ActiveRecord::Base
     self.picture
   end
   
+  # Saves the ingredient
+  def save_ingredient(params, options = {})
+    raise Alchemy::EssenceError.new("params are blank for EssencePicture#id = #{self.id}") if params.blank?
+    self.picture_id = params["picture_id"].to_s
+    self.save!
+  end
+  
 end

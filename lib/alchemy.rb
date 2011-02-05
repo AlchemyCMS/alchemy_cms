@@ -10,4 +10,6 @@ module Alchemy
     version_number
   end
   
+  class EssenceError < StandardError;  end
+  
 end

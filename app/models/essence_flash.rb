@@ -13,4 +13,11 @@ class EssenceFlash < ActiveRecord::Base
     self.attachment
   end
   
+  # Saves the ingredient
+  def save_ingredient(params, options = {})
+    raise Alchemy::EssenceError.new("params are blank for EssenceFlash#id = #{self.id}") if params.blank?
+    self.attachment_id = params["attachment_id"].to_s
+    self.save!
+  end
+  
 end

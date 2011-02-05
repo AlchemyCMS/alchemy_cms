@@ -8,9 +8,10 @@ page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show(page, _("successfully_added_element"))
 page << "Alchemy.closeCurrentWindow()"
 @richtext_contents.each do |content|
-  page << "TinymceHammer.addEditor('contents_content_#{content.id}')"
+  page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
 end
 page << "Alchemy.PreviewWindow.refresh()"
 page << "Alchemy.ElementEditorSelector()"
 page << "Alchemy.scrollToElementEditor('#element_#{@element.id}')"
 page << "jQuery('#element_#{@element.id}').trigger('AlchemySelectElement')"
+page << "Alchemy.SelectBox('#element_#{@element.id} select')"

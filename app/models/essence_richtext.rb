@@ -15,7 +15,15 @@ class EssenceRichtext < ActiveRecord::Base
     self.body
   end
   
-  private
+  # Saves the ingredient
+  def save_ingredient(params, options = {})
+    raise Alchemy::EssenceError.new("params are blank for EssenceRichtext#id = #{self.id}") if params.blank?
+    self.body = params['body'].to_s
+    self.public = options[:public]
+    self.save!
+  end
+  
+private
   
   def strip_content
     self.stripped_body = strip_tags(self.body)

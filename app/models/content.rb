@@ -75,10 +75,15 @@ class Content < ActiveRecord::Base
     end
   end
   
-  # Calls the ingredient method on the essence
+  # Gets the ingredient from essence
   def ingredient
     return nil if self.essence.blank?
     self.essence.ingredient
+  end
+  
+  # Calles self.essence.save_ingredient. Called from ElementController#update for each content in element.
+  def save_content(params, options = {})
+    self.essence.save_ingredient(params, options)
   end
   
 end
