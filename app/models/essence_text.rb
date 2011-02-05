@@ -16,7 +16,7 @@ class EssenceText < ActiveRecord::Base
   
   # Saves the content from params
   def save_ingredient(params, options = {})
-    raise Alchemy::EssenceError.new("params are blank for EssenceText#id = #{self.id}") if params.blank?
+    return true if params.blank?
     self.body = params["body"].to_s
     self.link = params["link"].to_s
     self.title = params["title"].to_s

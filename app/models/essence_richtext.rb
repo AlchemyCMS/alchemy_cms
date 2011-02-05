@@ -17,7 +17,7 @@ class EssenceRichtext < ActiveRecord::Base
   
   # Saves the ingredient
   def save_ingredient(params, options = {})
-    raise Alchemy::EssenceError.new("params are blank for EssenceRichtext#id = #{self.id}") if params.blank?
+    return true if params.blank?
     self.body = params['body'].to_s
     self.public = options[:public]
     self.save!

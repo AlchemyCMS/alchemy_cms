@@ -17,7 +17,7 @@ class EssenceDate < ActiveRecord::Base
   
   # Saves the ingredient
   def save_ingredient(params, options = {})
-    raise Alchemy::EssenceError.new("params are blank for EssenceDate#id = #{self.id}") if params.blank?
+    return true if params.blank?
     self.date = DateTime.strptime(params.values.join('-'), @@date_parts[0, params.length].join("-"))
     self.save!
   end

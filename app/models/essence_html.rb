@@ -13,7 +13,7 @@ class EssenceHtml < ActiveRecord::Base
   
   # Saves the ingredient
   def save_ingredient(params, options = {})
-    raise Alchemy::EssenceError.new("params are blank for EssenceHtml#id = #{self.id}") if params.blank?
+    return true if params.blank?
     self.source = params["source"].to_s
     self.save!
   end
