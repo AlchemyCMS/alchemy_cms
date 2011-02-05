@@ -782,8 +782,8 @@ var Alchemy = {
     });
 	},
 	
-	SortableContents : function(token) {
-		jQuery('#element_area .picture_gallery_images').sortable({
+	SortableContents : function(selector, token) {
+		jQuery(selector).sortable({
 			items: 'div.dragable_picture',
 			handle: 'div.picture_handle',
 			placeholder: 'droppable_content_placeholder',

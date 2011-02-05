@@ -3,5 +3,5 @@ Alchemy::Notice.show(page, ( _("Image updated successfully") ))
 page << "Alchemy.closeCurrentWindow()"
 page << "Alchemy.reloadPreview()"
 if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-  page << "Alchemy.SortableContent('#{form_authenticity_token}')"
+  page << "Alchemy.SortableContents('#{form_authenticity_token}')"
 end

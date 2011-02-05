@@ -41,8 +41,6 @@ class Admin::EssencePicturesController < AlchemyController
     @content = Content.find(params[:id])
     @picture = Picture.find(params[:picture_id])
     @content.essence.picture = @picture
-    @content.essence.save
-    @content.save
     @options = params[:options]
     # If options params come from Flash uploader then we have to parse them as hash.
     @element = @content.element

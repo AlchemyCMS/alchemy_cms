@@ -19,6 +19,6 @@
 </div>
 <%- if picture_contents.size > 1 -%>
 <script type="text/javascript" charset="utf-8">
-	Alchemy.SortableContents('<%= form_authenticity_token %>');
+	Alchemy.SortableContents('#element_<%= element.id %>_contents', '<%= form_authenticity_token %>');
 </script>
 <%- end -%>

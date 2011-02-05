@@ -26,7 +26,7 @@
 		<%- if @initial_box -%>
 		setSelect: [ <%= @initial_box[:x1] %>, <%= @initial_box[:y1] %>, <%= @initial_box[:x2] %>, <%= @initial_box[:y2] %> ],
 		<%- end -%>
-		minSize: [<%= @size_x %>, <%= @size_y %>],
+		maxSize: [<%= @size_x %>, <%= @size_y %>],
 		aspectRatio: <%= @size_x %> / <%= @size_y %>
 	});
 </script>

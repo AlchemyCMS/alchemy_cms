@@ -9,7 +9,7 @@ when "EssencePicture"
       :options => @options
     }
   )
-  page << "Alchemy.SortableContents('#{form_authenticity_token}')"
+  page << "Alchemy.SortableContents('#element_#{@element.id}_contents', '#{form_authenticity_token}')"
   if !@options[:maximum_amount_of_images].blank? && (@contents_of_this_type.length >= @options[:maximum_amount_of_images].to_i)
     page.remove "add_content_#{@element.id}"
   end
