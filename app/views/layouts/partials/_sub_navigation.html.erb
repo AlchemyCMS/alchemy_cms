@@ -1,15 +1,14 @@
-<div id="sub_navigation">
 <%- entries.each do |e| -%>
 	<%- permitted_to?(e["action"].to_sym, e["controller"].gsub(/\//, '_').to_sym) do -%>
-	<%= link_to(
-		_(e["name"]),
-		{
-			:controller => "/#{e['controller']}",
-			:action => e["action"]
-		},
-		:onclick => 'Alchemy.pleaseWaitOverlay();',
-		:class => params[:controller] == e["controller"] && params[:action] == e["action"] ? 'active' : nil
-	) %>
-	<%- end -%>
+	<div class="subnavi_tab<%= params[:controller] == e["controller"] && params[:action] == e["action"] ? ' active' : nil %>">
+		  <%= link_to(
+				_(e["name"]),
+				{
+					:controller => "/#{e['controller']}",
+					:action => e["action"]
+				},
+				:onclick => 'Alchemy.pleaseWaitOverlay();'
+			) %>
+			<%- end -%>
+	</div>
 <%- end -%>
-</div>

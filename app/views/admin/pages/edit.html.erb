@@ -3,9 +3,8 @@
 <%- content_for(:javascript_includes) do -%>
 	<%= tinymce_hammer_javascript_tags %>
 <%- end -%>
-<%- content_for(:subnavi) do -%>
-<div id="sub_navigation">
-    <%- for page in Page.all_locked_by(current_user) do -%>
+<%- content_for(:subnav_additions) do -%>
+    <%- Page.all_locked_by(current_user).each do |page| -%>
     <%- if @page == page -%>
 	<span class="page_status_and_name">
 		<span class="page_name"><%= page.name %></span>
@@ -17,12 +16,25 @@
         <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
 	</span>
     <%- else -%>
-    <% link_to edit_admin_page_path(page) do %>
-    <span class="page_name"><%= page.name %></span>
-    <% end %>
+		<div class="subnavi_tab wide">
+			  <% link_to edit_admin_page_path(page) do %>
+	      <span class="page_name">
+			  	  <%= page.name %>
+			  </span>
+				<% end %>
+			  <% form_tag(
+			  	unlock_admin_page_path(
+			  		page,
+			  		:redirect_to => url_for(:controller => params[:controller], :action => params[:action], :id => params[:id])
+			  	)
+			  ) do %>
+			  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
+			  		  <%= render_icon('close small') %>
+			  	  </button>
+			  <% end %>
+		</div>
     <%- end -%>
 	<%- end -%>
-</div>
 <%- end -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">

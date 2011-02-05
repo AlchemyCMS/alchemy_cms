@@ -991,7 +991,7 @@ module AlchemyHelper
   def render_admin_subnavigation(entries)
     render :partial => "layouts/partials/sub_navigation", :locals => {:entries => entries}
   end
-
+  
   def admin_subnavigation
     plugin = alchemy_plugin(:controller => params[:controller], :action => params[:action])
     unless plugin.nil?

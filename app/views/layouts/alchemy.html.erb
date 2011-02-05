@@ -41,7 +41,12 @@
             </div>
         </div>
         <div id="top_menu">
-            <%= yield(:subnavi) || admin_subnavigation %>
+            <div id="sub_navigation">
+              <%= admin_subnavigation %>
+              <div id="subnav_additions">
+                  <%= yield(:subnav_additions) %>
+              </div>
+            </div>
             <%= yield(:toolbar) %>
             <%- if current_user -%>
             <div id="user_info">
