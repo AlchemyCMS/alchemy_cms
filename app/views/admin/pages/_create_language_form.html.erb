@@ -9,7 +9,7 @@
 				<table>
 				    <tr>
 				        <td class="input">
-				            <%= alchemy_selectbox_tag("languages[old_lang_id]", languages.map{ |l| [l.name, l.id] }, :class => "medium_long", :style => "float:left") %>
+				            <%= select_tag("languages[old_lang_id]", options_for_select(languages.map{ |l| [l.name, l.id] }), :class => "medium_long") %>
 				            <%= hidden_field_tag("languages[new_lang_id]", lang.id) %>
 				        </td>
 				        <td class="">

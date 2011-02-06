@@ -11,8 +11,8 @@
 # ---
 #
 # 1. The most important helpers for webdevelopers are the render_navigation(), render_elements() and the render_page_layout() helpers.
-# 2. The currently displayed page can be accessed with the current_page() helper. This is actually the page found via Page.find_by_name("some_url_name") page
-# 3. All important meta data from current_page will be rendered via the render_meta_data() helper.
+# 2. The currently displayed page can be accessed via the @page variable.
+# 3. All important meta data from @page will be rendered via the render_meta_data() helper.
 
 module AlchemyHelper
   
@@ -40,7 +40,7 @@ module AlchemyHelper
     return element.contents[position - 1]
   end
 
-  # Renders all elements from current_page.
+  # Renders all elements from @page.
   # ---
   # == Options are:
   # :only => []                 A list of element names to be rendered only. Very usefull if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
@@ -64,7 +64,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     if options[:from_page].blank?
-      page = current_page
+      page = @page
     else
       if options[:from_page].class == Page
         page = options[:from_page]
@@ -112,7 +112,7 @@ module AlchemyHelper
         :render_format => "html"
       }
       options = default_options.merge(options)
-      element.store_page(current_page) if part == :view
+      element.store_page(@page) if part == :view
       path1 = "#{RAILS_ROOT}/app/views/elements/"
       path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
       partial_name = "_#{element.name.underscore}_#{part}.html.erb"
@@ -294,7 +294,7 @@ module AlchemyHelper
   	content_name
   end
 
-  # Returns current_page.title
+  # Returns @page.title
   #
   # The options are:
   # :prefix => ""
@@ -309,8 +309,8 @@ module AlchemyHelper
       :seperator => "|"
     }
     default_options.update(options)
-    unless current_page.title.blank?
-      h("#{default_options[:prefix]} #{default_options[:seperator]} #{current_page.title}")
+    unless @page.title.blank?
+      h("#{default_options[:prefix]} #{default_options[:seperator]} #{@page.title}")
     else
       h("")
     end
@@ -343,11 +343,11 @@ module AlchemyHelper
       :content => ""
     }
     options = default_options.merge(options)
-    lang = (current_page.language.blank? ? options[:default_language] : current_page.language.code)
+    lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
     %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" xml:lang="#{lang}" />)
   end
 
-  # Renders a html <meta http-equiv="Content-Language" content="#{lang}" /> for current_page.language.
+  # Renders a html <meta http-equiv="Content-Language" content="#{lang}" /> for @page.language.
   #
   # == Webdevelopers:
   # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
@@ -357,13 +357,13 @@ module AlchemyHelper
       :default_language => "de"
     }
     options = default_options.merge(options)
-    lang = (current_page.language.blank? ? options[:default_language] : current_page.language.code)
+    lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
     %(<meta http-equiv="Content-Language" content="#{lang}" />)
   end
 
-  # = This helper takes care of all important meta tags for your current_page.
+  # = This helper takes care of all important meta tags for your @page.
   # ---
-  # The meta data is been taken from the current_page.title, current_page.meta_description, current_page.meta_keywords, current_page.updated_at and current_page.language database entries managed by the Alchemy user via the Alchemy cockpit.
+  # The meta data is been taken from the @page.title, @page.meta_description, @page.meta_keywords, @page.updated_at and @page.language database entries managed by the Alchemy user via the Alchemy cockpit.
   #
   # Assume that the user has entered following data into the Alchemy cockpit of the Page "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
   #
@@ -375,7 +375,7 @@ module AlchemyHelper
   #
   # <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   # <meta http-equiv="Content-Language" content="de" />
-  # <title>Company :: #{current_page.title}</title>
+  # <title>Company :: #{@page.title}</title>
   # <meta name="description" content="Your page description" />
   # <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax" />
   # <meta name="generator" content="Alchemy VERSION" />
@@ -390,18 +390,18 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
-    if current_page.meta_description.blank?
+    if @page.meta_description.blank?
       description = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_description rescue ""
     else
-      description = current_page.meta_description
+      description = @page.meta_description
     end
     #render meta keywords of the root page from language if the current meta keywords is empty
-    if current_page.meta_keywords.blank?
+    if @page.meta_keywords.blank?
       keywords = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_keywords rescue ""
     else
-      keywords = current_page.meta_keywords
+      keywords = @page.meta_keywords
     end
-    robot = "#{current_page.robot_index? ? "" : "no"}index, #{current_page.robot_follow? ? "" : "no"}follow"
+    robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
     meta_string = %(
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       #{render_meta_content_language_tag}
@@ -409,7 +409,7 @@ module AlchemyHelper
       #{render_meta_tag( :name => "description", :content => description)}
       #{render_meta_tag( :name => "keywords", :content => keywords)}
       <meta name="generator" content="Alchemy #{configuration(:alchemy_version)}" />
-      <meta name="date" content="#{current_page.updated_at}" />
+      <meta name="date" content="#{@page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
     if @page.contains_feed?
@@ -431,10 +431,10 @@ module AlchemyHelper
     return result.reverse
   end
 
-  # Returns a html string for a linked breadcrumb from root to current_page.
+  # Returns a html string for a linked breadcrumb from root to current page.
   # == Options:
   # :seperator => %(<span class="seperator">></span>)      Maybe you don't want this seperator. Pass another one.
-  # :page => current_page                                  Pass a different Page instead of the default current_page.
+  # :page => @page                                         Pass a different Page instead of the default (@page).
   # :without => nil                                        Pass Pageobject or array of Pages that must not be displayed.
   # :public_only => false                                  Pass boolean for displaying hidden pages only.
   # :visible_only => true                                  Pass boolean for displaying (in navigation) visible pages only.
@@ -443,7 +443,7 @@ module AlchemyHelper
   def render_breadcrumb(options={})
     default_options = {
       :seperator => %(<span class="seperator">&gt;</span>),
-      :page => current_page,
+      :page => @page,
       :without => nil,
       :public_only => false,
       :visible_only => true,
@@ -475,7 +475,7 @@ module AlchemyHelper
     bc = []
     pages.each do |page|
       urlname = page.urlname
-      (page.name == current_page.name) ? css_class = "active" : nil
+      (page.name == @page.name) ? css_class = "active" : nil
       if page == pages.last
         css_class.blank? ? css_class = "last" : css_class = [css_class, "last"].join(" ")
       elsif page == pages.first
@@ -518,7 +518,7 @@ module AlchemyHelper
   # == The options are:
   #
   # :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
-  # :from_page => root_page                               Do you want to render a navigation from a different page then the current_page? Then pass an Page instance or a PageLayout name as string.
+  # :from_page => @root_page                               Do you want to render a navigation from a different page then the current page? Then pass an Page instance or a PageLayout name as string.
   # :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
   # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
   # :navigation_link_partial => "navigation_link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
@@ -528,7 +528,7 @@ module AlchemyHelper
     default_options = {
       :submenu => false,
       :all_sub_menues => false,
-      :from_page => root_page,
+      :from_page => @root_page,
       :spacer => "",
       :navigation_partial => "partials/navigation_renderer",
       :navigation_link_partial => "partials/navigation_link",
@@ -570,7 +570,7 @@ module AlchemyHelper
   # Normally there is no need to change the level parameter, just in a few special cases.
   def render_subnavigation(options = {})
     default_options = {
-      :from_page => current_page,
+      :from_page => @page,
       :level => 2
     }
     options = default_options.merge(options)
@@ -596,7 +596,7 @@ module AlchemyHelper
     default_options = {
       :submenu => false,
       :all_sub_menues => false,
-      :from_page => root_page,
+      :from_page => @root_page,
       :spacer => "",
       :pagination => {},
       :navigation_partial => "pages/partials/navigation_renderer",
@@ -729,7 +729,7 @@ module AlchemyHelper
     image_tag url_for(:controller => :images, :action => :show_static, :image => image)
   end
   
-  # Renders the layout from current_page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
+  # Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
   def render_page_layout(options={})
     default_options = {
       :render_format => "html"
@@ -752,24 +752,9 @@ module AlchemyHelper
     end
   end
   
-  # Returns @page set in the action (e.g. Page.show)
-  def current_page
-    if @page.nil?
-      warning('@page is not set')
-      return nil
-    else
-      @page
-    end
-  end
-
-  # returns the current language root
-  def root_page
-    @root_page ||= Page.find_by_language_root_and_language_id(true, session[:language_id])
-  end
-  
-  # Returns true if the current_page is the root_page in the nested set of Pages, false if not.
+  # Returns true if the current page is the root page in the nested set of Pages, false if not.
   def root_page?
-    current_page == root_page
+    @page == @root_page
   end
   
   # Returns the full url containing host, page and anchor for the given element

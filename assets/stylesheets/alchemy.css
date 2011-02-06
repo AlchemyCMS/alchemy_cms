@@ -323,6 +323,22 @@ div.widget p {
 	margin-bottom: 0;
 }
 
+#dashboard div.widget ul li form {
+	display: inline;
+	position: relative;
+}
+
+#dashboard div.widget ul li button {
+	position: relative;
+	top: 1px;
+}
+
+#dashboard div.widget ul li button .icon {
+	position: relative;
+	top: -1px;
+	right: 1px;
+}
+
 #dashboard div.widget h2 {
 	padding-bottom: 0;
 	margin-bottom: 0;
@@ -588,7 +604,7 @@ div.tip {
 
 #sub_navigation {
 	height: 22px;
-	line-height: 24px;
+	line-height: 23px;
 	padding-left: 8px;
 	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
 	border-bottom: 1px solid #afafaf;
@@ -2236,7 +2252,7 @@ span.icon.close.small {
 	height: 8px;
 	position: absolute;
 	right: 5px;
-	top: 5px;
+	top: 4px;
 }
 
 span.icon.online {

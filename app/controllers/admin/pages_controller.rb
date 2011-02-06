@@ -21,6 +21,7 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     @preview_mode = true
     @language = Alchemy::Controller.current_language
+    @root_page = Page.language_root_for(session[:language_id])
     render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
   

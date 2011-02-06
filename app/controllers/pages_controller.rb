@@ -31,6 +31,7 @@ class PagesController < AlchemyController
     # @page is fetched via before filter
     # rendering page and querying for search results if any query is present
     @language = Alchemy::Controller.current_language
+    @root_page = Page.language_root_for(@language.id)
     if configuration(:ferret) && !params[:query].blank?
       perform_search
     end
