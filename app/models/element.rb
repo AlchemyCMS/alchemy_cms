@@ -212,8 +212,8 @@ class Element < ActiveRecord::Base
   
   # Returns the contents ingredient for passed content name.
   def ingredient(name)
-    content = contents.find_by_name(name)
-    raise "Content not found for #{name}" if content.blank?
+    content = content_by_name(name)
+    return nil if content.blank?
     content.ingredient
   end
   

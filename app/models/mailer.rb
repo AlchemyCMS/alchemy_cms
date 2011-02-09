@@ -1,11 +1,11 @@
 class Mailer < ActionMailer::Base
   
-  def mail(mail_data, mail_to, mail_from, subject)
+  def mail(mail_data, mail_to, mail_from, subject, params = nil)
     recipients(mail_to)
     subject(subject)
     reply_to(mail_data[:email])
     from(mail_from || Alchemy::Configuration.parameter(:mailer)[:mail_from])
-    body({:mail_data => mail_data})
+    body({:mail_data => mail_data, :params => params})
   end
   
   def new_user_mail(user, request, mail_from = Alchemy::Configuration.parameter(:mailer)[:mail_from])

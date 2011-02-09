@@ -60,21 +60,21 @@ class MailsController < AlchemyController
     @page = element.page
     if @mail.save
       if params[:mail_to].blank?
-        mail_to = element.content_by_name("mail_to").essence.body
+        mail_to = element.ingredient("mail_to")
       else
         mail_to = configuration(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
       end
-      mail_from = element.content_by_name("mail_from").essence.body rescue configuration(:mailer)[:mail_from]
-      subject = element.content_by_name("subject").essence.body rescue configuration(:mailer)[:subject]
+      mail_from = element.ingredient("mail_from") rescue configuration(:mailer)[:mail_from]
+      subject = element.ingredient("subject") rescue configuration(:mailer)[:subject]
+      debugger
+      Mailer.deliver_mail(@mail, mail_to, mail_from, subject, params)
       
-      Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
-      
-      if element.content_by_name("success_page") && element.content_by_name("success_page").essence.body
+      if element.ingredient("success_page")
         if multi_language?
           language = Language.find(session[:language_id])
-          redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => language.code)
+          redirect_to show_page_with_language_url(:urlname => element.ingredient("success_page"), :lang => language.code)
         else
-          redirect_to show_page_url(:urlname => element.content_by_name("success_page").essence.body)
+          redirect_to show_page_url(:urlname => element.ingredient("success_page"))
         end
       elsif configuration(:mailer)[:forward_to_page] && configuration(:mailer)[:mail_success_page]
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_by_urlname(configuration(:mailer)[:mail_success_page]).urlname
