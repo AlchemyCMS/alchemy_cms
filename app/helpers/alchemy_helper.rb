@@ -1134,4 +1134,25 @@ module AlchemyHelper
     alchemy_assets_set
   end
   
+  # This helper returns a path for use inside a link_to helper.
+  # You may pass a page_layout or an urlname.
+  # Any additional options are passed to the url_helper, so you can add arguments to your url.
+  # Example:
+  #   <%= link_to '&raquo order now', page_path_for(:page_layout => 'orderform', :product_id => element.id) %>
+  def page_path_for(options={})
+    return warning("No page_layout, or urlname given. I got #{options.inspect} ") if options[:page_layout].blank? && options[:urlname].blank?
+    if options[:urlname].blank?
+      page = Page.find_by_page_layout(options[:page_layout])
+      return warning("No page found for #{options.inspect} ") if page.blank?
+      urlname = page.urlname
+    else
+      urlname = options[:urlname]
+    end
+    if multi_language?
+      show_page_with_language_path({:urlname => urlname, :lang => @language.code}.merge(options.except(:page_layout, :urlname)))
+    else
+      show_page_path({:urlname => urlname}.merge(options.except(:page_layout, :urlname)))
+    end
+  end
+  
 end

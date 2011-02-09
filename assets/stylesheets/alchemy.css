@@ -2717,12 +2717,6 @@ div.image_assign_filter_and_image_sizing {
 	height: 40px;
 }
 
-#assign_image_list {
-	overflow: auto;
-	margin-top: 8px;
-	clear: both;
-}
-
 label.sup {
 	position: relative;
 	bottom: 3px;
