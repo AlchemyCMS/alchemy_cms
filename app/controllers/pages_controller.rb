@@ -57,15 +57,15 @@ private
     if @page.blank?
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
+      redirect_to show_page_with_language_path({:urlname => @page.urlname, :lang => @page.language.code}.merge(params.except("action", "controller", "urlname", "lang"))), :status => 301
     elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
+      redirect_to show_page_with_language_path({:urlname => @page.urlname, :lang => @page.language.code}.merge(params.except("action", "controller", "urlname", "lang"))), :status => 301
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
     elsif !multi_language? && !params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname), :status => 301
+      redirect_to show_page_path({:urlname => @page.urlname}.merge(params.except("action", "controller", "urlname", "lang"))), :status => 301
     elsif @page.has_controller?
-      redirect_to(@page.controller_and_action)
+      redirect_to(@page.controller_and_action.merge(params.except("action", "controller", "urlname", "lang")))
     end
   end
   
@@ -105,22 +105,15 @@ private
   end
   
   def redirect_page
-    get_additional_params
     redirect_to(
       send(
         "show_page_#{multi_language? ? 'with_language_' : nil }path".to_sym, {
           :lang => (multi_language? ? @page.language_code : nil),
           :urlname => @page.urlname
-        }.merge(@additional_params)
+        }.merge(params.except("action", "controller", "urlname", "lang"))
       ),
       :status => 301
     )
-  end
-  
-  def get_additional_params
-    @additional_params = params.clone.delete_if do |key, value|
-      ["action", "controller", "urlname", "lang"].include?(key)
-    end
   end
   
 end
