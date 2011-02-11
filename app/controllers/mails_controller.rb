@@ -66,8 +66,8 @@ class MailsController < AlchemyController
       end
       mail_from = element.ingredient("mail_from") rescue configuration(:mailer)[:mail_from]
       subject = element.ingredient("subject") rescue configuration(:mailer)[:subject]
-      debugger
-      Mailer.deliver_mail(@mail, mail_to, mail_from, subject, params)
+      
+      Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
       
       if element.ingredient("success_page")
         if multi_language?
