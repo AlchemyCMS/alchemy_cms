@@ -925,15 +925,15 @@ ul.list .sitemap_sitename {
 }
 
 div.page_infos {
-	width: 66px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	height: 20px;
-	float: right;
-	border-left: 1px solid #ededed;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	padding: 1px;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+  background-color: #FFFFFF;
+  border-left: 1px solid #EDEDED;
+  float: right;
+  height: 20px;
+  padding: 1px;
+  width: 66px;
 }
 
 .page_status {
@@ -958,6 +958,7 @@ span.page_status.restricted {
 
 span.page_status.not_restricted {
 	background: url(/images/alchemy/icons.png) -144px -24px;
+	opacity: 0.3;
 }
 
 span.page_status.visible {
@@ -966,6 +967,7 @@ span.page_status.visible {
 
 span.page_status.not_visible {
 	background: url(/images/alchemy/icons.png) -80px -24px;
+	opacity: 0.3;
 }
 
 span.page_status.public {
@@ -974,6 +976,7 @@ span.page_status.public {
 
 span.page_status.not_public {
 	background: url(/images/alchemy/icons.png) -112px -24px;
+	opacity: 0.3;
 }
 
 #sideboard div.sideboard_widget img {
@@ -1401,7 +1404,7 @@ span.icon {
 }
 
 span.icon.sort {
-	background-position: -64px -24px;
+	background-position: -64px -120px;
 }
 
 #page_sorting_notice p {
