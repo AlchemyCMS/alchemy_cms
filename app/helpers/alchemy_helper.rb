@@ -821,7 +821,7 @@ module AlchemyHelper
     cancel_lable = _("no")
     link_to_function(
       link_string,
-      "Alchemy.openConfirmWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
+      "Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
       html_options
     )
   end

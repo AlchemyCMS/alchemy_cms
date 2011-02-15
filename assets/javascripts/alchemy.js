@@ -217,6 +217,30 @@ var Alchemy = {
 				},
 				'Ja': function() {
 					jQuery(this).dialog("close");
+					document.location = url;
+				}
+			}
+		});
+	},
+	
+	confirmToDeleteWindow : function (url, title, message, ok_lable, cancel_label) {
+		var $confirmation = jQuery('<div style="display:none" id="alchemyConfirmToDelete"></div>');
+		$confirmation.appendTo('body');
+		$confirmation.html('<p>'+message+'</p>');
+		Alchemy.ConfirmationWindow = $confirmation.dialog({
+			resizable: false,
+			minHeight: 100,
+			minWidth: 300,
+			modal: true,
+			title: title,
+			show: "fade",
+			hide: "fade",
+			buttons: {
+				'Nein': function() {
+					jQuery(this).dialog("close");
+				},
+				'Ja': function() {
+					jQuery(this).dialog("close");
 					jQuery.ajax({
 						url: url,
 						type: 'delete'
@@ -225,7 +249,7 @@ var Alchemy = {
 			}
 		});
 	},
-
+	
 	openWindow : function (action_url, title, size_x, size_y, resizable, modal, overflow) {
 		overflow == undefined ? overflow = false: overflow = overflow;
 		if (size_x === 'fullscreen') {
@@ -850,6 +874,52 @@ var Alchemy = {
 				jQuery(this).remove();
 			});
 		});
+	},
+	
+	ElementDirtyObserver : function(selector) {
+		var $elements = jQuery(selector);
+		
+		$elements.find('textarea.tinymce').map(function() {
+			var $this = jQuery(this);
+			var ed = tinymce.get(this.id);
+			ed.onChange.add(function() {
+				Alchemy.setElementDirty($this.parents('.element_editor'));
+			});
+		});
+		
+		$elements.find('input[type="text"]').bind('change', function() {
+			jQuery(this).addClass('dirty');
+			Alchemy.setElementDirty(jQuery(this).parents('.element_editor'));
+		});
+		
+		$elements.find('.element_foot input[type="checkbox"]').bind('click', function() {
+			jQuery(this).addClass('dirty');
+			Alchemy.setElementDirty(jQuery(this).parents('.element_editor'));
+		});
+	},
+	
+	setElementDirty : function(element) {
+		var	$element = jQuery(element);
+		$element.addClass('dirty');
+		$element.find('.element_head .icon').removeClass('element_public');
+		$element.find('.element_head .icon').removeClass('element_draft');
+		$element.find('.element_head .icon').addClass('element_dirty');
+	},
+	
+	isPageDirty : function() {
+		return jQuery('#element_area').find('.element_editor.dirty').size() > 0;
+	},
+	
+	PageLeaveObserver : function() {
+		var pageLeaveHandler = function(event) {
+			if (Alchemy.isPageDirty()) {
+				event.preventDefault();
+				Alchemy.openConfirmWindow(event.currentTarget.pathname, 'Vorsicht!', 'Sie haben ungesicherte Elemente auf der Seite. Wollen Sie die Seite wirklich verlassen?', 'Ja', 'Nein');
+			} else {
+				Alchemy.pleaseWaitOverlay();
+			}
+		};
+		jQuery('#main_navi a').click(pageLeaveHandler);
 	},
 	
 	debug : function(e) {
