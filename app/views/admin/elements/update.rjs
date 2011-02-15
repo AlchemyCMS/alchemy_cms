@@ -11,3 +11,4 @@ page << "Alchemy.SelectBox('#element_#{@element.id} select')"
 @richtext_contents.each do |content|
   page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
 end
+page << "Alchemy.ElementDirtyObserver()"

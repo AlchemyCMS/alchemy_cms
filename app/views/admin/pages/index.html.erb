@@ -69,19 +69,21 @@
 
 <%- if @page_root -%>
 
-<div class="info" style="display: none" id="page_sorting_notice">
-	<%= render_icon('info') %>
-	<%= _('Explain|Sitemap|Dragndrop sorting') %>
-	<p>
-		<%= link_to( _('cancel'), admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
-		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>
-	</p>
-</div>
-
 <h2 id="sitemap_heading">
     <span class="page_name"><%= _('Name') %></span>
     <span class="page_infos"><%= _('Status') %></span>
 </h2>
+
+<div id="bottom_panel">
+	<div class="info" style="display: none" id="page_sorting_notice">
+		<%= render_icon('info') %>
+		<%= _('Explain|Sitemap|Dragndrop sorting') %>
+		<p>
+			<%= link_to( _('cancel'), admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
+			<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>
+		</p>
+	</div>	
+</div>
 
 <%= render :partial => 'sitemap' %>
 

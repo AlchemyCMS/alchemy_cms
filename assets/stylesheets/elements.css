@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/alchemy/elements.css */
+
 input.text_with_icon {
 	width: 343px;
 	float: left;
@@ -66,9 +68,14 @@ img.add_element_spinner {
 }
 
 .element_handle span.icon {
-	z-index: 1;	position: absolute;
+	z-index: 1;	
+	position: absolute;
 	right: 0;
 	bottom: 0;
+}
+
+.element_handle span.icon.element_dirty {
+	background-position: -29px -104px;
 }
 
 div.element_foot span.element_public {
@@ -149,6 +156,12 @@ div.element_foot span.element_public {
 	position: absolute;
 	right: 8px;
 	bottom: 6px;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+.element_editor.dirty .element_foot .button {
+	opacity: 1;
 }
 
 .ajax_folder {
@@ -175,6 +188,15 @@ div.element_editor {
 	border-radius: 3px;
 	background-color: #f0e8d7;
 	margin-bottom: 8px;
+}
+
+div.element_editor.dirty {
+	border-color: #d0c83d;
+}
+
+div.element_editor.dirty .element_head,
+div.element_editor.dirty .element_foot {
+	background-color: #fff8df;
 }
 
 div.element_editor.selected {
