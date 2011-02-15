@@ -973,7 +973,7 @@ span.page_status.not_restricted {
 }
 
 span.page_status.visible {
-	background: url(/images/alchemy/icons.png) -64px -24px;
+	background: url(/images/alchemy/icons.png) -65px -24px;
 }
 
 span.page_status.not_visible {
