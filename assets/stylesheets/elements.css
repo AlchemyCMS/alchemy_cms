@@ -157,11 +157,13 @@ div.element_foot span.element_public {
 	right: 8px;
 	bottom: 6px;
 	opacity: 0.5;
+	cursor: default;
 	filter: alpha(opacity=50);
 }
 
 .element_editor.dirty .element_foot .button {
 	opacity: 1;
+	cursor: pointer;
 }
 
 .ajax_folder {

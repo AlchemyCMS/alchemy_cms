@@ -39,7 +39,8 @@
 				unlock_admin_page_path(
 					@page,
 					:redirect_to => @layoutpage ? admin_layoutpages_path : admin_pages_path
-				)
+				),
+				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 			) do %>
 				<button class="icon_button" title="<%= _('explain_unlocking') %>">
 					<%= render_icon('close') %>
@@ -51,12 +52,12 @@
 			<%- if configuration(:cache_pages) -%>
 				<% form_tag(
 					publish_admin_page_path(@page),
-					:onsubmit => "Alchemy.pleaseWaitOverlay();"
+					:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 				) do -%>
 					<button class="icon_button" title="<%= _('explain_publishing') %>">
 						<%= render_icon('flush') %>
 					</button><br />
-					<label><%= _("Sweepe cache") %></label>
+					<label><%= _("Clear page cache") %></label>
 				<% end -%>
 			<%- end -%>
 		</div>
@@ -125,7 +126,12 @@
 			Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
 			Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});
-		Alchemy.PageLeaveObserver();
+		Alchemy.PageLeaveObserver({
+			title: '<%= _("Warning!") %>',
+			message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") %>',
+			okLabel: '<%= _("Yes") %>',
+			cancelLabel: '<%= _("No") %>'
+		});
 	//]]-->
 	</script>
 <%- end -%>
