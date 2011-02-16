@@ -1,6 +1,5 @@
 <% remote_form_for(
 	[:admin, @page],
-	:complete => "if (Alchemy.PreviewWindowExists()){Alchemy.reloadPreview();}",
 	:html => {:class => "with_padding"}
 ) do |f| %>
 	<div id="errors" style="display:none"></div>

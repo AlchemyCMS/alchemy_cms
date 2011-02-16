@@ -72,7 +72,7 @@ class Admin::PagesController < AlchemyController
   def update
     # fetching page via before filter
     @page.update_attributes(params[:page])
-    render_errors_or_redirect(@page, request.referer, _("Page %{name} saved") % {:name => @page.name})
+    @notice = _("Page %{name} saved") % {:name => @page.name}
   end
   
   def destroy
