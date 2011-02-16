@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-16 21:32+0100\n"
+"POT-Creation-Date: 2011-02-16 23:37+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -65,11 +65,11 @@ msgstr ""
 msgid "Attachment|Size"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:84
+#: app/views/admin/pages/edit.html.erb:76
 msgid "Choose Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:60
+#: app/views/admin/pages/edit.html.erb:52
 msgid "Clear page cache"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:126
+#: app/views/admin/pages/edit.html.erb:118
 msgid "Elements"
 msgstr ""
 
@@ -255,12 +255,12 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:89
-#: app/views/admin/pages/edit.html.erb:93
+#: app/views/admin/pages/edit.html.erb:81
+#: app/views/admin/pages/edit.html.erb:85
 msgid "New Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:133
+#: app/views/admin/pages/edit.html.erb:125
 msgid "No"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:127
+#: app/views/admin/pages/edit.html.erb:119
 msgid "Page Preview"
 msgstr ""
 
@@ -285,45 +285,45 @@ msgstr ""
 msgid "Page cache flushed"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:75
 #: app/views/admin/pages/_page_for_links.html.erb:23
+#: app/views/admin/pages/_page_infos.html.erb:1
+#: app/views/admin/pages/_page_status.html.erb:6
 #: app/views/admin/pages/_sitemap.html.erb:73
-#: app/views/admin/pages/edit.html.erb:14
 msgid "Page not public"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:77
 #: app/views/admin/pages/_page_for_links.html.erb:25
+#: app/views/admin/pages/_page_infos.html.erb:3
+#: app/views/admin/pages/_page_status.html.erb:8
 #: app/views/admin/pages/_sitemap.html.erb:75
-#: app/views/admin/pages/edit.html.erb:16
 msgid "Page not restricted"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:76
 #: app/views/admin/pages/_page_for_links.html.erb:24
+#: app/views/admin/pages/_page_infos.html.erb:2
+#: app/views/admin/pages/_page_status.html.erb:7
 #: app/views/admin/pages/_sitemap.html.erb:74
-#: app/views/admin/pages/edit.html.erb:15
 msgid "Page not visible"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:75
 #: app/views/admin/pages/_page_for_links.html.erb:23
+#: app/views/admin/pages/_page_infos.html.erb:1
+#: app/views/admin/pages/_page_status.html.erb:6
 #: app/views/admin/pages/_sitemap.html.erb:73
-#: app/views/admin/pages/edit.html.erb:14
 msgid "Page public"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:77
 #: app/views/admin/pages/_page_for_links.html.erb:25
+#: app/views/admin/pages/_page_infos.html.erb:3
+#: app/views/admin/pages/_page_status.html.erb:8
 #: app/views/admin/pages/_sitemap.html.erb:75
-#: app/views/admin/pages/edit.html.erb:16
 msgid "Page restricted"
 msgstr ""
 
-#: app/views/admin/pages/_page.html.erb:76
 #: app/views/admin/pages/_page_for_links.html.erb:24
+#: app/views/admin/pages/_page_infos.html.erb:2
+#: app/views/admin/pages/_page_status.html.erb:7
 #: app/views/admin/pages/_sitemap.html.erb:74
-#: app/views/admin/pages/edit.html.erb:15
 msgid "Page visible"
 msgstr ""
 
@@ -475,13 +475,13 @@ msgstr ""
 msgid "Send email with credentials"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:113
-#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:105
+#: app/views/admin/pages/edit.html.erb:109
 msgid "Show Elements Window"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:102
-#: app/views/admin/pages/edit.html.erb:106
+#: app/views/admin/pages/edit.html.erb:94
+#: app/views/admin/pages/edit.html.erb:98
 msgid "Show Preview Window"
 msgstr ""
 
@@ -520,6 +520,10 @@ msgstr ""
 
 #: app/views/elements/_searchresult_editor.html.erb:1
 msgid "This element displays the search and the searchresults."
+msgstr ""
+
+#: locale/missing_translations.rb:2
+msgid "This element has unsaved changes. Do you really want to fold it?"
 msgstr ""
 
 #: app/controllers/admin/pages_controller.rb:54
@@ -606,7 +610,7 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:130
+#: app/views/admin/pages/edit.html.erb:122
 msgid "Warning!"
 msgstr ""
 
@@ -631,7 +635,7 @@ msgstr ""
 msgid "Who else is online"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:132
+#: app/views/admin/pages/edit.html.erb:124
 msgid "Yes"
 msgstr ""
 
@@ -649,7 +653,7 @@ msgid ""
 "cache?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:131
+#: app/views/admin/pages/edit.html.erb:123
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
@@ -923,7 +927,7 @@ msgid "edit_language"
 msgstr ""
 
 #: app/views/admin/pages/_layoutpage.html.erb:29
-#: app/views/admin/pages/_page.html.erb:86
+#: app/views/admin/pages/_page.html.erb:84
 #: app/views/admin/pages/_sitemap.html.erb:81
 msgid "edit_page"
 msgstr ""
@@ -932,8 +936,8 @@ msgstr ""
 #: app/views/admin/pages/_page.html.erb:37
 #: app/views/admin/pages/_sitemap.html.erb:32
 #: app/views/admin/pages/_sitemap.html.erb:36
-#: app/views/admin/pages/edit.html.erb:70
-#: app/views/admin/pages/edit.html.erb:74
+#: app/views/admin/pages/edit.html.erb:62
+#: app/views/admin/pages/edit.html.erb:66
 msgid "edit_page_properties"
 msgstr ""
 
@@ -974,12 +978,12 @@ msgstr ""
 msgid "explain cropping"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:57
+#: app/views/admin/pages/edit.html.erb:49
 msgid "explain_publishing"
 msgstr ""
 
-#: app/views/admin/index.html.erb:34 app/views/admin/pages/edit.html.erb:26
-#: app/views/admin/pages/edit.html.erb:45
+#: app/views/admin/index.html.erb:34 app/views/admin/pages/edit.html.erb:18
+#: app/views/admin/pages/edit.html.erb:37
 #: app/views/admin/pages/index.html.erb:14
 msgid "explain_unlocking"
 msgstr ""
@@ -1129,15 +1133,15 @@ msgstr ""
 msgid "medium_thumbnails"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:45
+#: app/views/admin/pages/configure.html.erb:44
 msgid "meta_data"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:55
+#: app/views/admin/pages/configure.html.erb:54
 msgid "meta_description"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:59
+#: app/views/admin/pages/configure.html.erb:58
 msgid "meta_keywords"
 msgstr ""
 
@@ -1181,12 +1185,12 @@ msgstr ""
 msgid "name"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:30
+#: app/views/admin/pages/configure.html.erb:29
 #: app/views/admin/pages/configure_external.html.erb:25
 msgid "names"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:33
+#: app/views/admin/pages/configure.html.erb:32
 #: app/views/admin/pages/configure_external.html.erb:28
 msgid "navigation_name"
 msgstr ""
@@ -1245,11 +1249,11 @@ msgstr ""
 msgid "page_locked"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:76
+#: app/views/admin/pages/edit.html.erb:68
 msgid "page_properties"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:20
+#: app/views/admin/pages/configure.html.erb:19
 msgid "page_public"
 msgstr ""
 
@@ -1257,11 +1261,11 @@ msgstr ""
 msgid "page_published"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:22
+#: app/views/admin/pages/configure.html.erb:21
 msgid "page_restricted"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:15
+#: app/views/admin/pages/configure.html.erb:14
 #: app/views/admin/pages/configure_external.html.erb:14
 msgid "page_status"
 msgstr ""
@@ -1298,7 +1302,7 @@ msgstr ""
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:41
+#: app/views/admin/pages/configure.html.erb:40
 #: app/views/admin/pages/configure_external.html.erb:36
 msgid "page_title"
 msgstr ""
@@ -1306,17 +1310,17 @@ msgstr ""
 #: app/views/admin/pages/_layoutpage.html.erb:6
 #: app/views/admin/pages/_page.html.erb:7
 #: app/views/admin/pages/_sitemap.html.erb:7
-#: app/views/admin/pages/configure.html.erb:9
+#: app/views/admin/pages/configure.html.erb:8
 #: app/views/admin/pages/configure_external.html.erb:8
 msgid "page_type"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:18
+#: app/views/admin/pages/configure.html.erb:17
 #: app/views/admin/pages/configure_external.html.erb:17
 msgid "page_visible_in_navigation"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:62
+#: app/views/admin/pages/configure.html.erb:61
 msgid "pages.update.comma_seperated"
 msgstr ""
 
@@ -1380,11 +1384,11 @@ msgstr ""
 msgid "right"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:51
+#: app/views/admin/pages/configure.html.erb:50
 msgid "robot_follow"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:50
+#: app/views/admin/pages/configure.html.erb:49
 msgid "robot_index"
 msgstr ""
 
@@ -1398,7 +1402,7 @@ msgstr ""
 #: app/views/admin/essence_pictures/crop.html.erb:12
 #: app/views/admin/essence_pictures/edit.html.erb:36
 #: app/views/admin/languages/_form.html.erb:31
-#: app/views/admin/pages/configure.html.erb:66
+#: app/views/admin/pages/configure.html.erb:65
 #: app/views/admin/pages/configure_external.html.erb:40
 #: app/views/admin/pictures/index.html.erb:49
 #: app/views/admin/signup.html.erb:58 app/views/admin/users/_form.html.erb:52
@@ -1424,7 +1428,7 @@ msgstr ""
 msgid "search"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:48
+#: app/views/admin/pages/configure.html.erb:47
 msgid "search_engines"
 msgstr ""
 
@@ -1449,7 +1453,7 @@ msgstr ""
 msgid "show_navigation"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:25
+#: app/views/admin/pages/configure.html.erb:24
 #: app/views/admin/pages/configure_external.html.erb:20
 msgid "show_page_in_sitemap"
 msgstr ""
@@ -1498,7 +1502,7 @@ msgstr ""
 msgid "unlink"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:48
+#: app/views/admin/pages/edit.html.erb:40
 msgid "unlock_page"
 msgstr ""
 
@@ -1531,7 +1535,7 @@ msgstr ""
 msgid "upload_image"
 msgstr ""
 
-#: app/views/admin/pages/configure.html.erb:37
+#: app/views/admin/pages/configure.html.erb:36
 msgid "url_name"
 msgstr ""
 

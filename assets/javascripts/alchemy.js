@@ -416,16 +416,29 @@ var Alchemy = {
 		$overlay.css("visibility", show ? 'visible': 'hidden');
 	},
 	
-	toggleElement : function (id, url, token) {
-		jQuery('#element_'+id+'_folder').hide();
-		jQuery('#element_'+id+'_folder_spinner').show();
-		jQuery.post(url, {
-			authenticity_token: encodeURIComponent(token)
-		}, function(request) {
-			jQuery('#element_'+id+'_folder').show();
-			jQuery('#element_'+id+'_folder_spinner').hide();
-		});
-		return false;
+	toggleElement : function (id, url, token, text) {
+		var toggle = function() {
+			jQuery('#element_'+id+'_folder').hide();
+			jQuery('#element_'+id+'_folder_spinner').show();
+			jQuery.post(url, {
+				authenticity_token: encodeURIComponent(token)
+			}, function(request) {
+				jQuery('#element_'+id+'_folder').show();
+				jQuery('#element_'+id+'_folder_spinner').hide();
+			});
+		}
+		if (Alchemy.isPageDirty()) {
+			Alchemy.openConfirmWindow({
+				title: text.title,
+				message: text.message,
+				okLabel: text.okLabel,
+				cancelLabel: text.cancelLabel,
+				okCallback: toggle
+			});
+			return false;
+		} else {
+			toggle();
+		}
 	},
 	
 	ListFilter : function(selector) {
@@ -961,8 +974,9 @@ var Alchemy = {
 	
 	PageLeaveObserver : function(texts) {
 		jQuery('#main_navi a').click(function(event) {
-			event.preventDefault();
-			Alchemy.checkPageDirtyness(event.currentTarget, texts);
+			if (!Alchemy.checkPageDirtyness(event.currentTarget, texts)) {
+				event.preventDefault();
+			}
 		});
 	},
 	
