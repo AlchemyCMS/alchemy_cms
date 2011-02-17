@@ -912,8 +912,10 @@ var Alchemy = {
 		$elements.find('textarea.tinymce').map(function() {
 			var $this = jQuery(this);
 			var ed = tinymce.get(this.id);
-			ed.onChange.add(function() {
-				Alchemy.setElementDirty($this.parents('.element_editor'));
+			ed.onChange.add(function(ed, l) {
+				if (ed.isDirty()) {
+					Alchemy.setElementDirty($this.parents('.element_editor'));
+				}
 			});
 		});
 		$elements.find('input[type="text"]').bind('change', function() {
