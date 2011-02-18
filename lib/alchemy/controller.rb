@@ -55,7 +55,8 @@ module Alchemy
         rescue Exception => e
           Rails.logger.error(%(
             ++++++
-            No order value in one of your plugins. Please check plugins
+            #{e}
+            No order value in one of your plugins. Please check plugins!
             ++++++
           ))
         end

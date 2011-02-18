@@ -21,7 +21,7 @@
         because Alchemy Modules come with their own TextDomain
     %>
     <%- FastGettext.text_domain = 'alchemy' -%>
-    <span><%= _(mainnavigation_entry["name"]) -%></span>
+    <span><%= truncate _(mainnavigation_entry["name"]), :length => 11 -%></span>
 <% end %>
 
 <%- end -%>

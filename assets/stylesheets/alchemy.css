@@ -1,5 +1,3 @@
-/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
-
 html {
 	height: 100%;
 }
@@ -2336,8 +2334,12 @@ a.icon.file_edit {
 	background: url(/images/alchemy/icons.png) -32px -72px;
 }
 
-span.icon.edit {
-	background: url(/images/alchemy/icons.png) -192px -40px;
+.icon.edit {
+	background: url(/images/alchemy/icons.png) -32px -104px;
+}
+
+.icon.create {
+	background: url(/images/alchemy/icons.png) -50px -104px;
 }
 
 span.icon.add_page {
@@ -2354,6 +2356,10 @@ a.icon.user_delete {
 
 a.icon.language_delete {
 	background: url(/images/alchemy/icons.png) -16px -120px;
+}
+
+.icon.destroy {
+	background: url(/images/alchemy/icons.png) -15px -104px;
 }
 
 span.icon.configure_page {
