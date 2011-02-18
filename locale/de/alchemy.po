@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-16 23:37+0100\n"
+"POT-Creation-Date: 2011-02-18 13:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -262,6 +262,7 @@ msgstr "Name"
 msgid "New Element"
 msgstr "Neues Element"
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:125
 msgid "No"
 msgstr "Nein"
@@ -283,7 +284,7 @@ msgstr "%{name} wurde gespeichert"
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
-#: app/controllers/admin/pages_controller.rb:242
+#: app/controllers/admin/pages_controller.rb:241
 msgid "Page cache flushed"
 msgstr "Seitencache wurde geleert"
 
@@ -329,7 +330,7 @@ msgstr "Seite geschützt"
 msgid "Page visible"
 msgstr "Seite in der Navigation sichtbar"
 
-#: app/controllers/admin/pages_controller.rb:210
+#: app/controllers/admin/pages_controller.rb:209
 msgid "Pages order saved"
 msgstr "Seitensortierung wurde gespeichert"
 
@@ -457,7 +458,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass Sie mindestens Version 9.0.28 installiert "
 "haben."
 
-#: app/controllers/alchemy_controller.rb:176
+#: app/controllers/alchemy_controller.rb:177
 msgid "Please log in"
 msgstr "Bitte melden Sie sich an."
 
@@ -531,7 +532,9 @@ msgstr ""
 
 #: locale/missing_translations.rb:2
 msgid "This element has unsaved changes. Do you really want to fold it?"
-msgstr "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich einklappen?"
+msgstr ""
+"Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich "
+"einklappen?"
 
 #: app/controllers/admin/pages_controller.rb:54
 msgid "This page is locked by %{name}"
@@ -619,6 +622,7 @@ msgstr "Version"
 msgid "View File"
 msgstr "Datei anzeigen"
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:122
 msgid "Warning!"
 msgstr "Achtung!"
@@ -648,11 +652,12 @@ msgstr "Willkommen in Alchemy!"
 msgid "Who else is online"
 msgstr "Wer ist noch online"
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:124
 msgid "Yes"
 msgstr "Ja"
 
-#: app/controllers/alchemy_controller.rb:165
+#: app/controllers/alchemy_controller.rb:166
 msgid "You are not authorized"
 msgstr "Sie sind dazu nicht authorisiert."
 
@@ -675,6 +680,11 @@ msgid ""
 msgstr ""
 "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie die Seite "
 "wirklich verlassen?"
+
+#: app/views/admin/pages/edit.html.erb:118
+msgid ""
+"You have unsaved elements. Do you really want to close the elements window?"
+msgstr "Sie haben ungesicherte Elemente. Möchten Sie das Elemente Fenster wirklich schließen?"
 
 #: app/views/admin/partials/_upload_form.html.erb:17
 msgid ""
@@ -1097,7 +1107,7 @@ msgstr "Wählen Sie eine Seite zum verlinken."
 msgid "language_does_not_exist"
 msgstr "Dieser Sprachbaum existiert noch nicht"
 
-#: app/controllers/admin/pages_controller.rb:184
+#: app/controllers/admin/pages_controller.rb:183
 msgid "language_pages_copied"
 msgstr "Der Sprachbaum wurde kopiert"
 
@@ -1235,7 +1245,7 @@ msgstr "Keine Seiten"
 msgid "no users"
 msgstr "Keine Benutzer"
 
-#: app/controllers/alchemy_controller.rb:160
+#: app/controllers/alchemy_controller.rb:161
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
@@ -1285,7 +1295,7 @@ msgstr "Seiteneigenschaften"
 msgid "page_public"
 msgstr "Seite veröffentlichen"
 
-#: app/controllers/admin/pages_controller.rb:162
+#: app/controllers/admin/pages_controller.rb:161
 msgid "page_published"
 msgstr "Seite wurde veröffentlicht."
 
@@ -1546,7 +1556,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/admin/pages_controller.rb:139
+#: app/controllers/admin/pages_controller.rb:138
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 

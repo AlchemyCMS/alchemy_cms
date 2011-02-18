@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-16 23:37+0100\n"
+"POT-Creation-Date: 2011-02-18 13:12+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -260,6 +260,7 @@ msgstr ""
 msgid "New Element"
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:125
 msgid "No"
 msgstr ""
@@ -281,7 +282,7 @@ msgstr ""
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:242
+#: app/controllers/admin/pages_controller.rb:241
 msgid "Page cache flushed"
 msgstr ""
 
@@ -327,7 +328,7 @@ msgstr ""
 msgid "Page visible"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:210
+#: app/controllers/admin/pages_controller.rb:209
 msgid "Pages order saved"
 msgstr ""
 
@@ -451,7 +452,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:176
+#: app/controllers/alchemy_controller.rb:177
 msgid "Please log in"
 msgstr ""
 
@@ -610,6 +611,7 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:122
 msgid "Warning!"
 msgstr ""
@@ -635,11 +637,12 @@ msgstr ""
 msgid "Who else is online"
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:124
 msgid "Yes"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:165
+#: app/controllers/alchemy_controller.rb:166
 msgid "You are not authorized"
 msgstr ""
 
@@ -657,6 +660,11 @@ msgstr ""
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
+msgstr ""
+
+#: app/views/admin/pages/edit.html.erb:118
+msgid ""
+"You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:17
@@ -1069,7 +1077,7 @@ msgstr ""
 msgid "language_does_not_exist"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:184
+#: app/controllers/admin/pages_controller.rb:183
 msgid "language_pages_copied"
 msgstr ""
 
@@ -1207,7 +1215,7 @@ msgstr ""
 msgid "no users"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:160
+#: app/controllers/alchemy_controller.rb:161
 msgid "no_default_language_found"
 msgstr ""
 
@@ -1257,7 +1265,7 @@ msgstr ""
 msgid "page_public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:162
+#: app/controllers/admin/pages_controller.rb:161
 msgid "page_published"
 msgstr ""
 
@@ -1506,7 +1514,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:139
+#: app/controllers/admin/pages_controller.rb:138
 msgid "unlocked_page_%{name}"
 msgstr ""
 

@@ -1042,7 +1042,7 @@ module AlchemyHelper
   
   def parse_sitemap_name(page)
     if multi_language?
-      pathname = "/#{session[:language_id]}/#{page.urlname}"
+      pathname = "/#{session[:language_code]}/#{page.urlname}"
     else
       pathname = "/#{page.urlname}"
     end
@@ -1117,6 +1117,7 @@ module AlchemyHelper
     end
   end
   
+  # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
   def warning(message, text = nil)
     logger.warn %(\n
       ++++ WARNING: #{message}! from: #{caller.first}\n

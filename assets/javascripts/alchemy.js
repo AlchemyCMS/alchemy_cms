@@ -166,15 +166,20 @@ var Alchemy = {
 		}
 	},
 	
-	openElementsWindow : function (path, title) {
+	openElementsWindow : function (path, text) {
 		var $dialog = jQuery('<div style="display: none" id="alchemyElementWindow"></div>');
+		var closeCallback = function() {
+			$dialog.dialog("destroy");
+			jQuery('#alchemyElementWindow').remove();
+			Alchemy.ElementsWindowButton.enable();
+		};
 		$dialog.html(Alchemy.getOverlaySpinner({x: 420, y: 300}));
 		Alchemy.ElementsWindow = $dialog.dialog({
 			modal: false, 
 			minWidth: 422, 
 			minHeight: 300,
 			height: jQuery(window).height() - 94,
-			title: title,
+			title: text.title,
 			show: "fade",
 			hide: "fade",
 			position: [jQuery(window).width() - 432, 84],
@@ -191,11 +196,21 @@ var Alchemy = {
 					}
 				});
 			},
-			close: function() {
-				$dialog.dialog("destroy");
-				jQuery('#alchemyElementWindow').remove();
-				Alchemy.ElementsWindowButton.enable();
-			}
+			beforeClose : function() {
+				if (Alchemy.isPageDirty()) {
+					Alchemy.openConfirmWindow({
+						title: text.dirtyTitle,
+						message: text.dirtyMessage,
+						okLabel: text.okLabel,
+						cancelLabel: text.cancelLabel,
+						okCallback: closeCallback
+					});
+					return false;
+				} else {
+					return true;
+				}
+			},
+			close: closeCallback
 		});
 	},
 	
@@ -463,6 +478,7 @@ var Alchemy = {
 	
 	createLink : function(link_type, url, title, extern) {
 		var element = Alchemy.CurrentLinkWindow.linked_element;
+		Alchemy.setElementDirty(jQuery(element).parents('.element_editor'));
 		if (element.editor) {
 			// aka we are linking text inside of TinyMCE
 			var editor = element.editor;
@@ -488,6 +504,7 @@ var Alchemy = {
 			jQuery('#content_' + content_id + '_link_title').val(title);
 			jQuery('#content_' + content_id + '_link_class_name').val(link_type);
 			jQuery('#content_' + content_id + '_link_target').val(extern ? '1': '0');
+			jQuery(element).addClass('linked');
 		}
 	},
 	
@@ -511,9 +528,9 @@ var Alchemy = {
 		jQuery('#alchemyLinkOverlay .link_target').attr('checked', link.target == "_blank");
 		
 		// Checking of what kind the link is (internal, external, file or contact_form).
-		if (link.nodeName == "A") {
+		if (jQuery(link).is("a")) {
 			var title = link.title == null ? "": link.title;
-
+			
 			// Handling an internal link.
 			if ((link.className == '') || link.className == 'internal') {
 				var internal_anchor = link.hash.split('#')[1];
@@ -606,6 +623,7 @@ var Alchemy = {
 	},
 	
 	removePictureLink : function(content_id) {
+		Alchemy.setElementDirty(jQuery('#picture_' + content_id).parents('.element_editor'));
 		jQuery('#content_' + content_id + '_link').val('');
 		jQuery('#content_' + content_id + '_link_title').val('');
 		jQuery('#content_' + content_id + '_link_class_name').val('');
@@ -631,13 +649,18 @@ var Alchemy = {
 		jQuery(form).find('.element_spinner').show();
 		var $rtf_contents = jQuery(form).find('div.content_rtf_editor');
 		if ($rtf_contents.size() > 0) {
-			tinymce.triggerSave();
 			$rtf_contents.each(function() {
-				var id = jQuery(this).children('textarea').attr('id');
-				jQuery(this).find('.essence_richtext_loader').show();
-				tinymce.get(id).remove();
+				var id = jQuery(this).children('textarea.tinymce').attr('id');
+				tinymce.get(id).save();
 			});
 		}
+	},
+	
+	setElementSaved : function(selector) {
+		var $element = jQuery(selector);
+		$element.find('.element_spinner').hide();
+		$element.find('.save_element').show();
+		Alchemy.setElementClean(selector);
 	},
 	
 	PageSorter : function () {
@@ -913,9 +936,7 @@ var Alchemy = {
 			var $this = jQuery(this);
 			var ed = tinymce.get(this.id);
 			ed.onChange.add(function(ed, l) {
-				if (ed.isDirty()) {
-					Alchemy.setElementDirty($this.parents('.element_editor'));
-				}
+				Alchemy.setElementDirty($this.parents('.element_editor'));
 			});
 		});
 		$elements.find('input[type="text"]').bind('change', function() {
@@ -935,9 +956,16 @@ var Alchemy = {
 	setElementDirty : function(element) {
 		var	$element = jQuery(element);
 		$element.addClass('dirty');
-		$element.find('.element_head .icon').removeClass('element_public');
-		$element.find('.element_head .icon').removeClass('element_draft');
 		$element.find('.element_head .icon').addClass('element_dirty');
+	},
+	
+	setElementClean : function(element) {
+		var	$element = jQuery(element);
+		$element.removeClass('dirty');
+		$element.find('.element_foot input[type="checkbox"]').removeClass('dirty');
+		$element.find('input[type="text"]').removeClass('dirty');
+		$element.find('select').removeClass('dirty');
+		$element.find('.element_head .icon').removeClass('element_dirty');
 	},
 	
 	isPageDirty : function() {

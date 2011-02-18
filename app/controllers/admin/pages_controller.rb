@@ -112,8 +112,7 @@ class Admin::PagesController < AlchemyController
       @url_prefix = current_server
     end
     if multi_language?
-      language = Language.find(session[:language_id])
-      @url_prefix = "#{language.code}/"
+      @url_prefix = "#{session[:language_code]}/"
     end
     render :layout => false
   end

@@ -22,7 +22,11 @@ class EssencePicture < ActiveRecord::Base
   # Saves the ingredient
   def save_ingredient(params, options = {})
     return true if params.blank?
-    self.picture_id = params["picture_id"].to_s
+    self.link_class_name = params['link_class_name']
+    self.open_link_in_new_window = (params['open_link_in_new_window'] == '1')
+    self.link = params['link']
+    self.link_title = params['link_title']
+    self.picture_id = params['picture_id']
     self.save!
   end
   

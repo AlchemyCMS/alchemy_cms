@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-16 23:37+0100\n"
+"POT-Creation-Date: 2011-02-18 13:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -257,6 +257,7 @@ msgstr ""
 msgid "New Element"
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:125
 msgid "No"
 msgstr ""
@@ -278,7 +279,7 @@ msgstr "Page: '%{name}' saved."
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:242
+#: app/controllers/admin/pages_controller.rb:241
 msgid "Page cache flushed"
 msgstr ""
 
@@ -324,7 +325,7 @@ msgstr ""
 msgid "Page visible"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:210
+#: app/controllers/admin/pages_controller.rb:209
 msgid "Pages order saved"
 msgstr ""
 
@@ -449,7 +450,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:176
+#: app/controllers/alchemy_controller.rb:177
 msgid "Please log in"
 msgstr ""
 
@@ -608,6 +609,7 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:122
 msgid "Warning!"
 msgstr ""
@@ -633,11 +635,12 @@ msgstr "Welcome to Alchemy"
 msgid "Who else is online"
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:118
 #: app/views/admin/pages/edit.html.erb:124
 msgid "Yes"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:165
+#: app/controllers/alchemy_controller.rb:166
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
@@ -655,6 +658,11 @@ msgstr ""
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
+msgstr ""
+
+#: app/views/admin/pages/edit.html.erb:118
+msgid ""
+"You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:17
@@ -1073,7 +1081,7 @@ msgstr "Choose a page to link to."
 msgid "language_does_not_exist"
 msgstr "This language tree does not exist"
 
-#: app/controllers/admin/pages_controller.rb:184
+#: app/controllers/admin/pages_controller.rb:183
 msgid "language_pages_copied"
 msgstr "Language tree succesfully copied."
 
@@ -1211,7 +1219,7 @@ msgstr ""
 msgid "no users"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:160
+#: app/controllers/alchemy_controller.rb:161
 msgid "no_default_language_found"
 msgstr "No default language found."
 
@@ -1261,7 +1269,7 @@ msgstr "page properties"
 msgid "page_public"
 msgstr "Publish page"
 
-#: app/controllers/admin/pages_controller.rb:162
+#: app/controllers/admin/pages_controller.rb:161
 msgid "page_published"
 msgstr "Published page."
 
@@ -1518,7 +1526,7 @@ msgstr "Remove link from this image."
 msgid "unlock_page"
 msgstr "Leave page"
 
-#: app/controllers/admin/pages_controller.rb:139
+#: app/controllers/admin/pages_controller.rb:138
 msgid "unlocked_page_%{name}"
 msgstr "Unlocked page %{name}."
 

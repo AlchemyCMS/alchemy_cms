@@ -100,7 +100,7 @@
 		<div class="button_with_label" id="show_element_window">
 			<%= link_to_function(
 				render_icon('element_window'),
-				"Alchemy.openElementsWindow('#{list_admin_elements_path(:page_id => @page.id)}', '#{ _('Elements') }')",
+				"Alchemy.openElementsWindow('#{list_admin_elements_path(:page_id => @page.id)}', {title: '#{ _('Elements') }', dirtyTitle: '#{ _("Warning!") }', dirtyMessage: '#{ _("You have unsaved elements. Do you really want to close the elements window?") }', okLabel: '#{ _("Yes") }', cancelLabel: '#{ _("No") }'})",
 				{
 					:title => _('Show Elements Window'),
 					:class => 'icon_button'
@@ -115,7 +115,7 @@
 	<script type="text/javascript" charset="utf-8">
 	//<!--[CDATA[
 		jQuery(document).ready(function() {
-			Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
+			Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', {title: '<%= _('Elements') %>', dirtyTitle: '<%= _("Warning!") %>', dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") %>', okLabel: '<%= _("Yes") %>', cancelLabel: '<%= _("No") %>'});
 			Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
 		});
 		Alchemy.PageLeaveObserver({

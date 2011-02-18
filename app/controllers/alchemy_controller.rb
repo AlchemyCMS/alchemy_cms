@@ -48,10 +48,11 @@ class AlchemyController < ApplicationController
   end
   
   def set_language_to(language_id)
-    language = Language.find(language_id)
-    if language
-      session[:language_id] = language.id
-      Alchemy::Controller.current_language = language
+    @language = Language.find(language_id)
+    if @language
+      session[:language_id] = @language.id
+      session[:language_code] = @language.code
+      Alchemy::Controller.current_language = @language
     else
       logger.error "+++++++ Language not found for language_id: #{language_id}"
     end
@@ -194,10 +195,11 @@ protected
   end
   
   def set_language_to_default
-    language = Language.get_default
-    session[:language_id] = language.id
-    Alchemy::Controller.current_language = language
-    I18n.locale = language.code
+    @language = Language.get_default
+    session[:language_id] = @language.id
+    session[:language_code] = @language.code
+    Alchemy::Controller.current_language = @language
+    I18n.locale = @language.code
   end
   
 end
