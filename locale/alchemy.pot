@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-18 13:12+0100\n"
+"POT-Creation-Date: 2011-02-21 11:00+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -432,7 +432,7 @@ msgstr ""
 msgid "Picture|Name"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:17
+#: app/views/admin/signup.html.erb:7
 msgid "Please Signup"
 msgstr ""
 
@@ -801,7 +801,7 @@ msgstr ""
 msgid "confirm_to_delete_image_from_server"
 msgstr ""
 
-#: app/views/admin/languages/_language.html.erb:15
+#: app/views/admin/languages/_language.html.erb:12
 msgid "confirm_to_delete_language"
 msgstr ""
 
@@ -890,7 +890,7 @@ msgstr ""
 msgid "delete_image"
 msgstr ""
 
-#: app/views/admin/languages/_language.html.erb:17
+#: app/views/admin/languages/_language.html.erb:14
 msgid "delete_language"
 msgstr ""
 
@@ -929,8 +929,8 @@ msgstr ""
 msgid "edit_image_properties"
 msgstr ""
 
-#: app/views/admin/languages/_language.html.erb:26
-#: app/views/admin/languages/_language.html.erb:33
+#: app/views/admin/languages/_language.html.erb:23
+#: app/views/admin/languages/_language.html.erb:30
 msgid "edit_language"
 msgstr ""
 
@@ -962,7 +962,7 @@ msgstr ""
 msgid "element_%{name}_moved_to_clipboard"
 msgstr ""
 
-#: app/views/admin/elements/destroy.rjs:7
+#: app/views/admin/elements/destroy.rjs:2
 msgid "element_deleted_successful"
 msgstr ""
 
@@ -974,7 +974,7 @@ msgstr ""
 msgid "element_of_type"
 msgstr ""
 
-#: app/views/admin/elements/update.rjs:7
+#: app/views/admin/elements/update.rjs:1
 msgid "element_saved"
 msgstr ""
 
@@ -1112,7 +1112,7 @@ msgstr ""
 msgid "link_title"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:56
+#: app/controllers/admin_controller.rb:52
 msgid "logged_out"
 msgstr ""
 
@@ -1571,7 +1571,7 @@ msgstr ""
 msgid "we_need_at_least_one_default"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:38
+#: app/controllers/admin_controller.rb:35
 msgid "welcome_please_identify_notice"
 msgstr ""
 

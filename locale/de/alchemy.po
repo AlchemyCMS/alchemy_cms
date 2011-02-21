@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-18 13:12+0100\n"
+"POT-Creation-Date: 2011-02-21 11:00+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -434,7 +434,7 @@ msgstr "Bildbreite"
 msgid "Picture|Name"
 msgstr "Name"
 
-#: app/controllers/admin_controller.rb:17
+#: app/views/admin/signup.html.erb:7
 msgid "Please Signup"
 msgstr ""
 "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin "
@@ -684,7 +684,9 @@ msgstr ""
 #: app/views/admin/pages/edit.html.erb:118
 msgid ""
 "You have unsaved elements. Do you really want to close the elements window?"
-msgstr "Sie haben ungesicherte Elemente. Möchten Sie das Elemente Fenster wirklich schließen?"
+msgstr ""
+"Sie haben ungesicherte Elemente. Möchten Sie das Elemente Fenster wirklich "
+"schließen?"
 
 #: app/views/admin/partials/_upload_form.html.erb:17
 msgid ""
@@ -822,7 +824,7 @@ msgstr "Wollen Sie dieses Bild wirklich löschen?"
 msgid "confirm_to_delete_image_from_server"
 msgstr "Wollen Sie dieses Bild wirklich vom Server löschen?"
 
-#: app/views/admin/languages/_language.html.erb:15
+#: app/views/admin/languages/_language.html.erb:12
 msgid "confirm_to_delete_language"
 msgstr ""
 "Wollen Sie diese Sprache wirklich löschen?<br/>ACHTUNG! Alle zugehörigen "
@@ -913,7 +915,7 @@ msgstr "Datei vom Server löschen"
 msgid "delete_image"
 msgstr "Bild löschen."
 
-#: app/views/admin/languages/_language.html.erb:17
+#: app/views/admin/languages/_language.html.erb:14
 msgid "delete_language"
 msgstr "Sprache löschen"
 
@@ -952,8 +954,8 @@ msgstr "Dateieigenschaften bearbeiten"
 msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
-#: app/views/admin/languages/_language.html.erb:26
-#: app/views/admin/languages/_language.html.erb:33
+#: app/views/admin/languages/_language.html.erb:23
+#: app/views/admin/languages/_language.html.erb:30
 msgid "edit_language"
 msgstr "Sprache bearbeiten"
 
@@ -985,7 +987,7 @@ msgstr "Das Element '%{name}' wurde in die Zwischenablage kopiert."
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Das Element '%{name}' wurde in die Zwischenablage bewegt."
 
-#: app/views/admin/elements/destroy.rjs:7
+#: app/views/admin/elements/destroy.rjs:2
 msgid "element_deleted_successful"
 msgstr "Element wurde gelöscht."
 
@@ -997,7 +999,7 @@ msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 msgid "element_of_type"
 msgstr "Element"
 
-#: app/views/admin/elements/update.rjs:7
+#: app/views/admin/elements/update.rjs:1
 msgid "element_saved"
 msgstr "Element wurde gespeichert."
 
@@ -1142,7 +1144,7 @@ msgstr "Intern"
 msgid "link_title"
 msgstr "Linktitel"
 
-#: app/controllers/admin_controller.rb:56
+#: app/controllers/admin_controller.rb:52
 msgid "logged_out"
 msgstr "Sie wurden abgemeldet."
 
@@ -1613,7 +1615,7 @@ msgstr "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
 msgid "we_need_at_least_one_default"
 msgstr "Es muss eine Standardsprache geben"
 
-#: app/controllers/admin_controller.rb:38
+#: app/controllers/admin_controller.rb:35
 msgid "welcome_please_identify_notice"
 msgstr "Willkommen! Bitte identifizieren Sie sich."
 

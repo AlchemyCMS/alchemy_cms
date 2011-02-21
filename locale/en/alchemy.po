@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-18 13:12+0100\n"
+"POT-Creation-Date: 2011-02-21 11:00+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -429,7 +429,7 @@ msgstr "Imagewidth"
 msgid "Picture|Name"
 msgstr "Name"
 
-#: app/controllers/admin_controller.rb:17
+#: app/views/admin/signup.html.erb:7
 msgid "Please Signup"
 msgstr ""
 "In order to manage your site, you first have to signup an admin account!"
@@ -799,7 +799,7 @@ msgstr "Do you really want to delete this image from server?"
 msgid "confirm_to_delete_image_from_server"
 msgstr "Do you really want to delete this image from the server?"
 
-#: app/views/admin/languages/_language.html.erb:15
+#: app/views/admin/languages/_language.html.erb:12
 msgid "confirm_to_delete_language"
 msgstr ""
 "Do you really want to delete this language? All dependend pages will be "
@@ -890,7 +890,7 @@ msgstr "Delete this file from server."
 msgid "delete_image"
 msgstr "Remove this image."
 
-#: app/views/admin/languages/_language.html.erb:17
+#: app/views/admin/languages/_language.html.erb:14
 msgid "delete_language"
 msgstr "Delete this language."
 
@@ -929,8 +929,8 @@ msgstr "Edit Fileproperties"
 msgid "edit_image_properties"
 msgstr "Edit image properties."
 
-#: app/views/admin/languages/_language.html.erb:26
-#: app/views/admin/languages/_language.html.erb:33
+#: app/views/admin/languages/_language.html.erb:23
+#: app/views/admin/languages/_language.html.erb:30
 msgid "edit_language"
 msgstr "Edit language"
 
@@ -962,7 +962,7 @@ msgstr "Copied element %{name} to clipboard"
 msgid "element_%{name}_moved_to_clipboard"
 msgstr "Moved element %{name} to clipboard."
 
-#: app/views/admin/elements/destroy.rjs:7
+#: app/views/admin/elements/destroy.rjs:2
 msgid "element_deleted_successful"
 msgstr "Deleted element."
 
@@ -974,7 +974,7 @@ msgstr "Error within this Element"
 msgid "element_of_type"
 msgstr "Element"
 
-#: app/views/admin/elements/update.rjs:7
+#: app/views/admin/elements/update.rjs:1
 msgid "element_saved"
 msgstr "Saved element."
 
@@ -1116,7 +1116,7 @@ msgstr "Internal"
 msgid "link_title"
 msgstr "Linktitle"
 
-#: app/controllers/admin_controller.rb:56
+#: app/controllers/admin_controller.rb:52
 msgid "logged_out"
 msgstr "You logged out successfully."
 
@@ -1583,7 +1583,7 @@ msgstr "Do you want to copy an existing language tree?"
 msgid "we_need_at_least_one_default"
 msgstr ""
 
-#: app/controllers/admin_controller.rb:38
+#: app/controllers/admin_controller.rb:35
 msgid "welcome_please_identify_notice"
 msgstr "Welcome! Please identify."
 
