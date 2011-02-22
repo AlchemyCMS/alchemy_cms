@@ -26,10 +26,8 @@
 #     cache: false
 #     elements: [pageheading, heading, contact, bild, absatz, file_download]
 #     autogenerate: [contact]
-#     controller: mails
-#     action: new
 #
-# Disabling the page caching is stronlgy recommended! Also the controller and action settings are recommended.
+# Disabling the page caching is stronlgy recommended!
 #
 # The editor view for your element should have this layout:
 # 
@@ -49,8 +47,15 @@ class MailsController < AlchemyController
   def new#:nodoc:
     @mail = Mail.new
     @page = Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
+    @root_page = Page.language_root_for(session[:language_id])
     raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
     render :template => '/pages/show', :layout => 'pages'
+  end
+  
+  def index#:nodoc:
+    @page = Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
+    raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
+    redirect_to send("show_page#{multi_language? ? '_with_language' : '' }_path", :urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
   end
   
   def create#:nodoc:
@@ -58,6 +63,7 @@ class MailsController < AlchemyController
     @mail.ip = request.remote_ip
     element = Element.find_by_id(@mail.contact_form_id)
     @page = element.page
+    @root_page = Page.language_root_for(session[:language_id])
     if @mail.save
       if params[:mail_to].blank?
         mail_to = element.ingredient("mail_to")
@@ -85,7 +91,6 @@ class MailsController < AlchemyController
     else
       render :template => '/pages/show', :layout => 'pages'
     end
-    
   end
   
 end
