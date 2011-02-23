@@ -1155,4 +1155,9 @@ module AlchemyHelper
     end
   end
   
+  # Returns the current page.
+  def current_page
+    @page
+  end
+  
 end
