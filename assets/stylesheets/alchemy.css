@@ -49,7 +49,7 @@ div#flash_notices {
 	top: 0;
 }
 
-.flash {
+div#flash_notices div.flash {
 	width: 300px;
 	padding: 8px 8px 8px 30px;
 	font-weight: bold;
@@ -65,25 +65,25 @@ div#flash_notices {
 	position: relative;
 }
 
-.flash .icon {
+div#flash_notices div.flash span.icon {
 	position: absolute;
 	top: 8px;
 	left: 8px;
 }
 
-.flash.notice {
+div#flash_notices div.flash.notice {
 	border-color: #9cc4a1;
 	color: #2e5934;
 	background-color: #e2efd3;
 }
 
-.flash.error {
+div#flash_notices div.flash.error {
 	border-color: #c49c9c;
 	color: #592e2e;
 	background-color: #efd3d3;
 }
 
-.flash.info {
+div#flash_notices div.flash.info {
 	border-color: #c4c19c;
 	color: #726d23;
 	background-color: #f3f0c1;
