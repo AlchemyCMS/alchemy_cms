@@ -49,7 +49,7 @@ module AlchemyHelper
   # :count                      The amount of elements to be rendered (beginns with first element found)
   # :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
   # :sort_by => Content#name    A Content name to sort the elements by
-  # :reverse_sort => boolean    Reverse the sort result
+  # :reverse => boolean         Reverse the rendering order
   #
   # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
   #
@@ -84,8 +84,8 @@ module AlchemyHelper
       end
       unless options[:sort_by].blank?
         all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
-        all_elements.reverse! if options[:reverse_sort]
       end
+      all_elements.reverse! if options[:reverse_sort] || options[:reverse]
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
@@ -539,14 +539,17 @@ module AlchemyHelper
       :reverse_children => false
     }
     options = default_options.merge(options)
-    if options[:from_page].blank?
-      warning('options[:from_page] is blank')
+    if options[:from_page].is_a?(String)
+      page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+    else
+      page = options[:from_page]
+    end
+    if page.blank?
+      warning("No Page found for #{options[:from_page]}")
       return ""
-    elsif options[:from_page].is_a?(String)
-      options[:from_page] = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
     end
     conditions = {
-      :parent_id => options[:from_page].id,
+      :parent_id => page.id,
       :restricted => options[:restricted_only] || false,
       :visible => true
     }
