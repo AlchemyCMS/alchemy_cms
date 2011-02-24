@@ -78,14 +78,13 @@ class Admin::PagesController < AlchemyController
   def destroy
     # fetching page via before filter
     name = @page.name
+    page_id = @page.id
     if @page.destroy
       @page_root = Page.language_root_for(session[:language_id])
       if @page_root
         render :update do |page|
-          page.replace(
-            "sitemap",
-            :partial => 'sitemap'
-          )
+          page.remove("locked_page_#{page_id}")
+          page.replace("sitemap", :partial => 'sitemap')
           Alchemy::Notice.show(page, _("Page %{name} deleted") % {:name => name})
           page << "Alchemy.Tooltips()"
         end
