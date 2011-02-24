@@ -33,14 +33,32 @@ class Admin::PagesController < AlchemyController
   
   def create
     begin
-      parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
-      params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
-      params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
-      page = Page.create(params[:page])
-      if page.valid? && parent
-        page.move_to_child_of(parent)
+      if params[:page][:name] == "paste_from_clipboard"
+        @page = Page.find(session[:clipboard][:page_id])
+        Page.copy(@page, {
+          :name => @page.name+'_copy',
+          :urlname => @page.urlname+'_copy',
+          :title => @page.title+'_copy',
+          :title => @page.title+'_copy',
+          :visible => false,
+          :public => false,
+          :locked => false,
+          :locked_by => nil,
+          :created_at => Time.now,
+          :updated_at => nil,
+          :creator_id => current_user.id,
+          :updater_id => nil
+        })
+      else
+        parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
+        params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
+        params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
+        page = Page.create(params[:page])
+        if page.valid? && parent
+          page.move_to_child_of(parent)
+        end
+        render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
       end
-      render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue Exception => e
       exception_handler(e)
     end
@@ -191,6 +209,16 @@ class Admin::PagesController < AlchemyController
   def sort
     @page_root = Page.language_root_for(session[:language_id])
     @sorting = !params[:sorting]
+  end
+  
+  # Copies a Page to the clipboard in the session
+  def copy_to_clipboard
+    @page = Page.find(params[:id])
+    session[:clipboard] = {}
+    session[:clipboard][:method] = params[:method]
+    session[:clipboard][:page_id] = @page.id
+  rescue Exception => e
+    exception_handler(e)
   end
   
   def order

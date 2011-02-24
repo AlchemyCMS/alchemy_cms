@@ -67,6 +67,19 @@
 					:class => '',
 					:title => _('create_page')
 				) -%>
+				<%= link_to_remote(
+					"<span class='icon copy_page'></span>",
+					:url => {
+						:controller => "pages",
+						:action => "copy_to_clipboard",
+						:id => page.id,
+						:method => "copy"
+					},
+					:html => {
+						:class => "",
+						:title => _("copy_page")
+					}
+				) %>
 				<%- end -%>
 			</span>
 			<%- end -%>

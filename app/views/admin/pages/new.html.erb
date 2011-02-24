@@ -2,6 +2,20 @@
 <% remote_form_for([:admin, @page]) do |f| %>
 	<div id="errors" style="display:none"></div>
 	<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
+		<%- unless session[:clipboard].nil? -%>
+			<%- pastable_page = Page.get_from_clipboard(session[:clipboard]) -%>
+			<%- unless pastable_page.blank? -%>
+		<tr>
+			<td class="first_row">
+				<%= f.select(
+					'name',
+					[_("'%{name}' from_clipboard") % {:name => "#{pastable_page.name}"}, "paste_from_clipboard"],
+					{:class => 'very_long'}
+				) -%>
+			</td>
+		</tr>
+			<%- end -%>
+		<%- else -%>
 		<tr>
 			<td class="first_row">
 				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
@@ -18,6 +32,7 @@
 				<%= f.text_field("name", :size => 15, :class => "thin_border") %>
 			</td>
 		</tr>
+		<%- end -%>
 		<tr>
 			<td class="first_row">&nbsp;</td>
 			<td class="second_row">

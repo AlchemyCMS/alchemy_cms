@@ -1100,7 +1100,7 @@ a.folder_link {
 .sitemap_sitetools {
 	padding: 0;
 	float: left;
-	width: 48px;
+	width: 70px;
 	margin-left: 8px;
 }
 
@@ -2321,6 +2321,10 @@ span.icon.edit {
 
 span.icon.add_page {
 	background: url(/images/alchemy/icons.png) -48px -24px;
+}
+
+span.icon.copy_page {
+	background: url(/images/alchemy/icons.png) -272px -24px;
 }
 
 span.icon.delete_page {

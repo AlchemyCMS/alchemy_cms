@@ -3,6 +3,8 @@ class Page < ActiveRecord::Base
   stampable
   has_many :folded_pages
   has_many :elements, :order => :position, :dependent => :destroy
+  #has_many :relative_pages, :through => :page_relations, :dependent => :nullify
+  has_and_belongs_to_many :relative_pages, :class_name => "Page", :join_table => "page_relations", :association_foreign_key => "relative_page_id", :foreign_key => "page_id", :uniq => true
   has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
   belongs_to :language
   
@@ -33,6 +35,7 @@ class Page < ActiveRecord::Base
   named_scope :language_roots, :conditions => {:language_root => true}
   named_scope :layoutpages, :conditions => {:layoutpage => true}
   named_scope :all_locked, :conditions => {:locked => true}
+  named_scope :relative_pages, :conditions => {'page_relations.page_id' => self.id}
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -330,6 +333,11 @@ class Page < ActiveRecord::Base
   
   def self.all_last_edited_from(user)
     Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
+  end
+  
+  def self.get_from_clipboard(clipboard)
+    return nil if clipboard.blank?
+    self.find_by_id(clipboard[:page_id])
   end
   
 private
