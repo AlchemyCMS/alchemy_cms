@@ -98,6 +98,7 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     name = @page.name
     if @page.destroy
+      session[:clipboard][:pages].delete(@page.id) if session[:clipboard][:pages]
       @page_root = Page.language_root_for(session[:language_id])
       if @page_root
         render :update do |page|
