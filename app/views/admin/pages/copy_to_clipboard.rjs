@@ -1,0 +1,1 @@
+Alchemy::Notice.show(page, _("page_%{name}_copied_to_clipboard") % {:name => @page.name})
