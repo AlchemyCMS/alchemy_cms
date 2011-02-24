@@ -806,7 +806,7 @@ module AlchemyHelper
         options << [_("'%{name}' from_clipboard") % {:name => "#{item.name}"}, item.id]
       end
       select_tag(
-  			'clipboard',
+  			'paste_from_clipboard',
   			options_for_select(options),
   			{:class => css_class || 'very_long'}
   		)

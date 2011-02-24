@@ -3,10 +3,10 @@
 	<%= f.hidden_field("parent_id", :value => @parent_id) %>
 	<div id="errors" style="display:none"></div>
 	
-	<%- unless session[:clipboard].nil? -%>
-		<%- pastable_page = Page.get_from_clipboard(session[:clipboard]) -%>
+	<%- unless session[:clipboard][:pages].blank? -%>
+		<%- pastable_pages = Page.all_from_clipboard(session[:clipboard][:pages]) -%>
 		<p>
-			<%= _("In der Zwischenablage ist eine Seite gespeichert.") %>
+			<%= _("Your clipboard contains %{count} pages" % {:count => session[:clipboard][:pages].length}) %>
 			<p>
 				<%= radio_button_tag(
 					'page_create', 
@@ -54,7 +54,7 @@
 	<%- unless session[:clipboard].nil? -%>
 	<div id="new_page_from_clipboard">
 		<span style="margin-right: 16px"><%= _("Page") %>:</span>
-		<%= clipboard_select_tag('page', pastable_page) %>
+		<%= clipboard_select_tag('page', pastable_pages) %>
 		<%= f.submit _("create"), :class => 'button', :name => nil %>
 	</div>
 	<%- end -%>

@@ -9,7 +9,7 @@
 		<h2><%= _('You were last time online at %{time}') % {:time => l(current_user.last_login_at)} unless current_user.last_login_at.blank? %></h2>
 		
 		<div class="widget">
-			<h2><%= _('Your clipboard items') %>: <small class="float_right"><%= link_to_remote(_('clear complete clipboard'), :url => {:controller => :admin, :action => :clear_clipboard}) %></small></h2>
+			<h2><%= _('Your clipboard items') %>: <small class="float_right"><%= link_to_remote(_('clear complete clipboard'), :url => {:controller => "/admin", :action => :clear_clipboard}) %></small></h2>
 			<div id="widget_clipboard">
 				<%= render :partial => "/admin/partials/widget_clipboard", :locals => {:clipboard_items => @clipboard_items} %>
 			</div>

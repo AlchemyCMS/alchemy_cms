@@ -332,9 +332,9 @@ class Page < ActiveRecord::Base
     Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
   end
   
-  def self.get_from_clipboard(clipboard)
+  def self.all_from_clipboard(clipboard)
     return nil if clipboard.blank?
-    self.find_all_by_id(clipboard[:page_id])
+    self.find(clipboard)
   end
   
 private

@@ -36,8 +36,8 @@ class Admin::PagesController < AlchemyController
       parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
       params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
       params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
-      if !params[:clipboard].blank?
-        @page = Page.find(session[:clipboard][:page_id])
+      if !params[:paste_from_clipboard].blank?
+        @page = Page.find(params[:paste_from_clipboard])
         page = Page.copy(@page, {
           :name => @page.name+'_copy',
           :urlname => @page.urlname+'_copy',
@@ -210,16 +210,6 @@ class Admin::PagesController < AlchemyController
   def sort
     @page_root = Page.language_root_for(session[:language_id])
     @sorting = !params[:sorting]
-  end
-  
-  # Copies a Page to the clipboard in the session
-  def copy_to_clipboard
-    @page = Page.find(params[:id])
-    session[:clipboard] = {}
-    session[:clipboard][:method] = params[:method]
-    session[:clipboard][:page_id] = @page.id
-  rescue Exception => e
-    exception_handler(e)
   end
   
   def order

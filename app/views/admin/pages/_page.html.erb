@@ -70,10 +70,11 @@
 				<%= link_to_remote(
 					"<span class='icon copy_page'></span>",
 					:url => {
-						:controller => "pages",
-						:action => "copy_to_clipboard",
+						:controller => "/admin",
+						:action => :copy_to_clipboard,
+						:clipboard_category => :pages,
 						:id => page.id,
-						:method => "copy"
+						:method => :copy
 					},
 					:html => {
 						:class => "",

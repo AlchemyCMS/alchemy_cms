@@ -1,0 +1,9 @@
+<%- if @clipboard_items.blank? -%>
+	<p><%= _('no clipboard items') %></p>
+	<%- else -%>
+	<ul>
+		<%- @clipboard_items.each do |item| -%>
+		<li class="<%= cycle('even', 'odd') %>"><%= debug item %></li>
+		<%- end -%>
+	</ul>
+<%- end -%>
