@@ -139,6 +139,14 @@ form#login.new_user_session {
 	margin-right: 8px;
 }
 
+.float_right {
+  float: right;
+}
+
+.float_left {
+  float: left;
+}
+
 /* @group overlay */
 
 div#overlay {

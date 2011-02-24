@@ -37,7 +37,6 @@ class Admin::PagesController < AlchemyController
       params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
       params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
       if !params[:clipboard].blank?
-        debugger
         @page = Page.find(session[:clipboard][:page_id])
         page = Page.copy(@page, {
           :name => @page.name+'_copy',
