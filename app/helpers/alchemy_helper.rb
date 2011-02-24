@@ -798,6 +798,20 @@ module AlchemyHelper
     filter_field << "</div>"
     filter_field
   end
+  
+  def clipboard_select_tag(classname, items, css_class=nil)
+    unless items.blank?
+      options = [[_('Please choose'), ""]]
+      items.each do |item|
+        options << [_("'%{name}' from_clipboard") % {:name => "#{item.name}"}, item.id]
+      end
+      select_tag(
+  			'clipboard',
+  			options_for_select(options),
+  			{:class => css_class || 'very_long'}
+  		)
+    end
+  end
 
   # returns all elements that could be placed on that page because of the pages layout as array to be used in alchemy_selectbox form builder
   def elements_for_select(elements)

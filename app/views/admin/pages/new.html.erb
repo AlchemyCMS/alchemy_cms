@@ -1,21 +1,32 @@
 <div class="with_padding">
 <% remote_form_for([:admin, @page]) do |f| %>
+	<%= f.hidden_field("parent_id", :value => @parent_id) %>
 	<div id="errors" style="display:none"></div>
+	
+	<%- unless session[:clipboard].nil? -%>
+		<%- pastable_page = Page.get_from_clipboard(session[:clipboard]) -%>
+		<p>
+			<%= _("In der Zwischenablage ist eine Seite gespeichert.") %>
+			<p>
+				<%= radio_button_tag(
+					'page_create', 
+					'from_clipboard', 
+					false, 
+					:id => 'paste_from_clipboard', 
+					:onClick => "jQuery('#new_page_from_clipboard').show(); jQuery('#new_page_form').hide();"
+				) %> <%= label_tag("paste_from_clipboard", _("Eine Kopie dieser Seite einfügen")) %><br />
+				
+				<%= radio_button_tag(
+					'page_create', 
+					'new', 
+					true, 
+					:id => 'page_new',
+					:onClick => "jQuery('#new_page_from_clipboard').hide(); jQuery('#new_page_form').show();"
+				) %> <%= label_tag("page_new", _("Eine neue Seite anlegen")) %>
+			</p>
+		</p>
+	<%- end -%>
 	<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
-		<%- unless session[:clipboard].nil? -%>
-			<%- pastable_page = Page.get_from_clipboard(session[:clipboard]) -%>
-			<%- unless pastable_page.blank? -%>
-		<tr>
-			<td class="first_row">
-				<%= f.select(
-					'name',
-					[_("'%{name}' from_clipboard") % {:name => "#{pastable_page.name}"}, "paste_from_clipboard"],
-					{:class => 'very_long'}
-				) -%>
-			</td>
-		</tr>
-			<%- end -%>
-		<%- else -%>
 		<tr>
 			<td class="first_row">
 				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
@@ -26,20 +37,26 @@
 		</tr>
 		<tr>
 			<td class="first_row">
-				<%= f.label("name", _("with_name")) %>
+				<%= f.label(:name, _("with_name")) %>
 			</td>
 			<td class="second_row">
-				<%= f.text_field("name", :size => 15, :class => "thin_border") %>
+				<%= f.text_field(:name, :size => 15, :class => "thin_border") %>
 			</td>
 		</tr>
-		<%- end -%>
 		<tr>
 			<td class="first_row">&nbsp;</td>
 			<td class="second_row">
-				<%= f.hidden_field("parent_id", :value => @parent_id) %>
-				<%= submit_tag _("create"), :class => 'button' %>
+				<%= f.submit _("create"), :class => 'button', :name => nil %>
 			</td>
 		</tr>
 	</table>
+	
+	<%- unless session[:clipboard].nil? -%>
+	<div id="new_page_from_clipboard">
+		<span style="margin-right: 16px"><%= _("Page") %>:</span>
+		<%= clipboard_select_tag('page', pastable_page) %>
+		<%= f.submit _("create"), :class => 'button', :name => nil %>
+	</div>
+	<%- end -%>
 <% end %>
 </div>

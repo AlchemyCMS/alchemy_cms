@@ -33,12 +33,17 @@ class Admin::PagesController < AlchemyController
   
   def create
     begin
-      if params[:page][:name] == "paste_from_clipboard"
+      parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
+      params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
+      params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
+      if !params[:clipboard].blank?
+        debugger
         @page = Page.find(session[:clipboard][:page_id])
-        Page.copy(@page, {
+        page = Page.copy(@page, {
           :name => @page.name+'_copy',
           :urlname => @page.urlname+'_copy',
           :title => @page.title+'_copy',
+          :parent_id => params[:page][:parent_id],
           :title => @page.title+'_copy',
           :visible => false,
           :public => false,
@@ -50,15 +55,12 @@ class Admin::PagesController < AlchemyController
           :updater_id => nil
         })
       else
-        parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
-        params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
-        params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
         page = Page.create(params[:page])
-        if page.valid? && parent
-          page.move_to_child_of(parent)
-        end
-        render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
       end
+      if page.valid? && parent
+        page.move_to_child_of(parent)
+      end
+      render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
     rescue Exception => e
       exception_handler(e)
     end

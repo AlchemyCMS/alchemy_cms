@@ -1141,6 +1141,19 @@ a.folder_link {
 
 /* @end */
 
+div#new_page_from_clipboard {
+  display: none;
+}
+
+div#new_page_from_clipboard input.button {
+  float: right;
+}
+
+div#new_page_from_clipboard span {
+  float: left;
+  line-height: 25px;
+}
+
 #page_editing_head .site_status {
 	margin: 0 4px 0 0;
 	float: left;
