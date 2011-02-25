@@ -1,3 +1,5 @@
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -1131,11 +1133,12 @@ a.folder_link {
 }
 
 .sitemap_sitetools .icon_spacer {
-	width: 18px;
-	height: 18px;
-	margin-left: 4px;
+	width: 16px;
+	height: 16px;
+	margin-left: 2px;
 	float: left;
-	margin-right: 4px;
+	margin-top: 3px;
+	margin-right: 3px;
 }
 
 .sitemap_right_tools span.icon {
@@ -1434,7 +1437,7 @@ span.icon {
 }
 
 span.icon.sort {
-	background-position: -64px -120px;
+	background-position: -64px -104px;
 }
 
 #page_sorting_notice p {
@@ -1504,7 +1507,7 @@ a.icon_button.small span.icon {
 }
 
 span.icon.delete-small {
-	background-image: url(/images/alchemy/icons/minus-small.png);
+	background: url(/images/alchemy/icons.png) 0 -104px;
 }
 
 a.icon_button span.old_icon {
@@ -1533,11 +1536,12 @@ div.table_right span.tools a.icon_button img {
 	padding: 0;
 }
 
+table,
 table.list {
-	width: 100%;
 	border-style: none;
 	border-spacing: 0 4px;
 	padding: 0;
+	width: 100%;
 }
 
 table.list td,
@@ -1777,6 +1781,10 @@ td.label {
 	white-space: nowrap;
 	padding: 3px 4px 0 0;
 	width: 80px;
+}
+
+td.label.long {
+	width: 140px;
 }
 
 table.list tr td.tools a {
@@ -2343,6 +2351,14 @@ span.icon.preview_window {
 	background: url(/images/alchemy/icons.png) -224px -24px;
 }
 
+span.icon.clipboard {
+	background-position: -144px -56px;
+}
+
+span.icon.clipboard.full {
+	background-position: -160px -56px;
+}
+
 a.icon.file_download {
 	background: url(/images/alchemy/icons.png) -240px -72px;
 }
@@ -2360,7 +2376,7 @@ a.icon.file_edit {
 }
 
 .icon.create {
-	background: url(/images/alchemy/icons.png) -50px -104px;
+	background: url(/images/alchemy/icons.png) -48px -104px;
 }
 
 span.icon.add_page {
@@ -2903,7 +2919,7 @@ div#errors {
 }
 
 #new_page_form tbody tr td.second_row input#page_name {
-	width: 144px;
+	width: 168px;
 	margin: 0;
 	border-width: 1px;
 }
@@ -3499,4 +3515,18 @@ object.swfupload {
 	width: 16px;
 	height: 16px;
 	margin: 1px 0 0 -12px;
+}
+
+#clipboard_items ul {
+	list-style-type: none;
+	margin: 0 0 16px;
+	padding: 0;
+	height: 180px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#clipboard_items ul li {
+	padding: 4px;
+	background: white;
 }

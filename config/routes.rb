@@ -55,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :essence_files
     admin.resources :essence_videos
     admin.resources :languages
+    admin.resources :clipboard, :only => :index, :collection => {:clear => :delete, :insert => :post, :remove => :delete}
   end
   map.resources :user_sessions
   map.resources :elements, :only => :show

@@ -802,16 +802,19 @@ module AlchemyHelper
     filter_field
   end
   
-  def clipboard_select_tag(classname, items, css_class=nil)
+  def clipboard_select_tag(items, html_options = {})
     unless items.blank?
       options = [[_('Please choose'), ""]]
       items.each do |item|
-        options << [_("'%{name}' from_clipboard") % {:name => "#{item.name}"}, item.id]
+        options << [item.name, item.id]
       end
       select_tag(
   			'paste_from_clipboard',
   			options_for_select(options),
-  			{:class => css_class || 'very_long'}
+  			{
+  			  :class => html_options[:class] || 'very_long',
+  			  :style => html_options[:style]
+  			}
   		)
     end
   end

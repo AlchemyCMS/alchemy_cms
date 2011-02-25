@@ -14,29 +14,6 @@ class AdminController < AlchemyController
     @online_users = User.all_online(current_user)
   end
   
-  def copy_to_clipboard
-    begin
-      if params[:id]
-        session[:clipboard] ||= Hash.new
-        if params[:clipboard_category] == "pages"
-          @item = Page.find(params[:id])
-          session[:clipboard][:pages] ||= []
-          session[:clipboard][:pages].push(@item.id)
-        end
-          session[:clipboard][:method] = :copy
-      end
-    rescue Exception => e
-      exception_handler(e)
-    end
-  end
-  
-  def clear_clipboard
-    session[:clipboard] = Hash.new
-    render :update do |page|
-      page.replace("widget_clipboard", :partial => "/admin/partials/widget_clipboard")
-    end
-  end
-  
   # Signup only works if no user is present in database.
   def signup
     if request.get?

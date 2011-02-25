@@ -317,6 +317,31 @@ class Page < ActiveRecord::Base
     )
   end
   
+  # Creates a copy of source (an Page object) and does a copy of all elements depending to source.
+  # You can pass any kind of Page#attributes as a difference to source.
+  # Notice: It prevents the element auto_generator from running.
+  def self.copy(source, differences = {})
+    attributes = source.attributes.merge(differences)
+    attributes.merge!(
+      :do_not_autogenerate => true, 
+      :do_not_sweep => true, 
+      :visible => false,
+      :public => false,
+      :locked => false,
+      :locked_by => nil
+    )
+    page = self.new(attributes.except(["id", "updated_at", "created_at", "created_id", "updater_id"]))
+    if page.save
+      source.elements.each do |element|
+        new_element = Element.copy(element, :page_id => page.id)
+        new_element.move_to_bottom
+      end
+      return page
+    else
+      raise page.errors.full_messages
+    end
+  end
+  
   # Gets the language_root page for page
   def get_language_root
     return self if self.language_root
@@ -335,6 +360,19 @@ class Page < ActiveRecord::Base
   def self.all_from_clipboard(clipboard)
     return nil if clipboard.blank?
     self.find(clipboard)
+  end
+  
+  def copy_children_to(new_parent)
+    self.children.each do |child|
+      new_child = Page.copy(child, {
+        :language => self.language,
+        :name => child.name + ' (' + _('Copy') + ')',
+        :urlname => '',
+        :title => ''
+      })
+      new_child.move_to_child_of(new_parent)
+      self.copy_children(new_child) unless child.children.blank?
+    end
   end
   
 private
@@ -383,24 +421,6 @@ private
         element = Element.create_from_scratch({'page_id' => self.id, 'name' => element})
         element.move_to_bottom if element
       end
-    end
-  end
-  
-  # Creates a copy of source (an Page object) and does a copy of all elements depending to source.
-  # You can pass any kind of Page#attributes as a difference to source.
-  # Notice: It prevents the element auto_generator from running.
-  def self.copy(source, differences = {})
-    attributes = source.attributes.merge(differences)
-    attributes.merge!(:do_not_autogenerate => true, :do_not_sweep => true)
-    page = self.new(attributes.except("id"))
-    if page.save
-      source.elements.each do |element|
-        new_element = Element.copy(element, :page_id => page.id)
-        new_element.move_to_bottom
-      end
-      return page
-    else
-      raise "Error while Page.copy: #{page.errors.full_messages}"
     end
   end
   

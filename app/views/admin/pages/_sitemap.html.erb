@@ -38,6 +38,7 @@
 				<%- end -%>
 				<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
 				<span class="sitemap_sitetools">
+					<span class="icon_spacer"></span>
 					<%- permitted_to?(:destroy, :admin_pages) do -%>
 					<%= link_to_confirmation_window(
 						"<span class='icon delete_page'></span>",

@@ -1,0 +1,2 @@
+page.remove("clipboard_item_#{@item.id}")
+Alchemy::Notice.show(page, _("item %{name} removed from clipboard") % {:name => @item.name})

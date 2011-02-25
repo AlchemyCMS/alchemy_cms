@@ -28,41 +28,33 @@ class Admin::PagesController < AlchemyController
   def new
     @parent_id = params[:parent_id]
     @page = Page.new
+    @clipboard_items = Page.all_from_clipboard(get_clipboard('pages'))
     render :layout => false
   end
   
   def create
-    begin
-      parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
-      params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
-      params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
-      if !params[:paste_from_clipboard].blank?
-        @page = Page.find(params[:paste_from_clipboard])
-        page = Page.copy(@page, {
-          :name => @page.name+'_copy',
-          :urlname => @page.urlname+'_copy',
-          :title => @page.title+'_copy',
-          :parent_id => params[:page][:parent_id],
-          :title => @page.title+'_copy',
-          :visible => false,
-          :public => false,
-          :locked => false,
-          :locked_by => nil,
-          :created_at => Time.now,
-          :updated_at => nil,
-          :creator_id => current_user.id,
-          :updater_id => nil
-        })
-      else
-        page = Page.create(params[:page])
-      end
-      if page.valid? && parent
-        page.move_to_child_of(parent)
-      end
-      render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
-    rescue Exception => e
-      exception_handler(e)
+    parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
+    params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
+    params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
+    if !params[:paste_from_clipboard].blank?
+      source_page = Page.find(params[:paste_from_clipboard])
+      page = Page.copy(source_page, {
+        :name => params[:page][:name].blank? ? source_page.name + ' (' + _('Copy') + ')' : params[:page][:name],
+        :urlname => '',
+        :title => '',
+        :parent_id => params[:page][:parent_id],
+        :language => parent.language
+      })
+      #source_page.copy_children_to(page) unless source_page.children.blank?
+    else
+      page = Page.create(params[:page])
     end
+    if page.valid? && parent
+      page.move_to_child_of(parent)
+    end
+    render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
+  rescue Exception => e
+    exception_handler(e)
   end
   
   # Edit the content of the page and all its elements and contents.
@@ -194,7 +186,6 @@ class Admin::PagesController < AlchemyController
         original_language_root,
         :language_id => params[:languages][:new_lang_id],
         :language_code => Alchemy::Controller.current_language.code,
-        :public => false,
         :layoutpage => params[:layoutpage]
       )
       new_language_root.move_to_child_of Page.root
@@ -262,16 +253,6 @@ class Admin::PagesController < AlchemyController
   end
   
 private
-  
-  def copy_child_pages(source_page, new_page)
-    source_page.children.each do |child_page|
-      new_child = Page.copy(child_page, :language_id => new_page.language_id, :language_code => new_page.language_code, :public => false)
-      new_child.move_to_child_of new_page
-      unless child_page.children.blank?
-        copy_child_pages(child_page, new_child)
-      end
-    end
-  end
   
   def get_page_from_id
     @page = Page.find(params[:id])

@@ -27,7 +27,7 @@
 			<%- if !page.layoutpage? -%>
 				<%- permitted_to?(:configure, :admin_pages) do -%>
 				<%= link_to_overlay_window(
-					"<span class='icon configure_page'></span>",
+					render_icon('configure_page'),
 					configure_admin_page_path(page),
 					{
 						:title => _('edit_page_properties'),
@@ -40,9 +40,22 @@
 			<%- end -%>
 			<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
 			<span class="sitemap_sitetools">
+				<%- permitted_to?(:copy, :admin_pages) do -%>
+				<%= link_to_remote(
+					render_icon("copy_page"),
+					:url => insert_admin_clipboard_path(
+						:remarkable_type => page.class.to_s,
+						:remarkable_id => page.id
+					),
+					:html => {
+						:class => "",
+						:title => _("copy_page")
+					}
+				) %>
+				<%- end -%>
 				<%- permitted_to?(:destroy, :admin_pages) do -%>
 				<%= link_to_confirmation_window(
-						"<span class='icon delete_page'></span>",
+						render_icon('delete_page'),
 						_("confirm_to_delete_page"),
 						url_for(
 							:controller => 'pages',
@@ -57,30 +70,16 @@
 				<%- end -%>
 				<%- permitted_to?(:new, :admin_pages) do -%>
 				<%= link_to_overlay_window(
-					"<span class='icon add_page'></span>",
+					render_icon('add_page'),
 					new_admin_page_path(:parent_id => page.id),
 					{
 						:title => _('create_page'),
-						:size => '400x90',
+						:size => '340x90',
 						:overflow => true
 					},
 					:class => '',
 					:title => _('create_page')
 				) -%>
-				<%= link_to_remote(
-					"<span class='icon copy_page'></span>",
-					:url => {
-						:controller => "/admin",
-						:action => :copy_to_clipboard,
-						:clipboard_category => :pages,
-						:id => page.id,
-						:method => :copy
-					},
-					:html => {
-						:class => "",
-						:title => _("copy_page")
-					}
-				) %>
 				<%- end -%>
 			</span>
 			<%- end -%>

@@ -13,7 +13,7 @@ class AlchemyController < ApplicationController
   before_filter :set_translation
   before_filter :set_language
 
-  helper_method :current_server, :configuration, :multi_language?, :current_user
+  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :get_clipboard
   helper :errors, :layout
 
   def render_errors_or_redirect(object, redicrect_url, flash_notice)
@@ -185,7 +185,7 @@ protected
       end
     end
   end
-
+  
   def redirect_back_or_to_default(default_path = admin_path)
     if request.env["HTTP_REFERER"].blank?
       redirect_to default_path
@@ -200,6 +200,20 @@ protected
     session[:language_code] = @language.code
     Alchemy::Controller.current_language = @language
     I18n.locale = @language.code
+  end
+  
+  def get_clipboard(category = nil)
+    clipboard = (session[:clipboard] ||= {})
+    clipboard[category.to_sym] ||= [] if category
+  end
+  
+  def clipboard_empty?(category = nil)
+    return true if session[:clipboard].blank?
+    if category
+      session[:clipboard][category.to_sym].blank?
+    else
+      false
+    end
   end
   
 end
