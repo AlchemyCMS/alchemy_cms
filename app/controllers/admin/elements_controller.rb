@@ -28,22 +28,29 @@ class Admin::ElementsController < AlchemyController
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
     @elements = Element.all_for_layout(@page, @page.page_layout)
+    @clipboard_items = Element.all_from_clipboard(get_clipboard('elements'))
     render :layout => false
   end
   
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
   # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.
   def create
-    if params[:element][:name] == "paste_from_clipboard"
-      @element = Element.send(session[:clipboard][:method].to_sym, Element.find(session[:clipboard][:element_id]), {:page_id => params[:element][:page_id]})
-      session[:clipboard][:method] == 'move' ? session[:clipboard] = {} : nil
-    else
+    if params[:paste_from_clipboard].blank?
       @element = Element.new_from_scratch(params[:element])
+    else
+      source_element = Element.find(params[:paste_from_clipboard])
+      if source_element.page_id == blank? # aka. move
+        @element = source_element
+        @element.page_id = params[:element][:page_id]
+      else
+        @element = Element.copy(source_element, { 
+          :page_id => params[:element][:page_id]
+        })
+      end
     end
-    @page = @element.page
     if @element.save
       @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
-      # rendering via rjs template
+      @page = @element.page
     else
       render_remote_errors(@element)
     end
@@ -84,20 +91,6 @@ class Admin::ElementsController < AlchemyController
       unless session[:clipboard].nil?
         session[:clipboard] = nil if session[:clipboard][:element_id] == params[:id]
       end
-    end
-  rescue Exception => e
-    exception_handler(e)
-  end
-  
-  # Copies a element to the clipboard in the session
-  def copy_to_clipboard
-    @element = Element.find(params[:id])
-    session[:clipboard] = {}
-    session[:clipboard][:method] = params[:method]
-    session[:clipboard][:element_id] = @element.id
-    if session[:clipboard][:method] == "move"
-      @element.page_id = nil
-      @element.save!
     end
   rescue Exception => e
     exception_handler(e)

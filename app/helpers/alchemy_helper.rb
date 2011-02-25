@@ -806,7 +806,7 @@ module AlchemyHelper
     unless items.blank?
       options = [[_('Please choose'), ""]]
       items.each do |item|
-        options << [item.name, item.id]
+        options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
       end
       select_tag(
   			'paste_from_clipboard',
@@ -818,21 +818,11 @@ module AlchemyHelper
   		)
     end
   end
-
+  
   # returns all elements that could be placed on that page because of the pages layout as array to be used in alchemy_selectbox form builder
   def elements_for_select(elements)
     return [] if elements.nil?
-    options = elements.collect{|p| [p["display_name"], p["name"]]}
-    unless session[:clipboard].nil?
-      pastable_element = Element.get_from_clipboard(session[:clipboard])
-      if !pastable_element.nil?
-        options << [
-          _("'%{name}' from_clipboard") % {:name => "#{pastable_element.display_name_with_preview_text}"},
-          "paste_from_clipboard"
-        ]
-      end
-    end
-    options
+    elements.collect{ |p| [p["display_name"], p["name"]] }
   end
   
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})

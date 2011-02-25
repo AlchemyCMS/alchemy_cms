@@ -16,6 +16,15 @@ class Admin::ClipboardController < AlchemyController
     unless @clipboard.include?(params[:remarkable_id])
       @clipboard.push(params[:remarkable_id])
     end
+    if params[:remove] == 'true'
+      case params[:remarkable_type]
+        when 'element' then
+          @item.page = nil
+          @item.position = nil
+        when 'page' then #TODO: page.move feature
+      end
+      @item.save(false)
+    end
   rescue Exception => e
     exception_handler(e)
   end

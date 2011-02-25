@@ -333,8 +333,9 @@ div#element_area {
 	margin: 0 8px;
 }
 
-.add_element_content input.button {
+.new_alchemy_element input.button {
 	float: right;
+	margin-left: 8px;
 }
 
 /* @end */

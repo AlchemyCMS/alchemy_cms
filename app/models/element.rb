@@ -142,7 +142,7 @@ class Element < ActiveRecord::Base
   
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
   # You can flag a Content as +take_me_for_preview+ to take this as preview.
-  def preview_text
+  def preview_text(maxlength = 30)
     return "" if description.blank?
     my_contents = description["contents"]
     return "" if my_contents.blank?
@@ -154,8 +154,8 @@ class Element < ActiveRecord::Base
     end
     preview_content = self.contents.select{ |content| content.name == content_to_take_as_preview["name"] }.first
     return "" if preview_content.blank? || preview_content.essence.blank?
-    text = preview_content.essence.preview_text
-    text.size > 30 ? text[0..30] + "..." : text
+    text = preview_content.essence.preview_text(maxlength)
+    text.size > maxlength ? "#{text[0..maxlength]}..." : text
   end
   
   # Generates a preview text containing Element#display_name and Element#preview_text.
@@ -176,9 +176,14 @@ class Element < ActiveRecord::Base
   # 
   # With "I want to tell you a funky story" as stripped_body for the EssenceRichtext Content produces:
   # 
-  # Funky Element: I want to tell ...
-  def display_name_with_preview_text
-    "#{display_name}: #{preview_text}"
+  #     Funky Element: I want to tell ...
+  #
+  # Options:
+  # 
+  #     maxlength(integer). [Default 30] : Length of characters after the text will be cut off.
+  #
+  def display_name_with_preview_text(maxlength = 30)
+    "#{display_name}: #{preview_text(maxlength)}"
   end
   
   def dom_id
@@ -203,6 +208,11 @@ class Element < ActiveRecord::Base
   def self.get_from_clipboard(clipboard)
     return nil if clipboard.blank?
     self.find_by_id(clipboard[:element_id])
+  end
+  
+  def self.all_from_clipboard(clipboard)
+    return [] if clipboard.nil?
+    self.find(clipboard)
   end
   
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
@@ -257,13 +267,6 @@ private
       new_content = Content.copy(content, :element_id => element.id)
       new_content.move_to_bottom
     end
-    element
-  end
-  
-  # makes a copy of source and destroyes the source
-  def self.move(source, differences = {})
-    element = self.copy(source, differences)
-    source.destroy
     element
   end
   

@@ -5,9 +5,9 @@ class EssenceRichtext < ActiveRecord::Base
   before_save :strip_content
   before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
   
-  # Returns the first 30 characters of self.stripped_body for the Element#preview_text method.
-  def preview_text
-    stripped_body.to_s[0..30]
+  # Returns the first x (default = 30) characters of self.stripped_body for the Element#preview_text method.
+  def preview_text(maxlength = 30)
+    stripped_body.to_s[0..maxlength]
   end
   
   # Returns self.body. Used for Content#ingredient method.

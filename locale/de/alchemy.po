@@ -273,7 +273,7 @@ msgstr "Name"
 #: app/views/admin/pages/edit.html.erb:81
 #: app/views/admin/pages/edit.html.erb:85
 msgid "New Element"
-msgstr "Neues Element"
+msgstr "Element hinzufügen"
 
 #: app/views/admin/pages/new.html.erb:3
 msgid "New page"

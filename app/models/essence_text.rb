@@ -4,9 +4,9 @@ class EssenceText < ActiveRecord::Base
   stampable
   before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
   
-  # Returns the first 30 characters of self.body for the Element#preview_text method.
-  def preview_text
-    body.to_s[0..30]
+  # Returns the first x (default 30) characters of self.body for the Element#preview_text method.
+  def preview_text(maxlength = 30)
+    body.to_s[0..maxlength]
   end
   
   # Returns self.body. Used for Content#ingredient method.

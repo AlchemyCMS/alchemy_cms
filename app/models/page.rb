@@ -358,7 +358,7 @@ class Page < ActiveRecord::Base
   end
   
   def self.all_from_clipboard(clipboard)
-    return nil if clipboard.blank?
+    return [] if clipboard.blank?
     self.find(clipboard)
   end
   

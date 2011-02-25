@@ -408,7 +408,7 @@ a.drop_down_select img {
 	margin-bottom: 4px;
 }
 
-#new_element .selectbox {
+.new_alchemy_element form .selectbox {
 	float: left;
 	line-height: normal;
 	margin-left: 8px;
