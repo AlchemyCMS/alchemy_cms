@@ -86,13 +86,13 @@ var Alchemy = {
 				create: function() {
 					var $spinner = jQuery('<img src="/images/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
 					jQuery('#ui-dialog-title-alchemyPreviewWindow').after($spinner);
-					var $reload = jQuery('<a href="#" class="ui-dialog-titlebar-refresh ui-corner-all" role="button"></a>')
+					var $reload = jQuery('<a href="#" class="ui-dialog-titlebar-refresh ui-corner-all" role="button"></a>');
 					$reload.append('<span class="ui-icon ui-icon-refresh">reload</span>');
 					jQuery('#ui-dialog-title-alchemyPreviewWindow').after($reload);
 					$reload.click(Alchemy.reloadPreview);
 				},
 				close: function(event, ui) { 
-					Alchemy.PreviewWindowButton.enable() 
+					Alchemy.PreviewWindowButton.enable();
 				},
 				open: function (event, ui) { 
 					jQuery(this).css({width: '100%'}); 
@@ -166,15 +166,20 @@ var Alchemy = {
 		}
 	},
 	
-	openElementsWindow : function (path, title) {
+	openElementsWindow : function (path, text) {
 		var $dialog = jQuery('<div style="display: none" id="alchemyElementWindow"></div>');
+		var closeCallback = function() {
+			$dialog.dialog("destroy");
+			jQuery('#alchemyElementWindow').remove();
+			Alchemy.ElementsWindowButton.enable();
+		};
 		$dialog.html(Alchemy.getOverlaySpinner({x: 420, y: 300}));
 		Alchemy.ElementsWindow = $dialog.dialog({
 			modal: false, 
 			minWidth: 422, 
 			minHeight: 300,
 			height: jQuery(window).height() - 94,
-			title: title,
+			title: text.title,
 			show: "fade",
 			hide: "fade",
 			position: [jQuery(window).width() - 432, 84],
@@ -191,15 +196,58 @@ var Alchemy = {
 					}
 				});
 			},
+			beforeClose : function() {
+				if (Alchemy.isPageDirty()) {
+					Alchemy.openConfirmWindow({
+						title: text.dirtyTitle,
+						message: text.dirtyMessage,
+						okLabel: text.okLabel,
+						cancelLabel: text.cancelLabel,
+						okCallback: closeCallback
+					});
+					return false;
+				} else {
+					return true;
+				}
+			},
+			close: closeCallback
+		});
+	},
+	
+	openConfirmWindow : function (options) {
+		var $confirmation = jQuery('<div style="display:none" id="alchemyConfirmation"></div>');
+		$confirmation.appendTo('body');
+		$confirmation.html('<p>'+options.message+'</p>');
+		Alchemy.ConfirmationWindow = $confirmation.dialog({
+			resizable: false,
+			minHeight: 100,
+			minWidth: 300,
+			modal: true,
+			title: options.title,
+			show: "fade",
+			hide: "fade",
+			buttons: [
+				{
+					text: options.cancelLabel,
+					click: function() {
+						jQuery(this).dialog("close");
+					}
+				},
+				{
+					text: options.okLabel,
+					click: function() {
+						jQuery(this).dialog("close");
+						options.okCallback();
+					}
+				}
+			],
 			close: function() {
-				$dialog.dialog("destroy");
-				jQuery('#alchemyElementWindow').remove();
-				Alchemy.ElementsWindowButton.enable();
+				jQuery('#alchemyConfirmation').remove();
 			}
 		});
 	},
 	
-	openConfirmWindow : function (url, title, message, ok_lable, cancel_label) {
+	confirmToDeleteWindow : function (url, title, message, okLabel, cancelLabel) {
 		var $confirmation = jQuery('<div style="display:none" id="alchemyConfirmation"></div>');
 		$confirmation.appendTo('body');
 		$confirmation.html('<p>'+message+'</p>');
@@ -211,21 +259,30 @@ var Alchemy = {
 			title: title,
 			show: "fade",
 			hide: "fade",
-			buttons: {
-				'Nein': function() {
-					jQuery(this).dialog("close");
+			buttons: [
+				{
+					text: cancelLabel,
+					click: function() {
+						jQuery(this).dialog("close");
+					}
 				},
-				'Ja': function() {
-					jQuery(this).dialog("close");
-					jQuery.ajax({
-						url: url,
-						type: 'delete'
-					});
+				{
+					text: okLabel,
+					click: function() {
+						jQuery(this).dialog("close");
+						jQuery.ajax({
+							url: url,
+							type: 'DELETE'
+						});
+					}
 				}
+			],
+			close: function() {
+				jQuery('#alchemyConfirmation').remove();
 			}
 		});
 	},
-
+	
 	openWindow : function (action_url, title, size_x, size_y, resizable, modal, overflow) {
 		overflow == undefined ? overflow = false: overflow = overflow;
 		if (size_x === 'fullscreen') {
@@ -374,16 +431,29 @@ var Alchemy = {
 		$overlay.css("visibility", show ? 'visible': 'hidden');
 	},
 	
-	toggleElement : function (id, url, token) {
-		jQuery('#element_'+id+'_folder').hide();
-		jQuery('#element_'+id+'_folder_spinner').show();
-		jQuery.post(url, {
-			authenticity_token: encodeURIComponent(token)
-		}, function(request) {
-			jQuery('#element_'+id+'_folder').show();
-			jQuery('#element_'+id+'_folder_spinner').hide();
-		});
-		return false;
+	toggleElement : function (id, url, token, text) {
+		var toggle = function() {
+			jQuery('#element_'+id+'_folder').hide();
+			jQuery('#element_'+id+'_folder_spinner').show();
+			jQuery.post(url, {
+				authenticity_token: encodeURIComponent(token)
+			}, function(request) {
+				jQuery('#element_'+id+'_folder').show();
+				jQuery('#element_'+id+'_folder_spinner').hide();
+			});
+		}
+		if (Alchemy.isPageDirty()) {
+			Alchemy.openConfirmWindow({
+				title: text.title,
+				message: text.message,
+				okLabel: text.okLabel,
+				cancelLabel: text.cancelLabel,
+				okCallback: toggle
+			});
+			return false;
+		} else {
+			toggle();
+		}
 	},
 	
 	ListFilter : function(selector) {
@@ -408,6 +478,7 @@ var Alchemy = {
 	
 	createLink : function(link_type, url, title, extern) {
 		var element = Alchemy.CurrentLinkWindow.linked_element;
+		Alchemy.setElementDirty(jQuery(element).parents('.element_editor'));
 		if (element.editor) {
 			// aka we are linking text inside of TinyMCE
 			var editor = element.editor;
@@ -433,6 +504,7 @@ var Alchemy = {
 			jQuery('#content_' + content_id + '_link_title').val(title);
 			jQuery('#content_' + content_id + '_link_class_name').val(link_type);
 			jQuery('#content_' + content_id + '_link_target').val(extern ? '1': '0');
+			jQuery(element).addClass('linked');
 		}
 	},
 	
@@ -456,9 +528,9 @@ var Alchemy = {
 		jQuery('#alchemyLinkOverlay .link_target').attr('checked', link.target == "_blank");
 		
 		// Checking of what kind the link is (internal, external, file or contact_form).
-		if (link.nodeName == "A") {
+		if (jQuery(link).is("a")) {
 			var title = link.title == null ? "": link.title;
-
+			
 			// Handling an internal link.
 			if ((link.className == '') || link.className == 'internal') {
 				var internal_anchor = link.hash.split('#')[1];
@@ -551,6 +623,7 @@ var Alchemy = {
 	},
 	
 	removePictureLink : function(content_id) {
+		Alchemy.setElementDirty(jQuery('#picture_' + content_id).parents('.element_editor'));
 		jQuery('#content_' + content_id + '_link').val('');
 		jQuery('#content_' + content_id + '_link_title').val('');
 		jQuery('#content_' + content_id + '_link_class_name').val('');
@@ -576,13 +649,18 @@ var Alchemy = {
 		jQuery(form).find('.element_spinner').show();
 		var $rtf_contents = jQuery(form).find('div.content_rtf_editor');
 		if ($rtf_contents.size() > 0) {
-			tinymce.triggerSave();
 			$rtf_contents.each(function() {
-				var id = jQuery(this).children('textarea').attr('id');
-				jQuery(this).find('.essence_richtext_loader').show();
-				tinymce.get(id).remove();
-			})
+				var id = jQuery(this).children('textarea.tinymce').attr('id');
+				tinymce.get(id).save();
+			});
 		}
+	},
+	
+	setElementSaved : function(selector) {
+		var $element = jQuery(selector);
+		$element.find('.element_spinner').hide();
+		$element.find('.save_element').show();
+		Alchemy.setElementClean(selector);
 	},
 	
 	PageSorter : function () {
@@ -849,6 +927,86 @@ var Alchemy = {
 			jQuery(this).hide('drop', { direction: "up" }, 400, function() {
 				jQuery(this).remove();
 			});
+		});
+	},
+	
+	ElementDirtyObserver : function(selector) {
+		var $elements = jQuery(selector);
+		$elements.find('textarea.tinymce').map(function() {
+			var $this = jQuery(this);
+			var ed = tinymce.get(this.id);
+			ed.onChange.add(function(ed, l) {
+				Alchemy.setElementDirty($this.parents('.element_editor'));
+			});
+		});
+		$elements.find('input[type="text"]').bind('change', function() {
+			jQuery(this).addClass('dirty');
+			Alchemy.setElementDirty(jQuery(this).parents('.element_editor'));
+		});
+		$elements.find('.element_foot input[type="checkbox"]').bind('click', function() {
+			jQuery(this).addClass('dirty');
+			Alchemy.setElementDirty(jQuery(this).parents('.element_editor'));
+		});
+		$elements.find('select').bind('change', function() {
+			jQuery(this).addClass('dirty');
+			Alchemy.setElementDirty(jQuery(this).parents('.element_editor'));
+		});
+	},
+	
+	setElementDirty : function(element) {
+		var	$element = jQuery(element);
+		$element.addClass('dirty');
+		$element.find('.element_head .icon').addClass('element_dirty');
+	},
+	
+	setElementClean : function(element) {
+		var	$element = jQuery(element);
+		$element.removeClass('dirty');
+		$element.find('.element_foot input[type="checkbox"]').removeClass('dirty');
+		$element.find('input[type="text"]').removeClass('dirty');
+		$element.find('select').removeClass('dirty');
+		$element.find('.element_head .icon').removeClass('element_dirty');
+	},
+	
+	isPageDirty : function() {
+		return jQuery('#element_area').find('.element_editor.dirty').size() > 0;
+	},
+	
+	checkPageDirtyness : function(element, text) {
+		var okcallback;
+		if (jQuery(element).is('form')) {
+			okcallback = function() {
+				var $form = jQuery('<form action="'+element.action+'" method="POST" style="display: none"></form>');
+				$form.append(jQuery(element).find('input'));
+				$form.appendTo('body');
+				Alchemy.pleaseWaitOverlay();
+				$form.submit();
+			}
+		} else if (jQuery(element).is('a')) {
+			okcallback = function() {
+				Alchemy.pleaseWaitOverlay();
+				document.location = element.pathname;
+			}
+		}
+		if (Alchemy.isPageDirty()) {
+			Alchemy.openConfirmWindow({
+				title: text.title,
+				message: text.message,
+				okLabel: text.okLabel,
+				cancelLabel: text.cancelLabel,
+				okCallback: okcallback
+			});
+			return false;
+		} else {
+			return true;
+		}
+	},
+	
+	PageLeaveObserver : function(texts) {
+		jQuery('#main_navi a').click(function(event) {
+			if (!Alchemy.checkPageDirtyness(event.currentTarget, texts)) {
+				event.preventDefault();
+			}
 		});
 	},
 	

@@ -210,6 +210,13 @@ class Element < ActiveRecord::Base
     description['available_contents']
   end
   
+  # Returns the contents ingredient for passed content name.
+  def ingredient(name)
+    content = content_by_name(name)
+    return nil if content.blank?
+    content.ingredient
+  end
+  
 private
   
   # List all elements by from page_layout

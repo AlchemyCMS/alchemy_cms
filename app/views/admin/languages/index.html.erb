@@ -5,7 +5,7 @@
 		<div class="button_with_label">
 			<%- permitted_to?(:new, :admin_languages) do -%>
 			<%= link_to_overlay_window(
-				content_tag('span', '', :class => 'icon language_add'),
+				render_icon('create'),
 				new_admin_language_path,
 				{
 					:title => _('create_language'),
@@ -27,7 +27,6 @@
 	<table class="list" id="language_list">
 		<%- unless @languages.blank? -%>
 		<tr>
-			<th class="icon"></th>
 			<th class="name"><%= Language.human_attribute_name("name") %></th>
 			<th class="code"><%= Language.human_attribute_name("code") %></th>
 			<th class="name"><%= Language.human_attribute_name("frontpage_name") %></th>

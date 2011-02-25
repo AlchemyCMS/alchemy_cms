@@ -17,11 +17,11 @@ class EssenceText < ActiveRecord::Base
   # Saves the content from params
   def save_ingredient(params, options = {})
     return true if params.blank?
-    self.body = params["body"].to_s
-    self.link = params["link"].to_s
-    self.title = params["title"].to_s
-    self.link_class_name = params["link_class_name"].to_s
-    self.open_link_in_new_window = params["open_link_in_new_window"] == 1 ? true : false
+    self.body = params["body"]
+    self.link = params["link"]
+    self.title = params["title"]
+    self.link_class_name = params["link_class_name"]
+    self.open_link_in_new_window = (params["open_link_in_new_window"] == '1')
     self.public = options[:public]
     self.save!
   end

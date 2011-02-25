@@ -27,11 +27,12 @@ class PagesController < AlchemyController
     }
   )
   
+  # Showing page from params[:urlname]
+  # @page is fetched via before filter
+  # @root_page is fetched via before filter
+  # @language fetched via before_filter in alchemy_controller
+  # rendering page and querying for search results if any query is present
   def show
-    # @page is fetched via before filter
-    # rendering page and querying for search results if any query is present
-    @language = Alchemy::Controller.current_language
-    @root_page = Page.language_root_for(@language.id)
     if configuration(:ferret) && !params[:query].blank?
       perform_search
     end
@@ -66,6 +67,12 @@ private
       redirect_to show_page_path(:urlname => @page.urlname), :status => 301
     elsif @page.has_controller?
       redirect_to(@page.controller_and_action)
+    else
+      if params[:urlname].blank?
+        @root_page = @page
+      else
+        @root_page = Page.language_root_for(session[:language_id])
+      end
     end
   end
   

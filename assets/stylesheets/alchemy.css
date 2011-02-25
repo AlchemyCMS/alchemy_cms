@@ -49,7 +49,7 @@ div#flash_notices {
 	top: 0;
 }
 
-.flash {
+div#flash_notices div.flash {
 	width: 300px;
 	padding: 8px 8px 8px 30px;
 	font-weight: bold;
@@ -65,25 +65,25 @@ div#flash_notices {
 	position: relative;
 }
 
-.flash .icon {
+div#flash_notices div.flash span.icon {
 	position: absolute;
 	top: 8px;
 	left: 8px;
 }
 
-.flash.notice {
+div#flash_notices div.flash.notice {
 	border-color: #9cc4a1;
 	color: #2e5934;
 	background-color: #e2efd3;
 }
 
-.flash.error {
+div#flash_notices div.flash.error {
 	border-color: #c49c9c;
 	color: #592e2e;
 	background-color: #efd3d3;
 }
 
-.flash.info {
+div#flash_notices div.flash.info {
 	border-color: #c4c19c;
 	color: #726d23;
 	background-color: #f3f0c1;
@@ -506,10 +506,10 @@ div.info {
 	line-height: 17px;
 	color: #333;
 	border: 1px solid #0b5c84;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
 	background-color: #eaf4f9;
 	position: relative;
 }
@@ -519,8 +519,17 @@ div.info.footnote {
 	margin: 16px;
 }
 
-#main_content div.info {
-	margin: 16px;
+div#bottom_panel {
+	position: absolute;
+	bottom: 16px;
+	right: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+div#page_sorting_notice.info {
+	margin-left: 16px;
+	margin-right: 16px;
 }
 
 p.no_padding {
@@ -933,15 +942,15 @@ ul.list .sitemap_sitename {
 }
 
 div.page_infos {
-	width: 66px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	height: 20px;
-	float: right;
-	border-left: 1px solid #ededed;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	padding: 1px;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+  background-color: #FFFFFF;
+  border-left: 1px solid #EDEDED;
+  float: right;
+  height: 20px;
+  padding: 1px;
+  width: 66px;
 }
 
 .page_status {
@@ -956,7 +965,7 @@ div.page_infos {
 	float: none;
 	display: inline-block;
 	position: relative;
-	top: 2px;
+	top: 1px;
 	margin-left: 2px;
 }
 
@@ -966,14 +975,16 @@ span.page_status.restricted {
 
 span.page_status.not_restricted {
 	background: url(/images/alchemy/icons.png) -144px -24px;
+	opacity: 0.3;
 }
 
 span.page_status.visible {
-	background: url(/images/alchemy/icons.png) -64px -24px;
+	background: url(/images/alchemy/icons.png) -65px -24px;
 }
 
 span.page_status.not_visible {
 	background: url(/images/alchemy/icons.png) -80px -24px;
+	opacity: 0.3;
 }
 
 span.page_status.public {
@@ -982,6 +993,7 @@ span.page_status.public {
 
 span.page_status.not_public {
 	background: url(/images/alchemy/icons.png) -112px -24px;
+	opacity: 0.3;
 }
 
 #sideboard div.sideboard_widget img {
@@ -1422,7 +1434,7 @@ span.icon {
 }
 
 span.icon.sort {
-	background-position: -64px -24px;
+	background-position: -64px -120px;
 }
 
 #page_sorting_notice p {
@@ -1698,7 +1710,10 @@ a.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
-	background: #f5f5f5 url(/images/alchemy/gui/shading.png) repeat-x 0 -73px;
+	background-color: #f5f5f5;
+	background-image: url(/images/alchemy/gui/shading.png);
+	background-repeat: repeat-x;
+	background-position:  0 -73px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -2167,12 +2182,16 @@ textarea.thin_border {
 	border: 1px inset #e5e5e5;
 }
 
+.thin_border.dirty {
+	background-color: #fff8df;
+}
+
 span.icon.user_add {
 	background: url(/images/alchemy/icons.png) -48px -56px;
 }
 
 span.icon.language_add {
-	background: url(/images/alchemy/icons.png) -16px -120px;
+	background: url(/images/alchemy/icons.png) -47px -120px;
 }
 
 span.icon.user {
@@ -2336,8 +2355,12 @@ a.icon.file_edit {
 	background: url(/images/alchemy/icons.png) -32px -72px;
 }
 
-span.icon.edit {
-	background: url(/images/alchemy/icons.png) -192px -40px;
+.icon.edit {
+	background: url(/images/alchemy/icons.png) -32px -104px;
+}
+
+.icon.create {
+	background: url(/images/alchemy/icons.png) -50px -104px;
 }
 
 span.icon.add_page {
@@ -2357,7 +2380,11 @@ a.icon.user_delete {
 }
 
 a.icon.language_delete {
-	background: url(/images/alchemy/icons.png) -48px -120px;
+	background: url(/images/alchemy/icons.png) -16px -120px;
+}
+
+.icon.destroy {
+	background: url(/images/alchemy/icons.png) -15px -104px;
 }
 
 span.icon.configure_page {
@@ -2740,12 +2767,6 @@ textarea#essence_picture_caption {
 div.image_assign_filter_and_image_sizing {
 	width: 100%;
 	height: 40px;
-}
-
-#assign_image_list {
-	overflow: auto;
-	margin-top: 8px;
-	clear: both;
 }
 
 label.sup {

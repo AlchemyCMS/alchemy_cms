@@ -48,10 +48,11 @@ class AlchemyController < ApplicationController
   end
   
   def set_language_to(language_id)
-    language = Language.find(language_id)
-    if language
-      session[:language_id] = language.id
-      Alchemy::Controller.current_language = language
+    @language = Language.find(language_id)
+    if @language
+      session[:language_id] = @language.id
+      session[:language_code] = @language.code
+      Alchemy::Controller.current_language = @language
     else
       logger.error "+++++++ Language not found for language_id: #{language_id}"
     end
@@ -116,14 +117,15 @@ private
     else
       language_code = params[:lang]
     end
-    language = Language.find_by_code(language_code) || Language.get_default
-    if language.blank?
+    @language = Language.find_by_code(language_code) || Language.get_default
+    if @language.blank?
       logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
     end
-    session[:language_id] = language.id
-    Alchemy::Controller.current_language = language
-    I18n.locale = language.code
+    session[:language_id] = @language.id
+    session[:language_code] = @language.code
+    Alchemy::Controller.current_language = @language
+    I18n.locale = @language.code
   end
   
   def store_location
@@ -193,10 +195,11 @@ protected
   end
   
   def set_language_to_default
-    language = Language.get_default
-    session[:language_id] = language.id
-    Alchemy::Controller.current_language = language
-    I18n.locale = language.code
+    @language = Language.get_default
+    session[:language_id] = @language.id
+    session[:language_code] = @language.code
+    Alchemy::Controller.current_language = @language
+    I18n.locale = @language.code
   end
   
 end

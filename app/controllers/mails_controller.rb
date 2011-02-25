@@ -26,10 +26,8 @@
 #     cache: false
 #     elements: [pageheading, heading, contact, bild, absatz, file_download]
 #     autogenerate: [contact]
-#     controller: mails
-#     action: new
 #
-# Disabling the page caching is stronlgy recommended! Also the controller and action settings are recommended.
+# Disabling the page caching is stronlgy recommended!
 #
 # The editor view for your element should have this layout:
 # 
@@ -49,8 +47,15 @@ class MailsController < AlchemyController
   def new#:nodoc:
     @mail = Mail.new
     @page = Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
+    @root_page = Page.language_root_for(session[:language_id])
     raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
     render :template => '/pages/show', :layout => 'pages'
+  end
+  
+  def index#:nodoc:
+    @page = Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
+    raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
+    redirect_to send("show_page#{multi_language? ? '_with_language' : '' }_path", :urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
   end
   
   def create#:nodoc:
@@ -58,23 +63,24 @@ class MailsController < AlchemyController
     @mail.ip = request.remote_ip
     element = Element.find_by_id(@mail.contact_form_id)
     @page = element.page
+    @root_page = Page.language_root_for(session[:language_id])
     if @mail.save
       if params[:mail_to].blank?
-        mail_to = element.content_by_name("mail_to").essence.body
+        mail_to = element.ingredient("mail_to")
       else
         mail_to = configuration(:mailer)[:mail_addresses].detect{ |c| c[0] == params[:mail_to] }[1]
       end
-      mail_from = element.content_by_name("mail_from").essence.body rescue configuration(:mailer)[:mail_from]
-      subject = element.content_by_name("subject").essence.body rescue configuration(:mailer)[:subject]
+      mail_from = element.ingredient("mail_from") rescue configuration(:mailer)[:mail_from]
+      subject = element.ingredient("subject") rescue configuration(:mailer)[:subject]
       
       Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
       
-      if element.content_by_name("success_page") && element.content_by_name("success_page").essence.body
+      if element.ingredient("success_page")
         if multi_language?
           language = Language.find(session[:language_id])
-          redirect_to show_page_with_language_url(:urlname => element.content_by_name("success_page").essence.body, :lang => language.code)
+          redirect_to show_page_with_language_url(:urlname => element.ingredient("success_page"), :lang => language.code)
         else
-          redirect_to show_page_url(:urlname => element.content_by_name("success_page").essence.body)
+          redirect_to show_page_url(:urlname => element.ingredient("success_page"))
         end
       elsif configuration(:mailer)[:forward_to_page] && configuration(:mailer)[:mail_success_page]
         redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_by_urlname(configuration(:mailer)[:mail_success_page]).urlname
@@ -85,7 +91,6 @@ class MailsController < AlchemyController
     else
       render :template => '/pages/show', :layout => 'pages'
     end
-    
   end
   
 end

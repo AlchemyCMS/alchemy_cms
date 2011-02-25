@@ -49,7 +49,7 @@ module AlchemyHelper
   # :count                      The amount of elements to be rendered (beginns with first element found)
   # :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
   # :sort_by => Content#name    A Content name to sort the elements by
-  # :reverse_sort => boolean    Reverse the sort result
+  # :reverse => boolean         Reverse the rendering order
   #
   # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
   #
@@ -84,8 +84,8 @@ module AlchemyHelper
       end
       unless options[:sort_by].blank?
         all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
-        all_elements.reverse! if options[:reverse_sort]
       end
+      all_elements.reverse! if options[:reverse_sort] || options[:reverse]
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
@@ -539,14 +539,17 @@ module AlchemyHelper
       :reverse_children => false
     }
     options = default_options.merge(options)
-    if options[:from_page].blank?
-      warning('options[:from_page] is blank')
+    if options[:from_page].is_a?(String)
+      page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+    else
+      page = options[:from_page]
+    end
+    if page.blank?
+      warning("No Page found for #{options[:from_page]}")
       return ""
-    elsif options[:from_page].is_a?(String)
-      options[:from_page] = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
     end
     conditions = {
-      :parent_id => options[:from_page].id,
+      :parent_id => page.id,
       :restricted => options[:restricted_only] || false,
       :visible => true
     }
@@ -835,7 +838,7 @@ module AlchemyHelper
     cancel_lable = _("no")
     link_to_function(
       link_string,
-      "Alchemy.openConfirmWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
+      "Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
       html_options
     )
   end
@@ -1056,7 +1059,7 @@ module AlchemyHelper
   
   def parse_sitemap_name(page)
     if multi_language?
-      pathname = "/#{session[:language_id]}/#{page.urlname}"
+      pathname = "/#{session[:language_code]}/#{page.urlname}"
     else
       pathname = "/#{page.urlname}"
     end
@@ -1109,17 +1112,16 @@ module AlchemyHelper
   
   def alchemy_preview_mode_code
     if @preview_mode
-      #jquery_script_tag = javascript_include_tag("alchemy/jquery-1.4.4.min", :cache => 'preview')
       append_javascript = %(
       var s = document.createElement('script');
-      s.src = '/javascripts/alchemy/jquery-1.4.4.min.js';
+      s.src = '/javascripts/alchemy/jquery-1.5.min.js';
       s.language = 'javascript';
       s.type = 'text/javascript';
       document.getElementsByTagName("body")[0].appendChild(s);
       )
-      str = javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();} else {#{append_javascript}}")
-      str += javascript_include_tag("alchemy/alchemy", :cache => 'preview')
-      str += javascript_tag("jQuery(document).ready(function(){Alchemy.ElementSelector();});")
+      str = javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();}else{#{append_javascript}}")
+      str += javascript_include_tag("alchemy/alchemy")
+      str += javascript_tag("jQuery(document).ready(function(){Alchemy.ElementSelector();});jQuery('a').attr('href', 'javascript:void(0)');")
       return str
     else
       return nil
@@ -1132,6 +1134,7 @@ module AlchemyHelper
     end
   end
   
+  # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
   def warning(message, text = nil)
     logger.warn %(\n
       ++++ WARNING: #{message}! from: #{caller.first}\n
@@ -1146,6 +1149,32 @@ module AlchemyHelper
   
   def alchemy_combined_assets
     alchemy_assets_set
+  end
+  
+  # This helper returns a path for use inside a link_to helper.
+  # You may pass a page_layout or an urlname.
+  # Any additional options are passed to the url_helper, so you can add arguments to your url.
+  # Example:
+  #   <%= link_to '&raquo order now', page_path_for(:page_layout => 'orderform', :product_id => element.id) %>
+  def page_path_for(options={})
+    return warning("No page_layout, or urlname given. I got #{options.inspect} ") if options[:page_layout].blank? && options[:urlname].blank?
+    if options[:urlname].blank?
+      page = Page.find_by_page_layout(options[:page_layout])
+      return warning("No page found for #{options.inspect} ") if page.blank?
+      urlname = page.urlname
+    else
+      urlname = options[:urlname]
+    end
+    if multi_language?
+      show_page_with_language_path({:urlname => urlname, :lang => @language.code}.merge(options.except(:page_layout, :urlname)))
+    else
+      show_page_path({:urlname => urlname}.merge(options.except(:page_layout, :urlname)))
+    end
+  end
+  
+  # Returns the current page.
+  def current_page
+    @page
   end
   
 end

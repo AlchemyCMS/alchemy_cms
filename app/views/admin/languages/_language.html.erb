@@ -1,7 +1,4 @@
 <tr class="<%= cycle('odd', 'even') %>">
-	<td>
-		<%= render_icon('language') %>
-	</td>
 	<td class="name"><%= language.name -%></td>
 	<td class="code"><%= language.code %></td>
 	<td class="name"><%= language.frontpage_name %></td>
@@ -15,7 +12,7 @@
 			_("confirm_to_delete_language"),
 			admin_language_path(language),
 			:title => _('delete_language'),
-			:class => "icon language_delete"
+			:class => "icon destroy"
 		) -%>
 		<%- end -%>
 		<%- permitted_to?(:edit, :admin_languages) do -%>
@@ -28,7 +25,7 @@
 				:overflow => true
 			},
 			{
-				:class => "icon language_edit",
+				:class => "icon edit",
 				:style => "float: right;",
 				:title => _('edit_language')
 			}

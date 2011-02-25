@@ -14,7 +14,8 @@ class Admin::EssenceFilesController < AlchemyController
     @essence_file = EssenceFile.find(params[:id])
     @essence_file.update_attributes(params[:essence_file])
     render :update do |page|
-      page << "Alchemy.closeCurrentWindow(); Alchemy.reloadPreview()"
+      page << "Alchemy.closeCurrentWindow()"
+      page << "Alchemy.reloadPreview()"
     end
   end
   
@@ -26,7 +27,9 @@ class Admin::EssenceFilesController < AlchemyController
     @content.save
     render :update do |page|
       page.replace "#{@content.essence_type.underscore}_#{@content.id}", :partial => "essences/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
-      page << "Alchemy.reloadPreview();Alchemy.closeCurrentWindow()"
+      page << "Alchemy.closeCurrentWindow()"
+      page << "Alchemy.reloadPreview()"
+      page << "Alchemy.setElementDirty('#element_#{@content.element.id}')"
     end
   end
   

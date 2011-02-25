@@ -13,11 +13,10 @@ module Alchemy
 
     def initialize
       super
-      self.alchemy_plugins_settings = Hash.new
-      plugins_settings_yaml = plugins_config_ymls
-      plugins_settings_yaml.each do |settings|
-        sets = YAML.load_file(settings)
-        self.alchemy_plugins_settings[sets["name"]] = sets
+      self.alchemy_plugins_settings = {}
+      plugins_config_ymls.each do |settings_file|
+        settings = YAML.load_file(settings_file)
+        self.alchemy_plugins_settings[settings["name"]] = settings
       end
     end
 
@@ -56,7 +55,8 @@ module Alchemy
         rescue Exception => e
           Rails.logger.error(%(
             ++++++
-            No order value in one of your plugins. Please check plugins
+            #{e}
+            No order value in one of your plugins. Please check plugins!
             ++++++
           ))
         end

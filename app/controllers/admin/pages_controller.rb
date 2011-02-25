@@ -91,21 +91,20 @@ class Admin::PagesController < AlchemyController
   def update
     # fetching page via before filter
     @page.update_attributes(params[:page])
-    render_errors_or_redirect(@page, request.referer, _("Page %{name} saved") % {:name => @page.name})
+    @notice = _("Page %{name} saved") % {:name => @page.name}
   end
   
   def destroy
     # fetching page via before filter
     name = @page.name
+    page_id = @page.id
     if @page.destroy
       session[:clipboard][:pages].delete(@page.id) if session[:clipboard][:pages]
       @page_root = Page.language_root_for(session[:language_id])
       if @page_root
         render :update do |page|
-          page.replace(
-            "sitemap",
-            :partial => 'sitemap'
-          )
+          page.remove("locked_page_#{page_id}")
+          page.replace("sitemap", :partial => 'sitemap')
           Alchemy::Notice.show(page, _("Page %{name} deleted") % {:name => name})
           page << "Alchemy.Tooltips()"
         end
@@ -132,8 +131,7 @@ class Admin::PagesController < AlchemyController
       @url_prefix = current_server
     end
     if multi_language?
-      language = Language.find(session[:language_id])
-      @url_prefix = "#{language.code}/"
+      @url_prefix = "#{session[:language_code]}/"
     end
     render :layout => false
   end
