@@ -9,7 +9,7 @@ class EssencePicture < ActiveRecord::Base
   end
   
   # Returns self.picture.name for the Element#preview_text method.
-  def preview_text
+  def preview_text(foo=nil)
     return "" if picture.blank?
     picture.name.to_s
   end

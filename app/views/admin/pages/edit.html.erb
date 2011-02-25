@@ -68,35 +68,6 @@
 			<label><%= _('page_properties') %></label>
 		</div>
 		<%- end -%>
-		<div class="button_with_label">
-			<%= link_to_overlay_window(
-				render_icon('new_element'),
-				new_admin_element_path(:page_id => @page.id),
-				{
-					:title => _('Choose Element'),
-					:size => '380x50',
-					:overflow => true
-				},
-				{
-					:title => _('New Element'),
-					:class => 'icon_button'
-				}
-			) %><br />
-			<label><%= _('New Element') %></label>
-		</div>
-		<div class="button_with_label" id="clipboard_button">
-			<%= link_to_overlay_window(
-				render_icon("clipboard#{clipboard_empty?('elements') ? '' : ' full'}"),
-				admin_clipboard_index_path(:remarkable_type => 'element'),
-				{
-					:title => _('Clipboard'),
-					:size => '380x270'
-				},
-				:class => 'icon_button',
-				:title => _('Show clipboard')
-			) -%><br />
-			<label><%= _('Show clipboard') %></label>
-    </div>
 	</div>
 	<div id="toolbar_buttons_right">
 		<div class="button_with_label" id="show_preview_window">

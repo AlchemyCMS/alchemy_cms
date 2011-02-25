@@ -3,7 +3,7 @@ class EssenceVideo < ActiveRecord::Base
   stampable
   
   # Returns self.attachment.name for the Element#preview_text method.
-  def preview_text
+  def preview_text(foo=nil)
     return "" if attachment.blank?
     attachment.name.to_s
   end

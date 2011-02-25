@@ -1,4 +1,7 @@
-/* @override http://localhost:3000/stylesheets/alchemy/jquery-ui-1.8.7.alchemy.css */
+/* @override 
+	http://localhost:3000/stylesheets/alchemy/jquery-ui-1.8.7.alchemy.css
+	http://0.0.0.0:3000/stylesheets/alchemy/jquery-ui-1.8.7.alchemy.css
+*/
 
 /*
  * jQuery UI CSS Framework 1.8.7
@@ -1510,6 +1513,10 @@ button.ui-button::-moz-focus-inner {
 	background: none;
 	overflow: auto;
 	zoom: 1;
+}
+
+#alchemy .ui-dialog #alchemyElementWindow.ui-dialog-content {
+	margin-top: 56px;
 }
 
 #alchemy .ui-dialog .ui-dialog-buttonpane {

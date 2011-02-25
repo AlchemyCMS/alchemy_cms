@@ -2809,6 +2809,10 @@ div.assign_image_list_detail {
 	box-shadow: #999 0px 1px 3px;
 }
 
+#assign_image_list {
+	padding-top: 8px;
+}
+
 #assign_image_list div.assign_image_list_detail.small {
 	width: 80px;
 	height: 75px;
@@ -2978,6 +2982,7 @@ div.image_assign_filter_and_image_sizing form {
 	float: right;
 	width: 290px;
 	height: 23px;
+	margin-top: 2px;
 }
 
 div.image_assign_filter_and_image_sizing form div.search_field {
@@ -3368,11 +3373,24 @@ div.info ol li {
 }
 
 div#overlay_toolbar {
-	margin: -8px -8px 12px;
-	padding: 8px;
-	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -45px;
+	margin: -8px -8px 4px;
+	padding: 6px 8px 8px;
+	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -42px;
 	border: 1px solid #afafaf;
-	height: 35px;
+	height: 38px;
+	border-left-style: none;
+	border-right-style: none;
+}
+
+#alchemyElementWindow div#overlay_toolbar {
+	padding: 6px 0 4px;
+	margin: -57px 0 0;
+	height: 44px;
+	border-right-style: none;
+	border-left-style: none;
+	position: fixed;
+	z-index: 10;
+	width: 422px;
 }
 
 #overlay_toolbar div.js_filter_field_box {
@@ -3529,4 +3547,8 @@ object.swfupload {
 #clipboard_items ul li {
 	padding: 4px;
 	background: white;
+}
+
+.mceEditor table {
+	border-spacing: 0 !important;
 }
