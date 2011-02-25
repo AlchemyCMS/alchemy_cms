@@ -1,1 +1,2 @@
 Alchemy::Notice.show(page, _("item %{name} copied to clipboard") % {:name => @item.name})
+page << "jQuery('#clipboard_button .icon.clipboard').addClass('full')"

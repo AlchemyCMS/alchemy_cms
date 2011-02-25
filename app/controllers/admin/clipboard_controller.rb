@@ -31,7 +31,8 @@ class Admin::ClipboardController < AlchemyController
   def clear
     session[:clipboard] = {}
     render :update do |page|
-      page.replace("clipboard_items", "<p>#{ _('no clipboard items') }</p>")
+      page.replace("clipboard_items", "<p>#{ _('No items in your clipboard') }</p>")
+      page << "jQuery('#clipboard_button .icon.clipboard').removeClass('full')"
     end
   end
   
