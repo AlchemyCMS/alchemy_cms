@@ -212,13 +212,13 @@ class Element < ActiveRecord::Base
   
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.nil?
-    self.find(clipboard)
+    self.find_all_by_id(clipboard)
   end
   
   def self.all_from_clipboard_for_page(clipboard, page)
     return [] if clipboard.nil? || page.nil?
     allowed_elements = self.all_for_page(page)
-    clipboard_elements = self.find(clipboard)
+    clipboard_elements = self.all_from_clipboard(clipboard)
     allowed_element_names = allowed_elements.collect { |e| e['name'] }
     clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
   end

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-02-25 17:27+0100\n"
+"POT-Creation-Date: 2011-02-27 13:05+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,6 @@ msgstr ""
 
 #: app/views/admin/pages/_create_language_form.html.erb:36
 msgid "%{language}_as_new_language"
-msgstr ""
-
-#: app/helpers/alchemy_helper.rb:830
-msgid "'%{name}' from_clipboard"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:28
@@ -65,10 +61,6 @@ msgstr ""
 msgid "Attachment|Size"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:76
-msgid "Choose Element"
-msgstr ""
-
 #: app/views/admin/pages/edit.html.erb:52
 msgid "Clear page cache"
 msgstr ""
@@ -77,6 +69,7 @@ msgstr ""
 msgid "Click to rename"
 msgstr ""
 
+#: app/views/admin/elements/list.html.erb:23
 #: app/views/admin/pages/index.html.erb:70
 msgid "Clipboard"
 msgstr ""
@@ -114,11 +107,11 @@ msgstr ""
 msgid "Edit Picturemask"
 msgstr ""
 
-#: locale/model_attributes.rb:14
+#: app/views/admin/elements/new.html.erb:18 locale/model_attributes.rb:14
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:118
+#: app/views/admin/pages/edit.html.erb:102
 msgid "Elements"
 msgstr ""
 
@@ -202,7 +195,7 @@ msgstr ""
 msgid "Image: '%{name}' deleted successfully"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:72
+#: app/controllers/admin/elements_controller.rb:79
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 
@@ -264,21 +257,26 @@ msgid "Mising Image"
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:86
-#: app/views/admin/pages/new.html.erb:54
+#: app/views/admin/pages/new.html.erb:29
 msgid "Name"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:81
-#: app/views/admin/pages/edit.html.erb:85
+#: app/views/admin/elements/new.html.erb:6
+msgid "New"
+msgstr ""
+
+#: app/views/admin/elements/list.html.erb:7
+#: app/views/admin/elements/list.html.erb:12
+#: app/views/admin/elements/list.html.erb:16
 msgid "New Element"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:3
+#: app/views/admin/pages/new.html.erb:8
 msgid "New page"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:118
-#: app/views/admin/pages/edit.html.erb:125
+#: app/views/admin/pages/edit.html.erb:102
+#: app/views/admin/pages/edit.html.erb:109
 msgid "No"
 msgstr ""
 
@@ -286,7 +284,7 @@ msgstr ""
 msgid "No items in your clipboard"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:46
+#: app/views/admin/pages/new.html.erb:21
 #: app/views/elements/_searchresult_view.html.erb:30
 #: locale/model_attributes.rb:19
 msgid "Page"
@@ -300,7 +298,7 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:119
+#: app/views/admin/pages/edit.html.erb:103
 msgid "Page Preview"
 msgstr ""
 
@@ -426,7 +424,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:5
+#: app/views/admin/elements/new.html.erb:7
+#: app/views/admin/pages/new.html.erb:9
 msgid "Paste from clipboard"
 msgstr ""
 
@@ -499,7 +498,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1078
+#: app/helpers/alchemy_helper.rb:1068
 msgid "Select an content"
 msgstr ""
 
@@ -507,13 +506,13 @@ msgstr ""
 msgid "Send email with credentials"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:105
-#: app/views/admin/pages/edit.html.erb:109
+#: app/views/admin/pages/edit.html.erb:89
+#: app/views/admin/pages/edit.html.erb:93
 msgid "Show Elements Window"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:94
-#: app/views/admin/pages/edit.html.erb:98
+#: app/views/admin/pages/edit.html.erb:78
+#: app/views/admin/pages/edit.html.erb:82
 msgid "Show Preview Window"
 msgstr ""
 
@@ -521,6 +520,8 @@ msgstr ""
 msgid "Show childpages"
 msgstr ""
 
+#: app/views/admin/elements/list.html.erb:27
+#: app/views/admin/elements/list.html.erb:29
 #: app/views/admin/pages/index.html.erb:74
 #: app/views/admin/pages/index.html.erb:76
 msgid "Show clipboard"
@@ -647,8 +648,8 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:118
-#: app/views/admin/pages/edit.html.erb:122
+#: app/views/admin/pages/edit.html.erb:102
+#: app/views/admin/pages/edit.html.erb:106
 msgid "Warning!"
 msgstr ""
 
@@ -673,8 +674,8 @@ msgstr ""
 msgid "Who else is online"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:118
-#: app/views/admin/pages/edit.html.erb:124
+#: app/views/admin/pages/edit.html.erb:102
+#: app/views/admin/pages/edit.html.erb:108
 msgid "Yes"
 msgstr ""
 
@@ -692,13 +693,13 @@ msgid ""
 "cache?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:123
+#: app/views/admin/pages/edit.html.erb:107
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:118
+#: app/views/admin/pages/edit.html.erb:102
 msgid ""
 "You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
@@ -729,7 +730,7 @@ msgstr ""
 msgid "Your last updated pages"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:15
+#: app/views/admin/pages/_new_page_form.html.erb:7
 msgid "a_page_of_type"
 msgstr ""
 
@@ -738,11 +739,11 @@ msgstr ""
 msgid "above"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:19
+#: app/views/admin/elements/_new_element_form.html.erb:19
 msgid "add"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1074 app/helpers/alchemy_helper.rb:1090
+#: app/helpers/alchemy_helper.rb:1064 app/helpers/alchemy_helper.rb:1080
 msgid "add new content"
 msgstr ""
 
@@ -858,12 +859,12 @@ msgstr ""
 msgid "contactform_body"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:165 app/helpers/alchemy_helper.rb:863
-#: app/helpers/alchemy_helper.rb:963
+#: app/helpers/alchemy_helper.rb:165 app/helpers/alchemy_helper.rb:853
+#: app/helpers/alchemy_helper.rb:953
 msgid "content_essence_not_found"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:163 app/helpers/alchemy_helper.rb:861
+#: app/helpers/alchemy_helper.rb:163 app/helpers/alchemy_helper.rb:851
 msgid "content_not_found"
 msgstr ""
 
@@ -871,7 +872,7 @@ msgstr ""
 msgid "copy"
 msgstr ""
 
-#: app/views/admin/elements/_element_foot.html.erb:35
+#: app/views/admin/elements/_element_foot.html.erb:25
 msgid "copy_element"
 msgstr ""
 
@@ -883,7 +884,7 @@ msgstr ""
 msgid "copyright_notice"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:32
+#: app/views/admin/pages/_new_page_form.html.erb:24
 msgid "create"
 msgstr ""
 
@@ -918,7 +919,7 @@ msgstr ""
 msgid "currently_edited_by"
 msgstr ""
 
-#: app/views/admin/elements/_element_foot.html.erb:22
+#: app/views/admin/elements/_element_foot.html.erb:17
 msgid "cut_element"
 msgstr ""
 
@@ -998,14 +999,6 @@ msgstr ""
 msgid "edit_user"
 msgstr ""
 
-#: app/views/admin/elements/copy_to_clipboard.rjs:6
-msgid "element_%{name}_copied_to_clipboard"
-msgstr ""
-
-#: app/views/admin/elements/copy_to_clipboard.rjs:4
-msgid "element_%{name}_moved_to_clipboard"
-msgstr ""
-
 #: app/views/admin/elements/destroy.rjs:2
 msgid "element_deleted_successful"
 msgstr ""
@@ -1014,7 +1007,7 @@ msgstr ""
 msgid "element_editor_not_found"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:11
+#: app/views/admin/elements/_new_element_form.html.erb:11
 msgid "element_of_type"
 msgstr ""
 
@@ -1117,8 +1110,12 @@ msgstr ""
 msgid "internal_link_headline"
 msgstr ""
 
-#: app/views/admin/clipboard/insert.rjs:1
+#: app/views/admin/clipboard/insert.rjs:6
 msgid "item %{name} copied to clipboard"
+msgstr ""
+
+#: app/views/admin/clipboard/insert.rjs:4
+msgid "item %{name} moved to clipboard"
 msgstr ""
 
 #: app/views/admin/clipboard/remove.rjs:2
@@ -1255,7 +1252,7 @@ msgstr ""
 msgid "navigation_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:841
+#: app/helpers/alchemy_helper.rb:831
 msgid "no"
 msgstr ""
 
@@ -1284,7 +1281,7 @@ msgstr ""
 msgid "no_images_in_archive"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:3
+#: app/views/admin/elements/_new_element_form.html.erb:3
 msgid "no_more_elements_to_add"
 msgstr ""
 
@@ -1402,7 +1399,8 @@ msgstr ""
 msgid "password"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:63
+#: app/views/admin/elements/new.html.erb:21
+#: app/views/admin/pages/new.html.erb:38
 msgid "paste"
 msgstr ""
 
@@ -1422,7 +1420,7 @@ msgstr ""
 msgid "please enter subject and mail address"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:839
+#: app/helpers/alchemy_helper.rb:829
 msgid "please_confirm"
 msgstr ""
 
@@ -1458,7 +1456,7 @@ msgstr ""
 
 #: app/views/admin/attachments/edit.html.erb:8
 #: app/views/admin/contents/new.html.erb:11
-#: app/views/admin/elements/_element_foot.html.erb:48
+#: app/views/admin/elements/_element_foot.html.erb:38
 #: app/views/admin/essence_files/edit.html.erb:20
 #: app/views/admin/essence_files/edit.html.erb:40
 #: app/views/admin/essence_files/edit.html.erb:68
@@ -1481,7 +1479,7 @@ msgstr ""
 msgid "saved_link"
 msgstr ""
 
-#: app/views/admin/elements/_element_foot.html.erb:44
+#: app/views/admin/elements/_element_foot.html.erb:34
 msgid "saving"
 msgstr ""
 
@@ -1496,7 +1494,7 @@ msgstr ""
 msgid "search_engines"
 msgstr ""
 
-#: app/views/admin/elements/new.html.erb:15
+#: app/views/admin/elements/_new_element_form.html.erb:15
 msgid "select_element"
 msgstr ""
 
@@ -1534,7 +1532,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:112
+#: app/controllers/admin/elements_controller.rb:105
 msgid "successfully_saved_element_position"
 msgstr ""
 
@@ -1611,7 +1609,7 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: app/views/admin/elements/_element_foot.html.erb:41
+#: app/views/admin/elements/_element_foot.html.erb:31
 msgid "visible"
 msgstr ""
 
@@ -1637,11 +1635,11 @@ msgstr ""
 msgid "width"
 msgstr ""
 
-#: app/views/admin/pages/new.html.erb:23
+#: app/views/admin/pages/_new_page_form.html.erb:15
 msgid "with_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:840
+#: app/helpers/alchemy_helper.rb:830
 msgid "yes"
 msgstr ""
 
