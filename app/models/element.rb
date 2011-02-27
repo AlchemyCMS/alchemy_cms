@@ -215,6 +215,14 @@ class Element < ActiveRecord::Base
     self.find(clipboard)
   end
   
+  def self.all_from_clipboard_for_page(clipboard, page)
+    return [] if clipboard.nil? || page.nil?
+    allowed_elements = self.all_for_page(page)
+    clipboard_elements = self.find(clipboard)
+    allowed_element_names = allowed_elements.collect { |e| e['name'] }
+    clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
+  end
+  
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
   def available_contents
     description['available_contents']
@@ -230,9 +238,9 @@ class Element < ActiveRecord::Base
 private
   
   # List all elements by from page_layout
-  def self.all_for_layout(page, page_layout = "standard")
+  def self.all_for_page(page)
     element_descriptions = Element.descriptions
-    element_names = Alchemy::PageLayout.element_names_for(page_layout)
+    element_names = Alchemy::PageLayout.element_names_for(page.page_layout)
     return [] if element_names.blank?
     return element_descriptions if element_names == "all"
     elements_for_layout = []

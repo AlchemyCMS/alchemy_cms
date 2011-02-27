@@ -27,8 +27,8 @@ class Admin::ElementsController < AlchemyController
   def new
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
-    @elements = Element.all_for_layout(@page, @page.page_layout)
-    @clipboard_items = Element.all_from_clipboard(get_clipboard('elements'))
+    @elements = Element.all_for_page(@page)
+    @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard('elements'), @page)
     render :layout => false
   end
   
