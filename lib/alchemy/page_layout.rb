@@ -23,7 +23,7 @@ module Alchemy
     # Returns the page_layout description found by name in page_layouts.yml
     def self.get(name = "")
       begin
-        self.get_layouts.detect{|a| a["name"].downcase == name.downcase}
+        self.get_layouts.detect{ |a| a["name"].downcase == name.downcase }
       rescue Exception => e
         # TODO: Log error message
         #Rails::Logger.error("++++++ ERROR\n#{e}")
@@ -32,20 +32,24 @@ module Alchemy
     end
   
     def self.get_layouts_for_select(language_id)
-      array = [ [ _("Please choose"), "" ] ]
-      self.get_layouts.each do |layout|
-        used = layout["unique"] && self.has_another_page_this_layout?(layout["name"], language_id)
-        if !(layout["hide"] == true) && !used && !(layout["newsletter"] == true)
-          display_name = (layout["display_name"].blank? ? layout["name"].camelize : layout["display_name"])
-          array << [display_name, layout["name"]]
-        end
+      layouts_for_select = [ [ _("Please choose"), "" ] ]
+      self.selectable_layouts(language_id).each do |layout|
+        display_name = (layout["display_name"].blank? ? layout["name"].camelize : layout["display_name"])
+        layouts_for_select << [display_name, layout["name"]]
       end
-      array
+      layouts_for_select
     end
-  
+    
+    def self.selectable_layouts(language_id)
+      self.get_layouts.select do |layout|
+        used = layout["unique"] && self.has_another_page_this_layout?(layout["name"], language_id)
+        !(layout["hide"] == true) && !used && !(layout["newsletter"] == true)
+      end
+    end
+    
     def self.get_page_layout_names
       a = []
-      self.get_layouts.each{ |l| a << l.keys.first}
+      self.get_layouts.each{ |l| a << l.keys.first }
       a
     end
   

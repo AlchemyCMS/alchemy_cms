@@ -28,7 +28,8 @@ class Admin::PagesController < AlchemyController
   def new
     @parent_id = params[:parent_id]
     @page = Page.new
-    @clipboard_items = Page.all_from_clipboard(get_clipboard('pages'))
+    #@clipboard_items = Page.all_from_clipboard(get_clipboard('pages'))
+    @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id])
     render :layout => false
   end
   
