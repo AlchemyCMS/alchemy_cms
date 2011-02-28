@@ -13,10 +13,10 @@
 		<tr>
 			<td><%= _("page_status") %>: </td>
 			<td>
-				<%= f.check_box :visible -%>
-				<%= f.label :visible, _('page_visible_in_navigation') %><br/>
 				<%= f.check_box :public -%>
 				<%= f.label :public, _('page_public') %><br/>
+				<%= f.check_box :visible -%>
+				<%= f.label :visible, _('page_visible_in_navigation') %><br/>
 				<%= f.check_box :restricted -%>
 				<%= f.label :restricted, _('page_restricted') %>
 				<%- if configuration(:sitemap)[:show_flag] -%><br/>
