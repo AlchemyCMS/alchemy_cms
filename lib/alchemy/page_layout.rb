@@ -31,19 +31,23 @@ module Alchemy
       end
     end
   
-    def self.get_layouts_for_select(language_id)
+    def self.get_layouts_for_select(language_id, layoutpage = false)
       layouts_for_select = [ [ _("Please choose"), "" ] ]
-      self.selectable_layouts(language_id).each do |layout|
+      self.selectable_layouts(language_id, layoutpage).each do |layout|
         display_name = (layout["display_name"].blank? ? layout["name"].camelize : layout["display_name"])
         layouts_for_select << [display_name, layout["name"]]
       end
       layouts_for_select
     end
     
-    def self.selectable_layouts(language_id)
+    def self.selectable_layouts(language_id, layoutpage = false)
       self.get_layouts.select do |layout|
         used = layout["unique"] && self.has_another_page_this_layout?(layout["name"], language_id)
-        !(layout["hide"] == true) && !used && !(layout["newsletter"] == true)
+        if layoutpage
+          layout["layoutpage"] == true && !used && layout["newsletter"] != true
+        else
+          layout["layoutpage"] != true && !used && layout["newsletter"] != true
+        end
       end
     end
     

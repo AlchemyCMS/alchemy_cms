@@ -27,9 +27,9 @@ class Admin::PagesController < AlchemyController
   
   def new
     @parent_id = params[:parent_id]
-    @page = Page.new
-    #@clipboard_items = Page.all_from_clipboard(get_clipboard('pages'))
-    @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id])
+    @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => @parent_id)
+    @page_layouts = Alchemy::PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
+    @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
     render :layout => false
   end
   
@@ -53,7 +53,7 @@ class Admin::PagesController < AlchemyController
     if page.valid? && parent
       page.move_to_child_of(parent)
     end
-    render_errors_or_redirect(page, admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
+    render_errors_or_redirect(page, parent.layoutpage? ? layoutpages_admin_pages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
   rescue Exception => e
     exception_handler(e)
   end
@@ -91,19 +91,24 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     name = @page.name
     page_id = @page.id
+    layoutpage = @page.layoutpage?
     if @page.destroy
-      session[:clipboard][:pages].delete(@page.id) if session[:clipboard][:pages]
-      @page_root = Page.language_root_for(session[:language_id])
-      if @page_root
-        render :update do |page|
-          page.remove("locked_page_#{page_id}")
-          page.replace("sitemap", :partial => 'sitemap')
-          Alchemy::Notice.show(page, _("Page %{name} deleted") % {:name => name})
-          page << "Alchemy.Tooltips()"
-        end
-      else
-        render :update do |page|
-          page.redirect_to admin_pages_url
+      get_clipboard('pages').delete(@page.id)
+      render :update do |page|
+        page.remove("locked_page_#{page_id}")
+        message = _("Page %{name} deleted") % {:name => name}
+        if layoutpage
+          flash[:notice] = message
+          page.redirect_to layoutpages_admin_pages_url
+        else
+          Alchemy::Notice.show(page, message)
+          @page_root = Page.language_root_for(session[:language_id])
+          if @page_root
+            page.replace("sitemap", :partial => 'sitemap')
+            page << "Alchemy.Tooltips()"
+          else
+            page.redirect_to admin_pages_url
+          end
         end
       end
     end

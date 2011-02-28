@@ -77,43 +77,9 @@ module Alchemy
         notices << "Page #{layoutroot.name} already present"
       end
       
-      header = Page.find_or_initialize_by_name(
-        :name => 'Layout Header',
-        :page_layout => 'layout_header',
-        :layoutpage => true,
-        :language => lang
-      )
-      if header.new_record?
-        if header.save
-          puts "== Created Page #{header.name}"
-        else
-          errors << "Errors creating page #{header.name}: #{header.errors.full_messages}"
-        end
-      else
-        notices << "Page #{header.name} already present"
-      end
-      
-      footer = Page.find_or_initialize_by_name(
-        :name => 'Layout Footer',
-        :page_layout => 'layout_footer',
-        :layoutpage => true,
-        :language => lang
-      )
-      if footer.new_record?
-        if footer.save
-          puts "== Created Page #{footer.name}"
-        else
-          errors << "Errors creating page #{footer.name}: #{footer.errors.full_messages}"
-        end        
-      else
-        notices << "Page #{footer.name} already present"
-      end
-      
       if errors.blank?
         index.move_to_child_of root
         layoutroot.move_to_child_of root
-        header.move_to_child_of layoutroot
-        footer.move_to_child_of layoutroot
       else
         puts "WARNING! Some pages could not be created:"
         errors.map{ |error| puts error }

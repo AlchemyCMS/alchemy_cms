@@ -24,21 +24,19 @@
 			</div>
 		</div>
 		<div class="sitemap_right_tools">
-			<%- if !page.layoutpage? -%>
-				<%- permitted_to?(:configure, :admin_pages) do -%>
-				<%= link_to_overlay_window(
-					render_icon('configure_page'),
-					configure_admin_page_path(page),
-					{
-						:title => _('edit_page_properties'),
-						:size => page.redirects_to_external? ? '370x190' : '380x490'
-					},
-					:class => '',
-					:title => _('edit_page_properties')
-				) -%>
-				<%- end -%>
+			<%- permitted_to?(:configure, :admin_pages) do -%>
+			<%= link_to_overlay_window(
+				render_icon('configure_page'),
+				configure_admin_page_path(page),
+				{
+					:title => _('edit_page_properties'),
+					:size => page.redirects_to_external? ? '370x190' : '380x490'
+				},
+				:class => '',
+				:title => _('edit_page_properties')
+			) -%>
 			<%- end -%>
-			<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
+			<%- permitted_to?([:new, :destroy, :copy], :admin_pages) do -%>
 			<span class="sitemap_sitetools">
 				<%- permitted_to?(:copy, :admin_pages) do -%>
 				<%= link_to_remote(

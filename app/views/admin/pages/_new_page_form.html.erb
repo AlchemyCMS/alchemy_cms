@@ -1,5 +1,6 @@
 <% remote_form_for([:admin, @page], :html => {:id => 'new_page_form'}) do |f| %>
-	<%= f.hidden_field("parent_id", :value => @parent_id) %>
+	<%= f.hidden_field(:parent_id) %>
+	<%= f.hidden_field(:layoutpage) %>
 	<div id="errors" style="display:none"></div>
 	<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
 		<tr>
@@ -7,7 +8,7 @@
 				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
 			</td>
 			<td class="second_row">
-				<%= f.select('page_layout', Alchemy::PageLayout.get_layouts_for_select(session[:language_id])) %>
+				<%= f.select('page_layout', @page_layouts) %>
 			</td>
 		</tr>
 		<tr>
@@ -15,7 +16,7 @@
 				<%= f.label(:name, _("with_name")) %>
 			</td>
 			<td class="second_row">
-				<%= f.text_field(:name, :size => 15, :class => "thin_border") %>
+				<%= f.text_field(:name, :class => "thin_border medium_long") %>
 			</td>
 		</tr>
 		<tr>

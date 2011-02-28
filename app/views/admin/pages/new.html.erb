@@ -8,13 +8,15 @@
 		<li><a href="#create_page_tab"><%= _('New page') %></a></li>
 		<li><a href="#paste_page_tab"><%= _('Paste from clipboard') %></a></li>
 	</ul>
+	<div class="with_padding">
+		<div id="errors" style="display:none"></div>
+	</div>
 	<div id="create_page_tab">
 		<%= render :partial => 'new_page_form' %>
 	</div>
 	<div id="paste_page_tab">
 		<% remote_form_for([:admin, @page], :html => {:id => 'paste_page_form'}) do |f| %>
 			<%= f.hidden_field("parent_id", :value => @parent_id) %>
-			<div id="errors" style="display:none"></div>
 			<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
 				<tr>
 					<td class="label long">

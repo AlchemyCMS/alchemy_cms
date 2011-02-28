@@ -1,24 +1,42 @@
 <%- alchemy_combined_assets -%>
 <%- content_for :toolbar do -%>
 <div id="toolbar">
-	<div class="button_with_label">
-        <%= select_tag(
-			'language', 
-			options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
-			:onchange => %(
-				Alchemy.pleaseWaitOverlay();
-				jQuery.get('/admin/pages/switch_language', {
-					language_id: this.value
-				});
-			)
-		) %>
-        <label><%= _("Language tree") %></label>
-    </div>
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
+			<%= select_tag(
+				'language', 
+				options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+				:onchange => %(
+					Alchemy.pleaseWaitOverlay();
+					jQuery.get('/admin/pages/switch_language', {
+						language_id: this.value
+					});
+				)
+			) %>
+			<label><%= _("Language tree") %></label>
+		</div>
+		<%- permitted_to?(:new, :admin_pages) do -%>
+		<div class="button_with_label">
+			<%= link_to_overlay_window(
+				render_icon('add_page'),
+				new_admin_page_path(:parent_id => @layout_root.id, :layoutpage => true),
+				{
+					:title => _('Add layoutpage'),
+					:size => '340x90',
+					:overflow => true
+				},
+				:class => 'icon_button',
+				:title => _('Add layoutpage')
+			) -%>
+			<label><%= _('Add layoutpage') %></label>
+		</div>
+		<%- end -%>
+	</div>
 </div>
 <%- end -%>
 <%- if @layout_root -%>
 <ul class="list" id="layoutpages">
-    <%= render :partial => "layoutpage", :collection => @layout_root.children %>
+	<%= render :partial => "layoutpage", :collection => @layout_root.children %>
 </ul>
 <%- else -%>
 

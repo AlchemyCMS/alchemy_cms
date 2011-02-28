@@ -50,11 +50,11 @@
 - name: layout_header
   display_name: Layout Header
   unique: true
-  hide: true
+  layoutpage: true
   elements: [sitename, header]
 
 - name: layout_footer
   display_name: Layout Footer
   unique: true
-  hide: true
+  layoutpage: true
   elements: [footnote]

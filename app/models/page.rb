@@ -362,10 +362,10 @@ class Page < ActiveRecord::Base
     self.find_all_by_id(clipboard)
   end
   
-  def self.all_from_clipboard_for_select(clipboard, language_id)
+  def self.all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
     return [] if clipboard.blank?
     clipboard_pages = self.all_from_clipboard(clipboard)
-    allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id)
+    allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
     allowed_page_layout_names = allowed_page_layouts.collect{ |p| p['name'] }
     clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
   end

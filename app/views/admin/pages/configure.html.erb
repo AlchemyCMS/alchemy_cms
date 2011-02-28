@@ -5,11 +5,12 @@
 	<div id="errors" style="display:none"></div>
 	<table border="0" cellspacing="0" cellpadding="0" id="page_names">
 		<tr>
-			<td><%= _("page_type") %>: </td>
+			<td class="<%= @page.layoutpage ? 'label' : '' %>"><%= _("page_type") %>: </td>
 			<td>
 			  <%= @page.layout_display_name %>
 			</td>
 		</tr>
+		<%- unless @page.layoutpage -%>
 		<tr>
 			<td><%= _("page_status") %>: </td>
 			<td>
@@ -20,18 +21,22 @@
 				<%= f.check_box :restricted -%>
 				<%= f.label :restricted, _('page_restricted') %>
 				<%- if configuration(:sitemap)[:show_flag] -%><br/>
-					<%= f.check_box :sitemap -%>
-					<%= f.label :sitemap, _('show_page_in_sitemap') %>
+				<%= f.check_box :sitemap -%>
+				<%= f.label :sitemap, _('show_page_in_sitemap') %>
 				<%- end -%>
 			</td>
 		</tr>
+		<%- end -%>
+		<%- unless @page.layoutpage -%>
 		<tr>
 			<td colspan="2"><strong><%= _("names") %></strong></td>
 		</tr>
+		<%- end -%>
 		<tr>
-			<td><%= f.label( "name", _("navigation_name")) %>: </td>
+			<td><%= f.label( "name", _("name")) %>: </td>
 			<td><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
 		</tr>
+		<%- unless @page.layoutpage -%>
 		<tr>
 			<td><%= f.label( "urlname", _("url_name")) %>: </td>
 			<td><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
@@ -61,6 +66,7 @@
 			  <span style="font-size:10px">*<%= _('pages.update.comma_seperated') %></span>
 			</td>
 		</tr>
+		<%- end -%>
 		<tr>
 			<td colspan="2" align="right"><%= submit_tag _("save"), :class => 'button' %></td>
 		</tr>
