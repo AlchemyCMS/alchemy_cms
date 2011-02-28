@@ -70,10 +70,8 @@
 				</span>
 				<%- end -%>
 			</div>
-			<div class="page_infos">
-				<span class="page_status <%= @page_root.public ? 'public' : 'not_public' %>" title="<%= @page_root.public ? _('Page public') : _('Page not public') %>"></span>
-                <span class="page_status <%= @page_root.visible ? 'visible' : 'not_visible' %>" title="<%= @page_root.visible ? _('Page visible') : _('Page not visible') %>"></span>
-                <span class="page_status <%= @page_root.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page_root.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
+			<div class="page_infos" id="page_<%= @page_root.id %>_infos">
+				<%= render :partial => 'page_infos', :locals => {:page => @page_root} %>
 			</div>
 			<div class="sitemap_sitename">
 				<%= link_to(
