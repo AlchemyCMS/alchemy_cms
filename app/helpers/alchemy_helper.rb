@@ -1115,7 +1115,7 @@ document.getElementsByTagName("body")[0].appendChild(s);
       str = javascript_tag("if (typeof(jQuery) !== 'function') {#{append_javascript}}") + "\n"
       str += javascript_tag("jQuery.noConflict();") + "\n"
       str += javascript_include_tag("alchemy/alchemy") + "\n"
-      str += javascript_tag("jQuery(document).ready(function($) {\nAlchemy.ElementSelector();\n});\n$('a').attr('href', 'javascript:void(0)');")
+      str += javascript_tag("jQuery(document).ready(function() {\nAlchemy.ElementSelector();\n});\njQuery('a').attr('href', 'javascript:void(0)');")
       return str
     else
       return nil
