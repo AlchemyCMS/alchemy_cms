@@ -3,8 +3,7 @@
 </div>
 <% remote_form_for(
     @essence_picture,
-    :url => admin_essence_picture_path(@essence_picture, :options => @options),
-    :html => {:class => "with_padding"}
+    :url => admin_essence_picture_path(@essence_picture, :options => @options)
 ) do |f| %>
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>

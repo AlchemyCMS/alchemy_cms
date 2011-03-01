@@ -1,12 +1,6 @@
-<% remote_form_for(
-	[:admin, @essence_file],
-	:method => "put",
-	:html => {
-		:class => "with_padding"
-	}
-) do |f| %>
+<% remote_form_for([:admin, @essence_file], :method => "put") do |f| %>
   <%- if @content.essence_type == "EssenceFile" -%>
-  <table border="0" cellspacing="4" cellpadding="0">
+  <table>
     <tr>
       <td><%= f.label "title", _("title") %></td>
       <td><%= f.text_field "title", :class => 'thin_border long' %></td>
@@ -22,7 +16,7 @@
     </tr>
   </table>
   <%- elsif @content.essence_type == "EssenceFlash" -%>
-  <table border="0" cellspacing="4" cellpadding="0">
+  <table>
     <tr>
       <td><%= f.label "width", _("width") %></td>
       <td><%= f.text_field "width", :class => 'thin_border long' %></td>
@@ -42,7 +36,7 @@
     </tr>
   </table>
   <%- elsif @content.essence_type == "EssenceVideo" -%>
-  <table border="0" cellspacing="4" cellpadding="0">
+  <table>
     <tr>
       <td><%= f.label "width", _("width") %></td>
       <td><%= f.text_field "width", :class => 'thin_border long' %></td>
@@ -70,7 +64,7 @@
     </tr>
   </table>
   <%- elsif @content.essence_type == "EssenceAudio" -%>
-  <table border="0" cellspacing="4" cellpadding="0">
+  <table>
     <tr>
       <td><%= f.label "width", _("width") %></td>
       <td><%= f.text_field "width", :class => 'thin_border long' %></td>

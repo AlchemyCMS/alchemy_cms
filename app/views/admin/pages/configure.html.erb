@@ -1,9 +1,6 @@
-<% remote_form_for(
-	[:admin, @page],
-	:html => {:class => "with_padding"}
-) do |f| %>
+<% remote_form_for([:admin, @page]) do |f| %>
 	<div id="errors" style="display:none"></div>
-	<table border="0" cellspacing="0" cellpadding="0" id="page_names">
+	<table id="page_names">
 		<tr>
 			<td class="<%= @page.layoutpage ? 'label' : '' %>"><%= _("page_type") %>: </td>
 			<td>

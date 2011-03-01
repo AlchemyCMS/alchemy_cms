@@ -1515,6 +1515,11 @@ button.ui-button::-moz-focus-inner {
 	zoom: 1;
 }
 
+#alchemy .ui-dialog .ui-dialog-content form {
+	padding: 8px;
+	overflow: auto;
+}
+
 #alchemy .ui-dialog #alchemyElementWindow.ui-dialog-content {
 	margin-top: 56px;
 }
@@ -1692,8 +1697,8 @@ button.ui-button::-moz-focus-inner {
 #alchemy .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
-	padding: 8px;
 	background: none;
+	padding: 0;
 }
 
 #alchemy .ui-tabs .ui-tabs-hide {

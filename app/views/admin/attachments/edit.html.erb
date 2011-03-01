@@ -1,12 +1,12 @@
-<% form_for([:admin, @attachment], :url => {:action => :update, :query => params[:query], :page => params[:page]}, :html => {:class => " with_padding"}) do |f| -%>
-		<div class="emulated_table_row">
-			<span class="first_column">
-				<%= f.label( 'name', _('name'), :class => "short") %>
-			</span>
-			<span class="second_column">
-				<%= f.text_field( 'name', :class => 'thin_border long') %>
-				<%= submit_tag( _('save'), :class => 'button') %>
-			</span>
-		</div>
-	</div>
+<% form_for([:admin, @attachment], :url => {:action => :update, :query => params[:query], :page => params[:page]}) do |f| -%>
+	<table>
+		<tr>
+			<td class="label"><%= f.label( 'name', _('name'), :class => "short") %></td>
+			<td class="input"><%= f.text_field( 'name', :class => 'thin_border very_long') %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="submit"><%= submit_tag( _('save'), :class => 'button') %></td>
+		</tr>
+	</table>
 <% end %>

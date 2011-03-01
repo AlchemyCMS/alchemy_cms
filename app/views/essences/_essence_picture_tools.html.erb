@@ -13,7 +13,7 @@
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",
 		url_for(
-		    :controller => 'pictures',
+		  :controller => 'pictures',
 			:action => 'archive_overlay',
 			:element_id => content.element,
 			:content_id => content,
@@ -22,8 +22,8 @@
 		),
 		{
 			:title => _('swap_image'),
-    		:size => '800x450',
-    		:resizable => "true"
+    	:size => '800x450',
+    	:resizable => "true"
 		},
 		:title => _('swap_image'),
 		:class => 'swap_picture'
@@ -50,13 +50,13 @@
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",
 		edit_admin_essence_picture_path(
-		    :id => content.essence.id,
+		  :id => content.essence.id,
 			:content_id => content.id,
 			:options => options
 		),
 		{
 			:title => _('edit_image_properties'),
-			:size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '370x200' : '370x180') : (options[:manual_image_size] ? '370x160' : '370x150'))
+			:size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '380x200' : '380x180') : (options[:manual_image_size] ? '380x160' : '380x150'))
 		},
 		:class => 'edit_picture',
 		:title => _('edit_image_properties')

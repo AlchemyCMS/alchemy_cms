@@ -1,28 +1,24 @@
 <%- if clipboard_empty?('pages') -%>
-<div class="with_padding">
-	<%= render :partial => 'new_page_form' %>
-</div>
+<%= render :partial => 'new_page_form' %>
 <%- else -%>
 <div id="overlay_tabs">
 	<ul>
 		<li><a href="#create_page_tab"><%= _('New page') %></a></li>
 		<li><a href="#paste_page_tab"><%= _('Paste from clipboard') %></a></li>
 	</ul>
-	<div class="with_padding">
-		<div id="errors" style="display:none"></div>
-	</div>
+	<div id="errors" style="display:none"></div>
 	<div id="create_page_tab">
 		<%= render :partial => 'new_page_form' %>
 	</div>
 	<div id="paste_page_tab">
 		<% remote_form_for([:admin, @page], :html => {:id => 'paste_page_form'}) do |f| %>
 			<%= f.hidden_field("parent_id", :value => @parent_id) %>
-			<table border="0" cellspacing="0" cellpadding="0" id="new_page_form">
+			<table id="new_page_form">
 				<tr>
-					<td class="label long">
+					<td class="label very_long">
 						<label for="paste_from_clipboard"><%= _("Page") %></label>
 					</td>
-					<td class="second_row">
+					<td class="input">
 						<%= clipboard_select_tag(@clipboard_items, :class => 'long') %>
 					</td>
 				</tr>
@@ -30,13 +26,13 @@
 					<td class="label">
 						<%= f.label(:name, _("Name")) %>
 					</td>
-					<td class="second_row">
-						<%= f.text_field(:name, :size => 15, :class => "thin_border") %>
+					<td class="input">
+						<%= f.text_field(:name, :size => 15, :class => "thin_border long") %>
 					</td>
 				</tr>
 				<tr>
 					<td class="label">&nbsp;</td>
-					<td class="second_row">
+					<td class="submit">
 						<%= f.submit _("paste"), :class => 'button', :name => nil %>
 					</td>
 				</tr>

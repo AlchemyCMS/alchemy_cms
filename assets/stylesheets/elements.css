@@ -1,7 +1,4 @@
-/* @override 
-	http://localhost:3000/stylesheets/alchemy/elements.css
-	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
-*/
+/* @override http://0.0.0.0:3000/stylesheets/alchemy/elements.css */
 
 input.text_with_icon {
 	width: 343px;
@@ -211,7 +208,7 @@ div.element_editor.selected {
 	box-shadow: 0 0 2px #DB694C;
 }
 
-div.element_editor form {
+#alchemy .ui-dialog div.element_editor form {
 	margin: 4px 0 0;
 	padding: 0 8px;
 	overflow: hidden;
@@ -305,7 +302,7 @@ form.add_gallery_to_index select {
 
 .new_alchemy_element {
 	margin: 0;
-	padding: 8px;
+	padding: 0;
 	position: relative;
 	min-height: 25px;
 	overflow: auto;

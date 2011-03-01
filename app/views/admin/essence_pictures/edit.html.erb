@@ -1,9 +1,8 @@
 <% remote_form_for(
     @essence_picture,
-    :url => admin_essence_picture_path(@essence_picture, :options => @options),
-    :html => {:class => "with_padding"}
+    :url => admin_essence_picture_path(@essence_picture, :options => @options)
 ) do |f| %>
-	<table border="0" cellspacing="4" cellpadding="0">
+	<table>
 		<tr>
 			<td class="label"><%= f.label "caption", _("image_caption") %></td>
 			<td class="input">

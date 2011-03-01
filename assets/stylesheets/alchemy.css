@@ -1533,14 +1533,20 @@ div.table_right span.tools a.icon_button img {
 
 #user_edit form {
 	margin: 0;
-	padding: 0;
+	padding: 8px;
 }
 
-table,
-table.list {
+table {
 	border-style: none;
 	border-spacing: 0 4px;
 	padding: 0;
+}
+
+table.window_form {
+	width: 100%;
+}
+
+table.list {
 	width: 100%;
 }
 
@@ -1785,6 +1791,10 @@ td.label {
 
 td.label.long {
 	width: 140px;
+}
+
+td.label.very_long {
+	width: 230px;
 }
 
 table.list tr td.tools a {
@@ -2891,6 +2901,10 @@ div#errors {
 	background-color: #efd3d3;
 }
 
+#overlay_tabs div#errors {
+	margin: 8px 8px 0;
+}
+
 #errors ul li {
 	margin-bottom: 0.5em;
 }
@@ -2922,22 +2936,12 @@ div#errors {
 	padding: 2px;
 }
 
-#new_page_form tbody tr td.second_row input#page_name {
-	width: 168px;
-	margin: 0;
-	border-width: 1px;
-}
-
 #new_page_form tbody tr td.second_row div.selectbox a.display {
 	width: 123px;
 }
 
 input#page_name {
 	width: 126px;
-}
-
-#page_names #page_name {
-	width: 231px;
 }
 
 input.with_border {
@@ -2981,8 +2985,9 @@ input#user_admin {
 div.image_assign_filter_and_image_sizing form {
 	float: right;
 	width: 290px;
-	height: 23px;
+	height: 25px;
 	margin-top: 2px;
+	padding: 0 !important;
 }
 
 div.image_assign_filter_and_image_sizing form div.search_field {
@@ -3228,19 +3233,14 @@ div.assign_file_file_icon img {
 	width: 195px;
 }
 
-#alchemy .ui-dialog-content table.window_form {
-	width: 100%;
-}
-
-#alchemy .ui-dialog-content table.table_window td.label {
+#alchemy .ui-dialog-content td.label {
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-right: 4px;
-	width: 80px;
 	height: 25px;
 }
 
-#alchemy .ui-dialog-content table.table_window td.label.right {
+#alchemy .ui-dialog-content td.label.right {
 	text-align: right;
 	width: 40px;
 }
@@ -3253,7 +3253,7 @@ div.assign_file_file_icon img {
 table.window_form td.input {
 	padding-top: 2px;
 	padding-bottom: 2px;
-	padding-right: 8px;
+	padding-right: 10px;
 }
 
 #alchemy .ui-dialog-content p {
@@ -3283,7 +3283,7 @@ select#url_protocol.medium {
 
 #alchemy .ui-dialog-content input.long,
 #alchemy .ui-dialog-content textarea.long {
-	width: 231px;
+	width: 250px;
 	margin: 0;
 }
 

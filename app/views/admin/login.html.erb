@@ -10,7 +10,7 @@
 <div class="login_signup_box">
     <% form_for @user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'Alchemy.pleaseWaitOverlay()' } do |f| %>
         <%= f.error_messages %>
-        <table border="0" cellspacing="1" cellpadding="1">
+        <table>
             <tr>
                 <td class="label">
                     <%= f.label :login, _("username") %>
