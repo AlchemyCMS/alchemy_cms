@@ -1106,15 +1106,16 @@ module AlchemyHelper
   def alchemy_preview_mode_code
     if @preview_mode
       append_javascript = %(
-      var s = document.createElement('script');
-      s.src = '/javascripts/alchemy/jquery-1.5.min.js';
-      s.language = 'javascript';
-      s.type = 'text/javascript';
-      document.getElementsByTagName("body")[0].appendChild(s);
+var s = document.createElement('script');
+s.src = '/javascripts/alchemy/jquery-1.5.min.js';
+s.language = 'javascript';
+s.type = 'text/javascript';
+document.getElementsByTagName("body")[0].appendChild(s);
       )
-      str = javascript_tag("if(typeof(jQuery)=='function'){jQuery.noConflict();}else{#{append_javascript}}")
-      str += javascript_include_tag("alchemy/alchemy")
-      str += javascript_tag("jQuery(document).ready(function(){Alchemy.ElementSelector();});jQuery('a').attr('href', 'javascript:void(0)');")
+      str = javascript_tag("if (typeof(jQuery) !== 'function') {#{append_javascript}}") + "\n"
+      str += javascript_tag("jQuery.noConflict();") + "\n"
+      str += javascript_include_tag("alchemy/alchemy") + "\n"
+      str += javascript_tag("jQuery(document).ready(function($) {\nAlchemy.ElementSelector();\n});\n$('a').attr('href', 'javascript:void(0)');")
       return str
     else
       return nil
