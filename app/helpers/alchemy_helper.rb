@@ -60,6 +60,7 @@ module AlchemyHelper
       :from_page => "",
       :count => nil,
       :offset => nil,
+      :locals => {},
       :render_format => "html",
       :fallback => nil
     }
@@ -118,13 +119,14 @@ module AlchemyHelper
       path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
       partial_name = "_#{element.name.underscore}_#{part}.html.erb"
       if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
+        locals = options.delete(:locals)
         render(
           :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
           :locals => {
-            :element => element,
-            :options => options,
+            :element => element, 
+            :options => options, 
             :counter => i
-          }
+          }.merge(locals)
         )
       else
         warning(%(
@@ -579,7 +581,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     if !options[:from_page].nil?
-      if (options[:from_page].children.blank? && options[:from_page].level > options[:level]) || !options[:from_page].children.select{ |page| !page.visible || !page.public }.blank?
+      if (options[:from_page].children.blank? && options[:from_page].level > options[:level])
         options = options.merge(:from_page => Page.find(options[:from_page].parent_id))
       end
       render_navigation(options)
