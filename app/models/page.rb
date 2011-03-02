@@ -46,7 +46,7 @@ class Page < ActiveRecord::Base
     else
       condition = show_non_public.nil? ? nil : {:public => true}
     end
-    return self.elements.find(:all, :conditions => condition, :limit => options[:count], :order => options[:random].blank? ? nil : "RAND()")
+    return self.elements.find(:all, :conditions => condition, :limit => options[:count], :offset => options[:offset], :order => options[:random].blank? ? nil : "RAND()")
   end
   
   def find_elements(options, show_non_public = false)

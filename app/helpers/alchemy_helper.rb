@@ -59,6 +59,7 @@ module AlchemyHelper
       :only => [],
       :from_page => "",
       :count => nil,
+      :offset => nil,
       :render_format => "html",
       :fallback => nil
     }
