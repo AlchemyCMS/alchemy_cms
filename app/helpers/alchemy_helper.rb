@@ -126,7 +126,7 @@ module AlchemyHelper
             :element => element, 
             :options => options, 
             :counter => i
-          }.merge(locals)
+          }.merge(locals || {})
         )
       else
         warning(%(
