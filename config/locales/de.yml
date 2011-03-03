@@ -288,4 +288,5 @@ de:
     image/jpeg: 'JPG-Bild'
     image/png: 'PNG-Bild'
     video/x-msvideo: 'AVI-Video'
+    video/x-ms-wmv: 'Windows Media Video'
     image/tiff: 'TIFF-Bild'

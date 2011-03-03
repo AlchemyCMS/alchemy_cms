@@ -28,6 +28,8 @@ class Attachment < ActiveRecord::Base
       then "video"
     when "video/x-msvideo"
       then "video"
+    when "video/x-ms-wmv"
+      then "video"
     when "application/zip"
       then "archive"
     when "application/x-rar"

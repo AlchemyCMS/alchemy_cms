@@ -688,44 +688,6 @@ module AlchemyHelper
     )
   end
   
-  # Renders an image_tag with an file icon for files suffix.
-  # The images are in vendor/plugins/alchemy/assets/images/file_icons
-  # They will be copyied into public/alchemy/file_icons on app launch.
-  # 
-  # ===Fileicons so far:
-  #
-  # * GIF
-  # * PDF
-  # * FLV (Flashvideo)
-  # * ZIP
-  # * SWF (Flashmovie)
-  # * MP3
-  # * Empty File
-  #
-  def render_file_icon file
-    case file.filename.split(".").last
-      when "pdf"
-        then icon = "pdf.png"
-      when "flv"
-        then icon = "flv.png"
-      when "gif"
-        then icon = "gif.png"
-      when "zip"
-        then icon = "zip.png"
-      when "mp3"
-        then icon = "mp3.png"
-      when "swf"
-        then icon = "swf.png"
-      when "doc"
-        then icon = "doc.png"
-      when "jpg"
-        then icon = "jpg.png"
-    else
-      icon = "file.png"
-    end
-    image_tag("alchemy/file_icons/#{icon}")
-  end
-  
   # Renders an image_tag from for an image in public/images folder so it can be cached.
   # *Not really working!*
   def static_image_tag image, options={}
