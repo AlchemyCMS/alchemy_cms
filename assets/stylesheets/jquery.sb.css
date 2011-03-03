@@ -2,6 +2,10 @@
 
 /* always visible styles */
 
+#alchemy select.has_sb {
+	display: none !important;
+}
+
 #alchemy .selectbox {
 	display: inline-block;
 	*display: inline;
@@ -92,7 +96,7 @@
 	width: 19px;
 }
 
-span.text {
+#alchemy .selectbox .text {
 	line-height: 23px;
 }
 
@@ -145,24 +149,24 @@ span.text {
 	margin-top: 0;
 }
 
-#alchemy .items li>a {
+#alchemy .items li .item {
 	color: #333;
 	cursor: default;
 	display: block;
 	text-decoration: none;
-	padding: 2px 4px;
+	padding: 2px 12px 2px 6px;
 }
 
-#alchemy .items li.selected a {
+#alchemy .items li.selected .item {
 	background-color: #e6f0f5;
 	color: #333;
 }
 
-#alchemy .items li.disabled a {
+#alchemy .items li.disabled .item {
 	color: #999;
 }
 
-#alchemy .items li.hover>a {
+#alchemy .items li.hover .item {
 	background-color: #e6f0f5;
 	color: #333;
 	cursor: pointer;
@@ -187,18 +191,18 @@ span.text {
 	line-height: 1em;
 }
 
-#alchemy .items .optgroup .items li>a {
+#alchemy .items .optgroup .items li .item {
 	padding-left: 1em;
 }
 
-#alchemy .items>li.first>a {
+#alchemy .items>li.first .item {
 	-moz-border-radius-topleft: 3px;
 	-moz-border-radius-topright: 3px;
 	-webkit-border-top-left-radius: 3px;
 	-webkit-border-top-right-radius: 3px;
 }
 
-#alchemy .items>li.last>a {
+#alchemy .items>li.last .item {
 	-moz-border-radius-bottomleft: 3px;
 	-moz-border-radius-bottomright: 3px;
 	-webkit-border-bottom-left-radius: 3px;
@@ -210,8 +214,4 @@ span.text {
 #alchemy .items>li>.label {
 	line-height: 27px;
 	padding: 4px 6px;
-}
-
-#alchemy .items>li>.items li>a {
-	padding: 4px 6px 4px 12px;
 }

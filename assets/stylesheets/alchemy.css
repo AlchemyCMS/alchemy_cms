@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css
+	http://localhost:3000/stylesheets/alchemy/alchemy.css
+*/
 
 html {
 	height: 100%;
@@ -3125,8 +3128,8 @@ div#tabbar_and_content {
 	height: 28px;
 }
 
-.elements_from_page_selector {
-	width: 185px;
+div.elements_from_page_selector {
+	width: 154px;
 }
 
 div.elements_for_page {
@@ -3295,7 +3298,7 @@ select#url_protocol.medium {
 #alchemy .ui-dialog-content select.very_long,
 #alchemy .ui-dialog-content .selectbox.very_long,
 #alchemy .ui-dialog-content .selectbox.very_long .display {
-	width: 160px;
+	width: 170px;
 }
 
 #alchemy .ui-dialog-content .short {
