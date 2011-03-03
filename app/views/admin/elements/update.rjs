@@ -1,3 +1,4 @@
 Alchemy::Notice.show(page, _("element_saved"))
 page << "Alchemy.PreviewWindow.refresh()"
+page << "jQuery('div#element_#{@element.id} div.element_handle span.icon').removeClass('element_#{@element.public? ? 'draft' : 'public'}').addClass('element_#{@element.public? ? 'public' : 'draft'}')"
 page << "Alchemy.setElementSaved('#element_#{@element.id}')"
