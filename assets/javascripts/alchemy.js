@@ -315,11 +315,13 @@ var Alchemy = {
 					}
 				});
 			},
+			beforeClose: function() {
+				jQuery(".sb.open").triggerAll("close");
+			},
 			close: function () {
-				jQuery('ul.items').remove();
 				$dialog.remove();
 			}
-		});		
+		});
 	},
 	
 	closeCurrentWindow : function() {
@@ -910,7 +912,7 @@ var Alchemy = {
 	},
 	
 	SelectBox : function(selector) {
-		jQuery(selector).sb({animDuration: 0, fixedWidth: false});
+		jQuery(selector).sb({animDuration: 0, fixedWidth: true});
 	},
 	
 	Buttons : function(options) {
@@ -1013,6 +1015,7 @@ var Alchemy = {
 	debug : function(e) {
 		if (window['console']) {
 			console.debug(e);
+			console.trace();
 		}
 	}
 	
