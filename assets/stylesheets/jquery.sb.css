@@ -15,6 +15,10 @@
 	font-size: 11px;
 }
 
+#alchemy .selectbox.full_width {
+	width: 100%;
+}
+
 #alchemy .selectbox .display {
 	border: 1px solid #abadb3;
 	cursor: default;
@@ -126,6 +130,10 @@
 	font-size: 11px;
 }
 
+#alchemy .items.full_width {
+	width: 386px;
+}
+
 #new_page_form tbody tr td.second_row div.selectbox .display{
 	width: 100px;
 }
@@ -166,7 +174,7 @@
 	color: #999;
 }
 
-#alchemy .items li.hover .item {
+#alchemy .items li.hover > .item {
 	background-color: #e6f0f5;
 	color: #333;
 	cursor: pointer;
@@ -188,7 +196,7 @@
 
 #alchemy .items .optgroup>.label {
 	font-weight: bold;
-	line-height: 1em;
+	line-height: 23px;
 }
 
 #alchemy .items .optgroup .items li .item {
