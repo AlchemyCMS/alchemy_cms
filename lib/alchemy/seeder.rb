@@ -32,15 +32,16 @@ module Alchemy
 
       root = Page.find_or_initialize_by_name(
         :name => 'Root',
+        :page_layout => "rootpage",
         :do_not_autogenerate => true,
         :do_not_sweep => true,
         :language => lang
       )
       if root.new_record?
-        if root.save(!:validate)
+        if root.save
           # We have to remove the language, because active record validates its presence on create.
           root.language = nil
-          root.save(!:validate)
+          root.save
           puts "== Created page #{root.name}"
         else
           errors << "Errors creating page #{root.name}: #{root.errors.full_messages}"
@@ -65,26 +66,8 @@ module Alchemy
         notices << "Page #{index.name} already present"
       end
       
-      layoutroot = Page.find_or_initialize_by_name(
-        :name => 'LayoutRoot',
-        :do_not_autogenerate => true,
-        :do_not_sweep => true,
-        :layoutpage => true,
-        :language => lang
-      )
-      if layoutroot.new_record?
-        if layoutroot.save(!:validate)
-          puts "== Created Page #{layoutroot.name}"
-        else
-          errors << "Errors creating page #{layoutroot.name}: #{layoutroot.errors.full_messages}"
-        end
-      else
-        notices << "Page #{layoutroot.name} already present"
-      end
-      
       if errors.blank?
         index.move_to_child_of root
-        layoutroot.move_to_child_of root
       else
         puts "WARNING! Some pages could not be created:"
         errors.map{ |error| puts error }
