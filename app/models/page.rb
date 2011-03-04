@@ -352,7 +352,7 @@ class Page < ActiveRecord::Base
       :language => language,
       :do_not_autogenerate => true
     })
-    if layoutroot.save(false)
+    if layoutroot.save
       layoutroot.move_to_child_of(Page.root)
       return layoutroot
     else

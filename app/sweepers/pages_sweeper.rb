@@ -35,7 +35,7 @@ private
   end
   
   def expire_page(page)
-    if Alchemy::Controller.multi_language?
+    if multi_language?
       path = "#{page.language_code}/#{page.urlname_was}"
     else
       path = page.urlname_was
