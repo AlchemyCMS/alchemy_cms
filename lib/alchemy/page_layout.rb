@@ -1,13 +1,17 @@
 module Alchemy
   class PageLayout
-  
+    
     def self.element_names_for(page_layout)
       page_layouts = self.get_layouts
       layout_description = page_layouts.detect { |p| p["name"].downcase == page_layout.downcase }
-      raise "No Layout Description for #{page_layout} found! in page_layouts.yml" if layout_description.blank?
-      layout_description["elements"]
+      if layout_description.blank?
+        puts "\n+++ Warning: No Layout Description for #{page_layout} found! in page_layouts.yml\n"
+        return []
+      else
+        layout_description["elements"]
+      end
     end
-  
+    
     # Returns the page_layout.yml file. Tries to first load from config/alchemy and if not found from vendor/plugins/alchemy/config/alchemy.
     def self.get_layouts
       if File.exists? "#{RAILS_ROOT}/config/alchemy/page_layouts.yml"
