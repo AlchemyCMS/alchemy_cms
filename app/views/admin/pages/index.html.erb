@@ -62,6 +62,7 @@
             ) -%><br />
             <label><%= _('Sort pages') %></label>
         </div>
+        <%- end -%>
         <div class="button_with_label" id="clipboard_button">
 					<%= link_to_overlay_window(
 						render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
@@ -75,7 +76,6 @@
 					) -%><br />
 					<label><%= _('Show clipboard') %></label>
         </div>
-        <%- end -%>
     </div>
 </div>
 <%- end -%>

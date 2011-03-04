@@ -22,14 +22,6 @@ class Page < ActiveRecord::Base
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
   after_save :set_restrictions_to_child_pages
   
-  # necessary. otherwise the migrations fail
-  
-  def self.layout_root
-    if Page.root
-      Page.find :first, :conditions => {:parent_id => Page.root.id, :layoutpage => true}
-    end
-  end
-  
   named_scope :language_roots, :conditions => {:language_root => true}
   named_scope :layoutpages, :conditions => {:layoutpage => true}
   named_scope :all_locked, :conditions => {:locked => true}
@@ -310,14 +302,6 @@ class Page < ActiveRecord::Base
     self.language_roots.find_by_language_id(language_id)
   end
   
-  def self.layout_root_for(language_id)
-    find(:first, :conditions => {
-      :parent_id => Page.root.id,
-      :layoutpage => true,
-      :language_id => language_id}
-    )
-  end
-  
   # Creates a copy of source (an Page object) and does a copy of all elements depending to source.
   # You can pass any kind of Page#attributes as a difference to source.
   # Notice: It prevents the element auto_generator from running.
@@ -352,6 +336,28 @@ class Page < ActiveRecord::Base
       break if page.language_root?
     end
     return page
+  end
+  
+  def self.layout_root_for(language_id)
+    find(:first, :conditions => {:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id})
+  end
+  
+  def self.find_or_create_layout_root_for(language_id)
+    layoutroot = layout_root_for(language_id)
+    return layoutroot if layoutroot
+    language = Language.find(language_id)
+    layoutroot = new({
+      :name => "Layoutroot for #{language.name}",
+      :layoutpage => true, 
+      :language => language,
+      :do_not_autogenerate => true
+    })
+    if layoutroot.save(false)
+      layoutroot.move_to_child_of(Page.root)
+      return layoutroot
+    else
+      raise "Layout root for #{language} could not be created"
+    end
   end
   
   def self.all_last_edited_from(user)

@@ -10,7 +10,7 @@ module Alchemy
       base.send :include, Alchemy::Notice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
-
+    
     def initialize
       super
       self.alchemy_plugins_settings = {}
@@ -18,10 +18,6 @@ module Alchemy
         settings = YAML.load_file(settings_file)
         self.alchemy_plugins_settings[settings["name"]] = settings
       end
-    end
-
-    def self.multi_language?
-      Language.count > 1
     end
     
     module ClassMethods
@@ -33,7 +29,7 @@ module Alchemy
     end
 
     module InstanceMethods
-
+      
       def plugin_conf(plugin_name)
         alchemy_plugins_settings[plugin_name]["settings"]
       end

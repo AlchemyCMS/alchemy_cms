@@ -26,8 +26,7 @@ class Admin::PagesController < AlchemyController
   end
   
   def new
-    @parent_id = params[:parent_id]
-    @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => @parent_id)
+    @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
     @page_layouts = Alchemy::PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
     @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
     render :layout => false
@@ -145,7 +144,8 @@ class Admin::PagesController < AlchemyController
   end
   
   def layoutpages
-    @layout_root = Page.layout_root_for(session[:language_id])
+    @locked_pages = Page.all_locked_by(current_user)
+    @layout_root = Page.find_or_create_layout_root_for(session[:language_id])
   end
   
   # Leaves the page editing mode and unlocks the page for other users
