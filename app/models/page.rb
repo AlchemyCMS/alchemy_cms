@@ -239,7 +239,7 @@ class Page < ActiveRecord::Base
   def layout_description
     page_layout = Alchemy::PageLayout.get(self.page_layout)
     if page_layout.nil?
-      puts "\n+++ Warning! PageLayout description not found for layout: #{self.page_layout}\n"
+      logger.warn("\n+++++++++++  Warning! PageLayout description not found for layout: #{self.page_layout}\n")
       return nil
     else
       return page_layout
