@@ -1521,6 +1521,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog #alchemyElementWindow.ui-dialog-content {
+	position: relative;
 	margin-top: 56px;
 }
 

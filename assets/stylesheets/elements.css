@@ -1,4 +1,7 @@
-/* @override http://0.0.0.0:3000/stylesheets/alchemy/elements.css */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
+	http://localhost:3000/stylesheets/alchemy/elements.css
+*/
 
 input.text_with_icon {
 	width: 343px;
@@ -156,14 +159,6 @@ div.element_foot span.element_public {
 	position: absolute;
 	right: 8px;
 	bottom: 6px;
-	opacity: 0.5;
-	cursor: default;
-	filter: alpha(opacity=50);
-}
-
-.element_editor.dirty .element_foot .button {
-	opacity: 1;
-	cursor: pointer;
 }
 
 .ajax_folder {

@@ -35,17 +35,6 @@ a img {
 	border: none;
 }
 
-#corner {
-	z-index: 15;
-	width: 65px;
-	height: 16px;
-	position: fixed;
-	left: 0;
-	top: 0;
-	background: url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
-	font-size: 0;
-}
-
 div#flash_notices {
 	position: fixed;
 	right: 0;
@@ -189,6 +178,17 @@ div#overlay_text_box img {
 /* @end */
 
 /* @group top_frame */
+
+#corner {
+	z-index: 15;
+	width: 65px;
+	height: 16px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
+	font-size: 0;
+}
 
 #preview_frame {
 	background-color: white;
@@ -3387,13 +3387,13 @@ div#overlay_toolbar {
 
 #alchemyElementWindow div#overlay_toolbar {
 	padding: 6px 0 4px;
-	margin: -57px 0 0;
 	height: 44px;
 	border-right-style: none;
 	border-left-style: none;
 	position: fixed;
 	z-index: 10;
 	width: 422px;
+	margin: -57px 0 0;
 }
 
 #overlay_toolbar div.js_filter_field_box {
