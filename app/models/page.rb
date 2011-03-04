@@ -380,7 +380,7 @@ class Page < ActiveRecord::Base
         :title => ''
       })
       new_child.move_to_child_of(new_parent)
-      self.copy_children(new_child) unless child.children.blank?
+      child.copy_children_to(new_child) unless child.children.blank?
     end
   end
   

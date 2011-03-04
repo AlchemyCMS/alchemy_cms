@@ -46,7 +46,7 @@ class Admin::PagesController < AlchemyController
         :parent_id => params[:page][:parent_id],
         :language => parent.language
       })
-      #source_page.copy_children_to(page) unless source_page.children.blank?
+      source_page.copy_children_to(page) unless source_page.children.blank?
     else
       page = Page.create(params[:page])
     end
@@ -195,7 +195,7 @@ class Admin::PagesController < AlchemyController
         :layoutpage => params[:layoutpage]
       )
       new_language_root.move_to_child_of Page.root
-      copy_child_pages(original_language_root, new_language_root)
+      original_language_root.copy_children_to(new_language_root)
       flash[:notice] = _('language_pages_copied')
     rescue
       exception_logger($!)
