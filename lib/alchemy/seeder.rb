@@ -37,10 +37,10 @@ module Alchemy
         :language => lang
       )
       if root.new_record?
-        if root.save
+        if root.save(!:validate)
           # We have to remove the language, because active record validates its presence on create.
           root.language = nil
-          root.save
+          root.save(!:validate)
           puts "== Created page #{root.name}"
         else
           errors << "Errors creating page #{root.name}: #{root.errors.full_messages}"
@@ -73,7 +73,7 @@ module Alchemy
         :language => lang
       )
       if layoutroot.new_record?
-        if layoutroot.save
+        if layoutroot.save(!:validate)
           puts "== Created Page #{layoutroot.name}"
         else
           errors << "Errors creating page #{layoutroot.name}: #{layoutroot.errors.full_messages}"
