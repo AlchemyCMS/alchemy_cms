@@ -1,9 +1,20 @@
 class Alchemy::Configuration < ActionController::Base
   
   def self.parameter(name)
-    if name.class == String
-      name = name.to_sym
-    end
+    show[name.to_s]
+  end
+  
+  def self.get(name)
+    parameter(name)
+  end
+  
+  def self.show
+    read_files
+  end
+
+private
+
+  def self.read_files
     if File.exists? "#{RAILS_ROOT}/config/alchemy/config_#{RAILS_ENV}.yml"
       config_1 = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/config_#{RAILS_ENV}.yml" )
     else
@@ -19,8 +30,10 @@ class Alchemy::Configuration < ActionController::Base
     else
       config_3 = {}
     end
-    @config = config_3.merge(config_2.merge(config_1))
-    return @config[name]
+    config_1.stringify_keys!
+    config_2.stringify_keys!
+    config_3.stringify_keys!
+    config_3.merge(config_2.merge(config_1))
   end
   
 end

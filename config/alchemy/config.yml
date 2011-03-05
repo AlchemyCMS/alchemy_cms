@@ -59,8 +59,14 @@
   - :language_code: en
     :language: English
 
+default_translation: de
+
 # Default language for your homepgae.
-:default_language: de
+default_language:
+  code: de
+  name: Deutsch
+  page_layout: index
+  frontpage_name: Index
 
 # === Mailer Settings:
 # To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
