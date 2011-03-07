@@ -1349,7 +1349,7 @@ msgstr "Seiteneigenschaften"
 
 #: app/views/admin/pages/configure.html.erb:18
 msgid "page_public"
-msgstr "Seite veröffentlichen"
+msgstr "veröffentlicht"
 
 #: app/controllers/admin/pages_controller.rb:178
 msgid "page_published"
@@ -1357,7 +1357,7 @@ msgstr "Seite wurde veröffentlicht."
 
 #: app/views/admin/pages/configure.html.erb:22
 msgid "page_restricted"
-msgstr "Seite schützen"
+msgstr "geschützt"
 
 #: app/views/admin/pages/configure.html.erb:15
 #: app/views/admin/pages/configure_external.html.erb:14
@@ -1399,19 +1399,19 @@ msgstr ""
 #: app/models/page.rb:201
 msgid "page_status_visible_unpublic"
 msgstr ""
-"Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
+"Diese Seite ist in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht."
 
 #: app/models/page.rb:189
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
-"Diese Seite ist für den Admin in der Navigation sichtbar, ist aber nicht "
+"Diese Seite ist in der Navigation sichtbar, ist aber nicht "
 "veröffentlicht. Diese Seite wird gerade bearbeitet."
 
 #: app/views/admin/pages/configure.html.erb:45
 #: app/views/admin/pages/configure_external.html.erb:36
 msgid "page_title"
-msgstr "Seitentitel"
+msgstr "Titel"
 
 #: app/views/admin/pages/_layoutpage.html.erb:6
 #: app/views/admin/pages/_page.html.erb:7
@@ -1424,7 +1424,7 @@ msgstr "Typ"
 #: app/views/admin/pages/configure.html.erb:20
 #: app/views/admin/pages/configure_external.html.erb:17
 msgid "page_visible_in_navigation"
-msgstr "Seite in der Navigation zeigen"
+msgstr "in der Navigation sichtbar"
 
 #: app/views/admin/pages/configure.html.erb:66
 msgid "pages.update.comma_seperated"

@@ -1321,7 +1321,7 @@ msgstr "page properties"
 
 #: app/views/admin/pages/configure.html.erb:18
 msgid "page_public"
-msgstr "Publish page"
+msgstr "published"
 
 #: app/controllers/admin/pages_controller.rb:178
 msgid "page_published"
@@ -1329,7 +1329,7 @@ msgstr "Published page."
 
 #: app/views/admin/pages/configure.html.erb:22
 msgid "page_restricted"
-msgstr "Page restricted"
+msgstr "restricted"
 
 #: app/views/admin/pages/configure.html.erb:15
 #: app/views/admin/pages/configure_external.html.erb:14
@@ -1392,11 +1392,11 @@ msgstr "Type"
 #: app/views/admin/pages/configure.html.erb:20
 #: app/views/admin/pages/configure_external.html.erb:17
 msgid "page_visible_in_navigation"
-msgstr "Page visible in the navigation"
+msgstr "visible in the navigation"
 
 #: app/views/admin/pages/configure.html.erb:66
 msgid "pages.update.comma_seperated"
-msgstr "Separated by comma"
+msgstr "Separate by comma"
 
 #: app/views/admin/partials/_per_page_links.html.erb:16
 msgid "pagination.%{label}_per_page"
