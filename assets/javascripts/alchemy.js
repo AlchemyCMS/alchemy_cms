@@ -912,7 +912,7 @@ var Alchemy = {
 	},
 	
 	SelectBox : function(selector) {
-		jQuery(selector).sb({animDuration: 0, fixedWidth: true});
+		jQuery(selector).sb({animDuration: 0, fixedWidth: false});
 	},
 	
 	Buttons : function(options) {
