@@ -346,17 +346,17 @@ class Page < ActiveRecord::Base
     layoutroot = layout_root_for(language_id)
     return layoutroot if layoutroot
     language = Language.find(language_id)
-    layoutroot = new({
+    layoutroot = Page.new({
       :name => "Layoutroot for #{language.name}",
       :layoutpage => true, 
       :language => language,
       :do_not_autogenerate => true
     })
-    if layoutroot.save
+    if layoutroot.save(false)
       layoutroot.move_to_child_of(Page.root)
       return layoutroot
     else
-      raise "Layout root for #{language} could not be created"
+      raise "Layout root for #{language.name} could not be created"
     end
   end
   
