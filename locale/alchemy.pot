@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-07 13:01+0100\n"
+"POT-Creation-Date: 2011-03-15 18:10+0100\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Image: '%{name}' deleted successfully"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:79
+#: app/controllers/admin/elements_controller.rb:88
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 
@@ -258,6 +258,10 @@ msgstr ""
 
 #: app/views/layouts/alchemy.html.erb:53
 msgid "Logged in as"
+msgstr ""
+
+#: app/views/admin/elements/_element.html.erb:19
+msgid "Mandatory"
 msgstr ""
 
 #: app/views/essences/_essence_picture_editor.html.erb:22
@@ -463,6 +467,10 @@ msgstr ""
 msgid "Please Signup"
 msgstr ""
 
+#: app/views/admin/elements/_element.html.erb:12
+msgid "Please check contents below."
+msgstr ""
+
 #: app/helpers/alchemy_helper.rb:772 app/views/admin/users/_form.html.erb:7
 #: lib/alchemy/page_layout.rb:39
 msgid "Please choose"
@@ -642,6 +650,11 @@ msgstr ""
 
 #: locale/model_attributes.rb:46
 msgid "User|Role"
+msgstr ""
+
+#: app/controllers/admin/elements_controller.rb:73
+#: app/views/admin/elements/_element.html.erb:11
+msgid "Validation failed."
 msgstr ""
 
 #: app/views/admin/index.html.erb:64
@@ -1542,7 +1555,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr ""
 
-#: app/controllers/admin/elements_controller.rb:105
+#: app/controllers/admin/elements_controller.rb:114
 msgid "successfully_saved_element_position"
 msgstr ""
 

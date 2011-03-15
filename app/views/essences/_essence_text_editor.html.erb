@@ -1,7 +1,7 @@
 <div class="content_editor" id="<%= content_dom_id(content) %>">
-
+	
 	<%- if !content.settings.blank? && content.settings[:display_as] == "checkbox" -%>
-
+	
 	<%= check_box_tag(
 	    "contents[content_#{content.id}][body]",
 	    "1",
@@ -52,7 +52,7 @@
 	<%= text_field_tag(
 	    "contents[content_#{content.id}][body]",
 	    content.essence.body,
-	    :class => "thin_border #{!content.settings.blank? && content.settings[:linkable] ? 'text_with_icon' : 'auto_resize'}",
+	    :class => "thin_border#{!content.settings.blank? && content.settings[:linkable] ? ' text_with_icon' : ''}",
 	    :id => "contents_#{content.id}_content"
 	) %>
 

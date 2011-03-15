@@ -63,13 +63,22 @@ class Admin::ElementsController < AlchemyController
   # If a Ferret::FileNotFoundError raises we gonna catch it and rebuilding the index.
   def update
     @element = Element.find_by_id(params[:id])
-    @element.contents.each do |content|
-      content.save_content(params[:contents]["content_#{content.id}"], :public => !params["public"].nil?)
+    if @element.save_contents(params)
+      @page = @element.page
+      @element.public = !params[:public].nil?
+      @element.save
+      @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
+    else
+      render :update do |page|
+        Alchemy::Notice.show(page, _("Validation failed."), :warn)
+        page.show("element_#{@element.id}_errors")
+        selector = @element.contents_with_errors.map { |content| '#' + content_dom_id(content) }.join(', ')
+        page << "jQuery('div.content_editor').removeClass('validation_failed')"
+        page << "jQuery('#{selector}').addClass('validation_failed')"
+        page << "jQuery('#element_#{@element.id}_spinner').hide()"
+        page << "jQuery('#element_#{@element.id}_save').show()"
+      end
     end
-    @page = @element.page
-    @element.public = !params[:public].nil?
-    @element.save!
-    @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
   rescue Exception => e
     exception_logger(e)
     if e.class == Ferret::FileNotFoundError

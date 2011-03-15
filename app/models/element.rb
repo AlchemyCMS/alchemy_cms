@@ -10,7 +10,7 @@ class Element < ActiveRecord::Base
   validates_uniqueness_of :position, :scope => :page_id
   validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
   
-  before_destroy :remove_contents
+  #before_destroy :remove_contents
   
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
@@ -42,11 +42,11 @@ class Element < ActiveRecord::Base
     end
   end
   
-  def remove_contents
-    self.contents.each do |content|
-      content.destroy
-    end
-  end
+  # def remove_contents
+  #   self.contents.each do |content|
+  #     content.destroy
+  #   end
+  # end
   
   def content_by_name(name)
     self.contents.find_by_name(name)
@@ -233,6 +233,38 @@ class Element < ActiveRecord::Base
     content = content_by_name(name)
     return nil if content.blank?
     content.ingredient
+  end
+  
+  def save_contents(params)
+    contents.each do |content|
+      unless content.save_essence(params[:contents]["content_#{content.id}"], :public => !params["public"].nil?)
+        errors.add(:base, :essence_validation_failed)
+      end
+    end
+    return errors.blank?
+  end
+  
+  def essences
+    return [] if contents.blank?
+    contents.collect(&:essence)
+  end
+  
+  def essence_errors
+    essence_errors = {}
+    essences.each do |essence|
+      unless essence.essence_errors.blank?
+        essence_errors[essence.id] = essence.essence_errors
+      end
+    end
+    essence_errors
+  end
+  
+  def contents_with_errors
+    contents.select(&:essence_validation_failed?)
+  end
+  
+  def has_validations?
+    !contents.detect(&:has_validations?).blank?
   end
   
 private

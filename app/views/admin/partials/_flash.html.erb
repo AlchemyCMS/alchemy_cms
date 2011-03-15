@@ -1,4 +1,4 @@
 <div class="flash <%= flash_type %>">
-	<%= render_icon(flash_type.to_s == 'notice' ? 'tick' : 'error') %>
+	<%= render_icon(flash_type.to_s == 'notice' ? 'tick' : flash_type.to_s) %>
 	<%= message %>
 </div>

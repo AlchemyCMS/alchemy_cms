@@ -294,9 +294,9 @@ module AlchemyHelper
       title = _("Warning: Content '%{contentname}' is missing its description.") % {:contentname => content.name}
   	  content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name
   	end
-  	content_name
+  	content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>" : content_name
   end
-
+  
   # Returns @page.title
   #
   # The options are:

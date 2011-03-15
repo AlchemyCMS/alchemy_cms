@@ -647,6 +647,10 @@ div.content_text_editor.text_short {
 	display: inline;
 }
 
+div.content_editor input.thin_border {
+	width: 378px;
+}
+
 input.long,
 input.text_long {
 	width: 363px;
@@ -668,8 +672,16 @@ div.content_text_editor input.text_short {
 div.content_editor {
 	margin-bottom: 8px;
 	margin-top: 8px;
-	overflow: hidden;
 	position: relative;
+}
+
+div.content_editor.validation_failed label {
+	color: #74191c;
+}
+
+div.content_editor.validation_failed input {
+	border: 1px solid #74191c;
+	background-color: #f9e8e9;
 }
 
 div.content_editor label {
@@ -789,4 +801,23 @@ textarea.tinymce {
 	height: 119px;
 	padding: 2px 0 0;
 	margin: 2px 1px 2px 2px;
+}
+
+.element_errors {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	background-color: #eeb3b4;
+	padding: 8px;
+	list-style-type: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #74191c;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.element_errors p {
+	margin: 0;
+	line-height: 24px;
 }

@@ -78,6 +78,12 @@ div#flash_notices div.flash.error {
 }
 
 div#flash_notices div.flash.info {
+	border-color: #8392b5;
+	color: #233772;
+	background-color: #cadbf3;
+}
+
+div#flash_notices div.flash.warn {
 	border-color: #c4c19c;
 	color: #726d23;
 	background-color: #f3f0c1;
@@ -2340,7 +2346,7 @@ span.icon.false {
 	background-image: none;
 }
 
-span.icon.warning {
+span.icon.warning, span.icon.warn {
 	background-position: 0 -88px;
 }
 

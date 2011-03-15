@@ -1,6 +1,8 @@
 class EssenceDate < ActiveRecord::Base
   
-  stampable
+  acts_as_essence(
+    :ingredient_column => :date
+  )
   
   @@date_parts = ["%Y", "%m", "%d", "%H", "%M"]
   
@@ -8,11 +10,6 @@ class EssenceDate < ActiveRecord::Base
   def preview_text(foo=nil)
     return "" if date.blank?
     I18n.l(date)
-  end
-  
-  # Returns self.date. Used for Content#ingredient method.
-  def ingredient
-    self.date
   end
   
   # Saves the ingredient
