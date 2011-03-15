@@ -91,7 +91,14 @@ Resources
 * Homepage: <http://alchemy-app.com/>
 * API Documentation: <http://api.alchemy-app.com/>
 * Issue-Tracker and Wiki: <http://redmine.alchemy-app.com/>
-* Sourcecode: <http://github.com/tvdeyen/alchemy/>
+* Sourcecode: <https://github.com/tvdeyen/alchemy/>
+
+Authors
+---------
+
+* Carsten Fregin: <https://github.com/cfregin>
+* Thomas von Deyen: <https://github.com/tvdeyen>
+* Robin Böning: <https://github.com/robinboening>
 
 License
 -------
