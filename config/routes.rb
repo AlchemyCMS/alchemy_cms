@@ -25,7 +25,8 @@ ActionController::Routing::Routes.draw do |map|
         :publish => :post,
         :unlock => :post,
         :configure => :get,
-        :preview => :get
+        :preview => :get,
+        :visit => :post
       },
       :has_many => [:elements],
       :shallow => true

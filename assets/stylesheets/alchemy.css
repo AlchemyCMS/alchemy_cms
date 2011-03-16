@@ -2249,6 +2249,10 @@ span.icon.settings {
 	background: url(/images/alchemy/icons.png) -160px -24px;
 }
 
+span.icon.visit_page {
+	background: url(/images/alchemy/icons.png) -64px -88px;
+}
+
 span.icon.upload {
 	background: url(/images/alchemy/icons.png) 0 -72px;
 }

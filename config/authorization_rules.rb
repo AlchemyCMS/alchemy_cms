@@ -84,7 +84,7 @@ privileges do
   end
   
   privilege :edit_page_content, :admin_pages do
-    includes :edit, :unlock, :show, :publish
+    includes :edit, :unlock, :show, :publish, :visit
   end
   
   privilege :login_to, :admin do
