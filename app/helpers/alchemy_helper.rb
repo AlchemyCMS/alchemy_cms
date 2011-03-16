@@ -161,7 +161,7 @@ module AlchemyHelper
   # For the editor partial:
   # :css_class => ""                               This css class gets attached to the content editor.
   # :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
-  def render_essence(content, part = :view, options = {})
+  def render_essence(content, part = :view, options = {}, html_options = {})
     if content.nil?
       return part == :view ? "" : warning('Content is nil', _("content_not_found"))
     elsif content.essence.nil?
@@ -188,7 +188,8 @@ module AlchemyHelper
       :partial => "essences/#{content.essence.class.name.underscore}_#{part.to_s}.#{options_for_partial[:render_format]}.erb",
       :locals => {
         :content => content,
-        :options => options_for_partial
+        :options => options_for_partial,
+        :html_options => html_options
       }
     )
   end
@@ -201,8 +202,8 @@ module AlchemyHelper
 
   # Renders the Content view partial from the given Content.
   # For options see -> render_essence
-  def render_essence_view(content, options = {})
-    render_essence(content, :view, :for_view => options)
+  def render_essence_view(content, options = {}, html_options = {})
+    render_essence(content, :view, {:for_view => options}, html_options)
   end
 
   # Renders the Content editor partial from the given Element for the essence_type (e.g. EssenceRichtext).
@@ -225,7 +226,7 @@ module AlchemyHelper
   # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first content found for this type will be rendered.
   # For options see -> render_essence
-  def render_essence_view_by_type(element, type, position, options = {})
+  def render_essence_view_by_type(element, type, position, options = {}, html_options = {})
     if element.blank?
       warning('Element is nil')
       return ""
@@ -240,13 +241,13 @@ module AlchemyHelper
 
   # Renders the Content view partial from the given Element by position (e.g. 1).
   # For options see -> render_essence
-  def render_essence_view_by_position(element, position, options = {})
+  def render_essence_view_by_position(element, position, options = {}, html_options = {})
     if element.blank?
       warning('Element is nil')
       return ""
     end
     content = element.contents.find_by_position(position)
-    render_essence(content, :view, :for_view => options)
+    render_essence(content, :view, {:for_view => options}, html_options)
   end
 
   # Renders the Content editor partial from the given Element by position (e.g. 1).
@@ -272,13 +273,13 @@ module AlchemyHelper
 
   # Renders the Content view partial from the passed Element for passed content name.
   # For options see -> render_essence
-  def render_essence_view_by_name(element, name, options = {})
+  def render_essence_view_by_name(element, name, options = {}, html_options = {})
     if element.blank?
       warning('Element is nil')
       return ""
     end
     content = element.content_by_name(name)
-    render_essence(content, :view, :for_view => options)
+    render_essence(content, :view, {:for_view => options}, html_options)
   end
   
   # Renders the name of elements content or the default name defined in elements.yml
