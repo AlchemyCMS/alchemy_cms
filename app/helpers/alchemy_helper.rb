@@ -348,7 +348,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-    %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" xml:lang="#{lang}" />)
+    %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" />)
   end
 
   # Renders a html <meta http-equiv="Content-Language" content="#{lang}" /> for @page.language.
@@ -361,7 +361,7 @@ module AlchemyHelper
       :default_language => "de"
     }
     options = default_options.merge(options)
-    lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
+    lang = (@page.language_code.blank? ? options[:default_language] : @page.language_code)
     %(<meta http-equiv="Content-Language" content="#{lang}" />)
   end
 
@@ -412,7 +412,7 @@ module AlchemyHelper
       #{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
       #{render_meta_tag( :name => "description", :content => description)}
       #{render_meta_tag( :name => "keywords", :content => keywords)}
-      <meta name="generator" content="Alchemy #{configuration(:alchemy_version)}" />
+      <meta name="generator" content="Alchemy #{Alchemy.version}" />
       <meta name="date" content="#{@page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
