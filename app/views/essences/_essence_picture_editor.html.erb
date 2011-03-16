@@ -1,4 +1,4 @@
-<div id="picture_<%= content.id %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor' %>">
+<div id="<%= content_dom_id(content) %>" class="content_editor essence_picture_editor<%= options[:dragable] ? ' dragable_picture' : '' %>">
 	<span class="picture_tool_delete">
         <%= link_to_confirmation_window(
     		"",
@@ -18,8 +18,10 @@
 	<div class="picture_detail">
     <%- if content.essence.picture.nil? -%>
 		<div class="missing_image">
-            <%= render_icon('warning') %>
-            <p><%= _('Mising Image') %></p>
+			<p>
+				<%= image_tag('alchemy/placeholder.png') %><br>
+				<%= _('Image missing') %><%= '<span class="validation_indicator">*</span>' if content.has_validations? %>
+			</p>
 		</div>
 	<%- else -%>
 		<div class="picture_handle" title="<%= _('drag_to_sort') if options[:dragable] %>"></div>

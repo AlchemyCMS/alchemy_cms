@@ -13,7 +13,7 @@ class EssenceRichtext < ActiveRecord::Base
     return true if params.blank?
     self.body = params['body'].to_s
     self.public = options[:public]
-    self.save!
+    self.save
   end
   
 private

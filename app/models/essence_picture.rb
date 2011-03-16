@@ -21,7 +21,7 @@ class EssencePicture < ActiveRecord::Base
     self.link = params['link']
     self.link_title = params['link_title']
     self.picture_id = params['picture_id']
-    self.save!
+    self.save
   end
   
 end

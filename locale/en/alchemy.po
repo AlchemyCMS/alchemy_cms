@@ -261,8 +261,8 @@ msgstr ""
 msgid "Mandatory"
 msgstr "Mandatory fields"
 
-#: app/views/essences/_essence_picture_editor.html.erb:22
-msgid "Mising Image"
+#: app/views/essences/_essence_picture_editor.html.erb:23
+msgid "Image missing"
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:86

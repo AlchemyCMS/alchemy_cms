@@ -73,7 +73,7 @@ module Alchemy #:nodoc:
       def essence_validations
         return true if description['validate'].blank?
         description['validate'].each do |validation|
-          if validation == 'presence' && body.blank?
+          if validation == 'presence' && ingredient.blank?
             add_essence_error validation_column.to_sym => "blank"
           elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
             add_essence_error validation_column.to_sym => "taken"
@@ -96,7 +96,7 @@ module Alchemy #:nodoc:
       
       # Essence description from config/elements.yml
       def description
-        return [] if element.nil?
+        return {} if element.nil?
         element.content_descriptions.detect { |c| c['name'] == self.content.name }
       end
       

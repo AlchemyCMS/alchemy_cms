@@ -197,10 +197,10 @@ div.element_editor.dirty .element_foot {
 }
 
 div.element_editor.selected {
-	border-color: #DB694C;
-	-moz-box-shadow: 0 0 2px #DB694C;
-	-webkit-box-shadow: 0 0 2px #DB694C;
-	box-shadow: 0 0 2px #DB694C;
+	border-color: #4b93db;
+	-moz-box-shadow: 0 0 3px #4b93db;
+	-webkit-box-shadow: 0 0 3px #4b93db;
+	box-shadow: 0 0 3px #4b93db;
 }
 
 #alchemy .ui-dialog div.element_editor form {
@@ -457,9 +457,10 @@ a.fold_element {
 	border-radius: 2px;
 }
 
-div.essence_picture_editor {
+div.content_editor.essence_picture_editor {
 	position: relative;
 	float: left;
+	margin: 0;
 }
 
 div.essence_picture_editor .picture_tool_delete {
@@ -468,6 +469,14 @@ div.essence_picture_editor .picture_tool_delete {
 	top: 4px;
 	padding: 2px 2px 0;
 	z-index: 2;
+}
+
+div.essence_picture_editor.validation_failed .picture_detail {
+	border-color: #931f23;
+	-webkit-box-shadow: #931f23 0px 1px 3px;
+	-moz-box-shadow: #931f23 0px 1px 3px;
+	-o-box-shadow: #931f23 0px 1px 3px;
+	box-shadow: #931f23 0px 1px 3px;
 }
 
 div.essence_picture_editor:hover .picture_tool_delete {
@@ -493,14 +502,19 @@ div.essence_picture_editor:hover .picture_tool_delete {
 }
 
 .picture_detail div.missing_image {
-	height: 96px;
+	height: 94px;
 	text-align: center;
-	line-height: 99px;
+	line-height: 47px;
+	color: #b3b3b3;
 }
 
-.picture_detail div.missing_image span.icon {
+.validation_failed .picture_detail div.missing_image {
+	color: #931f23;
+}
+
+.picture_detail div.missing_image img {
 	position: relative;
-	top: 21px;
+	top: 10px;
 }
 
 .edit_images_bottom {
@@ -676,11 +690,11 @@ div.content_editor {
 }
 
 div.content_editor.validation_failed label {
-	color: #74191c;
+	color: #931f23;
 }
 
 div.content_editor.validation_failed input {
-	border: 1px solid #74191c;
+	border: 1px solid #931f23;
 	background-color: #f9e8e9;
 }
 
@@ -806,13 +820,13 @@ textarea.tinymce {
 .element_errors {
 	margin-top: 8px;
 	margin-bottom: 8px;
-	background-color: #eeb3b4;
+	background-color: #f1c9ca;
 	padding: 8px;
 	list-style-type: none;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	color: #74191c;
+	color: #931f23;
 	border-style: solid;
 	border-width: 1px;
 }

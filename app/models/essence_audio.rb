@@ -11,7 +11,7 @@ class EssenceAudio < ActiveRecord::Base
   def save_ingredient(params, options = {})
     return true if params.blank?
     self.attachment_id = params["attachment_id"].to_s
-    self.save!
+    self.save
   end
   
 end

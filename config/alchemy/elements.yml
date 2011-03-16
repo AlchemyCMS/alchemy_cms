@@ -79,15 +79,31 @@
 #
 # Now an Alchemy user can add the content 'big_text' from the element as much as desired.
 #
-#
+# == Validations:
+#   
+#   You can validate the presence of a content. Just pass validate and one of the supported vaidatiosn methods to your content definition:
+#     
+#     - name: article
+#       display_name: Standard-Artikel
+#       contents:
+#       - name: intro
+#         type: EssenceText
+#         validate: [presence]
+#     
+# Now the user has to enter a value inside of the intro EssenceText textfield to save the element.
+# Currently supported validations are:
+# 
+#    * presence
+#    * uniqueness
+# 
 # == Not modifiable Elements
 # 
-# There are some elements you can render but not modify because they are statically and dont need any individualism.
+# There are some elements you can render but not modify because they are statically and don't need any individualism.
 # * Sitemap (app/views/elements/_sitemap.html.erb)
 #
-# == Adding Stylesheets for contents
+# == Real life example: Adding style for contents
 # 
-# You can add the possibility to access stylesheets for a specific content when using an element in Alchemy´s frontend.
+# You can add the possibility to access style for a specific content when using an element in Alchemy´s frontend.
 # This feature needs to be enabled as shown in the example below.
 #
 #   - name: headline
@@ -96,17 +112,17 @@
 #     contents:
 #     - name: headline
 #       type: EssenceText
-#     - name: stylesheets
+#     - name: style
 #       type: EssenceText
 #       settings:
 #         display_as: select
 #
 # In this example there is a new content added with a setting option wich defines it should be displayed as a selectfield.
 # This selectfield wich will be added in the editor view, where you can pass classnames of your stylesheets to it as an array like this
-# <%= render_essence_editor_by_name(element, 'stylesheets', :select_values => [["No style", ""], ["Black", "black_headline"]]) %>
+# <%= render_essence_editor_by_name(element, 'style', :select_values => [["No style", ""], ["Black", "black_headline"]]) %>
 #
 # In your website view you have to get the values of the stylesheets content
-# <h1 class="<%= render_essence_view_by_name(element, 'stylesheets') %>" id="<%= element_dom_id(element) %>">
+# <h1 class="<%= render_essence_view_by_name(element, 'style') %>" id="<%= element_dom_id(element) %>">
 #   <%= render_essence_view_by_name(element, 'headline') %>
 # </h1>
 #
@@ -228,9 +244,13 @@
   contents:
   - name: mail_from
     type: EssenceText
+    validate: [presence]
   - name: mail_to
     type: EssenceText
+    validate: [presence]
   - name: subject
     type: EssenceText
+    validate: [presence]
   - name: success_page
     type: EssenceText
+    validate: [presence]

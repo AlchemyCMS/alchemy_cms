@@ -13,7 +13,7 @@ class EssenceHtml < ActiveRecord::Base
   def save_ingredient(params, options = {})
     return true if params.blank?
     self.source = params["source"].to_s
-    self.save!
+    self.save
   end
   
 end

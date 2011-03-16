@@ -625,7 +625,7 @@ var Alchemy = {
 	},
 	
 	removePictureLink : function(content_id) {
-		Alchemy.setElementDirty(jQuery('#picture_' + content_id).parents('.element_editor'));
+		Alchemy.setElementDirty(jQuery('#essence_picture_' + content_id).parents('.element_editor'));
 		jQuery('#content_' + content_id + '_link').val('');
 		jQuery('#content_' + content_id + '_link_title').val('');
 		jQuery('#content_' + content_id + '_link_class_name').val('');
@@ -718,7 +718,7 @@ var Alchemy = {
 		var selected_style = {
 			'outline-width'  				 : '2px',
 			'outline-style'  				 : 'solid',
-			'outline-color'  				 : '#DB694C',
+			'outline-color'  				 : '#4b93db',
 			'outline-offset' 				 : '4px',
 			'-moz-outline-radius' 	 : '4px',
 			'outline-radius'				 : '4px'
@@ -866,7 +866,7 @@ var Alchemy = {
 			containment: 'parent',
 			update: function(event, ui) {
 				var ids = jQuery.map(jQuery(event.target).children('div.dragable_picture'), function (child) {
-					return child.id.replace(/picture_/, '');
+					return child.id.replace(/essence_picture_/, '');
 				});
 				jQuery(event.originalTarget).css("cursor", "progress");
 				jQuery.ajax({
