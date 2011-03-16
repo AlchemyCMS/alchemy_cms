@@ -274,6 +274,7 @@ class Page < ActiveRecord::Base
   end
   
   def contains_feed?
+    return false if layout_description.blank?
     self.layout_description['feed']
   end
   
