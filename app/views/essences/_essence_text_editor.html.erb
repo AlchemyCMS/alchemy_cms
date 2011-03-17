@@ -52,7 +52,7 @@
 	<%= text_field_tag(
 	    "contents[content_#{content.id}][body]",
 	    content.essence.body,
-	    :class => "thin_border#{!content.settings.blank? && content.settings[:linkable] ? ' text_with_icon' : ''}",
+	    :class => "thin_border auto_resize#{!content.settings.blank? && content.settings[:linkable] ? ' text_with_icon' : ''}",
 	    :id => "contents_#{content.id}_content"
 	) %>
 

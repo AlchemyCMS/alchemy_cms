@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-16 19:19+0100\n"
+"POT-Creation-Date: 2011-03-17 10:22+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -65,10 +65,6 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Dateigröße"
 
-#: app/views/admin/pages/edit.html.erb:52
-msgid "Clear page cache"
-msgstr "Cache leeren"
-
 #: app/views/admin/pictures/_picture.html.erb:34
 msgid "Click to rename"
 msgstr "Klicken zum umbenennen"
@@ -116,7 +112,7 @@ msgstr "Bildmaske bearbeiten"
 msgid "Element"
 msgstr "Element"
 
-#: app/views/admin/pages/edit.html.erb:115
+#: app/views/admin/pages/edit.html.erb:113
 msgid "Elements"
 msgstr "Elemente"
 
@@ -289,8 +285,8 @@ msgstr "Element hinzufügen"
 msgid "New page"
 msgstr "Neue Seite"
 
-#: app/views/admin/pages/edit.html.erb:119
-#: app/views/admin/pages/edit.html.erb:128
+#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:126
 msgid "No"
 msgstr "Nein"
 
@@ -312,7 +308,7 @@ msgstr "%{name} wurde gelöscht"
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
-#: app/views/admin/pages/edit.html.erb:122
+#: app/views/admin/pages/edit.html.erb:120
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
@@ -324,7 +320,7 @@ msgstr "Seitencache wurde geleert"
 #: app/views/admin/pages/_page_infos.html.erb:1
 #: app/views/admin/pages/_page_status.html.erb:6
 msgid "Page not public"
-msgstr "Seite nicht veröffentlicht"
+msgstr "Seite nicht öffentlich"
 
 #: app/views/admin/pages/_page_for_links.html.erb:25
 #: app/views/admin/pages/_page_infos.html.erb:3
@@ -342,7 +338,7 @@ msgstr "Seite nicht in der Navigation sichtbar"
 #: app/views/admin/pages/_page_infos.html.erb:1
 #: app/views/admin/pages/_page_status.html.erb:6
 msgid "Page public"
-msgstr "Seite veröffentlicht"
+msgstr "Seite öffentlich"
 
 #: app/views/admin/pages/_page_for_links.html.erb:25
 #: app/views/admin/pages/_page_infos.html.erb:3
@@ -502,6 +498,10 @@ msgstr "Bitte melden Sie sich an."
 msgid "Please use this alternative uploader instead."
 msgstr "Benutzen Sie bitte diesen alternativen Uploader."
 
+#: app/views/admin/pages/edit.html.erb:76
+msgid "Publish page"
+msgstr "veröffentlichen"
+
 #: app/views/admin/index.html.erb:88
 msgid "Read the License"
 msgstr "Lizenz lesen"
@@ -522,13 +522,13 @@ msgstr "Wählen Sie einen Inhalt aus"
 msgid "Send email with credentials"
 msgstr "Sende Benutzerdaten per Email"
 
-#: app/views/admin/pages/edit.html.erb:100
-#: app/views/admin/pages/edit.html.erb:104
+#: app/views/admin/pages/edit.html.erb:98
+#: app/views/admin/pages/edit.html.erb:102
 msgid "Show Elements Window"
 msgstr "Elementeliste anzeigen"
 
-#: app/views/admin/pages/edit.html.erb:89
-#: app/views/admin/pages/edit.html.erb:93
+#: app/views/admin/pages/edit.html.erb:87
+#: app/views/admin/pages/edit.html.erb:91
 msgid "Show Preview Window"
 msgstr "Seitenvorschau anzeigen"
 
@@ -676,13 +676,13 @@ msgstr "Version"
 msgid "View File"
 msgstr "Datei anzeigen"
 
-#: app/views/admin/pages/edit.html.erb:75
-#: app/views/admin/pages/edit.html.erb:78
+#: app/views/admin/pages/edit.html.erb:48
+#: app/views/admin/pages/edit.html.erb:51
 msgid "Visit page"
 msgstr "zur Seite gehen"
 
-#: app/views/admin/pages/edit.html.erb:116
-#: app/views/admin/pages/edit.html.erb:125
+#: app/views/admin/pages/edit.html.erb:114
+#: app/views/admin/pages/edit.html.erb:123
 msgid "Warning!"
 msgstr "Achtung!"
 
@@ -711,8 +711,8 @@ msgstr "Willkommen in Alchemy!"
 msgid "Who else is online"
 msgstr "Wer ist noch online"
 
-#: app/views/admin/pages/edit.html.erb:118
-#: app/views/admin/pages/edit.html.erb:127
+#: app/views/admin/pages/edit.html.erb:116
+#: app/views/admin/pages/edit.html.erb:125
 msgid "Yes"
 msgstr "Ja"
 
@@ -732,7 +732,7 @@ msgstr ""
 "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie den Cache "
 "wirklich löschen?"
 
-#: app/views/admin/pages/edit.html.erb:126
+#: app/views/admin/pages/edit.html.erb:124
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
@@ -740,7 +740,7 @@ msgstr ""
 "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie die Seite "
 "wirklich verlassen?"
 
-#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:115
 msgid ""
 "You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
@@ -1041,8 +1041,8 @@ msgstr "Seite bearbeiten"
 #: app/views/admin/pages/_page.html.erb:36
 #: app/views/admin/pages/_sitemap.html.erb:32
 #: app/views/admin/pages/_sitemap.html.erb:36
-#: app/views/admin/pages/edit.html.erb:62
-#: app/views/admin/pages/edit.html.erb:66
+#: app/views/admin/pages/edit.html.erb:59
+#: app/views/admin/pages/edit.html.erb:63
 msgid "edit_page_properties"
 msgstr "Seiteneigenschaften bearbeiten"
 
@@ -1079,9 +1079,9 @@ msgstr ""
 "Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte "
 "auf speichern."
 
-#: app/views/admin/pages/edit.html.erb:49
+#: app/views/admin/pages/edit.html.erb:73
 msgid "explain_publishing"
-msgstr "Die gecachte Version vom Server löschen"
+msgstr "Die gecachte Version vom Server löschen und die aktuellen Änderungen veröffentlichen"
 
 #: app/views/admin/index.html.erb:35 app/views/admin/pages/edit.html.erb:18
 #: app/views/admin/pages/edit.html.erb:37
@@ -1366,13 +1366,13 @@ msgstr "%{name} wählen"
 msgid "page_locked"
 msgstr "Die Seite ist gesperrt"
 
-#: app/views/admin/pages/edit.html.erb:68
+#: app/views/admin/pages/edit.html.erb:65
 msgid "page_properties"
 msgstr "Seiteneigenschaften"
 
 #: app/views/admin/pages/configure.html.erb:15
 msgid "page_public"
-msgstr "veröffentlicht"
+msgstr "öffentlich"
 
 #: app/controllers/admin/pages_controller.rb:182
 msgid "page_published"
@@ -1390,44 +1390,44 @@ msgstr "Status"
 #: app/models/page.rb:196
 msgid "page_status_invisible_public"
 msgstr ""
-"Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht."
+"Diese Seite ist nicht in der Navigation sichtbar, ist aber öffentlich."
 
 #: app/models/page.rb:184
 msgid "page_status_invisible_public_locked"
 msgstr ""
-"Diese Seite ist nicht in der Navigation sichtbar, ist aber veröffentlicht. "
+"Diese Seite ist nicht in der Navigation sichtbar, ist aber öffentlich. "
 "Diese Seite wird gerade bearbeitet."
 
 #: app/models/page.rb:199
 msgid "page_status_invisible_unpublic"
 msgstr ""
-"Diese Seite ist in der Navigation nicht sichtbar und nicht veröffentlicht"
+"Diese Seite ist in der Navigation nicht sichtbar und nicht öffentlich"
 
 #: app/models/page.rb:187
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht "
-"veröffentlicht. Diese Seite wird gerade bearbeitet"
+"öffentlich. Diese Seite wird gerade bearbeitet"
 
 #: app/models/page.rb:190
 msgid "page_status_visible_public"
-msgstr "Diese Seite ist in der Navigation sichtbar und veröffentlicht."
+msgstr "Diese Seite ist in der Navigation sichtbar und öffentlich."
 
 #: app/models/page.rb:178
 msgid "page_status_visible_public_locked"
 msgstr ""
-"Diese Seite ist in der Navigation sichtbar und veröffentlicht. Diese Seite "
+"Diese Seite ist in der Navigation sichtbar und öffentlich. Diese Seite "
 "wird gerade bearbeitet."
 
 #: app/models/page.rb:193
 msgid "page_status_visible_unpublic"
 msgstr ""
-"Diese Seite ist in der Navigation sichtbar, ist aber nicht veröffentlicht."
+"Diese Seite ist in der Navigation sichtbar, ist aber nicht öffentlich."
 
 #: app/models/page.rb:181
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
-"Diese Seite ist in der Navigation sichtbar, ist aber nicht veröffentlicht. "
+"Diese Seite ist in der Navigation sichtbar, ist aber nicht öffentlich. "
 "Diese Seite wird gerade bearbeitet."
 
 #: app/views/admin/pages/configure.html.erb:42

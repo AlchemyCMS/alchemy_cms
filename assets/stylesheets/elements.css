@@ -689,6 +689,10 @@ div.content_editor {
 	position: relative;
 }
 
+#alchemy .ui-dialog-content div.content_editor input.auto_resize {
+	width: 97%;
+}
+
 div.content_editor.validation_failed label {
 	color: #931f23;
 }

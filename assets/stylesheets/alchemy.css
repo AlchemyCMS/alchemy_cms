@@ -1278,9 +1278,10 @@ div#user_list_legend {
 	text-align: center;
 }
 
-div.button_with_label form {
-	margin: 0;
+#toolbar div.button_with_label form {
 	float: none;
+	margin: 0;
+	display: inline-block;
 }
 
 #toolbar div.search_field {
@@ -2309,6 +2310,10 @@ span.icon.flush {
 	background-position: -176px -24px;
 }
 
+span.icon.publish {
+	background-position: -80px -88px;
+}
+
 span.icon.info {
 	background-position: -32px -88px;
 }
@@ -2605,6 +2610,7 @@ div.button_with_label {
 	margin-right: 8px;
 	margin-left: 8px;
 	float: left;
+	min-width: 70px;
 }
 
 div.button_with_label.active .icon_button {
