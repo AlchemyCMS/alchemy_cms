@@ -2,7 +2,8 @@ page.insert_html(
   :bottom,
   "element_area",
   :partial => "element",
-  :object => @element
+  :object => @element,
+  :locals => {:draggable => true}
 )
 page << "jQuery('#element_area').sortable('refresh')"
 Alchemy::Notice.show(page, _("successfully_added_element"))

@@ -9,7 +9,20 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :users
     admin.resources :contents, :collection => {:order => :post}
-    admin.resources :elements, :has_many => :contents, :shallow => true, :collection => {:list => :get, :order => :post}, :member => {:fold => :post}
+    admin.resources(
+      :elements,
+      :has_many => :contents,
+      :shallow => true,
+      :collection => {
+        :list => :get, 
+        :order => :post,
+        :trashed => :get
+      }, 
+      :member => {
+        :fold => :post,
+        :trash => :delete
+      }
+    )
     admin.resources(
       :pages,
       :collection => {

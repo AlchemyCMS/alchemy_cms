@@ -13,7 +13,7 @@ class AlchemyController < ApplicationController
   before_filter :set_translation
   before_filter :set_language
 
-  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :get_clipboard
+  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard
   helper :errors, :layout
 
   def render_errors_or_redirect(object, redicrect_url, flash_notice)
@@ -214,6 +214,10 @@ protected
     else
       false
     end
+  end
+  
+  def trash_empty?(category)
+    category.singularize.classify.constantize.trashed.blank?
   end
   
 end

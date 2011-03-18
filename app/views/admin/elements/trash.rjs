@@ -1,0 +1,6 @@
+page.remove("element_#{@element.id}")
+Alchemy::Notice.show(page, _("Element trashed"))
+page << "jQuery('#element_area').sortable('refresh')"
+page << "Alchemy.refreshTrashWindow(#{@page_id})"
+page << "jQuery('#element_trash_button .icon').addClass('full')"
+page << "Alchemy.PreviewWindow.refresh()"

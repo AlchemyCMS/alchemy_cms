@@ -15,8 +15,8 @@
 	font-size: 11px;
 }
 
-#alchemy .selectbox.full_width {
-	width: 100%;
+#alchemy .selectbox.full_width .display.full_width {
+	width: 340px;
 }
 
 #alchemy .selectbox .display {

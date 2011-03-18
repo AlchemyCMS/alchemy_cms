@@ -15,6 +15,8 @@ class Element < ActiveRecord::Base
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
+  named_scope :trashed, :conditions => {:page_id => nil}, :order => 'updated_at DESC'
+  
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
     if name.nil?
@@ -24,7 +26,7 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position ASC"
   end
-
+  
   # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
   def prev(name = nil)
     if name.nil?
@@ -34,12 +36,23 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position DESC"
   end
-
+  
   def store_page page
     unless self.to_be_sweeped_pages.include? page
       self.to_be_sweeped_pages << page
       self.save
     end
+  end
+  
+  # nullifies the page_id aka. trashs it.
+  def trash
+    self.page_id = nil
+    self.folded = true
+    self.save(false)
+  end
+  
+  def trashed?
+    page_id.nil?
   end
   
   # def remove_contents
@@ -191,18 +204,18 @@ class Element < ActiveRecord::Base
   end
   
   # List all elements by from page_layout
-  def self.list_elements_by_layout(layout = "standard")
-    elements = Element.descriptions
-    result = []
-    page_layouts = Alchemy::PageLayout.get
-    layout_elements = page_layouts.select{|p| p["name"] == layout}.first["elements"]
-    return elements if layout_elements == "all"
-    elements.each do |element|
-      if layout_elements.include? element["name"]
-        result << element
+  def self.elements_for_layout(layout)
+    element_descriptions = Element.descriptions
+    elements = []
+    page_layout = Alchemy::PageLayout.get(layout)
+    layout_elements = page_layout["elements"]
+    return element_descriptions if layout_elements == "all"
+    element_descriptions.each do |element|
+      if layout_elements.include?(element["name"])
+        elements << element
       end
     end
-    return result
+    return elements
   end
   
   def self.get_from_clipboard(clipboard)

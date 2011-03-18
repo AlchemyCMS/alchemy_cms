@@ -4,7 +4,8 @@ else
   page.replace(
     "element_#{@element.id}",
     :partial => "element",
-    :object => @element
+    :object => @element,
+    :locals => {:draggable => true}
   )
   page << "jQuery('#element_area').sortable('refresh')"
   if @element.folded

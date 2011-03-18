@@ -1,0 +1,22 @@
+<div class="with_padding">
+	<%- unless @elements.blank? -%>
+	<div class="info">
+		<%= render_icon('info') %>
+		<%= _('Drag an element over to the element window to restore it.') %>
+	</div>
+	<%- end -%>
+	<p id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %>>
+		<%= _('Your trash is empty') %>
+	</p>
+	<div id="trash_items">
+		<%- @elements.each do |element| -%>
+		<%= render :partial => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil?} %>
+		<%- end -%>
+		<p>
+			<%#= link_to_confirmation_window(_('clear trash'), _('Do you really want to clear the trash?'), clear_admin_trash_path, :class => 'button') %>
+		</p>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+	Alchemy.DraggableTrashItems();
+</script>

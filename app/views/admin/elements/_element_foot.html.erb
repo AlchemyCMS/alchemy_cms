@@ -1,13 +1,11 @@
 <div class="element_foot">
 	<span class="element_tools">
-		<%= link_to_confirmation_window(
+		<%= link_to_remote(
 			"",
-			_("confirm_to_delete_element"),
-			admin_element_path(element),
-			{
-				:class => "delete_element_button",
-				:title => _("delete_element")
-			}
+			{:url => trash_admin_element_path(element),
+			:method => :delete},
+			{:class => "delete_element_button",
+			:title => _("trash element")}
 		) -%>
 		<%= link_to_remote(
 			"",

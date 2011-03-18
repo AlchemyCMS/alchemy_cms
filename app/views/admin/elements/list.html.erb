@@ -28,12 +28,21 @@
 		) -%><br />
 		<label><%= _('Show clipboard') %></label>
   </div>
+	<div class="button_with_label" id="element_trash_button">
+		<%= link_to_function(
+			render_icon("trash#{trash_empty?('elements') ? '' : ' full'}"),
+			"Alchemy.openTrashWindow(#{@page.id}, '#{ _('Trash') }')",
+			:class => 'icon_button',
+			:title => _('Show trash')
+		) -%><br />
+		<label><%= _('Show trash') %></label>
+  </div>
 </div>
 <div id="element_area">
-	<%= render :partial => @page.elements %>
+	<%= render :partial => @page.elements, :locals => {:draggable => true} %>
 </div>
 <script type="text/javascript" charset="utf-8">
-	Alchemy.SortableElements('<%= form_authenticity_token %>');
+	Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
 	Alchemy.ElementEditorSelector();
 	Alchemy.SelectBox('.element_editor select');
 	TinymceHammer.init();

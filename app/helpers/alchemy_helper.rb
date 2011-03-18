@@ -649,7 +649,8 @@ module AlchemyHelper
     default_options = {
       :size => "100x100",
       :resizable => false,
-      :modal => true
+      :modal => true,
+      :overflow => false
     }
     options = default_options.merge(options)
     link_to_function(
@@ -659,9 +660,9 @@ module AlchemyHelper
         \'#{options[:title]}\',
         \'#{options[:size].split('x')[0].to_s}\',
         \'#{options[:size].split('x')[1].to_s}\',
-        \'#{options[:resizable]}\',
-        \'#{options[:modal]}\',
-        \'#{options[:overflow]}\'
+        #{options[:resizable]},
+        #{options[:modal]},
+        #{options[:overflow]}
       )",
       html_options
     )

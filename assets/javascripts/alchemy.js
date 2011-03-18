@@ -816,13 +816,14 @@ var Alchemy = {
 		jQuery('#alchemyElementWindow').scrollTo(el, {duration: 400, offset: -10});
 	},
 	
-	SortableElements : function(form_token) {
+	SortableElements : function(page_id, form_token) {
 		jQuery('#element_area').sortable({
 			items: 'div.element_editor',
 			handle: '.element_handle',
 			axis: 'y',
 			placeholder: 'droppable_element_placeholder',
 			forcePlaceholderSize: true,
+			dropOnEmpty: true,
 			opacity: 0.5,
 			cursor: 'move',
 			tolerance: 'pointer',
@@ -830,13 +831,22 @@ var Alchemy = {
 				var ids = jQuery.map(jQuery(event.target).children(), function(child) {
 					return child.id.replace(/element_/, '');
 				});
+				// Is the trash window open?
+				if (jQuery('#alchemyTrashWindow').length > 0) {
+					// updating the trash icon
+					if (jQuery('#trash_items div.element_editor').not('.dragged').length === 0) {
+						jQuery('#element_trash_button .icon').removeClass('full');
+						jQuery('#trash_empty_notice').show();
+					}
+				}
 				jQuery(event.target).css("cursor", "progress");
 				jQuery.ajax({
 					url: '/admin/elements/order',
 					type: 'POST',
-					data: "authenticity_token=" + encodeURIComponent(form_token) + "&" + jQuery.param({element_ids: ids}),
+					data: "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + jQuery.param({element_ids: ids}),
 					complete: function () {
 						jQuery(event.target).css("cursor", "auto");
+						Alchemy.refreshTrashWindow(page_id);
 					}
 				});
 			},
@@ -853,6 +863,51 @@ var Alchemy = {
 				});
 			}
     });
+	},
+	
+	openTrashWindow : function (page_id, title) {
+		var size_x = 380, size_y = 270;
+		if (size_x === 'fullscreen') {
+			size_x = jQuery(window).width() - 50;
+			size_y = jQuery(window).height() - 50;
+		}
+		var $dialog = jQuery('<div style="display:none" id="alchemyTrashWindow"></div>');
+		$dialog.appendTo('body');
+		$dialog.html(Alchemy.getOverlaySpinner({x: size_x, y: size_y}));
+		
+		Alchemy.trashWindow = $dialog.dialog({
+			modal: false, 
+			minWidth: size_x, 
+			minHeight: size_y,
+			title: title,
+			resizable: true,
+			show: "fade",
+			hide: "fade",
+			open: function (event, ui) {
+				jQuery.ajax({
+					url: '/admin/elements/trashed?page_id=' + page_id,
+					success: function(data, textStatus, XMLHttpRequest) {
+						$dialog.html(data);
+						$dialog.css({overflow: 'visible'}).dialog('widget').css({overflow: 'visible'});
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
+					}
+				});
+			},
+			close: function () {
+				$dialog.remove();
+			}
+		});
+	},
+	
+	refreshTrashWindow: function(page_id) {
+		if (jQuery('#alchemyTrashWindow').length > 0) {
+			jQuery('#alchemyTrashWindow').html(Alchemy.getOverlaySpinner({x: 380, y: 270}));
+			jQuery.get('/admin/elements/trashed?page_id='+page_id, function(html) {
+				jQuery('#alchemyTrashWindow').html(html);
+			});
+		}
 	},
 	
 	SortableContents : function(selector, token) {
@@ -912,7 +967,7 @@ var Alchemy = {
 	},
 	
 	SelectBox : function(selector) {
-		jQuery(selector).sb({animDuration: 0, fixedWidth: true});
+		jQuery(selector).sb({animDuration: 0, fixedWidth: false});
 	},
 	
 	Buttons : function(options) {
@@ -1008,6 +1063,21 @@ var Alchemy = {
 		jQuery('#main_navi a').click(function(event) {
 			if (!Alchemy.checkPageDirtyness(event.currentTarget, texts)) {
 				event.preventDefault();
+			}
+		});
+	},
+	
+	DraggableTrashItems: function() {
+		jQuery("#trash_items div.draggable").draggable({
+			helper: 'clone',
+			iframeFix: 'iframe#alchemyPreviewWindow',
+			connectToSortable: '#element_area',
+			start: function(event, ui) { 
+				jQuery(this).hide().addClass('dragged');
+				ui.helper.css({width: '300px'});
+			},
+			stop: function() {
+				jQuery(this).show().removeClass('dragged');
 			}
 		});
 	},

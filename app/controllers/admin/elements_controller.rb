@@ -24,6 +24,13 @@ class Admin::ElementsController < AlchemyController
     render :layout => false
   end
   
+  def trashed
+    @page = Page.find_by_id(params[:page_id])
+    @elements = Element.trashed(@page)
+    @allowed_elements = Element.all_for_page(@page)
+    render :layout => false
+  end
+  
   def new
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
@@ -92,6 +99,15 @@ class Admin::ElementsController < AlchemyController
     end
   end
   
+  # Trashes the Element instead of deleting it.
+  def trash
+    @element = Element.find(params[:id])
+    @page_id = @element.page.id
+    @element.trash
+  rescue Exception => e
+    exception_handler(e)
+  end
+  
   # Deletes the element with ajax and sets session[:clipboard].nil
   def destroy
     @element = Element.find_by_id(params[:id])
@@ -106,12 +122,17 @@ class Admin::ElementsController < AlchemyController
   end
   
   def order
+    page = Page.find(params[:page_id])
     for element in params[:element_ids]
       element = Element.find(element)
+      if element.trashed?
+        element.page = page
+      end
       element.move_to_bottom
     end
     render :update do |page|
       Alchemy::Notice.show(page, _("successfully_saved_element_position"))
+      page << "jQuery('#element_area .ajax_folder').show()"
       page << "Alchemy.PreviewWindow.refresh()"
     end
   rescue Exception => e

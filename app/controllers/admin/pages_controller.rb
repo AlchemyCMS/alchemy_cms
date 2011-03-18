@@ -228,7 +228,7 @@ class Admin::PagesController < AlchemyController
     render :update do |page|
       Alchemy::Notice.show(page, _("Pages order saved"))
       page.replace 'sitemap', :partial => 'sitemap'
-      page.hide "page_sorting_notice"
+      page.hide "bottom_panel"
       page << "jQuery('#page_sorting_button').removeClass('active')"
       page << "Alchemy.pleaseWaitOverlay(false)"
       page << "Alchemy.Tooltips()"

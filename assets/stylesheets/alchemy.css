@@ -523,6 +523,7 @@ div.info {
 	border-radius: 3px;
 	background-color: #eaf4f9;
 	position: relative;
+	margin-bottom: 8px;
 }
 
 div.info.footnote {
@@ -531,11 +532,25 @@ div.info.footnote {
 }
 
 div#bottom_panel {
-	position: absolute;
-	bottom: 16px;
-	right: 0;
-	width: 100%;
+	position: fixed;
+	bottom: 0;
 	z-index: 10;
+	width: 100%;
+	right: 0;
+	padding-top: 8px;
+	border-top: 1px solid #afafaf;
+	background: #e3e3e3 url(../../images/alchemy/gui/shading.png) 0 -3px;
+}
+
+div#bottom_buttons {
+	margin-left: 80px;
+	padding: 16px 8px 12px;
+}
+
+div#bottom_panel div.info {
+	margin-left: 88px;
+	margin-right: 24px;
+	margin-bottom: 0;
 }
 
 div#page_sorting_notice.info {
@@ -1617,7 +1632,7 @@ ul#layoutpages.list li {
 }
 
 ul#sitemap.list {
-	padding: 0 16px 8px;
+	padding: 0 16px 90px;
 }
 
 #sitemap .drop_hover {
@@ -2385,6 +2400,14 @@ span.icon.clipboard {
 
 span.icon.clipboard.full {
 	background-position: -160px -56px;
+}
+
+span.icon.trash {
+	background-position: -176px -56px;
+}
+
+span.icon.trash.full {
+	background-position: -192px -56px;
 }
 
 a.icon.file_download {
