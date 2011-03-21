@@ -272,6 +272,10 @@ class Element < ActiveRecord::Base
     !contents.detect(&:has_validations?).blank?
   end
   
+  def rtf_contents
+    contents.select { |content| content.essence_type == 'EssenceRichtext' }
+  end
+  
 private
   
   # List all elements by from page_layout

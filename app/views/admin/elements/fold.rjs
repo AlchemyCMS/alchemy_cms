@@ -9,13 +9,13 @@ else
   )
   page << "jQuery('#element_area').sortable('refresh')"
   if @element.folded
-    @richtext_contents.each do |content|
+    @element.rtf_contents.each do |content|
       page << "tinymce.get('contents_content_#{content.id}_body').remove()"
     end
   else
     page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
     page << "Alchemy.SelectBox('#element_#{@element.id} select')"
-    @richtext_contents.each do |content|
+    @element.rtf_contents.each do |content|
       page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
     end
     page << "Alchemy.ElementDirtyObserver('#element_#{@element.id}')"

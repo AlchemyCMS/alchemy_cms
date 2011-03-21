@@ -49,7 +49,6 @@ class Admin::ElementsController < AlchemyController
       end
     end
     if @element.save
-      @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
       @page = @element.page
     else
       render_remote_errors(@element)
@@ -101,19 +100,6 @@ class Admin::ElementsController < AlchemyController
     exception_handler(e)
   end
   
-  # Deletes the element with ajax and sets session[:clipboard].nil
-  def destroy
-    @element = Element.find_by_id(params[:id])
-    @page = @element.page
-    if @element.destroy
-      unless session[:clipboard].nil?
-        session[:clipboard] = nil if session[:clipboard][:element_id] == params[:id]
-      end
-    end
-  rescue Exception => e
-    exception_handler(e)
-  end
-  
   def order
     page = Page.find(params[:page_id])
     for element in params[:element_ids]
@@ -136,7 +122,6 @@ class Admin::ElementsController < AlchemyController
     @element = Element.find(params[:id])
     @element.folded = !@element.folded
     @element.save(false)
-    @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
   rescue Exception => e
     exception_handler(e)
   end
