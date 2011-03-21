@@ -24,13 +24,6 @@ class Admin::ElementsController < AlchemyController
     render :layout => false
   end
   
-  def trashed
-    @page = Page.find_by_id(params[:page_id])
-    @elements = Element.trashed(@page)
-    @allowed_elements = Element.all_for_page(@page)
-    render :layout => false
-  end
-  
   def new
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build

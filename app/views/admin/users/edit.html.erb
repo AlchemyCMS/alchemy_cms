@@ -1,1 +1,6 @@
-<%= render :partial => "form" %>
+<div id="user_edit">
+	<% remote_form_for [:admin, @user] do |f| %>
+		<div id="errors" style="display: none"></div>
+		<%= render :partial => 'table', :locals => {:f => f} %>
+	<% end %>
+</div>

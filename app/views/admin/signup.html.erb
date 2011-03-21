@@ -1,66 +1,16 @@
 <%- alchemy_combined_assets -%>
 
 <div id="alchemy_greeting">
-    <%= image_tag("alchemy/alchemy-logo.png") %>
-    <h1><%= _('Welcome to Alchemy') %></h1>
-    <p>
-        <%= _("Please Signup") %>
-    </p>
+	<%= image_tag("alchemy/alchemy-logo.png") %>
+	<h1><%= _('Welcome to Alchemy') %></h1>
+	<p>
+		<%= _("Please Signup") %>
+	</p>
 </div>
 
 <div id="user_signup" class="login_signup_box">
-    <% form_for @user, :url => {:action => 'signup'} do |f| %>
-        <%= f.error_messages %>
-        <table>
-            <tr>
-                <td class="label"><%= f.label 'gender', User.human_attribute_name(:gender) %></td>
-                <td><%= f.select 'gender', User.genders_for_select, :class => 'medium_long' -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'firstname', User.human_attribute_name(:firstname) %></td>
-                <td><%= f.text_field 'firstname', :class => 'thin_border medium_long' -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'lastname', User.human_attribute_name(:lastname) %></td>
-                <td><%= f.text_field 'lastname', :class => 'thin_border medium_long' -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'login', User.human_attribute_name(:login) %><small>*</small></td>
-                <td><%= f.text_field 'login', :class => 'thin_border medium_long' -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'email', User.human_attribute_name(:email) %><small>*</small></td>
-                <td><%= f.text_field 'email', :class => 'thin_border medium_long' -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'language', User.human_attribute_name(:language) %><small>*</small></td>
-                <td><%= f.select 'language', translations_for_select, :class => 'medium_long' -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'password', User.human_attribute_name(:password) %><small>*</small></td>
-                <td><%= f.password_field 'password', :class => 'thin_border medium_long', :autocomplete => "off" -%></td>
-            </tr>
-            <tr>
-                <td class="label"><%= f.label 'password_confirmation', User.human_attribute_name(:password_confirmation) %><small>*</small></td>
-                <td><%= f.password_field 'password_confirmation', :class => 'thin_border medium_long', :autocomplete => "off" -%></td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td>
-                    <%= check_box_tag('send_credentials', true, true) %>
-                    <%= label_tag('send_credentials', _('Send email with credentials')) %>
-                </td>
-            </tr>
-            <tr>
-                <td  class="submit" colspan="2">
-                    <%= f.submit _('save'), :class => 'button' %>
-                </td>
-            </tr>
-        </table>
-        <p class="foot_note">
-            <small>*</small><%= _("mandatory fields") %>
-        </p>
-    <% end %>
+	<% form_for @user, :url => '/admin/signup' do |f| %>
+		<%= f.error_messages %>
+		<%= render :partial => 'admin/users/table', :locals => {:f => f} %>
+	<% end %>
 </div>

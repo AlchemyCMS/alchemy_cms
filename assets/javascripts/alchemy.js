@@ -885,7 +885,7 @@ var Alchemy = {
 			hide: "fade",
 			open: function (event, ui) {
 				jQuery.ajax({
-					url: '/admin/elements/trashed?page_id=' + page_id,
+					url: '/admin/trash?page_id=' + page_id,
 					success: function(data, textStatus, XMLHttpRequest) {
 						$dialog.html(data);
 						$dialog.css({overflow: 'visible'}).dialog('widget').css({overflow: 'visible'});
@@ -904,7 +904,7 @@ var Alchemy = {
 	refreshTrashWindow: function(page_id) {
 		if (jQuery('#alchemyTrashWindow').length > 0) {
 			jQuery('#alchemyTrashWindow').html(Alchemy.getOverlaySpinner({x: 380, y: 270}));
-			jQuery.get('/admin/elements/trashed?page_id='+page_id, function(html) {
+			jQuery.get('/admin/trash?page_id='+page_id, function(html) {
 				jQuery('#alchemyTrashWindow').html(html);
 			});
 		}

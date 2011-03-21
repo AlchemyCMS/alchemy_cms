@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-18 11:39+0100\n"
+"POT-Creation-Date: 2011-03-21 16:46+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,10 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Dateigröße"
 
+#: app/controllers/admin/trash_controller.rb:15
+msgid "Cleared trash"
+msgstr "Der Papierkorb wurde entleert"
+
 #: app/views/admin/pictures/_picture.html.erb:34
 msgid "Click to rename"
 msgstr "Klicken zum umbenennen"
@@ -97,11 +101,21 @@ msgstr "Bild löschen"
 
 #: app/views/admin/clipboard/index.html.erb:15
 msgid "Do you really want to clear the clipboard?"
-msgstr "Wollen Sie die Zwischenablage wirklich leeren?"
+msgstr "Wollen Sie die Zwischenablage wirklich entleeren?"
+
+#: app/views/admin/trash/index.html.erb:16
+msgid "Do you really want to clear the trash?"
+msgstr "Wollen Sie den Papierkorb wirklich entleeren?"
 
 #: app/views/essences/_essence_text_editor.html.erb:46
 msgid "Do you really want to delete this content?"
 msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
+
+#: app/views/admin/trash/index.html.erb:9
+msgid "Drag an element over to the element window to restore it."
+msgstr ""
+"Ziehen Sie ein Element mit der Maus in das Elemente Fenster, um es wieder "
+"herzustellen."
 
 #: app/views/essences/_essence_picture_tools.html.erb:6
 #: app/views/essences/_essence_picture_tools.html.erb:7
@@ -165,12 +179,12 @@ msgstr "%{name} wurde gelöscht"
 #: app/views/admin/pages/index.html.erb:47
 #: app/views/admin/pages/index.html.erb:49
 msgid "Flush page cache"
-msgstr "Seitencache leeren"
+msgstr "Seitencache löschen"
 
 #: app/views/admin/pictures/index.html.erb:28
 #: app/views/admin/pictures/index.html.erb:30
 msgid "Flush picture cache"
-msgstr "Bildercache leeren"
+msgstr "Bildercache löschen"
 
 #: app/views/mailer/new_alchemy_user_mail.erb:13
 msgid "Have much fun with Alchemy!"
@@ -208,7 +222,7 @@ msgstr "Bild wurde gespeichert"
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/elements_controller.rb:93
+#: app/controllers/admin/elements_controller.rb:88
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 "Indizierungsfehler beim Speichern des Elements. Bitte erneut versuchen!"
@@ -475,7 +489,7 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Bitte überprüfen Sie die markierten Felder."
 
-#: app/helpers/alchemy_helper.rb:774 app/views/admin/users/_form.html.erb:7
+#: app/helpers/alchemy_helper.rb:774 app/views/admin/users/_table.html.erb:4
 #: lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr "Bitte wählen"
@@ -522,7 +536,7 @@ msgstr "Diesen Inhalt entfernen"
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
-#: app/views/admin/signup.html.erb:53 app/views/admin/users/_form.html.erb:47
+#: app/views/admin/users/_table.html.erb:42
 msgid "Send email with credentials"
 msgstr "Sende Benutzerdaten per Email"
 
@@ -549,8 +563,8 @@ msgstr "Unterseiten anzeigen"
 msgid "Show clipboard"
 msgstr "Zwischenablage anzeigen"
 
-#: app/views/admin/elements/list.html.erb:42
-#: app/views/admin/elements/list.html.erb:44
+#: app/views/admin/elements/list.html.erb:36
+#: app/views/admin/elements/list.html.erb:38
 msgid "Show trash"
 msgstr "Papierkorb anzeigen"
 
@@ -604,7 +618,7 @@ msgstr ""
 "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden "
 "Link"
 
-#: app/views/admin/elements/list.html.erb:36
+#: locale/missing_translations.rb:3
 msgid "Trash"
 msgstr "Papierkorb"
 
@@ -676,7 +690,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/controllers/admin/elements_controller.rb:78
+#: app/controllers/admin/elements_controller.rb:73
 #: app/views/admin/elements/_element.html.erb:11
 msgid "Validation failed."
 msgstr "Pflichtfelder wurden nicht ausgefüllt."
@@ -788,7 +802,7 @@ msgstr "Ihre Zugangsdaten lauten"
 msgid "Your last updated pages"
 msgstr "Ihre zuletzt bearbeiteten Seiten"
 
-#: app/views/admin/elements/trashed.html.erb:3
+#: app/views/admin/trash/index.html.erb:4
 msgid "Your trash is empty"
 msgstr "Der Papierkorb ist leer"
 
@@ -861,7 +875,7 @@ msgstr "große Miniaturbilder"
 msgid "browse"
 msgstr "durchsuchen"
 
-#: app/views/admin/pages/index.html.erb:95
+#: app/views/admin/pages/index.html.erb:96
 #: app/views/admin/pictures/index.html.erb:50
 msgid "cancel"
 msgstr "abbrechen"
@@ -880,7 +894,11 @@ msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
 #: app/views/admin/clipboard/index.html.erb:15
 msgid "clear clipboard"
-msgstr "Zwischenablage leeren"
+msgstr "Zwischenablage entleeren"
+
+#: app/views/admin/trash/index.html.erb:16
+msgid "clear trash"
+msgstr "Papierkorb entleeren"
 
 #: app/helpers/alchemy_helper.rb:765
 #: app/views/admin/partials/_remote_search_form.html.erb:30
@@ -1147,7 +1165,7 @@ msgstr "Dateien"
 msgid "height"
 msgstr "Höhe"
 
-#: app/views/admin/elements/_element_head.html.erb:27
+#: app/views/admin/elements/_element_head.html.erb:25
 msgid "hide_element_content"
 msgstr "Element einklappen"
 
@@ -1252,10 +1270,6 @@ msgstr "Empfängeradresse"
 #: app/models/user.rb:55
 msgid "male"
 msgstr "Herr"
-
-#: app/views/admin/signup.html.erb:63
-msgid "mandatory fields"
-msgstr "Pflichtfelder"
 
 #: app/views/admin/pictures/_filter_and_size_bar.html.erb:33
 msgid "medium_thumbnails"
@@ -1546,11 +1560,11 @@ msgstr "durch Robot indizieren"
 #: app/views/admin/pages/configure.html.erb:68
 #: app/views/admin/pages/configure_external.html.erb:37
 #: app/views/admin/pictures/index.html.erb:49
-#: app/views/admin/signup.html.erb:58 app/views/admin/users/_form.html.erb:52
+#: app/views/admin/users/_table.html.erb:47
 msgid "save"
 msgstr "speichern"
 
-#: app/views/admin/pages/index.html.erb:96
+#: app/views/admin/pages/index.html.erb:97
 msgid "save order"
 msgstr "Sortierung speichern"
 
@@ -1577,7 +1591,7 @@ msgstr "Suchmaschinen"
 msgid "select_element"
 msgstr "Element wählen"
 
-#: app/views/admin/elements/_element_head.html.erb:27
+#: app/views/admin/elements/_element_head.html.erb:25
 msgid "show_element_content"
 msgstr "Element ausklappen"
 
@@ -1607,11 +1621,11 @@ msgstr "kleine Miniaturbilder"
 msgid "subject"
 msgstr "Betreff"
 
-#: app/views/admin/elements/create.rjs:8
+#: app/views/admin/elements/create.rjs:9
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:131
+#: app/controllers/admin/elements_controller.rb:127
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 

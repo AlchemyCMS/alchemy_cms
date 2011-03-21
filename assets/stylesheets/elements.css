@@ -52,12 +52,15 @@ img.add_element_spinner {
 }
 
 .element_handle {
-	cursor: move;
 	width: 18px;
 	height: 18px;
 	position: absolute;
 	left: 8px;
 	top: 9px;
+}
+
+.draggable .element_handle {
+	cursor: move;
 }
 
 .element_handle .element_icon {
@@ -187,6 +190,11 @@ div.element_editor {
 	margin-bottom: 8px;
 }
 
+div.element_editor.not-draggable {
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+}
+
 div.element_editor.dirty {
 	border-color: #d0c83d;
 }
@@ -244,6 +252,9 @@ a.element_move_button {
 	border-top-color: #e3e3e3;
 	height: 20px;
 	background-color: #e5dcca;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 form.add_gallery_to_index {

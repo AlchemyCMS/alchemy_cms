@@ -10,8 +10,6 @@ class Element < ActiveRecord::Base
   validates_uniqueness_of :position, :scope => :page_id
   validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
   
-  #before_destroy :remove_contents
-  
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
@@ -54,12 +52,6 @@ class Element < ActiveRecord::Base
   def trashed?
     page_id.nil?
   end
-  
-  # def remove_contents
-  #   self.contents.each do |content|
-  #     content.destroy
-  #   end
-  # end
   
   def content_by_name(name)
     self.contents.find_by_name(name)
@@ -284,18 +276,19 @@ private
   
   # List all elements by from page_layout
   def self.all_for_page(page)
+    elements_for_layout = []
     element_descriptions = Element.descriptions
     element_names = Alchemy::PageLayout.element_names_for(page.page_layout)
     return [] if element_names.blank?
-    return element_descriptions if element_names == "all"
-    elements_for_layout = []
-    for element_description in element_descriptions do
-      if element_names.include?(element_description["name"])# TODO: && unique and not already on page
-        elements_for_layout << element_description
+    if element_names == "all"
+      elements_for_layout = element_descriptions
+    else
+      for element_description in element_descriptions do
+        if element_names.include?(element_description["name"])
+          elements_for_layout << element_description
+        end
       end
     end
-    
-    #TODO: refactor this and place as condition in the above collect
     # all unique elements from this layout
     unique_elements = elements_for_layout.select{ |m| m["unique"] == true }
     elements_already_on_the_page = page.elements
@@ -307,7 +300,6 @@ private
         end
       end
     end
-    
     return elements_for_layout
   end
   

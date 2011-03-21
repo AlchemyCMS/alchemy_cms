@@ -1,5 +1,5 @@
 <div class="element_editor<%= element.folded ? ' folded' : '' %> <%= draggable ? 'draggable' : 'not-draggable'  %>" id="element_<%= element.id %>">
-	<%= render :partial => "element_head", :locals => {:element => element} %>
+	<%= render :partial => "admin/elements/element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
 		<% form_remote_tag(
 			:url => admin_element_path(element),
@@ -19,7 +19,7 @@
 				<span class="validation_indicator">*</span> <%= _('Mandatory') %>
 			</p>
 			<%- end -%>
-			<%= render :partial => 'element_foot', :locals => {:element => element} %>
+			<%= render :partial => 'admin/elements/element_foot', :locals => {:element => element} %>
 		<% end %>
 	<%- end -%>
 </div>

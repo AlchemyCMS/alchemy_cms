@@ -18,9 +18,9 @@ class AdminController < AlchemyController
   def signup
     if request.get?
       redirect_to admin_path if User.count != 0
-      @user = User.new
+      @user = User.new({:role => 'admin'})
     else
-      @user = User.new(params[:user].merge({:role => 'admin'}))
+      @user = User.new(params[:user])
       if @user.save
         if params[:send_credentials]
           Mailer.deliver_new_alchemy_user_mail(@user, request)

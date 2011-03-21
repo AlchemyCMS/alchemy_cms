@@ -15,8 +15,7 @@ ActionController::Routing::Routes.draw do |map|
       :shallow => true,
       :collection => {
         :list => :get, 
-        :order => :post,
-        :trashed => :get
+        :order => :post
       }, 
       :member => {
         :fold => :post,
@@ -70,6 +69,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :essence_videos
     admin.resources :languages
     admin.resources :clipboard, :only => :index, :collection => {:clear => :delete, :insert => :post, :remove => :delete}
+    admin.resources :trash, :only => [:index], :collection => {:clear => :delete}
   end
   map.resources :user_sessions
   map.resources :elements, :only => :show

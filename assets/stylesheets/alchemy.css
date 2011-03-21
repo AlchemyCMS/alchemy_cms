@@ -532,28 +532,14 @@ div.info.footnote {
 }
 
 div#bottom_panel {
-	position: fixed;
-	bottom: 0;
-	z-index: 10;
-	width: 100%;
+	position: absolute;
+	bottom: 16px;
 	right: 0;
-	padding-top: 8px;
-	border-top: 1px solid #afafaf;
-	background: #e3e3e3 url(../../images/alchemy/gui/shading.png) 0 -3px;
+	width: 100%;
+	z-index: 10;
 }
 
-div#bottom_buttons {
-	margin-left: 80px;
-	padding: 16px 8px 12px;
-}
-
-div#bottom_panel div.info {
-	margin-left: 88px;
-	margin-right: 24px;
-	margin-bottom: 0;
-}
-
-div#page_sorting_notice.info {
+div#page_sorting_panel.info {
 	margin-left: 16px;
 	margin-right: 16px;
 }
@@ -1465,7 +1451,7 @@ span.icon.sort {
 	background-position: -64px -104px;
 }
 
-#page_sorting_notice p {
+#page_sorting_panel p {
 	margin-top: 1em;
 }
 
@@ -1632,7 +1618,7 @@ ul#layoutpages.list li {
 }
 
 ul#sitemap.list {
-	padding: 0 16px 90px;
+	padding: 0 16px 8px;
 }
 
 #sitemap .drop_hover {

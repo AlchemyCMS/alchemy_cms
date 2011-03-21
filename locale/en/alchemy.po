@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-18 11:39+0100\n"
+"POT-Creation-Date: 2011-03-21 16:46+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,10 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Filesize"
 
+#: app/controllers/admin/trash_controller.rb:15
+msgid "Cleared trash"
+msgstr ""
+
 #: app/views/admin/pictures/_picture.html.erb:34
 msgid "Click to rename"
 msgstr ""
@@ -97,8 +101,16 @@ msgstr "Remove this image."
 msgid "Do you really want to clear the clipboard?"
 msgstr ""
 
+#: app/views/admin/trash/index.html.erb:16
+msgid "Do you really want to clear the trash?"
+msgstr ""
+
 #: app/views/essences/_essence_text_editor.html.erb:46
 msgid "Do you really want to delete this content?"
+msgstr ""
+
+#: app/views/admin/trash/index.html.erb:9
+msgid "Drag an element over to the element window to restore it."
 msgstr ""
 
 #: app/views/essences/_essence_picture_tools.html.erb:6
@@ -204,7 +216,7 @@ msgstr ""
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
-#: app/controllers/admin/elements_controller.rb:93
+#: app/controllers/admin/elements_controller.rb:88
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 
@@ -469,7 +481,7 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Please check marked fields below"
 
-#: app/helpers/alchemy_helper.rb:774 app/views/admin/users/_form.html.erb:7
+#: app/helpers/alchemy_helper.rb:774 app/views/admin/users/_table.html.erb:4
 #: lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr ""
@@ -514,7 +526,7 @@ msgstr ""
 msgid "Select an content"
 msgstr ""
 
-#: app/views/admin/signup.html.erb:53 app/views/admin/users/_form.html.erb:47
+#: app/views/admin/users/_table.html.erb:42
 msgid "Send email with credentials"
 msgstr ""
 
@@ -541,8 +553,8 @@ msgstr ""
 msgid "Show clipboard"
 msgstr ""
 
-#: app/views/admin/elements/list.html.erb:42
-#: app/views/admin/elements/list.html.erb:44
+#: app/views/admin/elements/list.html.erb:36
+#: app/views/admin/elements/list.html.erb:38
 msgid "Show trash"
 msgstr ""
 
@@ -591,7 +603,7 @@ msgstr ""
 msgid "To manage your website open a browser and go to"
 msgstr ""
 
-#: app/views/admin/elements/list.html.erb:36
+#: locale/missing_translations.rb:3
 msgid "Trash"
 msgstr ""
 
@@ -663,7 +675,7 @@ msgstr "Password confirmation"
 msgid "User|Role"
 msgstr "Userrole"
 
-#: app/controllers/admin/elements_controller.rb:78
+#: app/controllers/admin/elements_controller.rb:73
 #: app/views/admin/elements/_element.html.erb:11
 msgid "Validation failed."
 msgstr ""
@@ -763,7 +775,7 @@ msgstr ""
 msgid "Your last updated pages"
 msgstr ""
 
-#: app/views/admin/elements/trashed.html.erb:3
+#: app/views/admin/trash/index.html.erb:4
 msgid "Your trash is empty"
 msgstr ""
 
@@ -836,7 +848,7 @@ msgstr "Big thumbnails"
 msgid "browse"
 msgstr "browse"
 
-#: app/views/admin/pages/index.html.erb:95
+#: app/views/admin/pages/index.html.erb:96
 #: app/views/admin/pictures/index.html.erb:50
 msgid "cancel"
 msgstr ""
@@ -855,6 +867,10 @@ msgstr "Please choose a file to link"
 
 #: app/views/admin/clipboard/index.html.erb:15
 msgid "clear clipboard"
+msgstr ""
+
+#: app/views/admin/trash/index.html.erb:16
+msgid "clear trash"
 msgstr ""
 
 #: app/helpers/alchemy_helper.rb:765
@@ -1117,7 +1133,7 @@ msgstr "files"
 msgid "height"
 msgstr "Height"
 
-#: app/views/admin/elements/_element_head.html.erb:27
+#: app/views/admin/elements/_element_head.html.erb:25
 msgid "hide_element_content"
 msgstr "Hide this elements content."
 
@@ -1222,10 +1238,6 @@ msgstr "Recipient"
 #: app/models/user.rb:55
 msgid "male"
 msgstr "Male"
-
-#: app/views/admin/signup.html.erb:63
-msgid "mandatory fields"
-msgstr "Mandatory fields"
 
 #: app/views/admin/pictures/_filter_and_size_bar.html.erb:33
 msgid "medium_thumbnails"
@@ -1516,11 +1528,11 @@ msgstr "allow robot to index."
 #: app/views/admin/pages/configure.html.erb:68
 #: app/views/admin/pages/configure_external.html.erb:37
 #: app/views/admin/pictures/index.html.erb:49
-#: app/views/admin/signup.html.erb:58 app/views/admin/users/_form.html.erb:52
+#: app/views/admin/users/_table.html.erb:47
 msgid "save"
 msgstr "save"
 
-#: app/views/admin/pages/index.html.erb:96
+#: app/views/admin/pages/index.html.erb:97
 msgid "save order"
 msgstr ""
 
@@ -1547,7 +1559,7 @@ msgstr "Searchengines"
 msgid "select_element"
 msgstr "Select element"
 
-#: app/views/admin/elements/_element_head.html.erb:27
+#: app/views/admin/elements/_element_head.html.erb:25
 msgid "show_element_content"
 msgstr "Show content of this element."
 
@@ -1577,11 +1589,11 @@ msgstr "Small thumbnails"
 msgid "subject"
 msgstr ""
 
-#: app/views/admin/elements/create.rjs:8
+#: app/views/admin/elements/create.rjs:9
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
-#: app/controllers/admin/elements_controller.rb:131
+#: app/controllers/admin/elements_controller.rb:127
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
