@@ -901,7 +901,7 @@ msgstr ""
 #: app/views/admin/pages/_page.html.erb:57
 #: app/views/admin/pages/_sitemap.html.erb:45
 msgid "confirm_to_delete_page"
-msgstr "Do you really want to delete this page?"
+msgstr "Do you really want to delete this page? All contents will then be gone for ever!"
 
 #: app/views/admin/users/_user.html.erb:14
 msgid "confirm_to_delete_user"
