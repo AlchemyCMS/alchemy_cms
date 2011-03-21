@@ -56,7 +56,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
         script/plugin install git://github.com/technoweenie/attachment_fu.git
         script/plugin install git://github.com/iain/i18n_label.git
         script/plugin install git://github.com/aaronchi/jrails.git
-        script/plugin install git://github.com/trevorrowe/tinymce_hammer.git
+        script/plugin install git://github.com/tvdeyen/tinymce_hammer.git
         script/plugin install git://github.com/delynn/userstamp.git
 
 4. Then create your database and migrate:
