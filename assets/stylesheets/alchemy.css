@@ -3401,24 +3401,12 @@ div.info ol li {
 }
 
 div#overlay_toolbar {
-	margin: -8px -8px 4px;
-	padding: 6px 8px 8px;
 	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -42px;
 	border: 1px solid #afafaf;
 	height: 38px;
 	border-left-style: none;
 	border-right-style: none;
-}
-
-#alchemyElementWindow div#overlay_toolbar {
-	padding: 6px 0 4px;
-	height: 44px;
-	border-right-style: none;
-	border-left-style: none;
-	position: fixed;
-	z-index: 10;
-	width: 422px;
-	margin: -57px 0 0;
+	padding: 8px;
 }
 
 #overlay_toolbar div.js_filter_field_box {

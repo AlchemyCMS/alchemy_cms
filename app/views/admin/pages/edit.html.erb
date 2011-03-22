@@ -84,7 +84,7 @@
 		<div class="button_with_label" id="show_preview_window">
 			<%= link_to_function(
 				render_icon('preview_window'),
-				"Alchemy.openPreviewWindow('#{admin_page_url(@page)}', '#{_('Page Preview')}')",
+				"openPreviewWindow()",
 				{
 					:title => _('Show Preview Window'),
 					:class => 'icon_button'
@@ -95,7 +95,7 @@
 		<div class="button_with_label" id="show_element_window">
 			<%= link_to_function(
 				render_icon('element_window'),
-				"Alchemy.openElementsWindow('#{list_admin_elements_path(:page_id => @page.id)}', {title: '#{ _('Elements') }', dirtyTitle: '#{ _("Warning!") }', dirtyMessage: '#{ _("You have unsaved elements. Do you really want to close the elements window?") }', okLabel: '#{ _("Yes") }', cancelLabel: '#{ _("No") }'})",
+				"openElementsWindow()",
 				{
 					:title => _('Show Elements Window'),
 					:class => 'icon_button'
@@ -107,26 +107,79 @@
 </div>
 <%- end -%>
 <%- content_for :javascripts do -%>
-	<script type="text/javascript" charset="utf-8">
-	//<!--[CDATA[
-		jQuery(document).ready(function() {
-			Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>',
+<script type="text/javascript" charset="utf-8">
+	
+	function openPreviewWindow() {
+		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _("Page Preview") %>');
+	}
+	
+	function openElementsWindow() {
+		Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', {
+			texts: {
+				title: '<%= _("Elements") %>',
+				dirtyTitle: '<%= _("Warning!") %>',
+				dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") %>',
+				okLabel: '<%= _("Yes") %>',
+				cancelLabel: '<%= _("No") %>'
+			},
+			toolbarButtons: [
 				{
-					title: '<%= _('Elements') %>',
-					dirtyTitle: '<%= _("Warning!") %>',
-					dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") %>',
-					okLabel: '<%= _("Yes") %>',
-					cancelLabel: '<%= _("No") %>'
+					title: '<%= _("New Element") %>',
+					label: '<%= _("New Element") %>',
+					iconClass: 'new_element',
+					onClick: function() {
+						Alchemy.openWindow(
+							'<%= new_admin_element_path(:page_id => @page.id) %>',
+							'<%= _("New Element") %>',
+							'390',
+							'50',
+							false,
+							true,
+							true
+						);
+					}
+				},
+				{
+					title: '<%= _("Clipboard") %>',
+					label: '<%= _("Show clipboard") %>',
+					iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
+					buttonId: 'clipboard_button',
+					onClick: function() {
+						Alchemy.openWindow(
+							'<%= admin_clipboard_index_path(:remarkable_type => "element") %>',
+							'<%= _("Clipboard") %>',
+							'380',
+							'270',
+							false,
+							true,
+							true
+						);
+					}
+				},
+				{
+					title: '<%= _("Show trash") %>',
+					label: '<%= _("Show trash") %>',
+					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
+					buttonId: 'element_trash_button',
+					onClick: function() {
+						Alchemy.openTrashWindow(<%= @page.id %>, '<%= _("Trash") %>');
+					}
 				}
-			);
-			Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
+			]
 		});
-		Alchemy.PageLeaveObserver({
-			title: '<%= _("Warning!") %>',
-			message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") %>',
-			okLabel: '<%= _("Yes") %>',
-			cancelLabel: '<%= _("No") %>'
-		});
-	//]]-->
-	</script>
+	}
+	
+	jQuery(document).ready(function() {
+		openElementsWindow();
+		openPreviewWindow();
+	});
+	
+	Alchemy.PageLeaveObserver({
+		title: '<%= _("Warning!") %>',
+		message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") %>',
+		okLabel: '<%= _("Yes") %>',
+		cancelLabel: '<%= _("No") %>'
+	});
+	
+</script>
 <%- end -%>

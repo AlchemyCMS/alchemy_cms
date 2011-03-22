@@ -166,7 +166,7 @@ var Alchemy = {
 		}
 	},
 	
-	openElementsWindow : function (path, text) {
+	openElementsWindow : function (path, options) {
 		var $dialog = jQuery('<div style="display: none" id="alchemyElementWindow"></div>');
 		var closeCallback = function() {
 			$dialog.dialog("destroy");
@@ -179,11 +179,14 @@ var Alchemy = {
 			minWidth: 422, 
 			minHeight: 300,
 			height: jQuery(window).height() - 94,
-			title: text.title,
+			title: options.texts.title,
 			show: "fade",
 			hide: "fade",
 			position: [jQuery(window).width() - 432, 84],
 			closeOnEscape: false,
+			create: function() {
+				$dialog.before(Alchemy.createElementWindowToolbar(options.toolbarButtons));
+			},
 			open: function(event, ui) {
 				Alchemy.ElementsWindowButton.disable();
 				jQuery.ajax({
@@ -199,10 +202,10 @@ var Alchemy = {
 			beforeClose : function() {
 				if (Alchemy.isPageDirty()) {
 					Alchemy.openConfirmWindow({
-						title: text.dirtyTitle,
-						message: text.dirtyMessage,
-						okLabel: text.okLabel,
-						cancelLabel: text.cancelLabel,
+						title: options.texts.dirtyTitle,
+						message: options.texts.dirtyMessage,
+						okLabel: options.texts.okLabel,
+						cancelLabel: options.texts.cancelLabel,
 						okCallback: closeCallback
 					});
 					return false;
@@ -212,6 +215,34 @@ var Alchemy = {
 			},
 			close: closeCallback
 		});
+	},
+	
+	createElementWindowToolbar : function(buttons) {
+		var $toolbar = jQuery('<div id="overlay_toolbar"></div>'), btn;
+		for (i = 0; i < buttons.length; i++) {
+			btn = buttons[i];
+			$toolbar.append(
+				Alchemy.createToolbarButton({
+					buttonTitle: btn.title, 
+					buttonLabel: btn.label, 
+					iconClass: btn.iconClass,
+					onClick: btn.onClick,
+					buttonId: btn.buttonId
+				})
+			);
+		}
+		return $toolbar;
+	},
+	
+	createToolbarButton : function(options) {
+		var $btn = jQuery('<div class="button_with_label"></div>'), $lnk;
+		if (options.buttonId) $btn.attr({'id': options.buttonId});
+		$lnk = jQuery('<a title="'+options.buttonTitle+'" class="icon_button"></a>');
+		$lnk.click(options.onClick);
+		$lnk.append('<span class="icon '+options.iconClass+'"></span>');
+		$btn.append($lnk);
+		$btn.append('<br><label>'+options.buttonLabel+'</label>');
+		return $btn;
 	},
 	
 	openConfirmWindow : function (options) {
