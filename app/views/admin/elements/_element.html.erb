@@ -7,10 +7,7 @@
 			:before => "Alchemy.saveElement(this)",
 			:id => "element_#{element.id}_form"
 		) do %>
-			<div id="element_<%= element.id %>_errors" class="element_errors" style="display: none">
-				<h2><%= _('Validation failed.') %></h2>
-				<p><%= _('Please check contents below.') %></p>
-			</div>
+			<div id="element_<%= element.id %>_errors" class="element_errors" style="display: none"></div>
 			<div id="element_<%= element.id %>_content" class="element_content">
 				<%= render_editor(element) %>
 			</div>

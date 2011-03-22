@@ -62,21 +62,53 @@ module Alchemy #:nodoc:
       # Essence Validations:
       # 
       # Essence validations can be set inside the config/elements.yml file.
-      # Currently supported validations are presence_of and uniqueness_of
+      # Currently supported validations are presence, format and uniqueness
+      # If you want to validate the format you must additionally pass validate_format_as or validate_format_with:
       # 
-      #   - name: artikel
+      # * validate_format_with has to be regex
+      # * validate_format_as can be one of url or email
+      # 
+      # Example:
+      # 
+      #   - name: person
       #     contents:  
-      #     - name: headline
+      #     - name: name
       #       type: EssenceText
-      #       validate: [presence, uniqueness]
+      #       validate: [presence]
+      #     - name: email
+      #       type: EssenceText
+      #       validate: [format]
+      #       validate_format_as: 'email'
+      #     - name: homepage
+      #       type: EssenceText
+      #       validate: [format]
+      #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
       #
       def essence_validations
         return true if description['validate'].blank?
         description['validate'].each do |validation|
           if validation == 'presence' && ingredient.blank?
-            add_essence_error validation_column.to_sym => "blank"
+            add_essence_error "blank"
+          elsif validation == 'format'
+            if description['validate_format_as'].blank? && !description['validate_format_with'].blank?
+              matcher = Regexp.new(description['validate_format_with'])
+            elsif !description['validate_format_as'].blank? && description['validate_format_with'].blank?
+              case description['validate_format_as']
+              when 'email'
+                then matcher = Authlogic::Regex.email
+              when 'url'
+                then matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+              else
+                raise "No validation format matcher found for #{description['validate_format_as']}"
+              end
+            else
+              raise 'No validation format matcher given'
+            end
+            if ingredient.match(matcher).nil?
+              add_essence_error "wrong_format"
+            end
           elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
-            add_essence_error validation_column.to_sym => "taken"
+            add_essence_error "taken"
           end
         end
       end

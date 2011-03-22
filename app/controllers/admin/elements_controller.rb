@@ -66,10 +66,11 @@ class Admin::ElementsController < AlchemyController
       @page = @element.page
       @element.public = !params[:public].nil?
       @element.save
-      @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
     else
       render :update do |page|
         Alchemy::Notice.show(page, _("Validation failed."), :warn)
+        error_message = "<h2>#{_('Validation failed.')}</h2><p>#{_('Please check contents below.')}</p>"
+        page << "jQuery('#element_#{@element.id}_errors').html('#{error_message}<ul><li>#{@element.essence_error_messages.join('</li><li>')}</li></ul>')"
         page.show("element_#{@element.id}_errors")
         selector = @element.contents_with_errors.map { |content| '#' + content_dom_id(content) }.join(', ')
         page << "jQuery('div.content_editor').removeClass('validation_failed')"

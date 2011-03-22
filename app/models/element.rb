@@ -254,14 +254,54 @@ class Element < ActiveRecord::Base
     contents.collect(&:essence)
   end
   
+  # Returns all essence_errors in the format:
+  # 
+  #   {
+  #     essence.content.name => [error_message_for_validation_1, error_message_for_validation_2]
+  #   }
+  # 
+  # Get translated error messages with Element#essence_error_messages
+  #
   def essence_errors
     essence_errors = {}
     essences.each do |essence|
       unless essence.essence_errors.blank?
-        essence_errors[essence.id] = essence.essence_errors
+        essence_errors[essence.content.name] = essence.essence_errors
       end
     end
     essence_errors
+  end
+  
+  # Essence validation errors messages are translated via I18n.
+  # Inside your translation file add translations like:
+  # 
+  #   content_validations:
+  #     name_of_the_element:
+  #       name_of_the_content:
+  #         validation_error_type: Error Message
+  # 
+  # validation_error_type has to be one of:
+  # 
+  # * blank
+  # * taken
+  # * wrong_format
+  # 
+  # Example:
+  # 
+  #   de:
+  #     content_validations:
+  #       contact:
+  #         email:
+  #           wrong_format: 'Die Email hat nicht das richtige Format'
+  # 
+  def essence_error_messages
+    messages = []
+    essence_errors.each do |content_name, errors|
+      errors.each do |error|
+        messages << I18n.t("content_validations.#{self.name}.#{content_name}.#{error}")
+      end
+    end
+    messages
   end
   
   def contents_with_errors
