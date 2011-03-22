@@ -1,0 +1,23 @@
+<div class="content_editor missing" id="element_<%= element.id %>_content_missing">
+	<label><%= I18n.t("content_names.#{element.name}.#{name}", :default => ["content_names.#{name}".to_sym, name.capitalize]) %></label>
+	<p>
+		<%= render_icon('warning') %>
+		<%= _('content_not_found') %>
+		<%= link_to_remote(
+			_('create'),
+			{
+				:url => admin_contents_path(
+					:content => {
+						:element_id => element.id,
+						:name => name
+					},
+					:was_missing => true
+				),
+				:method => 'post'
+			},
+			{
+				:class => 'button'
+			}
+		) %>
+	</p>
+</div>

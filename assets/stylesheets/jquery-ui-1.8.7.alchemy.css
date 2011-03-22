@@ -1931,7 +1931,7 @@ button.ui-button::-moz-focus-inner {
 	/*sorry for IE5*/
   position: absolute;
 	/*must have*/
-    z-index: -1;
+  z-index: -1;
 	/*must have*/
   filter: mask();
 	/*must have*/

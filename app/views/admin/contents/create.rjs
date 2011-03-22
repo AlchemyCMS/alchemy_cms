@@ -17,28 +17,46 @@ when "EssencePicture"
   page << "Alchemy.closeCurrentWindow()"
   page << "Alchemy.setElementDirty('#element_#{@element.id}')"
 when "EssenceText"
-  page.insert_html(
-    :before,
-    "add_content_for_element_#{@element.id}",
-    :partial => "essences/essence_text_editor",
-    :locals => {
-      :content => @content,
-      :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
-    }
-  )
-  page << "Alchemy.reloadPreview(); Alchemy.closeCurrentWindow();"
+  locals = {
+    :content => @content,
+    :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
+  }
+  if params[:was_missing]
+    page.replace(
+      "element_#{@element.id}_content_missing",
+      :partial => "essences/essence_text_editor",
+      :locals => locals
+    )
+  else
+    page.insert_html(
+      :before,
+      "add_content_for_element_#{@element.id}",
+      :partial => "essences/essence_text_editor",
+      :locals => locals
+    )
+    page << "Alchemy.reloadPreview(); Alchemy.closeCurrentWindow();"
+  end
 when "EssenceRichtext"
-  page.insert_html(
-    :before,
-    "add_content_for_element_#{@element.id}",
-    :partial => "essences/essence_richtext_editor",
-    :locals => {
-      :content => @content,
-      :options => (@options.nil? ? {} : @options)
-    }
-  )
-  page.call 'TinymceHammer.init'
-  page << "Alchemy.closeCurrentWindow()"
+  locals = {
+    :content => @content,
+    :options => (@options.nil? ? {} : @options)
+  }
+  if params[:was_missing]
+    page.replace(
+      "element_#{@element.id}_content_missing",
+      :partial => "essences/essence_richtext_editor",
+      :locals => locals
+    )
+  else
+    page.insert_html(
+      :before,
+      "add_content_for_element_#{@element.id}",
+      :partial => "essences/essence_richtext_editor",
+      :locals => locals
+    )
+    page << "Alchemy.closeCurrentWindow()"
+  end
+  page << "TinymceHammer.addEditor('contents_content_#{@content.id}_body')"
 else
   page.insert_html(
     :before,

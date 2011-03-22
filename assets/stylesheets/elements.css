@@ -701,6 +701,24 @@ div.content_editor {
 	position: relative;
 }
 
+div.content_editor.missing p {
+	line-height: 25px;
+	padding: 8px;
+	border: 1px solid #f5b04e;
+	background-color: #f5dea9;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 11px;
+}
+
+div.content_editor.missing p span.icon.warning {
+	position: relative;
+	top: 2px;
+	left: 2px;
+	margin-right: 8px;
+}
+
 #alchemy .ui-dialog-content div.content_editor input.auto_resize {
 	width: 97%;
 }

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-21 16:46+0100\n"
+"POT-Creation-Date: 2011-03-22 18:25+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,8 @@ msgstr "Der Papierkorb wurde entleert"
 msgid "Click to rename"
 msgstr "Klicken zum umbenennen"
 
-#: app/views/admin/elements/list.html.erb:23
+#: app/views/admin/pages/edit.html.erb:143
+#: app/views/admin/pages/edit.html.erb:150
 #: app/views/admin/pages/index.html.erb:71
 #: app/views/admin/pages/layoutpages.html.erb:61
 msgid "Clipboard"
@@ -130,7 +131,7 @@ msgstr "Element"
 msgid "Element trashed"
 msgstr "Das Element wurde in den Papierkorb gelegt"
 
-#: app/views/admin/pages/edit.html.erb:115
+#: app/views/admin/pages/edit.html.erb:119
 msgid "Elements"
 msgstr "Elemente"
 
@@ -190,7 +191,7 @@ msgstr "Bildercache löschen"
 msgid "Have much fun with Alchemy!"
 msgstr "Viel Spaß mit Alchemy!"
 
-#: app/helpers/alchemy_helper.rb:679
+#: app/helpers/alchemy_helper.rb:688
 msgid "Hide childpages"
 msgstr "Unterseiten ausblenden"
 
@@ -280,7 +281,7 @@ msgstr "Standard des Layouts"
 msgid "Logged in as"
 msgstr "Angemeldet als"
 
-#: app/views/admin/elements/_element.html.erb:19
+#: app/views/admin/elements/_element.html.erb:16
 msgid "Mandatory"
 msgstr "Pflichtfelder"
 
@@ -293,9 +294,9 @@ msgstr "Name"
 msgid "New"
 msgstr "Neu"
 
-#: app/views/admin/elements/list.html.erb:7
-#: app/views/admin/elements/list.html.erb:12
-#: app/views/admin/elements/list.html.erb:16
+#: app/views/admin/pages/edit.html.erb:127
+#: app/views/admin/pages/edit.html.erb:128
+#: app/views/admin/pages/edit.html.erb:133
 msgid "New Element"
 msgstr "Element hinzufügen"
 
@@ -303,8 +304,8 @@ msgstr "Element hinzufügen"
 msgid "New page"
 msgstr "Neue Seite"
 
-#: app/views/admin/pages/edit.html.erb:119
-#: app/views/admin/pages/edit.html.erb:128
+#: app/views/admin/pages/edit.html.erb:123
+#: app/views/admin/pages/edit.html.erb:181
 msgid "No"
 msgstr "Nein"
 
@@ -326,7 +327,7 @@ msgstr "%{name} wurde gelöscht"
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
-#: app/views/admin/pages/edit.html.erb:122
+#: app/views/admin/pages/edit.html.erb:113
 msgid "Page Preview"
 msgstr "Seitenvorschau"
 
@@ -485,11 +486,11 @@ msgstr ""
 "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin "
 "Benutzer einrichten."
 
-#: app/views/admin/elements/_element.html.erb:12
+#: locale/missing_translations.rb:4
 msgid "Please check contents below."
 msgstr "Bitte überprüfen Sie die markierten Felder."
 
-#: app/helpers/alchemy_helper.rb:774 app/views/admin/users/_table.html.erb:4
+#: app/helpers/alchemy_helper.rb:783 app/views/admin/users/_table.html.erb:4
 #: lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr "Bitte wählen"
@@ -532,7 +533,7 @@ msgstr "Inhalt aus der Zwischenablage entfernen"
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/alchemy_helper.rb:1035
+#: app/helpers/alchemy_helper.rb:1044
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -550,12 +551,11 @@ msgstr "Elementeliste anzeigen"
 msgid "Show Preview Window"
 msgstr "Seitenvorschau anzeigen"
 
-#: app/helpers/alchemy_helper.rb:676
+#: app/helpers/alchemy_helper.rb:685
 msgid "Show childpages"
 msgstr "Unterseiten anzeigen"
 
-#: app/views/admin/elements/list.html.erb:27
-#: app/views/admin/elements/list.html.erb:29
+#: app/views/admin/pages/edit.html.erb:144
 #: app/views/admin/pages/index.html.erb:75
 #: app/views/admin/pages/index.html.erb:77
 #: app/views/admin/pages/layoutpages.html.erb:65
@@ -563,8 +563,8 @@ msgstr "Unterseiten anzeigen"
 msgid "Show clipboard"
 msgstr "Zwischenablage anzeigen"
 
-#: app/views/admin/elements/list.html.erb:36
-#: app/views/admin/elements/list.html.erb:38
+#: app/views/admin/pages/edit.html.erb:160
+#: app/views/admin/pages/edit.html.erb:161
 msgid "Show trash"
 msgstr "Papierkorb anzeigen"
 
@@ -577,7 +577,7 @@ msgstr "Seiten sortieren"
 msgid "Status"
 msgstr ""
 
-#: app/views/admin/contents/create.rjs:54
+#: app/views/admin/contents/create.rjs:72
 msgid "Successfully added %{content}"
 msgstr "%{content} wurde hinzugefügt"
 
@@ -618,7 +618,7 @@ msgstr ""
 "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden "
 "Link"
 
-#: locale/missing_translations.rb:3
+#: app/views/admin/pages/edit.html.erb:165 locale/missing_translations.rb:3
 msgid "Trash"
 msgstr "Papierkorb"
 
@@ -690,8 +690,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/controllers/admin/elements_controller.rb:73
-#: app/views/admin/elements/_element.html.erb:11
+#: app/controllers/admin/elements_controller.rb:71
 msgid "Validation failed."
 msgstr "Pflichtfelder wurden nicht ausgefüllt."
 
@@ -708,12 +707,12 @@ msgstr "Datei anzeigen"
 msgid "Visit page"
 msgstr "zur Seite gehen"
 
-#: app/views/admin/pages/edit.html.erb:116
-#: app/views/admin/pages/edit.html.erb:125
+#: app/views/admin/pages/edit.html.erb:120
+#: app/views/admin/pages/edit.html.erb:178
 msgid "Warning!"
 msgstr "Achtung!"
 
-#: app/helpers/alchemy_helper.rb:295
+#: app/helpers/alchemy_helper.rb:304
 msgid "Warning: Content '%{contentname}' is missing its description."
 msgstr ""
 "Warnung: Für Content '%{contentname}' konnte die Vorlage nicht gefunden "
@@ -738,8 +737,8 @@ msgstr "Willkommen in Alchemy!"
 msgid "Who else is online"
 msgstr "Wer ist noch online"
 
-#: app/views/admin/pages/edit.html.erb:118
-#: app/views/admin/pages/edit.html.erb:127
+#: app/views/admin/pages/edit.html.erb:122
+#: app/views/admin/pages/edit.html.erb:180
 msgid "Yes"
 msgstr "Ja"
 
@@ -759,7 +758,7 @@ msgstr ""
 "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie den Cache "
 "wirklich löschen?"
 
-#: app/views/admin/pages/edit.html.erb:126
+#: app/views/admin/pages/edit.html.erb:179
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
@@ -767,7 +766,7 @@ msgstr ""
 "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie die Seite "
 "wirklich verlassen?"
 
-#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:121
 msgid ""
 "You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
@@ -819,7 +818,7 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/alchemy_helper.rb:1031 app/helpers/alchemy_helper.rb:1047
+#: app/helpers/alchemy_helper.rb:1040 app/helpers/alchemy_helper.rb:1056
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -900,7 +899,7 @@ msgstr "Zwischenablage entleeren"
 msgid "clear trash"
 msgstr "Papierkorb entleeren"
 
-#: app/helpers/alchemy_helper.rb:765
+#: app/helpers/alchemy_helper.rb:774
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
@@ -928,7 +927,9 @@ msgstr ""
 #: app/views/admin/pages/_page.html.erb:57
 #: app/views/admin/pages/_sitemap.html.erb:45
 msgid "confirm_to_delete_page"
-msgstr "Wollen Sie diese Seite wirklich löschen? Alle Inhalte gehen dabei unwiderruflich verloren!"
+msgstr ""
+"Wollen Sie diese Seite wirklich löschen? Alle Inhalte gehen dabei "
+"unwiderruflich verloren!"
 
 #: app/views/admin/users/_user.html.erb:14
 msgid "confirm_to_delete_user"
@@ -938,14 +939,15 @@ msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 msgid "contactform_body"
 msgstr "Nachrichten Vorlage"
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:820
-#: app/helpers/alchemy_helper.rb:920
+#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:829
+#: app/helpers/alchemy_helper.rb:929
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:818
+#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:827
+#: app/views/admin/contents/_missing.html.erb:5
 msgid "content_not_found"
-msgstr "Inhalt wurde nicht gefunden."
+msgstr "Das Feld für diesen Inhalt ist nicht vorhanden."
 
 #: app/views/admin/pages/_create_language_form.html.erb:17
 msgid "copy"
@@ -964,9 +966,10 @@ msgstr "Seite kopieren"
 msgid "copyright_notice"
 msgstr "&copy; 2007-2010 macabi GmbH"
 
+#: app/views/admin/contents/_missing.html.erb:7
 #: app/views/admin/pages/_new_page_form.html.erb:25
 msgid "create"
-msgstr "anlegen"
+msgstr "erstellen"
 
 #: app/views/admin/languages/index.html.erb:11
 #: app/views/admin/languages/index.html.erb:16
@@ -1077,10 +1080,6 @@ msgstr "Seiteneigenschaften bearbeiten"
 #: app/views/admin/users/_user.html.erb:31
 msgid "edit_user"
 msgstr "Benutzer bearbeiten"
-
-#: app/views/admin/elements/destroy.rjs:2
-msgid "element_deleted_successful"
-msgstr "Element wurde gelöscht."
 
 #: app/views/elements/_editor_not_found.html.erb:2
 msgid "element_editor_not_found"
@@ -1337,7 +1336,7 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/alchemy_helper.rb:798
+#: app/helpers/alchemy_helper.rb:807
 msgid "no"
 msgstr "Nein"
 
@@ -1353,7 +1352,7 @@ msgstr "Keine Benutzer"
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
-#: app/helpers/alchemy_helper.rb:215 app/helpers/alchemy_helper.rb:268
+#: app/helpers/alchemy_helper.rb:215 app/helpers/alchemy_helper.rb:273
 msgid "no_element_given"
 msgstr "Kein Element angegeben."
 
@@ -1513,7 +1512,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/alchemy_helper.rb:796
+#: app/helpers/alchemy_helper.rb:805
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1576,7 +1575,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/alchemy_helper.rb:767
+#: app/helpers/alchemy_helper.rb:776
 #: app/views/admin/partials/_remote_search_form.html.erb:35
 #: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1625,7 +1624,7 @@ msgstr "Betreff"
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:127
+#: app/controllers/admin/elements_controller.rb:114
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 
@@ -1736,7 +1735,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/alchemy_helper.rb:797
+#: app/helpers/alchemy_helper.rb:806
 msgid "yes"
 msgstr "Ja"
 
