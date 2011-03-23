@@ -16,6 +16,9 @@
 	<%- elsif !content.settings.blank? && content.settings[:display_as] == "select" -%>
 
 	<label><%= render_content_name(content) %></label>
+	<%- if options[:select_values].blank? -%>
+	<%= warning('options[:select_values] is nil', "No select values given. Please provide :select_values as argument to render_essence_editor_by_name() helper inside this element editor view.") %>
+	<%- else -%>
 	<%- if options[:select_values].is_a?(Hash)
 	        options_method = grouped_options_for_select(
 	            options[:select_values],
@@ -36,6 +39,7 @@
 	        :class => "essence_editor_select full_width"
 	    }
 	) %>
+	<%- end -%>
 
 	<%- else -%>
 

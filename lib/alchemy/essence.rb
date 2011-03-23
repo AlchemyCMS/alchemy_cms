@@ -152,7 +152,7 @@ module Alchemy #:nodoc:
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.
       def preview_text(maxlength = 30)
         if preview_text_method.blank?
-          ingredient.to_s[0..maxlength]
+          self.send(preview_text_column).to_s[0..maxlength]
         else
           ingredient.send(preview_text_method).to_s[0..maxlength]
         end

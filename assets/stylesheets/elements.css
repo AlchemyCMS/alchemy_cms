@@ -8,15 +8,6 @@ input.text_with_icon {
 	float: left;
 }
 
-div.error {
-	padding: 8px 4px 8px 32px;
-	margin-bottom: 8px;
-	margin-top: 8px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-
 .element_editor p.footnote {
 	clear: both;
 	float: left;
@@ -173,12 +164,12 @@ div.element_foot span.element_public {
 .element_heading {
 	padding: 0;
 	z-index: 0;
-	width: 322px;
 	overflow: hidden;
 	white-space: nowrap;
 	position: absolute;
 	left: 35px;
 	top: 11px;
+	width: 322px;
 }
 
 div.element_editor {
@@ -849,6 +840,26 @@ textarea.tinymce {
 	height: 119px;
 	padding: 2px 0 0;
 	margin: 2px 1px 2px 2px;
+}
+
+div.element_editor div.error {
+	padding: 8px 4px 8px 32px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #f1c9ca;
+	color: #931f23;
+	border-style: solid;
+	border-width: 1px;
+	position: relative;
+}
+
+div.element_editor div.error span.icon {
+	position: absolute;
+	left: 8px;
+	top: 8px;
 }
 
 .element_errors {
