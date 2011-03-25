@@ -1059,7 +1059,7 @@ module AlchemyHelper
     link_to_remote(
       options[:label],
       {
-        :url => contents_path(
+        :url => admin_contents_path(
           :content => {
             :name => options[:content_name],
             :element_id => element.id
