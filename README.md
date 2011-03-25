@@ -5,7 +5,7 @@ About
 -----
 
 Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
-For more Information please visit http://tvdeyen.github.com/alchemy
+For more Information please visit <http://tvdeyen.github.com/alchemy>
 
 Rails Version
 -------------
