@@ -5,7 +5,7 @@ About
 -----
 
 Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
-For more Information please visit http://alchemy-app.com
+For more Information please visit http://tvdeyen.github.com/alchemy
 
 Rails Version
 -------------
@@ -88,10 +88,11 @@ Example:
 Resources
 ---------
 
-* Homepage: <http://alchemy-app.com/>
+* Homepage: <http://tvdeyen.github.com/alchemy/>
 * API Documentation: <http://api.alchemy-app.com/>
-* Issue-Tracker and Wiki: <http://redmine.alchemy-app.com/>
-* Sourcecode: <https://github.com/tvdeyen/alchemy/>
+* Issue-Tracker: <http://redmine.alchemy-app.com/projects/alchemy-cms/issues>
+* Wiki: <http://redmine.alchemy-app.com/projects/alchemy/wiki>
+* Sourcecode: <https://github.com/tvdeyen/alchemy>
 
 Authors
 ---------
