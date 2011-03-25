@@ -21,6 +21,7 @@ class Content < ActiveRecord::Base
       }
     else
       description = element.content_description_for(essences_hash[:name])
+      description = element.available_content_description_for(essences_hash[:name]) if description.blank?
     end
     raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
     essence_class = ObjectSpace.const_get(description['type'])
