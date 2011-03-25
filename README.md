@@ -90,9 +90,9 @@ Resources
 
 * Homepage: <http://tvdeyen.github.com/alchemy/>
 * API Documentation: <http://api.alchemy-app.com/>
-* Issue-Tracker: <http://redmine.alchemy-app.com/>
-* Wiki: <https://github.com/tvdeyen/alchemy/wiki>
-* Sourcecode: <https://github.com/tvdeyen/alchemy/>
+* Issue-Tracker: <http://redmine.alchemy-app.com/projects/alchemy-cms/issues>
+* Wiki: <http://redmine.alchemy-app.com/projects/alchemy/wiki>
+* Sourcecode: <https://github.com/tvdeyen/alchemy>
 
 Authors
 ---------
