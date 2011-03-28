@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-22 18:25+0100\n"
+"POT-Creation-Date: 2011-03-25 19:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,14 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Dateigröße"
 
+#: app/helpers/alchemy_helper.rb:878
+msgid "Choose element"
+msgstr "Element wählen"
+
+#: app/helpers/alchemy_helper.rb:900
+msgid "Choose page"
+msgstr "Seite wählen"
+
 #: app/controllers/admin/trash_controller.rb:15
 msgid "Cleared trash"
 msgstr "Der Papierkorb wurde entleert"
@@ -108,7 +116,7 @@ msgstr "Wollen Sie die Zwischenablage wirklich entleeren?"
 msgid "Do you really want to clear the trash?"
 msgstr "Wollen Sie den Papierkorb wirklich entleeren?"
 
-#: app/views/essences/_essence_text_editor.html.erb:46
+#: app/views/essences/_essence_text_editor.html.erb:50
 msgid "Do you really want to delete this content?"
 msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 
@@ -191,7 +199,7 @@ msgstr "Bildercache löschen"
 msgid "Have much fun with Alchemy!"
 msgstr "Viel Spaß mit Alchemy!"
 
-#: app/helpers/alchemy_helper.rb:688
+#: app/helpers/alchemy_helper.rb:703
 msgid "Hide childpages"
 msgstr "Unterseiten ausblenden"
 
@@ -308,6 +316,10 @@ msgstr "Neue Seite"
 #: app/views/admin/pages/edit.html.erb:181
 msgid "No"
 msgstr "Nein"
+
+#: app/helpers/alchemy_helper.rb:221
+msgid "No EssenceType given"
+msgstr ""
 
 #: app/views/admin/clipboard/index.html.erb:3
 msgid "No items in your clipboard"
@@ -490,7 +502,7 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Bitte überprüfen Sie die markierten Felder."
 
-#: app/helpers/alchemy_helper.rb:783 app/views/admin/users/_table.html.erb:4
+#: app/helpers/alchemy_helper.rb:798 app/views/admin/users/_table.html.erb:4
 #: lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr "Bitte wählen"
@@ -529,11 +541,11 @@ msgstr "Lizenz lesen"
 msgid "Remove item from clipboard"
 msgstr "Inhalt aus der Zwischenablage entfernen"
 
-#: app/views/essences/_essence_text_editor.html.erb:49
+#: app/views/essences/_essence_text_editor.html.erb:53
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/alchemy_helper.rb:1044
+#: app/helpers/alchemy_helper.rb:1094
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -551,7 +563,7 @@ msgstr "Elementeliste anzeigen"
 msgid "Show Preview Window"
 msgstr "Seitenvorschau anzeigen"
 
-#: app/helpers/alchemy_helper.rb:685
+#: app/helpers/alchemy_helper.rb:700
 msgid "Show childpages"
 msgstr "Unterseiten anzeigen"
 
@@ -712,7 +724,7 @@ msgstr "zur Seite gehen"
 msgid "Warning!"
 msgstr "Achtung!"
 
-#: app/helpers/alchemy_helper.rb:304
+#: app/helpers/alchemy_helper.rb:319
 msgid "Warning: Content '%{contentname}' is missing its description."
 msgstr ""
 "Warnung: Für Content '%{contentname}' konnte die Vorlage nicht gefunden "
@@ -818,7 +830,7 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/alchemy_helper.rb:1040 app/helpers/alchemy_helper.rb:1056
+#: app/helpers/alchemy_helper.rb:1090 app/helpers/alchemy_helper.rb:1106
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -899,7 +911,7 @@ msgstr "Zwischenablage entleeren"
 msgid "clear trash"
 msgstr "Papierkorb entleeren"
 
-#: app/helpers/alchemy_helper.rb:774
+#: app/helpers/alchemy_helper.rb:789
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
@@ -939,12 +951,12 @@ msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 msgid "contactform_body"
 msgstr "Nachrichten Vorlage"
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:829
-#: app/helpers/alchemy_helper.rb:929
+#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:852
+#: app/helpers/alchemy_helper.rb:979
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:850
 #: app/views/admin/contents/_missing.html.erb:5
 msgid "content_not_found"
 msgstr "Das Feld für diesen Inhalt ist nicht vorhanden."
@@ -1081,7 +1093,7 @@ msgstr "Seiteneigenschaften bearbeiten"
 msgid "edit_user"
 msgstr "Benutzer bearbeiten"
 
-#: app/views/elements/_editor_not_found.html.erb:2
+#: app/views/elements/_editor_not_found.html.erb:3
 msgid "element_editor_not_found"
 msgstr "Bei diesem Element ist ein Fehler aufgetreten"
 
@@ -1336,7 +1348,7 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/alchemy_helper.rb:807
+#: app/helpers/alchemy_helper.rb:822
 msgid "no"
 msgstr "Nein"
 
@@ -1352,7 +1364,7 @@ msgstr "Keine Benutzer"
 msgid "no_default_language_found"
 msgstr "Es wurde keine Standardsprache gefunden."
 
-#: app/helpers/alchemy_helper.rb:215 app/helpers/alchemy_helper.rb:273
+#: app/helpers/alchemy_helper.rb:220 app/helpers/alchemy_helper.rb:288
 msgid "no_element_given"
 msgstr "Kein Element angegeben."
 
@@ -1496,7 +1508,7 @@ msgstr "Passwort"
 msgid "paste"
 msgstr "einfügen"
 
-#: app/views/essences/_essence_text_editor.html.erb:70
+#: app/views/essences/_essence_text_editor.html.erb:74
 msgid "place_link"
 msgstr "Text verlinken"
 
@@ -1512,7 +1524,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/alchemy_helper.rb:805
+#: app/helpers/alchemy_helper.rb:820
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1575,7 +1587,7 @@ msgstr "Link wurde gespeichert."
 msgid "saving"
 msgstr "speichert"
 
-#: app/helpers/alchemy_helper.rb:776
+#: app/helpers/alchemy_helper.rb:791
 #: app/views/admin/partials/_remote_search_form.html.erb:35
 #: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1735,7 +1747,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/alchemy_helper.rb:806
+#: app/helpers/alchemy_helper.rb:821
 msgid "yes"
 msgstr "Ja"
 

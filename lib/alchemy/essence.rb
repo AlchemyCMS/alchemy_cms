@@ -85,7 +85,7 @@ module Alchemy #:nodoc:
       #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
       #
       def essence_validations
-        return true if description['validate'].blank?
+        return true if description.blank? || description['validate'].blank?
         description['validate'].each do |validation|
           if validation == 'presence' && ingredient.blank?
             add_essence_error "blank"

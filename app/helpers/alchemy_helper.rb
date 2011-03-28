@@ -205,23 +205,38 @@ module AlchemyHelper
   def render_essence_view(content, options = {}, html_options = {})
     render_essence(content, :view, {:for_view => options}, html_options)
   end
-
-  # Renders the Content editor partial from the given Element for the essence_type (e.g. EssenceRichtext).
-  # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
-  # Otherwise the first content found for this type will be rendered.
-  # For options see -> render_essence
-  def render_essence_editor_by_type(element, type, position = nil, options = {})
-    if element.blank?
-      return warning('Element is nil', _("no_element_given"))
-    end
-    if position.nil?
-      content = element.content_by_type(type)
+  
+  # Renders the Content editor partial from essence_type.
+  # 
+  # Options are:
+  #   * element (Element) - the Element the contents are in (obligatory)
+  #   * type (String) - the type of Essence (obligatory)
+  #   * options (Hash):
+  #   ** :position (Integer) - The position of the Content inside the Element. I.E. for getting the n-th EssencePicture. Default is 1 (the first)
+  #   ** :all (String) - Pass :all to get all Contents of that name. Default false
+  #   * editor_options (Hash) - Will be passed to the render_essence_editor partial renderer
+  #
+  def render_essence_editor_by_type(element, essence_type, options = {}, editor_options = {})
+    return warning('Element is nil', _("no_element_given")) if element.blank?
+    return warning('EssenceType is blank', _("No EssenceType given")) if essence_type.blank?
+    defaults = {
+      :position => 1,
+      :all => false
+    }
+    options = defaults.merge(options)
+    return_string = ""
+    if options[:all]
+      contents = element.contents.find_all_by_essence_type_and_name(essence_type, options[:all])
+      contents.each do |content|
+        return_string << render_essence(content, :editor, :for_editor => editor_options)
+      end
     else
-      content = element.contents.find_by_essence_type_and_position(type, position)
+      content = element.contents.find_by_essence_type_and_position(essence_type, options[:position])
+      return_string = render_essence(content, :editor, :for_editor => editor_options)
     end
-    render_essence(content, :editor, :for_editor => options)
+    return_string
   end
-
+  
   # Renders the Content view partial from the given Element for the essence_type (e.g. EssenceRichtext).
   # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
   # Otherwise the first content found for this type will be rendered.
@@ -812,6 +827,14 @@ module AlchemyHelper
     )
   end
   
+  # Renders a form select tag for storing page ids
+  # Options:
+  #   * element - element the Content find via content_name to store the pages id in.
+  #   * content_name - the name of the content from element to store the pages id in.
+  #   * options (Hash)
+  #   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
+  #   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
+  #   * select_options (Hash) - will be passed to the select_tag helper 
   def page_selector(element, content_name, options = {}, select_options = {})
     default_options = {
       :except => {
@@ -842,25 +865,52 @@ module AlchemyHelper
       select_options
     )
   end
-
+  
+  # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
+  # Usefull for the select_values options from the render_essence_editor helpers.
+  # Options:
+  #   * :from_page (String, Page) - Return only elements from this page. You can either pass a Page instance, or a page_layout name
+  #   * :elements_with_name (Array, String) - Return only elements with this name(s).
+  def elements_for_essence_editor_select(options={})
+    defaults = {
+      :from_page => nil,
+      :elements_with_name => nil,
+      :prompt => _('Please choose')
+    }
+    options = defaults.merge(options)
+    if options[:from_page]
+      page = options[:from_page].is_a?(String) ? Page.find_by_page_layout(options[:from_page]) : options[:from_page]
+    end
+    if page
+      elements = options[:elements_with_name].blank? ? page.elements.find_all_by_public(true) : page.elements.find_all_by_public_and_name(true, options[:elements_with_name])
+    else
+      elements = options[:elements_with_name].blank? ? Element.find_all_by_public(true) : Element.find_all_by_public_and_name(true, options[:elements_with_name])
+    end
+    select_options = [[options[:prompt], ""]]
+    elements.each do |e|
+      select_options << [e.display_name_with_preview_text, e.id.to_s]
+    end
+    select_options
+  end
+  
   # Returns all Pages found in the database as an array for the rails select_tag helper.
   # You can pass a collection of pages to only returns these pages as array.
-  # Pass an Page.name or Page.urlname as second parameter to pass as selected for the options_for_select helper.
-  def pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
-    result = [[prompt, ""]]
+  # Pass an Page.name or Page.id as second parameter to pass as selected for the options_for_select helper.
+  def pages_for_select(pages = nil, selected = nil, prompt = "")
+    result = [[prompt.blank? ? _('Choose page') : prompt, ""]]
     if pages.blank?
       pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
     end
     pages.each do |p|
-      result << [p.send(:name), p.send(:urlname)]
+      result << [p.name, p.id.to_s]
     end
-    options_for_select(result, selected)
+    options_for_select(result, selected.to_s)
   end
-
+  
   # Returns all public elements found by Element.name.
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
-    warning('options[:language] option not allowed any more in all_elements_by_name helper')
+    warning('options[:language] option not allowed any more in all_elements_by_name helper') unless options[:language].blank?
     default_options = {
       :count => :all,
       :from_page => :all
@@ -876,7 +926,7 @@ module AlchemyHelper
       elements = options[:from_page].elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
     end
   end
-
+  
   # Returns the public element found by Element.name from the given public Page, either by Page.id or by Page.urlname
   def element_from_page(options = {})
     default_options = {
@@ -894,7 +944,7 @@ module AlchemyHelper
     element = page.elements.find_by_name_and_public(options[:element_name], true)
     return element
   end
-
+  
   # This helper renderes the picture editor for the elements on the Alchemy Desktop.
   # It brings full functionality for adding images to the element, deleting images from it and sorting them via drag'n'drop.
   # Just place this helper inside your element editor view, pass the element as parameter and that's it.

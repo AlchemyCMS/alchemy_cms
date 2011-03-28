@@ -121,6 +121,7 @@ class Admin::ElementsController < AlchemyController
   
   def fold
     @element = Element.find(params[:id])
+    @page = @element.page
     @element.folded = !@element.folded
     @element.save(false)
   rescue Exception => e

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-22 18:25+0100\n"
+"POT-Creation-Date: 2011-03-25 19:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,14 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Filesize"
 
+#: app/helpers/alchemy_helper.rb:878
+msgid "Choose element"
+msgstr ""
+
+#: app/helpers/alchemy_helper.rb:900
+msgid "Choose page"
+msgstr ""
+
 #: app/controllers/admin/trash_controller.rb:15
 msgid "Cleared trash"
 msgstr ""
@@ -106,7 +114,7 @@ msgstr ""
 msgid "Do you really want to clear the trash?"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:46
+#: app/views/essences/_essence_text_editor.html.erb:50
 msgid "Do you really want to delete this content?"
 msgstr ""
 
@@ -187,7 +195,7 @@ msgstr ""
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:688
+#: app/helpers/alchemy_helper.rb:703
 msgid "Hide childpages"
 msgstr ""
 
@@ -300,6 +308,10 @@ msgstr ""
 #: app/views/admin/pages/edit.html.erb:123
 #: app/views/admin/pages/edit.html.erb:181
 msgid "No"
+msgstr ""
+
+#: app/helpers/alchemy_helper.rb:221
+msgid "No EssenceType given"
 msgstr ""
 
 #: app/views/admin/clipboard/index.html.erb:3
@@ -482,7 +494,7 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Please check marked fields below"
 
-#: app/helpers/alchemy_helper.rb:783 app/views/admin/users/_table.html.erb:4
+#: app/helpers/alchemy_helper.rb:798 app/views/admin/users/_table.html.erb:4
 #: lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr ""
@@ -519,11 +531,11 @@ msgstr ""
 msgid "Remove item from clipboard"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:49
+#: app/views/essences/_essence_text_editor.html.erb:53
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1044
+#: app/helpers/alchemy_helper.rb:1094
 msgid "Select an content"
 msgstr ""
 
@@ -541,7 +553,7 @@ msgstr ""
 msgid "Show Preview Window"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:685
+#: app/helpers/alchemy_helper.rb:700
 msgid "Show childpages"
 msgstr ""
 
@@ -697,7 +709,7 @@ msgstr ""
 msgid "Warning!"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:304
+#: app/helpers/alchemy_helper.rb:319
 msgid "Warning: Content '%{contentname}' is missing its description."
 msgstr ""
 
@@ -791,7 +803,7 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/alchemy_helper.rb:1040 app/helpers/alchemy_helper.rb:1056
+#: app/helpers/alchemy_helper.rb:1090 app/helpers/alchemy_helper.rb:1106
 msgid "add new content"
 msgstr ""
 
@@ -854,11 +866,11 @@ msgstr ""
 
 #: app/views/admin/elements/index.rjs:9
 msgid "choose_element_as_target"
-msgstr "Please choose a element as target"
+msgstr "Please choose an element as target"
 
 #: app/views/admin/elements/index.rjs:6
 msgid "choose_element_to_link"
-msgstr "Please choose a element"
+msgstr "Please choose an element"
 
 #: app/views/admin/pages/_file_link.html.erb:3
 msgid "choose_file_to_link"
@@ -872,7 +884,7 @@ msgstr ""
 msgid "clear trash"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:774
+#: app/helpers/alchemy_helper.rb:789
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
@@ -912,12 +924,12 @@ msgstr "Do you really want to delete this user?"
 msgid "contactform_body"
 msgstr "Message Template"
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:829
-#: app/helpers/alchemy_helper.rb:929
+#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:852
+#: app/helpers/alchemy_helper.rb:979
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:827
+#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:850
 #: app/views/admin/contents/_missing.html.erb:5
 msgid "content_not_found"
 msgstr "Field for content not present."
@@ -1054,7 +1066,7 @@ msgstr "Edit the page properties."
 msgid "edit_user"
 msgstr "Edit this users properties."
 
-#: app/views/elements/_editor_not_found.html.erb:2
+#: app/views/elements/_editor_not_found.html.erb:3
 msgid "element_editor_not_found"
 msgstr "Error within this Element"
 
@@ -1304,7 +1316,7 @@ msgstr "Names"
 msgid "navigation_name"
 msgstr "Navigationname"
 
-#: app/helpers/alchemy_helper.rb:807
+#: app/helpers/alchemy_helper.rb:822
 msgid "no"
 msgstr "no"
 
@@ -1320,7 +1332,7 @@ msgstr ""
 msgid "no_default_language_found"
 msgstr "No default language found."
 
-#: app/helpers/alchemy_helper.rb:215 app/helpers/alchemy_helper.rb:273
+#: app/helpers/alchemy_helper.rb:220 app/helpers/alchemy_helper.rb:288
 msgid "no_element_given"
 msgstr "No element given."
 
@@ -1464,7 +1476,7 @@ msgstr "Password"
 msgid "paste"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:70
+#: app/views/essences/_essence_text_editor.html.erb:74
 msgid "place_link"
 msgstr "Link text"
 
@@ -1480,7 +1492,7 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/helpers/alchemy_helper.rb:805
+#: app/helpers/alchemy_helper.rb:820
 msgid "please_confirm"
 msgstr "Please confirm"
 
@@ -1543,7 +1555,7 @@ msgstr "Link saved."
 msgid "saving"
 msgstr "saving"
 
-#: app/helpers/alchemy_helper.rb:776
+#: app/helpers/alchemy_helper.rb:791
 #: app/views/admin/partials/_remote_search_form.html.erb:35
 #: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1703,7 +1715,7 @@ msgstr "Width"
 msgid "with_name"
 msgstr "Name"
 
-#: app/helpers/alchemy_helper.rb:806
+#: app/helpers/alchemy_helper.rb:821
 msgid "yes"
 msgstr "yes"
 
