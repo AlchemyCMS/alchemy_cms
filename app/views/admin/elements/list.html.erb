@@ -1,10 +1,30 @@
-<div id="element_area">
-	<%= render :partial => @page.elements, :locals => {:draggable => true} %>
+<%- if @cells -%>
+<div id="cells">
+	<ul>
+		<%- @cells.each do |cell| -%>
+		<li><a href="#cell_<%= cell[:name] %>"><%= t("cell_names.#{cell[:name]}") %></a></li>
+		<%- end -%>
+		<li><a href="#element_area">übrige Elemente</a></li>		
+	</ul>
+	<%- @cells.each do |cell| -%>
+	<div id="cell_<%= cell[:name] %>" class="with_padding">
+		<%= render :partial => 'element', :collection => cell[:elements], :locals => {:draggable => true} %>
+	</div>
+	<%- end -%>
+	<div id="element_area" class="with_padding">
+		<%= render :partial => @elements, :locals => {:draggable => true} %>
+	</div>
 </div>
+<%- else -%>
+<div id="element_area">
+	<%= render :partial => @elements, :locals => {:draggable => true} %>
+</div>
+<%- end -%>
 <script type="text/javascript" charset="utf-8">
 	Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
 	Alchemy.ElementEditorSelector();
 	Alchemy.SelectBox('.element_editor select');
 	TinymceHammer.init();
 	Alchemy.ElementDirtyObserver('#element_area');
+	jQuery('#cells').tabs();
 </script>

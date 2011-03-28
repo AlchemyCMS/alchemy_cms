@@ -813,7 +813,22 @@ module AlchemyHelper
   # returns all elements that could be placed on that page because of the pages layout as array to be used in alchemy_selectbox form builder
   def elements_for_select(elements)
     return [] if elements.nil?
-    elements.collect{ |p| [p["display_name"], p["name"]] }
+    cell_yml = File.join('config', 'alchemy', 'cells.yml')
+    if File.exist?(cell_yml)
+      cells = YAML.load_file(cell_yml)
+      options = []
+      cells.each do |cell|
+        cell_elements = elements.select { |element| cell['elements'].include?(element['name']) }
+        options << [
+          cell['name'],
+          cell_elements.map { |e| [e['display_name'], e['name']] }
+        ]
+      end
+      options << @page.elements - @cells.select { |cell| cell[:elements] }
+    else
+      options = elements.collect{ |p| [e["display_name"], e["name"]] }
+    end
+    options
   end
   
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
@@ -1141,7 +1156,7 @@ document.getElementsByTagName("body")[0].appendChild(s);
       str = javascript_tag("if (typeof(jQuery) !== 'function') {#{append_javascript}}") + "\n"
       str += javascript_tag("jQuery.noConflict();") + "\n"
       str += javascript_include_tag("alchemy/alchemy") + "\n"
-      str += javascript_tag("jQuery(document).ready(function() {\nAlchemy.ElementSelector();\n});\njQuery('a').attr('href', 'javascript:void(0)');")
+      str += javascript_tag("jQuery(document).ready(function() {\nAlchemy.ElementSelector();\n});\njQuery('a').not('[href^=#]').attr('href', 'javascript:void(0)');")
       return str
     else
       return nil

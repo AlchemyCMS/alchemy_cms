@@ -15,12 +15,21 @@ class Admin::ElementsController < AlchemyController
   end
   
   def list
-    @page = Page.find(
-      params[:page_id],
-      :include => {
-        :elements => :contents
-      }
-    )
+    @page = Page.find(params[:page_id], :include => {:elements => :contents})
+    cell_yml = File.join('config', 'alchemy', 'cells.yml')
+    if File.exist?(cell_yml)
+      cells = YAML.load_file(cell_yml)
+      @cells = []
+      cells.each do |cell|
+        @cells << {
+          :name => cell['name'],
+          :elements => @page.elements.select { |element| cell['elements'].include?(element.name) }
+        }
+      end
+      @elements = @page.elements - @cells.select { |cell| cell[:elements] }
+    else
+      @elements = @page.elements
+    end
     render :layout => false
   end
   
