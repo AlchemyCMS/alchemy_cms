@@ -23,6 +23,7 @@ class Admin::ElementsController < AlchemyController
       cells.each do |cell|
         @cells << {
           :name => cell['name'],
+          :display_name => cell['display_name'],
           :elements => @page.elements.select { |element| cell['elements'].include?(element.name) }
         }
       end

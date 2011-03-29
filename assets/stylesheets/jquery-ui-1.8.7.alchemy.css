@@ -195,6 +195,29 @@
 	background-color: #e5e5e5;
 }
 
+#alchemy .ui-state-active.stNav.stNext {
+	background-color: #ededed;
+	margin: 0 -3px 0 0;
+	border: 0 solid #cacaca;
+	border-left-width: 1px;
+	border-top-width: 1px;
+}
+
+#alchemy .ui-state-active.stNav.stPrev {
+	background-color: #ededed;
+	margin: 0 0 0 -3px;
+	border: 0 solid #cacaca;
+	border-top-width: 1px;
+	border-left-width: 0;
+	border-right-width: 1px;
+	border-bottom-width: 0;
+}
+
+.stNav .ui-icon{
+	position: relative;
+	top: 7px;
+}
+
 #alchemy .ui-state-active a, #alchemy .ui-state-active a:link, #alchemy .ui-state-active a:visited {
 	color: #333333;
 	text-decoration: none;
@@ -1640,8 +1663,9 @@ button.ui-button::-moz-focus-inner {
 	position: relative;
 	padding: 0;
 	zoom: 1;
-	margin: 0px;
-	border: none !important;
+	margin: 0;
+	border-style: none;
+	border-width: 0;
 }
 
 /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
@@ -1698,6 +1722,41 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-tabs .ui-tabs-hide {
 	display: none !important;
+}
+
+/* UI Tabs Paging */
+
+#alchemy .ui-tabs li.ui-tabs-paging-next { 
+	float: right !important;
+	padding: 0 !important;
+}
+
+#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev a,
+#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-next a {
+	display: block; 
+	position: relative; 
+	top: 1px; 
+	border: 0;
+	z-index: 2; 
+	padding: 5px; 
+	color: #444; 
+	text-decoration: none;
+	background: #eee; 
+	cursor: pointer;
+}
+
+#alchemy .ui-tabs .ui-tabs-paging-next a:hover,
+#alchemy .ui-tabs .ui-tabs-paging-next a:focus,
+#alchemy .ui-tabs .ui-tabs-paging-next a:active,
+#alchemy .ui-tabs .ui-tabs-paging-prev a:hover,
+#alchemy .ui-tabs .ui-tabs-paging-prev a:focus,
+#alchemy .ui-tabs .ui-tabs-paging-prev a:active { 
+	background: #eee; 
+}
+
+#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled a {
+	color: #ccc;
+	cursor: default;
 }
 
 /*

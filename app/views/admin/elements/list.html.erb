@@ -2,7 +2,7 @@
 <div id="cells">
 	<ul>
 		<%- @cells.each do |cell| -%>
-		<li><a href="#cell_<%= cell[:name] %>"><%= t("cell_names.#{cell[:name]}") %></a></li>
+		<li><a href="#cell_<%= cell[:name] %>"><%= cell[:display_name] %></a></li>
 		<%- end -%>
 		<li><a href="#element_area">übrige Elemente</a></li>		
 	</ul>
@@ -27,4 +27,5 @@
 	TinymceHammer.init();
 	Alchemy.ElementDirtyObserver('#element_area');
 	jQuery('#cells').tabs();
+	jQuery('#cells').tabs('paging', { follow: false } );
 </script>

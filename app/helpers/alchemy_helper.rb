@@ -817,18 +817,24 @@ module AlchemyHelper
     if File.exist?(cell_yml)
       cells = YAML.load_file(cell_yml)
       options = []
+      celled_elements = []
       cells.each do |cell|
         cell_elements = elements.select { |element| cell['elements'].include?(element['name']) }
         options << [
-          cell['name'],
+          cell['display_name'],
           cell_elements.map { |e| [e['display_name'], e['name']] }
         ]
+        celled_elements += cell_elements
       end
-      options << @page.elements - @cells.select { |cell| cell[:elements] }
+      options << [
+        'übrige Elemente',
+        (elements - celled_elements).map { |e| [e['display_name'], e['name']] }
+      ]
+      return grouped_options_for_select(options)
     else
-      options = elements.collect{ |p| [e["display_name"], e["name"]] }
+      options = elements.collect{ |e| [e["display_name"], e["name"]] }
+      return options_for_select(options)
     end
-    options
   end
   
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
