@@ -533,15 +533,20 @@ div.info.footnote {
 
 div#bottom_panel {
 	position: absolute;
-	bottom: 16px;
+	bottom: 0;
 	right: 0;
 	width: 100%;
 	z-index: 10;
+	background: url(../../images/alchemy/gui/shading.png) repeat-x 0 3px;
 }
 
-div#page_sorting_panel.info {
-	margin-left: 16px;
-	margin-right: 16px;
+div#bottom_panel div.info {
+	margin: 16px 16px 8px;
+	width: 720px;
+}
+
+div#bottom_buttons {
+	padding: 0 16px 16px;
 }
 
 p.no_padding {
