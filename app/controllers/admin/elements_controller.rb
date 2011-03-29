@@ -6,6 +6,8 @@ class Admin::ElementsController < AlchemyController
   
   filter_access_to [:new, :create, :order, :index], :attribute_check => false
   
+  cache_sweeper :content_sweeper, :only => [:update]
+  
   def index
     @page_id = params[:page_id]
     if @page_id.blank? && !params[:page_urlname].blank?
@@ -27,7 +29,7 @@ class Admin::ElementsController < AlchemyController
           :elements => @page.elements.select { |element| cell['elements'].include?(element.name) }
         }
       end
-      @elements = @page.elements - @cells.select { |cell| cell[:elements] }
+      @elements = @page.elements - @cells.collect { |cell| cell[:elements] }.flatten
     else
       @elements = @page.elements
     end

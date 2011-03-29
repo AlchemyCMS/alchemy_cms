@@ -1,3 +1,4 @@
+<%- cache(content) do -%>
 <div class="content_editor content_rtf_editor" id="<%= content_dom_id(content) %>">
     <label><%= render_content_name(content) %></label>
     <div class="essence_richtext_loader" style="display: none">
@@ -5,3 +6,4 @@
     </div>
     <%= tinymce_tag("contents[content_#{content.id}][body]", content.essence.body) %>
 </div>
+<%- end -%>

@@ -62,11 +62,17 @@ module Alchemy #:nodoc:
       # Essence Validations:
       # 
       # Essence validations can be set inside the config/elements.yml file.
-      # Currently supported validations are presence, format and uniqueness
+      # Currently supported validations are:
+      #   * presence
+      #   * format
+      #   * uniqueness
+      # 
       # If you want to validate the format you must additionally pass validate_format_as or validate_format_with:
       # 
       # * validate_format_with has to be regex
-      # * validate_format_as can be one of url or email
+      # * validate_format_as can be one of:
+      # ** url
+      # ** email
       # 
       # Example:
       # 
@@ -83,7 +89,7 @@ module Alchemy #:nodoc:
       #       type: EssenceText
       #       validate: [format]
       #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
-      #
+      # 
       def essence_validations
         return true if description.blank? || description['validate'].blank?
         description['validate'].each do |validation|
