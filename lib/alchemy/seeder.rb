@@ -106,37 +106,6 @@ module Alchemy
           page.save(false)
         end
       end
-      
-      cell_yml = File.join('config', 'alchemy', 'cells.yml')
-      page_layouts = YAML.load_file('config', 'alchemy', 'page_layouts.yml')
-      
-      # gibt es zellen und ist die page_layouts.yml schon nach neuem format? dann lege die zellen an und sortiere die elemente in die zellen ein
-      if File.exist?(cell_yml) && !page_layouts['cells'].blank?
-        cells = YAML.load_file(cell_yml)
-        page_layouts.each do |layout|
-          cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
-          Page.find_all_by_page_layout(layout['name']).each do |page|
-            cells_for_layout.each do |cell_for_layout|
-              cell = Cell.new({:name => cell_for_layout['name']})
-              cell.elements << page.elements.select { |element| cell_for_layout['elements'].include?(element.name) }
-              cell.save
-              page.cells << cell
-            end
-            page.save(false)
-          end
-        end
-      # wenn nicht dann eine hauptzelle anlegen und alle elemente der seite dort einsortieren
-      else
-        Page.contentpages.each do |page|
-          cell = Cell.new({:name => 'maincontent'})
-          page.cells << cell
-          page.elements.each do |element|
-            cell.elements << element
-          end
-          cell.save
-          page.save(false)
-        end
-      end
     end
     
   end

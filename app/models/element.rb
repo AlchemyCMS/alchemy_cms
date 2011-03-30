@@ -1,6 +1,9 @@
 class Element < ActiveRecord::Base
-  acts_as_list :scope => :cell_id
+  
+  # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
+  acts_as_list :scope => [:page_id, :cell_id]
   stampable :stamper_class_name => :user
+  
   has_many :contents, :order => :position, :dependent => :destroy
   belongs_to :cell
   belongs_to :page

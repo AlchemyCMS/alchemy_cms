@@ -1,9 +1,11 @@
 class Page < ActiveRecord::Base
+  
   acts_as_nested_set
   stampable
+  
   has_many :folded_pages
   has_many :cells, :dependent => :destroy
-  has_many :elements, :through => :cells
+  has_many :elements, :dependent => :destroy, :order => :position
   has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
   belongs_to :language
   
@@ -11,7 +13,6 @@ class Page < ActiveRecord::Base
   validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
-  #validates_format_of :urlname, :with => /http/, :if => Proc.new { |page| page.redirects_to_external? }
   
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep

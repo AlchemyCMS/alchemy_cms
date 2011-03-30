@@ -1,6 +1,6 @@
 class Cell < ActiveRecord::Base
   
   belongs_to :page
-  has_many :elements, :dependend => :destroy, :order => :position
+  has_many :elements, :dependent => :destroy, :order => :position
   
 end

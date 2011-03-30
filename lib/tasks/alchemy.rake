@@ -1,3 +1,5 @@
+require 'yaml'
+
 namespace :db do
   namespace :migrate do
     
@@ -403,7 +405,37 @@ EOF
       end
       
     end
-       
+    
+  end
+  
+  namespace :cells do
+    
+    desc "Creates all cells for all pages"
+    task :create => :environment do
+      cell_yml = File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', 'config', 'alchemy', 'cells.yml')
+      page_layouts = Alchemy::PageLayout.get_layouts
+      if File.exist?(cell_yml) && page_layouts
+        cells = YAML.load_file(cell_yml)
+        page_layouts.each do |layout|
+          unless layout['cells'].blank?
+            cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
+            Page.find_all_by_page_layout(layout['name']).each do |page|
+              cells_for_layout.each do |cell_for_layout|
+                cell = Cell.find_or_initialize_by_name_and_page_id({:name => cell_for_layout['name'], :page_id => page.id})
+                cell.elements << page.elements.select { |element| cell_for_layout['elements'].include?(element.name) }
+                if cell.new_record?
+                  cell.save
+                  puts "== Creating cell '#{cell.name}' for page '#{page.name}'"
+                else
+                  puts "== Skipping! Cell '#{cell.name}' for page '#{page.name}' was already present"
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    
   end
   
 end
