@@ -420,9 +420,9 @@ var Alchemy = {
 	
 	openLinkWindow : function (linked_element, width) {
 		var $dialog = jQuery('<div style="display:none" id="alchemyLinkOverlay"></div>');
-
+		
 		$dialog.html(Alchemy.getOverlaySpinner({x: width}));
-
+		
 		Alchemy.CurrentLinkWindow = $dialog.dialog({
 			modal: true, 
 			minWidth: parseInt(width) < 600 ? 600 : parseInt(width), 
@@ -515,12 +515,13 @@ var Alchemy = {
 		if (element.editor) {
 			// aka we are linking text inside of TinyMCE
 			var editor = element.editor;
-			var l = editor.execCommand('mceInsertLink', false, {
+			editor.execCommand('mceInsertLink', false, {
 				href: url,
 				'class': link_type,
 				title: title,
 				target: (extern ? '_blank': null)
 			});
+			editor.selection.collapse();
 		} else {
 			// aka: we are linking an content
 			var essence_type = element.name.replace('essence_', '').split('_')[0];
@@ -543,8 +544,7 @@ var Alchemy = {
 	
 	// Selects the tab for kind of link and fills all fields.
 	selectLinkWindowTab : function() {
-		var linked_element = Alchemy.CurrentLinkWindow.linked_element;
-		var link;
+		var linked_element = Alchemy.CurrentLinkWindow.linked_element, link;
 		
 		// Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
 		if (linked_element.nodeType) {
@@ -553,8 +553,12 @@ var Alchemy = {
 		
 		// Restoring the bookmarked selection inside the TinyMCE of an EssenceRichtext.
 		else {
-			link = linked_element.node;
-			linked_element.selection.moveToBookmark(linked_element.bookmark);
+			if (linked_element.node.nodeName === 'A') {
+				link = linked_element.node;
+				linked_element.selection.moveToBookmark(linked_element.bookmark);
+			} else {
+				return false;
+			}
 		}
 		
 		jQuery('#alchemyLinkOverlay .link_title').val(link.title);
