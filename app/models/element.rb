@@ -114,6 +114,10 @@ class Element < ActiveRecord::Base
     end
   end
   
+  def self.definitions
+    self.descriptions
+  end
+  
   # Returns the array with the hashes for all element contents in the elements.yml file
   def content_descriptions
     return nil if description.blank?
@@ -321,21 +325,16 @@ class Element < ActiveRecord::Base
   
 private
   
-  # List all elements by from page_layout
+  # List all elements for page_layout
   def self.all_for_page(page)
+    # if page_layout has cells, collect elements from cells and group them by cellname
+    page_layout = Alchemy::PageLayout.get(page.page_layout)
     elements_for_layout = []
-    element_descriptions = Element.descriptions
-    element_names = Alchemy::PageLayout.element_names_for(page.page_layout)
-    return [] if element_names.blank?
-    if element_names == "all"
-      elements_for_layout = element_descriptions
-    else
-      for element_description in element_descriptions do
-        if element_names.include?(element_description["name"])
-          elements_for_layout << element_description
-        end
-      end
+    if page_layout['cells'].is_a?(Array)
+      elements_for_layout += Cell.all_element_definitions_for(page_layout['cells'])
     end
+    elements_for_layout += all_definitions_for(page_layout['elements'])
+    return [] if elements_for_layout.blank?
     # all unique elements from this layout
     unique_elements = elements_for_layout.select{ |m| m["unique"] == true }
     elements_already_on_the_page = page.elements
@@ -348,6 +347,14 @@ private
       end
     end
     return elements_for_layout
+  end
+  
+  def self.all_definitions_for(element_names)
+    if element_names.to_s == "all"
+      return element_descriptions
+    else
+      return definitions.select { |e| element_names.include? e['name'] }
+    end
   end
   
   # makes a copy of source and makes copies of the contents from source

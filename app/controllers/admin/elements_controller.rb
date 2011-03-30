@@ -18,20 +18,11 @@ class Admin::ElementsController < AlchemyController
   
   def list
     @page = Page.find(params[:page_id], :include => {:elements => :contents})
-    cell_yml = File.join('config', 'alchemy', 'cells.yml')
-    if File.exist?(cell_yml)
-      cells = YAML.load_file(cell_yml)
-      @cells = []
-      cells.each do |cell|
-        @cells << {
-          :name => cell['name'],
-          :display_name => cell['display_name'],
-          :elements => @page.elements.select { |element| cell['elements'].include?(element.name) }
-        }
-      end
-      @elements = @page.elements - @cells.collect { |cell| cell[:elements] }.flatten
-    else
+    @cells = @page.cells
+    if @cells.blank?
       @elements = @page.elements
+    else
+      @elements = @page.elements_grouped_by_cells
     end
     render :layout => false
   end

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-25 19:10+0100\n"
+"POT-Creation-Date: 2011-03-30 18:35+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -65,11 +65,7 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Dateigröße"
 
-#: app/helpers/alchemy_helper.rb:878
-msgid "Choose element"
-msgstr "Element wählen"
-
-#: app/helpers/alchemy_helper.rb:900
+#: app/helpers/alchemy_helper.rb:921
 msgid "Choose page"
 msgstr "Seite wählen"
 
@@ -88,7 +84,7 @@ msgstr "Klicken zum umbenennen"
 msgid "Clipboard"
 msgstr "Zwischenablage"
 
-#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:385
+#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:392
 msgid "Copy"
 msgstr "Kopie"
 
@@ -116,7 +112,7 @@ msgstr "Wollen Sie die Zwischenablage wirklich entleeren?"
 msgid "Do you really want to clear the trash?"
 msgstr "Wollen Sie den Papierkorb wirklich entleeren?"
 
-#: app/views/essences/_essence_text_editor.html.erb:50
+#: app/views/essences/_essence_text_editor.html.erb:51
 msgid "Do you really want to delete this content?"
 msgstr "Wollen Sie diesen Inhalt wirklich löschen?"
 
@@ -231,7 +227,7 @@ msgstr "Bild wurde gespeichert"
 msgid "Image: '%{name}' deleted successfully"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/elements_controller.rb:88
+#: app/controllers/admin/elements_controller.rb:91
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 "Indizierungsfehler beim Speichern des Elements. Bitte erneut versuchen!"
@@ -502,16 +498,16 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Bitte überprüfen Sie die markierten Felder."
 
-#: app/helpers/alchemy_helper.rb:798 app/views/admin/users/_table.html.erb:4
-#: lib/alchemy/page_layout.rb:39
+#: app/helpers/alchemy_helper.rb:798 app/helpers/alchemy_helper.rb:899
+#: app/views/admin/users/_table.html.erb:4 lib/alchemy/page_layout.rb:38
 msgid "Please choose"
 msgstr "Bitte wählen"
 
-#: app/models/page.rb:10
+#: app/models/page.rb:13
 msgid "Please choose a page layout."
 msgstr "Bitte wählen Sie einen Seitentyp."
 
-#: app/models/element.rb:11
+#: app/models/element.rb:13
 msgid "Please choose an element."
 msgstr "Bitte wählen Sie ein Element."
 
@@ -541,11 +537,11 @@ msgstr "Lizenz lesen"
 msgid "Remove item from clipboard"
 msgstr "Inhalt aus der Zwischenablage entfernen"
 
-#: app/views/essences/_essence_text_editor.html.erb:53
+#: app/views/essences/_essence_text_editor.html.erb:54
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
 
-#: app/helpers/alchemy_helper.rb:1094
+#: app/helpers/alchemy_helper.rb:1115
 msgid "Select an content"
 msgstr "Wählen Sie einen Inhalt aus"
 
@@ -638,7 +634,7 @@ msgstr "Papierkorb"
 msgid "URL"
 msgstr ""
 
-#: app/models/page.rb:12
+#: app/models/page.rb:15
 msgid "URL-Name already token"
 msgstr "Der URL-Name ist bereits vergeben."
 
@@ -702,7 +698,7 @@ msgstr "Passwort Bestätigung"
 msgid "User|Role"
 msgstr "Benutzerrolle"
 
-#: app/controllers/admin/elements_controller.rb:71
+#: app/controllers/admin/elements_controller.rb:74
 msgid "Validation failed."
 msgstr "Pflichtfelder wurden nicht ausgefüllt."
 
@@ -830,7 +826,7 @@ msgstr "darüber"
 msgid "add"
 msgstr "hinzufügen"
 
-#: app/helpers/alchemy_helper.rb:1090 app/helpers/alchemy_helper.rb:1106
+#: app/helpers/alchemy_helper.rb:1111 app/helpers/alchemy_helper.rb:1127
 msgid "add new content"
 msgstr "+ einen Inhalt hinzufügen"
 
@@ -951,12 +947,12 @@ msgstr "Wollen Sie diesen Benutzer wirklich löschen?"
 msgid "contactform_body"
 msgstr "Nachrichten Vorlage"
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:852
-#: app/helpers/alchemy_helper.rb:979
+#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:873
+#: app/helpers/alchemy_helper.rb:1000
 msgid "content_essence_not_found"
 msgstr "Essenz wurde nicht gefunden"
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:850
+#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:871
 #: app/views/admin/contents/_missing.html.erb:5
 msgid "content_not_found"
 msgstr "Das Feld für diesen Inhalt ist nicht vorhanden."
@@ -1348,7 +1344,7 @@ msgstr "Namen"
 msgid "navigation_name"
 msgstr "Navigationsname"
 
-#: app/helpers/alchemy_helper.rb:822
+#: app/helpers/alchemy_helper.rb:843
 msgid "no"
 msgstr "Nein"
 
@@ -1390,6 +1386,10 @@ msgstr "Keine Suchergebnisse."
 msgid "not a valid image"
 msgstr "Keine valide Bilddatei."
 
+#: app/helpers/alchemy_helper.rb:830 app/views/admin/elements/list.html.erb:7
+msgid "other Elements"
+msgstr "sonst. Elemente"
+
 #: app/controllers/admin/pages_controller.rb:55
 msgid "page '%{name}' created."
 msgstr "Seite '%{name}' wurde erstellt."
@@ -1423,41 +1423,41 @@ msgstr "geschützt"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:196
+#: app/models/page.rb:203
 msgid "page_status_invisible_public"
 msgstr "Diese Seite ist nicht in der Navigation sichtbar, ist aber öffentlich."
 
-#: app/models/page.rb:184
+#: app/models/page.rb:191
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Diese Seite ist nicht in der Navigation sichtbar, ist aber öffentlich. Diese "
 "Seite wird gerade bearbeitet."
 
-#: app/models/page.rb:199
+#: app/models/page.rb:206
 msgid "page_status_invisible_unpublic"
 msgstr "Diese Seite ist in der Navigation nicht sichtbar und nicht öffentlich"
 
-#: app/models/page.rb:187
+#: app/models/page.rb:194
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation nicht sichtbar und ist nicht öffentlich. "
 "Diese Seite wird gerade bearbeitet"
 
-#: app/models/page.rb:190
+#: app/models/page.rb:197
 msgid "page_status_visible_public"
 msgstr "Diese Seite ist in der Navigation sichtbar und öffentlich."
 
-#: app/models/page.rb:178
+#: app/models/page.rb:185
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar und öffentlich. Diese Seite wird "
 "gerade bearbeitet."
 
-#: app/models/page.rb:193
+#: app/models/page.rb:200
 msgid "page_status_visible_unpublic"
 msgstr "Diese Seite ist in der Navigation sichtbar, ist aber nicht öffentlich."
 
-#: app/models/page.rb:181
+#: app/models/page.rb:188
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Diese Seite ist in der Navigation sichtbar, ist aber nicht öffentlich. Diese "
@@ -1508,7 +1508,7 @@ msgstr "Passwort"
 msgid "paste"
 msgstr "einfügen"
 
-#: app/views/essences/_essence_text_editor.html.erb:74
+#: app/views/essences/_essence_text_editor.html.erb:75
 msgid "place_link"
 msgstr "Text verlinken"
 
@@ -1516,7 +1516,7 @@ msgstr "Text verlinken"
 msgid "player_version"
 msgstr "Flashplayer Version"
 
-#: app/models/page.rb:9
+#: app/models/page.rb:12
 msgid "please enter a name"
 msgstr "Bitte geben Sie einen Namen ein."
 
@@ -1524,7 +1524,7 @@ msgstr "Bitte geben Sie einen Namen ein."
 msgid "please enter subject and mail address"
 msgstr "Bitte geben Sie den Betreff und eine Empfängeradresse an."
 
-#: app/helpers/alchemy_helper.rb:820
+#: app/helpers/alchemy_helper.rb:841
 msgid "please_confirm"
 msgstr "Bitte bestätigen"
 
@@ -1636,7 +1636,7 @@ msgstr "Betreff"
 msgid "successfully_added_element"
 msgstr "Element wurde hinzugefügt."
 
-#: app/controllers/admin/elements_controller.rb:114
+#: app/controllers/admin/elements_controller.rb:117
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 
@@ -1663,8 +1663,8 @@ msgstr "Titel"
 msgid "trash element"
 msgstr "Element in den Papierkorb legen"
 
-#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:135
-#: app/models/page.rb:142 app/models/page.rb:149
+#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:142
+#: app/models/page.rb:149 app/models/page.rb:156
 msgid "unknown"
 msgstr "unbekannt"
 
@@ -1709,7 +1709,7 @@ msgstr "Bild(er) hochladen"
 msgid "url_name"
 msgstr "URL-Name"
 
-#: app/models/page.rb:11
+#: app/models/page.rb:14
 msgid "urlname_to_short"
 msgstr "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
 
@@ -1747,7 +1747,7 @@ msgstr "Breite"
 msgid "with_name"
 msgstr "mit dem Namen"
 
-#: app/helpers/alchemy_helper.rb:821
+#: app/helpers/alchemy_helper.rb:842
 msgid "yes"
 msgstr "Ja"
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-25 19:10+0100\n"
+"POT-Creation-Date: 2011-03-30 18:35+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +63,7 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Filesize"
 
-#: app/helpers/alchemy_helper.rb:878
-msgid "Choose element"
-msgstr ""
-
-#: app/helpers/alchemy_helper.rb:900
+#: app/helpers/alchemy_helper.rb:921
 msgid "Choose page"
 msgstr ""
 
@@ -86,7 +82,7 @@ msgstr ""
 msgid "Clipboard"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:385
+#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:392
 msgid "Copy"
 msgstr ""
 
@@ -114,7 +110,7 @@ msgstr ""
 msgid "Do you really want to clear the trash?"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:50
+#: app/views/essences/_essence_text_editor.html.erb:51
 msgid "Do you really want to delete this content?"
 msgstr ""
 
@@ -225,7 +221,7 @@ msgstr ""
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
-#: app/controllers/admin/elements_controller.rb:88
+#: app/controllers/admin/elements_controller.rb:91
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 
@@ -494,16 +490,16 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Please check marked fields below"
 
-#: app/helpers/alchemy_helper.rb:798 app/views/admin/users/_table.html.erb:4
-#: lib/alchemy/page_layout.rb:39
+#: app/helpers/alchemy_helper.rb:798 app/helpers/alchemy_helper.rb:899
+#: app/views/admin/users/_table.html.erb:4 lib/alchemy/page_layout.rb:38
 msgid "Please choose"
 msgstr ""
 
-#: app/models/page.rb:10
+#: app/models/page.rb:13
 msgid "Please choose a page layout."
 msgstr ""
 
-#: app/models/element.rb:11
+#: app/models/element.rb:13
 msgid "Please choose an element."
 msgstr ""
 
@@ -531,11 +527,11 @@ msgstr ""
 msgid "Remove item from clipboard"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:53
+#: app/views/essences/_essence_text_editor.html.erb:54
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1094
+#: app/helpers/alchemy_helper.rb:1115
 msgid "Select an content"
 msgstr ""
 
@@ -623,7 +619,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: app/models/page.rb:12
+#: app/models/page.rb:15
 msgid "URL-Name already token"
 msgstr ""
 
@@ -687,7 +683,7 @@ msgstr "Password confirmation"
 msgid "User|Role"
 msgstr "Userrole"
 
-#: app/controllers/admin/elements_controller.rb:71
+#: app/controllers/admin/elements_controller.rb:74
 msgid "Validation failed."
 msgstr ""
 
@@ -803,7 +799,7 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/alchemy_helper.rb:1090 app/helpers/alchemy_helper.rb:1106
+#: app/helpers/alchemy_helper.rb:1111 app/helpers/alchemy_helper.rb:1127
 msgid "add new content"
 msgstr ""
 
@@ -924,12 +920,12 @@ msgstr "Do you really want to delete this user?"
 msgid "contactform_body"
 msgstr "Message Template"
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:852
-#: app/helpers/alchemy_helper.rb:979
+#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:873
+#: app/helpers/alchemy_helper.rb:1000
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:850
+#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:871
 #: app/views/admin/contents/_missing.html.erb:5
 msgid "content_not_found"
 msgstr "Field for content not present."
@@ -1316,7 +1312,7 @@ msgstr "Names"
 msgid "navigation_name"
 msgstr "Navigationname"
 
-#: app/helpers/alchemy_helper.rb:822
+#: app/helpers/alchemy_helper.rb:843
 msgid "no"
 msgstr "no"
 
@@ -1358,6 +1354,10 @@ msgstr "Your search did not return any results."
 msgid "not a valid image"
 msgstr "This is not an valid image."
 
+#: app/helpers/alchemy_helper.rb:830 app/views/admin/elements/list.html.erb:7
+msgid "other Elements"
+msgstr ""
+
 #: app/controllers/admin/pages_controller.rb:55
 msgid "page '%{name}' created."
 msgstr "Page: '%{name}' created."
@@ -1391,41 +1391,41 @@ msgstr "restricted"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:196
+#: app/models/page.rb:203
 msgid "page_status_invisible_public"
 msgstr "Page is invisible in navigation but public."
 
-#: app/models/page.rb:184
+#: app/models/page.rb:191
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Page is invisible in navigation but public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:199
+#: app/models/page.rb:206
 msgid "page_status_invisible_unpublic"
 msgstr "Page is invisible in navigation and unpublic."
 
-#: app/models/page.rb:187
+#: app/models/page.rb:194
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Page is invisible in navigation and unpublic. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:190
+#: app/models/page.rb:197
 msgid "page_status_visible_public"
 msgstr "Page is visible in navigation and public."
 
-#: app/models/page.rb:178
+#: app/models/page.rb:185
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Page is visible in navigation and public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:193
+#: app/models/page.rb:200
 msgid "page_status_visible_unpublic"
 msgstr "Page is visible in navigation but unpublic."
 
-#: app/models/page.rb:181
+#: app/models/page.rb:188
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Page is visible in navigation but unpublic. Page is currently locked for "
@@ -1476,7 +1476,7 @@ msgstr "Password"
 msgid "paste"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:74
+#: app/views/essences/_essence_text_editor.html.erb:75
 msgid "place_link"
 msgstr "Link text"
 
@@ -1484,7 +1484,7 @@ msgstr "Link text"
 msgid "player_version"
 msgstr "Flashplayer Version"
 
-#: app/models/page.rb:9
+#: app/models/page.rb:12
 msgid "please enter a name"
 msgstr "Please enter a name."
 
@@ -1492,7 +1492,7 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/helpers/alchemy_helper.rb:820
+#: app/helpers/alchemy_helper.rb:841
 msgid "please_confirm"
 msgstr "Please confirm"
 
@@ -1604,7 +1604,7 @@ msgstr ""
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
-#: app/controllers/admin/elements_controller.rb:114
+#: app/controllers/admin/elements_controller.rb:117
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
@@ -1631,8 +1631,8 @@ msgstr "Title"
 msgid "trash element"
 msgstr "Put element into trash"
 
-#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:135
-#: app/models/page.rb:142 app/models/page.rb:149
+#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:142
+#: app/models/page.rb:149 app/models/page.rb:156
 msgid "unknown"
 msgstr "unknown"
 
@@ -1677,7 +1677,7 @@ msgstr "Upload image(s)."
 msgid "url_name"
 msgstr "URL-Name"
 
-#: app/models/page.rb:11
+#: app/models/page.rb:14
 msgid "urlname_to_short"
 msgstr "The pages urlname is too short (minimum of 3 characters)"
 
@@ -1715,7 +1715,7 @@ msgstr "Width"
 msgid "with_name"
 msgstr "Name"
 
-#: app/helpers/alchemy_helper.rb:821
+#: app/helpers/alchemy_helper.rb:842
 msgid "yes"
 msgstr "yes"
 

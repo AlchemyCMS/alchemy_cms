@@ -53,6 +53,10 @@ class Page < ActiveRecord::Base
     return all_elements
   end
   
+  def elements_grouped_by_cells
+    elements.group_by { |e| e.cell }.sort_by { |c, e| c.nil? ? 'zz' : c.name }
+  end
+  
   # Finds the previous page on the same structure level. Otherwise it returns nil.
   # Options:
   # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)

@@ -2,8 +2,7 @@ module Alchemy
   class PageLayout
     
     def self.element_names_for(page_layout)
-      page_layouts = self.get_layouts
-      layout_description = page_layouts.detect { |p| p["name"].downcase == page_layout.downcase }
+      layout_description = get(page_layout)
       if layout_description.blank?
         puts "\n+++ Warning: No Layout Description for #{page_layout} found! in page_layouts.yml\n"
         return []
