@@ -2,7 +2,8 @@ class Page < ActiveRecord::Base
   acts_as_nested_set
   stampable
   has_many :folded_pages
-  has_many :elements, :order => :position, :dependent => :destroy
+  has_many :cells, :dependent => :destroy
+  has_many :elements, :through => :cells
   has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
   belongs_to :language
   
@@ -25,6 +26,7 @@ class Page < ActiveRecord::Base
   named_scope :language_roots, :conditions => {:language_root => true}
   named_scope :layoutpages, :conditions => {:layoutpage => true}
   named_scope :all_locked, :conditions => {:locked => true}
+  named_scope :contentpages, :conditions => "pages.layoutpage = 0 AND pages.parent_id IS NOT NULL"
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']

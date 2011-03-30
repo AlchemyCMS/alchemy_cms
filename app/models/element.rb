@@ -1,9 +1,8 @@
 class Element < ActiveRecord::Base
-  require 'yaml'
-
-  acts_as_list :scope => :page_id
+  acts_as_list :scope => :cell_id
   stampable :stamper_class_name => :user
   has_many :contents, :order => :position, :dependent => :destroy
+  belongs_to :cell
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
   
@@ -13,6 +12,7 @@ class Element < ActiveRecord::Base
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
+  # TODO: add a trashed column to elements table
   named_scope :trashed, :conditions => {:page_id => nil}, :order => 'updated_at DESC'
   
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
