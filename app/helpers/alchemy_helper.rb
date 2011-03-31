@@ -1218,4 +1218,25 @@ document.getElementsByTagName("body")[0].appendChild(s);
     @page
   end
   
+  # Renders the partial for the cell with the given name of the current page.
+  # Cell partials are located in +app/views/cells/+ of your project.
+  def render_cell(name)
+    cell = @page.cells.find_by_name(name)
+    return "" if cell.blank?
+    render :partial => "cells/#{name}", :locals => {:cell => cell}
+  end
+  
+  # Renders all element partials from given cell.
+  def render_cell_elements(cell)
+    return warning("No cell given.") if cell.blank?
+    render_elements(:only => cell.elements.collect(&:name))
+  end
+  
+  # Returns true or false if no elements are in the cell found by name.
+  def cell_empty?(name)
+    cell = @page.cells.find_by_name(name)
+    return true if cell.blank?
+    cell.elements.blank?
+  end
+  
 end
