@@ -36,4 +36,12 @@ class Cell < ActiveRecord::Base
     Element.all_definitions_for(element_names.uniq)
   end
   
+  def self.definition_for_element(element_name)
+    definitions_for_element(element_name).first
+  end
+  
+  def self.definitions_for_element(element_name)
+    definitions.select { |d| d['elements'].include?(element_name) }
+  end
+  
 end

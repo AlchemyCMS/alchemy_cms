@@ -398,6 +398,11 @@ class Page < ActiveRecord::Base
     end
   end
   
+  # Returns true or false if the page has a page_layout that has cells.
+  def has_cells?
+    !Alchemy::PageLayout.get(page_layout)['cells'].blank?
+  end
+  
 private
   
   def find_next_or_previous_page(direction = "next", options = {})

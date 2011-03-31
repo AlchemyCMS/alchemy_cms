@@ -852,7 +852,7 @@ var Alchemy = {
 	},
 	
 	SortableElements : function(page_id, form_token) {
-		jQuery('#element_area').sortable({
+		jQuery('#element_area .sortable_cell').sortable({
 			items: 'div.element_editor',
 			handle: '.element_handle',
 			axis: 'y',
@@ -1106,7 +1106,7 @@ var Alchemy = {
 		jQuery("#trash_items div.draggable").draggable({
 			helper: 'clone',
 			iframeFix: 'iframe#alchemyPreviewWindow',
-			connectToSortable: '#element_area',
+			connectToSortable: '#element_area .sortable_cell',
 			start: function(event, ui) { 
 				jQuery(this).hide().addClass('dragged');
 				ui.helper.css({width: '300px'});

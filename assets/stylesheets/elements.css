@@ -314,9 +314,11 @@ form.add_gallery_to_index select {
 }
 
 div#element_area {
-	padding: 8px 8px 0;
+	padding: 0;
 	margin: 0;
-	overflow: hidden;
+}
+
+div#element_area .sortable_cell {
 	min-height: 90%;
 }
 
