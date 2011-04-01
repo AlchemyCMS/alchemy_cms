@@ -3,23 +3,19 @@
 	<div id="cells">
 		<ul>
 			<%- @elements.each do |cell, elements| -%>
-			<%- unless elements.blank? -%>
 			<li>
 				<a href="#cell_<%= cell.nil? ? 'for_other_elements' : cell.name -%>"><%= cell.nil? ? _('other Elements') : t("cell_names.#{cell.name}", :default => cell.name.camelcase) -%></a>
 			</li>
 			<%- end -%>
-			<%- end -%>
 		</ul>
 		<%- @elements.each do |cell, elements| -%>
-		<%- unless elements.blank? -%>
-		<div id="cell_<%= cell.nil? ? 'for_other_elements' : cell.name %>" class="sortable_cell with_padding">
+		<div id="cell_<%= cell.nil? ? 'for_other_elements' : cell.name %>" class="sortable_cell">
 			<%= render :partial => 'element', :collection => elements, :locals => {:draggable => true} %>
 		</div>
 		<%- end -%>
-		<%- end -%>
 	</div>
 	<%- else -%>
-	<div class="sortable_cell">
+	<div class="sortable_cell" id="cell_for_other_elements">
 		<%= render :partial => @elements, :locals => {:draggable => true} %>
 	</div>
 	<%- end -%>

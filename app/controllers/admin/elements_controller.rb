@@ -52,7 +52,9 @@ class Admin::ElementsController < AlchemyController
     # if page has cells, put element in cell
     if @page.has_cells?
       cell_definition = Cell.definition_for_element(@element.name)
-      @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
+      if cell_definition
+        @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
+      end
       @element.cell = @cell
     end
     @element.page = @page

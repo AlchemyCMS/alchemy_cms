@@ -320,6 +320,7 @@ div#element_area {
 
 div#element_area .sortable_cell {
 	min-height: 90%;
+	padding: 8px;
 }
 
 .new_alchemy_element span {

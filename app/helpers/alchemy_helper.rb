@@ -828,7 +828,7 @@ module AlchemyHelper
       other_elements = elements - celled_elements
       unless other_elements.blank?
         optgroup_label = _('other Elements')
-        options[optgroup_label] = other_elements
+        options[optgroup_label] = other_elements.map { |e| [e['display_name'], e['name']] }
       end
       return grouped_options_for_select(options)
     else

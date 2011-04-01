@@ -1,11 +1,15 @@
+if @page.has_cells?
+  cell_label = @cell.nil? ? _('other Elements') : t("cell_names.#{@cell.name}")
+  page << "Alchemy.selectOrCreateCellTab('#{@cell.nil? ? 'cell_for_other_elements' : @cell.name}', '#{cell_label}')"
+end
 page.insert_html(
   :bottom,
-  "element_area",
+  "#cell_#{@cell.nil? ? 'cell_for_other_elements' : @cell.name}",
   :partial => "element",
   :object => @element,
   :locals => {:draggable => true}
 )
-page << "jQuery('#element_area').sortable('refresh')"
+page << "jQuery('#cell_#{@cell.nil? ? 'cell_for_other_elements' : @cell.name}').sortable('refresh')"
 Alchemy::Notice.show(page, _("successfully_added_element"))
 page << "Alchemy.closeCurrentWindow()"
 @element.rtf_contents.each do |content|
