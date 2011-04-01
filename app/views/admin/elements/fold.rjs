@@ -15,6 +15,7 @@ else
   else
     page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
     page << "Alchemy.SelectBox('#element_#{@element.id} select')"
+    page << "Alchemy.ButtonObserver('#element_#{@element.id} button.button')"
     @element.rtf_contents.each do |content|
       page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
     end
