@@ -1732,7 +1732,8 @@ input#search_input_field {
 }
 
 input.button, 
-a.button {
+a.button,
+button.button {
 	margin: 0;
 	font: 11px "Lucida Grande", "Lucida Sans", Lucida, sans-serif;
 	border: 1px solid #9a9a9a;
@@ -1755,14 +1756,43 @@ input.button {
 	height: 25px;
 }
 
-#new_page_form tbody tr td.second_row input.button {
+button.button {
+	line-height: 21px;
+	padding-left: 8px;
+	padding-right: 8px;
+	height: 25px;
+	padding-top: 1px;
+	font-size: 1em;
+}
+
+button.button img {
+	margin-right: 0;
+	width: 20px;
+	height: 20px;
+}
+
+button.button.disabled,
+button.button.disabled:hover,
+button.button.disabled:active {
+	color: #333;
+	text-shadow: none;
+	border-color: #ccc;
+	cursor: default;
+	background-image: none;
+	background-color: #f5f5f5;
+	padding: 1px 0 0;
+}
+
+#new_page_form tbody tr td.second_row .button {
 	float: right;
 }
 
 input.button:hover,
 input.button:focus,
 a.button:hover,
-a.button:focus {
+a.button:focus,
+button.button:hover,
+button.button:focus {
 	text-decoration: none;
 	text-shadow: none;
 	border: 1px solid #888888;

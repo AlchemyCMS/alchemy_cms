@@ -58,8 +58,10 @@ class Admin::ElementsController < AlchemyController
       @element.cell = @cell
     end
     @element.page = @page
-    unless @element.save
-      render_remote_errors(@element)
+    if @element.save
+      render :action => :create
+    else
+      render_remote_errors(@element, 'form#new_element button.button')
     end
   rescue Exception => e
     exception_handler(e)
@@ -83,8 +85,7 @@ class Admin::ElementsController < AlchemyController
         selector = @element.contents_with_errors.map { |content| '#' + content_dom_id(content) }.join(', ')
         page << "jQuery('div.content_editor').removeClass('validation_failed')"
         page << "jQuery('#{selector}').addClass('validation_failed')"
-        page << "jQuery('#element_#{@element.id}_spinner').hide()"
-        page << "jQuery('#element_#{@element.id}_save').show()"
+        page << "Alchemy.enableButton('#element_#{@element.id} button.button')"
       end
     end
   rescue Exception => e

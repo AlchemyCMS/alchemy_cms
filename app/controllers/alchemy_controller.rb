@@ -16,20 +16,21 @@ class AlchemyController < ApplicationController
   helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard
   helper :errors, :layout
 
-  def render_errors_or_redirect(object, redicrect_url, flash_notice)
+  def render_errors_or_redirect(object, redicrect_url, flash_notice, button = nil)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
       render(:update) { |page| page.redirect_to(redicrect_url) }
     else
-      render_remote_errors(object)
+      render_remote_errors(object, button)
     end
   end
   
-  def render_remote_errors(object)
+  def render_remote_errors(object, button = nil)
     render :update do |page|
       page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
       page.show "errors"
-    end    
+      page << "Alchemy.enableButton('#{button}')" unless button.blank?
+    end
   end
   
   # Returns a host string with the domain the app is running on.

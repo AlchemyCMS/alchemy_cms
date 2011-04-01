@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-30 18:35+0200\n"
+"POT-Creation-Date: 2011-04-01 20:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Image: '%{name}' deleted successfully"
 msgstr "Page: '%{name}' deleted."
 
-#: app/controllers/admin/elements_controller.rb:91
+#: app/controllers/admin/elements_controller.rb:97
 msgid "Index Error after saving Element. Please try again!"
 msgstr ""
 
@@ -233,11 +233,11 @@ msgstr "Language"
 msgid "Language '%{name}' created"
 msgstr "Language '%{name}' created."
 
-#: app/controllers/admin/languages_controller.rb:54
+#: app/controllers/admin/languages_controller.rb:56
 msgid "Language '%{name}' destroyed"
 msgstr "Language '%{name}' deleted."
 
-#: app/controllers/admin/languages_controller.rb:46
+#: app/controllers/admin/languages_controller.rb:47
 msgid "Language '%{name}' updated"
 msgstr "Language '%{name}' updated"
 
@@ -320,7 +320,7 @@ msgstr ""
 msgid "Page"
 msgstr "Page"
 
-#: app/controllers/admin/pages_controller.rb:97
+#: app/controllers/admin/pages_controller.rb:100
 msgid "Page %{name} deleted"
 msgstr "Page: '%{name}' deleted."
 
@@ -332,7 +332,7 @@ msgstr "Page: '%{name}' saved."
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:261
+#: app/controllers/admin/pages_controller.rb:264
 msgid "Page cache flushed"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Page visible"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:229
+#: app/controllers/admin/pages_controller.rb:232
 msgid "Pages order saved"
 msgstr ""
 
@@ -507,7 +507,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:177
+#: app/controllers/alchemy_controller.rb:178
 msgid "Please log in"
 msgstr ""
 
@@ -631,11 +631,11 @@ msgstr "User"
 msgid "User: '%{name}' created"
 msgstr "User: '%{name}' created"
 
-#: app/controllers/admin/users_controller.rb:68
+#: app/controllers/admin/users_controller.rb:70
 msgid "User: '%{name}' deleted"
 msgstr "User: '%{name}' deleted"
 
-#: app/controllers/admin/users_controller.rb:60
+#: app/controllers/admin/users_controller.rb:61
 msgid "User: '%{name}' updated"
 msgstr "User: '%{name}' updated"
 
@@ -683,7 +683,7 @@ msgstr "Password confirmation"
 msgid "User|Role"
 msgstr "Userrole"
 
-#: app/controllers/admin/elements_controller.rb:74
+#: app/controllers/admin/elements_controller.rb:81
 msgid "Validation failed."
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:166
+#: app/controllers/alchemy_controller.rb:167
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
@@ -1190,7 +1190,7 @@ msgstr "Removed %{name} from clipboard"
 msgid "language_does_not_exist"
 msgstr "This language tree does not exist"
 
-#: app/controllers/admin/pages_controller.rb:203
+#: app/controllers/admin/pages_controller.rb:206
 msgid "language_pages_copied"
 msgstr "Language tree succesfully copied."
 
@@ -1324,7 +1324,7 @@ msgstr ""
 msgid "no users"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:161
+#: app/controllers/alchemy_controller.rb:162
 msgid "no_default_language_found"
 msgstr "No default language found."
 
@@ -1355,6 +1355,7 @@ msgid "not a valid image"
 msgstr "This is not an valid image."
 
 #: app/helpers/alchemy_helper.rb:830 app/views/admin/elements/list.html.erb:7
+#: app/views/admin/elements/create.rjs:2
 msgid "other Elements"
 msgstr ""
 
@@ -1378,7 +1379,7 @@ msgstr "page properties"
 msgid "page_public"
 msgstr "published"
 
-#: app/controllers/admin/pages_controller.rb:182
+#: app/controllers/admin/pages_controller.rb:185
 msgid "page_published"
 msgstr "Published page."
 
@@ -1528,7 +1529,7 @@ msgstr "allow robot to index."
 
 #: app/views/admin/attachments/edit.html.erb:9
 #: app/views/admin/contents/new.html.erb:11
-#: app/views/admin/elements/_element_foot.html.erb:36
+#: app/views/admin/elements/_element_foot.html.erb:32
 #: app/views/admin/essence_files/edit.html.erb:14
 #: app/views/admin/essence_files/edit.html.erb:34
 #: app/views/admin/essence_files/edit.html.erb:62
@@ -1550,10 +1551,6 @@ msgstr ""
 #: app/controllers/admin/essence_pictures_controller.rb:67
 msgid "saved_link"
 msgstr "Link saved."
-
-#: app/views/admin/elements/_element_foot.html.erb:32
-msgid "saving"
-msgstr "saving"
 
 #: app/helpers/alchemy_helper.rb:791
 #: app/views/admin/partials/_remote_search_form.html.erb:35
@@ -1600,11 +1597,11 @@ msgstr "Small thumbnails"
 msgid "subject"
 msgstr ""
 
-#: app/views/admin/elements/create.rjs:9
+#: app/views/admin/elements/create.rjs:13
 msgid "successfully_added_element"
 msgstr "Succesfully added new element."
 
-#: app/controllers/admin/elements_controller.rb:117
+#: app/controllers/admin/elements_controller.rb:123
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
@@ -1644,7 +1641,7 @@ msgstr "Remove link from this image."
 msgid "unlock_page"
 msgstr "Leave page"
 
-#: app/controllers/admin/pages_controller.rb:154
+#: app/controllers/admin/pages_controller.rb:157
 msgid "unlocked_page_%{name}"
 msgstr "Unlocked page %{name}."
 

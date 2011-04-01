@@ -1,4 +1,6 @@
-var Alchemy;
+if (typeof(Alchemy) === 'undefined') {
+	var Alchemy;
+}
 
 (function ($) {
 	
@@ -197,6 +199,7 @@ var Alchemy;
 						url: path,
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
+							Alchemy.ButtonObserver('#alchemyElementWindow button.button');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -276,6 +279,9 @@ var Alchemy;
 						}
 					}
 				],
+				open: function () {
+					Alchemy.ButtonObserver('#alchemyConfirmation .button');
+				},
 				close: function() {
 					$('#alchemyConfirmation').remove();
 				}
@@ -312,6 +318,9 @@ var Alchemy;
 						}
 					}
 				],
+				open: function () {
+					Alchemy.ButtonObserver('#alchemyConfirmation .button');
+				},
 				close: function() {
 					$('#alchemyConfirmation').remove();
 				}
@@ -344,6 +353,7 @@ var Alchemy;
 							$dialog.css({overflow: overflow ? 'visible' : 'auto'});
 							$dialog.dialog('widget').css({overflow: overflow ? 'visible' : 'hidden'});
 							Alchemy.SelectBox('#alchemyOverlay select');
+							Alchemy.ButtonObserver('#alchemyOverlay .button');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -686,8 +696,6 @@ var Alchemy;
 		},
 		
 		saveElement : function(form) {
-			// $(form).find('.save_element').hide();
-			// $(form).find('.element_spinner').show();
 			var $rtf_contents = $(form).find('div.content_rtf_editor');
 			if ($rtf_contents.size() > 0) {
 				$rtf_contents.each(function() {
@@ -699,11 +707,10 @@ var Alchemy;
 		
 		setElementSaved : function(selector) {
 			var $element = $(selector);
-			$element.find('.element_spinner').hide();
-			$element.find('.save_element').show();
 			Alchemy.setElementClean(selector);
+			Alchemy.enableButton(selector + ' button.button');
 		},
-
+		
 		PageSorter : function () {
 			$('ul#sitemap').nestedSortable({
 				disableNesting: 'no-nest',
@@ -1129,15 +1136,29 @@ var Alchemy;
 			$('#cells').tabs('select', '#cell_'+cell_name);
 		},
 		
-		ButtonObserver: function () {
-			$('#alchemy .button').click(function(event) {
+		ButtonObserver: function (selector) {
+			$(selector).click(function(event) {
 				Alchemy.disableButton(this);
 			});
 		},
 		
 		disableButton: function (button) {
-			$(button).attr("disabled", true);
-			Alchemy.pleaseWaitOverlay();
+			var $button = $(button), $clone = $button.clone(), width = $button.outerWidth(), text = $button.text();
+			$button.hide();
+			$button.parent().append($clone);
+			$clone.attr({disabled: true})
+			.addClass('disabled cloned-button')
+			.css({width: width})
+			.html('<img src="/images/alchemy/ajax_loader.gif">')
+			.show();
+			return true;
+		},
+		
+		enableButton: function (button) {
+			var $button = $(button);
+			$button.show();
+			$button.parent().find('.cloned-button').remove();
+			return true;
 		},
 		
 		debug : function(e) {
@@ -1156,7 +1177,7 @@ jQuery(document).ready(function () {
 	
 	Alchemy.ResizeFrame();
 	Alchemy.Tooltips();
-	Alchemy.ButtonObserver();
+	Alchemy.ButtonObserver('#alchemy button.button');
 	
 	if (typeof(jQuery().sb) === 'function') {
 		Alchemy.SelectBox('body#alchemy select');

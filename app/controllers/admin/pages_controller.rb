@@ -52,7 +52,7 @@ class Admin::PagesController < AlchemyController
     if page.valid? && parent
       page.move_to_child_of(parent)
     end
-    render_errors_or_redirect(page, parent.layoutpage? ? layoutpages_admin_pages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
+    render_errors_or_redirect(page, parent.layoutpage? ? layoutpages_admin_pages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name}, 'form#new_page_form button.button')
   rescue Exception => e
     exception_handler(e)
   end
@@ -81,8 +81,11 @@ class Admin::PagesController < AlchemyController
   
   def update
     # fetching page via before filter
-    @page.update_attributes(params[:page])
-    @notice = _("Page %{name} saved") % {:name => @page.name}
+    if @page.update_attributes(params[:page])
+      @notice = _("Page %{name} saved") % {:name => @page.name}
+    else
+      render_remote_errors(@page, "form#edit_page_#{@page.id} button.button")
+    end
   end
   
   def destroy

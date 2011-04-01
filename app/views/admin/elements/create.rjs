@@ -1,5 +1,5 @@
 if @page.has_cells?
-  cell_label = @cell.nil? ? _('other Elements') : t("cell_names.#{@cell.name}")
+  cell_label = @cell.nil? ? _('other Elements') : t("cell_names.#{@cell.name}", :default => @cell.name.camelcase)
   page << "Alchemy.selectOrCreateCellTab('#{@cell.nil? ? 'cell_for_other_elements' : @cell.name}', '#{cell_label}')"
 end
 page.insert_html(

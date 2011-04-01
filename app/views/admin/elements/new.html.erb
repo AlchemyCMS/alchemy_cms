@@ -18,7 +18,7 @@
 					<label for="paste_from_clipboard"><%= _("Element") %></label>
 				</span>
 				<%= clipboard_select_tag(@clipboard_items, :class => 'very_long') %>
-				<%= f.submit _("paste"), :class => 'button', :name => nil %>
+				<%= f.button _("paste"), :class => 'button' %>
 			<% end %>
 		</div>
 	</div>

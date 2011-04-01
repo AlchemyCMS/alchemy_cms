@@ -39,7 +39,8 @@ class Admin::UsersController < AlchemyController
     render_errors_or_redirect(
       @user,
       admin_users_path,
-      ( _("User: '%{name}' created") % {:name => @user.name} )
+      ( _("User: '%{name}' created") % {:name => @user.name} ),
+      "form#new_user button.button"
     )
   rescue
     exception_handler($!)
@@ -57,7 +58,8 @@ class Admin::UsersController < AlchemyController
     render_errors_or_redirect(
       @user,
       admin_users_path,
-      ( _("User: '%{name}' updated") % {:name => @user.name} )
+      ( _("User: '%{name}' updated") % {:name => @user.name} ),
+      "form#edit_user_#{@user.id} button.button"
     )
   end
   

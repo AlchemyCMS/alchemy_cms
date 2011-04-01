@@ -11,7 +11,7 @@ class Page < ActiveRecord::Base
   
   validates_presence_of :name, :message => N_("please enter a name")
   validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
-  validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
+  validates_length_of :urlname, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
   
   attr_accessor :do_not_autogenerate

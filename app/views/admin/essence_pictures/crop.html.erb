@@ -15,7 +15,7 @@
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
     <%= hidden_field_tag 'content_id', @content.id %>
-    <%= f.submit _("save"), :class => 'button' %>
+    <%= f.button _("save"), :class => 'button' %>
 <%- end -%>
 <script type="text/javascript" charset="utf-8">
 	jQuery('#imageToCrop').Jcrop({
