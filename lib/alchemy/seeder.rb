@@ -29,7 +29,7 @@ module Alchemy
           errors << "Errors creating language #{lang.name}: #{lang.errors.full_messages}"
         end
       else
-        notices << "= Language #{lang.name} was already present"
+        notices << "== Skipping! Language #{lang.name} was already present"
       end
       
       root = Page.find_or_initialize_by_name(
@@ -49,7 +49,7 @@ module Alchemy
           errors << "Errors creating page #{root.name}: #{root.errors.full_messages}"
         end
       else
-        notices << "= Page #{root.name} was already present"
+        notices << "== Skipping! Page #{root.name} was already present"
       end
       
       index = Page.find_or_initialize_by_name(
@@ -67,7 +67,7 @@ module Alchemy
           errors << "Errors creating page #{index.name}: #{index.errors.full_messages}"
         end
       else
-        notices << "= Page #{index.name} was already present"
+        notices << "== Skipping! Page #{index.name} was already present"
       end
       
       if errors.blank?
@@ -85,7 +85,7 @@ module Alchemy
     def self.upgrade!
       seed!
       Page.all.each do |page|
-        unless page.language_code.blank?
+        if !page.language_code.blank? && page.language.nil?
           root = page.get_language_root
           lang = Language.find_or_create_by_code(
             :name => page.language_code.capitalize,
@@ -95,14 +95,22 @@ module Alchemy
             :public => true
           )
           page.language = lang
-          page.save(false)
+          if page.save(false)
+            puts "== Set language for page #{page.name} to #{lang.name}"
+          end
+        else
+          puts "== Skipping! Language for page #{page.name} already set."
         end
       end
+      default_language = Language.get_default
       Page.layoutpages.each do |page|
         if page.language.class == String || page.language.nil?
-          page.language = lang
-          page.language_code = page.language.code
-          page.save(false)
+          page.language = default_language
+          if page.save(false)
+            puts "== Set language for page #{page.name} to #{default_language.name}"
+          end
+        else
+          puts "== Skipping! Language for page #{page.name} already set."
         end
       end
     end
