@@ -1272,15 +1272,18 @@ div#user_list_legend {
 	text-align: center;
 }
 
-div.button_with_label form {
+#toolbar div.button_with_label form {
 	margin: 0;
 	float: none;
+}
+
+#toolbar div.button_with_label div.sb.selectbox {
+	width: 100px;
 }
 
 #toolbar div.search_field {
 	position: relative;
 	float: left;
-	margin-bottom: 4px;
 }
 
 #toolbar div p {
@@ -2595,10 +2598,10 @@ div#toolbar_buttons_right {
 }
 
 div.button_with_label {
-	text-align: center;
 	margin-right: 8px;
 	margin-left: 8px;
 	float: left;
+	text-align: center;
 }
 
 div.button_with_label.active .icon_button {
@@ -2670,6 +2673,10 @@ div#overlay_toolbar label {
 	margin-top: 4px;
 	display: block;
 	line-height: 13px;
+	clear: both;
+	float: left;
+	width: 100%;
+	text-align: center;
 }
 
 div.button_with_label:hover label {

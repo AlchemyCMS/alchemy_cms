@@ -112,6 +112,7 @@
 
 #alchemy .selectbox .text {
 	line-height: 23px;
+	text-align: left;
 }
 
 #alchemy .selectbox .value {
