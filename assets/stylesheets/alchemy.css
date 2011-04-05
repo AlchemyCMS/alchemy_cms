@@ -2376,6 +2376,10 @@ a.icon.file_download {
 	background: url(/images/alchemy/icons.png) -240px -72px;
 }
 
+.icon.download {
+	background: url(/images/alchemy/icons.png) -240px -72px;
+}
+
 a.icon.file_delete {
 	background: url(/images/alchemy/icons.png) -48px -72px;
 }
