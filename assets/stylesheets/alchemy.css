@@ -525,16 +525,22 @@ div.info.footnote {
 }
 
 div#bottom_panel {
-	position: absolute;
-	bottom: 16px;
+	position: fixed;
+	bottom: 0;
 	right: 0;
 	width: 100%;
 	z-index: 10;
+	background: #e3e3e3 url(../../images/alchemy/gui/shading.png) repeat-x 0 0;
 }
 
-div#page_sorting_notice.info {
-	margin-left: 16px;
-	margin-right: 16px;
+div#bottom_panel div.info {
+	margin: 16px 16px 8px 81px;
+	width: 720px;
+}
+
+div#bottom_buttons {
+	padding: 0 16px 16px;
+	margin-left: 65px;
 }
 
 p.no_padding {
@@ -1272,18 +1278,15 @@ div#user_list_legend {
 	text-align: center;
 }
 
-#toolbar div.button_with_label form {
+div.button_with_label form {
 	margin: 0;
 	float: none;
-}
-
-#toolbar div.button_with_label div.sb.selectbox {
-	width: 100px;
 }
 
 #toolbar div.search_field {
 	position: relative;
 	float: left;
+	margin-bottom: 4px;
 }
 
 #toolbar div p {
@@ -1613,7 +1616,7 @@ ul#layoutpages.list li {
 }
 
 ul#sitemap.list {
-	padding: 0 16px 8px;
+	padding: 0 16px 116px;
 }
 
 #sitemap .drop_hover {
@@ -2379,10 +2382,6 @@ a.icon.file_download {
 	background: url(/images/alchemy/icons.png) -240px -72px;
 }
 
-.icon.download {
-	background: url(/images/alchemy/icons.png) -240px -72px;
-}
-
 a.icon.file_delete {
 	background: url(/images/alchemy/icons.png) -48px -72px;
 }
@@ -2598,10 +2597,10 @@ div#toolbar_buttons_right {
 }
 
 div.button_with_label {
+	text-align: center;
 	margin-right: 8px;
 	margin-left: 8px;
 	float: left;
-	text-align: center;
 }
 
 div.button_with_label.active .icon_button {
@@ -2673,10 +2672,6 @@ div#overlay_toolbar label {
 	margin-top: 4px;
 	display: block;
 	line-height: 13px;
-	clear: both;
-	float: left;
-	width: 100%;
-	text-align: center;
 }
 
 div.button_with_label:hover label {
