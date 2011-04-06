@@ -856,7 +856,11 @@ if (typeof(Alchemy) === 'undefined') {
 					$('#cells').tabs('select', $cell.attr('id'));
 				}
 				if ($element.hasClass('folded')) {
+					$('#element_'+id+'_folder').hide();
+					$('#element_'+id+'_folder_spinner').show();
 					$.post('/admin/elements/fold?id='+id, function() {
+						$('#element_'+id+'_folder').show();
+						$('#element_'+id+'_folder_spinner').hide();
 						Alchemy.scrollToElementEditor('#element_'+id);
 					});
 				} else {
