@@ -818,26 +818,10 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 		
 		ElementEditorSelector : function() {
-			var $elements = $('#element_area .element_editor'), $cells = $('#cells .sortable_cell'), $cell;
+			var $elements = $('#element_area .element_editor');
 			
-			$elements.bind('Alchemy.SelectElementEditor', function (e) {
-				e.preventDefault();
-				var id = this.id.replace(/\D/g,'');
-				var $element = $(this);
-				var $selected = $elements.closest('[class="selected"');
-				$elements.removeClass('selected');
-				$element.addClass('selected');
-				if ($cells.size() > 0) {
-					$cell = $element.parent('.sortable_cell');
-					$('#cells').tabs('select', $cell.attr('id'));
-				}
-				if ($element.hasClass('folded')) {
-					$.post('/admin/elements/fold?id='+id, function() {
-						Alchemy.scrollToElementEditor('#element_'+id);
-					});
-				} else {
-					Alchemy.scrollToElementEditor(this);
-				}
+			$elements.each(function () {
+				Alchemy.bindSelectElementEditor(this, $elements);
 			});
 			
 			$('#element_area .element_editor .element_head').click(function(e) {
@@ -852,7 +836,33 @@ if (typeof(Alchemy) === 'undefined') {
 				Alchemy.scrollToElementEditor(this);
 				$selected_element.trigger('Alchemy.SelectElement');
 			});
+			
+		},
 		
+		bindSelectElementEditor: function (element, $elements) {
+			var $cells = $('#cells .sortable_cell'), $cell;
+			if (typeof($elements) === 'undefined') {
+				var $elements = $('#element_area .element_editor');
+			}
+			$(element).bind('Alchemy.SelectElementEditor', function (e) {
+				var id = this.id.replace(/\D/g,''), 
+					$element = $(this), 
+					$selected = $elements.closest('[class="selected"');
+					e.preventDefault();
+				$elements.removeClass('selected');
+				$element.addClass('selected');
+				if ($cells.size() > 0) {
+					$cell = $element.parent('.sortable_cell');
+					$('#cells').tabs('select', $cell.attr('id'));
+				}
+				if ($element.hasClass('folded')) {
+					$.post('/admin/elements/fold?id='+id, function() {
+						Alchemy.scrollToElementEditor('#element_'+id);
+					});
+				} else {
+					Alchemy.scrollToElementEditor(this);
+				}
+			});
 		},
 		
 		scrollToElementEditor: function(el) {
