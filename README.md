@@ -5,7 +5,7 @@ About
 -----
 
 Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
-For more Information please visit <http://tvdeyen.github.com/alchemy>
+For more Information please visit <http://magiclabs.github.com/alchemy>
 
 Rails Version
 -------------
@@ -17,11 +17,11 @@ Install via Rails template:
 
 We have a fancy Rails template that does all the installation stuff for you. You can find it here:
 
-<http://github.com/tvdeyen/alchemy-rails-templates/>
+<http://github.com/magiclabs/alchemy-rails-templates/>
 
 Just enter:
 
-        rails _2.3.10_ -d mysql -m https://github.com/tvdeyen/alchemy-rails-templates/raw/master/install_alchemy.rb YOUR_APP_NAME
+        rails _2.3.10_ -d mysql -m https://github.com/magiclabs/alchemy-rails-templates/raw/master/install_alchemy.rb YOUR_APP_NAME
 
 into your terminal and follow the instructions displayed after the templates executes.
 
@@ -30,7 +30,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
 
 1. In your Rails App folder enter:
 
-        script/plugin install git://github.com/tvdeyen/alchemy.git
+        script/plugin install git://github.com/magiclabs/alchemy.git
 
 2. Then enter following lines into the config block of your config/environment.rb file
 
@@ -88,11 +88,11 @@ Example:
 Resources
 ---------
 
-* Homepage: <http://tvdeyen.github.com/alchemy/>
+* Homepage: <http://magiclabs.github.com/alchemy/>
 * API Documentation: <http://api.alchemy-app.com/>
 * Issue-Tracker: <http://redmine.alchemy-app.com/projects/alchemy-cms/issues>
 * Wiki: <http://redmine.alchemy-app.com/projects/alchemy/wiki>
-* Sourcecode: <https://github.com/tvdeyen/alchemy>
+* Sourcecode: <https://github.com/magiclabs/alchemy>
 
 Authors
 ---------
