@@ -91,8 +91,9 @@ module AlchemyHelper
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-          from = Page.find_by_page_layout(options[:fallback][:from])
-          all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
+          if from = Page.find_by_page_layout(options[:fallback][:from])
+            all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
+          end
         end
       end
       all_elements.each_with_index do |element, i|

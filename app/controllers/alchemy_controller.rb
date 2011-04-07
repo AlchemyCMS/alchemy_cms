@@ -150,7 +150,11 @@ protected
   end
   
   def set_translation
-    FastGettext.locale = current_user.language unless current_user == :false || current_user.blank?
+    if current_user.blank?
+      FastGettext.locale = configuration(:default_translation)
+    else
+      FastGettext.locale = current_user.language
+    end
   end
   
   def set_language

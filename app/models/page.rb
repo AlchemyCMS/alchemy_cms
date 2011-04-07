@@ -281,8 +281,9 @@ class Page < ActiveRecord::Base
   end
   
   def contains_feed?
-    return false if layout_description.blank?
-    self.layout_description['feed']
+    desc = self.layout_description
+    return false if desc.blank?
+    desc["feed"]
   end
   
   # Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true

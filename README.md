@@ -19,9 +19,11 @@ We have a fancy Rails template that does all the installation stuff for you. You
 
 <http://github.com/magiclabs/alchemy-rails-templates/>
 
-Just enter:
+Download the template and put it in a folder of your choice of your local disc.
 
-        rails _2.3.10_ -d mysql -m https://github.com/magiclabs/alchemy-rails-templates/raw/master/install_alchemy.rb YOUR_APP_NAME
+Then enter:
+
+        rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
 
 into your terminal and follow the instructions displayed after the templates executes.
 
