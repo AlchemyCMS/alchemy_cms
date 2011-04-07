@@ -1,0 +1,14 @@
+title: Alchemy Guides
+description: These guidelines help you to set up Alchemy CMS and customnize it to you needs.
+
+authors:
+  Documentation Team:
+    - name: Manuel Dingemann
+      nick: dingemann
+      description: Manuel writes the Alchemy Guides.
+
+index:
+  Start Here:
+    - title: Getting Started
+      url: getting_started
+      text: Everything you need to know to create your first Alchemy project

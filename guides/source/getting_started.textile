@@ -1,0 +1,111 @@
+h2. Getting Started
+
+This guide covers getting up and running with Alchemy CMS. After reading it, you should be familiar with:
+
+* Installing and creating a new Alchemy site
+* Changing the front end design of a Alchemy site
+
+endprologue.
+
+h3. Guide Assumptions
+
+This guide is designed for beginners who want to get started with a Alchemy CMS site from scratch. It does not assume that you have any prior experience with Alchemy. However, to get the most out of it, you need to have some prerequisites installed:
+
+* The "Ruby":http://www.ruby-lang.org/en/downloads language version 1.8.7. Alchemy does not run with Ruby 1.9.2 for now.
+* The "RubyGems":http://rubyforge.org/frs/?group_id=126 packaging system
+* The "MySQL Database":http://www.mysql.com/downloads/mysql
+* "ImageMagick":http://www.imagemagick.org/script/install-source.php
+
+Alchemy is a Ruby on Rails application. If you have no prior experience with Rails, you will find a very steep learning curve diving straight into Alchemy.  There are some good free resources on the Internet for learning Rails, including:
+
+* "Getting Started with Rails":http://guides.rubyonrails.org/getting_started.html
+* "Rails for Zombies":http://railsforzombies.org/labs
+
+h3. What is Alchemy CMS?
+
+Alchemy, is an open source content management system written in Ruby as a Ruby on Rails web application with jQuery and jQueryUI used as the JavaScript library. Alchemy runs on Rails 2.3. Rails 3.0 is currently not supported, because of broken Engines support in Rails 3.0.
+
+h4. Alchemy's architecture
+
+Alchemy is a Rails Engine that lies in +/vendor/plugins/alchemy+. Alchemy acts like a mini Rails application with its own routes and views. Alchemy is architected like this so that it keeps out of the way of any custom development you will do in the +/app+ directory.
+Alchemy itself depends on other Gems and Plugins. The full list of dependencies is "listed here":https://github.com/magiclabs/alchemy
+
+h3. Creating a new Alchemy project
+
+The easiest way to create a new Alchemy project is to use the "Rails template":http://github.com/magiclabs/alchemy-rails-templates/ we provide.
+Download the template and put it in a folder of your choice of your local disc.
+
+Then go to your webprojects folder and enter:
+
+<shell>
+rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
+</shell>
+
+NOTE: This step may take some time to load as it needs to download and install all the ruby gems and plugins Alchemy depends on.
+
+This will create a new Rails application with Alchemy built in in a directory called +YOUR_APP_NAME+.
+
+Change inside the project folder Alchemy created for you and type:
+
+<shell>
+rake db:create
+rake db:migrate:alchemy
+</shell>
+
+Put this line into your +db/seeds.rb+:
+
+@Alchemy::Seeder.seed!@
+
+And seed the database with:
+
+<shell>
+rake db:seed
+</shell>
+
+Copy all Alchemy assets (javascripts, stylesheets and images) to your apps public folder:
+
+<shell>
+rake alchemy:assets:copy:all
+</shell>
+
+h3. Welcome to Alchemy!
+
+One of the traditional places to start with a new project is by getting some text up on screen quickly, to do this, you need to get your Alchemy application server running.
+
+h4. Starting up the Web Server
+
+You actually have a functional Alchemy application already installed. To see it, you need to start a web server on your development machine. You can do this by running:
+
+<shell>
+script/server
+</shell>
+
+This will fire up an instance of the WEBrick web server by default. To see your application in action, open a browser window and navigate to "http://localhost:3000/admin":http://localhost:3000/admin. You should be greeted with a screen prompting you to create your first Alchemy admin user.
+
+!images/signup.png!
+
+TIP: To stop the web server, hit Ctrl+C in the terminal window where it's running.
+
+If you see this screen it means you have setup everything correctly and your Alchemy CMS site is up and running.
+
+h4. Setting up your first user
+
+Fill out the sign up form to create your first admin user.
+
+Once you've created your first user you'll see Alchemy's "Home Screen".
+
+!images/homescreen.png!
+
+h4. Explore Alchemy
+
+Now you're setup, click around the various tabs in the backend and become familiar with what comes out of the box.
+
+!>/system/images/BAhbBlsHOgZmSSIsMjAxMC8xMi8wMi8xMl81NF80Ml83M19yZW9yZGVyX3RhYnMucG5nBjoGRVQ/12_54_42_73_reorder_tabs.png!
+
+h3. Implementing your own layout
+
+...
+
+h3. The Alchemy standard set
+
+...
