@@ -1759,10 +1759,8 @@ input.button {
 
 button.button {
 	line-height: 21px;
-	padding-left: 8px;
-	padding-right: 8px;
+	padding: 1px 8px 2px 8px;
 	height: 25px;
-	padding-top: 1px;
 	font-size: 1em;
 }
 
