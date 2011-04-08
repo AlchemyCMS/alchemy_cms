@@ -89,6 +89,10 @@ A few hints for the beginning
 
         cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index
 
+3. You can easily create your element-files (for view and editor) depending on the elements.yml with this generator
+
+        script/generate elements
+
 Resources
 ---------
 
