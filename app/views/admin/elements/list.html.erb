@@ -4,12 +4,15 @@
 		<ul>
 			<%- @elements.each do |cell, elements| -%>
 			<li>
-				<a href="#cell_<%= cell.nil? ? 'for_other_elements' : cell.name -%>"><%= cell.nil? ? _('other Elements') : t("cell_names.#{cell.name}", :default => cell.name.camelcase) -%></a>
+				<a href="#cell_<%= cell.name -%>">
+					<%= cell.name == 'for_other_elements' ? _('other Elements') : t("cell_names.#{cell.name}", :default => cell.name.camelcase) -%>
+					(<%= elements.length %>)
+				</a>
 			</li>
 			<%- end -%>
 		</ul>
 		<%- @elements.each do |cell, elements| -%>
-		<div id="cell_<%= cell.nil? ? 'for_other_elements' : cell.name %>" class="sortable_cell">
+		<div id="cell_<%= cell.name %>" class="sortable_cell">
 			<%= render :partial => 'element', :collection => elements, :locals => {:draggable => true} %>
 		</div>
 		<%- end -%>

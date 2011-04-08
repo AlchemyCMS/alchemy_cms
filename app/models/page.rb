@@ -22,6 +22,7 @@ class Page < ActiveRecord::Base
   before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
   before_save :set_language_code
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
+  after_create :create_cells
   after_save :set_restrictions_to_child_pages
   
   named_scope :language_roots, :conditions => {:language_root => true}
@@ -54,7 +55,10 @@ class Page < ActiveRecord::Base
   end
   
   def elements_grouped_by_cells
-    elements.group_by { |e| e.cell }.sort_by { |c, e| c.nil? ? 'zz' : c.name }
+    group = ActiveSupport::OrderedHash.new
+    cells.each { |cell| group[cell] = cell.elements }
+    group[Cell.new({:name => 'for_other_elements'})] = elements.find_all_by_cell_id(nil)
+    return group
   end
   
   # Finds the previous page on the same structure level. Otherwise it returns nil.
@@ -252,6 +256,7 @@ class Page < ActiveRecord::Base
       return page_layout
     end
   end
+  alias_method :definition, :layout_description
   
   # Returns the self#page_layout display_name from config/alchemy/page_layouts.yml file.
   def layout_display_name
@@ -462,6 +467,13 @@ private
   def set_language_code
     return false if self.language.blank?
     self.language_code = self.language.code
+  end
+  
+  def create_cells
+    return true if !has_cells?
+    definition['cells'].each do |cellname|
+      cells.create({:name => cellname})
+    end
   end
   
 end
