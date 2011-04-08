@@ -327,7 +327,7 @@ class Element < ActiveRecord::Base
   def belonging_cellname
     cellname = Cell.name_for_element(name)
     if cellname.blank?
-      return 'cell_for_other_elements' 
+      return 'for_other_elements' 
     else
       return cellname
     end

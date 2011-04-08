@@ -1,5 +1,5 @@
 <div id="element_area">
-	<%- if @cells -%>
+	<%- if !@cells.blank? -%>
 	<div id="cells">
 		<ul>
 			<%- @elements.each do |cell, elements| -%>
