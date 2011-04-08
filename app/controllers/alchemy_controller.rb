@@ -122,11 +122,12 @@ private
     if @language.blank?
       logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
+    else
+      session[:language_id] = @language.id
+      session[:language_code] = @language.code
+      Alchemy::Controller.current_language = @language
+      I18n.locale = @language.code      
     end
-    session[:language_id] = @language.id
-    session[:language_code] = @language.code
-    Alchemy::Controller.current_language = @language
-    I18n.locale = @language.code
   end
   
   def store_location
