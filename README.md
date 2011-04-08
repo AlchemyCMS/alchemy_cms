@@ -97,9 +97,8 @@ Resources
 ---------
 
 * Homepage: <http://magiclabs.github.com/alchemy/>
-* API Documentation: <http://api.alchemy-app.com/>
-* Issue-Tracker: <http://redmine.alchemy-app.com/projects/alchemy-cms/issues>
-* Wiki: <http://redmine.alchemy-app.com/projects/alchemy/wiki>
+* Issue-Tracker: <http://alchemy.lighthouseapp.com/projects/73309-alchemy-cms>
+* Wiki: <https://github.com/magiclabs/alchemy/wiki>
 * Sourcecode: <https://github.com/magiclabs/alchemy>
 
 Authors
