@@ -1754,9 +1754,8 @@ button.ui-button::-moz-focus-inner {
 	background: #eee; 
 }
 
-#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled a {
-	color: #ccc;
-	cursor: default;
+#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled {
+	visibility: hidden;
 }
 
 /*
