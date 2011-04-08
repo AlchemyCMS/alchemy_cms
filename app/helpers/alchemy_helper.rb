@@ -812,30 +812,33 @@ module AlchemyHelper
   end
   
   # Returns all elements that could be placed on that page because of the pages layout.
-  # If no cells.yml is present the elements are returned as an array to be used in alchemy_selectbox form builder.
-  # If a cells.yml is present the elements will be grouped by cellname.
+  # The elements are returned as an array to be used in alchemy_selectbox form builder.
   def elements_for_select(elements)
     return [] if elements.nil?
+    options = elements.collect{ |e| [e["display_name"], e["name"]] }
+    return options_for_select(options)
+  end
+  
+  # Returns all elements that could be placed on that page because of the pages layout.
+  # The elements will be grouped by cellname.
+  def grouped_elements_for_select(elements)
+    return [] if elements.nil?
     cells_definition = Cell.definitions
-    if cells_definition
-      options = {}
-      celled_elements = []
-      cells_definition.each do |cell|
-        cell_elements = elements.select { |e| cell['elements'].include?(e['name']) }
-        celled_elements += cell_elements
-        optgroup_label = t("cell_names.#{cell['name']}", :default => cell['name'].camelcase)
-        options[optgroup_label] = cell_elements.map { |e| [e['display_name'], e['name']] }
-      end
-      other_elements = elements - celled_elements
-      unless other_elements.blank?
-        optgroup_label = _('other Elements')
-        options[optgroup_label] = other_elements.map { |e| [e['display_name'], e['name']] }
-      end
-      return grouped_options_for_select(options)
-    else
-      options = elements.collect{ |e| [e["display_name"], e["name"]] }
-      return options_for_select(options)
+    return [] if cells_definition.blank?
+    options = {}
+    celled_elements = []
+    cells_definition.each do |cell|
+      cell_elements = elements.select { |e| cell['elements'].include?(e['name']) }
+      celled_elements += cell_elements
+      optgroup_label = t("cell_names.#{cell['name']}", :default => cell['name'].camelcase)
+      options[optgroup_label] = cell_elements.map { |e| [e['display_name'], e['name']] }
     end
+    other_elements = elements - celled_elements
+    unless other_elements.blank?
+      optgroup_label = _('other Elements')
+      options[optgroup_label] = other_elements.map { |e| [e['display_name'], e['name']] }
+    end
+    return grouped_options_for_select(options)
   end
   
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})

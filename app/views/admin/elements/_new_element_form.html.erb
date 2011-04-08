@@ -11,7 +11,7 @@
 		<span style="margin-right: 16px"><%= _("element_of_type") %>:</span>
 		<%= form.select(
 			'name',
-			elements_for_select(@elements),
+			@page.has_cells? ? grouped_elements_for_select(@elements) : elements_for_select(@elements),
 			{:prompt => _('select_element')},
 			{:class => 'very_long'}
 		) -%>
