@@ -78,12 +78,14 @@ If you want to install Alchemy inside an existing Rails project, then follow the
 
         rake alchemy:assets:copy:all
 
-Tip
----
+A few hints for the beginning
+-----------------------------
 
-If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
+1. This task creates all necessary folders and files needed for creating your own pagelayouts and elements for your website
 
-Example:
+        rake alchemy:app_structure:create:all
+
+2. If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
 
         cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index
 
