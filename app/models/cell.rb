@@ -44,4 +44,10 @@ class Cell < ActiveRecord::Base
     definitions.select { |d| d['elements'].include?(element_name) }
   end
   
+  def self.name_for_element(element_name)
+    definition = definition_for_element(element_name)
+    return nil if definition.blank?
+    definition['name']
+  end
+  
 end

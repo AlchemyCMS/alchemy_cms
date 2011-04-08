@@ -1115,7 +1115,7 @@ if (typeof(Alchemy) === 'undefined') {
 				return true;
 			}
 		},
-
+		
 		PageLeaveObserver : function(texts) {
 			$('#main_navi a').click(function(event) {
 				if (!Alchemy.checkPageDirtyness(event.currentTarget, texts)) {
@@ -1123,19 +1123,21 @@ if (typeof(Alchemy) === 'undefined') {
 				}
 			});
 		},
-
-		DraggableTrashItems: function () {
-			$("#trash_items div.draggable").draggable({
-				helper: 'clone',
-				iframeFix: 'iframe#alchemyPreviewWindow',
-				connectToSortable: '#element_area .sortable_cell',
-				start: function(event, ui) { 
-					$(this).hide().addClass('dragged');
-					ui.helper.css({width: '300px'});
-				},
-				stop: function() {
-					$(this).show().removeClass('dragged');
-				}
+		
+		DraggableTrashItems: function (items_n_cells) {
+			$("#trash_items div.draggable").each(function () {
+				$(this).draggable({
+					helper: 'clone',
+					iframeFix: 'iframe#alchemyPreviewWindow',
+					connectToSortable: '#cell_' + items_n_cells[this.id],
+					start: function(event, ui) { 
+						$(this).hide().addClass('dragged');
+						ui.helper.css({width: '300px'});
+					},
+					stop: function() {
+						$(this).show().removeClass('dragged');
+					}
+				});
 			});
 		},
 		

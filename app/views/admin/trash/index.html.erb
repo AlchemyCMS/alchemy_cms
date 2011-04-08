@@ -19,5 +19,7 @@
 	<%- end -%>
 </div>
 <script type="text/javascript" charset="utf-8">
-	Alchemy.DraggableTrashItems();
+	<%- cells_items = {} %>
+	<%- @elements.each { |e| cells_items["element_#{e.id}"] = e.belonging_cellname };  -%>
+	Alchemy.DraggableTrashItems(<%= cells_items.to_json %>);
 </script>

@@ -323,6 +323,16 @@ class Element < ActiveRecord::Base
     contents.select { |content| content.essence_type == 'EssenceRichtext' }
   end
   
+  # The name of the cell the element could be placed in.
+  def belonging_cellname
+    cellname = Cell.name_for_element(name)
+    if cellname.blank?
+      return 'cell_for_other_elements' 
+    else
+      return cellname
+    end
+  end
+  
 private
   
   # List all elements for page_layout
