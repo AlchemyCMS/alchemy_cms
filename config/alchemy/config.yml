@@ -65,8 +65,8 @@ default_translation: de
 default_language:
   code: de
   name: Deutsch
-  page_layout: index
-  frontpage_name: Index
+  page_layout: intro
+  frontpage_name: Intro
 
 # === Mailer Settings:
 # To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
