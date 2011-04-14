@@ -7,7 +7,6 @@ class Element < ActiveRecord::Base
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
   
-  validates_uniqueness_of :position, :scope => :page_id
   validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
   
   before_destroy :remove_contents
@@ -24,7 +23,7 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position ASC"
   end
-
+  
   # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
   def prev(name = nil)
     if name.nil?
@@ -34,7 +33,7 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position DESC"
   end
-
+  
   def store_page page
     unless self.to_be_sweeped_pages.include? page
       self.to_be_sweeped_pages << page
@@ -51,15 +50,15 @@ class Element < ActiveRecord::Base
   def content_by_name(name)
     self.contents.find_by_name(name)
   end
-
+  
   def content_by_type(essence_type)
     self.contents.find_by_essence_type(essence_type)
   end
-
+  
   def all_contents_by_name(name)
     self.contents.find_all_by_name(name)
   end
-
+  
   def all_contents_by_type(essence_type)
     self.contents.find_all_by_essence_type(essence_type)
   end
@@ -268,9 +267,8 @@ private
   
   # makes a copy of source and makes copies of the contents from source
   def self.copy(source, differences = {})
-    differences[:position] = nil
     attributes = source.attributes.except("id").merge(differences)
-    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil))
+    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil, :position => nil))
     source.contents.each do |content|
       new_content = Content.copy(content, :element_id => element.id)
       new_content.move_to_bottom

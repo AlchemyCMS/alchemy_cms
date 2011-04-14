@@ -9,7 +9,7 @@ else
   page << "jQuery('#element_area').sortable('refresh')"
   if @element.folded
     @richtext_contents.each do |content|
-      page << "tinymce.get('contents_content_#{content.id}_body').remove()"
+      page << "rtf_#{content.id} = tinymce.get('contents_content_#{content.id}_body'); if (rtf_#{content.id}) {rtf_#{content.id}.remove();}; delete rtf_#{content.id}"
     end
   else
     page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
