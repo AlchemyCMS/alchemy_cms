@@ -19,9 +19,8 @@ module ErrorsHelper
         end
       end
       options[:object_name] ||= params.first
-      options[:header_message] = "Das Formular konnte nicht gesendet werden." unless options.include?(:header_message)
-      options[:message] ||= 'Folgende Fehler traten auf:' unless options.include?(:message)
-      #error_messages = objects.sum {|object| object.errors.full_messages.map {|msg| content_tag(:li, msg) } }.join
+      options[:header_message] = I18n.t("activerecord.errors.template.header", {:count => count, :model => object.class.to_s.humanize}) unless options.include?(:header_message)
+      options[:message] ||= I18n.t('activerecord.errors.template.body') unless options.include?(:message)
       error_messages = objects.map {|object| object.errors.collect{ |column,error| content_tag( :li, error ) } }
   
       contents = ''
