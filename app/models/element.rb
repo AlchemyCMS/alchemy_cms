@@ -59,15 +59,15 @@ class Element < ActiveRecord::Base
   def content_by_name(name)
     self.contents.find_by_name(name)
   end
-
+  
   def content_by_type(essence_type)
     self.contents.find_by_essence_type(essence_type)
   end
-
+  
   def all_contents_by_name(name)
     self.contents.find_all_by_name(name)
   end
-
+  
   def all_contents_by_type(essence_type)
     self.contents.find_all_by_essence_type(essence_type)
   end
@@ -369,9 +369,8 @@ private
   
   # makes a copy of source and makes copies of the contents from source
   def self.copy(source, differences = {})
-    differences[:position] = nil
     attributes = source.attributes.except("id").merge(differences)
-    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil))
+    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil, :position => nil))
     source.contents.each do |content|
       new_content = Content.copy(content, :element_id => element.id)
       new_content.move_to_bottom

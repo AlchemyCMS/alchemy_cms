@@ -27,16 +27,11 @@ de:
       mandatory_fields: 'Pflichtfelder. Vielen Dank!'
       success_page: 'Folgeseite'
     validations:
-      blank_lastname: 'Bitte geben Sie Ihren Nachnamen an'
-      blank_email: 'Bitte geben Sie Ihre Email an'
+      enter_name: 'Bitte geben Sie Ihren Namen an'
+      enter_mail: 'Bitte geben Sie Ihre Email an'
       wrong_email_format: 'Die Email Adresse scheint nicht richtig zu sein.'
     messages:
       success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
-      subject_heading_1: 'Meine Anfrage'
-      subject_heading_2: 'Betrifft:'
-      contact_data: 'Meine Kontaktdaten'
-      message_header: 'Meine Nachricht an Sie'
-      additional_header: 'Ich möchte zusätzlich'
   
   mailer:
     new_user_mail:

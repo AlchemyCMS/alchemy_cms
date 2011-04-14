@@ -100,6 +100,7 @@ Resources
 * Issue-Tracker: <http://alchemy.lighthouseapp.com/projects/73309-alchemy-cms>
 * Wiki: <https://github.com/magiclabs/alchemy/wiki>
 * Sourcecode: <https://github.com/magiclabs/alchemy>
+* Live-Demo: <http://demo.alchemy-app.com>
 
 Authors
 ---------
