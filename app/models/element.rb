@@ -139,6 +139,22 @@ class Element < ActiveRecord::Base
     Element.descriptions.detect{ |d| d['name'] == self.name }
   end
   
+  # Human name for displaying in selectboxes and element editor views.
+  # The name is beeing translated from elements name value as described in config/alchemy/elements.yml
+  # 
+  # Translate the name in your config/locales language file. Example:
+  # 
+  #   de:
+  #     element_names:
+  #       contactform: 'Kontakt Formular'
+  # 
+  # If no translation is found the capitalized name is used!
+  # 
+  def display_name
+    return name.capitalize if description.blank?
+    I18n.t("element_names.#{description['name']}", :default => name.capitalize)
+  end
+  
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
   # You can flag a Content as +take_me_for_preview+ to take this as preview.
   def preview_text(maxlength = 30)
