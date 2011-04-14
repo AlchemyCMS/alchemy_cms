@@ -802,6 +802,14 @@ module AlchemyHelper
     )
   end
   
+  # Renders a form select tag for storing page ids
+  # Options:
+  #   * element - element the Content find via content_name to store the pages id in.
+  #   * content_name - the name of the content from element to store the pages id in.
+  #   * options (Hash)
+  #   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
+  #   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
+  #   * select_options (Hash) - will be passed to the select_tag helper 
   def page_selector(element, content_name, options = {}, select_options = {})
     default_options = {
       :except => {
@@ -832,21 +840,21 @@ module AlchemyHelper
       select_options
     )
   end
-
+  
   # Returns all Pages found in the database as an array for the rails select_tag helper.
   # You can pass a collection of pages to only returns these pages as array.
-  # Pass an Page.name or Page.urlname as second parameter to pass as selected for the options_for_select helper.
-  def pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
-    result = [[prompt, ""]]
+  # Pass an Page.name or Page.id as second parameter to pass as selected for the options_for_select helper.
+  def pages_for_select(pages = nil, selected = nil, prompt = "")
+    result = [[prompt.blank? ? _('Choose page') : prompt, ""]]
     if pages.blank?
       pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
     end
     pages.each do |p|
-      result << [p.send(:name), p.send(:urlname)]
+      result << [p.name, p.id.to_s]
     end
-    options_for_select(result, selected)
+    options_for_select(result, selected.to_s)
   end
-
+  
   # Returns all public elements found by Element.name.
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
