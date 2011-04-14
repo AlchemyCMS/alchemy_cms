@@ -418,7 +418,7 @@ module AlchemyHelper
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => Alchemy::Controller.current_language.code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
     return meta_string
@@ -486,7 +486,7 @@ module AlchemyHelper
         css_class.blank? ? css_class = "first" : css_class = [css_class, "last"].join(" ")
       end
       if multi_language? 
-        url = show_page_with_language_url(:urlname => urlname, :lang => Alchemy::Controller.current_language.code)
+        url = show_page_with_language_url(:urlname => urlname, :lang => page.language_code)
       else
         url = show_page_url(:urlname => urlname)
       end
@@ -494,7 +494,7 @@ module AlchemyHelper
     end
     bc.join(options[:seperator])
   end
-
+  
   # returns true if page is in the active branch
   def page_active? page
     @breadcrumb ||= breadcrumb(@page)
