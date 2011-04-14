@@ -20,7 +20,7 @@ class Admin::PagesController < AlchemyController
   def show
     # fetching page via before filter
     @preview_mode = true
-    I18n.locale = session[:language_code]
+    set_language_to(@page.language_id)
     @root_page = Page.language_root_for(session[:language_id])
     render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end

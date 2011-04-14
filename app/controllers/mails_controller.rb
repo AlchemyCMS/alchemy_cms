@@ -63,7 +63,7 @@ class MailsController < AlchemyController
     @mail.ip = request.remote_ip
     element = Element.find_by_id(@mail.contact_form_id)
     @page = element.page
-    @root_page = Page.language_root_for(session[:language_id])
+    @root_page = @page.get_language_root
     if @mail.save
       if params[:mail_to].blank?
         mail_to = element.ingredient("mail_to")

@@ -5,14 +5,14 @@ class AlchemyController < ApplicationController
   include FastGettext::Translation
   include Alchemy
   include Userstamp
-
+  
   protect_from_forgery
   filter_parameter_logging :login, :password, :password_confirmation
-
-  before_filter :set_gettext_locale
+  
+  before_filter :init_gettext
   before_filter :set_translation
   before_filter :set_language
-
+  
   helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :get_clipboard
   helper :errors, :layout
 
@@ -52,7 +52,7 @@ class AlchemyController < ApplicationController
     if @language
       session[:language_id] = @language.id
       session[:language_code] = @language.code
-      Alchemy::Controller.current_language = @language
+      I18n.locale = @language.code
     else
       logger.error "+++++++ Language not found for language_id: #{language_id}"
     end
@@ -143,13 +143,15 @@ private
   
 protected
   
-  def set_gettext_locale
+  def init_gettext#:nodoc:
     FastGettext.text_domain = 'alchemy'
     FastGettext.available_locales = configuration(:translations).collect { |l| l[:language_code] }
   end
   
+  # Setting the Alchemy GUI translation to users preffered language, or to the default translation.
+  # You can set the default_translation in your config/alchemy/config.yml file
   def set_translation
-    if current_user.blank?
+    if current_user.blank? || current_user.language.blank?
       FastGettext.locale = configuration(:default_translation)
     else
       FastGettext.locale = current_user.language
@@ -159,10 +161,9 @@ protected
   def set_language
     if session[:language_id].blank?
       set_language_to_default
+    else
+      set_language_to(session[:language_id])
     end
-  rescue
-    log_error($!)
-    flash[:error] = _('no_default_language_found')
   end
   
   def permission_denied
@@ -198,12 +199,15 @@ protected
     end
   end
   
+  # Setting language relevant stuff to defaults.
   def set_language_to_default
     @language = Language.get_default
     session[:language_id] = @language.id
     session[:language_code] = @language.code
-    Alchemy::Controller.current_language = @language
     I18n.locale = @language.code
+  rescue
+    log_error($!)
+    flash[:error] = _('no_default_language_found')
   end
   
   def get_clipboard(category = nil)
