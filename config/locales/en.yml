@@ -1,10 +1,37 @@
 en:
   user_roles:
-    registered: "Registriert"
+    registered: "Registered"
     author: "Author"
-    editor: "Redakteur"
+    editor: "Editor"
     admin: "Administrator"
-    
+  
+  search:
+    no_results: 'No results found'
+    result_heading: 'Your search for %{query} has %{count} results'
+
+  contactform:
+    labels:
+      salutation: 'Salutation'
+      choose: 'Please choose'
+      mr: 'Mr.'
+      mrs: 'Mrs.'
+      firstname: 'Firstname'
+      lastname: 'Lastname'
+      address: 'Street / No.'
+      zip: 'Zipcode / City'
+      phone: 'Telephone'
+      email: 'Email'
+      message: 'Message'
+      send: 'Send Message'
+      mandatory_fields: 'Mandatory fields.'
+      success_page: 'Followup page'
+    validations:
+      enter_name: 'Please enter your name'
+      enter_mail: 'Please enter your email'
+      wrong_email_format: 'Email has wrong format.'
+    messages:
+      success: 'Your message was delivered succesfully.'
+  
   languages:
     cn:
       name: 'chinese'
@@ -192,26 +219,27 @@ en:
                 invalid: 'Format of languagecode is not valid. Please use exactly two lowercase characters.'
 
   authlogic:
-    error_messages:
-      login_blank: "Benutzername wurde nicht angeben."
-      login_not_found: "Dieser Benutzername existiert nicht."
-      login_invalid: "Benutzername darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
-      consecutive_failed_logins_limit_exceeded: "Zu viele Fehlversuche! Dieser Account ist aus Sicherheitsgründen gesperrt worden. Bitte wenden Sie sich an den Administrator."
-      email_invalid: "Email Adresse entspricht nicht dem Format einer Emailadresse."
-      password_blank: "Passwort wurde nicht angegeben."
-      password_invalid: "Das Passwort ist nicht richtig."
-      not_active: "Dieser Account wurde noch nicht aktiviert."
-      not_confirmed: "Dieser Account wurde noch nicht bestätigt."
-      not_approved: "Dieser Account wurde noch nicht freigeschaltet."
-      no_authentication_details: 'Sie haben keinen Benutzernamen und/oder Passwort eingegeben.'
-    models:
-      user_session: Session
-    attributes:
-      user_session:
-        username: "Benutzername"
-        email: "Email"
-        password: Passwort
-        remember_me: "eingeloggt bleiben"
+    authlogic:
+      error_messages:
+        login_blank: 'can not be blank'
+        login_not_found: 'is not valid'
+        login_invalid: 'should use only letters, numbers, spaces, and .-_@ please.'
+        consecutive_failed_logins_limit_exceeded: 'Consecutive failed logins limit exceeded, account is disabled.'
+        email_invalid: 'should look like an email address.'
+        password_blank: 'can not be blank'
+        password_invalid: 'is not valid'
+        not_active: 'Your account is not active'
+        not_confirmed: 'Your account is not confirmed'
+        not_approved: 'Your account is not approved'
+        no_authentication_details: 'You did not provide any details for authentication.'
+      models:
+        user_session: UserSession
+      attributes:
+        user_session:
+          login: login
+          email: email
+          password: password
+          remember_me: 'remember me'
 
   mime_types:
     audio/mp4: 'MP4-Audio'
@@ -236,4 +264,3 @@ en:
     image/jpeg: 'JPG-Image'
     video/x-msvideo: 'AVI-Video'
     image/tiff: 'TIFF-Image'
-    
