@@ -4,9 +4,21 @@ de:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
     
-    # Translations for page_layout names.
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    # 
+    # Example:
+    #   de:
+    #     alchemy:
+    #       page_layout_names:
+    #         contact: Kontakt
+    #         search: Suche
+    # 
     page_layout_names:
-      #TODO#
+      contact: Kontakt
+      search: Suche
+      layout_header: 'Header Bereich'
+      layout_footer: 'Footer Bereich'
     
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.

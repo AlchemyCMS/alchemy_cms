@@ -246,15 +246,11 @@ class Page < ActiveRecord::Base
     end
   end
   
-  # Returns the self#page_layout display_name from config/alchemy/page_layouts.yml file.
+  # Returns translated name of the pages page_layout value.
+  # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
+  # Translate the name in your config/locales language yml file.
   def layout_display_name
-    unless layout_description.blank?
-      if layout_description["display_name"].blank?
-        return page_layout.camelize
-      else
-        return layout_description["display_name"]
-      end
-    end
+    I18n.t("alchemy.page_layout_names.#{page_layout}", :default => page_layout.camelize)
   end
   
   def renamed?

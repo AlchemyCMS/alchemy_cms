@@ -34,11 +34,12 @@ module Alchemy
         return nil
       end
     end
-  
+    
+    # Returns page layouts ready for Rails' select form helper.
     def self.get_layouts_for_select(language_id, layoutpage = false)
       layouts_for_select = [ [ _("Please choose"), "" ] ]
       self.selectable_layouts(language_id, layoutpage).each do |layout|
-        display_name = (layout["display_name"].blank? ? layout["name"].camelize : layout["display_name"])
+        display_name = I18n.t("alchemy.page_layout_names.#{layout['name']}", :default => layout['name'].camelize)
         layouts_for_select << [display_name, layout["name"]]
       end
       layouts_for_select
