@@ -367,11 +367,11 @@ msgstr "locked by"
 
 #: locale/model_attributes.rb:24
 msgid "Page|Meta description"
-msgstr "Meta-Description"
+msgstr "Description"
 
 #: locale/model_attributes.rb:25
 msgid "Page|Meta keywords"
-msgstr "Meta-Keywords"
+msgstr "Keywords"
 
 #: locale/model_attributes.rb:20
 msgid "Page|Name"
