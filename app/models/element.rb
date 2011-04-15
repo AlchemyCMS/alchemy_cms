@@ -152,7 +152,7 @@ class Element < ActiveRecord::Base
   # 
   def display_name
     return name.capitalize if description.blank?
-    I18n.t("element_names.#{description['name']}", :default => name.capitalize)
+    I18n.t("alchemy.element_names.#{description['name']}", :default => name.capitalize)
   end
   
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.

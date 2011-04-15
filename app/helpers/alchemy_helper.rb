@@ -288,7 +288,7 @@ module AlchemyHelper
       warning('Element is nil')
       return ""
     else
-      content_name = t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, content.name.capitalize])
+      content_name = t("alchemy.content_names.#{content.element.name}.#{content.name}", :default => ["alchemy.content_names.#{content.name}".to_sym, content.name.capitalize])
     end
     if content.description.blank?
       warning("Content #{content.name} is missing its description")
@@ -788,7 +788,7 @@ module AlchemyHelper
   # returns all elements that could be placed on that page because of the pages layout as array to be used in alchemy_selectbox form builder
   def elements_for_select(elements)
     return [] if elements.nil?
-    elements.collect { |p| [I18n.t("element_names.#{p['name']}", :default => p['name'].capitalize), p['name']] }
+    elements.collect { |p| [I18n.t("alchemy.element_names.#{p['name']}", :default => p['name'].capitalize), p['name']] }
   end
   
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})

@@ -4,7 +4,7 @@
 	<table>
 		<tr>
 			<td>
-				<%= f.alchemy_selectbox 'name', @contents.map{ |a| [t("content_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
+				<%= f.alchemy_selectbox 'name', @contents.map{ |a| [t("alchemy.content_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
 				<%= hidden_field_tag('options', @options) %>
 			</td>
 			<td>

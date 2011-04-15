@@ -69,17 +69,25 @@ default_language:
   frontpage_name: Intro
 
 # === Mailer Settings:
+# 
 # To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
+# 
 # ==== Options:
+# 
 # fields: An Array from Hashes with fieldname as keys and type as values. Types are ActiveRecord column types (i.e. string, text, boolean, etc.).
 # validate_fields: A Hash with fieldname as key and a Hash (with :message as key and a message_id as value) as value
 # 
-# The message_id is passed through I18n.t so you can translate it in your language yml file:
+# ==== Translating validation messages:
+# 
+# The message_id is passed through I18n.t so you can translate it in your language yml file.
+# 
+# Example:
 # 
 #   de:  
-#     contactform:
-#       validations:
-#         message_id: Translation
+#     alchemy:
+#      contactform:
+#         validations:
+#           enter_name: 'Bitte geben Sie einen Namen an'
 # 
 :mailer:
   :page_layout_name: contact
@@ -105,6 +113,12 @@ default_language:
 # You can add own user roles. To set permissions for this roles please add an authorization_rules.rb file in your config folder.
 # Further documentation for the auth system used please visit:
 # https://github.com/stffn/declarative_authorization/blob/master/README.rdoc
+# 
+# ==== Translating Userroles
+# Userroles can be translated inside your the language yml file under:
+#   alchemy:
+#     user_roles:
+#       rolename: Name of the role
 :user_roles: [registered, author, editor, admin]
 
 # === Uploader Settings
