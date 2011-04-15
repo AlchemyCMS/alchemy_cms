@@ -891,7 +891,6 @@ module AlchemyHelper
     )
   end
   
-<<<<<<< HEAD
   # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
   # Usefull for the select_values options from the render_essence_editor helpers.
   # Options:
