@@ -1,81 +1,197 @@
 en:
-  user_roles:
-    registered: "Registered"
-    author: "Author"
-    editor: "Editor"
-    admin: "Administrator"
   
-  search:
-    no_results: 'No results found'
-    result_heading: 'Your search for %{query} has %{count} results'
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+    
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    # 
+    # Example:
+    #   de:
+    #     alchemy:
+    #       page_layout_names:
+    #         contact: Kontakt
+    #         search: Suche
+    # 
+    page_layout_names:
+      layout_header: 'Header Part'
+      layout_footer: 'Footer Part'
+    
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    # 
+    # Example:
+    #   de:
+    #     alchemy:
+    #       element_names:
+    #         article: Artikel
+    #         intro_image_text: Intro Artikel
+    # 
+    element_names:
+      article: Article
+      intro_image_text: Intro Article
+      text: Text
+      bild: Image(s)
+      bild_text: Text (Image)
+      headline: Headline
+      image_mosaic: Image Mosaic
+      footnote: Footnote
+      sitename: Website Name
+      claim: Claim
+      header: Header-Image
+      intro: Intro
+      subheadline: Subheadline
+      news: News
+      searchresult: Searchresults
+      contactform: Contactform
+    
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    # 
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    content_names:
+      text: 'Text'
+      date: 'Date'
+      body: 'Content'
+      image: 'Image(s)'
+      mail_from: 'Sender (E-Mail)'
+      mail_to: 'Receiver (E-Mail)'
+      caption: "Caption"
+      subject: 'Subject'
+      intro: "Intro"
+      headline: "Headline"
+      subheadline: "Subheadline"
+      news_headline: "News Headline"
+      image_mosaic:
+        caption: "Mosaic Caption"
+    
+    # == Translations for the build in full text search.
+    search:
+      no_results: 'No results found'
+      result_heading: 'Your search for %{query} has %{count} results'
+    
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: 'Salutation'
+        choose: 'Please choose'
+        mr: 'Mr.'
+        mrs: 'Mrs.'
+        firstname: 'Firstname'
+        lastname: 'Lastname'
+        address: 'Street / No.'
+        zip: 'Zipcode / City'
+        phone: 'Telephone'
+        email: 'Email'
+        message: 'Message'
+        send: 'Send Message'
+        mandatory_fields: 'Mandatory fields.'
+        success_page: 'Followup page'
+      # Translations for the contactform validations.
+      # Validations are set in the config/alchemy/config.yml mailer section.
+      validations:
+        enter_name: 'Please enter your name'
+        enter_mail: 'Please enter your email'
+        wrong_email_format: 'Email has wrong format.'
+      # The flash message shown after succesfully sending the message.
+      messages:
+        success: 'Your message was delivered succesfully.'
 
-  contactform:
-    labels:
-      salutation: 'Salutation'
-      choose: 'Please choose'
-      mr: 'Mr.'
-      mrs: 'Mrs.'
-      firstname: 'Firstname'
-      lastname: 'Lastname'
-      address: 'Street / No.'
-      zip: 'Zipcode / City'
-      phone: 'Telephone'
-      email: 'Email'
-      message: 'Message'
-      send: 'Send Message'
-      mandatory_fields: 'Mandatory fields.'
-      success_page: 'Followup page'
-    validations:
-      enter_name: 'Please enter your name'
-      enter_mail: 'Please enter your email'
-      wrong_email_format: 'Email has wrong format.'
-    messages:
-      success: 'Your message was delivered succesfully.'
+    # == Translations for the mailer templates
+    mailer:
+      # The mail the user gets after registering for alchemy
+      new_user_mail:
+        subject: 'Your credentials for my site'
+        welcome: 'Welcome to my site'
+        login_url_explanation: 'To login just click this link'
+        username: 'Your username'
+        password: 'Your password'
+        greeting: 'Have a nice day'
+    
+    # == Translated language names
+    languages:
+      cn:
+        name: 'Chinese'
+        title: 'Chinese'
+      de:
+        name: 'German'
+        title: 'German'
+      en:
+        name: 'English'
+        title: 'English'
+      es:
+        name: 'Spanish'
+        title: 'Spanish'
+      fi:
+        name: 'Finnish'
+        title: 'Finnish'
+      fr:
+        name: 'French'
+        title: 'French'
+      it:
+        name: 'Italian'
+        title: 'Italian'
+      jp:
+        name: 'Japanese'
+        title: 'Japanese'
+      nl:
+        name: 'Dutch'
+        title: 'Dutch'
+      no:
+        name: 'Norwegian'
+        title: 'Norwegian'
+      pl:
+        name: 'Polish'
+        title: 'Polish'
+      pt:
+        name: 'Portuguese'
+        title: 'Portuguese'
+      ru:
+        name: 'Russian'
+        title: 'Russian'
+      se:
+        name: 'Swedish'
+        title: 'Swedish'
+    
+    # == User roles translations
+    user_roles:
+      registered: "Registered"
+      author: "Author"
+      editor: "Editor"
+      admin: "Administrator"
+    
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'MP4-Audio'
+      application/msword: 'Word-Document'
+      application/rtf: 'RTF-Document'
+      audio/mpeg: 'MP3-Audio'
+      text/plain: 'Text-Document'
+      video/mp4: 'MP4-Video'
+      video/mpeg: 'MPEG-Video'
+      application/pdf: 'PDF-Document'
+      application/x-flash-video: 'Flash-Video'
+      video/x-flv: 'Flash-Video'
+      application/x-shockwave-flash: 'Flash-Movie'
+      application/zip: 'ZIP-Archive'
+      application/x-rar: 'RAR-Archive'
+      application/vnd:
+        ms-excel: 'Excel-Document'
+      video/quicktime: 'Quicktime-Video'
+      image/x-psd: 'Photoshop-File'
+      image/gif: 'GIF-Image'
+      image/png: 'PNG-Image'
+      image/jpeg: 'JPG-Image'
+      video/x-msvideo: 'AVI-Video'
+      image/tiff: 'TIFF-Image'
+    
+  # END of Alchemy translation
   
-  languages:
-    cn:
-      name: 'chinese'
-      title: 'chinese'
-    de:
-      name: 'german'
-      title: 'german'
-    en:
-      name: 'english'
-      title: 'english'
-    es:
-      name: 'spanish'
-      title: 'spanish'
-    fi:
-      name: 'finnish'
-      title: 'finnish'
-    fr:
-      name: 'french'
-      title: 'french'
-    it:
-      name: 'italian'
-      title: 'italian'
-    jp:
-      name: 'japanese'
-      title: 'japanese'
-    nl:
-      name: 'dutch'
-      title: 'dutch'
-    no:
-      name: 'norwegian'
-      title: 'norwegian'
-    pl:
-      name: 'polish'
-      title: 'polish'
-    pt:
-      name: 'portuguese'
-      title: 'portuguese'
-    ru:
-      name: 'russian'
-      title: 'russian'
-    se:
-      name: 'swedish'
-      title: 'swedish'
-  
+  # == Rails translations
+  # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -91,7 +207,6 @@ en:
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     # Used in date_select and datime_select.
     order: [ :year, :month, :day ]
-  
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z" 
@@ -99,11 +214,10 @@ en:
       long: "%B %d, %Y %H:%M" 
     am: "am" 
     pm: "pm" 
-  
   support:
     array:
       sentence_connector: "and"
-  
+
   number:
     # Used in number_with_delimiter()
     # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
@@ -180,11 +294,12 @@ en:
         many: "%{count} months" 
       about_x_years:
         one:  "about 1 year" 
-        many: "about %{count} years" 
+        many: "about %{count} years"
       over_x_years:
         one:  "over 1 year" 
-        many: "over %{count} years" 
-
+        many: "over %{count} years"
+  
+  # Translations for active record database models and error messages.
   activerecord:
     errors:
       template:
@@ -217,7 +332,8 @@ en:
             attributes:
               code:
                 invalid: 'Format of languagecode is not valid. Please use exactly two lowercase characters.'
-
+  
+  # Translations for the authentication system used in alchemy.
   authlogic:
     authlogic:
       error_messages:
@@ -240,27 +356,3 @@ en:
           email: email
           password: password
           remember_me: 'remember me'
-
-  mime_types:
-    audio/mp4: 'MP4-Audio'
-    application/msword: 'Word-Document'
-    application/rtf: 'RTF-Document'
-    audio/mpeg: 'MP3-Audio'
-    text/plain: 'Text-Document'
-    video/mp4: 'MP4-Video'
-    video/mpeg: 'MPEG-Video'
-    application/pdf: 'PDF-Document'
-    application/x-flash-video: 'Flash-Video'
-    video/x-flv: 'Flash-Video'
-    application/x-shockwave-flash: 'Flash-Movie'
-    application/zip: 'ZIP-Archive'
-    application/x-rar: 'RAR-Archive'
-    application/vnd:
-      ms-excel: 'Excel-Document'
-    video/quicktime: 'Quicktime-Video'
-    image/x-psd: 'Photoshop-File'
-    image/gif: 'GIF-Image'
-    image/png: 'PNG-Image'
-    image/jpeg: 'JPG-Image'
-    video/x-msvideo: 'AVI-Video'
-    image/tiff: 'TIFF-Image'

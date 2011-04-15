@@ -96,11 +96,12 @@ A few hints for the beginning
 Resources
 ---------
 
-* Homepage: <http://magiclabs.github.com/alchemy/>
-* Issue-Tracker: <http://alchemy.lighthouseapp.com/projects/73309-alchemy-cms>
-* Wiki: <https://github.com/magiclabs/alchemy/wiki>
-* Sourcecode: <https://github.com/magiclabs/alchemy>
+* Homepage: <http://alchemy-app.com>
 * Live-Demo: <http://demo.alchemy-app.com>
+* Wiki: <http://wiki.alchemy-app.com>
+* API Documentation: <http://api.alchemy-app.com>
+* Issue-Tracker: <http://issues.alchemy-app.com>
+* Sourcecode: <http://source.alchemy-app.com>
 
 Authors
 ---------

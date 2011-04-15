@@ -99,7 +99,7 @@ module PagesHelper
             if options[:linkname].to_sym == :code
               linkname = page.language.code
             else
-              linkname = I18n.t("languages.#{page.language.code}.name")
+              linkname = I18n.t("alchemy.languages.#{page.language.code}.name", :default => page.language.name)
             end
           else
             linkname = ""
@@ -111,7 +111,7 @@ module PagesHelper
               "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}",
               show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
               :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
-              :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
+              :title => options[:show_title] ? I18n.t("alchemy.languages.#{page.language.code}.title", :default => page.language.name) : nil
             )
           end
         end

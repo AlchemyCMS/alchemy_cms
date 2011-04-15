@@ -6,7 +6,7 @@
 	<td class="login"><%= user.login %></td>
 	<td class="name"><%= user.fullname -%></td>
 	<td class="email"><%= user.email %></td>
-	<td class="role"><%= I18n.t("user_roles.#{user.role}") %></td>
+	<td class="role"><%= I18n.t("alchemy.user_roles.#{user.role}") %></td>
 	<td class="tools">
 		<%- permitted_to?(:destroy, :admin_users) do -%>
 		<%= link_to_confirmation_window(

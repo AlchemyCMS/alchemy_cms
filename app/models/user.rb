@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   alias :name :fullname
   
   def self.human_rolename(role)
-    I18n.t("user_roles.#{role}")
+    I18n.t("alchemy.user_roles.#{role}")
   end
   
   def self.genders_for_select

@@ -1,91 +1,200 @@
 de:
-
-  user_roles:
-    registered: "Registriert"
-    author: "Author"
-    editor: "Redakteur"
-    admin: "Administrator"
   
-  search:
-    no_results: 'Ihre Suche ergab kein Ergebnis.'
-    result_heading: 'Ihre Suche nach %{query} ergab %{count} Ergebnisse' 
-
-  contactform:
-    labels:
-      salutation: 'Anrede'
-      choose: Wählen Sie
-      mr: 'Herr'
-      mrs: 'Frau'
-      firstname: 'Vorname'
-      lastname: 'Nachname'
-      address: 'Straße/Nr'
-      zip: 'PLZ/Ort'
-      phone: 'Telefon'
-      email: 'Email'
-      message: 'Nachricht'
-      send: 'Nachricht absenden!'
-      mandatory_fields: 'Pflichtfelder. Vielen Dank!'
-      success_page: 'Folgeseite'
-    validations:
-      enter_name: 'Bitte geben Sie Ihren Namen an'
-      enter_mail: 'Bitte geben Sie Ihre Email an'
-      wrong_email_format: 'Die Email Adresse scheint nicht richtig zu sein.'
-    messages:
-      success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+    
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    # 
+    # Example:
+    #   de:
+    #     alchemy:
+    #       page_layout_names:
+    #         contact: Kontakt
+    #         search: Suche
+    # 
+    page_layout_names:
+      contact: Kontakt
+      search: Suche
+      layout_header: 'Header Bereich'
+      layout_footer: 'Footer Bereich'
+    
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    # 
+    # Example:
+    #   de:
+    #     alchemy:
+    #       element_names:
+    #         article: Artikel
+    #         intro_image_text: Intro Artikel
+    # 
+    element_names:
+      article: Artikel
+      intro_image_text: Intro Artikel
+      text: Text
+      bild: Bild(er)
+      bild_text: Text (Bild)
+      headline: Überschrift
+      image_mosaic: Bildergalerie
+      footnote: Fußnote
+      sitename: Webseiten Name
+      claim: Claim
+      header: Header-Bild
+      intro: Intro
+      subheadline: Zwischenüberschrift
+      news: News
+      searchresult: Suchergebnisse
+      contactform: Kontaktformular
+    
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    # 
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    content_names:
+      text: 'Text'
+      date: 'Datum'
+      body: 'Inhalt'
+      image: 'Bild(er)'
+      mail_from: 'Absender (E-Mail)'
+      mail_to: 'Empfänger (E-Mail)'
+      caption: "Bildunterschrift"
+      subject: 'Betreff'
+      intro: "Einleitung"
+      headline: "Überschrift"
+      subheadline: "Unterüberschrift"
+      news_headline: "News Überschrift"
+      image_mosaic:
+        caption: "Mosaik Bildunterschrift"
+    
+    # == Translations for the build in full text search.
+    search:
+      no_results: 'Ihre Suche ergab kein Ergebnis.'
+      result_heading: 'Ihre Suche nach %{query} ergab %{count} Ergebnisse' 
+    
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: 'Anrede'
+        choose: Wählen Sie
+        mr: 'Herr'
+        mrs: 'Frau'
+        firstname: 'Vorname'
+        lastname: 'Nachname'
+        address: 'Straße/Nr'
+        zip: 'PLZ/Ort'
+        phone: 'Telefon'
+        email: 'Email'
+        message: 'Nachricht'
+        send: 'Nachricht absenden!'
+        mandatory_fields: 'Pflichtfelder. Vielen Dank!'
+        success_page: 'Folgeseite'
+      # Translations for the contactform validations.
+      # Validations are set in the config/alchemy/config.yml mailer section.
+      validations:
+        enter_name: 'Bitte geben Sie Ihren Namen an'
+        enter_mail: 'Bitte geben Sie Ihre Email an'
+        wrong_email_format: 'Die Email Adresse scheint nicht richtig zu sein.'
+      # The flash message shown after succesfully sending the message.
+      messages:
+        success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
+    
+    # == Translations for the mailer templates
+    mailer:
+      # The mail the user gets after registering for alchemy
+      new_user_mail:
+        subject: 'Ihre Zugangsdaten zu meiner Seite'
+        welcome: 'Willkommen auf meiner Seite'
+        login_url_explanation: 'Zum Anmelden klicken Sie bitte auf folgenden Link'
+        username: 'Ihr Benutzername'
+        password: 'Ihr Passwort'
+        greeting: 'Einen schönen Tag noch'
+    
+    # == Translated language names
+    languages:
+      cn:
+        name: 'Chinesisch'
+        title: 'Chinesisch'
+      de:
+        name: 'Deutsch'
+        title: 'Deutsch'
+      en:
+        name: 'English'
+        title: 'English'
+      es:
+        name: 'Spanisch'
+        title: 'Spanisch'
+      fi:
+        name: 'Finnisch'
+        title: 'Finnisch'
+      fr:
+        name: 'Französisch'
+        title: 'Französisch'
+      it:
+        name: 'Italienisch'
+        title: 'Italienisch'
+      jp:
+        name: 'Japanisch'
+        title: 'Japanisch'
+      nl:
+        name: 'Niederländisch'
+        title: 'Niederländisch'
+      no:
+        name: 'Norwegisch'
+        title: 'Norwegisch'
+      pl:
+        name: 'Polnisch'
+        title: 'Polnisch'
+      pt:
+        name: 'Portugiesisch'
+        title: 'Portugiesisch'
+      ru:
+        name: 'Russisch'
+        title: 'Russisch'
+      se:
+        name: 'Schwedisch'
+        title: 'Schwedisch'
+    
+    # == User roles translations
+    user_roles:
+      registered: "Registriert"
+      author: "Author"
+      editor: "Redakteur"
+      admin: "Administrator"
+    
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'MP4-Audio'
+      application/msword: 'Word-Dokument'
+      application/rtf: 'RTF-Dokument'
+      audio/mpeg: 'MP3-Audio'
+      text/plain: 'Text-Dokument'
+      video/mp4: 'MP4-Video'
+      video/mpeg: 'MPEG-Video'
+      application/pdf: 'PDF-Dokument'
+      application/x-flash-video: 'Flash-Video'
+      video/x-flv: 'Flash-Video'
+      application/x-shockwave-flash: 'Flash-Film'
+      application/zip: 'ZIP-Archiv'
+      application/x-rar: 'RAR-Archiv'
+      application/vnd:
+        ms-excel: 'Excel-Dokument'
+      video/quicktime: 'Quicktime-Video'
+      image/x-psd: 'Photoshop-Datei'
+      image/gif: 'GIF-Bild'
+      image/jpeg: 'JPG-Bild'
+      image/png: 'PNG-Bild'
+      video/x-msvideo: 'AVI-Video'
+      video/x-ms-wmv: 'Windows Media Video'
+      image/tiff: 'TIFF-Bild'
   
-  mailer:
-    new_user_mail:
-      subject: 'Ihre Zugangsdaten zu meiner Seite'
-      welcome: 'Willkommen auf meiner Seite'
-      login_url_explanation: 'Zum Anmelden klicken Sie bitte auf folgenden Link'
-      username: 'Ihr Benutzername'
-      password: 'Ihr Passwort'
-      greeting: 'Einen schönen Tag noch'
+  # END of Alchemy translation
   
-  languages:
-    cn:
-      name: 'Chinesisch'
-      title: 'Chinesisch'
-    de:
-      name: 'Deutsch'
-      title: 'Deutsch'
-    en:
-      name: 'English'
-      title: 'English'
-    es:
-      name: 'Spanisch'
-      title: 'Spanisch'
-    fi:
-      name: 'Finnisch'
-      title: 'Finnisch'
-    fr:
-      name: 'Französisch'
-      title: 'Französisch'
-    it:
-      name: 'Italienisch'
-      title: 'Italienisch'
-    jp:
-      name: 'Japanisch'
-      title: 'Japanisch'
-    nl:
-      name: 'Niederländisch'
-      title: 'Niederländisch'
-    no:
-      name: 'Norwegisch'
-      title: 'Norwegisch'
-    pl:
-      name: 'Polnisch'
-      title: 'Polnisch'
-    pt:
-      name: 'Portugiesisch'
-      title: 'Portugiesisch'
-    ru:
-      name: 'Russisch'
-      title: 'Russisch'
-    se:
-      name: 'Schwedisch'
-      title: 'Schwedisch'
-      
+  # == Rails translations
+  # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:
     formats:
       default: "%d.%m.%Y"
@@ -97,7 +206,6 @@ de:
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
     abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
     order: [ :day, :month, :year ]
-  
   time:
     formats:
       default: "%d. %b. %Y, %H:%M Uhr"
@@ -106,7 +214,6 @@ de:
       time: "%H:%M"
     am: "vormittags"
     pm: "nachmittags"
-  
   datetime:
     distance_in_words:
       half_a_minute: 'eine halbe Minute'
@@ -149,7 +256,6 @@ de:
         day: "Tag"
         month: "Monat"
         year: "Jahr"
-  
   number:
     format:
       precision: 2
@@ -182,13 +288,13 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-  
   support:
     array:
       words_connector: ", "
       two_words_connector: " und "
       last_word_connector: " und "
   
+  # Translations for active record database models and error messages.
   activerecord:
     errors:
       template:
@@ -222,7 +328,8 @@ de:
           attributes:
             code:
               invalid: 'Sprachkürzel ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
-          
+  
+  # Translations for the authentication system used in alchemy.
   authlogic:
     error_messages:
       login_blank: "Benutzername wurde nicht angeben."
@@ -244,44 +351,3 @@ de:
         email: "Email"
         password: Passwort
         remember_me: "eingeloggt bleiben"
-        
-  content_names:
-    text: 'Text'
-    date: 'Datum'
-    body: 'Inhalt'
-    image: 'Bild(er)'
-    mail_from: 'Absender (E-Mail)'
-    mail_to: 'Empfänger (E-Mail)'
-    caption: "Bildunterschrift"
-    subject: 'Betreff'
-    intro: "Einleitung"
-    headline: "Überschrift"
-    subheadline: "Unterüberschrift"
-    news_headline: "News Überschrift"
-    image_mosaic:
-      caption: "Mosaik Bildunterschrift"
-  
-  mime_types:
-    audio/mp4: 'MP4-Audio'
-    application/msword: 'Word-Dokument'
-    application/rtf: 'RTF-Dokument'
-    audio/mpeg: 'MP3-Audio'
-    text/plain: 'Text-Dokument'
-    video/mp4: 'MP4-Video'
-    video/mpeg: 'MPEG-Video'
-    application/pdf: 'PDF-Dokument'
-    application/x-flash-video: 'Flash-Video'
-    video/x-flv: 'Flash-Video'
-    application/x-shockwave-flash: 'Flash-Film'
-    application/zip: 'ZIP-Archiv'
-    application/x-rar: 'RAR-Archiv'
-    application/vnd:
-      ms-excel: 'Excel-Dokument'
-    video/quicktime: 'Quicktime-Video'
-    image/x-psd: 'Photoshop-Datei'
-    image/gif: 'GIF-Bild'
-    image/jpeg: 'JPG-Bild'
-    image/png: 'PNG-Bild'
-    video/x-msvideo: 'AVI-Video'
-    video/x-ms-wmv: 'Windows Media Video'
-    image/tiff: 'TIFF-Bild'

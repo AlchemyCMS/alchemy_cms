@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-04-01 20:03+0200\n"
+"POT-Creation-Date: 2011-04-15 16:26+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Filesize"
 
-#: app/helpers/alchemy_helper.rb:921
+#: app/helpers/alchemy_helper.rb:926
 msgid "Choose page"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Clipboard"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:392
+#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:394
 msgid "Copy"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:703
+#: app/helpers/alchemy_helper.rb:704
 msgid "Hide childpages"
 msgstr ""
 
@@ -306,7 +306,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:221
+#: app/helpers/alchemy_helper.rb:222
 msgid "No EssenceType given"
 msgstr ""
 
@@ -394,11 +394,11 @@ msgstr "locked by"
 
 #: locale/model_attributes.rb:24
 msgid "Page|Meta description"
-msgstr "Meta-Description"
+msgstr "Description"
 
 #: locale/model_attributes.rb:25
 msgid "Page|Meta keywords"
-msgstr "Meta-Keywords"
+msgstr "Keywords"
 
 #: locale/model_attributes.rb:20
 msgid "Page|Name"
@@ -490,8 +490,8 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Please check marked fields below"
 
-#: app/helpers/alchemy_helper.rb:798 app/helpers/alchemy_helper.rb:899
-#: app/views/admin/users/_table.html.erb:4 lib/alchemy/page_layout.rb:38
+#: app/helpers/alchemy_helper.rb:799 app/helpers/alchemy_helper.rb:904
+#: app/views/admin/users/_table.html.erb:4 lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr ""
 
@@ -507,7 +507,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:178
+#: app/controllers/alchemy_controller.rb:183
 msgid "Please log in"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1115
+#: app/helpers/alchemy_helper.rb:1120
 msgid "Select an content"
 msgstr ""
 
@@ -549,7 +549,7 @@ msgstr ""
 msgid "Show Preview Window"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:700
+#: app/helpers/alchemy_helper.rb:701
 msgid "Show childpages"
 msgstr ""
 
@@ -705,7 +705,7 @@ msgstr ""
 msgid "Warning!"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:319
+#: app/helpers/alchemy_helper.rb:320
 msgid "Warning: Content '%{contentname}' is missing its description."
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:167
+#: app/controllers/alchemy_controller.rb:172
 msgid "You are not authorized"
 msgstr "You are not authorized."
 
@@ -799,7 +799,7 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/alchemy_helper.rb:1111 app/helpers/alchemy_helper.rb:1127
+#: app/helpers/alchemy_helper.rb:1116 app/helpers/alchemy_helper.rb:1132
 msgid "add new content"
 msgstr ""
 
@@ -880,7 +880,7 @@ msgstr ""
 msgid "clear trash"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:789
+#: app/helpers/alchemy_helper.rb:790
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
@@ -920,12 +920,12 @@ msgstr "Do you really want to delete this user?"
 msgid "contactform_body"
 msgstr "Message Template"
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:873
-#: app/helpers/alchemy_helper.rb:1000
+#: app/helpers/alchemy_helper.rb:169 app/helpers/alchemy_helper.rb:877
+#: app/helpers/alchemy_helper.rb:1005
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:871
+#: app/helpers/alchemy_helper.rb:167 app/helpers/alchemy_helper.rb:875
 #: app/views/admin/contents/_missing.html.erb:5
 msgid "content_not_found"
 msgstr "Field for content not present."
@@ -1312,7 +1312,7 @@ msgstr "Names"
 msgid "navigation_name"
 msgstr "Navigationname"
 
-#: app/helpers/alchemy_helper.rb:843
+#: app/helpers/alchemy_helper.rb:847
 msgid "no"
 msgstr "no"
 
@@ -1324,11 +1324,11 @@ msgstr ""
 msgid "no users"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:162
+#: app/controllers/alchemy_controller.rb:211
 msgid "no_default_language_found"
 msgstr "No default language found."
 
-#: app/helpers/alchemy_helper.rb:220 app/helpers/alchemy_helper.rb:288
+#: app/helpers/alchemy_helper.rb:221 app/helpers/alchemy_helper.rb:289
 msgid "no_element_given"
 msgstr "No element given."
 
@@ -1354,7 +1354,7 @@ msgstr "Your search did not return any results."
 msgid "not a valid image"
 msgstr "This is not an valid image."
 
-#: app/helpers/alchemy_helper.rb:830 app/views/admin/elements/list.html.erb:7
+#: app/helpers/alchemy_helper.rb:838 app/views/admin/elements/list.html.erb:8
 #: app/views/admin/elements/create.rjs:2
 msgid "other Elements"
 msgstr ""
@@ -1392,41 +1392,41 @@ msgstr "restricted"
 msgid "page_status"
 msgstr "Status"
 
-#: app/models/page.rb:203
+#: app/models/page.rb:207
 msgid "page_status_invisible_public"
 msgstr "Page is invisible in navigation but public."
 
-#: app/models/page.rb:191
+#: app/models/page.rb:195
 msgid "page_status_invisible_public_locked"
 msgstr ""
 "Page is invisible in navigation but public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:206
+#: app/models/page.rb:210
 msgid "page_status_invisible_unpublic"
 msgstr "Page is invisible in navigation and unpublic."
 
-#: app/models/page.rb:194
+#: app/models/page.rb:198
 msgid "page_status_invisible_unpublic_locked"
 msgstr ""
 "Page is invisible in navigation and unpublic. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:197
+#: app/models/page.rb:201
 msgid "page_status_visible_public"
 msgstr "Page is visible in navigation and public."
 
-#: app/models/page.rb:185
+#: app/models/page.rb:189
 msgid "page_status_visible_public_locked"
 msgstr ""
 "Page is visible in navigation and public. Page is currently locked for "
 "editing."
 
-#: app/models/page.rb:200
+#: app/models/page.rb:204
 msgid "page_status_visible_unpublic"
 msgstr "Page is visible in navigation but unpublic."
 
-#: app/models/page.rb:188
+#: app/models/page.rb:192
 msgid "page_status_visible_unpublic_locked"
 msgstr ""
 "Page is visible in navigation but unpublic. Page is currently locked for "
@@ -1493,7 +1493,7 @@ msgstr "Please enter a name."
 msgid "please enter subject and mail address"
 msgstr "Please enter recipient and subject."
 
-#: app/helpers/alchemy_helper.rb:841
+#: app/helpers/alchemy_helper.rb:845
 msgid "please_confirm"
 msgstr "Please confirm"
 
@@ -1552,7 +1552,7 @@ msgstr ""
 msgid "saved_link"
 msgstr "Link saved."
 
-#: app/helpers/alchemy_helper.rb:791
+#: app/helpers/alchemy_helper.rb:792
 #: app/views/admin/partials/_remote_search_form.html.erb:35
 #: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1628,8 +1628,8 @@ msgstr "Title"
 msgid "trash element"
 msgstr "Put element into trash"
 
-#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:142
-#: app/models/page.rb:149 app/models/page.rb:156
+#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:146
+#: app/models/page.rb:153 app/models/page.rb:160
 msgid "unknown"
 msgstr "unknown"
 
@@ -1712,7 +1712,7 @@ msgstr "Width"
 msgid "with_name"
 msgstr "Name"
 
-#: app/helpers/alchemy_helper.rb:842
+#: app/helpers/alchemy_helper.rb:846
 msgid "yes"
 msgstr "yes"
 

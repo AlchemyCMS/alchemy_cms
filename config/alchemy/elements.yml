@@ -17,8 +17,7 @@
 #
 # == Example of a basic element layout
 # 
-#   - name: a_unique_name
-#     display_name: Some nice Display Name
+#   - name: a_unique_name (Used for the partial name in +app/views/elements+ and translated as Element.display_name)
 #     unique: Bool //pass true if this element only can be displayed once on page
 #     contents:
 #     - name: head
@@ -66,7 +65,6 @@
 # This example enables this feature
 # 
 #   - name: headline
-#     display_name: Headline
 #     unique: false
 #     contents:
 #     - name: headline
@@ -96,39 +94,7 @@
 #    * presence
 #    * uniqueness
 # 
-# == Not modifiable Elements
-# 
-# There are some elements you can render but not modify because they are statically and don't need any individualism.
-# * Sitemap (app/views/elements/_sitemap.html.erb)
-#
-# == Real life example: Adding style for contents
-# 
-# You can add the possibility to access style for a specific content when using an element in Alchemy´s frontend.
-# This feature needs to be enabled as shown in the example below.
-#
-#   - name: headline
-#     display_name: Headline
-#     unique: false 
-#     contents:
-#     - name: headline
-#       type: EssenceText
-#     - name: style
-#       type: EssenceText
-#       settings:
-#         display_as: select
-#
-# In this example there is a new content added with a setting option wich defines it should be displayed as a selectfield.
-# This selectfield wich will be added in the editor view, where you can pass classnames of your stylesheets to it as an array like this
-# <%= render_essence_editor_by_name(element, 'style', :select_values => [["No style", ""], ["Black", "black_headline"]]) %>
-#
-# In your website view you have to get the values of the stylesheets content
-# <h1 class="<%= render_essence_view_by_name(element, 'style') %>" id="<%= element_dom_id(element) %>">
-#   <%= render_essence_view_by_name(element, 'headline') %>
-# </h1>
-#
-
 - name: article
-  display_name: Standard-Artikel
   contents:
   - name: intro
     type: EssenceText
@@ -140,7 +106,6 @@
     type: EssenceRichtext
 
 - name: intro_image_text
-  display_name: Intro-Artikel
   unique: true
   contents:
   - name: headline
@@ -151,19 +116,16 @@
     type: EssenceRichtext
   
 - name: text
-  display_name: Text
   contents:
   - name: text
     type: EssenceRichtext
 
 - name: bild
-  display_name: Bild
   contents: 
   - name: image
     type: EssencePicture
 
 - name: bild_text
-  display_name: Bild und Text
   contents: 
   - name: image
     type: EssencePicture
@@ -171,13 +133,11 @@
     type: EssenceRichtext
 
 - name: headline
-  display_name: Überschrift 2
   contents:
   - name: headline
     type: EssenceText
 
 - name: image_mosaic
-  display_name: Mosaik
   contents: 
   - name: image
     type: EssencePicture
@@ -185,47 +145,40 @@
     type: EssenceText
 
 - name: footnote
-  display_name: Fußnote
   unique: true
   contents:
   - name: note
     type: EssenceRichtext
 
 - name: sitename
-  display_name: Webseiten-Name
   unique: true
   contents:
   - name: name
     type: EssenceText
 
 - name: claim
-  display_name: Claim
   unique: true
   contents:
   - name: claim
     type: EssenceText
 
 - name: header
-  display_name: Header Bild
   unique: true
   contents:
   - name: image
     type: EssencePicture
 
 - name: intro
-  display_name: Überschrift 1
   contents:
   - name: intro
     type: EssenceRichtext
 
 - name: subheadline
-  display_name: Zwischenüberschrift
   contents:
   - name: subheadline
     type: EssenceText
 
 - name: news
-  display_name: News
   contents:
   - name: date
     type: EssenceDate
@@ -236,10 +189,8 @@
 
 - name: searchresult
   unique: true
-  display_name: Suchergebnis
 
 - name: contactform
-  display_name: Kontaktformular
   unique: true
   contents:
   - name: mail_from

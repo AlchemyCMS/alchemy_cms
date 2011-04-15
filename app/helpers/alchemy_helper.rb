@@ -313,7 +313,7 @@ module AlchemyHelper
       warning('Element is nil')
       return ""
     else
-      content_name = t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, content.name.capitalize])
+      content_name = t("alchemy.content_names.#{content.element.name}.#{content.name}", :default => ["alchemy.content_names.#{content.name}".to_sym, content.name.capitalize])
     end
     if content.description.blank?
       warning("Content #{content.name} is missing its description")
@@ -815,7 +815,7 @@ module AlchemyHelper
   # The elements are returned as an array to be used in alchemy_selectbox form builder.
   def elements_for_select(elements)
     return [] if elements.nil?
-    options = elements.collect{ |e| [e["display_name"], e["name"]] }
+    options = elements.collect{ |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e["name"]] }
     return options_for_select(options)
   end
   
@@ -831,12 +831,12 @@ module AlchemyHelper
       cell_elements = elements.select { |e| cell['elements'].include?(e['name']) }
       celled_elements += cell_elements
       optgroup_label = t("cell_names.#{cell['name']}", :default => cell['name'].camelcase)
-      options[optgroup_label] = cell_elements.map { |e| [e['display_name'], e['name']] }
+      options[optgroup_label] = cell_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name']] }
     end
     other_elements = elements - celled_elements
     unless other_elements.blank?
       optgroup_label = _('other Elements')
-      options[optgroup_label] = other_elements.map { |e| [e['display_name'], e['name']] }
+      options[optgroup_label] = other_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name']] }
     end
     return grouped_options_for_select(options)
   end
@@ -891,6 +891,7 @@ module AlchemyHelper
     )
   end
   
+<<<<<<< HEAD
   # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
   # Usefull for the select_values options from the render_essence_editor helpers.
   # Options:
