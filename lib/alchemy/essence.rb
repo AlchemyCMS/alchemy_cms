@@ -160,6 +160,7 @@ module Alchemy #:nodoc:
         if preview_text_method.blank?
           self.send(preview_text_column).to_s[0..maxlength]
         else
+          return "" if ingredient.blank?
           ingredient.send(preview_text_method).to_s[0..maxlength]
         end
       end
