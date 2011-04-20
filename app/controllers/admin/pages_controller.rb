@@ -178,9 +178,10 @@ class Admin::PagesController < AlchemyController
     redirect_to multi_language? ? show_page_with_language_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
   end
   
-  # Sweeps the page cache
+  # Sets the page public and sweeps the page cache
   def publish
     # fetching page via before filter
+    @page.public = true
     @page.save
     flash[:notice] = _("page_published") % {:name => @page.name}
     redirect_back_or_to_default(admin_pages_path)
