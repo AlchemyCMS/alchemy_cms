@@ -5,7 +5,7 @@
 	<table id="new_page_form">
 		<tr>
 			<td class="label very_long">
-				<label for="page_layout"><%= _("a_page_of_type") %>: </label>
+				<%= f.label(:page_layout, _("Page|Page layout")) %>
 			</td>
 			<td class="input">
 				<%= f.select('page_layout', @page_layouts) %>
@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label(:name, _("with_name")) %>
+				<%= f.label(:name, _("Page|Name")) %>
 			</td>
 			<td class="input">
 				<%= f.text_field(:name, :class => "thin_border long") %>

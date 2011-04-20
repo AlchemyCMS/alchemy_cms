@@ -1,3 +1,14 @@
+<div id="header">
+  <div id="header_image">
+    <%= render_elements(:only => 'header', :fallback => {:for => 'header', :from => 'layout_header'}) %>
+  </div>
+  <%- claim = render_elements :only => ["claim"] -%>
+  <%- if !claim.blank? -%>
+  <div id="claim">
+    <%= claim %>
+  </div>
+  <%- end -%>
+</div>
 <div id="content" class="intropage">
     <%= render_elements(:except => ['header', 'claim']) %>
 </div>

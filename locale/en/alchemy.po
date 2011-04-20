@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-04-15 16:26+0200\n"
+"POT-Creation-Date: 2011-04-20 16:21+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr ""
 #: app/views/admin/pages/layoutpages.html.erb:46
 #: app/views/admin/pages/layoutpages.html.erb:51
 #: app/views/admin/pages/layoutpages.html.erb:53
-msgid "Add layoutpage"
+msgid "Add global page"
 msgstr ""
 
 #: app/views/admin/partials/_upload_form.html.erb:27
@@ -63,7 +63,7 @@ msgstr "Name"
 msgid "Attachment|Size"
 msgstr "Filesize"
 
-#: app/helpers/alchemy_helper.rb:926
+#: app/helpers/alchemy_helper.rb:925
 msgid "Choose page"
 msgstr ""
 
@@ -332,7 +332,7 @@ msgstr "Page: '%{name}' saved."
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:264
+#: app/controllers/admin/pages_controller.rb:265
 msgid "Page cache flushed"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Page visible"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:232
+#: app/controllers/admin/pages_controller.rb:233
 msgid "Pages order saved"
 msgstr ""
 
@@ -400,10 +400,12 @@ msgstr "Description"
 msgid "Page|Meta keywords"
 msgstr "Keywords"
 
+#: app/views/admin/pages/_new_page_form.html.erb:16
 #: locale/model_attributes.rb:20
 msgid "Page|Name"
 msgstr "Name"
 
+#: app/views/admin/pages/_new_page_form.html.erb:8
 #: locale/model_attributes.rb:23
 msgid "Page|Page layout"
 msgstr "Pagetype"
@@ -490,7 +492,7 @@ msgstr ""
 msgid "Please check contents below."
 msgstr "Please check marked fields below"
 
-#: app/helpers/alchemy_helper.rb:799 app/helpers/alchemy_helper.rb:904
+#: app/helpers/alchemy_helper.rb:799 app/helpers/alchemy_helper.rb:903
 #: app/views/admin/users/_table.html.erb:4 lib/alchemy/page_layout.rb:39
 msgid "Please choose"
 msgstr ""
@@ -531,7 +533,7 @@ msgstr ""
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1120
+#: app/helpers/alchemy_helper.rb:1119
 msgid "Select an content"
 msgstr ""
 
@@ -786,10 +788,6 @@ msgstr ""
 msgid "Your trash is empty"
 msgstr ""
 
-#: app/views/admin/pages/_new_page_form.html.erb:8
-msgid "a_page_of_type"
-msgstr "A page of type"
-
 #: app/views/admin/essence_files/edit.html.erb:10
 #: app/views/admin/essence_pictures/edit.html.erb:28
 msgid "above"
@@ -799,7 +797,7 @@ msgstr "above"
 msgid "add"
 msgstr "add"
 
-#: app/helpers/alchemy_helper.rb:1116 app/helpers/alchemy_helper.rb:1132
+#: app/helpers/alchemy_helper.rb:1115 app/helpers/alchemy_helper.rb:1131
 msgid "add new content"
 msgstr ""
 
@@ -921,7 +919,7 @@ msgid "contactform_body"
 msgstr "Message Template"
 
 #: app/helpers/alchemy_helper.rb:169 app/helpers/alchemy_helper.rb:877
-#: app/helpers/alchemy_helper.rb:1005
+#: app/helpers/alchemy_helper.rb:1004
 msgid "content_essence_not_found"
 msgstr "Content essence not found"
 
@@ -1190,7 +1188,7 @@ msgstr "Removed %{name} from clipboard"
 msgid "language_does_not_exist"
 msgstr "This language tree does not exist"
 
-#: app/controllers/admin/pages_controller.rb:206
+#: app/controllers/admin/pages_controller.rb:207
 msgid "language_pages_copied"
 msgstr "Language tree succesfully copied."
 
@@ -1284,7 +1282,7 @@ msgstr "Languages"
 
 #: lib/alchemy_core_modules.rb:4
 msgid "module: layoutpages"
-msgstr "Layout-Pages"
+msgstr "Global Pages"
 
 #: lib/alchemy_core_modules.rb:6
 msgid "module: library"
@@ -1379,7 +1377,7 @@ msgstr "page properties"
 msgid "page_public"
 msgstr "published"
 
-#: app/controllers/admin/pages_controller.rb:185
+#: app/controllers/admin/pages_controller.rb:186
 msgid "page_published"
 msgstr "Published page."
 
@@ -1707,10 +1705,6 @@ msgstr "Welcome! Please identify."
 #: app/views/admin/essence_files/edit.html.erb:69
 msgid "width"
 msgstr "Width"
-
-#: app/views/admin/pages/_new_page_form.html.erb:16
-msgid "with_name"
-msgstr "Name"
 
 #: app/helpers/alchemy_helper.rb:846
 msgid "yes"

@@ -13,20 +13,9 @@
 			<div id="breadcrump">
         <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
 			</div>
-      <div id="header">
-        <div id="header_image">
-          <%= render_elements(:only => 'header', :fallback => {:for => 'header', :from => 'layout_header'}) %>
-        </div>
-        <%- claim = render_elements :only => ["claim"] -%>
-        <%- if !claim.blank? -%>
-        <div id="claim">
-          <%= claim %>
-        </div>
-        <%- end -%>
-        <div id="navigation">
-          <%= render_navigation :all_sub_menues => true %>
-        </div>
-			</div>
+      <div id="navigation">
+        <%= render_navigation :all_sub_menues => true %>
+      </div>
 			<div id="content">
 				<%= yield %>
 			</div>

@@ -1,7 +1,7 @@
 <div id="overlay_toolbar">
-    <%= render :partial => 'filter_and_size_bar' %>
+	<%= render :partial => 'filter_and_size_bar' %>
 </div>
-<div id="assign_image_list">
+<div id="assign_image_list" class="with_padding">
 <%- if @pictures.empty? -%>
     <p><%= _("no_images_in_archive") %></p>
 <%- else -%>
