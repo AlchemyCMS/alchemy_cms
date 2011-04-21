@@ -70,10 +70,10 @@ class Element < ActiveRecord::Base
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
     element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
-    element_scratch.delete("contents")
-    element_scratch.delete("available_contents")
     element = Element.new(
-      element_scratch.merge({:page_id => attributes['page_id']})
+      element_scratch.except('contents', 'available_contents', 'display_name').merge({
+        :page_id => attributes['page_id']
+      })
     )
     element
   end
