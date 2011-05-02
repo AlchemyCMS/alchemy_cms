@@ -1017,9 +1017,9 @@ var Alchemy = {
 	},
 	
 	handleEssenceCheckbox: function (checkbox) {
-		var $checkbox = $(checkbox);
+		var $checkbox = jQuery(checkbox);
 		if (checkbox.checked) {
-			$('#' + checkbox.id + '_hidden').remove();
+			jQuery('#' + checkbox.id + '_hidden').remove();
 		} else {
 			$checkbox.after('<input type="hidden" value="0" name="'+checkbox.name+'" id="'+checkbox.id+'_hidden">');
 		}
