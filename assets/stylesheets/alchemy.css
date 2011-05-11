@@ -2306,6 +2306,10 @@ span.icon.flush {
 	background-position: -176px -24px;
 }
 
+span.icon.publish {
+	background-position: -80px -88px;
+}
+
 span.icon.info {
 	background-position: -32px -88px;
 }

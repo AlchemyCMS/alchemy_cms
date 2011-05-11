@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-05-11 14:53+0200\n"
+"POT-Creation-Date: 2011-05-11 15:07+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -72,16 +72,12 @@ msgstr ""
 msgid "Choose page"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:65
-msgid "Clear page cache"
-msgstr ""
-
 #: app/views/admin/pictures/_picture.html.erb:34
 msgid "Click to rename"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:145
-#: app/views/admin/pages/edit.html.erb:152
+#: app/views/admin/pages/edit.html.erb:143
+#: app/views/admin/pages/edit.html.erb:150
 #: app/views/admin/pages/index.html.erb:71
 #: app/views/admin/pages/layoutpages.html.erb:61
 msgid "Clipboard"
@@ -124,7 +120,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:121
+#: app/views/admin/pages/edit.html.erb:119
 msgid "Elements"
 msgstr ""
 
@@ -278,9 +274,9 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:129
-#: app/views/admin/pages/edit.html.erb:130
-#: app/views/admin/pages/edit.html.erb:135
+#: app/views/admin/pages/edit.html.erb:127
+#: app/views/admin/pages/edit.html.erb:128
+#: app/views/admin/pages/edit.html.erb:133
 msgid "New Element"
 msgstr ""
 
@@ -288,8 +284,8 @@ msgstr ""
 msgid "New page"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:125
-#: app/views/admin/pages/edit.html.erb:174
+#: app/views/admin/pages/edit.html.erb:123
+#: app/views/admin/pages/edit.html.erb:172
 msgid "No"
 msgstr ""
 
@@ -311,7 +307,7 @@ msgstr ""
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:115
+#: app/views/admin/pages/edit.html.erb:113
 msgid "Page Preview"
 msgstr ""
 
@@ -493,6 +489,10 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:78
+msgid "Publish page"
+msgstr ""
+
 #: app/views/admin/index.html.erb:88
 msgid "Read the License"
 msgstr ""
@@ -513,13 +513,13 @@ msgstr ""
 msgid "Send email with credentials"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:102
-#: app/views/admin/pages/edit.html.erb:106
+#: app/views/admin/pages/edit.html.erb:100
+#: app/views/admin/pages/edit.html.erb:104
 msgid "Show Elements Window"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:91
-#: app/views/admin/pages/edit.html.erb:95
+#: app/views/admin/pages/edit.html.erb:89
+#: app/views/admin/pages/edit.html.erb:93
 msgid "Show Preview Window"
 msgstr ""
 
@@ -527,7 +527,7 @@ msgstr ""
 msgid "Show childpages"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:146
+#: app/views/admin/pages/edit.html.erb:144
 #: app/views/admin/pages/index.html.erb:75
 #: app/views/admin/pages/index.html.erb:77
 #: app/views/admin/pages/layoutpages.html.erb:65
@@ -661,8 +661,8 @@ msgstr ""
 msgid "Visit page"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:122
-#: app/views/admin/pages/edit.html.erb:171
+#: app/views/admin/pages/edit.html.erb:120
+#: app/views/admin/pages/edit.html.erb:169
 msgid "Warning!"
 msgstr ""
 
@@ -687,8 +687,8 @@ msgstr ""
 msgid "Who else is online"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:124
-#: app/views/admin/pages/edit.html.erb:173
+#: app/views/admin/pages/edit.html.erb:122
+#: app/views/admin/pages/edit.html.erb:171
 msgid "Yes"
 msgstr ""
 
@@ -706,13 +706,13 @@ msgid ""
 "cache?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:172
+#: app/views/admin/pages/edit.html.erb:170
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:123
+#: app/views/admin/pages/edit.html.erb:121
 msgid ""
 "You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
@@ -1007,8 +1007,8 @@ msgstr ""
 #: app/views/admin/pages/_page.html.erb:36
 #: app/views/admin/pages/_sitemap.html.erb:32
 #: app/views/admin/pages/_sitemap.html.erb:36
-#: app/views/admin/pages/edit.html.erb:75
-#: app/views/admin/pages/edit.html.erb:79
+#: app/views/admin/pages/edit.html.erb:61
+#: app/views/admin/pages/edit.html.erb:65
 msgid "edit_page_properties"
 msgstr ""
 
@@ -1041,7 +1041,7 @@ msgstr ""
 msgid "explain cropping"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:62
+#: app/views/admin/pages/edit.html.erb:75
 msgid "explain_publishing"
 msgstr ""
 
@@ -1325,7 +1325,7 @@ msgstr ""
 msgid "page_locked"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:81
+#: app/views/admin/pages/edit.html.erb:67
 msgid "page_properties"
 msgstr ""
 
