@@ -154,7 +154,7 @@ class Admin::PagesController < AlchemyController
     if request.xhr?
       render :update do |page|
         page.remove "locked_page_#{@page.id}"
-        page << "jQuery('#page_#{@page.id} .site_status').removeClass('locked')"
+        page << "jQuery('#page_#{@page.id} .sitemap_page').removeClass('locked')"
         if Page.all_locked_by(current_user).blank?
           page << "jQuery('#subnav_additions label').hide()"
         end
