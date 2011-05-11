@@ -1,5 +1,6 @@
 require 'alchemy/controller'
 require 'alchemy/page_layout'
+require 'alchemy/essence'
 
 module Alchemy
   
