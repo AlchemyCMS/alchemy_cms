@@ -2827,7 +2827,8 @@ div.assign_image_list_detail {
 }
 
 #assign_image_list {
-	padding-top: 8px;
+	padding: 8px;
+	overflow: hidden;
 }
 
 #assign_image_list div.assign_image_list_detail.small {
@@ -3380,7 +3381,6 @@ div.info ol li {
 }
 
 div#overlay_toolbar {
-	margin: -8px -8px 4px;
 	padding: 6px 8px 8px;
 	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -42px;
 	border: 1px solid #afafaf;

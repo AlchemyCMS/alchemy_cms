@@ -8,7 +8,7 @@
 				:content_id => @content,
 				:element_id => @element,
 				:swap => @swap,
-				:page => params[:page],
+				:query => params[:query],
 				:remote => true,
 				:options => @options
 			},
@@ -25,7 +25,7 @@
 				:content_id => @content,
 				:element_id => @element,
 				:swap => @swap,
-				:page => params[:page],
+				:query => params[:query],
 				:remote => true,
 				:options => @options
 			},
@@ -42,7 +42,7 @@
 				:content_id => @content,
 				:element_id => @element,
 				:swap => @swap,
-				:page => params[:page],
+				:query => params[:query],
 				:remote => true,
 				:options => @options
 			},
@@ -52,38 +52,39 @@
 			}
 		) %><br />
 		<label class="sup"><%= _('Image size') %></label>
+		<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
 	</div>
 	<div class="toolbar_spacer"></div>
 	<div class="button_with_label">
-        <%= link_to_overlay_window(
-    		render_icon('upload'),
-    		url_for(
-    			:controller => 'admin/pictures',
-    			:action => 'new',
-    			:while_assigning => true,
-    			:element_id => @element.blank? ? nil : @element.id,
-    			:content_id => @content.blank? ? nil : @content.id,
-    			:swap => @swap,
-    			:page => params[:page],
-    			:per_page => params[:per_page],
-    			:size => @size,
-    			:options => @options
-    		),
-    		{
-    			:size => "355x320",
-    			:title => _('upload_image')
-    		},
-    		{
-    			:class => 'icon_button',
-    			:title => _('upload_image')
-    		}
-    	) %><br />
-    	<label><%= _('upload_image') %></label>
+	<%= link_to_overlay_window(
+		render_icon('upload'),
+		url_for(
+			:controller => 'admin/pictures',
+			:action => 'new',
+			:while_assigning => true,
+			:element_id => @element.blank? ? nil : @element.id,
+			:content_id => @content.blank? ? nil : @content.id,
+			:swap => @swap,
+			:page => params[:page],
+			:per_page => params[:per_page],
+			:size => @size,
+			:options => @options
+		),
+		{
+			:size => "355x320",
+			:title => _('upload_image')
+		},
+		{
+			:class => 'icon_button',
+			:title => _('upload_image')
+		}
+	) %><br />
+	<label><%= _('upload_image') %></label>
 	</div>
 	<%= render(
 		:partial => 'admin/partials/remote_search_form',
 		:locals => {
-			:with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()+'&swap='+jQuery('#swap').val()+'&options='+jQuery('#options').val()",
+			:with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()+'&swap='+jQuery('#swap').val()+'&options='+jQuery('#options').val()+'&size='+jQuery('input#overlay_thumbnails_size').val()",
 			:action => 'archive_overlay'
 		}
 	) %>
