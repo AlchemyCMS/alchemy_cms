@@ -428,6 +428,7 @@ private
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
   def autogenerate_elements
+		return true if self.layout_description.blank?
     elements = self.layout_description["autogenerate"]
     unless (elements.blank?)
       elements.each do |element|
