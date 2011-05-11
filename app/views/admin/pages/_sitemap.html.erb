@@ -1,9 +1,9 @@
 <ul id="sitemap" class="list">
 	<div class="page_root">
-		<div class="sitemap_page">
+		<div class="sitemap_page<%= @page_root.locked ? ' locked' : '' %>">
 			<div class="sitemap_left_images">
-                <span class="site_status tooltip <%= @page_root.locked ? ' locked' : '' %>" ></span>
-                <div class="tooltip_content" style="display: none;">
+				<span class="site_status tooltip"></span>
+				<div class="tooltip_content" style="display: none;">
 					<h1><%= _("page_type") %>: <%= @page_root.layout_display_name %></h1>
 					<p>
 						<%= @page_root.humanized_status %>
@@ -74,12 +74,20 @@
 				<%= render :partial => 'page_infos', :locals => {:page => @page_root} %>
 			</div>
 			<div class="sitemap_sitename">
-				<%= link_to(
-					@page_root.name,
-					edit_admin_page_path(@page_root),
-					:title => _("edit_page"),
-					:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
-				) -%>
+				<%- if @page_root.redirects_to_external? -%>
+					<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= @page_root.name %></span>
+					<span class="redirect_url">
+						&raquo; <%= _('Redirects to') %>:
+						<%= h @page_root.urlname %>
+					</span>
+				<%- else -%>
+					<%= link_to(
+						@page_root.name,
+						edit_admin_page_path(@page_root),
+						:title => _("edit_page"),
+						:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+					) -%>
+				<%- end -%>
 			</div>
 		</div>
 	</div>

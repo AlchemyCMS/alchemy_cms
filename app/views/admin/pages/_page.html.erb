@@ -1,8 +1,8 @@
 <li id="page_<%= page.id %>" class="page_level_<%= page.level %>">
-	<div class="sitemap_page">
+	<div class="sitemap_page<%= page.locked ? ' locked' : '' %>">
 		<div class="sitemap_left_images">
 			<%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
-			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip <%= page.locked ? ' locked' : '' %>" ></span>
+			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip"></span>
 			<div class="tooltip_content" style="display: none;">
 				<h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
 				<p>
@@ -86,16 +86,20 @@
 			<%= render :partial => 'page_infos', :locals => {:page => page} %>
 		</div>
 		<div class="sitemap_sitename">
-		    <%- if page.redirects_to_external? -%>
-		    <span class="sitemap_pagename_link <%= cycle('even', 'odd') %>"><%= page.name %></span>
-		    <%- else -%>
+		<%- if page.redirects_to_external? -%>
+			<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= page.name %></span>
+			<span class="redirect_url">
+				&raquo; <%= _('Redirects to') %>:
+				<%= h page.urlname %>
+			</span>
+		<%- else -%>
 			<%= link_to(
 				page.name,
 				edit_admin_page_path(page),
 				:title => _("edit_page"),
 				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
 			) -%>
-			<%- end -%>
+		<%- end -%>
 		</div>
 	</div>
 	<%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
