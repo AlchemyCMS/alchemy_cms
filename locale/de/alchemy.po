@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-05-11 15:07+0200\n"
+"POT-Creation-Date: 2011-05-11 18:12+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr "Klicken zum umbenennen"
 msgid "Clipboard"
 msgstr "Zwischenablage"
 
-#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:382
+#: app/controllers/admin/pages_controller.rb:41 app/models/page.rb:382
 msgid "Copy"
 msgstr "Kopie"
 
@@ -301,11 +301,11 @@ msgstr "Ihre Zwischenablage ist leer"
 msgid "Page"
 msgstr "Seite"
 
-#: app/controllers/admin/pages_controller.rb:97
+#: app/controllers/admin/pages_controller.rb:96
 msgid "Page %{name} deleted"
 msgstr "%{name} wurde gelöscht"
 
-#: app/controllers/admin/pages_controller.rb:85
+#: app/controllers/admin/pages_controller.rb:84
 msgid "Page %{name} saved"
 msgstr "%{name} wurde gespeichert"
 
@@ -503,6 +503,11 @@ msgstr "veröffentlichen"
 msgid "Read the License"
 msgstr "Lizenz lesen"
 
+#: app/views/admin/pages/_page.html.erb:92
+#: app/views/admin/pages/_sitemap.html.erb:80
+msgid "Redirects to"
+msgstr "Leitet um zu"
+
 #: app/views/admin/clipboard/index.html.erb:10
 msgid "Remove item from clipboard"
 msgstr "Inhalt aus der Zwischenablage entfernen"
@@ -550,15 +555,15 @@ msgstr "Seiten sortieren"
 msgid "Status"
 msgstr ""
 
-#: app/views/admin/contents/create.rjs:54
+#: app/views/admin/contents/create.rjs:53
 msgid "Successfully added %{content}"
 msgstr "%{content} wurde hinzugefügt"
 
-#: app/controllers/admin/contents_controller.rb:62
+#: app/controllers/admin/contents_controller.rb:63
 msgid "Successfully deleted %{content}"
 msgstr "%{content} wurde gelöscht"
 
-#: app/controllers/admin/contents_controller.rb:48
+#: app/controllers/admin/contents_controller.rb:49
 msgid "Successfully saved content position"
 msgstr "Die Position wurde gespeichert."
 
@@ -581,7 +586,7 @@ msgstr ""
 "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich "
 "einklappen?"
 
-#: app/controllers/admin/pages_controller.rb:64
+#: app/controllers/admin/pages_controller.rb:63
 msgid "This page is locked by %{name}"
 msgstr "Diese Seite wird gerade von %{name} blockiert"
 
@@ -1021,8 +1026,8 @@ msgid "edit_language"
 msgstr "Sprache bearbeiten"
 
 #: app/views/admin/pages/_layoutpage.html.erb:75
-#: app/views/admin/pages/_page.html.erb:95
-#: app/views/admin/pages/_sitemap.html.erb:80
+#: app/views/admin/pages/_page.html.erb:99
+#: app/views/admin/pages/_sitemap.html.erb:87
 msgid "edit_page"
 msgstr "Seite bearbeiten"
 
@@ -1347,7 +1352,7 @@ msgstr "Keine Suchergebnisse."
 msgid "not a valid image"
 msgstr "Keine valide Bilddatei."
 
-#: app/controllers/admin/pages_controller.rb:55
+#: app/controllers/admin/pages_controller.rb:54
 msgid "page '%{name}' created."
 msgstr "Seite '%{name}' wurde erstellt."
 
@@ -1619,7 +1624,7 @@ msgstr "In einem neuen Fenster öffnen"
 msgid "title"
 msgstr "Titel"
 
-#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:135
+#: app/controllers/admin/pages_controller.rb:63 app/models/page.rb:135
 #: app/models/page.rb:142 app/models/page.rb:149
 msgid "unknown"
 msgstr "unbekannt"
@@ -1632,7 +1637,7 @@ msgstr "Link entfernen"
 msgid "unlock_page"
 msgstr "Seite verlassen"
 
-#: app/controllers/admin/pages_controller.rb:154
+#: app/controllers/admin/pages_controller.rb:153
 msgid "unlocked_page_%{name}"
 msgstr "Seite %{name} wurde freigegeben."
 

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-05-11 15:07+0200\n"
+"POT-Creation-Date: 2011-05-11 18:12+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Clipboard"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:382
+#: app/controllers/admin/pages_controller.rb:41 app/models/page.rb:382
 msgid "Copy"
 msgstr ""
 
@@ -299,11 +299,11 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:97
+#: app/controllers/admin/pages_controller.rb:96
 msgid "Page %{name} deleted"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:85
+#: app/controllers/admin/pages_controller.rb:84
 msgid "Page %{name} saved"
 msgstr ""
 
@@ -497,6 +497,11 @@ msgstr ""
 msgid "Read the License"
 msgstr ""
 
+#: app/views/admin/pages/_page.html.erb:92
+#: app/views/admin/pages/_sitemap.html.erb:80
+msgid "Redirects to"
+msgstr ""
+
 #: app/views/admin/clipboard/index.html.erb:10
 msgid "Remove item from clipboard"
 msgstr ""
@@ -544,15 +549,15 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: app/views/admin/contents/create.rjs:54
+#: app/views/admin/contents/create.rjs:53
 msgid "Successfully added %{content}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:62
+#: app/controllers/admin/contents_controller.rb:63
 msgid "Successfully deleted %{content}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:48
+#: app/controllers/admin/contents_controller.rb:49
 msgid "Successfully saved content position"
 msgstr ""
 
@@ -572,7 +577,7 @@ msgstr ""
 msgid "This element has unsaved changes. Do you really want to fold it?"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:64
+#: app/controllers/admin/pages_controller.rb:63
 msgid "This page is locked by %{name}"
 msgstr ""
 
@@ -996,8 +1001,8 @@ msgid "edit_language"
 msgstr ""
 
 #: app/views/admin/pages/_layoutpage.html.erb:75
-#: app/views/admin/pages/_page.html.erb:95
-#: app/views/admin/pages/_sitemap.html.erb:80
+#: app/views/admin/pages/_page.html.erb:99
+#: app/views/admin/pages/_sitemap.html.erb:87
 msgid "edit_page"
 msgstr ""
 
@@ -1313,7 +1318,7 @@ msgstr ""
 msgid "not a valid image"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:55
+#: app/controllers/admin/pages_controller.rb:54
 msgid "page '%{name}' created."
 msgstr ""
 
@@ -1574,7 +1579,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:135
+#: app/controllers/admin/pages_controller.rb:63 app/models/page.rb:135
 #: app/models/page.rb:142 app/models/page.rb:149
 msgid "unknown"
 msgstr ""
@@ -1587,7 +1592,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:154
+#: app/controllers/admin/pages_controller.rb:153
 msgid "unlocked_page_%{name}"
 msgstr ""
 

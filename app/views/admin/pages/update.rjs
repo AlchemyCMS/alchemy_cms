@@ -3,7 +3,7 @@ if request.referer.include?('edit')
   page << "Alchemy.reloadPreview()"
   page.replace "#{dom_id(@page)}_status", :partial => 'page_status'
 else
-  page << "jQuery('##{dom_id(@page)} > .sitemap_page > .sitemap_sitename a.sitemap_pagename_link').text('#{@page.name}')"
+  page << "jQuery('##{dom_id(@page)} > .sitemap_page > .sitemap_sitename .sitemap_pagename_link').text('#{@page.name}')"
   if @page.locked? && @page.locker == current_user
     page << "jQuery('#locked_page_#{@page.id} > a').text('#{@page.name}')"
   end
