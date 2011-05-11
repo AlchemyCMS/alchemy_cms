@@ -196,7 +196,7 @@ class Admin::PagesController < AlchemyController
       new_language_root = Page.copy(
         original_language_root,
         :language_id => params[:languages][:new_lang_id],
-        :language_code => Alchemy::Controller.current_language.code,
+        :language_code => session[:language_code],
         :layoutpage => params[:layoutpage]
       )
       new_language_root.move_to_child_of Page.root
