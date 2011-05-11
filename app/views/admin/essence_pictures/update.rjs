@@ -1,4 +1,4 @@
-page.replace "picture_#{@content.id}", :partial => "/essences/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
+page.replace content_dom_id(@content), :partial => "/essences/essence_picture_editor", :locals => {:content => @content, :options => params[:options]}
 Alchemy::Notice.show(page, ( _("Image updated successfully") ))
 page << "Alchemy.closeCurrentWindow()"
 page << "Alchemy.reloadPreview()"

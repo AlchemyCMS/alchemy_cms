@@ -667,7 +667,7 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 		
 		removePictureLink : function(content_id) {
-			Alchemy.setElementDirty($('#picture_' + content_id).parents('.element_editor'));
+			Alchemy.setElementDirty($('#essence_picture_' + content_id).parents('.element_editor'));
 			$('#contents_content_' + content_id + '_link').val('');
 			$('#contents_content_' + content_id + '_link_title').val('');
 			$('#contents_content_' + content_id + '_link_class_name').val('');
@@ -908,7 +908,7 @@ if (typeof(Alchemy) === 'undefined') {
 				containment: 'parent',
 				update: function(event, ui) {
 					var ids = $.map($(event.target).children('div.dragable_picture'), function (child) {
-						return child.id.replace(/picture_/, '');
+						return child.id.replace(/essence_picture_/, '');
 					});
 					$(event.originalTarget).css("cursor", "progress");
 					$.ajax({

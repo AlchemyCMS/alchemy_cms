@@ -15,7 +15,6 @@ when "EssencePicture"
   end
   page << "Alchemy.reloadPreview()"
   page << "Alchemy.closeCurrentWindow()"
-  page << "Alchemy.setElementDirty('#element_#{@element.id}')"
 when "EssenceText"
   page.insert_html(
     :before,

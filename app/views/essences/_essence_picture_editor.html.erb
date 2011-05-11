@@ -1,4 +1,4 @@
-<div id="picture_<%= content.id %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor' %>">
+<div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor' %>">
 	<span class="picture_tool_delete">
 	<%= link_to_confirmation_window(
 		"",
@@ -39,7 +39,7 @@
 				:alt => content.ingredient.name,
 				:class => 'img_paddingtop',
 				:title => _("image_name") + ": #{content.ingredient.name}",
-				:onload => "Alchemy.fadeImage(this, '#picture_#{content.id} .picture_content_spinner');",
+				:onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
 				:style => "display: none;"
 			) %>
 			<%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
