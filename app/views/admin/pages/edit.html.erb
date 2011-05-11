@@ -40,6 +40,19 @@
 				<label><%= _("unlock_page") %></label>
 			<% end %>
 		</div>
+		<%- unless @page.layoutpage? -%>
+		<div class="button_with_label">
+			<% form_tag(
+				visit_admin_page_path(@page),
+				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
+			) do %>
+				<button class="icon_button" title="<%= _('Visit page') %>">
+					<%= render_icon('visit_page') %>
+				</button><br />
+				<label><%= _("Visit page") %></label>
+			<% end %>
+		</div>
+		<%- end -%>
 		<div class="button_with_label">
 			<%- if configuration(:cache_pages) -%>
 				<% form_tag(

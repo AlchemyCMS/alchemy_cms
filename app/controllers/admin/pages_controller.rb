@@ -5,7 +5,7 @@ class Admin::PagesController < AlchemyController
   layout 'alchemy'
   
   before_filter :set_translation, :except => [:show]
-  before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy, :fold]
+  before_filter :get_page_from_id, :only => [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
   
   filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
@@ -168,6 +168,11 @@ class Admin::PagesController < AlchemyController
         redirect_to(params[:redirect_to])
       end
     end
+  end
+  
+  def visit
+    @page.unlock
+    redirect_to multi_language? ? show_page_with_language_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
   end
   
   # Sweeps the page cache
