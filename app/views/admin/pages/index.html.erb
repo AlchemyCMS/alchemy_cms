@@ -5,16 +5,16 @@
 <label><%= _('Active Pages') %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-	  <% link_to edit_admin_page_path(page) do %>
-    <span class="page_name" title="<%= page.name %>">
-	  	  <%= truncate page.name, :length => 15 %>
-	  </span>
-		<% end %>
-	  <% form_remote_tag(:url => unlock_admin_page_path(page)) do %>
-	  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
-	  		    <%= render_icon('close small') %>
-	  	  </button>
-	  <% end %>
+	<% link_to edit_admin_page_path(page) do %>
+	<span class="page_name" title="<%= page.name %>">
+		<%= truncate page.name, :length => 15 %>
+	</span>
+	<% end %>
+	<% form_remote_tag(:url => unlock_admin_page_path(page)) do %>
+	<button class="icon_button small" title="<%= _('explain_unlocking') %>">
+		<%= render_icon('close small') %>
+	</button>
+	<% end %>
 </div>
 <%- end -%>
 <%- end -%>
@@ -22,69 +22,69 @@
 
 <%- content_for :toolbar do -%>
 <div id="toolbar">
-    <div id="toolbar_buttons">
-        <div class="button_with_label">
-						<%= select_tag(
-							'language', 
-							options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
-							:onchange => %(
-								Alchemy.pleaseWaitOverlay();
-								jQuery.get('/admin/pages/switch_language', {
-									language_id: this.value
-								});
-							)
-						) %>
-            <label><%= _("Language tree") %></label>
-        </div>
-        <%- permitted_to?(:flush, :admin_pages) do -%>
-        <div class="button_with_label">
-            <%= link_to_remote(
-                content_tag('span', '', :class => 'icon flush'),
-                :url => flush_admin_pages_path,
-                :before => 'Alchemy.pleaseWaitOverlay()',
-                :complete => 'Alchemy.pleaseWaitOverlay(false)',
-                :html => {:class => 'icon_button',
-                :title => _('Flush page cache')}
-            ) -%><br />
-            <label><%= _('Flush page cache') %></label>
-        </div>
-        <%- end -%>
-        <%- permitted_to?(:sort, :admin_pages) do -%>
-        <div class="button_with_label" id="page_sorting_button">
-            <%= link_to_remote(
-                content_tag('span', '', :class => 'icon sort'),
-                :url => sort_admin_pages_path(:sorting => @sorting),
-								:before => 'Alchemy.pleaseWaitOverlay();',
-                :complete => 'Alchemy.pleaseWaitOverlay(false);',
-								:method => :get,
-                :html => {:class => 'icon_button',
-                :title => _('Sort pages')}
-            ) -%><br />
-            <label><%= _('Sort pages') %></label>
-        </div>
-        <%- end -%>
-        <div class="button_with_label" id="clipboard_button">
-					<%= link_to_overlay_window(
-						render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-						admin_clipboard_index_path(:remarkable_type => 'page'),
-						{
-							:title => _('Clipboard'),
-							:size => '380x270'
-						},
-						:class => 'icon_button',
-						:title => _('Show clipboard')
-					) -%><br />
-					<label><%= _('Show clipboard') %></label>
-        </div>
-    </div>
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
+			<%= select_tag(
+				'language', 
+				options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+				:onchange => %(
+					Alchemy.pleaseWaitOverlay();
+					jQuery.get('/admin/pages/switch_language', {
+						language_id: this.value
+					});
+				)
+			) %>
+			<label><%= _("Language tree") %></label>
+		</div>
+		<%- permitted_to?(:flush, :admin_pages) do -%>
+		<div class="button_with_label">
+			<%= link_to_remote(
+				content_tag('span', '', :class => 'icon flush'),
+				:url => flush_admin_pages_path,
+				:before => 'Alchemy.pleaseWaitOverlay()',
+				:complete => 'Alchemy.pleaseWaitOverlay(false)',
+				:html => {:class => 'icon_button',
+				:title => _('Flush page cache')}
+			) -%><br />
+			<label><%= _('Flush page cache') %></label>
+		</div>
+		<%- end -%>
+		<%- permitted_to?(:sort, :admin_pages) do -%>
+		<div class="button_with_label" id="page_sorting_button">
+			<%= link_to_remote(
+				content_tag('span', '', :class => 'icon sort'),
+				:url => sort_admin_pages_path,
+				:before => 'Alchemy.pleaseWaitOverlay();',
+				:complete => 'Alchemy.pleaseWaitOverlay(false);',
+				:method => :get,
+				:html => {:class => 'icon_button',
+				:title => _('Sort pages')}
+			) -%><br />
+			<label><%= _('Sort pages') %></label>
+		</div>
+		<%- end -%>
+		<div class="button_with_label" id="clipboard_button">
+			<%= link_to_overlay_window(
+				render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
+				admin_clipboard_index_path(:remarkable_type => 'page'),
+				{
+					:title => _('Clipboard'),
+					:size => '380x270'
+				},
+				:class => 'icon_button',
+				:title => _('Show clipboard')
+			) -%><br />
+			<label><%= _('Show clipboard') %></label>
+		</div>
+	</div>
 </div>
 <%- end -%>
 
 <%- if @page_root -%>
 
 <h2 id="sitemap_heading">
-    <span class="page_name"><%= _('Name') %></span>
-    <span class="page_infos"><%= _('Status') %></span>
+	<span class="page_name"><%= _('Name') %></span>
+	<span class="page_infos"><%= _('Status') %></span>
 </h2>
 
 <div id="bottom_panel" style="display: none">
