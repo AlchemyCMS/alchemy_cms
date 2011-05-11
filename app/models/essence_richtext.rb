@@ -1,26 +1,19 @@
 class EssenceRichtext < ActiveRecord::Base
   
+  acts_as_essence(
+    :preview_text_column => :stripped_body
+  )
+  
   acts_as_ferret(:fields => {:stripped_body => {:store => :yes}}, :remote => false) if Alchemy::Configuration.parameter(:ferret) == true
-  stampable
   before_save :strip_content
   before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
-  
-  # Returns the first x (default = 30) characters of self.stripped_body for the Element#preview_text method.
-  def preview_text(maxlength = 30)
-    stripped_body.to_s[0..maxlength]
-  end
-  
-  # Returns self.body. Used for Content#ingredient method.
-  def ingredient
-    self.body
-  end
   
   # Saves the ingredient
   def save_ingredient(params, options = {})
     return true if params.blank?
     self.body = params['body'].to_s
     self.public = options[:public]
-    self.save!
+    self.save
   end
   
 private
