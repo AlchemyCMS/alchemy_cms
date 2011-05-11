@@ -3,15 +3,15 @@
 </div>
 <div id="assign_image_list" class="with_padding">
 <%- if @pictures.empty? -%>
-    <p><%= _("no_images_in_archive") %></p>
+	<p><%= _("no_images_in_archive") %></p>
 <%- else -%>
-    <%= render(
-        :partial => 'admin/partials/remote_pagination_links',
-        :locals => {
-            :items => @pictures,
-            :with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()"
-        }
-    ) %>
-    <%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
+	<%= render(
+		:partial => 'admin/partials/remote_pagination_links',
+		:locals => {
+			:items => @pictures,
+			:with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()+'&size='+jQuery('input#overlay_thumbnails_size').val()"
+		}
+	) %>
+	<%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
 <%- end -%>
 </div>

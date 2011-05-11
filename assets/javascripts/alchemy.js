@@ -488,7 +488,7 @@ if (typeof(Alchemy) === 'undefined') {
 					$('#element_'+id+'_folder').show();
 					$('#element_'+id+'_folder_spinner').hide();
 				});
-			}
+			};
 			if (Alchemy.isPageDirty()) {
 				Alchemy.openConfirmWindow({
 					title: text.title,
@@ -548,10 +548,10 @@ if (typeof(Alchemy) === 'undefined') {
 					content_id = element.name.replace('content_text_', '');
 					break;
 				}
-				$('#content_' + content_id + '_link').val(url);
-				$('#content_' + content_id + '_link_title').val(title);
-				$('#content_' + content_id + '_link_class_name').val(link_type);
-				$('#content_' + content_id + '_link_target').val(extern ? '1': '0');
+				$('#contents_content_' + content_id + '_link').val(url);
+				$('#contents_content_' + content_id + '_link_title').val(title);
+				$('#contents_content_' + content_id + '_link_class_name').val(link_type);
+				$('#contents_content_' + content_id + '_open_link_in_new_window').val(extern ? '1': '0');
 				$(element).addClass('linked');
 			}
 		},
@@ -664,21 +664,21 @@ if (typeof(Alchemy) === 'undefined') {
 					content_id = $(linked_element).attr('name').replace('essence_text_', '');
 				break;
 			}
-			$tmp_link.attr('href', $('#content_' + content_id + '_link').val());
-			$tmp_link.attr('title', $('#content_' + content_id + '_link_title').val());
-			if ($('#content_' + content_id + '_link_target').val() == '1') {
+			$tmp_link.attr('href', $('#contents_content_' + content_id + '_link').val());
+			$tmp_link.attr('title', $('#contents_content_' + content_id + '_link_title').val());
+			if ($('#contents_content_' + content_id + '_open_link_in_new_window').val() == '1') {
 				$tmp_link.attr('target', '_blank');
 			}
-			$tmp_link.addClass($('#content_' + content_id + '_link_class_name').val());
+			$tmp_link.addClass($('#contents_content_' + content_id + '_link_class_name').val());
 			return $tmp_link[0];
 		},
 
 		removePictureLink : function(content_id) {
 			Alchemy.setElementDirty($('#essence_picture_' + content_id).parents('.element_editor'));
-			$('#content_' + content_id + '_link').val('');
-			$('#content_' + content_id + '_link_title').val('');
-			$('#content_' + content_id + '_link_class_name').val('');
-			$('#content_' + content_id + '_link_target').val('');
+			$('#contents_content_' + content_id + '_link').val('');
+			$('#contents_content_' + content_id + '_link_title').val('');
+			$('#contents_content_' + content_id + '_link_class_name').val('');
+			$('#contents_content_' + content_id + '_open_link_in_new_window').val('');
 			$('#edit_link_' + content_id).removeClass('linked');
 		},
 
@@ -919,7 +919,7 @@ if (typeof(Alchemy) === 'undefined') {
 						TinymceHammer.addEditor(this.id);
 					});
 				}
-	    });
+			});
 		},
 		
 		openTrashWindow : function (page_id, title) {
@@ -1095,12 +1095,12 @@ if (typeof(Alchemy) === 'undefined') {
 					$form.appendTo('body');
 					Alchemy.pleaseWaitOverlay();
 					$form.submit();
-				}
+				};
 			} else if ($(element).is('a')) {
 				okcallback = function() {
 					Alchemy.pleaseWaitOverlay();
 					document.location = element.pathname;
-				}
+				};
 			}
 			if (Alchemy.isPageDirty()) {
 				Alchemy.openConfirmWindow({

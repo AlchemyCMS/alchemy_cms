@@ -1,9 +1,8 @@
 <div class="content_editor content_text_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
 	<label><%= render_content_name(content) %></label>
 	<%= text_field_tag(
-		"contents[content_#{content.id}][source]",
-		content.essence.source,
-		:class => 'thin_border text_long',
-		:id => "contents_#{content.id}_source"
+		content.form_field_name,
+		content.ingredient,
+		:class => 'thin_border text_long'
 	) %>
 </div>

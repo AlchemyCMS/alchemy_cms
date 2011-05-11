@@ -1,7 +1,7 @@
 <div class="content_editor" id="<%= content_dom_id(content) %>">
 	<label><%= render_content_name(content) %></label>
 	<%= datetime_select(
-		"contents[content_#{content.id}]",
+		content.form_field_name,
 		:date,
 		:default => content.ingredient || Date.today,
 		:start_year => options[:start_year],

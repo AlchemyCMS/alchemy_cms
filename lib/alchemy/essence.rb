@@ -164,7 +164,7 @@ module Alchemy #:nodoc:
           ingredient.send(preview_text_method).to_s[0..maxlength]
         end
       end
-      
+
     end
     
   end

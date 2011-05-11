@@ -10,7 +10,7 @@ class EssenceText < ActiveRecord::Base
     return true if params.blank?
     self.body = params["body"]
     self.link = params["link"]
-    self.title = params["title"]
+    self.link_title = params["link_title"]
     self.link_class_name = params["link_class_name"]
     self.open_link_in_new_window = (params["open_link_in_new_window"] == '1')
     self.public = options[:public]

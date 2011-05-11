@@ -781,15 +781,16 @@ module AlchemyHelper
     options = default_options.merge(options)
     options[:onkeyup] << ";jQuery('#search_field').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
     filter_field = "<div class=\"js_filter_field_box\">"
-    filter_field << text_field_tag("filter", "", options)
+    filter_field << text_field_tag("filter", '', options)
+		filter_field << content_tag('span', '', :class => 'icon search')
     filter_field << link_to_function(
       "",
-      "$('#{options[:id]}').value = '';#{options[:onkeyup]}",
+      "jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
       :class => "js_filter_field_clear",
       :style => "display:none",
       :title => _("click_to_show_all")
     )
-    filter_field << ("<br /><label for=\"search_field\">" + _("search") + "</label>")
+    filter_field << "<label for=\"search_field\">" + _("search") + "</label>"
     filter_field << "</div>"
     filter_field
   end

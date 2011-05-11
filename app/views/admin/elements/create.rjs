@@ -13,7 +13,7 @@ page << "jQuery('#cell_#{@cell.nil? ? 'for_other_elements' : @cell.name}').sorta
 Alchemy::Notice.show(page, _("successfully_added_element"))
 page << "Alchemy.closeCurrentWindow()"
 @element.rtf_contents.each do |content|
-  page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
+  page << "TinymceHammer.addEditor('#{content.form_field_id}')"
 end
 page << "Alchemy.PreviewWindow.refresh()"
 page << "Alchemy.ElementEditorSelector()"

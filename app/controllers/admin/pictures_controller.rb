@@ -80,14 +80,20 @@ class Admin::PicturesController < AlchemyController
   def archive_overlay
     @content = Content.find_by_id(params[:content_id], :select => 'id')
     @element = Element.find_by_id(params[:element_id], :select => 'id')
+    @size = params[:size] || 'medium'
+		case @size
+			when 'small' then per_page = 35
+			when 'large' then per_page = 4
+		else
+			per_page = 12
+		end
     @pictures = Picture.paginate(
       :all,
       :order => :name,
       :page => params[:page] || 1,
-      :per_page => 32,
+      :per_page => per_page,
       :conditions => "name LIKE '%#{params[:query]}%'"
     )
-    @size = params[:size] || 'medium'
     @options = params[:options]
     if params[:remote] == 'true'
       render :update do |page|

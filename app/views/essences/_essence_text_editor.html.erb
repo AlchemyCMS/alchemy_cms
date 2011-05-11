@@ -4,14 +4,13 @@
 	<%- if !content.settings.blank? && content.settings[:display_as] == "checkbox" -%>
 	
 	<%= check_box_tag(
-	    "contents[content_#{content.id}][body]",
-	    "1",
-	    content.essence.body == "1",
-	    :id => "contents_#{content.id}_content",
-	    :onclick => "if (this.checked) {var e = $('contents_content_#{content.id}_hidden'); if(e){e.remove();}} else {var e = new Element('input', {type: 'hidden', value: 0, name: 'contents[content_#{content.id}][body]', id: 'contents_content_#{content.id}_hidden'}); Element.insert(this, {after: e});}"
+		content.form_field_name,
+		"1",
+		content.ingredient == "1",
+		:onclick => "Alchemy.handleEssenceCheckbox(this)"
 	) %>
-	<label for="contents_<%= content.id %>_content" style="display: inline">
-	    <%= render_content_name(content) %>
+	<label for="<%= content.form_field_id %>" style="display: inline">
+		<%= render_content_name(content) %>
 	</label>
 
 	<%- elsif !content.settings.blank? && content.settings[:display_as] == "select" -%>
@@ -21,24 +20,24 @@
 	<%= warning('options[:select_values] is nil', "No select values given. Please provide :select_values as argument to render_essence_editor_by_name() helper inside this element editor view.") %>
 	<%- else -%>
 	<%- if options[:select_values].is_a?(Hash)
-	        options_method = grouped_options_for_select(
-	            options[:select_values],
-	            content.essence.body,
-	            ''
-	        )
-	    else
-	        options_method = options_for_select(
-	            options[:select_values],
-	            content.essence.body
-	        )
-	    end
+		options_method = grouped_options_for_select(
+			options[:select_values],
+			content.ingredient,
+			''
+		)
+		else
+			options_method = options_for_select(
+				options[:select_values],
+				content.ingredient
+			)
+		end
 	%>
 	<%= select_tag(
-	    "contents[content_#{content.id}][body]",
-	    options_method,
-	    {
-	        :class => "essence_editor_select full_width"
-	    }
+		content.form_field_name,
+		options_method,
+		{
+			:class => "essence_editor_select full_width"
+		}
 	) %>
 	<%- end -%>
 
@@ -55,27 +54,22 @@
 		) if !content.settings.blank? && content.settings[:deletable] %>
 	</label>
 	<%= text_field_tag(
-	    "contents[content_#{content.id}][body]",
-	    content.essence.body,
-	    :class => "thin_border auto_resize#{!content.settings.blank? && content.settings[:linkable] ? ' text_with_icon' : ''}",
-	    :id => "contents_#{content.id}_content"
+		content.form_field_name,
+		content.ingredient,
+		:class => "thin_border auto_resize#{!content.settings.blank? && content.settings[:linkable] ? ' text_with_icon' : ''}"
 	) %>
 
 	<%- if !content.settings.blank? && content.settings[:linkable] -%>
 
 	<span id="content_<%= content.id %>_link_and_title" style="display: none">
-	    <%= hidden_field_tag "contents[content_#{content.id}][link]", content.essence.link, :id => "content_#{content.id}_link" %>
-	    <%= hidden_field_tag "contents[content_#{content.id}][title]", content.essence.title, :id => "content_#{content.id}_link_title" %>
-	    <%= hidden_field_tag "contents[content_#{content.id}][link_class_name]", content.essence.link_class_name, :id => "content_#{content.id}_link_class_name" %>
-	    <%= hidden_field_tag "contents[content_#{content.id}][open_link_in_new_window]", content.essence.open_link_in_new_window ? "1" : "0", :id => "content_#{content.id}_link_target" %>
+		<%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
+		<%= hidden_field_tag content.form_field_name(:link_title), content.essence.title %>
+		<%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
+		<%= hidden_field_tag content.form_field_name(:open_link_in_new_window), content.essence.open_link_in_new_window ? 1 : 0 %>
 	</span>
-	<a
-	    href="#"
-	    onclick="Alchemy.openLinkWindow(this, 420); return false;"
-	    title="<%= _('place_link') %>"
-	    class="icon_button"
-	    name="content_text_<%= content.id %>"
-	><span class="icon link"></span></a>
+	<a href="#" onclick="Alchemy.openLinkWindow(this, 420); return false;" title="<%= _('place_link') %>" class="icon_button" name="content_text_<%= content.id %>">
+		<span class="icon link"></span>
+	</a>
 
 	<%- end -%>
 

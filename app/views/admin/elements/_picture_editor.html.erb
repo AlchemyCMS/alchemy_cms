@@ -1,10 +1,11 @@
+<%- max_image_count = options[:maximum_amount_of_images] || options[:max_images] -%>
 <div class="picture_gallery_images" id="element_<%= element.id %>_contents">
 	<%- for picture_content in picture_contents do -%>
 		<%= render_essence_editor(picture_content, {
 			:dragable => (picture_contents.size > 1)
 		}.merge(options)) %>
 	<%- end -%>
-	<%- if options[:maximum_amount_of_images].blank? || picture_contents.length < options[:maximum_amount_of_images].to_i -%>
+	<%- if max_image_count.blank? || picture_contents.length < max_image_count.to_i -%>
 		<%= render(
 			:partial => 'admin/elements/add_content',
 			:locals => {
