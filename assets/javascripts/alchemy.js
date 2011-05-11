@@ -503,10 +503,10 @@ var Alchemy = {
 				content_id = element.name.replace('content_text_', '');
 				break;
 			}
-			jQuery('#content_' + content_id + '_link').val(url);
-			jQuery('#content_' + content_id + '_link_title').val(title);
-			jQuery('#content_' + content_id + '_link_class_name').val(link_type);
-			jQuery('#content_' + content_id + '_link_target').val(extern ? '1': '0');
+			jQuery('#contents_content_' + content_id + '_link').val(url);
+			jQuery('#contents_content_' + content_id + '_link_title').val(title);
+			jQuery('#contents_content_' + content_id + '_link_class_name').val(link_type);
+			jQuery('#contents_content_' + content_id + '_open_link_in_new_window').val(extern ? '1': '0');
 			jQuery(element).addClass('linked');
 		}
 	},
@@ -619,21 +619,21 @@ var Alchemy = {
 				content_id = jQuery(linked_element).attr('name').replace('essence_text_', '');
 			break;
 		}
-		$tmp_link.attr('href', jQuery('#content_' + content_id + '_link').val());
-		$tmp_link.attr('title', jQuery('#content_' + content_id + '_link_title').val());
-		if (jQuery('#content_' + content_id + '_link_target').val() == '1') {
+		$tmp_link.attr('href', jQuery('#contents_content_' + content_id + '_link').val());
+		$tmp_link.attr('title', jQuery('#contents_content_' + content_id + '_link_title').val());
+		if (jQuery('#contents_content_' + content_id + '_open_link_in_new_window').val() == '1') {
 			$tmp_link.attr('target', '_blank');
 		}
-		$tmp_link.addClass(jQuery('#content_' + content_id + '_link_class_name').val());
+		$tmp_link.addClass(jQuery('#contents_content_' + content_id + '_link_class_name').val());
 		return $tmp_link[0];
 	},
 	
 	removePictureLink : function(content_id) {
 		Alchemy.setElementDirty(jQuery('#picture_' + content_id).parents('.element_editor'));
-		jQuery('#content_' + content_id + '_link').val('');
-		jQuery('#content_' + content_id + '_link_title').val('');
-		jQuery('#content_' + content_id + '_link_class_name').val('');
-		jQuery('#content_' + content_id + '_link_target').val('');
+		jQuery('#contents_content_' + content_id + '_link').val('');
+		jQuery('#contents_content_' + content_id + '_link_title').val('');
+		jQuery('#contents_content_' + content_id + '_link_class_name').val('');
+		jQuery('#contents_content_' + content_id + '_open_link_in_new_window').val('');
 		jQuery('#edit_link_' + content_id).removeClass('linked');
 	},
 	
