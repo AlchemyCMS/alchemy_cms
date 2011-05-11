@@ -8,15 +8,6 @@ input.text_with_icon {
 	float: left;
 }
 
-div.error {
-	padding: 8px 4px 8px 32px;
-	margin-bottom: 8px;
-	margin-top: 8px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-
 .element_editor p.footnote {
 	clear: both;
 	float: left;
@@ -683,6 +674,24 @@ div.content_editor label {
 div.content_editor label span.warning.icon {
 	position: relative;
 	top: 2px;
+}
+
+.element_editor div.error {
+	background-color: #f5dea9;
+	padding: 8px 4px 8px 32px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid #f5b04e;
+	position: relative;
+}
+
+.element_editor div.error span.icon.warning {
+	position: absolute;
+	top: 8px;
+	left: 8px;
 }
 
 .element_editor p.content_editor_error {
