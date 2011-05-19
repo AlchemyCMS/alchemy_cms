@@ -11,7 +11,7 @@ page << "Alchemy.closeCurrentWindow()"
   page << "TinymceHammer.addEditor('#{content.form_field_id}')"
 end
 page << "Alchemy.PreviewWindow.refresh()"
-page << "Alchemy.ElementEditorSelector()"
+page << "Alchemy.ElementEditorSelector.init()"
 page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
 page << "Alchemy.ElementDirtyObserver('#element_#{@element.id}')"
 page << "Alchemy.SelectBox('#element_#{@element.id} select')"
