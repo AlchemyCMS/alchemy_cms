@@ -1,5 +1,5 @@
 if (typeof(Alchemy) === 'undefined') {
-	var Alchemy;
+	var Alchemy = {};
 }
 
 (function ($) {
@@ -8,7 +8,7 @@ if (typeof(Alchemy) === 'undefined') {
 	$.fx.speeds._default = 400;
 	
 	// The Alchemy JavaScript Object contains all Functions
-	Alchemy = {
+	$.extend(Alchemy, {
 		
 		inPlaceEditor : function (options) {
 			var defaults = {
@@ -727,7 +727,7 @@ if (typeof(Alchemy) === 'undefined') {
 			});
 		},
 		
-		ResizeFrame : function() {
+		resizeFrame : function() {
 			var options = {
 				top: 90,
 				left: 65,
@@ -1030,30 +1030,30 @@ if (typeof(Alchemy) === 'undefined') {
 			}
 		}
 		
-	};
+	});
 	
 })(jQuery);
 
-// Call all Alchemy "onload" scripts
-jQuery(document).ready(function () {
+(function($) {
 	
-	Alchemy.ResizeFrame();
-	Alchemy.Tooltips();
-	//TODO: Alchemy.Buttons({icons: ''});
+	// Call all Alchemy "onload" scripts
+	$(document).ready(function () {
+		Alchemy.resizeFrame();
+		Alchemy.Tooltips();
+		if (typeof(jQuery().sb) === 'function') {
+			Alchemy.SelectBox('body#alchemy select');
+		}
+		if (jQuery('#flash_notices').length > 0) {
+			Alchemy.fadeNotices();
+		}
+	});
 	
-	if (typeof(jQuery().sb) === 'function') {
-		Alchemy.SelectBox('body#alchemy select');
-	}
+	// Alchemy window resize listener
+	$(window).resize(function() {
+		Alchemy.resizeFrame();
+	});
 	
-	if (jQuery('#flash_notices').length > 0) {
-		Alchemy.fadeNotices();
-	}
-	
-});
-
-jQuery(window).resize(function() {
-	Alchemy.ResizeFrame();
-});
+})(jQuery);
 
 // Javascript extensions
 
