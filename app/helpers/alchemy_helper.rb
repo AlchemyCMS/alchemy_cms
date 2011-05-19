@@ -1082,15 +1082,15 @@ module AlchemyHelper
     if @preview_mode
       append_javascript = %(
 var s = document.createElement('script');
-s.src = '/javascripts/alchemy/jquery-1.5.min.js';
+s.src = '/javascripts/alchemy/jquery.js';
 s.language = 'javascript';
 s.type = 'text/javascript';
 document.getElementsByTagName("body")[0].appendChild(s);
       )
       str = javascript_tag("if (typeof(jQuery) !== 'function') {#{append_javascript}}") + "\n"
       str += javascript_tag("jQuery.noConflict();") + "\n"
-      str += javascript_include_tag("alchemy/alchemy") + "\n"
-      str += javascript_tag("jQuery(document).ready(function() {\nAlchemy.ElementSelector();\n});\njQuery('a').attr('href', 'javascript:void(0)');")
+      str += javascript_include_tag("alchemy/preview") + "\n"
+      str += javascript_tag("(function($){\n$(document).ready(function() {\nAlchemy.ElementSelector();\n});\n$('a').attr('href', 'javascript:void(0)');})(jQuery);")
       return str
     else
       return nil
@@ -1099,7 +1099,7 @@ document.getElementsByTagName("body")[0].appendChild(s);
   
   def element_preview_code(element)
     if @preview_mode
-      "data-alchemy-element='#{element.id}'"
+      " data-alchemy-element='#{element.id}'"
     end
   end
   
