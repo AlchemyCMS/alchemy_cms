@@ -771,7 +771,6 @@ if (typeof(Alchemy) === 'undefined') {
 			init : function() {
 				var $elements = $('#element_area .element_editor');
 				var self = Alchemy.ElementEditorSelector;
-				self.$elements = $elements;
 				$elements.each(function () {
 					self.bindEvent(this, $elements);
 				});
@@ -792,29 +791,29 @@ if (typeof(Alchemy) === 'undefined') {
 				$selected_element.trigger('Alchemy.SelectElement');
 			},
 			
-			bindEvent : function (element, $elements) {
+			bindEvent : function (element) {
 				var self = Alchemy.ElementEditorSelector;
-				var $elements;
-				if (typeof($elements) === 'undefined') {
-					$elements = self.$elements;
+				$(element).bind('Alchemy.SelectElementEditor', self.selectElement);
+			},
+			
+			selectElement : function (e) {
+				var id = this.id.replace(/\D/g,''), $element = $(this);
+				var $elements = $('#element_area .element_editor');
+				var self = Alchemy.ElementEditorSelector;
+				e.preventDefault();
+				$elements.removeClass('selected');
+				$element.addClass('selected');
+				if ($element.hasClass('folded')) {
+					$('#element_'+id+'_folder').hide();
+					$('#element_'+id+'_folder_spinner').show();
+					$.post('/admin/elements/fold?id='+id, function() {
+						$('#element_'+id+'_folder').show();
+						$('#element_'+id+'_folder_spinner').hide();
+						self.scrollToElement('#element_'+id);
+					});
+				} else {
+					self.scrollToElement(this);
 				}
-				$(element).bind('Alchemy.SelectElementEditor', function (e) {
-					var id = this.id.replace(/\D/g,''), $element = $(this);
-					e.preventDefault();
-					$elements.removeClass('selected');
-					$element.addClass('selected');
-					if ($element.hasClass('folded')) {
-						$('#element_'+id+'_folder').hide();
-						$('#element_'+id+'_folder_spinner').show();
-						$.post('/admin/elements/fold?id='+id, function() {
-							$('#element_'+id+'_folder').show();
-							$('#element_'+id+'_folder_spinner').hide();
-							self.scrollToElement('#element_'+id);
-						});
-					} else {
-						self.scrollToElement(this);
-					}
-				});
 			},
 			
 			scrollToElement : function(el) {
