@@ -209,7 +209,7 @@ class Admin::PagesController < AlchemyController
   
   def sort
     @page_root = Page.language_root_for(session[:language_id])
-    @sorting = !params[:sorting]
+    @sorting = true
   end
   
   def order
@@ -225,14 +225,8 @@ class Admin::PagesController < AlchemyController
       page = Page.find(page_id)
       page.move_to_child_of(parent)
     end
-    render :update do |page|
-      Alchemy::Notice.show(page, _("Pages order saved"))
-      page.replace 'sitemap', :partial => 'sitemap'
-      page.hide "bottom_panel"
-      page << "jQuery('#page_sorting_button').removeClass('active')"
-      page << "Alchemy.pleaseWaitOverlay(false)"
-      page << "Alchemy.Tooltips()"
-    end
+		flash[:notice] = _("Pages order saved")
+		render(:update) { |page| page.redirect_to admin_pages_path }
   rescue Exception => e
     exception_handler(e)
   end

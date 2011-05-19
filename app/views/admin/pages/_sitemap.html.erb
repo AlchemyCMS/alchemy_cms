@@ -24,6 +24,7 @@
 				</div>
 			</div>
 			<div class="sitemap_right_tools">
+				<%- unless @sorting -%>
 				<%- permitted_to?(:configure, :admin_pages) do -%>
 				<%= link_to_overlay_window(
 					"<span class='icon configure_page'></span>",
@@ -69,24 +70,27 @@
 					<%- end -%>
 				</span>
 				<%- end -%>
+				<%- end -%>
 			</div>
 			<div class="page_infos" id="page_<%= @page_root.id %>_infos">
 				<%= render :partial => 'page_infos', :locals => {:page => @page_root} %>
 			</div>
 			<div class="sitemap_sitename">
 				<%- if @page_root.redirects_to_external? -%>
-					<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= @page_root.name %></span>
-					<span class="redirect_url">
-						&raquo; <%= _('Redirects to') %>:
-						<%= h @page_root.urlname %>
-					</span>
+				<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= @page_root.name %></span>
+				<span class="redirect_url">
+					&raquo; <%= _('Redirects to') %>:
+					<%= h @page_root.urlname %>
+				</span>
 				<%- else -%>
-					<%= link_to(
-						@page_root.name,
-						edit_admin_page_path(@page_root),
-						:title => _("edit_page"),
-						:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
-					) -%>
+				<%- cycle_class = cycle('even', 'odd') -%>
+				<%= link_to_unless(
+					@sorting,
+					@page_root.name,
+					edit_admin_page_path(@page_root),
+					:title => _("edit_page"),
+					:class => "sitemap_pagename_link #{cycle_class}"
+				) { content_tag('span', @page_root.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
 				<%- end -%>
 			</div>
 		</div>

@@ -922,7 +922,7 @@ div.sitemap_page {
 	position: relative;
 }
 
-div.sitemap_page:hover .sitemap_pagename_link {
+div.sitemap_page:hover a.sitemap_pagename_link {
 	background-color: #fdffdf;
 }
 
@@ -957,6 +957,7 @@ div.sitemap_right_tools {
 	background-color: #ededed;
 	padding-left: 16px;
 	float: right;
+	width: 100px;
 }
 
 ul#sitemap li .sitemap_toolrow,

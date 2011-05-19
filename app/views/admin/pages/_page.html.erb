@@ -24,6 +24,7 @@
 			</div>
 		</div>
 		<div class="sitemap_right_tools">
+			<%- unless @sorting -%>
 			<%- permitted_to?(:configure, :admin_pages) do -%>
 			<%= link_to_overlay_window(
 				render_icon('configure_page'),
@@ -81,6 +82,7 @@
 				<%- end -%>
 			</span>
 			<%- end -%>
+			<%- end -%>
 		</div>
 		<div class="page_infos" id="page_<%= page.id %>_infos">
 			<%= render :partial => 'page_infos', :locals => {:page => page} %>
@@ -93,12 +95,14 @@
 				<%= h page.urlname %>
 			</span>
 		<%- else -%>
-			<%= link_to(
+			<%- cycle_class = cycle('even', 'odd') -%>
+			<%= link_to_unless(
+				@sorting,
 				page.name,
 				edit_admin_page_path(page),
 				:title => _("edit_page"),
-				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
-			) -%>
+				:class => "sitemap_pagename_link #{cycle_class}"
+			) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
 		<%- end -%>
 		</div>
 	</div>

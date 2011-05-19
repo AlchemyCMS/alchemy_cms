@@ -24,7 +24,7 @@ class Admin::ContentsController < AlchemyController
 			@dragable = @contents_of_this_type.length > 1
 			@options = @options.merge(
 				:dragable => @dragable
-			)
+			) if @options
 			@content.essence.picture = Picture.find(params[:picture_id])
 			@content.essence.save
 		end
