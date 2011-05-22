@@ -8,7 +8,7 @@
     <%- if !@text_search_results.blank? || !@rtf_search_results.blank? -%>
     
     <h2>
-        <%= t('search.result_heading', :query => h(params[:query]), :count => @rtf_search_results.length + @text_search_results.length) %>
+        <%= t('alchemy.search.result_heading', :query => h(params[:query]), :count => @rtf_search_results.length + @text_search_results.length) %>
     </h2>
     
     <%- all_results = (@text_search_results + @rtf_search_results).sort{|y, x| x.ferret_score <=> y.ferret_score} -%>
@@ -36,7 +36,7 @@
     
     <%- elsif !params[:query].blank? -%>
     
-    <h2><%= t('search.no_results') %></h2>
+    <h2><%= t('alchemy.search.no_results') %></h2>
     
     <%- end -%>
 </div>

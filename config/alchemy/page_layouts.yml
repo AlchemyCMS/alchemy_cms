@@ -14,47 +14,52 @@
 #     redirects_to_external: Bool   # Pass true to disable normal page rendering and redirect to a external page instead.
 #     controller: controller_name   # Controller to use instead of the default PagesController
 #     action: action_name           # Controllers action to use instead of the default PagesController#show
-
+#
+# === Translate page layout names
+# 
+# Page layout names are passed through the I18n library. So you can translate them in your config/locales language yml file.
+# 
+# Example:
+#   
+#   de:
+#     alchemy:
+#       page_layout_names:
+#         contact: Kontakt
+#         search: Suche
+# 
 - name: intro
-  display_name: Intro
   unique: true
   elements: [article, claim, header, bild, bild_text, text, intro, headline, image_mosaic, intro_image_text]
   autogenerate: [header, intro_image_text]
 
 - name: standard
-  display_name: Standard
   elements: [article, claim, header, bild, bild_text, text, intro, headline, image_mosaic]
   autogenerate: [header, claim, article]
 
 - name: contact
-  display_name: Kontakt
   unique: true
   cache: false
   elements: [headline, text, contactform]
   autogenerate: [headline, text, contactform]
 
 - name: news
-  display_name: News
   feed: true
   unique: true
   elements: [headline, news]
   autogenerate: [news]
 
 - name: search
-  display_name: Suche
   unique: true
   cache: false
   elements: [headline, text, searchresult]
   autogenerate: [searchresult]
 
 - name: layout_header
-  display_name: Layout Header
   unique: true
   layoutpage: true
   elements: [sitename, header]
 
 - name: layout_footer
-  display_name: Layout Footer
   unique: true
   layoutpage: true
   elements: [footnote]

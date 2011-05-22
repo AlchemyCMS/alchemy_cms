@@ -422,16 +422,15 @@ a.drop_down_select img {
 	position: relative;
 	float: right;
 	margin-left: 4px;
-	top: -5px;
 }
 
 .js_filter_field_box .js_filter_field {
-	width: 200px;
-	padding-right: 8px;
-	padding-left: 8px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	width: 170px;
+	text-align: left;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	padding: 3px 24px 2px;
 }
 
 #flags a img {
@@ -442,10 +441,8 @@ a.drop_down_select img {
 }
 
 .js_filter_field_box label {
-	padding-top: 3px;
 	text-shadow: #fefefe 1px 1px 0;
 	font-size: 10px;
-	width: 200px;
 	display: inline-block;
 	text-align: center;
 }
@@ -456,7 +453,7 @@ a.drop_down_select img {
 	background: url(/images/alchemy/icons.png) no-repeat 0 -104px;
 	position: absolute;
 	right: 8px;
-	top: 3px;
+	top: 4px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -854,12 +851,38 @@ div.tip {
 	text-decoration: none;
 }
 
+.sitemap_pagename_link.inactive {
+	color: #656565;
+}
+
+.redirect_url {
+	position: absolute;
+	top: 4px;
+	right: 184px;
+	text-align: right;
+	background-color: #fff0c4;
+	line-height: 22px;
+	padding-right: 4px;
+	font-size: 10px;
+	padding-left: 4px;
+}
+
 .sitemap_pagename_link.odd {
 	background-color: #fff;
 }
 
 a.sitemap_pagename_link:hover {
 	text-decoration: underline;
+}
+
+a.sitemap_pagename_link:hover:after {
+	content: '';
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-right: 4px;
+	background: url(/images/alchemy/icons.png) -32px -104px;
+	margin-top: 4px;
 }
 
 .sitemap_line_spacer {
@@ -899,7 +922,7 @@ div.sitemap_page {
 	position: relative;
 }
 
-div.sitemap_page:hover .sitemap_pagename_link {
+div.sitemap_page:hover a.sitemap_pagename_link {
 	background-color: #fdffdf;
 }
 
@@ -934,6 +957,7 @@ div.sitemap_right_tools {
 	background-color: #ededed;
 	padding-left: 16px;
 	float: right;
+	width: 100px;
 }
 
 ul#sitemap li .sitemap_toolrow,
@@ -1019,7 +1043,7 @@ span.page_status.not_public {
 	background: url(/images/alchemy/icons.png) no-repeat 0 -24px;
 }
 
-.site_status.locked {
+.locked .site_status {
 	background-position: -16px -24px;
 }
 
@@ -2249,6 +2273,10 @@ span.icon.settings {
 	background: url(/images/alchemy/icons.png) -160px -24px;
 }
 
+span.icon.visit_page {
+	background: url(/images/alchemy/icons.png) -64px -88px;
+}
+
 span.icon.upload {
 	background: url(/images/alchemy/icons.png) 0 -72px;
 }
@@ -2303,6 +2331,10 @@ span.icon.file {
 
 span.icon.flush {
 	background-position: -176px -24px;
+}
+
+span.icon.publish {
+	background-position: -80px -88px;
 }
 
 span.icon.info {
@@ -2379,6 +2411,10 @@ span.icon.clipboard.full {
 }
 
 a.icon.file_download {
+	background: url(/images/alchemy/icons.png) -240px -72px;
+}
+
+.icon.download {
 	background: url(/images/alchemy/icons.png) -240px -72px;
 }
 
@@ -2691,7 +2727,8 @@ div.button_with_label:hover label {
 	text-decoration: none;
 }
 
-div.search_field span.icon {
+div.search_field span.icon,
+div.js_filter_field_box span.icon {
 	position: absolute;
 	left: 6px;
 	top: 4px;
@@ -2829,7 +2866,8 @@ div.assign_image_list_detail {
 }
 
 #assign_image_list {
-	padding-top: 8px;
+	padding: 8px;
+	overflow: hidden;
 }
 
 #assign_image_list div.assign_image_list_detail.small {
@@ -3382,7 +3420,6 @@ div.info ol li {
 }
 
 div#overlay_toolbar {
-	margin: -8px -8px 4px;
 	padding: 6px 8px 8px;
 	background: #e3e3e3 url(/images/alchemy/gui/shading.png) repeat-x 0 -42px;
 	border: 1px solid #afafaf;

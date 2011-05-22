@@ -40,32 +40,43 @@
 				<label><%= _("unlock_page") %></label>
 			<% end %>
 		</div>
-		<div class="button_with_label">
-			<%- if configuration(:cache_pages) -%>
-				<% form_tag(
-					publish_admin_page_path(@page),
-					:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
-				) do -%>
-					<button class="icon_button" title="<%= _('explain_publishing') %>">
-						<%= render_icon('flush') %>
-					</button><br />
-					<label><%= _("Clear page cache") %></label>
-				<% end -%>
-			<%- end -%>
-		</div>
 		<%- unless @page.layoutpage? -%>
+		<div class="button_with_label">
+			<% form_tag(
+				visit_admin_page_path(@page),
+				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
+			) do %>
+				<button class="icon_button" title="<%= _('Visit page') %>">
+					<%= render_icon('visit_page') %>
+				</button><br />
+				<label><%= _("Visit page") %></label>
+			<% end %>
+		</div>
+		<%- end -%>
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				render_icon('settings'),
 				configure_admin_page_path(@page),
 				{
 					:title => _('edit_page_properties'),
-					:size => '380x490'
+					:size => @page.layoutpage? ? '340x150' : '380x600'
 				},
 				:class => 'icon_button',
 				:title => _('edit_page_properties')
 			) -%><br />
 			<label><%= _('page_properties') %></label>
+		</div>
+		<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
+		<div class="button_with_label">
+			<% form_tag(
+				publish_admin_page_path(@page),
+				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
+			) do -%>
+				<button class="icon_button" title="<%= _('explain_publishing') %>">
+					<%= render_icon('publish') %>
+				</button><br />
+				<label><%= _("Publish page") %></label>
+			<% end -%>
 		</div>
 		<%- end -%>
 	</div>
@@ -73,7 +84,7 @@
 		<div class="button_with_label" id="show_preview_window">
 			<%= link_to_function(
 				render_icon('preview_window'),
-				"Alchemy.openPreviewWindow('#{admin_page_url(@page)}', '#{_('Page Preview')}')",
+				"openPreviewWindow()",
 				{
 					:title => _('Show Preview Window'),
 					:class => 'icon_button'
@@ -84,7 +95,7 @@
 		<div class="button_with_label" id="show_element_window">
 			<%= link_to_function(
 				render_icon('element_window'),
-				"Alchemy.openElementsWindow('#{list_admin_elements_path(:page_id => @page.id)}', {title: '#{ _('Elements') }', dirtyTitle: '#{ _("Warning!") }', dirtyMessage: '#{ _("You have unsaved elements. Do you really want to close the elements window?") }', okLabel: '#{ _("Yes") }', cancelLabel: '#{ _("No") }'})",
+				"openElementsWindow()",
 				{
 					:title => _('Show Elements Window'),
 					:class => 'icon_button'
@@ -96,26 +107,70 @@
 </div>
 <%- end -%>
 <%- content_for :javascripts do -%>
-	<script type="text/javascript" charset="utf-8">
-	//<!--[CDATA[
-		jQuery(document).ready(function() {
-			Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>',
+<script type="text/javascript" charset="utf-8">
+	
+	function openPreviewWindow() {
+		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _("Page Preview") %>');
+	}
+	
+	function openElementsWindow() {
+		Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', {
+			texts: {
+				title: '<%= _("Elements") %>',
+				dirtyTitle: '<%= _("Warning!") %>',
+				dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") %>',
+				okLabel: '<%= _("Yes") %>',
+				cancelLabel: '<%= _("No") %>'
+			},
+			toolbarButtons: [
 				{
-					title: '<%= _('Elements') %>',
-					dirtyTitle: '<%= _("Warning!") %>',
-					dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") %>',
-					okLabel: '<%= _("Yes") %>',
-					cancelLabel: '<%= _("No") %>'
+					title: '<%= _("New Element") %>',
+					label: '<%= _("New Element") %>',
+					iconClass: 'new_element',
+					onClick: function() {
+						Alchemy.openWindow(
+							'<%= new_admin_element_path(:page_id => @page.id) %>',
+							'<%= _("New Element") %>',
+							'410',
+							'50',
+							false,
+							true,
+							true
+						);
+					}
+				},
+				{
+					title: '<%= _("Clipboard") %>',
+					label: '<%= _("Show clipboard") %>',
+					iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
+					buttonId: 'clipboard_button',
+					onClick: function() {
+						Alchemy.openWindow(
+							'<%= admin_clipboard_index_path(:remarkable_type => "element") %>',
+							'<%= _("Clipboard") %>',
+							'380',
+							'270',
+							false,
+							true,
+							true
+						);
+					}
 				}
-			);
-			Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _('Page Preview') %>');
+			]
 		});
-		Alchemy.PageLeaveObserver({
-			title: '<%= _("Warning!") %>',
-			message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") %>',
-			okLabel: '<%= _("Yes") %>',
-			cancelLabel: '<%= _("No") %>'
-		});
-	//]]-->
-	</script>
+	}
+	
+	jQuery(document).ready(function() {
+		openElementsWindow();
+		openPreviewWindow();
+	});
+	
+	Alchemy.PageLeaveObserver({
+		title: '<%= _("Warning!") %>',
+		message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") %>',
+		okLabel: '<%= _("Yes") %>',
+		cancelLabel: '<%= _("No") %>'
+	});
+	
+</script>
 <%- end -%>

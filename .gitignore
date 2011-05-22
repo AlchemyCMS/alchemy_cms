@@ -1,4 +1,5 @@
-doc/
-rdoc/
+.yardoc
 .DS_Store
 .svn
+doc/
+rdoc/

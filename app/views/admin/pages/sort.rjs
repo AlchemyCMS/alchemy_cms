@@ -1,9 +1,3 @@
 page.replace 'sitemap', :partial => 'sitemap'
-if @sorting
-  page.show 'bottom_panel'
-  page << "jQuery('#page_sorting_button').addClass('active')"
-  page << "Alchemy.PageSorter()"
-else
-  page.hide 'bottom_panel'
-  page << "Alchemy.pleaseWaitOverlay(false)"
-end
+page.show 'bottom_panel'
+page << "Alchemy.PageSorter.init()"

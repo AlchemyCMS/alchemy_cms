@@ -5,7 +5,7 @@ class Admin::PagesController < AlchemyController
   layout 'alchemy'
   
   before_filter :set_translation, :except => [:show]
-  before_filter :get_page_from_id, :only => [:show, :unlock, :publish, :configure, :edit, :update, :destroy, :fold]
+  before_filter :get_page_from_id, :only => [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
   
   filter_access_to [:show, :unlock, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
@@ -20,7 +20,6 @@ class Admin::PagesController < AlchemyController
   def show
     # fetching page via before filter
     @preview_mode = true
-    @language = Alchemy::Controller.current_language
     @root_page = Page.language_root_for(session[:language_id])
     render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
@@ -155,7 +154,7 @@ class Admin::PagesController < AlchemyController
     if request.xhr?
       render :update do |page|
         page.remove "locked_page_#{@page.id}"
-        page << "jQuery('#page_#{@page.id} .site_status').removeClass('locked')"
+        page << "jQuery('#page_#{@page.id} .sitemap_page').removeClass('locked')"
         if Page.all_locked_by(current_user).blank?
           page << "jQuery('#subnav_additions label').hide()"
         end
@@ -170,9 +169,15 @@ class Admin::PagesController < AlchemyController
     end
   end
   
-  # Sweeps the page cache
+  def visit
+    @page.unlock
+    redirect_to multi_language? ? show_page_with_language_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
+  end
+  
+  # Sets the page public and sweeps the page cache
   def publish
     # fetching page via before filter
+    @page.public = true
     @page.save
     flash[:notice] = _("page_published") % {:name => @page.name}
     redirect_back_or_to_default(admin_pages_path)
@@ -205,7 +210,7 @@ class Admin::PagesController < AlchemyController
       new_language_root = Page.copy(
         original_language_root,
         :language_id => params[:languages][:new_lang_id],
-        :language_code => Alchemy::Controller.current_language.code,
+        :language_code => session[:language_code],
         :layoutpage => params[:layoutpage]
       )
       new_language_root.move_to_child_of Page.root
@@ -219,7 +224,7 @@ class Admin::PagesController < AlchemyController
   
   def sort
     @page_root = Page.language_root_for(session[:language_id])
-    @sorting = !params[:sorting]
+    @sorting = true
   end
   
   def order
@@ -235,14 +240,8 @@ class Admin::PagesController < AlchemyController
       page = Page.find(page_id)
       page.move_to_child_of(parent)
     end
-    render :update do |page|
-      Alchemy::Notice.show(page, _("Pages order saved"))
-      page.replace 'sitemap', :partial => 'sitemap'
-      page.hide "bottom_panel"
-      page << "jQuery('#page_sorting_button').removeClass('active')"
-      page << "Alchemy.pleaseWaitOverlay(false)"
-      page << "Alchemy.Tooltips()"
-    end
+		flash[:notice] = _("Pages order saved")
+		render(:update) { |page| page.redirect_to admin_pages_path }
   rescue Exception => e
     exception_handler(e)
   end

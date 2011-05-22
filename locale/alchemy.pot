@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-03-07 13:01+0100\n"
+"POT-Creation-Date: 2011-05-11 18:12+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -68,21 +68,22 @@ msgstr ""
 msgid "Attachment|Size"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:52
-msgid "Clear page cache"
+#: app/helpers/alchemy_helper.rb:849
+msgid "Choose page"
 msgstr ""
 
 #: app/views/admin/pictures/_picture.html.erb:34
 msgid "Click to rename"
 msgstr ""
 
-#: app/views/admin/elements/list.html.erb:23
+#: app/views/admin/pages/edit.html.erb:143
+#: app/views/admin/pages/edit.html.erb:150
 #: app/views/admin/pages/index.html.erb:71
 #: app/views/admin/pages/layoutpages.html.erb:61
 msgid "Clipboard"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:42 app/models/page.rb:384
+#: app/controllers/admin/pages_controller.rb:41 app/models/page.rb:382
 msgid "Copy"
 msgstr ""
 
@@ -106,7 +107,7 @@ msgstr ""
 msgid "Do you really want to clear the clipboard?"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:46
+#: app/views/essences/_essence_text_editor.html.erb:45
 msgid "Do you really want to delete this content?"
 msgstr ""
 
@@ -119,7 +120,7 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:104
+#: app/views/admin/pages/edit.html.erb:119
 msgid "Elements"
 msgstr ""
 
@@ -177,7 +178,7 @@ msgstr ""
 msgid "Have much fun with Alchemy!"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:677
+#: app/helpers/alchemy_helper.rb:678
 msgid "Hide childpages"
 msgstr ""
 
@@ -187,7 +188,7 @@ msgid ""
 "%{link}"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:114
+#: app/controllers/admin/pictures_controller.rb:120
 msgid "Image renamed successfully from: '%{from}' to '%{to}'"
 msgstr ""
 
@@ -199,7 +200,7 @@ msgstr ""
 msgid "Image updated successfully"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:125
+#: app/controllers/admin/pictures_controller.rb:131
 msgid "Image: '%{name}' deleted successfully"
 msgstr ""
 
@@ -273,9 +274,9 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: app/views/admin/elements/list.html.erb:7
-#: app/views/admin/elements/list.html.erb:12
-#: app/views/admin/elements/list.html.erb:16
+#: app/views/admin/pages/edit.html.erb:127
+#: app/views/admin/pages/edit.html.erb:128
+#: app/views/admin/pages/edit.html.erb:133
 msgid "New Element"
 msgstr ""
 
@@ -283,8 +284,8 @@ msgstr ""
 msgid "New page"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:108
-#: app/views/admin/pages/edit.html.erb:117
+#: app/views/admin/pages/edit.html.erb:123
+#: app/views/admin/pages/edit.html.erb:172
 msgid "No"
 msgstr ""
 
@@ -298,19 +299,19 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:97
+#: app/controllers/admin/pages_controller.rb:96
 msgid "Page %{name} deleted"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:85
+#: app/controllers/admin/pages_controller.rb:84
 msgid "Page %{name} saved"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:111
+#: app/views/admin/pages/edit.html.erb:113
 msgid "Page Preview"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:256
+#: app/controllers/admin/pages_controller.rb:261
 msgid "Page cache flushed"
 msgstr ""
 
@@ -350,7 +351,7 @@ msgstr ""
 msgid "Page visible"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:224
+#: app/controllers/admin/pages_controller.rb:229
 msgid "Pages order saved"
 msgstr ""
 
@@ -439,7 +440,7 @@ msgstr ""
 msgid "Picture %{name} uploaded succesfully"
 msgstr ""
 
-#: app/controllers/admin/pictures_controller.rb:137
+#: app/controllers/admin/pictures_controller.rb:143
 msgid "Picture cache flushed"
 msgstr ""
 
@@ -463,8 +464,8 @@ msgstr ""
 msgid "Please Signup"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:772 app/views/admin/users/_form.html.erb:7
-#: lib/alchemy/page_layout.rb:39
+#: app/helpers/alchemy_helper.rb:774 app/views/admin/users/_form.html.erb:7
+#: lib/alchemy/page_layout.rb:40
 msgid "Please choose"
 msgstr ""
 
@@ -472,7 +473,7 @@ msgstr ""
 msgid "Please choose a page layout."
 msgstr ""
 
-#: app/models/element.rb:11
+#: app/models/element.rb:10
 msgid "Please choose an element."
 msgstr ""
 
@@ -480,7 +481,7 @@ msgstr ""
 msgid "Please consider that you have at least version 9.0.28 installed."
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:177
+#: app/controllers/alchemy_controller.rb:182
 msgid "Please log in"
 msgstr ""
 
@@ -488,19 +489,28 @@ msgstr ""
 msgid "Please use this alternative uploader instead."
 msgstr ""
 
+#: app/views/admin/pages/edit.html.erb:78
+msgid "Publish page"
+msgstr ""
+
 #: app/views/admin/index.html.erb:88
 msgid "Read the License"
+msgstr ""
+
+#: app/views/admin/pages/_page.html.erb:92
+#: app/views/admin/pages/_sitemap.html.erb:80
+msgid "Redirects to"
 msgstr ""
 
 #: app/views/admin/clipboard/index.html.erb:10
 msgid "Remove item from clipboard"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:49
+#: app/views/essences/_essence_text_editor.html.erb:48
 msgid "Remove this content"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1033
+#: app/helpers/alchemy_helper.rb:1043
 msgid "Select an content"
 msgstr ""
 
@@ -508,22 +518,21 @@ msgstr ""
 msgid "Send email with credentials"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:89
-#: app/views/admin/pages/edit.html.erb:93
+#: app/views/admin/pages/edit.html.erb:100
+#: app/views/admin/pages/edit.html.erb:104
 msgid "Show Elements Window"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:78
-#: app/views/admin/pages/edit.html.erb:82
+#: app/views/admin/pages/edit.html.erb:89
+#: app/views/admin/pages/edit.html.erb:93
 msgid "Show Preview Window"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:674
+#: app/helpers/alchemy_helper.rb:675
 msgid "Show childpages"
 msgstr ""
 
-#: app/views/admin/elements/list.html.erb:27
-#: app/views/admin/elements/list.html.erb:29
+#: app/views/admin/pages/edit.html.erb:144
 #: app/views/admin/pages/index.html.erb:75
 #: app/views/admin/pages/index.html.erb:77
 #: app/views/admin/pages/layoutpages.html.erb:65
@@ -540,15 +549,15 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: app/views/admin/contents/create.rjs:54
+#: app/views/admin/contents/create.rjs:53
 msgid "Successfully added %{content}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:62
+#: app/controllers/admin/contents_controller.rb:63
 msgid "Successfully deleted %{content}"
 msgstr ""
 
-#: app/controllers/admin/contents_controller.rb:48
+#: app/controllers/admin/contents_controller.rb:49
 msgid "Successfully saved content position"
 msgstr ""
 
@@ -568,7 +577,7 @@ msgstr ""
 msgid "This element has unsaved changes. Do you really want to fold it?"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:64
+#: app/controllers/admin/pages_controller.rb:63
 msgid "This page is locked by %{name}"
 msgstr ""
 
@@ -652,12 +661,17 @@ msgstr ""
 msgid "View File"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:105
-#: app/views/admin/pages/edit.html.erb:114
+#: app/views/admin/pages/edit.html.erb:49
+#: app/views/admin/pages/edit.html.erb:52
+msgid "Visit page"
+msgstr ""
+
+#: app/views/admin/pages/edit.html.erb:120
+#: app/views/admin/pages/edit.html.erb:169
 msgid "Warning!"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:294
+#: app/helpers/alchemy_helper.rb:295
 msgid "Warning: Content '%{contentname}' is missing its description."
 msgstr ""
 
@@ -678,12 +692,12 @@ msgstr ""
 msgid "Who else is online"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:107
-#: app/views/admin/pages/edit.html.erb:116
+#: app/views/admin/pages/edit.html.erb:122
+#: app/views/admin/pages/edit.html.erb:171
 msgid "Yes"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:166
+#: app/controllers/alchemy_controller.rb:171
 msgid "You are not authorized"
 msgstr ""
 
@@ -697,13 +711,13 @@ msgid ""
 "cache?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:115
+#: app/views/admin/pages/edit.html.erb:170
 msgid ""
 "You have unsaved elements on this page. Do you really want to leave this "
 "page?"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:106
+#: app/views/admin/pages/edit.html.erb:121
 msgid ""
 "You have unsaved elements. Do you really want to close the elements window?"
 msgstr ""
@@ -747,11 +761,11 @@ msgstr ""
 msgid "add"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:1029 app/helpers/alchemy_helper.rb:1045
+#: app/helpers/alchemy_helper.rb:1039 app/helpers/alchemy_helper.rb:1055
 msgid "add new content"
 msgstr ""
 
-#: app/views/admin/elements/_picture_editor.html.erb:13
+#: app/views/admin/elements/_picture_editor.html.erb:14
 msgid "add_image_to_element"
 msgstr ""
 
@@ -803,7 +817,7 @@ msgstr ""
 msgid "browse"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:95
+#: app/views/admin/pages/index.html.erb:96
 #: app/views/admin/pictures/index.html.erb:50
 msgid "cancel"
 msgstr ""
@@ -824,7 +838,7 @@ msgstr ""
 msgid "clear clipboard"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:763
+#: app/helpers/alchemy_helper.rb:765
 #: app/views/admin/partials/_remote_search_form.html.erb:30
 #: app/views/admin/partials/_search_form.html.erb:12
 msgid "click_to_show_all"
@@ -864,12 +878,12 @@ msgstr ""
 msgid "contactform_body"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:168 app/helpers/alchemy_helper.rb:818
-#: app/helpers/alchemy_helper.rb:918
+#: app/helpers/alchemy_helper.rb:169 app/helpers/alchemy_helper.rb:828
+#: app/helpers/alchemy_helper.rb:928
 msgid "content_essence_not_found"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:166 app/helpers/alchemy_helper.rb:816
+#: app/helpers/alchemy_helper.rb:167 app/helpers/alchemy_helper.rb:826
 msgid "content_not_found"
 msgstr ""
 
@@ -987,8 +1001,8 @@ msgid "edit_language"
 msgstr ""
 
 #: app/views/admin/pages/_layoutpage.html.erb:75
-#: app/views/admin/pages/_page.html.erb:95
-#: app/views/admin/pages/_sitemap.html.erb:80
+#: app/views/admin/pages/_page.html.erb:99
+#: app/views/admin/pages/_sitemap.html.erb:87
 msgid "edit_page"
 msgstr ""
 
@@ -998,8 +1012,8 @@ msgstr ""
 #: app/views/admin/pages/_page.html.erb:36
 #: app/views/admin/pages/_sitemap.html.erb:32
 #: app/views/admin/pages/_sitemap.html.erb:36
-#: app/views/admin/pages/edit.html.erb:62
-#: app/views/admin/pages/edit.html.erb:66
+#: app/views/admin/pages/edit.html.erb:61
+#: app/views/admin/pages/edit.html.erb:65
 msgid "edit_page_properties"
 msgstr ""
 
@@ -1012,7 +1026,7 @@ msgstr ""
 msgid "element_deleted_successful"
 msgstr ""
 
-#: app/views/elements/_editor_not_found.html.erb:2
+#: app/views/elements/_editor_not_found.html.erb:3
 msgid "element_editor_not_found"
 msgstr ""
 
@@ -1032,7 +1046,7 @@ msgstr ""
 msgid "explain cropping"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:49
+#: app/views/admin/pages/edit.html.erb:75
 msgid "explain_publishing"
 msgstr ""
 
@@ -1136,7 +1150,7 @@ msgstr ""
 msgid "language_does_not_exist"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:198
+#: app/controllers/admin/pages_controller.rb:203
 msgid "language_pages_copied"
 msgstr ""
 
@@ -1262,7 +1276,7 @@ msgstr ""
 msgid "navigation_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:796
+#: app/helpers/alchemy_helper.rb:798
 msgid "no"
 msgstr ""
 
@@ -1274,11 +1288,11 @@ msgstr ""
 msgid "no users"
 msgstr ""
 
-#: app/controllers/alchemy_controller.rb:161
+#: app/controllers/alchemy_controller.rb:210
 msgid "no_default_language_found"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:214 app/helpers/alchemy_helper.rb:267
+#: app/helpers/alchemy_helper.rb:215 app/helpers/alchemy_helper.rb:268
 msgid "no_element_given"
 msgstr ""
 
@@ -1304,7 +1318,7 @@ msgstr ""
 msgid "not a valid image"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:55
+#: app/controllers/admin/pages_controller.rb:54
 msgid "page '%{name}' created."
 msgstr ""
 
@@ -1316,7 +1330,7 @@ msgstr ""
 msgid "page_locked"
 msgstr ""
 
-#: app/views/admin/pages/edit.html.erb:68
+#: app/views/admin/pages/edit.html.erb:67
 msgid "page_properties"
 msgstr ""
 
@@ -1324,7 +1338,7 @@ msgstr ""
 msgid "page_public"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:177
+#: app/controllers/admin/pages_controller.rb:182
 msgid "page_published"
 msgstr ""
 
@@ -1414,7 +1428,7 @@ msgstr ""
 msgid "paste"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:70
+#: app/views/essences/_essence_text_editor.html.erb:65
 msgid "place_link"
 msgstr ""
 
@@ -1430,7 +1444,7 @@ msgstr ""
 msgid "please enter subject and mail address"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:794
+#: app/helpers/alchemy_helper.rb:796
 msgid "please_confirm"
 msgstr ""
 
@@ -1481,7 +1495,7 @@ msgstr ""
 msgid "save"
 msgstr ""
 
-#: app/views/admin/pages/index.html.erb:96
+#: app/views/admin/pages/index.html.erb:97
 msgid "save order"
 msgstr ""
 
@@ -1493,7 +1507,7 @@ msgstr ""
 msgid "saving"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:765
+#: app/helpers/alchemy_helper.rb:767
 #: app/views/admin/partials/_remote_search_form.html.erb:35
 #: app/views/admin/partials/_search_form.html.erb:16
 #: app/views/elements/_searchresult_view.html.erb:5
@@ -1565,7 +1579,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:64 app/models/page.rb:135
+#: app/controllers/admin/pages_controller.rb:63 app/models/page.rb:135
 #: app/models/page.rb:142 app/models/page.rb:149
 msgid "unknown"
 msgstr ""
@@ -1578,7 +1592,7 @@ msgstr ""
 msgid "unlock_page"
 msgstr ""
 
-#: app/controllers/admin/pages_controller.rb:154
+#: app/controllers/admin/pages_controller.rb:153
 msgid "unlocked_page_%{name}"
 msgstr ""
 
@@ -1598,9 +1612,9 @@ msgstr ""
 msgid "upload_file"
 msgstr ""
 
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:74
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:78
-#: app/views/admin/pictures/_filter_and_size_bar.html.erb:81
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:75
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:79
+#: app/views/admin/pictures/_filter_and_size_bar.html.erb:82
 #: app/views/admin/pictures/index.html.erb:11
 #: app/views/admin/pictures/index.html.erb:15
 #: app/views/admin/pictures/index.html.erb:17
@@ -1649,7 +1663,7 @@ msgstr ""
 msgid "with_name"
 msgstr ""
 
-#: app/helpers/alchemy_helper.rb:795
+#: app/helpers/alchemy_helper.rb:797
 msgid "yes"
 msgstr ""
 

@@ -1,15 +1,9 @@
 <!DOCTYPE>
 <html>
-    <head>
-        <%= render_meta_data(
-            :title_prefix => render_elements(
-                :from_page => Page.find_by_page_layout('layout_header'),
-                :only => ['sitename']
-            ),
-            :title_seperator => "|"
-        ) %>
-        <%= stylesheet_link_tag "http://github.com/tvdeyen/alchemy-standard-set/raw/master/styles", :media => :screen %>
-        <%= stylesheet_link_tag "http://github.com/tvdeyen/alchemy-standard-set/raw/master/styles", :media => :printer %>
+  <head>
+    <%= render_meta_data(:title_prefix => "My Alchemy Page", :title_seperator => "|") %>
+    <%= stylesheet_link_tag "styles", :media => :screen %>
+    <%= stylesheet_link_tag "print", :media => :print %>
 	</head>
 	<body>
 		<div id="page">
@@ -17,29 +11,29 @@
 				<%= language_switches(:linkname => :code) %>
 			</div>
 			<div id="breadcrump">
-                <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
+        <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
 			</div>
-            <div id="header">
-                <div id="header_image">
-                    <%= render_elements(:only => 'header', :fallback => {:for => 'header', :from => 'layout_header'}) %>
-                </div>
-                <%- claim = render_elements :only => ["claim"] -%>
-                <%- if !claim.blank? -%>
-                <div id="claim">
-                    <%= claim %>
-                </div>
-                <%- end -%>
-                <div id="navigation">
-                    <%= render_navigation :all_sub_menues => true %>
-                </div>
+      <div id="header">
+        <div id="header_image">
+          <%= render_elements(:only => 'header', :fallback => {:for => 'header', :from => 'layout_header'}) %>
+        </div>
+        <%- claim = render_elements :only => ["claim"] -%>
+        <%- if !claim.blank? -%>
+        <div id="claim">
+          <%= claim %>
+        </div>
+        <%- end -%>
+        <div id="navigation">
+          <%= render_navigation :all_sub_menues => true %>
+        </div>
 			</div>
 			<div id="content">
 				<%= yield %>
 			</div>
 			<div class="footer">
 				<%= render_elements(
-				    :from_page => Page.find_by_page_layout('layout_footer'),
-				    :only => ['footnote']
+          :from_page => 'layout_footer',
+          :only => ['footnote']
 				) %>
 			</div>
 		</div>

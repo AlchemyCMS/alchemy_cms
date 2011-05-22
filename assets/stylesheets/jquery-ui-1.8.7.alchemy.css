@@ -1520,11 +1520,6 @@ button.ui-button::-moz-focus-inner {
 	overflow: auto;
 }
 
-#alchemy .ui-dialog #alchemyElementWindow.ui-dialog-content {
-	position: relative;
-	margin-top: 56px;
-}
-
 #alchemy .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
 	border-width: 0 0 0 0;

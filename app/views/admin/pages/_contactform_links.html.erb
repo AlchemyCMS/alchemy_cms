@@ -25,7 +25,7 @@
 			<td class="input">
 				<%= select_tag(
 					"contactform_mailto",
-					options_for_select(configuration(:mailer)[:mail_addresses].map{ |a| [t('mailer.mail_addresses.'+a[0]), a[0]] }),
+					options_for_select(configuration(:mailer)[:mail_addresses].map{ |a| [t('alchemy.mailer.mail_addresses.'+a[0]), a[0]] }),
 					:style => "width: 300px"
 				) %>
 			</td>

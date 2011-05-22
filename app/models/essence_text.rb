@@ -1,29 +1,20 @@
 class EssenceText < ActiveRecord::Base
   
+  acts_as_essence
   acts_as_ferret(:fields => {:body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
-  stampable
+  
   before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
-  
-  # Returns the first x (default 30) characters of self.body for the Element#preview_text method.
-  def preview_text(maxlength = 30)
-    body.to_s[0..maxlength]
-  end
-  
-  # Returns self.body. Used for Content#ingredient method.
-  def ingredient
-    self.body
-  end
   
   # Saves the content from params
   def save_ingredient(params, options = {})
     return true if params.blank?
     self.body = params["body"]
     self.link = params["link"]
-    self.title = params["title"]
+    self.link_title = params["link_title"]
     self.link_class_name = params["link_class_name"]
     self.open_link_in_new_window = (params["open_link_in_new_window"] == '1')
     self.public = options[:public]
-    self.save!
+    self.save
   end
   
 private

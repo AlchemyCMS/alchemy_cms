@@ -1,8 +1,8 @@
 --- 
 javascripts:
 - combined:
-  - alchemy/jquery-1.5.min
-  - alchemy/jquery-ui-1.8.9.min
+  - alchemy/jquery
+  - alchemy/jquery-ui
   - alchemy/jquery.dialogextend.min
   - alchemy/jquery.in-place-edit.js
   - alchemy/jquery.Jcrop.min
@@ -14,9 +14,6 @@ javascripts:
   - alchemy/swfupload/queue
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
-- preview:
-  - alchemy/jquery-1.5.min
-  - alchemy/alchemy
 
 stylesheets:
 - combined:

@@ -7,7 +7,6 @@ class Element < ActiveRecord::Base
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
   
-  validates_uniqueness_of :position, :scope => :page_id
   validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
   
   before_destroy :remove_contents
@@ -24,7 +23,7 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position ASC"
   end
-
+  
   # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
   def prev(name = nil)
     if name.nil?
@@ -34,7 +33,7 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position DESC"
   end
-
+  
   def store_page page
     unless self.to_be_sweeped_pages.include? page
       self.to_be_sweeped_pages << page
@@ -51,15 +50,15 @@ class Element < ActiveRecord::Base
   def content_by_name(name)
     self.contents.find_by_name(name)
   end
-
+  
   def content_by_type(essence_type)
     self.contents.find_by_essence_type(essence_type)
   end
-
+  
   def all_contents_by_name(name)
     self.contents.find_all_by_name(name)
   end
-
+  
   def all_contents_by_type(essence_type)
     self.contents.find_all_by_essence_type(essence_type)
   end
@@ -71,10 +70,10 @@ class Element < ActiveRecord::Base
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
     element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
-    element_scratch.delete("contents")
-    element_scratch.delete("available_contents")
     element = Element.new(
-      element_scratch.merge({:page_id => attributes['page_id']})
+      element_scratch.except('contents', 'available_contents', 'display_name').merge({
+        :page_id => attributes['page_id']
+      })
     )
     element
   end
@@ -138,6 +137,22 @@ class Element < ActiveRecord::Base
   def description
     return nil if Element.descriptions.blank?
     Element.descriptions.detect{ |d| d['name'] == self.name }
+  end
+  
+  # Human name for displaying in selectboxes and element editor views.
+  # The name is beeing translated from elements name value as described in config/alchemy/elements.yml
+  # 
+  # Translate the name in your config/locales language file. Example:
+  # 
+  #   de:
+  #     element_names:
+  #       contactform: 'Kontakt Formular'
+  # 
+  # If no translation is found the capitalized name is used!
+  # 
+  def display_name
+    return name.capitalize if description.blank?
+    I18n.t("alchemy.element_names.#{description['name']}", :default => name.capitalize)
   end
   
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
@@ -268,9 +283,8 @@ private
   
   # makes a copy of source and makes copies of the contents from source
   def self.copy(source, differences = {})
-    differences[:position] = nil
     attributes = source.attributes.except("id").merge(differences)
-    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil))
+    element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil, :position => nil))
     source.contents.each do |content|
       new_content = Content.copy(content, :element_id => element.id)
       new_content.move_to_bottom

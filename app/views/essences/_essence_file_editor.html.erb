@@ -1,63 +1,63 @@
 <div class="content_editor" id="<%= content_dom_id(content) %>">
-    <label style="display: inline">
-        <%= render_content_name(content) %>
-    </label>
-    <div class="file" id="file_<%= content.id %>">
-    	<div class="file_icon">
-    	<%- if content.essence.attachment.nil? -%>
-    		<%= link_to_overlay_window("",
-    			archive_overlay_admin_attachments_path(
-    				:content_id => content.id,
-    				:only => options[:file_assign_show_only],
-    				:except => options[:file_assign_do_not_show],
-    				:options => options
-    			),
-    			{
-    				:title => _('assign_file'),
-    				:size => '520x400',
-    				:resizable => 'true'
-    			},
-    			:class => 'assign_file',
-    			:title => _('assign_file')
-    		) %>
-    	<%- else -%>
-    		<%= render_icon(content.essence.attachment.icon_css_class) %>
-    	<%- end -%>
-    	</div>
-    	<div class="file_name">
-    		<%= content.essence.attachment.name rescue "&#x2190;" + _('assign_file_from_archive') %>
-    	</div>
-    	<%- unless content.essence.attachment.nil? -%>
-    	<div class="essence_file_tools">
-    		<%= link_to_overlay_window("",
-    			archive_overlay_admin_attachments_path(
-    				:content_id => content.id,
-    				:only => options[:file_assign_show_only],
-    				:except => options[:file_assign_do_not_show],
-    				:options => options
-    			),
-    			{
-    				:title => _('assign_file'),
-    				:size => '520x400',
-    				:resizable => 'true'
-    			},
-    			:class => 'assign_file',
-    			:title => _('assign_file')
-    		) %>
-    		<%= link_to_overlay_window("",
-    			url_for(
-    				:controller => 'essence_files',
-    				:action => 'edit',
-    				:id => content
-    			),
-    			{
-    				:title => _('edit_file_properties'),
-    				:size => '365x150'
-    			},
-    			:class => 'edit_file',
-    			:title => _('edit_file_properties')
-    		) %>
-    	</div>
-    	<%- end -%>
-    </div>
+	<label style="display: inline">
+		<%= render_content_name(content) %>
+	</label>
+	<div class="file" id="file_<%= content.id %>">
+		<div class="file_icon">
+		<%- if content.ingredient.nil? -%>
+			<%= link_to_overlay_window("",
+				archive_overlay_admin_attachments_path(
+					:content_id => content.id,
+					:only => options[:file_assign_show_only],
+					:except => options[:file_assign_do_not_show],
+					:options => options
+				),
+				{
+					:title => _('assign_file'),
+					:size => '520x400',
+					:resizable => 'true'
+				},
+				:class => 'assign_file',
+				:title => _('assign_file')
+			) %>
+		<%- else -%>
+			<%= render_icon(content.ingredient.icon_css_class) %>
+		<%- end -%>
+		</div>
+		<div class="file_name">
+			<%= content.ingredient.name rescue "&#x2190;" + _('assign_file_from_archive') %>
+		</div>
+		<%- unless content.ingredient.nil? -%>
+		<div class="essence_file_tools">
+			<%= link_to_overlay_window("",
+				archive_overlay_admin_attachments_path(
+					:content_id => content.id,
+					:only => options[:file_assign_show_only],
+					:except => options[:file_assign_do_not_show],
+					:options => options
+				),
+				{
+					:title => _('assign_file'),
+					:size => '520x400',
+					:resizable => 'true'
+				},
+				:class => 'assign_file',
+				:title => _('assign_file')
+			) %>
+			<%= link_to_overlay_window("",
+				url_for(
+					:controller => 'essence_files',
+					:action => 'edit',
+					:id => content
+				),
+				{
+					:title => _('edit_file_properties'),
+					:size => '365x150'
+				},
+				:class => 'edit_file',
+				:title => _('edit_file_properties')
+			) %>
+		</div>
+		<%- end -%>
+	</div>
 </div>

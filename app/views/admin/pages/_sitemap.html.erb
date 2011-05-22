@@ -1,9 +1,9 @@
 <ul id="sitemap" class="list">
 	<div class="page_root">
-		<div class="sitemap_page">
+		<div class="sitemap_page<%= @page_root.locked ? ' locked' : '' %>">
 			<div class="sitemap_left_images">
-                <span class="site_status tooltip <%= @page_root.locked ? ' locked' : '' %>" ></span>
-                <div class="tooltip_content" style="display: none;">
+				<span class="site_status tooltip"></span>
+				<div class="tooltip_content" style="display: none;">
 					<h1><%= _("page_type") %>: <%= @page_root.layout_display_name %></h1>
 					<p>
 						<%= @page_root.humanized_status %>
@@ -24,13 +24,14 @@
 				</div>
 			</div>
 			<div class="sitemap_right_tools">
+				<%- unless @sorting -%>
 				<%- permitted_to?(:configure, :admin_pages) do -%>
 				<%= link_to_overlay_window(
 					"<span class='icon configure_page'></span>",
 					configure_admin_page_path(@page_root),
 					{
 						:title => _('edit_page_properties'),
-						:size => '380x490'
+						:size => @page_root.redirects_to_external? ? '390x270' : '380x600'
 					},
 					:class => '',
 					:title => _('edit_page_properties')
@@ -60,7 +61,7 @@
 						new_admin_page_path(:parent_id => @page_root.id),
 						{
 							:title => _('create_page'),
-							:size => '405x90',
+							:size => '405x150',
 							:overflow => true
 						},
 						:class => '',
@@ -69,17 +70,28 @@
 					<%- end -%>
 				</span>
 				<%- end -%>
+				<%- end -%>
 			</div>
 			<div class="page_infos" id="page_<%= @page_root.id %>_infos">
 				<%= render :partial => 'page_infos', :locals => {:page => @page_root} %>
 			</div>
 			<div class="sitemap_sitename">
-				<%= link_to(
+				<%- if @page_root.redirects_to_external? -%>
+				<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= @page_root.name %></span>
+				<span class="redirect_url">
+					&raquo; <%= _('Redirects to') %>:
+					<%= h @page_root.urlname %>
+				</span>
+				<%- else -%>
+				<%- cycle_class = cycle('even', 'odd') -%>
+				<%= link_to_unless(
+					@sorting,
 					@page_root.name,
 					edit_admin_page_path(@page_root),
 					:title => _("edit_page"),
-					:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
-				) -%>
+					:class => "sitemap_pagename_link #{cycle_class}"
+				) { content_tag('span', @page_root.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
+				<%- end -%>
 			</div>
 		</div>
 	</div>

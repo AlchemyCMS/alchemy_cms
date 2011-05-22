@@ -91,8 +91,9 @@ module AlchemyHelper
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-          from = Page.find_by_page_layout(options[:fallback][:from])
-          all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
+          if from = Page.find_by_page_layout(options[:fallback][:from])
+            all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
+          end
         end
       end
       all_elements.each_with_index do |element, i|
@@ -287,7 +288,7 @@ module AlchemyHelper
       warning('Element is nil')
       return ""
     else
-      content_name = t("content_names.#{content.element.name}.#{content.name}", :default => ["content_names.#{content.name}".to_sym, content.name.capitalize])
+      content_name = t("alchemy.content_names.#{content.element.name}.#{content.name}", :default => ["alchemy.content_names.#{content.name}".to_sym, content.name.capitalize])
     end
     if content.description.blank?
       warning("Content #{content.name} is missing its description")
@@ -417,7 +418,7 @@ module AlchemyHelper
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => Alchemy::Controller.current_language.code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
     return meta_string
@@ -485,7 +486,7 @@ module AlchemyHelper
         css_class.blank? ? css_class = "first" : css_class = [css_class, "last"].join(" ")
       end
       if multi_language? 
-        url = show_page_with_language_url(:urlname => urlname, :lang => Alchemy::Controller.current_language.code)
+        url = show_page_with_language_url(:urlname => urlname, :lang => page.language_code)
       else
         url = show_page_url(:urlname => urlname)
       end
@@ -493,7 +494,7 @@ module AlchemyHelper
     end
     bc.join(options[:seperator])
   end
-
+  
   # returns true if page is in the active branch
   def page_active? page
     @breadcrumb ||= breadcrumb(@page)
@@ -754,15 +755,16 @@ module AlchemyHelper
     options = default_options.merge(options)
     options[:onkeyup] << ";jQuery('#search_field').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
     filter_field = "<div class=\"js_filter_field_box\">"
-    filter_field << text_field_tag("filter", "", options)
+    filter_field << text_field_tag("filter", '', options)
+		filter_field << content_tag('span', '', :class => 'icon search')
     filter_field << link_to_function(
       "",
-      "$('#{options[:id]}').value = '';#{options[:onkeyup]}",
+      "jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
       :class => "js_filter_field_clear",
       :style => "display:none",
       :title => _("click_to_show_all")
     )
-    filter_field << ("<br /><label for=\"search_field\">" + _("search") + "</label>")
+    filter_field << "<label for=\"search_field\">" + _("search") + "</label>"
     filter_field << "</div>"
     filter_field
   end
@@ -787,7 +789,7 @@ module AlchemyHelper
   # returns all elements that could be placed on that page because of the pages layout as array to be used in alchemy_selectbox form builder
   def elements_for_select(elements)
     return [] if elements.nil?
-    elements.collect{ |p| [p["display_name"], p["name"]] }
+    elements.collect { |p| [I18n.t("alchemy.element_names.#{p['name']}", :default => p['name'].capitalize), p['name']] }
   end
   
   def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
@@ -801,6 +803,14 @@ module AlchemyHelper
     )
   end
   
+  # Renders a form select tag for storing page ids
+  # Options:
+  #   * element - element the Content find via content_name to store the pages id in.
+  #   * content_name - the name of the content from element to store the pages id in.
+  #   * options (Hash)
+  #   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
+  #   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
+  #   * select_options (Hash) - will be passed to the select_tag helper 
   def page_selector(element, content_name, options = {}, select_options = {})
     default_options = {
       :except => {
@@ -831,21 +841,21 @@ module AlchemyHelper
       select_options
     )
   end
-
+  
   # Returns all Pages found in the database as an array for the rails select_tag helper.
   # You can pass a collection of pages to only returns these pages as array.
-  # Pass an Page.name or Page.urlname as second parameter to pass as selected for the options_for_select helper.
-  def pages_for_select(pages = nil, selected = nil, prompt = "Bitte wählen Sie eine Seite")
-    result = [[prompt, ""]]
+  # Pass an Page.name or Page.id as second parameter to pass as selected for the options_for_select helper.
+  def pages_for_select(pages = nil, selected = nil, prompt = "")
+    result = [[prompt.blank? ? _('Choose page') : prompt, ""]]
     if pages.blank?
       pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
     end
     pages.each do |p|
-      result << [p.send(:name), p.send(:urlname)]
+      result << [p.name, p.id.to_s]
     end
-    options_for_select(result, selected)
+    options_for_select(result, selected.to_s)
   end
-
+  
   # Returns all public elements found by Element.name.
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
@@ -1069,28 +1079,11 @@ module AlchemyHelper
   end
   
   def alchemy_preview_mode_code
-    if @preview_mode
-      append_javascript = %(
-var s = document.createElement('script');
-s.src = '/javascripts/alchemy/jquery-1.5.min.js';
-s.language = 'javascript';
-s.type = 'text/javascript';
-document.getElementsByTagName("body")[0].appendChild(s);
-      )
-      str = javascript_tag("if (typeof(jQuery) !== 'function') {#{append_javascript}}") + "\n"
-      str += javascript_tag("jQuery.noConflict();") + "\n"
-      str += javascript_include_tag("alchemy/alchemy") + "\n"
-      str += javascript_tag("jQuery(document).ready(function() {\nAlchemy.ElementSelector();\n});\njQuery('a').attr('href', 'javascript:void(0)');")
-      return str
-    else
-      return nil
-    end
+		javascript_include_tag("alchemy/preview") if @preview_mode
   end
   
   def element_preview_code(element)
-    if @preview_mode
-      "data-alchemy-element='#{element.id}'"
-    end
+    " data-alchemy-element='#{element.id}'" if @preview_mode
   end
   
   # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
