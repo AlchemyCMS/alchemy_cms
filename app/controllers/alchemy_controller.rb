@@ -1,5 +1,4 @@
 # This is the main Alchemy controller all other controllers inheret from.
-
 class AlchemyController < ApplicationController
 
   include FastGettext::Translation
