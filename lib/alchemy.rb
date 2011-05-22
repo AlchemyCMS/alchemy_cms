@@ -1,8 +1,7 @@
-require 'alchemy/controller'
-require 'alchemy/page_layout'
-require 'alchemy/essence'
-require 'alchemy/tableless'
-require 'alchemy'
+%w(controller page_layout essence tableless).each do |class_name|
+  require File.join(File.dirname(__FILE__), "alchemy", class_name)
+end
+require 'active_record'
 ActiveRecord::Base.class_eval { include Alchemy::Essence }
 
 module Alchemy

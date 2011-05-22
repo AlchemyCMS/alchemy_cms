@@ -3,3 +3,4 @@
 .svn
 doc/
 rdoc/
+pkg/*.gem

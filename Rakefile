@@ -98,31 +98,29 @@ namespace :gettext do
   end
 end
 
-require "lib/alchemy.rb"
+require File.join(File.dirname(__FILE__), "lib", "alchemy")
 begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
     gem.name = "alchemy"
     gem.version = Alchemy.version
-    gem.summary = "Alchemy WebCMS"
-    gem.description = "A WebCMS for Rails 3"
+    gem.summary = "Alchemy CMS"
+    gem.description = "A CMS for Rails 3"
     gem.rubyforge_project = "alchemy"
     gem.files = Dir["{lib}/**/*", "{app}/**/*", "{config}/**/*", "{assets}/**/*", "{db}/**/*", "{generators}/**/*", "{locale}/**/*", "{recipes}/**/*", "{test}/**/*"]
-    gem.email = "nicolas.merouze@gmail.com"
-    gem.homepage = "http://github.com/tvdeyen/alchemy"
-    gem.authors = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin", "Florian Raffel"]
-    gem.add_dependency 'acts_as_ferret', '>=0.5.1'
-    gem.add_dependency 'authlogic', '>=2.1.2'
-    gem.add_dependency 'awesome_nested_set', '>=1.4.3'
+    gem.email = "alchemy@magiclabs.de"
+    gem.homepage = "http://github.com/magiclabs/alchemy"
+    gem.authors = `git log --pretty=format:"%an"`.split("\n").uniq.sort
+    gem.add_dependency 'rails', '>=3.0.7'
+    gem.add_dependency 'authlogic', '>=3.0.3'
+    gem.add_dependency 'awesome_nested_set', '>=2.0.0'
     gem.add_dependency 'declarative_authorization', '>=0.5'
-    gem.add_dependency "fleximage", ">=1.0.1"
-    gem.add_dependency 'fast_gettext', '>=0.4.8'
-    gem.add_dependency 'gettext_i18n_rails', '>=0.2.3'
-    gem.add_dependency 'rmagick', '>=2.12.2'
-    gem.add_dependency 'tvdeyen-ferret'
-    gem.add_dependency 'will_paginate', '>= 3.0.pre2'
-    gem.add_dependency 'mimetype-fu'
+    gem.add_dependency "tvdeyen-fleximage", ">=1.0.5"
+    gem.add_dependency 'gettext_i18n_rails', '>=0.2.19'
+    gem.add_dependency 'will_paginate', '>= 3.0.pre'
+    gem.add_dependency 'acts_as_ferret', '>=0.5.2'
+    gem.add_dependency 'mimetype-fu', '>=0.1.2'
   end
-rescue
+rescue LoadError
   puts "Jeweler or one of its dependencies is not installed."
 end
