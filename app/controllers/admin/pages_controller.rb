@@ -183,21 +183,6 @@ class Admin::PagesController < AlchemyController
     redirect_back_or_to_default(admin_pages_path)
   end
   
-<<<<<<< HEAD
-  def create_language
-    created_languages = Page.language_roots.collect(&:language)
-    all_languages = Alchemy::Config.get(:languages).collect{ |l| [l[:language], l[:language_code]] }
-    @languages = all_languages.select{ |lang| created_languages.include?(lang[1]) }
-    lang = configuration(:languages).detect { |l| l[:language_code] == params[:language_code] }
-    @language = [
-      lang[:language],
-      params[:language_code]
-    ]
-    render :layout => false
-  end
-  
-=======
->>>>>>> master
   def copy_language
     set_language_to(params[:languages][:new_lang_id])
     begin

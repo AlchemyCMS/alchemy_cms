@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     :as => :show_picture
   match '/pictures/zoom/:id/picture.png' => 'pictures#zoom',
     :as => :zoom_picture
+  match  '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png' => 'pictures#thumbnail',
+    :as => :croppped_thumbnail
   match '/pictures/thumbnails/:id/:size/thumbnail.png' => 'pictures#thumbnail',
     :as => :thumbnail
   match '/:lang' => 'pages#show',
@@ -53,6 +55,9 @@ Rails.application.routes.draw do
         get :list
         post :order
       end
+      member do
+        post :fold
+      end
     end
     
     resources :pages do 
@@ -61,7 +66,8 @@ Rails.application.routes.draw do
         get :create_language
         get :link
         get :layoutpages
-        post :move
+        get :sort
+        post :order
         post :flush
       end
       member do 
@@ -101,6 +107,18 @@ Rails.application.routes.draw do
     end
     
     resources :essence_files
+    
+    resources :essence_videos
+    
+    resources :languages
+    
+    resources :clipboard, :only => :index do
+      collection do
+        delete :clear
+        post :insert
+        delete :remove
+      end
+    end
     
   end
   
