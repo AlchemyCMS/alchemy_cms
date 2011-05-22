@@ -1,0 +1,12 @@
+# These vaues must be set, otherwise the plugin will not load correctly
+name: <%= file_name %>
+order: 
+navigation:
+  name: <%= file_name %>
+  controller: 
+  action: 
+  icon: 
+  sub_navigation:
+    - name: 
+      controller: 
+      action: 

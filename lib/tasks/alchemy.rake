@@ -106,41 +106,6 @@ namespace 'alchemy' do
     end
   end
   
-  namespace 'extensions' do
-    desc "Creates a new blank extension"
-    task :create, ['name'] do |t, args|
-      unless args.name.blank?
-        extension_name = args.name.strip
-        extension_path = "#{Rails.root}/vendor/plugins/#{extension_name}"
-        unless File.exist?("#{extension_path}")
-        init_content = <<EOF
-if defined? FastGettext
-  FastGettext.add_text_domain '#{extension_name}', :path => File.join(File.dirname(__FILE__), 'locale'), :format => :po
-  FastGettext.text_domain = '#{extension_name}'
-end
-EOF
-          puts "Extension will be created: #{extension_name}"
-          system "mkdir -p #{extension_path}/config/alchemy"
-          system "mkdir -p #{extension_path}/locale"
-          system "mkdir -p #{extension_path}/app/views"
-          system "mkdir -p #{extension_path}/app/views/admin"
-          system "mkdir -p #{extension_path}/app/controllers"
-          system "mkdir -p #{extension_path}/app/models"
-          system "mkdir -p #{extension_path}/app/controllers/admin"
-          system "touch #{extension_path}/init.rb"
-          system "touch #{extension_path}/config/authorization_rules.rb"
-          system "touch #{extension_path}/config/alchemy/config.yml"
-          system "touch #{extension_path}/config/routes.rb"
-          File.open("#{extension_path}/init.rb", 'w') { |f| f.write(init_content)}
-        else
-          raise "The #{extension_name} extension already exists. We dont override it!"
-        end
-      else
-        raise "You have to assign a name for the new extension!\nExample: rake alchemy:extensions:create name=my_extension"
-      end
-    end
-  end
-  
   namespace 'app_structure' do
     namespace 'create' do
     
