@@ -1,4 +1,4 @@
-%w(controller page_layout essence tableless).each do |class_name|
+%w(config essence notice page_layout tableless controller).each do |class_name|
   require File.join(File.dirname(__FILE__), "alchemy", class_name)
 end
 require 'active_record'
