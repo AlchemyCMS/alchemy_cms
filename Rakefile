@@ -120,6 +120,7 @@ begin
     gem.add_dependency 'will_paginate', '>= 3.0.pre'
     gem.add_dependency 'acts_as_ferret', '>=0.5.2'
     gem.add_dependency 'mimetype-fu', '>=0.1.2'
+    gem.add_dependency 'sortifiable', '>=0.2.3'
   end
 rescue LoadError
   puts "Jeweler or one of its dependencies is not installed."
