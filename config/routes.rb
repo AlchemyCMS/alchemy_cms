@@ -1,5 +1,4 @@
-Rails.application.routes.draw do
-  
+Rails.application.routes.draw do |map|
   root :to => 'pages#show'
   
   match '/admin' => 'admin#index',

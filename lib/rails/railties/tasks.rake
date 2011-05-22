@@ -86,10 +86,10 @@ namespace :db do
   
 end
 
-namespace 'alchemy' do
+namespace :alchemy do
   
   desc 'Turns everything in Alchemy. Voodooo'
-  task 'run_upgrade' do
+  task :run_upgrade do
     Rake::Task['alchemy:upgrades:cleanup'].invoke
     Rake::Task['alchemy:upgrades:environment_file'].invoke
     Rake::Task['alchemy:upgrades:write_rake_task'].invoke
@@ -99,15 +99,15 @@ namespace 'alchemy' do
     #Rake::Task['alchemy:upgrades:svn:commit'].invoke
   end
   
-  namespace 'migrations' do
+  namespace :migrations do
     desc "Syncs Alchemy migrations into db/migrate"
     task 'sync' do
       system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
     end
   end
   
-  namespace 'app_structure' do
-    namespace 'create' do
+  namespace :app_structure do
+    namespace :create do
     
       desc "Creates all necessary folders and files needed for creating your own pagelayouts and elements for your website"
       task "all" do
@@ -164,8 +164,8 @@ namespace 'alchemy' do
     end    
   end
   
-  namespace 'assets' do
-    namespace 'copy' do
+  namespace :assets do
+    namespace :copy do
       
       desc "Copy all assets for Alchemy into apps public folder"
       task "all" do
@@ -198,7 +198,7 @@ namespace 'alchemy' do
     end
   end
   
-  namespace 'upgrades' do
+  namespace :upgrades do
     
     desc "Removing unused files and directories"
     task "cleanup" do
