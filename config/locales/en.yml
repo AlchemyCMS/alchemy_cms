@@ -4,6 +4,50 @@ en:
     author: "Author"
     editor: "Redakteur"
     admin: "Administrator"
+    
+  languages:
+    cn:
+      name: 'chinese'
+      title: 'chinese'
+    de:
+      name: 'german'
+      title: 'german'
+    en:
+      name: 'english'
+      title: 'english'
+    es:
+      name: 'spanish'
+      title: 'spanish'
+    fi:
+      name: 'finnish'
+      title: 'finnish'
+    fr:
+      name: 'french'
+      title: 'french'
+    it:
+      name: 'italian'
+      title: 'italian'
+    jp:
+      name: 'japanese'
+      title: 'japanese'
+    nl:
+      name: 'dutch'
+      title: 'dutch'
+    no:
+      name: 'norwegian'
+      title: 'norwegian'
+    pl:
+      name: 'polish'
+      title: 'polish'
+    pt:
+      name: 'portuguese'
+      title: 'portuguese'
+    ru:
+      name: 'russian'
+      title: 'russian'
+    se:
+      name: 'swedish'
+      title: 'swedish'
   
   date:
     formats:
@@ -85,41 +129,41 @@ en:
       half_a_minute: "half a minute" 
       less_than_x_seconds:
         one:  "less than 1 second" 
-        many: "less than {{count}} seconds" 
+        many: "less than %{count} seconds" 
       x_seconds:
         one:  "1 second" 
-        many: "{{count}} seconds" 
+        many: "%{count} seconds" 
       less_than_x_minutes:
         one:  "less than a minute" 
-        many: "less than {{count}} minutes" 
+        many: "less than %{count} minutes" 
       x_minutes:
         one:  "1 minute" 
-        many: "{{count}} minutes" 
+        many: "%{count} minutes" 
       about_x_hours:
         one:  "about 1 hour" 
-        many: "about {{count}} hours" 
+        many: "about %{count} hours" 
       x_days:
         one:  "1 day" 
-        many: "{{count}} days" 
+        many: "%{count} days" 
       about_x_months:
         one:  "about 1 month" 
-        many: "about {{count}} months" 
+        many: "about %{count} months" 
       x_months:
         one:  "1 month" 
-        many: "{{count}} months" 
+        many: "%{count} months" 
       about_x_years:
         one:  "about 1 year" 
-        many: "about {{count}} years" 
+        many: "about %{count} years" 
       over_x_years:
         one:  "over 1 year" 
-        many: "over {{count}} years" 
+        many: "over %{count} years" 
 
   activerecord:
     errors:
       template:
         header:
-          one:   "1 error prohibited this {{model}} from being saved" 
-          other:  "{{count}} errors prohibited this {{model}} from being saved" 
+          one:   "1 error prohibited this %{model} from being saved" 
+          other:  "%{count} errors prohibited this %{model} from being saved" 
         body: "There were problems with the following fields:"
         messages:
           inclusion: "is not included in the list" 
@@ -129,18 +173,23 @@ en:
           accepted: "must be accepted" 
           empty: "can't be empty" 
           blank: "can't be blank" 
-          too_long: "is too long (maximum is {{count}} characters)" 
-          too_short: "is too short (minimum is {{count}} characters)" 
-          wrong_length: "is the wrong length (should be {{count}} characters)" 
+          too_long: "is too long (maximum is %{count} characters)" 
+          too_short: "is too short (minimum is %{count} characters)" 
+          wrong_length: "is the wrong length (should be %{count} characters)" 
           taken: "has already been taken" 
           not_a_number: "is not a number" 
-          greater_than: "must be greater than {{count}}" 
-          greater_than_or_equal_to: "must be greater than or equal to {{count}}" 
-          equal_to: "must be equal to {{count}}" 
-          less_than: "must be less than {{count}}" 
-          less_than_or_equal_to: "must be less than or equal to {{count}}" 
+          greater_than: "must be greater than %{count}" 
+          greater_than_or_equal_to: "must be greater than or equal to %{count}" 
+          equal_to: "must be equal to %{count}" 
+          less_than: "must be less than %{count}" 
+          less_than_or_equal_to: "must be less than or equal to %{count}" 
           odd: "must be odd" 
           even: "must be even" 
+        models:
+          language:
+            attributes:
+              code:
+                invalid: 'Format of languagecode is not valid. Please use exactly two lowercase characters.'
 
   authlogic:
     error_messages:

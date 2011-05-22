@@ -16,39 +16,20 @@
 		) -%>
 	</span>
 	<%- end -%>
-	<div class="archive_image_spinner">
-		<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
-	</div>
-	<div class="picture_image" style="display: none;">
+	<div class="picture_image">
+		<div class="archive_image_spinner spinner">
+			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
+		</div>
 		<%= link_to_function(
 			image_tag(
 				thumbnail_url(:id => picture, :size => "111x93"),
 				:alt => picture.name,
 				:title => _('zoom_image'),
-				:onload => 'alchemyImageFade(this);'
+				:onload => "Alchemy.fadeImage(this, '#picture_#{picture.id} .archive_image_spinner');",
+				:style => "display: none;"
 			),
-			"zoomImage('/admin/pictures/show_in_window/#{picture.id}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})"
+			"Alchemy.zoomImage('/admin/pictures/show_in_window/#{picture.id}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})"
 		) %>
 	</div>
-	<%# leave this as one line, or the inplace editor renders a textarea instead of an input field %>
-	<span class="picture_name" title="<%= picture.name %>" id="image_<%= dom_id(picture) %>_name"><%= picture.name.empty? ? nil : shorten(picture.name, 25) %></span>
-	<%- permitted_to?(:edit, :admin_pictures) do -%>
-	<script type="text/javascript" charset="utf-8">
-	//<!--[CDATA[
-		new Ajax.InPlaceEditor(
-			'image_<%= dom_id(picture) %>_name',
-			'/admin/pictures/update/<%= picture.id %>',
-			{
-				highlightcolor: '#fff', 
-				cancelText: 'x',
-				clickToEditText: '<%= _("rename_image") %>',
-				savingText: '<%= _("save") %>',
-				okText: '<%= _("save") %>',
-				rows: 1,
-				size: 25
-			}
-		);
-	//]]-->
-	</script>
-	<%- end -%>
+	<span class="picture_name<%= ' rename' if permitted_to?(:edit, :admin_pictures) -%>" title="<%= permitted_to?(:edit, :admin_pictures) ? picture.name + ' (' + _('Click to rename') + ')' : picture.name %>" id="image_<%= dom_id(picture) %>_name"><%= picture.name %></span>
 </div>

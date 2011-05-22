@@ -1,0 +1,19 @@
+<div class="with_padding">
+	<%- if @clipboard_items.blank? -%>
+	<p><%= _('No items in your clipboard') %></p>
+	<%- else -%>
+	<div id="clipboard_items">
+		<ul>
+			<%- @clipboard_items.each do |item| -%>
+			<li id="clipboard_item_<%= item.id %>">
+				<%= item.class.to_s == 'Element' ? item.display_name_with_preview_text(60) : item.name %>
+				<span class="float_right"><%= link_to_remote(render_icon('delete-small'), :url => remove_admin_clipboard_path(:remarkable_type => item.class.to_s, :remarkable_id => item.id), :method => :delete, :title => _('Remove item from clipboard')) %></span>
+			</li>
+			<%- end -%>
+		</ul>
+		<p>
+			<%= link_to_confirmation_window(_('clear clipboard'), _('Do you really want to clear the clipboard?'), clear_admin_clipboard_path, :class => 'button') %>
+		</p>
+	</div>
+	<%- end -%>
+</div>

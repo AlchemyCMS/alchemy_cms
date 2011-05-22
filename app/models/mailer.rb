@@ -1,12 +1,11 @@
 class Mailer < ActionMailer::Base
   
   def mail(mail_data, mail_to, mail_from, subject)
-    # Email header info MUST be added here
-    recipients mail_to
-    from mail_from
-    subject subject
-    # Email body substitutions go here
-    body :mail_data => mail_data
+    recipients(mail_to)
+    subject(subject)
+    reply_to(mail_data[:email])
+    from(mail_from || Alchemy::Configuration.parameter(:mailer)[:mail_from])
+    body({:mail_data => mail_data})
   end
   
   def new_user_mail(user, request, mail_from = Alchemy::Config.get(:mailer)[:mail_from])

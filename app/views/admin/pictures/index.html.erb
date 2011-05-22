@@ -1,4 +1,4 @@
-<%- alchemy_assets_set(:archive) -%>
+<%- alchemy_combined_assets -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">
 	<div id="toolbar_buttons">
@@ -9,7 +9,7 @@
 				new_admin_picture_path,
 				{
 					:title => _('upload_image'),
-					:size => '355x320'
+					:size => '540x480'
 				},
 				:class => 'icon_button',
 				:title => _('upload_image')
@@ -22,8 +22,8 @@
 			<%= link_to_remote(
 				content_tag('span', '', :class => 'icon flush'),
 				:url => flush_admin_pictures_path,
-				:before => 'pleaseWaitOverlay();',
-				:complete => 'pleaseWaitOverlay(false);',
+				:before => 'Alchemy.pleaseWaitOverlay();',
+				:complete => 'Alchemy.pleaseWaitOverlay(false);',
 				:html => {:class => 'icon_button',
 				:title => _('Flush picture cache')}
 			) -%><br />
@@ -41,3 +41,15 @@
 <div id="archive_all">
 	<%= render :partial => 'pictures_list' %>
 </div>
+<%- content_for :javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(document).ready(function() {
+		Alchemy.inPlaceEditor({
+			save_label: "<%= _('save') %>",
+			cancel_label: "<%= _('cancel') %>"
+		});
+	});
+
+</script>
+<%- end -%>

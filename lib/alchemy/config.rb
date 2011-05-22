@@ -1,8 +1,22 @@
 module Alchemy
   module Config
   
+    def self.parameter(name)
+      show[name.to_s]
+    end
+    
     # Returns the configuration for given parameter name from config/alchemy/config.yml file
     def self.get(name)
+      parameter(name)
+    end
+    
+    def self.show
+      read_files
+    end
+    
+  private
+    
+    def self.read_files
       config_1 = {}
       config_2 = {}
       config_3 = {}
@@ -22,14 +36,6 @@ module Alchemy
       
       # Mergin all together
       config = config_3.merge(config_2.merge(config_1))
-      config[name]
-    end
-    
-    # Returns all available languages set inside config/alchemy/config.yml
-    def self.available_languages
-      languages = get(:languages)
-      return [] if languages.blank?
-      languages.collect{ |l| l[:language_code] }
     end
     
   end

@@ -9,14 +9,13 @@ when "EssencePicture"
       :options => @options
     }
   )
-  if @dragable
-    page << "jQuery('#element_#{@element.id}_contents').sortable('refresh')"
-  end
+  page << "Alchemy.SortableContents('#element_#{@element.id}_contents', '#{form_authenticity_token}')"
   if !@options[:maximum_amount_of_images].blank? && (@contents_of_this_type.length >= @options[:maximum_amount_of_images].to_i)
     page.remove "add_content_#{@element.id}"
   end
-  page << "reloadPreview()"
-  page << "alchemy_window.close()"
+  page << "Alchemy.reloadPreview()"
+  page << "Alchemy.closeCurrentWindow()"
+  page << "Alchemy.setElementDirty('#element_#{@element.id}')"
 when "EssenceText"
   page.insert_html(
     :before,
@@ -27,7 +26,7 @@ when "EssenceText"
       :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
     }
   )
-  page << "reloadPreview(); if(typeof(alchemy_window)!='undefined') { alchemy_window.close(); }"
+  page << "Alchemy.reloadPreview(); Alchemy.closeCurrentWindow();"
 when "EssenceRichtext"
   page.insert_html(
     :before,
@@ -39,7 +38,7 @@ when "EssenceRichtext"
     }
   )
   page.call 'TinymceHammer.init'
-  page << "alchemy_window.close()"
+  page << "Alchemy.closeCurrentWindow()"
 else
   page.insert_html(
     :before,
@@ -50,6 +49,6 @@ else
       :options => (@options.nil? ? {} : @options)
     }
   )
-  page << "alchemy_window.close()"
+  page << "Alchemy.closeCurrentWindow()"
 end
-Alchemy::Notice.show_via_ajax(page, _("Successfully added %{content}") % {:content => @content.name})
+Alchemy::Notice.show(page, _("Successfully added %{content}") % {:content => @content.name})

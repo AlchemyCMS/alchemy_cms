@@ -1,0 +1,5 @@
+<div id="flash_notices" style="display: <%= flash.keys.blank? ? "none" : "block" %>">
+<%- flash.keys.each do |flash_type| -%>
+	<%= render :partial => 'admin/partials/flash', :locals => {:flash_type => flash_type, :message => flash[flash_type.to_sym]} %>
+<%- end -%>
+</div>

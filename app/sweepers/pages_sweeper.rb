@@ -3,13 +3,17 @@ class PagesSweeper < ActionController::Caching::Sweeper
   observe Page
   
   def after_update(page)
-    expire_page(page)
-    check_multipage_elements(page)
+    unless page.layoutpage?
+      expire_page(page)
+      check_multipage_elements(page)
+    end
   end
   
   def after_destroy(page)
-    expire_page(page)
-    check_multipage_elements(page)
+    unless page.layoutpage?
+      expire_page(page)
+      check_multipage_elements(page)
+    end
   end
   
 private
@@ -31,17 +35,12 @@ private
   end
   
   def expire_page(page)
-    if Alchemy::Controller.multi_language?
-      expire_action("#{page.language}/#{page.urlname_was}") unless page.do_not_sweep
+    if multi_language?
+      path = "#{page.language_code}/#{page.urlname_was}"
     else
-      expire_action("#{page.urlname_was}") unless page.do_not_sweep
+      path = page.urlname_was
     end
-    #backend sitemap caches
-    # unless page.do_not_sweep || page.nil? || current_user.nil?
-    #   expire_fragment("page_#{page.id}_for_user_#{current_user.id}_lines")
-    #   expire_fragment("page_#{page.id}_for_user_#{current_user.id}_status")
-    #   expire_fragment("page_#{page.id}_for_user_#{current_user.id}_tools")
-    # end
+    expire_action(path) unless page.do_not_sweep
   end
   
 end

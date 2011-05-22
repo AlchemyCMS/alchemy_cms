@@ -41,8 +41,10 @@ class Admin::UsersController < AlchemyController
       admin_users_path,
       ( _("User: '%{name}' created") % {:name => @user.name} )
     )
+  rescue
+    exception_handler($!)
   end
-    
+  
   def edit
     # User is fetched via before filter from authentication plugin
     render :layout => false

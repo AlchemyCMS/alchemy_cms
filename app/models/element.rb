@@ -6,11 +6,12 @@ class Element < ActiveRecord::Base
   has_many :contents, :order => :position, :dependent => :destroy
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
-
+  
   validates_uniqueness_of :position, :scope => :page_id
-
+  validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
+  
   before_destroy :remove_contents
-
+  
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
@@ -65,11 +66,11 @@ class Element < ActiveRecord::Base
   
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
-    attributes.stringify_keys!
+    attributes.stringify_keys!    
+    return Element.new if attributes['name'].blank?
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
     element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
-    raise "Could not find element: #{attributes['name']}" if element_scratch.nil?
     element_scratch.delete("contents")
     element_scratch.delete("available_contents")
     element = Element.new(
@@ -105,11 +106,45 @@ class Element < ActiveRecord::Base
     end
   end
   
+  # Returns the array with the hashes for all element contents in the elements.yml file
+  def content_descriptions
+    return nil if description.blank?
+    description['contents']
+  end
+  
+  # Returns the array with the hashes for all element available_contents in the elements.yml file
+  def available_content_descriptions
+    return nil if description.blank?
+    description['available_contents']
+  end
+  
+  # Returns the description for given content_name
+  def content_description_for(content_name)
+    if content_descriptions.blank?
+      logger.warn("\n+++++++++++ Warning: Element #{self.name} is missing the content description for #{content_name}\n")
+      return nil
+    else
+      content_descriptions.detect { |d| d['name'] == content_name }
+    end
+  end
+  
+  # Returns the description for given content_name inside the available_contents
+  def available_content_description_for(content_name)
+    return nil if available_content_descriptions.blank?
+    available_content_descriptions.detect { |d| d['name'] == content_name }
+  end
+  
+  # returns the description of the element with my name in element.yml
+  def description
+    return nil if Element.descriptions.blank?
+    Element.descriptions.detect{ |d| d['name'] == self.name }
+  end
+  
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
   # You can flag a Content as +take_me_for_preview+ to take this as preview.
-  def preview_text
-    return "" if my_description.blank?
-    my_contents = my_description["contents"]
+  def preview_text(maxlength = 30)
+    return "" if description.blank?
+    my_contents = description["contents"]
     return "" if my_contents.blank?
     content_flagged_as_preview = my_contents.select{ |a| a["take_me_for_preview"] }.first
     if content_flagged_as_preview.blank?
@@ -119,8 +154,8 @@ class Element < ActiveRecord::Base
     end
     preview_content = self.contents.select{ |content| content.name == content_to_take_as_preview["name"] }.first
     return "" if preview_content.blank? || preview_content.essence.blank?
-    text = preview_content.essence.preview_text
-    text.size > 30 ? text[0..30] + "..." : text
+    text = preview_content.essence.preview_text(maxlength)
+    text.size > maxlength ? "#{text[0..maxlength]}..." : text
   end
   
   # Generates a preview text containing Element#display_name and Element#preview_text.
@@ -141,9 +176,14 @@ class Element < ActiveRecord::Base
   # 
   # With "I want to tell you a funky story" as stripped_body for the EssenceRichtext Content produces:
   # 
-  # Funky Element: I want to tell ...
-  def display_name_with_preview_text
-    "#{display_name}: #{preview_text}"
+  #     Funky Element: I want to tell ...
+  #
+  # Options:
+  # 
+  #     maxlength(integer). [Default 30] : Length of characters after the text will be cut off.
+  #
+  def display_name_with_preview_text(maxlength = 30)
+    "#{display_name}: #{preview_text(maxlength)}"
   end
   
   def dom_id
@@ -154,7 +194,7 @@ class Element < ActiveRecord::Base
   def self.list_elements_by_layout(layout = "standard")
     elements = Element.descriptions
     result = []
-    page_layouts = PageLayout.get
+    page_layouts = Alchemy::PageLayout.get
     layout_elements = page_layouts.select{|p| p["name"] == layout}.first["elements"]
     return elements if layout_elements == "all"
     elements.each do |element|
@@ -170,22 +210,37 @@ class Element < ActiveRecord::Base
     self.find_by_id(clipboard[:element_id])
   end
   
-  # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
-  def available_contents
-    my_description['available_contents']
+  def self.all_from_clipboard(clipboard)
+    return [] if clipboard.nil?
+    self.find_all_by_id(clipboard)
   end
   
-  # returns the description of the element with my name in element.yml
-  def my_description
-    Element.descriptions.detect{ |d| d["name"] == self.name }
+  def self.all_from_clipboard_for_page(clipboard, page)
+    return [] if clipboard.nil? || page.nil?
+    allowed_elements = self.all_for_page(page)
+    clipboard_elements = self.all_from_clipboard(clipboard)
+    allowed_element_names = allowed_elements.collect { |e| e['name'] }
+    clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
+  end
+  
+  # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
+  def available_contents
+    description['available_contents']
+  end
+  
+  # Returns the contents ingredient for passed content name.
+  def ingredient(name)
+    content = content_by_name(name)
+    return nil if content.blank?
+    content.ingredient
   end
   
 private
   
   # List all elements by from page_layout
-  def self.all_for_layout(page, page_layout = "standard")
+  def self.all_for_page(page)
     element_descriptions = Element.descriptions
-    element_names = PageLayout.element_names_for(page_layout)
+    element_names = Alchemy::PageLayout.element_names_for(page.page_layout)
     return [] if element_names.blank?
     return element_descriptions if element_names == "all"
     elements_for_layout = []
@@ -223,22 +278,15 @@ private
     element
   end
   
-  # makes a copy of source and destroyes the source
-  def self.move(source, differences = {})
-    element = self.copy(source, differences)
-    source.destroy
-    element
-  end
-  
   # creates the contents for this element as described in the elements.yml
   def create_contents
-    element_scratch = my_description
+    element_scratch = description
     contents = []
     if element_scratch["contents"].blank?
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
       element_scratch["contents"].each do |content_hash|
-        contents << Content.create_from_scratch(self, content_hash.symbolize_keys, {:created_from_element => true})
+        contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end
   end

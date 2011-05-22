@@ -45,8 +45,8 @@ function fileQueueError(file, errorCode, message) {
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
-    }
+		this.debug(ex);
+	}
 }
 
 function fileDialogComplete(numFilesSelected, numFilesQueued) {
@@ -54,17 +54,16 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
 		if (numFilesSelected > 0) {
 			document.getElementById(this.customSettings.cancelButtonId).disabled = false;
 		}
-		
 		/* I want auto start the upload and I can do that here */
 		this.startUpload();
 	} catch (ex)  {
-        this.debug(ex);
+		this.debug(ex);
 	}
 }
 
 function uploadStart(file) {
 	try {
-		$('divFileProgressContainer').show();
+		jQuery('divFileProgressContainer').show();
 		/* I don't want to do any file validation or anything,  I'll just update the UI and
 		return true to indicate that the upload should start.
 		It's important to update the UI here because in Linux no uploadProgress events are called. The best
@@ -94,7 +93,6 @@ function uploadProgress(file, bytesLoaded, bytesTotal) {
 function uploadSuccess(file, serverData) {
 	eval(serverData);
 	try {
-		//console.log(serverData);
 		var progress = new FileProgress(file, this.customSettings.progressTarget);
 		progress.setComplete();
 		progress.setStatus("Complete.");
@@ -164,10 +162,10 @@ function uploadComplete(file) {
 
 function queueComplete(numFilesUploaded) {
 	var status = document.getElementById("divStatus");
-	status.show();
+	jQuery(status).show();
 	status.innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
-	$('btnCancel').hide();
+	jQuery('#btnCancel').hide();
 	setTimeout(function () {
-		alchemy_window.close();
-	}, 1000);
+		Alchemy.closeCurrentWindow();
+	}, 2500);
 }

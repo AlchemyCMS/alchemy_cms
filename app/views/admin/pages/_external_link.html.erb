@@ -1,21 +1,20 @@
-<div id="sitemap_external_links" style="display: none" class="link_window_tab_body">
+<div id="overlay_tab_external_link">
 	<h2>
 		<%= _("enter_external_link") %>
 	</h2>
 	<table class="window_form">
 		<tr>
-			<td class="label medium">
-				<%= alchemy_selectbox_tag(
+			<td>
+				<%= select_tag(
 					'url_protocol',
-					[
+					options_for_select([
 						['http://', 'http://'],
 						['mailto:', 'mailto:'],
 						['ftp://', 'ftp://'],
 						['https://', 'https://'],
 						['ftps://', 'ftps://']
-					],
-					"",
-					:style => 'width: 90px'
+					]),
+					:class => 'medium'
 				) %>
 			</td>
 			<td class="input">
@@ -26,11 +25,11 @@
 			<td class="label">
 				<label for="extern_link_title" class="medium"><%= _("link_title") %></label>
 			</td>
-			<td class="input"><%= text_field_tag "extern_link_title", {}, :class => 'thin_border auto_resize' %></td>
+			<td class="input"><%= text_field_tag "extern_link_title", {}, :class => 'thin_border auto_resize link_title' %></td>
 		</tr>
 		<tr>
 			<td class="checkbox">
-				<%= check_box_tag 'link_target' %>
+				<%= check_box_tag 'link_target', nil, nil, :class => 'link_target' %>
 			</td>
 			<td>
 				<label for="link_target" class="very_long"><%= _("target_blank") %></label>
@@ -39,9 +38,9 @@
 	</table>
 	<p>
 		<%= link_to_function(
-		  _('apply'),
-	    "alchemyCreateLink('external', $('url_protocol').value + $('external_url').value, $('extern_link_title').value, $('link_target').checked); link_window.close()",
-		  :class => 'button'
+			_('apply'),
+			"Alchemy.createLink('external', jQuery('#url_protocol').val() + jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#link_target').attr('checked')); Alchemy.CurrentLinkWindow.close()",
+			:class => 'button'
 		) %>
 	</p>
 </div>

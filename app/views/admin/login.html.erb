@@ -1,6 +1,6 @@
-<%- alchemy_assets_set('login') -%>
+<%- alchemy_combined_assets -%>
 
-<div id="explanation">
+<div id="alchemy_greeting">
     <%= image_tag("alchemy/alchemy-logo.png") %>
     <h1>
         <%= flash[:info] %>
@@ -8,9 +8,9 @@
 </div>
 
 <div class="login_signup_box">
-    <% form_for @user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'pleaseWaitOverlay()' } do |f| %>
+    <% form_for @user_session, :url => {:controller => 'Admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'Alchemy.pleaseWaitOverlay()' } do |f| %>
         <%= f.error_messages %>
-        <table border="0" cellspacing="1" cellpadding="1">
+        <table>
             <tr>
                 <td class="label">
                     <%= f.label :login, _("username") %>
@@ -40,7 +40,7 @@
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
-    $('user_session_login').focus();
+    jQuery('#user_session_login').focus();
 // ]]>
 </script>
 <%- end -%>

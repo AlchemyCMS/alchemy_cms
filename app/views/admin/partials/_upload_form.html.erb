@@ -1,54 +1,55 @@
-<div class="with_padding">
-	<div class="info">
-		<p><%= _('explain_upload.intro_%{name}') % {:name => item_type} %>:</p>
-		<ol>
-			<li><%= _('explain_upload.step1_%{name}') % {:name => item_type} %></li>
-			<li><%= _('explain_upload.step2_%{name}') % {:name => item_type} %>*</li>
-			<li><%= _('explain_upload.step3') %></li>
-		</ol>
-		<small>*<%= _('explain_upload.footnote_%{name}') % {:name => item_type} %></small>
-	</div>
-	<span id="spanButtonPlaceHolder"></span>
-	<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display:none" />
-	<p style="margin-top: 8px" id="choose_alternative_uploader">
+<div class="info">
+	<%= render_icon('info') %>
+	<p><%= _('explain_upload.intro_%{name}') % {:name => item_type} %>:</p>
+	<ol>
+		<li><%= _('explain_upload.step1_%{name}') % {:name => item_type} %></li>
+		<li><%= _('explain_upload.step2_%{name}') % {:name => item_type} %>*</li>
+		<li><%= _('explain_upload.step3') %></li>
+	</ol>
+	<small>*<%= _('explain_upload.footnote_%{name}') % {:name => item_type} %></small>
+</div>
+<span id="spanButtonPlaceHolder"></span>
+<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display:none" />
+<%- if file_types.first == '*' -%>
+<p><%= _('You may upload any file') %></p>
+<%- else -%>
+<p><%= _('You may upload %{file_types_description} with following extensions: %{file_types}') % {:file_types_description => file_types_description, :file_types => file_types.to_sentence} %>.</p>
+<%- end -%>
+<p style="margin-top: 8px" id="choose_alternative_uploader">
+	<small>
+		<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('#SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+	</small>
+</p>
+<div id="swfUploadFlashError" style="display: none">
+	<h2><%= _('Could not load Adobe Flash® Plugin!') %></h2>
+	<p><%= _('Please consider that you have at least version 9.0.28 installed.') %></p>
+	<p>
+		<%= _('You can get the latest version on the %{link}') % {:link => _('<a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>') % {:value => _('Adobe Website')}} %>
+	</p>
+</div>
+<div id="alternativeUpload" style="display: none">
+	<h2 id="flash_upload_error_explaination" style="display: none">
+		<%= _('Error with the Flash® Uploader!') %>
+	</h2>
+	<p><%= _('Please use this alternative uploader instead.') %></p>
+	<p>
+		<%= file_field_tag('Filedata') %>
+	</p>
+	<p>
+		<%= submit_tag _('upload'), :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay();' %>
+	</p>
+	<p>
 		<small>
-			<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="$('choose_alternative_uploader').hide();$('alternativeUpload').show();$('SWFUpload_0').hide();alchemy_window.updateHeight();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+			<a href="#" 
+			onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('#SWFUpload_0').show();" 
+			style="text-decoration: underline">
+				<%= _('Switch to Flash® Uploader') %>
+			</a>
 		</small>
 	</p>
-	<div id="swfUploadFlashError" style="display: none">
-		<h2><%= _('Could not load Adobe Flash® Plugin!') %></h2>
-		<p><%= _('Please consider that you have at least version 9.0.28 installed.') %></p>
-		<p>
-			<%= _('You can get the latest version on the %{link}') % {:link => _('<a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>') % {:value => _('Adobe Website')}} %>
-		</p>
-	</div>
-	<div id="alternativeUpload" style="display: none">
-		<h2 id="flash_upload_error_explaination" style="display: none">
-			<%= _('Error with the Flash® Uploader!') %>
-		</h2>
-		<p><%= _('Please use this alternative uploader instead.') %></p>
-		<p>
-			<%= file_field_tag('Filedata') %>
-		</p>
-		<p>
-			<%= submit_tag _('upload'), :class => 'button', :onclick => 'pleaseWaitOverlay();' %>
-		</p>
-		<p>
-			<small>
-				<a href="#" 
-				onclick="$('choose_alternative_uploader').show();$('alternativeUpload').hide();$('SWFUpload_0').show();alchemy_window.updateHeight();" 
-				style="text-decoration: underline">
-					<%= _('Switch to Flash® Uploader') %>
-				</a>
-			</small>
-		</p>
-	</div>
 </div>
-
-<div id="divStatus" class="with_padding" style="display: none"></div>
-<div id="divFileProgressContainer">
-	<div id="fsUploadProgress"></div>
-</div>
+<div id="divStatus" style="display: none"></div>
+<div id="uploadProgressContainer"></div>
 
 <%- session_key = ActionController::Base.session[:key] -%>
 
@@ -71,36 +72,33 @@
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
 			post_params: <%= post_params %>,
 			file_size_limit : "500 MB",
-			file_types : "<%= file_types.join(';') %>",
+			file_types : '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
 			file_types_description : "<%= file_types_description %>",
 			file_upload_limit : 500,
 			file_queue_limit : 0,
 			custom_settings : {
-				progressTarget : "fsUploadProgress",
+				progressTarget : "uploadProgressContainer",
 				cancelButtonId : "btnCancel"
 			},
 			debug: false,
 			button_image_url: "/images/alchemy/swfupload/browse_button.png",
 			button_width: "120",
-			button_height: "21",
+			button_height: "25",
 			button_placeholder_id: "spanButtonPlaceHolder",
 			button_text: "<span class='swfButtonText'><%= _('browse') %></span>",
-			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 21px; padding-left: 8px; padding-right: 8px; padding-bottom: 2px;}',
-			button_text_left_padding: 1,
-			button_text_top_padding: 2,
+			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 25px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 5px}',
+			button_text_left_padding: 0,
+			button_text_top_padding: 4,
 			swfupload_load_failed_handler: function () {
-				$('swfUploadFlashError').show();
-				$('alternativeUpload').show();
-				alchemy_window.updateHeight();
+				jQuery('#swfUploadFlashError').show();
+				jQuery('#alternativeUpload').show();
 			},
 			file_queued_handler : fileQueued,
 			file_queue_error_handler : fileQueueError,
 			file_dialog_complete_handler : fileDialogComplete,
-			upload_start_handler : uploadStart,
 			upload_progress_handler : uploadProgress,
 			upload_error_handler : uploadError,
 			upload_success_handler : uploadSuccess,
-			upload_complete_handler : uploadComplete,
 			queue_complete_handler : queueComplete
 		};
 		var swfu = new SWFUpload(settings);
@@ -109,7 +107,10 @@
 		if (typeof(console) !== 'undefined' && console != null) {
 			console.error(err);
 		};
-		$('alternativeUpload').show();
-		$('flash_upload_error_explaination').show();
+		jQuery('#alternativeUpload').show();
+		jQuery('#flash_upload_error_explaination').show();
 	};
 </script>
+<div id="SWFUpload_Console">
+    
+</div>

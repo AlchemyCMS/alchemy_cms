@@ -1,8 +1,5 @@
-<div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= picture_to_assign.name %>">
-	<div class="overlay_image_spinner">
-		<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
-	</div>
-	<div class="assign_image_list_image" style="display: none;">
+<div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
+	<div class="assign_image_list_image">
 	<%- unless params[:image_assign_url].blank? -%>
 		<%- action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" -%>
 		<%- action_method = params[:image_assign_method] -%>
@@ -10,17 +7,18 @@
 		<%- action_url = create_or_assign_url(picture_to_assign, @options) -%>
 		<%- action_method = @content.blank? ? 'post' : 'put' -%>
 	<%- end -%>
-	<%= link_to_remote(
+		<div class="overlay_image_spinner spinner">
+			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
+		</div>
+		<%= link_to_remote(
 			image_tag(
 				thumbnail_url(
 					:id => picture_to_assign,
 					:size => size
 				),
 				:alt => picture_to_assign.name,
-				:onload => %(
-					this.up().up().previous().hide();
-					this.up().up().appear({duration: 0.6});
-				)
+				:onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .overlay_image_spinner');",
+				:style => "display: none;"
 			),
 			:url => action_url,
 			:method => action_method,

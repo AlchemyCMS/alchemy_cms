@@ -1,3 +1,8 @@
+/* @override 
+	http://0.0.0.0:3000/javascripts/alchemy/tiny_mce/plugins/inlinepopups/skins/alchemy/window.css
+	http://localhost:3000/javascripts/alchemy/tiny_mce/plugins/inlinepopups/skins/alchemy/window.css
+*/
+
 /* Alchemy TinyMCE Overlay */
 
 /* Reset */
@@ -85,7 +90,7 @@ a.mceMove {
 	right: 2px;
 	width: 100%;
 	height: 29px;
-	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 12px;
+	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -74px;
 	border-bottom: 2px solid white;
 }
 
@@ -144,7 +149,8 @@ a.mceMove {
 /* Bottom */
 
 .alchemy .mceBottom, .alchemy .mceBottom div {
-	height: 2px}
+	height: 2px
+}
 
 .alchemy .mceBottom {
 	left: 0;
@@ -210,7 +216,7 @@ a.mceMove {
 
 .alchemy .mceClose {
 	right: 8px;
-	background: url(/images/alchemy/gui/close.png) 0 0;
+	background: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png) -96px -128px;
 	width: 16px;
 	height: 16px;
 	top: 8px;
@@ -337,7 +343,7 @@ a.mceMove {
 	bottom: 10px;
 	width: 80px;
 	height: 31px;
-	/*background: url(img/button.gif);*/
+	background: url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
 	line-height: 31px;
 	vertical-align: middle;
 	text-align: center;
@@ -377,7 +383,7 @@ a.mceMove {
 }
 
 .alchemy .mceAlert .mceIcon {
-	background: url(/images/alchemy/icons/exclamation.png)
+	background: url(/images/alchemy/icons.png) 0 -88px;
 }
 
 .alchemy .mceConfirm .mceOk {
@@ -392,5 +398,5 @@ a.mceMove {
 }
 
 .alchemy .mceConfirm .mceIcon {
-	background: url(/images/alchemy/icons/exclamation.png)
+	background: url(/images/alchemy/icons.png) 0 -88px;
 }

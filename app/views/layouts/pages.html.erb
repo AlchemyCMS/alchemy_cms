@@ -1,6 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE>
+<html>
     <head>
         <%= render_meta_data(
             :title_prefix => render_elements(
@@ -9,13 +8,13 @@
             ),
             :title_seperator => "|"
         ) %>
-        <%= stylesheet_link_tag "styles", :media => :screen %>
-        <%= stylesheet_link_tag "styles", :media => :printer %>
+        <%= stylesheet_link_tag "http://github.com/tvdeyen/alchemy-standard-set/raw/master/styles", :media => :screen %>
+        <%= stylesheet_link_tag "http://github.com/tvdeyen/alchemy-standard-set/raw/master/styles", :media => :printer %>
 	</head>
 	<body>
 		<div id="page">
 			<div id="language_select">
-				<%= language_switches %>
+				<%= language_switches(:linkname => :code) %>
 			</div>
 			<div id="breadcrump">
                 <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>

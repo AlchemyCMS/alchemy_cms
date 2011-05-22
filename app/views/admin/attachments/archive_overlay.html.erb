@@ -1,8 +1,8 @@
 <div class="with_padding">
-  <div class="image_assign_filter_and_image_sizing">
-    <%= js_filter_field( :onkeyup => "alchemyListFilter('.assign_file_file')") %>
-  </div>
-  <div id="assign_file_list">
-    <%= render :partial => 'file_to_assign', :collection => @attachments %>
-  </div>
+	<div id="overlay_toolbar">
+		<%= js_filter_field( :onkeyup => "Alchemy.ListFilter('.assign_file_file')") %>
+	</div>
+	<div id="assign_file_list">
+		<%= render :partial => 'file_to_assign', :collection => @attachments %>
+	</div>
 </div>

@@ -1,4 +1,4 @@
-<% form_for(@mail ||= Mail.new, :html => {:id => "contact"}) do |f| %>
+<% form_for(@mail ||= Mail.new, :html => {:id => "contact", "data-alchemy-element" => (@preview_mode ? element.id : nil)}) do |f| %>
     <%= f.error_messages %>
     <%= f.hidden_field "contact_form_id", :value => element.id %>
     <%= hidden_field_tag "mail_to", params[:mail_to] %>

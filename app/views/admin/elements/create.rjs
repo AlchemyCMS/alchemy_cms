@@ -5,9 +5,13 @@ page.insert_html(
   :object => @element
 )
 page << "jQuery('#element_area').sortable('refresh')"
-Alchemy::Notice.show_via_ajax(page, _("successfully_added_element"))
-page << "alchemy_window.close()"
-page << "TinymceHammer.init()"
-page << "preview_window.refresh()"
-page << "elements_window.updateHeight()"
-page << "scrollToElement('#{@element.id}')"
+Alchemy::Notice.show(page, _("successfully_added_element"))
+page << "Alchemy.closeCurrentWindow()"
+@richtext_contents.each do |content|
+  page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
+end
+page << "Alchemy.PreviewWindow.refresh()"
+page << "Alchemy.ElementEditorSelector()"
+page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
+page << "Alchemy.ElementDirtyObserver('#element_#{@element.id}')"
+page << "Alchemy.SelectBox('#element_#{@element.id} select')"

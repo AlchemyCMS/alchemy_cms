@@ -36,8 +36,9 @@ module PagesHelper
   end
   
   def alchemy_form_check_box(name, options={})
-    bla = check_box_tag "mail_data[#{name}]", 1, (session[:mail_data][name.to_sym] == "0" ? false : true rescue false)
-    bla += hidden_field_tag "mail_data[#{name}]", 0, :id => nil
+    box = hidden_field_tag "mail_data[#{name}]", 0, :id => nil
+    box += check_box_tag("mail_data[#{name}]", 1, (session[:mail_data] && session[:mail_data][name.to_sym] == "1"))
+    box
   end
   
   def alchemy_form_label(element, name, options={})
@@ -70,12 +71,71 @@ module PagesHelper
     )
   end
   
-  def language_switches
-    links = []
-    Page.find(:all, :conditions => "language_root_for IS NOT NULL AND public=1").each do |page|
-      links << link_to(page.language.upcase, show_page_with_language_url(:urlname => page.urlname, :lang => page.language), :class => (session[:language] == page.language ? 'active' : nil))
+  # helper for language switching
+  def language_switches(options={})
+    default_options = {
+      :linkname => :name,
+      :spacer => "",
+      :link_to_public_child => configuration(:redirect_to_public_child),
+      :link_to_page_with_layout => nil,
+      :show_title => true,
+      :reverse => false,
+      :as_select_box => false
+    }
+    options = default_options.merge(options)
+    if multi_language?
+      languages = []
+      pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
+      pages.each_with_index do |page, i|
+        if(options[:link_to_page_with_layout] != nil)
+          page_found_by_layout = Page.find_by_page_layout_and_language_id(options[:link_to_page_with_layout].to_s, page.language)
+        end
+        page = page_found_by_layout || page
+        page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? nil : page.first_public_child) : nil) if !page.public?
+        
+        if !page.blank?
+          active = session[:language_id] == page.language.id
+          if options[:linkname]
+            if options[:linkname].to_sym == :code
+              linkname = page.language.code
+            else
+              linkname = I18n.t("languages.#{page.language.code}.name")
+            end
+          else
+            linkname = ""
+          end
+          if options[:as_select_box]
+            languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
+          else
+            languages << link_to(
+              "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}",
+              show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
+              :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
+              :title => (options[:show_title] ? (I18n.t("languages.#{page.language.code}.title")) : nil)
+            )
+          end
+        end
+      end
+      languages.reverse! if options[:reverse]
+      if options[:as_select_box]
+        return select_tag(
+          'language',
+          options_for_select(
+            languages,
+            show_page_with_language_url(:urlname => @page.urlname, :lang => @page.language.code)
+          ),
+          :onchange => "window.location=this.value"
+        )
+      else
+        if options[:spacer].blank?
+          return languages
+        else
+          return languages.join(options[:spacer])
+        end
+      end
+    else
+      ""
     end
-    links.join("<span class='seperator'></span>")
   end
   
 end

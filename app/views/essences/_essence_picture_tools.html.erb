@@ -2,7 +2,7 @@
     <%- if options[:crop] -%>
 	<%= link_to_overlay_window(
 	    '',
-	    crop_admin_essence_picture_path(content.essence, :size => options[:image_size]),
+	    crop_admin_essence_picture_path(content.essence, :size => options[:image_size], :content_id => content.id, :options => options),
 	    { :size => "fullscreen", :title => _('Edit Picturemask') },
 	    { :class => "edit_picture_mask", :title => _('Edit Picturemask') }
 	) %>
@@ -13,7 +13,7 @@
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",
 		url_for(
-			:controller => 'pictures',
+		  :controller => 'pictures',
 			:action => 'archive_overlay',
 			:element_id => content.element,
 			:content_id => content,
@@ -22,8 +22,8 @@
 		),
 		{
 			:title => _('swap_image'),
-    		:size => '800x450',
-    		:resizable => "true"
+    	:size => '800x450',
+    	:resizable => "true"
 		},
 		:title => _('swap_image'),
 		:class => 'swap_picture'
@@ -32,7 +32,7 @@
 <div class="picture_tool_button">
 	<%= link_to_function(
 		'',
-		"openLinkWindow(this, 420)",
+		"Alchemy.openLinkWindow(this, 420)",
 		:class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'),
 		:title => _('link_image'),
 		:name => "essence_picture_#{content.id}",
@@ -42,7 +42,7 @@
 <div class="picture_tool_button">
 	<%= link_to_function(
 		"",
-		"removePictureLink(#{content.id})",
+		"Alchemy.removePictureLink(#{content.id})",
 		:class => 'remove_link',
 		:title => _('unlink')
 	) %>
@@ -50,12 +50,13 @@
 <div class="picture_tool_button">
 	<%= link_to_overlay_window("",
 		edit_admin_essence_picture_path(
-			:id => content.essence.id,
+		  :id => content.essence.id,
+			:content_id => content.id,
 			:options => options
 		),
 		{
 			:title => _('edit_image_properties'),
-			:size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '365x200' : '365x180') : (options[:manual_image_size] ? '365x160' : '365x150'))
+			:size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '380x200' : '380x180') : (options[:manual_image_size] ? '380x160' : '380x150'))
 		},
 		:class => 'edit_picture',
 		:title => _('edit_image_properties')

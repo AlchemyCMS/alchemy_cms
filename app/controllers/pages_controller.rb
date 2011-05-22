@@ -1,6 +1,6 @@
 class PagesController < AlchemyController
   
-  before_filter :set_language_from_client, :only => Proc.new { |bf| debugger }#[:show, :sitemap]
+  before_filter :set_language_from_client, :only => [:show, :sitemap]
   before_filter :get_page_from_urlname, :only => [:show, :sitemap]
   
   filter_access_to :show, :attribute_check => true
@@ -8,17 +8,17 @@ class PagesController < AlchemyController
   caches_action(
     :show,
     :layout => false,
-    :cache_path => Proc.new { |c| c.multi_language? ? "#{c.session[:language]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
+    :cache_path => Proc.new { |c| c.multi_language? ? "#{Alchemy::Controller.current_language.code}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
       if Alchemy::Config.get(:cache_pages)
-        page = Page.find_by_urlname_and_language_and_public(
+        page = Page.find_by_urlname_and_language_id_and_public(
           c.params[:urlname],
-          Alchemy::Controller.current_language,
+          Alchemy::Controller.current_language.id,
           true,
-          :select => 'page_layout, language, urlname'
+          :select => 'page_layout, language_id, urlname'
         )
         if page
-          pagelayout = PageLayout.get(page.page_layout)
+          pagelayout = Alchemy::PageLayout.get(page.page_layout)
           pagelayout['cache'].nil? || pagelayout['cache']
         end
       else
@@ -27,12 +27,16 @@ class PagesController < AlchemyController
     }
   )
   
+  # Showing page from params[:urlname]
+  # @page is fetched via before filter
+  # @root_page is fetched via before filter
+  # @language fetched via before_filter in alchemy_controller
+  # rendering page and querying for search results if any query is present
   def show
-    # @page is fetched via before filter
-    # rendering page and querying for search results if any query is present
     if configuration(:ferret) && !params[:query].blank?
       perform_search
     end
+    render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
   
   # Renders a Google conform sitemap in xml
@@ -47,18 +51,28 @@ private
   
   def get_page_from_urlname
     if params[:urlname].blank?
-      @page = Page.find_by_language_root_for(session[:language])
+      @page = Page.language_root_for(session[:language_id])
     else
-      @page = Page.find_by_urlname_and_language(params[:urlname], session[:language])
+      @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
     end
     if @page.blank?
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
-    elsif @page.has_controller?
-      redirect_to(@page.controller_and_action)
+    elsif multi_language? && params[:lang].blank?
+      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
+    elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?
+      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
-    elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language])
+    elsif !multi_language? && !params[:lang].blank?
+      redirect_to show_page_path(:urlname => @page.urlname), :status => 301
+    elsif @page.has_controller?
+      redirect_to(@page.controller_and_action)
+    else
+      if params[:urlname].blank?
+        @root_page = @page
+      else
+        @root_page = Page.language_root_for(session[:language_id])
+      end
     end
   end
   
@@ -102,7 +116,7 @@ private
     redirect_to(
       send(
         "show_page_#{multi_language? ? 'with_language_' : nil }path".to_sym, {
-          :lang => (multi_language? ? @page.language : nil),
+          :lang => (multi_language? ? @page.language_code : nil),
           :urlname => @page.urlname
         }.merge(@additional_params)
       ),

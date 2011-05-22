@@ -1,35 +1,31 @@
+<div id="crop_explain" class="tip">
+    <%= _('explain cropping') %>
+</div>
 <div id="jscropper">
     <%= image_tag(
         zoom_picture_path(@essence_picture.picture),
         :id => 'imageToCrop'
     ) %>
 </div>
-
-<div id="crop_explain" class="tip">
-    <%= _('explain cropping') %>
-</div>
-
-<% remote_form_for([:admin, @essence_picture], :html => {:class => "with_padding"}) do |f| %>
+<% remote_form_for(
+    @essence_picture,
+    :url => admin_essence_picture_path(@essence_picture, :options => @options),
+		:html => {:class => 'with_padding'}
+) do |f| %>
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
+    <%= hidden_field_tag 'content_id', @content.id %>
     <%= f.submit _("save"), :class => 'button' %>
 <%- end -%>
-
 <script type="text/javascript" charset="utf-8">
-    new AlchemyImageCropper('imageToCrop', {
-        ratioDim: { 
-            x: <%= @size_x %>, 
-            y: <%= @size_y %> 
-        },
-        <%- if @initial_box -%>
-        onloadCoords: {
-            x1: <%= @initial_box[:x1] %>,
-            y1: <%= @initial_box[:y1] %>, 
-            x2: <%= @initial_box[:x2] %>, 
-            y2: <%= @initial_box[:y2] %>
-        },
-        <%- end -%>
-        minWidth: <%= @size_x %>,
-        minHeight: <%= @size_y %>
-    });
+	jQuery('#imageToCrop').Jcrop({
+		onSelect: function(coords) {
+			jQuery('#essence_picture_crop_from').val(coords.x + "x" + coords.y);
+			jQuery('#essence_picture_crop_size').val(coords.w + "x" + coords.h);
+		},
+		<%- if @initial_box -%>
+		setSelect: [ <%= @initial_box[:x1] %>, <%= @initial_box[:y1] %>, <%= @initial_box[:x2] %>, <%= @initial_box[:y2] %> ],
+		<%- end -%>
+		aspectRatio: <%= @size_x %> / <%= @size_y %>
+	});
 </script>

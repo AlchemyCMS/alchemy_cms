@@ -1,3 +1,8 @@
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
+	http://localhost:3000/stylesheets/alchemy/elements.css
+*/
+
 input.text_with_icon {
 	width: 343px;
 	float: left;
@@ -48,8 +53,8 @@ img.add_element_spinner {
 
 .element_handle {
 	cursor: move;
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 	position: absolute;
 	left: 8px;
 	top: 9px;
@@ -62,11 +67,18 @@ img.add_element_spinner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -80px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -112px -40px;
 }
 
-.element_handle img.element_status {
-	z-index: 1;	position: absolute;
+.element_handle span.icon {
+	z-index: 1;	
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.element_handle span.icon.element_dirty {
+	background-position: -29px -104px;
 }
 
 div.element_foot span.element_public {
@@ -98,16 +110,16 @@ div.element_foot span.element_public {
 .add_content {
 	float: left;
 	margin: 2px 1px 2px 2px;
-	width: 120px;
+	width: 118px;
 	padding: 0;
 	background-color: #f0e8d7;
-	height: 123px;
+	border: 1px solid #c2baab;
+	border-radius: 3px;
+	height: 121px;
 }
 
 .add_content a {
-	color: #6c6c6c;
 	text-decoration: none;
-	background: url(/images/alchemy/icons/image-essence.png) no-repeat 0 0;
 	overflow: hidden;
 	text-align: center;
 	font-weight: bold;
@@ -115,15 +127,16 @@ div.element_foot span.element_public {
 	border-radius: 3px;
 	font-size: 40px;
 	display: block;
-	height: 24px;
-	margin-top: 48px;
-	width: 24px;
-	margin-bottom: 48px;
-	margin: 48px;
+	height: 100%;
+	width: 100%;
+	position: relative;
 }
 
-.add_content a.assign {
-	background-position: -24px 0;
+.add_content a .icon.assign {
+	background: url(/images/alchemy/icons.png) no-repeat -144px -40px;
+	position: absolute;
+	top: 54px;
+	left: 51px;
 }
 
 .element_foot {
@@ -132,13 +145,14 @@ div.element_foot span.element_public {
 	position: relative;
 	background-color: #e5dcca;
 	width: 100%;
-	height: 18px;
+	height: 21px;
 	margin-left: -8px;
 }
 
 .element_foot .element_tools {
 	float: left;
 	margin-right: 8px;
+	margin-top: 3px;
 }
 
 .element_foot .button {
@@ -166,37 +180,33 @@ div.element_foot span.element_public {
 
 div.element_editor {
 	border: 1px solid #bba589;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	background-color: #f0e8d7;
 	margin-bottom: 8px;
 }
 
-div.element_editor.selected {
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-color: #bba589;
-	outline-width: 1px;
-	outline-color: #bba589;
-	outline-style: solid;
+div.element_editor.dirty {
+	border-color: #d0c83d;
 }
 
-div.element_editor form {
+div.element_editor.dirty .element_head,
+div.element_editor.dirty .element_foot {
+	background-color: #fff8df;
+}
+
+div.element_editor.selected {
+	border-color: #DB694C;
+	-moz-box-shadow: 0 0 2px #DB694C;
+	-webkit-box-shadow: 0 0 2px #DB694C;
+	box-shadow: 0 0 2px #DB694C;
+}
+
+#alchemy .ui-dialog div.element_editor form {
 	margin: 4px 0 0;
 	padding: 0 8px;
 	overflow: hidden;
-}
-
-.element_tools a {
-	width: 16px;
-	height: 16px;
-	float: left;
-	margin: 1px 4px 1px 1px;
-}
-
-a.delete_element_button {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat;
 }
 
 div.element_tools {
@@ -207,12 +217,23 @@ span.element_tools_icons {
 	float: left;
 }
 
+.element_tools a {
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 1px 4px 1px 1px;
+}
+
+a.delete_element_button {
+	background: url(/images/alchemy/icons.png) no-repeat -32px -40px;
+}
+
 a.element_copy_button {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -32px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -64px -40px;
 }
 
 a.element_move_button {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -16px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -48px -40px;
 }
 
 .element_head {
@@ -238,9 +259,9 @@ div.picture_gallery_images {
 	margin-bottom: 8px;
 	border: 1px inset #cecece;
 	padding-left: 1px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	background-color: #e5dcca;
 }
 
@@ -276,9 +297,10 @@ form.add_gallery_to_index select {
 
 .new_alchemy_element {
 	margin: 0;
-	padding: 8px;
+	padding: 0;
 	position: relative;
-	height: 20px;
+	min-height: 25px;
+	overflow: auto;
 }
 
 .new_alchemy_element p {
@@ -297,6 +319,7 @@ div#element_area {
 
 .new_alchemy_element span {
 	float: left;
+	line-height: 25px;
 }
 
 .new_alchemy_element select {
@@ -305,8 +328,9 @@ div#element_area {
 	margin: 0 8px;
 }
 
-.add_element_content input.button {
+.new_alchemy_element input.button {
 	float: right;
+	margin-left: 8px;
 }
 
 /* @end */
@@ -327,7 +351,7 @@ div.content_editor a.icon_button.small {
 }
 
 a.expand_element {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -48px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -80px -40px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -336,7 +360,7 @@ a.expand_element {
 }
 
 a.fold_element {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -64px 0;
+	background: url(/images/alchemy/icons.png) no-repeat -96px -40px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -375,4 +399,394 @@ a.fold_element {
 	border: 1px dotted #9A9A9A;
 	background-color: #e3e3e3;
 	margin-bottom: 8px;
+}
+
+.picture_tool_button {
+	float: left;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+.picture_tool_button.disabled {
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+}
+
+.picture_tool_button.disabled a {
+	cursor: default;
+}
+
+.picture_tool_button a {
+	text-decoration: none;
+	width: 16px;
+	height: 16px;
+	display: block;
+	background-image: url(/images/alchemy/icons.png);
+	background-repeat: no-repeat;
+	margin: 1px;
+}
+
+.picture_tool_button a:hover {
+	text-decoration: none;
+}
+
+.picture_tool_button a.edit_picture {
+	background-position: -192px -40px;
+}
+
+.picture_tool_button a.edit_link,
+.icon_button span.icon.link {
+	background-image: url(/images/alchemy/icons.png);
+	background-position: -160px -40px;
+	left: 2px;
+	top: 2px;
+}
+
+.picture_tool_button a.edit_link.linked {
+	border: 1px solid #bbb;
+	width: 16px;
+	height: 16px;
+	background-color: #f8d87b;
+	background-position: -160px -40px;
+	top: -1px;
+	position: relative;
+	left: 0;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+}
+
+div.essence_picture_editor {
+	position: relative;
+	float: left;
+}
+
+div.essence_picture_editor .picture_tool_delete {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	padding: 2px 2px 0;
+	z-index: 2;
+}
+
+div.essence_picture_editor:hover .picture_tool_delete {
+	display: block;
+}
+
+.picture_tool_button a.swap_picture {
+	background-position: -144px -40px;
+	margin-right: 0;
+}
+
+.picture_tool_button a.edit_picture_mask {
+	background-position: -128px -40px;
+	margin-right: 0;
+}
+
+.picture_tool_button a.remove_link {
+	background-position: -176px -40px;
+}
+
+.dragable_picture {
+	float: left;
+}
+
+.picture_detail div.missing_image {
+	height: 96px;
+	text-align: center;
+	line-height: 99px;
+}
+
+.picture_detail div.missing_image span.icon {
+	position: relative;
+	top: 21px;
+}
+
+.edit_images_bottom {
+	height: 19px;
+	position: absolute;
+	z-index: 0;
+	left: 5px;
+	bottom: 2px;
+}
+
+.picture_detail .picture_handle {
+	position: absolute;
+	z-index: 1;
+	width: 110px;
+	height: 93px;
+	top: 4px;
+	left: 4px;
+	background-color: transparent;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.dragable_picture .picture_handle {
+	cursor: move;
+}
+
+.picture_content_spinner {
+	position: absolute;
+	z-index: 0;
+	top: 35px;
+	left: 39px;
+}
+
+div.file {
+	padding: 0;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	border: 1px solid #c0c0c0;
+	background-color: #f3f3f3;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	height: 24px;
+}
+
+div.file_icon {
+	text-align: center;
+	float: left;
+	height: 24px;
+	width: 24px;
+}
+
+div.file_icon span.icon {
+	margin: 4px;
+}
+
+div.file_icon a.assign_file {
+	display: block;
+	height: 16px;
+	background: url(/images/alchemy/icons.png) no-repeat -240px -24px;
+	width: 16px;
+	margin: 4px;
+}
+
+div.file_name {
+	white-space: nowrap;
+	overflow: hidden;
+	float: left;
+	width: 293px;
+	line-height: 24px;
+	font-size: 10px;
+}
+
+div.essence_file_tools {
+	height: 24px;
+	float: right;
+	background-color: white;
+	width: 48px;
+}
+
+div.essence_file_tools a{
+	text-decoration: none;
+	width: 16px;
+	height: 16px;
+	margin: 4px;
+	float: left;
+}
+
+div.essence_file_tools a.assign_file {
+	background: url(/images/alchemy/icons.png) -256px -24px;
+}
+
+div.essence_file_tools a.edit_file {
+	background: url(/images/alchemy/icons.png) -16px -24px;
+}
+
+td.content_editor_essence_type {
+	width: 90px;
+	height: 20px;
+}
+
+table.content_editor_table {
+	margin-bottom: 8px;
+}
+
+.content_editor_table .thin_border {
+	width: 210px;
+}
+
+div.content_editor label.inline {
+	display: inline-block;
+	min-width: 90px;
+	margin-right: 4px;
+}
+
+a.new_content_link {
+	float: none;
+	display: inline-block;
+	margin-bottom: 8px;
+	margin-top: 4px;
+}
+
+div.essence_richtext_loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	background-color: #ededed;
+	opacity: 0.95;
+}
+
+div.essence_richtext_loader img {
+	position: absolute;
+	top: 43%;
+	left: 46%;
+}
+
+div.content_text_editor.text_short {
+	margin-top: 0;
+	margin-bottom: 0;
+	display: inline;
+}
+
+input.long,
+input.text_long {
+	width: 363px;
+}
+
+select.long {
+	width: 376px;
+	margin: 0;
+	padding: 0;
+}
+
+div.content_text_editor input.text_short {
+	border-width: 1px;
+	width: 50px;
+	margin-right: 4px;
+	padding: 2px;
+}
+
+div.content_editor {
+	margin-bottom: 8px;
+	margin-top: 8px;
+	overflow: hidden;
+	position: relative;
+}
+
+div.content_editor label {
+	display: block;
+	margin-bottom: 0.5em;
+	font-size: 10px;
+	text-shadow: #fff5e1 1px 1px 0;
+	line-height: 15px;
+}
+
+div.content_editor label span.warning.icon {
+	position: relative;
+	top: 2px;
+}
+
+.element_editor p.content_editor_error {
+	border: 1px solid #f5b04e;
+	padding: 4px 8px;
+	line-height: 21px;
+	background-color: #f5dea9;
+	margin-top: 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+p.content_editor_error span.icon.warning {
+	position: relative;
+	top: 2px;
+	margin-right: 8px;
+}
+
+div.content_editor label a.icon_button.small {
+	display: none;
+}
+
+div.content_editor:hover label a.icon_button.small {
+	display: inline-block;
+}
+
+.o2k7Skin span.alchemy_link {
+	background-position: -500px 0;
+}
+
+.o2k7Skin span.alchemy_unlink {
+	background-position: -640px 0;
+}
+
+.content_rtf_text_area {
+	display: none;
+}
+
+.content_rtf_editor div.editable_area_container {
+	padding: 4px;
+	border: 1px solid #c3c3c3;
+	border-top-style: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background: white url(/images/alchemy/gui/shading_inv.png) repeat-x 0 -5px;
+}
+
+.content_rtf_editor div.editable_area {
+	outline: none;
+	overflow-y: visible;
+	overflow-x: auto;
+	min-height: 105px;
+}
+
+.content_rtf_editor .editable_area a {
+	color: #1c18f2;
+	text-decoration: underline;
+}
+
+div.nicEdit-panelContain {
+	-webkit-border-radius: 2px;
+	background-repeat: repeat-x;
+	background-position: 0 5px;
+}
+
+div.nicEdit-button {
+	background-color: #ededed;
+}
+
+.nicEdit-main {
+	background-color: white;
+	outline: none;
+}
+
+div.pictures_for_element {
+	overflow: auto;
+	margin-top: 4px;
+}
+
+textarea.tinymce {
+	font: 12px Tahoma, Arial, sans-serif;
+	padding: 4px;
+	margin: 0;
+	width: 368px;
+	border-style: inset;
+	border-width: 1px;
+	height: 184px;
+}
+
+.text_short_float_left {
+	width: 170px;
+	float: left;
+	margin-right: 10px;
+	border-width: 1px;
+}
+
+.droppable_content_placeholder {
+	border: 1px dotted #bba589;
+	background-color: #f0e8d7;
+	float: left;
+	width: 118px;
+	height: 119px;
+	padding: 2px 0 0;
+	margin: 2px 1px 2px 2px;
 }

@@ -1,4 +1,4 @@
-<%- alchemy_assets_set(:archive) -%>
+<%- alchemy_combined_assets -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">
 	<%- permitted_to?(:new, :admin_attachments) do -%>
@@ -9,7 +9,7 @@
 				new_admin_attachment_path,
 				{
 					:title => _('upload_file'),
-					:size => '355x320'
+					:size => '540x480'
 				},
 				:title => _('upload_file'),
 				:class => 'icon_button'

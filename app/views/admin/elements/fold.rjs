@@ -4,14 +4,20 @@ else
   page.replace(
     "element_#{@element.id}",
     :partial => "element",
-    :object => @element,
-    :locals => {:open_element_selector => false}
+    :object => @element
   )
   page << "jQuery('#element_area').sortable('refresh')"
-  page << "elements_window.updateHeight()"
-  if !@element.folded
-    page << "scrollToElement(#{@element.id})"
-    page << "$('element_#{@element.id}').addClassName('selected')"
+  if @element.folded
+    @richtext_contents.each do |content|
+      page << "tinymce.get('contents_content_#{content.id}_body').remove()"
+    end
+  else
+    page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
+    page << "Alchemy.SelectBox('#element_#{@element.id} select')"
+    @richtext_contents.each do |content|
+      page << "TinymceHammer.addEditor('contents_content_#{content.id}_body')"
+    end
+    page << "Alchemy.ElementDirtyObserver('#element_#{@element.id}')"
   end
-  page << "TinymceHammer.init()"
+  page << "Alchemy.ElementEditorSelector()"
 end

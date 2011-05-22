@@ -1,10 +1,10 @@
 <div id="user_edit">
 	<% remote_form_for [:admin, @user] do |f| %>
 		<div id="errors" style="display: none"></div>
-		<table border="0" cellspacing="4" cellpadding="0">
+		<table>
 			<tr>
 				<td height="25px"><%= f.label 'gender', User.human_attribute_name(:gender) %>: </td>
-				<td><%= f.alchemy_selectbox 'gender', User.genders_for_select, :prompt => _('Please choose'), :class => 'long' -%></td>
+				<td><%= f.select 'gender', options_for_select(User.genders_for_select), {:prompt => _('Please choose')}, {:class => 'long'} -%></td>
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'firstname', User.human_attribute_name(:firstname) %>: </td>
@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'language', User.human_attribute_name(:language) %>: </td>
-				<td><%= f.alchemy_selectbox 'language', translations_for_select, :class => 'long' -%></td>
+				<td><%= f.select 'language', translations_for_select, {}, :class => 'long' -%></td>
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'password', User.human_attribute_name(:password) %>: </td>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td height="25px"><%= f.label 'role', User.human_attribute_name(:role) %>: </td>
-				<td><%= f.alchemy_selectbox :role, User::ROLES.map { |role| [User.human_rolename(role), role]}, :class => 'thin_border long' -%></td>
+				<td><%= f.select :role, options_for_select(User::ROLES.map { |role| [User.human_rolename(role), role]}, @user.role), {}, :class => 'long' -%></td>
 			</tr>
 			<tr>
                 <td>
@@ -55,8 +55,3 @@
 		</table>
 	<% end %>
 </div>
-<script type="text/javascript" charset="utf-8">
-//<!--[CDATA[
-	alchemy_window.updateHeight();
-//]]-->
-</script>

@@ -1,10 +1,9 @@
-<%- @date = content.essence -%>
-<div class="content_editor">
-	<label><%= t("content_names.#{content.name}", :default => content.name.capitalize) %></label>
+<div class="content_editor" id="<%= content_dom_id(content) %>">
+	<label><%= render_content_name(content) %></label>
 	<%= datetime_select(
-		"date",
+		"contents[content_#{content.id}]",
 		:date,
-		:default => Date.today,
+		:default => content.ingredient || Date.today,
 		:discard_minute => (options[:show_time] ? false : true),
 		:discard_hour => (options[:show_time] ? false : true)
 	) %>

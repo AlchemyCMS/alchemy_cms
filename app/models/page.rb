@@ -4,30 +4,27 @@ class Page < ActiveRecord::Base
   has_many :folded_pages
   has_many :elements, :order => :position, :dependent => :destroy
   has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
+  belongs_to :language
   
   validates_presence_of :name, :message => N_("please enter a name")
+  validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
   validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
-  validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language', :if => :urlname_entered?
+  validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
   #validates_format_of :urlname, :with => /http/, :if => Proc.new { |page| page.redirects_to_external? }
   
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
+  attr_accessor :do_not_validate_language
   
   before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
-  after_save :set_restrictions_to_child_pages
-  before_validation_on_create :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
-  before_validation_on_create :set_title
+  before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
+  before_save :set_language_code
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
+  after_save :set_restrictions_to_child_pages
   
-  # necessary. otherwise the migrations fail
-  
-  def self.layout_root
-    if Page.root
-      Page.find :first, :conditions => {:parent_id => Page.root.id, :layoutpage => true}
-    end
-  end
-  
-  named_scope :language_roots, :conditions => "language_root_for IS NOT NULL"
+  named_scope :language_roots, :conditions => {:language_root => true}
+  named_scope :layoutpages, :conditions => {:layoutpage => true}
+  named_scope :all_locked, :conditions => {:locked => true}
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -41,7 +38,7 @@ class Page < ActiveRecord::Base
     else
       condition = show_non_public.nil? ? nil : {:public => true}
     end
-    return self.elements.find(:all, :conditions => condition, :limit => options[:count], :order => options[:random].blank? ? nil : "RAND()")
+    return self.elements.find(:all, :conditions => condition, :limit => options[:count], :offset => options[:offset], :order => options[:random].blank? ? nil : "RAND()")
   end
   
   def find_elements(options, show_non_public = false)
@@ -77,6 +74,19 @@ class Page < ActiveRecord::Base
     }
     options = default_options.merge(options)
     find_next_or_previous_page("next", options)
+  end
+  
+  def find_first_public(page)
+    if(page.public == true)
+      return page
+    end
+    page.children.each do |child|
+      result = find_first_public(child)
+      if(result!=nil)
+        return result
+      end
+    end
+    return nil
   end
   
   def name_entered?
@@ -189,7 +199,7 @@ class Page < ActiveRecord::Base
       return _('page_status_invisible_unpublic')
     end
   end
-
+  
   # Returns the status code. Used by humanized_status and the page status icon inside the sitemap rendered by Pages.index.
   def status
     if self.locked
@@ -216,7 +226,7 @@ class Page < ActiveRecord::Base
   end
   
   def has_controller?
-    !PageLayout.get(self.page_layout).nil? && !PageLayout.get(self.page_layout)["controller"].blank?
+    !Alchemy::PageLayout.get(self.page_layout).nil? && !Alchemy::PageLayout.get(self.page_layout)["controller"].blank?
   end
   
   def controller_and_action
@@ -225,31 +235,18 @@ class Page < ActiveRecord::Base
     end
   end
   
-  def self.language_root(language)
-    find_by_language_root_for(language)
-  end
-  
-  def is_root? language
-    Page.language_root( language) == self
-  end
-  
-  def parent_language
-    parent = self
-    while parent.parent && parent.language_root_for.blank?
-      parent = parent.parent
-    end
-    unless parent.blank?
-      parent_lang = parent.language
-    else
-      parent_lang = self.language
-    end
-    parent_lang
-  end
-
+  # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
   def layout_description
-    PageLayout.get(self.page_layout)
+    page_layout = Alchemy::PageLayout.get(self.page_layout)
+    if page_layout.nil?
+      logger.warn("\n+++++++++++  Warning! PageLayout description not found for layout: #{self.page_layout}\n")
+      return nil
+    else
+      return page_layout
+    end
   end
   
+  # Returns the self#page_layout display_name from config/alchemy/page_layouts.yml file.
   def layout_display_name
     unless layout_description.blank?
       if layout_description["display_name"].blank?
@@ -292,8 +289,109 @@ class Page < ActiveRecord::Base
     find_all_by_locked_and_locked_by(true, user.id)
   end
   
+  def self.public_language_roots
+    public_language_codes = Language.all_codes_for_published
+    all(:conditions => "language_root = 1 AND language_code IN ('#{public_language_codes.join('\',\'')}') AND public = 1")
+  end
+  
+  def first_public_child
+    self.children.detect{ |child| child.public? }
+  end
+  
+  def self.language_root_for(language_id)
+    self.language_roots.find_by_language_id(language_id)
+  end
+  
+  # Creates a copy of source (an Page object) and does a copy of all elements depending to source.
+  # You can pass any kind of Page#attributes as a difference to source.
+  # Notice: It prevents the element auto_generator from running.
+  def self.copy(source, differences = {})
+    attributes = source.attributes.merge(differences)
+    attributes.merge!(
+      :do_not_autogenerate => true, 
+      :do_not_sweep => true, 
+      :visible => false,
+      :public => false,
+      :locked => false,
+      :locked_by => nil
+    )
+    page = self.new(attributes.except(["id", "updated_at", "created_at", "created_id", "updater_id"]))
+    if page.save
+      source.elements.each do |element|
+        new_element = Element.copy(element, :page_id => page.id)
+        new_element.move_to_bottom
+      end
+      return page
+    else
+      raise page.errors.full_messages
+    end
+  end
+  
+  # Gets the language_root page for page
+  def get_language_root
+    return self if self.language_root
+    page = self
+    while page.parent do
+      page = page.parent
+      break if page.language_root?
+    end
+    return page
+  end
+  
+  def self.layout_root_for(language_id)
+    find(:first, :conditions => {:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id})
+  end
+  
+  def self.find_or_create_layout_root_for(language_id)
+    layoutroot = layout_root_for(language_id)
+    return layoutroot if layoutroot
+    language = Language.find(language_id)
+    layoutroot = Page.new({
+      :name => "Layoutroot for #{language.name}",
+      :layoutpage => true, 
+      :language => language,
+      :do_not_autogenerate => true
+    })
+    if layoutroot.save(false)
+      layoutroot.move_to_child_of(Page.root)
+      return layoutroot
+    else
+      raise "Layout root for #{language.name} could not be created"
+    end
+  end
+  
+  def self.all_last_edited_from(user)
+    Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
+  end
+  
+  def self.all_from_clipboard(clipboard)
+    return [] if clipboard.blank?
+    self.find_all_by_id(clipboard)
+  end
+  
+  def self.all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
+    return [] if clipboard.blank?
+    clipboard_pages = self.all_from_clipboard(clipboard)
+    allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
+    allowed_page_layout_names = allowed_page_layouts.collect{ |p| p['name'] }
+    clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
+  end
+  
+  def copy_children_to(new_parent)
+    self.children.each do |child|
+      new_child = Page.copy(child, {
+        :language => self.language,
+        :name => child.name + ' (' + _('Copy') + ')',
+        :urlname => '',
+        :title => ''
+      })
+      new_child.move_to_child_of(new_parent)
+      child.copy_children_to(new_child) unless child.children.blank?
+    end
+  end
+  
 private
-
+  
   def find_next_or_previous_page(direction = "next", options = {})
     if direction == "previous"
       step_direction = ["pages.lft < ?", self.lft]
@@ -312,7 +410,7 @@ private
     end
     return Page.find :first, :conditions => conditions, :order => order_direction
   end
-
+  
   def generate_url_name(url_name)
     new_url_name = url_name.to_s.downcase
     new_url_name = new_url_name.gsub(/[ä]/, 'ae')
@@ -329,39 +427,27 @@ private
     new_url_name
   end
   
-  # Look in the layout_descripion, if there are elements to autogenerate. If so, generate them.
+  # Looks in the layout_descripion, if there are elements to autogenerate.
+  # If so, it generates them.
   def autogenerate_elements
-    to_auto_generate_elements = self.layout_description["autogenerate"]
-    unless (to_auto_generate_elements.blank?)
-      to_auto_generate_elements.each do |element|
+    elements = self.layout_description["autogenerate"]
+    unless (elements.blank?)
+      elements.each do |element|
         element = Element.create_from_scratch({'page_id' => self.id, 'name' => element})
         element.move_to_bottom if element
       end
     end
   end
-
-  # Creates a copy of source and a copy of elements from source
-  # pass any kind of Page.attributes as a difference to source
-  # it also prevents the element auto_generator from running
-  def self.copy(source, differences = {})
-    attributes = source.attributes.merge(differences)
-    attributes.merge!(:do_not_autogenerate => true, :do_not_sweep => true)
-    page = self.new(attributes.except("id"))
-    if page.save
-      source.elements.each do |element|
-        new_element = Element.copy(element, :page_id => page.id)
-        new_element.move_to_bottom
-      end
-      return page
-    else
-      raise "Error while Page.copy: #{page.errors.map{ |e| e[0] + ': ' + e[1] }}"
-    end
-  end
   
   # Returns all pages for langugae that are not locked and public.
   # Used for flushing all page caches at once.
-  def self.flushables(language)
-    self.all(:conditions => {:public => true, :locked => false, :language => language})
+  def self.flushables(language_id)
+    self.all(:conditions => {:public => true, :locked => false, :language_id => language_id})
+  end
+  
+  def set_language_code
+    return false if self.language.blank?
+    self.language_code = self.language.code
   end
   
 end

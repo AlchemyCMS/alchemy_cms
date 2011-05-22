@@ -6,12 +6,15 @@ class Admin::EssencePicturesController < AlchemyController
   
   def edit
     @essence_picture = EssencePicture.find(params[:id])
+    @content = Content.find(params[:content_id])
     @options = params[:options]
     render :layout => false
   end
   
   def crop
     @essence_picture = EssencePicture.find(params[:id])
+    @content = Content.find(params[:content_id])
+    @options = params[:options]
     if !@essence_picture.crop_from.blank? && !@essence_picture.crop_size.blank?
       @initial_box = {
         :x1 => @essence_picture.crop_from.split('x')[0].to_i,
@@ -20,26 +23,24 @@ class Admin::EssencePicturesController < AlchemyController
         :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
       }
     end
-    @size_x = params[:size].split('x')[0]
-    @size_y = params[:size].split('x')[1]
+    @size_x, @size_y = 0, 0
+    if params[:size]
+      @size_x = params[:size].split('x')[0]
+      @size_y = params[:size].split('x')[1]
+    end
     render :layout => false
   end
   
   def update
     @essence_picture = EssencePicture.find(params[:id])
     @essence_picture.update_attributes(params[:essence_picture])
-    render :update do |page|
-      page << "Windows.getFocusedWindow().close()"
-      page << "reloadPreview()"
-    end
+    @content = Content.find(params[:content_id])
   end
   
   def assign
     @content = Content.find(params[:id])
     @picture = Picture.find(params[:picture_id])
     @content.essence.picture = @picture
-    @content.essence.save
-    @content.save
     @options = params[:options]
     # If options params come from Flash uploader then we have to parse them as hash.
     @element = @content.element
@@ -61,8 +62,9 @@ class Admin::EssencePicturesController < AlchemyController
     @picture_essence.open_link_in_new_window = params[:blank]
     if @picture_essence.save
       render :update do |page|
-        page << "Windows.closeAll();reloadPreview()"
-        Alchemy::Notice.show_via_ajax(page, _("saved_link"))
+        page << "Alchemy.closeCurrentWindow()"
+        page << "Alchemy.reloadPreview()"
+        Alchemy::Notice.show(page, _("saved_link"))
       end
     end
   end
@@ -82,7 +84,7 @@ class Admin::EssencePicturesController < AlchemyController
           :options => params[:options]
         }
       )
-      page << "reloadPreview()"
+      page << "Alchemy.reloadPreview()"
     end
   end
   

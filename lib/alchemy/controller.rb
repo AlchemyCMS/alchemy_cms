@@ -1,28 +1,24 @@
 module Alchemy
   module Controller
-    
+
     mattr_accessor :alchemy_plugins_settings
     mattr_accessor :current_language
     
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
-      #base.send :include, Alchemy::Notice
+      base.send :include, Alchemy::Notice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
     
     def initialize
       super
-      self.alchemy_plugins_settings = Hash.new
-      plugins_settings_yaml = plugins_config_ymls
-      plugins_settings_yaml.each do |settings|
-        sets = YAML.load_file(settings)
-        self.alchemy_plugins_settings[sets["name"]] = sets
+      self.alchemy_plugins_settings = {}
+      plugins_config_paths.each do |settings_file|
+        settings = YAML.load_file(settings_file)
+				Rails.logger.info("\n+++++ Registered #{settings["name"]} as Alchemy plugin.")
+        self.alchemy_plugins_settings[settings["name"]] = settings
       end
-    end
-    
-    def self.multi_language?
-      Alchemy::Config.get(:languages).size > 1
     end
     
     module ClassMethods
@@ -32,41 +28,32 @@ module Alchemy
       end
       
     end
-    
+
     module InstanceMethods
       
       def plugin_conf(plugin_name)
         alchemy_plugins_settings[plugin_name]["settings"]
       end
-      
+
       # returns an array with all alchemy plugins including the alchemy core as first entry.
       # For your own plugin see config.yml in vendor/plugins/alchemy/config/alchemy folder
       def alchemy_plugins
-        ymls = plugins_config_ymls
-        plugins = []
-        alchemy_config = ymls.detect { |c| c.include?('vendor/plugins/alchemy') }
-        alchemy_config_yml = YAML.load_file(alchemy_config)
-        if alchemy_config_yml
-          alchemy_plugins = alchemy_config_yml["alchemy_plugins"]
-          plugins += alchemy_plugins
-        end
-        ymls.delete(alchemy_config)
+        yml_paths = plugins_config_paths
+				plugins = Alchemy::Configuration.get("alchemy_plugins")
         begin
-          ymls = ymls.sort(){ |x, y| YAML.load_file(x)['order'] <=> YAML.load_file(y)['order'] }
+          yml_paths = yml_paths.sort(){ |x, y| YAML.load_file(x)['order'] <=> YAML.load_file(y)['order'] }
         rescue Exception => e
           Rails.logger.error(%(
             ++++++
-            No order value in one of your plugins. Please check plugins
+            #{e}
+            No order value in one of your plugins. Please check plugin config!
             ++++++
           ))
         end
-        ymls.each do |y|
-          plugin = YAML.load_file(y)
-          plugins << plugin
-        end
-        return plugins
+        yml_paths.map { |y| plugins << YAML.load_file(y) }
+        plugins
       end
-      
+
       # returns the alchemy plugin found by name, or by hash of controller and action
       def alchemy_plugin(name)
         if name.is_a? String
@@ -81,15 +68,15 @@ module Alchemy
           end
         end
       end
-      
+
     private
-    
-      def plugins_config_ymls
-        Dir.glob("vendor/plugins/*/config/alchemy/config.yml")
+
+      def plugins_config_paths
+				Dir.glob("vendor/plugins/*[^alchemy]/config/alchemy/config.yml")
       end
-      
+
     end
-    
+
   end
 end
 ActionController::Base.send(:include, Alchemy::Controller) if defined?(ActionController)

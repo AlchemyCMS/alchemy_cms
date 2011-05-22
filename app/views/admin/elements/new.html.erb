@@ -1,23 +1,33 @@
-<div class="new_alchemy_element">
-<%- if @elements.blank? -%>
-	<p><%= _('no_more_elements_to_add') %></p>
+<%- if clipboard_empty?('elements') -%>
+<%= render :partial => 'new_element_form' %>
 <%- else -%>
-	<% remote_form_for(
-		[:admin, @element],
-		:html => {:class => "add_element_content"}
-	) do |form| %>
-		<%= form.hidden_field('page_id') %>
-		<span><%= _("element_of_type") %>:</span>
-		<%= form.alchemy_selectbox(
-			'name',
-			elements_for_select(@elements),
-			:prompt => _('select_element')
-		) -%>
-		<%= form.submit(
-			_('add'),
-			:class => 'button',
-			:name => nil
-		) %>
-	<% end %>
-<%- end -%>
+<div id="overlay_tabs">
+	<ul>
+		<li><a href="#create_element_tab"><%= _('New') %></a></li>
+		<li><a href="#paste_element_tab"><%= _('Paste from clipboard') %></a></li>
+	</ul>
+	<div id="create_element_tab">
+		<%= render :partial => 'new_element_form' %>
+	</div>
+	<div id="paste_element_tab">
+		<div class="new_alchemy_element">
+			<% remote_form_for([:admin, @element], :html => {:id => 'paste_element_form'}) do |f| %>
+				<%= f.hidden_field(:page_id) %>
+				<div id="errors" style="display: none"></div>
+				<span style="margin-right: 16px">
+					<label for="paste_from_clipboard"><%= _("Element") %></label>
+				</span>
+				<%= clipboard_select_tag(@clipboard_items, :class => 'very_long') %>
+				<%= f.submit _("paste"), :class => 'button', :name => nil %>
+			<% end %>
+		</div>
+	</div>
 </div>
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(function() {
+		jQuery("#overlay_tabs").tabs();
+	});
+
+</script>
+<%- end -%>

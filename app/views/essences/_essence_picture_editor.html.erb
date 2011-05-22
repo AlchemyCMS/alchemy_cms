@@ -16,26 +16,31 @@
     	) -%>
 	</span>
 	<div class="picture_detail">
-	<%- if content.essence.picture.nil? -%>
+    <%- if content.essence.picture.nil? -%>
 		<div class="missing_image">
-			<%= image_tag('alchemy/icons/exclamation.png') %>
-			<p><%= _('Mising Image') %></p>
+            <%= render_icon('warning') %>
+            <p><%= _('Mising Image') %></p>
 		</div>
 	<%- else -%>
 		<div class="picture_handle" title="<%= _('drag_to_sort') if options[:dragable] %>"></div>
 		<div class="picture_content_spinner">
 			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
 		</div>
-		<div class="picture_image" style="display: none;">
+		<div class="picture_image">
 			<%= image_tag(
-				thumbnail_url(:id => content.essence.picture, :size => "111x93"),
+				url_for(
+				    :controller => '/pictures',
+				    :action => 'thumbnail',
+				    :id => content.essence.picture,
+				    :size => "111x93",
+				    :crop_from => content.essence.crop_from,
+				    :crop_size => content.essence.crop_size
+				),
 				:alt => content.essence.picture.name,
 				:class => 'img_paddingtop',
 				:title => _("image_name") + ": #{content.essence.picture.name}",
-				:onload => %(
-					this.up().previous().hide();
-					this.up().appear({duration: 0.6});
-				)
+				:onload => "Alchemy.fadeImage(this, '#picture_#{content.id} .picture_content_spinner');",
+				:style => "display: none;"
 			) %>
 			<%= hidden_field_tag "contents[content_#{content.id}][picture_id]", content.essence.picture.id %>
 		</div>

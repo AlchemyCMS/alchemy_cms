@@ -1,7 +1,11 @@
 <div class="element_head">
     <div class="element_handle">
-        <span class="element_icon" title="<%= element.name %>"></span>
-        <%= image_tag("alchemy/elements/element_#{element.public? ? 'public' : 'draft'}.gif", :class => "element_status", :alt => "") %>
+        <span class="element_icon"></span>
+		<%- if element.description.nil? -%>
+		<span class="warning icon" title="<%= _("Warning: Element '%{elementname}' is missing its description.") % {:elementname => element.name} %>"></span>
+		<%- else -%>
+        <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
+		<%- end -%>
     </div>
     <span class="element_heading">
         <%= content_tag("span", element.display_name, :class => "preview_text_element_name") %>
@@ -16,27 +20,12 @@
             :id => "element_#{element.id}_folder_spinner",
             :class => "element_folder_spinner"
         ) %>
-        <%= link_to_remote(
-            "",
-            :url => {
-                :controller => "elements",
-                :action => "fold",
-                :id => element.id,
-                :page_id => @page.id
-            },
-            :before => %(
-                $('element_#{element.id}_folder').hide();
-                $('element_#{element.id}_folder_spinner').show();
-            ),
-            :complete => %(
-                $('element_#{element.id}_folder').show();
-                $('element_#{element.id}_folder_spinner').hide();
-            ),
-            :html => {
-                :class => (element.folded? ? 'expand_element' : 'fold_element'),
-                :title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
-                :id => "element_#{element.id}_folder"
-            }
+		<%= link_to_function(
+			"",
+			"Alchemy.toggleElement(#{element.id}, '#{fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ _('Warning!') }', message: '#{ _('This element has unsaved changes. Do you really want to fold it?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'})",
+			:class => (element.folded? ? 'expand_element' : 'fold_element'),
+			:title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
+			:id => "element_#{element.id}_folder"
         ) %>
     </span>
 </div>

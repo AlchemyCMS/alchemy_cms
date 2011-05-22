@@ -1,0 +1,25 @@
+<div class="new_alchemy_element">
+<%- if @elements.blank? -%>
+	<p class="with_padding"><%= _('no_more_elements_to_add') %></p>
+<%- else -%>
+	<% remote_form_for(
+		[:admin, @element],
+		:html => {:class => "add_element_content"}
+	) do |form| %>
+		<div id="errors" style="display: none"></div>
+		<%= form.hidden_field('page_id') %>
+		<span style="margin-right: 16px"><%= _("element_of_type") %>:</span>
+		<%= form.select(
+			'name',
+			elements_for_select(@elements),
+			{:prompt => _('select_element')},
+			{:class => 'very_long'}
+		) -%>
+		<%= form.submit(
+			_('add'),
+			:class => 'button',
+			:name => nil
+		) %>
+	<% end %>
+<%- end -%>
+</div>

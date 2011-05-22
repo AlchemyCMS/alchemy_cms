@@ -12,16 +12,18 @@
 #     cache: Bool                   # Pass false to disable the caching for this pages.
 #     feed: Bool                    # Pass true to enable a RSS feed of news elements from this page.
 #     redirects_to_external: Bool   # Pass true to disable normal page rendering and redirect to a external page instead.
+#     controller: controller_name   # Controller to use instead of the default PagesController
+#     action: action_name           # Controllers action to use instead of the default PagesController#show
 
 - name: intro
   display_name: Intro
   unique: true
-  elements: [header, intro_image_text]
+  elements: [article, claim, header, bild, bild_text, text, intro, headline, image_mosaic, intro_image_text]
   autogenerate: [header, intro_image_text]
 
 - name: standard
   display_name: Standard
-  elements: [article, claim, header, bild, bild_text, text, headline, intro, image_mosaic]
+  elements: [article, claim, header, bild, bild_text, text, intro, headline, image_mosaic]
   autogenerate: [header, claim, article]
 
 - name: contact
@@ -48,11 +50,11 @@
 - name: layout_header
   display_name: Layout Header
   unique: true
-  hide: true
+  layoutpage: true
   elements: [sitename, header]
 
 - name: layout_footer
   display_name: Layout Footer
   unique: true
-  hide: true
+  layoutpage: true
   elements: [footnote]

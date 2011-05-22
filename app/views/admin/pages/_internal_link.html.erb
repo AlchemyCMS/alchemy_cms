@@ -1,17 +1,12 @@
-<div id="sitemap_for_links" class="link_window_tab_body">
+<div id="overlay_tab_internal_link">
 	<h2><%= _("internal_link_headline") %></h2>
 	<table class="window_form">
 		<tr>
 			<td colspan="2">
-				<div id="page_selector_scroll_container">
-					<div id="scrollbar_track">
-						<div id="scrollbar_handle"></div>
-					</div>
-					<div id="page_selector_container">
-						<ul id="sitemap">
-							<%= render :partial => 'page_for_links', :object => @page_root, :locals => {:area_name => @area_name} %>
-						</ul>
-					</div>
+				<div id="page_selector_container">
+					<ul id="sitemap">
+						<%= render :partial => 'page_for_links', :object => @page_root, :locals => {:area_name => @area_name} %>
+					</ul>
 				</div>
 			</td>
 		</tr>
@@ -20,12 +15,12 @@
 				<label for="internal_link_title" class="medium">Linktitel:</label>
 			</td>
 			<td class="input">
-				<%= text_field_tag "internal_link_title", {}, :class => 'thin_border auto_resize' %>
+				<%= text_field_tag "internal_link_title", {}, :class => 'thin_border auto_resize link_title' %>
 			</td>
 		</tr>
 		<tr>
 			<td class="checkbox">
-				<%= check_box_tag 'internal_link_target' %>
+				<%= check_box_tag 'internal_link_target', nil, nil, :class => 'link_target' %>
 			</td>
 			<td>
 				<label for="internal_link_target" class="very_long"><%= _("target_blank") %></label>
@@ -37,11 +32,8 @@
 		<%= hidden_field_tag( "page_anchor" ) %>
 		<%= link_to_function(
 	      _("apply"),
-	      "alchemyCreateLink('internal', $('internal_urlname').value + $('page_anchor').value, $('internal_link_title').value, $('internal_link_target').checked); link_window.close()",
+	      "Alchemy.createLink('internal', jQuery('#internal_urlname').val() + jQuery('#page_anchor').val(), jQuery('#internal_link_title').val(), jQuery('#internal_link_target').attr('checked')); Alchemy.CurrentLinkWindow.close()",
 	      :class => 'button'
 	    ) %>
 	</p>
 </div>
-<%- javascript_tag do -%>
-	page_select_scrollbar = new Control.ScrollBar('page_selector_container','scrollbar_track');
-<%- end -%>

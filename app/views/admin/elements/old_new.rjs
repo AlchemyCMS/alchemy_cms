@@ -1,5 +1,0 @@
-page.replace(
-  "add_element_#{@element_before.id rescue ''}",
-  :partial => "add_element",
-  :locals => {:element_before => @element_before, :open_element_selector => (params[:open] == 'true')}
-)

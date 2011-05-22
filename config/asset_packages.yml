@@ -1,91 +1,28 @@
 --- 
 javascripts:
-- default:
-  - alchemy/prototype
-  - alchemy/effects
+- combined:
+  - alchemy/jquery-1.5.min
+  - alchemy/jquery-ui-1.8.9.min
+  - alchemy/jquery.dialogextend.min
+  - alchemy/jquery.in-place-edit.js
+  - alchemy/jquery.Jcrop.min
+  - alchemy/jquery.sb.min
+  - alchemy/jquery.scrollTo-1.4.2-min
+  - alchemy/jquery.ui.nestedSortable
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
-  - alchemy/window
-  - alchemy/window_effects
-  - alchemy/alchemy_frame_set
-- login:
-  - alchemy/prototype
-  - alchemy/effects
-  - alchemy/window
-  - alchemy/window_effects
-  - alchemy/alchemy
-  - alchemy/alchemy_frame_set
-- sitemap:
-  - alchemy/prototype
-  - alchemy/effects
-  - alchemy/window
-  - alchemy/window_effects
-  - alchemy/alchemy
-  - alchemy/alchemy_selectbox
-  - alchemy/alchemy_frame_set
-  - alchemy/tooltip
-  - alchemy/dragdrop
-  - alchemy/sortable_tree
-- edit_page:
-  - alchemy/prototype
-  - alchemy/effects
-  - alchemy/controls
-  - alchemy/slider
-  - alchemy/livepipe
-  - alchemy/scrollbar
-  - alchemy/dragdrop
-  - alchemy/window
-  - alchemy/window_effects
-  - alchemy/alchemy
-  - alchemy/alchemy_selectbox
-  - alchemy/alchemy_frame_set
-  - alchemy/alchemy_element_editor_selector
-  - alchemy/cropper
-  - alchemy/alchemy_image_cropper
   - alchemy/swfupload/swfupload
+  - alchemy/swfupload/queue
   - alchemy/swfupload/handlers
   - alchemy/swfupload/fileprogress
-  - alchemy/swfupload/queue
-  - alchemy/jquery-1.4.2.min
-  - alchemy/jquery-ui-1.8.4.custom.min
 - preview:
-  - alchemy/prototype
-  - alchemy/alchemy_element_selector
-- archive:
-  - alchemy/prototype
-  - alchemy/effects
-  - alchemy/controls
-  - alchemy/window
-  - alchemy/window_effects
+  - alchemy/jquery-1.5.min
   - alchemy/alchemy
-  - alchemy/alchemy_selectbox
-  - alchemy/alchemy_frame_set
-  - alchemy/swfupload/swfupload
-  - alchemy/swfupload/handlers
-  - alchemy/swfupload/fileprogress
-  - alchemy/swfupload/queue
 
 stylesheets:
-- default:
-  - alchemy/alchemy
-  - alchemy/alchemy_window
-- login:
-  - alchemy/alchemy
-  - alchemy/alchemy_login
-  - alchemy/alchemy_window
-- sitemap:
-  - alchemy/alchemy
-  - alchemy/alchemy_window
-  - alchemy/alchemy_tooltip
-- edit_page:
+- combined:
   - alchemy/alchemy
   - alchemy/elements
-  - alchemy/contents
-  - alchemy/alchemy_window
-  - alchemy/alchemy_tooltip
-  - alchemy/cropper
   - alchemy/flags
-- archive:
-  - alchemy/alchemy
-  - alchemy/alchemy_window
-  - alchemy/alchemy_tooltip
+  - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery.Jcrop
+  - alchemy/jquery.sb

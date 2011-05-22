@@ -1,4 +1,4 @@
-major: 1
-minor: 4
-patch: 0
-build: pre
+MAJOR: 2
+MINOR: 0
+PATCH: 0
+BUILD: dev

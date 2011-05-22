@@ -1,9 +1,0 @@
-<div id="alchemy_element_preview_<%= element.id %>" class="alchemy_preview_element">
-	<%= render(
-	:partial => "elements/#{element.name.underscore}_view.#{options[:render_format]}.erb",
-	:locals => {
-		:element => element,
-		:options => options
-	}
-	) %>
-</div>

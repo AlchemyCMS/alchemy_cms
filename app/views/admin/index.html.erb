@@ -1,29 +1,77 @@
-<%- alchemy_assets_set(:default) -%>
+<%- alchemy_combined_assets -%>
 
 <%- content_for(:toolbar) do -%>
 <div id="toolbar"></div>
 <%- end -%>
 <div class="with_padding">
 	<div id="dashboard">
-		<h1><%= _('Welcome to Alchemy') %></h1>
+		<h1><%= _('Welcome back, %{name}') % {:name => current_user.firstname.blank? ? current_user.login : current_user.firstname} %></h1>
+		<h2><%= _('You were last time online at %{time}') % {:time => l(current_user.last_login_at)} unless current_user.last_login_at.blank? %></h2>
+		
+		<div class="widget">
+			<h2><%= _('Your last updated pages') %>:</h2>
+			<%- if @last_edited_pages.blank? -%>
+			<p><%= _('no pages') %></p>
+			<%- else -%>
+			<ul>
+				<%- @last_edited_pages.each do |page| -%>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
+				<%- end -%>
+			</ul>
+			<%- end -%>
+		</div>
+		
+		<div class="widget">
+			<h2><%= _('Currently locked pages') %>:</h2>
+			<%- if @locked_pages.blank? -%>
+			<p><%= _('no pages') %></p>
+			<%- else -%>
+			<ul>
+				<%- @locked_pages.each do |page| -%>
+				<li class="<%= cycle('even', 'odd') %>">
+					<%- if current_user.id == page.locked_by -%>
+					<%= link_to(page.name, edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
+					<% form_tag(unlock_admin_page_path(page, :redirect_to => request.path)) do %>
+				  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
+				  		    <%= render_icon('close small') %>
+				  	  </button>
+				  <% end %>
+					<%- else -%>
+					<%= page.name %> <small>(<%= page.locker.name %>)</small>
+					<%- end -%>
+				</li>
+				<%- end -%>
+			</ul>
+			<%- end -%>
+		</div>
+		
+		<div class="widget">
+			<h2><%= _('Who else is online') %>:</h2>
+			<%- if @online_users.blank? -%>
+			<p><%= _('no users') %></p>
+			<%- else -%>
+			<ul>
+				<%- @online_users.each do |user| -%>
+				<li class="<%= cycle('even', 'odd') %>"><%= user.name %> <small>(<%= I18n.t("user_roles.#{user.role}") %>)</small></li>
+				<%- end -%>
+			</ul>
+			<%- end -%>
+		</div>
 	</div>
 	<div id="sideboard">
-		<div class="sideboard_widget">
+		<div class="widget">
 			<%= image_tag("alchemy/alchemy-logo.png") %>
 			<p><%= _("Version") %>: <%= @alchemy_version %></p>
 			<p><%= _('Alchemy is open software and itself uses open software and free resources:') %></p>
 			<ul>
 				<li>
-					<a href="http://www.rubyonrails.com" target="_blank">RubyOnRails</a>
+					<a href="http://rubyonrails.org" target="_blank">RubyOnRails</a>
 				</li>
 				<li>
-					<a href="http://www.prototypejs.org" target="_blank">Prototype JavaScript Framework</a>
+					<a href="http://jquery.com" target="_blank">jQuery Javascript Library</a>
 				</li>
 				<li>
-					<a href="http://prototype-window.xilinus.com" target="_blank">Prototype Window Class</a>
-				</li>
-				<li>
-					<a href="http://script.aculo.us/" target="_blank">script.aculo.us JavaScript Animation Framework</a>
+					<a href="http://jqueryui.com" target="_blank">jQuery UI Javascript GUI Library</a>
 				</li>
 				<li>
 					<a href="http://tinymce.moxiecode.com" target="_blank">TinyMCE - Javascript WYSIWYG Editor</a>
@@ -34,45 +82,13 @@
 				<li>
 					<a href="http://p.yusukekamiyamane.com" target="_blank">Fugue Icons by Yusuke Kamiyamane</a>
 				</li>
-				<li>
-					<a href="http://www.defusion.org.uk" target="_blank">jsCropperUI by David Spurr</a>
-				</li>
 			</ul>
 			<h2>
 				<%= link_to_function(
 					_('Read the License'),
-					"openLicencseWindow()"
+					"Alchemy.openLicencseWindow()"
 				) %>
 			</h2>
-			<%- content_for :javascripts do -%>
-			<script type="text/javascript" charset="utf-8">
-			// <![CDATA[
-				function openLicencseWindow() {
-					license_window = new Window({
-						className: 'alchemy_window',
-						title: 'GNU GPL License',
-						url: 'http://www.gnu.org/licenses/gpl-3.0.txt',
-						width: 640,
-						height: document.viewport.getDimensions().height - 150,
-						minWidth: 640,
-						minHeight: 550,
-						maximizable: false,
-						minimizable: false,
-						resizable: true,
-						draggable: true,
-						zIndex: 300000,
-						closable: true,
-						destroyOnClose: true,
-						recenterAuto: false,
-						effectOptions: {
-							duration: 0.2
-						}
-					});
-					license_window.showCenter(true);
-				}
-			// ]]>
-			</script>
-			<%- end -%>
 		</div>
 	</div>
 </div>

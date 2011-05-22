@@ -53,7 +53,6 @@ class Admin::PicturesController < AlchemyController
       @page = params[:page]
       @per_page = params[:per_page]
     end
-    
     if params[:per_page] == 'all'
       @pictures = Picture.find(
         :all,
@@ -69,9 +68,13 @@ class Admin::PicturesController < AlchemyController
         :per_page => (params[:per_page] || 32)
       )
     end
-    if params[ActionController::Base.session[:key]].blank?
+    @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}
+    if params[ActionController::Base.session_options[:key].to_sym].blank?
+      flash[:notice] = @message
       redirect_to :back
     end
+  rescue Exception => e
+    exception_handler(e)
   end
   
   def archive_overlay
@@ -98,13 +101,20 @@ class Admin::PicturesController < AlchemyController
   def update
     @picture = Picture.find(params[:id])
     oldname = @picture.name
-    @picture.name = params[:value]
-    if @picture.save
-      render :update do |page|
-        page.replace "picture_#{@picture.id}", :partial => "picture", :locals => {:picture => @picture}
-        Alchemy::Notice.show_via_ajax(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
-      end
+    @picture.name = params[:name]
+    @picture.save
+    render :update do |page|
+      page.replace "picture_#{@picture.id}", :partial => "picture", :locals => {:picture => @picture}
+      page << %(
+        Alchemy.inPlaceEditor({
+    			save_label: "#{ _('save') }",
+    			cancel_label: "#{ _('cancel') }"
+    		});
+      )
+      Alchemy::Notice.show(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
     end
+  rescue Exception => e
+    exception_handler(e)
   end
   
   def destroy
@@ -124,13 +134,13 @@ class Admin::PicturesController < AlchemyController
       expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
     end
     render :update do |page|
-      Alchemy::Notice.show_via_ajax(page, _('Picture cache flushed'))
+      Alchemy::Notice.show(page, _('Picture cache flushed'))
     end
   end
   
   def show_in_window
     @picture = Picture.find(params[:id])
-    render :layout => 'picture_zoom'
+    render :layout => false
   end
   
 end
