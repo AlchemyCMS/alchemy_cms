@@ -26,12 +26,12 @@ Rails.application.routes.draw do |map|
   match '/pictures/thumbnails/:id/:size/thumbnail.png' => 'pictures#thumbnail',
     :as => :thumbnail
   match '/:lang' => 'pages#show',
-    :constraints => {:lang => Regexp.new(Alchemy::Config.available_languages.join('|'))},
+    :constraints => {:lang => Regexp.new(Alchemy::Language.all_codes_for_published.join('|'))},
     :as => :show_language_root
   match '/:urlname(.:format)' => 'pages#show',
     :as => :show_page
   match '/:lang/:urlname(.:format)' => 'pages#show',
-    :constraints => {:lang => Regexp.new(Alchemy::Config.available_languages.join('|'))},
+    :constraints => {:lang => Regexp.new(Alchemy::Language.all_codes_for_published.join('|'))},
     :as => :show_page_with_language
   
   resources :user_sessions
