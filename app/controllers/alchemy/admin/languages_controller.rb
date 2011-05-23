@@ -7,7 +7,7 @@ module Alchemy
   
     def index
       if !params[:query].blank?
-        @languages = Language.all(
+        @languages = Alchemy::Language.all(
           :conditions => [
             "languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
             "%#{params[:query]}%",
@@ -16,12 +16,12 @@ module Alchemy
           ]
         )
       else
-        @languages = Language.all
+        @languages = Alchemy::Language.all
       end
     end
   
     def new
-      @language = Language.new
+      @language = Alchemy::Language.new
       render :layout => false
     end
   
@@ -30,7 +30,7 @@ module Alchemy
     end
   
     def create
-      @language = Language.new(params[:language])
+      @language = Alchemy::Language.new(params[:language])
       @language.save
       render_errors_or_redirect(
         @language,
@@ -67,7 +67,7 @@ module Alchemy
   private
   
     def find_language
-      @language = Language.find(params[:id])
+      @language = Alchemy::Language.find(params[:id])
     end
   
   end

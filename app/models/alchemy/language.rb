@@ -13,7 +13,7 @@ module Alchemy
     validates_format_of :code, :with => /^[a-z]{2}$/
     before_destroy :check_for_default
     after_update :set_pages_language, :if => proc { |m| m.code_changed? }
-    before_update :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
+    before_update :remove_old_default, :if => proc { |m| m.default_changed? && m != Alchemy::Language.get_default }
   
     scope :published, where(:public => true)
   
@@ -43,7 +43,7 @@ module Alchemy
     end
 
     def presence_of_default_language
-      if Language.get_default == self && self.default_changed?
+      if Alchemy::Language.get_default == self && self.default_changed?
         errors.add_to_base(N_("we_need_at_least_one_default"))
         return false
       else
@@ -52,7 +52,7 @@ module Alchemy
     end
 
     def remove_old_default
-      lang = Language.get_default
+      lang = Alchemy::Language.get_default
       return true if lang.nil?
       lang.default = false
       lang.save(false)

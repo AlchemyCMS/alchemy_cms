@@ -15,7 +15,7 @@
 			<%- else -%>
 			<ul>
 				<%- @last_edited_pages.each do |page| -%>
-				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
+				<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_alchemy_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
 				<%- end -%>
 			</ul>
 			<%- end -%>
@@ -30,8 +30,8 @@
 				<%- @locked_pages.each do |page| -%>
 				<li class="<%= cycle('even', 'odd') %>">
 					<%- if current_user.id == page.locked_by -%>
-					<%= link_to(page.name, edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
-					<%= form_tag(unlock_admin_page_path(page, :redirect_to => request.path)) do %>
+					<%= link_to(page.name, edit_alchemy_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
+					<%= form_tag(unlock_alchemy_admin_page_path(page, :redirect_to => request.path)) do %>
 				  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
 				  		    <%= render_icon('close small') %>
 				  	  </button>

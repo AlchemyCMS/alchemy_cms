@@ -5,12 +5,12 @@
 <label><%= _('Active Pages') %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-	<%= link_to edit_admin_page_path(page) do %>
+	<%= link_to edit_alchemy_admin_page_path(page) do %>
 	<span class="page_name" title="<%= page.name %>">
 		<%= truncate page.name, :length => 15 %>
 	</span>
 	<% end %>
-	<%= form_remote_tag(:url => unlock_admin_page_path(page)) do %>
+	<%= form_remote_tag(:url => unlock_alchemy_admin_page_path(page)) do %>
 	<button class="icon_button small" title="<%= _('explain_unlocking') %>">
 		<%= render_icon('close small') %>
 	</button>
@@ -26,7 +26,7 @@
 		<div class="button_with_label">
 			<%= select_tag(
 				'language', 
-				options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+				options_for_select(Alchemy::Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
 				:onchange => %(
 					Alchemy.pleaseWaitOverlay();
 					jQuery.get('/admin/pages/switch_language', {
@@ -40,7 +40,7 @@
 		<div class="button_with_label">
 			<%= link_to_remote(
 				content_tag('span', '', :class => 'icon flush'),
-				:url => flush_admin_pages_path,
+				:url => flush_alchemy_admin_pages_path,
 				:before => 'Alchemy.pleaseWaitOverlay()',
 				:complete => 'Alchemy.pleaseWaitOverlay(false)',
 				:html => {:class => 'icon_button',
@@ -53,7 +53,7 @@
 		<div class="button_with_label" id="page_sorting_button">
 			<%= link_to_remote(
 				content_tag('span', '', :class => 'icon sort'),
-				:url => sort_admin_pages_path,
+				:url => sort_alchemy_admin_pages_path,
 				:before => 'Alchemy.pleaseWaitOverlay();',
 				:complete => 'Alchemy.pleaseWaitOverlay(false);',
 				:method => :get,
@@ -66,7 +66,7 @@
 		<div class="button_with_label" id="clipboard_button">
 			<%= link_to_overlay_window(
 				render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-				admin_clipboard_index_path(:remarkable_type => 'page'),
+				alchemy_admin_clipboard_index_path(:remarkable_type => 'page'),
 				{
 					:title => _('Clipboard'),
 					:size => '380x270'
@@ -93,7 +93,7 @@
 		<%= _('Explain|Sitemap|Dragndrop sorting') %>
 	</div>
 	<div id="bottom_buttons">
-		<%= link_to( _('cancel'), admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
+		<%= link_to( _('cancel'), alchemy_admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
 		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>
 	</div>
 </div>

@@ -52,7 +52,7 @@ class Alchemy::ApplicationController < ApplicationController
   end
 
   def set_language_to(language_id)
-    @language = Language.find(language_id)
+    @language = Alchemy::Language.find(language_id)
     if @language
       session[:language_id] = @language.id
       session[:language_code] = @language.code
@@ -63,7 +63,7 @@ class Alchemy::ApplicationController < ApplicationController
   end
 
   def multi_language?
-    Language.published.count > 1
+    Alchemy::Language.published.count > 1
   end
 
   def current_user
@@ -121,7 +121,7 @@ private
     else
       language_code = params[:lang]
     end
-    @language = Language.find_by_code(language_code) || Language.get_default
+    @language = Alchemy::Language.find_by_code(language_code) || Alchemy::Language.get_default
     if @language.blank?
       logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
@@ -205,7 +205,7 @@ protected
 
   # Setting language relevant stuff to defaults.
   def set_language_to_default
-    @language = Language.get_default
+    @language = Alchemy::Language.get_default
     session[:language_id] = @language.id
     session[:language_code] = @language.code
     I18n.locale = @language.code

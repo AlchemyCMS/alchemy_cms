@@ -1,8 +1,8 @@
 <div id="archive_all">
 	<h1><%= _("language_does_not_exist") %></h1>
-	<%- lang = Language.find(session[:language_id]) -%>
+	<%- lang = Alchemy::Language.find(session[:language_id]) -%>
 	<%- if lang -%>
-		<%- languages = Language.all_for_created_language_trees -%>
+		<%- languages = Alchemy::Language.all_for_created_language_trees -%>
 		<%- if languages.size >= 1 -%>
 			<p><%= _("want_to_make_copy_of_existing_language") %></p>
 			<%- form_tag("/admin/pages/copy_language", :onsubmit => 'Alchemy.pleaseWaitOverlay();') do -%>
@@ -27,7 +27,7 @@
 		    <%= _("want_to_create_new_language") %>
 		</p>
 		<%- end -%>
-		<%= remote_form_for([:admin, Alchemy::Page.new]) do |form| %>
+		<%= remote_form_for([:alchemy, :admin, Alchemy::Page.new]) do |form| %>
 			<%= form.hidden_field :name, :value => lang.frontpage_name %>
 			<%= form.hidden_field :language_id, :value => lang.id %>
 			<%= form.hidden_field :language_code, :value => lang.code %>

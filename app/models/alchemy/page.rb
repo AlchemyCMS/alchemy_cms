@@ -293,7 +293,7 @@ module Alchemy
     end
   
     def self.public_language_roots
-      public_language_codes = Language.all_codes_for_published
+      public_language_codes = Alchemy::Language.all_codes_for_published
       all(:conditions => "language_root = 1 AND language_code IN ('#{public_language_codes.join('\',\'')}') AND public = 1")
     end
   
@@ -348,7 +348,7 @@ module Alchemy
     def self.find_or_create_layout_root_for(language_id)
       layoutroot = layout_root_for(language_id)
       return layoutroot if layoutroot
-      language = Language.find(language_id)
+      language = Alchemy::Language.find(language_id)
       layoutroot = Alchemy::Page.new({
         :name => "Layoutroot for #{language.name}",
         :layoutpage => true, 

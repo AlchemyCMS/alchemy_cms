@@ -1165,9 +1165,7 @@ a.folder_link {
 	height: 21px;
 }
 
-.sitemap_sitetools .icon_spacer {
-	width: 16px;
-	height: 16px;
+.sitemap_sitetools .icon.blank {
 	margin-left: 2px;
 	float: left;
 	margin-top: 3px;
@@ -1467,6 +1465,10 @@ span.icon {
 	background: url(/images/alchemy/icons.png) no-repeat;
 	width: 16px;
 	height: 16px;
+}
+
+.icon.blank {
+  background: transparent;
 }
 
 span.icon.sort {

@@ -27,12 +27,12 @@
 	<table class="list" id="language_list">
 		<%- unless @languages.blank? -%>
 		<tr>
-			<th class="name"><%= Language.human_attribute_name("name") %></th>
-			<th class="code"><%= Language.human_attribute_name("code") %></th>
-			<th class="name"><%= Language.human_attribute_name("frontpage_name") %></th>
-			<th class="name"><%= Language.human_attribute_name("page_layout") %></th>
-			<th class="public"><%= Language.human_attribute_name("public") %></th>
-			<th class="public"><%= Language.human_attribute_name("default") %></th>
+			<th class="name"><%= Alchemy::Language.human_attribute_name("name") %></th>
+			<th class="code"><%= Alchemy::Language.human_attribute_name("code") %></th>
+			<th class="name"><%= Alchemy::Language.human_attribute_name("frontpage_name") %></th>
+			<th class="name"><%= Alchemy::Language.human_attribute_name("page_layout") %></th>
+			<th class="public"><%= Alchemy::Language.human_attribute_name("public") %></th>
+			<th class="public"><%= Alchemy::Language.human_attribute_name("default") %></th>
 			<th class="tools"></th>
 		</tr>
 		<%- end -%>
