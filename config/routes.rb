@@ -1,122 +1,127 @@
 Rails.application.routes.draw do |map|
-  root :to => 'pages#show'
+  
+  root :to => 'alchemy/pages#show'
   
   match '/admin' => 'alchemy/admin#index',
     :as => :admin
-  match '/admin/login' => 'admin#login',
+  match '/admin/login' => 'alchemy/admin#login',
     :as => :login
-  match '/admin/logout' => 'admin#logout',
+  match '/admin/logout' => 'alchemy/admin#logout',
     :as => :logout
-  match '/admin/pages/layoutpages' => 'admin#pages#layoutpages',
+  match '/admin/pages/layoutpages' => 'alchemy/admin/pages#layoutpages',
     :as => :admin_layoutpages
-  match '/attachment/:id/download' => 'attachments#download',
+  match '/attachment/:id/download' => 'alchemy/attachments#download',
     :as => :download_attachment
-  match '/attachment/:id/show' => 'attachments#show',
+  match '/attachment/:id/show' => 'alchemy/attachments#show',
     :as => :show_attachment
-  match '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format' => 'pictures#show',
+  match '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format' => 'alchemy/pictures#show',
     :as => :show_cropped_picture
-  match '/pictures/show/:id/:size/:crop/:name.:format' => 'pictures#show',
+  match '/pictures/show/:id/:size/:crop/:name.:format' => 'alchemy/pictures#show',
     :as => :show_picture_with_crop
-  match '/pictures/show/:id/:size/:name.:format' => 'pictures#show',
+  match '/pictures/show/:id/:size/:name.:format' => 'alchemy/pictures#show',
     :as => :show_picture
-  match '/pictures/zoom/:id/picture.png' => 'pictures#zoom',
+  match '/pictures/zoom/:id/picture.png' => 'alchemy/pictures#zoom',
     :as => :zoom_picture
-  match  '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png' => 'pictures#thumbnail',
+  match  '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png' => 'alchemy/pictures#thumbnail',
     :as => :croppped_thumbnail
-  match '/pictures/thumbnails/:id/:size/thumbnail.png' => 'pictures#thumbnail',
+  match '/pictures/thumbnails/:id/:size/thumbnail.png' => 'alchemy/pictures#thumbnail',
     :as => :thumbnail
-  match '/:lang' => 'pages#show',
+  match '/:lang' => 'alchemy/pages#show',
     :constraints => {:lang => Regexp.new(Alchemy::Language.all_codes_for_published.join('|'))},
     :as => :show_language_root
-  match '/:urlname(.:format)' => 'pages#show',
+  match '/:urlname(.:format)' => 'alchemy/pages#show',
     :as => :show_page
-  match '/:lang/:urlname(.:format)' => 'pages#show',
+  match '/:lang/:urlname(.:format)' => 'alchemy/pages#show',
     :constraints => {:lang => Regexp.new(Alchemy::Language.all_codes_for_published.join('|'))},
     :as => :show_page_with_language
   
-  resources :user_sessions
-  resources :elements, :only => :show
-  resources :mails
-  
-  namespace :admin do 
+  namespace :alchemy do
     
-    resources :users
-    
-    resources :contents do
-      collection do 
-        post :order
+    resources :user_sessions
+    resources :elements, :only => :show
+    resources :mails
+
+    namespace :admin do 
+
+      resources :users
+
+      resources :contents do
+        collection do 
+          post :order
+        end
       end
-    end
-    
-    resources :elements do 
-      resources :contents
-      collection do 
-        get :list
-        post :order
+
+      resources :elements do 
+        resources :contents
+        collection do 
+          get :list
+          post :order
+        end
+        member do
+          post :fold
+        end
       end
-      member do
-        post :fold
+
+      resources :pages do 
+        collection do 
+          get :switch_language
+          get :create_language
+          get :link
+          get :layoutpages
+          get :sort
+          post :order
+          post :flush
+        end
+        member do 
+          post :publish
+          post :unlock
+          get :configure
+          get :preview
+        end
+        resources :elements
       end
-    end
-    
-    resources :pages do 
-      collection do 
-        get :switch_language
-        get :create_language
-        get :link
-        get :layoutpages
-        get :sort
-        post :order
-        post :flush
+
+      resources :pictures do 
+        collection do 
+          get :archive_overlay
+          get :add_upload_form
+          post :flush
+        end
+        member do 
+          delete :remove
+        end
       end
-      member do 
-        post :publish
-        post :unlock
-        get :configure
-        get :preview
+
+      resources :attachments do 
+        collection do 
+          get :archive_overlay
+          get :add_upload_form
+        end
+        member do 
+          get :download
+        end
       end
-      resources :elements
-    end
-    
-    resources :pictures do 
-      collection do 
-        get :archive_overlay
-        get :add_upload_form
-        post :flush
+
+      resources :essence_pictures, :except => [:show, :new, :create] do 
+        member do 
+          get :crop
+        end
       end
-      member do 
-        delete :remove
+
+      resources :essence_files
+
+      resources :essence_videos
+
+      resources :languages
+
+      resources :clipboard, :only => :index do
+        collection do
+          delete :clear
+          post :insert
+          delete :remove
+        end
       end
-    end
-    
-    resources :attachments do 
-      collection do 
-        get :archive_overlay
-        get :add_upload_form
-      end
-      member do 
-        get :download
-      end
-    end
-    
-    resources :essence_pictures, :except => [:show, :new, :create] do 
-      member do 
-        get :crop
-      end
-    end
-    
-    resources :essence_files
-    
-    resources :essence_videos
-    
-    resources :languages
-    
-    resources :clipboard, :only => :index do
-      collection do
-        delete :clear
-        post :insert
-        delete :remove
-      end
+
     end
     
   end
