@@ -1,10 +1,15 @@
+# require 'fast_gettext'
+# require 'rails'
+# require File.join(File.dirname(__FILE__), '../../app/models/alchemy', 'language')
+# require File.join(File.dirname(__FILE__), '../../app/models/alchemy', 'page')
+
 module Alchemy
   class Seeder
     
     # This seed builds the necessary page structure for alchemy in your db.
     # Put Alchemy::Seeder.seed! inside your db/seeds.rb file and run it with rake db:seed.
     def self.seed!
-      FastGettext.add_text_domain 'alchemy', :path => File.join(Rails.root, 'vendor/plugins/alchemy/locale')
+      FastGettext.add_text_domain 'alchemy', :path => File.join(File.dirname(__FILE__), '../../locale')
       FastGettext.text_domain = 'alchemy'
       FastGettext.available_locales = ['de', 'en']
       FastGettext.locale = Alchemy::Config.get(:default_translation)
@@ -14,7 +19,7 @@ module Alchemy
       
       default_language = Alchemy::Config.get(:default_language)
       
-      lang = Language.find_or_initialize_by_code(
+      lang = Alchemy::Language.find_or_initialize_by_code(
         :name => default_language['name'],
         :code => default_language['code'],
         :frontpage_name => default_language['frontpage_name'],
@@ -32,7 +37,7 @@ module Alchemy
         notices << "== Skipping! Language #{lang.name} was already present"
       end
       
-      root = Page.find_or_initialize_by_name(
+      root = Alchemy::Page.find_or_initialize_by_name(
         :name => 'Root',
         :page_layout => "rootpage",
         :do_not_autogenerate => true,
@@ -52,7 +57,7 @@ module Alchemy
         notices << "== Skipping! Page #{root.name} was already present"
       end
       
-      index = Page.find_or_initialize_by_name(
+      index = Alchemy::Page.find_or_initialize_by_name(
         :name => lang.frontpage_name,
         :page_layout => lang.page_layout,
         :language => lang,
@@ -84,10 +89,10 @@ module Alchemy
     # Put Alchemy::Seeder.upgrade! inside your db/seeds.rb file and run it with rake db:seed.
     def self.upgrade!
       seed!
-      Page.all.each do |page|
+      Alchemy::Page.all.each do |page|
         if !page.language_code.blank? && page.language.nil?
           root = page.get_language_root
-          lang = Language.find_or_create_by_code(
+          lang = Alchemy::Language.find_or_create_by_code(
             :name => page.language_code.capitalize,
             :code => page.language_code,
             :frontpage_name => root.name,
@@ -102,8 +107,8 @@ module Alchemy
           puts "== Skipping! Language for page #{page.name} already set."
         end
       end
-      default_language = Language.get_default
-      Page.layoutpages.each do |page|
+      default_language = Alchemy::Language.get_default
+      Alchemy::Page.layoutpages.each do |page|
         if page.language.class == String || page.language.nil?
           page.language = default_language
           if page.save(false)

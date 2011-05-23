@@ -1,6 +1,7 @@
 # This is the main Alchemy controller all other controllers inheret from.
 
 require 'userstamp'
+require 'dynamic_form'
 
 module Alchemy
   class AlchemyController < ApplicationController

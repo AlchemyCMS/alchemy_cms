@@ -140,11 +140,13 @@ Gem::Specification.new do |s|
     "app/views/alchemy/admin/pages/update.rjs",
     "app/views/alchemy/admin/partials/_flash.html.erb",
     "app/views/alchemy/admin/partials/_flash_notices.html.erb",
+    "app/views/alchemy/admin/partials/_mainnavigation_entry.html.erb",
     "app/views/alchemy/admin/partials/_pagination_links.html.erb",
     "app/views/alchemy/admin/partials/_per_page_links.html.erb",
     "app/views/alchemy/admin/partials/_remote_pagination_links.html.erb",
     "app/views/alchemy/admin/partials/_remote_search_form.html.erb",
     "app/views/alchemy/admin/partials/_search_form.html.erb",
+    "app/views/alchemy/admin/partials/_sub_navigation.html.erb",
     "app/views/alchemy/admin/partials/_upload_form.html.erb",
     "app/views/alchemy/admin/pictures/_archive_overlay_images.html.erb",
     "app/views/alchemy/admin/pictures/_filter_and_size_bar.html.erb",
@@ -220,11 +222,8 @@ Gem::Specification.new do |s|
     "app/views/alchemy/essences/_essence_text_view.html.erb",
     "app/views/alchemy/essences/_essence_video_editor.html.erb",
     "app/views/alchemy/essences/_essence_video_view.html.erb",
-    "app/views/alchemy/layouts/alchemy.html.erb",
     "app/views/alchemy/layouts/login.html.erb",
     "app/views/alchemy/layouts/pages.html.erb",
-    "app/views/alchemy/layouts/partials/_mainnavigation_entry.html.erb",
-    "app/views/alchemy/layouts/partials/_sub_navigation.html.erb",
     "app/views/alchemy/layouts/sitemap.xml.erb",
     "app/views/alchemy/mailer/mail.erb",
     "app/views/alchemy/mailer/new_alchemy_user_mail.erb",
@@ -250,6 +249,7 @@ Gem::Specification.new do |s|
     "app/views/alchemy/pictures/show.png.flexi",
     "app/views/alchemy/pictures/thumbnail.png.flexi",
     "app/views/alchemy/pictures/zoom.png.flexi",
+    "app/views/layouts/alchemy.html.erb",
     "assets/images/ajax_loader.gif",
     "assets/images/alchemy-logo.png",
     "assets/images/flags.png",
@@ -458,6 +458,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<mimetype-fu>, [">= 0.1.2"])
       s.add_runtime_dependency(%q<sortifiable>, [">= 0.2.3"])
       s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
+      s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
     else
       s.add_dependency(%q<rails>, ["< 3.1", ">= 3.0.7"])
       s.add_dependency(%q<mysql2>, ["< 0.3", ">= 0.2"])
@@ -471,6 +472,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<mimetype-fu>, [">= 0.1.2"])
       s.add_dependency(%q<sortifiable>, [">= 0.2.3"])
       s.add_dependency(%q<userstamp>, [">= 2.0.1"])
+      s.add_dependency(%q<dynamic_form>, [">= 1.1.4"])
     end
   else
     s.add_dependency(%q<rails>, ["< 3.1", ">= 3.0.7"])
@@ -485,6 +487,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<mimetype-fu>, [">= 0.1.2"])
     s.add_dependency(%q<sortifiable>, [">= 0.2.3"])
     s.add_dependency(%q<userstamp>, [">= 2.0.1"])
+    s.add_dependency(%q<dynamic_form>, [">= 1.1.4"])
   end
 end
 
