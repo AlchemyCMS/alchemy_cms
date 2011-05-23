@@ -43,7 +43,7 @@ class Alchemy::Migrator < ActiveRecord::Migrator
     end
     
     def schema_migrations_table_missing?
-      ActiveRecord::Base.connection.execute("SHOW TABLES").num_rows == 0
+      ActiveRecord::Base.connection.execute("SHOW TABLES").none?
     end
     
   end
