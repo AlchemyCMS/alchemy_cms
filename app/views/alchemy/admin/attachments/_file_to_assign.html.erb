@@ -4,16 +4,17 @@
 -%>
 <%- img_tag = "#{prefix}#{render_icon(file_to_assign.icon_css_class)}#{suffix}" -%>
 <div class="assign_file_file" name="<%= file_to_assign.filename %>">
-  <%= link_to_remote(
-    img_tag,
-      :url => {
-        :controller => :essence_files,
-        :action => :assign,
-        :attachment_id => file_to_assign.id,
-        :id => @content.id,
-        :options => @options
-      },
-      :method => 'post',
-      :html => {:title => file_to_assign.filename}
-    ) %>
+	<%= link_to(
+		img_tag,
+		{
+			:controller => :essence_files,
+			:action => :assign,
+			:attachment_id => file_to_assign.id,
+			:id => @content.id,
+			:options => @options
+		},
+		:remote => true,
+		:method => 'post',
+		:title => file_to_assign.filename
+	) %>
 </div>

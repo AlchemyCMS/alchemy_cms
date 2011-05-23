@@ -10,7 +10,7 @@
 		<div class="overlay_image_spinner spinner">
 			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
 		</div>
-		<%= link_to_remote(
+		<%= link_to(
 			image_tag(
 				thumbnail_url(
 					:id => picture_to_assign,
@@ -20,11 +20,10 @@
 				:onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .overlay_image_spinner');",
 				:style => "display: none;"
 			),
-			:url => action_url,
+			action_url,
+			:remote => true,
 			:method => action_method,
-			:html => {
-				:title => _("assign_image")
-			}
+			:title => _("assign_image")
 		) %>
 	</div>
 	<div class="picture_to_assign_name" title="<%= picture_to_assign.name %>">

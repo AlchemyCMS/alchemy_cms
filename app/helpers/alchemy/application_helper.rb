@@ -678,18 +678,17 @@ module Alchemy
         css_class = 'collapsed'
         title = _('Hide childpages')
       end
-      link_to_remote(
+      link_to(
         '',
-        :url => {
+        {
           :controller => 'admin/pages',
           :action => :fold,
           :id => page.id
         },
-        :html => {
-          :class => "page_folder #{css_class}",
-          :title => title,
-          :id => "fold_button_#{page.id}"
-        }
+        :remote => true,
+        :class => "page_folder #{css_class}",
+        :title => title,
+        :id => "fold_button_#{page.id}"
       )
     end
   
@@ -1056,21 +1055,18 @@ module Alchemy
         :label => _('add new content')
       }
       options = defaults.merge(options)
-      link_to_remote(
+      link_to(
         options[:label],
-        {
-          :url => contents_path(
-            :content => {
-              :name => options[:content_name],
-              :element_id => element.id
-            }
-          ),
-          :method => 'post'
-        },
-        {
-          :id => "add_content_for_element_#{element.id}",
-          :class => 'button new_content_link'
-        }
+        contents_path(
+          :content => {
+            :name => options[:content_name],
+            :element_id => element.id
+          }
+        ),
+        :method => 'post',
+        :remote => true,
+        :id => "add_content_for_element_#{element.id}",
+        :class => 'button new_content_link'
       )
     end
   

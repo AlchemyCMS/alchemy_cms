@@ -9,21 +9,19 @@
 				:title => _("delete_element")
 			}
 		) -%>
-		<%= link_to_remote(
+		<%= link_to(
 			"",
-			:url => insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id, :remove => true),
-			:html => {
-				:class => "element_move_button",
-				:title => _("cut_element")
-			}
+			insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id, :remove => true),
+			:remote => true,
+			:class => "element_move_button",
+			:title => _("cut_element")
 		) %>
-		<%= link_to_remote(
+		<%= link_to(
 			"",
-			:url => insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id),
-			:html => {
-				:class => "element_copy_button",
-				:title => _("copy_element")
-			}
+			insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id),
+			:remote => true,
+			:class => "element_copy_button",
+			:title => _("copy_element")
 		) %>
 	</span>
 	<span class="element_public">

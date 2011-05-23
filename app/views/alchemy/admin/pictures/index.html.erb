@@ -19,13 +19,14 @@
 		<%- end -%>
 		<%- permitted_to?(:flush, :admin_pictures) do -%>
 		<div class="button_with_label">
-			<%= link_to_remote(
+			<%= link_to(
 				content_tag('span', '', :class => 'icon flush'),
-				:url => flush_admin_pictures_path,
+				flush_admin_pictures_path,
 				:before => 'Alchemy.pleaseWaitOverlay();',
 				:complete => 'Alchemy.pleaseWaitOverlay(false);',
-				:html => {:class => 'icon_button',
-				:title => _('Flush picture cache')}
+				:class => 'icon_button',
+				:remote => true,
+				:title => _('Flush picture cache')
 			) -%><br />
 			<label><%= _('Flush picture cache') %></label>
 		</div>

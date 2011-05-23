@@ -38,16 +38,15 @@
 					<%- permitted_to?([:new, :destroy, :copy], :admin_pages) do -%>
 					<span class="sitemap_sitetools">
 						<%- permitted_to?(:copy, :admin_pages) do -%>
-						<%= link_to_remote(
+						<%= link_to(
 							render_icon("copy_page"),
-							:url => insert_admin_clipboard_path(
+							insert_admin_clipboard_path(
 								:remarkable_type => layoutpage.class.to_s,
 								:remarkable_id => layoutpage.id
 							),
-							:html => {
-								:class => "",
-								:title => _("copy_page")
-							}
+							:remote => true,
+							:class => "",
+							:title => _("copy_page")
 						) %>
 						<%- end -%>
 						<%- permitted_to?(:destroy, :admin_pages) do -%>
