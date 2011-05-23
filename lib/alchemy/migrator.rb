@@ -6,8 +6,10 @@
 #
 # Taken from the Engines plugin
 #
-class Alchemy::Migrator < ActiveRecord::Migrator
+require 'active_record'
 
+class Alchemy::Migrator < ActiveRecord::Migrator
+  
   class << self
     # Runs the migrations, up to the version given
     def run_migration(version)

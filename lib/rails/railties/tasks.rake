@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+require 'alchemy/migrator'
+
 namespace :db do
   namespace :migrate do
     
