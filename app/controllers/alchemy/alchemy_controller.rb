@@ -1,4 +1,7 @@
 # This is the main Alchemy controller all other controllers inheret from.
+
+require 'userstamp'
+
 module Alchemy
   class AlchemyController < ApplicationController
 
@@ -14,7 +17,7 @@ module Alchemy
     before_filter :set_language
   
     helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :get_clipboard
-    helper :errors, :layout
+    helper 'alchemy/errors', 'alchemy/layout'
 
     def render_errors_or_redirect(object, redicrect_url, flash_notice)
       if object.errors.empty?
