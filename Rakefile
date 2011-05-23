@@ -123,6 +123,7 @@ begin
     gem.add_dependency 'mimetype-fu', '>= 0.1.2'
     gem.add_dependency 'sortifiable', '>= 0.2.3'
     gem.add_dependency 'userstamp', '>= 2.0.1'
+    gem.add_dependency 'dynamic_form', '>= 1.1.4'
   end
 rescue LoadError
   puts "Jeweler or one of its dependencies is not installed."
