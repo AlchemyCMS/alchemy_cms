@@ -22,11 +22,13 @@ module Alchemy
     end
   
     def self.all_codes_for_published
-      Language.published.collect(&:code)
+      self.published.collect(&:code)
+    rescue
+      []
     end
   
     def self.get_default
-      Language.find_by_default(true)
+      self.find_by_default(true)
     end
   
   private
