@@ -1015,7 +1015,7 @@ module Alchemy
     # Helper for including the nescessary javascripts and stylesheets for the different views.
     # Together with the rails caching we achieve a good load time.
     def alchemy_assets_set(setname = 'combined')
-      asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
+      asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', '..', 'config/asset_packages.yml'))
       content_for(:javascript_includes) do 
         js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
         javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)

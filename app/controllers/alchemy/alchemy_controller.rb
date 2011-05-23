@@ -209,7 +209,7 @@ module Alchemy
       session[:language_code] = @language.code
       I18n.locale = @language.code
     rescue
-      log_error($!)
+      exception_logger($!)
       flash[:error] = _('no_default_language_found')
     end
   

@@ -6,6 +6,8 @@ Rails.application.routes.draw do |map|
     :as => :admin
   match '/admin/login' => 'alchemy/admin#login',
     :as => :login
+  match '/admin/signup' => 'alchemy/admin#signup',
+    :as => :signup
   match '/admin/logout' => 'alchemy/admin#logout',
     :as => :logout
   match '/admin/pages/layoutpages' => 'alchemy/admin/pages#layoutpages',

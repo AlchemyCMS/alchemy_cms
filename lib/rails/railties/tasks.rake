@@ -99,14 +99,12 @@ namespace :alchemy do
     Rake::Task['alchemy:upgrades:write_rake_task'].invoke
     Rake::Task['alchemy:upgrades:generate_migration'].invoke
     Rake::Task['alchemy:app_structure:create:all'].invoke
-    #Rake::Task['alchemy:upgrades:svn:rename'].invoke
-    #Rake::Task['alchemy:upgrades:svn:commit'].invoke
   end
   
   namespace :migrations do
     desc "Syncs Alchemy migrations into db/migrate"
     task 'sync' do
-      system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
+      system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', '..', 'db', 'migrate')} #{Rails.root.to_s}/db"
     end
   end
   
@@ -124,44 +122,44 @@ namespace :alchemy do
       
       desc "Creates alchemy´s configuration folder including its necessary files."
       task "config" do
-        if File.directory? "#{Rails.root}/config/alchemy"
-          puts "Task Aborted: Config folder already exists: #{Rails.root}/config/alchemy"
+        if File.directory? "#{Rails.root.to_s}/config/alchemy"
+          puts "Task Aborted: Config folder already exists: #{Rails.root.to_s}/config/alchemy"
         else
-          system "mkdir -p #{Rails.root}/config/alchemy"
-          system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', '*')} #{RAILS_ROOT}/config/alchemy/"
-          puts "Created folder with configuration files:\n#{Rails.root}/config/alchemy"
+          system "mkdir -p #{Rails.root.to_s}/config/alchemy"
+          system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'config', 'alchemy', '*')} #{Rails.root.to_s}/config/alchemy/"
+          puts "Created folder with configuration files:\n#{Rails.root.to_s}/config/alchemy"
         end
       end
       
       desc "Create alchemy´s basic locales for individualising."
       task "locales" do
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'locales', '*')} #{RAILS_ROOT}/config/locales/"
-        puts "Created basic locales:\n#{Rails.root}/app/config/locales"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'config', 'locales', '*')} #{Rails.root.to_s}/config/locales/"
+        puts "Created basic locales:\n#{Rails.root.to_s}/app/config/locales"
       end
       
       desc "Create basic layout file for pages_controller."
       task "layout" do
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'app', 'views', 'layouts', 'pages.html.erb')} #{RAILS_ROOT}/app/views/layouts/"
-        puts "Created layout file for your individual layout rendered by pages_controller:\n#{Rails.root}/app/views/page_layouts"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'app', 'views', 'layouts', 'pages.html.erb')} #{Rails.root.to_s}/app/views/layouts/"
+        puts "Created layout file for your individual layout rendered by pages_controller:\n#{Rails.root.to_s}/app/views/page_layouts"
       end
       
       desc "Creates alchemy´s page_layout folder."
       task "page_layouts" do
-        if File.directory? "#{Rails.root}/app/views/page_layouts"
-          puts "Task Aborted: page_layouts folder already exists: #{Rails.root}/app/views/page_layouts"
+        if File.directory? "#{Rails.root.to_s}/app/views/page_layouts"
+          puts "Task Aborted: page_layouts folder already exists: #{Rails.root.to_s}/app/views/page_layouts"
         else
-          system "mkdir -p #{Rails.root}/app/views/page_layouts"
-          puts "Created folder for your individual page_layout files rendered inside the layout:\n#{Rails.root}/app/views/page_layouts"
+          system "mkdir -p #{Rails.root.to_s}/app/views/page_layouts"
+          puts "Created folder for your individual page_layout files rendered inside the layout:\n#{Rails.root.to_s}/app/views/page_layouts"
         end
       end
       
       desc "Creates alchemy´s elements folder."
       task "elements" do
-        if File.directory? "#{Rails.root}/app/views/elements"
-          puts "Task Aborted: elements folder already exists: #{Rails.root}/app/views/elements"
+        if File.directory? "#{Rails.root.to_s}/app/views/elements"
+          puts "Task Aborted: elements folder already exists: #{Rails.root.to_s}/app/views/elements"
         else
-          puts "Created folder for your individual elements:\n#{Rails.root}/app/views/elements"
-          system "mkdir -p #{Rails.root}/app/views/elements"
+          puts "Created folder for your individual elements:\n#{Rails.root.to_s}/app/views/elements"
+          system "mkdir -p #{Rails.root.to_s}/app/views/elements"
         end
       end
       
@@ -180,23 +178,23 @@ namespace :alchemy do
       
       desc "Copy javascripts for Alchemy into apps public folder"
       task "javascripts" do
-        system "rm -rf #{Rails.root}/public/javascripts/alchemy"
-        system "mkdir -p #{Rails.root}/public/javascripts/alchemy"
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts', '*')} #{RAILS_ROOT}/public/javascripts/alchemy/"
+        system "rm -rf #{Rails.root.to_s}/public/javascripts/alchemy"
+        system "mkdir -p #{Rails.root.to_s}/public/javascripts/alchemy"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'assets', 'javascripts', '*')} #{Rails.root.to_s}/public/javascripts/alchemy/"
       end
       
       desc "Copy stylesheets for Alchemy into apps public folder"
       task "stylesheets" do
-        system "rm -rf #{Rails.root}/public/stylesheets/alchemy"
-        system "mkdir -p #{Rails.root}/public/stylesheets/alchemy"
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets', '*')} #{RAILS_ROOT}/public/stylesheets/alchemy/"
+        system "rm -rf #{Rails.root.to_s}/public/stylesheets/alchemy"
+        system "mkdir -p #{Rails.root.to_s}/public/stylesheets/alchemy"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'assets', 'stylesheets', '*')} #{Rails.root.to_s}/public/stylesheets/alchemy/"
       end
       
       desc "Copy images for Alchemy into apps public folder"
       task "images" do
-        system "rm -rf #{Rails.root}/public/images/alchemy"
-        system "mkdir -p #{Rails.root}/public/images/alchemy"
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images', '*')} #{RAILS_ROOT}/public/images/alchemy/"
+        system "rm -rf #{Rails.root.to_s}/public/images/alchemy"
+        system "mkdir -p #{Rails.root.to_s}/public/images/alchemy"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'assets', 'images', '*')} #{Rails.root.to_s}/public/images/alchemy/"
       end
       
     end
@@ -378,7 +376,7 @@ Rails::Initializer.run do |config|
   config.gem 'mimetype-fu', :version => '>=0.1.2', :lib => 'mimetype_fu'
   config.autoload_paths += %W( vendor/plugins/alchemy/app/sweepers )
   config.autoload_paths += %W( vendor/plugins/alchemy/app/middleware )
-  config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
+  config.i18n.load_path += Dir[Rails.root.to_s.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
   config.time_zone = 'Berlin'
   config.i18n.default_locale = :de
 end
