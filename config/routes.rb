@@ -1,7 +1,7 @@
 Rails.application.routes.draw do |map|
   root :to => 'pages#show'
   
-  match '/admin' => 'admin#index',
+  match '/admin' => 'alchemy/admin#index',
     :as => :admin
   match '/admin/login' => 'admin#login',
     :as => :login
