@@ -69,10 +69,10 @@ module Alchemy
       if options[:from_page].blank?
         page = @page
       else
-        if options[:from_page].class == Page
+        if options[:from_page].class == Alchemy::Page
           page = options[:from_page]
         else
-          page = Page.find_all_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+          page = Alchemy::Page.find_all_by_page_layout_and_language_id(options[:from_page], session[:language_id])
         end
       end
       if page.blank?
@@ -92,7 +92,7 @@ module Alchemy
         element_string = ""
         if options[:fallback]
           unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-            if from = Page.find_by_page_layout(options[:fallback][:from])
+            if from = Alchemy::Page.find_by_page_layout(options[:fallback][:from])
               all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
             end
           end
@@ -396,13 +396,13 @@ module Alchemy
       options = default_options.merge(options)
       #render meta description of the root page from language if the current meta description is empty
       if @page.meta_description.blank?
-        description = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_description rescue ""
+        description = Alchemy::Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_description rescue ""
       else
         description = @page.meta_description
       end
       #render meta keywords of the root page from language if the current meta keywords is empty
       if @page.meta_keywords.blank?
-        keywords = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_keywords rescue ""
+        keywords = Alchemy::Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_keywords rescue ""
       else
         keywords = @page.meta_keywords
       end
@@ -457,7 +457,7 @@ module Alchemy
       }
       options = default_options.merge(options)
       pages = breadcrumb(options[:page])
-      pages.delete(Page.root)
+      pages.delete(Alchemy::Page.root)
       unless options[:without].nil?
         unless options[:without].class == Array
           pages.delete(options[:without])
@@ -545,7 +545,7 @@ module Alchemy
       }
       options = default_options.merge(options)
       if options[:from_page].is_a?(String)
-        page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+        page = Alchemy::Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
       else
         page = options[:from_page]
       end
@@ -561,7 +561,7 @@ module Alchemy
       if options[:restricted_only].nil?
         conditions.delete(:restricted)
       end
-      pages = Page.all(
+      pages = Alchemy::Page.all(
         :conditions => conditions,
         :order => "lft ASC"
       )
@@ -584,7 +584,7 @@ module Alchemy
       options = default_options.merge(options)
       if !options[:from_page].nil?
         if (options[:from_page].children.blank? && options[:from_page].level > options[:level])
-          options = options.merge(:from_page => Page.find(options[:from_page].parent_id))
+          options = options.merge(:from_page => Alchemy::Page.find(options[:from_page].parent_id))
         end
         render_navigation(options)
       else
@@ -620,7 +620,7 @@ module Alchemy
       else
         pagination_options = options[:pagination].stringify_keys["level_#{options[:from_page].depth}"]
         find_conditions = { :parent_id => options[:from_page].id, :visible => true }
-        pages = Page.all(
+        pages = Alchemy::Page.all(
           :page => pagination_options,
           :conditions => find_conditions,
           :order => "lft ASC"
@@ -828,7 +828,7 @@ module Alchemy
       elsif content.essence.nil?
         return warning('Content', _('content_essence_not_found'))
       end
-      pages = Page.find(
+      pages = Alchemy::Page.find(
         :all,
         :conditions => {
           :language_id => session[:language_id],
@@ -849,7 +849,7 @@ module Alchemy
     def pages_for_select(pages = nil, selected = nil, prompt = "")
       result = [[prompt.blank? ? _('Choose page') : prompt, ""]]
       if pages.blank?
-        pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
+        pages = Alchemy::Page.find_all_by_language_id_and_public(session[:language_id], true)
       end
       pages.each do |p|
         result << [p.name, p.id.to_s]
@@ -869,7 +869,7 @@ module Alchemy
       if options[:from_page] == :all
         elements = Element.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
       elsif options[:from_page].class == String
-        page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+        page = Alchemy::Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
         return [] if page.blank?
         elements = page.elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
       else
@@ -886,9 +886,9 @@ module Alchemy
       }
       options = default_options.merge(options)
       if options[:page_id].blank?
-        page = Page.find_by_urlname_and_public(options[:page_urlname], true)
+        page = Alchemy::Page.find_by_urlname_and_public(options[:page_urlname], true)
       else
-        page = Page.find_by_id_and_public(options[:page_id], true)
+        page = Alchemy::Page.find_by_id_and_public(options[:page_id], true)
       end
       return "" if page.blank?
       element = page.elements.find_by_name_and_public(options[:element_name], true)
@@ -1112,7 +1112,7 @@ module Alchemy
     def page_path_for(options={})
       return warning("No page_layout, or urlname given. I got #{options.inspect} ") if options[:page_layout].blank? && options[:urlname].blank?
       if options[:urlname].blank?
-        page = Page.find_by_page_layout(options[:page_layout])
+        page = Alchemy::Page.find_by_page_layout(options[:page_layout])
         return warning("No page found for #{options.inspect} ") if page.blank?
         urlname = page.urlname
       else

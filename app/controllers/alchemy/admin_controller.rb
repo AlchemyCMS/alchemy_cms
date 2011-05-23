@@ -12,8 +12,8 @@ module Alchemy
     def index
       @alchemy_version = Alchemy.version
       @clipboard_items = session[:clipboard]
-      @last_edited_pages = Page.all_last_edited_from(current_user)
-      @locked_pages = Page.all_locked
+      @last_edited_pages = Alchemy::Page.all_last_edited_from(current_user)
+      @locked_pages = Alchemy::Page.all_locked
       @online_users = Alchemy::User.all_online(current_user)
     end
   

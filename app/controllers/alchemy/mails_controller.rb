@@ -49,14 +49,14 @@ module Alchemy
   
     def new#:nodoc:
       @mail = Mail.new
-      @page = Page.find_by_page_layout(Alchemy::Config.get(:mailer)[:form_layout_name])
-      @root_page = Page.language_root_for(session[:language_id])
+      @page = Alchemy::Page.find_by_page_layout(Alchemy::Config.get(:mailer)[:form_layout_name])
+      @root_page = Alchemy::Page.language_root_for(session[:language_id])
       raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
       render :template => '/pages/show', :layout => 'pages'
     end
   
     def index#:nodoc:
-      @page = Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
+      @page = Alchemy::Page.find_by_page_layout(configuration(:mailer)[:page_layout_name])
       raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
       redirect_to send("show_page#{multi_language? ? '_with_language' : '' }_path", :urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
     end
@@ -86,10 +86,10 @@ module Alchemy
             redirect_to show_page_url(:urlname => element.ingredient("success_page"))
           end
         elsif configuration(:mailer)[:forward_to_page] && configuration(:mailer)[:mail_success_page]
-          redirect_to :controller => 'pages', :action => 'show', :urlname => Page.find_by_urlname(configuration(:mailer)[:mail_success_page]).urlname
+          redirect_to :controller => 'pages', :action => 'show', :urlname => Alchemy::Page.find_by_urlname(configuration(:mailer)[:mail_success_page]).urlname
         else
           flash[:notice] = I18n.t('alchemy.contactform.messages.success')
-          redirect_to :controller => 'pages', :action => 'show', :urlname => Page.language_root_for(session[:language_id]).urlname
+          redirect_to :controller => 'pages', :action => 'show', :urlname => Alchemy::Page.language_root_for(session[:language_id]).urlname
         end
       else
         render :template => '/pages/show', :layout => 'pages'

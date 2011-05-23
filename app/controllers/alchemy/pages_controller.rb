@@ -14,7 +14,7 @@ module Alchemy
       :cache_path => Proc.new { |c| c.multi_language? ? "#{Alchemy::Controller.current_language.code}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
       :if => Proc.new { |c| 
         if Alchemy::Config.get(:cache_pages)
-          page = Page.find_by_urlname_and_language_id_and_public(
+          page = Alchemy::Page.find_by_urlname_and_language_id_and_public(
             c.params[:urlname],
             Alchemy::Controller.current_language.id,
             true,
@@ -44,7 +44,7 @@ module Alchemy
   
     # Renders a Google conform sitemap in xml
     def sitemap
-      @pages = Page.find_all_by_sitemap_and_public(true, true)
+      @pages = Alchemy::Page.find_all_by_sitemap_and_public(true, true)
       respond_to do |format|
         format.xml { render :layout => "sitemap" }
       end
@@ -54,9 +54,9 @@ module Alchemy
   
     def get_page_from_urlname
       if params[:urlname].blank?
-        @page = Page.language_root_for(session[:language_id])
+        @page = Alchemy::Page.language_root_for(session[:language_id])
       else
-        @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
+        @page = Alchemy::Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
       end
       if @page.blank?
         render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
@@ -74,7 +74,7 @@ module Alchemy
         if params[:urlname].blank?
           @root_page = @page
         else
-          @root_page = Page.language_root_for(session[:language_id])
+          @root_page = Alchemy::Page.language_root_for(session[:language_id])
         end
       end
     end

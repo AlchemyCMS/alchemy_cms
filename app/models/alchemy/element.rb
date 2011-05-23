@@ -6,7 +6,7 @@ module Alchemy
     stampable :stamper_class_name => :user
     has_many :contents, :order => :position, :dependent => :destroy
     belongs_to :page
-    has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
+    has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true
   
     validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
   

@@ -86,10 +86,10 @@ module Alchemy
       options = default_options.merge(options)
       if multi_language?
         languages = []
-        pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
+        pages = (options[:link_to_public_child] == true) ? Alchemy::Page.language_roots : Alchemy::Page.public_language_roots
         pages.each_with_index do |page, i|
           if(options[:link_to_page_with_layout] != nil)
-            page_found_by_layout = Page.find_by_page_layout_and_language_id(options[:link_to_page_with_layout].to_s, page.language)
+            page_found_by_layout = Alchemy::Page.find_by_page_layout_and_language_id(options[:link_to_page_with_layout].to_s, page.language)
           end
           page = page_found_by_layout || page
           page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? nil : page.first_public_child) : nil) if !page.public?

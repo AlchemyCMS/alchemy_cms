@@ -18,7 +18,7 @@ module Alchemy
     scope :published, where(:public => true)
   
     def self.all_for_created_language_trees
-      find(Page.language_roots.collect(&:language_id))
+      find(Alchemy::Page.language_roots.collect(&:language_id))
     end
   
     def self.all_codes_for_published
@@ -67,9 +67,9 @@ module Alchemy
     end
   
     def delete_language_root_page
-      page = Page.language_root_for(id)
+      page = Alchemy::Page.language_root_for(id)
       page.destroy if page
-      layoutroot = Page.layout_root_for(id)
+      layoutroot = Alchemy::Page.layout_root_for(id)
       layoutroot.destroy if layoutroot
     end
   

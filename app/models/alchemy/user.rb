@@ -32,7 +32,7 @@ module Alchemy
     end
   
     def pages_locked_by_me
-      Page.find(:all, :conditions => {:locked => true, :locked_by => self.id})
+      Alchemy::Page.find(:all, :conditions => {:locked => true, :locked_by => self.id})
     end
   
     # Returns the firstname and lastname as a string

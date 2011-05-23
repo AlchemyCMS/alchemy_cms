@@ -342,21 +342,21 @@ module Alchemy
     end
   
     def self.layout_root_for(language_id)
-      find(:first, :conditions => {:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id})
+      find(:first, :conditions => {:parent_id => Alchemy::Page.root.id, :layoutpage => true, :language_id => language_id})
     end
   
     def self.find_or_create_layout_root_for(language_id)
       layoutroot = layout_root_for(language_id)
       return layoutroot if layoutroot
       language = Language.find(language_id)
-      layoutroot = Page.new({
+      layoutroot = Alchemy::Page.new({
         :name => "Layoutroot for #{language.name}",
         :layoutpage => true, 
         :language => language,
         :do_not_autogenerate => true
       })
       if layoutroot.save(false)
-        layoutroot.move_to_child_of(Page.root)
+        layoutroot.move_to_child_of(Alchemy::Page.root)
         return layoutroot
       else
         raise "Layout root for #{language.name} could not be created"
@@ -364,7 +364,7 @@ module Alchemy
     end
   
     def self.all_last_edited_from(user)
-      Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
+      Alchemy::Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
     end
   
     def self.all_from_clipboard(clipboard)
@@ -382,7 +382,7 @@ module Alchemy
   
     def copy_children_to(new_parent)
       self.children.each do |child|
-        new_child = Page.copy(child, {
+        new_child = Alchemy::Page.copy(child, {
           :language => self.language,
           :name => child.name + ' (' + _('Copy') + ')',
           :urlname => '',
@@ -403,15 +403,15 @@ module Alchemy
         step_direction = ["pages.lft > ?", self.lft]
         order_direction = "lft"
       end
-      conditions = Page.merge_conditions(
+      conditions = Alchemy::Page.merge_conditions(
         {:parent_id => self.parent_id},
         {:public => options[:public]},
         step_direction
       )
       if !options[:restricted].nil?
-        conditions = Page.merge_conditions(conditions, {:restricted => options[:restricted]})
+        conditions = Alchemy::Page.merge_conditions(conditions, {:restricted => options[:restricted]})
       end
-      return Page.find :first, :conditions => conditions, :order => order_direction
+      return Alchemy::Page.find :first, :conditions => conditions, :order => order_direction
     end
   
     def generate_url_name(url_name)

@@ -14,31 +14,31 @@ module Alchemy
     cache_sweeper :pages_sweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
   
     def index
-      @page_root = Page.language_root_for(session[:language_id])
-      @locked_pages = Page.all_locked_by(current_user)
+      @page_root = Alchemy::Page.language_root_for(session[:language_id])
+      @locked_pages = Alchemy::Page.all_locked_by(current_user)
     end
   
     def show
       # fetching page via before filter
       @preview_mode = true
-      @root_page = Page.language_root_for(session[:language_id])
+      @root_page = Alchemy::Page.language_root_for(session[:language_id])
       render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
     end
   
     def new
-      @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
+      @page = Alchemy::Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
       @page_layouts = Alchemy::PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
-      @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
+      @clipboard_items = Alchemy::Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
       render :layout => false
     end
   
     def create
-      parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
+      parent = Alchemy::Page.find_by_id(params[:page][:parent_id]) || Alchemy::Page.root
       params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
       params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
       if !params[:paste_from_clipboard].blank?
-        source_page = Page.find(params[:paste_from_clipboard])
-        page = Page.copy(source_page, {
+        source_page = Alchemy::Page.find(params[:paste_from_clipboard])
+        page = Alchemy::Page.copy(source_page, {
           :name => params[:page][:name].blank? ? source_page.name + ' (' + _('Copy') + ')' : params[:page][:name],
           :urlname => '',
           :title => '',
@@ -47,7 +47,7 @@ module Alchemy
         })
         source_page.copy_children_to(page) unless source_page.children.blank?
       else
-        page = Page.create(params[:page])
+        page = Alchemy::Page.create(params[:page])
       end
       if page.valid? && parent
         page.move_to_child_of(parent)
@@ -100,7 +100,7 @@ module Alchemy
             page.redirect_to layoutpages_admin_pages_url
           else
             Alchemy::Notice.show(page, message)
-            @page_root = Page.language_root_for(session[:language_id])
+            @page_root = Alchemy::Page.language_root_for(session[:language_id])
             if @page_root
               page.replace("sitemap", :partial => 'sitemap')
               page << "Alchemy.Tooltips()"
@@ -115,9 +115,9 @@ module Alchemy
     def link
       @url_prefix = ""
       if configuration(:show_real_root)
-        @page_root = Page.root
+        @page_root = Alchemy::Page.root
       else
-        @page_root = Page.language_root_for(session[:language_id])
+        @page_root = Alchemy::Page.language_root_for(session[:language_id])
       end
       @area_name = params[:area_name]
       @content_id = params[:content_id]
@@ -143,8 +143,8 @@ module Alchemy
     end
   
     def layoutpages
-      @locked_pages = Page.all_locked_by(current_user)
-      @layout_root = Page.find_or_create_layout_root_for(session[:language_id])
+      @locked_pages = Alchemy::Page.all_locked_by(current_user)
+      @layout_root = Alchemy::Page.find_or_create_layout_root_for(session[:language_id])
     end
   
     # Leaves the page editing mode and unlocks the page for other users
@@ -156,7 +156,7 @@ module Alchemy
         render :update do |page|
           page.remove "locked_page_#{@page.id}"
           page << "jQuery('#page_#{@page.id} .sitemap_page').removeClass('locked')"
-          if Page.all_locked_by(current_user).blank?
+          if Alchemy::Page.all_locked_by(current_user).blank?
             page << "jQuery('#subnav_additions label').hide()"
           end
           Alchemy::Notice.show(page, flash[:notice])
@@ -189,17 +189,17 @@ module Alchemy
       begin
         # copy language root from old to new language
         if params[:layoutpage]
-          original_language_root = Page.layout_root_for(params[:languages][:old_lang_id])
+          original_language_root = Alchemy::Page.layout_root_for(params[:languages][:old_lang_id])
         else
-          original_language_root = Page.language_root_for(params[:languages][:old_lang_id])
+          original_language_root = Alchemy::Page.language_root_for(params[:languages][:old_lang_id])
         end
-        new_language_root = Page.copy(
+        new_language_root = Alchemy::Page.copy(
           original_language_root,
           :language_id => params[:languages][:new_lang_id],
           :language_code => session[:language_code],
           :layoutpage => params[:layoutpage]
         )
-        new_language_root.move_to_child_of Page.root
+        new_language_root.move_to_child_of Alchemy::Page.root
         original_language_root.copy_children_to(new_language_root)
         flash[:notice] = _('language_pages_copied')
       rescue
@@ -209,21 +209,21 @@ module Alchemy
     end
   
     def sort
-      @page_root = Page.language_root_for(session[:language_id])
+      @page_root = Alchemy::Page.language_root_for(session[:language_id])
       @sorting = true
     end
   
     def order
-      @page_root = Page.language_root_for(session[:language_id])
+      @page_root = Alchemy::Page.language_root_for(session[:language_id])
       pages_from_raw_request.each do |page|
         page_id = page.first[0]
         parent_id = page.first[1]
         if parent_id == 'root'
           parent = @page_root
         else
-          parent = Page.find(parent_id)
+          parent = Alchemy::Page.find(parent_id)
         end
-        page = Page.find(page_id)
+        page = Alchemy::Page.find(page_id)
         page.move_to_child_of(parent)
       end
   		flash[:notice] = _("Pages order saved")
@@ -245,7 +245,7 @@ module Alchemy
     end
   
     def flush
-      Page.flushables(session[:language_id]).each do |page|
+      Alchemy::Page.flushables(session[:language_id]).each do |page|
         if multi_language?
           expire_action("#{page.language_code}/#{page.urlname}")
         else
@@ -260,7 +260,7 @@ module Alchemy
   private
   
     def get_page_from_id
-      @page = Page.find(params[:id])
+      @page = Alchemy::Page.find(params[:id])
     end
   
     def pages_from_raw_request

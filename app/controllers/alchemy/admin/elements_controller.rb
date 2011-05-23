@@ -10,13 +10,13 @@ module Alchemy
     def index
       @page_id = params[:page_id]
       if @page_id.blank? && !params[:page_urlname].blank?
-        @page_id = Page.find_by_urlname(params[:page_urlname]).id
+        @page_id = Alchemy::Page.find_by_urlname(params[:page_urlname]).id
       end
       @elements = Element.find_all_by_page_id_and_public(@page_id, true)
     end
   
     def list
-      @page = Page.find(
+      @page = Alchemy::Page.find(
         params[:page_id],
         :include => {
           :elements => :contents
@@ -26,7 +26,7 @@ module Alchemy
     end
   
     def new
-      @page = Page.find_by_id(params[:page_id])
+      @page = Alchemy::Page.find_by_id(params[:page_id])
       @element = @page.elements.build
       @elements = Element.all_for_page(@page)
       @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard('elements'), @page)
