@@ -42,7 +42,9 @@
 
 module Alchemy
   class MailsController < AlchemyController
-  
+    
+    unloadable
+    
     helper :pages
   
     def new#:nodoc:

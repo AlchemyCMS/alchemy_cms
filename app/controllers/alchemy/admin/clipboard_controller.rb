@@ -1,6 +1,6 @@
 module Alchemy
   class Admin::ClipboardController < AlchemyController
-  
+    unloadable
     layout 'alchemy'
   
     before_filter :set_translation

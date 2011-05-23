@@ -1,6 +1,6 @@
 module Alchemy
   class Admin::EssenceAudiosController < AlchemyController
-  
+    unloadable
     layout 'alchemy'
   
     filter_access_to :update

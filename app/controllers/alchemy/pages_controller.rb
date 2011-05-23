@@ -1,6 +1,8 @@
 module Alchemy
   class PagesController < AlchemyController
-  
+    
+    unloadable
+    
     before_filter :set_language_from_client, :only => [:show, :sitemap]
     before_filter :get_page_from_urlname, :only => [:show, :sitemap]
   

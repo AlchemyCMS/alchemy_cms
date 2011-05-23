@@ -9,9 +9,10 @@ module Alchemy
     include FastGettext::Translation
     include Alchemy
     include Userstamp
-  
+    
+    unloadable
+    
     protect_from_forgery
-    filter_parameter_logging :login, :password, :password_confirmation
   
     before_filter :init_gettext
     before_filter :set_translation

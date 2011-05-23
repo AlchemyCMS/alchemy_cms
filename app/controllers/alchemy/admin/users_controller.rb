@@ -1,6 +1,6 @@
 module Alchemy
   class Admin::UsersController < AlchemyController
-
+    unloadable
     layout 'alchemy'
   
     filter_access_to [:edit, :update, :destroy], :attribute_check => true

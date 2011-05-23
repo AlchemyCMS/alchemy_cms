@@ -1,5 +1,6 @@
 module Alchemy
   class Admin::PicturesController < AlchemyController
+    unloadable
     protect_from_forgery :except => [:create]
     layout 'alchemy'
   

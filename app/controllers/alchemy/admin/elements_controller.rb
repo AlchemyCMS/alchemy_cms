@@ -1,6 +1,6 @@
 module Alchemy
   class Admin::ElementsController < AlchemyController
-  
+    unloadable
     layout 'alchemy'
   
     before_filter :set_translation

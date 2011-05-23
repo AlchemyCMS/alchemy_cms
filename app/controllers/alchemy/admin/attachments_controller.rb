@@ -1,6 +1,8 @@
 module Alchemy
   class Admin::AttachmentsController < AlchemyController
-  
+    
+    unloadable
+    
     protect_from_forgery :except => [:create]
     layout 'alchemy'
   

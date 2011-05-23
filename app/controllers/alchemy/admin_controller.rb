@@ -1,6 +1,8 @@
 module Alchemy
   class AdminController < AlchemyController
-  
+    
+    unloadable
+    
     filter_access_to :index
     before_filter :set_translation
     before_filter :check_user_count, :only => :login
@@ -21,7 +23,7 @@ module Alchemy
         redirect_to admin_path if Alchemy::User.count != 0
         @user = Alchemy::User.new
       else
-        @user = Alchemy::User.new(params[:user].merge({:role => 'admin'}))
+        @user = Alchemy::User.new(params[:alchemy_user].merge({:role => 'admin'}))
         if @user.save
           if params[:send_credentials]
             Mailer.deliver_new_alchemy_user_mail(@user, request)
@@ -35,9 +37,9 @@ module Alchemy
       if request.get?
         @user_session = UserSession.new()
         flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
-        render :layout => 'login'
+        render :layout => 'alchemy/login'
       else
-        @user_session = UserSession.new(params[:user_session])
+        @user_session = UserSession.new(params[:alchemy_user_session])
         if @user_session.save
           if session[:redirect_url].blank?
             redirect_to :action => :index
@@ -45,7 +47,7 @@ module Alchemy
             redirect_to session[:redirect_url]
           end
         else
-          render :layout => 'login'
+          render :layout => 'alchemy/login'
         end
       end
     end

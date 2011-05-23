@@ -1,6 +1,6 @@
 module Alchemy
   class Admin::PagesController < AlchemyController
-  
+    unloadable
     helper :pages
   
     layout 'alchemy'
