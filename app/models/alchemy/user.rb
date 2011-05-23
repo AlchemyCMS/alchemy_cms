@@ -62,7 +62,7 @@ module Alchemy
   
     def self.all_online(user)
       users = Alchemy::User.logged_in
-      users.delete(user)
+      users.to_a.delete(user)
       users
     end
   

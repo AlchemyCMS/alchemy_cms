@@ -177,7 +177,7 @@ protected
         redirect_to root_path
       else
         if request.referer == login_url
-          render :text => 'Not allowed'
+          render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
         else
           redirect_to admin_path
         end

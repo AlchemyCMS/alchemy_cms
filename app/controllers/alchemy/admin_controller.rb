@@ -35,11 +35,11 @@ module Alchemy
   
     def login
       if request.get?
-        @user_session = UserSession.new()
+        @user_session = Alchemy::UserSession.new()
         flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
         render :layout => 'alchemy/login'
       else
-        @user_session = UserSession.new(params[:alchemy_user_session])
+        @user_session = Alchemy::UserSession.new(params[:alchemy_user_session])
         if @user_session.save
           if session[:redirect_url].blank?
             redirect_to :action => :index
@@ -54,7 +54,7 @@ module Alchemy
   
     def logout
       message = params[:message] || _("logged_out")
-      @user_session = UserSession.find
+      @user_session = Alchemy::UserSession.find
       if @user_session
         @user_session.destroy
       end
