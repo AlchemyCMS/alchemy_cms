@@ -10,7 +10,7 @@ module Alchemy
   
     def index
       if !params[:query].blank?
-        @users = User.find(:all, :conditions => [
+        @users = Alchemy::User.find(:all, :conditions => [
           "users.login LIKE ? OR users.email LIKE ? OR users.firstname LIKE ? OR users.lastname LIKE ?",
           "%#{params[:query]}%",
           "%#{params[:query]}%",
@@ -19,17 +19,17 @@ module Alchemy
         ],
         :order => 'login')
       else
-        @users = User.all
+        @users = Alchemy::User.all
       end
     end
 
     def new
-      @user = User.new
+      @user = Alchemy::User.new
       render :layout => false
     end
   
     def create
-      @user = User.new(params[:user])
+      @user = Alchemy::User.new(params[:user])
       if @user.save
         if @user.role == "registered" && params[:send_credentials]
           Mailer.deliver_new_user_mail(@user, request)

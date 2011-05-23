@@ -132,27 +132,27 @@ module Alchemy
   
     # Returns the name of the creator of this page.
     def creator
-      @page_creator ||= User.find_by_id(creator_id)
+      @page_creator ||= Alchemy::User.find_by_id(creator_id)
       return _('unknown') if @page_creator.nil?
       @page_creator.name
     end
   
     # Returns the name of the last updater of this page.
     def updater
-      @page_updater = User.find_by_id(updater_id)
+      @page_updater = Alchemy::User.find_by_id(updater_id)
       return _('unknown') if @page_updater.nil?
       @page_updater.name
     end
   
     # Returns the name of the user currently editing this page.
     def current_editor
-      @current_editor = User.find_by_id(locked_by)
+      @current_editor = Alchemy::User.find_by_id(locked_by)
       return _('unknown') if @current_editor.nil?
       @current_editor.name
     end
   
     def locker
-      User.find_by_id(self.locked_by)
+      Alchemy::User.find_by_id(self.locked_by)
     end
   
     def fold(user_id, status)

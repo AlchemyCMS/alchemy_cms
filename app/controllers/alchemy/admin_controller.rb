@@ -12,16 +12,16 @@ module Alchemy
       @clipboard_items = session[:clipboard]
       @last_edited_pages = Page.all_last_edited_from(current_user)
       @locked_pages = Page.all_locked
-      @online_users = User.all_online(current_user)
+      @online_users = Alchemy::User.all_online(current_user)
     end
   
     # Signup only works if no user is present in database.
     def signup
       if request.get?
-        redirect_to admin_path if User.count != 0
-        @user = User.new
+        redirect_to admin_path if Alchemy::User.count != 0
+        @user = Alchemy::User.new
       else
-        @user = User.new(params[:user].merge({:role => 'admin'}))
+        @user = Alchemy::User.new(params[:user].merge({:role => 'admin'}))
         if @user.save
           if params[:send_credentials]
             Mailer.deliver_new_alchemy_user_mail(@user, request)
@@ -63,7 +63,7 @@ module Alchemy
   private
   
     def check_user_count
-      if User.count == 0
+      if Alchemy::User.count == 0
         redirect_to :action => 'signup'
       else
         return true

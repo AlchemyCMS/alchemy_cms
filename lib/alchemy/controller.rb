@@ -39,7 +39,7 @@ module Alchemy
       # For your own plugin see config.yml in vendor/plugins/alchemy/config/alchemy folder
       def alchemy_plugins
         yml_paths = plugins_config_paths
-				plugins = Alchemy::Configuration.get("alchemy_plugins")
+				plugins = Alchemy::Config.get("alchemy_plugins")
         begin
           yml_paths = yml_paths.sort(){ |x, y| YAML.load_file(x)['order'] <=> YAML.load_file(y)['order'] }
         rescue Exception => e

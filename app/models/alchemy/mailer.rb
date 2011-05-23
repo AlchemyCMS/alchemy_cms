@@ -5,7 +5,7 @@ module Alchemy
       recipients(mail_to)
       subject(subject)
       reply_to(mail_data[:email])
-      from(mail_from || Alchemy::Configuration.parameter(:mailer)[:mail_from])
+      from(mail_from || Alchemy::Config.parameter(:mailer)[:mail_from])
       body({:mail_data => mail_data})
     end
   

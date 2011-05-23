@@ -1,3 +1,5 @@
+require 'gettext_i18n_rails'
+
 module Alchemy
   class User < ActiveRecord::Base
   
@@ -59,7 +61,7 @@ module Alchemy
     end
   
     def self.all_online(user)
-      users = User.logged_in
+      users = Alchemy::User.logged_in
       users.delete(user)
       users
     end

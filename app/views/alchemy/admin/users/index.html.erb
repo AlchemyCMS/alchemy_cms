@@ -29,10 +29,10 @@
 		<tr>
 			<th class="icon"></th>
 			<th class="login_status"></th>
-			<th class="login"><%= User.human_attribute_name("login") %></th>
-			<th class="name"><%= User.human_attribute_name("name") %></th>
-			<th class="email"><%= User.human_attribute_name("email") %></th>
-			<th class="role"><%= User.human_attribute_name("role") %></th>
+			<th class="login"><%= Alchemy::User.human_attribute_name("login") %></th>
+			<th class="name"><%= Alchemy::User.human_attribute_name("name") %></th>
+			<th class="email"><%= Alchemy::User.human_attribute_name("email") %></th>
+			<th class="role"><%= Alchemy::User.human_attribute_name("role") %></th>
 			<th class="tools"></th>
 		</tr>
 		<%- end -%>

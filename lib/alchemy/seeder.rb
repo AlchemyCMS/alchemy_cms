@@ -7,12 +7,12 @@ module Alchemy
       FastGettext.add_text_domain 'alchemy', :path => File.join(Rails.root, 'vendor/plugins/alchemy/locale')
       FastGettext.text_domain = 'alchemy'
       FastGettext.available_locales = ['de', 'en']
-      FastGettext.locale = Alchemy::Configuration.get(:default_translation)
+      FastGettext.locale = Alchemy::Config.get(:default_translation)
       
       errors = []
       notices = []
       
-      default_language = Alchemy::Configuration.get(:default_language)
+      default_language = Alchemy::Config.get(:default_language)
       
       lang = Language.find_or_initialize_by_code(
         :name => default_language['name'],

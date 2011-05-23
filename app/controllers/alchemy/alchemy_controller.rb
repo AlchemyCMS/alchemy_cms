@@ -137,11 +137,11 @@ module Alchemy
   
     def set_stamper
       FastGettext.text_domain = 'alchemy'
-      User.stamper = self.current_user
+      Alchemy::User.stamper = self.current_user
     end
   
     def reset_stamper
-      User.reset_stamper
+      Alchemy::User.reset_stamper
     end
   
   protected

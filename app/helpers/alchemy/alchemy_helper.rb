@@ -944,7 +944,7 @@ module Alchemy
       end
     end
 
-    # TOOD: include these via asset_packer yml file  
+    # TOOD: include these via asset_packer yml file
     def javascripts_from_plugins
       Dir.glob("vendor/plugins/*/assets/javascripts/*.js").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
         filename = File.basename(s)
@@ -955,12 +955,12 @@ module Alchemy
 
     def admin_main_navigation
       navigation_entries = alchemy_plugins.collect{ |p| p["navigation"] }
-      render :partial => 'layouts/partials/mainnavigation_entry', :collection => navigation_entries.flatten
+      render :partial => 'alchemy/admin/partials/mainnavigation_entry', :collection => navigation_entries.flatten
     end
 
     # Renders the Subnavigation for the admin interface.
     def render_admin_subnavigation(entries)
-      render :partial => "layouts/partials/sub_navigation", :locals => {:entries => entries}
+      render :partial => "alchemy/admin/partials/sub_navigation", :locals => {:entries => entries}
     end
   
     def admin_subnavigation
