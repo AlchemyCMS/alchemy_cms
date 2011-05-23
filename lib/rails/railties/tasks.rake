@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 namespace :db do
   namespace :migrate do
     
