@@ -18,7 +18,7 @@
 				        </td>
 				    </tr>
 				</table>
-			<% end %>
+			<%=end %>
 		<%- end -%>
 		<%- if params[:action] == "index" -%>
 		<%- if languages.size >= 1 -%>
@@ -27,14 +27,14 @@
 		    <%= _("want_to_create_new_language") %>
 		</p>
 		<%- end -%>
-		<% remote_form_for([:admin, Page.new]) do |form| %>
+		<%=remote_form_for([:admin, Page.new]) do |form| %>
 			<%= form.hidden_field :name, :value => lang.frontpage_name %>
 			<%= form.hidden_field :language_id, :value => lang.id %>
 			<%= form.hidden_field :language_code, :value => lang.code %>
 			<%= form.hidden_field :page_layout, :value => lang.page_layout %>
 			<%= form.hidden_field :language_root, :value => true %>
 			<%= form.submit(_("%{language}_as_new_language") % {:language => lang.name}, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay();') %>
-		<% end %>
+		<%=end %>
 		<%- end -%>
 	<%- else -%>
 		<p>Diese Sprache existiert noch nicht. Bitte legen Sie diese Sprache erst in den Sprachen an.</p>

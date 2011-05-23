@@ -1,5 +1,5 @@
 module Alchemy
-  class AdminController < AlchemyController
+  class AdminController < Alchemy::ApplicationController
     
     unloadable
     

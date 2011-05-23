@@ -41,7 +41,7 @@
 # Please have a look at the vendor/plugins/alchemy/config/config.yml file for further Mail settings.
 
 module Alchemy
-  class MailsController < AlchemyController
+  class MailsController < Alchemy::ApplicationController
     
     unloadable
     

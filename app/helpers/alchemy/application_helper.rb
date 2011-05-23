@@ -15,7 +15,7 @@
 # 3. All important meta data from @page will be rendered via the render_meta_data() helper.
 
 module Alchemy
-  module AlchemyHelper
+  module ApplicationHelper
   
     include FastGettext::Translation
 

@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::ClipboardController < AlchemyController
+  class Admin::ClipboardController < Alchemy::ApplicationController
     unloadable
     layout 'alchemy'
   

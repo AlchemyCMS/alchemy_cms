@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::PagesController < AlchemyController
+  class Admin::PagesController < Alchemy::ApplicationController
     unloadable
     helper :pages
   

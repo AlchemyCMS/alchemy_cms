@@ -8,7 +8,7 @@
 </div>
 
 <div class="login_signup_box">
-    <% form_for @user_session, :url => {:controller => 'alchemy/admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'Alchemy.pleaseWaitOverlay()' } do |f| %>
+    <%=form_for @user_session, :url => {:controller => 'alchemy/admin', :action => 'login'}, :html => { :id => "login", :onsubmit => 'Alchemy.pleaseWaitOverlay()' } do |f| %>
         <%= f.error_messages %>
         <table>
             <tr>
@@ -34,7 +34,7 @@
                 </td>
             </tr>
         </table>
-    <% end %>
+    <%=end %>
 </div>
 
 <%- content_for :javascripts do -%>

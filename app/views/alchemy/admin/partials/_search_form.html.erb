@@ -1,4 +1,4 @@
-<% form_tag({:action => 'index'}, :method => :get) do %>
+<%=form_tag({:action => 'index'}, :method => :get) do %>
 	<div class="search_field">
 		<%= render_icon('search') %>
 		<%= text_field_tag("query", params['query'], :class => 'thin_border', :id => "search_input_field") %>
@@ -14,4 +14,4 @@
 			) %>
 	</div><br />
 	<label><%= _('search') %></label>
-<% end %>
+<%=end %>

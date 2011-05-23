@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::ContentsController < AlchemyController
+  class Admin::ContentsController < Alchemy::ApplicationController
     unloadable
   	layout 'alchemy'
 	

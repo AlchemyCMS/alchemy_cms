@@ -1,5 +1,5 @@
 module Alchemy
-  class ElementsController < AlchemyController
+  class ElementsController < Alchemy::ApplicationController
     
     unloadable
     

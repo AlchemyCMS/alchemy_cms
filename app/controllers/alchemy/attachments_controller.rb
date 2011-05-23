@@ -1,5 +1,5 @@
 module Alchemy
-  class AttachmentsController < AlchemyController
+  class AttachmentsController < Alchemy::ApplicationController
     
     unloadable
     

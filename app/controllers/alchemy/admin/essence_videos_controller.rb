@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::EssenceVideosController < AlchemyController
+  class Admin::EssenceVideosController < Alchemy::ApplicationController
     unloadable
     layout 'alchemy'
   

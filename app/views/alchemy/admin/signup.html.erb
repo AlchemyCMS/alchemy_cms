@@ -9,7 +9,7 @@
 </div>
 
 <div id="user_signup" class="login_signup_box">
-    <% form_for @user, :url => {:action => 'signup'} do |f| %>
+    <%=form_for @user, :url => {:action => 'signup'} do |f| %>
         <%= f.error_messages %>
         <table>
             <tr>
@@ -62,5 +62,5 @@
         <p class="foot_note">
             <small>*</small><%= _("mandatory fields") %>
         </p>
-    <% end %>
+    <%=end %>
 </div>

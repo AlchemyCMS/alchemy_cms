@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::EssenceFlashesController < AlchemyController
+  class Admin::EssenceFlashesController < Alchemy::ApplicationController
     unloadable
     layout 'alchemy'
   

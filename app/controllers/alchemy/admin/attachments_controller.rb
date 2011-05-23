@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::AttachmentsController < AlchemyController
+  class Admin::AttachmentsController < Alchemy::ApplicationController
     
     unloadable
     

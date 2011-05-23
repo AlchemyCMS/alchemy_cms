@@ -1,5 +1,5 @@
 module Alchemy
-  class Admin::EssenceAudiosController < AlchemyController
+  class Admin::EssenceAudiosController < Alchemy::ApplicationController
     unloadable
     layout 'alchemy'
   

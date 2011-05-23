@@ -1,7 +1,7 @@
 <div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
 	<%= render :partial => "element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
-		<% form_remote_tag(
+		<%=form_remote_tag(
 			:url => admin_element_path(element),
 			:method => :put,
 			:before => "Alchemy.saveElement(this)",
@@ -11,6 +11,6 @@
 				<%= render_editor(element) %>
 			</div>
 			<%= render :partial => 'element_foot', :locals => {:element => element} %>
-		<% end %>
+		<%=end %>
 	<%- end -%>
 </div>

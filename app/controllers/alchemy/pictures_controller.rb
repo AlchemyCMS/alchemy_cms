@@ -1,5 +1,5 @@
 module Alchemy
-  class PicturesController < AlchemyController
+  class PicturesController < Alchemy::ApplicationController
     
     unloadable
     

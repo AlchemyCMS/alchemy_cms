@@ -1,5 +1,5 @@
 module Alchemy
-  class PagesController < AlchemyController
+  class PagesController < Alchemy::ApplicationController
     
     unloadable
     
