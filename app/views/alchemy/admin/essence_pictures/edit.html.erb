@@ -1,6 +1,7 @@
-<%= remote_form_for(
+<%= form_for(
     @essence_picture,
-    :url => admin_essence_picture_path(@essence_picture, :options => @options)
+    :url => admin_essence_picture_path(@essence_picture, :options => @options),
+		:remote => true
 ) do |f| %>
 	<table>
 		<tr>

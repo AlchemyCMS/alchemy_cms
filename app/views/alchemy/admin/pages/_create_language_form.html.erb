@@ -27,7 +27,7 @@
 		    <%= _("want_to_create_new_language") %>
 		</p>
 		<%- end -%>
-		<%= remote_form_for([:alchemy, :admin, Alchemy::Page.new]) do |form| %>
+		<%= form_for([:alchemy, :admin, Alchemy::Page.new], :remote => true) do |form| %>
 			<%= form.hidden_field :name, :value => lang.frontpage_name %>
 			<%= form.hidden_field :language_id, :value => lang.id %>
 			<%= form.hidden_field :language_code, :value => lang.code %>

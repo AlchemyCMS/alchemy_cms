@@ -255,7 +255,7 @@ class Alchemy::Admin::PagesController < Alchemy::ApplicationController
     end
   end
 
-protected
+private
 
   def get_page_from_id
     @page = Alchemy::Page.find(params[:id])
