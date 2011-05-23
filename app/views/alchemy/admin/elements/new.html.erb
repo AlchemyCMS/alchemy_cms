@@ -11,7 +11,7 @@
 	</div>
 	<div id="paste_element_tab">
 		<div class="new_alchemy_element">
-			<%=remote_form_for([:admin, @element], :html => {:id => 'paste_element_form'}) do |f| %>
+			<%= remote_form_for([:admin, @element], :html => {:id => 'paste_element_form'}) do |f| %>
 				<%= f.hidden_field(:page_id) %>
 				<div id="errors" style="display: none"></div>
 				<span style="margin-right: 16px">
@@ -19,7 +19,7 @@
 				</span>
 				<%= clipboard_select_tag(@clipboard_items, :class => 'very_long') %>
 				<%= f.submit _("paste"), :class => 'button', :name => nil %>
-			<%=end %>
+			<% end %>
 		</div>
 	</div>
 </div>

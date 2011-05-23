@@ -31,11 +31,11 @@
 				<li class="<%= cycle('even', 'odd') %>">
 					<%- if current_user.id == page.locked_by -%>
 					<%= link_to(page.name, edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
-					<%=form_tag(unlock_admin_page_path(page, :redirect_to => request.path)) do %>
+					<%= form_tag(unlock_admin_page_path(page, :redirect_to => request.path)) do %>
 				  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
 				  		    <%= render_icon('close small') %>
 				  	  </button>
-				  <%=end %>
+				  <% end %>
 					<%- else -%>
 					<%= page.name %> <small>(<%= page.locker.name %>)</small>
 					<%- end -%>

@@ -3,7 +3,7 @@
     mainnavigation_entry["controller"].gsub(/\//, '_').to_sym
 ) do -%>
 
-<%=link_to(
+<%= link_to(
     url_for(
         :controller => "/#{mainnavigation_entry['controller']}",
         :action => mainnavigation_entry["action"]
@@ -22,6 +22,6 @@
     %>
     <%- FastGettext.text_domain = 'alchemy' -%>
     <span><%= truncate _(mainnavigation_entry["name"]), :length => 11 -%></span>
-<%=end %>
+<% end %>
 
 <%- end -%>

@@ -1,4 +1,4 @@
-<%=remote_form_for([:admin, @page]) do |f| %>
+<%= remote_form_for([:admin, @page]) do |f| %>
 	<div id="errors" style="display:none"></div>
 	<table id="page_names">
 		<tr>
@@ -68,4 +68,4 @@
 			<td colspan="2" align="right"><%= submit_tag _("save"), :class => 'button' %></td>
 		</tr>
 	</table>
-<%=end %>
+<% end %>

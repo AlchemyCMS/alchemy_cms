@@ -7,7 +7,7 @@
         :id => 'imageToCrop'
     ) %>
 </div>
-<%=remote_form_for(
+<%= remote_form_for(
     @essence_picture,
     :url => admin_essence_picture_path(@essence_picture, :options => @options),
 		:html => {:class => 'with_padding'}

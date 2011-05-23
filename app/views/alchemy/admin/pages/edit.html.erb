@@ -9,16 +9,16 @@
 		<%= render :partial => 'page_status' %>
     <%- else -%>
 		<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-		    <%=link_to edit_admin_page_path(page) do %>
+		    <%= link_to edit_admin_page_path(page) do %>
 	      <span class="page_name" title="<%= page.name %>">
 		  	    <%= truncate page.name, :length => 15 %>
 		    </span>
-			  <%=end %>
-			  <%=form_remote_tag(:url => unlock_admin_page_path(page)) do %>
+			  <% end %>
+			  <%= form_remote_tag(:url => unlock_admin_page_path(page)) do %>
 			  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
 			  		    <%= render_icon('close small') %>
 			  	  </button>
-			  <%=end %>
+			  <% end %>
 		</div>
     <%- end -%>
 	<%- end -%>
@@ -27,7 +27,7 @@
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
-			<%=form_tag(
+			<%= form_tag(
 				unlock_admin_page_path(
 					@page,
 					:redirect_to => @layoutpage ? admin_layoutpages_path : admin_pages_path
@@ -38,11 +38,11 @@
 					<%= render_icon('close') %>
 				</button><br />
 				<label><%= _("unlock_page") %></label>
-			<%=end %>
+			<% end %>
 		</div>
 		<%- unless @page.layoutpage? -%>
 		<div class="button_with_label">
-			<%=form_tag(
+			<%= form_tag(
 				visit_admin_page_path(@page),
 				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 			) do %>
@@ -50,7 +50,7 @@
 					<%= render_icon('visit_page') %>
 				</button><br />
 				<label><%= _("Visit page") %></label>
-			<%=end %>
+			<% end %>
 		</div>
 		<%- end -%>
 		<div class="button_with_label">
@@ -68,7 +68,7 @@
 		</div>
 		<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
 		<div class="button_with_label">
-			<%=form_tag(
+			<%= form_tag(
 				publish_admin_page_path(@page),
 				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 			) do -%>
@@ -76,7 +76,7 @@
 					<%= render_icon('publish') %>
 				</button><br />
 				<label><%= _("Publish page") %></label>
-			<%=end -%>
+			<% end -%>
 		</div>
 		<%- end -%>
 	</div>

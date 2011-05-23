@@ -11,7 +11,7 @@
 		<%= render :partial => 'new_page_form' %>
 	</div>
 	<div id="paste_page_tab">
-		<%=remote_form_for([:admin, @page], :html => {:id => 'paste_page_form'}) do |f| %>
+		<%= remote_form_for([:admin, @page], :html => {:id => 'paste_page_form'}) do |f| %>
 			<%= f.hidden_field("parent_id", :value => @parent_id) %>
 			<table id="new_page_form">
 				<tr>
@@ -37,7 +37,7 @@
 					</td>
 				</tr>
 			</table>
-		<%=end %>
+		<% end %>
 	</div>
 </div>
 <script type="text/javascript" charset="utf-8">

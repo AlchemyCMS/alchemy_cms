@@ -1,4 +1,4 @@
-<%=remote_form_for [:admin, @content] do |f| %>
+<%= remote_form_for [:admin, @content] do |f| %>
 	<%= f.error_messages %>
 	<%= f.hidden_field :element_id %>
 	<table>
@@ -12,4 +12,4 @@
 			</td>
 		</tr>
 	</table>
-<%=end %>
+<% end %>
