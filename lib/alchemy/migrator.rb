@@ -7,6 +7,7 @@
 # Taken from the Engines plugin
 #
 require 'active_record'
+require 'userstamp'
 
 class Alchemy::Migrator < ActiveRecord::Migrator
   

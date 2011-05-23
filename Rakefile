@@ -122,6 +122,7 @@ begin
     gem.add_dependency 'acts_as_ferret', '>= 0.5.2'
     gem.add_dependency 'mimetype-fu', '>= 0.1.2'
     gem.add_dependency 'sortifiable', '>= 0.2.3'
+    gem.add_dependency 'userstamp', '>= 2.0.1'
   end
 rescue LoadError
   puts "Jeweler or one of its dependencies is not installed."
