@@ -15,7 +15,7 @@ module Alchemy
     after_update :set_pages_language, :if => proc { |m| m.code_changed? }
     before_update :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
   
-    named_scope :published, :conditions => {:public => true}
+    scope :published, where(:public => true)
   
     def self.all_for_created_language_trees
       find(Page.language_roots.collect(&:language_id))

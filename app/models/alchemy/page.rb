@@ -27,9 +27,9 @@ module Alchemy
     after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
     after_save :set_restrictions_to_child_pages
   
-    named_scope :language_roots, :conditions => {:language_root => true}
-    named_scope :layoutpages, :conditions => {:layoutpage => true}
-    named_scope :all_locked, :conditions => {:locked => true}
+    scope :language_roots, where(:language_root => true)
+    scope :layoutpages, where(:layoutpage => true)
+    scope :all_locked, where(:locked => true)
   
     # Finds selected elements from page either except a passed collection or only the passed collection
     # Collection is an array of strings from element names. E.g.: ['text', 'headline']
