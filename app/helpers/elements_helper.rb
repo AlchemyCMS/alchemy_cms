@@ -1,4 +1,2 @@
-module Alchemy
-  module ElementsHelper
-  end
+module ElementsHelper
 end
