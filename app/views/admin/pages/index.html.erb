@@ -10,7 +10,7 @@
 		<%= truncate page.name, :length => 15 %>
 	</span>
 	<% end %>
-	<%= form_remote_tag(:url => unlock_alchemy_admin_page_path(page)) do %>
+	<%= form_for(unlock_alchemy_admin_page_path(page), :remote => true) do %>
 	<button class="icon_button small" title="<%= _('explain_unlocking') %>">
 		<%= render_icon('close small') %>
 	</button>
@@ -40,7 +40,7 @@
 		<div class="button_with_label">
 			<%= link_to(
 				content_tag('span', '', :class => 'icon flush'),
-				flush_alchemy_admin_pages_path,
+				flush_admin_pages_path,
 				:remote => true,
 				:before => 'Alchemy.pleaseWaitOverlay()',
 				:complete => 'Alchemy.pleaseWaitOverlay(false)',
@@ -54,7 +54,7 @@
 		<div class="button_with_label" id="page_sorting_button">
 			<%= link_to(
 				content_tag('span', '', :class => 'icon sort'),
-				sort_alchemy_admin_pages_path,
+				sort_admin_pages_path,
 				:before => 'Alchemy.pleaseWaitOverlay();',
 				:complete => 'Alchemy.pleaseWaitOverlay(false);',
 				:method => :get,
@@ -95,7 +95,7 @@
 		<%= _('Explain|Sitemap|Dragndrop sorting') %>
 	</div>
 	<div id="bottom_buttons">
-		<%= link_to( _('cancel'), alchemy_admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
+		<%= link_to( _('cancel'), admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
 		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>
 	</div>
 </div>

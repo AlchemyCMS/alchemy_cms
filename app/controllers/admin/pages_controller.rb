@@ -1,4 +1,4 @@
-class Alchemy::Admin::PagesController < AlchemyController
+class Admin::PagesController < AlchemyController
   unloadable
   helper 'pages'
   
@@ -9,7 +9,7 @@ class Alchemy::Admin::PagesController < AlchemyController
   
   filter_access_to :all
 
-  cache_sweeper PagesSweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
+  cache_sweeper :pages_sweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
 
   def index
     @page_root = Page.language_root_for(session[:language_id])
@@ -50,7 +50,7 @@ class Alchemy::Admin::PagesController < AlchemyController
     if page.valid? && parent
       page.move_to_child_of(parent)
     end
-    render_errors_or_redirect(page, parent.layoutpage? ? layoutpages_alchemy_admin_pages_path : alchemy_admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
+    render_errors_or_redirect(page, parent.layoutpage? ? layoutpages_admin_pages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name})
   rescue Exception => e
     exception_handler(e)
   end
@@ -60,7 +60,7 @@ class Alchemy::Admin::PagesController < AlchemyController
     # fetching page via before filter
     if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
-      redirect_to alchemy_admin_pages_path
+      redirect_to admin_pages_path
     else
       @page.lock(current_user)
     end
@@ -161,7 +161,7 @@ class Alchemy::Admin::PagesController < AlchemyController
       end
     else
       if params[:redirect_to].blank?
-        redirect_to alchemy_admin_pages_path
+        redirect_to admin_pages_path
       else
         redirect_to(params[:redirect_to])
       end
@@ -179,7 +179,7 @@ class Alchemy::Admin::PagesController < AlchemyController
     @page.public = true
     @page.save
     flash[:notice] = _("page_published") % {:name => @page.name}
-    redirect_back_or_to_default(alchemy_admin_pages_path)
+    redirect_back_or_to_default(admin_pages_path)
   end
 
   def copy_language
@@ -225,14 +225,14 @@ class Alchemy::Admin::PagesController < AlchemyController
       page.move_to_child_of(parent)
     end
 		flash[:notice] = _("Pages order saved")
-		render(:update) { |page| page.redirect_to alchemy_admin_pages_path }
+		render(:update) { |page| page.redirect_to admin_pages_path }
   rescue Exception => e
     exception_handler(e)
   end
 
   def switch_language
     set_language_to(params[:language_id])
-    redirect_path = params[:layoutpages] ? admin_layoutpages_path : alchemy_admin_pages_path
+    redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
     if request.xhr?
       render :update do |page|
         page.redirect_to redirect_path

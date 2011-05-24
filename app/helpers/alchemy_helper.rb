@@ -935,7 +935,7 @@ module AlchemyHelper
 
   # TOOD: include these via asset_packer yml file
   def stylesheets_from_plugins
-    Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
+    Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
       acc << stylesheet_link_tag("#{plugin}/#{filename}")
@@ -944,7 +944,7 @@ module AlchemyHelper
 
   # TOOD: include these via asset_packer yml file
   def javascripts_from_plugins
-    Dir.glob("vendor/plugins/*/assets/javascripts/*.js").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
+    Dir.glob("vendor/plugins/*/assets/javascripts/*.js").inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
       acc << javascript_include_tag("#{plugin}/#{filename}")
@@ -958,7 +958,7 @@ module AlchemyHelper
 
   # Renders the Subnavigation for the admin interface.
   def render_admin_subnavigation(entries)
-    render :partial => "alchemy/admin/partials/sub_navigation", :locals => {:entries => entries}
+    render :partial => "admin/partials/sub_navigation", :locals => {:entries => entries}
   end
 
   def admin_subnavigation
@@ -1013,7 +1013,7 @@ module AlchemyHelper
   # Helper for including the nescessary javascripts and stylesheets for the different views.
   # Together with the rails caching we achieve a good load time.
   def alchemy_assets_set(setname = 'combined')
-    asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', '..', 'config/asset_packages.yml'))
+    asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
     content_for(:javascript_includes) do 
       js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
       javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)

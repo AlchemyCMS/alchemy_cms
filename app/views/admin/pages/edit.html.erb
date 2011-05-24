@@ -14,7 +14,7 @@
 		  	    <%= truncate page.name, :length => 15 %>
 		    </span>
 			  <% end %>
-			  <%= form_remote_tag(:url => unlock_alchemy_admin_page_path(page)) do %>
+			  <%= form_for(unlock_alchemy_admin_page_path(page), :remote => true) do %>
 			  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
 			  		    <%= render_icon('close small') %>
 			  	  </button>
@@ -30,7 +30,7 @@
 			<%= form_tag(
 				unlock_alchemy_admin_page_path(
 					@page,
-					:redirect_to => @layoutpage ? admin_layoutpages_path : alchemy_admin_pages_path
+					:redirect_to => @layoutpage ? admin_layoutpages_path : admin_pages_path
 				),
 				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 			) do %>
