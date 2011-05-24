@@ -9,16 +9,7 @@ page.replace_html(
     :title => _("choose_element_as_target")
   )
 )
-page.insert_html(
-  "bottom",
-  "elements_for_page_#{@page_id}",
-  link_to_function(
-    "–",
-    "Alchemy.hideElementsFromPageSelector(#{@page_id})",
-    :class => "close_elements_from_page_selector", 
-    :title => _("remove")
-  )
-)
+page << "jQuery('#elements_for_page_#{@page_id}').append('<a class=\"close_elements_from_page_selector\" title=\"#{_('remove')}\">–</a>').click(function(){Alchemy.hideElementsFromPageSelector(#{@page_id});})"
 unless @elements.first.blank?
   page << "jQuery('#page_anchor').val('##{@elements.first.dom_id}')"
 end
