@@ -1,0 +1,41 @@
+<%- alchemy_combined_assets -%>
+<%- content_for(:toolbar) do -%>
+<div id="toolbar">
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
+			<%- permitted_to?(:new, :admin_users) do -%>
+			<%= link_to_overlay_window(
+				content_tag('span', '', :class => 'icon user_add'),
+				new_admin_user_path,
+				{
+					:title => _('create_user'),
+					:size => "380x330",
+					:overflow => true
+				}, {
+					:class => 'icon_button',
+					:title => _('create_user')
+				}
+			) -%><br />
+			<label><%= _('create_user') %></label>
+			<%- end -%>
+		</div>
+	</div>
+	<%= render :partial => 'admin/partials/search_form' %>
+</div>
+<%- end -%>
+<div id="archive_all">
+	<table class="list" id="user_list">
+		<%- unless @users.blank? -%>
+		<tr>
+			<th class="icon"></th>
+			<th class="login_status"></th>
+			<th class="login"><%= User.human_attribute_name("login") %></th>
+			<th class="name"><%= User.human_attribute_name("name") %></th>
+			<th class="email"><%= User.human_attribute_name("email") %></th>
+			<th class="role"><%= User.human_attribute_name("role") %></th>
+			<th class="tools"></th>
+		</tr>
+		<%- end -%>
+		<%= render @users %>
+	</table>
+</div>

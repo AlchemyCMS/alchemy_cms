@@ -63,7 +63,7 @@ module Alchemy
     end
     
     def self.has_another_page_this_layout?(layout, language_id)
-      !Alchemy::Page.find(:all, :conditions => {:page_layout => layout, :language_id => language_id}).blank?
+      !Page.find(:all, :conditions => {:page_layout => layout, :language_id => language_id}).blank?
     end
     
   end

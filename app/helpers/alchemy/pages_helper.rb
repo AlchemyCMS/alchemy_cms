@@ -1,3 +1,0 @@
-module Alchemy::PagesHelper
-
-end
