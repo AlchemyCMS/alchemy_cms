@@ -8,28 +8,28 @@ class Admin::PagesController < AlchemyController
   before_filter :get_page_from_id, :only => [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
   
   filter_access_to :all
-
+  
   cache_sweeper :pages_sweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
-
+  
   def index
     @page_root = Page.language_root_for(session[:language_id])
     @locked_pages = Page.all_locked_by(current_user)
   end
-
+  
   def show
     # fetching page via before filter
     @preview_mode = true
     @root_page = Page.language_root_for(session[:language_id])
     render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
-
+  
   def new
     @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
     @page_layouts = PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
     @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
     render :layout => false
   end
-
+  
   def create
     parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
     params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
@@ -54,7 +54,7 @@ class Admin::PagesController < AlchemyController
   rescue Exception => e
     exception_handler(e)
   end
-
+  
   # Edit the content of the page and all its elements and contents.
   def edit
     # fetching page via before filter
@@ -66,7 +66,7 @@ class Admin::PagesController < AlchemyController
     end
     @layoutpage = @page.layoutpage?
   end
-
+  
   # Set page configuration like page names, meta tags and states.
   def configure
     # fetching page via before filter
@@ -76,13 +76,13 @@ class Admin::PagesController < AlchemyController
       render :layout => false
     end
   end
-
+  
   def update
     # fetching page via before filter
     @page.update_attributes(params[:page])
     @notice = _("Page %{name} saved") % {:name => @page.name}
   end
-
+  
   def destroy
     # fetching page via before filter
     name = @page.name
@@ -109,7 +109,7 @@ class Admin::PagesController < AlchemyController
       end
     end
   end
-
+  
   def link
     @url_prefix = ""
     if configuration(:show_real_root)
@@ -129,7 +129,7 @@ class Admin::PagesController < AlchemyController
     end
     render :layout => false
   end
-
+  
   def fold
     # @page is fetched via before filter
     @page.fold(current_user.id, !@page.folded?(current_user.id))
@@ -139,12 +139,12 @@ class Admin::PagesController < AlchemyController
       page << "Alchemy.Tooltips()"
     end
   end
-
+  
   def layoutpages
     @locked_pages = Page.all_locked_by(current_user)
     @layout_root = Page.find_or_create_layout_root_for(session[:language_id])
   end
-
+  
   # Leaves the page editing mode and unlocks the page for other users
   def unlock
     # fetching page via before filter
@@ -167,12 +167,12 @@ class Admin::PagesController < AlchemyController
       end
     end
   end
-
+  
   def visit
     @page.unlock
     redirect_to multi_language? ? show_page_with_language_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
   end
-
+  
   # Sets the page public and sweeps the page cache
   def publish
     # fetching page via before filter
@@ -181,7 +181,7 @@ class Admin::PagesController < AlchemyController
     flash[:notice] = _("page_published") % {:name => @page.name}
     redirect_back_or_to_default(admin_pages_path)
   end
-
+  
   def copy_language
     set_language_to(params[:languages][:new_lang_id])
     begin
@@ -205,12 +205,12 @@ class Admin::PagesController < AlchemyController
     end
     redirect_to :action => params[:layoutpage] == "true" ? :layoutpages : :index
   end
-
+  
   def sort
     @page_root = Page.language_root_for(session[:language_id])
     @sorting = true
   end
-
+  
   def order
     @page_root = Page.language_root_for(session[:language_id])
     pages_from_raw_request.each do |page|
@@ -224,12 +224,12 @@ class Admin::PagesController < AlchemyController
       page = Page.find(page_id)
       page.move_to_child_of(parent)
     end
-		flash[:notice] = _("Pages order saved")
-		render(:update) { |page| page.redirect_to admin_pages_path }
+    flash[:notice] = _("Pages order saved")
+    render(:update) { |page| page.redirect_to admin_pages_path }
   rescue Exception => e
     exception_handler(e)
   end
-
+  
   def switch_language
     set_language_to(params[:language_id])
     redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
@@ -241,7 +241,7 @@ class Admin::PagesController < AlchemyController
       redirect_to redirect_path
     end
   end
-
+  
   def flush
     Page.flushables(session[:language_id]).each do |page|
       if multi_language?
@@ -260,7 +260,7 @@ private
   def get_page_from_id
     @page = Page.find(params[:id])
   end
-
+  
   def pages_from_raw_request
     request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
   end

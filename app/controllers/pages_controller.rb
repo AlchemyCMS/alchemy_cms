@@ -10,12 +10,12 @@ class PagesController < AlchemyController
   caches_action(
     :show,
     :layout => false,
-    :cache_path => Proc.new { |c| c.multi_language? ? "#{Alchemy::Controller.current_language.code}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
+    :cache_path => Proc.new { |c| c.multi_language? ? "#{session[:language_code]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
     :if => Proc.new { |c| 
       if Alchemy::Config.get(:cache_pages)
         page = Page.find_by_urlname_and_language_id_and_public(
           c.params[:urlname],
-          Alchemy::Controller.current_language.id,
+          session[:language_id],
           true,
           :select => 'page_layout, language_id, urlname'
         )

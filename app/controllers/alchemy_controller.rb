@@ -12,14 +12,14 @@ class AlchemyController < ApplicationController
   unloadable
   
   protect_from_forgery
-
+  
   before_filter :init_gettext
   before_filter :set_translation
   before_filter :set_language
-
+  
   helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :get_clipboard
   helper 'errors', 'layout'
-
+  
   def render_errors_or_redirect(object, redicrect_url, flash_notice)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
@@ -28,14 +28,14 @@ class AlchemyController < ApplicationController
       render_remote_errors(object)
     end
   end
-
+  
   def render_remote_errors(object)
     render :update do |page|
       page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
       page.show "errors"
-    end    
+    end
   end
-
+  
   # Returns a host string with the domain the app is running on.
   def current_server
     # For local development server
@@ -128,7 +128,6 @@ private
     end
     session[:language_id] = @language.id
     session[:language_code] = @language.code
-    Alchemy::Controller.current_language = @language
     I18n.locale = @language.code
   end
 

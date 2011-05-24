@@ -28,7 +28,7 @@
 			<%- permitted_to?(:configure, :admin_pages) do -%>
 			<%= link_to_overlay_window(
 				render_icon('configure_page'),
-				configure_alchemy_admin_page_path(page),
+				configure_admin_page_path(page),
 				{
 					:title => _('edit_page_properties'),
 					:size => page.redirects_to_external? ? '390x270' : '380x600'
@@ -69,7 +69,7 @@
 				<%- permitted_to?(:new, :admin_pages) do -%>
 				<%= link_to_overlay_window(
 					render_icon('add_page'),
-					new_alchemy_admin_page_path(:parent_id => page.id),
+					new_admin_page_path(:parent_id => page.id),
 					{
 						:title => _('create_page'),
 						:size => '405x150',
@@ -98,7 +98,7 @@
 			<%= link_to_unless(
 				@sorting,
 				page.name,
-				edit_alchemy_admin_page_path(page),
+				edit_admin_page_path(page),
 				:title => _("edit_page"),
 				:class => "sitemap_pagename_link #{cycle_class}"
 			) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
