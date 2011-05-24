@@ -39,14 +39,14 @@
 				<td><%= f.select :role, options_for_select(User::ROLES.map { |role| [User.human_rolename(role), role]}, @user.role), {}, :class => 'long' -%></td>
 			</tr>
 			<tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td>
-                    <%= check_box_tag('send_credentials', true, @user.new_record?) %>
-                    <%= label_tag('send_credentials', _('Send email with credentials')) %>
-                </td>
-            </tr>
+				<td>
+					&nbsp;
+				</td>
+				<td>
+					<%= check_box_tag('send_credentials', true, @user.new_record?) %>
+					<%= label_tag('send_credentials', _('Send email with credentials')) %>
+				</td>
+			</tr>
 			<tr>
 				<td height="25px" colspan="2" align="right">
 					<%= f.submit _('save'), :class => 'button' %>

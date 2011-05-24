@@ -31,8 +31,8 @@ class AlchemyController < ApplicationController
   
   def render_remote_errors(object)
     render :update do |page|
-      page.replace_html 'errors', "<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>"
-      page.show "errors"
+      page << "jQuery('#errors').html('<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>')"
+      page << "jQuery('#errors').show()"
     end
   end
   

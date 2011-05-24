@@ -459,6 +459,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<sortifiable>, [">= 0.2.3"])
       s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
       s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
+      s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])
     else
       s.add_dependency(%q<rails>, ["< 3.1", ">= 3.0.7"])
       s.add_dependency(%q<mysql2>, ["< 0.3", ">= 0.2"])
@@ -473,6 +474,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sortifiable>, [">= 0.2.3"])
       s.add_dependency(%q<userstamp>, [">= 2.0.1"])
       s.add_dependency(%q<dynamic_form>, [">= 1.1.4"])
+      s.add_dependency(%q<jquery-rails>, [">= 1.0.3"])
     end
   else
     s.add_dependency(%q<rails>, ["< 3.1", ">= 3.0.7"])
@@ -488,6 +490,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<sortifiable>, [">= 0.2.3"])
     s.add_dependency(%q<userstamp>, [">= 2.0.1"])
     s.add_dependency(%q<dynamic_form>, [">= 1.1.4"])
+    s.add_dependency(%q<jquery-rails>, [">= 1.0.3"])
   end
 end
 

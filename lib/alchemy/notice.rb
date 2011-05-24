@@ -8,8 +8,8 @@ module Alchemy::Notice
 private
   
   def self.show_notice(page, message, style = :notice)
-    page.insert_html(:bottom, "flash_notices", :partial => "admin/partials/flash", :locals => {:flash_type => style.to_s, :message => message})
-    page.show("flash_notices")
+    page << "jQuery('#flash_notices').append('#{render(:partial => 'admin/partials/flash', :locals => {:flash_type => style.to_s, :message => message})}')"
+    page << "jQuery('#flash_notices').show()"
     page << "Alchemy.fadeNotices()"
   end
   

@@ -3,6 +3,7 @@ javascripts:
 - combined:
   - alchemy/jquery
   - alchemy/jquery-ui
+  - alchemy/jquery.rails
   - alchemy/jquery.dialogextend.min
   - alchemy/jquery.in-place-edit.js
   - alchemy/jquery.Jcrop.min
