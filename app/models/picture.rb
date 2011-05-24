@@ -1,3 +1,5 @@
+require 'fleximage'
+
 class Picture < ActiveRecord::Base
 
   acts_as_fleximage do
