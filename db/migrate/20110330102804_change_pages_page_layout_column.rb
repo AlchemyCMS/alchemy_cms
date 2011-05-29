@@ -1,4 +1,4 @@
-class ChangePagesAlchemy::PageLayoutColumn < ActiveRecord::Migration
+class ChangePagesPageLayoutColumn < ActiveRecord::Migration
   
   def self.up
     change_column :pages, :page_layout, :string, :null => true

@@ -40,6 +40,7 @@ authorization do
     has_permission_on :admin_attachments, :to => [:manage]
     has_permission_on :admin_pictures, :to => [:manage, :flush]
     has_permission_on :admin_pages, :to => [:manage_pages]
+    has_permission_on :admin_layoutpages, :to => [:index]
   end
   
   role :admin do
@@ -64,7 +65,7 @@ privileges do
   privilege :delete,  :includes => :destroy
   
   privilege :manage_pages, :admin_pages do
-    includes :manage, :switch_language, :layoutpages, :sort, :configure, :flush, :copy
+    includes :manage, :switch_language, :sort, :configure, :flush, :copy
   end
   
   privilege :manage_elements, :admin_elements do

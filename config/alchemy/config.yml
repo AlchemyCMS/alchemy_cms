@@ -155,8 +155,8 @@ alchemy_plugins:
           controller: 'admin/pages'
           action: index
         - name: 'module: layoutpages'
-          controller: 'admin/pages'
-          action: layoutpages
+          controller: 'admin/layoutpages'
+          action: index
       nested:
         - controller: 'admin/pages'
           action: edit
