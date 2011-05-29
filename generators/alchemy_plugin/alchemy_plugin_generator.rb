@@ -5,7 +5,7 @@ class AlchemyPluginGenerator < Rails::Generator::NamedBase
   def initialize(runtime_args, runtime_options = {})
     super
     @plugin_name = name
-    @plugin_path = File.join("vendor/plugins/", name)
+    @plugin_path = File.join("vendor/plugins/", name.underscore)
   end
   
   def manifest
