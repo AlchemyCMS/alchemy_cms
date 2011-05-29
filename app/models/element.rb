@@ -1,19 +1,21 @@
-class Element < ActiveRecord::Base
-  require 'yaml'
+require 'yaml'
+require 'sortifiable'
 
+class Element < ActiveRecord::Base
+  
   acts_as_list :scope => :page_id
   stampable :stamper_class_name => :user
   has_many :contents, :order => :position, :dependent => :destroy
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
-
+  
   validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
-
+  
   before_destroy :remove_contents
-
+  
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
-
+  
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
     if name.nil?
@@ -23,7 +25,7 @@ class Element < ActiveRecord::Base
     end
     self.class.find :first, :conditions => find_conditions, :order => "position ASC"
   end
-
+  
   # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
   def prev(name = nil)
     if name.nil?

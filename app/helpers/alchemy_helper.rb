@@ -1124,5 +1124,5 @@ module AlchemyHelper
   def current_page
     @page
   end
-
+  
 end

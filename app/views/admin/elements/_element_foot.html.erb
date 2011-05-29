@@ -11,15 +11,17 @@
 		) -%>
 		<%= link_to(
 			"",
-			insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id, :remove => true),
+			admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id, :remove => true),
 			:remote => true,
+			:method => :post,
 			:class => "element_move_button",
 			:title => _("cut_element")
 		) %>
 		<%= link_to(
 			"",
-			insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id),
+			admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id),
 			:remote => true,
+			:method => :post,
 			:class => "element_copy_button",
 			:title => _("copy_element")
 		) %>

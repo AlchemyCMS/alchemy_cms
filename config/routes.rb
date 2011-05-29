@@ -115,14 +115,11 @@ Rails.application.routes.draw do |map|
     
     resources :languages
     
-    resources :clipboard, :only => :index do
-      collection do
-        delete :clear
-        post :insert
-        delete :remove
-      end
-    end
-  
+    get 'clipboard' => 'clipboard#index'
+    post 'clipboard' => 'clipboard#insert'
+    delete 'clear_clipboard' => 'clipboard#clear'
+    delete 'remove_clipboard' => 'clipboard#remove'
+    
   end
   
 end

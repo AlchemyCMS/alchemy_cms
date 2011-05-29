@@ -86,26 +86,15 @@ class Admin::PagesController < AlchemyController
   def destroy
     # fetching page via before filter
     name = @page.name
-    page_id = @page.id
-    layoutpage = @page.layoutpage?
+    @page_id = @page.id
+    @layoutpage = @page.layoutpage?
     if @page.destroy
+      @page_root = Page.language_root_for(session[:language_id])
       get_clipboard('pages').delete(@page.id)
-      render :update do |page|
-        page.remove("locked_page_#{page_id}")
-        message = _("Page %{name} deleted") % {:name => name}
-        if layoutpage
-          flash[:notice] = message
-          page.redirect_to layoutpages_admin_pages_url
-        else
-          Alchemy::Notice.show(page, message)
-          @page_root = Page.language_root_for(session[:language_id])
-          if @page_root
-            page.replace("sitemap", :partial => 'sitemap')
-            page << "Alchemy.Tooltips()"
-          else
-            page.redirect_to admin_pages_url
-          end
-        end
+      @message = _("Page %{name} deleted") % {:name => name}
+      flash[:notice] = @message
+      respond_to do |format|
+        format.js
       end
     end
   end
