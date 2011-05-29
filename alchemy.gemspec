@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robin Böning", "Thomas von Deyen"]
-  s.date = %q{2011-05-24}
+  s.date = %q{2011-05-29}
   s.description = %q{A CMS for Rails 3}
   s.email = %q{alchemy@magiclabs.de}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "app/controllers/admin/essence_pictures_controller.rb",
     "app/controllers/admin/essence_videos_controller.rb",
     "app/controllers/admin/languages_controller.rb",
+    "app/controllers/admin/layoutpages_controller.rb",
     "app/controllers/admin/pages_controller.rb",
     "app/controllers/admin/pictures_controller.rb",
     "app/controllers/admin/users_controller.rb",
@@ -112,6 +113,8 @@ Gem::Specification.new do |s|
     "app/views/admin/languages/edit.html.erb",
     "app/views/admin/languages/index.html.erb",
     "app/views/admin/languages/new.html.erb",
+    "app/views/admin/layoutpages/_layoutpage.html.erb",
+    "app/views/admin/layoutpages/index.html.erb",
     "app/views/admin/login.html.erb",
     "app/views/admin/logout.html.erb",
     "app/views/admin/pages/_contactform_links.html.erb",
@@ -119,7 +122,6 @@ Gem::Specification.new do |s|
     "app/views/admin/pages/_external_link.html.erb",
     "app/views/admin/pages/_file_link.html.erb",
     "app/views/admin/pages/_internal_link.html.erb",
-    "app/views/admin/pages/_layoutpage.html.erb",
     "app/views/admin/pages/_new_page_form.html.erb",
     "app/views/admin/pages/_page.html.erb",
     "app/views/admin/pages/_page_for_links.html.erb",
@@ -130,7 +132,6 @@ Gem::Specification.new do |s|
     "app/views/admin/pages/configure_external.html.erb",
     "app/views/admin/pages/edit.html.erb",
     "app/views/admin/pages/index.html.erb",
-    "app/views/admin/pages/layoutpages.html.erb",
     "app/views/admin/pages/link.html.erb",
     "app/views/admin/pages/locked.html.erb",
     "app/views/admin/pages/new.html.erb",
@@ -268,6 +269,7 @@ Gem::Specification.new do |s|
     "assets/javascripts/jquery.dialogextend.min.js",
     "assets/javascripts/jquery.in-place-edit.js",
     "assets/javascripts/jquery.js",
+    "assets/javascripts/jquery.rails.js",
     "assets/javascripts/jquery.sb.min.js",
     "assets/javascripts/jquery.scrollTo-1.4.2-min.js",
     "assets/javascripts/jquery.ui.nestedSortable.js",
@@ -420,12 +422,19 @@ Gem::Specification.new do |s|
     "lib/extensions/array.rb",
     "lib/extensions/attachment_fu_mime_type.rb",
     "lib/extensions/hash.rb",
-    "lib/rails/generators/elements/USAGE",
-    "lib/rails/generators/elements/elements_generator.rb",
-    "lib/rails/generators/elements/templates/editor.html.erb",
-    "lib/rails/generators/elements/templates/view.html.erb",
-    "lib/rails/generators/page_layouts/page_layouts_generator.rb",
-    "lib/rails/generators/page_layouts/templates/layout.html.erb",
+    "lib/rails/generators/alchemy/elements/elements_generator.rb",
+    "lib/rails/generators/alchemy/elements/templates/editor.html.erb",
+    "lib/rails/generators/alchemy/elements/templates/view.html.erb",
+    "lib/rails/generators/alchemy/page_layouts/page_layouts_generator.rb",
+    "lib/rails/generators/alchemy/page_layouts/templates/layout.html.erb",
+    "lib/rails/generators/alchemy/plugin/plugin_generator.rb",
+    "lib/rails/generators/alchemy/plugin/templates/authorization_rules.rb",
+    "lib/rails/generators/alchemy/plugin/templates/config.yml",
+    "lib/rails/generators/alchemy/plugin/templates/init.rb",
+    "lib/rails/generators/alchemy/plugin/templates/routes.rb",
+    "lib/rails/generators/alchemy/scaffold/scaffold_generator.rb",
+    "lib/rails/generators/alchemy/scaffold/templates/elements.yml",
+    "lib/rails/generators/alchemy/scaffold/templates/page_layouts.yml",
     "lib/rails/railties/tasks.rake",
     "locale/alchemy.pot",
     "locale/de/LC_MESSAGES/alchemy.mo",
