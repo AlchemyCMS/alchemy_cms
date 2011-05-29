@@ -138,7 +138,7 @@ Gem::Specification.new do |s|
     "app/views/admin/pages/new.html.erb",
     "app/views/admin/pages/show.html.erb",
     "app/views/admin/pages/sort.rjs",
-    "app/views/admin/pages/update.rjs",
+    "app/views/admin/pages/update.js.erb",
     "app/views/admin/partials/_flash.html.erb",
     "app/views/admin/partials/_flash_notices.html.erb",
     "app/views/admin/partials/_mainnavigation_entry.html.erb",
