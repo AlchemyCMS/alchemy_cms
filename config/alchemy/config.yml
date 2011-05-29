@@ -129,34 +129,7 @@ default_language:
     :pictures: [jpg, jpeg, gif, png, psd, pdf]
     :attachments: [*]
 
-# == Alchemy plugin configuration
-# To render the mainnavigation we split Alchemy into three plugins.
-# To make an own plugin just make a new folder in vendor/plugins and put an init.rb file in it and a config
-# folder with a Alchemy folder in it. Place a config.yml in this Alchemy folder.
-#
-# vendor/plugins/MY_PLUGIN_NAME/init.rb
-# vendor/plugins/MY_PLUGIN_NAME/config/alchemy/config.yml
-#
-# Example config.yml
-# 
-# name: PLUGIN_NAME
-# settings: PUT SOME SETTINGS HERE
-# preview_frame: IF YOU WANT TO USE THE ALCHEMY PREVIEW FRAME!
-# navigation:
-#   name: NAME IN ALCHEMY NAVIGATION
-#   controller: controller_name
-#   action: action_of_controller
-#   image: /plugin_assets/PLUGIN_NAME/images/NAVIGATION_IMAGE.png
-#   sub_navigation:
-#     - name: subnavigation_entry
-#       controller: controller_name
-#       action: action_of_controller
-#     - name: subnavigation_entry
-#       controller: controller_name
-#       action: action_of_controller
-#     - name: subnavigation_entry
-#       controller: controller_name
-#       action: action_of_controller
+# == Alchemy core plugins configuration
 
 alchemy_plugins:
 
