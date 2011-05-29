@@ -42,24 +42,13 @@ Rails.application.routes.draw do |map|
   namespace :admin do 
   
     resources :users
-  
+    
     resources :contents do
       collection do 
         post :order
       end
     end
-  
-    resources :elements do 
-      resources :contents
-      collection do 
-        get :list
-        post :order
-      end
-      member do
-        post :fold
-      end
-    end
-  
+    
     resources :pages do 
       resources :elements
       collection do 
@@ -80,6 +69,17 @@ Rails.application.routes.draw do |map|
       end
     end
     
+    resources :elements do 
+      resources :contents
+      collection do 
+        get :list
+        post :order
+      end
+      member do
+        post :fold
+      end
+    end
+    
     resources :layoutpages, :only => :index
     
     resources :pictures do 
@@ -92,7 +92,7 @@ Rails.application.routes.draw do |map|
         delete :remove
       end
     end
-  
+    
     resources :attachments do 
       collection do 
         get :archive_overlay
@@ -102,19 +102,19 @@ Rails.application.routes.draw do |map|
         get :download
       end
     end
-  
+    
     resources :essence_pictures, :except => [:show, :new, :create] do 
       member do 
         get :crop
       end
     end
-  
+    
     resources :essence_files
-  
+    
     resources :essence_videos
-  
+    
     resources :languages
-  
+    
     resources :clipboard, :only => :index do
       collection do
         delete :clear
