@@ -1,4 +1,4 @@
-class PluginGenerator < Rails::Generator::NamedBase
+class AlchemyPluginGenerator < Rails::Generator::NamedBase
   
   attr_reader :plugin_name
   
@@ -22,7 +22,5 @@ class PluginGenerator < Rails::Generator::NamedBase
       m.template("routes.rb", "#{@plugin_path}/config/routes.rb")
     end
   end
-
-private
 
 end
