@@ -14,12 +14,12 @@ module Alchemy
     
     # Returns the page_layout.yml file. Tries to first load from config/alchemy and if not found from vendor/plugins/alchemy/config/alchemy.
     def self.get_layouts
-      if File.exists? "#{RAILS_ROOT}/config/alchemy/page_layouts.yml"
-        layouts = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/page_layouts.yml" )
-      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml"
-        layouts = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml" )
+      if File.exists? "#{Rails.root}/config/alchemy/page_layouts.yml"
+        layouts = YAML.load_file( "#{Rails.root}/config/alchemy/page_layouts.yml" )
+      elsif File.exists? "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml"
+        layouts = YAML.load_file( "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml" )
       else
-        raise "Could not find page_layouts.yml neither in config/alchemy/, nor in vendor/plugins/alchemy/config/alchemy/"
+        raise LoadError, "Could not find page_layouts.yml file! Please run: rails generate alchemy_scaffold"
       end
       layouts
     end

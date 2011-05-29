@@ -116,8 +116,8 @@ module AlchemyHelper
       }
       options = default_options.merge(options)
       element.store_page(@page) if part == :view
-      path1 = "#{RAILS_ROOT}/app/views/elements/"
-      path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
+      path1 = "#{Rails.root}/app/views/elements/"
+      path2 = "#{Rails.root}/vendor/plugins/alchemy/app/views/elements/"
       partial_name = "_#{element.name.underscore}_#{part}.html.erb"
       if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
         locals = options.delete(:locals)
@@ -703,7 +703,7 @@ module AlchemyHelper
       :render_format => "html"
     }
     options = default_options.merge(options)
-    if File.exists?("#{RAILS_ROOT}/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb")
+    if File.exists?("#{Rails.root}/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{Rails.root}/vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb")
       render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
     else
       render :partial => "page_layouts/standard"

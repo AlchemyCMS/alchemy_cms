@@ -58,7 +58,7 @@ private
       @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
     end
     if @page.blank?
-      render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
+      render(:file => "#{Rails.root}/public/404.html", :status => 404)
     elsif multi_language? && params[:lang].blank?
       redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
     elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?

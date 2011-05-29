@@ -28,10 +28,10 @@ class ElementsGenerator < Rails::Generator::Base
 private
   
   def get_elements_from_yaml
-    if File.exists? "#{RAILS_ROOT}/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/elements.yml" )
-    elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
+    if File.exists? "#{Rails.root}/config/alchemy/elements.yml"
+      @elements = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
+    elsif File.exists? "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/elements.yml"
+      @elements = YAML.load_file( "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
     else
       raise "Could not read config/alchemy/elements.yml"
     end

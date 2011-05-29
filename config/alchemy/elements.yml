@@ -1,6 +1,6 @@
 # == In this configuration you setup Alchemy´s element layouts.
 # 
-# *Notice. Please place your own version of this file inside +RAILS_ROOT/config/alchemy/+.*
+# *Notice. Please place your own version of this file inside +Rails.root/config/alchemy/+.*
 # 
 # Elements containing all necessary basic tools for displaying and editing content inside Alchemy.
 # They consists of composed contents (different essence-types) as shown in the illustration of an elements-sheme below.
@@ -42,7 +42,7 @@
 # 
 #   script/generate elements
 # 
-# All new elements will be created as two different partials in RAILS_ROOT/app/views/elements.
+# All new elements will be created as two different partials in Rails.root/app/views/elements.
 # For each element there is an editor-view wich will be rendered when editing them in Alchemy and another view for the website´s frontend.
 # 
 #   app/views/elements/_elementsname_editor.html.erb

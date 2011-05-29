@@ -1,6 +1,6 @@
 # == This file defines the page_layouts for new pages.
 # 
-# Please make your own page_layouts for your app in your own RAILS_ROOT/config/alchemy/page_layouts.yml file.
+# Please make your own page_layouts for your app in your own Rails.root/config/alchemy/page_layouts.yml file.
 #
 # === DSL:
 #   - name: String                  # The name of the layout used for views and inside the database. You can render a layout with the render_page_layout(name) helper.

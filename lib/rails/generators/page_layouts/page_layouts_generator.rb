@@ -22,10 +22,10 @@ class Alchemy::PageLayoutsGenerator < Rails::Generator::Base
   private
     
     def get_layouts_from_yaml
-      if File.exists? "#{RAILS_ROOT}/config/alchemy/page_layouts.yml"
-        layout_file = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/page_layouts.yml" )
-      elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml"
-        layout_file = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml" )
+      if File.exists? "#{Rails.root}/config/alchemy/page_layouts.yml"
+        layout_file = YAML.load_file( "#{Rails.root}/config/alchemy/page_layouts.yml" )
+      elsif File.exists? "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml"
+        layout_file = YAML.load_file( "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml" )
       else
         raise "Could not read config/alchemy/page_layouts.yml"
       end
