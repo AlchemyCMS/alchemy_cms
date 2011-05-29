@@ -1,9 +1,4 @@
-# Copyright: 2007-2010 Thomas von Deyen and Carsten Fregin
-# Author:    Thomas von Deyen
-# Date:      02.06.2010
-# License:   GPL
 # All methods (helpers) in this helper are used by Alchemy to render elements, contents and layouts on the Page.
-# You can call this helper the most important part of Alchemy. This helper is Alchemy, actually :)
 #
 # TODO: list all important infos here.
 # 
@@ -22,14 +17,10 @@ module AlchemyHelper
     return Alchemy::Config.get(name)
   end
 
-  # Did not know of the truncate helepr form rails at this time.
-  # The way is to pass this to truncate....
+  # An alias for truncate.
+  # Left here for downwards compatibilty.
   def shorten(text, length)
-    if text.length <= length - 1
-      text
-    else
-      text[0..length - 1] + "..."
-    end
+    text.truncate(:length => length)
   end
 
   def render_editor(element)
@@ -99,7 +90,7 @@ module AlchemyHelper
       all_elements.each_with_index do |element, i|
         element_string += render_element(element, :view, options, i+1)
       end
-      element_string
+      element_string.html_safe
     end
   end
 
@@ -141,12 +132,6 @@ module AlchemyHelper
         render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
       end
     end
-  end
-
-  # DEPRICATED: It is useless to render a helper that only renders a partial.
-  # Unless it is something the website producer uses. But this is not the case here.
-  def render_element_head element
-    render :partial => "elements/partials/element_head", :locals => {:element_head => element}
   end
 
   # Renders the Content partial that is given (:editor, or :view).
@@ -332,7 +317,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     title = render_page_title(options)
-    %(<title>#{title}</title>)
+    %(<title>#{title}</title>).html_safe
   end
 
   # Renders a html <meta> tag for :name => "" and :content => ""
@@ -348,7 +333,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-    %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" xml:lang="#{lang}" />)
+    %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" xml:lang="#{lang}" />).html_safe
   end
 
   # Renders a html <meta http-equiv="Content-Language" content="#{lang}" /> for @page.language.
@@ -362,7 +347,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-    %(<meta http-equiv="Content-Language" content="#{lang}" />)
+    %(<meta http-equiv="Content-Language" content="#{lang}" />).html_safe
   end
 
   # = This helper takes care of all important meta tags for your @page.
@@ -412,7 +397,7 @@ module AlchemyHelper
       #{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
       #{render_meta_tag( :name => "description", :content => description)}
       #{render_meta_tag( :name => "keywords", :content => keywords)}
-      <meta name="generator" content="Alchemy #{configuration(:alchemy_version)}" />
+      <meta name="generator" content="Alchemy #{Alchemy.version}" />
       <meta name="date" content="#{@page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
@@ -421,7 +406,7 @@ module AlchemyHelper
       <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
-    return meta_string
+    return meta_string.html_safe
   end
 
   # Returns an array of all pages in the same branch from current. Used internally to find the active page in navigations.
@@ -492,7 +477,7 @@ module AlchemyHelper
       end
       bc << link_to( h(page.name), url, :class => css_class, :title => page.title )
     end
-    bc.join(options[:seperator])
+    bc.join(options[:seperator]).html_safe
   end
 
   # returns true if page is in the active branch

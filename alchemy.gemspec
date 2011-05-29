@@ -130,6 +130,7 @@ Gem::Specification.new do |s|
     "app/views/admin/pages/_sitemap.html.erb",
     "app/views/admin/pages/configure.html.erb",
     "app/views/admin/pages/configure_external.html.erb",
+    "app/views/admin/pages/destroy.js.erb",
     "app/views/admin/pages/edit.html.erb",
     "app/views/admin/pages/index.html.erb",
     "app/views/admin/pages/link.html.erb",
