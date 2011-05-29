@@ -2767,10 +2767,10 @@ div#per_page_values {
 	margin-bottom: 8px;
 	border: 1px solid #d08f91;
 	color: #690001;
-	-webkit-border-radius: 0 7px 7px 7px;
-	-moz-border-radius: 0 7px 7px 7px;
-	-o-border-radius: 0 7px 7px 7px;
-	border-radius: 0 7px 7px 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
 }
 
 #errorExplanation h2 {
