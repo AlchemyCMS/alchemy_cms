@@ -1,4 +1,4 @@
-<div class="<%= @element_name %>" id="<%%= element_dom_id(@element) %>"<%%= element_preview_code(element) -%>>
+<div class="<%= @element_name %>" id="<%%= element_dom_id(element) %>"<%%= element_preview_code(element) -%>>
 <%- unless @contents.blank? -%>
 <%- @contents.each do |content| -%>
 	<%- if content["type"] == "EssencePicture" -%>
