@@ -69,6 +69,19 @@ namespace :alchemy do
     end
   end
   
+  namespace :standard_set do
+    
+    desc "Runs all tasks and generators to install Alchemys standard set."
+    task :install do
+      Rake::Task['db:create'].invoke
+      Rake::Task['db:migrate:alchemy'].invoke
+      Rake::Task['db:seed:alchemy'].invoke
+      system("rails g alchemy:scaffold --with_standard_set")
+      Rake::Task['alchemy:assets:copy:all'].invoke
+    end
+    
+  end
+  
 end
 
 namespace :ferret do
