@@ -7,8 +7,8 @@ module Alchemy
       source_root File.expand_path('templates', File.dirname(__FILE__))
       
       def create_directory
-        @element_dir = "#{Rails.root}/app/views/elements"
-        empty_directory @element_dir
+        @elements_dir = "#{Rails.root}/app/views/elements"
+        empty_directory @elements_dir
       end
       
       def create_partials
@@ -17,8 +17,8 @@ module Alchemy
           @element = element
           @contents = element["contents"]
           @element_name = element["name"].underscore
-          template "editor.html.erb", "#{@element_dir}/_#{@element_name}_editor.html.erb"
-          template "view.html.erb", "#{@element_dir}/_#{@element_name}_view.html.erb"
+          template "editor.html.erb", "#{@elements_dir}/_#{@element_name}_editor.html.erb"
+          template "view.html.erb", "#{@elements_dir}/_#{@element_name}_view.html.erb"
         end if @elements
       end
       
