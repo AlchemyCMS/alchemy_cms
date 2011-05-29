@@ -230,7 +230,7 @@ class Page < ActiveRecord::Base
   end
 
   def has_controller?
-    !PageLayout.get(self.page_layout).nil? && !PageLayout.get(self.page_layout)["controller"].blank?
+    !Alchemy::PageLayout.get(self.page_layout).nil? && !Alchemy::PageLayout.get(self.page_layout)["controller"].blank?
   end
 
   def controller_and_action
@@ -241,9 +241,9 @@ class Page < ActiveRecord::Base
 
   # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
   def layout_description
-    page_layout = PageLayout.get(self.page_layout)
+    page_layout = Alchemy::PageLayout.get(self.page_layout)
     if page_layout.nil?
-      logger.warn("\n+++++++++++  Warning! PageLayout description not found for layout: #{self.page_layout}\n")
+      logger.warn("\n+++++++++++  Warning! Alchemy::PageLayout description not found for layout: #{self.page_layout}\n")
       return nil
     else
       return page_layout
@@ -374,7 +374,7 @@ class Page < ActiveRecord::Base
   def self.all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
     return [] if clipboard.blank?
     clipboard_pages = self.all_from_clipboard(clipboard)
-    allowed_page_layouts = PageLayout.selectable_layouts(language_id, layoutpage)
+    allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
     allowed_page_layout_names = allowed_page_layouts.collect{ |p| p['name'] }
     clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
   end

@@ -1,4 +1,4 @@
-class PageLayoutsGenerator < Rails::Generator::Base
+class Alchemy::PageLayoutsGenerator < Rails::Generator::Base
   require 'yaml'
   
   def initialize(runtime_args, runtime_options={})

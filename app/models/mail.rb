@@ -3,7 +3,7 @@
 # 
 # === Options:
 # 
-# - form_layout_name: A PageLayout name (String). Used to render the contactform on a page with this layout.
+# - form_layout_name: A Alchemy::PageLayout name (String). Used to render the contactform on a page with this layout.
 # 
 # === Fieldtypes are:
 #

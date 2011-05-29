@@ -10,8 +10,6 @@ Rails.application.routes.draw do |map|
     :as => :signup
   match '/admin/logout' => 'admin#logout',
     :as => :logout
-  match '/admin/pages/layoutpages' => 'admin/pages#layoutpages',
-    :as => :admin_layoutpages
   match '/attachment/:id/download' => 'attachments#download',
     :as => :download_attachment
   match '/attachment/:id/show' => 'attachments#show',
@@ -63,24 +61,27 @@ Rails.application.routes.draw do |map|
     end
   
     resources :pages do 
+      resources :elements
       collection do 
         get :switch_language
-        get :create_language
         get :link
-        get :layoutpages
         get :sort
         post :order
         post :flush
+        post :copy_language
       end
       member do 
         post :publish
         post :unlock
+        post :fold
+        post :visit
         get :configure
         get :preview
       end
-      resources :elements
     end
-  
+    
+    resources :layoutpages, :only => :index
+    
     resources :pictures do 
       collection do 
         get :archive_overlay

@@ -24,7 +24,7 @@
 
 # === Pagecaching
 # Enable/Disable pagecaching globally.
-# Hint: You can enable/disable page caching for single PageLayouts in the page_layout.yml file.
+# Hint: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
 :cache_pages: true
 
 # === Sitemap

@@ -25,7 +25,7 @@ class Admin::PagesController < AlchemyController
   
   def new
     @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
-    @page_layouts = PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
+    @page_layouts = Alchemy::PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
     @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
     render :layout => false
   end
@@ -140,11 +140,6 @@ class Admin::PagesController < AlchemyController
     end
   end
   
-  def layoutpages
-    @locked_pages = Page.all_locked_by(current_user)
-    @layout_root = Page.find_or_create_layout_root_for(session[:language_id])
-  end
-  
   # Leaves the page editing mode and unlocks the page for other users
   def unlock
     # fetching page via before filter
@@ -203,7 +198,7 @@ class Admin::PagesController < AlchemyController
     rescue
       exception_logger($!)
     end
-    redirect_to :action => params[:layoutpage] == "true" ? :layoutpages : :index
+    redirect_to params[:layoutpage] == "true" ? admin_layoutpages_path : :action => :index
   end
   
   def sort

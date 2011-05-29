@@ -1,4 +1,4 @@
-class RemoveDefaultPageLayoutFromPages < ActiveRecord::Migration
+class RemoveDefaultAlchemy::PageLayoutFromPages < ActiveRecord::Migration
   
   def self.up
     change_column_default :pages, :page_layout, nil

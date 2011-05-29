@@ -1,5 +1,5 @@
 module Alchemy
-  class PageLayout
+  class Alchemy::PageLayout
     
     def self.element_names_for(page_layout)
       page_layouts = self.get_layouts
