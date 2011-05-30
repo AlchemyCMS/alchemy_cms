@@ -1,5 +1,5 @@
 module Alchemy
-  class Alchemy::PageLayout
+  class PageLayout
     
     def self.element_names_for(page_layout)
       page_layouts = self.get_layouts
@@ -26,13 +26,10 @@ module Alchemy
    
     # Returns the page_layout description found by name in page_layouts.yml
     def self.get(name = "")
-      begin
-        self.get_layouts.detect{ |a| a["name"].downcase == name.downcase }
-      rescue Exception => e
-        # TODO: Log error message
-        #Rails::Logger.error("++++++ ERROR\n#{e}")
-        return nil
-      end
+      self.get_layouts.detect{ |a| a["name"].downcase == name.downcase }
+    rescue Exception => e
+      Rails::Logger.error("++++++ ERROR\n#{e}")
+      return nil
     end
     
     # Returns page layouts ready for Rails' select form helper.

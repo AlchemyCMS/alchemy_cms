@@ -65,7 +65,7 @@ privileges do
   privilege :delete,  :includes => :destroy
   
   privilege :manage_pages, :admin_pages do
-    includes :manage, :switch_language, :sort, :configure, :flush, :copy
+    includes :manage, :switch_language, :sort, :order, :configure, :flush, :copy
   end
   
   privilege :manage_elements, :admin_elements do
