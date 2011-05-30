@@ -1104,6 +1104,9 @@ if (typeof(Alchemy) === 'undefined') {
 		if (jQuery('#flash_notices').length > 0) {
 			Alchemy.Growler.fade();
 		}
+		$('#alchemy a.icon_button.please_wait_overlay').click(function() {
+			Alchemy.pleaseWaitOverlay();
+		});
 	});
 	
 	// Alchemy window resize listener

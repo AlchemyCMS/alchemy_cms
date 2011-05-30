@@ -39,13 +39,11 @@
 		<%- permitted_to?(:flush, :admin_pages) do -%>
 		<div class="button_with_label">
 			<%= link_to(
-				content_tag('span', '', :class => 'icon flush'),
+				render_icon('flush'),
 				flush_admin_pages_path,
 				:remote => true,
 				:method => :post,
-				:before => 'Alchemy.pleaseWaitOverlay()',
-				:complete => 'Alchemy.pleaseWaitOverlay(false)',
-				:class => 'icon_button',
+				:class => 'icon_button please_wait_overlay',
 				:title => _('Flush page cache')
 			) -%><br />
 			<label><%= _('Flush page cache') %></label>
@@ -54,13 +52,13 @@
 		<%- permitted_to?(:sort, :admin_pages) do -%>
 		<div class="button_with_label" id="page_sorting_button">
 			<%= link_to(
-				content_tag('span', '', :class => 'icon sort'),
+				render_icon('sort'),
 				sort_admin_pages_path,
 				:before => 'Alchemy.pleaseWaitOverlay();',
-				:complete => 'Alchemy.pleaseWaitOverlay(false);',
+				:complete => '',
 				:method => :get,
 				:remote => true,
-				:class => 'icon_button',
+				:class => 'icon_button please_wait_overlay',
 				:title => _('Sort pages')
 			) -%><br />
 			<label><%= _('Sort pages') %></label>

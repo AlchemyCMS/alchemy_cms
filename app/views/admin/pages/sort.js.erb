@@ -2,4 +2,5 @@
 	$('#sitemap').replaceWith('<%= escape_javascript(render(:partial => "sitemap")) -%>');
 	$('#bottom_panel').show();
 	Alchemy.PageSorter.init();
+	Alchemy.pleaseWaitOverlay(false);
 })(jQuery);
