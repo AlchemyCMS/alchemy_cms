@@ -61,8 +61,8 @@ Rails.application.routes.draw do |map|
       end
       member do 
         post :publish
-        post :unlock
         post :fold
+        post :unlock
         post :visit
         get :configure
         get :preview

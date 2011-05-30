@@ -123,9 +123,8 @@ class Admin::PagesController < AlchemyController
     # @page is fetched via before filter
     @page.fold(current_user.id, !@page.folded?(current_user.id))
     @page.save
-    render :update do |page|
-      page.replace "page_#{@page.id}", :partial => 'page', :locals => {:page => @page}
-      page << "Alchemy.Tooltips()"
+    respond_to do |format|
+      format.js
     end
   end
   

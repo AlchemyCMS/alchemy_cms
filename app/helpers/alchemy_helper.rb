@@ -664,12 +664,9 @@ module AlchemyHelper
     end
     link_to(
       '',
-      {
-        :controller => 'admin/pages',
-        :action => :fold,
-        :id => page.id
-      },
+      fold_admin_page_path(page),
       :remote => true,
+      :method => :post,
       :class => "page_folder #{css_class}",
       :title => title,
       :id => "fold_button_#{page.id}"
