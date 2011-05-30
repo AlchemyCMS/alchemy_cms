@@ -52,12 +52,12 @@ Rails.application.routes.draw do |map|
     resources :pages do 
       resources :elements
       collection do 
-        get :switch_language
-        get :link
-        get :sort
         post :order
         post :flush
         post :copy_language
+        get :switch_language
+        get :link
+        get :sort
       end
       member do 
         post :publish

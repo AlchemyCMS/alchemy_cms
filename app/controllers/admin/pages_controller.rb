@@ -233,8 +233,8 @@ class Admin::PagesController < AlchemyController
         expire_action("#{page.urlname}")
       end
     end
-    render :update do |page|
-      Alchemy::Notice.show(page, _('Page cache flushed'))
+    respond_to do |format|
+      format.js
     end
   end
 
