@@ -70,13 +70,16 @@ class Admin::ElementsController < AlchemyController
     @element.public = !params[:public].nil?
     @element.save!
     @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
+    respond_to do |format|
+      format.js
+    end
   rescue Exception => e
     exception_logger(e)
     if e.class == Ferret::FileNotFoundError
       EssenceText.rebuild_index
       EssenceRichtext.rebuild_index
       render :update do |page|
-        Alchemy::Notice.show(page, _("Index Error after saving Element. Please try again!"), :error)
+        page << "Alchemy.growl('#{_("Index Error after saving Element. Please try again!")}', 'error')"
       end
     else
       show_error_notice(e)
