@@ -8,7 +8,7 @@
 	<%- if @page.locked? && @page.locker == current_user -%>
 	$('#locked_page_<%= @page.id -%> > a').text('<%= @page.name -%>');
 	<%- end -%>
-	$('page_<%= @page.id -%>_infos').html('<%= escape_javascript(render(:partial => "page_infos", :locals => {:page => @page})) -%>');
+	$('#page_<%= @page.id -%>_infos').html('<%= escape_javascript(render(:partial => "page_infos", :locals => {:page => @page})) -%>');
 	<%- end -%>
 	Alchemy.growl('<%= @notice -%>');
 })(jQuery);
