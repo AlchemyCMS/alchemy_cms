@@ -49,7 +49,6 @@ class Admin::LanguagesController < AlchemyController
 
   def destroy
     name = @language.name
-    logger.info("+++++++++++++++++++++++ #{@language.pages.inspect}")
     if @language.destroy
       flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
       set_language_to_default

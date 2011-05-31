@@ -7,7 +7,6 @@ module Alchemy
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
-      base.send :include, Alchemy::Notice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
     
@@ -16,7 +15,6 @@ module Alchemy
       self.alchemy_plugins_settings = {}
       plugins_config_paths.each do |settings_file|
         settings = YAML.load_file(settings_file)
-				Rails.logger.info("\n+++++ Registered #{settings["name"]} as Alchemy plugin.")
         self.alchemy_plugins_settings[settings["name"]] = settings
       end
     end
@@ -72,7 +70,7 @@ module Alchemy
     private
 
       def plugins_config_paths
-				Dir.glob("vendor/plugins/*[^alchemy]/config/alchemy/config.yml")
+        Dir.glob("vendor/plugins/*[^alchemy]/config/alchemy/config.yml")
       end
 
     end
