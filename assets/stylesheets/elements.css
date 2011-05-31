@@ -773,13 +773,14 @@ div.pictures_for_element {
 	margin-top: 4px;
 }
 
-textarea.tinymce {
+textarea {
 	font: 12px Tahoma, Arial, sans-serif;
 	padding: 4px;
 	margin: 0;
-	width: 368px;
+	width: 362px;
 	border-style: inset;
 	border-width: 1px;
+	border-radius: 3px;
 	height: 200px;
 }
 
