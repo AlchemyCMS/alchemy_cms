@@ -14,8 +14,8 @@ class EssenceDate < ActiveRecord::Base
 
   # Saves the ingredient
   def save_ingredient(params, options = {})
-    return true if params.blank?
-    self.date = DateTime.strptime(params.values.join('-'), @@date_parts[0, params.length].join("-"))
+    return true if params['date'].blank?
+    self.date = DateTime.strptime(params['date'].values.join('-'), @@date_parts[0, params['date'].length].join("-"))
     self.save
   end
 

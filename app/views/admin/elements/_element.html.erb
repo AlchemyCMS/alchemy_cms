@@ -2,10 +2,9 @@
 	<%= render :partial => "element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
 		<%= form_for(
-			admin_element_path(element),
-			:method => :put,
+			[:admin, element],
 			:remote => true,
-			:before => "Alchemy.saveElement(this)",
+			:onsubmit => "Alchemy.saveElement(this)",
 			:id => "element_#{element.id}_form"
 		) do %>
 			<div id="element_<%= element.id %>_content" class="element_content">
