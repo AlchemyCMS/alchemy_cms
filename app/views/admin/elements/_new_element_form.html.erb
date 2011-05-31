@@ -5,7 +5,7 @@
 	<%= form_for(
 		[:admin, @element],
 		:remote => true,
-		:html => {:class => "add_element_content"}
+		:class => "add_element_content"
 	) do |form| %>
 		<div id="errors" style="display: none"></div>
 		<%= form.hidden_field('page_id') %>

@@ -1,0 +1,16 @@
+(function($) {
+	
+	$('#element_area').append('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
+	$('#element_area').sortable('refresh');
+	Alchemy.growl('<%= _("successfully_added_element") -%>');
+	Alchemy.closeCurrentWindow();
+	<%- @richtext_contents.each do |content| -%>
+	TinymceHammer.addEditor('<%= content.form_field_id -%>');
+	<%- end -%>
+	Alchemy.reloadPreview();
+	Alchemy.ElementEditorSelector.init();
+	$('#element_<%= @element.id -%>').trigger('Alchemy.SelectElementEditor');
+	Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
+	Alchemy.SelectBox('#element_<%= @element.id -%> select');
+	
+})(jQuery);

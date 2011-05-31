@@ -51,6 +51,9 @@ class Admin::ElementsController < AlchemyController
     if @element.save
       @richtext_contents = @element.contents.select { |content| content.essence_type == 'EssenceRichtext' }
       @page = @element.page
+      respond_to do |format|
+        format.js
+      end
     else
       render_remote_errors(@element)
     end
