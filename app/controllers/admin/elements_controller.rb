@@ -95,6 +95,9 @@ class Admin::ElementsController < AlchemyController
         session[:clipboard] = nil if session[:clipboard][:element_id] == params[:id]
       end
     end
+    respond_to do |format|
+      format.js
+    end
   rescue Exception => e
     exception_handler(e)
   end
