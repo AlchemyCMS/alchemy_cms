@@ -110,9 +110,8 @@ class Admin::ElementsController < AlchemyController
       element = Element.find(element)
       element.move_to_bottom
     end
-    render :update do |page|
-      Alchemy::Notice.show(page, _("successfully_saved_element_position"))
-      page << "Alchemy.PreviewWindow.refresh()"
+    respond_to do |format|
+      format.js
     end
   rescue Exception => e
     exception_handler(e)
