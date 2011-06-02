@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def pages_locked_by_me
-    Page.find(:all, :conditions => {:locked => true, :locked_by => self.id})
+    Page.where(:locked => true).where(:locked_by => self.id).order(:updated_at)
   end
 
   # Returns the firstname and lastname as a string
