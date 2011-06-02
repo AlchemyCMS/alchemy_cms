@@ -367,7 +367,7 @@ class Page < ActiveRecord::Base
   end
 
   def self.all_last_edited_from(user)
-    Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
+    Page.where(:updater_id => user.id).limit(5).order('updated_at DESC')
   end
 
   def self.all_from_clipboard(clipboard)
