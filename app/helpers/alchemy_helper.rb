@@ -375,7 +375,8 @@ module AlchemyHelper
     default_options = {
       :title_prefix => "",
       :title_seperator => "|",
-      :default_lang => "de"
+      :default_lang => "de",
+      :csrf => true
     }
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
@@ -401,6 +402,9 @@ module AlchemyHelper
       <meta name="date" content="#{@page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
+    if options[:csrf] == true
+      meta_string += csrf_meta_tag
+    end
     if @page.contains_feed?
     meta_string += %(
       <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
