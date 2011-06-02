@@ -376,7 +376,7 @@ module AlchemyHelper
       :title_prefix => "",
       :title_seperator => "|",
       :default_lang => "de",
-      :csrf => true
+      :csrf => false
     }
     options = default_options.merge(options)
     #render meta description of the root page from language if the current meta description is empty
