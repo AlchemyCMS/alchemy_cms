@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = "2.0.0.dev"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Robin Böning", "Thomas von Deyen"]
-  s.date = %q{2011-05-29}
+  s.authors = ["Robin Böning", "Robin Böning", "Thomas von Deyen"]
+  s.date = %q{2011-06-05}
   s.description = %q{A CMS for Rails 3}
   s.email = %q{alchemy@magiclabs.de}
   s.extra_rdoc_files = [
@@ -93,13 +93,14 @@ Gem::Specification.new do |s|
     "app/views/admin/elements/_element_head.html.erb",
     "app/views/admin/elements/_new_element_form.html.erb",
     "app/views/admin/elements/_picture_editor.html.erb",
-    "app/views/admin/elements/create.rjs",
-    "app/views/admin/elements/destroy.rjs",
-    "app/views/admin/elements/fold.rjs",
-    "app/views/admin/elements/index.rjs",
-    "app/views/admin/elements/list.html.erb",
+    "app/views/admin/elements/create.js.erb",
+    "app/views/admin/elements/destroy.js.erb",
+    "app/views/admin/elements/fold.js.erb",
+    "app/views/admin/elements/index.html.erb",
+    "app/views/admin/elements/list.js.erb",
     "app/views/admin/elements/new.html.erb",
-    "app/views/admin/elements/update.rjs",
+    "app/views/admin/elements/order.js.erb",
+    "app/views/admin/elements/update.js.erb",
     "app/views/admin/essence_files/edit.html.erb",
     "app/views/admin/essence_pictures/assign.rjs",
     "app/views/admin/essence_pictures/crop.html.erb",
@@ -132,12 +133,15 @@ Gem::Specification.new do |s|
     "app/views/admin/pages/configure_external.html.erb",
     "app/views/admin/pages/destroy.js.erb",
     "app/views/admin/pages/edit.html.erb",
+    "app/views/admin/pages/flush.js.erb",
+    "app/views/admin/pages/fold.js.erb",
     "app/views/admin/pages/index.html.erb",
     "app/views/admin/pages/link.html.erb",
     "app/views/admin/pages/locked.html.erb",
     "app/views/admin/pages/new.html.erb",
     "app/views/admin/pages/show.html.erb",
-    "app/views/admin/pages/sort.rjs",
+    "app/views/admin/pages/sort.js.erb",
+    "app/views/admin/pages/unlock.js.erb",
     "app/views/admin/pages/update.js.erb",
     "app/views/admin/partials/_flash.html.erb",
     "app/views/admin/partials/_flash_notices.html.erb",
@@ -413,7 +417,6 @@ Gem::Specification.new do |s|
     "lib/alchemy/essence.rb",
     "lib/alchemy/middleware/flash_session_cookie.rb",
     "lib/alchemy/migrator.rb",
-    "lib/alchemy/notice.rb",
     "lib/alchemy/page_layout.rb",
     "lib/alchemy/remote_pagination_link_renderer.rb",
     "lib/alchemy/seeder.rb",
@@ -470,6 +473,9 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
       s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
       s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])
+      s.add_runtime_dependency(%q<tinymce_hammer>, [">= 0"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.6.0"])
     else
       s.add_dependency(%q<rails>, ["< 3.1", ">= 3.0.7"])
       s.add_dependency(%q<mysql2>, ["< 0.3", ">= 0.2"])
@@ -485,6 +491,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<userstamp>, [">= 2.0.1"])
       s.add_dependency(%q<dynamic_form>, [">= 1.1.4"])
       s.add_dependency(%q<jquery-rails>, [">= 1.0.3"])
+      s.add_dependency(%q<tinymce_hammer>, [">= 0"])
+      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6.0"])
     end
   else
     s.add_dependency(%q<rails>, ["< 3.1", ">= 3.0.7"])
@@ -501,6 +510,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<userstamp>, [">= 2.0.1"])
     s.add_dependency(%q<dynamic_form>, [">= 1.1.4"])
     s.add_dependency(%q<jquery-rails>, [">= 1.0.3"])
+    s.add_dependency(%q<tinymce_hammer>, [">= 0"])
+    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6.0"])
   end
 end
 
