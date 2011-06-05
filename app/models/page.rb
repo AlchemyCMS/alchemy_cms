@@ -29,6 +29,10 @@ class Page < ActiveRecord::Base
   scope :language_roots, where(:language_root => true)
   scope :layoutpages, where(:layoutpage => true)
   scope :all_locked, where(:locked => true)
+  scope :visible, where(:visible => true)
+  scope :public, where(:public => true)
+  scope :accessable, where(:restricted => false)
+  scope :restricted, where(:restricted => true)
 
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -363,7 +367,7 @@ class Page < ActiveRecord::Base
   end
 
   def self.all_last_edited_from(user)
-    Page.all(:conditions => {:updater_id => user.id}, :order => "updated_at DESC", :limit => 5)
+    Page.where(:updater_id => user.id).limit(5).order('updated_at DESC')
   end
 
   def self.all_from_clipboard(clipboard)

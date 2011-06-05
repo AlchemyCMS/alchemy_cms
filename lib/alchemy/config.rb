@@ -19,7 +19,7 @@ module Alchemy
     def self.read_files
       # Looking for any Rails Environment specific configuration
       if File.exists? "#{Rails.root.to_s}/config/alchemy/config_#{Rails.env}.yml"
-        config_1 = YAML.load_file( "#{Rails.root.to_s}/config/alchemy/config_#{RAILS_ENV}.yml" )
+        config_1 = YAML.load_file( "#{Rails.root.to_s}/config/alchemy/config_#{Rails.env}.yml" )
       else
         config_1 = {}
       end
