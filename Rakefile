@@ -98,6 +98,17 @@ namespace :gettext do
   end
 end
 
+require 'bundler'
+
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
+
+
 require File.join(File.dirname(__FILE__), "lib", "alchemy")
 begin
   require "jeweler"
@@ -111,20 +122,7 @@ begin
     gem.email = "alchemy@magiclabs.de"
     gem.homepage = "http://github.com/magiclabs/alchemy"
     gem.authors = `git log --pretty=format:"%an"`.split("\n").uniq.sort
-    gem.add_dependency 'rails', '>= 3.0.7', '< 3.1'
-    gem.add_dependency 'mysql2', '>= 0.2', '< 0.3'
-    gem.add_dependency 'authlogic', '>= 3.0.3'
-    gem.add_dependency 'awesome_nested_set', '>= 2.0.0'
-    gem.add_dependency 'declarative_authorization', '>= 0.5'
-    gem.add_dependency "tvdeyen-fleximage", ">= 1.0.5"
-    gem.add_dependency 'gettext_i18n_rails', '>= 0.2.19'
-    gem.add_dependency 'will_paginate', '>= 3.0.pre'
-    gem.add_dependency 'acts_as_ferret', '>= 0.5.2'
-    gem.add_dependency 'mimetype-fu', '>= 0.1.2'
-    gem.add_dependency 'sortifiable', '>= 0.2.3'
-    gem.add_dependency 'userstamp', '>= 2.0.1'
-    gem.add_dependency 'dynamic_form', '>= 1.1.4'
-    gem.add_dependency 'jquery-rails', '>= 1.0.3'
+    # using bundler for dependencies
   end
 rescue LoadError
   puts "Jeweler or one of its dependencies is not installed."
