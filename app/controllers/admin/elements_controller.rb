@@ -1,20 +1,11 @@
 class Admin::ElementsController < AlchemyController
+  
   unloadable
   layout 'alchemy'
-
   before_filter :set_translation
-
-  filter_access_to [:new, :create, :order, :index], :attribute_check => false
-
+  filter_access_to :all
+  
   def index
-    @page_id = params[:page_id]
-    if @page_id.blank? && !params[:page_urlname].blank?
-      @page_id = Page.find_by_urlname(params[:page_urlname]).id
-    end
-    @elements = Element.find_all_by_page_id_and_public(@page_id, true)
-  end
-
-  def list
     @page = Page.find(
       params[:page_id],
       :include => {
@@ -23,7 +14,15 @@ class Admin::ElementsController < AlchemyController
     )
     render :layout => false
   end
-
+  
+  def list
+    @page_id = params[:page_id]
+    if @page_id.blank? && !params[:page_urlname].blank?
+      @page_id = Page.find_by_urlname(params[:page_urlname]).id
+    end
+    @elements = Element.find_all_by_page_id_and_public(@page_id, true)
+  end
+  
   def new
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
@@ -31,7 +30,7 @@ class Admin::ElementsController < AlchemyController
     @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard('elements'), @page)
     render :layout => false
   end
-
+  
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
   # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.
   def create
@@ -60,7 +59,7 @@ class Admin::ElementsController < AlchemyController
   rescue Exception => e
     exception_handler(e)
   end
-
+  
   # Saves all contents in the elements by calling save_content on each content
   # And then updates the element itself.
   # If a Ferret::FileNotFoundError raises we gonna catch it and rebuilding the index.
@@ -88,7 +87,7 @@ class Admin::ElementsController < AlchemyController
       show_error_notice(e)
     end
   end
-
+  
   # Deletes the element with ajax and sets session[:clipboard].nil
   def destroy
     @element = Element.find_by_id(params[:id])
@@ -104,7 +103,7 @@ class Admin::ElementsController < AlchemyController
   rescue Exception => e
     exception_handler(e)
   end
-
+  
   def order
     for element in params[:element_ids]
       element = Element.find(element)
@@ -116,7 +115,7 @@ class Admin::ElementsController < AlchemyController
   rescue Exception => e
     exception_handler(e)
   end
-
+  
   def fold
     @element = Element.find(params[:id])
     @element.folded = !@element.folded

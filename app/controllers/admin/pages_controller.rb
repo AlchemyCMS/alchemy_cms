@@ -79,8 +79,13 @@ class Admin::PagesController < AlchemyController
   
   def update
     # fetching page via before filter
-    @page.update_attributes(params[:page])
-    @notice = _("Page %{name} saved") % {:name => @page.name}
+    debugger
+    if @page.update_attributes(params[:page])
+      @notice = _("Page %{name} saved") % {:name => @page.name}
+      respond_to do |format|
+        format.js
+      end
+    end
   end
   
   def destroy

@@ -114,7 +114,7 @@
 	}
 	
 	function openElementsWindow() {
-		Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', {
+		Alchemy.openElementsWindow('<%= admin_elements_path(:page_id => @page.id) %>', {
 			texts: {
 				title: '<%= _("Elements") %>',
 				dirtyTitle: '<%= _("Warning!") %>',
