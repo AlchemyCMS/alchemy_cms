@@ -31,6 +31,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
   s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
   s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])
-  s.add_runtime_dependency(%q<tinymce_hammer>, [">= 0"])
+  s.add_runtime_dependency(%q<tinymce_hammer>, [">= 0.2"])
   
 end

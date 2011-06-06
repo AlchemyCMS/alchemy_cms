@@ -32,9 +32,7 @@ module Alchemy
     #     ActionController::Base.session_options[:key]
     #   )
     # end
-
+    
   end
-  
-  class EssenceError < StandardError; end
   
 end

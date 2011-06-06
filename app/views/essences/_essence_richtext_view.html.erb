@@ -1,5 +1,5 @@
 <%- if options[:shorten_to].blank? -%>
-<%= content.essence.send(options[:plain_text] ? :stripped_body : :body) %>
+<%= content.essence.send(options[:plain_text] ? :stripped_body : :body).html_safe %>
 <%- else -%>
-<%= content.essence.send(options[:plain_text] ? :stripped_body : :body).split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…') %>
+<%= content.essence.send(options[:plain_text] ? :stripped_body : :body).split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…').html_safe %>
 <%- end -%>
