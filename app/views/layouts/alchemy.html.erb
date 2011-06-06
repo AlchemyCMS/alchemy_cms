@@ -4,8 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
-        <%= csrf_meta_tag %>
-        <title>Alchemy <%= Alchemy.version %></title>
+        <title>Alchemy <%= Alchemy::VERSION %></title>
         <!--[if IE 6]><link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" /><![endif]-->
         <%= yield :stylesheets %>
         <%= yield :javascript_includes %>

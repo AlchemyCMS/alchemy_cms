@@ -1,3 +1,5 @@
+require 'attachment_fu' if !defined?(Technoweenie::AttachmentFu)
+
 Technoweenie::AttachmentFu::InstanceMethods.module_eval do
   # Overriding this method to allow content_type to be detected when
   # swfupload submits images with content_type set to 'application/octet-stream'

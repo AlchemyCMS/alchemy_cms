@@ -1,6 +1,4 @@
-require 'alchemy'
-require 'alchemy/middleware/flash_session_cookie'
-require 'rails'
+require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 
 module Alchemy
   class Engine < Rails::Engine
@@ -11,7 +9,7 @@ module Alchemy
     
     # Load rake tasks
     rake_tasks do
-      load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')
+      load File.join(File.dirname(__FILE__), '../tasks/alchemy.rake')
     end
     
     # Check the gem config
@@ -36,4 +34,7 @@ module Alchemy
     # end
 
   end
+  
+  class EssenceError < StandardError; end
+  
 end

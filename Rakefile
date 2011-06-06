@@ -99,31 +99,4 @@ namespace :gettext do
 end
 
 require 'bundler'
-
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
-
-
-require File.join(File.dirname(__FILE__), "lib", "alchemy")
-begin
-  require "jeweler"
-  Jeweler::Tasks.new do |gem|
-    gem.name = "alchemy"
-    gem.version = Alchemy.version
-    gem.summary = "Alchemy CMS"
-    gem.description = "A CMS for Rails 3"
-    gem.rubyforge_project = "alchemy"
-    gem.files = Dir["{lib}/**/*", "{app}/**/*", "{config}/**/*", "{assets}/**/*", "{db}/**/*", "{generators}/**/*", "{locale}/**/*", "{recipes}/**/*", "{test}/**/*"]
-    gem.email = "alchemy@magiclabs.de"
-    gem.homepage = "http://github.com/magiclabs/alchemy"
-    gem.authors = `git log --pretty=format:"%an"`.split("\n").uniq.sort
-    # using bundler for dependencies
-  end
-rescue LoadError
-  puts "Jeweler or one of its dependencies is not installed."
-end
+Bundler::GemHelper.install_tasks

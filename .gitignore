@@ -4,3 +4,4 @@
 doc/
 rdoc/
 pkg/*.gem
+Gemfile.lock
