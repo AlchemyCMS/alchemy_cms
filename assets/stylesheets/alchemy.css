@@ -1776,6 +1776,10 @@ button.button {
 	text-shadow: #f2f2f2 1px 1px 0;
 }
 
+#new_element button.button {
+	float: right;
+}
+
 input.button {
 	padding-left: 8px;
 	padding-right: 8px;
