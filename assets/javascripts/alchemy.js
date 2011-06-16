@@ -901,11 +901,12 @@ if (typeof(Alchemy) === 'undefined') {
 			$dialog.html(Alchemy.getOverlaySpinner({x: size_x, y: size_y}));
 			
 			Alchemy.trashWindow = $dialog.dialog({
-				modal: false, 
-				minWidth: size_x, 
-				minHeight: size_y,
+				modal: false,
+				width: 380,
+				minHeight: 450,
+				maxHeight: $(window).height() - 50,
 				title: title,
-				resizable: true,
+				resizable: false,
 				show: "fade",
 				hide: "fade",
 				open: function (event, ui) {
@@ -913,6 +914,8 @@ if (typeof(Alchemy) === 'undefined') {
 						url: '/admin/trash?page_id=' + page_id,
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
+							// Need this for DragnDrop elements into elements window.
+							// Badly this is screwing up maxHeight option
 							$dialog.css({overflow: 'visible'}).dialog('widget').css({overflow: 'visible'});
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
