@@ -2808,15 +2808,15 @@ div#per_page_values {
 
 #errorExplanation {
 	background: #ffdfdf;
-	padding: 8px 8px 8px 16px;
+	padding: 8px;
 	text-align: left;
 	margin-bottom: 8px;
 	border: 1px solid #d08f91;
 	color: #690001;
-	-webkit-border-radius: 0 7px 7px 7px;
-	-moz-border-radius: 0 7px 7px 7px;
-	-o-border-radius: 0 7px 7px 7px;
-	border-radius: 0 7px 7px 7px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
 }
 
 #errorExplanation h2 {
