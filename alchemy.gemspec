@@ -32,5 +32,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
   s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])
   s.add_runtime_dependency(%q<tinymce_hammer>, [">= 0.2"])
+  s.add_runtime_dependency(%q<attachment_fu>, [">= 1.0"])
   
 end
