@@ -209,6 +209,7 @@ div#top_menu {
 	top: 0;
 	left: 65px;
 	z-index: 5;
+	width: 93%;
 }
 
 #main_menu {
@@ -261,6 +262,7 @@ div#top_menu {
 	top: 90px;
 	left: 65px;
 	z-index: 0;
+	width: 93%;
 }
 
 div#user_info {
@@ -2267,6 +2269,7 @@ textarea.thin_border {
 	border-radius: 3px;
 	background: #fff;
 	border: 1px inset #e5e5e5;
+	width: 210px;
 }
 
 .thin_border.dirty {
@@ -3375,8 +3378,8 @@ select#url_protocol.medium {
 
 #alchemy .ui-dialog-content input.long,
 #alchemy .ui-dialog-content textarea.long {
-	width: 250px;
 	margin: 0;
+	width: 240px;
 }
 
 #alchemy .ui-dialog-content input.very_long {

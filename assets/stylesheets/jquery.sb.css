@@ -145,6 +145,10 @@
 	font-size: 11px;
 }
 
+#alchemy .items.long {
+	width: 128px;
+}
+
 #alchemy .items.full_width {
 	width: 386px;
 }
