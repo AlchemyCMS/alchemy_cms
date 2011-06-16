@@ -20,7 +20,6 @@ class Admin::PagesController < AlchemyController
   def show
     # fetching page via before filter
     @preview_mode = true
-    set_language_to(@page.language_id)
     @root_page = Page.language_root_for(session[:language_id])
     render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
   end
@@ -158,7 +157,7 @@ class Admin::PagesController < AlchemyController
     if request.xhr?
       render :update do |page|
         page.remove "locked_page_#{@page.id}"
-        page << "jQuery('#page_#{@page.id} .site_status').removeClass('locked')"
+        page << "jQuery('#page_#{@page.id} .sitemap_page').removeClass('locked')"
         if Page.all_locked_by(current_user).blank?
           page << "jQuery('#subnav_additions label').hide()"
         end
@@ -199,7 +198,7 @@ class Admin::PagesController < AlchemyController
       new_language_root = Page.copy(
         original_language_root,
         :language_id => params[:languages][:new_lang_id],
-        :language_code => Alchemy::Controller.current_language.code,
+        :language_code => session[:language_code],
         :layoutpage => params[:layoutpage]
       )
       new_language_root.move_to_child_of Page.root
@@ -213,7 +212,7 @@ class Admin::PagesController < AlchemyController
   
   def sort
     @page_root = Page.language_root_for(session[:language_id])
-    @sorting = !params[:sorting]
+    @sorting = true
   end
   
   def order
@@ -229,14 +228,8 @@ class Admin::PagesController < AlchemyController
       page = Page.find(page_id)
       page.move_to_child_of(parent)
     end
-    render :update do |page|
-      Alchemy::Notice.show(page, _("Pages order saved"))
-      page.replace 'sitemap', :partial => 'sitemap'
-      page.hide "bottom_panel"
-      page << "jQuery('#page_sorting_button').removeClass('active')"
-      page << "Alchemy.pleaseWaitOverlay(false)"
-      page << "Alchemy.Tooltips()"
-    end
+		flash[:notice] = _("Pages order saved")
+		render(:update) { |page| page.redirect_to admin_pages_path }
   rescue Exception => e
     exception_handler(e)
   end

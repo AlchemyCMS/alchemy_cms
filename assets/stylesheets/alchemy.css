@@ -858,12 +858,38 @@ div.tip {
 	text-decoration: none;
 }
 
+.sitemap_pagename_link.inactive {
+	color: #656565;
+}
+
+.redirect_url {
+	position: absolute;
+	top: 4px;
+	right: 184px;
+	text-align: right;
+	background-color: #fff0c4;
+	line-height: 22px;
+	padding-right: 4px;
+	font-size: 10px;
+	padding-left: 4px;
+}
+
 .sitemap_pagename_link.odd {
 	background-color: #fff;
 }
 
 a.sitemap_pagename_link:hover {
 	text-decoration: underline;
+}
+
+a.sitemap_pagename_link:hover:after {
+	content: '';
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-right: 4px;
+	background: url(/images/alchemy/icons.png) -32px -104px;
+	margin-top: 4px;
 }
 
 .sitemap_line_spacer {
@@ -903,7 +929,7 @@ div.sitemap_page {
 	position: relative;
 }
 
-div.sitemap_page:hover .sitemap_pagename_link {
+div.sitemap_page:hover a.sitemap_pagename_link {
 	background-color: #fdffdf;
 }
 
@@ -938,6 +964,7 @@ div.sitemap_right_tools {
 	background-color: #ededed;
 	padding-left: 16px;
 	float: right;
+	width: 100px;
 }
 
 ul#sitemap li .sitemap_toolrow,
@@ -1023,7 +1050,7 @@ span.page_status.not_public {
 	background: url(/images/alchemy/icons.png) no-repeat 0 -24px;
 }
 
-.site_status.locked {
+.locked .site_status {
 	background-position: -16px -24px;
 }
 
@@ -2428,6 +2455,10 @@ span.icon.trash.full {
 }
 
 a.icon.file_download {
+	background: url(/images/alchemy/icons.png) -240px -72px;
+}
+
+.icon.download {
 	background: url(/images/alchemy/icons.png) -240px -72px;
 }
 

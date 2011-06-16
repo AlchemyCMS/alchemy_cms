@@ -70,22 +70,12 @@ class Admin::EssencePicturesController < AlchemyController
   end
   
   def destroy
-    content = Content.find_by_id(params[:id])
-    element = content.element
-    element.contents.delete content
-    picture_contents = element.contents.find_all_by_essence_type("EssencePicture")
-    render :update do |page|
-      page.replace(
-        "element_#{element.id}_contents",
-        :partial => "admin/elements/picture_editor",
-        :locals => {
-          :picture_contents => picture_contents,
-          :element => element,
-          :options => params[:options]
-        }
-      )
-      page << "Alchemy.reloadPreview()"
-    end
+		content = Content.find_by_id(params[:id])
+		@element = content.element
+		@essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
+		@content_id = content.id
+		@options = params[:options]
+		content.destroy
   end
   
 end

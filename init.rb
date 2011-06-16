@@ -39,7 +39,6 @@ Tinymce::Hammer.init = [
   [:content_css, "/stylesheets/alchemy/alchemy_tinymce_content.css"],
   [:dialog_type, "modal"],
   [:width, "100%"],
-  [:height, '185'],
   [:theme_advanced_toolbar_align, 'left'],
   [:theme_advanced_toolbar_location, 'top'],
   [:theme_advanced_statusbar_location, 'bottom'],
@@ -48,7 +47,7 @@ Tinymce::Hammer.init = [
   [:theme_advanced_buttons3, ''],
   [:theme_advanced_resizing, 'true'],
   [:theme_advanced_resize_horizontal, false],
-  [:theme_advanced_resizing_min_height, '185'],
+  [:theme_advanced_resizing_min_height, '145'],
   [:fix_list_elements, true],
   [:convert_urls, false]
 ]

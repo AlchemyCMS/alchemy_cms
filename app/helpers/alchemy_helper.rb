@@ -1156,28 +1156,11 @@ module AlchemyHelper
   end
   
   def alchemy_preview_mode_code
-    if @preview_mode
-      append_javascript = %(
-var s = document.createElement('script');
-s.src = '/javascripts/alchemy/jquery-1.5.min.js';
-s.language = 'javascript';
-s.type = 'text/javascript';
-document.getElementsByTagName("body")[0].appendChild(s);
-      )
-      str = javascript_tag("if (typeof(jQuery) !== 'function') {#{append_javascript}}") + "\n"
-      str += javascript_tag("jQuery.noConflict();") + "\n"
-      str += javascript_include_tag("alchemy/alchemy") + "\n"
-      str += javascript_tag("jQuery(document).ready(function() {\nAlchemy.ElementSelector();\n});\njQuery('a').not('[href^=#]').attr('href', 'javascript:void(0)');")
-      return str
-    else
-      return nil
-    end
+    javascript_include_tag("alchemy/preview") if @preview_mode
   end
   
   def element_preview_code(element)
-    if @preview_mode
-      "data-alchemy-element='#{element.id}'"
-    end
+    " data-alchemy-element='#{element.id}'" if @preview_mode
   end
   
   # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.

@@ -389,6 +389,7 @@ class Page < ActiveRecord::Base
   
   def copy_children_to(new_parent)
     self.children.each do |child|
+      next if child == new_parent
       new_child = Page.copy(child, {
         :language => self.language,
         :name => child.name + ' (' + _('Copy') + ')',
@@ -445,6 +446,7 @@ private
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
   def autogenerate_elements
+		return true if self.layout_description.blank?
     elements = self.layout_description["autogenerate"]
     unless (elements.blank?)
       elements.each do |element|

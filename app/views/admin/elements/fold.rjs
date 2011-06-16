@@ -8,7 +8,7 @@ else
     :locals => {:draggable => true}
   )
   page << "jQuery('#element_area').sortable('refresh')"
-  page << "Alchemy.bindSelectElementEditor('#element_#{@element.id}')"
+  page << "Alchemy.ElementEditorSelector.bindEvent('#element_#{@element.id}')"
   if @element.folded
     @element.rtf_contents.each do |content|
       page << "rtf_#{content.id} = tinymce.get('#{content.form_field_id}'); if (rtf_#{content.id}) {rtf_#{content.id}.remove();}; delete rtf_#{content.id}"

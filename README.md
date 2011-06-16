@@ -12,6 +12,8 @@ Rails Version
 
 Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
 
+We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
+
 Install via Rails template:
 ---------------------------
 
@@ -58,7 +60,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
         script/plugin install git://github.com/technoweenie/attachment_fu.git
         script/plugin install git://github.com/iain/i18n_label.git
         script/plugin install git://github.com/aaronchi/jrails.git
-        script/plugin install git://github.com/tvdeyen/tinymce_hammer.git
+        script/plugin install -r rails2 git://github.com/tvdeyen/tinymce_hammer.git
         script/plugin install git://github.com/delynn/userstamp.git
 
 4. Then create your database and migrate:
@@ -102,6 +104,7 @@ Resources
 * API Documentation: <http://api.alchemy-app.com>
 * Issue-Tracker: <http://issues.alchemy-app.com>
 * Sourcecode: <http://source.alchemy-app.com>
+* User Group: <http://groups.google.com/group/alchemy-cms>
 
 Authors
 ---------

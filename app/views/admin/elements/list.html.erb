@@ -24,7 +24,7 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 	Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
-	Alchemy.ElementEditorSelector();
+	Alchemy.ElementEditorSelector.init();
 	Alchemy.SelectBox('.element_editor select');
 	TinymceHammer.init();
 	Alchemy.ElementDirtyObserver('#element_area');

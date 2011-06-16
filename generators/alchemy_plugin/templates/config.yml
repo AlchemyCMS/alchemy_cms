@@ -1,0 +1,30 @@
+# These is your plugin configuration file.
+# ========================================
+# 
+# Options:
+# --------
+# 
+#   name:                              # Name of your plugin [String]
+#   order:                             # [Optional] Use this to set the order of plugins in the alchemy navigation, if more then one plugin is loaded. [Integer]
+#   settings:                          # [Optional] Put your own settings in YAML format into here. You can access them with plugin_conf('<%= file_name %>')['settings'] [YAML]
+#   navigation:
+#     name:                            # The name is used in the Alchemy mainnavi. [String]
+#     controller:                      # The name of the controller to be called when clicking the mainnavi button [String]
+#     action:                          # The name of the action from the controller to be called when clicking the mainnavi button [String]
+#     image:                           # Path to an image inside your public folder used for the icon in the alchemy mainnavi. [String]
+#     sub_navigation:                  # Your plugins sub navigation. Put as much as sub navi entries as you want into here
+#       - name:                        # [String]
+#         controller:                  # Typically your controller and action you set for mainnavi entry.
+#         action:                      # [String]
+
+name: <%= file_name.underscore %>
+  
+navigation:
+  name: <%= file_name.camelcase %>
+  controller: 
+  action: 
+  image: 
+  sub_navigation:
+    - name: 
+      controller: 
+      action: 

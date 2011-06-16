@@ -2,31 +2,31 @@
 	<div id="errors" style="display: none"></div>
 	<table>
 		<tr>
-			<td height="25px"><%= f.label 'name', Language.human_attribute_name(:name) %>:</td>
+			<td class="label"><%= f.label 'name', Language.human_attribute_name(:name) %>:</td>
 			<td><%= f.text_field 'name', :class => 'thin_border long' -%></td>
 		</tr>
 		<tr>
-			<td height="25px"><%= f.label 'code', Language.human_attribute_name(:code) %>: </td>
+			<td class="label"><%= f.label 'code', Language.human_attribute_name(:code) %>: </td>
 			<td><%= f.text_field 'code', :class => 'thin_border long' -%></td>
 		</tr>
 		<tr>
-			<td height="25px"><%= f.label 'frontpage_name', Language.human_attribute_name(:frontpage_name) %>: </td>
+			<td class="label"><%= f.label 'frontpage_name', Language.human_attribute_name(:frontpage_name) %>: </td>
 			<td><%= f.text_field 'frontpage_name', :class => 'thin_border long' -%></td>
 		</tr>
 		<tr>
-			<td height="25px"><%= f.label 'page_layout', Language.human_attribute_name(:page_layout) %>: </td>
+			<td class="label"><%= f.label 'page_layout', Language.human_attribute_name(:page_layout) %>: </td>
 			<td><%= f.text_field 'page_layout', :class => 'thin_border long' -%></td>
 		</tr>
 		<tr>
-			<td height="25px"><%= f.label 'public', Language.human_attribute_name(:public) %>: </td>
+			<td class="label"><%= f.label 'public', Language.human_attribute_name(:public) %>: </td>
 			<td><%= f.check_box 'public' -%></td>
 		</tr>		
 		<tr>
-			<td height="25px"><%= f.label 'default', Language.human_attribute_name(:default) %>: </td>
+			<td class="label"><%= f.label 'default', Language.human_attribute_name(:default) %>: </td>
 			<td><%= f.check_box 'default' -%></td>
 		</tr>
 		<tr>
-			<td height="25px" colspan="2" align="right">
+			<td class="submit" colspan="2">
 				<%= f.button _('save'), :class => 'button' %>
 			</td>
 		</tr>
