@@ -385,6 +385,7 @@ class Page < ActiveRecord::Base
 
   def copy_children_to(new_parent)
     self.children.each do |child|
+      next if child == new_parent
       new_child = Page.copy(child, {
         :language => self.language,
         :name => child.name + ' (' + _('Copy') + ')',
