@@ -187,7 +187,7 @@ class Admin::PagesController < AlchemyController
   end
   
   def copy_language
-    set_language_to(params[:languages][:new_lang_id])
+    set_language_to(session[:language_id])
     begin
       # copy language root from old to new language
       if params[:layoutpage]
