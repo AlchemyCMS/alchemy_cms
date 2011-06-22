@@ -304,7 +304,7 @@ class Page < ActiveRecord::Base
   # You can pass any kind of Page#attributes as a difference to source.
   # Notice: It prevents the element auto_generator from running.
   def self.copy(source, differences = {})
-    attributes = source.attributes.merge(differences)
+    attributes = source.attributes.symbolize_keys.merge(differences)
     attributes.merge!(
       :do_not_autogenerate => true, 
       :do_not_sweep => true, 
@@ -379,7 +379,8 @@ class Page < ActiveRecord::Base
     self.children.each do |child|
       next if child == new_parent
       new_child = Page.copy(child, {
-        :language => self.language,
+        :language_id => new_parent.language_id,
+				:language_code => new_parent.language_code,
         :name => child.name + ' (' + _('Copy') + ')',
         :urlname => '',
         :title => ''
