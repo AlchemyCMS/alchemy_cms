@@ -31,7 +31,10 @@ class Admin::ElementsController < AlchemyController
     @page = Page.find_by_id(params[:page_id])
     @element = @page.elements.build
     @elements = Element.all_for_page(@page)
-    @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard('elements'), @page)
+    clipboard_elements = get_clipboard('elements')
+    unless clipboard_elements.blank?
+      @clipboard_items = Element.all_from_clipboard_for_page(clipboard_elements, @page)
+    end
     render :layout => false
   end
   

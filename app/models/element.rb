@@ -355,6 +355,10 @@ private
   def self.all_for_page(page)
     # if page_layout has cells, collect elements from cells and group them by cellname
     page_layout = Alchemy::PageLayout.get(page.page_layout)
+    if page_layout.blank?
+      logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
+      return []
+    end
     elements_for_layout = []
     if page_layout['cells'].is_a?(Array)
       elements_for_layout += Cell.all_element_definitions_for(page_layout['cells'])
