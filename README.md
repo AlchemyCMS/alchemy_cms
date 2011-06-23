@@ -39,7 +39,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
 2. Then enter following lines into the config block of your config/environment.rb file
 
         config.gem 'acts_as_ferret', :version => '0.4.8.2'
-        config.gem 'authlogic', :version => '>=2.1.2'
+        config.gem 'authlogic', :version => '~>2'
         config.gem 'awesome_nested_set', :version => '>=1.4.3'
         config.gem 'declarative_authorization', :version => '>=0.4.1'
         config.gem "fleximage", :version => ">=1.0.4"
