@@ -730,11 +730,9 @@ module AlchemyHelper
       :render_format => "html"
     }
     options = default_options.merge(options)
-    if File.exists?("#{RAILS_ROOT}/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb") || File.exists?("#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/page_layouts/_#{@page.page_layout.downcase}.#{options[:render_format]}.erb")
-      render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
-    else
+    render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
+    rescue ActionView::MissingTemplate
       render :partial => "page_layouts/standard"
-    end
   end
   
   # Returns @current_language set in the action (e.g. Page.show)
