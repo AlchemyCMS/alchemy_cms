@@ -106,20 +106,20 @@ module AlchemyHelper
   # This helper renders the Element partial for either the view or the editor part.
   # Generate element partials with ./script/generate elements
   def render_element(element, part = :view, options = {}, i = 1)
-    if element.blank?
-      warning('Element is nil')
-      render :partial => "elements/#{part}_not_found", :locals => {:name => 'nil'}
-    else
-      default_options = {
-        :shorten_to => nil,
-        :render_format => "html"
-      }
-      options = default_options.merge(options)
-      element.store_page(@page) if part == :view
-      path1 = "#{RAILS_ROOT}/app/views/elements/"
-      path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
-      partial_name = "_#{element.name.underscore}_#{part}.html.erb"
-      if File.exists?(path1 + partial_name) || File.exists?(path2 + partial_name)
+    begin
+      if element.blank?
+        warning('Element is nil')
+        render :partial => "elements/#{part}_not_found", :locals => {:name => 'nil'}
+      else
+        default_options = {
+          :shorten_to => nil,
+          :render_format => "html"
+        }
+        options = default_options.merge(options)
+        element.store_page(@page) if part == :view
+        path1 = "#{RAILS_ROOT}/app/views/elements/"
+        path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
+        partial_name = "_#{element.name.underscore}_#{part}.html.erb"
         locals = options.delete(:locals)
         render(
           :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
@@ -129,17 +129,17 @@ module AlchemyHelper
             :counter => i
           }.merge(locals || {})
         )
-      else
-        warning(%(
-          Element #{part} partial not found for #{element.name}.\n
-          Looking for #{partial_name}, but not found
-          neither in #{path1}
-          nor in #{path2}
-          Use ./script/generate elements to generate them.
-          Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
-        ))
-        render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
       end
+    rescue ActionView::MissingTemplate
+      warning(%(
+        Element #{part} partial not found for #{element.name}.\n
+        Looking for #{partial_name}, but not found
+        neither in #{path1}
+        nor in #{path2}
+        Use ./script/generate elements to generate them.
+        Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
+      ))
+      render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
     end
   end
 
