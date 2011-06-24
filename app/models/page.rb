@@ -404,7 +404,9 @@ class Page < ActiveRecord::Base
   
   # Returns true or false if the page has a page_layout that has cells.
   def has_cells?
-    !Alchemy::PageLayout.get(page_layout)['cells'].blank?
+    page_layout = Alchemy::PageLayout.get(page_layout)
+    return false if page_layout.blank?
+    !page_layout['cells'].blank?
   end
   
 private
