@@ -2,7 +2,7 @@ class PicturesController < AlchemyController
   
   caches_page :show, :thumbnail, :zoom
   
-  filter_access_to :zoom, :thumbnail
+  filter_access_to :thumbnail
   
   def show
     @picture = Picture.find(params[:id])
