@@ -1,4 +1,4 @@
-<%- if clipboard_empty?('pages') -%>
+<%- if @clipboard_items.blank? -%>
 <%= render :partial => 'new_page_form' %>
 <%- else -%>
 <div id="overlay_tabs">
