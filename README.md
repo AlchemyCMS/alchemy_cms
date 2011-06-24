@@ -48,7 +48,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
         config.gem 'gettext', :lib => false, :version => '>=1.93.0'
         config.gem 'rmagick', :lib => "RMagick2", :version => '>=2.12.2'
         config.gem 'jk-ferret', :version => '>=0.11.8.2', :lib => 'ferret'
-        config.gem 'will_paginate', :version => '2.3.15'
+        config.gem 'will_paginate', :version => '~>2.3'
         config.gem 'mimetype-fu', :version => '>=0.1.2', :lib => 'mimetype_fu'
         config.autoload_paths += %W( vendor/plugins/alchemy/app/sweepers )
         config.autoload_paths += %W( vendor/plugins/alchemy/app/middleware )
