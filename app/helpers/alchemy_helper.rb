@@ -852,14 +852,15 @@ module AlchemyHelper
     )
   end
   
-  # Renders a form select tag for storing page ids
+  # Renders a form select tag for storing page urlnames
   # Options:
-  #   * element - element the Content find via content_name to store the pages id in.
-  #   * content_name - the name of the content from element to store the pages id in.
+  #   * element - element the Content find via content_name to store the pages urlname in.
+  #   * content_name - the name of the content from element to store the pages urlname in.
   #   * options (Hash)
   #   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
   #   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
-  #   * select_options (Hash) - will be passed to the select_tag helper 
+  #   ** :page_attribute (Symbol) - The Page attribute which will be stored.
+  #   * select_options (Hash) - will be passed to the select_tag helper
   def page_selector(element, content_name, options = {}, select_options = {})
     default_options = {
       :except => {
@@ -867,7 +868,9 @@ module AlchemyHelper
       },
       :only => {
         :page_layout => [""]
-      }
+      },
+      :page_attribute => :urlname,
+      :prompt => _('Choose page')
     }
     options = default_options.merge(options)
     content = element.content_by_name(content_name)
@@ -886,7 +889,7 @@ module AlchemyHelper
     )
     select_tag(
       "contents[content_#{content.id}][body]",
-      pages_for_select(pages, content.essence.body),
+      pages_for_select(pages, content.essence.body, options[:prompt], options[:page_attribute]),
       select_options
     )
   end
@@ -921,13 +924,13 @@ module AlchemyHelper
   # Returns all Pages found in the database as an array for the rails select_tag helper.
   # You can pass a collection of pages to only returns these pages as array.
   # Pass an Page.name or Page.id as second parameter to pass as selected for the options_for_select helper.
-  def pages_for_select(pages = nil, selected = nil, prompt = "")
+  def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
     result = [[prompt.blank? ? _('Choose page') : prompt, ""]]
     if pages.blank?
       pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
     end
     pages.each do |p|
-      result << [p.name, p.id.to_s]
+      result << [p.name, p.send(page_attribute).to_s]
     end
     options_for_select(result, selected.to_s)
   end
