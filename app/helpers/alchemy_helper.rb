@@ -781,7 +781,7 @@ module AlchemyHelper
     options[:onkeyup] << ";jQuery('#search_field').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
     filter_field = "<div class=\"js_filter_field_box\">"
     filter_field << text_field_tag("filter", '', options)
-		filter_field << content_tag('span', '', :class => 'icon search')
+    filter_field << content_tag('span', '', :class => 'icon search')
     filter_field << link_to_function(
       "",
       "jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
@@ -795,20 +795,18 @@ module AlchemyHelper
   end
   
   def clipboard_select_tag(items, html_options = {})
-    unless items.blank?
-      options = [[_('Please choose'), ""]]
-      items.each do |item|
-        options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
-      end
-      select_tag(
-  			'paste_from_clipboard',
-  			options_for_select(options),
-  			{
-  			  :class => html_options[:class] || 'very_long',
-  			  :style => html_options[:style]
-  			}
-  		)
+    options = [[_('Please choose'), ""]]
+    items.each do |item|
+      options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
     end
+    select_tag(
+      'paste_from_clipboard',
+      options_for_select(options),
+      {
+        :class => html_options[:class] || 'very_long',
+        :style => html_options[:style]
+      }
+    )
   end
   
   # Returns all elements that could be placed on that page because of the pages layout.
