@@ -44,7 +44,7 @@ If you want to install Alchemy inside an existing Rails project, then follow the
         config.gem 'declarative_authorization', :version => '>=0.4.1'
         config.gem "fleximage", :version => ">=1.0.4"
         config.gem 'fast_gettext', :version => '>=0.4.8'
-        config.gem 'gettext_i18n_rails', :version => '0.2.13'
+        config.gem 'gettext_i18n_rails', :version => '~>0.2'
         config.gem 'gettext', :lib => false, :version => '>=1.93.0'
         config.gem 'rmagick', :lib => "RMagick2", :version => '>=2.12.2'
         config.gem 'jk-ferret', :version => '>=0.11.8.2', :lib => 'ferret'
