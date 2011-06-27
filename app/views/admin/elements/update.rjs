@@ -1,8 +1,8 @@
 Alchemy::Notice.show(page, _("element_saved"))
 page.hide("element_#{@element.id}_errors")
+page << "Alchemy.setElementSaved('#element_#{@element.id}')"
 page << "jQuery('div.content_editor').removeClass('validation_failed')"
 page << "Alchemy.PreviewWindow.refresh()"
 page << "jQuery('div#element_#{@element.id} div.element_handle span.icon').removeClass('element_#{@element.public? ? 'draft' : 'public'}').addClass('element_#{@element.public? ? 'public' : 'draft'}')"
 page << "jQuery('#element_#{@element.id} .element_heading .preview_text_element_name').text('#{@element.display_name}')"
-page << "jQuery('#element_#{@element.id} .element_heading .preview_text_quote').text('#{@element.preview_text}')"
-page << "Alchemy.setElementSaved('#element_#{@element.id}')"
+page << "jQuery('#element_#{@element.id} .element_heading .preview_text_quote').text('#{escape_javascript(@element.preview_text)}')"
