@@ -22,6 +22,10 @@ if (typeof(Alchemy) === 'undefined') {
 				self.bindEvent(this, $elements);
 			});
 			$elements.find('.element_head').click(self.onClickElement);
+			$elements.find('.element_head').dblclick(function() {
+				var id = $(this).parent().attr('id').replace(/\D/g,'');
+				self.foldElement(id);
+			});
 		},
 		
 		onClickElement : function(e) {
@@ -58,13 +62,7 @@ if (typeof(Alchemy) === 'undefined') {
 				$('#cells').tabs('select', $cell.attr('id'));
 			}
 			if ($element.hasClass('folded')) {
-				$('#element_'+id+'_folder').hide();
-				$('#element_'+id+'_folder_spinner').show();
-				$.post('/admin/elements/fold?id='+id, function() {
-					$('#element_'+id+'_folder').show();
-					$('#element_'+id+'_folder_spinner').hide();
-					self.scrollToElement('#element_'+id);
-				});
+				self.foldElement(id);
 			} else {
 				self.scrollToElement(this);
 			}
@@ -72,6 +70,17 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		scrollToElement : function(el) {
 			$('#alchemyElementWindow').scrollTo(el, {duration: 400, offset: -10});
+		},
+		
+		foldElement : function(id) {
+			var self = Alchemy.ElementEditorSelector;
+			$('#element_'+id+'_folder').hide();
+			$('#element_'+id+'_folder_spinner').show();
+			$.post('/admin/elements/fold?id='+id, function() {
+				$('#element_'+id+'_folder').show();
+				$('#element_'+id+'_folder_spinner').hide();
+				self.scrollToElement('#element_'+id);
+			});
 		}
 		
 	}
