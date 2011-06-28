@@ -783,13 +783,19 @@ if (typeof(Alchemy) === 'undefined') {
 			init : function() {
 				var $elements = $('#element_area .element_editor');
 				var self = Alchemy.ElementEditorSelector;
+				self.reinit($elements);
+			},
+			
+			reinit : function(elements) {
+				var self = Alchemy.ElementEditorSelector;
+				var $elements = $(elements);
 				$elements.each(function () {
 					self.bindEvent(this, $elements);
 				});
-				$('#element_area .element_editor .element_head').click(self.clickElement);
+				$elements.find('.element_head').click(self.onClickElement);
 			},
 			
-			clickElement : function(e) {
+			onClickElement : function(e) {
 				var self = Alchemy.ElementEditorSelector;
 				var $element = $(this).parent('.element_editor');
 				var id = $element.attr('id').replace(/\D/g,'');
