@@ -1159,8 +1159,9 @@ module AlchemyHelper
     javascript_include_tag("alchemy/preview") if @preview_mode
   end
   
+  # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.
   def element_preview_code(element)
-    " data-alchemy-element='#{element.id}'" if @preview_mode
+    " data-alchemy-element='#{element.id}'" if @preview_mode && element.page == @page
   end
   
   # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
