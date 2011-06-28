@@ -1156,7 +1156,7 @@ module AlchemyHelper
   end
   
   def alchemy_preview_mode_code
-    javascript_include_tag("alchemy/preview") if @preview_mode
+    javascript_include_tag("alchemy/alchemy.preview") if @preview_mode
   end
   
   # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.

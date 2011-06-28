@@ -12,6 +12,7 @@ javascripts:
   - alchemy/jquery.ui.tabspaging
   - alchemy/alchemy
   - alchemy/alchemy.element_editor_selector
+  - alchemy/alchemy.page_sorter
   - alchemy/swfupload/swfupload
   - alchemy/swfupload/queue
   - alchemy/swfupload/handlers
