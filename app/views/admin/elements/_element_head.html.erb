@@ -1,29 +1,29 @@
 <div class="element_head">
-	<div class="element_handle">
-		<span class="element_icon"></span>
-		<%- if element.description.nil? -%>
-		<span class="warning icon" title="<%= _("Warning: Element '%{elementname}' is missing its description.") % {:elementname => element.name} %>"></span>
-		<%- else -%>
-	  <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
-		<%- end -%>
-	</div>
-	<span class="element_heading">
-		<span class="preview_text_element_name"><%= element.display_name %></span>
-		<span class="preview_text_quote"><%= element.preview_text %></span>
-	</span>
-	<span class="ajax_folder" <%= element.trashed? ? 'style="display: none"' : '' %>>
-	  <%= image_tag(
-			"alchemy/ajax_loader.gif",
-			:style => "display: none",
-			:id => "element_#{element.id}_folder_spinner",
-			:class => "element_folder_spinner"
-		) %>
-		<%= link_to_function(
-			"",
-			"Alchemy.toggleElement(#{element.id}, '#{fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ _('Warning!') }', message: '#{ _('This element has unsaved changes. Do you really want to fold it?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'})",
-			:class => (element.folded? ? 'expand_element' : 'fold_element'),
-			:title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
-			:id => "element_#{element.id}_folder"
-		) %>
-	</span>
+  <div class="element_handle">
+    <span class="element_icon"></span>
+    <%- if element.description.nil? -%>
+    <span class="warning icon" title="<%= _("Warning: Element '%{elementname}' is missing its description.") % {:elementname => element.name} %>"></span>
+    <%- else -%>
+    <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
+    <%- end -%>
+  </div>
+  <span class="element_heading">
+    <span class="preview_text_element_name"><%= element.display_name %></span>
+    <span class="preview_text_quote"><%=h element.preview_text %></span>
+  </span>
+  <span class="ajax_folder" <%= element.trashed? ? 'style="display: none"' : '' %>>
+    <%= image_tag(
+      "alchemy/ajax_loader.gif",
+      :style => "display: none",
+      :id => "element_#{element.id}_folder_spinner",
+      :class => "element_folder_spinner"
+    ) %>
+    <%= link_to_function(
+      "",
+      "Alchemy.toggleElement(#{element.id}, '#{fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ _('Warning!') }', message: '#{ _('This element has unsaved changes. Do you really want to fold it?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'})",
+      :class => (element.folded? ? 'expand_element' : 'fold_element'),
+      :title => (element.folded? ? _('show_element_content') : _('hide_element_content')),
+      :id => "element_#{element.id}_folder"
+    ) %>
+  </span>
 </div>
