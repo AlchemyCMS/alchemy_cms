@@ -69,6 +69,11 @@ de:
       image_mosaic:
         caption: "Mosaik Bildunterschrift"
     
+    content_validations:
+      errors:
+        blank: '%{field} darf nicht leer sein.'
+        wrong_format: '%{field} hat das falsche Format.'
+    
     # == Translations for the build in full text search.
     search:
       no_results: 'Ihre Suche ergab kein Ergebnis.'

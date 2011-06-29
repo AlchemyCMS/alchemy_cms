@@ -323,7 +323,13 @@ class Element < ActiveRecord::Base
     messages = []
     essence_errors.each do |content_name, errors|
       errors.each do |error|
-        messages << I18n.t("alchemy.content_validations.#{self.name}.#{content_name}.#{error}")
+        messages << I18n.t(
+          "alchemy.content_validations.#{self.name}.#{content_name}.#{error}",
+          :default => [
+            "alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
+            "alchemy.content_validations.errors.#{error}".to_sym
+          ]
+        ) % {:field => Content.translated_label_for(content_name)}
       end
     end
     messages

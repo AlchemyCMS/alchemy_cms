@@ -313,14 +313,14 @@ module AlchemyHelper
       warning('Element is nil')
       return ""
     else
-      content_name = t("alchemy.content_names.#{content.element.name}.#{content.name}", :default => ["alchemy.content_names.#{content.name}".to_sym, content.name.capitalize])
+      content_name = content.name_for_label
     end
     if content.description.blank?
       warning("Content #{content.name} is missing its description")
       title = _("Warning: Content '%{contentname}' is missing its description.") % {:contentname => content.name}
-  	  content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name
-  	end
-  	content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>" : content_name
+      content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name
+    end
+    content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>" : content_name
   end
   
   # Returns @page.title
