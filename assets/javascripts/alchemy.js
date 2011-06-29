@@ -1031,7 +1031,7 @@ if (typeof(Alchemy) === 'undefined') {
 				$('#cells').tabs('add', '#cell_'+cell_name, label);
 				$('#cell_'+cell_name).addClass('sortable_cell');
 			}
-			$('#cells').tabs('select', '#cell_'+cell_name);
+			$('#cells').tabs('select', 'cell_'+cell_name);
 		},
 		
 		ButtonObserver: function (selector) {
