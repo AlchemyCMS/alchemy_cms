@@ -10,7 +10,7 @@
     <span class="element_heading">
         <%= content_tag("span", element.display_name, :class => "preview_text_element_name") %>
         <%- if !element.preview_text.blank? -%>
-            &nbsp;<%= content_tag("span", element.preview_text, :class => "preview_text_quote") %>
+            &nbsp;<%= content_tag("span", h(element.preview_text), :class => "preview_text_quote") %>
         <%- end -%>
     </span>
     <span class="ajax_folder">
