@@ -828,7 +828,7 @@ module AlchemyHelper
     cells_definition.each do |cell|
       cell_elements = elements.select { |e| cell['elements'].include?(e['name']) }
       celled_elements += cell_elements
-      optgroup_label = t("cell_names.#{cell['name']}", :default => cell['name'].camelcase)
+      optgroup_label = t("alchemy.cell_names.#{cell['name']}", :default => cell['name'].camelcase)
       options[optgroup_label] = cell_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name']] }
     end
     other_elements = elements - celled_elements

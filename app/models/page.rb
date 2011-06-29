@@ -392,7 +392,7 @@ class Page < ActiveRecord::Base
       next if child == new_parent
       new_child = Page.copy(child, {
         :language_id => new_parent.language_id,
-				:language_code => new_parent.language_code,
+        :language_code => new_parent.language_code,
         :name => child.name + ' (' + _('Copy') + ')',
         :urlname => '',
         :title => ''
@@ -404,9 +404,9 @@ class Page < ActiveRecord::Base
   
   # Returns true or false if the page has a page_layout that has cells.
   def has_cells?
-    page_layout = Alchemy::PageLayout.get(page_layout)
-    return false if page_layout.blank?
-    !page_layout['cells'].blank?
+    pagelayout = Alchemy::PageLayout.get(self.page_layout)
+    return false if pagelayout.blank?
+    !pagelayout['cells'].blank?
   end
   
 private
