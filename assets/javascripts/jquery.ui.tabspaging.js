@@ -21,6 +21,7 @@ THE SOFTWARE.
 */
 
 (function($) {
+	
 	$.extend($.ui.tabs.prototype, {
 		paging: function(options) {
 			var opts = {
@@ -73,7 +74,7 @@ THE SOFTWARE.
 				if (allTabsWidth > containerWidth) {
 					// create next button			
 					li = $('<li></li>')
-						.addClass('ui-state-default ui-tabs-paging-next ui-corner-top')
+						.addClass('ui-state-default ui-tabs-paging-next')
 						.append($('<a href="#"></a>')
 								.click(function() { page('next'); return false; })
 								.html(opts.nextButton));
@@ -83,7 +84,7 @@ THE SOFTWARE.
 
 					// create prev button
 					li = $('<li></li>')
-						.addClass('ui-state-default ui-tabs-paging-prev ui-corner-top')
+						.addClass('ui-state-default ui-tabs-paging-prev')
 						.append($('<a href="#"></a>')
 								.click(function() { page('prev'); return false; })
 								.html(opts.prevButton));
@@ -229,8 +230,15 @@ THE SOFTWARE.
 			// reconfigure "ui.tabs" select event to change pages if new tab is selected
 			var tabsSelect = self.select;
 			self.select = function(index) {
+				var $panel;
+				var $parent;
+				if (typeof(index) === 'string') {
+					$panel = $('#' + index);
+					$parent = $panel.parent();
+					// getting my index
+					index = $parent.children('.ui-tabs-panel').index($panel);
+				}
 				tabsSelect.apply(this, [index]);
-
 				// if paging is not initialized or it is not configured to 
 				// change pages when a new tab is selected, then do nothing
 				if (!initialized || !opts.followOnSelect)
