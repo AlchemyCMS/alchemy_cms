@@ -298,10 +298,11 @@ class Element < ActiveRecord::Base
   # Essence validation errors messages are translated via I18n.
   # Inside your translation file add translations like:
   # 
-  #   content_validations:
-  #     name_of_the_element:
-  #       name_of_the_content:
-  #         validation_error_type: Error Message
+  #   alchemy:
+  #     content_validations:
+  #       name_of_the_element:
+  #         name_of_the_content:
+  #           validation_error_type: Error Message
   # 
   # validation_error_type has to be one of:
   # 
@@ -312,16 +313,17 @@ class Element < ActiveRecord::Base
   # Example:
   # 
   #   de:
-  #     content_validations:
-  #       contact:
-  #         email:
-  #           wrong_format: 'Die Email hat nicht das richtige Format'
+  #     alchemy:
+  #       content_validations:
+  #         contact:
+  #           email:
+  #             wrong_format: 'Die Email hat nicht das richtige Format'
   # 
   def essence_error_messages
     messages = []
     essence_errors.each do |content_name, errors|
       errors.each do |error|
-        messages << I18n.t("content_validations.#{self.name}.#{content_name}.#{error}")
+        messages << I18n.t("alchemy.content_validations.#{self.name}.#{content_name}.#{error}")
       end
     end
     messages
