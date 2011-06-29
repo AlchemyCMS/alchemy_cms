@@ -5,7 +5,7 @@
 			<%- @elements.each do |cell, elements| -%>
 			<li>
 				<a href="#cell_<%= cell.name -%>">
-					<%= cell.name == 'for_other_elements' ? _('other Elements') : t("cell_names.#{cell.name}", :default => cell.name.camelcase) -%>
+					<%= cell.name == 'for_other_elements' ? _('other Elements') : t("alchemy.cell_names.#{cell.name}", :default => cell.name.camelcase) -%>
 				</a>
 			</li>
 			<%- end -%>
