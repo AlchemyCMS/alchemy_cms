@@ -21,7 +21,7 @@ This gives the webdeveloper the power and flexibility to implement any kind of l
 Rails Version
 -------------
 
-Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
+We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
 
 We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
 
@@ -38,7 +38,7 @@ Then enter:
 
         rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
 
-into your terminal and follow the instructions displayed after the templates executes.
+After creation of the new project, follow the instructions displayed in the console.
 
 If you want to install Alchemy inside an existing Rails project, then follow these steps:
 -----------------------------------------------------------------------------------------
