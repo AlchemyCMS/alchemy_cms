@@ -39,6 +39,7 @@ Then enter:
         rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
 
 After creation of the new project, follow the instructions displayed in the console.
+Then just switch to your browser and open http://localhost:3000/admin for creating your first admin user.
 
 If you want to install Alchemy inside an existing Rails project, then follow these steps:
 -----------------------------------------------------------------------------------------
