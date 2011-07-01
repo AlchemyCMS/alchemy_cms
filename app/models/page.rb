@@ -442,8 +442,9 @@ private
     new_url_name = new_url_name.gsub(/[^a-zA-Z0-9_]+/, '-')
     if(new_url_name.length < 3)
       new_url_name = "-#{new_url_name}-"
+    else
+      new_url_name.gsub(/-+$/, '')
     end
-    new_url_name
   end
   
   # Looks in the layout_descripion, if there are elements to autogenerate.

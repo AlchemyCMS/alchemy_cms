@@ -48,10 +48,10 @@ class Admin::PicturesController < AlchemyController
     if @while_assigning
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
-      @size = params[:size]
+      @size = params[:size] || 'medium'
       @options = params[:options]
-      @page = params[:page]
-      @per_page = params[:per_page]
+      @page = params[:page] || 1
+      @per_page = pictures_per_page_for_size(@size)
     end
     if params[:per_page] == 'all'
       @pictures = Picture.find(
@@ -65,7 +65,7 @@ class Admin::PicturesController < AlchemyController
         :order => :name,
         :conditions => "name LIKE '%#{params[:query]}%'",
         :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || 32)
+        :per_page => (params[:per_page] || @per_page || 32)
       )
     end
     @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}
@@ -81,17 +81,11 @@ class Admin::PicturesController < AlchemyController
     @content = Content.find_by_id(params[:content_id], :select => 'id')
     @element = Element.find_by_id(params[:element_id], :select => 'id')
     @size = params[:size] || 'medium'
-		case @size
-			when 'small' then per_page = 35
-			when 'large' then per_page = 4
-		else
-			per_page = 12
-		end
     @pictures = Picture.paginate(
       :all,
       :order => :name,
       :page => params[:page] || 1,
-      :per_page => per_page,
+      :per_page => pictures_per_page_for_size(@size),
       :conditions => "name LIKE '%#{params[:query]}%'"
     )
     @options = params[:options]
@@ -113,9 +107,9 @@ class Admin::PicturesController < AlchemyController
       page.replace "picture_#{@picture.id}", :partial => "picture", :locals => {:picture => @picture}
       page << %(
         Alchemy.inPlaceEditor({
-    			save_label: "#{ _('save') }",
-    			cancel_label: "#{ _('cancel') }"
-    		});
+          save_label: "#{ _('save') }",
+          cancel_label: "#{ _('cancel') }"
+        });
       )
       Alchemy::Notice.show(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
     end
@@ -147,6 +141,18 @@ class Admin::PicturesController < AlchemyController
   def show_in_window
     @picture = Picture.find(params[:id])
     render :layout => false
+  end
+  
+private
+  
+  def pictures_per_page_for_size(size)
+    case size
+      when 'small' then per_page = 35
+      when 'large' then per_page = 4
+    else
+      per_page = 12
+    end
+    return per_page
   end
   
 end
