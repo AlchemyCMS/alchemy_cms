@@ -1,16 +1,27 @@
 Alchemy
 =======
 
-About
+About the content management system
 -----
 
-Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
-For more Information please visit <http://magiclabs.github.com/alchemy>
+Alchemy is a fullly featured, content management system, which beautifully integrates into rails.
+
+Nearly every content management system stores the content of a page in a body column in the pages table. This is easy to develop and the user manages the content inside one of the fancy new Javascript based wysiwyg processors. Formatting, image placement, styling and positioning of the content is in the hand of the end-user.
+
+__We think this is completly wrong!__
+
+The content manager mustn‘t be able to change anything but the content and some basic text formatting. The content manager shouldn‘t care about headline formatting, image positioning or resizing. The developer should take care of this!
+
+__Alchemy is different!__
+
+We split the page into logical parts like headlines, paragraphs, images, etc. The only thing we store in  the database is text: ids of images and richtext content. Nothing else. No markup (besides basic text formatting inside the richtext elements), no styling, no layout. Pure content!
+
+This gives the webdeveloper the power and flexibility to implement any kind of layout with the insurance that the content manager is not able to break up the layout.
 
 Rails Version
 -------------
 
-Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
+We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
 
 We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
 
@@ -27,7 +38,8 @@ Then enter:
 
         rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
 
-into your terminal and follow the instructions displayed after the templates executes.
+After creation of the new project, follow the instructions displayed in the console.
+Then just switch to your browser and open http://localhost:3000/admin for creating your first admin user.
 
 If you want to install Alchemy inside an existing Rails project, then follow these steps:
 -----------------------------------------------------------------------------------------
