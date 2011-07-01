@@ -54,7 +54,7 @@ Features
 - Completely free:
   - GPLv3 License
   - No Enterprise Licences, or Community Editions
-- Hostable on any Server that supports RubyOnRails and ImageMagick
+- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy/wiki/Software-Requirements))
 
 Rails Version
 -------------
