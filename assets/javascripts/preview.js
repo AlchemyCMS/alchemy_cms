@@ -103,6 +103,8 @@ function initAlchemyPreviewMode() {
 // 
 if (typeof(jQuery) === 'undefined') {
 	
+	var thisPageUsingOtherJSLibrary = false;
+	
 	if (typeof($) === 'function') {
 		// warning, global var
 		thisPageUsingOtherJSLibrary = true;
