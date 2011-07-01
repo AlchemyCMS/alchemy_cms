@@ -4,8 +4,6 @@ class EssenceDate < ActiveRecord::Base
     :ingredient_column => :date
   )
   
-  @@date_parts = ["%Y", "%m", "%d", "%H", "%M"]
-  
   # Returns self.date for the Element#preview_text method.
   def preview_text(foo=nil)
     return "" if date.blank?
@@ -15,7 +13,7 @@ class EssenceDate < ActiveRecord::Base
   # Saves the ingredient
   def save_ingredient(params, options = {})
     return true if params.blank?
-    self.date = DateTime.strptime(params.values.join('-'), @@date_parts[0, params.length].join("-"))
+    self.date = DateTime.parse(params['date'].values.join('-'))
     self.save
   end
   
