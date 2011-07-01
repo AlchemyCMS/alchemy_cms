@@ -884,6 +884,10 @@ a.sitemap_pagename_link:hover {
 	text-decoration: underline;
 }
 
+div#page_selector_container a.sitemap_pagename_link:hover {
+  text-decoration: none;
+}
+
 a.sitemap_pagename_link:hover:after {
 	content: '';
 	width: 16px;
@@ -892,6 +896,10 @@ a.sitemap_pagename_link:hover:after {
 	margin-right: 4px;
 	background: url(/images/alchemy/icons.png) -32px -104px;
 	margin-top: 4px;
+}
+
+div#page_selector_container a.sitemap_pagename_link:hover:after {
+  display: none;
 }
 
 .sitemap_line_spacer {
@@ -967,6 +975,10 @@ div.sitemap_right_tools {
 	padding-left: 16px;
 	float: right;
 	width: 100px;
+}
+
+div#page_selector_container div.sitemap_right_tools {
+	width: 24px;
 }
 
 ul#sitemap li .sitemap_toolrow,
