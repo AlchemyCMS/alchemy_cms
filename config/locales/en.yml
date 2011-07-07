@@ -110,50 +110,51 @@ en:
         password: 'Your password'
         greeting: 'Have a nice day'
     
+    # Uncomment this and copy it into your locale file if you want to use your own language names.
     # == Translated language names
-    languages:
-      cn:
-        name: 'Chinese'
-        title: 'Chinese'
-      de:
-        name: 'German'
-        title: 'German'
-      en:
-        name: 'English'
-        title: 'English'
-      es:
-        name: 'Spanish'
-        title: 'Spanish'
-      fi:
-        name: 'Finnish'
-        title: 'Finnish'
-      fr:
-        name: 'French'
-        title: 'French'
-      it:
-        name: 'Italian'
-        title: 'Italian'
-      jp:
-        name: 'Japanese'
-        title: 'Japanese'
-      nl:
-        name: 'Dutch'
-        title: 'Dutch'
-      no:
-        name: 'Norwegian'
-        title: 'Norwegian'
-      pl:
-        name: 'Polish'
-        title: 'Polish'
-      pt:
-        name: 'Portuguese'
-        title: 'Portuguese'
-      ru:
-        name: 'Russian'
-        title: 'Russian'
-      se:
-        name: 'Swedish'
-        title: 'Swedish'
+    # languages:
+    #   cn:
+    #     name: 'Chinese'
+    #     title: 'Chinese'
+    #   de:
+    #     name: 'German'
+    #     title: 'German'
+    #   en:
+    #     name: 'English'
+    #     title: 'English'
+    #   es:
+    #     name: 'Spanish'
+    #     title: 'Spanish'
+    #   fi:
+    #     name: 'Finnish'
+    #     title: 'Finnish'
+    #   fr:
+    #     name: 'French'
+    #     title: 'French'
+    #   it:
+    #     name: 'Italian'
+    #     title: 'Italian'
+    #   jp:
+    #     name: 'Japanese'
+    #     title: 'Japanese'
+    #   nl:
+    #     name: 'Dutch'
+    #     title: 'Dutch'
+    #   no:
+    #     name: 'Norwegian'
+    #     title: 'Norwegian'
+    #   pl:
+    #     name: 'Polish'
+    #     title: 'Polish'
+    #   pt:
+    #     name: 'Portuguese'
+    #     title: 'Portuguese'
+    #   ru:
+    #     name: 'Russian'
+    #     title: 'Russian'
+    #   se:
+    #     name: 'Swedish'
+    #     title: 'Swedish'
     
     # == User roles translations
     user_roles:
