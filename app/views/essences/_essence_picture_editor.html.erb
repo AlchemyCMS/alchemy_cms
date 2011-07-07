@@ -29,21 +29,24 @@
       <%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
     </div>
     <div class="picture_image">
-      <%= image_tag(
-        url_for(
-          :controller => '/pictures',
-          :action => 'thumbnail',
-          :id => content.ingredient,
-          :size => "111x93",
-          :crop_from => content.essence.crop_from,
-          :crop_size => content.essence.crop_size
-        ),
-        :alt => content.ingredient.name,
-        :class => 'img_paddingtop',
-        :title => _("image_name") + ": #{content.ingredient.name}",
-        :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
-        :style => "display: none;"
-      ) %>
+      <div class="thumbnail_background">
+        <%= image_tag(
+          url_for(
+            :controller => '/pictures',
+            :action => 'thumbnail',
+            :id => content.ingredient,
+            :size => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:default_size] : content.essence.render_size) : "111x93",
+            :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
+            :crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
+            :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil
+          ),
+          :alt => content.ingredient.name,
+          :class => 'img_paddingtop',
+          :title => _("image_name") + ": #{content.ingredient.name}",
+          :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
+          :style => "display: none;"
+        ) %>
+      </div>
       <%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
     </div>
     <%- end -%>

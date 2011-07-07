@@ -2,7 +2,7 @@
 	<%- if options[:crop] -%>
 	<%= link_to_overlay_window(
 		'',
-		crop_admin_essence_picture_path(content.essence, :size => options[:image_size], :content_id => content.id, :options => options),
+		crop_admin_essence_picture_path(content.essence, :options => options),
 		{ :size => "fullscreen", :title => _('Edit Picturemask') },
 		{ :class => "edit_picture_mask", :title => _('Edit Picturemask') }
 	) %>

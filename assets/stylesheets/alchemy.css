@@ -2092,16 +2092,21 @@ div.archive_image_spinner img {
 }
 
 .picture_image a {
-	margin: auto;
-	float: none;
-	display: block;
 	cursor: -webkit-zoom-in;
 	cursor: -moz-zoom-in;
 	cursor: -o-zoom-in;
 	cursor: zoom-in;
-	width: 100%;
-	height: 100%;
+}
+
+.thumbnail_background {
+	margin: auto;
+	float: none;
+	display: table-cell;
+	width: 111px;
+	height: 93px;
 	background-color: #666;
+	vertical-align: middle;
+	text-align: center;
 }
 
 .headline_text_editor {

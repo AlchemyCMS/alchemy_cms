@@ -14,13 +14,34 @@
       </td>
     </tr>
     <tr>
-      <td><%= f.label "title", _("image_title") %></td>
+      <td class="label"><%= f.label "title", _("image_title") %></td>
       <td><%= f.text_field "title", :class => 'thin_border long' %></td>
     </tr>
     <tr>
-      <td><%= f.label "alt_tag", _("image_alt_tag") %></td>
+      <td class="label"><%= f.label "alt_tag", _("image_alt_tag") %></td>
       <td><%= f.text_field "alt_tag", :class => 'thin_border long' %></td>
     </tr>
+    <%# Have to use a Hash here, because Rails has a Hash.to_params bug with nested Arrays!!!! %>
+    <%- if @options[:sizes].is_a?(HashWithIndifferentAccess) -%>
+    <tr>
+      <td class="label"><%= f.label "render_size" %></td>
+      <td>
+      <%= f.select(
+        "render_size",
+        options_for_select(
+          [[_('Layout default'), @options[:default_size]]] + @options[:sizes].sort,
+          @essence_picture.render_size
+        )
+      ) %>
+      </td>
+    </tr>
+    <%- elsif @options[:sizes] && !@options[:sizes].is_a?(HashWithIndifferentAccess) -%>
+    <tr>
+      <td colspan="2">
+        <%= warning("Did not passed a Hash as sizes option", "Sizes Selector Error. Please provide a Hash.") %>
+      </td>
+    </tr>
+    <%- end -%>
     <%- if @options[:image_float_selector] -%>
     <tr>
       <td class="label"><%= f.label "css_class", _("align_in_text") %></td>
@@ -33,7 +54,7 @@
     <tr>
       <td class="label"><%= f.label "css_class", _("Select style") %></td>
       <td class="input">
-        <%= f.select("css_class", options_for_select(@options[:css_classes].sort, @essence_picture.css_class)) %>
+        <%= f.select("css_class", options_for_select([[_('None'), '']] + @options[:css_classes].sort, @essence_picture.css_class)) %>
       </td>
     </tr>
     <%- elsif @options[:css_classes] && !@options[:css_classes].is_a?(HashWithIndifferentAccess) -%>

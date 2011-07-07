@@ -79,6 +79,7 @@ ActionController::Routing::Routes.draw do |map|
   map.show_picture '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
   map.zoom_picture '/pictures/zoom/:id/picture.png', :controller => 'pictures', :action => 'zoom'
   map.croppped_thumbnail '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
+  map.default_croppped_thumbnail '/pictures/thumbnails/:id/:size/:crop/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.show_language_root '/:lang', :controller => :pages, :action => :show, :lang => @lang_regex
