@@ -482,12 +482,28 @@ div.essence_picture_editor .picture_tool_delete {
 	z-index: 2;
 }
 
+
+
 div.essence_picture_editor.validation_failed .picture_detail {
 	border-color: #931f23;
 	-webkit-box-shadow: #931f23 0px 1px 3px;
 	-moz-box-shadow: #931f23 0px 1px 3px;
 	-o-box-shadow: #931f23 0px 1px 3px;
 	box-shadow: #931f23 0px 1px 3px;
+}
+
+div.essence_picture_css_class {
+	position: absolute;
+	z-index: 1;
+	bottom: 24px;
+	width: 102px;
+	background-color: white;
+	background-color: rgba(255,254,255,0.7);
+	padding: 4px 8px;
+	font-size: 10px;
+	text-align: right;
+	height: 12px;
+	overflow: hidden;
 }
 
 div.essence_picture_editor:hover .picture_tool_delete {
