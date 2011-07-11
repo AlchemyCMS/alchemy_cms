@@ -32,7 +32,7 @@
 <div class="picture_tool_button">
 	<%= link_to_function(
 		'',
-		"Alchemy.openLinkWindow(this, 420)",
+		"Alchemy.LinkOverlay.open(this, 420)",
 		:class => (content.essence.link.blank? ? 'edit_link' : 'edit_link linked'),
 		:title => _('link_image'),
 		:name => "essence_picture_#{content.id}",
@@ -42,7 +42,7 @@
 <div class="picture_tool_button">
 	<%= link_to_function(
 		"",
-		"Alchemy.removePictureLink(#{content.id})",
+		"Alchemy.LinkOverlay.removePictureLink(#{content.id})",
 		:class => 'remove_link',
 		:title => _('unlink')
 	) %>

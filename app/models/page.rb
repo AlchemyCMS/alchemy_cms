@@ -409,6 +409,17 @@ class Page < ActiveRecord::Base
     !pagelayout['cells'].blank?
   end
   
+  def self.link_target_options
+    options = [
+      [I18n.t('default', :scope => 'alchemy.link_target_options'), '']
+    ]
+    link_target_options = Alchemy::Configuration.get(:link_target_options)
+    link_target_options.each do |option|
+      options << [I18n.t(option, :scope => 'alchemy.link_target_options'), option]
+    end
+    options
+  end
+  
 private
   
   def find_next_or_previous_page(direction = "next", options = {})

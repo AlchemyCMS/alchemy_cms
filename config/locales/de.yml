@@ -196,7 +196,12 @@ de:
       video/x-msvideo: 'AVI-Video'
       video/x-ms-wmv: 'Windows Media Video'
       image/tiff: 'TIFF-Bild'
-  
+    
+    link_target_options:
+      default: gleichem Fenster
+      blank: neuem Fenster/Tab
+      overlay: einem Overlay
+    
   # END of Alchemy translation
   
   # == Rails translations

@@ -129,6 +129,16 @@ default_language:
     :pictures: [jpg, jpeg, gif, png, psd, pdf]
     :attachments: [*]
 
+# === Link Target Options
+# Values for the link target selectbox inside the page link overlay.
+# The value gets attached as a data-link-target attribute to the link.
+# 
+# == Example:
+# Open all links set to overlay inside an jQuery UI Dialog Window.
+# 
+#   jQuery(a[data-link-target="overlay"]).dialog();
+:link_target_options: [blank]
+
 # == Alchemy core plugins configuration
 
 alchemy_plugins:

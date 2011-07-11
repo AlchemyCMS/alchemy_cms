@@ -1,46 +1,46 @@
 <li>
-	<div class="sitemap_page ">
-		<div class="sitemap_left_images">
-			<span class="site_status <%= page_for_links.locked ? ' locked' : '' %>" ></span>
-		</div>
-		<div class="sitemap_right_tools">
-			<%= link_to_remote(
-				"&nbsp;",
-				:url => admin_page_elements_path(page_for_links),
-				:method => :get,
-				:before => "Alchemy.selectPageForInternalLink('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); jQuery('#page_for_links .elements_for_page').hide()",
-				:loading => "Alchemy.showElementsFromPageSelector(#{page_for_links.id})",
-				:html => {
-					:class => "show_elements_to_link",
-					:title => _('show_elements_from_page')
-				}
-			) %>
-			<div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
-				<%= image_tag("alchemy/ajax_loader.gif") %>
-			</div>
-		</div>
-		<div class="page_infos">
-			<span class="page_status <%= page_for_links.public ? 'public' : 'not_public' %>" title="<%= page_for_links.public ? _('Page public') : _('Page not public') %>"></span>
-            <span class="page_status <%= page_for_links.visible ? 'visible' : 'not_visible' %>" title="<%= page_for_links.visible ? _('Page visible') : _('Page not visible') %>"></span>
-            <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
-		</div>
-		<div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
-			<%= link_to_function(
-				page_for_links.name,
-				%(
-					Alchemy.selectPageForInternalLink(
-						'#{page_for_links.id}',
-						'#{@url_prefix + page_for_links.urlname}'
-					);
-				),
-				:title => (_('page_for_links.choose_page %{name}') % {:name => page_for_links.name}),
-				:class => "sitemap_pagename_link #{cycle('even', 'odd')}"
-			) %>
-		</div>
-	</div>
-	<%- if !page_for_links.children.empty? -%>
-	<ul id="page_<%= page_for_links.id %>_children">
-		<%= render :partial => 'page_for_links', :collection => page_for_links.children, :locals => {:area_name => @area_name} %>
-	</ul>
-	<%- end -%>
+  <div class="sitemap_page ">
+    <div class="sitemap_left_images">
+      <span class="site_status <%= page_for_links.locked ? ' locked' : '' %>" ></span>
+    </div>
+    <div class="sitemap_right_tools">
+      <%= link_to_remote(
+        "&nbsp;",
+        :url => admin_page_elements_path(page_for_links),
+        :method => :get,
+        :before => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); jQuery('#page_for_links .elements_for_page').hide()",
+        :loading => "Alchemy.LinkOverlay.showElementsSelect(#{page_for_links.id})",
+        :html => {
+          :class => "show_elements_to_link",
+          :title => _('show_elements_from_page')
+        }
+      ) %>
+      <div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
+        <%= image_tag("alchemy/ajax_loader.gif") %>
+      </div>
+    </div>
+    <div class="page_infos">
+      <span class="page_status <%= page_for_links.public ? 'public' : 'not_public' %>" title="<%= page_for_links.public ? _('Page public') : _('Page not public') %>"></span>
+      <span class="page_status <%= page_for_links.visible ? 'visible' : 'not_visible' %>" title="<%= page_for_links.visible ? _('Page visible') : _('Page not visible') %>"></span>
+      <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
+    </div>
+    <div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
+      <%= link_to_function(
+        page_for_links.name,
+        %(
+          Alchemy.LinkOverlay.selectPage(
+            '#{page_for_links.id}',
+            '#{@url_prefix + page_for_links.urlname}'
+          );
+        ),
+        :title => (_('page_for_links.choose_page %{name}') % {:name => page_for_links.name}),
+        :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+      ) %>
+    </div>
+  </div>
+  <%- if !page_for_links.children.empty? -%>
+  <ul id="page_<%= page_for_links.id %>_children">
+    <%= render :partial => 'page_for_links', :collection => page_for_links.children, :locals => {:area_name => @area_name} %>
+  </ul>
+  <%- end -%>
 </li>

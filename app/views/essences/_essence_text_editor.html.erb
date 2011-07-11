@@ -67,7 +67,7 @@
 		<%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
 		<%= hidden_field_tag content.form_field_name(:open_link_in_new_window), content.essence.open_link_in_new_window ? 1 : 0 %>
 	</span>
-	<a href="#" onclick="Alchemy.openLinkWindow(this, 420); return false;" title="<%= _('place_link') %>" class="icon_button" name="content_text_<%= content.id %>">
+	<a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= _('place_link') %>" class="icon_button" name="content_text_<%= content.id %>">
 		<span class="icon link"></span>
 	</a>
 

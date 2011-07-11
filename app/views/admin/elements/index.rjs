@@ -14,7 +14,7 @@ page.insert_html(
   "elements_for_page_#{@page_id}",
   link_to_function(
     "–",
-    "Alchemy.hideElementsFromPageSelector(#{@page_id})",
+    "Alchemy.LinkOverlay.hideElementsSelect(#{@page_id})",
     :class => "close_elements_from_page_selector", 
     :title => _("remove")
   )

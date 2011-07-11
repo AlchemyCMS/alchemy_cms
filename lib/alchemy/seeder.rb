@@ -114,6 +114,17 @@ module Alchemy
           puts "== Skipping! Language for page #{page.name} already set."
         end
       end
+      (EssencePicture.all + EssenceText.all).each do |essence|
+        case essence.link_target
+        when '1'
+          if essence.update_attribute(:link_target, 'blank')
+            puts "== Updated #{essence.preview_text} link target to #{essence.link_target}."
+          end
+        when '0'
+          essence.update_attribute(:link_target, nil)
+          puts "== Updated #{essence.preview_text} link target to #{essence.link_target.inspect}."
+        end
+      end
     end
     
   end

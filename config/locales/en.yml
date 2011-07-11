@@ -189,6 +189,11 @@ en:
       video/x-msvideo: 'AVI-Video'
       image/tiff: 'TIFF-Image'
     
+    link_target_options:
+      default: Same Window
+      blank: New Window/Tab
+      overlay: Overlay
+    
   # END of Alchemy translation
   
   # == Rails translations
