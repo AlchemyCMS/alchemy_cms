@@ -3,8 +3,8 @@
 	http://localhost:3000/stylesheets/alchemy/elements.css
 */
 
-input.text_with_icon {
-	width: 343px;
+#alchemy div.content_editor input.text_with_icon.auto_resize.thin_border {
+	width: 333px;
 	float: left;
 }
 
@@ -355,10 +355,8 @@ div#element_area .sortable_cell {
 }
 
 div.content_editor a.icon_button {
-	margin: 0 0 0 8px;
-}
-
-div.content_editor a.icon_button.small {
+	margin: 0 0 0 4px;
+	float: right;
 }
 
 a.expand_element {
@@ -453,6 +451,11 @@ a.fold_element {
 	top: 2px;
 }
 
+.icon_button span.icon.link {
+	left: 3px;
+	top: 4px;
+}
+
 .picture_tool_button a.edit_link.linked {
 	border: 1px solid #bbb;
 	width: 16px;
@@ -466,6 +469,10 @@ a.fold_element {
 	-moz-border-radius: 2px;
 	-o-border-radius: 2px;
 	border-radius: 2px;
+}
+
+a.icon_button.linked {
+	background-color: #f8d87b;
 }
 
 div.content_editor.essence_picture_editor {
@@ -714,6 +721,7 @@ div.content_editor {
 	margin-bottom: 8px;
 	margin-top: 8px;
 	position: relative;
+	overflow: auto;
 }
 
 div.content_editor.missing p {

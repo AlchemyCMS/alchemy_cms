@@ -1,1 +1,11 @@
+<%- if content.essence.link.blank? || options[:disable_link] -%>
 <%= h(content.essence.body) -%>
+<%- else -%>
+<%= link_to(
+  h(content.essence.body),
+  url_for(content.essence.link),
+  :title => content.essence.link_title,
+  :target => (content.essence.link_target == "blank" ? "_blank" : nil),
+  'data-link-target' => content.essence.link_target
+) %>
+<%- end -%>

@@ -61,13 +61,12 @@
 
 	<%- if !content.settings.blank? && content.settings[:linkable] -%>
 
-	<span id="content_<%= content.id %>_link_and_title" style="display: none">
-		<%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
-		<%= hidden_field_tag content.form_field_name(:link_title), content.essence.title %>
-		<%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
-		<%= hidden_field_tag content.form_field_name(:open_link_in_new_window), content.essence.open_link_in_new_window ? 1 : 0 %>
-	</span>
-	<a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= _('place_link') %>" class="icon_button" name="content_text_<%= content.id %>">
+  <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
+  <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
+  <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
+  <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
+
+	<a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= _('place_link') %>" class="icon_button<%= content.linked? ? ' linked' : '' %>" name="essence_text_<%= content.id %>">
 		<span class="icon link"></span>
 	</a>
 

@@ -79,7 +79,7 @@ if (typeof(Alchemy) === 'undefined') {
           content_id = element.name.replace('essence_picture_', '');
           break;
         case "text":
-          content_id = element.name.replace('content_text_', '');
+          content_id = element.name.replace('essence_text_', '');
           break;
         }
         $('#contents_content_' + content_id + '_link').val(url);
@@ -200,9 +200,8 @@ if (typeof(Alchemy) === 'undefined') {
       }
       $tmp_link.attr('href', $('#contents_content_' + content_id + '_link').val());
       $tmp_link.attr('title', $('#contents_content_' + content_id + '_link_title').val());
-      if ($('#contents_content_' + content_id + '_open_link_in_new_window').val() == '1') {
-        $tmp_link.attr('target', '_blank');
-      }
+      $tmp_link.attr('data-link-target', $('#contents_content_' + content_id + '_link_target').val());
+      $tmp_link.attr('target', $('#contents_content_' + content_id + '_link_target').val() == 'blank' ? '_blank' : null);
       $tmp_link.addClass($('#contents_content_' + content_id + '_link_class_name').val());
       return $tmp_link[0];
     },

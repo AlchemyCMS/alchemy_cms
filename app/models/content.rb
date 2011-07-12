@@ -138,4 +138,8 @@ class Content < ActiveRecord::Base
     end
   end
   
+  def linked?
+    essence && !essence.link.blank?
+  end
+  
 end

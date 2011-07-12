@@ -34,7 +34,8 @@
 			content.essence.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
 			url_for(content.essence.link),
 			:title => content.essence.link_title,
-			:target => (content.essence.open_link_in_new_window? ? "_blank" : "")
+			:target => (content.essence.link_target == "blank" ? "_blank" : nil),
+			'data-link-target' => content.essence.link_target
 		) %>
 	<%- end -%>
 
