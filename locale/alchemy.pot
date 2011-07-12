@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-07-12 20:31+0200\n"
+"POT-Creation-Date: 2011-07-12 20:35+0200\n"
 "PO-Revision-Date: 2010-03-19 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -593,6 +593,10 @@ msgstr ""
 #: app/views/admin/pages/edit.html.erb:160
 #: app/views/admin/pages/edit.html.erb:161
 msgid "Show trash"
+msgstr ""
+
+#: app/views/admin/essence_pictures/edit.html.erb:27
+msgid "Size"
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:61
