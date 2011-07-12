@@ -29,7 +29,7 @@
       <%= f.select(
         "render_size",
         options_for_select(
-          [[_('Layout default'), @options[:default_size]]] + @options[:sizes].sort,
+          [[_('Layout default'), @options[:image_size]]] + @options[:sizes].sort,
           @essence_picture.render_size
         )
       ) %>

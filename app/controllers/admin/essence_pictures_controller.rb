@@ -16,10 +16,10 @@ class Admin::EssencePicturesController < AlchemyController
     @content = @essence_picture.content
     @options = params[:options]
     if @essence_picture.render_size.blank?
-      if @options[:default_size].blank?
+      if @options[:image_size].blank?
         @size_x, @size_y = 0, 0
       else
-        @size_x, @size_y = @options[:default_size].split('x')[0], @options[:default_size].split('x')[1]
+        @size_x, @size_y = @options[:image_size].split('x')[0], @options[:image_size].split('x')[1]
       end
     else
       @size_x, @size_y = @essence_picture.render_size.split('x')[0], @essence_picture.render_size.split('x')[1]
