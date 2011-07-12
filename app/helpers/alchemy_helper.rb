@@ -1228,4 +1228,8 @@ module AlchemyHelper
     cell.elements.blank?
   end
   
+  def necessary_options_for_cropping_provided?(options)
+    options[:crop].to_s == 'true' && !options[:image_size].blank?
+  end
+  
 end

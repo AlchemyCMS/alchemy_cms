@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-07-11 17:23+0200\n"
+"POT-Creation-Date: 2011-07-12 20:31+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr ""
 "herzustellen."
 
 #: app/views/essences/_essence_picture_tools.html.erb:6
-#: app/views/essences/_essence_picture_tools.html.erb:7
+#: app/views/essences/_essence_picture_tools.html.erb:10
 msgid "Edit Picturemask"
 msgstr "Bildmaske bearbeiten"
 
@@ -558,6 +558,11 @@ msgstr "Inhalt aus der Zwischenablage entfernen"
 #: app/views/essences/_essence_text_editor.html.erb:53
 msgid "Remove this content"
 msgstr "Diesen Inhalt entfernen"
+
+#: app/views/admin/essence_pictures/crop.html.erb:14
+#: app/views/admin/essence_pictures/crop.html.erb:16
+msgid "Reset Imagemask"
+msgstr "Bildmaske zurücksetzen"
 
 #: app/helpers/alchemy_helper.rb:1120
 msgid "Select an content"
@@ -1079,8 +1084,8 @@ msgstr "Mit der Maus halten und verschieben"
 msgid "edit_file_properties"
 msgstr "Dateieigenschaften bearbeiten"
 
-#: app/views/essences/_essence_picture_tools.html.erb:58
-#: app/views/essences/_essence_picture_tools.html.erb:62
+#: app/views/essences/_essence_picture_tools.html.erb:56
+#: app/views/essences/_essence_picture_tools.html.erb:59
 msgid "edit_image_properties"
 msgstr "Bildeigenschaften bearbeiten"
 
@@ -1128,7 +1133,7 @@ msgid "enter_external_link"
 msgstr ""
 "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
 
-#: app/views/admin/essence_pictures/crop.html.erb:2
+#: app/views/admin/essence_pictures/crop.html.erb:21
 msgid "explain cropping"
 msgstr ""
 "Sie können den Rahmen verschieben und in der Größe verändern um den "
@@ -1253,7 +1258,7 @@ msgstr "Der Sprachbaum wurde kopiert"
 msgid "left"
 msgstr "links"
 
-#: app/views/essences/_essence_picture_tools.html.erb:37
+#: app/views/essences/_essence_picture_tools.html.erb:36
 msgid "link_image"
 msgstr "Bild verlinken"
 
@@ -1530,7 +1535,7 @@ msgstr "Passwort"
 msgid "paste"
 msgstr "einfügen"
 
-#: app/views/essences/_essence_text_editor.html.erb:70
+#: app/views/essences/_essence_text_editor.html.erb:69
 msgid "place_link"
 msgstr "Text verlinken"
 
@@ -1587,7 +1592,7 @@ msgstr "durch Robot indizieren"
 #: app/views/admin/essence_files/edit.html.erb:34
 #: app/views/admin/essence_files/edit.html.erb:62
 #: app/views/admin/essence_files/edit.html.erb:86
-#: app/views/admin/essence_pictures/crop.html.erb:14
+#: app/views/admin/essence_pictures/crop.html.erb:6
 #: app/views/admin/essence_pictures/edit.html.erb:70
 #: app/views/admin/languages/_form.html.erb:30
 #: app/views/admin/pages/configure.html.erb:68
@@ -1601,7 +1606,7 @@ msgstr "speichern"
 msgid "save order"
 msgstr "Sortierung speichern"
 
-#: app/controllers/admin/essence_pictures_controller.rb:73
+#: app/controllers/admin/essence_pictures_controller.rb:75
 msgid "saved_link"
 msgstr "Link wurde gespeichert."
 
@@ -1658,8 +1663,8 @@ msgstr "Element wurde hinzugefügt."
 msgid "successfully_saved_element_position"
 msgstr "Die Elementposition wurde gespeichert."
 
-#: app/views/essences/_essence_picture_tools.html.erb:24
-#: app/views/essences/_essence_picture_tools.html.erb:28
+#: app/views/essences/_essence_picture_tools.html.erb:25
+#: app/views/essences/_essence_picture_tools.html.erb:29
 msgid "swap_image"
 msgstr "Bild tauschen"
 
@@ -1680,7 +1685,8 @@ msgstr "Element in den Papierkorb legen"
 msgid "unknown"
 msgstr "unbekannt"
 
-#: app/views/essences/_essence_picture_tools.html.erb:47
+#: app/views/essences/_essence_picture_tools.html.erb:45
+#: app/views/essences/_essence_text_editor.html.erb:73
 msgid "unlink"
 msgstr "Link entfernen"
 

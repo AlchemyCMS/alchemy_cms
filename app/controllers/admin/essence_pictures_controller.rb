@@ -26,6 +26,7 @@ class Admin::EssencePicturesController < AlchemyController
     end
     if @essence_picture.crop_from.blank? && @essence_picture.crop_size.blank?
       @initial_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
+      @default_box = @initial_box
     else
       @initial_box = {
         :x1 => @essence_picture.crop_from.split('x')[0].to_i,
@@ -33,6 +34,7 @@ class Admin::EssencePicturesController < AlchemyController
         :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
         :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
       }
+      @default_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
     end
     render :layout => false
   end

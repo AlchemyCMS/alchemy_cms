@@ -2843,8 +2843,9 @@ div#jscropper {
 }
 
 div#crop_explain.tip {
-	margin-right: 8px;
+	margin: 8px 8px 0;
 	float: right;
+	width: 25%;
 }
 
 textarea#essence_picture_caption {
@@ -3496,6 +3497,12 @@ div#overlay_toolbar a.button {
 div#overlay_toolbar a.button:active {
 	text-decoration: none;
 	background-position: 0 -21px;
+}
+
+#alchemy div#overlay_toolbar form {
+	float: left;
+	padding: 0;
+	margin-right: 8px;
 }
 
 a.icon.remove {

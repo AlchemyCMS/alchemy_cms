@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2011-07-11 17:23+0200\n"
+"POT-Creation-Date: 2011-07-12 20:31+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Thomas von Deyen <thomas@vondeyen.com>\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgid "Drag an element over to the element window to restore it."
 msgstr ""
 
 #: app/views/essences/_essence_picture_tools.html.erb:6
-#: app/views/essences/_essence_picture_tools.html.erb:7
+#: app/views/essences/_essence_picture_tools.html.erb:10
 msgid "Edit Picturemask"
 msgstr ""
 
@@ -547,6 +547,11 @@ msgstr ""
 
 #: app/views/essences/_essence_text_editor.html.erb:53
 msgid "Remove this content"
+msgstr ""
+
+#: app/views/admin/essence_pictures/crop.html.erb:14
+#: app/views/admin/essence_pictures/crop.html.erb:16
+msgid "Reset Imagemask"
 msgstr ""
 
 #: app/helpers/alchemy_helper.rb:1120
@@ -1052,8 +1057,8 @@ msgstr "Drag'n'Drop to sort images"
 msgid "edit_file_properties"
 msgstr "Edit Fileproperties"
 
-#: app/views/essences/_essence_picture_tools.html.erb:58
-#: app/views/essences/_essence_picture_tools.html.erb:62
+#: app/views/essences/_essence_picture_tools.html.erb:56
+#: app/views/essences/_essence_picture_tools.html.erb:59
 msgid "edit_image_properties"
 msgstr "Edit image properties."
 
@@ -1100,7 +1105,7 @@ msgstr "Saved element."
 msgid "enter_external_link"
 msgstr "Please enter the URL you want to link with"
 
-#: app/views/admin/essence_pictures/crop.html.erb:2
+#: app/views/admin/essence_pictures/crop.html.erb:21
 msgid "explain cropping"
 msgstr ""
 "You may move and resize the frame to set the mask. If you are satisfied then "
@@ -1221,7 +1226,7 @@ msgstr "Language tree succesfully copied."
 msgid "left"
 msgstr "left"
 
-#: app/views/essences/_essence_picture_tools.html.erb:37
+#: app/views/essences/_essence_picture_tools.html.erb:36
 msgid "link_image"
 msgstr "Link this image."
 
@@ -1498,7 +1503,7 @@ msgstr "Password"
 msgid "paste"
 msgstr ""
 
-#: app/views/essences/_essence_text_editor.html.erb:70
+#: app/views/essences/_essence_text_editor.html.erb:69
 msgid "place_link"
 msgstr "Link text"
 
@@ -1555,7 +1560,7 @@ msgstr "allow robot to index."
 #: app/views/admin/essence_files/edit.html.erb:34
 #: app/views/admin/essence_files/edit.html.erb:62
 #: app/views/admin/essence_files/edit.html.erb:86
-#: app/views/admin/essence_pictures/crop.html.erb:14
+#: app/views/admin/essence_pictures/crop.html.erb:6
 #: app/views/admin/essence_pictures/edit.html.erb:70
 #: app/views/admin/languages/_form.html.erb:30
 #: app/views/admin/pages/configure.html.erb:68
@@ -1569,7 +1574,7 @@ msgstr "save"
 msgid "save order"
 msgstr ""
 
-#: app/controllers/admin/essence_pictures_controller.rb:73
+#: app/controllers/admin/essence_pictures_controller.rb:75
 msgid "saved_link"
 msgstr "Link saved."
 
@@ -1626,8 +1631,8 @@ msgstr "Succesfully added new element."
 msgid "successfully_saved_element_position"
 msgstr "Element position updated succesfully."
 
-#: app/views/essences/_essence_picture_tools.html.erb:24
-#: app/views/essences/_essence_picture_tools.html.erb:28
+#: app/views/essences/_essence_picture_tools.html.erb:25
+#: app/views/essences/_essence_picture_tools.html.erb:29
 msgid "swap_image"
 msgstr "Change image."
 
@@ -1648,7 +1653,8 @@ msgstr "Put element into trash"
 msgid "unknown"
 msgstr "unknown"
 
-#: app/views/essences/_essence_picture_tools.html.erb:47
+#: app/views/essences/_essence_picture_tools.html.erb:45
+#: app/views/essences/_essence_text_editor.html.erb:73
 msgid "unlink"
 msgstr "Remove link from this image."
 
