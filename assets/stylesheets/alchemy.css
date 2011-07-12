@@ -1,5 +1,7 @@
 /* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
+/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
+
 /* @override 
 	http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css
 	http://localhost:3000/stylesheets/alchemy/alchemy.css
@@ -2381,6 +2383,14 @@ a.link {
 
 span.icon.unlink {
 	background-position: -176px -40px;
+}
+
+.icon.swap_picture {
+	background-position: -144px -40px;
+}
+
+.icon.crop {
+	background-position: -128px -40px;
 }
 
 span.icon.warning, span.icon.warn {

@@ -422,67 +422,49 @@ a.fold_element {
 	margin-bottom: 8px;
 }
 
-.picture_tool_button {
+.edit_images_bottom {
+	height: 19px;
+	position: absolute;
+	z-index: 0;
+	left: 5px;
+	bottom: 2px;
+	width: 111px;
+}
+
+.edit_images_bottom a {
 	float: left;
-	margin-right: 2px;
 	margin-left: 2px;
-}
-
-.picture_tool_button.disabled {
-	opacity: 0.5;
-	filter: alpha(opacity = 50);
-}
-
-.picture_tool_button.disabled a {
-	cursor: default;
-}
-
-.picture_tool_button a {
-	text-decoration: none;
-	width: 16px;
-	height: 16px;
-	display: block;
-	background-image: url(/images/alchemy/icons.png);
-	background-repeat: no-repeat;
-	margin: 1px;
-}
-
-.picture_tool_button a:hover {
-	text-decoration: none;
-}
-
-.picture_tool_button a.edit_picture {
-	background-position: -192px -40px;
-}
-
-.picture_tool_button a.edit_link,
-.icon_button span.icon.link {
-	left: 2px;
-	top: 2px;
-}
-
-.icon_button span.icon.link {
-	left: 3px;
-	top: 4px;
-}
-
-.picture_tool_button a.link.linked {
-	border: 1px solid #bbb;
-	width: 16px;
-	height: 16px;
-	background-color: #f8d87b;
-	background-position: -160px -40px;
-	top: -1px;
-	position: relative;
-	left: 0;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	border-radius: 2px;
+	margin-right: 2px;
+	width: 18px;
+	height: 18px;
 }
 
 a.icon_button.linked {
-	background-color: #f8d87b;
+	background-color: #ffd77a;
+}
+
+.edit_images_bottom a.linked {
+	position: relative;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	background-image: url(/images/alchemy/gui/shading.png);
+	background-repeat: repeat-x;
+	background-position: 0 -75px;
+	background-color: #ffd77a;
+	border: 1px solid #9a9a9a;
+	bottom: 1px;
+	margin-right: 2px;
+	width: 17px;
+	height: 17px;
+	margin-left: 1px;
+}
+
+.edit_images_bottom a.disabled {
+	opacity: 0.5;
+	cursor: default;
+	filter: alpha(opacity = 50);
 }
 
 div.content_editor.essence_picture_editor {
@@ -498,8 +480,6 @@ div.essence_picture_editor .picture_tool_delete {
 	padding: 2px 2px 0;
 	z-index: 2;
 }
-
-
 
 div.essence_picture_editor.validation_failed .picture_detail {
 	border-color: #931f23;
@@ -527,20 +507,6 @@ div.essence_picture_editor:hover .picture_tool_delete {
 	display: block;
 }
 
-.picture_tool_button a.swap_picture {
-	background-position: -144px -40px;
-	margin-right: 0;
-}
-
-.picture_tool_button a.edit_picture_mask {
-	background-position: -128px -40px;
-	margin-right: 0;
-}
-
-.picture_tool_button a.remove_link {
-	background-position: -176px -40px;
-}
-
 .dragable_picture {
 	float: left;
 }
@@ -559,14 +525,6 @@ div.essence_picture_editor:hover .picture_tool_delete {
 .picture_detail div.missing_image img {
 	position: relative;
 	top: 10px;
-}
-
-.edit_images_bottom {
-	height: 19px;
-	position: absolute;
-	z-index: 0;
-	left: 5px;
-	bottom: 2px;
 }
 
 .picture_detail .picture_handle {

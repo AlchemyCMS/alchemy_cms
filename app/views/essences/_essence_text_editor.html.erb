@@ -70,7 +70,7 @@
     <span class="icon link"></span>
   </a>
   
-  <a href="#" <%- if content.linked? -%>onclick="Alchemy.LinkOverlay.removeLink(this, <%= content.id -%>); return false;"<%- end -%> title="<%= _('unlink') %>" class="icon_button unlink<%= content.linked? ? ' linked' : ' disabled' -%>" name="essence_text_<%= content.id -%>">
+  <a href="#" onclick="Alchemy.LinkOverlay.removeLink(this, <%= content.id -%>); return false;" title="<%= _('unlink') %>" class="icon_button unlink<%= content.linked? ? ' linked' : ' disabled' -%>" name="essence_text_<%= content.id -%>">
     <span class="icon unlink"></span>
   </a>
   
