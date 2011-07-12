@@ -25,4 +25,8 @@ module Admin::ElementsHelper
     return elements_for_options
   end
   
+  def necessary_options_for_cropping_provided?(options)
+    options[:crop] == true && !options[:default_size].blank?
+  end
+  
 end
