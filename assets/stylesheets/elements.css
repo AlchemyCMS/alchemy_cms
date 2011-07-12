@@ -4,8 +4,8 @@
 */
 
 #alchemy div.content_editor input.text_with_icon.auto_resize.thin_border {
-	width: 333px;
-	float: left;
+	padding-right: 52px;
+	width: 314px;
 }
 
 .element_editor p.footnote {
@@ -356,7 +356,19 @@ div#element_area .sortable_cell {
 
 div.content_editor a.icon_button {
 	margin: 0 0 0 4px;
-	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 24px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+div.content_editor a.icon_button.unlink {
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+	right: 1px;
 }
 
 a.expand_element {
@@ -445,8 +457,6 @@ a.fold_element {
 
 .picture_tool_button a.edit_link,
 .icon_button span.icon.link {
-	background-image: url(/images/alchemy/icons.png);
-	background-position: -160px -40px;
 	left: 2px;
 	top: 2px;
 }
@@ -456,7 +466,7 @@ a.fold_element {
 	top: 4px;
 }
 
-.picture_tool_button a.edit_link.linked {
+.picture_tool_button a.link.linked {
 	border: 1px solid #bbb;
 	width: 16px;
 	height: 16px;
@@ -721,7 +731,6 @@ div.content_editor {
 	margin-bottom: 8px;
 	margin-top: 8px;
 	position: relative;
-	overflow: auto;
 }
 
 div.content_editor.missing p {
