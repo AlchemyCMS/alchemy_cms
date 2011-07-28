@@ -1,7 +1,5 @@
 class Admin::EssencePicturesController < AlchemyController
   
-  layout 'alchemy'
-  
   filter_access_to :all
   
   def edit

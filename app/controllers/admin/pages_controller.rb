@@ -2,8 +2,6 @@ class Admin::PagesController < AlchemyController
   
   helper :pages
   
-  layout 'alchemy'
-  
   before_filter :set_translation, :except => [:show]
   before_filter :get_page_from_id, :only => [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
   
@@ -228,8 +226,8 @@ class Admin::PagesController < AlchemyController
       page = Page.find(page_id)
       page.move_to_child_of(parent)
     end
-		flash[:notice] = _("Pages order saved")
-		render(:update) { |page| page.redirect_to admin_pages_path }
+    flash[:notice] = _("Pages order saved")
+    render(:update) { |page| page.redirect_to admin_pages_path }
   rescue Exception => e
     exception_handler(e)
   end

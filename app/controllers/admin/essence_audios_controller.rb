@@ -1,7 +1,5 @@
 class Admin::EssenceAudiosController < AlchemyController
   
-  layout 'alchemy'
-  
   filter_access_to :update
   
   def update

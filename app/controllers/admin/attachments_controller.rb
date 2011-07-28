@@ -1,7 +1,6 @@
 class Admin::AttachmentsController < AlchemyController
   
   protect_from_forgery :except => [:create]
-  layout 'alchemy'
   
   before_filter :set_translation
   filter_access_to :all

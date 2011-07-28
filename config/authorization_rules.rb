@@ -33,6 +33,7 @@ authorization do
     has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
     has_permission_on :admin_users, :to => [:index]
+    has_permission_on :admin_trash, :to => [:index, :clear]
   end
   
   role :editor do

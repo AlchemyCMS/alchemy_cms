@@ -1,7 +1,5 @@
 class Admin::ElementsController < AlchemyController
   
-  layout 'alchemy'
-  
   before_filter :set_translation
   
   filter_access_to [:new, :create, :order, :index], :attribute_check => false

@@ -1,6 +1,5 @@
 class Admin::PicturesController < AlchemyController
   protect_from_forgery :except => [:create]
-  layout 'alchemy'
   
   before_filter :set_translation
   
