@@ -36,6 +36,7 @@ class Admin::EssencePicturesController < AlchemyController
       }
       @default_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
     end
+    @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
     render :layout => false
   end
   
@@ -78,12 +79,12 @@ class Admin::EssencePicturesController < AlchemyController
   end
   
   def destroy
-		content = Content.find_by_id(params[:id])
-		@element = content.element
-		@essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
-		@content_id = content.id
-		@options = params[:options]
-		content.destroy
+    content = Content.find_by_id(params[:id])
+    @element = content.element
+    @essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
+    @content_id = content.id
+    @options = params[:options]
+    content.destroy
   end
   
 end

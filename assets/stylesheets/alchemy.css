@@ -1,12 +1,5 @@
 /* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
-/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
-
-/* @override 
-	http://0.0.0.0:3000/stylesheets/alchemy/alchemy.css
-	http://localhost:3000/stylesheets/alchemy/alchemy.css
-*/
-
 html {
 	height: 100%;
 }
@@ -61,6 +54,7 @@ div#flash_notices div.flash {
 	filter: alpha(opacity=95);
 	margin: 4px;
 	position: relative;
+	max-height: 64px;
 }
 
 div#flash_notices div.flash span.icon {
