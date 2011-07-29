@@ -3,6 +3,7 @@ require 'extensions/array'
 require 'extensions/action_view'
 require 'alchemy'
 require 'injections/attachment_fu_mime_type'
+require 'vendor/i18n_label'
 
 if defined?(Authorization)
   Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/authorization_rules.rb")
