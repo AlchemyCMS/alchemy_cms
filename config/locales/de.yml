@@ -74,6 +74,12 @@ de:
         blank: '%{field} darf nicht leer sein.'
         wrong_format: '%{field} hat das falsche Format.'
     
+    essence_pictures:
+      css_classes:
+        left: 'Links vom Text'
+        right: 'Rechts vom Text'
+        no_float: 'Über dem Text'
+    
     # == Translations for the build in full text search.
     search:
       no_results: 'Ihre Suche ergab kein Ergebnis.'
