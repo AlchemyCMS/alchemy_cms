@@ -63,18 +63,18 @@ We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
 
 We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
 
-Install via Rails template (recommended)
+Install via Installer (recommended)
 ----------------------------------------
 
-We have a fancy Rails template that does all the installation stuff for you. You can find it here:
+We have a fancy installer script that does all the installation stuff for you. You can find it here:
 
-<http://github.com/magiclabs/alchemy-rails-templates/>
+<https://github.com/magiclabs/alchemy-installer/>
 
-Download the template and put it in a folder of your choice of your local disc.
+Download the installer and put it in an executable folder (/usr/local/bin).
 
-Then enter:
+Then open a terminal goto your projects folder and enter:
 
-        rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
+    alchemy new YOUR_APP_NAME
 
 After creation of the new project, follow the instructions displayed in the console.
 Then just switch to your browser and open http://localhost:3000/admin for creating your first admin user.
@@ -89,15 +89,15 @@ Tipp
 
 1. This task creates all necessary folders and files needed for creating your own pagelayouts and elements for your website
 
-        rake alchemy:app_structure:create:all
+    rake alchemy:app_structure:create:all
 
 2. If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
 
-        cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index > /dev/null
+    cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index > /dev/null
 
 3. You can easily create your element-files (for view and editor) depending on the elements.yml with this generator
 
-        script/generate elements
+    script/generate elements
 
 Resources
 ---------
