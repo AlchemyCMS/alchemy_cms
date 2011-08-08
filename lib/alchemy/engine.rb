@@ -19,20 +19,16 @@ module Alchemy
     end
     
     initializer :flash_cookie do |config|
-      config.middleware.use Alchemy::Middleware::FlashSessionCookie
+      config.middleware.insert_after(
+        'ActionDispatch::Cookies',
+        Alchemy::Middleware::FlashSessionCookie,
+        ::Rails.configuration.session_options[:key]
+      )
     end
+    
     initializer "static assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
     end
     
-    # config.after_initialize do
-    #   ActionController::Dispatcher.middleware.insert_before(
-    #     ActionController::Base.session_store,
-    #     Alchemy::Middleware::FlashSessionCookie,
-    #     ActionController::Base.session_options[:key]
-    #   )
-    # end
-    
   end
-  
 end

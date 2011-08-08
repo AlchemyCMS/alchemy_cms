@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<declarative_authorization>, [">= 0.5"])
   s.add_runtime_dependency(%q<tvdeyen-fleximage>, [">= 1.0.5"])
   s.add_runtime_dependency(%q<gettext_i18n_rails>, [">= 0.2.19"])
-  s.add_runtime_dependency(%q<will_paginate>, [">= 3.0.pre"])
+  s.add_runtime_dependency(%q<will_paginate>, [">= 3.0.pre4"])
   s.add_runtime_dependency(%q<acts_as_ferret>, [">= 0.5.2"])
   s.add_runtime_dependency(%q<mimetype-fu>, [">= 0.1.2"])
   s.add_runtime_dependency(%q<sortifiable>, [">= 0.2.3"])
@@ -32,6 +32,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
   s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])
   s.add_runtime_dependency(%q<tinymce_hammer>, [">= 0.2"])
-  s.add_runtime_dependency(%q<attachment_fu>, [">= 1.0"])
+  #s.add_runtime_dependency(%q<attachment_fu>, [">= 1.0"])
   
 end

@@ -396,7 +396,12 @@ class Page < ActiveRecord::Base
       child.copy_children_to(new_child) unless child.children.blank?
     end
   end
-
+  
+  def locker_name
+    return N_('unknown') if self.locker.nil?
+    self.locker.name
+  end
+  
 private
 
   def find_next_or_previous_page(direction = "next", options = {})

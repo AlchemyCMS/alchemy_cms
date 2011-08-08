@@ -1,5 +1,5 @@
-class Alchemy::PicturesSweeper < ActionController::Caching::Sweeper
-  observe Alchemy::Picture
+class PicturesSweeper < ActionController::Caching::Sweeper
+  observe Picture
 
   def after_update(picture)
     expire_cache_for(picture)

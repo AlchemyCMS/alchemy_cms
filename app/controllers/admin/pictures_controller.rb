@@ -10,21 +10,15 @@ class Admin::PicturesController < AlchemyController
   cache_sweeper :pictures_sweeper, :only => [:update, :destroy]
 
   def index
-    if params[:per_page] == 'all'
-      @pictures = Picture.find(
-        :all,
-        :order => :name,
-        :conditions => "name LIKE '%#{params[:query]}%'"
-      )
-    else
-      @pictures = Picture.paginate(
-        :all,
-        :order => :name,
-        :conditions => "name LIKE '%#{params[:query]}%'",
-        :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || 32)
-      )
-    end
+    @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    # if params[:per_page] == 'all'
+    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    # else
+    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
+    #     :page => params[:page] || 1,
+    #     :per_page => params[:per_page] || 32
+    #   ).order(:name)
+    # end
   end
 
   def new
@@ -54,23 +48,17 @@ class Admin::PicturesController < AlchemyController
       @page = params[:page]
       @per_page = params[:per_page]
     end
-    if params[:per_page] == 'all'
-      @pictures = Picture.find(
-        :all,
-        :order => :name,
-        :conditions => "name LIKE '%#{params[:query]}%'"
-      )
-    else
-      @pictures = Picture.paginate(
-        :all,
-        :order => :name,
-        :conditions => "name LIKE '%#{params[:query]}%'",
-        :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || 32)
-      )
-    end
+    @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    # if params[:per_page] == 'all'
+    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    # else
+    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
+    #     :page => (params[:page] || 1),
+    #     :per_page => (params[:per_page] || 32)
+    #   ).order(:name)
+    # end
     @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}
-    if params[ActionController::Base.session_options[:key].to_sym].blank?
+    if params[Rails.application.config.session_options[:key]].blank?
       flash[:notice] = @message
       redirect_to :back
     end
@@ -82,12 +70,12 @@ class Admin::PicturesController < AlchemyController
     @content = Content.find_by_id(params[:content_id], :select => 'id')
     @element = Element.find_by_id(params[:element_id], :select => 'id')
     @size = params[:size] || 'medium'
-		case @size
-			when 'small' then per_page = 35
-			when 'large' then per_page = 4
-		else
-			per_page = 12
-		end
+    case @size
+      when 'small' then per_page = 35
+      when 'large' then per_page = 4
+    else
+      per_page = 12
+    end
     @pictures = Picture.paginate(
       :all,
       :order => :name,
@@ -110,16 +98,7 @@ class Admin::PicturesController < AlchemyController
     oldname = @picture.name
     @picture.name = params[:name]
     @picture.save
-    render :update do |page|
-      page.replace "picture_#{@picture.id}", :partial => "picture", :locals => {:picture => @picture}
-      page << %(
-        Alchemy.inPlaceEditor({
-    			save_label: "#{ _('save') }",
-    			cancel_label: "#{ _('cancel') }"
-    		});
-      )
-      Alchemy::Notice.show(page, ( _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name} ))
-    end
+    @message = _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name}
   rescue Exception => e
     exception_handler(e)
   end

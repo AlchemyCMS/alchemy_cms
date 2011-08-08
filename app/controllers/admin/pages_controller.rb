@@ -58,7 +58,7 @@ class Admin::PagesController < AlchemyController
   # Edit the content of the page and all its elements and contents.
   def edit
     # fetching page via before filter
-    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
+    if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
       redirect_to admin_pages_path
     else
