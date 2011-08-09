@@ -33,7 +33,16 @@ class Page < ActiveRecord::Base
   scope :public, where(:public => true)
   scope :accessable, where(:restricted => false)
   scope :restricted, where(:restricted => true)
-
+  scope :layout_root_for, lambda { |language_id| where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1) }
+  scope :public_language_roots, lambda {
+    where("language_root = 1 AND language_code IN ('#{Language.all_codes_for_published.join('\',\'')}') AND public = 1")
+  }
+  scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
+  
+  # Returns all pages for langugae that are not locked and public.
+  # Used for flushing all page caches at once.
+  scope :flushables, lambda { |language_id| where({:public => true, :locked => false, :language_id => language_id}) }
+  
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
   # Returns only public ones
@@ -46,7 +55,8 @@ class Page < ActiveRecord::Base
     else
       condition = show_non_public.nil? ? nil : {:public => true}
     end
-    return self.elements.find(:all, :conditions => condition, :limit => options[:count], :offset => options[:offset], :order => options[:random].blank? ? nil : "RAND()")
+    elements = self.elements.where(condition).limit(options[:count]).offset(options[:offset])
+    elements.order("RAND()") unless options[:random].blank?
   end
 
   def find_elements(options, show_non_public = false)
@@ -295,13 +305,8 @@ class Page < ActiveRecord::Base
     find_all_by_locked_and_locked_by(true, user.id)
   end
 
-  def self.public_language_roots
-    public_language_codes = Language.all_codes_for_published
-    all(:conditions => "language_root = 1 AND language_code IN ('#{public_language_codes.join('\',\'')}') AND public = 1")
-  end
-
   def first_public_child
-    self.children.detect{ |child| child.public? }
+    self.children.where(:public => true).limit(1)
   end
 
   def self.language_root_for(language_id)
@@ -344,10 +349,6 @@ class Page < ActiveRecord::Base
     return page
   end
 
-  def self.layout_root_for(language_id)
-    find(:first, :conditions => {:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id})
-  end
-
   def self.find_or_create_layout_root_for(language_id)
     layoutroot = layout_root_for(language_id)
     return layoutroot if layoutroot
@@ -364,10 +365,6 @@ class Page < ActiveRecord::Base
     else
       raise "Layout root for #{language.name} could not be created"
     end
-  end
-
-  def self.all_last_edited_from(user)
-    Page.where(:updater_id => user.id).limit(5).order('updated_at DESC')
   end
 
   def self.all_from_clipboard(clipboard)
@@ -420,7 +417,7 @@ private
     if !options[:restricted].nil?
       conditions = Page.merge_conditions(conditions, {:restricted => options[:restricted]})
     end
-    return Page.find :first, :conditions => conditions, :order => order_direction
+    return Page.where(conditions).order(order_direction).limit(1)
   end
 
   def generate_url_name(url_name)
@@ -442,7 +439,7 @@ private
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
   def autogenerate_elements
-		return true if self.layout_description.blank?
+    return true if self.layout_description.blank?
     elements = self.layout_description["autogenerate"]
     unless (elements.blank?)
       elements.each do |element|
@@ -450,12 +447,6 @@ private
         element.move_to_bottom if element
       end
     end
-  end
-
-  # Returns all pages for langugae that are not locked and public.
-  # Used for flushing all page caches at once.
-  def self.flushables(language_id)
-    self.all(:conditions => {:public => true, :locked => false, :language_id => language_id})
   end
 
   def set_language_code

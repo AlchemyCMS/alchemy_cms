@@ -92,7 +92,7 @@ class Admin::AttachmentsController < AlchemyController
     else
       condition = ""
     end
-    @attachments = Attachment.all(:order => :name, :conditions => condition)
+    @attachments = Attachment.where(condition).order(:name)
     render :layout => false
   end
 

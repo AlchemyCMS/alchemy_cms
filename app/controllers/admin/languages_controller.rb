@@ -6,14 +6,12 @@ class Admin::LanguagesController < AlchemyController
 
   def index
     if !params[:query].blank?
-      @languages = Language.all(
-        :conditions => [
-          "languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
-          "%#{params[:query]}%",
-          "#{params[:query]}",
-          "%#{params[:query]}%"
-        ]
-      )
+      @languages = Language.where([
+        "languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
+        "%#{params[:query]}%",
+        "#{params[:query]}",
+        "%#{params[:query]}%"
+      ])
     else
       @languages = Language.all
     end

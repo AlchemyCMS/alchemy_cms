@@ -23,7 +23,7 @@ class Element < ActiveRecord::Base
     else
       find_conditions = ["public = 1 AND page_id = ? AND name = ? AND position > ?", self.page.id, name, self.position]
     end
-    self.class.find :first, :conditions => find_conditions, :order => "position ASC"
+    self.class.where(find_conditions).order("position ASC").limit(1)
   end
   
   # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
@@ -33,7 +33,7 @@ class Element < ActiveRecord::Base
     else
       find_conditions = ["public = 1 AND page_id = ? AND name = ? AND position < ?", self.page.id, name, self.position]
     end
-    self.class.find :first, :conditions => find_conditions, :order => "position DESC"
+    self.class.where(find_conditions).order("position DESC").limit(1)
   end
 
   def store_page page

@@ -9,14 +9,13 @@ class Admin::UsersController < AlchemyController
 
   def index
     if !params[:query].blank?
-      @users = User.find(:all, :conditions => [
+      @users = User.where([
         "users.login LIKE ? OR users.email LIKE ? OR users.firstname LIKE ? OR users.lastname LIKE ?",
         "%#{params[:query]}%",
         "%#{params[:query]}%",
         "%#{params[:query]}%",
         "%#{params[:query]}%"
-      ],
-      :order => 'login')
+      ]).order('login')
     else
       @users = User.all
     end

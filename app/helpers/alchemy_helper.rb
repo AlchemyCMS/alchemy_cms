@@ -545,10 +545,7 @@ module AlchemyHelper
     if options[:restricted_only].nil?
       conditions.delete(:restricted)
     end
-    pages = Page.all(
-      :conditions => conditions,
-      :order => "lft ASC"
-    )
+    pages = Page.where(conditions).order("lft ASC")
     if options[:reverse]
       pages.reverse!
     end
@@ -761,14 +758,11 @@ module AlchemyHelper
     elsif content.essence.nil?
       return warning('Content', _('content_essence_not_found'))
     end
-    pages = Page.find(
-      :all,
-      :conditions => {
-        :language_id => session[:language_id],
-        :page_layout => options[:only][:page_layout],
-        :public => true
-      }
-    )
+    pages = Page.where({
+      :language_id => session[:language_id],
+      :page_layout => options[:only][:page_layout],
+      :public => true
+    })
     select_tag(
       "contents[content_#{content.id}][body]",
       pages_for_select(pages, content.essence.body),
