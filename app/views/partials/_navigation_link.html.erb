@@ -3,7 +3,7 @@
 	h(page.name),
 	page.urlname,
 	:title => (options[:show_title] == true ? page.title : nil),
-	:popup => true
+	:target => '_blank'
 ) -%>
 <%- else -%>
 <%- link_path = @preview_mode ? 'javascript:void(0)' : (multi_language? ? show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code) : show_page_path(:urlname => page.urlname)) -%>

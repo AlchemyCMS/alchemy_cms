@@ -1,4 +1,4 @@
-class Array
+Array.class_eval do
   
   def stringify
     map do |value|
@@ -12,7 +12,7 @@ class Array
   
   def stringify!
     a = []
-    each do |value|      
+    each do |value|
       if value.is_a?(Hash) || value.is_a?(Array)
         a << value.stringify!
       else

@@ -2,7 +2,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
   require 'alchemy/engine'
   require 'extensions/hash'
   require 'extensions/array'
-  #require 'extensions/attachment_fu_mime_type'
+  require 'extensions/action_view'
   require 'alchemy/version'
   require 'authlogic'
   require 'will_paginate'

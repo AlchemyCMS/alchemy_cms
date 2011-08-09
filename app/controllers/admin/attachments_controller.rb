@@ -38,7 +38,7 @@ class Admin::AttachmentsController < AlchemyController
       ).order(:name)
     end
     @message = _('File %{name} uploaded succesfully') % {:name => @attachment.name}
-    if params[ActionController::Base.session[:key]].blank?
+    if params[Rails.application.config.session_options[:key]].blank?
       flash[:notice] = @message
       redirect_to :action => :index
     end
@@ -64,9 +64,8 @@ class Admin::AttachmentsController < AlchemyController
       else
         render :action => "edit"
       end
-    rescue
-      log_error($!)
-      flash[:error] = _('file_rename_error')
+    rescue Exception => e
+      exception_handler(e)
     end
     redirect_to admin_attachments_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page])
   end

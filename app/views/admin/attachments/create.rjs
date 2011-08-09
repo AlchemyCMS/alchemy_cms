@@ -1,2 +1,0 @@
-page.replace_html("archive_all", :partial => 'files_list')
-Alchemy::Notice.show(page, @message)

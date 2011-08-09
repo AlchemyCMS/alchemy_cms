@@ -1,7 +1,7 @@
 (function($) {
 	$('#locked_page_<%= @page_id -%>').remove();
 	<%- if @layoutpage -%>
-	window.location.replace('<%= layoutpages_admin_pages_path -%>')
+	window.location.replace('<%= admin_layoutpages_path -%>')
 	<%- elsif @page_root -%>
 	$('#sitemap').replaceWith('<%= escape_javascript(render(:partial => "sitemap")) -%>');
 	Alchemy.growl('<%= @message -%>');

@@ -1,8 +1,6 @@
 class Admin::LayoutpagesController < AlchemyController
   unloadable
   
-  layout 'alchemy'
-  
   filter_access_to :all
   
   def index

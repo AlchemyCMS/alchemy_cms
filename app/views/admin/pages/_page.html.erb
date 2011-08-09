@@ -42,7 +42,7 @@
 				<%- permitted_to?(:copy, :admin_pages) do -%>
 				<%= link_to(
 					render_icon("copy_page"),
-					admin_clipboard_path(
+					admin_clipboard_index_path(
 						:remarkable_type => page.class.to_s,
 						:remarkable_id => page.id
 					),

@@ -132,7 +132,7 @@
 							'<%= new_admin_element_path(:page_id => @page.id) %>',
 							'<%= _("New Element") %>',
 							'410',
-							'70',
+							'50',
 							false,
 							true,
 							true
@@ -146,7 +146,7 @@
 					buttonId: 'clipboard_button',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= admin_clipboard_path(:remarkable_type => "element") %>',
+							'<%= admin_clipboard_index_path(:remarkable_type => "element") %>',
 							'<%= _("Clipboard") %>',
 							'380',
 							'270',
@@ -154,15 +154,6 @@
 							true,
 							true
 						);
-					}
-				},
-				{
-					title: '<%= _("Show trash") %>',
-					label: '<%= _("Show trash") %>',
-					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
-					buttonId: 'element_trash_button',
-					onClick: function() {
-						Alchemy.openTrashWindow(<%= @page.id %>, '<%= _("Trash") %>');
 					}
 				}
 			]

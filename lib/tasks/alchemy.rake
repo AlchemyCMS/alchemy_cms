@@ -114,21 +114,21 @@ namespace :alchemy do
       task :javascripts do
         system "rm -rf #{Rails.root.to_s}/public/javascripts/alchemy"
         system "mkdir -p #{Rails.root.to_s}/public/javascripts/alchemy"
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'assets', 'javascripts', '*')} #{Rails.root.to_s}/public/javascripts/alchemy/"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts', '*')} #{Rails.root.to_s}/public/javascripts/alchemy/"
       end
       
       desc "Copy stylesheets for Alchemy into apps public folder"
       task :stylesheets do
         system "rm -rf #{Rails.root.to_s}/public/stylesheets/alchemy"
         system "mkdir -p #{Rails.root.to_s}/public/stylesheets/alchemy"
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'assets', 'stylesheets', '*')} #{Rails.root.to_s}/public/stylesheets/alchemy/"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets', '*')} #{Rails.root.to_s}/public/stylesheets/alchemy/"
       end
       
       desc "Copy images for Alchemy into apps public folder"
       task :images do
         system "rm -rf #{Rails.root.to_s}/public/images/alchemy"
         system "mkdir -p #{Rails.root.to_s}/public/images/alchemy"
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', '..', 'assets', 'images', '*')} #{Rails.root.to_s}/public/images/alchemy/"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images', '*')} #{Rails.root.to_s}/public/images/alchemy/"
       end
       
     end

@@ -2,7 +2,7 @@
 <%- if @elements.blank? -%>
   <p class="with_padding"><%= _('no_more_elements_to_add') %></p>
 <%- else -%>
-  <% form_for(
+  <%= form_for(
     [:admin, @element],
     :remote => true,
     :class => "add_element_content"

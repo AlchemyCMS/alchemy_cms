@@ -9,7 +9,7 @@
 </div>
 
 <div id="user_signup" class="login_signup_box">
-	<% form_for @user, :url => '/admin/signup' do |f| %>
+	<%= form_for @user, :url => '/admin/signup' do |f| %>
 		<%= f.error_messages %>
 		<%= render :partial => 'admin/users/table', :locals => {:f => f} %>
 	<% end %>

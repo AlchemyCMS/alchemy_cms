@@ -364,7 +364,7 @@ class Page < ActiveRecord::Base
 
   def self.find_or_create_layout_root_for(language_id)
     layoutroot = layout_root_for(language_id)
-    return layoutroot if layoutroot
+    return layoutroot.first if layoutroot
     language = Language.find(language_id)
     layoutroot = Page.new({
       :name => "Layoutroot for #{language.name}",

@@ -1,13 +1,14 @@
+require 'attachment_magic'
+
 class Attachment < ActiveRecord::Base
+
+  stampable
 
   has_attachment(
     :storage => :file_system,
     :file_system_path => 'uploads/attachments',
     :size => 0.kilobytes..1000.megabytes
   )
-
-  stampable
-
   validates_as_attachment
 
   def extension
