@@ -1,29 +1,22 @@
 class Admin::AttachmentsController < AlchemyController
-  
+
   unloadable
-  
+
   protect_from_forgery :except => [:create]
   layout 'alchemy'
-  
+
   before_filter :set_translation
   filter_access_to :all
-  
+
   def index
     cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
     if params[:per_page] == 'all'
-      @attachments = Attachment.find(
-        :all,
-        :order => :name,
-        :conditions => cond
-      )
+      @attachments = Attachment.where(cond).order(:name)
     else
-      @attachments = Attachment.paginate(
-        :all,
-        :order => :name,
-        :conditions => cond,
+      @attachments = Attachment.where(cond).paginate(
         :page => (params[:page] || 1),
         :per_page => (params[:per_page] || 20)
-      )
+      ).order(:name)
     end
   end
 
@@ -33,37 +26,28 @@ class Admin::AttachmentsController < AlchemyController
   end
 
   def create
-    begin
-      @attachment = Attachment.new(:uploaded_data => params[:Filedata])
-      @attachment.name = @attachment.filename
-      @attachment.save
-      cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
-      if params[:per_page] == 'all'
-        @attachments = Attachment.find(
-          :all,
-          :order => :name,
-          :conditions => cond
-        )
-      else
-        @attachments = Attachment.paginate(
-          :all,
-          :order => :name,
-          :conditions => cond,
-          :page => (params[:page] || 1),
-          :per_page => (params[:per_page] || 20)
-        )
-      end
-      @message = _('File %{name} uploaded succesfully') % {:name => @attachment.name}
-      if params[ActionController::Base.session[:key]].blank?
-        flash[:notice] = @message
-        redirect_to :action => :index
-      end
-    rescue Exception => e
-      log_error $!
-      render :update, :status => 500 do |page|
-        notice = _('File upload error: %{error}') % {:error => e}
-        Alchemy::Notice.show(page, notice, :error)
-      end
+    @attachment = Attachment.new(:uploaded_data => params[:Filedata])
+    @attachment.name = @attachment.filename
+    @attachment.save
+    cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
+    if params[:per_page] == 'all'
+      @attachments = Attachment.where(cond).order(:name)
+    else
+      @attachments = Attachment.where(cond).paginate(
+        :page => (params[:page] || 1),
+        :per_page => (params[:per_page] || 20)
+      ).order(:name)
+    end
+    @message = _('File %{name} uploaded succesfully') % {:name => @attachment.name}
+    if params[ActionController::Base.session[:key]].blank?
+      flash[:notice] = @message
+      redirect_to :action => :index
+    end
+  rescue Exception => e
+    log_error $!
+    render :update, :status => 500 do |page|
+      notice = _('File upload error: %{error}') % {:error => e}
+      Alchemy::Notice.show(page, notice, :error)
     end
   end
 

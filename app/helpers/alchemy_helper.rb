@@ -576,53 +576,6 @@ module AlchemyHelper
     end
   end
 
-  # = This helper renders the paginated navigation.
-  #
-  # :pagination => {
-  #   :level_X => {
-  #     :size => X,
-  #     :current => params[:navigation_level_X_page]
-  #   }
-  # }                                                     This one is a funky complex pagination option for the navigation. I'll explain in the next episode.
-  def render_paginated_navigation(options = {})
-    default_options = {
-      :submenu => false,
-      :all_sub_menues => false,
-      :from_page => @root_page,
-      :spacer => "",
-      :pagination => {},
-      :navigation_partial => "pages/partials/navigation_renderer",
-      :navigation_link_partial => "pages/partials/navigation_link",
-      :show_nonactive => false,
-      :show_title => true,
-      :level => 1
-    }
-    options = default_options.merge(options)
-    if options[:from_page].nil?
-      warning('options[:from_page] is nil')
-      return ""
-    else
-      pagination_options = options[:pagination].stringify_keys["level_#{options[:from_page].depth}"]
-      find_conditions = { :parent_id => options[:from_page].id, :visible => true }
-      pages = Page.all(
-        :page => pagination_options,
-        :conditions => find_conditions,
-        :order => "lft ASC"
-      )
-      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
-    end
-  end
-
-  # Used to display the pagination links for the paginated navigation.
-  def link_to_navigation_pagination name, urlname, pages, page, css_class = ""
-    p = {}
-    p["navigation_level_1_page"] = params[:navigation_level_1_page] unless params[:navigation_level_1_page].nil?
-    p["navigation_level_2_page"] = params[:navigation_level_2_page] unless params[:navigation_level_2_page].nil?
-    p["navigation_level_3_page"] = params[:navigation_level_3_page] unless params[:navigation_level_3_page].nil?
-    p["navigation_level_#{pages.to_a.first.depth}_page"] = page
-    link_to name, show_page_url(urlname, p), :class => (css_class unless css_class.empty?)
-  end  
-
   # Returns true if the current_user (The logged-in Alchemy User) has the admin role.
   def is_admin?
     return false if !current_user

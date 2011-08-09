@@ -10,15 +10,14 @@ class Admin::PicturesController < AlchemyController
   cache_sweeper :pictures_sweeper, :only => [:update, :destroy]
 
   def index
-    @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-    # if params[:per_page] == 'all'
-    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-    # else
-    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
-    #     :page => params[:page] || 1,
-    #     :per_page => params[:per_page] || 32
-    #   ).order(:name)
-    # end
+    if params[:per_page] == 'all'
+      @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    else
+      @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
+        :page => params[:page] || 1,
+        :per_page => params[:per_page] || 32
+      ).order(:name)
+    end
   end
 
   def new
@@ -48,15 +47,14 @@ class Admin::PicturesController < AlchemyController
       @page = params[:page]
       @per_page = params[:per_page]
     end
-    @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-    # if params[:per_page] == 'all'
-    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-    # else
-    #   @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
-    #     :page => (params[:page] || 1),
-    #     :per_page => (params[:per_page] || 32)
-    #   ).order(:name)
-    # end
+    if params[:per_page] == 'all'
+      @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    else
+      @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
+        :page => (params[:page] || 1),
+        :per_page => (params[:per_page] || 32)
+      ).order(:name)
+    end
     @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}
     if params[Rails.application.config.session_options[:key]].blank?
       flash[:notice] = @message
@@ -76,13 +74,10 @@ class Admin::PicturesController < AlchemyController
     else
       per_page = 12
     end
-    @pictures = Picture.paginate(
-      :all,
-      :order => :name,
+    @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
       :page => params[:page] || 1,
-      :per_page => per_page,
-      :conditions => "name LIKE '%#{params[:query]}%'"
-    )
+      :per_page => per_page
+    ).order(:name)
     @options = params[:options]
     if params[:remote] == 'true'
       render :update do |page|

@@ -1,6 +1,6 @@
 - Replace all rjs files with js.erb files
 - Get rid of all Rails prototype helpers inside rjs files and controllers
 - Convert all ActiveRecord .find(), .all(), etc calls with new Arel syntax
-- Why is will_paginate not loaded?
 - Find a replacement for tinymce_hammer, or make a gem out of it and bring it to rails 3
 - html_safe all Strings containing html
+- Update README
