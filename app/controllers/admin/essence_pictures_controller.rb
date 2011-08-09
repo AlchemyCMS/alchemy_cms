@@ -1,7 +1,5 @@
 class Admin::EssencePicturesController < AlchemyController
   
-  layout 'alchemy'
-  
   filter_access_to :all
   
   def edit
@@ -13,21 +11,30 @@ class Admin::EssencePicturesController < AlchemyController
   
   def crop
     @essence_picture = EssencePicture.find(params[:id])
-    @content = Content.find(params[:content_id])
+    @content = @essence_picture.content
     @options = params[:options]
-    if !@essence_picture.crop_from.blank? && !@essence_picture.crop_size.blank?
+    if @essence_picture.render_size.blank?
+      if @options[:image_size].blank?
+        @size_x, @size_y = 0, 0
+      else
+        @size_x, @size_y = @options[:image_size].split('x')[0], @options[:image_size].split('x')[1]
+      end
+    else
+      @size_x, @size_y = @essence_picture.render_size.split('x')[0], @essence_picture.render_size.split('x')[1]
+    end
+    if @essence_picture.crop_from.blank? && @essence_picture.crop_size.blank?
+      @initial_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
+      @default_box = @initial_box
+    else
       @initial_box = {
         :x1 => @essence_picture.crop_from.split('x')[0].to_i,
         :y1 => @essence_picture.crop_from.split('x')[1].to_i,
         :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
         :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
       }
+      @default_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
     end
-    @size_x, @size_y = 0, 0
-    if params[:size]
-      @size_x = params[:size].split('x')[0]
-      @size_y = params[:size].split('x')[1]
-    end
+    @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
     render :layout => false
   end
   
@@ -70,12 +77,12 @@ class Admin::EssencePicturesController < AlchemyController
   end
   
   def destroy
-		content = Content.find_by_id(params[:id])
-		@element = content.element
-		@essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
-		@content_id = content.id
-		@options = params[:options]
-		content.destroy
+    content = Content.find_by_id(params[:id])
+    @element = content.element
+    @essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
+    @content_id = content.id
+    @options = params[:options]
+    content.destroy
   end
   
 end

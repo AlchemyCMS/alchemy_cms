@@ -134,7 +134,7 @@ module Alchemy #:nodoc:
       
       # Essence description from config/elements.yml
       def description
-        return {} if element.nil?
+        return {} if element.nil? or element.content_descriptions.nil?
         element.content_descriptions.detect { |c| c['name'] == self.content.name }
       end
       
@@ -164,7 +164,11 @@ module Alchemy #:nodoc:
           ingredient.send(preview_text_method).to_s[0..maxlength]
         end
       end
-
+      
+      def open_link_in_new_window?
+        respond_to?(:link_target) && link_target == 'blank'
+      end
+      
     end
     
   end

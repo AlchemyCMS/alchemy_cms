@@ -1,11 +1,11 @@
 <% form_for([:admin, @picture], :html => {:multipart => true}) do |f| %>
-	<%= render(
-		:partial => "admin/partials/upload_form",
-		:locals => {
-			:file_types => configuration(:uploader)[:allowed_filetypes][:pictures],
-			:file_types_description => _('images'),
-			:model_name => 'picture',
-			:item_type => _('images')
-		}
-	) %>
+  <%= render(
+    :partial => "admin/partials/upload_form",
+    :locals => {
+      :file_types => configuration(:uploader)[:allowed_filetypes][:pictures],
+      :file_types_description => _('images'),
+      :model_name => 'picture',
+      :item_type => _('images')
+    }
+  ) %>
 <% end %>

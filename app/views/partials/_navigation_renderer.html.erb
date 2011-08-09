@@ -4,19 +4,19 @@
 	<%- position = 'first' if page == pages.to_a.first -%>
 	<%- position = 'last' if page == pages.to_a.last -%>
 	<li class="<%= page.urlname -%> <%= position -%><%= " active" if page_active?(page) %>">
-		<%= render :partial => options[:navigation_link_partial], :object => page, :locals => {:options => options} %>
+		<%= render :partial => options[:navigation_link_partial], :object => page, :locals => {:page => page, :options => options} -%>
 		<%- options[:from_page] = page -%>
 		<%- if options[:reverse_children] -%>
 			<%- options[:reverse] = true -%>
 		<%- end -%>		
 		<%- if options[:show_nonactive] -%>
-		<%= render_navigation(options) if (options[:submenu]) %>
+		<%= render_navigation(options) if (options[:submenu]) -%>
 		<%- else -%>
-		<%= render_navigation(options) if ((options[:submenu] && page_active?(page)) || options[:all_sub_menues]) %>
+		<%= render_navigation(options) if ((options[:submenu] && page_active?(page)) || options[:all_sub_menues]) -%>
 		<%- end -%>
 	</li>
 	<%- unless options[:spacer].empty? -%>
-	<%= "<li class=\"navigation_spacer\">#{options[:spacer]}</li>" unless page == pages.to_a.last %>
+	<%= "<li class=\"navigation_spacer\">#{options[:spacer]}</li>" unless page == pages.to_a.last -%>
 	<%- end -%>
 <%- end -%>
 </ul>

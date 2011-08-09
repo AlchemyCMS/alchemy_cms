@@ -1,7 +1,5 @@
 class Admin::EssenceFlashesController < AlchemyController
   
-  layout 'alchemy'
-  
   filter_access_to :update
   
   def update

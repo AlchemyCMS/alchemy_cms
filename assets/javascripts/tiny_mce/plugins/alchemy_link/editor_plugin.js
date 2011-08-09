@@ -9,7 +9,7 @@
 				'class': 'alchemy_link',
 				onclick: function() {
 					ed.focus();
-					Alchemy.openLinkWindow({
+					Alchemy.LinkOverlay.open({
 						node: ed.selection.getNode(),
 						bookmark: ed.selection.getBookmark(),
 						selection: ed.selection,
@@ -31,10 +31,10 @@
 		getInfo: function() {
 			return {
 				longname: 'Link overlay plugin for Alchemy',
-				author: 'Thomas von Deyen',
-				authorurl: 'http://thomas.vondeyen.com',
-				infourl: 'http://tvdeyen.github.com/alchemy',
-				version: "0.3.1"
+				author: 'magic labs*',
+				authorurl: 'http://magiclabs.de',
+				infourl: 'http://alchemy-app.com',
+				version: "0.3.2"
 			};
 		}
 	});

@@ -9,7 +9,12 @@ javascripts:
   - alchemy/jquery.sb.min
   - alchemy/jquery.scrollTo-1.4.2-min
   - alchemy/jquery.ui.nestedSortable
+  - alchemy/jquery.ui.tabspaging
   - alchemy/alchemy
+  - alchemy/alchemy.element_editor_selector
+  - alchemy/alchemy.image_cropper
+  - alchemy/alchemy.link_overlay
+  - alchemy/alchemy.page_sorter
   - alchemy/swfupload/swfupload
   - alchemy/swfupload/queue
   - alchemy/swfupload/handlers

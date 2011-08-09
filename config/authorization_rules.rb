@@ -24,7 +24,7 @@ authorization do
   role :author do
     includes :registered
     has_permission_on :admin, :to => [:login_to]
-    has_permission_on :pictures, :to => [:thumbnail, :zoom]
+    has_permission_on :pictures, :to => [:thumbnail]
     has_permission_on :admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :admin_elements, :to => [:manage_elements]
     has_permission_on :admin_pictures, :to => [:index, :archive_overlay, :show_in_window]
@@ -33,6 +33,7 @@ authorization do
     has_permission_on :admin_essence_pictures, :to => [:manage_picture_essences]
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
     has_permission_on :admin_users, :to => [:index]
+    has_permission_on :admin_trash, :to => [:index, :clear]
   end
   
   role :editor do
@@ -84,7 +85,7 @@ privileges do
   end
   
   privilege :edit_page_content, :admin_pages do
-    includes :edit, :unlock, :show, :publish
+    includes :edit, :unlock, :show, :publish, :visit
   end
   
   privilege :login_to, :admin do

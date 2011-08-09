@@ -1,4 +1,0 @@
-page.remove("element_#{@element.id}")
-Alchemy::Notice.show(page, _("element_deleted_successful"))
-page << "jQuery('#element_area').sortable('refresh')"
-page << "Alchemy.PreviewWindow.refresh()"

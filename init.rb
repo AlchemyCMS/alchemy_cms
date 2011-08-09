@@ -1,7 +1,9 @@
 require 'extensions/hash'
 require 'extensions/array'
+require 'extensions/action_view'
 require 'alchemy'
 require 'injections/attachment_fu_mime_type'
+require 'vendor/i18n_label'
 
 if defined?(Authorization)
   Authorization::AUTH_DSL_FILES = Dir.glob("#{RAILS_ROOT}/vendor/plugins/*/config/authorization_rules.rb")
@@ -22,7 +24,7 @@ config.after_initialize do
 end
 
 Tinymce::Hammer.install_path = '/javascripts/alchemy/tiny_mce'
-Tinymce::Hammer.plugins = %w(safari paste fullscreen inlinepopups alchemy_link)
+Tinymce::Hammer.plugins = %w(table lists paste fullscreen inlinepopups alchemy_link)
 Tinymce::Hammer.languages = ['de', 'en']
 Tinymce::Hammer.init = [
   [:paste_convert_headers_to_strong, true],

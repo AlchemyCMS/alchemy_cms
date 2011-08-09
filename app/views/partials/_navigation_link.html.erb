@@ -1,20 +1,20 @@
-<%- if navigation_link.redirects_to_external? -%>
+<%- if page.redirects_to_external? -%>
 <%= link_to(
-	h(navigation_link.name),
-	navigation_link.urlname,
-	:title => (options[:show_title] == true ? navigation_link.title : nil),
+	h(page.name),
+	page.urlname,
+	:title => (options[:show_title] == true ? page.title : nil),
 	:popup => true
-) %>
+) -%>
 <%- else -%>
-<%- link_path = @preview_mode ? 'javascript:void(0)' : (multi_language? ? show_page_with_language_path(:urlname => navigation_link.urlname, :lang => navigation_link.language.code) : show_page_path(:urlname => navigation_link.urlname)) -%>
+<%- link_path = @preview_mode ? 'javascript:void(0)' : (multi_language? ? show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code) : show_page_path(:urlname => page.urlname)) -%>
 <%= link_to(
-	h(navigation_link.name),
+	h(page.name),
 	link_path,
 	{
-		:class => (page_active?(navigation_link) ? 'active' : nil),
-		:title => (options[:show_title] == true ? navigation_link.title : nil),
-		:name => navigation_link.urlname,
-		:lang => navigation_link.language.code
+		:class => (page_active?(page) ? 'active' : nil),
+		:title => (options[:show_title] ? page.title : nil),
+		:lang => page.language_code,
+		'data-page-id' => page.id
 	}
-) %>
+) -%>
 <%- end -%>

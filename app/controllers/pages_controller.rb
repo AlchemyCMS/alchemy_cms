@@ -58,9 +58,9 @@ private
     if @page.blank?
       render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
+      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language_code]), :status => 301
     elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => @page.language.code), :status => 301
+      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => params[:lang]), :status => 301
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
     elsif !multi_language? && !params[:lang].blank?

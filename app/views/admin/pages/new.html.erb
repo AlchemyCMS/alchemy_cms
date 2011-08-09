@@ -1,4 +1,4 @@
-<%- if clipboard_empty?('pages') -%>
+<%- if @clipboard_items.blank? -%>
 <%= render :partial => 'new_page_form' %>
 <%- else -%>
 <div id="overlay_tabs">
@@ -33,7 +33,7 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td class="submit">
-						<%= f.submit _("paste"), :class => 'button', :name => nil %>
+						<%= f.button _("paste"), :class => 'button', :name => nil %>
 					</td>
 				</tr>
 			</table>

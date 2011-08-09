@@ -1,25 +1,25 @@
 <div class="article" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
-	<%- intro = render_essence_view_by_name(element, 'intro') -%>
-	<%- if !intro.blank? -%>
-	<div class="intro">
-		<%= intro %>
-	</div>
-	<%- end -%>
-	<%- headline = render_essence_view_by_name(element, 'headline') -%>
-	<%- if !headline.blank? -%>
-	<h1 class="headline">
-		<%= headline %>
-	</h1>
-	<%- end -%>
-	<div class="text_bild_container">
-		<%- content = element.contents.find_by_essence_type("EssencePicture") -%>
-		<%- if content -%>
-		<div class="image <%= content.essence.css_class %>">
-			<%= render_essence_view(content, :image_size => "450x300", :crop => true) %>
-		</div>
-		<%- end -%>
-		<div class="text">
-			<%= render_essence_view_by_name(element, 'text') %>
-		</div>
-	</div>
+  <%- intro = render_essence_view_by_name(element, 'intro') -%>
+  <%- if !intro.blank? -%>
+  <div class="intro">
+    <%= intro %>
+  </div>
+  <%- end -%>
+  <%- headline = render_essence_view_by_name(element, 'headline') -%>
+  <%- if !headline.blank? -%>
+  <h1 class="headline">
+    <%= headline %>
+  </h1>
+  <%- end -%>
+  <div class="text_bild_container">
+    <%- content = element.contents.find_by_essence_type("EssencePicture") -%>
+    <%- if content -%>
+    <div class="image <%= content.essence.css_class %>">
+      <%= render_essence_view(content, :image_size => "450x1000", :crop => true) %>
+    </div>
+    <%- end -%>
+    <div class="text">
+      <%= render_essence_view_by_name(element, 'text') %>
+    </div>
+  </div>
 </div>

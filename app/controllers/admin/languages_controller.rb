@@ -2,7 +2,6 @@ class Admin::LanguagesController < AlchemyController
   
   filter_resource_access
   before_filter :set_translation
-  layout 'alchemy'
   
   def index
     if !params[:query].blank?
@@ -34,7 +33,8 @@ class Admin::LanguagesController < AlchemyController
     render_errors_or_redirect(
       @language,
       admin_languages_path,
-      ( _("Language '%{name}' created") % {:name => @language.name} )
+      ( _("Language '%{name}' created") % {:name => @language.name} ),
+      "form#new_language button.button"
     )
   end
   
@@ -43,7 +43,8 @@ class Admin::LanguagesController < AlchemyController
     render_errors_or_redirect(
       @language,
       admin_languages_path,
-      ( _("Language '%{name}' updated") % {:name => @language.name} )
+      ( _("Language '%{name}' updated") % {:name => @language.name} ),
+      "form#edit_language_#{@language.id} button.button"
     )
   end
   

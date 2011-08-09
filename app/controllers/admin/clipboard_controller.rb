@@ -1,7 +1,5 @@
 class Admin::ClipboardController < AlchemyController
   
-  layout 'alchemy'
-  
   before_filter :set_translation
   
   def index

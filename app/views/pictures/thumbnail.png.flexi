@@ -4,9 +4,9 @@
       :from => params[:crop_from],
       :size => params[:crop_size]
     )
-    image.resize(@size, :padding => '#666666') unless @size.nil?
+    image.resize(@size) unless @size.nil?
   else
-    image.resize(@size, :padding => '#666666') unless @size.nil?
+    image.resize(@size, :crop => @default_crop) unless @size.nil?
     image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
   end
   image

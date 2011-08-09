@@ -1,5 +1,5 @@
-<div class="element_editor<%= element.folded ? ' folded' : '' %>" id="element_<%= element.id %>">
-	<%= render :partial => "element_head", :locals => {:element => element} %>
+<div class="element_editor<%= element.folded ? ' folded' : '' %> <%= draggable ? 'draggable' : 'not-draggable'  %>" id="element_<%= element.id %>">
+	<%= render :partial => "admin/elements/element_head", :locals => {:element => element} %>
 	<%- if !element.folded? -%>
 		<% form_remote_tag(
 			:url => admin_element_path(element),
@@ -7,10 +7,16 @@
 			:before => "Alchemy.saveElement(this)",
 			:id => "element_#{element.id}_form"
 		) do %>
+			<div id="element_<%= element.id %>_errors" class="element_errors" style="display: none"></div>
 			<div id="element_<%= element.id %>_content" class="element_content">
 				<%= render_editor(element) %>
 			</div>
-			<%= render :partial => 'element_foot', :locals => {:element => element} %>
+			<%- if element.has_validations? -%>
+			<p class="validation_notice">
+				<span class="validation_indicator">*</span> <%= _('Mandatory') %>
+			</p>
+			<%- end -%>
+			<%= render :partial => 'admin/elements/element_foot', :locals => {:element => element} %>
 		<% end %>
 	<%- end -%>
 </div>

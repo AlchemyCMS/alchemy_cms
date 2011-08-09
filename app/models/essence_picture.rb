@@ -17,7 +17,7 @@ class EssencePicture < ActiveRecord::Base
 	def save_ingredient(params, options = {})
 		return true if params.blank?
 		self.link_class_name = params['link_class_name']
-		self.open_link_in_new_window = (params['open_link_in_new_window'] == '1')
+		self.link_target = params['link_target']
 		self.link = params['link']
 		self.link_title = params['link_title']
 		self.picture_id = params['picture_id']

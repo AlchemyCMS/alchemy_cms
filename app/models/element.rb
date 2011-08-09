@@ -1,18 +1,22 @@
 class Element < ActiveRecord::Base
-  require 'yaml'
-
-  acts_as_list :scope => :page_id
+  
+  # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
+  acts_as_list :scope => [:page_id, :cell_id]
   stampable :stamper_class_name => :user
+  
   has_many :contents, :order => :position, :dependent => :destroy
+  belongs_to :cell
   belongs_to :page
   has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
   
+  validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
   validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
-  
-  before_destroy :remove_contents
   
   attr_accessor :create_contents_after_create
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
+  
+  # TODO: add a trashed column to elements table
+  named_scope :trashed, :conditions => {:page_id => nil}, :order => 'updated_at DESC'
   
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
@@ -41,10 +45,15 @@ class Element < ActiveRecord::Base
     end
   end
   
-  def remove_contents
-    self.contents.each do |content|
-      content.destroy
-    end
+  # nullifies the page_id aka. trashs it.
+  def trash
+    self.page_id = nil
+    self.folded = true
+    self.save(false)
+  end
+  
+  def trashed?
+    page_id.nil?
   end
   
   def content_by_name(name)
@@ -103,6 +112,10 @@ class Element < ActiveRecord::Base
     else
       raise "Could not read config/alchemy/elements.yml"
     end
+  end
+  
+  def self.definitions
+    self.descriptions
   end
   
   # Returns the array with the hashes for all element contents in the elements.yml file
@@ -206,18 +219,18 @@ class Element < ActiveRecord::Base
   end
   
   # List all elements by from page_layout
-  def self.list_elements_by_layout(layout = "standard")
-    elements = Element.descriptions
-    result = []
-    page_layouts = Alchemy::PageLayout.get
-    layout_elements = page_layouts.select{|p| p["name"] == layout}.first["elements"]
-    return elements if layout_elements == "all"
-    elements.each do |element|
-      if layout_elements.include? element["name"]
-        result << element
+  def self.elements_for_layout(layout)
+    element_descriptions = Element.descriptions
+    elements = []
+    page_layout = Alchemy::PageLayout.get(layout)
+    layout_elements = page_layout["elements"]
+    return element_descriptions if layout_elements == "all"
+    element_descriptions.each do |element|
+      if layout_elements.include?(element["name"])
+        elements << element
       end
     end
-    return result
+    return elements
   end
   
   def self.get_from_clipboard(clipboard)
@@ -250,22 +263,116 @@ class Element < ActiveRecord::Base
     content.ingredient
   end
   
-private
-  
-  # List all elements by from page_layout
-  def self.all_for_page(page)
-    element_descriptions = Element.descriptions
-    element_names = Alchemy::PageLayout.element_names_for(page.page_layout)
-    return [] if element_names.blank?
-    return element_descriptions if element_names == "all"
-    elements_for_layout = []
-    for element_description in element_descriptions do
-      if element_names.include?(element_description["name"])# TODO: && unique and not already on page
-        elements_for_layout << element_description
+  def save_contents(params)
+    contents.each do |content|
+      unless content.save_essence(params[:contents]["content_#{content.id}"], :public => !params["public"].nil?)
+        errors.add(:base, :essence_validation_failed)
       end
     end
-    
-    #TODO: refactor this and place as condition in the above collect
+    return errors.blank?
+  end
+  
+  def essences
+    return [] if contents.blank?
+    contents.collect(&:essence)
+  end
+  
+  # Returns all essence_errors in the format:
+  # 
+  #   {
+  #     essence.content.name => [error_message_for_validation_1, error_message_for_validation_2]
+  #   }
+  # 
+  # Get translated error messages with Element#essence_error_messages
+  #
+  def essence_errors
+    essence_errors = {}
+    essences.each do |essence|
+      unless essence.essence_errors.blank?
+        essence_errors[essence.content.name] = essence.essence_errors
+      end
+    end
+    essence_errors
+  end
+  
+  # Essence validation errors messages are translated via I18n.
+  # Inside your translation file add translations like:
+  # 
+  #   alchemy:
+  #     content_validations:
+  #       name_of_the_element:
+  #         name_of_the_content:
+  #           validation_error_type: Error Message
+  # 
+  # validation_error_type has to be one of:
+  # 
+  # * blank
+  # * taken
+  # * wrong_format
+  # 
+  # Example:
+  # 
+  #   de:
+  #     alchemy:
+  #       content_validations:
+  #         contact:
+  #           email:
+  #             wrong_format: 'Die Email hat nicht das richtige Format'
+  # 
+  def essence_error_messages
+    messages = []
+    essence_errors.each do |content_name, errors|
+      errors.each do |error|
+        messages << I18n.t(
+          "alchemy.content_validations.#{self.name}.#{content_name}.#{error}",
+          :default => [
+            "alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
+            "alchemy.content_validations.errors.#{error}".to_sym
+          ]
+        ) % {:field => Content.translated_label_for(content_name)}
+      end
+    end
+    messages
+  end
+  
+  def contents_with_errors
+    contents.select(&:essence_validation_failed?)
+  end
+  
+  def has_validations?
+    !contents.detect(&:has_validations?).blank?
+  end
+  
+  def rtf_contents
+    contents.select { |content| content.essence_type == 'EssenceRichtext' }
+  end
+  
+  # The name of the cell the element could be placed in.
+  def belonging_cellname
+    cellname = Cell.name_for_element(name)
+    if cellname.blank?
+      return 'for_other_elements' 
+    else
+      return cellname
+    end
+  end
+  
+private
+  
+  # List all elements for page_layout
+  def self.all_for_page(page)
+    # if page_layout has cells, collect elements from cells and group them by cellname
+    page_layout = Alchemy::PageLayout.get(page.page_layout)
+    if page_layout.blank?
+      logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
+      return []
+    end
+    elements_for_layout = []
+    if page_layout['cells'].is_a?(Array)
+      elements_for_layout += Cell.all_element_definitions_for(page_layout['cells'])
+    end
+    elements_for_layout += all_definitions_for(page_layout['elements'])
+    return [] if elements_for_layout.blank?
     # all unique elements from this layout
     unique_elements = elements_for_layout.select{ |m| m["unique"] == true }
     elements_already_on_the_page = page.elements
@@ -277,8 +384,15 @@ private
         end
       end
     end
-    
     return elements_for_layout
+  end
+  
+  def self.all_definitions_for(element_names)
+    if element_names.to_s == "all"
+      return element_descriptions
+    else
+      return definitions.select { |e| element_names.include? e['name'] }
+    end
   end
   
   # makes a copy of source and makes copies of the contents from source

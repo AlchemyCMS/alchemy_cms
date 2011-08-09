@@ -1,13 +1,17 @@
+if @page.has_cells?
+  page << "Alchemy.selectOrCreateCellTab('#{@cell.nil? ? 'for_other_elements' : @cell.name}', '#{@cell.nil? ? _('other Elements') : @cell.name_for_label}')"
+end
 page.insert_html(
   :bottom,
-  "element_area",
+  "#cell_#{@cell.nil? ? 'for_other_elements' : @cell.name}",
   :partial => "element",
-  :object => @element
+  :object => @element,
+  :locals => {:draggable => true}
 )
-page << "jQuery('#element_area').sortable('refresh')"
+page << "jQuery('#cell_#{@cell.nil? ? 'for_other_elements' : @cell.name}').sortable('refresh')"
 Alchemy::Notice.show(page, _("successfully_added_element"))
 page << "Alchemy.closeCurrentWindow()"
-@richtext_contents.each do |content|
+@element.rtf_contents.each do |content|
   page << "TinymceHammer.addEditor('#{content.form_field_id}')"
 end
 page << "Alchemy.PreviewWindow.refresh()"
@@ -15,3 +19,4 @@ page << "Alchemy.ElementEditorSelector.init()"
 page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
 page << "Alchemy.ElementDirtyObserver('#element_#{@element.id}')"
 page << "Alchemy.SelectBox('#element_#{@element.id} select')"
+page << "Alchemy.ButtonObserver('#element_#{@element.id} button.button')"

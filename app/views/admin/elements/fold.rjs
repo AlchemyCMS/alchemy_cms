@@ -4,18 +4,20 @@ else
   page.replace(
     "element_#{@element.id}",
     :partial => "element",
-    :object => @element
+    :object => @element,
+    :locals => {:draggable => true}
   )
   page << "jQuery('#element_area').sortable('refresh')"
-	page << "Alchemy.ElementEditorSelector.bindEvent('#element_#{@element.id}')"
+  page << "Alchemy.ElementEditorSelector.reinit('#element_#{@element.id}')"
   if @element.folded
-    @richtext_contents.each do |content|
+    @element.rtf_contents.each do |content|
       page << "rtf_#{content.id} = tinymce.get('#{content.form_field_id}'); if (rtf_#{content.id}) {rtf_#{content.id}.remove();}; delete rtf_#{content.id}"
     end
   else
     page << "jQuery('#element_#{@element.id}').trigger('Alchemy.SelectElementEditor')"
     page << "Alchemy.SelectBox('#element_#{@element.id} select')"
-    @richtext_contents.each do |content|
+    page << "Alchemy.ButtonObserver('#element_#{@element.id} button.button')"
+    @element.rtf_contents.each do |content|
       page << "TinymceHammer.addEditor('#{content.form_field_id}')"
     end
     page << "Alchemy.ElementDirtyObserver('#element_#{@element.id}')"

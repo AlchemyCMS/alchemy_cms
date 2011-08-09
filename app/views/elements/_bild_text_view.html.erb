@@ -1,9 +1,9 @@
 <div class="bild_text" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
-    <%- a = element.contents.find_by_essence_type("EssencePicture") -%>
-    <div class="image <%= a.essence.css_class %>">
-        <%= render_essence_view(a, :image_size => "450x300", :crop => true) %>
-    </div>
-    <div class="text">
-        <%= render_essence_view_by_name(element, 'text') %>
-    </div>
+  <%- a = element.contents.find_by_essence_type("EssencePicture") -%>
+  <div class="image <%= a.essence.css_class %>">
+    <%= render_essence_view(a, :image_size => "450x1000", :crop => true) %>
+  </div>
+  <div class="text">
+    <%= render_essence_view_by_name(element, 'text') %>
+  </div>
 </div>

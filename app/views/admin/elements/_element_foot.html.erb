@@ -1,13 +1,11 @@
 <div class="element_foot">
 	<span class="element_tools">
-		<%= link_to_confirmation_window(
+		<%= link_to_remote(
 			"",
-			_("confirm_to_delete_element"),
-			admin_element_path(element),
-			{
-				:class => "delete_element_button",
-				:title => _("delete_element")
-			}
+			{:url => trash_admin_element_path(element),
+			:method => :delete},
+			{:class => "delete_element_button",
+			:title => _("trash element")}
 		) -%>
 		<%= link_to_remote(
 			"",
@@ -30,11 +28,7 @@
 		<%= check_box_tag "public", "1", element.public?, :id => "element_#{element.id}_public" -%>
 		<%= label_tag "element_#{element.id}_public", _("visible") -%>
 	</span>
-	<div id="element_<%= element.id %>_spinner" class="element_spinner" style="display:none">
-		<span class="spinner_wait_text"><%= _("saving") -%></span>
-		<%= image_tag('alchemy/ajax_loader.gif') %>
-	</div>
-	<span class="save_element" id="element_<%= element.id %>_save">
-		<%= submit_tag( _('save'), :class => 'button', :name => nil) %>
-	</span>
+	<button type="submit" class="button">
+		<%= _('save') %>
+	</button>
 </div>

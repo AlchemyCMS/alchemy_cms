@@ -4,9 +4,9 @@ else
   page.replace_html("archive_all", :partial => 'pictures_list')
   page << %(
     Alchemy.inPlaceEditor({
-			save_label: "#{ _('save') }",
-			cancel_label: "#{ _('cancel') }"
-		});
+      save_label: "#{ _('save') }",
+      cancel_label: "#{ _('cancel') }"
+    });
   )
 end
 Alchemy::Notice.show(page, @message)
