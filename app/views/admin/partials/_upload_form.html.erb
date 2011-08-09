@@ -55,8 +55,8 @@
 
 <%- post_params = {
 	:query => params[:query] || '',
-	:page => params[:page] || 1,
-	:per_page => params[:per_page] || 32,
+	:page => 1,
+	:per_page => params[:per_page],
 	:while_assigning => @while_assigning ? "true" : "false",
 	:content_id => @content.blank? ? nil : @content.id,
 	:element_id => @element.blank? ? nil : @element.id,

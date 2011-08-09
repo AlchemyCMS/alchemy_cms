@@ -64,8 +64,8 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 		
 		AjaxErrorHandler : function($dialog, status, textStatus, errorThrown) {
-			var $div = $('<div class="with_padding" />'),
-				$errorDiv = $('<div id="errorExplanation" />');
+			var $div = $('<div class="with_padding" />');
+			var $errorDiv = $('<div id="errorExplanation" />');
 			$dialog.html($div);
 			$div.append($errorDiv);
 			if (status === 0) {
@@ -287,6 +287,9 @@ if (typeof(Alchemy) === 'undefined') {
 						}
 					}
 				],
+				open: function () {
+					Alchemy.ButtonObserver('#alchemyConfirmation .button');
+				},
 				close: function() {
 					$('#alchemyConfirmation').remove();
 				}
@@ -323,6 +326,9 @@ if (typeof(Alchemy) === 'undefined') {
 						}
 					}
 				],
+				open: function () {
+					Alchemy.ButtonObserver('#alchemyConfirmation .button');
+				},
 				close: function() {
 					$('#alchemyConfirmation').remove();
 				}
@@ -338,7 +344,7 @@ if (typeof(Alchemy) === 'undefined') {
 			var $dialog = $('<div style="display:none" id="alchemyOverlay"></div>');
 			$dialog.appendTo('body');
 			$dialog.html(Alchemy.getOverlaySpinner({x: size_x, y: size_y}));
-
+			
 			Alchemy.CurrentWindow = $dialog.dialog({
 				modal: modal, 
 				minWidth: size_x, 
@@ -355,6 +361,7 @@ if (typeof(Alchemy) === 'undefined') {
 							$dialog.css({overflow: overflow ? 'visible' : 'auto'});
 							$dialog.dialog('widget').css({overflow: overflow ? 'visible' : 'hidden'});
 							Alchemy.SelectBox('#alchemyOverlay select');
+							Alchemy.ButtonObserver('#alchemyOverlay .button');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -433,44 +440,6 @@ if (typeof(Alchemy) === 'undefined') {
 			});
 		},
 		
-		openLinkWindow : function (linked_element, width) {
-			var $dialog = $('<div style="display:none" id="alchemyLinkOverlay"></div>');
-		
-			$dialog.html(Alchemy.getOverlaySpinner({x: width}));
-		
-			Alchemy.CurrentLinkWindow = $dialog.dialog({
-				modal: true, 
-				minWidth: parseInt(width) < 600 ? 600 : parseInt(width), 
-				minHeight: 450,
-				title: 'Link setzen',
-				show: "fade",
-				hide: "fade",
-				open: function (event, ui) {
-					$.ajax({
-						url: '/admin/pages/link',
-						success: function(data, textStatus, XMLHttpRequest) {
-							$dialog.html(data);
-							Alchemy.SelectBox('#alchemyLinkOverlay select');
-						},
-						error: function(XMLHttpRequest, textStatus, errorThrown) {
-							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
-						}
-					});
-				},
-				close: function () {
-					$dialog.remove();
-				}
-			});
-		
-			Alchemy.CurrentLinkWindow.linked_element = linked_element;
-		
-			Alchemy.CurrentLinkWindow.close = function () {
-				Alchemy.CurrentLinkWindow.dialog('close');
-				return true;
-			};
-		
-		},
-		
 		pleaseWaitOverlay : function(show) {
 			if (typeof(show) == 'undefined') {
 				show = true;
@@ -515,178 +484,6 @@ if (typeof(Alchemy) === 'undefined') {
 			});
 		},
 		
-		selectPageForInternalLink : function(selected_element, urlname) {
-			$('#page_anchor').removeAttr('value');
-			// We have to remove the Attribute. If not the value does not get updated.
-			$('.elements_for_page').hide();
-			$('#internal_urlname').val('/' + urlname);
-			$('#alchemyLinkOverlay #sitemap .selected_page').removeClass('selected_page');
-			$('#sitemap_sitename_' + selected_element).addClass('selected_page').attr('name', urlname);
-		},
-		
-		createLink : function(link_type, url, title, extern) {
-			var element = Alchemy.CurrentLinkWindow.linked_element;
-			Alchemy.setElementDirty($(element).parents('.element_editor'));
-			if (element.editor) {
-				// aka we are linking text inside of TinyMCE
-				var editor = element.editor;
-				editor.execCommand('mceInsertLink', false, {
-					href: url,
-					'class': link_type,
-					title: title,
-					target: (extern ? '_blank': null)
-				});
-				editor.selection.collapse();
-			} else {
-				// aka: we are linking an content
-				var essence_type = element.name.replace('essence_', '').split('_')[0];
-				var content_id = null;
-				switch (essence_type) {
-				case "picture":
-					content_id = element.name.replace('essence_picture_', '');
-					break;
-				case "text":
-					content_id = element.name.replace('content_text_', '');
-					break;
-				}
-				$('#contents_content_' + content_id + '_link').val(url);
-				$('#contents_content_' + content_id + '_link_title').val(title);
-				$('#contents_content_' + content_id + '_link_class_name').val(link_type);
-				$('#contents_content_' + content_id + '_open_link_in_new_window').val(extern ? '1': '0');
-				$(element).addClass('linked');
-			}
-		},
-		
-		// Selects the tab for kind of link and fills all fields.
-		selectLinkWindowTab : function() {
-			var linked_element = Alchemy.CurrentLinkWindow.linked_element, link;
-			
-			// Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
-			if (linked_element.nodeType) {
-				link = Alchemy.createTempLink(linked_element);
-			}
-			
-			// Restoring the bookmarked selection inside the TinyMCE of an EssenceRichtext.
-			else {
-				if (linked_element.node.nodeName === 'A') {
-					link = linked_element.node;
-					linked_element.selection.moveToBookmark(linked_element.bookmark);
-				} else {
-					return false;
-				}
-			}
-			
-			$('#alchemyLinkOverlay .link_title').val(link.title);
-			$('#alchemyLinkOverlay .link_target').attr('checked', link.target == "_blank");
-			
-			// Checking of what kind the link is (internal, external, file or contact_form).
-			if ($(link).is("a")) {
-				var title = link.title == null ? "": link.title;
-				
-				// Handling an internal link.
-				if ((link.className == '') || link.className == 'internal') {
-					var internal_anchor = link.hash.split('#')[1];
-					var internal_urlname = link.pathname;
-					Alchemy.showLinkWindowTab('#overlay_tab_internal_link');
-					$('#internal_urlname').val(internal_urlname);
-					var $sitemap_line = $('.sitemap_sitename').closest('[name="'+internal_urlname+'"]');
-					if ($sitemap_line.length > 0) {
-						// Select the line where the link was detected in.
-						$sitemap_line.addClass("selected_page");
-						$('#page_selector_container').scrollTo($sitemap_line.parents('li'), {duration: 400, offset: -10});
-						// is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
-						if (internal_anchor) {
-							var $select_container = $sitemap_line.parent().find('.elements_for_page');
-							$select_container.show();
-							$.get("/admin/elements/?page_urlname=" + $(internal_urlname.split('/')).last()[0] + '&internal_anchor=' + internal_anchor);
-						}
-					}
-				}
-				
-				// Handling an external link.
-				if (link.className == 'external') {
-					Alchemy.showLinkWindowTab('#overlay_tab_external_link');				
-					var protocols = [];
-					$('#url_protocol option').map(function() {
-						protocols.push($(this).attr('value'));
-					});
-					$(protocols).each(function(index, value) {
-						if (link.href.beginsWith(value)) {
-							$('#external_url').val(link.href.replace(value, ""));
-							$('#url_protocol').val(value);
-						}
-					});
-				}
-				
-				// Handling a file link.
-				if (link.className == 'file') {
-					Alchemy.showLinkWindowTab('#overlay_tab_file_link');
-					$('#public_filename').val(link.pathname + link.search);
-				}
-				
-				// Handling a contactform link.
-				if (link.className == 'contact') {
-					var link_url = link.pathname;
-					var link_params = link.search;
-					var link_subject = link_params.split('&')[0];
-					var link_mailto = link_params.split('&')[1];
-					var link_body = link_params.split('&')[2];
-					Alchemy.showLinkWindowTab('#overlay_tab_contactform_link');
-					$('#contactform_url').val(link_url);
-					$('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')).replace(/\?/, ''));
-					$('#contactform_body').val(unescape(link_body.replace(/body=/, '')).replace(/\?/, ''));
-					$('#contactform_mailto').val(link_mailto.replace(/mail_to=/, '').replace(/\?/, ''));
-				}
-			}
-		},
-		
-		showElementsFromPageSelector: function(id) {
-			$('#elements_for_page_' + id + ' div.selectbox').remove();
-			$('#elements_for_page_' + id).show();
-			$('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
-		},
-		
-		hideElementsFromPageSelector: function(id) {
-			$('#elements_for_page_' + id).hide();
-			$('#elements_for_page_' + id + ' div.selectbox').remove();
-			$('#page_anchor').removeAttr('value');
-			$('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
-		},
-		
-		createTempLink : function(linked_element) {
-			var $tmp_link = $("<a></a>");
-			var essence_type = $(linked_element).attr('name').replace('essence_', '').split('_')[0];
-			var content_id;
-			switch (essence_type) {
-				case "picture":
-					content_id = $(linked_element).attr('name').replace('essence_picture_', '');
-				break;
-				case "text":
-					content_id = $(linked_element).attr('name').replace('essence_text_', '');
-				break;
-			}
-			$tmp_link.attr('href', $('#contents_content_' + content_id + '_link').val());
-			$tmp_link.attr('title', $('#contents_content_' + content_id + '_link_title').val());
-			if ($('#contents_content_' + content_id + '_open_link_in_new_window').val() == '1') {
-				$tmp_link.attr('target', '_blank');
-			}
-			$tmp_link.addClass($('#contents_content_' + content_id + '_link_class_name').val());
-			return $tmp_link[0];
-		},
-		
-		removePictureLink : function(content_id) {
-			Alchemy.setElementDirty($('#essence_picture_' + content_id).parents('.element_editor'));
-			$('#contents_content_' + content_id + '_link').val('');
-			$('#contents_content_' + content_id + '_link_title').val('');
-			$('#contents_content_' + content_id + '_link_class_name').val('');
-			$('#contents_content_' + content_id + '_open_link_in_new_window').val('');
-			$('#edit_link_' + content_id).removeClass('linked');
-		},
-		
-		showLinkWindowTab : function(id) {
-			$('#overlay_tabs').tabs("select", id);
-		},
-		
 		fadeImage : function(image, spinner_selector) {
 			try {
 				$(spinner_selector).hide();
@@ -697,8 +494,6 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 		
 		saveElement : function(form) {
-			$(form).find('.save_element').hide();
-			$(form).find('.element_spinner').show();
 			var $rtf_contents = $(form).find('div.content_rtf_editor');
 			if ($rtf_contents.size() > 0) {
 				$rtf_contents.each(function() {
@@ -710,41 +505,8 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		setElementSaved : function(selector) {
 			var $element = $(selector);
-			$element.find('.element_spinner').hide();
-			$element.find('.save_element').show();
 			Alchemy.setElementClean(selector);
-		},
-		
-		PageSorter : {
-			
-			init : function () {
-				$('ul#sitemap').nestedSortable({
-					disableNesting: 'no-nest',
-					forcePlaceholderSize: true,
-					handle: 'span.handle',
-					items: 'li',
-					listType: 'ul',
-					opacity: 0.5,
-					placeholder: 'placeholder',
-					tabSize: 16,
-					tolerance: 'pointer',
-					toleranceElement: '> div'
-				});
-				$('#save_page_order').click(function(){
-					var params = $('ul#sitemap').nestedSortable('serialize');
-					$.post('/admin/pages/order', params);
-				});
-				Alchemy.PageSorter.disableButton();
-				Alchemy.resizeFrame();
-			},
-			
-			disableButton : function() {
-				var $buttonLink = $('#page_sorting_button a');
-				$buttonLink.removeAttr('onclick');
-				$('#page_sorting_button').addClass('active');
-				$buttonLink.css({cursor: 'default'});
-			}
-			
+			Alchemy.enableButton(selector + ' button.button');
 		},
 		
 		resizeFrame : function() {
@@ -774,69 +536,14 @@ if (typeof(Alchemy) === 'undefined') {
 			}
 		},
 		
-		ElementEditorSelector : {
-			
-			init : function() {
-				var $elements = $('#element_area .element_editor');
-				var self = Alchemy.ElementEditorSelector;
-				$elements.each(function () {
-					self.bindEvent(this, $elements);
-				});
-				$('#element_area .element_editor .element_head').click(self.clickElement);
-			},
-			
-			clickElement : function(e) {
-				var self = Alchemy.ElementEditorSelector;
-				var $element = $(this).parent('.element_editor');
-				var id = $element.attr('id').replace(/\D/g,'');
-				var $frame_elements, $selected_element;
-				e.preventDefault();
-				$('#element_area .element_editor').removeClass('selected');
-				$element.addClass('selected');
-				self.scrollToElement(this);
-				$frame_elements = document.getElementById('alchemyPreviewWindow').contentWindow.jQuery('[data-alchemy-element]');
-				$selected_element = $frame_elements.closest('[data-alchemy-element="'+id+'"]');
-				$selected_element.trigger('Alchemy.SelectElement');
-			},
-			
-			bindEvent : function (element) {
-				var self = Alchemy.ElementEditorSelector;
-				$(element).bind('Alchemy.SelectElementEditor', self.selectElement);
-			},
-			
-			selectElement : function (e) {
-				var id = this.id.replace(/\D/g,''), $element = $(this);
-				var $elements = $('#element_area .element_editor');
-				var self = Alchemy.ElementEditorSelector;
-				e.preventDefault();
-				$elements.removeClass('selected');
-				$element.addClass('selected');
-				if ($element.hasClass('folded')) {
-					$('#element_'+id+'_folder').hide();
-					$('#element_'+id+'_folder_spinner').show();
-					$.post('/admin/elements/'+id+'/fold', function() {
-						$('#element_'+id+'_folder').show();
-						$('#element_'+id+'_folder_spinner').hide();
-						self.scrollToElement('#element_'+id);
-					});
-				} else {
-					self.scrollToElement(this);
-				}
-			},
-			
-			scrollToElement : function(el) {
-				$('#alchemyElementWindow').scrollTo(el, {duration: 400, offset: -10});
-			}
-			
-		},
-		
-		SortableElements : function(form_token) {
-			$('#element_area').sortable({
+		SortableElements : function(page_id, form_token) {
+			$('#element_area .sortable_cell').sortable({
 				items: 'div.element_editor',
 				handle: '.element_handle',
 				axis: 'y',
 				placeholder: 'droppable_element_placeholder',
 				forcePlaceholderSize: true,
+				dropOnEmpty: true,
 				opacity: 0.5,
 				cursor: 'move',
 				tolerance: 'pointer',
@@ -844,13 +551,22 @@ if (typeof(Alchemy) === 'undefined') {
 					var ids = $.map($(event.target).children(), function(child) {
 						return child.id.replace(/element_/, '');
 					});
+					// Is the trash window open?
+					if ($('#alchemyTrashWindow').length > 0) {
+						// updating the trash icon
+						if ($('#trash_items div.element_editor').not('.dragged').length === 0) {
+							$('#element_trash_button .icon').removeClass('full');
+							$('#trash_empty_notice').show();
+						}
+					}
 					$(event.target).css("cursor", "progress");
 					$.ajax({
 						url: '/admin/elements/order',
 						type: 'POST',
-						data: "authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids}),
+						data: "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids}),
 						complete: function () {
 							$(event.target).css("cursor", "auto");
+							Alchemy.refreshTrashWindow(page_id);
 						}
 					});
 				},
@@ -867,6 +583,54 @@ if (typeof(Alchemy) === 'undefined') {
 					});
 				}
 			});
+		},
+		
+		openTrashWindow : function (page_id, title) {
+			var size_x = 380, size_y = 270;
+			if (size_x === 'fullscreen') {
+				size_x = $(window).width() - 50;
+				size_y = $(window).height() - 50;
+			}
+			var $dialog = $('<div style="display:none" id="alchemyTrashWindow"></div>');
+			$dialog.appendTo('body');
+			$dialog.html(Alchemy.getOverlaySpinner({x: size_x, y: size_y}));
+			
+			Alchemy.trashWindow = $dialog.dialog({
+				modal: false,
+				width: 380,
+				minHeight: 450,
+				maxHeight: $(window).height() - 50,
+				title: title,
+				resizable: false,
+				show: "fade",
+				hide: "fade",
+				open: function (event, ui) {
+					$.ajax({
+						url: '/admin/trash?page_id=' + page_id,
+						success: function(data, textStatus, XMLHttpRequest) {
+							$dialog.html(data);
+							// Need this for DragnDrop elements into elements window.
+							// Badly this is screwing up maxHeight option
+							$dialog.css({overflow: 'visible'}).dialog('widget').css({overflow: 'visible'});
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
+						}
+					});
+				},
+				close: function () {
+					$dialog.remove();
+				}
+			});
+		},
+		
+		refreshTrashWindow: function(page_id) {
+			if ($('#alchemyTrashWindow').length > 0) {
+				$('#alchemyTrashWindow').html(Alchemy.getOverlaySpinner({x: 380, y: 270}));
+				$.get('/admin/trash?page_id='+page_id, function(html) {
+					$('#alchemyTrashWindow').html(html);
+				});
+			}
 		},
 		
 		SortableContents : function(selector, token) {
@@ -997,7 +761,7 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 		
 		setElementClean : function(element) {
-			var	$element = $(element);
+			var $element = $(element);
 			$element.removeClass('dirty');
 			$element.find('.element_foot input[type="checkbox"]').removeClass('dirty');
 			$element.find('input[type="text"]').removeClass('dirty');
@@ -1054,6 +818,31 @@ if (typeof(Alchemy) === 'undefined') {
 			} else {
 				$checkbox.after('<input type="hidden" value="0" name="'+checkbox.name+'" id="'+checkbox.id+'_hidden">');
 			}
+		},
+		
+		DraggableTrashItems: function (items_n_cells) {
+			$("#trash_items div.draggable").each(function () {
+				$(this).draggable({
+					helper: 'clone',
+					iframeFix: 'iframe#alchemyPreviewWindow',
+					connectToSortable: '#cell_' + items_n_cells[this.id],
+					start: function(event, ui) { 
+						$(this).hide().addClass('dragged');
+						ui.helper.css({width: '300px'});
+					},
+					stop: function() {
+						$(this).show().removeClass('dragged');
+					}
+				});
+			});
+		},
+		
+		selectOrCreateCellTab: function (cell_name, label) {
+			if ($('#cell_'+cell_name).size() === 0) {
+				$('#cells').tabs('add', '#cell_'+cell_name, label);
+				$('#cell_'+cell_name).addClass('sortable_cell');
+			}
+			$('#cells').tabs('select', 'cell_'+cell_name);
 		},
 		
 		ButtonObserver: function (selector) {

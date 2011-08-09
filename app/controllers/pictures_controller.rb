@@ -3,9 +3,9 @@ class PicturesController < AlchemyController
   unloadable
   
   caches_page :show, :thumbnail, :zoom
-
-  filter_access_to :zoom, :thumbnail
-
+  
+  filter_access_to :thumbnail
+  
   def show
     @picture = Picture.find(params[:id])
     @size = params[:size]
@@ -34,10 +34,16 @@ class PicturesController < AlchemyController
     when "large"
       then
       @size = "240x180"
-    else
+    when nil
       @size = "111x93"
+    else
+      @size = params[:size]
     end
-    @crop = !params[:crop_size].blank? && !params[:crop_from].blank?
+    if !params[:crop_size].blank? && !params[:crop_from].blank?
+      @crop = true
+    elsif params[:crop] == 'crop'
+      @default_crop = true
+    end
     respond_to do |format|
       format.png
     end

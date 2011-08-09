@@ -132,7 +132,7 @@
 							'<%= new_admin_element_path(:page_id => @page.id) %>',
 							'<%= _("New Element") %>',
 							'410',
-							'50',
+							'70',
 							false,
 							true,
 							true
@@ -154,6 +154,15 @@
 							true,
 							true
 						);
+					}
+				},
+				{
+					title: '<%= _("Show trash") %>',
+					label: '<%= _("Show trash") %>',
+					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
+					buttonId: 'element_trash_button',
+					onClick: function() {
+						Alchemy.openTrashWindow(<%= @page.id %>, '<%= _("Trash") %>');
 					}
 				}
 			]

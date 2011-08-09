@@ -15,11 +15,11 @@
 			:format => (options[:format].blank? ? configuration(:image_output_format) : options[:format]),
 			:effects => options[:effects].blank? ? nil : options[:effects]
 		),
-		:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
-		:title => (content.essence.title.blank? ? nil : content.essence.title),
-		:class => (options[:css_class].blank? ? nil : options[:css_class]),
-		:id => dom_id(content.essence.picture),
-		:onload => options[:onload]
+		{
+			:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
+			:title => (content.essence.title.blank? ? nil : content.essence.title),
+			:id => dom_id(content.essence.picture)
+		}.merge(html_options)
 	) -%>
 	
 	<%- caption = (content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
@@ -34,7 +34,8 @@
 			content.essence.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
 			url_for(content.essence.link),
 			:title => content.essence.link_title,
-			:target => (content.essence.open_link_in_new_window? ? "_blank" : "")
+			:target => (content.essence.link_target == "blank" ? "_blank" : nil),
+			'data-link-target' => content.essence.link_target
 		) %>
 	<%- end -%>
 

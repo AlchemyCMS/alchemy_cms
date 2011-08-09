@@ -4,11 +4,11 @@
 	<table>
 		<tr>
 			<td>
-				<%= f.alchemy_selectbox 'name', @contents.map{ |a| [t("alchemy.content_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
+				<%= f.select 'name', @contents.map { |a| [t("alchemy.content_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
 				<%= hidden_field_tag('options', @options) %>
 			</td>
 			<td>
-				&nbsp;<%= f.submit _('save'), :class => 'button' %>
+				&nbsp;<%= f.button _('save'), :class => 'button' %>
 			</td>
 		</tr>
 	</table>

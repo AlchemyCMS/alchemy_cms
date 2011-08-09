@@ -1,8 +1,7 @@
 class Admin::PicturesController < AlchemyController
   unloadable
   protect_from_forgery :except => [:create]
-  layout 'alchemy'
-
+  
   before_filter :set_translation
 
   filter_access_to :all
@@ -42,17 +41,17 @@ class Admin::PicturesController < AlchemyController
     if @while_assigning
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
-      @size = params[:size]
+      @size = params[:size] || 'medium'
       @options = params[:options]
-      @page = params[:page]
-      @per_page = params[:per_page]
+      @page = params[:page] || 1
+      @per_page = pictures_per_page_for_size(@size)
     end
     if params[:per_page] == 'all'
       @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
     else
       @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
         :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || 32)
+        :per_page => (params[:per_page] || @per_page || 32)
       ).order(:name)
     end
     @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}
@@ -68,15 +67,9 @@ class Admin::PicturesController < AlchemyController
     @content = Content.find_by_id(params[:content_id], :select => 'id')
     @element = Element.find_by_id(params[:element_id], :select => 'id')
     @size = params[:size] || 'medium'
-    case @size
-      when 'small' then per_page = 35
-      when 'large' then per_page = 4
-    else
-      per_page = 12
-    end
     @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
       :page => params[:page] || 1,
-      :per_page => per_page
+      :per_page => pictures_per_page_for_size(@size)
     ).order(:name)
     @options = params[:options]
     if params[:remote] == 'true'
@@ -123,5 +116,17 @@ class Admin::PicturesController < AlchemyController
     @picture = Picture.find(params[:id])
     render :layout => false
   end
-
+  
+private
+  
+  def pictures_per_page_for_size(size)
+    case size
+      when 'small' then per_page = 35
+      when 'large' then per_page = 4
+    else
+      per_page = 12
+    end
+    return per_page
+  end
+  
 end

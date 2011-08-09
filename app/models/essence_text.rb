@@ -12,7 +12,7 @@ class EssenceText < ActiveRecord::Base
     self.link = params["link"]
     self.link_title = params["link_title"]
     self.link_class_name = params["link_class_name"]
-    self.open_link_in_new_window = (params["open_link_in_new_window"] == '1')
+    self.link_target = params["link_target"]
     self.public = options[:public]
     self.save
   end

@@ -3,19 +3,21 @@
 require 'awesome_nested_set'
 
 class Page < ActiveRecord::Base
+  
   acts_as_nested_set
   stampable
+  
   has_many :folded_pages
-  has_many :elements, :order => :position, :dependent => :destroy
+  has_many :cells, :dependent => :destroy
+  has_many :elements, :dependent => :destroy, :order => :position
   has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
   belongs_to :language
 
   validates_presence_of :name, :message => N_("please enter a name")
   validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
-  validates_length_of :urlname, :on => :create, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
+  validates_length_of :urlname, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
-  #validates_format_of :urlname, :with => /http/, :if => Proc.new { |page| page.redirects_to_external? }
-
+  
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
   attr_accessor :do_not_validate_language
@@ -24,6 +26,7 @@ class Page < ActiveRecord::Base
   before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
   before_save :set_language_code
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
+  after_create :create_cells
   after_save :set_restrictions_to_child_pages
 
   scope :language_roots, where(:language_root => true)
@@ -42,6 +45,8 @@ class Page < ActiveRecord::Base
   # Returns all pages for langugae that are not locked and public.
   # Used for flushing all page caches at once.
   scope :flushables, lambda { |language_id| where({:public => true, :locked => false, :language_id => language_id}) }
+  
+  scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
   
   # Finds selected elements from page either except a passed collection or only the passed collection
   # Collection is an array of strings from element names. E.g.: ['text', 'headline']
@@ -67,7 +72,14 @@ class Page < ActiveRecord::Base
     end
     return all_elements
   end
-
+  
+  def elements_grouped_by_cells
+    group = ActiveSupport::OrderedHash.new
+    cells.each { |cell| group[cell] = cell.elements }
+    group[Cell.new({:name => 'for_other_elements'})] = elements.find_all_by_cell_id(nil)
+    return group
+  end
+  
   # Finds the previous page on the same structure level. Otherwise it returns nil.
   # Options:
   # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
@@ -263,7 +275,8 @@ class Page < ActiveRecord::Base
       return page_layout
     end
   end
-
+  alias_method :definition, :layout_description
+  
   # Returns translated name of the pages page_layout value.
   # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
   # Translate the name in your config/locales language yml file.
@@ -317,7 +330,7 @@ class Page < ActiveRecord::Base
   # You can pass any kind of Page#attributes as a difference to source.
   # Notice: It prevents the element auto_generator from running.
   def self.copy(source, differences = {})
-    attributes = source.attributes.merge(differences)
+    attributes = source.attributes.symbolize_keys.merge(differences)
     attributes.merge!(
       :do_not_autogenerate => true, 
       :do_not_sweep => true, 
@@ -384,7 +397,8 @@ class Page < ActiveRecord::Base
     self.children.each do |child|
       next if child == new_parent
       new_child = Page.copy(child, {
-        :language => self.language,
+        :language_id => new_parent.language_id,
+        :language_code => new_parent.language_code,
         :name => child.name + ' (' + _('Copy') + ')',
         :urlname => '',
         :title => ''
@@ -392,6 +406,24 @@ class Page < ActiveRecord::Base
       new_child.move_to_child_of(new_parent)
       child.copy_children_to(new_child) unless child.children.blank?
     end
+  end
+  
+  # Returns true or false if the page has a page_layout that has cells.
+  def has_cells?
+    pagelayout = Alchemy::PageLayout.get(self.page_layout)
+    return false if pagelayout.blank?
+    !pagelayout['cells'].blank?
+  end
+  
+  def self.link_target_options
+    options = [
+      [I18n.t('default', :scope => 'alchemy.link_target_options'), '']
+    ]
+    link_target_options = Alchemy::Configuration.get(:link_target_options)
+    link_target_options.each do |option|
+      options << [I18n.t(option, :scope => 'alchemy.link_target_options'), option]
+    end
+    options
   end
   
   def locker_name
@@ -432,8 +464,9 @@ private
     new_url_name = new_url_name.gsub(/[^a-zA-Z0-9_]+/, '-')
     if(new_url_name.length < 3)
       new_url_name = "-#{new_url_name}-"
+    else
+      new_url_name.gsub(/-+$/, '')
     end
-    new_url_name
   end
 
   # Looks in the layout_descripion, if there are elements to autogenerate.
@@ -453,5 +486,12 @@ private
     return false if self.language.blank?
     self.language_code = self.language.code
   end
-
+  
+  def create_cells
+    return true if !has_cells?
+    definition['cells'].each do |cellname|
+      cells.create({:name => cellname})
+    end
+  end
+  
 end

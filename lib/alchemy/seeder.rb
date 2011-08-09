@@ -1,5 +1,6 @@
 module Alchemy
   class Seeder
+    require 'yaml'
     
     # This seed builds the necessary page structure for alchemy in your db.
     # Put Alchemy::Seeder.seed! inside your db/seeds.rb file and run it with rake db:seed.
@@ -111,6 +112,17 @@ module Alchemy
           end
         else
           puts "== Skipping! Language for page #{page.name} already set."
+        end
+      end
+      (EssencePicture.all + EssenceText.all).each do |essence|
+        case essence.link_target
+        when '1'
+          if essence.update_attribute(:link_target, 'blank')
+            puts "== Updated #{essence.preview_text} link target to #{essence.link_target}."
+          end
+        when '0'
+          essence.update_attribute(:link_target, nil)
+          puts "== Updated #{essence.preview_text} link target to #{essence.link_target.inspect}."
         end
       end
     end

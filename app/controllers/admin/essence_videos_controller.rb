@@ -1,6 +1,5 @@
 class Admin::EssenceVideosController < AlchemyController
   unloadable
-  layout 'alchemy'
 
   filter_access_to :update
 

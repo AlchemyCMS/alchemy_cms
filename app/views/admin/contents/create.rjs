@@ -12,25 +12,50 @@ when "EssencePicture"
   if !@options[:maximum_amount_of_images].blank? && (@contents_of_this_type.length >= @options[:maximum_amount_of_images].to_i)
     page.remove "add_content_#{@element.id}"
   end
-  page.call 'Alchemy.reloadPreview'
+  page << "Alchemy.reloadPreview()"
+  page << "Alchemy.closeCurrentWindow()"
 when "EssenceText"
-  page << "jQuery('#add_content_for_element_#{@element.id}').before('#{
-    render(:partial => 'essences/essence_text_editor',
-    :locals => {
-      :content => @content,
-      :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
-    }
-  )}')"
-  page.call 'Alchemy.reloadPreview'
+  locals = {
+    :content => @content,
+    :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
+  }
+  if params[:was_missing]
+    page.replace(
+      "element_#{@element.id}_content_missing",
+      :partial => "essences/essence_text_editor",
+      :locals => locals
+    )
+  else
+    page.insert_html(
+      :before,
+      "add_content_for_element_#{@element.id}",
+      :partial => "essences/essence_text_editor",
+      :locals => locals
+    )
+    page << "Alchemy.reloadPreview()"
+    page << "Alchemy.closeCurrentWindow()"
+  end
 when "EssenceRichtext"
-  page << "jQuery('#add_content_for_element_#{@element.id}').before('#{
-    render(:partial => 'essences/essence_richtext_editor',
-    :locals => {
-      :content => @content,
-      :options => (@options.nil? ? {} : @options)
-    }
-  )}')"
-  page.call 'TinymceHammer.init'
+  locals = {
+    :content => @content,
+    :options => (@options.nil? ? {} : @options)
+  }
+  if params[:was_missing]
+    page.replace(
+      "element_#{@element.id}_content_missing",
+      :partial => "essences/essence_richtext_editor",
+      :locals => locals
+    )
+  else
+    page.insert_html(
+      :before,
+      "add_content_for_element_#{@element.id}",
+      :partial => "essences/essence_richtext_editor",
+      :locals => locals
+    )
+    page << "Alchemy.closeCurrentWindow()"
+  end
+  page << "TinymceHammer.addEditor('contents_content_#{@content.id}_body')"
 else
   page << "jQuery('#add_content_for_element_#{@element.id}').before('#{
     render(:partial => 'essences/#{@content.essence_type.underscore}_editor',
@@ -40,5 +65,4 @@ else
     }
   )}')"
 end
-page.call 'Alchemy.closeCurrentWindow'
 Alchemy::Notice.show(page, _("Successfully added %{content}") % {:content => @content.name})

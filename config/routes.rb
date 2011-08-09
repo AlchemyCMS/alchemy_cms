@@ -56,6 +56,7 @@ Rails.application.routes.draw do
         post :flush
         post :copy_language
         get :switch_language
+        get :create_language
         get :link
         get :sort
       end
@@ -116,10 +117,18 @@ Rails.application.routes.draw do
     
     resources :languages
     
-    get 'clipboard' => 'clipboard#index'
-    post 'clipboard' => 'clipboard#insert'
-    delete 'clear_clipboard' => 'clipboard#clear'
-    delete 'remove_clipboard' => 'clipboard#remove'
+    resources :clipboard, :only => :index do
+      collection do
+        delete :clear, :remove
+        post :insert
+      end
+    end
+    
+    resources :trash, :only => :index do
+      collection do
+        delete :clear
+      end
+    end
     
   end
   

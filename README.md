@@ -1,93 +1,103 @@
-Alchemy
-=======
+Alchemy CMS
+===========
 
 About
 -----
 
-Alchemy is a fully featured Web-CMS which beautifully integrates into rails.
-For more Information please visit <http://magiclabs.github.com/alchemy>
+Alchemy is a fully featured Content Management System (CMS) with an gorgeous Userinterface.
+
+Nearly every content management system stores the content of a page in a body column in the pages table. This is easy to develop and the user manages the content inside one of the fancy new Javascript based wysiwyg processors. Formatting, image placement, styling and positioning of the content is in the hand of the end-user.
+
+__We think this is completly wrong!__
+
+The content manager mustn‘t be able to change anything but the content and some basic text formatting. The content manager shouldn‘t care about headline formatting, image positioning or resizing. The developer should take care of this!
+
+__Alchemy is different!__
+
+We split the page into logical parts like headlines, paragraphs, images, etc. The only thing we store in  the database is text: ids of images and richtext content. Nothing else. No markup (besides basic text formatting inside the richtext elements), no styling, no layout. Pure content!
+
+This gives the webdeveloper the power and flexibility to implement any kind of layout with the insurance that the content manager is not able to break up the layout.
+
+Features
+--------
+
+- Highly flexible Templating:
+  - Content is stored in small parts not as a complete, monolithic page.
+  - The designer chooses the template structure, not the CMS!
+  - Every Design is possible, no templating, or theming restrictions.
+  - Even Flash® Content Management is possible
+- Gorgious End-User centric interface:
+  - No geeky markup editors and other meta programming crap.
+- Multilingual:
+  - Create as many (complete independent) language trees as you want.
+  - URL based language switching
+- SEO
+  - Every Part of SEO is manageable by the user
+  - Human readable urls (multilingual)
+  - automatic XML Sitemap generation
+- Access Control:
+  - Rolebased Authentification (RBAS)
+  - Protect pages for restricted access
+- Fulltext Search
+- Contactforms
+- Attachments and downloads
+- Powerfull image rendering
+  - Resizing
+  - Image Cropping via an graphical Userinterface!
+  - Borders, Text, Rotation
+  - and much more via Imagemagick processing (polaroid effect, etc.)
+  - and all this gets cached!
+- Extendable:
+  - Flexible Plugin DSL allows you to add custom plugins into Alchemy
+- Integrates in exsiting Rails Apps
+- Caching
+- Completely free:
+  - GPLv3 License
+  - No Enterprise Licences, or Community Editions
+- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy/wiki/Software-Requirements))
 
 Rails Version
 -------------
 
-Alchemy is not yet Rails 3 and Ruby 1.9.2 compatible. We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
+We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
 
 We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
 
-Install via Rails template:
----------------------------
+Install via Installer (recommended)
+----------------------------------------
 
-We have a fancy Rails template that does all the installation stuff for you. You can find it here:
+We have a fancy installer script that does all the installation stuff for you. You can find it here:
 
-<http://github.com/magiclabs/alchemy-rails-templates/>
+<https://github.com/magiclabs/alchemy-installer/>
 
-Download the template and put it in a folder of your choice of your local disc.
+Download the installer and put it in an executable folder (/usr/local/bin).
 
-Then enter:
+Then open a terminal goto your projects folder and enter:
 
-        rails _2.3.10_ -d mysql -m path/to/template/install_alchemy.rb YOUR_APP_NAME
+    alchemy new YOUR_APP_NAME
 
-into your terminal and follow the instructions displayed after the templates executes.
+After creation of the new project, follow the instructions displayed in the console.
+Then just switch to your browser and open http://localhost:3000/admin for creating your first admin user.
 
-If you want to install Alchemy inside an existing Rails project, then follow these steps:
------------------------------------------------------------------------------------------
+Installing into an existing Rails project
+-----------------------------------------
 
-1. In your Rails App folder enter:
+[See Wiki Page](https://github.com/magiclabs/alchemy/wiki/Howto:-install-into-an-existing-rails-app)
 
-        script/plugin install git://github.com/magiclabs/alchemy.git
+Tipp
+----
 
-2. Then enter following lines into the config block of your config/environment.rb file
+1. This task creates all necessary folders and files needed for creating your own pagelayouts and elements for your website
 
-        config.gem 'acts_as_ferret', :version => '0.4.8.2'
-        config.gem 'authlogic', :version => '>=2.1.2'
-        config.gem 'awesome_nested_set', :version => '>=1.4.3'
-        config.gem 'declarative_authorization', :version => '>=0.4.1'
-        config.gem "fleximage", :version => ">=1.0.4"
-        config.gem 'fast_gettext', :version => '>=0.4.8'
-        config.gem 'gettext_i18n_rails', :version => '0.2.3'
-        config.gem 'gettext', :lib => false, :version => '>=1.9.3'
-        config.gem 'rmagick', :lib => "RMagick2", :version => '>=2.12.2'
-        config.gem 'jk-ferret', :version => '>=0.11.8.2', :lib => 'ferret'
-        config.gem 'will_paginate', :version => '2.3.15'
-        config.gem 'mimetype-fu', :version => '>=0.1.2', :lib => 'mimetype_fu'
-        config.autoload_paths += %W( vendor/plugins/alchemy/app/sweepers )
-        config.autoload_paths += %W( vendor/plugins/alchemy/app/middleware )
-        config.i18n.load_path += Dir[Rails.root.join('vendor/plugins/alchemy/config', 'locales', '*.{rb,yml}')]
+    rake alchemy:app_structure:create:all
 
-3. Then install these plugins:
+2. If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
 
-        script/plugin install git://github.com/rails/acts_as_list.git
-        script/plugin install git://github.com/technoweenie/attachment_fu.git
-        script/plugin install git://github.com/iain/i18n_label.git
-        script/plugin install git://github.com/aaronchi/jrails.git
-        script/plugin install -r rails2 git://github.com/tvdeyen/tinymce_hammer.git
-        script/plugin install git://github.com/delynn/userstamp.git
+    cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index > /dev/null
 
-4. Then create your database and migrate:
+3. You can easily create your element-files (for view and editor) depending on the elements.yml with this generator
 
-        rake db:create
-        rake db:migrate:alchemy
-
-5. Put this to your db/seeds.rb to create the page tree structure:
-
-        Alchemy::Seeder.seed!
-
-6. And seed the database:
-
-        rake db:seed
-
-7. Copy Alchemy assets to public folder:
-
-        rake alchemy:assets:copy:all
-
-Tip
----
-
-If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
-
-Example:
-
-        cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index
+    script/generate elements
 
 Resources
 ---------

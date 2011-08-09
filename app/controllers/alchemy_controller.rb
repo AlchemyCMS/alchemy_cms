@@ -17,22 +17,23 @@ class AlchemyController < ApplicationController
   before_filter :set_translation
   before_filter :set_language
   
-  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :get_clipboard
-  helper 'errors', 'layout'
+  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard
+  helper :errors, :layout
   
-  def render_errors_or_redirect(object, redicrect_url, flash_notice)
+  def render_errors_or_redirect(object, redicrect_url, flash_notice, button = nil)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
       render(:update) { |page| page.redirect_to(redicrect_url) }
     else
-      render_remote_errors(object)
+      render_remote_errors(object, button)
     end
   end
   
-  def render_remote_errors(object)
+  def render_remote_errors(object, button = nil)
     render :update do |page|
       page << "jQuery('#errors').html('<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>')"
       page << "jQuery('#errors').show()"
+      page << "Alchemy.enableButton('#{button}')" unless button.blank?
     end
   end
   
@@ -125,10 +126,12 @@ private
     if @language.blank?
       logger.warn "+++++++ Language not found for code: #{language_code}"
       render :file => Rails.root + 'public/404.html', :code => 404
+    else
+      session[:language_id] = @language.id
+      session[:language_code] = @language.code
+      Alchemy::Controller.current_language = @language
+      I18n.locale = @language.code      
     end
-    session[:language_id] = @language.id
-    session[:language_code] = @language.code
-    I18n.locale = @language.code
   end
 
   def store_location
@@ -226,5 +229,9 @@ protected
       false
     end
   end
-
+  
+  def trash_empty?(category)
+    category.singularize.classify.constantize.trashed.blank?
+  end
+  
 end

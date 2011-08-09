@@ -88,7 +88,24 @@
 #       element_names:
 #         contact: Kontakt
 #         search: Suche
-
+# 
+# == Validations:
+#   
+#   You can validate the presence of a content. Just pass validate and one of the supported vaidatiosn methods to your content definition:
+#     
+#     - name: article
+#       display_name: Standard-Artikel
+#       contents:
+#       - name: intro
+#         type: EssenceText
+#         validate: [presence]
+#     
+# Now the user has to enter a value inside of the intro EssenceText textfield to save the element.
+# Currently supported validations are:
+# 
+#    * presence
+#    * uniqueness
+# 
 - name: article
   contents:
   - name: intro
@@ -190,9 +207,13 @@
   contents:
   - name: mail_from
     type: EssenceText
+    validate: [presence]
   - name: mail_to
     type: EssenceText
+    validate: [presence]
   - name: subject
     type: EssenceText
+    validate: [presence]
   - name: success_page
     type: EssenceText
+    validate: [presence]

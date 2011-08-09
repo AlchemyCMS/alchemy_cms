@@ -3,17 +3,17 @@ function initAlchemyPreviewMode() {
 	if (typeof(Alchemy) === 'undefined') {
 		var Alchemy = {};
 	}
-
+	
 	(function ($) {
-
+		
 		// Setting jQueryUIs global animation duration
 		$.fx.speeds._default = 400;
-
+		
 		// The Alchemy JavaScript Object contains all Functions
 		$.extend(Alchemy, {
-
+			
 			ElementSelector : {
-
+				
 				// defaults
 				styles : {
 					reset : { outline: '0 none' },
@@ -34,9 +34,9 @@ function initAlchemyPreviewMode() {
 						'outline-radius'				: '4px'
 					},
 				},
-
+				
 				scrollOffset : 20,
-
+				
 				init : function() {
 					var self = Alchemy.ElementSelector;
 					var $elements = $('[data-alchemy-element]');
@@ -55,7 +55,7 @@ function initAlchemyPreviewMode() {
 					$elements.bind('click', self.clickElement);
 					self.$previewElements = $elements;
 				},
-
+				
 				selectElement : function(e) {
 					var $this = $(this);
 					var self = Alchemy.ElementSelector;
@@ -70,7 +70,7 @@ function initAlchemyPreviewMode() {
 						scrollLeft: $this.offset().left - offset
 					}, 400);
 				},
-
+				
 				clickElement : function(e) {
 					var $this = $(this);
 					var parent$ = window.parent.jQuery;
@@ -86,11 +86,11 @@ function initAlchemyPreviewMode() {
 					}
 					$this.trigger('Alchemy.SelectElement');
 				},
-
+				
 			},
-
+			
 		});
-
+		
 	})(jQuery);
 	
 	Alchemy.ElementSelector.init();
@@ -101,41 +101,45 @@ function initAlchemyPreviewMode() {
 // 
 // Only do anything if jQuery isn't defined
 // 
-if (typeof(jQuery) === 'undefined') {
+
+(function() {
 	
-	thisPageUsingOtherJSLibrary = false;
-	
-	if (typeof($) === 'function') {
-		// warning, global var
-		thisPageUsingOtherJSLibrary = true;
-	}
-	
-	function getScript(url, success) {
-		var script = document.createElement('script');
-		var head = document.getElementsByTagName('head')[0], done = false;
-		script.src = url;
-		// Attach handlers for all browsers
-		script.onload = script.onreadystatechange = function() {
-			if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
-				done = true;
-				// callback function provided as param
-				success();
-				script.onload = script.onreadystatechange = null;
-				head.removeChild(script);
+	if (typeof(jQuery) === 'undefined') {
+		
+		var thisPageUsingOtherJSLibrary = false;
+		
+		if (typeof($) === 'function') {
+			thisPageUsingOtherJSLibrary = true;
+		}
+		
+		function getScript(url, success) {
+			var script = document.createElement('script');
+			var head = document.getElementsByTagName('head')[0], done = false;
+			script.src = url;
+			// Attach handlers for all browsers
+			script.onload = script.onreadystatechange = function() {
+				if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
+					done = true;
+					// callback function provided as param
+					success();
+					script.onload = script.onreadystatechange = null;
+					head.removeChild(script);
+				};
 			};
+			head.appendChild(script);
 		};
-		head.appendChild(script);
+		
+		getScript('/javascripts/alchemy/jquery.js', function() {
+			if (typeof(jQuery) !== 'undefined') {
+				if (thisPageUsingOtherJSLibrary) {
+					jQuery.noConflict();
+				}
+				initAlchemyPreviewMode();
+			}
+		});
+		
+	} else {
+		initAlchemyPreviewMode();
 	};
 	
-	getScript('/javascripts/alchemy/jquery.js', function() {
-		if (typeof(jQuery) !== 'undefined') {
-			if (thisPageUsingOtherJSLibrary) {
-				jQuery.noConflict();
-			}
-			initAlchemyPreviewMode();
-		}
-	});
-
-} else {
-	initAlchemyPreviewMode();
-};
+})();
