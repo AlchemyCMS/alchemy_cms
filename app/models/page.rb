@@ -36,7 +36,6 @@ class Page < ActiveRecord::Base
   scope :public, where(:public => true)
   scope :accessable, where(:restricted => false)
   scope :restricted, where(:restricted => true)
-  scope :layout_root_for, lambda { |language_id| where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1) }
   scope :public_language_roots, lambda {
     where("language_root = 1 AND language_code IN ('#{Language.all_codes_for_published.join('\',\'')}') AND public = 1")
   }
@@ -362,10 +361,14 @@ class Page < ActiveRecord::Base
     end
     return page
   end
-
+  
+  def self.layout_root_for(language_id)
+    where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1).first
+  end
+  
   def self.find_or_create_layout_root_for(language_id)
     layoutroot = layout_root_for(language_id)
-    return layoutroot.first if layoutroot
+    return layoutroot if layoutroot
     language = Language.find(language_id)
     layoutroot = Page.new({
       :name => "Layoutroot for #{language.name}",
