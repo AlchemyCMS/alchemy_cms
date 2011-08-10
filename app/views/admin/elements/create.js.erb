@@ -1,16 +1,20 @@
 (function($) {
-	
-	$('#element_area').append('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
-	$('#element_area').sortable('refresh');
-	Alchemy.growl('<%= _("successfully_added_element") -%>');
-	Alchemy.closeCurrentWindow();
-	<%- @element.rtf_contents.each do |content| -%>
-	TinymceHammer.addEditor('<%= content.form_field_id -%>');
-	<%- end -%>
-	Alchemy.reloadPreview();
-	Alchemy.ElementEditorSelector.init();
-	$('#element_<%= @element.id -%>').trigger('Alchemy.SelectElementEditor');
-	Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
-	Alchemy.SelectBox('#element_<%= @element.id -%> select');
-	
+  
+  <%- if @page.has_cells? -%>
+  Alchemy.selectOrCreateCellTab('<%= @cell.nil? ? "for_other_elements" : @cell.name -%>', '<%= @cell.nil? ? _("other Elements") : @cell.name_for_label -%>');
+  <%- end -%>
+  $('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').append('<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>');
+  $('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').sortable('refresh');
+  Alchemy.growl('<%= _("successfully_added_element") -%>');
+  Alchemy.closeCurrentWindow();
+  <%- @element.rtf_contents.each do |content| -%>
+  TinymceHammer.addEditor('<%= content.form_field_id -%>');
+  <%- end -%>
+  Alchemy.PreviewWindow.refresh();
+  Alchemy.ElementEditorSelector.init();
+  $('#element_<%= @element.id -%>').trigger('Alchemy.SelectElementEditor');
+  Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
+  Alchemy.SelectBox('#element_<%= @element.id -%> select');
+  Alchemy.ButtonObserver('#element_<%= @element.id -%> button.button');
+  
 })(jQuery);
