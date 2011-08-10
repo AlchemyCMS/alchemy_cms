@@ -1,0 +1,17 @@
+(function($) {
+  
+  $('#essence_picture_<%= @content_id -%>').remove();
+  Alchemy.SortableContents('#element_<%= @element.id -%>_contents', '<%= form_authenticity_token -%>');
+  <%- if !@options[:maximum_amount_of_images].blank? && (@essence_pictures.length == @options[:maximum_amount_of_images].to_i) -%>
+  $('#element_<%= @element.id -%>_contents').append('<%= escape_javascript(
+    render(
+      :partial => "admin/elements/add_content",
+      :locals => {
+        :element => @element,
+        :options => @options
+      }
+    )
+  ) -%>');
+  Alchemy.reloadPreview();
+  
+})(jQuery);
