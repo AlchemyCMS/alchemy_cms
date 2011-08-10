@@ -107,9 +107,7 @@ private
   def show_error_notice(e)
     notice = "Error: #{e}"
     if request.xhr?
-      render :update do |page|
-        Alchemy::Notice.show(page, "Error: #{e}", :error)
-      end
+      render(:update) { |page| page.call("Alchemy.growl", notice, 'error') }
     else
       flash[:error] = notice
     end

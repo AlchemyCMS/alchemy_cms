@@ -1,5 +1,5 @@
 <div id="overlay_toolbar">
-  <% remote_form_for(@essence_picture, :url => admin_essence_picture_path(@essence_picture, :options => @options), :html => {:id => 'image_cropper_form'}) do |f| %>
+  <% form_for(@essence_picture, admin_essence_picture_path(@essence_picture, :options => @options), :id => 'image_cropper_form', :remote => true) do |f| %>
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
     <%= hidden_field_tag 'content_id', @content.id %>

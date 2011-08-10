@@ -16,6 +16,7 @@ javascripts:
   - alchemy/alchemy.image_cropper
   - alchemy/alchemy.link_overlay
   - alchemy/alchemy.page_sorter
+  - alchemy/alchemy.growler
   - alchemy/swfupload/swfupload
   - alchemy/swfupload/queue
   - alchemy/swfupload/handlers
