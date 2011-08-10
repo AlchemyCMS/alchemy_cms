@@ -8,14 +8,6 @@ class Admin::ElementsController < AlchemyController
   cache_sweeper :content_sweeper, :only => [:update]
   
   def index
-    @page_id = params[:page_id]
-    if @page_id.blank? && !params[:page_urlname].blank?
-      @page_id = Page.find_by_urlname(params[:page_urlname]).id
-    end
-    @elements = Element.find_all_by_page_id_and_public(@page_id, true)
-  end
-  
-  def list
     @page = Page.find(params[:page_id], :include => {:elements => :contents})
     @cells = @page.cells
     if @cells.blank?
@@ -24,6 +16,14 @@ class Admin::ElementsController < AlchemyController
       @elements = @page.elements_grouped_by_cells
     end
     render :layout => false
+  end
+  
+  def list
+    @page_id = params[:page_id]
+    if @page_id.blank? && !params[:page_urlname].blank?
+      @page_id = Page.find_by_urlname(params[:page_urlname]).id
+    end
+    @elements = Element.find_all_by_page_id_and_public(@page_id, true)
   end
   
   def new

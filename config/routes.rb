@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       end
       member do
         post :fold
+        delete :trash
       end
     end
     
@@ -117,15 +118,19 @@ Rails.application.routes.draw do
     
     resources :languages
     
-    resources :clipboard, :only => :index do
+    # OHOHOH lovely Rails! Why, oh why I alwas have to hack thou?
+    resource :clipboard, :only => :index, :controller => 'clipboard' do
       collection do
+        get :index
         delete :clear, :remove
         post :insert
       end
     end
     
-    resources :trash, :only => :index do
+    # OHOHOH lovely Rails! Why, oh why I alwas have to hack thou?
+    resource :trash, :only => :index, :controller => 'trash' do
       collection do
+        get :index
         delete :clear
       end
     end

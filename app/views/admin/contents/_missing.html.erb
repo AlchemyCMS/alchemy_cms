@@ -3,21 +3,18 @@
   <p>
     <%= render_icon('warning') %>
     <%= _('content_not_found') %>
-    <%= link_to_remote(
+    <%= link_to(
       _('create'),
-      {
-        :url => admin_contents_path(
-          :content => {
-            :element_id => element.id,
-            :name => name
-          },
-          :was_missing => true
-        ),
-        :method => 'post'
-      },
-      {
-        :class => 'button'
-      }
+      admin_contents_path(
+        :content => {
+          :element_id => element.id,
+          :name => name
+        },
+        :was_missing => true
+      ),
+      :method => 'post',
+      :remote => true,
+      :class => 'button'
     ) %>
   </p>
 </div>

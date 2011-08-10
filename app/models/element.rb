@@ -19,7 +19,7 @@ class Element < ActiveRecord::Base
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
   # TODO: add a trashed column to elements table
-  named_scope :trashed, :conditions => {:page_id => nil}, :order => 'updated_at DESC'
+  scope :trashed, where(:page_id => nil).order('updated_at DESC')
   
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
