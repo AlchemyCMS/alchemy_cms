@@ -1,0 +1,10 @@
+(function($) {
+  
+  $("#clipboard_item_<%= @item.id -%>").remove();
+  Alchemy.growl('<%= _("item %{name} removed from clipboard") % {:name => @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name} -%>');
+<%- if @clipboard.blank? -%>
+  $('#clipboard_button .icon.clipboard').removeClass('full');
+  $("#clipboard_items").replaceWith("<p><%= _('No items in your clipboard') -%></p>");
+<%- end -%>
+  
+})(jQuery);
