@@ -114,17 +114,12 @@ class Admin::ElementsController < AlchemyController
   
   def order
     page = Page.find(params[:page_id])
-    for element in params[:element_ids]
-      element = Element.find(element)
+    params[:element_ids].each do |element_id|
+      element = Element.find(element_id)
       if element.trashed?
         element.page = page
       end
       element.move_to_bottom
-    end
-    render :update do |page|
-      Alchemy::Notice.show(page, _("successfully_saved_element_position"))
-      page << "jQuery('#element_area .ajax_folder').show()"
-      page << "Alchemy.PreviewWindow.refresh()"
     end
   rescue Exception => e
     exception_handler(e)

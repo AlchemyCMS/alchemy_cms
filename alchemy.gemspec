@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<gettext_i18n_rails>, [">= 0.2.19"])
   s.add_runtime_dependency(%q<will_paginate>, [">= 3.0.pre4"])
   s.add_runtime_dependency(%q<acts_as_ferret>, [">= 0.5.2"])
-  s.add_runtime_dependency(%q<sortifiable>, [">= 0.2.3"])
+  s.add_runtime_dependency(%q<acts_as_list>, ["~> 0.1"])
   s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
   s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
   s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])

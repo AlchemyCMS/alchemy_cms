@@ -1,5 +1,5 @@
 require 'yaml'
-require 'sortifiable'
+require 'acts_as_list'
 
 class Element < ActiveRecord::Base
   
