@@ -31,10 +31,14 @@
     <td class="label"><%= f.label 'password_confirmation', User.human_attribute_name(:password_confirmation) %>: </td>
     <td><%= f.password_field 'password_confirmation', :class => 'thin_border', :autocomplete => "off" -%></td>
   </tr>
+  <%- unless action_name == 'signup' -%>
   <tr>
     <td class="label"><%= f.label 'role', User.human_attribute_name(:role) %>: </td>
     <td><%= f.select :role, options_for_select(User::ROLES.map { |role| [User.human_rolename(role), role]}, @user.role), {}, :class => 'long' -%></td>
   </tr>
+  <%- else -%>
+  <%= f.hidden_field :role %>
+  <%- end -%>
   <tr>
     <td>&nbsp;</td>
     <td>

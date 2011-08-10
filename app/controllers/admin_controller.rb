@@ -25,7 +25,7 @@ class AdminController < AlchemyController
       @user = User.new(params[:user])
       if @user.save
         if params[:send_credentials]
-          Mailer.deliver_new_alchemy_user_mail(@user, request)
+          Notifications.admin_user_created(@user).deliver
         end
         redirect_to :action => :index
       end
