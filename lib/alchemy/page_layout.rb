@@ -27,7 +27,7 @@ module Alchemy
     def self.get(name = "")
       self.get_layouts.detect{ |a| a["name"].downcase == name.downcase }
     rescue Exception => e
-      Rails::Logger.error("++++++ ERROR\n#{e}")
+      Rails.logger.error("++++++ ERROR\n#{e}")
       return nil
     end
     
