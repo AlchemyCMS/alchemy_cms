@@ -4,7 +4,7 @@
 	$('#element_area').sortable('refresh');
 	Alchemy.growl('<%= _("successfully_added_element") -%>');
 	Alchemy.closeCurrentWindow();
-	<%- @richtext_contents.each do |content| -%>
+	<%- @element.rtf_contents.each do |content| -%>
 	TinymceHammer.addEditor('<%= content.form_field_id -%>');
 	<%- end -%>
 	Alchemy.reloadPreview();

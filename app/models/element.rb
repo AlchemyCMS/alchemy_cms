@@ -349,6 +349,7 @@ class Element < ActiveRecord::Base
   def rtf_contents
     contents.select { |content| content.essence_type == 'EssenceRichtext' }
   end
+  alias_method :richtext_contents, :rtf_contents
   
   # The name of the cell the element could be placed in.
   def belonging_cellname
