@@ -62,6 +62,7 @@ class Page < ActiveRecord::Base
     end
     elements = self.elements.where(condition).limit(options[:count]).offset(options[:offset])
     elements.order("RAND()") unless options[:random].blank?
+    elements
   end
 
   def find_elements(options, show_non_public = false)
@@ -70,7 +71,7 @@ class Page < ActiveRecord::Base
     else
       all_elements = find_selected_elements(options, show_non_public)
     end
-    return all_elements
+    all_elements
   end
   
   def elements_grouped_by_cells

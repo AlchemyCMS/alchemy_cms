@@ -422,7 +422,7 @@ module AlchemyHelper
       #{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
       #{render_meta_tag( :name => "description", :content => description)}
       #{render_meta_tag( :name => "keywords", :content => keywords)}
-      <meta name="generator" content="Alchemy #{Alchemy.version}" />
+      <meta name="generator" content="Alchemy #{Alchemy::VERSION}" />
       <meta name="date" content="#{@page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
