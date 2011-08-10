@@ -41,28 +41,26 @@
 #       :email:
 #         :message: blank_email
 
-class Mail < ActiveRecord::Base
+class Messages < ActionMailer::Base
 
-  include Tableless
-
-  column :contact_form_id, :integer
-  column :ip, :string
-  Alchemy::Config.get(:mailer)[:fields].each do |field|
-    column(field.keys.first.to_sym, field[field.keys.first.to_s].to_sym)
-  end
-
-  validate_fields = Alchemy::Config.get(:mailer)[:validate_fields]
-  validate_fields.each do |field|
-    validates_presence_of field[0], :message => I18n.t("alchemy.contactform.validations.#{field[1][:message].to_s}")
-    if field[0].to_s.include?('email')
-      validates_format_of field[0], :with => Authlogic::Regex.email, :message => I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
-    end
-  end
-
-private
-
-  def email_is_filled #:nodoc:
-    !email.blank? 
-  end
+#   column :contact_form_id, :integer
+#   column :ip, :string
+#   Alchemy::Config.get(:mailer)[:fields].each do |field|
+#     column(field.keys.first.to_sym, field[field.keys.first.to_s].to_sym)
+#   end
+# 
+#   validate_fields = Alchemy::Config.get(:mailer)[:validate_fields]
+#   validate_fields.each do |field|
+#     validates_presence_of field[0], :message => I18n.t("alchemy.contactform.validations.#{field[1][:message].to_s}")
+#     if field[0].to_s.include?('email')
+#       validates_format_of field[0], :with => Authlogic::Regex.email, :message => I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
+#     end
+#   end
+# 
+# private
+# 
+#   def email_is_filled #:nodoc:
+#     !email.blank? 
+#   end
 
 end

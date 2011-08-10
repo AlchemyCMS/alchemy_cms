@@ -8,7 +8,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
   require 'will_paginate'
   require 'tinymce_hammer'
   require 'gettext_i18n_rails'
-  %w(config essence page_layout tableless controller).each do |class_name|
+  %w(config essence page_layout controller).each do |class_name|
     require File.join(File.dirname(__FILE__), "alchemy", class_name)
   end
 else

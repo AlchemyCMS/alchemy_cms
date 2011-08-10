@@ -16,6 +16,7 @@ class AlchemyController < ApplicationController
   before_filter :init_gettext
   before_filter :set_translation
   before_filter :set_language
+  before_filter :mailer_set_url_options
   
   helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard
   helper :errors, :layout
@@ -143,6 +144,10 @@ private
 
   def reset_stamper
     User.reset_stamper
+  end
+
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
 protected

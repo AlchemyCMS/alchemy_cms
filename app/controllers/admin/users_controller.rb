@@ -29,9 +29,9 @@ class Admin::UsersController < AlchemyController
     @user = User.new(params[:user])
     if @user.save
       if @user.role == "registered" && params[:send_credentials]
-        Mailer.deliver_new_user_mail(@user, request)
-      else
-        Mailer.deliver_new_alchemy_user_mail(@user, request) if params[:send_credentials]
+        Notifications.registered_user_created(@user).deliver
+      elsif params[:send_credentials]
+        Notifications.admin_user_created(@user).deliver
       end
     end
     render_errors_or_redirect(
