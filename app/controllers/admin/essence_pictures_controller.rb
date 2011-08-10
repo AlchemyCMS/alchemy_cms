@@ -72,7 +72,7 @@ class Admin::EssencePicturesController < AlchemyController
       render :update do |page|
         page << "Alchemy.closeCurrentWindow()"
         page << "Alchemy.reloadPreview()"
-        Alchemy::Notice.show(page, _("saved_link"))
+        page.call('Alchemy.growl', _("saved_link"))
       end
     end
   end

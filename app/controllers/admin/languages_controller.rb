@@ -56,7 +56,7 @@ class Admin::LanguagesController < AlchemyController
   rescue Exception => e
     render :update do |page|
       page << "confirm.close();"
-      Alchemy::Notice.show(page, e, :error)
+      page.call('Alchemy.growl', e, :error)
     end
     logger.error("++++++++++++++ #{e}")
   end

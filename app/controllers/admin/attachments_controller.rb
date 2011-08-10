@@ -45,8 +45,7 @@ class Admin::AttachmentsController < AlchemyController
   rescue Exception => e
     log_error $!
     render :update, :status => 500 do |page|
-      notice = _('File upload error: %{error}') % {:error => e}
-      Alchemy::Notice.show(page, notice, :error)
+      page.call('Alchemy.growl', _('File upload error: %{error}') % {:error => e}, :error)
     end
   end
 

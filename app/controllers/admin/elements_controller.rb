@@ -80,7 +80,7 @@ class Admin::ElementsController < AlchemyController
       @element.save
     else
       render :update do |page|
-        Alchemy::Notice.show(page, _("Validation failed."), :warn)
+        page.call('Alchemy.growl', _("Validation failed."), :warn)
         error_message = "<h2>#{_('Validation failed.')}</h2><p>#{_('Please check contents below.')}</p>"
         page << "jQuery('#element_#{@element.id}_errors').html('#{error_message}<ul><li>#{@element.essence_error_messages.join('</li><li>')}</li></ul>')"
         page.show("element_#{@element.id}_errors")

@@ -108,7 +108,7 @@ class Admin::PicturesController < AlchemyController
       expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
     end
     render :update do |page|
-      Alchemy::Notice.show(page, _('Picture cache flushed'))
+      page.call('Alchemy.growl', _('Picture cache flushed'))
     end
   end
 
