@@ -53,32 +53,13 @@ module Alchemy
         notices << "== Skipping! Page #{root.name} was already present"
       end
       
-      index = Page.find_or_initialize_by_name(
-        :name => lang.frontpage_name,
-        :page_layout => lang.page_layout,
-        :language => lang,
-        :language_root => true,
-        :do_not_autogenerate => true,
-        :do_not_sweep => true
-      )
-      if index.new_record?
-        if index.save
-          puts "== Created page #{index.name}"
-        else
-          errors << "Errors creating page #{index.name}: #{index.errors.full_messages}"
-        end
-      else
-        notices << "== Skipping! Page #{index.name} was already present"
-      end
-      
       if errors.blank?
-        index.move_to_child_of root
+        puts "Success!"
+        notices.map{ |note| puts note }
       else
         puts "WARNING! Some pages could not be created:"
         errors.map{ |error| puts error }
       end
-      puts "Success!"
-      notices.map{ |note| puts note }
     end
     
     # This method is for running after upgrading an old Alchemy version without Language Model (pre v1.5).
