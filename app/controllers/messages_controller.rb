@@ -1,5 +1,5 @@
-# == Sending Mails:
-# To send Mails via contact forms you can create your form fields in the config.yml
+# == Sending Messages:
+# To send Messages via contact forms you can create your form fields in the config.yml
 # === Example:
 # Make an Element with this options inside your elements.yml file:
 #
@@ -16,7 +16,7 @@
 #       type: EssenceText
 #
 # The fields mail_to, mail_from, subject and success_page are recommended.
-# The MailsController uses them to send your mails. So your customer has full controll of these values inside his contactform element.
+# The MessagesController uses them to send your mails. So your customer has full controll of these values inside his contactform element.
 # 
 # Then make a page layout for your contact page in the page_layouts.yml file:
 # 
@@ -38,16 +38,16 @@
 #     Folgeseite: <%= page_selector(element, 'success_page') %>
 #   </p>
 # 
-# Please have a look at the vendor/plugins/alchemy/config/config.yml file for further Mail settings.
+# Please have a look at the vendor/plugins/alchemy/config/config.yml file for further Message settings.
 
-class MailsController < AlchemyController
+class MessagesController < AlchemyController
   
   unloadable
   
   helper :pages
 
   def new#:nodoc:
-    @mail = Mail.new
+    @message = Message.new
     @page = Page.find_by_page_layout(Alchemy::Config.get(:mailer)[:form_layout_name])
     @root_page = Page.language_root_for(session[:language_id])
     raise "Page for page_layout #{configuration(:mailer)[:page_layout_name]} not found" if @page.blank?
@@ -61,12 +61,12 @@ class MailsController < AlchemyController
   end
 
   def create#:nodoc:
-    @mail = Mail.new(params[:mail])
-    @mail.ip = request.remote_ip
-    element = Element.find_by_id(@mail.contact_form_id)
+    @message = Message.new(params[:mail])
+    @message.ip = request.remote_ip
+    element = Element.find_by_id(@message.contact_form_id)
     @page = element.page
     @root_page = @page.get_language_root
-    if @mail.save
+    if @message.save
       if params[:mail_to].blank?
         mail_to = element.ingredient("mail_to")
       else
@@ -74,9 +74,9 @@ class MailsController < AlchemyController
       end
       mail_from = element.ingredient("mail_from") rescue configuration(:mailer)[:mail_from]
       subject = element.ingredient("subject") rescue configuration(:mailer)[:subject]
-    
-      Mailer.deliver_mail(@mail, mail_to, mail_from, subject)
-    
+      
+      Messages.mail(@message, mail_to, mail_from, subject).deliver
+      
       if element.ingredient("success_page")
         if multi_language?
           language = Language.find(session[:language_id])

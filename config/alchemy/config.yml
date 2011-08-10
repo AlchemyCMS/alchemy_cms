@@ -93,16 +93,7 @@ default_language:
   :page_layout_name: contact
   :forward_to_page: false
   :mail_success_page: thanks
-  :fields:
-    - salutation: string
-    - firstname: string
-    - lastname: string
-    - address: string
-    - zip: string
-    - city: string
-    - phone: string
-    - email: string
-    - message: text
+  :fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
   :validate_fields:
     :lastname:
       :message: enter_name
