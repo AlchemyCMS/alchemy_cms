@@ -423,7 +423,7 @@ class Page < ActiveRecord::Base
     options = [
       [I18n.t('default', :scope => 'alchemy.link_target_options'), '']
     ]
-    link_target_options = Alchemy::Configuration.get(:link_target_options)
+    link_target_options = Alchemy::Config.get(:link_target_options)
     link_target_options.each do |option|
       options << [I18n.t(option, :scope => 'alchemy.link_target_options'), option]
     end
