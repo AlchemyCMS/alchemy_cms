@@ -59,45 +59,52 @@ Features
 Rails Version
 -------------
 
-We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
+This branch of Alchemy runs with Rails 3.0.9 and Ruby 1.8.7. __Ruby 1.9 is not__ offically supported yet, because not all Gems Alchemy depends on are Ruby 1.9 ready.
 
-We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
+Installation
+------------
 
-Install via Installer (recommended)
-----------------------------------------
+Make yourself a new rails 3 app with MySQL as database (Other db's should also work, but are NOT tested):
 
-We have a fancy installer script that does all the installation stuff for you. You can find it here:
+    rails new -d mysql my_magicpage
 
-<https://github.com/magiclabs/alchemy-installer/>
+Then open the `Gemfile` in an texteditor of your choice and insert this line:
 
-Download the installer and put it in an executable folder (/usr/local/bin).
+    gem 'Alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :branch => 'rails3'
 
-Then open a terminal goto your projects folder and enter:
+Install the bundle:
 
-    alchemy new YOUR_APP_NAME
+    bundle install
 
-After creation of the new project, follow the instructions displayed in the console.
-Then just switch to your browser and open http://localhost:3000/admin for creating your first admin user.
+Then run these commands:
 
-Installing into an existing Rails project
------------------------------------------
+    rake db:create
+    rake db:migrate:alchemy
+    rake db:seed
+    rake alchemy:assets:copy:all
+    
+Start the local server:
 
-[See Wiki Page](https://github.com/magiclabs/alchemy/wiki/Howto:-install-into-an-existing-rails-app)
+    rails server
+
+Then just switch to your browser and open `http://localhost:3000/admin` for creating your first admin user.
+
+__We will provide an executable with the stable version of this gem.__
 
 Tipp
 ----
 
 1. This task creates all necessary folders and files needed for creating your own pagelayouts and elements for your website
 
-    rake alchemy:app_structure:create:all
+        rake alchemy:app_structure:create:all
 
 2. If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
 
-    cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index > /dev/null
+        cd /path/to/your/alchemy && RAILS_ENV=production rake ferret:rebuild_index > /dev/null
 
-3. You can easily create your element-files (for view and editor) depending on the elements.yml with this generator
+3. You can easily create your element-files (for view and editor) depending on the `elements.yml` with this generator
 
-    script/generate elements
+        rails generate elements
 
 Resources
 ---------
