@@ -66,11 +66,11 @@ Installation
 
 Make yourself a new rails 3 app with MySQL as database (Other db's should also work, but are NOT tested):
 
-    rails new -d mysql my_magicpage
+    rails new my_magicpage -d mysql
 
 Then open the `Gemfile` in an texteditor of your choice and insert this line:
 
-    gem 'Alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :branch => 'rails3'
+    gem 'alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :branch => 'rails3'
 
 Install the bundle:
 
@@ -80,8 +80,15 @@ Then run these commands:
 
     rake db:create
     rake db:migrate:alchemy
-    rake db:seed
     rake alchemy:assets:copy:all
+
+Open `db/seeds.rb` in a texteditor and insert this line:
+
+    Alchemy::Seeder.seed!
+
+Run this command:
+
+    rake db:seed
     
 Start the local server:
 
@@ -91,8 +98,8 @@ Then just switch to your browser and open `http://localhost:3000/admin` for crea
 
 __We will provide an executable with the stable version of this gem.__
 
-Tipp
-----
+Tipps
+-----
 
 1. This task creates all necessary folders and files needed for creating your own pagelayouts and elements for your website
 

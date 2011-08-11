@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin"]
   s.email       = ["alchemy@magiclabs.de"]
-  s.homepage    = "alchemy@magiclabs.de"
+  s.homepage    = "http://alchemy-cms.com"
   s.summary     = %q{A CMS for Rails 3}
   s.description = %q{A CMS for Rails 3}
   
