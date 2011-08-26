@@ -175,14 +175,13 @@ if (typeof(Alchemy) === 'undefined') {
     },
     
     showElementsSelect: function(id) {
-      $('#elements_for_page_' + id + ' div.selectbox').remove();
       $('#elements_for_page_' + id).show();
       $('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
     },
     
     hideElementsSelect: function(id) {
       $('#elements_for_page_' + id).hide();
-      $('#elements_for_page_' + id + ' div.selectbox').remove();
+      $('#elements_for_page_' + id).html('<img src="/images/alchemy/ajax_loader.gif" alt="">');
       $('#page_anchor').removeAttr('value');
       $('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
     },
