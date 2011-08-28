@@ -1,14 +1,31 @@
-title: Alchemy Guides
-description: These guidelines help you to set up Alchemy CMS and customnize it to you needs.
+title: Alchemy CMS Guides
+description: "These guidelines help you to set up Alchemy CMS, manage content with it and customize it to your needs."
 
 authors:
-  Documentation Team:
-    - name: Manuel Dingemann
-      nick: dingemann
-      description: Manuel writes the Alchemy Guides.
+  Core Team:
+    - name: Thomas von Deyen
+      nick: tvdeyen
+      image: credits/tvd.png
+      description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
+    - name: Robin Böning
+      nick: robinboening
+      description: Robin is a member of the Alchemy core team.
 
 index:
   Start Here:
     - title: Getting Started
       url: getting_started
       text: Everything you need to know to create your first Alchemy project
+    - title: Alchemys Standardset
+      url: standard_set
+      text: Alchemys build in ready to go layout explained.
+  In depth guides:
+    - title: Your own custom layout
+      url: custom_layout
+      text: Understand Alchemys rendering process and add a custom layout to work with.
+    - title: Managing content
+      url: manage_content
+      text: Learn how to manage content in Alchemy.
+    - title: Work with images
+      url: work_with_images
+      text: Learn how to work with images in Alchemy.

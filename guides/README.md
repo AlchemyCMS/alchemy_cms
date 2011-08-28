@@ -1,1 +1,1 @@
-The Alchemy CMS Guides
+The Alchemy CMS Guidelines

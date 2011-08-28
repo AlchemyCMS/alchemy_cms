@@ -11,6 +11,10 @@ body {
 	line-height: 20px;
 }
 
+#header h1 {
+	background: url(../images/alchemy-logo.png) no-repeat left center;
+}
+
 div#header {
 	background-color: #fff;
 	background-image: none;
