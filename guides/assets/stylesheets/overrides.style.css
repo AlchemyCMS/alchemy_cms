@@ -1,0 +1,50 @@
+/* @override http://0.0.0.0:9292/stylesheets/overrides.style.css */
+
+body {
+	background-color: #e5f0ff;
+	color: #333;
+	font: 13px/19px Helvetica, Arial, FreeSans, san-serif;
+
+}
+
+#subCol ol.chapters li {
+	line-height: 20px;
+}
+
+div#header {
+	background-color: #fff;
+	background-image: none;
+}
+
+a, a:link, a:visited {
+	color: #466f89;
+}
+
+#mainCol a, #subCol a, #feature a {
+	color: #88ad59;
+}
+
+#header ul.nav li a {
+	color: #88ad59;
+}
+
+#header ul.nav li a#guidesMenu {
+	background-color: #f4f4f4;
+}
+
+div#guides {
+	background-color: #f4f4f4;
+}
+
+#guides dt {
+	color: #333;
+}
+
+#guides hr {
+	background-color: #333;
+	color: #333;
+}
+
+#header ul.nav li.index {
+	background-color: #f4f4f4;
+}
