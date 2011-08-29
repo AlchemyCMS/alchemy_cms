@@ -44,6 +44,10 @@ div#guides {
 	color: #333;
 }
 
+#guides dd {
+	color: #bcbcbc;
+}
+
 #guides hr {
 	background-color: #333;
 	color: #333;
