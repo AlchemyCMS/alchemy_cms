@@ -48,6 +48,13 @@ div#guides {
 	color: #bcbcbc;
 }
 
+#subCol ol.chapters li a p {
+	margin: 0;
+	padding: 0;
+	line-height: inherit;
+	font-size: 1.2em;
+}
+
 #guides hr {
 	background-color: #333;
 	color: #333;
