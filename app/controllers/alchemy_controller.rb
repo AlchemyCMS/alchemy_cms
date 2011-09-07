@@ -128,7 +128,6 @@ private
     else
       session[:language_id] = @language.id
       session[:language_code] = @language.code
-      Alchemy::Controller.current_language = @language
       I18n.locale = @language.code      
     end
   end

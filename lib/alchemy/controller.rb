@@ -2,7 +2,6 @@ module Alchemy
   module Controller
 
     attr_accessor :alchemy_plugins_settings
-    attr_accessor :current_language
     
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
