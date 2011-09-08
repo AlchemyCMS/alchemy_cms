@@ -275,7 +275,7 @@ div#user_info {
 div#sideboard {
 	float: right;
 	width: 240px;
-	margin-top: 54px;
+	padding-right: 16px;
 }
 
 div#license {
@@ -638,7 +638,7 @@ div.tip {
 	height: 22px;
 	line-height: 23px;
 	padding-left: 8px;
-	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
+	background: #b2ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
 	border-bottom: 1px solid #afafaf;
 	padding-top: 4px;
 	z-index: 5;
