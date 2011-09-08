@@ -18,7 +18,7 @@ module Alchemy
       elsif File.exists? "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml"
         layouts = YAML.load_file( "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/page_layouts.yml" )
       else
-        raise LoadError, "Could not find page_layouts.yml file! Please run: rails generate alchemy_scaffold"
+        raise LoadError, "Could not find page_layouts.yml file! Please run: rails generate alchemy:scaffold"
       end
       layouts
     end
