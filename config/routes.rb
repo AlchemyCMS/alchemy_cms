@@ -122,7 +122,8 @@ Rails.application.routes.draw do
     resource :clipboard, :only => :index, :controller => 'clipboard' do
       collection do
         get :index
-        delete :clear, :remove
+        delete :clear
+        delete :remove
         post :insert
       end
     end

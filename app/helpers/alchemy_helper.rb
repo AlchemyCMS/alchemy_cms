@@ -1136,13 +1136,13 @@ module AlchemyHelper
   # Cell partials are located in +app/views/cells/+ of your project.
   def render_cell(name)
     cell = @page.cells.find_by_name(name)
-    return "" if cell.blank?
+    return "" if cell.blank?    
     render :partial => "cells/#{name}", :locals => {:cell => cell}
   end
   
   # Renders all element partials from given cell.
   def render_cell_elements(cell)
-    return warning("No cell given.") if cell.blank?
+    return warning("No cell given.") if cell.blank?    
     render_elements(:only => cell.elements.collect(&:name))
   end
   
