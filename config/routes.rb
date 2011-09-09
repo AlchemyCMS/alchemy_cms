@@ -22,9 +22,7 @@ Rails.application.routes.draw do
     :as => :show_picture
   match '/pictures/zoom/:id/picture.:format' => 'pictures#zoom',
     :as => :zoom_picture
-  match  '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.:format' => 'pictures#thumbnail',
-    :as => :croppped_thumbnail
-  match '/pictures/thumbnails/:id/:size/thumbnail.:format' => 'pictures#thumbnail',
+  match  '/pictures/thumbnails/:id/:size(/:crop_from)(/:crop_size)/thumbnail.png' => 'pictures#thumbnail',
     :as => :thumbnail
   match '/:lang' => 'pages#show',
     :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},

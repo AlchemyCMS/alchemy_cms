@@ -749,7 +749,7 @@ module AlchemyHelper
   end
   
   # Returns all elements that could be placed on that page because of the pages layout.
-  # The elements will be grouped by cellname.
+  # The elements will be grouped by cell.
   def grouped_elements_for_select(elements)
     return [] if elements.nil?
     cells_definition = Cell.definitions
@@ -760,7 +760,7 @@ module AlchemyHelper
       cell_elements = elements.select { |e| cell['elements'].include?(e['name']) }
       celled_elements += cell_elements
       optgroup_label = Cell.translated_label_for(cell['name'])
-      options[optgroup_label] = cell_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name']] }
+      options[optgroup_label] = cell_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name'] + "##{cell['name']}"] }
     end
     other_elements = elements - celled_elements
     unless other_elements.blank?

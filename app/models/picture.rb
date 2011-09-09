@@ -82,7 +82,7 @@ class Picture < ActiveRecord::Base
   end
   
   def cropped_thumbnail_size(size)
-    return size if size == "111x93" || size.blank?
+    return "111x93" if size == "111x93" || size.blank?
     x = size.split('x')[0].to_i
     y = size.split('x')[1].to_i
     if (x > y)

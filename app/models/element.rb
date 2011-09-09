@@ -81,7 +81,7 @@ class Element < ActiveRecord::Base
     return Element.new if attributes['name'].blank?
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
-    element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
+    element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'].split('#').first }.first
     element = Element.new(
       element_scratch.except('contents', 'available_contents', 'display_name').merge({
         :page_id => attributes['page_id']
@@ -372,9 +372,6 @@ private
       return []
     end
     elements_for_layout = []
-    if page_layout['cells'].is_a?(Array)
-      elements_for_layout += Cell.all_element_definitions_for(page_layout['cells'])
-    end
     elements_for_layout += all_definitions_for(page_layout['elements'])
     return [] if elements_for_layout.blank?
     # all unique elements from this layout

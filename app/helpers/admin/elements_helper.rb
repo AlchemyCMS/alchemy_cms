@@ -24,5 +24,5 @@ module Admin::ElementsHelper
     end
     return elements_for_options
   end
-
+  
 end

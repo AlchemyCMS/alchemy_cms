@@ -22,7 +22,7 @@
 		</div>
 		<%= link_to_function(
 			image_tag(
-				thumbnail_url(:id => picture, :size => "111x93", :format => 'png'),
+				thumbnail_path(:id => picture, :size => "111x93"),
 				:alt => picture.name,
 				:title => _('zoom_image'),
 				:onload => "Alchemy.fadeImage(this, '#picture_#{picture.id} .archive_image_spinner');",
