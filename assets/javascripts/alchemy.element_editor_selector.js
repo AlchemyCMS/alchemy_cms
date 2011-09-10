@@ -76,7 +76,7 @@ if (typeof(Alchemy) === 'undefined') {
 			var self = Alchemy.ElementEditorSelector;
 			$('#element_'+id+'_folder').hide();
 			$('#element_'+id+'_folder_spinner').show();
-			$.post('/admin/elements/fold?id='+id, function() {
+			$.post('/admin/elements/'+id+'/fold', function() {
 				$('#element_'+id+'_folder').show();
 				$('#element_'+id+'_folder_spinner').hide();
 				self.scrollToElement('#element_'+id);
