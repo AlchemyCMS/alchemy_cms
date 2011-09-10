@@ -1146,8 +1146,12 @@ module AlchemyHelper
   
   # Renders all element partials from given cell.
   def render_cell_elements(cell)
-    return warning("No cell given.") if cell.blank?    
-    render_elements(:only => cell.elements.collect(&:name))
+    return warning("No cell given.") if cell.blank?
+    ret = ""
+    cell.elements.each do |element|
+      ret << render_element(element)
+    end
+    ret.html_safe
   end
   
   # Returns true or false if no elements are in the cell found by name.
