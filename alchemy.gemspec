@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<declarative_authorization>, [">= 0.5"])
   s.add_runtime_dependency(%q<tvdeyen-fleximage>, [">= 1.0.5"])
   s.add_runtime_dependency(%q<gettext_i18n_rails>, [">= 0.2.19"])
-  s.add_runtime_dependency(%q<will_paginate>, [">= 3.0.pre4"])
+  s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0"])
   s.add_runtime_dependency(%q<acts_as_ferret>, [">= 0.5.2"])
   s.add_runtime_dependency(%q<acts_as_list>, ["~> 0.1"])
   s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
