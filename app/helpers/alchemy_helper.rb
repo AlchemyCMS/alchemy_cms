@@ -397,6 +397,10 @@ module AlchemyHelper
   # <meta name="robots" content="index, follow" />
   # 
   def render_meta_data options={}
+    if @page.blank?
+      warning("No Page found!")
+      return nil
+    end
     default_options = {
       :title_prefix => "",
       :title_seperator => "|",

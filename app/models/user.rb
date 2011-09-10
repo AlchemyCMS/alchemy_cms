@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   before_destroy :unlock_pages
 
+  scope :admins, where(:role => 'admin')
+
   ROLES = Alchemy::Config.get(:user_roles)
 
   def role_symbols

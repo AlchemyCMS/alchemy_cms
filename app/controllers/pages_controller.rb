@@ -57,7 +57,9 @@ private
     else
       @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
     end
-    if @page.blank?
+    if User.admins.count == 0 && @page.nil?
+      redirect_to signup_path
+    elsif @page.blank?
       render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
     elsif multi_language? && params[:lang].blank?
       redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language_code]), :status => 301
