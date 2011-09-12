@@ -33,6 +33,8 @@ class Alchemy < Thor
           mkdir -p ./uploads
         ]
         
+        create_database_yml
+        
         if yes?("\nDo you want to install Alchemys Standardset? (y/N)")
           system("
             cd ./#{project}
@@ -40,11 +42,6 @@ class Alchemy < Thor
             rails generate alchemy:elements
           ")
         end
-        
-        %x[
-          cd ./#{project}
-          mv ./config/database.yml ./config/database.yml.example
-        ]
         
         if options[:scm]
           
@@ -152,8 +149,6 @@ class Alchemy < Thor
           end
           
         end
-        
-        create_database_yml
         
         %x[
           cd ./#{project}

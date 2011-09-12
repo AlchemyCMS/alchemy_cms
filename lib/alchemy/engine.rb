@@ -9,7 +9,9 @@ module Alchemy
     
     # Load rake tasks
     rake_tasks do
-      load File.join(File.dirname(__FILE__), '../tasks/alchemy.rake')
+      load File.join(File.dirname(__FILE__), '../tasks/install.rake')
+      load File.join(File.dirname(__FILE__), '../tasks/upgrade.rake')
+      load File.join(File.dirname(__FILE__), '../tasks/scaffold.rake')
     end
     
     # Check the gem config

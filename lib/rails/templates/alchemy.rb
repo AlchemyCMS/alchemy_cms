@@ -7,7 +7,7 @@ gem 'alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :bra
 gem 'ruby-debug', :group => :development
 gem 'mongrel', :group => :development
 
-if yes?("Use Capistrano to deploy yor app? (y/N)")
+if yes?("Use Capistrano for deployment? (y/N)")
   gem 'capistrano', :group => :development
 end
 
