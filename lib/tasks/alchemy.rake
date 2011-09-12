@@ -60,20 +60,20 @@ namespace :alchemy do
           puts "Task Aborted: Config folder already exists: #{Rails.root}/config/alchemy"
         else
           system "mkdir -p #{Rails.root}/config/alchemy"
-          system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', '*')} #{RAILS_ROOT}/config/alchemy/"
+          system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', '*')} #{::Rails.root.to_s}/config/alchemy/"
           puts "Created folder with configuration files:\n#{Rails.root}/config/alchemy"
         end
       end
       
       desc "Create alchemy´s basic locales for individualising."
       task "locales" do
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'locales', '*')} #{RAILS_ROOT}/config/locales/"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'config', 'locales', '*')} #{::Rails.root.to_s}/config/locales/"
         puts "Created basic locales:\n#{Rails.root}/app/config/locales"
       end
       
       desc "Create basic layout file for pages_controller."
       task "layout" do
-        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'app', 'views', 'layouts', 'pages.html.erb')} #{RAILS_ROOT}/app/views/layouts/"
+        system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'app', 'views', 'layouts', 'pages.html.erb')} #{::Rails.root.to_s}/app/views/layouts/"
         puts "Created layout file for your individual layout rendered by pages_controller:\n#{Rails.root}/app/views/page_layouts"
       end
       
