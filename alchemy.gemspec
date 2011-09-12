@@ -18,18 +18,18 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_runtime_dependency(%q<rails>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<authlogic>, [">= 3.0.3"])
-  s.add_runtime_dependency(%q<awesome_nested_set>, [">= 2.0.0"])
-  s.add_runtime_dependency(%q<declarative_authorization>, [">= 0.5"])
-  s.add_runtime_dependency(%q<tvdeyen-fleximage>, [">= 1.0.5"])
-  s.add_runtime_dependency(%q<gettext_i18n_rails>, [">= 0.2.19"])
+  s.add_runtime_dependency(%q<authlogic>, ["~> 3.0"])
+  s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
+  s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5"])
+  s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.0.7"])
+  s.add_runtime_dependency(%q<gettext_i18n_rails>, ["~> 0.2"])
   s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<acts_as_ferret>, [">= 0.5.2"])
+  s.add_runtime_dependency(%q<acts_as_ferret>, ["~> 0.5"])
   s.add_runtime_dependency(%q<acts_as_list>, ["~> 0.1"])
-  s.add_runtime_dependency(%q<userstamp>, [">= 2.0.1"])
-  s.add_runtime_dependency(%q<dynamic_form>, [">= 1.1.4"])
-  s.add_runtime_dependency(%q<jquery-rails>, [">= 1.0.3"])
-  s.add_runtime_dependency(%q<tinymce_hammer>, [">= 0.2"])
+  s.add_runtime_dependency(%q<userstamp>, ["~> 2.0.1"])
+  s.add_runtime_dependency(%q<dynamic_form>, ["~> 1.1"])
+  s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0"])
+  s.add_runtime_dependency(%q<tinymce_hammer>, ["~> 0.2"])
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1"])
   
 end
