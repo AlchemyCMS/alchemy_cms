@@ -13,8 +13,9 @@ namespace :alchemy do
   namespace 'seeder' do
     desc "Copy a line of code into the seeds.rb file"
     task :copy do
-      File.open("./db/seeds.rb", "w") do |seedfile|
-        seedfile.puts "Alchemy::Seeder.seed!"
+      File.open("./db/seeds.rb", "a") do |f|
+        f.puts "\n# Seeding Alchemy data"
+        f.puts "Alchemy::Seeder.seed!\n"
       end
     end
   end
