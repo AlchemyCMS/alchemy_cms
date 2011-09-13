@@ -11,6 +11,8 @@ Gem::Specification.new do |s|
   s.homepage    = "http://alchemy-cms.com"
   s.summary     = %q{A CMS for Rails 3}
   s.description = %q{A CMS for Rails 3}
+  s.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
+  s.license = 'GPL-3'
   
   s.files         = `git ls-files`.split("\n")
   #s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -31,5 +33,4 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0"])
   s.add_runtime_dependency(%q<tinymce_hammer>, ["~> 0.2"])
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1"])
-  
 end
