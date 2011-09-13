@@ -41,15 +41,6 @@ namespace :alchemy do
     
   end
   
-  namespace :db do
-    
-    desc "Migrate Alchemys database schema"
-    task :migrate, :roles => :app, :except => { :no_release => true } do
-      run "cd #{current_path} && RAILS_ENV=production rake db:migrate:alchemy"
-    end
-    
-  end
-	
 	namespace :database_yml do
 		
 		desc "Creates the database.yml file"
