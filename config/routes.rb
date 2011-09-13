@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     :as => :login
   match '/admin/signup' => 'admin#signup',
     :as => :signup
+  match '/admin/leave' => 'admin#leave',
+    :as => :leave_admin
   match '/admin/logout' => 'admin#logout',
     :as => :logout
   match '/attachment/:id/download' => 'attachments#download',

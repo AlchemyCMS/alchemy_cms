@@ -51,6 +51,10 @@ class AdminController < AlchemyController
     end
   end
 
+  def leave
+    render :layout => false
+  end
+
   def logout
     message = params[:message] || _("logged_out")
     @user_session = UserSession.find
