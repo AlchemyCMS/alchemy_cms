@@ -12,7 +12,3 @@ if yes?("Use Capistrano for deployment? (y/N)")
 end
 
 run 'bundle install'
-
-File.open("./db/seeds.rb", "w") do |seedfile|
-  seedfile.puts "Alchemy::Seeder.seed!"
-end

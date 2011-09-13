@@ -22,28 +22,26 @@ class Alchemy < Thor
         
         @application = project
         
-        %x[
-          cd ./#{project}
-          rake alchemy:app_structure:create:all
-          rm -rf ./tmp/*
-          rm -rf ./log/*
-          rm ./public/index.html
-          rm ./public/images/rails.png
-          mkdir -p ./index
-          mkdir -p ./uploads
-        ]
-        
         create_database_yml
         
-        if yes?("\nDo you want to install Alchemys Standardset? (y/N)")
-          system("
-            cd ./#{project}
-            rails generate alchemy:page_layouts
-            rails generate alchemy:elements
-          ")
-        end
+        with_standard_set = yes?("\nDo you want to install Alchemys Standardset? (y/N)")
+        
+        %x[
+          cd ./#{project}
+          rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
+          rm ./public/index.html
+          rm ./public/images/rails.png
+        ]
         
         if options[:scm]
+          
+          %x[
+            cd ./#{project}
+            rm -rf ./tmp/*
+            rm -rf ./log/*
+            mkdir -p ./index
+            mkdir -p ./uploads
+          ]
           
           case options[:scm]
             when 'svn'
@@ -152,10 +150,7 @@ class Alchemy < Thor
         
         %x[
           cd ./#{project}
-          rake alchemy:assets:copy:all
-          rake db:create
-          rake db:migrate:alchemy
-          rake db:seed
+          rake alchemy:prepare db:create db:migrate db:seed
         ]
         
         readme = <<-EOF
