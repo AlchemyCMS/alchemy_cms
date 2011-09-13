@@ -64,46 +64,22 @@ This branch of Alchemy runs with Rails 3.0.9 and Ruby 1.8.7. __Ruby 1.9 is not__
 Installation
 ------------
 
-Make yourself a new rails 3 app with MySQL as database (Other db's should also work, but are NOT tested):
+Use the installer (recommended):
 
-    rails new my_magicpage -d mysql
+    alchemy new my_magicpage
 
-Then open the `Gemfile` in an texteditor of your choice and insert this line:
-
-    gem 'alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :branch => 'rails3'
-
-Install the bundle:
-
-    bundle install
-
-Then run these commands:
-
-    rake db:create
-    rake db:migrate:alchemy
-    rake alchemy:assets:copy:all
-
-Open `db/seeds.rb` in a texteditor and insert this line:
-
-    Alchemy::Seeder.seed!
-
-Run this command:
-
-    rake db:seed
-    
 Start the local server:
 
     rails server
 
-Then just switch to your browser and open `http://localhost:3000/admin` for creating your first admin user.
-
-__We will provide an executable with the stable version of this gem.__
+Then just switch to your browser and open `http://localhost:3000`.
 
 Tipps
 -----
 
 1. This task creates all necessary folders and files needed for creating your own pagelayouts and elements for your website
 
-        rake alchemy:app_structure:create:all
+        rake generate alchemy:scaffold:all
 
 2. If you use the ferret full text search (enabled by default), then please add a job to your crontab that reindexes the ferret index.
 
