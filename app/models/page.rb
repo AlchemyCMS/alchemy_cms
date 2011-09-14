@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 require 'awesome_nested_set'
-require 'userstamp'
 
 class Page < ActiveRecord::Base
   
