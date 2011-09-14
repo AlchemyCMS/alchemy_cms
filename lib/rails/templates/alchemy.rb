@@ -3,7 +3,7 @@
 
 # Installing Alchemy Gem
 
-gem 'alchemy_cms'
+gem 'alchemy_cms', '>= 2.0.pre2'
 gem 'ruby-debug', :group => :development
 gem 'mongrel', :group => :development
 
