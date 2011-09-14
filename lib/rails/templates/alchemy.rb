@@ -3,7 +3,7 @@
 
 # Installing Alchemy Gem
 
-gem 'alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :branch => 'rails3'
+gem 'alchemy_cms'
 gem 'ruby-debug', :group => :development
 gem 'mongrel', :group => :development
 

@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "alchemy/version"
 
 Gem::Specification.new do |s|
-  s.name        = "alchemy"
+  s.name        = "alchemy_cms"
   s.version     = Alchemy::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin"]
