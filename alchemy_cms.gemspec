@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin"]
   s.email       = ["alchemy@magiclabs.de"]
   s.homepage    = "http://alchemy-cms.com"
-  s.summary     = %q{A CMS for Rails 3}
-  s.description = %q{A CMS for Rails 3}
+  s.summary     = %q{An extremly flexbile CMS for Rails 3.}
+  s.description = %q{Alchemy is an awesome Rails CMS with an extremely flexible content storing architecture.}
   s.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
   s.license = 'GPL-3'
   
@@ -33,4 +33,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0"])
   s.add_runtime_dependency(%q<tinymce_hammer>, ["~> 0.2"])
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1"])
+  
+  s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
+  s.add_development_dependency(%q<rspec-rails>, [">= 2.0.0.beta"])
+  s.add_development_dependency(%q<sqlite3>)
 end
