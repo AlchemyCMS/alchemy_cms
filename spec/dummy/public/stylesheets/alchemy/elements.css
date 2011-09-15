@@ -1,0 +1,900 @@
+/* @override 
+	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
+	http://localhost:3000/stylesheets/alchemy/elements.css
+*/
+
+#alchemy div.content_editor input.text_with_icon.auto_resize.thin_border {
+	padding-right: 52px;
+	width: 314px;
+}
+
+.element_editor p.footnote {
+	clear: both;
+	float: left;
+	font-size: 10px;
+	margin-top: 4px;
+	width: 100%;
+}
+
+.element_heading .preview_text_quote {
+	font-size: 10px;
+	font-style: italic;
+	line-height: 15px;
+}
+
+span.preview_text_element_name {
+	font-size: 10px;
+	text-shadow: #efefef 1px 1px 1px;
+	font-weight: bold;
+	line-height: 15px;
+}
+
+img.add_element_spinner {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	left: 5px;
+	bottom: 6px;
+}
+
+#element_area h2#no_elements_on_page_notice {
+	padding: 8px;
+	text-align: center;
+}
+
+.element_handle {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	left: 8px;
+	top: 9px;
+}
+
+.draggable .element_handle {
+	cursor: move;
+}
+
+.element_handle .element_icon {
+	z-index: 0;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(/images/alchemy/icons.png) no-repeat -112px -40px;
+}
+
+.element_handle span.icon {
+	z-index: 1;	
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.element_handle span.icon.element_dirty {
+	background-position: -29px -104px;
+}
+
+div.element_foot span.element_public {
+	float: left;
+	margin-top: 1px;
+}
+
+.element_head_all {
+	overflow: auto;
+	width: 374px;
+}
+
+.element_head_left {
+	float: left;
+	width: 230px;
+	overflow: auto;
+	padding-bottom: 10px;
+}
+
+.element_head_right {
+	float: left;
+	width: 144px;
+	overflow: auto;
+	margin: 0px;
+	padding: 0px;
+	padding-bottom: 10px;
+}
+
+.add_content {
+	float: left;
+	margin: 2px 1px 2px 2px;
+	width: 118px;
+	padding: 0;
+	background-color: #f0e8d7;
+	border: 1px solid #c2baab;
+	border-radius: 3px;
+	height: 121px;
+}
+
+.add_content a {
+	text-decoration: none;
+	overflow: hidden;
+	text-align: center;
+	font-weight: bold;
+	line-height: 104px;
+	border-radius: 3px;
+	font-size: 40px;
+	display: block;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+.add_content a .icon.assign {
+	background: url(/images/alchemy/icons.png) no-repeat -144px -40px;
+	position: absolute;
+	top: 54px;
+	left: 51px;
+}
+
+.element_foot {
+	padding: 8px;
+	border-top-style: none;
+	position: relative;
+	background-color: #e5dcca;
+	width: 100%;
+	height: 21px;
+	margin-left: -8px;
+}
+
+.element_foot .element_tools {
+	float: left;
+	margin-right: 8px;
+	margin-top: 3px;
+}
+
+.element_foot .button {
+	position: absolute;
+	right: 8px;
+	bottom: 6px;
+}
+
+.ajax_folder {
+	position: absolute;
+	right: 8px;
+	top: 8px;
+}
+
+.element_heading {
+	padding: 0;
+	z-index: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	position: absolute;
+	left: 35px;
+	top: 11px;
+	width: 322px;
+}
+
+div.element_editor {
+	border: 1px solid #bba589;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #f0e8d7;
+	margin-bottom: 8px;
+}
+
+div.element_editor.not-draggable {
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+}
+
+div.element_editor.dirty {
+	border-color: #d0c83d;
+}
+
+div.element_editor.dirty .element_head,
+div.element_editor.dirty .element_foot {
+	background-color: #fff8df;
+}
+
+div.element_editor.selected {
+	border-color: #4b93db;
+	-moz-box-shadow: 0 0 3px #4b93db;
+	-webkit-box-shadow: 0 0 3px #4b93db;
+	box-shadow: 0 0 3px #4b93db;
+}
+
+#alchemy .ui-dialog div.element_editor form {
+	margin: 4px 0 0;
+	padding: 0 8px;
+	overflow: hidden;
+}
+
+div.element_tools {
+	height: 20px;
+}
+
+span.element_tools_icons {
+	float: left;
+}
+
+.element_tools a {
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 1px 4px 1px 1px;
+}
+
+a.delete_element_button {
+	background: url(/images/alchemy/icons.png) no-repeat -32px -40px;
+}
+
+a.element_copy_button {
+	background: url(/images/alchemy/icons.png) no-repeat -64px -40px;
+}
+
+a.element_move_button {
+	background: url(/images/alchemy/icons.png) no-repeat -48px -40px;
+}
+
+.element_head {
+	padding: 8px 0 6px;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 0;
+	border-top-color: #e3e3e3;
+	height: 20px;
+	background-color: #e5dcca;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+form.add_gallery_to_index {
+	overflow: auto;
+}
+
+div.picture_gallery_images {
+	margin-top: 8px;
+	height: 100%;
+	padding-top: 1px;
+	padding-bottom: 2px;
+	overflow: hidden;
+	margin-bottom: 8px;
+	border: 1px inset #cecece;
+	padding-left: 1px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #e5dcca;
+}
+
+div.picture_detail div.picture_image img.img_paddingtop {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.gallery_index div.picture_gallery_images {
+	margin-top: 8px;
+	height: 100%;
+	border: 1px inset #b1b1b1;
+	padding-left: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	overflow: hidden;
+	margin-bottom: 11px;
+	width: 374px;
+	margin-left: 7px;
+}
+
+form.add_gallery_to_index span {
+	float: left;
+	padding-top: 3px;
+}
+
+form.add_gallery_to_index select {
+	float: left;
+}
+
+/* @group add moclecule */
+
+.new_alchemy_element {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	min-height: 25px;
+	overflow: auto;
+}
+
+.new_alchemy_element p {
+	line-height: 21px;
+}
+
+.new_alchemy_element form {
+	line-height: 21px;
+}
+
+div#element_area {
+	padding: 0;
+	margin: 0;
+	min-height: 90%;
+}
+
+div#cells {
+	min-height: 100px;
+}
+
+div#element_area .sortable_cell {
+	min-height: 100px;
+	padding: 8px;
+}
+
+.new_alchemy_element span {
+	float: left;
+	line-height: 25px;
+}
+
+.new_alchemy_element select {
+	float: left;
+	width: 185px;
+	margin: 0 8px;
+}
+
+.new_alchemy_element input.button {
+	float: right;
+	margin-left: 8px;
+}
+
+/* @end */
+
+.place_element_spinner {
+	position: absolute;
+	right: 8px;
+	width: 24px;
+	height: 24px;
+	top: 5px;
+}
+
+div.content_editor a.icon_button {
+	margin: 0 0 0 4px;
+	position: absolute;
+	bottom: 0;
+	right: 24px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+div.content_editor a.icon_button.unlink {
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+	right: 1px;
+}
+
+a.expand_element {
+	background: url(/images/alchemy/icons.png) no-repeat -80px -40px;
+	height: 16px;
+	width: 16px;
+	text-decoration: none;
+	display: block;
+	margin: 1px;
+}
+
+a.fold_element {
+	background: url(/images/alchemy/icons.png) no-repeat -96px -40px;
+	height: 16px;
+	width: 16px;
+	text-decoration: none;
+	display: block;
+	margin: 1px;
+}
+
+.content_editor select.essence_editor_select {
+	-moz-border-radius: 2px 2px 2px 2px;
+	background: white;
+	border: 1px solid #9A9A9A;
+	font-size:11px;
+	height:21px;
+	line-height:21px;
+	padding:2px;
+}
+
+.content_editor select.essence_editor_select optgroup {
+	color: gray;
+	font-style: normal;
+	font-weight: bold;
+	text-indent: 8px;
+}
+
+.content_editor select.essence_editor_select option {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color: black;
+}
+
+.content_editor select.essence_editor_select optgroup option {
+	text-indent: 24px;
+}
+
+.droppable_element_placeholder {
+	border: 1px dotted #9A9A9A;
+	background-color: #e3e3e3;
+	margin-bottom: 8px;
+}
+
+.edit_images_bottom {
+	height: 19px;
+	position: absolute;
+	z-index: 0;
+	left: 5px;
+	bottom: 2px;
+	width: 111px;
+}
+
+.edit_images_bottom a {
+	float: left;
+	margin-left: 2px;
+	margin-right: 2px;
+	width: 18px;
+	height: 18px;
+}
+
+a.icon_button.linked {
+	background-color: #ffd77a;
+}
+
+.edit_images_bottom a.linked {
+	position: relative;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	background-image: url(/images/alchemy/gui/shading.png);
+	background-repeat: repeat-x;
+	background-position: 0 -75px;
+	background-color: #ffd77a;
+	border: 1px solid #9a9a9a;
+	bottom: 1px;
+	margin-right: 2px;
+	width: 17px;
+	height: 17px;
+	margin-left: 1px;
+}
+
+.edit_images_bottom a.disabled {
+	opacity: 0.5;
+	cursor: default;
+	filter: alpha(opacity = 50);
+}
+
+div.content_editor.essence_picture_editor {
+	position: relative;
+	float: left;
+	margin: 0;
+}
+
+div.essence_picture_editor .picture_tool_delete {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	padding: 2px 2px 0;
+	z-index: 2;
+}
+
+div.essence_picture_editor.validation_failed .picture_detail {
+	border-color: #931f23;
+	-webkit-box-shadow: #931f23 0px 1px 3px;
+	-moz-box-shadow: #931f23 0px 1px 3px;
+	-o-box-shadow: #931f23 0px 1px 3px;
+	box-shadow: #931f23 0px 1px 3px;
+}
+
+div.essence_picture_css_class {
+	position: absolute;
+	z-index: 1;
+	bottom: 24px;
+	width: 102px;
+	background-color: white;
+	background-color: rgba(255,254,255,0.7);
+	padding: 4px 8px;
+	font-size: 10px;
+	text-align: right;
+	height: 12px;
+	overflow: hidden;
+}
+
+div.essence_picture_editor:hover .picture_tool_delete {
+	display: block;
+}
+
+.dragable_picture {
+	float: left;
+}
+
+.picture_detail div.missing_image {
+	height: 94px;
+	text-align: center;
+	line-height: 47px;
+	color: #b3b3b3;
+}
+
+.validation_failed .picture_detail div.missing_image {
+	color: #931f23;
+}
+
+.picture_detail div.missing_image img {
+	position: relative;
+	top: 10px;
+}
+
+.picture_detail .picture_handle {
+	position: absolute;
+	z-index: 1;
+	width: 110px;
+	height: 93px;
+	top: 4px;
+	left: 4px;
+	background-color: transparent;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.dragable_picture .picture_handle {
+	cursor: move;
+}
+
+.picture_content_spinner {
+	position: absolute;
+	z-index: 0;
+	top: 35px;
+	left: 39px;
+}
+
+div.file {
+	padding: 0;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	border: 1px solid #c0c0c0;
+	background-color: #f3f3f3;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	height: 24px;
+}
+
+div.file_icon {
+	text-align: center;
+	float: left;
+	height: 24px;
+	width: 24px;
+}
+
+div.file_icon span.icon {
+	margin: 4px;
+}
+
+div.file_icon a.assign_file {
+	display: block;
+	height: 16px;
+	background: url(/images/alchemy/icons.png) no-repeat -240px -24px;
+	width: 16px;
+	margin: 4px;
+}
+
+div.file_name {
+	white-space: nowrap;
+	overflow: hidden;
+	float: left;
+	width: 293px;
+	line-height: 24px;
+	font-size: 10px;
+}
+
+div.essence_file_tools {
+	height: 24px;
+	float: right;
+	background-color: white;
+	width: 48px;
+}
+
+div.essence_file_tools a{
+	text-decoration: none;
+	width: 16px;
+	height: 16px;
+	margin: 4px;
+	float: left;
+}
+
+div.essence_file_tools a.assign_file {
+	background: url(/images/alchemy/icons.png) -256px -24px;
+}
+
+div.essence_file_tools a.edit_file {
+	background: url(/images/alchemy/icons.png) -16px -24px;
+}
+
+td.content_editor_essence_type {
+	width: 90px;
+	height: 20px;
+}
+
+table.content_editor_table {
+	margin-bottom: 8px;
+}
+
+.content_editor_table .thin_border {
+	width: 210px;
+}
+
+div.content_editor label.inline {
+	display: inline-block;
+	min-width: 90px;
+	margin-right: 4px;
+}
+
+a.new_content_link {
+	float: none;
+	display: inline-block;
+	margin-bottom: 8px;
+	margin-top: 4px;
+}
+
+div.essence_richtext_loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	background-color: #ededed;
+	opacity: 0.95;
+}
+
+div.essence_richtext_loader img {
+	position: absolute;
+	top: 43%;
+	left: 46%;
+}
+
+div.content_text_editor.text_short {
+	margin-top: 0;
+	margin-bottom: 0;
+	display: inline;
+}
+
+div.content_editor input.thin_border {
+	width: 378px;
+}
+
+input.long,
+input.text_long {
+	width: 363px;
+}
+
+select.long {
+	width: 376px;
+	margin: 0;
+	padding: 0;
+}
+
+div.content_text_editor input.text_short {
+	border-width: 1px;
+	width: 50px;
+	margin-right: 4px;
+	padding: 2px;
+}
+
+div.content_editor {
+	margin-bottom: 8px;
+	margin-top: 8px;
+	position: relative;
+}
+
+div.content_editor.missing p {
+	line-height: 25px;
+	padding: 8px;
+	border: 1px solid #f5b04e;
+	background-color: #f5dea9;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 11px;
+}
+
+div.content_editor.missing p span.icon.warning {
+	position: relative;
+	top: 2px;
+	left: 2px;
+	margin-right: 8px;
+}
+
+#alchemy .ui-dialog-content div.content_editor input.auto_resize {
+	width: 97%;
+}
+
+div.content_editor.validation_failed label {
+	color: #931f23;
+}
+
+div.content_editor.validation_failed input {
+	border: 1px solid #931f23;
+	background-color: #f9e8e9;
+}
+
+div.content_editor label {
+	display: block;
+	margin-bottom: 0.5em;
+	font-size: 10px;
+	text-shadow: #fff5e1 1px 1px 0;
+	line-height: 15px;
+}
+
+div.content_editor label span.warning.icon {
+	position: relative;
+	top: 2px;
+}
+
+.element_editor div.error {
+	background-color: #f5dea9;
+	padding: 8px 4px 8px 32px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid #f5b04e;
+	position: relative;
+}
+
+.element_editor div.error span.icon.warning {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+.element_editor p.content_editor_error {
+	border: 1px solid #f5b04e;
+	padding: 4px 8px;
+	line-height: 21px;
+	background-color: #f5dea9;
+	margin-top: 4px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+p.content_editor_error span.icon.warning {
+	position: relative;
+	top: 2px;
+	margin-right: 8px;
+}
+
+div.content_editor label a.icon_button.small {
+	display: none;
+}
+
+div.content_editor:hover label a.icon_button.small {
+	display: inline-block;
+}
+
+.o2k7Skin span.alchemy_link {
+	background-position: -500px 0;
+}
+
+.o2k7Skin span.alchemy_unlink {
+	background-position: -640px 0;
+}
+
+.content_rtf_text_area {
+	display: none;
+}
+
+.content_rtf_editor div.editable_area_container {
+	padding: 4px;
+	border: 1px solid #c3c3c3;
+	border-top-style: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background: white url(/images/alchemy/gui/shading_inv.png) repeat-x 0 -5px;
+}
+
+.content_rtf_editor div.editable_area {
+	outline: none;
+	overflow-y: visible;
+	overflow-x: auto;
+	min-height: 105px;
+}
+
+.content_rtf_editor .editable_area a {
+	color: #1c18f2;
+	text-decoration: underline;
+}
+
+div.nicEdit-panelContain {
+	-webkit-border-radius: 2px;
+	background-repeat: repeat-x;
+	background-position: 0 5px;
+}
+
+div.nicEdit-button {
+	background-color: #ededed;
+}
+
+.nicEdit-main {
+	background-color: white;
+	outline: none;
+}
+
+div.pictures_for_element {
+	overflow: auto;
+	margin-top: 4px;
+}
+
+textarea {
+	font: 12px Tahoma, Arial, sans-serif;
+	padding: 4px;
+	margin: 0;
+	width: 362px;
+	border-style: inset;
+	border-width: 1px;
+	border-radius: 3px;
+	height: 200px;
+}
+
+.text_short_float_left {
+	width: 170px;
+	float: left;
+	margin-right: 10px;
+	border-width: 1px;
+}
+
+.droppable_content_placeholder {
+	border: 1px dotted #bba589;
+	background-color: #f0e8d7;
+	float: left;
+	width: 118px;
+	height: 119px;
+	padding: 2px 0 0;
+	margin: 2px 1px 2px 2px;
+}
+
+div.element_editor div.error {
+	padding: 8px 4px 8px 32px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #f1c9ca;
+	color: #931f23;
+	border-style: solid;
+	border-width: 1px;
+	position: relative;
+}
+
+div.element_editor div.error span.icon {
+	position: absolute;
+	left: 8px;
+	top: 8px;
+}
+
+.element_errors {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	background-color: #f1c9ca;
+	padding: 8px;
+	list-style-type: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #931f23;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.element_errors p {
+	margin: 0;
+	line-height: 24px;
+}

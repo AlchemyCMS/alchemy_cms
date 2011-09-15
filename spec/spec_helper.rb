@@ -1,6 +1,10 @@
 # Configure Rails Envinronment
 ENV["RAILS_ENV"] = "test"
 
+# setting textdomain at first. so it's available everywhere!
+require 'fast_gettext'
+FastGettext.text_domain = 'alchemy'
+
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
@@ -18,6 +22,9 @@ Capybara.default_selector = :css
 
 # Run any available migration
 ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
+
+# Seed the database
+Alchemy::Seeder.seed!
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }

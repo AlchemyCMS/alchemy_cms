@@ -37,7 +37,7 @@ class Message
   attr_accessor :contact_form_id, :ip
   
   Alchemy::Config.get(:mailer)[:fields].each do |field|
-    attr_accessor field.keys.first.to_sym
+    attr_accessor field.to_sym
   end
   
   validate_fields = Alchemy::Config.get(:mailer)[:validate_fields]
