@@ -107,6 +107,9 @@ Rails.application.routes.draw do
     end
     
     resources :essence_pictures, :except => [:show, :new, :create] do 
+      collection do
+        put :assign
+      end
       member do 
         get :crop
       end
