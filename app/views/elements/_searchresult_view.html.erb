@@ -1,6 +1,6 @@
 <div class="searchresult" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
     
-    <%= form_tag show_page_with_language_path(:urlname => "suche", :lang => session[:language_id]), :method => :get do %>
+    <%= form_tag show_page_with_language_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
         <%= text_field_tag "query", params[:query], :class => 'field' %>
         <%= submit_tag _("search"), :name => nil %>
     <%- end -%>
