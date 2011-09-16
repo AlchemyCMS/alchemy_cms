@@ -30,11 +30,19 @@ class Language < ActiveRecord::Base
     self.find_by_default(true)
   end
 
+  def label(attrib)
+    if attrib.to_sym == :code
+      self.code
+    else
+      I18n.t("name", :scope => "alchemy.languages.#{self.code}", :default => self.name)
+    end
+  end
+
 private
 
   def publicity_of_default_language
     if self.default? && !self.public?
-      errors.add_to_base(N_("Defaut language has to be public"))
+      errors.add(:base, N_("Defaut language has to be public"))
       return false
     else
       return true
@@ -43,7 +51,7 @@ private
 
   def presence_of_default_language
     if Language.get_default == self && self.default_changed?
-      errors.add_to_base(N_("we_need_at_least_one_default"))
+      errors.add(:base, N_("we_need_at_least_one_default"))
       return false
     else
       return true

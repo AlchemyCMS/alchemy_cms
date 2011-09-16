@@ -319,7 +319,7 @@ class Page < ActiveRecord::Base
   end
 
   def first_public_child
-    self.children.where(:public => true).limit(1)
+    self.children.where(:public => true).limit(1).first
   end
 
   def self.language_root_for(language_id)

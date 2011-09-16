@@ -92,23 +92,15 @@ module PagesHelper
         end
         page = page_found_by_layout || page
         page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? nil : page.first_public_child) : nil) if !page.public?
-      
+        
         if !page.blank?
           active = session[:language_id] == page.language.id
-          if options[:linkname]
-            if options[:linkname].to_sym == :code
-              linkname = page.language.code
-            else
-              linkname = I18n.t("alchemy.languages.#{page.language.code}.name", :default => page.language.name)
-            end
-          else
-            linkname = ""
-          end
+          linkname = page.language.label(options[:linkname])
           if options[:as_select_box]
             languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
           else
             languages << link_to(
-              "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}",
+              "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
               show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
               :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
               :title => options[:show_title] ? I18n.t("alchemy.languages.#{page.language.code}.title", :default => page.language.name) : nil
@@ -128,13 +120,11 @@ module PagesHelper
         )
       else
         if options[:spacer].blank?
-          return languages
+          return languages.html_safe
         else
-          return languages.join(options[:spacer])
+          return languages.join(options[:spacer]).html_safe
         end
       end
-    else
-      ""
     end
   end
 
