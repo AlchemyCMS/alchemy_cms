@@ -7,38 +7,36 @@ FactoryGirl.define do
 		password_confirmation 's3cr3t'
 	end
 	
-	factory :admin, :parent => :user do
+	factory :admin_user, :parent => :user do
 		role "admin"
 	end
 	
 	factory :registered_user, :parent => :user do
-		role "registerted"
+		role "registered"
 	end
 	
-	factory :author, :parent => :user do
+	factory :author_user, :parent => :user do
 		role "author"
 	end
 	
-	factory :admin, :parent => :user do
+	factory :editor_user, :parent => :user do
 		role "editor"
 	end
 	
 	factory :language do
+		code "kl"
 		name 'Klingonian'
-		code 'kl'
-		default true
+		default false
 		frontpage_name 'tuq'
 		page_layout 'intro'
+		public true
 	end
 	
 	factory :page do
-		name "intro"
-		page_layout "standard"
-		language Factory.create(:language)
-	end
-	
-	factory :public_page, :parent => :page do
-		public true
+		name "tuq"
+		page_layout "intro"
+		association :language
+		public false
 	end
 	
 end
