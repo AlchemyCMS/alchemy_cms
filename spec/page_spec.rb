@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Page do
 	
+	it "should get a webfriendly urlname on create" do
+		page = Factory(:page, :name => 'klingon$&stößel ')
+		page.urlname.should == 'klingon-stoessel'
+	end
+	
 	context "Root pages" do
 		it "should contain one ore more rootpages" do
 			Page.where(:parent_id => nil).any?
@@ -9,10 +14,9 @@ describe Page do
 	end
 	
 	context "with children" do
-		
 		before(:each) do
 			@page = Factory(:page)
-			
+			puts @page.urlname
 			@first_child = Factory(:page, :name => "First child", :language => @page.language, :public => false)
 			@first_child.move_to_child_of(@page)
 			
@@ -28,4 +32,5 @@ describe Page do
 			end
 		end
 	end
+	
 end
