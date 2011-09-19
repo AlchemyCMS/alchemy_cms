@@ -11,6 +11,7 @@ end
 group :test do
 	gem 'factory_girl_rails'
 	gem "capybara", ">= 0.4.0"
+	gem "launchy"
 	gem "sqlite3"
 	gem "database_cleaner"
 end
