@@ -7,6 +7,16 @@ describe Page do
 		page.urlname.should == 'klingon-stoessel'
 	end
 	
+  it "should generate a three letter urlname from two letter name" do
+    page = Factory(:page, :name => 'Au')
+    page.urlname.should == '-au'
+  end
+  
+  it "should generate a three letter urlname from one letter name" do
+    page = Factory(:page, :name => 'A')
+    page.urlname.should == '--a'
+  end
+  
 	context "Root pages" do
 		it "should contain one ore more rootpages" do
 			Page.where(:parent_id => nil).any?
@@ -16,7 +26,6 @@ describe Page do
 	context "with children" do
 		before(:each) do
 			@page = Factory(:page)
-			puts @page.urlname
 			@first_child = Factory(:page, :name => "First child", :language => @page.language, :public => false)
 			@first_child.move_to_child_of(@page)
 			

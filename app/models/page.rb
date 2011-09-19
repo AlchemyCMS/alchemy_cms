@@ -128,7 +128,7 @@ class Page < ActiveRecord::Base
   end
 
   def set_url_name
-    self.urlname = generate_url_name((self.urlname.blank? ? self.name : self.urlname))
+    self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
   end
 
   def set_title
@@ -201,6 +201,7 @@ class Page < ActiveRecord::Base
   end
 
   # Returns the translated explanation of seven the page stati.
+  # TODO: Let I18n do this!
   def humanized_status
     case self.status
     when 0
@@ -455,16 +456,15 @@ private
     end
     return Page.where(conditions).order(order_direction).limit(1)
   end
-
-	def generate_url_name(url_name)
-		url_name = url_name.gsub(/[äÄ]/, 'ae')
-		url_name = url_name.gsub(/[üÜ]/, 'ue')
-		url_name = url_name.gsub(/[öÖ]/, 'oe')
-		url_name = url_name.parameterize
-		url_name = "-#{url_name}-" if url_name.length < 3
+  
+  # Converts the given nbame into an url friendly string
+  # Names shorter than 3 will be filled with dashes, so it does not collidate with the language code.
+	def convert_url_name(name)
+		url_name = name.gsub(/[äÄ]/, 'ae').gsub(/[üÜ]/, 'ue').gsub(/[öÖ]/, 'oe').parameterize
+		url_name = ('-' * (3 - url_name.length)) + url_name if url_name.length < 3
 		return url_name
 	end
-
+  
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
   def autogenerate_elements

@@ -8,8 +8,9 @@ FastGettext.text_domain = 'alchemy'
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
-require "factory_girl"
+require 'factory_girl'
 require 'database_cleaner'
+require 'factories.rb'
 
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
@@ -32,7 +33,7 @@ ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__
 Alchemy::Seeder.seed!
 
 # Load support files
-Dir["#{File.dirname(__FILE__)}/support/factories.rb"].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   require 'rspec/expectations'
