@@ -319,7 +319,7 @@ class Page < ActiveRecord::Base
   end
 
   def first_public_child
-    self.children.where(:public => true).limit(1)
+    self.children.where(:public => true).limit(1).first
   end
 
   def self.language_root_for(language_id)
@@ -456,22 +456,14 @@ private
     return Page.where(conditions).order(order_direction).limit(1)
   end
 
-  def generate_url_name(url_name)
-    new_url_name = url_name.to_s.downcase
-    new_url_name = new_url_name.gsub(/[ä]/, 'ae')
-    new_url_name = new_url_name.gsub(/[ü]/, 'ue')
-    new_url_name = new_url_name.gsub(/[ö]/, 'oe')
-    new_url_name = new_url_name.gsub(/[Ä]/, 'AE')
-    new_url_name = new_url_name.gsub(/[Ü]/, 'UE')
-    new_url_name = new_url_name.gsub(/[Ö]/, 'OE')
-    new_url_name = new_url_name.gsub(/[ß]/, 'ss')
-    new_url_name = new_url_name.gsub(/[^a-zA-Z0-9_]+/, '-')
-    if(new_url_name.length < 3)
-      new_url_name = "-#{new_url_name}-"
-    else
-      new_url_name.gsub(/-+$/, '')
-    end
-  end
+	def generate_url_name(url_name)
+		url_name = url_name.gsub(/[äÄ]/, 'ae')
+		url_name = url_name.gsub(/[üÜ]/, 'ue')
+		url_name = url_name.gsub(/[öÖ]/, 'oe')
+		url_name = url_name.parameterize
+		url_name = "-#{url_name}-" if url_name.length < 3
+		return url_name
+	end
 
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
