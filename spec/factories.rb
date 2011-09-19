@@ -5,22 +5,23 @@ FactoryGirl.define do
 		login "jdoe"
 		password 's3cr3t'
 		password_confirmation 's3cr3t'
-	end
-	
-	factory :admin_user, :parent => :user do
-		role "admin"
-	end
-	
-	factory :registered_user, :parent => :user do
-		role "registered"
-	end
-	
-	factory :author_user, :parent => :user do
-		role "author"
-	end
-	
-	factory :editor_user, :parent => :user do
-		role "editor"
+
+		factory :admin_user do
+  		role "admin"
+  	end
+
+  	factory :registered_user do
+  		role "registered"
+  	end
+
+  	factory :author_user do
+  		role "author"
+  	end
+
+  	factory :editor_user do
+  		role "editor"
+  	end
+
 	end
 	
 	factory :language do
