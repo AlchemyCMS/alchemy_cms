@@ -12,6 +12,11 @@ describe Page do
     page.urlname.should == '-au'
   end
   
+  it "should generate a three letter urlname from two letter name with umlaut" do
+    page = Factory(:page, :name => 'Aü')
+    page.urlname.should == 'aue'
+  end
+  
   it "should generate a three letter urlname from one letter name" do
     page = Factory(:page, :name => 'A')
     page.urlname.should == '--a'
