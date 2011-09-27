@@ -43,8 +43,8 @@ Capistrano::Configuration.instance(:must_exist).load do
 
       desc "Copies all assets and migration files from Alchemy to project"
       task :copy do
-        run "cd #{current_path} && RAILS_ENV=production rake alchemy:assets:copy:all"
-        run "cd #{current_path} && RAILS_ENV=production rake alchemy:migrations:sync"
+        run "cd #{current_path} && RAILS_ENV=production #{rake} alchemy:assets:copy:all"
+        run "cd #{current_path} && RAILS_ENV=production #{rake} alchemy:migrations:sync"
       end
 
     end
@@ -85,7 +85,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     # It uses the +alchemy:rebuild_index+ rake task found in +vendor/plugins/alchemy/lib/tasks+.
     desc "Rebuild the ferret index. Call before deploy:restart"
     task :rebuild_index, :roles => :app do
-      run "cd #{current_path} && RAILS_ENV=production rake ferret:rebuild_index"
+      run "cd #{current_path} && RAILS_ENV=production #{rake} ferret:rebuild_index"
     end
 
   end
