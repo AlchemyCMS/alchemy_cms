@@ -137,7 +137,6 @@ private
   end
 
   def set_stamper
-    FastGettext.text_domain = 'alchemy'
     User.stamper = self.current_user
   end
 
@@ -152,7 +151,6 @@ private
 protected
 
   def init_gettext#:nodoc:
-    FastGettext.text_domain = 'alchemy'
     FastGettext.available_locales = configuration(:translations).collect { |l| l[:language_code] }
   end
 
@@ -160,9 +158,9 @@ protected
   # You can set the default_translation in your config/alchemy/config.yml file
   def set_translation
     if current_user.blank? || current_user.language.blank?
-      FastGettext.locale = configuration(:default_translation)
+      FastGettext.locale = configuration(:default_translation) || I18n.locale
     else
-      FastGettext.locale = current_user.language
+      FastGettext.locale = current_user.language || I18n.locale
     end
   end
 
