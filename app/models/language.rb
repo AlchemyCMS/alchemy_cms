@@ -12,7 +12,7 @@ class Language < ActiveRecord::Base
   validates_format_of :code, :with => /^[a-z]{2}$/
   before_destroy :check_for_default
   after_update :set_pages_language, :if => proc { |m| m.code_changed? }
-  before_update :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
+  before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
   scope :published, where(:public => true)
 
