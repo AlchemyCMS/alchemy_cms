@@ -53,9 +53,13 @@ private
 
   def get_page_from_urlname
     if params[:urlname].blank?
-      @page = Page.language_root_for(session[:language_id])
+      @page = Page.language_root_for(Language.get_default.id)
     else
       @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
+      # try to find the page in another language
+      if @page.nil?
+        @page = Page.find_by_urlname(params[:urlname])
+      end
     end
     if User.admins.count == 0 && @page.nil?
       redirect_to signup_path
@@ -72,6 +76,8 @@ private
     elsif @page.has_controller?
       redirect_to(@page.controller_and_action)
     else
+      # setting the language to page.language to be sure it's correct
+      set_language_to(@page.language_id)
       if params[:urlname].blank?
         @root_page = @page
       else
