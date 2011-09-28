@@ -19,7 +19,7 @@ class AlchemyController < ApplicationController
   before_filter :mailer_set_url_options
   
   helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard
-  helper :errors, :layout
+  helper :layout
   
   def render_errors_or_redirect(object, redicrect_url, flash_notice, button = nil)
     if object.errors.empty?
@@ -32,7 +32,7 @@ class AlchemyController < ApplicationController
   
   def render_remote_errors(object, button = nil)
     render :update do |page|
-      page << "jQuery('#errors').html('<ul>" + object.errors.sum{|a, b| "<li>" + _(b) + "</li>"} + "</ul>')"
+      page << "jQuery('#errors').html('<ul>" + object.errors.sum { |a, b| "<li>" + _(b) + "</li>" } + "</ul>')"
       page << "jQuery('#errors').show()"
       page << "Alchemy.enableButton('#{button}')" unless button.blank?
     end

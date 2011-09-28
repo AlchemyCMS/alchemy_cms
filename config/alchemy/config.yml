@@ -93,6 +93,7 @@ default_language:
   :page_layout_name: contact
   :forward_to_page: false
   :mail_success_page: thanks
+  :mail_from: your.mail@your-domain.com
   :fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
   :validate_fields:
     :lastname:
