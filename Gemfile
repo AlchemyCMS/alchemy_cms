@@ -4,7 +4,7 @@ source "http://rubygems.org"
 gemspec
 
 group :development, :test do
-  gem 'gettext', '~>2.0', :git => 'git://github.com/cameel/gettext.git', :require => false
+	gem 'gettext', '>=1.9.3', :require => false
 	gem "rspec-rails", ">= 2.0.0.beta"
 end
 

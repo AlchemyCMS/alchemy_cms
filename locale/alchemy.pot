@@ -1726,3 +1726,21 @@ msgstr ""
 #: app/views/admin/pictures/_picture.html.erb:27
 msgid "zoom_image"
 msgstr ""
+
+msgid "Leave Alchemy"
+msgstr ""
+
+msgid "leave"
+msgstr ""
+
+msgid "You are about to leave Alchemy."
+msgstr ""
+
+msgid "Do you want to"
+msgstr ""
+
+msgid "stay logged in"
+msgstr ""
+
+msgid "or to completly"
+msgstr ""
