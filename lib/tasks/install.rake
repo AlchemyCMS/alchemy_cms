@@ -23,10 +23,7 @@ namespace :alchemy do
   namespace 'migrations' do
     desc "Syncs Alchemy migrations into db/migrate"
     task 'sync' do
-      source = File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')
-      destination = File.join(Rails.root, 'db', 'migrate')
-      FileUtils.mkdir_p destination
-      Alchemy::FileUtilz.mirror_files(source, destination)
+			system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
     end
   end
 
@@ -42,26 +39,23 @@ namespace :alchemy do
       
       desc "Copy javascripts for Alchemy into apps public folder"
       task :javascripts do
-        source = File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts')
-        destination = File.join(Rails.root, 'public', 'javascripts', 'alchemy')
-        FileUtils.mkdir_p(destination)
-        Alchemy::FileUtilz.mirror_files(source, destination)
+				system "rm -rf #{Rails.root.to_s}/public/javascripts/alchemy"
+				system "mkdir -p #{Rails.root.to_s}/public/javascripts/alchemy"
+				system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts', '*')} #{Rails.root.to_s}/public/javascripts/alchemy/"
       end
       
       desc "Copy stylesheets for Alchemy into apps public folder"
       task :stylesheets do
-        source = File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets')
-        destination = File.join(Rails.root, 'public', 'stylesheets', 'alchemy')
-        FileUtils.mkdir_p(destination)
-        Alchemy::FileUtilz.mirror_files(source, destination)
+        system "rm -rf #{Rails.root.to_s}/public/stylesheets/alchemy"
+				system "mkdir -p #{Rails.root.to_s}/public/stylesheets/alchemy"
+				system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets', '*')} #{Rails.root.to_s}/public/stylesheets/alchemy/"
       end
       
       desc "Copy images for Alchemy into apps public folder"
       task :images do
-        source = File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images')
-        destination = File.join(Rails.root, 'public', 'images', 'alchemy')
-        FileUtils.mkdir_p(destination)
-        Alchemy::FileUtilz.mirror_files(source, destination)
+				system "rm -rf #{Rails.root.to_s}/public/images/alchemy"
+				system "mkdir -p #{Rails.root.to_s}/public/images/alchemy"
+				system "rsync -r #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images', '*')} #{Rails.root.to_s}/public/images/alchemy/"
       end
       
     end
