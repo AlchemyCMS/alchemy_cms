@@ -97,11 +97,11 @@ module PagesHelper
           active = session[:language_id] == page.language.id
           linkname = page.language.label(options[:linkname])
           if options[:as_select_box]
-            languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
+            languages << [linkname, show_page_url(:urlname => page.urlname, :lang => page.language.code)]
           else
             languages << link_to(
               "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
-              show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
+              show_page_path(:urlname => page.urlname, :lang => page.language.code),
               :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
               :title => options[:show_title] ? I18n.t("alchemy.languages.#{page.language.code}.title", :default => page.language.name) : nil
             )
@@ -114,7 +114,7 @@ module PagesHelper
           'language',
           options_for_select(
             languages,
-            show_page_with_language_url(:urlname => @page.urlname, :lang => @page.language.code)
+            show_page_url(:urlname => @page.urlname, :lang => @page.language.code)
           ),
           :onchange => "window.location=this.value"
         )

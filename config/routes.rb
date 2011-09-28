@@ -29,11 +29,9 @@ Rails.application.routes.draw do
   match '/:lang' => 'pages#show',
     :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
     :as => :show_language_root
-  match '/:urlname(.:format)' => 'pages#show',
-    :as => :show_page
-  match '/:lang/:urlname(.:format)' => 'pages#show',
+  match '(/:lang)/:urlname(.:format)' => 'pages#show',
     :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
-    :as => :show_page_with_language
+    :as => :show_page
   
   resources :user_sessions
   resources :elements, :only => :show

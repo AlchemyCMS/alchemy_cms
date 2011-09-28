@@ -62,9 +62,9 @@ private
     elsif @page.blank?
       render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => session[:language_code]), :status => 301
+      redirect_to show_page_path(:urlname => @page.urlname, :lang => session[:language_code]), :status => 301
     elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?
-      redirect_to show_page_with_language_path(:urlname => @page.urlname, :lang => params[:lang]), :status => 301
+      redirect_to show_page_path(:urlname => @page.urlname, :lang => params[:lang]), :status => 301
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
     elsif !multi_language? && !params[:lang].blank?
@@ -118,12 +118,10 @@ private
   def redirect_page
     get_additional_params
     redirect_to(
-      send(
-        "show_page_#{multi_language? ? 'with_language_' : nil }path".to_sym, {
-          :lang => (multi_language? ? @page.language_code : nil),
-          :urlname => @page.urlname
-        }.merge(@additional_params)
-      ),
+      send(:show_page_path, {
+        :lang => (multi_language? ? @page.language_code : nil),
+        :urlname => @page.urlname
+      }.merge(@additional_params)),
       :status => 301
     )
   end

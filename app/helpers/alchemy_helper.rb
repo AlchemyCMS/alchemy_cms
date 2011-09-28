@@ -432,7 +432,7 @@ module AlchemyHelper
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
     return meta_string.html_safe
@@ -500,7 +500,7 @@ module AlchemyHelper
         css_class.blank? ? css_class = "first" : css_class = [css_class, "last"].join(" ")
       end
       if multi_language? 
-        url = show_page_with_language_url(:urlname => urlname, :lang => page.language_code)
+        url = show_page_url(:urlname => urlname, :lang => page.language_code)
       else
         url = show_page_url(:urlname => urlname)
       end
@@ -1125,7 +1125,7 @@ module AlchemyHelper
       urlname = options[:urlname]
     end
     if multi_language?
-      show_page_with_language_path({:urlname => urlname, :lang => @language.code}.merge(options.except(:page_layout, :urlname)))
+      show_page_path({:urlname => urlname, :lang => @language.code}.merge(options.except(:page_layout, :urlname)))
     else
       show_page_path({:urlname => urlname}.merge(options.except(:page_layout, :urlname)))
     end

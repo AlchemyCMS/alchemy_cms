@@ -80,7 +80,7 @@ class MessagesController < AlchemyController
       if element.ingredient("success_page")
         if multi_language?
           language = Language.find(session[:language_id])
-          redirect_to show_page_with_language_url(:urlname => element.ingredient("success_page"), :lang => language.code)
+          redirect_to show_page_url(:urlname => element.ingredient("success_page"), :lang => language.code)
         else
           redirect_to show_page_url(:urlname => element.ingredient("success_page"))
         end
