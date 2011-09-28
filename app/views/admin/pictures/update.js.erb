@@ -1,0 +1,11 @@
+(function($) {
+  $("picture_#{@picture.id}").html('<%= escape_javascript(render(
+    :partial => "picture",
+    :locals => {:picture => @picture}
+  )) -%>');
+  Alchemy.inPlaceEditor({
+    save_label: "<%= _('save') -%>",
+    cancel_label: "<%= _('cancel') -%>"
+  });
+  Alchemy.growl('<%= @message -%>');
+})(jQuery);

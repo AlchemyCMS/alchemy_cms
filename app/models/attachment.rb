@@ -1,19 +1,20 @@
+require 'attachment_magic'
+
 class Attachment < ActiveRecord::Base
-  
+
+  stampable
+
   has_attachment(
     :storage => :file_system,
     :file_system_path => 'uploads/attachments',
     :size => 0.kilobytes..1000.megabytes
   )
-  
-  stampable
-  
   validates_as_attachment
-  
+
   def extension
     filename.split(".").last
   end
-  
+
   def icon_css_class
     case content_type
     when "application/x-flash-video"
@@ -68,5 +69,5 @@ class Attachment < ActiveRecord::Base
       "file"
     end
   end
-  
+
 end

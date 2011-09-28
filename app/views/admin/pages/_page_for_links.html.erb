@@ -4,19 +4,16 @@
       <span class="site_status <%= page_for_links.locked ? ' locked' : '' %>" ></span>
     </div>
     <div class="sitemap_right_tools">
-      <%= link_to_remote(
+      <%= link_to(
         "&nbsp;",
-        :url => admin_page_elements_path(page_for_links),
-        :method => :get,
-        :before => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); jQuery('#page_for_links .elements_for_page').hide()",
-        :loading => "Alchemy.LinkOverlay.showElementsSelect(#{page_for_links.id})",
-        :html => {
-          :class => "show_elements_to_link",
-          :title => _('show_elements_from_page')
-        }
+        list_admin_elements_path(:page_id => page_for_links.id),
+        :remote => true,
+        :onclick => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); Alchemy.LinkOverlay.showElementsSelect(#{page_for_links.id});",
+        :class => "show_elements_to_link",
+        :title => _('show_elements_from_page')
       ) %>
       <div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
-        <%= image_tag("alchemy/ajax_loader.gif") %>
+        <%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
       </div>
     </div>
     <div class="page_infos">

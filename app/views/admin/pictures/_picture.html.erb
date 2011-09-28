@@ -22,13 +22,13 @@
 		</div>
 		<%= link_to_function(
 			image_tag(
-				thumbnail_url(:id => picture, :size => "111x93"),
+				thumbnail_path(:id => picture, :size => "111x93"),
 				:alt => picture.name,
 				:title => _('zoom_image'),
 				:onload => "Alchemy.fadeImage(this, '#picture_#{picture.id} .archive_image_spinner');",
 				:style => "display: none;"
 			),
-			"Alchemy.zoomImage('/admin/pictures/show_in_window/#{picture.id}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})",
+			"Alchemy.zoomImage('/admin/pictures/#{picture.id}/show_in_window', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})",
 			:class => 'thumbnail_background'
 		) %>
 	</div>

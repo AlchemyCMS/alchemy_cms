@@ -1,6 +1,6 @@
 # == In this configuration you setup Alchemy´s element layouts.
 # 
-# *Notice. Please place your own version of this file inside +RAILS_ROOT/config/alchemy/+.*
+# Use rails generate alchemy:scaffold to generate this file for your app.
 # 
 # Elements containing all necessary basic tools for displaying and editing content inside Alchemy.
 # They consists of composed contents (different essence-types) as shown in the illustration of an elements-sheme below.
@@ -40,13 +40,13 @@
 # After finishing the setup of your element layouts, you need to generate the files for the elements before using them in Alchemy.
 # For creating these files, use the following command in your terminal:
 # 
-#   script/generate elements
+#   rails generate elements
 # 
-# All new elements will be created as two different partials in RAILS_ROOT/app/views/elements.
+# All new elements will be created as two different partials in Rails.root/app/views/elements.
 # For each element there is an editor-view wich will be rendered when editing them in Alchemy and another view for the website´s frontend.
 # 
-#   app/views/elements/_elementsname_editor.html.erb
-#   app/views/elements/_elementsname_view.html.erb
+#   app/views/elements/_elements_name_editor.html.erb
+#   app/views/elements/_elements_name_view.html.erb
 # 
 # For most contents in an element you can specify additional options, so they get rendered in a specific way.
 # These options can be defined as symbols, but its too much to list them up here.
@@ -77,6 +77,18 @@
 #
 # Now an Alchemy user can add the content 'big_text' from the element as much as desired.
 #
+# === Translate element names
+# 
+# Element names are passed through the I18n library. So you can translate them in your config/locales language yml file.
+# 
+# Example:
+#   
+#   de:
+#     alchemy:
+#       element_names:
+#         contact: Kontakt
+#         search: Suche
+# 
 # == Validations:
 #   
 #   You can validate the presence of a content. Just pass validate and one of the supported vaidatiosn methods to your content definition:

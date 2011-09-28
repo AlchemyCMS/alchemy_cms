@@ -1,4 +1,4 @@
-<% remote_form_for([:admin, @essence_file], :method => "put") do |f| %>
+<%= form_for([:admin, @essence_file], :remote => true, :method => "put") do |f| %>
   <%- if @content.essence_type == "EssenceFile" -%>
   <table>
     <tr>
@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <td colspan="2" style="text-align:right">
-        <%= submit_tag _("save"), :class => 'button' %>
+        <%= f.button _("save"), :class => 'button' %>
       </td>
     </tr>
   </table>
@@ -31,7 +31,7 @@
     </tr>
     <tr>
       <td colspan="2" style="text-align:right">
-        <%= submit_tag _("save"), :class => 'button' %>
+        <%= f.button _("save"), :class => 'button' %>
       </td>
     </tr>
   </table>
@@ -59,7 +59,7 @@
     </tr>
     <tr>
       <td colspan="2" style="text-align:right">
-        <%= submit_tag _("save"), :class => 'button' %>
+        <%= f.button _("save"), :class => 'button' %>
       </td>
     </tr>
   </table>
@@ -83,7 +83,7 @@
     </tr>
     <tr>
       <td colspan="2" style="text-align:right">
-        <%= submit_tag _("save"), :class => 'button' %>
+        <%= f.button _("save"), :class => 'button' %>
       </td>
     </tr>
   </table>

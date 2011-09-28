@@ -1,0 +1,20 @@
+(function($) {
+
+  $('#elements_for_page_<%= @page_id -%>').html('<%= escape_javascript(
+    render(:partial => "elements_select")
+  ) %>');
+  $('#elements_for_page_<%= @page_id -%>')
+    .append('<a class=\"close_elements_from_page_selector\" title=\"<%= _("remove") -%>\">–</a>')
+    .click(function(){
+      Alchemy.LinkOverlay.hideElementsSelect(<%= @page_id -%>);
+    });
+  <%- unless @elements.first.blank? -%>
+  $('#page_anchor').val('#<%= @elements.first.dom_id -%>');
+  <%- end -%>
+  <%- if params[:internal_anchor] -%>
+  $('select.elements_from_page_selector').val('#<%= params[:internal_anchor] -%>');
+  $('#page_anchor').val('#<%= params[:internal_anchor] -%>');
+  <%- end -%>
+  Alchemy.SelectBox('#alchemyLinkOverlay select.elements_from_page_selector');
+
+})(jQuery);

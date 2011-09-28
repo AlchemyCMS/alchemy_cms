@@ -1,9 +1,0 @@
-<%- unless contents.blank? -%>
-	<%- contents.each do |content| -%>
-		<%- unless content["type"] == "EssencePicture" -%>
-<%%= render_essence_editor_by_name(element, '<%= content["name"] %>') %>
-		<%- else -%>
-<%%= render_picture_editor(element) %>
-		<%- end -%>
-	<%- end -%>
-<%- end -%>

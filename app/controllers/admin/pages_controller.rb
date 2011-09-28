@@ -1,4 +1,5 @@
 class Admin::PagesController < AlchemyController
+  unloadable
   
   helper :pages
   
@@ -8,7 +9,7 @@ class Admin::PagesController < AlchemyController
   filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
   
-  cache_sweeper :pages_sweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Configuration.parameter(:cache_pages) }
+  cache_sweeper :pages_sweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
   
   def index
     @page_root = Page.language_root_for(session[:language_id])
@@ -49,7 +50,7 @@ class Admin::PagesController < AlchemyController
     if page.valid? && parent
       page.move_to_child_of(parent)
     end
-    render_errors_or_redirect(page, parent.layoutpage? ? layoutpages_admin_pages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name}, 'form#new_page_form button.button')
+    render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name}, 'form#new_page_form button.button')
   rescue Exception => e
     exception_handler(e)
   end
@@ -57,7 +58,7 @@ class Admin::PagesController < AlchemyController
   # Edit the content of the page and all its elements and contents.
   def edit
     # fetching page via before filter
-    if @page.locked? && @page.locker.logged_in? && @page.locker != current_user
+    if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
       flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
       redirect_to admin_pages_path
     else
@@ -88,26 +89,15 @@ class Admin::PagesController < AlchemyController
   def destroy
     # fetching page via before filter
     name = @page.name
-    page_id = @page.id
-    layoutpage = @page.layoutpage?
+    @page_id = @page.id
+    @layoutpage = @page.layoutpage?
     if @page.destroy
+      @page_root = Page.language_root_for(session[:language_id])
       get_clipboard('pages').delete(@page.id)
-      render :update do |page|
-        page.remove("locked_page_#{page_id}")
-        message = _("Page %{name} deleted") % {:name => name}
-        if layoutpage
-          flash[:notice] = message
-          page.redirect_to layoutpages_admin_pages_url
-        else
-          Alchemy::Notice.show(page, message)
-          @page_root = Page.language_root_for(session[:language_id])
-          if @page_root
-            page.replace("sitemap", :partial => 'sitemap')
-            page << "Alchemy.Tooltips()"
-          else
-            page.redirect_to admin_pages_url
-          end
-        end
+      @message = _("Page %{name} deleted") % {:name => name}
+      flash[:notice] = @message
+      respond_to do |format|
+        format.js
       end
     end
   end
@@ -136,15 +126,9 @@ class Admin::PagesController < AlchemyController
     # @page is fetched via before filter
     @page.fold(current_user.id, !@page.folded?(current_user.id))
     @page.save
-    render :update do |page|
-      page.replace "page_#{@page.id}", :partial => 'page', :locals => {:page => @page}
-      page << "Alchemy.Tooltips()"
+    respond_to do |format|
+      format.js
     end
-  end
-  
-  def layoutpages
-    @locked_pages = Page.all_locked_by(current_user)
-    @layout_root = Page.find_or_create_layout_root_for(session[:language_id])
   end
   
   # Leaves the page editing mode and unlocks the page for other users
@@ -152,27 +136,17 @@ class Admin::PagesController < AlchemyController
     # fetching page via before filter
     @page.unlock
     flash[:notice] = _("unlocked_page_%{name}") % {:name => @page.name}
-    if request.xhr?
-      render :update do |page|
-        page.remove "locked_page_#{@page.id}"
-        page << "jQuery('#page_#{@page.id} .sitemap_page').removeClass('locked')"
-        if Page.all_locked_by(current_user).blank?
-          page << "jQuery('#subnav_additions label').hide()"
-        end
-        Alchemy::Notice.show(page, flash[:notice])
-      end
-    else
-      if params[:redirect_to].blank?
-        redirect_to admin_pages_path
-      else
-        redirect_to(params[:redirect_to])
-      end
+    respond_to do |format|
+      format.js
+      format.html {
+        redirect_to params[:redirect_to].blank? ? admin_pages_path : params[:redirect_to]
+      }
     end
   end
   
   def visit
     @page.unlock
-    redirect_to multi_language? ? show_page_with_language_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
+    redirect_to multi_language? ? show_page_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
   end
   
   # Sets the page public and sweeps the page cache
@@ -205,7 +179,7 @@ class Admin::PagesController < AlchemyController
     rescue
       exception_logger($!)
     end
-    redirect_to :action => params[:layoutpage] == "true" ? :layoutpages : :index
+    redirect_to params[:layoutpage] == "true" ? admin_layoutpages_path : :action => :index
   end
   
   def sort
@@ -252,13 +226,13 @@ class Admin::PagesController < AlchemyController
         expire_action("#{page.urlname}")
       end
     end
-    render :update do |page|
-      Alchemy::Notice.show(page, _('Page cache flushed'))
+    respond_to do |format|
+      format.js
     end
   end
-  
+
 private
-  
+
   def get_page_from_id
     @page = Page.find(params[:id])
   end
@@ -266,5 +240,5 @@ private
   def pages_from_raw_request
     request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
   end
-  
+
 end

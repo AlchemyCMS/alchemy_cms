@@ -1,20 +1,20 @@
 class Admin::UsersController < AlchemyController
-  
+  unloadable
+
   filter_access_to [:edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :new, :create], :attribute_check => false
-  
+
   before_filter :set_translation
-  
+
   def index
     if !params[:query].blank?
-      @users = User.find(:all, :conditions => [
+      @users = User.where([
         "users.login LIKE ? OR users.email LIKE ? OR users.firstname LIKE ? OR users.lastname LIKE ?",
         "%#{params[:query]}%",
         "%#{params[:query]}%",
         "%#{params[:query]}%",
         "%#{params[:query]}%"
-      ],
-      :order => 'login')
+      ]).order('login')
     else
       @users = User.all
     end
@@ -24,14 +24,14 @@ class Admin::UsersController < AlchemyController
     @user = User.new
     render :layout => false
   end
-  
+
   def create
     @user = User.new(params[:user])
     if @user.save
       if @user.role == "registered" && params[:send_credentials]
-        Mailer.deliver_new_user_mail(@user, request)
-      else
-        Mailer.deliver_new_alchemy_user_mail(@user, request) if params[:send_credentials]
+        Notifications.registered_user_created(@user).deliver
+      elsif params[:send_credentials]
+        Notifications.admin_user_created(@user).deliver
       end
     end
     render_errors_or_redirect(
@@ -43,16 +43,16 @@ class Admin::UsersController < AlchemyController
   rescue
     exception_handler($!)
   end
-  
+
   def edit
     # User is fetched via before filter from authentication plugin
     render :layout => false
   end
-  
+
   def update
     # User is fetched via before filter from authentication plugin
     @user.update_attributes(params[:user])
-    Mailer.deliver_new_alchemy_user_mail(@user, request) if params[:send_credentials]
+    Notifications.admin_user_created(@user).deliver if params[:send_credentials]
     render_errors_or_redirect(
       @user,
       admin_users_path,
@@ -60,7 +60,7 @@ class Admin::UsersController < AlchemyController
       "form#edit_user_#{@user.id} button.button"
     )
   end
-  
+
   def destroy
     # User is fetched via before filter from authentication plugin
     name = @user.name
@@ -71,5 +71,5 @@ class Admin::UsersController < AlchemyController
       page.redirect_to admin_users_path
     end
   end
-  
+
 end

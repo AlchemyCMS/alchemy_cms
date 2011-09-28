@@ -24,7 +24,7 @@
 
 # === Pagecaching
 # Enable/Disable pagecaching globally.
-# Hint: You can enable/disable page caching for single PageLayouts in the page_layout.yml file.
+# Hint: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
 :cache_pages: true
 
 # === Sitemap
@@ -93,16 +93,8 @@ default_language:
   :page_layout_name: contact
   :forward_to_page: false
   :mail_success_page: thanks
-  :fields:
-    - salutation: string
-    - firstname: string
-    - lastname: string
-    - address: string
-    - zip: string
-    - city: string
-    - phone: string
-    - email: string
-    - message: text
+  :mail_from: your.mail@your-domain.com
+  :fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
   :validate_fields:
     :lastname:
       :message: enter_name
@@ -146,20 +138,15 @@ alchemy_plugins:
   - name: dashboard
     navigation:
       name: 'home'
-      controller: admin
+      controller: 'admin'
       action: index
       icon: home
       sub_navigation:
         - name: 'home'
-          controller: admin
+          controller: 'admin'
           action: index
     
   - name: pages
-    preview_frame:
-      controller: 'admin/pages'
-      action: edit
-      target_controller: 'admin/pages'
-      target_action: preview
     navigation:
       name: 'module: pages'
       controller: 'admin/pages'
@@ -170,8 +157,8 @@ alchemy_plugins:
           controller: 'admin/pages'
           action: index
         - name: 'module: layoutpages'
-          controller: 'admin/pages'
-          action: layoutpages
+          controller: 'admin/layoutpages'
+          action: index
       nested:
         - controller: 'admin/pages'
           action: edit

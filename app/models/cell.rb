@@ -21,6 +21,7 @@ class Cell < ActiveRecord::Base
   end
   
   def self.definition_for(cellname)
+    return nil if cellname.blank?
     definitions.detect { |c| c['name'] == cellname }
   end
   

@@ -1,25 +1,25 @@
 module PagesHelper
-  
+
   # DEPRICATED! Use Element.preview_text instead.
   def get_preview_text element
     element.preview_text
   end
-  
+
   def render_classes classes=[]
     s = classes.uniq.delete_if{|x| x == nil || x.blank?}.join(" ")
     s.blank? ? "" : "class='#{s}'"
   end
-  
+
   def picture_essence_caption(content)
     return "" if content.nil?
     return "" if content.essence.nil?
     content.essence.caption
   end
-  
+
   def alchemy_form_select(name, select_options, options={})
     select "mail_data", name, select_options, :selected => (session[:mail_data][name.to_sym] rescue "")
   end
-  
+
   def alchemy_form_input_field(name, options = {})
     if options[:value].blank? && session[:mail_data].blank?
       value = nil
@@ -30,21 +30,21 @@ module PagesHelper
     end
     text_field("mail_data", name, {:value => value}.merge(options))
   end
-  
+
   def alchemy_form_text_area(name, options={})
     text_area "mail_data", name, :class => options[:class], :value => (session[:mail_data][name.to_sym] rescue "")
   end
-  
+
   def alchemy_form_check_box(name, options={})
     box = hidden_field_tag "mail_data[#{name}]", 0, :id => nil
     box += check_box_tag("mail_data[#{name}]", 1, (session[:mail_data] && session[:mail_data][name.to_sym] == "1"))
     box
   end
-  
+
   def alchemy_form_label(element, name, options={})
     label_tag "mail_data_#{name}", render_essence_view_by_name(element, name), options
   end
-  
+
   def alchemy_form_reset_button(name, options={})
     button_to_function(
       name,
@@ -70,7 +70,7 @@ module PagesHelper
       options
     )
   end
-  
+
   # helper for language switching
   def language_switches(options={})
     default_options = {
@@ -95,21 +95,13 @@ module PagesHelper
         
         if !page.blank?
           active = session[:language_id] == page.language.id
-          if options[:linkname]
-            if options[:linkname].to_sym == :code
-              linkname = page.language.code
-            else
-              linkname = I18n.t("alchemy.languages.#{page.language.code}.name", :default => page.language.name)
-            end
-          else
-            linkname = ""
-          end
+          linkname = page.language.label(options[:linkname])
           if options[:as_select_box]
-            languages << [linkname, show_page_with_language_url(:urlname => page.urlname, :lang => page.language.code)]
+            languages << [linkname, show_page_url(:urlname => page.urlname, :lang => page.language.code)]
           else
             languages << link_to(
-              "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}",
-              show_page_with_language_path(:urlname => page.urlname, :lang => page.language.code),
+              "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
+              show_page_path(:urlname => page.urlname, :lang => page.language.code),
               :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
               :title => options[:show_title] ? I18n.t("alchemy.languages.#{page.language.code}.title", :default => page.language.name) : nil
             )
@@ -122,20 +114,18 @@ module PagesHelper
           'language',
           options_for_select(
             languages,
-            show_page_with_language_url(:urlname => @page.urlname, :lang => @page.language.code)
+            show_page_url(:urlname => @page.urlname, :lang => @page.language.code)
           ),
           :onchange => "window.location=this.value"
         )
       else
         if options[:spacer].blank?
-          return languages
+          return languages.html_safe
         else
-          return languages.join(options[:spacer])
+          return languages.join(options[:spacer]).html_safe
         end
       end
-    else
-      ""
     end
   end
-  
+
 end

@@ -14,7 +14,7 @@ class Admin::TrashController < AlchemyController
     @elements = Element.trashed
     @elements.map(&:destroy)
     render :update do |page|
-      Alchemy::Notice.show(page, _("Cleared trash"))
+      page.call('Alchemy.growl', _("Cleared trash"))
       page << "Alchemy.refreshTrashWindow(#{@page.id})"
       page << "jQuery('#element_trash_button .icon').removeClass('full')"
     end

@@ -1,5 +1,6 @@
 class Admin::ElementsController < AlchemyController
   
+  unloadable
   before_filter :set_translation
   
   filter_access_to [:new, :create, :order, :index], :attribute_check => false
@@ -7,14 +8,6 @@ class Admin::ElementsController < AlchemyController
   cache_sweeper :content_sweeper, :only => [:update]
   
   def index
-    @page_id = params[:page_id]
-    if @page_id.blank? && !params[:page_urlname].blank?
-      @page_id = Page.find_by_urlname(params[:page_urlname]).id
-    end
-    @elements = Element.find_all_by_page_id_and_public(@page_id, true)
-  end
-  
-  def list
     @page = Page.find(params[:page_id], :include => {:elements => :contents})
     @cells = @page.cells
     if @cells.blank?
@@ -23,6 +16,14 @@ class Admin::ElementsController < AlchemyController
       @elements = @page.elements_grouped_by_cells
     end
     render :layout => false
+  end
+  
+  def list
+    @page_id = params[:page_id]
+    if @page_id.blank? && !params[:page_urlname].blank?
+      @page_id = Page.find_by_urlname(params[:page_urlname]).id
+    end
+    @elements = Element.find_all_by_page_id_and_public(@page_id, true)
   end
   
   def new
@@ -52,7 +53,7 @@ class Admin::ElementsController < AlchemyController
     end
     # if page has cells, put element in cell
     if @page.has_cells?
-      cell_definition = Cell.definition_for_element(@element.name)
+      cell_definition = Cell.definition_for(params[:element][:name].split('#').last)
       if cell_definition
         @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
       end
@@ -79,7 +80,7 @@ class Admin::ElementsController < AlchemyController
       @element.save
     else
       render :update do |page|
-        Alchemy::Notice.show(page, _("Validation failed."), :warn)
+        page.call('Alchemy.growl', _("Validation failed."), :warn)
         error_message = "<h2>#{_('Validation failed.')}</h2><p>#{_('Please check contents below.')}</p>"
         page << "jQuery('#element_#{@element.id}_errors').html('#{error_message}<ul><li>#{@element.essence_error_messages.join('</li><li>')}</li></ul>')"
         page.show("element_#{@element.id}_errors")
@@ -95,7 +96,7 @@ class Admin::ElementsController < AlchemyController
       EssenceText.rebuild_index
       EssenceRichtext.rebuild_index
       render :update do |page|
-        Alchemy::Notice.show(page, _("Index Error after saving Element. Please try again!"), :error)
+        page << "Alchemy.growl('#{_("Index Error after saving Element. Please try again!")}', 'error')"
       end
     else
       show_error_notice(e)
@@ -113,17 +114,12 @@ class Admin::ElementsController < AlchemyController
   
   def order
     page = Page.find(params[:page_id])
-    for element in params[:element_ids]
-      element = Element.find(element)
+    params[:element_ids].each do |element_id|
+      element = Element.find(element_id)
       if element.trashed?
         element.page = page
       end
       element.move_to_bottom
-    end
-    render :update do |page|
-      Alchemy::Notice.show(page, _("successfully_saved_element_position"))
-      page << "jQuery('#element_area .ajax_folder').show()"
-      page << "Alchemy.PreviewWindow.refresh()"
     end
   rescue Exception => e
     exception_handler(e)
@@ -137,5 +133,5 @@ class Admin::ElementsController < AlchemyController
   rescue Exception => e
     exception_handler(e)
   end
-  
+
 end

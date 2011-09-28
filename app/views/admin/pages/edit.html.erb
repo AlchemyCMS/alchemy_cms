@@ -9,12 +9,12 @@
 		<%= render :partial => 'page_status' %>
     <%- else -%>
 		<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-		    <% link_to edit_admin_page_path(page) do %>
+		    <%= link_to edit_admin_page_path(page) do %>
 	      <span class="page_name" title="<%= page.name %>">
 		  	    <%= truncate page.name, :length => 15 %>
 		    </span>
 			  <% end %>
-			  <% form_remote_tag(:url => unlock_admin_page_path(page)) do %>
+			  <%= form_for(unlock_admin_page_path(page), :remote => true) do %>
 			  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
 			  		    <%= render_icon('close small') %>
 			  	  </button>
@@ -27,7 +27,7 @@
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
-			<% form_tag(
+			<%= form_tag(
 				unlock_admin_page_path(
 					@page,
 					:redirect_to => @layoutpage ? admin_layoutpages_path : admin_pages_path
@@ -42,7 +42,7 @@
 		</div>
 		<%- unless @page.layoutpage? -%>
 		<div class="button_with_label">
-			<% form_tag(
+			<%= form_tag(
 				visit_admin_page_path(@page),
 				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 			) do %>
@@ -68,7 +68,7 @@
 		</div>
 		<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
 		<div class="button_with_label">
-			<% form_tag(
+			<%= form_tag(
 				publish_admin_page_path(@page),
 				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ _('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
 			) do -%>
@@ -110,29 +110,29 @@
 <script type="text/javascript" charset="utf-8">
 	
 	function openPreviewWindow() {
-		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _("Page Preview") %>');
+		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= _("Page Preview") -%>');
 	}
 	
 	function openElementsWindow() {
-		Alchemy.openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', {
+		Alchemy.openElementsWindow('<%= admin_elements_path(:page_id => @page.id) -%>', {
 			texts: {
-				title: '<%= _("Elements") %>',
-				dirtyTitle: '<%= _("Warning!") %>',
-				dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") %>',
-				okLabel: '<%= _("Yes") %>',
-				cancelLabel: '<%= _("No") %>'
+				title: '<%= _("Elements") -%>',
+				dirtyTitle: '<%= _("Warning!") -%>',
+				dirtyMessage: '<%= _("You have unsaved elements. Do you really want to close the elements window?") -%>',
+				okLabel: '<%= _("Yes") -%>',
+				cancelLabel: '<%= _("No") -%>'
 			},
 			toolbarButtons: [
 				{
-					title: '<%= _("New Element") %>',
-					label: '<%= _("New Element") %>',
+					title: '<%= _("New Element") -%>',
+					label: '<%= _("New Element") -%>',
 					iconClass: 'new_element',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= new_admin_element_path(:page_id => @page.id) %>',
-							'<%= _("New Element") %>',
+							'<%= new_admin_element_path(:page_id => @page.id) -%>',
+							'<%= _("New Element") -%>',
 							'410',
-							'70',
+							'75',
 							false,
 							true,
 							true
@@ -140,14 +140,14 @@
 					}
 				},
 				{
-					title: '<%= _("Clipboard") %>',
-					label: '<%= _("Show clipboard") %>',
-					iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
+					title: '<%= _("Clipboard") -%>',
+					label: '<%= _("Show clipboard") -%>',
+					iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" -%>',
 					buttonId: 'clipboard_button',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= admin_clipboard_index_path(:remarkable_type => "element") %>',
-							'<%= _("Clipboard") %>',
+							'<%= admin_clipboard_path(:remarkable_type => "element") -%>',
+							'<%= _("Clipboard") -%>',
 							'380',
 							'270',
 							false,
@@ -157,12 +157,12 @@
 					}
 				},
 				{
-					title: '<%= _("Show trash") %>',
-					label: '<%= _("Show trash") %>',
-					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
+					title: '<%= _("Show trash") -%>',
+					label: '<%= _("Show trash") -%>',
+					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" -%>',
 					buttonId: 'element_trash_button',
 					onClick: function() {
-						Alchemy.openTrashWindow(<%= @page.id %>, '<%= _("Trash") %>');
+						Alchemy.openTrashWindow(<%= @page.id %>, '<%= _("Trash") -%>');
 					}
 				}
 			]
@@ -175,10 +175,10 @@
 	});
 	
 	Alchemy.PageLeaveObserver({
-		title: '<%= _("Warning!") %>',
-		message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") %>',
-		okLabel: '<%= _("Yes") %>',
-		cancelLabel: '<%= _("No") %>'
+		title: '<%= _("Warning!") -%>',
+		message: '<%=  _("You have unsaved elements on this page. Do you really want to leave this page?") -%>',
+		okLabel: '<%= _("Yes") -%>',
+		cancelLabel: '<%= _("No") -%>'
 	});
 	
 </script>

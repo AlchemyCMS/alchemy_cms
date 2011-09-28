@@ -44,9 +44,9 @@ class Admin::ContentsController < AlchemyController
       content.move_to_bottom
     end
     render :update do |page|
-      Alchemy::Notice.show(page, _("Successfully saved content position"))
-      page << "Alchemy.SortableContents('#element_area .picture_gallery_images', '#{form_authenticity_token}')"
-      page << "Alchemy.reloadPreview()"
+      page.call('Alchemy.growl', _("Successfully saved content position"))
+      page.call("Alchemy.SortableContents", '#element_area .picture_gallery_images', form_authenticity_token)
+      page.call('Alchemy.reloadPreview')
     end
   end
   
@@ -57,9 +57,9 @@ class Admin::ContentsController < AlchemyController
     content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
     if content.destroy
       render :update do |page|
-        page.remove(content_dom_id)
-        Alchemy::Notice.show(page, _("Successfully deleted %{content}") % {:content => content_name})
-        page << "Alchemy.reloadPreview()"
+        page.call("jQuery('#{content_dom_id}').remove")
+        page.call('Alchemy.growl', _("Successfully deleted %{content}") % {:content => content_name})
+        page.call('Alchemy.reloadPreview')
       end
     end
   rescue

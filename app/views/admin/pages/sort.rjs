@@ -1,3 +1,0 @@
-page.replace 'sitemap', :partial => 'sitemap'
-page.show 'bottom_panel'
-page << "Alchemy.PageSorter.init()"

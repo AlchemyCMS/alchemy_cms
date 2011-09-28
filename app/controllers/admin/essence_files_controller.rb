@@ -1,13 +1,14 @@
 class Admin::EssenceFilesController < AlchemyController
-  
+  unloadable
+
   filter_access_to :all
-  
+
   def edit
     @content = Content.find(params[:id])
     @essence_file = @content.essence
     render :layout => false
   end
-  
+
   def update
     @essence_file = EssenceFile.find(params[:id])
     @essence_file.update_attributes(params[:essence_file])
@@ -16,7 +17,7 @@ class Admin::EssenceFilesController < AlchemyController
       page << "Alchemy.reloadPreview()"
     end
   end
-  
+
   def assign
     @content = Content.find_by_id(params[:id])
     @attachment = Attachment.find_by_id(params[:attachment_id])
@@ -30,5 +31,5 @@ class Admin::EssenceFilesController < AlchemyController
       page << "Alchemy.setElementDirty('#element_#{@content.element.id}')"
     end
   end
-  
+
 end

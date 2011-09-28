@@ -1,3 +1,5 @@
+require 'active_record'
+
 module Alchemy #:nodoc:
   module Essence #:nodoc:
     def self.included(base)
@@ -173,3 +175,4 @@ module Alchemy #:nodoc:
     
   end
 end
+ActiveRecord::Base.class_eval { include Alchemy::Essence } if defined?(Alchemy::Essence)

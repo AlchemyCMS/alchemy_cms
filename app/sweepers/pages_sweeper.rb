@@ -1,23 +1,23 @@
 class PagesSweeper < ActionController::Caching::Sweeper
-  
+
   observe Page
-  
+
   def after_update(page)
     unless page.layoutpage?
       expire_page(page)
       check_multipage_elements(page)
     end
   end
-  
+
   def after_destroy(page)
     unless page.layoutpage?
       expire_page(page)
       check_multipage_elements(page)
     end
   end
-  
+
 private
-  
+
   def check_multipage_elements(page)
     page.elements.each do |element|
       # are their pages beneath mine?
@@ -33,7 +33,7 @@ private
       end
     end
   end
-  
+
   def expire_page(page)
     if multi_language?
       path = "#{page.language_code}/#{page.urlname_was}"
@@ -42,5 +42,5 @@ private
     end
     expire_action(path) unless page.do_not_sweep
   end
-  
+
 end

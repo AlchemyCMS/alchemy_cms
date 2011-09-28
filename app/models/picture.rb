@@ -1,28 +1,30 @@
+require 'fleximage'
+
 class Picture < ActiveRecord::Base
-  
+
   acts_as_fleximage do
     image_directory           'uploads/pictures'
-    image_storage_format      Alchemy::Configuration.parameter(:image_store_format).to_sym
+    image_storage_format      Alchemy::Config.get(:image_store_format).to_sym
     require_image             true
     missing_image_message     N_("missing_image")
     invalid_image_message     N_("not a valid image")
-    if Alchemy::Configuration.parameter(:image_output_format) == "jpg"
-      output_image_jpg_quality  Alchemy::Configuration.parameter(:output_image_jpg_quality)
+    if Alchemy::Config.get(:image_output_format) == "jpg"
+      output_image_jpg_quality  Alchemy::Config.get(:output_image_jpg_quality)
     end
-    unless Alchemy::Configuration.parameter(:preprocess_image_resize).blank?
+    unless Alchemy::Config.get(:preprocess_image_resize).blank?
       preprocess_image do |image|
-        image.resize Alchemy::Configuration.parameter(:preprocess_image_resize)
+        image.resize Alchemy::Config.get(:preprocess_image_resize)
       end
     end
   end
-  
+
   stampable
-  
+
   # Returning the filepath relative to Rails.root public folder.
   def public_file_path
     self.file_path.gsub("#{Rails.root}/public", '')
   end
-  
+
   def urlname
     if self.name.blank?
      "image_#{self.id}"
@@ -30,17 +32,17 @@ class Picture < ActiveRecord::Base
      CGI.escape(self.name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
    end
   end
-  
+
   # Returning true if picture's width is greater than it's height
   def landscape_format?
     return (self.image_width > self.image_height) ? true : false
   end
-  
+
   # Returning true if picture's width is smaller than it's height
   def portrait_format?
     return (self.image_width < self.image_height) ? true : false
   end
-  
+
   # Returning true if picture's width and height is equal
   def square_format?
     return (self.image_width == self.image_height) ? true : false
@@ -80,7 +82,7 @@ class Picture < ActiveRecord::Base
   end
   
   def cropped_thumbnail_size(size)
-    return size if size == "111x93" || size.blank?
+    return "111x93" if size == "111x93" || size.blank?
     x = size.split('x')[0].to_i
     y = size.split('x')[1].to_i
     if (x > y)

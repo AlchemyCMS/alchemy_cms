@@ -1,6 +1,0 @@
-page.remove("clipboard_item_#{@item.id}")
-Alchemy::Notice.show(page, _("item %{name} removed from clipboard") % {:name => @item.class.to_s == 'Element' ? @item.display_name_with_preview_text : @item.name})
-if @clipboard.blank?
-  page << "jQuery('#clipboard_button .icon.clipboard').removeClass('full')"
-  page.replace("clipboard_items", "<p>#{ _('No items in your clipboard') }</p>")
-end

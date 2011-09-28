@@ -1,114 +1,114 @@
 <li id="page_<%= page.id %>" class="page_level_<%= page.level %>">
-	<div class="sitemap_page<%= page.locked ? ' locked' : '' %>">
-		<div class="sitemap_left_images">
-			<%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
-			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip"></span>
-			<div class="tooltip_content" style="display: none;">
-				<h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
-				<p>
-					<%= page.humanized_status %>
-				</p>
-				<p>
-					<strong><%= _("created_at") %>:</strong><br />
-					<%= l(page.created_at) %> von <%= page.creator %>
-				</p>
-				<p>
-					<strong><%= _("updated_at") %>:</strong><br />
-					<%= l(page.updated_at) %> durch <%= page.updater %>
-				</p>
-				<%- if page.locked? -%>
-				<p>
-					<%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
-				</p>
-				<%- end -%>
-			</div>
-		</div>
-		<div class="sitemap_right_tools">
-			<%- unless @sorting -%>
-			<%- permitted_to?(:configure, :admin_pages) do -%>
-			<%= link_to_overlay_window(
-				render_icon('configure_page'),
-				configure_admin_page_path(page),
-				{
-					:title => _('edit_page_properties'),
-					:size => page.redirects_to_external? ? '390x270' : '380x600'
-				},
-				:class => '',
-				:title => _('edit_page_properties')
-			) -%>
-			<%- end -%>
-			<%- permitted_to?([:new, :destroy, :copy], :admin_pages) do -%>
-			<span class="sitemap_sitetools">
-				<%- permitted_to?(:copy, :admin_pages) do -%>
-				<%= link_to_remote(
-					render_icon("copy_page"),
-					:url => insert_admin_clipboard_path(
-						:remarkable_type => page.class.to_s,
-						:remarkable_id => page.id
-					),
-					:html => {
-						:class => "",
-						:title => _("copy_page")
-					}
-				) %>
-				<%- end -%>
-				<%- permitted_to?(:destroy, :admin_pages) do -%>
-				<%= link_to_confirmation_window(
-						render_icon('delete_page'),
-						_("confirm_to_delete_page"),
-						url_for(
-							:controller => 'pages',
-							:action => 'destroy',
-							:id => page.id
-						),
-						{
-							:class => "",
-							:title => _("delete_page")
-						}
-					) -%>
-				<%- end -%>
-				<%- permitted_to?(:new, :admin_pages) do -%>
-				<%= link_to_overlay_window(
-					render_icon('add_page'),
-					new_admin_page_path(:parent_id => page.id),
-					{
-						:title => _('create_page'),
-						:size => '405x150',
-						:overflow => true
-					},
-					:class => '',
-					:title => _('create_page')
-				) -%>
-				<%- end -%>
-			</span>
-			<%- end -%>
-			<%- end -%>
-		</div>
-		<div class="page_infos" id="page_<%= page.id %>_infos">
-			<%= render :partial => 'page_infos', :locals => {:page => page} %>
-		</div>
-		<div class="sitemap_sitename">
-		<%- if page.redirects_to_external? -%>
-			<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= page.name %></span>
-			<span class="redirect_url">
-				&raquo; <%= _('Redirects to') %>:
-				<%= h page.urlname %>
-			</span>
-		<%- else -%>
-			<%- cycle_class = cycle('even', 'odd') -%>
-			<%= link_to_unless(
-				@sorting,
-				page.name,
-				edit_admin_page_path(page),
-				:title => _("edit_page"),
-				:class => "sitemap_pagename_link #{cycle_class}"
-			) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
-		<%- end -%>
-		</div>
-	</div>
-	<%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
-	<ul id="page_<%= page.id %>_children">
-		<%= render :partial => 'page', :collection => page.children %>
-	</ul>
-	<%- end -%>
+  <div class="sitemap_page<%= page.locked ? ' locked' : '' %>">
+    <div class="sitemap_left_images">
+      <%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
+      <span class="site_status <%= @sorting ? 'handle' : nil %> tooltip"></span>
+      <div class="tooltip_content" style="display: none;">
+        <h1><%= _("page_type") %>: <%= page.layout_display_name %></h1>
+        <p>
+          <%= page.humanized_status %>
+        </p>
+        <p>
+          <strong><%= _("created_at") %>:</strong><br />
+          <%= l(page.created_at) %> von <%= page.creator %>
+        </p>
+        <p>
+          <strong><%= _("updated_at") %>:</strong><br />
+          <%= l(page.updated_at) %> durch <%= page.updater %>
+        </p>
+        <%- if page.locked? -%>
+        <p>
+          <%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
+        </p>
+        <%- end -%>
+      </div>
+    </div>
+    <div class="sitemap_right_tools">
+      <%- unless @sorting -%>
+      <%- permitted_to?(:configure, :admin_pages) do -%>
+      <%= link_to_overlay_window(
+        render_icon('configure_page'),
+        configure_admin_page_path(page),
+        {
+          :title => _('edit_page_properties'),
+          :size => page.redirects_to_external? ? '390x270' : '380x600'
+        },
+        :class => '',
+        :title => _('edit_page_properties')
+      ) -%>
+      <%- end -%>
+      <%- permitted_to?([:new, :destroy, :copy], :admin_pages) do -%>
+      <span class="sitemap_sitetools">
+        <%- permitted_to?(:copy, :admin_pages) do -%>
+        <%= link_to(
+          render_icon("copy_page"),
+          insert_admin_clipboard_path(
+            :remarkable_type => page.class.to_s,
+            :remarkable_id => page.id
+          ),
+          :remote => true,
+          :method => :post,
+          :class => "",
+          :title => _("copy_page")
+        ) %>
+        <%- end -%>
+        <%- permitted_to?(:destroy, :admin_pages) do -%>
+        <%= link_to_confirmation_window(
+          render_icon('delete_page'),
+          _("confirm_to_delete_page"),
+          url_for(
+            :controller => 'pages',
+            :action => 'destroy',
+            :id => page.id
+          ),
+          {
+            :class => "",
+            :title => _("delete_page")
+          }
+        ) -%>
+        <%- end -%>
+        <%- permitted_to?(:new, :admin_pages) do -%>
+        <%= link_to_overlay_window(
+          render_icon('add_page'),
+          new_admin_page_path(:parent_id => page.id),
+          {
+            :title => _('create_page'),
+            :size => '405x150',
+            :overflow => true
+          },
+          :class => '',
+          :title => _('create_page')
+        ) -%>
+        <%- end -%>
+      </span>
+      <%- end -%>
+      <%- end -%>
+    </div>
+    <div class="page_infos" id="page_<%= page.id %>_infos">
+      <%= render :partial => 'page_infos', :locals => {:page => page} %>
+    </div>
+    <div class="sitemap_sitename">
+    <%- if page.redirects_to_external? -%>
+      <span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= page.name %></span>
+      <span class="redirect_url">
+        &raquo; <%= _('Redirects to') %>:
+        <%= h page.urlname %>
+      </span>
+    <%- else -%>
+      <%- cycle_class = cycle('even', 'odd') -%>
+      <%= link_to_unless(
+        @sorting,
+        page.name,
+        edit_admin_page_path(page),
+        :title => _("edit_page"),
+        :class => "sitemap_pagename_link #{cycle_class}"
+      ) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
+    <%- end -%>
+    </div>
+  </div>
+  <%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
+  <ul id="page_<%= page.id %>_children">
+    <%= render :partial => 'page', :collection => page.children %>
+  </ul>
+  <%- end -%>
 </li>

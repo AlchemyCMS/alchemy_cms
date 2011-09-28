@@ -1,7 +1,8 @@
 class Admin::EssenceFlashesController < AlchemyController
-  
+  unloadable
+
   filter_access_to :update
-  
+
   def update
     @essence_flash = EssenceFlash.find(params[:id])
     @essence_flash.update_attributes(params[:essence_flash])
@@ -9,5 +10,5 @@ class Admin::EssenceFlashesController < AlchemyController
       page << "Alchemy.closeCurrentWindow(); Alchemy.reloadPreview()"
     end
   end
-  
+
 end

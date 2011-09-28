@@ -1,13 +1,13 @@
 class EssenceRichtext < ActiveRecord::Base
-  
+
   acts_as_essence(
     :preview_text_column => :stripped_body
   )
-  
-  acts_as_ferret(:fields => {:stripped_body => {:store => :yes}}, :remote => false) if Alchemy::Configuration.parameter(:ferret) == true
+
+  acts_as_ferret(:fields => {:stripped_body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
   before_save :strip_content
-  before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
-  
+  before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
+
   # Saves the ingredient
   def save_ingredient(params, options = {})
     return true if params.blank?
@@ -15,19 +15,19 @@ class EssenceRichtext < ActiveRecord::Base
     self.public = options[:public]
     self.save
   end
-  
+
 private
-  
+
   def strip_content
     self.stripped_body = strip_tags(self.body)
   end
-  
+
   def check_ferret_indexing
     if self.do_not_index
       self.disable_ferret(:always)
     end
   end
-  
+
   # Stripping HTML Tags and only returns plain text.
   def strip_tags(html)
     return html if html.blank?
@@ -46,5 +46,5 @@ private
       html # already plain text
     end
   end
-  
+
 end

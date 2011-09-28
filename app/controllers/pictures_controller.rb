@@ -1,5 +1,7 @@
 class PicturesController < AlchemyController
   
+  unloadable
+  
   caches_page :show, :thumbnail, :zoom
   
   filter_access_to :thumbnail
@@ -19,7 +21,7 @@ class PicturesController < AlchemyController
       format.gif
     end
   end
-  
+
   def thumbnail
     @picture = Picture.find(params[:id])
     case params[:size]
@@ -46,7 +48,7 @@ class PicturesController < AlchemyController
       format.png
     end
   end
-  
+
   def zoom
     @picture = Picture.find(params[:id])
     respond_to do |format|

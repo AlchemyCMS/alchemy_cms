@@ -1,4 +1,4 @@
-<% remote_form_for [:admin, @content] do |f| %>
+<%= form_for [:admin, @content], :remote => true do |f| %>
 	<%= f.error_messages %>
 	<%= f.hidden_field :element_id %>
 	<table>

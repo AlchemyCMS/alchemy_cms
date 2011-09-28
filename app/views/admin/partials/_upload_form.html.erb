@@ -17,7 +17,7 @@
 <%- end -%>
 <p style="margin-top: 8px" id="choose_alternative_uploader">
 	<small>
-		<%= _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('#SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+		<%= raw _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('#SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
 	</small>
 </p>
 <div id="swfUploadFlashError" style="display: none">
@@ -51,7 +51,7 @@
 <div id="divStatus" style="display: none"></div>
 <div id="uploadProgressContainer"></div>
 
-<%- session_key = ActionController::Base.session_options[:key] -%>
+<%- session_key = ActionController::Base.session[:key] -%>
 
 <%- post_params = {
 	:query => params[:query] || '',
@@ -70,7 +70,7 @@
 			flash_url : "/javascripts/alchemy/swfupload/swfupload.swf",
 			flash9_url : "/javascripts/alchemy/swfupload/swfupload.swf",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
-			post_params: <%= post_params %>,
+			post_params: <%= post_params.html_safe %>,
 			file_size_limit : "500 MB",
 			file_types : '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
 			file_types_description : "<%= file_types_description %>",

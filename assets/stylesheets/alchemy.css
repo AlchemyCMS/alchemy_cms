@@ -275,7 +275,7 @@ div#user_info {
 div#sideboard {
 	float: right;
 	width: 240px;
-	margin-top: 54px;
+	padding-right: 16px;
 }
 
 div#license {
@@ -638,7 +638,7 @@ div.tip {
 	height: 22px;
 	line-height: 23px;
 	padding-left: 8px;
-	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
+	background: #b2ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
 	border-bottom: 1px solid #afafaf;
 	padding-top: 4px;
 	z-index: 5;
@@ -1118,9 +1118,7 @@ a.folder_link {
 	height: 21px;
 }
 
-.sitemap_sitetools .icon_spacer {
-	width: 16px;
-	height: 16px;
+.sitemap_sitetools .icon.blank {
 	margin-left: 2px;
 	float: left;
 	margin-top: 3px;
@@ -1421,6 +1419,10 @@ span.icon {
 	background: url(/images/alchemy/icons.png) no-repeat;
 	width: 16px;
 	height: 16px;
+}
+
+.icon.blank {
+  background: transparent;
 }
 
 span.icon.sort {
@@ -1738,22 +1740,10 @@ button.button {
 	font-size: 1em;
 }
 
-button.button img {
+.button img {
 	margin-right: 0;
 	width: 20px;
 	height: 20px;
-}
-
-button.button.disabled,
-button.button.disabled:hover,
-button.button.disabled:active {
-	color: #333;
-	text-shadow: none;
-	border-color: #ccc;
-	cursor: default;
-	background-image: none;
-	background-color: #f5f5f5;
-	padding: 1px 0 0;
 }
 
 #new_page_form tbody tr td.second_row .button {
@@ -1778,6 +1768,36 @@ a.button:active {
 	text-decoration: none;
 	text-shadow: none;
 	background-color: #e5e5e5;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active,
+input.button.disabled,
+input.button.disabled:hover,
+input.button.disabled:active,
+button.button.disabled,
+button.button.disabled:hover,
+button.button.disabled:active {
+	color: #333;
+	text-shadow: none;
+	border-color: #ccc;
+	cursor: default;
+	background-image: none;
+	background-color: #f5f5f5;
+	padding: 1px 0 0;
+}
+
+a.button.disabled img {
+	display: inline-block;
+	float: none;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active {
+	padding: 2px !important;
+	text-align: center;
 }
 
 label {
@@ -2806,7 +2826,7 @@ div#per_page_values {
 	font-size: 1.2em;
 }
 
-div.fieldWithErrors {
+div.field_with_errors {
 	display: inline;
 }
 

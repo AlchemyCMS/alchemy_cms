@@ -1,0 +1,347 @@
+#!/usr/bin/env ruby
+begin
+  require "rubygems"
+  require "thor"
+rescue LoadError
+  raise LoadError, "\n\nThor not installed. Please run: gem install thor\n\n"
+end
+
+class Alchemy < Thor
+  
+  include Thor::Actions
+  
+  desc "new PROJECT", "Creates a new Alchemy project."
+  method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm to use for this project. Leave blank for none."
+  def new(project)
+    project = project.downcase.strip.gsub(/ /, '_')
+    if yes?("Install Alchemy into ./#{project}? (y/N)")
+      
+      say "Installing...", :yellow
+      
+      if system "rails new #{project} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d mysql -JT"
+        
+        @application = project
+        
+        create_database_yml
+        
+        with_standard_set = yes?("\nDo you want to install Alchemys Standardset? (y/N)")
+        
+        %x[
+          cd ./#{project}
+          rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
+          rm ./public/index.html
+          rm ./public/images/rails.png
+        ]
+        
+        if options[:scm]
+          
+          %x[
+            cd ./#{project}
+            rm -rf ./tmp/*
+            rm -rf ./log/*
+            mkdir -p ./index
+            mkdir -p ./uploads
+          ]
+          
+          case options[:scm]
+            when 'svn'
+              server = ask("\nURL of your svn server? (http://svn.magiclabs.de/customers)")
+              server = "http://svn.magiclabs.de/customers" if server.empty?
+              repository = ask("\nName of the repository? (#{project})")
+              repository = project if repository.empty?
+              
+              say "\nImporting #{project} into #{server}/#{repository} ...", :yellow              
+              output = %x[svn import ./#{project} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
+              
+              if imported
+                
+                say "Removing and checking out again...", :yellow
+                %x[
+                  rm -rf ./#{project}
+                  svn co #{server}/#{repository}
+                ]
+                
+                say "Committing ignores...", :yellow
+                %x[
+                  cd ./#{project}
+                  svn propset svn:ignore '*' tmp/ log/ index/ uploads/
+                  svn propset svn:ignore 'alchemy' ./public/images ./public/stylesheets ./public/javascripts
+                  svn propset svn:ignore 'pictures' ./public
+                  svn propset svn:ignore 'database.yml' ./config
+                  svn commit -m 'set ignores'
+                ]
+                
+                # deploy.rb
+                if yes? "\nUse Capistrano for deployment? (y/N)"
+                  @repository_url = "#{server}/#{repository}"
+                  
+                  # ssh settings
+                  @ssh_user = ask "SSH User:"
+                  @ssh_password = ask "SSH Password:"
+                  standard_port = 12312
+                  @ssh_port = ask "SSH Port (#{standard_port}):"
+                  @ssh_port = standard_port if @ssh_port.empty?
+                  
+                  # db settings
+                  @db_user = ask "Database User (#{@ssh_user}):"
+                  @db_user = @ssh_user if @db_user.empty?
+                  @db_password = ask "Database Password:"
+                  standard_db_name = "usr_#{@db_user}_1"
+                  @db_name = ask "Database Name (#{standard_db_name}):"
+                  @db_name = standard_db_name if @db_name.empty?
+                  standard_host = "localhost"
+                  @db_host = ask "Database Host (#{standard_host}):"
+                  @db_host = standard_host if @db_host.empty?
+                  standard_socket = '/var/run/mysqld/mysqld.sock'
+                  @db_socket = ask "Database Socket (#{standard_socket}):"
+                  @db_socket = standard_socket if @db_socket.empty?
+                  
+                  # deploy_path
+                  standard_path = "/var/www/#{@ssh_user}/html/alchemy"
+                  @deploy_path = ask "Deploy Path (#{standard_path}):"
+                  @deploy_path = standard_path if @deploy_path.empty?
+                  
+                  # scm settings
+                  @scm_user = ask "Subversion User:"
+                  @scm_password = ask "Subversion Password:"
+                  
+                  # server settings
+                  @server = ask "Hostname/IP of server to deploy to:"
+                  
+                  create_deploy_rb
+                  
+                  say "\nCapifying...", :yellow
+                  
+                  %x[
+                    cd #{project}
+                    capify .
+                    svn add ./config/deploy.rb ./Capfile
+                    svn commit -m 'capified'
+                  ]
+                  
+                end
+                
+              else
+                say "Error while importing!", :red
+              end
+              
+            when 'git'
+              gitignore = <<-GIT
+                log/*
+                tmp/*
+                .DS_Store
+                upload/*
+                index/*
+                public/**/alchemy
+                public/pictures
+                config/database.yml
+              GIT
+              %x[
+                cd #{project}
+                echo #{gitignore} > #{project}/.gitignore
+                touch ./index/.gitkeep
+                touch ./uploads/.gitkeep
+                git init .
+                git commit -am 'inital commit'
+              ]
+          end
+          
+        end
+        
+        %x[
+          cd ./#{project}
+          rake alchemy:prepare db:create db:migrate db:seed
+        ]
+        
+        readme = <<-EOF
+\nSuccessfully installed Alchemy into ./#{project}
+
+Next steps:
+
+1. Go into your projects folder:
+
+  cd ./#{project}
+
+2. Start your local Rails server:
+
+  rails server
+
+3. Open a browser and enter the following URL:
+
+  http://localhost:3000
+
+4. Follow the instructions to complete the installation!
+
+Thank you for using Alchemy!
+
+EOF
+        say readme, :green
+        
+      else
+        say "\nError while installation!\n", :red
+      end
+      
+    else
+      return
+    end
+  end
+  
+private
+
+  def create_database_yml
+    @db_root_password = ask("\nPlease provide your local root password for mysql (Leave blank for none):")
+    local_standard_socket = '/tmp/mysql.sock'
+    @db_local_socket = ask("\nPlease provide your local mysql socket (#{local_standard_socket}):")
+    @db_local_socket = local_standard_socket if @db_local_socket.empty?
+    create_file "./#{@application}/config/database.yml" do
+<<-DATABASE
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: #{@application}_development
+  pool: 5
+  username: root
+  password: #{@db_root_password}
+  socket: #{@db_local_socket}
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: #{@application}_test
+  pool: 5
+  username: root
+  password: #{@db_root_password}
+  socket: #{@db_local_socket}
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: #{@application}_production
+  pool: 5
+  username: root
+  password: #{@db_root_password}
+  socket: #{@db_local_socket}
+DATABASE
+    end
+  end
+  
+  def create_deploy_rb
+    create_file "./#{@application}/config/deploy.rb" do
+<<-DEPLOY
+# set the applicationname here
+set :application, "#{@application}"
+
+# set the apps repository url
+set :repository_url, "#{@repository_url}"
+
+# ssh user settings. please change to customers
+set :user, "#{@ssh_user}"
+set :password, "#{@ssh_password}"
+set :port, #{@ssh_port}
+set :use_sudo, false
+
+# database
+set :database_user, "#{@db_user}"
+set :database_password, "#{@db_password}"
+set :database_name, "#{@db_name}"
+set :database_host, "#{@db_host}"
+set :database_socket, "#{@db_socket}"
+
+# domain names
+role :app, "#{@server}"
+role :web, "#{@server}"
+role :db,  "#{@server}", :primary => true
+
+# set the public webserver path
+set :deploy_to, "#{@deploy_path}"
+
+set :scm, :subversion
+set :scm_user, "#{@scm_user}"
+set :scm_password, "#{@scm_password}"
+
+set :repository, Proc.new{ "--username \#{scm_user} --password \#{scm_password} \#{repository_url}" }
+
+after "deploy:setup", "alchemy:shared_folders:create"
+after "deploy:setup", "alchemy:database_yml:create"
+
+after "deploy:symlink", "alchemy:shared_folders:symlink"
+after "deploy:symlink", "alchemy:database_yml:symlink"
+
+before "deploy:restart", "deploy:migrate"
+before "deploy:restart", "alchemy:db:migrate"
+
+before "deploy:restart", "deploy:seed"
+before "deploy:restart", "alchemy:assets:copy"
+
+after "deploy", "deploy:cleanup"
+
+namespace :logs do
+  desc "show last 50 lines of production.log"
+  task :tail do
+    run "tail -n50 \#{shared_path}/log/production.log"
+  end
+
+  desc "watch tail of production.log and wait for additional data to be appended to the input"
+  task :watch do
+    stream("tail -f \#{shared_path}/log/production.log")
+  end
+end
+
+namespace :alchemy do
+
+  namespace :database_yml do
+
+    desc "Creates the database.yml file for server database"
+    task :create, :roles => :app do
+      db_config = ERB.new <<-EOF
+      production:
+        adapter: mysql2
+        encoding: utf8
+        database: \#{database_name}
+        username: \#{database_user}
+        password: \#{database_password}
+        host: \#{database_host}
+        socket: \#{database_socket}
+      EOF
+      run "mkdir -p \#{shared_path}/config" 
+      put db_config.result, "\#{shared_path}/config/database.yml"
+    end
+
+    desc ""
+    task :symlink do
+      run "ln -nfs \#{shared_path}/config/database.yml \#{current_path}/config/"
+    end
+
+  end
+
+end
+
+namespace :deploy do
+  desc "Overwrite for the internal Capistrano deploy:start task."
+  task :start, :roles => :app do
+    run "echo 'Nothing to start'"
+  end
+
+  desc "Restart the server"
+  task :restart, :roles => :app do
+    run "touch \#{current_path}/tmp/restart.txt"
+  end
+
+  desc 'Seeds the database'
+    task :seed, :roles => :app, :except => { :no_release => true } do
+      run "cd \#{current_path} && RAILS_ENV=production rake db:seed"
+  end
+end
+DEPLOY
+    end
+  end
+  
+end
+
+Alchemy.start

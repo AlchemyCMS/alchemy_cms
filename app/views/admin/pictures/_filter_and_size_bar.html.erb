@@ -1,8 +1,8 @@
 <div class="image_assign_filter_and_image_sizing">
 	<div class="button_with_label">
-		<%= link_to_remote(
+		<%= link_to(
 			render_icon('zoom-out'),
-			:url => {
+			url_for({
 				:action => "archive_overlay",
 				:size => "small",
 				:content_id => @content,
@@ -11,15 +11,14 @@
 				:query => params[:query],
 				:remote => true,
 				:options => @options
-			},
-			:html => {
-				:title => _("small_thumbnails"),
-				:class => "icon_button"
-			}
+			}),
+			:remote => true,
+			:title => _("small_thumbnails"),
+			:class => "icon_button"
 		) %>
-		<%= link_to_remote(
+		<%= link_to(
 			render_icon('zoom-equal'),
-			:url => {
+			url_for({
 				:action => "archive_overlay",
 				:size => "medium",
 				:content_id => @content,
@@ -28,15 +27,14 @@
 				:query => params[:query],
 				:remote => true,
 				:options => @options
-			},
-			:html => {
-				:title => _("medium_thumbnails"),
-				:class => "icon_button"
-			}
+			}),
+			:remote => true,
+			:title => _("medium_thumbnails"),
+			:class => "icon_button"
 		) %>
-		<%= link_to_remote(
+		<%= link_to(
 			render_icon('zoom-in'),
-			:url => {
+			url_for({
 				:action => "archive_overlay",
 				:size => "large",
 				:content_id => @content,
@@ -45,11 +43,10 @@
 				:query => params[:query],
 				:remote => true,
 				:options => @options
-			},
-			:html => {
-				:title => _("big_thumbnails"),
-				:class => "icon_button"
-			}
+			}),
+			:remote => true,
+			:title => _("big_thumbnails"),
+			:class => "icon_button"
 		) %><br />
 		<label class="sup"><%= _('Image size') %></label>
 		<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
