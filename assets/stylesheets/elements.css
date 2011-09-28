@@ -790,43 +790,6 @@ div.content_editor:hover label a.icon_button.small {
 	display: none;
 }
 
-.content_rtf_editor div.editable_area_container {
-	padding: 4px;
-	border: 1px solid #c3c3c3;
-	border-top-style: none;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	background: white url(/images/alchemy/gui/shading_inv.png) repeat-x 0 -5px;
-}
-
-.content_rtf_editor div.editable_area {
-	outline: none;
-	overflow-y: visible;
-	overflow-x: auto;
-	min-height: 105px;
-}
-
-.content_rtf_editor .editable_area a {
-	color: #1c18f2;
-	text-decoration: underline;
-}
-
-div.nicEdit-panelContain {
-	-webkit-border-radius: 2px;
-	background-repeat: repeat-x;
-	background-position: 0 5px;
-}
-
-div.nicEdit-button {
-	background-color: #ededed;
-}
-
-.nicEdit-main {
-	background-color: white;
-	outline: none;
-}
-
 div.pictures_for_element {
 	overflow: auto;
 	margin-top: 4px;
@@ -840,7 +803,7 @@ textarea {
 	border-style: inset;
 	border-width: 1px;
 	border-radius: 3px;
-	height: 200px;
+	height: 100px;
 }
 
 .text_short_float_left {
