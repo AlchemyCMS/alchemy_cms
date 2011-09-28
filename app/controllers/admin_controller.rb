@@ -62,6 +62,7 @@ class AdminController < AlchemyController
       @user_session.destroy
     end
     flash[:info] = message
+    debugger
     redirect_to root_url
   end
 
