@@ -127,7 +127,7 @@ module AlchemyHelper
         Looking for #{partial_name}, but not found
         neither in #{path1}
         nor in #{path2}
-        Use ./script/generate elements to generate them.
+        Use rails generate elements to generate them.
         Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
       ))
       render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
