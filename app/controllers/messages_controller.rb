@@ -42,8 +42,6 @@
 
 class MessagesController < AlchemyController
   
-  unloadable
-  
   helper :pages
 
   def new#:nodoc:

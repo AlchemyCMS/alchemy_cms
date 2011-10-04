@@ -1,5 +1,4 @@
 class Admin::ClipboardController < AlchemyController
-  unloadable
 
   before_filter :set_translation
 

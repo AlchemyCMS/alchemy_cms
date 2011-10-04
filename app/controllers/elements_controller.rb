@@ -1,7 +1,5 @@
 class ElementsController < AlchemyController
   
-  unloadable
-  
   filter_access_to [:show], :attribute_check => true
   layout false
 

@@ -1,6 +1,5 @@
 class Admin::ElementsController < AlchemyController
   
-  unloadable
   before_filter :set_translation
   
   filter_access_to [:new, :create, :order, :index], :attribute_check => false

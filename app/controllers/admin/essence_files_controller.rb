@@ -1,5 +1,4 @@
 class Admin::EssenceFilesController < AlchemyController
-  unloadable
 
   filter_access_to :all
 

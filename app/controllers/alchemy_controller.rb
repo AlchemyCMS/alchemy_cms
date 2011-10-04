@@ -9,8 +9,6 @@ class AlchemyController < ApplicationController
   include Alchemy
   include Userstamp
   
-  unloadable
-  
   protect_from_forgery
   
   before_filter :init_gettext

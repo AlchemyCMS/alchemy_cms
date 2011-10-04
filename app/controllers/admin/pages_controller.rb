@@ -1,5 +1,4 @@
 class Admin::PagesController < AlchemyController
-  unloadable
   
   helper :pages
   

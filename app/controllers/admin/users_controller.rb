@@ -1,5 +1,4 @@
 class Admin::UsersController < AlchemyController
-  unloadable
 
   filter_access_to [:edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :new, :create], :attribute_check => false

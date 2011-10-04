@@ -1,7 +1,5 @@
 class Admin::AttachmentsController < AlchemyController
 
-  unloadable
-
   protect_from_forgery :except => [:create]
   
   before_filter :set_translation

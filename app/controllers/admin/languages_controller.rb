@@ -1,5 +1,5 @@
 class Admin::LanguagesController < AlchemyController
-  unloadable
+  
   filter_resource_access
   before_filter :set_translation
   

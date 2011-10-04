@@ -1,5 +1,4 @@
 class Admin::EssenceFlashesController < AlchemyController
-  unloadable
 
   filter_access_to :update
 

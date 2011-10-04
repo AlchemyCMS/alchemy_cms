@@ -1,5 +1,4 @@
 class Admin::EssenceAudiosController < AlchemyController
-  unloadable
 
   filter_access_to :update
 

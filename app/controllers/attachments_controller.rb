@@ -1,7 +1,5 @@
 class AttachmentsController < AlchemyController
   
-  unloadable
-  
   # sends file inline. i.e. for viewing pdfs/movies in browser
   def show
     @attachment = Attachment.find(params[:id])

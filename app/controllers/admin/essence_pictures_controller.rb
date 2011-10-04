@@ -1,5 +1,4 @@
 class Admin::EssencePicturesController < AlchemyController
-  unloadable
 
   filter_access_to :all
 

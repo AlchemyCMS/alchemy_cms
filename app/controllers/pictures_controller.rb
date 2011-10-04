@@ -1,7 +1,5 @@
 class PicturesController < AlchemyController
   
-  unloadable
-  
   caches_page :show, :thumbnail, :zoom
   
   filter_access_to :thumbnail
