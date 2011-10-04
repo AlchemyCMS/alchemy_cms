@@ -7,8 +7,8 @@
 		<%- action_url = create_or_assign_url(picture_to_assign, @options) -%>
 		<%- action_method = @content.blank? ? 'post' : 'put' -%>
 	<%- end -%>
-		<div class="overlay_image_spinner spinner">
-			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
+		<div class="image_spinner spinner">
+			<%= image_tag("alchemy/image_loader.gif", :alt => '') %>
 		</div>
 		<%= link_to(
 			image_tag(
@@ -17,13 +17,14 @@
 					:size => size
 				),
 				:alt => picture_to_assign.name,
-				:onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .overlay_image_spinner');",
+				:onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .image_spinner');",
 				:style => "display: none;"
 			),
 			action_url,
 			:remote => true,
 			:method => action_method,
-			:title => _("assign_image")
+			:title => _("assign_image"),
+			:class => 'thumbnail_background'
 		) %>
 	</div>
 	<div class="picture_to_assign_name" title="<%= picture_to_assign.name %>">

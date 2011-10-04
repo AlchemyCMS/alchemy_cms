@@ -716,7 +716,7 @@ div#page {
 	height: 16px;
 	position: absolute;
 	background-color: white;
-	top: 4px;
+	top: 3px;
 	right: 4px;
 	padding: 1px;
 	z-index: 1;
@@ -2115,10 +2115,14 @@ div.spinner {
 	left: 0;
 }
 
-div.archive_image_spinner img {
+div.image_spinner {
+	background-color: #666;
+}
+
+div.image_spinner img {
 	position: absolute;
 	z-index: 0;
-	top: 35px;
+	top: 32px;
 	left: 40px;
 }
 
@@ -2136,10 +2140,6 @@ div.archive_image_spinner img {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: #999 0px 1px 3px;
-	-moz-box-shadow: #999 0px 1px 3px;
-	-o-box-shadow: #999 0px 1px 3px;
-	box-shadow: #999 0px 1px 3px;
 }
 
 .picture_detail .picture_image {
@@ -2921,10 +2921,6 @@ div.assign_image_list_detail {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: #999 0px 1px 3px;
-	-moz-box-shadow: #999 0px 1px 3px;
-	-o-box-shadow: #999 0px 1px 3px;
-	box-shadow: #999 0px 1px 3px;
 }
 
 #assign_image_list {
@@ -2948,45 +2944,47 @@ div.assign_image_list_detail {
 }
 
 div.assign_image_list_image {
-	background-color: #ededed;
 	text-align: center;
 	overflow: hidden;
+	position: relative;
 }
 
-div.overlay_image_spinner img {
-	position: absolute;
-	z-index: 0;
+.assign_image_list_detail.small div.image_spinner img {
+	top: 14px;
+	left: 25px;
 }
 
-.assign_image_list_detail.small div.overlay_image_spinner img {
-	top: 19px;
-	left: 26px;
+.assign_image_list_detail.medium div.image_spinner img {
+	top: 42px;
+	left: 64px;
 }
 
-.assign_image_list_detail.medium div.overlay_image_spinner img {
-	top: 48px;
-	left: 67px;
-}
-
-.assign_image_list_detail.large div.overlay_image_spinner img {
-	top: 80px;
-	left: 103px;
-}
-
-#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image {
-	height: 60px;
-}
-
-#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image {
-	height: 120px;
-}
-
-#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image {
-	height: 180px;
+.assign_image_list_detail.large div.image_spinner img {
+	top: 74px;
+	left: 108px;
 }
 
 #assign_image_list div.assign_image_list_image a {
-	display: block;
+	width: 160px;
+	height: 120px;
+}
+
+#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image,
+#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image a {
+	width: 80px;
+	height: 60px;
+}
+
+#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image,
+#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image a {
+	width: 160px;
+	height: 120px;
+}
+
+#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image,
+#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image a {
+	width: 240px;
+	height: 180px;
 }
 
 #assign_image_list div.assign_image_list_image img {
