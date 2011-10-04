@@ -1,17 +1,20 @@
-# This is for will_paginate
+# A custom WillPaginate LinkRenderer Class for rendering remote links.
+require 'will_paginate/view_helpers/action_view'
+
 module Alchemy
-  class RemotePaginationLinkRenderer < WillPaginate::LinkRenderer
-    
+  class RemotePaginationLinkRenderer < WillPaginate::ActionView::LinkRenderer
+
     def prepare(collection, options, template)
       @remote = options.delete(:remote) || {}
-      super
+      super(collection, options, template)
     end
-    
-  protected
-    
-    def page_link(page, text, attributes = {})
-      @template.link_to(text, url_for(page), {:remote => true, :method => :get}.merge(@remote).merge(attributes))
+
+  private
+
+    def link(text, target, attributes = {})
+      attributes["data-remote"] = "true" if @remote
+      super(text, target, attributes)
     end
-    
+
   end
 end
