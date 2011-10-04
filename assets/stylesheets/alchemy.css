@@ -2898,7 +2898,7 @@ textarea#essence_picture_caption {
 	border-radius: 3px;
 }
 
-div.image_assign_filter_and_image_sizing {
+div#image_assign_filter_and_image_sizing {
 	width: 100%;
 	height: 40px;
 }
@@ -3087,7 +3087,7 @@ input#user_admin {
 	font: 12px "Courier New", Courier, mono;
 }
 
-div.image_assign_filter_and_image_sizing form {
+#alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
 	float: right;
 	width: 290px;
 	height: 25px;
@@ -3095,13 +3095,13 @@ div.image_assign_filter_and_image_sizing form {
 	padding: 0 !important;
 }
 
-div.image_assign_filter_and_image_sizing form div.search_field {
+div#image_assign_filter_and_image_sizing form div.search_field {
 	margin-right: 4px;
 	float: left;
 	position: relative;
 }
 
-div.image_assign_filter_and_image_sizing form input.button {
+div#image_assign_filter_and_image_sizing form input.button {
 	float: right;
 }
 

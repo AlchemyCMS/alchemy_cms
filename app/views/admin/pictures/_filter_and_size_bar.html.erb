@@ -1,4 +1,4 @@
-<div class="image_assign_filter_and_image_sizing">
+<div id="image_assign_filter_and_image_sizing">
 	<div class="button_with_label">
 		<%= link_to(
 			render_icon('zoom-out'),
@@ -9,7 +9,6 @@
 				:element_id => @element,
 				:swap => @swap,
 				:query => params[:query],
-				:remote => true,
 				:options => @options
 			}),
 			:remote => true,
@@ -25,7 +24,6 @@
 				:element_id => @element,
 				:swap => @swap,
 				:query => params[:query],
-				:remote => true,
 				:options => @options
 			}),
 			:remote => true,
@@ -41,7 +39,6 @@
 				:element_id => @element,
 				:swap => @swap,
 				:query => params[:query],
-				:remote => true,
 				:options => @options
 			}),
 			:remote => true,
@@ -81,7 +78,6 @@
 	<%= render(
 		:partial => 'admin/partials/remote_search_form',
 		:locals => {
-			:with => "'remote=true'+'&element_id='+jQuery('#element_id').val()+'&content_id='+jQuery('#content_id').val()+'&swap='+jQuery('#swap').val()+'&options='+jQuery('#options').val()+'&size='+jQuery('input#overlay_thumbnails_size').val()",
 			:action => 'archive_overlay'
 		}
 	) %>
