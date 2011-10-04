@@ -68,7 +68,7 @@ class Admin::PicturesController < AlchemyController
       :page => params[:page] || 1,
       :per_page => pictures_per_page_for_size(@size)
     ).order(:name)
-    @options = params[:options]
+    @options = params[:options].is_a?(String) ? Rack::Utils.parse_query(params[:options]) : params[:options]
     respond_to do |format|
       format.html {
         render :layout => false

@@ -1,14 +1,14 @@
 <%= form_tag(
 	url_for({
 		:action => (action || 'index'),
-		:options => @options
+		:options => @options,
+		:size => @size
 	}),
 	:remote => true,
 	:method => :get
 ) do %>
 	<%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id) %>
 	<%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id) %>
-	<%= hidden_field_tag "remote", 'true' %>
 	<div class="search_field">
 	<%= render_icon('search') %>
 		<%= text_field_tag(
@@ -23,7 +23,8 @@
 				:action => action,
 				:element_id => @element.blank? ? "" : @element.id,
 				:content_id => @content.blank? ? "" : @content.id,
-				:remote => true
+				:options => @options,
+				:size => @size
 			}),
 			:remote => true,
 			:class => "search_field_clear",

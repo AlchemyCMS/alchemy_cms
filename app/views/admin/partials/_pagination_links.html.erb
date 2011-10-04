@@ -1,7 +1,5 @@
-<%- if items.respond_to?(:total_pages) -%>
-  <%= will_paginate(
-    items,
-    :previous_label => '&laquo; ' + _('pagination.previous_page'),
-    :next_label => _('pagination.next_page') + ' &raquo;'
-  ) %>
-<%- end -%>
+<%= will_paginate(
+	items,
+	:previous_label => '&laquo; ' + _('pagination.previous_page'),
+	:next_label => _('pagination.next_page') + ' &raquo;'
+) %>
