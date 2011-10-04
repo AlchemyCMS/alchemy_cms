@@ -34,6 +34,7 @@ authorization do
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
     has_permission_on :admin_users, :to => [:index]
     has_permission_on :admin_trash, :to => [:index, :clear]
+    has_permission_on :admin_clipboard, :to => [:index, :insert, :remove, :clear]
   end
   
   role :editor do
