@@ -172,13 +172,15 @@ protected
 
   def permission_denied
     if current_user
-      flash[:error] = _('You are not authorized')
       if current_user.role == 'registered'
         redirect_to root_path
       else
         if request.referer == login_url
           render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
+        elsif request.xhr?
+          render :partial => 'admin/partials/flash', :locals => {:message => _('You are not authorized'), :flash_type => 'warning'}
         else
+          flash[:error] = _('You are not authorized')
           redirect_to admin_path
         end
       end
