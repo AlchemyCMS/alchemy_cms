@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   match '/pictures/zoom/:id/picture.:format' => 'pictures#zoom',
     :as => :zoom_picture
   match  '/pictures/thumbnails/:id/:size(/:crop_from)(/:crop_size)/thumbnail.png' => 'pictures#thumbnail',
-    :as => :thumbnail
+    :as => :thumbnail, :defaults => { :format => 'png' }
   match '/:lang' => 'pages#show',
     :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
     :as => :show_language_root

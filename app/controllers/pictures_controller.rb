@@ -42,9 +42,6 @@ class PicturesController < AlchemyController
     elsif params[:crop] == 'crop'
       @default_crop = true
     end
-    respond_to do |format|
-      format.png
-    end
   end
 
   def zoom
