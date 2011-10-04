@@ -1,14 +1,20 @@
 if defined?(Rails) && Rails::VERSION::MAJOR == 3
-  require 'alchemy/engine'
+  require 'acts_as_list'
+  require 'attachment_magic'
+  require 'authlogic'
+  require 'awesome_nested_set'
+  require 'dynamic_form'
+  require 'fleximage'
+  require 'gettext_i18n_rails'
+  require 'tinymce_hammer'
+  require 'userstamp'
+  require 'will_paginate'
+  require 'yaml'
   require 'extensions/hash'
   require 'extensions/array'
   require 'extensions/action_view'
   require 'alchemy/version'
-  require 'authlogic'
-  require 'will_paginate'
-  require 'tinymce_hammer'
-  require 'gettext_i18n_rails'
-  require 'userstamp'
+  require 'alchemy/engine'
   %w(config essence page_layout controller).each do |class_name|
     require File.join(File.dirname(__FILE__), "alchemy", class_name)
   end

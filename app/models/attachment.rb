@@ -1,5 +1,3 @@
-require 'attachment_magic'
-
 class Attachment < ActiveRecord::Base
 
   stampable

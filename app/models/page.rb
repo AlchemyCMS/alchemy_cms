@@ -1,7 +1,4 @@
 # encoding: UTF-8
-
-require 'awesome_nested_set'
-
 class Page < ActiveRecord::Base
   
   acts_as_nested_set

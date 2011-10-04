@@ -1,5 +1,3 @@
-require 'gettext_i18n_rails'
-
 class User < ActiveRecord::Base
 
   model_stamper

@@ -1,6 +1,3 @@
-require 'yaml'
-require 'acts_as_list'
-
 class Element < ActiveRecord::Base
   
   # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
