@@ -1338,7 +1338,7 @@ msgid "module: dashboard"
 msgstr "Home"
 
 #: lib/alchemy_core_modules.rb:8
-msgid "module: images"
+msgid "module: pictures"
 msgstr "Bilder"
 
 #: lib/alchemy_core_modules.rb:9

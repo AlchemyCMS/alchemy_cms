@@ -1028,9 +1028,13 @@ module AlchemyHelper
       js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
       javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)
     end
-    content_for(:stylesheets) do 
-      css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
-      stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s)
+    css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
+    content_for(:stylesheets) do
+      stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s, :media => 'screen')
+    end
+    content_for(:stylesheets) do
+      print_set = css_set.clone << 'alchemy/print'
+      stylesheet_link_tag(print_set, :cache => 'alchemy/' + setname.to_s + '-print', :media => 'print')
     end
   end
 

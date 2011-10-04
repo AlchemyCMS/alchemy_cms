@@ -192,7 +192,7 @@ alchemy_plugins:
       name: 'module: library'
       icon: library
       sub_navigation:
-        - name: 'module: images'
+        - name: 'module: pictures'
           controller: 'admin/pictures'
           action: index
         - name: 'module: attachments'

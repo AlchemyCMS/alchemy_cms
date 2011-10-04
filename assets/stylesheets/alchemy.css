@@ -103,6 +103,124 @@ div.login_signup_box {
 	margin: 2em auto;
 }
 
+/* @group Pagination */
+
+div.archive_pagination_links {
+	position: relative;
+	margin-bottom: 16px;
+	margin-top: 8px;
+	height: 19px;
+	text-align: center;
+	line-height: 21px;
+}
+
+div.archive_pagination_links span.pagination_current_page {
+	background-position: 0 -21px;
+	font-weight: bold;
+	color: #333;
+}
+
+div.archive_pagination_links .first_page {
+	position: absolute;
+	left: 8px;
+	top: -2px;
+}
+
+.archive_pagination_links .last_page {
+	position: absolute;
+	right: 8px;
+	top: -2px;
+}
+
+.archive_pagination_links .previous_page {
+	position: absolute;
+	left: 32px;
+	top: -2px;
+}
+
+.archive_pagination_links .next_page {
+	position: absolute;
+	right: 32px;
+	top: -2px;
+}
+
+.archive_pagination_links span, .archive_pagination_links a {
+	padding: 0;
+	color: #333;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
+}
+
+.archive_pagination_links span {
+	color: #9a9a9a;
+}
+
+div.archive_pagination_links a:active {
+	text-decoration: none;
+	background-position: 0 -21px;
+}
+
+div.pagination {
+	text-align: center;
+	line-height: 24px;
+	height: 24px;
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+div.pagination a,
+div.pagination span,
+div.pagination em {
+	padding: 4px 8px;
+	border: 1px solid #c0c0c0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
+	height: 23px;
+	line-height: 23px;
+	font-style: normal;
+}
+
+div.pagination a:hover {
+	background-color: #e6f0f5;
+	color: #333;
+	border: 1px solid #888;
+	text-shadow: 0 1px 1px #fff;
+	text-decoration: none;
+}
+
+div.pagination .current {
+	background-color: #e6f0f5;
+	color: #333;
+	border: 1px solid #888;
+	text-shadow: 0px 1px 1px #fff;
+}
+
+div.pagination .previous_page {
+	margin-right: 16px;
+}
+
+div.pagination .next_page {
+	margin-left: 16px;
+}
+
+div.pagination .disabled {
+	color: #c0c0c0;
+}
+
+#assign_image_list div.pagination {
+	margin-bottom: 8px;
+}
+
+/* @end */
+
 #login table tbody tr td.label {
 	width: 155px;
 }
@@ -2115,66 +2233,6 @@ div.archive_image_spinner img {
 	border: 1px dashed;
 }
 
-div.archive_pagination_links {
-	position: relative;
-	margin-bottom: 16px;
-	margin-top: 8px;
-	height: 19px;
-	text-align: center;
-	line-height: 21px;
-}
-
-div.archive_pagination_links span.pagination_current_page {
-	background-position: 0 -21px;
-	font-weight: bold;
-	color: #333;
-}
-
-div.archive_pagination_links .first_page {
-	position: absolute;
-	left: 8px;
-	top: -2px;
-}
-
-.archive_pagination_links .last_page {
-	position: absolute;
-	right: 8px;
-	top: -2px;
-}
-
-.archive_pagination_links .previous_page {
-	position: absolute;
-	left: 32px;
-	top: -2px;
-}
-
-.archive_pagination_links .next_page {
-	position: absolute;
-	right: 32px;
-	top: -2px;
-}
-
-.archive_pagination_links span, .archive_pagination_links a {
-	padding: 0;
-	color: #333;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	width: 21px;
-	height: 21px;
-	display: inline-block;
-	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
-}
-
-.archive_pagination_links span {
-	color: #9a9a9a;
-}
-
-div.archive_pagination_links a:active {
-	text-decoration: none;
-	background-position: 0 -21px;
-}
-
 a.rename_link {
 	background: url(/images/alchemy/icons/edit.png) 0 0;
 }
@@ -2605,54 +2663,6 @@ div#images {
 	overflow: visible;
 }
 
-div.pagination {
-	text-align: center;
-	line-height: 24px;
-	height: 24px;
-	width: 100%;
-	margin-bottom: 16px;
-}
-
-div.pagination .prev_page {
-	margin-right: 16px;
-}
-
-div.pagination .next_page {
-	margin-left: 16px;
-}
-
-div.pagination a,
-div.pagination span {
-	padding: 4px 8px;
-	border: 1px solid #c0c0c0;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	height: 23px;
-	line-height: 23px;
-}
-
-div.pagination a:hover {
-	background-color: #e6f0f5;
-	color: #333;
-	border: 1px solid #888;
-	text-shadow: 0 1px 1px #fff;
-	text-decoration: none;
-}
-
-div.pagination .disabled {
-	color: #c0c0c0;
-}
-
-div.pagination .current {
-	background-color: #e6f0f5;
-	color: #333;
-	border: 1px solid #888;
-	text-shadow: 0px 1px 1px #fff;
-}
-
 #toolbar_links {
 	line-height: 21px;
 	margin-left: 8px;
@@ -3075,10 +3085,6 @@ input#user_admin {
 	padding-top: 3px;
 	display: block;
 	font: 12px "Courier New", Courier, mono;
-}
-
-#assign_image_list div.pagination {
-	margin-bottom: 8px;
 }
 
 div.image_assign_filter_and_image_sizing form {
