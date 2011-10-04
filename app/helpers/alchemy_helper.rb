@@ -1168,5 +1168,17 @@ module AlchemyHelper
   def necessary_options_for_cropping_provided?(options)
     options[:crop].to_s == 'true' && !options[:image_size].blank?
   end
+
+  def render_alchemy_title
+    key = 'module: ' + controller_name
+    if content_for?(:title)
+      title = content_for(:title)
+    elsif FastGettext.key_exist?(key)
+      title = _(key)
+    else
+      title = controller_name.humanize
+    end
+    "Alchemy CMS - #{title}"
+  end
   
 end
