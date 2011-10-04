@@ -16,6 +16,8 @@ if defined?(Tinymce::Hammer)
     :content_css => "/stylesheets/alchemy/alchemy_tinymce_content.css",
     :dialog_type => "modal",
     :width => "100%",
+    :theme_advanced_resizing => true,
+    :theme_advanced_resize_horizontal => false,
     :theme_advanced_toolbar_align => 'left',
     :theme_advanced_toolbar_location => 'top',
     :theme_advanced_statusbar_location => 'bottom',
