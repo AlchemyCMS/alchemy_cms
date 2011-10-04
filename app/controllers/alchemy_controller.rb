@@ -188,6 +188,7 @@ protected
       flash[:info] = _('Please log in')
       if request.xhr?
         render :update do |page|
+          page.call "Alchemy.closeCurrentWindow"
           page.redirect_to login_path
         end
       else
