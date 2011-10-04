@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   root :to => 'pages#show'
   
+  resources :messages, :only => [:index, :new, :create]
+  
   match '/admin' => 'admin#index',
     :as => :admin
   match '/admin/login' => 'admin#login',
@@ -35,8 +37,7 @@ Rails.application.routes.draw do
   
   resources :user_sessions
   resources :elements, :only => :show
-  resources :mails
-  
+
   namespace :admin do 
   
     resources :users
@@ -119,7 +120,7 @@ Rails.application.routes.draw do
     
     resources :languages
     
-    # OHOHOH lovely Rails! Why, oh why I alwas have to hack thou?
+    # OHOHOH lovely Rails! Why, oh why I always have to hack thou?
     resource :clipboard, :only => :index, :controller => 'clipboard' do
       collection do
         get :index
@@ -129,7 +130,7 @@ Rails.application.routes.draw do
       end
     end
     
-    # OHOHOH lovely Rails! Why, oh why I alwas have to hack thou?
+    # OHOHOH lovely Rails! Why, oh why I always have to hack thou?
     resource :trash, :only => :index, :controller => 'trash' do
       collection do
         get :index

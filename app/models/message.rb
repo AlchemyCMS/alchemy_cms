@@ -31,21 +31,33 @@
 #         :message: blank_email
 
 class Message
-  
+
+  @@config = Alchemy::Config.get(:mailer)
+
+  extend ActiveModel::Naming
   include ActiveModel::Validations
-  
+  include ActiveModel::Conversion
+
   attr_accessor :contact_form_id, :ip
-  
-  Alchemy::Config.get(:mailer)[:fields].each do |field|
+  @@config[:fields].each do |field|
     attr_accessor field.to_sym
   end
-  
-  validate_fields = Alchemy::Config.get(:mailer)[:validate_fields]
-  validate_fields.each do |field|
-    validates_presence_of field[0], :message => I18n.t("alchemy.contactform.validations.#{field[1][:message].to_s}")
+
+  @@config[:validate_fields].each do |field|
+    validates_presence_of field[0], :message => '^' + I18n.t(field[1][:message].to_s, :scope => "alchemy.contactform.validations")
     if field[0].to_s.include?('email')
-      validates_format_of field[0], :with => Authlogic::Regex.email, :message => I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
+      validates_format_of field[0], :with => Authlogic::Regex.email, :message => '^' + I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
     end
+  end
+
+  def initialize(attributes = {})
+    attributes.keys.each do |a|
+      send("#{a}=", attributes[a])
+    end
+  end
+
+  def persisted? #:nodoc:
+    false
   end
 
 private

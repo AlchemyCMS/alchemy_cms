@@ -2,12 +2,12 @@ class Messages < ActionMailer::Base
   
   default :from => Alchemy::Config.get(:mailer)[:mail_from]
   
-  def mail(mail_data, mail_to, mail_from, subject)
-    @mail_data = mail_data
+  def contact_form_mail(message, mail_to, mail_from, subject)
+    @message = message
     mail(
       :from => mail_from,
       :to => mail_to,
-      :reply_to => mail_data[:email],
+      :reply_to => message.email,
       :subject => subject
     )
   end
