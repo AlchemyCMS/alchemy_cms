@@ -1,7 +1,5 @@
 class Admin::ClipboardController < AlchemyController
 
-  before_filter :set_translation
-
   def index
     clipboard = get_clipboard(params[:remarkable_type].tableize)
     @clipboard_items = params[:remarkable_type].classify.constantize.all_from_clipboard(clipboard)

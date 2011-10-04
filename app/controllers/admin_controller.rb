@@ -1,7 +1,6 @@
 class AdminController < AlchemyController
   
   filter_access_to :index
-  before_filter :set_translation
   before_filter :check_user_count, :only => :login
 
   layout 'alchemy'
