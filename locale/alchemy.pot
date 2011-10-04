@@ -1744,3 +1744,6 @@ msgstr ""
 
 msgid "or to completly"
 msgstr ""
+
+msgid "Please wait. Flash® is loading..."
+msgstr ""

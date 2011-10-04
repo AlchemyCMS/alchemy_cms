@@ -8,7 +8,12 @@
 	</ol>
 	<small>*<%= _('explain_upload.footnote_%{name}') % {:name => item_type} %></small>
 </div>
-<span id="spanButtonPlaceHolder"></span>
+<div id="spanButtonPlaceHolder">
+	<p>
+		<%= image_tag('alchemy/ajax_loader.gif', :style => 'width: 16px; height: 16px; top: 3px; position: relative') %>
+		<%= _('Please wait. Flash® is loading...') %>
+	</p>
+</div>
 <input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display:none" />
 <%- if file_types.first == '*' -%>
 <p><%= _('You may upload any file') %></p>

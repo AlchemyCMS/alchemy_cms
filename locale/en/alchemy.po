@@ -1740,3 +1740,6 @@ msgstr "yes"
 #: app/views/admin/pictures/_picture.html.erb:27
 msgid "zoom_image"
 msgstr "Zoom this image."
+
+msgid "Please wait. Flash® is loading..."
+msgstr ""

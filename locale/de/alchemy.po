@@ -1790,3 +1790,6 @@ msgstr "angemeldet bleiben"
 
 msgid "or to completly"
 msgstr "oder Sich komplett"
+
+msgid "Please wait. Flash® is loading..."
+msgstr "Bitte warten. Flash® Uploader wird geladen..."
