@@ -69,12 +69,15 @@ class Admin::PicturesController < AlchemyController
       :per_page => pictures_per_page_for_size(@size)
     ).order(:name)
     @options = params[:options]
-    if params[:remote] == 'true'
-      render :update do |page|
-        page.replace_html 'alchemy_window_body', :partial => 'archive_overlay_images'
-      end
-    else
-      render :layout => false
+    respond_to do |format|
+      format.html {
+        render :layout => false
+      }
+      format.js {
+        render :update do |page|
+          page << "jQuery('#alchemy_window_body').html('#{escape_javascript(render(:partial => 'archive_overlay_images'))}')"
+        end
+      }
     end
   end
 

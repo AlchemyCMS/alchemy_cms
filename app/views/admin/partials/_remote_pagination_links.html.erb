@@ -4,8 +4,6 @@
     :previous_label => '&laquo; ' + _('pagination.previous_page'),
     :next_label => _('pagination.next_page') + ' &raquo;',
     :renderer => 'Alchemy::RemotePaginationLinkRenderer',
-    :remote => {
-      :with => with
-    }
+    :remote => true
   ) %>
 <%- end -%>
