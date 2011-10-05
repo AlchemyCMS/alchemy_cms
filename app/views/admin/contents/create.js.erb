@@ -1,8 +1,6 @@
 (function($) {
 
-<%- case @content.essence_type -%>
-
-<%- when "EssencePicture" -%>
+<%- if @content.essence_type == "EssencePicture" -%>
 
   $('#add_content_<%= @element.id -%>').before('<%= escape_javascript(
     render(
@@ -26,20 +24,24 @@
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
   
-<%- when "EssenceText" -%>
+<%- elsif @content.essence_type ==  "EssenceText" -%>
 
   <%- locals = {
     :content => @content,
     :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
   } -%>
+
   <%- if params[:was_missing] -%>
+
   $("#element_<%= @element.id -%>_content_missing").replaceWith('<%= escape_javascript(
     render(
       :partial => "essences/essence_text_editor",
       :locals => locals
     )
   ) -%>');
+
   <%- else -%>
+
   $("#add_content_for_element_<%= @element.id -%>").before('<%= escape_javascript(
     render(
       :partial => "essences/essence_text_editor",
@@ -48,22 +50,27 @@
   ) -%>');
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
+
   <%- end -%>
 
-<%- when "EssenceRichtext" -%>
+<%- elsif @content.essence_type ==  "EssenceRichtext" -%>
 
   <%- locals = {
     :content => @content,
     :options => (@options.nil? ? {} : @options)
   } -%>
+
   <%- if params[:was_missing] -%>
+
   $("#element_<%= @element.id -%>_content_missing").replaceWith('<%= escape_javascript(
     render(
       :partial => "essences/essence_richtext_editor",
       :locals => locals
     )
-  ) -%>')
+  ) -%>');
+
   <%- else -%>
+
   $("#add_content_for_element_<%= @element.id -%>").before('<%= escape_javascript(
     render(
       :partial => "essences/essence_richtext_editor",
@@ -71,7 +78,9 @@
     )
   ) -%>');
   Alchemy.closeCurrentWindow();
+
   <%- end -%>
+
   TinymceHammer.addEditor('contents_content_<%= @content.id -%>_body');
 
 <%- else -%>
