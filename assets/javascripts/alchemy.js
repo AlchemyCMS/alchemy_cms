@@ -207,7 +207,7 @@ if (typeof(Alchemy) === 'undefined') {
 						url: path,
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
-							Alchemy.ButtonObserver('#alchemyElementWindow button.button');
+							Alchemy.ButtonObserver('#alchemyElementWindow .button');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -821,7 +821,7 @@ if (typeof(Alchemy) === 'undefined') {
 			var $button = $(button), $clone = $button.clone(), width = $button.outerWidth(), text = $button.text();
 			$button.hide();
 			$button.parent().append($clone);
-			$clone.attr({disabled: true})
+			$clone.attr({disabled: true, href: 'javascript:void(0)'})
 			.addClass('disabled cloned-button')
 			.css({width: width})
 			.html('<img src="/images/alchemy/ajax_loader.gif">')
