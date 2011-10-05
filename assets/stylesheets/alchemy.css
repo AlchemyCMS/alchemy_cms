@@ -3484,11 +3484,6 @@ div#overlay_toolbar {
 	padding: 8px;
 }
 
-#overlay_toolbar div.js_filter_field_box {
-	margin-top: 6px;
-	margin-right: 8px;
-}
-
 div#overlay_toolbar div.toolbar_spacer {
 	float: left;
 	width: 1px;

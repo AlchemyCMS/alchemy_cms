@@ -12,8 +12,8 @@ class Admin::EssenceFilesController < AlchemyController
     @essence_file = EssenceFile.find(params[:id])
     @essence_file.update_attributes(params[:essence_file])
     render :update do |page|
-      page << "Alchemy.closeCurrentWindow()"
-      page << "Alchemy.reloadPreview()"
+      page.call "Alchemy.closeCurrentWindow"
+      page.call "Alchemy.reloadPreview"
     end
   end
 
@@ -23,11 +23,12 @@ class Admin::EssenceFilesController < AlchemyController
     @content.essence.attachment = @attachment
     @content.essence.save
     @content.save
+    @options = params[:options]
     render :update do |page|
-      page.replace "#{@content.essence_type.underscore}_#{@content.id}", :partial => "essences/essence_file_editor", :locals => {:content => @content, :options => params[:options]}
-      page << "Alchemy.closeCurrentWindow()"
-      page << "Alchemy.reloadPreview()"
-      page << "Alchemy.setElementDirty('#element_#{@content.element.id}')"
+      page << "jQuery('##{@content.essence_type.underscore}_#{@content.id}').replaceWith('#{escape_javascript(render(:partial => "essences/essence_file_editor.html.erb", :locals => {:content => @content, :options => @options}))}')"
+      page.call "Alchemy.closeCurrentWindow"
+      page.call "Alchemy.reloadPreview"
+      page.call "Alchemy.setElementDirty", "#element_#{@content.element.id}"
     end
   end
 

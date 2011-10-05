@@ -726,7 +726,7 @@ module AlchemyHelper
     )
     filter_field << "<label for=\"search_field\">" + _("search") + "</label>"
     filter_field << "</div>"
-    filter_field
+    filter_field.html_safe
   end
 
   def clipboard_select_tag(items, html_options = {})

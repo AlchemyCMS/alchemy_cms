@@ -87,7 +87,9 @@ class Admin::AttachmentsController < AlchemyController
       condition = ""
     end
     @attachments = Attachment.where(condition).order(:name)
-    render :layout => false
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
   end
 
   def show

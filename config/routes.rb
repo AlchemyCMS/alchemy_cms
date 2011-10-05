@@ -114,7 +114,11 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :essence_files
+    resources :essence_files, :only => [:edit, :update] do
+      collection do
+        put :assign
+      end
+    end
     
     resources :essence_videos
     

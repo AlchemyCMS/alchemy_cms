@@ -25,7 +25,7 @@
 		<%- end -%>
 		</div>
 		<div class="file_name">
-			<%= content.ingredient.name rescue "&#x2190;" + _('assign_file_from_archive') %>
+			<%= content.ingredient.name rescue ("&#x2190;" + _('assign_file_from_archive')).html_safe %>
 		</div>
 		<%- unless content.ingredient.nil? -%>
 		<div class="essence_file_tools">
