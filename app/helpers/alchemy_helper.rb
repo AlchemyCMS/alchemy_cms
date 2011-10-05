@@ -1180,5 +1180,10 @@ module AlchemyHelper
     end
     "Alchemy CMS - #{title}"
   end
-  
+
+  def max_image_count
+    return nil if !@options
+    (@options[:maximum_amount_of_images] || @options[:max_images]).to_i
+  end
+
 end

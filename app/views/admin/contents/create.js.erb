@@ -17,7 +17,7 @@
   $('#element_<%= @element.id -%>_contents .essence_picture_editor').addClass('dragable_picture');
   <%- end -%>
 
-  <%- if !@options[:maximum_amount_of_images].blank? && (@contents_of_this_type.length >= @options[:maximum_amount_of_images].to_i) -%>
+  <%- if !max_image_count.blank? && (@contents_of_this_type.length >= max_image_count) -%>
   $("#add_content_<%= @element.id -%>").remove();
   <%- end -%>
 
