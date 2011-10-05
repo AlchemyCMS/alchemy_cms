@@ -9,9 +9,14 @@ class Attachment < ActiveRecord::Base
   )
   validates_as_attachment
 
+  def name
+    read_attribute(:name).split('.').first
+  end
+
   def extension
     filename.split(".").last
   end
+  alias_method :suffix, :extension
 
   def icon_css_class
     case content_type

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     :as => :leave_admin
   match '/admin/logout' => 'admin#logout',
     :as => :logout
-  match '/attachment/:id/download' => 'attachments#download',
+  match '/attachment/:id/download/:name' => 'attachments#download',
     :as => :download_attachment
   match '/attachment/:id/show' => 'attachments#show',
     :as => :show_attachment
