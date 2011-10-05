@@ -263,6 +263,10 @@ class Element < ActiveRecord::Base
     content.ingredient
   end
   
+  def has_ingredient?(name)
+    !self.ingredient(name).blank?
+  end
+  
   def save_contents(params)
     contents.each do |content|
       unless content.save_essence(params[:contents]["content_#{content.id}"], :public => !params["public"].nil?)
