@@ -27,11 +27,11 @@ class Admin::PicturesController < AlchemyController
   def new
     @picture = Picture.new
     @while_assigning = params[:while_assigning] == 'true'
+    @size = params[:size] || 'medium'
     if in_overlay?
       @while_assigning = true
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
-      @size = params[:size]
       @options = hashified_options
       @page = params[:page]
       @per_page = params[:per_page]
@@ -43,11 +43,11 @@ class Admin::PicturesController < AlchemyController
     @picture = Picture.new(:image_file => params[:Filedata])
     @picture.name = @picture.image_filename
     @picture.save
+    @size = params[:size] || 'medium'
     if in_overlay?
       @while_assigning = true
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
-      @size = params[:size] || 'medium'
       @options = hashified_options
       @page = params[:page] || 1
       @per_page = pictures_per_page_for_size(@size)
@@ -57,7 +57,7 @@ class Admin::PicturesController < AlchemyController
     else
       @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
         :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || @per_page || 32)
+        :per_page => pictures_per_page_for_size(@size)
       ).order(:name)
     end
     @message = _('Picture %{name} uploaded succesfully') % {:name => @picture.name}

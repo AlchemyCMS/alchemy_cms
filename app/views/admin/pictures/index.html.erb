@@ -6,7 +6,7 @@
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon upload'),
-				new_admin_picture_path,
+				new_admin_picture_path(:size => @size),
 				{
 					:title => _('upload_image'),
 					:size => '540x480'
