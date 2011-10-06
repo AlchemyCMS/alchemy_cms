@@ -94,9 +94,6 @@ Rails.application.routes.draw do
     end
     
     resources :attachments do 
-      collection do 
-        get :archive_overlay
-      end
       member do 
         get :download
       end

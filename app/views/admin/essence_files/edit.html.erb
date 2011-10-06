@@ -2,12 +2,12 @@
   <%- if @content.essence_type == "EssenceFile" -%>
   <table>
     <tr>
-      <td><%= f.label "title", _("title") %></td>
+      <td class="label long"><%= f.label "title", _("title") %></td>
       <td><%= f.text_field "title", :class => 'thin_border long' %></td>
     </tr>
     <tr>
       <td><%= f.label "css_class", _("align_in_text") %></td>
-      <td><%= f.select "css_class", [[_("left"), "left"], [_("right"), "right"], [_("above"), "no_float"]] %></td>
+      <td><%= f.select "css_class", [[_("Layout default"), ""], [_("above"), "no_float"], [_("left"), "left"], [_("right"), "right"]] %></td>
     </tr>
     <tr>
       <td colspan="2" style="text-align:right">
@@ -18,7 +18,7 @@
   <%- elsif @content.essence_type == "EssenceFlash" -%>
   <table>
     <tr>
-      <td><%= f.label "width", _("width") %></td>
+      <td class="label long"><%= f.label "width", _("width") %></td>
       <td><%= f.text_field "width", :class => 'thin_border long' %></td>
     </tr>
     <tr>
@@ -38,7 +38,7 @@
   <%- elsif @content.essence_type == "EssenceVideo" -%>
   <table>
     <tr>
-      <td><%= f.label "width", _("width") %></td>
+      <td class="label long"><%= f.label "width", _("width") %></td>
       <td><%= f.text_field "width", :class => 'thin_border long' %></td>
     </tr>
     <tr>
@@ -66,7 +66,7 @@
   <%- elsif @content.essence_type == "EssenceAudio" -%>
   <table>
     <tr>
-      <td><%= f.label "width", _("width") %></td>
+      <td class="label long"><%= f.label "width", _("width") %></td>
       <td><%= f.text_field "width", :class => 'thin_border long' %></td>
     </tr>
     <tr>

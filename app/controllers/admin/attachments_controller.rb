@@ -6,14 +6,18 @@ class Admin::AttachmentsController < AlchemyController
   filter_access_to :all
 
   def index
-    cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
-    if params[:per_page] == 'all'
-      @attachments = Attachment.where(cond).order(:name)
+    if in_overlay?
+      archive_overlay
     else
-      @attachments = Attachment.where(cond).paginate(
-        :page => (params[:page] || 1),
-        :per_page => (params[:per_page] || 20)
-      ).order(:name)
+      cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
+      if params[:per_page] == 'all'
+        @attachments = Attachment.where(cond).order(:name)
+      else
+        @attachments = Attachment.where(cond).paginate(
+          :page => (params[:page] || 1),
+          :per_page => (params[:per_page] || 20)
+        ).order(:name)
+      end
     end
   end
 
@@ -77,22 +81,6 @@ class Admin::AttachmentsController < AlchemyController
     end
   end
 
-  def archive_overlay
-    @content = Content.find(params[:content_id])
-    @options = params[:options]
-    if !params[:only].blank?
-      condition = "filename LIKE '%.#{params[:only].join("' OR filename LIKE '%.")}'"
-    elsif !params[:except].blank?
-      condition = "filename NOT LIKE '%.#{params[:except].join("' OR filename NOT LIKE '%.")}'"
-    else
-      condition = ""
-    end
-    @attachments = Attachment.where(condition).order(:name)
-    respond_to do |format|
-      format.html { render :layout => false }
-    end
-  end
-
   def show
     @attachment = Attachment.find(params[:id])
     send_file(
@@ -114,6 +102,28 @@ class Admin::AttachmentsController < AlchemyController
         :disposition => 'attachment'
       }
     )
+  end
+
+private
+
+  def in_overlay?
+    !params[:content_id].blank?
+  end
+
+  def archive_overlay
+    @content = Content.find(params[:content_id])
+    @options = params[:options]
+    if !params[:only].blank?
+      condition = "filename LIKE '%.#{params[:only].join("' OR filename LIKE '%.")}'"
+    elsif !params[:except].blank?
+      condition = "filename NOT LIKE '%.#{params[:except].join("' OR filename NOT LIKE '%.")}'"
+    else
+      condition = ""
+    end
+    @attachments = Attachment.where(condition).order(:name)
+    respond_to do |format|
+      format.html { render :action => 'archive_overlay', :layout => false }
+    end
   end
 
 end
