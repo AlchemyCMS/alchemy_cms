@@ -2021,45 +2021,12 @@ td.role {
 
 #archive_all {
 	padding: 16px;
+	overflow: auto;
 }
 
 #archive_all .padding_left_right {
 	padding-right: 8px;
 	padding-left: 8px;
-}
-
-.picture_image {
-	overflow: hidden;
-	position: absolute;
-	z-index: 0;
-	padding: 1px 0 1px 1px;
-}
-
-div#archive_all .picture_detail {
-	padding: 2px 0 0;
-	margin: 0 16px 16px 0;
-	height: 118px;
-	width: 118px;
-}
-
-#archive_all .picture_name {
-	width: 110px;
-	height: 12px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	display: block;
-	text-align: center;
-	white-space: nowrap;
-	overflow: hidden;
-	position: absolute;
-	bottom: 3px;
-	left: 4px;
-	font-family: "Courier New", Courier, mono;
-	line-height: 11px;
-}
-
-#archive_all .picture_name.rename.hover {
-	cursor: text;
 }
 
 .inplace-edit {
@@ -2113,70 +2080,6 @@ div.spinner {
 	position: absolute;
 	top: 0;
 	left: 0;
-}
-
-div.image_spinner {
-	background-color: #666;
-}
-
-div.image_spinner img {
-	position: absolute;
-	z-index: 0;
-	top: 32px;
-	left: 40px;
-}
-
-.picture_detail {
-	width: 118px;
-	height: 118px;
-	padding: 2px 0 0;
-	margin: 2px 1px 2px 2px;
-	background-color: #fff;
-	float: left;
-	padding: 3px 0 0;
-	border: 1px solid #c0c0c0;
-	position: relative;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-}
-
-.picture_detail .picture_image {
-	text-align: center;
-	margin-left: 3px;
-	margin-bottom: 2px;
-	width: 110px;
-	height: 93px;
-}
-
-#archive_all .picture_image {
-	margin-bottom: 0;
-	position: relative;
-	margin-top: 1px;
-	height: 93px;
-}
-
-#archive_all .picture_detail:hover .picture_tool_delete {
-	display: block;
-}
-
-.picture_image a {
-	cursor: -webkit-zoom-in;
-	cursor: -moz-zoom-in;
-	cursor: -o-zoom-in;
-	cursor: zoom-in;
-}
-
-.thumbnail_background {
-	margin: auto;
-	float: none;
-	display: table-cell;
-	width: 111px;
-	height: 93px;
-	background-color: #666;
-	vertical-align: middle;
-	text-align: center;
 }
 
 .headline_text_editor {
@@ -2908,7 +2811,7 @@ label.sup {
 	bottom: 3px;
 }
 
-div.assign_image_list_detail {
+/*div.assign_image_list_detail {
 	background-color: #ffffff;
 	text-align: center;
 	float: left;
@@ -2921,26 +2824,114 @@ div.assign_image_list_detail {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-}
+}*/
 
 #assign_image_list {
 	padding: 8px;
 	overflow: hidden;
 }
 
-#assign_image_list div.assign_image_list_detail.small {
+/* @group Picture Thumbnails */
+
+.picture_thumbnail {
+	padding: 4px;
+	margin: 2px 1px 2px 2px;
+	background-color: #fff;
+	float: left;
+	border: 1px solid #c0c0c0;
+	position: relative;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+
+div#archive_all .picture_thumbnail {
+	margin: 0 16px 16px 0;
+}
+
+#archive_all .picture_thumbnail:hover .picture_tool_delete {
+	display: block;
+}
+
+.picture_thumbnail a.thumbnail_background {
+	display: table-cell;
+	width: 160px;
+	height: 120px;
+	background-color: #666;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0;
+}
+
+.picture_thumbnail.small a.thumbnail_background {
+	width: 80px;
+	height: 60px;
+}
+
+.picture_thumbnail.medium a.thumbnail_background {
+	width: 160px;
+	height: 120px;
+}
+
+.picture_thumbnail.large a.thumbnail_background {
+	width: 240px;
+	height: 180px;
+}
+
+#archive_all .picture_thumbnail a.thumbnail_background {
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -o-zoom-in;
+	cursor: zoom-in;
+}
+
+div.picture_thumbnail.small {
 	width: 80px;
 	height: 75px;
 }
 
-#assign_image_list div.assign_image_list_detail.medium {
+div.picture_thumbnail.medium {
 	width: 160px;
-	height: 135px;
+	height: 140px;
 }
 
-#assign_image_list div.assign_image_list_detail.large {
+div.picture_thumbnail.large {
 	width: 240px;
 	height: 195px;
+}
+
+.picture_thumbnail .picture_name {
+	height: 12px;
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	position: absolute;
+	bottom: 1px;
+	left: 0;
+	font-family: "Courier New", Courier, mono;
+	line-height: 11px;
+	padding: 2px 0;
+	margin-right: 4px;
+	margin-left: 4px;
+}
+
+.picture_thumbnail .picture_name.rename.hover {
+	cursor: text;
+}
+
+.picture_thumbnail.small .picture_name {
+	width: 80px;
+}
+
+.picture_thumbnail.medium .picture_name {
+	width: 160px;
+	bottom: 3px;
+}
+
+.picture_thumbnail.large .picture_name {
+	width: 240px;
 }
 
 div.assign_image_list_image {
@@ -2949,42 +2940,46 @@ div.assign_image_list_image {
 	position: relative;
 }
 
-.assign_image_list_detail.small div.image_spinner img {
+div.picture_thumbnail.small div.image_spinner img {
 	top: 14px;
 	left: 25px;
 }
 
-.assign_image_list_detail.medium div.image_spinner img {
+div.picture_thumbnail.medium div.image_spinner img {
 	top: 42px;
 	left: 64px;
 }
 
-.assign_image_list_detail.large div.image_spinner img {
+div.picture_thumbnail.large div.image_spinner img {
 	top: 74px;
 	left: 108px;
 }
 
-#assign_image_list div.assign_image_list_image a {
-	width: 160px;
-	height: 120px;
+div.image_spinner {
+	background-color: #666;
+	width: 1px;
+	margin: 4px;
 }
 
-#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image,
-#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image a {
-	width: 80px;
+div.picture_thumbnail.small .image_spinner {
 	height: 60px;
+	margin: 4px;
 }
 
-#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image,
-#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image a {
-	width: 160px;
+div.picture_thumbnail.medium .image_spinner {
 	height: 120px;
+	margin: 4px;
 }
 
-#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image,
-#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image a {
-	width: 240px;
+div.picture_thumbnail.large .image_spinner {
 	height: 180px;
+}
+
+div.image_spinner img {
+	position: absolute;
+	z-index: 0;
+	top: 32px;
+	left: 40px;
 }
 
 #assign_image_list div.assign_image_list_image img {
@@ -2994,6 +2989,8 @@ div.assign_image_list_image {
 #assign_image_list div.assign_image_list_image span {
 	
 }
+
+/* @end */
 
 div#errors {
 	margin-bottom: 8px;

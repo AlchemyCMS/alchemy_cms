@@ -8,17 +8,19 @@ class Admin::PicturesController < AlchemyController
   cache_sweeper :pictures_sweeper, :only => [:update, :destroy]
 
   def index
+    @size = params[:size] || 'medium'
+    if params[:per_page] == 'all'
+      @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
+    else
+      @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
+        :page => params[:page] || 1,
+        :per_page => pictures_per_page_for_size(@size)
+      ).order(:name)
+    end
     if in_overlay?
       archive_overlay
     else
-      if params[:per_page] == 'all'
-        @pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-      else
-        @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
-          :page => params[:page] || 1,
-          :per_page => params[:per_page] || 32
-        ).order(:name)
-      end
+      # render index.html.erb
     end
   end
 
@@ -69,11 +71,15 @@ class Admin::PicturesController < AlchemyController
   end
 
   def update
+    @size = params[:size] || 'medium'
     @picture = Picture.find(params[:id])
     oldname = @picture.name
     @picture.name = params[:name]
     @picture.save
     @message = _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name}
+    render :update do |page|
+      page.call 'Alchemy.growl', @message
+    end
   rescue Exception => e
     exception_handler(e)
   end
@@ -108,10 +114,12 @@ private
   
   def pictures_per_page_for_size(size)
     case size
-      when 'small' then per_page = 35
-      when 'large' then per_page = 4
+      when 'small'
+        per_page = in_overlay? ? 35 : 55
+      when 'large'
+        per_page = in_overlay? ? 4 : 8
     else
-      per_page = 12
+      per_page = in_overlay? ? 12 : 18
     end
     return per_page
   end
@@ -123,11 +131,6 @@ private
   def archive_overlay
     @content = Content.find_by_id(params[:content_id], :select => 'id')
     @element = Element.find_by_id(params[:element_id], :select => 'id')
-    @size = params[:size] || 'medium'
-    @pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
-      :page => params[:page] || 1,
-      :per_page => pictures_per_page_for_size(@size)
-    ).order(:name)
     @options = hashified_options
     respond_to do |format|
       format.html {

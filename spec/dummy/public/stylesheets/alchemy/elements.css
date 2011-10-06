@@ -267,7 +267,7 @@ div.picture_gallery_images {
 	background-color: #e5dcca;
 }
 
-div.picture_detail div.picture_image img.img_paddingtop {
+div.picture_thumbnail div.picture_image img.img_paddingtop {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
@@ -481,7 +481,7 @@ div.essence_picture_editor .picture_tool_delete {
 	z-index: 2;
 }
 
-div.essence_picture_editor.validation_failed .picture_detail {
+div.essence_picture_editor.validation_failed .picture_thumbnail {
 	border-color: #931f23;
 	-webkit-box-shadow: #931f23 0px 1px 3px;
 	-moz-box-shadow: #931f23 0px 1px 3px;
@@ -511,23 +511,23 @@ div.essence_picture_editor:hover .picture_tool_delete {
 	float: left;
 }
 
-.picture_detail div.missing_image {
+.picture_thumbnail div.missing_image {
 	height: 94px;
 	text-align: center;
 	line-height: 47px;
 	color: #b3b3b3;
 }
 
-.validation_failed .picture_detail div.missing_image {
+.validation_failed .picture_thumbnail div.missing_image {
 	color: #931f23;
 }
 
-.picture_detail div.missing_image img {
+.picture_thumbnail div.missing_image img {
 	position: relative;
 	top: 10px;
 }
 
-.picture_detail .picture_handle {
+.picture_thumbnail .picture_handle {
 	position: absolute;
 	z-index: 1;
 	width: 110px;

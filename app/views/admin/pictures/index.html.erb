@@ -17,7 +17,41 @@
 			<label><%= _('upload_image') %></label>
 		</div>
 		<%- end -%>
+		<div class="toolbar_spacer"></div>		
+		<div class="button_with_label">
+			<%= link_to(
+				render_icon('zoom-out'),
+				admin_pictures_path({
+					:size => "small",
+					:query => params[:query]
+				}),
+				:title => _("small_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<%= link_to(
+				render_icon('zoom-equal'),
+				admin_pictures_path({
+					:size => "medium",
+					:query => params[:query]
+				}),
+				:title => _("medium_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<%= link_to(
+				render_icon('zoom-in'),
+				admin_pictures_path({
+					:size => "large",
+					:query => params[:query]
+				}),
+				:title => _("big_thumbnails"),
+				:class => "icon_button"
+			) %><br />
+			<label class="sup"><%= _('Image size') %></label>
+			<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
+		</div>
+
 		<%- permitted_to?(:flush, :admin_pictures) do -%>
+		<div class="toolbar_spacer"></div>		
 		<div class="button_with_label">
 			<%= link_to(
 				content_tag('span', '', :class => 'icon flush'),
@@ -31,10 +65,6 @@
 			<label><%= _('Flush picture cache') %></label>
 		</div>
 		<%- end -%>
-	</div>
-	<div class="toolbar_spacer"></div>
-	<div id="toolbar_links">
-		<%= render :partial => 'admin/partials/per_page_links', :locals => {:label => _('images'), :values => ['32', '64', 'all']} %>
 	</div>
 	<%= render :partial => 'admin/partials/search_form' %>
 </div>

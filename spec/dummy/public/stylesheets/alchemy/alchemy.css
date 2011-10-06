@@ -40,8 +40,7 @@ div#flash_notices {
 	top: 0;
 }
 
-div#flash_notices div.flash {
-	width: 300px;
+div.flash {
 	padding: 8px 8px 8px 30px;
 	font-weight: bold;
 	border-width: 1px;
@@ -57,31 +56,32 @@ div#flash_notices div.flash {
 	max-height: 64px;
 }
 
-div#flash_notices div.flash span.icon {
+div.flash span.icon {
 	position: absolute;
 	top: 8px;
 	left: 8px;
 }
 
-div#flash_notices div.flash.notice {
+div.flash.notice {
 	border-color: #9cc4a1;
 	color: #2e5934;
 	background-color: #e2efd3;
 }
 
-div#flash_notices div.flash.error {
+div.flash.error {
 	border-color: #c49c9c;
 	color: #592e2e;
 	background-color: #efd3d3;
 }
 
-div#flash_notices div.flash.info {
+div.flash.info {
 	border-color: #8392b5;
 	color: #233772;
 	background-color: #cadbf3;
 }
 
-div#flash_notices div.flash.warn {
+div.flash.warn,
+div.flash.warning {
 	border-color: #c4c19c;
 	color: #726d23;
 	background-color: #f3f0c1;
@@ -102,6 +102,124 @@ div.login_signup_box {
 	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
 	margin: 2em auto;
 }
+
+/* @group Pagination */
+
+div.archive_pagination_links {
+	position: relative;
+	margin-bottom: 16px;
+	margin-top: 8px;
+	height: 19px;
+	text-align: center;
+	line-height: 21px;
+}
+
+div.archive_pagination_links span.pagination_current_page {
+	background-position: 0 -21px;
+	font-weight: bold;
+	color: #333;
+}
+
+div.archive_pagination_links .first_page {
+	position: absolute;
+	left: 8px;
+	top: -2px;
+}
+
+.archive_pagination_links .last_page {
+	position: absolute;
+	right: 8px;
+	top: -2px;
+}
+
+.archive_pagination_links .previous_page {
+	position: absolute;
+	left: 32px;
+	top: -2px;
+}
+
+.archive_pagination_links .next_page {
+	position: absolute;
+	right: 32px;
+	top: -2px;
+}
+
+.archive_pagination_links span, .archive_pagination_links a {
+	padding: 0;
+	color: #333;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
+}
+
+.archive_pagination_links span {
+	color: #9a9a9a;
+}
+
+div.archive_pagination_links a:active {
+	text-decoration: none;
+	background-position: 0 -21px;
+}
+
+div.pagination {
+	text-align: center;
+	line-height: 24px;
+	height: 24px;
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+div.pagination a,
+div.pagination span,
+div.pagination em {
+	padding: 4px 8px;
+	border: 1px solid #c0c0c0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
+	height: 23px;
+	line-height: 23px;
+	font-style: normal;
+}
+
+div.pagination a:hover {
+	background-color: #e6f0f5;
+	color: #333;
+	border: 1px solid #888;
+	text-shadow: 0 1px 1px #fff;
+	text-decoration: none;
+}
+
+div.pagination .current {
+	background-color: #e6f0f5;
+	color: #333;
+	border: 1px solid #888;
+	text-shadow: 0px 1px 1px #fff;
+}
+
+div.pagination .previous_page {
+	margin-right: 16px;
+}
+
+div.pagination .next_page {
+	margin-left: 16px;
+}
+
+div.pagination .disabled {
+	color: #c0c0c0;
+}
+
+#assign_image_list div.pagination {
+	margin-bottom: 8px;
+}
+
+/* @end */
 
 #login table tbody tr td.label {
 	width: 155px;
@@ -598,7 +716,7 @@ div#page {
 	height: 16px;
 	position: absolute;
 	background-color: white;
-	top: 4px;
+	top: 3px;
 	right: 4px;
 	padding: 1px;
 	z-index: 1;
@@ -1740,22 +1858,10 @@ button.button {
 	font-size: 1em;
 }
 
-button.button img {
+.button img {
 	margin-right: 0;
 	width: 20px;
 	height: 20px;
-}
-
-button.button.disabled,
-button.button.disabled:hover,
-button.button.disabled:active {
-	color: #333;
-	text-shadow: none;
-	border-color: #ccc;
-	cursor: default;
-	background-image: none;
-	background-color: #f5f5f5;
-	padding: 1px 0 0;
 }
 
 #new_page_form tbody tr td.second_row .button {
@@ -1780,6 +1886,36 @@ a.button:active {
 	text-decoration: none;
 	text-shadow: none;
 	background-color: #e5e5e5;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active,
+input.button.disabled,
+input.button.disabled:hover,
+input.button.disabled:active,
+button.button.disabled,
+button.button.disabled:hover,
+button.button.disabled:active {
+	color: #333;
+	text-shadow: none;
+	border-color: #ccc;
+	cursor: default;
+	background-image: none;
+	background-color: #f5f5f5;
+	padding: 1px 0 0;
+}
+
+a.button.disabled img {
+	display: inline-block;
+	float: none;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active {
+	padding: 2px !important;
+	text-align: center;
 }
 
 label {
@@ -1899,7 +2035,8 @@ td.role {
 	padding: 1px 0 1px 1px;
 }
 
-div#archive_all .picture_detail {
+div#archive_all .div.picture_thumbnail.small,
+picture_thumbnail {
 	padding: 2px 0 0;
 	margin: 0 16px 16px 0;
 	height: 118px;
@@ -1979,14 +2116,19 @@ div.spinner {
 	left: 0;
 }
 
-div.archive_image_spinner img {
+div.image_spinner {
+	background-color: #666;
+}
+
+div.image_spinner img {
 	position: absolute;
 	z-index: 0;
-	top: 35px;
+	top: 32px;
 	left: 40px;
 }
 
-.picture_detail {
+.div.picture_thumbnail.small,
+picture_thumbnail {
 	width: 118px;
 	height: 118px;
 	padding: 2px 0 0;
@@ -2000,13 +2142,10 @@ div.archive_image_spinner img {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: #999 0px 1px 3px;
-	-moz-box-shadow: #999 0px 1px 3px;
-	-o-box-shadow: #999 0px 1px 3px;
-	box-shadow: #999 0px 1px 3px;
 }
 
-.picture_detail .picture_image {
+.div.picture_thumbnail.small,
+picture_thumbnail .picture_image {
 	text-align: center;
 	margin-left: 3px;
 	margin-bottom: 2px;
@@ -2021,7 +2160,8 @@ div.archive_image_spinner img {
 	height: 93px;
 }
 
-#archive_all .picture_detail:hover .picture_tool_delete {
+#archive_all .div.picture_thumbnail.small,
+picture_thumbnail:hover .picture_tool_delete {
 	display: block;
 }
 
@@ -2095,66 +2235,6 @@ div.archive_image_spinner img {
 
 .dashed_border {
 	border: 1px dashed;
-}
-
-div.archive_pagination_links {
-	position: relative;
-	margin-bottom: 16px;
-	margin-top: 8px;
-	height: 19px;
-	text-align: center;
-	line-height: 21px;
-}
-
-div.archive_pagination_links span.pagination_current_page {
-	background-position: 0 -21px;
-	font-weight: bold;
-	color: #333;
-}
-
-div.archive_pagination_links .first_page {
-	position: absolute;
-	left: 8px;
-	top: -2px;
-}
-
-.archive_pagination_links .last_page {
-	position: absolute;
-	right: 8px;
-	top: -2px;
-}
-
-.archive_pagination_links .previous_page {
-	position: absolute;
-	left: 32px;
-	top: -2px;
-}
-
-.archive_pagination_links .next_page {
-	position: absolute;
-	right: 32px;
-	top: -2px;
-}
-
-.archive_pagination_links span, .archive_pagination_links a {
-	padding: 0;
-	color: #333;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	width: 21px;
-	height: 21px;
-	display: inline-block;
-	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
-}
-
-.archive_pagination_links span {
-	color: #9a9a9a;
-}
-
-div.archive_pagination_links a:active {
-	text-decoration: none;
-	background-position: 0 -21px;
 }
 
 a.rename_link {
@@ -2587,54 +2667,6 @@ div#images {
 	overflow: visible;
 }
 
-div.pagination {
-	text-align: center;
-	line-height: 24px;
-	height: 24px;
-	width: 100%;
-	margin-bottom: 16px;
-}
-
-div.pagination .prev_page {
-	margin-right: 16px;
-}
-
-div.pagination .next_page {
-	margin-left: 16px;
-}
-
-div.pagination a,
-div.pagination span {
-	padding: 4px 8px;
-	border: 1px solid #c0c0c0;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	height: 23px;
-	line-height: 23px;
-}
-
-div.pagination a:hover {
-	background-color: #e6f0f5;
-	color: #333;
-	border: 1px solid #888;
-	text-shadow: 0 1px 1px #fff;
-	text-decoration: none;
-}
-
-div.pagination .disabled {
-	color: #c0c0c0;
-}
-
-div.pagination .current {
-	background-color: #e6f0f5;
-	color: #333;
-	border: 1px solid #888;
-	text-shadow: 0px 1px 1px #fff;
-}
-
 #toolbar_links {
 	line-height: 21px;
 	margin-left: 8px;
@@ -2893,10 +2925,6 @@ div.assign_image_list_detail {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: #999 0px 1px 3px;
-	-moz-box-shadow: #999 0px 1px 3px;
-	-o-box-shadow: #999 0px 1px 3px;
-	box-shadow: #999 0px 1px 3px;
 }
 
 #assign_image_list {
@@ -2920,45 +2948,50 @@ div.assign_image_list_detail {
 }
 
 div.assign_image_list_image {
-	background-color: #ededed;
 	text-align: center;
 	overflow: hidden;
+	position: relative;
 }
 
-div.overlay_image_spinner img {
-	position: absolute;
-	z-index: 0;
+.assign_image_list_detail.small div.image_spinner img {
+	top: 14px;
+	left: 25px;
 }
 
-.assign_image_list_detail.small div.overlay_image_spinner img {
-	top: 19px;
-	left: 26px;
+.assign_image_list_detail.medium div.image_spinner img {
+	top: 42px;
+	left: 64px;
 }
 
-.assign_image_list_detail.medium div.overlay_image_spinner img {
-	top: 48px;
-	left: 67px;
-}
-
-.assign_image_list_detail.large div.overlay_image_spinner img {
-	top: 80px;
-	left: 103px;
-}
-
-#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image {
-	height: 60px;
-}
-
-#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image {
-	height: 120px;
-}
-
-#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image {
-	height: 180px;
+.assign_image_list_detail.large div.image_spinner img {
+	top: 74px;
+	left: 108px;
 }
 
 #assign_image_list div.assign_image_list_image a {
-	display: block;
+	width: 160px;
+	height: 120px;
+}
+
+div.picture_thumbnail.small,
+#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image,
+#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image a {
+	width: 80px;
+	height: 60px;
+}
+
+div.picture_thumbnail.medium,
+#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image,
+#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image a {
+	width: 160px;
+	height: 120px;
+}
+
+div.picture_thumbnail.large,
+#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image,
+#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image a {
+	width: 240px;
+	height: 180px;
 }
 
 #assign_image_list div.assign_image_list_image img {
@@ -3059,11 +3092,7 @@ input#user_admin {
 	font: 12px "Courier New", Courier, mono;
 }
 
-#assign_image_list div.pagination {
-	margin-bottom: 8px;
-}
-
-div#image_assign_filter_and_image_sizing form {
+#alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
 	float: right;
 	width: 290px;
 	height: 25px;
@@ -3460,11 +3489,6 @@ div#overlay_toolbar {
 	border-left-style: none;
 	border-right-style: none;
 	padding: 8px;
-}
-
-#overlay_toolbar div.js_filter_field_box {
-	margin-top: 6px;
-	margin-right: 8px;
 }
 
 div#overlay_toolbar div.toolbar_spacer {
