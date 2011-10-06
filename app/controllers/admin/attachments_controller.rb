@@ -23,6 +23,12 @@ class Admin::AttachmentsController < AlchemyController
 
   def new
     @attachment = Attachment.new
+    if in_overlay?
+      @while_assigning = true
+      @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
+      @swap = params[:swap]
+			@options = hashified_options
+    end
     render :layout => false
   end
 
@@ -39,7 +45,14 @@ class Admin::AttachmentsController < AlchemyController
         :per_page => (params[:per_page] || 20)
       ).order(:name)
     end
+    if in_overlay?
+      @while_assigning = true
+      @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
+      @swap = params[:swap]
+			@options = hashified_options
+    end
     @message = _('File %{name} uploaded succesfully') % {:name => @attachment.name}
+    # Are we using the Flash uploader? Or the plain html file uploader?
     if params[Rails.application.config.session_options[:key]].blank?
       flash[:notice] = @message
       redirect_to :action => :index
@@ -122,7 +135,7 @@ private
     end
     @attachments = Attachment.where(condition).order(:name)
     respond_to do |format|
-      format.html { render :action => 'archive_overlay', :layout => false }
+      format.html { render :partial => 'archive_overlay' }
     end
   end
 

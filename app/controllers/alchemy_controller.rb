@@ -142,6 +142,15 @@ private
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
+  def hashified_options
+    return nil if params[:options].blank?
+    if params[:options].is_a?(String)
+      Rack::Utils.parse_query(params[:options])
+    else
+      params[:options]
+    end
+  end
+
 protected
 
   def init_gettext#:nodoc:

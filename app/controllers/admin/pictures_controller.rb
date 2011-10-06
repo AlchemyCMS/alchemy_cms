@@ -25,7 +25,8 @@ class Admin::PicturesController < AlchemyController
   def new
     @picture = Picture.new
     @while_assigning = params[:while_assigning] == 'true'
-    if @while_assigning
+    if in_overlay?
+      @while_assigning = true
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
       @size = params[:size]
@@ -40,8 +41,8 @@ class Admin::PicturesController < AlchemyController
     @picture = Picture.new(:image_file => params[:Filedata])
     @picture.name = @picture.image_filename
     @picture.save
-    @while_assigning = params[:while_assigning] == 'true'
-    if @while_assigning
+    if in_overlay?
+      @while_assigning = true
       @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
       @element = Element.find(params[:element_id], :select => 'id')
       @size = params[:size] || 'medium'
@@ -115,15 +116,6 @@ private
     return per_page
   end
 
-  def hashified_options
-    return nil if params[:options].blank?
-    if params[:options].is_a?(String)
-      Rack::Utils.parse_query(params[:options])
-    else
-      params[:options]
-    end
-  end
-
   def in_overlay?
     !params[:element_id].blank?
   end
@@ -139,11 +131,11 @@ private
     @options = hashified_options
     respond_to do |format|
       format.html {
-        render :action => 'archive_overlay', :layout => false
+        render :partial => 'archive_overlay'
       }
       format.js {
         render :update do |page|
-          page << "jQuery('#alchemy_window_body').html('#{escape_javascript(render(:partial => 'archive_overlay_images'))}')"
+          page << "jQuery('#alchemy_window_body').replaceWith('#{escape_javascript(render(:partial => 'archive_overlay'))}')"
         end
       }
     end

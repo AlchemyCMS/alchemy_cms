@@ -50,7 +50,6 @@
 	<%= link_to_overlay_window(
 		render_icon('upload'),
 		new_admin_picture_path(
-			:while_assigning => true,
 			:element_id => @element.blank? ? nil : @element.id,
 			:content_id => @content.blank? ? nil : @content.id,
 			:swap => @swap,

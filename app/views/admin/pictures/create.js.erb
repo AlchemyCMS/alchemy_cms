@@ -1,6 +1,6 @@
 (function($) {
 <%- if @while_assigning -%>
-	$('#alchemy_window_body').html('<%= escape_javascript(render(:partial => "archive_overlay_images")) -%>');
+	$('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay")) -%>');
 <%- else -%>
 	$('#archive_all').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
 	Alchemy.inPlaceEditor({
