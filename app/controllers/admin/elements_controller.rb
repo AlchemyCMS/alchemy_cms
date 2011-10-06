@@ -1,5 +1,7 @@
 class Admin::ElementsController < AlchemyController
   
+  before_filter :set_translation
+  
   filter_access_to [:new, :create, :order, :index], :attribute_check => false
   
   cache_sweeper :content_sweeper, :only => [:update]

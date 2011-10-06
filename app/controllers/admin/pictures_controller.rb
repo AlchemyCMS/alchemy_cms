@@ -1,6 +1,8 @@
 class Admin::PicturesController < AlchemyController
   protect_from_forgery :except => [:create]
   
+  before_filter :set_translation
+
   filter_access_to :all
 
   cache_sweeper :pictures_sweeper, :only => [:update, :destroy]

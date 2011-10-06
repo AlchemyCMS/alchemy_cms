@@ -3,6 +3,8 @@ class Admin::UsersController < AlchemyController
   filter_access_to [:edit, :update, :destroy], :attribute_check => true
   filter_access_to [:index, :new, :create], :attribute_check => false
 
+  before_filter :set_translation
+
   def index
     if !params[:query].blank?
       @users = User.where([

@@ -2,6 +2,7 @@ class Admin::AttachmentsController < AlchemyController
 
   protect_from_forgery :except => [:create]
   
+  before_filter :set_translation
   filter_access_to :all
 
   def index
