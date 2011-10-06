@@ -2854,7 +2854,7 @@ div#archive_all .picture_thumbnail {
 	display: block;
 }
 
-.picture_thumbnail a.thumbnail_background {
+.picture_thumbnail .thumbnail_background {
 	display: table-cell;
 	width: 160px;
 	height: 120px;
@@ -2864,26 +2864,37 @@ div#archive_all .picture_thumbnail {
 	padding: 0;
 }
 
-.picture_thumbnail.small a.thumbnail_background {
+.picture_thumbnail.small .thumbnail_background {
 	width: 80px;
 	height: 60px;
 }
 
-.picture_thumbnail.medium a.thumbnail_background {
+.picture_thumbnail.medium .thumbnail_background {
 	width: 160px;
 	height: 120px;
 }
 
-.picture_thumbnail.large a.thumbnail_background {
+.picture_thumbnail.large .thumbnail_background {
 	width: 240px;
 	height: 180px;
 }
 
-#archive_all .picture_thumbnail a.thumbnail_background {
+#archive_all .picture_thumbnail .thumbnail_background {
 	cursor: -webkit-zoom-in;
 	cursor: -moz-zoom-in;
 	cursor: -o-zoom-in;
 	cursor: zoom-in;
+}
+
+.essence_picture_editor .picture_thumbnail {
+	width: 111px;
+	height: 115px;
+	margin: 3px;
+}
+
+.essence_picture_editor .picture_thumbnail .thumbnail_background {
+	width: 111px;
+	height: 93px;
 }
 
 div.picture_thumbnail.small {
@@ -3072,14 +3083,6 @@ input#user_admin {
 	margin-right: 6px;
 	height: 17px;
 	line-height: 19px;
-}
-
-#assign_image_list div.assign_image_list_detail .picture_to_assign_name {
-	white-space: nowrap;
-	overflow: hidden;
-	padding-top: 3px;
-	display: block;
-	font: 12px "Courier New", Courier, mono;
 }
 
 #alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
