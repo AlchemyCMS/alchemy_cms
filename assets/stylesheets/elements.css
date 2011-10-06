@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/alchemy/elements.css */
+
 /* @override 
 	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
 	http://localhost:3000/stylesheets/alchemy/elements.css
@@ -103,13 +105,13 @@ div.element_foot span.element_public {
 
 .add_content {
 	float: left;
-	margin: 2px 1px 2px 2px;
-	width: 118px;
-	padding: 0;
+	margin: 3px;
+	width: 111px;
+	padding: 4px;
 	background-color: #f0e8d7;
 	border: 1px solid #c2baab;
 	border-radius: 3px;
-	height: 121px;
+	height: 115px;
 }
 
 .add_content a {
@@ -260,7 +262,7 @@ div.picture_gallery_images {
 	overflow: hidden;
 	margin-bottom: 8px;
 	border: 1px inset #cecece;
-	padding-left: 1px;
+	padding-left: 2px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -271,28 +273,6 @@ div.picture_thumbnail div.picture_image img.img_paddingtop {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
-}
-
-.gallery_index div.picture_gallery_images {
-	margin-top: 8px;
-	height: 100%;
-	border: 1px inset #b1b1b1;
-	padding-left: 1px;
-	padding-top: 1px;
-	padding-bottom: 1px;
-	overflow: hidden;
-	margin-bottom: 11px;
-	width: 374px;
-	margin-left: 7px;
-}
-
-form.add_gallery_to_index span {
-	float: left;
-	padding-top: 3px;
-}
-
-form.add_gallery_to_index select {
-	float: left;
 }
 
 /* @group add moclecule */
@@ -817,10 +797,10 @@ textarea {
 	border: 1px dotted #bba589;
 	background-color: #f0e8d7;
 	float: left;
-	width: 118px;
-	height: 119px;
-	padding: 2px 0 0;
-	margin: 2px 1px 2px 2px;
+	width: 111px;
+	height: 115px;
+	padding: 4px;
+	margin: 3px;
 }
 
 div.element_editor div.error {
