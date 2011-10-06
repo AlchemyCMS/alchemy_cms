@@ -1183,7 +1183,8 @@ module AlchemyHelper
 
   def max_image_count
     return nil if !@options
-    (@options[:maximum_amount_of_images] || @options[:max_images]).to_i
+    image_count = @options[:maximum_amount_of_images] || @options[:max_images]
+    image_count.to_i unless image_count.blank?
   end
 
 end
