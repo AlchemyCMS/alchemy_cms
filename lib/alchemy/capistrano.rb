@@ -28,7 +28,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       # Call after deploy:symlink like +after "deploy:symlink", "alchemy:symlink_folders"+ in your +deploy.rb+.
       desc "Sets the symlinks for uploads, picture cache and ferret index folder. Call after deploy:symlink"
       task :symlink, :roles => :app do
-        run "rm -rf #{current_path}/public/uploads/*"
+        run "rm -rf #{current_path}/uploads/*"
         run "ln -nfs #{shared_path}/uploads/pictures/ #{current_path}/uploads/pictures"
         run "ln -nfs #{shared_path}/uploads/attachments/ #{current_path}/uploads/attachments"
         run "rm -rf #{current_path}/public/pictures"
