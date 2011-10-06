@@ -56,8 +56,6 @@
 <div id="divStatus" style="display: none"></div>
 <div id="uploadProgressContainer"></div>
 
-<%- session_key = ActionController::Base.session[:key] -%>
-
 <%- post_params = {
 	:query => params[:query] || '',
 	:page => 1,
@@ -67,7 +65,7 @@
 	:element_id => @element.blank? ? nil : @element.id,
 	:size => @size,
 	:options => @options.to_param
-}.delete_if{|k,v|v.nil?}.to_json -%>
+}.delete_if { |k,v| v.nil? }.to_json -%>
 
 <script type='text/javascript'>
 	try {

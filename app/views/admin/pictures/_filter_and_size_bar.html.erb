@@ -2,8 +2,7 @@
 	<div class="button_with_label">
 		<%= link_to(
 			render_icon('zoom-out'),
-			url_for({
-				:action => "archive_overlay",
+			admin_pictures_path({
 				:size => "small",
 				:content_id => @content,
 				:element_id => @element,
@@ -17,8 +16,7 @@
 		) %>
 		<%= link_to(
 			render_icon('zoom-equal'),
-			url_for({
-				:action => "archive_overlay",
+			admin_pictures_path({
 				:size => "medium",
 				:content_id => @content,
 				:element_id => @element,
@@ -32,8 +30,7 @@
 		) %>
 		<%= link_to(
 			render_icon('zoom-in'),
-			url_for({
-				:action => "archive_overlay",
+			admin_pictures_path({
 				:size => "large",
 				:content_id => @content,
 				:element_id => @element,
@@ -52,9 +49,7 @@
 	<div class="button_with_label">
 	<%= link_to_overlay_window(
 		render_icon('upload'),
-		url_for(
-			:controller => 'admin/pictures',
-			:action => 'new',
+		new_admin_picture_path(
 			:while_assigning => true,
 			:element_id => @element.blank? ? nil : @element.id,
 			:content_id => @content.blank? ? nil : @content.id,
@@ -65,7 +60,7 @@
 			:options => @options
 		),
 		{
-			:size => "355x320",
+			:size => "540x480",
 			:title => _('upload_image')
 		},
 		{
@@ -75,10 +70,5 @@
 	) %><br />
 	<label><%= _('upload_image') %></label>
 	</div>
-	<%= render(
-		:partial => 'admin/partials/remote_search_form',
-		:locals => {
-			:action => 'archive_overlay'
-		}
-	) %>
+	<%= render(:partial => 'admin/partials/remote_search_form') %>
 </div>

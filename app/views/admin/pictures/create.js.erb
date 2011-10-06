@@ -1,12 +1,12 @@
 (function($) {
-  <%- if @while_assigning -%>
-  $('#alchemy_window_body').html('<%= escape_javascript(render(:partial => "archive_overlay_images")) -%>');
-  <%- else -%>
-  $('#archive_all').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
-  Alchemy.inPlaceEditor({
-    save_label: "<%= _('save') -%>",
-    cancel_label: "<%= _('cancel') -%>"
-  });
-  <%- end -%>
-  Alchemy.growl('<%= @message -%>');
+<%- if @while_assigning -%>
+	$('#alchemy_window_body').html('<%= escape_javascript(render(:partial => "archive_overlay_images")) -%>');
+<%- else -%>
+	$('#archive_all').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
+	Alchemy.inPlaceEditor({
+		save_label: "<%= _('save') -%>",
+		cancel_label: "<%= _('cancel') -%>"
+	});
+<%- end -%>
+	Alchemy.growl('<%= @message -%>');
 })(jQuery);

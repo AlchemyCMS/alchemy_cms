@@ -85,8 +85,6 @@ Rails.application.routes.draw do
     
     resources :pictures do 
       collection do 
-        get :archive_overlay
-        get :add_upload_form
         post :flush
       end
       member do 
@@ -98,7 +96,6 @@ Rails.application.routes.draw do
     resources :attachments do 
       collection do 
         get :archive_overlay
-        get :add_upload_form
       end
       member do 
         get :download

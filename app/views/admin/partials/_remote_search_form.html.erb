@@ -1,6 +1,6 @@
 <%= form_tag(
 	url_for({
-		:action => (action || 'index'),
+		:action => 'index',
 		:options => @options,
 		:size => @size
 	}),
@@ -20,11 +20,12 @@
 		<%= link_to(
 			"",
 			url_for({
-				:action => action,
+				:action => 'index',
 				:element_id => @element.blank? ? "" : @element.id,
 				:content_id => @content.blank? ? "" : @content.id,
 				:options => @options,
-				:size => @size
+				:size => @size,
+				:overlay => true
 			}),
 			:remote => true,
 			:class => "search_field_clear",
