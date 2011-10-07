@@ -333,27 +333,36 @@ class Page < ActiveRecord::Base
   # Creates a copy of source (a Page object) and does a copy of all elements depending to source.
   # You can pass any kind of Page#attributes as a difference to source.
   # Notice: It prevents the element auto_generator from running.
-  def self.copy(source, differences = {})
-    attributes = source.attributes.symbolize_keys.merge(differences)
-    attributes.merge!(
-      :do_not_autogenerate => true, 
-      :do_not_sweep => true, 
-      :visible => false,
-      :public => false,
-      :locked => false,
-      :locked_by => nil
-    )
-    page = self.new(attributes.except(["id", "updated_at", "created_at", "created_id", "updater_id"]))
-    if page.save
-      source.elements.each do |element|
-        new_element = Element.copy(element, :page_id => page.id)
-        new_element.move_to_bottom
-      end
-      return page
-    else
-      raise page.errors.full_messages
-    end
-  end
+	def self.copy(source, differences = {})
+		attributes = source.attributes.symbolize_keys.merge(differences)
+		attributes.merge!(
+			:do_not_autogenerate => true, 
+			:do_not_sweep => true, 
+			:visible => false,
+			:public => false,
+			:locked => false,
+			:locked_by => nil
+		)
+		page = self.new(attributes.except(["id", "updated_at", "created_at", "created_id", "updater_id"]))
+		if page.save
+			# copy the page´s cells
+			source.cells.each do |cell|
+				new_cell = Cell.create(:name => cell.name, :page_id => page.id)
+			end
+			# copy the page´s elements
+			source.elements.each do |element|
+				# detect cell for element
+				# if cell is nil also pass nil to element.cell_id
+				cell = nil
+				cell = page.cells.detect{ |c| c.name == element.cell.name } if element.cell
+				new_element = Element.copy(element, :page_id => page.id, :cell_id => (cell.blank? ? nil : cell.id))
+				new_element.move_to_bottom
+			end
+			return page
+		else
+			raise page.errors.full_messages
+		end
+	end
 
   # Gets the language_root page for page
   def get_language_root
