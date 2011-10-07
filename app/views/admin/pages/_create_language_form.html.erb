@@ -33,10 +33,11 @@
 			<%= form.hidden_field :language_code, :value => lang.code %>
 			<%= form.hidden_field :page_layout, :value => lang.page_layout %>
 			<%= form.hidden_field :language_root, :value => true %>
+			<%= form.hidden_field :parent_id, :value => Page.rootpage.id %>
 			<%= form.submit(_("%{language}_as_new_language") % {:language => lang.name}, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay();') %>
 		<% end %>
 		<%- end -%>
 	<%- else -%>
-		<p>Diese Sprache existiert noch nicht. Bitte legen Sie diese Sprache erst in den Sprachen an.</p>
+		<p><%= _("Actually this language does not exist. Please create this language first.") %></p>
 	<%- end -%>
 </div>

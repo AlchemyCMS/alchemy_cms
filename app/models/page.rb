@@ -1,5 +1,8 @@
 # encoding: UTF-8
 class Page < ActiveRecord::Base
+	
+	RESERVED_PAGE_LAYOUTS = %w(rootpage)
+	RESERVED_URLNAMES = %w(admin messages)
   
   acts_as_nested_set
   stampable
@@ -12,8 +15,11 @@ class Page < ActiveRecord::Base
 
   validates_presence_of :name, :message => N_("please enter a name")
   validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
+  validates_presence_of :parent_id, :message => N_("No parent page was given."), :unless => :rootpage?
   validates_length_of :urlname, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
+	validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => N_("This page_layout name is reserved.") }, :unless => :rootpage?
+	validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => N_("This urlname is reserved.") }
   
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
@@ -324,7 +330,7 @@ class Page < ActiveRecord::Base
     self.language_roots.find_by_language_id(language_id)
   end
 
-  # Creates a copy of source (an Page object) and does a copy of all elements depending to source.
+  # Creates a copy of source (a Page object) and does a copy of all elements depending to source.
   # You can pass any kind of Page#attributes as a difference to source.
   # Notice: It prevents the element auto_generator from running.
   def self.copy(source, differences = {})
@@ -432,6 +438,15 @@ class Page < ActiveRecord::Base
     return N_('unknown') if self.locker.nil?
     self.locker.name
   end
+
+	# is the curent object the main rootpage?
+	def rootpage?
+		(self.page_layout == "rootpage") && self.parent_id.blank?
+	end
+	
+	def self.rootpage
+		where(:page_layout => 'rootpage').where(:parent_id => nil).first
+	end
   
 private
 
