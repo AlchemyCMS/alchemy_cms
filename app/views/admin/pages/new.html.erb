@@ -12,7 +12,7 @@
 	</div>
 	<div id="paste_page_tab">
 		<%= form_for([:admin, @page], :remote => true, :html => {:id => 'paste_page_form'}) do |f| %>
-			<%= f.hidden_field("parent_id", :value => @parent_id) %>
+			<%= f.hidden_field(:parent_id) %>
 			<table id="new_page_form">
 				<tr>
 					<td class="label very_long">
