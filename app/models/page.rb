@@ -443,6 +443,10 @@ class Page < ActiveRecord::Base
 	def rootpage?
 		(self.page_layout == "rootpage") && self.parent_id.blank?
 	end
+	
+	def self.rootpage
+		where(:page_layout => 'rootpage').where(:parent_id => nil).first
+	end
   
 private
 
