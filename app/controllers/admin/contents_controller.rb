@@ -48,6 +48,8 @@ class Admin::ContentsController < AlchemyController
       page.call("Alchemy.SortableContents", '#element_area .picture_gallery_images', form_authenticity_token)
       page.call('Alchemy.reloadPreview')
     end
+  rescue
+    exception_handler($!)
   end
   
   def destroy

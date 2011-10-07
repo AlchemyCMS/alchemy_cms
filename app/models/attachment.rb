@@ -68,6 +68,10 @@ class Attachment < ActiveRecord::Base
       then "word"
     when "application/vnd.ms-excel"
       then "excel"
+    when "text/x-vcard"
+      then "vcard"
+    when "application/vcard"
+      then "vcard"
     else
       "file"
     end

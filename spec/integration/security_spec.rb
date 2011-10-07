@@ -10,7 +10,7 @@ describe "Security: " do
   context "If no user is present" do
     it "render the signup view" do
       visit '/'
-      within('#alchemy_greeting') { page.should have_content('have to signup') }
+      within('#alchemy_greeting') { page.should have_content('Signup') }
     end
   end
   
