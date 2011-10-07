@@ -2,7 +2,7 @@
 	Alchemy.closeCurrentWindow();
 	<%- if request.referer.include?('edit') -%>
 		Alchemy.reloadPreview();
-		$('#<%= dom_id(@page) -%>_status').replaceWith(<%= escape_javascript(render(:partial => 'page_status')) -%>)
+		$('#<%= dom_id(@page) -%>_status').replaceWith('<%= escape_javascript(render(:partial => "page_status")) -%>');
 	<%- else -%>
 		$('#<%= dom_id(@page) -%> > .sitemap_page > .sitemap_sitename .sitemap_pagename_link').text('<%= @page.name -%>');
 		<%- if @page.locked? && @page.locker == current_user -%>
