@@ -90,6 +90,7 @@ class Admin::PagesController < AlchemyController
     name = @page.name
     @page_id = @page.id
     @layoutpage = @page.layoutpage?
+		session[:language_id] = @page.language_id
     if @page.destroy
       @page_root = Page.language_root_for(session[:language_id])
       get_clipboard('pages').delete(@page.id)
@@ -206,7 +207,9 @@ class Admin::PagesController < AlchemyController
   end
   
   def switch_language
-    set_language_to(params[:language_id])
+		# we just set the new session here, because the AlchemyController
+		# will set the language via before_filter dependend on the session
+		session[:language_id] = params[:language_id]
     redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
     if request.xhr?
       render :update do |page|
