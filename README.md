@@ -59,9 +59,9 @@ Features
 Rails Version
 -------------
 
-We strongly recommend Rails 2.3.10 and Ruby 1.8.7.
+We recommend Rails 2.3.10 and Ruby 1.8.7 for productive perpuse.
 
-We are working hard on a Rails 3 compatible Gem of Alchemy. Feel free to contribute :) Just fork the rails3 branch.
+But the Rails 3 compatible Gem of Alchemy is nearly complete and can be found at rubygems.org. Feel free to contribute :) Just fork the next_stable branch.
 
 Install via Installer (recommended)
 ----------------------------------------
