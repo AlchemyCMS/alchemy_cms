@@ -146,7 +146,7 @@ class Admin::PagesController < AlchemyController
   
   def visit
     @page.unlock
-    redirect_to multi_language? ? show_page_path(:lang => @page.language_code, :urlname => @page.urlname) : show_page_path(@page.urlname)
+    redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
   end
   
   # Sets the page public and sweeps the page cache
