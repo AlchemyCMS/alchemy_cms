@@ -390,6 +390,7 @@ private
   end
   
   def self.all_definitions_for(element_names)
+    return [] if element_names.blank?
     if element_names.to_s == "all"
       return element_descriptions
     else
