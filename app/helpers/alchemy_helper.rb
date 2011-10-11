@@ -1169,6 +1169,7 @@ module AlchemyHelper
     options[:crop].to_s == 'true' && !options[:image_size].blank?
   end
 
+  # Renders translated Module Names for html title element.
   def render_alchemy_title
     key = 'module: ' + controller_name
     if content_for?(:title)

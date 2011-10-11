@@ -2,6 +2,8 @@ class Admin::TrashController < AlchemyController
   
   filter_access_to [:index, :clear]
   
+  before_filter :set_translation
+  
   def index
     @elements = Element.trashed
     @page = Page.find_by_id(params[:page_id])
