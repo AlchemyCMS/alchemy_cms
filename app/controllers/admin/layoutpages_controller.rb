@@ -1,5 +1,7 @@
 class Admin::LayoutpagesController < AlchemyController
   
+  before_filter :set_translation
+  
   filter_access_to :all
   
   def index
