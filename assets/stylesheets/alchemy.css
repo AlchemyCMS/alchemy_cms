@@ -1,5 +1,7 @@
 /* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
+/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -1648,6 +1650,7 @@ table {
 	border-style: none;
 	border-spacing: 0 4px;
 	padding: 0;
+	font-size: inherit;
 }
 
 table.window_form {
@@ -2022,7 +2025,7 @@ td.role {
 
 #archive_all {
 	padding: 16px;
-	overflow: auto;
+	overflow: visible;
 }
 
 #archive_all .padding_left_right {
@@ -2195,7 +2198,6 @@ textarea.thin_border {
 
 .thin_border,
 .input_field {
-	height: 18px;
 	font-size: 12px;
 	padding: 3px 4px 2px;
 	margin: 0;
@@ -2205,6 +2207,7 @@ textarea.thin_border {
 	background: #fff;
 	border: 1px inset #e5e5e5;
 	width: 210px;
+	height: 25px;
 }
 
 .thin_border.dirty {
