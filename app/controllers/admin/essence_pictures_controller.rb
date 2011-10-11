@@ -79,10 +79,10 @@ class Admin::EssencePicturesController < AlchemyController
   def destroy
     content = Content.find_by_id(params[:id])
     @element = content.element
-    @essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
     @content_id = content.id
-    @options = params[:options]
     content.destroy
+    @essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
+    @options = params[:options]
   end
 
 end
