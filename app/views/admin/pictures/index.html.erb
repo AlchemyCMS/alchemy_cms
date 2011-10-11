@@ -56,11 +56,11 @@
 			<%= link_to(
 				content_tag('span', '', :class => 'icon flush'),
 				flush_admin_pictures_path,
-				:before => 'Alchemy.pleaseWaitOverlay();',
-				:complete => 'Alchemy.pleaseWaitOverlay(false);',
 				:class => 'icon_button',
 				:remote => true,
-				:title => _('Flush picture cache')
+				:method => :post,
+				:title => _('Flush picture cache'),
+				:id => 'flush_picture_cache_button'
 			) -%><br />
 			<label><%= _('Flush picture cache') %></label>
 		</div>
@@ -75,10 +75,13 @@
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 
-	jQuery(document).ready(function() {
+	jQuery(document).ready(function($) {
 		Alchemy.inPlaceEditor({
 			save_label: "<%= _('save') %>",
 			cancel_label: "<%= _('cancel') %>"
+		});
+		$('#flush_picture_cache_button').click(function() {
+			Alchemy.pleaseWaitOverlay();
 		});
 	});
 
