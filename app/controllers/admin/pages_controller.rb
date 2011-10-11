@@ -46,9 +46,6 @@ class Admin::PagesController < AlchemyController
     else
       page = Page.create(params[:page])
     end
-    if page.valid? && parent
-      page.move_to_child_of(parent)
-    end
     render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name}, 'form#new_page_form button.button')
   rescue Exception => e
     exception_handler(e)
