@@ -3,7 +3,7 @@
   $('#essence_picture_<%= @content_id -%>').remove();
   Alchemy.SortableContents('#element_<%= @element.id -%>_contents', '<%= form_authenticity_token -%>');
 
-  <%- if !max_image_count.blank? && (@essence_pictures.length == max_image_count) -%>
+  <%- if max_image_count.blank? || (@essence_pictures.length < max_image_count) -%>
   $('#element_<%= @element.id -%>_contents').append('<%= escape_javascript(
     render(
       :partial => "admin/elements/add_content",

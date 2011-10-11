@@ -255,7 +255,6 @@ form.add_gallery_to_index {
 
 div.picture_gallery_images {
 	margin-top: 8px;
-	height: 100%;
 	overflow: hidden;
 	margin-bottom: 8px;
 	border: 1px inset #cecece;

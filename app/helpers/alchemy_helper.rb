@@ -1181,10 +1181,19 @@ module AlchemyHelper
     "Alchemy CMS - #{title}"
   end
 
+  # Returns max image count as integer or nil. Used for the picture editor in element editor views.
   def max_image_count
     return nil if !@options
-    image_count = @options[:maximum_amount_of_images] || @options[:max_images]
-    image_count.to_i unless image_count.blank?
+    if @options[:maximum_amount_of_images].blank?
+      image_count = @options[:max_images]
+    else
+      image_count = @options[:maximum_amount_of_images]
+    end
+    if image_count.blank?
+      nil
+    else
+      image_count.to_i
+    end
   end
 
 end
