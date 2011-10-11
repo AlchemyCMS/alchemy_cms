@@ -7,7 +7,9 @@ class Admin::ClipboardController < AlchemyController
   def index
     clipboard = get_clipboard(params[:remarkable_type].tableize)
     @clipboard_items = params[:remarkable_type].classify.constantize.all_from_clipboard(clipboard)
-    render :layout => false
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
   end
 
   def insert
@@ -16,14 +18,8 @@ class Admin::ClipboardController < AlchemyController
     unless @clipboard.include?(params[:remarkable_id])
       @clipboard.push(params[:remarkable_id])
     end
-    if params[:remove] == 'true'
-      case params[:remarkable_type]
-        when 'element' then
-          @item.page = nil
-          @item.position = nil
-        when 'page' then #TODO: page.move feature
-      end
-      @item.save(false)
+    respond_to do |format|
+      format.js
     end
   rescue Exception => e
     exception_handler(e)
@@ -33,6 +29,9 @@ class Admin::ClipboardController < AlchemyController
     @clipboard = get_clipboard(params[:remarkable_type].tableize)
     @item = params[:remarkable_type].classify.constantize.find(params[:remarkable_id])
     @clipboard.delete(params[:remarkable_id])
+    respond_to do |format|
+      format.js
+    end
   rescue Exception => e
     exception_handler(e)
   end

@@ -12,6 +12,9 @@ require 'factory_girl'
 require 'database_cleaner'
 require 'factories.rb'
 
+require 'authlogic/test_case'
+include Authlogic::TestCase
+
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 

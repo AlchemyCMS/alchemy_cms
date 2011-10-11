@@ -40,4 +40,8 @@ FactoryGirl.define do
 		public false
 	end
 	
+	factory :element do
+	  name 'article'
+  end
+	
 end
