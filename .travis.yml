@@ -3,3 +3,7 @@ rvm:
 branches:
   only:
     - next_stable
+before_script:
+  - "mysql -e 'create database alchemy_cms_test;'"
+env:
+  - DB=mysql

@@ -32,6 +32,16 @@ Capybara.default_selector = :css
 # Run any available migration
 ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
 
+# Using MySQL on Travis CI
+if ENV['TRAVIS']
+  configs = YAML.load_file('./database.yml')
+  ActiveRecord::Base.configurations = configs
+  
+  db_name = ENV['DB'] || 'mysql'
+  ActiveRecord::Base.establish_connection(db_name)
+  ActiveRecord::Base.default_timezone = :utc
+end
+
 # Seed the database
 Alchemy::Seeder.seed!
 
