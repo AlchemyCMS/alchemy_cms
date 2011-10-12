@@ -1,4 +1,4 @@
-# Configure Rails Envinronment
+# Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
 # setting textdomain at first. so it's available everywhere!
@@ -33,17 +33,17 @@ Capybara.default_selector = :css
 if ENV['TRAVIS']
   configs = YAML.load_file('spec/database.yml')
   ActiveRecord::Base.configurations = configs
-  
+
   db_name = ENV['DB'] || 'mysql'
   ActiveRecord::Base.establish_connection(db_name)
   ActiveRecord::Base.default_timezone = :utc
+else
+  # Run any available migration
+  ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
+
+  # Seed the database
+  Alchemy::Seeder.seed!
 end
-
-# Run any available migration
-ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
-
-# Seed the database
-Alchemy::Seeder.seed!
 
 # Load support files
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
