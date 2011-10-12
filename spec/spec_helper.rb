@@ -37,13 +37,13 @@ if ENV['TRAVIS']
   db_name = ENV['DB'] || 'mysql'
   ActiveRecord::Base.establish_connection(db_name)
   ActiveRecord::Base.default_timezone = :utc
-else
-  # Run any available migration
-  ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
-
-  # Seed the database
-  Alchemy::Seeder.seed!
 end
+
+# Run any available migration
+ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
+
+# Seed the database
+Alchemy::Seeder.seed!
 
 # Load support files
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
