@@ -29,9 +29,6 @@ require "capybara/rails"
 Capybara.default_driver   = :rack_test
 Capybara.default_selector = :css
 
-# Run any available migration
-ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
-
 # Using MySQL on Travis CI
 if ENV['TRAVIS']
   configs = YAML.load_file('spec/database.yml')
@@ -41,6 +38,9 @@ if ENV['TRAVIS']
   ActiveRecord::Base.establish_connection(db_name)
   ActiveRecord::Base.default_timezone = :utc
 end
+
+# Run any available migration
+ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
 
 # Seed the database
 Alchemy::Seeder.seed!
