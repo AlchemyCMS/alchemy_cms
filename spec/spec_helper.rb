@@ -34,7 +34,7 @@ ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__
 
 # Using MySQL on Travis CI
 if ENV['TRAVIS']
-  configs = YAML.load_file('./database.yml')
+  configs = YAML.load_file('spec/database.yml')
   ActiveRecord::Base.configurations = configs
   
   db_name = ENV['DB'] || 'mysql'
