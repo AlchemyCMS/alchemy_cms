@@ -197,7 +197,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.string   "urlname"
     t.string   "title"
     t.string   "language_code"
-    t.boolean  "language_root",    :limit => 255
+    t.boolean  "language_root"
     t.string   "page_layout"
     t.text     "meta_keywords"
     t.text     "meta_description"
@@ -205,15 +205,15 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.integer  "rgt"
     t.integer  "parent_id"
     t.integer  "depth"
-    t.boolean  "visible",                         :default => false
-    t.boolean  "public",                          :default => false
-    t.boolean  "locked",                          :default => false
+    t.boolean  "visible",          :default => false
+    t.boolean  "public",           :default => false
+    t.boolean  "locked",           :default => false
     t.integer  "locked_by"
-    t.boolean  "restricted",                      :default => false
-    t.boolean  "robot_index",                     :default => true
-    t.boolean  "robot_follow",                    :default => true
-    t.boolean  "sitemap",                         :default => true
-    t.boolean  "layoutpage",                      :default => false
+    t.boolean  "restricted",       :default => false
+    t.boolean  "robot_index",      :default => true
+    t.boolean  "robot_follow",     :default => true
+    t.boolean  "sitemap",          :default => true
+    t.boolean  "layoutpage",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
