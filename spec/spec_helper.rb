@@ -7,16 +7,6 @@ FastGettext.text_domain = 'alchemy'
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-# Using MySQL on Travis CI
-if ENV['TRAVIS']
-  configs = YAML.load_file('spec/database.yml')
-  ActiveRecord::Base.configurations = configs
-
-  db_name = ENV['DB'] || 'mysql'
-  ActiveRecord::Base.establish_connection(db_name)
-  ActiveRecord::Base.default_timezone = :utc
-end
-
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
