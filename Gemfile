@@ -8,7 +8,7 @@ group :development, :test do
 end
 
 group :test do
-	gem "mysql2"
+	gem 'mysql2', '< 0.3'
 	gem 'factory_girl_rails'
 	gem "capybara", ">= 0.4.0"
 	gem "launchy"
