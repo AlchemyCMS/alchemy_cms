@@ -5,6 +5,6 @@ branches:
     - next_stable
 before_script:
   - "mysql -e 'create database alchemy_cms_test;'"
-  - "cd spec/dummy && RAILS_ENV=test bundle exec rake db:migrate"
+  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:migrate'"
 env:
   - DB=mysql
