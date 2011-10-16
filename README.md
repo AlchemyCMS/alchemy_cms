@@ -68,6 +68,7 @@ Installation
 
 Use the installer (recommended):
 
+    gem install alchemy_cms
     alchemy new my_magicpage
 
 Start the local server:
@@ -75,6 +76,16 @@ Start the local server:
     rails server
 
 Then just switch to your browser and open `http://localhost:3000`.
+
+Add to existing Rails project:
+
+    add gem 'alchemy_cms' to Gemfile
+
+    bundle install
+    rake alchemy:prepare
+    rake alchemy:standard_set:install (optional)
+    rake db:migrate
+
 
 Tipps
 -----
