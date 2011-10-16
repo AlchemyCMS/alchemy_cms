@@ -119,11 +119,7 @@ module PagesHelper
           :onchange => "window.location=this.value"
         )
       else
-        if options[:spacer].blank?
-          return languages.html_safe
-        else
-          return languages.join(options[:spacer]).html_safe
-        end
+        raw(languages.join)
       end
     end
   end
