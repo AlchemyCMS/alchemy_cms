@@ -68,7 +68,7 @@ Installation
 
 Use the installer (recommended):
 
-    gem install alchemy_cms
+    gem install alchemy_cms --pre
     alchemy new my_magicpage
 
 Start the local server:
@@ -85,6 +85,7 @@ Add to existing Rails project:
     rake alchemy:prepare
     rake alchemy:standard_set:install (optional)
     rake db:migrate
+    rake db:seed
 
 
 Tipps
