@@ -51,11 +51,6 @@ module PagesHelper
     end
   end
 
-  # DEPRICATED! Use Element.preview_text instead.
-  def get_preview_text element
-    element.preview_text
-  end
-
   def render_classes classes=[]
     s = classes.uniq.delete_if{|x| x == nil || x.blank?}.join(" ")
     s.blank? ? "" : "class='#{s}'"
