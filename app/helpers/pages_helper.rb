@@ -84,7 +84,7 @@ module PagesHelper
     }
     options = default_options.merge(options)
     if multi_language?
-      languages = []
+      language_links = []
       pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
       pages.each_with_index do |page, i|
         if(options[:link_to_page_with_layout] != nil)
@@ -97,29 +97,29 @@ module PagesHelper
           active = session[:language_id] == page.language.id
           linkname = page.language.label(options[:linkname])
           if options[:as_select_box]
-            languages << [linkname, show_page_url(:urlname => page.urlname, :lang => page.language.code)]
+            language_links << [linkname, show_page_url(:urlname => page.urlname, :lang => page.language.code)]
           else
-            languages << link_to(
+            language_links << link_to(
               "#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
               show_page_path(:urlname => page.urlname, :lang => page.language.code),
               :class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
-              :title => options[:show_title] ? I18n.t("alchemy.languages.#{page.language.code}.title", :default => page.language.name) : nil
+              :title => options[:show_title] ? I18n.t("alchemy.language_links.#{page.language.code}.title", :default => page.language.name) : nil
             )
           end
         end
       end
-      languages.reverse! if options[:reverse]
+      language_links.reverse! if options[:reverse]
       if options[:as_select_box]
         return select_tag(
           'language',
           options_for_select(
-            languages,
+            language_links,
             show_page_url(:urlname => @page.urlname, :lang => @page.language.code)
           ),
           :onchange => "window.location=this.value"
         )
       else
-        raw(languages.join)
+        raw(language_links.join(options[:spacer]))
       end
     end
   end
