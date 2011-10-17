@@ -423,7 +423,7 @@ private
     if description["contents"].blank?
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
-      element_scratch["contents"].each do |content_hash|
+      description["contents"].each do |content_hash|
         contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end
