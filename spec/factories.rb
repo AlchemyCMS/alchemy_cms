@@ -28,16 +28,20 @@ FactoryGirl.define do
 		code "kl"
 		name 'Klingonian'
 		default false
-		frontpage_name 'tuq'
+		frontpage_name 'Tuq'
 		page_layout 'intro'
 		public true
 	end
 	
 	factory :page do
-		name "tuq"
-		page_layout "intro"
-		association :language
-		public false
+		name "A Public Page"
+		page_layout "standard"
+		language :language
+		
+		factory :public_page do
+		  public true
+	  end
+		
 	end
 	
 	factory :element do

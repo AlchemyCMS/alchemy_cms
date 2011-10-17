@@ -21,30 +21,5 @@ describe PagesHelper do
     end
 
 	end
-	
-  context "rendering elements", :focus => true do
-
-		before(:each) do
-		  @element = Factory(:element)
-		end
-
-    it "should render an element view partial" do
-			render_element(@element)
-    end
-
-		it "should render a unique dom id for element" do
-		  element_dom_id(@element).should == "#{@element.name}_#{@element.id}"
-		end
-
-		it "should return the data-alchemy-element HTML attribute for element" do
-			@preview_mode = true
-		  element_preview_code(@element).should == " data-alchemy-element='#{@element.id}'"
-		end
-
-		it "should not return the data-alchemy-element HTML attribute if not in preview_mode" do
-		  element_preview_code(@element).should_not == " data-alchemy-element='#{@element.id}'"
-		end
-
-  end
 
 end

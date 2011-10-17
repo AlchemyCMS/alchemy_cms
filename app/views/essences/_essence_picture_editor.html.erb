@@ -4,9 +4,7 @@
     <%= link_to_confirmation_window(
       "",
       _("confirm_to_delete_image"),
-      url_for(
-        :controller => 'essence_pictures',
-        :action => 'destroy',
+      admin_essence_picture_path(
         :id => content,
         :options => options
       ),
