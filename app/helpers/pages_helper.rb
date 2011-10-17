@@ -51,6 +51,18 @@ module PagesHelper
     end
   end
 
+  # Returns a string for the id attribute of a html element for the given element
+  def element_dom_id(element)
+    return "" if element.nil?
+    "#{element.name}_#{element.id}"
+  end
+
+  # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.
+  def element_preview_code(element)
+    return "" if element.nil?
+    " data-alchemy-element='#{element.id}'" if @preview_mode && element.page == @page
+  end
+
   def render_classes classes=[]
     s = classes.uniq.delete_if{|x| x == nil || x.blank?}.join(" ")
     s.blank? ? "" : "class='#{s}'"

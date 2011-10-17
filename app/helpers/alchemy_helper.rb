@@ -951,12 +951,6 @@ module AlchemyHelper
     )
   end
 
-  # Returns a string for the id attribute of a html element for the given element
-  def element_dom_id(element)
-    return "" if element.nil?
-    "#{element.name}_#{element.id}"
-  end
-
   # Returns a string for the id attribute of a html element for the given content
   def content_dom_id(content)
     return "" if content.nil?
@@ -1039,11 +1033,6 @@ module AlchemyHelper
 
   def alchemy_preview_mode_code
     javascript_include_tag("alchemy/alchemy.preview") if @preview_mode
-  end
-  
-  # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.
-  def element_preview_code(element)
-    " data-alchemy-element='#{element.id}'" if @preview_mode && element.page == @page
   end
 
   # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
