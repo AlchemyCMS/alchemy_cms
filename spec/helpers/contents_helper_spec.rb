@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include AlchemyHelper
+
 describe ContentsHelper do
 
 	before(:each) do
@@ -15,7 +17,7 @@ describe ContentsHelper do
 	end
 
 	it "should render a link to add new content to element" do
-		pending "Don't know how to include the alchemy_helper in specs"
+		render_new_content_link(@element).should match(/Alchemy.openWindow.+\/admin\/elements\/1\/contents\/new/m)
 	end
 
 	it "should render a link to create a content in element" do
