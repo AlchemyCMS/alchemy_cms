@@ -1,14 +1,3 @@
-# All methods (helpers) in this helper are used by Alchemy to render elements, contents and layouts on the Page.
-#
-# TODO: list all important infos here.
-# 
-# Most Important Infos:
-# ---
-#
-# 1. The most important helpers for webdevelopers are the render_navigation(), render_elements() and the render_page_layout() helpers.
-# 2. The currently displayed page can be accessed via the @page variable.
-# 3. All important meta data from @page will be rendered via the render_meta_data() helper.
-
 module AlchemyHelper
 
   include FastGettext::Translation
@@ -91,46 +80,6 @@ module AlchemyHelper
         element_string += render_element(element, :view, options, i+1)
       end
       element_string.html_safe
-    end
-  end
-
-  # This helper renders the Element partial for either the view or the editor part.
-  # Generate element partials with ./script/generate elements
-  def render_element(element, part = :view, options = {}, i = 1)
-    begin
-      if element.blank?
-        warning('Element is nil')
-        render :partial => "elements/#{part}_not_found", :locals => {:name => 'nil'}
-      else
-        default_options = {
-          :shorten_to => nil,
-          :render_format => "html"
-        }
-        options = default_options.merge(options)
-        element.store_page(@page) if part == :view
-        path1 = "#{Rails.root}/app/views/elements/"
-        path2 = "#{Rails.root}/vendor/plugins/alchemy/app/views/elements/"
-        partial_name = "_#{element.name.underscore}_#{part}.html.erb"
-        locals = options.delete(:locals)
-        render(
-          :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
-          :locals => {
-            :element => element, 
-            :options => options, 
-            :counter => i
-          }.merge(locals || {})
-        )
-      end
-    rescue ActionView::MissingTemplate
-      warning(%(
-        Element #{part} partial not found for #{element.name}.\n
-        Looking for #{partial_name}, but not found
-        neither in #{path1}
-        nor in #{path2}
-        Use rails generate alchemy:elements to generate them.
-        Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
-      ))
-      render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use rails generate alchemy:elements to generate them."}
     end
   end
 
