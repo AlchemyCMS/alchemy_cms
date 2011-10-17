@@ -11,7 +11,6 @@ describe PagesHelper do
       helper.stub(:multi_language?).and_return(true)
       Page.create(:language_code => "en", :public => true)
       Page.create(:language_code => "de")
-                                                 ss
       helper.language_switches.should == ""
     end
 
