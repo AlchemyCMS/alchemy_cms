@@ -38,13 +38,15 @@ class Element < ActiveRecord::Base
     self.class.where(find_conditions).order("position DESC").limit(1)
   end
 
-  def store_page page
+  # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).
+  def store_page(page)
+    return true if page.nil?
     unless self.to_be_sweeped_pages.include? page
       self.to_be_sweeped_pages << page
       self.save
     end
   end
-  
+
   # nullifies the page_id aka. trashs it.
   def trash
     self.page_id = nil
