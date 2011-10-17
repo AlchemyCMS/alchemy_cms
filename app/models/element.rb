@@ -104,14 +104,23 @@ class Element < ActiveRecord::Base
     copy
   end
 
+  # Returns the descriptions from elements.yml file.
+  # Alchemy comes with its own elements.yml file. As so called standard set.
+  # Place a elements.yml file inside your apps config/alchemy folder to define
+  # your own set of elements
   def self.descriptions
     if File.exists? "#{Rails.root}/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
-    elsif File.exists? "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
-    else
-      raise "Could not read config/alchemy/elements.yml"
-    end
+			element_definitions = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
+		end
+		if !element_definitions
+			if File.exists?(File.join(File.dirname(__FILE__), "../../config/alchemy/elements.yml"))
+				element_definitions = YAML.load_file( File.join(File.dirname(__FILE__), "../../config/alchemy/elements.yml") )
+			end
+		end
+		if !element_definitions
+			raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
+		end
+		element_definitions
   end
   
   def self.definitions
@@ -148,7 +157,6 @@ class Element < ActiveRecord::Base
 
   # returns the description of the element with my name in element.yml
   def description
-    return nil if Element.descriptions.blank?
     Element.descriptions.detect{ |d| d['name'] == self.name }
   end
 
@@ -397,7 +405,7 @@ private
       return definitions.select { |e| element_names.include? e['name'] }
     end
   end
-  
+
   # makes a copy of source and makes copies of the contents from source
   def self.copy(source, differences = {})
     attributes = source.attributes.except("id").merge(differences)
@@ -411,9 +419,8 @@ private
 
   # creates the contents for this element as described in the elements.yml
   def create_contents
-    element_scratch = description
     contents = []
-    if element_scratch["contents"].blank?
+    if description["contents"].blank?
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
       element_scratch["contents"].each do |content_hash|
