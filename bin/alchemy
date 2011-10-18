@@ -18,7 +18,7 @@ class Alchemy < Thor
       
       say "Installing...", :yellow
       
-      if system "rails new #{project} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d mysql -JT"
+      if system "rails _3.0.10_ new #{project} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d mysql -JT"
         
         @application = project
         

@@ -40,7 +40,7 @@ class Page < ActiveRecord::Base
   scope :accessable, where(:restricted => false)
   scope :restricted, where(:restricted => true)
   scope :public_language_roots, lambda {
-    where("language_root = 1 AND language_code IN ('#{Language.all_codes_for_published.join('\',\'')}') AND public = 1")
+		where(:language_root => true).where("language_code IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
   }
   scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
   
