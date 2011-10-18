@@ -32,16 +32,25 @@ FactoryGirl.define do
 		page_layout 'intro'
 		public true
 	end
-	
+
 	factory :page do
-		name "A Public Page"
+		language { Language.find_by_code('kl') || Factory(:language) }
+		name "A Page"
+		parent_id { Factory(:language_root_page).id }
 		page_layout "standard"
-		language :language
-		
+
+    factory :language_root_page do
+  		name 'Klingonian'
+  		page_layout 'intro'
+  		language_root true
+  		parent_id { Page.root.id }
+  	end
+
 		factory :public_page do
+  		name "A Public Page"
 		  public true
 	  end
-		
+
 	end
 	
 	factory :element do
