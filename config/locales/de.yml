@@ -325,7 +325,7 @@ de:
         inclusion: "%{attribute} ist kein gültiger Wert"
         exclusion: "%{attribute} ist nicht verfügbar"
         invalid: "%{attribute} ist nicht gültig"
-        record_invalid: 'Validierung ist fehlgeschlagen'
+        record_invalid: 'Validierung von %{errors} ist fehlgeschlagen'
         confirmation: "%{attribute} stimmt nicht mit der Bestätigung überein"
         accepted: "%{attribute} muss akzeptiert werden"
         empty: "%{attribute} muss ausgefüllt werden"

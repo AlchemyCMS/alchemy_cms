@@ -6,7 +6,7 @@ describe PagesHelper do
 	
 		before :each do
 			@default_language = Language.get_default
-			@german = Factory(:language, :code => "de", :name => "Deutsch", :public => true)
+			@german = Language.find_by_code('de')
 			# simulates link_to_public_child = true
 			helper.stub(:configuration).and_return(true)
 			helper.stub(:multi_language?).and_return(true)
