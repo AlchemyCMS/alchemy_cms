@@ -1,5 +1,7 @@
 module PagesHelper
 
+  include ElementsHelper
+
   def render_classes classes=[]
     s = classes.uniq.delete_if{|x| x == nil || x.blank?}.join(" ")
     s.blank? ? "" : "class='#{s}'"

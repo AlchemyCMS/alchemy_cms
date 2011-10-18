@@ -19,4 +19,6 @@ describe Element do
 		FileUtils.mv(File.join(File.dirname(__FILE__), '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', 'config', 'alchemy', 'elements.yml'))
 	end
 
+	it "should return an ingredient by name"
+
 end

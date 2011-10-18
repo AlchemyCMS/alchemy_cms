@@ -2,13 +2,19 @@ require 'spec_helper'
 
 describe 'Alchemy Standard Set' do
 
-  it "should show the sitename ingredient as page title prefix" do
-		pending "because we should spec creation of Page and Language first"
-		header_page = Factory(:public_page)
-		sitename = Factory(:element, :name => 'sitename', :page => header_page)
-		sitename.content_by_name('name').essence.update_attributes(:body => 'Peters Petshop')
-    visit '/'
-		within('head title') { page.should have_content('Peters Petshop') }
-  end
+	before(:each) do
+		# We need an user or the signup view will show up
+	  Factory(:registered_user)
+	end
+
+  it "should show the sitename ingredient as page title prefix"
+
+	it "should render a whole page including all its elements and contents" do
+		page = Factory(:public_page)
+		article = Factory(:element, :name => 'article', :page => page)
+		article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
+    visit '/a-public-page'
+		within('#content') { page.should have_content('Welcome to Peters Petshop') }
+	end
 
 end
