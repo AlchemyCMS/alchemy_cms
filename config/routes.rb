@@ -1,89 +1,141 @@
-@lang_regex ||= /[a-z]{2}/
-ActionController::Routing::Routes.draw do |map|
-  map.root :controller => 'pages', :action => 'show'
-  map.login "/admin/login", :controller => "admin", :action => "login"
-  map.logout "/admin/logout", :controller => "admin", :action => "logout"
-  map.admin_layoutpages "/admin/pages/layoutpages", :controller => "admin/pages", :action => "layoutpages"
-  map.download_attachment "/attachment/:id/download", :controller => 'attachments', :action => 'download'
-  map.show_attachment "/attachment/:id/show", :controller => 'attachments', :action => 'show'
-  map.namespace :admin do |admin|
-    admin.resources :users
-    admin.resources :contents, :collection => {:order => :post}
-    admin.resources(
-      :elements,
-      :has_many => :contents,
-      :shallow => true,
-      :collection => {
-        :list => :get, 
-        :order => :post
-      }, 
-      :member => {
-        :fold => :post,
-        :trash => :delete
-      }
-    )
-    admin.resources(
-      :pages,
-      :collection => {
-        :switch_language => :get,
-        :create_language => :get,
-        :link => :get,
-        :layoutpages => :get,
-        :sort => :get,
-        :order => :post,
-        :flush => :post
-      },
-      :member => {
-        :publish => :post,
-        :unlock => :post,
-        :configure => :get,
-        :preview => :get,
-        :visit => :post
-      },
-      :has_many => [:elements],
-      :shallow => true
-    )
-    admin.resources(
-      :pictures,
-      :collection => {
-        :archive_overlay => :get,
-        :add_upload_form => :get,
-        :flush => :post
-      },
-      :member => {
-        :remove => :delete
-      }
-    )
-    admin.resources(
-      :attachments,
-      :collection => {
-        :archive_overlay => :get,
-        :add_upload_form => :get
-      },
-      :member => {
-        :download => :get
-      }
-    )
-    admin.resources :essence_pictures, :member => {:crop => :get}, :except => [:show, :new, :create]
-    admin.resources :essence_files
-    admin.resources :essence_videos
-    admin.resources :languages
-    admin.resources :clipboard, :only => :index, :collection => {:clear => :delete, :insert => :post, :remove => :delete}
-    admin.resources :trash, :only => [:index], :collection => {:clear => :delete}
+Rails.application.routes.draw do
+  
+  root :to => 'pages#show'
+  
+  resources :messages, :only => [:index, :new, :create]
+  
+  match '/admin' => 'admin#index',
+    :as => :admin
+  match '/admin/login' => 'admin#login',
+    :as => :login
+  match '/admin/signup' => 'admin#signup',
+    :as => :signup
+  match '/admin/leave' => 'admin#leave',
+    :as => :leave_admin
+  match '/admin/logout' => 'admin#logout',
+    :as => :logout
+  match '/attachment/:id/download/:name' => 'attachments#download',
+    :as => :download_attachment
+  match '/attachment/:id/show' => 'attachments#show',
+    :as => :show_attachment
+  match '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format' => 'pictures#show',
+    :as => :show_cropped_picture
+  match '/pictures/show/:id/:size/:crop/:name.:format' => 'pictures#show',
+    :as => :show_picture_with_crop
+  match '/pictures/show/:id/:size/:name.:format' => 'pictures#show',
+    :as => :show_picture
+  match '/pictures/zoom/:id/picture.:format' => 'pictures#zoom',
+    :as => :zoom_picture
+  match  '/pictures/thumbnails/:id/:size(/:crop_from)(/:crop_size)/thumbnail.png' => 'pictures#thumbnail',
+    :as => :thumbnail, :defaults => { :format => 'png' }
+  match '/:lang' => 'pages#show',
+    :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
+    :as => :show_language_root
+  match '(/:lang)/:urlname(.:format)' => 'pages#show',
+    :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
+    :as => :show_page
+  
+  resources :user_sessions
+  resources :elements, :only => :show
+
+  namespace :admin do 
+  
+    resources :users
+    
+    resources :contents do
+      collection do 
+        post :order
+      end
+    end
+    
+    resources :pages do 
+      resources :elements
+      collection do 
+        post :order
+        post :flush
+        post :copy_language
+        get :switch_language
+        get :create_language
+        get :link
+        get :sort
+      end
+      member do 
+        post :unlock
+        post :publish
+        post :fold
+        post :visit
+        get :configure
+        get :preview
+      end
+    end
+    
+    resources :elements do 
+      resources :contents
+      collection do 
+        get :list
+        post :order
+      end
+      member do
+        post :fold
+        delete :trash
+      end
+    end
+    
+    resources :layoutpages, :only => :index
+    
+    resources :pictures do 
+      collection do 
+        post :flush
+      end
+      member do 
+        get :show_in_window
+        delete :remove
+      end
+    end
+    
+    resources :attachments do 
+      member do 
+        get :download
+      end
+    end
+    
+    resources :essence_pictures, :except => [:show, :new, :create] do 
+      collection do
+        put :assign
+      end
+      member do 
+        get :crop
+      end
+    end
+    
+    resources :essence_files, :only => [:edit, :update] do
+      collection do
+        put :assign
+      end
+    end
+    
+    resources :essence_videos
+    
+    resources :languages
+    
+    # OHOHOH lovely Rails! Why, oh why I always have to hack thou?
+    resource :clipboard, :only => :index, :controller => 'clipboard' do
+      collection do
+        get :index
+        delete :clear
+        delete :remove
+        post :insert
+      end
+    end
+    
+    # OHOHOH lovely Rails! Why, oh why I always have to hack thou?
+    resource :trash, :only => :index, :controller => 'trash' do
+      collection do
+        get :index
+        delete :clear
+      end
+    end
+    
   end
-  map.resources :user_sessions
-  map.resources :elements, :only => :show
-  map.resources :mails
-  map.show_cropped_picture '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format', :controller => 'pictures', :action => 'show'
-  map.show_picture_with_crop '/pictures/show/:id/:size/:crop/:name.:format', :controller => 'pictures', :action => 'show'
-  map.show_picture '/pictures/show/:id/:size/:name.:format', :controller => 'pictures', :action => 'show'
-  map.zoom_picture '/pictures/zoom/:id/picture.png', :controller => 'pictures', :action => 'zoom'
-  map.croppped_thumbnail '/pictures/thumbnails/:id/:size/:crop_from/:crop_size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
-  map.default_croppped_thumbnail '/pictures/thumbnails/:id/:size/:crop/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
-  map.thumbnail '/pictures/thumbnails/:id/:size/thumbnail.png', :controller => 'pictures', :action => 'thumbnail'
-  map.admin '/admin', :controller => 'admin', :action => 'index'
-  map.show_language_root '/:lang', :controller => :pages, :action => :show, :lang => @lang_regex
-  map.show_page '/:urlname.:format', :controller => :pages, :action => :show
-  map.show_page_with_language '/:lang/:urlname.:format', :controller => :pages, :action => :show, :lang => @lang_regex
-  map.connect ':controller/:action/:id'
+  
 end

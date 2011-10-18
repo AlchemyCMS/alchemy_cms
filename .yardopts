@@ -2,5 +2,4 @@
 app/**/*.rb
 config/**/*.yml
 lib/**/*
-recipes/*.rb
 README.md

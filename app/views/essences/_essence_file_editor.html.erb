@@ -6,7 +6,7 @@
 		<div class="file_icon">
 		<%- if content.ingredient.nil? -%>
 			<%= link_to_overlay_window("",
-				archive_overlay_admin_attachments_path(
+				admin_attachments_path(
 					:content_id => content.id,
 					:only => options[:file_assign_show_only],
 					:except => options[:file_assign_do_not_show],
@@ -25,12 +25,12 @@
 		<%- end -%>
 		</div>
 		<div class="file_name">
-			<%= content.ingredient.name rescue "&#x2190;" + _('assign_file_from_archive') %>
+			<%= content.ingredient.name rescue ("&#x2190;" + _('assign_file_from_archive')).html_safe %>
 		</div>
 		<%- unless content.ingredient.nil? -%>
 		<div class="essence_file_tools">
 			<%= link_to_overlay_window("",
-				archive_overlay_admin_attachments_path(
+				admin_attachments_path(
 					:content_id => content.id,
 					:only => options[:file_assign_show_only],
 					:except => options[:file_assign_do_not_show],
@@ -52,7 +52,7 @@
 				),
 				{
 					:title => _('edit_file_properties'),
-					:size => '365x150'
+					:size => '400x150'
 				},
 				:class => 'edit_file',
 				:title => _('edit_file_properties')

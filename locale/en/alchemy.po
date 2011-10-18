@@ -1306,7 +1306,7 @@ msgid "module: dashboard"
 msgstr "Home"
 
 #: lib/alchemy_core_modules.rb:8
-msgid "module: images"
+msgid "module: pictures"
 msgstr "Images"
 
 #: lib/alchemy_core_modules.rb:9
@@ -1740,3 +1740,6 @@ msgstr "yes"
 #: app/views/admin/pictures/_picture.html.erb:27
 msgid "zoom_image"
 msgstr "Zoom this image."
+
+msgid "Please wait. Flash® is loading..."
+msgstr ""

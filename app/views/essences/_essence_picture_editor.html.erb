@@ -1,12 +1,10 @@
 <div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor' %>">
-  <div class="picture_detail">
+  <div class="picture_thumbnail">
     <span class="picture_tool_delete">
     <%= link_to_confirmation_window(
       "",
       _("confirm_to_delete_image"),
-      url_for(
-        :controller => 'essence_pictures',
-        :action => 'destroy',
+      admin_essence_picture_path(
         :id => content,
         :options => options
       ),
@@ -26,16 +24,14 @@
     <%- else -%>
     <div class="picture_handle" title="<%= _('drag_to_sort') if options[:dragable] %>"></div>
     <div class="picture_content_spinner">
-      <%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
+      <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
     </div>
     <div class="picture_image">
       <div class="thumbnail_background">
         <%= image_tag(
-          url_for(
-            :controller => '/pictures',
-            :action => 'thumbnail',
+          thumbnail_path(
             :id => content.ingredient,
-            :size => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size) : "111x93",
+            :size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
             :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
             :crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
             :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil

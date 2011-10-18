@@ -1,7 +1,7 @@
 <%- cache(content) do -%>
 <div class="content_editor" id="<%= content_dom_id(content) %>">
   
-  <%- if !content.settings.blank? && content.settings[:display_as] == "checkbox" -%>
+  <%- if content.settings[:display_as] == "checkbox" -%>
   
   <%= check_box_tag(
     content.form_field_name,
@@ -13,7 +13,7 @@
     <%= render_content_name(content) %>
   </label>
   
-  <%- elsif !content.settings.blank? && content.settings[:display_as] == "select" -%>
+  <%- elsif content.settings[:display_as] == "select" -%>
   
   <label><%= render_content_name(content) %></label>
   <%- if options[:select_values].blank? -%>
@@ -51,15 +51,15 @@
       content_path(content),
       :class => 'icon_button small',
       :title => _('Remove this content')
-    ) if !content.settings.blank? && content.settings[:deletable] %>
+    ) if content.settings[:deletable] %>
   </label>
   <%= text_field_tag(
     content.form_field_name,
     content.ingredient,
-    :class => "thin_border auto_resize#{!content.settings.blank? && content.settings[:linkable] ? ' text_with_icon' : ''}"
+    :class => "thin_border auto_resize#{content.settings[:linkable] ? ' text_with_icon' : ''}"
   ) %>
   
-  <%- if !content.settings.blank? && content.settings[:linkable] -%>
+  <%- if content.settings[:linkable] -%>
   
   <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
   <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>

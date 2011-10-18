@@ -42,9 +42,9 @@ class Content < ActiveRecord::Base
   
   # Settings from the elements.yml definition
   def settings
-    return nil if description.blank?
+    return {} if description.blank?
     settings = description['settings']
-    return nil if settings.blank?
+    return {} if settings.blank?
     settings.symbolize_keys
   end
   

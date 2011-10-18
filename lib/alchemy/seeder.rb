@@ -5,15 +5,15 @@ module Alchemy
     # This seed builds the necessary page structure for alchemy in your db.
     # Put Alchemy::Seeder.seed! inside your db/seeds.rb file and run it with rake db:seed.
     def self.seed!
-      FastGettext.add_text_domain 'alchemy', :path => File.join(Rails.root, 'vendor/plugins/alchemy/locale')
+      FastGettext.add_text_domain 'alchemy', :path => File.join(File.dirname(__FILE__), '../../locale')
       FastGettext.text_domain = 'alchemy'
       FastGettext.available_locales = ['de', 'en']
-      FastGettext.locale = Alchemy::Configuration.get(:default_translation)
+      FastGettext.locale = Alchemy::Config.get(:default_translation)
       
       errors = []
       notices = []
       
-      default_language = Alchemy::Configuration.get(:default_language)
+      default_language = Alchemy::Config.get(:default_language)
       
       lang = Language.find_or_initialize_by_code(
         :name => default_language['name'],
@@ -53,32 +53,13 @@ module Alchemy
         notices << "== Skipping! Page #{root.name} was already present"
       end
       
-      index = Page.find_or_initialize_by_name(
-        :name => lang.frontpage_name,
-        :page_layout => lang.page_layout,
-        :language => lang,
-        :language_root => true,
-        :do_not_autogenerate => true,
-        :do_not_sweep => true
-      )
-      if index.new_record?
-        if index.save
-          puts "== Created page #{index.name}"
-        else
-          errors << "Errors creating page #{index.name}: #{index.errors.full_messages}"
-        end
-      else
-        notices << "== Skipping! Page #{index.name} was already present"
-      end
-      
       if errors.blank?
-        index.move_to_child_of root
+        puts "Success!"
+        notices.map{ |note| puts note }
       else
         puts "WARNING! Some pages could not be created:"
         errors.map{ |error| puts error }
       end
-      puts "Success!"
-      notices.map{ |note| puts note }
     end
     
     # This method is for running after upgrading an old Alchemy version without Language Model (pre v1.5).

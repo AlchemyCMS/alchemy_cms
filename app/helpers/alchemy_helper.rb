@@ -1,328 +1,17 @@
-# Copyright: 2007-2010 Thomas von Deyen and Carsten Fregin
-# Author:    Thomas von Deyen
-# Date:      02.06.2010
-# License:   GPL
-# All methods (helpers) in this helper are used by Alchemy to render elements, contents and layouts on the Page.
-# You can call this helper the most important part of Alchemy. This helper is Alchemy, actually :)
-#
-# TODO: list all important infos here.
-# 
-# Most Important Infos:
-# ---
-#
-# 1. The most important helpers for webdevelopers are the render_navigation(), render_elements() and the render_page_layout() helpers.
-# 2. The currently displayed page can be accessed via the @page variable.
-# 3. All important meta data from @page will be rendered via the render_meta_data() helper.
-
 module AlchemyHelper
-  
+
   include FastGettext::Translation
 
   def configuration(name)
-    return Alchemy::Configuration.parameter(name)
+    return Alchemy::Config.get(name)
   end
 
-  # Did not know of the truncate helepr form rails at this time.
-  # The way is to pass this to truncate....
+  # An alias for truncate.
+  # Left here for downwards compatibilty.
   def shorten(text, length)
-    if text.length <= length - 1
-      text
-    else
-      text[0..length - 1] + "..."
-    end
-  end
-  
-  def render_editor(element)
-    render_element(element, :editor)
+    text.truncate(:length => length)
   end
 
-  def get_content(element, position)
-    return element.contents[position - 1]
-  end
-
-  # Renders all elements from @page.
-  # ---
-  # == Options are:
-  # :only => []                 A list of element names to be rendered only. Very usefull if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
-  # :except => []               A list of element names to be rendered. The opposite of the only option.
-  # :from_page                  The Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
-  # :count                      The amount of elements to be rendered (beginns with first element found)
-  # :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
-  # :sort_by => Content#name    A Content name to sort the elements by
-  # :reverse => boolean         Reverse the rendering order
-  #
-  # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
-  #
-  def render_elements(options = {})
-    default_options = {
-      :except => [],
-      :only => [],
-      :from_page => "",
-      :count => nil,
-      :offset => nil,
-      :locals => {},
-      :render_format => "html",
-      :fallback => nil
-    }
-    options = default_options.merge(options)
-    if options[:from_page].blank?
-      page = @page
-    else
-      if options[:from_page].class == Page
-        page = options[:from_page]
-      else
-        page = Page.find_all_by_page_layout_and_language_id(options[:from_page], session[:language_id])
-      end
-    end
-    if page.blank?
-      warning('Page is nil')
-      return ""
-    else
-      show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
-      if page.class == Array
-        all_elements = page.collect { |p| p.find_elements(options, show_non_public) }.flatten
-      else
-        all_elements = page.find_elements(options, show_non_public)
-      end
-      unless options[:sort_by].blank?
-        all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
-      end
-      all_elements.reverse! if options[:reverse_sort] || options[:reverse]
-      element_string = ""
-      if options[:fallback]
-        unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-          if from = Page.find_by_page_layout(options[:fallback][:from])
-            all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
-          end
-        end
-      end
-      all_elements.each_with_index do |element, i|
-        element_string += render_element(element, :view, options, i+1)
-      end
-      element_string
-    end
-  end
-
-  # This helper renders the Element partial for either the view or the editor part.
-  # Generate element partials with ./script/generate elements
-  def render_element(element, part = :view, options = {}, i = 1)
-    begin
-      if element.blank?
-        warning('Element is nil')
-        render :partial => "elements/#{part}_not_found", :locals => {:name => 'nil'}
-      else
-        default_options = {
-          :shorten_to => nil,
-          :render_format => "html"
-        }
-        options = default_options.merge(options)
-        element.store_page(@page) if part == :view
-        path1 = "#{RAILS_ROOT}/app/views/elements/"
-        path2 = "#{RAILS_ROOT}/vendor/plugins/alchemy/app/views/elements/"
-        partial_name = "_#{element.name.underscore}_#{part}.html.erb"
-        locals = options.delete(:locals)
-        render(
-          :partial => "elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
-          :locals => {
-            :element => element, 
-            :options => options, 
-            :counter => i
-          }.merge(locals || {})
-        )
-      end
-    rescue ActionView::MissingTemplate
-      warning(%(
-        Element #{part} partial not found for #{element.name}.\n
-        Looking for #{partial_name}, but not found
-        neither in #{path1}
-        nor in #{path2}
-        Use ./script/generate elements to generate them.
-        Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
-      ))
-      render :partial => "elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use ./script/generate elements to generate them."}
-    end
-  end
-
-  # DEPRICATED: It is useless to render a helper that only renders a partial.
-  # Unless it is something the website producer uses. But this is not the case here.
-  def render_element_head element
-    render :partial => "elements/partials/element_head", :locals => {:element_head => element}
-  end
-  
-  # Renders the Content partial that is given (:editor, or :view).
-  # You can pass several options that are used by the different contents.
-  #
-  # For the view partial:
-  # :image_size => "111x93"                        Used by EssencePicture to render the image via RMagick to that size.
-  # :css_class => ""                               This css class gets attached to the content view.
-  # :date_format => "Am %d. %m. %Y, um %H:%Mh"     Espacially fot the EssenceDate. See Date.strftime for date formatting.
-  # :caption => true                               Pass true to enable that the EssencePicture.caption value gets rendered.
-  # :blank_value => ""                             Pass a String that gets rendered if the content.essence is blank.
-  #
-  # For the editor partial:
-  # :css_class => ""                               This css class gets attached to the content editor.
-  # :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
-  def render_essence(content, part = :view, options = {}, html_options = {})
-    if content.nil?
-      return part == :view ? "" : warning('Content is nil', _("content_not_found"))
-    elsif content.essence.nil?
-      return part == :view ? "" : warning('Essence is nil', _("content_essence_not_found"))
-    end
-    defaults = {
-      :for_editor => {
-        :as => 'text_field',
-        :css_class => 'long',
-        :render_format => "html"
-      },
-      :for_view => {
-        :image_size => "120x90",
-        :css_class => "",
-        :date_format => "%d. %m. %Y, %H:%Mh",
-        :caption => true,
-        :blank_value => "",
-        :render_format => "html"
-      }
-    }
-    options_for_partial = defaults[('for_' + part.to_s).to_sym].merge(options[('for_' + part.to_s).to_sym])
-    options = options.merge(defaults)
-    render(
-      :partial => "essences/#{content.essence.class.name.underscore}_#{part.to_s}.#{options_for_partial[:render_format]}.erb",
-      :locals => {
-        :content => content,
-        :options => options_for_partial,
-        :html_options => html_options
-      }
-    )
-  end
-  
-  # Renders the Content editor partial from the given Content.
-  # For options see -> render_essence
-  def render_essence_editor(content, options = {})
-    render_essence(content, :editor, :for_editor => options)
-  end
-  
-  # Renders the Content view partial from the given Content.
-  # For options see -> render_essence
-  def render_essence_view(content, options = {}, html_options = {})
-    render_essence(content, :view, {:for_view => options}, html_options)
-  end
-  
-  # Renders the Content editor partial from essence_type.
-  # 
-  # Options are:
-  #   * element (Element) - the Element the contents are in (obligatory)
-  #   * type (String) - the type of Essence (obligatory)
-  #   * options (Hash):
-  #   ** :position (Integer) - The position of the Content inside the Element. I.E. for getting the n-th EssencePicture. Default is 1 (the first)
-  #   ** :all (String) - Pass :all to get all Contents of that name. Default false
-  #   * editor_options (Hash) - Will be passed to the render_essence_editor partial renderer
-  #
-  def render_essence_editor_by_type(element, essence_type, options = {}, editor_options = {})
-    return warning('Element is nil', _("no_element_given")) if element.blank?
-    return warning('EssenceType is blank', _("No EssenceType given")) if essence_type.blank?
-    defaults = {
-      :position => 1,
-      :all => false
-    }
-    options = defaults.merge(options)
-    return_string = ""
-    if options[:all]
-      contents = element.contents.find_all_by_essence_type_and_name(essence_type, options[:all])
-      contents.each do |content|
-        return_string << render_essence(content, :editor, :for_editor => editor_options)
-      end
-    else
-      content = element.contents.find_by_essence_type_and_position(essence_type, options[:position])
-      return_string = render_essence(content, :editor, :for_editor => editor_options)
-    end
-    return_string
-  end
-  
-  # Renders the Content view partial from the given Element for the essence_type (e.g. EssenceRichtext).
-  # For multiple contents of same kind inside one molecue just pass a position so that will be rendered.
-  # Otherwise the first content found for this type will be rendered.
-  # For options see -> render_essence
-  def render_essence_view_by_type(element, type, position, options = {}, html_options = {})
-    if element.blank?
-      warning('Element is nil')
-      return ""
-    end
-    if position.nil?
-      content = element.content_by_type(type)
-    else
-      content = element.contents.find_by_essence_type_and_position(type, position)
-    end
-    render_essence(content, :view, :for_view => options)
-  end
-
-  # Renders the Content view partial from the given Element by position (e.g. 1).
-  # For options see -> render_essence
-  def render_essence_view_by_position(element, position, options = {}, html_options = {})
-    if element.blank?
-      warning('Element is nil')
-      return ""
-    end
-    content = element.contents.find_by_position(position)
-    render_essence(content, :view, {:for_view => options}, html_options)
-  end
-  
-  # Renders the Content editor partial from the given Element by position (e.g. 1).
-  # For options see -> render_essence
-  def render_essence_editor_by_position(element, position, options = {})
-    if element.blank?
-      warning('Element is nil')
-      return ""
-    end
-    content = element.contents.find_by_position(position)
-    render_essence(content, :editor, :for_editor => options)
-  end
-  
-  # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
-  # For options see -> render_essence
-  # 
-  # Content creation on the fly:
-  # 
-  # If you update the elements.yml file after creating an element this helper displays a error message with an option to create the content.
-  #
-  def render_essence_editor_by_name(element, name, options = {})
-    if element.blank?
-      return warning('Element is nil', _("no_element_given"))
-    end
-    content = element.content_by_name(name)
-    if content.blank?
-      render :partial => 'admin/contents/missing', :locals => {:element => element, :name => name}
-    else
-      render_essence(content, :editor, :for_editor => options)
-    end
-  end
-  
-  # Renders the Content view partial from the passed Element for passed content name.
-  # For options see -> render_essence
-  def render_essence_view_by_name(element, name, options = {}, html_options = {})
-    if element.blank?
-      warning('Element is nil')
-      return ""
-    end
-    content = element.content_by_name(name)
-    render_essence(content, :view, {:for_view => options}, html_options)
-  end
-  
-  # Renders the name of elements content or the default name defined in elements.yml
-  def render_content_name(content)
-    if content.blank?
-      warning('Element is nil')
-      return ""
-    else
-      content_name = content.name_for_label
-    end
-    if content.description.blank?
-      warning("Content #{content.name} is missing its description")
-      title = _("Warning: Content '%{contentname}' is missing its description.") % {:contentname => content.name}
-      content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name
-    end
-    content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>" : content_name
-  end
-  
   # Returns @page.title
   #
   # The options are:
@@ -357,7 +46,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     title = render_page_title(options)
-    %(<title>#{title}</title>)
+    %(<title>#{title}</title>).html_safe
   end
 
   # Renders a html <meta> tag for :name => "" and :content => ""
@@ -373,7 +62,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-    %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" />)
+    %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" />).html_safe
   end
 
   # Renders a html <meta http-equiv="Content-Language" content="#{lang}" /> for @page.language.
@@ -387,7 +76,7 @@ module AlchemyHelper
     }
     options = default_options.merge(options)
     lang = (@page.language_code.blank? ? options[:default_language] : @page.language_code)
-    %(<meta http-equiv="Content-Language" content="#{lang}" />)
+    %(<meta http-equiv="Content-Language" content="#{lang}" />).html_safe
   end
 
   # = This helper takes care of all important meta tags for your @page.
@@ -412,6 +101,10 @@ module AlchemyHelper
   # <meta name="robots" content="index, follow" />
   # 
   def render_meta_data options={}
+    if @page.blank?
+      warning("No Page found!")
+      return nil
+    end
     default_options = {
       :title_prefix => "",
       :title_seperator => "|",
@@ -437,16 +130,16 @@ module AlchemyHelper
       #{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
       #{render_meta_tag( :name => "description", :content => description)}
       #{render_meta_tag( :name => "keywords", :content => keywords)}
-      <meta name="generator" content="Alchemy #{Alchemy.version}" />
+      <meta name="generator" content="Alchemy #{Alchemy::VERSION}" />
       <meta name="date" content="#{@page.updated_at}" />
       <meta name="robots" content="#{robot}" />
     )
     if @page.contains_feed?
     meta_string += %(
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_with_language_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
     )
     end
-    return meta_string
+    return meta_string.html_safe
   end
 
   # Returns an array of all pages in the same branch from current. Used internally to find the active page in navigations.
@@ -511,15 +204,15 @@ module AlchemyHelper
         css_class.blank? ? css_class = "first" : css_class = [css_class, "last"].join(" ")
       end
       if multi_language? 
-        url = show_page_with_language_url(:urlname => urlname, :lang => page.language_code)
+        url = show_page_url(:urlname => urlname, :lang => page.language_code)
       else
         url = show_page_url(:urlname => urlname)
       end
       bc << link_to( h(page.name), url, :class => css_class, :title => page.title )
     end
-    bc.join(options[:seperator])
+    bc.join(options[:seperator]).html_safe
   end
-  
+
   # returns true if page is in the active branch
   def page_active? page
     @breadcrumb ||= breadcrumb(@page)
@@ -547,7 +240,7 @@ module AlchemyHelper
   # == The options are:
   #
   # :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
-  # :from_page => @root_page                               Do you want to render a navigation from a different page then the current page? Then pass an Page instance or a PageLayout name as string.
+  # :from_page => @root_page                               Do you want to render a navigation from a different page then the current page? Then pass an Page instance or a Alchemy::PageLayout name as string.
   # :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
   # :navigation_partial => "navigation_renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
   # :navigation_link_partial => "navigation_link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
@@ -585,16 +278,13 @@ module AlchemyHelper
     if options[:restricted_only].nil?
       conditions.delete(:restricted)
     end
-    pages = Page.all(
-      :conditions => conditions,
-      :order => "lft ASC"
-    )
+    pages = Page.where(conditions).order("lft ASC")
     if options[:reverse]
       pages.reverse!
     end
     render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
   end
-  
+
   # Renders the children of the given page (standard is the current page), the given page and its siblings if there are no children, or it renders just nil.
   # Use this helper if you want to render the subnavigation independent from the mainnavigation. E.g. to place it in a different layer on your website.
   # If :from_page's level in the site-hierarchy is greater than :level (standard is 2) and the given page has no children, the returned output will be the :from_page and it's siblings
@@ -616,59 +306,12 @@ module AlchemyHelper
     end
   end
 
-  # = This helper renders the paginated navigation.
-  #
-  # :pagination => {
-  #   :level_X => {
-  #     :size => X,
-  #     :current => params[:navigation_level_X_page]
-  #   }
-  # }                                                     This one is a funky complex pagination option for the navigation. I'll explain in the next episode.
-  def render_paginated_navigation(options = {})
-    default_options = {
-      :submenu => false,
-      :all_sub_menues => false,
-      :from_page => @root_page,
-      :spacer => "",
-      :pagination => {},
-      :navigation_partial => "pages/partials/navigation_renderer",
-      :navigation_link_partial => "pages/partials/navigation_link",
-      :show_nonactive => false,
-      :show_title => true,
-      :level => 1
-    }
-    options = default_options.merge(options)
-    if options[:from_page].nil?
-      warning('options[:from_page] is nil')
-      return ""
-    else
-      pagination_options = options[:pagination].stringify_keys["level_#{options[:from_page].depth}"]
-      find_conditions = { :parent_id => options[:from_page].id, :visible => true }
-      pages = Page.all(
-        :page => pagination_options,
-        :conditions => find_conditions,
-        :order => "lft ASC"
-      )
-      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
-    end
-  end
-  
-  # Used to display the pagination links for the paginated navigation.
-  def link_to_navigation_pagination name, urlname, pages, page, css_class = ""
-    p = {}
-    p["navigation_level_1_page"] = params[:navigation_level_1_page] unless params[:navigation_level_1_page].nil?
-    p["navigation_level_2_page"] = params[:navigation_level_2_page] unless params[:navigation_level_2_page].nil?
-    p["navigation_level_3_page"] = params[:navigation_level_3_page] unless params[:navigation_level_3_page].nil?
-    p["navigation_level_#{pages.to_a.first.depth}_page"] = page
-    link_to name, show_page_url(urlname, p), :class => (css_class unless css_class.empty?)
-  end  
-  
   # Returns true if the current_user (The logged-in Alchemy User) has the admin role.
   def is_admin?
     return false if !current_user
     current_user.admin?
   end
-  
+
   # This helper renders the link for a protoypejs-window overlay. We use this for our fancy modal overlay windows in the Alchemy cockpit.
   def link_to_overlay_window(content, url, options={}, html_options={})
     default_options = {
@@ -692,7 +335,7 @@ module AlchemyHelper
       html_options
     )
   end
-  
+
   # Used for rendering the folder link in Admin::Pages.index sitemap.
   def sitemapFolderLink(page)
     return '' if page.level == 1
@@ -703,27 +346,23 @@ module AlchemyHelper
       css_class = 'collapsed'
       title = _('Hide childpages')
     end
-    link_to_remote(
+    link_to(
       '',
-      :url => {
-        :controller => 'admin/pages',
-        :action => :fold,
-        :id => page.id
-      },
-      :html => {
-        :class => "page_folder #{css_class}",
-        :title => title,
-        :id => "fold_button_#{page.id}"
-      }
+      fold_admin_page_path(page),
+      :remote => true,
+      :method => :post,
+      :class => "page_folder #{css_class}",
+      :title => title,
+      :id => "fold_button_#{page.id}"
     )
   end
-  
+
   # Renders an image_tag from for an image in public/images folder so it can be cached.
   # *Not really working!*
   def static_image_tag image, options={}
     image_tag url_for(:controller => :images, :action => :show_static, :image => image)
   end
-  
+
   # Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
   def render_page_layout(options={})
     default_options = {
@@ -735,7 +374,7 @@ module AlchemyHelper
     warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
     render :partial => "page_layouts/standard"
   end
-  
+
   # Returns @current_language set in the action (e.g. Page.show)
   def current_language
     if @current_language.nil?
@@ -745,12 +384,12 @@ module AlchemyHelper
       @current_language
     end
   end
-  
+
   # Returns true if the current page is the root page in the nested set of Pages, false if not.
   def root_page?
     @page == @root_page
   end
-  
+
   # Returns the full url containing host, page and anchor for the given element
   def full_url_for_element element
     "http://" + request.env["HTTP_HOST"] + "/" + element.page.urlname + "##{element.name}_#{element.id}"  
@@ -791,9 +430,9 @@ module AlchemyHelper
     )
     filter_field << "<label for=\"search_field\">" + _("search") + "</label>"
     filter_field << "</div>"
-    filter_field
+    filter_field.html_safe
   end
-  
+
   def clipboard_select_tag(items, html_options = {})
     options = [[_('Please choose'), ""]]
     items.each do |item|
@@ -818,7 +457,7 @@ module AlchemyHelper
   end
   
   # Returns all elements that could be placed on that page because of the pages layout.
-  # The elements will be grouped by cellname.
+  # The elements will be grouped by cell.
   def grouped_elements_for_select(elements)
     return [] if elements.nil?
     cells_definition = Cell.definitions
@@ -829,7 +468,7 @@ module AlchemyHelper
       cell_elements = elements.select { |e| cell['elements'].include?(e['name']) }
       celled_elements += cell_elements
       optgroup_label = Cell.translated_label_for(cell['name'])
-      options[optgroup_label] = cell_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name']] }
+      options[optgroup_label] = cell_elements.map { |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e['name'] + "##{cell['name']}"] }
     end
     other_elements = elements - celled_elements
     unless other_elements.blank?
@@ -877,14 +516,11 @@ module AlchemyHelper
     elsif content.essence.nil?
       return warning('Content', _('content_essence_not_found'))
     end
-    pages = Page.find(
-      :all,
-      :conditions => {
-        :language_id => session[:language_id],
-        :page_layout => options[:only][:page_layout],
-        :public => true
-      }
-    )
+    pages = Page.where({
+      :language_id => session[:language_id],
+      :page_layout => options[:only][:page_layout],
+      :public => true
+    })
     select_tag(
       "contents[content_#{content.id}][body]",
       pages_for_select(pages, content.essence.body, options[:prompt], options[:page_attribute]),
@@ -932,7 +568,7 @@ module AlchemyHelper
     end
     options_for_select(result, selected.to_s)
   end
-  
+
   # Returns all public elements found by Element.name.
   # Pass a count to return only an limited amount of elements.
   def all_elements_by_name(name, options = {})
@@ -970,31 +606,7 @@ module AlchemyHelper
     element = page.elements.find_by_name_and_public(options[:element_name], true)
     return element
   end
-  
-  # This helper renderes the picture editor for the elements on the Alchemy Desktop.
-  # It brings full functionality for adding images to the element, deleting images from it and sorting them via drag'n'drop.
-  # Just place this helper inside your element editor view, pass the element as parameter and that's it.
-  #
-  # Options:
-  # :maximum_amount_of_images (integer), default nil. This option let you handle the amount of images your customer can add to this element.
-  def render_picture_editor(element, options={})
-    default_options = {
-      :last_image_deletable => true,
-      :maximum_amount_of_images => nil,
-      :refresh_sortable => true
-    }
-    options = default_options.merge(options)
-    picture_contents = element.all_contents_by_type("EssencePicture")
-    render(
-      :partial => "admin/elements/picture_editor",
-      :locals => {
-        :picture_contents => picture_contents,
-        :element => element,
-        :options => options
-      }
-    )
-  end
-  
+
   def render_essence_selection_editor(element, content, select_options)
     if content.class == String
        content = element.contents.find_by_name(content)
@@ -1010,19 +622,19 @@ module AlchemyHelper
       select_options
     )
   end
-  
+
   # TOOD: include these via asset_packer yml file
   def stylesheets_from_plugins
-    Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
+    Dir.glob("vendor/plugins/*/assets/stylesheets/*.css").inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
       acc << stylesheet_link_tag("#{plugin}/#{filename}")
     end
   end
 
-  # TOOD: include these via asset_packer yml file  
+  # TOOD: include these via asset_packer yml file
   def javascripts_from_plugins
-    Dir.glob("vendor/plugins/*/assets/javascripts/*.js").select{|s| !s.include? "vendor/plugins/alchemy"}.inject("") do |acc, s|
+    Dir.glob("vendor/plugins/*/assets/javascripts/*.js").inject("") do |acc, s|
       filename = File.basename(s)
       plugin = s.split("/")[2]
       acc << javascript_include_tag("#{plugin}/#{filename}")
@@ -1031,14 +643,14 @@ module AlchemyHelper
 
   def admin_main_navigation
     navigation_entries = alchemy_plugins.collect{ |p| p["navigation"] }
-    render :partial => 'layouts/partials/mainnavigation_entry', :collection => navigation_entries.flatten
+    render :partial => 'admin/partials/mainnavigation_entry', :collection => navigation_entries.flatten
   end
 
   # Renders the Subnavigation for the admin interface.
   def render_admin_subnavigation(entries)
-    render :partial => "layouts/partials/sub_navigation", :locals => {:entries => entries}
+    render :partial => "admin/partials/sub_navigation", :locals => {:entries => entries}
   end
-  
+
   def admin_subnavigation
     plugin = alchemy_plugin(:controller => params[:controller], :action => params[:action])
     unless plugin.nil?
@@ -1048,7 +660,7 @@ module AlchemyHelper
       ""
     end
   end
-  
+
   def admin_mainnavi_active?(mainnav)
     subnavi = mainnav["sub_navigation"]
     nested = mainnav["nested"]
@@ -1059,35 +671,7 @@ module AlchemyHelper
       mainnav["controller"] == params[:controller] && mainnav["action"] == params["action"]
     end
   end
-  
-  # Generates the url for the preview frame.
-  # target_url must contain target_controller and target_action.
-  def generate_preview_url(target_url)
-    preview_url = url_for(
-      :controller => ('/' + target_url["target_controller"]),
-      :action => target_url["target_action"],
-      :id => params[:id]
-    )
-  end
-  
-  # Returns a string for the id attribute of a html element for the given element
-  def element_dom_id(element)
-    return "" if element.nil?
-    "#{element.name}_#{element.id}"
-  end
-  
-  # Returns a string for the id attribute of a html element for the given content
-  def content_dom_id(content)
-    return "" if content.nil?
-    if content.class == String
-      a = Content.find_by_name(content)
-      return "" if a.nil?
-    else
-      a = content
-    end
-    "#{a.essence_type.underscore}_#{a.id}"
-  end
-  
+
   # Helper for including the nescessary javascripts and stylesheets for the different views.
   # Together with the rails caching we achieve a good load time.
   def alchemy_assets_set(setname = 'combined')
@@ -1096,12 +680,16 @@ module AlchemyHelper
       js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
       javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)
     end
-    content_for(:stylesheets) do 
-      css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
-      stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s)
+    css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
+    content_for(:stylesheets) do
+      stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s, :media => 'screen')
+    end
+    content_for(:stylesheets) do
+      print_set = css_set.clone << 'alchemy/print'
+      stylesheet_link_tag(print_set, :cache => 'alchemy/' + setname.to_s + '-print', :media => 'print')
     end
   end
-  
+
   def parse_sitemap_name(page)
     if multi_language?
       pathname = "/#{session[:language_code]}/#{page.urlname}"
@@ -1110,60 +698,16 @@ module AlchemyHelper
     end
     pathname
   end
-  
-  def render_new_content_link(element)
-    link_to_overlay_window(
-      _('add new content'),
-      new_admin_element_content_path(element),
-      {
-        :size => '305x40',
-        :title => _('Select an content'),
-        :overflow => true
-      },
-      {
-        :id => "add_content_for_element_#{element.id}",
-        :class => 'button new_content_link'
-      }
-    )
-  end
-  
-  def render_create_content_link(element, options = {})
-    defaults = {
-      :label => _('add new content')
-    }
-    options = defaults.merge(options)
-    link_to_remote(
-      options[:label],
-      {
-        :url => admin_contents_path(
-          :content => {
-            :name => options[:content_name],
-            :element_id => element.id
-          }
-        ),
-        :method => 'post'
-      },
-      {
-        :id => "add_content_for_element_#{element.id}",
-        :class => 'button new_content_link'
-      }
-    )
-  end
-  
+
   # Returns an icon
   def render_icon(icon_class)
     content_tag('span', '', :class => "icon #{icon_class}")
   end
-  
+
   def alchemy_preview_mode_code
     javascript_include_tag("alchemy/alchemy.preview") if @preview_mode
   end
-  
-  # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.
-  def element_preview_code(element)
-    " data-alchemy-element='#{element.id}'" if @preview_mode && element.page == @page
-  end
-  
+
   # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
   def warning(message, text = nil)
     logger.warn %(\n
@@ -1176,11 +720,11 @@ module AlchemyHelper
       return warning
     end
   end
-  
+
   def alchemy_combined_assets
     alchemy_assets_set
   end
-  
+
   # This helper returns a path for use inside a link_to helper.
   # You may pass a page_layout or an urlname.
   # Any additional options are passed to the url_helper, so you can add arguments to your url.
@@ -1196,12 +740,12 @@ module AlchemyHelper
       urlname = options[:urlname]
     end
     if multi_language?
-      show_page_with_language_path({:urlname => urlname, :lang => @language.code}.merge(options.except(:page_layout, :urlname)))
+      show_page_path({:urlname => urlname, :lang => @language.code}.merge(options.except(:page_layout, :urlname)))
     else
       show_page_path({:urlname => urlname}.merge(options.except(:page_layout, :urlname)))
     end
   end
-  
+
   # Returns the current page.
   def current_page
     @page
@@ -1211,14 +755,18 @@ module AlchemyHelper
   # Cell partials are located in +app/views/cells/+ of your project.
   def render_cell(name)
     cell = @page.cells.find_by_name(name)
-    return "" if cell.blank?
+    return "" if cell.blank?    
     render :partial => "cells/#{name}", :locals => {:cell => cell}
   end
   
   # Renders all element partials from given cell.
   def render_cell_elements(cell)
     return warning("No cell given.") if cell.blank?
-    render_elements(:only => cell.elements.collect(&:name))
+    ret = ""
+    cell.elements.each do |element|
+      ret << render_element(element)
+    end
+    ret.html_safe
   end
   
   # Returns true or false if no elements are in the cell found by name.
@@ -1231,5 +779,33 @@ module AlchemyHelper
   def necessary_options_for_cropping_provided?(options)
     options[:crop].to_s == 'true' && !options[:image_size].blank?
   end
-  
+
+  # Renders translated Module Names for html title element.
+  def render_alchemy_title
+    key = 'module: ' + controller_name
+    if content_for?(:title)
+      title = content_for(:title)
+    elsif FastGettext.key_exist?(key)
+      title = _(key)
+    else
+      title = controller_name.humanize
+    end
+    "Alchemy CMS - #{title}"
+  end
+
+  # Returns max image count as integer or nil. Used for the picture editor in element editor views.
+  def max_image_count
+    return nil if !@options
+    if @options[:maximum_amount_of_images].blank?
+      image_count = @options[:max_images]
+    else
+      image_count = @options[:maximum_amount_of_images]
+    end
+    if image_count.blank?
+      nil
+    else
+      image_count.to_i
+    end
+  end
+
 end

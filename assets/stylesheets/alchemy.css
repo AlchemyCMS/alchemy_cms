@@ -1,5 +1,7 @@
 /* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
+/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
+
 html {
 	height: 100%;
 }
@@ -32,6 +34,8 @@ a img {
 	border: none;
 }
 
+/* @group Flash Notices */
+
 div#flash_notices {
 	position: fixed;
 	right: 0;
@@ -40,8 +44,7 @@ div#flash_notices {
 	top: 0;
 }
 
-div#flash_notices div.flash {
-	width: 300px;
+div.flash {
 	padding: 8px 8px 8px 30px;
 	font-weight: bold;
 	border-width: 1px;
@@ -57,31 +60,32 @@ div#flash_notices div.flash {
 	max-height: 64px;
 }
 
-div#flash_notices div.flash span.icon {
+div.flash span.icon {
 	position: absolute;
 	top: 8px;
 	left: 8px;
 }
 
-div#flash_notices div.flash.notice {
+div.flash.notice {
 	border-color: #9cc4a1;
 	color: #2e5934;
 	background-color: #e2efd3;
 }
 
-div#flash_notices div.flash.error {
+div.flash.error {
 	border-color: #c49c9c;
 	color: #592e2e;
 	background-color: #efd3d3;
 }
 
-div#flash_notices div.flash.info {
+div.flash.info {
 	border-color: #8392b5;
 	color: #233772;
 	background-color: #cadbf3;
 }
 
-div#flash_notices div.flash.warn {
+div.flash.warn,
+div.flash.warning {
 	border-color: #c4c19c;
 	color: #726d23;
 	background-color: #f3f0c1;
@@ -102,6 +106,126 @@ div.login_signup_box {
 	box-shadow: 1px 1px 8px rgba(0, 3, 51, 0.5);
 	margin: 2em auto;
 }
+
+/* @end */
+
+/* @group Pagination */
+
+div.archive_pagination_links {
+	position: relative;
+	margin-bottom: 16px;
+	margin-top: 8px;
+	height: 19px;
+	text-align: center;
+	line-height: 21px;
+}
+
+div.archive_pagination_links span.pagination_current_page {
+	background-position: 0 -21px;
+	font-weight: bold;
+	color: #333;
+}
+
+div.archive_pagination_links .first_page {
+	position: absolute;
+	left: 8px;
+	top: -2px;
+}
+
+.archive_pagination_links .last_page {
+	position: absolute;
+	right: 8px;
+	top: -2px;
+}
+
+.archive_pagination_links .previous_page {
+	position: absolute;
+	left: 32px;
+	top: -2px;
+}
+
+.archive_pagination_links .next_page {
+	position: absolute;
+	right: 32px;
+	top: -2px;
+}
+
+.archive_pagination_links span, .archive_pagination_links a {
+	padding: 0;
+	color: #333;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
+}
+
+.archive_pagination_links span {
+	color: #9a9a9a;
+}
+
+div.archive_pagination_links a:active {
+	text-decoration: none;
+	background-position: 0 -21px;
+}
+
+div.pagination {
+	text-align: center;
+	line-height: 24px;
+	height: 24px;
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+div.pagination a,
+div.pagination span,
+div.pagination em {
+	padding: 4px 8px;
+	border: 1px solid #c0c0c0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
+	height: 23px;
+	line-height: 23px;
+	font-style: normal;
+}
+
+div.pagination a:hover {
+	background-color: #e6f0f5;
+	color: #333;
+	border: 1px solid #888;
+	text-shadow: 0 1px 1px #fff;
+	text-decoration: none;
+}
+
+div.pagination .current {
+	background-color: #e6f0f5;
+	color: #333;
+	border: 1px solid #888;
+	text-shadow: 0px 1px 1px #fff;
+}
+
+div.pagination .previous_page {
+	margin-right: 16px;
+}
+
+div.pagination .next_page {
+	margin-left: 16px;
+}
+
+div.pagination .disabled {
+	color: #c0c0c0;
+}
+
+#assign_image_list div.pagination {
+	margin-bottom: 8px;
+}
+
+/* @end */
 
 #login table tbody tr td.label {
 	width: 155px;
@@ -275,7 +399,7 @@ div#user_info {
 div#sideboard {
 	float: right;
 	width: 240px;
-	margin-top: 54px;
+	padding-right: 16px;
 }
 
 div#license {
@@ -323,6 +447,8 @@ div.widget {
 div.widget p {
 	margin: 4px 0;
 }
+
+/* @group Dashboard */
 
 #dashboard div.widget ul {
 	padding: 0;
@@ -373,6 +499,8 @@ div.widget p {
 	margin-bottom: 0;
 	text-shadow: #fff 1px 1px 2px;
 }
+
+/* @end */
 
 div#alchemy_greeting {
 	width: 396px;
@@ -598,7 +726,7 @@ div#page {
 	height: 16px;
 	position: absolute;
 	background-color: white;
-	top: 4px;
+	top: 3px;
 	right: 4px;
 	padding: 1px;
 	z-index: 1;
@@ -609,7 +737,7 @@ div#page {
 	display: block;
 	width: 16px;
 	height: 16px;
-	background: url(/images/alchemy/icons.png) no-repeat -31px -40px;
+	background: url(/images/alchemy/icons.png) no-repeat -63px -72px;
 	cursor: pointer;
 }
 
@@ -638,7 +766,7 @@ div.tip {
 	height: 22px;
 	line-height: 23px;
 	padding-left: 8px;
-	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
+	background: #b2ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
 	border-bottom: 1px solid #afafaf;
 	padding-top: 4px;
 	z-index: 5;
@@ -892,7 +1020,7 @@ a.sitemap_pagename_link:hover:after {
 	height: 16px;
 	float: left;
 	margin-right: 4px;
-	background: url(/images/alchemy/icons.png) -32px -104px;
+	background: url(/images/alchemy/icons.png) -160px -168px;
 	margin-top: 4px;
 }
 
@@ -1024,29 +1152,29 @@ div.page_infos {
 }
 
 span.page_status.restricted {
-	background: url(/images/alchemy/icons.png) -128px -24px;
+	background: url(/images/alchemy/icons.png) -258px -39px;
 }
 
 span.page_status.not_restricted {
-	background: url(/images/alchemy/icons.png) -144px -24px;
+	background: url(/images/alchemy/icons.png) -290px -39px;
 	opacity: 0.3;
 }
 
 span.page_status.visible {
-	background: url(/images/alchemy/icons.png) -65px -24px;
+	background: url(/images/alchemy/icons.png) -128px -39px;
 }
 
 span.page_status.not_visible {
-	background: url(/images/alchemy/icons.png) -80px -24px;
+	background: url(/images/alchemy/icons.png) -160px -39px;
 	opacity: 0.3;
 }
 
 span.page_status.public {
-	background: url(/images/alchemy/icons.png) -96px -24px;
+	background: url(/images/alchemy/icons.png) -192px -39px;
 }
 
 span.page_status.not_public {
-	background: url(/images/alchemy/icons.png) -112px -24px;
+	background: url(/images/alchemy/icons.png) -224px -39px;
 	opacity: 0.3;
 }
 
@@ -1059,11 +1187,11 @@ span.page_status.not_public {
 	float: left;
 	width: 16px;
 	height: 16px;
-	background: url(/images/alchemy/icons.png) no-repeat 0 -24px;
+	background: url(/images/alchemy/icons.png) no-repeat 0 -40px;
 }
 
 .locked .site_status {
-	background-position: -16px -24px;
+	background-position: -32px -40px;
 }
 
 #sub_navigation span.page_status_and_name span.site_status {
@@ -1118,9 +1246,7 @@ a.folder_link {
 	height: 21px;
 }
 
-.sitemap_sitetools .icon_spacer {
-	width: 16px;
-	height: 16px;
+.sitemap_sitetools .icon.blank {
 	margin-left: 2px;
 	float: left;
 	margin-top: 3px;
@@ -1416,15 +1542,12 @@ a.icon_button img {
 	left: 3px;
 }
 
-span.icon {
-	display: inline-block;
-	background: url(/images/alchemy/icons.png) no-repeat;
-	width: 16px;
-	height: 16px;
+.icon.blank {
+  background: transparent;
 }
 
 span.icon.sort {
-	background-position: -64px -104px;
+	background-position: -128px -168px;
 }
 
 #page_sorting_panel p {
@@ -1448,23 +1571,23 @@ span.module.home {
 }
 
 span.module.pages {
-	background-position: -24px 0;
+	background-position: -40px 0;
 }
 
 span.module.users {
-	background-position: -48px 0;
+	background-position: -80px 0;
 }
 
 span.module.library {
-	background-position: -72px 0;
-}
-
-span.module.languages {
 	background-position: -120px 0;
 }
 
+span.module.languages {
+	background-position: -200px 0;
+}
+
 span.module.exit {
-	background-position: -96px 0;
+	background-position: -160px 0;
 }
 
 a.icon_button span.icon {
@@ -1474,15 +1597,15 @@ a.icon_button span.icon {
 }
 
 span.icon.zoom-out {
-	background: url(/images/alchemy/icons.png) -208px -40px;
+	background: url(/images/alchemy/icons.png) -416px -72px;
 }
 
 span.icon.zoom-equal {
-	background: url(/images/alchemy/icons.png) -224px -40px;
+	background: url(/images/alchemy/icons.png) -448px -72px;
 }
 
 span.icon.zoom-in {
-	background: url(/images/alchemy/icons.png) -240px -40px;
+	background: url(/images/alchemy/icons.png) -480px -72px;
 }
 
 a.icon_button.small span.icon {
@@ -1494,7 +1617,7 @@ a.icon_button.small span.icon {
 }
 
 span.icon.delete-small {
-	background: url(/images/alchemy/icons.png) 0 -104px;
+	background: url(/images/alchemy/icons.png) 0 -72px;
 }
 
 a.icon_button span.old_icon {
@@ -1527,6 +1650,7 @@ table {
 	border-style: none;
 	border-spacing: 0 4px;
 	padding: 0;
+	font-size: inherit;
 }
 
 table.window_form {
@@ -1738,22 +1862,10 @@ button.button {
 	font-size: 1em;
 }
 
-button.button img {
+.button img {
 	margin-right: 0;
 	width: 20px;
 	height: 20px;
-}
-
-button.button.disabled,
-button.button.disabled:hover,
-button.button.disabled:active {
-	color: #333;
-	text-shadow: none;
-	border-color: #ccc;
-	cursor: default;
-	background-image: none;
-	background-color: #f5f5f5;
-	padding: 1px 0 0;
 }
 
 #new_page_form tbody tr td.second_row .button {
@@ -1778,6 +1890,36 @@ a.button:active {
 	text-decoration: none;
 	text-shadow: none;
 	background-color: #e5e5e5;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active,
+input.button.disabled,
+input.button.disabled:hover,
+input.button.disabled:active,
+button.button.disabled,
+button.button.disabled:hover,
+button.button.disabled:active {
+	color: #333;
+	text-shadow: none;
+	border-color: #ccc;
+	cursor: default;
+	background-image: none;
+	background-color: #f5f5f5;
+	padding: 1px 0 0;
+}
+
+a.button.disabled img {
+	display: inline-block;
+	float: none;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active {
+	padding: 2px !important;
+	text-align: center;
 }
 
 label {
@@ -1883,45 +2025,12 @@ td.role {
 
 #archive_all {
 	padding: 16px;
+	overflow: visible;
 }
 
 #archive_all .padding_left_right {
 	padding-right: 8px;
 	padding-left: 8px;
-}
-
-.picture_image {
-	overflow: hidden;
-	position: absolute;
-	z-index: 0;
-	padding: 1px 0 1px 1px;
-}
-
-div#archive_all .picture_detail {
-	padding: 2px 0 0;
-	margin: 0 16px 16px 0;
-	height: 118px;
-	width: 118px;
-}
-
-#archive_all .picture_name {
-	width: 110px;
-	height: 12px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	display: block;
-	text-align: center;
-	white-space: nowrap;
-	overflow: hidden;
-	position: absolute;
-	bottom: 3px;
-	left: 4px;
-	font-family: "Courier New", Courier, mono;
-	line-height: 11px;
-}
-
-#archive_all .picture_name.rename.hover {
-	cursor: text;
 }
 
 .inplace-edit {
@@ -1977,70 +2086,6 @@ div.spinner {
 	left: 0;
 }
 
-div.archive_image_spinner img {
-	position: absolute;
-	z-index: 0;
-	top: 35px;
-	left: 40px;
-}
-
-.picture_detail {
-	width: 118px;
-	height: 118px;
-	padding: 2px 0 0;
-	margin: 2px 1px 2px 2px;
-	background-color: #fff;
-	float: left;
-	padding: 3px 0 0;
-	border: 1px solid #c0c0c0;
-	position: relative;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	-webkit-box-shadow: #999 0px 1px 3px;
-	-moz-box-shadow: #999 0px 1px 3px;
-	-o-box-shadow: #999 0px 1px 3px;
-	box-shadow: #999 0px 1px 3px;
-}
-
-.picture_detail .picture_image {
-	text-align: center;
-	margin-left: 3px;
-	margin-bottom: 2px;
-	width: 110px;
-	height: 93px;
-}
-
-#archive_all .picture_image {
-	margin-bottom: 0;
-	position: relative;
-	margin-top: 1px;
-	height: 93px;
-}
-
-#archive_all .picture_detail:hover .picture_tool_delete {
-	display: block;
-}
-
-.picture_image a {
-	cursor: -webkit-zoom-in;
-	cursor: -moz-zoom-in;
-	cursor: -o-zoom-in;
-	cursor: zoom-in;
-}
-
-.thumbnail_background {
-	margin: auto;
-	float: none;
-	display: table-cell;
-	width: 111px;
-	height: 93px;
-	background-color: #666;
-	vertical-align: middle;
-	text-align: center;
-}
-
 .headline_text_editor {
 	overflow: auto;
 	width: 374px;
@@ -2093,66 +2138,6 @@ div.archive_image_spinner img {
 
 .dashed_border {
 	border: 1px dashed;
-}
-
-div.archive_pagination_links {
-	position: relative;
-	margin-bottom: 16px;
-	margin-top: 8px;
-	height: 19px;
-	text-align: center;
-	line-height: 21px;
-}
-
-div.archive_pagination_links span.pagination_current_page {
-	background-position: 0 -21px;
-	font-weight: bold;
-	color: #333;
-}
-
-div.archive_pagination_links .first_page {
-	position: absolute;
-	left: 8px;
-	top: -2px;
-}
-
-.archive_pagination_links .last_page {
-	position: absolute;
-	right: 8px;
-	top: -2px;
-}
-
-.archive_pagination_links .previous_page {
-	position: absolute;
-	left: 32px;
-	top: -2px;
-}
-
-.archive_pagination_links .next_page {
-	position: absolute;
-	right: 32px;
-	top: -2px;
-}
-
-.archive_pagination_links span, .archive_pagination_links a {
-	padding: 0;
-	color: #333;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	width: 21px;
-	height: 21px;
-	display: inline-block;
-	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
-}
-
-.archive_pagination_links span {
-	color: #9a9a9a;
-}
-
-div.archive_pagination_links a:active {
-	text-decoration: none;
-	background-position: 0 -21px;
 }
 
 a.rename_link {
@@ -2213,7 +2198,6 @@ textarea.thin_border {
 
 .thin_border,
 .input_field {
-	height: 18px;
 	font-size: 12px;
 	padding: 3px 4px 2px;
 	margin: 0;
@@ -2223,14 +2207,24 @@ textarea.thin_border {
 	background: #fff;
 	border: 1px inset #e5e5e5;
 	width: 210px;
+	height: 25px;
 }
 
 .thin_border.dirty {
 	background-color: #fff8df;
 }
 
+/* @group Icons */
+
+span.icon {
+	display: inline-block;
+	background: url(/images/alchemy/icons.png) no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
 span.icon.user_add {
-	background: url(/images/alchemy/icons.png) -48px -56px;
+	background: url(/images/alchemy/icons.png) -96px -104px;
 }
 
 span.icon.language_add {
@@ -2238,7 +2232,7 @@ span.icon.language_add {
 }
 
 span.icon.user {
-	background: url(/images/alchemy/icons.png) 0 -56px;
+	background: url(/images/alchemy/icons.png) 0 -104px;
 }
 
 span.icon.language {
@@ -2246,11 +2240,11 @@ span.icon.language {
 }
 
 span.icon.user.female {
-	background: url(/images/alchemy/icons.png) -64px -56px;
+	background: url(/images/alchemy/icons.png) -128px -104px;
 }
 
 a.icon.user_edit {
-	background: url(/images/alchemy/icons.png) -32px -56px;
+	background: url(/images/alchemy/icons.png) -64px -104px;
 }
 
 a.icon.language_edit {
@@ -2258,59 +2252,63 @@ a.icon.language_edit {
 }
 
 a.icon.user_edit.female {
-	background: url(/images/alchemy/icons.png) -96px -56px;
+	background: url(/images/alchemy/icons.png) -192px -104px;
 }
 
 span.icon.settings {
-	background: url(/images/alchemy/icons.png) -160px -24px;
+	background: url(/images/alchemy/icons.png) -320px -40px;
 }
 
 span.icon.visit_page {
-	background: url(/images/alchemy/icons.png) -64px -88px;
+	background: url(/images/alchemy/icons.png) -32px -136px;
 }
 
 span.icon.upload {
-	background: url(/images/alchemy/icons.png) 0 -72px;
+	background: url(/images/alchemy/icons.png) 0 -136px;
 }
 
 span.icon.pdf {
-	background: url(/images/alchemy/icons.png) -80px -72px;
+	background: url(/images/alchemy/icons.png) -161px -136px;
 }
 
 span.icon.text {
-	background: url(/images/alchemy/icons.png) -224px -72px;
+	background: url(/images/alchemy/icons.png) -448px -136px;
 }
 
 span.icon.archive {
-	background: url(/images/alchemy/icons.png) -208px -72px;
+	background: url(/images/alchemy/icons.png) -416px -136px;
 }
 
 span.icon.audio {
-	background: url(/images/alchemy/icons.png) -96px -72px;
+	background: url(/images/alchemy/icons.png) -192px -136px;
 }
 
 span.icon.image {
-	background: url(/images/alchemy/icons.png) -112px -72px;
+	background: url(/images/alchemy/icons.png) -224px -136px;
+}
+
+span.icon.vcard {
+	background: url(/images/alchemy/icons.png) -416px -104px;
 }
 
 span.icon.psd {
-	background: url(/images/alchemy/icons.png) -64px -72px;
+	background: url(/images/alchemy/icons.png) -128px -136px;
 }
 
 span.icon.flash {
-	background: url(/images/alchemy/icons.png) -128px -72px;
+	background: url(/images/alchemy/icons.png) -256px -136px;
 }
 
 span.icon.video {
-	background: url(/images/alchemy/icons.png) -144px -72px;
+	background: url(/images/alchemy/icons.png) -288px -136px;
 }
 
 span.icon.rtf {
-	background: url(/images/alchemy/icons.png) -160px -72px;
+	background: url(/images/alchemy/icons.png) -320px -136px;
 }
 
 span.icon.word {
-	background: url(/images/alchemy/icons.png) -192px -72px;
+	background: url(/images/alchemy/icons.png) -384px -136px;
 }
 
 span.icon.excel {
@@ -2318,23 +2316,27 @@ span.icon.excel {
 }
 
 span.icon.file {
-	background: url(/images/alchemy/icons.png) -16px -72px;
+	background: url(/images/alchemy/icons.png) 0 -40px;
 }
 
 span.icon.flush {
-	background-position: -176px -24px;
+	background-position: -352px -39px;
 }
 
 span.icon.publish {
-	background-position: -80px -88px;
+	background-position: -64px -136px;
 }
 
 span.icon.info {
-	background-position: -32px -88px;
+	background-position: -64px -168px;
 }
 
 span.icon.close {
-	background-position: -208px -24px;
+	background-position: -416px -40px;
+}
+
+span.icon.sync {
+	background-position: -96px -136px;
 }
 
 span.icon.close.small {
@@ -2347,23 +2349,19 @@ span.icon.close.small {
 }
 
 span.icon.online {
-	background-position: -112px -56px;
+	background-position: -224px -104px;
 }
 
 span.icon.offline {
-	background-position: -128px -56px;
+	background-position: -255px -104px;
 }
 
-span.icon.tick {
-	background-position: -48px -88px;
-}
-
-span.icon.true {
-	background-position: -48px -88px;
+span.icon.tick, span.icon.true {
+	background-position: -32px -72px;
 }
 
 span.icon.error {
-	background-position: -16px -88px;
+	background-position: -32px -168px;
 }
 
 span.icon.false {
@@ -2372,63 +2370,63 @@ span.icon.false {
 
 span.icon.link,
 a.link {
-	background-position: -160px -40px;
+	background-position: -320px -72px;
 }
 
 span.icon.unlink {
-	background-position: -176px -40px;
+	background-position: -352px -72px;
 }
 
 .icon.swap_picture {
-	background-position: -144px -40px;
+	background-position: -288px -72px;
 }
 
 .icon.crop {
-	background-position: -128px -40px;
+	background-position: -256px -72px;
 }
 
 span.icon.warning, span.icon.warn {
-	background-position: 0 -88px;
+	background-position: 0 -168px;
 }
 
 span.icon.element_public {
-	background-position: -16px -40px;
+	background-position: -94px -166px;
 }
 
 span.icon.element_draft {
-	background-position: 0 -40px;
+	background-position: 1px -70px;
 }
 
 span.icon.new_element {
-	background: url(/images/alchemy/icons.png) -192px -24px;
+	background: url(/images/alchemy/icons.png) -384px -40px;
 }
 
 span.icon.element_window {
-	background: url(/images/alchemy/icons.png) -256px -40px;
+	background: url(/images/alchemy/icons.png) -512px -72px;
 }
 
 span.icon.preview_window {
-	background: url(/images/alchemy/icons.png) -224px -24px;
+	background: url(/images/alchemy/icons.png) -448px -40px;
 }
 
 span.icon.clipboard {
-	background-position: -144px -56px;
+	background-position: -288px -104px;
 }
 
 span.icon.clipboard.full {
-	background-position: -160px -56px;
+	background-position: -320px -104px;
 }
 
 span.icon.trash {
-	background-position: -176px -56px;
+	background-position: -352px -104px;
 }
 
 span.icon.trash.full {
-	background-position: -192px -56px;
+	background-position: -384px -104px;
 }
 
 a.icon.file_download {
-	background: url(/images/alchemy/icons.png) -240px -72px;
+	background: url(/images/alchemy/icons.png) -480px -136px;
 }
 
 .icon.download {
@@ -2436,35 +2434,35 @@ a.icon.file_download {
 }
 
 a.icon.file_delete {
-	background: url(/images/alchemy/icons.png) -48px -72px;
+	background: url(/images/alchemy/icons.png) -64px -40px;
 }
 
 a.icon.file_edit {
-	background: url(/images/alchemy/icons.png) -32px -72px;
+	background: url(/images/alchemy/icons.png) -32px -40px;
 }
 
 .icon.edit {
-	background: url(/images/alchemy/icons.png) -32px -104px;
+	background: url(/images/alchemy/icons.png) -160px -168px;
 }
 
 .icon.create {
-	background: url(/images/alchemy/icons.png) -48px -104px;
+	background: url(/images/alchemy/icons.png) -192px -568px;
 }
 
 span.icon.add_page {
-	background: url(/images/alchemy/icons.png) -48px -24px;
+	background: url(/images/alchemy/icons.png) -96px -40px;
 }
 
 span.icon.copy_page {
-	background: url(/images/alchemy/icons.png) -272px -24px;
+	background: url(/images/alchemy/icons.png) -544px -40px;
 }
 
 span.icon.delete_page {
-	background: url(/images/alchemy/icons.png) -32px -24px;
+	background: url(/images/alchemy/icons.png) -64px -40px;
 }
 
 a.icon.user_delete {
-	background: url(/images/alchemy/icons.png) -16px -56px;
+	background: url(/images/alchemy/icons.png) -32px -104px;
 }
 
 a.icon.language_delete {
@@ -2472,11 +2470,11 @@ a.icon.language_delete {
 }
 
 .icon.destroy {
-	background: url(/images/alchemy/icons.png) -15px -104px;
+	background: url(/images/alchemy/icons.png) -224px -168px;
 }
 
 span.icon.configure_page {
-	background: url(/images/alchemy/icons.png) -160px -24px;
+	background: url(/images/alchemy/icons.png) -320px -40px;
 }
 
 span.icon.search {
@@ -2484,8 +2482,10 @@ span.icon.search {
 }
 
 a.icon.user_delete.female {
-	background: url(/images/alchemy/icons.png) -80px -56px;
+	background: url(/images/alchemy/icons.png) -160px -104px;
 }
+
+/* @end */
 
 select.select_box {
 	border: 1px solid #9a9a9a;
@@ -2583,54 +2583,6 @@ div#images {
 	margin-top: 16px;
 	margin-bottom: 8px;
 	overflow: visible;
-}
-
-div.pagination {
-	text-align: center;
-	line-height: 24px;
-	height: 24px;
-	width: 100%;
-	margin-bottom: 16px;
-}
-
-div.pagination .prev_page {
-	margin-right: 16px;
-}
-
-div.pagination .next_page {
-	margin-left: 16px;
-}
-
-div.pagination a,
-div.pagination span {
-	padding: 4px 8px;
-	border: 1px solid #c0c0c0;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	background: white url(/images/alchemy/gui/shading.png) repeat-x 0 -75px;
-	height: 23px;
-	line-height: 23px;
-}
-
-div.pagination a:hover {
-	background-color: #e6f0f5;
-	color: #333;
-	border: 1px solid #888;
-	text-shadow: 0 1px 1px #fff;
-	text-decoration: none;
-}
-
-div.pagination .disabled {
-	color: #c0c0c0;
-}
-
-div.pagination .current {
-	background-color: #e6f0f5;
-	color: #333;
-	border: 1px solid #888;
-	text-shadow: 0px 1px 1px #fff;
 }
 
 #toolbar_links {
@@ -2806,7 +2758,7 @@ div#per_page_values {
 	font-size: 1.2em;
 }
 
-div.fieldWithErrors {
+div.field_with_errors {
 	display: inline;
 }
 
@@ -2868,7 +2820,7 @@ textarea#essence_picture_caption {
 	border-radius: 3px;
 }
 
-div.image_assign_filter_and_image_sizing {
+div#image_assign_filter_and_image_sizing {
 	width: 100%;
 	height: 40px;
 }
@@ -2878,7 +2830,7 @@ label.sup {
 	bottom: 3px;
 }
 
-div.assign_image_list_detail {
+/*div.assign_image_list_detail {
 	background-color: #ffffff;
 	text-align: center;
 	float: left;
@@ -2891,72 +2843,173 @@ div.assign_image_list_detail {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	-webkit-box-shadow: #999 0px 1px 3px;
-	-moz-box-shadow: #999 0px 1px 3px;
-	-o-box-shadow: #999 0px 1px 3px;
-	box-shadow: #999 0px 1px 3px;
-}
+}*/
 
 #assign_image_list {
 	padding: 8px;
 	overflow: hidden;
 }
 
-#assign_image_list div.assign_image_list_detail.small {
+/* @group Picture Thumbnails */
+
+.picture_thumbnail {
+	padding: 4px;
+	margin: 2px 1px 2px 2px;
+	background-color: #fff;
+	float: left;
+	border: 1px solid #c0c0c0;
+	position: relative;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+
+div#archive_all .picture_thumbnail {
+	margin: 0 16px 16px 0;
+}
+
+#archive_all .picture_thumbnail:hover .picture_tool_delete {
+	display: block;
+}
+
+.picture_thumbnail .thumbnail_background {
+	display: table-cell;
+	width: 160px;
+	height: 120px;
+	background-color: #666;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0;
+}
+
+.picture_thumbnail.small .thumbnail_background {
+	width: 80px;
+	height: 60px;
+}
+
+.picture_thumbnail.medium .thumbnail_background {
+	width: 160px;
+	height: 120px;
+}
+
+.picture_thumbnail.large .thumbnail_background {
+	width: 240px;
+	height: 180px;
+}
+
+#archive_all .picture_thumbnail .thumbnail_background {
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -o-zoom-in;
+	cursor: zoom-in;
+}
+
+.essence_picture_editor .picture_thumbnail {
+	width: 111px;
+	height: 115px;
+	margin: 1px;
+}
+
+.essence_picture_editor .picture_thumbnail .thumbnail_background {
+	width: 111px;
+	height: 93px;
+}
+
+div.picture_thumbnail.small {
 	width: 80px;
 	height: 75px;
 }
 
-#assign_image_list div.assign_image_list_detail.medium {
+div.picture_thumbnail.medium {
 	width: 160px;
-	height: 135px;
+	height: 140px;
 }
 
-#assign_image_list div.assign_image_list_detail.large {
+div.picture_thumbnail.large {
 	width: 240px;
 	height: 195px;
 }
 
+.picture_thumbnail .picture_name {
+	height: 12px;
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	position: absolute;
+	bottom: 1px;
+	left: 0;
+	font-family: "Courier New", Courier, mono;
+	line-height: 11px;
+	padding: 2px 0;
+	margin-right: 4px;
+	margin-left: 4px;
+}
+
+.picture_thumbnail .picture_name.rename.hover {
+	cursor: text;
+}
+
+.picture_thumbnail.small .picture_name {
+	width: 80px;
+}
+
+.picture_thumbnail.medium .picture_name {
+	width: 160px;
+	bottom: 3px;
+}
+
+.picture_thumbnail.large .picture_name {
+	width: 240px;
+}
+
 div.assign_image_list_image {
-	background-color: #ededed;
 	text-align: center;
 	overflow: hidden;
+	position: relative;
 }
 
-div.overlay_image_spinner img {
-	position: absolute;
-	z-index: 0;
+div.picture_thumbnail.small div.image_spinner img {
+	top: 14px;
+	left: 25px;
 }
 
-.assign_image_list_detail.small div.overlay_image_spinner img {
-	top: 19px;
-	left: 26px;
+div.picture_thumbnail.medium div.image_spinner img {
+	top: 42px;
+	left: 64px;
 }
 
-.assign_image_list_detail.medium div.overlay_image_spinner img {
-	top: 48px;
-	left: 67px;
+div.picture_thumbnail.large div.image_spinner img {
+	top: 74px;
+	left: 108px;
 }
 
-.assign_image_list_detail.large div.overlay_image_spinner img {
-	top: 80px;
-	left: 103px;
+div.image_spinner {
+	background-color: #666;
+	width: 1px;
+	margin: 4px;
 }
 
-#assign_image_list div.assign_image_list_detail.small div.assign_image_list_image {
+div.picture_thumbnail.small .image_spinner {
 	height: 60px;
+	margin: 4px;
 }
 
-#assign_image_list div.assign_image_list_detail.medium div.assign_image_list_image {
+div.picture_thumbnail.medium .image_spinner {
 	height: 120px;
+	margin: 4px;
 }
 
-#assign_image_list div.assign_image_list_detail.large div.assign_image_list_image {
+div.picture_thumbnail.large .image_spinner {
 	height: 180px;
 }
 
-#assign_image_list div.assign_image_list_image a {
-	display: block;
+div.image_spinner img {
+	position: absolute;
+	z-index: 0;
+	top: 32px;
+	left: 40px;
 }
 
 #assign_image_list div.assign_image_list_image img {
@@ -2966,6 +3019,8 @@ div.overlay_image_spinner img {
 #assign_image_list div.assign_image_list_image span {
 	
 }
+
+/* @end */
 
 div#errors {
 	margin-bottom: 8px;
@@ -3049,19 +3104,7 @@ input#user_admin {
 	line-height: 19px;
 }
 
-#assign_image_list div.assign_image_list_detail .picture_to_assign_name {
-	white-space: nowrap;
-	overflow: hidden;
-	padding-top: 3px;
-	display: block;
-	font: 12px "Courier New", Courier, mono;
-}
-
-#assign_image_list div.pagination {
-	margin-bottom: 8px;
-}
-
-div.image_assign_filter_and_image_sizing form {
+#alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
 	float: right;
 	width: 290px;
 	height: 25px;
@@ -3069,13 +3112,13 @@ div.image_assign_filter_and_image_sizing form {
 	padding: 0 !important;
 }
 
-div.image_assign_filter_and_image_sizing form div.search_field {
+div#image_assign_filter_and_image_sizing form div.search_field {
 	margin-right: 4px;
 	float: left;
 	position: relative;
 }
 
-div.image_assign_filter_and_image_sizing form input.button {
+div#image_assign_filter_and_image_sizing form input.button {
 	float: right;
 }
 
@@ -3236,7 +3279,8 @@ a.close_elements_from_page_selector {
 	width: 11px;
 	height: 15px;
 	margin-top: 5px;
-	background: url(/images/alchemy/icons.png) no-repeat 0 -105px;
+	background: url(/images/alchemy/icons.png) no-repeat 0 -72px;
+	cursor: pointer;
 }
 
 .elements_for_page img {
@@ -3256,7 +3300,7 @@ a.close_elements_from_page_selector {
 	width: 16px;
 	height: 16px;
 	position: relative;
-	background: url(/images/alchemy/icons.png) no-repeat -256px -40px;
+	background: url(/images/alchemy/icons.png) no-repeat -512px -72px;
 	margin: 2px;
 	font-size: 0;
 	text-decoration: none;
@@ -3460,11 +3504,6 @@ div#overlay_toolbar {
 	padding: 8px;
 }
 
-#overlay_toolbar div.js_filter_field_box {
-	margin-top: 6px;
-	margin-right: 8px;
-}
-
 div#overlay_toolbar div.toolbar_spacer {
 	float: left;
 	width: 1px;
@@ -3576,7 +3615,7 @@ a.icon.remove {
 }
 
 #uploadProgressContainer .progressCancel {
-	background: #f1f1f1 url(/images/alchemy/icons.png) no-repeat 0 -104px;
+	background: #f1f1f1 url(/images/alchemy/icons.png) no-repeat -1px -72px;
 	border: 1px solid #9e9e9e;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;

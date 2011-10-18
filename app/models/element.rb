@@ -16,7 +16,7 @@ class Element < ActiveRecord::Base
   after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
   
   # TODO: add a trashed column to elements table
-  named_scope :trashed, :conditions => {:page_id => nil}, :order => 'updated_at DESC'
+  scope :trashed, where(:page_id => nil).order('updated_at DESC')
   
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
@@ -25,7 +25,7 @@ class Element < ActiveRecord::Base
     else
       find_conditions = ["public = 1 AND page_id = ? AND name = ? AND position > ?", self.page.id, name, self.position]
     end
-    self.class.find :first, :conditions => find_conditions, :order => "position ASC"
+    self.class.where(find_conditions).order("position ASC").limit(1)
   end
   
   # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
@@ -35,16 +35,18 @@ class Element < ActiveRecord::Base
     else
       find_conditions = ["public = 1 AND page_id = ? AND name = ? AND position < ?", self.page.id, name, self.position]
     end
-    self.class.find :first, :conditions => find_conditions, :order => "position DESC"
+    self.class.where(find_conditions).order("position DESC").limit(1)
   end
-  
-  def store_page page
+
+  # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).
+  def store_page(page)
+    return true if page.nil?
     unless self.to_be_sweeped_pages.include? page
       self.to_be_sweeped_pages << page
       self.save
     end
   end
-  
+
   # nullifies the page_id aka. trashs it.
   def trash
     self.page_id = nil
@@ -59,26 +61,26 @@ class Element < ActiveRecord::Base
   def content_by_name(name)
     self.contents.find_by_name(name)
   end
-  
+
   def content_by_type(essence_type)
     self.contents.find_by_essence_type(essence_type)
   end
-  
+
   def all_contents_by_name(name)
     self.contents.find_all_by_name(name)
   end
-  
+
   def all_contents_by_type(essence_type)
     self.contents.find_all_by_essence_type(essence_type)
   end
-  
+
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
     attributes.stringify_keys!    
     return Element.new if attributes['name'].blank?
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
-    element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'] }.first
+    element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'].split('#').first }.first
     element = Element.new(
       element_scratch.except('contents', 'available_contents', 'display_name').merge({
         :page_id => attributes['page_id']
@@ -86,14 +88,14 @@ class Element < ActiveRecord::Base
     )
     element
   end
-  
+
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name and saves it
   def self.create_from_scratch(attributes)
     element = Element.new_from_scratch(attributes)
     element.save if element
     return element
   end
-  
+
   # pastes a element from the clipboard in the session to page
   def self.paste_from_clipboard(page_id, element, method, position)
     copy = self.copy(element, :page_id => page_id)
@@ -103,15 +105,24 @@ class Element < ActiveRecord::Base
     end
     copy
   end
-  
+
+  # Returns the descriptions from elements.yml file.
+  # Alchemy comes with its own elements.yml file. As so called standard set.
+  # Place a elements.yml file inside your apps config/alchemy folder to define
+  # your own set of elements
   def self.descriptions
-    if File.exists? "#{RAILS_ROOT}/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{RAILS_ROOT}/config/alchemy/elements.yml" )
-    elsif File.exists? "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{RAILS_ROOT}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
-    else
-      raise "Could not read config/alchemy/elements.yml"
-    end
+    if File.exists? "#{Rails.root}/config/alchemy/elements.yml"
+			element_definitions = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
+		end
+		if !element_definitions
+			if File.exists?(File.join(File.dirname(__FILE__), "../../config/alchemy/elements.yml"))
+				element_definitions = YAML.load_file( File.join(File.dirname(__FILE__), "../../config/alchemy/elements.yml") )
+			end
+		end
+		if !element_definitions
+			raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
+		end
+		element_definitions
   end
   
   def self.definitions
@@ -123,13 +134,13 @@ class Element < ActiveRecord::Base
     return nil if description.blank?
     description['contents']
   end
-  
+
   # Returns the array with the hashes for all element available_contents in the elements.yml file
   def available_content_descriptions
     return nil if description.blank?
     description['available_contents']
   end
-  
+
   # Returns the description for given content_name
   def content_description_for(content_name)
     if content_descriptions.blank?
@@ -139,19 +150,18 @@ class Element < ActiveRecord::Base
       content_descriptions.detect { |d| d['name'] == content_name }
     end
   end
-  
+
   # Returns the description for given content_name inside the available_contents
   def available_content_description_for(content_name)
     return nil if available_content_descriptions.blank?
     available_content_descriptions.detect { |d| d['name'] == content_name }
   end
-  
+
   # returns the description of the element with my name in element.yml
   def description
-    return nil if Element.descriptions.blank?
     Element.descriptions.detect{ |d| d['name'] == self.name }
   end
-  
+
   # Human name for displaying in selectboxes and element editor views.
   # The name is beeing translated from elements name value as described in config/alchemy/elements.yml
   # 
@@ -165,9 +175,9 @@ class Element < ActiveRecord::Base
   # 
   def display_name
     return name.capitalize if description.blank?
-    I18n.t("alchemy.element_names.#{description['name']}", :default => name.capitalize)
+    I18n.t(description['name'], :scope => 'alchemy.element_names', :default => name.capitalize)
   end
-  
+
   # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
   # You can flag a Content as +take_me_for_preview+ to take this as preview.
   def preview_text(maxlength = 30)
@@ -185,7 +195,7 @@ class Element < ActiveRecord::Base
     text = preview_content.essence.preview_text(maxlength)
     text.size > maxlength ? "#{text[0..maxlength]}..." : text
   end
-  
+
   # Generates a preview text containing Element#display_name and Element#preview_text.
   # It is displayed inside the head of the Element in the Elements.list overlay window from the Alchemy Admin::Page#edit view.
   # 
@@ -213,11 +223,11 @@ class Element < ActiveRecord::Base
   def display_name_with_preview_text(maxlength = 30)
     "#{display_name}: #{preview_text(maxlength)}"
   end
-  
+
   def dom_id
     "#{name}_#{id}"
   end
-  
+
   # List all elements by from page_layout
   def self.elements_for_layout(layout)
     element_descriptions = Element.descriptions
@@ -232,17 +242,17 @@ class Element < ActiveRecord::Base
     end
     return elements
   end
-  
+
   def self.get_from_clipboard(clipboard)
     return nil if clipboard.blank?
     self.find_by_id(clipboard[:element_id])
   end
-  
+
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.nil?
     self.find_all_by_id(clipboard)
   end
-  
+
   def self.all_from_clipboard_for_page(clipboard, page)
     return [] if clipboard.nil? || page.nil?
     allowed_elements = self.all_for_page(page)
@@ -250,17 +260,21 @@ class Element < ActiveRecord::Base
     allowed_element_names = allowed_elements.collect { |e| e['name'] }
     clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
   end
-  
+
   # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
   def available_contents
     description['available_contents']
   end
-  
+
   # Returns the contents ingredient for passed content name.
   def ingredient(name)
     content = content_by_name(name)
     return nil if content.blank?
     content.ingredient
+  end
+  
+  def has_ingredient?(name)
+    !self.ingredient(name).blank?
   end
   
   def save_contents(params)
@@ -346,6 +360,7 @@ class Element < ActiveRecord::Base
   def rtf_contents
     contents.select { |content| content.essence_type == 'EssenceRichtext' }
   end
+  alias_method :richtext_contents, :rtf_contents
   
   # The name of the cell the element could be placed in.
   def belonging_cellname
@@ -368,9 +383,6 @@ private
       return []
     end
     elements_for_layout = []
-    if page_layout['cells'].is_a?(Array)
-      elements_for_layout += Cell.all_element_definitions_for(page_layout['cells'])
-    end
     elements_for_layout += all_definitions_for(page_layout['elements'])
     return [] if elements_for_layout.blank?
     # all unique elements from this layout
@@ -388,13 +400,14 @@ private
   end
   
   def self.all_definitions_for(element_names)
+    return [] if element_names.blank?
     if element_names.to_s == "all"
       return element_descriptions
     else
       return definitions.select { |e| element_names.include? e['name'] }
     end
   end
-  
+
   # makes a copy of source and makes copies of the contents from source
   def self.copy(source, differences = {})
     attributes = source.attributes.except("id").merge(differences)
@@ -405,18 +418,17 @@ private
     end
     element
   end
-  
+
   # creates the contents for this element as described in the elements.yml
   def create_contents
-    element_scratch = description
     contents = []
-    if element_scratch["contents"].blank?
+    if description["contents"].blank?
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
-      element_scratch["contents"].each do |content_hash|
+      description["contents"].each do |content_hash|
         contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end
   end
-  
+
 end

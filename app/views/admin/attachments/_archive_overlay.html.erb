@@ -1,0 +1,25 @@
+<div id="alchemy_window_body">
+	<div id="overlay_toolbar">
+		<div class="button_with_label">
+			<%= link_to_overlay_window(
+				content_tag('span', '', :class => 'icon upload'),
+				new_admin_attachment_path(
+					:content_id => @content.blank? ? nil : @content.id,
+					:swap => @swap,
+					:options => @options
+				),
+				{
+					:title => _('upload_file'),
+					:size => '540x480'
+				},
+				:title => _('upload_file'),
+				:class => 'icon_button'
+			) %><br />
+			<label><%= _('upload_file') %></label>
+		</div>
+		<%= js_filter_field(:onkeyup => "Alchemy.ListFilter('.assign_file_file')") %>
+	</div>
+	<div id="assign_file_list" class="with_padding">
+		<%= render :partial => 'file_to_assign', :collection => @attachments %>
+	</div>
+</div>

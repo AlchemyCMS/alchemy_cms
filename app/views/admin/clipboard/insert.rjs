@@ -1,8 +1,0 @@
-if params[:remove]
-  page.remove "#{@item.class.to_s.downcase}_#{@item.id}"
-  page << "jQuery('#element_area').sortable('refresh')" if @item.class.to_s == 'Element'
-  Alchemy::Notice.show(page, _("item %{name} moved to clipboard") % {:name => @item.class.to_s == 'Element' ? @item.display_name_with_preview_text : @item.name})
-else
-  Alchemy::Notice.show(page, _("item %{name} copied to clipboard") % {:name => @item.class.to_s == 'Element' ? @item.display_name_with_preview_text : @item.name})
-end
-page << "jQuery('#clipboard_button .icon.clipboard').addClass('full')"

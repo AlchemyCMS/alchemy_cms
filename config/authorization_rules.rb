@@ -34,6 +34,7 @@ authorization do
     has_permission_on :admin_essence_files, :to => [:manage_file_essences]
     has_permission_on :admin_users, :to => [:index]
     has_permission_on :admin_trash, :to => [:index, :clear]
+    has_permission_on :admin_clipboard, :to => [:index, :insert, :remove, :clear]
   end
   
   role :editor do
@@ -41,6 +42,7 @@ authorization do
     has_permission_on :admin_attachments, :to => [:manage]
     has_permission_on :admin_pictures, :to => [:manage, :flush]
     has_permission_on :admin_pages, :to => [:manage_pages]
+    has_permission_on :admin_layoutpages, :to => [:index]
   end
   
   role :admin do
@@ -65,7 +67,7 @@ privileges do
   privilege :delete,  :includes => :destroy
   
   privilege :manage_pages, :admin_pages do
-    includes :manage, :switch_language, :layoutpages, :sort, :configure, :flush, :copy
+    includes :manage, :switch_language, :sort, :order, :configure, :flush, :copy
   end
   
   privilege :manage_elements, :admin_elements do

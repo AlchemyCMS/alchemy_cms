@@ -202,6 +202,8 @@ de:
       video/x-msvideo: 'AVI-Video'
       video/x-ms-wmv: 'Windows Media Video'
       image/tiff: 'TIFF-Bild'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
     
     link_target_options:
       default: gleichem Fenster

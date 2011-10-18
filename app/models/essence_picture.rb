@@ -4,15 +4,15 @@ class EssencePicture < ActiveRecord::Base
 		:ingredient_column => :picture,
 		:preview_text_method => :name
 	)
-	
+
 	belongs_to :picture
 	before_save :replace_newlines
-	
+
 	def replace_newlines
 		return nil if caption.nil?
 		caption.gsub!(/(\r\n|\r|\n)/, "<br/>")
 	end
-	
+
 	# Saves the ingredient
 	def save_ingredient(params, options = {})
 		return true if params.blank?

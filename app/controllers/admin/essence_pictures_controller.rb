@@ -1,14 +1,14 @@
 class Admin::EssencePicturesController < AlchemyController
-  
+
   filter_access_to :all
-  
+
   def edit
     @essence_picture = EssencePicture.find(params[:id])
     @content = Content.find(params[:content_id])
     @options = params[:options]
     render :layout => false
   end
-  
+
   def crop
     @essence_picture = EssencePicture.find(params[:id])
     @content = @essence_picture.content
@@ -37,13 +37,13 @@ class Admin::EssencePicturesController < AlchemyController
     @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
     render :layout => false
   end
-  
+
   def update
     @essence_picture = EssencePicture.find(params[:id])
     @essence_picture.update_attributes(params[:essence_picture])
     @content = Content.find(params[:content_id])
   end
-  
+
   def assign
     @content = Content.find(params[:id])
     @picture = Picture.find(params[:picture_id])
@@ -60,7 +60,7 @@ class Admin::EssencePicturesController < AlchemyController
       :dragable => @dragable
     )
   end
-  
+
   def save_link
     @content = Content.find(params[:id])
     @picture_essence = @content.essence
@@ -71,18 +71,18 @@ class Admin::EssencePicturesController < AlchemyController
       render :update do |page|
         page << "Alchemy.closeCurrentWindow()"
         page << "Alchemy.reloadPreview()"
-        Alchemy::Notice.show(page, _("saved_link"))
+        page.call('Alchemy.growl', _("saved_link"))
       end
     end
   end
-  
+
   def destroy
     content = Content.find_by_id(params[:id])
     @element = content.element
-    @essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
     @content_id = content.id
-    @options = params[:options]
     content.destroy
+    @essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
+    @options = params[:options]
   end
-  
+
 end

@@ -1,6 +1,6 @@
 <div class="searchresult" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
     
-    <% form_tag show_page_with_language_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
+    <%= form_tag show_page_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
         <%= text_field_tag "query", params[:query], :class => 'field' %>
         <%= submit_tag _("search"), :name => nil %>
     <%- end -%>
@@ -27,7 +27,7 @@
                     :post_tag => "</strong>"
                 }) %><br/>
                 <%- unless page.nil? -%>
-                <span class="search_result_site"><%= _('Page') %>: </span><%= link_to page.urlname, show_page_with_language_path(:urlname => page.urlname, :lang => page.language) %>
+                <span class="search_result_site"><%= _('Page') %>: </span><%= link_to page.urlname, show_page_path(:urlname => page.urlname, :lang => page.language) %>
                 <%- end -%>
             </li>
             <%- end -%>

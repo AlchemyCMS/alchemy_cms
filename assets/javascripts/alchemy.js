@@ -207,7 +207,7 @@ if (typeof(Alchemy) === 'undefined') {
 						url: path,
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
-							Alchemy.ButtonObserver('#alchemyElementWindow button.button');
+							Alchemy.ButtonObserver('#alchemyElementWindow .button');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
@@ -697,19 +697,6 @@ if (typeof(Alchemy) === 'undefined') {
 			$("button, input:submit, a.button").button(options);
 		},
 		
-		fadeNotices : function() {
-			$('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
-				$(this).remove();
-			});
-			$('#flash_notices div[class="flash error"]')
-			.css({cursor: 'pointer'})
-			.click(function() {
-				$(this).hide('drop', { direction: "up" }, 400, function() {
-					$(this).remove();
-				});
-			});
-		},
-		
 		ElementDirtyObserver : function(selector) {
 			var $elements = $(selector);
 			$elements.find('textarea.tinymce').map(function() {
@@ -834,7 +821,7 @@ if (typeof(Alchemy) === 'undefined') {
 			var $button = $(button), $clone = $button.clone(), width = $button.outerWidth(), text = $button.text();
 			$button.hide();
 			$button.parent().append($clone);
-			$clone.attr({disabled: true})
+			$clone.attr({disabled: true, href: 'javascript:void(0)'})
 			.addClass('disabled cloned-button')
 			.css({width: width})
 			.html('<img src="/images/alchemy/ajax_loader.gif">')
@@ -870,8 +857,11 @@ if (typeof(Alchemy) === 'undefined') {
 			Alchemy.SelectBox('body#alchemy select');
 		}
 		if (jQuery('#flash_notices').length > 0) {
-			Alchemy.fadeNotices();
+			Alchemy.Growler.fade();
 		}
+		$('#alchemy a.icon_button.please_wait_overlay').click(function() {
+			Alchemy.pleaseWaitOverlay();
+		});
 	});
 	
 	// Alchemy window resize listener

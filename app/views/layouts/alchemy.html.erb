@@ -1,74 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
-        <title>Alchemy <%= Alchemy.version %></title>
-        <!--[if IE 6]><link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" /><![endif]-->
-        <%= yield :stylesheets %>
-        <%= yield :javascript_includes %>
-        <script type="text/javascript" charset="utf-8">
-        // <![CDATA[
-            if(typeof(jQuery)=='function') {
-                jQuery.noConflict();
-            }
-        // ]]>
-        </script>
-    </head>
-    
-    <body id="alchemy">
-        <%#= overlay for indication of loading %>
-        <div id="overlay">
-            <div id="overlay_text_box">
-                <%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
-                <span id="overlay_text"><%= _("please_wait") %></span>
-            </div>
-        </div>
-        <%#= overlay end %>
-        <div id="corner"></div>
-        <div id="main_menu">
-            <div id="main_navi">
-                <%= yield(:navigation) %>
-                <%= admin_main_navigation %>
-            </div>
-            <div id="main_menu_background"></div>
-            <div id="logout">
-                <% link_to(logout_path) do %>
-                    <span class="module icon exit"></span><br />
-                    <%= _('logout') %>
-                <% end %>
-            </div>
-        </div>
-        <div id="top_menu">
-            <div id="sub_navigation">
-              <%= admin_subnavigation %>
-              <div id="subnav_additions">
-                  <%= yield(:subnav_additions) %>
-              </div>
-            </div>
-            <%= yield(:toolbar) %>
-            <%- if current_user -%>
-            <div id="user_info">
-                <%= _('Logged in as') %> <%= current_user.name %>
-            </div>
-            <%- end -%>
-        </div>
-        <%= render :partial => 'admin/partials/flash_notices' %>
-        <div id="main_content">
-            <%= yield %>
-        </div>
-        <%= yield(:javascripts) %>
-		<script type="text/javascript"> 
-			var $buoop = {vs:{i:7,f:3,o:10.01,s:3,n:9}}
-			$buoop.ol = window.onload;
-			window.onload = function() {
-				if ($buoop.ol) $buoop.ol();
-				var e = document.createElement("script");
-				e.setAttribute("type", "text/javascript");
-				e.setAttribute("src", "http://browser-update.org/update.js");
-				document.body.appendChild(e);
-			}
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
+		<title><%= render_alchemy_title %></title>
+		<%= csrf_meta_tag %>
+		<!--[if IE 6]><link rel="stylesheet" type="text/css" href="/plugin_assets/stylesheets/ie6.css" /><![endif]-->
+		<%= yield :stylesheets %>
+		<%= yield :javascript_includes %>
+		<script type="text/javascript" charset="utf-8">
+		// <![CDATA[
+		if(typeof(jQuery)=='function') {
+			jQuery.noConflict();
+		}
+		// ]]>
 		</script>
-    </body>
+	</head>
+	
+	<body id="alchemy">
+		<%#= overlay for indication of loading %>
+		<div id="overlay">
+			<div id="overlay_text_box">
+				<%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
+				<span id="overlay_text"><%= _("please_wait") %></span>
+			</div>
+		</div>
+		<%#= overlay end %>
+		<div id="corner"></div>
+		<div id="main_menu">
+			<div id="main_navi">
+				<%= yield(:navigation) %>
+				<%= admin_main_navigation %>
+			</div>
+			<div id="main_menu_background"></div>
+			<div id="logout">
+				<%= link_to_overlay_window("<span class='module icon exit'></span><br /> #{_('leave')}".html_safe, leave_admin_path, {:size => "300x140", :title => _("Leave Alchemy")}) %>
+			</div>
+		</div>
+		<div id="top_menu">
+			<div id="sub_navigation">
+				<%= admin_subnavigation %>
+				<div id="subnav_additions">
+					<%= yield(:subnav_additions) %>
+				</div>
+			</div>
+			<%= yield(:toolbar) %>
+			<%- if current_user -%>
+			<div id="user_info">
+				<%= _('Logged in as') %> <%= current_user.name %>
+			</div>
+			<%- end -%>
+		</div>
+		<%= render :partial => 'admin/partials/flash_notices' %>
+		<div id="main_content">
+			<%= yield %>
+		</div>
+		<%= yield(:javascripts) %>
+	</body>
 </html>

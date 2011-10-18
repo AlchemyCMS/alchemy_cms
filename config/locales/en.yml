@@ -188,6 +188,8 @@ en:
       image/jpeg: 'JPG-Image'
       video/x-msvideo: 'AVI-Video'
       image/tiff: 'TIFF-Image'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
     
     link_target_options:
       default: Same Window

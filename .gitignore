@@ -1,3 +1,4 @@
+.idea
 .yardoc
 .DS_Store
 .svn
@@ -5,3 +6,8 @@ doc/
 rdoc/
 Gemfile.lock
 pkg
+/spec/dummy/log/development.log
+/spec/dummy/log/test.log
+/spec/dummy/db/test.sqlite3
+/spec/dummy/db/development.sqlite3
+tmp

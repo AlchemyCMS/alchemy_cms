@@ -1,19 +1,23 @@
 class Attachment < ActiveRecord::Base
-  
+
+  stampable
+
   has_attachment(
     :storage => :file_system,
     :file_system_path => 'uploads/attachments',
     :size => 0.kilobytes..1000.megabytes
   )
-  
-  stampable
-  
   validates_as_attachment
-  
+
+  def name
+    read_attribute(:name).split('.').first
+  end
+
   def extension
     filename.split(".").last
   end
-  
+  alias_method :suffix, :extension
+
   def icon_css_class
     case content_type
     when "application/x-flash-video"
@@ -64,9 +68,13 @@ class Attachment < ActiveRecord::Base
       then "word"
     when "application/vnd.ms-excel"
       then "excel"
+    when "text/x-vcard"
+      then "vcard"
+    when "application/vcard"
+      then "vcard"
     else
       "file"
     end
   end
-  
+
 end

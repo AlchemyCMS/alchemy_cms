@@ -1,5 +1,5 @@
 class Language < ActiveRecord::Base
-  
+
   validates_presence_of :name
   validates_presence_of :code
   validates_presence_of :page_layout
@@ -12,27 +12,37 @@ class Language < ActiveRecord::Base
   validates_format_of :code, :with => /^[a-z]{2}$/
   before_destroy :check_for_default
   after_update :set_pages_language, :if => proc { |m| m.code_changed? }
-  before_update :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
-  
-  named_scope :published, :conditions => {:public => true}
-  
+  before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
+
+  scope :published, where(:public => true)
+
   def self.all_for_created_language_trees
     find(Page.language_roots.collect(&:language_id))
   end
-  
+
   def self.all_codes_for_published
-    Language.published.collect(&:code)
+    self.published.collect(&:code)
+  rescue
+    []
   end
-  
+
   def self.get_default
-    Language.find_by_default(true)
+    self.find_by_default(true)
   end
-  
+
+  def label(attrib)
+    if attrib.to_sym == :code
+      self.code
+    else
+      I18n.t("name", :scope => "alchemy.languages.#{self.code}", :default => self.name)
+    end
+  end
+
 private
-  
+
   def publicity_of_default_language
     if self.default? && !self.public?
-      errors.add_to_base(N_("Defaut language has to be public"))
+      errors.add(:base, N_("Defaut language has to be public"))
       return false
     else
       return true
@@ -41,7 +51,7 @@ private
 
   def presence_of_default_language
     if Language.get_default == self && self.default_changed?
-      errors.add_to_base(N_("we_need_at_least_one_default"))
+      errors.add(:base, N_("we_need_at_least_one_default"))
       return false
     else
       return true
@@ -54,20 +64,20 @@ private
     lang.default = false
     lang.save(false)
   end
-  
+
   def set_pages_language
     pages.map { |page| page.language_code = self.code; page.save(false) }
   end
-  
+
   def check_for_default
     raise "Default language not deletable" if self.default?
   end
-  
+
   def delete_language_root_page
     page = Page.language_root_for(id)
     page.destroy if page
     layoutroot = Page.layout_root_for(id)
     layoutroot.destroy if layoutroot
   end
-  
+
 end

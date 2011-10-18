@@ -1,4 +1,4 @@
-<% form_for([:admin, @attachment], :html => {:multipart => true}) do |f| %>
+<%= form_for([:admin, @attachment], :html => {:multipart => true}) do |f| %>
 	<%= render(
 		:partial => "admin/partials/upload_form",
 		:locals => {

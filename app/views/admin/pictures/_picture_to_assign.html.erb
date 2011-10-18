@@ -1,33 +1,31 @@
-<div class="assign_image_list_detail <%= size.blank? ? 'small' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
-	<div class="assign_image_list_image">
-	<%- unless params[:image_assign_url].blank? -%>
-		<%- action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" -%>
-		<%- action_method = params[:image_assign_method] -%>
-	<%- else -%>
-		<%- action_url = create_or_assign_url(picture_to_assign, @options) -%>
-		<%- action_method = @content.blank? ? 'post' : 'put' -%>
-	<%- end -%>
-		<div class="overlay_image_spinner spinner">
-			<%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
-		</div>
-		<%= link_to_remote(
-			image_tag(
-				thumbnail_url(
-					:id => picture_to_assign,
-					:size => size
-				),
-				:alt => picture_to_assign.name,
-				:onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .overlay_image_spinner');",
-				:style => "display: none;"
-			),
-			:url => action_url,
-			:method => action_method,
-			:html => {
-				:title => _("assign_image")
-			}
-		) %>
+<div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
+<%- unless params[:image_assign_url].blank? -%>
+	<%- action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" -%>
+	<%- action_method = params[:image_assign_method] -%>
+<%- else -%>
+	<%- action_url = create_or_assign_url(picture_to_assign, @options) -%>
+	<%- action_method = @content.blank? ? 'post' : 'put' -%>
+<%- end -%>
+	<div class="image_spinner spinner">
+		<%= image_tag("alchemy/image_loader.gif", :alt => '') %>
 	</div>
-	<div class="picture_to_assign_name" title="<%= picture_to_assign.name %>">
+	<%= link_to(
+		image_tag(
+			thumbnail_path(
+				:id => picture_to_assign,
+				:size => size
+			),
+			:alt => picture_to_assign.name,
+			:onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .image_spinner');",
+			:style => "display: none;"
+		),
+		action_url,
+		:remote => true,
+		:method => action_method,
+		:title => _("assign_image"),
+		:class => 'thumbnail_background'
+	) %>
+	<div class="picture_name" title="<%= picture_to_assign.name %>">
 		<%= picture_to_assign.name.empty? ? "&nbsp;" : picture_to_assign.name %>
 	</div>
 </div>

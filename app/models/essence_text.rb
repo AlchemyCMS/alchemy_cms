@@ -1,10 +1,10 @@
 class EssenceText < ActiveRecord::Base
-  
+
   acts_as_essence
-  acts_as_ferret(:fields => {:body => {:store => :yes}}, :remote => false) if Alchemy::Configuration.parameter(:ferret) == true
-  
-  before_save :check_ferret_indexing if Alchemy::Configuration.parameter(:ferret) == true
-  
+  acts_as_ferret(:fields => {:body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
+
+  before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
+
   # Saves the content from params
   def save_ingredient(params, options = {})
     return true if params.blank?
@@ -16,13 +16,13 @@ class EssenceText < ActiveRecord::Base
     self.public = options[:public]
     self.save
   end
-  
+
 private
-  
+
   def check_ferret_indexing
     if self.do_not_index
       self.disable_ferret(:always)
     end
   end
-  
+
 end

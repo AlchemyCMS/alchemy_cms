@@ -6,7 +6,7 @@
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon upload'),
-				new_admin_picture_path,
+				new_admin_picture_path(:size => @size),
 				{
 					:title => _('upload_image'),
 					:size => '540x480'
@@ -17,23 +17,54 @@
 			<label><%= _('upload_image') %></label>
 		</div>
 		<%- end -%>
-		<%- permitted_to?(:flush, :admin_pictures) do -%>
+		<div class="toolbar_spacer"></div>		
 		<div class="button_with_label">
-			<%= link_to_remote(
+			<%= link_to(
+				render_icon('zoom-out'),
+				admin_pictures_path({
+					:size => "small",
+					:query => params[:query]
+				}),
+				:title => _("small_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<%= link_to(
+				render_icon('zoom-equal'),
+				admin_pictures_path({
+					:size => "medium",
+					:query => params[:query]
+				}),
+				:title => _("medium_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<%= link_to(
+				render_icon('zoom-in'),
+				admin_pictures_path({
+					:size => "large",
+					:query => params[:query]
+				}),
+				:title => _("big_thumbnails"),
+				:class => "icon_button"
+			) %><br />
+			<label class="sup"><%= _('Image size') %></label>
+			<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
+		</div>
+
+		<%- permitted_to?(:flush, :admin_pictures) do -%>
+		<div class="toolbar_spacer"></div>		
+		<div class="button_with_label">
+			<%= link_to(
 				content_tag('span', '', :class => 'icon flush'),
-				:url => flush_admin_pictures_path,
-				:before => 'Alchemy.pleaseWaitOverlay();',
-				:complete => 'Alchemy.pleaseWaitOverlay(false);',
-				:html => {:class => 'icon_button',
-				:title => _('Flush picture cache')}
+				flush_admin_pictures_path,
+				:class => 'icon_button',
+				:remote => true,
+				:method => :post,
+				:title => _('Flush picture cache'),
+				:id => 'flush_picture_cache_button'
 			) -%><br />
 			<label><%= _('Flush picture cache') %></label>
 		</div>
 		<%- end -%>
-	</div>
-	<div class="toolbar_spacer"></div>
-	<div id="toolbar_links">
-		<%= render :partial => 'admin/partials/per_page_links', :locals => {:label => _('images'), :values => ['32', '64', 'all']} %>
 	</div>
 	<%= render :partial => 'admin/partials/search_form' %>
 </div>
@@ -44,10 +75,13 @@
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 
-	jQuery(document).ready(function() {
+	jQuery(document).ready(function($) {
 		Alchemy.inPlaceEditor({
 			save_label: "<%= _('save') %>",
 			cancel_label: "<%= _('cancel') %>"
+		});
+		$('#flush_picture_cache_button').click(function() {
+			Alchemy.pleaseWaitOverlay();
 		});
 	});
 

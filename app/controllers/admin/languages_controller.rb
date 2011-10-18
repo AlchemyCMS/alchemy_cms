@@ -5,28 +5,26 @@ class Admin::LanguagesController < AlchemyController
   
   def index
     if !params[:query].blank?
-      @languages = Language.all(
-        :conditions => [
-          "languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
-          "%#{params[:query]}%",
-          "#{params[:query]}",
-          "%#{params[:query]}%"
-        ]
-      )
+      @languages = Language.where([
+        "languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
+        "%#{params[:query]}%",
+        "#{params[:query]}",
+        "%#{params[:query]}%"
+      ])
     else
       @languages = Language.all
     end
   end
-  
+
   def new
     @language = Language.new
     render :layout => false
   end
-  
+
   def edit
     render :layout => false
   end
-  
+
   def create
     @language = Language.new(params[:language])
     @language.save
@@ -37,7 +35,7 @@ class Admin::LanguagesController < AlchemyController
       "form#new_language button.button"
     )
   end
-  
+
   def update
     @language.update_attributes(params[:language])
     render_errors_or_redirect(
@@ -47,10 +45,9 @@ class Admin::LanguagesController < AlchemyController
       "form#edit_language_#{@language.id} button.button"
     )
   end
-  
+
   def destroy
     name = @language.name
-    logger.info("+++++++++++++++++++++++ #{@language.pages.inspect}")
     if @language.destroy
       flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
       set_language_to_default
@@ -59,15 +56,15 @@ class Admin::LanguagesController < AlchemyController
   rescue Exception => e
     render :update do |page|
       page << "confirm.close();"
-      Alchemy::Notice.show(page, e, :error)
+      page.call('Alchemy.growl', e, :error)
     end
     logger.error("++++++++++++++ #{e}")
   end
-  
+
 private
-  
+
   def find_language
     @language = Language.find(params[:id])
   end
-  
+
 end

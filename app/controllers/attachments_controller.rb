@@ -12,7 +12,7 @@ class AttachmentsController < AlchemyController
       }
     )
   end
-  
+
   # sends file as attachment. aka download
   def download
     @attachment = Attachment.find(params[:id])
@@ -24,5 +24,5 @@ class AttachmentsController < AlchemyController
       }
     )
   end
-  
+
 end

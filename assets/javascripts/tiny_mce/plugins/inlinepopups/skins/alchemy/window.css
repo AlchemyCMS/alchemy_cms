@@ -31,11 +31,14 @@
 .alchemy {
 	position: absolute;
 	direction: ltr;
-	border: 1px solid #9c9d9c;
-	-webkit-box-shadow: #333 0px 4px 8px;
-	-moz-box-shadow: #333 0px 4px 8px;
-	-o-box-shadow: #333 0px 4px 8px;
-	box-shadow: #333 0px 4px 8px;
+	border: 1px solid #afafaf;
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	-o-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .alchemy .mceWrapper {
@@ -78,26 +81,27 @@
 .alchemy .mceTop, .alchemy .mceTop div {
 	top: 0;
 	width: 100%;
-	height: 33px;
+	height: 29px;
 }
 
 .alchemy .mceTop .mceLeft {
-	width: 2px;
+	width: 0px;
 }
 
 .alchemy .mceTop .mceCenter,
 a.mceMove {
-	right: 2px;
 	width: 100%;
 	height: 29px;
-	background: #b3ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -74px;
-	border-bottom: 2px solid white;
+	background: #c6dbe7 url(/images/alchemy/gui/shading.png) repeat-x 50% -66px;
+	color: #333333;
+	font-weight: bold;
+	border-bottom: 2px solid #ededed;
 }
 
 .alchemy .mceTop .mceRight {
 	right: 0;
-	width: 2px;
-	height: 33px;
+	width: 0px;
+	height: 29px;
 }
 
 .alchemy .mceTop span {
@@ -124,7 +128,7 @@ a.mceMove {
 
 .alchemy .mceMiddle .mceLeft {
 	left: 0;
-	width: 2px;
+	width: 0;
 	height: 100%;
 	background-color: white;
 	z-index: 1;
@@ -132,7 +136,7 @@ a.mceMove {
 
 .alchemy .mceMiddle span {
 	top: 31px;
-	left: 2px;
+	left: 0px;
 	width: 100%;
 	height: 100%;
 	background: #FFF
@@ -140,7 +144,7 @@ a.mceMove {
 
 .alchemy .mceMiddle .mceRight {
 	right: 0;
-	width: 2px;
+	width: 0px;
 	height: 100%;
 	background-color: white;
 	z-index: 1;
@@ -149,8 +153,7 @@ a.mceMove {
 /* Bottom */
 
 .alchemy .mceBottom, .alchemy .mceBottom div {
-	height: 2px
-}
+	height: 0}
 
 .alchemy .mceBottom {
 	left: 0;
@@ -164,7 +167,7 @@ a.mceMove {
 
 .alchemy .mceBottom .mceLeft {
 	left: 0;
-	width: 5px;
+	width: 0px;
 }
 
 .alchemy .mceBottom .mceCenter {
@@ -175,7 +178,7 @@ a.mceMove {
 
 .alchemy .mceBottom .mceRight {
 	right: 0;
-	width: 5px;
+	width: 0px;
 }
 
 .alchemy .mceBottom span {
@@ -219,7 +222,7 @@ a.mceMove {
 	background: url(/images/alchemy/jquery-ui/ui-icons_666666_256x240.png) -96px -128px;
 	width: 16px;
 	height: 16px;
-	top: 8px;
+	top: 6px;
 }
 
 .alchemy .mceMin {
@@ -229,12 +232,20 @@ a.mceMove {
 
 .alchemy .mceMed {
 	display: none;
-	right: 37px;
+	right: 28px;
+	width: 16px;
+	height: 16px;
+	background: url(../../../../../../../images/alchemy/jquery-ui/ui-icons_666666_256x240.png) -49px -80px;
+	top: 6px;
 }
 
 .alchemy .mceMax {
 	display: none;
-	right: 37px;
+	right: 28px;
+	width: 16px;
+	height: 16px;
+	background: url(../../../../../../../images/alchemy/jquery-ui/ui-icons_666666_256x240.png) -32px -80px;
+	top: 6px;
 }
 
 .alchemy .mceMove {
@@ -255,9 +266,9 @@ a.mceMove {
 	top: auto;
 	left: auto;
 	display: none;
-	width: 2px;
-	height: 2px;
-	background: white no-repeat 0 -75px;
+	width: 4px;
+	height: 4px;
+	background: transparent no-repeat 0 -75px;
 }
 
 .alchemy .mceResizable .mceResize {
@@ -288,7 +299,8 @@ a.mceMove {
 	top: 0;
 	left: 0;
 	width: 100%;
-	cursor: n-resize
+	cursor: n-resize;
+	height: 4px;
 }
 
 .alchemy a.mceResizeNW {
@@ -308,20 +320,23 @@ a.mceMove {
 	left: 0;
 	height: 100%;
 	cursor: w-resize;
+	width: 4px;
 }
 
 .alchemy a.mceResizeE {
 	top: 0;
 	right: 0;
 	height: 100%;
-	cursor: e-resize
+	cursor: e-resize;
+	width: 4px;
 }
 
 .alchemy a.mceResizeS {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	cursor: s-resize
+	cursor: s-resize;
+	height: 4px;
 }
 
 .alchemy a.mceResizeSW {
@@ -331,9 +346,12 @@ a.mceMove {
 }
 
 .alchemy a.mceResizeSE {
-	bottom: 0;
-	right: 0;
-	cursor: se-resize
+	bottom: 1px;
+	right: 1px;
+	cursor: se-resize;
+	background: url(../../../../../../../images/alchemy/jquery-ui/ui-icons_666666_256x240.png) no-repeat -80px -224px;
+	width: 14px;
+	height: 14px;
 }
 
 /* Alert/Confirm */

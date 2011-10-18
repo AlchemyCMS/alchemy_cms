@@ -1,6 +1,0 @@
-page.replace content_dom_id(@content), :partial => "essences/essence_picture_editor", :locals => {:content => @content, :options => @options}
-if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1
-  page << "Alchemy.SortableContents('##{@content.element.id}_contents', '#{form_authenticity_token}')"
-end
-page << "Alchemy.closeCurrentWindow()"
-page << "Alchemy.setElementDirty('#element_#{@content.element.id}')"

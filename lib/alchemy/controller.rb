@@ -1,13 +1,11 @@
 module Alchemy
   module Controller
 
-    mattr_accessor :alchemy_plugins_settings
-    mattr_accessor :current_language
+    attr_accessor :alchemy_plugins_settings
     
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send :include, InstanceMethods
-      base.send :include, Alchemy::Notice
       base.send :helper_method, :plugin_conf, :alchemy_plugins_settings, :alchemy_plugins, :alchemy_plugin
     end
     
@@ -16,7 +14,6 @@ module Alchemy
       self.alchemy_plugins_settings = {}
       plugins_config_paths.each do |settings_file|
         settings = YAML.load_file(settings_file)
-				Rails.logger.info("\n+++++ Registered #{settings["name"]} as Alchemy plugin.")
         self.alchemy_plugins_settings[settings["name"]] = settings
       end
     end
@@ -39,7 +36,7 @@ module Alchemy
       # For your own plugin see config.yml in vendor/plugins/alchemy/config/alchemy folder
       def alchemy_plugins
         yml_paths = plugins_config_paths
-				plugins = Alchemy::Configuration.get("alchemy_plugins")
+				plugins = Alchemy::Config.get("alchemy_plugins")
         begin
           yml_paths = yml_paths.sort(){ |x, y| YAML.load_file(x)['order'] <=> YAML.load_file(y)['order'] }
         rescue Exception => e
@@ -72,7 +69,7 @@ module Alchemy
     private
 
       def plugins_config_paths
-				Dir.glob("vendor/plugins/*[^alchemy]/config/alchemy/config.yml")
+        Dir.glob("vendor/plugins/*[^alchemy]/config/alchemy/config.yml")
       end
 
     end
