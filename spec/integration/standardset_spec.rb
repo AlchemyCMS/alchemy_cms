@@ -11,4 +11,6 @@ describe 'Alchemy Standard Set' do
 		within('head title') { page.should have_content('Peters Petshop') }
   end
 
+	it "should render a whole page including all its elements and contents"
+
 end
