@@ -22,7 +22,7 @@ describe PagesHelper do
 			@german_language_root = Factory(:page, :language => @german, :parent_id => Page.root.id, :name => "home", :public => false, :language_root => true)
 			helper.stub(:multi_language?).and_return(true)
 			helper.language_switches.should == ''
-			pending "It means if we have just one possible language, so we dont need to render it!?'
+			pending "Do we need to render language_switcher with two languages if we have only one accessible language tree? I think we dont...'
 		end
 			
 		it "should render two links when having two public language_root pages and a public children per page" do
