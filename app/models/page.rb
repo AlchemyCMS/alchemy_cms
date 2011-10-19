@@ -50,24 +50,37 @@ class Page < ActiveRecord::Base
   
   scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
   
-  # Finds selected elements from page either except a passed collection or only the passed collection
-  # Collection is an array of strings from element names. E.g.: ['text', 'headline']
-  # Returns only public ones
-  def find_selected_elements(options, show_non_public = false)
-    public_condition = show_non_public ? nil : ' AND elements.public = 1'
-    if !options[:except].blank?
-      condition = ["elements.name NOT IN (?)#{public_condition}", options[:except]]
-    elsif !options[:only].blank?
-      condition = ["elements.name IN (?)#{public_condition}", options[:only]]
-    else
-      condition = show_non_public.nil? ? nil : {:public => true}
+  # Finds selected elements from page.
+  # 
+  # Options are:
+  # 
+  #     :only => Array of element names    # Returns only elements with given names
+  #     :except => Array of element names  # Returns all elements except the ones with given names
+  #     :count => Integer                  # Limit the count of returned elements
+  #     :offset => Integer                 # Starts with an offset while returning elements
+  #     :random => Boolean                 # Returning elements randomly shuffled
+  # 
+  # Returns only public elements by default.
+  # Pass true as second argument to get all elements.
+  # 
+  def find_selected_elements(options = {}, show_non_public = false)
+    elements = self.elements
+    if !options[:only].blank?
+      elements = self.elements.named(options[:only])
+    elsif !options[:except].blank?
+      elements = self.elements.excluded(options[:except])
     end
-    elements = self.elements.where(condition).limit(options[:count]).offset(options[:offset])
-    elements.order("RAND()") unless options[:random].blank?
-    elements
+    elements = elements.offset(options[:offset]).limit(options[:count])
+    elements = elements.order("RAND()") if options[:random]
+    if show_non_public
+      elements
+    else
+      elements.published
+    end
   end
 
-  def find_elements(options, show_non_public = false)
+  def find_elements(options = {}, show_non_public = false) #:nodoc:
+    # TODO: What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
     if !options[:collection].blank? && options[:collection].is_a?(Array)
       all_elements = options[:collection]
     else
@@ -75,7 +88,7 @@ class Page < ActiveRecord::Base
     end
     all_elements
   end
-  
+
   def elements_grouped_by_cells
     group = ActiveSupport::OrderedHash.new
     cells.each { |cell| group[cell] = cell.elements }

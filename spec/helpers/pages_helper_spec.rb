@@ -9,7 +9,7 @@ describe PagesHelper do
 	end
 
   context "method language_switches" do
-	
+
 		before :each do
 			@default_language = Language.get_default
 			@klingonian = Factory(:language)
@@ -17,14 +17,14 @@ describe PagesHelper do
 			helper.stub(:configuration).and_return(true)
 			helper.stub(:multi_language?).and_return(true)
 		end
-		
+
 		it "should return nil when having only one public language" do
 			helper.stub(:configuration).and_return(true)
 			helper.language_switches.should be nil
 		end
-		
+
 		context "with two public languages and two language_roots" do
-			
+
 			before :each do
 				@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Default Language Root')
 				@klingonian_language_root = Factory(:language_root_page)

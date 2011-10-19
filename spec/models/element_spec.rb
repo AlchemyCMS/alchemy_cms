@@ -2,10 +2,29 @@ require 'spec_helper'
 
 describe Element do
 
-	it "should return all public elements" do
-		@public_elements = [Factory(:element), Factory(:element)]
-		@all_elements = @public_elements + [Factory(:element, :public => false)]
-	  Element.published.should == @public_elements
+	context "scoped" do
+
+	  before(:each) do
+			Element.delete_all
+	  end
+
+		it "should return all public elements" do
+			elements = [Factory(:element, :public => true), Factory(:element, :public => true)]
+		  Element.published.all.should == elements
+		end
+
+		it "should return all elements by name" do
+			elements = [Factory(:element, :name => 'article'), Factory(:element, :name => 'article')]
+		  Element.named(['article']).all.should == elements
+		end
+
+		it "should return all elements but excluded ones" do
+			Factory(:element, :name => 'article')
+			Factory(:element, :name => 'article')
+			excluded = [Factory(:element, :name => 'claim')]
+		  Element.excluded(['article']).all.should == excluded
+		end
+
 	end
 
   it "should return a list of element definitions for a list of element names" do
@@ -20,9 +39,9 @@ describe Element do
   end
 
 	it "should raise an error if no descriptions are found" do
-		FileUtils.mv(File.join(File.dirname(__FILE__), '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', 'config', 'alchemy', 'elements.yml.bak'))
+		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'))
 		expect { Element.descriptions }.should raise_error
-		FileUtils.mv(File.join(File.dirname(__FILE__), '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', 'config', 'alchemy', 'elements.yml'))
+		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
 	end
 
 	it "should return an ingredient by name"

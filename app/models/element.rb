@@ -18,7 +18,9 @@ class Element < ActiveRecord::Base
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil).order('updated_at DESC')
   scope :published, where(:public => true)
-  
+  scope :named, lambda { |names| where(arel_table[:name].in(names)) }
+  scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
+
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
     if name.nil?
