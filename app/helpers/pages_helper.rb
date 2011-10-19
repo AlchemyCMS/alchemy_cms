@@ -84,7 +84,7 @@ module PagesHelper
     if multi_language?
       language_links = []
       pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
-			return nil if pages.blank?
+			return nil if (pages.blank? || pages.length == 1)
       pages.each_with_index do |page, i|
         if(options[:link_to_page_with_layout] != nil)
           page_found_by_layout = Page.where(:page_layout => options[:link_to_page_with_layout].to_s, :language_id => page.language_id)
@@ -105,12 +105,8 @@ module PagesHelper
             )
           end
         end
-				# when last iteration and we have just one language_link, 
-				# we dont need to render it.
-				if (i==pages.length-1) && language_links.length == 1
-					return nil
-				end
       end
+			return nil if language_links.empty? || language_links.length == 1
       language_links.reverse! if options[:reverse]
       if options[:as_select_box]
         return select_tag(
@@ -124,6 +120,8 @@ module PagesHelper
       else
         raw(language_links.join(options[:spacer]))
       end
+    else
+      nil
     end
   end
 

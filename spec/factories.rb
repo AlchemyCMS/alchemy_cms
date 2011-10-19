@@ -43,6 +43,7 @@ FactoryGirl.define do
   		name 'Klingonian'
   		page_layout 'intro'
   		language_root true
+  		public true
   		parent_id { Page.root.id }
   	end
 
