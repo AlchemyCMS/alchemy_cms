@@ -14,7 +14,7 @@ describe Alchemy::PageLayout do
 				page_layouts.puts "- name: testlayout\n  elements:"
 			end
 			Alchemy::PageLayout.get_layouts.first.values.should include("testlayout")
-			FileUtils.rm_f(config_path)
+			FileUtils.rm_rf(config_path)
 		end
 	end
 
