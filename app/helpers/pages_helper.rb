@@ -125,6 +125,18 @@ module PagesHelper
     end
   end
 
+  # Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
+  def render_page_layout(options={})
+    default_options = {
+      :render_format => "html"
+    }
+    options = default_options.merge(options)
+    render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
+  rescue ActionView::MissingTemplate
+    warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
+    render :partial => "page_layouts/standard"
+  end
+
   def sitename_from_header_page
     header_page = Page.find_by_page_layout_and_layoutpage('layout_header', true)
     return "" if header_page.nil?

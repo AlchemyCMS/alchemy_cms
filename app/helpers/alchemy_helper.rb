@@ -363,18 +363,6 @@ module AlchemyHelper
     image_tag url_for(:controller => :images, :action => :show_static, :image => image)
   end
 
-  # Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
-  def render_page_layout(options={})
-    default_options = {
-      :render_format => "html"
-    }
-    options = default_options.merge(options)
-    render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
-  rescue ActionView::MissingTemplate
-    warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
-    render :partial => "page_layouts/standard"
-  end
-
   # Returns @current_language set in the action (e.g. Page.show)
   def current_language
     if @current_language.nil?

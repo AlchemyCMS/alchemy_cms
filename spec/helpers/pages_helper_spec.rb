@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe PagesHelper do
 
+	it "should render the current page layout" do
+		@page = Factory(:public_page)
+		helper.stub(:configuration).and_return(true)
+	  render_page_layout.should have_selector('div#content')
+	end
+
   context "method language_switches" do
 	
 		before :each do
