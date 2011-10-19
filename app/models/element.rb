@@ -17,6 +17,7 @@ class Element < ActiveRecord::Base
   
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil).order('updated_at DESC')
+  scope :published, where(:public => true)
   
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)

@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe Element do
 
+	it "should return all public elements" do
+		@public_elements = [Factory(:element), Factory(:element)]
+		@all_elements = @public_elements + [Factory(:element, :public => false)]
+	  Element.published.should == @public_elements
+	end
+
   it "should return a list of element definitions for a list of element names" do
 		element_names = ["article"]
 		definitions = Element.all_definitions_for(element_names)
