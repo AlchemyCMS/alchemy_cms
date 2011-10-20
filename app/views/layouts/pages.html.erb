@@ -16,9 +16,7 @@
       <div id="navigation">
         <%= render_navigation :all_sub_menues => true %>
       </div>
-			<div id="content">
-				<%= yield %>
-			</div>
+			<%= yield %>
 			<div class="footer">
 				<%= render_elements(
           :from_page => 'layout_footer',
