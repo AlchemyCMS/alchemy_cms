@@ -8,6 +8,33 @@ describe PagesHelper do
 	  render_page_layout.should have_selector('div#content')
 	end
 
+	context "navigation and meta data" do
+		
+		before(:each) do
+			@language = Language.get_default
+			@root_page = Factory(:language_root_page, :language => @language, :name => 'Home')
+			@page = Factory(:public_page, :language => @language, :parent_id => @root_page.id, :visible => true)
+			helper.stub(:multi_language?).and_return(false)
+		end
+
+	  it "should render the page navigation" do
+		  helper.render_navigation.should have_selector('ul.navigation_level_1 li.a-public-page.active.last a.active[href="/a-public-page"]')
+		end
+
+		it "should render a breadcrumb to current page" do
+			helper.render_breadcrumb.should have_selector('a.active.last[href="/a-public-page"]')
+		end
+		
+		it "should render meta tags for current page" do
+			helper.render_meta_data(:title_prefix => 'Peters Petshop').should have_selector('title[contains("Peters Petshop | A Public Page")]')
+		end
+
+		it "should render a title tag for current page" do
+			helper.render_title_tag(:prefix => 'Peters Petshop').should have_selector('title[contains("Peters Petshop | A Public Page")]')
+		end
+
+	end
+
   context "method language_switches" do
 
 		before :each do

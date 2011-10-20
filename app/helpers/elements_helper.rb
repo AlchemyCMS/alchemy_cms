@@ -105,6 +105,44 @@ module ElementsHelper
     end
   end
 
+  # Returns all public elements found by Element.name.
+  # Pass a count to return only an limited amount of elements.
+  def all_elements_by_name(name, options = {})
+    warning('options[:language] option not allowed any more in all_elements_by_name helper') unless options[:language].blank?
+    default_options = {
+      :count => :all,
+      :from_page => :all
+    }
+    options = default_options.merge(options)
+    if options[:from_page] == :all
+      elements = Element.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+    elsif options[:from_page].class == String
+      page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+      return [] if page.blank?
+      elements = page.elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+    else
+      elements = options[:from_page].elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+    end
+  end
+
+  # Returns the public element found by Element.name from the given public Page, either by Page.id or by Page.urlname
+  def element_from_page(options = {})
+    default_options = {
+      :page_urlname => "",
+      :page_id => nil,
+      :element_name => ""
+    }
+    options = default_options.merge(options)
+    if options[:page_id].blank?
+      page = Page.find_by_urlname_and_public(options[:page_urlname], true)
+    else
+      page = Page.find_by_id_and_public(options[:page_id], true)
+    end
+    return "" if page.blank?
+    element = page.elements.find_by_name_and_public(options[:element_name], true)
+    return element
+  end
+
   # Renders the element editor partial
   def render_editor(element)
     render_element(element, :editor)
@@ -144,6 +182,11 @@ module ElementsHelper
         :options => options
       }
     )
+  end
+
+  # Returns the full url containing host, page and anchor for the given element
+  def full_url_for_element(element)
+    "http://" + request.env["HTTP_HOST"] + "/" + element.page.urlname + "##{element.name}_#{element.id}"  
   end
 
 end
