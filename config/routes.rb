@@ -29,10 +29,10 @@ Rails.application.routes.draw do
   match  '/pictures/thumbnails/:id/:size(/:crop_from)(/:crop_size)/thumbnail.png' => 'pictures#thumbnail',
     :as => :thumbnail, :defaults => { :format => 'png' }
   match '/:lang' => 'pages#show',
-    :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
+    :constraints => {:lang => /[a-z]{2}/},
     :as => :show_language_root
   match '(/:lang)/:urlname(.:format)' => 'pages#show',
-    :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
+    :constraints => {:lang => /[a-z]{2}/},
     :as => :show_page
   
   resources :user_sessions
