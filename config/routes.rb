@@ -34,7 +34,9 @@ Rails.application.routes.draw do
   match '(/:lang)/:urlname(.:format)' => 'pages#show',
     :constraints => {:lang => /[a-z]{2}/},
     :as => :show_page
-  
+  match '/wa_files/download/:id' => 'attachments#download'
+  match '/uploads/files/0000/:id/:name.(:suffix)' => 'attachments#download'
+
   resources :user_sessions
   resources :elements, :only => :show
 
