@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1"])
   
   s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
-  s.add_development_dependency(%q<rspec-rails>, [">= 2.0.0.beta"])
+  s.add_development_dependency(%q<rspec-rails>, [">= 2.0"])
 	s.add_development_dependency(%q<sqlite3>)
 	s.add_development_dependency(%q<ruby-debug>)
 
