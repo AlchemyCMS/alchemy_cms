@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     :as => :leave_admin
   match '/admin/logout' => 'admin#logout',
     :as => :logout
-  match '/attachment/:id/download/:name' => 'attachments#download',
+  match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
     :as => :download_attachment
   match '/attachment/:id/show' => 'attachments#show',
     :as => :show_attachment
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     :constraints => {:lang => /[a-z]{2}/},
     :as => :show_page
   match '/wa_files/download/:id' => 'attachments#download'
-  match '/uploads/files/0000/:id/:name.(:suffix)' => 'attachments#download'
+  match '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
 
   resources :user_sessions
   resources :elements, :only => :show
