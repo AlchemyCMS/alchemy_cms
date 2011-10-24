@@ -1,9 +1,19 @@
 class EssenceText < ActiveRecord::Base
 
   acts_as_essence
-  acts_as_ferret(:fields => {:body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
-
-  before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
+  
+  # Require acts_as_ferret only if Ferret full text search is enabled (default).
+  # You can disable it in +config/alchemy/config.yml+
+  if Alchemy::Config.get(:ferret) == true
+    require 'acts_as_ferret'
+    acts_as_ferret(
+      :fields => {
+        :body => {:store => :yes}
+      },
+      :remote => false
+    )
+    before_save :check_ferret_indexing
+  end
 
   # Saves the content from params
   def save_ingredient(params, options = {})

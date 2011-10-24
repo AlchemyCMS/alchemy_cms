@@ -86,14 +86,14 @@ private
 
   def perform_search
     @rtf_search_results = EssenceRichtext.find_with_ferret(
-      "*" + params[:query] + "*",
+      "*#{params[:query]}*",
       {:limit => :all},
-      {:conditions => "public = 1"}
+      {:conditions => ["public = ?", true]}
     )
     @text_search_results = EssenceText.find_with_ferret(
-      "*" + params[:query] + "*",
+      "*#{params[:query]}*",
       {:limit => :all},
-      {:conditions => "public = 1"}
+      {:conditions => ["public = ?", true]}
     )
   end
 

@@ -11,3 +11,5 @@ pkg
 /spec/dummy/db/test.sqlite3
 /spec/dummy/db/development.sqlite3
 tmp
+spec/dummy/index/
+log

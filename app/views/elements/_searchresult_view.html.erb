@@ -20,7 +20,7 @@
             <%- page = element.nil? ? nil : element.page -%>
             <li>
                 <%= _('Excerpt') %>:
-                <%= result.highlight(params[:query], {
+                <%= raw result.highlight(params[:query], {
                     :field => (result.class == EssenceRichtext ? :stripped_body : :body),
                     :num_excerpts => 1,
                     :pre_tag => "<strong>",
