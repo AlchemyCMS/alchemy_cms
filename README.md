@@ -61,7 +61,7 @@ Features
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.0.9 and Ruby 1.8.7. __Ruby 1.9 is not__ offically supported yet, because not all Gems Alchemy depends on are Ruby 1.9 ready.
+This branch of Alchemy runs with Rails 3.0.10, Ruby 1.8.7 and Ruby 1.9.2.
 
 Installation
 ------------
