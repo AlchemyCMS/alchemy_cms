@@ -1,6 +1,7 @@
 class Admin::ContentsController < AlchemyController
   
   filter_access_to :all
+  helper :contents
   
   def new
     @element = Element.find(params[:element_id])

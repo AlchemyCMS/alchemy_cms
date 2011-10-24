@@ -1,6 +1,7 @@
 class Admin::EssencePicturesController < AlchemyController
 
   filter_access_to :all
+  helper :contents
 
   def edit
     @essence_picture = EssencePicture.find(params[:id])
