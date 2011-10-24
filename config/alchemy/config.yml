@@ -1,3 +1,5 @@
+# encoding: UTF-8
+# 
 # = Configuration
 #
 # == This is the global Alchemy configuration file
@@ -124,7 +126,7 @@ default_language:
   :file_size_limit: 100
   :allowed_filetypes:
     :pictures: [jpg, jpeg, gif, png, psd, pdf]
-    :attachments: [*]
+    :attachments: ['*']
 
 # === Link Target Options
 # Values for the link target selectbox inside the page link overlay.
