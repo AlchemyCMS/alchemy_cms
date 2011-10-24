@@ -64,13 +64,15 @@ private
     elsif @page.blank?
       render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname, :lang => session[:language_code]), :status => 301
-    elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname, :lang => params[:lang]), :status => 301
+      redirect_page(:lang => session[:language_code])
+    elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
+      redirect_page(:lang => params[:lang])
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
+    elsif params[:urlname].blank? && configuration(:redirect_index)
+      redirect_page
     elsif !multi_language? && !params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname), :status => 301
+      redirect_page
     elsif @page.has_controller?
       redirect_to(@page.controller_and_action)
     else
@@ -119,19 +121,17 @@ private
     end
   end
 
-  def redirect_page
-    get_additional_params
-    redirect_to(
-      send(:show_page_path, {
-        :lang => (multi_language? ? @page.language_code : nil),
-        :urlname => @page.urlname
-      }.merge(@additional_params)),
-      :status => 301
-    )
+  def redirect_page(options={})
+    defaults = {
+      :lang => (multi_language? ? @page.language_code : nil),
+      :urlname => @page.urlname
+    }
+    options = defaults.merge(options)
+    redirect_to show_page_path(options.merge(additional_params)), :status => 301
   end
 
-  def get_additional_params
-    @additional_params = params.clone.delete_if do |key, value|
+  def additional_params
+    params.clone.delete_if do |key, value|
       ["action", "controller", "urlname", "lang"].include?(key)
     end
   end
