@@ -13,3 +13,4 @@ pkg
 tmp
 spec/dummy/index/
 log
+spec/dummy/uploads/
