@@ -143,11 +143,6 @@ module ElementsHelper
     return element
   end
 
-  # Renders the element editor partial
-  def render_editor(element)
-    render_element(element, :editor)
-  end
-
   # Returns a string for the id attribute of a html element for the given element
   def element_dom_id(element)
     return "" if element.nil?
@@ -158,30 +153,6 @@ module ElementsHelper
   def element_preview_code(element)
     return "" if element.nil?
     " data-alchemy-element='#{element.id}'" if @preview_mode && element.page == @page
-  end
-
-  # This helper renderes the picture editor for the elements on the Alchemy Desktop.
-  # It brings full functionality for adding images to the element, deleting images from it and sorting them via drag'n'drop.
-  # Just place this helper inside your element editor view, pass the element as parameter and that's it.
-  #
-  # Options:
-  # :maximum_amount_of_images (integer), default nil. This option let you handle the amount of images your customer can add to this element.
-  def render_picture_editor(element, options={})
-    default_options = {
-      :last_image_deletable => true,
-      :maximum_amount_of_images => nil,
-      :refresh_sortable => true
-    }
-    options = default_options.merge(options)
-    picture_contents = element.all_contents_by_type("EssencePicture")
-    render(
-      :partial => "admin/elements/picture_editor",
-      :locals => {
-        :picture_contents => picture_contents,
-        :element => element,
-        :options => options
-      }
-    )
   end
 
   # Returns the full url containing host, page and anchor for the given element
