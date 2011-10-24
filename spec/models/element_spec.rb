@@ -44,6 +44,9 @@ describe Element do
 		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
 	end
 
-	it "should return an ingredient by name"
+	it "should return an ingredient by name" do
+		element = Factory(:element)
+		element.ingredient('intro').should == EssenceText.first.ingredient
+	end
 
 end
