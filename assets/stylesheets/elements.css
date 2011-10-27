@@ -301,7 +301,7 @@ div#cells {
 
 div#element_area .sortable_cell {
 	min-height: 100px;
-	padding: 8px;
+	padding: 8px 8px 2px;
 }
 
 .new_alchemy_element span {
@@ -686,7 +686,7 @@ div.content_editor.missing p span.icon.warning {
 }
 
 #alchemy .ui-dialog-content div.content_editor input.auto_resize {
-	width: 97%;
+	width: 100%;
 }
 
 div.content_editor.validation_failed label {

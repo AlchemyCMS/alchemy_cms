@@ -127,11 +127,6 @@
 	font-size: 1em;
 }
 
-#alchemy .ui-widget input, #alchemy .ui-widget select, #alchemy .ui-widget textarea, #alchemy .ui-widget button {
-	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
-	font-size: 1em;
-}
-
 #alchemy .ui-widget-content {
 	border: 1px solid #afafaf;
 	background-color: #ededed;
@@ -144,7 +139,7 @@
 
 #alchemy .ui-widget-header {
 	border: 1px none #afafaf;
-	background: #c6dbe7 url(/images/alchemy/gui/shading.png) repeat-x 50% -66px;
+	background: #c6dbe7;
 	color: #333333;
 	font-weight: bold;
 	-moz-border-radius-bottomleft:	0 !important;
@@ -1083,8 +1078,8 @@
 /* Overlays */
 
 #alchemy .ui-widget-overlay {
-	background-color: rgba(255,255,255,0.6);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60FFFFFF, endColorstr=#60FFFFFF);
+	background-color: rgba(229,229,229,0.4);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#40E5E5E5, endColorstr=#40E5E5E5);
 }
 
 #alchemy .ui-widget-shadow {
@@ -1474,10 +1469,6 @@ button.ui-button::-moz-focus-inner {
 	width: 300px;
 	overflow: hidden;
 	padding: 0;
-	-webkit-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
-	-moz-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
-	-o-box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
-	box-shadow: 0px 0px 8px rgba(0, 3, 51, 0.2);
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar {
