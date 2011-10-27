@@ -3,14 +3,14 @@
 	<table id="page_names">
 		<tr>
 			<td class="<%= @page.layoutpage ? 'label' : '' %>"><%= _("page_type") %>: </td>
-			<td>
+			<td class="input">
 			  <%= @page.layout_display_name %>
 			</td>
 		</tr>
 		<%- unless @page.layoutpage -%>
 		<tr>
-			<td><%= _("page_status") %>: </td>
-			<td>
+			<td class="label"><%= _("page_status") %>: </td>
+			<td class="input">
 				<%= f.check_box :public -%>
 				<%= f.label :public, _('page_public') %><br/>
 				<%= f.check_box :visible -%>
@@ -26,39 +26,39 @@
 		<%- end -%>
 		<%- unless @page.layoutpage -%>
 		<tr>
-			<td colspan="2"><strong><%= _("names") %></strong></td>
+			<tdcolspan="2"><strong><%= _("names") %></strong></td>
 		</tr>
 		<%- end -%>
 		<tr>
-			<td><%= f.label( "name", _("name")) %>: </td>
-			<td><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
+			<td class="label"><%= f.label( "name", _("name")) %>: </td>
+			<td class="input"><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
 		</tr>
 		<%- unless @page.layoutpage -%>
 		<tr>
-			<td><%= f.label( "urlname", _("url_name")) %>: </td>
-			<td><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
+			<td class="label"><%= f.label( "urlname", _("url_name")) %>: </td>
+			<td class="input"><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
 		</tr>
 		<tr>
-			<td><%= f.label( "title", _("page_title")) %>: </td>
-			<td><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
+			<td class="label"><%= f.label( "title", _("page_title")) %>: </td>
+			<td class="input"><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
 		</tr>
 		<tr>
 			<td colspan="2"><strong><%= _("meta_data") %></strong></td>
 		</tr>
 		<tr>
-			<td><%= _("search_engines") %>: </td>
-			<td>
+			<td class="label"><%= _("search_engines") %>: </td>
+			<td class="input">
 				<%= f.check_box "robot_index" %><%= f.label( "robot_index", _("robot_index")) %><br />
 				<%= f.check_box "robot_follow" %><%= f.label( "robot_follow", _("robot_follow")) %>
 			</td>
 		</tr>
 		<tr>
-			<td><%= f.label( "meta_description", _("meta_description")) %>:&nbsp;</td>
-			<td><%= f.text_area "meta_description", :class => "thin_border long" %></td>
+			<td class="label"><%= f.label( "meta_description", _("meta_description")) %>:&nbsp;</td>
+			<td class="input"><%= f.text_area "meta_description", :class => "thin_border long" %></td>
 		</tr>
 		<tr>
-			<td><%= f.label( "meta_keywords", _("meta_keywords")) %>*:&nbsp;</td>
-			<td>
+			<td class="label"><%= f.label( "meta_keywords", _("meta_keywords")) %>*:&nbsp;</td>
+			<td class="input">
 			  <%= f.text_area "meta_keywords", :class => "thin_border long" %><br/>
 			  <span style="font-size:10px">*<%= _('pages.update.comma_seperated') %></span>
 			</td>

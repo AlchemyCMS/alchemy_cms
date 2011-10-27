@@ -823,8 +823,8 @@ div.tip {
 	padding: 0px 8px;
 	height: 21px;
 	text-shadow: #fff 0 0px 4px;
-	background: #CCC;
-	color: #555;	
+	background: #d6e0e6;
+	color: #444;	
 	-webkit-border-top-right-radius: 3px;
 	-webkit-border-top-left-radius: 3px;
 	-moz-border-radius: 3px 3px 0 0;
@@ -853,7 +853,6 @@ div.tip {
 #sub_navigation div.subnavi_tab:hover {
 	color: #333;
 	text-decoration: none;
-	background-color: #d8d8d8;
 }
 
 #sub_navigation div.subnavi_tab.active {
@@ -1807,6 +1806,7 @@ input#search_input_field {
 	-moz-border-radius: 12px;
 	border-radius: 12px;
 	padding: 3px 24px 2px;
+	height: 25px;
 }
 
 input.button, 
@@ -1906,7 +1906,7 @@ a.button.disabled:active {
 }
 
 label {
-	line-height: 23px;
+	line-height: normal;
 }
 
 a.button {
@@ -1929,8 +1929,9 @@ td.label {
 
 td.label {
 	white-space: nowrap;
-	padding: 3px 4px 0 0;
 	width: 80px;
+	padding: 3px 8px 0 0;
+	line-height: 23px;
 }
 
 td.label.long {
@@ -3091,10 +3092,11 @@ input#user_admin {
 
 #alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 290px;
+	width: 232px;
 	height: 25px;
 	margin-top: 2px;
 	padding: 0 !important;
+	margin-right: 0;
 }
 
 div#image_assign_filter_and_image_sizing form div.search_field {
@@ -3344,7 +3346,7 @@ div.assign_file_file_icon img {
 #alchemy .ui-dialog-content td.label {
 	padding-top: 2px;
 	padding-bottom: 2px;
-	padding-right: 4px;
+	padding-right: 8px;
 	height: 25px;
 }
 
