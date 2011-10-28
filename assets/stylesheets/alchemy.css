@@ -1962,7 +1962,7 @@ td.label {
 	line-height: 23px;
 }
 
-td.input input[type="checkbox"] {
+td.input input[type="checkbox"], td.input input[type="radio"] {
 	margin-top: 6px;
 }
 
