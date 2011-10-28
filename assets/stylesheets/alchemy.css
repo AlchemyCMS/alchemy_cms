@@ -1,6 +1,4 @@
-/* @override 
-	http://localhost:3000/stylesheets/alchemy/alchemy.css
-*/
+/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
 html {
 	height: 100%;
@@ -1821,6 +1819,8 @@ button.button {
 	background-position:  0 -73px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
 	border-radius: 3px;
 	cursor: pointer;
 	color: #333;
@@ -1898,6 +1898,15 @@ a.button.disabled img {
 	float: none;
 }
 
+a.button.small.disabled img {
+	display: inline-block;
+	float: none;
+	position: relative;
+	height: 16px;
+	width: 16px;
+	top: -1px;
+}
+
 a.button.disabled,
 a.button.disabled:hover,
 a.button.disabled:active {
@@ -1914,6 +1923,24 @@ a.button {
 	text-decoration: none;
 	float: left;
 	line-height: 13px;
+}
+
+a.button.small {
+	height: 14px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
+}
+
+a.small.button.with_icon span.icon {
+	margin-top: -5px;
+	position: relative;
+	top: 3px;
+	left: -1px;
 }
 
 table.list tr td.tools {
@@ -3418,6 +3445,11 @@ select#url_protocol.medium {
 
 #alchemy .ui-dialog-content p a.button {
 	float: right;
+}
+
+#alchemy .ui-dialog-content p a.button.small {
+	float: none;
+	display: inline-block;
 }
 
 div.emulate_table input.button:disabled {
