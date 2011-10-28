@@ -1906,7 +1906,7 @@ a.button.disabled:active {
 }
 
 label {
-	line-height: normal;
+	
 }
 
 a.button {
@@ -1924,14 +1924,19 @@ table.list tr td.tools {
 
 td.input,
 td.label {
+	padding-top: 2px;
 	vertical-align: top;
 }
 
 td.label {
 	white-space: nowrap;
 	width: 80px;
-	padding: 3px 8px 0 0;
+	padding: 2px 8px 0 0;
 	line-height: 23px;
+}
+
+td.input input[type="checkbox"] {
+	margin-top: 6px;
 }
 
 td.label.long {
