@@ -53,7 +53,7 @@ module ElementsHelper
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-          if from = Page.find_by_page_layout(options[:fallback][:from])
+          if from = Page.find_by_page_layout_and_language_id(options[:fallback][:from], session[:language_id])
             all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
           end
         end
