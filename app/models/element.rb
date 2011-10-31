@@ -52,9 +52,10 @@ class Element < ActiveRecord::Base
 
   # nullifies the page_id aka. trashs it.
   def trash
-    self.page_id = nil
-    self.folded = true
-    self.save(false)
+    self.update_attributes({
+      :page_id => nil,
+      :folded => true
+    })
   end
   
   def trashed?
@@ -379,6 +380,7 @@ private
   
   # List all elements for page_layout
   def self.all_for_page(page)
+    raise TypeError if page.class != Page
     # if page_layout has cells, collect elements from cells and group them by cellname
     page_layout = Alchemy::PageLayout.get(page.page_layout)
     if page_layout.blank?

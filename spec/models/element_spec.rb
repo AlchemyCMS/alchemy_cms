@@ -49,4 +49,16 @@ describe Element do
 		element.ingredient('intro').should == EssenceText.first.ingredient
 	end
 
+	it "should be trashable" do
+		element = Factory(:element)
+		element.trash
+		element.page_id.should == nil
+    element.folded.should == true
+		Element.trashed.should include(element)
+	end
+	
+	it "should raise error if all_for_page method has no page" do
+	  expect { Element.all_for_page(nil) }.should raise_error(TypeError)
+	end
+
 end

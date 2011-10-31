@@ -27,7 +27,7 @@ describe PagesController do
 			visit '/'
 			within('div#navigation ul') { page.should have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
 		end
-	  
+
 	end
 
 	context "performing a fulltext search" do
