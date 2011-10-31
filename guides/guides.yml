@@ -23,9 +23,16 @@ index:
     - title: Your own custom layout
       url: custom_layout
       text: Understand Alchemys rendering process and add a custom layout to work with.
+      construction: true
     - title: Managing content
       url: manage_content
       text: Learn how to manage content in Alchemy.
+      construction: true
     - title: Work with images
       url: work_with_images
       text: Learn how to work with images in Alchemy.
+      construction: true
+    - title: Plugin Development
+      url: plugin_development
+      text: Learn how to develop your own Alchemy Plugin.
+      construction: true

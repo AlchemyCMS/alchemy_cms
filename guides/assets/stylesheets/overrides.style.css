@@ -44,6 +44,11 @@ div#guides {
 	color: #333;
 }
 
+dl dt em {
+	font-weight: normal;
+	font-size: 80%;
+}
+
 #guides dd {
 	color: #bcbcbc;
 }

@@ -12,11 +12,9 @@ h3. Guide Assumptions
 
 This guide is designed for beginners who want to get started with a Alchemy CMS site from scratch. It does not assume that you have any prior experience with Alchemy. However, to get the most out of it, you need to have some prerequisites installed:
 
-* The "Ruby":http://www.ruby-lang.org/en/downloads language version 1.8.7*
+* The "Ruby":http://www.ruby-lang.org/en/downloads programming language
 * The "MySQL Database":http://www.mysql.com/downloads/mysql
 * The image processor "ImageMagick":http://www.imagemagick.org/script/install-source.php
-
-INFO: *) Alchemy depends on some gems that are not supporting Ruby 1.9 for now.
 
 Alchemy is a Ruby On Rails based web software.
 
@@ -24,6 +22,7 @@ Never heard of it? Many popular websites and web-apps are powered by Ruby On Rai
 
 Installing Rails on your computer and/or server is easy. There are some good free resources on the Internet for learning Rails, including:
 
+* "Try Ruby":http://tryruby.org
 * "Getting Started with Rails":http://guides.rubyonrails.org/getting_started.html
 * "Rails for Zombies":http://railsforzombies.org/labs
 
@@ -31,7 +30,7 @@ h3. What is Alchemy CMS?
 
 Alchemy, is an open source content management system written in Ruby as a Ruby on Rails web application with jQuery and jQueryUI used as the JavaScript library.
 
-Alchemy runs on Rails >= 2.3 including Rails 3.0.x
+Alchemy runs on Rails >= 2.3 including Rails 3.0
 
 h4. Alchemy's architecture
 
@@ -39,7 +38,7 @@ Alchemy is a Rails Engine that acts like a mini Rails application with its own c
 
 Alchemy is architected like this so that it keeps out of the way of any custom development you will do in your +./app+ directory.
 
-Alchemy itself depends on other Gems. The full list of dependencies is "listed here":https://github.com/magiclabs/alchemy
+Alchemy itself depends on other Gems. The full list of dependencies is "listed here":https://github.com/magiclabs/alchemy_cms
 
 NOTE: You do not have to install all the dependencies yourself. Alchemy has an installer to do that for you.
 
@@ -53,10 +52,10 @@ We'll show you both.
 
 h4. Rails 2.3
 
-Please make sure that Rails 2.3.10 is installed:
+Please make sure that the latest Rails 2.3 version is installed:
 
 <shell>
-gem install rails -v=2.3.10
+gem install rails -v=2.3.14
 </shell>
 
 The easiest way to create a new Alchemy project is to use the "install script":https://raw.github.com/magiclabs/alchemy-installer/master/alchemy we provide.
@@ -74,54 +73,19 @@ INFO: This step may take some time to load as it needs to download and install a
 
 h4. Rails 3.0.x (beta)
 
-Please make sure you have at least Rails 3.0.9 installed:
+Just install the latest pre release version of the Alchemy 2.0 Gem (A Ruby package):
 
 <shell>
-gem install rails -v='~>3.0.9'
+gem install alchemy_cms --pre
 </shell>
 
-INFO: Rails 3.1 is not yet supported.
+Alchemy 2.0 comes with it's own executable which makes it easy to install a new project:
 
-Make yourself a new rails 3 app with MySQL as database:
-
-<shell>rails new my_magicpage -d mysql</shell>
-
-INFO: Other databases should also work, but are NOT tested.
+<shell>alchemy new my_magicpage</shell>
 
 NOTE: Please change my_magicpage with your projects name. Since my_magicpage is just a placeholder.
 
-The following steps all happen inside your projects folder. So please change into it:
-
-<shell>cd my_magicpage</shell>
-
-Open the file +Gemfile+ in a texteditor of your choice and insert this line:
-
-<shell>gem 'alchemy', '2.0.pre', :git => 'git://github.com/magiclabs/alchemy.git', :branch => 'rails3'</shell>
-
-INFO: Because Alchemy's master branch is supporting Rails 2.3 only be sure that the branch option points to rails3 branch.
-
-Install the bundle:
-
-<shell>bundle install</shell>
-
-Then run these commands:
-
-<shell>rake db:create
-rake db:migrate:alchemy
-rake alchemy:assets:copy:all
-</shell>
-
-Open +db/seeds.rb+ in a texteditor and insert this line:
-
-<shell>Alchemy::Seeder.seed!</shell>
-
-Seed your database:
-
-<shell>rake db:seed</shell>
-
-Done!
-
-INFO: We will provide an executable with the stable version of this gem, so you do not have to enter all this stuff into the terminal.
+Sit back and follow the on screen instructions. After a view seconds your Alchemy project is installed and ready to start.
 
 h3. Welcome to Alchemy!
 
@@ -131,17 +95,21 @@ h4. Starting up the Server
 
 To start using Alchemy, you need to start up a local ruby server on your development machine.
 
-You do this by running:
-
 <shell>
-./script/server
+cd into_your_alchemy_project_folder
 </shell>
 
-NOTE: To fire up the server you have to be inside your projects folder. So maybe you have to first +cd+ into it!
+h5. Rails 2:
 
-TIP: To stop the web server, hit Ctrl+C in the terminal window where it's running.
+<shell>script/server</shell>
 
-Open a browser window and navigate to "http://localhost:3000/admin":http://localhost:3000/admin.
+h5. Rails 3:
+
+<shell>rails server</shell>
+
+TIP: To stop the web server, hit CTRL+C in the terminal window where it's running.
+
+Open a browser window and navigate to "http://localhost:3000":http://localhost:3000.
 
 You should be greeted with a screen prompting you to create your first Alchemy administrator.
 
