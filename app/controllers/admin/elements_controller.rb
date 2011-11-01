@@ -42,8 +42,10 @@ class Admin::ElementsController < AlchemyController
     @page = Page.find(params[:element][:page_id])
     if params[:paste_from_clipboard].blank?
       @element = Element.new_from_scratch(params[:element])
+      cell_definition = Cell.definition_for(params[:element][:name].split('#').last)
     else
-      source_element = Element.find(params[:paste_from_clipboard])
+      source_element = Element.find(params[:paste_from_clipboard].to_i)
+      cell_definition = Cell.definition_for(params[:paste_from_clipboard].split('#').last)
       if source_element.page_id == blank? # aka. move
         @element = source_element
       else
@@ -52,7 +54,6 @@ class Admin::ElementsController < AlchemyController
     end
     # if page has cells, put element in cell
     if @page.has_cells?
-      cell_definition = Cell.definition_for(params[:element][:name].split('#').last)
       if cell_definition
         @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
       end

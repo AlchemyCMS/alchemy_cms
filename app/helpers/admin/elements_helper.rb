@@ -56,4 +56,59 @@ module Admin::ElementsHelper
     )
   end
 
+	def clipboard_select_tag(items, html_options = {})
+    options = [[_('Please choose'), ""]]
+    items.each do |item|
+      options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
+    end
+    select_tag(
+      'paste_from_clipboard',
+      @page.has_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+      {
+        :class => html_options[:class] || 'very_long',
+        :style => html_options[:style]
+      }
+    )
+  end
+  
+  # Returns all elements that could be placed on that page because of the pages layout.
+  # The elements are returned as an array to be used in alchemy_selectbox form builder.
+  def elements_for_select(elements)
+    return [] if elements.nil?
+    options = elements.collect{ |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e["name"]] }
+    return options_for_select(options)
+  end
+  
+  # Returns all elements that could be placed on that page because of the pages layout.
+  # The elements will be grouped by cell.
+  def grouped_elements_for_select(elements, object_method = 'name')
+    return [] if elements.nil?
+    cells_definition = Cell.definitions
+    return [] if cells_definition.blank?
+    options = {}
+    celled_elements = []
+    cells_definition.each do |cell|
+      cell_elements = elements.select { |e| cell['elements'].include?(e.class.name == 'Element' ? e.name : e['name']) }
+      celled_elements += cell_elements
+      optgroup_label = Cell.translated_label_for(cell['name'])
+      options[optgroup_label] = cell_elements.map do |e|
+				[
+					I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize),
+					(e.class.name == 'Element' ? e.send(object_method).to_s : e[object_method]) + "##{cell['name']}"
+				]
+			end
+    end
+    other_elements = elements - celled_elements
+    unless other_elements.blank?
+      optgroup_label = _('other Elements')
+      options[optgroup_label] = other_elements.map do |e|
+				[
+					I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize),
+					e.class.name == 'Element' ? e.send(object_method) : e[object_method]
+				]
+			end
+    end
+    return grouped_options_for_select(options)
+  end
+
 end
