@@ -428,10 +428,10 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		openLicencseWindow : function() {
 			var height = $(window).height() - 150;
-			var $iframe = $('<iframe src="http://www.gnu.org/licenses/gpl-3.0.txt"></iframe>');
+			var $iframe = $('<iframe src="https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE"></iframe>');
 			$iframe.dialog({
 				bgiframe: true,
-				title: 'GNU GPL License',
+				title: 'Alchemy CMS License',
 				width: 650,
 				height: height,
 				autoResize: true,

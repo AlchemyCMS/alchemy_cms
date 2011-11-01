@@ -93,6 +93,18 @@ class Page < ActiveRecord::Base
     all_elements
   end
 
+	# Returns all elements that should be feeded via rss.
+	# 
+	# Define feedable elements in your +page_layouts.yml+:
+	# 
+	#   - name: news
+	#     feed: true
+	#     feed_elements: [element_name, element_2_name]
+	# 
+	def feed_elements
+		elements.find_all_by_name(definition['feed_elements'])
+	end
+
   def elements_grouped_by_cells
     group = ActiveSupport::OrderedHash.new
     cells.each { |cell| group[cell] = cell.elements }

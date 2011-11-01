@@ -8,7 +8,7 @@ describe Admin::TrashController do
 	end
 
 	it "should hold trashed elements" do
-		pending "My spec is correct, the testsuite sucks"
+		pending "The controller behaves correct, the test not."
 		@page = Factory(:page, :parent_id => Page.rootpage.id)
 	  @element = Factory(:element, :page => @page)
 		# Rails, RSpec and co. are sucking

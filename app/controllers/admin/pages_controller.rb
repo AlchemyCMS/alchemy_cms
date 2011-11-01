@@ -73,14 +73,14 @@ class Admin::PagesController < AlchemyController
     end
   end
   
-  def update
-    # fetching page via before filter
-    if @page.update_attributes(params[:page])
-      @notice = _("Page %{name} saved") % {:name => @page.name}
-    else
-      render_remote_errors(@page, "form#edit_page_#{@page.id} button.button")
-    end
-  end
+	def update
+		# fetching page via before filter
+		if @page.update_attributes(params[:page])
+			@notice = _("Page %{name} saved") % {:name => @page.name}
+		else
+			render_remote_errors(@page, "form#edit_page_#{@page.id} button.button")
+		end
+	end
   
   def destroy
     # fetching page via before filter

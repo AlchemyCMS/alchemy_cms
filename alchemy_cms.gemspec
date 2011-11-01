@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{An extremly flexbile CMS for Rails 3.}
   s.description = %q{Alchemy is an awesome Rails CMS with an extremely flexible content storing architecture.}
   s.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
-  s.license = 'GPL-3'
+  s.license = 'BSD New'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

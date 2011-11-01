@@ -79,9 +79,39 @@ class Element < ActiveRecord::Base
     self.contents.find_all_by_essence_type(essence_type)
   end
 
+	# Returns the content that is marked as rss title.
+	# 
+	# Mark a content as rss title in your +elements.yml+ file:
+	# 
+	#   - name: news
+	#     contents:
+	#     - name: headline
+	#       type: EssenceText
+	#       rss_title: true
+	# 
+	def content_for_rss_title
+		rss_title = content_descriptions.detect { |c| c['rss_title'] }
+		contents.find_by_name(rss_title['name'])
+	end
+
+	# Returns the content that is marked as rss description.
+	# 
+	# Mark a content as rss description in your +elements.yml+ file:
+	# 
+	#   - name: news
+	#     contents:
+	#     - name: body
+	#       type: EssenceRichtext
+	#       rss_description: true
+	# 
+	def content_for_rss_description
+		rss_title = content_descriptions.detect { |c| c['rss_description'] }
+		contents.find_by_name(rss_title['name'])
+	end
+
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
-    attributes.stringify_keys!    
+    attributes.stringify_keys!
     return Element.new if attributes['name'].blank?
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
@@ -164,8 +194,9 @@ class Element < ActiveRecord::Base
 
   # returns the description of the element with my name in element.yml
   def description
-    Element.descriptions.detect{ |d| d['name'] == self.name }
+    self.class.descriptions.detect{ |d| d['name'] == self.name }
   end
+	alias_method :definition, :description
 
   # Human name for displaying in selectboxes and element editor views.
   # The name is beeing translated from elements name value as described in config/alchemy/elements.yml
