@@ -1,19 +1,33 @@
 (function($) {
+	
 	Alchemy.closeCurrentWindow();
+
 	<%- if request.referer.include?('edit') -%>
+	
 		Alchemy.reloadPreview();
 		$('#<%= dom_id(@page) -%>_status').replaceWith('<%= escape_javascript(render(:partial => "page_status")) -%>');
+	
 	<%- else -%>
+	
 		$('#<%= dom_id(@page) -%> > .sitemap_page > .sitemap_sitename .sitemap_pagename_link').text('<%= @page.name -%>');
+		
 		<%- if @page.locked? && @page.locker == current_user -%>
 			$('#locked_page_<%= @page.id -%> > a').text('<%= @page.name -%>');
 		<%- end -%>
+		
 		$('#page_<%= @page.id -%>_infos').html('<%= escape_javascript(render(:partial => "page_infos", :locals => {:page => @page})) -%>');
+		
 		<%- if @page.restricted? -%>
+		
 			$('#<%= dom_id(@page) -%> .page_status:nth-child(3)').addClass('restricted', 'not_restricted').removeClass('not_restricted');
+			
 		<%- else -%>
+		
 			$('#<%= dom_id(@page) -%> .page_status:nth-child(3)').addClass('not_restricted').removeClass('restricted');
 		<%- end -%>
+	
 	<%- end -%>
-	Alchemy.growl('<%= @notice -%>');
+	
+	Alchemy.growl("<%= @notice -%>");
+	
 })(jQuery);

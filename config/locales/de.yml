@@ -85,7 +85,7 @@ de:
     # == Translations for the build in full text search.
     search:
       no_results: 'Ihre Suche ergab kein Ergebnis.'
-      result_heading: 'Ihre Suche nach %{query} ergab %{count} Ergebnisse' 
+      result_heading: "Ihre Suche nach '%{query}' hat %{count} Ergebnisse"
     
     # == Contactform translations
     contactform:
@@ -102,7 +102,7 @@ de:
         email: 'Email'
         message: 'Nachricht'
         send: 'Nachricht absenden!'
-        mandatory_fields: 'Pflichtfelder. Vielen Dank!'
+        mandatory_fields: 'Pflichtfelder. Bitte füllen Sie diese Felder aus. Vielen Dank!'
         success_page: 'Folgeseite'
       # Translations for the contactform validations.
       # Validations are set in the config/alchemy/config.yml mailer section.
@@ -226,7 +226,10 @@ de:
     abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
     abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
-    order: [ :day, :month, :year ]
+    order:
+      - :day
+      - :month
+      - :year
   time:
     formats:
       default: "%d. %b. %Y, %H:%M Uhr"
@@ -320,9 +323,9 @@ de:
     errors:
       template:
         header:
-          one:    "Konnte dieses Formular nicht speichern: 1 Fehler."
-          other:  "Konnte dieses Formular nicht speichern: %{count} Fehler."
-        body: "Bitte überprüfen Sie:"
+          one:    "Konnte nicht fortfahren, da 1 Fehler auftrat."
+          other:  "Konnte nicht fortfahren, da %{count} Fehler auftraten."
+        body: "Fehler:"
       messages:
         inclusion: "%{attribute} ist kein gültiger Wert"
         exclusion: "%{attribute} ist nicht verfügbar"

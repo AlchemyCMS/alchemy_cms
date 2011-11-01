@@ -1,4 +1,4 @@
-# These is your plugin configuration file.
+# This is your plugin configuration file.
 # ========================================
 # 
 # Options:
@@ -9,22 +9,22 @@
 #   settings:                          # [Optional] Put your own settings in YAML format into here. You can access them with plugin_conf('<%= @plugin_name.underscore %>')['settings'] [YAML]
 #   navigation:
 #     name:                            # The name is used in the Alchemy mainnavi. [String]
-#     controller:                      # The name of the controller to be called when clicking the mainnavi button [String]
+#     controller:                      # The name of the controller to be called when clicking the mainnavi button. Example usage: 'admin/controllername' [String]
 #     action:                          # The name of the action from the controller to be called when clicking the mainnavi button [String]
-#     image:                           # Path to an image inside your public folder used for the icon in the alchemy mainnavi. [String]
+#     icon:                            # CSS classname for the link in the alchemy mainnavi. [String]
 #     sub_navigation:                  # Your plugins sub navigation. Put as much as sub navi entries as you want into here
 #       - name:                        # [String]
 #         controller:                  # Typically your controller and action you set for mainnavi entry.
 #         action:                      # [String]
 
-name: <%= @plugin_name.underscore %>
+name: <%= @plugin_name %>
   
 navigation:
   name: <%= @plugin_name.camelcase %>
-  controller: 
-  action: 
-  image: 
+  controller: admin/<%= @plugin_name.tableize %>
+  action: index
+  image: <%= @plugin_name %>/<%= @plugin_name %>.png
   sub_navigation:
-    - name: 
-      controller: 
-      action: 
+    - name: <%= @plugin_name.camelcase %>
+      controller: admin/<%= @plugin_name.tableize %>
+      action: index

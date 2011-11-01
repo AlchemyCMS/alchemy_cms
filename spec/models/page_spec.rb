@@ -5,22 +5,24 @@ require 'spec_helper'
 describe Page do
 	
 	before(:each) do
-		#@rootpage = Factory(:page, :page_layout => "rootpage", :parent_id => nil)
-		#@language = @rootpage.language
-		#@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language)
 		@rootpage = Page.rootpage
-		@language = @rootpage.language
+		@language = Language.get_default
 		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language)
 	end
 	
 	it "should contain one rootpage" do
 		Page.rootpage.should be_instance_of(Page)
 	end
+
+	it "should return all rss feed elements" do
+		@page = Factory(:public_page, :page_layout => 'news', :parent_id => @language_root.id, :language => @language)
+		@page.feed_elements.should == Element.find_all_by_name('news')
+	end
 	
 	context "finding elements" do
 	
 		before(:each) do
-		  @page = Factory(:public_page)
+			@page = Factory(:public_page)
 			@non_public_elements = [
 				Factory(:element, :public => false, :page => @page),
 				Factory(:element, :public => false, :page => @page)
@@ -29,17 +31,17 @@ describe Page do
 		
 	  it "should return the collection of elements if passed an array into options[:collection]" do
 			options = {:collection => @page.elements}
-	    @page.find_elements(options).all.should == @page.elements.all
-	  end
+			@page.find_elements(options).all.should == @page.elements.all
+		end
 		
 		context "with show_non_public argument TRUE" do
 
 			it "should return all elements from empty options" do
-			   @page.find_elements({}, true).all.should == @page.elements.all
+				@page.find_elements({}, true).all.should == @page.elements.all
 			end
 
 			it "should only return the elements passed as options[:only]" do
-			  @page.find_elements({:only => ['article']}, true).all.should == @page.elements.named('article').all
+				@page.find_elements({:only => ['article']}, true).all.should == @page.elements.named('article').all
 			end
 
 			it "should not return the elements passed as options[:except]" do

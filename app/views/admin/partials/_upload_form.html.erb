@@ -22,7 +22,7 @@
 <%- end -%>
 <p style="margin-top: 8px" id="choose_alternative_uploader">
 	<small>
-		<%= raw _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('#SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+		<%= raw _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('object.swfupload').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
 	</small>
 </p>
 <div id="swfUploadFlashError" style="display: none">
@@ -46,7 +46,7 @@
 	<p>
 		<small>
 			<a href="#" 
-			onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('#SWFUpload_0').show();" 
+			onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('object.swfupload').show();" 
 			style="text-decoration: underline">
 				<%= _('Switch to Flash® Uploader') %>
 			</a>

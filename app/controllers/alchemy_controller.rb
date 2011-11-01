@@ -21,10 +21,10 @@ class AlchemyController < ApplicationController
     current_user.admin?
   end
 
-  def render_errors_or_redirect(object, redicrect_url, flash_notice, button = nil)
+  def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
-      render(:update) { |page| page.redirect_to(redicrect_url) }
+      render(:update) { |page| page.redirect_to(redirect_url) }
     else
       render_remote_errors(object, button)
     end
@@ -34,7 +34,7 @@ class AlchemyController < ApplicationController
     render :update do |page|
       page << "jQuery('#errors').html('<ul>" + object.errors.sum { |a, b| "<li>" + _(b) + "</li>" } + "</ul>')"
       page << "jQuery('#errors').show()"
-      page << "Alchemy.enableButton('#{button}')" unless button.blank?
+      page << "Alchemy.enableButton('#{button || 'form button.button'}')"
     end
   end
 

@@ -88,13 +88,13 @@ if (typeof(Alchemy) === 'undefined') {
 				Alchemy.PreviewWindow = $iframe.dialog({
 					modal: false,
 					title: title,
-					width: $(window).width() - 512,
-					height: $(window).height() - 94,
+					width: $(window).width() - 504,
+					height: $(window).height() - 90,
 					minWidth: 600,
 					minHeight: 300,
 					show: "fade",
 					hide: "fade",
-					position: [73, 84],
+					position: [70, 84],
 					autoResize: true,
 					closeOnEscape: false,
 					create: function() {
@@ -192,11 +192,11 @@ if (typeof(Alchemy) === 'undefined') {
 				modal: false, 
 				minWidth: 422, 
 				minHeight: 300,
-				height: $(window).height() - 94,
+				height: $(window).height() - 90,
 				title: options.texts.title,
 				show: "fade",
 				hide: "fade",
-				position: [$(window).width() - 432, 84],
+				position: [$(window).width() - 428, 84],
 				closeOnEscape: false,
 				create: function() {
 					$dialog.before(Alchemy.createElementWindowToolbar(options.toolbarButtons));
@@ -428,10 +428,10 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		openLicencseWindow : function() {
 			var height = $(window).height() - 150;
-			var $iframe = $('<iframe src="http://www.gnu.org/licenses/gpl-3.0.txt"></iframe>');
+			var $iframe = $('<iframe src="https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE"></iframe>');
 			$iframe.dialog({
 				bgiframe: true,
-				title: 'GNU GPL License',
+				title: 'Alchemy CMS License',
 				width: 650,
 				height: height,
 				autoResize: true,
