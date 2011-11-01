@@ -5,9 +5,7 @@
     <table class="contactform">
     	<tr>
     		<td class="label">
-    			<label for="mail_salutation">
-    				<%= t('alchemy.contactform.labels.salutation') %>
-    			</label>
+					<%= f.label :salutation, t('alchemy.contactform.labels.salutation') %>
     		</td>
     		<td class="field">
     			<%= f.select(
@@ -23,9 +21,7 @@
     	</tr>
     	<tr>
     		<td class="label">
-    			<label for="mail_firstname">
-    				<%= t('alchemy.contactform.labels.firstname') %>
-    			</label>
+					<%= f.label :firstname, t('alchemy.contactform.labels.firstname') %>
     		</td>
     		<td class="field">
     			<%= f.text_field(:firstname, :class => "field") %>
@@ -33,9 +29,7 @@
     	</tr>
     	<tr>
     		<td class="label">
-    			<label for="mail_lastname">
-    				<%= t('alchemy.contactform.labels.lastname') %>
-    			</label><small>*</small>
+					<%= f.label :lastname, (t('alchemy.contactform.labels.lastname') + '<small>*</small>').html_safe %>
     		</td>
     		<td class="field">
     			<%= f.text_field(:lastname, :class => "field") %>
@@ -43,9 +37,7 @@
     	</tr>
     	<tr>
     		<td class="label">
-    			<label for="mail_address">
-    				<%= t('alchemy.contactform.labels.address') %>
-    			</label>
+					<%= f.label :address, t('alchemy.contactform.labels.address') %>
     		</td>
     		<td class="field">
     			<%= f.text_field :address, :class => 'field' %>
@@ -53,9 +45,7 @@
     	</tr>
     	<tr>
     		<td class="label">
-    			<label for="mail_zip">
-    				<%= t('alchemy.contactform.labels.zip') %>
-    			</label>
+					<%= f.label :zip, t('alchemy.contactform.labels.zip') %>
     		</td>
     		<td class="field">
     			<%= f.text_field :zip, :class => 'field short' %>
@@ -64,9 +54,7 @@
     	</tr>
     	<tr>
     		<td class="label">
-    			<label for="mail_phone">
-    				<%= t('alchemy.contactform.labels.phone') %>
-    			</label>
+					<%= f.label :phone, t('alchemy.contactform.labels.phone') %>
     		</td>
     		<td class="field">
     			<%= f.text_field :phone, :class => 'field' %>
@@ -74,9 +62,7 @@
     	</tr>
     	<tr>
     		<td class="label">
-    			<label for="mail_email">
-    				<%= t('alchemy.contactform.labels.email') %>
-    			</label><small>*</small>
+					<%= f.label :email, (t('alchemy.contactform.labels.email') + '<small>*</small>').html_safe %>
     		</td>
     		<td class="field">
     			<%= f.text_field :email, :class => 'field' %>
@@ -84,8 +70,9 @@
     	</tr>
     </table>
     <div id="message">
-        <%= f.text_area :message %>
+			<%= f.text_area :message %>
     </div>
+		<p class="foot_notice">*) <%= t('alchemy.contactform.labels.mandatory_fields') %></p>
     <p class="right">
     	<%= f.button t('alchemy.contactform.labels.send'), :name => nil, :class => 'button' %>
     </p>
