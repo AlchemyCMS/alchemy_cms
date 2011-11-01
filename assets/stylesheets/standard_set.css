@@ -130,11 +130,10 @@ div#header_image {
 #navigation {
 	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 	color: #fdfdfd;
-	position: relative;
-	top: 40%;
 	text-transform: uppercase;
-	float: left;
-	clear: both;
+	position: absolute;
+	top: 215px;
+	z-index: 100;
 }
 
 #navigation ul {
@@ -335,36 +334,62 @@ input.field {
 	margin: 0;
 	font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
 	border: 1px solid silver;
-	width: 290px;
+	width: 310px;
+}
+
+td.field {
+	white-space: nowrap;
 }
 
 input.field.short {
-	width: 100px;
+	width: 105px;
 }
 
 input.field.medium {
-	width: 186px;
+	width: 200px;
 }
 
 td.label {
-	width: 100px;
+	width: 130px;
 }
 
 textarea {
-	width: 290px;
+	width: 310px;
 	padding: 2px;
 	font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
 	border: 1px solid silver;
-	margin-left: 107px;
+	margin-left: 137px;
 	height: 10em;
 	margin-top: 2em;
 	margin-bottom: 1em;
 }
 
+div.field_with_errors {
+	color: #fe1b15;
+}
+
+div.field_with_errors input.field {
+	border-color: #fe1b15;
+}
+
+p.foot_notice {
+	font-size: 0.8em;
+}
+
 form#contact {
-	padding: 10px;
-	width: 400px;
-	margin-left: 200px;
+	padding: 0 0 0 12px;
+	width: 450px;
+}
+
+#errorExplanation {
+	color: #fe1d16;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+#errorExplanation ul {
+	list-style-type: disc;
+	padding: 0 0 0 1.5em;
 }
 
 label {
@@ -373,6 +398,21 @@ label {
 
 p.right {
 	text-align: right;
+}
+
+.searchresult {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.searchresult form {
+	padding-left: 12px;
+}
+
+.searchresult h2 {
+	padding-left: 12px;
+	margin-bottom: 2em;
+	margin-top: 1em;
 }
 
 .search_results ul {
