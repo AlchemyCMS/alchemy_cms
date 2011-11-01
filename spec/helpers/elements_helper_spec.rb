@@ -23,6 +23,13 @@ describe ElementsHelper do
 	  helper.element_dom_id(@element).should == "#{@element.name}_#{@element.id}"
 	end
 
+	it "should render elements for a cell", :focus => true do
+		cell = Factory(:cell)
+		Factory(:element, :cell_id => cell.id)
+		helper.stub(:configuration).and_return(true)
+	  helper.render_cell_elements(cell).should match(/id="article_7"/)
+	end
+
 	context "in preview mode" do
 
 	  it "should return the data-alchemy-element HTML attribute for element" do

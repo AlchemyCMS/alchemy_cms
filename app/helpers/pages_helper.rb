@@ -488,16 +488,6 @@ module PagesHelper
     render :partial => "cells/#{name}", :locals => {:cell => cell}
   end
 
-  # Renders all element partials from given cell.
-  def render_cell_elements(cell)
-    return warning("No cell given.") if cell.blank?
-    ret = ""
-    cell.elements.each do |element|
-      ret << render_element(element)
-    end
-    ret.html_safe
-  end
-
   # Returns true or false if no elements are in the cell found by name.
   def cell_empty?(name)
     cell = @page.cells.find_by_name(name)

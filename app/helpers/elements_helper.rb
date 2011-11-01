@@ -20,6 +20,7 @@ module ElementsHelper
       :except => [],
       :only => [],
       :from_page => "",
+			:from_cell => "",
       :count => nil,
       :offset => nil,
       :locals => {},
@@ -141,6 +142,19 @@ module ElementsHelper
     return "" if page.blank?
     element = page.elements.find_by_name_and_public(options[:element_name], true)
     return element
+  end
+
+	# Renders all element partials from given cell.
+  def render_cell_elements(cell)
+    return warning("No cell given.") if cell.blank?
+		render_elements({:from_cell => cell})
+		#show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
+    #ret = ""
+		#elements = (show_non_public == true) ? cell.elements : cell.elements.published
+    #elements.each do |element|
+    #  ret << render_element(element)
+    #end
+    #ret.html_safe
   end
 
   # Returns a string for the id attribute of a html element for the given element

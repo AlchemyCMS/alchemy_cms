@@ -63,12 +63,18 @@ class Page < ActiveRecord::Base
   #     :count => Integer                  # Limit the count of returned elements
   #     :offset => Integer                 # Starts with an offset while returning elements
   #     :random => Boolean                 # Returning elements randomly shuffled
+	# 		:from_cell => Cell								 # Returning elements from given cell
   # 
   # Returns only public elements by default.
   # Pass true as second argument to get all elements.
   # 
   def find_selected_elements(options = {}, show_non_public = false)
-    elements = self.elements
+		if !options[:from_cell].blank? && options[:from_cell].class == Cell
+			cell = Cell.find(options[:from_cell])
+			elements = cell.elements
+		else
+			elements = self.elements
+		end
     if !options[:only].blank?
       elements = self.elements.named(options[:only])
     elsif !options[:except].blank?
