@@ -96,6 +96,7 @@ private
       {:limit => :all},
       {:conditions => ["public = ?", true]}
     )
+    @search_results = (@text_search_results + @rtf_search_results).sort{ |y, x| x.ferret_score <=> y.ferret_score }
   end
 
   def find_first_public(page)
