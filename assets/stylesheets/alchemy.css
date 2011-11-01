@@ -1,7 +1,5 @@
 /* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
-/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
-
 html {
 	height: 100%;
 }
@@ -279,8 +277,8 @@ div#overlay {
 	width: 100%;
 	height: 100%;
 	z-index: 400000;
-	background-color: rgba(255,255,255,0.6);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#60FFFFFF, endColorstr=#60FFFFFF);
+	background-color: rgba(229,229,229,0.4);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#40E5E5E5, endColorstr=#40E5E5E5);
 }
 
 #user_list li.table_row div.table_left span.icon img {
@@ -307,17 +305,6 @@ div#overlay_text_box img {
 
 /* @group top_frame */
 
-#corner {
-	z-index: 15;
-	width: 65px;
-	height: 16px;
-	position: fixed;
-	left: 0;
-	top: 0;
-	background: url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
-	font-size: 0;
-}
-
 #preview_frame {
 	background-color: white;
 	width: 100%;
@@ -336,21 +323,22 @@ div#top_menu {
 
 #main_menu {
 	white-space: nowrap;
-	z-index: 5;
+	z-index: 2;
 	height: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 65px;
 	overflow: hidden;
+	border-right: 1px solid #afafaf;
 }
 
 #main_menu_background {
 	height: 100%;
-	background: #b2ccdb url(/images/alchemy/gui/shading_90.png) repeat-y -15px;
+	background: #c6dbe7;
+	width: 65px;
 	z-index: 0;
 	position: absolute;
-	width: 65px;
 }
 
 #logout {
@@ -765,8 +753,8 @@ div.tip {
 #sub_navigation {
 	height: 22px;
 	line-height: 23px;
-	padding-left: 8px;
-	background: #b2ccdb url(/images/alchemy/gui/shading.png) repeat-x 0 -2px;
+	padding-left: 5px;
+	background: #c6dbe7;
 	border-bottom: 1px solid #afafaf;
 	padding-top: 4px;
 	z-index: 5;
@@ -810,10 +798,6 @@ div.tip {
 	border: 1px solid #afafaf;
 	border-bottom-style: none;
 	height: 22px;
-	-webkit-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
-	-moz-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
-	-o-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
-	box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
 }
 
 #sub_navigation span.page_status_and_name .flag {
@@ -828,7 +812,7 @@ div.tip {
 	position: relative;
 	margin-right: 16px;
 	margin-left: 4px;
-	line-height: 17px;
+	line-height: 27px;
 	bottom: 2px;
 }
 
@@ -837,8 +821,8 @@ div.tip {
 	padding: 0px 8px;
 	height: 21px;
 	text-shadow: #fff 0 0px 4px;
-	background: #CCC;
-	color: #555;	
+	background: #d6e0e6;
+	color: #444;	
 	-webkit-border-top-right-radius: 3px;
 	-webkit-border-top-left-radius: 3px;
 	-moz-border-radius: 3px 3px 0 0;
@@ -867,7 +851,6 @@ div.tip {
 #sub_navigation div.subnavi_tab:hover {
 	color: #333;
 	text-decoration: none;
-	background-color: #d8d8d8;
 }
 
 #sub_navigation div.subnavi_tab.active {
@@ -884,10 +867,6 @@ div.tip {
 	user-select: none;
 	cursor: default;
 	z-index: 10;	
-	-webkit-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
-	-moz-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
-	-o-box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
-	box-shadow: 2px 0px 4px rgba(0, 3, 51, 0.2);
 }
 
 #sub_navigation a:hover {
@@ -902,7 +881,7 @@ div.tip {
 
 #main_navi {
 	padding-left: 4px;
-	padding-top: 26px;
+	padding-top: 25px;
 	position: absolute;
 	z-index: 1;
 }
@@ -915,31 +894,31 @@ div.tip {
 }
 
 #main_navi a.main_navi_entry {
-	color: #555;
+	color: #444;
 	position: relative;
 	text-align: center;
 	overflow: hidden;
 	display: block;
-	width: 60px;
-	background: #cdcdcd;
-	padding-top: 6px;
+	padding-top: 7px;
 	-webkit-border-top-left-radius: 3px 3px;
 	-webkit-border-bottom-left-radius: 3px 3px;
 	-moz-border-radius: 3px 0px 0px 3px;
 	-o-border-radius: 3px 0px 0px 3px;
 	border-radius: 3px 0px 0px 3px;
 	margin-bottom: 1px;
-	margin-top: 0;
-	border: 1px solid #afafaf;
+	margin-top: 1px;
+	border: 1px none #afafaf;
 	border-right-style: none;
-	padding-bottom: 4px;
+	padding-bottom: 5px;
 	text-shadow: #fff 0 0px 4px;
+	padding-left: 1px;
+	width: 60px;
 }
 
 #main_navi a.main_navi_entry:hover {
 	cursor: pointer;
 	text-decoration: none;
-	background: #d8d8d8;
+	color: #333;
 }
 
 #main_navi a.main_navi_entry img {
@@ -952,14 +931,15 @@ div.tip {
 }
 
 #main_navi a.main_navi_entry.active {
-	background: #ededed;
+	background: #baced9;
 	color: #333;
 	cursor: default;
 	text-shadow: #fff 0 1px 2px;
-	-webkit-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
-	-moz-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
-	-o-box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
-	box-shadow: 0px 2px 4px rgba(0, 3, 51, 0.2);
+	border: 1px solid #afafaf;
+	padding-left: 0;
+	border-right-style: none;
+	padding-top: 6px;
+	padding-bottom: 4px;
 }
 
 #main_navi #active img {
@@ -1372,7 +1352,7 @@ div#user_list_legend {
 	-o-border-radius: 0 0 0 3px;
 	border-radius: 0 0 0 3px;
 	position: relative;
-	margin-left: 8px;
+	margin-left: 5px;
 }
 
 #toolbar form {
@@ -1824,6 +1804,7 @@ input#search_input_field {
 	-moz-border-radius: 12px;
 	border-radius: 12px;
 	padding: 3px 24px 2px;
+	height: 25px;
 }
 
 input.button, 
@@ -1838,6 +1819,8 @@ button.button {
 	background-position:  0 -73px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
 	border-radius: 3px;
 	cursor: pointer;
 	color: #333;
@@ -1915,6 +1898,15 @@ a.button.disabled img {
 	float: none;
 }
 
+a.button.small.disabled img {
+	display: inline-block;
+	float: none;
+	position: relative;
+	height: 16px;
+	width: 16px;
+	top: -1px;
+}
+
 a.button.disabled,
 a.button.disabled:hover,
 a.button.disabled:active {
@@ -1923,7 +1915,7 @@ a.button.disabled:active {
 }
 
 label {
-	line-height: 23px;
+	
 }
 
 a.button {
@@ -1931,6 +1923,24 @@ a.button {
 	text-decoration: none;
 	float: left;
 	line-height: 13px;
+}
+
+a.button.small {
+	height: 14px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
+}
+
+a.small.button.with_icon span.icon {
+	margin-top: -5px;
+	position: relative;
+	top: 3px;
+	left: -1px;
 }
 
 table.list tr td.tools {
@@ -1941,13 +1951,19 @@ table.list tr td.tools {
 
 td.input,
 td.label {
+	padding-top: 2px;
 	vertical-align: top;
 }
 
 td.label {
 	white-space: nowrap;
-	padding: 3px 4px 0 0;
 	width: 80px;
+	padding: 2px 8px 0 0;
+	line-height: 23px;
+}
+
+td.input input[type="checkbox"], td.input input[type="radio"] {
+	margin-top: 6px;
 }
 
 td.label.long {
@@ -2198,8 +2214,6 @@ textarea.thin_border {
 
 .thin_border,
 .input_field {
-	font-size: 12px;
-	padding: 3px 4px 2px;
 	margin: 0;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -2207,7 +2221,11 @@ textarea.thin_border {
 	background: #fff;
 	border: 1px inset #e5e5e5;
 	width: 210px;
-	height: 25px;
+	font-size: 12px;
+	line-height: 19px;
+	height: 27px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 
 .thin_border.dirty {
@@ -3106,10 +3124,11 @@ input#user_admin {
 
 #alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 290px;
+	width: 232px;
 	height: 25px;
 	margin-top: 2px;
 	padding: 0 !important;
+	margin-right: 0;
 }
 
 div#image_assign_filter_and_image_sizing form div.search_field {
@@ -3359,7 +3378,7 @@ div.assign_file_file_icon img {
 #alchemy .ui-dialog-content td.label {
 	padding-top: 2px;
 	padding-bottom: 2px;
-	padding-right: 4px;
+	padding-right: 8px;
 	height: 25px;
 }
 
@@ -3376,7 +3395,6 @@ div.assign_file_file_icon img {
 table.window_form td.input {
 	padding-top: 2px;
 	padding-bottom: 2px;
-	padding-right: 10px;
 }
 
 #alchemy .ui-dialog-content p {
@@ -3427,6 +3445,11 @@ select#url_protocol.medium {
 
 #alchemy .ui-dialog-content p a.button {
 	float: right;
+}
+
+#alchemy .ui-dialog-content p a.button.small {
+	float: none;
+	display: inline-block;
 }
 
 div.emulate_table input.button:disabled {

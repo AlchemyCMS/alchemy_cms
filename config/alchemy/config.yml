@@ -1,3 +1,5 @@
+# encoding: UTF-8
+# 
 # = Configuration
 #
 # == This is the global Alchemy configuration file
@@ -20,7 +22,7 @@
 # Enabling the Ferret fulltext search engine.
 # Tip! For best performance and stability install a crontab that reindexes ferrets search index periodly.
 # Example: cd ~/html/alchemy/current && RAILS_ENV=production rake ferret:rebuild_index
-:ferret: false
+:ferret: true
 
 # === Pagecaching
 # Enable/Disable pagecaching globally.
@@ -115,12 +117,16 @@ default_language:
 :user_roles: [registered, author, editor, admin]
 
 # === Uploader Settings
+# Set an upload limit in megabytes which counts for all uploads together.
+# Set a file size limit in megabytes for a per file limit.
 # Allow filetypes to upload.
 # Pass * to allow all kind of files.
 :uploader:
+  :upload_limit: 500
+  :file_size_limit: 100
   :allowed_filetypes:
     :pictures: [jpg, jpeg, gif, png, psd, pdf]
-    :attachments: [*]
+    :attachments: ['*']
 
 # === Link Target Options
 # Values for the link target selectbox inside the page link overlay.

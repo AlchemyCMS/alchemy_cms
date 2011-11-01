@@ -17,7 +17,10 @@ class Element < ActiveRecord::Base
   
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil).order('updated_at DESC')
-  
+  scope :published, where(:public => true)
+  scope :named, lambda { |names| where(arel_table[:name].in(names)) }
+  scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
+
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)
     if name.nil?
@@ -38,18 +41,21 @@ class Element < ActiveRecord::Base
     self.class.where(find_conditions).order("position DESC").limit(1)
   end
 
-  def store_page page
+  # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).
+  def store_page(page)
+    return true if page.nil?
     unless self.to_be_sweeped_pages.include? page
       self.to_be_sweeped_pages << page
       self.save
     end
   end
-  
+
   # nullifies the page_id aka. trashs it.
   def trash
-    self.page_id = nil
-    self.folded = true
-    self.save(false)
+    self.update_attributes({
+      :page_id => nil,
+      :folded => true
+    })
   end
   
   def trashed?
@@ -104,14 +110,23 @@ class Element < ActiveRecord::Base
     copy
   end
 
+  # Returns the descriptions from elements.yml file.
+  # Alchemy comes with its own elements.yml file. As so called standard set.
+  # Place a elements.yml file inside your apps config/alchemy folder to define
+  # your own set of elements
   def self.descriptions
     if File.exists? "#{Rails.root}/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
-    elsif File.exists? "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/elements.yml"
-      @elements = YAML.load_file( "#{Rails.root}/vendor/plugins/alchemy/config/alchemy/elements.yml" )
-    else
-      raise "Could not read config/alchemy/elements.yml"
-    end
+			element_definitions = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
+		end
+		if !element_definitions
+			if File.exists?(File.join(File.dirname(__FILE__), "../../config/alchemy/elements.yml"))
+				element_definitions = YAML.load_file( File.join(File.dirname(__FILE__), "../../config/alchemy/elements.yml") )
+			end
+		end
+		if !element_definitions
+			raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
+		end
+		element_definitions
   end
   
   def self.definitions
@@ -148,7 +163,6 @@ class Element < ActiveRecord::Base
 
   # returns the description of the element with my name in element.yml
   def description
-    return nil if Element.descriptions.blank?
     Element.descriptions.detect{ |d| d['name'] == self.name }
   end
 
@@ -366,6 +380,7 @@ private
   
   # List all elements for page_layout
   def self.all_for_page(page)
+    raise TypeError if page.class != Page
     # if page_layout has cells, collect elements from cells and group them by cellname
     page_layout = Alchemy::PageLayout.get(page.page_layout)
     if page_layout.blank?
@@ -397,7 +412,7 @@ private
       return definitions.select { |e| element_names.include? e['name'] }
     end
   end
-  
+
   # makes a copy of source and makes copies of the contents from source
   def self.copy(source, differences = {})
     attributes = source.attributes.except("id").merge(differences)
@@ -411,12 +426,11 @@ private
 
   # creates the contents for this element as described in the elements.yml
   def create_contents
-    element_scratch = description
     contents = []
-    if element_scratch["contents"].blank?
+    if description["contents"].blank?
       logger.warn "\n++++++\nWARNING! Could not find any content descriptions for element: #{self.name}\n++++++++\n"
     else
-      element_scratch["contents"].each do |content_hash|
+      description["contents"].each do |content_hash|
         contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end

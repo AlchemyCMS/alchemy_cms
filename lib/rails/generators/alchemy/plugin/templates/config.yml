@@ -17,14 +17,14 @@
 #         controller:                  # Typically your controller and action you set for mainnavi entry.
 #         action:                      # [String]
 
-name: <%= @plugin_name.underscore %>
+name: <%= @plugin_name %>
   
 navigation:
   name: <%= @plugin_name.camelcase %>
-  controller: 
-  action: 
-  icon: 
+  controller: admin/<%= @plugin_name.tableize %>
+  action: index
+  image: <%= @plugin_name %>/<%= @plugin_name %>.png
   sub_navigation:
-    - name: 
-      controller: 
-      action: 
+    - name: <%= @plugin_name.camelcase %>
+      controller: admin/<%= @plugin_name.tableize %>
+      action: index

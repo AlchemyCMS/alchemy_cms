@@ -8,14 +8,13 @@ describe Alchemy::PageLayout do
 	  end
 
 		it "should return the users page_layouts if exists in the application" do
-			layouts_file_path = "#{Rails.root}/config/alchemy/page_layouts.yml"
-			FileUtils.cp(layouts_file_path, "#{layouts_file_path}.bak")
-			File.open(layouts_file_path,'w') do |page_layouts|
+			config_path = FileUtils.mkdir_p("#{Rails.root}/config/alchemy")
+			layouts_file = File.join(config_path, 'page_layouts.yml')
+			File.open(layouts_file,'w') do |page_layouts|
 				page_layouts.puts "- name: testlayout\n  elements:"
 			end
 			Alchemy::PageLayout.get_layouts.first.values.should include("testlayout")
-			FileUtils.rm(layouts_file_path)
-			FileUtils.mv("#{layouts_file_path}.bak", layouts_file_path)
+			FileUtils.rm_rf(config_path)
 		end
 	end
 

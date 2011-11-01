@@ -8,11 +8,11 @@ class PagesController < AlchemyController
   caches_action(
     :show,
     :layout => false,
-    :cache_path => Proc.new { |c| c.multi_language? ? "#{session[:language_code]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
-    :if => Proc.new { |c| 
+    :cache_path => proc { url_for(:action => :show, :urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
+    :if => proc do
       if Alchemy::Config.get(:cache_pages)
         page = Page.find_by_urlname_and_language_id_and_public(
-          c.params[:urlname],
+          params[:urlname],
           session[:language_id],
           true,
           :select => 'page_layout, language_id, urlname'
@@ -24,7 +24,7 @@ class PagesController < AlchemyController
       else
         false
       end
-    }
+    end
   )
 
   # Showing page from params[:urlname]
@@ -64,13 +64,15 @@ private
     elsif @page.blank?
       render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
     elsif multi_language? && params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname, :lang => session[:language_code]), :status => 301
-    elsif multi_language? && params[:urlname].blank? && !params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname, :lang => params[:lang]), :status => 301
+      redirect_page(:lang => session[:language_code])
+    elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
+      redirect_page(:lang => params[:lang])
     elsif configuration(:redirect_to_public_child) && !@page.public?
       redirect_to_public_child
+    elsif params[:urlname].blank? && configuration(:redirect_index)
+      redirect_page
     elsif !multi_language? && !params[:lang].blank?
-      redirect_to show_page_path(:urlname => @page.urlname), :status => 301
+      redirect_page
     elsif @page.has_controller?
       redirect_to(@page.controller_and_action)
     else
@@ -86,14 +88,14 @@ private
 
   def perform_search
     @rtf_search_results = EssenceRichtext.find_with_ferret(
-      "*" + params[:query] + "*",
+      "*#{params[:query]}*",
       {:limit => :all},
-      {:conditions => "public = 1"}
+      {:conditions => ["public = ?", true]}
     )
     @text_search_results = EssenceText.find_with_ferret(
-      "*" + params[:query] + "*",
+      "*#{params[:query]}*",
       {:limit => :all},
-      {:conditions => "public = 1"}
+      {:conditions => ["public = ?", true]}
     )
   end
 
@@ -119,19 +121,17 @@ private
     end
   end
 
-  def redirect_page
-    get_additional_params
-    redirect_to(
-      send(:show_page_path, {
-        :lang => (multi_language? ? @page.language_code : nil),
-        :urlname => @page.urlname
-      }.merge(@additional_params)),
-      :status => 301
-    )
+  def redirect_page(options={})
+    defaults = {
+      :lang => (multi_language? ? @page.language_code : nil),
+      :urlname => @page.urlname
+    }
+    options = defaults.merge(options)
+    redirect_to show_page_path(options.merge(additional_params)), :status => 301
   end
 
-  def get_additional_params
-    @additional_params = params.clone.delete_if do |key, value|
+  def additional_params
+    params.clone.delete_if do |key, value|
       ["action", "controller", "urlname", "lang"].include?(key)
     end
   end

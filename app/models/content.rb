@@ -78,7 +78,7 @@ class Content < ActiveRecord::Base
   
   # Gets the ingredient from essence
   def ingredient
-    return nil if self.essence.blank?
+    return nil if self.essence.nil?
     self.essence.ingredient
   end
   

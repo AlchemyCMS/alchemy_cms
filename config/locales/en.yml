@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 en:
   
   # = Alchemy Translations
@@ -214,7 +216,10 @@ en:
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     # Used in date_select and datime_select.
-    order: [ :year, :month, :day ]
+    order:
+      - :year
+      - :month
+      - :day
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z" 

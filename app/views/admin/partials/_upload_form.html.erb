@@ -74,10 +74,10 @@
 			flash9_url : "/javascripts/alchemy/swfupload/swfupload.swf",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
 			post_params: <%= post_params.html_safe %>,
-			file_size_limit : "500 MB",
+			file_size_limit : "<%= configuration(:uploader)[:file_size_limit] -%> MB",
 			file_types : '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
 			file_types_description : "<%= file_types_description %>",
-			file_upload_limit : 500,
+			file_upload_limit : <%= configuration(:uploader)[:upload_limit] -%>,
 			file_queue_limit : 0,
 			custom_settings : {
 				progressTarget : "uploadProgressContainer",

@@ -12,26 +12,32 @@ class AlchemyController < ApplicationController
   before_filter :set_language
   before_filter :mailer_set_url_options
   
-  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard
+  helper_method :current_server, :configuration, :multi_language?, :current_user, :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
   helper :layout
-  
-  def render_errors_or_redirect(object, redicrect_url, flash_notice, button = nil)
+
+  # Returns true if the current_user (The logged-in Alchemy User) has the admin role.
+  def is_admin?
+    return false if !current_user
+    current_user.admin?
+  end
+
+  def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
-      render(:update) { |page| page.redirect_to(redicrect_url) }
+      render(:update) { |page| page.redirect_to(redirect_url) }
     else
       render_remote_errors(object, button)
     end
   end
-  
+
   def render_remote_errors(object, button = nil)
     render :update do |page|
       page << "jQuery('#errors').html('<ul>" + object.errors.sum { |a, b| "<li>" + _(b) + "</li>" } + "</ul>')"
       page << "jQuery('#errors').show()"
-      page << "Alchemy.enableButton('#{button}')" unless button.blank?
+      page << "Alchemy.enableButton('#{button || 'form button.button'}')"
     end
   end
-  
+
   # Returns a host string with the domain the app is running on.
   def current_server
     # For local development server

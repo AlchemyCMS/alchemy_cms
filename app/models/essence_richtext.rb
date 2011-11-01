@@ -4,9 +4,20 @@ class EssenceRichtext < ActiveRecord::Base
     :preview_text_column => :stripped_body
   )
 
-  acts_as_ferret(:fields => {:stripped_body => {:store => :yes}}, :remote => false) if Alchemy::Config.get(:ferret) == true
+  # Require acts_as_ferret only if Ferret full text search is enabled (default).
+  # You can disable it in +config/alchemy/config.yml+
+  if Alchemy::Config.get(:ferret) == true
+    require 'acts_as_ferret'
+    acts_as_ferret(
+      :fields => {
+        :stripped_body => {:store => :yes}
+      },
+      :remote => false
+    )
+    before_save :check_ferret_indexing
+  end
+
   before_save :strip_content
-  before_save :check_ferret_indexing if Alchemy::Config.get(:ferret) == true
 
   # Saves the ingredient
   def save_ingredient(params, options = {})

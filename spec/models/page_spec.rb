@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 
 describe Page do
@@ -13,6 +15,71 @@ describe Page do
 	
 	it "should contain one rootpage" do
 		Page.rootpage.should be_instance_of(Page)
+	end
+	
+	context "finding elements" do
+	
+		before(:each) do
+		  @page = Factory(:public_page)
+			@non_public_elements = [
+				Factory(:element, :public => false, :page => @page),
+				Factory(:element, :public => false, :page => @page)
+			]
+		end
+		
+	  it "should return the collection of elements if passed an array into options[:collection]" do
+			options = {:collection => @page.elements}
+	    @page.find_elements(options).all.should == @page.elements.all
+	  end
+		
+		context "with show_non_public argument TRUE" do
+
+			it "should return all elements from empty options" do
+			   @page.find_elements({}, true).all.should == @page.elements.all
+			end
+
+			it "should only return the elements passed as options[:only]" do
+			  @page.find_elements({:only => ['article']}, true).all.should == @page.elements.named('article').all
+			end
+
+			it "should not return the elements passed as options[:except]" do
+			  @page.find_elements({:except => ['article']}, true).all.should == @page.elements - @page.elements.named('article').all
+			end
+
+		  it "should return elements offsetted" do
+			  @page.find_elements({:offset => 2}, true).all.should == @page.elements.offset(2)
+		  end
+
+		  it "should return elements limitted in count" do
+			  @page.find_elements({:count => 1}, true).all.should == @page.elements.limit(1)
+		  end
+
+		end
+		
+		context "with show_non_public argument FALSE" do
+
+			it "should return all elements from empty arguments" do
+			   @page.find_elements().all.should == @page.elements.published.all
+			end
+
+			it "should only return the public elements passed as options[:only]" do
+			  @page.find_elements(:only => ['article']).all.should == @page.elements.published.named('article').all
+			end
+
+			it "should return all public elements except the ones passed as options[:except]" do
+			  @page.find_elements(:except => ['article']).all.should == @page.elements.published.all - @page.elements.published.named('article').all
+			end
+
+		  it "should return elements offsetted" do
+			  @page.find_elements({:offset => 2}).all.should == @page.elements.published.offset(2)
+		  end
+
+		  it "should return elements limitted in count" do
+			  @page.find_elements({:count => 1}).all.should == @page.elements.published.limit(1)
+		  end
+
+		end
+	
 	end
 	
 	context "create" do

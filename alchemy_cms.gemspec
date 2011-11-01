@@ -13,12 +13,12 @@ Gem::Specification.new do |s|
   s.description = %q{Alchemy is an awesome Rails CMS with an extremely flexible content storing architecture.}
   s.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
   s.license = 'GPL-3'
-  
+
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  
+
   s.add_runtime_dependency(%q<rails>, ["~> 3.0"])
   s.add_runtime_dependency(%q<authlogic>, ["~> 3.0"])
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
@@ -32,11 +32,15 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<dynamic_form>, ["~> 1.1"])
   s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0"])
   s.add_runtime_dependency(%q<tinymce_hammer>, ["~> 0.2"])
-  s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1"])
-  
-  s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
-  s.add_development_dependency(%q<rspec-rails>, [">= 2.0.0.beta"])
+  s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1.1"])
+
+  s.add_development_dependency(%q<rspec-rails>, [">= 2.0"])
 	s.add_development_dependency(%q<sqlite3>)
-	s.add_development_dependency(%q<ruby-debug>)
+
+	if RUBY_VERSION =~ /^1.9/
+		s.add_development_dependency(%q<ruby-debug19>)
+	else
+		s.add_development_dependency(%q<ruby-debug>)
+	end
 
 end

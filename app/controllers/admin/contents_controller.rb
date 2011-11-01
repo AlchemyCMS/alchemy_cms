@@ -1,6 +1,7 @@
 class Admin::ContentsController < AlchemyController
   
   filter_access_to :all
+  helper :contents
   
   def new
     @element = Element.find(params[:element_id])
@@ -32,7 +33,7 @@ class Admin::ContentsController < AlchemyController
   
   def update
     content = Content.find(params[:id])
-    content.content.update_attributes(params[:content])
+    content.essence.update_attributes(params[:content])
     render :update do |page|
       page << "Alchemy.closeCurrentWindow();Alchemy.reloadPreview()"
     end

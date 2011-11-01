@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     :as => :leave_admin
   match '/admin/logout' => 'admin#logout',
     :as => :logout
-  match '/attachment/:id/download/:name' => 'attachments#download',
+  match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
     :as => :download_attachment
   match '/attachment/:id/show' => 'attachments#show',
     :as => :show_attachment
@@ -29,12 +29,14 @@ Rails.application.routes.draw do
   match  '/pictures/thumbnails/:id/:size(/:crop_from)(/:crop_size)/thumbnail.png' => 'pictures#thumbnail',
     :as => :thumbnail, :defaults => { :format => 'png' }
   match '/:lang' => 'pages#show',
-    :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
+    :constraints => {:lang => /[a-z]{2}/},
     :as => :show_language_root
   match '(/:lang)/:urlname(.:format)' => 'pages#show',
-    :constraints => {:lang => Regexp.new(Language.all_codes_for_published.join('|'))},
+    :constraints => {:lang => /[a-z]{2}/},
     :as => :show_page
-  
+  match '/wa_files/download/:id' => 'attachments#download'
+  match '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
+
   resources :user_sessions
   resources :elements, :only => :show
 

@@ -18,7 +18,7 @@ if defined?(Tinymce::Hammer)
     :width => "100%",
     :theme_advanced_resizing => true,
     :theme_advanced_resize_horizontal => false,
-    :theme_advanced_resizing_min_height => '185',
+    :theme_advanced_resizing_min_height => '135',
     :theme_advanced_toolbar_align => 'left',
     :theme_advanced_toolbar_location => 'top',
     :theme_advanced_statusbar_location => 'bottom',

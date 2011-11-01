@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 de:
   
   # = Alchemy Translations
@@ -224,7 +226,10 @@ de:
     abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
     abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
-    order: [ :day, :month, :year ]
+    order:
+      - :day
+      - :month
+      - :year
   time:
     formats:
       default: "%d. %b. %Y, %H:%M Uhr"
@@ -325,7 +330,7 @@ de:
         inclusion: "%{attribute} ist kein gültiger Wert"
         exclusion: "%{attribute} ist nicht verfügbar"
         invalid: "%{attribute} ist nicht gültig"
-        record_invalid: 'Validierung ist fehlgeschlagen'
+        record_invalid: 'Validierung von %{errors} ist fehlgeschlagen'
         confirmation: "%{attribute} stimmt nicht mit der Bestätigung überein"
         accepted: "%{attribute} muss akzeptiert werden"
         empty: "%{attribute} muss ausgefüllt werden"

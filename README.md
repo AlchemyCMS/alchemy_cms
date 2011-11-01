@@ -61,13 +61,14 @@ Features
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.0.9 and Ruby 1.8.7. __Ruby 1.9 is not__ offically supported yet, because not all Gems Alchemy depends on are Ruby 1.9 ready.
+This branch of Alchemy runs with Rails 3.0.10, Ruby 1.8.7 and Ruby 1.9.2.
 
 Installation
 ------------
 
 Use the installer (recommended):
 
+    gem install alchemy_cms --pre
     alchemy new my_magicpage
 
 Start the local server:
@@ -75,6 +76,17 @@ Start the local server:
     rails server
 
 Then just switch to your browser and open `http://localhost:3000`.
+
+Add to existing Rails project:
+
+    add gem 'alchemy_cms' to Gemfile
+
+    bundle install
+    rake alchemy:prepare
+    rake alchemy:standard_set:install (optional)
+    rake db:migrate
+    rake db:seed
+
 
 Tipps
 -----
