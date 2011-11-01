@@ -1,10 +1,10 @@
 Alchemy CMS
 ===========
 
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png)](http://travis-ci.org/magiclabs/alchemy_cms)
-
 About
 -----
+
+**CAUTION: This branch is a pre alpha development branch. For productive environments use [master](https://github.com/magiclabs/alchemy_cms), or [next_stable](https://github.com/magiclabs/alchemy_cms/tree/next_stable) branch.**
 
 Alchemy is a fully featured Content Management System (CMS) with an gorgeous Userinterface.
 
@@ -61,7 +61,7 @@ Features
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.0.10, Ruby 1.8.7 and Ruby 1.9.2.
+This branch of Alchemy runs with Rails 3.1.1 and Ruby 1.9.2.
 
 Installation
 ------------
