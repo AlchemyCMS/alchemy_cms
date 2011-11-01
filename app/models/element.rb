@@ -54,7 +54,8 @@ class Element < ActiveRecord::Base
   def trash
     self.update_attributes({
       :page_id => nil,
-      :folded => true
+      :folded => true,
+      :public => false
     })
   end
   

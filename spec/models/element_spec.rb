@@ -49,14 +49,33 @@ describe Element do
 		element.ingredient('intro').should == EssenceText.first.ingredient
 	end
 
-	it "should be trashable" do
-		element = Factory(:element)
-		element.trash
-		element.page_id.should == nil
-    element.folded.should == true
-		Element.trashed.should include(element)
+	context "trashed" do
+
+		before(:each) do
+		  @element = Factory(:element)
+			@element.trash
+		end
+	  
+		it "should be not public" do
+	   	@element.public.should be_false
+		end
+		
+		it "should have no page" do
+			@element.page.should == nil
+		end
+
+		it "should be folded" do
+	    @element.folded.should == true
+		end
+		
 	end
-	
+
+	it "should return a collection of trashed elements" do
+	  @element = Factory(:element)
+		@element.trash
+		Element.trashed.should include(@element)
+	end
+
 	it "should raise error if all_for_page method has no page" do
 	  expect { Element.all_for_page(nil) }.should raise_error(TypeError)
 	end
