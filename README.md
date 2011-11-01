@@ -6,8 +6,6 @@ About
 
 **CAUTION: This branch is a pre alpha development branch. For productive environments use [master](https://github.com/magiclabs/alchemy_cms), or [next_stable](https://github.com/magiclabs/alchemy_cms/tree/next_stable) branch.**
 
-Alchemy is a fully featured Content Management System (CMS) with an gorgeous Userinterface.
-
 Features
 --------
 
