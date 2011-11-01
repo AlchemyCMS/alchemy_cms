@@ -34,14 +34,4 @@ private
     end
   end
 
-  def expire_page(page)
-    return if page.do_not_sweep
-    expire_action(
-      :controller => '/pages',
-      :action => :show,
-      :urlname => page.urlname_was,
-      :lang => multi_language? ? page.language_code : nil
-    )
-  end
-
 end

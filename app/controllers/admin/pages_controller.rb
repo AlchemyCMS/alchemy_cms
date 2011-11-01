@@ -218,12 +218,8 @@ class Admin::PagesController < AlchemyController
   end
   
   def flush
-    Page.flushables(session[:language_id]).each do |page|
-      if multi_language?
-        expire_action("#{page.language_code}/#{page.urlname}")
-      else
-        expire_action("#{page.urlname}")
-      end
+		Page.with_language(session[:language_id]).flushables.each do |page|
+      expire_page(page)
     end
     respond_to do |format|
       format.js
@@ -238,6 +234,16 @@ private
   
   def pages_from_raw_request
     request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
+  end
+
+	def expire_page(page)
+    return if page.do_not_sweep
+    expire_action(
+      :controller => '/pages',
+      :action => :show,
+      :urlname => page.urlname_was,
+      :lang => multi_language? ? page.language_code : nil
+    )
   end
 
 end
