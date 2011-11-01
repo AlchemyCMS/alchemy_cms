@@ -10,7 +10,7 @@ describe Page do
 		#@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language)
 		@rootpage = Page.rootpage
 		@language = @rootpage.language
-		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language)
+		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language, :language_root => true)
 	end
 	
 	it "should contain one rootpage" do
@@ -136,6 +136,64 @@ describe Page do
 				@language_root.first_public_child.should == nil
 			end
 		end
+	end
+	
+	context ".public" do
+	  it "should return 2 pages that are public" do
+			Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
+	    Page.public.should have(2).pages
+	  end
+	end
+		
+	context ".not_locked" do
+	  it "should return 3 pages that are not blocked by a user at the moment" do
+	    Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
+	    Page.not_locked.should have(3).pages
+	  end
+	end
+	context ".all_locked" do
+	  it "should return 1 page that is blocked by a user at the moment" do
+	    Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+	    Page.all_locked.should have(1).pages
+	  end
+	end
+	
+	context ".language_roots" do
+	  it "should return 1 language_root" do
+			Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+	    Page.language_roots.should have(1).pages
+	  end
+	end
+	
+	
+	context ".layoutpages" do
+	  it "should return 1 layoutpage" do
+			Factory(:public_page, :layoutpage => true, :name => 'Layoutpage', :parent_id => @rootpage.id, :language => @language)
+	    Page.layoutpages.should have(1).pages
+	  end
+	end
+	
+	context ".visible" do
+	  it "should return 1 visible page" do
+	    Factory(:public_page, :name => 'First Public Child', :visible => true, :parent_id => @language_root.id, :language => @language)
+	    Page.visible.should have(1).pages
+	  end
+	end
+	
+	context ".accessable" do
+	  it "should return 2 accessable pages" do
+	    Factory(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
+			Page.accessable.should have(2).pages
+	  end
+	end
+	
+	context ".restricted" do
+	  it "should return 1 restricted page" do
+	    Factory(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
+	    Page.restricted.should have(1).pages
+	  end
 	end
 	
 end
