@@ -35,6 +35,7 @@ class Page < ActiveRecord::Base
   scope :language_roots, where(:language_root => true)
   scope :layoutpages, where(:layoutpage => true)
   scope :all_locked, where(:locked => true)
+  scope :not_locked, where(:locked => false)
   scope :visible, where(:visible => true)
   scope :public, where(:public => true)
   scope :accessable, where(:restricted => false)
@@ -43,10 +44,13 @@ class Page < ActiveRecord::Base
 		where(:language_root => true).where("language_code IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
   }
   scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
-  
-  # Returns all pages for langugae that are not locked and public.
+
+	# Returns all pages that have the given language_id
+  scope :with_language, lambda { |language_id| where(:language_id => language_id) }
+
+  # Returns all pages that are not locked and public.
   # Used for flushing all page caches at once.
-  scope :flushables, lambda { |language_id| where({:public => true, :locked => false, :language_id => language_id}) }
+  scope :flushables, public.not_locked
   
   scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
   
