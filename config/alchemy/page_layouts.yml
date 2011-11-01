@@ -47,6 +47,7 @@
   unique: true
   elements: [headline, news]
   autogenerate: [news]
+  feed_elements: [news]
 
 - name: search
   unique: true

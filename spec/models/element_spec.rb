@@ -33,10 +33,10 @@ describe Element do
 		definitions.first.fetch("name").should == 'article'
   end
 
-  it "should always return an array calling all_definitions_for()" do
+	it "should always return an array calling all_definitions_for()" do
 		definitions = Element.all_definitions_for(nil)
 		definitions.should == []
-  end
+	end
 
 	it "should raise an error if no descriptions are found" do
 		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'))
@@ -44,9 +44,30 @@ describe Element do
 		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
 	end
 
-	it "should return an ingredient by name" do
-		element = Factory(:element)
-		element.ingredient('intro').should == EssenceText.first.ingredient
+	context "retrieving contents, essences and ingredients" do
+
+		before(:each) do
+			@element = Factory(:element, :name => 'news')
+		end
+
+		it "should return an ingredient by name" do
+			@element.ingredient('news_headline').should == EssenceText.first.ingredient
+		end
+
+		it "should return the content for rss title" do
+			@element.content_for_rss_title.should == @element.contents.find_by_name('news_headline')
+		end
+
+		it "should return the content for rss description" do
+			@element.content_for_rss_description.should == @element.contents.find_by_name('body')
+		end
+
+	end
+
+	it "should return a collection of trashed elements" do
+	  @element = Factory(:element)
+		@element.trash
+		Element.trashed.should include(@element)
 	end
 
 	context "trashed" do
@@ -68,12 +89,6 @@ describe Element do
 	    @element.folded.should == true
 		end
 		
-	end
-
-	it "should return a collection of trashed elements" do
-	  @element = Factory(:element)
-		@element.trash
-		Element.trashed.should include(@element)
 	end
 
 	it "should raise error if all_for_page method has no page" do

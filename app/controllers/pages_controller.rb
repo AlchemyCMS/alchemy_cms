@@ -26,17 +26,28 @@ class PagesController < AlchemyController
     end
   )
 
-  # Showing page from params[:urlname]
-  # @page is fetched via before filter
-  # @root_page is fetched via before filter
-  # @language fetched via before_filter in alchemy_controller
-  # rendering page and querying for search results if any query is present
-  def show
-    if configuration(:ferret) && !params[:query].blank?
-      perform_search
-    end
-    render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
-  end
+	# Showing page from params[:urlname]
+	# @page is fetched via before filter
+	# @root_page is fetched via before filter
+	# @language fetched via before_filter in alchemy_controller
+	# rendering page and querying for search results if any query is present
+	def show
+		if configuration(:ferret) && !params[:query].blank?
+			perform_search
+		end
+		respond_to do |format|
+			format.html {
+				render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
+			}
+			format.rss {
+				if @page.contains_feed?
+					render :action => "show.rss.builder", :layout => false
+				else
+					render :xml => { :error => 'Not found' }, :status => 404
+				end
+			}
+		end
+	end
 
   # Renders a Google conform sitemap in xml
   def sitemap
