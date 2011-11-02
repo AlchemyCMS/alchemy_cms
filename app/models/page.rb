@@ -63,15 +63,14 @@ class Page < ActiveRecord::Base
   #     :count => Integer                  # Limit the count of returned elements
   #     :offset => Integer                 # Starts with an offset while returning elements
   #     :random => Boolean                 # Returning elements randomly shuffled
-	# 		:from_cell => Cell								 # Returning elements from given cell
+	#     :from_cell => Cell                 # Returning elements from given cell
   # 
   # Returns only public elements by default.
   # Pass true as second argument to get all elements.
   # 
   def find_selected_elements(options = {}, show_non_public = false)
-		if !options[:from_cell].blank? && options[:from_cell].class == Cell
-			cell = Cell.find(options[:from_cell])
-			elements = cell.elements
+		if options[:from_cell].class.name == 'Cell'
+			elements = options[:from_cell].elements
 		else
 			elements = self.elements
 		end
@@ -92,11 +91,10 @@ class Page < ActiveRecord::Base
   def find_elements(options = {}, show_non_public = false) #:nodoc:
     # TODO: What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
     if !options[:collection].blank? && options[:collection].is_a?(Array)
-      all_elements = options[:collection]
+      return options[:collection]
     else
-      all_elements = find_selected_elements(options, show_non_public)
+      find_selected_elements(options, show_non_public)
     end
-    all_elements
   end
 
 	# Returns all elements that should be feeded via rss.

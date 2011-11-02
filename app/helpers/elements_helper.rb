@@ -148,13 +148,6 @@ module ElementsHelper
   def render_cell_elements(cell)
     return warning("No cell given.") if cell.blank?
 		render_elements({:from_cell => cell})
-		#show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
-    #ret = ""
-		#elements = (show_non_public == true) ? cell.elements : cell.elements.published
-    #elements.each do |element|
-    #  ret << render_element(element)
-    #end
-    #ret.html_safe
   end
 
   # Returns a string for the id attribute of a html element for the given element
