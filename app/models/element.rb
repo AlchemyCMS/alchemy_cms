@@ -17,6 +17,7 @@ class Element < ActiveRecord::Base
   
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil).order('updated_at DESC')
+  scope :not_trashed, where('`elements`.`page_id` IS NOT NULL')
   scope :published, where(:public => true)
   scope :named, lambda { |names| where(arel_table[:name].in(names)) }
   scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }

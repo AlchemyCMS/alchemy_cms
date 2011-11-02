@@ -63,7 +63,7 @@ module Admin::ElementsHelper
     end
     select_tag(
       'paste_from_clipboard',
-      @page.has_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+      @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
       {
         :class => html_options[:class] || 'very_long',
         :style => html_options[:style]
@@ -92,23 +92,31 @@ module Admin::ElementsHelper
       celled_elements += cell_elements
       optgroup_label = Cell.translated_label_for(cell['name'])
       options[optgroup_label] = cell_elements.map do |e|
-				[
-					I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize),
-					(e.class.name == 'Element' ? e.send(object_method).to_s : e[object_method]) + "##{cell['name']}"
-				]
+				element_array_for_options(e, object_method, cell)
 			end
     end
     other_elements = elements - celled_elements
     unless other_elements.blank?
       optgroup_label = _('other Elements')
       options[optgroup_label] = other_elements.map do |e|
-				[
-					I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize),
-					e.class.name == 'Element' ? e.send(object_method) : e[object_method]
-				]
+				element_array_for_options(e, object_method)
 			end
     end
     return grouped_options_for_select(options)
   end
+
+	def element_array_for_options(e, object_method, cell = nil)
+		if e.class.name == 'Element'
+			[
+				e.display_name_with_preview_text,
+				e.send(object_method).to_s + (cell ? "##{cell['name']}" : "")
+			]
+		else
+			[
+				I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize),
+				e[object_method] + (cell ? "##{cell['name']}" : "")
+			]
+		end
+	end
 
 end

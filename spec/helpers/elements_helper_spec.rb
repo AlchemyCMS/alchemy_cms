@@ -23,7 +23,7 @@ describe ElementsHelper do
 	  helper.element_dom_id(@element).should == "#{@element.name}_#{@element.id}"
 	end
 
-	it "should render elements for a cell", :focus => true do
+	it "should render elements for a cell" do
 		cell = Factory(:cell)
 		Factory(:element, :cell_id => cell.id)
 		helper.stub(:configuration).and_return(true)

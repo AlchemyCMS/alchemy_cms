@@ -106,11 +106,11 @@ msgstr "Bild löschen"
 
 #: app/views/admin/clipboard/index.html.erb:15
 msgid "Do you really want to clear the clipboard?"
-msgstr "Wollen Sie die Zwischenablage wirklich entleeren?"
+msgstr "Wollen Sie die Zwischenablage wirklich leeren?"
 
 #: app/views/admin/trash/index.html.erb:16
 msgid "Do you really want to clear the trash?"
-msgstr "Wollen Sie den Papierkorb wirklich entleeren?"
+msgstr "Wollen Sie den Papierkorb wirklich leeren?"
 
 #: app/views/essences/_essence_text_editor.html.erb:50
 msgid "Do you really want to delete this content?"
@@ -932,11 +932,11 @@ msgstr "Bitte wählen Sie eine Datei zum Verlinken aus."
 
 #: app/views/admin/clipboard/index.html.erb:15
 msgid "clear clipboard"
-msgstr "Zwischenablage entleeren"
+msgstr "Zwischenablage leeren"
 
 #: app/views/admin/trash/index.html.erb:16
 msgid "clear trash"
-msgstr "Papierkorb entleeren"
+msgstr "Papierkorb leeren"
 
 #: app/helpers/alchemy_helper.rb:790
 #: app/views/admin/partials/_remote_search_form.html.erb:30

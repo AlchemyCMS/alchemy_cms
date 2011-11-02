@@ -1,6 +1,6 @@
 (function($) {
   
-  <%- if @page.has_cells? -%>
+  <%- if @page.can_have_cells? -%>
   Alchemy.selectOrCreateCellTab('<%= @cell.nil? ? "for_other_elements" : @cell.name -%>', '<%= @cell.nil? ? _("other Elements") : @cell.name_for_label -%>');
   <%- end -%>
   $('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').append('<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>');
