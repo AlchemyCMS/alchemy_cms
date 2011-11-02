@@ -307,18 +307,18 @@ module AlchemyHelper
   # Together with the rails caching we achieve a good load time.
   def alchemy_assets_set(setname = 'combined')
     asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
-    content_for(:javascript_includes) do 
-      js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
-      javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)
+    content_for(:javascript_includes) do
+      javascript_include_tag(*(asset_sets['javascripts']))
     end
-    css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
+    css_set = asset_sets['stylesheets']
     content_for(:stylesheets) do
-      stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s, :media => 'screen')
+      stylesheet_link_tag(*css_set, :media => 'screen')
     end
     content_for(:stylesheets) do
-      print_set = css_set.clone << 'alchemy/print'
-      stylesheet_link_tag(print_set, :cache => 'alchemy/' + setname.to_s + '-print', :media => 'print')
+      print_set = css_set.clone << 'print'
+      stylesheet_link_tag(*print_set, :media => 'print')
     end
+
   end
 
   def parse_sitemap_name(page)
