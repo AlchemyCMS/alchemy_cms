@@ -549,7 +549,7 @@ if (typeof(Alchemy) === 'undefined') {
 				tolerance: 'pointer',
 				update: function(event, ui) {
 					var ids = $.map($(event.target).children(), function(child) {
-						return child.id.replace(/element_/, '');
+						return $(child).attr('data-element-id');
 					});
 					// Is the trash window open?
 					if ($('#alchemyTrashWindow').length > 0) {
@@ -788,10 +788,15 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		DraggableTrashItems: function (items_n_cells) {
 			$("#trash_items div.draggable").each(function () {
+				var cell_classes = '';
+				var cell_names = items_n_cells[this.id];
+				$.each(cell_names, function (i) {
+					cell_classes += '.' + this + '_cell' + ', ';
+				});
 				$(this).draggable({
 					helper: 'clone',
 					iframeFix: 'iframe#alchemyPreviewWindow',
-					connectToSortable: '#cell_' + items_n_cells[this.id],
+					connectToSortable: cell_classes,
 					start: function(event, ui) { 
 						$(this).hide().addClass('dragged');
 						ui.helper.css({width: '300px'});

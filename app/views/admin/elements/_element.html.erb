@@ -1,4 +1,4 @@
-<div class="element_editor<%= element.folded ? ' folded' : '' %> <%= defined?(draggable) && !draggable ? 'not-draggable' : 'draggable'  %>" id="element_<%= element.id %>">
+<div class="element_editor<%= element.folded ? ' folded' : '' %> <%= defined?(draggable) && !draggable ? 'not-draggable' : 'draggable'  %>" id="element_<%= element.id %>" data-element-id="<%= element.id %>">
   <%= render :partial => "admin/elements/element_head", :locals => {:element => element} %>
   <%- if !element.folded? -%>
     <%= form_for(

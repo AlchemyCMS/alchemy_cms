@@ -400,12 +400,12 @@ class Element < ActiveRecord::Base
   alias_method :richtext_contents, :rtf_contents
   
   # The name of the cell the element could be placed in.
-  def belonging_cellname
-    cellname = Cell.name_for_element(name)
-    if cellname.blank?
-      return 'for_other_elements' 
+  def belonging_cellnames(page)
+    cellnames = Cell.names_for_element(name)
+    if cellnames.blank? || !page.has_cells?
+      return ['for_other_elements']
     else
-      return cellname
+      return cellnames
     end
   end
   
