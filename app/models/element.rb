@@ -287,7 +287,7 @@ class Element < ActiveRecord::Base
 
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.nil?
-    self.find_all_by_id(clipboard)
+    self.find_all_by_id(clipboard.collect { |i| i[:id] })
   end
 
   def self.all_from_clipboard_for_page(clipboard, page)

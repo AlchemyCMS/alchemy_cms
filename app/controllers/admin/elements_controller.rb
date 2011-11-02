@@ -41,13 +41,12 @@ class Admin::ElementsController < AlchemyController
 		@page = Page.find(params[:element][:page_id])
 		@paste_from_clipboard = !params[:paste_from_clipboard].blank?
 		if @paste_from_clipboard
-			source_element = Element.find(params[:paste_from_clipboard].to_i)
-			# finde element in clipboard
-			# schaue dort welche aktion erwartet wird
-			# dann erstelle kopie
-			# und lösche von alter seite
-			debugger
+			source_element = Element.find(element_from_clipboard[:id])
 			@element = Element.copy(source_element, {:page_id => @page.id})
+			if element_from_clipboard[:action] == 'cut'
+				source_element.destroy
+				@clipboard.delete_if { |i| i[:id].to_i == source_element.id }
+			end
 		else
 			@element = Element.new_from_scratch(params[:element])
 		end
@@ -139,6 +138,11 @@ private
 		else
 			return false
 		end
+	end
+
+	def element_from_clipboard
+		@clipboard = get_clipboard(:elements)
+		@clipboard.detect { |i| i[:id].to_i == params[:paste_from_clipboard].to_i }
 	end
 
 end

@@ -16,5 +16,9 @@
   Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
   Alchemy.SelectBox('#element_<%= @element.id -%> select');
   Alchemy.ButtonObserver('#element_<%= @element.id -%> button.button');
-  
+
+  <%- if @clipboard.blank? -%>
+	$('#clipboard_button .icon.clipboard').removeClass('full');
+	<%- end -%>
+
 })(jQuery);
