@@ -429,7 +429,7 @@ class Page < ActiveRecord::Base
 
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.blank?
-    self.find_all_by_id(clipboard)
+    self.find_all_by_id(clipboard.collect { |i| i[:id] })
   end
 
   def self.all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)

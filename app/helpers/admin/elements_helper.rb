@@ -56,21 +56,6 @@ module Admin::ElementsHelper
     )
   end
 
-	def clipboard_select_tag(items, html_options = {})
-    options = [[_('Please choose'), ""]]
-    items.each do |item|
-      options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
-    end
-    select_tag(
-      'paste_from_clipboard',
-      @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
-      {
-        :class => html_options[:class] || 'very_long',
-        :style => html_options[:style]
-      }
-    )
-  end
-  
   # Returns all elements that could be placed on that page because of the pages layout.
   # The elements are returned as an array to be used in alchemy_selectbox form builder.
   def elements_for_select(elements)

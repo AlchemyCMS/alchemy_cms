@@ -16,7 +16,7 @@ class Admin::ClipboardController < AlchemyController
     @clipboard = get_clipboard(params[:remarkable_type].tableize)
     @item = params[:remarkable_type].classify.constantize.find(params[:remarkable_id])
     unless @clipboard.include?(params[:remarkable_id])
-      @clipboard.push(params[:remarkable_id])
+      @clipboard.push({:id => params[:remarkable_id], :action => params[:remove] ? 'cut' : 'copy'})
     end
     respond_to do |format|
       format.js
@@ -28,7 +28,7 @@ class Admin::ClipboardController < AlchemyController
   def remove
     @clipboard = get_clipboard(params[:remarkable_type].tableize)
     @item = params[:remarkable_type].classify.constantize.find(params[:remarkable_id])
-    @clipboard.delete(params[:remarkable_id])
+    @clipboard.delete_if { |i| i[:id] == params[:remarkable_id] }
     respond_to do |format|
       format.js
     end
