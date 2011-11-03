@@ -12,7 +12,7 @@
   <%- end -%>
   Alchemy.PreviewWindow.refresh();
   Alchemy.ElementEditorSelector.init();
-  $('#element_<%= @element.id -%>').trigger('Alchemy.SelectElementEditor');
+  $('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
   Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
   Alchemy.SelectBox('#element_<%= @element.id -%> select');
   Alchemy.ButtonObserver('#element_<%= @element.id -%> button.button');

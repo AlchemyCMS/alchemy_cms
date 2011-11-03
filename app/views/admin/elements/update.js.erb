@@ -1,7 +1,7 @@
 (function($) {
   $('div#element_<%= @element.id -%> div.element_handle span.icon').removeClass('element_<%= @element.public? ? "draft" : "public" -%>').addClass('element_<%= @element.public? ? "public" : "draft" -%>');
-  $('#element_<%= @element.id -%> .element_heading .preview_text_element_name').text('<%= @element.display_name -%>');
-  $('#element_<%= @element.id -%> .element_heading .preview_text_quote').text('<%= escape_javascript(@element.preview_text) -%>');
+  $('.element_editor[data-element-id="<%= @element.id -%>"] .element_heading .preview_text_element_name').text('<%= @element.display_name -%>');
+  $('.element_editor[data-element-id="<%= @element.id -%>"] .element_heading .preview_text_quote').text('<%= escape_javascript(@element.preview_text) -%>');
   $('div.content_editor').removeClass('validation_failed');
   $("#element_<%= @element.id -%>_errors").hide();
   Alchemy.setElementSaved('#element_<%= @element.id -%>');
