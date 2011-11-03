@@ -15,7 +15,7 @@ class Admin::ClipboardController < AlchemyController
   def insert
     @clipboard = get_clipboard(params[:remarkable_type].tableize)
     @item = params[:remarkable_type].classify.constantize.find(params[:remarkable_id])
-    unless @clipboard.include?(params[:remarkable_id])
+    unless @clipboard.collect { |i| i[:id] }.include?(params[:remarkable_id])
       @clipboard.push({:id => params[:remarkable_id], :action => params[:remove] ? 'cut' : 'copy'})
     end
     respond_to do |format|
