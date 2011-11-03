@@ -71,7 +71,7 @@ msgstr "Seite wählen"
 
 #: app/controllers/admin/trash_controller.rb:15
 msgid "Cleared trash"
-msgstr "Der Papierkorb wurde entleert"
+msgstr "Der Papierkorb wurde geleert"
 
 #: app/views/admin/pictures/_picture.html.erb:35
 msgid "Click to rename"
