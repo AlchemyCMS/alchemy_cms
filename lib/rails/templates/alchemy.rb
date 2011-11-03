@@ -2,7 +2,7 @@
 
 # Installing Alchemy Gem
 
-gem 'alchemy_cms', '>= 2.0.rc5'
+gem 'alchemy_cms'
 gem 'ruby-debug', :group => :development, :platform => :ruby_18
 gem 'ruby-debug19', :group => :development, :platform => :ruby_19
 
