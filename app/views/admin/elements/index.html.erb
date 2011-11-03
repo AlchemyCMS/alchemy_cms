@@ -11,7 +11,7 @@
       <%- end -%>
     </ul>
     <%- @elements.each do |cell, elements| -%>
-    <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell">
+    <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
     	<%= render :partial => 'element', :collection => elements, :locals => {:draggable => true} %>
     </div>
     <%- end -%>

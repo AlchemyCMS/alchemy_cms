@@ -551,6 +551,8 @@ if (typeof(Alchemy) === 'undefined') {
 					var ids = $.map($(event.target).children(), function(child) {
 						return $(child).attr('data-element-id');
 					});
+					var params_string = '';
+					var cell_id = $(event.target).attr('data-cell-id');
 					// Is the trash window open?
 					if ($('#alchemyTrashWindow').length > 0) {
 						// updating the trash icon
@@ -560,10 +562,14 @@ if (typeof(Alchemy) === 'undefined') {
 						}
 					}
 					$(event.target).css("cursor", "progress");
+					params_string = "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids});
+					if (cell_id) {
+						params_string += "&cell_id=" + cell_id;
+					}
 					$.ajax({
 						url: '/admin/elements/order',
 						type: 'POST',
-						data: "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids}),
+						data: params_string,
 						complete: function () {
 							$(event.target).css("cursor", "auto");
 							Alchemy.refreshTrashWindow(page_id);

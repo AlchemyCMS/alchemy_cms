@@ -105,11 +105,12 @@ class Admin::ElementsController < AlchemyController
   end
   
   def order
-    page = Page.find(params[:page_id])
     params[:element_ids].each do |element_id|
       element = Element.find(element_id)
       if element.trashed?
-        element.page = page
+				element.page_id = params[:page_id]
+				element.cell_id = params[:cell_id] if params[:cell_id]
+				element.position = 1
       end
       element.move_to_bottom
     end
@@ -121,7 +122,7 @@ class Admin::ElementsController < AlchemyController
     @element = Element.find(params[:id])
     @page = @element.page
     @element.folded = !@element.folded
-    @element.save(false)
+		@element.save
   rescue Exception => e
     exception_handler(e)
   end
