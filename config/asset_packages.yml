@@ -15,10 +15,10 @@ javascripts:
   - alchemy.link_overlay
   - alchemy.page_sorter
   - alchemy.growler
-  - swfupload
-  - queue
-  - handlers
-  - fileprogress
+  - swfupload/swfupload
+  - swfupload/queue
+  - swfupload/handlers
+  - swfupload/fileprogress
 
 stylesheets:
   - alchemy

@@ -181,7 +181,7 @@ if (typeof(Alchemy) === 'undefined') {
     
     hideElementsSelect: function(id) {
       $('#elements_for_page_' + id).hide();
-      $('#elements_for_page_' + id).html('<img src="/images/alchemy/ajax_loader.gif" alt="">');
+      $('#elements_for_page_' + id).html('<img src="/assets/alchemy/ajax_loader.gif" alt="">');
       $('#page_anchor').removeAttr('value');
       $('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10});
     },

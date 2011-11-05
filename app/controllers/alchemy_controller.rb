@@ -21,10 +21,12 @@ class AlchemyController < ApplicationController
     current_user.admin?
   end
 
-  def render_errors_or_redirect(object, redicrect_url, flash_notice, button = nil)
+  def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
     if object.errors.empty?
       flash[:notice] = _(flash_notice)
-      render(:update) { |page| page.redirect_to(redicrect_url) }
+      render(:update) do |page|
+        page.redirect_to(redirect_url)
+      end
     else
       render_remote_errors(object, button)
     end

@@ -52,7 +52,7 @@ if (typeof(Alchemy) === 'undefined') {
 				y: '33%'
 			};
 			var settings = $.extend({}, defaults, options);
-			var $spinner = $('<img src="/images/alchemy/ajax_loader.gif" />');
+			var $spinner = $('<img src="/assets/alchemy/ajax_loader.gif" />');
 			var left = (settings.x - 32) / 2;
 			var top = ((settings.y - 32) / 2) - 16;
 			top = top < 0 ? 0 : top;
@@ -98,7 +98,7 @@ if (typeof(Alchemy) === 'undefined') {
 					autoResize: true,
 					closeOnEscape: false,
 					create: function() {
-						var $spinner = $('<img src="/images/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
+						var $spinner = $('<img src="/assets/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
 						$('#ui-dialog-title-alchemyPreviewWindow').after($spinner);
 						var $reload = $('<a href="#" class="ui-dialog-titlebar-refresh ui-corner-all" role="button"></a>');
 						$reload.append('<span class="ui-icon ui-icon-refresh">reload</span>');
@@ -824,7 +824,7 @@ if (typeof(Alchemy) === 'undefined') {
 			$clone.attr({disabled: true, href: 'javascript:void(0)'})
 			.addClass('disabled cloned-button')
 			.css({width: width})
-			.html('<img src="/images/alchemy/ajax_loader.gif">')
+			.html('<img src="/assets/alchemy/ajax_loader.gif">')
 			.show();
 			return true;
 		},

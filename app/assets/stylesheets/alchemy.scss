@@ -1,7 +1,5 @@
 /* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
 
-/* @override http://localhost:3000/stylesheets/alchemy/alchemy.css */
-
 html {
 	height: 100%;
 }
@@ -159,7 +157,7 @@ div.archive_pagination_links .first_page {
 	width: 21px;
 	height: 21px;
 	display: inline-block;
-	background: url(/images/alchemy/gui/button_background.png) no-repeat 0 0;
+	background: image-url('button_background.png') no-repeat 0 0;
 }
 
 .archive_pagination_links span {
@@ -188,7 +186,7 @@ div.pagination em {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	background: white image-url('ui-icons_666666_256x240.png') repeat-x 0 -75px;
+	background: white image-url('button_background.png') repeat-x 0 -75px;
 	height: 23px;
 	line-height: 23px;
 	font-style: normal;
