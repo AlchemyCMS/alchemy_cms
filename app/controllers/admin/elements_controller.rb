@@ -74,8 +74,7 @@ class Admin::ElementsController < AlchemyController
     else
 			@element_validated = false
 			@notice = _('Validation failed.')
-			@error_message = "<h2>#{@notice}</h2><p>#{_('Please check contents below.')}</p>"
-			@selector = @element.contents_with_errors.map { |content| '#' + content_dom_id(content) }.join(', ')
+			@error_message = "<h2>#{@notice}</h2><p>#{_('Please check contents below.')}</p>".html_safe
     end
   rescue Exception => e
     exception_handler(e)

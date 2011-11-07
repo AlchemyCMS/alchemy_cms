@@ -23,9 +23,9 @@ module ContentsHelper
     if content.description.blank?
       warning("Content #{content.name} is missing its description")
       title = _("Warning: Content '%{contentname}' is missing its description.") % {:contentname => content.name}
-      content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name
+      content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name.html_safe
     end
-    content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>" : content_name
+    content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>".html_safe : content_name
   end
 
   # Renders a link to show the new content overlay
