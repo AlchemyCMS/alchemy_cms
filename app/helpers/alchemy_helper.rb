@@ -270,10 +270,9 @@ module AlchemyHelper
       stylesheet_link_tag(*css_set, :media => 'screen')
     end
     content_for(:stylesheets) do
-      print_set = css_set.clone << 'print'
+      print_set = css_set.clone << 'alchemy/print'
       stylesheet_link_tag(*print_set, :media => 'print')
     end
-
   end
 
   def parse_sitemap_name(page)
