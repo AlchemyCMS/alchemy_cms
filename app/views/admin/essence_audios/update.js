@@ -1,2 +1,0 @@
-Alchemy.closeCurrentWindow();
-Alchemy.reloadPreview()

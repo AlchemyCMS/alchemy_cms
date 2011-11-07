@@ -1,0 +1,3 @@
+jQuery('#errors').html('<%= escape_javascript(@errors) %>');
+jQuery('#errors').show();
+Alchemy.enableButton('<%= @button || "form button.button" %>');
