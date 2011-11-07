@@ -62,7 +62,7 @@ img.add_element_spinner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: image-url('icons.png') no-repeat -224px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -224px -72px;
 }
 
 .element_handle span.icon {
@@ -128,7 +128,7 @@ div.element_foot span.element_public {
 }
 
 .add_content a .icon.assign {
-	background: image-url('icons.png') no-repeat -288px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -288px -72px;
 	position: absolute;
 	top: 52px;
 	left: 47px;
@@ -225,15 +225,15 @@ span.element_tools_icons {
 }
 
 a.delete_element_button {
-	background: image-url('icons.png') no-repeat -63px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -63px -72px;
 }
 
 a.element_copy_button {
-	background: image-url('icons.png') no-repeat -128px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -128px -72px;
 }
 
 a.element_move_button {
-	background: image-url('icons.png') no-repeat -97px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -97px -72px;
 }
 
 .element_head {
@@ -348,7 +348,7 @@ div.content_editor a.icon_button.unlink {
 }
 
 a.expand_element {
-	background: image-url('icons.png') no-repeat -160px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -160px -72px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -357,7 +357,7 @@ a.expand_element {
 }
 
 a.fold_element {
-	background: image-url('icons.png') no-repeat -192px -72px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -192px -72px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -425,7 +425,7 @@ a.icon_button.linked {
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	background-image: image-url('shading.png');
+	background-image: url('/assets/images/alchemy/shading.png');
 	background-repeat: repeat-x;
 	background-position: 0 -75px;
 	background-color: #ffd77a;
@@ -553,7 +553,7 @@ div.file_icon span.icon {
 div.file_icon a.assign_file {
 	display: block;
 	height: 16px;
-	background: image-url('icons.png') no-repeat -240px -24px;
+	background: url('/assets/images/alchemy/icons.png') no-repeat -240px -24px;
 	width: 16px;
 	margin: 4px;
 }
@@ -583,11 +583,11 @@ div.essence_file_tools a{
 }
 
 div.essence_file_tools a.assign_file {
-	background: image-url('icons.png') -256px -24px;
+	background: url('/assets/images/alchemy/icons.png') -256px -24px;
 }
 
 div.essence_file_tools a.edit_file {
-	background: image-url('icons.png') -16px -24px;
+	background: url('/assets/images/alchemy/icons.png') -16px -24px;
 }
 
 td.content_editor_essence_type {

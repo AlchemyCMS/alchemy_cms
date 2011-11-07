@@ -2,13 +2,13 @@
 javascripts:
   - jquery
   - jquery-ui
-  - jquery.dialogextend.min.js
-  - jquery.in-place-edit.js
-  - jquery.Jcrop.min.js
-  - jquery.sb.min.js
-  - jquery.scrollTo-1.4.2-min.js
-  - jquery.ui.nestedSortable.js
-  - jquery.ui.tabspaging.js
+  - jquery_plugins/jquery.dialogextend.min.js
+  - jquery_plugins/jquery.in-place-edit.js
+  - jquery_plugins/jquery.Jcrop.min.js
+  - jquery_plugins/jquery.sb.min.js
+  - jquery_plugins/jquery.scrollTo-1.4.2-min.js
+  - jquery_plugins/jquery.ui.nestedSortable.js
+  - jquery_plugins/jquery.ui.tabspaging.js
   - alchemy
   - alchemy.element_editor_selector
   - alchemy.image_cropper
