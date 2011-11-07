@@ -2,6 +2,7 @@
 javascripts:
   - jquery
   - jquery-ui
+  - jquery_ujs
   - jquery_plugins/jquery.dialogextend.min.js
   - jquery_plugins/jquery.in-place-edit.js
   - jquery_plugins/jquery.Jcrop.min.js

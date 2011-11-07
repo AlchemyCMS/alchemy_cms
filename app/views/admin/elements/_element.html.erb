@@ -4,8 +4,10 @@
     <%= form_for(
       [:admin, element],
       :remote => true,
-      :onsubmit => "Alchemy.saveElement(this)",
-      :id => "element_#{element.id}_form"
+      :html => {
+				:onsubmit => "Alchemy.saveElement(this)",
+      	:id => "element_#{element.id}_form"
+			}
     ) do %>
       <div id="element_<%= element.id %>_errors" class="element_errors" style="display: none"></div>
       <div id="element_<%= element.id %>_content" class="element_content">
