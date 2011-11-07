@@ -1057,7 +1057,7 @@ div.sitemap_left_images {
 }
 
 #sitemap a.page_folder {
-	background-image: url(/images/alchemy/gui/toggle.png);
+	background-image: image-url("alchemy/gui/toggle.png");
 	background-repeat: no-repeat;
 	height: 9px;
 	width: 9px;
@@ -1199,14 +1199,6 @@ ul#sitemap li img {
 }
 
 /* @group site_tools */
-
-.sitemap_line {
-	float: left;
-	width: 15px;
-	height: 30px;
-	margin: 0 2px 1px 4px;
-	background: url(/images/alchemy/gui/sitemap_lines.png) no-repeat;
-}
 
 a.folder_link {
 	text-decoration: none;
@@ -1405,10 +1397,6 @@ div#toolbar a.button {
 div#toolbar a.button:active {
 	text-decoration: none;
 	background-position: 0 -21px;
-}
-
-div#toolbar_buttons span.file_upload {
-	background-image: url(/images/alchemy/icons/file_upload.png);
 }
 
 /* @group add, edit and delete buttons */
@@ -1701,7 +1689,7 @@ ul#sitemap.list {
 	padding: 0 16px 116px;
 }
 
-#sitemap .drop_hover {
+/*#sitemap .drop_hover {
 	background: url(/images/alchemy/gui/insertpage.png) no-repeat bottom left;
 	outline: 1px dotted #999;
 }
@@ -1720,6 +1708,7 @@ ul#sitemap.list {
 	background-position: 24px 100%;
 	padding-bottom: 16px;
 }
+*/
 
 ul.list li {
 	list-style-type: none;
@@ -2154,14 +2143,6 @@ div.spinner {
 
 .dashed_border {
 	border: 1px dashed;
-}
-
-a.rename_link {
-	background: url(/images/alchemy/icons/edit.png) 0 0;
-}
-
-a.delete_link {
-	background: url(/images/alchemy/alchemy/trash.png) no-repeat 0 0;
 }
 
 ul#all_files {
@@ -3562,7 +3543,7 @@ div#overlay_toolbar a.button:active {
 }
 
 a.icon.remove {
-	background: url(/images/alchemy/icons/element-icons.png) no-repeat -64px;
+	background: image-url("icons.png") no-repeat -64px;
 	width: 16px;
 	height: 16px;
 	display: inline-block;
@@ -3603,7 +3584,7 @@ a.icon.remove {
 }
 
 #uploadProgressContainer .progressBarContainer {
-	background: #F9F9F9 url("asset_url(shading.png)") repeat-x 0 0;
+	background: #F9F9F9 image-url("shading.png") repeat-x 0 0;
 	border:1px solid #9E9E9E;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -3614,25 +3595,25 @@ a.icon.remove {
 }
 
 #uploadProgressContainer .progressBarInProgress {
-	background: #77AAD5 url("asset_url(shading.png)") repeat-x 0 -75px;
+	background: #77AAD5 image-url("shading.png") repeat-x 0 -75px;
 	height: 16px;
 	width: 0;
 }
 
 #uploadProgressContainer .progressBarComplete {
-	background: #00D827 url("asset_url(shading.png)") repeat-x 0 -75px;
+	background: #00D827 image-url("shading.png") repeat-x 0 -75px;
 	height: 16px;
 	width: 0;
 }
 
 #uploadProgressContainer .progressBarError {
-	background: #F00 url("asset_url(shading.png)") repeat-x 0 -75px;
+	background: #F00 image-url("shading.png") repeat-x 0 -75px;
 	height: 16px;
 	width: 0;
 }
 
 #uploadProgressContainer .progressBarCanceled {
-	background: #E4E4E4 url("asset_url(shading.png)") repeat-x 0 -75px;
+	background: #E4E4E4 image-url("shading.png") repeat-x 0 -75px;
 	height: 16px;
 	width: 0;
 }
