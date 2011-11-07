@@ -108,9 +108,9 @@ private
 
   # Displays an error notice in the Alchemy backend.
   def show_error_notice(e)
-    notice = "Error: #{e}"
+    @notice = "Error: #{e}"
     if request.xhr?
-      render(:update) { |page| page.call("Alchemy.growl", notice, 'error') }
+      render :action => "error_notice"
     else
       flash[:error] = notice
     end
