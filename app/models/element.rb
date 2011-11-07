@@ -17,6 +17,7 @@ class Element < ActiveRecord::Base
   
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil).order('updated_at DESC')
+  scope :not_trashed, where('`elements`.`page_id` IS NOT NULL')
   scope :published, where(:public => true)
   scope :named, lambda { |names| where(arel_table[:name].in(names)) }
   scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
@@ -52,11 +53,15 @@ class Element < ActiveRecord::Base
 
   # nullifies the page_id aka. trashs it.
   def trash
-    self.update_attributes({
-      :page_id => nil,
-      :folded => true,
-      :public => false
-    })
+		self.attributes = {
+			:page_id => nil,
+			:cell_id => nil,
+			:folded => true,
+			:public => false
+		}
+		# If we validate the element, it will not get trashed if another element with same postion is already trashed.
+		# And we cannot remove the position, because it will not be reordered in the list if its position is nil.
+		self.remove_from_list
   end
   
   def trashed?
@@ -286,7 +291,7 @@ class Element < ActiveRecord::Base
 
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.nil?
-    self.find_all_by_id(clipboard)
+    self.find_all_by_id(clipboard.collect { |i| i[:id] })
   end
 
   def self.all_from_clipboard_for_page(clipboard, page)
@@ -399,12 +404,12 @@ class Element < ActiveRecord::Base
   alias_method :richtext_contents, :rtf_contents
   
   # The name of the cell the element could be placed in.
-  def belonging_cellname
-    cellname = Cell.name_for_element(name)
-    if cellname.blank?
-      return 'for_other_elements' 
+  def belonging_cellnames(page)
+    cellnames = Cell.names_for_element(name)
+    if cellnames.blank? || !page.has_cells?
+      return ['for_other_elements']
     else
-      return cellname
+      return cellnames
     end
   end
   

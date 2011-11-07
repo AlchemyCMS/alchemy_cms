@@ -339,4 +339,19 @@ module AlchemyHelper
     end
   end
 
+	def clipboard_select_tag(items, html_options = {})
+    options = [[_('Please choose'), ""]]
+    items.each do |item|
+      options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
+    end
+    select_tag(
+      'paste_from_clipboard',
+      !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+      {
+        :class => html_options[:class] || 'very_long',
+        :style => html_options[:style]
+      }
+    )
+  end
+
 end

@@ -52,10 +52,12 @@ This branch of Alchemy runs with Rails 3.1.1 and Ruby 1.9.2.
 
 If you are looking for a Rails 2 compatible version check the rails-2 branch.
 
+A Rails 3.1 compatible beta version can be found in the next_stable branch.
+
 Ruby Version
 ------------
 
-Alchemy is tested and runs under REE, Ruby 1.8.7, Ruby 1.9.2 and Ruby 1.9.3.
+Alchemy runs with REE, Ruby 1.8.7, Ruby 1.9.2 and Ruby 1.9.3.
 
 Installation
 ------------
@@ -104,7 +106,7 @@ Resources
 ---------
 
 * Homepage: <http://alchemy-cms.com>
-* Live-Demo: <http://demo.alchemy-cms.com>
+* Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo)
 * Wiki: <http://wiki.alchemy-cms.com>
 * API Documentation: <http://api.alchemy-cms.com>
 * Issue-Tracker: <http://issues.alchemy-cms.com>
@@ -114,9 +116,10 @@ Resources
 Authors
 ---------
 
-* Carsten Fregin: <https://github.com/cfregin>
 * Thomas von Deyen: <https://github.com/tvdeyen>
 * Robin Böning: <https://github.com/robinboening>
+* Marc Schettke: <https://github.com/masche842>
+* Carsten Fregin: <https://github.com/cfregin>
 
 License
 -------

@@ -7,7 +7,28 @@ describe Page do
 	before(:each) do
 		@rootpage = Page.rootpage
 		@language = Language.get_default
-		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language, :language_root => true)
+		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language, :language_root => true, :page_layout => 'intro')
+	end
+	
+	describe ".layout_description" do
+		
+		context "for a language root page" do
+			
+			it "should return the page layout description as hash" do
+				@language_root.layout_description['name'].should == 'intro'
+			end
+			
+			it "should return an empty hash for root page" do
+				@rootpage.layout_description.should == {}
+			end
+			
+		end
+		
+		it "should raise Exception if the page_layout could not be found in the definition file" do
+			@page = mock(:page, :page_layout => 'foo')
+			expect { @page.layout_description }.to raise_error
+		end
+		
 	end
 	
 	it "should contain one rootpage" do

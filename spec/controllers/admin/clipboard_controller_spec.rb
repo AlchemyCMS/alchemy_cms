@@ -13,26 +13,26 @@ describe Admin::ClipboardController do
 			@page = Factory(:page, :parent_id => Page.rootpage.id)
 		  @element = Factory(:element, :page => @page)
 		  @another_element = Factory(:element, :page => @page)
-			session[:clipboard] = { :elements => [@element.id] }
+			session[:clipboard] = { :elements => [{:id => @element.id, :action => 'copy'}] }
 			post(:insert, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
-			session[:clipboard][:elements].should == [@element.id, @another_element.id]
+			session[:clipboard][:elements].should == [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id, :action => 'copy'}]
     end
 
     it "should not have the same element twice" do
 			@page = Factory(:page, :parent_id => Page.rootpage.id)
 		  @element = Factory(:element, :page => @page)
-			session[:clipboard] = { :elements => [@element.id] }
+			session[:clipboard] = { :elements => [{:id => @element.id, :action => 'copy'}] }
 			post(:insert, {:remarkable_type => 'element', :remarkable_id => @element.id, :format => :js})
-			session[:clipboard][:elements].should == [@element.id]
+			session[:clipboard][:elements].should == [{:id => @element.id, :action => 'copy'}]
     end
 
     it "should remove element ids" do
 			@page = Factory(:page, :parent_id => Page.rootpage.id)
 		  @element = Factory(:element, :page => @page)
 		  @another_element = Factory(:element, :page => @page)
-			session[:clipboard] = { :elements => [@element.id, @another_element.id] }
+			session[:clipboard] = { :elements => [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id, :action => 'copy'}] }
 			delete(:remove, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
-			session[:clipboard][:elements].should == [@element.id]
+			session[:clipboard][:elements].should == [{:id => @element.id, :action => 'copy'}]
     end
 
     it "should be clearable" do

@@ -1,30 +1,42 @@
 #!/usr/bin/env ruby
 begin
-  require "rubygems"
-  require "thor"
-rescue LoadError
-  raise LoadError, "\n\nThor not installed. Please run: gem install thor\n\n"
+	require "rubygems"
+	require "thor"
+	require 'alchemy/version'
+	require 'rails'
+	if Rails.version >= "3.1" || Rails.version < "3.0"
+		raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.0.10'"
+	end
 end
 
-class Alchemy < Thor
+class AlchemyInstaller < Thor
   
   include Thor::Actions
-  
+
+  map "-v" => :version
+	map "--version" => :version
+
+	desc "version", "Prints current Alchemy version", :hide => true
+  def version
+  	puts Alchemy::VERSION
+  end
+
   desc "new PROJECT", "Creates a new Alchemy project."
   method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm to use for this project. Leave blank for none."
+	method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
   def new(project)
     project = project.downcase.strip.gsub(/ /, '_')
     if yes?("Install Alchemy into ./#{project}? (y/N)")
       
-      say "Installing...", :yellow
+      say "Generating new Rails App...", :yellow
       
-      if system "rails _3.0.10_ new #{project} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d mysql -JT"
+      if system("rails _#{Rails.version}_ new #{project} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
         
         @application = project
         
-        create_database_yml
+        create_database_yml if options[:database] == 'mysql'
         
-        with_standard_set = yes?("\nDo you want to install Alchemys Standardset? (y/N)")
+        with_standard_set = yes?("\nDo you want to install Alchemys Standardset files into your App? (y/N)")
         
         %x[
           cd ./#{project}
@@ -50,7 +62,7 @@ class Alchemy < Thor
               repository = ask("\nName of the repository? (#{project})")
               repository = project if repository.empty?
               
-              say "\nImporting #{project} into #{server}/#{repository} ...", :yellow              
+              say "\nImporting #{project} into #{server}/#{repository} ...", :yellow
               output = %x[svn import ./#{project} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
               
               if imported
@@ -83,17 +95,17 @@ class Alchemy < Thor
                   @ssh_port = standard_port if @ssh_port.empty?
                   
                   # db settings
-                  @db_user = ask "Database User (#{@ssh_user}):"
+                  @db_user = ask "Production Database User (#{@ssh_user}):"
                   @db_user = @ssh_user if @db_user.empty?
-                  @db_password = ask "Database Password:"
+                  @db_password = ask "Production Database Password:"
                   standard_db_name = "usr_#{@db_user}_1"
-                  @db_name = ask "Database Name (#{standard_db_name}):"
+                  @db_name = ask "Production Database Name (#{standard_db_name}):"
                   @db_name = standard_db_name if @db_name.empty?
                   standard_host = "localhost"
-                  @db_host = ask "Database Host (#{standard_host}):"
+                  @db_host = ask "Production Database Host (#{standard_host}):"
                   @db_host = standard_host if @db_host.empty?
                   standard_socket = '/var/run/mysqld/mysqld.sock'
-                  @db_socket = ask "Database Socket (#{standard_socket}):"
+                  @db_socket = ask "Production Database Socket (#{standard_socket}):"
                   @db_socket = standard_socket if @db_socket.empty?
                   
                   # deploy_path
@@ -193,7 +205,7 @@ private
     local_standard_socket = '/tmp/mysql.sock'
     @db_local_socket = ask("\nPlease provide your local mysql socket (#{local_standard_socket}):")
     @db_local_socket = local_standard_socket if @db_local_socket.empty?
-    create_file "./#{@application}/config/database.yml" do
+    create_file "./#{@application}/config/database.yml", :force => true do
 <<-DATABASE
 development:
   adapter: mysql2
@@ -344,4 +356,4 @@ DEPLOY
   
 end
 
-Alchemy.start
+AlchemyInstaller.start
