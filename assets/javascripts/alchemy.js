@@ -549,8 +549,10 @@ if (typeof(Alchemy) === 'undefined') {
 				tolerance: 'pointer',
 				update: function(event, ui) {
 					var ids = $.map($(event.target).children(), function(child) {
-						return child.id.replace(/element_/, '');
+						return $(child).attr('data-element-id');
 					});
+					var params_string = '';
+					var cell_id = $(event.target).attr('data-cell-id');
 					// Is the trash window open?
 					if ($('#alchemyTrashWindow').length > 0) {
 						// updating the trash icon
@@ -560,10 +562,14 @@ if (typeof(Alchemy) === 'undefined') {
 						}
 					}
 					$(event.target).css("cursor", "progress");
+					params_string = "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids});
+					if (cell_id) {
+						params_string += "&cell_id=" + cell_id;
+					}
 					$.ajax({
 						url: '/admin/elements/order',
 						type: 'POST',
-						data: "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids}),
+						data: params_string,
 						complete: function () {
 							$(event.target).css("cursor", "auto");
 							Alchemy.refreshTrashWindow(page_id);
@@ -788,10 +794,15 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		DraggableTrashItems: function (items_n_cells) {
 			$("#trash_items div.draggable").each(function () {
+				var cell_classes = '';
+				var cell_names = items_n_cells[this.id];
+				$.each(cell_names, function (i) {
+					cell_classes += '.' + this + '_cell' + ', ';
+				});
 				$(this).draggable({
 					helper: 'clone',
 					iframeFix: 'iframe#alchemyPreviewWindow',
-					connectToSortable: '#cell_' + items_n_cells[this.id],
+					connectToSortable: cell_classes,
 					start: function(event, ui) { 
 						$(this).hide().addClass('dragged');
 						ui.helper.css({width: '300px'});

@@ -6,7 +6,7 @@ Alchemy CMS
 About
 -----
 
-Alchemy is a powerfull Content Management System (CMS) with an extremly flexible content storing architecture.
+Alchemy is a powerful Content Management System (CMS) with an extremly flexible content storing architecture.
 
 Features
 --------
@@ -108,7 +108,7 @@ Resources
 ---------
 
 * Homepage: <http://alchemy-cms.com>
-* Live-Demo: <http://demo.alchemy-cms.com>
+* Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo)
 * Wiki: <http://wiki.alchemy-cms.com>
 * API Documentation: <http://api.alchemy-cms.com>
 * Issue-Tracker: <http://issues.alchemy-cms.com>
