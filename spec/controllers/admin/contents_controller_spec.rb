@@ -7,9 +7,9 @@ describe Admin::ContentsController do
 		UserSession.create Factory(:admin_user)
 	end
 
-	it "should update a content" do
+	it "should update a content via ajax" do
 		Factory(:element)
-	  post :update, {:id => 1, :content => {:body => 'Peters Petshop'}}
+		post :update, {:id => 1, :content => {:body => 'Peters Petshop'}, :format => :js}
 		Element.first.ingredient('intro').should == "Peters Petshop"
 	end
 
