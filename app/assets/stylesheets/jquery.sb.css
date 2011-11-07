@@ -33,7 +33,7 @@
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	background: #f5f5f5 url('/assets/images/alchemy/shading.png') repeat-x 0 -69px;
+	background: #f5f5f5 url('/assets/alchemy/shading.png') repeat-x 0 -69px;
 }
 
 #alchemy .content_editor.validation_failed .selectbox .display {
@@ -70,7 +70,7 @@
 
 #alchemy .selectbox.focused .display .arrow_btn,
 #alchemy .selectbox .display:hover .arrow_btn {
-	background: #e6f0f5 url('/assets/images/alchemy/shading.png') repeat-x 50% -75px;
+	background: #e6f0f5 url('/assets/alchemy/shading.png') repeat-x 50% -75px;
 }
 
 
@@ -87,11 +87,11 @@
 }
 
 #alchemy .selectbox .display.hover .arrow_btn .interior {
-	background: #e6f0f5 url('/assets/images/alchemy/shading.png') repeat-x 0 -75px;
+	background: #e6f0f5 url('/assets/alchemy/shading.png') repeat-x 0 -75px;
 }
 
 #alchemy .selectbox .display .arrow_btn {
-	background: #ededed url('/assets/images/alchemy/shading.png') repeat-x 0 -75px;
+	background: #ededed url('/assets/alchemy/shading.png') repeat-x 0 -75px;
 	display: block;
 	height: 23px;
 	padding: 0;
@@ -108,7 +108,7 @@
 }
 
 #alchemy .selectbox .display .arrow_btn .arrow {
-	background: url('/assets/images/alchemy/ui-icons_666666_256x240.png') no-repeat -63px -11px;
+	background: url('/assets/alchemy/ui-icons_666666_256x240.png') no-repeat -63px -11px;
 	display: block;
 	height: 23px;
 	width: 19px;

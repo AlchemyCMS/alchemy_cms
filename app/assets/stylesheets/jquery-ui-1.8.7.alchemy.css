@@ -159,7 +159,7 @@
 
 #alchemy .ui-state-default, #alchemy .ui-widget-content .ui-state-default, #alchemy .ui-widget-header .ui-state-default {
 	border: 1px solid #9a9a9a;
-	background: #ededed url('/assets/images/alchemy/shading.png') repeat-x 50% -67px;
+	background: #ededed url('/assets/alchemy/shading.png') repeat-x 50% -67px;
 	font-weight: normal;
 	color: #333333;
 	text-shadow: #f2f2f2 1px 1px 0;
@@ -173,7 +173,7 @@
 #alchemy .ui-state-hover, #alchemy .ui-widget-content .ui-state-hover, #alchemy .ui-widget-header .ui-state-hover, #alchemy .ui-state-focus, #alchemy .ui-widget-content .ui-state-focus, #alchemy .ui-widget-header .ui-state-focus, #alchemy .ui-dialog .ui-dialog-titlebar-refresh:hover, #alchemy .ui-dialog .ui-dialog-titlebar-refresh:focus
  {
 	border: 1px solid #888888;
-	background: #e6f0f5 url('/assets/images/alchemy/shading.png') repeat-x 50% -65px;
+	background: #e6f0f5 url('/assets/alchemy/shading.png') repeat-x 50% -65px;
 	font-weight: normal;
 	color: #333;
 }
@@ -227,7 +227,7 @@
 
 #alchemy .ui-state-highlight, #alchemy .ui-widget-content .ui-state-highlight, #alchemy .ui-widget-header .ui-state-highlight {
 	border: 1px solid #f9dd34;
-	background: #ffef8f url('/assets/images/alchemy/ui-bg_highlight-soft_25_ffef8f_1x100.png') 50% top repeat-x;
+	background: #ffef8f url('/assets/alchemy/ui-bg_highlight-soft_25_ffef8f_1x100.png') 50% top repeat-x;
 	color: #363636;
 }
 
@@ -237,7 +237,7 @@
 
 #alchemy .ui-state-error, #alchemy .ui-widget-content .ui-state-error, #alchemy .ui-widget-header .ui-state-error {
 	border: 1px solid #cd0a0a;
-	background: #cd0a0a url('/assets/images/alchemy/ui-bg_flat_15_cd0a0a_40x100.png') 50% 50% repeat-x;
+	background: #cd0a0a url('/assets/alchemy/ui-bg_flat_15_cd0a0a_40x100.png') 50% 50% repeat-x;
 	color: #ffffff;
 }
 
@@ -273,35 +273,35 @@
 #alchemy .ui-icon {
 	width: 16px;
 	height: 16px;
-	background-image: url('/assets/images/alchemy/ui-icons_666666_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-widget-content .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_666666_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-widget-header .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_666666_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-state-default .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_666666_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-state-hover .ui-icon, #alchemy .ui-state-focus .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_666666_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-state-active .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_666666_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-state-highlight .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_2e83ff_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_2e83ff_256x240.png');
 }
 
 #alchemy .ui-state-error .ui-icon, #alchemy .ui-state-error-text .ui-icon {
-	background-image: url('/assets/images/alchemy/ui-icons_ffffff_256x240.png');
+	background-image: url('/assets/alchemy/ui-icons_ffffff_256x240.png');
 }
 
 /* positioning */
@@ -1085,7 +1085,7 @@
 #alchemy .ui-widget-shadow {
 	margin: -8px 0 0 -8px;
 	padding: 8px;
-	background: #000000 url('/assets/images/alchemy/ui-bg_flat_70_000000_40x100.png') 50% 50% repeat-x;
+	background: #000000 url('/assets/alchemy/ui-bg_flat_70_000000_40x100.png') 50% 50% repeat-x;
 	opacity: .30;
 	filter: Alpha(Opacity=30);
 	-moz-border-radius: 3px;
@@ -1663,7 +1663,7 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-tabs .ui-tabs-nav {
 	padding: 4px 8px 0;
-	background: #e5e5e5 url('/assets/images/alchemy/shading.png') 0 -59px;
+	background: #e5e5e5 url('/assets/alchemy/shading.png') 0 -59px;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
