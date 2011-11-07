@@ -117,12 +117,12 @@ default_language:
 :user_roles: [registered, author, editor, admin]
 
 # === Uploader Settings
-# Set an upload limit in megabytes which counts for all uploads together.
-# Set a file size limit in megabytes for a per file limit.
+#   upload_limit: Integer       Set an amount of files upload limit of files which can be uploaded at once. Set 0 for unlimited.
+#   file_size_limit: Integer    Set a file size limit in megabytes for a per file limit.
 # Allow filetypes to upload.
 # Pass * to allow all kind of files.
 :uploader:
-  :upload_limit: 500
+  :upload_limit: 50
   :file_size_limit: 100
   :allowed_filetypes:
     :pictures: [jpg, jpeg, gif, png, psd, pdf]
