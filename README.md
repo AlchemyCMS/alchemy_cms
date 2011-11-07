@@ -49,6 +49,7 @@ Rails Version
 -------------
 
 This branch of Alchemy runs with Rails 3.1.1 and Ruby 1.9.2.
+<<<<<<< HEAD
 
 If you are looking for a Rails 2 compatible version check the rails-2 branch.
 
@@ -58,6 +59,8 @@ Ruby Version
 ------------
 
 Alchemy runs with REE, Ruby 1.8.7, Ruby 1.9.2 and Ruby 1.9.3.
+=======
+>>>>>>> 1a8411a94fbcf0ebd5a10ce774f29263b70d7665
 
 Installation
 ------------

@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_runtime_dependency(%q<rails>, ["~> 3.1"])
-  s.add_runtime_dependency(%q<authlogic>, ["~> 3.0"])
+  s.add_runtime_dependency(%q<authlogic>)
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
   s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5"])
   s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.0.7"])

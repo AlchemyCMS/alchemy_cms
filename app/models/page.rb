@@ -181,7 +181,7 @@ class Page < ActiveRecord::Base
   def lock(user)
     self.locked = true
     self.locked_by = user.id
-    self.save(false)
+    self.save(:validate => false)
   end
 
   def unlock

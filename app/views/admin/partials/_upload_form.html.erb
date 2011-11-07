@@ -70,21 +70,21 @@
 <script type='text/javascript'>
 	try {
 		var settings = {
-			flash_url : "/javascripts/alchemy/swfupload/swfupload.swf",
-			flash9_url : "/javascripts/alchemy/swfupload/swfupload.swf",
+			flash_url: "<%= asset_path("swfupload/swfupload.swf") %>",
+			flash9_url: "<%= asset_path("swfupload/swfupload.swf") %>",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
 			post_params: <%= post_params.html_safe %>,
-			file_size_limit : "<%= configuration(:uploader)[:file_size_limit] || 100 -%> MB",
-			file_types : '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
-			file_types_description : "<%= file_types_description %>",
-			file_upload_limit : <%= configuration(:uploader)[:upload_limit] || 50 -%>,
-			file_queue_limit : 0,
-			custom_settings : {
-				progressTarget : "uploadProgressContainer",
-				cancelButtonId : "btnCancel"
+			file_size_limit: "<%= configuration(:uploader)[:file_size_limit] || 100 -%> MB",
+			file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
+			file_types_description: "<%= file_types_description %>",
+			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
+			file_queue_limit: 0,
+			custom_settings: {
+				progressTarget: "uploadProgressContainer",
+				cancelButtonId: "btnCancel"
 			},
 			debug: false,
-			button_image_url: "/images/alchemy/swfupload/browse_button.png",
+			button_image_url: "<%= image_path("alchemy/swfupload/browse_button.png") %>",
 			button_width: "120",
 			button_height: "25",
 			button_placeholder_id: "spanButtonPlaceHolder",

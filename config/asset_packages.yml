@@ -1,32 +1,29 @@
 --- 
 javascripts:
-- combined:
-  - alchemy/jquery
-  - alchemy/jquery-ui
-  - alchemy/jquery.rails
-  - alchemy/jquery.dialogextend.min
-  - alchemy/jquery.in-place-edit.js
-  - alchemy/jquery.Jcrop.min
-  - alchemy/jquery.sb.min
-  - alchemy/jquery.scrollTo-1.4.2-min
-  - alchemy/jquery.ui.nestedSortable
-  - alchemy/jquery.ui.tabspaging
-  - alchemy/alchemy
-  - alchemy/alchemy.element_editor_selector
-  - alchemy/alchemy.image_cropper
-  - alchemy/alchemy.link_overlay
-  - alchemy/alchemy.page_sorter
-  - alchemy/alchemy.growler
-  - alchemy/swfupload/swfupload
-  - alchemy/swfupload/queue
-  - alchemy/swfupload/handlers
-  - alchemy/swfupload/fileprogress
+  - jquery
+  - jquery-ui
+  - jquery.dialogextend.min.js
+  - jquery.in-place-edit.js
+  - jquery.Jcrop.min.js
+  - jquery.sb.min.js
+  - jquery.scrollTo-1.4.2-min.js
+  - jquery.ui.nestedSortable.js
+  - jquery.ui.tabspaging.js
+  - alchemy
+  - alchemy.element_editor_selector
+  - alchemy.image_cropper
+  - alchemy.link_overlay
+  - alchemy.page_sorter
+  - alchemy.growler
+  - swfupload/swfupload
+  - swfupload/queue
+  - swfupload/handlers
+  - swfupload/fileprogress
 
 stylesheets:
-- combined:
-  - alchemy/alchemy
-  - alchemy/elements
-  - alchemy/flags
-  - alchemy/jquery-ui-1.8.7.alchemy.css
-  - alchemy/jquery.Jcrop
-  - alchemy/jquery.sb
+  - alchemy
+  - elements
+  - flags
+  - jquery-ui-1.8.7.alchemy.css
+  - jquery.Jcrop
+  - jquery.sb

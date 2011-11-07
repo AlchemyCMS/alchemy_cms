@@ -1,6 +1,7 @@
 authorization do
   
   role :guest do
+    has_permission_on :admin_manual_chapters, :to => [:publish]
     has_permission_on :pages, :to => [:show] do
       if_attribute :public => true, :restricted => false
     end

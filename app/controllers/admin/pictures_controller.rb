@@ -7,6 +7,8 @@ class Admin::PicturesController < AlchemyController
 
   cache_sweeper :pictures_sweeper, :only => [:update, :destroy]
 
+  respond_to :html, :js
+
   def index
     @size = params[:size] || 'medium'
     if params[:per_page] == 'all'
@@ -64,7 +66,9 @@ class Admin::PicturesController < AlchemyController
     # Are we using the Flash uploader? Or the plain html file uploader?
     if params[Rails.application.config.session_options[:key]].blank?
       flash[:notice] = @message
-      redirect_to :back
+      #redirect_to :back
+      #TODO temporary workaround; has to be fixed.
+      redirect_to admin_pictures_path
     end
   rescue Exception => e
     exception_handler(e)
