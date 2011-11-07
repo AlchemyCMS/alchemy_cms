@@ -165,7 +165,7 @@ describe Page do
 	  it "should return 2 pages that are public" do
 			Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
 			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
-	    Page.public.should have(2).pages
+	    Page.published.should have(2).pages
 	  end
 	end
 		

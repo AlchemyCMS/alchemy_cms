@@ -37,7 +37,7 @@ class Page < ActiveRecord::Base
   scope :all_locked, where(:locked => true)
   scope :not_locked, where(:locked => false)
   scope :visible, where(:visible => true)
-  scope :public, where(:public => true)
+  scope :published, where(:public => true)
   scope :accessable, where(:restricted => false)
   scope :restricted, where(:restricted => true)
   scope :public_language_roots, lambda {
