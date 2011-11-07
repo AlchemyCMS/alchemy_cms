@@ -71,28 +71,12 @@ class Admin::ElementsController < AlchemyController
       @element.public = !params[:public].nil?
       @element.save
     else
-      render :update do |page|
-        page.call('Alchemy.growl', _("Validation failed."), :warn)
-        error_message = "<h2>#{_('Validation failed.')}</h2><p>#{_('Please check contents below.')}</p>"
-        page << "jQuery('#element_#{@element.id}_errors').html('#{error_message}<ul><li>#{@element.essence_error_messages.join('</li><li>')}</li></ul>')"
-        page.show("element_#{@element.id}_errors")
-        selector = @element.contents_with_errors.map { |content| '#' + content_dom_id(content) }.join(', ')
-        page << "jQuery('div.content_editor').removeClass('validation_failed')"
-        page << "jQuery('#{selector}').addClass('validation_failed')"
-        page << "Alchemy.enableButton('#element_#{@element.id} button.button')"
-      end
+			@element_validated = false
+			@notice = _('Validation failed.')
+			@error_message = "<h2>#{@notice}</h2><p>#{_('Please check contents below.')}</p>".html_safe
     end
   rescue Exception => e
-    exception_logger(e)
-    if e.class == Ferret::FileNotFoundError
-      EssenceText.rebuild_index
-      EssenceRichtext.rebuild_index
-      render :update do |page|
-        page << "Alchemy.growl('#{_("Index Error after saving Element. Please try again!")}', 'error')"
-      end
-    else
-      show_error_notice(e)
-    end
+    exception_handler(e)
   end
   
   # Trashes the Element instead of deleting it.

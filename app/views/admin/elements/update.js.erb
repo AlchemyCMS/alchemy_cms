@@ -1,4 +1,6 @@
 (function($) {
+	<%- if @element_validated -%>
+	
   $('div#element_<%= @element.id -%> div.element_handle span.icon').removeClass('element_<%= @element.public? ? "draft" : "public" -%>').addClass('element_<%= @element.public? ? "public" : "draft" -%>');
   $('.element_editor[data-element-id="<%= @element.id -%>"] .element_heading .preview_text_element_name').text('<%= @element.display_name -%>');
   $('.element_editor[data-element-id="<%= @element.id -%>"] .element_heading .preview_text_quote').text('<%= escape_javascript(@element.preview_text) -%>');
@@ -7,4 +9,16 @@
   Alchemy.setElementSaved('#element_<%= @element.id -%>');
   Alchemy.growl('<%= _("element_saved") -%>');
   Alchemy.PreviewWindow.refresh();
+
+	<%- else -%>
+
+	Alchemy.growl('<%= escape_javascript(@notice) %>', 'warn');
+	$('#element_<%= @element.id %>_errors').html('<%= @error_message %><ul><li><%= @element.essence_error_messages.join("</li><li>") %></li></ul>');
+  $("#element_<%= @element.id %>_errors").show();
+  $('div.content_editor').removeClass('validation_failed');
+  $('<%= @element.contents_with_errors.map { |content| "#" + content_dom_id(content) }.join(", ") %>').addClass('validation_failed');
+  Alchemy.enableButton('#element_<%= @element.id %> button.button');
+
+	<%- end -%>
+
 })(jQuery);

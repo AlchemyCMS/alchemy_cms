@@ -18,7 +18,7 @@
     <div class="missing_image">
       <p>
         <%= image_tag('alchemy/placeholder.png') %><br>
-        <%= _('Image missing') %><%= '<span class="validation_indicator">*</span>' if content.has_validations? %>
+        <%= _('Image missing') %><%= '<span class="validation_indicator">*</span>'.html_safe if content.has_validations? %>
       </p>
     </div>
     <%- else -%>
