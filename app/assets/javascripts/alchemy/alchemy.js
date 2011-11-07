@@ -585,7 +585,7 @@ if (typeof(Alchemy) === 'undefined') {
 				stop: function(event, ui) {
 					var $textareas = ui.item.find('textarea.tinymce');
 					$textareas.each(function() {
-						TinymceHammer.addEditor(this.id);
+						Alchemy.Tinymce.addEditor(this.id);
 					});
 				}
 			});

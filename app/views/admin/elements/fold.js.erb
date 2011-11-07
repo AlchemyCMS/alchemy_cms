@@ -28,7 +28,7 @@
     Alchemy.SelectBox('#element_<%= @element.id -%> select');
     
     <%- @element.rtf_contents.each do |content| -%>
-    TinymceHammer.addEditor('<%= content.form_field_id -%>');
+    Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
     <%- end -%>
     
     Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');

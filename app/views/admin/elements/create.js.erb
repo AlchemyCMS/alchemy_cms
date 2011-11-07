@@ -8,7 +8,7 @@
   Alchemy.growl('<%= _("successfully_added_element") -%>');
   Alchemy.closeCurrentWindow();
   <%- @element.rtf_contents.each do |content| -%>
-  TinymceHammer.addEditor('<%= content.form_field_id -%>');
+  Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
   <%- end -%>
   Alchemy.PreviewWindow.refresh();
   Alchemy.ElementEditorSelector.init();

@@ -104,4 +104,9 @@ module Admin::ElementsHelper
 		end
 	end
 
+	def tinymce_tag(name, content = '', options = {})
+		append_class_name(options, 'tinymce')
+		text_area_tag(name, content, options)
+	end
+
 end
