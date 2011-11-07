@@ -50,7 +50,7 @@ class Admin::ContentsController < AlchemyController
     content = Content.find(params[:id])
     element = content.element
     content_name = content.name
-    content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
+    @content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
 		@notice = _("Successfully deleted %{content}") % {:content => content_name}
     content.destroy
   rescue
