@@ -4,7 +4,9 @@ describe Admin::ClipboardController do
 
 	before(:each) do
 		activate_authlogic
-		UserSession.create Factory(:admin_user)
+    user = Factory(:admin_user)
+    user.save_without_session_maintenance
+		UserSession.create user
 	end
 
   context "clipboard" do

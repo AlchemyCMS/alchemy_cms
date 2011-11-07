@@ -16,7 +16,8 @@ describe "Security: " do
   
   context "If on or more users are present" do
     it "a visitor should not be able to signup" do
-      @user = User.create({:login => 'foo', :email => 'foo@bar.com', :password => 's3cr3t', :password_confirmation => 's3cr3t'})
+      @user = User.new({:login => 'foo', :email => 'foo@bar.com', :password => 's3cr3t', :password_confirmation => 's3cr3t'})
+      @user.save_without_session_maintenance
       visit '/admin/signup'
       within('#alchemy_greeting') { page.should_not have_content('have to signup') }
     end

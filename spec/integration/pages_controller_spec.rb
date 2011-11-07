@@ -4,7 +4,8 @@ describe PagesController do
 
 	before(:each) do
 		# We need an user or the signup view will show up
-	  Factory(:admin_user)
+	  user = Factory.build(:admin_user)
+    user.save_without_session_maintenance
 		@default_language = Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
 	end

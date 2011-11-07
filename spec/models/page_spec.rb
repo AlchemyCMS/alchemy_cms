@@ -90,13 +90,13 @@ describe Page do
 		it "all pages except the rootpage must have a parent_id" do
 			page = Factory.build(:page, :page_layout => "anypage", :parent_id => nil, :language => @language)
 			page.valid?
-			page.errors.should have_key(:parent_id)
+			page.errors.messages.should have_key(:parent_id)
 		end
 		
 		it "must not be created if the page_layout is set to 'rootpage' and a page already exists with this page_layout and parent_id = nil" do
 		  page = Factory.build(:page, :name => "anypage", :page_layout => "rootpage", :parent_id => @language_root.id, :language => @language)
 			page.valid?
-			page.errors.should have_key(:page_layout)	
+			page.errors.messages.should have_key(:page_layout)
 		end
 		
 		it "should get a webfriendly urlname on create" do
