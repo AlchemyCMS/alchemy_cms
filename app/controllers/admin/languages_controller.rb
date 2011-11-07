@@ -48,17 +48,11 @@ class Admin::LanguagesController < AlchemyController
 
   def destroy
     name = @language.name
-    if @language.destroy
-      flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
-      set_language_to_default
-    end
-    render(:update) { |page| page.redirect_to(admin_languages_url) }
+		@language.destroy
+		flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
+		set_language_to_default
   rescue Exception => e
-    render :update do |page|
-      page << "confirm.close();"
-      page.call('Alchemy.growl', e, :error)
-    end
-    logger.error("++++++++++++++ #{e}")
+		exception_handler(e)
   end
 
 private
