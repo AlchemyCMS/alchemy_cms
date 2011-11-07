@@ -199,7 +199,8 @@ class Admin::PagesController < AlchemyController
       page.move_to_child_of(parent)
     end
     flash[:notice] = _("Pages order saved")
-    render(:update) { |page| page.redirect_to admin_pages_path }
+		@redirect_url = admin_pages_path
+    render :action => :redirect
   rescue Exception => e
     exception_handler(e)
   end
@@ -210,9 +211,8 @@ class Admin::PagesController < AlchemyController
 		session[:language_id] = params[:language_id]
     redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
     if request.xhr?
-      render :update do |page|
-        page.redirect_to redirect_path
-      end
+			@redirect_url = redirect_path
+	    render :action => :redirect
     else
       redirect_to redirect_path
     end

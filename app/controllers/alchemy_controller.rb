@@ -23,7 +23,7 @@ class AlchemyController < ApplicationController
 
 	def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
 		if object.errors.empty?
-			@url = redirect_url
+			@redirect_url = redirect_url
 			flash[:notice] = _(flash_notice)
 			render :action => :redirect
 		else
@@ -197,10 +197,7 @@ protected
     else
       flash[:info] = _('Please log in')
       if request.xhr?
-        render :update do |page|
-          page.call "Alchemy.closeCurrentWindow"
-          page.redirect_to login_path
-        end
+        render :action => :permission_denied
       else
         store_location
         redirect_to login_path
