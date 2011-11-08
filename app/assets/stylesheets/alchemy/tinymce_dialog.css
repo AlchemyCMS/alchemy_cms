@@ -96,7 +96,7 @@ input.checkbox {
 	padding-right: 8px;
 	padding-bottom: 2px;	
 	margin: 0;
-	background: #eaeaea image-url('shading.png') repeat-x 0 -75px;
+	background: #eaeaea url('/assets/alchemy/shading.png') repeat-x 0 -75px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -234,7 +234,7 @@ td.charmap, #charmap a {
 
 .tabs li {
 	float: left;
-	background: image-url('shading.png') repeat-x 0 0;
+	background: url('/assets/alchemy/shading.png') repeat-x 0 0;
 	margin: 0 2px 0 0;
 	padding: 0 0 0 10px;
 	line-height: 17px;

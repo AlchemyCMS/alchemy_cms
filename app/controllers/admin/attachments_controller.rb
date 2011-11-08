@@ -58,10 +58,7 @@ class Admin::AttachmentsController < AlchemyController
       redirect_to :action => :index
     end
   rescue Exception => e
-    log_error $!
-    render :update, :status => 500 do |page|
-      page.call('Alchemy.growl', _('File upload error: %{error}') % {:error => e}, :error)
-    end
+		exception_handler(e)
   end
 
   def edit
@@ -88,10 +85,7 @@ class Admin::AttachmentsController < AlchemyController
     @attachment = Attachment.find(params[:id])
     name = @attachment.name
     @attachment.destroy
-    render :update do |page|
-      flash[:notice] = ( _("File: '%{name}' deleted successfully") % {:name => name} )
-      page.redirect_to admin_attachments_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
-    end
+		flash[:notice] = ( _("File: '%{name}' deleted successfully") % {:name => name} )
   end
 
   def show

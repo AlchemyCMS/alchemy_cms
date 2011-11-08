@@ -11,10 +11,6 @@ class Admin::EssenceFilesController < AlchemyController
   def update
     @essence_file = EssenceFile.find(params[:id])
     @essence_file.update_attributes(params[:essence_file])
-    render :update do |page|
-      page.call "Alchemy.closeCurrentWindow"
-      page.call "Alchemy.reloadPreview"
-    end
   end
 
   def assign
@@ -24,12 +20,6 @@ class Admin::EssenceFilesController < AlchemyController
     @content.essence.save
     @content.save
     @options = params[:options]
-    render :update do |page|
-      page << "jQuery('##{@content.essence_type.underscore}_#{@content.id}').replaceWith('#{escape_javascript(render(:partial => "essences/essence_file_editor.html.erb", :locals => {:content => @content, :options => @options}))}')"
-      page.call "Alchemy.closeCurrentWindow"
-      page.call "Alchemy.reloadPreview"
-      page.call "Alchemy.setElementDirty", "#element_#{@content.element.id}"
-    end
   end
 
 end

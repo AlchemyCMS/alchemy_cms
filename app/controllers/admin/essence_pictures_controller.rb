@@ -68,13 +68,8 @@ class Admin::EssencePicturesController < AlchemyController
     @picture_essence.link = params[:link]
     @picture_essence.link_title = params[:title]
     @picture_essence.open_link_in_new_window = params[:blank]
-    if @picture_essence.save
-      render :update do |page|
-        page << "Alchemy.closeCurrentWindow()"
-        page << "Alchemy.reloadPreview()"
-        page.call('Alchemy.growl', _("saved_link"))
-      end
-    end
+		@notice = _("saved_link")
+    @picture_essence.save
   end
 
   def destroy

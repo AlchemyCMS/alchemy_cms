@@ -6,10 +6,12 @@
   
   <%- else -%>
   
-  $('#element_<%= @element.id -%>').replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
-  $('#element_area').sortable('refresh');
+  $('.element_editor[data-element-id="<%= @element.id -%>"]').replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
+  $('#element_area .sortable_cell').sortable('refresh');
   Alchemy.ElementEditorSelector.bindEvent('#element_<%= @element.id -%>');
-  
+
+  $('.element_editor[data-element-id="<%= @element.id -%>"]');
+
   <%- if @element.folded -%>
     
     <%- @element.rtf_contents.each do |content| -%>
@@ -22,11 +24,11 @@
     
   <%- else -%>
     
-    $('#element_<%= @element.id -%>').trigger('Alchemy.SelectElementEditor');
+    $('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
     Alchemy.SelectBox('#element_<%= @element.id -%> select');
     
     <%- @element.rtf_contents.each do |content| -%>
-    TinymceHammer.addEditor('<%= content.form_field_id -%>');
+    Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
     <%- end -%>
     
     Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');

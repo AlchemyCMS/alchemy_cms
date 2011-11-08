@@ -11,13 +11,13 @@
       <%- end -%>
     </ul>
     <%- @elements.each do |cell, elements| -%>
-    <div id="cell_<%= cell.name %>" class="sortable_cell">
+    <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
     	<%= render :partial => 'element', :collection => elements, :locals => {:draggable => true} %>
     </div>
     <%- end -%>
   </div>
   <%- else -%>
-  <div class="sortable_cell" id="cell_for_other_elements">
+  <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements">
     <%= render :partial => @elements, :locals => {:draggable => true} %>
   </div>
   <%- end -%>
@@ -26,7 +26,7 @@
   Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
   Alchemy.ElementEditorSelector.init();
   Alchemy.SelectBox('.element_editor select');
-  TinymceHammer.init();
+  Alchemy.Tinymce.init();
   Alchemy.ElementDirtyObserver('#element_area');
   jQuery('#cells').tabs();
   jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );

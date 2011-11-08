@@ -66,9 +66,8 @@ class Admin::UsersController < AlchemyController
     if @user.destroy
       flash[:notice] = ( _("User: '%{name}' deleted") % {:name => name} )
     end
-    render :update do |page|
-      page.redirect_to admin_users_path
-    end
+		@redirect_url = admin_users_path
+		render :action => :redirect
   end
 
 end

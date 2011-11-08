@@ -17,6 +17,7 @@ class Element < ActiveRecord::Base
   
   # TODO: add a trashed column to elements table
   scope :trashed, where(:page_id => nil).order('updated_at DESC')
+  scope :not_trashed, where('`elements`.`page_id` IS NOT NULL')
   scope :published, where(:public => true)
   scope :named, lambda { |names| where(arel_table[:name].in(names)) }
   scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
@@ -52,9 +53,15 @@ class Element < ActiveRecord::Base
 
   # nullifies the page_id aka. trashs it.
   def trash
-    self.page_id = nil
-    self.folded = true
-    self.save(false)
+		self.attributes = {
+			:page_id => nil,
+			:cell_id => nil,
+			:folded => true,
+			:public => false
+		}
+		# If we validate the element, it will not get trashed if another element with same postion is already trashed.
+		# And we cannot remove the position, because it will not be reordered in the list if its position is nil.
+		self.remove_from_list
   end
   
   def trashed?
@@ -77,9 +84,39 @@ class Element < ActiveRecord::Base
     self.contents.find_all_by_essence_type(essence_type)
   end
 
+	# Returns the content that is marked as rss title.
+	# 
+	# Mark a content as rss title in your +elements.yml+ file:
+	# 
+	#   - name: news
+	#     contents:
+	#     - name: headline
+	#       type: EssenceText
+	#       rss_title: true
+	# 
+	def content_for_rss_title
+		rss_title = content_descriptions.detect { |c| c['rss_title'] }
+		contents.find_by_name(rss_title['name'])
+	end
+
+	# Returns the content that is marked as rss description.
+	# 
+	# Mark a content as rss description in your +elements.yml+ file:
+	# 
+	#   - name: news
+	#     contents:
+	#     - name: body
+	#       type: EssenceRichtext
+	#       rss_description: true
+	# 
+	def content_for_rss_description
+		rss_title = content_descriptions.detect { |c| c['rss_description'] }
+		contents.find_by_name(rss_title['name'])
+	end
+
   # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
   def self.new_from_scratch(attributes)
-    attributes.stringify_keys!    
+    attributes.stringify_keys!
     return Element.new if attributes['name'].blank?
     element_descriptions = Element.descriptions
     return if element_descriptions.blank?
@@ -162,8 +199,9 @@ class Element < ActiveRecord::Base
 
   # returns the description of the element with my name in element.yml
   def description
-    Element.descriptions.detect{ |d| d['name'] == self.name }
+    self.class.descriptions.detect{ |d| d['name'] == self.name }
   end
+	alias_method :definition, :description
 
   # Human name for displaying in selectboxes and element editor views.
   # The name is beeing translated from elements name value as described in config/alchemy/elements.yml
@@ -253,7 +291,7 @@ class Element < ActiveRecord::Base
 
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.nil?
-    self.find_all_by_id(clipboard)
+    self.find_all_by_id(clipboard.collect { |i| i[:id] })
   end
 
   def self.all_from_clipboard_for_page(clipboard, page)
@@ -366,12 +404,12 @@ class Element < ActiveRecord::Base
   alias_method :richtext_contents, :rtf_contents
   
   # The name of the cell the element could be placed in.
-  def belonging_cellname
-    cellname = Cell.name_for_element(name)
-    if cellname.blank?
-      return 'for_other_elements' 
+  def belonging_cellnames(page)
+    cellnames = Cell.names_for_element(name)
+    if cellnames.blank? || !page.has_cells?
+      return ['for_other_elements']
     else
-      return cellname
+      return cellnames
     end
   end
   
@@ -379,6 +417,7 @@ private
   
   # List all elements for page_layout
   def self.all_for_page(page)
+    raise TypeError if page.class != Page
     # if page_layout has cells, collect elements from cells and group them by cellname
     page_layout = Alchemy::PageLayout.get(page.page_layout)
     if page_layout.blank?

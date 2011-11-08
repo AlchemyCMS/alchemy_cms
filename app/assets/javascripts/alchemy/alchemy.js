@@ -88,13 +88,13 @@ if (typeof(Alchemy) === 'undefined') {
 				Alchemy.PreviewWindow = $iframe.dialog({
 					modal: false,
 					title: title,
-					width: $(window).width() - 512,
-					height: $(window).height() - 94,
+					width: $(window).width() - 504,
+					height: $(window).height() - 90,
 					minWidth: 600,
 					minHeight: 300,
 					show: "fade",
 					hide: "fade",
-					position: [73, 84],
+					position: [70, 84],
 					autoResize: true,
 					closeOnEscape: false,
 					create: function() {
@@ -192,11 +192,11 @@ if (typeof(Alchemy) === 'undefined') {
 				modal: false, 
 				minWidth: 422, 
 				minHeight: 300,
-				height: $(window).height() - 94,
+				height: $(window).height() - 90,
 				title: options.texts.title,
 				show: "fade",
 				hide: "fade",
-				position: [$(window).width() - 432, 84],
+				position: [$(window).width() - 428, 84],
 				closeOnEscape: false,
 				create: function() {
 					$dialog.before(Alchemy.createElementWindowToolbar(options.toolbarButtons));
@@ -428,10 +428,10 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		openLicencseWindow : function() {
 			var height = $(window).height() - 150;
-			var $iframe = $('<iframe src="http://www.gnu.org/licenses/gpl-3.0.txt"></iframe>');
+			var $iframe = $('<iframe src="https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE"></iframe>');
 			$iframe.dialog({
 				bgiframe: true,
-				title: 'GNU GPL License',
+				title: 'Alchemy CMS License',
 				width: 650,
 				height: height,
 				autoResize: true,
@@ -494,13 +494,16 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 		
 		saveElement : function(form) {
-			var $rtf_contents = $(form).find('div.content_rtf_editor');
-			if ($rtf_contents.size() > 0) {
-				$rtf_contents.each(function() {
-					var id = $(this).children('textarea.tinymce').attr('id');
-					tinymce.get(id).save();
-				});
-			}
+			// disabled for now. I think we don't need this.
+			return true;
+			// remove this comment if you have problems with saving tinymce content
+			// var $rtf_contents = $(form).find('div.content_rtf_editor');
+			// if ($rtf_contents.size() > 0) {
+			// 	$rtf_contents.each(function() {
+			// 		var id = $(this).children('textarea.tinymce').attr('id');
+			// 		tinymce.get(id).save();
+			// 	});
+			// }
 		},
 		
 		setElementSaved : function(selector) {
@@ -549,8 +552,10 @@ if (typeof(Alchemy) === 'undefined') {
 				tolerance: 'pointer',
 				update: function(event, ui) {
 					var ids = $.map($(event.target).children(), function(child) {
-						return child.id.replace(/element_/, '');
+						return $(child).attr('data-element-id');
 					});
+					var params_string = '';
+					var cell_id = $(event.target).attr('data-cell-id');
 					// Is the trash window open?
 					if ($('#alchemyTrashWindow').length > 0) {
 						// updating the trash icon
@@ -560,10 +565,14 @@ if (typeof(Alchemy) === 'undefined') {
 						}
 					}
 					$(event.target).css("cursor", "progress");
+					params_string = "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids});
+					if (cell_id) {
+						params_string += "&cell_id=" + cell_id;
+					}
 					$.ajax({
 						url: '/admin/elements/order',
 						type: 'POST',
-						data: "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param({element_ids: ids}),
+						data: params_string,
 						complete: function () {
 							$(event.target).css("cursor", "auto");
 							Alchemy.refreshTrashWindow(page_id);
@@ -579,7 +588,7 @@ if (typeof(Alchemy) === 'undefined') {
 				stop: function(event, ui) {
 					var $textareas = ui.item.find('textarea.tinymce');
 					$textareas.each(function() {
-						TinymceHammer.addEditor(this.id);
+						Alchemy.Tinymce.addEditor(this.id);
 					});
 				}
 			});
@@ -788,10 +797,15 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		DraggableTrashItems: function (items_n_cells) {
 			$("#trash_items div.draggable").each(function () {
+				var cell_classes = '';
+				var cell_names = items_n_cells[this.id];
+				$.each(cell_names, function (i) {
+					cell_classes += '.' + this + '_cell' + ', ';
+				});
 				$(this).draggable({
 					helper: 'clone',
 					iframeFix: 'iframe#alchemyPreviewWindow',
-					connectToSortable: '#cell_' + items_n_cells[this.id],
+					connectToSortable: cell_classes,
 					start: function(event, ui) { 
 						$(this).hide().addClass('dragged');
 						ui.helper.css({width: '300px'});

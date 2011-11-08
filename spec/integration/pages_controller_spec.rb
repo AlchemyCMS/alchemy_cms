@@ -4,8 +4,10 @@ describe PagesController do
 
 	before(:each) do
 		# We need an user or the signup view will show up
+
 	  user = Factory.build(:admin_user)
     user.save_without_session_maintenance
+
 		@default_language = Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
 	end
@@ -28,7 +30,7 @@ describe PagesController do
 			visit '/'
 			within('div#navigation ul') { page.should have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
 		end
-	  
+
 	end
 
 	context "performing a fulltext search" do

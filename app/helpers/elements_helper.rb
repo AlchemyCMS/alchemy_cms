@@ -20,6 +20,7 @@ module ElementsHelper
       :except => [],
       :only => [],
       :from_page => "",
+			:from_cell => "",
       :count => nil,
       :offset => nil,
       :locals => {},
@@ -53,7 +54,7 @@ module ElementsHelper
       element_string = ""
       if options[:fallback]
         unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-          if from = Page.find_by_page_layout(options[:fallback][:from])
+          if from = Page.find_by_page_layout_and_language_id(options[:fallback][:from], session[:language_id])
             all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
           end
         end
@@ -141,6 +142,12 @@ module ElementsHelper
     return "" if page.blank?
     element = page.elements.find_by_name_and_public(options[:element_name], true)
     return element
+  end
+
+	# Renders all element partials from given cell.
+  def render_cell_elements(cell)
+    return warning("No cell given.") if cell.blank?
+		render_elements({:from_cell => cell})
   end
 
   # Returns a string for the id attribute of a html element for the given element

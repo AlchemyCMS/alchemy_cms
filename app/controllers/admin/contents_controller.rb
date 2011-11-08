@@ -33,10 +33,7 @@ class Admin::ContentsController < AlchemyController
   
   def update
     content = Content.find(params[:id])
-    content.content.update_attributes(params[:content])
-    render :update do |page|
-      page << "Alchemy.closeCurrentWindow();Alchemy.reloadPreview()"
-    end
+    content.essence.update_attributes(params[:content])
   end
   
   def order
@@ -44,11 +41,7 @@ class Admin::ContentsController < AlchemyController
       content = Content.find(id)
       content.move_to_bottom
     end
-    render :update do |page|
-      page.call('Alchemy.growl', _("Successfully saved content position"))
-      page.call("Alchemy.SortableContents", '#element_area .picture_gallery_images', form_authenticity_token)
-      page.call('Alchemy.reloadPreview')
-    end
+		@notice = _("Successfully saved content position")
   rescue
     exception_handler($!)
   end
@@ -57,14 +50,9 @@ class Admin::ContentsController < AlchemyController
     content = Content.find(params[:id])
     element = content.element
     content_name = content.name
-    content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
-    if content.destroy
-      render :update do |page|
-        page.call("jQuery('#{content_dom_id}').remove")
-        page.call('Alchemy.growl', _("Successfully deleted %{content}") % {:content => content_name})
-        page.call('Alchemy.reloadPreview')
-      end
-    end
+    @content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
+		@notice = _("Successfully deleted %{content}") % {:content => content_name}
+    content.destroy
   rescue
     exception_handler($!)
   end

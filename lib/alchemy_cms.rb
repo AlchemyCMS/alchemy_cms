@@ -6,7 +6,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
   require 'dynamic_form'
   require 'fleximage'
   require 'gettext_i18n_rails'
-  require 'tinymce_hammer'
+	require 'jquery-rails'
   require 'userstamp'
   require 'will_paginate'
   require 'yaml'
@@ -15,7 +15,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
   require 'extensions/action_view'
   require 'alchemy/version'
   require 'alchemy/engine'
-  %w(config essence page_layout controller remote_pagination_link_renderer).each do |class_name|
+  %w(config essence page_layout controller remote_pagination_link_renderer tinymce).each do |class_name|
     require File.join(File.dirname(__FILE__), "alchemy", class_name)
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")

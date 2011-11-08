@@ -35,18 +35,22 @@ class Page < ActiveRecord::Base
   scope :language_roots, where(:language_root => true)
   scope :layoutpages, where(:layoutpage => true)
   scope :all_locked, where(:locked => true)
+  scope :not_locked, where(:locked => false)
   scope :visible, where(:visible => true)
-  scope :public, where(:public => true)
+  scope :published, where(:public => true)
   scope :accessable, where(:restricted => false)
   scope :restricted, where(:restricted => true)
   scope :public_language_roots, lambda {
 		where(:language_root => true).where("language_code IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
   }
   scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
-  
-  # Returns all pages for langugae that are not locked and public.
+
+	# Returns all pages that have the given language_id
+  scope :with_language, lambda { |language_id| where(:language_id => language_id) }
+
+  # Returns all pages that are not locked and public.
   # Used for flushing all page caches at once.
-  scope :flushables, lambda { |language_id| where({:public => true, :locked => false, :language_id => language_id}) }
+  scope :flushables, public.not_locked
   
   scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
   
@@ -59,12 +63,17 @@ class Page < ActiveRecord::Base
   #     :count => Integer                  # Limit the count of returned elements
   #     :offset => Integer                 # Starts with an offset while returning elements
   #     :random => Boolean                 # Returning elements randomly shuffled
+	#     :from_cell => Cell                 # Returning elements from given cell
   # 
   # Returns only public elements by default.
   # Pass true as second argument to get all elements.
   # 
   def find_selected_elements(options = {}, show_non_public = false)
-    elements = self.elements
+		if options[:from_cell].class.name == 'Cell'
+			elements = options[:from_cell].elements
+		else
+			elements = self.elements
+		end
     if !options[:only].blank?
       elements = self.elements.named(options[:only])
     elsif !options[:except].blank?
@@ -82,17 +91,28 @@ class Page < ActiveRecord::Base
   def find_elements(options = {}, show_non_public = false) #:nodoc:
     # TODO: What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
     if !options[:collection].blank? && options[:collection].is_a?(Array)
-      all_elements = options[:collection]
+      return options[:collection]
     else
-      all_elements = find_selected_elements(options, show_non_public)
+      find_selected_elements(options, show_non_public)
     end
-    all_elements
   end
+
+	# Returns all elements that should be feeded via rss.
+	# 
+	# Define feedable elements in your +page_layouts.yml+:
+	# 
+	#   - name: news
+	#     feed: true
+	#     feed_elements: [element_name, element_2_name]
+	# 
+	def feed_elements
+		elements.find_all_by_name(definition['feed_elements'])
+	end
 
   def elements_grouped_by_cells
     group = ActiveSupport::OrderedHash.new
-    cells.each { |cell| group[cell] = cell.elements }
-    group[Cell.new({:name => 'for_other_elements'})] = elements.find_all_by_cell_id(nil)
+    cells.each { |cell| group[cell] = cell.elements.not_trashed }
+    group[Cell.new({:name => 'for_other_elements'})] = elements.not_trashed.where(:cell_id => nil)
     return group
   end
   
@@ -282,17 +302,18 @@ class Page < ActiveRecord::Base
     end
   end
 
-  # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
-  def layout_description
-    page_layout = Alchemy::PageLayout.get(self.page_layout)
-    if page_layout.nil?
-      logger.warn("\n+++++++++++  Warning! Alchemy::PageLayout description not found for layout: #{self.page_layout}\n")
-      return nil
-    else
-      return page_layout
-    end
-  end
-  alias_method :definition, :layout_description
+	# Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
+	def layout_description
+		description = Alchemy::PageLayout.get(self.page_layout)
+		if self.root?
+			return {}
+		elsif description.nil?
+			raise "Description could not be found for page layout named #{self.page_layout}. Please check page_layouts.yml file."
+		else
+			description
+		end
+	end
+	alias_method :definition, :layout_description
   
   # Returns translated name of the pages page_layout value.
   # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
@@ -318,16 +339,12 @@ class Page < ActiveRecord::Base
   end
 
   def contains_feed?
-    desc = self.layout_description
-    return false if desc.blank?
-    desc["feed"]
+    definition["feed"]
   end
 
   # Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true
   def redirects_to_external?
-    desc = self.layout_description
-    return false if desc.blank?
-    desc["redirects_to_external"]
+    definition["redirects_to_external"]
   end
 
   # Returns an array of all pages currently locked by user
@@ -412,7 +429,7 @@ class Page < ActiveRecord::Base
 
   def self.all_from_clipboard(clipboard)
     return [] if clipboard.blank?
-    self.find_all_by_id(clipboard)
+    self.find_all_by_id(clipboard.collect { |i| i[:id] })
   end
 
   def self.all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
@@ -439,11 +456,13 @@ class Page < ActiveRecord::Base
   end
   
   # Returns true or false if the page has a page_layout that has cells.
-  def has_cells?
-    pagelayout = Alchemy::PageLayout.get(self.page_layout)
-    return false if pagelayout.blank?
-    !pagelayout['cells'].blank?
+  def can_have_cells?
+    !definition['cells'].blank?
   end
+
+	def has_cells?
+		cells.any?
+	end
   
   def self.link_target_options
     options = [
@@ -502,7 +521,6 @@ private
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
   def autogenerate_elements
-    return true if self.layout_description.blank?
     elements = self.layout_description["autogenerate"]
     unless (elements.blank?)
       elements.each do |element|
@@ -518,7 +536,7 @@ private
   end
   
   def create_cells
-    return true if !has_cells?
+    return false if !can_have_cells?
     definition['cells'].each do |cellname|
       cells.create({:name => cellname})
     end

@@ -54,6 +54,11 @@ FactoryGirl.define do
 
 	end
 	
+	factory :cell do
+		page { Page.find_by_language_root(true) || Factory(:language_root_page) }
+		name "A Cell"
+	end
+	
 	factory :element do
 	  name 'article'
   end

@@ -1,5 +1,5 @@
 (function($) {
-	$('#element_<%= @element.id -%>').remove();
+	$('.element_editor[data-element-id="<%= @element.id -%>"]').remove();
 	Alchemy.growl('<%= _("element_deleted_successful") -%>');
 	$('#element_area').sortable('refresh');
 	Alchemy.PreviewWindow.refresh();

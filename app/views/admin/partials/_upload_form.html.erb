@@ -22,7 +22,7 @@
 <%- end -%>
 <p style="margin-top: 8px" id="choose_alternative_uploader">
 	<small>
-		<%= raw _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('#SWFUpload_0').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+		<%= raw _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('object.swfupload').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
 	</small>
 </p>
 <div id="swfUploadFlashError" style="display: none">
@@ -46,7 +46,7 @@
 	<p>
 		<small>
 			<a href="#" 
-			onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('#SWFUpload_0').show();" 
+			onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('object.swfupload').show();" 
 			style="text-decoration: underline">
 				<%= _('Switch to Flash® Uploader') %>
 			</a>
@@ -74,10 +74,10 @@
 			flash9_url: "<%= asset_path("swfupload/swfupload.swf") %>",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
 			post_params: <%= post_params.html_safe %>,
-			file_size_limit: "<%= configuration(:uploader)[:file_size_limit] -%> MB",
+			file_size_limit: "<%= configuration(:uploader)[:file_size_limit] || 100 -%> MB",
 			file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
 			file_types_description: "<%= file_types_description %>",
-			file_upload_limit: <%= configuration(:uploader)[:upload_limit] -%>,
+			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
 			file_queue_limit: 0,
 			custom_settings: {
 				progressTarget: "uploadProgressContainer",

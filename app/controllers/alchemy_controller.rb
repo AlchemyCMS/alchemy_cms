@@ -21,24 +21,21 @@ class AlchemyController < ApplicationController
     current_user.admin?
   end
 
-  def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
-    if object.errors.empty?
-      flash[:notice] = _(flash_notice)
-      render(:update) do |page|
-        page.redirect_to(redirect_url)
-      end
-    else
-      render_remote_errors(object, button)
-    end
-  end
+	def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
+		if object.errors.empty?
+			@redirect_url = redirect_url
+			flash[:notice] = _(flash_notice)
+			render :action => :redirect
+		else
+			render_remote_errors(object, button)
+		end
+	end
 
-  def render_remote_errors(object, button = nil)
-    render :update do |page|
-      page << "jQuery('#errors').html('<ul>" + object.errors.sum { |a, b| "<li>" + _(b) + "</li>" } + "</ul>')"
-      page << "jQuery('#errors').show()"
-      page << "Alchemy.enableButton('#{button}')" unless button.blank?
-    end
-  end
+	def render_remote_errors(object, button = nil)
+		@button = button
+		@errors = ("<ul>" + object.errors.sum { |a, b| "<li>" + _(b) + "</li>" } + "</ul>").html_safe
+		render :action => :remote_errors
+	end
 
   # Returns a host string with the domain the app is running on.
   def current_server
@@ -108,9 +105,9 @@ private
 
   # Displays an error notice in the Alchemy backend.
   def show_error_notice(e)
-    notice = "Error: #{e}"
+    @notice = "Error: #{e}"
     if request.xhr?
-      render(:update) { |page| page.call("Alchemy.growl", notice, 'error') }
+      render :action => "error_notice"
     else
       flash[:error] = notice
     end
@@ -200,10 +197,7 @@ protected
     else
       flash[:info] = _('Please log in')
       if request.xhr?
-        render :update do |page|
-          page.call "Alchemy.closeCurrentWindow"
-          page.redirect_to login_path
-        end
+        render :action => :permission_denied
       else
         store_location
         redirect_to login_path

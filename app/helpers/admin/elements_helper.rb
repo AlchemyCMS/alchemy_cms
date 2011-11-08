@@ -56,4 +56,57 @@ module Admin::ElementsHelper
     )
   end
 
+  # Returns all elements that could be placed on that page because of the pages layout.
+  # The elements are returned as an array to be used in alchemy_selectbox form builder.
+  def elements_for_select(elements)
+    return [] if elements.nil?
+    options = elements.collect{ |e| [I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e["name"]] }
+    return options_for_select(options)
+  end
+  
+  # Returns all elements that could be placed on that page because of the pages layout.
+  # The elements will be grouped by cell.
+  def grouped_elements_for_select(elements, object_method = 'name')
+    return [] if elements.nil?
+    cells_definition = Cell.definitions
+    return [] if cells_definition.blank?
+    options = {}
+    celled_elements = []
+    cells_definition.each do |cell|
+      cell_elements = elements.select { |e| cell['elements'].include?(e.class.name == 'Element' ? e.name : e['name']) }
+      celled_elements += cell_elements
+      optgroup_label = Cell.translated_label_for(cell['name'])
+      options[optgroup_label] = cell_elements.map do |e|
+				element_array_for_options(e, object_method, cell)
+			end
+    end
+    other_elements = elements - celled_elements
+    unless other_elements.blank?
+      optgroup_label = _('other Elements')
+      options[optgroup_label] = other_elements.map do |e|
+				element_array_for_options(e, object_method)
+			end
+    end
+    return grouped_options_for_select(options)
+  end
+
+	def element_array_for_options(e, object_method, cell = nil)
+		if e.class.name == 'Element'
+			[
+				e.display_name_with_preview_text,
+				e.send(object_method).to_s + (cell ? "##{cell['name']}" : "")
+			]
+		else
+			[
+				I18n.t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize),
+				e[object_method] + (cell ? "##{cell['name']}" : "")
+			]
+		end
+	end
+
+	def tinymce_tag(name, content = '', options = {})
+		append_class_name(options, 'tinymce')
+		text_area_tag(name, content, options)
+	end
+
 end

@@ -30,9 +30,6 @@ module Alchemy
     # Returns the page_layout description found by name in page_layouts.yml
     def self.get(name = "")
       self.get_layouts.detect{ |a| a["name"].downcase == name.downcase }
-    rescue Exception => e
-      Rails.logger.error("++++++ ERROR\n#{e}")
-      return nil
     end
     
     # Returns page layouts ready for Rails' select form helper.

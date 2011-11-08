@@ -7,12 +7,11 @@ class PagesController < AlchemyController
 
   caches_action(
     :show,
-    :layout => false,
-    :cache_path => Proc.new { |c| c.multi_language? ? "#{session[:language_code]}/#{c.params[:urlname]}" : "#{c.params[:urlname]}" },
-    :if => Proc.new { |c| 
+    :cache_path => proc { url_for(:action => :show, :urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
+    :if => proc do
       if Alchemy::Config.get(:cache_pages)
         page = Page.find_by_urlname_and_language_id_and_public(
-          c.params[:urlname],
+          params[:urlname],
           session[:language_id],
           true,
           :select => 'page_layout, language_id, urlname'
@@ -24,20 +23,31 @@ class PagesController < AlchemyController
       else
         false
       end
-    }
+    end
   )
 
-  # Showing page from params[:urlname]
-  # @page is fetched via before filter
-  # @root_page is fetched via before filter
-  # @language fetched via before_filter in alchemy_controller
-  # rendering page and querying for search results if any query is present
-  def show
-    if configuration(:ferret) && !params[:query].blank?
-      perform_search
-    end
-    render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
-  end
+	# Showing page from params[:urlname]
+	# @page is fetched via before filter
+	# @root_page is fetched via before filter
+	# @language fetched via before_filter in alchemy_controller
+	# rendering page and querying for search results if any query is present
+	def show
+		if configuration(:ferret) && !params[:query].blank?
+			perform_search
+		end
+		respond_to do |format|
+			format.html {
+				render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
+			}
+			format.rss {
+				if @page.contains_feed?
+					render :action => "show.rss.builder", :layout => false
+				else
+					render :xml => { :error => 'Not found' }, :status => 404
+				end
+			}
+		end
+	end
 
   # Renders a Google conform sitemap in xml
   def sitemap
@@ -97,6 +107,7 @@ private
       {:limit => :all},
       {:conditions => ["public = ?", true]}
     )
+    @search_results = (@text_search_results + @rtf_search_results).sort{ |y, x| x.ferret_score <=> y.ferret_score }
   end
 
   def find_first_public(page)

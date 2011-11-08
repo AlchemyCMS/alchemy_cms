@@ -81,21 +81,17 @@ class Admin::PicturesController < AlchemyController
     @picture.name = params[:name]
     @picture.save
     @message = _("Image renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @picture.name}
-    render :update do |page|
-      page.call 'Alchemy.growl', @message
-    end
   rescue Exception => e
     exception_handler(e)
   end
 
   def destroy
-    @picture = Picture.find(params[:id])
-    name = @picture.name
-    @picture.destroy
-    render :update do |page|
-      flash[:notice] = ( _("Image: '%{name}' deleted successfully") % {:name => name} )
-      page.redirect_to admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
-    end
+		@picture = Picture.find(params[:id])
+		name = @picture.name
+		@picture.destroy
+		flash[:notice] = ( _("Image: '%{name}' deleted successfully") % {:name => name} )
+		@redirect_url = admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
+		render :action => :redirect
   end
 
   def flush
@@ -104,10 +100,7 @@ class Admin::PicturesController < AlchemyController
       FileUtils.rm_rf("#{Rails.root}/public/pictures/thumbnails/#{picture.id}")
       expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
     end
-    render :update do |page|
-      page.call 'Alchemy.growl', _('Picture cache flushed')
-      page.call "Alchemy.pleaseWaitOverlay", false
-    end
+		@notice = _('Picture cache flushed')
   end
 
   def show_in_window
@@ -142,9 +135,7 @@ private
         render :partial => 'archive_overlay'
       }
       format.js {
-        render :update do |page|
-          page << "jQuery('#alchemy_window_body').replaceWith('#{escape_javascript(render(:partial => 'archive_overlay'))}')"
-        end
+        render :action => :archive_overlay
       }
     end
   end

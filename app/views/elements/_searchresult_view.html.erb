@@ -1,42 +1,49 @@
 <div class="searchresult" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
-    
-    <%= form_tag show_page_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
-        <%= text_field_tag "query", params[:query], :class => 'field' %>
-        <%= submit_tag _("search"), :name => nil %>
-    <%- end -%>
-    
-    <%- if !@text_search_results.blank? || !@rtf_search_results.blank? -%>
-    
-    <h2>
-        <%= t('alchemy.search.result_heading', :query => h(params[:query]), :count => @rtf_search_results.length + @text_search_results.length) %>
-    </h2>
-    
-    <%- all_results = (@text_search_results + @rtf_search_results).sort{|y, x| x.ferret_score <=> y.ferret_score} -%>
-    
-    <div class="search_results">
-        <ol>
-            <%- all_results.each do |result| -%>
-            <%- element = Content.find_by_essence_id_and_essence_type(result.id, result.class.to_s).element -%>
-            <%- page = element.nil? ? nil : element.page -%>
-            <li>
-                <%= _('Excerpt') %>:
-                <%= raw result.highlight(params[:query], {
-                    :field => (result.class == EssenceRichtext ? :stripped_body : :body),
-                    :num_excerpts => 1,
-                    :pre_tag => "<strong>",
-                    :post_tag => "</strong>"
-                }) %><br/>
-                <%- unless page.nil? -%>
-                <span class="search_result_site"><%= _('Page') %>: </span><%= link_to page.urlname, show_page_path(:urlname => page.urlname, :lang => page.language) %>
-                <%- end -%>
-            </li>
-            <%- end -%>
-        </ol>
-    </div>
-    
-    <%- elsif !params[:query].blank? -%>
-    
-    <h2><%= t('alchemy.search.no_results') %></h2>
-    
-    <%- end -%>
+	
+	<%= form_tag show_page_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
+		<%= text_field_tag "query", params[:query], :class => 'field' %>
+		<%= submit_tag _("search"), :name => nil %>
+	<%- end -%>
+	
+	<%- if !@search_results.blank? -%>
+	
+	<h2>
+		<%= t('alchemy.search.result_heading') % { :query => h(params[:query]), :count => @search_results.count } %>
+	</h2>
+	
+	<div class="search_results">
+		<ul>
+		<%- @search_results.each do |result| -%>
+			<%- element = Content.find_by_essence_id_and_essence_type(result.id, result.class.to_s).element -%>
+			<%- page = element.nil? ? nil : element.page -%>
+			<li>
+				<%- unless page.nil? -%>
+				<h3>
+					<span class="search_result_site"><%= _('Page') %>:</span>
+					<%- if multi_language? -%>
+					<%= link_to page.name, show_page_path(:urlname => page.urlname, :lang => page.language_code) %>
+					<span class="search_result_language">(<%= page.language_code.upcase %>)</span>
+					<%- else -%>
+					<%= link_to page.name, show_page_path(:urlname => page.urlname) %>
+					<%- end -%>
+				</h3>
+				<%- end -%>
+				<h4><%= _('Excerpt') %>:</h4>
+				<%- result.highlight(
+					"*#{params[:query]}*", {
+						:field => (result.class == EssenceRichtext ? :stripped_body : :body)
+					}
+				).each do |highlight| -%>
+				<p><%= sanitize highlight %></p>
+				<%- end -%>
+			</li>
+		<%- end -%>
+		</ul>
+	</div>
+	
+	<%- elsif !params[:query].blank? -%>
+	
+	<h2><%= t('alchemy.search.no_results') %></h2>
+	
+	<%- end -%>
 </div>

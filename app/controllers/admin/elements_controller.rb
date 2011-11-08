@@ -10,7 +10,7 @@ class Admin::ElementsController < AlchemyController
     @page = Page.find(params[:page_id], :include => {:elements => :contents})
     @cells = @page.cells
     if @cells.blank?
-      @elements = @page.elements
+      @elements = @page.elements.not_trashed
     else
       @elements = @page.elements_grouped_by_cells
     end
@@ -37,27 +37,20 @@ class Admin::ElementsController < AlchemyController
   end
   
   # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
-  # If a Ferret::FileNotFoundError raises we catch it and rebuilding the index.
   def create
-    @page = Page.find(params[:element][:page_id])
-    if params[:paste_from_clipboard].blank?
-      @element = Element.new_from_scratch(params[:element])
-    else
-      source_element = Element.find(params[:paste_from_clipboard])
-      if source_element.page_id == blank? # aka. move
-        @element = source_element
-      else
-        @element = Element.copy(source_element, {:page_id => @page.id})
-      end
-    end
-    # if page has cells, put element in cell
-    if @page.has_cells?
-      cell_definition = Cell.definition_for(params[:element][:name].split('#').last)
-      if cell_definition
-        @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
-      end
-      @element.cell = @cell
-    end
+		@page = Page.find(params[:element][:page_id])
+		@paste_from_clipboard = !params[:paste_from_clipboard].blank?
+		if @paste_from_clipboard
+			source_element = Element.find(element_from_clipboard[:id])
+			@element = Element.copy(source_element, {:page_id => @page.id})
+			if element_from_clipboard[:action] == 'cut'
+				source_element.destroy
+				@clipboard.delete_if { |i| i[:id].to_i == source_element.id }
+			end
+		else
+			@element = Element.new_from_scratch(params[:element])
+		end
+    put_element_in_cell if @page.can_have_cells?
     @element.page = @page
     if @element.save
       render :action => :create
@@ -77,29 +70,14 @@ class Admin::ElementsController < AlchemyController
       @page = @element.page
       @element.public = !params[:public].nil?
       @element.save
+			@element_validated = true
     else
-      render :update do |page|
-        page.call('Alchemy.growl', _("Validation failed."), :warn)
-        error_message = "<h2>#{_('Validation failed.')}</h2><p>#{_('Please check contents below.')}</p>"
-        page << "jQuery('#element_#{@element.id}_errors').html('#{error_message}<ul><li>#{@element.essence_error_messages.join('</li><li>')}</li></ul>')"
-        page.show("element_#{@element.id}_errors")
-        selector = @element.contents_with_errors.map { |content| '#' + content_dom_id(content) }.join(', ')
-        page << "jQuery('div.content_editor').removeClass('validation_failed')"
-        page << "jQuery('#{selector}').addClass('validation_failed')"
-        page << "Alchemy.enableButton('#element_#{@element.id} button.button')"
-      end
+			@element_validated = false
+			@notice = _('Validation failed.')
+			@error_message = "<h2>#{@notice}</h2><p>#{_('Please check contents below.')}</p>".html_safe
     end
   rescue Exception => e
-    exception_logger(e)
-    if e.class == Ferret::FileNotFoundError
-      EssenceText.rebuild_index
-      EssenceRichtext.rebuild_index
-      render :update do |page|
-        page << "Alchemy.growl('#{_("Index Error after saving Element. Please try again!")}', 'error')"
-      end
-    else
-      show_error_notice(e)
-    end
+    exception_handler(e)
   end
   
   # Trashes the Element instead of deleting it.
@@ -112,11 +90,12 @@ class Admin::ElementsController < AlchemyController
   end
   
   def order
-    page = Page.find(params[:page_id])
     params[:element_ids].each do |element_id|
       element = Element.find(element_id)
       if element.trashed?
-        element.page = page
+				element.page_id = params[:page_id]
+				element.cell_id = params[:cell_id] if params[:cell_id]
+				element.position = 1
       end
       element.move_to_bottom
     end
@@ -128,9 +107,28 @@ class Admin::ElementsController < AlchemyController
     @element = Element.find(params[:id])
     @page = @element.page
     @element.folded = !@element.folded
-    @element.save(false)
+		@element.save
   rescue Exception => e
     exception_handler(e)
   end
+
+private
+
+	def put_element_in_cell
+		element_with_cell_name = @paste_from_clipboard ? params[:paste_from_clipboard] : params[:element][:name]
+		cell_definition = Cell.definition_for(element_with_cell_name.split('#').last) if !element_with_cell_name.blank?
+		if cell_definition
+			@cell = @page.cells.find_or_create_by_name(cell_definition['name'])
+			@element.cell = @cell
+			return true
+		else
+			return false
+		end
+	end
+
+	def element_from_clipboard
+		@clipboard = get_clipboard(:elements)
+		@clipboard.detect { |i| i[:id].to_i == params[:paste_from_clipboard].to_i }
+	end
 
 end
