@@ -6,7 +6,7 @@
     :title => _('Edit Picturemask')
   },
   {
-    :class => necessary_options_for_cropping_provided?(options) ? nil : 'disabled',
+    :class => necessary_options_for_cropping_provided?(options) && content.ingredient ? nil : 'disabled',
     :title => _('Edit Picturemask')
   }
 ) %>
