@@ -1,7 +1,9 @@
 (function($) {
 	
-	<%- if request.referer and request.referer.include?('edit') -%>
+	Alchemy.closeCurrentWindow();
 
+	<%- if @while_page_edit -%>
+	
 		Alchemy.reloadPreview();
 		$('#<%= dom_id(@page) -%>_status').replaceWith('<%= escape_javascript(render(:partial => "page_status")) -%>');
 	
