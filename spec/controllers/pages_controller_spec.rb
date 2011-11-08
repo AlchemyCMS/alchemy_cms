@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe PagesController do
 
+	render_views
+
 	before(:each) do
 		@default_language = Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
@@ -19,7 +21,6 @@ describe PagesController do
 		end
 	  
 		it "should include content" do
-			pending "I didn't figured out how to test XML response bodies"
 			@page.elements.first.content_by_name('news_headline').essence.update_attributes({:body => 'Peters Petshop'})
 			get :show, :urlname => 'news', :format => :rss
 			response.body.should match /Peters Petshop/

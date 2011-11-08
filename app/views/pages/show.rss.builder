@@ -11,7 +11,7 @@ xml.rss :version => "2.0" do
 			xml.item do
 				xml.title element.content_for_rss_title.ingredient
 				xml.description element.content_for_rss_description.ingredient
-				xml.pubDate render_essence_view_by_name(element, 'date', :date_format => :rfc822)
+				xml.pubDate element.ingredient('date').to_s(:rfc822) if element.has_ingredient?('date')
 				xml.link show_page_url(:urlname => @page.urlname, :anchor => element_dom_id(element), :lang => multi_language? ? @page.language_code : nil)
 				xml.guid show_page_url(:urlname => @page.urlname, :anchor => element_dom_id(element), :lang => multi_language? ? @page.language_code : nil)
 			end
