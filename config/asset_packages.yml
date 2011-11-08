@@ -1,7 +1,7 @@
 --- 
 javascripts:
-  - jquery
-  - jquery-ui
+  - jquery-1.6.2.min
+  - jquery-ui-custom-1.8.16.min
   - jquery_ujs
   - jquery_plugins/jquery.dialogextend.min.js
   - jquery_plugins/jquery.in-place-edit.js
@@ -10,7 +10,7 @@ javascripts:
   - jquery_plugins/jquery.scrollTo-1.4.2-min.js
   - jquery_plugins/jquery.ui.nestedSortable.js
   - jquery_plugins/jquery.ui.tabspaging.js
-  - alchemy/alchemy
+  - alchemy/alchemy.base
   - alchemy/alchemy.element_editor_selector
   - alchemy/alchemy.image_cropper
   - alchemy/alchemy.link_overlay
@@ -22,9 +22,9 @@ javascripts:
   - swfupload/fileprogress
 
 stylesheets:
-  - alchemy/alchemy
+  - alchemy/base
   - alchemy/elements
   - alchemy/flags
-  - jquery-ui/alchemy.css
+  - alchemy/jquery-ui.alchemy
   - alchemy/jquery.Jcrop
   - alchemy/jquery.sb

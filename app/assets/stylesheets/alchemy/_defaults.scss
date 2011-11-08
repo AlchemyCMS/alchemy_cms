@@ -4,7 +4,9 @@ $light-gray: #EDEDED;
 $medium-gray: #E3E3E3;
 $dark-gray: #666666;
 $button-bg-color: #F7F7F7;
+$button-hover-bg-color: #e6f0f5;
 $button-border-color: #9A9A9A;
+$button-hover-border-color: #888888;
 $button-text-shadow: #f2f2f2 1px 1px 0;
 
 $default-padding: 4px;
@@ -28,6 +30,14 @@ $default-border: 1px solid #AFAFAF;
 	color: $text-color;
 	text-shadow: $button-text-shadow;
 	@include rounded-corner;
+}
+
+@mixin button-hover-styles {
+	text-decoration: none;
+	text-shadow: none;
+	border: 1px solid $button-hover-border-color;
+	background: $button-hover-bg-color image-url('alchemy/shading.png') repeat-x 50% -75px;
+	font-weight: normal;
 }
 
 @mixin rounded-corner {
@@ -83,6 +93,22 @@ $default-border: 1px solid #AFAFAF;
 @mixin right-rounded-border {
 	$sidea: bottom-right;
 	$sideb: top-right;
+	$radius: 3px;
+	border-#{$sidea}-radius: $radius;
+	border-#{$sideb}-radius: $radius;
+	-o-border-#{$sidea}-radius: $radius;
+	-o-border-#{$sideb}-radius: $radius;
+	-ms-border-#{$sidea}-radius: $radius;
+	-ms-border-#{$sideb}-radius: $radius;
+	-moz-border-radius-#{$sidea}: $radius;
+	-moz-border-radius-#{$sideb}: $radius;
+	-webkit-border-#{$sidea}-radius: $radius;
+	-webkit-border-#{$sideb}-radius: $radius;
+}
+
+@mixin bottom-rounded-border {
+	$sidea: bottom-left;
+	$sideb: bottom-right;
 	$radius: 3px;
 	border-#{$sidea}-radius: $radius;
 	border-#{$sideb}-radius: $radius;

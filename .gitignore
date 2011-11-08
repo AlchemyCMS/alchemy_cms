@@ -14,3 +14,4 @@ tmp
 spec/dummy/index/
 log
 spec/dummy/uploads/
+.sass-cache

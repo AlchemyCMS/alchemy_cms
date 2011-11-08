@@ -1778,11 +1778,7 @@ a.button:hover,
 a.button:focus,
 button.button:hover,
 button.button:focus {
-	text-decoration: none;
-	text-shadow: none;
-	border: 1px solid #888888;
-	background: #e6f0f5 image-url('alchemy/shading.png') repeat-x 50% -75px;
-	font-weight: normal;
+	@include button-hover-styles;
 }
 
 input.button:active,

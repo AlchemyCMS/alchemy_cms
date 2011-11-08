@@ -1,4 +1,4 @@
-/* @override http://localhost:3000/stylesheets/alchemy/jquery.sb.css */
+@import "defaults";
 
 /* always visible styles */
 
@@ -20,7 +20,7 @@
 }
 
 #alchemy .selectbox .display {
-	border: 1px solid #abadb3;
+	border: 1px solid $button-border-color;
 	cursor: default;
 	display: block;
 	font-weight: normal;
@@ -30,10 +30,8 @@
 	position: relative;
 	text-decoration: none;
 	overflow: hidden;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	background: #f5f5f5 url('/assets/alchemy/shading.png') repeat-x 0 -69px;
+	@include rounded-corner;
+	background: $button-bg-color image-url('alchemy/shading.png') repeat-x 0 -69px;
 }
 
 #alchemy .content_editor.validation_failed .selectbox .display {
@@ -41,7 +39,7 @@
 }
 
 #alchemy .selectbox .display .text {
-	text-shadow: #f2f2f2 1px 1px 0;
+	text-shadow: $button-text-shadow;
 }
 
 #alchemy .selectbox .display.long {
@@ -61,7 +59,7 @@
 }
 
 #alchemy .selectbox.focused .display {
-	border: 1px solid #888888;
+	border: 1px solid $button-hover-border-color;
 }
 
 #alchemy .selectbox.focused .display .text {
@@ -70,7 +68,7 @@
 
 #alchemy .selectbox.focused .display .arrow_btn,
 #alchemy .selectbox .display:hover .arrow_btn {
-	background: #e6f0f5 url('/assets/alchemy/shading.png') repeat-x 50% -75px;
+	background: $button-hover-bg-color image-url('alchemy/shading.png') repeat-x 50% -75px;
 }
 
 
@@ -87,11 +85,11 @@
 }
 
 #alchemy .selectbox .display.hover .arrow_btn .interior {
-	background: #e6f0f5 url('/assets/alchemy/shading.png') repeat-x 0 -75px;
+	background: #e6f0f5 image-url('alchemy/shading.png') repeat-x 0 -75px;
 }
 
 #alchemy .selectbox .display .arrow_btn {
-	background: #ededed url('/assets/alchemy/shading.png') repeat-x 0 -75px;
+	background: #ededed image-url('alchemy/shading.png') repeat-x 0 -75px;
 	display: block;
 	height: 23px;
 	padding: 0;
@@ -108,7 +106,7 @@
 }
 
 #alchemy .selectbox .display .arrow_btn .arrow {
-	background: url('/assets/alchemy/ui-icons_666666_256x240.png') no-repeat -63px -11px;
+	background: image-url('alchemy/ui-icons_666666_256x240.png') no-repeat -63px -11px;
 	display: block;
 	height: 23px;
 	width: 19px;
@@ -126,8 +124,8 @@
 /* dropdown styles */
 
 #alchemy .items {
-	background: #f5f5f5;
-	border: 1px solid #828790;
+	background: $button-bg-color;
+	border: 1px solid $button-border-color;
 	display: block;
 	list-style-type: none;
 	margin: 0;
@@ -137,9 +135,7 @@
 	-moz-box-shadow: 0 3px 5px rgba(0,0,0,.5);
 	-webkit-box-shadow: 0 3px 5px rgba(0,0,0,.5);
 	box-shadow: 0 3px 5px rgba(0,0,0,.5);
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	@include rounded-corner;
 	padding: 0;
 	line-height: 15px;
 	font-size: 11px;
@@ -169,7 +165,7 @@
 	display: block;
 	margin: 0;
 	padding: 0;
-    white-space:nowrap;
+	white-space:nowrap;
 }
 
 #alchemy .items li:first-child {
@@ -177,7 +173,7 @@
 }
 
 #alchemy .items li .item {
-	color: #333;
+	color: $text-color;
 	cursor: default;
 	display: block;
 	text-decoration: none;
@@ -186,7 +182,7 @@
 
 #alchemy .items li.selected .item {
 	background-color: #e6f0f5;
-	color: #333;
+	color: $text-color;
 }
 
 #alchemy .items li.disabled .item {
@@ -195,7 +191,7 @@
 
 #alchemy .items li.hover > .item {
 	background-color: #e6f0f5;
-	color: #333;
+	color: $text-color;
 	cursor: pointer;
 }
 
@@ -223,17 +219,11 @@
 }
 
 #alchemy .items>li.first .item {
-	-moz-border-radius-topleft: 3px;
-	-moz-border-radius-topright: 3px;
-	-webkit-border-top-left-radius: 3px;
-	-webkit-border-top-right-radius: 3px;
+	@include top-rounded-border;
 }
 
 #alchemy .items>li.last .item {
-	-moz-border-radius-bottomleft: 3px;
-	-moz-border-radius-bottomright: 3px;
-	-webkit-border-bottom-left-radius: 3px;
-	-webkit-border-bottom-right-radius: 3px;
+	@include bottom-rounded-border;
 }
 
 /* for optgroups */

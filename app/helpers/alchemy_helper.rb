@@ -258,22 +258,36 @@ module AlchemyHelper
     end
   end
 
-  # Helper for including the nescessary javascripts and stylesheets for the different views.
-  # Together with the rails caching we achieve a good load time.
-  def alchemy_assets_set(setname = 'combined')
-    asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
-    content_for(:javascript_includes) do
-      javascript_include_tag(*(asset_sets['javascripts']))
-    end
-    css_set = asset_sets['stylesheets']
-    content_for(:stylesheets) do
-      stylesheet_link_tag(*css_set, :media => 'screen')
-    end
-    content_for(:stylesheets) do
-      print_set = css_set.clone << 'alchemy/print'
-      stylesheet_link_tag(*print_set, :media => 'print')
-    end
-  end
+	# Helper for including all nescessary javascripts and stylesheets.
+	# Under Rails 3.1 it uses the asset pipeline.
+	# Under Rails 3.0.x we use caching to combine the files into one big asset file.
+	def alchemy_assets_set
+		asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
+		if Rails.version >= '3.1'
+			content_for(:javascript_includes) do
+				javascript_include_tag('alchemy/alchemy')
+			end
+			content_for(:stylesheets) do
+				stylesheet_link_tag('alchemy/alchemy', :media => 'screen')
+			end
+			content_for(:stylesheets) do
+				stylesheet_link_tag('alchemy/print', :media => 'print')
+			end
+		else
+			content_for(:javascript_includes) do 
+				js_set = asset_sets['javascripts'].detect { |js| js[setname.to_s] }[setname.to_s]
+				javascript_include_tag(js_set, :cache => 'alchemy/' + setname.to_s)
+			end
+			css_set = asset_sets['stylesheets'].detect { |css| css[setname.to_s] }[setname.to_s]
+			content_for(:stylesheets) do
+				stylesheet_link_tag(css_set, :cache => 'alchemy/' + setname.to_s, :media => 'screen')
+			end
+			content_for(:stylesheets) do
+				print_set = css_set.clone << 'alchemy/print'
+				stylesheet_link_tag(print_set, :cache => 'alchemy/' + setname.to_s + '-print', :media => 'print')
+			end
+		end
+	end
 
   def parse_sitemap_name(page)
     if multi_language?

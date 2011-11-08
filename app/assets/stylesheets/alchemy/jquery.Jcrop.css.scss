@@ -1,3 +1,4 @@
+@import "defaults";
 /* Fixes issue here http://code.google.com/p/jcrop/issues/detail?id=1 */
 .jcrop-holder { text-align: left; }
 
@@ -5,7 +6,7 @@
 {
 	font-size: 0px;
 	position: absolute;
-	background: white url('/assets/alchemy/Jcrop.gif') top left repeat;
+	background: white image-url('alchemy/Jcrop.gif') top left repeat;
 }
 .jcrop-vline { height: 100%; width: 1px !important; }
 .jcrop-hline { width: 100%; height: 1px !important; }
@@ -30,6 +31,5 @@
 {
 	border-color: black;
 	background-color: #C7BB00;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	@include rounded-corner;
 }
