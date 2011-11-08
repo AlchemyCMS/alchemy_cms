@@ -7,25 +7,20 @@
 		<%= csrf_meta_tag %>
 		<%= yield :stylesheets %>
 		<%= yield :javascript_includes %>
-		<%= javascript_include_tag "application" %>
 		<script type="text/javascript" charset="utf-8">
-		// <![CDATA[
-		if(typeof(jQuery)=='function') {
-			jQuery.noConflict();
-		}
-		// ]]>
+			if (typeof(jQuery) === 'function') {
+				jQuery.noConflict();
+			}
 		</script>
 	</head>
-	
+
 	<body id="alchemy">
-		<%#= overlay for indication of loading %>
 		<div id="overlay">
 			<div id="overlay_text_box">
 				<%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
 				<span id="overlay_text"><%= _("please_wait") %></span>
 			</div>
 		</div>
-		<%#= overlay end %>
 		<div id="main_menu">
 			<div id="main_navi">
 				<%= yield(:navigation) %>
@@ -55,6 +50,23 @@
 			<%= yield %>
 		</div>
 		<%= yield(:javascripts) %>
+		<script type="text/javascript" charset="utf-8">
+			jQuery(document).ready(function ($) {
+				Alchemy.resizeFrame();
+				Alchemy.Tooltips();
+				if (typeof(jQuery().sb) === 'function') {
+					Alchemy.SelectBox('body#alchemy select');
+				}
+				if ($('#flash_notices').length > 0) {
+					Alchemy.Growler.fade();
+				}
+				$('#alchemy a.icon_button.please_wait_overlay').click(function() {
+					Alchemy.pleaseWaitOverlay();
+				});
+			});
+			jQuery(window).resize(function() {
+				Alchemy.resizeFrame();
+			});
+		</script>
 	</body>
->>>>>>> upstream/rails_3.1
 </html>
