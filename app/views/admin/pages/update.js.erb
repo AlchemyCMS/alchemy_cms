@@ -1,6 +1,6 @@
 (function($) {
 	Alchemy.closeCurrentWindow();
-	<%- if request.referer.include?('edit') -%>
+	<%- if request.referer and request.referer.include?('edit') -%>
 		Alchemy.reloadPreview();
 		$('#<%= dom_id(@page) -%>_status').replaceWith('<%= escape_javascript(render(:partial => "page_status")) -%>');
 	<%- else -%>
