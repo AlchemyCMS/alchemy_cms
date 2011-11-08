@@ -1,8 +1,4 @@
-/* @override 
-	http://localhost:3000/stylesheets/alchemy/elements.css
-	http://0.0.0.0:3000/stylesheets/alchemy/elements.css
-	http://localhost:3000/stylesheets/alchemy/elements.css
-*/
+@import "defaults";
 
 #alchemy div.content_editor input.text_with_icon.auto_resize.thin_border {
 	padding-right: 52px;
@@ -39,7 +35,7 @@ img.add_element_spinner {
 }
 
 #element_area h2#no_elements_on_page_notice {
-	padding: 8px;
+	padding: 2*$default-padding;
 	text-align: center;
 }
 
@@ -62,7 +58,7 @@ img.add_element_spinner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url('/assets/alchemy/icons.png') no-repeat -224px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -224px -72px;
 }
 
 .element_handle span.icon {
@@ -109,7 +105,7 @@ div.element_foot span.element_public {
 	padding: 4px;
 	background-color: #f0e8d7;
 	border: 1px solid #c2baab;
-	border-radius: 3px;
+	@include rounded-corner;
 	height: 115px;
 }
 
@@ -119,7 +115,7 @@ div.element_foot span.element_public {
 	text-align: center;
 	font-weight: bold;
 	line-height: 104px;
-	border-radius: 3px;
+	@include rounded-corner;
 	font-size: 40px;
 	display: block;
 	height: 100%;
@@ -128,14 +124,14 @@ div.element_foot span.element_public {
 }
 
 .add_content a .icon.assign {
-	background: url('/assets/alchemy/icons.png') no-repeat -288px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -288px -72px;
 	position: absolute;
 	top: 52px;
 	left: 47px;
 }
 
 .element_foot {
-	padding: 8px;
+	padding: 2*$default-padding;
 	border-top-style: none;
 	position: relative;
 	background-color: #e5dcca;
@@ -175,16 +171,13 @@ div.element_foot span.element_public {
 
 div.element_editor {
 	border: 1px solid #bba589;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	@include rounded-corner;
 	background-color: #f0e8d7;
 	margin-bottom: 8px;
 }
 
 div.element_editor.not-draggable {
-	opacity: 0.5;
-	filter: alpha(opacity = 50);
+	@include opacity-50;
 }
 
 div.element_editor.dirty {
@@ -225,15 +218,15 @@ span.element_tools_icons {
 }
 
 a.delete_element_button {
-	background: url('/assets/alchemy/icons.png') no-repeat -63px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -63px -72px;
 }
 
 a.element_copy_button {
-	background: url('/assets/alchemy/icons.png') no-repeat -128px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -128px -72px;
 }
 
 a.element_move_button {
-	background: url('/assets/alchemy/icons.png') no-repeat -97px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -97px -72px;
 }
 
 .element_head {
@@ -258,9 +251,7 @@ div.picture_gallery_images {
 	overflow: hidden;
 	margin-bottom: 8px;
 	border: 1px inset #cecece;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	@include rounded-corner;
 	background-color: #e5dcca;
 	padding: 1px;
 }
@@ -335,20 +326,16 @@ div.content_editor a.icon_button {
 	position: absolute;
 	bottom: 0;
 	right: 24px;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
+	@include reset-border-radius;
 }
 
 div.content_editor a.icon_button.unlink {
-	-webkit-border-radius: 0 3px 3px 0;
-	-moz-border-radius: 0 3px 3px 0;
-	border-radius: 0 3px 3px 0;
+	@include right-rounded-border;
 	right: 1px;
 }
 
 a.expand_element {
-	background: url('/assets/alchemy/icons.png') no-repeat -160px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -160px -72px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -357,7 +344,7 @@ a.expand_element {
 }
 
 a.fold_element {
-	background: url('/assets/alchemy/icons.png') no-repeat -192px -72px;
+	background: image-url('alchemy/icons.png') no-repeat -192px -72px;
 	height: 16px;
 	width: 16px;
 	text-decoration: none;
@@ -366,9 +353,9 @@ a.fold_element {
 }
 
 .content_editor select.essence_editor_select {
-	-moz-border-radius: 2px 2px 2px 2px;
+	@include rounded-corner;
 	background: white;
-	border: 1px solid #9A9A9A;
+	border: 1px solid $button-border-color;
 	font-size:11px;
 	height:21px;
 	line-height:21px;
@@ -393,9 +380,9 @@ a.fold_element {
 }
 
 .droppable_element_placeholder {
-	border: 1px dotted #9A9A9A;
-	background-color: #e3e3e3;
-	margin-bottom: 8px;
+	border: 1px dotted $button-border-color;
+	background-color: $medium-gray;
+	margin-bottom: 2*$default-margin;
 }
 
 .edit_images_bottom {
@@ -421,11 +408,8 @@ a.icon_button.linked {
 
 .edit_images_bottom a.linked {
 	position: relative;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	background-image: url('/assets/alchemy/shading.png');
+	@include rounded-corner;
+	background-image: image-url('alchemy/shading.png');
 	background-repeat: repeat-x;
 	background-position: 0 -75px;
 	background-color: #ffd77a;
@@ -438,9 +422,8 @@ a.icon_button.linked {
 }
 
 .edit_images_bottom a.disabled {
-	opacity: 0.5;
+	@include opacity-50;
 	cursor: default;
-	filter: alpha(opacity = 50);
 }
 
 div.content_editor.essence_picture_editor {
@@ -533,9 +516,7 @@ div.file {
 	margin-bottom: 4px;
 	border: 1px solid #c0c0c0;
 	background-color: #f3f3f3;
-	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
+	@include rounded-corner;
 	height: 24px;
 }
 
@@ -547,15 +528,15 @@ div.file_icon {
 }
 
 div.file_icon span.icon {
-	margin: 4px;
+	margin: $default-margin;
 }
 
 div.file_icon a.assign_file {
 	display: block;
 	height: 16px;
-	background: url('/assets/alchemy/icons.png') no-repeat -240px -24px;
+	background: image-url('alchemy/icons.png') no-repeat -240px -24px;
 	width: 16px;
-	margin: 4px;
+	margin: $default-margin;
 }
 
 div.file_name {
@@ -578,16 +559,16 @@ div.essence_file_tools a{
 	text-decoration: none;
 	width: 16px;
 	height: 16px;
-	margin: 4px;
+	margin: $default-margin;
 	float: left;
 }
 
 div.essence_file_tools a.assign_file {
-	background: url('/assets/alchemy/icons.png') -256px -24px;
+	background: image-url('alchemy/icons.png') -256px -24px;
 }
 
 div.essence_file_tools a.edit_file {
-	background: url('/assets/alchemy/icons.png') -16px -24px;
+	background: image-url('alchemy/icons.png') -16px -24px;
 }
 
 td.content_editor_essence_type {
@@ -624,7 +605,7 @@ div.essence_richtext_loader {
 	width: 100%;
 	height: 100%;
 	background-color: #ededed;
-	opacity: 0.95;
+	@include opacity-95;
 }
 
 div.essence_richtext_loader img {
@@ -669,12 +650,10 @@ div.content_editor {
 
 div.content_editor.missing p {
 	line-height: 25px;
-	padding: 8px;
+	padding: 2*$default-padding;
 	border: 1px solid #f5b04e;
 	background-color: #f5dea9;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	@include rounded-corner;
 	font-size: 11px;
 }
 
@@ -716,9 +695,7 @@ div.content_editor label span.warning.icon {
 	padding: 8px 4px 8px 32px;
 	margin-bottom: 8px;
 	margin-top: 8px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	@include rounded-corner;
 	border: 1px solid #f5b04e;
 	position: relative;
 }
@@ -735,9 +712,7 @@ div.content_editor label span.warning.icon {
 	line-height: 21px;
 	background-color: #f5dea9;
 	margin-top: 4px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	@include rounded-corner;
 }
 
 p.content_editor_error span.icon.warning {
@@ -778,7 +753,7 @@ textarea {
 	width: 362px;
 	border-style: inset;
 	border-width: 1px;
-	border-radius: 3px;
+	@include rounded-corner;
 	height: 100px;
 }
 
@@ -803,9 +778,7 @@ div.element_editor div.error {
 	padding: 8px 4px 8px 32px;
 	margin-bottom: 8px;
 	margin-top: 8px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	@include rounded-corner;
 	background-color: #f1c9ca;
 	color: #931f23;
 	border-style: solid;
@@ -823,11 +796,9 @@ div.element_editor div.error span.icon {
 	margin-top: 8px;
 	margin-bottom: 8px;
 	background-color: #f1c9ca;
-	padding: 8px;
+	padding: 2*$default-padding;
 	list-style-type: none;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	@include rounded-corner;
 	color: #931f23;
 	border-style: solid;
 	border-width: 1px;

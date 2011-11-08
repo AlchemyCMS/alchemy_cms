@@ -33,11 +33,11 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0.16"])
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.2"])
 
-  s.add_development_dependency(%q<rspec-rails>, ["~> 2.7"])
+	s.add_development_dependency(%q<rspec-rails>, ["~> 2.7"])
 	s.add_development_dependency(%q<sqlite3>)
-	# s.add_development_dependency 'sass-rails', ['~> 3.1.4']
-	# s.add_development_dependency 'coffee-rails', ['~> 3.1.1']
-	# s.add_development_dependency 'uglifier', ['>= 1.0.3']
+	s.add_development_dependency 'sass-rails', ['~> 3.1.4']
+	s.add_development_dependency 'coffee-rails', ['~> 3.1.1']
+	s.add_development_dependency 'uglifier', ['>= 1.0.3']
 
 	if RUBY_VERSION =~ /^1.9/
 		s.add_development_dependency(%q<ruby-debug19>)
