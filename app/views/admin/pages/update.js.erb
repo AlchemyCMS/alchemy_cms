@@ -2,7 +2,7 @@
 	
 	Alchemy.closeCurrentWindow();
 
-	<%- if request.referer.include?('edit') -%>
+	<%- if @while_page_edit -%>
 	
 		Alchemy.reloadPreview();
 		$('#<%= dom_id(@page) -%>_status').replaceWith('<%= escape_javascript(render(:partial => "page_status")) -%>');
