@@ -408,12 +408,8 @@ div.widget {
 	padding: 2*$default-padding;
 	margin: 16px 0;
 	background-color: $medium-gray;
-	@include rounded-corner;
-	-webkit-box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
-	-moz-box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
-	-o-box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
-	box-shadow: 0px 0px 4px rgba(0, 3, 51, 0.2);
 	border: $default-border;
+	@include rounded-corner;
 }
 
 div.widget p {

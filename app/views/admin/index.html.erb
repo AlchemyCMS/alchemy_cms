@@ -61,32 +61,42 @@
 	<div id="sideboard">
 		<%= image_tag("alchemy/alchemy-logo.png") %>
 		<p><%= _("Version") %>: <%= @alchemy_version %></p>
-		<p><%= _('Alchemy is open software and itself uses open software and free resources:') %></p>
-		<ul>
-			<li>
-				<a href="http://rubyonrails.org" target="_blank">RubyOnRails</a>
-			</li>
-			<li>
-				<a href="http://jquery.com" target="_blank">jQuery Javascript Library</a>
-			</li>
-			<li>
-				<a href="http://jqueryui.com" target="_blank">jQuery UI Javascript GUI Library</a>
-			</li>
-			<li>
-				<a href="http://tinymce.moxiecode.com" target="_blank">TinyMCE - Javascript WYSIWYG Editor</a>
-			</li>
-			<li>
-				<a href="http://swfupload.org" target="_blank">SWFUpload</a>
-			</li>
-			<li>
-				<a href="http://p.yusukekamiyamane.com" target="_blank">Fugue Icons by Yusuke Kamiyamane</a>
-			</li>
-		</ul>
-		<h2>
-			<%= link_to_function(
-				_('Read the License'),
-				"Alchemy.openLicencseWindow()"
-			) %>
-		</h2>
+		<div class="sideboard_body" style="display: none">
+			<p><%= _('Alchemy is open software and itself uses open software and free resources:') %></p>
+			<ul>
+				<li>
+					<a href="http://rubyonrails.org" target="_blank">RubyOnRails</a>
+				</li>
+				<li>
+					<a href="http://jquery.com" target="_blank">jQuery Javascript Library</a>
+				</li>
+				<li>
+					<a href="http://jqueryui.com" target="_blank">jQuery UI Javascript GUI Library</a>
+				</li>
+				<li>
+					<a href="http://tinymce.moxiecode.com" target="_blank">TinyMCE - Javascript WYSIWYG Editor</a>
+				</li>
+				<li>
+					<a href="http://swfupload.org" target="_blank">SWFUpload</a>
+				</li>
+				<li>
+					<a href="http://p.yusukekamiyamane.com" target="_blank">Fugue Icons by Yusuke Kamiyamane</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>
+<%= content_for :javascripts do %>
+<script type="text/javascript" charset="utf-8">
+	(function($) {
+		
+		$('#sideboard img:first-child').click(function(e) {
+			e.preventDefault();
+			$('#sideboard .sideboard_body').toggle();
+		}).bind('mouseover', function() {
+			$(this).css({cursor: 'pointer'});
+		});
+		
+	})(jQuery);
+</script>
+<% end %>
