@@ -44,7 +44,7 @@ class AdminController < AlchemyController
           redirect_to session[:redirect_url]
         end
       else
-        render :layout => 'login'
+        #render :layout => 'login'
       end
     end
   end
