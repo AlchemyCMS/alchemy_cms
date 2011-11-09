@@ -34,7 +34,6 @@ class AdminController < AlchemyController
     if request.get?
       @user_session = UserSession.new()
       flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
-      render :layout => 'login'
     else
       @user_session = UserSession.new(params[:user_session])
       if @user_session.save
@@ -43,8 +42,6 @@ class AdminController < AlchemyController
         else
           redirect_to session[:redirect_url]
         end
-      else
-        #render :layout => 'login'
       end
     end
   end
