@@ -69,7 +69,7 @@ class Admin::ElementsController < AlchemyController
     if @element.save_contents(params)
       @page = @element.page
       @element.public = !params[:public].nil?
-      @element.save
+      @element_validated = @element.save
     else
 			@element_validated = false
 			@notice = _('Validation failed.')
