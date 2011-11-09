@@ -4,8 +4,12 @@ module Alchemy
   class Engine < Rails::Engine
 
     # Config defaults
-    #config.widget_factory_name = "Alchemy"
     config.mount_at = '/'
+
+		# Enabling assets precompiling under rails 3.1
+		if Rails.version >= '3.1' && !Rails.env.match(/test|development/)
+			Rails.application.config.assets.precompile += %w( alchemy/alchemy.js alchemy/alchemy.css )
+		end
 
     # Check the gem config
     initializer "check config" do |app|
@@ -19,10 +23,6 @@ module Alchemy
         Alchemy::Middleware::FlashSessionCookie,
         ::Rails.configuration.session_options[:key]
       )
-    end
-
-    initializer "static assets" do |app|
-      app.middleware.use ::ActionDispatch::Static, "#{root}/public"
     end
 
   end

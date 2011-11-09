@@ -6,9 +6,20 @@ Capistrano::Configuration.instance(:must_exist).load do
   after "deploy:setup", "alchemy:shared_folders:create"
   after "deploy:symlink", "alchemy:shared_folders:symlink"
   
-  before "deploy:restart", "alchemy:files:copy"
+	if Rails.version <= '3.1'
+		before "deploy:restart", "alchemy:files:copy"
+	end
   
   namespace :alchemy do
+
+		namespace :assets do
+			
+			desc "Precompiles Alchemys Assets"
+			task :precompile, :roles => :app do
+				
+			end
+			
+		end
 
     namespace :shared_folders do
 
