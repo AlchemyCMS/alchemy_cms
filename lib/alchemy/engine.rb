@@ -7,8 +7,10 @@ module Alchemy
     config.mount_at = '/'
 
 		# Enabling assets precompiling under rails 3.1
-		if Rails.version >= '3.1' && !Rails.env.match(/test|development/)
-			Rails.application.config.assets.precompile += %w( alchemy/alchemy.js alchemy/alchemy.css )
+		if Rails.version >= '3.1'
+			initializer :assets do |config|
+				Rails.application.config.assets.precompile += %w( alchemy/alchemy.js alchemy/alchemy.css )
+			end
 		end
 
     # Check the gem config
