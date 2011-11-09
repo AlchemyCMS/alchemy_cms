@@ -26,7 +26,7 @@
 				<a href="/"><img src="/images/alchemy_logo.png" id="logo" alt="Alchemy CMS Logo"></a>
 				<div id="main_navigation" class="navigation">
 					<p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
-					<ul>
+					<ul class="navigation_list">
 						<li><a href="index.html">Home</a></li>
 						<li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index <span id="guidesArrow">&#9656;</span></a>
 							<div id="guides" class="clearfix" style="display: none;">
@@ -45,18 +45,15 @@
 		<hr class="hide" />
 		
 		<div id="main">
-			<div id="bubbles"></div>
 			
-			<div id="feature">
-				<div class="holder">
-					<% if header_section = yield(:header_section).presence %>
-						<%= header_section %>
-					<% else %>
-					<h2><%= Guides.meta["title"] %></h2>
-					<p><%= Guides.meta["description"] %></p>
-					<% end %>
-					<%= yield(:index_section) %>
-				</div>
+			<div id="feature" class="holder">
+				<% if header_section = yield(:header_section).presence %>
+					<%= header_section %>
+				<% else %>
+				<h2><%= Guides.meta["title"] %></h2>
+				<p><%= Guides.meta["description"] %></p>
+				<% end %>
+				<%= yield(:index_section) %>
 			</div>
 			
 			<div id="content">

@@ -132,7 +132,6 @@ pre {
 	background-image: -o-radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
 	background-image: -ms-radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
 	background-image: radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
-	z-index: 0;
 	padding: 0;
 }
 
@@ -235,16 +234,6 @@ div.holder {
 	text-align: left;
 }
 
-div#bubbles {
-	width: 100%;
-	height: 631px;
-	background: url(../images/big_bubbles.png) no-repeat center;
-	position: absolute;
-	z-index: 0;
-	left: 200px;
-	top: 130px;
-}
-
 
 #footer p {
 	margin: 0;
@@ -270,33 +259,74 @@ div.addthis_toolbox {
 
 #subCol ol.chapters li {
 	line-height: 1.75em;
+	list-style-image: none;
+	background-image: none;
+}
+
+#subCol ol.chapters li ul li {
+	list-style-type: disc;
+	list-style-position: outside;
+	padding: 0;
+	margin-left: 16px;
 }
 
 a, a:link, a:visited {
 	color: #33393f;
 }
 
-#mainCol a,
-#subCol a,
-#subCol li,
 #mainCol a {
 	color: #88ad59;
 }
 
-#header .nav .index a,
+#subCol a,
+#subCol li {
+	color: #33393f;
+	text-decoration: none;
+}
+
 #guides {
 	background-color: #88ad59;
-	color: #FFF;
+}
+
+#header .index a {
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	background-color: transparent;
+}
+
+#guides {
+	text-align: left;
+	line-height: 1.75em;
+	z-index: 5;
+	position: absolute;
+	top: -15px;
+	right: 0;
 }
 
 #guides dt {
-	font-weight: bold;
-	color: #333;
+	font: normal normal 15px "SansusWebissimoRegular", Helvetica, Arial, sans-serif;
+	color: #33393f;
+	margin-bottom: 6px;
+}
+
+#guides dl.L dd a,
+#guides dl.L dd {
+	font-size: 11px;
+	text-transform: none;
+	font-weight: normal;
+	font-style: normal;
+	padding: 0;
+	letter-spacing: 0;
+}
+
+#guides dl.L dd {
+	color: #6d7062;
 }
 
 #feature {
 	background: transparent;
-	overflow: hidden;
 	text-align: left;
 }
 
@@ -324,6 +354,8 @@ a, a:link, a:visited {
 	-box-shadow: inset 1px 1px 20px #aac3d1;
 	padding: 30px;
 	opacity: 0.8;
+	z-index: 10;
+	top: 23px;
 }
 
 div.note {
@@ -341,24 +373,31 @@ div.code_container {
 	padding-left: 35px;
 }
 
+#subCol h3.chapter img {
+	display: none;
+}
+
+#subCol h3.chapter {
+	background: url(../images/chapters.png) no-repeat 0 0;
+	padding: 4px 4px 4px 40px;
+	margin-bottom: 14px;
+}
+
+#guides dl.L {
+	font: 12px/18px "JunctionRegular", Helvetica, Arial, sans-serif;
+	
+}
+
 dl dt em {
 	font-weight: normal;
 	font-size: 80%;
-}
-
-#guides dd {
-	color: #a8c96a;
-}
-
-ol.chapters li {
-	
 }
 
 #subCol ol.chapters li a p {
 	margin: 0;
 	padding: 0;
 	line-height: inherit;
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 #guides hr {
