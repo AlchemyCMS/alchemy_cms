@@ -133,6 +133,7 @@ pre {
 	background-image: -ms-radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
 	background-image: radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
 	z-index: 0;
+	padding: 0;
 }
 
 #header a {
@@ -145,13 +146,17 @@ pre {
 	top: -14px;
 }
 
+#main {
+	line-height: 1.75em;
+}
+
 #content {
 	position: relative;
 	top: 0;
     left: 0;
 	width: 100%;
 	padding-bottom: 110px;
-	padding-top: 70px;
+	padding-top: 50px;
 	overflow: auto;
 	min-height: 300px;
 	text-align: left;
@@ -264,7 +269,7 @@ div.addthis_toolbox {
 }
 
 #subCol ol.chapters li {
-	line-height: 20px;
+	line-height: 1.75em;
 }
 
 a, a:link, a:visited {
@@ -290,10 +295,19 @@ a, a:link, a:visited {
 }
 
 #feature {
-	
 	background: transparent;
 	overflow: hidden;
 	text-align: left;
+}
+
+#main .holder {
+	width: 570px;
+	padding-right: 350px;
+}
+
+#feature ul li {
+	background: url(../images/checkmark.png) no-repeat left 0.5em;
+	padding: 1.2em 1.75em 0.5em 3.5em;
 }
 
 
@@ -312,6 +326,21 @@ a, a:link, a:visited {
 	opacity: 0.8;
 }
 
+div.note {
+	background: #FFF9D8 url(../images/tab-note.png) no-repeat 5px 9px;
+	padding-left: 35px;
+}
+
+div.info {
+	padding-left: 35px;
+	background: #C7E4F5 url(../images/tab-info.png) no-repeat 5px 9px;
+}
+
+div.code_container {
+	background: #eeeeee url(../images/tab-code.png) no-repeat 5px 9px;
+	padding-left: 35px;
+}
+
 dl dt em {
 	font-weight: normal;
 	font-size: 80%;
@@ -319,6 +348,10 @@ dl dt em {
 
 #guides dd {
 	color: #a8c96a;
+}
+
+ol.chapters li {
+	
 }
 
 #subCol ol.chapters li a p {
