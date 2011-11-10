@@ -170,6 +170,7 @@
 			Alchemy.SelectBox('.element_editor select');
 			Alchemy.Tinymce.init(function() {
 				Alchemy.ElementDirtyObserver('#element_area');
+				jQuery('.essence_richtext_loader').hide();
 			});
 			jQuery('#cells').tabs();
 			jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
