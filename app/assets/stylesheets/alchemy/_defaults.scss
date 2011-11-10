@@ -141,20 +141,7 @@ $default-border: 1px solid #AFAFAF;
   -webkit-border-radius: $radius;
 }
 
-@mixin opacity-30 {
-	$opacity: 0.3; 
-	opacity: $opacity;
-	filter: alpha(opacity = $opacity*100);
-}
-
-@mixin opacity-50 {
-	$opacity: 0.5; 
-	opacity: $opacity;
-	filter: alpha(opacity = $opacity*100);
-}
-
-@mixin opacity-95 {
-	$opacity: 0.95; 
-	opacity: $opacity;
-	filter: alpha(opacity = $opacity*100);
+@mixin opacity($opacity) {
+	opacity: $opacity/100;
+	filter: alpha(opacity = $opacity);
 }

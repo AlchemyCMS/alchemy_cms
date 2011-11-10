@@ -177,7 +177,7 @@ div.element_editor {
 }
 
 div.element_editor.not-draggable {
-	@include opacity-50;
+	@include opacity(50);
 }
 
 div.element_editor.dirty {
@@ -422,7 +422,7 @@ a.icon_button.linked {
 }
 
 .edit_images_bottom a.disabled {
-	@include opacity-50;
+	@include opacity(50);
 	cursor: default;
 }
 
@@ -605,12 +605,12 @@ div.essence_richtext_loader {
 	width: 100%;
 	height: 100%;
 	background-color: #ededed;
-	@include opacity-95;
+	@include opacity(75);
 }
 
 div.essence_richtext_loader img {
 	position: absolute;
-	top: 43%;
+	top: 46%;
 	left: 46%;
 }
 
@@ -750,11 +750,11 @@ textarea {
 	font: 12px Tahoma, Arial, sans-serif;
 	padding: 4px;
 	margin: 0;
-	width: 387px;
+	width: 100%;
 	border-style: inset;
 	border-width: 1px;
 	@include rounded-corner;
-	height: 100px;
+	height: 140px;
 }
 
 .text_short_float_left {
