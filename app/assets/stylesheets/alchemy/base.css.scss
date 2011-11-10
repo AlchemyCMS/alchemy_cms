@@ -214,6 +214,12 @@ div.pagination .disabled {
 
 #login table tbody tr td.label {
 	width: 155px;
+	text-align: right;
+}
+
+#login button {
+	margin-top: 2*$default-margin;
+	float: right;
 }
 
 #alchemy_greeting h1 {
