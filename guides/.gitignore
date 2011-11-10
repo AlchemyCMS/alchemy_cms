@@ -1,3 +1,4 @@
 output
 .DS_Store
 staging
+Gemfile.lock

@@ -90,7 +90,7 @@ code {
 pre {
 	background: #33393f;
 	color: #eed785;
-	padding: 1em;
+	padding: 1em 1em 1em 28px;
 	font: 12px/1.5em Menlo, Monaco, mono;
 	text-align: left;
 	overflow-x: auto;
@@ -284,6 +284,10 @@ div.addthis_toolbox {
 	display: block;
 }
 
+#subCol ol.chapters a:hover {
+	text-decoration: underline;
+}
+
 #subCol ol.chapters {
 	margin: 0 0 13px 12px;
 	padding-left: 0;
@@ -324,6 +328,10 @@ a, a:link, a:visited {
 	left: 0;
 	z-index: 10;
 	background-color: transparent;
+}
+
+#guides a:hover {
+	text-decoration: underline;
 }
 
 #guides {
@@ -397,18 +405,27 @@ a, a:link, a:visited {
 }
 
 div.note {
-	background: #FFF9D8 url(../images/tab-note.png) no-repeat 5px 9px;
+	background: #fef9c1 url(../images/tab-note.png) no-repeat 6px 9px;
 	padding-left: 35px;
+	border: 1px solid #f0eff0;
+}
+
+#content div.note p,
+#content div.info p {
+	margin-bottom: 0.5em;
 }
 
 div.info {
 	padding-left: 35px;
-	background: #C7E4F5 url(../images/tab-info.png) no-repeat 5px 9px;
+	background: #C7E4F5 url(../images/tab-info.png) no-repeat 6px 10px;
+	border: 1px solid #dbdbdb;
 }
 
 div.code_container {
-	background: #eeeeee url(../images/tab-code.png) no-repeat 5px 9px;
+	background: #eeeeee url(../images/tab-code.png) no-repeat 6px 9px;
 	padding-left: 35px;
+	padding-bottom: 2px;
+	border: 1px solid #e0e0e0;
 }
 
 #subCol h3.chapter img {
