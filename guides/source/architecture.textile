@@ -1,0 +1,40 @@
+h2. Alchemys Architecture
+
+This guides explains Alchemys flexible content storing architecture.
+
+endprologue.
+
+h3. How Alchemy organizes the content
+
+First of all you have to understand Alchemys content storing archtitecture.
+
+A webpage is more then just a page of content. It has sections like header parts, text parts, sidebars, image galleries and so on.
+
+With Alchemy a webdeveloper can split the parts of a web page into elements and in even smaller parts - so called contents. These contents can be of one
+of the essence types Alchemy provides.
+
+h4. Essence types Alchemy has build in
+
+* EssenceText
+* EssenceRichtext
+* EssencePicture
+* EssenceHtml
+* EssenceDate
+* EssenceFile
+* EssenceVideo
+* EssenceAudio
+* EssenceFlash
+
+Read more about "the essences":/essences.html and what they do in detail.
+
+NOTE: A Webdeveloper can easily add more Essences to Alchemy. But we think this is pretty much all you need for a modern website.
+
+h4. A CMS build extra for you
+
+With these essences a webdeveloper builds your custom set of elements. Depending of your personal webdesign you will get elements to manage your content with.
+
+h4. The Standardset
+
+Alchemy comes with a standard set of elements and page layouts to begin with. This is a good place to start your own custom layout and page structure.
+
+Read more about the "standard set":/standard_set.html

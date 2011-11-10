@@ -9,7 +9,10 @@ authors:
       description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
     - name: Robin Böning
       nick: robinboening
-      description: Robin is a member of the Alchemy core team.
+      description: Robin is a member of the Alchemy core team. He is responsiblae for the website and the guidelines.
+    - name: Marc Schettke
+      nick: masche842
+      description: Marc is the newest member of the Alchemy core team.
 
 index:
   Start Here:
@@ -21,6 +24,8 @@ index:
       text: Can be used with it's pre-defined set of elements and layout-templates.
 
   Software architecture:
+    - title: Alchemys Architecture
+      url: architecture
     - title: Page layouts
       url: page_layouts
       text: What are page layouts and how do they work.
