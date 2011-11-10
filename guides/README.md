@@ -1,4 +1,4 @@
-h1. The Alchemy CMS Guidelines
+The Alchemy CMS Guidelines
 
 To contribute to the guidelines please fork this project and send pull requests.
 
