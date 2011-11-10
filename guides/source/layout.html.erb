@@ -51,7 +51,12 @@
 					<%= header_section %>
 				<% else %>
 				<h2><%= Guides.meta["title"] %></h2>
-				<p><%= Guides.meta["description"] %></p>
+				<p>
+					These guides are designed to make you familiar in working with the opensource Content-Management-System Alchemy CMS.
+				</p>
+				<p>
+					The <a href="#">legacy guides</a> are covering Alchemy CMS v1.x (not maintained anymore). It's recommended to update to the latest stable version.
+				</p>
 				<% end %>
 				<%= yield(:index_section) %>
 			</div>

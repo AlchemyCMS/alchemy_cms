@@ -82,7 +82,9 @@ h2 {
 
 code {
 	font: 12px Menlo, Monaco, mono;
-	background-color: #F4F4F4;
+	background-color: #F8F8F8;
+	padding: 2px;
+	border: 1px solid #DEDEDE;
 }
 
 pre {
@@ -155,10 +157,20 @@ pre {
     left: 0;
 	width: 100%;
 	padding-bottom: 110px;
-	padding-top: 50px;
 	overflow: auto;
 	min-height: 300px;
 	text-align: left;
+	padding-top: 0;
+}
+
+h3 {
+	margin-top: 50px;
+	margin-bottom: 10px;
+}
+
+#feature h2 {
+	font-size: 28px;
+	margin-bottom: 13px;
 }
 
 div.text {
@@ -261,13 +273,35 @@ div.addthis_toolbox {
 	line-height: 1.75em;
 	list-style-image: none;
 	background-image: none;
+	border-bottom: 1px solid #D6E2EA;
+	list-style-position: outside;
+	margin: 0;
+}
+
+#subCol ol.chapters a {
+	padding-bottom: 8px;
+	padding-top: 8px;
+	display: block;
+}
+
+#subCol ol.chapters {
+	margin: 0 0 13px 12px;
+	padding-left: 0;
+}
+
+#subCol ol.chapters li ul {
+	margin: 0;
+	padding: 0;
 }
 
 #subCol ol.chapters li ul li {
-	list-style-type: disc;
-	list-style-position: outside;
-	padding: 0;
-	margin-left: 16px;
+	list-style-image: none;
+	border: 0 none;
+}
+
+#subCol ol.chapters li ul li a {
+	padding-bottom: 8px;
+	padding-top: 0;
 }
 
 a, a:link, a:visited {
@@ -284,10 +318,6 @@ a, a:link, a:visited {
 	text-decoration: none;
 }
 
-#guides {
-	background-color: #88ad59;
-}
-
 #header .index a {
 	position: relative;
 	top: 0;
@@ -297,12 +327,14 @@ a, a:link, a:visited {
 }
 
 #guides {
+	background-color: #88ad59;
 	text-align: left;
 	line-height: 1.75em;
 	z-index: 5;
 	position: absolute;
 	top: -15px;
-	right: 0;
+	width: 30em;
+	left: -26px;
 }
 
 #guides dt {
@@ -312,7 +344,9 @@ a, a:link, a:visited {
 }
 
 #guides dl.L dd a,
-#guides dl.L dd {
+#guides dl.R dd a,
+#guides dl.L dd,
+#guides dl.R dd {
 	font-size: 11px;
 	text-transform: none;
 	font-weight: normal;
@@ -321,13 +355,17 @@ a, a:link, a:visited {
 	letter-spacing: 0;
 }
 
-#guides dl.L dd {
+#guides dl.L dd,
+#guides dl.R dd {
 	color: #6d7062;
 }
 
 #feature {
 	background: transparent;
 	text-align: left;
+	margin-top: 0;
+	padding-top: 30px;
+	padding-bottom: 0;
 }
 
 #main .holder {
@@ -355,7 +393,7 @@ a, a:link, a:visited {
 	padding: 30px;
 	opacity: 0.8;
 	z-index: 10;
-	top: 23px;
+	top: 21px;
 }
 
 div.note {
@@ -380,10 +418,11 @@ div.code_container {
 #subCol h3.chapter {
 	background: url(../images/chapters.png) no-repeat 0 0;
 	padding: 4px 4px 4px 40px;
-	margin-bottom: 14px;
+	margin-bottom: 6px;
 }
 
-#guides dl.L {
+#guides dl.L,
+#guides dl.R {
 	font: 12px/18px "JunctionRegular", Helvetica, Arial, sans-serif;
 	
 }

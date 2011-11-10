@@ -1,188 +1,118 @@
 h2. Getting Started
 
-This guide covers installing and setting up your Alchemy CMS. After reading it, you should be familiar with:
+This guide covers getting up and running with Alchemy CMS. After reading it, you should be familiar with:
 
-* Installing and creating a new Alchemy site
-* Adding a first admin user
-* The modules Alchemy comes with
+* Installing and creating a new application with Alchemy CMS
+* Creating a user and logging in for the first time.
 
 endprologue.
 
+
+
+
 h3. Guide Assumptions
 
-This guide is designed for beginners who want to get started with a Alchemy CMS site from scratch. It does not assume that you have any prior experience with Alchemy. However, to get the most out of it, you need to have some prerequisites installed:
+This guide is designed for beginners who want to get started with Alchemy CMS from scratch. It does not assume that you have any prior experience with Alchemy CMS. However, to get the most out of it, you need to have some prerequisites installed:
 
 * The "Ruby":http://www.ruby-lang.org/en/downloads programming language
-* The "MySQL Database":http://www.mysql.com/downloads/mysql
+* The "RubyGems":http://rubyforge.org/frs/?group_id=126 packaging system
+* The dependency manager "Bundler":http://gembundler.com/
+* At least one of these databases: "MySQL":http://www.mysql.com/downloads/mysql, or "SQLite":http://www.sqlite.org/download.html
 * The image processor "ImageMagick":http://www.imagemagick.org/script/install-source.php
 
-Alchemy is a Ruby On Rails based web software.
+NOTE: Alchemy CMS needs at least version 6.4 of ImageMagick
 
-Never heard of it? Many popular websites and web-apps are powered by Ruby On Rails. Some popular examples are: Xing, Groupon, Qype, Shopify and many more.
+It is highly recommended to familiarize yourself with Ruby on Rails before using Alchemy CMS.
+You will understand much more and see things clearer if you know about the basics of Ruby on Rails.
 
-Installing Rails on your computer and/or server is easy. There are some good free resources on the Internet for learning Rails, including:
+Installing Rails on your computer is easy. There are many excellent resources on the internet for learning Ruby on Rails, including:
 
 * "Try Ruby":http://tryruby.org
 * "Getting Started with Rails":http://guides.rubyonrails.org/getting_started.html
 * "Rails for Zombies":http://railsforzombies.org/labs
+* "Rails Guides":http://guides.rubyonrails.org/
+
+
+
 
 h3. What is Alchemy CMS?
 
-Alchemy, is an open source content management system written in Ruby as a Ruby on Rails web application with jQuery and jQueryUI used as the JavaScript library.
+Alchemy CMS is a full featured Content Management System (CMS). It comes with an extreme flexible content storing architecture and a gorgeous user interface. Alchemy CMS is shipped with a production ready website that can be used “out of the box”, but it is mostly used for building individual web-applications that are rich in functionality. The name is program: Alchemy CMS is a kind of chemical construction kit for developers that want to build professional web-applications in a very short time. Also content-managers are enthusiastic about Alchemy CMS because of its clear and powerful backend that is very easy to use.
 
-Alchemy runs on Rails >= 2.3 including Rails 3.0
 
-h4. Alchemy's architecture
 
-Alchemy is a Rails Engine that acts like a mini Rails application with its own controllers, models, routes and views.
 
-Alchemy is architected like this so that it keeps out of the way of any custom development you will do in your +./app+ directory.
+h3. Installation
 
-Alchemy itself depends on other Gems. The full list of dependencies is "listed here":https://github.com/magiclabs/alchemy_cms
-
-NOTE: You do not have to install all the dependencies yourself. Alchemy has an installer to do that for you.
-
-h3. Creating a new Alchemy project
-
-Alchemy runs under both Rails 2.3 and Rails 3 environment.
-
-Because these two Rails versions are completly different in how they are running a Rails engine you have to install Alchemy in different ways.
-
-We'll show you both.
-
-h4. Rails 2.3
-
-Please make sure that the latest Rails 2.3 version is installed:
+The installing of Alchemy CMS is very easy.
+You just need to run the gem command.
 
 <shell>
-gem install rails -v=2.3.14
+gem install alchemy_cms
 </shell>
 
-The easiest way to create a new Alchemy project is to use the "install script":https://raw.github.com/magiclabs/alchemy-installer/master/alchemy we provide.
-Download the installer and put it in an executable folder of your choice (I.E.: +/usr/local/bin+).
+INFO: You now have the Alchemy CMS gem installed on your system!
 
-Then go to your web projects folder and enter:
+
+h4. create a new application
+
+The gem provides an executable file that can automagically create new rails applications with a pre-configured Alchemy CMS engine.
+While the installation process you will get asked about your local development environment. Just follow the instructions.
 
 <shell>
 alchemy new YOUR_APP_NAME
 </shell>
 
-NOTE: Please use your projects name instead of YOUR_APP_NAME
+The following parameters are available for the installer:
+* --database=sqlite3
+* --scm=git/svn
 
-INFO: This step may take some time to load as it needs to download and install all the ruby gems and plugins Alchemy depends on. The installer will ask you some questions about your local development invironment. Just follow the instructions.
+INFO: The installer creates a database, migrates the tables and also seeds them. After finishing, your application is ready to start!
 
-h4. Rails 3.0.x (beta)
 
-Just install the latest pre release version of the Alchemy 2.0 Gem (A Ruby package):
+h4. to an existing rails application
 
-<shell>
-gem install alchemy_cms --pre
-</shell>
+If you already have an existing rails application, you can require the Alchemy CMS gem in your app.
+Just add this line to your Gemfile.
+<pre>
+gem 'alchemy_cms'
+</pre>
 
-Alchemy 2.0 comes with it's own executable which makes it easy to install a new project:
-
-<shell>alchemy new my_magicpage</shell>
-
-NOTE: Please change my_magicpage with your projects name. Since my_magicpage is just a placeholder.
-
-Sit back and follow the on screen instructions. After a view seconds your Alchemy project is installed and ready to start.
-
-h3. Welcome to Alchemy!
-
-Now that you have Alchemy installed, let's start with adding your first administrator.
-
-h4. Starting up the Server
-
-To start using Alchemy, you need to start up a local ruby server on your development machine.
+Now you need to run bundler.
 
 <shell>
-cd into_your_alchemy_project_folder
+bundle install
 </shell>
 
-h5. Rails 2:
+Copy the assets and migration files to your application.
+<shell>
+rake alchemy:prepare
+</shell>
 
-<shell>script/server</shell>
+Migrate the database.
+<shell>
+rake db:schema:load
+</shell>
 
-h5. Rails 3:
+Seed the database.
+<shell>
+rake db:seed
+</shell>
 
-<shell>rails server</shell>
+INFO: You´re done! Alchemy is now available in your rails project!
 
-TIP: To stop the web server, hit CTRL+C in the terminal window where it's running.
+h3. Running Alchemy CMS!
 
-Open a browser window and navigate to "http://localhost:3000":http://localhost:3000.
+Now that you have Alchemy CMS successfully installed, let's move on by creating your first user with administrative privilegs.
+You just need to start a local ruby server on your development machine.
 
-You should be greeted with a screen prompting you to create your first Alchemy administrator.
+<shell>
+cd YOUR_APP_NAME && rails s
+</shell>
 
-!images/signup.png!
+Open a browser window and navigate to "http://localhost:3000/admin":http://localhost:3000/admin.
+You will be greeted with a screen that is prompting you to create the first user.
 
-*If you see this screen it means you have setup everything correctly and your Alchemy CMS site is up and running.*
+INFO: Congratulations, you can access the backend now!
 
-h5. Now fill out the form to create your first admin user
-
-Once you've created your first user you'll see Alchemy's Homescreen.
-
-!images/homescreen.png!
-
-*Congratulations!*
-
-h3. Module Overview
-
-Alchemy comes with 4 core modules. 
-
-NOTE: We are giving you just a quick overview here. In depth guides for each module are covered seperatly.
-
-h4. Sitemap
-
-The Sitemap provides management of pages and their content.
-
-h5. Pages
-
-The pages are your website pages organized in a tree structure.
-
-This tree structure represents your websites navigation.
-
-You can sort the pages via drag and drop, create, edit, delete and copy pages.
-
-!images/pages.png!
-
-h5. Layoutpages
-
-Layoutpages are pages that holds globally shared content. I.E.: Header or footer contents.
-
-!images/layoutpages.png!
-
-h4. Languages
-
-Alchemy provides multilangual websites. To add, remove or publish languages you have to use this module.
-
-!images/languages.png!
-
-h4. Users
-
-Alchemy is a multi user CMS. Every editor or author that manages content on your website should have it's own user to work with.
-
-!images/users.png!
-
-h4. Archive
-
-The Archive is your websites asset storage. You hold images, file, documents, videos, etc. inside the archive and share them across your website.
-
-h5. Imagearchive
-
-Alchemy does some real magic (Imagemagick) with them. You just upload an image once. Regardless of the size and cropping the image will have later on your website.
-
-!images/image-archive.png!
-
-h5. Filearchive
-
-To provide downloads or media (audio, video) to your visitors you upload them into the file archive.
-
-!images/file-archive.png!
-
-*That's it for this guide.*
-
-Where to go from here:
-
-* Alchemys standard set guide
-* Add your own custom layout
-* Managing content
+&nbsp;
