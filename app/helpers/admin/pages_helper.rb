@@ -13,19 +13,22 @@ module Admin::PagesHelper
 		setup = "init.setup = #{Alchemy::Tinymce.setup};" if Alchemy::Tinymce.setup
 		return "
 <script type='text/javascript'>
-	jQuery(function($){
+	jQuery(function(){
 		if (typeof(Alchemy) !== 'object') { Alchemy = {}; };
 		Alchemy.Tinymce = {
-			init : function() {
+			init : function(callback) {
 				var init = { #{init} };
-				init.script_url = '/assets/tiny_mce/tiny_mce.js';
+				init.mode = 'specific_textareas';
+				init.editor_selector = 'tinymce';
 				init.plugins = '#{Alchemy::Tinymce.plugins.join(',')}';
 				init.language = '#{I18n.locale}';
+				if (callback)
+					init.oninit = callback;
 				#{setup}
-				$('textarea.tinymce').tinymce(init);
+				tinymce.init(init);
 			},
 			addEditor : function(dom_id) {
-				tinyMCE.execCommand('mceAddControl', true, dom_id);
+				tinymce.execCommand('mceAddControl', true, dom_id);
 			}
 		};
 		Alchemy.Tinymce.init();

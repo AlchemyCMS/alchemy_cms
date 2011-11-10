@@ -129,7 +129,7 @@ function initAlchemyPreviewMode() {
 			head.appendChild(script);
 		};
 		
-		getScript('/javascripts/alchemy/jquery.js', function() {
+		getScript('/assets/jquery-1.6.2.min.js', function() {
 			if (typeof(jQuery) !== 'undefined') {
 				if (thisPageUsingOtherJSLibrary) {
 					jQuery.noConflict();

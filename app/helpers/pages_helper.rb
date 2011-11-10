@@ -497,7 +497,7 @@ module PagesHelper
 
   # Include this in your layout file to have element selection magic in the page edit preview window.
   def alchemy_preview_mode_code
-    javascript_include_tag("alchemy/alchemy.preview") if @preview_mode
+    javascript_include_tag("alchemy/preview") if @preview_mode
   end
 
 end

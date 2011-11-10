@@ -261,7 +261,7 @@ module AlchemyHelper
 	# Helper for including all nescessary javascripts and stylesheets.
 	# Under Rails 3.1 it uses the asset pipeline.
 	# Under Rails 3.0.x we use caching to combine the files into one big asset file.
-	def alchemy_assets_set
+	def alchemy_combined_assets
 		asset_sets = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'config/asset_packages.yml'))
 		if Rails.version >= '3.1'
 			content_for(:javascript_includes) do
@@ -288,6 +288,7 @@ module AlchemyHelper
 			end
 		end
 	end
+	alias_method :alchemy_assets_set, :alchemy_combined_assets
 
   def parse_sitemap_name(page)
     if multi_language?
@@ -314,10 +315,6 @@ module AlchemyHelper
       end
       return warning
     end
-  end
-
-  def alchemy_combined_assets
-    alchemy_assets_set
   end
 
   def necessary_options_for_cropping_provided?(options)

@@ -22,12 +22,3 @@
   </div>
   <%- end -%>
 </div>
-<script type="text/javascript" charset="utf-8">
-  Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
-  Alchemy.ElementEditorSelector.init();
-  Alchemy.SelectBox('.element_editor select');
-  Alchemy.Tinymce.init();
-  Alchemy.ElementDirtyObserver('#element_area');
-  jQuery('#cells').tabs();
-  jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
-</script>

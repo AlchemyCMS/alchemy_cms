@@ -140,7 +140,7 @@ if (typeof(Alchemy) === 'undefined') {
 			}
 		},
 
-		openElementsWindow : function (path, options) {
+		openElementsWindow : function (path, options, callback) {
 			var $dialog = $('<div style="display: none" id="alchemyElementWindow"></div>');
 			var closeCallback = function() {
 				$dialog.dialog("destroy");
@@ -168,6 +168,7 @@ if (typeof(Alchemy) === 'undefined') {
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
 							Alchemy.ButtonObserver('#alchemyElementWindow .button');
+							callback.call();
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
