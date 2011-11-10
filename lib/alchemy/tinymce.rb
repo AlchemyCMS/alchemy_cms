@@ -39,8 +39,8 @@ module Alchemy
 			:entity_encoding => "raw"
 		}
 
-		def self.init= js
-		  @@init = js
+		def self.init=(settings)
+			@@init = @@init.merge(settings)
 		end
 
 		def self.init
