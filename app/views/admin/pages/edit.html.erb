@@ -1,26 +1,23 @@
 <%- alchemy_combined_assets -%>
 
-<%- content_for(:javascript_includes) do -%>
-<%= tinymce_javascript_tags %>
-<%- end -%>
 <%- content_for(:subnav_additions) do -%>
-    <%- Page.all_locked_by(current_user).each do |page| -%>
-    <%- if @page == page -%>
-		<%= render :partial => 'page_status' %>
-    <%- else -%>
-		<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-		    <%= link_to edit_admin_page_path(page) do %>
-	      <span class="page_name" title="<%= page.name %>">
-		  	    <%= truncate page.name, :length => 15 %>
-		    </span>
-			  <% end %>
-			  <%= form_tag(unlock_admin_page_path(page), :remote => true) do %>
-			  	  <button class="icon_button small" title="<%= _('explain_unlocking') %>">
-			  		    <%= render_icon('close small') %>
-			  	  </button>
-			  <% end %>
-		</div>
-    <%- end -%>
+	<%- Page.all_locked_by(current_user).each do |page| -%>
+	<%- if @page == page -%>
+	<%= render :partial => 'page_status' %>
+	<%- else -%>
+	<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
+		<%= link_to edit_admin_page_path(page) do %>
+		<span class="page_name" title="<%= page.name %>">
+			<%= truncate page.name, :length => 15 %>
+		</span>
+		<% end %>
+		<%= form_tag(unlock_admin_page_path(page), :remote => true) do %>
+			<button class="icon_button small" title="<%= _('explain_unlocking') %>">
+				<%= render_icon('close small') %>
+			</button>
+		<% end %>
+	</div>
+	<%- end -%>
 	<%- end -%>
 <%- end -%>
 <%- content_for(:toolbar) do -%>
@@ -107,6 +104,7 @@
 </div>
 <%- end -%>
 <%- content_for :javascripts do -%>
+<%= tinymce_javascript_tags %>
 <script type="text/javascript" charset="utf-8">
 	
 	function openPreviewWindow() {

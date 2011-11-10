@@ -12,7 +12,6 @@ module Admin::PagesHelper
 		
 		setup = "init.setup = #{Alchemy::Tinymce.setup};" if Alchemy::Tinymce.setup
 		return "
-<script src='/assets/tiny_mce/jquery.tinymce.js' type='text/javascript'></script>
 <script type='text/javascript'>
 	jQuery(function($){
 		if (typeof(Alchemy) !== 'object') { Alchemy = {}; };
@@ -29,7 +28,6 @@ module Admin::PagesHelper
 				tinyMCE.execCommand('mceAddControl', true, dom_id);
 			}
 		};
-		console.log('hello', Alchemy.Tinymce);
 		Alchemy.Tinymce.init();
 	});
 </script>".html_safe

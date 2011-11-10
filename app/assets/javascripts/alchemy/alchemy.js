@@ -10,7 +10,9 @@
 //= require jquery_plugins/jquery.scrollTo-1.4.2-min.js
 //= require jquery_plugins/jquery.ui.nestedSortable.js
 //= require jquery_plugins/jquery.ui.tabspaging.js
+//= require tiny_mce/jquery.tinymce
 //= require alchemy/alchemy.base
+//= require alchemy/alchemy.buttons
 //= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.element_editor_selector
