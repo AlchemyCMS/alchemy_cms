@@ -1,4 +1,4 @@
-/* @override http://0.0.0.0:3000/stylesheets/alchemy/alchemy_tinymce_dialog.css */
+@import "defaults";
 
 /* Generic */
 
@@ -96,7 +96,7 @@ input.checkbox {
 	padding-right: 8px;
 	padding-bottom: 2px;	
 	margin: 0;
-	background: #eaeaea url('/assets/alchemy/shading.png') repeat-x 0 -75px;
+	background: #eaeaea image-url('alchemy/shading.png') repeat-x 0 -75px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -115,7 +115,7 @@ a.browse span {
 	display: block;
 	width: 20px;
 	height: 18px;
-	background: url(../../img/icons.gif) -860px 0;
+	background: image-url('tiny_mce/themes/advanced/img/icons.gif') -860px 0;
 	border: 1px solid #FFF;
 	margin-left: 1px;
 }
@@ -146,7 +146,7 @@ a.pickcolor span {
 	display: block;
 	width: 20px;
 	height: 16px;
-	background: url(../../img/icons.gif) -840px 0;
+	background: image-url('tiny_mce/themes/advanced/img/icons.gif') -840px 0;
 	margin-left: 2px;
 }
 
@@ -234,7 +234,7 @@ td.charmap, #charmap a {
 
 .tabs li {
 	float: left;
-	background: url('/assets/alchemy/shading.png') repeat-x 0 0;
+	background: image-url('alchemy/shading.png') repeat-x 0 0;
 	margin: 0 2px 0 0;
 	padding: 0 0 0 10px;
 	line-height: 17px;
@@ -253,12 +253,12 @@ td.charmap, #charmap a {
 .tabs span {
 	float: left;
 	display: block;
-	background: url(../default/img/tabs.gif) no-repeat right -36px;
+	background: image-url('tiny_mce/themes/advanced/skins/default/img/tabs.gif') no-repeat right -36px;
 	padding: 0px 10px 0 0;
 }
 
 .tabs .current span {
-	background: url(../default/img/tabs.gif) no-repeat right -54px;
+	background: image-url('tiny_mce/themes/advanced/skins/default/img/tabs.gif') no-repeat right -54px;
 }
 
 .tabs a {

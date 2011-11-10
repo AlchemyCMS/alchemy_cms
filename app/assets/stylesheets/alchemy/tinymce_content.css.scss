@@ -1,8 +1,9 @@
+@import "defaults";
+
 body, td, pre {
-	color: #000;
-	font-family: Tahoma, Arial, sans-serif;
-	font-size: 12px;
-	margin: 4px;
+	color: $text-color;
+	font: $default-font-style;
+	margin: $default-margin;
 }
 
 body {
@@ -47,13 +48,13 @@ a.mceItemAnchor {
 	line-height: 6px;
 	overflow: hidden;
 	padding-left: 12px;
-	background: url(../default/img/items.gif) no-repeat bottom left;
+	background: image-url('tiny_mce/themes/advanced/skins/default/img/items.gif') no-repeat bottom left;
 }
 
 img.mceItemAnchor {
 	width: 12px;
 	height: 12px;
-	background: url(../default/img/items.gif) no-repeat;
+	background: image-url('tiny_mce/themes/advanced/skins/default/img/items.gif') no-repeat;
 }
 
 img {

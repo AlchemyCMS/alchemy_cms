@@ -144,4 +144,5 @@ $default-border: 1px solid #AFAFAF;
 @mixin opacity($opacity) {
 	opacity: $opacity/100;
 	filter: alpha(opacity = $opacity);
+	-ms-filter: 'alpha(opacity=$opacity)';
 }

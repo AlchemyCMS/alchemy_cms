@@ -6,6 +6,12 @@
 		<title><%= render_alchemy_title %></title>
 		<%= csrf_meta_tag %>
 		<%= yield :stylesheets %>
+		<script type="text/javascript" charset="utf-8">
+			var tinyMCEPreInit = {
+				base: '<%= Rails.application.config.assets.prefix %>/tiny_mce',
+				suffix: ''
+			};
+		</script>
 		<%= yield :javascript_includes %>
 		<script type="text/javascript" charset="utf-8">
 			if (typeof(jQuery) === 'function') {
