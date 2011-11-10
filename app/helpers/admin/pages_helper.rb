@@ -22,6 +22,9 @@ module Admin::PagesHelper
 				init.editor_selector = 'tinymce';
 				init.plugins = '#{Alchemy::Tinymce.plugins.join(',')}';
 				init.language = '#{I18n.locale}';
+				init.init_instance_callback = function(inst) {
+					jQuery('#' + inst.editorId).prev('.essence_richtext_loader').hide();
+				}
 				if (callback)
 					init.oninit = callback;
 				#{setup}
