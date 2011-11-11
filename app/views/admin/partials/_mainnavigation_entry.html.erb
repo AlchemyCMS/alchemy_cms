@@ -12,16 +12,16 @@
 ) do %>
     <%- if mainnavigation_entry["icon"].blank? -%>
     <%= image_tag(mainnavigation_entry["image"]) %>
-    <br />
+    
     <%- else -%>
-    <span class="module icon <%= mainnavigation_entry["icon"] %>"></span><br />
+    <span class="module icon <%= mainnavigation_entry["icon"] %>"></span>
     <%- end -%>
     <%# 
         We have to set the FastGettext.text_domain explicitly here, 
         because Alchemy Modules come with their own TextDomain
     %>
     <%- FastGettext.text_domain = 'alchemy' -%>
-    <span><%= truncate _(mainnavigation_entry["name"]), :length => 11 -%></span>
+    <label><%= truncate _(mainnavigation_entry["name"]), :length => 11 -%></label>
 <% end %>
 
 <%- end -%>

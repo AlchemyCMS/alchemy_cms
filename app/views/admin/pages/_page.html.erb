@@ -9,11 +9,11 @@
           <%= page.humanized_status %>
         </p>
         <p>
-          <strong><%= _("created_at") %>:</strong><br />
+          <strong><%= _("created_at") %>:</strong>
           <%= l(page.created_at) %> von <%= page.creator %>
         </p>
         <p>
-          <strong><%= _("updated_at") %>:</strong><br />
+          <strong><%= _("updated_at") %>:</strong>
           <%= l(page.updated_at) %> durch <%= page.updater %>
         </p>
         <%- if page.locked? -%>

@@ -33,7 +33,7 @@
 			) do %>
 				<button class="icon_button" title="<%= _('explain_unlocking') %>">
 					<%= render_icon('close') %>
-				</button><br />
+				</button>
 				<label><%= _("unlock_page") %></label>
 			<% end %>
 		</div>
@@ -45,7 +45,7 @@
 			) do %>
 				<button class="icon_button" title="<%= _('Visit page') %>">
 					<%= render_icon('visit_page') %>
-				</button><br />
+				</button>
 				<label><%= _("Visit page") %></label>
 			<% end %>
 		</div>
@@ -60,7 +60,7 @@
 				},
 				:class => 'icon_button',
 				:title => _('edit_page_properties')
-			) -%><br />
+			) -%>
 			<label><%= _('page_properties') %></label>
 		</div>
 		<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
@@ -71,7 +71,7 @@
 			) do -%>
 				<button class="icon_button" title="<%= _('explain_publishing') %>">
 					<%= render_icon('publish') %>
-				</button><br />
+				</button>
 				<label><%= _("Publish page") %></label>
 			<% end -%>
 		</div>
@@ -86,7 +86,7 @@
 					:title => _('Show Preview Window'),
 					:class => 'icon_button'
 				}
-			) %><br />
+			) %>
 			<label><%= _('Show Preview Window') %></label>
 		</div>
 		<div class="button_with_label" id="show_element_window">
@@ -97,7 +97,7 @@
 					:title => _('Show Elements Window'),
 					:class => 'icon_button'
 				}
-			) %><br />
+			) %>
 			<label><%= _('Show Elements Window') %></label>
 		</div>
 	</div>

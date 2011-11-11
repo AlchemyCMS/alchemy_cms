@@ -8,11 +8,11 @@
           <%= layoutpage.humanized_status %>
         </p>
         <p>
-          <strong><%= _("created_at") %>:</strong><br />
+          <strong><%= _("created_at") %>:</strong>
           <%= l(layoutpage.created_at) %> von <%= layoutpage.creator %>
         </p>
         <p>
-          <strong><%= _("updated_at") %>:</strong><br />
+          <strong><%= _("updated_at") %>:</strong>
           <%= l(layoutpage.updated_at) %> durch <%= layoutpage.updater %>
         </p>
         <%- if layoutpage.locked? -%>

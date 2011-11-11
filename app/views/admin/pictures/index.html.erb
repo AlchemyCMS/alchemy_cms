@@ -13,7 +13,7 @@
 				},
 				:class => 'icon_button',
 				:title => _('upload_image')
-			) -%><br />
+			) -%>
 			<label><%= _('upload_image') %></label>
 		</div>
 		<%- end -%>
@@ -45,8 +45,8 @@
 				}),
 				:title => _("big_thumbnails"),
 				:class => "icon_button"
-			) %><br />
-			<label class="sup"><%= _('Image size') %></label>
+			) %>
+			<label><%= _('Image size') %></label>
 			<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
 		</div>
 
@@ -61,7 +61,7 @@
 				:method => :post,
 				:title => _('Flush picture cache'),
 				:id => 'flush_picture_cache_button'
-			) -%><br />
+			) -%>
 			<label><%= _('Flush picture cache') %></label>
 		</div>
 		<%- end -%>
