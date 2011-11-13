@@ -14,7 +14,7 @@
 		<%= _('Please wait. Flash® is loading...') %>
 	</p>
 </div>
-<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display:none" />
+<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display: none" />
 <%- if file_types.first == '*' -%>
 <p><%= _('You may upload any file') %></p>
 <%- else -%>
@@ -33,7 +33,7 @@
 	</p>
 </div>
 <div id="alternativeUpload" style="display: none">
-	<h2 id="flash_upload_error_explaination" style="display: none">
+	<h2 id="flash_upload_error_explanation" style="display: none">
 		<%= _('Error with the Flash® Uploader!') %>
 	</h2>
 	<p><%= _('Please use this alternative uploader instead.') %></p>
@@ -53,7 +53,9 @@
 		</small>
 	</p>
 </div>
-<div id="divStatus" style="display: none"></div>
+<div id="SWFUploadStatus" style="display: none" class="info">
+	<%= render_icon('info') %>
+</div>
 <div id="uploadProgressContainer"></div>
 
 <%- post_params = {
@@ -69,9 +71,9 @@
 
 <script type='text/javascript'>
 	try {
-		var settings = {
-			flash_url: "<%= asset_path("swfupload/swfupload.swf") %>",
-			flash9_url: "<%= asset_path("swfupload/swfupload.swf") %>",
+		var swfu = new SWFUpload({
+			flash_url: "<%= asset_path('swfupload/swfupload.swf') %>",
+			flash9_url: "<%= asset_path('swfupload/swfupload.swf') %>",
 			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
 			post_params: <%= post_params.html_safe %>,
 			file_size_limit: "<%= configuration(:uploader)[:file_size_limit] || 100 -%> MB",
@@ -80,40 +82,37 @@
 			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
 			file_queue_limit: 0,
 			custom_settings: {
-				progressTarget: "uploadProgressContainer",
-				cancelButtonId: "btnCancel"
+				cancelButtonId: "btnCancel",
+				language: '<%= session[:language_code] %>'
 			},
 			debug: false,
-			button_image_url: "<%= image_path("alchemy/swfupload/browse_button.png") %>",
+			button_image_url: "<%= image_path('alchemy/swfupload/browse_button.png') %>",
 			button_width: "120",
 			button_height: "25",
 			button_placeholder_id: "spanButtonPlaceHolder",
 			button_text: "<span class='swfButtonText'><%= _('browse') %></span>",
-			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", "Lucida Sans", Lucida, sans-serif; text-align: center; color: #333333; height: 25px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 5px}',
+			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", Arial, sans-serif; text-align: center; color: #333333; height: 25px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 5px}',
 			button_text_left_padding: 0,
 			button_text_top_padding: 4,
 			swfupload_load_failed_handler: function () {
 				jQuery('#swfUploadFlashError').show();
 				jQuery('#alternativeUpload').show();
 			},
-			file_queued_handler : fileQueued,
-			file_queue_error_handler : fileQueueError,
-			file_dialog_complete_handler : fileDialogComplete,
-			upload_progress_handler : uploadProgress,
-			upload_error_handler : uploadError,
-			upload_success_handler : uploadSuccess,
-			queue_complete_handler : queueComplete
-		};
-		var swfu = new SWFUpload(settings);
+			swfupload_loaded_handler : Alchemy.SWFUpload.init,
+			file_queued_handler : Alchemy.SWFUpload.fileQueued,
+			file_queue_error_handler : Alchemy.SWFUpload.fileQueueError,
+			file_dialog_complete_handler : Alchemy.SWFUpload.fileDialogComplete,
+			upload_start_handler : Alchemy.SWFUpload.uploadStart,
+			upload_progress_handler : Alchemy.SWFUpload.uploadProgress,
+			upload_error_handler : Alchemy.SWFUpload.uploadError,
+			upload_success_handler : Alchemy.SWFUpload.uploadSuccess,
+			queue_complete_handler : Alchemy.SWFUpload.queueComplete,
+			debug_handler : Alchemy.debug
+		});
 		swfu.window_mode = "opaque";
 	} catch(err) {
-		if (typeof(console) !== 'undefined' && console != null) {
-			console.error(err);
-		};
+		Alchemy.debug(err);
 		jQuery('#alternativeUpload').show();
-		jQuery('#flash_upload_error_explaination').show();
+		jQuery('#flash_upload_error_explanation').show();
 	};
 </script>
-<div id="SWFUpload_Console">
-    
-</div>

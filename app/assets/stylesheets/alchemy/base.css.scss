@@ -890,7 +890,7 @@ div.tip {
 	margin-top: 2px;
 }
 
-#main_navi a.main_navi_entry label {
+#main_menu a label {
 	display: block;
 }
 
@@ -3003,7 +3003,7 @@ input#user_admin {
 
 #alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
 	float: right;
-	width: 236px;
+	width: 290px;
 	height: 25px;
 	margin-top: 2px;
 	padding: 0 !important;
@@ -3448,10 +3448,9 @@ a.icon.remove {
 }
 
 #uploadProgressContainer {
-	overflow: hidden;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 0 8px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 234px;
 }
 
 #uploadProgressContainer .progressWrapper {
@@ -3522,6 +3521,7 @@ a.icon.remove {
 
 #btnCancel {
 	float: right;
+	margin-top: 4*$default-margin;
 }
 
 object.swfupload {
