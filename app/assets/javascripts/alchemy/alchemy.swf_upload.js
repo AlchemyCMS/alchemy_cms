@@ -54,11 +54,10 @@ if (typeof(Alchemy) === 'undefined') {
 
 			uploadProgress: function(file, bytesLoaded, bytesTotal) {
 				try {
-					var percent = Math.ceil((bytesLoaded / bytesTotal) * 100);
 					var self = Alchemy.SWFUpload;
 					var progress = new self.FileProgress(file);
-					progress.setProgress(percent);
-					progress.setStatus(self.getTranslation('uploading'));
+					progress.setProgress(file.percentUploaded);
+					progress.setStatus(self.getTranslation('uploading') + ' ('+SWFUpload.speed.formatPercent(file.percentUploaded)+')');
 				} catch (ex) {
 					this.debug(ex);
 				}
