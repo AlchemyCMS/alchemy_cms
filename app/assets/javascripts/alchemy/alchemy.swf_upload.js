@@ -57,7 +57,7 @@ if (typeof(Alchemy) === 'undefined') {
 					var self = Alchemy.SWFUpload;
 					var progress = new self.FileProgress(file);
 					progress.setProgress(file.percentUploaded);
-					progress.setStatus(self.getTranslation('uploading') + ' ('+SWFUpload.speed.formatPercent(file.percentUploaded)+')');
+					progress.setStatus(self.getTranslation('uploading') + ' ('+SWFUpload.speed.formatPercent(file.percentUploaded)+') - ' + SWFUpload.speed.formatTime(file.timeRemaining) + self.getTranslation('remaining'));
 				} catch (ex) {
 					this.debug(ex);
 				}
@@ -235,6 +235,10 @@ if (typeof(Alchemy) === 'undefined') {
 				'uploading' : {
 					'de' : 'Ladend...',
 					'en' : 'Uploading...'
+				},
+				'remaining' : {
+					'de' : ' verbleibend.',
+					'en' : ' remaining.'
 				},
 				'complete' : {
 					'de' : 'Abgeschlossen.',
