@@ -3519,9 +3519,14 @@ a.icon.remove {
 	right: 8px;
 }
 
-#btnCancel {
+#swf_upload_container {
+	height: 60px;
+}
+
+#swf_upload_container .button {
 	float: right;
 	margin-top: 4*$default-margin;
+	font-size: 11px;
 }
 
 object.swfupload {

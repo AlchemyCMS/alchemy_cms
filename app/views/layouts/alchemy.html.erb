@@ -47,6 +47,7 @@
 			<%= yield(:toolbar) %>
 			<%- if current_user -%>
 			<div id="user_info">
+				<%= FastGettext.locale %>
 				<%= _('Logged in as') %> <%= current_user.name %>
 			</div>
 			<%- end -%>

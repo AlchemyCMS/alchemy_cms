@@ -31,7 +31,7 @@ if (typeof(Alchemy) === 'undefined') {
 			fileDialogComplete: function(numFilesSelected, numFilesQueued) {
 				try {
 					if (numFilesSelected > 0) {
-						$('#' + this.customSettings.cancelButtonId).show();
+						$('#swf_upload_container .button').show();
 						$('#choose_alternative_uploader').hide();
 					}
 					/* I want auto start the upload and I can do that here */
@@ -115,7 +115,7 @@ if (typeof(Alchemy) === 'undefined') {
 					case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
 						// If there aren't any files left (they were all cancelled) disable the cancel button
 						if (this.getStats().files_queued === 0) {
-							$('#' + this.customSettings.cancelButtonId).hide();
+							self.hideQueueCancelButton();
 						}
 						progress.setStatus(self.getTranslation("cancelled"));
 						progress.setCancelled();
@@ -172,7 +172,7 @@ if (typeof(Alchemy) === 'undefined') {
 
 			uploadComplete: function(file) {
 				if (this.getStats().files_queued === 0) {
-					$('#' + this.customSettings.cancelButtonId).hide();
+					Alchemy.SWFUpload.hideQueueCancelButton();
 				}
 			},
 
@@ -184,7 +184,7 @@ if (typeof(Alchemy) === 'undefined') {
 				} else {
 					$status.append(numFilesUploaded + " Datei" + (numFilesUploaded === 1 ? "" : "en") + " hochgeladen.");
 				}
-				$('#btnCancel').hide();
+				Alchemy.SWFUpload.hideQueueCancelButton();
 				setTimeout(function () {
 					Alchemy.closeCurrentWindow();
 				}, 3500);
@@ -294,6 +294,11 @@ if (typeof(Alchemy) === 'undefined') {
 				} catch(ex) {
 					this.debug(ex);
 				}
+			},
+
+			hideQueueCancelButton : function() {
+				$('#swf_upload_container .button').hide();
+				$('#swf_upload_container .cloned-button').remove();
 			}
 
 		}

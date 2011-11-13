@@ -8,13 +8,17 @@
 	</ol>
 	<small>*<%= _('explain_upload.footnote_%{name}') % {:name => item_type} %></small>
 </div>
-<div id="spanButtonPlaceHolder">
-	<p>
-		<%= image_tag('alchemy/ajax_loader.gif', :style => 'width: 16px; height: 16px; top: 3px; position: relative') %>
-		<%= _('Please wait. Flash® is loading...') %>
-	</p>
+<div id="swf_upload_container">
+	<div id="spanButtonPlaceHolder">
+		<p>
+			<%= image_tag('alchemy/ajax_loader.gif', :style => 'width: 16px; height: 16px; top: 3px; position: relative') %>
+			<%= _('Please wait. Flash® is loading...') %>
+		</p>
+	</div>
+	<button class="button" onclick="swfu.cancelQueue(); return false" style="display: none">
+		<%= _("swfupload: cancel_uploads") %>
+	</button>
 </div>
-<input id="btnCancel" type="button" class="button" value="<%= _("swfupload: cancel_uploads") %>" onclick="swfu.cancelQueue();" style="display: none" />
 <%- if file_types.first == '*' -%>
 <p><%= _('You may upload any file') %></p>
 <%- else -%>
@@ -82,8 +86,7 @@
 			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
 			file_queue_limit: 0,
 			custom_settings: {
-				cancelButtonId: "btnCancel",
-				language: '<%= session[:language_code] %>'
+				language: "<%= FastGettext.locale || 'en' %>"
 			},
 			debug: false,
 			button_image_url: "<%= image_path('alchemy/swfupload/browse_button.png') %>",
