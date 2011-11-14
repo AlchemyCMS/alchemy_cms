@@ -62,7 +62,7 @@ private
     lang = Language.get_default
     return true if lang.nil?
     lang.default = false
-    lang.save(false)
+    lang.save(:validate => false)
   end
 
   def set_pages_language

@@ -25,5 +25,18 @@ describe Language do
 		end
 		expect { @default_language.destroy }.should raise_error
 	end
+	
+	describe "before save" do
+
+		describe "#remove_old_default if default attribute has changed to true", :focus => true do
+		  it "should unset the default status of the old default-language" do
+				@default_language = Language.get_default
+				@language.update_attributes(:default => true)
+				@default_language.reload
+				@default_language.default.should be(false)
+			end
+		end
+	  
+	end
 
 end
