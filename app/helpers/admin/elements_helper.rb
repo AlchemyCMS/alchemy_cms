@@ -67,9 +67,9 @@ module Admin::ElementsHelper
   # Returns all elements that could be placed on that page because of the pages layout.
   # The elements will be grouped by cell.
   def grouped_elements_for_select(elements, object_method = 'name')
-    return [] if elements.nil?
-    cells_definition = Cell.definitions
-    return [] if cells_definition.blank?
+    return "" if elements.blank?
+    cells_definition = @page.cell_definitions
+    return "" if cells_definition.blank?
     options = {}
     celled_elements = []
     cells_definition.each do |cell|

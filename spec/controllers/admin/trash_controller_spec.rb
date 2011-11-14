@@ -9,7 +9,7 @@ describe Admin::TrashController do
 		UserSession.create Factory(:admin_user)
 	end
 
-	it "should hold trashed elements", :focus => true do
+	it "should hold trashed elements" do
 		@page = Factory(:page, :parent_id => Page.rootpage.id)
 		@element = Factory(:element, :page => nil, :public => false, :position => 0, :folded => true)
 		get :index, :page_id => @page.id

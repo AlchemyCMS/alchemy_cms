@@ -109,13 +109,23 @@ class Page < ActiveRecord::Base
 		elements.find_all_by_name(definition['feed_elements'])
 	end
 
-  def elements_grouped_by_cells
-    group = ActiveSupport::OrderedHash.new
-    cells.each { |cell| group[cell] = cell.elements.not_trashed }
-    group[Cell.new({:name => 'for_other_elements'})] = elements.not_trashed.where(:cell_id => nil)
-    return group
-  end
-  
+	def elements_grouped_by_cells
+		group = ActiveSupport::OrderedHash.new
+		self.cells.each { |cell| group[cell] = cell.elements.not_trashed }
+		if element_names_not_in_cell.any?
+			group[Cell.new({:name => 'for_other_elements'})] = elements.not_trashed.not_in_cell
+		end
+		return group
+	end
+
+	def element_names_from_cells
+		cell_definitions.collect { |c| c['elements'] }.flatten.uniq
+	end
+
+	def element_names_not_in_cell
+		layout_description['elements'].uniq - element_names_from_cells
+	end
+
   # Finds the previous page on the same structure level. Otherwise it returns nil.
   # Options:
   # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
@@ -315,6 +325,12 @@ class Page < ActiveRecord::Base
 	end
 	alias_method :definition, :layout_description
   
+	def cell_definitions
+		cell_names = self.layout_description['cells']
+		return [] if cell_names.blank?
+		Cell.all_definitions_for(cell_names)
+	end
+
   # Returns translated name of the pages page_layout value.
   # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
   # Translate the name in your config/locales language yml file.
