@@ -98,6 +98,8 @@
 			button_text_left_padding: 0,
 			button_text_top_padding: 4,
 			swfupload_load_failed_handler: function () {
+				jQuery('#swf_upload_container').hide();
+				jQuery('#choose_alternative_uploader').hide();
 				jQuery('#swfUploadFlashError').show();
 				jQuery('#alternativeUpload').show();
 			},
@@ -109,12 +111,13 @@
 			upload_progress_handler : Alchemy.SWFUpload.uploadProgress,
 			upload_error_handler : Alchemy.SWFUpload.uploadError,
 			upload_success_handler : Alchemy.SWFUpload.uploadSuccess,
-			queue_complete_handler : Alchemy.SWFUpload.queueComplete,
-			debug_handler : Alchemy.debug
+			queue_complete_handler : Alchemy.SWFUpload.queueComplete
 		});
 		swfu.window_mode = "opaque";
 	} catch(err) {
 		Alchemy.debug(err);
+		jQuery('#swf_upload_container').hide();
+		jQuery('#choose_alternative_uploader').hide();
 		jQuery('#alternativeUpload').show();
 		jQuery('#flash_upload_error_explanation').show();
 	};
