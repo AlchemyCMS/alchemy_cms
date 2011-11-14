@@ -11,7 +11,7 @@ class Language < ActiveRecord::Base
   after_destroy :delete_language_root_page
   validates_format_of :code, :with => /^[a-z]{2}$/
   before_destroy :check_for_default
-  after_update :set_pages_language, :if => proc { |m| m.code_changed? }
+  after_validation :set_pages_language, :on => :update, :if => proc { |m| m.code_changed? }
   before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
   scope :published, where(:public => true)
@@ -66,7 +66,7 @@ private
   end
 
   def set_pages_language
-    pages.map { |page| page.language_code = self.code; page.save(:validate => false) }
+    pages.update_all :language_code => self.code
   end
 
   def check_for_default

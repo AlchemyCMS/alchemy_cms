@@ -27,7 +27,6 @@ describe Language do
 	end
 	
 	describe "before save" do
-
 		describe "#remove_old_default if default attribute has changed to true", :focus => true do
 		  it "should unset the default status of the old default-language" do
 				@default_language = Language.get_default
@@ -36,7 +35,18 @@ describe Language do
 				@default_language.default.should be(false)
 			end
 		end
-	  
+	end
+	
+	describe "after validation on update" do
+		describe "#set_pages_language if language´s code has changed" do
+			it "should update all its pages with the new code" do
+				@page = Factory(:page, :language => @language)
+				@other_page = Factory(:page, :language => @language)
+				@language.update_attributes(:code => "fo")
+				@language.reload; @page.reload; @other_page.reload
+				[@page.language_code, @other_page.language_code].should == [@language.code, @language.code]
+		  end
+		end
 	end
 
 end
