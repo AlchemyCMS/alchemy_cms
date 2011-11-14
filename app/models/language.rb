@@ -66,7 +66,7 @@ private
   end
 
   def set_pages_language
-    pages.map { |page| page.language_code = self.code; page.save(false) }
+    pages.map { |page| page.language_code = self.code; page.save(:validate => false) }
   end
 
   def check_for_default

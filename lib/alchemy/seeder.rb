@@ -77,7 +77,7 @@ module Alchemy
             :public => true
           )
           page.language = lang
-          if page.save(false)
+          if page.save(:validate => false)
             puts "== Set language for page #{page.name} to #{lang.name}"
           end
         else
@@ -88,7 +88,7 @@ module Alchemy
       Page.layoutpages.each do |page|
         if page.language.class == String || page.language.nil?
           page.language = default_language
-          if page.save(false)
+          if page.save(:validate => false)
             puts "== Set language for page #{page.name} to #{default_language.name}"
           end
         else
