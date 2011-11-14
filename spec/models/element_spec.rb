@@ -24,6 +24,14 @@ describe Element do
 			excluded = [Factory(:element, :name => 'claim')]
 		  Element.excluded(['article']).all.should == excluded
 		end
+		
+		context "not_in_cell" do
+		  it "should return all elements that are not in a cell" do
+				Factory(:element, :cell_id => 6)
+				Factory(:element, :cell_id => nil)
+				Element.not_in_cell.should have(1).element
+			end
+		end
 
 	end
 

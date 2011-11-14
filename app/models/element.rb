@@ -21,6 +21,7 @@ class Element < ActiveRecord::Base
   scope :published, where(:public => true)
   scope :named, lambda { |names| where(arel_table[:name].in(names)) }
   scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
+	scope :not_in_cell, where(:cell_id => nil)
 
   # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
   def next(name = nil)

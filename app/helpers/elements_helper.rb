@@ -20,7 +20,7 @@ module ElementsHelper
       :except => [],
       :only => [],
       :from_page => "",
-			:from_cell => "",
+			:from_cell => nil,
       :count => nil,
       :offset => nil,
       :locals => {},

@@ -72,7 +72,7 @@ class Page < ActiveRecord::Base
 		if options[:from_cell].class.name == 'Cell'
 			elements = options[:from_cell].elements
 		else
-			elements = self.elements
+			elements = self.elements.not_in_cell
 		end
     if !options[:only].blank?
       elements = self.elements.named(options[:only])

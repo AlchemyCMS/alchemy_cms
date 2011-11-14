@@ -12,12 +12,21 @@ describe ElementsHelper do
   it "should render an element view partial" do
 		helper.render_element(@element).should match(/class="article".+id="article_6"/)
   end
-
-	it "should render all elements" do
-		@another_element = Factory(:element)
-		helper.stub!(:configuration).and_return(true)
-		helper.render_elements.should match(/id="header_3.+id="article_5"/)
-	end 
+	
+	describe "#render_elements" do
+		it "should render all elements" do
+			@another_element = Factory(:element)
+			helper.stub!(:configuration).and_return(true)
+			helper.render_elements.should match(/id="header_3.+id="article_5"/)
+		end
+		
+	  it "should not render elements that are in a cell" do
+			cell = Factory(:cell)
+			@another_element = Factory(:element, :cell_id => cell.id)
+			helper.stub!(:configuration).and_return(true)
+			helper.render_elements.should_not match(/id="article_#{@another_element.id}"/)
+		end
+	end
 
 	it "should render a unique dom id for element" do
 	  helper.element_dom_id(@element).should == "#{@element.name}_#{@element.id}"
