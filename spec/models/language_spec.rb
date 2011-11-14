@@ -27,7 +27,7 @@ describe Language do
 	end
 	
 	describe "before save" do
-		describe "#remove_old_default if default attribute has changed to true", :focus => true do
+		describe "#remove_old_default if default attribute has changed to true" do
 		  it "should unset the default status of the old default-language" do
 				@default_language = Language.get_default
 				@language.update_attributes(:default => true)

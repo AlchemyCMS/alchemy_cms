@@ -241,7 +241,7 @@ describe Page do
 
 	describe "#elements_grouped_by_cells" do
 
-		context "with no elements defined that are not defined in a cell", :focus => true do
+		context "with no elements defined that are not defined in a cell" do
 			it "should not have a cell for 'other elements'" do
 				@page = Factory.build(:page, :page_layout => 'foo')
 				@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2"]})
@@ -251,7 +251,7 @@ describe Page do
 			end
 		end
 
-		context "with elements defined that are not defined in a cell", :focus => true do
+		context "with elements defined that are not defined in a cell" do
 			it "should have a cell for 'other elements'" do
 				@page = Factory.build(:page, :page_layout => 'foo')
 				@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2", "3"]})
