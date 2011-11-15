@@ -12,30 +12,34 @@ class Admin::EssencePicturesController < AlchemyController
 
   def crop
     @essence_picture = EssencePicture.find(params[:id])
-    @content = @essence_picture.content
-    @options = params[:options]
-    if @essence_picture.render_size.blank?
-      if @options[:image_size].blank?
-        @size_x, @size_y = 0, 0
-      else
-        @size_x, @size_y = @options[:image_size].split('x')[0], @options[:image_size].split('x')[1]
-      end
-    else
-      @size_x, @size_y = @essence_picture.render_size.split('x')[0], @essence_picture.render_size.split('x')[1]
-    end
-    if @essence_picture.crop_from.blank? && @essence_picture.crop_size.blank?
-      @initial_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
-      @default_box = @initial_box
-    else
-      @initial_box = {
-        :x1 => @essence_picture.crop_from.split('x')[0].to_i,
-        :y1 => @essence_picture.crop_from.split('x')[1].to_i,
-        :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
-        :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
-      }
-      @default_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
-    end
-    @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
+		if @essence_picture.picture
+	    @content = @essence_picture.content
+	    @options = params[:options]
+	    if @essence_picture.render_size.blank?
+	      if @options[:image_size].blank?
+	        @size_x, @size_y = 0, 0
+	      else
+	        @size_x, @size_y = @options[:image_size].split('x')[0], @options[:image_size].split('x')[1]
+	      end
+	    else
+	      @size_x, @size_y = @essence_picture.render_size.split('x')[0], @essence_picture.render_size.split('x')[1]
+	    end
+	    if @essence_picture.crop_from.blank? && @essence_picture.crop_size.blank?
+	      @initial_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
+	      @default_box = @initial_box
+	    else
+	      @initial_box = {
+	        :x1 => @essence_picture.crop_from.split('x')[0].to_i,
+	        :y1 => @essence_picture.crop_from.split('x')[1].to_i,
+	        :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
+	        :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
+	      }
+	      @default_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
+	    end
+	    @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
+		else
+			@no_image_notice = _('No image found. Did you saved the element?')
+		end
     render :layout => false
   end
 

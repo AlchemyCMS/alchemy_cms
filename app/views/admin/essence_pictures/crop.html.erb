@@ -1,3 +1,11 @@
+<%- if @no_image_notice -%>
+<div class="with_padding">
+	<div class="info">
+		<%= render_icon('info') %>
+		<%= @no_image_notice %>
+	</div>
+</div>
+<%- else -%>
 <div id="overlay_toolbar">
   <%= form_for(@essence_picture, :url => admin_essence_picture_path(@essence_picture, :options => @options), :id => 'image_cropper_form', :remote => true) do |f| %>
     <%= f.hidden_field :crop_from %>
@@ -34,3 +42,4 @@
     );"
   ) %>
 </div>
+<%- end -%>
