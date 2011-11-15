@@ -38,7 +38,7 @@ describe Language do
 		end
 	end
 	
-	describe "after validation on update" do
+	context "after_update" do
 		describe "#set_pages_language if language´s code has changed" do
 			it "should update all its pages with the new code" do
 				@page = Factory(:page, :language => @language)
@@ -47,6 +47,15 @@ describe Language do
 				@language.reload; @page.reload; @other_page.reload
 				[@page.language_code, @other_page.language_code].should == [@language.code, @language.code]
 		  end
+		end
+		describe "#unpublish_pages" do
+			it "should set all pages to unpublic if it gets set to unpublic" do
+				@page = Factory(:page, :language => @language)
+				@other_page = Factory(:page, :language => @language)
+				@language.update_attributes(:public => false)
+				@language.reload; @page.reload; @other_page.reload
+				[@page.public?, @other_page.public?].should == [false, false]
+			end
 		end
 	end
 

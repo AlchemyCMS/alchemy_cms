@@ -12,6 +12,7 @@ class Language < ActiveRecord::Base
   validates_format_of :code, :with => /^[a-z]{2}$/
   before_destroy :check_for_default
   after_update :set_pages_language, :if => proc { |m| m.code_changed? }
+	after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
   before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
   scope :published, where(:public => true)
@@ -79,5 +80,9 @@ private
     layoutroot = Page.layout_root_for(id)
     layoutroot.destroy if layoutroot
   end
+
+	def unpublish_pages
+		self.pages.update_all(:public => false)
+	end
 
 end
