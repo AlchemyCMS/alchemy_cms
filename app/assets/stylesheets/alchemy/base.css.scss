@@ -169,9 +169,7 @@ div.pagination {
 	margin-bottom: 16px;
 }
 
-div.pagination a,
-div.pagination span,
-div.pagination em {
+div.pagination a, div.pagination span, div.pagination em {
 	@include button-styles;
 	font-size: 12px;
 	height: 25px;
@@ -204,6 +202,12 @@ div.pagination .next_page {
 
 div.pagination .disabled {
 	color: #c0c0c0;
+}
+
+div.pagination span.gap {
+	border: none;
+	background: transparent;
+	cursor: default;
 }
 
 #assign_image_list div.pagination {

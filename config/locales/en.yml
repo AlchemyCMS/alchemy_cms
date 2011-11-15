@@ -200,6 +200,9 @@ en:
     
   # END of Alchemy translation
   
+  will_paginate:
+    page_gap: '...'
+  
   # == Rails translations
   # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:
