@@ -111,9 +111,30 @@ describe PagesController do
 			  @page = Factory(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
 			end
 
-		  it "should redirect from nested language code url to normal url" do
-	    	visit '/de/a-public-page'
+			it "should redirect from nested language code url to normal url" do
+				visit '/de/a-public-page'
 				page.current_path.should == '/a-public-page'
+			end
+
+			context "no lang parameter" do
+				it "should have defaults language language_id in the session" do
+					pending "We don't get the session from capybara"
+					visit '/a-public-page'
+					session[:language_id].should == Language.get_default.id
+				end
+
+				it "should have defaults language language_code in the session" do
+					pending "We don't get the session from capybara"
+					visit '/a-public-page'
+					session[:language_code].should == Language.get_default.code
+				end
+
+				it "should find the page from default language", :focus => true do
+					@another_page = Factory(:page, :language => Factory(:language), :name => 'A Public Page')
+					visit '/a-public-page'
+					page.status_code.should == 200
+				end
+
 			end
 
 			context "should redirect to public child" do
