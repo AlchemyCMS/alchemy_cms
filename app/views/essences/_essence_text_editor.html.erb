@@ -56,7 +56,7 @@
   <%= text_field_tag(
     content.form_field_name,
     content.ingredient,
-    :class => "thin_border auto_resize#{content.settings[:linkable] ? ' text_with_icon' : ''}"
+    :class => "thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}"
   ) %>
   
   <%- if content.settings[:linkable] -%>

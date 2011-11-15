@@ -8,9 +8,9 @@
   
   $('.element_editor[data-element-id="<%= @element.id -%>"]').replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
   $('#element_area .sortable_cell').sortable('refresh');
-  Alchemy.ElementEditorSelector.bindEvent('#element_<%= @element.id -%>');
+  Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @element.id -%>"]');
 
-  $('.element_editor[data-element-id="<%= @element.id -%>"]');
+  Alchemy.ButtonObserver('.element_editor[data-element-id="<%= @element.id -%>"] button.button');
 
   <%- if @element.folded -%>
     
