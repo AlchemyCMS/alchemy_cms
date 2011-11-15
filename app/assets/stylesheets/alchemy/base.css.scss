@@ -806,6 +806,7 @@ div.tip {
 	position: absolute;
 	right: 3px;
 	top: 3px;
+	line-height: 10px;
 }
 
 #sub_navigation a {
@@ -1315,6 +1316,7 @@ div#user_list_legend {
 	float: none;
 	margin: 0;
 	display: inline-block;
+	line-height: 20px;
 }
 
 #toolbar div.search_field {
@@ -1381,7 +1383,7 @@ button.icon_button.small:hover {
 	color: $dark-gray;
 	border: 1px solid #888;
 	text-shadow: 0 1px 4px #fff;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 button.icon_button:hover {
