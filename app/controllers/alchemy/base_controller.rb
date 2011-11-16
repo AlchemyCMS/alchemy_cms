@@ -155,9 +155,6 @@ module Alchemy
 			@language ||= Language.get_default
 			session[:language_id] = @language.id
 			I18n.locale = session[:language_code] = @language.code
-		rescue
-			exception_logger($!)
-			flash[:error] = _('no_default_language_found')
 		end
   
 	end
