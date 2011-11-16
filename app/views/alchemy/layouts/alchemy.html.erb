@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
+		<title><%= render_alchemy_title %></title>
+		<%= csrf_meta_tag %>
+		<%= yield :stylesheets %>
+		<script type="text/javascript" charset="utf-8">
+			var tinyMCEPreInit = {
+				base: '<%= Rails.application.config.assets.prefix %>/tiny_mce',
+				suffix: ''
+			};
+		</script>
+		<%= yield :javascript_includes %>
+		<script type="text/javascript" charset="utf-8">
+			if (typeof(jQuery) === 'function') {
+				jQuery.noConflict();
+			}
+		</script>
+	</head>
+
+	<body id="alchemy">
+		<div id="overlay">
+			<div id="overlay_text_box">
+				<%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
+				<span id="overlay_text"><%= _("please_wait") %></span>
+			</div>
+		</div>
+		<div id="main_menu">
+			<div id="main_navi">
+				<%= yield(:navigation) %>
+				<%= admin_main_navigation %>
+			</div>
+			<div id="main_menu_background"></div>
+			<div id="logout">
+				<%= link_to_overlay_window("<span class='module icon exit'></span><label>#{_('leave')}</label>".html_safe, leave_admin_path, {:size => "300x140", :title => _("Leave Alchemy")}) %>
+			</div>
+		</div>
+		<div id="top_menu">
+			<div id="sub_navigation">
+				<%= admin_subnavigation %>
+				<div id="subnav_additions">
+					<%= yield(:subnav_additions) %>
+				</div>
+			</div>
+			<%= yield(:toolbar) %>
+			<%- if current_user -%>
+			<div id="user_info">
+				<%= _('Logged in as') %> <%= current_user.name %>
+			</div>
+			<%- end -%>
+		</div>
+		<%= render :partial => 'alchemy/admin/partials/flash_notices' %>
+		<div id="main_content">
+			<%= yield %>
+		</div>
+		<%= yield(:javascripts) %>
+		<script type="text/javascript" charset="utf-8">
+			jQuery(document).ready(function ($) {
+				Alchemy.resizeFrame();
+				Alchemy.Tooltips();
+				if (typeof(jQuery().sb) === 'function') {
+					Alchemy.SelectBox('body#alchemy select');
+				}
+				if ($('#flash_notices').length > 0) {
+					Alchemy.Growler.fade();
+				}
+				$('#alchemy a.icon_button.please_wait_overlay').click(function() {
+					Alchemy.pleaseWaitOverlay();
+				});
+			});
+			jQuery(window).resize(function() {
+				Alchemy.resizeFrame();
+			});
+		</script>
+	</body>
+</html>

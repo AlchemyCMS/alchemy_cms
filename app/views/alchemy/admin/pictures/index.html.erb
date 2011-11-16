@@ -1,0 +1,89 @@
+<%- alchemy_combined_assets -%>
+<%- content_for(:toolbar) do -%>
+<div id="toolbar">
+	<div id="toolbar_buttons">
+		<%- permitted_to?(:new, :admin_pictures) do -%>
+		<div class="button_with_label">
+			<%= link_to_overlay_window(
+				content_tag('span', '', :class => 'icon upload'),
+				new_admin_picture_path(:size => @size),
+				{
+					:title => _('upload_image'),
+					:size => '540x550'
+				},
+				:class => 'icon_button',
+				:title => _('upload_image')
+			) -%>
+			<label><%= _('upload_image') %></label>
+		</div>
+		<%- end -%>
+		<div class="toolbar_spacer"></div>
+		<div class="button_with_label">
+			<%= link_to(
+				render_icon('zoom-out'),
+				admin_pictures_path({
+					:size => "small",
+					:query => params[:query]
+				}),
+				:title => _("small_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<%= link_to(
+				render_icon('zoom-equal'),
+				admin_pictures_path({
+					:size => "medium",
+					:query => params[:query]
+				}),
+				:title => _("medium_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<%= link_to(
+				render_icon('zoom-in'),
+				admin_pictures_path({
+					:size => "large",
+					:query => params[:query]
+				}),
+				:title => _("big_thumbnails"),
+				:class => "icon_button"
+			) %>
+			<label><%= _('Image size') %></label>
+			<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
+		</div>
+
+		<%- permitted_to?(:flush, :admin_pictures) do -%>
+		<div class="toolbar_spacer"></div>		
+		<div class="button_with_label">
+			<%= link_to(
+				content_tag('span', '', :class => 'icon flush'),
+				flush_admin_pictures_path,
+				:class => 'icon_button',
+				:remote => true,
+				:method => :post,
+				:title => _('Flush picture cache'),
+				:id => 'flush_picture_cache_button'
+			) -%>
+			<label><%= _('Flush picture cache') %></label>
+		</div>
+		<%- end -%>
+	</div>
+	<%= render :partial => 'alchemy/admin/partials/search_form' %>
+</div>
+<%- end -%>
+<div id="archive_all">
+	<%= render :partial => 'pictures_list' %>
+</div>
+<%- content_for :javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(document).ready(function($) {
+		Alchemy.inPlaceEditor({
+			save_label: "<%= _('save') %>",
+			cancel_label: "<%= _('cancel') %>"
+		});
+		$('#flush_picture_cache_button').click(function() {
+			Alchemy.pleaseWaitOverlay();
+		});
+	});
+
+</script>
+<%- end -%>

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Language do
+describe Alchemy::Language do
 
 	before(:all) do
 		@language = Factory(:language)
@@ -20,7 +20,7 @@ describe Language do
 	end
 		
 	it "should not be deletable if it is the default language" do
-		@default_language = Language.find_by_default(true)
+		@default_language = Alchemy::Language.find_by_default(true)
 		if !@default_language
 			@default_language = Factory(:language, :name => "default", :code => "aa", :frontpage_name => "intro", :default => true)
 		end
@@ -30,7 +30,7 @@ describe Language do
 	describe "before save" do
 		describe "#remove_old_default if default attribute has changed to true" do
 		  it "should unset the default status of the old default-language" do
-				@default_language = Language.get_default
+				@default_language = Alchemy::Language.get_default
 				@language.update_attributes(:default => true)
 				@default_language.reload
 				@default_language.default.should be(false)

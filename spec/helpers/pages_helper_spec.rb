@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PagesHelper do
+describe Alchemy::PagesHelper do
 
 	it "should render the current page layout" do
 		@page = Factory(:public_page)
@@ -11,7 +11,7 @@ describe PagesHelper do
 	context "navigation and meta data" do
 		
 		before(:each) do
-			@language = Language.get_default
+			@language = Alchemy::Language.get_default
 			@root_page = Factory(:language_root_page, :language => @language, :name => 'Home')
 			@page = Factory(:public_page, :language => @language, :parent_id => @root_page.id, :visible => true)
 			helper.stub(:multi_language?).and_return(false)
@@ -38,7 +38,7 @@ describe PagesHelper do
   context "method language_switches" do
 
 		before :each do
-			@default_language = Language.get_default
+			@default_language = Alchemy::Language.get_default
 			@klingonian = Factory(:language)
 			# simulates link_to_public_child = true
 			helper.stub(:configuration).and_return(true)

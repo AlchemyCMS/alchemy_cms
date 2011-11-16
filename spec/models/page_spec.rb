@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-describe Page do
+describe Alchemy::Page do
 	
 	before(:each) do
-		@rootpage = Page.rootpage
-		@language = Language.get_default
+		@rootpage = Alchemy::Page.rootpage
+		@language = Alchemy::Language.get_default
 		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language, :language_root => true, :page_layout => 'intro')
 	end
 	
@@ -32,12 +32,12 @@ describe Page do
 	end
 	
 	it "should contain one rootpage" do
-		Page.rootpage.should be_instance_of(Page)
+		Alchemy::Page.rootpage.should be_instance_of(Page)
 	end
 
 	it "should return all rss feed elements" do
 		@page = Factory(:public_page, :page_layout => 'news', :parent_id => @language_root.id, :language => @language)
-		@page.feed_elements.should == Element.find_all_by_name('news')
+		@page.feed_elements.should == Alchemy::Element.find_all_by_name('news')
 	end
 	
 	context "finding elements" do
@@ -111,13 +111,13 @@ describe Page do
 		end
 		
 		it "all pages except the rootpage must have a parent_id" do
-			page = Factory.build(:page, :page_layout => "anypage", :parent_id => nil, :language => @language)
+			page = Alchemy::Factory.build(:page, :page_layout => "anypage", :parent_id => nil, :language => @language)
 			page.valid?
 			page.should have(1).error_on(:parent_id)
 		end
 		
 		it "must not be created if the page_layout is set to 'rootpage' and a page already exists with this page_layout and parent_id = nil" do
-		  page = Factory.build(:page, :name => "anypage", :page_layout => "rootpage", :parent_id => @language_root.id, :language => @language)
+		  page = Alchemy::Factory.build(:page, :name => "anypage", :page_layout => "rootpage", :parent_id => @language_root.id, :language => @language)
 			page.valid?
 			page.should have(1).error_on(:page_layout)
 		end
@@ -165,7 +165,7 @@ describe Page do
 	  it "should return 2 pages that are public" do
 			Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
 			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
-	    Page.published.should have(2).pages
+	    Alchemy::Page.published.should have(2).pages
 	  end
 	end
 		
@@ -173,20 +173,20 @@ describe Page do
 	  it "should return 3 pages that are not blocked by a user at the moment" do
 	    Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
 			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
-	    Page.not_locked.should have(3).pages
+	    Alchemy::Page.not_locked.should have(3).pages
 	  end
 	end
 	context ".all_locked" do
 	  it "should return 1 page that is blocked by a user at the moment" do
 	    Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
-	    Page.all_locked.should have(1).pages
+	    Alchemy::Page.all_locked.should have(1).pages
 	  end
 	end
 	
 	context ".language_roots" do
 	  it "should return 1 language_root" do
 			Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
-	    Page.language_roots.should have(1).pages
+	    Alchemy::Page.language_roots.should have(1).pages
 	  end
 	end
 	
@@ -194,28 +194,28 @@ describe Page do
 	context ".layoutpages" do
 	  it "should return 1 layoutpage" do
 			Factory(:public_page, :layoutpage => true, :name => 'Layoutpage', :parent_id => @rootpage.id, :language => @language)
-	    Page.layoutpages.should have(1).pages
+	    Alchemy::Page.layoutpages.should have(1).pages
 	  end
 	end
 	
 	context ".visible" do
 	  it "should return 1 visible page" do
 	    Factory(:public_page, :name => 'First Public Child', :visible => true, :parent_id => @language_root.id, :language => @language)
-	    Page.visible.should have(1).pages
+	    Alchemy::Page.visible.should have(1).pages
 	  end
 	end
 	
 	context ".accessable" do
 	  it "should return 2 accessable pages" do
 	    Factory(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
-			Page.accessable.should have(2).pages
+			Alchemy::Page.accessable.should have(2).pages
 	  end
 	end
 	
 	context ".restricted" do
 	  it "should return 1 restricted page" do
 	    Factory(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
-	    Page.restricted.should have(1).pages
+	    Alchemy::Page.restricted.should have(1).pages
 	  end
 	end
 	
@@ -225,7 +225,7 @@ describe Page do
 			@page = Factory.build(:page, :page_layout => 'foo')
 			@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
 			@cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-			Cell.stub!(:definitions).and_return(@cell_descriptions)
+			Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
 		end
 
 		it "should return all cell definitions for its page_layout" do
@@ -246,7 +246,7 @@ describe Page do
 				@page = Factory.build(:page, :page_layout => 'foo')
 				@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2"]})
 				@cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-				Cell.stub!(:definitions).and_return(@cell_descriptions)
+				Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
 				@page.elements_grouped_by_cells.keys.collect(&:name).should_not include('for_other_elements')
 			end
 		end
@@ -256,7 +256,7 @@ describe Page do
 				@page = Factory.build(:page, :page_layout => 'foo')
 				@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2", "3"]})
 				@cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-				Cell.stub!(:definitions).and_return(@cell_descriptions)
+				Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
 				@page.elements_grouped_by_cells.keys.collect(&:name).should include('for_other_elements')
 			end
 		end

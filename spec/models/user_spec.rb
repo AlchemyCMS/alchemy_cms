@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+describe Alchemy::User do
   
   it "should have a role" do
     @user = Factory.build(:user)

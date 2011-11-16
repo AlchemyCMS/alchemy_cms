@@ -34,11 +34,11 @@ Capybara.default_driver   = :rack_test
 Capybara.default_selector = :css
 
 # Load support files
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
-  require 'rspec/expectations'
-  config.include RSpec::Matchers
-  config.mock_with :rspec
-  config.use_transactional_fixtures = true
+	require 'rspec/expectations'
+	config.include RSpec::Matchers
+	config.mock_with :rspec
+	config.use_transactional_fixtures = true
 end

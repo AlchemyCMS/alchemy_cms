@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-include AlchemyHelper
+include Alchemy::BaseHelper
 
-describe ElementsHelper do
+describe Alchemy::ElementsHelper do
 
 	before(:each) do
 		@page = Factory(:public_page)
