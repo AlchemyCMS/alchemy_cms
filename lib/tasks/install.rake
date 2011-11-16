@@ -5,7 +5,7 @@ namespace :alchemy do
   
   desc "Migrates the database, inserts essential data into the database and copies all assets."
   task :prepare do
-    Rake::Task['alchemy:migrations:sync'].invoke
+    Rake::Task['alchemy:install:migrations'].invoke
     Rake::Task['alchemy:seeder:copy'].invoke
     Rake::Task['alchemy:assets:copy:all'].invoke
   end
@@ -17,13 +17,6 @@ namespace :alchemy do
         f.puts "\n# Seeding Alchemy data"
         f.puts "Alchemy::Seeder.seed!\n"
       end
-    end
-  end
-  
-  namespace 'migrations' do
-    desc "Syncs Alchemy migrations into db/migrate"
-    task 'sync' do
-			system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
     end
   end
 
