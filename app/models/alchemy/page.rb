@@ -1,19 +1,19 @@
 # encoding: UTF-8
 module Alchemy
 	class Page < ActiveRecord::Base
-		
+
 		RESERVED_PAGE_LAYOUTS = %w(rootpage)
 		RESERVED_URLNAMES = %w(admin messages)
-		
+
 		acts_as_nested_set
 		stampable
-		
+
 		has_many :folded_pages
 		has_many :cells, :dependent => :destroy
 		has_many :elements, :dependent => :destroy, :order => :position
-		has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Element', :uniq => true
+		has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 		belongs_to :language
-		
+
 		validates_presence_of :name, :message => N_("please enter a name")
 		validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
 		validates_presence_of :parent_id, :message => N_("No parent page was given."), :unless => :rootpage?
@@ -21,18 +21,18 @@ module Alchemy
 		validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
 		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => N_("This page_layout name is reserved.") }, :unless => :rootpage?
 		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => N_("This urlname is reserved.") }
-		
+
 		attr_accessor :do_not_autogenerate
 		attr_accessor :do_not_sweep
 		attr_accessor :do_not_validate_language
-		
+
 		before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
 		before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
 		before_save :set_language_code
 		after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
 		after_create :create_cells
 		after_save :set_restrictions_to_child_pages
-		
+
 		scope :language_roots, where(:language_root => true)
 		scope :layoutpages, where(:layoutpage => true)
 		scope :all_locked, where(:locked => true)
@@ -45,16 +45,13 @@ module Alchemy
 			where(:language_root => true).where("language_code IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
 		}
 		scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
-		
 		# Returns all pages that have the given language_id
 		scope :with_language, lambda { |language_id| where(:language_id => language_id) }
-		
 		# Returns all pages that are not locked and public.
 		# Used for flushing all page caches at once.
 		scope :flushables, public.not_locked
-		
 		scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
-		
+
 		# Finds selected elements from page.
 		# 
 		# Options are:
@@ -88,7 +85,7 @@ module Alchemy
 				elements.published
 			end
 		end
-		
+
 		def find_elements(options = {}, show_non_public = false) #:nodoc:
 			# TODO: What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
 			if !options[:collection].blank? && options[:collection].is_a?(Array)
@@ -97,7 +94,7 @@ module Alchemy
 				find_selected_elements(options, show_non_public)
 			end
 		end
-		
+
 		# Returns all elements that should be feeded via rss.
 		# 
 		# Define feedable elements in your +page_layouts.yml+:
@@ -109,7 +106,7 @@ module Alchemy
 		def feed_elements
 			elements.find_all_by_name(definition['feed_elements'])
 		end
-		
+
 		def elements_grouped_by_cells
 			group = ActiveSupport::OrderedHash.new
 			self.cells.each { |cell| group[cell] = cell.elements.not_trashed }
@@ -118,15 +115,15 @@ module Alchemy
 			end
 			return group
 		end
-		
+
 		def element_names_from_cells
 			cell_definitions.collect { |c| c['elements'] }.flatten.uniq
 		end
-		
+
 		def element_names_not_in_cell
 			layout_description['elements'].uniq - element_names_from_cells
 		end
-		
+
 		# Finds the previous page on the same structure level. Otherwise it returns nil.
 		# Options:
 		# => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
@@ -139,7 +136,7 @@ module Alchemy
 			options = default_options.merge(options)
 			find_next_or_previous_page("previous", options)
 		end
-		
+
 		# Finds the next page on the same structure level. Otherwise it returns nil.
 		# Options:
 		# => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
@@ -152,7 +149,7 @@ module Alchemy
 			options = default_options.merge(options)
 			find_next_or_previous_page("next", options)
 		end
-		
+
 		def find_first_public(page)
 			if(page.public == true)
 				return page
@@ -165,88 +162,88 @@ module Alchemy
 			end
 			return nil
 		end
-		
+
 		def name_entered?
 			!self.name.blank?
 		end
-		
+
 		def urlname_entered?
 			!self.urlname.blank?
 		end
-		
+
 		def set_url_name
 			self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
 		end
-		
+
 		def set_title
 			self.title = self.name
 		end
-		
+
 		def show_in_navigation?
 			if visible?
 				return true
 			end
 			return false
 		end
-		
+
 		def lock(user)
 			self.locked = true
 			self.locked_by = user.id
 			self.save(:validate => false)
 		end
-		
+
 		def unlock
 			self.locked = false
 			self.locked_by = nil
 			self.do_not_sweep = true
 			self.save
 		end
-		
+
 		def public_elements
 			self.elements.select{ |m| m.public? }
 		end
-		
+
 		# Returns the name of the creator of this page.
 		def creator
 			@page_creator ||= User.find_by_id(creator_id)
 			return _('unknown') if @page_creator.nil?
 			@page_creator.name
 		end
-		
+
 		# Returns the name of the last updater of this page.
 		def updater
 			@page_updater = User.find_by_id(updater_id)
 			return _('unknown') if @page_updater.nil?
 			@page_updater.name
 		end
-		
+
 		# Returns the name of the user currently editing this page.
 		def current_editor
 			@current_editor = User.find_by_id(locked_by)
 			return _('unknown') if @current_editor.nil?
 			@current_editor.name
 		end
-		
+
 		def locker
 			User.find_by_id(self.locked_by)
 		end
-		
+
 		def fold(user_id, status)
 			folded_page = FoldedPage.find_or_create_by_user_id_and_page_id(user_id, self.id)
 			folded_page.update_attributes(:folded => status)
 			folded_page.save
 		end
-		
+
 		def folded?(user_id)
 			folded_page = FoldedPage.find_by_user_id_and_page_id(user_id, self.id)
 			return false if folded_page.nil?
 			folded_page.folded
 		end
-		
+
 		def elements_by_type type
 			elements.select{|m| type.include? m.name}
 		end
-		
+
 		# Returns the translated explanation of seven the page stati.
 		# TODO: Let I18n do this!
 		def humanized_status
@@ -269,7 +266,7 @@ module Alchemy
 				return _('page_status_invisible_unpublic')
 			end
 		end
-		
+
 		# Returns the status code. Used by humanized_status and the page status icon inside the sitemap rendered by Pages.index.
 		def status
 			if self.locked
@@ -294,17 +291,17 @@ module Alchemy
 				end
 			end
 		end
-		
+
 		def has_controller?
 			!Alchemy::PageLayout.get(self.page_layout).nil? && !Alchemy::PageLayout.get(self.page_layout)["controller"].blank?
 		end
-		
+
 		def controller_and_action
 			if self.has_controller?
 				{:controller => self.layout_description["controller"], :action => self.layout_description["action"]}
 			end
 		end
-		
+
 		# Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
 		def layout_description
 			description = Alchemy::PageLayout.get(self.page_layout)
@@ -317,28 +314,28 @@ module Alchemy
 			end
 		end
 		alias_method :definition, :layout_description
-		
+
 		def cell_definitions
 			cell_names = self.layout_description['cells']
 			return [] if cell_names.blank?
 			Cell.all_definitions_for(cell_names)
 		end
-		
+
 		# Returns translated name of the pages page_layout value.
 		# Page layout names are defined inside the config/alchemy/page_layouts.yml file.
 		# Translate the name in your config/locales language yml file.
 		def layout_display_name
 			I18n.t("alchemy.page_layout_names.#{page_layout}", :default => page_layout.camelize)
 		end
-		
+
 		def renamed?
 			self.name_was != self.name || self.urlname_was != self.urlname
 		end
-		
+
 		def changed_publicity?
 			self.public_was != self.public
 		end
-		
+
 		def set_restrictions_to_child_pages
 			return nil if self.restricted_was == self.restricted
 			descendants.each do |child|
@@ -346,29 +343,29 @@ module Alchemy
 				child.save
 			end
 		end
-		
+
 		def contains_feed?
 			definition["feed"]
 		end
-		
+
 		# Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true
 		def redirects_to_external?
 			definition["redirects_to_external"]
 		end
-		
+
 		# Returns an array of all pages currently locked by user
 		def self.all_locked_by(user)
 			find_all_by_locked_and_locked_by(true, user.id)
 		end
-		
+
 		def first_public_child
 			self.children.where(:public => true).limit(1).first
 		end
-		
+
 		def self.language_root_for(language_id)
 			self.language_roots.find_by_language_id(language_id)
 		end
-		
+
 		# Creates a copy of source (a Page object) and does a copy of all elements depending to source.
 		# You can pass any kind of Page#attributes as a difference to source.
 		# Notice: It prevents the element auto_generator from running.
@@ -402,7 +399,7 @@ module Alchemy
 				raise page.errors.full_messages
 			end
 		end
-		
+
 		# Gets the language_root page for page
 		def get_language_root
 			return self if self.language_root
@@ -413,11 +410,11 @@ module Alchemy
 			end
 			return page
 		end
-		
+
 		def self.layout_root_for(language_id)
 			where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1).first
 		end
-		
+
 		def self.find_or_create_layout_root_for(language_id)
 			layoutroot = layout_root_for(language_id)
 			return layoutroot if layoutroot
@@ -435,12 +432,12 @@ module Alchemy
 				raise "Layout root for #{language.name} could not be created"
 			end
 		end
-		
+
 		def self.all_from_clipboard(clipboard)
 			return [] if clipboard.blank?
 			self.find_all_by_id(clipboard.collect { |i| i[:id] })
 		end
-		
+
 		def self.all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
 			return [] if clipboard.blank?
 			clipboard_pages = self.all_from_clipboard(clipboard)
@@ -448,7 +445,7 @@ module Alchemy
 			allowed_page_layout_names = allowed_page_layouts.collect{ |p| p['name'] }
 			clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
 		end
-		
+
 		def copy_children_to(new_parent)
 			self.children.each do |child|
 				next if child == new_parent
@@ -463,16 +460,16 @@ module Alchemy
 				child.copy_children_to(new_child) unless child.children.blank?
 			end
 		end
-		
+
 		# Returns true or false if the page has a page_layout that has cells.
 		def can_have_cells?
 			!definition['cells'].blank?
 		end
-		
+
 		def has_cells?
 			cells.any?
 		end
-		
+
 		def self.link_target_options
 			options = [
 				[I18n.t('default', :scope => 'alchemy.link_target_options'), '']
@@ -483,17 +480,17 @@ module Alchemy
 			end
 			options
 		end
-		
+
 		def locker_name
 			return N_('unknown') if self.locker.nil?
 			self.locker.name
 		end
-		
+
 		# is the curent object the main rootpage?
 		def rootpage?
 			(self.page_layout == "rootpage") && self.parent_id.blank?
 		end
-		
+
 		def self.rootpage
 			where(:page_layout => 'rootpage').where(:parent_id => nil).first
 		end
@@ -518,7 +515,7 @@ module Alchemy
 			end
 			return Page.where(conditions).order(order_direction).limit(1)
 		end
-		
+
 		# Converts the given nbame into an url friendly string
 		# Names shorter than 3 will be filled with dashes, so it does not collidate with the language code.
 		def convert_url_name(name)
@@ -526,7 +523,7 @@ module Alchemy
 			url_name = ('-' * (3 - url_name.length)) + url_name if url_name.length < 3
 			return url_name
 		end
-		
+
 		# Looks in the layout_descripion, if there are elements to autogenerate.
 		# If so, it generates them.
 		def autogenerate_elements
@@ -538,18 +535,18 @@ module Alchemy
 				end
 			end
 		end
-		
+
 		def set_language_code
 			return false if self.language.blank?
 			self.language_code = self.language.code
 		end
-		
+
 		def create_cells
 			return false if !can_have_cells?
 			definition['cells'].each do |cellname|
 				cells.create({:name => cellname})
 			end
 		end
-  
+
 	end
 end

@@ -8,7 +8,7 @@ module Alchemy
 		has_many :contents, :order => :position, :dependent => :destroy
 		belongs_to :cell
 		belongs_to :page
-		has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Page', :uniq => true
+		has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 
 		validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
 		validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
@@ -18,7 +18,7 @@ module Alchemy
 
 		# TODO: add a trashed column to elements table
 		scope :trashed, where(:page_id => nil).order('updated_at DESC')
-		scope :not_trashed, where('`elements`.`page_id` IS NOT NULL')
+		scope :not_trashed, where('`alchemy_elements`.`page_id` IS NOT NULL')
 		scope :published, where(:public => true)
 		scope :named, lambda { |names| where(arel_table[:name].in(names)) }
 		scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
