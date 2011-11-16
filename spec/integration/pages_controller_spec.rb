@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PagesController do
+describe Alchemy::PagesController do
 
 	before(:each) do
 		# We need an user or the signup view will show up
@@ -8,7 +8,7 @@ describe PagesController do
 	  user = Factory.build(:admin_user)
     user.save_without_session_maintenance
 
-		@default_language = Language.get_default
+		@default_language = Alchemy::Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
 	end
 
@@ -120,13 +120,13 @@ describe PagesController do
 				it "should have defaults language language_id in the session" do
 					pending "We don't get the session from capybara"
 					visit '/a-public-page'
-					session[:language_id].should == Language.get_default.id
+					session[:language_id].should == Alchemy::Language.get_default.id
 				end
 
 				it "should have defaults language language_code in the session" do
 					pending "We don't get the session from capybara"
 					visit '/a-public-page'
-					session[:language_code].should == Language.get_default.code
+					session[:language_code].should == Alchemy::Language.get_default.code
 				end
 
 				it "should find the page from default language", :focus => true do

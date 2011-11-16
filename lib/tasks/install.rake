@@ -82,7 +82,7 @@ namespace :alchemy do
         page_layouts.each do |layout|
           unless layout['cells'].blank?
             cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
-            Page.find_all_by_page_layout(layout['name']).each do |page|
+            Alchemy::Page.find_all_by_page_layout(layout['name']).each do |page|
               cells_for_layout.each do |cell_for_layout|
                 cell = Cell.find_or_initialize_by_name_and_page_id({:name => cell_for_layout['name'], :page_id => page.id})
                 cell.elements << page.elements.select { |element| cell_for_layout['elements'].include?(element.name) }

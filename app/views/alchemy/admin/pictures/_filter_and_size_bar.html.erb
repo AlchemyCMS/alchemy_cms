@@ -1,0 +1,73 @@
+<div id="image_assign_filter_and_image_sizing">
+	<div class="button_with_label">
+		<%= link_to(
+			render_icon('zoom-out'),
+			admin_pictures_path({
+				:size => "small",
+				:content_id => @content,
+				:element_id => @element,
+				:swap => @swap,
+				:query => params[:query],
+				:options => @options
+			}),
+			:remote => true,
+			:title => _("small_thumbnails"),
+			:class => "icon_button"
+		) %>
+		<%= link_to(
+			render_icon('zoom-equal'),
+			admin_pictures_path({
+				:size => "medium",
+				:content_id => @content,
+				:element_id => @element,
+				:swap => @swap,
+				:query => params[:query],
+				:options => @options
+			}),
+			:remote => true,
+			:title => _("medium_thumbnails"),
+			:class => "icon_button"
+		) %>
+		<%= link_to(
+			render_icon('zoom-in'),
+			admin_pictures_path({
+				:size => "large",
+				:content_id => @content,
+				:element_id => @element,
+				:swap => @swap,
+				:query => params[:query],
+				:options => @options
+			}),
+			:remote => true,
+			:title => _("big_thumbnails"),
+			:class => "icon_button"
+		) %>
+		<label><%= _('Image size') %></label>
+		<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
+	</div>
+	<div class="toolbar_spacer"></div>
+	<div class="button_with_label">
+	<%= link_to_overlay_window(
+		render_icon('upload'),
+		new_admin_picture_path(
+			:element_id => @element.blank? ? nil : @element.id,
+			:content_id => @content.blank? ? nil : @content.id,
+			:swap => @swap,
+			:page => params[:page],
+			:per_page => params[:per_page],
+			:size => @size,
+			:options => @options
+		),
+		{
+			:size => "540x550",
+			:title => _('upload_image')
+		},
+		{
+			:class => 'icon_button',
+			:title => _('upload_image')
+		}
+	) %>
+	<label><%= _('upload_image') %></label>
+	</div>
+	<%= render(:partial => 'alchemy/admin/partials/remote_search_form') %>
+</div>

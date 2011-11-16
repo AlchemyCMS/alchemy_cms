@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-include AlchemyHelper
+include Alchemy::BaseHelper
 
-describe ContentsHelper do
+describe Alchemy::ContentsHelper do
 
 	before(:each) do
 	  @element = Factory(:element)

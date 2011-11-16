@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-include AlchemyHelper
+include Alchemy::BaseHelper
 
-describe Admin::ElementsHelper do
+describe Alchemy::Admin::ElementsHelper do
 
 	before(:each) do
 		@page = Factory(:public_page)
@@ -23,7 +23,7 @@ describe Admin::ElementsHelper do
 		  @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
 			cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
 			@elements = [{'name' => '1'}, {'name' => '2'}]
-			Cell.stub!(:definitions).and_return(cell_descriptions)
+			Alchemy::Cell.stub!(:definitions).and_return(cell_descriptions)
 		end
 
 		it "should return string of elements grouped by cell for select_tag helper" do

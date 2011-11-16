@@ -142,7 +142,7 @@ module Alchemy #:nodoc:
       
       # Returns the Content Essence is in
       def content
-        Content.find_by_essence_type_and_essence_id(acts_as_essence_class.to_s, self.id)
+        Alchemy::Content.find_by_essence_type_and_essence_id(acts_as_essence_class.to_s, self.id)
       end
       
       # Returns the Element Essence is in
@@ -171,6 +171,10 @@ module Alchemy #:nodoc:
         respond_to?(:link_target) && link_target == 'blank'
       end
       
+			def partial_name
+				self.class.name.split('::').last.underscore
+			end
+
     end
     
   end

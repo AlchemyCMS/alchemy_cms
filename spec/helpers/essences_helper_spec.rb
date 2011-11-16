@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EssencesHelper do
+describe Alchemy::EssencesHelper do
 
 	before(:each) do
 	  @element = Factory(:element)
