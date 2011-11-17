@@ -74,19 +74,19 @@ class Page < ActiveRecord::Base
 		else
 			elements = self.elements.not_in_cell
 		end
-    if !options[:only].blank?
-      elements = self.elements.named(options[:only])
-    elsif !options[:except].blank?
-      elements = self.elements.excluded(options[:except])
-    end
-    elements = elements.offset(options[:offset]).limit(options[:count])
-    elements = elements.order("RAND()") if options[:random]
-    if show_non_public
-      elements
-    else
-      elements.published
-    end
-  end
+		if !options[:only].blank?
+			elements = self.elements.named(options[:only])
+		elsif !options[:except].blank?
+			elements = self.elements.excluded(options[:except])
+		end
+		elements = elements.offset(options[:offset]).limit(options[:count])
+		elements = elements.order("RAND()") if options[:random]
+		if show_non_public
+			elements
+		else
+			elements.published
+		end
+	end
 
   def find_elements(options = {}, show_non_public = false) #:nodoc:
     # TODO: What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
