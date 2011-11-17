@@ -7,6 +7,8 @@ module Alchemy
 
 		engine_name 'alchemy'
 
+		config.mount_at = '/'
+
 		# Enabling assets precompiling
 		initializer 'alchemy.assets', :group => :assets do |app|
 			app.config.assets.precompile += [
