@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta charset="UTF-8">
 		<title><%= render_alchemy_title %></title>
 		<%= csrf_meta_tag %>
-		<%= yield :stylesheets %>
-		<%= yield :javascript_includes %>
-		<script type="text/javascript" charset="utf-8">
-			if (typeof(jQuery) === 'function') {
-				jQuery.noConflict();
-			}
-		</script>
+		<%= stylesheet_link_tag('alchemy/alchemy', :media => 'screen') %>
+		<%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
+		<%= javascript_include_tag('alchemy/alchemy') %>
 	</head>
-    
 	<body id="alchemy">
 		<div id="main_menu">
 			<div id="main_navi">

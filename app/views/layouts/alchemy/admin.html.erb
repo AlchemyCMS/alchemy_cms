@@ -15,13 +15,7 @@
 		</script>
 		<%= javascript_include_tag('alchemy/alchemy') %>
 		<%= yield :javascript_includes %>
-		<script type="text/javascript" charset="utf-8">
-			if (typeof(jQuery) === 'function') {
-				jQuery.noConflict();
-			}
-		</script>
 	</head>
-
 	<body id="alchemy">
 		<div id="overlay">
 			<div id="overlay_text_box">
@@ -59,7 +53,7 @@
 		</div>
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
-			jQuery(document).ready(function ($) {
+			jQuery(function($) {
 				Alchemy.resizeFrame();
 				Alchemy.Tooltips();
 				if (typeof(jQuery().sb) === 'function') {
