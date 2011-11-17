@@ -62,7 +62,7 @@ module Alchemy
 			end
   
 			def trash_empty?(category)
-				category.singularize.classify.constantize.trashed.blank?
+				"alchemy/#{category.singularize}".classify.constantize.trashed.blank?
 			end
 
 			def set_stamper
