@@ -9,7 +9,7 @@ module Alchemy
 
 			rescue_from Exception, :with => :exception_handler
 
-			layout :alchemy
+			layout 'alchemy/admin'
 
 		private
 

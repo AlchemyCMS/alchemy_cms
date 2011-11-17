@@ -1,6 +1,7 @@
 module Alchemy
 	class UserSessionsController < Alchemy::BaseController
 		before_filter :check_user_count, :only => :login
+		layout 'alchemy/login'
 
 		# Signup only works if no user is present in database.
 		def signup
@@ -22,17 +23,16 @@ module Alchemy
 			if request.get?
 				@user_session = UserSession.new()
 				flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
-				render :layout => 'login'
 			else
-				@user_session = UserSession.new(params[:user_session])
+				@user_session = UserSession.new(params[:alchemy_user_session])
 				if @user_session.save
 					if session[:redirect_url].blank?
-						redirect_to :action => :index
+						redirect_to admin_dashboard_path
 					else
 						redirect_to session[:redirect_url]
 					end
 				else
-					render :layout => 'login'
+					render
 				end
 			end
 		end

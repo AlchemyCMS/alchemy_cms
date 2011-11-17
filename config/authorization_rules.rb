@@ -23,7 +23,7 @@ authorization do
   
   role :author do
     includes :registered
-    has_permission_on :alchemy_user_sessions, :to => [:login_to]
+    has_permission_on :alchemy_admin_dashboard, :to => [:index]
     has_permission_on :alchemy_pictures, :to => [:thumbnail]
     has_permission_on :alchemy_admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :alchemy_admin_elements, :to => [:manage_elements]
@@ -88,10 +88,6 @@ privileges do
   
   privilege :edit_page_content, :alchemy_admin_pages do
     includes :edit, :unlock, :show, :publish, :visit
-  end
-  
-  privilege :login_to, :alchemy_user_sessions do
-    includes :index, :login, :logout
   end
   
 end

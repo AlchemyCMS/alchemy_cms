@@ -2,16 +2,17 @@ Alchemy::Engine.routes.draw do
 
 	root :to => 'pages#show'
 
-	match '/admin' => 'user_sessions#index',
-		:as => :admin
-	match '/admin/login' => 'user_sessions#login',
+	match '/admin' => redirect("/login")
+	match '/login' => 'user_sessions#login',
 		:as => :login
-	match '/admin/signup' => 'admin/user_sessions#signup',
+	match '/signup' => 'user_sessions#signup',
 		:as => :signup
-	match '/admin/leave' => 'admin/user_sessions#leave',
+	match '/leave' => 'user_sessions#leave',
 		:as => :leave_admin
-	match '/admin/logout' => 'admin/user_sessions#logout',
+	match '/logout' => 'user_sessions#logout',
 		:as => :logout
+	match '/admin/dashboard' => 'admin/dashboard#index',
+		:as => :admin_dashboard
 	match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
 		:as => :download_attachment
 	match '/attachment/:id/show' => 'attachments#show',
@@ -41,19 +42,19 @@ Alchemy::Engine.routes.draw do
 	resources :user_sessions
 	resources :elements, :only => :show
 
-	namespace :admin do 
+	namespace :admin do
 
 		resources :users
 
 		resources :contents do
-			collection do 
+			collection do
 				post :order
 			end
 		end
 
-		resources :pages do 
+		resources :pages do
 			resources :elements
-			collection do 
+			collection do
 				post :order
 				post :flush
 				post :copy_language
@@ -62,7 +63,7 @@ Alchemy::Engine.routes.draw do
 				get :link
 				get :sort
 			end
-			member do 
+			member do
 				post :unlock
 				post :publish
 				post :fold
@@ -72,9 +73,9 @@ Alchemy::Engine.routes.draw do
 			end
 		end
 
-		resources :elements do 
+		resources :elements do
 			resources :contents
-			collection do 
+			collection do
 				get :list
 				post :order
 			end
@@ -86,18 +87,18 @@ Alchemy::Engine.routes.draw do
 
 		resources :layoutpages, :only => :index
 
-		resources :pictures do 
-			collection do 
+		resources :pictures do
+			collection do
 				post :flush
 			end
-			member do 
+			member do
 				get :show_in_window
 				delete :remove
 			end
 		end
 
-		resources :attachments do 
-			member do 
+		resources :attachments do
+			member do
 				get :download
 			end
 		end

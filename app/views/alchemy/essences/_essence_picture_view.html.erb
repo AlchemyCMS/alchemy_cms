@@ -2,8 +2,8 @@
 	<%- image_size = options[:image_size] -%>
 	<%- img_tag = image_tag(
 		url_for(
-		  :controller => '/pictures',
-		  :action => 'show',
+			:controller => 'alchemy/pictures',
+			:action => 'show',
 			:id => content.essence.picture.id,
 			:name => content.essence.picture.urlname,
 			:size => image_size,
@@ -21,7 +21,7 @@
 			:id => dom_id(content.essence.picture)
 		}.merge(html_options)
 	) -%>
-	
+
 	<%- caption = (content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption") unless (options[:show_caption] == false)) -%>
 
 	<%- if content.essence.link.blank? || options[:disable_link] -%>

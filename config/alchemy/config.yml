@@ -144,64 +144,64 @@ alchemy_plugins:
 
   - name: dashboard
     navigation:
-      name: 'home'
-      controller: 'admin'
+      name: 'module: dashboard'
+      controller: 'alchemy/admin/dashboard'
       action: index
       icon: home
       sub_navigation:
-        - name: 'home'
-          controller: 'admin'
+        - name: 'module: dashboard'
+          controller: 'alchemy/admin/dashboard'
           action: index
-    
+
   - name: pages
     navigation:
       name: 'module: pages'
-      controller: 'admin/pages'
+      controller: 'alchemy/admin/pages'
       action: index
       icon: pages
       sub_navigation:
         - name: 'module: pages'
-          controller: 'admin/pages'
+          controller: 'alchemy/admin/pages'
           action: index
         - name: 'module: layoutpages'
-          controller: 'admin/layoutpages'
+          controller: 'alchemy/admin/layoutpages'
           action: index
       nested:
-        - controller: 'admin/pages'
+        - controller: 'alchemy/admin/pages'
           action: edit
 
   - name: languages
     navigation:
       name: 'module: languages'
-      controller: 'admin/languages'
+      controller: 'alchemy/admin/languages'
       action: index
       icon: languages
       sub_navigation:
         - name: 'module: languages'
-          controller: 'admin/languages'
+          controller: 'alchemy/admin/languages'
           action: index
 
   - name: users
     navigation:
       name: 'module: users'
-      controller: 'admin/users'
+      controller: 'alchemy/admin/users'
       action: index
       icon: users
       sub_navigation:
         - name: 'module: users'
-          controller: 'admin/users'
+          controller: 'alchemy/admin/users'
           action: index
-        
+
   - name: archive
     navigation:
-      controller: 'admin/pictures'
+      controller: 'alchemy/admin/pictures'
       action: index
       name: 'module: library'
       icon: library
       sub_navigation:
         - name: 'module: pictures'
-          controller: 'admin/pictures'
+          controller: 'alchemy/admin/pictures'
           action: index
         - name: 'module: attachments'
-          controller: 'admin/attachments'
+          controller: 'alchemy/admin/attachments'
           action: index
