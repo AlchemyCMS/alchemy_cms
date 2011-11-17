@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<meta http-equiv="content-language" content="<%= current_user.language.blank? ? 'de' : current_user.language rescue 'de' %>">
+		<meta charset="UTF-8">
 		<title><%= render_alchemy_title %></title>
 		<%= csrf_meta_tag %>
+		<%= stylesheet_link_tag('alchemy/alchemy', :media => 'screen') %>
+		<%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
 		<%= yield :stylesheets %>
 		<script type="text/javascript" charset="utf-8">
 			var tinyMCEPreInit = {
@@ -12,6 +13,7 @@
 				suffix: ''
 			};
 		</script>
+		<%= javascript_include_tag('alchemy/alchemy') %>
 		<%= yield :javascript_includes %>
 		<script type="text/javascript" charset="utf-8">
 			if (typeof(jQuery) === 'function') {
