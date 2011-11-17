@@ -3,12 +3,7 @@ source "http://rubygems.org"
 # Specify your gem's dependencies in alchemy.gemspec
 gemspec
 
-# gem 'tvdeyen-fleximage', :git => 'git@github.com:masche842/fleximage.git'
-# gem 'userstamp', :git => 'git@github.com:masche842/userstamp.git'
-
-#gem 'attachment_magic', :path => '/Users/tvd/code/ruby/gems/attachment_magic'
-
-group :development, :test do
+group :development do
 	gem 'gettext', '>=1.9.3', :require => false
 end
 
