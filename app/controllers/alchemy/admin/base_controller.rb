@@ -22,7 +22,7 @@ module Alchemy
 			# Logs the current exception to the error log.
 			def exception_logger(e)
 				message = "\n+++++++++ Error: #{e} +++++++++++++\n\n"
-				e.backtrace[0..15].each do |line|
+				e.backtrace.each do |line|
 					message += "#{line}\n"
 				end
 				logger.error(message)
@@ -34,11 +34,12 @@ module Alchemy
 				if request.xhr?
 					render :action => "error_notice"
 				else
-					flash.now[:error] = notice
+					flash[:error] = @notice
+					redirect_back_or_to_default
 				end
 			end
 
-			def redirect_back_or_to_default(default_path = admin_path)
+			def redirect_back_or_to_default(default_path = admin_dashboard_path)
 				if request.env["HTTP_REFERER"].blank?
 					redirect_to default_path
 				else
