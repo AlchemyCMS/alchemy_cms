@@ -14,6 +14,7 @@ module Alchemy
 		validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
 
 		attr_accessor :create_contents_after_create
+
 		after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
 
 		# TODO: add a trashed column to elements table

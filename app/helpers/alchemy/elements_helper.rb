@@ -6,13 +6,14 @@ module Alchemy
 		# Renders all elements from @page.
 		# ---
 		# == Options are:
-		# :only => []                 A list of element names to be rendered only. Very usefull if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
+		# :only => []                 A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
 		# :except => []               A list of element names to be rendered. The opposite of the only option.
 		# :from_page                  The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
-		# :count                      The amount of elements to be rendered (beginns with first element found)
+		# :count                      The amount of elements to be rendered (begins with first element found)
 		# :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
 		# :sort_by => Content#name    A Content name to sort the elements by
 		# :reverse => boolean         Reverse the rendering order
+		# :random => boolean          Random output of elements
 		# 
 		# This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
 		# 
@@ -35,7 +36,7 @@ module Alchemy
 				if options[:from_page].class == Page
 					page = options[:from_page]
 				else
-					page = Page.find_all_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+					page = Page.where(:page_layout => options[:from_page]).with_language(session[:language_id]).all
 				end
 			end
 			if page.blank?
@@ -55,8 +56,8 @@ module Alchemy
 				element_string = ""
 				if options[:fallback]
 					unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-						if from = Page.find_by_page_layout_and_language_id(options[:fallback][:from], session[:language_id])
-							all_elements += from.elements.find_all_by_name(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
+						if from = Page.where(:page_layout => options[:fallback][:from]).with_language(session[:language_id]).first
+							all_elements += from.elements.named(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
 						end
 					end
 				end
