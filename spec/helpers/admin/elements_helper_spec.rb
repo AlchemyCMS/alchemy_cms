@@ -10,7 +10,7 @@ describe Alchemy::Admin::ElementsHelper do
 	end
 
 	it "should render an element editor partial" do
-	  helper.render_editor(@element).should match(/class="content_editor".+id="essence_text_11"/)
+	  helper.render_editor(@element).should match(/class="content_editor".+id="essence_text_\d{1,}"/)
 	end
 
 	it "should render a picture editor partial" do

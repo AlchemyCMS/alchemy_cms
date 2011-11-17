@@ -89,7 +89,7 @@ describe Alchemy::ElementsHelper do
 			end
 		end
 		
-		context "with option fallback", :focus => true do
+		context "with option fallback" do
 			it "should render the fallback element, when no element with the given name is found" do
 				@page.elements.delete_all
 				@another_element_1 = Factory(:element, :page => @page)

@@ -129,7 +129,7 @@ describe Alchemy::PagesController do
 					session[:language_code].should == Alchemy::Language.get_default.code
 				end
 
-				it "should find the page from default language", :focus => true do
+				it "should find the page from default language" do
 					@another_page = Factory(:page, :language => Factory(:language), :name => 'A Public Page')
 					visit '/a-public-page'
 					page.status_code.should == 200

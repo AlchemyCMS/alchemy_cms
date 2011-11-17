@@ -9,7 +9,7 @@ describe Alchemy::ContentsHelper do
 	end
 
   it "should render a dom id" do
-		content_dom_id(@element.contents.first).should == "essence_text_1"
+		content_dom_id(@element.contents.first).should match(/essence_text_\d{1,}/)
 	end
 
 	it "should render the content name" do
@@ -17,7 +17,7 @@ describe Alchemy::ContentsHelper do
 	end
 
 	it "should render a link to add new content to element" do
-		render_new_content_link(@element).should match(/Alchemy.openWindow.+\/admin\/elements\/1\/contents\/new/m)
+		render_new_content_link(@element).should match(/Alchemy.openWindow.+\/admin\/elements\/#{@element.id}\/contents\/new/m)
 	end
 
 	it "should render a link to create a content in element" do

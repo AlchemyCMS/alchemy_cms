@@ -8,8 +8,8 @@ describe Alchemy::Admin::ContentsController do
 	end
 
 	it "should update a content via ajax" do
-		Factory(:element)
-		post :update, {:id => 1, :content => {:body => 'Peters Petshop'}, :format => :js}
+		@element = Factory(:element)
+		post :update, {:id => @element.id, :content => {:body => 'Peters Petshop'}, :format => :js}
 		Alchemy::Element.first.ingredient('intro').should == "Peters Petshop"
 	end
 
