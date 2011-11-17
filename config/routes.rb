@@ -2,14 +2,14 @@ Alchemy::Engine.routes.draw do
 
 	root :to => 'pages#show'
 
-	match '/admin' => redirect("/login")
-	match '/login' => 'user_sessions#login',
+	match '/admin' => redirect("/admin/dashboard")
+	match '/admin/login' => 'user_sessions#login',
 		:as => :login
-	match '/signup' => 'user_sessions#signup',
+	match '/admin/signup' => 'user_sessions#signup',
 		:as => :signup
-	match '/leave' => 'user_sessions#leave',
+	match '/admin/leave' => 'user_sessions#leave',
 		:as => :leave_admin
-	match '/logout' => 'user_sessions#logout',
+	match '/admin/logout' => 'user_sessions#logout',
 		:as => :logout
 	match '/admin/dashboard' => 'admin/dashboard#index',
 		:as => :admin_dashboard

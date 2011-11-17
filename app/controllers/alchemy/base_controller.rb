@@ -99,7 +99,7 @@ module Alchemy
 		end
 
 		def store_location
-			session[:redirect_url] = request.url
+			session[:redirect_path] = request.path
 		end
 
 		def mailer_set_url_options

@@ -26,10 +26,11 @@ module Alchemy
 			else
 				@user_session = UserSession.new(params[:alchemy_user_session])
 				if @user_session.save
-					if session[:redirect_url].blank?
+					if session[:redirect_path].blank?
 						redirect_to admin_dashboard_path
 					else
-						redirect_to session[:redirect_url]
+						# We have to strip double slashes from beginning of path, because of strange rails/rack bug.
+						redirect_to session[:redirect_path].gsub(/^\/{2,}/, '/')
 					end
 				else
 					render
