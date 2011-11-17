@@ -36,6 +36,7 @@ module Alchemy
 		scope :language_roots, where(:language_root => true)
 		scope :layoutpages, where(:layoutpage => true)
 		scope :all_locked, where(:locked => true)
+		scope :all_locked_by, lambda { |user| where(:locked => true, :locked_by => user.id) }
 		scope :not_locked, where(:locked => false)
 		scope :visible, where(:visible => true)
 		scope :published, where(:public => true)
@@ -351,11 +352,6 @@ module Alchemy
 		# Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true
 		def redirects_to_external?
 			definition["redirects_to_external"]
-		end
-
-		# Returns an array of all pages currently locked by user
-		def self.all_locked_by(user)
-			find_all_by_locked_and_locked_by(true, user.id)
 		end
 
 		def first_public_child
