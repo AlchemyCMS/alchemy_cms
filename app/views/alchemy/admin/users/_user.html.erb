@@ -8,7 +8,7 @@
 	<td class="email"><%= user.email %></td>
 	<td class="role"><%= I18n.t("alchemy.user_roles.#{user.role}") %></td>
 	<td class="tools">
-		<%- permitted_to?(:destroy, :admin_users) do -%>
+		<%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
 		<%= link_to_confirmation_window(
 			'',
 			_("confirm_to_delete_user"),
@@ -17,7 +17,7 @@
 			:class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
 		) -%>
 		<%- end -%>
-		<%- permitted_to?(:edit, :admin_users) do -%>
+		<%- permitted_to?(:edit, :alchemy_admin_users) do -%>
 		<%= link_to_overlay_window(
 			'',
 			edit_admin_user_path(user),

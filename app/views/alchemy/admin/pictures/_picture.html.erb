@@ -1,5 +1,5 @@
 <div class="picture_thumbnail <%= @size %>" id="picture_<%= picture.id %>" name="<%= picture.name %>">
-	<%- permitted_to?(:destroy, :admin_pictures) do -%>
+	<%- permitted_to?(:destroy, :alchemy_admin_pictures) do -%>
 	<span class="picture_tool_delete">
 		<%= link_to_confirmation_window(
 			"",
@@ -30,5 +30,5 @@
 		"Alchemy.zoomImage('/admin/pictures/#{picture.id}/show_in_window', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})",
 		:class => 'thumbnail_background'
 	) %>
-	<span class="picture_name<%= ' rename' if permitted_to?(:edit, :admin_pictures) -%>" title="<%= permitted_to?(:edit, :admin_pictures) ? picture.name + ' (' + _('Click to rename') + ')' : picture.name %>" id="image_<%= dom_id(picture) %>_name"><%= picture.name %></span>
+	<span class="picture_name<%= ' rename' if permitted_to?(:edit, :alchemy_admin_pictures) -%>" title="<%= permitted_to?(:edit, :alchemy_admin_pictures) ? picture.name + ' (' + _('Click to rename') + ')' : picture.name %>" id="image_<%= dom_id(picture) %>_name"><%= picture.name %></span>
 </div>

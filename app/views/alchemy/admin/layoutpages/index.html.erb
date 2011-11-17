@@ -37,7 +37,7 @@
       ) %>
       <label><%= _("Language tree") %></label>
     </div>
-    <%- permitted_to?(:new, :admin_pages) do -%>
+    <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
     <div class="button_with_label">
       <%= link_to_overlay_window(
         render_icon('add_page'),

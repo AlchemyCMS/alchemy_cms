@@ -25,7 +25,7 @@
 			</div>
 			<div class="sitemap_right_tools">
 				<%- unless @sorting -%>
-				<%- permitted_to?(:configure, :admin_pages) do -%>
+				<%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
 				<%= link_to_overlay_window(
 					render_icon('configure_page'),
 					configure_admin_page_path(@page_root),
@@ -37,10 +37,10 @@
 					:title => _('edit_page_properties')
 				) -%>
 				<%- end -%>
-				<%- permitted_to?([:new, :destroy], :admin_pages) do -%>
+				<%- permitted_to?([:new, :destroy], :alchemy_admin_pages) do -%>
 				<span class="sitemap_sitetools">
 					<%= render_icon('blank') %>
-					<%- permitted_to?(:destroy, :admin_pages) do -%>
+					<%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
 					<%= link_to_confirmation_window(
 						render_icon('delete_page'),
 						_("confirm_to_delete_page"),
@@ -55,7 +55,7 @@
 						}
 					) -%>
 					<%- end -%>
-					<%- permitted_to?(:new, :admin_pages) do -%>
+					<%- permitted_to?(:new, :alchemy_admin_pages) do -%>
 					<%= link_to_overlay_window(
 						render_icon('add_page'),
 						new_admin_page_path(:parent_id => @page_root.id),

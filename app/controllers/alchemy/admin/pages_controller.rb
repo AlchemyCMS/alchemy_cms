@@ -10,11 +10,12 @@ module Alchemy
 			filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy], :attribute_check => true
 			filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
 
-			cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => Proc.new { |c| Alchemy::Config.get(:cache_pages) }
+			cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
 
 			def index
 				@page_root = Page.language_root_for(session[:language_id])
 				@locked_pages = Page.all_locked_by(current_user)
+				@languages = Language.all
 			end
 
 			def show

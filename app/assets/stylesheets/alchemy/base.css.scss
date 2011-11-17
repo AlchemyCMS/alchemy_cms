@@ -52,7 +52,7 @@ div.flash {
 	z-index: 1000;
 	margin: $default-margin;
 	position: relative;
-	max-height: 64px;
+	min-height: 1.3em;
 }
 
 div.flash span.icon {

@@ -26,7 +26,7 @@
 		<div class="button_with_label">
 			<%= select_tag(
 				'language', 
-				options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+				options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
 				:onchange => %(
 					Alchemy.pleaseWaitOverlay();
 					jQuery.get('/admin/pages/switch_language', {
@@ -36,7 +36,7 @@
 			) %>
 			<label><%= _("Language tree") %></label>
 		</div>
-		<%- permitted_to?(:flush, :admin_pages) do -%>
+		<%- permitted_to?(:flush, :alchemy_admin_pages) do -%>
 		<div class="button_with_label">
 			<%= link_to(
 				render_icon('flush'),
@@ -49,7 +49,7 @@
 			<label><%= _('Flush page cache') %></label>
 		</div>
 		<%- end -%>
-		<%- permitted_to?(:sort, :admin_pages) do -%>
+		<%- permitted_to?(:sort, :alchemy_admin_pages) do -%>
 		<div class="button_with_label" id="page_sorting_button">
 			<%= link_to(
 				render_icon('sort'),

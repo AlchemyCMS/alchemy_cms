@@ -15,7 +15,7 @@
 			:class => "icon destroy"
 		) -%>
 		<%- end -%>
-		<%- permitted_to?(:edit, :admin_languages) do -%>
+		<%- permitted_to?(:edit, :alchemy_admin_languages) do -%>
 		<%= link_to_overlay_window(
 			'',
 			edit_admin_language_path(language),

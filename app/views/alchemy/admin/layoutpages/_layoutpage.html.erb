@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="sitemap_right_tools">
-      <%- permitted_to?(:configure, :admin_pages) do -%>
+      <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
       <%= link_to_overlay_window(
         render_icon('configure_page'),
         configure_admin_page_path(layoutpage),
@@ -35,9 +35,9 @@
         :title => _('edit_page_properties')
       ) -%>
       <%- end -%>
-      <%- permitted_to?([:new, :destroy, :copy], :admin_pages) do -%>
+      <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
       <span class="sitemap_sitetools">
-        <%- permitted_to?(:copy, :admin_pages) do -%>
+        <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
         <%= link_to(
           render_icon("copy_page"),
           insert_admin_clipboard_path(
@@ -50,7 +50,7 @@
           :title => _("copy_page")
         ) %>
         <%- end -%>
-        <%- permitted_to?(:destroy, :admin_pages) do -%>
+        <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
         <%= link_to_confirmation_window(
           render_icon('delete_page'),
           _("confirm_to_delete_page"),

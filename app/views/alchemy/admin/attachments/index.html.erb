@@ -1,7 +1,7 @@
 <%- alchemy_combined_assets -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">
-	<%- permitted_to?(:new, :admin_attachments) do -%>
+	<%- permitted_to?(:new, :alchemy_admin_attachments) do -%>
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
 			<%= link_to_overlay_window(

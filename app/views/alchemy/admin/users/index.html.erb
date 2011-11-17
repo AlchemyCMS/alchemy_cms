@@ -3,7 +3,7 @@
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
-			<%- permitted_to?(:new, :admin_users) do -%>
+			<%- permitted_to?(:new, :alchemy_admin_users) do -%>
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon user_add'),
 				new_admin_user_path,
