@@ -6,8 +6,8 @@ module Alchemy
 
 			before_filter :set_translation, :except => [:show]
 
-			filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy], :attribute_check => true, :load_method => :get_page_from_id, :model => Alchemy::Page
-			filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :fold, :move, :flush], :attribute_check => false
+			filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :get_page_from_id, :model => Alchemy::Page
+			filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :move, :flush], :attribute_check => false
 
 			cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
 
