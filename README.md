@@ -2,6 +2,7 @@ Alchemy CMS
 ===========
 
 [![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png)](http://travis-ci.org/magiclabs/alchemy_cms)
+![Status](http://stillmaintained.com/magiclabs/alchemy_cms.png)
 
 About
 -----
