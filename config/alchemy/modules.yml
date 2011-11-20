@@ -2,12 +2,12 @@
 
 - name: dashboard
   navigation:
-    name: 'home'
+    name: 'module: dashboard'
     controller: 'admin'
     action: index
     icon: home
     sub_navigation:
-      - name: 'home'
+      - name: 'module: dashboard'
         controller: 'admin'
         action: index
 

@@ -19,11 +19,13 @@ module Alchemy
 					alchemy_module.stringify_keys!
 					module_navi = alchemy_module["navigation"].stringify_keys
 					if module_navi["sub_navigation"]
-						module_navi["sub_navigation"].detect do |subnavi| 
+						module_navi["sub_navigation"].map(&:stringify_keys).detect do |subnavi|
 							subnavi["controller"] == name[:controller] && subnavi["action"] == name[:action]
 						end
 					end
 				end
+			else
+				raise "Could not find module definition for #{name}"
 			end
 		end
 

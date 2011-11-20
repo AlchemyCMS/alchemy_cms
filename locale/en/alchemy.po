@@ -1176,8 +1176,8 @@ msgid "hide_element_content"
 msgstr "Hide this elements content."
 
 #: lib/alchemy_core_modules.rb:11
-msgid "home"
-msgstr "Home"
+msgid "dashboard"
+msgstr "Dashboard"
 
 #: app/views/admin/essence_pictures/edit.html.erb:21
 msgid "image_alt_tag"
@@ -1303,7 +1303,7 @@ msgstr "Files"
 
 #: lib/alchemy_core_modules.rb:2
 msgid "module: dashboard"
-msgstr "Home"
+msgstr "Dashboard"
 
 #: lib/alchemy_core_modules.rb:8
 msgid "module: pictures"

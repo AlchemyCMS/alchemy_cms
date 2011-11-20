@@ -1251,32 +1251,6 @@ h2#sitemap_heading {
 	margin: 16px 16px 0;
 }
 
-#page_status_options .firstcol {
-	float: left;
-}
-
-#page_status_options .firstcol label {
-	width: 80px;
-	margin-right: 10px;
-}
-
-#page_status_options .secondcol {
-	float: left;
-	margin-left: 16px;
-}
-
-#page_status_options .secondcol label {
-	width: 120px;
-	margin-right: 5px;
-}
-
-#page_status_options .thirdcol {
-	float: right;
-	font-size: 11px;
-	text-align: right;
-	width: 90px;
-}
-
 div#userinfo {
 	text-align: right;
 	float: right;
@@ -1492,7 +1466,7 @@ span.icon.module {
 }
 
 span.module.home {
-	background-position: 0 0;
+	background-position: -240px 0;
 }
 
 span.module.pages {
@@ -3262,6 +3236,10 @@ div.assign_file_file_icon img {
 	padding-bottom: 2px;
 	padding-right: 8px;
 	height: 25px;
+}
+
+#alchemy .ui-dialog-content td.label.middle {
+	padding-left: 2*$default-padding;
 }
 
 #alchemy .ui-dialog-content td.label.right {

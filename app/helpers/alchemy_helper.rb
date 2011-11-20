@@ -225,7 +225,7 @@ module AlchemyHelper
 	def admin_subnavigation
 		alchemy_module = module_definition_for(:controller => params[:controller], :action => params[:action])
 		unless alchemy_module.nil?
-			entries = alchemy_module["navigation"]['sub_navigation']
+			entries = alchemy_module["navigation"].stringify_keys['sub_navigation']
 			render_admin_subnavigation(entries) unless entries.nil?
 		else
 			""
@@ -239,11 +239,11 @@ module AlchemyHelper
 
 	def admin_mainnavi_active?(mainnav)
 		mainnav.stringify_keys!
-		subnavi = mainnav["sub_navigation"]
-		nested = mainnav["nested"]
-		if !subnavi.blank?
+		subnavi = mainnav["sub_navigation"].map(&:stringify_keys) if mainnav["sub_navigation"]
+		nested = mainnav["nested"].map(&:stringify_keys) if mainnav["nested"]
+		if subnavi
 			(!subnavi.detect{ |subnav| subnav["controller"] == params[:controller] && subnav["action"] == params[:action] }.blank?) ||
-			(!nested.nil? && !nested.detect{ |n| n["controller"] == params[:controller] && n["action"] == params[:action] }.blank?)
+			(nested && !nested.detect{ |n| n["controller"] == params[:controller] && n["action"] == params[:action] }.blank?)
 		else
 			mainnav["controller"] == params[:controller] && mainnav["action"] == params["action"]
 		end
