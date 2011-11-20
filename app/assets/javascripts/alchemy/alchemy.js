@@ -1,7 +1,7 @@
 // Alchemy CMS Sprockets Manifest
 // ------------------------------
-//= require jquery-1.6.2.min
-//= require jquery-ui-custom-1.8.16.min
+//= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require tiny_mce/tiny_mce
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
