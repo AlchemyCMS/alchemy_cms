@@ -23,7 +23,7 @@ module Alchemy
 		def link_to_overlay_window(content, url, options={}, html_options={})
 			default_options = {
 				:modal => true,
-				:overflow => false
+				:overflow => false,
 				:resizable => false
 			}
 			options = default_options.merge(options)
