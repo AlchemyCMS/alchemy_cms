@@ -10,27 +10,22 @@ class Admin::ResourcesController < AlchemyController
 	helper_method :resource_attributes, :resource_window_size
 
 	def index
-		@resources = resource_model.all
-		render :action => 'index'
-		# if !params[:query].blank?
-		# 	@languages = Language.where([
-		# 		"languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
-		# 		"%#{params[:query]}%",
-		# 		"#{params[:query]}",
-		# 		"%#{params[:query]}%"
-		# 	])
-		# else
-		# 	@languages = Language.all
-		# end
+		if !params[:query].blank?
+			@resources = resource_model.where(resource_attributes.map { |attribute|
+				"`#{resources_name}`.#{attribute} LIKE '%#{params[:query]}%'"
+			}.join(" OR "))
+		else
+			@resources = resource_model.all
+		end
 	end
 
 	def new
 		@resource = resource_model.new
-		render :action => 'new', :layout => false
+		render :layout => false
 	end
 
 	def edit
-		render :action => 'edit', :layout => false
+		render :layout => false
 	end
 
 	def create
