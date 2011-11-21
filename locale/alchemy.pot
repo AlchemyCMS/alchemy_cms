@@ -1169,10 +1169,6 @@ msgstr ""
 msgid "hide_element_content"
 msgstr ""
 
-#: lib/alchemy_core_modules.rb:11
-msgid "home"
-msgstr ""
-
 #: app/views/admin/essence_pictures/edit.html.erb:21
 msgid "image_alt_tag"
 msgstr ""
@@ -1746,4 +1742,25 @@ msgid "or to completly"
 msgstr ""
 
 msgid "Please wait. Flash® is loading..."
+msgstr ""
+
+msgid "Are you sure?"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Succesfully created."
+msgstr ""
+
+msgid "Succesfully updated."
+msgstr ""
+
+msgid "Succesfully removed."
 msgstr ""

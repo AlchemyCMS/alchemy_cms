@@ -1793,3 +1793,24 @@ msgstr "oder Sich komplett"
 
 msgid "Please wait. Flash® is loading..."
 msgstr "Bitte warten. Flash® Uploader wird geladen..."
+
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+msgid "Create"
+msgstr "Hinzufügen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Succesfully created."
+msgstr "Erfolgreich erstellt."
+
+msgid "Succesfully updated."
+msgstr "Erfolgreich aktualisiert."
+
+msgid "Succesfully removed."
+msgstr "Erfolgreich gelöscht."
