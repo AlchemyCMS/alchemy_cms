@@ -1,5 +1,6 @@
 <%- resources ||= @resources -%>
 <%- resource_partial ||= 'resource' -%>
+
 <table class="list" id="<%= resources_name %>_list">
 	<%- if resources.any? -%>
 	<tr>
@@ -17,3 +18,5 @@
 	<%- end -%>
 	<%= render :partial => resource_partial, :collection => resources %>
 </table>
+
+<%= render 'admin/partials/pagination_links', :items => resources %>

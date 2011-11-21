@@ -9,10 +9,9 @@
 				render_icon('create'),
 				send("new_admin_#{resource_model_name}_path"),
 				{
-					:title => _("Create"),
-					:size => resource_window_size,
-					:overflow => true
-				}, {
+					:title => _("Create")
+				},
+				{
 					:class => 'icon_button',
 					:title => _("Create")
 				}
@@ -25,4 +24,4 @@
 </div>
 <%- end -%>
 
-<%= render 'table', :resources => @resources, :resource_partial => 'resource' %>
+<%= render 'table' %>

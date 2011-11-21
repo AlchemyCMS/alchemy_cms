@@ -581,7 +581,7 @@ div.edit_source_buttons {
 	clear: both;
 }
 
-table.list td.rights {
+table td.rights {
 	width: 60px;
 }
 
@@ -1546,26 +1546,23 @@ div.table_right span.tools a.icon_button img {
 
 table {
 	border-style: none;
-	border-spacing: 0 4px;
+	border-spacing: 0 $default-padding;
 	padding: 0;
 	font-size: inherit;
+	width: 100%;
 }
 
 table.window_form {
 	width: 100%;
 }
 
-table.list {
-	width: 100%;
-}
-
-table.list td,
-table.list th {
+table td,
+table th {
 	padding: $default-padding;
 	white-space: nowrap;
 }
 
-table.list th {
+table th {
 	text-align: left;
 	height: 22px;
 	vertical-align: top;
@@ -1575,11 +1572,11 @@ th.login_status {
 	width: 16px;
 }
 
-table.list tr.odd td {
+table tr.odd td {
 	background-color: white;
 }
 
-table.list tr.even td {
+table tr.even td {
 	background-color: #eaf3f9;
 }
 
@@ -1591,7 +1588,7 @@ table.list tr.even td {
 	background-color: #fff;
 }
 
-.list li.table_row {
+ul.list li.table_row {
 	display: block;
 	margin: 0 0 8px;
 	background-color: #ffffff;
@@ -1635,7 +1632,7 @@ ul.list li.legend {
 	float: left;
 }
 
-.list div.detail_row {
+ul.list div.detail_row {
 	background-color: $medium-gray;
 	font-size: 10px;
 	margin-top: 3px;
@@ -1643,12 +1640,12 @@ ul.list li.legend {
 	overflow: hidden;
 }
 
-.list div.detail_row div {
+ul.list div.detail_row div {
 	padding-top: 1px;
 	padding-bottom: 1px;
 }
 
-.list span.right {
+ul.list span.right {
 	float: right;
 }
 
@@ -1682,7 +1679,7 @@ h2#sitemap_heading span.page_infos {
 
 /* @group image_upload */
 
-table.list td.tools .icon, table.list td.icon .icon {
+table td.tools .icon, table td.icon .icon {
 	width: 16px;
 	height: 16px;
 	-webkit-user-select: none;
@@ -1821,7 +1818,7 @@ a.small.button.with_icon span.icon {
 	left: -1px;
 }
 
-table.list tr td.tools {
+table tr td.tools {
 	width: 40px;
 	background-color: $light-gray;
 	white-space: nowrap;
@@ -1831,6 +1828,10 @@ td.input,
 td.label {
 	padding-top: 2px;
 	vertical-align: top;
+}
+
+td.input {
+	text-align: right;
 }
 
 td.label {
@@ -1852,17 +1853,17 @@ td.label.very_long {
 	width: 230px;
 }
 
-table.list tr td.tools a {
+table tr td.tools a {
 	width: 19px;
 	height: 19px;
 	margin-right: 2px;
 }
 
-table.list tr td.tools.long {
+table tr td.tools.long {
 	width: 60px;
 }
 
-table.list tr td.icon {
+table tr td.icon {
 	background-color: $light-gray;
 	width: 20px;
 	text-align: center;
@@ -1885,11 +1886,11 @@ td.date {
 	width: 150px;
 }
 
-table.list td.right, table.list th.right {
+table td.right, table th.right {
 	text-align: right;
 }
 
-table.list td.center, table.list th.center {
+table td.center, table th.center {
 	text-align: center;
 }
 
@@ -3235,11 +3236,6 @@ div.assign_file_file_icon img {
 .elements_for_page .alchemy_selectbox {
 	float: left;
 	width: 217px;
-}
-
-table.window_form td.input {
-	padding-top: 2px;
-	padding-bottom: 2px;
 }
 
 #alchemy .ui-dialog-content p {

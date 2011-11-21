@@ -11,12 +11,15 @@ class Admin::ResourcesController < AlchemyController
 
 	def index
 		if !params[:query].blank?
-			@resources = resource_model.where(resource_attributes.map { |attribute|
-				"`#{resources_name}`.#{attribute} LIKE '%#{params[:query]}%'"
-			}.join(" OR "))
+			items = resource_model.where(resource_attributes.map { |attribute|
+				if attribute[:type] == :string
+					"`#{resources_name}`.#{attribute[:name]} LIKE '%#{params[:query]}%'"
+				end
+			}.compact.join(" OR "))
 		else
-			@resources = resource_model.all
+			items = resource_model
 		end
+		@resources = items.paginate(:page => params[:page] || 1, :per_page => 20)
 	end
 
 	def new
@@ -69,7 +72,7 @@ protected
 	def resource_model
 		@resource_model ||= resource_model_name.classify.constantize
 	end
-	
+
 	def resource_attributes
 		@resource_attributes ||= @resource_model.columns.collect do |col|
 			unless ["id", "updated_at", "created_at", "creator_id", "updater_id"].include?(col.name)
@@ -79,7 +82,7 @@ protected
 	end
 
 	def resource_window_size
-		@resource_window_size ||= "380x#{100 + resource_attributes.length * 35}"
+		@resource_window_size ||= "400x#{100 + resource_attributes.length * 35}"
 	end
 
 end

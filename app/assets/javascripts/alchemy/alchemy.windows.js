@@ -8,19 +8,23 @@ if (typeof(Alchemy) === 'undefined') {
 
 		getOverlaySpinner : function (options) {
 			var defaults = {
-				x: '47%',
-				y: '33%'
+				x: '400',
+				y: '300'
 			};
 			var settings = $.extend({}, defaults, options);
+			var $spinner_container = $('<div class="spinner_container"/>').css({width: settings.x, height: settings.y});
 			var $spinner = $('<img src="/assets/alchemy/ajax_loader.gif" />');
-			var left = (settings.x - 32) / 2;
-			var top = ((settings.y - 32) / 2) - 16;
-			top = top < 0 ? 0 : top;
+			$spinner_container.append($spinner);
 			$spinner.css({
-				marginLeft: left + 'px',
-				marginTop: top + 'px'
+				position: 'absolute',
+				width: 32,
+				height: 32,
+				left: '50%',
+				top: '50%',
+				marginLeft: '-16px',
+				marginTop: '-16px'
 			});
-			return $spinner;
+			return $spinner_container;
 		},
 
 		AjaxErrorHandler : function($dialog, status, textStatus, errorThrown) {
@@ -304,16 +308,16 @@ if (typeof(Alchemy) === 'undefined') {
 			}
 			var $dialog = $('<div style="display:none" id="alchemyOverlay"></div>');
 			$dialog.appendTo('body');
-			$dialog.html(Alchemy.getOverlaySpinner({x: size_x, y: size_y}));
-
+			$dialog.html(Alchemy.getOverlaySpinner({x: size_x === 'auto' ? 400 : size_x, y: size_y === 'auto' ? 300 : size_y}));
 			Alchemy.CurrentWindow = $dialog.dialog({
-				modal: modal, 
-				minWidth: size_x, 
-				minHeight: size_y > 68 ? size_y : 68,
+				modal: modal,
+				minWidth: size_x === 'auto' ? 400 : size_x,
+				minHeight: size_y === 'auto' ? 300 : size_y,
 				title: title,
 				resizable: resizable,
 				show: "fade",
 				hide: "fade",
+				width: size_x,
 				open: function (event, ui) {
 					$.ajax({
 						url: action_url,
@@ -321,6 +325,16 @@ if (typeof(Alchemy) === 'undefined') {
 							$dialog.html(data);
 							$dialog.css({overflow: overflow ? 'visible' : 'auto'});
 							$dialog.dialog('widget').css({overflow: overflow ? 'visible' : 'hidden'});
+							if (size_x === 'auto') {
+								$dialog.dialog('widget').css({
+									left: (($(window).width() / 2) - ($dialog.width() / 2))
+								});
+							}
+							if (size_y === 'auto') {
+								$dialog.dialog('widget').css({
+									top: ($(window).height() - $dialog.dialog('widget').height()) / 2
+								});
+							}
 							Alchemy.SelectBox('#alchemyOverlay select');
 							Alchemy.ButtonObserver('#alchemyOverlay .button');
 						},

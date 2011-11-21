@@ -12,10 +12,9 @@ module AlchemyHelper
   # We use this for our fancy modal overlay windows in the Alchemy cockpit.
   def link_to_overlay_window(content, url, options={}, html_options={})
     default_options = {
-      :size => "100x100",
-      :resizable => false,
+      :resizable => true,
       :modal => true,
-      :overflow => false
+      :overflow => true
     }
     options = default_options.merge(options)
     link_to_function(
@@ -23,8 +22,8 @@ module AlchemyHelper
       "Alchemy.openWindow(
         \'#{url}\',
         \'#{options[:title]}\',
-        \'#{options[:size].split('x')[0].to_s}\',
-        \'#{options[:size].split('x')[1].to_s}\',
+        \'#{options[:size] ? options[:size].split('x')[0].to_s : 'auto'}\',
+        \'#{options[:size] ? options[:size].split('x')[1].to_s : 'auto'}\',
         #{options[:resizable]},
         #{options[:modal]},
         #{options[:overflow]}
