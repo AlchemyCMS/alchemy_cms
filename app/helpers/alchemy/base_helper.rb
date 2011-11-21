@@ -32,8 +32,8 @@ module Alchemy
 				"Alchemy.openWindow(
 					\'#{url}\',
 					\'#{options[:title]}\',
-					\'#{options[:size].split('x')[0].to_s}\',
-					\'#{options[:size].split('x')[1].to_s}\',
+					\'#{options[:size] ? options[:size].split('x')[0].to_s : 'auto'}\',
+					\'#{options[:size] ? options[:size].split('x')[1].to_s : 'auto'}\',
 					#{options[:resizable]},
 					#{options[:modal]},
 					#{options[:overflow]}
@@ -219,8 +219,26 @@ module Alchemy
 		end
 
 		def admin_main_navigation
-			navigation_entries = alchemy_plugins.collect{ |p| p["navigation"] }
-			render :partial => 'alchemy/admin/partials/mainnavigation_entry', :collection => navigation_entries.flatten
+			navigation_entries = alchemy_modules.collect{ |p| p["navigation"] }
+			entries = ""
+			navigation_entries.flatten.each do |alchemy_module|
+				entries << alchemy_main_navigation_entry(alchemy_module)
+			end
+			entries.html_safe
+		end
+
+		def alchemy_main_navigation_entry(alchemy_module)
+			render :partial => 'alchemy/admin/partials/mainnavigation_entry', :locals => {:alchemy_module => alchemy_module.stringify_keys}
+		end
+
+		def admin_subnavigation
+			alchemy_module = module_definition_for(:controller => params[:controller], :action => params[:action])
+			unless alchemy_module.nil?
+				entries = alchemy_module["navigation"].stringify_keys['sub_navigation']
+				render_admin_subnavigation(entries) unless entries.nil?
+			else
+				""
+			end
 		end
 
 		# Renders the Subnavigation for the admin interface.
@@ -228,22 +246,13 @@ module Alchemy
 			render :partial => "alchemy/admin/partials/sub_navigation", :locals => {:entries => entries}
 		end
 
-		def admin_subnavigation
-			plugin = alchemy_plugin(:controller => params[:controller], :action => params[:action])
-			unless plugin.nil?
-				entries = plugin["navigation"]['sub_navigation']
-				render_admin_subnavigation(entries) unless entries.nil?
-			else
-				""
-			end
-		end
-
 		def admin_mainnavi_active?(mainnav)
-			subnavi = mainnav["sub_navigation"]
-			nested = mainnav["nested"]
-			if !subnavi.blank?
+			mainnav.stringify_keys!
+			subnavi = mainnav["sub_navigation"].map(&:stringify_keys) if mainnav["sub_navigation"]
+			nested = mainnav["nested"].map(&:stringify_keys) if mainnav["nested"]
+			if subnavi
 				(!subnavi.detect{ |subnav| subnav["controller"] == params[:controller] && subnav["action"] == params[:action] }.blank?) ||
-				(!nested.nil? && !nested.detect{ |n| n["controller"] == params[:controller] && n["action"] == params[:action] }.blank?)
+				(nested && !nested.detect{ |n| n["controller"] == params[:controller] && n["action"] == params[:action] }.blank?)
 			else
 				mainnav["controller"] == params[:controller] && mainnav["action"] == params["action"]
 			end

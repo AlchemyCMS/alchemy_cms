@@ -2,8 +2,8 @@
 module Alchemy
 	class BaseController < ApplicationController
 
-		include Alchemy
 		include FastGettext::Translation
+		include Alchemy::Modules
 
 		protect_from_forgery
 
