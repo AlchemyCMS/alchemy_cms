@@ -2,22 +2,17 @@
 
 <%- content_for(:toolbar) do -%>
 <div id="toolbar_buttons">
-	<div class="button_with_label">
-		<%- permitted_to?(:new, "admin_#{resources_name}".to_sym) do -%>
-		<%= link_to_overlay_window(
-			render_icon('create'),
-			send("new_admin_#{resource_model_name}_path"),
-			{
-				:title => _("Create")
-			},
-			{
-				:class => 'icon_button',
-				:title => _("Create")
-			}
-		) -%>
-		<label><%= _("Create") %></label>
-		<%- end -%>
-	</div>
+<%- permitted_to?(:new, "admin_#{resources_name}".to_sym) do -%>
+	<%= toolbar_button(
+		:icon => 'create',
+		:label => _('Create'),
+		:url => send("new_admin_#{resource_model_name}_path"),
+		:title => _('Create'),
+		:overlay_options => {
+			:title => _('Create')
+		}
+	) %>
+<%- end -%>
 </div>
 <%= render :partial => 'admin/partials/search_form' %>
 <%- end -%>

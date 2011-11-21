@@ -43,15 +43,15 @@
 }
 
 #alchemy .selectbox .display.long {
-	width: 100px;
+	width: 190px;
 }
 
 #alchemy .selectbox .display.short {
-
+	width: 60px;
 }
 
 #alchemy .selectbox .display.medium {
-
+	width: 100px;
 }
 
 #alchemy .selectbox.disabled .display {
@@ -142,7 +142,11 @@
 }
 
 #alchemy .items.long {
-	width: 128px;
+	width: 218px;
+}
+
+#alchemy .items.short {
+	width: 88px;
 }
 
 #alchemy .items.full_width {

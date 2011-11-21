@@ -8,11 +8,19 @@ module AlchemyHelper
     text.truncate(:length => length)
   end
 
-  # This helper renders the link for an overlay window.
-  # We use this for our fancy modal overlay windows in the Alchemy cockpit.
+	# This helper renders the link for an overlay window.
+	# We use this for our fancy modal overlay windows in the Alchemy cockpit.
+	# 
+	# Options:
+	# 
+	#   :size             [String]              # String with format of "WidthxHeight". I.E. ("420x280")
+	#   :title            [String]              # Text for the overlay title bar.
+	#   :overflow         [Boolean]             # Should the dialog have overlapping content. If not, it shows scrollbars. Good for select boxes. Default false.
+	#   :resizable        [Boolean]             # Is the dialog window resizable? Default false.
+	#   :modal            [Boolean]             # Show as modal window. Default true.
+	# 
 	def link_to_overlay_window(content, url, options={}, html_options={})
 		default_options = {
-			:resizable => true,
 			:modal => true,
 			:overflow => false,
 			:resizable => false
@@ -362,6 +370,43 @@ module AlchemyHelper
 			options[key] = "#{options[key]} #{class_name}".strip
 		end
 		options
+	end
+
+	# Renders a toolbar button for the Alchemy toolbar
+	# 
+	# Options:
+	# 
+	#   :icon             [String]              # Icon class. See base.css.sccs for available icons, or make your own.
+	#   :label            [String]              # Text for button label.
+	#   :url              [String]              # Url for link.
+	#   :title            [String]              # Text for title tag.
+	#   :overlay          [Boolean]             # Pass true to open the link in a modal overlay window.
+	#   :overlay_options  [Hash]                # Overlay options. See link_to_overlay_window helper.
+	# 
+	def toolbar_button(options = {})
+		options.symbolize_keys!
+		defaults = {
+			:overlay => true
+		}
+		options = defaults.merge(options)
+		content_tag('div', :class => 'button_with_label') do
+			link = if options[:overlay]
+				link_to_overlay_window(
+					render_icon(options[:icon]),
+					options[:url],
+					options[:overlay_options],
+					{
+						:class => 'icon_button',
+						:title => options[:title]
+					}
+				)
+			else
+				link_to options[:url], :class => 'icon_button', :title => options[:title] do
+					render_icon(options[:icon])
+				end
+			end
+			link += content_tag('label', options[:label])
+		end
 	end
 
 end

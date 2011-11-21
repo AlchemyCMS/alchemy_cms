@@ -1,22 +1,19 @@
 <%- content_for(:toolbar) do -%>
 <div id="toolbar_buttons">
-	<div class="button_with_label">
-		<%- permitted_to?(:new, :alchemy_admin_languages) do -%>
-		<%= link_to_overlay_window(
-			render_icon('create'),
-			new_admin_language_path,
-			{
-				:title => _('create_language'),
-				:size => "420x280",
-				:overflow => true
-			}, {
-				:class => 'icon_button',
-				:title => _('create_language')
-			}
-		) -%>
-		<label><%= _('create_language') %></label>
-		<%- end -%>
-	</div>
+	<%- permitted_to?(:new, :alchemy_admin_languages) do -%>
+	<%= toolbar_button(
+		:icon => 'create',
+		:label => _('create_language'),
+		:url => new_admin_language_path,
+		:title => _('create_language'),
+		:overlay => true,
+		:overlay_options => {
+			:size => "420x280",
+			:title => _('create_language'),
+			:overflow => true
+		}
+	) %>
+	<%- end -%>
 </div>
 <%= render :partial => 'alchemy/admin/partials/search_form' %>
 <%- end -%>

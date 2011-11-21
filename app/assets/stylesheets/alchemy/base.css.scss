@@ -505,11 +505,14 @@ a.drop_down_select img {
 	margin-bottom: 4px;
 }
 
+.new_alchemy_element form {
+	height: 26px;
+}
+
 .new_alchemy_element form .selectbox {
 	float: left;
 	line-height: normal;
 	margin-left: 8px;
-	width: 200px;
 }
 
 .js_filter_field_box {
@@ -1279,7 +1282,6 @@ div#user_list_legend {
 	float: none;
 	margin: 0;
 	display: inline-block;
-	line-height: 20px;
 }
 
 #toolbar div.search_field {
@@ -1814,7 +1816,7 @@ td.input, td.label {
 	vertical-align: top;
 }
 
-td.input, td.submit {
+td.input, td.submit, td.select {
 	text-align: right;
 	padding-right: 0;
 }
@@ -2928,10 +2930,6 @@ div#errors {
 
 #new_page_form tbody tr td.second_row div.selectbox a.display {
 	width: 123px;
-}
-
-input#page_name {
-	width: 126px;
 }
 
 input.with_border {
