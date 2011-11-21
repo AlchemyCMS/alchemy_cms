@@ -1,0 +1,19 @@
+<%- resources ||= @resources -%>
+<%- resource_partial ||= 'resource' -%>
+<table class="list" id="<%= resources_name %>_list">
+	<%- if resources.any? -%>
+	<tr>
+		<%- resource_attributes.each do |attribute| -%>
+		<%- if attribute[:type] == :boolean -%>
+		<th class="center"><%= t(attribute[:name], :scope => "activerecord.attributes.#{resource_model_name}") %></th>
+		<%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
+		<th class="right"><%= t(attribute[:name], :scope => "activerecord.attributes.#{resource_model_name}") %></th>
+		<%- else -%>
+		<th><%= t(attribute[:name], :scope => "activerecord.attributes.#{resource_model_name}") %></th>
+		<%- end -%>
+		<%- end -%>
+		<th class="tools"></th>
+	</tr>
+	<%- end -%>
+	<%= render :partial => resource_partial, :collection => resources %>
+</table>

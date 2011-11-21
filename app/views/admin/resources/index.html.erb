@@ -25,14 +25,4 @@
 </div>
 <%- end -%>
 
-<table class="list" id="<%= resources_name %>_list">
-	<%- if @resources.any? -%>
-	<tr>
-		<%- resource_attributes.each do |attribute| -%>
-		<th><%= t(attribute, :scope => "activerecord.attributes.#{resource_model_name}") %></th>
-		<%- end -%>
-		<th class="tools"></th>
-	</tr>
-	<%- end -%>
-	<%= render :partial => 'resource', :collection => @resources %>
-</table>
+<%= render 'table', :resources => @resources, :resource_partial => 'resource' %>

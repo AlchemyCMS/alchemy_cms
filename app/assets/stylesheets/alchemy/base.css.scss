@@ -1885,6 +1885,14 @@ td.date {
 	width: 150px;
 }
 
+table.list td.right, table.list th.right {
+	text-align: right;
+}
+
+table.list td.center, table.list th.center {
+	text-align: center;
+}
+
 .list li.table_row div.table_right span{
 	float: left;
 	text-align: left;

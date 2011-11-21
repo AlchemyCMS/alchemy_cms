@@ -71,7 +71,11 @@ protected
 	end
 	
 	def resource_attributes
-		@resource_attributes ||= @resource_model.new.attributes.except("updated_at", "created_at", "id").keys
+		@resource_attributes ||= @resource_model.columns.collect do |col|
+			unless ["id", "updated_at", "created_at", "creator_id", "updater_id"].include?(col.name)
+				{:name => col.name, :type => col.type}
+			end
+		end.compact
 	end
 
 	def resource_window_size
