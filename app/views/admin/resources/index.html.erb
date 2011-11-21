@@ -1,27 +1,25 @@
 <%- alchemy_combined_assets -%>
 
 <%- content_for(:toolbar) do -%>
-<div id="toolbar">
-	<div id="toolbar_buttons">
-		<div class="button_with_label">
-			<%- permitted_to?(:new, "admin_#{resources_name}".to_sym) do -%>
-			<%= link_to_overlay_window(
-				render_icon('create'),
-				send("new_admin_#{resource_model_name}_path"),
-				{
-					:title => _("Create")
-				},
-				{
-					:class => 'icon_button',
-					:title => _("Create")
-				}
-			) -%>
-			<label><%= _("Create") %></label>
-			<%- end -%>
-		</div>
+<div id="toolbar_buttons">
+	<div class="button_with_label">
+		<%- permitted_to?(:new, "admin_#{resources_name}".to_sym) do -%>
+		<%= link_to_overlay_window(
+			render_icon('create'),
+			send("new_admin_#{resource_model_name}_path"),
+			{
+				:title => _("Create")
+			},
+			{
+				:class => 'icon_button',
+				:title => _("Create")
+			}
+		) -%>
+		<label><%= _("Create") %></label>
+		<%- end -%>
 	</div>
-	<%= render :partial => 'admin/partials/search_form' %>
 </div>
+<%= render :partial => 'admin/partials/search_form' %>
 <%- end -%>
 
 <%= render 'table' %>

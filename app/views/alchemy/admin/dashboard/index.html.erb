@@ -1,6 +1,3 @@
-<%- content_for(:toolbar) do -%>
-<div id="toolbar"></div>
-<%- end -%>
 <div class="with_padding">
 	<div id="dashboard">
 		<h1><%= _('Welcome back, %{name}') % {:name => current_user.firstname.blank? ? current_user.login : current_user.firstname} %></h1>
