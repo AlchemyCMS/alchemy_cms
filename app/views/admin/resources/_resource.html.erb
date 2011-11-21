@@ -1,0 +1,31 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<%- resource_attributes.each do |attribute| -%>
+	<td class="name"><%= resource.send(attribute) -%></td>
+	<%- end -%>
+	<td class="tools">
+		<%#- permitted_to?(:destroy, language) do -%>
+		<%= link_to_confirmation_window(
+			'',
+			_("Are you sure?"),
+			send("admin_#{@resource_model_name}_path", resource),
+			:title => _("Delete"),
+			:class => "icon destroy"
+		) -%>
+		<%#- end -%>
+		<%#- permitted_to?(:edit, :admin_languages) do -%>
+		<%= link_to_overlay_window(
+			'',
+			send("edit_admin_#{@resource_model_name}_path", resource),
+			{
+				:title => _("Edit"),
+				:size => resource_window_size,
+				:overflow => true
+			},
+			{
+				:class => "icon edit",
+				:title => _("Edit")
+			}
+		) -%>
+		<%#- end -%>
+	</td>
+</tr>

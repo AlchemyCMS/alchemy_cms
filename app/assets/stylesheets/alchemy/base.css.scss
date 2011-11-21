@@ -1248,7 +1248,6 @@ div#page_editing_menu {
 
 h2#sitemap_heading {
 	padding: 0;
-	margin: 16px 16px 0;
 }
 
 div#userinfo {
@@ -1617,29 +1616,8 @@ ul#layoutpages.list li {
 }
 
 ul#sitemap.list {
-	padding: 0 16px 116px;
+	padding: 0;
 }
-
-/*#sitemap .drop_hover {
-	background: url(/images/alchemy/gui/insertpage.png) no-repeat bottom left;
-	outline: 1px dotted #999;
-}
-
-#sitemap .drop_top {
-	background-position: top left;
-	padding-top: 16px;
-}
-
-#sitemap .drop_bottom {
-	background-position: bottom left;
-	padding-bottom: 16px;
-}
-
-#sitemap .drop_insert {
-	background-position: 24px 100%;
-	padding-bottom: 16px;
-}
-*/
 
 ul.list li {
 	list-style-type: none;

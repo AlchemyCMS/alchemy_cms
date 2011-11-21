@@ -1,0 +1,16 @@
+<%= form_for [:admin, @resource], :remote => true do |f| %>
+	<div id="errors" style="display: none"></div>
+	<table>
+		<%- resource_attributes.each do |attribute| -%>
+		<tr>
+			<td class="label"><%= f.send :label, attribute %></td>
+			<td><%= f.send :text_field, attribute, :class => 'thin_border long' -%></td>
+		</tr>
+		<%- end -%>
+		<tr>
+			<td class="submit" colspan="2">
+				<%= f.button _('save'), :class => 'button' %>
+			</td>
+		</tr>
+	</table>
+<% end %>

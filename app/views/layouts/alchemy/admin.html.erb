@@ -49,7 +49,9 @@
 		</div>
 		<%= render :partial => 'alchemy/admin/partials/flash_notices' %>
 		<div id="main_content">
-			<%= yield %>
+			<div id="archive_all">
+				<%= yield %>
+			</div>
 		</div>
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
