@@ -2,28 +2,6 @@ module Alchemy
 	module Admin
 		class LanguagesController < Alchemy::Admin::BaseController
 
-			def index
-				if !params[:query].blank?
-					@languages = Language.where([
-						"languages.name LIKE ? OR languages.code = ? OR languages.frontpage_name LIKE ?",
-						"%#{params[:query]}%",
-						"#{params[:query]}",
-						"%#{params[:query]}%"
-					])
-				else
-					@languages = Language.all
-				end
-			end
-
-			def new
-				@language = Language.new
-				render :layout => false
-			end
-
-			def edit
-				render :layout => false
-			end
-
 			def create
 				@language = Language.new(params[:language])
 				@language.save
@@ -50,12 +28,6 @@ module Alchemy
 				@language.destroy
 				flash[:notice] = ( _("Language '%{name}' destroyed") % {:name => name} )
 				set_language_to_default
-			end
-
-		private
-
-			def find_language
-				@language = Language.find(params[:id])
 			end
 
 		end
