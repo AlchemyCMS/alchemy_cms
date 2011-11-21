@@ -1,16 +1,14 @@
 <%= form_for([:admin, @page], :remote => true) do |f| %>
-	<div id="errors" style="display:none"></div>
+	<div id="errors" style="display: none"></div>
 	<table id="page_names">
 		<tr>
-			<td class="<%= @page.layoutpage ? 'label' : '' %>"><%= _("page_type") %>: </td>
-			<td class="input">
-			  <%= @page.layout_display_name %>
-			</td>
+			<td class="label"><%= _("page_type") %>: </td>
+			<td class="value"><%= @page.layout_display_name %></td>
 		</tr>
 		<%- unless @page.layoutpage -%>
 		<tr>
 			<td class="label"><%= _("page_status") %>: </td>
-			<td class="input">
+			<td class="checkbox">
 				<%= f.check_box :public -%>
 				<%= f.label :public, _('page_public') %><br/>
 				<%= f.check_box :visible -%>
@@ -26,7 +24,7 @@
 		<%- end -%>
 		<%- unless @page.layoutpage -%>
 		<tr>
-			<tdcolspan="2"><strong><%= _("names") %></strong></td>
+			<td colspan="2" class="heading"><%= _("names") %></td>
 		</tr>
 		<%- end -%>
 		<tr>
@@ -43,11 +41,11 @@
 			<td class="input"><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
 		</tr>
 		<tr>
-			<td colspan="2"><strong><%= _("meta_data") %></strong></td>
+			<td colspan="2" class="heading"><%= _("meta_data") %></td>
 		</tr>
 		<tr>
 			<td class="label"><%= _("search_engines") %>: </td>
-			<td class="input">
+			<td class="checkbox">
 				<%= f.check_box "robot_index" %>
 				<%= f.label( "robot_index", _("robot_index")) %><br/>
 				<%= f.check_box "robot_follow" %>
