@@ -33,7 +33,7 @@ class AlchemyController < ApplicationController
 
 	def render_remote_errors(object, button = nil)
 		@button = button
-		@errors = ("<ul>" + object.errors.sum { |a, b| "<li>" + _(b) + "</li>" } + "</ul>").html_safe
+		@errors = ("<ul>" + object.errors.full_messages.map { |e| "<li>#{e}</li>" }.join + "</ul>").html_safe
 		render :action => :remote_errors
 	end
 
