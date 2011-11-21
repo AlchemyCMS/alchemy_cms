@@ -1,13 +1,13 @@
 class Admin::ResourcesController < AlchemyController
 
-	#filter_resource_access
+	filter_resource_access
 
 	rescue_from Exception, :with => :exception_handler
 
 	before_filter :set_translation
 	before_filter :find_resource, :only => [:edit, :update, :destroy]
 
-	helper_method :resource_attributes, :resource_window_size
+	helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name
 
 	def index
 		if !params[:query].blank?
@@ -75,7 +75,7 @@ protected
 	end
 
 	def resource_window_size
-		@resource_window_size ||= "380x#{80 + resource_attributes.length * 35}"
+		@resource_window_size ||= "380x#{100 + resource_attributes.length * 35}"
 	end
 
 end

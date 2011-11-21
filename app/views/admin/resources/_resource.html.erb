@@ -3,19 +3,19 @@
 	<td class="name"><%= resource.send(attribute) -%></td>
 	<%- end -%>
 	<td class="tools">
-		<%#- permitted_to?(:destroy, language) do -%>
+		<%- permitted_to?(:destroy, "admin_#{resources_name}".to_sym) do -%>
 		<%= link_to_confirmation_window(
 			'',
 			_("Are you sure?"),
-			send("admin_#{@resource_model_name}_path", resource),
+			send("admin_#{resource_model_name}_path", resource),
 			:title => _("Delete"),
 			:class => "icon destroy"
 		) -%>
-		<%#- end -%>
-		<%#- permitted_to?(:edit, :admin_languages) do -%>
+		<%- end -%>
+		<%- permitted_to?(:edit, "admin_#{resources_name}".to_sym) do -%>
 		<%= link_to_overlay_window(
 			'',
-			send("edit_admin_#{@resource_model_name}_path", resource),
+			send("edit_admin_#{resource_model_name}_path", resource),
 			{
 				:title => _("Edit"),
 				:size => resource_window_size,
@@ -26,6 +26,6 @@
 				:title => _("Edit")
 			}
 		) -%>
-		<%#- end -%>
+		<%- end -%>
 	</td>
 </tr>

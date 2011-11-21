@@ -4,10 +4,10 @@
 <div id="toolbar">
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
-			<%#- permitted_to?(:new, :admin_languages) do -%>
+			<%- permitted_to?(:new, "admin_#{resources_name}".to_sym) do -%>
 			<%= link_to_overlay_window(
 				render_icon('create'),
-				send("new_admin_#{@resource_model_name}_path"),
+				send("new_admin_#{resource_model_name}_path"),
 				{
 					:title => _("Create"),
 					:size => resource_window_size,
@@ -18,18 +18,18 @@
 				}
 			) -%>
 			<label><%= _("Create") %></label>
-			<%#- end -%>
+			<%- end -%>
 		</div>
 	</div>
 	<%= render :partial => 'admin/partials/search_form' %>
 </div>
 <%- end -%>
 
-<table class="list" id="<%= @resources_name %>_list">
+<table class="list" id="<%= resources_name %>_list">
 	<%- if @resources.any? -%>
 	<tr>
 		<%- resource_attributes.each do |attribute| -%>
-		<th><%= t(attribute, :scope => "activerecord.attributes.#{@resource_model_name}") %></th>
+		<th><%= t(attribute, :scope => "activerecord.attributes.#{resource_model_name}") %></th>
 		<%- end -%>
 		<th class="tools"></th>
 	</tr>
