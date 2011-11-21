@@ -53,7 +53,7 @@ if (typeof(Alchemy) === 'undefined') {
 					modal: false,
 					title: title,
 					width: $(window).width() - 504,
-					height: $(window).height() - 90,
+					height: $(window).height() - 78,
 					minWidth: 600,
 					minHeight: 300,
 					show: "fade",

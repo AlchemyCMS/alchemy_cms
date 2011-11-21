@@ -1282,6 +1282,11 @@ div#user_list_legend {
 	float: none;
 	margin: 0;
 	display: inline-block;
+	line-height: 5px;
+}
+
+#toolbar div.button_with_label form label {
+	margin-top: 5px;
 }
 
 #toolbar div.search_field {
