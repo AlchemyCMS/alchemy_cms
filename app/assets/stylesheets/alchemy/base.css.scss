@@ -1682,8 +1682,7 @@ h2#sitemap_heading span.page_infos {
 
 /* @group image_upload */
 
-table.list td.tools .icon,
-table.list td.icon .icon {
+table.list td.tools .icon, table.list td.icon .icon {
 	width: 16px;
 	height: 16px;
 	-webkit-user-select: none;
@@ -1691,7 +1690,8 @@ table.list td.icon .icon {
 	user-select: none;
 	margin-top: 0;
 	background-repeat: no-repeat;
-	display: block;
+	display: inline;
+	display: inline-block;
 	margin-right: 4px;
 }
 
@@ -1853,7 +1853,6 @@ td.label.very_long {
 }
 
 table.list tr td.tools a {
-	float: left;
 	width: 19px;
 	height: 19px;
 	margin-right: 2px;

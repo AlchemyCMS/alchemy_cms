@@ -22,19 +22,18 @@
 	<%= render :partial => 'alchemy/admin/partials/search_form' %>
 </div>
 <%- end -%>
-<div id="archive_all">
-	<table class="list" id="user_list">
-		<%- if @users.any? -%>
-		<tr>
-			<th class="icon"></th>
-			<th class="login_status"></th>
-			<th class="login"><%= _('User|Login') %></th>
-			<th class="name"><%= _('User|Name') %></th>
-			<th class="email"><%= _('User|Email') %></th>
-			<th class="role"><%= _('User|Role') %></th>
-			<th class="tools"></th>
-		</tr>
-		<%= render @users %>
-		<%- end -%>
-	</table>
-</div>
+
+<table class="list" id="user_list">
+	<%- if @users.any? -%>
+	<tr>
+		<th class="icon"></th>
+		<th class="login_status"></th>
+		<th class="login"><%= _('User|Login') %></th>
+		<th class="name"><%= _('User|Name') %></th>
+		<th class="email"><%= _('User|Email') %></th>
+		<th class="role"><%= _('User|Role') %></th>
+		<th class="tools"></th>
+	</tr>
+	<%- end -%>
+	<%= render @users %>
+</table>
