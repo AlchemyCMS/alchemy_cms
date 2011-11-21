@@ -1,4 +1,4 @@
-<tr class="<%= cycle('odd', 'even') %>">
+<tr class="<%= cycle('even', 'odd') %>">
 	<td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" -%></td>
 	<td>
 		<%= render_icon(user.logged_in? ? 'online' : 'offline') %>

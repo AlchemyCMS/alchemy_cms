@@ -1469,7 +1469,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar {
-	padding: 6px 8px;
+	padding: 8px 12px;
 	position: relative;
 	margin-bottom: 0;
 }
@@ -1481,7 +1481,7 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-dialog .ui-dialog-titlebar-close {
 	position: absolute;
-	right: .3em;
+	right: 2*$default-padding;
 	top: 50%;
 	width: 19px;
 	margin: -10px 0 0 0;
@@ -1527,7 +1527,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog .ui-dialog-content form {
-	padding: 8px;
+	padding: 12px;
 }
 
 #alchemy .ui-dialog .ui-dialog-buttonpane {

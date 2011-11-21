@@ -1,10 +1,10 @@
-<tr class="<%= cycle('odd', 'even') %>">
+<tr class="<%= cycle('even', 'odd') %>">
 	<td class="name"><%= language.name -%></td>
 	<td class="code"><%= language.code %></td>
 	<td class="name"><%= language.frontpage_name %></td>
 	<td class="name"><%= language.page_layout %></td>
-	<td class="public"><%= render_icon language.public? %></td>
-	<td class="public"><%= render_icon language.default? %></td>
+	<td class="center"><%= render_icon language.public? %></td>
+	<td class="center"><%= render_icon language.default? %></td>
 	<td class="tools">
 		<%- permitted_to?(:destroy, language) do -%>
 		<%= link_to_confirmation_window(

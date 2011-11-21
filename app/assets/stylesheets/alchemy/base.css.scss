@@ -223,10 +223,6 @@ div.pagination span.gap {
 	font-size: 1.2em;
 }
 
-td.submit {
-	text-align: right;
-}
-
 form#login.new_user_session {
 	text-align: right;
 }
@@ -1546,8 +1542,7 @@ table.window_form {
 	width: 100%;
 }
 
-table td,
-table th {
+table td, table th {
 	padding: $default-padding;
 	white-space: nowrap;
 }
@@ -1563,19 +1558,19 @@ th.login_status {
 }
 
 table tr.odd td {
-	background-color: white;
+	background-color: #eaf3f9;
 }
 
 table tr.even td {
-	background-color: #eaf3f9;
+	background-color: white;
 }
 
-.even {
-	background-color: #eaf3f9;
-}
-
-.odd {
+li.even {
 	background-color: #fff;
+}
+
+li.odd {
+	background-color: #eaf3f9;
 }
 
 ul.list li.table_row {
@@ -1819,8 +1814,9 @@ td.input, td.label {
 	vertical-align: top;
 }
 
-td.input {
+td.input, td.submit {
 	text-align: right;
+	padding-right: 0;
 }
 
 td.value {

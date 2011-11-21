@@ -1,4 +1,4 @@
-<tr class="<%= cycle('odd', 'even') %>">
+<tr class="<%= cycle('even', 'odd') %>">
 	<%- resource_attributes.each do |attribute| -%>
 	<%- if attribute[:type] == :boolean -%>
 	<td class="center"><%= render_icon(resource.send(attribute[:name])) -%></td>
