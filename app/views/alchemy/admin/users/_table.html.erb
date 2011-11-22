@@ -1,54 +1,54 @@
 <table>
-  <tr>
-    <td class="label"><%= f.label 'gender', User.human_attribute_name(:gender) %>: </td>
-    <td class="select"><%= f.select 'gender', options_for_select(User.genders_for_select), {:prompt => _('Please choose')}, {:class => 'long'} -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'firstname', User.human_attribute_name(:firstname) %>: </td>
-    <td class="input"><%= f.text_field 'firstname', :class => 'thin_border' -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'lastname', User.human_attribute_name(:lastname) %>:</td>
-    <td class="input"><%= f.text_field 'lastname', :class => 'thin_border' -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'login', User.human_attribute_name(:login) %>: </td>
-    <td class="input"><%= f.text_field 'login', :class => 'thin_border' -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'email', User.human_attribute_name(:email) %>: </td>
-    <td class="input"><%= f.text_field 'email', :class => 'thin_border' -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'language', User.human_attribute_name(:language) %>: </td>
-    <td class="select"><%= f.select 'language', translations_for_select, {}, :class => 'long' -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'password', User.human_attribute_name(:password) %>: </td>
-    <td class="input"><%= f.password_field 'password', :class => 'thin_border', :autocomplete => "off" -%></td>
-  </tr>
-  <tr>
-    <td class="label"><%= f.label 'password_confirmation', User.human_attribute_name(:password_confirmation) %>: </td>
-    <td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border', :autocomplete => "off" -%></td>
-  </tr>
-  <%- unless action_name == 'signup' -%>
-  <tr>
-    <td class="label"><%= f.label 'role', User.human_attribute_name(:role) %>: </td>
-    <td class="select"><%= f.select :role, options_for_select(User::ROLES.map { |role| [User.human_rolename(role), role]}, @user.role), {}, :class => 'long' -%></td>
-  </tr>
-  <%- else -%>
-  <%= f.hidden_field :role %>
-  <%- end -%>
-  <tr>
-    <td>&nbsp;</td>
-    <td class="checkbox">
-      <%= check_box_tag('send_credentials', true, @user.new_record?) %>
-      <%= label_tag('send_credentials', _('Send email with credentials')) %>
-    </td>
-  </tr>
-  <tr>
-    <td class="submit" colspan="2">
-      <%= f.button _('save'), :class => 'button' %>
-    </td>
-  </tr>
+	<tr>
+		<td class="label"><%= f.label 'gender', _('User|Gender') %>: </td>
+		<td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => _('Please choose')}, {:class => 'long'} -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'firstname', _('User|Firstname') %>: </td>
+		<td class="input"><%= f.text_field 'firstname', :class => 'thin_border' -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'lastname', _('User|Lastname') %>:</td>
+		<td class="input"><%= f.text_field 'lastname', :class => 'thin_border' -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'login', _('User|Login') %>: </td>
+		<td class="input"><%= f.text_field 'login', :class => 'thin_border' -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'email', _('User|Email') %>: </td>
+		<td class="input"><%= f.text_field 'email', :class => 'thin_border' -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'language', _('User|Language') %>: </td>
+		<td class="select"><%= f.select 'language', translations_for_select, {}, :class => 'long' -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'password', _('User|Password') %>: </td>
+		<td class="input"><%= f.password_field 'password', :class => 'thin_border', :autocomplete => "off" -%></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label 'password_confirmation', _('User|Password confirmation') %>: </td>
+		<td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border', :autocomplete => "off" -%></td>
+	</tr>
+	<%- unless action_name == 'signup' -%>
+	<tr>
+		<td class="label"><%= f.label 'role', _('User|Role') %>: </td>
+		<td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role), {}, :class => 'long' -%></td>
+	</tr>
+	<%- else -%>
+	<%= f.hidden_field :role %>
+	<%- end -%>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="checkbox">
+			<%= check_box_tag('send_credentials', true, @user.new_record?) %>
+			<%= label_tag('send_credentials', _('Send email with credentials')) %>
+		</td>
+	</tr>
+	<tr>
+		<td class="submit" colspan="2">
+			<%= f.button _('save'), :class => 'button' %>
+		</td>
+	</tr>
 </table>

@@ -32,7 +32,7 @@ describe Alchemy::Page do
 	end
 	
 	it "should contain one rootpage" do
-		Alchemy::Page.rootpage.should be_instance_of(Page)
+		Alchemy::Page.rootpage.should be_instance_of(Alchemy::Page)
 	end
 
 	it "should return all rss feed elements" do
@@ -111,13 +111,13 @@ describe Alchemy::Page do
 		end
 		
 		it "all pages except the rootpage must have a parent_id" do
-			page = Alchemy::Factory.build(:page, :page_layout => "anypage", :parent_id => nil, :language => @language)
+			page = Factory.build(:page, :page_layout => "anypage", :parent_id => nil, :language => @language)
 			page.valid?
 			page.should have(1).error_on(:parent_id)
 		end
 		
 		it "must not be created if the page_layout is set to 'rootpage' and a page already exists with this page_layout and parent_id = nil" do
-		  page = Alchemy::Factory.build(:page, :name => "anypage", :page_layout => "rootpage", :parent_id => @language_root.id, :language => @language)
+		  page = Factory.build(:page, :name => "anypage", :page_layout => "rootpage", :parent_id => @language_root.id, :language => @language)
 			page.valid?
 			page.should have(1).error_on(:page_layout)
 		end

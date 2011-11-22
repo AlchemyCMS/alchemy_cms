@@ -1,6 +1,7 @@
 module Alchemy
 	module Admin
 		class BaseController < Alchemy::BaseController
+
 			include Userstamp
 
 			helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?

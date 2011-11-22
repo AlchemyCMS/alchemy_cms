@@ -8,10 +8,20 @@ module Alchemy
 
 		acts_as_list
 
+		# def essence
+		# 	"Alchemy::#{read_attribute(:essence_type)}".constantize.find(read_attribute(:essence_id))
+		# end
+
 		# Overwriting the active record getter method for the polymorphic essence association,
 		# so we don't have to prefix our essences with namespace.
-		def essence
-			"Alchemy::#{read_attribute(:essence_type)}".constantize.find(read_attribute(:essence_id))
+		def essence_type
+			"Alchemy::#{read_attribute(:essence_type)}"
+		end
+
+		# Overwriting the active record setter method for the polymorphic essence association,
+		# so we don't have to store the prefix from our essences with namespace.
+		def essence_type=(ess_type)
+			write_attribute(:essence_type => ess_type.gsub(/^Alchemy::/, ''))
 		end
 
 		def scope_condition

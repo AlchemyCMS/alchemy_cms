@@ -34,7 +34,7 @@ module Alchemy
 				render :layout => false
 			end
 
-  # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
+			# Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
 			def create
 				@page = Page.find(params[:element][:page_id])
 				@paste_from_clipboard = !params[:paste_from_clipboard].blank?
@@ -56,7 +56,7 @@ module Alchemy
 					render_remote_errors(@element, 'form#new_element button.button')
 				end
 			end
-  
+
 			# Saves all contents in the elements by calling save_content on each content
 			# And then updates the element itself.
 			# If a Ferret::FileNotFoundError raises we gonna catch it and rebuilding the index.

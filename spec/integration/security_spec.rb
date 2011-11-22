@@ -9,7 +9,7 @@ describe "Security: ", :type => :request do
 
 	context "If no user is present" do
 		it "render the signup view" do
-			visit '/'
+			visit '/alchemy/'
 			within('#alchemy_greeting') { page.should have_content('Signup') }
 		end
 	end
@@ -18,7 +18,7 @@ describe "Security: ", :type => :request do
 		it "a visitor should not be able to signup" do
 			@user = Alchemy::User.new({:login => 'foo', :email => 'foo@bar.com', :password => 's3cr3t', :password_confirmation => 's3cr3t'})
 			@user.save_without_session_maintenance
-			visit '/admin/signup'
+			visit '/alchemy/admin/signup'
 			within('#alchemy_greeting') { page.should_not have_content('have to signup') }
 		end
 	end
@@ -32,7 +32,7 @@ describe "Security: ", :type => :request do
 		context "if not logged in" do
 
 			it "should show log in form" do
-				visit '/admin'
+				visit '/alchemy/admin'
 				within('#alchemy_greeting') { page.should have_content('identify') }
 			end
 
@@ -42,8 +42,8 @@ describe "Security: ", :type => :request do
 
 			it "should redirect to dashboard" do
 				Alchemy::UserSession.create @user
-				visit '/admin/login'
-				current_path.should == '/admin/dashboard'
+				visit '/alchemy/admin/login'
+				current_path.should == '/alchemy/admin/dashboard'
 			end
 
 		end

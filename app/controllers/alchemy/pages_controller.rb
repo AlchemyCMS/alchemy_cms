@@ -37,7 +37,7 @@ module Alchemy
 			end
 			respond_to do |format|
 				format.html {
-					render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
+					render :layout => params[:layout].blank? ? 'alchemy/pages' : params[:layout] == 'none' ? false : params[:layout]
 				}
 				format.rss {
 					if @page.contains_feed?
