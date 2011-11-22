@@ -27,6 +27,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="submit">
+					<%= hidden_field_tag 'user_screensize' %>
 					<%= f.button _('login'), :class => 'button', :name => nil %>
 				</td>
 			</tr>
@@ -38,6 +39,9 @@
 <script type="text/javascript" charset="utf-8">
 	jQuery(function($) {
 		$('#alchemy_user_session_login').focus();
+		$('#user_screensize').val(function() {
+			return screen.width+'x'+screen.height;
+		});
 	});
 </script>
 <%- end -%>

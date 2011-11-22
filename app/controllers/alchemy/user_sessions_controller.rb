@@ -32,6 +32,7 @@ module Alchemy
 					flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
 				else
 					@user_session = UserSession.new(params[:alchemy_user_session])
+					store_screen_size
 					if @user_session.save
 						if session[:redirect_path].blank?
 							redirect_to admin_dashboard_path
@@ -68,6 +69,10 @@ module Alchemy
 			else
 				return true
 			end
+		end
+
+		def store_screen_size
+			session[:screen_size] = params[:user_screensize]
 		end
 
 	end
