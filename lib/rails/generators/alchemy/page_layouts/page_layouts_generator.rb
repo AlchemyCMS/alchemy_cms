@@ -7,7 +7,7 @@ module Alchemy
       source_root File.expand_path('templates', File.dirname(__FILE__))
       
       def create_directory
-        @page_layouts_dir = "#{Rails.root}/app/views/page_layouts"
+        @page_layouts_dir = "#{Rails.root}/app/views/alchemy/page_layouts"
         empty_directory @page_layouts_dir
       end
       

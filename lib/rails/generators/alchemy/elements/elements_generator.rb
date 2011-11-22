@@ -7,7 +7,7 @@ module Alchemy
       source_root File.expand_path('templates', File.dirname(__FILE__))
       
       def create_directory
-        @elements_dir = "#{Rails.root}/app/views/elements"
+        @elements_dir = "#{Rails.root}/app/views/alchemy/elements"
         empty_directory @elements_dir
       end
       
