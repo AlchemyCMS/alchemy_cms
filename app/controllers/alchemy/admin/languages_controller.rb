@@ -1,6 +1,6 @@
 module Alchemy
 	module Admin
-		class LanguagesController < Alchemy::Admin::BaseController
+		class LanguagesController < Alchemy::Admin::ResourcesController
 
 			def create
 				@language = Language.new(params[:language])

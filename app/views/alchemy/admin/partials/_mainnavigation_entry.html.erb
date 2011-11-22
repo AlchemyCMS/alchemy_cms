@@ -1,15 +1,6 @@
-<%- permitted_to?(
-	alchemy_module["action"].to_sym,
-	alchemy_module["controller"].gsub(/\//, '_').to_sym
-) do -%>
+<%- permitted_to?(alchemy_module["action"].to_sym, alchemy_module["controller"].gsub(/^\//, '').gsub(/\//, '_').to_sym) do -%>
 
-<%= link_to(
-	url_for(
-		:controller => "/#{alchemy_module['controller']}",
-		:action => alchemy_module["action"]
-	),
-	:class => "main_navi_entry#{admin_mainnavi_active?(alchemy_module) ? ' active' : nil }"
-) do %>
+<%= link_to(url_for_module(alchemy_module), :class => "main_navi_entry#{admin_mainnavi_active?(alchemy_module) ? ' active' : nil }") do %>
 	<%- if alchemy_module["image"] -%>
 	<%= image_tag(alchemy_module["image"]) %>
 	<%- elsif alchemy_module["icon"] -%>

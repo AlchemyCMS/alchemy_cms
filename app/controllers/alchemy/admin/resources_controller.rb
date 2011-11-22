@@ -57,7 +57,7 @@ module Alchemy
 				flash[:notice] = _("Succesfully removed.")
 			end
 
-			protected
+		protected
 
 			def find_resource
 				@resource = resource_model.find(params[:id])
@@ -72,7 +72,8 @@ module Alchemy
 			end
 
 			def resource_model
-				@resource_model ||= resource_model_name.classify.constantize
+				namespace = self.class.to_s.split("::").first
+				@resource_model ||= "#{namespace}::#{resource_model_name.classify}".constantize
 			end
 
 			def resource_attributes

@@ -1764,3 +1764,6 @@ msgstr ""
 
 msgid "Succesfully removed."
 msgstr ""
+
+msgid "You are already logged in."
+msgstr ""

@@ -1814,3 +1814,6 @@ msgstr "Erfolgreich aktualisiert."
 
 msgid "Succesfully removed."
 msgstr "Erfolgreich gelöscht."
+
+msgid "You are already logged in."
+msgstr "Sie sind bereits angemeldet."

@@ -9,12 +9,12 @@
 		<%- else -%>
 		<ul>
 			<%- @last_edited_pages.each do |page| -%>
-			<li class="<%= cycle('even', 'odd') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
+			<li class="<%= cycle('even', 'odd', :name => 'edited_pages') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
 			<%- end -%>
 		</ul>
 		<%- end -%>
 	</div>
-	
+	<%- reset_cycle('edited_pages') -%>
 	<div class="widget">
 		<h2><%= _('Currently locked pages') %>:</h2>
 		<%- if @locked_pages.blank? -%>
@@ -22,7 +22,7 @@
 		<%- else -%>
 		<ul>
 			<%- @locked_pages.each do |page| -%>
-			<li class="<%= cycle('even', 'odd') %>">
+			<li class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
 				<%- if current_user.id == page.locked_by -%>
 				<%= link_to(page.name, edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
 				<%= form_tag(unlock_admin_page_path(page, :redirect_to => request.path)) do %>
@@ -38,7 +38,7 @@
 		</ul>
 		<%- end -%>
 	</div>
-	
+	<%- reset_cycle('locked_pages') -%>
 	<div class="widget">
 		<h2><%= _('Who else is online') %>:</h2>
 		<%- if @online_users.blank? -%>

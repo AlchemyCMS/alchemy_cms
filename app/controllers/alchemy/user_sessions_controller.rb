@@ -3,6 +3,8 @@ module Alchemy
 		before_filter :check_user_count, :only => :login
 		layout 'alchemy/login'
 
+		helper 'Alchemy::Admin::Base'
+
 		# Signup only works if no user is present in database.
 		def signup
 			if request.get?
@@ -20,20 +22,24 @@ module Alchemy
 		end
 
 		def login
-			if request.get?
-				@user_session = UserSession.new()
-				flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
+			if current_user
+				redirect_to admin_dashboard_path, :notice => _('You are already logged in.')
 			else
-				@user_session = UserSession.new(params[:alchemy_user_session])
-				if @user_session.save
-					if session[:redirect_path].blank?
-						redirect_to admin_dashboard_path
-					else
-						# We have to strip double slashes from beginning of path, because of strange rails/rack bug.
-						redirect_to session[:redirect_path].gsub(/^\/{2,}/, '/')
-					end
+				if request.get?
+					@user_session = UserSession.new()
+					flash.now[:info] = params[:message] || _("welcome_please_identify_notice")
 				else
-					render
+					@user_session = UserSession.new(params[:alchemy_user_session])
+					if @user_session.save
+						if session[:redirect_path].blank?
+							redirect_to admin_dashboard_path
+						else
+							# We have to strip double slashes from beginning of path, because of strange rails/rack bug.
+							redirect_to session[:redirect_path].gsub(/^\/{2,}/, '/')
+						end
+					else
+						render
+					end
 				end
 			end
 		end
