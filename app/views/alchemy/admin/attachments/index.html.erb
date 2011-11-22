@@ -18,9 +18,9 @@
 <div class="toolbar_spacer"></div>
 <%- end -%>
 <div id="toolbar_links">
-	<%= render :partial => 'admin/partials/per_page_links', :locals => {:label => _('files'), :values => ['20', '50', 'all']} %>
+	<%= render :partial => 'alchemy/admin/partials/per_page_links', :locals => {:label => _('files'), :values => ['20', '50', 'all']} %>
 </div>
-<%= render :partial => 'admin/partials/search_form' %>
+<%= render :partial => 'alchemy/admin/partials/search_form' %>
 <%- end -%>
 
 <%= render :partial => 'files_list' %>
