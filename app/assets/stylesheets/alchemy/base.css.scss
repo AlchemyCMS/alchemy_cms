@@ -2726,11 +2726,25 @@ div#image_assign_filter_and_image_sizing {
 	@include rounded-corner;
 }
 
-div#archive_all .picture_thumbnail {
-	margin: 0 16px 16px 0;
+#picture_archive {
+	padding: 2*$default-padding;
+	border: $default-border;
+	@include rounded-corner;
+	margin: -2*$default-padding;
+	background-color: $medium-gray;
 }
 
-#archive_all .picture_thumbnail:hover .picture_tool_delete {
+#pictures, #picture_archive .pagination {
+	text-align: center;
+}
+
+#pictures .picture_thumbnail {
+	margin: 0 16px 16px 0;
+	display: inline-block;
+	float: none;
+}
+
+#pictures .picture_thumbnail:hover .picture_tool_delete {
 	display: block;
 }
 
@@ -2742,6 +2756,7 @@ div#archive_all .picture_thumbnail {
 	text-align: center;
 	vertical-align: middle;
 	padding: 0;
+	line-height: 0;
 }
 
 .picture_thumbnail.small .thumbnail_background {
@@ -2759,7 +2774,7 @@ div#archive_all .picture_thumbnail {
 	height: 180px;
 }
 
-#archive_all .picture_thumbnail .thumbnail_background {
+#pictures .picture_thumbnail .thumbnail_background {
 	cursor: -webkit-zoom-in;
 	cursor: -moz-zoom-in;
 	cursor: -o-zoom-in;

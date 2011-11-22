@@ -67,7 +67,9 @@
 <%= render :partial => 'alchemy/admin/partials/search_form' %>
 <%- end -%>
 
-<%= render :partial => 'pictures_list' %>
+<div id="picture_archive">
+	<%= render :partial => 'pictures_list' %>
+</div>
 
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">

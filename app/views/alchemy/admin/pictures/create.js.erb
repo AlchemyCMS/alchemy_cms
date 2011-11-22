@@ -2,7 +2,7 @@
 <%- if @while_assigning -%>
 	$('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay")) -%>');
 <%- else -%>
-	$('#archive_all').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
+	$('#picture_archive').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
 	Alchemy.inPlaceEditor({
 		save_label: "<%= _('save') -%>",
 		cancel_label: "<%= _('cancel') -%>"
