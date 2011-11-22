@@ -32,11 +32,12 @@ module Alchemy
 			# Displays an error notice in the Alchemy backend.
 			def show_error_notice(e)
 				@notice = "Error: #{e}"
+				@trace = e.backtrace
 				if request.xhr?
 					render :action => "error_notice"
 				else
 					flash[:error] = @notice
-					redirect_back_or_to_default
+					render '500', :status => 500
 				end
 			end
 
