@@ -132,7 +132,10 @@ if (typeof(Alchemy) === 'undefined') {
             if (internal_anchor) {
               var $select_container = $sitemap_line.parent().find('.elements_for_page');
               $select_container.show();
-              $.get("/admin/elements/?page_urlname=" + $(internal_urlname.split('/')).last()[0] + '&internal_anchor=' + internal_anchor);
+							$.get(Alchemy.routes.list_admin_elements_path, {
+								page_urlname: $(internal_urlname.split('/')).last()[0],
+								internal_anchor: internal_anchor
+							});
             }
           }
         }

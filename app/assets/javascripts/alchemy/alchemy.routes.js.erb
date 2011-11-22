@@ -1,0 +1,23 @@
+// This object provides dynamically generated Rails routes in Javascript.
+// A little bit hacky, but the best solution so far. ^_^
+<% alchemy_routes = Alchemy::Engine.routes %>
+if (typeof(Alchemy) === 'undefined') {
+	var Alchemy = {};
+}
+
+(function($) {
+
+	var routes = {};
+	$.extend(Alchemy, routes);
+
+	Alchemy.routes = {
+
+		admin_picture_path: function(id) {
+			return '<%= alchemy_routes.generate(:controller => "alchemy/admin/pictures", :action => "update", :id => 1).first %>'.replace(/1/, id);
+		},
+
+		list_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "list").first %>'
+
+	}
+
+})(jQuery);

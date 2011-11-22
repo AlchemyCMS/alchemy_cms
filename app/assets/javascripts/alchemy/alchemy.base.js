@@ -22,8 +22,14 @@ if (typeof(Alchemy) === 'undefined') {
 			};
 			var submit_handler = function(element, id, value) {
 				$(element).css({overflow: 'hidden'});
-				id = parseInt(id.replace(/^image_picture_/, ''));
-				$.ajax({url:'/admin/pictures/'+id, type: 'PUT', data: {name: value}});
+				id = id.match(/\d+/)[0];
+				$.ajax({
+					url: Alchemy.routes.admin_picture_path(id),
+					type: 'PUT',
+					data: {
+						name: value
+					}
+				});
 				return false;
 			};
 			

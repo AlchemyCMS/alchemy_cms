@@ -10,7 +10,7 @@
       <td class="select">
         <%= select_tag(
           "public_filename",
-          options_for_select(Attachment.all.collect{ |f| [f.name, download_attachment_path(:id => f.id, :name => f.name)] }),
+          options_for_select(@attachments),
           :class => "very_long"
         ) %>
       </td>
@@ -30,7 +30,7 @@
         <label for="file_link_target" class="very_long"><%= _("Open Link in") %>:</label>
       </td>
       <td>
-        <%= select_tag 'file_link_target', options_for_select(Page.link_target_options), :class => 'link_target' %>
+        <%= select_tag 'file_link_target', options_for_select(@link_target_options), :class => 'link_target' %>
       </td>
     </tr>
   </table>

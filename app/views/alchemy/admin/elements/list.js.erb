@@ -1,7 +1,7 @@
 (function($) {
 
   $('#elements_for_page_<%= @page_id -%>').html('<%= escape_javascript(
-    render(:partial => "alchemy/elements_select")
+    render("elements_select")
   ) %>');
   $('#elements_for_page_<%= @page_id -%>')
     .append('<a class=\"close_elements_from_page_selector\" title=\"<%= _("remove") -%>\">–</a>')

@@ -32,7 +32,7 @@
         <label for="link_target" class="very_long"><%= _("Open Link in") %>:</label>
       </td>
       <td>
-        <%= select_tag 'link_target', options_for_select(Page.link_target_options), :class => 'link_target' %>
+        <%= select_tag 'link_target', options_for_select(@link_target_options), :class => 'link_target' %>
       </td>
     </tr>
   </table>

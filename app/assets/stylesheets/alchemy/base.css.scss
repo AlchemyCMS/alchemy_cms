@@ -3140,13 +3140,13 @@ div.elements_for_page {
 }
 
 a.close_elements_from_page_selector {
-	padding-left: 4px;
+	position: absolute;
+	right: 8px;
+	top: 8px;
 	font-size: 0;
-	float: right;
 	padding-right: 2px;
 	width: 11px;
 	height: 15px;
-	margin-top: 5px;
 	background: image-url('alchemy/icons.png') no-repeat 0 -72px;
 	cursor: pointer;
 }
