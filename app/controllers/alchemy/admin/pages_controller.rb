@@ -79,7 +79,6 @@ module Alchemy
 				if @page.update_attributes(params[:page])
 					@notice = _("Page %{name} saved") % {:name => @page.name}
 					@while_page_edit = request.referer.include?('edit')
-					lala
 				else
 					render_remote_errors(@page, "form#edit_page_#{@page.id} button.button")
 				end
