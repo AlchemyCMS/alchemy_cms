@@ -1767,3 +1767,9 @@ msgstr ""
 
 msgid "You are already logged in."
 msgstr ""
+
+msgid "No users found."
+msgstr ""
+
+msgid "Nothing found."
+msgstr ""

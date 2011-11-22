@@ -1,8 +1,8 @@
 <%- resources ||= @resources -%>
 <%- resource_partial ||= 'resource' -%>
 
+<%- if resources.any? -%>
 <table class="list" id="<%= resources_name %>_list">
-	<%- if resources.any? -%>
 	<tr>
 		<%- resource_attributes.each do |attribute| -%>
 		<%- if attribute[:type] == :boolean -%>
@@ -15,8 +15,10 @@
 		<%- end -%>
 		<th class="tools"></th>
 	</tr>
-	<%- end -%>
 	<%= render :partial => resource_partial, :collection => resources %>
 </table>
+<%- elsif params[:query] -%>
+<p><%= _('Nothing found.') %></p>
+<%- end -%>
 
 <%= render 'alchemy/admin/partials/pagination_links', :items => resources %>

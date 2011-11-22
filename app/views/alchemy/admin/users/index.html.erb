@@ -1,6 +1,6 @@
 <%- content_for(:toolbar) do -%>
 <div id="toolbar_buttons">
-<%- permitted_to?(:new, :admin_users) do -%>
+<%- permitted_to?(:new, :alchemy_admin_users) do -%>
 	<%= toolbar_button(
 		:icon => 'user_add',
 		:label => _('create_user'),
@@ -18,8 +18,8 @@
 <%= render :partial => 'alchemy/admin/partials/search_form' %>
 <%- end -%>
 
+<%- if @users.any? -%>
 <table class="list" id="user_list">
-	<%- if @users.any? -%>
 	<tr>
 		<th class="icon"></th>
 		<th class="login_status"></th>
@@ -30,5 +30,8 @@
 		<th class="tools"></th>
 	</tr>
 	<%= render @users %>
-	<%- end -%>
 </table>
+<%= render 'alchemy/admin/partials/pagination_links', :items => @users %>
+<%- elsif params[:query] -%>
+<p><%= _('No users found.') %></p>
+<%- end -%>

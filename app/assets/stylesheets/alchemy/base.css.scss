@@ -158,42 +158,43 @@ div.archive_pagination_links a:active {
 }
 
 div.pagination {
-	text-align: center;
+	clear: both;
+	zoom: 1;
+	text-align: right;
 	line-height: 24px;
 	height: 24px;
 	width: 100%;
-	margin-bottom: 16px;
+	margin-top: 4*$default-padding;
 }
 
 div.pagination a, div.pagination span, div.pagination em {
-	@include button-styles;
 	font-size: 12px;
 	height: 25px;
 	line-height: 25px;
-	padding: 4px 8px;
+	padding: $default-padding;
 }
 
 div.pagination a:hover {
-	background-color: #e6f0f5;
-	color: $text-color;
-	border: 1px solid #888;
-	text-shadow: 0 1px 1px #fff;
-	text-decoration: none;
+	color: #000;
+	text-shadow: none;
+	text-decoration: underline;
 }
 
 div.pagination .current {
-	background-color: #e6f0f5;
+	@include button-styles;
+	background: $button-hover-bg-color;
 	color: $text-color;
 	border: 1px solid #888;
 	text-shadow: 0px 1px 1px #fff;
+	cursor: default;
 }
 
 div.pagination .previous_page {
-	margin-right: 16px;
+	margin-right: 2*$default-padding;
 }
 
 div.pagination .next_page {
-	margin-left: 16px;
+	margin-left: 2*$default-padding;
 }
 
 div.pagination .disabled {
@@ -1928,8 +1929,7 @@ td.role {
 }
 
 #archive_all {
-	padding: 16px;
-	overflow: visible;
+	padding: 4*$default-padding;
 }
 
 #archive_all .padding_left_right {

@@ -1817,3 +1817,9 @@ msgstr "Erfolgreich gelöscht."
 
 msgid "You are already logged in."
 msgstr "Sie sind bereits angemeldet."
+
+msgid "No users found."
+msgstr "Keine Benutzer gefunden."
+
+msgid "Nothing found."
+msgstr "Keine Einträge gefunden."

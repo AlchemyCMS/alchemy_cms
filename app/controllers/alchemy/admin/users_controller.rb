@@ -7,20 +7,23 @@ module Alchemy
 
 			def index
 				if !params[:query].blank?
-					@users = User.where([
-						"users.login LIKE ? OR users.email LIKE ? OR users.firstname LIKE ? OR users.lastname LIKE ?",
+					users = User.where([
+						"login LIKE ? OR email LIKE ? OR firstname LIKE ? OR lastname LIKE ?",
 						"%#{params[:query]}%",
 						"%#{params[:query]}%",
 						"%#{params[:query]}%",
 						"%#{params[:query]}%"
-					]).order('login')
+					])
 				else
-					@users = User.all
+					users = User.scoped
 				end
+				@users = users.paginate(:page => params[:page] || 1, :per_page => 20).order('login')
 			end
 
 			def new
 				@user = User.new
+				@user_roles = User::ROLES.map { |role| [User.human_rolename(role), role]}
+				@user_genders = User.genders_for_select
 				render :layout => false
 			end
 
@@ -42,7 +45,8 @@ module Alchemy
 			end
 
 			def edit
-				# User is fetched via before filter
+				@user_roles = User::ROLES.map { |role| [User.human_rolename(role), role]}
+				@user_genders = User.genders_for_select
 				render :layout => false
 			end
 
