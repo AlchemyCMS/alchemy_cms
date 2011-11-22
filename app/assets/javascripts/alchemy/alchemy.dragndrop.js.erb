@@ -18,7 +18,7 @@ if (typeof(Alchemy) === 'undefined') {
 				cursor: 'move',
 				tolerance: 'pointer',
 				update: function(event, ui) {
-					var ids = $.map($(event.target).children(), function(child) {
+					var ids = $.map($(this).children(), function(child) {
 						return $(child).attr('data-element-id');
 					});
 					var params_string = '';
@@ -37,7 +37,7 @@ if (typeof(Alchemy) === 'undefined') {
 						params_string += "&cell_id=" + cell_id;
 					}
 					$.ajax({
-						url: '/admin/elements/order',
+						url: '<%= Alchemy::Engine.routes.generate({:controller => "alchemy/admin/elements", :action => :order}) %>',
 						type: 'POST',
 						data: params_string,
 						complete: function () {
