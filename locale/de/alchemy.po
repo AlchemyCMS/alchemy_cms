@@ -97,7 +97,7 @@ msgid "Currently locked pages"
 msgstr "Momentan bearbeitete Seiten"
 
 #: app/models/language.rb:35
-msgid "Defaut language has to be public"
+msgid "Default language has to be public"
 msgstr "Die Standardsprache muss veröffentlicht sein."
 
 #: app/views/admin/pictures/_picture.html.erb:14
@@ -237,16 +237,16 @@ msgid "Language"
 msgstr "Sprache"
 
 #: app/controllers/admin/languages_controller.rb:37
-msgid "Language '%{name}' created"
-msgstr "Sprache '%{name}' wurde erstellt."
+msgid "Language successfully created."
+msgstr "Sprache wurde erfolgreich erstellt."
 
 #: app/controllers/admin/languages_controller.rb:56
-msgid "Language '%{name}' destroyed"
-msgstr "Sprache '%{name}' wurde gelöscht."
+msgid "Language successfully destroyed."
+msgstr "Sprache wurde erfolgreich gelöscht."
 
 #: app/controllers/admin/languages_controller.rb:47
-msgid "Language '%{name}' updated"
-msgstr "Sprache %{name} wurde aktualisiert"
+msgid "Language successfully updated."
+msgstr "Sprache wurde erfolgreich aktualisiert."
 
 #: app/views/admin/pages/index.html.erb:37
 #: app/views/admin/pages/layoutpages.html.erb:38
@@ -924,7 +924,7 @@ msgstr "Wählen Sie ein Element dieser Seite als Ziel"
 
 #: app/views/admin/elements/index.rjs:6
 msgid "choose_element_to_link"
-msgstr "Bitte wählen Sie ein Element"
+msgstr "Bitte wählen Sie ein Element."
 
 #: app/views/admin/pages/_file_link.html.erb:3
 msgid "choose_file_to_link"
@@ -1752,8 +1752,8 @@ msgid "want_to_make_copy_of_existing_language"
 msgstr "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
 
 #: app/models/language.rb:44
-msgid "we_need_at_least_one_default"
-msgstr "Es muss eine Standardsprache geben"
+msgid "We need at least one default."
+msgstr "Es muss eine Standardsprache geben."
 
 #: app/controllers/admin_controller.rb:36
 msgid "welcome_please_identify_notice"
