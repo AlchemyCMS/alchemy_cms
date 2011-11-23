@@ -24,7 +24,7 @@ if (typeof(Alchemy) === 'undefined') {
 			});
 			$('#save_page_order').click(function(){
 				var params = $('ul#sitemap').nestedSortable('serialize');
-				$.post('/admin/pages/order', params);
+				$.post(Alchemy.routes.order_admin_pages_path, params);
 			});
 			Alchemy.PageSorter.disableButton();
 			Alchemy.resizeFrame();

@@ -23,9 +23,15 @@ if (typeof(Alchemy) === 'undefined') {
 			return url;
 		},
 
+		fold_admin_element_path: function(id) {
+			return '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "fold", :id => 1).first %>'.replace(/1/, id);
+		},
+
 		list_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "list").first %>',
 		order_admin_contents_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/contents", :action => "order").first %>',
-		order_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "order").first %>'
+		order_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "order").first %>',
+		order_admin_pages_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/pages", :action => "order").first %>',
+		link_admin_pages_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/pages", :action => "link").first %>'
 
 	}
 

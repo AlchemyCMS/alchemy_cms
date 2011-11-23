@@ -23,7 +23,7 @@ if (typeof(Alchemy) === 'undefined') {
         hide: "fade",
         open: function (event, ui) {
           $.ajax({
-            url: '/admin/pages/link',
+            url: Alchemy.routes.link_admin_pages_path,
             success: function(data, textStatus, XMLHttpRequest) {
               $dialog.html(data);
               Alchemy.SelectBox('#alchemyLinkOverlay select');
