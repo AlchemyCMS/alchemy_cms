@@ -17,7 +17,7 @@ module Alchemy
 					if params[:send_credentials]
 						Notifications.admin_user_created(@user).deliver
 					end
-					redirect_to :action => :index
+					redirect_to admin_dashboard_path
 				end
 			end
 		end
