@@ -44,7 +44,7 @@ module Alchemy
 
 		def publicity_of_default_language
 			if self.default? && !self.public?
-				errors.add(:base, N_("Defaut language has to be public"))
+				errors.add(:base, _("Default language has to be public"))
 				return false
 			else
 				return true
@@ -53,7 +53,7 @@ module Alchemy
 
 		def presence_of_default_language
 			if Language.get_default == self && self.default_changed?
-				errors.add(:base, N_("we_need_at_least_one_default"))
+				errors.add(:base, _("We need at least one default."))
 				return false
 			else
 				return true
@@ -72,7 +72,7 @@ module Alchemy
 		end
 
 		def check_for_default
-			raise "Default language not deletable" if self.default?
+			raise "Default language is not deletable" if self.default?
 		end
 
 		def delete_language_root_page

@@ -11,7 +11,7 @@ module Alchemy
 		has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 
 		validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
-		validates_presence_of :name, :on => :create, :message => N_("Please choose an element.")
+		validates_presence_of :name, :on => :create, :message => '^'+_("Please choose an element.")
 
 		attr_accessor :create_contents_after_create
 
