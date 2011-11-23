@@ -10,17 +10,25 @@
 		<%= render :partial => 'new_element_form' %>
 	</div>
 	<div id="paste_element_tab">
-		<div class="new_alchemy_element">
-			<%= form_for([:admin, @element], :remote => true, :id => 'paste_element_form') do |f| %>
-				<%= f.hidden_field(:page_id) %>
-				<div id="errors" style="display: none"></div>
-				<span style="margin-right: 16px">
-					<label for="paste_from_clipboard"><%= _("Element") %>:</label>
-				</span>
-				<%= clipboard_select_tag(@clipboard_items, :class => 'long') %>
-				<%= f.button _("paste"), :class => 'button' %>
-			<% end %>
-		</div>
+		<%= form_for([:admin, @element], :remote => true, :id => 'paste_element_form') do |f| %>
+			<div id="errors" style="display: none"></div>
+			<table>
+				<tr>
+					<td class="label">
+						<label for="paste_from_clipboard"><%= _("Element") %></label>
+					</td>
+					<td class="select">
+						<%= clipboard_select_tag(@clipboard_items, :class => 'long') %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="submit">
+						<%= f.hidden_field(:page_id) %>
+						<%= f.button _("paste"), :class => 'button' %>
+					</td>
+				</tr>
+			</table>
+		<% end %>
 	</div>
 </div>
 <script type="text/javascript" charset="utf-8">
