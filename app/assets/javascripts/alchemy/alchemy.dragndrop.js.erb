@@ -37,7 +37,7 @@ if (typeof(Alchemy) === 'undefined') {
 						params_string += "&cell_id=" + cell_id;
 					}
 					$.ajax({
-						url: '<%= Alchemy::Engine.routes.generate({:controller => "alchemy/admin/elements", :action => :order}) %>',
+						url: Alchemy.routes.order_admin_elements_path,
 						type: 'POST',
 						data: params_string,
 						complete: function () {
@@ -76,7 +76,7 @@ if (typeof(Alchemy) === 'undefined') {
 					});
 					$(event.originalTarget).css("cursor", "progress");
 					$.ajax({
-						url: '/admin/contents/order',
+						url: Alchemy.routes.order_admin_contents_path,
 						type: 'POST',
 						data: "authenticity_token=" + encodeURIComponent(token) + "&" + $.param({content_ids: ids}),
 						complete: function () {

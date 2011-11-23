@@ -422,7 +422,7 @@ if (typeof(Alchemy) === 'undefined') {
 				hide: "fade",
 				open: function (event, ui) {
 					$.ajax({
-						url: '/admin/trash?page_id=' + page_id,
+						url: Alchemy.routes.admin_trash_path(page_id),
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
 							// Need this for DragnDrop elements into elements window.
@@ -443,7 +443,7 @@ if (typeof(Alchemy) === 'undefined') {
 		refreshTrashWindow: function(page_id) {
 			if ($('#alchemyTrashWindow').length > 0) {
 				$('#alchemyTrashWindow').html(Alchemy.getOverlaySpinner({x: 380, y: 270}));
-				$.get('/admin/trash?page_id='+page_id, function(html) {
+				$.get(Alchemy.routes.admin_trash_path(page_id), function(html) {
 					$('#alchemyTrashWindow').html(html);
 				});
 			}

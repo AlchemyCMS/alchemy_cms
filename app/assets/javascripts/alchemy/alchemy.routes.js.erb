@@ -16,7 +16,16 @@ if (typeof(Alchemy) === 'undefined') {
 			return '<%= alchemy_routes.generate(:controller => "alchemy/admin/pictures", :action => "update", :id => 1).first %>'.replace(/1/, id);
 		},
 
-		list_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "list").first %>'
+		admin_trash_path : function(page_id) {
+			var url = '<%= alchemy_routes.generate(:controller => "alchemy/admin/trash", :action => "index").first %>';
+			if (page_id)
+				url += '?page_id=' + page_id;
+			return url;
+		},
+
+		list_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "list").first %>',
+		order_admin_contents_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/contents", :action => "order").first %>',
+		order_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "order").first %>'
 
 	}
 

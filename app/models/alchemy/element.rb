@@ -420,7 +420,7 @@ module Alchemy
 
 		# List all elements for page_layout
 		def self.all_for_page(page)
-			raise TypeError if page.class != Page
+			raise TypeError if page.class.name != "Alchemy::Page"
 			# if page_layout has cells, collect elements from cells and group them by cellname
 			page_layout = Alchemy::PageLayout.get(page.page_layout)
 			if page_layout.blank?

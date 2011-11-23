@@ -69,7 +69,7 @@ privileges do
   end
   
   privilege :manage_elements, :alchemy_admin_elements do
-    includes :manage, :copy_to_clipboard, :order, :fold, :list
+    includes :manage, :copy_to_clipboard, :order, :fold, :list, :trash
   end
   
   privilege :manage_contents, :alchemy_admin_contents do
