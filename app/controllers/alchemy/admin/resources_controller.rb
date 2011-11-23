@@ -41,7 +41,7 @@ module Alchemy
 				render_errors_or_redirect(
 					resource_instance_variable,
 					url_for({:action => :index}),
-					_("Succesfully created.")
+					flash_notice_for_resource_action
 				)
 			end
 
@@ -50,16 +50,35 @@ module Alchemy
 				render_errors_or_redirect(
 					resource_instance_variable,
 					url_for({:action => :index}),
-					_("Succesfully updated.")
+					flash_notice_for_resource_action
 				)
 			end
 
 			def destroy
 				resource_instance_variable.destroy
-				flash[:notice] = _("Succesfully removed.")
+				flash_notice_for_resource_action
 			end
 
 		protected
+			
+			# Returns a translated flash[:notice] if FastGettext finds the key
+			# The key should look like "Modelname successfully created/updated/destroyed."
+			def flash_notice_for_resource_action(action = params[:action])
+				case action.to_sym
+				when :create
+					verb = "created"
+				when :update
+					verb = "updated"
+				when :destroy
+					verb = "removed"
+				end
+				key = "#{resource_model_name.classify} successfully #{verb}."
+				if FastGettext.key_exist?(key)
+					flash[:notice] = _(key)
+				else
+					flash[:notice] = _("Succesfully #{verb}.")
+				end
+			end
 
 			def load_resource
 				instance_variable_set("@#{resource_model_name}", resource_model.find(params[:id]))
