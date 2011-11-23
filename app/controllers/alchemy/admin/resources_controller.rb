@@ -5,7 +5,7 @@ module Alchemy
 			rescue_from Exception, :with => :exception_handler
 
 			before_filter :set_translation
-			before_filter :load_resource, :only => [:edit, :update, :destroy]
+			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
 			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name, :resource_instance_variable, :resources_instance_variable
 
@@ -24,11 +24,15 @@ module Alchemy
 
 			def new
 				instance_variable_set("@#{resource_model_name}", resource_model.new)
-				render :layout => false
+				render :layout => !request.xhr?
+			end
+
+			def show
+				render :layout => !request.xhr?
 			end
 
 			def edit
-				render :layout => false
+				render :layout => !request.xhr?
 			end
 
 			def create
