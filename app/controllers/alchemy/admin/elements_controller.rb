@@ -65,7 +65,7 @@ module Alchemy
 				if @element.save_contents(params)
 					@page = @element.page
 					@element.public = !params[:public].nil?
-					@element_validated = @element.save
+					@element_validated = @element.save!
 				else
 					@element_validated = false
 					@notice = _('Validation failed.')
@@ -85,8 +85,8 @@ module Alchemy
 					element = Element.find(element_id)
 					if element.trashed?
 						element.page_id = params[:page_id]
-						element.cell_id = params[:cell_id] if params[:cell_id]
-						element.position = 1
+						element.cell_id = params[:cell_id]
+						element.insert_at
 					end
 					element.move_to_bottom
 				end

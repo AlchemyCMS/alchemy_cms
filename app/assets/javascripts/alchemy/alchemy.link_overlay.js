@@ -21,6 +21,7 @@ if (typeof(Alchemy) === 'undefined') {
         title: 'Link setzen',
         show: "fade",
         hide: "fade",
+				resizable: false,
         open: function (event, ui) {
           $.ajax({
             url: Alchemy.routes.link_admin_pages_path,

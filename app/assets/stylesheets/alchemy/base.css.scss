@@ -209,6 +209,7 @@ div.pagination span.gap {
 
 #assign_image_list div.pagination {
 	margin-bottom: 8px;
+	text-align: center;
 }
 
 /* @end */
@@ -2697,21 +2698,10 @@ div#image_assign_filter_and_image_sizing {
 	height: 40px;
 }
 
-/*div.assign_image_list_detail {
-	background-color: #ffffff;
-	text-align: center;
-	float: left;
-	margin: 0 6px 6px 0;
-	padding: $default-padding;
-	position: relative;
-	overflow: hidden;
-	border: 1px solid #c0c0c0;
-	@include rounded-corner;
-}*/
-
 #assign_image_list {
 	padding: 2*$default-padding;
 	overflow: hidden;
+	text-align: center;
 }
 
 /* @group Picture Thumbnails */
@@ -2720,7 +2710,9 @@ div#image_assign_filter_and_image_sizing {
 	padding: $default-padding;
 	margin: 2px 1px 2px 2px;
 	background-color: #fff;
-	float: left;
+	float: none;
+	display: inline;
+	display: inline-block;
 	border: 1px solid #c0c0c0;
 	position: relative;
 	@include rounded-corner;
@@ -3257,9 +3249,8 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-#alchemy .ui-dialog-content input.auto_resize,
-#alchemy .ui-dialog-content textarea.auto_resize {
-	width: 100%;
+#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
+	width: 98%;
 }
 
 #alchemy .ui-dialog-content td.medium {
