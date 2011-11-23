@@ -65,7 +65,7 @@ privileges do
   privilege :delete,  :includes => :destroy
   
   privilege :manage_pages, :alchemy_admin_pages do
-    includes :manage, :switch_language, :sort, :order, :configure, :flush, :copy, :copy_language
+    includes :manage, :switch_language, :sort, :order, :configure, :flush, :copy, :copy_language_tree
   end
   
   privilege :manage_elements, :alchemy_admin_elements do

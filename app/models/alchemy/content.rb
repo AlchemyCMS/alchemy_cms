@@ -17,7 +17,7 @@ module Alchemy
 		# Overwriting the active record setter method for the polymorphic essence association,
 		# so we don't have to store the prefix from our essences with namespace.
 		def essence_type=(ess_type)
-			write_attribute(:essence_type => ess_type.gsub(/^Alchemy::/, ''))
+			write_attribute(:essence_type, ess_type.gsub(/^Alchemy::/, ''))
 		end
 
 		def scope_condition

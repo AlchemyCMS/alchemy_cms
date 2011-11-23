@@ -57,7 +57,7 @@ Alchemy::Engine.routes.draw do
 			collection do
 				post :order
 				post :flush
-				post :copy_language
+				post :copy_language_tree
 				get :switch_language
 				get :create_language
 				get :link

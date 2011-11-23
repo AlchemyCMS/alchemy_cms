@@ -16,7 +16,7 @@ module Alchemy
 				@locked_pages = Page.all_locked_by(current_user)
 				@languages = Language.all
 				if !@page_root
-					@language = @languages.find(session[:language_id]).first
+					@language = @languages.find{|language| language.id == session[:language_id]}
 					@languages_with_page_tree = Language.all_for_created_language_trees if @language
 				end
 			end
@@ -163,7 +163,7 @@ module Alchemy
 				redirect_back_or_to_default(admin_pages_path)
 			end
 
-			def copy_language
+			def copy_language_tree
 				set_language_to(session[:language_id])
 				# copy language root from old to new language
 				if params[:layoutpage]
