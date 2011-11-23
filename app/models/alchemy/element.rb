@@ -54,7 +54,7 @@ module Alchemy
 			end
 		end
 
-		# nullifies the page_id aka. trashs it.
+		# Nullifies the page_id and cell_id, fold the element, set it to unpublic and removes its position.
 		def trash
 			self.attributes = {
 				:page_id => nil,
@@ -62,8 +62,6 @@ module Alchemy
 				:folded => true,
 				:public => false
 			}
-			# If we validate the element, it will not get trashed if another element with same postion is already trashed.
-			# And we cannot remove the position, because it will not be reordered in the list if its position is nil.
 			self.remove_from_list
 		end
 

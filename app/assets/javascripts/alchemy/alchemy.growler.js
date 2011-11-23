@@ -11,7 +11,7 @@ if (typeof(Alchemy) === 'undefined') {
     
     build : function(message, flash_type) {
       var $flash_container = $('<div class="flash '+flash_type+'" />');
-      var icon_class = flash_type === 'notice' ? 'tick' : 'error';
+      var icon_class = flash_type === 'notice' ? 'tick' : flash_type;
       $flash_container.append('<span class="icon '+icon_class+'" />');
       $flash_container.append(message);
       $('#flash_notices').append($flash_container);
@@ -20,10 +20,10 @@ if (typeof(Alchemy) === 'undefined') {
     },
     
     fade : function() {
-      $('#flash_notices div[class!="flash error"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
+      $('#flash_notices div[class="flash notice"]').delay(5000).hide('drop', { direction: "up" }, 400, function() {
         $(this).remove();
       });
-      $('#flash_notices div[class="flash error"]')
+      $('#flash_notices div[class!="flash notice"]')
       .css({cursor: 'pointer'})
       .click(function() {
         $(this).hide('drop', { direction: "up" }, 400, function() {
