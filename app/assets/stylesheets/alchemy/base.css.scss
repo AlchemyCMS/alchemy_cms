@@ -507,16 +507,6 @@ a.drop_down_select img {
 	margin-bottom: 4px;
 }
 
-.new_alchemy_element form {
-	height: 26px;
-}
-
-.new_alchemy_element form .selectbox {
-	float: left;
-	line-height: normal;
-	margin-left: 8px;
-}
-
 .js_filter_field_box {
 	position: relative;
 	float: right;
@@ -1835,8 +1825,8 @@ td.value {
 td.label {
 	white-space: nowrap;
 	width: 80px;
-	padding: 2px 8px 0 0;
-	line-height: 23px;
+	padding: $default-padding 2*$default-padding 0 0;
+	line-height: 6*$default-padding;
 }
 
 td.heading {
@@ -3216,20 +3206,8 @@ div.assign_file_file_icon img {
 	width: 195px;
 }
 
-#alchemy .ui-dialog-content td.label {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-right: 8px;
-	height: 25px;
-}
-
-#alchemy .ui-dialog-content td.label.middle {
+td.label.middle {
 	padding-left: 2*$default-padding;
-}
-
-#alchemy .ui-dialog-content td.label.right {
-	text-align: right;
-	width: 40px;
 }
 
 .elements_for_page .alchemy_selectbox {
