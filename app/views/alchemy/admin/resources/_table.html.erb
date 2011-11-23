@@ -6,12 +6,14 @@
 	<tr>
 		<%- resource_attributes.each do |attribute| -%>
 		<%- if attribute[:type] == :boolean -%>
-		<th class="center"><%= t(attribute[:name], :scope => "activerecord.attributes.#{resource_model_name}") %></th>
+		<th class="center">
 		<%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
-		<th class="right"><%= t(attribute[:name], :scope => "activerecord.attributes.#{resource_model_name}") %></th>
+		<th class="right">
 		<%- else -%>
-		<th><%= t(attribute[:name], :scope => "activerecord.attributes.#{resource_model_name}") %></th>
+		<th>
 		<%- end -%>
+			<%= _("#{resource_model_name.classify}|#{attribute[:name].humanize}") %>
+		</th>
 		<%- end -%>
 		<th class="tools"></th>
 	</tr>
