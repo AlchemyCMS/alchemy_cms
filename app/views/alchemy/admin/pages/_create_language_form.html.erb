@@ -1,40 +1,37 @@
 <div id="archive_all">
 	<h1><%= _("language_does_not_exist") %></h1>
-	<%- lang = Language.find(session[:language_id]) -%>
-	<%- if lang -%>
-		<%- languages = Language.all_for_created_language_trees -%>
-		<%- if languages.size >= 1 -%>
+	<%- if @language -%>
+		<%- if @languages_with_page_tree.size >= 1 -%>
 			<p><%= _("want_to_make_copy_of_existing_language") %></p>
-			<%- form_tag("/admin/pages/copy_language", :onsubmit => 'Alchemy.pleaseWaitOverlay();') do -%>
-				<table>
-				    <tr>
-				        <td class="input">
-				            <%= select_tag("languages[old_lang_id]", options_for_select(languages.map{ |l| [l.name, l.id] }), :class => "medium_long") %>
-				            <%= hidden_field_tag("languages[new_lang_id]", lang.id) %>
-				        </td>
-				        <td class="">
+			<%= form_tag(copy_language_admin_pages_path, :onsubmit => 'Alchemy.pleaseWaitOverlay();') do %>
+				<table style="width: 135px;">
+					<tr>
+						<td>
+							<%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), :class => "medium_long") %>
+							<%= hidden_field_tag("languages[new_lang_id]", @language.id) %>
+						</td>
+						<td>
 							<%= hidden_field_tag("layoutpage", params[:action] == "layoutpages") if params[:action] == "layoutpages" %>
-				            &nbsp;<%= submit_tag _("copy"), :class => 'button' %>
-				        </td>
-				    </tr>
+							<%= submit_tag _("copy"), :class => 'button' %>
+						</td>
+					</tr>
 				</table>
 			<% end %>
 		<%- end -%>
 		<%- if params[:action] == "index" -%>
-		<%- if languages.size >= 1 -%>
+		<%- if @languages_with_page_tree.size >= 1 -%>
 		<p>
-		    
-		    <%= _("want_to_create_new_language") %>
+			<%= _("want_to_create_new_language") %>
 		</p>
 		<%- end -%>
-		<%= form_for([:admin, Page.new], :remote => true) do |form| %>
-			<%= form.hidden_field :name, :value => lang.frontpage_name %>
-			<%= form.hidden_field :language_id, :value => lang.id %>
-			<%= form.hidden_field :language_code, :value => lang.code %>
-			<%= form.hidden_field :page_layout, :value => lang.page_layout %>
+		<%= form_for([:admin, Alchemy::Page.new], :remote => true) do |form| %>
+			<%= form.hidden_field :name, :value => @language.frontpage_name %>
+			<%= form.hidden_field :language_id, :value => @language.id %>
+			<%= form.hidden_field :language_code, :value => @language.code %>
+			<%= form.hidden_field :page_layout, :value => @language.page_layout %>
 			<%= form.hidden_field :language_root, :value => true %>
-			<%= form.hidden_field :parent_id, :value => Page.rootpage.id %>
-			<%= form.submit(_("%{language}_as_new_language") % {:language => lang.name}, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay();') %>
+			<%= form.hidden_field :parent_id, :value => Alchemy::Page.rootpage.id %>
+			<%= form.submit(_("%{language}_as_new_language") % {:language => @language.name}, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay();') %>
 		<% end %>
 		<%- end -%>
 	<%- else -%>

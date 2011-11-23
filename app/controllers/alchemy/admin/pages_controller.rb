@@ -15,6 +15,10 @@ module Alchemy
 				@page_root = Page.language_root_for(session[:language_id])
 				@locked_pages = Page.all_locked_by(current_user)
 				@languages = Language.all
+				if !@page_root
+					@language = @languages.find(session[:language_id]).first
+					@languages_with_page_tree = Language.all_for_created_language_trees if @language
+				end
 			end
 
 			def show
