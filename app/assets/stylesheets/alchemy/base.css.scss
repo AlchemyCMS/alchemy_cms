@@ -3257,9 +3257,8 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
-#alchemy .ui-dialog-content input.auto_resize,
-#alchemy .ui-dialog-content textarea.auto_resize {
-	width: 100%;
+#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
+	width: 98%;
 }
 
 #alchemy .ui-dialog-content td.medium {

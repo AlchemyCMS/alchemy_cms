@@ -11,19 +11,19 @@
       </td>
     </tr>
     <tr>
-      <td class="label">
-        <label for="internal_link_title" class="medium"><%= _('Title') %>:</label>
+      <td class="label long">
+        <label for="internal_link_title"><%= _('Title') %>:</label>
       </td>
       <td class="input">
-        <%= text_field_tag "internal_link_title", {}, :class => 'thin_border auto_resize link_title' %>
+        <%= text_field_tag "internal_link_title", '', :class => 'thin_border auto_resize link_title' %>
       </td>
     </tr>
     <tr>
-      <td class="label">
-        <label for="internal_link_target" class="very_long"><%= _("Open Link in") %>:</label>
+      <td class="label long">
+        <label for="internal_link_target"><%= _("Open Link in") %>:</label>
       </td>
       <td>
-        <%= select_tag 'internal_link_target', options_for_select(@link_target_options), :class => 'link_target' %>
+        <%= select_tag 'internal_link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
       </td>
     </tr>
   </table>

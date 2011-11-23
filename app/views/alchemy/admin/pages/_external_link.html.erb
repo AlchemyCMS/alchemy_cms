@@ -18,21 +18,21 @@
         ) %>
       </td>
       <td class="input">
-        <%= text_field_tag 'external_url', {}, :class => "thin_border auto_resize" %>
+        <%= text_field_tag 'external_url', '', :class => "thin_border auto_resize" %>
       </td>
     </tr>
     <tr>
-      <td class="label">
-        <label for="extern_link_title" class="medium"><%= _("link_title") %></label>
+      <td class="label long">
+        <label for="extern_link_title"><%= _("link_title") %></label>
       </td>
-      <td class="input"><%= text_field_tag "extern_link_title", {}, :class => 'thin_border auto_resize link_title' %></td>
+      <td class="input"><%= text_field_tag "extern_link_title", '', :class => 'thin_border auto_resize link_title' %></td>
     </tr>
     <tr>
-      <td class="label">
-        <label for="link_target" class="very_long"><%= _("Open Link in") %>:</label>
+      <td class="label long">
+        <label for="link_target"><%= _("Open Link in") %>:</label>
       </td>
       <td>
-        <%= select_tag 'link_target', options_for_select(@link_target_options), :class => 'link_target' %>
+        <%= select_tag 'link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
       </td>
     </tr>
   </table>
