@@ -7,6 +7,7 @@ module Alchemy
 
 		# Signup only works if no user is present in database.
 		def signup
+			@user_genders = User.genders_for_select
 			if request.get?
 				redirect_to admin_path if User.count != 0
 				@user = User.new({:role => 'admin'})
