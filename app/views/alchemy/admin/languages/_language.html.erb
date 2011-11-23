@@ -6,7 +6,7 @@
 	<td class="center"><%= render_icon language.public? %></td>
 	<td class="center"><%= render_icon language.default? %></td>
 	<td class="tools">
-		<%- permitted_to?(:destroy, language) do -%>
+		<%- permitted_to?(:destroy, :alchemy_admin_languages) && !language.default? do -%>
 		<%= link_to_confirmation_window(
 			'',
 			_("confirm_to_delete_language"),

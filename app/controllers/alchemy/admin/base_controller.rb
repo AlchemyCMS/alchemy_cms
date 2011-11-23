@@ -36,7 +36,7 @@ module Alchemy
 				if request.xhr?
 					render :action => "error_notice"
 				else
-					flash[:error] = @notice
+					flash.now[:error] = @notice
 					render '500', :status => 500
 				end
 			end

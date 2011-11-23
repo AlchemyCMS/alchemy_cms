@@ -2,14 +2,12 @@ module Alchemy
 	module Admin
 		class ResourcesController < Alchemy::Admin::BaseController
 
-			filter_resource_access
-
 			rescue_from Exception, :with => :exception_handler
 
 			before_filter :set_translation
-			before_filter :find_resource, :only => [:edit, :update, :destroy]
+			before_filter :load_resource, :only => [:edit, :update, :destroy]
 
-			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name
+			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name, :resource_instance_variable, :resources_instance_variable
 
 			def index
 				if !params[:query].blank?
@@ -21,11 +19,11 @@ module Alchemy
 				else
 					items = resource_model
 				end
-				@resources = items.paginate(:page => params[:page] || 1, :per_page => 20)
+				instance_variable_set("@#{resources_name}", items.paginate(:page => params[:page] || 1, :per_page => 20))
 			end
 
 			def new
-				@resource = resource_model.new
+				instance_variable_set("@#{resource_model_name}", resource_model.new)
 				render :layout => false
 			end
 
@@ -34,33 +32,33 @@ module Alchemy
 			end
 
 			def create
-				@resource = resource_model.new(params[resource_model_name.to_sym])
-				@resource.save
+				instance_variable_set("@#{resource_model_name}", resource_model.new(params[resource_model_name.to_sym]))
+				resource_instance_variable.save
 				render_errors_or_redirect(
-					@resource,
+					resource_instance_variable,
 					url_for({:action => :index}),
 					_("Succesfully created.")
 				)
 			end
 
 			def update
-				@resource.update_attributes(params[resource_model_name.to_sym])
+				resource_instance_variable.update_attributes(params[resource_model_name.to_sym])
 				render_errors_or_redirect(
-					@resource,
+					resource_instance_variable,
 					url_for({:action => :index}),
 					_("Succesfully updated.")
 				)
 			end
 
 			def destroy
-				@resource.destroy
+				resource_instance_variable.destroy
 				flash[:notice] = _("Succesfully removed.")
 			end
 
 		protected
 
-			def find_resource
-				@resource = resource_model.find(params[:id])
+			def load_resource
+				instance_variable_set("@#{resource_model_name}", resource_model.find(params[:id]))
 			end
 
 			def resources_name
@@ -73,7 +71,7 @@ module Alchemy
 
 			def resource_model
 				namespace = self.class.to_s.split("::").first
-				@resource_model ||= "#{namespace}::#{resource_model_name.classify}".constantize
+				@resource_model ||= (namespace == "Admin" ? resource_model_name : "#{namespace}::#{resource_model_name}").classify.constantize
 			end
 
 			def resource_attributes
@@ -86,6 +84,14 @@ module Alchemy
 
 			def resource_window_size
 				@resource_window_size ||= "400x#{100 + resource_attributes.length * 35}"
+			end
+
+			def resource_instance_variable
+				instance_variable_get("@#{resource_model_name}")
+			end
+
+			def resources_instance_variable
+				instance_variable_get("@#{resources_name}")
 			end
 
 		end

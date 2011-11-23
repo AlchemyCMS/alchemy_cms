@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Alchemy::Admin::ContentsController do
 
-	before(:each) do
+	before do
 		activate_authlogic
 		Alchemy::UserSession.create Factory(:admin_user)
 	end

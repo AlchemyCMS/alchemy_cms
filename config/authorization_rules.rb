@@ -49,9 +49,7 @@ authorization do
     includes :editor
     has_permission_on :alchemy_admin_users, :to => [:manage]
     has_permission_on :alchemy_admin_languages, :to => [:manage]
-    has_permission_on :alchemy_languages, :to => :destroy do 
-      if_attribute :default => false
-    end
+    has_permission_on :alchemy_languages, :to => [:manage]
     has_permission_on :authorization_rules, :to => :read
   end
   
