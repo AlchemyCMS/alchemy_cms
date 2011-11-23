@@ -75,7 +75,7 @@ module Alchemy
 
 			def resource_model
 				namespace = self.class.to_s.split("::").first
-				@resource_model ||= (namespace == "Admin" ? resource_model_name : "#{namespace}::#{resource_model_name}").classify.constantize
+				@resource_model ||= (namespace == "Admin" ? resource_model_name : "#{namespace}/#{resource_model_name}").classify.constantize
 			end
 
 			def resource_attributes
