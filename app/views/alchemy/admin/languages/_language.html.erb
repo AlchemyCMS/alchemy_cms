@@ -6,15 +6,6 @@
 	<td class="center"><%= render_icon language.public? %></td>
 	<td class="center"><%= render_icon language.default? %></td>
 	<td class="tools">
-		<%- permitted_to?(:destroy, :alchemy_admin_languages) || !language.default? do -%>
-		<%= link_to_confirmation_window(
-			'',
-			_("confirm_to_delete_language"),
-			admin_language_path(language),
-			:title => _('delete_language'),
-			:class => "icon destroy"
-		) -%>
-		<%- end -%>
 		<%- permitted_to?(:edit, :alchemy_admin_languages) do -%>
 		<%= link_to_overlay_window(
 			'',
@@ -26,10 +17,20 @@
 			},
 			{
 				:class => "icon edit",
-				:style => "float: right;",
 				:title => _('edit_language')
 			}
 		) -%>
+		<%- end -%>
+		<%- unless language.default? -%>
+		<%- permitted_to?(:destroy, :alchemy_admin_languages) do -%>
+		<%= link_to_confirmation_window(
+			'',
+			_("confirm_to_delete_language"),
+			admin_language_path(language),
+			:title => _('delete_language'),
+			:class => "icon destroy"
+		) -%>
+		<%- end -%>
 		<%- end -%>
 	</td>
 </tr>
