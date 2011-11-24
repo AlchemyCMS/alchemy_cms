@@ -427,7 +427,6 @@ module Alchemy
 			robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
 			meta_string = %(
 				<meta charset=UTF-8">
-				#{render_meta_content_language_tag}
 				#{render_title_tag(:prefix => options[:title_prefix], :seperator => options[:title_seperator])}
 				#{render_meta_tag(:name => "description", :content => description)}
 				#{render_meta_tag(:name => "keywords", :content => keywords)}
