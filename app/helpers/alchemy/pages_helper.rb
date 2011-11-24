@@ -378,46 +378,29 @@ module Alchemy
 			}
 			options = default_options.merge(options)
 			lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-			%(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}" />).html_safe
-		end
-
-		# Renders a html <meta http-equiv="Content-Language" content="#{lang}" /> for @page.language.
-		#
-		# == Webdevelopers:
-		# 
-		# Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
-		# So you dont have to worry about anything.
-		# 
-		def render_meta_content_language_tag(options={})
-			default_options = {
-				:default_language => "de"
-			}
-			options = default_options.merge(options)
-			lang = (@page.language_code.blank? ? options[:default_language] : @page.language_code)
-			%(<meta http-equiv="Content-Language" content="#{lang}" />).html_safe
+			%(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}">).html_safe
 		end
 
 		# = This helper takes care of all important meta tags for your @page.
 		# 
 		# The meta data is been taken from the @page.title, @page.meta_description, @page.meta_keywords, @page.updated_at and @page.language database entries managed by the Alchemy user via the Alchemy cockpit.
-		#
+		# 
 		# Assume that the user has entered following data into the Alchemy cockpit of the Page "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
-		#
+		# 
 		# Title = Homepage
 		# Description = Your page description
 		# Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
 		# 
 		# Then placing +render_meta_data(:title_prefix => "company", :title_seperator => "-")+ into the <head> part of the +pages.html.erb+ layout produces:
-		#
-		#   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		#   <meta http-equiv="Content-Language" content="de" />
-		#   <title>Company - #{@page.title}</title>
-		#   <meta name="description" content="Your page description" />
-		#   <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax" />
-		#   <meta name="generator" content="Alchemy VERSION" />
-		#   <meta name="date" content="Tue Dec 16 10:21:26 +0100 2008" />
-		#   <meta name="robots" content="index, follow" />
 		# 
+		#   <meta charset="UTF-8">
+		#   <title>Company - #{@page.title}</title>
+		#   <meta name="description" content="Your page description">
+		#   <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax">
+		#   <meta name="generator" content="Alchemy VERSION">
+		#   <meta name="date" content="Tue Dec 16 10:21:26 +0100 2008">
+		#   <meta name="robots" content="index, follow">
+		#  
 		def render_meta_data options={}
 			if @page.blank?
 				warning("No Page found!")
@@ -443,18 +426,18 @@ module Alchemy
 			end
 			robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
 			meta_string = %(
-				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta charset=UTF-8">
 				#{render_meta_content_language_tag}
-				#{render_title_tag( :prefix => options[:title_prefix], :seperator => options[:title_seperator])}
-				#{render_meta_tag( :name => "description", :content => description)}
-				#{render_meta_tag( :name => "keywords", :content => keywords)}
-				<meta name="generator" content="Alchemy #{Alchemy::VERSION}" />
-				<meta name="date" content="#{@page.updated_at}" />
-				<meta name="robots" content="#{robot}" />
+				#{render_title_tag(:prefix => options[:title_prefix], :seperator => options[:title_seperator])}
+				#{render_meta_tag(:name => "description", :content => description)}
+				#{render_meta_tag(:name => "keywords", :content => keywords)}
+				<meta name="generator" content="Alchemy #{Alchemy::VERSION}">
+				<meta name="date" content="#{@page.updated_at}">
+				<meta name="robots" content="#{robot}">
 			)
 			if @page.contains_feed?
 			meta_string += %(
-				<link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}" />
+				<link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}">
 			)
 			end
 			return meta_string.html_safe
