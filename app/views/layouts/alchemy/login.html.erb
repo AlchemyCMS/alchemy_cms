@@ -26,5 +26,12 @@
 			<%= yield %>
 		</div>
 		<%= yield(:javascripts) %>
+		<script type="text/javascript" charset="utf-8">
+			jQuery(document).ready(function($) {
+				if (typeof($().sb) === 'function') {
+					Alchemy.SelectBox('body#alchemy select');
+				}
+			});
+		</script>
 	</body>
 </html>
