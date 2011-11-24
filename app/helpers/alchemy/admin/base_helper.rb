@@ -225,7 +225,7 @@ module Alchemy
 
 			# Renders the Subnavigation for the admin interface.
 			def render_admin_subnavigation(entries)
-				render :partial => "alchemy/admin/partials/sub_navigation", :locals => {:entries => entries}
+				render "alchemy/admin/partials/sub_navigation_tab", :entries => entries
 			end
 
 			# Used for checking the main navi permissions
@@ -255,6 +255,21 @@ module Alchemy
 				}
 				if alchemy_module['engine_name']
 					eval(alchemy_module['engine_name']).url_for(url_options)
+				else
+					main_app.url_for(url_options)
+				end
+			end
+
+			# Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
+			def url_for_module_sub_navigation(navigation)
+				engine_name = module_definition_for(navigation)['engine_name']
+				navigation.stringify_keys!
+				url_options = {
+					:controller => navigation['controller'],
+					:action => navigation['action']
+				}
+				if engine_name
+					eval(engine_name).url_for(url_options)
 				else
 					main_app.url_for(url_options)
 				end

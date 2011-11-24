@@ -17,6 +17,7 @@ module Alchemy
 			elsif name.is_a? Hash
 				alchemy_modules.detect do |alchemy_module|
 					alchemy_module.stringify_keys!
+					name.symbolize_keys!
 					module_navi = alchemy_module["navigation"].stringify_keys
 					if module_navi["sub_navigation"]
 						module_navi["sub_navigation"].map(&:stringify_keys).detect do |subnavi|

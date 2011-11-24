@@ -1,9 +1,0 @@
-<%- entries.each do |entry| -%>
-	<%- entry.stringify_keys! -%>
-	<%- permitted_to?(entry["action"].to_sym, entry["controller"].gsub(/^\//, '').gsub(/\//, '_').to_sym) do -%>
-	<div class="subnavi_tab<%= params[:controller] == entry["controller"].gsub(/^\//, '') && params[:action] == entry["action"] ? ' active' : nil %>">
-		<%# url_for does not work here, that's why we pass the url as string. DO NOT CHANGE! %>
-		<%= link_to _(entry["name"]), "#{entry['controller']}/#{entry["action"] == "index" ? nil : entry["action"]}" %>
-	<%- end -%>
-	</div>
-<%- end -%>
