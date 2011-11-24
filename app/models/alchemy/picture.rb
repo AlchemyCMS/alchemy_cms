@@ -5,8 +5,8 @@ module Alchemy
 			image_directory						'uploads/pictures'
 			image_storage_format			Alchemy::Config.get(:image_store_format).to_sym
 			require_image							true
-			missing_image_message			N_("missing_image")
-			invalid_image_message			N_("not a valid image")
+			missing_image_message			_("missing_image")
+			invalid_image_message			_("not a valid image")
 			if Alchemy::Config.get(:image_output_format) == "jpg"
 				output_image_jpg_quality  Alchemy::Config.get(:output_image_jpg_quality)
 			end

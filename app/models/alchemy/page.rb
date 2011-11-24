@@ -14,13 +14,13 @@ module Alchemy
 		has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 		belongs_to :language
 
-		validates_presence_of :name, :message => N_("please enter a name")
-		validates_presence_of :page_layout, :message => N_("Please choose a page layout.")
-		validates_presence_of :parent_id, :message => N_("No parent page was given."), :unless => :rootpage?
-		validates_length_of :urlname, :minimum => 3, :too_short => N_("urlname_to_short"), :if => :urlname_entered?
-		validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
-		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => N_("This page_layout name is reserved.") }, :unless => :rootpage?
-		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => N_("This urlname is reserved.") }
+		validates_presence_of :name, :message => '^'+_("please enter a name")
+		validates_presence_of :page_layout, :message => '^'+_("Please choose a page layout.")
+		validates_presence_of :parent_id, :message => '^'+_("No parent page was given."), :unless => :rootpage?
+		validates_length_of :urlname, :minimum => 3, :too_short => _("urlname_to_short"), :if => :urlname_entered?
+		validates_uniqueness_of :urlname, :message => '^'+_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
+		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => '^'+_("This page_layout name is reserved.") }, :unless => :rootpage?
+		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => '^'+_("This urlname is reserved.") }
 
 		attr_accessor :do_not_autogenerate
 		attr_accessor :do_not_sweep
@@ -478,7 +478,7 @@ module Alchemy
 		end
 
 		def locker_name
-			return N_('unknown') if self.locker.nil?
+			return _('unknown') if self.locker.nil?
 			self.locker.name
 		end
 

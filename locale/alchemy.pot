@@ -100,7 +100,7 @@ msgid "Currently locked pages"
 msgstr ""
 
 #: app/models/language.rb:35
-msgid "Defaut language has to be public"
+msgid "Default language has to be public"
 msgstr ""
 
 #: app/views/admin/pictures/_picture.html.erb:14
@@ -233,15 +233,15 @@ msgid "Language"
 msgstr ""
 
 #: app/controllers/admin/languages_controller.rb:37
-msgid "Language '%{name}' created"
+msgid "Language successfully created."
 msgstr ""
 
 #: app/controllers/admin/languages_controller.rb:56
-msgid "Language '%{name}' destroyed"
+msgid "Language successfully destroyed."
 msgstr ""
 
 #: app/controllers/admin/languages_controller.rb:47
-msgid "Language '%{name}' updated"
+msgid "Language successfully updated."
 msgstr ""
 
 #: app/views/admin/pages/index.html.erb:37
@@ -1702,7 +1702,7 @@ msgid "want_to_make_copy_of_existing_language"
 msgstr ""
 
 #: app/models/language.rb:44
-msgid "we_need_at_least_one_default"
+msgid "We need at least one default."
 msgstr ""
 
 #: app/controllers/admin_controller.rb:36

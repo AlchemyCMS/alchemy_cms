@@ -87,12 +87,16 @@ div.flash.warning {
 }
 
 div.login_signup_box {
-	width: 340px;
+	width: 360px;
 	padding: 4*$default-padding;
 	border: $default-border;
 	background-color: $medium-gray;
 	@include rounded-corner;
 	margin: 2em auto;
+}
+
+div.login_signup_box select {
+	width: 220px;
 }
 
 /* @end */
