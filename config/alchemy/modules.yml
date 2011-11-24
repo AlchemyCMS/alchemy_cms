@@ -1,6 +1,7 @@
 # == Alchemy core modules configuration
 
 - name: dashboard
+  engine_name: alchemy
   navigation:
     name: 'module: dashboard'
     controller: 'alchemy/admin/dashboard'
@@ -12,6 +13,7 @@
         action: index
 
 - name: pages
+  engine_name: alchemy
   navigation:
     name: 'module: pages'
     controller: 'alchemy/admin/pages'
@@ -29,6 +31,7 @@
         action: edit
 
 - name: languages
+  engine_name: alchemy
   navigation:
     name: 'module: languages'
     controller: 'alchemy/admin/languages'
@@ -40,6 +43,7 @@
         action: index
 
 - name: users
+  engine_name: alchemy
   navigation:
     name: 'module: users'
     controller: 'alchemy/admin/users'
@@ -51,6 +55,7 @@
         action: index
 
 - name: archive
+  engine_name: alchemy
   navigation:
     controller: 'alchemy/admin/pictures'
     action: index

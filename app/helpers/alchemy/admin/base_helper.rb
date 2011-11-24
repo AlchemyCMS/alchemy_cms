@@ -202,16 +202,15 @@ module Alchemy
 			end
 
 			def admin_main_navigation
-				navigation_entries = alchemy_modules.collect{ |p| p["navigation"] }
 				entries = ""
-				navigation_entries.flatten.each do |alchemy_module|
+				alchemy_modules.each do |alchemy_module|
 					entries << alchemy_main_navigation_entry(alchemy_module)
 				end
 				entries.html_safe
 			end
 
 			def alchemy_main_navigation_entry(alchemy_module)
-				render :partial => 'alchemy/admin/partials/mainnavigation_entry', :locals => {:alchemy_module => alchemy_module.stringify_keys}
+				render 'alchemy/admin/partials/main_navigation_entry', :alchemy_module => alchemy_module.stringify_keys, :navigation => alchemy_module['navigation'].stringify_keys
 			end
 
 			def admin_subnavigation
@@ -229,6 +228,11 @@ module Alchemy
 				render :partial => "alchemy/admin/partials/sub_navigation", :locals => {:entries => entries}
 			end
 
+			# Used for checking the main navi permissions
+			def navigate_module(navigation)
+				[navigation["action"].to_sym, navigation["controller"].gsub(/^\//, '').gsub(/\//, '_').to_sym]
+			end
+
 			# Returns true if the current controller and action is in a modules navigation definition.
 			def admin_mainnavi_active?(mainnav)
 				mainnav.stringify_keys!
@@ -242,18 +246,22 @@ module Alchemy
 				end
 			end
 
+			# Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
 			def url_for_module(alchemy_module)
-				if alchemy_module['controller'].starts_with?('alchemy')
-					alchemy.url_for(
-						:controller => alchemy_module['controller'],
-						:action => alchemy_module["action"]
-					)
+				navigation = alchemy_module['navigation']
+				url_options = {
+					:controller => navigation['controller'],
+					:action => navigation['action']
+				}
+				if alchemy_module['engine_name']
+					eval(alchemy_module['engine_name']).url_for(url_options)
 				else
-					main_app.url_for(
-						:controller => alchemy_module['controller'],
-						:action => alchemy_module["action"]
-					)
+					main_app.url_for(url_options)
 				end
+			end
+
+			def main_navigation_css_classes(navigation)
+				['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
 			end
 
 			# Returns an icon
