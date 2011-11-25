@@ -1,7 +1,4 @@
-<%- resources ||= resources_instance_variable -%>
-<%- resource_partial ||= 'resource' -%>
-
-<%- if resources.any? -%>
+<%- if resources_instance_variable.any? -%>
 <table class="list" id="<%= resources_name %>_list">
 	<tr>
 		<%- resource_attributes.each do |attribute| -%>
@@ -17,10 +14,10 @@
 		<%- end -%>
 		<th class="tools"></th>
 	</tr>
-	<%= render :partial => resource_partial, :collection => resources %>
+	<%= render_resources %>
 </table>
 <%- elsif params[:query] -%>
 <p><%= _('Nothing found.') %></p>
 <%- end -%>
 
-<%= render 'alchemy/admin/partials/pagination_links', :items => resources %>
+<%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable %>

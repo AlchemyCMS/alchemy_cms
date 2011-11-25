@@ -7,7 +7,7 @@ module Alchemy
 			before_filter :set_translation
 			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
-			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name, :resource_instance_variable, :resources_instance_variable
+			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
 
 			def index
 				if !params[:query].blank?
@@ -81,11 +81,23 @@ module Alchemy
 			end
 
 			def load_resource
-				instance_variable_set("@#{resource_model_name}", resource_model.find(params[:id]))
+				if instance_variable_get("@#{resource_model_name}")
+					return true
+				else
+					instance_variable_set("@#{resource_model_name}", resource_model.find(params[:id]))
+				end
 			end
 
 			def resources_name
 				@resources_name ||= params[:controller].split('/').last
+			end
+
+			def namespaced_resources_name
+				if resource_namespaced?
+					@namespaced_resources_name ||= "#{resource_namespace}_#{resources_name}".underscore
+				else
+					@namespaced_resources_name ||= resource_model_name
+				end
 			end
 
 			def resource_model_name
@@ -93,12 +105,11 @@ module Alchemy
 			end
 
 			def resource_model
-				namespace = self.class.to_s.split("::").first
-				@resource_model ||= (namespace == "Admin" ? resource_model_name : "#{namespace}/#{resource_model_name}").classify.constantize
+				@resource_model ||= (resource_namespace == "Admin" ? resource_model_name : "#{resource_namespace}/#{resource_model_name}").classify.constantize
 			end
 
 			def resource_attributes
-				@resource_attributes ||= @resource_model.columns.collect do |col|
+				@resource_attributes ||= resource_model.columns.collect do |col|
 					unless ["id", "updated_at", "created_at", "creator_id", "updater_id"].include?(col.name)
 						{:name => col.name, :type => col.type}
 					end
@@ -115,6 +126,15 @@ module Alchemy
 
 			def resources_instance_variable
 				instance_variable_get("@#{resources_name}")
+			end
+
+			def resource_namespaced?
+				parts = params[:controller].split('/')
+				parts.length > 1 && parts.first != 'admin'
+			end
+
+			def resource_namespace
+				@resource_namespace ||= self.class.to_s.split("::").first
 			end
 
 		end
