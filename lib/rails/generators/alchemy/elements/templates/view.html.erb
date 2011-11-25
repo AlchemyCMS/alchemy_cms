@@ -1,9 +1,9 @@
 <div class="<%= @element_name %>" id="<%%= element_dom_id(element) %>"<%%= element_preview_code(element) -%>>
 <%- unless @contents.blank? -%>
 <%- @contents.each do |content| -%>
-	<%- if content["type"] == "EssencePicture" -%>
+	<%- if content["type"] == "Alchemy::EssencePicture" -%>
 	<div class="<%= @element_name %>_images">
-		<%%- element.all_contents_by_type("EssencePicture").each do |content| -%>
+		<%%- element.all_contents_by_type("Alchemy::EssencePicture").each do |content| -%>
 		<div class="<%= @element_name %>_image <%%= content.essence.css_class %>">
 			<%%= render_essence_view(content, :image_size => "160x120") %>
 		</div>

@@ -48,7 +48,7 @@ module Alchemy
 					:refresh_sortable => true
 				}
 				options = default_options.merge(options)
-				picture_contents = element.all_contents_by_type("EssencePicture")
+				picture_contents = element.all_contents_by_type("Alchemy::EssencePicture")
 				render(
 					:partial => "alchemy/admin/elements/picture_editor",
 					:locals => {

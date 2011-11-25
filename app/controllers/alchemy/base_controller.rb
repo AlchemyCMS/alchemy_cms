@@ -135,7 +135,7 @@ module Alchemy
 						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _('You are not authorized'), :flash_type => 'warning'}
 					else
 						flash[:error] = _('You are not authorized')
-						redirect_to admin_path
+						redirect_to admin_dashboard_path
 					end
 				end
 			else

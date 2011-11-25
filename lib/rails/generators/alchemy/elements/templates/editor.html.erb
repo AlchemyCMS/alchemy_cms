@@ -1,6 +1,6 @@
 <%- unless @contents.blank? -%>
 	<%- @contents.each do |content| -%>
-		<%- unless content["type"] == "EssencePicture" -%>
+		<%- unless content["type"] == "Alchemy::EssencePicture" -%>
 <%%= render_essence_editor_by_name(element, '<%= content["name"] %>') %>
 		<%- else -%>
 <%%= render_picture_editor(element) %>

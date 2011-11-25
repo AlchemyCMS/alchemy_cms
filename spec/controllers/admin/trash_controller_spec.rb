@@ -4,7 +4,7 @@ describe Alchemy::Admin::TrashController do
 
 	render_views
 
-	before do
+	before(:each) do
 		activate_authlogic
 		Alchemy::UserSession.create Factory(:admin_user)
 	end

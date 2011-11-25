@@ -3,7 +3,7 @@
         <%= render_essence_view_by_name(element, 'headline') %>
     </h1>
     <div class="text_bild_container">
-        <%- content = element.contents.find_by_essence_type("EssencePicture") -%>
+        <%- content = element.contents.find_by_essence_type("Alchemy::EssencePicture") -%>
         <%- if content -%>
         <div class="image <%= content.essence.css_class %>">
             <%= render_essence_view(content, :image_size => "450x300", :crop => true) %>

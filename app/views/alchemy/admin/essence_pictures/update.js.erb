@@ -9,7 +9,7 @@
   Alchemy.growl('<%= _("Image updated successfully") -%>');
   Alchemy.closeCurrentWindow();
   Alchemy.reloadPreview();
-<%- if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1 -%>
+<%- if @content.element.contents.find_all_by_essence_type("Alchemy::EssencePicture").size > 1 -%>
   Alchemy.SortableContents('<%= form_authenticity_token -%>');
 <%- end -%>
   

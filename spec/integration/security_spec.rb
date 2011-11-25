@@ -1,11 +1,6 @@
 require 'spec_helper'
 
-describe "Security: ", :type => :request do
-
-	before(:each) do
-		Alchemy::User.delete_all
-		activate_authlogic
-	end
+describe "Security: " do
 
 	context "If no user is present" do
 		it "render the signup view" do
@@ -13,41 +8,39 @@ describe "Security: ", :type => :request do
 			within('#alchemy_greeting') { page.should have_content('Signup') }
 		end
 	end
+	
+	context "If user is present" do
 
-	context "If on or more users are present" do
+		before(:all) do
+			Factory.build(:admin_user).save_without_session_maintenance
+		end
+
 		it "a visitor should not be able to signup" do
-			@user = Alchemy::User.new({:login => 'foo', :email => 'foo@bar.com', :password => 's3cr3t', :password_confirmation => 's3cr3t'})
-			@user.save_without_session_maintenance
 			visit '/alchemy/admin/signup'
 			within('#alchemy_greeting') { page.should_not have_content('have to signup') }
 		end
-	end
-
-	describe 'User logs in' do
-
-		let(:user) do
-			Factory(:admin_user)
-		end
-
-		context "if not logged in" do
-
-			it "should show log in form" do
-				visit '/alchemy/admin'
-				within('#alchemy_greeting') { page.should have_content('identify') }
+	
+		context "that is not logged in" do
+			it "should see login-form" do
+				visit '/alchemy/admin/dashboard'
+				current_path.should == '/alchemy/admin/login'
 			end
-
 		end
-
-		context "if already logged in" do
-
-			it "should redirect to dashboard" do
-				Alchemy::UserSession.create @user
+		
+		context "that is already logged in" do
+			before(:all) do
+				visit '/alchemy/admin/login'
+				fill_in('alchemy_user_session_login', :with => 'jdoe')
+				fill_in('alchemy_user_session_password', :with => 's3cr3t')
+				click_on('login')
+			end
+			
+			it "should be redirected to dashboard" do
 				visit '/alchemy/admin/login'
 				current_path.should == '/alchemy/admin/dashboard'
 			end
-
 		end
-
+		
 	end
 
 end
