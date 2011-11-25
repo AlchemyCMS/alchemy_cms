@@ -41,7 +41,7 @@
         <%= link_to(
           render_icon("copy_page"),
           insert_admin_clipboard_path(
-            :remarkable_type => layoutpage.class.to_s,
+            :remarkable_type => layoutpage.class.name,
             :remarkable_id => layoutpage.id
           ),
           :remote => true,

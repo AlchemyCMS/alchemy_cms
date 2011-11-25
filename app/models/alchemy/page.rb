@@ -306,7 +306,7 @@ module Alchemy
 		# Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
 		def layout_description
 			description = Alchemy::PageLayout.get(self.page_layout)
-			if self.root?
+			if self.root? || self.layoutpage?
 				return {}
 			elsif description.nil?
 				raise "Description could not be found for page layout named #{self.page_layout}. Please check page_layouts.yml file."
