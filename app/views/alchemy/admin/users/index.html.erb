@@ -1,22 +1,18 @@
-<%- content_for(:toolbar) do -%>
-<div id="toolbar_buttons">
-<%- permitted_to?(:new, :alchemy_admin_users) do -%>
-	<%= toolbar_button(
-		:icon => 'user_add',
-		:label => _('create_user'),
-		:url => new_admin_user_path,
-		:title => _('create_user'),
-		:overlay => true,
-		:overlay_options => {
+<%= toolbar(
+	:buttons => [
+		{
+			:icon => 'user_add',
+			:label => _('create_user'),
+			:url => new_admin_user_path,
 			:title => _('create_user'),
-			:size => "384x400",
-			:overflow => true
+			:overlay_options => {
+				:title => _('create_user'),
+				:size => "384x400"
+			},
+			:if_permitted_to => [:new, :alchemy_admin_users]
 		}
-	) %>
-<%- end -%>
-</div>
-<%= render :partial => 'alchemy/admin/partials/search_form' %>
-<%- end -%>
+	]
+) %>
 
 <%- if @users.any? -%>
 <table class="list" id="user_list">
@@ -24,14 +20,22 @@
 		<th class="icon"></th>
 		<th class="login_status"></th>
 		<th class="login"><%= _('User|Login') %></th>
-		<th class="name"><%= _('User|Name') %></th>
+		<th class="name"><%= _('User|Firstname') %></th>
+		<th><%= _('User|Lastname') %></th>
 		<th class="email"><%= _('User|Email') %></th>
+		<th><%= _('User|Language') %></th>
 		<th class="role"><%= _('User|Role') %></th>
 		<th class="tools"></th>
 	</tr>
 	<%= render @users %>
 </table>
 <%= render 'alchemy/admin/partials/pagination_links', :items => @users %>
+
 <%- elsif params[:query] -%>
-<p><%= _('No users found.') %></p>
+
+<div class="info">
+	<%= render_icon('info') %>
+	<%= _('No users found.') %>
+</div>
+
 <%- end -%>

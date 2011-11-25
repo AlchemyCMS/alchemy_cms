@@ -3,7 +3,7 @@
 	<%- if @language -%>
 		<%- if @languages_with_page_tree.size >= 1 -%>
 			<p><%= _("want_to_make_copy_of_existing_language") %></p>
-			<%= form_tag(copy_language_tree_admin_pages_path, :onsubmit => 'Alchemy.pleaseWaitOverlay();') do %>
+			<%= form_tag(copy_language_tree_admin_pages_path) do %>
 				<table style="width: 135px;">
 					<tr>
 						<td>
@@ -31,7 +31,7 @@
 			<%= form.hidden_field :page_layout, :value => @language.page_layout %>
 			<%= form.hidden_field :language_root, :value => true %>
 			<%= form.hidden_field :parent_id, :value => Alchemy::Page.rootpage.id %>
-			<%= form.submit(_("%{language}_as_new_language") % {:language => @language.name}, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay();') %>
+			<%= form.submit(_("%{language}_as_new_language") % {:language => @language.name}, :class => 'button') %>
 		<% end %>
 		<%- end -%>
 	<%- else -%>

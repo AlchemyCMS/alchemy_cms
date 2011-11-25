@@ -43,7 +43,7 @@
         <%= link_to(
           render_icon("copy_page"),
           insert_admin_clipboard_path(
-            :remarkable_type => page.class.to_s,
+            :remarkable_type => page.class.name.demodulize.underscore,
             :remarkable_id => page.id
           ),
           :remote => true,

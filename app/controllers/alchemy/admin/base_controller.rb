@@ -51,18 +51,18 @@ module Alchemy
 
 			def get_clipboard(category = nil)
 				clipboard = (session[:clipboard] ||= {})
-				clipboard[category.to_sym] ||= [] if category
+				clipboard[category.pluralize] ||= [] if category
 			end
 
 			def clipboard_empty?(category = nil)
 				return true if session[:clipboard].blank?
 				if category
-					session[:clipboard][category.to_sym].blank?
+					session[:clipboard][category.pluralize].blank?
 				else
 					false
 				end
 			end
-  
+
 			def trash_empty?(category)
 				"alchemy/#{category.singularize}".classify.constantize.trashed.blank?
 			end

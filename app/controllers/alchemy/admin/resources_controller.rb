@@ -61,7 +61,7 @@ module Alchemy
 
 		protected
 			
-			# Returns a translated flash[:notice] if FastGettext finds the key
+			# Returns a translated +flash[:notice]+ if +FastGettext+ finds the key.
 			# The key should look like "Modelname successfully created/updated/destroyed."
 			def flash_notice_for_resource_action(action = params[:action])
 				case action.to_sym
@@ -81,11 +81,7 @@ module Alchemy
 			end
 
 			def load_resource
-				if instance_variable_get("@#{resource_model_name}")
-					return true
-				else
-					instance_variable_set("@#{resource_model_name}", resource_model.find(params[:id]))
-				end
+				instance_variable_set("@#{resource_model_name}", resource_model.find(params[:id]))
 			end
 
 			def resources_name

@@ -1,4 +1,4 @@
-<span class="page_status_and_name" id="<%= dom_id(@page) %>_status">
+<span class="page_status_and_name" id="page_<%= @page.id %>_status">
     <span class="page_name"><%= @page.name %></span>
     <%- if multi_language? && !@layoutpage -%>
     <span class="flag <%= @page.language_code %>"></span>

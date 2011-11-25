@@ -10,7 +10,7 @@
     ) -%>
     <%= link_to(
       "",
-      insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id, :remove => true),
+      insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id, :remove => true),
       :remote => true,
       :method => :post,
       :class => "element_move_button",
@@ -18,7 +18,7 @@
     ) %>
     <%= link_to(
       "",
-      insert_admin_clipboard_path(:remarkable_type => 'element', :remarkable_id => element.id),
+      insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id),
       :remote => true,
       :method => :post,
       :class => "element_copy_button",

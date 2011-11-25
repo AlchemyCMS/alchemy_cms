@@ -39,8 +39,7 @@ module Alchemy
 				render_errors_or_redirect(
 					@user,
 					admin_users_path,
-					( _("User: '%{name}' created") % {:name => @user.name} ),
-					"form#new_user button.button"
+					_("User: '%{name}' created") % {:name => @user.name}
 				)
 			end
 
@@ -57,8 +56,7 @@ module Alchemy
 				render_errors_or_redirect(
 					@user,
 					admin_users_path,
-					( _("User: '%{name}' updated") % {:name => @user.name} ),
-					"form#edit_user_#{@user.id} button.button"
+					_("User: '%{name}' updated") % {:name => @user.name}
 				)
 			end
 
@@ -66,7 +64,7 @@ module Alchemy
 				# User is fetched via before filter
 				name = @user.name
 				if @user.destroy
-					flash[:notice] = ( _("User: '%{name}' deleted") % {:name => name} )
+					flash[:notice] = _("User: '%{name}' deleted") % {:name => name}
 				end
 				@redirect_url = admin_users_path
 				render :action => :redirect

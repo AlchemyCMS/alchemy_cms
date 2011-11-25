@@ -1,6 +1,6 @@
-<tr class="<%= cycle('odd', 'even') %>">
+<tr class="<%= cycle('even', 'odd') %>">
 	<td class="icon">
-		<%= content_tag('span', '', :class => "icon #{attachment.icon_css_class}") %>
+		<%= render_icon attachment.icon_css_class %>
 	</td>
 	<td class="name">
 		<%- if permitted_to?(:show, :attachments) -%>

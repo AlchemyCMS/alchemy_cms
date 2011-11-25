@@ -14,7 +14,7 @@ module Alchemy
 					else
 						@attachments = Attachment.where(cond).paginate(
 							:page => (params[:page] || 1),
-							:per_page => (params[:per_page] || 20)
+							:per_page => per_page_value_for_screen_size
 						).order(:name)
 					end
 				end

@@ -37,6 +37,7 @@ module Alchemy
 
 		# Returns the page_layout description found by name in page_layouts.yml
 		def self.get(name)
+			return {} if name.blank?
 			@@definitions ||= read_layouts_file
 			@@definitions.detect{ |a| a["name"].downcase == name.downcase }
 		end

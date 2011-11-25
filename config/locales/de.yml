@@ -361,7 +361,6 @@ de:
     error_messages:
       login_blank: "Benutzername wurde nicht angeben."
       login_not_found: "Dieser Benutzername existiert nicht."
-      login_invalid: "Benutzername darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
       consecutive_failed_logins_limit_exceeded: "Zu viele Fehlversuche! Dieser Account ist aus Sicherheitsgründen gesperrt worden. Bitte wenden Sie sich an den Administrator."
       email_invalid: "Email Adresse entspricht nicht dem Format einer Emailadresse."
       password_blank: "Passwort wurde nicht angegeben."
