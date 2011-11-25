@@ -3,6 +3,11 @@ require 'spec_helper'
 describe "Security: " do
 
 	context "If no user is present" do
+		
+		before(:all) do
+			Alchemy::User.delete_all
+		end
+		
 		it "render the signup view" do
 			visit '/alchemy/'
 			within('#alchemy_greeting') { page.should have_content('Signup') }
