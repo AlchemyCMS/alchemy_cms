@@ -9,7 +9,7 @@
 	<%- end -%>
 	<%- end -%>
 	<td class="tools">
-		<%- permitted_to?(:destroy, "admin_#{resources_name}".to_sym) do -%>
+		<%- permitted_to?(:destroy, namespaced_resources_name.to_sym) do -%>
 		<%= link_to_confirmation_window(
 			'',
 			_("Are you sure?"),
@@ -18,7 +18,7 @@
 			:class => "icon destroy"
 		) -%>
 		<%- end -%>
-		<%- permitted_to?(:edit, "admin_#{resources_name}".to_sym) do -%>
+		<%- permitted_to?(:edit, namespaced_resources_name.to_sym) do -%>
 		<%= link_to_overlay_window(
 			'',
 			send("edit_admin_#{resource_model_name}_path", resource),

@@ -335,20 +335,23 @@ module Alchemy
 			# 
 			# Options:
 			# 
-			#   :icon             [String]              # Icon class. See base.css.sccs for available icons, or make your own.
-			#   :label            [String]              # Text for button label.
-			#   :url              [String]              # Url for link.
-			#   :title            [String]              # Text for title tag.
-			#   :overlay          [Boolean]             # Pass true to open the link in a modal overlay window.
-			#   :overlay_options  [Hash]                # Overlay options. See link_to_overlay_window helper.
+			#   :icon                   [String]              # Icon class. See base.css.sccs for available icons, or make your own.
+			#   :label                  [String]              # Text for button label.
+			#   :url                    [String]              # Url for link.
+			#   :title                  [String]              # Text for title tag.
+			#   :overlay                [Boolean]             # Pass true to open the link in a modal overlay window.
+			#   :overlay_options        [Hash]                # Overlay options. See link_to_overlay_window helper.
+			#   :if_permitted_to        [Array]               # Check permission for button. [:action, :controller]. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
+			#   :skip_permission_check  [Boolean]             # Skip the permission check. Default false. NOT RECOMMENDED!
 			# 
 			def toolbar_button(options = {})
 				options.symbolize_keys!
 				defaults = {
-					:overlay => true
+					:overlay => true,
+					:skip_permission_check => false
 				}
 				options = defaults.merge(options)
-				content_tag('div', :class => 'button_with_label') do
+				button = content_tag('div', :class => 'button_with_label') do
 					link = if options[:overlay]
 						link_to_overlay_window(
 							render_icon(options[:icon]),
@@ -366,6 +369,50 @@ module Alchemy
 					end
 					link += content_tag('label', options[:label])
 				end
+				if options[:skip_permission_check]
+					return button
+				else
+					if options[:if_permitted_to].blank?
+						action_controller = options[:url].gsub(/^\//, '').split('/')
+						options[:if_permitted_to] = [action_controller.last.to_sym, action_controller[0..action_controller.length-2].join('_').to_sym]
+					end
+					if permitted_to?(*options[:if_permitted_to])
+						return button
+					else
+						return ""
+					end
+				end
+			end
+
+			# Renders the alchemy backend toolbar
+			# 
+			# Options are:
+			# 
+			#   buttons [Array]         # Pass an Array with button options. They will be passed to toolbar_button helper. For options see +toolbar_button+
+			#   search [Boolean]        # Show searchfield. Default true.
+			# 
+			def toolbar(options = {})
+				defaults = {
+					:buttons => [],
+					:search => true
+				}
+				options = defaults.merge(options)
+				content_for(:toolbar) do
+					content = <<-CONTENT
+					#{options[:buttons].map { |button_options| toolbar_button(button_options) }.join()}
+					#{render 'alchemy/admin/partials/search_form' if options[:search]}
+					CONTENT
+					content.html_safe
+				end
+			end
+
+			# Renders the partial for a resource record in the resources table.
+			# This helper has a nice fallback. If your resource has a partial for a single record named like the resouce model name (i.e. language) then this partial will be rendered.
+			# Otherwise the resource parital from +resources/resource+
+			def render_resources
+				render resources_instance_variable
+			rescue ActionView::MissingTemplate
+				render :partial => 'resource', :collection => resources_instance_variable
 			end
 
 			# Used by upload form

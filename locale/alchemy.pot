@@ -984,7 +984,7 @@ msgstr ""
 #: app/views/admin/languages/index.html.erb:11
 #: app/views/admin/languages/index.html.erb:16
 #: app/views/admin/languages/index.html.erb:19
-msgid "create_language"
+msgid "Create language"
 msgstr ""
 
 #: app/views/admin/pages/_page.html.erb:75
