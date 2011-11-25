@@ -53,7 +53,7 @@
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_overlay_window(
       render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-      admin_clipboard_path(:remarkable_type => 'alchemy_page'),
+      admin_clipboard_path(:remarkable_type => 'Alchemy::Page'),
       {
         :title => _('Clipboard'),
         :size => '380x270'
