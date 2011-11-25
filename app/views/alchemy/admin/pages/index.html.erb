@@ -41,7 +41,7 @@
 			flush_admin_pages_path,
 			:remote => true,
 			:method => :post,
-			:class => 'icon_button please_wait_overlay',
+			:class => 'icon_button please_wait',
 			:title => _('Flush page cache')
 		) -%>
 		<label><%= _('Flush page cache') %></label>
@@ -52,11 +52,10 @@
 		<%= link_to(
 			render_icon('sort'),
 			sort_admin_pages_path,
-			:before => 'Alchemy.pleaseWaitOverlay();',
 			:complete => '',
 			:method => :get,
 			:remote => true,
-			:class => 'icon_button please_wait_overlay',
+			:class => 'icon_button please_wait',
 			:title => _('Sort pages')
 		) -%>
 		<label><%= _('Sort pages') %></label>
@@ -91,8 +90,8 @@
 		<%= _('Explain|Sitemap|Dragndrop sorting') %>
 	</div>
 	<div id="bottom_buttons">
-		<%= link_to( _('cancel'), admin_pages_path, :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>&nbsp;
-		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button', :onclick => 'Alchemy.pleaseWaitOverlay()' ) %>
+		<%= link_to( _('cancel'), admin_pages_path, :class => 'button' ) %>&nbsp;
+		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button' ) %>
 	</div>
 </div>
 

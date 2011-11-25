@@ -363,7 +363,7 @@ module Alchemy
 							}
 						)
 					else
-						link_to options[:url], :class => 'icon_button', :title => options[:title] do
+						link_to options[:url], {:class => "icon_button#{options[:remote] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
 							render_icon(options[:icon])
 						end
 					end
