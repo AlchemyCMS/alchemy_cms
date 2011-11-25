@@ -38,7 +38,7 @@ module Alchemy
 		private
 
 			def model_class
-				"alchemy/#{params[:remarkable_type]}".classify.constantize
+				params[:remarkable_type].classify.constantize
 			end
 
 		end

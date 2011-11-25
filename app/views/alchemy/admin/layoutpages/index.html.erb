@@ -23,7 +23,7 @@
   <div class="button_with_label">
     <%= select_tag(
       'language', 
-      options_for_select(Language.all.map { |l| [l.name, l.id] }, session[:language_id]),
+      options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
       :onchange => %(
         Alchemy.pleaseWaitOverlay();
         jQuery.get('/admin/pages/switch_language', {
@@ -53,7 +53,7 @@
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_overlay_window(
       render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-      admin_clipboard_path(:remarkable_type => 'page'),
+      admin_clipboard_path(:remarkable_type => 'alchemy_page'),
       {
         :title => _('Clipboard'),
         :size => '380x270'
