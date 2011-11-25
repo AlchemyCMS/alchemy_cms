@@ -16,7 +16,7 @@ describe Alchemy::Admin::ClipboardController do
 			@element = Factory(:element, :page => @page)
 			@another_element = Factory(:element, :page => @page)
 			session[:clipboard] = { :elements => [{:id => @element.id, :action => 'copy'}] }
-			post(:insert, {:remarkable_type => 'Alchemy::Element', :remarkable_id => @another_element.id, :format => :js})
+			post(:insert, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
 			session[:clipboard][:elements].should == [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id.to_s, :action => 'copy'}]
 		end
 
@@ -24,7 +24,7 @@ describe Alchemy::Admin::ClipboardController do
 			@page = Factory(:page, :parent_id => Alchemy::Page.rootpage.id)
 			@element = Factory(:element, :page => @page)
 			session[:clipboard] = { :elements => [{:id => @element.id, :action => 'copy'}] }
-			post(:insert, {:remarkable_type => 'Alchemy::Element', :remarkable_id => @element.id, :format => :js})
+			post(:insert, {:remarkable_type => 'element', :remarkable_id => @element.id, :format => :js})
 			session[:clipboard][:elements].should == [{:id => @element.id, :action => 'copy'}]
 		end
 
@@ -33,7 +33,7 @@ describe Alchemy::Admin::ClipboardController do
 			@element = Factory(:element, :page => @page)
 			@another_element = Factory(:element, :page => @page)
 			session[:clipboard] = { :elements => [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id, :action => 'copy'}] }
-			delete(:remove, {:remarkable_type => 'Alchemy::Element', :remarkable_id => @another_element.id, :format => :js})
+			delete(:remove, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
 			session[:clipboard][:elements].should == [{:id => @element.id, :action => 'copy'}]
 		end
 

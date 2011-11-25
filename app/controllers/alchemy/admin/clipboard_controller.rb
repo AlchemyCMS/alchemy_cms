@@ -4,7 +4,7 @@ module Alchemy
 		class ClipboardController < Alchemy::Admin::BaseController
 
 			def index
-				clipboard = get_clipboard(params[:remarkable_type].tableize)
+				clipboard = get_clipboard(params[:remarkable_type])
 				@clipboard_items = model_class.all_from_clipboard(clipboard)
 				respond_to do |format|
 					format.html { render :layout => false }
@@ -12,7 +12,7 @@ module Alchemy
 			end
 
 			def insert
-				@clipboard = get_clipboard(params[:remarkable_type].tableize)
+				@clipboard = get_clipboard(params[:remarkable_type])
 				@item = model_class.find(params[:remarkable_id])
 				unless @clipboard.collect { |i| i[:id].to_s }.include?(params[:remarkable_id])
 					@clipboard.push({:id => params[:remarkable_id], :action => params[:remove] ? 'cut' : 'copy'})
@@ -23,7 +23,7 @@ module Alchemy
 			end
 
 			def remove
-				@clipboard = get_clipboard(params[:remarkable_type].tableize)
+				@clipboard = get_clipboard(params[:remarkable_type])
 				@item = model_class.find(params[:remarkable_id])
 				@clipboard.delete_if { |i| i[:id].to_s == params[:remarkable_id] }
 				respond_to do |format|
@@ -38,7 +38,7 @@ module Alchemy
 		private
 
 			def model_class
-				params[:remarkable_type].classify.constantize
+				"alchemy/#{params[:remarkable_type]}".classify.constantize
 			end
 
 		end

@@ -3,16 +3,16 @@
 <label><%= _('Active Pages') %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-  <%= link_to edit_admin_page_path(page) do %>
-  <span class="page_name" title="<%= page.name %>">
-    <%= truncate page.name, :length => 15 %>
-  </span>
-  <% end %>
-  <%= form_for(unlock_admin_page_path(page), :remote => true) do %>
-    <button class="icon_button small" title="<%= _('explain_unlocking') %>">
-      <%= render_icon('close small') %>
-    </button>
-  <% end %>
+	<%= link_to edit_admin_page_path(page) do %>
+	<span class="page_name" title="<%= page.name %>">
+		<%= truncate page.name, :length => 15 %>
+	</span>
+	<% end %>
+	<%= form_for(unlock_admin_page_path(page), :remote => true) do %>
+		<button class="icon_button small" title="<%= _('explain_unlocking') %>">
+			<%= render_icon('close small') %>
+		</button>
+	<% end %>
 </div>
 <%- end -%>
 <%- end -%>
@@ -20,52 +20,46 @@
 
 <%- content_for :toolbar do -%>
 <div id="toolbar_buttons">
-  <div class="button_with_label">
-    <%= select_tag(
-      'language', 
-      options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
-      :onchange => %(
-        Alchemy.pleaseWaitOverlay();
-        jQuery.get('/admin/pages/switch_language', {
-          language_id: this.value,
-          layoutpages: true
-        });
-      )
-    ) %>
-    <label><%= _("Language tree") %></label>
-  </div>
-  <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
-  <div class="button_with_label">
-    <%= link_to_overlay_window(
-      render_icon('add_page'),
-      new_admin_page_path(:parent_id => @layout_root.id, :layoutpage => true),
-      {
-        :title => _('Add global page'),
-        :size => '405x150',
-        :overflow => true
-      },
-      :class => 'icon_button',
-      :title => _('Add global page')
-    ) -%>
-    <label><%= _('Add global page') %></label>
-  </div>
-  <%- end -%>
-  <div class="button_with_label" id="clipboard_button">
-    <%= link_to_overlay_window(
-      render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-      admin_clipboard_path(:remarkable_type => 'Alchemy::Page'),
-      {
-        :title => _('Clipboard'),
-        :size => '380x270'
-      },
-      :class => 'icon_button',
-      :title => _('Show clipboard')
-    ) -%>
-    <label><%= _('Show clipboard') %></label>
-  </div>
+	<div class="button_with_label">
+		<%= select_tag(
+			'language', 
+			options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
+			:onchange => %(
+				Alchemy.pleaseWaitOverlay();
+				jQuery.get('/admin/pages/switch_language', {
+					language_id: this.value,
+					layoutpages: true
+				});
+			)
+		) %>
+		<label><%= _("Language tree") %></label>
+	</div>
+	<%= toolbar_button(
+		:icon => 'add_page',
+		:url => new_admin_page_path(:parent_id => @layout_root.id, :layoutpage => true),
+		:overlay_options => {
+			:title => _('Add global page'),
+			:size => '405x150',
+			:overflow => true
+		},
+		:title => _('Add global page'),
+		:label => _('Add global page'),
+		:if_permitted_to => [:new, :alchemy_admin_pages]
+	) %>
+	<%= toolbar_button(
+		:icon => "clipboard#{clipboard_empty?('pages') ? '' : ' full'}",
+		:url => admin_clipboard_path(:remarkable_type => 'pages'),
+		:overlay_options => {
+			:title => _('Clipboard'),
+			:size => '380x270'
+		},
+		:title => _('Show clipboard')
+		:id => "clipboard_button",
+		:label => _('Show clipboard')
+	) %>
 </div>
 <%- end -%>
 
 <ul class="list" id="layoutpages">
-  <%= render :partial => "layoutpage", :collection => @layout_root.children %>
+	<%= render :partial => "layoutpage", :collection => @layout_root.children %>
 </ul>
