@@ -6,6 +6,8 @@ module Alchemy
 		acts_as_authentic do |c|
 			c.transition_from_restful_authentication = true
 			c.logged_in_timeout = Alchemy::Config.get(:auto_logout_time).minutes
+			c.merge_validates_format_of_login_field_options({:message => '^' + _('Login should use only letters, numbers, spaces, and .-_@ please.')})
+			c.merge_validates_length_of_login_field_options({:message => '^' + _('Login is too short. Use 3 characters at least.')})
 		end
 		
 		has_many :folded_pages

@@ -1823,3 +1823,9 @@ msgstr "Keine Benutzer gefunden."
 
 msgid "Nothing found."
 msgstr "Keine Einträge gefunden."
+
+msgid "Login should use only letters, numbers, spaces, and .-_@ please."
+msgstr "Benutzername darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
+
+msgid "Login is too short. Use 3 characters at least."
+msgstr "Benutzername ist zu kurz. Bitte mindestens 3 Zeichen verwenden."

@@ -1773,3 +1773,9 @@ msgstr ""
 
 msgid "Nothing found."
 msgstr ""
+
+msgid "Login should use only letters, numbers, spaces, and .-_@ please."
+msgstr ""
+
+msgid "Login is too short. Use 3 characters at least."
+msgstr ""

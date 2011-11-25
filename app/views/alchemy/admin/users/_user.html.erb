@@ -4,8 +4,10 @@
 		<%= render_icon(user.logged_in? ? 'online' : 'offline') %>
 	</td>
 	<td class="login"><%= user.login %></td>
-	<td class="name"><%= user.fullname -%></td>
+	<td class="name"><%= user.firstname -%></td>
+	<td><%= user.lastname -%></td>
 	<td class="email"><%= user.email %></td>
+	<td><%= user.language %></td>
 	<td class="role"><%= I18n.t("alchemy.user_roles.#{user.role}") %></td>
 	<td class="tools">
 		<%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
