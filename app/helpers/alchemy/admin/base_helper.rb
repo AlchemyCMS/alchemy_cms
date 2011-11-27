@@ -248,7 +248,7 @@ module Alchemy
 
 			# Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
 			def url_for_module(alchemy_module)
-				navigation = alchemy_module['navigation']
+				navigation = alchemy_module['navigation'].stringify_keys
 				url_options = {
 					:controller => navigation['controller'],
 					:action => navigation['action']
@@ -262,7 +262,8 @@ module Alchemy
 
 			# Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
 			def url_for_module_sub_navigation(navigation)
-				engine_name = module_definition_for(navigation)['engine_name']
+				alchemy_module = module_definition_for(navigation)
+				engine_name = alchemy_module['engine_name'] if alchemy_module
 				navigation.stringify_keys!
 				url_options = {
 					:controller => navigation['controller'],
@@ -400,7 +401,7 @@ module Alchemy
 				content_for(:toolbar) do
 					content = <<-CONTENT
 					#{options[:buttons].map { |button_options| toolbar_button(button_options) }.join()}
-					#{render 'alchemy/admin/partials/search_form' if options[:search]}
+					#{render('alchemy/admin/partials/search_form', :url => options[:search_url]) if options[:search]}
 					CONTENT
 					content.html_safe
 				end
