@@ -141,6 +141,7 @@ module Alchemy
 				# fetching page via before filter
 				@page.unlock
 				flash[:notice] = _("unlocked_page_%{name}") % {:name => @page.name}
+				@pages_locked_by_user = Page.all_locked_by(current_user)
 				respond_to do |format|
 					format.js
 					format.html {
