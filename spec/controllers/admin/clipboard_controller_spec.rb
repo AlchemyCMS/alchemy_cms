@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe Alchemy::Admin::ClipboardController do
 
-	before do
+	before(:each) do
 		activate_authlogic
-		user = Factory(:admin_user)
-		user.save_without_session_maintenance
-		Alchemy::UserSession.create user
+	  Alchemy::UserSession.create(Factory(:admin_user))
 	end
 
 	context "clipboard" do

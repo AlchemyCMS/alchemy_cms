@@ -9,7 +9,7 @@ module Alchemy
 						:action => :create,
 						:picture_id => picture_to_assign.id,
 						:content => {
-							:essence_type => "EssencePicture",
+							:essence_type => "Alchemy::EssencePicture",
 							:element_id => @element.id
 						},
 						:options => options

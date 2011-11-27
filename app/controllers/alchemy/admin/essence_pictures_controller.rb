@@ -57,7 +57,7 @@ module Alchemy
 				@options = params[:options]
 				# If options params come from Flash uploader then we have to parse them as hash.
 				@element = @content.element
-				contents_of_this_type = @element.contents.find_all_by_essence_type('EssencePicture')
+				contents_of_this_type = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
 				@dragable = contents_of_this_type.length > 1
 				if @options.is_a?(String)
 					@options = Rack::Utils.parse_query(@options)
@@ -82,7 +82,7 @@ module Alchemy
 				@element = content.element
 				@content_id = content.id
 				content.destroy
-				@essence_pictures = @element.contents.find_all_by_essence_type('EssencePicture')
+				@essence_pictures = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
 				@options = params[:options]
 			end
 

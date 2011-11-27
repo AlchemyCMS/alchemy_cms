@@ -1,18 +1,15 @@
 require 'spec_helper'
 
 describe Alchemy::PagesController do
-
+	
 	before(:each) do
-		# We need an user or the signup view will show up
-		user = Factory.build(:admin_user)
-		user.save_without_session_maintenance
 		@default_language = Alchemy::Language.get_default
-		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
+		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
 	end
 
-	context "rendering a page" do
+	describe "#show" do
 
-		it "should including all its elements and contents" do
+		it "should include all its elements and contents" do
 			p = Factory(:public_page, :language => @default_language)
 			article = p.elements.find_by_name('article')
 			article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)

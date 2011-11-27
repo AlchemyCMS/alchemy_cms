@@ -6,7 +6,7 @@
       :locals => {:content => @content, :options => params[:options]}
     )
   ) -%>');
-<%- if @content.element.contents.find_all_by_essence_type("EssencePicture").size > 1 -%>
+<%- if @content.element.contents.find_all_by_essence_type("Alchemy::EssencePicture").size > 1 -%>
   Alchemy.SortableContents('#<%= @content.element.id -%>_contents', '<%= form_authenticity_token -%>');
 <%- end -%>
   Alchemy.closeCurrentWindow();
