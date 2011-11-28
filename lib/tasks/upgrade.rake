@@ -1,30 +1,87 @@
-# TODO: Refactor for Rails 3
 namespace :alchemy do
-  namespace :upgrade do
+	
+	desc "Upgrades database for Alchemy CMS version #{Alchemy::VERSION}."
+	task :upgrade => :environment do
+		
+		# invoke seed task
+		Rake::Task['db:seed'].invoke
+		
+		# Creates Language model if it does not exist (Alchemy CMS prior v1.5)
+		# Also creates missing associations between pages and languages
+		Alchemy::Page.all.each do |page|
+			if !page.language_code.blank? && page.language.nil?
+				root = page.get_language_root
+				lang = Alchemy::Language.find_or_create_by_code(
+					:name => page.language_code.capitalize,
+					:code => page.language_code,
+					:frontpage_name => root.name,
+					:page_layout => root.page_layout,
+					:public => true
+				)
+				page.language = lang
+				if page.save(:validate => false)
+					puts "== Set language for page #{page.name} to #{lang.name}"
+				end
+			else
+				puts "== Skipping! Language for page #{page.name} already set."
+			end
+		end
+		default_language = Alchemy::Language.get_default
+		Alchemy::Page.layoutpages.each do |page|
+			if page.language.class == String || page.language.nil?
+				page.language = default_language
+				if page.save(:validate => false)
+					puts "== Set language for page #{page.name} to #{default_language.name}"
+				end
+			else
+				puts "== Skipping! Language for page #{page.name} already set."
+			end
+		end
+		(Alchemy::EssencePicture.all + Alchemy::EssenceText.all).each do |essence|
+			case essence.link_target
+			when '1'
+				if essence.update_attribute(:link_target, 'blank')
+					puts "== Updated #{essence.preview_text} link target to #{essence.link_target}."
+				end
+			when '0'
+				essence.update_attribute(:link_target, nil)
+				puts "== Updated #{essence.preview_text} link target to #{essence.link_target.inspect}."
+			end
+		end
 
-    desc "Removing unused files and directories"
-    task "cleanup" do
-      system('rm -rf vendor/plugins/webmate')
-      system('rm -rf public/plugin_assets/webmate')
-      system('rm config/initializers/fast_gettext.rb config/initializers/cache_storage.rb config/initializers/session_store.rb')
-    end
+		# Updates all essence_type of Content if not already namespaced.
+		Alchemy::Content.where("essence_type LIKE ?", "Essence%").each do |c|
+			c.update_attribute(:essence_type, c.essence_type.gsub(/^Essence/, 'Alchemy::Essence'))
+		end
+		
+	end
 
-    desc 'Writes a rake file into lib/tasks to make all the Alchemy plugins tasks available'
-    task 'write_rake_task' do
-      s = <<EOF
+	# TODO: Refactor for Rails 3
+	namespace :upgrade_from_webmate do
+
+		desc "Removing unused files and directories"
+		task "cleanup" do
+			system('rm -rf vendor/plugins/webmate')
+			system('rm -rf public/plugin_assets/webmate')
+			system('rm config/initializers/fast_gettext.rb config/initializers/cache_storage.rb config/initializers/session_store.rb')
+		end
+
+		desc 'Writes a rake file into lib/tasks to make all the Alchemy plugins tasks available'
+		task 'write_rake_task' do
+			s = <<EOF
 # Make all the Alchemy plugins tasks available
 Dir.glob(File.dirname(__FILE__) + "/../../vendor/plugins/alchemy/plugins/**/tasks/*.rake").each do |rake_file|
   import rake_file
 end
 EOF
-      File.open('lib/tasks/alchemy_plugins_tasks.rake', 'w') { |f| f.write(s)}
+			File.open('lib/tasks/alchemy_plugins_tasks.rake', 'w') { |f| f.write(s)}
     end
 
-    desc "Generates migration for upgrading the database."
-    task "generate_migration" do
-      system('script/generate migration upgrade_db_for_alchemy')
-      migration_file = Dir.glob("db/migrate/*_upgrade_db_for_alchemy.rb").first
-      s = <<EOF
+		desc "Generates migration for upgrading the database."
+		task "generate_migration" do
+			system('script/generate migration upgrade_db_for_alchemy')
+			migration_file = Dir.glob("db/migrate/*_upgrade_db_for_alchemy.rb").first
+			s = <<EOF
 class UpgradeDbForAlchemy < ActiveRecord::Migration
   def self.up
 
@@ -151,12 +208,12 @@ class UpgradeDbForAlchemy < ActiveRecord::Migration
   end
 end
 EOF
-      File.open(migration_file, 'w') { |f| f.write(s)}
-    end
+			File.open(migration_file, 'w') { |f| f.write(s)}
+		end
 
-    desc "Updates the config/environment.rb file"
-    task "environment_file" do
-      s = <<EOF
+		desc "Updates the config/environment.rb file"
+		task "environment_file" do
+			s = <<EOF
 RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
@@ -181,31 +238,31 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = :de
 end
 EOF
-      File.open('config/environment.rb', 'w') { |f| f.write(s)}
-    end
+			File.open('config/environment.rb', 'w') { |f| f.write(s)}
+		end
 
-    namespace :svn do
+		namespace :svn do
 
-      desc "Renaming files and folders for svn repository"
-      task "rename" do
-        system('svn rename config/webmate config/alchemy')
-        system('svn rename config/alchemy/molecules.yml config/alchemy/elements.yml')
-        system('svn rename app/views/wa_molecules app/views/elements')
-        system('svn rename app/views/layouts/wa_pages.html.erb app/views/layouts/pages.html.erb')
-        system('svn remove config/initializers/fast_gettext.rb config/initializers/cache_storage.rb')
-      end
+			desc "Renaming files and folders for svn repository"
+			task "rename" do
+				system('svn rename config/webmate config/alchemy')
+				system('svn rename config/alchemy/molecules.yml config/alchemy/elements.yml')
+				system('svn rename app/views/wa_molecules app/views/elements')
+				system('svn rename app/views/layouts/wa_pages.html.erb app/views/layouts/pages.html.erb')
+				system('svn remove config/initializers/fast_gettext.rb config/initializers/cache_storage.rb')
+			end
 
-      desc "Commits everything into you svn repository"
-      task "commit" do
-        system("svn mkdir uploads")
-        system("svn propset svn:ignore '*' uploads/")
-        system("svn add lib/tasks/alchemy_plugins_tasks.rake")
-        system("svn add db/migrate/*")
-        system("svn commit -m 'upgraded to alchemy'")
-      end
+			desc "Commits everything into you svn repository"
+			task "commit" do
+				system("svn mkdir uploads")
+				system("svn propset svn:ignore '*' uploads/")
+				system("svn add lib/tasks/alchemy_plugins_tasks.rake")
+				system("svn add db/migrate/*")
+				system("svn commit -m 'upgraded to alchemy'")
+			end
 
-    end
+		end
 
-  end
+	end
 
 end

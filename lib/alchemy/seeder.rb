@@ -63,51 +63,5 @@ module Alchemy
 			end
 		end
 
-		# This method is for running after upgrading an old Alchemy version without Language Model (pre v1.5).
-		# Put Alchemy::Seeder.upgrade! inside your db/seeds.rb file and run it with rake db:seed.
-		def self.upgrade!
-			seed!
-			Page.all.each do |page|
-				if !page.language_code.blank? && page.language.nil?
-					root = page.get_language_root
-					lang = Language.find_or_create_by_code(
-						:name => page.language_code.capitalize,
-						:code => page.language_code,
-						:frontpage_name => root.name,
-						:page_layout => root.page_layout,
-						:public => true
-					)
-					page.language = lang
-					if page.save(:validate => false)
-						puts "== Set language for page #{page.name} to #{lang.name}"
-					end
-				else
-					puts "== Skipping! Language for page #{page.name} already set."
-				end
-			end
-			default_language = Language.get_default
-			Page.layoutpages.each do |page|
-				if page.language.class == String || page.language.nil?
-					page.language = default_language
-					if page.save(:validate => false)
-						puts "== Set language for page #{page.name} to #{default_language.name}"
-					end
-				else
-					puts "== Skipping! Language for page #{page.name} already set."
-				end
-			end
-			(EssencePicture.all + EssenceText.all).each do |essence|
-				case essence.link_target
-				when '1'
-					if essence.update_attribute(:link_target, 'blank')
-						puts "== Updated #{essence.preview_text} link target to #{essence.link_target}."
-					end
-				when '0'
-					essence.update_attribute(:link_target, nil)
-					puts "== Updated #{essence.preview_text} link target to #{essence.link_target.inspect}."
-				end
-			end
-		end
-
 	end
 end
