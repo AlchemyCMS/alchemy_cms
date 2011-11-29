@@ -14,7 +14,7 @@
 	<div class="search_results">
 		<ul>
 		<%- @search_results.each do |result| -%>
-			<%- element = Alchemy::Content.where(:essence_id => result.id, :essence_type => result.class.to_s.gsub(/^Alchemy::/, '')).first.element -%>
+			<%- element = Alchemy::Content.where(:essence_id => result.id, :essence_type => result.class.name).first.element -%>
 			<%- page = element.nil? ? nil : element.page -%>
 			<li>
 				<%- unless page.nil? -%>
