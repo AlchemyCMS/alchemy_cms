@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+include Alchemy::BaseHelper
+
 describe Alchemy::PagesHelper do
 	
 	it "should render the current page layout" do

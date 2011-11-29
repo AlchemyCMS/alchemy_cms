@@ -4,7 +4,7 @@ describe Alchemy::PagesController do
 
 	render_views
 
-	before(:all) do
+	before(:each) do
 		@default_language = Alchemy::Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
 	end

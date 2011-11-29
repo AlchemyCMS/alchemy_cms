@@ -3,12 +3,8 @@ require 'spec_helper'
 
 describe Alchemy::Language do
 
-	before(:all) do
+	before(:each) do
 		@language = Factory(:language)
-	end
-	
-	after(:all) do
-		@language.destroy if @language
 	end
 
 	it "should return a label for code" do
