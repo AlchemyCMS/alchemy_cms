@@ -4,7 +4,7 @@ module Alchemy
 
 			include Alchemy::ElementsHelper
 			include Alchemy::Admin::BaseHelper
-			include Alchemy::Admin::ContentsHelper
+			include Alchemy::Admin::EssencesHelper
 
 			# Returns an Array for essence_text_editor select options_for_select.
 			def elements_by_name_for_select(name, options={})
