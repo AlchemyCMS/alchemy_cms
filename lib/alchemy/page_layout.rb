@@ -2,7 +2,7 @@ module Alchemy
 	class PageLayout
 
 		def self.included(base)
-			@@definitions ||= read_layouts_file
+			@@definitions = read_layouts_file
 		end
 
 		def self.element_names_for(page_layout)
@@ -17,7 +17,7 @@ module Alchemy
 
 		# Returns the page_layout.yml file. Tries to first load from config/alchemy and if not found from vendor/plugins/alchemy/config/alchemy.
 		def self.get_layouts
-			@@definitions ||= read_layouts_file
+			@@definitions = read_layouts_file
 		end
 
 		# Add additional pagelayout definitions. I.E. from your module.
@@ -25,7 +25,7 @@ module Alchemy
 		# You can pass a single layout definition as Hash, or a collection of pagelayouts as Array.
 		# Example Pagelayout definitions can be found in the +page_layouts.yml+ from the standard set.
 		def self.add(page_layout)
-			@@definitions ||= read_layouts_file
+			@@definitions = read_layouts_file
 			if page_layout.is_a?(Array)
 				@@definitions += page_layout
 			elsif page_layout.is_a?(Hash)
@@ -38,7 +38,7 @@ module Alchemy
 		# Returns the page_layout description found by name in page_layouts.yml
 		def self.get(name)
 			return {} if name.blank?
-			@@definitions ||= read_layouts_file
+			@@definitions = read_layouts_file
 			@@definitions.detect{ |a| a["name"].downcase == name.downcase }
 		end
 
