@@ -1,5 +1,5 @@
 <%= form_for([:admin, @essence_file], :remote => true, :method => "put") do |f| %>
-  <%- if @content.essence_type == "EssenceFile" -%>
+  <%- if @content.essence_type == "Alchemy::EssenceFile" -%>
   <table>
     <tr>
       <td class="label long"><%= f.label "title", _("title") %></td>
@@ -15,7 +15,7 @@
       </td>
     </tr>
   </table>
-  <%- elsif @content.essence_type == "EssenceFlash" -%>
+  <%- elsif @content.essence_type == "Alchemy::EssenceFlash" -%>
   <table>
     <tr>
       <td class="label long"><%= f.label "width", _("width") %></td>
@@ -35,7 +35,7 @@
       </td>
     </tr>
   </table>
-  <%- elsif @content.essence_type == "EssenceVideo" -%>
+  <%- elsif @content.essence_type == "Alchemy::EssenceVideo" -%>
   <table>
     <tr>
       <td class="label long"><%= f.label "width", _("width") %></td>
@@ -63,7 +63,7 @@
       </td>
     </tr>
   </table>
-  <%- elsif @content.essence_type == "EssenceAudio" -%>
+  <%- elsif @content.essence_type == "Alchemy::EssenceAudio" -%>
   <table>
     <tr>
       <td class="label long"><%= f.label "width", _("width") %></td>
