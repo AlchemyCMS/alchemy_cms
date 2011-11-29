@@ -280,11 +280,6 @@ module Alchemy
 				['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
 			end
 
-			# Returns an icon
-			def render_icon(icon_class)
-				content_tag('span', '', :class => "icon #{icon_class}")
-			end
-
 			def necessary_options_for_cropping_provided?(options)
 				options[:crop].to_s == 'true' && !options[:image_size].blank?
 			end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::BaseHelper do
+describe Alchemy::Admin::BaseHelper do
 
   context "maximum amount of images option" do
 
