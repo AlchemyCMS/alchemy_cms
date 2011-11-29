@@ -44,7 +44,7 @@ module Alchemy
 
 		def publicity_of_default_language
 			if self.default? && !self.public?
-				errors.add(:base, _("Default language has to be public"))
+				errors.add(:base, I18n.t("Default language has to be public"), :scope => :alchemy)
 				return false
 			else
 				return true
@@ -53,7 +53,7 @@ module Alchemy
 
 		def presence_of_default_language
 			if Language.get_default == self && self.default_changed?
-				errors.add(:base, _("We need at least one default."))
+				errors.add(:base, I18n.t("We need at least one default."), :scope => :alchemy)
 				return false
 			else
 				return true

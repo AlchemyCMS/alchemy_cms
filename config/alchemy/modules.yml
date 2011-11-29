@@ -3,27 +3,27 @@
 - name: dashboard
   engine_name: alchemy
   navigation:
-    name: 'module: dashboard'
+    name: 'modules.dashboard'
     controller: 'alchemy/admin/dashboard'
     action: index
     icon: dashboard
     sub_navigation:
-      - name: 'module: dashboard'
+      - name: 'modules.dashboard'
         controller: 'alchemy/admin/dashboard'
         action: index
 
 - name: pages
   engine_name: alchemy
   navigation:
-    name: 'module: pages'
+    name: 'modules.pages'
     controller: 'alchemy/admin/pages'
     action: index
     icon: pages
     sub_navigation:
-      - name: 'module: pages'
+      - name: 'modules.pages'
         controller: 'alchemy/admin/pages'
         action: index
-      - name: 'module: layoutpages'
+      - name: 'modules.layoutpages'
         controller: 'alchemy/admin/layoutpages'
         action: index
     nested:
@@ -33,24 +33,24 @@
 - name: languages
   engine_name: alchemy
   navigation:
-    name: 'module: languages'
+    name: 'modules.languages'
     controller: 'alchemy/admin/languages'
     action: index
     icon: languages
     sub_navigation:
-      - name: 'module: languages'
+      - name: 'modules.languages'
         controller: 'alchemy/admin/languages'
         action: index
 
 - name: users
   engine_name: alchemy
   navigation:
-    name: 'module: users'
+    name: 'modules.users'
     controller: 'alchemy/admin/users'
     action: index
     icon: users
     sub_navigation:
-      - name: 'module: users'
+      - name: 'modules.users'
         controller: 'alchemy/admin/users'
         action: index
 
@@ -59,12 +59,12 @@
   navigation:
     controller: 'alchemy/admin/pictures'
     action: index
-    name: 'module: library'
+    name: 'modules.library'
     icon: library
     sub_navigation:
-      - name: 'module: pictures'
+      - name: 'modules.pictures'
         controller: 'alchemy/admin/pictures'
         action: index
-      - name: 'module: attachments'
+      - name: 'modules.attachments'
         controller: 'alchemy/admin/attachments'
         action: index

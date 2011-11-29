@@ -2,7 +2,7 @@
 	<%- entry.stringify_keys! -%>
 	<%- permitted_to?(*navigate_module(entry)) do -%>
 	<div class="subnavi_tab<%= params[:controller] == entry["controller"].gsub(/^\//, '') && params[:action] == entry["action"] ? ' active' : nil %>">
-		<%= link_to _(entry["name"]), url_for_module_sub_navigation(entry) %>
+		<%= link_to t(entry["name"], :scope => :alchemy), url_for_module_sub_navigation(entry) %>
 	<%- end -%>
 	</div>
 <%- end -%>

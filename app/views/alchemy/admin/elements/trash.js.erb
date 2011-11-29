@@ -1,7 +1,7 @@
 (function($) {
   
   $('.element_editor[data-element-id="<%= @element.id -%>"]').remove();
-  Alchemy.growl('<%= _("Element trashed") -%>');
+  Alchemy.growl('<%= t("Element trashed"), :scope => :alchemy -%>');
   $('#element_area').sortable('refresh');
   Alchemy.refreshTrashWindow(<%= @page_id -%>);
   $('#element_trash_button .icon').addClass('full');

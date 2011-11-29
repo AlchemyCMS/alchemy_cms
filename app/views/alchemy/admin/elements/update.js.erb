@@ -7,7 +7,7 @@
   $('div.content_editor').removeClass('validation_failed');
   $("#element_<%= @element.id -%>_errors").hide();
   Alchemy.setElementSaved('#element_<%= @element.id -%>');
-  Alchemy.growl('<%= _("element_saved") -%>');
+  Alchemy.growl('<%= t("element_saved"), :scope => :alchemy -%>');
   Alchemy.PreviewWindow.refresh();
 
 	<%- else -%>

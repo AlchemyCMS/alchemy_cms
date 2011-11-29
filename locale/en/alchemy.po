@@ -11,7 +11,7 @@ msgstr ""
 "X-Poedit-Country: UNITED KINGDOM\n"
 
 #: app/views/admin/pages/_create_language_form.html.erb:36
-msgid "%{language}_as_new_language"
+msgid "create_tree_as_new_language"
 msgstr "Create %{language} as a new language tree"
 
 #: app/views/admin/partials/_upload_form.html.erb:27

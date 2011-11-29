@@ -25,7 +25,6 @@ module Alchemy
         copy_file("#{File.dirname(__FILE__)}/files/translation.pot", "#{@plugin_path}/locale/#{@plugin_name}.pot")
         copy_file("#{File.dirname(__FILE__)}/files/translation_de.po", "#{@plugin_path}/locale/de/#{@plugin_name}.po")
         copy_file("#{File.dirname(__FILE__)}/files/translation_en.po", "#{@plugin_path}/locale/en/#{@plugin_name}.po")
-        template("gettext.rb", "#{@plugin_path}/config/initializers/gettext.rb")
         template("config.yml", "#{@plugin_path}/config/alchemy/config.yml")
         template("authorization_rules.rb", "#{@plugin_path}/config/authorization_rules.rb")
         template("routes.rb", "#{@plugin_path}/config/routes.rb")

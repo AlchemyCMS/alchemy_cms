@@ -2,7 +2,7 @@
 
 	<%= form_tag show_page_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
 		<%= text_field_tag "query", params[:query], :class => 'field' %>
-		<%= submit_tag _("search"), :name => nil %>
+		<%= submit_tag t("search", :scope => :alchemy), :name => nil %>
 	<%- end -%>
 
 	<%- if !@search_results.blank? -%>
@@ -19,7 +19,7 @@
 			<li>
 				<%- unless page.nil? -%>
 				<h3>
-					<span class="search_result_site"><%= _('Page') %>:</span>
+					<span class="search_result_site"><%= t('Page', :scope => :alchemy) %>:</span>
 					<%- if multi_language? -%>
 					<%= link_to page.name, show_page_path(:urlname => page.urlname, :lang => page.language_code) %>
 					<span class="search_result_language">(<%= page.language_code.upcase %>)</span>
@@ -28,7 +28,7 @@
 					<%- end -%>
 				</h3>
 				<%- end -%>
-				<h4><%= _('Excerpt') %>:</h4>
+				<h4><%= t('Excerpt', :scope => :alchemy) %>:</h4>
 				<%- result.highlight(
 					"*#{params[:query]}*", {
 						:field => (result.class == Alchemy::EssenceRichtext ? :stripped_body : :body)

@@ -2,14 +2,14 @@
 <div id="toolbar_buttons">
 	<%= toolbar_button(
 		:icon => 'upload',
-		:label => _('upload_image'),
+		:label => t('upload_image', :scope => :alchemy),
 		:url => new_admin_picture_path(:size => @size),
 		:overlay_options => {
-			:title => _('upload_image'),
+			:title => t('upload_image', :scope => :alchemy),
 			:size => '540x550'
 		},
 		:class => 'icon_button',
-		:title => _('upload_image'),
+		:title => t('upload_image', :scope => :alchemy),
 		:if_permitted_to => [:new, :alchemy_admin_pictures]
 	) %>
 	<div class="toolbar_spacer"></div>
@@ -20,7 +20,7 @@
 				:size => "small",
 				:query => params[:query]
 			}),
-			:title => _("small_thumbnails"),
+			:title => t("small_thumbnails", :scope => :alchemy),
 			:class => "icon_button please_wait"
 		) %>
 		<%= link_to(
@@ -29,7 +29,7 @@
 				:size => "medium",
 				:query => params[:query]
 			}),
-			:title => _("medium_thumbnails"),
+			:title => t("medium_thumbnails", :scope => :alchemy),
 			:class => "icon_button please_wait"
 		) %>
 		<%= link_to(
@@ -38,10 +38,10 @@
 				:size => "large",
 				:query => params[:query]
 			}),
-			:title => _("big_thumbnails"),
+			:title => t("big_thumbnails", :scope => :alchemy),
 			:class => "icon_button please_wait"
 		) %>
-		<label><%= _('Image size') %></label>
+		<label><%= t('Image size', :scope => :alchemy) %></label>
 		<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
 	</div>
 
@@ -55,9 +55,9 @@
 			:remote => true,
 			:method => :post
 		},
-		:label => _('Flush picture cache'),
+		:label => t('Flush picture cache', :scope => :alchemy),
 		:class => 'icon_button please_wait',
-		:title => _('Flush picture cache'),
+		:title => t('Flush picture cache', :scope => :alchemy),
 		:skip_permission_check => true
 	) %>
 	<%- end -%>
@@ -74,8 +74,8 @@
 
 	jQuery(document).ready(function($) {
 		Alchemy.inPlaceEditor({
-			save_label: "<%= _('save') %>",
-			cancel_label: "<%= _('cancel') %>"
+			save_label: "<%= t('save', :scope => :alchemy) %>",
+			cancel_label: "<%= t('cancel', :scope => :alchemy) %>"
 		});
 	});
 

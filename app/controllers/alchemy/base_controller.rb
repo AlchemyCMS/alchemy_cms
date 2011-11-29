@@ -2,13 +2,11 @@
 module Alchemy
 	class BaseController < ApplicationController
 
-		include FastGettext::Translation
 		include Alchemy::Modules
 
 		protect_from_forgery
 
 		before_filter :set_language
-		before_filter :init_gettext
 		before_filter :set_translation
 		before_filter :mailer_set_url_options
 
@@ -60,23 +58,10 @@ module Alchemy
 
 	private
 
-		def init_gettext#:nodoc:
-			FastGettext.available_locales = configuration(:translations).collect { |l| l[:language_code] }
-		end
-
 		# Setting the Alchemy GUI translation to users preffered language, or to the default translation.
 		# You can set the default_translation in your config/alchemy/config.yml file
 		def set_translation
-			if current_user.blank? || current_user.language.blank?
-				FastGettext.locale = configuration(:default_translation) || I18n.locale
-			else
-				FastGettext.locale = current_user.language || I18n.locale
-			end
-		end
-
-		# What is this? Who was this?
-		def last_request_update_allowed?
-			true #action_name =! "update_session_time_left"
+			I18n.locale = current_user.language
 		end
 
 		# Do we really need this anymore?
@@ -132,14 +117,14 @@ module Alchemy
 					if request.referer == login_url
 						render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
 					elsif request.xhr?
-						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _('You are not authorized'), :flash_type => 'warning'}
+						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized', :scope => :alchemy), :flash_type => 'warning'}
 					else
-						flash[:error] = _('You are not authorized')
+						flash[:error] = t('You are not authorized', :scope => :alchemy)
 						redirect_to admin_dashboard_path
 					end
 				end
 			else
-				flash[:info] = _('Please log in')
+				flash[:info] = t('Please log in', :scope => :alchemy)
 				if request.xhr?
 					render :action => :permission_denied
 				else

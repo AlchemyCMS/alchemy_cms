@@ -1,39 +1,39 @@
 <table>
 	<tr>
-		<td class="label"><%= f.label 'gender', _('User|Gender') %>: </td>
-		<td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => _('Please choose')}, {:class => 'long'} -%></td>
+		<td class="label"><%= f.label 'gender' %>: </td>
+		<td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => t('Please choose', :scope => :alchemy)}, {:class => 'long'} -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'firstname', _('User|Firstname') %>: </td>
+		<td class="label"><%= f.label 'firstname' %>: </td>
 		<td class="input"><%= f.text_field 'firstname', :class => 'thin_border' -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'lastname', _('User|Lastname') %>:</td>
+		<td class="label"><%= f.label 'lastname' %>:</td>
 		<td class="input"><%= f.text_field 'lastname', :class => 'thin_border' -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'login', _('User|Login') %>: </td>
+		<td class="label"><%= f.label 'login' %>: </td>
 		<td class="input"><%= f.text_field 'login', :class => 'thin_border' -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'email', _('User|Email') %>: </td>
+		<td class="label"><%= f.label 'email' %>: </td>
 		<td class="input"><%= f.text_field 'email', :class => 'thin_border' -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'language', _('User|Language') %>: </td>
+		<td class="label"><%= f.label 'language' %>: </td>
 		<td class="select"><%= f.select 'language', translations_for_select, {}, :class => 'long' -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'password', _('User|Password') %>: </td>
+		<td class="label"><%= f.label 'password' %>: </td>
 		<td class="input"><%= f.password_field 'password', :class => 'thin_border', :autocomplete => "off" -%></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'password_confirmation', _('User|Password confirmation') %>: </td>
+		<td class="label"><%= f.label 'password_confirmation' %>: </td>
 		<td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border', :autocomplete => "off" -%></td>
 	</tr>
 	<%- unless action_name == 'signup' -%>
 	<tr>
-		<td class="label"><%= f.label 'role', _('User|Role') %>: </td>
+		<td class="label"><%= f.label 'role' %>: </td>
 		<td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role), {}, :class => 'long' -%></td>
 	</tr>
 	<%- else -%>
@@ -43,12 +43,12 @@
 		<td>&nbsp;</td>
 		<td class="checkbox">
 			<%= check_box_tag('send_credentials', true, @user.new_record?) %>
-			<%= label_tag('send_credentials', _('Send email with credentials')) %>
+			<%= label_tag('send_credentials', t('Send email with credentials'), :scope => :alchemy) %>
 		</td>
 	</tr>
 	<tr>
 		<td class="submit" colspan="2">
-			<%= f.button _('save'), :class => 'button' %>
+			<%= f.button t('save', :scope => :alchemy), :class => 'button' %>
 		</td>
 	</tr>
 </table>

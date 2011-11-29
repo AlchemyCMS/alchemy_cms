@@ -1,10 +1,6 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-# setting textdomain at first. so it's available everywhere!
-require 'fast_gettext'
-FastGettext.text_domain = 'alchemy'
-
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
 require 'database_cleaner'

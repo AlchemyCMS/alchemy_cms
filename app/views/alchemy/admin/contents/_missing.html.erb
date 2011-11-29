@@ -2,9 +2,9 @@
   <label><%= I18n.t("content_names.#{element.name}.#{name}", :default => ["content_names.#{name}".to_sym, name.capitalize]) %></label>
   <p>
     <%= render_icon('warning') %>
-    <%= _('content_not_found') %>
+    <%= t('content_not_found', :scope => :alchemy) %>
     <%= link_to(
-      _('create'),
+      t('create', :scope => :alchemy),
       admin_contents_path(
         :content => {
           :element_id => element.id,

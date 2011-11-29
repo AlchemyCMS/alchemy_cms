@@ -1,19 +1,19 @@
 <div class="with_padding">
 	<%- if @elements.blank? -%>
 	<p id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %>>
-		<%= _('Your trash is empty') %>
+		<%= t('Your trash is empty', :scope => :alchemy) %>
 	</p>
 	<%- else -%>
 	<div class="info">
 		<%= render_icon('info') %>
-		<%= _('Drag an element over to the element window to restore it.') %>
+		<%= t('Drag an element over to the element window to restore it.', :scope => :alchemy) %>
 	</div>
 	<div id="trash_items">
 		<%- @elements.each do |element| -%>
 		<%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil?} %>
 		<%- end -%>
 		<p>
-			<%= link_to_confirmation_window(_('clear trash'), _('Do you really want to clear the trash?'), clear_admin_trash_path(:page_id => @page.id), :class => 'button') %>
+			<%= link_to_confirmation_window(t('clear trash', :scope => :alchemy), t('Do you really want to clear the trash?', :scope => :alchemy), clear_admin_trash_path(:page_id => @page.id), :class => 'button') %>
 		</p>
 	</div>
 	<%- end -%>

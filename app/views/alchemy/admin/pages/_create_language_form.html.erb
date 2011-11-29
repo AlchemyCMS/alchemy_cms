@@ -1,8 +1,8 @@
 <div id="archive_all">
-	<h1><%= _("language_does_not_exist") %></h1>
+	<h1><%= t("language_does_not_exist", :scope => :alchemy) %></h1>
 	<%- if @language -%>
 		<%- if @languages_with_page_tree.size >= 1 -%>
-			<p><%= _("want_to_make_copy_of_existing_language") %></p>
+			<p><%= t("want_to_make_copy_of_existing_language", :scope => :alchemy) %></p>
 			<%= form_tag(copy_language_tree_admin_pages_path) do %>
 				<table style="width: 135px;">
 					<tr>
@@ -12,7 +12,7 @@
 						</td>
 						<td>
 							<%= hidden_field_tag("layoutpage", params[:action] == "layoutpages") if params[:action] == "layoutpages" %>
-							<%= submit_tag _("copy"), :class => 'button' %>
+							<%= submit_tag t("copy", :scope => :alchemy), :class => 'button' %>
 						</td>
 					</tr>
 				</table>
@@ -21,7 +21,7 @@
 		<%- if params[:action] == "index" -%>
 		<%- if @languages_with_page_tree.size >= 1 -%>
 		<p>
-			<%= _("want_to_create_new_language") %>
+			<%= t("want_to_create_new_language", :scope => :alchemy) %>
 		</p>
 		<%- end -%>
 		<%= form_for([:admin, Alchemy::Page.new], :remote => true) do |form| %>
@@ -31,10 +31,10 @@
 			<%= form.hidden_field :page_layout, :value => @language.page_layout %>
 			<%= form.hidden_field :language_root, :value => true %>
 			<%= form.hidden_field :parent_id, :value => Alchemy::Page.rootpage.id %>
-			<%= form.submit(_("%{language}_as_new_language") % {:language => @language.name}, :class => 'button') %>
+			<%= form.submit t("create_tree_as_new_language", :scope => :alchemy) % {:language => @language.name}, :class => 'button' %>
 		<% end %>
 		<%- end -%>
 	<%- else -%>
-		<p><%= _("Actually this language does not exist. Please create this language first.") %></p>
+		<p><%= t("Actually this language does not exist. Please create this language first.", :scope => :alchemy) %></p>
 	<%- end -%>
 </div>

@@ -1,6 +1,6 @@
 <%- content_for(:subnav_additions) do -%>
 <%- unless @locked_pages.blank? -%>
-<label><%= _('Active Pages') %> &raquo;</label>
+<label><%= t('Active Pages', :scope => :alchemy) %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
 	<%= link_to edit_admin_page_path(page) do %>
@@ -9,7 +9,7 @@
 	</span>
 	<% end %>
 	<%= form_tag(unlock_admin_page_path(page), :remote => true) do %>
-	<button class="icon_button small" title="<%= _('explain_unlocking') %>">
+	<button class="icon_button small" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
 		<%= render_icon('close small') %>
 	</button>
 	<% end %>
@@ -32,7 +32,7 @@
 			),
 			:class => 'short'
 		) %>
-		<label><%= _("Language tree") %></label>
+		<label><%= t("Language tree", :scope => :alchemy) %></label>
 	</div>
 	<%- permitted_to?(:flush, :alchemy_admin_pages) do -%>
 	<div class="button_with_label">
@@ -42,9 +42,9 @@
 			:remote => true,
 			:method => :post,
 			:class => 'icon_button please_wait',
-			:title => _('Flush page cache')
+			:title => t('Flush page cache', :scope => :alchemy)
 		) -%>
-		<label><%= _('Flush page cache') %></label>
+		<label><%= t('Flush page cache', :scope => :alchemy) %></label>
 	</div>
 	<%- end -%>
 	<%- permitted_to?(:sort, :alchemy_admin_pages) do -%>
@@ -56,9 +56,9 @@
 			:method => :get,
 			:remote => true,
 			:class => 'icon_button please_wait',
-			:title => _('Sort pages')
+			:title => t('Sort pages', :scope => :alchemy)
 		) -%>
-		<label><%= _('Sort pages') %></label>
+		<label><%= t('Sort pages', :scope => :alchemy) %></label>
 	</div>
 	<%- end -%>
 	<div class="button_with_label" id="clipboard_button">
@@ -66,13 +66,13 @@
 			render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
 			admin_clipboard_path(:remarkable_type => 'pages'),
 			{
-				:title => _('Clipboard'),
+				:title => t('Clipboard', :scope => :alchemy),
 				:size => '380x270'
 			},
 			:class => 'icon_button',
-			:title => _('Show clipboard')
+			:title => t('Show clipboard', :scope => :alchemy)
 		) -%>
-		<label><%= _('Show clipboard') %></label>
+		<label><%= t('Show clipboard', :scope => :alchemy) %></label>
 	</div>
 </div>
 <%- end -%>
@@ -80,18 +80,18 @@
 <%- if @page_root -%>
 
 <h2 id="sitemap_heading">
-	<span class="page_name"><%= _('Name') %></span>
-	<span class="page_infos"><%= _('Status') %></span>
+	<span class="page_name"><%= t('Name', :scope => :alchemy) %></span>
+	<span class="page_infos"><%= t('Status', :scope => :alchemy) %></span>
 </h2>
 
 <div id="bottom_panel" style="display: none">
 	<div class="info">
 		<%= render_icon('info') %>
-		<%= _('Explain|Sitemap|Dragndrop sorting') %>
+		<%= t('Explain|Sitemap|Dragndrop sorting', :scope => :alchemy) %>
 	</div>
 	<div id="bottom_buttons">
-		<%= link_to( _('cancel'), admin_pages_path, :class => 'button' ) %>&nbsp;
-		<%= submit_tag( _('save order'), :id => 'save_page_order', :class => 'button' ) %>
+		<%= link_to( t('cancel'), admin_pages_path, :class => 'button' , :scope => :alchemy) %>&nbsp;
+		<%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' , :scope => :alchemy) %>
 	</div>
 </div>
 

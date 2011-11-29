@@ -15,7 +15,7 @@
       </div>
       <%- if element.has_validations? -%>
       <p class="validation_notice">
-        <span class="validation_indicator">*</span> <%= _('Mandatory') %>
+        <span class="validation_indicator">*</span> <%= t('Mandatory', :scope => :alchemy) %>
       </p>
       <%- end -%>
       <%= render :partial => 'alchemy/admin/elements/element_foot', :locals => {:element => element} %>

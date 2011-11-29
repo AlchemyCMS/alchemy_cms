@@ -29,9 +29,9 @@ module Alchemy
 		# :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
 		def render_essence(content, part = :view, options = {}, html_options = {})
 			if content.nil?
-				return part == :view ? "" : warning('Content is nil', _("content_not_found"))
+				return part == :view ? "" : warning('Content is nil', t("content_not_found"), :scope => :alchemy)
 			elsif content.essence.nil?
-				return part == :view ? "" : warning('Essence is nil', _("content_essence_not_found"))
+				return part == :view ? "" : warning('Essence is nil', t("content_essence_not_found"), :scope => :alchemy)
 			end
 			defaults = {
 				:for_editor => {
@@ -115,8 +115,8 @@ module Alchemy
 		#   * editor_options (Hash) - Will be passed to the render_essence_editor partial renderer
 		#
 		def render_essence_editor_by_type(element, essence_type, options = {}, editor_options = {})
-			return warning('Element is nil', _("no_element_given")) if element.blank?
-			return warning('EssenceType is blank', _("No EssenceType given")) if essence_type.blank?
+			return warning('Element is nil', t("no_element_given"), :scope => :alchemy) if element.blank?
+			return warning('EssenceType is blank', t("No EssenceType given"), :scope => :alchemy) if essence_type.blank?
 			defaults = {
 				:position => 1,
 				:all => false
@@ -155,7 +155,7 @@ module Alchemy
 		#
 		def render_essence_editor_by_name(element, name, options = {})
 			if element.blank?
-				return warning('Element is nil', _("no_element_given"))
+				return warning('Element is nil', t("no_element_given"), :scope => :alchemy)
 			end
 			content = element.content_by_name(name)
 			if content.blank?

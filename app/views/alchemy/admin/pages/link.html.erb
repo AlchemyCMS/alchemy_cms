@@ -1,10 +1,10 @@
 <div id="overlay_tabs">
   <ul>
-    <li><a href="#overlay_tab_internal_link"><%= _('link_overlay_tab_label.internal') %></a></li>
-    <li><a href="#overlay_tab_external_link"><%= _('link_overlay_tab_label.external') %></a></li>
-    <li><a href="#overlay_tab_file_link"><%= _('link_overlay_tab_label.file') %></a></li>
+    <li><a href="#overlay_tab_internal_link"><%= t('link_overlay_tab_label.internal', :scope => :alchemy) %></a></li>
+    <li><a href="#overlay_tab_external_link"><%= t('link_overlay_tab_label.external', :scope => :alchemy) %></a></li>
+    <li><a href="#overlay_tab_file_link"><%= t('link_overlay_tab_label.file', :scope => :alchemy) %></a></li>
     <%- if configuration(:mailer)[:contactform_linking] -%>
-    <li><a href="#overlay_tab_contactform_link"><%= _('link_overlay_tab_label.contactform') %></a></li>
+    <li><a href="#overlay_tab_contactform_link"><%= t('link_overlay_tab_label.contactform', :scope => :alchemy) %></a></li>
     <%- end -%>
   </ul>
   <div class="with_padding">

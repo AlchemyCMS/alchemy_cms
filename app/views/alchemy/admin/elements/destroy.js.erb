@@ -1,6 +1,6 @@
 (function($) {
 	$('.element_editor[data-element-id="<%= @element.id -%>"]').remove();
-	Alchemy.growl('<%= _("element_deleted_successful") -%>');
+	Alchemy.growl('<%= t("element_deleted_successful"), :scope => :alchemy -%>');
 	$('#element_area').sortable('refresh');
 	Alchemy.PreviewWindow.refresh();
 })(jQuery);

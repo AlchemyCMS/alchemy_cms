@@ -1,13 +1,13 @@
-<%= _('Welcome to Alchemy') %>
+<%= t('Welcome to Alchemy', :scope => :alchemy) %>
 
-<%= _('To manage your website open a browser and go to') %>:
+<%= t('To manage your website open a browser and go to', :scope => :alchemy) %>:
 
 <%= @url %>
 
-<%= _('Your credentials are') %>:
+<%= t('Your credentials are', :scope => :alchemy) %>:
 ----------------------
-<%= _('Username') %>: <%= @user.login %>
-<%= _('Password') %>: <%= @user.password %>
+<%= t('Username', :scope => :alchemy) %>: <%= @user.login %>
+<%= t('Password', :scope => :alchemy) %>: <%= @user.password %>
 
 
-<%= _('Have much fun with Alchemy!') %>
+<%= t('Have much fun with Alchemy!', :scope => :alchemy) %>

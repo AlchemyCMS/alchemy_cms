@@ -2,7 +2,7 @@
 	<div id="per_page_values">
 		<%- values.each do |value| -%>
 			<%= link_to(
-				(value == 'all' ? _('all') : value),
+				(value == 'all' ? t('all') : value, :scope => :alchemy),
 				{
 					:action => :index,
 					:query => params[:query],
@@ -13,5 +13,5 @@
 				) %>
 		<%- end -%>
 	</div>
-	<label><%= _("pagination.%{label}_per_page") % {:label => label} %></label>
+	<label><%= t("pagination.%{label}_per_page", :scope => :alchemy) % {:label => label} %></label>
 </div>

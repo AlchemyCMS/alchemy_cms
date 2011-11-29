@@ -5,7 +5,6 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'awesome_nested_set'
 	require 'dynamic_form'
 	require 'fleximage'
-	require 'gettext_i18n_rails'
 	require 'jquery-rails'
 	require 'userstamp'
 	require 'will_paginate'

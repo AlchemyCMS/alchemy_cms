@@ -8,12 +8,7 @@
 	<%- else -%>
 	<span class="module icon"></span>
 	<%- end -%>
-	<%# 
-		We have to set the FastGettext.text_domain explicitly here, 
-		because Alchemy Modules come with their own TextDomain
-	%>
-	<%- FastGettext.text_domain = 'alchemy' -%>
-	<label><%= truncate _(navigation["name"]), :length => 10 -%></label>
+	<label><%= truncate t(navigation["name"], :scope => :alchemy), :length => 10 -%></label>
 <% end %>
 
 <%- end -%>

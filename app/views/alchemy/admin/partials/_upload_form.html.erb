@@ -1,58 +1,58 @@
 <div class="info">
 	<%= render_icon('info') %>
-	<p><%= _('explain_upload.intro_%{name}') % {:name => item_type} %>:</p>
+	<p><%= t('explain_upload.intro', :scope => :alchemy, :name => item_type) %>:</p>
 	<ol>
-		<li><%= _('explain_upload.step1_%{name}') % {:name => item_type} %></li>
-		<li><%= _('explain_upload.step2_%{name}') % {:name => item_type} %>*</li>
-		<li><%= _('explain_upload.step3') %></li>
+		<li><%= t('explain_upload.step1', :scope => :alchemy, :name => item_type) %></li>
+		<li><%= t('explain_upload.step2', :scope => :alchemy, :name => item_type) %>*</li>
+		<li><%= t('explain_upload.step3', :scope => :alchemy) %></li>
 	</ol>
-	<small>*<%= _('explain_upload.footnote_%{name}') % {:name => item_type} %></small>
+	<small>*<%= t('explain_upload.footnote', :scope => :alchemy, :name => item_type) %></small>
 </div>
 <div id="swf_upload_container">
 	<div id="spanButtonPlaceHolder">
 		<p>
 			<%= image_tag('alchemy/ajax_loader.gif', :style => 'width: 16px; height: 16px; top: 3px; position: relative') %>
-			<%= _('Please wait. Flash® is loading...') %>
+			<%= t('Please wait. Flash® is loading...', :scope => :alchemy) %>
 		</p>
 	</div>
 	<button class="button" onclick="swfu.cancelQueue(); return false" style="display: none">
-		<%= _("swfupload: cancel_uploads") %>
+		<%= t("swfupload: cancel_uploads", :scope => :alchemy) %>
 	</button>
 </div>
 <%- if file_types.first == '*' -%>
-<p><%= _('You may upload any file') %></p>
+<p><%= t('You may upload any file', :scope => :alchemy) %></p>
 <%- else -%>
-<p><%= _('You may upload %{file_types_description} with following extensions: %{file_types}') % {:file_types_description => file_types_description, :file_types => file_types.to_sentence} %>.</p>
+<p><%= t('You may upload %{file_types_description} with following extensions: %{file_types}', :scope => :alchemy) % {:file_types_description => file_types_description, :file_types => file_types.to_sentence} %>.</p>
 <%- end -%>
 <p style="margin-top: 8px" id="choose_alternative_uploader">
 	<small>
-		<%= raw _('If you have any problems using the Flash® uploader you can switch to the %{link}') % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('object.swfupload').hide();" style="text-decoration: underline">%{value}</a>) % {:value => _('regular method')}} %>
+		<%= raw t('If you have any problems using the Flash® uploader you can switch to the %{link}', :scope => :alchemy) % {:link => %(<a href="#" onclick="jQuery('#choose_alternative_uploader').hide();jQuery('#alternativeUpload').show();jQuery('object.swfupload').hide();" style="text-decoration: underline">%{value}</a>) % {:value => t('regular method', :scope => :alchemy)}} %>
 	</small>
 </p>
 <div id="swfUploadFlashError" style="display: none">
-	<h2><%= _('Could not load Adobe Flash® Plugin!') %></h2>
-	<p><%= _('Please consider that you have at least version 9.0.28 installed.') %></p>
+	<h2><%= t('Could not load Adobe Flash® Plugin!', :scope => :alchemy) %></h2>
+	<p><%= t('Please consider that you have at least version 9.0.28 installed.', :scope => :alchemy) %></p>
 	<p>
-		<%= _('You can get the latest version on the %{link}') % {:link => _('<a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>') % {:value => _('Adobe Website')}} %>
+		<%= t('You can get the latest version on the %{link}', :scope => :alchemy) % {:link => t('<a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>') % {:value => t('Adobe Website', :scope => :alchemy)}} %>
 	</p>
 </div>
 <div id="alternativeUpload" style="display: none">
 	<h2 id="flash_upload_error_explanation" style="display: none">
-		<%= _('Error with the Flash® Uploader!') %>
+		<%= t('Error with the Flash® Uploader!', :scope => :alchemy) %>
 	</h2>
-	<p><%= _('Please use this alternative uploader instead.') %></p>
+	<p><%= t('Please use this alternative uploader instead.', :scope => :alchemy) %></p>
 	<p>
 		<%= file_field_tag('Filedata') %>
 	</p>
 	<p>
-		<%= submit_tag _('upload'), :class => 'button' %>
+		<%= submit_tag t('upload', :scope => :alchemy), :class => 'button' %>
 	</p>
 	<p>
 		<small>
 			<a href="#" 
 			onclick="jQuery('#choose_alternative_uploader').show();jQuery('#alternativeUpload').hide();jQuery('object.swfupload').show();" 
 			style="text-decoration: underline">
-				<%= _('Switch to Flash® Uploader') %>
+				<%= t('Switch to Flash® Uploader', :scope => :alchemy) %>
 			</a>
 		</small>
 	</p>
@@ -86,14 +86,14 @@
 			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
 			file_queue_limit: 0,
 			custom_settings: {
-				language: "<%= FastGettext.locale || 'en' %>"
+				language: "<%= I18n.locale || 'en' %>"
 			},
 			debug: false,
 			button_image_url: "<%= image_path('alchemy/swfupload/browse_button.png') %>",
 			button_width: "120",
 			button_height: "25",
 			button_placeholder_id: "spanButtonPlaceHolder",
-			button_text: "<span class='swfButtonText'><%= _('browse') %></span>",
+			button_text: "<span class='swfButtonText'><%= t('browse', :scope => :alchemy) %></span>",
 			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", Arial, sans-serif; text-align: center; color: #333333; height: 25px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 5px}',
 			button_text_left_padding: 0,
 			button_text_top_padding: 4,

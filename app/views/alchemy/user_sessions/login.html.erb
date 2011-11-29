@@ -11,7 +11,7 @@
 		<table>
 			<tr>
 				<td class="label">
-					<%= f.label :login, _("username"), :tabindex => 1 %>
+					<%= f.label :login, :tabindex => 1 %>
 				</td>
 				<td class="input">
 					<%= f.text_field :login, :class => 'thin_border' %>
@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td class="label">
-					<%= f.label :password, _("password") %>
+					<%= f.label :password %>
 				</td>
 				<td class="input">
 					<%= f.password_field :password, :class => 'thin_border' %>
@@ -28,7 +28,7 @@
 			<tr>
 				<td colspan="2" class="submit">
 					<%= hidden_field_tag 'user_screensize' %>
-					<%= f.button _('login'), :class => 'button', :name => nil %>
+					<%= f.button t('login', :scope => :alchemy), :class => 'button', :name => nil %>
 				</td>
 			</tr>
 		</table>

@@ -6,7 +6,7 @@
       :locals => {:content => @content, :options => params[:options]}
     )
   ) -%>');
-  Alchemy.growl('<%= _("Image updated successfully") -%>');
+  Alchemy.growl('<%= t("Image updated successfully"), :scope => :alchemy -%>');
   Alchemy.closeCurrentWindow();
   Alchemy.reloadPreview();
 <%- if @content.element.contents.find_all_by_essence_type("Alchemy::EssencePicture").size > 1 -%>

@@ -12,9 +12,9 @@
 		<%- permitted_to?(:destroy, namespaced_resources_name.to_sym) do -%>
 		<%= link_to_confirmation_window(
 			'',
-			_("Are you sure?"),
+			t("Are you sure?", :scope => :alchemy),
 			send("admin_#{resource_model_name}_path", resource),
-			:title => _("Delete"),
+			:title => t("Delete", :scope => :alchemy),
 			:class => "icon destroy"
 		) -%>
 		<%- end -%>
@@ -23,11 +23,11 @@
 			'',
 			send("edit_admin_#{resource_model_name}_path", resource),
 			{
-				:title => _("Edit")
+				:title => t("Edit", :scope => :alchemy)
 			},
 			{
 				:class => "icon edit",
-				:title => _("Edit")
+				:title => t("Edit", :scope => :alchemy)
 			}
 		) -%>
 		<%- end -%>

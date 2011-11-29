@@ -1,6 +1,6 @@
 <div id="overlay_tab_contactform_link">
   <h2>
-    <%= _("please enter subject and mail address") %>
+    <%= t("please enter subject and mail address", :scope => :alchemy) %>
   </h2>
   <table class="window_form">
     <%= hidden_field_tag(
@@ -12,7 +12,7 @@
     ) %>
     <tr>
       <td class="label">
-        <label for="contactform_subject" class="medium"><%= _("subject") %></label>
+        <label for="contactform_subject" class="medium"><%= t("subject", :scope => :alchemy) %></label>
       </td>
       <td class="input">
         <%= text_field_tag "contactform_subject", {}, :class => "thin_border auto_resize" %>
@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td class="label">
-        <label for="contactform_mailto" class="medium"><%= _("mail_to") %></label>
+        <label for="contactform_mailto" class="medium"><%= t("mail_to", :scope => :alchemy) %></label>
       </td>
       <td class="input">
         <%= select_tag(
@@ -33,7 +33,7 @@
     <tr>
       <td class="label">
         <label for="contactform_body" class="medium">
-          <%= _("contactform_body") %>
+          <%= t("contactform_body", :scope => :alchemy) %>
         </label>
       </td>
       <td class="input">
@@ -43,7 +43,7 @@
     <tr>
       <td class="label">
         <label for="contactform_link_title" class="medium">
-          <%= _("link_title") %>
+          <%= t("link_title", :scope => :alchemy) %>
         </label>
       </td>
       <td class="input">
@@ -53,7 +53,7 @@
   </table>
   <p>
     <%= link_to_function(
-      _("apply"),
+      t("apply", :scope => :alchemy),
       "Alchemy.LinkOverlay.createLink(
         'contact',
         jQuery('#contactform_url').val() + '?subject=' + encodeURIComponent(jQuery('#contactform_subject').val()) + '&mail_to=' + encodeURIComponent(jQuery('#contactform_mailto').val()) + '&body=' + encodeURIComponent(jQuery('#contactform_body').val()),

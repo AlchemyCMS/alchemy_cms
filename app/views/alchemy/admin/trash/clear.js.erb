@@ -1,3 +1,3 @@
-Alchemy.growl('<%= _("Cleared trash") %>');
+Alchemy.growl('<%= t("Cleared trash"), :scope => :alchemy %>');
 Alchemy.refreshTrashWindow(<%= @page.id %>);
 jQuery('#element_trash_button .icon').removeClass('full');

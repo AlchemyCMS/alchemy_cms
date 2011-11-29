@@ -17,7 +17,7 @@ module Alchemy
 			@url = admin_url
 			mail(
 				:to => user.email,
-				:subject => _("Your Alchemy Login")
+				:subject => I18n.t("Your Alchemy Login", :scope => :alchemy)
 			)
 		end
 

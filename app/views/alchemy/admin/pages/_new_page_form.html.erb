@@ -5,7 +5,7 @@
 	<table id="new_page_form">
 		<tr>
 			<td class="label">
-				<%= f.label(:page_layout, _("Page|Page layout")) %>
+				<%= f.label :page_layout %>
 			</td>
 			<td class="select">
 				<%= f.select('page_layout', @page_layouts, {}, :class => 'long') %>
@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label(:name, _("Page|Name")) %>
+				<%= f.label :name %>
 			</td>
 			<td class="input">
 				<%= f.text_field(:name, :class => "thin_border") %>
@@ -22,7 +22,7 @@
 		<tr>
 			<td class="label">&nbsp;</td>
 			<td class="submit">
-				<%= f.button _("create"), :class => 'button', :name => nil %>
+				<%= f.button t("create", :scope => :alchemy), :class => 'button', :name => nil %>
 			</td>
 		</tr>
 	</table>

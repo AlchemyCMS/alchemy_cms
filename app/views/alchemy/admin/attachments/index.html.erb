@@ -4,12 +4,12 @@
 			:icon => 'upload',
 			:url => new_admin_attachment_path,
 			:overlay_options => {
-				:title => _('upload_file'),
+				:title => t('upload_file', :scope => :alchemy),
 				:size => '540x550'
 			},
-			:title => _('upload_file'),
+			:title => t('upload_file', :scope => :alchemy),
 			:class => 'icon_button',
-			:label => _('upload_file'),
+			:label => t('upload_file', :scope => :alchemy),
 			:if_permitted_to => [:new, :alchemy_admin_attachments]
 		}
 	]

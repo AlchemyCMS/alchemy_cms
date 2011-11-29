@@ -40,10 +40,10 @@ module Alchemy
 				return '' if page.level == 1
 				if page.folded?(current_user.id)
 					css_class = 'folded'
-					title = _('Show childpages')
+					title = t('Show childpages', :scope => :alchemy)
 				else
 					css_class = 'collapsed'
-					title = _('Hide childpages')
+					title = t('Hide childpages', :scope => :alchemy)
 				end
 				link_to(
 					'',
@@ -87,17 +87,17 @@ module Alchemy
 					"jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
 					:class => "js_filter_field_clear",
 					:style => "display:none",
-					:title => _("click_to_show_all")
+					:title => t("click_to_show_all", :scope => :alchemy)
 				)
-				filter_field << "<label for=\"search_field\">" + _("search") + "</label>"
+				filter_field << "<label for=\"search_field\">" + t("search", :scope => :alchemy) + "</label>"
 				filter_field << "</div>"
 				filter_field.html_safe
 			end
 
 			def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
-				title = _("please_confirm")
-				ok_lable = _("yes")
-				cancel_lable = _("no")
+				title = t("please_confirm", :scope => :alchemy)
+				ok_lable = t("yes", :scope => :alchemy)
+				cancel_lable = t("no", :scope => :alchemy)
 				link_to_function(
 					link_string,
 					"Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
@@ -123,14 +123,14 @@ module Alchemy
 						:page_layout => [""]
 					},
 					:page_attribute => :urlname,
-					:prompt => _('Choose page')
+					:prompt => t('Choose page', :scope => :alchemy)
 				}
 				options = default_options.merge(options)
 				content = element.content_by_name(content_name)
 				if content.nil?
-					return warning('Content', _('content_not_found'))
+					return warning('Content', t('content_not_found'), :scope => :alchemy)
 				elsif content.essence.nil?
-					return warning('Content', _('content_essence_not_found'))
+					return warning('Content', t('content_essence_not_found'), :scope => :alchemy)
 				end
 				pages = Page.where({
 					:language_id => session[:language_id],
@@ -153,7 +153,7 @@ module Alchemy
 				defaults = {
 					:from_page => nil,
 					:elements_with_name => nil,
-					:prompt => _('Please choose')
+					:prompt => t('Please choose', :scope => :alchemy)
 				}
 				options = defaults.merge(options)
 				if options[:from_page]
@@ -175,7 +175,7 @@ module Alchemy
 			# You can pass a collection of pages to only returns these pages as array.
 			# Pass an Page.name or Page.id as second parameter to pass as selected for the options_for_select helper.
 			def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
-				result = [[prompt.blank? ? _('Choose page') : prompt, ""]]
+				result = [[prompt.blank? ? t('Choose page', :scope => :alchemy) : prompt, ""]]
 				if pages.blank?
 					pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
 				end
@@ -192,7 +192,7 @@ module Alchemy
 					content = element.contents[content - 1]
 				end
 				if content.essence.nil?
-					return warning('Element', _('content_essence_not_found'))
+					return warning('Element', t('content_essence_not_found'), :scope => :alchemy)
 				end
 				select_options = options_for_select(select_options, content.essence.content)
 				select_tag(
@@ -291,13 +291,10 @@ module Alchemy
 
 			# Renders translated Module Names for html title element.
 			def render_alchemy_title
-				key = 'module: ' + controller_name
 				if content_for?(:title)
 					title = content_for(:title)
-				elsif FastGettext.key_exist?(key)
-					title = _(key)
 				else
-					title = controller_name.humanize
+					title = t(controller_name, :scope => {:alchemy => :modules}, :default => controller_name.humanize)
 				end
 				"Alchemy CMS - #{title}"
 			end
@@ -318,7 +315,7 @@ module Alchemy
 			end
 
 			def clipboard_select_tag(items, html_options = {})
-				options = [[_('Please choose'), ""]]
+				options = [[t('Please choose', :scope => :alchemy), ""]]
 				items.each do |item|
 					options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
 				end

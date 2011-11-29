@@ -13,9 +13,9 @@
 		<%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
 		<%= link_to_confirmation_window(
 			'',
-			_("confirm_to_delete_user"),
+			t("confirm_to_delete_user", :scope => :alchemy),
 			admin_user_path(user),
-			:title => _('delete_user'),
+			:title => t('delete_user', :scope => :alchemy),
 			:class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
 		) -%>
 		<%- end -%>
@@ -24,13 +24,13 @@
 			'',
 			edit_admin_user_path(user),
 			{
-				:title => _('edit_user'),
+				:title => t('edit_user', :scope => :alchemy),
 				:size => '384x400',
 				:overflow => true
 			},
 			{
 				:class => "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
-				:title => _('edit_user')
+				:title => t('edit_user', :scope => :alchemy)
 			}
 		) -%>
 		<%- end -%>

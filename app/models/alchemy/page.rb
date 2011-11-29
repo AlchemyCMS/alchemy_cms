@@ -14,13 +14,13 @@ module Alchemy
 		has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 		belongs_to :language
 
-		validates_presence_of :name, :message => '^'+_("please enter a name")
-		validates_presence_of :page_layout, :message => '^'+_("Please choose a page layout.")
-		validates_presence_of :parent_id, :message => '^'+_("No parent page was given."), :unless => :rootpage?
-		validates_length_of :urlname, :minimum => 3, :too_short => _("urlname_to_short"), :if => :urlname_entered?
-		validates_uniqueness_of :urlname, :message => '^'+_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
-		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => '^'+_("This page_layout name is reserved.") }, :unless => :rootpage?
-		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => '^'+_("This urlname is reserved.") }
+		validates_presence_of :name, :message => '^'+I18n.t("please enter a name", :scope => :alchemy)
+		validates_presence_of :page_layout, :message => '^'+I18n.t("Please choose a page layout.", :scope => :alchemy)
+		validates_presence_of :parent_id, :message => '^'+I18n.t("No parent page was given.", :scope => :alchemy), :unless => :rootpage?
+		validates_length_of :urlname, :minimum => 3, :too_short => I18n.t("urlname_to_short", :scope => :alchemy), :if => :urlname_entered?
+		validates_uniqueness_of :urlname, :message => '^'+I18n.t("URL-Name already token", :scope => :alchemy), :scope => 'language_id', :if => :urlname_entered?
+		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => '^'+I18n.t("This page_layout name is reserved.", :scope => :alchemy) }, :unless => :rootpage?
+		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => '^'+I18n.t("This urlname is reserved.", :scope => :alchemy) }
 
 		attr_accessor :do_not_autogenerate
 		attr_accessor :do_not_sweep
@@ -207,21 +207,21 @@ module Alchemy
 		# Returns the name of the creator of this page.
 		def creator
 			@page_creator ||= User.find_by_id(creator_id)
-			return _('unknown') if @page_creator.nil?
+			return I18n.t('unknown', :scope => :alchemy) if @page_creator.nil?
 			@page_creator.name
 		end
 
 		# Returns the name of the last updater of this page.
 		def updater
 			@page_updater = User.find_by_id(updater_id)
-			return _('unknown') if @page_updater.nil?
+			return I18n.t('unknown', :scope => :alchemy) if @page_updater.nil?
 			@page_updater.name
 		end
 
 		# Returns the name of the user currently editing this page.
 		def current_editor
 			@current_editor = User.find_by_id(locked_by)
-			return _('unknown') if @current_editor.nil?
+			return I18n.t('unknown', :scope => :alchemy) if @current_editor.nil?
 			@current_editor.name
 		end
 
@@ -250,21 +250,21 @@ module Alchemy
 		def humanized_status
 			case self.status
 			when 0
-				return _('page_status_visible_public_locked')
+				return I18n.t('page_status_visible_public_locked', :scope => :alchemy)
 			when 1
-				return _('page_status_visible_unpublic_locked')
+				return I18n.t('page_status_visible_unpublic_locked', :scope => :alchemy)
 			when 2
-				return _('page_status_invisible_public_locked')
+				return I18n.t('page_status_invisible_public_locked', :scope => :alchemy)
 			when 3
-				return _('page_status_invisible_unpublic_locked')
+				return I18n.t('page_status_invisible_unpublic_locked', :scope => :alchemy)
 			when 4
-				return _('page_status_visible_public')
+				return I18n.t('page_status_visible_public', :scope => :alchemy)
 			when 5
-				return _('page_status_visible_unpublic')
+				return I18n.t('page_status_visible_unpublic', :scope => :alchemy)
 			when 6
-				return _('page_status_invisible_public')
+				return I18n.t('page_status_invisible_public', :scope => :alchemy)
 			when 7
-				return _('page_status_invisible_unpublic')
+				return I18n.t('page_status_invisible_unpublic', :scope => :alchemy)
 			end
 		end
 
@@ -448,7 +448,7 @@ module Alchemy
 				new_child = Page.copy(child, {
 					:language_id => new_parent.language_id,
 					:language_code => new_parent.language_code,
-					:name => child.name + ' (' + _('Copy') + ')',
+					:name => child.name + ' (' + I18n.t('Copy') + ', :scope => :alchemy)',
 					:urlname => '',
 					:title => ''
 				})
@@ -478,7 +478,7 @@ module Alchemy
 		end
 
 		def locker_name
-			return _('unknown') if self.locker.nil?
+			return I18n.t('unknown', :scope => :alchemy) if self.locker.nil?
 			self.locker.name
 		end
 
