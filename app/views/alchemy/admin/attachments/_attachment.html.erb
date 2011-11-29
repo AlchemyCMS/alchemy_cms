@@ -23,7 +23,7 @@
 		<%= link_to(
 			"",
 			alchemy.download_admin_attachment_path(attachment),
-			:title => (_("download_file_'%{filename}'") % {:filename => attachment.filename}),
+			:title => t("download_file", :scope => :alchemy, :filename => attachment.filename),
 			:class => "icon file_download"
 		) %>
 		<%- end -%>
