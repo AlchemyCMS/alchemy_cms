@@ -130,6 +130,7 @@ module Alchemy
 				end
 			else
 				content = element.contents.find_by_essence_type_and_position(essence_type, options[:position])
+				debugger
 				return_string = render_essence(content, :editor, :for_editor => editor_options)
 			end
 			return_string

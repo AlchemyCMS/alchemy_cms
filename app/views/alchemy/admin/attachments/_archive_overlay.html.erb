@@ -3,7 +3,7 @@
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				content_tag('span', '', :class => 'icon upload'),
-				new_admin_attachment_path(
+				alchemy.new_admin_attachment_path(
 					:content_id => @content.blank? ? nil : @content.id,
 					:swap => @swap,
 					:options => @options

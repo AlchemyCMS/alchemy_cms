@@ -4,7 +4,7 @@
 		<%= link_to_confirmation_window(
 			"",
 			_("confirm_to_delete_image_from_server"),
-			admin_picture_path(
+			alchemy.admin_picture_path(
 				:id => picture,
 				:query => params[:query],
 				:page => params[:page],
@@ -21,7 +21,7 @@
 	</div>
 	<%= link_to_function(
 		image_tag(
-			thumbnail_path(:id => picture, :size => @size),
+			alchemy.thumbnail_path(:id => picture, :size => @size),
 			:alt => picture.name,
 			:title => _('zoom_image'),
 			:onload => "Alchemy.fadeImage(this, '#picture_#{picture.id} .image_spinner');",

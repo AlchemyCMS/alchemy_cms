@@ -28,7 +28,7 @@
       <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
       <%= link_to_overlay_window(
         render_icon('configure_page'),
-        configure_admin_page_path(page),
+        alchemy.configure_admin_page_path(page),
         {
           :title => _('edit_page_properties'),
           :size => page.redirects_to_external? ? '410x270' : '410x620'
@@ -42,7 +42,7 @@
         <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
         <%= link_to(
           render_icon("copy_page"),
-          insert_admin_clipboard_path(
+          alchemy.insert_admin_clipboard_path(
             :remarkable_type => page.class.name.demodulize.underscore,
             :remarkable_id => page.id
           ),
@@ -70,7 +70,7 @@
         <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
         <%= link_to_overlay_window(
           render_icon('add_page'),
-          new_admin_page_path(:parent_id => page.id),
+          alchemy.new_admin_page_path(:parent_id => page.id),
           {
             :title => _('create_page'),
             :size => '340x150',
@@ -99,7 +99,7 @@
       <%= link_to_unless(
         @sorting,
         page.name,
-        edit_admin_page_path(page),
+        alchemy.edit_admin_page_path(page),
         :title => _("edit_page"),
         :class => "sitemap_pagename_link #{cycle_class}"
       ) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>

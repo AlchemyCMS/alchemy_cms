@@ -47,7 +47,7 @@ module Alchemy
 				end
 				link_to(
 					'',
-					fold_admin_page_path(page),
+					alchemy.fold_admin_page_path(page),
 					:remote => true,
 					:method => :post,
 					:class => "page_folder #{css_class}",
@@ -420,9 +420,9 @@ module Alchemy
 			def new_asset_path_with_session_information(asset_type)
 				session_key = Rails.application.config.session_options[:key]
 				if asset_type == "picture"
-					admin_pictures_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
+					alchemy.admin_pictures_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
 				elsif asset_type == "attachment"
-					admin_attachments_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
+					alchemy.admin_attachments_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
 				end
 			end
 

@@ -14,7 +14,7 @@
 		<%= link_to_confirmation_window(
 			'',
 			_("confirm_to_delete_user"),
-			admin_user_path(user),
+			alchemy.admin_user_path(user),
 			:title => _('delete_user'),
 			:class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
 		) -%>
@@ -22,7 +22,7 @@
 		<%- permitted_to?(:edit, :alchemy_admin_users) do -%>
 		<%= link_to_overlay_window(
 			'',
-			edit_admin_user_path(user),
+			alchemy.edit_admin_user_path(user),
 			{
 				:title => _('edit_user'),
 				:size => '384x400',

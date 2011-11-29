@@ -3,7 +3,7 @@
 <%- width = content.essence.width.blank? ? (options[:player_size].split('x')[0] rescue 480) : content.essence.width -%>
 <%- height = content.essence.height.blank? ? (options[:player_size].split('x')[1] rescue 320) : content.essence.height -%>
 
-<a  href="<%= show_attachment_path(content.essence.attachment) %>" 
+<a  href="<%= alchemy.show_attachment_path(content.essence.attachment) %>" 
     id="player_<%= content.id %>" 
     style="width: <%= width %>px; height: <%= height %>px; display: block">
 </a>

@@ -6,7 +6,7 @@
 		<%- if permitted_to?(:show, :attachments) -%>
 		<%= link_to(
 			attachment.name,
-			admin_attachment_path(attachment),
+			alchemy.admin_attachment_path(attachment),
 			:target => '_blank',
 			:title => _('View File')
 		) %>
@@ -22,7 +22,7 @@
 		<%- permitted_to?(:download, :attachments) do -%>
 		<%= link_to(
 			"",
-			download_admin_attachment_path(attachment),
+			alchemy.download_admin_attachment_path(attachment),
 			:title => (_("download_file_'%{filename}'") % {:filename => attachment.filename}),
 			:class => "icon file_download"
 		) %>
@@ -31,7 +31,7 @@
 		<%= link_to_confirmation_window(
 			"",
 			_("confirm_to_delete_file"),
-			admin_attachment_path(
+			alchemy.admin_attachment_path(
 				:id => attachment,
 				:query => params[:query],
 				:page => params[:page],
@@ -45,7 +45,7 @@
 		<%- end -%>
 		<%- permitted_to?(:edit, :alchemy_admin_attachments) do -%>
 		<%= link_to_overlay_window("",
-			edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
+			alchemy.edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
 			{
 				:title => _('rename_file'),
 				:size => '380x45'

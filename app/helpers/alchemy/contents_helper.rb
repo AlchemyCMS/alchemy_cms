@@ -33,7 +33,7 @@ module Alchemy
 		def render_new_content_link(element)
 			link_to_overlay_window(
 				_('add new content'),
-				new_admin_element_content_path(element),
+				alchemy.new_admin_element_content_path(element),
 				{
 					:size => '305x40',
 					:title => _('Select an content'),
@@ -54,7 +54,7 @@ module Alchemy
 			options = defaults.merge(options)
 			link_to(
 				options[:label],
-				admin_contents_path(
+				alchemy.admin_contents_path(
 					:content => {
 						:name => options[:content_name],
 						:element_id => element.id

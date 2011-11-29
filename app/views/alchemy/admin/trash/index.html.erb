@@ -13,7 +13,7 @@
 		<%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil?} %>
 		<%- end -%>
 		<p>
-			<%= link_to_confirmation_window(_('clear trash'), _('Do you really want to clear the trash?'), clear_admin_trash_path(:page_id => @page.id), :class => 'button') %>
+			<%= link_to_confirmation_window(_('clear trash'), _('Do you really want to clear the trash?'), alchemy.clear_admin_trash_path(:page_id => @page.id), :class => 'button') %>
 		</p>
 	</div>
 	<%- end -%>

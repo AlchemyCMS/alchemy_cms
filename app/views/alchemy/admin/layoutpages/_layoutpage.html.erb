@@ -26,7 +26,7 @@
       <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
       <%= link_to_overlay_window(
         render_icon('configure_page'),
-        configure_admin_page_path(layoutpage),
+        alchemy.configure_admin_page_path(layoutpage),
         {
           :title => _('edit_page_properties'),
           :size => '340x150'
@@ -40,7 +40,7 @@
         <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
         <%= link_to(
           render_icon("copy_page"),
-          insert_admin_clipboard_path(
+          alchemy.insert_admin_clipboard_path(
             :remarkable_type => layoutpage.class.name.demodulize.underscore,
             :remarkable_id => layoutpage.id
           ),
@@ -71,7 +71,7 @@
     <div class="sitemap_sitename">
       <%= link_to(
         layoutpage.name,
-        edit_admin_page_path(layoutpage),
+        alchemy.edit_admin_page_path(layoutpage),
         :title => _("edit_page"),
         :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
       ) -%>
