@@ -10,7 +10,7 @@ module Alchemy
 			else
 				c = content
 			end
-			"#{c.essence_type.underscore}_#{c.id}"
+			"#{c.essence_type.demodulize.underscore}_#{c.id}"
 		end
 
 		# Renders the name of elements content or the default name defined in elements.yml
