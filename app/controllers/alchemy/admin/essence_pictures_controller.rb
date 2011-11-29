@@ -2,7 +2,7 @@ module Alchemy
 	module Admin
 		class EssencePicturesController < Alchemy::Admin::BaseController
 
-			helper "alchemy/contents"
+			helper "alchemy/admin/contents"
 
 			def edit
 				@essence_picture = EssencePicture.find(params[:id])

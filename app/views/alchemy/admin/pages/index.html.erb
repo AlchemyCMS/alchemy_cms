@@ -3,12 +3,12 @@
 <label><%= t('Active Pages', :scope => :alchemy) %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-	<%= link_to edit_admin_page_path(page) do %>
+	<%= link_to alchemy.edit_admin_page_path(page) do %>
 	<span class="page_name" title="<%= page.name %>">
 		<%= truncate page.name, :length => 15 %>
 	</span>
 	<% end %>
-	<%= form_tag(unlock_admin_page_path(page), :remote => true) do %>
+	<%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
 	<button class="icon_button small" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
 		<%= render_icon('close small') %>
 	</button>
@@ -38,7 +38,7 @@
 	<div class="button_with_label">
 		<%= link_to(
 			render_icon('flush'),
-			flush_admin_pages_path,
+			alchemy.flush_admin_pages_path,
 			:remote => true,
 			:method => :post,
 			:class => 'icon_button please_wait',
@@ -51,7 +51,7 @@
 	<div class="button_with_label" id="page_sorting_button">
 		<%= link_to(
 			render_icon('sort'),
-			sort_admin_pages_path,
+			alchemy.sort_admin_pages_path,
 			:complete => '',
 			:method => :get,
 			:remote => true,
@@ -64,7 +64,7 @@
 	<div class="button_with_label" id="clipboard_button">
 		<%= link_to_overlay_window(
 			render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-			admin_clipboard_path(:remarkable_type => 'pages'),
+			alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
 			{
 				:title => t('Clipboard', :scope => :alchemy),
 				:size => '380x270'
@@ -90,7 +90,7 @@
 		<%= t('Explain|Sitemap|Dragndrop sorting', :scope => :alchemy) %>
 	</div>
 	<div id="bottom_buttons">
-		<%= link_to( t('cancel'), admin_pages_path, :class => 'button' , :scope => :alchemy) %>&nbsp;
+		<%= link_to( t('cancel'), alchemy.admin_pages_path, :class => 'button' , :scope => :alchemy) %>&nbsp;
 		<%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' , :scope => :alchemy) %>
 	</div>
 </div>

@@ -48,7 +48,7 @@
     <%= link_to_confirmation_window(
       render_icon('delete-small'),
       t('Do you really want to delete this content?', :scope => :alchemy),
-      content_path(content),
+      alchemy.content_path(content),
       :class => 'icon_button small',
       :title => t('Remove this content', :scope => :alchemy)
     ) if content.settings[:deletable] %>

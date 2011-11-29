@@ -2,10 +2,10 @@
 	<h2><%= t("You are about to leave Alchemy.", :scope => :alchemy) %></h2>
 	<p style="line-height: 24px">
 		<%= t("Do you want to", :scope => :alchemy) %>
-		<%= link_to t('stay logged in', :scope => :alchemy), root_path, :class => 'button' %>
+		<%= link_to t('stay logged in', :scope => :alchemy), alchemy.root_path, :class => 'button' %>
 	</p>
 	<p style="line-height: 24px">
 		<%= t('or to completly', :scope => :alchemy) %>
-		<%= link_to t('logout', :scope => :alchemy), logout_path, :class => 'button' %>
+		<%= link_to t('logout', :scope => :alchemy), alchemy.logout_path, :class => 'button' %>
 	</p>
 </div>

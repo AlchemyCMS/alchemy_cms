@@ -3,7 +3,7 @@
 	<%= toolbar_button(
 		:icon => 'upload',
 		:label => t('upload_image', :scope => :alchemy),
-		:url => new_admin_picture_path(:size => @size),
+		:url => alchemy.new_admin_picture_path(:size => @size),
 		:overlay_options => {
 			:title => t('upload_image', :scope => :alchemy),
 			:size => '540x550'
@@ -16,7 +16,7 @@
 	<div class="button_with_label">
 		<%= link_to(
 			render_icon('zoom-out'),
-			admin_pictures_path({
+			alchemy.admin_pictures_path({
 				:size => "small",
 				:query => params[:query]
 			}),
@@ -25,7 +25,7 @@
 		) %>
 		<%= link_to(
 			render_icon('zoom-equal'),
-			admin_pictures_path({
+			alchemy.admin_pictures_path({
 				:size => "medium",
 				:query => params[:query]
 			}),
@@ -34,7 +34,7 @@
 		) %>
 		<%= link_to(
 			render_icon('zoom-in'),
-			admin_pictures_path({
+			alchemy.admin_pictures_path({
 				:size => "large",
 				:query => params[:query]
 			}),
@@ -49,7 +49,7 @@
 	<div class="toolbar_spacer"></div>
 	<%= toolbar_button(
 		:icon => 'flush',
-		:url => flush_admin_pictures_path,
+		:url => alchemy.flush_admin_pictures_path,
 		:overlay => false,
 		:link_options => {
 			:remote => true,

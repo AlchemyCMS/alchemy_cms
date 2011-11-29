@@ -10,9 +10,6 @@ DatabaseCleaner.clean
 # Seed the database
 Alchemy::Seeder.seed!
 
-# Remove the config/alchemy path
-FileUtils.rm_rf("#{Rails.root}/config/alchemy")
-
 require 'authlogic/test_case'
 include Authlogic::TestCase
 

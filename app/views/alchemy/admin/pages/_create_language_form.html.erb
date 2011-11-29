@@ -3,7 +3,7 @@
 	<%- if @language -%>
 		<%- if @languages_with_page_tree.size >= 1 -%>
 			<p><%= t("want_to_make_copy_of_existing_language", :scope => :alchemy) %></p>
-			<%= form_tag(copy_language_tree_admin_pages_path) do %>
+			<%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>
 				<table style="width: 135px;">
 					<tr>
 						<td>

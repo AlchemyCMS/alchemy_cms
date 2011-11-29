@@ -71,7 +71,7 @@ module Alchemy
 
 		# helper for language switching
 		# returns a string with links or nil
-		def language_switches(options={})
+		def language_switcher(options={})
 			default_options = {
 				:linkname => :name,
 				:spacer => "",
@@ -100,7 +100,7 @@ module Alchemy
 						else
 							language_links << link_to(
 								"#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
-								show_page_path(:urlname => page.urlname, :lang => page.language.code),
+								alchemy.show_page_path(:urlname => page.urlname, :lang => page.language.code),
 								:class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
 								:title => options[:show_title] ? I18n.t("alchemy.language_links.#{page.language.code}.title", :default => page.language.name) : nil
 							)
@@ -130,6 +130,7 @@ module Alchemy
 				nil
 			end
 		end
+		alias_method :language_switches, :language_switcher
 
 		# Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
 		def render_page_layout(options={})
@@ -303,7 +304,7 @@ module Alchemy
 				elsif page == pages.first
 					css_class = css_class.blank? ? "first" : [css_class, "first"].join(" ")
 				end
-				url = show_page_path(:urlname => urlname, :lang => multi_language? ? page.language_code : nil)
+				url = alchemy.show_page_path(:urlname => urlname, :lang => multi_language? ? page.language_code : nil)
 				bc << link_to(h(page.name), url, :class => css_class, :title => page.title)
 			end
 			bc.join(options[:seperator]).html_safe
@@ -414,13 +415,13 @@ module Alchemy
 			options = default_options.merge(options)
 			#render meta description of the root page from language if the current meta description is empty
 			if @page.meta_description.blank?
-				description = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_description rescue ""
+				description = Page.find_by_language_root_and_public_and_language_id(true, true, session[:language_id]).meta_description rescue ""
 			else
 				description = @page.meta_description
 			end
 			#render meta keywords of the root page from language if the current meta keywords is empty
 			if @page.meta_keywords.blank?
-				keywords = Page.find_by_language_root_and_language_id(true, session[:language_id]).meta_keywords rescue ""
+				keywords = Page.find_by_language_root_and_public_and_language_id(true, true, session[:language_id]).meta_keywords rescue ""
 			else
 				keywords = @page.meta_keywords
 			end
@@ -436,7 +437,7 @@ module Alchemy
 			)
 			if @page.contains_feed?
 			meta_string += %(
-				<link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}">
+				<link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? alchemy.show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}">
 			)
 			end
 			return meta_string.html_safe
@@ -460,7 +461,7 @@ module Alchemy
 			else
 				urlname = options[:urlname]
 			end
-			show_page_path({:urlname => urlname, :lang => multi_language? ? session[:language_code] : nil}.merge(options.except(:page_layout, :urlname, :lang)))
+			alchemy.show_page_path({:urlname => urlname, :lang => multi_language? ? session[:language_code] : nil}.merge(options.except(:page_layout, :urlname, :lang)))
 		end
 
 		# Renders the partial for the cell with the given name of the current page.

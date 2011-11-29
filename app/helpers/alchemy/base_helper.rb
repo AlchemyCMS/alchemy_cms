@@ -48,5 +48,18 @@ module Alchemy
 			options
 		end
 
+		# Returns an icon
+		def render_icon(icon_class)
+			content_tag('span', '', :class => "icon #{icon_class}")
+		end
+
+		def normalized_essence_type(essence_type)
+			if not essence_type.match(/^Alchemy::/)
+				essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
+			else
+				essence_type
+			end
+		end
+
 	end
 end

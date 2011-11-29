@@ -1,6 +1,6 @@
 <%= link_to_overlay_window(
   render_icon('crop'),
-  crop_admin_essence_picture_path(content.essence, :options => options),
+  alchemy.crop_admin_essence_picture_path(content.essence, :options => options),
   {
     :size => "fullscreen",
     :title => t('Edit Picturemask', :scope => :alchemy)
@@ -13,7 +13,7 @@
 
 <%= link_to_overlay_window(
   render_icon('swap_picture'),
-  admin_pictures_path(
+  alchemy.admin_pictures_path(
     :element_id => content.element,
     :content_id => content,
     :swap => true,
@@ -45,7 +45,7 @@
 
 <%= link_to_overlay_window(
   render_icon('edit'),
-  edit_admin_essence_picture_path(
+  alchemy.edit_admin_essence_picture_path(
     :id => content.essence.id,
     :content_id => content.id,
     :options => options

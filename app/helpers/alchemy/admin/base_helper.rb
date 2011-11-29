@@ -47,7 +47,7 @@ module Alchemy
 				end
 				link_to(
 					'',
-					fold_admin_page_path(page),
+					alchemy.fold_admin_page_path(page),
 					:remote => true,
 					:method => :post,
 					:class => "page_folder #{css_class}",
@@ -280,11 +280,6 @@ module Alchemy
 				['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
 			end
 
-			# Returns an icon
-			def render_icon(icon_class)
-				content_tag('span', '', :class => "icon #{icon_class}")
-			end
-
 			def necessary_options_for_cropping_provided?(options)
 				options[:crop].to_s == 'true' && !options[:image_size].blank?
 			end
@@ -417,9 +412,9 @@ module Alchemy
 			def new_asset_path_with_session_information(asset_type)
 				session_key = Rails.application.config.session_options[:key]
 				if asset_type == "picture"
-					admin_pictures_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
+					alchemy.admin_pictures_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
 				elsif asset_type == "attachment"
-					admin_attachments_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
+					alchemy.admin_attachments_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
 				end
 			end
 

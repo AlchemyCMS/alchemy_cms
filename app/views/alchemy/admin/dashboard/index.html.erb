@@ -24,8 +24,8 @@
 			<%- @locked_pages.each do |page| -%>
 			<li class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
 				<%- if current_user.id == page.locked_by -%>
-				<%= link_to(page.name, edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
-				<%= form_tag(unlock_admin_page_path(page, :redirect_to => request.path)) do %>
+				<%= link_to(page.name, alchemy.edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
+				<%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => request.path)) do %>
 			  	  <button class="icon_button small" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
 			  		    <%= render_icon('close small') %>
 			  	  </button>

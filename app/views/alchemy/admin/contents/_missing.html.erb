@@ -5,7 +5,7 @@
     <%= t('content_not_found', :scope => :alchemy) %>
     <%= link_to(
       t('create', :scope => :alchemy),
-      admin_contents_path(
+      alchemy.admin_contents_path(
         :content => {
           :element_id => element.id,
           :name => name

@@ -2,7 +2,7 @@
   <span class="element_tools">
     <%= link_to(
       "",
-      trash_admin_element_path(element),
+      alchemy.trash_admin_element_path(element),
       :method => :delete,
       :class => "delete_element_button",
       :title => t("trash element", :scope => :alchemy),
@@ -10,7 +10,7 @@
     ) -%>
     <%= link_to(
       "",
-      insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id, :remove => true),
+      alchemy.insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id, :remove => true),
       :remote => true,
       :method => :post,
       :class => "element_move_button",
@@ -18,7 +18,7 @@
     ) %>
     <%= link_to(
       "",
-      insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id),
+      alchemy.insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id),
       :remote => true,
       :method => :post,
       :class => "element_copy_button",

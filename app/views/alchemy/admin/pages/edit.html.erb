@@ -4,12 +4,12 @@
 	<%= render :partial => 'page_status' %>
 	<%- else -%>
 	<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-		<%= link_to edit_admin_page_path(page) do %>
+		<%= link_to alchemy.edit_admin_page_path(page) do %>
 		<span class="page_name" title="<%= page.name %>">
 			<%= truncate page.name, :length => 15 %>
 		</span>
 		<% end %>
-		<%= form_tag(unlock_admin_page_path(page), :remote => true) do %>
+		<%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
 			<button class="icon_button small" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
 				<%= render_icon('close small') %>
 			</button>
@@ -22,9 +22,9 @@
 <div id="toolbar_buttons">
 	<div class="button_with_label">
 		<%= form_tag(
-			unlock_admin_page_path(
+			alchemy.unlock_admin_page_path(
 				@page,
-				:redirect_to => @layoutpage ? admin_layoutpages_path : admin_pages_path
+				:redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path
 			),
 			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!', :scope => :alchemy)) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'});"
 		) do %>
@@ -37,7 +37,7 @@
 	<%- unless @page.layoutpage? -%>
 	<div class="button_with_label">
 		<%= form_tag(
-			visit_admin_page_path(@page),
+			alchemy.visit_admin_page_path(@page),
 			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!', :scope => :alchemy)) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'};"
 		) do %>
 			<button class="icon_button" title="<%= t('Visit page', :scope => :alchemy) %>">
@@ -50,7 +50,7 @@
 	<div class="button_with_label">
 		<%= link_to_overlay_window(
 			render_icon('settings'),
-			configure_admin_page_path(@page),
+			alchemy.configure_admin_page_path(@page),
 			{
 				:title => t('edit_page_properties', :scope => :alchemy),
 				:size => @page.layoutpage? ? '340x150' : '410x620'
@@ -63,7 +63,7 @@
 	<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
 	<div class="button_with_label">
 		<%= form_tag(
-			publish_admin_page_path(@page),
+			alchemy.publish_admin_page_path(@page),
 			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!', :scope => :alchemy)) }', message: '#{ t('You have unsaved elements on this page. Do you really want to clear the page cache?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'};"
 		) do -%>
 			<button class="icon_button" title="<%= t('explain_publishing', :scope => :alchemy) %>">
@@ -108,7 +108,7 @@
 	}
 	
 	function openElementsWindow() {
-		Alchemy.openElementsWindow('<%= admin_elements_path(:page_id => @page.id) -%>', {
+		Alchemy.openElementsWindow('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
 			texts: {
 				title: '<%= t("Elements", :scope => :alchemy) -%>',
 				dirtyTitle: '<%= t("Warning!", :scope => :alchemy) -%>',
@@ -123,7 +123,7 @@
 					iconClass: 'new_element',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= new_admin_element_path(:page_id => @page.id) -%>',
+							'<%= alchemy.new_admin_element_path(:page_id => @page.id) -%>',
 							'<%= t("New Element", :scope => :alchemy) -%>',
 							'320',
 							'120',
@@ -140,7 +140,7 @@
 					buttonId: 'clipboard_button',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= admin_clipboard_path(:remarkable_type => "elements") -%>',
+							'<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") -%>',
 							'<%= t("Clipboard", :scope => :alchemy) -%>',
 							'380',
 							'270',

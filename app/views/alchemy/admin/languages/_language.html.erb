@@ -9,7 +9,7 @@
 		<%- permitted_to?(:edit, :alchemy_admin_languages) do -%>
 		<%= link_to_overlay_window(
 			'',
-			edit_admin_language_path(language),
+			alchemy.edit_admin_language_path(language),
 			{
 				:title => t('edit_language', :scope => :alchemy),
 				:size => '420x280',
@@ -26,7 +26,7 @@
 		<%= link_to_confirmation_window(
 			'',
 			t("confirm_to_delete_language", :scope => :alchemy),
-			admin_language_path(language),
+			alchemy.admin_language_path(language),
 			:title => t('delete_language', :scope => :alchemy),
 			:class => "icon destroy"
 		) -%>

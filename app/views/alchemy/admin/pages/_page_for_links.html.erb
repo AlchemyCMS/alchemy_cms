@@ -6,7 +6,7 @@
     <div class="sitemap_right_tools">
       <%= link_to(
         "&nbsp;",
-        list_admin_elements_path(:page_id => page_for_links.id),
+        alchemy.list_admin_elements_path(:page_id => page_for_links.id),
         :remote => true,
         :onclick => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); Alchemy.LinkOverlay.showElementsSelect(#{page_for_links.id});",
         :class => "show_elements_to_link",

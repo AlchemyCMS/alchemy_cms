@@ -1,6 +1,6 @@
 <div class="searchresult" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
 
-	<%= form_tag show_page_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
+	<%= form_tag alchemy.show_page_path(:urlname => "suche", :lang => @page.language_code), :method => :get do %>
 		<%= text_field_tag "query", params[:query], :class => 'field' %>
 		<%= submit_tag t("search", :scope => :alchemy), :name => nil %>
 	<%- end -%>
@@ -21,10 +21,10 @@
 				<h3>
 					<span class="search_result_site"><%= t('Page', :scope => :alchemy) %>:</span>
 					<%- if multi_language? -%>
-					<%= link_to page.name, show_page_path(:urlname => page.urlname, :lang => page.language_code) %>
+					<%= link_to page.name, alchemy.show_page_path(:urlname => page.urlname, :lang => page.language_code) %>
 					<span class="search_result_language">(<%= page.language_code.upcase %>)</span>
 					<%- else -%>
-					<%= link_to page.name, show_page_path(:urlname => page.urlname) %>
+					<%= link_to page.name, alchemy.show_page_path(:urlname => page.urlname) %>
 					<%- end -%>
 				</h3>
 				<%- end -%>

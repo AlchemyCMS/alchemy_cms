@@ -4,7 +4,7 @@
     <%= link_to_confirmation_window(
       "",
       t("confirm_to_delete_image", :scope => :alchemy),
-      admin_essence_picture_path(
+      alchemy.admin_essence_picture_path(
         :id => content,
         :options => options
       ),
@@ -29,7 +29,7 @@
     <div class="picture_image">
       <div class="thumbnail_background">
         <%= image_tag(
-          thumbnail_path(
+          alchemy.thumbnail_path(
             :id => content.ingredient,
             :size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
             :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,

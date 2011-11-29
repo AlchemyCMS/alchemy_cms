@@ -6,7 +6,7 @@
 		<div class="file_icon">
 		<%- if content.ingredient.nil? -%>
 			<%= link_to_overlay_window("",
-				admin_attachments_path(
+				alchemy.admin_attachments_path(
 					:content_id => content.id,
 					:only => options[:file_assign_show_only],
 					:except => options[:file_assign_do_not_show],
@@ -30,7 +30,7 @@
 		<%- unless content.ingredient.nil? -%>
 		<div class="essence_file_tools">
 			<%= link_to_overlay_window("",
-				admin_attachments_path(
+				alchemy.admin_attachments_path(
 					:content_id => content.id,
 					:only => options[:file_assign_show_only],
 					:except => options[:file_assign_do_not_show],
