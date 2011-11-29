@@ -20,22 +20,58 @@ describe Alchemy::PagesHelper do
 		end
 	end
 	
-	describe "#render_breadcrumb" do
-		it "should render a breadcrumb to current page" do
+	describe "#render_breadcrumb", :focus => true do
+		
+		before(:each) do
 			helper.stub(:multi_language?).and_return(false)
 			@language_root = mock_model('Page', :urlname => 'language_root', :name => 'Language Root', :title => 'Language Root', :visible? => true, :public? => true, :restricted? => false)
 			@page = mock_model('Page', :urlname => 'a-public-page', :name => 'A Public Page', :title => 'A Public Page', :visible? => true, :public? => true, :restricted? => false)
 			@language_root.should_receive(:parent).and_return(nil)
 			@page.should_receive(:parent).and_return(@language_root)
-			helper.render_breadcrumb.should have_selector('a.active.last[href="/alchemy/a-public-page"]')
 		end
 		
-		it "should render a breadcrumb with a alternative seperator"
-		it "should render a breadcrumb in reversed order"
-		it "should render a breadcrumb of restricted pages only"
-		it "should render a breadcrumb of unvisible pages only"
-		it "should render a breadcrumb of published pages only"
-		it "should render a breadcrumb without the page named 'Not Me'"
+		it "should render a breadcrumb to current page" do
+			helper.render_breadcrumb.should have_selector('a.active.last[href="/alchemy/a-public-page"]')
+		end
+
+		it "should render a breadcrumb with a alternative seperator" do
+			helper.render_breadcrumb(:seperator => '<span>###</span>').should have_selector('span[contains("###")]')
+		end
+
+		it "should render a breadcrumb in reversed order" do
+			helper.render_breadcrumb(:reverse => true).should have_selector('a.active.first[href="/alchemy/a-public-page"]')
+		end
+
+		it "should render a breadcrumb of restricted pages only" do
+			@page.stub!(:restricted? => true, :urlname => 'a-restricted-public-page', :name => 'A restricted Public Page', :title => 'A restricted Public Page')
+			helper.render_breadcrumb(:restricted_only => true).should match(/^(<a(.[^>]+)>)A restricted Public Page/)
+		end
+
+		it "should render a breadcrumb of visible pages only" do
+			@page.stub!(:visible? => false, :urlname => 'a-invisible-public-page', :name => 'A invisible Public Page', :title => 'A invisible Public Page')
+			helper.render_breadcrumb(:visible_only => true).should_not match(/A invisible Public Page/)
+		end
+
+		it "should render a breadcrumb of visible and invisible pages" do
+			@page.stub!(:visible? => false, :urlname => 'a-invisible-public-page', :name => 'A invisible Public Page', :title => 'A invisible Public Page')
+			helper.render_breadcrumb(:visible_only => false).should match(/A invisible Public Page/)
+		end
+		
+		it "should render a breadcrumb of published pages only" do
+			@page.stub!(:public => false, :public? => false, :urlname => 'a-unpublic-page', :name => 'A Unpublic Page', :title => 'A Unpublic Page')
+			helper.render_breadcrumb(:public_only => true).should_not match(/A Unpublic Page/)
+		end
+		
+		it "should render a breadcrumb of published and unpublished pages" do
+			@page.stub!(:public => false, :public? => false, :urlname => 'a-unpublic-page', :name => 'A Unpublic Page', :title => 'A Unpublic Page')
+			helper.render_breadcrumb(:public_only => false).should match(/A Unpublic Page/)
+		end
+
+		it "should render a breadcrumb without the page named 'Not Me'" do
+			@page.stub!(:urlname => 'not-me', :name => 'Not Me', :title => 'Not Me')
+			helper.render_breadcrumb(:without => @page).should_not match(/Not Me/)
+		end
+		
 	end
 	
 	describe "#render_meta_data" do
