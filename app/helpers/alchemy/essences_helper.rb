@@ -1,8 +1,6 @@
 module Alchemy
 	module EssencesHelper
 
-		include Alchemy::ContentsHelper
-
 		# Renders the Content view partial from the passed Element for passed content name.
 		# For options see -> render_essence
 		def render_essence_view_by_name(element, name, options = {}, html_options = {})
