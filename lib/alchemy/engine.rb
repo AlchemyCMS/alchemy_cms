@@ -10,7 +10,7 @@ module Alchemy
 		config.mount_at = '/'
 
 		# Enabling assets precompiling
-		initializer 'alchemy.assets', :group => :assets do |app|
+		initializer 'alchemy.assets' do |app|
 			app.config.assets.precompile += [
 				"alchemy/alchemy.js",
 				"alchemy/preview.js",
