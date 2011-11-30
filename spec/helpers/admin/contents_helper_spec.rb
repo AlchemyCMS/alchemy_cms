@@ -7,21 +7,19 @@ describe Alchemy::Admin::ContentsHelper do
 	end
 
   it "should render a dom id" do
-		content_dom_id(@element.contents.first).should match(/essence_text_\d{1,}/)
+		helper.content_dom_id(@element.contents.first).should match(/essence_text_\d{1,}/)
 	end
 
 	it "should render the content name" do
-		render_content_name(@element.contents.first).should == "Einleitung"
+		helper.render_content_name(@element.contents.first).should == "Einleitung"
 	end
 
 	it "should render a link to add new content to element" do
-		pending "Because Rspec does not support namespaced engines yet!"
-		render_new_content_link(@element).should match(/Alchemy.openWindow.+\/admin\/elements\/#{@element.id}\/contents\/new/m)
+		helper.render_new_content_link(@element).should match(/Alchemy.openWindow.+\/admin\/elements\/#{@element.id}\/contents\/new/m)
 	end
 
 	it "should render a link to create a content in element" do
-		pending "Because Rspec does not support namespaced engines yet!"
-		render_create_content_link(@element).should match(/a.+href.*admin\/contents.+class.+button new_content_link.*data-method.+post/)
+		helper.render_create_content_link(@element).should match(/a.+href.*admin\/contents.+class.+button new_content_link.*data-method.+post/)
 	end
 
 end

@@ -62,7 +62,7 @@ namespace :alchemy do
 				end
 			end
 			puts "== Namespaced #{success} Essence-Types." if success > 0
-			puts "!! #{errors.count} errors while namespacing Essence-Types.\n#{errors.join('\n')}" if errors > 0
+			puts "!! #{errors.count} errors while namespacing Essence-Types.\n#{errors.join('\n')}" if errors.count > 0
 		else
 			puts "== Skipping! Already namespaced Essence-Types"
 		end

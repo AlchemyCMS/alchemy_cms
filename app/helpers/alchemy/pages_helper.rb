@@ -258,7 +258,7 @@ module Alchemy
 		#   :seperator => %(<span class="seperator">></span>)      Maybe you don't want this seperator. Pass another one.
 		#   :page => @page                                         Pass a different Page instead of the default (@page).
 		#   :without => nil                                        Pass Pageobject or array of Pages that must not be displayed.
-		#   :public_only => false                                  Pass boolean for displaying hidden pages only.
+		#   :public_only => false                                  Pass boolean for displaying published pages only.
 		#   :visible_only => true                                  Pass boolean for displaying (in navigation) visible pages only.
 		#   :restricted_only => false                              Pass boolean for displaying restricted pages only.
 		#   :reverse => false                                      Pass boolean for displaying reversed breadcrumb.
@@ -268,7 +268,7 @@ module Alchemy
 				:seperator => %(<span class="seperator">&gt;</span>),
 				:page => @page,
 				:without => nil,
-				:public_only => false,
+				:public_only => true,
 				:visible_only => true,
 				:restricted_only => false,
 				:reverse => false
