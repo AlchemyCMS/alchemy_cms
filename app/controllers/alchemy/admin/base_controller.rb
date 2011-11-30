@@ -20,7 +20,7 @@ module Alchemy
 			# You can set the default_translation in your config/alchemy/config.yml file
 			def set_translation
 				if current_user
-					I18n.locale = current_user.language
+					::I18n.locale = current_user.language
 				end
 			end
 

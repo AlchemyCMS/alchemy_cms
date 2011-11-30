@@ -11,7 +11,7 @@
 # 
 # === Translating the validation messages:
 # 
-# Validationmessages will be send to +I18n.t+ method with the scope +"alchemy.contactform.validations.#{field[1][:message].to_s}"+.
+# Validationmessages will be send to +::I18n.t+ method with the scope +"alchemy.contactform.validations.#{field[1][:message].to_s}"+.
 # So a +name+ field with the validation message_id +blank_name+ will be available for translation in your locale files like:
 # 
 #   de:
@@ -45,9 +45,9 @@ module Alchemy
 		end
 		
 		@@config[:validate_fields].each do |field|
-			validates_presence_of field[0], :message => '^' + I18n.t(field[1][:message].to_s, :scope => "alchemy.contactform.validations")
+			validates_presence_of field[0], :message => '^' + ::I18n.t(field[1][:message].to_s, :scope => "alchemy.contactform.validations")
 			if field[0].to_s.include?('email')
-				validates_format_of field[0], :with => Authlogic::Regex.email, :message => '^' + I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
+				validates_format_of field[0], :with => Authlogic::Regex.email, :message => '^' + ::I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
 			end
 		end
 		

@@ -65,9 +65,9 @@ module Alchemy
 
 			# Used for translations selector in Alchemy cockpit user settings.
 			def translations_for_select
-				configuration(:translations).collect{ |translation|
-					[translation[:language], translation[:language_code]]
-				}
+				Alchemy::I18n.available_locales.map do |locale|
+					[t(locale, :scope => ['alchemy', 'translations']), locale]
+				end
 			end
 
 			# Used by Alchemy to display a javascript driven filter for lists in the Alchemy cockpit.

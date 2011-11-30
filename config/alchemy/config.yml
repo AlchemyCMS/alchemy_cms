@@ -71,7 +71,7 @@ default_language:
 # 
 # ==== Translating validation messages:
 # 
-# The message_id is passed through I18n.t so you can translate it in your language yml file.
+# The message_id is passed through ::I18n.t so you can translate it in your language yml file.
 # 
 # Example:
 # 

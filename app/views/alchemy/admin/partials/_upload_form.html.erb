@@ -86,7 +86,7 @@
 			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
 			file_queue_limit: 0,
 			custom_settings: {
-				language: "<%= I18n.locale || 'en' %>"
+				language: "<%= ::I18n.locale || 'en' %>"
 			},
 			debug: false,
 			button_image_url: "<%= image_path('alchemy/swfupload/browse_button.png') %>",

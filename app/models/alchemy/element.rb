@@ -11,7 +11,7 @@ module Alchemy
 		has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 
 		validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
-		validates_presence_of :name, :on => :create, :message => '^'+I18n.t("Please choose an element.", :scope => :alchemy)
+		validates_presence_of :name, :on => :create, :message => '^'+::I18n.t("Please choose an element.", :scope => :alchemy)
 
 		attr_accessor :create_contents_after_create
 
@@ -217,7 +217,7 @@ module Alchemy
 		# 
 		def display_name
 			return name.capitalize if description.blank?
-			I18n.t(description['name'], :scope => 'alchemy.element_names', :default => name.capitalize)
+			::I18n.t(description['name'], :scope => 'alchemy.element_names', :default => name.capitalize)
 		end
 
 		# Gets the preview text from the first Content found in the +elements.yml+ Element description file.
@@ -351,7 +351,7 @@ module Alchemy
 			essence_errors
 		end
 
-		# Essence validation errors messages are translated via I18n.
+		# Essence validation errors messages are translated via ::I18n.
 		# Inside your translation file add translations like:
 		# 
 		#   alchemy:
@@ -379,7 +379,7 @@ module Alchemy
 			messages = []
 			essence_errors.each do |content_name, errors|
 				errors.each do |error|
-					messages << I18n.t(
+					messages << ::I18n.t(
 						"alchemy.content_validations.#{self.name}.#{content_name}.#{error}",
 						:default => [
 							"alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,

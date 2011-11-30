@@ -31,7 +31,7 @@ module Alchemy
 			if @language
 				session[:language_id] = @language.id
 				session[:language_code] = @language.code
-				I18n.locale = @language.code
+				::I18n.locale = @language.code
 			else
 				logger.error "+++++++ Language not found for language_id: #{language_id}"
 			end
@@ -80,7 +80,7 @@ module Alchemy
 				render :file => Rails.root + 'public/404.html', :code => 404
 			else
 				session[:language_id] = @language.id
-				I18n.locale = session[:language_code] = @language.code
+				::I18n.locale = session[:language_code] = @language.code
 			end
 		end
 
@@ -132,7 +132,7 @@ module Alchemy
 		def set_language_to_default
 			@language ||= Language.get_default
 			session[:language_id] = @language.id
-			I18n.locale = session[:language_code] = @language.code
+			::I18n.locale = session[:language_code] = @language.code
 		end
   
 	end
