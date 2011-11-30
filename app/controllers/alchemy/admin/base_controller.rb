@@ -4,6 +4,8 @@ module Alchemy
 
 			include Userstamp
 
+			before_filter :set_translation
+
 			helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
 			filter_access_to :all
@@ -13,6 +15,14 @@ module Alchemy
 			layout 'alchemy/admin'
 
 		private
+
+			# Setting the Alchemy GUI translation to users preffered language, or to the default translation.
+			# You can set the default_translation in your config/alchemy/config.yml file
+			def set_translation
+				if current_user
+					I18n.locale = current_user.language
+				end
+			end
 
 			# Handles exceptions
 			def exception_handler(e)

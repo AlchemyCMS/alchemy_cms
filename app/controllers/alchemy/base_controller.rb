@@ -7,7 +7,6 @@ module Alchemy
 		protect_from_forgery
 
 		before_filter :set_language
-		before_filter :set_translation
 		before_filter :mailer_set_url_options
 
 		helper_method :current_server, :configuration, :multi_language?, :current_user
@@ -58,10 +57,13 @@ module Alchemy
 
 	private
 
-		# Setting the Alchemy GUI translation to users preffered language, or to the default translation.
-		# You can set the default_translation in your config/alchemy/config.yml file
-		def set_translation
-			I18n.locale = current_user.language
+		# Sets the language for rendering pages in pages controller
+		def set_language
+			if params[:lang].blank? or session[:language_id].blank?
+				set_language_to_default
+			else
+				set_language_to(session[:language_id])
+			end
 		end
 
 		# Do we really need this anymore?
@@ -100,14 +102,6 @@ module Alchemy
 		end
 
 	protected
-
-		def set_language
-			if params[:lang].blank? or session[:language_id].blank?
-				set_language_to_default
-			else
-				set_language_to(session[:language_id])
-			end
-		end
 
 		def permission_denied
 			if current_user

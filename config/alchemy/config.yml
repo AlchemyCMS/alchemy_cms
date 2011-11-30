@@ -53,17 +53,7 @@
 :image_store_format: png
 :image_output_format: jpg
 
-# Set available translations for your customers.
-# Currently available translations are German and English.
-:translations:
-  - :language_code: de
-    :language: Deutsch
-  - :language_code: en
-    :language: English
-
-default_translation: de
-
-# Default language for your homepgae.
+# Default language for the seeder.
 default_language:
   code: de
   name: Deutsch
