@@ -94,7 +94,7 @@ module Alchemy
 			def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
 				if object.errors.empty?
 					@redirect_url = redirect_url
-					flash[:notice] = t(flash_notice, :scope => :alchemy)
+					flash[:notice] = t(flash_notice)
 					render :action => :redirect
 				else
 					render_remote_errors(object, button)

@@ -24,13 +24,13 @@ module Alchemy
 
 		def login
 			if current_user
-				redirect_to admin_dashboard_path, :notice => t('You are already logged in.', :scope => :alchemy)
+				redirect_to admin_dashboard_path, :notice => t('You are already logged in.')
 			else
 				if request.get?
 					@user_session = UserSession.new()
 					@user_roles = User::ROLES.map { |role| [User.human_rolename(role), role]}
 					@user_genders = User.genders_for_select
-					flash.now[:info] = params[:message] || t("welcome_please_identify_notice", :scope => :alchemy)
+					flash.now[:info] = params[:message] || t("welcome_please_identify_notice")
 				else
 					@user_session = UserSession.new(params[:alchemy_user_session])
 					store_screen_size
@@ -53,7 +53,7 @@ module Alchemy
 		end
 
 		def logout
-			message = params[:message] || t("logged_out", :scope => :alchemy)
+			message = params[:message] || t("logged_out")
 			@user_session = UserSession.find
 			if @user_session
 				@user_session.destroy

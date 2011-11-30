@@ -11,13 +11,13 @@
 			'',
 			alchemy.edit_admin_language_path(language),
 			{
-				:title => t('edit_language', :scope => :alchemy),
+				:title => t('edit_language'),
 				:size => '420x280',
 				:overflow => true
 			},
 			{
 				:class => "icon edit",
-				:title => t('edit_language', :scope => :alchemy)
+				:title => t('edit_language')
 			}
 		) -%>
 		<%- end -%>
@@ -25,9 +25,9 @@
 		<%- permitted_to?(:destroy, :alchemy_admin_languages) do -%>
 		<%= link_to_confirmation_window(
 			'',
-			t("confirm_to_delete_language", :scope => :alchemy),
+			t("confirm_to_delete_language"),
 			alchemy.admin_language_path(language),
-			:title => t('delete_language', :scope => :alchemy),
+			:title => t('delete_language'),
 			:class => "icon destroy"
 		) -%>
 		<%- end -%>

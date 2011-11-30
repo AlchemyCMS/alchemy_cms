@@ -102,7 +102,7 @@ module Alchemy
 								"#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
 								alchemy.show_page_path(:urlname => page.urlname, :lang => page.language.code),
 								:class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
-								:title => options[:show_title] ? ::I18n.t("alchemy.language_links.#{page.language.code}.title", :default => page.language.name) : nil
+								:title => options[:show_title] ? Alchemy::I18n.t("alchemy.language_links.#{page.language.code}.title", :default => page.language.name) : nil
 							)
 						end
 					end

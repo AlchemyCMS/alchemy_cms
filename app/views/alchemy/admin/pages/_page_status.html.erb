@@ -3,7 +3,7 @@
     <%- if multi_language? && !@layoutpage -%>
     <span class="flag <%= @page.language_code %>"></span>
     <%- end -%>
-    <span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? t('Page public', :scope => :alchemy) : t('Page not public', :scope => :alchemy) %>"></span>
-    <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.visible ? t('Page visible', :scope => :alchemy) : t('Page not visible', :scope => :alchemy) %>"></span>
-    <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? t('Page restricted', :scope => :alchemy) : t('Page not restricted', :scope => :alchemy) %>"></span>
+    <span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? t('Page public') : t('Page not public') %>"></span>
+    <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.visible ? t('Page visible') : t('Page not visible') %>"></span>
+    <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? t('Page restricted') : t('Page not restricted') %>"></span>
 </span>

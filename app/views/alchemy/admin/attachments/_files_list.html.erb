@@ -1,21 +1,21 @@
 <%- if @attachments.blank? && params[:query].nil? -%>
 	<p class="padding_left_right" id="no_files_notice">
-		<%= t("no_files_in_archive", :scope => :alchemy) %>
+		<%= t("no_files_in_archive") %>
 	</p>
 <%- elsif @attachments.blank? -%>
 	<p class="padding_left_right">
-		<%= t("no_search_results", :scope => :alchemy) %>
+		<%= t("no_search_results") %>
 	</p>
 <%- end -%>
 <table id="all_files" class="list">
 	<%- unless @attachments.blank? -%>
 	<tr>
 		<th class="icon"></th>
-		<th class="name"><%= t('Attachment|Name', :scope => :alchemy) %></th>
-		<th class="file_name"><%= t('Attachment|Filename', :scope => :alchemy) %></th>
-		<th class="file_type"><%= t('Attachment|Content type', :scope => :alchemy) %></th>
-		<th class="file_size"><%= t('Attachment|Size', :scope => :alchemy) %></th>
-		<th class="date"><%= t('Attachment|Created at', :scope => :alchemy) %></th>
+		<th class="name"><%= t('Attachment|Name') %></th>
+		<th class="file_name"><%= t('Attachment|Filename') %></th>
+		<th class="file_type"><%= t('Attachment|Content type') %></th>
+		<th class="file_size"><%= t('Attachment|Size') %></th>
+		<th class="date"><%= t('Attachment|Created at') %></th>
 		<th class="tools"></th>
 	</tr>
 	<%- end -%>

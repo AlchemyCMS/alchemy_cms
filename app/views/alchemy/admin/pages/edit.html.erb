@@ -10,7 +10,7 @@
 		</span>
 		<% end %>
 		<%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-			<button class="icon_button small" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
+			<button class="icon_button small" title="<%= t('explain_unlocking') %>">
 				<%= render_icon('close small') %>
 			</button>
 		<% end %>
@@ -26,24 +26,24 @@
 				@page,
 				:redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path
 			),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!', :scope => :alchemy)) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'});"
+			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!')) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});"
 		) do %>
-			<button class="icon_button" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
+			<button class="icon_button" title="<%= t('explain_unlocking') %>">
 				<%= render_icon('close') %>
 			</button>
-			<label><%= t("unlock_page", :scope => :alchemy) %></label>
+			<label><%= t("unlock_page") %></label>
 		<% end %>
 	</div>
 	<%- unless @page.layoutpage? -%>
 	<div class="button_with_label">
 		<%= form_tag(
 			alchemy.visit_admin_page_path(@page),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!', :scope => :alchemy)) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'};"
+			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!')) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'};"
 		) do %>
-			<button class="icon_button" title="<%= t('Visit page', :scope => :alchemy) %>">
+			<button class="icon_button" title="<%= t('Visit page') %>">
 				<%= render_icon('visit_page') %>
 			</button>
-			<label><%= t("Visit page", :scope => :alchemy) %></label>
+			<label><%= t("Visit page") %></label>
 		<% end %>
 	</div>
 	<%- end -%>
@@ -52,24 +52,24 @@
 			render_icon('settings'),
 			alchemy.configure_admin_page_path(@page),
 			{
-				:title => t('edit_page_properties', :scope => :alchemy),
+				:title => t('edit_page_properties'),
 				:size => @page.layoutpage? ? '340x150' : '410x620'
 			},
 			:class => 'icon_button',
-			:title => t('edit_page_properties', :scope => :alchemy)
+			:title => t('edit_page_properties')
 		) -%>
-		<label><%= t('page_properties', :scope => :alchemy) %></label>
+		<label><%= t('page_properties') %></label>
 	</div>
 	<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
 	<div class="button_with_label">
 		<%= form_tag(
 			alchemy.publish_admin_page_path(@page),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!', :scope => :alchemy)) }', message: '#{ t('You have unsaved elements on this page. Do you really want to clear the page cache?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'};"
+			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!')) }', message: '#{ t('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'};"
 		) do -%>
-			<button class="icon_button" title="<%= t('explain_publishing', :scope => :alchemy) %>">
+			<button class="icon_button" title="<%= t('explain_publishing') %>">
 				<%= render_icon('publish') %>
 			</button>
-			<label><%= t("Publish page", :scope => :alchemy) %></label>
+			<label><%= t("Publish page") %></label>
 		<% end -%>
 	</div>
 	<%- end -%>
@@ -80,22 +80,22 @@
 			render_icon('preview_window'),
 			"openPreviewWindow()",
 			{
-				:title => t('Show Preview Window', :scope => :alchemy),
+				:title => t('Show Preview Window'),
 				:class => 'icon_button'
 			}
 		) %>
-		<label><%= t('Show Preview Window', :scope => :alchemy) %></label>
+		<label><%= t('Show Preview Window') %></label>
 	</div>
 	<div class="button_with_label" id="show_element_window">
 		<%= link_to_function(
 			render_icon('element_window'),
 			"openElementsWindow()",
 			{
-				:title => t('Show Elements Window', :scope => :alchemy),
+				:title => t('Show Elements Window'),
 				:class => 'icon_button'
 			}
 		) %>
-		<label><%= t('Show Elements Window', :scope => :alchemy) %></label>
+		<label><%= t('Show Elements Window') %></label>
 	</div>
 </div>
 <%- end -%>
@@ -104,27 +104,27 @@
 <script type="text/javascript" charset="utf-8">
 	
 	function openPreviewWindow() {
-		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= t("Page Preview", :scope => :alchemy) -%>');
+		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
 	}
 	
 	function openElementsWindow() {
 		Alchemy.openElementsWindow('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
 			texts: {
-				title: '<%= t("Elements", :scope => :alchemy) -%>',
-				dirtyTitle: '<%= t("Warning!", :scope => :alchemy) -%>',
-				dirtyMessage: '<%= t("You have unsaved elements. Do you really want to close the elements window?", :scope => :alchemy) -%>',
-				okLabel: '<%= t("Yes", :scope => :alchemy) -%>',
-				cancelLabel: '<%= t("No", :scope => :alchemy) -%>'
+				title: '<%= t("Elements") -%>',
+				dirtyTitle: '<%= t("Warning!") -%>',
+				dirtyMessage: '<%= t("You have unsaved elements. Do you really want to close the elements window?") -%>',
+				okLabel: '<%= t("Yes") -%>',
+				cancelLabel: '<%= t("No") -%>'
 			},
 			toolbarButtons: [
 				{
-					title: '<%= t("New Element", :scope => :alchemy) -%>',
-					label: '<%= t("New Element", :scope => :alchemy) -%>',
+					title: '<%= t("New Element") -%>',
+					label: '<%= t("New Element") -%>',
 					iconClass: 'new_element',
 					onClick: function() {
 						Alchemy.openWindow(
 							'<%= alchemy.new_admin_element_path(:page_id => @page.id) -%>',
-							'<%= t("New Element", :scope => :alchemy) -%>',
+							'<%= t("New Element") -%>',
 							'320',
 							'120',
 							false,
@@ -134,14 +134,14 @@
 					}
 				},
 				{
-					title: '<%= t("Clipboard", :scope => :alchemy) -%>',
-					label: '<%= t("Show clipboard", :scope => :alchemy) -%>',
+					title: '<%= t("Clipboard") -%>',
+					label: '<%= t("Show clipboard") -%>',
 					iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" -%>',
 					buttonId: 'clipboard_button',
 					onClick: function() {
 						Alchemy.openWindow(
 							'<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") -%>',
-							'<%= t("Clipboard", :scope => :alchemy) -%>',
+							'<%= t("Clipboard") -%>',
 							'380',
 							'270',
 							false,
@@ -151,12 +151,12 @@
 					}
 				},
 				{
-					title: '<%= t("Show trash", :scope => :alchemy) -%>',
-					label: '<%= t("Show trash", :scope => :alchemy) -%>',
+					title: '<%= t("Show trash") -%>',
+					label: '<%= t("Show trash") -%>',
 					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" -%>',
 					buttonId: 'element_trash_button',
 					onClick: function() {
-						Alchemy.openTrashWindow(<%= @page.id %>, '<%= t("Trash"), :scope => :alchemy -%>');
+						Alchemy.openTrashWindow(<%= @page.id %>, '<%= t("Trash") -%>');
 					}
 				}
 			]
@@ -178,10 +178,10 @@
 	});
 	
 	Alchemy.PageLeaveObserver({
-		title: '<%= t("Warning!", :scope => :alchemy) -%>',
-		message: '<%=  t("You have unsaved elements on this page. Do you really want to leave this page?", :scope => :alchemy) -%>',
-		okLabel: '<%= t("Yes", :scope => :alchemy) -%>',
-		cancelLabel: '<%= t("No", :scope => :alchemy) -%>'
+		title: '<%= t("Warning!") -%>',
+		message: '<%=  t("You have unsaved elements on this page. Do you really want to leave this page?") -%>',
+		okLabel: '<%= t("Yes") -%>',
+		cancelLabel: '<%= t("No") -%>'
 	});
 	
 </script>

@@ -60,7 +60,7 @@ module Alchemy
 						:per_page => pictures_per_page_for_size(@size)
 					).order(:name)
 				end
-				@message = t('Picture %{name} uploaded succesfully', :scope => :alchemy, :name => @picture.name)
+				@message = t('Picture uploaded succesfully', :name => @picture.name)
 				# Are we using the Flash uploader? Or the plain html file uploader?
 				if params[Rails.application.config.session_options[:key]].blank?
 					flash[:notice] = @message
@@ -76,14 +76,14 @@ module Alchemy
 				oldname = @picture.name
 				@picture.name = params[:name]
 				@picture.save
-				@message = t("Image renamed successfully from: '%{from}' to '%{to}'", :scope => :alchemy, :from => oldname, :to => @picture.name)
+				@message = t("Picture renamed successfully", :from => oldname, :to => @picture.name)
 			end
 
 			def destroy
 				@picture = Picture.find(params[:id])
 				name = @picture.name
 				@picture.destroy
-				flash[:notice] = t("Image: '%{name}' deleted successfully", :scope => :alchemy, :name => name)
+				flash[:notice] = t("Picture deleted successfully", :name => name)
 				@redirect_url = admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
 				render :action => :redirect
 			end
@@ -94,7 +94,7 @@ module Alchemy
 					FileUtils.rm_rf("#{Rails.root}/public/pictures/thumbnails/#{picture.id}")
 					expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
 				end
-				@notice = t('Picture cache flushed', :scope => :alchemy)
+				@notice = t('Picture cache flushed')
 			end
 
 			def show_in_window

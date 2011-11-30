@@ -26,7 +26,7 @@ module Alchemy
 				end
 				if content.description.blank?
 					warning("Content #{content.name} is missing its description")
-					title = t("Warning: Content is missing its description.", :scope => :alchemy, :contentname => content.name)
+					title = t("Warning: Content is missing its description.", :contentname => content.name)
 					content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;) + content_name.html_safe
 				end
 				content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>".html_safe : content_name
@@ -35,11 +35,11 @@ module Alchemy
 			# Renders a link to show the new content overlay
 			def render_new_content_link(element)
 				link_to_overlay_window(
-					t('add new content', :scope => :alchemy),
+					t('add new content'),
 					alchemy.new_admin_element_content_path(element),
 					{
 						:size => '305x40',
-						:title => t('Select an content', :scope => :alchemy),
+						:title => t('Select an content'),
 						:overflow => true
 					},
 					{
@@ -52,7 +52,7 @@ module Alchemy
 			# Renders a link to create a new content in element editor
 			def render_create_content_link(element, options = {})
 				defaults = {
-					:label => t('add new content', :scope => :alchemy)
+					:label => t('add new content')
 				}
 				options = defaults.merge(options)
 				link_to(

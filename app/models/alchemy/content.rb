@@ -135,9 +135,9 @@ module Alchemy
 		# Translates a name from string. Optional: pass an element_name to namespacing.
 		def self.translated_label_for(content_name, element_name = nil)
 			if element_name.blank?
-				::I18n.t("alchemy.content_names.#{content_name}", :default => content_name.capitalize)
+				Alchemy::I18n.t("alchemy.content_names.#{content_name}", :default => content_name.capitalize)
 			else
-				::I18n.t("alchemy.content_names.#{element_name}.#{content_name}", :default => ["alchemy.content_names.#{content_name}".to_sym, content_name.capitalize])
+				Alchemy::I18n.t("alchemy.content_names.#{element_name}.#{content_name}", :default => ["alchemy.content_names.#{content_name}".to_sym, content_name.capitalize])
 			end
 		end
 

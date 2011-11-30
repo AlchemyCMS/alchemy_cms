@@ -1,6 +1,6 @@
 <%- content_for(:subnav_additions) do -%>
 <%- unless @locked_pages.blank? -%>
-<label><%= t('Active Pages', :scope => :alchemy) %> &raquo;</label>
+<label><%= t('Active Pages') %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
 	<%= link_to alchemy.edit_admin_page_path(page) do %>
@@ -9,7 +9,7 @@
 	</span>
 	<% end %>
 	<%= form_for(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-		<button class="icon_button small" title="<%= t('explain_unlocking', :scope => :alchemy) %>">
+		<button class="icon_button small" title="<%= t('explain_unlocking') %>">
 			<%= render_icon('close small') %>
 		</button>
 	<% end %>
@@ -32,30 +32,30 @@
 				});
 			)
 		) %>
-		<label><%= t("Language tree", :scope => :alchemy) %></label>
+		<label><%= t("Language tree") %></label>
 	</div>
 	<%= toolbar_button(
 		:icon => 'add_page',
 		:url => alchemy.new_admin_page_path(:parent_id => @layout_root.id, :layoutpage => true),
 		:overlay_options => {
-			:title => t('Add global page', :scope => :alchemy),
+			:title => t('Add global page'),
 			:size => '405x150',
 			:overflow => true
 		},
-		:title => t('Add global page', :scope => :alchemy),
-		:label => t('Add global page', :scope => :alchemy),
+		:title => t('Add global page'),
+		:label => t('Add global page'),
 		:if_permitted_to => [:new, :alchemy_admin_pages]
 	) %>
 	<%= toolbar_button(
 		:icon => "clipboard#{clipboard_empty?('pages') ? '' : ' full'}",
 		:url => alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
 		:overlay_options => {
-			:title => t('Clipboard', :scope => :alchemy),
+			:title => t('Clipboard'),
 			:size => '380x270'
 		},
-		:title => t('Show clipboard', :scope => :alchemy),
+		:title => t('Show clipboard'),
 		:id => "clipboard_button",
-		:label => t('Show clipboard', :scope => :alchemy)
+		:label => t('Show clipboard')
 	) %>
 </div>
 <%- end -%>

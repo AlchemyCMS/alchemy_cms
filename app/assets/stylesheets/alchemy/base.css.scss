@@ -3392,6 +3392,10 @@ a.icon.remove {
 	margin-right: 4px;
 }
 
+a#uploadswitcher, a.underline {
+	text-decoration: underline;
+}
+
 #uploadProgressContainer {
 	overflow-x: hidden;
 	overflow-y: auto;

@@ -6,7 +6,7 @@ module Alchemy
 
 			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
-			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
+			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
 
 			def index
 				if !params[:query].blank?
@@ -71,7 +71,7 @@ module Alchemy
 				when :destroy
 					verb = "removed"
 				end
-				flash[:notice] = t("#{resource_model_name.classify} successfully #{verb}.", :scope => :alchemy, :default => t("Succesfully #{verb}."))
+				flash[:notice] = t("#{resource_model_name.classify} successfully #{verb}.", :default => t("Succesfully #{verb}."))
 			end
 
 			def load_resource

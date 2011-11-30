@@ -1,10 +1,10 @@
 <%- if @pictures.blank? && params[:query].nil? -%>
 <p class="padding_left_right">
-	<%= t("no_images_in_archive", :scope => :alchemy) %>
+	<%= t("no_images_in_archive") %>
 </p>
 <%- elsif @pictures.blank? -%>
 <p class="padding_left_right">
-	<%= t("no_search_results", :scope => :alchemy) %>
+	<%= t("no_search_results") %>
 </p>
 <%- else  -%>
 <div id="pictures">

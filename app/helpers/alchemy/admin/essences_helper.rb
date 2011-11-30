@@ -22,8 +22,8 @@ module Alchemy
 			#   * editor_options (Hash) - Will be passed to the render_essence_editor partial renderer
 			#
 			def render_essence_editor_by_type(element, essence_type, options = {}, editor_options = {})
-				return warning('Element is nil', t("no_element_given", :scope => :alchemy)) if element.blank?
-				return warning('EssenceType is blank', t("No EssenceType given", :scope => :alchemy)) if essence_type.blank?
+				return warning('Element is nil', t("no_element_given")) if element.blank?
+				return warning('EssenceType is blank', t("No EssenceType given")) if essence_type.blank?
 				defaults = {
 					:position => 1,
 					:all => false
@@ -63,7 +63,7 @@ module Alchemy
 			#
 			def render_essence_editor_by_name(element, name, options = {})
 				if element.blank?
-					return warning('Element is nil', t("no_element_given", :scope => :alchemy))
+					return warning('Element is nil', t("no_element_given"))
 				end
 				content = element.content_by_name(name)
 				if content.blank?

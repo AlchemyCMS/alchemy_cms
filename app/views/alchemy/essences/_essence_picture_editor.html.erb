@@ -3,13 +3,13 @@
     <span class="picture_tool_delete">
     <%= link_to_confirmation_window(
       "",
-      t("confirm_to_delete_image", :scope => :alchemy),
+      t("confirm_to_delete_image"),
       alchemy.admin_essence_picture_path(
         :id => content,
         :options => options
       ),
       {
-        :title => t("delete_image", :scope => :alchemy),
+        :title => t("delete_image"),
         :class => "picture_delete"
       }
     ) -%>
@@ -18,11 +18,11 @@
     <div class="missing_image">
       <p>
         <%= image_tag('alchemy/placeholder.png') %><br>
-        <%= t('Image missing', :scope => :alchemy) %><%= '<span class="validation_indicator">*</span>'.html_safe if content.has_validations? %>
+        <%= t('Image missing') %><%= '<span class="validation_indicator">*</span>'.html_safe if content.has_validations? %>
       </p>
     </div>
     <%- else -%>
-    <div class="picture_handle" title="<%= t('drag_to_sort', :scope => :alchemy) if options[:dragable] %>"></div>
+    <div class="picture_handle" title="<%= t('drag_to_sort') if options[:dragable] %>"></div>
     <div class="picture_content_spinner">
       <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
     </div>
@@ -38,7 +38,7 @@
           ),
           :alt => content.ingredient.name,
           :class => 'img_paddingtop',
-          :title => t("image_name", :scope => :alchemy) + ": #{content.ingredient.name}",
+          :title => t("image_name") + ": #{content.ingredient.name}",
           :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
           :style => "display: none;"
         ) %>

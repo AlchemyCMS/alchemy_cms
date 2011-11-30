@@ -2,7 +2,7 @@
   <div class="element_handle">
     <span class="element_icon"></span>
     <%- if element.description.nil? -%>
-    <span class="warning icon" title="<%= t("Warning: Element '%{elementname}' is missing its description.", :scope => :alchemy) % {:elementname => element.name} %>"></span>
+    <span class="warning icon" title="<%= t("Warning: Element '%{elementname}' is missing its description.", :elementname => element.name) %>"></span>
     <%- else -%>
     <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
     <%- end -%>
@@ -20,9 +20,9 @@
     ) %>
     <%= link_to_function(
       "",
-      "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ t('Warning!', :scope => :alchemy) }', message: '#{ t('This element has unsaved changes. Do you really want to fold it?', :scope => :alchemy) }', okLabel: '#{ t('Yes', :scope => :alchemy) }', cancelLabel: '#{ t('No', :scope => :alchemy) }'})",
+      "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ t('Warning!') }', message: '#{ t('This element has unsaved changes. Do you really want to fold it?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'})",
       :class => element.folded? ? 'expand_element' : 'fold_element',
-      :title => element.folded? ? t('show_element_content', :scope => :alchemy) : t('hide_element_content', :scope => :alchemy),
+      :title => element.folded? ? t('show_element_content') : t('hide_element_content'),
       :id => "element_#{element.id}_folder"
     ) %>
   </span>

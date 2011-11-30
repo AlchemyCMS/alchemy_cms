@@ -4,7 +4,7 @@
 	</div>
 	<div id="assign_image_list" class="with_padding">
 	<%- if @pictures.empty? -%>
-		<p><%= t("no_images_in_archive", :scope => :alchemy) %></p>
+		<p><%= t("no_images_in_archive") %></p>
 	<%- else -%>
 		<%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
 		<%= render(

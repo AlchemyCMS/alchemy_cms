@@ -8,9 +8,9 @@
 				url,
 				:class => "search_field_clear",
 				:id => "search_field_clear",
-				:title => t("click_to_show_all", :scope => :alchemy),
+				:title => t("click_to_show_all"),
 				:style => (params[:query].nil? ? "display: none" : "display: block")
 			) %>
 	</div>
-	<label><%= t('search', :scope => :alchemy) %></label>
+	<label><%= t('search') %></label>
 <% end %>

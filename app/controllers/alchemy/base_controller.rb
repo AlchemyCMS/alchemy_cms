@@ -110,14 +110,14 @@ module Alchemy
 					if request.referer == login_url
 						render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
 					elsif request.xhr?
-						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized', :scope => :alchemy), :flash_type => 'warning'}
+						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}
 					else
-						flash[:error] = t('You are not authorized', :scope => :alchemy)
+						flash[:error] = t('You are not authorized')
 						redirect_to admin_dashboard_path
 					end
 				end
 			else
-				flash[:info] = t('Please log in', :scope => :alchemy)
+				flash[:info] = t('Please log in')
 				if request.xhr?
 					render :action => :permission_denied
 				else

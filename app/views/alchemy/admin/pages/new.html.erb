@@ -3,8 +3,8 @@
 <%- else -%>
 <div id="overlay_tabs">
 	<ul>
-		<li><a href="#create_page_tab"><%= t('New page', :scope => :alchemy) %></a></li>
-		<li><a href="#paste_page_tab"><%= t('Paste from clipboard', :scope => :alchemy) %></a></li>
+		<li><a href="#create_page_tab"><%= t('New page') %></a></li>
+		<li><a href="#paste_page_tab"><%= t('Paste from clipboard') %></a></li>
 	</ul>
 	<div id="errors" style="display:none"></div>
 	<div id="create_page_tab">
@@ -16,7 +16,7 @@
 			<table id="new_page_form">
 				<tr>
 					<td class="label">
-						<label for="paste_from_clipboard"><%= t("Page", :scope => :alchemy) %></label>
+						<label for="paste_from_clipboard"><%= t("Page") %></label>
 					</td>
 					<td class="select">
 						<%= clipboard_select_tag(@clipboard_items, :class => 'long') %>
@@ -33,7 +33,7 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td class="submit">
-						<%= f.button t("paste", :scope => :alchemy), :class => 'button', :name => nil %>
+						<%= f.button t("paste"), :class => 'button', :name => nil %>
 					</td>
 				</tr>
 			</table>

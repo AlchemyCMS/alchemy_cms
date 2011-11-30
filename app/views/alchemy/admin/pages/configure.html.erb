@@ -2,12 +2,12 @@
 	<div id="errors" style="display: none"></div>
 	<table id="page_names">
 		<tr>
-			<td class="label"><%= t("page_type", :scope => :alchemy) %>: </td>
+			<td class="label"><%= t("page_type") %>: </td>
 			<td class="value"><%= @page.layout_display_name %></td>
 		</tr>
 		<%- unless @page.layoutpage -%>
 		<tr>
-			<td class="label"><%= t("page_status", :scope => :alchemy) %>: </td>
+			<td class="label"><%= t("page_status") %>: </td>
 			<td class="checkbox">
 				<%= f.check_box :public -%>
 				<%= f.label :public %><br/>
@@ -24,7 +24,7 @@
 		<%- end -%>
 		<%- unless @page.layoutpage -%>
 		<tr>
-			<td colspan="2" class="heading"><%= t("names", :scope => :alchemy) %></td>
+			<td colspan="2" class="heading"><%= t("names") %></td>
 		</tr>
 		<%- end -%>
 		<tr>
@@ -41,10 +41,10 @@
 			<td class="input"><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
 		</tr>
 		<tr>
-			<td colspan="2" class="heading"><%= t("meta_data", :scope => :alchemy) %></td>
+			<td colspan="2" class="heading"><%= t("meta_data") %></td>
 		</tr>
 		<tr>
-			<td class="label"><%= t("search_engines", :scope => :alchemy) %>: </td>
+			<td class="label"><%= t("search_engines") %>: </td>
 			<td class="checkbox">
 				<%= f.check_box "robot_index" %>
 				<%= f.label "robot_index" %><br/>
@@ -60,12 +60,12 @@
 			<td class="label"><%= f.label "meta_keywords" %>*:&nbsp;</td>
 			<td class="input">
 			  <%= f.text_area "meta_keywords", :class => "thin_border long" %><br/>
-			  <span style="font-size:10px">*<%= t('pages.update.comma_seperated', :scope => :alchemy) %></span>
+			  <span style="font-size:10px">*<%= t('pages.update.comma_seperated') %></span>
 			</td>
 		</tr>
 		<%- end -%>
 		<tr>
-			<td colspan="2" align="right"><%= f.button t("save", :scope => :alchemy), :class => 'button' %></td>
+			<td colspan="2" align="right"><%= f.button t("save"), :class => 'button' %></td>
 		</tr>
 	</table>
 <% end %>

@@ -1,6 +1,6 @@
 <div id="overlay_tab_external_link">
   <h2>
-    <%= t("enter_external_link", :scope => :alchemy) %>
+    <%= t("enter_external_link") %>
   </h2>
   <table class="window_form">
     <tr>
@@ -23,13 +23,13 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="extern_link_title"><%= t("link_title", :scope => :alchemy) %></label>
+        <label for="extern_link_title"><%= t("link_title") %></label>
       </td>
       <td class="input"><%= text_field_tag "extern_link_title", '', :class => 'thin_border auto_resize link_title' %></td>
     </tr>
     <tr>
       <td class="label long">
-        <label for="link_target"><%= t("Open Link in", :scope => :alchemy) %>:</label>
+        <label for="link_target"><%= t("Open Link in") %>:</label>
       </td>
       <td>
         <%= select_tag 'link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
@@ -38,7 +38,7 @@
   </table>
   <p>
     <%= link_to_function(
-      t('apply', :scope => :alchemy),
+      t('apply'),
       %(
         Alchemy.LinkOverlay.createLink(
           'external',

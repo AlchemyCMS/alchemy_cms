@@ -68,8 +68,8 @@ module Alchemy
 					@element_validated = @element.save!
 				else
 					@element_validated = false
-					@notice = t('Validation failed.', :scope => :alchemy)
-					@error_message = "<h2>#{@notice}</h2><p>#{t('Please check contents below.', :scope => :alchemy)}</p>".html_safe
+					@notice = t('Validation failed.')
+					@error_message = "<h2>#{@notice}</h2><p>#{t('Please check contents below.')}</p>".html_safe
 				end
 			end
 

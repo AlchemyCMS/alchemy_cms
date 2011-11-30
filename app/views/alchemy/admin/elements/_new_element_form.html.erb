@@ -1,19 +1,19 @@
 <div class="new_alchemy_element">
 <%- if @elements.blank? -%>
-	<p class="with_padding"><%= t('no_more_elements_to_add', :scope => :alchemy) %></p>
+	<p class="with_padding"><%= t('no_more_elements_to_add') %></p>
 <%- else -%>
 	<%= form_for [:admin, @element], :remote => true, :class => "add_element_content" do |form| %>
 		<div id="errors" style="display: none"></div>
 		<table>
 			<tr>
 				<td class="label">
-					<%= form.label :name, t("element_of_type", :scope => :alchemy) %>
+					<%= form.label :name, t("element_of_type") %>
 				</td>
 				<td class="select">
 					<%= form.select(
 						'name',
 						@page.can_have_cells? ? grouped_elements_for_select(@elements) : elements_for_select(@elements),
-						{:prompt => t('select_element', :scope => :alchemy)},
+						{:prompt => t('select_element')},
 						{:class => 'long'}
 					) -%>
 				</td>
@@ -21,7 +21,7 @@
 			<tr>
 				<td colspan="2" class="submit">
 					<%= form.hidden_field 'page_id' %>
-					<%= form.button t('add', :scope => :alchemy), :class => 'button' %>
+					<%= form.button t('add'), :class => 'button' %>
 				</td>
 			</tr>
 		</table>
