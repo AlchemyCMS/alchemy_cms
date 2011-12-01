@@ -9,7 +9,7 @@ module Alchemy
 		before_filter :set_language
 		before_filter :mailer_set_url_options
 
-		helper_method :current_server, :configuration, :multi_language?, :current_user
+		helper_method :current_server, :configuration, :multi_language?, :current_user, :t
 
 		# Returns a host string with the domain the app is running on.
 		def current_server
@@ -52,6 +52,11 @@ module Alchemy
 
 		def logged_in?
 			!current_user.blank?
+		end
+
+		# Overriding +I18n+s default +t+ helper, so we can pass it through +Alchemy::I18n+
+		def t(key, *args)
+			Alchemy::I18n.t(key, *args)
 		end
 
 	private
@@ -133,6 +138,6 @@ module Alchemy
 			session[:language_id] = @language.id
 			session[:language_code] = @language.code
 		end
-  
+
 	end
 end

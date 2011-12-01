@@ -71,7 +71,7 @@ module Alchemy
 				when :destroy
 					verb = "removed"
 				end
-				flash[:notice] = t("#{resource_model_name.classify} successfully #{verb}.", :default => t("Succesfully #{verb}."))
+				flash[:notice] = t("#{resource_model_name.classify} successfully #{verb}", :default => t("Succesfully #{verb}"))
 			end
 
 			def load_resource

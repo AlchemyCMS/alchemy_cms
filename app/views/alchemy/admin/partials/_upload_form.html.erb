@@ -16,7 +16,7 @@
 		</p>
 	</div>
 	<button class="button" onclick="swfu.cancelQueue(); return false" style="display: none">
-		<%= t("swfupload: cancel_uploads") %>
+		<%= t("swfupload.cancel_uploads") %>
 	</button>
 </div>
 <%- if file_types.first == '*' -%>
@@ -29,18 +29,12 @@
 		<%= raw t('If you have any problems using the Flash uploader you can switch to', :link => t('<a href="#" id="uploadswitcher">%{value}</a>', :value => t('regular method'))) %>
 	</small>
 </p>
-<div id="swfUploadFlashError" style="display: none">
-	<h2><%= t('Could not load Adobe Flash® Plugin!') %></h2>
-	<p><%= t('Please consider that you have at least version 9.0.28 installed.') %></p>
-	<p>
-		<%= t('You can get the latest version on the', :link => t('<a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>', :value => t('Adobe Website'))) %>
-	</p>
-</div>
+<h2 id="swfUploadFlashError" style="display: none"><%= t('Could not load Adobe Flash® Plugin!') %></h2>
 <div id="alternativeUpload" style="display: none">
 	<h2 id="flash_upload_error_explanation" style="display: none">
 		<%= t('Error with the Flash® Uploader!') %>
 	</h2>
-	<p><%= t('Please use this alternative uploader instead.') %></p>
+	<p><%= t('use_alternative_uploader_instead') %></p>
 	<p>
 		<%= file_field_tag('Filedata') %>
 	</p>
@@ -98,6 +92,7 @@
 			swfupload_load_failed_handler: function () {
 				jQuery('#swf_upload_container').hide();
 				jQuery('#choose_alternative_uploader').hide();
+				jQuery('#switch_to_flash_uploader').hide();
 				jQuery('#swfUploadFlashError').show();
 				jQuery('#alternativeUpload').show();
 			},

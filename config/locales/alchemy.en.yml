@@ -157,7 +157,7 @@ en:
       blank: New Window/Tab
       overlay: Overlay
     
-    "create_tree_as_new_language": "Create %{language} as a new language tree"
+    create_tree_as_new_language: "Create %{language} as a new language tree"
     "Delete image": "Remove this image."
     "Image size": "Imagesize"
     "Image deleted successfully": "Image deleted successfully."
@@ -172,91 +172,92 @@ en:
     "User created": "User created"
     "User deleted": "User deleted"
     "User updated": "User updated"
-    "add_image_to_element": "Add an image."
-    "align_in_text": "Alignment in text"
-    "allow_fullscreen": "Allow fullscreen"
-    "assign_file": "Assign a file."
-    "assign_file_from_archive": "assign a file from your archive"
-    "assign_image": "Assign an image"
-    "auto_play": "Play movie after load"
-    "big_thumbnails": "Big thumbnails"
-    "choose_element_as_target": "Please choose an element as target"
-    "choose_element_to_link": "Please choose an element"
-    "choose_file_to_link": "Please choose a file to link"
-    "click_to_show_all": "Click to show all again."
-    "confirm_to_delete_file": "Do you really want to delete this file from the server?"
-    "confirm_to_delete_image": "Do you really want to delete this image from server?"
-    "confirm_to_delete_image_from_server": "Do you really want to delete this image from the server?"
-    "confirm_to_delete_user": "Do you really want to delete this user?"
-    "contactform_body": "Message Template"
-    "content_essence_not_found": "Content essence not found"
-    "content_not_found": "Field for content not present."
-    "copy_element": "Copy this element."
-    "copy_page": "Copy page"
+    add_image_to_element: "Add an image."
+    align_in_text: "Alignment in text"
+    allow_fullscreen: "Allow fullscreen"
+    assign_file: "Assign a file."
+    assign_file_from_archive: "assign a file from your archive"
+    assign_image: "Assign an image"
+    auto_play: "Play movie after load"
+    big_thumbnails: "Big thumbnails"
+    choose_element_as_target: "Please choose an element as target"
+    choose_element_to_link: "Please choose an element"
+    choose_file_to_link: "Please choose a file to link"
+    click_to_show_all: "Click to show all again."
+    confirm_to_delete_file: "Do you really want to delete this file from the server?"
+    confirm_to_delete_image: "Do you really want to delete this image from server?"
+    confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
+    confirm_to_delete_user: "Do you really want to delete this user?"
+    contactform_body: "Message Template"
+    content_essence_not_found: "Content essence not found"
+    content_not_found: "Field for content not present."
+    copy_element: "Copy this element."
+    copy_page: "Copy page"
     "Create language": "Create a new language"
-    "create_page": "Create a new subpage."
-    "create_user": "Create a new user."
-    "created_at": "Created at"
-    "currently_edited_by": "This page is currently locked by"
-    "cut_element": "Cut this element."
-    "delete_file": "Delete this file from server."
-    "delete_image": "Remove this image."
-    "delete_language": "Delete this language."
-    "delete_page": "Delete this page."
-    "delete_user": "Delete this user."
-    "document": "File"
-    "documents": "Files"
-    "download_file": "Download file '%{filename}'"
-    "drag_to_sort": "Drag'n'Drop to sort images"
-    "edit_file_properties": "Edit Fileproperties"
-    "edit_image_properties": "Edit image properties."
-    "edit_language": "Edit language"
-    "edit_page": "Edit this page."
-    "edit_page_properties": "Edit the page properties."
-    "edit_user": "Edit this users properties."
-    "element_editor_not_found": "Error within this Element"
-    "element_of_type": "Element"
-    "element_saved": "Saved element."
-    "enter_external_link": "Please enter the URL you want to link with"
-    "explain_publishing": "Publish the page and remove the cached version from the server."
-    "explain_unlocking": "Leave page and unlock it for other users."
+    create_page: "Create a new subpage."
+    create_user: "Create a new user."
+    created_at: "Created at"
+    currently_edited_by: "This page is currently locked by"
+    cut_element: "Cut this element."
+    delete_file: "Delete this file from server."
+    delete_image: "Remove this image."
+    delete_language: "Delete this language."
+    delete_page: "Delete this page."
+    delete_user: "Delete this user."
+    document: "File"
+    documents: "Files"
+    download_file: "Download file '%{filename}'"
+    drag_to_sort: "Drag'n'Drop to sort images"
+    edit_file_properties: "Edit Fileproperties"
+    edit_image_properties: "Edit image properties."
+    edit_language: "Edit language"
+    edit_page: "Edit this page."
+    edit_page_properties: "Edit the page properties."
+    edit_user: "Edit this users properties."
+    element_editor_not_found: "Error within this Element"
+    element_of_type: "Element"
+    element_saved: "Saved element."
+    enter_external_link: "Please enter the URL you want to link with"
+    explain_publishing: "Publish the page and remove the cached version from the server."
+    explain_unlocking: "Leave page and unlock it for other users."
     explain_upload:
       footnote: "HINT! Hold the CTRL button (CMD on a Mac) while clicking the %{name} with the mouse to upload multiple %{name} at once."
       intro: "This is how the %{name} upload works"
       step1: "Click the 'browse' button and navigate to your %{name} folder"
       step2: "Select all the %{name} you want to upload"
       step3: "Click the 'open' button. The upload starts!"
-    "female": "Female"
-    "file": "File"
-    "file_rename_error": "Error renaming file."
-    "height": "Height"
-    "hide_element_content": "Hide this elements content."
-    "dashboard": "Dashboard"
+    female: "Female"
+    file: "File"
+    file_rename_error: "Error renaming file."
+    height: "Height"
+    hide_element_content: "Hide this elements content."
+    dashboard: "Dashboard"
     "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash® uploader you can switch to %{link}"
-    "image_alt_tag": "Alt-tag"
-    "image_caption": "Caption"
-    "image_name": "Name"
-    "image_title": "Title-tag"
-    "internal_link_headline": "Choose a page to link to."
+    image_alt_tag: "Alt-tag"
+    image_caption: "Caption"
+    image_name: "Name"
+    image_title: "Title-tag"
+    internal_link_headline: "Choose a page to link to."
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"
-    "language_does_not_exist": "This language tree does not exist"
-    "language_pages_copied": "Language tree succesfully copied."
-    "link_image": "Link this image."
-    "link_overlay_tab_label.contactform": "Contactform"
-    "link_overlay_tab_label.external": "External"
-    "link_overlay_tab_label.file": "File"
-    "link_overlay_tab_label.internal": "Internal"
-    "link_title": "Linktitle"
-    "logged_out": "You logged out successfully."
-    "mail_to": "Recipient"
-    "male": "Male"
-    "medium_thumbnails": "Medium thumbnails"
-    "meta_data": "Meta-Data"
-    "meta_description": "Meta-Description"
-    "meta_keywords": "Meta-Keywords"
-    "missing_image": "Missing image"
+    language_does_not_exist: "This language tree does not exist"
+    language_pages_copied: "Language tree succesfully copied."
+    link_image: "Link this image."
+    link_overlay_tab_label:
+      contactform: "Contactform"
+      external: "External"
+      file: "File"
+      internal: "Internal"
+    link_title: "Linktitle"
+    logged_out: "You logged out successfully."
+    mail_to: "Recipient"
+    male: "Male"
+    medium_thumbnails: "Medium thumbnails"
+    meta_data: "Meta-Data"
+    meta_description: "Meta-Description"
+    meta_keywords: "Meta-Keywords"
+    missing_image: "Missing image"
     modules:
       attachments: "Files"
       dashboard: "Dashboard"
@@ -266,78 +267,82 @@ en:
       library: "Library"
       pages: "Pages"
       users: "Users"
-    "name": "Name"
-    "names": "Names"
-    "navigation_name": "Navigationname"
-    "no_default_language_found": "No default language found."
-    "no_element_given": "No element given."
-    "no_files_in_archive": "You do not have any files in your archive."
-    "no_images_in_archive": "You don't have any images in your archive."
-    "no_more_elements_to_add": "No more elements available."
-    "no_search_results": "Your search did not return any results."
+    name: "Name"
+    names: "Names"
+    navigation_name: "Navigationname"
+    no_default_language_found: "No default language found."
+    no_element_given: "No element given."
+    no_files_in_archive: "You do not have any files in your archive."
+    no_images_in_archive: "You don't have any images in your archive."
+    no_more_elements_to_add: "No more elements available."
+    no_search_results: "Your search did not return any results."
     "not a valid image": "This is not an valid image."
     "Page created.": "Page: '%{name}' created."
-    "page_for_links.choose_page": "Choose %{name}"
-    "page_locked": "This page is locked by another user."
-    "page_properties": "page properties"
-    "page_public": "published"
-    "page_published": "Published page."
-    "page_restricted": "restricted"
-    "page_status": "Status"
-    "page_status_invisible_public": "Page is invisible in navigation but public."
-    "page_status_invisible_unpublic": "Page is invisible in navigation and unpublic."
-    "page_status_visible_public": "Page is visible in navigation and public."
-    "page_status_visible_unpublic": "Page is visible in navigation but unpublic."
-    "page_title": "Title"
-    "page_type": "Type"
-    "page_visible_in_navigation": "visible in the navigation"
-    "pages.update.comma_seperated": "Separate by comma"
-    "pagination.next_page": "next page"
-    "pagination.previous_page": "previous page"
-    "password": "Password"
+    page_for_links.choose_page: "Choose %{name}"
+    page_locked: "This page is locked by another user."
+    page_properties: "page properties"
+    page_public: "published"
+    page_published: "Published page."
+    page_restricted: "restricted"
+    page_status: "Status"
+    page_status_invisible_public: "Page is invisible in navigation but public."
+    page_status_invisible_unpublic: "Page is invisible in navigation and unpublic."
+    page_status_visible_public: "Page is visible in navigation and public."
+    page_status_visible_unpublic: "Page is visible in navigation but unpublic."
+    page_title: "Title"
+    page_type: "Type"
+    page_visible_in_navigation: "visible in the navigation"
+    pages:
+      update:
+        comma_seperated: "Separate by comma"
+    pagination:
+      next_page: "next page"
+      previous_page: "previous page"
+    password: "Password"
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} deleted"
-    "place_link": "Link text"
-    "player_version": "Flashplayer Version"
+    place_link: "Link text"
+    player_version: "Flashplayer Version"
     "please enter a name": "Please enter a name."
     "please enter subject and mail address": "Please enter recipient and subject."
-    "please_confirm": "Please confirm"
-    "please_wait": "Please wait"
-    "rename_file": "Rename this file."
-    "robot_follow": "robot may follow links."
-    "robot_index": "allow robot to index."
-    "saved_link": "Link saved."
-    "search_engines": "Searchengines"
-    "select_element": "Select element"
-    "show_element_content": "Show content of this element."
-    "show_elements_from_page": "Show all elements from this page"
-    "show_eq": "Show EQ"
-    "show_navigation": "Show in navigation"
-    "show_page_in_sitemap": "Show page in sitemap."
-    "small_thumbnails": "Small thumbnails"
-    "successfully_added_element": "Succesfully added new element."
-    "successfully_saved_element_position": "Element position updated succesfully."
-    "swap_image": "Change image."
-    "swfupload: cancel_uploads": "Cancel uploads"
-    "title": "Title"
+    please_confirm: "Please confirm"
+    please_wait: "Please wait"
+    rename_file: "Rename this file."
+    robot_follow: "robot may follow links."
+    robot_index: "allow robot to index."
+    saved_link: "Link saved."
+    search_engines: "Searchengines"
+    select_element: "Select element"
+    show_element_content: "Show content of this element."
+    show_elements_from_page: "Show all elements from this page"
+    show_eq: "Show EQ"
+    show_navigation: "Show in navigation"
+    show_page_in_sitemap: "Show page in sitemap."
+    small_thumbnails: "Small thumbnails"
+    successfully_added_element: "Succesfully added new element."
+    successfully_saved_element_position: "Element position updated succesfully."
+    swap_image: "Change image."
+    swfupload:
+      cancel_uploads: "Cancel uploads"
+    title: "Title"
     "trash element": "Put element into trash"
-    "unlink": "Remove link from this image."
-    "unlock_page": "Leave page"
-    "unlocked_page": "Unlocked page %{name}."
-    "updated_at": "Updated at"
-    "upload_file": "Upload file(s)."
-    "upload_image": "Upload image(s)."
-    "url_name": "URL-Name"
-    "urlname_to_short": "The pages urlname is too short (minimum of 3 characters)"
-    "username": "Username"
-    "want_to_create_new_language": "Or do you want to create a new empty language tree?"
-    "want_to_make_copy_of_existing_language": "Do you want to copy an existing language tree?"
-    "welcome_please_identify_notice": "Welcome! Please identify."
-    "width": "Width"
-    "You can get the latest version on the": "You can get the latest version on the %{link}."
+    use_alternative_uploader_instead: "Please use this alternative uploader instead."
+    unlink: "Remove link from this image."
+    unlock_page: "Leave page"
+    unlocked_page: "Unlocked page %{name}."
+    updated_at: "Updated at"
+    upload_file: "Upload file(s)."
+    upload_image: "Upload image(s)."
+    url_name: "URL-Name"
+    urlname_to_short: "The pages urlname is too short (minimum of 3 characters)"
+    username: "Username"
+    want_to_create_new_language: "Or do you want to create a new empty language tree?"
+    want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
+    welcome_please_identify_notice: "Welcome! Please identify."
+    width: "Width"
     "You may upload files with following extensions": "You may upload %{file_types_description} with following extensions: %{file_types}"
-    "zoom_image": "Zoom this image."
+    zoom_image: "Zoom this image."
     
   # END of Alchemy translation
   
@@ -458,37 +463,7 @@ en:
   
   # Translations for active record database models and error messages.
   activerecord:
-    errors:
-      template:
-        header:
-          one:   "1 error prohibited this %{model} from being saved" 
-          other:  "%{count} errors prohibited this %{model} from being saved" 
-        body: "There were problems with the following fields:"
-        messages:
-          inclusion: "is not included in the list" 
-          exclusion: "is reserved" 
-          invalid: "is invalid" 
-          confirmation: "doesn't match confirmation" 
-          accepted: "must be accepted" 
-          empty: "can't be empty" 
-          blank: "can't be blank" 
-          too_long: "is too long (maximum is %{count} characters)" 
-          too_short: "is too short (minimum is %{count} characters)" 
-          wrong_length: "is the wrong length (should be %{count} characters)" 
-          taken: "has already been taken" 
-          not_a_number: "is not a number" 
-          greater_than: "must be greater than %{count}" 
-          greater_than_or_equal_to: "must be greater than or equal to %{count}" 
-          equal_to: "must be equal to %{count}" 
-          less_than: "must be less than %{count}" 
-          less_than_or_equal_to: "must be less than or equal to %{count}" 
-          odd: "must be odd" 
-          even: "must be even" 
-        models:
-          alchemy/language:
-            attributes:
-              code:
-                invalid: 'Format of languagecode is not valid. Please use exactly two lowercase characters.'
+    
     models:
       
       alchemy/attachment:
@@ -499,7 +474,7 @@ en:
       
       alchemy/attachment:
         content_type: Filetype
-        created_at: "Created At"
+        created_at: "Created at"
         filename: Filename
         name: Name
         size: Filesize
@@ -518,7 +493,7 @@ en:
         public: "public"
       
       alchemy/page:
-        created_at: "Created At"
+        created_at: "Created at"
         language: "Language"
         locked: "This page is locked by another user."
         locked_by: "locked by"
@@ -528,11 +503,11 @@ en:
         page_layout: "Pagetype"
         public: "public"
         resctricted: "restricted"
-        robot_follow: "robot may follow links."
-        robot_index: "allow robot to index."
+        robot_follow: "robot may follow links"
+        robot_index: "allow robot to index"
         sitemap: "show in sitemap"
         title: "Title"
-        updated_at: "Created At"
+        updated_at: "Updated at"
         urlname: "Urlname"
         visible: "show in navigation"
       
@@ -553,26 +528,59 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         role: "Userrole"
-      
+    
+    errors:
+      template:
+        header: "Validation failed"
+        body: ""
+        
+      messages:
+        inclusion: "is not included in the list" 
+        exclusion: "is reserved" 
+        invalid: "is invalid" 
+        confirmation: "doesn't match confirmation" 
+        accepted: "must be accepted" 
+        empty: "can't be empty" 
+        blank: "can't be blank" 
+        too_long: "is too long (maximum is %{count} characters)" 
+        too_short: "is too short (minimum is %{count} characters)" 
+        wrong_length: "is the wrong length (should be %{count} characters)" 
+        taken: "has already been taken" 
+        not_a_number: "is not a number" 
+        greater_than: "must be greater than %{count}" 
+        greater_than_or_equal_to: "must be greater than or equal to %{count}" 
+        equal_to: "must be equal to %{count}" 
+        less_than: "must be less than %{count}" 
+        less_than_or_equal_to: "must be less than or equal to %{count}" 
+        odd: "must be odd" 
+        even: "must be even" 
+      models:
+        alchemy/language:
+          attributes:
+            code:
+              invalid: 'Format of languagecode is not valid. Please use exactly two lowercase characters.'
+
   # Translations for the authentication system used in alchemy.
   authlogic:
-    authlogic:
-      error_messages:
-        login_blank: 'can not be blank'
-        login_not_found: 'is not valid'
-        consecutive_failed_logins_limit_exceeded: 'Consecutive failed logins limit exceeded, account is disabled.'
-        email_invalid: 'should look like an email address.'
-        password_blank: 'can not be blank'
-        password_invalid: 'is not valid'
-        not_active: 'Your account is not active'
-        not_confirmed: 'Your account is not confirmed'
-        not_approved: 'Your account is not approved'
-        no_authentication_details: 'You did not provide any details for authentication.'
-      models:
-        alchemy/user_session: 'Session'
-      attributes:
-        alchemy/user_session:
-          login: login
-          email: email
-          password: password
-          remember_me: 'remember me'
+    error_messages:
+      login_blank: 'can not be blank'
+      login_not_found: 'could not be found'
+      consecutive_failed_logins_limit_exceeded: 'Consecutive failed logins limit exceeded, account is disabled.'
+      email_invalid: 'should look like an email address.'
+      password_blank: 'can not be blank'
+      password_invalid: 'is not correct'
+      not_active: 'Your account is not active'
+      not_confirmed: 'Your account is not confirmed'
+      not_approved: 'Your account is not approved'
+      no_authentication_details: 'You did not provide any details for authentication'
+      login_not_valid: "is invalid. Please use letters, numbers, spaces and .-_@ only"
+      login_too_short: "is too short. Please use 3 characters ar least"
+      
+    models:
+      alchemy/user_session: 'Session'
+    attributes:
+      alchemy/user_session:
+        login: Username
+        email: Email
+        password: Password
+        remember_me: 'remember me'
