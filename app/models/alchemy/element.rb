@@ -380,12 +380,13 @@ module Alchemy
 			essence_errors.each do |content_name, errors|
 				errors.each do |error|
 					messages << Alchemy::I18n.t(
-						"alchemy.content_validations.#{self.name}.#{content_name}.#{error}",
+						"content_validations.#{self.name}.#{content_name}.#{error}",
 						:default => [
-							"alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
-							"alchemy.content_validations.errors.#{error}".to_sym
-						]
-					, :field => Content.translated_label_for(content_name))
+							"content_validations.fields.#{content_name}.#{error}".to_sym,
+							"content_validations.errors.#{error}".to_sym
+						],
+						:field => Content.translated_label_for(content_name)
+					)
 				end
 			end
 			messages

@@ -11,7 +11,7 @@ module Alchemy
 					end
 				end
 				init = init.collect { |key, value| "#{key} : #{value.to_json}" }.join(', ')
-		
+				
 				setup = "init.setup = #{Alchemy::Tinymce.setup};" if Alchemy::Tinymce.setup
 				return "
 		<script type='text/javascript'>
