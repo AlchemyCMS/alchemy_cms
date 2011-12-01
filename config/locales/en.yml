@@ -72,7 +72,8 @@ en:
     # == Translations for the build in full text search.
     search:
       no_results: 'No results found'
-      result_heading: 'Your search for %{query} has %{count} results'
+      result_heading: "Your search for '%{query}'"
+      result_count: 'Offers %{result_count} results'
     
     # == Contactform translations
     contactform:

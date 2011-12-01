@@ -484,5 +484,67 @@ module Alchemy
 			javascript_include_tag("alchemy/preview") if @preview_mode
 		end
 
+		# Renders the search form
+		def render_search_form(options={})
+			default_options = {
+				:page => @search_result_page,
+				:html5 => false
+			}
+			options = default_options.merge(options)
+			return warning(t("No page found for #{options[:page].inspect}")) if options[:page].class.name != "Alchemy::Page"
+			form_tag(show_alchemy_page_path(options[:page]), :method => :get, :class => 'fulltext_search') do
+				if options[:html5]
+					search_field_tag(:query, params[:query])
+				else
+					text_field_tag(:query, params[:query]) + submit_tag(:search)
+				end
+			end
+		end
+
+		# Renders the search-results
+		def render_search_results(options={})
+			default_options = {
+				:partial => 'alchemy/search/result',
+				:show_language => true,
+				:show_result_count => true,
+				:show_heading => true
+			}
+			options = default_options.merge(options)
+			return content_tag :h2, t('alchemy.search.no_results') if @search_results.blank?
+			results = ""
+			@search_results.each do |essence|
+				result = essence.highlight(
+					"*#{params[:query]}*", {
+						:field => (essence.class.name == "Alchemy::EssenceRichtext" ? :stripped_body : :body)
+				})
+				results << render(:partial => options[:partial], :locals => {:result => result, :options => options, :page => essence.page}) if essence.page
+			end
+			output = ""
+			output << content_tag(:h1, t("alchemy.search.result_heading", :query => h(params[:query])), :class => 'search_results_heading') if options[:show_heading]
+			output << content_tag(:h2, t("alchemy.search.result_count", :result_count => @search_results.length), :class => 'search_result_count') if options[:show_result_count]
+			output << content_tag(:ul, results.html_safe, :class => 'search_result_list')
+			content_tag :div, :class => 'search_results' do
+				output.html_safe
+			end
+		end
+		
+		# Returns the correct params-hash for passing to show_page_path
+		def show_page_path_params(page=nil, optional_params={})
+			return nil if page.class.name != "Alchemy::Page"
+			url_params = {:urlname => page.urlname}
+			url_params.update(optional_params) if optional_params.class.name == "Hash"
+			return multi_language? ? url_params.update(:lang => page.language_code) : url_params
+		end
+
+		# 
+		def show_alchemy_page_path(page=nil, optional_params={})
+			alchemy.show_page_path(show_page_path_params(page, optional_params))
+		end
+
+		# 
+		def show_alchemy_page_url(page=nil, optional_params={})
+			alchemy.show_page_url(show_page_path_params(page, optional_params))
+		end
+
 	end
 end

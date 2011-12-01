@@ -42,6 +42,21 @@ module Alchemy
 			@@definitions.detect{ |a| a["name"].downcase == name.downcase }
 		end
 
+		def self.get_all_by_attributes(attributes)
+			return [] if attributes.blank?
+			if attributes.class.name == 'Hash'
+				all_definitions = read_layouts_file
+				layouts = []
+				attributes.each do |key, value|
+					result = all_definitions.select{ |a| a[key.to_s].to_s.downcase == value.to_s.downcase if a.has_key?(key.to_s) }
+					layouts += result unless result.empty?
+				end
+				return layouts
+			else
+				return []
+			end
+		end
+
 		# Returns page layouts ready for Rails' select form helper.
 		def self.get_layouts_for_select(language_id, layoutpage = false)
 			layouts_for_select = [ [ _("Please choose"), "" ] ]
@@ -54,7 +69,7 @@ module Alchemy
 
 		def self.selectable_layouts(language_id, layoutpage = false)
 			@@definitions.select do |layout|
-				used = layout["unique"] && has_another_page_this_layout?(layout["name"], language_id)
+				used = layout["unique"] && has_a_page_this_layout?(layout["name"], language_id)
 				if layoutpage
 					layout["layoutpage"] == true && !used && layout["newsletter"] != true
 				else
@@ -69,7 +84,7 @@ module Alchemy
 			a
 		end
 
-		def self.has_another_page_this_layout?(layout, language_id)
+		def self.has_a_page_this_layout?(layout, language_id)
 			Page.where({:page_layout => layout, :language_id => language_id}).any?
 		end
 

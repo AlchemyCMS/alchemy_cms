@@ -2,6 +2,7 @@ module Alchemy
 	class PagesController < Alchemy::BaseController
 
 		before_filter :render_page_or_redirect, :only => [:show, :sitemap]
+		before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
 
 		filter_access_to :show, :attribute_check => true, :model => Alchemy::Page, :load_method => :load_page
 
@@ -30,11 +31,9 @@ module Alchemy
 		# @page is fetched via before filter
 		# @root_page is fetched via before filter
 		# @language fetched via before_filter in alchemy_controller
-		# rendering page and querying for search results if any query is present
+		# querying for search results if any query is present via before_filter
+		# rendering page
 		def show
-			if configuration(:ferret) && !params[:query].blank?
-				perform_search
-			end
 			respond_to do |format|
 				format.html {
 					render :layout => params[:layout].blank? ? 'alchemy/pages' : params[:layout] == 'none' ? false : params[:layout]
@@ -104,18 +103,29 @@ module Alchemy
 			end
 		end
 
+		# Performs a search on EssenceRichtext and EssenceText for params['query'].
+		# Only performing the search when ferret is enabled in the alchemy/config.yml and 
+		# a Page gets found where the searchresults can be rendered. This Page gets found 
+		# when a page_layout is marked for rendering searchresults: 
+		# 'searchresults: true' in alchemy/page_layouts.yml
 		def perform_search
-			@rtf_search_results = EssenceRichtext.find_with_ferret(
-				"*#{params[:query]}*",
-				{:limit => :all},
-				{:conditions => ["public = ?", true]}
-			)
-			@text_search_results = EssenceText.find_with_ferret(
-				"*#{params[:query]}*",
-				{:limit => :all},
-				{:conditions => ["public = ?", true]}
-			)
-			@search_results = (@text_search_results + @rtf_search_results).sort{ |y, x| x.ferret_score <=> y.ferret_score }
+			searchresult_page_layouts = PageLayout.get_all_by_attributes({:searchresults => true})
+			if searchresult_page_layouts.any?
+				@search_result_page = Page.find_by_page_layout_and_public_and_language_id(searchresult_page_layouts.first["name"], true, session[:language_id])
+				if !params[:query].blank? && @search_result_page
+					@rtf_search_results = EssenceRichtext.find_with_ferret(
+						"*#{params[:query]}*",
+						{:limit => :all},
+						{:conditions => ["public = ?", true]}
+					)
+					@text_search_results = EssenceText.find_with_ferret(
+						"*#{params[:query]}*",
+						{:limit => :all},
+						{:conditions => ["public = ?", true]}
+					)
+					@search_results = (@text_search_results + @rtf_search_results).sort{ |y, x| x.ferret_score <=> y.ferret_score }
+				end
+			end
 		end
 
 		def find_first_public(page)
