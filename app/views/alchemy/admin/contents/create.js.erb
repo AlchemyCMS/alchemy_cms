@@ -24,7 +24,7 @@
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
   
-<%- elsif @content.essence_type ==  "EssenceText" -%>
+<%- elsif @content.essence_type ==  "Alchemy::EssenceText" -%>
 
   <%- locals = {
     :content => @content,
@@ -53,7 +53,7 @@
 
   <%- end -%>
 
-<%- elsif @content.essence_type ==  "EssenceRichtext" -%>
+<%- elsif @content.essence_type ==  "Alchemy::EssenceRichtext" -%>
 
   <%- locals = {
     :content => @content,

@@ -401,7 +401,7 @@ module Alchemy
 		end
 
 		def rtf_contents
-			contents.select { |content| content.essence_type == 'EssenceRichtext' }
+			contents.select { |content| content.essence_type == 'Alchemy::EssenceRichtext' }
 		end
 		alias_method :richtext_contents, :rtf_contents
 
