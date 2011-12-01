@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<rails>, ["~> 3.1"])
   s.add_runtime_dependency(%q<authlogic>)
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
-  s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.3"])
+  s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.4"])
   s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.0.9"])
   s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0"])
   s.add_runtime_dependency(%q<acts_as_ferret>, ["~> 0.5"])
