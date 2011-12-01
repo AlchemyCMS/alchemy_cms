@@ -18,16 +18,11 @@
 	<%- end -%>
 	<%- end -%>
 <%- end -%>
+
 <%- content_for(:toolbar) do -%>
 <div id="toolbar_buttons">
 	<div class="button_with_label">
-		<%= form_tag(
-			alchemy.unlock_admin_page_path(
-				@page,
-				:redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path
-			),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!')) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});"
-		) do %>
+		<%= form_tag alchemy.unlock_admin_page_path(@page, :redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), :id => 'unlock_page_form' do %>
 			<button class="icon_button" title="<%= t('explain_unlocking') %>">
 				<%= render_icon('close') %>
 			</button>
@@ -36,10 +31,7 @@
 	</div>
 	<%- unless @page.layoutpage? -%>
 	<div class="button_with_label">
-		<%= form_tag(
-			alchemy.visit_admin_page_path(@page),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!')) }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'};"
-		) do %>
+		<%= form_tag alchemy.visit_admin_page_path(@page), :id => 'visit_page_form' do %>
 			<button class="icon_button" title="<%= t('Visit page') %>">
 				<%= render_icon('visit_page') %>
 			</button>
@@ -62,10 +54,7 @@
 	</div>
 	<%- if configuration(:cache_pages) && !@page.layoutpage? -%>
 	<div class="button_with_label">
-		<%= form_tag(
-			alchemy.publish_admin_page_path(@page),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!')) }', message: '#{ t('You have unsaved elements on this page. Do you really want to clear the page cache?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'};"
-		) do -%>
+		<%= form_tag alchemy.publish_admin_page_path(@page), :id => 'publish_page_form' do -%>
 			<button class="icon_button" title="<%= t('explain_publishing') %>">
 				<%= render_icon('publish') %>
 			</button>
@@ -99,14 +88,15 @@
 	</div>
 </div>
 <%- end -%>
+
 <%- content_for :javascripts do -%>
 <%= tinymce_javascript_tags %>
 <script type="text/javascript" charset="utf-8">
-	
+
 	function openPreviewWindow() {
 		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
 	}
-	
+
 	function openElementsWindow() {
 		Alchemy.openElementsWindow('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
 			texts: {
@@ -171,18 +161,21 @@
 			jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
 		});
 	}
-	
-	jQuery(document).ready(function() {
+
+	jQuery(document).ready(function($) {
+		var texts = {
+			title: '<%= t("Warning!") %>',
+			message: '<%= t("You have unsaved elements on this page. Do you really want to continue?") %>',
+			okLabel: '<%= t("Yes") %>',
+			cancelLabel: '<%= t("No") %>'
+		};
+		$('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
+			return Alchemy.checkPageDirtyness(this, texts);
+		});
+		Alchemy.PageLeaveObserver(texts);
 		openElementsWindow();
 		openPreviewWindow();
 	});
-	
-	Alchemy.PageLeaveObserver({
-		title: '<%= t("Warning!") -%>',
-		message: '<%=  t("You have unsaved elements on this page. Do you really want to leave this page?") -%>',
-		okLabel: '<%= t("Yes") -%>',
-		cancelLabel: '<%= t("No") -%>'
-	});
-	
+
 </script>
 <%- end -%>
