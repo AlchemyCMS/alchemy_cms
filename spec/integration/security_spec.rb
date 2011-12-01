@@ -10,7 +10,7 @@ describe "Security: " do
 		
 		it "render the signup view" do
 			visit '/alchemy/'
-			within('#alchemy_greeting') { page.should have_content('Signup') }
+			within('#alchemy_greeting') { page.should have_content('signup') }
 		end
 	end
 	
@@ -37,7 +37,7 @@ describe "Security: " do
 				visit '/alchemy/admin/login'
 				fill_in('alchemy_user_session_login', :with => 'jdoe')
 				fill_in('alchemy_user_session_password', :with => 's3cr3t')
-				click_on('login')
+				click_on('Login')
 			end
 			
 			it "should be redirected to dashboard" do

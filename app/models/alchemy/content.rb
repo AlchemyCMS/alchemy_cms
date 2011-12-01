@@ -132,13 +132,23 @@ module Alchemy
 			self.class.translated_label_for(self.name, self.element.name)
 		end
 
-		# Translates a name from string. Optional: pass an element_name to namespacing.
+		# Returns the translated label for a content name.
+		# 
+		# Translate it in your locale yml file:
+		# 
+		#   alchemy:
+		#     content_names:
+		#      foo: Bar
+		# 
+		# Optionally you can scope your content name to an element:
+		# 
+		#   alchemy:
+		#     content_names:
+		#      article:
+		#       foo: Baz
+		# 
 		def self.translated_label_for(content_name, element_name = nil)
-			if element_name.blank?
-				Alchemy::I18n.t("alchemy.content_names.#{content_name}", :default => content_name.capitalize)
-			else
-				Alchemy::I18n.t("alchemy.content_names.#{element_name}.#{content_name}", :default => ["alchemy.content_names.#{content_name}".to_sym, content_name.capitalize])
-			end
+			Alchemy::I18n.t("content_names.#{element_name}.#{content_name}", :default => ["content_names.#{content_name}".to_sym, content_name.capitalize])
 		end
 
 		def linked?
