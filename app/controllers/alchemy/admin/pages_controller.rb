@@ -167,7 +167,6 @@ module Alchemy
 			end
 
 			def copy_language_tree
-				set_language_to(session[:language_id])
 				# copy language root from old to new language
 				if params[:layoutpage]
 					original_language_root = Page.layout_root_for(params[:languages][:old_lang_id])
@@ -210,9 +209,7 @@ module Alchemy
 			end
 
 			def switch_language
-				# we just set the new session here, because the AlchemyController
-				# will set the language via before_filter dependend on the session
-				session[:language_id] = params[:language_id]
+				set_language_from(params[:language_id])
 				redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
 				if request.xhr?
 					@redirect_url = redirect_path

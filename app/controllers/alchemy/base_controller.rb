@@ -26,16 +26,6 @@ module Alchemy
 			return Alchemy::Config.get(name)
 		end
 
-		def set_language_to(language_id)
-			@language = Language.find(language_id)
-			if @language
-				session[:language_id] = @language.id
-				session[:language_code] = @language.code
-			else
-				logger.error "+++++++ Language not found for language_id: #{language_id}"
-			end
-		end
-
 		def multi_language?
 			Language.published.count > 1
 		end
@@ -63,28 +53,38 @@ module Alchemy
 
 		# Sets the language for rendering pages in pages controller
 		def set_language
-			if params[:lang].blank? or session[:language_id].blank?
+			if params[:lang].blank? and session[:language_id].blank?
 				set_language_to_default
-			else
-				set_language_to(session[:language_id])
+			elsif !params[:lang].blank?
+				set_language_from(params[:lang])
 			end
 		end
 
-		# Do we really need this anymore?
-		def set_language_from_client
-			if params[:lang].blank?
-				lang = request.env['HTTP_ACCEPT_LANGUAGE'][0..1] unless request.env['HTTP_ACCEPT_LANGUAGE'].blank?
-				language_code = lang
-			else
-				language_code = params[:lang]
+		def set_language_from(language_code_or_id)
+			if language_code_or_id.is_a?(String) && language_code_or_id.match(/^\d+$/)
+				language_code_or_id = language_code_or_id.to_i
 			end
-			@language = Language.find_by_code(language_code) || Language.get_default
-			if @language.blank?
-				logger.warn "+++++++ Language not found for code: #{language_code}"
-				render :file => Rails.root + 'public/404.html', :code => 404
+			case language_code_or_id.class.name
+				when "String"
+					@language = Language.find_by_code(language_code_or_id)
+				when "Fixnum"
+					@language = Language.find(language_code_or_id)
+			end
+			store_language_in_session(@language)
+		end
+
+		def set_language_to_default
+			@language = Language.get_default
+			store_language_in_session(@language)
+		end
+
+		def store_language_in_session(language)
+			if language
+				session[:language_code] = language.code
+				session[:language_id] = language.id
 			else
-				session[:language_id] = @language.id
-				session[:language_code] = @language.code
+				logger.warn "!!!! Language not found for #{language.inspect}. Setting to default!"
+				set_language_to_default
 			end
 		end
 
@@ -130,13 +130,6 @@ module Alchemy
 					redirect_to login_path
 				end
 			end
-		end
-
-		# Setting language relevant stuff to defaults.
-		def set_language_to_default
-			@language ||= Language.get_default
-			session[:language_id] = @language.id
-			session[:language_code] = @language.code
 		end
 
 	end
