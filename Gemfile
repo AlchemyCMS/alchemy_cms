@@ -7,6 +7,7 @@ gem 'declarative_authorization', :git => 'git://github.com/stffn/declarative_aut
 group :test do
 	gem 'factory_girl_rails'
 	gem "capybara"
+	#gem 'capybara-webkit'
 	gem "launchy"
 	gem "database_cleaner"
 	gem "fuubar"
