@@ -7,15 +7,15 @@
 	<td class="name"><%= user.firstname -%></td>
 	<td><%= user.lastname -%></td>
 	<td class="email"><%= user.email %></td>
-	<td><%= user.language %></td>
-	<td class="role"><%= I18n.t("alchemy.user_roles.#{user.role}") %></td>
+	<td><%= t(user.language, :scope => 'translations') %></td>
+	<td class="role"><%= t("user_roles.#{user.role}") %></td>
 	<td class="tools">
 		<%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
 		<%= link_to_confirmation_window(
 			'',
-			_("confirm_to_delete_user"),
+			t("confirm_to_delete_user"),
 			alchemy.admin_user_path(user),
-			:title => _('delete_user'),
+			:title => t('delete_user'),
 			:class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
 		) -%>
 		<%- end -%>
@@ -24,13 +24,13 @@
 			'',
 			alchemy.edit_admin_user_path(user),
 			{
-				:title => _('edit_user'),
+				:title => t('edit_user'),
 				:size => '384x400',
 				:overflow => true
 			},
 			{
 				:class => "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
-				:title => _('edit_user')
+				:title => t('edit_user')
 			}
 		) -%>
 		<%- end -%>

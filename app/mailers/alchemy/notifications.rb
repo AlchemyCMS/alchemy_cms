@@ -8,7 +8,7 @@ module Alchemy
 			@url = login_url
 			mail(
 				:to => user.email,
-				:subject => I18n.t("alchemy.mailer.new_user_mail.subject")
+				:subject => Alchemy::I18n.t("alchemy.mailer.new_user_mail.subject")
 			)
 		end
 
@@ -17,7 +17,7 @@ module Alchemy
 			@url = admin_url
 			mail(
 				:to => user.email,
-				:subject => _("Your Alchemy Login")
+				:subject => Alchemy::I18n.t("Your Alchemy Login")
 			)
 		end
 

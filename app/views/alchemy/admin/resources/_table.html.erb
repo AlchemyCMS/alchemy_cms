@@ -9,7 +9,7 @@
 		<%- else -%>
 		<th>
 		<%- end -%>
-			<%= _("#{resource_model_name.classify}|#{attribute[:name].humanize}") %>
+			<%= resource_model.human_attribute_name(attribute[:name]) %>
 		</th>
 		<%- end -%>
 		<th class="tools"></th>
@@ -17,7 +17,7 @@
 	<%= render_resources %>
 </table>
 <%- elsif params[:query] -%>
-<p><%= _('Nothing found.') %></p>
+<p><%= t('Nothing found.') %></p>
 <%- end -%>
 
 <%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable %>

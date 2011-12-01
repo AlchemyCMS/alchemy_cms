@@ -1,5 +1,5 @@
 <div id="overlay_tab_internal_link">
-  <h2><%= _("internal_link_headline") %></h2>
+  <h2><%= t("internal_link_headline") %></h2>
   <table class="window_form">
     <tr>
       <td colspan="2">
@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="internal_link_title"><%= _('Title') %>:</label>
+        <label for="internal_link_title"><%= t('Title') %>:</label>
       </td>
       <td class="input">
         <%= text_field_tag "internal_link_title", '', :class => 'thin_border auto_resize link_title' %>
@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="internal_link_target"><%= _("Open Link in") %>:</label>
+        <label for="internal_link_target"><%= t("Open Link in") %>:</label>
       </td>
       <td>
         <%= select_tag 'internal_link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
@@ -31,7 +31,7 @@
     <%= hidden_field_tag( "internal_urlname" ) %>
     <%= hidden_field_tag( "page_anchor" ) %>
     <%= link_to_function(
-      _("apply"),
+      t("apply"),
       %(
         Alchemy.LinkOverlay.createLink(
           'internal',

@@ -11,7 +11,7 @@ describe Alchemy::Admin::ContentsHelper do
 	end
 
 	it "should render the content name" do
-		helper.render_content_name(@element.contents.first).should == "Einleitung"
+		helper.render_content_name(@element.contents.first).should == "Intro"
 	end
 
 	it "should render a link to add new content to element" do

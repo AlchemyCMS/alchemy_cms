@@ -1,11 +1,11 @@
 <div id="overlay_tab_file_link">
   <h2>
-    <%= _("choose_file_to_link") %>
+    <%= t("choose_file_to_link") %>
   </h2>
   <table class="window_form">
     <tr>
       <td class="label long">
-        <label for="public_filename"><%= _("file") %></label>
+        <label for="public_filename"><%= t("file") %></label>
       </td>
       <td class="select">
         <%= select_tag(
@@ -18,7 +18,7 @@
     <tr>
       <td class="label long">
         <label for="file_link_title">
-          <%= _("link_title") %>
+          <%= t("link_title") %>
         </label>
       </td>
       <td class="input">
@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="file_link_target"><%= _("Open Link in") %>:</label>
+        <label for="file_link_target"><%= t("Open Link in") %>:</label>
       </td>
       <td>
         <%= select_tag 'file_link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
@@ -36,7 +36,7 @@
   </table>
   <p>
     <%= link_to_function(
-      _("apply"),
+      t("apply"),
       %(
         Alchemy.LinkOverlay.createLink(
           'file',

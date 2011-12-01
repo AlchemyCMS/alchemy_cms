@@ -4,6 +4,8 @@ module Alchemy
 
 			include Userstamp
 
+			before_filter :set_translation
+
 			helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
 			filter_access_to :all
@@ -13,6 +15,14 @@ module Alchemy
 			layout 'alchemy/admin'
 
 		private
+
+			# Setting the Alchemy GUI translation to users preffered language, or taking default translation.
+			# You can set the default translation in your +config/application.rb+ file
+			def set_translation
+				if current_user && current_user.language
+					::I18n.locale = current_user.language
+				end
+			end
 
 			# Handles exceptions
 			def exception_handler(e)
@@ -84,7 +94,7 @@ module Alchemy
 			def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
 				if object.errors.empty?
 					@redirect_url = redirect_url
-					flash[:notice] = _(flash_notice)
+					flash[:notice] = t(flash_notice)
 					render :action => :redirect
 				else
 					render_remote_errors(object, button)

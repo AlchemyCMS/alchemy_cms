@@ -6,11 +6,6 @@ module Alchemy
 		# This seed builds the necessary page structure for alchemy in your db.
 		# Put Alchemy::Seeder.seed! inside your db/seeds.rb file and run it with rake db:seed.
 		def self.seed!
-			FastGettext.add_text_domain 'alchemy', :path => File.join(File.dirname(__FILE__), '../../locale')
-			FastGettext.text_domain = 'alchemy'
-			FastGettext.available_locales = ['de', 'en']
-			FastGettext.locale = Alchemy::Config.get(:default_translation)
-			
 			errors = []
 			notices = []
 			

@@ -5,7 +5,6 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'awesome_nested_set'
 	require 'dynamic_form'
 	require 'fleximage'
-	require 'gettext_i18n_rails'
 	require 'jquery-rails'
 	require 'userstamp'
 	require 'will_paginate'
@@ -18,7 +17,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'alchemy/version'
 	require 'alchemy/auth_engine'
 	require 'alchemy/engine'
-	%w(config essence page_layout modules remote_pagination_link_renderer tinymce).each do |class_name|
+	%w(config essence page_layout modules remote_pagination_link_renderer tinymce i18n).each do |class_name|
 		require File.join(File.dirname(__FILE__), "alchemy", class_name)
 	end
 	require File.join(File.dirname(__FILE__), "alchemy", "seeder")

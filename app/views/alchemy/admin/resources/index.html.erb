@@ -1,4 +1,4 @@
-<%- label_title = FastGettext.key_exist?("Create #{resource_model_name}") ? _("Create #{resource_model_name}") : _('Create') -%>
+<%- label_title = t("Create #{resource_model_name}", :default => t('Create')) -%>
 
 <%- toolbar(
 	:buttons => [

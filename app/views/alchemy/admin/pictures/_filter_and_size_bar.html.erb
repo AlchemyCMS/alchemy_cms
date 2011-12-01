@@ -11,7 +11,7 @@
 				:options => @options
 			}),
 			:remote => true,
-			:title => _("small_thumbnails"),
+			:title => t("small_thumbnails"),
 			:class => "icon_button"
 		) %>
 		<%= link_to(
@@ -25,7 +25,7 @@
 				:options => @options
 			}),
 			:remote => true,
-			:title => _("medium_thumbnails"),
+			:title => t("medium_thumbnails"),
 			:class => "icon_button"
 		) %>
 		<%= link_to(
@@ -39,10 +39,10 @@
 				:options => @options
 			}),
 			:remote => true,
-			:title => _("big_thumbnails"),
+			:title => t("big_thumbnails"),
 			:class => "icon_button"
 		) %>
-		<label><%= _('Image size') %></label>
+		<label><%= t('Image size') %></label>
 		<%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
 	</div>
 	<div class="toolbar_spacer"></div>
@@ -60,14 +60,14 @@
 		),
 		{
 			:size => "540x550",
-			:title => _('upload_image')
+			:title => t('upload_image')
 		},
 		{
 			:class => 'icon_button',
-			:title => _('upload_image')
+			:title => t('upload_image')
 		}
 	) %>
-	<label><%= _('upload_image') %></label>
+	<label><%= t('upload_image') %></label>
 	</div>
 	<%= render(:partial => 'alchemy/admin/partials/remote_search_form') %>
 </div>

@@ -8,7 +8,7 @@
 			attachment.name,
 			alchemy.admin_attachment_path(attachment),
 			:target => '_blank',
-			:title => _('View File')
+			:title => t('View File')
 		) %>
 		<%- else -%>
 		<%= attachment.name %>
@@ -23,14 +23,14 @@
 		<%= link_to(
 			"",
 			alchemy.download_admin_attachment_path(attachment),
-			:title => (_("download_file_'%{filename}'") % {:filename => attachment.filename}),
+			:title => t("download_file", :filename => attachment.filename),
 			:class => "icon file_download"
 		) %>
 		<%- end -%>
 		<%- permitted_to?(:destroy, :alchemy_admin_attachments) do -%>
 		<%= link_to_confirmation_window(
 			"",
-			_("confirm_to_delete_file"),
+			t("confirm_to_delete_file"),
 			alchemy.admin_attachment_path(
 				:id => attachment,
 				:query => params[:query],
@@ -39,7 +39,7 @@
 			),
 			{
 				:class => 'icon file_delete',
-				:title => _('delete_file')
+				:title => t('delete_file')
 			}
 		) -%>
 		<%- end -%>
@@ -47,11 +47,11 @@
 		<%= link_to_overlay_window("",
 			alchemy.edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
 			{
-				:title => _('rename_file'),
+				:title => t('rename_file'),
 				:size => '380x45'
 			},
 			:class => 'icon file_edit',
-			:title => _('rename_file')
+			:title => t('rename_file')
 		) -%>
 		<%- end -%>
 	</td>

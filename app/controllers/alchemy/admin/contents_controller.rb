@@ -38,7 +38,7 @@ module Alchemy
 					content = Content.find(id)
 					content.move_to_bottom
 				end
-				@notice = _("Successfully saved content position")
+				@notice = t("Successfully saved content position")
 			end
 
 			def destroy
@@ -46,7 +46,7 @@ module Alchemy
 				element = content.element
 				content_name = content.name
 				@content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
-				@notice = _("Successfully deleted %{content}") % {:content => content_name}
+				@notice = t("Successfully deleted content", :content => content_name)
 				content.destroy
 			end
   

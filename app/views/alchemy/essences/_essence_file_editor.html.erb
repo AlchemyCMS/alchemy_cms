@@ -13,19 +13,19 @@
 					:options => options
 				),
 				{
-					:title => _('assign_file'),
+					:title => t('assign_file'),
 					:size => '520x400',
 					:resizable => 'true'
 				},
 				:class => 'assign_file',
-				:title => _('assign_file')
+				:title => t('assign_file')
 			) %>
 		<%- else -%>
 			<%= render_icon(content.ingredient.icon_css_class) %>
 		<%- end -%>
 		</div>
 		<div class="file_name">
-			<%= content.ingredient.name rescue ("&#x2190;" + _('assign_file_from_archive')).html_safe %>
+			<%= content.ingredient.name rescue ("&#x2190;" + t('assign_file_from_archive')).html_safe %>
 		</div>
 		<%- unless content.ingredient.nil? -%>
 		<div class="essence_file_tools">
@@ -37,12 +37,12 @@
 					:options => options
 				),
 				{
-					:title => _('assign_file'),
+					:title => t('assign_file'),
 					:size => '520x400',
 					:resizable => 'true'
 				},
 				:class => 'assign_file',
-				:title => _('assign_file')
+				:title => t('assign_file')
 			) %>
 			<%= link_to_overlay_window("",
 				url_for(
@@ -51,11 +51,11 @@
 					:id => content
 				),
 				{
-					:title => _('edit_file_properties'),
+					:title => t('edit_file_properties'),
 					:size => '400x150'
 				},
 				:class => 'edit_file',
-				:title => _('edit_file_properties')
+				:title => t('edit_file_properties')
 			) %>
 		</div>
 		<%- end -%>

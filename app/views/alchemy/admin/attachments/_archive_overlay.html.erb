@@ -9,13 +9,13 @@
 					:options => @options
 				),
 				{
-					:title => _('upload_file'),
+					:title => t('upload_file'),
 					:size => '540x550'
 				},
-				:title => _('upload_file'),
+				:title => t('upload_file'),
 				:class => 'icon_button'
 			) %>
-			<label><%= _('upload_file') %></label>
+			<label><%= t('upload_file') %></label>
 		</div>
 		<%= js_filter_field(:onkeyup => "Alchemy.ListFilter('.assign_file_file')") %>
 	</div>

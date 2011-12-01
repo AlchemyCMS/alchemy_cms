@@ -8,7 +8,7 @@ module Alchemy
 		# Returns self.date for the Element#preview_text method.
 		def preview_text(foo=nil)
 			return "" if date.blank?
-			I18n.l(date)
+			::I18n.l(date)
 		end
 		
 		# Saves the ingredient

@@ -4,10 +4,9 @@ module Alchemy
 
 			rescue_from Exception, :with => :exception_handler
 
-			before_filter :set_translation
 			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
-			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
+			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
 
 			def index
 				if !params[:query].blank?
@@ -61,8 +60,8 @@ module Alchemy
 
 		protected
 			
-			# Returns a translated +flash[:notice]+ if +FastGettext+ finds the key.
-			# The key should look like "Modelname successfully created/updated/destroyed."
+			# Returns a translated +flash[:notice]+.
+			# The key should look like "Modelname successfully created|updated|destroyed."
 			def flash_notice_for_resource_action(action = params[:action])
 				case action.to_sym
 				when :create
@@ -72,12 +71,7 @@ module Alchemy
 				when :destroy
 					verb = "removed"
 				end
-				key = "#{resource_model_name.classify} successfully #{verb}."
-				if FastGettext.key_exist?(key)
-					flash[:notice] = _(key)
-				else
-					flash[:notice] = _("Succesfully #{verb}.")
-				end
+				flash[:notice] = t("#{resource_model_name.classify} successfully #{verb}", :default => t("Succesfully #{verb}"))
 			end
 
 			def load_resource

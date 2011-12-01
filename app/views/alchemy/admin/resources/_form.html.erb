@@ -3,7 +3,7 @@
 	<table>
 		<%- resource_attributes.each do |attribute| -%>
 		<tr>
-			<td class="label"><%= f.send :label, attribute[:name], _("#{resource_model_name.classify}|#{attribute[:name].humanize}") %></td>
+			<td class="label"><%= f.send :label, attribute[:name] %></td>
 			<%- if attribute[:type] == :boolean -%>
 			<td class="checkbox"><%= f.send :check_box, attribute[:name] -%></td>
 			<%- else -%>
@@ -13,7 +13,7 @@
 		<%- end -%>
 		<tr>
 			<td class="submit" colspan="2">
-				<%= f.button _('save'), :class => 'button' %>
+				<%= f.button t('save'), :class => 'button' %>
 			</td>
 		</tr>
 	</table>

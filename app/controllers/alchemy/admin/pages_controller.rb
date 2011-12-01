@@ -25,6 +25,8 @@ module Alchemy
 				# fetching page via before filter
 				@preview_mode = true
 				@root_page = Page.language_root_for(session[:language_id])
+				# Setting the locale to pages language. so the page content has its correct translation
+				::I18n.locale = @page.language_code
 				render :layout => params[:layout].blank? ? 'alchemy/pages' : params[:layout] == 'none' ? false : params[:layout]
 			end
 
@@ -42,7 +44,7 @@ module Alchemy
 				if !params[:paste_from_clipboard].blank?
 					source_page = Page.find(params[:paste_from_clipboard])
 					page = Page.copy(source_page, {
-						:name => params[:page][:name].blank? ? source_page.name + ' (' + _('Copy') + ')' : params[:page][:name],
+						:name => params[:page][:name].blank? ? source_page.name + ' (' + t('Copy') + ')' : params[:page][:name],
 						:urlname => '',
 						:title => '',
 						:parent_id => params[:page][:parent_id],
@@ -52,14 +54,14 @@ module Alchemy
 				else
 					page = Page.create(params[:page])
 				end
-				render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, _("page '%{name}' created.") % {:name => page.name}, 'form#new_page_form button.button')
+				render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, t("Page created.", :name => page.name), 'form#new_page_form button.button')
 			end
 
 			# Edit the content of the page and all its elements and contents.
 			def edit
 				# fetching page via before filter
 				if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
-					flash[:notice] = _("This page is locked by %{name}") % {:name => (@page.locker.name rescue _('unknown'))}
+					flash[:notice] = t("This page is locked by %{name}", :name => (@page.locker.name rescue t('unknown')))
 					redirect_to admin_pages_path
 				else
 					@page.lock(current_user)
@@ -81,7 +83,7 @@ module Alchemy
 			def update
 				# fetching page via before filter
 				if @page.update_attributes(params[:page])
-					@notice = _("Page %{name} saved") % {:name => @page.name}
+					@notice = t("Page saved", :name => @page.name)
 					@while_page_edit = request.referer.include?('edit')
 				else
 					render_remote_errors(@page, "form#edit_page_#{@page.id} button.button")
@@ -97,7 +99,7 @@ module Alchemy
 				if @page.destroy
 					@page_root = Page.language_root_for(session[:language_id])
 					get_clipboard('pages').delete(@page.id)
-					@message = _("Page %{name} deleted") % {:name => name}
+					@message = t("Page deleted", :name => name)
 					flash[:notice] = @message
 					respond_to do |format|
 						format.js
@@ -140,7 +142,7 @@ module Alchemy
 			def unlock
 				# fetching page via before filter
 				@page.unlock
-				flash[:notice] = _("unlocked_page_%{name}") % {:name => @page.name}
+				flash[:notice] = t("unlocked_page", :name => @page.name)
 				@pages_locked_by_user = Page.all_locked_by(current_user)
 				respond_to do |format|
 					format.js
@@ -160,12 +162,11 @@ module Alchemy
 				# fetching page via before filter
 				@page.public = true
 				@page.save
-				flash[:notice] = _("page_published") % {:name => @page.name}
+				flash[:notice] = t("page_published", :name => @page.name)
 				redirect_back_or_to_default(admin_pages_path)
 			end
 
 			def copy_language_tree
-				set_language_to(session[:language_id])
 				# copy language root from old to new language
 				if params[:layoutpage]
 					original_language_root = Page.layout_root_for(params[:languages][:old_lang_id])
@@ -180,7 +181,7 @@ module Alchemy
 				)
 				new_language_root.move_to_child_of Page.root
 				original_language_root.copy_children_to(new_language_root)
-				flash[:notice] = _('language_pages_copied')
+				flash[:notice] = t('language_pages_copied')
 				redirect_to params[:layoutpage] == "true" ? admin_layoutpages_path : :action => :index
 			end
 
@@ -202,15 +203,13 @@ module Alchemy
 					page = Page.find(page_id)
 					page.move_to_child_of(parent)
 				end
-				flash[:notice] = _("Pages order saved")
+				flash[:notice] = t("Pages order saved")
 				@redirect_url = admin_pages_path
 				render :action => :redirect
 			end
 
 			def switch_language
-				# we just set the new session here, because the AlchemyController
-				# will set the language via before_filter dependend on the session
-				session[:language_id] = params[:language_id]
+				set_language_from(params[:language_id])
 				redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
 				if request.xhr?
 					@redirect_url = redirect_path

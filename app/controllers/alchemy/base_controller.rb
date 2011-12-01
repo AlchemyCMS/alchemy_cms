@@ -2,17 +2,14 @@
 module Alchemy
 	class BaseController < ApplicationController
 
-		include FastGettext::Translation
 		include Alchemy::Modules
 
 		protect_from_forgery
 
 		before_filter :set_language
-		before_filter :init_gettext
-		before_filter :set_translation
 		before_filter :mailer_set_url_options
 
-		helper_method :current_server, :configuration, :multi_language?, :current_user
+		helper_method :current_server, :configuration, :multi_language?, :current_user, :t
 
 		# Returns a host string with the domain the app is running on.
 		def current_server
@@ -27,17 +24,6 @@ module Alchemy
 
 		def configuration(name)
 			return Alchemy::Config.get(name)
-		end
-
-		def set_language_to(language_id)
-			@language = Language.find(language_id)
-			if @language
-				session[:language_id] = @language.id
-				session[:language_code] = @language.code
-				I18n.locale = @language.code
-			else
-				logger.error "+++++++ Language not found for language_id: #{language_id}"
-			end
 		end
 
 		def multi_language?
@@ -58,42 +44,47 @@ module Alchemy
 			!current_user.blank?
 		end
 
+		# Overriding +I18n+s default +t+ helper, so we can pass it through +Alchemy::I18n+
+		def t(key, *args)
+			Alchemy::I18n.t(key, *args)
+		end
+
 	private
 
-		def init_gettext#:nodoc:
-			FastGettext.available_locales = configuration(:translations).collect { |l| l[:language_code] }
-		end
-
-		# Setting the Alchemy GUI translation to users preffered language, or to the default translation.
-		# You can set the default_translation in your config/alchemy/config.yml file
-		def set_translation
-			if current_user.blank? || current_user.language.blank?
-				FastGettext.locale = configuration(:default_translation) || I18n.locale
-			else
-				FastGettext.locale = current_user.language || I18n.locale
+		# Sets the language for rendering pages in pages controller
+		def set_language
+			if params[:lang].blank? and session[:language_id].blank?
+				set_language_to_default
+			elsif !params[:lang].blank?
+				set_language_from(params[:lang])
 			end
 		end
 
-		# What is this? Who was this?
-		def last_request_update_allowed?
-			true #action_name =! "update_session_time_left"
+		def set_language_from(language_code_or_id)
+			if language_code_or_id.is_a?(String) && language_code_or_id.match(/^\d+$/)
+				language_code_or_id = language_code_or_id.to_i
+			end
+			case language_code_or_id.class.name
+				when "String"
+					@language = Language.find_by_code(language_code_or_id)
+				when "Fixnum"
+					@language = Language.find(language_code_or_id)
+			end
+			store_language_in_session(@language)
 		end
 
-		# Do we really need this anymore?
-		def set_language_from_client
-			if params[:lang].blank?
-				lang = request.env['HTTP_ACCEPT_LANGUAGE'][0..1] unless request.env['HTTP_ACCEPT_LANGUAGE'].blank?
-				language_code = lang
+		def set_language_to_default
+			@language = Language.get_default
+			store_language_in_session(@language)
+		end
+
+		def store_language_in_session(language)
+			if language
+				session[:language_code] = language.code
+				session[:language_id] = language.id
 			else
-				language_code = params[:lang]
-			end
-			@language = Language.find_by_code(language_code) || Language.get_default
-			if @language.blank?
-				logger.warn "+++++++ Language not found for code: #{language_code}"
-				render :file => Rails.root + 'public/404.html', :code => 404
-			else
-				session[:language_id] = @language.id
-				I18n.locale = session[:language_code] = @language.code
+				logger.warn "!!!! Language not found for #{language.inspect}. Setting to default!"
+				set_language_to_default
 			end
 		end
 
@@ -116,14 +107,6 @@ module Alchemy
 
 	protected
 
-		def set_language
-			if params[:lang].blank? or session[:language_id].blank?
-				set_language_to_default
-			else
-				set_language_to(session[:language_id])
-			end
-		end
-
 		def permission_denied
 			if current_user
 				if current_user.role == 'registered'
@@ -132,14 +115,14 @@ module Alchemy
 					if request.referer == login_url
 						render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
 					elsif request.xhr?
-						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _('You are not authorized'), :flash_type => 'warning'}
+						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}
 					else
-						flash[:error] = _('You are not authorized')
+						flash[:error] = t('You are not authorized')
 						redirect_to admin_dashboard_path
 					end
 				end
 			else
-				flash[:info] = _('Please log in')
+				flash[:info] = t('Please log in')
 				if request.xhr?
 					render :action => :permission_denied
 				else
@@ -149,12 +132,5 @@ module Alchemy
 			end
 		end
 
-		# Setting language relevant stuff to defaults.
-		def set_language_to_default
-			@language ||= Language.get_default
-			session[:language_id] = @language.id
-			I18n.locale = session[:language_code] = @language.code
-		end
-  
 	end
 end

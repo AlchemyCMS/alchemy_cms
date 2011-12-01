@@ -4,8 +4,8 @@
 <%- else -%>
 	$('#picture_archive').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
 	Alchemy.inPlaceEditor({
-		save_label: "<%= _('save') -%>",
-		cancel_label: "<%= _('cancel') -%>"
+		save_label: "<%= t('save') -%>",
+		cancel_label: "<%= t('cancel') -%>"
 	});
 <%- end -%>
 	Alchemy.growl('<%= @message -%>');

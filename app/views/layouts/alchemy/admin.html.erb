@@ -20,7 +20,7 @@
 		<div id="overlay">
 			<div id="overlay_text_box">
 				<%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
-				<span id="overlay_text"><%= _("please_wait") %></span>
+				<span id="overlay_text"><%= t("please_wait") %></span>
 			</div>
 		</div>
 		<div id="main_menu">
@@ -30,7 +30,7 @@
 			</div>
 			<div id="main_menu_background"></div>
 			<div id="logout">
-				<%= link_to_overlay_window("<span class='module icon exit'></span><label>#{_('leave')}</label>".html_safe, alchemy.leave_admin_path, {:size => "300x140", :title => _("Leave Alchemy")}) %>
+				<%= link_to_overlay_window("<span class='module icon exit'></span><label>#{t('leave')}</label>".html_safe, alchemy.leave_admin_path, {:size => "300x140", :title => t("Leave Alchemy")}) %>
 			</div>
 		</div>
 		<div id="top_menu">
@@ -45,7 +45,7 @@
 			</div>
 			<%- if current_user -%>
 			<div id="user_info">
-				<%= _('Logged in as') %> <%= current_user.name %>
+				<%= t('Logged in as') %> <%= current_user.name %>
 			</div>
 			<%- end -%>
 		</div>

@@ -3,21 +3,21 @@
     <div class="sitemap_left_images">
       <span class="site_status <%= layoutpage.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= layoutpage.id %><%= layoutpage.locked ? ' locked' : '' %>" ></span>
       <div id="tooltip_<%= layoutpage.id %>" style="display: none;">
-        <h1><%= _("page_type") %>: <%= layoutpage.layout_display_name %></h1>
+        <h1><%= t("page_type") %>: <%= layoutpage.layout_display_name %></h1>
         <p>
           <%= layoutpage.humanized_status %>
         </p>
         <p>
-          <strong><%= _("created_at") %>:</strong>
+          <strong><%= t("created_at") %>:</strong>
           <%= l(layoutpage.created_at) %> von <%= layoutpage.creator %>
         </p>
         <p>
-          <strong><%= _("updated_at") %>:</strong>
+          <strong><%= t("updated_at") %>:</strong>
           <%= l(layoutpage.updated_at) %> durch <%= layoutpage.updater %>
         </p>
         <%- if layoutpage.locked? -%>
         <p>
-          <%= _("currently_edited_by") %>: <span style="font-weight: bold;"><%= layoutpage.current_editor %></span>
+          <%= t("currently_edited_by") %>: <span style="font-weight: bold;"><%= layoutpage.current_editor %></span>
         </p>
         <%- end -%>
       </div>
@@ -28,11 +28,11 @@
         render_icon('configure_page'),
         alchemy.configure_admin_page_path(layoutpage),
         {
-          :title => _('edit_page_properties'),
+          :title => t('edit_page_properties'),
           :size => '340x150'
         },
         :class => '',
-        :title => _('edit_page_properties')
+        :title => t('edit_page_properties')
       ) -%>
       <%- end -%>
       <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
@@ -47,13 +47,13 @@
           :remote => true,
           :method => :post,
           :class => "",
-          :title => _("copy_page")
+          :title => t("copy_page")
         ) %>
         <%- end -%>
         <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
         <%= link_to_confirmation_window(
           render_icon('delete_page'),
-          _("confirm_to_delete_page"),
+          t("confirm_to_delete_page"),
           url_for(
             :controller => 'pages',
             :action => 'destroy',
@@ -61,7 +61,7 @@
           ),
           {
             :class => "",
-            :title => _("delete_page")
+            :title => t("delete_page")
           }
         ) -%>
         <%- end -%>
@@ -72,7 +72,7 @@
       <%= link_to(
         layoutpage.name,
         alchemy.edit_admin_page_path(layoutpage),
-        :title => _("edit_page"),
+        :title => t("edit_page"),
         :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
       ) -%>
     </div>

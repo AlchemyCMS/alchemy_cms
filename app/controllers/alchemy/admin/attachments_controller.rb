@@ -50,7 +50,7 @@ module Alchemy
 					@swap = params[:swap]
 					@options = hashified_options
 				end
-				@message = _('File %{name} uploaded succesfully') % {:name => @attachment.name}
+				@message = t('File %{name} uploaded succesfully', :name => @attachment.name)
 				# Are we using the Flash uploader? Or the plain html file uploader?
 				if params[Rails.application.config.session_options[:key]].blank?
 					flash[:notice] = @message
@@ -67,7 +67,7 @@ module Alchemy
 				@attachment = Attachment.find(params[:id])
 				oldname = @attachment.name
 				if @attachment.update_attributes(params[:attachment])
-					flash[:notice] = _("File renamed successfully from: '%{from}' to '%{to}'") % {:from => oldname, :to => @attachment.name}
+					flash[:notice] = t("File renamed successfully from: '%{from}' to '%{to}'", :from => oldname, :to => @attachment.name)
 				else
 					render :action => "edit"
 				end
@@ -78,7 +78,7 @@ module Alchemy
 				@attachment = Attachment.find(params[:id])
 				name = @attachment.name
 				@attachment.destroy
-				flash[:notice] = ( _("File: '%{name}' deleted successfully") % {:name => name} )
+				flash[:notice] = t("File: '%{name}' deleted successfully", :name => name)
 			end
 
 			def show

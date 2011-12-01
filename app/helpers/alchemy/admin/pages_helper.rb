@@ -11,7 +11,7 @@ module Alchemy
 					end
 				end
 				init = init.collect { |key, value| "#{key} : #{value.to_json}" }.join(', ')
-		
+				
 				setup = "init.setup = #{Alchemy::Tinymce.setup};" if Alchemy::Tinymce.setup
 				return "
 		<script type='text/javascript'>
@@ -23,7 +23,7 @@ module Alchemy
 						init.mode = 'specific_textareas';
 						init.editor_selector = 'tinymce';
 						init.plugins = '#{Alchemy::Tinymce.plugins.join(',')}';
-						init.language = '#{I18n.locale}';
+						init.language = '#{::I18n.locale}';
 						init.init_instance_callback = function(inst) {
 							jQuery('#' + inst.editorId).prev('.essence_richtext_loader').hide();
 						}

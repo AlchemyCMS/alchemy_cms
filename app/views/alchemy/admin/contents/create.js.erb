@@ -97,6 +97,6 @@
 
 <%- end -%>
 
-  Alchemy.growl('<%= _("Successfully added %{content}") % {:content => @content.name} -%>');
+  Alchemy.growl('<%= t("Successfully added content", :content => @content.name) -%>');
 
 })(jQuery);

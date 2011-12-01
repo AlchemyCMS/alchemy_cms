@@ -1,21 +1,21 @@
 <%- if @attachments.blank? && params[:query].nil? -%>
 	<p class="padding_left_right" id="no_files_notice">
-		<%= _("no_files_in_archive") %>
+		<%= t("no_files_in_archive") %>
 	</p>
 <%- elsif @attachments.blank? -%>
 	<p class="padding_left_right">
-		<%= _("no_search_results") %>
+		<%= t("no_search_results") %>
 	</p>
 <%- end -%>
 <table id="all_files" class="list">
 	<%- unless @attachments.blank? -%>
 	<tr>
 		<th class="icon"></th>
-		<th class="name"><%= _('Attachment|Name') %></th>
-		<th class="file_name"><%= _('Attachment|Filename') %></th>
-		<th class="file_type"><%= _('Attachment|Content type') %></th>
-		<th class="file_size"><%= _('Attachment|Size') %></th>
-		<th class="date"><%= _('Attachment|Created at') %></th>
+		<th class="name"><%= t('Attachment|Name') %></th>
+		<th class="file_name"><%= t('Attachment|Filename') %></th>
+		<th class="file_type"><%= t('Attachment|Content type') %></th>
+		<th class="file_size"><%= t('Attachment|Size') %></th>
+		<th class="date"><%= t('Attachment|Created at') %></th>
 		<th class="tools"></th>
 	</tr>
 	<%- end -%>

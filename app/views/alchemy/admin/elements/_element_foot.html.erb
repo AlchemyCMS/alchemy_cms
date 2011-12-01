@@ -5,7 +5,7 @@
       alchemy.trash_admin_element_path(element),
       :method => :delete,
       :class => "delete_element_button",
-      :title => _("trash element"),
+      :title => t("trash element"),
       :remote => true
     ) -%>
     <%= link_to(
@@ -14,7 +14,7 @@
       :remote => true,
       :method => :post,
       :class => "element_move_button",
-      :title => _("cut_element")
+      :title => t("cut_element")
     ) %>
     <%= link_to(
       "",
@@ -22,14 +22,14 @@
       :remote => true,
       :method => :post,
       :class => "element_copy_button",
-      :title => _("copy_element")
+      :title => t("copy_element")
     ) %>
   </span>
   <span class="element_public">
     <%= check_box_tag "public", "1", element.public?, :id => "element_#{element.id}_public" -%>
-    <%= label_tag "element_#{element.id}_public", _("visible") -%>
+    <%= label_tag "element_#{element.id}_public", t("visible") -%>
   </span>
   <button type="submit" class="button">
-    <%= _('save') %>
+    <%= t('save') %>
   </button>
 </div>

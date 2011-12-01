@@ -27,9 +27,9 @@ module Alchemy
 		# :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
 		def render_essence(content, part = :view, options = {}, html_options = {})
 			if content.nil?
-				return part == :view ? "" : warning('Content is nil', _("content_not_found"))
+				return part == :view ? "" : warning('Content is nil', t("content_not_found"))
 			elsif content.essence.nil?
-				return part == :view ? "" : warning('Essence is nil', _("content_essence_not_found"))
+				return part == :view ? "" : warning('Essence is nil', t("content_essence_not_found"))
 			end
 			defaults = {
 				:for_editor => {

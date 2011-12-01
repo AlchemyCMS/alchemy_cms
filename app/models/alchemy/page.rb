@@ -14,13 +14,13 @@ module Alchemy
 		has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 		belongs_to :language
 
-		validates_presence_of :name, :message => '^'+_("please enter a name")
-		validates_presence_of :page_layout, :message => '^'+_("Please choose a page layout.")
-		validates_presence_of :parent_id, :message => '^'+_("No parent page was given."), :unless => :rootpage?
-		validates_length_of :urlname, :minimum => 3, :too_short => _("urlname_to_short"), :if => :urlname_entered?
-		validates_uniqueness_of :urlname, :message => '^'+_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
-		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => '^'+_("This page_layout name is reserved.") }, :unless => :rootpage?
-		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => '^'+_("This urlname is reserved.") }
+		validates_presence_of :name, :message => '^'+Alchemy::I18n.t("please enter a name")
+		validates_presence_of :page_layout, :message => '^'+Alchemy::I18n.t("Please choose a page layout.")
+		validates_presence_of :parent_id, :message => '^'+Alchemy::I18n.t("No parent page was given."), :unless => :rootpage?
+		validates_length_of :urlname, :minimum => 3, :too_short => Alchemy::I18n.t("urlname_to_short"), :if => :urlname_entered?
+		validates_uniqueness_of :urlname, :message => '^'+Alchemy::I18n.t("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
+		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => '^'+Alchemy::I18n.t("This page_layout name is reserved.") }, :unless => :rootpage?
+		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => '^'+Alchemy::I18n.t("This urlname is reserved.") }
 
 		attr_accessor :do_not_autogenerate
 		attr_accessor :do_not_sweep
@@ -207,21 +207,21 @@ module Alchemy
 		# Returns the name of the creator of this page.
 		def creator
 			@page_creator ||= User.find_by_id(creator_id)
-			return _('unknown') if @page_creator.nil?
+			return Alchemy::I18n.t('unknown') if @page_creator.nil?
 			@page_creator.name
 		end
 
 		# Returns the name of the last updater of this page.
 		def updater
 			@page_updater = User.find_by_id(updater_id)
-			return _('unknown') if @page_updater.nil?
+			return Alchemy::I18n.t('unknown') if @page_updater.nil?
 			@page_updater.name
 		end
 
 		# Returns the name of the user currently editing this page.
 		def current_editor
 			@current_editor = User.find_by_id(locked_by)
-			return _('unknown') if @current_editor.nil?
+			return Alchemy::I18n.t('unknown') if @current_editor.nil?
 			@current_editor.name
 		end
 
@@ -250,21 +250,21 @@ module Alchemy
 		def humanized_status
 			case self.status
 			when 0
-				return _('page_status_visible_public_locked')
+				return Alchemy::I18n.t('page_status_visible_public_locked')
 			when 1
-				return _('page_status_visible_unpublic_locked')
+				return Alchemy::I18n.t('page_status_visible_unpublic_locked')
 			when 2
-				return _('page_status_invisible_public_locked')
+				return Alchemy::I18n.t('page_status_invisible_public_locked')
 			when 3
-				return _('page_status_invisible_unpublic_locked')
+				return Alchemy::I18n.t('page_status_invisible_unpublic_locked')
 			when 4
-				return _('page_status_visible_public')
+				return Alchemy::I18n.t('page_status_visible_public')
 			when 5
-				return _('page_status_visible_unpublic')
+				return Alchemy::I18n.t('page_status_visible_unpublic')
 			when 6
-				return _('page_status_invisible_public')
+				return Alchemy::I18n.t('page_status_invisible_public')
 			when 7
-				return _('page_status_invisible_unpublic')
+				return Alchemy::I18n.t('page_status_invisible_unpublic')
 			end
 		end
 
@@ -326,7 +326,7 @@ module Alchemy
 		# Page layout names are defined inside the config/alchemy/page_layouts.yml file.
 		# Translate the name in your config/locales language yml file.
 		def layout_display_name
-			I18n.t("alchemy.page_layout_names.#{page_layout}", :default => page_layout.camelize)
+			Alchemy::I18n.t("alchemy.page_layout_names.#{page_layout}", :default => page_layout.camelize)
 		end
 
 		def renamed?
@@ -448,7 +448,7 @@ module Alchemy
 				new_child = Page.copy(child, {
 					:language_id => new_parent.language_id,
 					:language_code => new_parent.language_code,
-					:name => child.name + ' (' + _('Copy') + ')',
+					:name => child.name + ' (' + Alchemy::I18n.t('Copy') + ')',
 					:urlname => '',
 					:title => ''
 				})
@@ -468,17 +468,17 @@ module Alchemy
 
 		def self.link_target_options
 			options = [
-				[I18n.t('default', :scope => 'alchemy.link_target_options'), '']
+				[Alchemy::I18n.t('default', :scope => :link_target_options), '']
 			]
 			link_target_options = Alchemy::Config.get(:link_target_options)
 			link_target_options.each do |option|
-				options << [I18n.t(option, :scope => 'alchemy.link_target_options'), option]
+				options << [Alchemy::I18n.t(option, :scope => :link_target_options), option]
 			end
 			options
 		end
 
 		def locker_name
-			return _('unknown') if self.locker.nil?
+			return Alchemy::I18n.t('unknown') if self.locker.nil?
 			self.locker.name
 		end
 
