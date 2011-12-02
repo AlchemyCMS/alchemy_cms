@@ -64,7 +64,7 @@ module Alchemy
 			# The elements are returned as an array to be used in alchemy_selectbox form builder.
 			def elements_for_select(elements)
 				return [] if elements.nil?
-				options = elements.collect{ |e| [t("alchemy.element_names.#{e['name']}", :default => e['name'].capitalize), e["name"]] }
+				options = elements.collect{ |e| [t("element_names.#{e['name']}", :default => e['name'].capitalize), e["name"]] }
 				return options_for_select(options)
 			end
 

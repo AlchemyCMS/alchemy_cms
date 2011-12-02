@@ -503,14 +503,14 @@ en:
         name: "Name"
         page_layout: "Pagetype"
         public: "public"
-        resctricted: "restricted"
+        restricted: "restricted"
         robot_follow: "robot may follow links"
         robot_index: "allow robot to index"
-        sitemap: "show in sitemap"
+        sitemap: "visible in sitemap"
         title: "Title"
         updated_at: "Updated at"
         urlname: "Urlname"
-        visible: "show in navigation"
+        visible: "visible in navigation"
       
       alchemy/picture:
         image_filename: "Filename"
