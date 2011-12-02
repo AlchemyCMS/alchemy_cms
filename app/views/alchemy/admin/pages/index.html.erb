@@ -24,13 +24,8 @@
 		<%= select_tag(
 			'language', 
 			options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
-			:onchange => %(
-				Alchemy.pleaseWaitOverlay();
-				jQuery.get('/admin/pages/switch_language', {
-					language_id: this.value
-				});
-			),
-			:class => 'short'
+			:class => 'short',
+			:id => 'switch_language'
 		) %>
 		<label><%= t("Language tree") %></label>
 	</div>
@@ -102,3 +97,16 @@
 <%= render :partial => 'create_language_form' %>
 
 <%- end -%>
+
+<% content_for :javascripts do %>
+<script type="text/javascript" charset="utf-8">
+	(function($) {
+		$('#switch_language').on('change', function() {
+			Alchemy.pleaseWaitOverlay();
+			$.get('<%= switch_language_admin_pages_path %>', {
+				language_id: this.value
+			});
+		});
+	})(jQuery);
+</script>
+<% end %>
