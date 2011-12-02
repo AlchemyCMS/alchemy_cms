@@ -103,4 +103,54 @@ describe Alchemy::Element do
 	  expect { Alchemy::Element.all_for_page(nil) }.should raise_error(TypeError)
 	end
 
+	describe "#content_by_type" do
+
+		before(:each) do
+			@element = Factory(:element, :name => 'headline')
+			@content = @element.contents.first
+		end
+
+		context "with namespaced essence type" do
+
+			it "should return content by passing a essence type" do
+				@element.content_by_type('Alchemy::EssenceText').should == @content
+			end
+
+		end
+
+		context "without namespaced essence type" do
+
+			it "should return content by passing a essence type" do
+				@element.content_by_type('EssenceText').should == @content
+			end
+
+		end
+
+	end
+
+	describe "#all_contents_by_type" do
+
+		before(:each) do
+			@element = Factory(:element)
+			@contents = @element.contents.select { |c| c.essence_type == 'Alchemy::EssenceText' }
+		end
+
+		context "with namespaced essence type" do
+
+			it "should return content by passing a essence type" do
+				@element.all_contents_by_type('Alchemy::EssenceText').should == @contents
+			end
+
+		end
+
+		context "without namespaced essence type" do
+
+			it "should return content by passing a essence type" do
+				@element.all_contents_by_type('EssenceText').should == @contents
+			end
+
+		end
+
+	end
+
 end

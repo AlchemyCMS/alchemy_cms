@@ -159,5 +159,17 @@ module Alchemy
 			essence.partial_name
 		end
 
+		def normalized_essence_type
+			self.class.normalize_essence_type(self.essence_type)
+		end
+
+		def self.normalize_essence_type(essence_type)
+			if not essence_type.match(/^Alchemy::/)
+				essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
+			else
+				essence_type
+			end
+		end
+
 	end
 end

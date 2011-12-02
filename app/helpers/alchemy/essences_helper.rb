@@ -77,11 +77,10 @@ module Alchemy
 				warning('Element is nil')
 				return ""
 			end
-			type = normalized_essence_type(type)
 			if position == 1
 				content = element.content_by_type(type)
 			else
-				content = element.contents.find_by_essence_type_and_position(type, position)
+				content = element.contents.find_by_essence_type_and_position(Alchemy::Content.normalize_essence_type(type), position)
 			end
 			render_essence(content, :view, :for_view => options)
 		end

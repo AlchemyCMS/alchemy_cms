@@ -29,7 +29,7 @@ module Alchemy
 					:all => false
 				}
 				options = defaults.merge(options)
-				essence_type = normalized_essence_type(essence_type)
+				essence_type = Alchemy::Content.normalize_essence_type(essence_type)
 				return_string = ""
 				if options[:all]
 					contents = element.contents.find_all_by_essence_type_and_name(essence_type, options[:all])
