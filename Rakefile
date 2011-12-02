@@ -28,7 +28,6 @@ APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
 
 # uncomment the next line if you want to see all dummy app rake tasks
 # load 'rails/tasks/engine.rake'
-load File.join(File.dirname(__FILE__), 'lib/tasks/gettext.rake')
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
