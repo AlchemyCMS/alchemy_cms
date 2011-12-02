@@ -144,16 +144,7 @@ if (typeof(Alchemy) === 'undefined') {
         // Handling an external link.
         if (link.className == 'external') {
           $('#overlay_tabs').tabs("select", '#overlay_tab_external_link');
-          var protocols = [];
-          $('#url_protocol option').map(function() {
-            protocols.push($(this).attr('value'));
-          });
-          $(protocols).each(function(index, value) {
-            if (link.href.beginsWith(value)) {
-              $('#external_url').val(link.href.replace(value, ""));
-              $('#url_protocol').val(value);
-            }
-          });
+          $('#external_url').val(link.href);
         }
         
         // Handling a file link.

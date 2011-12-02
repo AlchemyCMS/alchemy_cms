@@ -4,18 +4,8 @@
   </h2>
   <table class="window_form">
     <tr>
-      <td>
-        <%= select_tag(
-          'url_protocol',
-          options_for_select([
-            ['http://', 'http://'],
-            ['mailto:', 'mailto:'],
-            ['ftp://', 'ftp://'],
-            ['https://', 'https://'],
-            ['ftps://', 'ftps://']
-          ]),
-          :class => 'medium'
-        ) %>
+      <td class="label long">
+				<%= label_tag 'external_url', 'URL', :for => 'external_url' %>
       </td>
       <td class="input">
         <%= text_field_tag 'external_url', '', :class => "thin_border auto_resize" %>
@@ -42,7 +32,7 @@
       %(
         Alchemy.LinkOverlay.createLink(
           'external',
-          jQuery('#url_protocol').val() + jQuery('#external_url').val(),
+          jQuery('#external_url').val(),
           jQuery('#extern_link_title').val(),
           jQuery('#link_target').val()
         );
