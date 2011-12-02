@@ -1,6 +1,6 @@
 // This object provides dynamically generated Rails routes in Javascript.
 // A little bit hacky, but the best solution so far. ^_^
-<% alchemy_routes = Alchemy::Engine.routes %>
+<% self.class.send(:include, Alchemy::Engine.routes.url_helpers) %>
 if (typeof(Alchemy) === 'undefined') {
 	var Alchemy = {};
 }
@@ -13,25 +13,25 @@ if (typeof(Alchemy) === 'undefined') {
 	Alchemy.routes = {
 
 		admin_picture_path: function(id) {
-			return '<%= alchemy_routes.generate(:controller => "alchemy/admin/pictures", :action => "update", :id => 1).first %>'.replace(/1/, id);
+			return '<%= admin_picture_path(:id => 1) %>'.replace(/1/, id);
 		},
 
 		admin_trash_path : function(page_id) {
-			var url = '<%= alchemy_routes.generate(:controller => "alchemy/admin/trash", :action => "index").first %>';
+			var url = '<%= admin_trash_path %>';
 			if (page_id)
 				url += '?page_id=' + page_id;
 			return url;
 		},
 
 		fold_admin_element_path: function(id) {
-			return '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "fold", :id => 1).first %>'.replace(/1/, id);
+			return '<%= fold_admin_element_path(:id => 1) %>'.replace(/1/, id);
 		},
 
-		list_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "list").first %>',
-		order_admin_contents_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/contents", :action => "order").first %>',
-		order_admin_elements_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/elements", :action => "order").first %>',
-		order_admin_pages_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/pages", :action => "order").first %>',
-		link_admin_pages_path: '<%= alchemy_routes.generate(:controller => "alchemy/admin/pages", :action => "link").first %>'
+		list_admin_elements_path: '<%= list_admin_elements_path %>',
+		order_admin_contents_path: '<%= order_admin_contents_path %>',
+		order_admin_elements_path: '<%= order_admin_elements_path %>',
+		order_admin_pages_path: '<%= order_admin_pages_path %>',
+		link_admin_pages_path: '<%= link_admin_pages_path %>'
 
 	}
 

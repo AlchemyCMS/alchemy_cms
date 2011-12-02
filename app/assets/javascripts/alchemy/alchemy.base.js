@@ -27,7 +27,8 @@ if (typeof(Alchemy) === 'undefined') {
 					url: Alchemy.routes.admin_picture_path(id),
 					type: 'PUT',
 					data: {
-						name: value
+						name: value,
+						size: Alchemy.getUrlParam('size')
 					}
 				});
 				return false;
@@ -211,8 +212,13 @@ if (typeof(Alchemy) === 'undefined') {
 				console.debug(e);
 				console.trace();
 			}
+		},
+
+		getUrlParam : function(name){
+			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			return results[1] || 0;
 		}
-		
+
 	});
 	
 })(jQuery);

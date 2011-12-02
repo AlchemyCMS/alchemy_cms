@@ -1,1 +1,3 @@
 Alchemy.growl('<%= @message %>');
+$('.inplace-edit').remove();
+$("#picture_#{@picture.id}").replaceWith('<%= escape_javascript(render("picture", :picture => @picture)) %>');
