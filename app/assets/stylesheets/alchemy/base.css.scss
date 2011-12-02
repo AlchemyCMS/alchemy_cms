@@ -1282,18 +1282,18 @@ div#user_list_legend {
 }
 
 #toolbar div.button_with_label form label {
-	margin-top: 5px;
+	margin-top: $default-margin;
 }
 
 #toolbar div.search_field {
 	position: relative;
 	float: left;
-	margin-bottom: 4px;
+	margin-bottom: $default-margin;
 }
 
 #toolbar div p {
 	float: right;
-	margin: 3px 4px 0 0;
+	margin: 3px $default-margin 0 0;
 	padding: 0;
 }
 
@@ -1303,8 +1303,8 @@ div#toolbar div.toolbar_spacer {
 	height: 37px;
 	border-right-style: dotted;
 	border-right-width: 1px;
-	margin-right: 8px;
-	margin-left: 4px;
+	margin-right: 2*$default-margin;
+	margin-left: $default-margin;
 }
 
 div#toolbar a.button {
@@ -2484,23 +2484,65 @@ div.button_with_label {
 	margin-left: 8px;
 	float: left;
 	min-width: 70px;
-}
+	line-height: 0;
+	
+	&.active {
+		.icon_button {
+			background-color: #cdd6db;
+			border-style: inset;
+			border-color: #bfbfbf;
+		}
+		label {
+			color: black;
+			text-shadow: white 0 0 2px;
+		}
+	} 
 
-div.button_with_label.active .icon_button {
-	background-color: #cdd6db;
-	border-style: inset;
-	border-color: #bfbfbf;
-}
+	.disabledButton {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
 
-div.button_with_label.active label{
-	color: black;
-	text-shadow: white 0 0 2px;
-}
+	a.icon_button {
+		float: none;
+		margin-right: auto;
+		margin-left: auto;
+		display: inline-block;
+		position: relative;
+	}
 
-div.button_with_label.disabled {
-	position: relative;
-	@include opacity(50);
-	cursor: default;
+	&.disabled {
+		position: relative;
+		@include opacity(50);
+		cursor: default;
+		
+		a:hover, a:active {
+			cursor: default;
+			background-color: #f7f7f7;
+			border: 1px solid #9a9a9a;
+		}
+		
+		&:before {
+			content: '';
+			position: absolute;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			@include opacity(50);
+		}
+		
+		&:hover label {
+			color: $text-color;
+			cursor: default;
+		}
+		
+	}
+	
 }
 
 .icon_button.disabled span {
@@ -2515,50 +2557,10 @@ div.button_with_label.disabled {
 	cursor: default;
 }
 
-div.button_with_label.disabled:before {
-	content: '';
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	background-color: transparent;
-	@include opacity(50);
-}
-
-div.button_with_label.disabled a:hover, 
-div.button_with_label.disabled a:active {
-	cursor: default;
-	background-color: #f7f7f7;
-	border: 1px solid #9a9a9a;
-}
-
-div.button_with_label.disabled:hover label {
-	color: $text-color;
-	cursor: default;
-}
-
-div.button_with_label .disabledButton {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-}
-
-div.button_with_label a.icon_button {
-	float: none;
-	margin-right: auto;
-	margin-left: auto;
-	display: inline-block;
-	position: relative;
-}
-
-div#toolbar label,
-div#overlay_toolbar label {
+div#toolbar label, div#overlay_toolbar label {
 	font-size: 10px;
 	text-shadow: #fff 0 1px 2px;
-	margin-top: 2px;
+	margin-top: $default-margin;
 	display: block;
 	line-height: 13px;
 }
@@ -2572,7 +2574,7 @@ div.button_with_label:hover label {
 	padding: $default-padding;
 	border: 1px solid #9a9a9a;
 	@include rounded-corner;
-	margin-right: 4px;
+	margin-right: $default-margin;
 	background: #fff image-url('alchemy/shading.png') repeat-x 0 -75px;
 	text-decoration: none;
 }
