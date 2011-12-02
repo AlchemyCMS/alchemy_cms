@@ -434,7 +434,7 @@ de:
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
     "other Elements": "sonst. Elemente"
-    "Page created.": "Seite '%{name}' wurde erstellt."
+    "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
     page_locked: "Die Seite ist gesperrt"

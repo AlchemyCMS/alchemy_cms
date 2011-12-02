@@ -54,7 +54,7 @@ module Alchemy
 				else
 					page = Page.create(params[:page])
 				end
-				render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, t("Page created.", :name => page.name), 'form#new_page_form button.button')
+				render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, t("Page created", :name => page.name), 'form#new_page_form button.button')
 			end
 
 			# Edit the content of the page and all its elements and contents.
@@ -210,7 +210,7 @@ module Alchemy
 
 			def switch_language
 				set_language_from(params[:language_id])
-				redirect_path = params[:layoutpages] ? admin_layoutpages_path : admin_pages_path
+				redirect_path = request.referer.include?('admin/layoutpages') ? admin_layoutpages_path : admin_pages_path
 				if request.xhr?
 					@redirect_url = redirect_path
 					render :action => :redirect

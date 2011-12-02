@@ -20,15 +20,7 @@
 
 <%- content_for :toolbar do -%>
 <div id="toolbar_buttons">
-	<div class="button_with_label">
-		<%= select_tag(
-			'language', 
-			options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
-			:class => 'short',
-			:id => 'switch_language'
-		) %>
-		<label><%= t("Language tree") %></label>
-	</div>
+	<%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
 	<%- permitted_to?(:flush, :alchemy_admin_pages) do -%>
 	<div class="button_with_label">
 		<%= link_to(
@@ -97,16 +89,3 @@
 <%= render :partial => 'create_language_form' %>
 
 <%- end -%>
-
-<% content_for :javascripts do %>
-<script type="text/javascript" charset="utf-8">
-	(function($) {
-		$('#switch_language').on('change', function() {
-			Alchemy.pleaseWaitOverlay();
-			$.get('<%= switch_language_admin_pages_path %>', {
-				language_id: this.value
-			});
-		});
-	})(jQuery);
-</script>
-<% end %>
