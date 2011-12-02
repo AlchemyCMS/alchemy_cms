@@ -14,20 +14,26 @@ module Alchemy
 
 		validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
+		scope :essence_pictures, where(:essence_type => "Alchemy::EssencePicture")
+		scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
+		scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
+
 		# Creates a new Content as descriped in the elements.yml file
 		def self.create_from_scratch(element, essences_hash)
 			if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
-				essences_of_same_type = element.contents.find_all_by_essence_type(essences_hash[:essence_type])
+				essences_of_same_type = element.contents.where(
+					:essence_type => Alchemy::Content.normalize_essence_type(essences_hash[:essence_type])
+				)
 				description = {
 					'type' => essences_hash[:essence_type],
-					'name' => "#{essences_hash[:essence_type].underscore}_#{essences_of_same_type.length + 1}"
+					'name' => "#{essences_hash[:essence_type].classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
 				}
 			else
 				description = element.content_description_for(essences_hash[:name])
 				description = element.available_content_description_for(essences_hash[:name]) if description.blank?
 			end
 			raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
-			essence_class = "alchemy/#{description['type']}".classify.constantize
+			essence_class = Alchemy::Content.normalize_essence_type(description['type']).constantize
 			content = self.new(:name => description['name'], :element_id => element.id)
 			if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
 				essence = essence_class.create(:do_not_index => !description['do_not_index'].nil?)
@@ -49,6 +55,11 @@ module Alchemy
 			settings = description['settings']
 			return {} if settings.blank?
 			settings.symbolize_keys
+		end
+
+		def siblings
+			return [] if !element
+			self.element.contents
 		end
 
 		# makes a copy of source and copies the polymorphic associated essence
@@ -164,6 +175,7 @@ module Alchemy
 		end
 
 		def self.normalize_essence_type(essence_type)
+			essence_type = essence_type.classify
 			if not essence_type.match(/^Alchemy::/)
 				essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
 			else
