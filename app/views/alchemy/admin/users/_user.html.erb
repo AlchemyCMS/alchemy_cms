@@ -8,7 +8,7 @@
 	<td><%= user.lastname -%></td>
 	<td class="email"><%= user.email %></td>
 	<td><%= t(user.language, :scope => 'translations') %></td>
-	<td class="role"><%= t("user_roles.#{user.role}") %></td>
+	<td class="role"><%= user.human_role_name %></td>
 	<td class="tools">
 		<%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
 		<%= link_to_confirmation_window(

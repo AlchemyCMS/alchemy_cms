@@ -46,7 +46,7 @@
 		<%- else -%>
 		<ul>
 			<%- @online_users.each do |user| -%>
-			<li class="<%= cycle('even', 'odd') %>"><%= user.name %> <small>(<%= Alchemy::I18n.t("alchemy.user_roles.#{user.role}") %>)</small></li>
+			<li class="<%= cycle('even', 'odd') %>"><%= user.name %> <small>(<%= user.human_role_name %>)</small></li>
 			<%- end -%>
 		</ul>
 		<%- end -%>

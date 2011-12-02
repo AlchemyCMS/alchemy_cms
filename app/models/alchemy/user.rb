@@ -48,7 +48,11 @@ module Alchemy
 			end
 		end
 		alias :name :fullname
-		
+
+		def human_role_name
+			self.class.human_rolename(self.role)
+		end
+
 		def self.human_rolename(role)
 			Alchemy::I18n.t("user_roles.#{role}")
 		end
