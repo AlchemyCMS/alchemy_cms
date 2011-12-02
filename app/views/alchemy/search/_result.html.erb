@@ -1,0 +1,9 @@
+<li class="search_result">
+	<h3><%= t('Page') %>:
+		<%= link_to page.name, show_alchemy_page_path(page, {:query => 'test'}) %>
+		<%= content_tag(:span, page.language_code.upcase, :class => 'language_code') if multi_language? && options[:show_language] %>
+	</h3>
+	<%- result.each do |highlight| -%>
+		<p><%= sanitize highlight %></p>
+	<%- end -%>
+</li>

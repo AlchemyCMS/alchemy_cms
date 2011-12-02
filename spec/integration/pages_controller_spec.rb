@@ -28,27 +28,35 @@ describe Alchemy::PagesController do
 
 	end
 
-	context "performing a fulltext search" do
+	context "fulltext search" do
 
 		before(:each) do
 			@page = Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
 			@element = Factory(:element, :name => 'article', :page => @page)
+			Factory(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
 		end
 
-		it "should display search results for richtext essences" do
-			@element.content_by_name('text').essence.update_attributes(:body => '<p>Welcome to Peters Petshop</p>', :public => true)
-			search_result_page = Factory(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
-			visit('/alchemy/suche?query=Petshop')
-			within('div#content .searchresult') { page.should have_content('Petshop') }
+		it "should have a correct path in the form tag" do
+			visit('/alchemy/suche')
+			page.should have_selector('div#content form[action="/alchemy/suche"]')
 		end
 
-		it "should display search results for text essences" do
-			@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
-			search_result_page = Factory(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
-			visit('/alchemy/suche?query=Petshop')
-			within('div#content .searchresult') { page.should have_content('Petshop') }
+		context "performing the search" do
+
+			it "should display search results for richtext essences" do
+				@element.content_by_name('text').essence.update_attributes(:body => '<p>Welcome to Peters Petshop</p>', :public => true)
+				visit('/alchemy/suche?query=Petshop')
+				within('div#content .search_result') { page.should have_content('Petshop') }
+			end
+
+			it "should display search results for text essences" do
+				@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
+				visit('/alchemy/suche?query=Petshop')
+				within('div#content .search_result') { page.should have_content('Petshop') }
+			end
+
 		end
-	
+
 	end
 
 	context "redirecting" do

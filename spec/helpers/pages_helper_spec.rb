@@ -20,7 +20,7 @@ describe Alchemy::PagesHelper do
 		end
 	end
 	
-	describe "#render_breadcrumb", :focus => true do
+	describe "#render_breadcrumb" do
 		
 		before(:each) do
 			helper.stub(:multi_language?).and_return(false)
@@ -72,6 +72,124 @@ describe Alchemy::PagesHelper do
 			helper.render_breadcrumb(:without => @page).should_not match(/Not Me/)
 		end
 		
+	end
+
+	describe "using own url helpers" do
+
+		before(:each) do
+			@page = mock_model(Alchemy::Page, :urlname => 'testpage', :language_code => 'en')
+		end
+
+		describe "#show_page_path_params" do
+
+			context "when multi_language" do
+
+				before(:each) do
+					helper.stub!(:multi_language?).and_return(true)
+				end
+
+				it "should return a Hash with urlname and language_id parameter" do
+					helper.stub!(:multi_language?).and_return(true)
+					helper.show_page_path_params(@page).should include(:urlname => 'testpage', :lang => 'en')
+				end
+
+				it "should return a Hash with urlname, language_id and query parameter" do
+					helper.stub!(:multi_language?).and_return(true)
+					helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :lang => 'en', :query => 'test')
+				end
+
+			end
+
+			context "not multi_language" do
+
+				before(:each) do
+					helper.stub!(:multi_language?).and_return(false)
+				end
+
+				it "should return a Hash with the urlname but without language_id parameter" do
+					helper.show_page_path_params(@page).should include(:urlname => 'testpage')
+					helper.show_page_path_params(@page).should_not include(:lang => 'en')
+				end
+
+				it "should return a Hash with urlname and query parameter" do
+					helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :query => 'test')
+					helper.show_page_path_params(@page).should_not include(:lang => 'en')
+				end
+
+			end
+
+		end
+
+		describe "#show_alchemy_page_path" do
+
+			context "when multi_language" do
+
+				before(:each) do
+					helper.stub!(:multi_language?).and_return(true)
+				end
+
+				it "should return the correct relative path string" do
+					helper.show_alchemy_page_path(@page).should == "/alchemy/#{@page.language_code}/testpage"
+				end
+
+				it "should return the correct relative path string with additional parameters" do
+					helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/alchemy/#{@page.language_code}/testpage?query=test"
+				end
+
+			end
+
+			context "not multi_language" do
+
+				before(:each) do
+					helper.stub!(:multi_language?).and_return(false)
+				end
+
+				it "should return the correct relative path string" do
+					helper.show_alchemy_page_path(@page).should == "/alchemy/testpage"
+				end
+
+				it "should return the correct relative path string with additional parameter" do
+					helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/alchemy/testpage?query=test"
+				end
+
+			end
+
+		end
+
+		describe "#show_alchemy_page_url" do
+
+			context "when multi_language" do
+
+				before(:each) do
+					helper.stub!(:multi_language?).and_return(true)
+				end
+
+				it "should return the correct url string" do
+					helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/alchemy/#{@page.language_code}/testpage"
+				end
+
+				it "should return the correct url string with additional parameters" do
+					helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/alchemy/#{@page.language_code}/testpage?query=test"
+				end
+
+			end
+
+			context "not multi_language" do
+
+				before(:each) do
+					helper.stub!(:multi_language?).and_return(false)
+				end
+
+				it "should return the correct url string" do
+					helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/alchemy/testpage"
+				end
+
+				it "should return the correct url string with additional parameter" do
+					helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/alchemy/testpage?query=test"
+				end
+
+			end
+		end
 	end
 	
 	describe "#render_meta_data" do
