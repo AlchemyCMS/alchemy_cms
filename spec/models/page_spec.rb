@@ -263,4 +263,48 @@ describe Alchemy::Page do
 
 	end
 
+	describe '.all_from_clipboard_for_select' do
+
+		context "with clipboard holding pages having non unique page layout" do
+
+			it "should return the pages" do
+				page_1 = Factory(:page, :language => @language)
+				page_2 = Factory(:page, :language => @language)
+				clipboard = [
+					{:id => page_1.id, :action => "copy"},
+					{:id => page_2.id, :action => "copy"}
+				]
+				Alchemy::Page.all_from_clipboard_for_select(clipboard, @language.id).should == [page_1, page_2]
+			end
+
+		end
+
+		context "with clipboard holding a page having unique page layout" do
+
+			it "should not return any pages" do
+				page_1 = Factory(:page, :language => @language, :page_layout => 'contact')
+				clipboard = [
+					{:id => page_1.id, :action => "copy"}
+				]
+				Alchemy::Page.all_from_clipboard_for_select(clipboard, @language.id).should == []
+			end
+
+		end
+
+		context "with clipboard holding two pages. One having a unique page layout." do
+
+			it "should return one page" do
+				page_1 = Factory(:page, :language => @language, :page_layout => 'standard')
+				page_2 = Factory(:page, :language => @language, :page_layout => 'contact')
+				clipboard = [
+					{:id => page_1.id, :action => "copy"},
+					{:id => page_2.id, :action => "copy"}
+				]
+				Alchemy::Page.all_from_clipboard_for_select(clipboard, @language.id).should == [page_1]
+			end
+
+		end
+
+	end
+
 end
