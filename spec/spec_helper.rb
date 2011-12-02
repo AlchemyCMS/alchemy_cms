@@ -37,6 +37,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 RSpec.configure do |config|
 	require 'rspec/expectations'
 	config.include RSpec::Matchers
+	config.include Alchemy::Engine.routes.url_helpers
 	config.mock_with :rspec
 	config.use_transactional_fixtures = true
 end

@@ -6,6 +6,8 @@ describe "Security: " do
 		
 		before(:all) do
 			Alchemy::User.delete_all
+			# ensuring that we have the correct locale here
+			::I18n.locale = :en
 		end
 		
 		it "render the signup view" do

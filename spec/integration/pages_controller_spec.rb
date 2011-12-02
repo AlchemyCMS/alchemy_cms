@@ -111,23 +111,16 @@ describe Alchemy::PagesController do
 				page.current_path.should == '/alchemy/a-public-page'
 			end
 
-			context "no lang parameter" do
+			context "with no lang parameter", :focus => true do
+
 				it "should have defaults language language_id in the session" do
-					pending "We don't get the session from capybara"
-					visit '/alchemy/a-public-page'
-					session[:language_id].should == Alchemy::Language.get_default.id
+					get show_page_path(:urlname => 'a-public-page')
+					controller.session[:language_id].should == Alchemy::Language.get_default.id
 				end
 
 				it "should have defaults language language_code in the session" do
-					pending "We don't get the session from capybara"
-					visit '/alchemy/a-public-page'
-					session[:language_code].should == Alchemy::Language.get_default.code
-				end
-
-				it "should find the page from default language" do
-					@another_page = Factory(:page, :language => Factory(:language), :name => 'A Public Page')
-					visit '/alchemy/a-public-page'
-					page.status_code.should == 200
+					get show_page_path(:urlname => 'a-public-page')
+					controller.session[:language_code].should == Alchemy::Language.get_default.code
 				end
 
 			end

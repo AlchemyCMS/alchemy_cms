@@ -57,6 +57,7 @@ module Alchemy
 				set_language_to_default
 			elsif !params[:lang].blank?
 				set_language_from(params[:lang])
+				::I18n.locale = params[:lang]
 			end
 		end
 
