@@ -426,7 +426,7 @@ a.icon_button.linked {
 	cursor: default;
 }
 
-div.content_editor.essence_picture_editor {
+div.essence_picture_editor {
 	position: relative;
 	float: left;
 	margin: 0;
@@ -444,6 +444,7 @@ div.essence_picture_editor.validation_failed .picture_thumbnail {
 	border-color: #931f23;
 	-webkit-box-shadow: #931f23 0px 1px 3px;
 	-moz-box-shadow: #931f23 0px 1px 3px;
+	-ms-box-shadow: #931f23 0px 1px 3px;
 	-o-box-shadow: #931f23 0px 1px 3px;
 	box-shadow: #931f23 0px 1px 3px;
 }
