@@ -18,7 +18,7 @@ module Alchemy
 				else
 					items = resource_model
 				end
-				instance_variable_set("@#{resources_name}", items.paginate(:page => params[:page] || 1, :per_page => 20))
+				instance_variable_set("@#{resources_name}", items.paginate(:page => params[:page] || 1, :per_page => per_page_value_for_screen_size))
 			end
 
 			def new
