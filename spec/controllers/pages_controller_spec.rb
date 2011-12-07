@@ -37,4 +37,66 @@ describe Alchemy::PagesController do
 
 	end
 
+	describe "Layout rendering" do
+
+		context "with param layout set to none" do
+
+			it "should not render a layout" do
+				get :show, :urlname => :home, :layout => false
+				response.body.should_not have_content('<head>')
+			end
+
+		end
+
+		context "with param layout set to a custom layout" do
+
+			before do
+				@custom_layout = Rails.root.join('app/views/layouts', 'custom.html.erb')
+				File.open(@custom_layout, 'w') do |custom_layout|
+					custom_layout.puts "<html>I am a custom layout</html>"
+				end
+			end
+
+			it "should render the custom layout" do
+				get :show, :urlname => :home, :layout => 'custom'
+				response.body.should have_content('I am a custom layout')
+			end
+
+			after do
+				FileUtils.rm(@custom_layout)
+			end
+
+		end
+
+		context "with application layout absent" do
+
+			it "should render pages layout" do
+				get :show, :urlname => :home
+				response.body.should_not have_content('I am the application layout')
+			end
+
+		end
+
+		context "with application layout present" do
+
+			before do
+				@app_layout = Rails.root.join('app/views/layouts', 'application.html.erb')
+				File.open(@app_layout, 'w') do |app_layout|
+					app_layout.puts "<html>I am the application layout</html>"
+				end
+			end
+
+			it "should render application layout" do
+				get :show, :urlname => :home
+				response.body.should have_content('I am the application layout')
+			end
+
+			after do
+				FileUtils.rm(@app_layout)
+			end
+
+		end
+
+	end
+
 end

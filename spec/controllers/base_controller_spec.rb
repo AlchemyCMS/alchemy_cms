@@ -17,7 +17,7 @@ describe Alchemy::BaseController do
 			controller.session[:language_code].should == @language.code
 		end
 
-		it "should set the language from id as string", :focus => true do
+		it "should set the language from id as string" do
 			@language = Factory(:language)
 			controller.send :set_language_from, @language.id.to_s
 			controller.session[:language_id].should == @language.id

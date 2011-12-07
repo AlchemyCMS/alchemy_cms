@@ -36,7 +36,7 @@ module Alchemy
 		def show
 			respond_to do |format|
 				format.html {
-					render :layout => params[:layout].blank? ? 'alchemy/pages' : params[:layout] == 'none' ? false : params[:layout]
+					render :layout => layout_for_page
 				}
 				format.rss {
 					if @page.contains_feed?
@@ -162,6 +162,18 @@ module Alchemy
 		def additional_params
 			params.clone.delete_if do |key, value|
 				["action", "controller", "urlname", "lang"].include?(key)
+			end
+		end
+
+		def layout_for_page
+			if params[:layout] == 'none'
+				false
+			elsif not params[:layout].blank?
+				params[:layout]
+			elsif File.exist?(Rails.root.join('app/views/layouts', 'application.html.erb'))
+				'application'
+			else
+				'alchemy/pages'
 			end
 		end
 

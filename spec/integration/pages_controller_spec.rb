@@ -119,7 +119,7 @@ describe Alchemy::PagesController do
 				page.current_path.should == '/alchemy/a-public-page'
 			end
 
-			context "with no lang parameter", :focus => true do
+			context "with no lang parameter" do
 
 				it "should have defaults language language_id in the session" do
 					get show_page_path(:urlname => 'a-public-page')
