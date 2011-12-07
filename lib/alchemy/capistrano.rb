@@ -49,6 +49,11 @@ Capistrano::Configuration.instance(:must_exist).load do
 
     end
 
+		desc "Upgrades production database to current Alchemy CMS version"
+		task :upgrade do
+			run "cd #{current_path} && RAILS_ENV=production #{rake} alchemy:upgrade"
+		end
+
   	namespace :database_yml do
 
   		desc "Creates the database.yml file"
