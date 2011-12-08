@@ -1,3 +1,6 @@
+# Skipping on Travis-CI, because capybara-webkit does not install on travis.
+unless ENV["CI"]
+
 require 'spec_helper'
 
 describe Alchemy::Admin::PagesController, :js => true do
@@ -77,4 +80,6 @@ def login_to_alchemy
 	fill_in('alchemy_user_session_login', :with => 'jdoe')
 	fill_in('alchemy_user_session_password', :with => 's3cr3t')
 	click_on('Login')
+end
+
 end
