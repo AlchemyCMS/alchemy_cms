@@ -13,4 +13,23 @@ describe Alchemy::Admin::ContentsController do
 		@element.ingredient('intro').should == "Peters Petshop"
 	end
 
+	describe "#order" do
+
+		context "with content_ids in params" do
+
+			before(:each) do
+				@element = Factory(:element)
+			end
+
+			it "should reorder the contents" do
+				content_ids = @element.contents.essence_texts.collect(&:id)
+				post :order, {:content_ids => content_ids.reverse, :format => :js}
+				response.status.should == 200
+				@element.contents.essence_texts.collect(&:id).should == content_ids.reverse
+			end
+
+		end
+
+	end
+
 end

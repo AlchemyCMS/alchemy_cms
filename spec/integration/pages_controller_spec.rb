@@ -17,7 +17,7 @@ describe Alchemy::PagesController do
 			within('div#content div.article div.intro') { page.should have_content('Welcome to Peters Petshop') }
 		end
 
-		it "should have show the navigation with all visible pages" do
+		it "should show the navigation with all visible pages" do
 			pages = [
 				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
 				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)

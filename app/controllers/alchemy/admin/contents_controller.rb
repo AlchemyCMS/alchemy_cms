@@ -34,7 +34,7 @@ module Alchemy
 			end
 
 			def order
-				for id in params[:content_ids]
+				params[:content_ids].each do |id|
 					content = Content.find(id)
 					content.move_to_bottom
 				end

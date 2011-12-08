@@ -1,46 +1,70 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::PagesController do
+describe Alchemy::Admin::PagesController, :js => true do
 
-	describe "language tree switching", :js => true do
+	describe "language tree switching" do
 
 		context "in a multilangual environment" do
 
-			before(:each) do
+			before(:all) do
 				Factory.build(:admin_user).save_without_session_maintenance
-				Factory(:language)
-				Factory(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
-				Factory(:language_root_page, :name => 'Klingonian')
+				@language = Factory(:language)
+				@german_root = Factory(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
+				@klingonian_root = Factory(:language_root_page, :name => 'Klingonian')
 			end
 
 			it "one should be able to switch the language tree" do
-				pending "This driver does not execute javascript as it should"
 				login_to_alchemy
 				visit('/alchemy/admin/pages')
 				page.select 'Klingonian', :from => 'language'
 				within('#sitemap') { page.should have_content('Klingonian') }
 			end
 
+			after(:all) {
+				@language.destroy
+				@klingonian_root.destroy
+				@german_root.destroy
+			}
+
 		end
 
 		context "with no language root page" do
 
-			before(:each) do
+			before(:all) do
 				Factory.build(:admin_user).save_without_session_maintenance
+				@language = Factory(:language)
 			end
 
-			it "it should display the form for creating or copy language root" do
-				pending "This driver does not work."
+			it "it should display the form for creating language root" do
 				login_to_alchemy
 				visit('/alchemy/admin/pages')
-				save_and_open_page
+				page.select 'Klingonian', :from => 'language'
 				within('#archive_all') do
 					page.should have_content('This language tree does not exist')
-					page.should have_content('Do you want to copy')
-					page.should have_content('do you want to create a new empty language tree')
 				end
 			end
 
+			after(:all) {
+				@language.destroy
+			}
+
+		end
+
+	end
+
+	describe "flush complete page cache" do
+
+		before(:all) do
+			Factory.build(:admin_user).save_without_session_maintenance
+		end
+
+		it "should remove the cache of all pages" do
+			login_to_alchemy
+			visit '/alchemy/admin/pages'
+			click_link 'Flush page cache'
+			within('#flash_notices') do
+				page.should have_content('Page cache flushed')
+			end
 		end
 
 	end

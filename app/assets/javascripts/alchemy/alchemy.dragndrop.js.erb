@@ -71,7 +71,7 @@ if (typeof(Alchemy) === 'undefined') {
 				tolerance: 'pointer',
 				containment: 'parent',
 				update: function(event, ui) {
-					var ids = $.map($(event.target).children('div.dragable_picture'), function (child) {
+					var ids = $.map($(this).children('div.dragable_picture'), function (child) {
 						return child.id.replace(/essence_picture_/, '');
 					});
 					$(event.originalTarget).css("cursor", "progress");

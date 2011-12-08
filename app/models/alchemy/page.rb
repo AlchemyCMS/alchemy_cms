@@ -43,15 +43,15 @@ module Alchemy
 		scope :accessable, where(:restricted => false)
 		scope :restricted, where(:restricted => true)
 		scope :public_language_roots, lambda {
-			where(:language_root => true).where("language_code IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
+			where(:language_root => true).where("`alchemy_pages`.`language_code` IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
 		}
-		scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
+		scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('`alchemy_pages`.`updated_at` DESC').limit(5) }
 		# Returns all pages that have the given language_id
 		scope :with_language, lambda { |language_id| where(:language_id => language_id) }
 		# Returns all pages that are not locked and public.
 		# Used for flushing all page caches at once.
-		scope :flushables, public.not_locked
-		scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
+		scope :contentpages, where("`alchemy_pages`.`layoutpage` = 0 AND `alchemy_pages`.`parent_id` IS NOT NULL")
+		scope :flushables, not_locked.published.contentpages
 
 		# Finds selected elements from page.
 		# 
