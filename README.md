@@ -76,6 +76,20 @@ Start the local server:
 
 Then just switch to your browser and open `http://localhost:3000`
 
+Upgrading
+------------
+
+Projects running with Alchemy CMS version < 2.1 needs to be upgraded.
+
+Otherwise errors will be raised like this:
+`uninitialized constant EssenceText`
+
+You have to use the following Upgrade-Task.
+Run in terminal:
+
+    rake alchemy:upgrade
+
+
 Add to existing Rails project
 -----------------------------
 
