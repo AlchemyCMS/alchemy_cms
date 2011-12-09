@@ -210,6 +210,7 @@ de:
     "If you have any problems using the Flash uploader you can switch to": "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur %{link}"
     "Image missing": "Bild fehlt"
     "Image size": "Bildgröße"
+    "Image updated successfully": "Bild wurde gespeichert"
     "Index Error after saving Element. Please try again!": "Indizierungsfehler beim Speichern des Elements. Bitte erneut versuchen!"
     "Language successfully created.": "Sprache wurde erfolgreich erstellt."
     "Language successfully destroyed.": "Sprache wurde erfolgreich gelöscht."
@@ -681,6 +682,20 @@ de:
         display_name: "Name"
         name: "Name"
         public: "sichtbar"
+      
+      alchemy/essence_picture:
+        caption: "Untertitel"
+        title: "Titel"
+        alt_tag: "Alternativ-Text"
+        link: Link
+        link_class_name: "Link CSS-Klasse"
+        link_title: Link-Titel
+        css_class: CSS-Klasse
+        link_target: Link-Ziel
+        render_size: Darstellungsgröße
+        crop_from: Bildmaskenursprung
+        crop_size: Bildmaskenausmaß
+        picture_id: Bild
       
       alchemy/language:
         code: "Sprachkürzel"

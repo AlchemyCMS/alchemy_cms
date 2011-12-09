@@ -2,7 +2,7 @@
   
   $('#<%= content_dom_id(@content) -%>').replaceWith('<%= escape_javascript(
     render(
-      :partial => "/essences/essence_picture_editor",
+      :partial => "alchemy/essences/essence_picture_editor",
       :locals => {:content => @content, :options => params[:options]}
     )
   ) -%>');

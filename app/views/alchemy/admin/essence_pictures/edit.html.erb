@@ -16,17 +16,17 @@
     </tr>
     <tr>
       <td class="label"><%= f.label "title" %></td>
-      <td><%= f.text_field "title", :class => 'thin_border long' %></td>
+      <td class="input"><%= f.text_field "title", :class => 'thin_border long' %></td>
     </tr>
     <tr>
       <td class="label"><%= f.label "alt_tag" %></td>
-      <td><%= f.text_field "alt_tag", :class => 'thin_border long' %></td>
+      <td class="input"><%= f.text_field "alt_tag", :class => 'thin_border long' %></td>
     </tr>
     <%# Have to use a Hash here, because Rails has a Hash.to_params bug with nested Arrays!!!! %>
     <%- if @options[:sizes].is_a?(HashWithIndifferentAccess) -%>
     <tr>
       <td class="label"><%= f.label "render_size" %></td>
-      <td>
+      <td class="input">
       <%= f.select(
         "render_size",
         options_for_select(
@@ -66,7 +66,7 @@
     </tr>
     <%- end -%>
     <tr>
-      <td colspan="2" style="text-align:right">
+      <td colspan="2" class="submit">
         <%= hidden_field_tag 'content_id', @content.id %>
         <%= f.button t("save"), :class => 'button' %>
       </td>
