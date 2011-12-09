@@ -1,24 +1,31 @@
 (function($) {
-  
-  <%- if @page.can_have_cells? -%>
-  Alchemy.selectOrCreateCellTab('<%= @cell.nil? ? "for_other_elements" : @cell.name -%>', '<%= @cell.nil? ? _("other Elements") : @cell.name_for_label -%>');
-  <%- end -%>
-  $('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').append('<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>');
-  $('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').sortable('refresh');
-  Alchemy.growl('<%= _("successfully_added_element") -%>');
-  Alchemy.closeCurrentWindow();
-  <%- @element.rtf_contents.each do |content| -%>
-  TinymceHammer.addEditor('<%= content.form_field_id -%>');
-  <%- end -%>
-  Alchemy.PreviewWindow.refresh();
-  Alchemy.ElementEditorSelector.init();
-  $('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
-  Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
-  Alchemy.SelectBox('#element_<%= @element.id -%> select');
-  Alchemy.ButtonObserver('#element_<%= @element.id -%> button.button');
 
-  <%- if @clipboard.blank? -%>
-	$('#clipboard_button .icon.clipboard').removeClass('full');
+	<% if @cutted_element_id %>
+		$('.element_editor[data-element-id="<%= @cutted_element_id %>"]').remove();
+	<% end %>
+
+	<%- if @page.can_have_cells? -%>
+		Alchemy.selectOrCreateCellTab('<%= @cell.nil? ? "for_other_elements" : @cell.name -%>', '<%= @cell.nil? ? _("other Elements") : @cell.name_for_label -%>');
+	<%- end -%>
+
+	$('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').append('<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>');
+	$('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').sortable('refresh');
+	Alchemy.growl('<%= _("successfully_added_element") -%>');
+	Alchemy.closeCurrentWindow();
+
+	<%- @element.rtf_contents.each do |content| -%>
+		TinymceHammer.addEditor('<%= content.form_field_id -%>');
+	<%- end -%>
+
+	Alchemy.PreviewWindow.refresh();
+	Alchemy.ElementEditorSelector.init();
+	$('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
+	Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
+	Alchemy.SelectBox('#element_<%= @element.id -%> select');
+	Alchemy.ButtonObserver('#element_<%= @element.id -%> button.button');
+
+	<%- if @clipboard.blank? -%>
+		$('#clipboard_button .icon.clipboard').removeClass('full');
 	<%- end -%>
 
 })(jQuery);
