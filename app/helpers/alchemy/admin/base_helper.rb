@@ -96,8 +96,8 @@ module Alchemy
 
 			def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
 				title = t("please_confirm")
-				ok_lable = t("yes")
-				cancel_lable = t("no")
+				ok_lable = t("Yes")
+				cancel_lable = t("No")
 				link_to_function(
 					link_string,
 					"Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",

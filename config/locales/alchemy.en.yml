@@ -208,6 +208,7 @@ en:
     document: "File"
     documents: "Files"
     download_file: "Download file '%{filename}'"
+    "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it."
     drag_to_sort: "Drag'n'Drop to sort images"
     edit_file_properties: "Edit Fileproperties"
     edit_image_properties: "Edit image properties."

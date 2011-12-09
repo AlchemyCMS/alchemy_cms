@@ -2,9 +2,6 @@
 
 de:
   
-  yes: "Ja"
-  no: "Nein"
-  
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
@@ -193,7 +190,7 @@ de:
     "Do you really want to clear the clipboard?": "Wollen Sie die Zwischenablage wirklich leeren?"
     "Do you really want to clear the trash?": "Wollen Sie den Papierkorb wirklich leeren?"
     "Do you really want to delete this content?": "Wollen Sie diesen Inhalt wirklich löschen?"
-    "Drag an element over to the element window to restore it.": "Ziehen Sie ein Element mit der Maus in das Elemente Fenster, um es wieder herzustellen."
+    "Drag an element over to the element window to restore it": "Ziehen Sie ein Element mit der Maus in das Elemente Fenster, um es wieder herzustellen."
     "Edit Picturemask": "Bildmaske bearbeiten"
     "Element trashed": "Das Element wurde in den Papierkorb gelegt"
     "Error with the Flash® Uploader!": "Fehler mit dem Flash® Uploader!"
