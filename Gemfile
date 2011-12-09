@@ -2,8 +2,6 @@ source "http://rubygems.org"
 
 gemspec
 
-gem 'declarative_authorization', :git => 'git://github.com/stffn/declarative_authorization.git'
-
 group :test do
 	gem 'factory_girl_rails'
 	gem "capybara"
