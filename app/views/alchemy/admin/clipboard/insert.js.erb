@@ -1,14 +1,14 @@
 (function($) {
-  
+
 <%- if params[:remove] -%>
-  $("#<%= @item.class.to_s.downcase -%>_<%= @item.id -%>").remove();
-  <%- if @item.class.to_s == 'Element' -%>
-  $('#element_area').sortable('refresh');
-  <%- end -%>
-  Alchemy.growl('<%= t("item moved to clipboard", :name => @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name) -%>');
-<%- else -%>
-  Alchemy.growl('<%= t("item copied to clipboard", :name => @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name) -%>')
+	$(".element_editor[data-element-id='<%= @item.id -%>']").remove();
+<%- if @item.class.to_s == 'Element' -%>
+	$('#element_area').sortable('refresh');
 <%- end -%>
-  $('#clipboard_button .icon.clipboard').addClass('full');
-  
+	Alchemy.growl('<%= escape_javascript t("item moved to clipboard", :name => @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name) -%>');
+<%- else -%>
+	Alchemy.growl('<%= escape_javascript t("item copied to clipboard", :name => @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name) -%>')
+<%- end -%>
+	$('#clipboard_button .icon.clipboard').addClass('full');
+
 })(jQuery);
