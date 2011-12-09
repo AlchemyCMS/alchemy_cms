@@ -42,8 +42,9 @@ module Alchemy
 					source_element = Element.find(element_from_clipboard[:id])
 					@element = Element.copy(source_element, {:page_id => @page.id})
 					if element_from_clipboard[:action] == 'cut'
-						source_element.destroy
+						@cutted_element_id = source_element.id
 						@clipboard.delete_if { |i| i[:id].to_i == source_element.id }
+						source_element.destroy
 					end
 				else
 					@element = Element.new_from_scratch(params[:element])
