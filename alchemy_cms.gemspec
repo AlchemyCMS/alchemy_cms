@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<tinymce_hammer>, ["~> 0.2"])
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1.1"])
 
-  s.add_development_dependency(%q<rspec-rails>, [">= 2.0"])
+  s.add_development_dependency(%q<rspec-rails>, ["~> 2.6"])
 	s.add_development_dependency(%q<sqlite3>)
 
 	if !ENV['CI']
