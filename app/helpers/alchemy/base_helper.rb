@@ -53,5 +53,17 @@ module Alchemy
 			content_tag('span', '', :class => "icon #{icon_class}")
 		end
 
+		# Returns an array of all pages in the same branch from current.
+		# I.e. used to find the active page in navigation.
+		def breadcrumb(current)
+			return [] if current.nil?
+			result = Array.new
+			result << current
+			while current = current.parent
+				result << current
+			end
+			return result.reverse
+		end
+
 	end
 end

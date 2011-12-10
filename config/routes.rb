@@ -15,6 +15,11 @@ Alchemy::Engine.routes.draw do
 		:as => :admin_dashboard
 	match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
 		:as => :download_attachment
+	
+	# catching legacy download urls
+	match '/wa_files/download/:id' => 'attachments#download'
+	match '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
+	
 	match '/attachment/:id/show' => 'attachments#show',
 		:as => :show_attachment
 	match '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format' => 'pictures#show',
@@ -30,12 +35,9 @@ Alchemy::Engine.routes.draw do
 	match '/:lang' => 'pages#show',
 		:constraints => {:lang => /[a-z]{2}/},
 		:as => :show_language_root
-	match '(/:lang)/:urlname(.:format)' => 'pages#show',
+	match '(/:lang)(/:level1(/:level2(/:level3)))/:urlname(.:format)' => 'pages#show',
 		:constraints => {:lang => /[a-z]{2}/},
 		:as => :show_page
-	# catching legacy download urls
-	match '/wa_files/download/:id' => 'attachments#download'
-	match '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
 
 	resources :messages, :only => [:index, :new, :create]
 

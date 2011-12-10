@@ -1,6 +1,12 @@
 module Alchemy
 	class PagesController < Alchemy::BaseController
 
+		# We need to include this helper because we need the breadcrumb method.
+		# And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
+		# Not the best solution, but's working.
+		# Anyone with a better idea please provide a patch.
+		include Alchemy::BaseHelper
+
 		before_filter :render_page_or_redirect, :only => [:show, :sitemap]
 		before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
 
@@ -79,7 +85,7 @@ module Alchemy
 			if User.admins.count == 0 && @page.nil?
 				redirect_to signup_path
 			elsif @page.blank?
-				render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
+				render_404
 			elsif multi_language? && params[:lang].blank?
 				redirect_page(:lang => session[:language_code])
 			elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
@@ -90,6 +96,8 @@ module Alchemy
 				redirect_page
 			elsif !multi_language? && !params[:lang].blank?
 				redirect_page
+			elsif url_levels.any? && !levels_are_in_page_branch?
+				render_404
 			elsif @page.has_controller?
 				redirect_to(@page.controller_and_action)
 			else
@@ -176,6 +184,20 @@ module Alchemy
 			else
 				'alchemy/pages'
 			end
+		end
+
+		def render_404
+			render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
+		end
+
+		def url_levels
+			params.keys.grep(/^level[1-3]$/)
+		end
+
+		def levels_are_in_page_branch?
+			nested_urlnames = breadcrumb(@page).collect(&:urlname)
+			level_names = params.select { |p| url_levels.include?(p) }.values
+			level_names & nested_urlnames == level_names
 		end
 
 	end

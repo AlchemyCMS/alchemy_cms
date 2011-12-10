@@ -99,4 +99,34 @@ describe Alchemy::PagesController do
 
 	end
 
+	describe "url nesting" do
+
+		before(:each) do
+			@catalog = Factory(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
+			@products = Factory(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
+			@product = Factory(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
+			@product.elements.find_by_name('article').contents.essence_texts.first.essence.update_attribute(:body, 'screwdriver')
+		end
+
+		context "with correct levelnames in params" do
+
+			it "should show the requested page" do
+				get :show, {:level1 => 'catalog', :level2 => 'products', :urlname => 'screwdriver'}
+				response.status.should == 200
+				response.body.should have_content("screwdriver")
+			end
+
+		end
+
+		context "with incorrect levelnames in params" do
+
+			it "should show 404 page" do
+				get :show, {:level1 => 'catalog', :level2 => 'faqs', :urlname => 'screwdriver'}
+				response.status.should == 404
+			end
+
+		end
+
+	end
+
 end

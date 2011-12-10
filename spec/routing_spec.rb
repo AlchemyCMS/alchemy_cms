@@ -52,4 +52,107 @@ describe "The Routing", :type => :routing do
 
 	end
 
+	describe "nested url" do
+
+		context "one level deep nested" do
+
+			it "should route to pages show" do
+				{
+					:get => "/products/my-product"
+				}.should route_to(
+					:controller => "alchemy/pages",
+					:action => "show",
+					:level1 => "products",
+					:urlname => "my-product"
+				)
+			end
+
+			context "and language" do
+
+				it "should route to pages show" do
+					{
+						:get => "/de/products/my-product"
+					}.should route_to(
+						:controller => "alchemy/pages",
+						:action => "show",
+						:level1 => "products",
+						:urlname => "my-product",
+						:lang => "de"
+					)
+				end
+
+			end
+
+		end
+
+		context "two levels deep nested" do
+
+			it "should route to pages show" do
+				{
+					:get => "/catalog/products/my-product"
+				}.should route_to(
+					:controller => "alchemy/pages",
+					:action => "show",
+					:level1 => "catalog",
+					:level2 => "products",
+					:urlname => "my-product"
+				)
+			end
+
+			context "and language" do
+
+				it "should route to pages show" do
+					{
+						:get => "/de/catalog/products/my-product"
+					}.should route_to(
+						:controller => "alchemy/pages",
+						:action => "show",
+						:level1 => "catalog",
+						:level2 => "products",
+						:urlname => "my-product",
+						:lang => "de"
+					)
+				end
+
+			end
+
+		end
+
+		context "with a blog date url" do
+
+			it "should route to pages show" do
+				{
+					:get => "/2011/12/08/my-post"
+				}.should route_to(
+					:controller => "alchemy/pages",
+					:action => "show",
+					:level1 => "2011",
+					:level2 => "12",
+					:level3 => "08",
+					:urlname => "my-post"
+				)
+			end
+
+			context "and language" do
+
+				it "should route to pages show" do
+					{
+						:get => "/de/2011/12/08/my-post"
+					}.should route_to(
+						:controller => "alchemy/pages",
+						:action => "show",
+						:level1 => "2011",
+						:level2 => "12",
+						:level3 => "08",
+						:urlname => "my-post",
+						:lang => "de"
+					)
+				end
+
+			end
+
+		end
+
+	end
+
 end

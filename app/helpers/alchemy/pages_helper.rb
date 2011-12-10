@@ -310,18 +310,6 @@ module Alchemy
 			bc.join(options[:seperator]).html_safe
 		end
 
-		# Returns an array of all pages in the same branch from current.
-		# I.e. used to find the active page in navigation.
-		def breadcrumb(current)
-			return [] if current.nil?
-			result = Array.new
-			result << current
-			while current = current.parent
-				result << current
-			end
-			return result.reverse
-		end
-
 		# Returns @page.title
 		#
 		# The options are:
