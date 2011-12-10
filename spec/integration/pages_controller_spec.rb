@@ -28,7 +28,7 @@ describe Alchemy::PagesController do
 
 	end
 
-	context "fulltext search" do
+	describe "fulltext search" do
 
 		before(:each) do
 			@page = Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
@@ -80,7 +80,7 @@ describe Alchemy::PagesController do
 
 	end
 
-	context "redirecting" do
+	describe "redirecting" do
 
 		context "in multi language mode" do
 
@@ -125,6 +125,26 @@ describe Alchemy::PagesController do
 			it "should keep additional params" do
 				visit '/alchemy/a-public-page?query=Peter'
 				page.current_url.should match(/\?query=Peter/)
+			end
+
+			context "with enabled urlnesting" do
+
+				before(:each) do
+					@level1 = Factory(:public_page, :parent_id => @default_language_root.id, :name => 'catalog', :language => @default_language)
+					@level2 = Factory(:public_page, :parent_id => @level1.id, :name => 'products', :language => @default_language)
+					@level3 = Factory(:public_page, :parent_id => @level2.id, :name => 'screwdriver', :language => @default_language)
+					Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
+				end
+
+				context "requesting a non nested url" do
+
+					it "should redirect to nested url" do
+						visit "/alchemy/de/screwdriver"
+						page.current_path.should == '/alchemy/de/catalog/products/screwdriver'
+					end
+
+				end
+
 			end
 
 		end

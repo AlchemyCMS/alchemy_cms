@@ -106,6 +106,7 @@ describe Alchemy::PagesController do
 			@products = Factory(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
 			@product = Factory(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
 			@product.elements.find_by_name('article').contents.essence_texts.first.essence.update_attribute(:body, 'screwdriver')
+			controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
 		end
 
 		context "with correct levelnames in params" do

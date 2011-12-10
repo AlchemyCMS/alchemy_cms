@@ -39,6 +39,15 @@
   :show_root: true
   :show_flag: false
 
+# === URL nesting
+# By default Alchemy nests all page urls respectivley to their page tree position.
+# ==== Example of a nested url:
+# +http://homepage.com/company/history/the-early-years+
+# Alchemy supports url nesting up to three levels deep. We think that's more then enough,
+# because URLs like this are possible:
+# +http://homepage.com/en/2011/12/08/my-post
+url_nesting: true
+
 # === Picture rendering settings
 # Alchemy uses Fleximage and RMagick to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
 # See https://github.com/Squeegy/fleximage for further infos.

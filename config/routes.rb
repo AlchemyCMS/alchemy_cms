@@ -35,9 +35,6 @@ Alchemy::Engine.routes.draw do
 	match '/:lang' => 'pages#show',
 		:constraints => {:lang => /[a-z]{2}/},
 		:as => :show_language_root
-	match '(/:lang)(/:level1(/:level2(/:level3)))/:urlname(.:format)' => 'pages#show',
-		:constraints => {:lang => /[a-z]{2}/},
-		:as => :show_page
 
 	resources :messages, :only => [:index, :new, :create]
 
@@ -143,5 +140,10 @@ Alchemy::Engine.routes.draw do
 		end
 
 	end
+
+	# The page show action has to be last route
+	match '(/:lang)(/:level1(/:level2(/:level3)))/:urlname(.:format)' => 'pages#show',
+		:constraints => {:lang => /[a-z]{2}/},
+		:as => :show_page
 
 end

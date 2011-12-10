@@ -77,8 +77,8 @@ end
 # We need this, because the before blocks losing its session under webkit-capybara (https://github.com/thoughtbot/capybara-webkit/issues/222)
 def login_to_alchemy
 	visit '/alchemy/admin/login'
-	fill_in('alchemy_user_session_login', :with => 'jdoe')
-	fill_in('alchemy_user_session_password', :with => 's3cr3t')
+	fill_in('Username', :with => 'jdoe')
+	fill_in('Password', :with => 's3cr3t')
 	click_on('Login')
 end
 
