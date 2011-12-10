@@ -86,7 +86,10 @@ de:
     search:
       no_results: 'Ihre Suche ergab kein Ergebnis.'
       result_heading: "Ihre Suche nach '%{query}'"
-      result_count: "Ergab %{result_count} Ergebnisse"
+      result_count:
+        zero: "Ergab keine Ergebnisse"
+        one: "Ergab ein Ergebnis"
+        other: "Ergab %{count} Ergebnisse"
     
     # == Contactform translations
     contactform:

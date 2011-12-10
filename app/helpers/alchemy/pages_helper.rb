@@ -521,7 +521,7 @@ module Alchemy
 			end
 			output = ""
 			output << content_tag(:h1, t("search.result_heading", :query => h(params[:query])), :class => 'search_results_heading') if options[:show_heading]
-			output << content_tag(:h2, t("search.result_count", :result_count => @search_results.length), :class => 'search_result_count') if options[:show_result_count]
+			output << content_tag(:h2, t("search.result_count", :count => @search_results.length), :class => 'search_result_count') if options[:show_result_count]
 			output << content_tag(:ul, results.html_safe, :class => 'search_result_list')
 			content_tag :div, :class => 'search_results' do
 				output.html_safe

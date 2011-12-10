@@ -73,7 +73,10 @@ en:
     search:
       no_results: 'No results found'
       result_heading: "Your search for '%{query}'"
-      result_count: 'Offers %{result_count} results'
+      result_count:
+        zero: 'Offers no results'
+        one: 'Offers one result'
+        other: 'Offers %{count} results'
     
     # == Contactform translations
     contactform:
