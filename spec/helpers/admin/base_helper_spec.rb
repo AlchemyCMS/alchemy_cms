@@ -38,11 +38,4 @@ describe Alchemy::Admin::BaseHelper do
 
   end
 
-	context "modules" do
-		it "should render main navi entries for all core modules" do
-			pending 'Do not know how to test helpers defined as helper_method in controller'
-			helper.admin_main_navigation.should have_selector('a.main_navi_entry')
-		end
-	end
-
 end
