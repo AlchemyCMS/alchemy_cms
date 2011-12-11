@@ -65,5 +65,19 @@ module Alchemy
 			return result.reverse
 		end
 
+		# Returns a hash with urlname for each url level.
+		# I.e.: +{:level1 => 'company', :level2 => 'history'}+
+		def params_for_nested_url(page = nil)
+			page ||= @page
+			raise ArgumentError if page.nil?
+			nested_urL_params = {}
+			page_bread_crumb = breadcrumb(page)
+			urlnames = page_bread_crumb[2..page_bread_crumb.length-2].collect(&:urlname)
+			urlnames.each_with_index do |urlname, i|
+				nested_urL_params["level#{i+1}"] = urlname
+			end
+			nested_urL_params.symbolize_keys
+		end
+
 	end
 end

@@ -3,30 +3,61 @@ require 'spec_helper'
 include Alchemy::BaseHelper
 
 describe Alchemy::PagesHelper do
-	
+
+	before(:each) do
+		helper.stub(:configuration).and_return(false)
+	end
+
 	it "should render the current page layout" do
 		@page = Factory(:public_page)
-		helper.stub(:configuration).and_return(true)
 		render_page_layout.should have_selector('div#content')
 	end
 
 	describe "#render_navigation" do
-		it "should render the page navigation" do
+
+		before(:each) do
 			@language = Alchemy::Language.get_default
 			@root_page = Factory(:language_root_page, :language => @language, :name => 'Home')
 			@page = Factory(:public_page, :language => @language, :parent_id => @root_page.id, :visible => true)
-			helper.stub(:multi_language?).and_return(false)
-			helper.render_navigation.should have_selector('ul.navigation_level_1 li.a-public-page.active.last a.active[href="/alchemy/a-public-page"]')
 		end
+
+		context "not in multi_language mode" do
+
+			before(:each) do
+				helper.stub(:multi_language?).and_return(false)
+			end
+
+			it "should render the page navigation" do
+				helper.render_navigation.should have_selector('ul.navigation_level_1 li.a-public-page.active.last a.active[href="/alchemy/a-public-page"]')
+			end
+
+			context "with enabled url nesting" do
+
+				before(:each) do
+					helper.stub!(:configuration).and_return(true)
+					@level2 = Factory(:public_page, :parent_id => @page.id, :language => @language, :name => 'Level 2', :visible => true)
+					@page = Factory(:public_page, :parent_id => @level2.id, :language => @language, :name => 'Nested Page', :visible => true)
+				end
+
+				it "should render nested page links" do
+					helper.render_navigation(:all_sub_menues => true).should have_selector('ul li a[href="/alchemy/a-public-page/level-2/nested-page"]')
+				end
+
+			end
+
+		end
+
 	end
 	
 	describe "#render_breadcrumb" do
 		
 		before(:each) do
 			helper.stub(:multi_language?).and_return(false)
+			@root = mock_model('Page', :urlname => 'root', :name => 'Root', :title => 'Root', :visible? => false, :public? => false, :restricted? => false)
 			@language_root = mock_model('Page', :urlname => 'language_root', :name => 'Language Root', :title => 'Language Root', :visible? => true, :public? => true, :restricted? => false)
 			@page = mock_model('Page', :urlname => 'a-public-page', :name => 'A Public Page', :title => 'A Public Page', :visible? => true, :public? => true, :restricted? => false)
-			@language_root.should_receive(:parent).and_return(nil)
+			@root.should_receive(:parent).and_return(nil)
+			@language_root.should_receive(:parent).and_return(@root)
 			@page.should_receive(:parent).and_return(@language_root)
 		end
 		
@@ -227,12 +258,11 @@ describe Alchemy::PagesHelper do
 			@default_language = Alchemy::Language.get_default
 			@klingonian = Factory(:language)
 			# simulates link_to_public_child = true
-			helper.stub(:configuration).and_return(true)
 			helper.stub(:multi_language?).and_return(true)
+			helper.stub(:configuration) { |arg| arg == :redirect_to_public_child ? true : false }
 		end
 
 		it "should return nil when having only one public language" do
-			helper.stub(:configuration).and_return(true)
 			helper.language_switcher.should be nil
 		end
 
@@ -242,37 +272,32 @@ describe Alchemy::PagesHelper do
 				@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Default Language Root')
 				@klingonian_language_root = Factory(:language_root_page)
 			end
-			
+
 			context "and config redirect_to_public_child is set to TRUE" do
-				
-				before :each do
-					# simulates link_to_public_child = true
-					helper.stub(:configuration).and_return(true)
-				end
-				
+
 				it "should return nil if only one language_root is public and both do not have children" do
 					@klingonian_language_root.update_attributes(:public => false)
 					helper.language_switcher.should == nil
 				end
-				
+
 				it "should return nil if only one language_root is public and both have none public children" do
 					@klingonian_language_root.update_attributes(:public => false)
 					@default_first_public_child = Factory(:page, :language => @default_language, :parent_id => @default_language_root.id, :public => false, :name => "child1")
 					@klingonian_first_public_child = Factory(:page, :language => @klingonian, :parent_id => @klingonian_language_root.id, :public => false, :name => "child1")
 					helper.language_switcher.should == nil
 				end
-				
+
 				it "should render two links when having two public language_root pages" do
 					helper.language_switcher.should have_selector('a', :count => 2)
 				end
-			
+
 				it "should render two links when having just one public language_root but a public children in both language_roots" do
 					@klingonian_language_root.update_attributes(:public => false)
 					@default_first_public_child = Factory(:page, :language => @default_language, :parent_id => @default_language_root.id, :public => true, :name => "child1")
 					@klingonian_first_public_child = Factory(:page, :language => @klingonian, :parent_id => @klingonian_language_root.id, :public => true, :name => "child1")
 					helper.language_switcher.should have_selector('a', :count => 2)
 				end
-			
+
 				it "should render two links when having two not public language_roots but a public children in both" do
 					@default_language_root.update_attributes(:public => false)
 					@klingonian_language_root.update_attributes(:public => false)
@@ -280,7 +305,7 @@ describe Alchemy::PagesHelper do
 					@klingonian_first_public_child = Factory(:page, :language => @klingonian, :parent_id => @klingonian_language_root.id, :public => true, :name => "child1")
 					helper.language_switcher.should have_selector('a', :count => 2)
 				end
-			
+
 				it "should return nil when having two not public language_roots and a public children in only one of them" do
 					@default_language_root.update_attributes(:public => false)
 					@klingonian_language_root.update_attributes(:public => false)
@@ -288,27 +313,27 @@ describe Alchemy::PagesHelper do
 					@klingonian_first_public_child = Factory(:page, :language => @klingonian, :parent_id => @klingonian_language_root.id, :public => true, :name => "child1")
 					helper.language_switcher.should == nil
 				end
-				
+
 			end
-		
+
 			context "and config redirect_to_public_child is set to FALSE" do
-				
+
 				before :each do
 					# simulates link_to_public_child = false
 					helper.stub(:configuration).and_return(false)
 				end
-				
+
 				it "should render two links when having two public language_root pages" do
 					helper.language_switcher.should have_selector('a', :count => 2)
 				end
-				
+
 				it "should render nil when having just one public language_root but a public children in both language_roots" do
 					@klingonian_language_root.update_attributes(:public => false)
 					@default_first_public_child = Factory(:page, :language => @default_language, :parent_id => @default_language_root.id, :public => true, :name => "child1")
 					@klingonian_first_public_child = Factory(:page, :language => @klingonian, :parent_id => @klingonian_language_root.id, :public => true, :name => "child1")
 					helper.language_switcher.should == nil
 				end
-				
+
 				it "should render nil when having two not public language_roots but a public children in both" do
 					@default_language_root.update_attributes(:public => false)
 					@klingonian_language_root.update_attributes(:public => false)
@@ -316,11 +341,11 @@ describe Alchemy::PagesHelper do
 					@klingonian_first_public_child = Factory(:page, :language => @klingonian, :parent_id => @klingonian_language_root.id, :public => true, :name => "child1")
 					helper.language_switcher.should == nil
 				end
-				
+
 			end
-		
+
 		end
-		
+
 	end
 
 end

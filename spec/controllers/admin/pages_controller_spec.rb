@@ -7,7 +7,7 @@ describe Alchemy::Admin::PagesController do
 		Alchemy::UserSession.create Factory(:admin_user)
 	end
 
-	describe "#flush", :focus => true do
+	describe "#flush" do
 
 		it "should remove the cache of all pages" do
 			post :flush, {:format => :js}

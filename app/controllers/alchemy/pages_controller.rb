@@ -98,8 +98,10 @@ module Alchemy
 				redirect_page
 			elsif configuration(:url_nesting) && url_levels.any? && !levels_are_in_page_branch?
 				render_404
-			elsif configuration(:url_nesting) && !url_levels.any?
+			elsif configuration(:url_nesting) && should_be_nested? && !url_levels.any?
 				redirect_page(params_for_nested_url)
+			elsif !configuration(:url_nesting) && url_levels.any?
+				redirect_page
 			elsif @page.has_controller?
 				redirect_to(@page.controller_and_action)
 			else
@@ -202,14 +204,8 @@ module Alchemy
 			level_names & nested_urlnames == level_names
 		end
 
-		def params_for_nested_url
-			nested_urL_params = {}
-			page_bread_crumb = breadcrumb(@page)
-			urlnames = page_bread_crumb[2..page_bread_crumb.length-2].collect(&:urlname)
-			urlnames.each_with_index do |urlname, i|
-				nested_urL_params["level#{i+1}"] = urlname
-			end
-			nested_urL_params.symbolize_keys
+		def should_be_nested?
+			!params_for_nested_url.blank?
 		end
 
 	end

@@ -6,10 +6,9 @@
 	:target => '_blank'
 ) -%>
 <%- else -%>
-<%- link_path = @preview_mode ? 'javascript:void(0)' : alchemy.show_page_path(:urlname => page.urlname, :lang => multi_language? ? page.language.code : nil) -%>
 <%= link_to(
 	h(page.name),
-	link_path,
+	@preview_mode ? 'javascript:void(0)' : show_alchemy_page_path(page),
 	{
 		:class => (page_active?(page) ? 'active' : nil),
 		:title => (options[:show_title] ? page.title : nil),

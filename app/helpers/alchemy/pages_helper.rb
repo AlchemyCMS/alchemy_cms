@@ -515,12 +515,13 @@ module Alchemy
 				output.html_safe
 			end
 		end
-		
+
 		# Returns the correct params-hash for passing to show_page_path
 		def show_page_path_params(page=nil, optional_params={})
 			return nil if page.class.name != "Alchemy::Page"
 			url_params = {:urlname => page.urlname}
 			url_params.update(optional_params) if optional_params.class.name == "Hash"
+			url_params.update(params_for_nested_url(page)) if configuration(:url_nesting)
 			return multi_language? ? url_params.update(:lang => page.language_code) : url_params
 		end
 

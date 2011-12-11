@@ -86,6 +86,7 @@ describe Alchemy::PagesController do
 
 			before(:each) do
 				@page = Factory(:public_page)
+				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : true }
 			end
 
 			it "should redirect to url with nested language code" do
@@ -100,7 +101,7 @@ describe Alchemy::PagesController do
 					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id)
 				end
 
-				it ", if requested page is unpublished" do
+				it "if requested page is unpublished" do
 					visit '/alchemy/kl/not-public'
 					page.current_path.should == '/alchemy/kl/public-child'
 				end
@@ -127,20 +128,50 @@ describe Alchemy::PagesController do
 				page.current_url.should match(/\?query=Peter/)
 			end
 
-			context "with enabled urlnesting" do
+			context "url nesting" do
 
 				before(:each) do
 					@level1 = Factory(:public_page, :parent_id => @default_language_root.id, :name => 'catalog', :language => @default_language)
 					@level2 = Factory(:public_page, :parent_id => @level1.id, :name => 'products', :language => @default_language)
 					@level3 = Factory(:public_page, :parent_id => @level2.id, :name => 'screwdriver', :language => @default_language)
-					Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
 				end
 
-				context "requesting a non nested url" do
+				context "enabled" do
 
-					it "should redirect to nested url" do
-						visit "/alchemy/de/screwdriver"
-						page.current_path.should == '/alchemy/de/catalog/products/screwdriver'
+					before(:each) do
+						Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
+					end
+
+					context "requesting a non nested url" do
+
+						it "should redirect to nested url" do
+							visit "/alchemy/de/screwdriver"
+							page.current_path.should == '/alchemy/de/catalog/products/screwdriver'
+						end
+
+						it "should only redirect to nested url if page is nested" do
+							visit "/alchemy/de/catalog"
+							page.status_code.should == 200
+							page.current_path.should == "/alchemy/de/catalog"
+						end
+
+					end
+
+				end
+
+				context "disabled" do
+
+					before(:each) do
+						Alchemy::Config.stub!(:get).and_return(false)
+					end
+
+					context "requesting a nested url" do
+
+						it "should redirect to not nested url" do
+							visit "/alchemy/de/catalog/products/screwdriver"
+							page.current_path.should == "/alchemy/de/screwdriver"
+						end
+
 					end
 
 				end
@@ -153,6 +184,7 @@ describe Alchemy::PagesController do
 
 			before(:each) do
 				@page = Factory(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
+				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : true }
 			end
 
 			it "should redirect from nested language code url to normal url" do
@@ -181,7 +213,7 @@ describe Alchemy::PagesController do
 					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id, :language => @default_language)
 				end
 
-				it ", if requested page is unpublished" do
+				it "if requested page is unpublished" do
 					visit '/alchemy/not-public'
 					page.current_path.should == '/alchemy/public-child'
 				end
