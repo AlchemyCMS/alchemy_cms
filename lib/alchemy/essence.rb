@@ -29,6 +29,7 @@ module Alchemy #:nodoc:
           include Alchemy::Essence::InstanceMethods
           stampable
           validate :essence_validations, :on => :update
+					has_many :contents, :as => :essence
           
           def acts_as_essence_class
             #{self.name}

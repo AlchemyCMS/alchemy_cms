@@ -113,17 +113,18 @@ module Alchemy
 			if searchresult_page_layouts.any?
 				@search_result_page = Page.find_by_page_layout_and_public_and_language_id(searchresult_page_layouts.first["name"], true, session[:language_id])
 				if !params[:query].blank? && @search_result_page
-					@rtf_search_results = EssenceRichtext.find_with_ferret(
-						"*#{params[:query]}*",
-						{:limit => :all},
-						{:conditions => ["public = ?", true]}
-					)
-					@text_search_results = EssenceText.find_with_ferret(
-						"*#{params[:query]}*",
-						{:limit => :all},
-						{:conditions => ["public = ?", true]}
-					)
-					@search_results = (@text_search_results + @rtf_search_results).sort{ |y, x| x.ferret_score <=> y.ferret_score }
+					@search_results = []
+					%w(Alchemy::EssenceText Alchemy::EssenceRichtext).each do |e|
+						@search_results += e.constantize.includes(:contents => {:element => :page}).find_with_ferret(
+							"*#{params[:query]}*",
+							{:limit => :all},
+							{:conditions => [
+								'alchemy_pages.public = ? AND alchemy_pages.layoutpage = ? AND alchemy_pages.restricted = ?',
+								true, false, false
+							]}
+						)
+					end
+					return @search_results.sort{ |y, x| x.ferret_score <=> y.ferret_score } if @search_results.any?
 				end
 			end
 		end
