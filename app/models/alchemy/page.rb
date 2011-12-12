@@ -42,6 +42,7 @@ module Alchemy
 		scope :published, where(:public => true)
 		scope :accessable, where(:restricted => false)
 		scope :restricted, where(:restricted => true)
+		scope :not_restricted, where(:restricted => false)
 		scope :public_language_roots, lambda {
 			where(:language_root => true).where("`alchemy_pages`.`language_code` IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
 		}
@@ -52,6 +53,7 @@ module Alchemy
 		# Used for flushing all page caches at once.
 		scope :contentpages, where("`alchemy_pages`.`layoutpage` = 0 AND `alchemy_pages`.`parent_id` IS NOT NULL")
 		scope :flushables, not_locked.published.contentpages
+		scope :searchables, not_restricted.published.contentpages
 
 		# Finds selected elements from page.
 		# 
