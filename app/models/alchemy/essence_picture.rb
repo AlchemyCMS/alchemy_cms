@@ -14,16 +14,5 @@ module Alchemy
 			caption.gsub!(/(\r\n|\r|\n)/, "<br/>")
 		end
 
-		# Saves the ingredient
-		def save_ingredient(params, options = {})
-			return true if params.blank?
-			self.link_class_name = params['link_class_name']
-			self.link_target = params['link_target']
-			self.link = params['link']
-			self.link_title = params['link_title']
-			self.picture_id = params['picture_id']
-			self.save
-		end
-
 	end
 end

@@ -321,7 +321,7 @@ module Alchemy
 
 		def save_contents(params)
 			contents.each do |content|
-				unless content.save_essence(params[:contents]["content_#{content.id}"], :public => !params["public"].nil?)
+				unless content.update_essence(params[:contents]["content_#{content.id}"])
 					errors.add(:base, :essence_validation_failed)
 				end
 			end

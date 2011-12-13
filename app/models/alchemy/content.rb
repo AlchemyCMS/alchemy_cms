@@ -96,19 +96,20 @@ module Alchemy
 			self.essence.ingredient
 		end
 
-		# Calls essence.save_ingredient. Called from ElementController#update for each content in element.
-		# Adding errors if essence validation fails.
-		def save_essence(params, options = {})
-			if essence.save_ingredient(params, options)
+		# Calls essence.update_attributes. Called from +Alchemy::Element#save_contents+
+		# Ads errors to self.base if essence validation fails.
+		def update_essence(params={})
+			raise "Essence not found" if essence.nil?
+			if essence.update_attributes(params)
 				return true
 			else
-				errors.add(:base, :essence_validation_failed)
+				errors.add(:essence, :validation_failed)
 				return false
 			end
 		end
 
 		def essence_validation_failed?
-			!essence.essence_errors.blank?
+			essence.errors.any?
 		end
 
 		def has_validations?

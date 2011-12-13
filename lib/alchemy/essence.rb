@@ -93,47 +93,34 @@ module Alchemy #:nodoc:
       #       validate: [format]
       #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
       # 
-      def essence_validations
-        return true if description.blank? || description['validate'].blank?
-        description['validate'].each do |validation|
-          if validation == 'presence' && ingredient.blank?
-            add_essence_error "blank"
-          elsif validation == 'format'
-            if description['validate_format_as'].blank? && !description['validate_format_with'].blank?
-              matcher = Regexp.new(description['validate_format_with'])
-            elsif !description['validate_format_as'].blank? && description['validate_format_with'].blank?
-              case description['validate_format_as']
-              when 'email'
-                then matcher = Authlogic::Regex.email
-              when 'url'
-                then matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
-              else
-                raise "No validation format matcher found for #{description['validate_format_as']}"
-              end
-            else
-              raise 'No validation format matcher given'
-            end
-            if ingredient.match(matcher).nil?
-              add_essence_error "wrong_format"
-            end
-          elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
-            add_essence_error "taken"
-          end
-        end
-      end
-      
-      def essence_errors
-        @essence_errors ||= []
-      end
-      
-      def essence_errors=(errors)
-        @essence_errors ||= errors
-      end
-      
-      def add_essence_error(error)
-        essence_errors << error
-        errors.add(:base, :essence_validation_failed)
-      end
+			def essence_validations
+				return true if description.blank? || description['validate'].blank?
+				description['validate'].each do |validation|
+					if validation == 'presence' && ingredient.blank?
+						errors.add(ingredient_column.to_sym, :blank)
+					elsif validation == 'format'
+						if description['validate_format_as'].blank? && !description['validate_format_with'].blank?
+							matcher = Regexp.new(description['validate_format_with'])
+						elsif !description['validate_format_as'].blank? && description['validate_format_with'].blank?
+							case description['validate_format_as']
+							when 'email'
+								then matcher = Authlogic::Regex.email
+							when 'url'
+								then matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+							else
+								raise "No validation format matcher found for #{description['validate_format_as']}"
+							end
+						else
+							raise 'No validation format matcher given'
+						end
+						if ingredient.match(matcher).nil?
+							errors.add(ingredient_column.to_sym, :invalid)
+						end
+					elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
+						errors.add(ingredient_column.to_sym, :taken)
+					end
+				end
+			end
       
       # Essence description from config/elements.yml
       def description

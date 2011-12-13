@@ -48,4 +48,28 @@ describe Alchemy::Content do
 
 	end
 
+	describe '#update_essence', :focus => true do
+
+		it "should update the attributes of related essence and return true" do
+			@element = Factory(:element, :name => 'text')
+			@content = @element.contents.first
+			@content.update_essence(:body => 'Mikes Petshop')
+			@content.ingredient.should == "Mikes Petshop"
+		end
+
+		it "should add error messages if save fails and return false" do
+			@element = Factory(:element, :name => 'contactform')
+			@content = @element.contents.first
+			@content.update_essence
+			@content.errors[:essence].should have(1).item
+		end
+
+		it "should raise error if essence is missing" do
+			@element = Factory(:element, :name => 'text')
+			@content = @element.contents.first
+			@content.update_essence
+		end
+
+	end
+
 end

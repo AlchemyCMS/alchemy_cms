@@ -557,6 +557,7 @@ de:
       default: "%d. %b. %Y, %H:%M Uhr"
       short: "%d. %B, %H:%Mh"
       long: "%A, %d. %B %Y um %H:%M Uhr"
+      date: "%d.%m.%Y"
       time: "%H:%M"
     am: "vormittags"
     pm: "nachmittags"
@@ -771,6 +772,10 @@ de:
         even: "%{attribute} muss gerade sein"
       
       models:
+        alchemy/content:
+          attributes:
+            essence:
+              validation_failed: 'Validierung fehlgeschlagen.'
         alchemy/language:
           attributes:
             code:

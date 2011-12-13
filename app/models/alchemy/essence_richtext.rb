@@ -4,7 +4,7 @@ module Alchemy
 		acts_as_essence(
 			:preview_text_column => :stripped_body
 		)
-		
+
 		# Require acts_as_ferret only if Ferret full text search is enabled (default).
 		# You can disable it in +config/alchemy/config.yml+
 		if Alchemy::Config.get(:ferret) == true
@@ -17,29 +17,21 @@ module Alchemy
 			)
 			before_save :check_ferret_indexing
 		end
-		
+
 		before_save :strip_content
-		
-		# Saves the ingredient
-		def save_ingredient(params, options = {})
-			return true if params.blank?
-			self.body = params['body'].to_s
-			self.public = options[:public]
-			self.save
-		end
 
 	private
 
 		def strip_content
 			self.stripped_body = strip_tags(self.body)
 		end
-		
+
 		def check_ferret_indexing
 			if self.do_not_index
 				self.disable_ferret(:always)
 			end
 		end
-		
+
 		# Stripping HTML Tags and only returns plain text.
 		def strip_tags(html)
 			return html if html.blank?

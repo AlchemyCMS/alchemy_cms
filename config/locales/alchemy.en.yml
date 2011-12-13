@@ -379,6 +379,7 @@ en:
       default: "%a, %d %b %Y %H:%M:%S %z" 
       short: "%d %b %H:%M" 
       long: "%B %d, %Y %H:%M" 
+      date: "%Y-%m-%d"
     am: "am" 
     pm: "pm" 
   support:
@@ -560,6 +561,10 @@ en:
         odd: "must be odd" 
         even: "must be even" 
       models:
+        alchemy/content:
+          attributes:
+            essence:
+              validation_failed: 'Validation failed.'
         alchemy/language:
           attributes:
             code:
