@@ -510,7 +510,7 @@ module Alchemy
 				:show_heading => true
 			}
 			options = default_options.merge(options)
-			return content_tag :h2, t('search.no_results') if @search_results.blank?
+			return content_tag :h2, t('search.no_results'), :class => 'no_search_results' if @search_results.blank?
 			results = ""
 			@search_results.each do |essence|
 				result = essence.highlight(

@@ -55,6 +55,28 @@ describe Alchemy::PagesController do
 				within('div#content .search_result') { page.should have_content('Petshop') }
 			end
 
+			it "should not find contents placed on global-pages (layoutpage => true)" do
+				@page.update_attributes(:layoutpage => true)
+				@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
+				visit('/alchemy/suche?query=Petshop')
+				save_and_open_page
+				within('div#content') { page.should have_css('h2.no_search_results') }
+			end
+
+			it "should not find contents placed on unpublished pages (public => false)" do
+				@page.update_attributes(:public => false)
+				@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
+				visit('/alchemy/suche?query=Petshop')
+				within('div#content') { page.should have_css('h2.no_search_results') }
+			end
+
+			it "should not find contents placed on restricted pages (restricted => true)" do
+				@page.update_attributes(:restricted => true)
+				@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
+				visit('/alchemy/suche?query=Petshop')
+				within('div#content') { page.should have_css('h2.no_search_results') }
+			end
+
 		end
 
 	end
