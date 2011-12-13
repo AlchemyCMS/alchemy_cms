@@ -48,7 +48,7 @@ describe Alchemy::Content do
 
 	end
 
-	describe '#update_essence', :focus => true do
+	describe '#update_essence' do
 
 		it "should update the attributes of related essence and return true" do
 			@element = Factory(:element, :name => 'text')
