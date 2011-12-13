@@ -59,7 +59,6 @@ describe Alchemy::PagesController do
 				@page.update_attributes(:layoutpage => true)
 				@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
 				visit('/alchemy/suche?query=Petshop')
-				save_and_open_page
 				within('div#content') { page.should have_css('h2.no_search_results') }
 			end
 
