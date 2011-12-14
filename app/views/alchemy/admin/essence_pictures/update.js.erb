@@ -1,16 +1,17 @@
 (function($) {
-  
-  $('#<%= content_dom_id(@content) -%>').replaceWith('<%= escape_javascript(
-    render(
-      :partial => "alchemy/essences/essence_picture_editor",
-      :locals => {:content => @content, :options => params[:options]}
-    )
-  ) -%>');
-  Alchemy.growl('<%= t("Image updated successfully") -%>');
-  Alchemy.closeCurrentWindow();
-  Alchemy.reloadPreview();
+
+	$('#<%= content_dom_id(@content) -%>').replaceWith('<%= escape_javascript(
+		render(
+			:partial => "alchemy/essences/essence_picture_editor",
+			:locals => {:content => @content, :options => params[:options]}
+		)
+	) -%>');
+	Alchemy.growl('<%= t("Image updated successfully") -%>');
+	Alchemy.ImageCropper.destroy();
+	Alchemy.closeCurrentWindow();
+	Alchemy.reloadPreview();
 <%- if @content.element.contents.find_all_by_essence_type("Alchemy::EssencePicture").size > 1 -%>
-  Alchemy.SortableContents('<%= form_authenticity_token -%>');
+	Alchemy.SortableContents('<%= form_authenticity_token -%>');
 <%- end -%>
-  
+
 })(jQuery);
