@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 begin
 	require "rubygems"
+	require 'rails/version'
+	RAILS_VERSION = Rails::VERSION::STRING
+	if RAILS_VERSION < "3.1"
+		raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.1'"
+	end
 	require "thor"
 	require 'alchemy/version'
-	require 'rails'
-	if Rails.version >= "3.1" || Rails.version < "3.0"
-		raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.0.10'"
-	end
 end
 
 class AlchemyInstaller < Thor
@@ -21,34 +22,32 @@ class AlchemyInstaller < Thor
   	puts Alchemy::VERSION
   end
 
-  desc "new PROJECT", "Creates a new Alchemy project."
+  desc "new PROJECT", "Creates a new Alchemy CMS project."
   method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm to use for this project. Leave blank for none."
 	method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
   def new(project)
-    project = project.downcase.strip.gsub(/ /, '_')
-    if yes?("Install Alchemy into ./#{project}? (y/N)")
+    @application = project.downcase.strip.gsub(/ /, '_')
+    if yes?("Install Alchemy CMS into ./#{@application}? (y/N)")
       
       say "Generating new Rails App...", :yellow
       
-      if system("rails _#{Rails.version}_ new #{project} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
-        
-        @application = project
+      if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
         
         create_database_yml if options[:database] == 'mysql'
         
-        with_standard_set = yes?("\nDo you want to install Alchemys Standardset files into your App? (y/N)")
+        with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
         
         %x[
-          cd ./#{project}
+          cd ./#{@application}
           rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
           rm ./public/index.html
-          rm ./public/images/rails.png
+          rm ./app/assets/images/rails.png
         ]
         
         if options[:scm]
           
           %x[
-            cd ./#{project}
+            cd ./#{@application}
             rm -rf ./tmp/*
             rm -rf ./log/*
             mkdir -p ./index
@@ -59,26 +58,27 @@ class AlchemyInstaller < Thor
             when 'svn'
               server = ask("\nURL of your svn server? (http://svn.magiclabs.de/customers)")
               server = "http://svn.magiclabs.de/customers" if server.empty?
-              repository = ask("\nName of the repository? (#{project})")
-              repository = project if repository.empty?
+              repository = ask("\nName of the repository? (#{@application})")
+              repository = @application if repository.empty?
               
-              say "\nImporting #{project} into #{server}/#{repository} ...", :yellow
-              output = %x[svn import ./#{project} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
+              say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
+              output = %x[svn import ./#{@application} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
               
               if imported
                 
                 say "Removing and checking out again...", :yellow
                 %x[
-                  rm -rf ./#{project}
+                  rm -rf ./#{@application}
                   svn co #{server}/#{repository}
                 ]
                 
                 say "Committing ignores...", :yellow
                 %x[
-                  cd ./#{project}
+                  cd ./#{@application}
                   svn propset svn:ignore '*' tmp/ log/ index/ uploads/
                   svn propset svn:ignore 'alchemy' ./public/images ./public/stylesheets ./public/javascripts
                   svn propset svn:ignore 'pictures' ./public
+                  svn propset svn:ignore 'assets' ./public
                   svn propset svn:ignore 'database.yml' ./config
                   svn commit -m 'set ignores'
                 ]
@@ -125,7 +125,7 @@ class AlchemyInstaller < Thor
                   say "\nCapifying...", :yellow
                   
                   %x[
-                    cd #{project}
+                    cd #{@application}
                     capify .
                     svn add ./config/deploy.rb ./Capfile
                     svn commit -m 'capified'
@@ -146,11 +146,12 @@ class AlchemyInstaller < Thor
                 index/*
                 public/**/alchemy
                 public/pictures
+                public/assets
                 config/database.yml
               GIT
               %x[
-                cd #{project}
-                echo #{gitignore} > #{project}/.gitignore
+                cd #{@application}
+                echo #{gitignore} > #{@application}/.gitignore
                 touch ./index/.gitkeep
                 touch ./uploads/.gitkeep
                 git init .
@@ -161,18 +162,18 @@ class AlchemyInstaller < Thor
         end
         
         %x[
-          cd ./#{project}
+          cd ./#{@application}
           rake alchemy:prepare db:create db:migrate db:seed
         ]
         
         readme = <<-EOF
-\nSuccessfully installed Alchemy into ./#{project}
+\nSuccessfully installed Alchemy CMS into ./#{@application}
 
 Next steps:
 
 1. Go into your projects folder:
 
-  cd ./#{project}
+  cd ./#{@application}
 
 2. Start your local Rails server:
 
@@ -184,7 +185,8 @@ Next steps:
 
 4. Follow the instructions to complete the installation!
 
-Thank you for using Alchemy!
+Thank you for using Alchemy CMS!
+http://alchemy-cms.com
 
 EOF
         say readme, :green
@@ -286,10 +288,8 @@ after "deploy:symlink", "alchemy:shared_folders:symlink"
 after "deploy:symlink", "alchemy:database_yml:symlink"
 
 before "deploy:restart", "deploy:migrate"
-before "deploy:restart", "alchemy:db:migrate"
 
 before "deploy:restart", "deploy:seed"
-before "deploy:restart", "alchemy:assets:copy"
 
 after "deploy", "deploy:cleanup"
 
