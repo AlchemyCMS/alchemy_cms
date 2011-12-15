@@ -10,11 +10,9 @@ module Alchemy
 
 			def index
 				if !params[:query].blank?
-					items = resource_model.where(resource_attributes.map { |attribute|
-						if attribute[:type] == :string
-							"`#{resources_name}`.#{attribute[:name]} LIKE '%#{params[:query]}%'"
-						end
-					}.compact.join(" OR "))
+					items = resource_model.where(searchable_resource_attributes.map { |attribute|
+						"`#{namespaced_resources_name}`.`#{attribute[:name]}` LIKE '%#{params[:query]}%'"
+					}.join(" OR "))
 				else
 					items = resource_model
 				end
@@ -104,6 +102,10 @@ module Alchemy
 						{:name => col.name, :type => col.type}
 					end
 				end.compact
+			end
+
+			def searchable_resource_attributes
+				resource_attributes.select{ |a| a[:type] == :string }
 			end
 
 			def resource_window_size
