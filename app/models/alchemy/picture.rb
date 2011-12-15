@@ -19,6 +19,13 @@ module Alchemy
 
 		stampable
 
+		def self.find_paginated(params, per_page)
+			Picture.where("name LIKE '%#{params[:query]}%'").paginate(
+				:page => params[:page] || 1,
+				:per_page => per_page
+			).order(:name)
+		end
+
 		# Returning the filepath relative to Rails.root public folder.
 		def public_file_path
 			self.file_path.gsub("#{Rails.root}/public", '')

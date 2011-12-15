@@ -10,6 +10,14 @@ module Alchemy
 		)
 		validates_as_attachment
 
+		def self.find_paginated(params, per_page)
+			cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
+			self.where(cond).paginate(
+				:page => (params[:page] || 1),
+				:per_page => per_page
+			).order(:name)
+		end
+
 		def name
 			read_attribute(:name).split('.').first
 		end

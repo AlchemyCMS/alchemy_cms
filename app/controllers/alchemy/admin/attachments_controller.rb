@@ -8,15 +8,7 @@ module Alchemy
 				if in_overlay?
 					archive_overlay
 				else
-					cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
-					if params[:per_page] == 'all'
-						@attachments = Attachment.where(cond).order(:name)
-					else
-						@attachments = Attachment.where(cond).paginate(
-							:page => (params[:page] || 1),
-							:per_page => per_page_value_for_screen_size
-						).order(:name)
-					end
+					@attachments = Attachment.find_paginated(params, per_page_value_for_screen_size)
 				end
 			end
 
@@ -35,21 +27,13 @@ module Alchemy
 				@attachment = Attachment.new(:uploaded_data => params[:Filedata])
 				@attachment.name = @attachment.filename
 				@attachment.save
-				cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
-				if params[:per_page] == 'all'
-					@attachments = Attachment.where(cond).order(:name)
-				else
-					@attachments = Attachment.where(cond).paginate(
-						:page => (params[:page] || 1),
-						:per_page => (params[:per_page] || 20)
-					).order(:name)
-				end
 				if in_overlay?
 					@while_assigning = true
 					@content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
 					@swap = params[:swap]
 					@options = hashified_options
 				end
+				@attachments = Attachment.find_paginated(params, per_page_value_for_screen_size)
 				@message = t('File %{name} uploaded succesfully', :name => @attachment.name)
 				# Are we using the Flash uploader? Or the plain html file uploader?
 				if params[Rails.application.config.session_options[:key]].blank?

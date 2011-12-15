@@ -9,14 +9,7 @@ module Alchemy
 
 			def index
 				@size = params[:size] || 'medium'
-				if params[:per_page] == 'all'
-					@pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-				else
-					@pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
-						:page => params[:page] || 1,
-						:per_page => pictures_per_page_for_size(@size)
-					).order(:name)
-				end
+				@pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
 				if in_overlay?
 					archive_overlay
 				else
@@ -52,14 +45,7 @@ module Alchemy
 					@page = params[:page] || 1
 					@per_page = pictures_per_page_for_size(@size)
 				end
-				if params[:per_page] == 'all'
-					@pictures = Picture.where("name LIKE '%#{params[:query]}%'").order(:name)
-				else
-					@pictures = Picture.where("name LIKE '%#{params[:query]}%'").paginate(
-						:page => (params[:page] || 1),
-						:per_page => pictures_per_page_for_size(@size)
-					).order(:name)
-				end
+				@pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
 				@message = t('Picture uploaded succesfully', :name => @picture.name)
 				# Are we using the Flash uploader? Or the plain html file uploader?
 				if params[Rails.application.config.session_options[:key]].blank?
@@ -107,11 +93,11 @@ module Alchemy
 			def pictures_per_page_for_size(size)
 				case size
 				when 'small'
-					per_page = in_overlay? ? 35 : (per_page_value_for_screen_size * 2.95).floor # 50
+					per_page = in_overlay? ? 35 : (per_page_value_for_screen_size * 2.9).floor # 50
 				when 'large'
-					per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 2.1).floor # 8
+					per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor # 8
 				else
-					per_page = in_overlay? ? 12 : (per_page_value_for_screen_size / 0.95).ceil # 18
+					per_page = in_overlay? ? 12 : (per_page_value_for_screen_size / 0.8).ceil # 18
 				end
 				return per_page
 			end
