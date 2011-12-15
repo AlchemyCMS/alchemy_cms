@@ -35,12 +35,4 @@ Gem::Specification.new do |s|
 	s.add_development_dependency(%q<rspec-rails>, ["~> 2.7"])
 	s.add_development_dependency(%q<sqlite3>)
 
-	if !ENV["CI"]
-		if RUBY_VERSION =~ /^1.9/
-			s.add_development_dependency(%q<ruby-debug19>)
-		else
-			s.add_development_dependency(%q<ruby-debug>)
-		end
-	end
-
 end
