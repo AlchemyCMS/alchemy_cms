@@ -415,17 +415,16 @@ module Alchemy
 			end
 			robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
 			meta_string = %(
-				<meta charset=UTF-8">
+				<meta charset="UTF-8">
 				#{render_title_tag(:prefix => options[:title_prefix], :seperator => options[:title_seperator])}
 				#{render_meta_tag(:name => "description", :content => description)}
 				#{render_meta_tag(:name => "keywords", :content => keywords)}
-				<meta name="generator" content="Alchemy #{Alchemy::VERSION}">
-				<meta name="date" content="#{@page.updated_at}">
+				<meta name="created" content="#{@page.updated_at}">
 				<meta name="robots" content="#{robot}">
 			)
 			if @page.contains_feed?
 			meta_string += %(
-				<link rel="alternate" type="application/rss+xml" title="RSS" href="#{multi_language? ? alchemy.show_page_url(:protocol => 'feed', :urlname => @page.urlname, :lang => @page.language_code, :format => :rss) : show_page_url(:protocol => 'feed', :urlname => @page.urlname, :format => :rss)}">
+				<link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, :protocol => 'feed', :format => :rss)}">
 			)
 			end
 			return meta_string.html_safe
