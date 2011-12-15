@@ -24,7 +24,7 @@ module Alchemy
 
 		def login
 			if current_user
-				redirect_to admin_dashboard_path, :notice => t('You are already logged in.')
+				redirect_to admin_dashboard_path, :notice => t('You are already logged in')
 			else
 				if request.get?
 					@user_session = UserSession.new()

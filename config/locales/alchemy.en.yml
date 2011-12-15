@@ -281,6 +281,7 @@ en:
     no_images_in_archive: "You don't have any images in your archive."
     no_more_elements_to_add: "No more elements available."
     no_search_results: "Your search did not return any results."
+    "No users found": "No users found."
     "not a valid image": "This is not an valid image."
     "Page created": "Page: '%{name}' created."
     page_for_links.choose_page: "Choose %{name}"
@@ -346,8 +347,10 @@ en:
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
     welcome_please_identify_notice: "Welcome! Please identify."
     width: "Width"
+    "You are already logged in": "You are already logged in."
     "You may upload files with following extensions": "You may upload %{file_types_description} with following extensions: %{file_types}"
     zoom_image: "Zoom this image."
+    "Nothing found": "Nothing found."
     
   # END of Alchemy translation
   

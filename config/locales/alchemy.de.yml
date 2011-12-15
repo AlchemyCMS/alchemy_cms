@@ -528,9 +528,9 @@ de:
     "Succesfully created": "Erfolgreich erstellt"
     "Succesfully updated": "Erfolgreich aktualisiert"
     "Succesfully removed": "Erfolgreich gelöscht"
-    "You are already logged in.": "Sie sind bereits angemeldet."
-    "No users found.": "Keine Benutzer gefunden."
-    "Nothing found.": "Keine Einträge gefunden."
+    "You are already logged in": "Sie sind bereits angemeldet."
+    "No users found": "Keine Benutzer gefunden."
+    "Nothing found": "Keine Einträge gefunden."
   
   # END of Alchemy translation
   
