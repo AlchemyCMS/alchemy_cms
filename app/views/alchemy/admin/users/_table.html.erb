@@ -5,36 +5,36 @@
 	</tr>
 	<tr>
 		<td class="label"><%= f.label 'firstname' %></td>
-		<td class="input"><%= f.text_field 'firstname', :class => 'thin_border' -%></td>
+		<td class="input"><%= f.text_field 'firstname', :class => 'thin_border' %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label 'lastname' %></td>
-		<td class="input"><%= f.text_field 'lastname', :class => 'thin_border' -%></td>
+		<td class="input"><%= f.text_field 'lastname', :class => 'thin_border' %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'login' %></td>
-		<td class="input"><%= f.text_field 'login', :class => 'thin_border' -%></td>
+		<td class="label mandatory"><%= f.label 'login' %></td>
+		<td class="input"><%= f.text_field 'login', :class => 'thin_border', :required => true %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'email' %></td>
-		<td class="input"><%= f.text_field 'email', :class => 'thin_border' -%></td>
+		<td class="label mandatory"><%= f.label 'email' %></td>
+		<td class="input"><%= f.email_field 'email', :class => 'thin_border', :required => true %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label 'language' %></td>
-		<td class="select"><%= f.select 'language', translations_for_select, {}, :class => 'long' -%></td>
+		<td class="select"><%= f.select 'language', translations_for_select, {}, :class => 'long' %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'password' %></td>
-		<td class="input"><%= f.password_field 'password', :class => 'thin_border', :autocomplete => "off" -%></td>
+		<td class="label mandatory"><%= f.label 'password' %></td>
+		<td class="input mandatory"><%= f.password_field 'password', :class => 'thin_border', :autocomplete => "off", :required => true %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label 'password_confirmation' %></td>
-		<td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border', :autocomplete => "off" -%></td>
+		<td class="label mandatory"><%= f.label 'password_confirmation' %></td>
+		<td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border', :autocomplete => "off", :required => true %></td>
 	</tr>
 	<%- unless action_name == 'signup' -%>
 	<tr>
 		<td class="label"><%= f.label 'role' %></td>
-		<td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role), {}, :class => 'long' -%></td>
+		<td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role), {}, :class => 'long' %></td>
 	</tr>
 	<%- else -%>
 	<%= f.hidden_field :role %>

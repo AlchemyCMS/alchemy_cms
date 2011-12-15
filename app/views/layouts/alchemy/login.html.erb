@@ -8,12 +8,9 @@
 		<%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
 		<%= javascript_include_tag('alchemy/alchemy') %>
 	</head>
-	<body id="alchemy">
+	<body id="alchemy" class="login">
 		<div id="main_menu">
-			<div id="main_navi">
-				<%= yield(:navigation) %>
-				<%= admin_main_navigation %>
-			</div>
+			<div id="main_navi"></div>
 			<div id="main_menu_background"></div>
 			<div id="logout">
 				<%= link_to(alchemy.root_path) do %>
@@ -28,9 +25,7 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 			jQuery(document).ready(function($) {
-				if (typeof($().sb) === 'function') {
-					Alchemy.SelectBox('body#alchemy select');
-				}
+				Alchemy.SelectBox('body#alchemy select');
 			});
 		</script>
 	</body>

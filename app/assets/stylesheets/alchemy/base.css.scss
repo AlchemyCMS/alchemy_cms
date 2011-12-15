@@ -218,6 +218,16 @@ div.pagination span.gap {
 
 /* @end */
 
+#login_box {
+	height: 310px;
+	width: 394px;
+	margin-top: -210px;
+	margin-left: -197px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
 #login table tbody tr td.label {
 	width: 155px;
 	text-align: right;
@@ -231,22 +241,6 @@ div.pagination span.gap {
 
 form#login.new_user_session {
 	text-align: right;
-}
-
-#login .thin_border {
-	width: 195px;
-	float: right;
-}
-
-#login_notice {
-	overflow: auto;
-	padding: 2*$default-padding;
-	background-color: #fff;
-	text-align: left;
-}
-
-#login label {
-	margin-right: 8px;
 }
 
 .float_right {
@@ -362,6 +356,7 @@ div#top_menu {
 	left: 65px;
 	z-index: 0;
 	width: 93%;
+	height: 100%;
 }
 
 div#user_info {
@@ -470,7 +465,7 @@ div.widget p {
 /* @end */
 
 div#alchemy_greeting {
-	width: 100%;
+	width: 370px;
 	margin-right: auto;
 	margin-left: auto;
 	padding: 2*$default-padding;
