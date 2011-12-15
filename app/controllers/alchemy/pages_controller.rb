@@ -200,7 +200,7 @@ module Alchemy
 
 		def levels_are_in_page_branch?
 			nested_urlnames = breadcrumb(@page).collect(&:urlname)
-			level_names = params.select { |p| url_levels.include?(p) }.values
+			level_names = params.select { |k, v| url_levels.include?(k) }.map(&:second)
 			level_names & nested_urlnames == level_names
 		end
 
