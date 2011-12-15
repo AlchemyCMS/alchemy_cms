@@ -95,14 +95,14 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', '~> 2.1.beta5', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
+    gem 'alchemy_cms', '~> 2.1.beta7', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
 
 Run in terminal:
 
     bundle install
-    rake alchemy:prepare
+    rake alchemy:install:migrations
     rake db:migrate
-    rake db:seed
+    rake alchemy:db:seed
 
 Tipps
 -----

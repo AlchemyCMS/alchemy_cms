@@ -1,11 +1,5 @@
 namespace :alchemy do
 
-	desc "Migrates the database, inserts essential data into the database and copies all assets."
-	task :prepare do
-		Rake::Task['alchemy:install:migrations'].invoke
-		Rake::Task['alchemy:db:seed'].invoke
-	end
-
 	namespace :db do
 
 		desc "Seeds the database with essential data for Alchemy."
