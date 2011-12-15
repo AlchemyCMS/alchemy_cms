@@ -1,8 +1,9 @@
 Alchemy::Engine.routes.draw do
 
 	root :to => 'pages#show'
-
-	match '/admin' => redirect("/admin/dashboard")
+	match '/admin' => redirect(
+		"#{Rails.application.routes.named_routes[:alchemy].path rescue ''}/admin/dashboard".gsub(/^\/\//, '/')
+	)
 	match '/admin/login' => 'user_sessions#login',
 		:as => :login
 	match '/admin/signup' => 'user_sessions#signup',
@@ -15,11 +16,11 @@ Alchemy::Engine.routes.draw do
 		:as => :admin_dashboard
 	match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
 		:as => :download_attachment
-	
+
 	# catching legacy download urls
 	match '/wa_files/download/:id' => 'attachments#download'
 	match '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
-	
+
 	match '/attachment/:id/show' => 'attachments#show',
 		:as => :show_attachment
 	match '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format' => 'pictures#show',
