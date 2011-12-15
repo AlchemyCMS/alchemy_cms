@@ -168,7 +168,7 @@ class AlchemyInstaller < Thor
         
         %x[
           cd ./#{@application}
-          rake alchemy:prepare db:create db:migrate
+          rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
         ]
         
         readme = <<-EOF
@@ -265,13 +265,6 @@ set :password, "#{@ssh_password}"
 set :port, #{@ssh_port}
 set :use_sudo, false
 
-# database
-set :database_user, "#{@db_user}"
-set :database_password, "#{@db_password}"
-set :database_name, "#{@db_name}"
-set :database_host, "#{@db_host}"
-set :database_socket, "#{@db_socket}"
-
 # domain names
 role :app, "#{@server}"
 role :web, "#{@server}"
@@ -286,15 +279,13 @@ set :scm_password, "#{@scm_password}"
 
 set :repository, Proc.new{ "--username \#{scm_user} --password \#{scm_password} \#{repository_url}" }
 
-after "deploy:setup", "alchemy:shared_folders:create"
 after "deploy:setup", "alchemy:database_yml:create"
 
-after "deploy:symlink", "alchemy:shared_folders:symlink"
+before "deploy:start", "deploy:seed"
+
 after "deploy:symlink", "alchemy:database_yml:symlink"
 
 before "deploy:restart", "deploy:migrate"
-
-before "deploy:restart", "deploy:seed"
 
 after "deploy", "deploy:cleanup"
 
@@ -310,39 +301,9 @@ namespace :logs do
   end
 end
 
-namespace :alchemy do
-
-  namespace :database_yml do
-
-    desc "Creates the database.yml file for server database"
-    task :create, :roles => :app do
-      db_config = ERB.new <<-EOF
-      production:
-        adapter: mysql2
-        encoding: utf8
-        database: \#{database_name}
-        username: \#{database_user}
-        password: \#{database_password}
-        host: \#{database_host}
-        socket: \#{database_socket}
-      EOF
-      run "mkdir -p \#{shared_path}/config" 
-      put db_config.result, "\#{shared_path}/config/database.yml"
-    end
-
-    desc ""
-    task :symlink do
-      run "ln -nfs \#{shared_path}/config/database.yml \#{current_path}/config/"
-    end
-
-  end
-
-end
-
 namespace :deploy do
   desc "Overwrite for the internal Capistrano deploy:start task."
   task :start, :roles => :app do
-    run "echo 'Nothing to start'"
   end
 
   desc "Restart the server"
@@ -351,8 +312,8 @@ namespace :deploy do
   end
 
   desc 'Seeds the database'
-    task :seed, :roles => :app, :except => { :no_release => true } do
-      run "cd \#{current_path} && RAILS_ENV=production rake db:seed"
+  task :seed, :roles => :app, :except => { :no_release => true } do
+    run "cd \#{current_path} && RAILS_ENV=production rake db:seed"
   end
 end
 DEPLOY

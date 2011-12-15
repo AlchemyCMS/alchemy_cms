@@ -6,10 +6,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   
   after "deploy:setup", "alchemy:shared_folders:create"
   after "deploy:symlink", "alchemy:shared_folders:symlink"
-  
-	if Rails.version < '3.1'
-		before "deploy:restart", "alchemy:files:copy"
-	end
+	before "deploy:start", "alchemy:seed"
   
   namespace :alchemy do
 
@@ -35,16 +32,6 @@ Capistrano::Configuration.instance(:must_exist).load do
         run "ln -nfs #{shared_path}/cache/pictures #{current_path}/public/"
         run "rm -rf #{current_path}/index"
         run "ln -nfs #{shared_path}/index #{current_path}/"
-      end
-
-    end
-
-    namespace :files do
-
-      desc "Copies all assets and migration files from Alchemy to project"
-      task :copy do
-        run "cd #{current_path} && RAILS_ENV=production #{rake} alchemy:assets:copy:all"
-        run "cd #{current_path} && RAILS_ENV=production #{rake} alchemy:migrations:sync"
       end
 
     end
