@@ -127,7 +127,6 @@ if (typeof(Alchemy) === 'undefined') {
 		
 		resizeFrame : function() {
 			var options = {
-				top: 90,
 				left: 65,
 				right: 0
 			};
@@ -135,11 +134,12 @@ if (typeof(Alchemy) === 'undefined') {
 			var $topFrame = $('#top_menu');
 			var view_height = $(window).height();
 			var view_width = $(window).width();
-			var mainFrameHeight = view_height - options.top;
-			var topFrameHeight = options.top;
+			var topFrameHeight = $topFrame.height();
+			var mainFrameHeight = view_height - topFrameHeight;
 			var width = view_width - options.left - options.right;
 			if ($mainFrame.length > 0) {
 				$mainFrame.css({
+					top: topFrameHeight,
 					width: width,
 					height: mainFrameHeight
 				});

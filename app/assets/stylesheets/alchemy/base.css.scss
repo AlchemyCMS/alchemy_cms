@@ -359,7 +359,6 @@ div#top_menu {
 #main_content {
 	background-color: $light-gray;
 	position: absolute;
-	top: 90px;
 	left: 65px;
 	z-index: 0;
 	width: 93%;
@@ -1831,6 +1830,10 @@ td.label {
 	width: 80px;
 	padding: $default-padding 2*$default-padding 0 0;
 	line-height: 6*$default-padding;
+}
+
+td.label.mandatory:after {
+	content: '*';
 }
 
 td.heading {
