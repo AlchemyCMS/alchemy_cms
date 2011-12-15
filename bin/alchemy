@@ -17,7 +17,7 @@ class AlchemyInstaller < Thor
   map "-v" => :version
 	map "--version" => :version
 
-	desc "version", "Prints current Alchemy version", :hide => true
+	desc "version", "Prints current Alchemy CMS version", :hide => true
   def version
   	puts Alchemy::VERSION
   end
@@ -43,6 +43,11 @@ class AlchemyInstaller < Thor
           rm ./public/index.html
           rm ./app/assets/images/rails.png
         ]
+
+				mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
+				mountpoint = "/" if mountpoint.empty?
+				sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
+				inject_into_file "#{@application}/config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
         
         if options[:scm]
           
@@ -163,7 +168,7 @@ class AlchemyInstaller < Thor
         
         %x[
           cd ./#{@application}
-          rake alchemy:prepare db:create db:migrate db:seed
+          rake alchemy:prepare db:create db:migrate
         ]
         
         readme = <<-EOF
