@@ -24,11 +24,13 @@ module Alchemy
 			def copy_files
 				if options['with-standard-set']
 					layouts_path = File.expand_path('../../../../../app/views/layouts/alchemy', File.dirname(__FILE__))
+					elements_path = File.expand_path('../../../../../app/views/alchemy/elements', File.dirname(__FILE__))
+					page_layouts_path = File.expand_path('../../../../../app/views/alchemy/page_layouts', File.dirname(__FILE__))
 					copy_file "#{@config_path}/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
 					copy_file "#{@config_path}/page_layouts.yml", "#{Rails.root}/config/alchemy/page_layouts.yml"
 					copy_file "#{layouts_path}/pages.html.erb", "#{Rails.root}/app/views/layouts/alchemy/pages.html.erb"
-					Rails::Generators.invoke("alchemy:elements")
-					Rails::Generators.invoke("alchemy:page_layouts")
+					copy_file "#{elements_path}/*", "#{Rails.root}/app/views/alchemy/elements/"
+					copy_file "#{page_layouts_path}/*", "#{Rails.root}/app/views/alchemy/page_layouts/"
 				else
 					copy_file "#{File.dirname(__FILE__)}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
 					copy_file "#{File.dirname(__FILE__)}/files/page_layouts.yml", "#{Rails.root}/config/alchemy/page_layouts.yml"
