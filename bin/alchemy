@@ -7,7 +7,7 @@ begin
 		raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.1'"
 	end
 	require "thor"
-	require 'alchemy/version'
+	require File.join(File.dirname(__FILE__), '..', 'lib/alchemy/version')
 end
 
 class AlchemyInstaller < Thor
