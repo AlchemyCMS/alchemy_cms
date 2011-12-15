@@ -1,14 +1,16 @@
 <%- if @pictures.blank? && params[:query].nil? -%>
-<p class="padding_left_right">
+<div class="info">
+	<%= render_icon('info') %>
 	<%= t("no_images_in_archive") %>
-</p>
+</div>
 <%- elsif @pictures.blank? -%>
-<p class="padding_left_right">
+<div class="info">
+	<%= render_icon('info') %>
 	<%= t("no_search_results") %>
-</p>
+</div>
 <%- else  -%>
 <div id="pictures">
-	<%= render(:partial => 'picture', :collection => @pictures) %>
+	<%= render :partial => 'picture', :collection => @pictures %>
+	<%= render 'alchemy/admin/partials/pagination_links', :items => @pictures %>
 </div>
-<%= render :partial => 'alchemy/admin/partials/pagination_links', :locals => {:items => @pictures} %>
 <%- end -%>
