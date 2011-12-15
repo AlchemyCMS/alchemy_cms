@@ -29,8 +29,8 @@ module Alchemy
 					copy_file "#{@config_path}/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
 					copy_file "#{@config_path}/page_layouts.yml", "#{Rails.root}/config/alchemy/page_layouts.yml"
 					copy_file "#{layouts_path}/pages.html.erb", "#{Rails.root}/app/views/layouts/alchemy/pages.html.erb"
-					copy_file "#{elements_path}/*", "#{Rails.root}/app/views/alchemy/elements/"
-					copy_file "#{page_layouts_path}/*", "#{Rails.root}/app/views/alchemy/page_layouts/"
+					Dir.glob(File.join(elements_path, '**', '*')).reject{|filename| !(File.basename(filename) =~ /(.+)_(view|editor).html.erb/) }.each {|filename| copy_file "#{elements_path}/#{filename}", "#{Rails.root}/app/views/alchemy/elements/"}
+					directory "#{page_layouts_path}/", "#{Rails.root}/app/views/alchemy/page_layouts/"
 				else
 					copy_file "#{File.dirname(__FILE__)}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
 					copy_file "#{File.dirname(__FILE__)}/files/page_layouts.yml", "#{Rails.root}/config/alchemy/page_layouts.yml"
