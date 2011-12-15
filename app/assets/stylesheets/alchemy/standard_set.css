@@ -342,7 +342,7 @@ td.field {
 }
 
 input.field.short {
-	width: 105px;
+	width: 97px;
 }
 
 input.field.medium {
@@ -354,11 +354,11 @@ td.label {
 }
 
 textarea {
-	width: 310px;
+	width: 314px;
 	padding: 2px;
 	font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
 	border: 1px solid silver;
-	margin-left: 137px;
+	margin-left: 126px;
 	height: 10em;
 	margin-top: 2em;
 	margin-bottom: 1em;

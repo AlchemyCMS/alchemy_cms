@@ -178,18 +178,6 @@ module Alchemy
 			end
 		end
 
-		def layout_for_page
-			if params[:layout] == 'none'
-				false
-			elsif not params[:layout].blank?
-				params[:layout]
-			elsif File.exist?(Rails.root.join('app/views/layouts', 'application.html.erb'))
-				'application'
-			else
-				'alchemy/pages'
-			end
-		end
-
 		def render_404
 			render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
 		end

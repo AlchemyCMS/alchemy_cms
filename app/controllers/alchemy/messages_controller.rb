@@ -53,7 +53,7 @@ module Alchemy
 
 		def new#:nodoc:
 			@message = Message.new
-			render :template => '/pages/show', :layout => 'pages'
+			render :template => 'alchemy/pages/show', :layout => layout_for_page
 		end
 
 		def create#:nodoc:
@@ -65,7 +65,7 @@ module Alchemy
 				Messages.contact_form_mail(@message, mail_to, mail_from, subject).deliver
 				redirect_to_success_page
 			else
-				render :template => '/pages/show', :layout => 'pages'
+				render :template => 'alchemy/pages/show', :layout => layout_for_page
 			end
 		end
 
@@ -106,9 +106,9 @@ module Alchemy
 		end
 
 		def get_page
-			@page = Page.find_by_page_layout(mailer_config[:form_layout_name])
-			@root_page = @page.get_language_root
+			@page = Page.find_by_page_layout_and_language_id(mailer_config[:page_layout_name], session[:language_id])
 			raise "Page for page_layout #{mailer_config[:page_layout_name]} not found" if @page.blank?
+			@root_page = @page.get_language_root
 		end
 
 	end

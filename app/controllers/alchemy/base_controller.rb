@@ -106,6 +106,18 @@ module Alchemy
 			end
 		end
 
+		def layout_for_page
+			if params[:layout] == 'none'
+				false
+			elsif not params[:layout].blank?
+				params[:layout]
+			elsif File.exist?(Rails.root.join('app/views/layouts', 'application.html.erb'))
+				'application'
+			else
+				'alchemy/pages'
+			end
+		end
+
 	protected
 
 		def permission_denied
