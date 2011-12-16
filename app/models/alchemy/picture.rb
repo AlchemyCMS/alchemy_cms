@@ -39,6 +39,18 @@ module Alchemy
 			end
 		end
 
+		def suffix
+			if image_filename =~ /\./
+				image_filename.split('.').last.downcase
+			else
+				""
+			end
+		end
+
+		def humanized_name
+			(image_filename.downcase.gsub(/\.#{Regexp.quote(suffix)}$/, '')).humanize
+		end
+
 		# Returning true if picture's width is greater than it's height
 		def landscape_format?
 			return (self.image_width > self.image_height) ? true : false

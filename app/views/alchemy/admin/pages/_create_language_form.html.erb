@@ -1,4 +1,7 @@
-<h1><%= t("language_does_not_exist") %></h1>
+<div class="info">
+	<%= render_icon('info') %>
+	<%= t("language_does_not_exist") %>
+</div>
 <%- if @language -%>
 <%- if @languages_with_page_tree.size >= 1 -%>
 	<p><%= t("want_to_make_copy_of_existing_language") %></p>

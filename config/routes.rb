@@ -1,8 +1,9 @@
 Alchemy::Engine.routes.draw do
 
 	root :to => 'pages#show'
+
 	match '/admin' => redirect(
-		"#{Rails.application.routes.named_routes[:alchemy].path rescue ''}/admin/dashboard".gsub(/^\/\//, '/')
+		"#{Alchemy.mount_point}/admin/dashboard"
 	)
 	match '/admin/login' => 'user_sessions#login',
 		:as => :login
@@ -14,6 +15,7 @@ Alchemy::Engine.routes.draw do
 		:as => :logout
 	match '/admin/dashboard' => 'admin/dashboard#index',
 		:as => :admin_dashboard
+
 	match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
 		:as => :download_attachment
 
@@ -23,19 +25,13 @@ Alchemy::Engine.routes.draw do
 
 	match '/attachment/:id/show' => 'attachments#show',
 		:as => :show_attachment
-	match '/pictures/show/:id/:size/:crop_from/:crop_size/:name.:format' => 'pictures#show',
-		:as => :show_cropped_picture
-	match '/pictures/show/:id/:size/:crop/:name.:format' => 'pictures#show',
-		:as => :show_picture_with_crop
-	match '/pictures/show/:id/:size/:name.:format' => 'pictures#show',
-		:as => :show_picture
-	match '/pictures/zoom/:id/picture.:format' => 'pictures#zoom',
-		:as => :zoom_picture
-	match  '/pictures/thumbnails/:id/:size(/:crop_from)(/:crop_size)/thumbnail.png' => 'pictures#thumbnail',
-		:as => :thumbnail, :defaults => { :format => 'png' }
-	match '/:lang' => 'pages#show',
-		:constraints => {:lang => /[a-z]{2}/},
-		:as => :show_language_root
+
+	match "/pictures/:id/show/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#show',
+		:as => :show_picture, :defaults => { :format => Alchemy::Config.get(:image_output_format) }
+	match '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
+		:as => :zoom_picture, :defaults => { :format => Alchemy::Config.get(:image_store_format) }
+	match  "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
+		:as => :thumbnail, :defaults => { :format => 'png', :name => "thumbnail" }
 
 	resources :messages, :only => [:index, :new, :create]
 
@@ -141,6 +137,10 @@ Alchemy::Engine.routes.draw do
 		end
 
 	end
+
+	match '/:lang' => 'pages#show',
+		:constraints => {:lang => /[a-z]{2}/},
+		:as => :show_language_root
 
 	# The page show action has to be last route
 	match '(/:lang)(/:level1(/:level2(/:level3)))/:urlname(.:format)' => 'pages#show',

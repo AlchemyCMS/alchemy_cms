@@ -30,11 +30,12 @@
       <div class="thumbnail_background">
         <%= image_tag(
           alchemy.thumbnail_path(
-            :id => content.ingredient,
+            :id => content.ingredient.id,
             :size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
             :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
             :crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
-            :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil
+            :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil,
+			:name => content.ingredient.urlname
           ),
           :alt => content.ingredient.name,
           :class => 'img_paddingtop',

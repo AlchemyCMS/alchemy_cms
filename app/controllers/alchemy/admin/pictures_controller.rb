@@ -34,7 +34,7 @@ module Alchemy
 
 			def create
 				@picture = Picture.new(:image_file => params[:Filedata])
-				@picture.name = @picture.image_filename
+				@picture.name = @picture.humanized_name
 				@picture.save
 				@size = params[:size] || 'medium'
 				if in_overlay?

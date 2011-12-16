@@ -1,1 +1,6 @@
-<%= image_tag(alchemy.zoom_picture_path(@picture, :format => 'png')) %>
+<%= image_tag(
+	alchemy.zoom_picture_path(
+		:id => @picture.id,
+		:name => @picture.urlname
+	)
+) %>

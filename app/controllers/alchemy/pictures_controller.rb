@@ -44,9 +44,6 @@ module Alchemy
 
 		def zoom
 			@picture = Picture.find(params[:id])
-			respond_to do |format|
-				format.png
-			end
 		end
 
 	private
