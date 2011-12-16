@@ -142,12 +142,12 @@ module Alchemy
 		end
 
 		def find_first_public(page)
-			if(page.public == true)
+			if page.public == true
 				return page
 			end
 			page.children.each do |child|
 				result = find_first_public(child)
-				if(result!=nil)
+				if result != nil
 					return result
 				end
 			end
