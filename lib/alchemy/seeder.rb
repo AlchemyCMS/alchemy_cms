@@ -1,61 +1,105 @@
-require 'yaml'
+require 'thor/shell/color'
 
 module Alchemy
 	class Seeder
 
-		# This seed builds the necessary page structure for alchemy in your db.
-		# Put Alchemy::Seeder.seed! inside your db/seeds.rb file and run it with rake db:seed.
-		def self.seed!
-			errors = []
-			notices = []
+		class << self
+
+			# This seed builds the necessary page structure for alchemy in your database.
+			# Run the alchemy:db:seed rake task to seed your database.
+			def seed!
+				desc "Seeding your database"
+				errors = []
+				notices = []
 			
-			default_language = Alchemy::Config.get(:default_language)
+				default_language = Alchemy::Config.get(:default_language)
 			
-			lang = Language.find_or_initialize_by_code(
-				:name => default_language['name'],
-				:code => default_language['code'],
-				:frontpage_name => default_language['frontpage_name'],
-				:page_layout => default_language['page_layout'],
-				:public => true,
-				:default => true
-			)
-			if lang.new_record?
-				if lang.save
-					puts "== Created language #{lang.name}"
+				lang = Alchemy::Language.find_or_initialize_by_code(
+					:name => default_language['name'],
+					:code => default_language['code'],
+					:frontpage_name => default_language['frontpage_name'],
+					:page_layout => default_language['page_layout'],
+					:public => true,
+					:default => true
+				)
+				if lang.new_record?
+					if lang.save
+						log "Created language #{lang.name}."
+					else
+						errors << "Errors while creating language #{lang.name}: #{lang.errors.full_messages}"
+					end
 				else
-					errors << "Errors creating language #{lang.name}: #{lang.errors.full_messages}"
+					notices << "Language #{lang.name} was already present."
 				end
-			else
-				notices << "== Skipping! Language #{lang.name} was already present"
-			end
 			
-			root = Page.find_or_initialize_by_name(
-				:name => 'Root',
-				:page_layout => "rootpage",
-				:do_not_autogenerate => true,
-				:do_not_sweep => true,
-				:language => lang
-			)
-			if root.new_record?
-				if root.save
-					# We have to remove the language, because active record validates its presence on create.
-					root.language = nil
-					root.save
-					puts "== Created page #{root.name}"
+				root = Alchemy::Page.find_or_initialize_by_name(
+					:name => 'Root',
+					:page_layout => "rootpage",
+					:do_not_autogenerate => true,
+					:do_not_sweep => true,
+					:language => lang
+				)
+				if root.new_record?
+					if root.save
+						# We have to remove the language, because active record validates its presence on create.
+						root.language = nil
+						root.save
+						log "Created page #{root.name}."
+					else
+						errors << "Errors while creating page #{root.name}: #{root.errors.full_messages}"
+					end
 				else
-					errors << "Errors creating page #{root.name}: #{root.errors.full_messages}"
+					notices << "Page #{root.name} was already present."
 				end
-			else
-				notices << "== Skipping! Page #{root.name} was already present"
-			end
 			
-			if errors.blank?
-				puts "Success!"
-				notices.map{ |note| puts note }
-			else
-				puts "WARNING! Some pages could not be created:"
-				errors.map{ |error| puts error }
+				if errors.blank?
+					log "Successfully seeded your database!" if notices.blank?
+					notices.each do |note|
+						log(note, :skip)
+					end
+				else
+					log("Some pages could not be created:", :error)
+					errors.each do |error|
+						log(error, :error)
+					end
+				end
 			end
+
+		private
+
+			def color(name)
+				case name
+				when :green
+					Thor::Shell::Color::GREEN
+				when :red
+					Thor::Shell::Color::RED
+				when :yellow
+					Thor::Shell::Color::YELLOW
+				when :black
+					Thor::Shell::Color::BLACK
+				when :clear
+					Thor::Shell::Color::CLEAR
+				else
+					""
+				end
+			end
+
+			def log(message, type=nil)
+				case type
+				when :skip
+					puts "#{color(:yellow)}== Skipping! #{message}#{color(:clear)}"
+				when :error
+					puts "#{color(:red)}!! ERROR: #{message}#{color(:clear)}"
+				else
+					puts "#{color(:green)}== #{message}#{color(:clear)}"
+				end
+			end
+
+			def desc(message)
+				puts "\n#{message}"
+				puts "#{'-' * message.length}\n"
+			end
+
 		end
 
 	end

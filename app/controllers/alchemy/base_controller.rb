@@ -123,15 +123,15 @@ module Alchemy
 		def permission_denied
 			if current_user
 				if current_user.role == 'registered'
-					redirect_to root_path
+					redirect_to alchemy.root_path
 				else
-					if request.referer == login_url
+					if request.referer == alchemy.login_url
 						render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
 					elsif request.xhr?
 						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}
 					else
 						flash[:error] = t('You are not authorized')
-						redirect_to admin_dashboard_path
+						redirect_to alchemy.admin_dashboard_path
 					end
 				end
 			else
@@ -140,7 +140,7 @@ module Alchemy
 					render :action => :permission_denied
 				else
 					store_location
-					redirect_to login_path
+					redirect_to alchemy.login_path
 				end
 			end
 		end
