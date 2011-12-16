@@ -1,19 +1,19 @@
 function initAlchemyPreviewMode() {
-	
+
 	if (typeof(Alchemy) === 'undefined') {
 		var Alchemy = {};
 	}
-	
+
 	(function ($) {
-		
+
 		// Setting jQueryUIs global animation duration
 		$.fx.speeds._default = 400;
-		
+
 		// The Alchemy JavaScript Object contains all Functions
 		$.extend(Alchemy, {
-			
+
 			ElementSelector : {
-				
+
 				// defaults
 				styles : {
 					reset : { outline: '0 none' },
@@ -34,9 +34,9 @@ function initAlchemyPreviewMode() {
 						'outline-radius'				: '4px'
 					},
 				},
-				
+
 				scrollOffset : 20,
-				
+
 				init : function() {
 					var self = Alchemy.ElementSelector;
 					var $elements = $('[data-alchemy-element]');
@@ -55,7 +55,7 @@ function initAlchemyPreviewMode() {
 					$elements.bind('click', self.clickElement);
 					self.$previewElements = $elements;
 				},
-				
+
 				selectElement : function(e) {
 					var $this = $(this);
 					var self = Alchemy.ElementSelector;
@@ -70,7 +70,7 @@ function initAlchemyPreviewMode() {
 						scrollLeft: $this.offset().left - offset
 					}, 400);
 				},
-				
+
 				clickElement : function(e) {
 					var $this = $(this);
 					var parent$ = window.parent.jQuery;
@@ -86,15 +86,15 @@ function initAlchemyPreviewMode() {
 					}
 					$this.trigger('Alchemy.SelectElement');
 				},
-				
+
 			},
-			
+
 		});
-		
+
 	})(jQuery);
-	
+
 	Alchemy.ElementSelector.init();
-	
+
 }
 
 // Found on http://css-tricks.com/snippets/jquery/load-jquery-only-if-not-present/
@@ -103,7 +103,7 @@ function initAlchemyPreviewMode() {
 // 
 
 (function() {
-	
+
 	if (typeof(jQuery) === 'undefined') {
 		
 		var thisPageUsingOtherJSLibrary = false;
@@ -141,5 +141,5 @@ function initAlchemyPreviewMode() {
 	} else {
 		initAlchemyPreviewMode();
 	};
-	
+
 })();

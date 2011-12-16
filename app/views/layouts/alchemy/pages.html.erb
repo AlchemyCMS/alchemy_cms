@@ -25,5 +25,14 @@
 			</div>
 		</div>
 		<%= alchemy_preview_mode_code %>
+		<% permitted_to?(:edit, :alchemy_admin_pages) do %>
+		<%= javascript_include_tag('alchemy/alchemy.menubar') %>
+		<script type="text/javascript" charset="utf-8">
+			loadAlchemyMenuBar({
+				page_id: <%= @page.id %>,
+				route: '<%= Alchemy.mount_point %>'
+			});
+		</script>
+		<% end unless @preview_mode %>
 	</body>
 </html>
