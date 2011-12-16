@@ -1,4 +1,4 @@
-class NamespaceModels < ActiveRecord::Migration
+class NamespaceAlchemyModels < ActiveRecord::Migration
 	def change
 		rename_table :attachments,					:alchemy_attachments
 		rename_table :cells,								:alchemy_cells

@@ -5,11 +5,13 @@ module Alchemy
 
 			# Runs all ugrades
 			def run!
+				copy_migration_files
+				strip_alchemy_from_schema_version_table
+				Rake::Task['db:migrate'].invoke
 				upgrade_to_language
 				upgrade_layoutpages
 				upgrade_essence_link_target_default
 				upgrade_to_namespaced_essence_type
-				copy_migration_files
 			end
 
 		private
@@ -18,10 +20,10 @@ module Alchemy
 			# Also creates missing associations between pages and languages
 			def upgrade_to_language
 				desc "Creating languages for pages"
-				Page.all.each do |page|
+				Alchemy::Page.all.each do |page|
 					if !page.language_code.blank? && page.language.nil?
 						root = page.get_language_root
-						lang = Language.find_or_create_by_code(
+						lang = Alchemy::Language.find_or_create_by_code(
 							:name => page.language_code.capitalize,
 							:code => page.language_code,
 							:frontpage_name => root.name,
@@ -104,6 +106,12 @@ module Alchemy
 			def copy_migration_files
 				desc "Syncing migration files"
 				system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
+			end
+
+			def strip_alchemy_from_schema_version_table
+				database_yml = YAML.load_file(Rails.root.join("config", "database.yml"))
+				connection = Mysql2::Client.new(database_yml.fetch(Rails.env.to_s).symbolize_keys)
+				connection.query "UPDATE schema_migrations SET `schema_migrations`.`version` = REPLACE(`schema_migrations`.`version`,'-alchemy','')"
 			end
 
 		end

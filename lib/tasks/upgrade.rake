@@ -4,7 +4,6 @@ namespace :alchemy do
 
 	desc "Upgrades database to Alchemy CMS v#{Alchemy::VERSION}."
 	task :upgrade => :environment do
-		Rake::Task['alchemy:db:seed'].invoke
 		Alchemy::Upgrader.run!
 	end
 
