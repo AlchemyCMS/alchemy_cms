@@ -1,0 +1,80 @@
+@import 'alchemy/defaults';
+
+@mixin transition {
+	-webkit-transition: left 0.15s ease;
+	-moz-transition: left 0.15s ease;
+	-ms-transition: left 0.15s ease;
+	-o-transition: left 0.15s ease;
+	transition: left 0.15s ease;
+}
+
+@mixin bottom-right-rounded-border {
+	$side: bottom-right;
+	$radius: 3px;
+	-webkit-border-#{$side}-radius: $radius;
+	-moz-border-radius-#{$side}: $radius;
+	-ms-border-#{$side}-radius: $radius;
+	-o-border-#{$side}-radius: $radius;
+	border-#{$side}-radius: $radius;
+}
+
+@mixin box-shadow {
+	$shadow: 0px 0px 4px $dark-gray;
+	-webkit-box-shadow: $shadow;
+	-moz-box-shadow: $shadow;
+	-ms-box-shadow: $shadow;
+	-o-box-shadow: $shadow;
+	box-shadow: $shadow;
+}
+
+#alchemy_menubar {
+	position: fixed;
+	top: 0;
+	left: -318px;
+	width: 312px;
+	z-index: 10000;
+	background: $light-gray;
+	@include transition;
+	@include bottom-right-rounded-border;
+	@include box-shadow;
+	border-right: $default-border;
+	border-bottom: $default-border;
+	line-height: 8*$default-padding;
+	height: 8*$default-padding;
+	padding: 4px 40px 4px 8px;
+	overflow: hidden;
+	&:hover {
+		left: 0;
+		@include transition;
+	};
+	&:after {
+		content: '';
+		width: 24px;
+		height: 24px;
+		position: absolute;
+		right: 10px;
+		top: 8px;
+		background: image-url('alchemy/icons.png') -240px 0;
+	};
+	ul {
+		padding: 0;
+		margin: 0;
+		li {
+			line-height: normal;
+			margin-right: $default-padding;
+			display: inline;
+			display: inline-block;
+			list-style-type: none;
+			a {
+				display: block;
+				text-align: center;
+				padding: 2px 4px;
+				width: 90px;
+				@include button-styles;
+				&:hover {
+					@include button-hover-styles;
+				};
+			}
+		}
+	}
+}

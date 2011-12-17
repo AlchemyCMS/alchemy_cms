@@ -13,10 +13,9 @@ function loadAlchemyMenuBar(options) {
 
 		build: function() {
 			var bar = $('<div id="alchemy_menubar"/>')
-				.css({position: 'fixed', top: 0, left: 0, 'z-index': 10000, width: 220, height: 120})
 				.append('<ul/>');
 			bar.find('ul')
-				.append('<li><a href="'+options.route+'/admin">zurück zu Alchemy wechseln</a></li>')
+				.append('<li><a href="'+options.route+'/admin">zu Alchemy</a></li>')
 				.append('<li><a href="'+options.route+'/admin/pages/'+options.page_id+'/edit">Seite bearbeiten</a></li>')
 				.append('<li><a href="'+options.route+'/admin/logout">abmelden</a></li>');
 			return bar;

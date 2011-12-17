@@ -534,5 +534,24 @@ module Alchemy
 			alchemy.show_page_url(show_page_path_params(page, optional_params))
 		end
 
+		# Renders a menubar for logged in users that are visiting a page.
+		def alchemy_menu_bar
+			return if @preview_mode
+			permitted_to?(:edit, :alchemy_admin_pages) do
+				menu_bar_string = ""
+				menu_bar_string += stylesheet_link_tag("alchemy/menubar")
+				menu_bar_string += javascript_include_tag('alchemy/alchemy.menubar')
+				menu_bar_string += <<-STR
+					<script type="text/javascript">
+						loadAlchemyMenuBar({
+						page_id: #{@page.id},
+						route: '#{Alchemy.mount_point}'
+						});
+					</script>
+				STR
+				return menu_bar_string.html_safe
+			end
+		end
+
 	end
 end
