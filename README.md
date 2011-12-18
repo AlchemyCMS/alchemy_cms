@@ -46,7 +46,7 @@ Features
 - Completely free:
   - BSD License
   - No Enterprise Licences, or Community Editions
-- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy/wiki/Software-Requirements))
+- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy_cms/wiki/Software-Requirements))
 
 Rails Version
 -------------
