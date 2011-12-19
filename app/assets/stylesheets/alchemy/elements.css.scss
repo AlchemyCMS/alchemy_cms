@@ -422,7 +422,7 @@ a.icon_button.linked {
 }
 
 .edit_images_bottom a.disabled {
-	@include opacity(50);
+	@include opacity(30);
 	cursor: default;
 }
 

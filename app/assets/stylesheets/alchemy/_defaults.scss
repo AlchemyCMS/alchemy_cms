@@ -133,16 +133,15 @@ $default-border: 1px solid #AFAFAF;
 }
 
 @mixin rounded-search-field {
-  $radius: 12px;
-  border-radius: $radius;
-  -o-border-radius: $radius;
-  -ms-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius;
+	$radius: 12px;
+	border-radius: $radius;
+	-o-border-radius: $radius;
+	-ms-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
 }
 
 @mixin opacity($opacity) {
 	opacity: $opacity/100;
-	filter: alpha(opacity = $opacity);
-	-ms-filter: 'alpha(opacity=$opacity)';
+	filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity})");
 }

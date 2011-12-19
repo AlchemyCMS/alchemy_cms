@@ -44,7 +44,7 @@ if (typeof(Alchemy) === 'undefined') {
 		openPreviewWindow : function (url, title) {
 			var $iframe = $('#alchemyPreviewWindow');
 			if ($iframe.length === 0) {
-				$iframe = $('<iframe src="'+url+'" id="alchemyPreviewWindow"></iframe>');
+				$iframe = $('<iframe src="'+url+'" id="alchemyPreviewWindow" frameborder="0"></iframe>');
 				$iframe.load(function() {
 					$('#preview_load_info').hide();
 				});
