@@ -14,9 +14,7 @@ module Alchemy
 
 		def expire_cache_for(picture)
 			# Removing all variants of the picture with FileUtils.
-			FileUtils.rm_rf("#{Rails.root}/public/pictures/show/#{picture.id}")
-			FileUtils.rm_rf("#{Rails.root}/public/pictures/thumbnails/#{picture.id}")
-			expire_page(zoom_picture_path(picture, :format => 'png'))
+			FileUtils.rm_rf(Rails.root.join('public', Alchemy.mount_point, 'pictures', picture.id.to_s))
 		end
 
 	end
