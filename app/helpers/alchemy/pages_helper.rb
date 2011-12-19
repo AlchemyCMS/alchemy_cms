@@ -537,7 +537,7 @@ module Alchemy
 		# Renders a menubar for logged in users that are visiting a page.
 		def alchemy_menu_bar
 			return if @preview_mode
-			permitted_to?(:edit, :alchemy_admin_pages) do
+			if permitted_to?(:edit, :alchemy_admin_pages)
 				menu_bar_string = ""
 				menu_bar_string += stylesheet_link_tag("alchemy/menubar")
 				menu_bar_string += javascript_include_tag('alchemy/alchemy.menubar')
@@ -550,6 +550,8 @@ module Alchemy
 					</script>
 				STR
 				return menu_bar_string.html_safe
+			else
+				""
 			end
 		end
 
