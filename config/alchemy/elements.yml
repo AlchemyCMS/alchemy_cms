@@ -191,6 +191,11 @@
   - name: subheadline
     type: EssenceText
 
+- name: download
+  contents:
+  - name: file
+    type: EssenceFile
+
 - name: news
   contents:
   - name: date

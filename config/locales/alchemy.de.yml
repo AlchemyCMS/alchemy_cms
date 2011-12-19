@@ -70,6 +70,7 @@ de:
       news_headline: "News Überschrift"
       image_mosaic:
         caption: "Mosaik Bildunterschrift"
+      file: Datei
     
     content_validations:
       errors:
@@ -685,6 +686,9 @@ de:
         name: "Name"
         public: "sichtbar"
       
+      alchemy/essence_file:
+        css_class: Textanordnung
+      
       alchemy/essence_picture:
         caption: "Untertitel"
         title: "Titel"
@@ -692,7 +696,7 @@ de:
         link: Link
         link_class_name: "Link CSS-Klasse"
         link_title: Link-Titel
-        css_class: CSS-Klasse
+        css_class: Textanordnung
         link_target: Link-Ziel
         render_size: Darstellungsgröße
         crop_from: Bildmaskenursprung

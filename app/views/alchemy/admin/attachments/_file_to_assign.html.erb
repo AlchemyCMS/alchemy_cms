@@ -3,7 +3,7 @@
 	suffix = "</div><div class=\"assign_file_file_name\">#{file_to_assign.filename}</div>"
 -%>
 <%- img_tag = "#{prefix}#{render_icon(file_to_assign.icon_css_class)}#{suffix}".html_safe -%>
-<div class="assign_file_file" name="<%= file_to_assign.filename %>">
+<li class="assign_file_file <%= cycle('even', 'odd') %>" name="<%= file_to_assign.filename %>">
 	<%= link_to(
 		img_tag,
 		{
@@ -17,4 +17,4 @@
 		:method => 'put',
 		:title => file_to_assign.filename
 	) %>
-</div>
+</li>

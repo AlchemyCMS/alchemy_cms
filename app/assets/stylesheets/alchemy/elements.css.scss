@@ -535,7 +535,7 @@ div.file_icon span.icon {
 div.file_icon a.assign_file {
 	display: block;
 	height: 16px;
-	background: image-url('alchemy/icons.png') no-repeat -240px -24px;
+	background: image-url('alchemy/icons.png') no-repeat -480px -40px;
 	width: 16px;
 	margin: $default-margin;
 }
@@ -565,11 +565,11 @@ div.essence_file_tools a{
 }
 
 div.essence_file_tools a.assign_file {
-	background: image-url('alchemy/icons.png') -256px -24px;
+	background: image-url('alchemy/icons.png') -512px -40px;
 }
 
 div.essence_file_tools a.edit_file {
-	background: image-url('alchemy/icons.png') -16px -24px;
+	background: image-url('alchemy/icons.png') -160px -167px;
 }
 
 td.content_editor_essence_type {

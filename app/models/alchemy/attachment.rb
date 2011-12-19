@@ -18,8 +18,8 @@ module Alchemy
 			).order(:name)
 		end
 
-		def name
-			read_attribute(:name).split('.').first
+		def urlname
+			CGI.escape(read_attribute(:filename).split('.').first)
 		end
 
 		def extension

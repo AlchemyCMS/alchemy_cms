@@ -493,6 +493,9 @@ en:
         name: "Name"
         public: "visible"
       
+      alchemy/essence_file:
+        css_class: CSS Class
+      
       alchemy/language:
         code: "Languagecode"
         default: "Default"

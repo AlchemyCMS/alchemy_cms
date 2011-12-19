@@ -16,7 +16,7 @@ Alchemy::Engine.routes.draw do
 	match '/admin/dashboard' => 'admin/dashboard#index',
 		:as => :admin_dashboard
 
-	match '/attachment/:id/download(/:name)(.:suffix)' => 'attachments#download',
+	match '/attachment/:id/download(/:name)(.:format)' => 'attachments#download',
 		:as => :download_attachment
 
 	# catching legacy download urls

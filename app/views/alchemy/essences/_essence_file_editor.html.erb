@@ -28,6 +28,7 @@
 			<%= content.ingredient.name rescue ("&#x2190;" + t('assign_file_from_archive')).html_safe %>
 		</div>
 		<%- unless content.ingredient.nil? -%>
+		<%= hidden_field_tag content.form_field_name(:attachment_id), content.ingredient.id %>
 		<div class="essence_file_tools">
 			<%= link_to_overlay_window("",
 				alchemy.admin_attachments_path(
