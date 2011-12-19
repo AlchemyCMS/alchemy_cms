@@ -70,6 +70,7 @@ de:
       news_headline: "News Überschrift"
       image_mosaic:
         caption: "Mosaik Bildunterschrift"
+      file: Datei
     
     content_validations:
       errors:

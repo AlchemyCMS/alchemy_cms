@@ -4,7 +4,7 @@ source "http://rubygems.org"
 gemspec
 
 group :development, :test do
-	gem 'gettext', '>=1.9.3', :require => false
+	gem 'gettext', '>=1.93.0', :require => false
 end
 
 group :test do

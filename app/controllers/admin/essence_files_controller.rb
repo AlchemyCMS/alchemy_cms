@@ -1,6 +1,7 @@
 class Admin::EssenceFilesController < AlchemyController
 
   filter_access_to :all
+	helper :contents
 
   def edit
     @content = Content.find(params[:id])

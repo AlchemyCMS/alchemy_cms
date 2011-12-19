@@ -9,8 +9,8 @@ class Attachment < ActiveRecord::Base
   )
   validates_as_attachment
 
-  def name
-    read_attribute(:name).split('.').first
+  def urlname
+    CGI.escape(read_attribute(:filename).split('.').first)
   end
 
   def extension
