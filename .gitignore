@@ -15,6 +15,5 @@ spec/dummy/index/
 log
 spec/dummy/uploads/
 spec/dummy/.sass-cache/
-spec/dummy/public/**/alchemy
 spec/dummy/db/migrate
 spec/dummy/db/seeds.rb
