@@ -12,7 +12,7 @@ describe "The Routing", :type => :routing do
 	    	:action => "download",
 	    	:id => "32",
 				:name => "Presseveranstaltung",
-				:suffix => "pdf"
+				:format => "pdf"
 			)
 		end
 		
