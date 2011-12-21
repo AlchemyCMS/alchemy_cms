@@ -67,7 +67,7 @@
 	<div class="button_with_label" id="show_preview_window">
 		<%= link_to_function(
 			render_icon('preview_window'),
-			"openPreviewWindow()",
+			"Alchemy.openPreviewWindow()",
 			{
 				:title => t('Show Preview Window'),
 				:class => 'icon_button'
@@ -78,7 +78,7 @@
 	<div class="button_with_label" id="show_element_window">
 		<%= link_to_function(
 			render_icon('element_window'),
-			"openElementsWindow()",
+			"Alchemy.openElementsWindow()",
 			{
 				:title => t('Show Elements Window'),
 				:class => 'icon_button'
@@ -93,12 +93,12 @@
 <%= tinymce_javascript_tags %>
 <script type="text/javascript" charset="utf-8">
 
-	function openPreviewWindow() {
-		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
+	Alchemy.openPreviewWindow = function() {
+		Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
 	}
 
-	function openElementsWindow() {
-		Alchemy.openElementsWindow('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
+	Alchemy.openElementsWindow = function() {
+		Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
 			texts: {
 				title: '<%= t("Elements") -%>',
 				dirtyTitle: '<%= t("Warning!") -%>',
@@ -173,8 +173,8 @@
 			return Alchemy.checkPageDirtyness(this, texts);
 		});
 		Alchemy.PageLeaveObserver(texts);
-		openElementsWindow();
-		openPreviewWindow();
+		Alchemy.openElementsWindow();
+		Alchemy.openPreviewWindow();
 	});
 
 </script>

@@ -1,5 +1,5 @@
 if (typeof(Alchemy) === 'undefined') {
-	Alchemy = {};
+	var Alchemy = {};
 }
 
 Alchemy.initAlchemyPreviewMode = function() {

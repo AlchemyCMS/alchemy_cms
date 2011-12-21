@@ -77,7 +77,7 @@ module Alchemy
 			# Trashes the Element instead of deleting it.
 			def trash
 				@element = Element.find(params[:id])
-				@page_id = @element.page.id
+				@page_id = @element.page_id
 				@element.trash
 			end
 

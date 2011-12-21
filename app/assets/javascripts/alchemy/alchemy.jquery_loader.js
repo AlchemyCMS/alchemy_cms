@@ -1,5 +1,5 @@
 if (typeof(Alchemy) === 'undefined') {
-	Alchemy = {};
+	var Alchemy = {};
 }
 
 // Load jQuery on demand. Use this if jQuery is not present.
@@ -39,4 +39,3 @@ Alchemy.loadjQuery = function(callback) {
 	});
 
 }
-console.log('loader');

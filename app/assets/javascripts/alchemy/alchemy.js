@@ -19,3 +19,5 @@
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.swf_upload
 //= require alchemy/alchemy.windows
+//= require alchemy/alchemy.preview_window
+//= require alchemy/alchemy.elements_window
