@@ -14,6 +14,7 @@ module Alchemy
 	class Cell < ActiveRecord::Base
 
 		belongs_to :page
+		validates_uniqueness_of :name, :scope => :page_id
 		has_many :elements, :dependent => :destroy, :order => :position
 
 		def self.definitions
