@@ -546,7 +546,7 @@ module Alchemy
 			if permitted_to?(:edit, :alchemy_admin_pages)
 				menu_bar_string = ""
 				menu_bar_string += stylesheet_link_tag("alchemy/menubar")
-				menu_bar_string += javascript_include_tag('alchemy/alchemy.menubar')
+				menu_bar_string += javascript_include_tag('alchemy/menubar')
 				menu_bar_string += <<-STR
 					<script type="text/javascript">
 						loadAlchemyMenuBar({
