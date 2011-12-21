@@ -12,6 +12,7 @@ module Alchemy
 			"element_id = '#{element_id}' AND essence_type = '#{essence_type}'"
 		end
 
+		validates_uniqueness_of :name, :scope => :element_id
 		validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
 		scope :essence_pictures, where(:essence_type => "Alchemy::EssencePicture")
