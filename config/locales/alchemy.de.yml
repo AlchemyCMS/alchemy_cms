@@ -199,7 +199,6 @@ de:
     "Element trashed": "Das Element wurde in den Papierkorb gelegt"
     "Error with the Flash® Uploader!": "Fehler mit dem Flash® Uploader!"
     "Excerpt": "Auszug"
-    "Explain|Sitemap|Dragndrop sorting": "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest und bewegen Sie sie an ihre neue Position."
     "File %{name} uploaded succesfully": "Datei %{name} wurde hochgeladen"
     "File renamed successfully from: '%{from}' to '%{to}'": "Datei wurde erfolgreich von: '%{from}' nach '%{to}' umbenannt."
     "File upload error: %{error}": "Datei konnte nicht hochgeladen werden: %{error}"
@@ -371,6 +370,7 @@ de:
     enter_external_link: "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
     explain cropping: "Sie können den Rahmen verschieben und in der Größe verändern um den Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte auf speichern."
     explain_publishing: "Die gecachte Version vom Server löschen und die aktuellen Änderungen veröffentlichen"
+    explain_sitemap_dragndrop_sorting: "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest und bewegen Sie sie an ihre neue Position."
     explain_unlocking: "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
     explain_upload:
       footnote: "TIP! Halten Sie die Strg-Taste (cmd-Taste auf einem Mac) während Sie die %{name} mit der Maus anklicken, um mehrere %{name} gleichzeitig hochzuladen."
