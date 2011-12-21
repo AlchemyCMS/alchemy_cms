@@ -34,17 +34,16 @@ module Alchemy
 			:layout => false
 		)
 
+		layout :layout_for_page
+
 		# Showing page from params[:urlname]
 		# @page is fetched via before filter
 		# @root_page is fetched via before filter
 		# @language fetched via before_filter in alchemy_controller
 		# querying for search results if any query is present via before_filter
-		# rendering page
 		def show
 			respond_to do |format|
-				format.html {
-					render :layout => layout_for_page
-				}
+				format.html { render }
 				format.rss {
 					if @page.contains_feed?
 						render :action => "show.rss.builder", :layout => false

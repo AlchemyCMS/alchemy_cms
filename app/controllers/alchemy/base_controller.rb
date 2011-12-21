@@ -107,9 +107,7 @@ module Alchemy
 		end
 
 		def layout_for_page
-			if params[:layout] == 'none'
-				false
-			elsif not params[:layout].blank?
+			if !params[:layout].blank? && params[:layout] != 'none'
 				params[:layout]
 			elsif File.exist?(Rails.root.join('app/views/layouts', 'application.html.erb'))
 				'application'
