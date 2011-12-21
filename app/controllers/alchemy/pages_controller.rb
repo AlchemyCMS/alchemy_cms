@@ -30,7 +30,8 @@ module Alchemy
 				else
 					false
 				end
-			}
+			},
+			:layout => false
 		)
 
 		# Showing page from params[:urlname]
