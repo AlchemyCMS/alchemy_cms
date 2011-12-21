@@ -451,7 +451,7 @@ module Alchemy
 					:language_id => new_parent.language_id,
 					:language_code => new_parent.language_code,
 					:name => child.name + ' (' + Alchemy::I18n.t('Copy') + ')',
-					:urlname => '',
+					:urlname => child.redirects_to_external? ? child.urlname : '',
 					:title => ''
 				})
 				new_child.move_to_child_of(new_parent)
