@@ -15,6 +15,8 @@ module Alchemy
 				"alchemy/alchemy.js",
 				"alchemy/preview.js",
 				"alchemy/alchemy.css",
+				"alchemy/menubar.css",
+				"alchemy/menubar.js",
 				"alchemy/print.css",
 				"alchemy/tinymce_content.css",
 				"alchemy/tinymce_dialog.css",

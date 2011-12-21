@@ -1,3 +1,7 @@
+/*
+ *= require_self
+*/
+
 @import "alchemy/defaults";
 
 @mixin transition {
@@ -70,6 +74,7 @@
 				text-align: center;
 				padding: 2px 4px;
 				width: 90px;
+				text-decoration: none;
 				@include button-styles;
 				&:hover {
 					@include button-hover-styles;
