@@ -216,7 +216,7 @@ en:
     edit_file_properties: "Edit Fileproperties"
     edit_image_properties: "Edit image properties."
     edit_language: "Edit language"
-    edit_page: "Edit this page."
+    edit_page: "Edit this page"
     edit_page_properties: "Edit the page properties."
     edit_user: "Edit this users properties."
     element_editor_not_found: "Error within this Element"
@@ -352,7 +352,8 @@ en:
     "You may upload files with following extensions": "You may upload %{file_types_description} with following extensions: %{file_types}"
     zoom_image: "Zoom this image."
     "Nothing found": "Nothing found."
-    
+    "Validation failed": "Validation failed."
+  
   # END of Alchemy translation
   
   will_paginate:

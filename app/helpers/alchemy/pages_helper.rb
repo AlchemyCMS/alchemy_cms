@@ -549,10 +549,15 @@ module Alchemy
 				menu_bar_string += javascript_include_tag('alchemy/menubar')
 				menu_bar_string += <<-STR
 					<script type="text/javascript">
-						loadAlchemyMenuBar({
-						page_id: #{@page.id},
-						route: '#{Alchemy.mount_point}'
-						});
+						try {
+							Alchemy.loadAlchemyMenuBar({
+								page_id: #{@page.id},
+								route: '#{Alchemy.mount_point}',
+								locale: '#{current_user.language}'
+							});
+						} catch(e) {
+							if(console){console.log(e)}
+						}
 					</script>
 				STR
 				return menu_bar_string.html_safe

@@ -287,7 +287,7 @@ de:
     "User deleted": "%{name} wurde gelöscht"
     "User updated": "%{name} wurde aktualisiert"
     "Username": "Benutzername"
-    "Validation failed.": "Pflichtfelder wurden nicht ausgefüllt."
+    "Validation failed": "Pflichtfelder wurden nicht ausgefüllt."
     "Version": "Version"
     "View File": "Datei anzeigen"
     "Visit page": "zur Seite gehen"
