@@ -443,7 +443,10 @@ module Alchemy
 			return warning("No page_layout, or urlname given. I got #{options.inspect} ") if options[:page_layout].blank? && options[:urlname].blank?
 			if options[:urlname].blank?
 				page = Page.find_by_page_layout(options[:page_layout])
-				return warning("No page found for #{options.inspect} ") if page.blank?
+				if page.blank?
+					warning("No page found for #{options.inspect} ")
+					return
+				end
 				urlname = page.urlname
 			else
 				urlname = options[:urlname]
@@ -478,7 +481,10 @@ module Alchemy
 				:html5 => false
 			}
 			options = default_options.merge(options)
-			return warning(t("No page found for #{options[:page].inspect}")) if options[:page].class.name != "Alchemy::Page"
+			if options[:page].class.name != "Alchemy::Page"
+				warning("No page found for #{options[:page].inspect}")
+				return
+			end
 			form_tag(show_alchemy_page_path(options[:page]), :method => :get, :class => 'fulltext_search') do
 				if options[:html5]
 					search_field_tag(:query, params[:query])
@@ -497,7 +503,7 @@ module Alchemy
 				:show_heading => true
 			}
 			options = default_options.merge(options)
-			return content_tag :h2, t('search.no_results'), :class => 'no_search_results' if @search_results.blank?
+			return content_tag :h2, t('search_result_page.no_results'), :class => 'no_search_results' if @search_results.blank?
 			results = ""
 			@search_results.each do |essence|
 				result = essence.highlight(
@@ -507,8 +513,8 @@ module Alchemy
 				results << render(:partial => options[:partial], :locals => {:result => result, :options => options, :page => essence.page}) if essence.page
 			end
 			output = ""
-			output << content_tag(:h1, t("search.result_heading", :query => h(params[:query])), :class => 'search_results_heading') if options[:show_heading]
-			output << content_tag(:h2, t("search.result_count", :count => @search_results.length), :class => 'search_result_count') if options[:show_result_count]
+			output << content_tag(:h1, t("search_result_page.result_heading", :query => h(params[:query])), :class => 'search_results_heading') if options[:show_heading]
+			output << content_tag(:h2, t("search_result_page.result_count", :count => @search_results.length), :class => 'search_result_count') if options[:show_result_count]
 			output << content_tag(:ul, results.html_safe, :class => 'search_result_list')
 			content_tag :div, :class => 'search_results' do
 				output.html_safe

@@ -84,7 +84,7 @@ de:
         no_float: 'Über dem Text'
     
     # == Translations for the build in full text search.
-    search:
+    search_result_page:
       no_results: 'Ihre Suche ergab kein Ergebnis.'
       result_heading: "Ihre Suche nach '%{query}'"
       result_count:

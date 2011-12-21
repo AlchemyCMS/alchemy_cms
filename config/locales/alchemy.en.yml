@@ -70,7 +70,7 @@ en:
         caption: "Mosaic Caption"
     
     # == Translations for the build in full text search.
-    search:
+    search_result_page:
       no_results: 'No results found'
       result_heading: "Your search for '%{query}'"
       result_count:
