@@ -20,7 +20,7 @@ module Alchemy
 					@swap = params[:swap]
 					@options = hashified_options
 				end
-				render :layout => false
+				render :layout => !request.xhr?
 			end
 
 			def create

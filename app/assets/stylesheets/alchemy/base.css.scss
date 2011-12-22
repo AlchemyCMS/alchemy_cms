@@ -1496,7 +1496,16 @@ div#overlay_toolbar a.button:active {
 	border-spacing: 0 !important;
 }
 
-#sitemap_heading span.page_name {
-	margin-left: 24px;
-	line-height: 28px;
+#dropbox {
+	background: $medium-gray;
+	border: $default-border;
+	@include rounded-corner;
+	padding: $default-padding;
+	text-align: center;
+	line-height: 12em;
+	&.dragover {
+		background: $dark-gray;
+		color: $light-gray;
+		border-color: $light-gray;
+	}
 }
