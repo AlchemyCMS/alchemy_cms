@@ -14,6 +14,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'extensions/hash'
 	require 'extensions/array'
 	require 'extensions/action_view'
+	require 'alchemy/mount_point'
 	require 'alchemy/version'
 	require 'alchemy/auth_engine'
 	require 'alchemy/engine'
@@ -22,18 +23,11 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	end
 	require File.join(File.dirname(__FILE__), "alchemy", "seeder")
 else
-	raise "Alchemy 2.1 needs Rails 3.1 or higher. You are currently using Rails #{Rails::VERSION::MAJOR}"
+	raise "Alchemy 2.1 needs Rails 3.1 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
 end
 
 module Alchemy
 
 	class EssenceError < StandardError; end
-
-	# Returns alchemys mount point in current rails app.
-	def self.mount_point
-		alchemy_routes = Rails.application.routes.named_routes[:alchemy]
-		raise "Alchemy not mounted! Please mount Alchemy::Engine in your config/routes.rb file." if alchemy_routes.nil?
-		alchemy_routes.path.gsub(/^\/$/, '')
-	end
 
 end

@@ -1,6 +1,7 @@
 # This recipe contains Capistrano recipes for handling the uploads, ferret index and picture cache files while deploying your application.
 # It also contains a ferret:rebuild_index task to rebuild the index after deploying your application.
 require "rails"
+require "alchemy/mount_point"
 
 Capistrano::Configuration.instance(:must_exist).load do
   
@@ -19,7 +20,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         run "mkdir -p #{shared_path}/index"
         run "mkdir -p #{shared_path}/uploads/pictures"
         run "mkdir -p #{shared_path}/uploads/attachments"
-        run "mkdir -p #{shared_path}/cache/pictures"
+        run "mkdir -p #{File.join(shared_path, 'cache', Capistrano::CLI.ui.ask("Where is Alchemy CMS mounted at? (/)"), 'pictures')}"
       end
 
       # This task sets the symlinks for uploads, picture cache and ferret index folder.
@@ -28,8 +29,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       task :symlink, :roles => :app do
         run "rm -rf #{current_path}/uploads"
         run "ln -nfs #{shared_path}/uploads #{current_path}/"
-        run "rm -rf #{current_path}/public/pictures"
-        run "ln -nfs #{shared_path}/cache/pictures #{current_path}/public/"
+				run "ln -nfs #{shared_path}/cache/* #{current_path}/public/"
         run "rm -rf #{current_path}/index"
         run "ln -nfs #{shared_path}/index #{current_path}/"
       end
