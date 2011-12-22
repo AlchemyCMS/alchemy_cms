@@ -1,0 +1,69 @@
+<% 
+post_params = {
+	:query => params[:query] || '',
+	:page => 1,
+	:per_page => params[:per_page],
+	:while_assigning => @while_assigning ? "true" : "false",
+	:content_id => @content.blank? ? nil : @content.id,
+	:element_id => @element.blank? ? nil : @element.id,
+	:size => @size,
+	:options => @options.to_param
+}.delete_if { |k,v| v.nil? }.to_json
+%>
+
+<div id="dropbox"><%= t('Drag files over here') %></div>
+
+<input id="multiple" type="file" multiple>
+<div class="info" style="display: none" id="upload_info_container">
+	<%= render_icon('info') %>
+	<span id="upload_info"></span>
+</div>
+<div id="uploadProgressContainer"></div>
+
+<script type="text/javascript" charset="utf-8">
+	$(function() {
+		$("#dropbox, #multiple").html5Uploader({
+			name: "Filedata",
+			postUrl: "<%= new_asset_path_with_session_information(model_name) %>",
+			postParams: <%= post_params.html_safe %>,
+			onSuccess: function(event, file, responseText) {
+				eval(responseText);
+				var progress = new Alchemy.FileProgress(file);
+				progress.setStatus("<%= t('complete') %>");
+				progress.setComplete();
+			},
+			onDragEnter: function(dropbox, event) {
+				$(dropbox)
+					.addClass('dragover')
+					.text("<%= t('Now drop the files') %>");
+			},
+			onDragLeave: function(dropbox, event) {
+				$(dropbox)
+					.removeClass('dragover')
+					.text("<%= t('Drag files over here') %>");
+			},
+			onDrop: function(dropbox, event) {
+				$(dropbox).hide('fast');
+				$('#multiple').hide();
+			},
+			onQueueStart: function(files) {
+				$('#upload_info').text('Queued ' + files.length + ' files.');
+				$('#upload_info_container').show();
+			},
+			onQueueComplete: function(files) {
+				$('#upload_info').text('Uploaded ' + files + ' files.');
+				$('#upload_info_container').show();
+			},
+			onClientLoadStart: function(event, file) {
+				var progress = new Alchemy.FileProgress(file);
+				progress.setStatus("<%= t('Uploading...') %>");
+			},
+			onClientProgress: function(event, file) {
+				var progress = new Alchemy.FileProgress(file);
+				var percentUploaded = (event.loaded / event.total) * 100;
+				progress.setProgress(percentUploaded);
+				progress.setStatus('<%= t("Uploading...") %> ' + SWFUpload.speed.formatPercent(percentUploaded));
+			}
+		});
+	});
+</script>
