@@ -1,4 +1,4 @@
-@import "defaults";
+@import "alchemy/defaults";
 
 h1 {
 	margin: 0 0 10px;
@@ -923,6 +923,17 @@ div#image_assign_filter_and_image_sizing {
 	cursor: image-url('alchemy/lupe.cur'), zoom-in, pointer;
 }
 
+.essence_picture_editor .picture_thumbnail {
+	width: 111px;
+	height: 115px;
+	margin: 1px;
+}
+
+.essence_picture_editor .picture_thumbnail .thumbnail_background {
+	width: 111px;
+	height: 93px;
+}
+
 div.picture_thumbnail.small {
 	width: 80px;
 	height: 75px;
@@ -1392,6 +1403,10 @@ select#url_protocol.medium {
 	margin: 0;
 }
 
+#alchemy .ui-dialog-content .short {
+	width: 40px;
+}
+
 #alchemy .ui-dialog-content p a.button {
 	float: right;
 }
@@ -1469,28 +1484,19 @@ div#overlay_toolbar a.button:active {
 	margin: 1px 0 0 -12px;
 }
 
-#clipboard_items {
+#clipboard_items ul {
+	list-style-type: none;
+	margin: 0 0 16px;
+	padding: 0;
+	height: 180px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 
-	ul {
-		list-style-type: none;
-		margin: 0 0 8px;
-		padding: 0;
-		height: 220px;
-		overflow-y: auto;
-		overflow-x: hidden;
-
-		li {
-			padding: 2*$default-padding;
-			border: $default-border;
-			background-color: white;
-			@include rounded-corner;
-			&.element {
-				background-color: #E5DCCA;
-				border: 1px solid #BBA589;
-			}
-		}
-	}
-} 
+#clipboard_items ul li {
+	padding: $default-padding;
+	background: white;
+}
 
 .mceEditor table {
 	border-spacing: 0 !important;
@@ -1501,17 +1507,11 @@ div#overlay_toolbar a.button:active {
 	border: $default-border;
 	@include rounded-corner;
 	padding: $default-padding;
-	margin-bottom: 2*$default-padding;
 	text-align: center;
-	line-height: 4em;
+	line-height: 12em;
 	&.dragover {
 		background: $dark-gray;
 		color: $light-gray;
 		border-color: $light-gray;
 	}
-}
-
-div.browse {
-	margin-bottom: 1em;
-	padding: 4*$default-padding 0;
 }
