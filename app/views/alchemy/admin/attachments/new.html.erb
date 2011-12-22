@@ -1,6 +1,6 @@
 <%= form_for([:admin, @attachment], :html => {:multipart => true}) do |f| %>
 	<%= render(
-		:partial => "alchemy/admin/partials/upload_form",
+		:partial => "alchemy/admin/partials/html5_upload_form",
 		:locals => {
 			:file_types => configuration(:uploader)[:allowed_filetypes][:attachments],
 			:file_types_description => t('documents'),
