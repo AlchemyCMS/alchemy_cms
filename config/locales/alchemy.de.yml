@@ -304,7 +304,7 @@ de:
     "You have unsaved elements. Do you really want to close the elements window?": "Sie haben ungesicherte Elemente. Möchten Sie das Elemente Fenster wirklich schließen?"
     "You may upload files with following extensions": "Sie können %{file_types_description} mit folgenden Endungen hochladen: %{file_types}"
     "You may upload any file": "Sie können jede Art von Datei hochladen."
-    "You were last time online at %{time}": "Sie waren zuletzt angemeldet am %{time}."
+    "Your last login was on %{time}": "Sie waren zuletzt angemeldet am %{time}."
     "Your Alchemy Login": "Ihre Alchemy Zugangsdaten"
     "Your credentials are": "Ihre Zugangsdaten lauten"
     "Your last updated pages": "Ihre zuletzt bearbeiteten Seiten"

@@ -1,6 +1,6 @@
 <div id="dashboard">
 	<h1><%= t('Welcome back, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %></h1>
-	<h2><%= t('You were last time online at %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></h2>
+	<h2><%= t('Your last login was on %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></h2>
 	
 	<div class="widget">
 		<h2><%= t('Your last updated pages') %>:</h2>
