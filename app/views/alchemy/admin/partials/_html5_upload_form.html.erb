@@ -1,3 +1,14 @@
+<div class="info">
+	<%= render_icon('info') %>
+	<p><%= t('explain_upload.intro', :name => item_type) %>:</p>
+	<ol>
+		<li><%= t('explain_upload.step1', :name => item_type) %></li>
+		<li><%= t('explain_upload.step2', :name => item_type) %>*</li>
+		<li><%= t('explain_upload.dragndrop', :name => item_type) %></li>
+	</ol>
+	<small>*<%= t('explain_upload.footnote', :name => item_type) %></small>
+</div>
+
 <% 
 post_params = {
 	:query => params[:query] || '',
@@ -11,13 +22,18 @@ post_params = {
 }.delete_if { |k,v| v.nil? }.to_json
 %>
 
+<div class="browse">
+	<label for="multiple">durchsuchen</label>
+	<input id="multiple" type="file" multiple>
+</div>
+
 <div id="dropbox"><%= t('Drag files over here') %></div>
 
-<input id="multiple" type="file" multiple>
 <div class="info" style="display: none" id="upload_info_container">
 	<%= render_icon('info') %>
 	<span id="upload_info"></span>
 </div>
+
 <div id="uploadProgressContainer"></div>
 
 <script type="text/javascript" charset="utf-8">
