@@ -1502,10 +1502,36 @@ div#overlay_toolbar a.button:active {
 	@include rounded-corner;
 	padding: $default-padding;
 	text-align: center;
-	line-height: 12em;
+	line-height: 6em;
 	&.dragover {
 		background: $dark-gray;
 		color: $light-gray;
 		border-color: $light-gray;
+	}
+}
+
+div.browse {
+	background: image-url('alchemy/swfupload/browse_button.png') 0 0 no-repeat;
+	width: 120px;
+	height: 25px;
+	overflow: hidden;
+	margin-bottom: 1em;
+	input[type="file"] {
+		@include opacity(0);
+	}
+	&:hover {
+		background-position: 0 -25px;
+	}
+	&:active {
+		background-position: 0 -50px;
+	}
+	label {
+		display: block;
+		width: 120px;
+		height: 25px;
+		font-size: 12px;
+		text-align: center;
+		line-height: 25px;
+		cursor: pointer;
 	}
 }

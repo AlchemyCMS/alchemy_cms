@@ -385,6 +385,7 @@ de:
       step1: "Klicken Sie auf 'durchsuchen' und öffnen Sie den Ordner mit Ihren %{name}"
       step2: "Wählen Sie alle %{name} aus, die Sie gleichzeitig hochladen wollen"
       step3: "Klicken Sie auf 'öffnen'. Das Hochladen beginnt!"
+      dragndrop: "Alternativ können Sie Dateien auch von Ihrem Computer mit der Maus auf die untere Fläche ziehen."
     female: "Frau"
     file: "Datei"
     file_rename_error: "Datei konnte nicht umbenannt werden."
