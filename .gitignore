@@ -17,3 +17,4 @@ spec/dummy/uploads/
 .sass-cache
 spec/dummy/db/test.sqlite3-journal
 spec/dummy/db/seeds.rb
+.rvmrc

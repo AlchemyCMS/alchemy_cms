@@ -5,7 +5,7 @@ module Alchemy
 
 			# Runs all ugrades
 			def run!
-				copy_migration_files
+				Rake::Task['alchemy:install:migrations'].invoke
 				strip_alchemy_from_schema_version_table
 				Rake::Task['db:migrate'].invoke
 				upgrade_to_language
@@ -101,11 +101,6 @@ module Alchemy
 				else
 					log "No essence_type columns to be namespaced found.", :skip
 				end
-			end
-
-			def copy_migration_files
-				desc "Syncing migration files"
-				system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
 			end
 
 			def strip_alchemy_from_schema_version_table
