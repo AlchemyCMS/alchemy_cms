@@ -2,7 +2,7 @@
  *= require_self
 */
 
-@import "alchemy/defaults";
+@import "defaults";
 
 @mixin transition {
 	-webkit-transition: left 0.15s ease-in-out;
@@ -70,7 +70,7 @@
 		background: image-url('alchemy/icons.png') -240px 0;
 	};
 	ul {
-		padding: 0;
+		padding: 6px 0;
 		margin: 0;
 		height: 32px;
 		li {
