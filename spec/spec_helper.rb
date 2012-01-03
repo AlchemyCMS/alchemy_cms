@@ -1,43 +1,64 @@
-# Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+begin
+	require 'spork'
+rescue LoadError => e
+end
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+def configure
+	# Configure Rails Environment
+	ENV["RAILS_ENV"] = "test"
 
-require 'database_cleaner'
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+	require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-# Seed the database
-Alchemy::Seeder.seed!
+	require 'database_cleaner'
+	DatabaseCleaner.strategy = :truncation
 
-require 'authlogic/test_case'
-include Authlogic::TestCase
+	require 'authlogic/test_case'
+	include Authlogic::TestCase
 
-require "rails/test_help"
-require "rspec/rails"
-require 'factory_girl'
-require 'factories.rb'
+	require "rails/test_help"
+	require "rspec/rails"
+	require 'factory_girl'
+	require 'factories.rb'
 
-ActionMailer::Base.delivery_method = :test
-ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.default_url_options[:host] = "test.com"
+	ActionMailer::Base.delivery_method = :test
+	ActionMailer::Base.perform_deliveries = true
+	ActionMailer::Base.default_url_options[:host] = "test.com"
 
-Rails.backtrace_cleaner.remove_silencers!
+	Rails.backtrace_cleaner.remove_silencers!
 
-# Configure capybara for integration testing
-require "capybara/rails"
-require 'capybara-webkit'
-Capybara.default_driver   = :rack_test
-Capybara.default_selector = :css
-Capybara.javascript_driver = :webkit
+	# Configure capybara for integration testing
+	require "capybara/rails"
+	require 'capybara-webkit'
+	Capybara.default_driver   = :rack_test
+	Capybara.default_selector = :css
+	Capybara.javascript_driver = :webkit
 
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+	# Load support files
+	Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
-RSpec.configure do |config|
-	require 'rspec/expectations'
-	config.include RSpec::Matchers
-	config.include Alchemy::Engine.routes.url_helpers
-	config.mock_with :rspec
-	config.use_transactional_fixtures = true
+	RSpec.configure do |config|
+		require 'rspec/expectations'
+		config.include RSpec::Matchers
+		config.include Alchemy::Engine.routes.url_helpers
+		config.mock_with :rspec
+		config.use_transactional_fixtures = true
+	end
+	
+end
+
+def seed
+	# This code will be run each time you run your specs.
+	DatabaseCleaner.clean
+
+	# Seed the database
+	Alchemy::Seeder.seed!
+
+end
+
+if defined?(Spork)
+	Spork.prefork  { configure }
+	Spork.each_run { seed }
+else
+	configure
+	seed
 end

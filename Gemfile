@@ -22,5 +22,6 @@ group :development do
 		gem 'linecache19', '~> 0.5.13', :platform => :ruby_19
 		gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :ruby_19
 		gem 'ruby-debug', :platform => :ruby_18
+		gem 'guard-spork'
 	end
 end
