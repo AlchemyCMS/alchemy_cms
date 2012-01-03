@@ -143,18 +143,26 @@
                     settings.onServerProgress(e, file);
                 }
             };
-            xmlHttpRequest.onreadystatechange = function (e) {
-                if (settings.onServerReadyStateChange) {
-                    settings.onServerReadyStateChange(e, file, xmlHttpRequest.readyState);
-                }
-                if (settings.onSuccess && xmlHttpRequest.readyState == 4) {
-                    successfullyUploadedFiles++;
-                    settings.onSuccess(e, file, xmlHttpRequest.responseText, successfullyUploadedFiles);
-                }
-                if (queuedFiles[queuedFiles.length - 1] === file && xmlHttpRequest.readyState == 4) {
-                    completeQueue();
-                }
-            };
+						xmlHttpRequest.onreadystatechange = function (e) {
+							if (settings.onServerReadyStateChange) {
+								settings.onServerReadyStateChange(e, file, xmlHttpRequest.readyState);
+							}
+							if (xmlHttpRequest.readyState === 4) {
+								if (xmlHttpRequest.status === 200) {
+									successfullyUploadedFiles++;
+									if (settings.onSuccess) {
+										settings.onSuccess(e, file, xmlHttpRequest.responseText, successfullyUploadedFiles);
+									}
+								} else if (xmlHttpRequest.status === 500) {
+									if (settings.onServerError) {
+										settings.onServerError(e, file, xmlHttpRequest.statusText);
+									}
+								}
+								if (queuedFiles[queuedFiles.length - 1] === file) {
+									completeQueue();
+								}
+							}
+						};
             xmlHttpRequest.open("POST", settings.postUrl, true);
 
             if (file.getAsBinary) { // Firefox

@@ -12,10 +12,6 @@ if (typeof(Alchemy) === 'undefined') {
 
 		SWFUpload : {
 
-			init : function() {
-				Alchemy.SWFUpload.language = this.customSettings['language'];
-			},
-
 			fileQueued: function(file) {
 				try {
 					var self = Alchemy.SWFUpload;
@@ -177,91 +173,26 @@ if (typeof(Alchemy) === 'undefined') {
 			},
 
 			queueComplete: function(numFilesUploaded) {
-				var $status = $("#SWFUploadStatus");
-				$status.show();
-				if (Alchemy.SWFUpload.language == 'en') {
-					$status.append(numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.");
+				var $status = $("#upload_info");
+				if (Alchemy.Uploader.locale == 'en') {
+					$status.text(numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.");
 				} else {
-					$status.append(numFilesUploaded + " Datei" + (numFilesUploaded === 1 ? "" : "en") + " hochgeladen.");
+					$status.text(numFilesUploaded + " Datei" + (numFilesUploaded === 1 ? "" : "en") + " hochgeladen.");
 				}
+				$('#upload_info_container').show();
 				Alchemy.SWFUpload.hideQueueCancelButton();
 				setTimeout(function () {
 					Alchemy.closeCurrentWindow();
 				}, 3500);
 			},
 
-			translation: {
-				'pending' : {
-					'de' : 'Wartend...',
-					'en' : 'Pending...'
-				},
-				'uploading' : {
-					'de' : 'Ladend...',
-					'en' : 'Uploading...'
-				},
-				'remaining' : {
-					'de' : ' verbleibend.',
-					'en' : ' remaining.'
-				},
-				'complete' : {
-					'de' : 'Abgeschlossen.',
-					'en' : "Complete."
-				},
-				'cancelled' : {
-					'de' : 'Abgebrochen.',
-					'en' : 'Cancelled.'
-				},
-				'stopped' : {
-					'de' : 'Gestoppt',
-					'en' : 'Stopped.'
-				},
-				'upload_failed' : {
-					'de' : 'Fehlgeschlagen!',
-					'en' : 'Upload Failed!'
-				},
-				'file_too_big' : {
-					'de' : 'Datei ist zu groß!',
-					'en' : 'File is too big!'
-				},
-				'upload_limit_exceeded' : {
-					'de' : 'Maximales Dateilimit erreicht.',
-					'en' : 'Upload limit exceeded.'
-				},
-				'validation_failed' : {
-					'de' : 'Validierung fehlgeschlagen. Ladevorgang angehalten.',
-					'en' : "Failed Validation. Upload skipped."
-				},
-				'zero_byte_file' : {
-					'de' : 'Datei hat keinen Inhalt!',
-					'en' : 'Cannot upload Zero Byte files!'
-				},
-				'invalid_file' : {
-					'de' : 'Ungültiger Dateityp!',
-					'en' : 'Invalid File Type!'
-				},
-				'unknown_error' : {
-					'de' : 'Unbekannter Fehler!',
-					'en' : 'Unhandled Error!'
-				}
-			},
-
-			getTranslation : function(id) {
-				try {
-					var self = Alchemy.SWFUpload;
-					var translation = self.translation[id];
-					if (translation) {
-						return translation[self.language];
-					} else {
-						return id;
-					}
-				} catch(ex) {
-					this.debug(ex);
-				}
-			},
-
 			hideQueueCancelButton : function() {
 				$('#swf_upload_container .button').hide();
 				$('#swf_upload_container .cloned-button').remove();
+			},
+
+			getTranslation: function(id) {
+				return Alchemy.Uploader.t(id);
 			}
 
 		}

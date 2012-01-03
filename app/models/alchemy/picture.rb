@@ -43,7 +43,8 @@ module Alchemy
 		end
 
 		def humanized_name
-			(image_filename.to_s.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '')).humanize
+			return "" if image_filename.blank?
+			(image_filename.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '')).humanize
 		end
 
 		# Returning true if picture's width is greater than it's height

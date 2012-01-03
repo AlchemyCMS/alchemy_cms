@@ -4,54 +4,28 @@
 	<ol>
 		<li><%= t('explain_upload.step1', :name => item_type) %></li>
 		<li><%= t('explain_upload.step2', :name => item_type) %>*</li>
-		<li><%= t('explain_upload.step3') %></li>
+		<li id="explain_step3"><%= t('explain_upload.step3') %></li>
+		<li id="explain_drag_n_drop"><%= t('explain_upload.dragndrop', :name => item_type) %></li>
 	</ol>
+	<%- unless file_types.first == '*' -%>
+	<p><%= t('You may upload files with following extensions', :file_types_description => file_types_description, :file_types => file_types.to_sentence) %>.</p>
+	<%- end -%>
 	<small>*<%= t('explain_upload.footnote', :name => item_type) %></small>
 </div>
-<div id="swf_upload_container">
-	<div id="spanButtonPlaceHolder">
-		<p>
-			<%= image_tag('alchemy/ajax_loader.gif', :style => 'width: 16px; height: 16px; top: 3px; position: relative') %>
-			<%= t('Please wait. Flash® is loading...') %>
-		</p>
-	</div>
-	<a href="#" class="button no-spinner" onclick="swfu.cancelQueue(); return false" style="display: none">
-		<%= t("swfupload.cancel_uploads") %>
-	</a>
+
+<%= render 'alchemy/admin/partials/flash_upload' %>
+
+<div class="browse">
+	<input id="multiple" type="file" multiple>
 </div>
-<%- if file_types.first == '*' -%>
-<p><%= t('You may upload any file') %></p>
-<%- else -%>
-<p><%= t('You may upload files with following extensions', :file_types_description => file_types_description, :file_types => file_types.to_sentence) %>.</p>
-<%- end -%>
-<p style="margin-top: 8px" id="choose_alternative_uploader">
-	<small>
-		<%= raw t('If you have any problems using the Flash uploader you can switch to', :link => t('<a href="#" id="uploadswitcher">%{value}</a>', :value => t('regular method'))) %>
-	</small>
-</p>
-<h2 id="swfUploadFlashError" style="display: none"><%= t('Could not load Adobe Flash® Plugin!') %></h2>
-<div id="alternativeUpload" style="display: none">
-	<h2 id="flash_upload_error_explanation" style="display: none">
-		<%= t('Error with the Flash® Uploader!') %>
-	</h2>
-	<p><%= t('use_alternative_uploader_instead') %></p>
-	<p>
-		<%= file_field_tag('Filedata') %>
-	</p>
-	<p>
-		<%= submit_tag t('upload'), :class => 'button' %>
-	</p>
-	<p>
-		<small>
-			<a href="#" id="switch_to_flash_uploader" class="underline">
-				<%= t('Switch to Flash® Uploader') %>
-			</a>
-		</small>
-	</p>
+
+<div id="dropbox"><%= t('Or drag files over here') %></div>
+
+<div class="flash notice" style="display: none; margin: 8px 0" id="upload_info_container">
+	<%= render_icon('tick') %>
+	<span id="upload_info"></span>
 </div>
-<div id="SWFUploadStatus" style="display: none" class="info">
-	<%= render_icon('info') %>
-</div>
+
 <div id="uploadProgressContainer"></div>
 
 <%- post_params = {
@@ -66,64 +40,28 @@
 }.delete_if { |k,v| v.nil? }.to_json -%>
 
 <script type='text/javascript'>
-	try {
-		var swfu = new SWFUpload({
-			flash_url: "<%= asset_path('swfupload/swfupload.swf') %>",
-			flash9_url: "<%= asset_path('swfupload/swfupload.swf') %>",
-			upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
-			post_params: <%= post_params.html_safe %>,
-			file_size_limit: "<%= configuration(:uploader)[:file_size_limit] || 100 -%> MB",
-			file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
-			file_types_description: "<%= file_types_description %>",
-			file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
-			file_queue_limit: 0,
-			custom_settings: {
-				language: "<%= ::I18n.locale || 'en' %>"
-			},
-			debug: false,
-			button_image_url: "<%= image_path('alchemy/swfupload/browse_button.png') %>",
-			button_width: "120",
-			button_height: "25",
-			button_placeholder_id: "spanButtonPlaceHolder",
-			button_text: "<span class='swfButtonText'><%= t('browse') %></span>",
-			button_text_style: '.swfButtonText {font-size: 11px; font-family: "Lucida Grande", Arial, sans-serif; text-align: center; color: #333333; height: 25px; padding-left: 8px; padding-right: 8px; padding-bottom: 3px; padding-top: 5px}',
-			button_text_left_padding: 0,
-			button_text_top_padding: 4,
-			swfupload_load_failed_handler: function () {
-				jQuery('#swf_upload_container').hide();
-				jQuery('#choose_alternative_uploader').hide();
-				jQuery('#switch_to_flash_uploader').hide();
-				jQuery('#swfUploadFlashError').show();
-				jQuery('#alternativeUpload').show();
-			},
-			swfupload_loaded_handler : Alchemy.SWFUpload.init,
-			file_queued_handler : Alchemy.SWFUpload.fileQueued,
-			file_queue_error_handler : Alchemy.SWFUpload.fileQueueError,
-			file_dialog_complete_handler : Alchemy.SWFUpload.fileDialogComplete,
-			upload_start_handler : Alchemy.SWFUpload.uploadStart,
-			upload_progress_handler : Alchemy.SWFUpload.uploadProgress,
-			upload_error_handler : Alchemy.SWFUpload.uploadError,
-			upload_success_handler : Alchemy.SWFUpload.uploadSuccess,
-			queue_complete_handler : Alchemy.SWFUpload.queueComplete
-		});
-		swfu.window_mode = "opaque";
-	} catch(err) {
-		Alchemy.debug(err);
-		jQuery('#swf_upload_container').hide();
-		jQuery('#choose_alternative_uploader').hide();
-		jQuery('#alternativeUpload').show();
-		jQuery('#flash_upload_error_explanation').show();
-	};
+
+	Alchemy.Uploader.init({
+		upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
+		post_params: <%= post_params.html_safe %>,
+		file_size_limit: <%= configuration(:uploader)[:file_size_limit] || 100 -%>,
+		file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
+		file_types_description: "<%= file_types_description %>",
+		file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
+		locale: "<%= ::I18n.locale || 'en' %>"
+	});
+
 	(function($) {
 		$('#uploadswitcher').click(function() {
 			$('#choose_alternative_uploader').hide();
 			$('#alternativeUpload').show();
-			$('object.swfupload').hide();
+			$('#swf_upload_container').hide();
 		});
 		$('#switch_to_flash_uploader').click(function() {
 			$('#choose_alternative_uploader').show();
 			$('#alternativeUpload').hide();
-			$('object.swfupload').show();
+			$('#swf_upload_container').show();
 		});
 	})(jQuery);
+
 </script>
