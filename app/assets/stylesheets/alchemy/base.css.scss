@@ -1,4 +1,4 @@
-@import "defaults";
+@import "alchemy/defaults";
 
 h1 {
 	margin: 0 0 10px;
@@ -924,17 +924,6 @@ div#image_assign_filter_and_image_sizing {
 	cursor: image-url('alchemy/lupe.cur'), zoom-in, pointer;
 }
 
-.essence_picture_editor .picture_thumbnail {
-	width: 111px;
-	height: 115px;
-	margin: 1px;
-}
-
-.essence_picture_editor .picture_thumbnail .thumbnail_background {
-	width: 111px;
-	height: 93px;
-}
-
 div.picture_thumbnail.small {
 	width: 80px;
 	height: 75px;
@@ -1506,4 +1495,23 @@ div#overlay_toolbar a.button:active {
 
 .mceEditor table {
 	border-spacing: 0 !important;
+}
+
+#dropbox {
+	background: $medium-gray;
+	border: $default-border;
+	@include rounded-corner;
+	padding: $default-padding;
+	margin-bottom: 2*$default-padding;
+	text-align: center;
+	line-height: 6em;
+	&.dragover {
+		background: $dark-gray;
+		color: $light-gray;
+		border-color: $light-gray;
+	}
+}
+
+div.browse {
+	margin-bottom: 1em;
 }
