@@ -547,6 +547,11 @@ de:
     "No users found": "Keine Benutzer gefunden."
     "Nothing found": "Keine Einträge gefunden."
     "Or drag files over here": "Oder ziehen Sie die Dateien hier rauf"
+    "Now drop the files": "Lassen Sie die Dateien nun los"
+    "Queued x files": "x Dateien in der Warteschlange."
+    complete: 'Abgeschlossen'
+    "Uploading": "Hochladen"
+    "Uploaded x files": "x Dateien hochgeladen."
     
   # END of Alchemy translation
   
