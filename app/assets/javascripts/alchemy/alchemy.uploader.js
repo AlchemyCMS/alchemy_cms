@@ -68,7 +68,6 @@ Alchemy.Uploader = {
 					}
 					$('#dropbox').show();
 					$('#multiple').show().parents('form').get(0).reset();
-					window.setTimeout(Alchemy.closeCurrentWindow, 2500);
 				},
 				onClientLoadStart: function(event, file) {
 					var progress = new Alchemy.FileProgress(file);
