@@ -22,7 +22,7 @@ module Alchemy
 		# 
 		def self.t(msg, *args)
 			options = args.extract_options!
-			options[:default] = options[:default] ? options[:default] : msg.to_s.humanize
+			options[:default] = options[:default] ? options[:default] : msg
 			scope = ['alchemy']
 			case options[:scope].class.name
 				when "Array"
