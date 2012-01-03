@@ -1,4 +1,4 @@
-@import "alchemy/defaults";
+@import "defaults";
 
 h1 {
 	margin: 0 0 10px;
@@ -1509,7 +1509,7 @@ div#overlay_toolbar a.button:active {
 	padding: $default-padding;
 	margin-bottom: 2*$default-padding;
 	text-align: center;
-	line-height: 6em;
+	line-height: 4em;
 	&.dragover {
 		background: $dark-gray;
 		color: $light-gray;
