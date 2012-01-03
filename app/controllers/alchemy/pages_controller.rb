@@ -103,7 +103,7 @@ module Alchemy
 			elsif !configuration(:url_nesting) && url_levels.any?
 				redirect_page
 			elsif @page.has_controller?
-				redirect_to(@page.controller_and_action)
+				redirect_to main_app.url_for(@page.controller_and_action)
 			else
 				# setting the language to page.language to be sure it's correct
 				set_language_from(@page.language_id)
