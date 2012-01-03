@@ -341,10 +341,12 @@ module Alchemy
 				options.symbolize_keys!
 				defaults = {
 					:overlay => true,
-					:skip_permission_check => false
+					:skip_permission_check => false,
+					:active => false,
+					:link_options => {}
 				}
 				options = defaults.merge(options)
-				button = content_tag('div', :class => 'button_with_label') do
+				button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
 					link = if options[:overlay]
 						link_to_overlay_window(
 							render_icon(options[:icon]),
@@ -392,8 +394,8 @@ module Alchemy
 				options = defaults.merge(options)
 				content_for(:toolbar) do
 					content = <<-CONTENT
-					#{options[:buttons].map { |button_options| toolbar_button(button_options) }.join()}
-					#{render('alchemy/admin/partials/search_form', :url => options[:search_url]) if options[:search]}
+						#{options[:buttons].map { |button_options| toolbar_button(button_options) }.join()}
+						#{render('alchemy/admin/partials/search_form', :url => options[:search_url]) if options[:search]}
 					CONTENT
 					content.html_safe
 				end
