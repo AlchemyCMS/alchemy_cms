@@ -73,7 +73,8 @@
 
         function startUpload () {
             if (settings.onQueueStart) {
-                settings.onQueueStart(queuedFiles);
+                settings.onQueueStart(queuedFiles.length);
+                successfullyUploadedFiles = 0;
             }
             for (var i = 0; i < queuedFiles.length; i++) {
                 var file = queuedFiles[i];
@@ -146,9 +147,9 @@
                 if (settings.onServerReadyStateChange) {
                     settings.onServerReadyStateChange(e, file, xmlHttpRequest.readyState);
                 }
-                if (settings.onSuccess && xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-                    settings.onSuccess(e, file, xmlHttpRequest.responseText);
+                if (settings.onSuccess && xmlHttpRequest.readyState == 4) {
                     successfullyUploadedFiles++;
+                    settings.onSuccess(e, file, xmlHttpRequest.responseText, successfullyUploadedFiles);
                 }
                 if (queuedFiles[queuedFiles.length - 1] === file && xmlHttpRequest.readyState == 4) {
                     completeQueue();
