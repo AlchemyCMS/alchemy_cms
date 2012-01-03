@@ -79,7 +79,7 @@ def login_to_alchemy
 	visit '/alchemy/admin/login'
 	fill_in('Username', :with => 'jdoe')
 	fill_in('Password', :with => 's3cr3t')
-	click_on('Login')
+	click_on('login')
 end
 
 end
