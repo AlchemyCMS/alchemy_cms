@@ -23,14 +23,13 @@ post_params = {
 %>
 
 <div class="browse">
-	<label for="multiple">durchsuchen</label>
 	<input id="multiple" type="file" multiple>
 </div>
 
-<div id="dropbox"><%= t('Drag files over here') %></div>
+<div id="dropbox"><%= t('Or drag files over here') %></div>
 
-<div class="info" style="display: none" id="upload_info_container">
-	<%= render_icon('info') %>
+<div class="flash notice" style="display: none; margin: 8px 0" id="upload_info_container">
+	<%= render_icon('tick') %>
 	<span id="upload_info"></span>
 </div>
 
@@ -38,48 +37,60 @@ post_params = {
 
 <script type="text/javascript" charset="utf-8">
 	$(function() {
-		$("#dropbox, #multiple").html5Uploader({
-			name: "Filedata",
-			postUrl: "<%= new_asset_path_with_session_information(model_name) %>",
-			postParams: <%= post_params.html_safe %>,
-			onSuccess: function(event, file, responseText) {
-				eval(responseText);
-				var progress = new Alchemy.FileProgress(file);
-				progress.setStatus("<%= t('complete') %>");
-				progress.setComplete();
-			},
-			onDragEnter: function(dropbox, event) {
-				$(dropbox)
-					.addClass('dragover')
-					.text("<%= t('Now drop the files') %>");
-			},
-			onDragLeave: function(dropbox, event) {
-				$(dropbox)
-					.removeClass('dragover')
-					.text("<%= t('Drag files over here') %>");
-			},
-			onDrop: function(dropbox, event) {
-				$(dropbox).hide('fast');
-				$('#multiple').hide();
-			},
-			onQueueStart: function(files) {
-				$('#upload_info').text('Queued ' + files.length + ' files.');
-				$('#upload_info_container').show();
-			},
-			onQueueComplete: function(files) {
-				$('#upload_info').text('Uploaded ' + files + ' files.');
-				$('#upload_info_container').show();
-			},
-			onClientLoadStart: function(event, file) {
-				var progress = new Alchemy.FileProgress(file);
-				progress.setStatus("<%= t('Uploading...') %>");
-			},
-			onClientProgress: function(event, file) {
-				var progress = new Alchemy.FileProgress(file);
-				var percentUploaded = (event.loaded / event.total) * 100;
-				progress.setProgress(percentUploaded);
-				progress.setStatus('<%= t("Uploading...") %> ' + SWFUpload.speed.formatPercent(percentUploaded));
-			}
-		});
+		
+		if (Alchemy.HTML5.hasUploadSupport()) {
+			$("#dropbox, #multiple").html5Uploader({
+				name: "Filedata",
+				postUrl: "<%= new_asset_path_with_session_information(model_name) %>",
+				postParams: <%= post_params.html_safe %>,
+				onSuccess: function(event, file, responseText, successfullyUploadedFiles) {
+					eval(responseText);
+					var progress = new Alchemy.FileProgress(file);
+					$('#upload_info').text('<%= t("Uploaded x files") %>'.replace('x', successfullyUploadedFiles));
+					progress.setStatus("<%= t('complete') %>");
+					progress.setComplete();
+				},
+				onDragEnter: function(dropbox, event) {
+					$(dropbox)
+						.addClass('dragover')
+						.text("<%= t('Now drop the files') %>");
+				},
+				onDragLeave: function(dropbox, event) {
+					$(dropbox)
+						.removeClass('dragover')
+						.text("<%= t('Or drag files over here') %>");
+				},
+				onDrop: function(dropbox, event) {
+					$(dropbox)
+						.removeClass('dragover')
+						.text("<%= t('Or drag files over here') %>");
+				},
+				onQueueStart: function(files) {
+					$('#upload_info').text('<%= t("Queued x files") %>'.replace('x', files));
+					$('#upload_info_container').show();
+					$('#dropbox').hide('fast');
+					$('#multiple').hide();
+				},
+				onQueueComplete: function(files) {
+					$('#upload_info').text('<%= t("Uploaded x files") %>'.replace('x', files));
+					$('#dropbox').show();
+					$('#multiple').show().parents('form').get(0).reset();
+				},
+				onClientLoadStart: function(event, file) {
+					var progress = new Alchemy.FileProgress(file);
+					progress.setStatus("<%= t('Uploading') %>...");
+				},
+				onClientProgress: function(event, file) {
+					var progress = new Alchemy.FileProgress(file);
+					var percentUploaded = (event.loaded / event.total) * 100;
+					progress.setProgress(percentUploaded);
+					progress.setStatus('<%= t("Uploading") %>... ' + SWFUpload.speed.formatPercent(percentUploaded));
+				}
+			});
+		} else {
+			$('#multiple').hide();
+			$('#dropbox').text('Your browser does not support HTML5 file uploads!');
+		}
+		
 	});
 </script>
