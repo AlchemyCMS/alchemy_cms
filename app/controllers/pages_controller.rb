@@ -5,26 +5,27 @@ class PagesController < AlchemyController
 
   filter_access_to :show, :attribute_check => true
 
-  caches_action(
-    :show,
-    :cache_path => proc { url_for(:action => :show, :urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
-    :if => proc do
-      if Alchemy::Config.get(:cache_pages)
-        page = Page.find_by_urlname_and_language_id_and_public(
-          params[:urlname],
-          session[:language_id],
-          true,
-          :select => 'page_layout, language_id, urlname'
-        )
-        if page
-          pagelayout = Alchemy::PageLayout.get(page.page_layout)
-          pagelayout['cache'].nil? || pagelayout['cache']
-        end
-      else
-        false
-      end
-    end
-  )
+	caches_action(
+		:show,
+		:cache_path => proc { show_page_url(:urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
+		:if => proc {
+			if Alchemy::Config.get(:cache_pages)
+				page = Page.find_by_urlname_and_language_id_and_public(
+					params[:urlname],
+					session[:language_id],
+					true,
+					:select => 'page_layout, language_id, urlname'
+				)
+				if page
+					pagelayout = PageLayout.get(page.page_layout)
+					pagelayout['cache'].nil? || pagelayout['cache']
+				end
+			else
+				false
+			end
+		},
+		:layout => false
+	)
 
 	# Showing page from params[:urlname]
 	# @page is fetched via before filter

@@ -17,3 +17,4 @@ spec/dummy/uploads/
 spec/dummy/.sass-cache/
 spec/dummy/db/migrate
 spec/dummy/db/seeds.rb
+.rvmrc
