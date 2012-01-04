@@ -7,7 +7,7 @@ class PagesController < AlchemyController
 
 	caches_action(
 		:show,
-		:cache_path => proc { show_page_url(:urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
+		:cache_path => proc { url_for(:action => :show, :urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
 		:if => proc {
 			if Alchemy::Config.get(:cache_pages)
 				page = Page.find_by_urlname_and_language_id_and_public(
