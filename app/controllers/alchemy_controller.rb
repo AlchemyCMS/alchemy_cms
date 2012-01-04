@@ -245,5 +245,13 @@ protected
   def trash_empty?(category)
     category.singularize.classify.constantize.trashed.blank?
   end
-  
+
+	def layout_for_page
+		if !params[:layout].blank? && params[:layout] != 'none'
+			params[:layout]
+		else
+			'pages'
+		end
+	end
+
 end

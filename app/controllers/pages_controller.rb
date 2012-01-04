@@ -27,6 +27,8 @@ class PagesController < AlchemyController
 		:layout => false
 	)
 
+	layout :layout_for_page
+
 	# Showing page from params[:urlname]
 	# @page is fetched via before filter
 	# @root_page is fetched via before filter
@@ -38,7 +40,7 @@ class PagesController < AlchemyController
 		end
 		respond_to do |format|
 			format.html {
-				render :layout => params[:layout].blank? ? 'pages' : params[:layout] == 'none' ? false : params[:layout]
+				render
 			}
 			format.rss {
 				if @page.contains_feed?
