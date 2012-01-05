@@ -5,7 +5,7 @@ describe Alchemy::PageLayout do
 	context "method get_layouts" do
 
 	  it "should generally return page_layouts, nothing else!" do
-			Alchemy::PageLayout.get_layouts.should be_instance_of(Array)
+			Alchemy::PageLayout.read_layouts_file.should be_instance_of(Array)
 	  end
 
 	end
@@ -19,7 +19,7 @@ describe Alchemy::PageLayout do
 			File.open(layouts_file,'w') do |page_layouts|
 				page_layouts.puts "- name: testlayout\n  elements:"
 			end
-			Alchemy::PageLayout.get_layouts.first.values.should include("testlayout")
+			Alchemy::PageLayout.read_layouts_file.first.values.should include("testlayout")
 		end
 
 		after(:each) do

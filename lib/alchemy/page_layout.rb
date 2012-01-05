@@ -17,7 +17,7 @@ module Alchemy
 
 		# Returns the page_layout.yml file. Tries to first load from config/alchemy and if not found from vendor/plugins/alchemy/config/alchemy.
 		def self.get_layouts
-			@@definitions = read_layouts_file
+			@@definitions ||= read_layouts_file
 		end
 
 		# Add additional pagelayout definitions. I.E. from your module.
@@ -25,7 +25,7 @@ module Alchemy
 		# You can pass a single layout definition as Hash, or a collection of pagelayouts as Array.
 		# Example Pagelayout definitions can be found in the +page_layouts.yml+ from the standard set.
 		def self.add(page_layout)
-			@@definitions = read_layouts_file
+			@@definitions ||= read_layouts_file
 			if page_layout.is_a?(Array)
 				@@definitions += page_layout
 			elsif page_layout.is_a?(Hash)
@@ -45,10 +45,10 @@ module Alchemy
 		def self.get_all_by_attributes(attributes)
 			return [] if attributes.blank?
 			if attributes.class.name == 'Hash'
-				all_definitions = read_layouts_file
+				@@definitions ||= read_layouts_file
 				layouts = []
-				attributes.each do |key, value|
-					result = all_definitions.select{ |a| a[key.to_s].to_s.downcase == value.to_s.downcase if a.has_key?(key.to_s) }
+				attributes.stringify_keys.each do |key, value|
+					result = @@definitions.select{ |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
 					layouts += result unless result.empty?
 				end
 				return layouts
@@ -71,9 +71,9 @@ module Alchemy
 			@@definitions.select do |layout|
 				used = layout["unique"] && has_a_page_this_layout?(layout["name"], language_id)
 				if layoutpage
-					layout["layoutpage"] == true && !used && layout["newsletter"] != true
+					layout["layoutpage"] == true && !used
 				else
-					layout["layoutpage"] != true && !used && layout["newsletter"] != true
+					layout["layoutpage"] != true && !used
 				end
 			end
 		end
