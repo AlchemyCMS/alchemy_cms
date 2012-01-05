@@ -25,7 +25,7 @@ module Alchemy
 		# You can pass a single layout definition as Hash, or a collection of pagelayouts as Array.
 		# Example Pagelayout definitions can be found in the +page_layouts.yml+ from the standard set.
 		def self.add(page_layout)
-			get_layouts
+			@@definitions ||= read_layouts_file
 			if page_layout.is_a?(Array)
 				@@definitions += page_layout
 			elsif page_layout.is_a?(Hash)
@@ -44,9 +44,10 @@ module Alchemy
 		def self.get_all_by_attributes(attributes)
 			return [] if attributes.blank?
 			if attributes.class.name == 'Hash'
+				@@definitions ||= read_layouts_file
 				layouts = []
 				attributes.stringify_keys.each do |key, value|
-					result = get_layouts.select{ |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
+					result = @@definitions.select{ |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
 					layouts += result unless result.empty?
 				end
 				return layouts
