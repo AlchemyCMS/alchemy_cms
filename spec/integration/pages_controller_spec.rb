@@ -4,7 +4,7 @@ describe Alchemy::PagesController do
 	
 	before(:each) do
 		@default_language = Alchemy::Language.get_default
-		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
+		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
 	end
 
 	describe "#show" do
@@ -82,11 +82,11 @@ describe Alchemy::PagesController do
 
 	describe "redirecting" do
 
-		context "in multi language mode" do
+		context "in multi language mode", :focus => true do
 
 			before(:each) do
 				@page = Factory(:public_page)
-				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : true }
+				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : Alchemy::Config.parameter(arg) }
 			end
 
 			it "should redirect to url with nested language code" do
@@ -99,6 +99,7 @@ describe Alchemy::PagesController do
 				before(:each) do
 					@page.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
 					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id)
+					Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : Alchemy::Config.parameter(arg) }
 				end
 
 				it "if requested page is unpublished" do
@@ -139,7 +140,7 @@ describe Alchemy::PagesController do
 				context "enabled" do
 
 					before(:each) do
-						Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
+						Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : Alchemy::Config.parameter(arg) }
 					end
 
 					context "requesting a non nested url" do
@@ -162,7 +163,7 @@ describe Alchemy::PagesController do
 				context "disabled" do
 
 					before(:each) do
-						Alchemy::Config.stub!(:get).and_return(false)
+						Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : Alchemy::Config.parameter(arg) }
 					end
 
 					context "requesting a nested url" do
@@ -184,7 +185,7 @@ describe Alchemy::PagesController do
 
 			before(:each) do
 				@page = Factory(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
-				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : true }
+				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : Alchemy::Config.parameter(arg) }
 			end
 
 			it "should redirect from nested language code url to normal url" do

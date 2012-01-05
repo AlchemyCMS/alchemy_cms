@@ -2,7 +2,6 @@
 module Alchemy
 	class Page < ActiveRecord::Base
 
-		RESERVED_PAGE_LAYOUTS = %w(rootpage)
 		RESERVED_URLNAMES = %w(admin messages)
 
 		acts_as_nested_set
@@ -15,23 +14,23 @@ module Alchemy
 		belongs_to :language
 
 		validates_presence_of :name, :message => '^'+Alchemy::I18n.t("please enter a name")
-		validates_presence_of :page_layout, :message => '^'+Alchemy::I18n.t("Please choose a page layout.")
-		validates_presence_of :parent_id, :message => '^'+Alchemy::I18n.t("No parent page was given."), :unless => :rootpage?
+		validates_presence_of :page_layout, :message => '^'+Alchemy::I18n.t("Please choose a page layout."), :unless => :systempage?
+		validates_presence_of :parent_id, :message => '^'+Alchemy::I18n.t("No parent page was given."), :if => proc { Page.count > 1 }
 		validates_length_of :urlname, :minimum => 3, :too_short => Alchemy::I18n.t("urlname_to_short"), :if => :urlname_entered?
 		validates_uniqueness_of :urlname, :message => '^'+Alchemy::I18n.t("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
-		validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => '^'+Alchemy::I18n.t("This page_layout name is reserved.") }, :unless => :rootpage?
 		validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => '^'+Alchemy::I18n.t("This urlname is reserved.") }
 
 		attr_accessor :do_not_autogenerate
 		attr_accessor :do_not_sweep
 		attr_accessor :do_not_validate_language
 
-		before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
-		before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
-		before_save :set_language_code
-		after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
-		after_create :create_cells
-		after_save :set_restrictions_to_child_pages
+		before_save :set_url_name, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
+		before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
+		before_save :set_language_code, :unless => :systempage?
+		before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
+		before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
+		after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
+		after_create :create_cells, :unless => :systempage?
 
 		scope :language_roots, where(:language_root => true)
 		scope :layoutpages, where(:layoutpage => true)
@@ -307,10 +306,9 @@ module Alchemy
 
 		# Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
 		def layout_description
+			return {} if self.systempage?
 			description = Alchemy::PageLayout.get(self.page_layout)
-			if self.root? || self.layoutpage?
-				return {}
-			elsif description.nil?
+			if description.nil?
 				raise "Description could not be found for page layout named #{self.page_layout}. Please check page_layouts.yml file."
 			else
 				description
@@ -340,11 +338,13 @@ module Alchemy
 		end
 
 		def set_restrictions_to_child_pages
-			return nil if self.restricted_was == self.restricted
 			descendants.each do |child|
-				child.restricted = restricted
-				child.save
+				child.update_attribute(:restricted, self.restricted?)
 			end
+		end
+
+		def inherit_restricted_status
+			self.restricted = parent.restricted?
 		end
 
 		def contains_feed?
@@ -484,15 +484,19 @@ module Alchemy
 			self.locker.name
 		end
 
-		# is the curent object the main rootpage?
 		def rootpage?
-			(self.page_layout == "rootpage") && self.parent_id.blank?
+			!self.new_record? && self.parent_id.blank?
+		end
+
+		def systempage?
+			return true if Page.root.nil?
+			rootpage? || (self.parent_id == Page.root.id && !self.language_root?)
 		end
 
 		def self.rootpage
-			where(:page_layout => 'rootpage').where(:parent_id => nil).first
+			self.root
 		end
-  
+
 	private
 
 		def find_next_or_previous_page(direction = "next", options = {})

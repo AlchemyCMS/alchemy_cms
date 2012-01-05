@@ -5,9 +5,9 @@ require 'spec_helper'
 describe Alchemy::Page do
 	
 	before(:each) do
-		@rootpage = Alchemy::Page.rootpage
+		@rootpage = Alchemy::Page.root
 		@language = Alchemy::Language.get_default
-		@language_root = Factory(:page, :parent_id => @rootpage.id, :language => @language, :language_root => true, :page_layout => 'intro')
+		@language_root = Factory(:language_root_page, :name => 'Default Language Root', :language => @language)
 	end
 	
 	describe ".layout_description" do
@@ -104,46 +104,37 @@ describe Alchemy::Page do
 		end
 	
 	end
-	
-	context "create" do
-		it "the rootpage with page_layout rootpage does not need a parent_id" do
-			@rootpage.rootpage?.should be_true
-		end
-		
-		it "all pages except the rootpage must have a parent_id" do
-			page = Factory.build(:page, :page_layout => "anypage", :parent_id => nil, :language => @language)
-			page.valid?
-			page.should have(1).error_on(:parent_id)
-		end
-		
-		it "must not be created if the page_layout is set to 'rootpage' and a page already exists with this page_layout and parent_id = nil" do
-		  page = Factory.build(:page, :name => "anypage", :page_layout => "rootpage", :parent_id => @language_root.id, :language => @language)
-			page.valid?
-			page.should have(1).error_on(:page_layout)
-		end
-		
-		it "should get a webfriendly urlname on create" do
-			page = Factory(:page, :name => 'klingon$&stößel ', :language => @language, :parent_id => @language_root.id)
-			page.urlname.should == 'klingon-stoessel'
+
+	describe '#create' do
+
+		context "generate urlnames" do
+
+			it "should get a webfriendly urlname" do
+				page = Factory(:page, :name => 'klingon$&stößel ', :language => @language, :parent_id => @language_root.id)
+				page.urlname.should == 'klingon-stoessel'
+			end
+
+			it "should generate a three letter urlname from two letter name" do
+				page = Factory(:page, :name => 'Au', :language => @language, :parent_id => @language_root.id)
+				page.urlname.should == '-au'
+			end
+
+			it "should generate a three letter urlname from two letter name with umlaut" do
+				page = Factory(:page, :name => 'Aü', :language => @language, :parent_id => @language_root.id)
+				page.urlname.should == 'aue'
+			end
+
+			it "should generate a three letter urlname from one letter name" do
+				page = Factory(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
+				page.urlname.should == '--a'
+			end
+
 		end
 
-	  it "should generate a three letter urlname from two letter name" do
-	    page = Factory(:page, :name => 'Au', :language => @language, :parent_id => @language_root.id)
-	    page.urlname.should == '-au'
-	  end
-
-	  it "should generate a three letter urlname from two letter name with umlaut" do
-	    page = Factory(:page, :name => 'Aü', :language => @language, :parent_id => @language_root.id)
-	    page.urlname.should == 'aue'
-	  end
-
-	  it "should generate a three letter urlname from one letter name" do
-	    page = Factory(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
-	    page.urlname.should == '--a'
-	  end
 	end
-	
+
 	context "with children" do
+
 		before(:each) do
 			@first_child = Factory(:page, :name => "First child", :language => @language, :public => false, :parent_id => @language_root.id)
 			@first_child.move_to_child_of(@language_root)
@@ -151,7 +142,7 @@ describe Alchemy::Page do
 			@first_public_child = Factory(:page, :name => "First public child", :language => @language, :parent_id => @language_root.id, :public => true)
 			@first_public_child.move_to_child_of(@language_root)
 		end
-		
+
 		it "should return a page object (or nil if no public child exists) for first_public_child" do
 			if @language_root.children.any?
 				@language_root.first_public_child.should == @first_public_child
@@ -159,23 +150,28 @@ describe Alchemy::Page do
 				@language_root.first_public_child.should == nil
 			end
 		end
+
 	end
-	
+
 	context ".public" do
-	  it "should return 2 pages that are public" do
+
+		it "should return pages that are public" do
 			Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
 			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
-	    Alchemy::Page.published.should have(2).pages
-	  end
+			Alchemy::Page.published.should have(3).pages
+		end
+
 	end
-		
+
 	context ".not_locked" do
-	  it "should return 3 pages that are not blocked by a user at the moment" do
-	    Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+
+		it "should return pages that are not blocked by a user at the moment" do
+			Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
 			Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
-	    Alchemy::Page.not_locked.should have(3).pages
-	  end
+			Alchemy::Page.not_locked.should have(3).pages
+		end
 	end
+
 	context ".all_locked" do
 	  it "should return 1 page that is blocked by a user at the moment" do
 	    Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
@@ -301,6 +297,137 @@ describe Alchemy::Page do
 					{:id => page_2.id, :action => "copy"}
 				]
 				Alchemy::Page.all_from_clipboard_for_select(clipboard, @language.id).should == [page_1]
+			end
+
+		end
+
+	end
+
+	describe "validations" do
+
+		context "creating a normal content page" do
+
+			before(:each) do
+				@contentpage = Factory.build(:page, :parent_id => nil, :page_layout => nil)
+			end
+
+			it "should validate the page_layout" do
+				@contentpage.save
+				@contentpage.should have(1).error_on(:page_layout)
+			end
+
+			it "should validate the parent_id" do
+				@contentpage.save
+				@contentpage.should have(1).error_on(:parent_id)
+			end
+
+		end
+
+		context "creating the rootpage without parent_id and page_layout" do
+
+			before(:each) do
+				Alchemy::Page.delete_all
+				@rootpage = Factory.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
+			end
+
+			it "should be valid" do
+				@rootpage.save
+				@rootpage.should be_valid
+			end
+
+		end
+
+		context "saving a systempage" do
+
+			before(:each) do
+				@systempage = Factory.build(:systempage)
+			end
+
+			it "should not validate the page_layout" do
+				@systempage.save
+				@systempage.should be_valid
+			end
+
+		end
+
+	end
+
+	describe 'before and after filters' do
+
+		context "a normal page" do
+
+			before(:each) do
+				@page = Factory.build(:page, :language_code => nil, :language => Factory(:language))
+			end
+
+			it "should get the language code for language" do
+				@page.save
+				@page.language_code.should == "kl"
+			end
+
+			it "should autogenerate the elements" do
+				@page.save
+				@page.elements.should_not be_empty
+			end
+
+			context "with children getting restricted set to true" do
+
+				before(:each) do
+					@page.save
+					@child1 = Factory(:page, :name => 'Child 1', :parent_id => @page.id)
+					@page.reload
+					@page.restricted = true
+					@page.save
+				end
+
+				it "should restrict all its children" do
+					@child1.reload
+					@child1.restricted?.should be_true
+				end
+
+			end
+
+			context "with restricted parent gets created" do
+
+				before(:each) do
+					@page.save
+					@page.parent.update_attributes(:restricted => true)
+					@new_page = Factory(:page, :name => 'New Page', :parent_id => @page.id)
+				end
+
+				it "should also be restricted" do
+					@new_page.restricted?.should be_true
+				end
+
+			end
+
+			context "with do_not_autogenerate set to true" do
+
+				before(:each) do
+					@page.do_not_autogenerate = true
+				end
+
+				it "should not autogenerate the elements" do
+					@page.save
+					@page.elements.should be_empty
+				end
+
+			end
+
+		end
+
+		context "a systempage" do
+
+			before(:each) do
+				@page = Factory(:systempage)
+			end
+
+			it "should not get the language code for language" do
+				@page.language_code.should be_nil
+			end
+
+			it "should not autogenerate the elements" do
+				@page.elements.should be_empty
 			end
 
 		end

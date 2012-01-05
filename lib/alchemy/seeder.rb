@@ -11,9 +11,9 @@ module Alchemy
 				desc "Seeding your database"
 				errors = []
 				notices = []
-			
+				
 				default_language = Alchemy::Config.get(:default_language)
-			
+				
 				lang = Alchemy::Language.find_or_initialize_by_code(
 					:name => default_language['name'],
 					:code => default_language['code'],
@@ -31,19 +31,13 @@ module Alchemy
 				else
 					notices << "Language #{lang.name} was already present."
 				end
-			
+				
 				root = Alchemy::Page.find_or_initialize_by_name(
 					:name => 'Root',
-					:page_layout => "rootpage",
-					:do_not_autogenerate => true,
-					:do_not_sweep => true,
-					:language => lang
+					:do_not_sweep => true
 				)
 				if root.new_record?
 					if root.save
-						# We have to remove the language, because active record validates its presence on create.
-						root.language = nil
-						root.save
 						log "Created page #{root.name}."
 					else
 						errors << "Errors while creating page #{root.name}: #{root.errors.full_messages}"
@@ -51,7 +45,7 @@ module Alchemy
 				else
 					notices << "Page #{root.name} was already present."
 				end
-			
+				
 				if errors.blank?
 					log "Successfully seeded your database!" if notices.blank?
 					notices.each do |note|
