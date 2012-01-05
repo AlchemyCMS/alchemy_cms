@@ -1542,7 +1542,6 @@ table.window_form {
 
 table td, table th {
 	padding: $default-padding;
-	white-space: nowrap;
 }
 
 table th {
@@ -1818,7 +1817,7 @@ td.input, td.submit, td.select {
 }
 
 td.value {
-	text-indent: 4px;
+	padding-left: 2*$default-padding;
 }
 
 td.label {
@@ -3111,7 +3110,7 @@ div.elements_for_page {
 	top: 0;
 	z-index: 15;
 	background-color: white;
-	width: 206px;
+	width: 240px;
 	padding: $default-padding;
 	border: 1px solid #9c9d9c;
 	-webkit-box-shadow: #9ea09f 0px 0px 4px;
@@ -3252,12 +3251,6 @@ select#url_protocol.medium {
 #alchemy .ui-dialog-content input.very_long {
 	width: 300px;
 	margin: 0;
-}
-
-#alchemy .ui-dialog-content select.very_long,
-#alchemy .ui-dialog-content .selectbox.very_long,
-#alchemy .ui-dialog-content .selectbox.very_long .display {
-	width: 170px;
 }
 
 #alchemy .ui-dialog-content .short {

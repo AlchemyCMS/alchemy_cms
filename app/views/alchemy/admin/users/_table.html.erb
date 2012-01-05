@@ -1,7 +1,7 @@
 <table>
 	<tr>
 		<td class="label"><%= f.label 'gender' %></td>
-		<td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => t('Please choose')}, {:class => 'long'} -%></td>
+		<td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => t('Please choose')} -%></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label 'firstname' %></td>
@@ -21,7 +21,7 @@
 	</tr>
 	<tr>
 		<td class="label"><%= f.label 'language' %></td>
-		<td class="select"><%= f.select 'language', translations_for_select, {}, :class => 'long' %></td>
+		<td class="select"><%= f.select 'language', translations_for_select %></td>
 	</tr>
 	<tr>
 		<td class="label mandatory"><%= f.label 'password' %></td>
@@ -34,7 +34,7 @@
 	<%- unless action_name == 'signup' -%>
 	<tr>
 		<td class="label"><%= f.label 'role' %></td>
-		<td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role), {}, :class => 'long' %></td>
+		<td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role) %></td>
 	</tr>
 	<%- else -%>
 	<%= f.hidden_field :role %>

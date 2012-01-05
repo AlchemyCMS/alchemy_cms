@@ -13,8 +13,7 @@
 					<%= form.select(
 						'name',
 						@page.can_have_cells? ? grouped_elements_for_select(@elements) : elements_for_select(@elements),
-						{:prompt => t('select_element')},
-						{:class => 'long'}
+						{:prompt => t('select_element')}
 					) -%>
 				</td>
 			</tr>

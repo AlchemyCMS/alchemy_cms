@@ -42,7 +42,7 @@
 	text-shadow: $button-text-shadow;
 }
 
-#alchemy .selectbox .display.long {
+#alchemy .selectbox .display {
 	width: 190px;
 }
 
@@ -52,6 +52,14 @@
 
 #alchemy .selectbox .display.medium {
 	width: 100px;
+}
+
+#alchemy .selectbox .display.long {
+	width: 220px;
+}
+
+#alchemy .selectbox .display.very_long {
+	width: 280px;
 }
 
 #alchemy .selectbox.disabled .display {
@@ -70,7 +78,6 @@
 #alchemy .selectbox .display:hover .arrow_btn {
 	background: $button-hover-bg-color image-url('alchemy/shading.png') repeat-x 50% -75px;
 }
-
 
 #alchemy .selectbox .display:active .arrow_btn {
 	background-color: #e5e5e5;
@@ -149,8 +156,16 @@
 	width: 128px;
 }
 
-#alchemy .items.long {
+#alchemy .items {
 	width: 218px;
+}
+
+#alchemy .items.long {
+	width: 248px;
+}
+
+#alchemy .items.very_long {
+	width: 308px;
 }
 
 #alchemy .items.full_width {
