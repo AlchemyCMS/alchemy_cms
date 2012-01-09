@@ -4,7 +4,7 @@ module Alchemy
 
 		RESERVED_URLNAMES = %w(admin messages)
 
-		acts_as_nested_set
+		acts_as_nested_set(:dependent => :destroy)
 		stampable
 
 		has_many :folded_pages
