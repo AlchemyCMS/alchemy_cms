@@ -61,7 +61,7 @@ module Alchemy
 
 			def get_clipboard(category = nil)
 				clipboard = (session[:clipboard] ||= {})
-				clipboard[category.pluralize] ||= [] if category
+				clipboard[category.to_s.pluralize] ||= [] if category
 			end
 
 			def clipboard_empty?(category = nil)

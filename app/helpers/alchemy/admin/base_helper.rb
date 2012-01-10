@@ -318,7 +318,7 @@ module Alchemy
 					'paste_from_clipboard',
 					!@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
 					{
-						:class => html_options[:class] || 'very_long',
+						:class => html_options[:class],
 						:style => html_options[:style]
 					}
 				)
