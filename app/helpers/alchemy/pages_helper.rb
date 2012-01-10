@@ -560,7 +560,7 @@ module Alchemy
 						}
 					</script>
 				STR
-				content_for(:layout) { menu_bar_string.html_safe }
+				menu_bar_string.html_safe
 			else
 				nil
 			end
