@@ -16,7 +16,7 @@
 		<%- end -%>
 	</li>
 	<%- unless options[:spacer].empty? -%>
-	<%= "<li class=\"navigation_spacer\">#{options[:spacer]}</li>" unless page == pages.to_a.last -%>
+	<%= raw "<li class=\"navigation_spacer\">#{options[:spacer]}</li>" unless page == pages.to_a.last -%>
 	<%- end -%>
 <%- end -%>
 </ul>
