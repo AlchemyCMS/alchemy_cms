@@ -70,6 +70,12 @@ module Alchemy
 				)
 			end
 
+			# Returns a textarea ready to use with tinymce
+			def tinymce_tag(name, content = '', options = {})
+				append_class_name(options, 'tinymce')
+				text_area_tag(name, content, options)
+			end
+
 		end
 	end
 end

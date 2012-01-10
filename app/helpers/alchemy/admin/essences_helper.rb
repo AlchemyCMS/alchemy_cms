@@ -34,11 +34,11 @@ module Alchemy
 				if options[:all]
 					contents = element.contents.find_all_by_essence_type_and_name(essence_type, options[:all])
 					contents.each do |content|
-						return_string << render_essence(content, :editor, :for_editor => editor_options)
+						return_string << render_essence_editor(content, editor_options)
 					end
 				else
 					content = element.contents.find_by_essence_type_and_position(essence_type, options[:position])
-					return_string = render_essence(content, :editor, :for_editor => editor_options)
+					return_string = render_essence_editor(content, editor_options)
 				end
 				return_string
 			end
@@ -51,7 +51,11 @@ module Alchemy
 					return ""
 				end
 				content = element.contents.find_by_position(position)
-				render_essence(content, :editor, :for_editor => options)
+				if content.nil?
+					render_missing_content(element, position, options)
+				else
+					render_essence_editor(content, options)
+				end
 			end
 
 			# Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
@@ -66,11 +70,51 @@ module Alchemy
 					return warning('Element is nil', t("no_element_given"))
 				end
 				content = element.content_by_name(name)
-				if content.blank?
-					render :partial => 'alchemy/admin/contents/missing', :locals => {:element => element, :name => name}
+				if content.nil?
+					render_missing_content(element, name, options)
 				else
-					render_essence(content, :editor, :for_editor => options)
+					render_essence_editor(content, options)
 				end
+			end
+
+			# Renders the EssenceText editor partial with a form select for storing page urlnames
+			# Options:
+			#   * element - element the Content find via content_name to store the pages urlname in.
+			#   * content_name - the name of the content from element to store the pages urlname in.
+			#   * options (Hash)
+			#   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
+			#   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
+			#   ** :page_attribute (Symbol) - The Page attribute which will be stored.
+			def page_selector(element, content_name, options = {}, select_options = {})
+				default_options = {
+					:except => {
+						:page_layout => [""]
+					},
+					:only => {
+						:page_layout => [""]
+					},
+					:page_attribute => :urlname,
+					:prompt => t('Choose page')
+				}
+				options = default_options.merge(options)
+				pages = Page.where({
+					:language_id => session[:language_id],
+					:page_layout => options[:only][:page_layout],
+					:public => true
+				})
+				content = element.content_by_name(content_name)
+				options.update(
+					:select_values => pages_for_select(pages, content ? content.essence.body : nil, options[:prompt], options[:page_attribute])
+				)
+				if content.nil?
+					render_missing_content(element, content_name, options)
+				else
+					render_essence_editor(content, options)
+				end
+			end
+
+			def render_missing_content(element, name, options)
+				render :partial => 'alchemy/admin/contents/missing', :locals => {:element => element, :name => name, :options => options}
 			end
 
 		end

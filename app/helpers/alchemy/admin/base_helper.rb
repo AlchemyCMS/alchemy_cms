@@ -105,45 +105,6 @@ module Alchemy
 				)
 			end
 
-			# Renders a form select tag for storing page urlnames
-			# Options:
-			#   * element - element the Content find via content_name to store the pages urlname in.
-			#   * content_name - the name of the content from element to store the pages urlname in.
-			#   * options (Hash)
-			#   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
-			#   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
-			#   ** :page_attribute (Symbol) - The Page attribute which will be stored.
-			#   * select_options (Hash) - will be passed to the select_tag helper
-			def page_selector(element, content_name, options = {}, select_options = {})
-				default_options = {
-					:except => {
-						:page_layout => [""]
-					},
-					:only => {
-						:page_layout => [""]
-					},
-					:page_attribute => :urlname,
-					:prompt => t('Choose page')
-				}
-				options = default_options.merge(options)
-				content = element.content_by_name(content_name)
-				if content.nil?
-					return warning('Content', t('content_not_found'))
-				elsif content.essence.nil?
-					return warning('Content', t('content_essence_not_found'))
-				end
-				pages = Page.where({
-					:language_id => session[:language_id],
-					:page_layout => options[:only][:page_layout],
-					:public => true
-				})
-				select_tag(
-					"contents[content_#{content.id}][body]",
-					pages_for_select(pages, content.essence.body, options[:prompt], options[:page_attribute]),
-					select_options
-				)
-			end
-
 			# Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
 			# Usefull for the select_values options from the render_essence_editor helpers.
 			# Options:

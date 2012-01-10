@@ -7,7 +7,7 @@
       :partial => "alchemy/essences/essence_picture_editor",
       :locals => {
         :content => @content,
-        :options => @options
+        :options => @options.symbolize_keys
       }
     )
   ) -%>');
@@ -28,7 +28,7 @@
 
   <%- locals = {
     :content => @content,
-    :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options)
+    :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options.symbolize_keys)
   } -%>
 
   <%- if params[:was_missing] -%>
@@ -50,14 +50,16 @@
   ) -%>');
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
-
+	
   <%- end -%>
+
+	Alchemy.SelectBox("#element_<%= @element.id %> select");
 
 <%- elsif @content.essence_type ==  "Alchemy::EssenceRichtext" -%>
 
   <%- locals = {
     :content => @content,
-    :options => (@options.nil? ? {} : @options)
+    :options => (@options.nil? ? {} : @options.symbolize_keys)
   } -%>
 
   <%- if params[:was_missing] -%>
@@ -90,7 +92,7 @@
       :partial => "alchemy/essences/#{@content.essence_type.underscore}_editor",
       :locals => {
         :content => @content,
-        :options => (@options.nil? ? {} : @options)
+        :options => (@options.nil? ? {} : @options.symbolize_keys)
       }
     )
   ) -%>');
@@ -98,5 +100,4 @@
 <%- end -%>
 
   Alchemy.growl('<%= t("Successfully added content", :content => @content.name) -%>');
-
 })(jQuery);

@@ -16,7 +16,8 @@
   <%- elsif content.settings[:display_as] == "select" -%>
   
   <label><%= render_content_name(content) %></label>
-  <%- if options[:select_values].blank? -%>
+
+  <%- if options[:select_values].nil? -%>
   <%= warning('options[:select_values] is nil', "No select values given. Please provide :select_values as argument to render_essence_editor_by_name() helper inside this element editor view.") %>
   <%- else -%>
   <%- if options[:select_values].is_a?(Hash)

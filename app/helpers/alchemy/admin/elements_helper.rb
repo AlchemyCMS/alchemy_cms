@@ -4,6 +4,7 @@ module Alchemy
 
 			include Alchemy::ElementsHelper
 			include Alchemy::Admin::BaseHelper
+			include Alchemy::Admin::ContentsHelper
 			include Alchemy::Admin::EssencesHelper
 
 			# Returns an Array for essence_text_editor select options_for_select.
@@ -106,11 +107,6 @@ module Alchemy
 						e[object_method] + (cell ? "##{cell['name']}" : "")
 					]
 				end
-			end
-
-			def tinymce_tag(name, content = '', options = {})
-				append_class_name(options, 'tinymce')
-				text_area_tag(name, content, options)
 			end
 
 		end
