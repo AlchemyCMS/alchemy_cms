@@ -249,13 +249,13 @@ module Alchemy
 		# === Options:
 		# 
 		#   :from_page => @page                              # The page to render the navigation from
-		#   :all_sub_menues => true                          # Renders the whole page tree
+		#   :submenu => true                                 # Shows the nested children
 		#   :level => 2                                      # Normally there is no need to change the level parameter, just in a few special cases
 		# 
 		def render_subnavigation(options = {})
 			default_options = {
 				:from_page => @page,
-				:all_sub_menues => true,
+				:submenu => true,
 				:level => 2
 			}
 			options = default_options.merge(options)
