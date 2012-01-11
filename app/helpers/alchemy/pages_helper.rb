@@ -79,7 +79,8 @@ module Alchemy
 				:link_to_page_with_layout => nil,
 				:show_title => true,
 				:reverse => false,
-				:as_select_box => false
+				:as_select_box => false,
+				:show_flags => false
 			}
 			options = default_options.merge(options)
 			if multi_language?
@@ -99,7 +100,7 @@ module Alchemy
 							language_links << [linkname, show_page_url(:urlname => page.urlname, :lang => page.language.code)]
 						else
 							language_links << link_to(
-								"#{content_tag(:span, '', :class => "flag")}#{ content_tag(:span, linkname)}".html_safe,
+								"#{content_tag(:span, '', :class => "flag") if options[:show_flags]}#{ content_tag(:span, linkname)}".html_safe,
 								alchemy.show_page_path(:urlname => page.urlname, :lang => page.language.code),
 								:class => "#{(active ? 'active ' : nil)}#{page.language.code} #{(i == 0) ? 'first' : (i==pages.length-1) ? 'last' : nil}",
 								:title => options[:show_title] ? Alchemy::I18n.t("alchemy.language_links.#{page.language.code}.title", :default => page.language.name) : nil

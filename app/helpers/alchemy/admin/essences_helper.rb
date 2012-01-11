@@ -93,7 +93,7 @@ module Alchemy
 					:only => {
 						:page_layout => [""]
 					},
-					:page_attribute => :urlname,
+					:page_attribute => :id,
 					:prompt => t('Choose page')
 				}
 				options = default_options.merge(options)
