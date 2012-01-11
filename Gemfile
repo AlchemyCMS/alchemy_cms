@@ -23,5 +23,6 @@ group :development do
 		gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug', :platform => :ruby_19
 		gem 'ruby-debug', :platform => :ruby_18
 		gem 'guard-spork'
+		gem 'yard'
 	end
 end
