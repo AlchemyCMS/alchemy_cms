@@ -48,7 +48,81 @@ describe Alchemy::PagesHelper do
 		end
 
 	end
-	
+
+	describe '#render_subnavigation' do
+
+		before(:each) do
+			@language = Alchemy::Language.get_default
+			@language_root = Factory(:language_root_page, :language => @language, :name => 'Intro')
+			@level_1 = Factory(:public_page, :language => @language, :parent_id => @language_root.id, :visible => true, :name => 'Level 1')
+			@level_2 = Factory(:public_page, :language => @language, :parent_id => @level_1.id, :visible => true, :name => 'Level 2')
+			@level_3 = Factory(:public_page, :language => @language, :parent_id => @level_2.id, :visible => true, :name => 'Level 3')
+			@level_4 = Factory(:public_page, :language => @language, :parent_id => @level_3.id, :visible => true, :name => 'Level 4')
+			helper.stub(:multi_language?).and_return(false)
+		end
+
+		it "should return nil if no @page is set" do
+			helper.render_subnavigation.should be(nil)
+		end
+
+		context "showing a page with level 2" do
+
+			before(:each) do
+				@page = @level_2
+			end
+
+			it "should render the navigation from current page" do
+				helper.render_subnavigation.should have_selector('ul > li > a[href="/alchemy/level-2"]')
+			end
+
+			it "should set current page active" do
+				helper.render_subnavigation.should have_selector('a[href="/alchemy/level-2"].active')
+			end
+
+		end
+
+		context "showing a page with level 3" do
+
+			before(:each) do
+				@page = @level_3
+			end
+
+			it "should render the navigation from current pages parent" do
+				helper.render_subnavigation.should have_selector('ul > li > ul > li > a[href="/alchemy/level-3"]')
+			end
+
+			it "should set current page active" do
+				helper.render_subnavigation.should have_selector('a[href="/alchemy/level-3"].active')
+			end
+
+		end
+
+		context "showing a page with level 4" do
+
+			before(:each) do
+				@page = @level_4
+			end
+
+			it "should render the navigation from current pages parents parent" do
+				helper.render_subnavigation.should have_selector('ul > li > ul > li > ul > li > a[href="/alchemy/level-4"]')
+			end
+
+			it "should set current page active" do
+				helper.render_subnavigation.should have_selector('a[href="/alchemy/level-4"].active')
+			end
+			
+			context "beginning with level 3" do
+
+				it "should render the navigation beginning from its parent" do
+					helper.render_subnavigation(:level => 3).should have_selector('ul > li > ul > li > a[href="/alchemy/level-4"]')
+				end
+
+			end
+
+		end
+
+	end
+
 	describe "#render_breadcrumb" do
 		
 		before(:each) do
@@ -248,7 +322,7 @@ describe Alchemy::PagesHelper do
 		
 		it "should render a title tag for current page with a prefix and a seperator" do
 			@page = mock_model('Page', :title => 'A Public Page')
-			helper.render_title_tag(:prefix => 'Peters Petshop', :seperator => '###').should have_selector('title[contains("Peters Petshop ### A Public Page")]')
+			helper.render_title_tag(:prefix => 'Peters Petshop', :seperator => ' ### ').should have_selector('title[contains("Peters Petshop ### A Public Page")]')
 		end
 	end
 

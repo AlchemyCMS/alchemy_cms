@@ -69,8 +69,21 @@ module Alchemy
 			)
 		end
 
-		# helper for language switching
-		# returns a string with links or nil
+		# == Helper for rendering language switches
+		# 
+		# Renders links to all public language root pages
+		# 
+		# === Options:
+		# 
+		#   :linkname => :name,
+		#   :spacer => "",
+		#   :link_to_public_child => configuration(:redirect_to_public_child),
+		#   :link_to_page_with_layout => nil,
+		#   :show_title => true,
+		#   :reverse => false,
+		#   :as_select_box => false,
+		#   :show_flags => false
+		# 
 		def language_switcher(options={})
 			default_options = {
 				:linkname => :name,
@@ -160,11 +173,11 @@ module Alchemy
 		# 
 		# === En detail:
 		# 
-		# <ul class="navigation_level_1">
-		#   <li class="first home"><a href="/home" class="active" title="Homepage" lang="en" data-page-id="1">Homepage</a></li>
-		#   <li class="contact"><a href="/contact" title="Contact" lang="en" data-page-id="2">Contact</a></li>
-		#   <li class="last imprint"><a href="/imprint" title="Imprint" lang="en" data-page-id="3">Imprint</a></li>
-		# </ul>
+		#   <ul class="navigation_level_1">
+		#     <li class="first home"><a href="/home" class="active" title="Homepage" lang="en" data-page-id="1">Homepage</a></li>
+		#     <li class="contact"><a href="/contact" title="Contact" lang="en" data-page-id="2">Contact</a></li>
+		#     <li class="last imprint"><a href="/imprint" title="Imprint" lang="en" data-page-id="3">Imprint</a></li>
+		#   </ul>
 		#
 		# As you can see: Everything you need.
 		#
@@ -173,18 +186,18 @@ module Alchemy
 		#
 		# === The options are:
 		#
-		#   :submenu => false                                     Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
-		#   :all_sub_menues => false
-		#   :from_page => @root_page                              Do you want to render a navigation from a different page then the current page? Then pass an Page instance or a Alchemy::PageLayout name as string.
-		#   :spacer => ""                                         Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
-		#   :navigation_partial => "navigation/renderer"          Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
-		#   :navigation_link_partial => "navigation/link"         Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
-		#   :show_nonactive => false                              Commonly Alchemy only displays the submenu of the active page (if :submenu => true). If you want to display all child pages then pass true (together with :submenu => true of course). E.g. for the popular css-driven dropdownmenues these days.
-		#   :show_title => true                                   For our beloved SEOs :). Appends a title attribute to all links and places the page.title content into it.
-		#   :restricted_only => nil                               Render only restricted pages.
-		#   :show_title => true                                   Show a title on navigation links. Title attribute from page.
-		#   :reverse => false                                     Reverse the navigation
-		#   :reverse_children => false                            Reverse the nested children
+		#   :submenu => false                                     # Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
+		#   :all_sub_menues => false                              # Renders the whole page tree.
+		#   :from_page => @root_page                              # Do you want to render a navigation from a different page then the current page? Then pass an Page instance or a Alchemy::PageLayout name as string.
+		#   :spacer => ""                                         # Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
+		#   :navigation_partial => "navigation/renderer"          # Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
+		#   :navigation_link_partial => "navigation/link"         # Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
+		#   :show_nonactive => false                              # Commonly Alchemy only displays the submenu of the active page (if :submenu => true). If you want to display all child pages then pass true (together with :submenu => true of course). E.g. for the popular css-driven dropdownmenues these days.
+		#   :show_title => true                                   # For our beloved SEOs :). Appends a title attribute to all links and places the page.title content into it.
+		#   :restricted_only => nil                               # Render only restricted pages.
+		#   :show_title => true                                   # Show a title on navigation links. Title attribute from page.
+		#   :reverse => false                                     # Reverse the navigation
+		#   :reverse_children => false                            # Reverse the nested children
 		# 
 		def render_navigation(options = {})
 			default_options = {
@@ -225,20 +238,30 @@ module Alchemy
 			render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
 		end
 
-		# Renders the children of the given page (standard is the current page), the given page and its siblings if there are no children, or it renders just nil.
-		# Use this helper if you want to render the subnavigation independent from the mainnavigation. E.g. to place it in a different layer on your website.
-		# If :from_page's level in the site-hierarchy is greater than :level (standard is 2) and the given page has no children, the returned output will be the :from_page and it's siblings
-		# This method will assign all its options to the the render_navigation method, so you are able to assign the same options as to the render_navigation method.
-		# Normally there is no need to change the level parameter, just in a few special cases.
+		# == Subnavigation Renderer
+		# 
+		# Renders the children and all siblings of the given page (standard is the current page).
+		# 
+		# Use this helper if you want to render the subnavigation independent from the mainnavigation. I.E. to place it in a different area on your website.
+		# 
+		# This helper passes all its options to the the render_navigation helper.
+		# 
+		# === Options:
+		# 
+		#   :from_page => @page                              # The page to render the navigation from
+		#   :all_sub_menues => true                          # Renders the whole page tree
+		#   :level => 2                                      # Normally there is no need to change the level parameter, just in a few special cases
+		# 
 		def render_subnavigation(options = {})
 			default_options = {
 				:from_page => @page,
+				:all_sub_menues => true,
 				:level => 2
 			}
 			options = default_options.merge(options)
 			if !options[:from_page].nil?
-				if (options[:from_page].children.blank? && options[:from_page].level > options[:level])
-					options = options.merge(:from_page => Page.find(options[:from_page].parent_id))
+				while options[:from_page].level > options[:level] do
+					options[:from_page] = options[:from_page].parent
 				end
 				render_navigation(options)
 			else
@@ -246,23 +269,25 @@ module Alchemy
 			end
 		end
 
-		# returns true if page is in the active branch
+		# Returns true if page is in the active branch
 		def page_active?(page)
 			@breadcrumb ||= breadcrumb(@page)
 			@breadcrumb.include?(page)
 		end
 
-		# Returns a HTML string for a linked breadcrumb from root to current page.
+		# == Breadcrumb Renderer
 		# 
-		# == Options:
+		# Returns page links in a breadcrumb beginning from root to current page.
 		# 
-		#   :seperator => %(<span class="seperator">></span>)      Maybe you don't want this seperator. Pass another one.
-		#   :page => @page                                         Pass a different Page instead of the default (@page).
-		#   :without => nil                                        Pass Pageobject or array of Pages that must not be displayed.
-		#   :public_only => false                                  Pass boolean for displaying published pages only.
-		#   :visible_only => true                                  Pass boolean for displaying (in navigation) visible pages only.
-		#   :restricted_only => false                              Pass boolean for displaying restricted pages only.
-		#   :reverse => false                                      Pass boolean for displaying reversed breadcrumb.
+		# === Options:
+		# 
+		#   :seperator => %(<span class="seperator">></span>)      # Maybe you don't want this seperator. Pass another one.
+		#   :page => @page                                         # Pass a different Page instead of the default (@page).
+		#   :without => nil                                        # Pass Pageobject or array of Pages that must not be displayed.
+		#   :public_only => false                                  # Pass boolean for displaying published pages only.
+		#   :visible_only => true                                  # Pass boolean for displaying (in navigation) visible pages only.
+		#   :restricted_only => false                              # Pass boolean for displaying restricted pages only.
+		#   :reverse => false                                      # Pass boolean for displaying reversed breadcrumb.
 		# 
 		def render_breadcrumb(options={})
 			default_options = {
@@ -311,34 +336,33 @@ module Alchemy
 			bc.join(options[:seperator]).html_safe
 		end
 
+		# == Page Title Helper
+		# 
 		# Returns @page.title
 		#
-		# The options are:
+		# === Options:
 		# 
-		#   :prefix => ""
-		#   :seperator => "|"
+		#   :prefix => ""                 # Prefix
+		#   :seperator => ""              # Seperating prefix and title
 		#
-		# == Webdevelopers:
+		# === Webdevelopers
 		# 
-		# Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
+		# Please use the render_meta_data() helper instead. There all important meta information gets rendered in one helper.
 		# So you dont have to worry about anything.
 		# 
 		def render_page_title(options={})
+			return "" if @page.title.blank?
 			default_options = {
 				:prefix => "",
-				:seperator => "|"
+				:seperator => ""
 			}
 			default_options.update(options)
-			unless @page.title.blank?
-				h("#{default_options[:prefix]} #{default_options[:seperator]} #{@page.title}")
-			else
-				h("")
-			end
+			[default_options[:prefix], @page.title].join(default_options[:seperator])
 		end
 
 		# Returns a complete html <title> tag for the <head> part of the html document.
 		#
-		# == Webdevelopers:
+		# === Webdevelopers:
 		# 
 		# Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
 		# So you dont have to worry about anything.
@@ -355,7 +379,7 @@ module Alchemy
 
 		# Renders a html <meta> tag for :name => "" and :content => ""
 		#
-		# == Webdevelopers:
+		# === Webdevelopers:
 		# 
 		# Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
 		# So you dont have to worry about anything.
@@ -371,7 +395,9 @@ module Alchemy
 			%(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}">).html_safe
 		end
 
-		# = This helper takes care of all important meta tags for your @page.
+		# == Meta Data Renderer
+		# 
+		# This helper takes care of all important meta tags for your page.
 		# 
 		# The meta data is been taken from the @page.title, @page.meta_description, @page.meta_keywords, @page.updated_at and @page.language database entries managed by the Alchemy user via the Alchemy cockpit.
 		# 

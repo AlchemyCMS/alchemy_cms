@@ -82,7 +82,7 @@ describe Alchemy::PagesController do
 
 	describe "redirecting" do
 
-		context "in multi language mode", :focus => true do
+		context "in multi language mode" do
 
 			before(:each) do
 				@page = Factory(:public_page)
