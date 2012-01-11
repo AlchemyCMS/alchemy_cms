@@ -2,7 +2,7 @@ module Alchemy
 	class PageLayout
 
 		def self.included(base)
-			@@definitions = read_layouts_file
+			get_layouts
 		end
 
 		def self.element_names_for(page_layout)
@@ -25,7 +25,7 @@ module Alchemy
 		# You can pass a single layout definition as Hash, or a collection of pagelayouts as Array.
 		# Example Pagelayout definitions can be found in the +page_layouts.yml+ from the standard set.
 		def self.add(page_layout)
-			@@definitions ||= read_layouts_file
+			get_layouts
 			if page_layout.is_a?(Array)
 				@@definitions += page_layout
 			elsif page_layout.is_a?(Hash)
@@ -38,17 +38,15 @@ module Alchemy
 		# Returns the page_layout description found by name in page_layouts.yml
 		def self.get(name)
 			return {} if name.blank?
-			@@definitions = read_layouts_file
-			@@definitions.detect{ |a| a["name"].downcase == name.downcase }
+			get_layouts.detect{ |a| a["name"].downcase == name.downcase }
 		end
 
 		def self.get_all_by_attributes(attributes)
 			return [] if attributes.blank?
 			if attributes.class.name == 'Hash'
-				@@definitions ||= read_layouts_file
 				layouts = []
 				attributes.stringify_keys.each do |key, value|
-					result = @@definitions.select{ |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
+					result = get_layouts.select{ |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
 					layouts += result unless result.empty?
 				end
 				return layouts
@@ -68,7 +66,7 @@ module Alchemy
 		end
 
 		def self.selectable_layouts(language_id, layoutpage = false)
-			@@definitions.select do |layout|
+			get_layouts.select do |layout|
 				used = layout["unique"] && has_a_page_this_layout?(layout["name"], language_id)
 				if layoutpage
 					layout["layoutpage"] == true && !used
@@ -80,7 +78,7 @@ module Alchemy
 
 		def self.get_page_layout_names
 			a = []
-			@@definitions.each{ |l| a << l.keys.first }
+			get_layouts.each{ |l| a << l.keys.first }
 			a
 		end
 
