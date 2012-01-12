@@ -321,17 +321,28 @@ div#element_area .sortable_cell {
 	top: 5px;
 }
 
-div.content_editor a.icon_button {
-	margin: 0 0 0 4px;
+span.linkable_text_essence_tools {
 	position: absolute;
 	bottom: 0;
-	right: 24px;
-	@include reset-border-radius;
-}
-
-div.content_editor a.icon_button.unlink {
-	@include right-rounded-border;
-	right: 1px;
+	right: 2px;
+	a.icon_button {
+		margin: 0 0 0 4px;
+		position: absolute;
+		bottom: 0;
+		right: 26px;
+		@include reset-border-radius;
+		height: 27px;
+		width: 27px;
+		background-position: 0 -72px;
+		&.unlink {
+			right: 0;
+			@include right-rounded-border;
+		}
+		.icon {
+			left: 5px;
+			top: 6px;
+		}
+	}
 }
 
 a.expand_element {

@@ -67,13 +67,14 @@
   <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
   <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
   
-  <a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= t('place_link') -%>" class="icon_button <%= content.linked? ? ' linked' : '' -%>" name="essence_text_<%= content.id -%>" id="edit_link_<%= content.id -%>">
-    <span class="icon link"></span>
-  </a>
-  
-  <a href="#" onclick="Alchemy.LinkOverlay.removeLink(this, <%= content.id -%>); return false;" title="<%= t('unlink') %>" class="icon_button unlink<%= content.linked? ? ' linked' : ' disabled' -%>" name="essence_text_<%= content.id -%>">
-    <span class="icon unlink"></span>
-  </a>
+	<span class="linkable_text_essence_tools">
+		<a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= t('place_link') -%>" class="icon_button <%= content.linked? ? ' linked' : '' -%>" name="essence_text_<%= content.id -%>" id="edit_link_<%= content.id -%>">
+			<span class="icon link"></span>
+		</a>
+		<a href="#" onclick="Alchemy.LinkOverlay.removeLink(this, <%= content.id -%>); return false;" title="<%= t('unlink') %>" class="icon_button unlink<%= content.linked? ? ' linked' : ' disabled' -%>" name="essence_text_<%= content.id -%>">
+			<span class="icon unlink"></span>
+		</a>
+	</span>
   
   <%- end -%>
   
