@@ -3,18 +3,24 @@ module Alchemy
 
 		include Alchemy::EssencesHelper
 
-		# Renders all elements from @page.
-		# ---
-		# == Options are:
-		# :only => []                 A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
-		# :except => []               A list of element names to be rendered. The opposite of the only option.
-		# :from_page                  The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
-		# :count                      The amount of elements to be rendered (begins with first element found)
-		# :fallback => {:for => 'ELEMENT_NAME', :with => 'ELEMENT_NAME', :from => 'PAGE_LAYOUT'} when no element from this name is found on page, then use this element from that page
-		# :sort_by => Content#name    A Content name to sort the elements by
-		# :reverse => boolean         Reverse the rendering order
-		# :random => boolean          Random output of elements
+		# Renders all elements from current page.
 		# 
+		# === Options are:
+		# 
+		#   :only => []                          # A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
+		#   :except => []                        # A list of element names to be rendered. The opposite of the only option.
+		#   :from_page                           # The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
+		#   :count                               # The amount of elements to be rendered (begins with first element found)
+		#   :fallback => {                       # You can use the fallback option as an override. So you can take elements from a glo´bal laout page and only if the user adds an element on current page the local one gets rendered.
+		#     :for => 'ELEMENT_NAME',            # The name of the element the fallback is for
+		#     :with => 'ELEMENT_NAME',           # (OPTIONAL) the name of element to fallback with
+		#     :from => 'PAGE_LAYOUT'             # The page_layout name from the global page the fallback elements lie on. I.E 'left_column'
+		#   }                                    # 
+		#   :sort_by => Content#name             # A Content name to sort the elements by
+		#   :reverse => boolean                  # Reverse the rendering order
+		#   :random => boolean                   # Randomize the output of elements
+		# 
+		# === Note:
 		# This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
 		# 
 		def render_elements(options = {})

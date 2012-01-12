@@ -166,7 +166,7 @@ module Alchemy
 			page_title.ingredient('name')
 		end
 
-		# == This helper renders the navigation.
+		# Renders the navigation.
 		#
 		# It produces a html <ul><li></li></ul> structure with all necessary classes and ids so you can produce every navigation the web uses today.
 		# I.E. dropdown-navigations, simple mainnavigations or even complex nested ones.
@@ -238,9 +238,7 @@ module Alchemy
 			render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
 		end
 
-		# == Subnavigation Renderer
-		# 
-		# Renders the children and all siblings of the given page (standard is the current page).
+		# Renders navigation the children and all siblings of the given page (standard is the current page).
 		# 
 		# Use this helper if you want to render the subnavigation independent from the mainnavigation. I.E. to place it in a different area on your website.
 		# 
@@ -275,8 +273,6 @@ module Alchemy
 			@breadcrumb.include?(page)
 		end
 
-		# == Breadcrumb Renderer
-		# 
 		# Returns page links in a breadcrumb beginning from root to current page.
 		# 
 		# === Options:
@@ -336,9 +332,7 @@ module Alchemy
 			bc.join(options[:seperator]).html_safe
 		end
 
-		# == Page Title Helper
-		# 
-		# Returns @page.title
+		# Returns current page title
 		#
 		# === Options:
 		# 
@@ -395,8 +389,6 @@ module Alchemy
 			%(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}">).html_safe
 		end
 
-		# == Meta Data Renderer
-		# 
 		# This helper takes care of all important meta tags for your page.
 		# 
 		# The meta data is been taken from the @page.title, @page.meta_description, @page.meta_keywords, @page.updated_at and @page.language database entries managed by the Alchemy user via the Alchemy cockpit.
