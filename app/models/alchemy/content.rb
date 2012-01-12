@@ -120,17 +120,17 @@ module Alchemy
 
 		# Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
 		# 
-		# Example:
-		# ========
-		# 	<%= text_field_tag content.form_field_name, content.ingredient %>
+		# === Example:
 		# 
-		# Options:
-		# ========
+		#   <%= text_field_tag content.form_field_name, content.ingredient %>
+		# 
+		# === Options:
+		# 
 		# You can pass an Essence column_name. Default is self.essence.ingredient_column
 		# 
-		# Example:
-		# =======
-		# 	<%= text_field_tag content.form_field_name(:link), content.ingredient %>
+		# ==== Example:
+		# 
+		#   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
 		# 
 		def form_field_name(essence_column = self.essence.ingredient_column)
 			"contents[content_#{self.id}][#{essence_column}]"
