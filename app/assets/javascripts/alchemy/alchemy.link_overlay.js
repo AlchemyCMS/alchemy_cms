@@ -72,7 +72,7 @@ if (typeof(Alchemy) === 'undefined') {
         });
         editor.selection.collapse();
       } else {
-        // aka: we are linking an content
+        // aka: we are linking an essence
         var essence_type = element.name.replace('essence_', '').split('_')[0];
         var content_id = null;
         switch (essence_type) {
@@ -83,7 +83,7 @@ if (typeof(Alchemy) === 'undefined') {
           content_id = element.name.replace('essence_text_', '');
           break;
         }
-        $('#contents_content_' + content_id + '_link').val(url);
+        $('#contents_content_' + content_id + '_link').val(url).change();
         $('#contents_content_' + content_id + '_link_title').val(title);
         $('#contents_content_' + content_id + '_link_class_name').val(link_type);
         $('#contents_content_' + content_id + '_link_target').val(target);
@@ -203,7 +203,7 @@ if (typeof(Alchemy) === 'undefined') {
     
     removeLink : function(link, content_id) {
       Alchemy.setElementDirty($(link).parents('.element_editor'));
-      $('#contents_content_' + content_id + '_link').val('');
+      $('#contents_content_' + content_id + '_link').val('').change();
       $('#contents_content_' + content_id + '_link_title').val('');
       $('#contents_content_' + content_id + '_link_class_name').val('');
       $('#contents_content_' + content_id + '_link_target').val('');
