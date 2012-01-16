@@ -70,6 +70,13 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   end
 
+	namespace :db do
+		desc "Seeds the database with essential data."
+		task :seed, :roles => :app do
+			run "cd #{current_path} && RAILS_ENV=production #{rake} alchemy:db:seed"
+		end
+	end
+
   namespace :ferret do
 
     # This task rebuilds the ferret index for the EssenceText and EssenceRichtext Models.
