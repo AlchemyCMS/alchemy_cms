@@ -508,7 +508,7 @@ module Alchemy
 				if options[:html5]
 					search_field_tag(:query, params[:query])
 				else
-					text_field_tag(:query, params[:query]) + submit_tag(:search)
+					text_field_tag(:query, params[:query]) + submit_tag(t("search"))
 				end
 			end
 		end
