@@ -7,7 +7,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   
   after "deploy:setup", "alchemy:shared_folders:create"
   after "deploy:symlink", "alchemy:shared_folders:symlink"
-	before "deploy:start", "alchemy:seed"
+	before "deploy:start", "alchemy:db:seed"
   
   namespace :alchemy do
 
