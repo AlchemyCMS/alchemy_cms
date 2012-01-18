@@ -1,6 +1,6 @@
+#!/usr/bin/env ruby
 # encoding: UTF-8
 
-#!/usr/bin/env ruby
 begin
 	require "rubygems"
 	require 'rails/version'
@@ -13,168 +13,168 @@ begin
 end
 
 class AlchemyInstaller < Thor
-  
-  include Thor::Actions
 
-  map "-v" => :version
+	include Thor::Actions
+
+	map "-v" => :version
 	map "--version" => :version
 
 	desc "version", "Prints current Alchemy CMS version", :hide => true
-  def version
-  	puts Alchemy::VERSION
-  end
+	def version
+		puts Alchemy::VERSION
+	end
 
-  desc "new PROJECT", "Creates a new Alchemy CMS project."
-  method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm to use for this project. Leave blank for none."
+	desc "new PROJECT", "Creates a new Alchemy CMS project."
+	method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm to use for this project. Leave blank for none."
 	method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
-  def new(project)
-    @application = project.downcase.strip.gsub(/ /, '_')
-    if yes?("Install Alchemy CMS into ./#{@application}? (y/N)")
-      
-      say "Generating new Rails App...", :yellow
-      
-      if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
-        
-        create_database_yml if options[:database] == 'mysql'
-        
-        with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
-        
-        %x[
-          cd ./#{@application}
-          rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
-          rm ./public/index.html
-          rm ./app/assets/images/rails.png
-        ]
-
+	def new(project)
+		@application = project.downcase.strip.gsub(/ /, '_')
+		if yes?("Install Alchemy CMS into ./#{@application}? (y/N)")
+			
+			say "Generating new Rails App...", :yellow
+			
+			if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
+				
+				create_database_yml if options[:database] == 'mysql'
+				
 				mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
 				mountpoint = "/" if mountpoint.empty?
 				sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 				inject_into_file "#{@application}/config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
-        
-        if options[:scm]
-          
-          %x[
-            cd ./#{@application}
-            rm -rf ./tmp/*
-            rm -rf ./log/*
-            mkdir -p ./index
-            mkdir -p ./uploads
-          ]
-          
-          case options[:scm]
-            when 'svn'
-              server = ask("\nURL of your svn server? (http://svn.magiclabs.de/customers)")
-              server = "http://svn.magiclabs.de/customers" if server.empty?
-              repository = ask("\nName of the repository? (#{@application})")
-              repository = @application if repository.empty?
-              
-              say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
-              output = %x[svn import ./#{@application} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
-              
-              if imported
-                
-                say "Removing and checking out again...", :yellow
-                %x[
-                  rm -rf ./#{@application}
-                  svn co #{server}/#{repository}
-                ]
-                
-                say "Committing ignores...", :yellow
-                %x[
-                  cd ./#{@application}
-                  svn propset svn:ignore '*' tmp/ log/ index/ uploads/
-                  svn propset svn:ignore 'alchemy' ./public/images ./public/stylesheets ./public/javascripts
-                  svn propset svn:ignore 'pictures' ./public
-                  svn propset svn:ignore 'assets' ./public
-                  svn propset svn:ignore 'database.yml' ./config
-                  svn commit -m 'set ignores'
-                ]
-                
-                # deploy.rb
-                if yes? "\nUse Capistrano for deployment? (y/N)"
-                  @repository_url = "#{server}/#{repository}"
-                  
-                  # ssh settings
-                  @ssh_user = ask "SSH User:"
-                  @ssh_password = ask "SSH Password:"
-                  standard_port = 12312
-                  @ssh_port = ask "SSH Port (#{standard_port}):"
-                  @ssh_port = standard_port if @ssh_port.empty?
-                  
-                  # db settings
-                  @db_user = ask "Production Database User (#{@ssh_user}):"
-                  @db_user = @ssh_user if @db_user.empty?
-                  @db_password = ask "Production Database Password:"
-                  standard_db_name = "usr_#{@db_user}_1"
-                  @db_name = ask "Production Database Name (#{standard_db_name}):"
-                  @db_name = standard_db_name if @db_name.empty?
-                  standard_host = "localhost"
-                  @db_host = ask "Production Database Host (#{standard_host}):"
-                  @db_host = standard_host if @db_host.empty?
-                  standard_socket = '/var/run/mysqld/mysqld.sock'
-                  @db_socket = ask "Production Database Socket (#{standard_socket}):"
-                  @db_socket = standard_socket if @db_socket.empty?
-                  
-                  # deploy_path
-                  standard_path = "/var/www/#{@ssh_user}/html/alchemy"
-                  @deploy_path = ask "Deploy Path (#{standard_path}):"
-                  @deploy_path = standard_path if @deploy_path.empty?
-                  
-                  # scm settings
-                  @scm_user = ask "Subversion User:"
-                  @scm_password = ask "Subversion Password:"
-                  
-                  # server settings
-                  @server = ask "Hostname/IP of server to deploy to:"
-                  
-                  create_deploy_rb
-                  
-                  say "\nCapifying...", :yellow
-                  
-                  %x[
-                    cd #{@application}
-                    capify .
-                    svn add ./config/deploy.rb ./Capfile
-                    svn commit -m 'capified'
-                  ]
-                  
-                end
-                
-              else
-                say "Error while importing!", :red
-              end
-              
-            when 'git'
-              gitignore = <<-GIT
-                log/*
-                tmp/*
-                .DS_Store
-                upload/*
-                index/*
-                public/**/alchemy
-                public/pictures
-                public/assets
-                config/database.yml
-              GIT
-              %x[
-                cd #{@application}
-                echo #{gitignore} > #{@application}/.gitignore
-                touch ./index/.gitkeep
-                touch ./uploads/.gitkeep
-                git init .
-                git commit -am 'inital commit'
-              ]
-          end
-          
-        end
-        
-        %x[
-          cd ./#{@application}
-          rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
-        ]
-        
-        readme = <<-EOF
-\nSuccessfully installed Alchemy CMS into ./#{@application}
+				
+				with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
+				
+				%x[
+					cd ./#{@application}
+					rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
+					rm ./public/index.html
+					rm ./app/assets/images/rails.png
+				]
+				
+				if options[:scm]
+					
+					%x[
+						cd ./#{@application}
+						rm -rf ./tmp/*
+						rm -rf ./log/*
+						mkdir -p ./index
+						mkdir -p ./uploads
+					]
+					
+					case options[:scm]
+						when 'svn'
+							server = ask("\nURL of your svn server? (http://svn.magiclabs.de/customers)")
+							server = "http://svn.magiclabs.de/customers" if server.empty?
+							repository = ask("\nName of the repository? (#{@application})")
+							repository = @application if repository.empty?
+							
+							say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
+							output = %x[svn import ./#{@application} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
+							
+							if imported
+								
+								say "Removing and checking out again...", :yellow
+								%x[
+									rm -rf ./#{@application}
+									svn co #{server}/#{repository}
+								]
+								
+								say "Committing ignores...", :yellow
+								%x[
+									cd ./#{@application}
+									svn propset svn:ignore '*' tmp/ log/ index/ uploads/
+									svn propset svn:ignore 'alchemy' ./public/images ./public/stylesheets ./public/javascripts
+									svn propset svn:ignore 'pictures' ./public
+									svn propset svn:ignore 'assets' ./public
+									svn propset svn:ignore 'database.yml' ./config
+									svn commit -m 'set ignores'
+								]
+								
+								# deploy.rb
+								if yes? "\nUse Capistrano for deployment? (y/N)"
+									@repository_url = "#{server}/#{repository}"
+									
+									# ssh settings
+									@ssh_user = ask "SSH User:"
+									@ssh_password = ask "SSH Password:"
+									standard_port = 12312
+									@ssh_port = ask "SSH Port (#{standard_port}):"
+									@ssh_port = standard_port if @ssh_port.empty?
+									
+									# db settings
+									@db_user = ask "Production Database User (#{@ssh_user}):"
+									@db_user = @ssh_user if @db_user.empty?
+									@db_password = ask "Production Database Password:"
+									standard_db_name = "usr_#{@db_user}_1"
+									@db_name = ask "Production Database Name (#{standard_db_name}):"
+									@db_name = standard_db_name if @db_name.empty?
+									standard_host = "localhost"
+									@db_host = ask "Production Database Host (#{standard_host}):"
+									@db_host = standard_host if @db_host.empty?
+									standard_socket = '/var/run/mysqld/mysqld.sock'
+									@db_socket = ask "Production Database Socket (#{standard_socket}):"
+									@db_socket = standard_socket if @db_socket.empty?
+									
+									# deploy_path
+									standard_path = "/var/www/#{@ssh_user}/html/alchemy"
+									@deploy_path = ask "Deploy Path (#{standard_path}):"
+									@deploy_path = standard_path if @deploy_path.empty?
+									
+									# scm settings
+									@scm_user = ask "Subversion User:"
+									@scm_password = ask "Subversion Password:"
+									
+									# server settings
+									@server = ask "Hostname/IP of server to deploy to:"
+									
+									create_deploy_rb
+									
+									say "\nCapifying...", :yellow
+									
+									%x[
+										cd #{@application}
+										capify .
+										svn add ./config/deploy.rb ./Capfile
+										svn commit -m 'capified'
+									]
+									
+								end
+								
+							else
+								say "Error while importing!", :red
+							end
+							
+						when 'git'
+							gitignore = <<-GIT
+								log/*
+								tmp/*
+								.DS_Store
+								upload/*
+								index/*
+								public/**/alchemy
+								public/pictures
+								public/assets
+								config/database.yml
+							GIT
+							%x[
+								cd #{@application}
+								echo #{gitignore} > #{@application}/.gitignore
+								touch ./index/.gitkeep
+								touch ./uploads/.gitkeep
+								git init .
+								git commit -am 'inital commit'
+							]
+					end
+					
+				end
+				
+				%x[
+					cd ./#{@application}
+					rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
+				]
+				
+				readme = <<-EOF
+Successfully installed Alchemy CMS into ./#{@application}
 
 Next steps:
 
@@ -196,25 +196,25 @@ Thank you for using Alchemy CMS!
 http://alchemy-cms.com
 
 EOF
-        say readme, :green
-        
-      else
-        say "\nError while installation!\n", :red
-      end
-      
-    else
-      return
-    end
-  end
-  
+				say readme, :green
+				
+			else
+				say "\nError while installation!\n", :red
+			end
+			
+		else
+			return
+		end
+	end
+
 private
 
-  def create_database_yml
-    @db_root_password = ask("\nPlease provide your local root password for mysql (Leave blank for none):")
-    local_standard_socket = '/tmp/mysql.sock'
-    @db_local_socket = ask("\nPlease provide your local mysql socket (#{local_standard_socket}):")
-    @db_local_socket = local_standard_socket if @db_local_socket.empty?
-    create_file "./#{@application}/config/database.yml", :force => true do
+	def create_database_yml
+		@db_root_password = ask("\nPlease provide your local root password for mysql (Leave blank for none):")
+		local_standard_socket = '/tmp/mysql.sock'
+		@db_local_socket = ask("\nPlease provide your local mysql socket (#{local_standard_socket}):")
+		@db_local_socket = local_standard_socket if @db_local_socket.empty?
+		create_file "./#{@application}/config/database.yml", :force => true do
 <<-DATABASE
 development:
   adapter: mysql2
@@ -249,11 +249,11 @@ production:
   password: #{@db_root_password}
   socket: #{@db_local_socket}
 DATABASE
-    end
-  end
-  
-  def create_deploy_rb
-    create_file "./#{@application}/config/deploy.rb" do
+		end
+	end
+
+	def create_deploy_rb
+		create_file "./#{@application}/config/deploy.rb" do
 <<-DEPLOY
 # set the applicationname here
 set :application, "#{@application}"
@@ -319,9 +319,9 @@ namespace :deploy do
   end
 end
 DEPLOY
-    end
-  end
-  
+		end
+	end
+
 end
 
 AlchemyInstaller.start
