@@ -153,4 +153,27 @@ describe Alchemy::Element do
 
 	end
 
+	describe '#copy' do
+
+		before(:each) do
+			@element = Factory(:element)
+		end
+
+		it "should not create contents from scratch" do
+			copy = Alchemy::Element.copy(@element)
+			copy.contents.count.should == @element.contents.count
+		end
+
+		it "should create a new record with all attributes of source except given differences" do
+			copy = Alchemy::Element.copy(@element, {:name => 'foobar'})
+			copy.name.should == 'foobar'
+		end
+
+		it "should make copies of all contents of source" do
+			copy = Alchemy::Element.copy(@element)
+			copy.contents.collect(&:id).should_not == @element.contents.collect(&:id)
+		end
+
+	end
+
 end

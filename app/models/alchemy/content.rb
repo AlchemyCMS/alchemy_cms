@@ -63,15 +63,24 @@ module Alchemy
 			self.element.contents
 		end
 
-		# makes a copy of source and copies the polymorphic associated essence
+		# Makes a copy of source and also copies the associated essence.
+		# 
+		# You can pass a differences hash to update the attributes of the copy.
+		# 
+		# === Example
+		# 
+		#   @copy = Alchemy::Content.copy(@content, {:element_id => 3})
+		#   @copy.element_id # => 3
+		# 
 		def self.copy(source, differences = {})
 			differences[:position] = nil
 			differences[:id] = nil
-			attributes = source.attributes.merge(differences)
-			content = self.create!(attributes.except("id"))
-			new_essence = content.essence.clone
-			new_essence.save
-			content.essence_id = new_essence.id
+			attributes = source.attributes.except("id").merge(differences)
+			content = self.create!(attributes)
+			new_essence = content.essence.class.new(content.essence.attributes.except('id'))
+			new_essence.save!
+			raise "Essence not cloned" if new_essence.id == content.essence_id
+			content.update_attribute(:essence_id, new_essence.id)
 			content
 		end
 

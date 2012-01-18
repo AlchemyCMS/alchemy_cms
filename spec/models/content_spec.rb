@@ -72,4 +72,28 @@ describe Alchemy::Content do
 
 	end
 
+	describe '#copy' do
+
+		before(:each) do
+			@element = Factory(:element, :name => 'text')
+			@content = @element.contents.first
+		end
+
+		it "should create a new record with all attributes of source except given differences" do
+			copy = Alchemy::Content.copy(@content, {:name => 'foobar', :element_id => @element.id + 1})
+			copy.name.should == 'foobar'
+		end
+
+		it "should make a new record for essence of source" do
+			copy = Alchemy::Content.copy(@content, {:element_id => @element.id + 1})
+			copy.essence_id.should_not == @content.essence_id
+		end
+
+		it "should copy source essence attributes" do
+			copy = Alchemy::Content.copy(@content, {:element_id => @element.id + 1})
+			copy.essence.body == @content.essence.body
+		end
+
+	end
+
 end

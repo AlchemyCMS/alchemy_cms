@@ -166,6 +166,62 @@ module Alchemy
 			element_definitions
 		end
 
+		# List all elements for page_layout
+		def self.all_for_page(page)
+			raise TypeError if page.class.name != "Alchemy::Page"
+			# if page_layout has cells, collect elements from cells and group them by cellname
+			page_layout = Alchemy::PageLayout.get(page.page_layout)
+			if page_layout.blank?
+				logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
+				return []
+			end
+			elements_for_layout = []
+			elements_for_layout += all_definitions_for(page_layout['elements'])
+			return [] if elements_for_layout.blank?
+			# all unique elements from this layout
+			unique_elements = elements_for_layout.select{ |m| m["unique"] == true }
+			elements_already_on_the_page = page.elements
+			# delete all elements from the elements that could be placed that are unique and already and the page
+			unique_elements.each do |unique_element|
+				elements_already_on_the_page.each do |already_placed_element|
+					if already_placed_element.name == unique_element["name"]
+						elements_for_layout.delete(unique_element)
+					end
+				end
+			end
+			return elements_for_layout
+		end
+
+		def self.all_definitions_for(element_names)
+			return [] if element_names.blank?
+			if element_names.to_s == "all"
+				return element_descriptions
+			else
+				return definitions.select { |e| element_names.include? e['name'] }
+			end
+		end
+
+		# This methods does a copy of source and all depending contents and all of their depending essences.
+		# 
+		# == Options
+		# 
+		# You can pass a differences Hash as second option to update attributes for the copy.
+		# 
+		# == Example
+		# 
+		#   @copy = Alchemy::Element.copy(@element, {:public => false})
+		#   @copy.public? # => false
+		# 
+		def self.copy(source, differences = {})
+			attributes = source.attributes.except("id").merge(differences)
+			element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil, :position => nil))
+			source.contents.each do |content|
+				new_content = Content.copy(content, :element_id => element.id)
+				new_content.move_to_bottom
+			end
+			element
+		end
+
 		def self.definitions
 			self.descriptions
 		end
@@ -416,52 +472,6 @@ module Alchemy
 		end
 
 	private
-
-		# List all elements for page_layout
-		def self.all_for_page(page)
-			raise TypeError if page.class.name != "Alchemy::Page"
-			# if page_layout has cells, collect elements from cells and group them by cellname
-			page_layout = Alchemy::PageLayout.get(page.page_layout)
-			if page_layout.blank?
-				logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
-				return []
-			end
-			elements_for_layout = []
-			elements_for_layout += all_definitions_for(page_layout['elements'])
-			return [] if elements_for_layout.blank?
-			# all unique elements from this layout
-			unique_elements = elements_for_layout.select{ |m| m["unique"] == true }
-			elements_already_on_the_page = page.elements
-			# delete all elements from the elements that could be placed that are unique and already and the page
-			unique_elements.each do |unique_element|
-				elements_already_on_the_page.each do |already_placed_element|
-					if already_placed_element.name == unique_element["name"]
-						elements_for_layout.delete(unique_element)
-					end
-				end
-			end
-			return elements_for_layout
-		end
-
-		def self.all_definitions_for(element_names)
-			return [] if element_names.blank?
-			if element_names.to_s == "all"
-				return element_descriptions
-			else
-				return definitions.select { |e| element_names.include? e['name'] }
-			end
-		end
-
-		# makes a copy of source and makes copies of the contents from source
-		def self.copy(source, differences = {})
-			attributes = source.attributes.except("id").merge(differences)
-			element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil, :position => nil))
-			source.contents.each do |content|
-				new_content = Content.copy(content, :element_id => element.id)
-				new_content.move_to_bottom
-			end
-			element
-		end
 
 		# creates the contents for this element as described in the elements.yml
 		def create_contents
