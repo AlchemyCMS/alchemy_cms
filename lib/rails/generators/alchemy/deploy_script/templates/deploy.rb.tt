@@ -1,0 +1,72 @@
+require 'bundler/capistrano'
+require 'alchemy/capistrano'
+load 'deploy/assets'
+
+# ssh user settings. please change to customers
+set :user, "<%= @ssh_user %>"
+set :password, "<%= @ssh_password %>"
+set :port, <%= @ssh_port %>
+set :use_sudo, false
+
+# domain names
+role :app, "<%= @server %>"
+role :web, "<%= @server %>"
+role :db,  "<%= @server %>", :primary => true
+
+# set the public webserver path
+set :deploy_to, "<%= @deploy_path %>"
+
+set :rails_env, "production"
+
+<%- if @scm == "svn" -%>
+set :repository_url, "<%= @repository_url %>"
+set :scm, "subversion"
+set :scm_user, "<%= @scm_user %>"
+set :scm_password, "<%= @scm_password %>"
+<%- if @scm_user && @scm_password -%>
+set :repository, Proc.new { "--username #{scm_user} --password #{scm_password} #{repository_url}" }
+<%- else -%>
+set :repository, "<%= @repository_url %>"
+<%- end -%>
+<%- elsif @scm == "git" -%>
+set :scm, "git"
+set :repository, "<%= @repository_url %>"
+set :branch, "master"
+<%- end -%>
+
+before "deploy:start", "deploy:seed"
+before "deploy:restart", "deploy:migrate"
+
+<%- if @database_type == "mysql" -%>
+after "deploy:setup", "alchemy:database_yml:create"
+after "deploy:symlink", "alchemy:database_yml:symlink"
+<%- end -%>
+after "deploy", "deploy:cleanup"
+
+namespace :logs do
+  desc "show last 100 lines of log"
+  task :tail do
+    run "tail -n100 #{shared_path}/log/#{rails_env}.log"
+  end
+
+  desc "watch tail of log and wait for additional data to be appended to the input"
+  task :watch do
+    stream("tail -f #{shared_path}/log/#{rails_env}.log")
+  end
+end
+
+namespace :deploy do
+
+  task :start do ; end
+  task :stop do ; end
+
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+
+  desc 'Seeds the database'
+  task :seed, :roles => :app, :except => { :no_release => true } do
+    run "cd #{release_path} && RAILS_ENV=#{rails_env} #{rake} db:seed"
+  end
+
+end

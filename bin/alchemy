@@ -51,7 +51,9 @@ class AlchemyInstaller < Thor
 					rm ./app/assets/images/rails.png
 				]
 				
-				if options[:scm]
+				if !options[:scm].nil? && !options[:scm].empty?
+					
+					clean_mountpoint = mountpoint.gsub('/', '')
 					
 					%x[
 						cd ./#{@application}
@@ -61,11 +63,16 @@ class AlchemyInstaller < Thor
 						mkdir -p ./uploads
 					]
 					
+					if yes?("\nDo you want to generate a deploy script for Capistrano? (y/N)")
+						system "cd #{@application} && rails g alchemy:deploy_script --scm=#{options[:scm]} --db=#{options[:database]}"
+						say "\nCapifying...", :yellow
+						system "cd #{@application} && capify ."
+					end
+					
 					case options[:scm]
 						when 'svn'
-							server = ask("\nURL of your svn server? (http://svn.magiclabs.de/customers)")
-							server = "http://svn.magiclabs.de/customers" if server.empty?
-							repository = ask("\nName of the repository? (#{@application})")
+							server = ask("\nURL of your svn server:")
+							repository = ask("\nName of the repository (#{@application}):")
 							repository = @application if repository.empty?
 							
 							say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
@@ -76,69 +83,18 @@ class AlchemyInstaller < Thor
 								say "Removing and checking out again...", :yellow
 								%x[
 									rm -rf ./#{@application}
-									svn co #{server}/#{repository}
+									svn co #{server}/#{repository} #{@application}
 								]
 								
 								say "Committing ignores...", :yellow
 								%x[
 									cd ./#{@application}
 									svn propset svn:ignore '*' tmp/ log/ index/ uploads/
-									svn propset svn:ignore 'alchemy' ./public/images ./public/stylesheets ./public/javascripts
-									svn propset svn:ignore 'pictures' ./public
+									svn propset svn:ignore '#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}' ./public
 									svn propset svn:ignore 'assets' ./public
 									svn propset svn:ignore 'database.yml' ./config
 									svn commit -m 'set ignores'
 								]
-								
-								# deploy.rb
-								if yes? "\nUse Capistrano for deployment? (y/N)"
-									@repository_url = "#{server}/#{repository}"
-									
-									# ssh settings
-									@ssh_user = ask "SSH User:"
-									@ssh_password = ask "SSH Password:"
-									standard_port = 12312
-									@ssh_port = ask "SSH Port (#{standard_port}):"
-									@ssh_port = standard_port if @ssh_port.empty?
-									
-									# db settings
-									@db_user = ask "Production Database User (#{@ssh_user}):"
-									@db_user = @ssh_user if @db_user.empty?
-									@db_password = ask "Production Database Password:"
-									standard_db_name = "usr_#{@db_user}_1"
-									@db_name = ask "Production Database Name (#{standard_db_name}):"
-									@db_name = standard_db_name if @db_name.empty?
-									standard_host = "localhost"
-									@db_host = ask "Production Database Host (#{standard_host}):"
-									@db_host = standard_host if @db_host.empty?
-									standard_socket = '/var/run/mysqld/mysqld.sock'
-									@db_socket = ask "Production Database Socket (#{standard_socket}):"
-									@db_socket = standard_socket if @db_socket.empty?
-									
-									# deploy_path
-									standard_path = "/var/www/#{@ssh_user}/html/alchemy"
-									@deploy_path = ask "Deploy Path (#{standard_path}):"
-									@deploy_path = standard_path if @deploy_path.empty?
-									
-									# scm settings
-									@scm_user = ask "Subversion User:"
-									@scm_password = ask "Subversion Password:"
-									
-									# server settings
-									@server = ask "Hostname/IP of server to deploy to:"
-									
-									create_deploy_rb
-									
-									say "\nCapifying...", :yellow
-									
-									%x[
-										cd #{@application}
-										capify .
-										svn add ./config/deploy.rb ./Capfile
-										svn commit -m 'capified'
-									]
-									
-								end
 								
 							else
 								say "Error while importing!", :red
@@ -151,17 +107,17 @@ class AlchemyInstaller < Thor
 								.DS_Store
 								upload/*
 								index/*
-								public/**/alchemy
-								public/pictures
+								public/#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}
 								public/assets
 								config/database.yml
 							GIT
 							%x[
 								cd #{@application}
-								echo #{gitignore} > #{@application}/.gitignore
+								echo "#{gitignore}" > .gitignore
 								touch ./index/.gitkeep
 								touch ./uploads/.gitkeep
 								git init .
+								git add .
 								git commit -am 'inital commit'
 							]
 					end
@@ -174,6 +130,7 @@ class AlchemyInstaller < Thor
 				]
 				
 				readme = <<-EOF
+
 Successfully installed Alchemy CMS into ./#{@application}
 
 Next steps:
@@ -197,7 +154,6 @@ http://alchemy-cms.com
 
 EOF
 				say readme, :green
-				
 			else
 				say "\nError while installation!\n", :red
 			end
@@ -249,76 +205,6 @@ production:
   password: #{@db_root_password}
   socket: #{@db_local_socket}
 DATABASE
-		end
-	end
-
-	def create_deploy_rb
-		create_file "./#{@application}/config/deploy.rb" do
-<<-DEPLOY
-# set the applicationname here
-set :application, "#{@application}"
-
-# set the apps repository url
-set :repository_url, "#{@repository_url}"
-
-# ssh user settings. please change to customers
-set :user, "#{@ssh_user}"
-set :password, "#{@ssh_password}"
-set :port, #{@ssh_port}
-set :use_sudo, false
-
-# domain names
-role :app, "#{@server}"
-role :web, "#{@server}"
-role :db,  "#{@server}", :primary => true
-
-# set the public webserver path
-set :deploy_to, "#{@deploy_path}"
-
-set :scm, :subversion
-set :scm_user, "#{@scm_user}"
-set :scm_password, "#{@scm_password}"
-
-set :repository, Proc.new{ "--username \#{scm_user} --password \#{scm_password} \#{repository_url}" }
-
-after "deploy:setup", "alchemy:database_yml:create"
-
-before "deploy:start", "deploy:seed"
-
-after "deploy:symlink", "alchemy:database_yml:symlink"
-
-before "deploy:restart", "deploy:migrate"
-
-after "deploy", "deploy:cleanup"
-
-namespace :logs do
-  desc "show last 50 lines of production.log"
-  task :tail do
-    run "tail -n50 \#{shared_path}/log/production.log"
-  end
-
-  desc "watch tail of production.log and wait for additional data to be appended to the input"
-  task :watch do
-    stream("tail -f \#{shared_path}/log/production.log")
-  end
-end
-
-namespace :deploy do
-  desc "Overwrite for the internal Capistrano deploy:start task."
-  task :start, :roles => :app do
-  end
-
-  desc "Restart the server"
-  task :restart, :roles => :app do
-    run "touch \#{current_path}/tmp/restart.txt"
-  end
-
-  desc 'Seeds the database'
-  task :seed, :roles => :app, :except => { :no_release => true } do
-    run "cd \#{current_path} && RAILS_ENV=production rake db:seed"
-  end
-end
-DEPLOY
 		end
 	end
 
