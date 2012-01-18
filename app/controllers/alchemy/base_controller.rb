@@ -76,7 +76,11 @@ module Alchemy
 
 		def set_language_to_default
 			@language = Language.get_default
-			store_language_in_session(@language)
+			if @language
+				store_language_in_session(@language)
+			else
+				raise "No Default Language found! Did you run `rake alchemy:db:seed` task?"
+			end
 		end
 
 		def store_language_in_session(language)
