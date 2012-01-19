@@ -3,12 +3,12 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
-	gem 'factory_girl_rails'
+	gem 'factory_girl_rails', '~> 1.4'
 	gem "capybara"
 	gem 'capybara-webkit'
 	gem "launchy"
 	gem "database_cleaner"
-	gem "fuubar"
+	gem "fuubar" unless ENV['CI']
 end
 
 group :assets do
