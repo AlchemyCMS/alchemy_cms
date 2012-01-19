@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
+	gem 'rspec-rails'
 	gem 'sqlite3'
 	gem 'factory_girl_rails', '~> 1.4'
 	gem "capybara"
