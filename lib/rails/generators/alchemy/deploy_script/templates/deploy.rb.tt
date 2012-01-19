@@ -39,7 +39,7 @@ before "deploy:restart", "deploy:migrate"
 
 <%- if @database_type == "mysql" -%>
 after "deploy:setup", "alchemy:database_yml:create"
-after "deploy:symlink", "alchemy:database_yml:symlink"
+after "deploy:assets:symlink", "alchemy:database_yml:symlink"
 <%- end -%>
 after "deploy", "deploy:cleanup"
 
