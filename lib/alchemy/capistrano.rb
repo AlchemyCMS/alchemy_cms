@@ -68,16 +68,16 @@ EOF
 
 		end
 
-  end
+		namespace :db do
 
-	namespace :db do
+			desc "Seeds the database with essential data."
+			task :seed, :roles => :app do
+				run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:seed"
+			end
 
-		desc "Seeds the database with essential data."
-		task :seed, :roles => :app do
-			run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:seed"
 		end
 
-	end
+  end
 
 	namespace :ferret do
 
