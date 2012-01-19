@@ -77,7 +77,7 @@ EOF
 
 		end
 
-	end
+  end
 
 	namespace :ferret do
 
