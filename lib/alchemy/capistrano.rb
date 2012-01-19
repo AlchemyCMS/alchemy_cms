@@ -46,17 +46,17 @@ Capistrano::Configuration.instance(:must_exist).load do
 			desc "Creates the database.yml file"
 			task :create do
 				db_config = ERB.new <<-EOF
-				production:
-				  adapter: mysql
-				  encoding: utf8
-				  reconnect: false
-				  pool: 5
-				  database: #{ Capistrano::CLI.ui.ask("Database name: ") }
-				  username: #{ Capistrano::CLI.ui.ask("Database username: ") }
-				  password: #{ Capistrano::CLI.ui.ask("Database password: ") }
-				  socket: #{ Capistrano::CLI.ui.ask("Database socket: ") }
-				  host: #{ Capistrano::CLI.ui.ask("Database host: ") }
-				EOF
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  database: #{ Capistrano::CLI.ui.ask("Database name: ") }
+  username: #{ Capistrano::CLI.ui.ask("Database username: ") }
+  password: #{ Capistrano::CLI.ui.ask("Database password: ") }
+  socket: #{ Capistrano::CLI.ui.ask("Database socket: ") }
+  host: #{ Capistrano::CLI.ui.ask("Database host: ") }
+EOF
 				run "mkdir -p #{shared_path}/config"
 				put db_config.result, "#{shared_path}/config/database.yml"
 			end
