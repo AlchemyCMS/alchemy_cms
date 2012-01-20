@@ -192,17 +192,17 @@ module Alchemy
 
 			def order
 				@page_root = Page.language_root_for(session[:language_id])
-				pages_from_raw_request.each do |page|
-					page_id = page.first[0]
-					parent_id = page.first[1]
-					if parent_id == 'root'
-						parent = @page_root
-					else
-						parent = Page.find(parent_id)
-					end
-					page = Page.find(page_id)
-					page.move_to_child_of(parent)
+				
+				# Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
+				neworder = JSON.parse(params[:set])
+				prev_item = nil
+				neworder.each do |item|
+					dbitem = Page.find(item['id'])
+					prev_item.nil? ? dbitem.move_to_child_of(Page.root) : dbitem.move_to_right_of(prev_item)
+					sort_children(item, dbitem) unless item['children'].nil?
+					prev_item = dbitem.reload
 				end
+				
 				flash[:notice] = t("Pages order saved")
 				@redirect_url = admin_pages_path
 				render :action => :redirect
@@ -256,6 +256,17 @@ module Alchemy
 					),
 					false
 				).path)
+			end
+
+			# Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
+			def sort_children(element,dbitem)
+				prevchild = nil
+				element['children'].each do |child|
+					childitem = Page.find(child['id'])
+					prevchild.nil? ? childitem.move_to_child_of(dbitem) : childitem.move_to_right_of(prevchild)
+					sort_children(child, childitem) unless child['children'].nil?
+					prevchild = childitem
+				end
 			end
 
 		end
