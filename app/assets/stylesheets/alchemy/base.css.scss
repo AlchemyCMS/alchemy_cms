@@ -255,7 +255,7 @@ form#login.new_user_session {
 
 div#overlay {
 	visibility: hidden;
-	position: absolute;
+	position: fixed;
 	left: 0px;
 	top: 0px;
 	width: 100%;
@@ -1703,14 +1703,14 @@ input.button {
 }
 
 button.button {
-	line-height: 21px;
-	padding: 1px 8px 2px 8px;
+	line-height: 19px;
+	padding: 2px 8px 2px 8px;
 	height: 25px;
-	font-size: 1em;
+	font-size: 11px;
 }
 
 .button img {
-	margin-right: 0;
+	margin: 2px 0 0 0;
 	width: 20px;
 	height: 20px;
 }
@@ -2142,7 +2142,7 @@ span.icon.settings {
 }
 
 span.icon.visit_page {
-	background: image-url('alchemy/icons.png') -32px -136px;
+	background: image-url('alchemy/icons.png') -31px -137px;
 }
 
 span.icon.upload {
@@ -2214,7 +2214,7 @@ span.icon.info {
 }
 
 span.icon.close {
-	background-position: -416px -40px;
+	background-position: -416px -41px;
 }
 
 span.icon.sync {
@@ -2408,12 +2408,12 @@ select.select_box {
 	display: none;
 }
 
-.with_medium_padding {
+.with_padding {
 	padding: 2*$default-padding;
 }
 
-.with_padding {
-	padding: 2*$default-padding;
+.with_margin {
+	margin: 2*$default-padding;
 }
 
 .element_spinner {
