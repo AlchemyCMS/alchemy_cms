@@ -1,10 +1,9 @@
 <%- unless content.essence.picture.nil? -%>
-	<%- image_size = options[:image_size] -%>
 	<%- img_tag = image_tag(
 		alchemy.show_picture_path(
 			:id => content.essence.picture.id,
 			:name => content.essence.picture.urlname,
-			:size => image_size,
+			:size => options[:image_size],
 			:crop => options[:crop] ? 'crop' : nil,
 			:crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
 			:crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil,
@@ -16,7 +15,8 @@
 		{
 			:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
 			:title => (content.essence.title.blank? ? nil : content.essence.title),
-			:id => dom_id(content.essence.picture)
+			:id => dom_id(content.essence.picture),
+			:style => (options[:crop] && !options[:image_size].blank?) || (!options[:crop] && options[:image_size].blank?) ? "width: #{options[:image_size].blank? ? content.essence.picture.image_width : options[:image_size].split('x')[0]}px; height: #{options[:image_size].blank? ? content.essence.picture.image_height : options[:image_size].split('x')[1]}px" : nil
 		}.merge(html_options)
 	) -%>
 

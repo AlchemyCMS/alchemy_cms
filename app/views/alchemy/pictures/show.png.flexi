@@ -1,13 +1,13 @@
 @picture.operate do |image|
   
-  if !@crop_from.blank? && !@crop_size.blank?
+  if !@crop_from.blank? && !@crop_size.blank? && !@size.blank?
     image.crop(
       :from => @crop_from,
       :size => @crop_size
     )
-    image.resize(@size, :upsample => @upsample) unless @size.nil?
-  else
-    image.resize(@size, :upsample => @upsample, :crop => @crop, :padding => @padding) unless @size.nil?
+    image.resize(@size, :upsample => @upsample)
+  elsif !@size.blank?
+    image.resize(@size, :upsample => @upsample, :crop => @crop, :padding => @padding)
   end
   image.image_overlay(@overlay[:file], :alignment => @overlay[:alignment]) unless @overlay.nil?
   unless @options.blank?
