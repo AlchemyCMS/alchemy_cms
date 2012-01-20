@@ -980,8 +980,11 @@ ul#layoutpages li {
 }
 
 ul#sitemap li {
-	padding-left: 22px;
-	padding-right: 0;
+	padding-left: 0;
+	li {
+		padding-left: 22px;
+		padding-right: 0;
+	}
 }
 
 ul#layoutpages li {
