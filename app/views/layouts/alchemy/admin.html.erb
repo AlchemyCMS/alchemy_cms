@@ -72,7 +72,7 @@
 				if ($('#flash_notices').length > 0) {
 					Alchemy.Growler.fade();
 				}
-				$('a.please_wait, form .button, form .icon_button, #main_navi a.main_navi_entry, #sub_navigation .subnavi_tab a, .pagination a').click(function() {
+				$('#toolbar a.please_wait, #toolbar form .button, #toolbar form .icon_button, #main_navi a.main_navi_entry, #sub_navigation .subnavi_tab a, .pagination a').click(function() {
 					Alchemy.pleaseWaitOverlay();
 				});
 			});
