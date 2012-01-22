@@ -27,7 +27,7 @@ module Alchemy
 				@root_page = Page.language_root_for(session[:language_id])
 				# Setting the locale to pages language. so the page content has its correct translation
 				::I18n.locale = @page.language_code
-				render :layout => params[:layout].blank? ? 'alchemy/pages' : params[:layout] == 'none' ? false : params[:layout]
+				render :layout => layout_for_page
 			end
 
 			def new
