@@ -1,0 +1,180 @@
+h2. Plugin development
+
+This guide covers the possibility to extend alchemy with individual plugins. All examples are written for rails2 and rails3.
+
+What is a plugin in alchemy? If your website should get an individual function, you can develope a plugin for gathering data in the frontend and managing this data in the backend. Extending your website with individual plugins will change it to a powerful webapplication, with full content management integration!
+
+For sure, we already have some showcases. Later we will publish a list of plugins. It's really easy to extend alchemy!
+
+endprologue.
+
+
+
+
+h3. Creating a new plugin
+
+Let's start developing a guestlist plugin for alchemy.
+
+Alchemy has a generator script that creates the important plugin structure. You get a new app structure that lives in /vendor/plugins/guestlist.
+All important files are created in there.
+
+<shell>
+script/generate alchemy_plugin guestlist
+</shell>
+
+generator usage for rails2 above. Generator usage for rails3 below.
+
+<shell>
+rails g alchemy:plugin guestlist
+</shell>
+
+You should take a look into the configuration file of your new plugin. The settings should explain themselve.
+
+<pre>
+# config/alchemy/config.yml
+name: guestlist
+order: 1
+navigation:
+  name: Guestlist
+  controller: "admin/partyguests"
+  action: "index"
+  icon: "/images/guestlist/icon.png"
+</pre>
+
+The next thing you can do is adding your ressources to the routes.rb for the admin namespace.
+
+<pre>
+# config/routes.rb
+ActionController::Routing::Routes.draw do |map|
+  map.resources :partyguests
+  map.namespace :admin do |admin|
+    admin.resources :partyguests
+  end
+end
+</pre>
+
+The example above shows the routing for rails2. Below the routing using rails3.
+
+<pre>
+# config/routes.rb
+ActionController::Routing::Routes.draw do
+  resources :partyguests
+  namespace :admin do
+    resources :partyguests
+  end
+end
+</pre>
+
+Now it's important to set the authorization rules for the plugin. Otherwise it will never get rendered in the backend navigation, because of missing permissions.
+
+<pre>
+# config/authorization_rules.rb
+role :partyguest do
+  has_permission_on :partyguests, :to => [:edit, :update]
+end
+role :admin do
+  has_permission_on :admin_partyguests, :to => [:manage]
+end
+</pre>
+
+h4. ALCHEMY BACKEND (admin namespace)
+
+*plugin Controllers* <code>vendor/plugins/guestlist/app/controllers/admin</code>
+
+Generally, controllers in your admin namespace should always inherit from alchemy_controller. This enables you to use all controller methods of the alchemy backend. Because of using declerative_authorization you additionally have to set filter_resource_access to your controllers.
+
+Our Guestlist plugin should gather partyguests. So we create a new controller "partyguests_controller.rb" for managing the guests.
+
+<pre>
+# admin/controllers/partyguests_controller.rb
+class Admin::PartyguestsController < AlchemyController
+  filter_resource_access
+  def index
+  #
+  end
+
+  def new
+    @partyguest = Partyguest.new
+    render :layout => false
+  end
+end
+</pre>
+
+Notice: when adding methods wich output should be rendered in the standard alchemy modaldialog, you shouldn't render a layout.
+
+
+*plugin Views* <code>vendor/plugins/guestlist/app/views/admin</code>
+
+Lets take a look at the view files now.
+
+The first line of code in your views should call the helper for including the nescessary javascripts and stylesheets. Additionally you can render the alchemy´s standard toolbar. This is already styled with CSS and comes with a search form. The link_to_overlay_window helper is used to open alchemy´s modaldialog.
+
+<pre>
+# index.html.erb
+<%= alchemy_assets_set %>
+<%= content_for(:toolbar) do %>
+  <div id="toolbar">
+    <div id="toolbar_buttons">
+      <div class="button_with_label">
+        <%= link_to_overlay_window(
+          render_icon('create'),
+          new_admin_partyguest_path,
+          {:title => _('new partyguest'), :size => "400x520", :overflow => true}, 
+          {:class => 'icon_button', :title => _('new partyguest')}
+        ) %>
+      </div>
+      <label><%- _("new partyguest") -%></label>
+    </div>
+    <%= render :partial => "admin/partials/search_form" %>
+  </div>
+<%- end -%>
+</pre>
+
+*Render dataforms in modaldialog*
+
+Forms rendered in a modaldialog (e.g. for creating a new partyguest) is very simple. Just follow this principles.
+
+<pre>
+# partyguests_controller.rb
+def create
+  @partyguest = Partyguest.new(params[:partyguest])
+  if @partyguest.save
+    flash[:notice] = _('partyguest created')
+    render(:update) { |page| page.redirect_to(admin_partyguests_path) }
+  else
+    render_remote_errors(@partyguest)
+  end
+end
+</pre>
+
+h4. WEBSITE FRONTEND
+
+*plugin Controllers* <code>vendor/plugins/guestlist/app/controllers</code>
+
+If you want to register partyguests for your guestlist on your public website, your controllers should inherit from AlchemyController. Additionally you need to set the @page and @root_page variable via before_filter. A common and simple way to set the @page is to find a Page by its page_layout.
+
+<pre>
+# partyguests_controller.rb
+class PartyguestsController < AlchemyController
+  layout 'pages'
+  filter_access_to [:edit, :update]
+  before_filter :get_page
+
+private
+
+  def get_page
+    @page = Page.find_by_page_layout('registration')
+    @root_page = @page.get_language_root
+  end
+end
+</pre>
+
+*plugin Views* <code>vendor/plugins/guestlist/app/views</code>
+
+In the view files there is nothing special for plugins. You can access all helpermethods as everywhere in the frontend. Your form for registering partyguests should look like this.
+
+<pre>
+<% form_for @partyguest ||= Partyguest.new, :url => url_for(:controller => '/partyguests', :action => 'create', :id => @partyguest) do |form| %>
+  ...
+<% end %>
+</pre>
