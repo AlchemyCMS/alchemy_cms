@@ -53,7 +53,7 @@ So after defining the page layouts in your page_layouts.yml, you can generate al
 
 Using the example above, which defines a contact layout, the generator will create a partial named <code>_contact.html.erb</code>.
 
-h3. I18n translation of page layout names
+h3. Translation (I18n) of page layout names
 
 Page layout names are passed through the I18n library. You can translate them in your alchemy namespaced locale files.
 
@@ -69,4 +69,3 @@ de:
       contact: Kontakt
       search: Suche
 </pre>
-

@@ -1,0 +1,45 @@
+h2. Creating own Elements
+
+endprologue.
+
+
+
+h3. Defining the element
+
+Lets create an image gallery for your website with a tiny text for every image.
+The element will be defined in the <code>/config/alchemy/elements.yml</code> file.
+
+<pre>
+- name: gallery
+  unique: false
+  contents:
+  - name: image
+    type: EssencePicture
+  - name: text
+    type: EssenceText
+</pre>
+
+INFO: The element is named gallery. It can be placed just once per page and it has two essences (Picture and Text) bundled as contents.
+
+h3. Generating the partials
+
+After typing the line below in your terminal, the rails generator will create the elements editor and view files with its code.
+
+<shell>
+	rails g alchemy:elements --skip
+</shell>
+
+INFO: You can find the created files in your <code>/app/views/elements/</code> folder.
+
+h3. Assigning to page layouts
+
+Before you can play around with it in the backend, you just need to define on which pages your element is allowed to be placed. The placement depends on the page´s page_layout, so just open <code>/config/alchemy/page_layouts.yml</code> and put the name of your new element into the list of available elements for a specific page layout.
+
+<pre>
+- name: standard
+  elements: [gallery]
+</pre>
+
+INFO: You can place the gallery element now on every page which was created with the standard page_layout.
+
+&nbsp;

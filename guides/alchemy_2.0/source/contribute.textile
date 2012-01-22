@@ -1,0 +1,47 @@
+h2. Contribute
+
+Replace this with some introductory material on contributing
+
+endprologue.
+
+h3. How to Contribute?
+
+* Make a list
+* of useful information
+* on contributing
+
+h3. What to Contribute?
+
+* We need authors, editors, proofreaders, and translators. Adding a single paragraph of quality content to a guide is a good way to get started.
+* The easiest way to start is by improving an existing guide:
+** Improve the structure to make it more coherent.
+** Add missing information.
+** Correct any factual errors.
+** Fix typos or improve style.
+** Bring it up to date with the latest Edge Rails.
+* We're also open to suggestions for entire new guides:
+** Contact REPLACE_THIS to get your idea approved. See the Contact section below.
+
+h3. How is the process?
+
+* Describe the process
+* you will use
+* in this section
+
+h3. Rules
+
+* Guides are licensed under a Creative Commons Attribution-Share Alike 3.0 License.
+* If you're not sure whether a guide is actively being worked on, stop by IRC and ask.
+* Set up additional rules here
+
+TODO: Set up some conventions for authors to follow. https://github.com/lifo/docrails/wiki/rails-guides-conventions Is a good starting poing
+
+h3. Mailing List
+
+TODO: Specify the mailing list where people can ask about the efforts
+
+h3. Contact
+
+* IRC : TODO
+* Twitter: TODO
+* Email : TODO
