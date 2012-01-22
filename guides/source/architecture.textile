@@ -1,14 +1,24 @@
 h2. Alchemy´s Architecture
 
-This guide explains Alchemy´s flexible content storing architecture.
+This guide explains Alchemy´s flexible architecture.
 
 endprologue.
 
-h3. What is Alchemy CMS storing
+h3. Rails Engine
+
+Since the Alchemy CMS project started, it is a rails engine.
+Rails 3.1 brought the possibility for namespacing and mounting of rails-engines.
+Since Alchemy CMS v2.1 it is now a mountable and completely namespaced rails-engine.
+
+h3. Stored data-formats
 
 Alchemy CMS stores ids, unformatted text and only some richtext content in the database.<br />
-No markup (beside basic text formatting inside the richtext elements), no styling, no layout.<br />
-Pure content!
+No markup (beside basic text formatting inside the richtext elements), no styling, no layout.
+
+h3. Rendering process
+
+When rendering a Page through the pages_controller´s show method, the pages.html.erb view will be used.
+This view is yielding the corresponding page_layout partial which renders the cells and elements.
 
 h3. Caching
 

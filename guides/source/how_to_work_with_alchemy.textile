@@ -16,5 +16,5 @@ In any case the developer splits the content into elements. That means grouping 
 Elements are containers for essences (called contents) and can be rendered on page-layouts or in cells.
 "More about Elements":elements.html
 
-A content is the smallest part in Alchemy and refers to one of the essence-types Alchemy CMS provides.
+A content is the smallest part in Alchemy and refers to one of the essence-types Alchemy CMS provides (EssenceText, EssencePicure, EssenceRichtext, ...).
 "More about Essences":essences.html

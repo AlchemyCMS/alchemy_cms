@@ -2,3 +2,6 @@ h2. Creating own Essence-types
 
 endprologue.
 
+INFO: under construction
+
+´

@@ -29,7 +29,7 @@ index:
 
   2.) Architecture:
     - title: Alchemy´s Architecture
-      text: How is Alchemy CMS working and storing contents
+      text: How Alchemy CMS is working.
       url: architecture
     - title: Pages
       url: pages
@@ -37,7 +37,7 @@ index:
     - title: Page layouts
       url: page_layouts
       text: What are page layouts and how do they work.
-    - title: Page-Cells
+    - title: Cells
       url: cells
       text: What are page-cells and how do they work.
     - title: Elements

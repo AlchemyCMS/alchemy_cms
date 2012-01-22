@@ -4,7 +4,7 @@ endprologue.
 
 h3. What are essences?
 
-NOTE: Under construction
+INFO: Under construction
 
 h3. Essence types
 
