@@ -25,7 +25,7 @@ index:
       text: Can be used with it's pre-defined set of elements and layout-templates.
     - title: How to work with Alchemy CMS
       url: how_to_work_with_alchemy
-      text: Best prectises for working on individual projects with Alchemy CMS
+      text: Best practises for working on individual projects with Alchemy CMS
 
   2.) Architecture:
     - title: Alchemy´s Architecture
@@ -54,15 +54,15 @@ index:
     - title: Creating own Elements
       url: creating_elements
       text: How to create own elements.
-      
-    - title: Managing content
-      url: manage_content
-      text: How to manage content.
-      construction: true
+
     - title: Working with images
-      url: work_with_images
+      url: working_with_images
       text: How to work with images.
       construction: true
-    - title: Plugin Development
-      url: plugin_development
-      text: How to develope your own plugin.
+    - title: Creating own Essence-types
+      url: creating_own_essence_types
+      text: How to create own Essence-types.
+      construction: true
+    - title: Module Development
+      url: module_development
+      text: How to develope your own Alchemy module.

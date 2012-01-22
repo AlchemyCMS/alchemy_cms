@@ -10,6 +10,21 @@ Since the Alchemy CMS project started, it is a rails engine.
 Rails 3.1 brought the possibility for namespacing and mounting of rails-engines.
 Since Alchemy CMS v2.1 it is now a mountable and completely namespaced rails-engine.
 
+h3. The Core modules
+
+Alchemy CMS comes with core modules:
+
+*# Dashboard
+*# Page
+*# Language
+*# Users
+*# Library (Pictures & Attachments)
+
+The core modules can be extended by own modules.
+A module should be a rails-engine that registers themself at Alchemy.
+Read more about "creating own modules":creating_own_modules.html.
+
+
 h3. Stored data-formats
 
 Alchemy CMS stores ids, unformatted text and only some richtext content in the database.<br />
@@ -18,9 +33,18 @@ No markup (beside basic text formatting inside the richtext elements), no stylin
 h3. Rendering process
 
 When rendering a Page through the pages_controller´s show method, the pages.html.erb view will be used.
-This view is yielding the corresponding page_layout partial which renders the cells and elements.
+This view is yielding the corresponding page_layout partial which renders the "cells":cells.html and "elements":elements.html.
 
 h3. Caching
 
 If not deactivated in the "configuration":configuration.html, Alchemy CMS uses action-caching for fast content delivering.
 This will cache the "page-layout":page_layouts.html partials where "cells":cells.html and "elements":elements.html are rendered on.
+
+h3. Ressources Controller
+
+Since Alchemy v2.1 there is a ressources controller available. When developing own modules for Alchemy, 
+your controller can inherit from that ressources controller (Alchemy::RessourcesController) and will get all the rails-like CRUD methods.
+
+The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
+
+Read more details of the ressources controller in the "module development":module_development.html guide.

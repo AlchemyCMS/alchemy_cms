@@ -12,9 +12,10 @@ If you do, you will immediatelly be able to create new webpages based on the pre
 
 Editing that pages enables you to create new elements also predefined in the standard-set and filling them with your own content.
 
-INFO: Of course, you are able to override that completely!
+Of course you are able to override that completely.
+Just take a look at the <code>elements.yml</code>, the <code>page_layouts.yml</code> and the view partials in <code>/app/views/alchemy/elements</code> and <code>/app/views/alchemy/page_layouts/</code>.
 
-h3. available Elements
+h3. available predefined elements
 
 * Article
 ** intro
