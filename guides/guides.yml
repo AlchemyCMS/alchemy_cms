@@ -1,5 +1,6 @@
 title: Alchemy CMS Guides
 description: "Alchemy CMS is an awesome Content Management System with a flexible content storing architecture."
+version: "2.1"
 
 authors:
   Core Team:
@@ -9,7 +10,7 @@ authors:
       description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
     - name: Robin Böning
       nick: robinboening
-      description: Robin is a member of the Alchemy core team. He is responsiblae for the website and the guidelines.
+      description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
     - name: Marc Schettke
       nick: masche842
       description: Marc is the newest member of the Alchemy core team.
@@ -22,23 +23,29 @@ index:
     - title: Standard-Set (website out of the box)
       url: standard_set
       text: Can be used with it's pre-defined set of elements and layout-templates.
+    - title: How to work with Alchemy CMS
+      url: how_to_work_with_alchemy
+      text: Best prectises for working on individual projects with Alchemy CMS
 
-  2.) Software architecture:
+  2.) Architecture:
     - title: Alchemy´s Architecture
       text: How is Alchemy CMS working and storing contents
       url: architecture
+    - title: Pages
+      url: pages
+      text: What are pages and how do they work.
     - title: Page layouts
       url: page_layouts
       text: What are page layouts and how do they work.
     - title: Page-Cells
       url: cells
-      text: What are page-cells.
+      text: What are page-cells and how do they work.
     - title: Elements
       url: elements
-      text: What are elements.
-    - title: Essences
+      text: What are elements and how do they work.
+    - title: Contents/Essences
       url: essences
-      text: What are essences.
+      text: What are essences and how do they work.
     
   3.) In depth guides:
     - title: Creating own page layouts

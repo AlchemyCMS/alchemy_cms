@@ -37,7 +37,17 @@ Installing Rails on your computer is easy. There are many excellent resources on
 
 h3. What is Alchemy CMS?
 
-Alchemy CMS is a full featured Content Management System (CMS). It comes with an extreme flexible content storing architecture and a gorgeous user interface. Alchemy CMS is shipped with a production ready website that can be used “out of the box”, but it is mostly used for building individual web-applications that are rich in functionality. The name is program: Alchemy CMS is a kind of chemical construction kit for developers that want to build professional web-applications in a very short time. Also content-managers are enthusiastic about Alchemy CMS because of its clear and powerful backend that is very easy to use.
+Alchemy CMS is a full featured Content Management System (CMS).
+It comes with an extreme flexible content storing architecture and a gorgeous user interface.
+
+Alchemy CMS is shipped with a production ready website that can be used “out of the box”, 
+but it is mostly used for building individual web-applications that are rich in functionality.
+
+The name is program: Alchemy CMS is a kind of chemical construction kit for developers that 
+want to build professional web-applications in a very short time.
+
+Also content-managers are enthusiastic about Alchemy CMS because of its clear and powerful 
+backend that is very easy to use.
 
 
 
@@ -48,10 +58,10 @@ The installing of Alchemy CMS is very easy.
 You just need to run the gem command.
 
 <shell>
-gem install alchemy_cms
+gem install alchemy_cms --pre
 </shell>
 
-INFO: You now have the Alchemy CMS gem installed on your system!
+INFO: You now have the newest Alchemy CMS gem installed on your system!
 
 
 h4. create a new application
@@ -73,15 +83,30 @@ INFO: The installer creates a database, migrates the tables and also seeds them.
 h4. to an existing rails application
 
 If you already have an existing rails application, you can require the Alchemy CMS gem in your app.
-Just add this line to your Gemfile.
+
+Just dd this line to your Gemfile.
+
 <pre>
-gem 'alchemy_cms'
+gem 'alchemy_cms', :version => '~>2.1'
 </pre>
 
-Now you need to run bundler.
+Since Alchemy CMS is a mountable engine, you need to define the mountpoint in your <code>routes.rb</code>
 
+<pre>
+MyApp::Application.routes.draw do
+  mount Alchemy::Engine => '/'
+end
+</pre>
+
+Now you need to run bundler for installing the dependencies.
 <shell>
 bundle install
+</shell>
+
+It´s recommended to create the folders Alchemy CMS needs.
+
+<shell>
+rails generate alchemy:scaffold
 </shell>
 
 Copy the assets and migration files to your application.
@@ -89,14 +114,14 @@ Copy the assets and migration files to your application.
 rake alchemy:prepare
 </shell>
 
-Migrate the database.
+Migrate the database to get the table structure.
 <shell>
 rake db:schema:load
 </shell>
 
-Seed the database.
+Seed the database with initial data.
 <shell>
-rake db:seed
+rake alchemy:db:seed
 </shell>
 
 INFO: You´re done! Alchemy is now available in your rails project!

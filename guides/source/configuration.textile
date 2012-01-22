@@ -1,0 +1,15 @@
+h2. Configuration of Alchemy CMS
+
+This guide explains the configuration options for Alchemy CMS.
+
+endprologue.
+
+INFO: under construction
+
+h3. Caching
+
+
+h3. Image processing
+
+
+h3. URL-nesting

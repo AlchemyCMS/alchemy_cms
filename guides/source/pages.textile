@@ -1,0 +1,12 @@
+h2. Pages
+
+This guide explains Pages in Alchemy CMS.
+
+endprologue.
+
+
+h3. Page structure
+
+Pages are structured with the "awesome_nested_set":https://github.com/collectiveidea/awesome_nested_set in language-trees.
+Beside the language, a Page has some basic attributes for naming, visibility, publicity, restriction, locking and seo.
+Every Page has a "page-layout":page_layouts.html which is also defined with properties (like caching, uniqueness, controller, feed, ...) and relations to elements and cells.

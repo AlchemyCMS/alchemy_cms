@@ -1,5 +1,6 @@
-title: Alchemy CMS v2.0.x
-description: These are the legacy guides for Alchemy CMS v2.0.x
+title: Alchemy CMS v2.0
+description: These guides are designed to make you familiar in working with the opensource Content-Management-System Alchemy CMS v2.0
+version: "2.0"
 
 authors:
   Core Team:
@@ -9,7 +10,7 @@ authors:
       description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
     - name: Robin Böning
       nick: robinboening
-      description: Robin is a member of the Alchemy core team. He is responsiblae for the website and the guidelines.
+      description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
     - name: Marc Schettke
       nick: masche842
       description: Marc is the newest member of the Alchemy core team.

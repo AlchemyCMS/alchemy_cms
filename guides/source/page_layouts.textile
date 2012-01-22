@@ -12,13 +12,13 @@ Alchemy CMS parses the <code>/config/alchemy/page_layouts.yml</code> file which 
 
 h3. How do they work?
 
-In the <code>/app/views/layouts</code> folder of your rails project, Alchemy CMS looks for a file named <code>pages.html.erb</code> – and if its found, it will be rendered.
+In the <code>/app/views/layouts</code> folder of your rails project, Alchemy CMS looks for a file named <code>pages.html.erb</code> and renders it.
 
-This means, every page in Alchemy CMS will be rendered with this template. But it would be sad if you could have just one template, so Alchemy provides page layouts!
+Page layouts are templates (view partials) which are yielded on the <code>pages.html.erb</code> template.
+They are being parsed through ERB, so you can write HTML/CSS and execute ruby code there.
 
-Page layouts are templates which are yielded on the <code>pages.html.erb</code> template.
-They are being parsed by ERB, so you can write HTML/CSS and execute ruby code there.
+If no page_layout partial is found, the "_standard.html.erb" file gets rendered.
 
-If using the page-caching option which is defined in <code>/config/alchemy/config.yml</code>, your page_layouts will be cached for fast delivering.
+If using the caching option (defined in <code>/config/alchemy/config.yml</code>), your page_layouts will be cached for fast delivering. (action_caching)
 
-Of course you dont want to use the standard-set layout for every website. You will then have to create your own page layouts (templates) which can be chosen by the user in the backend when creating a new page.
+You can "create your own page layouts":create_own_page_layouts.html which can be chosen by the user in the backend when creating a new page.
