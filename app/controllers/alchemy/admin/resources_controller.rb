@@ -84,7 +84,7 @@ module Alchemy
 				if resource_namespaced?
 					@namespaced_resources_name ||= "#{resource_namespace}_#{resources_name}".underscore
 				else
-					@namespaced_resources_name ||= resource_model_name
+					@namespaced_resources_name ||= resources_name
 				end
 			end
 
