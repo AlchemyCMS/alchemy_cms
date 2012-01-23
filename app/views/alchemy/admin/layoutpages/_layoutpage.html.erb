@@ -1,26 +1,7 @@
 <li class="page_level_<%= layoutpage.level %>" id="page_<%= layoutpage.id %>">
   <div class="sitemap_page">
     <div class="sitemap_left_images">
-      <span class="site_status <%= layoutpage.level > 1 ? 'handle' : nil %> tooltip html_tooltip_<%= layoutpage.id %><%= layoutpage.locked ? ' locked' : '' %>" ></span>
-      <div id="tooltip_<%= layoutpage.id %>" style="display: none;">
-        <h1><%= t("page_type") %>: <%= layoutpage.layout_display_name %></h1>
-        <p>
-          <%= layoutpage.humanized_status %>
-        </p>
-        <p>
-          <strong><%= t("created_at") %>:</strong>
-          <%= l(layoutpage.created_at) %> von <%= layoutpage.creator %>
-        </p>
-        <p>
-          <strong><%= t("updated_at") %>:</strong>
-          <%= l(layoutpage.updated_at) %> durch <%= layoutpage.updater %>
-        </p>
-        <%- if layoutpage.locked? -%>
-        <p>
-          <%= t("currently_edited_by") %>: <span style="font-weight: bold;"><%= layoutpage.current_editor %></span>
-        </p>
-        <%- end -%>
-      </div>
+      <span class="site_status <%= layoutpage.locked ? ' locked' : '' %>" ></span>
     </div>
     <div class="sitemap_right_tools">
       <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>

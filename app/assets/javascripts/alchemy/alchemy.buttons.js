@@ -19,7 +19,7 @@ if (typeof(Alchemy) === 'undefined') {
 			$clone.attr({disabled: true, href: 'javascript:void(0)'})
 			.addClass('disabled cloned-button')
 			.css({width: width})
-			.html('<img src="/assets/alchemy/ajax_loader.gif">')
+			.html('<img src="/assets/alchemy/ajax_loader.gif" style="width: 16px; height: 16px">')
 			.show();
 			return true;
 		},

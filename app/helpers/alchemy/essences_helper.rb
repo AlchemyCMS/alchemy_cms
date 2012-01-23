@@ -1,8 +1,43 @@
 module Alchemy
+
+	# This helper contains methods to render the +essence+ from an +Element+ +Content+.
+	# 
+	# Essences have two kinds of partials. An +editor+ and a +view+ partial.
+	# 
+	# They both resist in +'app/views/alchemy/essences'+
+	# 
+	# The partials are suffixed with the type of part.
+	# 
+	# == Example:
+	# 
+	# For an EssenceText
+	# 
+	# The view partial is:
+	# 
+	# +_essence_text_view.html.erb+
+	# 
+	# The editor partial is:
+	# 
+	# +_essence_text_editor.html.erb+
+	# 
+	# == Usage:
+	# 
+	# For front end web development you should mostly use the +render_essence_view_by_name+ helper.
+	# 
+	# And the +render_essence_editor_by_name+ helper for Alchemy backend views.
+	# 
 	module EssencesHelper
 
-		# Renders the Content view partial from the passed Element for passed content name.
-		# For options see -> render_essence
+		# Renders the +Essence+ view partial from +Element+ by name.
+		# 
+		# Pass the name of the +Content+ from +Element+ as second argument.
+		# 
+		# == Example:
+		# 
+		# This renders the +Content+ named "intro" from element.
+		# 
+		#   <%= render_essence_view_by_name(element, "intro") %>
+		# 
 		def render_essence_view_by_name(element, name, options = {}, html_options = {})
 			if element.blank?
 				warning('Element is nil')
@@ -12,66 +47,18 @@ module Alchemy
 			render_essence(content, :view, {:for_view => options}, html_options)
 		end
 
-		# Renders the Content partial that is given (:editor, or :view).
-		# You can pass several options that are used by the different contents.
-		#
-		# For the view partial:
-		# :image_size => "111x93"                        Used by EssencePicture to render the image via RMagick to that size.
-		# :css_class => ""                               This css class gets attached to the content view.
-		# :date_format => "Am %d. %m. %Y, um %H:%Mh"     Espacially fot the EssenceDate. See Date.strftime for date formatting.
-		# :caption => true                               Pass true to enable that the EssencePicture.caption value gets rendered.
-		# :blank_value => ""                             Pass a String that gets rendered if the content.essence is blank.
-		#
-		# For the editor partial:
-		# :css_class => ""                               This css class gets attached to the content editor.
-		# :last_image_deletable => false                 Pass true to enable that the last image of an imagecollection (e.g. image gallery) is deletable.
-		def render_essence(content, part = :view, options = {}, html_options = {})
-			if content.nil?
-				return part == :view ? "" : warning('Content is nil', t("content_not_found"))
-			elsif content.essence.nil?
-				return part == :view ? "" : warning('Essence is nil', t("content_essence_not_found"))
-			end
-			defaults = {
-				:for_editor => {
-					:as => 'text_field',
-					:css_class => 'long',
-					:render_format => "html"
-				},
-				:for_view => {
-					:image_size => "120x90",
-					:css_class => "",
-					:date_format => "%d. %m. %Y, %H:%Mh",
-					:caption => true,
-					:blank_value => "",
-					:render_format => "html"
-				}
-			}
-			if options["for_#{part}".to_sym].nil?
-				options_for_partial = defaults["for_#{part}".to_sym]
-			else
-				options_for_partial = defaults.fetch("for_#{part}".to_sym).merge(options["for_#{part}".to_sym])
-			end
-			options = options.merge(defaults)
-			render(
-				:partial => "alchemy/essences/#{content.essence_partial_name}_#{part.to_s}.#{options_for_partial[:render_format]}.erb",
-				:locals => {
-					:content => content,
-					:options => options_for_partial,
-					:html_options => html_options
-				}
-			)
-		end
-
-		# Renders the Content view partial from the given Content.
-		# For options see -> render_essence
-		def render_essence_view(content, options = {}, html_options = {})
-			render_essence(content, :view, {:for_view => options}, html_options)
-		end
-
-		# Renders the Content view partial from the given Element for the essence_type (e.g. EssenceRichtext).
-		# For multiple contents of same kind inside one element just pass a position so that will be rendered.
-		# Otherwise the first content found for this type will be rendered.
-		# For options see -> render_essence
+		# Renders the +Essence+ view partial from given +Element+ and +Essence+ type.
+		# 
+		# Pass the type of +Essence+ you want to render from +element+ as second argument.
+		# 
+		# By default the first essence gets rendered. You may pass a different position value as third argument.
+		# 
+		# == Example:
+		# 
+		# This renders the first +Content+ with type of +EssencePicture+ from element.
+		# 
+		#   <%= render_essence_view_by_type(element, "EssencePicture", 1, {:image_size => "120x80", :crop => true}) %>
+		# 
 		def render_essence_view_by_type(element, type, position = 1, options = {}, html_options = {})
 			if element.blank?
 				warning('Element is nil')
@@ -82,17 +69,72 @@ module Alchemy
 			else
 				content = element.contents.find_by_essence_type_and_position(Alchemy::Content.normalize_essence_type(type), position)
 			end
-			render_essence(content, :view, :for_view => options)
+			render_essence_view(content, options, html_options)
 		end
 
-		# Renders the Content view partial from the given Element by position (e.g. 1).
-		# For options see -> render_essence
+		# Renders the +Essence+ view partial from +Element+ by position.
+		# 
+		# Pass the position of the +Content+ inside the Element as second argument.
+		# 
+		# == Example:
+		# 
+		# This renders the second +Content+ from element.
+		# 
+		#   <%= render_essence_view_by_type(element, 2) %>
+		# 
 		def render_essence_view_by_position(element, position, options = {}, html_options = {})
 			if element.blank?
 				warning('Element is nil')
 				return ""
 			end
 			content = element.contents.find_by_position(position)
+			render_essence_view(content, options, html_options)
+		end
+
+		# Renders the +Esssence+ partial for given +Content+.
+		# 
+		# The helper renders the view partial as default.
+		# 
+		# Pass +:editor+ as second argument to render the editor partial
+		# 
+		# == Options:
+		# 
+		# You can pass a options Hash to each type of essence partial as third argument.
+		# 
+		# This Hash is available as +options+ local variable.
+		# 
+		#   :for_view => {}
+		#   :for_editor => {}
+		# 
+		def render_essence(content, part = :view, options = {}, html_options = {})
+			if content.nil?
+				return part == :view ? "" : warning('Content is nil', t("content_not_found"))
+			elsif content.essence.nil?
+				return part == :view ? "" : warning('Essence is nil', t("content_essence_not_found"))
+			end
+			render(
+				:partial => "alchemy/essences/#{content.essence_partial_name}_#{part.to_s}",
+				:locals => {
+					:content => content,
+					:options => options["for_#{part}".to_sym],
+					:html_options => html_options
+				}
+			)
+		end
+
+		# Renders the +Esssence+ view partial for given +Content+.
+		# 
+		# == Options:
+		# 
+		#   :image_size => "111x93"                        # Used by EssencePicture to render the image via RMagick to that size. [Default nil]
+		#   :date_format => "Am %d. %m. %Y, um %H:%Mh"     # Espacially for EssenceDate. See Rubys Date.strftime for date formatting options. [Default nil]
+		#   :caption => true                               # Pass Boolean to enable/disable the EssencePicture.caption. [Default true]
+		#   :blank_value => "Not found"                    # Pass a String that gets rendered if the content.essence is blank. [Default nil]
+		# 
+		def render_essence_view(content, options = {}, html_options = {})
+			defaults = {
+				:caption => true
+			}
 			render_essence(content, :view, {:for_view => options}, html_options)
 		end
 

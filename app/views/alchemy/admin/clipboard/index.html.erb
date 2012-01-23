@@ -1,6 +1,9 @@
 <div class="with_padding">
 	<%- if @clipboard_items.blank? -%>
-	<p><%= t('No items in your clipboard') %></p>
+	<div class="info">
+		<%= render_icon('info') %>
+		<%= t('No items in your clipboard') %>
+	</div>
 	<%- else -%>
 	<div id="clipboard_items">
 		<ul>

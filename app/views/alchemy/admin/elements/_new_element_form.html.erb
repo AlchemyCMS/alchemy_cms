@@ -1,6 +1,9 @@
 <div class="new_alchemy_element">
 <%- if @elements.blank? -%>
-	<p class="with_padding"><%= t('no_more_elements_to_add') %></p>
+	<div class="info with_margin">
+		<%= render_icon('info') %>
+		<%= t('no_more_elements_to_add') %>
+	</div>
 <%- else -%>
 	<%= form_for [:admin, @element], :remote => true, :class => "add_element_content" do |form| %>
 		<div id="errors" style="display: none"></div>

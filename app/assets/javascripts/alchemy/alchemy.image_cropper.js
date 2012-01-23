@@ -45,10 +45,13 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 
 		destroy : function() {
-			Alchemy.ImageCropper.api.destroy();
-			Alchemy.ImageCropper.initialized = false;
+			try {
+				Alchemy.ImageCropper.api.destroy();
+			} catch(e) {} finally {
+				Alchemy.ImageCropper.initialized = false;
+			}
 		}
 
-  }
+	}
 
 })(jQuery);

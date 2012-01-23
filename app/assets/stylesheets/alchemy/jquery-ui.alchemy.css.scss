@@ -1375,7 +1375,8 @@ button.ui-button-icons-only {
 
 #alchemy .ui-button .ui-button-text {
 	display: block;
-	line-height: 1.4;
+	line-height: 1.5;
+	font-size: 11px;
 }
 
 #alchemy .ui-button-text-only .ui-button-text {
@@ -1543,7 +1544,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog .ui-dialog-buttonpane button {
-	margin: .5em .4em .5em 0;
+	margin: 8px 8px 8px 0;
 	cursor: pointer;
 }
 

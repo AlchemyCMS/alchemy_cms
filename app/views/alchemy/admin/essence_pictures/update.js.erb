@@ -10,7 +10,7 @@
 	Alchemy.ImageCropper.destroy();
 	Alchemy.closeCurrentWindow();
 	Alchemy.reloadPreview();
-<%- if @content.element.contents.find_all_by_essence_type("Alchemy::EssencePicture").size > 1 -%>
+<%- if @content.element.all_contents_by_type("Alchemy::EssencePicture").count > 1 -%>
 	Alchemy.SortableContents('<%= form_authenticity_token -%>');
 <%- end -%>
 

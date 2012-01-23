@@ -78,11 +78,11 @@ module Alchemy
 		end
 
 		def all_contents_by_name(name)
-			self.contents.find_all_by_name(name)
+			self.contents.where(:name => name)
 		end
 
 		def all_contents_by_type(essence_type)
-			self.contents.find_all_by_essence_type(Content.normalize_essence_type(essence_type))
+			self.contents.where(:essence_type => Content.normalize_essence_type(essence_type))
 		end
 
 		# Returns the content that is marked as rss title.

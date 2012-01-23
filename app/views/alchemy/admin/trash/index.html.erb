@@ -1,8 +1,9 @@
 <div class="with_padding">
 	<%- if @elements.blank? -%>
-	<p id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %>>
+	<div id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %> class="info">
+		<%= render_icon('info') %>
 		<%= t('Your trash is empty') %>
-	</p>
+	</div>
 	<%- else -%>
 	<div class="info">
 		<%= render_icon('info') %>
