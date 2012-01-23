@@ -6,7 +6,9 @@ module Alchemy
 
 			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
-			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
+			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model, :resource_model_name
+			helper_method :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
+			helper_method :resource_helper_prefix
 
 			def index
 				if !params[:query].blank?
@@ -84,7 +86,7 @@ module Alchemy
 				if resource_namespaced?
 					@namespaced_resources_name ||= "#{resource_namespace}_#{resources_name}".underscore
 				else
-					@namespaced_resources_name ||= resource_model_name
+					@namespaced_resources_name ||= "admin_#{resource_model_name}"
 				end
 			end
 
@@ -127,6 +129,14 @@ module Alchemy
 
 			def resource_namespace
 				@resource_namespace ||= self.class.to_s.split("::").first
+			end
+
+			def resource_helper_prefix
+				if resource_namespaced?
+					send(resource_namespace.underscore)
+				else
+					main_app
+				end
 			end
 
 		end

@@ -5,12 +5,12 @@
 		{
 			:icon => 'create',
 			:label => label_title,
-			:url => send("new_admin_#{resource_model_name}_path"),
+			:url => resource_helper_prefix.send("new_admin_#{resource_model_name}_path"),
 			:title => label_title,
 			:overlay_options => {
 				:title => label_title
 			},
-			:if_permitted_to => [:new, namespaced_resources_name.to_sym]
+			#:if_permitted_to => [:new, namespaced_resources_name.to_sym]
 		}
 	],
 	:search => true

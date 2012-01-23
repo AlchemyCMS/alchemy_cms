@@ -16,8 +16,12 @@
 	</tr>
 	<%= render_resources %>
 </table>
-<%- elsif params[:query] -%>
-<p><%= t('Nothing found') %></p>
-<%- end -%>
 
 <%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable %>
+
+<%- elsif params[:query] -%>
+	<p><%= t('Nothing found') %></p>
+<%- else -%>
+	<p><%= t('No Items') %></p>
+<%- end -%>
+
