@@ -1,7 +1,10 @@
 <tr class="<%= cycle('even', 'odd') %>">
 	<%- resource_attributes.each do |attribute| -%>
 	<%- if attribute[:type] == :boolean -%>
-	<td class="center"><%= render_icon(resource.send(attribute[:name])) -%></td>
+	<td class="center">
+		<% attr_value = resource.send(attribute[:name]) %>
+		<%= attr_value.blank? ? '' : render_icon(attr_value) -%>
+	</td>
 	<%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
 	<td class="right"><%= resource.send(attribute[:name]) -%></td>
 	<%- else -%>
@@ -13,7 +16,7 @@
 		<%= link_to_confirmation_window(
 			'',
 			t("Are you sure?"),
-			send("admin_#{resource_model_name}_path", resource),
+			resource_url_scope.send("admin_#{resource_model_name}_path", resource),
 			:title => t("Delete"),
 			:class => "icon destroy"
 		) -%>
@@ -21,7 +24,7 @@
 		<%- permitted_to?(:edit, namespaced_resources_name.to_sym) do -%>
 		<%= link_to_overlay_window(
 			'',
-			send("edit_admin_#{resource_model_name}_path", resource),
+			resource_url_scope.send("edit_admin_#{resource_model_name}_path", resource),
 			{
 				:title => t("Edit")
 			},

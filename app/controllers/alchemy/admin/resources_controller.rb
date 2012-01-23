@@ -6,7 +6,18 @@ module Alchemy
 
 			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
-			helper_method :resource_attributes, :resource_window_size, :resources_name, :resource_model, :resource_model_name, :resource_instance_variable, :resources_instance_variable, :namespaced_resources_name, :resource_namespaced?
+			helper_method(
+				:resource_attributes,
+				:resource_window_size,
+				:resources_name,
+				:resource_model,
+				:resource_model_name,
+				:resource_instance_variable,
+				:resources_instance_variable,
+				:namespaced_resources_name,
+				:resource_namespaced?,
+				:resource_url_scope
+			)
 
 			def index
 				if !params[:query].blank?
@@ -127,6 +138,15 @@ module Alchemy
 
 			def resource_namespace
 				@resource_namespace ||= self.class.to_s.split("::").first
+			end
+
+			def resource_url_scope
+				alchemy_module = module_definition_for(:controller => params[:controller], :action => params[:action])
+				if alchemy_module.nil? || alchemy_module['engine_name'].blank?
+					main_app
+				else
+					eval(alchemy_module['engine_name'])
+				end
 			end
 
 		end

@@ -20,4 +20,4 @@
 <p><%= t('Nothing found') %></p>
 <%- end -%>
 
-<%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable %>
+<%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable, :scope => resource_url_scope %>
