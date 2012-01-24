@@ -1,4 +1,4 @@
-<%= form_for [:admin, resource_instance_variable], :remote => true do |f| %>
+<%= form_for resource_instance_variable, :url => resource_helper_prefix.send("#{namespaced_resources_name.pluralize}_path"), :remote => true do |f| %>
 	<div id="errors" style="display: none"></div>
 	<table>
 		<%- resource_attributes.each do |attribute| -%>

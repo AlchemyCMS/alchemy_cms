@@ -1,4 +1,4 @@
-<%- url ||= url_for(:action => 'index') -%>
+<%- url ||= resource_helper_prefix.url_for(:action => 'index') -%>
 <%= form_tag(url, :method => :get) do %>
 	<div class="search_field">
 		<%= render_icon('search') %>
