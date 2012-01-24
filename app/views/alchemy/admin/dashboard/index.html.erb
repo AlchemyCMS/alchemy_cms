@@ -1,11 +1,16 @@
 <div id="dashboard">
-	<h1><%= t('Welcome back, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %></h1>
-	<h2><%= t('Your last login was on %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></h2>
-	
+	<div class="with_padding">
+		<h1>
+			<%= t('Welcome back, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+		</h1>
+		<p>
+			<small><%= t('Your last login was on %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></small>
+		</p>
+	</div>
 	<div class="widget">
 		<h2><%= t('Your last updated pages') %>:</h2>
 		<%- if @last_edited_pages.blank? -%>
-		<p><%= t('no pages') %></p>
+		<ul><li class="even"><%= t('no pages') %></li></ul>
 		<%- else -%>
 		<ul>
 			<%- @last_edited_pages.each do |page| -%>
@@ -18,17 +23,17 @@
 	<div class="widget">
 		<h2><%= t('Currently locked pages') %>:</h2>
 		<%- if @locked_pages.blank? -%>
-		<p><%= t('no pages') %></p>
+		<ul><li class="even"><%= t('no pages') %></li></ul>
 		<%- else -%>
 		<ul>
 			<%- @locked_pages.each do |page| -%>
 			<li class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
 				<%- if current_user.id == page.locked_by -%>
 				<%= link_to(page.name, alchemy.edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
-				<%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => request.path)) do %>
-			  	  <button class="icon_button small" title="<%= t('explain_unlocking') %>">
-			  		    <%= render_icon('close small') %>
-			  	  </button>
+				<%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_url)) do %>
+					<button class="icon_button small" title="<%= t('explain_unlocking') %>">
+						<%= render_icon('close small') %>
+					</button>
 			  <% end %>
 				<%- else -%>
 				<%= page.name %> <small>(<%= page.locker_name %>)</small>
@@ -42,7 +47,7 @@
 	<div class="widget">
 		<h2><%= t('Who else is online') %>:</h2>
 		<%- if @online_users.blank? -%>
-		<p><%= t('no users') %></p>
+		<ul><li class="even"><%= t('no users') %></li></ul>
 		<%- else -%>
 		<ul>
 			<%- @online_users.each do |user| -%>

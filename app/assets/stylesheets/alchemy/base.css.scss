@@ -393,8 +393,8 @@ ul li {
 #dashboard {
 	overflow: auto;
 	float: left;
-	padding: 0 16px 16px;
-	width: 50%;
+	padding: 8px;
+	width: 450px;
 }
 
 span.updated_at {
@@ -432,18 +432,16 @@ div.widget p {
 
 #dashboard div.widget ul li form {
 	display: inline;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
 	position: relative;
+	top: -3px;
 }
 
 #dashboard div.widget ul li button {
 	position: relative;
 	top: 1px;
-}
-
-#dashboard div.widget ul li button .icon {
-	position: relative;
-	top: -1px;
-	right: 1px;
 }
 
 #dashboard div.widget h2 {
@@ -1493,7 +1491,7 @@ span.icon.zoom-in {
 	background: image-url('alchemy/icons.png') -480px -72px;
 }
 
-a.icon_button.small span.icon {
+.icon_button.small span.icon {
 	top: 2px;
 	left: 2px;
 	width: 9px;
@@ -2225,9 +2223,10 @@ span.icon.close.small {
 	background: image-url('alchemy/ui-icons_666666_256x240.png') -84px -132px;
 	width: 8px;
 	height: 8px;
-	position: absolute;
-	right: 5px;
-	top: 4px;
+	position: relative;
+	right: 1px;
+	left: auto;
+	top: 2px;
 }
 
 span.icon.online {
