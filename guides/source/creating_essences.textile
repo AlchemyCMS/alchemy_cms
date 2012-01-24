@@ -1,0 +1,57 @@
+h2. Creating own Essences
+
+endprologue.
+
+
+
+h3. Every Model can behave like an Essence
+
+therefore we just create a plain old Rails Model.
+In this example we want to connect an existing model Product to a page element, so we can associate it with an alchemy page.
+
+<shell>
+rails g model Alchemy::EssenceProduct product_id:integer
+</shell>
+
+INFO: Essences are created under the Alchemy namespace, naming convention is EssenceYourName
+
+h3. Make it act as an essence
+
+As widely known in the rails-world, just add acts_as_essence to the model:
+
+<pre>
+# app/models/alchemy/essence_product.rb
+module Alchemy
+  EssenceProduct < ActiveRecord::Base
+    belongs_to :product
+    acts_as_essence :ingredient_column => :product_id
+  end
+end
+</pre>
+
+
+h3. Create the views
+
+Every essence has to have to views: One for presentation, one for editing.
+
+h4. View
+
+<pre>
+# app/views/alchemy/essences/_essence_product_view.html.erb
+<% product = Product.find_by_id(content.ingredient) %>
+<h1><%= product.name %></h1>
+</pre>
+
+h4. Editor
+
+<pre>
+# app/views/alchemy/essences/_essence_product_editor.html.erb
+<%= select_tag content.form_field_name, 
+    options_for_select(Product.all.map { 
+      |p| [p.name, p.id] }, content.ingredient), 
+      :id => content.form_field_id %>
+</pre>
+
+Now you can use your new essence in any element you want. Connect it like shown in the "Create your own Element" guide. 
+Don't forget to migrate your database!
+&nbsp;
