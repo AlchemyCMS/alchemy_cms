@@ -1,11 +1,22 @@
 module Alchemy
 	module Admin
+		
+		# This module contains helper methods for rendering overlay windows, toolbar buttons and confirmation windows.
+		# 
+		# The most important helpers for module developers are:
+		# 
+		# * toolbar
+		# * toolbar_button
+		# * link_to_overlay_window
+		# * link_to_confirmation_window
+		# 
 		module BaseHelper
 
 			# This helper renders the link for an overlay window.
+			# 
 			# We use this for our fancy modal overlay windows in the Alchemy cockpit.
 			# 
-			# Options:
+			# === Options:
 			# 
 			#   :size             [String]              # String with format of "WidthxHeight". I.E. ("420x280")
 			#   :title            [String]              # Text for the overlay title bar.
@@ -35,7 +46,7 @@ module Alchemy
 				)
 			end
 
-			# Used for rendering the folder link in Admin::Pages.index sitemap.
+			# (internal) Used for rendering the folder link in +Admin::Pages#index+ sitemap.
 			def sitemapFolderLink(page)
 				return '' if page.level == 1
 				if page.folded?(current_user.id)
@@ -94,6 +105,19 @@ module Alchemy
 				filter_field.html_safe
 			end
 
+			# Returns a link that opens a modal confirmation window.
+			# 
+			# === Parameters:
+			# 
+			# 1. The content inside the <a> tag
+			# 2. The message that is displayed in the overlay window
+			# 3. The url that gets opened after confirmation (Note: This is an Ajax request with a method of DELETE!)
+			# 4. html options get passed to the link
+			# 
+			# === Example:
+			# 
+			#   <%= link_to_confirmation_window('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
+			# 
 			def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
 				title = t("please_confirm")
 				ok_lable = t("Yes")
@@ -107,9 +131,12 @@ module Alchemy
 
 			# Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
 			# Usefull for the select_values options from the render_essence_editor helpers.
-			# Options:
-			#   * :from_page (String, Page) - Return only elements from this page. You can either pass a Page instance, or a page_layout name
-			#   * :elements_with_name (Array, String) - Return only elements with this name(s).
+			# 
+			# == Options:
+			# 
+			#   :from_page            [String, Page]     # Return only elements from this page. You can either pass a Page instance, or a page_layout name
+			#   :elements_with_name   [Array, String]    # Return only elements with this name(s).
+			# 
 			def elements_for_essence_editor_select(options={})
 				defaults = {
 					:from_page => nil,
@@ -132,9 +159,13 @@ module Alchemy
 				select_options
 			end
 
-			# Returns all Pages found in the database as an array for the rails select_tag helper.
-			# You can pass a collection of pages to only returns these pages as array.
-			# Pass an Page.name or Page.id as second parameter to pass as selected for the options_for_select helper.
+			# Returns all public pages found in the database as an Array suitable or the Rails +select_tag+ helper.
+			# 
+			# * You can pass a collection of pages so it only returns these pages and does not query the database.
+			# * Pass a +Page#name+ or +Page#id+ as second parameter to be passed as selected item to the +options_for_select+ helper.
+			# * The trhird parameter is used as prompt message in the select tag
+			# * The last parameter is the method that is called on the page object to get the value that is passed with the params of the form.
+			# 
 			def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
 				result = [[prompt.blank? ? t('Choose page') : prompt, ""]]
 				if pages.blank?
@@ -241,11 +272,12 @@ module Alchemy
 				['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
 			end
 
+			# (internal) Checks if all options we need for the image cropper are provided
 			def necessary_options_for_cropping_provided?(options)
 				options[:crop].to_s == 'true' && !options[:image_size].blank?
 			end
 
-			# Renders translated Module Names for html title element.
+			# (internal) Renders translated Module Names for html title element.
 			def render_alchemy_title
 				if content_for?(:title)
 					title = content_for(:title)
@@ -255,7 +287,7 @@ module Alchemy
 				"Alchemy CMS - #{title}"
 			end
 
-			# Returns max image count as integer or nil. Used for the picture editor in element editor views.
+			# (internal) Returns max image count as integer or nil. Used for the picture editor in element editor views.
 			def max_image_count
 				return nil if !@options
 				if @options[:maximum_amount_of_images].blank?
@@ -270,6 +302,7 @@ module Alchemy
 				end
 			end
 
+			# (internal) Renders a select tag for all items in the clipboard
 			def clipboard_select_tag(items, html_options = {})
 				options = [[t('Please choose'), ""]]
 				items.each do |item|
@@ -287,7 +320,7 @@ module Alchemy
 
 			# Renders a toolbar button for the Alchemy toolbar
 			# 
-			# Options:
+			# == Options:
 			# 
 			#   :icon                   [String]              # Icon class. See base.css.sccs for available icons, or make your own.
 			#   :label                  [String]              # Text for button label.
@@ -304,7 +337,8 @@ module Alchemy
 					:overlay => true,
 					:skip_permission_check => false,
 					:active => false,
-					:link_options => {}
+					:link_options => {},
+					:overlay_options => {}
 				}
 				options = defaults.merge(options)
 				button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
@@ -340,12 +374,12 @@ module Alchemy
 				end
 			end
 
-			# Renders the alchemy backend toolbar
+			# Renders the Alchemy backend toolbar
 			# 
-			# Options are:
+			# == Options
 			# 
-			#   buttons [Array]         # Pass an Array with button options. They will be passed to toolbar_button helper. For options see +toolbar_button+
-			#   search [Boolean]        # Show searchfield. Default true.
+			#   :buttons  [Array]          # Pass an Array with button options. They will be passed to toolbar_button helper. For options see toolbar_button
+			#   :search   [Boolean]        # Show searchfield. Default true.
 			# 
 			def toolbar(options = {})
 				defaults = {
@@ -362,16 +396,31 @@ module Alchemy
 				end
 			end
 
-			# Renders the partial for a resource record in the resources table.
-			# This helper has a nice fallback. If your resource has a partial for a single record named like the resouce model name (i.e. language) then this partial will be rendered.
-			# Otherwise the resource parital from +resources/resource+
+			# Renders the row for a resource record in the resources table.
+			# 
+			# This helper has a nice fallback. If you create a partial for your record then this partial will be rendered.
+			# 
+			# Otherwise the default +app/views/alchemy/admin/resources/_resource.html.erb+ partial gets rendered.
+			# 
+			# == Example
+			# 
+			# For a resource named +Comment+ you can create a partial named +_comment.html.erb+
+			# 
+			#   # app/views/admin/comments/_comment.html.erb
+			#   <tr>
+			#     <td><%= comment.title %></td>
+			#     <td><%= comment.body %></td>
+			#   </tr>
+			# 
+			# NOTE: Alchemy gives you a local variable named like your resource
+			# 
 			def render_resources
 				render resources_instance_variable
 			rescue ActionView::MissingTemplate
 				render :partial => 'resource', :collection => resources_instance_variable
 			end
 
-			# Used by upload form
+			# (internal) Used by upload form
 			def new_asset_path_with_session_information(asset_type)
 				session_key = Rails.application.config.session_options[:key]
 				if asset_type == "picture"
