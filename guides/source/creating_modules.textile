@@ -1,0 +1,44 @@
+h2. Creating custom Modules
+
+endprologue.
+
+
+
+h3. The anatomy of an alchemy module
+
+Basicly there are two ways to set up a module:
+ - bundle Controllers residing in the main app in a module
+ - create a new Rails::Engine
+
+h3. Integrate your module in alchemy
+
+h4. Initialization
+
+This is done via Rails' initializers.
+If your module is set up in the main app create a new file (i.e. xy_module.rb) in config/initializers,
+if it's an engine use the Rails::Engine.initializer method.
+
+<pre>
+  example
+</pre>
+
+h4. Mounting
+
+Additionaly, for an engine, you have to mount it in your routes:
+
+<pre>
+  # config/routes.rb
+  YourApp::Application.routes.draw do
+      ...
+      mount YourAlchemyModule::Engine => '/'
+      mount Alchemy::Engine => '/'
+  end
+</pre>
+
+Notice: Due to alchemy's strong routes it is recommenend to mount your engine before mounting alchemy.
+
+h3. Using alchemy's backend for your module
+
+
+
+&nbsp;
