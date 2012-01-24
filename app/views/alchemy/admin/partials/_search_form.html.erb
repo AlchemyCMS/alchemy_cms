@@ -1,4 +1,9 @@
-<%- url_scope = begin resource_url_scope rescue NameError; self end -%>
+<%- url_scope =
+        begin
+          resource_url_scope
+        rescue NameError
+          self
+        end -%>
 <%- url ||= url_scope.url_for(:action => 'index') -%>
 <%= form_tag(url, :method => :get) do %>
 	<div class="search_field">
