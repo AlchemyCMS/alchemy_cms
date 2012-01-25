@@ -274,10 +274,16 @@ div#overlay {
 }
 
 div#overlay_text_box {
-	color: $text-color;
+	color: #333333;
 	font-size: 18px;
+	left: 50%;
+	line-height: 50px;
+	margin-left: -100px;
+	margin-top: -25px;
+	position: absolute;
 	text-align: center;
-	margin-top: 25%;
+	top: 50%;
+	width: 200px;
 }
 
 div#overlay_text_box img {
@@ -423,25 +429,17 @@ div.widget p {
 	margin-left: -9px;
 	margin-bottom: -9px;
 	border: $default-border;
-}
-
-#dashboard div.widget ul li {
-	padding: 2*$default-padding;
-	margin-bottom: 0;
-}
-
-#dashboard div.widget ul li form {
-	display: inline;
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	position: relative;
-	top: -3px;
-}
-
-#dashboard div.widget ul li button {
-	position: relative;
-	top: 1px;
+	li {
+		padding: 2*$default-padding;
+		margin-bottom: 0;
+		position: relative;
+		form {
+			line-height: 10px;
+			position: absolute;
+			top: 2*$default-padding;
+			right: $default-padding;
+		}
+	}
 }
 
 #dashboard div.widget h2 {
@@ -1492,11 +1490,10 @@ span.icon.zoom-in {
 }
 
 .icon_button.small span.icon {
-	top: 2px;
-	left: 2px;
-	width: 9px;
-	height: 9px;
-	background-position: -4px -4px;
+	position: absolute;
+	right: 5px;
+	left: auto;
+	top: 4px;
 }
 
 span.icon.delete-small {
@@ -2223,10 +2220,6 @@ span.icon.close.small {
 	background: image-url('alchemy/ui-icons_666666_256x240.png') -84px -132px;
 	width: 8px;
 	height: 8px;
-	position: relative;
-	right: 1px;
-	left: auto;
-	top: 2px;
 }
 
 span.icon.online {
