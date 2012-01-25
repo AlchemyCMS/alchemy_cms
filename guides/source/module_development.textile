@@ -1,0 +1,10 @@
+h2. Module development
+
+This guide explains how to create own modules for Alchemy CMS
+
+endprologue.
+
+INFO: Under construction.
+
+
+`

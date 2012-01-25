@@ -1,0 +1,36 @@
+h2. Upgrading Alchemy CMS
+
+This guide describes how to upgrade Alchemy CMS from an older Alchemy version.
+
+endprologue.
+
+For every kind of upgrade, the latest Alchemy version should be installed as a gem.
+Since Alchemy is a gem and hosted on "RubyGems.org":http://rubygems.org, you can install it in a very easy way.
+
+When upgrading, no content will be touched or removed.
+
+<shell>
+gem install alchemy_cms
+</shell>
+
+h3. Upgrade from version 2.0.x
+
+Make sure that you dont have a specific old version defined for alchemy_cms gem in the <code>Gemfile</code> of your app.
+
+<pre>
+gem 'alchemy_cms'
+</pre>
+
+You should now install the dependencies via bundler.
+
+<shell>
+cd my_project && bundle install
+</shell>
+
+Now you can run the upgrade task.
+
+<shell>
+cd my_project && rake alchemy:upgrade
+</shell>
+
+While upgrading, you will get informations about the process on your screen.

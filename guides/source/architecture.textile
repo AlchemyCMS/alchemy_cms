@@ -1,40 +1,50 @@
-h2. Alchemys Architecture
+h2. Alchemy´s Architecture
 
-This guides explains Alchemys flexible content storing architecture.
+This guide explains Alchemy´s flexible architecture.
 
 endprologue.
 
-h3. How Alchemy organizes the content
+h3. Rails Engine
 
-First of all you have to understand Alchemys content storing archtitecture.
+Since the Alchemy CMS project started, it is a rails engine.
+Rails 3.1 brought the possibility for namespacing and mounting of rails-engines.
+Since Alchemy CMS v2.1 it is now a mountable and completely namespaced rails-engine.
 
-A webpage is more then just a page of content. It has sections like header parts, text parts, sidebars, image galleries and so on.
+h3. The Core modules
 
-With Alchemy a webdeveloper can split the parts of a web page into elements and in even smaller parts - so called contents. These contents can be of one
-of the essence types Alchemy provides.
+Alchemy CMS comes with core modules:
 
-h4. Essence types Alchemy has build in
+*# Dashboard
+*# Page
+*# Language
+*# Users
+*# Library (Pictures & Attachments)
 
-* EssenceText
-* EssenceRichtext
-* EssencePicture
-* EssenceHtml
-* EssenceDate
-* EssenceFile
-* EssenceVideo
-* EssenceAudio
-* EssenceFlash
+The core modules can be extended by own modules.
+A module should be a rails-engine that registers themself at Alchemy.
+Read more about "creating own modules":creating_own_modules.html.
 
-Read more about "the essences":/essences.html and what they do in detail.
 
-NOTE: A Webdeveloper can easily add more Essences to Alchemy. But we think this is pretty much all you need for a modern website.
+h3. Stored data-formats
 
-h4. A CMS build extra for you
+Alchemy CMS stores ids, unformatted text and only some richtext content in the database.<br />
+No markup (beside basic text formatting inside the richtext elements), no styling, no layout.
 
-With these essences a webdeveloper builds your custom set of elements. Depending of your personal webdesign you will get elements to manage your content with.
+h3. Rendering process
 
-h4. The Standardset
+When rendering a Page through the pages_controller´s show method, the pages.html.erb view will be used.
+This view is yielding the corresponding page_layout partial which renders the "cells":cells.html and "elements":elements.html.
 
-Alchemy comes with a standard set of elements and page layouts to begin with. This is a good place to start your own custom layout and page structure.
+h3. Caching
 
-Read more about the "standard set":/standard_set.html
+If not deactivated in the "configuration":configuration.html, Alchemy CMS uses action-caching for fast content delivering.
+This will cache the "page-layout":page_layouts.html partials where "cells":cells.html and "elements":elements.html are rendered on.
+
+h3. Ressources Controller
+
+Since Alchemy v2.1 there is a ressources controller available. When developing own modules for Alchemy, 
+your controller can inherit from that ressources controller (Alchemy::RessourcesController) and will get all the rails-like CRUD methods.
+
+The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
+
+Read more details of the ressources controller in the "module development":module_development.html guide.

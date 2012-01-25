@@ -1,5 +1,6 @@
 title: Alchemy CMS Guides
-description: "Alchemy is an awesome Content Management System with a flexible content storing architecture."
+description: "Alchemy CMS is an awesome Content Management System with a flexible content storing architecture."
+version: "2.1"
 
 authors:
   Core Team:
@@ -9,44 +10,51 @@ authors:
       description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
     - name: Robin Böning
       nick: robinboening
-      description: Robin is a member of the Alchemy core team. He is responsiblae for the website and the guidelines.
+      description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
     - name: Marc Schettke
       nick: masche842
       description: Marc is the newest member of the Alchemy core team.
 
 index:
-  Start Here:
+  1.) Start here:
     - title: Getting Started
       url: getting_started
       text: Everything you need to know to install and create your first Alchemy CMS project.
     - title: Standard-Set (website out of the box)
       url: standard_set
       text: Can be used with it's pre-defined set of elements and layout-templates.
+    - title: How to work with Alchemy CMS
+      url: how_to_work_with_alchemy
+      text: Best practises for working on individual projects with Alchemy CMS
 
-  Software architecture:
-    - title: Alchemys Architecture
+  2.) Architecture:
+    - title: Alchemy´s Architecture
+      text: How Alchemy CMS is working.
       url: architecture
+    - title: Pages
+      url: pages
+      text: What are pages and how do they work.
     - title: Page layouts
       url: page_layouts
       text: What are page layouts and how do they work.
-    - title: Page-Cells
+    - title: Cells
       url: cells
-      text: What are page-cells.
+      text: What are page-cells and how do they work.
     - title: Elements
       url: elements
-      text: What are elements.
-    - title: Essences
+      text: What are elements and how do they work.
+    - title: Contents/Essences
       url: essences
-      text: What are essences.
+      text: What are essences and how do they work.
     
-  In depth guides:
+  3.) In depth guides:
     - title: Creating own page layouts
       url: creating_page_layouts
       text: How to create own page layouts.
-      construction: true
     - title: Creating own Elements
       url: creating_elements
       text: How to create own elements.
+
     - title: Creating own Essences
       url: creating_essences
       text: How to create own essences.
@@ -58,11 +66,15 @@ index:
       url: manage_content
       text: How to manage content.
       construction: true
+
     - title: Working with images
-      url: work_with_images
+      url: working_with_images
       text: How to work with images.
       construction: true
-    - title: Plugin Development
-      url: plugin_development
-      text: How to develope your own plugin.
+    - title: Creating own Essence-types
+      url: creating_own_essence_types
+      text: How to create own Essence-types.
       construction: true
+    - title: Module Development
+      url: module_development
+      text: How to develope your own Alchemy module.

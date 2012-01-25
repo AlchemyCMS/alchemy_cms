@@ -18,6 +18,8 @@
 </head>
 <body class="guide">
 	
+<%= yield(:edge) %>
+	
 <div id="page">
 	<div id="bordure"></div>
 	<div id="header">
@@ -52,11 +54,19 @@
 				<% else %>
 				<h2><%= Guides.meta["title"] %></h2>
 				<p>
-					These guides are designed to make you familiar in working with the opensource Content-Management-System Alchemy CMS.
+					These guides are designed to make you familiar in working with the opensource Content-Management-System Alchemy CMS v<%= Guides.meta["version"] %>
 				</p>
+				
 				<p>
-					The <a href="#">legacy guides</a> are covering Alchemy CMS v1.x (not maintained anymore). It's recommended to update to the latest stable version.
+					<a href="/2.0/index.html">The guides for Alchemy version 2.0 can be found here.</a>
 				</p>
+				
+				
+				<!-- <p>
+					The <a href="1.x/">legacy guides</a> are covering Alchemy CMS v1.x. If you´re using v1.x, it is strongly recommended to upgrade to the latest version.
+					The <a href="upgrading.html">upgrade guide</a> will help you.
+				</p> -->
+
 				<% end %>
 				<%= yield(:index_section) %>
 			</div>

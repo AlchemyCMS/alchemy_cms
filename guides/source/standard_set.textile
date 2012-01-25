@@ -1,114 +1,43 @@
 h2. Standard-Set (website out of the box)
 
-Alchemy CMS is shipped with a built-in website.
-It is a demo website which can be used with it's pre-defined set of elements and layout-templates.
+This guide covers the built-in website Alchemy CMS comes with.
 
 endprologue.
 
 
-When installing Alchemy CMS via the installation-routine, you can decide to copy the standard-set files to your application or not.
+h3. What is the Standard-Set
 
-If you do, you will immediatelly be able to create new webpages based on the predefined page_layouts (templates) of the standard-set.
+It is a demo website which can be used out of the box.
+The same demo website can be visited online: "Demo of Alchemy CMS":http://alchemy-cms.com/en/demo.
+The Standard-Set is a collection of predefined "page layouts":page_layouts.html (templates) and "elements":elements.html.
 
-Editing that pages enables you to create new elements also predefined in the standard-set and filling them with your own content.
+Element definitions: <code>/config/alchemy/elements.yml</code><br />
+Corresponding element-view partials: <code>/app/views/alchemy/elements/</code>
 
-INFO: Of course, you are able to override that completely!
+Page-layout definitions: <code>/config/alchemy/page_layouts.yml</code><br />
+And their corresponding view partials: <code>/app/views/alchemy/page_layouts/</code>
 
-h3. available Elements
+h3. How to use it
 
-* Article
-** intro
-*** EssenceText
-** headline
-*** EssenceText
-** image
-*** EssencePicture
-** text
-*** EssenceRichtext
+When installing Alchemy CMS you immediatelly have access to the Standard-Set.<br />
+You can log in to the backend and create new pages and can place elements on it.
 
-* Intro image with text
-** unique: true
-** headline
-*** EssenceText
-** image
-*** EssencePicture
-** text
-*** EssenceRichtext
-  
-* Text
-** text
-*** EssenceRichtext
+h3. How to get it
 
-* Image
-** image
-*** EssencePicture
+there are two ways to get the files of the Standard-Set to your application.
 
-* Text with image
-** image
-*** EssencePicture
-** text
-*** EssenceRichtext
+h4. if copied the files while installation
 
-* Headline
-** headline
-*** EssenceText
+If you have used the "Alchemy CMS installation routine":getting_started.html#create-a-new-application and have decided to "copy all the standard-set files to your application", 
+you already have the files in the locations mentioned above.
 
-* Image Mosaic
-** image
-*** EssencePicture
-** caption
-*** EssenceText
+h4. If not copied the files while installation
 
-* Footnote
-** unique Element
-** note
-*** EssenceRichtext
+If you didnt choose "copy the files of the Standard-Set to your application", you do not have the files in your application, but the Standard-Set is also available for use. 
+The views and yml files are getting parsed from the gem.
 
-* sitename
-** unique: true
-** name
-*** type: EssenceText
+But also after the installation you can run the rake task for copying the files to your application.
 
-* claim
-** unique: true
-** claim
-*** type: EssenceText
-
-* header
-* unique: true
-** image
-*** type: EssencePicture
-
-* intro
-** intro
-*** type: EssenceRichtext
-
-* subheadline
-** subheadline
-*** type: EssenceText
-
-* news
-** date
-*** type: EssenceDate
-*** news_headline
-*** type: EssenceText
-*** body
-*** type: EssenceRichtext
-
-* searchresult
-** unique: true
-
-* contactform
-** unique: true
-*** mail_from
-*** type: EssenceText
-*** validate: [presence]
-*** mail_to
-*** type: EssenceText
-*** validate: [presence]
-*** subject
-*** type: EssenceText
-*** validate: [presence]
-*** success_page
-*** type: EssenceText
-*** validate: [presence]
+<shell>
+rake alchemy:standard_set:install
+</shell>

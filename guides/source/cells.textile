@@ -1,9 +1,22 @@
-h2. Page-Cells
+h2. Cells
 
 endprologue.
 
-h3. What are Page-Cells?
+h3. What are Cells?
 
-Cells are areas on a page. Elements can be rendered within a cell.
+Cells are sections on a page and are acting as containers for elements.
 
-You can define cells in the /config/alchemy/cells.yml.
+Cells are defined here: <code>/config/alchemy/cells.yml</code>
+
+*Example*
+
+<pre>
+- name: left_column
+  elements: [image, text]
+</pre>
+
+Normally cells are rendered on page_layouts. They can be called with this helper method:
+
+<pre>
+render_cell(:cellname)
+</pre>

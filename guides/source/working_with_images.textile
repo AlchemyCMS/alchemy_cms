@@ -1,0 +1,10 @@
+h2. Working with images
+
+This guide explains the possibilities when working with images in Alchemy CMS.
+
+endprologue.
+
+INFO: under construction
+
+´
+ 

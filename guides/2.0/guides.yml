@@ -1,0 +1,61 @@
+title: Alchemy CMS v2.0
+description: These guides are designed to make you familiar in working with the opensource Content-Management-System Alchemy CMS v2.0
+version: "2.0"
+
+authors:
+  Core Team:
+    - name: Thomas von Deyen
+      nick: tvdeyen
+      image: credits/tvd.png
+      description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
+    - name: Robin Böning
+      nick: robinboening
+      description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
+    - name: Marc Schettke
+      nick: masche842
+      description: Marc is the newest member of the Alchemy core team.
+
+index:
+  Start Here:
+    - title: Getting Started
+      url: getting_started
+      text: Everything you need to know to install and create your first Alchemy CMS project.
+    - title: Standard-Set (website out of the box)
+      url: standard_set
+      text: Can be used with it's pre-defined set of elements and layout-templates.
+
+  Software architecture:
+    - title: Alchemys Architecture
+      url: architecture
+    - title: Page layouts
+      url: page_layouts
+      text: What are page layouts and how do they work.
+    - title: Page-Cells
+      url: cells
+      text: What are page-cells.
+    - title: Elements
+      url: elements
+      text: What are elements.
+    - title: Essences
+      url: essences
+      text: What are essences.
+    
+  In depth guides:
+    - title: Creating own page layouts
+      url: creating_page_layouts
+      text: How to create own page layouts.
+    - title: Creating own Elements
+      url: creating_elements
+      text: How to create own elements.
+      
+    - title: Managing content
+      url: manage_content
+      text: How to manage content.
+      construction: true
+    - title: Working with images
+      url: work_with_images
+      text: How to work with images.
+      construction: true
+    - title: Plugin Development
+      url: plugin_development
+      text: How to develope your own plugin.

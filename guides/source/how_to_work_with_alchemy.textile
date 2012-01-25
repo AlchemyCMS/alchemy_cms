@@ -1,0 +1,40 @@
+h2. How to work with Alchemy CMS (best practises)
+
+endprologue.
+
+h3. Conceptual page and content structuring
+
+When working with Alchemy CMS the very first thing the webdeveloper conceptually does is splitting the website´s layout into different types (called page-layouts).
+Every page which is structurally different to other, should get its own page-layout. A page-layout is a html template with specified properties.
+"More about PageLayouts »":page_layouts.html
+
+After that the developer will look deeper to the content and will perhaps split the pages into cells.
+Cells can be rendered on page-layouts and are acting as containers for elements.
+"More about Cells »":cells.html
+
+In any case the developer splits the content into elements. That means grouping the smallest parts of the website (the contents).
+Elements are containers for essences (called contents) and can be rendered on page-layouts or in cells.
+"More about Elements »":elements.html
+
+A content is the smallest part in Alchemy and refers to one of the essence-types Alchemy CMS provides (EssenceText, EssencePicure, EssenceRichtext, ...).
+"More about Essences »":essences.html
+
+h3. Rendering your own contents
+
+h4. Using elements
+
+INFO: under construction
+
+h4. Using cells
+
+INFO: under construction
+
+h4. Using the navigation helper
+
+INFO: under construction
+
+h4. Using the implemented fulltext search
+
+INFO: under construction
+
+´
