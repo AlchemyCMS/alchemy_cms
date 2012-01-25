@@ -17,7 +17,7 @@
 	<td class="file_name"><%= attachment.filename %></td>
 	<td class="file_type"><%= mime_to_human(attachment.content_type) %></td>
 	<td class="file_size"><%= number_to_human_size(attachment.size) %></td>
-	<td class="date"><%= l(attachment.created_at) %></td>
+	<td class="date"><%= l(attachment.created_at, :format => :short) %></td>
 	<td class="tools long">
 		<%- permitted_to?(:download, :attachments) do -%>
 		<%= link_to(
