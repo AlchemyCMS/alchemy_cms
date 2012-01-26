@@ -1,0 +1,56 @@
+@import "alchemy/defaults";
+
+div.pagination {
+	clear: both;
+	zoom: 1;
+	text-align: right;
+	line-height: 24px;
+	height: 24px;
+	width: 100%;
+	margin-top: 4*$default-padding;
+	
+	a, span, em {
+		font-size: 12px;
+		height: 25px;
+		line-height: 25px;
+		padding: $default-padding;
+	}
+	
+	a:hover {
+		color: #000;
+		text-shadow: none;
+		text-decoration: underline;
+	}
+	
+	.current {
+		@include button-styles;
+		background: $button-hover-bg-color;
+		color: $text-color;
+		border: 1px solid #888;
+		text-shadow: 0px 1px 1px #fff;
+		cursor: default;
+	}
+	
+	.previous_page {
+		margin-right: 2*$default-padding;
+	}
+	
+	.next_page {
+		margin-left: 2*$default-padding;
+	}
+	
+	.disabled {
+		color: #c0c0c0;
+	}
+	
+	span.gap {
+		border: none;
+		background: transparent;
+		cursor: default;
+	}
+}
+
+#assign_image_list div.pagination {
+	margin-bottom: 8px;
+	text-align: center;
+}

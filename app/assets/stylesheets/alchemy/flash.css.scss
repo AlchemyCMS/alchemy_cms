@@ -1,0 +1,54 @@
+@import "alchemy/defaults";
+
+/* @group Flash Notices */
+
+div#flash_notices {
+	position: fixed;
+	right: 0;
+	z-index: 400000;
+	width: 348px;
+	top: 0;
+}
+
+div.flash {
+	@include rounded-corner;
+	@include opacity(95);
+	padding: 8px 8px 8px 30px;
+	font-weight: bold;
+	border-width: 1px;
+	border-style: solid;
+	z-index: 1000;
+	margin: $default-margin;
+	position: relative;
+	min-height: 1.3em;
+	
+	span.icon {
+		position: absolute;
+		top: 8px;
+		left: 8px;
+	}
+	
+	&.notice {
+		border-color: #9cc4a1;
+		color: #2e5934;
+		background-color: #e2efd3;
+	}
+	
+	&.error {
+		border-color: #c49c9c;
+		color: #592e2e;
+		background-color: #efd3d3;
+	}
+	
+	&.info {
+		border-color: #8392b5;
+		color: #233772;
+		background-color: #cadbf3;
+	}
+	
+	&.warn, &.warning {
+		border-color: #c4c19c;
+		color: #726d23;
+		background-color: #f3f0c1;
+	}
+}

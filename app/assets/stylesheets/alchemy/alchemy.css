@@ -1,6 +1,12 @@
 /* Alchemy CMS Sprockets Manifest
 * -------------------------------
 *= require alchemy/base
+*= require alchemy/frame
+*= require alchemy/dashboard
+*= require alchemy/login
+*= require alchemy/flash
+*= require alchemy/pagination
+*= require alchemy/sitemap
 *= require alchemy/elements
 *= require alchemy/flags
 *= require alchemy/jquery-ui.alchemy
