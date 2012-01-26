@@ -37,8 +37,50 @@ Additionaly, for an engine, you have to mount it in your routes:
 
 Notice: Due to alchemy's strong routes it is recommenend to mount your engine before mounting alchemy.
 
-h3. Using alchemy's backend for your module
+h3. Create your own backend using Alchemy
 
+Hence every module is a subsection of a rails application or a gem you can roll out your own admin backend if you like.
+But using Alchemy's backend interface takes a whole bunch of work for you:
+
+- authentication and authorization
+- a highly and fine grained customizable resource manager (CRUD interface)
+- a nicely styled user interface
+
+And it's easy as this:
+
+<pre>
+  module Admin
+    class YourResourcesController < Alchemy::Admin::ResourcesController
+    end
+  end
+</pre>
+
+You can overwrite the default controller actions and views as you like. 
+An instance-variable named after the resource (i.e. @your_resource for YourResource) is defined for use in your views.
+
+After you setting up your routes you have to take care for control access:
+
+h3. Authorization
+
+Rights and roles are set in config/authorization_rules.rb. Just create the file if it doesn't exist already.
+
+<pre>
+# config/authorization_rules.rb
+authorization do
+
+  role :admin do
+    has_permission_on :admin_your_resource, :to => [:manage]
+  end
+
+end
+</pre>
+
+More information about authorization can be found in the docs of the declerative_authorization-gem: 
+-> [https://github.com/stffn/declarative_authorization](https://github.com/stffn/declarative_authorization)
+
+h3. Get Ready!
+
+Restart, point your browser to localhost:3000/admin/your_resources and start CRUDing!
 
 
 &nbsp;
