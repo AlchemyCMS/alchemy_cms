@@ -443,7 +443,8 @@ module Alchemy
 			default_options = {
 				:page => @search_result_page,
 				:html5 => false,
-				:button_value => t("search")
+				:button_value => t("search"),
+				:button_class => nil
 			}
 			options = default_options.merge(options)
 			if options[:page].class.name != "Alchemy::Page"
@@ -454,7 +455,7 @@ module Alchemy
 				if options[:html5]
 					search_field_tag(:query, params[:query])
 				else
-					text_field_tag(:query, params[:query]) + submit_tag(options[:button_value])
+					text_field_tag(:query, params[:query]) + submit_tag(options[:button_value], :class => options[:button_class])
 				end
 			end
 		end
