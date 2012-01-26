@@ -16,7 +16,9 @@ module Alchemy
 				:resources_instance_variable,
 				:namespaced_resources_name,
 				:resource_namespaced?,
-				:resource_url_scope
+				:resources_permission,
+				:resource_url_scope,
+				:is_alchemy_module?
 			)
 
 			def index
@@ -141,12 +143,23 @@ module Alchemy
 			end
 
 			def resource_url_scope
-				alchemy_module = module_definition_for(:controller => params[:controller], :action => params[:action])
-				if alchemy_module.nil? || alchemy_module['engine_name'].blank?
-					main_app
-				else
+				if is_alchemy_module?
 					eval(alchemy_module['engine_name'])
+				else
+					main_app
 				end
+			end
+
+			def is_alchemy_module?
+				!alchemy_module.nil? && !alchemy_module['engine_name'].blank?
+			end
+
+			def alchemy_module
+				@alchemy_module ||= module_definition_for(:controller => params[:controller], :action => 'index')
+			end
+
+			def resources_permission
+				(resource_namespaced? ? "#{resource_namespace.underscore}_admin_#{resources_name}" : "admin_#{resources_name}").to_sym
 			end
 
 		end

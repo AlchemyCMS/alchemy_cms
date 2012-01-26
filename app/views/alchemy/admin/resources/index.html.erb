@@ -10,7 +10,7 @@
 			:overlay_options => {
 				:title => label_title
 			},
-			:if_permitted_to => [:new, namespaced_resources_name.to_sym]
+			:if_permitted_to => [:new, resources_permission]
 		}
 	],
 	:search => true,
