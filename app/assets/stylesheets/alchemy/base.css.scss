@@ -1,21 +1,58 @@
 @import "alchemy/defaults";
 
-#sitemap_heading span.page_name {
-	margin-left: 24px;
-	line-height: 28px;
+h1 {
+	margin: 0 0 10px;
+	padding: 0;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+h2 {
+	margin: 5px 0;
+	padding-bottom: 5px;
+	clear: both;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+h3 {
+	margin: 5px 0;
+	padding-bottom: 5px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+p {
+	margin: 0 0 5px;
+	padding: 0;
+	font-size: 12px;
 }
 
 a {
 	color: $text-color;
 	text-decoration: none;
+	
+	&:hover {
+		text-decoration: underline;
+	}
+	
+	img {
+		border: none;
+	}
 }
 
-a:hover {
-	text-decoration: underline;
+form {
+	margin-bottom: 0;
 }
 
-a img {
-	border: none;
+ul {
+	padding-left: 16px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	
+	li {
+		margin-bottom: 0.5em;
+	}
 }
 
 .float_right {
@@ -34,16 +71,6 @@ a img {
 	position: relative;
 	top: 1px;
 	left: -1px;
-}
-
-ul {
-	padding-left: 16px;
-	margin-top: 1em;
-	margin-bottom: 1em;
-}
-
-ul li {
-	margin-bottom: 0.5em;
 }
 
 span.updated_at {
@@ -102,13 +129,6 @@ a.drop_down_select img {
 	@include rounded-corner;
 }
 
-h1 {
-	margin: 0 0 10px;
-	padding: 0;
-	font-weight: bold;
-	font-size: 12px;
-}
-
 div.source_editor textarea{
 	width: 100%;
 	height: 358px;
@@ -119,31 +139,6 @@ div.edit_source_buttons {
 	margin-top: 8px;
 	float: right;
 	clear: both;
-}
-
-table td.rights {
-	width: 60px;
-}
-
-h2 {
-	margin: 5px 0;
-	padding-bottom: 5px;
-	clear: both;
-	font-weight: bold;
-	font-size: 12px;
-}
-
-h3 {
-	margin: 5px 0;
-	padding-bottom: 5px;
-	font-size: 12px;
-	font-weight: bold;
-}
-
-p {
-	margin: 0 0 5px;
-	padding: 0;
-	font-size: 12px;
 }
 
 div.info {
@@ -160,24 +155,6 @@ div.info {
 div.info.footnote {
 	font-size: 10px;
 	margin: 16px;
-}
-
-p.no_padding {
-	padding: 0;
-	margin: 0;
-}
-
-p.padding_bottom {
-	padding-bottom: 5px;
-}
-
-.padding_leftright {
-	padding-left: 8px;
-	padding-right: 8px;
-}
-
-.cancel_button_paddingleft {
-	padding-left: 5px;
 }
 
 div#page {
@@ -242,18 +219,9 @@ div.tip {
 	margin-right: 8px;
 }
 
-/* @group page_editing */
-
-/*#page_names td {
-	height: 22px;
-	padding-bottom: 4px;
-}*/
-
 #page_names textarea {
 	height: 78px;
 }
-
-/* @end */
 
 div#new_page_from_clipboard {
   display: none;
@@ -275,10 +243,6 @@ div#new_page_from_clipboard span {
 
 div#page_status_options {
 	float: left;
-}
-
-form {
-	margin-bottom: 0;
 }
 
 div#page_editing_menu {
@@ -381,118 +345,6 @@ div#toolbar a.button:active {
 	background-position: 0 -21px;
 }
 
-/* @group add, edit and delete buttons */
-
-button.icon_button {
-	@include button-styles;
-	padding: $default-padding;
-	height: 25px;
-	line-height: 19px;
-	font-size: 0;
-	width: 25px;
-}
-
-button.icon_button.small {
-	background: transparent;
-	padding: 0;
-	width: 17px;
-	height: 17px;
-	border: none;
-}
-
-button.icon_button.small:hover {
-	background-color: #e6f0f5;
-	color: $dark-gray;
-	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
-	text-decoration: none;
-}
-
-button.icon_button:hover {
-	background-color: #e6f0f5;
-	color: $dark-gray;
-	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
-	text-decoration: none;
-}
-
-button.icon_button:active {
-	background-color: #cdd6db;
-}
-
-button.icon_button img {
-	margin: 0;
-	border-style: none;
-	border-width: 0;
-}
-
-a.icon_button {
-	float: left;
-	width: 23px;
-	height: 23px;
-	background-color: #f7f7f7;
-	background-image: image-url('alchemy/shading.png');
-	background-repeat: repeat-x;
-	background-position: 0 -75px;
-	margin-right: 8px;
-	border: 1px solid #9a9a9a;
-	@include rounded-corner;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-	overflow: hidden;
-	position: relative;
-}
-
-div.sitemap_right_tools a.icon_button {
-}
-
-div.sitemap_right_tools .sitemap_sitetools a.icon_button {
-	margin-right: 4px;
-}
-
-a.icon_button.small {
-	width: 11px;
-	height: 11px;
-	float: none;
-	display: inline-block;
-	background-position: 0 -8px;
-	vertical-align: -1px;
-}
-
-a.icon_button.old_icon {
-	width: 20px;
-	height: 19px;
-}
-
-a.icon_button:hover {
-	background-color: #e6f0f5;
-	color: $dark-gray;
-	border: 1px solid #888;
-	text-shadow: 0 1px 4px #fff;
-	text-decoration: none;
-}
-
-a.icon_button:active {
-	background-color: #cdd6db;
-	border-style: inset;
-	border-color: #bfbfbf;
-}
-
-a.icon_button img {
-	position: absolute;
-	top: 2px;
-	left: 3px;
-}
-
-.icon.blank {
-  background: transparent;
-}
-
-span.icon.sort {
-	background-position: -128px -168px;
-}
-
 #page_sorting_panel p {
 	margin-top: 1em;
 }
@@ -503,123 +355,13 @@ div.info span.icon.info {
 	left: 8px;
 }
 
-span.icon.module {
-	width: 24px;
-	height: 24px;
-	margin-bottom: 4px;
-}
-
-span.module.dashboard {
-	background-position: -240px 0;
-}
-
-span.module.pages {
-	background-position: -40px 0;
-}
-
-span.module.users {
-	background-position: -80px 0;
-}
-
-span.module.library {
-	background-position: -120px 0;
-}
-
-span.module.languages {
-	background-position: -200px 0;
-}
-
-span.module.exit {
-	background-position: -160px 0;
-}
-
-a.icon_button span.icon {
-	position: absolute;
-	left: 4px;
-	top: 4px;
-}
-
-span.icon.zoom-out {
-	background: image-url('alchemy/icons.png') -416px -72px;
-}
-
-span.icon.zoom-equal {
-	background: image-url('alchemy/icons.png') -448px -72px;
-}
-
-span.icon.zoom-in {
-	background: image-url('alchemy/icons.png') -480px -72px;
-}
-
-.icon_button.small span.icon {
-	position: absolute;
-	right: 5px;
-	left: auto;
-	top: 4px;
-}
-
-span.icon.delete-small {
-	background: image-url('alchemy/icons.png') 0 -72px;
-}
-
-a.icon_button span.old_icon {
-	position: relative;
-	background-repeat: no-repeat;
-	width: 22px;
-	height: 20px;
-	display: inline-block;
-	top: -1px;
-	left: -1px;
-}
-
-a.icon_button.old_icon img {
-	top: 0;
-	left: 1px;
-}
-
 div.table_right span.tools a.icon_button img {
 	left: -1px;
 }
 
-/* @end */
-
 #user_edit form {
 	margin: 0;
 	padding: 2*$default-padding;
-}
-
-table {
-	border-style: none;
-	border-spacing: 0 $default-padding;
-	padding: 0;
-	font-size: inherit;
-	width: 100%;
-}
-
-table.window_form {
-	width: 100%;
-}
-
-table td, table th {
-	padding: $default-padding;
-}
-
-table th {
-	text-align: left;
-	height: 22px;
-	vertical-align: top;
-}
-
-th.login_status {
-	width: 16px;
-}
-
-table tr.odd td {
-	background-color: #eaf3f9;
-}
-
-table tr.even td {
-	background-color: white;
 }
 
 li.even {
@@ -742,214 +484,6 @@ input#search_input_field {
 	height: 18px;
 }
 
-input.button,
-a.button,
-button.button {
-	@include button-styles;
-}
-
-#new_element button.button {
-	float: right;
-}
-
-input.button {
-	padding-left: 8px;
-	padding-right: 8px;
-	padding-bottom: 2px;
-	height: 25px;
-}
-
-button.button {
-	line-height: 19px;
-	padding: 2px 8px 2px 8px;
-	height: 25px;
-	font-size: 11px;
-}
-
-.button img {
-	margin: 2px 0 0 0;
-	width: 20px;
-	height: 20px;
-}
-
-#new_page_form tbody tr td.second_row .button {
-	float: right;
-}
-
-input.button:hover,
-input.button:focus,
-a.button:hover,
-a.button:focus,
-button.button:hover,
-button.button:focus {
-	@include button-hover-styles;
-}
-
-input.button:active,
-a.button:active {
-	text-decoration: none;
-	text-shadow: none;
-	background-color: #e5e5e5;
-}
-
-a.button.disabled,
-a.button.disabled:hover,
-a.button.disabled:active,
-input.button.disabled,
-input.button.disabled:hover,
-input.button.disabled:active,
-button.button.disabled,
-button.button.disabled:hover,
-button.button.disabled:active {
-	color: $text-color;
-	text-shadow: none;
-	border-color: #ccc;
-	cursor: default;
-	background-image: none;
-	background-color: #f5f5f5;
-	padding: 1px 0 0;
-}
-
-a.button.disabled img {
-	display: inline-block;
-	float: none;
-}
-
-a.button.small.disabled img {
-	display: inline-block;
-	float: none;
-	position: relative;
-	height: 16px;
-	width: 16px;
-	top: -1px;
-}
-
-a.button.disabled,
-a.button.disabled:hover,
-a.button.disabled:active {
-	padding: 2px !important;
-	text-align: center;
-}
-
-label {
-	
-}
-
-a.button {
-	padding: 5px 8px;
-	text-decoration: none;
-	float: left;
-	line-height: 13px;
-}
-
-a.button.small {
-	height: 14px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border-radius: 10px;
-	-o-border-radius: 10px;
-	-ms-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-}
-
-a.small.button.with_icon span.icon {
-	margin-top: -5px;
-	position: relative;
-	top: 3px;
-	left: -1px;
-}
-
-table tr td.tools {
-	width: 40px;
-	background-color: $light-gray;
-	white-space: nowrap;
-}
-
-td.input, td.label {
-	padding-top: 2px;
-	vertical-align: top;
-}
-
-td.input, td.submit, td.select {
-	text-align: right;
-	padding-right: 0;
-}
-
-td.value {
-	padding-left: 2*$default-padding;
-}
-
-td.label {
-	white-space: nowrap;
-	width: 80px;
-	padding: $default-padding 2*$default-padding 0 0;
-	line-height: 6*$default-padding;
-}
-
-td.label.mandatory:after {
-	content: '*';
-}
-
-td.heading {
-	padding: $default-padding 0;
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-td.input input[type="checkbox"], td.input input[type="radio"] {
-	margin-top: 6px;
-}
-
-td.label.long {
-	width: 140px;
-}
-
-td.label.very_long {
-	width: 230px;
-}
-
-table tr td.tools a {
-	width: 19px;
-	height: 19px;
-	margin-right: 2px;
-}
-
-table tr td.tools.long {
-	width: 60px;
-}
-
-table tr td.icon {
-	background-color: $light-gray;
-	width: 20px;
-	text-align: center;
-}
-
-table.list tr:hover td {
-	background-color: #fffdef;
-}
-
-td.file_type {
-	width: 130px;
-	white-space: nowrap;
-}
-
-td.file_size {
-	width: 80px;
-}
-
-td.date {
-	width: 150px;
-}
-
-table td.right, table th.right {
-	text-align: right;
-}
-
-table td.center, table th.center {
-	text-align: center;
-}
-
 .list li.table_row div.table_right span{
 	float: left;
 	text-align: left;
@@ -958,19 +492,6 @@ table td.center, table th.center {
 .list li.table_row div.table_center {
 	float: none;
 	padding-left: 24px;
-}
-
-td.login {
-	width: 100px;
-}
-
-td.email {
-	width: 270px;
-}
-
-td.role {
-	width: 70px;
-	padding-right: 4px;
 }
 
 .list div.table_left {
@@ -1139,276 +660,6 @@ textarea.thin_border {
 	background-color: #fff8df;
 }
 
-/* @group Icons */
-
-span.icon {
-	display: inline-block;
-	background: image-url('alchemy/icons.png') no-repeat;
-	width: 16px;
-	height: 16px;
-}
-
-span.icon.user_add {
-	background: image-url('alchemy/icons.png') -96px -104px;
-}
-
-span.icon.language_add {
-	background: image-url('alchemy/icons.png') -47px -120px;
-}
-
-span.icon.user {
-	background: image-url('alchemy/icons.png') 0 -104px;
-}
-
-span.icon.language {
-	background: image-url('alchemy/icons.png') 0 -120px;
-}
-
-span.icon.user.female {
-	background: image-url('alchemy/icons.png') -128px -104px;
-}
-
-a.icon.user_edit {
-	background: image-url('alchemy/icons.png') -64px -104px;
-}
-
-a.icon.language_edit {
-	background: image-url('alchemy/icons.png') -32px -120px;
-}
-
-a.icon.user_edit.female {
-	background: image-url('alchemy/icons.png') -192px -104px;
-}
-
-span.icon.settings {
-	background: image-url('alchemy/icons.png') -320px -40px;
-}
-
-span.icon.visit_page {
-	background: image-url('alchemy/icons.png') -31px -137px;
-}
-
-span.icon.upload {
-	background: image-url('alchemy/icons.png') 0 -136px;
-}
-
-span.icon.pdf {
-	background: image-url('alchemy/icons.png') -161px -136px;
-}
-
-span.icon.text {
-	background: image-url('alchemy/icons.png') -448px -136px;
-}
-
-span.icon.archive {
-	background: image-url('alchemy/icons.png') -416px -136px;
-}
-
-span.icon.audio {
-	background: image-url('alchemy/icons.png') -192px -136px;
-}
-
-span.icon.image {
-	background: image-url('alchemy/icons.png') -224px -136px;
-}
-
-span.icon.vcard {
-	background: image-url('alchemy/icons.png') -416px -104px;
-}
-
-span.icon.psd {
-	background: image-url('alchemy/icons.png') -128px -136px;
-}
-
-span.icon.flash {
-	background: image-url('alchemy/icons.png') -256px -136px;
-}
-
-span.icon.video {
-	background: image-url('alchemy/icons.png') -288px -136px;
-}
-
-span.icon.rtf {
-	background: image-url('alchemy/icons.png') -320px -136px;
-}
-
-span.icon.word {
-	background: image-url('alchemy/icons.png') -384px -136px;
-}
-
-span.icon.excel {
-	background: image-url('alchemy/icons.png') -176px -72px;
-}
-
-span.icon.file {
-	background: image-url('alchemy/icons.png') 0 -40px;
-}
-
-span.icon.flush {
-	background-position: -352px -39px;
-}
-
-span.icon.publish {
-	background-position: -64px -136px;
-}
-
-span.icon.info {
-	background-position: -64px -168px;
-}
-
-span.icon.close {
-	background-position: -416px -41px;
-}
-
-span.icon.sync {
-	background-position: -96px -136px;
-}
-
-span.icon.close.small {
-	background: image-url('alchemy/ui-icons_666666_256x240.png') -84px -132px;
-	width: 8px;
-	height: 8px;
-}
-
-span.icon.online {
-	background-position: -224px -104px;
-}
-
-span.icon.offline {
-	background-position: -255px -104px;
-}
-
-span.icon.tick, span.icon.true {
-	background-position: -32px -72px;
-}
-
-span.icon.error {
-	background-position: -32px -168px;
-}
-
-span.icon.false {
-	background-image: none;
-}
-
-span.icon.link,
-a.link {
-	background-position: -320px -72px;
-}
-
-span.icon.unlink {
-	background-position: -352px -72px;
-}
-
-.icon.swap_picture {
-	background-position: -288px -72px;
-}
-
-.icon.crop {
-	background-position: -256px -72px;
-}
-
-span.icon.warning, span.icon.warn {
-	background-position: 0 -168px;
-}
-
-span.icon.element_public {
-	background-position: -94px -166px;
-}
-
-span.icon.element_draft {
-	background-position: 1px -70px;
-}
-
-span.icon.new_element {
-	background: image-url('alchemy/icons.png') -384px -40px;
-}
-
-span.icon.element_window {
-	background: image-url('alchemy/icons.png') -512px -72px;
-}
-
-span.icon.preview_window {
-	background: image-url('alchemy/icons.png') -448px -40px;
-}
-
-span.icon.clipboard {
-	background-position: -288px -104px;
-}
-
-span.icon.clipboard.full {
-	background-position: -320px -104px;
-}
-
-span.icon.trash {
-	background-position: -352px -104px;
-}
-
-span.icon.trash.full {
-	background-position: -384px -104px;
-}
-
-a.icon.file_download {
-	background: image-url('alchemy/icons.png') -480px -136px;
-}
-
-.icon.download {
-	background: image-url('alchemy/icons.png') -240px -72px;
-}
-
-a.icon.file_delete {
-	background: image-url('alchemy/icons.png') -64px -40px;
-}
-
-a.icon.file_edit {
-	background: image-url('alchemy/icons.png') -32px -40px;
-}
-
-.icon.edit {
-	background: image-url('alchemy/icons.png') -160px -168px;
-}
-
-.icon.create {
-	background: image-url('alchemy/icons.png') -192px -568px;
-}
-
-span.icon.add_page {
-	background: image-url('alchemy/icons.png') -96px -40px;
-}
-
-span.icon.copy_page {
-	background: image-url('alchemy/icons.png') -544px -40px;
-}
-
-span.icon.delete_page {
-	background: image-url('alchemy/icons.png') -64px -40px;
-}
-
-a.icon.user_delete {
-	background: image-url('alchemy/icons.png') -32px -104px;
-}
-
-a.icon.language_delete {
-	background: image-url('alchemy/icons.png') -16px -120px;
-}
-
-.icon.destroy {
-	background: image-url('alchemy/icons.png') -224px -168px;
-}
-
-span.icon.configure_page {
-	background: image-url('alchemy/icons.png') -320px -40px;
-}
-
-span.icon.search {
-	background: image-url('alchemy/ui-icons_666666_256x240.png') -160px -112px;
-}
-
-a.icon.user_delete.female {
-	background: image-url('alchemy/icons.png') -160px -104px;
-}
-
-/* @end */
-
 select.select_box {
 	border: 1px solid #9a9a9a;
 	color: $text-color;
@@ -1517,138 +768,6 @@ div#toolbar_buttons {
 div#toolbar_buttons_right {
 	float: right;
 	margin-left: 8px;
-}
-
-div.button_with_label {
-	text-align: center;
-	margin-right: 8px;
-	margin-left: 8px;
-	float: left;
-	min-width: 70px;
-	line-height: 0;
-	
-	&.active {
-		.icon_button {
-			background-color: #cdd6db;
-			border-style: inset;
-			border-color: #bfbfbf;
-		}
-		label {
-			color: black;
-			text-shadow: white 0 0 2px;
-		}
-	} 
-
-	.disabledButton {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-	}
-
-	a.icon_button {
-		float: none;
-		margin-right: auto;
-		margin-left: auto;
-		display: inline-block;
-		position: relative;
-	}
-
-	&.disabled {
-		position: relative;
-		@include opacity(50);
-		cursor: default;
-		
-		a:hover, a:active {
-			cursor: default;
-			background-color: #f7f7f7;
-			border: 1px solid #9a9a9a;
-		}
-		
-		&:before {
-			content: '';
-			position: absolute;
-			z-index: 1;
-			width: 100%;
-			height: 100%;
-			background-color: transparent;
-			@include opacity(50);
-		}
-		
-		&:hover label {
-			color: $text-color;
-			cursor: default;
-		}
-		
-	}
-	
-}
-
-.icon_button.disabled span {
-	position: relative;
-	@include opacity(30);
-	cursor: default;
-}
-
-.icon_button.disabled:hover {
-	background-color: #f7f7f7;
-	border: 1px solid #9a9a9a;
-	cursor: default;
-}
-
-div#toolbar label, div#overlay_toolbar label {
-	font-size: 10px;
-	text-shadow: #fff 0 1px 2px;
-	margin-top: $default-margin;
-	display: block;
-	line-height: 13px;
-}
-
-div.button_with_label:hover label {
-	color: #000;
-	text-shadow: #fff 0 1px 4px;
-}
-
-#toolbar_links a {
-	padding: $default-padding;
-	border: 1px solid #9a9a9a;
-	@include rounded-corner;
-	margin-right: $default-margin;
-	background: #fff image-url('alchemy/shading.png') repeat-x 0 -75px;
-	text-decoration: none;
-}
-
-div.search_field span.icon,
-div.js_filter_field_box span.icon {
-	position: absolute;
-	left: 6px;
-	top: 4px;
-}
-
-#toolbar_links a:hover {
-	background-color: #e6f0f5;
-	color: $text-color;
-	border: 1px solid #888;
-	text-shadow: 0 1px 1px #fff;
-	text-decoration: none;
-}
-
-#toolbar_links a:active {
-	background-color: #cdd6db;
-}
-
-div#per_page_values {
-	margin-top: 2px;
-	margin-bottom: 6px;
-}
-
-#toolbar_links a.active {
-	background-color: #e6f0f5;
-	color: $text-color;
-	border: 1px solid #888;
-	text-shadow: 0 1px 1px #fff;
 }
 
 #errorExplanation {
@@ -2061,13 +1180,6 @@ input#link_to_text {
 	margin: 0;
 }
 
-div#tabbar_and_content {
-	
-}
-
-#internal_link_title {
-}
-
 #alchemy .ui-dialog-content ul#sitemap {
 	margin: 0;
 	padding: 0 8px 8px 0;
@@ -2167,7 +1279,7 @@ div.elements_for_page {
 
 a.close_elements_from_page_selector {
 	position: absolute;
-	right: 8px;
+	right: 0;
 	top: 8px;
 	font-size: 0;
 	padding-right: 2px;
@@ -2253,10 +1365,6 @@ div.assign_file_file_icon img {
 	width: 195px;
 }
 
-td.label.middle {
-	padding-left: 2*$default-padding;
-}
-
 .elements_for_page .alchemy_selectbox {
 	float: left;
 	width: 217px;
@@ -2308,58 +1416,6 @@ select#url_protocol.medium {
 #alchemy .ui-dialog-content p a.button.small {
 	float: none;
 	display: inline-block;
-}
-
-div.emulate_table input.button:disabled {
-	color: gray;
-}
-
-div.emulate_table {
-	overflow: auto;
-}
-
-div.emulate_table label {
-	float: left;
-	width: 70px;
-	padding-top: 2px;
-}
-
-div.emulate_table .short_label {
-	width: 50px;
-	text-align: right;
-	padding-right: 4px;
-	padding-left: 4px;
-}
-
-div.emulate_table input, div.emulate_table select {
-	float: left;
-}
-
-.emulated_table_row {
-	padding: 1px;
-	overflow: auto;
-	clear: both;
-	margin-bottom: 5px;
-	line-height: 21px;
-}
-
-.emulated_table_row span.first_column {
-	float: left;
-	margin-right: 4px;
-}
-
-div.emulate_table select.short {
-	border: 0px none;
-	padding: 2px;
-	width: 51px;
-}
-
-div.emulate_table p {
-	float: left;
-	clear: both;
-	margin-bottom: 4px;
-	padding: 0px;
-	width: 100%;
 }
 
 .assign_file_file.selected_file {
@@ -2419,107 +1475,6 @@ div#overlay_toolbar a.button:active {
 	margin-right: 8px;
 }
 
-a.icon.remove {
-	background: image-url('alchemy/icons.png') no-repeat -64px;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	position: relative;
-	top: 3px;
-	margin-right: 4px;
-}
-
-a#uploadswitcher, a.underline {
-	text-decoration: underline;
-}
-
-#uploadProgressContainer {
-	overflow-x: hidden;
-	overflow-y: auto;
-	height: 234px;
-}
-
-#uploadProgressContainer .progressWrapper {
-	padding: 2*$default-padding;
-	background-color: $medium-gray;
-	position: relative;
-	margin-bottom: 8px;
-	border: 1px solid #9e9e9e;
-	@include rounded-corner;
-}
-
-#uploadProgressContainer .progressName,
-#uploadProgressContainer .progressBarStatus {
-	margin-bottom: 4px;
-}
-
-#uploadProgressContainer .progressBarStatus {
-	font-size: 10px;
-}
-
-#uploadProgressContainer .progressName {
-	text-shadow: 0 1px 2px #FFFFFF;
-}
-
-#uploadProgressContainer .progressBarContainer {
-	background: #F9F9F9 image-url('alchemy/shading.png') repeat-x 0 0;
-	border:1px solid #9E9E9E;
-	@include rounded-corner;
-	height:16px;
-	overflow: hidden;
-	width:100%;
-}
-
-#uploadProgressContainer .progressBarInProgress {
-	background: #77AAD5 image-url('alchemy/shading.png') repeat-x 0 -75px;
-	height: 16px;
-	width: 0;
-}
-
-#uploadProgressContainer .progressBarComplete {
-	background: #00D827 image-url('alchemy/shading.png') repeat-x 0 -75px;
-	height: 16px;
-	width: 0;
-}
-
-#uploadProgressContainer .progressBarError {
-	background: #F00 image-url('alchemy/shading.png') repeat-x 0 -75px;
-	height: 16px;
-	width: 0;
-}
-
-#uploadProgressContainer .progressBarCanceled {
-	background: #E4E4E4 image-url('alchemy/shading.png') repeat-x 0 -75px;
-	height: 16px;
-	width: 0;
-}
-
-#uploadProgressContainer .progressCancel {
-	background: #f1f1f1 image-url('alchemy/icons.png') no-repeat -1px -72px;
-	border: 1px solid #9e9e9e;
-	@include rounded-corner;
-	width: 15px;
-	height: 16px;
-	position: absolute;
-	top: 8px;
-	right: 8px;
-}
-
-#swf_upload_container {
-	height: 60px;
-}
-
-#swf_upload_container .button {
-	float: right;
-	margin-top: 4*$default-margin;
-	font-size: 11px;
-}
-
-object.swfupload {
-	margin-top: 16px;
-	margin-bottom: 16px;
-}
-
 #alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {
 	padding: 2*$default-padding;
 }
@@ -2547,4 +1502,9 @@ object.swfupload {
 
 .mceEditor table {
 	border-spacing: 0 !important;
+}
+
+#sitemap_heading span.page_name {
+	margin-left: 24px;
+	line-height: 28px;
 }

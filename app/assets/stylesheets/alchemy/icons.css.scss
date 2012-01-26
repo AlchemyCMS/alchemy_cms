@@ -1,0 +1,328 @@
+@import "alchemy/defaults";
+
+.icon_button .icon {
+	position: absolute;
+	left: 4px;
+	top: 4px;
+}
+
+.icon_button.small .icon {
+	position: absolute;
+	right: 5px;
+	left: auto;
+	top: 4px;
+}
+
+.icon_button span.old_icon {
+	position: relative;
+	background-repeat: no-repeat;
+	width: 22px;
+	height: 20px;
+	display: inline-block;
+	top: -1px;
+	left: -1px;
+}
+
+.icon_button.old_icon img {
+	top: 0;
+	left: 1px;
+}
+
+.icon {
+	display: inline-block;
+	background: image-url('alchemy/icons.png') no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+.icon.zoom-out {
+	background-position: -416px -72px;
+}
+
+.icon.zoom-equal {
+	background-position: -448px -72px;
+}
+
+.icon.delete-small {
+	background-position: 0 -72px;
+}
+
+.icon.zoom-in {
+	background-position: -480px -72px;
+}
+
+.icon.user_add {
+	background-position: -96px -104px;
+}
+
+.icon.language_add {
+	background-position: -47px -120px;
+}
+
+.icon.user {
+	background-position: 0 -104px;
+}
+
+.icon.language {
+	background-position: 0 -120px;
+}
+
+.icon.user.female {
+	background-position: -128px -104px;
+}
+
+.icon.user_edit {
+	background-position: -64px -104px;
+}
+
+.icon.language_edit {
+	background-position: -32px -120px;
+}
+
+.icon.user_edit.female {
+	background-position: -192px -104px;
+}
+
+.icon.settings {
+	background-position: -320px -40px;
+}
+
+.icon.visit_page {
+	background-position: -31px -137px;
+}
+
+.icon.upload {
+	background-position: 0 -136px;
+}
+
+.icon.pdf {
+	background-position: -161px -136px;
+}
+
+.icon.text {
+	background-position: -448px -136px;
+}
+
+.icon.archive {
+	background-position: -416px -136px;
+}
+
+.icon.audio {
+	background-position: -192px -136px;
+}
+
+.icon.image {
+	background-position: -224px -136px;
+}
+
+.icon.vcard {
+	background-position: -416px -104px;
+}
+
+.icon.psd {
+	background-position: -128px -136px;
+}
+
+.icon.flash {
+	background-position: -256px -136px;
+}
+
+.icon.video {
+	background-position: -288px -136px;
+}
+
+.icon.rtf {
+	background-position: -320px -136px;
+}
+
+.icon.word {
+	background-position: -384px -136px;
+}
+
+.icon.excel {
+	background-position: -176px -72px;
+}
+
+.icon.file {
+	background-position: 0 -40px;
+}
+
+.icon.flush {
+	background-position: -352px -39px;
+}
+
+.icon.publish {
+	background-position: -64px -136px;
+}
+
+.icon.info {
+	background-position: -64px -168px;
+}
+
+.icon.close {
+	background-position: -416px -40px;
+}
+
+.icon.sync {
+	background-position: -96px -136px;
+}
+
+.icon.close.small {
+	background: image-url('alchemy/ui-icons_666666_256x240.png') -84px -132px;
+	width: 8px;
+	height: 8px;
+}
+
+.icon.online {
+	background-position: -224px -104px;
+}
+
+.icon.offline {
+	background-position: -255px -104px;
+}
+
+.icon.tick, .icon.true {
+	background-position: -32px -72px;
+}
+
+.icon.error {
+	background-position: -32px -168px;
+}
+
+.icon.false {
+	background-image: none;
+}
+
+.icon.link, a.link {
+	background-position: -320px -72px;
+}
+
+.icon.unlink {
+	background-position: -352px -72px;
+}
+
+.icon.swap_picture {
+	background-position: -288px -72px;
+}
+
+.icon.crop {
+	background-position: -256px -72px;
+}
+
+.icon.warning, .icon.warn {
+	background-position: 0 -168px;
+}
+
+.icon.element_public {
+	background-position: -94px -166px;
+}
+
+.icon.element_draft {
+	background-position: 1px -70px;
+}
+
+.icon.new_element {
+	background-position: -384px -40px;
+}
+
+.icon.element_window {
+	background-position: -512px -72px;
+}
+
+.icon.preview_window {
+	background-position: -448px -40px;
+}
+
+.icon.clipboard {
+	background-position: -288px -104px;
+}
+
+.icon.clipboard.full {
+	background-position: -320px -104px;
+}
+
+.icon.trash {
+	background-position: -352px -104px;
+}
+
+.icon.trash.full {
+	background-position: -384px -104px;
+}
+
+.icon.file_download {
+	background-position: -480px -136px;
+}
+
+.icon.download {
+	background-position: -240px -72px;
+}
+
+.icon.file_delete {
+	background-position: -64px -40px;
+}
+
+.icon.file_edit {
+	background-position: -32px -40px;
+}
+
+.icon.edit {
+	background-position: -160px -168px;
+}
+
+.icon.create {
+	background-position: -192px -168px;
+}
+
+.icon.add_page {
+	background-position: -96px -40px;
+}
+
+.icon.copy_page {
+	background-position: -544px -40px;
+}
+
+.icon.delete_page {
+	background-position: -64px -40px;
+}
+
+.icon.user_delete {
+	background-position: -32px -104px;
+}
+
+.icon.language_delete {
+	background-position: -16px -120px;
+}
+
+.icon.destroy {
+	background-position: -224px -168px;
+}
+
+.icon.configure_page {
+	background-position: -320px -40px;
+}
+
+.icon.search {
+	background: image-url('alchemy/ui-icons_666666_256x240.png') -160px -112px;
+}
+
+.icon.user_delete.female {
+	background-position: -160px -104px;
+}
+
+.icon.remove {
+	background-position: no-repeat -64px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	margin-right: 4px;
+}
+
+.icon.blank {
+	background: transparent;
+}
+
+.icon.sort {
+	background-position: -128px -168px;
+}
