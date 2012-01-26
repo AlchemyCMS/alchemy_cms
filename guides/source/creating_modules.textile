@@ -35,6 +35,18 @@ Additionaly, for an engine, you have to mount it in your routes:
   end
 </pre>
 
+For a resource residing in the main app a normal resource entry is enough:
+<pre>
+  # config/routes.rb
+  YourApp::Application.routes.draw do
+      ...
+      resources :your_resources
+
+      mount Alchemy::Engine => '/'
+  end
+</pre>
+
+
 Notice: Due to alchemy's strong routes it is recommenend to mount your engine before mounting alchemy.
 
 h3. Create your own backend using Alchemy
