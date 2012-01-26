@@ -55,6 +55,18 @@ index:
       url: creating_elements
       text: How to create own elements.
 
+    - title: Creating own Essences
+      url: creating_essences
+      text: How to create own essences.
+    - title: Creating own Modules
+      url: creating_modules
+      text: How to create custom modules.
+      
+    - title: Managing content
+      url: manage_content
+      text: How to manage content.
+      construction: true
+
     - title: Working with images
       url: working_with_images
       text: How to work with images.

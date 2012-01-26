@@ -44,7 +44,7 @@ We also want to autogenerate the headline and the contactform element on when th
 
 h3. Creating/Generating the page layout files
 
-Every page layout defined in the page_layouts.yml file should have a view partial located in <code>/config/alchemy/page_layouts/</code>.
+Every page layout defined in the page_layouts.yml file should have a view partial located in <code>/app/views/alchemy/page_layouts/</code>.
 
 There is no need to create these partials manually. Alchemy CMS comes with a rails generator task which creates these partial files for you.
 So after defining the page layouts in your page_layouts.yml, you can generate all the corresponding partials for them.
