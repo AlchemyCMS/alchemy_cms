@@ -47,7 +47,7 @@ module Alchemy
 				end
 				
 				if errors.blank?
-					log "Successfully seeded your database!" if notices.blank?
+					log "Successfully seeded your database!\n" if notices.blank?
 					notices.each do |note|
 						log(note, :skip)
 					end

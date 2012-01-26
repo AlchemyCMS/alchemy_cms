@@ -20,13 +20,13 @@ unless ENV["CI"]
 					login_into_alchemy
 					visit('/alchemy/admin/pages')
 					page.select 'Klingonian', :from => 'language'
-					within('#sitemap') { page.should have_content('Klingonian') }
+					page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
 				end
 
 				after(:all) {
 					@language.destroy
-					@klingonian_root.destroy
-					@german_root.destroy
+					@klingonian_root.delete
+					@german_root.delete
 				}
 
 			end
@@ -42,9 +42,7 @@ unless ENV["CI"]
 					login_into_alchemy
 					visit('/alchemy/admin/pages')
 					page.select 'Klingonian', :from => 'language'
-					within('#archive_all') do
-						page.should have_content('This language tree does not exist')
-					end
+					page.should have_content('This language tree does not exist')
 				end
 
 				after(:all) {
@@ -62,15 +60,10 @@ unless ENV["CI"]
 			end
 
 			it "should remove the cache of all pages" do
-				visit '/alchemy/admin/login'
-				fill_in('Username', :with => 'jdoe')
-				fill_in('Password', :with => 's3cr3t')
-				click_on('login')
+				login_into_alchemy
 				visit '/alchemy/admin/pages'
 				click_link 'Flush page cache'
-				within('#flash_notices') do
-					page.should have_content('Page cache flushed')
-				end
+				page.should have_content('Page cache flushed')
 			end
 
 		end

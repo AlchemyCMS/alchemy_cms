@@ -18,8 +18,8 @@ module Alchemy
 			# 
 			def login_into_alchemy
 				visit '/alchemy/admin/login'
-				fill_in('Username', :with => 'jdoe')
-				fill_in('Password', :with => 's3cr3t')
+				fill_in('alchemy_user_session_login', :with => 'jdoe')
+				fill_in('alchemy_user_session_password', :with => 's3cr3t')
 				click_on('login')
 			end
 

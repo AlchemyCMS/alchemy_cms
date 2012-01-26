@@ -9,13 +9,9 @@ describe "Resources" do
 	describe "index view" do
 
 		it "should have a button for creating a new resource" do
+			login_into_alchemy
 			visit '/alchemy/admin/languages'
-			fill_in('Username', :with => 'jdoe')
-			fill_in('Password', :with => 's3cr3t')
-			click_on('login')
-			within('#toolbar') {
-				page.should have_selector('div.button_with_label a.icon_button span.icon.create')
-			}
+			page.should have_selector('#toolbar div.button_with_label a.icon_button span.icon.create')
 		end
 
 	end

@@ -2,11 +2,12 @@ require 'spec_helper'
 
 describe Alchemy::Content do
 
-  it "should return the ingredient from its essence" do
-    Factory(:element)
-		Alchemy::EssenceText.first.update_attributes(:body => "Hello")
-		Alchemy::Content.first.ingredient.should == Alchemy::EssenceText.first.ingredient
-  end
+	it "should return the ingredient from its essence" do
+		@element = Factory(:element, :name => 'headline')
+		@content = @element.contents.find_by_essence_type('Alchemy::EssenceText')
+		@content.essence.update_attributes(:body => "Hello")
+		@content.ingredient.should == "Hello"
+	end
 
 	describe '.normalize_essence_type' do
 
