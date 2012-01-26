@@ -12,14 +12,64 @@ Basicly there are two ways to set up a module:
 
 h3. Integrate your module in alchemy
 
+h4. Describing the module
+
+The module needs to be described, so that Alchemy CMS can handle with it. This can be done within a yml file which will be loaded when initializing the module.
+
+<pre>
+# your_module/config/module_definition.yml
+
+name: your_module
+engine_name: your_module
+order: 1
+navigation:
+  name: modules.name_of_your_module                  # will be translated through I18n.
+  controller: your_module/admin/mailings             # controller which will be used.
+  action: index                                      # action which will be used
+  image: /assets/your_module/module_icon.png         # image which will be rendered as navigation icon
+  sub_navigation:
+    - name: Mailings                                 # name for subnavigation tab
+      controller: your_module/admin/mailings         # controller which will be used
+      action: index                                  # action which will be used
+    - name: Newsletter                               # name for subnavigation tab
+      controller: your_module/admin/newsletters      # controller which will be used
+      action: index                                  # action which will be used
+</pre>
+
 h4. Initialization
 
 This is done via Rails' initializers.
-If your module is set up in the main app create a new file (i.e. xy_module.rb) in config/initializers,
-if it's an engine use the Rails::Engine.initializer method.
+
+* If your module is set up in the main app, create a new file (i.e. xy_module.rb) in config/initializers.
+* If it's an engine use the Rails::Engine.initializer method.
+
+Example for an Engine
 
 <pre>
-  example
+# /lib/my_engine/engine.rb
+
+# Registering module in Alchemy CMS
+initializer 'your_module.register_as_alchemy_module' do
+  Alchemy::Modules.register_module(YAML.load_file(File.join(File.dirname(__FILE__), '../..', 'config/module_definition.yml')))
+end
+
+# Loading authorization rules and register them to auth engine instance
+initializer "your_module.add_authorization_rules" do
+  Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
+end
+</pre>
+
+
+Example for setting up in the main app
+
+<pre>
+# config/initializers/alchemy_modules.rb
+
+# Registering module in Alchemy CMS
+Alchemy::Modules.register_module(YAML.load_file(File.join(File.dirname(__FILE__), '../..', 'config/module_definition.yml')))
+
+# Loading authorization rules and register them to auth engine instance
+Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
 </pre>
 
 h4. Mounting
@@ -27,23 +77,24 @@ h4. Mounting
 Additionaly, for an engine, you have to mount it in your routes:
 
 <pre>
-  # config/routes.rb
-  YourApp::Application.routes.draw do
-      ...
-      mount YourAlchemyModule::Engine => '/'
-      mount Alchemy::Engine => '/'
-  end
+# config/routes.rb
+YourApp::Application.routes.draw do
+  ...
+  mount YourAlchemyModule::Engine => '/'
+  mount Alchemy::Engine => '/'
+end
 </pre>
 
 For a resource residing in the main app a normal resource entry is enough:
-<pre>
-  # config/routes.rb
-  YourApp::Application.routes.draw do
-      ...
-      resources :your_resources
 
-      mount Alchemy::Engine => '/'
-  end
+<pre>
+# config/routes.rb
+YourApp::Application.routes.draw do
+  ...
+  resources :your_resources
+  
+  mount Alchemy::Engine => '/'
+end
 </pre>
 
 
@@ -61,10 +112,10 @@ But using Alchemy's backend interface takes a whole bunch of work for you:
 And it's easy as this:
 
 <pre>
-  module Admin
-    class YourResourcesController < Alchemy::Admin::ResourcesController
-    end
+module Admin
+  class YourResourcesController < Alchemy::Admin::ResourcesController
   end
+end
 </pre>
 
 You can overwrite the default controller actions and views as you like. 
@@ -88,7 +139,7 @@ end
 </pre>
 
 More information about authorization can be found in the docs of the declerative_authorization-gem: 
--> [https://github.com/stffn/declarative_authorization](https://github.com/stffn/declarative_authorization)
+-> "https://github.com/stffn/declarative_authorization":https://github.com/stffn/declarative_authorization
 
 h3. Get Ready!
 

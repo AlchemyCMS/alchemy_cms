@@ -75,6 +75,3 @@ index:
       url: creating_own_essence_types
       text: How to create own Essence-types.
       construction: true
-    - title: Module Development
-      url: module_development
-      text: How to develope your own Alchemy module.
