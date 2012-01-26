@@ -3,7 +3,7 @@ module Alchemy
 		module AttachmentsHelper
 
 			def mime_to_human mime
-				Alchemy::I18n.t("alchemy.mime_types.#{mime}", :default => t('document'))
+				Alchemy::I18n.t(mime, :scope => :mime_types, :default => t('document'))
 			end
 
 		end
