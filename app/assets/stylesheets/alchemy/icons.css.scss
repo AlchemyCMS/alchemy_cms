@@ -1,33 +1,5 @@
 @import "alchemy/defaults";
 
-.icon_button .icon {
-	position: absolute;
-	left: 4px;
-	top: 4px;
-}
-
-.icon_button.small .icon {
-	position: absolute;
-	right: 5px;
-	left: auto;
-	top: 4px;
-}
-
-.icon_button span.old_icon {
-	position: relative;
-	background-repeat: no-repeat;
-	width: 22px;
-	height: 20px;
-	display: inline-block;
-	top: -1px;
-	left: -1px;
-}
-
-.icon_button.old_icon img {
-	top: 0;
-	left: 1px;
-}
-
 .icon {
 	display: inline-block;
 	background: image-url('alchemy/icons.png') no-repeat;
