@@ -14,7 +14,7 @@ tmp
 spec/dummy/index/
 log
 spec/dummy/uploads/
-spec/dummy/.sass-cache/
-spec/dummy/db/migrate
+.sass-cache
+spec/dummy/db/test.sqlite3-journal
 spec/dummy/db/seeds.rb
 .rvmrc

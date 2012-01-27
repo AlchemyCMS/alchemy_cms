@@ -1,0 +1,23 @@
+<%- if resources_instance_variable.any? -%>
+<table class="list" id="<%= resources_name %>_list">
+	<tr>
+		<%- resource_attributes.each do |attribute| -%>
+		<%- if attribute[:type] == :boolean -%>
+		<th class="center">
+		<%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
+		<th class="right">
+		<%- else -%>
+		<th>
+		<%- end -%>
+			<%= resource_model.human_attribute_name(attribute[:name]) %>
+		</th>
+		<%- end -%>
+		<th class="tools"></th>
+	</tr>
+	<%= render_resources %>
+</table>
+<%- elsif params[:query] -%>
+<p><%= t('Nothing found') %></p>
+<%- end -%>
+
+<%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable, :scope => resource_url_scope %>

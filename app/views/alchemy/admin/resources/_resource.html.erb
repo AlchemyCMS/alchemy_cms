@@ -1,0 +1,38 @@
+<tr class="<%= cycle('even', 'odd') %>">
+	<%- resource_attributes.each do |attribute| -%>
+	<%- if attribute[:type] == :boolean -%>
+	<td class="center">
+		<% attr_value = resource.send(attribute[:name]) %>
+		<%= attr_value.blank? ? '' : render_icon(attr_value) -%>
+	</td>
+	<%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
+	<td class="right"><%= resource.send(attribute[:name]) -%></td>
+	<%- else -%>
+	<td><%= resource.send(attribute[:name]) -%></td>
+	<%- end -%>
+	<%- end -%>
+	<td class="tools">
+		<%- permitted_to?(:destroy, resources_permission) do -%>
+		<%= link_to_confirmation_window(
+			'',
+			t("Are you sure?"),
+			resource_url_scope.send("admin_#{resource_model_name}_path", resource),
+			:title => t("Delete"),
+			:class => "icon destroy"
+		) -%>
+		<%- end -%>
+		<%- permitted_to?(:edit, resources_permission) do -%>
+		<%= link_to_overlay_window(
+			'',
+			resource_url_scope.send("edit_admin_#{resource_model_name}_path", resource),
+			{
+				:title => t("Edit")
+			},
+			{
+				:class => "icon edit",
+				:title => t("Edit")
+			}
+		) -%>
+		<%- end -%>
+	</td>
+</tr>

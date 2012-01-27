@@ -1,0 +1,40 @@
+<%= form_for([:admin, @page], :remote => true) do |f| %>
+	<div id="errors" style="display:none"></div>
+	<table id="page_names">
+		<tr>
+			<td><%= t("page_type") %>: </td>
+			<td>
+			  <%= @page.layout_display_name %>
+			</td>
+		</tr>
+		<tr>
+			<td><%= t("page_status") %>: </td>
+			<td>
+				<%= f.check_box :visible -%>
+				<%= f.label :visible %><br/>
+				<%- if configuration(:sitemap)[:show_flag] -%><br/>
+					<%= f.check_box :sitemap -%>
+					<%= f.label :sitemap %>
+				<%- end -%>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><strong><%= t("names") %></strong></td>
+		</tr>
+		<tr>
+			<td><%= f.label "name" %>:&nbsp;</td>
+			<td><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
+		</tr>
+		<tr>
+			<td><%= f.label "urlname" %>: </td>
+			<td><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label "title" %>: </td>
+			<td><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right"><%= f.button t("save"), :class => 'button' %></td>
+		</tr>
+	</table>
+<% end %>

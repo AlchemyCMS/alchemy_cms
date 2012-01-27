@@ -1,0 +1,8 @@
+(function($) {
+	
+	$('#<%= content_dom_id(@content) %>').replaceWith('<%= escape_javascript(render(:partial => "alchemy/essences/essence_file_editor.html.erb", :locals => {:content => @content, :options => @options})) %>');
+	Alchemy.closeCurrentWindow();
+	Alchemy.reloadPreview();
+	Alchemy.setElementDirty('#element_<%= @content.element.id %>');
+	
+})(jQuery);

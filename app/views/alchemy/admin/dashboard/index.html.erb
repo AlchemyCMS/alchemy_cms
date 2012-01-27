@@ -1,0 +1,101 @@
+<div id="dashboard">
+	<div class="with_padding">
+		<h1>
+			<%= t('Welcome back, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+		</h1>
+		<p>
+			<small><%= t('Your last login was on %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></small>
+		</p>
+	</div>
+	<div class="widget">
+		<h2><%= t('Your last updated pages') %>:</h2>
+		<%- if @last_edited_pages.blank? -%>
+		<ul><li class="even"><%= t('no pages') %></li></ul>
+		<%- else -%>
+		<ul>
+			<%- @last_edited_pages.each do |page| -%>
+			<li class="<%= cycle('even', 'odd', :name => 'edited_pages') %>"><%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %> <small>(<%= l(page.updated_at) %>)</small></li>
+			<%- end -%>
+		</ul>
+		<%- end -%>
+	</div>
+	<%- reset_cycle('edited_pages') -%>
+	<div class="widget">
+		<h2><%= t('Currently locked pages') %>:</h2>
+		<%- if @locked_pages.blank? -%>
+		<ul><li class="even"><%= t('no pages') %></li></ul>
+		<%- else -%>
+		<ul>
+			<%- @locked_pages.each do |page| -%>
+			<li class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
+				<%- if current_user.id == page.locked_by -%>
+				<%= link_to(page.name, alchemy.edit_admin_page_path(page)) %> <small>(<%= page.locker.name %>)</small>
+				<%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_url)) do %>
+					<button class="icon_button small" title="<%= t('explain_unlocking') %>">
+						<%= render_icon('close small') %>
+					</button>
+			  <% end %>
+				<%- else -%>
+				<%= page.name %> <small>(<%= page.locker_name %>)</small>
+				<%- end -%>
+			</li>
+			<%- end -%>
+		</ul>
+		<%- end -%>
+	</div>
+	<%- reset_cycle('locked_pages') -%>
+	<div class="widget">
+		<h2><%= t('Who else is online') %>:</h2>
+		<%- if @online_users.blank? -%>
+		<ul><li class="even"><%= t('no users') %></li></ul>
+		<%- else -%>
+		<ul>
+			<%- @online_users.each do |user| -%>
+			<li class="<%= cycle('even', 'odd') %>"><%= user.name %> <small>(<%= user.human_role_name %>)</small></li>
+			<%- end -%>
+		</ul>
+		<%- end -%>
+	</div>
+</div>
+<div id="sideboard">
+	<%= image_tag("alchemy/alchemy-logo.png", :style => "width: 240px; height: 70px") %>
+	<p><%= t("Version") %>: <%= @alchemy_version %></p>
+	<div class="sideboard_body" style="display: none">
+		<p><%= t('Alchemy is open software and itself uses open software and free resources:') %></p>
+		<ul>
+			<li>
+				<a href="http://rubyonrails.org" target="_blank">RubyOnRails</a>
+			</li>
+			<li>
+				<a href="http://jquery.com" target="_blank">jQuery Javascript Library</a>
+			</li>
+			<li>
+				<a href="http://jqueryui.com" target="_blank">jQuery UI Javascript GUI Library</a>
+			</li>
+			<li>
+				<a href="http://tinymce.moxiecode.com" target="_blank">TinyMCE - Javascript WYSIWYG Editor</a>
+			</li>
+			<li>
+				<a href="http://swfupload.org" target="_blank">SWFUpload</a>
+			</li>
+			<li>
+				<a href="http://p.yusukekamiyamane.com" target="_blank">Fugue Icons by Yusuke Kamiyamane</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<%= content_for :javascripts do %>
+<script type="text/javascript" charset="utf-8">
+	(function($) {
+		
+		$('#sideboard img:first-child').click(function(e) {
+			e.preventDefault();
+			$('#sideboard .sideboard_body').toggle();
+		}).bind('mouseover', function() {
+			$(this).css({cursor: 'pointer'});
+		});
+		
+	})(jQuery);
+</script>
+<% end %>

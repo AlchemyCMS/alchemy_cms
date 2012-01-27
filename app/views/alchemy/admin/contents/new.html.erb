@@ -1,0 +1,15 @@
+<%= form_for [:admin, @content], :remote => true do |f| %>
+	<%= f.error_messages %>
+	<%= f.hidden_field :element_id %>
+	<table>
+		<tr>
+			<td>
+				<%= f.select 'name', @contents.map { |a| [t("alchemy.content_names.#{a['name']}"), a['name']] }, :style => 'width: 200px' %>
+				<%= hidden_field_tag('options', @options) %>
+			</td>
+			<td>
+				&nbsp;<%= f.button t('save'), :class => 'button' %>
+			</td>
+		</tr>
+	</table>
+<% end %>

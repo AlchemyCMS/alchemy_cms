@@ -1,0 +1,14 @@
+<div id="alchemy_greeting">
+  <%= image_tag("alchemy/alchemy-logo.png") %>
+  <h1><%= t('Welcome to Alchemy') %></h1>
+  <p>
+    <%= t("Please Signup") %>
+  </p>
+</div>
+
+<div id="user_signup" class="login_signup_box">
+  <%= form_for @user, :url => alchemy.signup_path do |f| %>
+    <%= f.error_messages %>
+    <%= render :partial => 'alchemy/admin/users/table', :locals => {:f => f} %>
+  <% end %>
+</div>

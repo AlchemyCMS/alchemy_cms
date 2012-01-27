@@ -1,0 +1,9 @@
+<div class="bild" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
+    <div class="bild_images">
+        <%- element.contents.find_all_by_essence_type("Alchemy::EssencePicture").each do |essence| -%>
+        <div class="bild_image">
+            <%= render_essence_view(essence, :image_size => "900x300", :crop => true) %>
+        </div>
+        <%- end -%>
+    </div>
+</div>

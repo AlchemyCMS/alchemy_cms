@@ -1,0 +1,41 @@
+<%= toolbar(
+	:buttons => [
+		{
+			:icon => 'user_add',
+			:label => t('create_user'),
+			:url => alchemy.new_admin_user_path,
+			:title => t('create_user'),
+			:overlay_options => {
+				:title => t('create_user'),
+				:size => "384x450"
+			},
+			:if_permitted_to => [:new, :alchemy_admin_users]
+		}
+	]
+) %>
+
+<%- if @users.any? -%>
+<table class="list" id="user_list">
+	<tr>
+		<th class="icon"></th>
+		<th class="login_status"></th>
+		<th class="login"><%= Alchemy::User.human_attribute_name('login') %></th>
+		<th class="name"><%= Alchemy::User.human_attribute_name('firstname') %></th>
+		<th><%= Alchemy::User.human_attribute_name('lastname') %></th>
+		<th class="email"><%= Alchemy::User.human_attribute_name('email') %></th>
+		<th><%= Alchemy::User.human_attribute_name('language') %></th>
+		<th class="role"><%= Alchemy::User.human_attribute_name('role') %></th>
+		<th class="tools"></th>
+	</tr>
+	<%= render @users %>
+</table>
+<%= render 'alchemy/admin/partials/pagination_links', :items => @users %>
+
+<%- elsif params[:query] -%>
+
+<div class="info">
+	<%= render_icon('info') %>
+	<%= t('No users found') %>
+</div>
+
+<%- end -%>

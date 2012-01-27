@@ -1,0 +1,12 @@
+<%= form_for([:admin, @attachment], :url => {:action => :update, :query => params[:query], :page => params[:page]}) do |f| -%>
+	<table>
+		<tr>
+			<td class="label"><%= f.label 'name', :class => "short" %></td>
+			<td class="input"><%= f.text_field 'name', :class => 'thin_border very_long' %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="submit"><%= f.button t('save'), :class => 'button' %></td>
+		</tr>
+	</table>
+<% end %>

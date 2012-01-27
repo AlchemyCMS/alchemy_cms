@@ -1,32 +1,30 @@
 --- 
 javascripts:
-- combined:
-  - alchemy/jquery
-  - alchemy/jquery-ui
-  - alchemy/jquery.rails
-  - alchemy/jquery.dialogextend.min
-  - alchemy/jquery.in-place-edit.js
-  - alchemy/jquery.Jcrop.min
-  - alchemy/jquery.sb.min
-  - alchemy/jquery.scrollTo-1.4.2-min
-  - alchemy/jquery.ui.nestedSortable
-  - alchemy/jquery.ui.tabspaging
-  - alchemy/alchemy
+  - jquery-1.6.2.min
+  - jquery-ui-custom-1.8.16.min
+  - jquery_ujs
+  - jquery_plugins/jquery.dialogextend.min.js
+  - jquery_plugins/jquery.in-place-edit.js
+  - jquery_plugins/jquery.Jcrop.min.js
+  - jquery_plugins/jquery.sb.min.js
+  - jquery_plugins/jquery.scrollTo-1.4.2-min.js
+  - jquery_plugins/jquery.ui.nestedSortable.js
+  - jquery_plugins/jquery.ui.tabspaging.js
+  - alchemy/alchemy.base
   - alchemy/alchemy.element_editor_selector
   - alchemy/alchemy.image_cropper
   - alchemy/alchemy.link_overlay
   - alchemy/alchemy.page_sorter
   - alchemy/alchemy.growler
-  - alchemy/swfupload/swfupload
-  - alchemy/swfupload/queue
-  - alchemy/swfupload/handlers
-  - alchemy/swfupload/fileprogress
+  - swfupload/swfupload
+  - swfupload/queue
+  - swfupload/handlers
+  - swfupload/fileprogress
 
 stylesheets:
-- combined:
-  - alchemy/alchemy
+  - alchemy/base
   - alchemy/elements
   - alchemy/flags
-  - alchemy/jquery-ui-1.8.7.alchemy.css
+  - alchemy/jquery-ui.alchemy
   - alchemy/jquery.Jcrop
   - alchemy/jquery.sb

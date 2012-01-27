@@ -1,0 +1,53 @@
+@import "alchemy/defaults";
+
+div#alchemy_greeting {
+	width: 370px;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 2*$default-padding;
+	margin-top: 1em;
+	text-align: center;
+	
+	p {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	
+	h1 {
+		margin-top: 1em;
+		margin-bottom: 0;
+		font-size: 1.2em;
+	}
+}
+
+div.login_signup_box {
+	width: 360px;
+	padding: 4*$default-padding;
+	border: $default-border;
+	background-color: $medium-gray;
+	@include rounded-corner;
+	margin: 2em auto;
+	
+	select {
+		width: 220px;
+	}
+}
+
+#login_box {
+	height: 310px;
+	width: 394px;
+	margin-top: -230px;
+	margin-left: -197px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+#login table tbody tr td.label {
+	width: 155px;
+	text-align: right;
+}
+
+form#login.new_user_session {
+	text-align: right;
+}

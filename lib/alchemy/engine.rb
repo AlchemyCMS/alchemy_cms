@@ -1,29 +1,45 @@
 require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 
 module Alchemy
-  class Engine < Rails::Engine
+	class Engine < Rails::Engine
 
-    # Config defaults
-    #config.widget_factory_name = "Alchemy"
-    config.mount_at = '/'
+		isolate_namespace Alchemy
 
-    # Check the gem config
-    initializer "check config" do |app|
-      # make sure mount_at ends with trailing slash
-      config.mount_at += '/'  unless config.mount_at.last == '/'
-    end
+		engine_name 'alchemy'
 
-    initializer :flash_cookie do |config|
-      config.middleware.insert_after(
-        'ActionDispatch::Cookies',
-        Alchemy::Middleware::FlashSessionCookie,
-        ::Rails.configuration.session_options[:key]
-      )
-    end
+		config.mount_at = '/'
 
-    initializer "static assets" do |app|
-      app.middleware.use ::ActionDispatch::Static, "#{root}/public"
-    end
+		# Enabling assets precompiling
+		initializer 'alchemy.assets' do |app|
+			app.config.assets.precompile += [
+				"alchemy/alchemy.js",
+				"alchemy/preview.js",
+				"alchemy/alchemy.css",
+				"alchemy/menubar.css",
+				"alchemy/menubar.js",
+				"alchemy/print.css",
+				"alchemy/tinymce_content.css",
+				"alchemy/tinymce_dialog.css",
+				"tiny_mce/*"
+			]
+		end
 
-  end
+		initializer 'alchemy.flash_cookie' do |config|
+			config.middleware.insert_after(
+				'ActionDispatch::Cookies',
+				Alchemy::Middleware::FlashSessionCookie,
+				::Rails.configuration.session_options[:key]
+			)
+		end
+
+		# filter sensitive information during logging
+		initializer "alchemy.params.filter" do |app|
+			app.config.filter_parameters += [:password, :password_confirmation]
+		end
+
+		initializer "alchemy.add_authorization_rules" do
+			Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
+		end
+
+	end
 end

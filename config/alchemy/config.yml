@@ -39,6 +39,16 @@
   :show_root: true
   :show_flag: false
 
+# === URL nesting
+# By default Alchemy does not nest page urls respectivley to their page tree position.
+# Enable +url_nesting+ to get nested urls.
+# ==== Example of a nested url:
+# +http://homepage.com/company/history/the-early-years+
+# Alchemy supports url nesting up to three levels deep. We think that's more then enough,
+# because URLs like this are possible:
+# +http://homepage.com/en/2011/12/08/my-post
+url_nesting: false
+
 # === Picture rendering settings
 # Alchemy uses Fleximage and RMagick to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
 # See https://github.com/Squeegy/fleximage for further infos.
@@ -53,17 +63,7 @@
 :image_store_format: png
 :image_output_format: jpg
 
-# Set available translations for your customers.
-# Currently available translations are German and English.
-:translations:
-  - :language_code: de
-    :language: Deutsch
-  - :language_code: en
-    :language: English
-
-default_translation: de
-
-# Default language for your homepgae.
+# Default language for the seeder.
 default_language:
   code: de
   name: Deutsch
@@ -81,7 +81,7 @@ default_language:
 # 
 # ==== Translating validation messages:
 # 
-# The message_id is passed through I18n.t so you can translate it in your language yml file.
+# The message_id is passed through Alchemy::I18n.t so you can translate it in your language yml file.
 # 
 # Example:
 # 
@@ -137,71 +137,3 @@ default_language:
 # 
 #   jQuery(a[data-link-target="overlay"]).dialog();
 :link_target_options: [blank]
-
-# == Alchemy core plugins configuration
-
-alchemy_plugins:
-
-  - name: dashboard
-    navigation:
-      name: 'home'
-      controller: 'admin'
-      action: index
-      icon: home
-      sub_navigation:
-        - name: 'home'
-          controller: 'admin'
-          action: index
-    
-  - name: pages
-    navigation:
-      name: 'module: pages'
-      controller: 'admin/pages'
-      action: index
-      icon: pages
-      sub_navigation:
-        - name: 'module: pages'
-          controller: 'admin/pages'
-          action: index
-        - name: 'module: layoutpages'
-          controller: 'admin/layoutpages'
-          action: index
-      nested:
-        - controller: 'admin/pages'
-          action: edit
-
-  - name: languages
-    navigation:
-      name: 'module: languages'
-      controller: 'admin/languages'
-      action: index
-      icon: languages
-      sub_navigation:
-        - name: 'module: languages'
-          controller: 'admin/languages'
-          action: index
-
-  - name: users
-    navigation:
-      name: 'module: users'
-      controller: 'admin/users'
-      action: index
-      icon: users
-      sub_navigation:
-        - name: 'module: users'
-          controller: 'admin/users'
-          action: index
-        
-  - name: archive
-    navigation:
-      controller: 'admin/pictures'
-      action: index
-      name: 'module: library'
-      icon: library
-      sub_navigation:
-        - name: 'module: pictures'
-          controller: 'admin/pictures'
-          action: index
-        - name: 'module: attachments'
-          controller: 'admin/attachments'
-          action: index

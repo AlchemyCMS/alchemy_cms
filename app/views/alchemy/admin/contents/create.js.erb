@@ -1,0 +1,103 @@
+(function($) {
+
+<%- if @content.essence_type == "Alchemy::EssencePicture" -%>
+
+  $('#add_content_<%= @element.id -%>').before('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/essence_picture_editor",
+      :locals => {
+        :content => @content,
+        :options => @options.symbolize_keys
+      }
+    )
+  ) -%>');
+  Alchemy.SortableContents('#element_<%= @element.id -%>_contents', '<%= form_authenticity_token -%>');
+
+  <%- if @contents_of_this_type.length > 1 -%>
+  $('#element_<%= @element.id -%>_contents .essence_picture_editor').addClass('dragable_picture');
+  <%- end -%>
+
+  <%- if !max_image_count.blank? && (@contents_of_this_type.length >= max_image_count) -%>
+  $("#add_content_<%= @element.id -%>").remove();
+  <%- end -%>
+
+  Alchemy.reloadPreview();
+  Alchemy.closeCurrentWindow();
+  
+<%- elsif @content.essence_type ==  "Alchemy::EssenceText" -%>
+
+  <%- locals = {
+    :content => @content,
+    :options => {:as => 'text_field'}.merge(@options.nil? ? {} : @options.symbolize_keys)
+  } -%>
+
+  <%- if params[:was_missing] -%>
+
+  $("#element_<%= @element.id -%>_content_missing").replaceWith('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/essence_text_editor",
+      :locals => locals
+    )
+  ) -%>');
+
+  <%- else -%>
+
+  $("#add_content_for_element_<%= @element.id -%>").before('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/essence_text_editor",
+      :locals => locals
+    )
+  ) -%>');
+  Alchemy.reloadPreview();
+  Alchemy.closeCurrentWindow();
+	
+  <%- end -%>
+
+	Alchemy.SelectBox("#element_<%= @element.id %> select");
+
+<%- elsif @content.essence_type ==  "Alchemy::EssenceRichtext" -%>
+
+  <%- locals = {
+    :content => @content,
+    :options => (@options.nil? ? {} : @options.symbolize_keys)
+  } -%>
+
+  <%- if params[:was_missing] -%>
+
+  $("#element_<%= @element.id -%>_content_missing").replaceWith('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/essence_richtext_editor",
+      :locals => locals
+    )
+  ) -%>');
+
+  <%- else -%>
+
+  $("#add_content_for_element_<%= @element.id -%>").before('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/essence_richtext_editor",
+      :locals => locals
+    )
+  ) -%>');
+  Alchemy.closeCurrentWindow();
+
+  <%- end -%>
+
+  Alchemy.Tinymce.addEditor('contents_content_<%= @content.id -%>_body');
+
+<%- else -%>
+
+  $('#add_content_for_element_<%= @element.id -%>').before('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/#{@content.essence_type.underscore}_editor",
+      :locals => {
+        :content => @content,
+        :options => (@options.nil? ? {} : @options.symbolize_keys)
+      }
+    )
+  ) -%>');
+
+<%- end -%>
+
+  Alchemy.growl('<%= t("Successfully added content", :content => @content.name) -%>');
+})(jQuery);

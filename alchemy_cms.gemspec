@@ -19,30 +19,20 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency(%q<rails>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<authlogic>, ["~> 3.0"])
+  s.add_runtime_dependency(%q<rails>, ["~> 3.1"])
+  s.add_runtime_dependency(%q<authlogic>)
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
-  s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5"])
-  s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.0.7"])
-  s.add_runtime_dependency(%q<gettext_i18n_rails>, [">= 0.3"])
+  s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.4"])
+  s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.0.9"])
   s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0"])
   s.add_runtime_dependency(%q<acts_as_ferret>, ["~> 0.5"])
   s.add_runtime_dependency(%q<acts_as_list>, ["~> 0.1"])
-  s.add_runtime_dependency(%q<userstamp>, ["~> 2.0.1"])
+  s.add_runtime_dependency(%q<magiclabs-userstamp>, ["~> 2.0.2"])
   s.add_runtime_dependency(%q<dynamic_form>, ["~> 1.1"])
-  s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0"])
-  s.add_runtime_dependency(%q<tinymce_hammer>, ["~> 0.2"])
-  s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.1.1"])
+  s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0.16"])
+  s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.2.1"])
 
-  s.add_development_dependency(%q<rspec-rails>, ["~> 2.6"])
+	s.add_development_dependency(%q<rspec-rails>, ["~> 2.8"])
 	s.add_development_dependency(%q<sqlite3>)
-
-	if !ENV['CI']
-		if RUBY_VERSION =~ /^1.9/
-			s.add_development_dependency(%q<ruby-debug19>)
-		else
-			s.add_development_dependency(%q<ruby-debug>)
-		end
-	end
 
 end

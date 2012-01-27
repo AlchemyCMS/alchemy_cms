@@ -1,0 +1,79 @@
+<%= form_for(@message ||= Alchemy::Message.new, :html => {:id => "contact", "data-alchemy-element" => (@preview_mode ? element.id : nil)}) do |f| %>
+	<%= f.error_messages %>
+	<%= f.hidden_field "contact_form_id", :value => element.id %>
+	<%= hidden_field_tag "mail_to", params[:mail_to] %>
+	<table class="contactform">
+		<tr>
+			<td class="label">
+				<%= f.label :salutation, t('contactform.labels.salutation') %>
+			</td>
+			<td class="field">
+				<%= f.select(
+					:salutation,
+					[
+						[t('contactform.labels.mr')],
+						[t('contactform.labels.mrs')]
+					],
+					:prompt => t('contactform.labels.choose'),
+					:class => "select"
+				) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :firstname, t('contactform.labels.firstname') %>
+			</td>
+			<td class="field">
+				<%= f.text_field(:firstname, :class => "field") %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :lastname, (t('contactform.labels.lastname') + '<small>*</small>').html_safe %>
+			</td>
+			<td class="field">
+				<%= f.text_field(:lastname, :class => "field") %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :address, t('contactform.labels.address') %>
+			</td>
+			<td class="field">
+				<%= f.text_field :address, :class => 'field' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :zip, t('contactform.labels.zip') %>
+			</td>
+			<td class="field">
+				<%= f.text_field :zip, :class => 'field short' %>
+				<%= f.text_field :city, :class => 'field medium' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :phone, t('contactform.labels.phone') %>
+			</td>
+			<td class="field">
+				<%= f.text_field :phone, :class => 'field' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :email, (t('contactform.labels.email') + '<small>*</small>').html_safe %>
+			</td>
+			<td class="field">
+				<%= f.text_field :email, :class => 'field' %>
+			</td>
+		</tr>
+	</table>
+	<div id="message">
+		<%= f.text_area :message %>
+	</div>
+	<p class="foot_notice">*) <%= t('contactform.labels.mandatory_fields') %></p>
+	<p class="right">
+		<%= f.button t('contactform.labels.send'), :name => nil, :class => 'button' %>
+	</p>
+<% end %>

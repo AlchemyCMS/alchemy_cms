@@ -1,0 +1,41 @@
+<%- if clipboard_empty?('elements') -%>
+<%= render :partial => 'new_element_form' %>
+<%- else -%>
+<div id="overlay_tabs">
+	<ul>
+		<li><a href="#create_element_tab"><%= t('New') %></a></li>
+		<li><a href="#paste_element_tab"><%= t('Paste from clipboard') %></a></li>
+	</ul>
+	<div id="create_element_tab">
+		<%= render :partial => 'new_element_form' %>
+	</div>
+	<div id="paste_element_tab">
+		<%= form_for([:admin, @element], :remote => true, :id => 'paste_element_form') do |f| %>
+			<div id="errors" style="display: none"></div>
+			<table>
+				<tr>
+					<td class="label">
+						<label for="paste_from_clipboard"><%= t("Element") %></label>
+					</td>
+					<td class="select">
+						<%= clipboard_select_tag(@clipboard_items) %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="submit">
+						<%= f.hidden_field(:page_id) %>
+						<%= f.button t("paste"), :class => 'button' %>
+					</td>
+				</tr>
+			</table>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(function() {
+		jQuery("#overlay_tabs").tabs();
+	});
+
+</script>
+<%- end -%>

@@ -1,0 +1,10 @@
+<%= Alchemy::I18n.t('mailer.new_user_mail.welcome') %>!
+
+<%= Alchemy::I18n.t('mailer.new_user_mail.login_url_explanation') %>:
+
+<%= @url %>
+
+<%= Alchemy::I18n.t('mailer.new_user_mail.username') %>: <%= @user.login %>
+<%= Alchemy::I18n.t('mailer.new_user_mail.password') %>: <%= @user.password %>
+
+<%= Alchemy::I18n.t('mailer.new_user_mail.greeting') %>

@@ -1,0 +1,39 @@
+(function($) {
+  
+  <%- if @error -%>
+  
+  $("#element_<%= @element.id -%>_folder_spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
+  
+  <%- else -%>
+  
+  $('.element_editor[data-element-id="<%= @element.id -%>"]').replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
+  $('#element_area .sortable_cell').sortable('refresh');
+  Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @element.id -%>"]');
+
+  Alchemy.ButtonObserver('.element_editor[data-element-id="<%= @element.id -%>"] button.button');
+
+  <%- if @element.folded -%>
+    
+    <%- @element.rtf_contents.each do |content| -%>
+    rtf_<%= content.id -%> = tinymce.get('<%= content.form_field_id -%>');
+    if (rtf_<%= content.id -%>) {
+      rtf_<%= content.id -%>.remove();
+    };
+    delete rtf_<%= content.id -%>;
+    <%- end -%>
+    
+  <%- else -%>
+    
+    $('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
+    Alchemy.SelectBox('#element_<%= @element.id -%> select');
+    
+    <%- @element.rtf_contents.each do |content| -%>
+    Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
+    <%- end -%>
+    
+    Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
+  <%- end -%>
+  
+  <%- end -%>
+  
+})(jQuery);

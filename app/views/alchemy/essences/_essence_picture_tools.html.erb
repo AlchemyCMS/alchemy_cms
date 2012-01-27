@@ -1,0 +1,58 @@
+<%= link_to_overlay_window(
+  render_icon('crop'),
+  alchemy.crop_admin_essence_picture_path(content.essence, :options => options),
+  {
+    :size => "fullscreen",
+    :title => t('Edit Picturemask')
+  },
+  {
+    :class => necessary_options_for_cropping_provided?(options) && content.ingredient ? nil : 'disabled',
+    :title => t('Edit Picturemask')
+  }
+) %>
+
+<%= link_to_overlay_window(
+  render_icon('swap_picture'),
+  alchemy.admin_pictures_path(
+    :element_id => content.element,
+    :content_id => content,
+    :swap => true,
+    :options => options
+  ),
+  {
+    :title => t('swap_image'),
+    :size => '720x580',
+    :resizable => "true"
+  },
+  :title => t('swap_image')
+) %>
+
+<%= link_to_function(
+  render_icon('link'),
+  "Alchemy.LinkOverlay.open(this, 420)",
+  :class => content.linked? ? 'linked' : nil,
+  :title => t('link_image'),
+  :name => "essence_picture_#{content.id}",
+  :id => "edit_link_#{content.id}"
+) %>
+
+<%= link_to_function(
+  render_icon('unlink'),
+  "Alchemy.LinkOverlay.removeLink(this, #{content.id})",
+  :class => content.linked? ? 'linked' : 'disabled',
+  :title => t('unlink')
+) %>
+
+<%= link_to_overlay_window(
+  render_icon('edit'),
+  alchemy.edit_admin_essence_picture_path(
+    :id => content.essence.id,
+    :content_id => content.id,
+    :options => options
+  ),
+  {
+    :title => t('edit_image_properties'),
+    :size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '380x230' : '380x210') : (options[:manual_image_size] ? '380x190' : '380x180'))
+  },
+  :title => t('edit_image_properties')
+) %>

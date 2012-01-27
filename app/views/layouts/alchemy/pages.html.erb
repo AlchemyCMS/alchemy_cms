@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%= render_meta_data(:title_prefix => sitename_from_header_page, :title_seperator => "-") %>
+		<%= stylesheet_link_tag "alchemy/standard_set", :media => :screen %>
+		<%= stylesheet_link_tag "alchemy/standard_set", :media => :print %>
+	</head>
+	<body>
+		<div id="page">
+			<div id="language_select">
+				<%= language_switches(:linkname => :code) %>
+			</div>
+			<div id="breadcrump">
+				<%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
+			</div>
+			<div id="navigation">
+				<%= render_navigation :all_sub_menues => true %>
+			</div>
+			<%= yield %>
+			<div class="footer">
+				<%= render_elements(
+					:from_page => 'layout_footer',
+					:only => ['footnote']
+				) %>
+			</div>
+		</div>
+		<%= alchemy_preview_mode_code %>
+		<%= alchemy_menu_bar %>
+	</body>
+</html>

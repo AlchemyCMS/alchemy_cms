@@ -1,0 +1,92 @@
+@import "alchemy/defaults";
+
+a#uploadswitcher, a.underline {
+	text-decoration: underline;
+}
+
+#uploadProgressContainer {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 234px;
+}
+
+#uploadProgressContainer .progressWrapper {
+	padding: 2*$default-padding;
+	background-color: $medium-gray;
+	position: relative;
+	margin-bottom: 8px;
+	border: 1px solid #9e9e9e;
+	@include rounded-corner;
+}
+
+#uploadProgressContainer .progressName,
+#uploadProgressContainer .progressBarStatus {
+	margin-bottom: 4px;
+}
+
+#uploadProgressContainer .progressBarStatus {
+	font-size: 10px;
+}
+
+#uploadProgressContainer .progressName {
+	text-shadow: 0 1px 2px #FFFFFF;
+}
+
+#uploadProgressContainer .progressBarContainer {
+	background: #F9F9F9 image-url('alchemy/shading.png') repeat-x 0 0;
+	border:1px solid #9E9E9E;
+	@include rounded-corner;
+	height:16px;
+	overflow: hidden;
+	width:100%;
+}
+
+#uploadProgressContainer .progressBarInProgress {
+	background: #77AAD5 image-url('alchemy/shading.png') repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarComplete {
+	background: #00D827 image-url('alchemy/shading.png') repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarError {
+	background: #F00 image-url('alchemy/shading.png') repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressBarCanceled {
+	background: #E4E4E4 image-url('alchemy/shading.png') repeat-x 0 -75px;
+	height: 16px;
+	width: 0;
+}
+
+#uploadProgressContainer .progressCancel {
+	background: #f1f1f1 image-url('alchemy/icons.png') no-repeat -1px -72px;
+	border: 1px solid #9e9e9e;
+	@include rounded-corner;
+	width: 15px;
+	height: 16px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
+#swf_upload_container {
+	height: 60px;
+}
+
+#swf_upload_container .button {
+	float: right;
+	margin-top: 4*$default-margin;
+	font-size: 11px;
+}
+
+object.swfupload {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}

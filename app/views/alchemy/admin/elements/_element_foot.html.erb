@@ -1,0 +1,35 @@
+<div class="element_foot">
+  <span class="element_tools">
+    <%= link_to(
+      "",
+      alchemy.trash_admin_element_path(element),
+      :method => :delete,
+      :class => "delete_element_button",
+      :title => t("trash element"),
+      :remote => true
+    ) -%>
+    <%= link_to(
+      "",
+      alchemy.insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id, :remove => true),
+      :remote => true,
+      :method => :post,
+      :class => "element_move_button",
+      :title => t("cut_element")
+    ) %>
+    <%= link_to(
+      "",
+      alchemy.insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id),
+      :remote => true,
+      :method => :post,
+      :class => "element_copy_button",
+      :title => t("copy_element")
+    ) %>
+  </span>
+  <span class="element_public">
+    <%= check_box_tag "public", "1", element.public?, :id => "element_#{element.id}_public" -%>
+    <%= label_tag "element_#{element.id}_public", t("visible") -%>
+  </span>
+  <button type="submit" class="button">
+    <%= t('save') %>
+  </button>
+</div>

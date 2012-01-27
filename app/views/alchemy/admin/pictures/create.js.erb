@@ -1,0 +1,12 @@
+(function($) {
+<%- if @while_assigning -%>
+	$('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay")) -%>');
+<%- else -%>
+	$('#picture_archive').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
+	Alchemy.inPlaceEditor({
+		save_label: "<%= t('save') -%>",
+		cancel_label: "<%= t('cancel') -%>"
+	});
+<%- end -%>
+	Alchemy.growl('<%= @message -%>');
+})(jQuery);

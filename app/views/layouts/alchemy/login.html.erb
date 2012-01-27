@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title><%= render_alchemy_title %></title>
+		<%= csrf_meta_tag %>
+		<%= stylesheet_link_tag('alchemy/alchemy', :media => 'screen') %>
+		<%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
+		<%= javascript_include_tag('alchemy/alchemy') %>
+	</head>
+	<body id="alchemy" class="login">
+		<div id="left_menu">
+			<div id="main_navi">
+				<div id="logout">
+					<%= link_to(alchemy.root_path) do %>
+						<span class="module icon exit"></span>
+						<label><%= t('leave') %></label>
+					<% end %>
+				</div>
+			</div>
+			<div id="left_menu_background"></div>
+		</div>
+		<div id="main_content">
+			<%= yield %>
+		</div>
+		<%= yield(:javascripts) %>
+		<script type="text/javascript" charset="utf-8">
+			jQuery(document).ready(function($) {
+				Alchemy.SelectBox('body#alchemy select');
+			});
+		</script>
+	</body>
+</html>

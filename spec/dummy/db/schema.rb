@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110919110451) do
+ActiveRecord::Schema.define(:version => 20111116125112) do
 
-  create_table "attachments", :force => true do |t|
+  create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
     t.string   "filename"
     t.string   "content_type"
@@ -24,14 +24,14 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "cells", :force => true do |t|
+  create_table "alchemy_cells", :force => true do |t|
     t.integer  "page_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "contents", :force => true do |t|
+  create_table "alchemy_contents", :force => true do |t|
     t.string   "name"
     t.string   "essence_type"
     t.integer  "essence_id"
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.integer  "updater_id"
   end
 
-  add_index "contents", ["element_id", "position"], :name => "index_contents_on_element_id_and_position"
+  add_index "alchemy_contents", ["element_id", "position"], :name => "index_contents_on_element_id_and_position"
 
-  create_table "elements", :force => true do |t|
+  create_table "alchemy_elements", :force => true do |t|
     t.string   "name"
     t.integer  "position"
     t.integer  "page_id"
@@ -59,14 +59,14 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.integer  "cell_id"
   end
 
-  add_index "elements", ["page_id", "position"], :name => "index_elements_on_page_id_and_position"
+  add_index "alchemy_elements", ["page_id", "position"], :name => "index_elements_on_page_id_and_position"
 
-  create_table "elements_pages", :id => false, :force => true do |t|
+  create_table "alchemy_elements_alchemy_pages", :id => false, :force => true do |t|
     t.integer "element_id"
     t.integer "page_id"
   end
 
-  create_table "essence_audios", :force => true do |t|
+  create_table "alchemy_essence_audios", :force => true do |t|
     t.integer  "attachment_id"
     t.integer  "width",           :default => 400
     t.integer  "height",          :default => 300
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_dates", :force => true do |t|
+  create_table "alchemy_essence_dates", :force => true do |t|
     t.datetime "date"
     t.integer  "creator_id"
     t.integer  "updater_id"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_files", :force => true do |t|
+  create_table "alchemy_essence_files", :force => true do |t|
     t.integer  "attachment_id"
     t.string   "title"
     t.string   "css_class"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_flashes", :force => true do |t|
+  create_table "alchemy_essence_flashes", :force => true do |t|
     t.integer  "attachment_id"
     t.integer  "width",          :default => 400
     t.integer  "height",         :default => 300
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_htmls", :force => true do |t|
+  create_table "alchemy_essence_htmls", :force => true do |t|
     t.text     "source"
     t.integer  "creator_id"
     t.integer  "updater_id"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_pictures", :force => true do |t|
+  create_table "alchemy_essence_pictures", :force => true do |t|
     t.integer  "picture_id"
     t.string   "caption"
     t.string   "title"
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.string   "render_size"
   end
 
-  create_table "essence_richtexts", :force => true do |t|
+  create_table "alchemy_essence_richtexts", :force => true do |t|
     t.text     "body"
     t.text     "stripped_body"
     t.boolean  "do_not_index",  :default => false
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_texts", :force => true do |t|
+  create_table "alchemy_essence_texts", :force => true do |t|
     t.text     "body"
     t.string   "link"
     t.string   "link_title"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "essence_videos", :force => true do |t|
+  create_table "alchemy_essence_videos", :force => true do |t|
     t.integer  "attachment_id"
     t.integer  "width"
     t.integer  "height"
@@ -172,13 +172,13 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.datetime "updated_at"
   end
 
-  create_table "folded_pages", :force => true do |t|
+  create_table "alchemy_folded_pages", :force => true do |t|
     t.integer "page_id"
     t.integer "user_id"
     t.boolean "folded",  :default => false
   end
 
-  create_table "languages", :force => true do |t|
+  create_table "alchemy_languages", :force => true do |t|
     t.string   "name"
     t.string   "code"
     t.string   "frontpage_name"
@@ -191,9 +191,9 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.boolean  "default",        :default => false
   end
 
-  add_index "languages", ["code"], :name => "index_languages_on_code"
+  add_index "alchemy_languages", ["code"], :name => "index_languages_on_code"
 
-  create_table "pages", :force => true do |t|
+  create_table "alchemy_pages", :force => true do |t|
     t.string   "name"
     t.string   "urlname"
     t.string   "title"
@@ -222,11 +222,11 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.integer  "language_id"
   end
 
-  add_index "pages", ["language_id"], :name => "index_pages_on_language_id"
-  add_index "pages", ["parent_id", "lft"], :name => "index_pages_on_parent_id_and_lft"
-  add_index "pages", ["urlname"], :name => "index_pages_on_urlname"
+  add_index "alchemy_pages", ["language_id"], :name => "index_pages_on_language_id"
+  add_index "alchemy_pages", ["parent_id", "lft"], :name => "index_pages_on_parent_id_and_lft"
+  add_index "alchemy_pages", ["urlname"], :name => "index_pages_on_urlname"
 
-  create_table "pictures", :force => true do |t|
+  create_table "alchemy_pictures", :force => true do |t|
     t.string   "name"
     t.string   "image_filename"
     t.integer  "image_width"
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.integer  "updater_id"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "alchemy_users", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
     t.string   "login"
@@ -263,6 +263,6 @@ ActiveRecord::Schema.define(:version => 20110919110451) do
     t.integer  "updater_id"
   end
 
-  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
+  add_index "alchemy_users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
 end

@@ -1,0 +1,20 @@
+<%- label_title = t("Create #{resource_model_name}", :default => t('Create')) -%>
+
+<%- toolbar(
+	:buttons => [
+		{
+			:icon => 'create',
+			:label => label_title,
+			:url => resource_url_scope.send("new_admin_#{resource_model_name}_path"),
+			:title => label_title,
+			:overlay_options => {
+				:title => label_title
+			},
+			:if_permitted_to => [:new, resources_permission]
+		}
+	],
+	:search => true,
+	:search_url => resource_url_scope.send("admin_#{resources_name}_path")
+) -%>
+
+<%= render 'table' %>

@@ -1,0 +1,11 @@
+<%= form_for([:admin, @picture], :html => {:multipart => true}) do |f| %>
+  <%= render(
+    :partial => "alchemy/admin/partials/upload_form",
+    :locals => {
+      :file_types => configuration(:uploader)[:allowed_filetypes][:pictures],
+      :file_types_description => t('images'),
+      :model_name => 'picture',
+      :item_type => t('images')
+    }
+  ) %>
+<% end %>

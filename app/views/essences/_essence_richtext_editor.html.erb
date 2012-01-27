@@ -1,9 +1,0 @@
-<%- cache(content) do -%>
-<div class="content_editor content_rtf_editor" id="<%= content_dom_id(content) %>">
-	<label><%= render_content_name(content) %></label>
-	<div class="essence_richtext_loader" style="display: none">
-		<%= image_tag('alchemy/ajax_loader.gif') %>
-	</div>
-	<%= tinymce_tag(content.form_field_name, content.ingredient) %>
-</div>
-<%- end -%>

@@ -1,0 +1,29 @@
+<%= form_for([:admin, @page], :remote => true, :html => {:id => 'new_page_form'}) do |f| %>
+	<%= f.hidden_field(:parent_id) %>
+	<%= f.hidden_field(:layoutpage) %>
+	<div id="errors" style="display:none"></div>
+	<table id="new_page_form">
+		<tr>
+			<td class="label">
+				<%= f.label :page_layout %>
+			</td>
+			<td class="select">
+				<%= f.select('page_layout', @page_layouts) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :name %>
+			</td>
+			<td class="input">
+				<%= f.text_field(:name, :class => "thin_border") %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">&nbsp;</td>
+			<td class="submit">
+				<%= f.button t("create"), :class => 'button', :name => nil %>
+			</td>
+		</tr>
+	</table>
+<% end %>

@@ -7,7 +7,7 @@ Alchemy CMS
 About
 -----
 
-Alchemy is a powerful Content Management System (CMS) with an extremly flexible content storing architecture.
+**CAUTION: This branch is a beta development branch. For productive environments use [master](https://github.com/magiclabs/alchemy_cms) branch.**
 
 Features
 --------
@@ -51,23 +51,23 @@ Features
 Rails Version
 -------------
 
-This version of Alchemy runs with Rails 3.0.10.
+This branch of Alchemy runs with Rails 3.1.3.
+
+If you are looking for a Rails 3 compatible version check the master branch.
 
 If you are looking for a Rails 2 compatible version check the rails-2 branch.
-
-A Rails 3.1 compatible beta version can be found in the next_stable branch.
 
 Ruby Version
 ------------
 
-Alchemy runs with REE, Ruby 1.8.7, Ruby 1.9.2 and Ruby 1.9.3.
+Alchemy under Ruby 1.8.7, Ruby 1.9.2, Ruby 1.9.3 and REE (Ruby Enterprise Edition).
 
 Installation
 ------------
 
 Use the installer (recommended):
 
-    gem install alchemy_cms
+    gem install alchemy_cms --pre
     alchemy new my_magicpage
 
 Start the local server:
@@ -76,19 +76,33 @@ Start the local server:
 
 Then just switch to your browser and open `http://localhost:3000`
 
+Upgrading
+------------
+
+Projects running with Alchemy CMS version < 2.1 needs to be upgraded.
+
+Otherwise errors will be raised like this:
+`uninitialized constant EssenceText`
+
+You have to use the following Upgrade-Task.
+Run in terminal:
+
+    rake alchemy:upgrade
+
+
 Add to existing Rails project
 -----------------------------
 
 In your Gemfile:
 
-    gem 'alchemy_cms'
+    gem 'alchemy_cms', '~> 2.1.beta7', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
 
 Run in terminal:
 
     bundle install
-    rake alchemy:prepare
+    rake alchemy:install:migrations
     rake db:migrate
-    rake db:seed
+    rake alchemy:db:seed
 
 Tipps
 -----

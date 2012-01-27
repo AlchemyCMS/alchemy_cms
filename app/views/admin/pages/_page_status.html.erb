@@ -1,9 +1,0 @@
-<span class="page_status_and_name" id="<%= dom_id(@page) %>_status">
-    <span class="page_name"><%= @page.name %></span>
-    <%- if multi_language? && !@layoutpage -%>
-    <span class="flag <%= @page.language_code %>"></span>
-    <%- end -%>
-    <span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? _('Page public') : _('Page not public') %>"></span>
-    <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.visible ? _('Page visible') : _('Page not visible') %>"></span>
-    <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? _('Page restricted') : _('Page not restricted') %>"></span>
-</span>

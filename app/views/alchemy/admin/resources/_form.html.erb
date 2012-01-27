@@ -1,0 +1,20 @@
+<%= form_for [resource_url_scope, :admin, resource_instance_variable], :remote => true do |f| %>
+	<div id="errors" style="display: none"></div>
+	<table>
+		<%- resource_attributes.each do |attribute| -%>
+		<tr>
+			<td class="label"><%= f.send :label, attribute[:name] %></td>
+			<%- if attribute[:type] == :boolean -%>
+			<td class="checkbox"><%= f.send :check_box, attribute[:name] -%></td>
+			<%- else -%>
+			<td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border long' -%></td>
+			<%- end -%>
+		</tr>
+		<%- end -%>
+		<tr>
+			<td class="submit" colspan="2">
+				<%= f.button t('save'), :class => 'button' %>
+			</td>
+		</tr>
+	</table>
+<% end %>

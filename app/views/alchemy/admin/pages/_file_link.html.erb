@@ -1,0 +1,52 @@
+<div id="overlay_tab_file_link">
+  <h2>
+    <%= t("choose_file_to_link") %>
+  </h2>
+  <table class="window_form">
+    <tr>
+      <td class="label long">
+        <label for="public_filename"><%= t("file") %></label>
+      </td>
+      <td class="select">
+        <%= select_tag(
+          "public_filename",
+          options_for_select(@attachments),
+          :class => "full_width"
+        ) %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label long">
+        <label for="file_link_title">
+          <%= t("link_title") %>
+        </label>
+      </td>
+      <td class="input">
+        <%= text_field_tag "file_link_title", '', :class => 'thin_border auto_resize link_title' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label long">
+        <label for="file_link_target"><%= t("Open Link in") %>:</label>
+      </td>
+      <td>
+        <%= select_tag 'file_link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <%= link_to_function(
+      t("apply"),
+      %(
+        Alchemy.LinkOverlay.createLink(
+          'file',
+          jQuery('#public_filename').val(),
+          jQuery('#file_link_title').val(),
+          jQuery('#file_link_target').val()
+        );
+        Alchemy.LinkOverlay.close()
+      ),
+      :class => 'button'
+    ) %>
+  </p>
+</div>

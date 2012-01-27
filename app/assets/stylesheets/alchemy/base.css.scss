@@ -1,0 +1,1510 @@
+@import "alchemy/defaults";
+
+h1 {
+	margin: 0 0 10px;
+	padding: 0;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+h2 {
+	margin: 5px 0;
+	padding-bottom: 5px;
+	clear: both;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+h3 {
+	margin: 5px 0;
+	padding-bottom: 5px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+p {
+	margin: 0 0 5px;
+	padding: 0;
+	font-size: 12px;
+}
+
+a {
+	color: $text-color;
+	text-decoration: none;
+	
+	&:hover {
+		text-decoration: underline;
+	}
+	
+	img {
+		border: none;
+	}
+}
+
+form {
+	margin-bottom: 0;
+}
+
+ul {
+	padding-left: 16px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	
+	li {
+		margin-bottom: 0.5em;
+	}
+}
+
+.float_right {
+  float: right;
+}
+
+.float_left {
+  float: left;
+}
+
+/* @group overlay */
+
+#user_list li.table_row div.table_left span.icon img {
+	width: 16px;
+	height: 16px;
+	position: relative;
+	top: 1px;
+	left: -1px;
+}
+
+span.updated_at {
+	float: right;
+}
+
+a.drop_down_select img {
+	float: left;
+	position: relative;
+	top: 2px;
+	margin-right: 4px;
+}
+
+#alchemy a.search_field_clear {
+	width: 16px;
+	height: 16px;
+	background: image-url('alchemy/ui-icons_666666_256x240.png') no-repeat -80px -128px;
+	position: absolute;
+	right: 8px;
+	top: 4px;
+	@include rounded-corner;
+}
+
+#language_select {
+	margin-bottom: 4px;
+}
+
+.js_filter_field_box {
+	position: relative;
+	float: right;
+	margin-left: 4px;
+}
+
+.js_filter_field_box .js_filter_field {
+	width: 170px;
+	text-align: left;
+	@include rounded-search-field;
+	padding: 3px 24px 2px;
+	height: 19px;
+}
+
+.js_filter_field_box label {
+	text-shadow: #fefefe 1px 1px 0;
+	font-size: 10px;
+	display: inline-block;
+	text-align: center;
+}
+
+.js_filter_field_box .js_filter_field_clear {
+	width: 15px;
+	height: 15px;
+	background: image-url('alchemy/icons.png') no-repeat 0 -70px;
+	position: absolute;
+	right: 8px;
+	top: 4px;
+	@include rounded-corner;
+}
+
+div.source_editor textarea{
+	width: 100%;
+	height: 358px;
+}
+
+div.edit_source_buttons {
+	height: 18px;
+	margin-top: 8px;
+	float: right;
+	clear: both;
+}
+
+div.info {
+	padding: 8px 8px 8px 32px;
+	line-height: 17px;
+	color: $text-color;
+	border: 1px solid #0b5c84;
+	@include rounded-corner;
+	background-color: #eaf4f9;
+	position: relative;
+	margin-bottom: 8px;
+}
+
+div.info.footnote {
+	font-size: 10px;
+	margin: 16px;
+}
+
+div#page {
+	height: auto !important;
+	height: 100%;
+	min-height: 100%;
+	position: relative;
+	/* needed for footer positioning*/
+}
+
+#archive_all .edit_images_bottom span {
+	width: 19px;
+	height: 19px;
+	float: left;
+	margin-right: 4px;
+}
+
+#archive_all .edit_images_bottom span a{
+	display: block;
+	height: 19px;
+	width: 19px;
+	background-repeat: no-repeat;
+	text-decoration: none;
+	background-position: left;
+}
+
+#archive_all .edit_images_bottom span a:hover {
+	background-position: right;
+}
+
+.picture_tool_delete {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	background-color: white;
+	top: 3px;
+	right: 4px;
+	padding: 1px;
+	z-index: 1;
+	display: none;
+}
+
+.picture_tool_delete a {
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: image-url('alchemy/icons.png') no-repeat -63px -72px;
+	cursor: pointer;
+}
+
+div.tip {
+	background-color: #eff8d0;
+	border: 1px solid #cce21c;
+	padding: 2*$default-padding;
+	margin: 8px 0;
+	@include rounded-corner;
+	width: 450px;
+}
+
+#back_to_site {
+	float: right;
+	margin-right: 8px;
+}
+
+#page_names textarea {
+	height: 78px;
+}
+
+div#new_page_from_clipboard {
+  display: none;
+}
+
+div#new_page_from_clipboard input.button {
+  float: right;
+}
+
+div#new_page_from_clipboard span {
+  float: left;
+  line-height: 25px;
+}
+
+#page_editing_head .site_status {
+	margin: 0 4px 0 0;
+	float: left;
+}
+
+div#page_status_options {
+	float: left;
+}
+
+div#page_editing_menu {
+	overflow: auto;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+h2#sitemap_heading {
+	padding: 0;
+}
+
+div#userinfo {
+	text-align: right;
+	float: right;
+	margin-right: 8px;
+}
+
+#userinfo img {
+	position: relative;
+	top: 1px;
+}
+
+div#user_list_legend {
+	overflow: auto;
+	padding: 1px 1px 4px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid black;
+	width: 370px;
+}
+
+#toolbar {
+	z-index: 10;
+	padding: 6px;
+	height: 40px;
+	background: $medium-gray image-url('alchemy/shading.png') repeat-x 0 -40px;
+	margin-right: 0px;
+	border: $default-border;
+	border-top-style: none;
+	border-right-style: none;
+	@include bottom-left-rounded-border;
+	position: relative;
+	margin-left: 5px;
+}
+
+#toolbar form {
+	margin: 0 0 0 8px;
+	float: right;
+	text-align: center;
+}
+
+#toolbar div.button_with_label form {
+	float: none;
+	margin: 0;
+	display: inline-block;
+	line-height: 5px;
+}
+
+#toolbar div.button_with_label form label {
+	margin-top: $default-margin;
+}
+
+#toolbar div.search_field {
+	position: relative;
+	float: left;
+	margin-bottom: $default-margin;
+}
+
+#toolbar div p {
+	float: right;
+	margin: 3px $default-margin 0 0;
+	padding: 0;
+}
+
+div#toolbar div.toolbar_spacer {
+	float: left;
+	width: 1px;
+	height: 37px;
+	border-right-style: dotted;
+	border-right-width: 1px;
+	margin-right: 2*$default-margin;
+	margin-left: $default-margin;
+}
+
+div#toolbar a.button {
+	width: 25px;
+	height: 21px;
+	text-decoration: none;
+	float: right;
+	border-width: 0;
+	border-style: none;
+	font-size: 0;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+div#toolbar a.button:active {
+	text-decoration: none;
+	background-position: 0 -21px;
+}
+
+#page_sorting_panel p {
+	margin-top: 1em;
+}
+
+div.info span.icon.info {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+div.table_right span.tools a.icon_button img {
+	left: -1px;
+}
+
+#user_edit form {
+	margin: 0;
+	padding: 2*$default-padding;
+}
+
+li.even {
+	background-color: #fff;
+}
+
+li.odd {
+	background-color: #eaf3f9;
+}
+
+ul.list li.table_row {
+	display: block;
+	margin: 0 0 8px;
+	background-color: #ffffff;
+	position: relative;
+	line-height: 18px;
+	float: left;
+	width: 100%;
+}
+
+ul.list {
+	margin: 0;
+	padding: 2*$default-padding;
+	list-style-type: none;
+}
+
+ul#layoutpages.list {
+	margin-top: 16px;
+}
+
+ul#layoutpages.list li {
+	margin-left: 8px;
+}
+
+ul#sitemap.list {
+	padding: 0;
+}
+
+ul.list li {
+	list-style-type: none;
+	border-width: 0;
+	border-style: none;
+	display: block;
+}
+
+ul.list li.legend {
+	background-color: transparent;
+	font-weight: bold;
+}
+
+#layoutpages li img.site_status {
+	float: left;
+}
+
+ul.list div.detail_row {
+	background-color: $medium-gray;
+	font-size: 10px;
+	margin-top: 3px;
+	padding: $default-padding;
+	overflow: hidden;
+}
+
+ul.list div.detail_row div {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+ul.list span.right {
+	float: right;
+}
+
+#sitemap li.legend span.right {
+	margin-right: 52px;
+}
+
+#sitemap li.legend span.right span.page_move {
+	display: inline-block;
+	width: 74px;
+	text-align: center;
+}
+
+h2#sitemap_heading span.page_infos {
+	margin-right: 120px;
+	width: 40px;
+	text-align: center;
+	float: right;
+	line-height: 28px;
+}
+
+.handle {
+	cursor: move;
+}
+
+#userinfo p {
+	padding: 0;
+	margin: 0;
+	font-weight: bold;
+}
+
+/* @group image_upload */
+
+table td.tools .icon, table td.icon .icon {
+	width: 16px;
+	height: 16px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	margin-top: 0;
+	background-repeat: no-repeat;
+	display: inline;
+	display: inline-block;
+	margin-right: 4px;
+}
+
+input#search_input_field {
+	width: 170px;
+	text-align: left;
+	@include rounded-search-field;
+	padding: 3px 24px 2px;
+	height: 18px;
+}
+
+.list li.table_row div.table_right span{
+	float: left;
+	text-align: left;
+}
+
+.list li.table_row div.table_center {
+	float: none;
+	padding-left: 24px;
+}
+
+.list div.table_left {
+	float: left;
+}
+
+.list div.table_right {
+	float: right;
+}
+
+#archive_all {
+	padding: 4*$default-padding;
+}
+
+#archive_all .padding_left_right {
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+.inplace-edit {
+	background-color: $light-gray;
+	position: absolute;
+	left: -5px;
+	top: -8px;
+	width: 204px;
+	z-index: 10;
+	height: 60px;
+	border: $default-border;
+	@include rounded-corner;
+}
+
+.inplace-edit input.save-button {
+	float: right;
+}
+
+.inplace-edit div.buttons input.cancel-button {
+	float: left;
+}
+
+.inplace-edit div.buttons {
+	margin-top: 4px;
+	position: absolute;
+	bottom: 4px;
+	width: 196px;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+.inplace-edit input.thin_border {
+	width: 186px;
+	font-family: "Courier New", Courier, mono;
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	height: 18px;
+}
+
+div.spinner {
+	background-color: #ffffff;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.headline_text_editor {
+	overflow: auto;
+	width: 374px;
+}
+
+.short_content_text {
+	width: 374px;
+	background-color: white;
+	margin-bottom: 10px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	padding-left: 2px;
+	float: none;
+}
+
+.short_content_text a {
+	color: #000000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.short_content_text a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.picture_tool_assign_box {
+	float: right;
+	width: 105px;
+	overflow: auto;
+	padding: 1px;
+}
+
+/* @end */
+
+.short_picture {
+	float: left
+}
+
+.short_element {
+	margin-left: 20px;
+	float: left;
+}
+
+.short_element input {
+	width: 190px;
+	float: left;
+	font: 11px $default-font-face;
+}
+
+.dashed_border {
+	border: 1px dashed;
+}
+
+ul#all_files {
+	list-style-type: none;
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+img.image_in_text {
+	position: relative;
+	top: 3px;
+}
+
+div.right_checkbox {
+	float: left;
+}
+
+div.all_rights {
+	float: left;
+	clear: both;
+	margin-top: 10px;
+}
+
+textarea.thin_border {
+	border-style: inset;
+	font: $default-font-style;
+	padding: $default-padding;
+	border-width: 1px;
+	@include rounded-corner;
+	height: auto;
+}
+
+.thin_border, .input_field {
+	margin: 0;
+	@include rounded-corner;
+	background: #fff;
+	border: 1px inset #e5e5e5;
+	width: 210px;
+	font-size: 12px;
+	line-height: 19px;
+	height: 25px;
+	padding: 1px $default-padding;
+}
+
+.thin_border.dirty {
+	background-color: #fff8df;
+}
+
+select.select_box {
+	border: 1px solid #9a9a9a;
+	color: $text-color;
+	padding: 1px;
+	margin: 0;
+	font-size: 12px;
+	@include rounded-corner;
+	background: #f4f4f4;
+	height: 21px;
+}
+
+#tooltip {
+	border: 1px solid #0b5c84;
+	color: #333333;
+	position: absolute;
+	display: none;
+	padding: $default-padding;
+	font-size: 11px;
+	max-width: 200px;
+	@include rounded-corner;
+	-moz-box-shadow: 0 2px 8px $dark-gray;
+	-webkit-box-shadow: 0 2px 8px $dark-gray;
+	box-shadow: 0 2px 8px $dark-gray;
+	background-color: #eaf4f9;
+}
+
+#tooltip p,
+#tooltip h1 {
+	font-size: 11px;	
+}
+
+.date_select_without_time #date_date_4i{
+	display: none;
+}
+
+.date_select_without_time #date_date_5i{
+	display: none;
+}
+
+.with_padding {
+	padding: 2*$default-padding;
+}
+
+.with_margin {
+	margin: 2*$default-padding;
+}
+
+.element_spinner {
+	float: right;
+	height: 23px;
+	position: relative;
+	bottom: 3px;
+	right: -3px;
+}
+
+.element_folder_spinner {
+	position: relative;
+	bottom: 2px;
+	width: 24px;
+	height: 24px;
+	right: -2px;
+}
+
+.element_spinner img {
+	bottom: 1px;
+	float: left;
+	position: relative;
+	width: 24px;
+	height: 24px;
+	right: 0;
+}
+
+span.spinner_wait_text {
+	float: left;
+	position: relative;
+	top: 4px;
+}
+
+div.element_head span.ajax_folder span.error_icon {
+	float: left;
+	width: 14px;
+	height: 15px;
+	text-align: center;
+	background-color: white;
+	border: 1px solid #935b5b;
+	color: #935b5b;
+}
+
+div#images {
+	margin-top: 16px;
+	margin-bottom: 8px;
+	overflow: visible;
+}
+
+#toolbar_links {
+	line-height: 21px;
+	margin-left: 8px;
+	float: left;
+}
+
+div#toolbar_buttons {
+	float: left;
+	margin-right: 6px;
+}
+
+div#toolbar_buttons_right {
+	float: right;
+	margin-left: 8px;
+}
+
+#errorExplanation {
+	background: #ffdfdf;
+	padding: 2*$default-padding;
+	text-align: left;
+	margin-bottom: 8px;
+	border: 1px solid #d08f91;
+	color: #690001;
+	@include rounded-corner;
+}
+
+#errorExplanation h2 {
+	font-size: 1.2em;
+}
+
+div.field_with_errors {
+	display: inline;
+}
+
+p.foot_note {
+	font-size: 0.8em;
+}
+
+#errorExplanation ul {
+	padding: 0 0 0 16px;
+}
+
+#all_files td.name a {
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -o-zoom-in;
+	cursor: zoom-in;
+}
+
+#sitemap .placeholder {
+	background-color: $medium-gray;
+	margin-bottom: 0px;
+	margin-left: 22px;
+}
+
+div#jscropper {
+	padding: 2*$default-padding;
+	display: inline-block;
+}
+
+div#crop_explain.tip {
+	margin: 8px 8px 0;
+	float: right;
+	width: 25%;
+}
+
+textarea#essence_picture_caption {
+	width: 233px;
+	height: 61px;
+}
+
+#alchemy .ui-dialog-content form.with_padding table td {
+	vertical-align: top;
+}
+
+#page_selector_scroll_container {
+	position: relative;
+	width: 100%;
+}
+
+#page_selector_container {
+	height: 230px;
+	background-color: $light-gray;
+	margin-bottom: 4px;
+	border: 1px inset #e8e8e8;
+	overflow: auto;
+	padding: 4px 0 0 4px;
+	@include rounded-corner;
+}
+
+div#image_assign_filter_and_image_sizing {
+	width: 100%;
+	height: 40px;
+}
+
+#assign_image_list {
+	padding: 2*$default-padding;
+	overflow: hidden;
+	text-align: center;
+}
+
+/* @group Picture Thumbnails */
+
+.picture_thumbnail {
+	padding: $default-padding;
+	margin: 2px 1px 2px 2px;
+	background-color: #fff;
+	float: none;
+	display: inline;
+	display: inline-block;
+	border: 1px solid #c0c0c0;
+	position: relative;
+	@include rounded-corner;
+}
+
+#pictures {
+	padding: 2*$default-padding;
+	border: $default-border;
+	@include rounded-corner;
+	margin: -2*$default-padding;
+	background-color: $medium-gray;
+}
+
+#pictures, #picture_archive .pagination {
+	text-align: center;
+}
+
+#pictures .picture_thumbnail {
+	margin: 0 16px 16px 0;
+	display: inline-block;
+	float: none;
+}
+
+#pictures .picture_thumbnail:hover .picture_tool_delete {
+	display: block;
+}
+
+.picture_thumbnail .thumbnail_background {
+	display: table-cell;
+	width: 160px;
+	height: 120px;
+	background-color: $dark-gray;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0;
+	line-height: 0;
+}
+
+.picture_thumbnail.small .thumbnail_background {
+	width: 80px;
+	height: 60px;
+}
+
+.picture_thumbnail.medium .thumbnail_background {
+	width: 160px;
+	height: 120px;
+}
+
+.picture_thumbnail.large .thumbnail_background {
+	width: 240px;
+	height: 180px;
+}
+
+#pictures .picture_thumbnail .thumbnail_background {
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -ms-zoom-in;
+	cursor: -o-zoom-in;
+	cursor: image-url('alchemy/lupe.cur'), zoom-in, pointer;
+}
+
+.essence_picture_editor .picture_thumbnail {
+	width: 111px;
+	height: 115px;
+	margin: 1px;
+}
+
+.essence_picture_editor .picture_thumbnail .thumbnail_background {
+	width: 111px;
+	height: 93px;
+}
+
+div.picture_thumbnail.small {
+	width: 80px;
+	height: 75px;
+}
+
+div.picture_thumbnail.medium {
+	width: 160px;
+	height: 140px;
+}
+
+div.picture_thumbnail.large {
+	width: 240px;
+	height: 195px;
+}
+
+.picture_thumbnail .picture_name {
+	height: 12px;
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	position: absolute;
+	bottom: 1px;
+	left: 0;
+	font-family: "Courier New", Courier, mono;
+	line-height: 11px;
+	padding: 2px 0;
+	margin-right: 4px;
+	margin-left: 4px;
+}
+
+.picture_thumbnail .picture_name.rename.hover {
+	cursor: text;
+}
+
+.picture_thumbnail.small .picture_name {
+	width: 80px;
+}
+
+.picture_thumbnail.medium .picture_name {
+	width: 160px;
+	bottom: 3px;
+}
+
+.picture_thumbnail.large .picture_name {
+	width: 240px;
+}
+
+div.assign_image_list_image {
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+}
+
+div.picture_thumbnail.small div.image_spinner img {
+	top: 14px;
+	left: 25px;
+}
+
+div.picture_thumbnail.medium div.image_spinner img {
+	top: 42px;
+	left: 64px;
+}
+
+div.picture_thumbnail.large div.image_spinner img {
+	top: 74px;
+	left: 108px;
+}
+
+div.image_spinner {
+	background-color: $dark-gray;
+	width: 1px;
+	margin: $default-margin;
+}
+
+div.picture_thumbnail.small .image_spinner {
+	height: 60px;
+	margin: $default-margin;
+}
+
+div.picture_thumbnail.medium .image_spinner {
+	height: 120px;
+	margin: $default-margin;
+}
+
+div.picture_thumbnail.large .image_spinner {
+	height: 180px;
+}
+
+div.image_spinner img {
+	position: absolute;
+	z-index: 0;
+	top: 32px;
+	left: 40px;
+}
+
+#assign_image_list div.assign_image_list_image img {
+	border-style: none;
+}
+
+#assign_image_list div.assign_image_list_image span {
+	
+}
+
+/* @end */
+
+div#errors {
+	margin-bottom: 8px;
+	padding: 8px 8px 4px 28px;
+	border-width: 1px;
+	border-style: solid;
+	@include rounded-corner;
+	border-color: #c49c9c;
+	color: #592e2e;
+	background-color: #efd3d3;
+}
+
+#overlay_tabs div#errors {
+	margin: 8px 8px 0;
+}
+
+#errors ul li {
+	margin-bottom: 0.5em;
+}
+
+#errors ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: decimal;
+}
+
+#alchemyConfirmation .alchemy_window_buttons {
+	display: block;
+	text-align: right;
+	margin-top: 8px;
+	padding-right: 8px;
+}
+
+#alchemyConfirmation_content div.alchemy_window_message {
+	padding: 2*$default-padding;
+}
+
+#page_select {
+	width: 120px;
+	margin-left: 8px;
+}
+
+#new_page_form th, #new_page_form td {
+	white-space: nowrap;
+	padding: 2px;
+}
+
+#new_page_form tbody tr td.second_row div.selectbox a.display {
+	width: 123px;
+}
+
+input.with_border {
+	margin: 0;
+	padding: 1px;
+	font-size: 12px;
+	border: 1px solid silver;
+}
+
+input#user_admin {
+	margin: 0 0 0 1px;
+	padding: 0;
+	border-width: 0;
+	border-style: none;
+}
+
+#image_edit div {
+	height: 25px;
+}
+
+#image_edit div span {
+	float: left;
+	padding: 0;
+	margin-right: 6px;
+	height: 17px;
+	line-height: 19px;
+}
+
+#alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
+	float: right;
+	width: 290px;
+	height: 25px;
+	margin-top: 2px;
+	padding: 0 !important;
+	margin-right: 0;
+}
+
+div#image_assign_filter_and_image_sizing form div.search_field {
+	margin-right: 4px;
+	float: left;
+	position: relative;
+}
+
+div#image_assign_filter_and_image_sizing form input.button {
+	float: right;
+}
+
+li.assign_file_file {
+	display: block;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 4px;
+}
+
+#assign_file_list li.assign_file_file a {
+	overflow: hidden;
+	display: block;
+	padding-right: 4px;
+	text-align: left;
+	line-height: 25px;
+}
+
+div.assign_file_file_icon {
+	float: left;
+	margin: $default-margin;
+	line-height: normal;
+}
+
+#alchemy .ui-dialog-content a img {
+	border-style: none;
+}
+
+#sitemap_external_links form {
+	margin-left: 5px;
+	margin-bottom: 4px;
+}
+
+input#link_to_text {
+	border-width: 1px;
+	font-size: 11px;
+	line-height: 11px;
+	width: 229px;
+}
+
+.link_window_tab_body {
+	background-color: $light-gray;
+	padding: 2*$default-padding;
+	margin: 0;
+}
+
+#alchemy .ui-dialog-content ul#sitemap {
+	margin: 0;
+	padding: 0 8px 8px 0;
+}
+
+#alchemy .ui-dialog-content ul#sitemap li {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#alchemy .ui-dialog-content ul#sitemap li li {
+	padding-left: 22px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename {
+	background-color: #f9f9f9;
+	width: 311px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+	float: left;
+	line-height: 18px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li ul li span.sitemap_sitename {
+	float: left;
+	background-color: #f9f9f9;
+	width: 290px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li ul li ul li span.sitemap_sitename {
+	float: left;
+	background-color: #f9f9f9;
+	width: 269px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li ul li ul li ul li span.sitemap_sitename {
+	float: left;
+	background-color: #f9f9f9;
+	width: 248px;
+	margin: 6px 0 0;
+	padding: 0 0 4px 4px;
+	height: 14px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap img.site_status {
+	float: left;
+	border-style: none;
+	margin-bottom: 0px;
+	border-width: 0;
+	padding: 0;
+	padding-top: 6px;
+	margin-right: 4px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li img {
+	border-width: 0;
+	border-style: none;
+	float: left;
+}
+
+#alchemy .ui-dialog-content ul#sitemap .sitemap_row {
+	padding: 0;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 22px;
+	position: relative;
+	height: 28px;
+}
+
+div.elements_from_page_selector {
+	width: 154px;
+}
+
+div.elements_for_page {
+	position: absolute;
+	right: 23px;
+	top: 0;
+	z-index: 15;
+	background-color: white;
+	width: 240px;
+	padding: $default-padding;
+	border: 1px solid #9c9d9c;
+	-webkit-box-shadow: #9ea09f 0px 0px 4px;
+	-moz-box-shadow: #9ea09f 0px 0px 4px;
+	-o-box-shadow: #9ea09f 0px 0px 4px;
+	box-shadow: #9ea09f 0px 0px 4px;
+	line-height: 13px;
+	@include rounded-corner;
+}
+
+a.close_elements_from_page_selector {
+	position: absolute;
+	right: 0;
+	top: 8px;
+	font-size: 0;
+	padding-right: 2px;
+	width: 11px;
+	height: 15px;
+	background: image-url('alchemy/icons.png') no-repeat 0 -72px;
+	cursor: pointer;
+}
+
+.elements_for_page img {
+	width: 20px;
+	height: 20px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul .sitemap_row a {
+	color: black;
+	text-decoration: none;
+	display: block;
+	outline: none;
+}
+
+#sitemap a.show_elements_to_link {
+	float: left;
+	width: 16px;
+	height: 16px;
+	position: relative;
+	background: image-url('alchemy/icons.png') no-repeat -512px -72px;
+	margin: 2px;
+	font-size: 0;
+	text-decoration: none;
+}
+
+.bordertop_white {
+	border-top: 4px solid white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	overflow: auto;
+	float: none;
+}
+
+ul#assign_file_list {
+	margin-bottom: 8px;
+	margin-top: 8px;
+	clear: both;
+	height: 280px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+ul#sitemap li .sitemap_sitename.selected_page a{
+	background-color: #DB694C;
+	color: #f5f5f5;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
+	font-weight: bold;
+	padding-left: 4px;
+}
+
+#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename a:hover {
+	font-weight: bold;
+}
+
+div.assign_file_file_name {
+	float: left;
+}
+
+.selected_file a {
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+div.assign_file_file_icon img {
+	margin-top: 2px;
+}
+
+#external_link_table .padding_right {
+	padding-right: 8px;
+}
+
+#external_link_table .external_address_input {
+	width: 195px;
+}
+
+.elements_for_page .alchemy_selectbox {
+	float: left;
+	width: 217px;
+}
+
+#alchemy .ui-dialog-content p {
+	min-height: 21px;
+}
+
+table.window_form td.checkbox {
+	text-align: left;
+}
+
+select#url_protocol.medium {
+	margin: 0;
+}
+
+#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
+	width: 98%;
+}
+
+#alchemy .ui-dialog-content td.medium {
+	width: 76px;
+}
+
+#alchemy .ui-dialog-content input.medium_long {
+	width: 129px;
+}
+
+#alchemy .ui-dialog-content input.long,
+#alchemy .ui-dialog-content textarea.long {
+	margin: 0;
+	width: 240px;
+}
+
+#alchemy .ui-dialog-content input.very_long {
+	width: 300px;
+	margin: 0;
+}
+
+#alchemy .ui-dialog-content .short {
+	width: 40px;
+}
+
+#alchemy .ui-dialog-content p a.button {
+	float: right;
+}
+
+#alchemy .ui-dialog-content p a.button.small {
+	float: none;
+	display: inline-block;
+}
+
+.assign_file_file.selected_file {
+	background-color: #d1d1d1;
+}
+
+div.info ol {
+	margin: 0 0 8px;
+	padding-left: 20px;
+}
+
+div.info ol li {
+	text-indent: 0;
+	margin-bottom: 4px;
+}
+
+div#overlay_toolbar {
+	background: $medium-gray image-url('alchemy/shading.png') repeat-x 0 -42px;
+	border: $default-border;
+	height: 38px;
+	border-left-style: none;
+	border-right-style: none;
+	padding: 2*$default-padding;
+}
+
+div#overlay_toolbar div.toolbar_spacer {
+	float: left;
+	width: 1px;
+	height: 37px;
+	border-right-style: dotted;
+	border-right-width: 1px;
+	margin-right: 8px;
+	margin-left: 4px;
+}
+
+div#overlay_toolbar a.button {
+	width: 25px;
+	height: 21px;
+	text-decoration: none;
+	float: right;
+	border-width: 0;
+	border-style: none;
+	font-size: 0;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+div#overlay_toolbar a.button:active {
+	text-decoration: none;
+	background-position: 0 -21px;
+}
+
+#alchemy div#overlay_toolbar form {
+	float: left;
+	padding: 0;
+	margin-right: 8px;
+}
+
+#alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {
+	padding: 2*$default-padding;
+}
+
+#preview_load_info {
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 1px 0 0 -12px;
+}
+
+#clipboard_items ul {
+	list-style-type: none;
+	margin: 0 0 16px;
+	padding: 0;
+	height: 180px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#clipboard_items ul li {
+	padding: $default-padding;
+	background: white;
+}
+
+.mceEditor table {
+	border-spacing: 0 !important;
+}
+
+#sitemap_heading span.page_name {
+	margin-left: 24px;
+	line-height: 28px;
+}
