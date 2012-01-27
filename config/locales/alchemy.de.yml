@@ -415,6 +415,7 @@ de:
     meta_keywords: "Meta Schlagwörter"
     missing_image: "Bild wird vermisst."
     modules:
+      user_sessions: "Anmeldung"
       attachments: "Dateien"
       dashboard: "Dashboard"
       pictures: "Bilder"

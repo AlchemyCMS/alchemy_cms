@@ -265,6 +265,7 @@ en:
     meta_keywords: "Meta-Keywords"
     missing_image: "Missing image"
     modules:
+      user_sessions: "Login"
       attachments: "Files"
       dashboard: "Dashboard"
       pictures: "Images"
