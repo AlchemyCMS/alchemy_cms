@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "alchemy_cms"
   s.version     = Alchemy::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Thomas von Deyen", "Robin Böning", "Carsten Fregin"]
+  s.authors     = ["Thomas von Deyen", "Robin Böning", "Marc Schettke", "Carsten Fregin"]
   s.email       = ["alchemy@magiclabs.de"]
   s.homepage    = "http://alchemy-cms.com"
-  s.summary     = %q{An extremly flexbile CMS for Rails 3.}
-  s.description = %q{Alchemy is an awesome Rails CMS with an extremely flexible content storing architecture.}
+  s.summary     = %q{An extremly flexbile CMS for Rails 3.2}
+  s.description = %q{Alchemy is a Rails CMS with an flexible content storing architecture.}
   s.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
   s.license = 'BSD New'
 
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency(%q<rails>, ["~> 3.1"])
+  s.add_runtime_dependency(%q<rails>, ["~> 3.2"])
   s.add_runtime_dependency(%q<authlogic>)
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
   s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.4"])

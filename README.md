@@ -51,9 +51,11 @@ Features
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.1.3.
+This branch of Alchemy runs with Rails 3.2
 
-If you are looking for a Rails 3 compatible version check the master branch.
+If you are looking for a Rails 3.1 compatible version check the master branch.
+
+If you are looking for a Rails 3 compatible version check the rails-3 branch.
 
 If you are looking for a Rails 2 compatible version check the rails-2 branch.
 
