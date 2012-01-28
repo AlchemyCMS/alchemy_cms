@@ -7,6 +7,8 @@ Alchemy CMS
 About
 -----
 
+**CAUTION: This branch is a beta development branch. For productive environments use [master](https://github.com/magiclabs/alchemy_cms) branch.**
+
 Features
 --------
 
@@ -29,11 +31,13 @@ Features
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.1.3.
+This branch of Alchemy runs with Rails 3.2
 
-If you are looking for a Rails 3 compatible version check the 2.0-stable branch.
+If you are looking for a Rails 3.1 compatible version check the master branch.
 
-If you are looking for a Rails 2 compatible version check the 1.6-stable branch.
+If you are looking for a Rails 3 compatible version check the rails-3 branch.
+
+If you are looking for a Rails 2 compatible version check the rails-2 branch.
 
 Ruby Version
 ------------
