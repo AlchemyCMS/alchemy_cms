@@ -20,6 +20,7 @@ body#alchemy {
 	left: 65px;
 	z-index: 5;
 	width: 100%;
+	@include disable-user-select;
 }
 
 #left_menu {
@@ -34,15 +35,13 @@ body#alchemy {
 	border-right: $default-border;
 	background: $light-blue;
 	font-size: 10px;
+	@include disable-user-select;
 	
 	label {
 		display: block;
 	}
 	
 	a {
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		user-select: none;
 		text-shadow: #fff 0 0px 4px;
 	}
 }
@@ -191,10 +190,7 @@ div#user_info {
 		padding: 0 8px;
 		background-color: $medium-gray;
 		text-shadow: #fff 0 1px 2px;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-o-user-select: none;
-		user-select: none;
+		@include disable-user-select;
 		cursor: default;
 		line-height: 20px;
 		float: left;
@@ -258,10 +254,7 @@ div#user_info {
 			color: $text-color;
 			background-color: $medium-gray;
 			text-shadow: #fff 0 1px 2px;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-o-user-select: none;
-			user-select: none;
+			@include disable-user-select;
 			cursor: default;
 			z-index: 10;
 		}

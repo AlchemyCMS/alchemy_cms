@@ -22,6 +22,7 @@ table tr td.tools {
 	width: 40px;
 	background-color: $light-gray;
 	white-space: nowrap;
+	@include disable-user-select;
 }
 
 td.input, td.label {

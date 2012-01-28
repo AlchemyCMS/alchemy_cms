@@ -237,9 +237,7 @@ a.element_move_button {
 	border-top-color: #e3e3e3;
 	height: 20px;
 	background-color: #e5dcca;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
+	@include disable-user-select;
 }
 
 form.add_gallery_to_index {
@@ -257,9 +255,7 @@ div.picture_gallery_images {
 }
 
 div.picture_thumbnail div.picture_image img.img_paddingtop {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
+	@include disable-user-select;
 }
 
 /* @group add moclecule */
@@ -506,9 +502,7 @@ div.essence_picture_editor:hover .picture_tool_delete {
 	top: 4px;
 	left: 4px;
 	background-color: transparent;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
+	@include disable-user-select;
 }
 
 .dragable_picture .picture_handle {

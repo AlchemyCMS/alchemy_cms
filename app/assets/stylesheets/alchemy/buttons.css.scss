@@ -45,6 +45,7 @@ input.button,
 a.button,
 button.button {
 	@include button-styles;
+	@include disable-user-select;
 }
 
 #new_element button.button {
@@ -200,6 +201,7 @@ div#toolbar label, div#overlay_toolbar label {
 	margin-top: $default-margin;
 	display: block;
 	line-height: 13px;
+	@include disable-user-select;
 }
 
 div.button_with_label:hover label {
@@ -280,9 +282,7 @@ a.icon_button {
 	margin-right: 8px;
 	border: 1px solid #9a9a9a;
 	@include rounded-corner;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
+	@include disable-user-select;
 	overflow: hidden;
 	position: relative;
 	

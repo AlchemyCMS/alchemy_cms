@@ -466,9 +466,7 @@ h2#sitemap_heading span.page_infos {
 table td.tools .icon, table td.icon .icon {
 	width: 16px;
 	height: 16px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
+	@include disable-user-select;
 	margin-top: 0;
 	background-repeat: no-repeat;
 	display: inline;

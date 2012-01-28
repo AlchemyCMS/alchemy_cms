@@ -145,3 +145,11 @@ $default-border: 1px solid #AFAFAF;
 	opacity: $opacity/100;
 	filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity})");
 }
+
+@mixin disable-user-select {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
