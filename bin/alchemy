@@ -25,7 +25,7 @@ class AlchemyInstaller < Thor
 	end
 
 	desc "new PROJECT", "Creates a new Alchemy CMS project."
-	method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm to use for this project. Leave blank for none."
+	method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm (git or svn) to use for this project. Leave blank for none."
 	method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
 	def new(project)
 		@application = project.downcase.strip.gsub(/ /, '_')
@@ -33,7 +33,7 @@ class AlchemyInstaller < Thor
 			
 			say "Generating new Rails App...", :yellow
 			
-			if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash")
+			if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
 				
 				create_database_yml if options[:database] == 'mysql'
 				
