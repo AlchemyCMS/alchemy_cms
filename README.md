@@ -7,6 +7,8 @@ Alchemy CMS
 About
 -----
 
+**CAUTION: This branch is a beta development branch. For productive environments use [master](https://github.com/magiclabs/alchemy_cms) branch.**
+
 Features
 --------
 
@@ -44,12 +46,14 @@ Features
 - Completely free:
   - BSD License
   - No Enterprise Licences, or Community Editions
-- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy_cms/wiki/Software-Requirements))
+- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy/wiki/Software-Requirements))
 
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.1.3.
+This branch of Alchemy runs with Rails 3.2
+
+If you are looking for a Rails 3.1 compatible version check the master branch.
 
 If you are looking for a Rails 3 compatible version check the rails-3 branch.
 
@@ -65,7 +69,7 @@ Installation
 
 Use the installer (recommended):
 
-    gem install alchemy_cms
+    gem install alchemy_cms --pre
     alchemy new my_magicpage
 
 Start the local server:
@@ -93,7 +97,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', '~> 2.1'
+    gem 'alchemy_cms', '~> 2.1.beta7', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
 
 Run in terminal:
 
