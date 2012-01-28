@@ -49,7 +49,7 @@ Installation
 
 Use the installer (recommended):
 
-    gem install alchemy_cms
+    gem install alchemy_cms --pre
     alchemy new my_magicpage
 
 Start the local server:
