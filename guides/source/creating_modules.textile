@@ -7,14 +7,18 @@ endprologue.
 h3. The anatomy of an alchemy module
 
 Basicly there are two ways to set up a module:
- - bundle Controllers residing in the main app in a module
- - create a new Rails::Engine
+
+* bundle Controllers residing in the main app
+* create a new Rails::Engine
 
 h3. Integrate your module in alchemy
 
 h4. Describing the module
 
-The module needs to be described, so that Alchemy CMS can handle with it. This can be done within a yml file which will be loaded when initializing the module.
+The module needs to be described, so that Alchemy CMS can handle with it. 
+This can be done within a yml file which will be loaded when initializing the module.
+
+When using a Rails engine:
 
 <pre>
 # your_module/config/module_definition.yml
@@ -23,16 +27,37 @@ name: your_module
 engine_name: your_module
 order: 1
 navigation:
-  name: modules.name_of_your_module                  # will be translated through I18n.
+  name: modules.name_of_your_module                  # The name in the main navigation (translated via I18n)
   controller: your_module/admin/mailings             # controller which will be used.
   action: index                                      # action which will be used
   image: /assets/your_module/module_icon.png         # image which will be rendered as navigation icon
   sub_navigation:
-    - name: Mailings                                 # name for subnavigation tab
-      controller: your_module/admin/mailings         # controller which will be used
+    - name: products                                 # name for subnavigation tab
+      controller: your_module/admin/products         # controller which will be used
       action: index                                  # action which will be used
-    - name: Newsletter                               # name for subnavigation tab
-      controller: your_module/admin/newsletters      # controller which will be used
+    - name: variants                                 # name for subnavigation tab
+      controller: your_module/admin/variants         # controller which will be used
+      action: index                                  # action which will be used
+</pre>
+
+When using your mainapp and not a new engine:
+
+<pre>
+# main_app/config/module_definition.yml
+
+name: your_module
+order: 1
+navigation:
+  name: modules.name_of_your_module                  # The name in the main navigation (translated via I18n)
+  controller: /admin/products                        # controller which will be used.
+  action: index                                      # action which will be used
+  image: /assets/module_icon.png                     # image which will be rendered as navigation icon
+  sub_navigation:
+    - name: products                                 # name for subnavigation tab (translated via I18n)
+      controller: /admin/prodcuts                    # controller which will be used
+      action: index                                  # action which will be used
+    - name: variants                                 # name for subnavigation tab (translated via I18n)
+      controller: /admin/variants                    # controller which will be used
       action: index                                  # action which will be used
 </pre>
 
@@ -90,8 +115,12 @@ For a resource residing in the main app a normal resource entry is enough:
 <pre>
 # config/routes.rb
 YourApp::Application.routes.draw do
-  ...
-  resources :your_resources
+  
+  resources :your_resource
+  
+  namespace :admin do
+    resources :your_resource
+  end
   
   mount Alchemy::Engine => '/'
 end
