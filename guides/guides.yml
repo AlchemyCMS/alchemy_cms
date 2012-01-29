@@ -75,3 +75,8 @@ index:
       url: creating_own_essence_types
       text: How to create own Essence-types.
       construction: true
+    
+  4.) Deployment:
+    - title: Deploying on RailsHoster
+      url: deploy_on_railshoster
+      text: How to deploy your Alchems site on RailsHoster.
