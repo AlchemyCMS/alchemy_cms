@@ -58,7 +58,7 @@ The installing of Alchemy CMS is very easy.
 You just need to run the gem command.
 
 <shell>
-gem install alchemy_cms --pre
+gem install alchemy_cms
 </shell>
 
 INFO: You now have the newest Alchemy CMS gem installed on your system!
@@ -84,10 +84,10 @@ h4. to an existing rails application
 
 If you already have an existing rails application, you can require the Alchemy CMS gem in your app.
 
-Just dd this line to your Gemfile.
+Just add this line to your Gemfile.
 
 <pre>
-gem 'alchemy_cms', :version => '~>2.1'
+gem 'alchemy_cms', '~>2.1'
 </pre>
 
 Since Alchemy CMS is a mountable engine, you need to define the mountpoint in your <code>routes.rb</code>
@@ -111,12 +111,12 @@ rails generate alchemy:scaffold
 
 Copy the assets and migration files to your application.
 <shell>
-rake alchemy:prepare
+rake alchemy:install:migrations
 </shell>
 
 Migrate the database to get the table structure.
 <shell>
-rake db:schema:load
+rake db:migrate
 </shell>
 
 Seed the database with initial data.
@@ -135,7 +135,7 @@ You just need to start a local ruby server on your development machine.
 cd YOUR_APP_NAME && rails s
 </shell>
 
-Open a browser window and navigate to "http://localhost:3000/admin":http://localhost:3000/admin.
+Open a browser window and navigate to "http://localhost:3000":http://localhost:3000.
 You will be greeted with a screen that is prompting you to create the first user.
 
 INFO: Congratulations, you can access the backend now!
