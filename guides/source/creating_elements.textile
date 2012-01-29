@@ -7,7 +7,7 @@ endprologue.
 h3. Defining the element
 
 Lets create an image gallery for your website with a tiny text for every image.
-The element will be defined in the <code>/config/alchemy/elements.yml</code> file.
+The element will be defined in the <code>config/alchemy/elements.yml</code> file.
 
 <pre>
 - name: gallery
@@ -29,11 +29,11 @@ After typing the line below in your terminal, the rails generator will create th
 	rails g alchemy:elements --skip
 </shell>
 
-INFO: You can find the created files in your <code>/app/views/elements/</code> folder.
+INFO: You can find the created files in the <code>app/views/alchemy/elements/</code> folder.
 
 h3. Assigning to page layouts
 
-Before you can play around with it in the backend, you just need to define on which pages your element is allowed to be placed. The placement depends on the page´s page_layout, so just open <code>/config/alchemy/page_layouts.yml</code> and put the name of your new element into the list of available elements for a specific page layout.
+Before you can play around with it in the backend, you just need to define on which pages your element is allowed to be placed. The placement depends on the page´s page_layout, so just open <code>config/alchemy/page_layouts.yml</code> and put the name of your new element into the list of available elements for a specific page layout.
 
 <pre>
 - name: standard

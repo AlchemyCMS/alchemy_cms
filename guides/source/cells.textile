@@ -18,5 +18,5 @@ Cells are defined here: <code>/config/alchemy/cells.yml</code>
 Normally cells are rendered on page_layouts. They can be called with this helper method:
 
 <pre>
-render_cell(:cellname)
+<%= render_cell(:cellname) %>
 </pre>

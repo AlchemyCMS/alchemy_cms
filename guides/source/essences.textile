@@ -30,8 +30,8 @@ Used to store a DateTime object. The view output is passed through Rails I18n Li
 
 h4. EssenceHtml
 
-Used to store a String (max. 255 Chars.). The view output renders the raw, not sanitized or unescaped String. So be careful!
+Used to store html code (i.e. a YouTube video embed code). The view output renders the raw, not sanitized or unescaped String. So be careful!
 
 INFO: Its easy to add more Essence-types to Alchemy. More information here in this guide: "Creating own Essence-types":creating_own_essence_types.html
 
-´
+&nbsp;

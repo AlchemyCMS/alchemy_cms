@@ -12,7 +12,7 @@ Alchemy CMS parses the <code>/config/alchemy/page_layouts.yml</code> file which 
 
 h3. How do they work?
 
-In the <code>/app/views/layouts</code> folder of your rails project, Alchemy CMS looks for a file named <code>pages.html.erb</code> and renders it.
+In the <code>/app/views/layouts</code> folder of your rails project, Alchemy CMS first looks for the <code>application.html.erb</code> layout and if that's not present it looks for a file named <code>pages.html.erb</code> and renders it.
 
 Page layouts are templates (view partials) which are yielded on the <code>pages.html.erb</code> template.
 They are being parsed through ERB, so you can write HTML/CSS and execute ruby code there.
