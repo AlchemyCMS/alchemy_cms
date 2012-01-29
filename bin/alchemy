@@ -29,107 +29,113 @@ class AlchemyInstaller < Thor
 	method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
 	def new(project)
 		@application = project.downcase.strip.gsub(/ /, '_')
-		if yes?("Install Alchemy CMS into ./#{@application}? (y/N)")
+		say "Install Alchemy CMS into ./#{@application}", :yellow
+		say "Generating new Rails App...", :yellow
+		
+		if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
 			
-			say "Generating new Rails App...", :yellow
+			create_database_yml if options[:database] == 'mysql'
 			
-			if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
+			mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
+			mountpoint = "/" if mountpoint.empty?
+			sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
+			inject_into_file "#{@application}/config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
+			
+			with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
+			
+			if with_standard_set
+				sentinel = /::Application\.configure do\s*$/
+				inject_into_file "#{@application}/environments/production.rb", "\n  config.assets.precompile += %w( alchemy/standard_set.css )\n", { :after => sentinel, :verbose => true }
+			end
+			
+			%x[
+				cd ./#{@application}
+				rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
+				rm ./public/index.html
+				rm ./app/views/layouts/application.html.erb
+				rm ./app/assets/images/rails.png
+			]
+			
+			if !options[:scm].nil? && !options[:scm].empty?
 				
-				create_database_yml if options[:database] == 'mysql'
-				
-				mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
-				mountpoint = "/" if mountpoint.empty?
-				sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
-				inject_into_file "#{@application}/config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
-				
-				with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
+				clean_mountpoint = mountpoint.gsub('/', '')
 				
 				%x[
 					cd ./#{@application}
-					rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
-					rm ./public/index.html
-					rm ./app/assets/images/rails.png
+					rm -rf ./tmp/*
+					rm -rf ./log/*
+					mkdir -p ./index
+					mkdir -p ./uploads
 				]
 				
-				if !options[:scm].nil? && !options[:scm].empty?
-					
-					clean_mountpoint = mountpoint.gsub('/', '')
-					
-					%x[
-						cd ./#{@application}
-						rm -rf ./tmp/*
-						rm -rf ./log/*
-						mkdir -p ./index
-						mkdir -p ./uploads
-					]
-					
-					if yes?("\nDo you want to generate a deploy script for Capistrano? (y/N)")
-						system "cd #{@application} && rails g alchemy:deploy_script --scm=#{options[:scm]} --db=#{options[:database]}"
-						say "\nCapifying...", :yellow
-						system "cd #{@application} && capify ."
-					end
-					
-					case options[:scm]
-						when 'svn'
-							server = ask("\nURL of your svn server:")
-							repository = ask("\nName of the repository (#{@application}):")
-							repository = @application if repository.empty?
-							
-							say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
-							output = %x[svn import ./#{@application} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
-							
-							if imported
-								
-								say "Removing and checking out again...", :yellow
-								%x[
-									rm -rf ./#{@application}
-									svn co #{server}/#{repository} #{@application}
-								]
-								
-								say "Committing ignores...", :yellow
-								%x[
-									cd ./#{@application}
-									svn propset svn:ignore '*' tmp/ log/ index/ uploads/
-									svn propset svn:ignore '#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}' ./public
-									svn propset svn:ignore 'assets' ./public
-									svn propset svn:ignore 'database.yml' ./config
-									svn commit -m 'set ignores'
-								]
-								
-							else
-								say "Error while importing!", :red
-							end
-							
-						when 'git'
-							gitignore = <<-GIT
-								log/*
-								tmp/*
-								.DS_Store
-								upload/*
-								index/*
-								public/#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}
-								public/assets
-								config/database.yml
-							GIT
-							%x[
-								cd #{@application}
-								echo "#{gitignore}" > .gitignore
-								touch ./index/.gitkeep
-								touch ./uploads/.gitkeep
-								git init .
-								git add .
-								git commit -am 'inital commit'
-							]
-					end
-					
+				if yes?("\nDo you want to generate a deploy script for Capistrano? (y/N)")
+					system "cd #{@application} && rails g alchemy:deploy_script --scm=#{options[:scm]} --db=#{options[:database]}"
+					say "\nCapifying...", :yellow
+					system "cd #{@application} && capify ."
 				end
 				
-				%x[
-					cd ./#{@application}
-					rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
-				]
+				case options[:scm]
+					when 'svn'
+						server = ask("\nURL of your svn server:")
+						repository = ask("\nName of the repository (#{@application}):")
+						repository = @application if repository.empty?
+						
+						say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
+						output = %x[svn import ./#{@application} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
+						
+						if imported
+							
+							say "Removing and checking out again...", :yellow
+							%x[
+								rm -rf ./#{@application}
+								svn co #{server}/#{repository} #{@application}
+							]
+							
+							say "Committing ignores...", :yellow
+							%x[
+								cd ./#{@application}
+								svn propset svn:ignore '*' tmp/ log/ index/ uploads/
+								svn propset svn:ignore '#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}' ./public
+								svn propset svn:ignore 'assets' ./public
+								svn propset svn:ignore 'database.yml' ./config
+								svn commit -m 'set ignores'
+							]
+							
+						else
+							say "Error while importing!", :red
+						end
+						
+					when 'git'
+						gitignore = <<-GIT
+log/*
+tmp/*
+.DS_Store
+upload/*
+index/*
+public/#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}
+public/assets
+config/database.yml
+GIT
+						
+						%x[
+							cd #{@application}
+							echo "#{gitignore}" > .gitignore
+							touch ./index/.gitkeep
+							touch ./uploads/.gitkeep
+							git init .
+							git add .
+							git commit -am 'inital commit'
+						]
+				end
 				
-				readme = <<-EOF
+			end
+			
+			%x[
+				cd ./#{@application}
+				rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
+			]
+			
+			readme = <<-EOF
 
 Successfully installed Alchemy CMS into ./#{@application}
 
@@ -137,15 +143,15 @@ Next steps:
 
 1. Go into your projects folder:
 
-  cd ./#{@application}
+ cd ./#{@application}
 
 2. Start your local Rails server:
 
-  rails server
+ rails server
 
 3. Open a browser and enter the following URL:
 
-  http://localhost:3000
+ http://localhost:3000
 
 4. Follow the instructions to complete the installation!
 
@@ -153,13 +159,9 @@ Thank you for using Alchemy CMS!
 http://alchemy-cms.com
 
 EOF
-				say readme, :green
-			else
-				say "\nError while installation!\n", :red
-			end
-			
+			say readme, :green
 		else
-			return
+			say "\nError while installation!\n", :red
 		end
 	end
 
