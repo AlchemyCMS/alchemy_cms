@@ -1,0 +1,126 @@
+h2. Customizing the TinyMCE Richtext Editor
+
+This guide explains how to override the default settings of the TinyMCE richtext editor and customize it.
+After reading this guide you will be able to:
+
+* Overriding default settings
+* Customizing the toolbar
+* Changing the default stylesheet
+
+endprologue.
+
+
+
+h3. Override the default settings
+
+To override the default settings you have to create a <code>tinymce.rb</code> initializer file into <code>config/initializers</code>.
+
+INFO: Alchemys default settings for TinyMCE can be found in the "documentation":http://rubydoc.info/github/magiclabs/alchemy_cms/Alchemy/Tinymce
+
+h4. A Minimal Editor
+
+Let's reduce the options for formatting the text to a minimum.
+
+Because Alchemy merges the default options and your custom options you just need to pass the options you want to override to <code>Alchemy::Tinymce.init</code>.
+
+<pre>
+# config/initializers/tinymce.rb
+Alchemy::Tinymce.init = {
+  :theme_advanced_buttons1 => 'bold,italic,underline',
+  :theme_advanced_buttons2 => ''
+}
+</pre>
+
+Now only this three basic formatting options are available to your editors.
+
+NOTE: Overriding options always applies to all richtext editors in all elements in Alchemy.
+
+h3. Custom toolbar buttons
+
+You can customize the TinyMCE toolbar with a lot of buttons. Find them in the "TinyMCE documentation":http://www.tinymce.com/wiki.php/Buttons/controls
+
+h4. Adding a format select box
+
+Let's add a format select to our editors so they can insert headlines into their texts.
+
+In the TinyMCE documentation we found our configuration option:
+
+<pre>
+tinyMCE.init({
+  ...
+  theme_advanced_blockformats : "p,div,h1,h2,h3,h4,h5,h6,blockquote,dt,dd,code,samp"
+});
+</pre>
+
+We just have to _convert_ this javacript object into a ruby hash.
+And we need to insert the format select into the set of buttons.
+
+<pre>
+# config/initializers/tinymce.rb
+Alchemy::Tinymce.init = {
+  :theme_advanced_buttons2 => 'pastetext,pasteword,formatselect,charmap,code,help',
+  :theme_advanced_blockformats => "p,h2"
+}
+</pre>
+
+That's it. Now the editor can format a block of text as headline 2. Nice!
+
+NOTE: Custom buttons always appear in all richtext editors in all elements in Alchemy.
+
+
+
+h3. Setting a custom stylesheet
+
+It is a good practice to set the stylesheet TinyMCE uses to display text in the editor area to the one you use to render the website.
+
+h4. Create a css file
+
+Put a <code>tinymce_content.css</code> stylesheet into your <code>app/assets/stylesheets</code> folder.
+
+TIP: A minimal css ruleset that formats the text basics (i.e. <code>p, a, h1, h2, h3, strong</code>) should be enough.
+
+h4. Setting the stylesheet
+
+<pre>
+Alchemy::Tinymce.init = {
+  :content_css => "/assets/tinymce_content.css"
+}
+</pre>
+
+h4. Precompile the asset for production
+
+In production mode (on your server) rails uses compiled assets to speed up the rendering of your page.
+As default rails only precopmiles the <code>application.css</code> stylesheet. But you can tell rails to precompile
+our custom tinymce stylesheet as well.
+
+Open the <code>config/environments/production.rb</code> file in your editor and insert this line:
+
+<pre>
+config.assets.precompile += %w( tinymce_content.css )
+</pre>
+
+
+
+h3. Configuration Syntax
+
+TIP: You can set any "TinyMCE configuration option":http://www.tinymce.com/wiki.php/Configuration. Just rememebr to _convert_ the javascript syntax into ruby.
+
+h4. Convertions Tips
+
+h5. Object to Hash
+
+<pre>{ "key" : "value" } => { :key => "value" }</pre>
+
+h5. Array to Array
+
+<pre>["1", "2", "3", "4"] => ["1", "2", "3", "4"]</pre>
+
+h5. Object with Array as value
+
+<pre>{ "key" : ["value1", "value2"] } => { :key => ["value1", "value2"] }</pre>
+
+h5. Object with Object as value
+
+<pre>{ "key" : { "value" : ["value1", "value2"] } } => { :key => { :value => ["value1", "value2"] } }</pre>
+
+&nbsp;

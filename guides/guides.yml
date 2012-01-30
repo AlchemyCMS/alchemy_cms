@@ -76,6 +76,10 @@ index:
       text: How to create own Essence-types.
       construction: true
     
+    - title: Customizing the Richtext Editor
+      url: customize_tinymce
+      text: Learn how to customize the TinyMCE richtext editor
+    
   4.) Deployment:
     - title: Deploying on RailsHoster
       url: deploy_on_railshoster
