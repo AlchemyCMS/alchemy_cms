@@ -106,6 +106,16 @@ if (typeof(Alchemy) === 'undefined') {
 			};
 		},
 		
+		removePicture : function(selector) {
+			var $form_field = $(selector);
+			var $element = $form_field.parents('.element_editor');
+			if ($form_field) {
+				$form_field.val('');
+				$form_field.prev().remove();
+				Alchemy.setElementDirty($element);
+			}
+		},
+		
 		saveElement : function(form) {
 			// disabled for now. I think we don't need this.
 			return true;

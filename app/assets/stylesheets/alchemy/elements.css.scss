@@ -434,8 +434,9 @@ a.icon_button.linked {
 }
 
 div.essence_picture_editor {
+	display: inline;
+	display: inline-block;
 	position: relative;
-	float: left;
 	margin: 0;
 }
 
@@ -470,28 +471,18 @@ div.essence_picture_css_class {
 	overflow: hidden;
 }
 
-div.essence_picture_editor:hover .picture_tool_delete {
+div.essence_picture_editor .picture_thumbnail:hover .picture_tool_delete {
 	display: block;
+}
+
+div.essence_picture_editor .thumbnail_background {
+	background-image: image-url('alchemy/placeholder.png');
+	background-repeat: no-repeat;
+	background-position: center 12px;
 }
 
 .dragable_picture {
 	float: left;
-}
-
-.picture_thumbnail div.missing_image {
-	height: 94px;
-	text-align: center;
-	line-height: 28px;
-	color: #b3b3b3;
-}
-
-.validation_failed .picture_thumbnail div.missing_image {
-	color: #931f23;
-}
-
-.picture_thumbnail div.missing_image img {
-	position: relative;
-	top: 10px;
 }
 
 .picture_thumbnail .picture_handle {
@@ -510,10 +501,30 @@ div.essence_picture_editor:hover .picture_tool_delete {
 }
 
 .picture_content_spinner {
+	background: #666666;
+	height: 93px;
+	left: 4px;
 	position: absolute;
-	z-index: 0;
-	top: 35px;
-	left: 39px;
+	top: 4px;
+	width: inherit;
+	img {
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		margin-top: -16px;
+		margin-left: -16px;
+	}
+}
+
+.essence_picture_editor .picture_thumbnail {
+	width: 111px;
+	height: 115px;
+	margin: 0;
+}
+
+.essence_picture_editor .picture_thumbnail .thumbnail_background {
+	width: 111px;
+	height: 93px;
 }
 
 div.file {
