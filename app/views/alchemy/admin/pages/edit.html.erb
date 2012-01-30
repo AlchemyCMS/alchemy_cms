@@ -170,8 +170,9 @@
 			cancelLabel: '<%= t("No") %>'
 		};
 		$('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
-			Alchemy.pleaseWaitOverlay(false);
-			return Alchemy.checkPageDirtyness(this, texts);
+			var not_dirty = Alchemy.checkPageDirtyness(this, texts);
+			if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
+			return not_dirty;
 		});
 		Alchemy.PageLeaveObserver(texts);
 		Alchemy.openElementsWindow();
