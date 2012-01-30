@@ -102,7 +102,7 @@
 			texts: {
 				title: '<%= t("Elements") -%>',
 				dirtyTitle: '<%= t("Warning!") -%>',
-				dirtyMessage: '<%= t("You have unsaved elements. Do you really want to close the elements window?") -%>',
+				dirtyMessage: '<%= t(:element_dirty_close_window_notice) -%>',
 				okLabel: '<%= t("Yes") -%>',
 				cancelLabel: '<%= t("No") -%>'
 			},
@@ -165,11 +165,12 @@
 	jQuery(document).ready(function($) {
 		var texts = {
 			title: '<%= t("Warning!") %>',
-			message: '<%= t("You have unsaved elements on this page. Do you really want to continue?") %>',
+			message: '<%= t(:element_dirty_page_leave_warning) %>',
 			okLabel: '<%= t("Yes") %>',
 			cancelLabel: '<%= t("No") %>'
 		};
 		$('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
+			Alchemy.pleaseWaitOverlay(false);
 			return Alchemy.checkPageDirtyness(this, texts);
 		});
 		Alchemy.PageLeaveObserver(texts);

@@ -20,7 +20,7 @@
     ) %>
     <%= link_to_function(
       "",
-      "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ t('Warning!') }', message: '#{ t('This element has unsaved changes. Do you really want to fold it?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'})",
+      "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ t('Warning!') }', message: '#{ t(:element_dirty_notice) }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'})",
       :class => element.folded? ? 'expand_element' : 'fold_element',
       :title => element.folded? ? t('show_element_content') : t('hide_element_content'),
       :id => "element_#{element.id}_folder"
