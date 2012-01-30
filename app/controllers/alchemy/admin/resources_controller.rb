@@ -50,7 +50,7 @@ module Alchemy
 				resource_instance_variable.save
 				render_errors_or_redirect(
 					resource_instance_variable,
-					url_for({:action => :index}),
+					resource_url_scope.url_for({:action => :index}),
 					flash_notice_for_resource_action
 				)
 			end
@@ -59,7 +59,7 @@ module Alchemy
 				resource_instance_variable.update_attributes(params[resource_model_name.to_sym])
 				render_errors_or_redirect(
 					resource_instance_variable,
-					url_for({:action => :index}),
+					resource_url_scope.url_for({:action => :index}),
 					flash_notice_for_resource_action
 				)
 			end
