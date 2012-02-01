@@ -1,10 +1,10 @@
-<div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor content_editor' %>">
-	<% unless options[:dragable] %>
+<div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : "essence_picture_editor#{options[:grouped] ? nil : ' content_editor'}" %>">
+	<% unless options[:grouped] %>
 	<label><%= render_content_name(content) %></label>
 	<% end %>
 	<div class="picture_thumbnail">
 		<span class="picture_tool_delete">
-			<% if options[:dragable] %>
+			<% if options[:grouped] %>
 			<%= link_to_confirmation_window(
 				"",
 				t("confirm_to_delete_image"),
@@ -32,7 +32,7 @@
 		</div>
 		<%- end -%>
 		<div class="picture_image">
-			<div class="thumbnail_background">
+			<div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">
 				<%- if content.ingredient -%>
 				<%= image_tag(
 					alchemy.thumbnail_path(

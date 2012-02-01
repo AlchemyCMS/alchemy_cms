@@ -112,6 +112,7 @@ if (typeof(Alchemy) === 'undefined') {
 			if ($form_field) {
 				$form_field.val('');
 				$form_field.prev().remove();
+				$form_field.parent().addClass('missing');
 				Alchemy.setElementDirty($element);
 			}
 		},

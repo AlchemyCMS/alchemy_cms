@@ -245,7 +245,6 @@ form.add_gallery_to_index {
 }
 
 div.picture_gallery_images {
-	margin-top: 8px;
 	overflow: hidden;
 	margin-bottom: 8px;
 	border: 1px inset #cecece;
@@ -434,9 +433,17 @@ a.icon_button.linked {
 }
 
 div.essence_picture_editor {
+	float: left;
+	height: 126px;
+	margin: 1px;
+	position: relative;
+}
+
+div.essence_picture_editor.content_editor {
+	float: none;
+	height: auto;
 	display: inline;
 	display: inline-block;
-	position: relative;
 	margin: 0;
 }
 
@@ -475,7 +482,7 @@ div.essence_picture_editor .picture_thumbnail:hover .picture_tool_delete {
 	display: block;
 }
 
-div.essence_picture_editor .thumbnail_background {
+div.essence_picture_editor .thumbnail_background.missing {
 	background-image: image-url('alchemy/placeholder.png');
 	background-repeat: no-repeat;
 	background-position: center 12px;

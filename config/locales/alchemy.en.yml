@@ -311,6 +311,7 @@ en:
       next_page: "next page"
       previous_page: "previous page"
     password: "Password"
+    picture_gallery_editor: 'Pictures'
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} deleted"

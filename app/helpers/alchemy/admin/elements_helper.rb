@@ -37,20 +37,22 @@ module Alchemy
 				render_element(element, :editor)
 			end
 
-			# This helper renderes the picture editor for the elements on the Alchemy Desktop.
-			# It brings full functionality for adding images to the element, deleting images from it and sorting them via drag'n'drop.
+			# Renders a drag'n'drop picture gallery editor for all EssencePictures.
+			# 
+			# It brings full functionality for adding images, deleting images and sorting them via drag'n'drop.
 			# Just place this helper inside your element editor view, pass the element as parameter and that's it.
 			#
-			# Options:
-			# :maximum_amount_of_images (integer), default nil. This option let you handle the amount of images your customer can add to this element.
-			def render_picture_editor(element, options={})
+			# === Options:
+			# 
+			#   :maximum_amount_of_images    [Integer]   # This option let you handle the amount of images your customer can add to this element.
+			# 
+			def render_picture_gallery_editor(element, options={})
 				default_options = {
-					:last_image_deletable => true,
 					:maximum_amount_of_images => nil,
-					:refresh_sortable => true
+					:grouped => true
 				}
 				options = default_options.merge(options)
-				picture_contents = element.all_contents_by_type("Alchemy::EssencePicture")
+				picture_contents = element.contents.where(:essence_type => "Alchemy::EssencePicture")
 				render(
 					:partial => "alchemy/admin/elements/picture_editor",
 					:locals => {
@@ -60,6 +62,7 @@ module Alchemy
 					}
 				)
 			end
+			alias_method :render_picture_editor, :render_picture_gallery_editor
 
 			# Returns all elements that could be placed on that page because of the pages layout.
 			# The elements are returned as an array to be used in alchemy_selectbox form builder.
