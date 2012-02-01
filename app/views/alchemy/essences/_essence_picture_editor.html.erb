@@ -1,69 +1,75 @@
-<div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : 'essence_picture_editor' %>">
-  <div class="picture_thumbnail">
-    <span class="picture_tool_delete">
-    <%= link_to_confirmation_window(
-      "",
-      t("confirm_to_delete_image"),
-      alchemy.admin_essence_picture_path(
-        :id => content,
-        :options => options
-      ),
-      {
-        :title => t("delete_image"),
-        :class => "picture_delete"
-      }
-    ) -%>
-    </span>
-    <%- if content.ingredient.nil? -%>
-    <div class="missing_image">
-      <p>
-        <%= image_tag('alchemy/placeholder.png') %><br>
-        <%= t('Image missing') %><%= '<span class="validation_indicator">*</span>'.html_safe if content.has_validations? %>
-      </p>
-    </div>
-    <%- else -%>
-    <div class="picture_handle" title="<%= t('drag_to_sort') if options[:dragable] %>"></div>
-    <div class="picture_content_spinner">
-      <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
-    </div>
-    <div class="picture_image">
-      <div class="thumbnail_background">
-        <%= image_tag(
-          alchemy.thumbnail_path(
-            :id => content.ingredient.id,
-            :size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
-            :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
-            :crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
-            :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil,
-			:name => content.ingredient.urlname
-          ),
-          :alt => content.ingredient.name,
-          :class => 'img_paddingtop',
-          :title => t("image_name") + ": #{content.ingredient.name}",
-          :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
-          :style => "display: none;"
-        ) %>
-      </div>
-      <%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
-    </div>
-    <%- end -%>
-    <%- unless options[:css_class].blank? || content.essence.css_class.blank? -%>
-    <div class="essence_picture_css_class">
-      <%= t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", :default => content.essence.css_class.camelcase) %>
-    </div>
-    <%- end -%>
-    <div class="edit_images_bottom">
-      <%= render(
-        :partial => 'alchemy/essences/essence_picture_tools',
-        :locals => {
-          :content => content,
-          :options => options
-        }
-      ) %>
-    </div>
-  </div>
-  <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
-  <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
-  <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
-  <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
+<div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : "essence_picture_editor#{options[:grouped] ? nil : ' content_editor'}" %>">
+	<% unless options[:grouped] %>
+	<label><%= render_content_name(content) %></label>
+	<% end %>
+	<div class="picture_thumbnail">
+		<span class="picture_tool_delete">
+			<% if options[:grouped] %>
+			<%= link_to_confirmation_window(
+				"",
+				t("confirm_to_delete_image"),
+				alchemy.admin_essence_picture_path(
+					:id => content,
+					:options => options
+				),
+				{
+					:title => t("delete_image"),
+					:class => "picture_delete"
+				}
+			) -%>
+			<% else %>
+			<%= link_to(
+				'',
+				'#',
+				:onclick => "Alchemy.removePicture('##{content.form_field_id(:picture_id)}');"
+			) %>
+			<% end %>
+		</span>
+		<%- if content.ingredient -%>
+		<div class="picture_handle" title="<%= t('drag_to_sort') if options[:dragable] %>"></div>
+		<div class="picture_content_spinner">
+			<%= image_tag("alchemy/image_loader.gif", :alt => '') %>
+		</div>
+		<%- end -%>
+		<div class="picture_image">
+			<div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">
+				<%- if content.ingredient -%>
+				<%= image_tag(
+					alchemy.thumbnail_path(
+						:id => content.ingredient.id,
+						:size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
+						:crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
+						:crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
+						:crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil,
+						:name => content.ingredient.urlname
+					),
+					:alt => content.ingredient.name,
+					:class => 'img_paddingtop',
+					:title => t("image_name") + ": #{content.ingredient.name}",
+					:onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
+					:style => "display: none;"
+				) %>
+				<%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
+				<% end %>
+			</div>
+		</div>
+		<%- unless options[:css_class].blank? || content.essence.css_class.blank? -%>
+		<div class="essence_picture_css_class">
+			<%= t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", :default => content.essence.css_class.camelcase) %>
+		</div>
+		<%- end -%>
+		<div class="edit_images_bottom">
+			<%= render(
+				:partial => 'alchemy/essences/essence_picture_tools',
+				:locals => {
+					:content => content,
+					:options => options
+				}
+			) %>
+		</div>
+	</div>
+	<%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
+	<%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
+	<%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
+	<%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
 </div>

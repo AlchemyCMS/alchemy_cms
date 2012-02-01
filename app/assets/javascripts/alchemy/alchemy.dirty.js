@@ -30,7 +30,7 @@ if (typeof(Alchemy) === 'undefined') {
 		},
 
 		setElementDirty : function(element) {
-			var	$element = $(element);
+			var $element = $(element);
 			$element.addClass('dirty');
 			$element.find('.element_head .icon').addClass('element_dirty');
 		},
