@@ -444,7 +444,7 @@ div.essence_picture_editor.content_editor {
 	height: auto;
 	display: inline;
 	display: inline-block;
-	margin: 0;
+	margin: 8px 0;
 }
 
 div.essence_picture_editor .picture_tool_delete {
@@ -707,6 +707,7 @@ div.content_editor label {
 	font-size: 10px;
 	text-shadow: #fff5e1 1px 1px 0;
 	line-height: 15px;
+	text-indent: 1px;
 }
 
 div.content_editor label span.warning.icon {
