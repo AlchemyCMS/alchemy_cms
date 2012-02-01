@@ -65,7 +65,6 @@ if (typeof(Alchemy) === 'undefined') {
 			$(selector).sortable({
 				items: 'div.dragable_picture',
 				handle: 'div.picture_handle',
-				placeholder: 'droppable_content_placeholder',
 				opacity: 0.5,
 				cursor: 'move',
 				tolerance: 'pointer',
