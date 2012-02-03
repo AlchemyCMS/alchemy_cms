@@ -170,7 +170,7 @@ if (typeof(Alchemy) === 'undefined') {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
 						},
 						complete: function(jqXHR, textStatus) {
-							Alchemy.enableButton('.disabled.button');
+							Alchemy.enableButton('.button');
 						}
 					});
 				},
