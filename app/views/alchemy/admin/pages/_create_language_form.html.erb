@@ -33,7 +33,7 @@
 	<%= form.hidden_field :page_layout, :value => @language.page_layout %>
 	<%= form.hidden_field :language_root, :value => true %>
 	<%= form.hidden_field :parent_id, :value => Alchemy::Page.rootpage.id %>
-	<%= form.submit t("create_tree_as_new_language", :language => @language.name), :class => 'button' %>
+	<%= form.button t("create_tree_as_new_language", :language => @language.name), :class => 'button' %>
 <% end %>
 <%- end -%>
 <%- else -%>
