@@ -57,7 +57,7 @@ en:
       text: 'Text'
       date: 'Date'
       body: 'Content'
-      image: 'Image(s)'
+      image: 'Image'
       mail_from: 'Sender (E-Mail)'
       mail_to: 'Receiver (E-Mail)'
       caption: "Caption"

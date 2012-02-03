@@ -59,7 +59,7 @@ de:
       text: 'Text'
       date: 'Datum'
       body: 'Inhalt'
-      image: 'Bild(er)'
+      image: 'Bild'
       mail_from: 'Absender (E-Mail)'
       mail_to: 'Empfänger (E-Mail)'
       caption: "Bildunterschrift"
