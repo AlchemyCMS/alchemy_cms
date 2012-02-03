@@ -30,7 +30,7 @@
 # 
 - name: intro
   unique: true
-  elements: [article, claim, header, bild, bild_text, text, intro, headline, image_mosaic, intro_image_text]
+  elements: [header, intro_image_text]
   autogenerate: [header, intro_image_text]
 
 - name: standard
