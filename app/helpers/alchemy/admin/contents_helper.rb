@@ -35,16 +35,16 @@ module Alchemy
 			# Renders a link to show the new content overlay
 			def render_new_content_link(element)
 				link_to_overlay_window(
-					t('add new content'),
+					render_icon('create') + t('add new content'),
 					alchemy.new_admin_element_content_path(element),
 					{
-						:size => '305x40',
+						:size => '335x70',
 						:title => t('Select an content'),
 						:overflow => true
 					},
 					{
 						:id => "add_content_for_element_#{element.id}",
-						:class => 'button new_content_link'
+						:class => 'small button with_icon new_content_link'
 					}
 				)
 			end
