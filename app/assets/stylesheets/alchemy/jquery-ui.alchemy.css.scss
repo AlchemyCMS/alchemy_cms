@@ -184,7 +184,7 @@
 	color: $text-color;;
 	text-decoration: none;
 	text-shadow: none;
-	background-color: #e5e5e5;
+	background-color: $button-hover-bg-color;
 }
 
 #alchemy .ui-state-active.stNav.stNext {
@@ -223,18 +223,18 @@
 ----------------------------------*/
 
 #alchemy .ui-state-highlight, #alchemy .ui-widget-content .ui-state-highlight, #alchemy .ui-widget-header .ui-state-highlight {
-	border: 1px solid #f9dd34;
-	background: #ffef8f image-url('alchemy/ui-bg_highlight-soft_25_ffef8f_1x100.png') 50% top repeat-x;
-	color: #363636;
+	border: 1px solid $dark-gray;
+	background: $light-blue;
+	color: $text-color;
 }
 
 #alchemy .ui-state-highlight a, #alchemy .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a {
-	color: #363636;
+	color: $text-color;
 }
 
 #alchemy .ui-state-error, #alchemy .ui-widget-content .ui-state-error, #alchemy .ui-widget-header .ui-state-error {
 	border: 1px solid #cd0a0a;
-	background: #cd0a0a image-url('alchemy/ui-bg_flat_15_cd0a0a_40x100.png') 50% 50% repeat-x;
+	background: #cd0a0a;
 	color: #ffffff;
 }
 
@@ -247,13 +247,13 @@
 }
 
 #alchemy .ui-priority-primary, #alchemy .ui-widget-content .ui-priority-primary, #alchemy .ui-widget-header .ui-priority-primary {
-	font-weight: bold;
+	font-weight: normal;
+	background-position: 50% -73px;
 }
 
 #alchemy .ui-priority-secondary, #alchemy .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary {
-	opacity: .7;
-	filter: Alpha(Opacity=70);
 	font-weight: normal;
+	background-position: 50% -73px;
 }
 
 #alchemy .ui-state-disabled, #alchemy .ui-widget-content .ui-state-disabled, #alchemy .ui-widget-header .ui-state-disabled {
@@ -294,11 +294,11 @@
 }
 
 #alchemy .ui-state-highlight .ui-icon {
-	background-image: image-url('alchemy/ui-icons_2e83ff_256x240.png');
+	background-image: image-url('alchemy/ui-icons_666666_256x240.png');
 }
 
 #alchemy .ui-state-error .ui-icon, #alchemy .ui-state-error-text .ui-icon {
-	background-image: image-url('alchemy/ui-icons_ffffff_256x240.png');
+	background-image: image-url('alchemy/ui-icons_666666_256x240.png');
 }
 
 /* positioning */
