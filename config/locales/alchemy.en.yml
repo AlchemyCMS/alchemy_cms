@@ -374,7 +374,8 @@ en:
       # Use the strftime parameters for formats.
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
-      default: "%Y-%m-%d" 
+      default: "%Y-%m-%d"
+      datepicker: "%Y-%m-%d"
       short: "%b %d" 
       long: "%B %d, %Y" 
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
@@ -393,6 +394,7 @@ en:
       short: "%d %b %H:%M" 
       long: "%B %d, %Y %H:%M" 
       date: "%Y-%m-%d"
+      datepicker: "%Y-%m-%d"
     am: "am" 
     pm: "pm" 
   support:

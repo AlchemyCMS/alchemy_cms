@@ -430,6 +430,24 @@ module Alchemy
 				end
 			end
 
+			# Renders a textfield ready to display a datepicker
+			# 
+			# Uses a HTML5 +input type="date"+ field.
+			# 
+			# Pass a type as third option to override that. But old browsers hand this as text field anyway. So there is no need to override that.
+			# 
+			# === Example
+			# 
+			#   <%= alchemy_datepicker(@person, :birthday) %>
+			# 
+			def alchemy_datepicker(object, method, html_options={})
+				text_field(object.class.name.underscore.to_sym, method.to_sym, {
+					:type => 'date',
+					:class => 'thin_border date',
+					:value => object.send(method.to_sym).nil? ? nil : l(object.send(method.to_sym), :format => :datepicker)
+				}.merge(html_options))
+			end
+
 		end
 	end
 end

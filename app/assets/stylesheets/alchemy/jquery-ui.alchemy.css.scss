@@ -1758,40 +1758,43 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-datepicker {
 	width: 17em;
-	padding: .2em .2em 0;
+	padding: $default-padding;
 	display: none;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-header {
 	position: relative;
-	padding: .2em 0;
+	padding: $default-padding;
+	margin: -$default-padding;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-prev, #alchemy .ui-datepicker .ui-datepicker-next {
 	position: absolute;
-	top: 2px;
+	top: $default-padding;
 	width: 1.8em;
 	height: 1.8em;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-prev-hover, #alchemy .ui-datepicker .ui-datepicker-next-hover {
-	top: 1px;
+	top: $default-padding;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-prev {
-	left: 2px;
+	left: $default-padding;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-next {
-	right: 2px;
+	right: $default-padding;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-prev-hover {
-	left: 1px;
+	top: $default-padding - 1;
+	left: $default-padding - 1;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-next-hover {
-	right: 1px;
+	top: $default-padding - 1;
+	right: $default-padding - 1;
 }
 
 #alchemy .ui-datepicker .ui-datepicker-prev span, #alchemy .ui-datepicker .ui-datepicker-next span {
@@ -1825,7 +1828,7 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-datepicker table {
 	width: 100%;
-	font-size: .9em;
+	font-size: 1em;
 	border-collapse: collapse;
 	margin: 0 0 .4em;
 }
@@ -1840,6 +1843,14 @@ button.ui-button::-moz-focus-inner {
 #alchemy .ui-datepicker td {
 	border: 0;
 	padding: 1px;
+}
+
+#alchemy .ui-datepicker td.ui-datepicker-week-col {
+	padding-left: $default-padding;
+}
+
+#alchemy .ui-datepicker td.ui-datepicker-current-day {
+	background-color: $dark-gray;
 }
 
 #alchemy .ui-datepicker td span, #alchemy .ui-datepicker td a {

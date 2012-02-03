@@ -309,7 +309,7 @@ de:
     "Your trash is empty": "Der Papierkorb ist leer"
     above: "darüber"
     add: "hinzufügen"
-    "add new content": "+ einen Inhalt hinzufügen"
+    "add new content": "Element hinzufügen"
     add_image_to_element: "Bild hinzufügen"
     align_in_text: "Im Text anordnen"
     all: "alle"
@@ -544,6 +544,7 @@ de:
   date:
     formats:
       default: "%d.%m.%Y"
+      datepicker: "%d.%m.%Y"
       short: "%e. %b"
       long: "%e. %B %Y"
       only_day: "%e"
@@ -561,6 +562,7 @@ de:
       short: "%d. %B, %H:%Mh"
       long: "%A, %d. %B %Y um %H:%M Uhr"
       date: "%d.%m.%Y"
+      datepicker: "%d.%m.%Y"
       time: "%H:%M"
     am: "vormittags"
     pm: "nachmittags"
