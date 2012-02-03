@@ -9,6 +9,7 @@
 //= require alchemy/alchemy.routes
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.buttons
+//= require alchemy/alchemy.datepicker
 //= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.element_editor_selector

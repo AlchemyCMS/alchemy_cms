@@ -57,11 +57,13 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 			jQuery(function($) {
+				Alchemy.locale = '<%= ::I18n.locale.downcase %>';
 				Alchemy.resizeFrame();
 				Alchemy.Tooltips();
 				if (typeof(jQuery().sb) === 'function') {
 					Alchemy.SelectBox('body#alchemy select');
 				}
+				Alchemy.Datepicker();
 				if ($('#flash_notices').length > 0) {
 					Alchemy.Growler.fade();
 				}

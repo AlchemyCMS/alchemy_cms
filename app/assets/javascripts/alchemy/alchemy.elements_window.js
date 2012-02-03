@@ -37,6 +37,7 @@ if (typeof(Alchemy) === 'undefined') {
 						success: function(data, textStatus, XMLHttpRequest) {
 							$dialog.html(data);
 							Alchemy.ButtonObserver('#alchemyElementWindow .button');
+							Alchemy.Datepicker('#alchemyElementWindow input.date, #alchemyElementWindow input[type="date"]');
 							callback.call();
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {

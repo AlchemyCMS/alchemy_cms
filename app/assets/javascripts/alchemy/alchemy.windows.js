@@ -163,10 +163,14 @@ if (typeof(Alchemy) === 'undefined') {
 								});
 							}
 							Alchemy.SelectBox('#alchemyOverlay select');
+							Alchemy.Datepicker('#alchemyOverlay input.date, #alchemyOverlay input[type="date"]');
 							Alchemy.ButtonObserver('#alchemyOverlay .button');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
+						},
+						complete: function(jqXHR, textStatus) {
+							Alchemy.enableButton('.button');
 						}
 					});
 				},

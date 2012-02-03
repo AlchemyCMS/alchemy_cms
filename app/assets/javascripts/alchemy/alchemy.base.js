@@ -229,7 +229,9 @@ if (typeof(Alchemy) === 'undefined') {
 			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			if (results)
 				return results[1] || 0;
-		}
+		},
+
+		locale : 'en'
 
 	});
 	
