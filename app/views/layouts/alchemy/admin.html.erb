@@ -57,7 +57,7 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 			jQuery(function($) {
-				Alchemy.locale = '<%= ::I18n.locale.downcase %>';
+				Alchemy.locale = '<%= ::I18n.locale %>';
 				Alchemy.resizeFrame();
 				Alchemy.Tooltips();
 				if (typeof(jQuery().sb) === 'function') {
