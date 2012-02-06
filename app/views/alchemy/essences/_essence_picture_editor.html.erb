@@ -1,4 +1,4 @@
-<div id="<%= content_dom_id(content) %>" class="<%= options[:dragable] ? 'essence_picture_editor dragable_picture' : "essence_picture_editor#{options[:grouped] ? nil : ' content_editor'}" %>">
+<div id="<%= content_dom_id(content) %>" class="essence_picture_editor<%= ' dragable_picture' if options[:dragable] %><%= ' content_editor' unless options[:grouped] %>">
 	<% unless options[:grouped] %>
 	<label><%= render_content_name(content) %></label>
 	<% end %>
