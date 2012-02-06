@@ -23,8 +23,9 @@ module Alchemy
 
 			def index
 				if !params[:query].blank?
+				    search_terms = ActiveRecord::Base.sanitize("%#{params[:query]}%")
 					items = resource_model.where(searchable_resource_attributes.map { |attribute|
-						"`#{namespaced_resources_name}`.`#{attribute[:name]}` LIKE '%#{params[:query]}%'"
+					  "`#{namespaced_resources_name}`.`#{attribute[:name]}` LIKE #{search_terms}"
 					}.join(" OR "))
 				else
 					items = resource_model
