@@ -789,7 +789,7 @@ de:
         alchemy/language:
           attributes:
             code:
-              invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
+              invalid: '^Sprachkürzel ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
   
   # Translations for the authentication system used in alchemy.
   authlogic:
