@@ -283,3 +283,12 @@ a.folder_link {
 	margin-top: 3px;
 	margin-left: 2px;
 }
+
+#create_language_tree_form {
+	width: 360px;
+
+	&.ui-dialog-content div.info {
+		margin: 2*$default-padding;
+		margin-bottom: 0;
+	}
+}

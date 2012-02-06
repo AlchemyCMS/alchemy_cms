@@ -377,7 +377,7 @@ module Alchemy
 				:locked => false,
 				:locked_by => nil
 			)
-			page = self.new(attributes.except(["id", "updated_at", "created_at", "created_id", "updater_id"]))
+			page = self.new(attributes.except(:id, :updated_at, :created_at, :created_id, :updater_id, :lft, :rgt, :depth))
 			if page.save
 				# copy the page´s cells
 				source.cells.each do |cell|
