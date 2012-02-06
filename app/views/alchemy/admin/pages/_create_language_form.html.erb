@@ -4,6 +4,7 @@
 		<%= t("language_does_not_exist") %>
 	</div>
 <%- if @language -%>
+
 	<%- if @languages_with_page_tree.size >= 1 -%>
 		<%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>
 			<h2><%= t('copy_language_tree_heading') %></h2>
@@ -24,10 +25,10 @@
 				</tr>
 			</table>
 		<% end %>
-<%- end -%>
-<%- if params[:action] == "index" -%>
-	<%- if @languages_with_page_tree.size >= 1 -%>
 	<%- end -%>
+
+	<%- if params[:action] == "index" -%>
+	
 	<%= form_for([:admin, Alchemy::Page.new], :remote => true) do |form| %>
 		<h2><%= t('create_language_tree_heading') %></h2>
 		<p><%= t("want_to_create_new_language") %></p>
@@ -39,8 +40,13 @@
 		<%= form.hidden_field :parent_id, :value => Alchemy::Page.rootpage.id %>
 		<%= form.button t("create_tree_as_new_language", :language => @language.name), :class => 'button' %>
 	<% end %>
+
 	<%- end -%>
+
 <%- else -%>
+
 	<p><%= t("Actually this language does not exist. Please create this language first.") %></p>
+
 <%- end -%>
+
 </div>
