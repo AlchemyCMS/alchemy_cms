@@ -75,11 +75,7 @@ module Alchemy
 			end
 
 			def flush
-				Picture.all.each do |picture|
-					FileUtils.rm_rf("#{Rails.root}/public/pictures/show/#{picture.id}")
-					FileUtils.rm_rf("#{Rails.root}/public/pictures/thumbnails/#{picture.id}")
-					expire_page(:controller => '/pictures', :action => 'zoom', :id => picture.id)
-				end
+				FileUtils.rm_rf Rails.root.join('public', Alchemy.mount_point, 'pictures')
 				@notice = t('Picture cache flushed')
 			end
 
