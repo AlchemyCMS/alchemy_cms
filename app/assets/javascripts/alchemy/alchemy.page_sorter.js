@@ -10,7 +10,8 @@ if (typeof(Alchemy) === 'undefined') {
 	Alchemy.PageSorter = {
 
 		init : function () {
-			$('ul#sitemap').nestedSortable({
+			var $sortables = $('ul#sitemap').find('ul.level_1_children');
+			$sortables.nestedSortable({
 				disableNesting: 'no-nest',
 				forcePlaceholderSize: true,
 				handle: 'span.handle',
@@ -26,7 +27,7 @@ if (typeof(Alchemy) === 'undefined') {
 				Alchemy.pleaseWaitOverlay();
 				e.preventDefault();
 				var params = {
-					set: JSON.stringify($('ul#sitemap').nestedSortable('toHierarchy'))
+					set: JSON.stringify($sortables.nestedSortable('toHierarchy'))
 				};
 				$.post(Alchemy.routes.order_admin_pages_path, params);
 				return false;

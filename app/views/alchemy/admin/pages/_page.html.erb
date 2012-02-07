@@ -2,7 +2,7 @@
 	<div class="sitemap_page<%= page.locked ? ' locked' : '' %>">
 		<div class="sitemap_left_images">
 			<%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
-			<span class="site_status <%= @sorting ? 'handle' : nil %> tooltip"></span>
+			<span class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %> tooltip"></span>
 			<div class="tooltip_content" style="display: none;">
 				<h1><%= t("page_type") %>: <%= page.layout_display_name %></h1>
 				<p>
@@ -107,7 +107,7 @@
 		</div>
 	</div>
 	<%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
-	<ul id="page_<%= page.id %>_children">
+	<ul id="page_<%= page.id %>_children" class="level_<%= page.level %>_children">
 		<%= render :partial => 'page', :collection => page.children %>
 	</ul>
 	<%- end -%>
