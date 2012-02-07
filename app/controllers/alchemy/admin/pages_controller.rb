@@ -203,7 +203,7 @@ module Alchemy
 				prev_item = nil
 				neworder.each do |item|
 					dbitem = Page.find(item['id'])
-					prev_item.nil? ? dbitem.move_to_child_of(Page.root) : dbitem.move_to_right_of(prev_item)
+					prev_item.nil? ? dbitem.move_to_child_of(@page_root) : dbitem.move_to_right_of(prev_item)
 					sort_children(item, dbitem) unless item['children'].nil?
 					prev_item = dbitem.reload
 				end
