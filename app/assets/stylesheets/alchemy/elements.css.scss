@@ -253,8 +253,13 @@ div.picture_gallery_images {
 	padding: 1px;
 }
 
-div.picture_thumbnail div.picture_image img.img_paddingtop {
-	@include disable-user-select;
+div.picture_thumbnail div.picture_image {
+	height: 93px;
+	overflow: hidden;
+
+	img.img_paddingtop {
+		@include disable-user-select;
+	}
 }
 
 /* @group add moclecule */
