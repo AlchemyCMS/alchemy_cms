@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 	<head>
 		<meta charset="UTF-8">
 		<title><%= render_alchemy_title %></title>
@@ -9,6 +9,10 @@
 		<%= javascript_include_tag('alchemy/alchemy') %>
 	</head>
 	<body id="alchemy" class="login">
+		<noscript>
+			<h1><%= t(:javascript_disabled_headline) %></h1>
+			<p><%= t(:javascript_disabled_text) %></p>
+		</noscript>
 		<div id="left_menu">
 			<div id="main_navi">
 				<div id="logout">
@@ -26,6 +30,7 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 			jQuery(document).ready(function($) {
+				$('html').removeClass('no-js');
 				Alchemy.SelectBox('body#alchemy select');
 				Alchemy.ButtonObserver('.button');
 			});
