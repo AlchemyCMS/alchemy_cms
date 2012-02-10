@@ -395,6 +395,8 @@ de:
     "item copied to clipboard": "%{name} wurde in die Zwischenablage kopiert."
     "item moved to clipboard": "%{name} wurde in die Zwischenablage bewegt."
     "item removed from clipboard": "%{name} wurde aus der Zwischenablage entfernt."
+    javascript_disabled_headline: "Javascript ist deaktiviert!"
+    javascript_disabled_text: "Alchemy funktioniert nur einwandfrei mit aktiviertem Javascript. Bitte aktivieren Sie es in Ihrem Browser."
     language_does_not_exist: "Dieser Sprachbaum existiert noch nicht"
     language_pages_copied: "Der Sprachbaum wurde kopiert"
     left: "links"

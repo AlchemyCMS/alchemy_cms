@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 	<head>
 		<meta charset="UTF-8">
 		<title><%= render_alchemy_title %></title>
@@ -17,6 +17,10 @@
 		<%= yield :javascript_includes %>
 	</head>
 	<body id="alchemy">
+		<noscript>
+			<h1><%= t(:javascript_disabled_headline) %></h1>
+			<p><%= t(:javascript_disabled_text) %></p>
+		</noscript>
 		<div id="overlay">
 			<div id="overlay_text_box">
 				<%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
@@ -57,6 +61,7 @@
 		<%= yield(:javascripts) %>
 		<script type="text/javascript" charset="utf-8">
 			jQuery(function($) {
+				$('html').removeClass('no-js');
 				Alchemy.locale = '<%= ::I18n.locale %>';
 				Alchemy.resizeFrame();
 				Alchemy.Tooltips();

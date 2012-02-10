@@ -33,6 +33,10 @@ div.login_signup_box {
 	}
 }
 
+html.no-js {
+	div.login_signup_box, div#alchemy_greeting h1 { display: none;}
+}
+
 #login_box {
 	height: 310px;
 	width: 394px;

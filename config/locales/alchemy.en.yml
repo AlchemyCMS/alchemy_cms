@@ -253,6 +253,8 @@ en:
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"
+    javascript_disabled_headline: "Javascript is disabled!"
+    javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
     language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree succesfully copied."
     link_image: "Link this image."

@@ -4,6 +4,22 @@ html {
 	height: 100%;
 }
 
+noscript {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	width: 100%;
+	text-align:center;
+	line-height: 1em;
+	border-bottom: 1px solid #c4c19c;
+	color: #726d23;
+	background-color: #f3f0c1;
+	h1, p {
+		margin: 16px 0;
+	}
+}
+
 body#alchemy {
 	margin: 0;
 	padding: 0;
