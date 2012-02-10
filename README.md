@@ -33,11 +33,11 @@ Rails Version
 
 This branch of Alchemy runs with Rails 3.2
 
-If you are looking for a Rails 3.1 compatible version check the master branch.
+If you are looking for a Rails 3.1 compatible version check the 2.1-stable branch.
 
-If you are looking for a Rails 3 compatible version check the rails-3 branch.
+If you are looking for a Rails 3.0 compatible version check the 2.0-stable branch.
 
-If you are looking for a Rails 2 compatible version check the rails-2 branch.
+If you are looking for a Rails 2.3 compatible version check the 1.6-stable branch.
 
 Ruby Version
 ------------
@@ -77,7 +77,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms'
+    gem 'alchemy_cms', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
 
 Run in terminal:
 
