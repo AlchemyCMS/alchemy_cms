@@ -98,7 +98,15 @@ button.button.cloned-button:active {
 	background-image: none;
 	background-color: #f5f5f5;
 	padding: 1px 0 0;
-	line-height: 13px;
+	line-height: 15px;
+}
+
+a.button.disabled,
+a.button.disabled:hover,
+a.button.disabled:active {
+	padding: 2px 0 !important;
+	line-height: 13px !important;
+	text-align: center;
 }
 
 a.button.cloned-button,
