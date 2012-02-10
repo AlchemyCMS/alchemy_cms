@@ -12,57 +12,37 @@ About
 Features
 --------
 
-- Highly flexible Templating:
-  - Content is stored in small parts not as a complete, monolithic page
-  - The designer chooses the template structure, not the CMS!
-  - Every Design is possible, no templating, or theming restrictions
-  - Even Flash® Content Management is possible
-- Gorgious End-User centric interface:
-  - No markup editors
-- Multilingual:
-  - Create as many (complete independent) language trees as you want
-  - URL based language switching
+- Highly flexible Templating
+- Gorgious End-User centric interface
+- Multilingual
 - SEO
-  - Every Part of SEO is manageable by the user
-  - Human readable urls (multilingual)
-  - automatic XML Sitemap generation
-- Access Control:
-  - Rolebased Authentification (RBAS)
-  - Protect pages for restricted access
+- Access Control
 - Fulltext Search
 - RSS Feeds
 - Contactforms
 - Attachments and downloads
 - Powerfull image rendering
-  - Resizing
-  - Image Cropping via an graphical Userinterface!
-  - Borders, Text, Rotation
-  - and much more via Imagemagick processing (polaroid effect, etc.)
-  - and all this gets cached!
-- Extendable:
-  - Flexible Plugin DSL allows you to add custom plugins into Alchemy
+- Extendable
 - Integrates in exsiting Rails Apps
 - Caching
-- Completely free:
-  - BSD License
-  - No Enterprise Licences, or Community Editions
-- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy/wiki/Software-Requirements))
+- BSD License
+- Hostable on any Server that supports RubyOnRails and ImageMagick ([Software Requirements](https://github.com/magiclabs/alchemy_cms/wiki/Software-Requirements))
 
 Rails Version
 -------------
 
 This branch of Alchemy runs with Rails 3.2
 
-If you are looking for a Rails 3.1 compatible version check the master branch.
+If you are looking for a Rails 3.1 compatible version check the 2.1-stable branch.
 
-If you are looking for a Rails 3 compatible version check the rails-3 branch.
+If you are looking for a Rails 3.0 compatible version check the 2.0-stable branch.
 
-If you are looking for a Rails 2 compatible version check the rails-2 branch.
+If you are looking for a Rails 2.3 compatible version check the 1.6-stable branch.
 
 Ruby Version
 ------------
 
-Alchemy under Ruby 1.8.7, Ruby 1.9.2, Ruby 1.9.3 and REE (Ruby Enterprise Edition).
+Alchemy runs under Ruby 1.8.7, Ruby 1.9.2, Ruby 1.9.3 and REE (Ruby Enterprise Edition).
 
 Installation
 ------------
@@ -97,7 +77,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', '~> 2.1.beta7', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
+    gem 'alchemy_cms', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
 
 Run in terminal:
 
