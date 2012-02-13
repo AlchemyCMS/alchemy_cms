@@ -23,7 +23,7 @@ module Alchemy
 		def self.create_from_scratch(element, essences_hash)
 			if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
 				essences_of_same_type = element.contents.where(
-					:essence_type => Alchemy::Content.normalize_essence_type(essences_hash[:essence_type])
+					:essence_type => Content.normalize_essence_type(essences_hash[:essence_type])
 				)
 				description = {
 					'type' => essences_hash[:essence_type],
@@ -34,7 +34,7 @@ module Alchemy
 				description = element.available_content_description_for(essences_hash[:name]) if description.blank?
 			end
 			raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
-			essence_class = Alchemy::Content.normalize_essence_type(description['type']).constantize
+			essence_class = Content.normalize_essence_type(description['type']).constantize
 			content = self.new(:name => description['name'], :element_id => element.id)
 			if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
 				essence = essence_class.create(:do_not_index => !description['do_not_index'].nil?)

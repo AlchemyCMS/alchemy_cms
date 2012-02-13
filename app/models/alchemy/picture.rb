@@ -2,17 +2,15 @@ module Alchemy
 	class Picture < ActiveRecord::Base
 
 		acts_as_fleximage do
-			image_directory						'uploads/pictures'
-			image_storage_format			Alchemy::Config.get(:image_store_format).to_sym
-			require_image							true
-			missing_image_message			Alchemy::I18n.t("missing_image")
-			invalid_image_message			Alchemy::I18n.t("not a valid image")
-			if Alchemy::Config.get(:image_output_format) == "jpg"
-				output_image_jpg_quality  Alchemy::Config.get(:output_image_jpg_quality)
-			end
-			unless Alchemy::Config.get(:preprocess_image_resize).blank?
+			image_directory					'uploads/pictures'
+			image_storage_format			Config.get(:image_store_format).to_sym
+			require_image					true
+			missing_image_message			I18n.t("missing_image")
+			invalid_image_message			I18n.t("not a valid image")
+			output_image_jpg_quality  		Config.get(:output_image_jpg_quality) if Config.get(:image_output_format) == "jpg"
+			unless Config.get(:preprocess_image_resize).blank?
 				preprocess_image do |image|
-					image.resize Alchemy::Config.get(:preprocess_image_resize)
+					image.resize Config.get(:preprocess_image_resize)
 				end
 			end
 		end
@@ -28,14 +26,14 @@ module Alchemy
 
 		# Returning the filepath relative to Rails.root public folder.
 		def public_file_path
-			self.file_path.gsub("#{Rails.root}/public", '')
+			self.file_path.gsub("#{::Rails.root}/public", '')
 		end
 
 		def urlname
 			if self.name.blank?
 				"image_#{self.id}"
 			else
-				CGI.escape(self.name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
+				::CGI.escape(self.name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
 			end
 		end
 
@@ -48,7 +46,7 @@ module Alchemy
 		end
 
 		def humanized_name
-			(image_filename.to_s.downcase.gsub(/\.#{Regexp.quote(suffix)}$/, '')).humanize
+			(image_filename.to_s.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '')).humanize
 		end
 
 		# Returning true if picture's width is greater than it's height

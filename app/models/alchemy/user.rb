@@ -5,7 +5,7 @@ module Alchemy
 		stampable
 		acts_as_authentic do |c|
 			c.transition_from_restful_authentication = true
-			c.logged_in_timeout = Alchemy::Config.get(:auto_logout_time).minutes
+			c.logged_in_timeout = Config.get(:auto_logout_time).minutes
 		end
 		
 		has_many :folded_pages
@@ -14,7 +14,7 @@ module Alchemy
 		
 		scope :admins, where(:role => 'admin')
 		
-		ROLES = Alchemy::Config.get(:user_roles)
+		ROLES = Config.get(:user_roles)
 		
 		def role_symbols
 			[role.to_sym]
@@ -54,13 +54,13 @@ module Alchemy
 		end
 
 		def self.human_rolename(role)
-			Alchemy::I18n.t("user_roles.#{role}")
+			I18n.t("user_roles.#{role}")
 		end
 		
 		def self.genders_for_select
 			[
-				[Alchemy::I18n.t('male'), 'male'],
-				[Alchemy::I18n.t('female'), 'female']
+				[I18n.t('male'), 'male'],
+				[I18n.t('female'), 'female']
 			]
 		end
 		

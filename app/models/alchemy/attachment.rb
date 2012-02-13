@@ -19,7 +19,7 @@ module Alchemy
 		end
 
 		def urlname
-			CGI.escape(read_attribute(:filename).split('.').first)
+			::CGI.escape(read_attribute(:filename).split('.').first)
 		end
 
 		def extension

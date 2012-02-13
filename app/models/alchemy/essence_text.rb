@@ -5,7 +5,7 @@ module Alchemy
 
 		# Require acts_as_ferret only if Ferret full text search is enabled (default).
 		# You can disable it in +config/alchemy/config.yml+
-		if Alchemy::Config.get(:ferret) == true
+		if Config.get(:ferret) == true
 			require 'acts_as_ferret'
 			acts_as_ferret(
 				:fields => {

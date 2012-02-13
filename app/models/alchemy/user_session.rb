@@ -1,6 +1,6 @@
 module Alchemy
 	class UserSession < Authlogic::Session::Base
-		logout_on_timeout(Rails.env != 'development')
+		logout_on_timeout(::Rails.env != 'development')
 
 		before_destroy :unlock_pages
 
