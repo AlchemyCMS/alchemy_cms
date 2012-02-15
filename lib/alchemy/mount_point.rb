@@ -4,7 +4,7 @@ module Alchemy
 	def self.mount_point
 		alchemy_routes = Rails.application.routes.named_routes[:alchemy]
 		raise "Alchemy not mounted! Please mount Alchemy::Engine in your config/routes.rb file." if alchemy_routes.nil?
-		alchemy_routes.path.gsub(/^\/$/, '')
+		alchemy_routes.path.spec.to_s.gsub(/^\/$/, '')
 	end
 
 end

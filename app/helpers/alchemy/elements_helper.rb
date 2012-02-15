@@ -84,8 +84,7 @@ module Alchemy
 					render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => 'nil'}
 				else
 					default_options = {
-						:shorten_to => nil,
-						:render_format => "html"
+						:shorten_to => nil
 					}
 					options = default_options.merge(options)
 					element.store_page(@page) if part == :view
@@ -94,7 +93,7 @@ module Alchemy
 					partial_name = "_#{element.name.underscore}_#{part}.html.erb"
 					locals = options.delete(:locals)
 					render(
-						:partial => "alchemy/elements/#{element.name.underscore}_#{part}.#{options[:render_format]}.erb",
+						:partial => "alchemy/elements/#{element.name.underscore}_#{part}",
 						:locals => {
 							:element => element,
 							:options => options,
