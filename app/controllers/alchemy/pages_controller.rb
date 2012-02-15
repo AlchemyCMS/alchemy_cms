@@ -46,7 +46,7 @@ module Alchemy
 				format.html { render }
 				format.rss {
 					if @page.contains_feed?
-						render :action => "show.rss.builder", :layout => false
+						render :action => "show", :layout => false, :handlers => [:builder]
 					else
 						render :xml => { :error => 'Not found' }, :status => 404
 					end
@@ -157,7 +157,7 @@ module Alchemy
 		def redirect_to_public_child
 			@page = find_first_public(@page)
 			if @page.blank?
-				render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+				render :file => "#{Rails.root}/public/404", :status => 404, :layout => false
 			else
 				redirect_page
 			end
@@ -179,7 +179,7 @@ module Alchemy
 		end
 
 		def render_404
-			render(:file => "#{Rails.root}/public/404.html", :status => 404, :layout => false)
+			render(:file => "#{Rails.root}/public/404", :status => 404, :layout => false)
 		end
 
 		def url_levels
