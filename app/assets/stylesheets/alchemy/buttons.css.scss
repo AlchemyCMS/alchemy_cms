@@ -122,6 +122,7 @@ div.button_with_label {
 	float: left;
 	min-width: 70px;
 	line-height: 0;
+	cursor: pointer;
 	
 	&.active {
 		.icon_button {
