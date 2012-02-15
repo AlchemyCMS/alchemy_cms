@@ -15,14 +15,14 @@
     <% @elements.each do |cell, elements| -%>
     <% if elements.any? -%>
     <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
-    	<%= render :partial => 'element', :collection => elements, :locals => {:draggable => true} %>
+    	<%= render :partial => 'alchemy/admin/elements/element', :collection => elements, :locals => {:draggable => true} %>
     </div>
     <% end -%>
     <% end -%>
   </div>
   <% else -%>
   <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements">
-    <%= render :partial => @elements, :locals => {:draggable => true} %>
+    <%= render :partial => 'alchemy/admin/elements/element', :collection => @elements, :locals => {:draggable => true} %>
   </div>
   <% end -%>
 </div>
