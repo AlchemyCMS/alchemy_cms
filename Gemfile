@@ -2,6 +2,8 @@ source "http://rubygems.org"
 
 gemspec
 
+gem 'tvdeyen-fleximage', :path => '../fleximage'
+
 group :test do
 	gem 'rspec-rails'
 	gem 'sqlite3'

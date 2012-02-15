@@ -93,11 +93,7 @@ module Alchemy
 
 		# Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
 		def render_page_layout(options={})
-			default_options = {
-				:render_format => "html"
-			}
-			options = default_options.merge(options)
-			render :partial => "alchemy/page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
+			render :partial => "alchemy/page_layouts/#{@page.page_layout.downcase}"
 		rescue ActionView::MissingTemplate
 			warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
 			render :partial => "alchemy/page_layouts/standard"
