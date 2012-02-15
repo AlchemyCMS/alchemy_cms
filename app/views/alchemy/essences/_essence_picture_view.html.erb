@@ -15,8 +15,7 @@
 		{
 			:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
 			:title => (content.essence.title.blank? ? nil : content.essence.title),
-			:id => dom_id(content.essence.picture),
-			:style => (options[:crop] && !options[:image_size].blank?) || (!options[:crop] && options[:image_size].blank?) ? "width: #{options[:image_size].blank? ? content.essence.picture.image_width : options[:image_size].split('x')[0]}px; height: #{options[:image_size].blank? ? content.essence.picture.image_height : options[:image_size].split('x')[1]}px" : nil
+			:id => dom_id(content.essence.picture)
 		}.merge(html_options)
 	) -%>
 
