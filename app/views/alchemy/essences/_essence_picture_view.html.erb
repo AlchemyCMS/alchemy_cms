@@ -14,8 +14,7 @@
 		),
 		{
 			:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
-			:title => (content.essence.title.blank? ? nil : content.essence.title),
-			:id => dom_id(content.essence.picture)
+			:title => (content.essence.title.blank? ? nil : content.essence.title)
 		}.merge(html_options)
 	) -%>
 
