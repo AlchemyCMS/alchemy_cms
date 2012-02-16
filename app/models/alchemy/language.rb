@@ -2,17 +2,17 @@ module Alchemy
 	class Language < ActiveRecord::Base
 
 		validates_presence_of :name
-		validates_presence_of :code
+		validates_presence_of :language_code
 		validates_presence_of :page_layout
 		validates_presence_of :frontpage_name
-		validates_uniqueness_of :code
+		validates_uniqueness_of :language_code, :scope => :country_code
 		validate :presence_of_default_language
 		validate :publicity_of_default_language
 		has_many :pages
 		after_destroy :delete_language_root_page
-		validates_format_of :code, :with => /^[a-z]{2}$/
+		validates_format_of :language_code, :with => /^[a-z]{2}$/
 		before_destroy :check_for_default
-		after_update :set_pages_language, :if => proc { |m| m.code_changed? }
+		after_update :set_pages_language, :if => proc { |m| m.language_code_changed? }
 		after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
 		before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
@@ -38,6 +38,14 @@ module Alchemy
 			else
 				I18n.t(self.code, :default => self.name)
 			end
+		end
+
+		def code
+			self.language_code
+		end
+
+		def code=(code)
+			self.language_code = code
 		end
 
 	private
