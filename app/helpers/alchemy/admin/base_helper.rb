@@ -272,11 +272,6 @@ module Alchemy
 				['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
 			end
 
-			# (internal) Checks if all options we need for the image cropper are provided
-			def necessary_options_for_cropping_provided?(options)
-				options[:crop].to_s == 'true' && !options[:image_size].blank?
-			end
-
 			# (internal) Renders translated Module Names for html title element.
 			def render_alchemy_title
 				if content_for?(:title)
