@@ -42,12 +42,12 @@ module Alchemy
 			end
 
 			def destroy
-				content = Content.find(params[:id])
-				element = content.element
-				content_name = content.name
-				@content_dom_id = "#{content.essence_type.underscore}_#{content.id}"
+				@content = Content.find(params[:id])
+				@content_dup = @content.clone
+				element = @content.element
+				content_name = @content.name
 				@notice = t("Successfully deleted content", :content => content_name)
-				content.destroy
+				@content.destroy
 			end
   
 		end
