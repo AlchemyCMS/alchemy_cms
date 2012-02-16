@@ -10,7 +10,8 @@ module Alchemy
 		validate :publicity_of_default_language
 		has_many :pages
 		after_destroy :delete_language_root_page
-		validates_format_of :language_code, :with => /^[a-z]{2}$/
+		validates_format_of :language_code, :with => /^[a-z]{2}$/, :if => proc { language_code.present? }
+		validates_format_of :country_code, :with => /^[a-z]{2}$/, :if => proc { country_code.present? }
 		before_destroy :check_for_default
 		after_update :set_pages_language, :if => proc { |m| m.language_code_changed? }
 		after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
@@ -40,13 +41,7 @@ module Alchemy
 			end
 		end
 
-		def code
-			self.language_code
-		end
-
-		def code=(code)
-			self.language_code = code
-		end
+		include Code
 
 	private
 

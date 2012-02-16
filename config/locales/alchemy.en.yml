@@ -199,6 +199,7 @@ en:
     copy_element: "Copy this element"
     copy_language_tree_heading: "Copy page tree"
     copy_page: "Copy page"
+    country_code_placeholder: 'i.e. us (optional)'
     "Create language": "Create a new language"
     create_language_tree_heading: "Create empty language tree"
     create_page: "Create a new subpage"
@@ -255,6 +256,7 @@ en:
     "item removed from clipboard": "Removed %{name} from clipboard"
     javascript_disabled_headline: "Javascript is disabled!"
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
+    language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree succesfully copied."
     link_image: "Link this image."

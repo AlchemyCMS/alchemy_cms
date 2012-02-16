@@ -15,18 +15,23 @@ describe Alchemy::Language do
 		@language.label(:name).should == 'Klingonian'
 	end
 
-	# context "with country_code and_language_code" do
-	# 	pending
-		
-	# 	before(:each) do
-	# 	  @language
-	# 	end
+	context "with country_code and_language_code" do
 
-	#   	it "should return a joined locale" do
-	# 		@language.code.should
-	# 	end
+	  	it "should return a joined locale" do
+	  		@language.country_code = 'cr'
+			@language.code.should == 'kl-cr'
+		end
 
-	# end
+	end
+
+	context "with language_code and country code as emtpy string" do
+	  
+	  	it "should return language locale only" do
+	  		@language.country_code = ''
+			@language.code.should == 'kl'
+		end
+
+	end
 
 	it "should not be deletable if it is the default language" do
 		@default_language = Alchemy::Language.find_by_default(true)
