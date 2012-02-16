@@ -1,4 +1,4 @@
-<%= form_for [alchemy, :admin, @language], :remote => true, :html => {:style => 'width: 403px'} do |f| %>
+<%= form_for [resource_url_scope, :admin, resource_instance_variable], :remote => true, :html => {:style => 'width: 403px'} do |f| %>
 	<div id="errors" style="display: none"></div>
 	<table>
 		<tr>
@@ -34,7 +34,7 @@
 		<tr>
 			<td colspan="2">
 				<p class="foot_note">
-					* <%= t(:country_code_foot_note) %>
+					* Der Ländercode ist nur notwendig, wenn Sie mehrere Länder mit unterschiedlichen Sprachen versehen wollen.
 				</p>
 			</td>
 		</tr>
