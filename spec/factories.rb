@@ -25,7 +25,7 @@ FactoryGirl.define do
 	end
 	
 	factory :language, :class => 'Alchemy::Language' do
-		code "kl"
+		language_code "kl"
 		name 'Klingonian'
 		default false
 		frontpage_name 'Tuq'
@@ -35,7 +35,7 @@ FactoryGirl.define do
 
 	factory :page, :class => 'Alchemy::Page' do
 
-		language { Alchemy::Language.find_by_code('kl') || Factory(:language) }
+		language { Alchemy::Language.find_by_language_code('kl') || Factory(:language) }
 		name "A Page"
 		parent_id { Factory(:language_root_page).id }
 		page_layout "standard"

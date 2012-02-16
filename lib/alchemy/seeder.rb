@@ -14,9 +14,9 @@ module Alchemy
 				
 				default_language = Alchemy::Config.get(:default_language)
 				
-				lang = Alchemy::Language.find_or_initialize_by_code(
+				lang = Alchemy::Language.find_or_initialize_by_language_code(
 					:name => default_language['name'],
-					:code => default_language['code'],
+					:language_code => default_language['code'],
 					:frontpage_name => default_language['frontpage_name'],
 					:page_layout => default_language['page_layout'],
 					:public => true,
