@@ -27,7 +27,7 @@ describe Alchemy::Admin::ElementsHelper do
 		end
 
 		it "should return string of elements grouped by cell for select_tag helper" do
-			helper.grouped_elements_for_select(@elements).should == helper.grouped_options_for_select({"FooCell"=>[["1", "1#foo_cell"], ["2", "2#foo_cell"]]})
+			helper.grouped_elements_for_select(@elements).should == helper.grouped_options_for_select({"Foo cell"=>[["1", "1#foo_cell"], ["2", "2#foo_cell"]]})
 		end
 
 		context "with empty elements array" do
