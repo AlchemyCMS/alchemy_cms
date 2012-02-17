@@ -106,7 +106,7 @@ module Alchemy
 					]
 				else
 					[
-						t(e['name'], :scope => :element_names),
+						Alchemy::I18n.t(e['name'], :scope => :element_names),
 						e[object_method] + (cell ? "##{cell['name']}" : "")
 					]
 				end
