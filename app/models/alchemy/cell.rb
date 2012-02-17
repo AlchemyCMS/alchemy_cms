@@ -55,7 +55,7 @@ module Alchemy
 		end
 
 		def self.translated_label_for(cell_name)
-			I18n.t("alchemy.cell_names.#{cell_name}", :default => cell_name.camelcase)
+			I18n.t(cell_name, :scope => :cell_names)
 		end
   
 	end
