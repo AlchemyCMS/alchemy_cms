@@ -1,28 +1,35 @@
 module Alchemy
 	class I18n
 
-		## Thanks Typus for this I18n hack!
+		# A I18n Proxy for Alchemy translations
 		# 
 		# Instead of having to translate strings and defining a default value:
-		#
-		#     AlchemyAlchemy::I18n.t("Hello World!", :default => 'Hello World!')
-		#
-		# We define this method to define the value only once:
-		#
-		#     AlchemyAlchemy::I18n.t("Hello World!")
-		#
-		# Note that interpolation still works:
-		#
-		#     AlchemyAlchemy::I18n.t("Hello %{world}!", :world => @world)
-		#
-		# Notes:
-		# -----
 		# 
-		# Already scoped to alchemy namespace!
+		#     Alchemy::I18n.t("Hello World!", :default => 'Hello World!')
+		# 
+		# We define this method to define the value only once:
+		# 
+		#     Alchemy::I18n.t("Hello World!")
+		# 
+		# Note that interpolation still works:
+		# 
+		#     Alchemy::I18n.t("Hello %{world}!", :world => @world)
+		# 
+		# === Notes
+		# 
+		# All translations are scoped into the +alchemy+ namespace.
+		# Even scopes are scoped into the +alchemy+ namespace.
+		# 
+		# So a call for t('hello', :scope => :world) has to be translated like this:
+		# 
+		#   de:
+		#     alchemy:
+		#       world:
+		#         hello: Hallo
 		# 
 		def self.t(msg, *args)
 			options = args.extract_options!
-			options[:default] = options[:default] ? options[:default] : msg
+			options[:default] = options[:default] ? options[:default] : msg.to_s.humanize
 			scope = ['alchemy']
 			case options[:scope].class.name
 				when "Array"

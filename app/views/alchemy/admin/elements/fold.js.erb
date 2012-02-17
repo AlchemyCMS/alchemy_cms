@@ -10,8 +10,6 @@
   $('#element_area .sortable_cell').sortable('refresh');
   Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @element.id -%>"]');
 
-  Alchemy.ButtonObserver('.element_editor[data-element-id="<%= @element.id -%>"] button.button');
-
   <%- if @element.folded -%>
     
     <%- @element.rtf_contents.each do |content| -%>
@@ -32,6 +30,8 @@
     <%- end -%>
     
     Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
+    Alchemy.Datepicker('#element_<%= @element.id -%> input[type="date"]');
+    Alchemy.ButtonObserver('.element_editor[data-element-id="<%= @element.id -%>"] button.button');
   <%- end -%>
   
   <%- end -%>
