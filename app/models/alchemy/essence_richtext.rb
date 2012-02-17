@@ -7,7 +7,7 @@ module Alchemy
 
 		# Require acts_as_ferret only if Ferret full text search is enabled (default).
 		# You can disable it in +config/alchemy/config.yml+
-		if Alchemy::Config.get(:ferret) == true
+		if Config.get(:ferret) == true
 			require 'acts_as_ferret'
 			acts_as_ferret(
 				:fields => {
@@ -37,11 +37,11 @@ module Alchemy
 			return html if html.blank?
 			if html.index("<")
 				text = ""
-				tokenizer = HTML::Tokenizer.new(html)
+				tokenizer = ::HTML::Tokenizer.new(html)
 				while token = tokenizer.next
-					node = HTML::Node.parse(nil, 0, 0, token, false)
+					node = ::HTML::Node.parse(nil, 0, 0, token, false)
 					# result is only the content of any Text nodes
-					text << node.to_s if node.class == HTML::Text
+					text << node.to_s if node.class == ::HTML::Text
 				end
 				# strip any comments, and if they have a newline at the end (ie. line with
 				# only a comment) strip that too

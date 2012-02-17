@@ -2,17 +2,18 @@ module Alchemy
 	class Language < ActiveRecord::Base
 
 		validates_presence_of :name
-		validates_presence_of :code
+		validates_presence_of :language_code
 		validates_presence_of :page_layout
 		validates_presence_of :frontpage_name
-		validates_uniqueness_of :code
+		validates_uniqueness_of :language_code, :scope => :country_code
 		validate :presence_of_default_language
 		validate :publicity_of_default_language
 		has_many :pages
 		after_destroy :delete_language_root_page
-		validates_format_of :code, :with => /^[a-z]{2}$/
+		validates_format_of :language_code, :with => /^[a-z]{2}$/, :if => proc { language_code.present? }
+		validates_format_of :country_code, :with => /^[a-z]{2}$/, :if => proc { country_code.present? }
 		before_destroy :check_for_default
-		after_update :set_pages_language, :if => proc { |m| m.code_changed? }
+		after_update :set_pages_language, :if => proc { |m| m.language_code_changed? }
 		after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
 		before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
@@ -36,15 +37,17 @@ module Alchemy
 			if attrib.to_sym == :code
 				self.code
 			else
-				Alchemy::I18n.t(self.code, :default => self.name)
+				I18n.t(self.code, :default => self.name)
 			end
 		end
+
+		include Code
 
 	private
 
 		def publicity_of_default_language
 			if self.default? && !self.public?
-				errors.add(:base, Alchemy::I18n.t("Default language has to be public"))
+				errors.add(:base, I18n.t("Default language has to be public"))
 				return false
 			else
 				return true
@@ -53,7 +56,7 @@ module Alchemy
 
 		def presence_of_default_language
 			if Language.get_default == self && self.default_changed?
-				errors.add(:base, Alchemy::I18n.t("We need at least one default."))
+				errors.add(:base, I18n.t("We need at least one default."))
 				return false
 			else
 				return true

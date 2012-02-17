@@ -33,11 +33,11 @@
 module Alchemy
 	class Message
 
-		@@config = Alchemy::Config.get(:mailer)
+		@@config = Config.get(:mailer)
 		
-		extend ActiveModel::Naming
-		include ActiveModel::Validations
-		include ActiveModel::Conversion
+		extend ::ActiveModel::Naming
+		include ::ActiveModel::Validations
+		include ::ActiveModel::Conversion
 		
 		attr_accessor :contact_form_id, :ip
 		@@config[:fields].each do |field|
@@ -45,9 +45,9 @@ module Alchemy
 		end
 		
 		@@config[:validate_fields].each do |field|
-			validates_presence_of field[0], :message => '^' + Alchemy::I18n.t(field[1][:message].to_s, :scope => "contactform.validations")
+			validates_presence_of field[0], :message => '^' + I18n.t(field[1][:message].to_s, :scope => "contactform.validations")
 			if field[0].to_s.include?('email')
-				validates_format_of field[0], :with => Authlogic::Regex.email, :message => '^' + Alchemy::I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
+				validates_format_of field[0], :with => ::Authlogic::Regex.email, :message => '^' + I18n.t('alchemy.contactform.validations.wrong_email_format'), :if => :email_is_filled
 			end
 		end
 		

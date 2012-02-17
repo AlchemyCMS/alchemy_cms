@@ -18,8 +18,8 @@ module Alchemy
 		has_many :elements, :dependent => :destroy, :order => :position
 
 		def self.definitions
-			cell_yml = File.join(Rails.root, 'config', 'alchemy', 'cells.yml')
-			YAML.load_file(cell_yml) if File.exist?(cell_yml)
+			cell_yml = ::File.join(::Rails.root, 'config', 'alchemy', 'cells.yml')
+			::YAML.load_file(cell_yml) if ::File.exist?(cell_yml)
 		end
 
 		def self.definition_for(cellname)
@@ -55,7 +55,7 @@ module Alchemy
 		end
 
 		def self.translated_label_for(cell_name)
-			Alchemy::I18n.t("alchemy.cell_names.#{cell_name}", :default => cell_name.camelcase)
+			I18n.t(cell_name, :scope => :cell_names)
 		end
   
 	end

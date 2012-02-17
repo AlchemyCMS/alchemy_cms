@@ -122,6 +122,7 @@ div.button_with_label {
 	float: left;
 	min-width: 70px;
 	line-height: 0;
+	cursor: pointer;
 	
 	&.active {
 		.icon_button {
@@ -313,13 +314,15 @@ a.icon_button {
 		float: none;
 		display: inline-block;
 		background-position: 0 -8px;
-		vertical-align: -1px;
+		vertical-align: -2px;
 		
 		.icon {
-			position: absolute;
-			right: 5px;
+			height: 9px;
 			left: auto;
-			top: 4px;
+			position: absolute;
+			right: 1px;
+			top: 1px;
+			width: 9px;
 		}
 	}
 	

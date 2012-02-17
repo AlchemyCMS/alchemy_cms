@@ -46,7 +46,7 @@ module Alchemy
 
 		# Overriding +I18n+s default +t+ helper, so we can pass it through +Alchemy::I18n+
 		def t(key, *args)
-			Alchemy::I18n.t(key, *args)
+			::Alchemy::I18n.t(key, *args)
 		end
 
 	private

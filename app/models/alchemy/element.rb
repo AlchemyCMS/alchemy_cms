@@ -11,7 +11,7 @@ module Alchemy
 		has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 
 		validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
-		validates_presence_of :name, :on => :create, :message => '^'+Alchemy::I18n.t(:choose_element)
+		validates_presence_of :name, :on => :create, :message => '^' + I18n.t(:choose_element)
 
 		attr_accessor :create_contents_after_create
 
@@ -152,12 +152,12 @@ module Alchemy
 		# Place a elements.yml file inside your apps config/alchemy folder to define
 		# your own set of elements
 		def self.descriptions
-			if File.exists? "#{Rails.root}/config/alchemy/elements.yml"
-				element_definitions = YAML.load_file( "#{Rails.root}/config/alchemy/elements.yml" )
+			if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
+				element_definitions = ::YAML.load_file( "#{::Rails.root}/config/alchemy/elements.yml" )
 			end
 			if !element_definitions
-				if File.exists?(File.join(File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
-					element_definitions = YAML.load_file( File.join(File.dirname(__FILE__), "../../../config/alchemy/elements.yml") )
+				if ::File.exists?(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
+					element_definitions = ::YAML.load_file( ::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml") )
 				end
 			end
 			if !element_definitions
@@ -170,7 +170,7 @@ module Alchemy
 		def self.all_for_page(page)
 			raise TypeError if page.class.name != "Alchemy::Page"
 			# if page_layout has cells, collect elements from cells and group them by cellname
-			page_layout = Alchemy::PageLayout.get(page.page_layout)
+			page_layout = PageLayout.get(page.page_layout)
 			if page_layout.blank?
 				logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
 				return []
@@ -273,7 +273,7 @@ module Alchemy
 		# 
 		def display_name
 			return name.capitalize if description.blank?
-			Alchemy::I18n.t(description['name'], :scope => :element_names)
+			I18n.t(description['name'], :scope => :element_names)
 		end
 
 		# Gets the preview text from the first Content found in the +elements.yml+ Element description file.
@@ -435,7 +435,7 @@ module Alchemy
 			messages = []
 			essence_errors.each do |content_name, errors|
 				errors.each do |error|
-					messages << Alchemy::I18n.t(
+					messages << I18n.t(
 						"content_validations.#{self.name}.#{content_name}.#{error}",
 						:default => [
 							"content_validations.fields.#{content_name}.#{error}".to_sym,

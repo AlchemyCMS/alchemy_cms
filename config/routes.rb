@@ -139,12 +139,12 @@ Alchemy::Engine.routes.draw do
 	end
 
 	match '/:lang' => 'pages#show',
-		:constraints => {:lang => /[a-z]{2}/},
+		:constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
 		:as => :show_language_root
 
 	# The page show action has to be last route
 	match '(/:lang)(/:level1(/:level2(/:level3)))/:urlname(.:format)' => 'pages#show',
-		:constraints => {:lang => /[a-z]{2}/},
+		:constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
 		:as => :show_page
 
 end

@@ -341,6 +341,7 @@ de:
     copy_element: "Element kopieren"
     copy_page: "Seite kopieren"
     copy_language_tree_heading: "Einen Sprachbaum kopieren"
+    country_code_placeholder: 'z.B. at (optional)'
     create: "erstellen"
     "Create language": "Eine neue Sprache erstellen"
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
@@ -397,6 +398,7 @@ de:
     "item removed from clipboard": "%{name} wurde aus der Zwischenablage entfernt."
     javascript_disabled_headline: "Javascript ist deaktiviert!"
     javascript_disabled_text: "Alchemy funktioniert nur einwandfrei mit aktiviertem Javascript. Bitte aktivieren Sie es in Ihrem Browser."
+    language_code_placeholder: 'z.B. de'
     language_does_not_exist: "Dieser Sprachbaum existiert noch nicht"
     language_pages_copied: "Der Sprachbaum wurde kopiert"
     left: "links"
@@ -711,7 +713,8 @@ de:
         picture_id: Bild
       
       alchemy/language:
-        code: "Sprachkürzel"
+        country_code: "Länderkürzel"
+        language_code: "Sprachkürzel"
         default: "Standardsprache"
         frontpage_name: "Name der Startseite"
         name: "Name"
@@ -762,26 +765,26 @@ de:
         body: ""
       
       messages:
-        inclusion: "%{attribute} ist kein gültiger Wert"
-        exclusion: "%{attribute} ist nicht verfügbar"
-        invalid: "%{attribute} ist nicht gültig"
+        inclusion: "ist kein gültiger Wert"
+        exclusion: "ist nicht verfügbar"
+        invalid: "ist nicht gültig"
         record_invalid: 'Validierung von %{errors} ist fehlgeschlagen'
-        confirmation: "%{attribute} stimmt nicht mit der Bestätigung überein"
-        accepted: "%{attribute} muss akzeptiert werden"
-        empty: "%{attribute} muss ausgefüllt werden"
-        blank: "%{attribute} muss ausgefüllt werden"
-        too_long: "%{attribute} ist zu lang (nicht mehr als %{count} Zeichen)"
-        too_short: "%{attribute} ist zu kurz (nicht weniger als %{count} Zeichen)"
-        wrong_length: "%{attribute} hat die falsche Länge (muss genau %{count} Zeichen haben)"
-        taken: "%{attribute} ist bereits vergeben"
-        not_a_number: "%{attribute} ist keine Zahl"
-        greater_than: "%{attribute} muss größer als %{count} sein"
-        greater_than_or_equal_to: "%{attribute} muss größer oder gleich %{count} sein"
-        equal_to: "%{attribute} muss genau %{count} sein"
-        less_than: "%{attribute} muss kleiner als %{count} sein"
-        less_than_or_equal_to: "%{attribute} muss kleiner oder gleich %{count} sein"
-        odd: "%{attribute} muss ungerade sein"
-        even: "%{attribute} muss gerade sein"
+        confirmation: "stimmt nicht mit der Bestätigung überein"
+        accepted: "muss akzeptiert werden"
+        empty: "muss ausgefüllt werden"
+        blank: "muss ausgefüllt werden"
+        too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
+        too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
+        wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
+        taken: "ist bereits vergeben"
+        not_a_number: "ist keine Zahl"
+        greater_than: "muss größer als %{count} sein"
+        greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
+        equal_to: "muss genau %{count} sein"
+        less_than: "muss kleiner als %{count} sein"
+        less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
+        odd: "muss ungerade sein"
+        even: "muss gerade sein"
       
       models:
         alchemy/content:
@@ -790,8 +793,9 @@ de:
               validation_failed: 'Validierung fehlgeschlagen.'
         alchemy/language:
           attributes:
-            code:
-              invalid: '^Sprachkürzel ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
+            language_code:
+              invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
+              taken: 'ist für dieses Länderkürzel bereits vergeben.'
   
   # Translations for the authentication system used in alchemy.
   authlogic:

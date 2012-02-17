@@ -272,11 +272,6 @@ module Alchemy
 				['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
 			end
 
-			# (internal) Checks if all options we need for the image cropper are provided
-			def necessary_options_for_cropping_provided?(options)
-				options[:crop].to_s == 'true' && !options[:image_size].blank?
-			end
-
 			# (internal) Renders translated Module Names for html title element.
 			def render_alchemy_title
 				if content_for?(:title)
@@ -330,6 +325,7 @@ module Alchemy
 			#   :overlay_options        [Hash]                # Overlay options. See link_to_overlay_window helper.
 			#   :if_permitted_to        [Array]               # Check permission for button. [:action, :controller]. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
 			#   :skip_permission_check  [Boolean]             # Skip the permission check. Default false. NOT RECOMMENDED!
+			#   :loading_indicator      [Boolean]             # Shows the please wait overlay while loading. Default false.
 			# 
 			def toolbar_button(options = {})
 				options.symbolize_keys!
@@ -338,7 +334,8 @@ module Alchemy
 					:skip_permission_check => false,
 					:active => false,
 					:link_options => {},
-					:overlay_options => {}
+					:overlay_options => {},
+					:loading_indicator => false
 				}
 				options = defaults.merge(options)
 				button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
@@ -353,7 +350,7 @@ module Alchemy
 							}
 						)
 					else
-						link_to options[:url], {:class => "icon_button#{options[:remote] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
+						link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
 							render_icon(options[:icon])
 						end
 					end
