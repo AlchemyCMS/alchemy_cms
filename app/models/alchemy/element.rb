@@ -400,14 +400,17 @@ module Alchemy
 		def essence_errors
 			essence_errors = {}
 			essences.each do |essence|
-				unless essence.essence_errors.blank?
-					essence_errors[essence.content.name] = essence.essence_errors
+				unless essence.errors.blank?
+					essence_errors[essence.content.name] = essence.validation_errors
 				end
 			end
 			essence_errors
 		end
 
-		# Essence validation errors messages are translated via ::I18n.
+		# Essence validation errors
+		# 
+		# Messages are translated via I18n.
+		# 
 		# Inside your translation file add translations like:
 		# 
 		#   alchemy:
@@ -422,12 +425,12 @@ module Alchemy
 		# * taken
 		# * wrong_format
 		# 
-		# Example:
+		# === Example:
 		# 
 		#   de:
 		#     alchemy:
 		#       content_validations:
-		#         contact:
+		#         contactform:
 		#           email:
 		#             wrong_format: 'Die Email hat nicht das richtige Format'
 		# 
@@ -435,11 +438,11 @@ module Alchemy
 			messages = []
 			essence_errors.each do |content_name, errors|
 				errors.each do |error|
-					messages << I18n.t(
-						"content_validations.#{self.name}.#{content_name}.#{error}",
+					messages << I18n.t(error,
+						:scope => [:content_validations, self.name, content_name],
 						:default => [
-							"content_validations.fields.#{content_name}.#{error}".to_sym,
-							"content_validations.errors.#{error}".to_sym
+							"alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
+							"alchemy.content_validations.errors.#{error}".to_sym
 						],
 						:field => Content.translated_label_for(content_name)
 					)

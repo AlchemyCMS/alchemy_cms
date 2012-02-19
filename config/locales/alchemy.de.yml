@@ -71,8 +71,13 @@ de:
       image_mosaic:
         caption: "Mosaik Bildunterschrift"
       file: Datei
-    
+      contactform:
+        success_page: 'Folgeseite'
+
     content_validations:
+      contactform:
+        success_page:
+          blank: 'Bitte wählen Sie eine Folgeseite'
       errors:
         blank: '%{field} darf nicht leer sein.'
         wrong_format: '%{field} hat das falsche Format.'
@@ -108,7 +113,6 @@ de:
         message: 'Nachricht'
         send: 'Nachricht absenden!'
         mandatory_fields: 'Pflichtfelder. Bitte füllen Sie diese Felder aus. Vielen Dank!'
-        success_page: 'Folgeseite'
       # Translations for the contactform validations.
       # Validations are set in the config/alchemy/config.yml mailer section.
       validations:
@@ -247,7 +251,6 @@ de:
     "Picture deleted successfully": "%{name} wurde gelöscht"
     "Picture cache flushed": "Bildercache wurde geleert"
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
-    "Please check contents below.": "Bitte überprüfen Sie die markierten Felder."
     "Please choose": "Bitte wählen"
     "Please choose a page layout.": "Bitte wählen Sie einen Seitentyp."
     choose_element: "Bitte wählen Sie ein Element."
@@ -337,6 +340,7 @@ de:
     contactform_body: "Nachrichten Vorlage"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
+    content_validations_headline: "Bitte überprüfen Sie die markierten Felder."
     copy: "kopieren"
     copy_element: "Element kopieren"
     copy_page: "Seite kopieren"
