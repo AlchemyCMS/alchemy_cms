@@ -78,13 +78,13 @@ module Alchemy
 			end
 
 			# Renders the EssenceText editor partial with a form select for storing page urlnames
-			# Options:
-			#   * element - element the Content find via content_name to store the pages urlname in.
-			#   * content_name - the name of the content from element to store the pages urlname in.
-			#   * options (Hash)
-			#   ** :only (Hash)  - pass page_layout names to :page_layout => [""] so only pages with this page_layout will be displayed inside the select.
-			#   ** :except (Hash)  - pass page_layout names to :page_layout => [""] so all pages except these with this page_layout will be displayed inside the select.
-			#   ** :page_attribute (Symbol) - The Page attribute which will be stored.
+			# 
+			# === Options:
+			# 
+			#   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
+			#   :except          [Hash]     # Pagelayout names. No pages with this page_layout will be displayed inside the select.
+			#   :page_attribute  [Symbol]   # The Page attribute which will be stored.
+			# 
 			def page_selector(element, content_name, options = {}, select_options = {})
 				default_options = {
 					:except => {

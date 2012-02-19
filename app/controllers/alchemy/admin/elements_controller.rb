@@ -70,7 +70,7 @@ module Alchemy
 				else
 					@element_validated = false
 					@notice = t('Validation failed')
-					@error_message = "<h2>#{@notice}</h2><p>#{t('Please check contents below.')}</p>".html_safe
+					@error_message = "<h2>#{@notice}</h2><p>#{t(:content_validations_headline)}</p>".html_safe
 				end
 			end
 
