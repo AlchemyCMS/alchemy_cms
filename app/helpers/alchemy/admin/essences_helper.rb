@@ -82,6 +82,7 @@ module Alchemy
 			# === Options:
 			# 
 			#   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
+			#   :except          [Hash]     # Pagelayout names. No pages with this page_layout will be displayed inside the select.
 			#   :page_attribute  [Symbol]   # The Page attribute which will be stored.
 			#   :global          [Boolean]  # Display only global pages. Default is false.
 			# 
