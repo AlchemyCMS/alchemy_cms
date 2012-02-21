@@ -1469,19 +1469,28 @@ div#overlay_toolbar a.button:active {
 	margin: 1px 0 0 -12px;
 }
 
-#clipboard_items ul {
-	list-style-type: none;
-	margin: 0 0 16px;
-	padding: 0;
-	height: 180px;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
+#clipboard_items {
 
-#clipboard_items ul li {
-	padding: $default-padding;
-	background: white;
-}
+	ul {
+		list-style-type: none;
+		margin: 0 0 8px;
+		padding: 0;
+		height: 220px;
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		li {
+			padding: 2*$default-padding;
+			border: $default-border;
+			background-color: white;
+			@include rounded-corner;
+			&.element {
+				background-color: #E5DCCA;
+				border: 1px solid #BBA589;
+			}
+		}
+	}
+} 
 
 .mceEditor table {
 	border-spacing: 0 !important;
