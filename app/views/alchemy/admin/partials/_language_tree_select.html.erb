@@ -3,7 +3,7 @@
 		'language', 
 		options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
 		:id => 'language_tree_select',
-		:class => 'short'
+		:class => 'alchemy_selectbox short'
 	) %>
 	<label><%= t("Language tree") %></label>
 </div>
