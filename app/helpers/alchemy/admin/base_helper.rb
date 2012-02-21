@@ -189,7 +189,8 @@ module Alchemy
 				select_options = options_for_select(select_options, content.essence.content)
 				select_tag(
 					"contents[content_#{content.id}]",
-					select_options
+					select_options,
+					:class => 'alchemy_selectbox'
 				)
 			end
 
@@ -312,7 +313,7 @@ module Alchemy
 					'paste_from_clipboard',
 					!@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
 					{
-						:class => html_options[:class],
+						:class => html_options[:class] + 'alchemy_selectbox',
 						:style => html_options[:style]
 					}
 				)

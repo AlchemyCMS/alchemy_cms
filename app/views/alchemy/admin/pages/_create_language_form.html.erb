@@ -13,7 +13,7 @@
 				<tr>
 					<td class="label"><%= label_tag('languages[old_lang_id]', t('Language tree')) %></td>
 					<td class="select">
-						<%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), :class => "medium_long") %>
+						<%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), :class => "alchemy_selectbox medium_long") %>
 						<%= hidden_field_tag("languages[new_lang_id]", @language.id) %>
 					</td>
 				</tr>
