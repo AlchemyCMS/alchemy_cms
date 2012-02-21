@@ -1510,23 +1510,3 @@ div#overlay_toolbar a.button:active {
 .mceEditor table {
 	border-spacing: 0 !important;
 }
-
-#dropbox {
-	background: $medium-gray;
-	border: $default-border;
-	@include rounded-corner;
-	padding: $default-padding;
-	margin-bottom: 2*$default-padding;
-	text-align: center;
-	line-height: 4em;
-	&.dragover {
-		background: $dark-gray;
-		color: $light-gray;
-		border-color: $light-gray;
-	}
-}
-
-div.browse {
-	margin-bottom: 1em;
-	padding: 4*$default-padding 0;
-}

@@ -5,9 +5,9 @@
 			<%= t('Please wait. Flash® is loading...') %>
 		</p>
 	</div>
-	<button class="button" onclick="swfu.cancelQueue(); return false" style="display: none">
+	<a href="#" class="button no-spinner" onclick="swfu.cancelQueue(); return false" style="display: none">
 		<%= t("swfupload.cancel_uploads") %>
-	</button>
+	</a>
 	<p style="margin-top: 8px" id="choose_alternative_uploader">
 		<small>
 			<%= raw t('If you have any problems using the Flash uploader you can switch to', :link => t('<a href="#" id="uploadswitcher">%{value}</a>', :value => t('regular method'))) %>
