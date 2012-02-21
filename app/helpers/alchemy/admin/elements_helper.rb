@@ -99,7 +99,7 @@ module Alchemy
 			end
 
 			def element_array_for_options(e, object_method, cell = nil)
-				if e.class.name == 'Element'
+				if e.class.name == 'Alchemy::Element'
 					[
 						e.display_name_with_preview_text,
 						e.send(object_method).to_s + (cell ? "##{cell['name']}" : "")
