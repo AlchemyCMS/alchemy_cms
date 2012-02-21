@@ -22,7 +22,7 @@ if (typeof(Alchemy) === 'undefined') {
 						return $(child).attr('data-element-id');
 					});
 					var params_string = '';
-					var cell_id = $(event.target).attr('data-cell-id');
+					var cell_id = $(this).attr('data-cell-id');
 					// Is the trash window open?
 					if ($('#alchemyTrashWindow').length > 0) {
 						// updating the trash icon
