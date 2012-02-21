@@ -83,11 +83,13 @@ Alchemy.Uploader = {
 				onServerLoadStart: function(event, file) {
 					var progress = new Alchemy.FileProgress(file);
 					progress.setStatus(self.t('uploading'));
-					// progress.$fileProgressCancel.show().on('click', function(e) {
-					// 	e.preventDefault();
-					// 	$().html5Uploader('cancel', file.id);
-					// 	return false;
-					// });
+					progress.$fileProgressCancel.show().on('click', function(e) {
+						e.preventDefault();
+						$().html5Uploader('cancel', file.id);
+						progress.setStatus(self.t('cancelled'));
+						progress.setCancelled();
+						return false;
+					});
 				},
 				onServerProgress: function(event, file) {
 					var progress = new Alchemy.FileProgress(file);

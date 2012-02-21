@@ -67,7 +67,9 @@ if (typeof(Alchemy) === 'undefined') {
 	Alchemy.FileProgress.prototype.setComplete = function () {
 		this.$progressBar.removeClass().addClass("progressBarComplete");
 		this.$progressBar.css({width: '100%'});
-		this.$fileProgressWrapper.delay(1500).fadeOut();
+		this.$fileProgressWrapper.delay(1500).fadeOut(function() {
+			$(this).remove();
+		});
 	};
 
 	Alchemy.FileProgress.prototype.setError = function () {
@@ -78,7 +80,9 @@ if (typeof(Alchemy) === 'undefined') {
 	Alchemy.FileProgress.prototype.setCancelled = function () {
 		this.$progressBar.removeClass().addClass("progressBarCanceled");
 		this.$progressBar.css({width: '100%'});
-		this.$fileProgressWrapper.delay(1500).fadeOut();
+		this.$fileProgressWrapper.delay(1500).fadeOut(function() {
+			$(this).remove();
+		});
 	};
 
 	Alchemy.FileProgress.prototype.setStatus = function (status) {
