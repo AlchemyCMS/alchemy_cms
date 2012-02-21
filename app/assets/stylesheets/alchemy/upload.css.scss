@@ -90,3 +90,26 @@ object.swfupload {
 	margin-top: 16px;
 	margin-bottom: 16px;
 }
+
+#dropbox {
+	background: $medium-gray;
+	border: $default-border;
+	@include rounded-corner;
+	padding: $default-padding;
+	margin-bottom: 2*$default-padding;
+	text-align: center;
+	line-height: 4em;
+	&.dragover {
+		background: $dark-gray;
+		color: $light-gray;
+		border-color: $light-gray;
+	}
+}
+
+div.browse {
+	height: 25px;
+	padding: 2*$default-padding 0;
+	a.button {
+		float: right;
+	}
+}
