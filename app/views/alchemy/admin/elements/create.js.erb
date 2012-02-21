@@ -1,5 +1,7 @@
 (function($) {
 
+	var $el;
+
 	<% if @cutted_element_id %>
 		$('.element_editor[data-element-id="<%= @cutted_element_id %>"]').remove();
 	<% end %>
@@ -19,11 +21,13 @@
 
 	Alchemy.PreviewWindow.refresh();
 	Alchemy.ElementEditorSelector.init();
-	$('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
-	Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
-	Alchemy.SelectBox('#element_<%= @element.id -%> select');
-	Alchemy.ButtonObserver('#element_<%= @element.id -%> button.button');
-	Alchemy.Datepicker('#element_<%= @element.id -%> input[type="date"]');
+	
+	$el = $('#element_<%= @element.id -%>');
+	$el.trigger('Alchemy.SelectElementEditor');
+	Alchemy.ElementDirtyObserver($el);
+	Alchemy.SelectBox('select', $el);
+	Alchemy.ButtonObserver('button.button', $el);
+	Alchemy.Datepicker('input[type="date"]', $el);
 
 	<%- if @clipboard.blank? -%>
 		$('#clipboard_button .icon.clipboard').removeClass('full');

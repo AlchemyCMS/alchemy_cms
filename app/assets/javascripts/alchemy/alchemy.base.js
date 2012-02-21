@@ -133,7 +133,7 @@ if (typeof(Alchemy) === 'undefined') {
 		setElementSaved : function(selector) {
 			var $element = $(selector);
 			Alchemy.setElementClean(selector);
-			Alchemy.enableButton(selector + ' button.button');
+			Alchemy.enableButton('button.button', $element);
 		},
 		
 		resizeFrame : function() {
