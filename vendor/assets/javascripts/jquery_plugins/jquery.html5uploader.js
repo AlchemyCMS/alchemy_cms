@@ -77,7 +77,7 @@
 				}
 			});
 
-			// Populating our own files array.
+			// Populating our own files array so we can be sure the browser does not change it.
 			function fillFileQueue(files) {
 				queuedFiles = [];
 				fileList = files; //storing the original browsers FileList object.
@@ -233,6 +233,7 @@
 			for (var file_id in xhrRequestQueue) {
 				if (xhrRequestQueue.hasOwnProperty(file_id)) {
 					xhrRequestQueue[file_id].abort();
+					delete xhrRequestQueue[file_id];
 				}
 			}
 			if (settings.onQueueCancelled) {
@@ -242,10 +243,11 @@
 
 		// Cancel one upload
 		cancel : function(file_id) { 
-			// var xhrRequest = xhrRequestQueue[file_id];
-			// if (xhrRequest) {
-			// 	xhrRequest.abort();
-			// }
+			var xhrRequest = xhrRequestQueue[file_id];
+			if (xhrRequest) {
+				xhrRequest.abort();
+				delete xhrRequestQueue[file_id];
+			}
 		}
 
 	};
