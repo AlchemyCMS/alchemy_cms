@@ -18,8 +18,8 @@ if (typeof(Alchemy) === 'undefined') {
 		reinit : function(elements) {
 			var self = Alchemy.ElementEditorSelector;
 			var $elements = $(elements);
-			$elements.each(function () {
-				self.bindEvent(this, $elements);
+			$elements.each(function() {
+				self.bindEvent(this);
 			});
 			$elements.find('.element_head').click(self.onClickElement);
 			$elements.find('.element_head').dblclick(function() {
