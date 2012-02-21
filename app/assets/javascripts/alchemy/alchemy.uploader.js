@@ -58,8 +58,9 @@ Alchemy.Uploader = {
 					$('#upload_info_container').show();
 					$('#dropbox').hide('fast');
 					$('#multiple').hide();
+					$('#cancelHTML5Queue').show();
 				},
-				onQueueComplete: function(files) {
+				onQueueComplete: function(files, status) {
 					var $status = $("#upload_info");
 					if (Alchemy.Uploader.locale == 'en') {
 						$status.text(files + " file" + (files === 1 ? "" : "s") + " uploaded.");
@@ -68,13 +69,27 @@ Alchemy.Uploader = {
 					}
 					$('#dropbox').show();
 					$('#multiple').show().parents('form').get(0).reset();
-					window.setTimeout(Alchemy.closeCurrentWindow, 2500);
+					$('#cancelHTML5Queue').hide();
+					if (status === 200) {
+						window.setTimeout(function() {
+							Alchemy.closeCurrentWindow();
+						}, 3500);	
+					}
 				},
 				onClientLoadStart: function(event, file) {
 					var progress = new Alchemy.FileProgress(file);
-					progress.setStatus(self.t('uploading'));
+					progress.setStatus(self.t('pending'));
 				},
-				onClientProgress: function(event, file) {
+				onServerLoadStart: function(event, file) {
+					var progress = new Alchemy.FileProgress(file);
+					progress.setStatus(self.t('uploading'));
+					// progress.$fileProgressCancel.show().on('click', function(e) {
+					// 	e.preventDefault();
+					// 	$().html5Uploader('cancel', file.id);
+					// 	return false;
+					// });
+				},
+				onServerProgress: function(event, file) {
 					var progress = new Alchemy.FileProgress(file);
 					var percentUploaded = (event.loaded / event.total) * 100;
 					progress.setProgress(percentUploaded);
@@ -85,6 +100,14 @@ Alchemy.Uploader = {
 					var progress = new Alchemy.FileProgress(file);
 					progress.setError();
 					progress.setStatus(errorMessage);
+				},
+				onQueueCancelled: function(queuedFiles) {
+					for (var i = queuedFiles.length - 1; i >= 0; i--) {
+						var progress = new Alchemy.FileProgress(queuedFiles[i]);
+						progress.setStatus(self.t('cancelled'));
+						progress.setCancelled();
+					}
+					$('#cancelHTML5Queue').hide();
 				}
 			});
 		}
@@ -146,6 +169,11 @@ Alchemy.Uploader = {
 			$('#explain_step3').hide();
 			$('#explain_drag_n_drop').show();
 			initHTML5Uploader(settings);
+			$('#cancelHTML5Queue').on('click', function(e) {
+				e.preventDefault();
+				$().html5Uploader('cancelQueue');
+				return false;
+			});
 		} else {
 			$('#multiple').hide();
 			$('#dropbox').hide();
