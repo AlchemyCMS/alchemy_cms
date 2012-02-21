@@ -32,7 +32,7 @@
         options_for_select(
           [[t('Layout default'), @options[:image_size]]] + @options[:sizes].sort,
           @essence_picture.render_size
-        )
+        ), :class => 'alchemy_selectbox'
       ) %>
       </td>
     </tr>
@@ -47,7 +47,7 @@
     <tr>
       <td class="label"><%= f.label "css_class" %></td>
       <td class="select">
-        <%= f.select "css_class", [[t("Layout default"), ""], [t("above"), "no_float"], [t("left"), "left"], [t("right"), "right"]] %>
+        <%= f.select "css_class", [[t("Layout default"), ""], [t("above"), "no_float"], [t("left"), "left"], [t("right"), "right"]], :class => 'alchemy_selectbox' %>
       </td>
     </tr>
     <%# Have to use a Hash here, because Rails has a Hash.to_params bug with nested Arrays!!!! %>
@@ -55,7 +55,7 @@
     <tr>
       <td class="label"><%= f.label "css_class" %></td>
       <td class="select">
-        <%= f.select("css_class", options_for_select([[t('None'), '']] + @options[:css_classes].sort, @essence_picture.css_class)) %>
+        <%= f.select("css_class", options_for_select([[t('None'), '']] + @options[:css_classes].sort, @essence_picture.css_class), :class => 'alchemy_selectbox') %>
       </td>
     </tr>
     <%- elsif @options[:css_classes] && !@options[:css_classes].is_a?(HashWithIndifferentAccess) -%>
