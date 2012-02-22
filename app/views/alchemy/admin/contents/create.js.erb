@@ -1,29 +1,44 @@
 (function($) {
 
 <%- if @content.essence_type == "Alchemy::EssencePicture" -%>
+  
+  <%- locals = {
+    :content => @content,
+    :options => @options.nil? ? {} : @options.symbolize_keys
+  } -%>
+  
+  <% if params[:was_missing] -%>
+  
+  $("#element_<%= @element.id -%>_content_missing").replaceWith('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/essence_picture_editor",
+      :locals => locals
+    )
+  ) -%>');
+
+  <% else -%>
 
   $('#add_content_<%= @element.id -%>').before('<%= escape_javascript(
     render(
       :partial => "alchemy/essences/essence_picture_editor",
-      :locals => {
-        :content => @content,
-        :options => @options.symbolize_keys
-      }
+      :locals => locals
     )
   ) -%>');
   Alchemy.SortableContents('#element_<%= @element.id -%>_contents', '<%= form_authenticity_token -%>');
-
+  
   <%- if @contents_of_this_type.length > 1 -%>
   $('#element_<%= @element.id -%>_contents .essence_picture_editor').addClass('dragable_picture');
   <%- end -%>
-
+  
   <%- if !max_image_count.blank? && (@contents_of_this_type.length >= max_image_count) -%>
   $("#add_content_<%= @element.id -%>").remove();
   <%- end -%>
-
+  
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
   
+  <% end -%>
+
 <%- elsif @content.essence_type ==  "Alchemy::EssenceText" -%>
 
   <%- locals = {
@@ -87,15 +102,35 @@
 
 <%- else -%>
 
-  $('#add_content_for_element_<%= @element.id -%>').before('<%= escape_javascript(
+  <%- locals = {
+    :content => @content,
+    :options => @options.nil? ? {} : @options.symbolize_keys
+  } -%>
+
+  <%- if params[:was_missing] -%>
+
+  $("#element_<%= @element.id -%>_content_missing").replaceWith('<%= escape_javascript(
     render(
-      :partial => "alchemy/essences/#{@content.essence_type.underscore}_editor",
-      :locals => {
-        :content => @content,
-        :options => (@options.nil? ? {} : @options.symbolize_keys)
-      }
+      :partial => "alchemy/essences/#{@content.essence_partial_name}_editor",
+      :locals => locals
     )
   ) -%>');
+
+  <%- else -%>
+
+  $("#add_content_for_element_<%= @element.id -%>").before('<%= escape_javascript(
+    render(
+      :partial => "alchemy/essences/#{@content.essence_partial_name}_editor",
+      :locals => locals
+    )
+  ) -%>');
+  Alchemy.closeCurrentWindow();
+  
+  <%- end -%>
+  
+  <% if @content.essence_type ==  "Alchemy::EssenceDate" -%>
+  Alchemy.Datepicker('#element_<%= @element.id -%> input.date');
+  <% end -%>
 
 <%- end -%>
 
