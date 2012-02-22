@@ -27,7 +27,7 @@
 		<th class="role"><%= Alchemy::User.human_attribute_name('role') %></th>
 		<th class="tools"></th>
 	</tr>
-	<%= render @users %>
+	<%= render :partial => 'alchemy/admin/users/user', :collection => @users %>
 </table>
 <%= render 'alchemy/admin/partials/pagination_links', :items => @users %>
 

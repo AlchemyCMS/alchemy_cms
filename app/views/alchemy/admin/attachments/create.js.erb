@@ -1,6 +1,6 @@
 (function($) {
 <%- if @while_assigning -%>
-	$('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay.html.erb")) -%>');
+    $('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay", :formats => [:html])) -%>');
 <%- else -%>
   $('#archive_all').html('<%= escape_javascript(render(:partial => "files_list")) %>');
   Alchemy.growl('<%= @message %>');
