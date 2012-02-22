@@ -372,7 +372,7 @@ module Alchemy
 		end
 
 		def has_ingredient?(name)
-			!self.ingredient(name).blank?
+			self.ingredient(name).present?
 		end
 
 		def save_contents(params)
