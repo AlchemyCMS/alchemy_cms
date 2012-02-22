@@ -82,24 +82,17 @@ module Alchemy
 			# === Options:
 			# 
 			#   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
-			#   :except          [Hash]     # Pagelayout names. No pages with this page_layout will be displayed inside the select.
 			#   :page_attribute  [Symbol]   # The Page attribute which will be stored.
 			# 
 			def page_selector(element, content_name, options = {}, select_options = {})
 				default_options = {
-					:except => {
-						:page_layout => [""]
-					},
-					:only => {
-						:page_layout => [""]
-					},
 					:page_attribute => :id,
 					:prompt => t('Choose page')
 				}
 				options = default_options.merge(options)
 				pages = Page.where({
 					:language_id => session[:language_id],
-					:page_layout => options[:only][:page_layout],
+					:page_layout => options[:only],
 					:public => true
 				})
 				content = element.content_by_name(content_name)
