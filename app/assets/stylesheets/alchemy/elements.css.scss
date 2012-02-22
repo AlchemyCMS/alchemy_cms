@@ -624,12 +624,6 @@ table.content_editor_table {
 	width: 210px;
 }
 
-div.content_editor label.inline {
-	display: inline-block;
-	min-width: 90px;
-	margin-right: 4px;
-}
-
 a.new_content_link {
 	float: none;
 	display: inline-block;
@@ -660,10 +654,6 @@ div.content_text_editor.text_short {
 	display: inline;
 }
 
-div.content_editor input.thin_border {
-	width: 97%;
-}
-
 input.long,
 input.text_long {
 	width: 363px;
@@ -682,53 +672,85 @@ div.content_text_editor input.text_short {
 	padding: 2px;
 }
 
-div.content_editor {
-	margin-bottom: 8px;
-	margin-top: 8px;
-	position: relative;
-}
-
-div.content_editor.missing p {
-	line-height: 25px;
-	padding: 2*$default-padding;
-	border: 1px solid #f5b04e;
-	background-color: #f5dea9;
-	@include rounded-corner;
-	font-size: 11px;
-}
-
-div.content_editor.missing p span.icon.warning {
-	position: relative;
-	top: 2px;
-	left: 2px;
-	margin-right: 8px;
-}
-
 #alchemy .ui-dialog-content div.content_editor input.auto_resize {
 	width: 100%;
 }
 
-div.content_editor.validation_failed label {
-	color: #931f23;
-}
+// div.element_content {
+// 	white-space: nowrap;
 
-div.content_editor.validation_failed input {
-	border: 1px solid #931f23;
-	background-color: #f9e8e9;
-}
+// 	p, div {
+// 		white-space: normal;
+// 	}
+// }
 
-div.content_editor label {
-	display: block;
-	margin-bottom: 0.5em;
-	font-size: 10px;
-	text-shadow: #fff5e1 1px 1px 0;
-	line-height: 15px;
-	text-indent: 1px;
-}
-
-div.content_editor label span.warning.icon {
+div.content_editor {
+	margin-bottom: 8px;
+	margin-top: 8px;
 	position: relative;
-	top: 2px;
+
+	input.thin_border {
+		width: 97%;
+	}
+
+	&.missing p {
+		line-height: 25px;
+		padding: 2*$default-padding;
+		border: 1px solid #f5b04e;
+		background-color: #f5dea9;
+		@include rounded-corner;
+		font-size: 11px;
+
+		span.icon.warning {
+			position: relative;
+			top: 2px;
+			left: 2px;
+			margin-right: 8px;
+		}
+	}
+
+	&.display_inline {
+		display: inline;
+		display: inline-block;
+		margin-right: 4px;
+		vertical-align: top;
+		
+		input.thin_border {
+			width: 170px;
+		}
+	}
+
+	&.validation_failed {
+
+		label {
+			color: #931f23;
+		}
+
+		input {
+			border: 1px solid #931f23;
+			background-color: #f9e8e9;
+		}
+	}
+
+	label {
+		display: block;
+		margin-bottom: 0.5em;
+		font-size: 10px;
+		text-shadow: #fff5e1 1px 1px 0;
+		line-height: 15px;
+		text-indent: 1px;
+
+		span.warning.icon {
+			position: relative;
+			top: 2px;
+		}
+
+		&.inline {
+			display: inline-block;
+			min-width: 90px;
+			margin-right: 4px;
+		}
+	}
 }
 
 .element_editor div.error {
