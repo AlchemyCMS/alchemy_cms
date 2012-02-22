@@ -11,7 +11,7 @@
         <%= select_tag(
           "public_filename",
           options_for_select(@attachments),
-          :class => "full_width"
+          :class => "alchemy_selectbox full_width"
         ) %>
       </td>
     </tr>
@@ -30,7 +30,7 @@
         <label for="file_link_target"><%= t("Open Link in") %>:</label>
       </td>
       <td>
-        <%= select_tag 'file_link_target', options_for_select(@link_target_options), :class => 'link_target medium' %>
+        <%= select_tag 'file_link_target', options_for_select(@link_target_options), :class => 'alchemy_selectbox link_target medium' %>
       </td>
     </tr>
   </table>
