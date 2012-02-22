@@ -1,5 +1,5 @@
 <%- cache(content) do -%>
-<div class="content_editor" id="<%= content_dom_id(content) %>">
+<div class="content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
   
   <%- if content.settings[:display_as] == "checkbox" -%>
   
