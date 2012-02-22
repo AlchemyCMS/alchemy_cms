@@ -107,7 +107,12 @@ describe Alchemy::Page do
 
 	describe '#create' do
 
-		context "generate urlnames" do
+		context "before/after filter" do
+
+			it "should automatically set the title from its name" do
+				page = Factory(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
+				page.title.should == 'My Testpage'
+			end
 
 			it "should get a webfriendly urlname" do
 				page = Factory(:page, :name => 'klingon$&stößel ', :language => @language, :parent_id => @language_root.id)
@@ -127,6 +132,28 @@ describe Alchemy::Page do
 			it "should generate a three letter urlname from one letter name" do
 				page = Factory(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
 				page.urlname.should == '--a'
+			end
+
+		end
+
+	end
+
+	describe '#update' do
+
+		context "before/after filter" do
+
+			it "should not set the title automatically if the name changed but title is not blank" do
+				page = Factory(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
+				page.name = "My Renaming Test"
+				page.save; page.reload
+				page.title.should == "My Testpage"
+			end
+
+			it "should not automatically set the title if it changed its value" do
+				page = Factory(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
+				page.title = "I like SEO"
+				page.save; page.reload
+				page.title.should == "I like SEO"
 			end
 
 		end
