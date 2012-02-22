@@ -1,7 +1,5 @@
-<%- if content.essence.date.blank? -%>
-<%= l(Time.now, :format => (options[:date_format])) %>
+<%- if content.essence.date.present? -%>
+<%= l(content.essence.date, :format => (options[:date_format])) -%>
 <%- elsif options[:date_format] == :rfc822 -%>
-<%= content.essence.date.to_s(:rfc822) %>
-<%- else -%>
-<%= l(content.essence.date, :format => (options[:date_format])) %>
+<%= content.essence.date.to_s(:rfc822) -%>
 <%- end -%>
