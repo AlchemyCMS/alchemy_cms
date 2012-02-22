@@ -437,6 +437,17 @@ a.icon_button.linked {
 	cursor: default;
 }
 
+div.content_editor.essence_date {
+	float: none;
+	display: inline;
+	display: inline-block;
+	vertical-align: top;
+
+	input.date {
+		width: 154px;
+	}
+}
+
 div.essence_picture_editor {
 	float: left;
 	height: 126px;

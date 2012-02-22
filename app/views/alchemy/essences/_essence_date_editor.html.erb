@@ -1,10 +1,9 @@
-<div class="content_editor" id="<%= content_dom_id(content) %>">
+<div class="content_editor essence_date" id="<%= content_dom_id(content) %>">
 	<label><%= render_content_name(content) %></label>
 	<%= alchemy_datepicker(
 		content.essence, :date, {
 			:name => content.form_field_name,
-			:id => content.form_field_id,
-			:style => 'width: 140px'
+			:id => content.form_field_id
 		}
 	) %>
 	<label for="<%= content.form_field_id %>" style="cursor: pointer; display: inline; display: inline-block; position: relative; top: 3px; margin: 0;">
