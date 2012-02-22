@@ -1,13 +1,11 @@
 Alchemy CMS
 ===========
 
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=next_stable)](http://travis-ci.org/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_cms)
 ![Status](http://stillmaintained.com/magiclabs/alchemy_cms.png)
 
 About
 -----
-
-**CAUTION: This branch is a beta development branch. For productive environments use [master](https://github.com/magiclabs/alchemy_cms) branch.**
 
 Features
 --------
@@ -31,13 +29,11 @@ Features
 Rails Version
 -------------
 
-This branch of Alchemy runs with Rails 3.2
+This branch of Alchemy runs with Rails 3.1.3.
 
-If you are looking for a Rails 3.1 compatible version check the 2.1-stable branch.
+If you are looking for a Rails 3 compatible version check the 2.0-stable branch.
 
-If you are looking for a Rails 3.0 compatible version check the 2.0-stable branch.
-
-If you are looking for a Rails 2.3 compatible version check the 1.6-stable branch.
+If you are looking for a Rails 2 compatible version check the 1.6-stable branch.
 
 Ruby Version
 ------------
@@ -49,7 +45,7 @@ Installation
 
 Use the installer (recommended):
 
-    gem install alchemy_cms --pre
+    gem install alchemy_cms
     alchemy new my_magicpage
 
 Start the local server:
@@ -77,7 +73,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', :git => 'git://github.com/magiclabs/alchemy_cms.git', :branch => 'next_stable'
+    gem 'alchemy_cms'
 
 Run in terminal:
 

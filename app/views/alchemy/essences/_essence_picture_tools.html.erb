@@ -1,3 +1,4 @@
+<% if options[:crop].to_s == 'true' && content.ingredient %>
 <%= link_to_overlay_window(
   render_icon('crop'),
   alchemy.crop_admin_essence_picture_path(content.essence, :options => options),
@@ -6,10 +7,12 @@
     :title => t('Edit Picturemask')
   },
   {
-    :class => necessary_options_for_cropping_provided?(options) && content.ingredient ? nil : 'disabled',
     :title => t('Edit Picturemask')
   }
 ) %>
+<%- else -%>
+<a href="#" class="disabled"><%= render_icon('crop') %></a>
+<%- end -%>
 
 <%= link_to_overlay_window(
   render_icon('swap_picture'),

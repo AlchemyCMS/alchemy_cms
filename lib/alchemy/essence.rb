@@ -26,6 +26,7 @@ module Alchemy #:nodoc:
         validate_column = configuration[:validate_column].blank? ? ingredient_column : configuration[:validate_column]
         
         class_eval <<-EOV
+          attr_accessor :validation_errors
           include Alchemy::Essence::InstanceMethods
           stampable
           validate :essence_validations, :on => :update
@@ -94,10 +95,11 @@ module Alchemy #:nodoc:
       #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
       # 
 			def essence_validations
+        self.validation_errors ||= []
 				return true if description.blank? || description['validate'].blank?
 				description['validate'].each do |validation|
 					if validation == 'presence' && ingredient.blank?
-						errors.add(ingredient_column.to_sym, :blank)
+						self.validation_errors << :blank
 					elsif validation == 'format'
 						if description['validate_format_as'].blank? && !description['validate_format_with'].blank?
 							matcher = Regexp.new(description['validate_format_with'])
@@ -114,14 +116,17 @@ module Alchemy #:nodoc:
 							raise 'No validation format matcher given'
 						end
 						if ingredient.match(matcher).nil?
-							errors.add(ingredient_column.to_sym, :invalid)
+							self.validation_errors << :invalid
 						end
 					elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
-						errors.add(ingredient_column.to_sym, :taken)
+						self.validation_errors << :taken
 					end
 				end
+        self.validation_errors.each do |validation_error|
+          self.errors.add(self.ingredient_column, validation_error)
+        end
 			end
-      
+
       # Essence description from config/elements.yml
       def description
         return {} if element.nil? or element.content_descriptions.nil?

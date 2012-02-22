@@ -227,5 +227,7 @@
       - presence
   - name: success_page
     type: EssenceText
+    settings:
+      display_as: select
     validate:
       - presence

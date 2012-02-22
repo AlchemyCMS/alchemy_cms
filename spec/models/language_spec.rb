@@ -9,12 +9,30 @@ describe Alchemy::Language do
 
 	it "should return a label for code" do
 	  @language.label(:code).should == 'kl'
-	end 
+	end
 
 	it "should return a label for name" do
 		@language.label(:name).should == 'Klingonian'
 	end
-		
+
+	context "with country_code and_language_code" do
+
+	  	it "should return a joined locale" do
+	  		@language.country_code = 'cr'
+			@language.code.should == 'kl-cr'
+		end
+
+	end
+
+	context "with language_code and country code as emtpy string" do
+	  
+	  	it "should return language locale only" do
+	  		@language.country_code = ''
+			@language.code.should == 'kl'
+		end
+
+	end
+
 	it "should not be deletable if it is the default language" do
 		@default_language = Alchemy::Language.find_by_default(true)
 		if !@default_language
@@ -22,7 +40,7 @@ describe Alchemy::Language do
 		end
 		expect { @default_language.destroy }.should raise_error
 	end
-	
+
 	describe "before save" do
 		describe "#remove_old_default if default attribute has changed to true" do
 		  it "should unset the default status of the old default-language" do
@@ -33,7 +51,7 @@ describe Alchemy::Language do
 			end
 		end
 	end
-	
+
 	context "after_update" do
 		describe "#set_pages_language if language´s code has changed" do
 			it "should update all its pages with the new code" do

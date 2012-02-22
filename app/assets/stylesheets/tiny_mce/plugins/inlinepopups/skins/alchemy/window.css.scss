@@ -65,7 +65,7 @@
 .alchemy .mceTop, .alchemy .mceTop div {
 	top: 0;
 	width: 100%;
-	height: 29px;
+	height: 31px;
 }
 
 .alchemy .mceTop .mceLeft {
@@ -75,17 +75,15 @@
 .alchemy .mceTop .mceCenter,
 a.mceMove {
 	width: 100%;
-	height: 29px;
-	background: #c6dbe7;
-	color: #333333;
-	font-weight: bold;
-	border-bottom: 2px solid #ededed;
+	height: 31px;
+	background: $light-blue;
+	color: $text-color;
 }
 
 .alchemy .mceTop .mceRight {
 	right: 0;
 	width: 0px;
-	height: 29px;
+	height: 32px;
 }
 
 .alchemy .mceTop span {
@@ -197,7 +195,6 @@ a.mceMove {
 .alchemy a {
 	width: 29px;
 	height: 16px;
-	top: 3px;
 }
 
 .alchemy .mceClose {
@@ -206,6 +203,7 @@ a.mceMove {
 	width: 16px;
 	height: 16px;
 	top: 6px;
+
 }
 
 .alchemy .mceMin {
@@ -231,10 +229,41 @@ a.mceMove {
 	top: 6px;
 }
 
+.alchemy .mceClose, .alchemy .mceMin, .alchemy .mceMed, .alchemy .mceMax {
+	&:hover {
+		border: 1px solid $button-hover-border-color;
+		@include rounded-corner;
+		background-color: $button-hover-bg-color;
+		color: $text-color;
+		font-weight: normal;
+	}
+}
+
+.alchemy .mceClose {
+	&:hover {
+		background-position: -97px -129px;
+		right: 6px;
+	}
+}
+
+.alchemy .mceMax {
+	&:hover {
+		background-position: -33px -81px;
+		right: 26px;
+	}
+}
+
+.alchemy .mceMed {
+	&:hover {
+		background-position: -50px -81px;
+		right: 26px;
+	}
+}
+
 .alchemy .mceMove {
 	display: none;
 	cursor: move;
-	height: 26px;
+	height: 31px;
 	width: 100%;
 }
 
@@ -340,14 +369,18 @@ a.mceMove {
 /* Alert/Confirm */
 
 .alchemy .mceButton {
-	font-weight: bold;
+	@include button-styles;
 	bottom: 10px;
 	width: 80px;
-	height: 31px;
-	line-height: 31px;
+	height: 25px;
+	line-height: 25px;
 	vertical-align: middle;
 	text-align: center;
-	outline: 0
+	outline: 0;
+
+	&:hover {
+		@include button-hover-styles;
+	}
 }
 
 .alchemy .mceMiddle .mceIcon {
@@ -359,21 +392,21 @@ a.mceMove {
 
 .alchemy .mceAlert .mceMiddle span, .alchemy .mceConfirm .mceMiddle span {
 	background: transparent;
-	left: 60px;
+	left: 8px;
 	top: 35px;
-	width: 320px;
+	width: auto;
 	height: 50px;
-	font-weight: bold;
+	text-align: center;
 	overflow: auto;
 	white-space: normal
 }
 
 .alchemy a:hover {
-	font-weight: bold;
+	font-weight: normal;
 }
 
 .alchemy .mceAlert .mceMiddle, .alchemy .mceConfirm .mceMiddle {
-	background: #D6D7D5
+	background: $light-gray;
 }
 
 .alchemy .mceAlert .mceOk {

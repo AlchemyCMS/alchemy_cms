@@ -33,6 +33,10 @@ a:hover {
 
 /* Forms */
 
+form {
+	margin: 0;
+}
+
 fieldset {
 	margin: 0;
 	padding: 4px;
@@ -89,20 +93,12 @@ input.checkbox {
 /* Buttons */
 
 #insert, #cancel, input.button, .updateButton {
-	font: 11px "Lucida Grande", Arial, sans-serif;
-	border: 1px solid #9a9a9a;
-	height: 21px;
-	padding-left: 8px;
-	padding-right: 8px;
-	padding-bottom: 2px;	
-	margin: 0;
-	background: #eaeaea image-url('alchemy/shading.png') repeat-x 0 -75px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	cursor: pointer;
-	color: #333;
-	text-shadow: #f2f2f2 1px 1px 0;
+	@include button-styles;
+	height: 26px;
+
+	&:hover {
+		@include button-hover-styles;
+	}
 }
 
 /* Browse */
@@ -327,7 +323,7 @@ h3 {
 .title {
 	font-size: 12px;
 	font-weight: bold;
-	color: #2B6FB6;
+	color: $text-color;
 }
 
 /* Dialog specific */

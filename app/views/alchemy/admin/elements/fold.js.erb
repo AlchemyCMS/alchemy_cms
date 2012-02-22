@@ -1,16 +1,16 @@
 (function($) {
   
+  var $el = $('.element_editor[data-element-id="<%= @element.id %>"]');
+
   <%- if @error -%>
   
   $("#element_<%= @element.id -%>_folder_spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
   
   <%- else -%>
   
-  $('.element_editor[data-element-id="<%= @element.id -%>"]').replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
+  $el = $el.replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
   $('#element_area .sortable_cell').sortable('refresh');
-  Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @element.id -%>"]');
-
-  Alchemy.ButtonObserver('.element_editor[data-element-id="<%= @element.id -%>"] button.button');
+  Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @element.id %>"]');
 
   <%- if @element.folded -%>
     
@@ -24,14 +24,16 @@
     
   <%- else -%>
     
-    $('.element_editor[data-element-id="<%= @element.id -%>"]').trigger('Alchemy.SelectElementEditor');
-    Alchemy.SelectBox('#element_<%= @element.id -%> select');
+    $el.trigger('Alchemy.SelectElementEditor');
+    Alchemy.SelectBox('select', $el);
     
     <%- @element.rtf_contents.each do |content| -%>
     Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
     <%- end -%>
     
-    Alchemy.ElementDirtyObserver('#element_<%= @element.id -%>');
+    Alchemy.ElementDirtyObserver($el);
+    Alchemy.Datepicker('input[type="date"]', $el);
+    Alchemy.ButtonObserver('button.button', $el);
   <%- end -%>
   
   <%- end -%>

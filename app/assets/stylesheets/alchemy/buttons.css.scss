@@ -1,6 +1,6 @@
 @import "alchemy/defaults";
 
-a.button.small.disabled img {
+a.button.small.cloned-button img {
 	display: inline-block;
 	float: none;
 	position: relative;
@@ -82,15 +82,15 @@ a.button:active {
 	background-color: #e5e5e5;
 }
 
-a.button.disabled,
-a.button.disabled:hover,
-a.button.disabled:active,
-input.button.disabled,
-input.button.disabled:hover,
-input.button.disabled:active,
-button.button.disabled,
-button.button.disabled:hover,
-button.button.disabled:active {
+a.button.cloned-button,
+a.button.cloned-button:hover,
+a.button.cloned-button:active,
+input.button.cloned-button,
+input.button.cloned-button:hover,
+input.button.cloned-button:active,
+button.button.cloned-button,
+button.button.cloned-button:hover,
+button.button.cloned-button:active {
 	color: $text-color;
 	text-shadow: none;
 	border-color: #ccc;
@@ -101,15 +101,15 @@ button.button.disabled:active {
 	line-height: 13px;
 }
 
-a.button.disabled,
-a.button.disabled:hover,
-a.button.disabled:active {
+a.button.cloned-button,
+a.button.cloned-button:hover,
+a.button.cloned-button:active {
 	padding: 2px 0 !important;
 	line-height: 13px !important;
 	text-align: center;
 }
 
-a.button.disabled img {
+a.button.cloned-button img {
 	display: inline-block;
 	float: none;
 }
@@ -122,6 +122,7 @@ div.button_with_label {
 	float: left;
 	min-width: 70px;
 	line-height: 0;
+	cursor: pointer;
 	
 	&.active {
 		.icon_button {
@@ -313,13 +314,15 @@ a.icon_button {
 		float: none;
 		display: inline-block;
 		background-position: 0 -8px;
-		vertical-align: -1px;
+		vertical-align: -2px;
 		
 		.icon {
-			position: absolute;
-			right: 5px;
+			height: 9px;
 			left: auto;
-			top: 4px;
+			position: absolute;
+			right: 1px;
+			top: 1px;
+			width: 9px;
 		}
 	}
 	
