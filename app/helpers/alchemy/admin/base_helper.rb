@@ -302,13 +302,13 @@ module Alchemy
 			def clipboard_select_tag(items, html_options = {})
 				options = [[t('Please choose'), ""]]
 				items.each do |item|
-					options << [item.class.to_s == 'Element' ? item.display_name_with_preview_text : item.name, item.id]
+					options << [item.class.to_s == 'Alchemy::Element' ? item.display_name_with_preview_text : item.name, item.id]
 				end
 				select_tag(
 					'paste_from_clipboard',
 					!@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
 					{
-						:class => html_options[:class] + 'alchemy_selectbox',
+						:class => [html_options[:class], 'alchemy_selectbox'].join(' '),
 						:style => html_options[:style]
 					}
 				)
