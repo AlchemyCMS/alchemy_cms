@@ -15,20 +15,40 @@ describe Alchemy::Language do
 		@language.label(:name).should == 'Klingonian'
 	end
 
-	context "with country_code and_language_code" do
+	context "with language_code and empty country_code" do
 
-	  	it "should return a joined locale" do
-	  		@language.country_code = 'cr'
-			@language.code.should == 'kl-cr'
+		it "#code should return language locale only" do
+			@language.country_code = ''
+			@language.code.should == 'kl'
+		end
+
+		context "adding a value for country code" do
+
+			it "#code should return a joined locale" do
+				@language.country_code = 'cr'
+				@language.code.should == 'kl-cr'
+			end
+
+			it "should update all associated Pages with self.code as value for Page#language_code" do
+				@page = Factory(:page, :language => @language)
+				@language.country_code = 'cr'
+				@language.save
+				@page.reload; @page.language_code.should == 'kl-cr'
+			end
 		end
 
 	end
 
-	context "with language_code and country code as emtpy string" do
-	  
-	  	it "should return language locale only" do
-	  		@language.country_code = ''
-			@language.code.should == 'kl'
+	context "with country_code and_language_code" do
+
+		context "removing the country_code" do
+			it "should update all associated Pages´s language_code with Language#code" do
+				language = Factory(:language_with_country_code)
+				@page = Factory(:page, :language => language)
+				language.country_code = ''
+				language.save
+				@page.reload; @page.language_code.should == "kl"
+			end
 		end
 
 	end
