@@ -29,7 +29,7 @@
 	</tr>
 	<%= render @users %>
 </table>
-<%= render 'alchemy/admin/partials/pagination_links', :items => @users %>
+<%= paginate @users %>
 
 <%- elsif params[:query] -%>
 

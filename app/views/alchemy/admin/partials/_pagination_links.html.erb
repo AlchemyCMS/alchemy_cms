@@ -1,7 +1,1 @@
-<%= will_paginate(
-	items,
-	:previous_label => '&laquo; ' + t('pagination.previous_page'),
-	:next_label => t('pagination.next_page') + ' &raquo;',
-	:renderer => 'Alchemy::ScopedPaginationLinkRenderer',
-	:params => defined?(scope) ? {:scope => scope} : nil
-) %>
+<%= paginate items, defined?(scope) ? {:scope => scope} : {} %>

@@ -24,4 +24,4 @@
 	<%= render(:partial => @attachments) %>
 </table>
 
-<%= render 'alchemy/admin/partials/pagination_links', :items => @attachments %>
+<%= paginate @attachments %>
