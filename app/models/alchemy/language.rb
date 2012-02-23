@@ -13,7 +13,7 @@ module Alchemy
 		validates_format_of :language_code, :with => /^[a-z]{2}$/, :if => proc { language_code.present? }
 		validates_format_of :country_code, :with => /^[a-z]{2}$/, :if => proc { country_code.present? }
 		before_destroy :check_for_default
-		after_update :set_pages_language, :if => proc { |m| m.language_code_changed? }
+		after_update :set_pages_language, :if => proc { |m| m.language_code_changed? || m.country_code_changed? }
 		after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
 		before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 

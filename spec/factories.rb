@@ -31,6 +31,10 @@ FactoryGirl.define do
 		frontpage_name 'Tuq'
 		page_layout 'intro'
 		public true
+
+		factory :language_with_country_code do
+			country_code 'cr'
+		end
 	end
 
 	factory :page, :class => 'Alchemy::Page' do
