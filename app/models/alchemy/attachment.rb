@@ -12,10 +12,7 @@ module Alchemy
 
 		def self.find_paginated(params, per_page)
 			cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
-			self.where(cond).paginate(
-				:page => (params[:page] || 1),
-				:per_page => per_page
-			).order(:name)
+			self.where(cond).page(params[:page] || 1).per(per_page).order(:name)
 		end
 
 		def urlname

@@ -11,6 +11,6 @@
 <%- else  -%>
 <div id="pictures">
 	<%= render :partial => 'picture', :collection => @pictures %>
-	<%= render 'alchemy/admin/partials/pagination_links', :items => @pictures %>
+	<%= paginate @pictures %>
 </div>
 <%- end -%>

@@ -315,8 +315,9 @@ en:
       update:
         comma_seperated: "Separate by comma"
     pagination:
-      next_page: "next page"
-      previous_page: "previous page"
+      next_page: "next page &raquo;"
+      previous_page: "&laquo; previous page"
+      truncate: '...'
     password: "Password"
     picture_gallery_editor: 'Pictures'
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
@@ -370,10 +371,7 @@ en:
     "Validation failed": "Validation failed"
   
   # END of Alchemy translation
-  
-  will_paginate:
-    page_gap: '...'
-  
+
   # == Rails translations
   # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:

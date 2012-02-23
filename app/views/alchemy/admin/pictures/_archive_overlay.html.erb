@@ -3,16 +3,11 @@
 		<%= render :partial => 'filter_and_size_bar' %>
 	</div>
 	<div id="assign_image_list" class="with_padding">
-	<%- if @pictures.empty? -%>
+	<% if @pictures.empty? -%>
 		<p><%= t("no_images_in_archive") %></p>
-	<%- else -%>
+	<% else -%>
 		<%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
-		<%= render(
-			:partial => 'alchemy/admin/partials/remote_pagination_links',
-			:locals => {
-				:items => @pictures
-			}
-		) %>
-	<%- end -%>
+		<%= paginate @pictures, :remote => true %>
+	<% end -%>
 	</div>
 </div>

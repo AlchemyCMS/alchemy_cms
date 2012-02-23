@@ -17,7 +17,7 @@ module Alchemy
 				else
 					users = User.scoped
 				end
-				@users = users.paginate(:page => params[:page] || 1, :per_page => per_page_value_for_screen_size).order('login')
+				@users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order('login')
 			end
 
 			def new
