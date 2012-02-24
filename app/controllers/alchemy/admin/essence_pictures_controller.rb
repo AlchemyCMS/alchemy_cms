@@ -7,7 +7,7 @@ module Alchemy
 			def edit
 				@essence_picture = EssencePicture.find(params[:id])
 				@content = Content.find(params[:content_id])
-				@options = params[:options]
+				@options = params[:options] || {}
 				render :layout => false
 			end
 
@@ -15,7 +15,7 @@ module Alchemy
 				@essence_picture = EssencePicture.find(params[:id])
 				if @essence_picture.picture
 					@content = @essence_picture.content
-					@options = params[:options]
+					@options = params[:options] || {}
 					if @essence_picture.render_size.blank?
 						if @options[:image_size].blank?
 							@size_x, @size_y = 0, 0
