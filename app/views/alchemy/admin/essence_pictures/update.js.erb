@@ -3,7 +3,7 @@
 	$('#<%= content_dom_id(@content) -%>').replaceWith('<%= escape_javascript(
 		render(
 			:partial => "alchemy/essences/essence_picture_editor",
-			:locals => {:content => @content, :options => params[:options]}
+			:locals => {:content => @content, :options => params[:options] || {}}
 		)
 	) -%>');
 	Alchemy.growl('<%= t("Image updated successfully") -%>');
