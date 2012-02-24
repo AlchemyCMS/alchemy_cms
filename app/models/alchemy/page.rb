@@ -326,7 +326,7 @@ module Alchemy
 		# Page layout names are defined inside the config/alchemy/page_layouts.yml file.
 		# Translate the name in your config/locales language yml file.
 		def layout_display_name
-			I18n.t("alchemy.page_layout_names.#{page_layout}", :default => page_layout.camelize)
+			I18n.t(self.page_layout, :scope => :page_layout_names)
 		end
 
 		def renamed?
