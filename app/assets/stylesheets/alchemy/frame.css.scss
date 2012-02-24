@@ -205,7 +205,7 @@ div#user_info {
 	span.page_status_and_name {
 		padding: 0 8px;
 		background-color: $medium-gray;
-		text-shadow: #fff 0 1px 2px;
+		text-shadow: 0px 1px 1px #FFFFFF;
 		@include disable-user-select;
 		cursor: default;
 		line-height: 20px;
@@ -216,12 +216,18 @@ div#user_info {
 		height: 22px;
 		margin-right: 1px;
 		
-		.flag {
+		.page_language {
 			float: none;
 			position: relative;
 			display: inline-block;
-			bottom: 1px;
-			margin-right: 3px;
+			bottom: 2px;
+			border: 1px solid #f0c8d1;
+			background-color: #f0c8d1;
+			color: #ac3d57;
+			@include rounded-corner;
+			margin-right: 2px;
+			padding: 2px 3px;
+			line-height: 11px;
 		}
 		
 		span.page_name {
