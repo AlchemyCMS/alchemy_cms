@@ -27,9 +27,9 @@ Alchemy::Engine.routes.draw do
 		:as => :show_attachment
 
 	match "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#show',
-		:as => :show_picture, :defaults => { :format => Alchemy::Config.get(:image_output_format) }
+		:as => :show_picture
 	match '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
-		:as => :zoom_picture, :defaults => { :format => Alchemy::Config.get(:image_store_format) }
+		:as => :zoom_picture
 	match  "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
 		:as => :thumbnail, :defaults => { :format => 'png', :name => "thumbnail" }
 

@@ -12,11 +12,6 @@ describe "URL generating" do
 		p.should == "/alchemy/pictures/3/show/100x33/crop/0x0/900x300/kitten.jpg"
 	end
 
-	it "should generate a url string for picture with default format" do
-		p = show_picture_path(:id => 3, :size => "100x33", :name => 'kitten')
-		p.should == "/alchemy/pictures/3/show/100x33/kitten.#{Alchemy::Config.get(:image_output_format)}"
-	end
-
 	it "should generate a url string for cropped thumbnail" do
 		p = thumbnail_path(:id => 3, :crop => "crop", :size => "100x33", :name => "kitten", :format => :jpg)
 		p.should == "/alchemy/pictures/3/thumbnails/100x33/crop/kitten.jpg"

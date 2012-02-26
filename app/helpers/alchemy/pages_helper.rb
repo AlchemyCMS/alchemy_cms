@@ -3,6 +3,7 @@ module Alchemy
 
 		include Alchemy::BaseHelper
 		include Alchemy::ElementsHelper
+		include Alchemy::PicturesHelper
 
 		def render_classes(classes=[])
 			s = classes.uniq.delete_if { |x| x.blank? }.join(" ")
