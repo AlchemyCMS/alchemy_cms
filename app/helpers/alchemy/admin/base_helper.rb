@@ -417,7 +417,7 @@ module Alchemy
 			# NOTE: Alchemy gives you a local variable named like your resource
 			# 
 			def render_resources
-				render resources_instance_variable
+				render :partial => resource_model_name, :collection => resources_instance_variable
 			rescue ActionView::MissingTemplate
 				render :partial => 'resource', :collection => resources_instance_variable
 			end
