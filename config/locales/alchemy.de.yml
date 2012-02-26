@@ -299,6 +299,7 @@ de:
     "Warning: Content is missing its description.": "Warnung: Für Content '%{contentname}' konnte die Vorlage nicht gefunden werden."
     "Warning: Element '%{elementname}' is missing its description.": "Warnung: Für Element '%{elementname}' konnte die Vorlage nicht gefunden werden."
     "Welcome back, %{name}": "Willkommen zurück, %{name}!"
+    "Welcome, %{name}": "Willkommen, %{name}!"
     "Welcome to Alchemy": "Willkommen in Alchemy!"
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"
