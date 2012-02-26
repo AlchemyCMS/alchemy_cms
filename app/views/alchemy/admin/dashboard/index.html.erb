@@ -1,7 +1,11 @@
 <div id="dashboard">
 	<div class="with_padding">
 		<h1>
+			<% if @first_time -%>
+			<%= t('Welcome, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+			<% else -%>
 			<%= t('Welcome back, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+			<% end -%>
 		</h1>
 		<p>
 			<small><%= t('Your last login was on %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></small>
