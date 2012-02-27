@@ -47,7 +47,7 @@ module Alchemy
 			end
 
 			def create
-				instance_variable_set("@#{resource_model_name}", resource_model.new(params[resource_model_name.to_sym]))
+				instance_variable_set("@#{resource_model_name}", resource_model.new(params[namespaced_resource_model_name.to_sym]))
 				resource_instance_variable.save
 				render_errors_or_redirect(
 					resource_instance_variable,
@@ -57,7 +57,7 @@ module Alchemy
 			end
 
 			def update
-				resource_instance_variable.update_attributes(params[resource_model_name.to_sym])
+				resource_instance_variable.update_attributes(params[namespaced_resource_model_name.to_sym])
 				render_errors_or_redirect(
 					resource_instance_variable,
 					resource_url_scope.url_for({:action => :index}),
@@ -104,6 +104,10 @@ module Alchemy
 
 			def resource_model_name
 				@resource_model_name ||= resources_name.singularize
+			end
+
+			def namespaced_resource_model_name
+				@namespaced_resource_model_name ||= namespaced_resources_name.singularize
 			end
 
 			def resource_model
