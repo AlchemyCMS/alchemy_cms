@@ -18,7 +18,13 @@ module Alchemy
 				:resource_namespaced?,
 				:resources_permission,
 				:resource_url_scope,
-				:is_alchemy_module?
+				:is_alchemy_module?,
+
+				:resource_with_scope,
+				:resource_path,
+				:resources_path,
+				:new_resource_path,
+				:edit_resource_path
 			)
 
 			def index
@@ -91,15 +97,11 @@ module Alchemy
 			end
 
 			def resources_name
-				@resources_name ||= params[:controller].split('/').last
+				@resources_name ||= resource_model_array.last
 			end
 
-			def namespaced_resources_name
-				if resource_namespaced?
-					@namespaced_resources_name ||= "#{resource_namespace}_#{resources_name}".underscore
-				else
-					@namespaced_resources_name ||= resources_name
-				end
+			def resource_model
+				@resource_model ||= resource_model_array.join('/').classify.constantize
 			end
 
 			def resource_model_name
@@ -107,11 +109,16 @@ module Alchemy
 			end
 
 			def namespaced_resource_model_name
-				@namespaced_resource_model_name ||= namespaced_resources_name.singularize
+				return @namespaced_resource_model_name unless @namespaced_resource_model_name.nil?
+				model_name_array = resource_model_array
+				model_name_array.delete(alchemy_module['engine_name'])
+				@namespaced_resource_model_name = model_name_array.join('_').singularize
 			end
 
-			def resource_model
-				@resource_model ||= (resource_namespace == "Admin" ? resource_model_name : "#{resource_namespace}/#{resource_model_name}").classify.constantize
+			def resource_model_array
+				resource_model_array = controller_path_array
+				resource_model_array.delete("admin")
+				resource_model_array
 			end
 
 			def resource_attributes
@@ -138,13 +145,12 @@ module Alchemy
 				instance_variable_get("@#{resources_name}")
 			end
 
-			def resource_namespaced?
-				parts = params[:controller].split('/')
-				parts.length > 1 && parts.first != 'admin'
+			def resource_namespace
+				@resource_namespace ||= controller_path_array.first
 			end
 
-			def resource_namespace
-				@resource_namespace ||= self.class.to_s.split("::").first
+			def controller_path_array
+				@namespace_array = controller_path.split('/')
 			end
 
 			def resource_url_scope
@@ -164,7 +170,34 @@ module Alchemy
 			end
 
 			def resources_permission
-				(resource_namespaced? ? "#{resource_namespace.underscore}_admin_#{resources_name}" : "admin_#{resources_name}").to_sym
+				#(resource_namespaced? ? "#{resource_namespace.underscore}_admin_#{resources_name}" : "admin_#{resources_name}").to_sym
+				controller_path.gsub('/','_').to_sym
+			end
+
+
+			def resources_path(resource=resource_model, options={})
+				#resource_url_scope.send("#{namespaced_resources_name}_path")
+				polymorphic_path (resource_scope_with_namespace + [resource]), options
+			end
+			def resource_path(resource=resource_model, options={})
+				resources_path(resource, options)
+			end
+			def new_resource_path(options={})
+				new_polymorphic_path (resource_scope_with_namespace + [resource_model]), options
+			end
+			def edit_resource_path(resource=nil, options={})
+				edit_polymorphic_path (resource_scope_with_namespace+([resource] or resource_model_array)), options
+			end
+
+			def resource_scope_with_namespace
+				return @resource_scope_with_namespace unless @resource_scope_with_namespace.nil?
+				namespace_array = namespace_diff
+				namespace_array.delete(alchemy_module['engine_name'])
+				@resource_scope_with_namespace = [resource_url_scope].concat(namespace_array)
+			end
+
+			def namespace_diff
+				controller_path_array - resource_model_array
 			end
 
 		end
