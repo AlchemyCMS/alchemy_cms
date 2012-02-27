@@ -75,29 +75,6 @@ div#page_selector_container a.sitemap_pagename_link:hover:after {
 	height: 28px;
 }
 
-ul#sitemap ul {
-	margin: 0;
-	padding: 0;
-	display: block;
-}
-
-ul#sitemap li,
-ul#layoutpages li {
-	list-style-type: none;
-	display: block;
-	margin-left: 0;
-	margin-bottom: 0;
-	line-height: 22px;
-}
-
-ul#sitemap li {
-	padding-left: 0;
-	li {
-		padding-left: 22px;
-		padding-right: 0;
-	}
-}
-
 ul#layoutpages li {
 	padding: 0;
 }
@@ -120,25 +97,6 @@ div.sitemap_left_images {
 	background-color: $light-gray;
 }
 
-#sitemap a.page_folder {
-	background-image: image-url('alchemy/gui/toggle.png');
-	background-repeat: no-repeat;
-	height: 9px;
-	width: 9px;
-	font-size: 0;
-	float: left;
-	margin-left: -18px;
-	margin-top: 3px;
-}
-
-#sitemap a.page_folder.collapsed {
-	background-position: 0 0;
-}
-
-#sitemap a.page_folder.folded {
-	background-position: -9px 0;
-}
-
 div.sitemap_right_tools {
 	height: 22px;
 	background-color: $light-gray;
@@ -149,6 +107,65 @@ div.sitemap_right_tools {
 
 div#page_selector_container div.sitemap_right_tools {
 	width: 24px;
+}
+
+ul#sitemap {
+
+	li.legend {
+
+		span.right {
+			margin-right: 52px;
+
+			span.page_move {
+				display: inline-block;
+				width: 74px;
+				text-align: center;
+			}
+		}
+	}
+
+	a.page_folder {
+		background-image: image-url('alchemy/gui/toggle.png');
+		background-repeat: no-repeat;
+		height: 9px;
+		width: 9px;
+		font-size: 0;
+		float: left;
+		margin-left: -18px;
+		margin-top: 3px;
+
+		&.collapsed {
+			background-position: 0 0;
+		}
+
+		&.folded {
+			background-position: -9px 0;
+		}
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		display: block;
+	}
+
+	li {
+		padding-left: 0;
+
+		li {
+			padding-left: 22px;
+			padding-right: 0;
+		}
+	}
+}
+
+ul#sitemap li,
+ul#layoutpages li {
+	list-style-type: none;
+	display: block;
+	margin-left: 0;
+	margin-bottom: 0;
+	line-height: 22px;
 }
 
 ul#sitemap li .sitemap_toolrow,
@@ -290,5 +307,22 @@ a.folder_link {
 	&.ui-dialog-content div.info {
 		margin: 2*$default-padding;
 		margin-bottom: 0;
+	}
+}
+
+h2#sitemap_heading {
+	padding: 0;
+
+	span.page_infos {
+		margin-right: 144px;
+		width: 40px;
+		text-align: center;
+		float: right;
+		line-height: 28px;
+	}
+
+	span.page_name {
+	    line-height: 28px;
+	    margin-left: 24px;
 	}
 }
