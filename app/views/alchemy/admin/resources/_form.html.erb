@@ -3,11 +3,15 @@
 	<table>
 		<%- resource_attributes.each do |attribute| -%>
 		<tr>
-			<td class="label"><%= f.send :label, attribute[:name] %></td>
 			<%- if attribute[:type] == :boolean -%>
-			<td class="checkbox"><%= f.send :check_box, attribute[:name] -%></td>
+			<td></td>
+			<td class="checkbox">
+				<%= f.send :check_box, attribute[:name] -%>
+				<%= f.send :label, attribute[:name] %>
+			</td>
 			<%- else -%>
-			<td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border long' -%></td>
+			<td class="label"><%= f.send :label, attribute[:name] %></td>
+			<td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border' -%></td>
 			<%- end -%>
 		</tr>
 		<%- end -%>

@@ -40,7 +40,22 @@ td.checkbox {
 }
 
 td.value {
-	padding-left: 2*$default-padding;
+	text-align: right;
+
+	p {
+		display: inline;
+		display: inline-block;
+		width: 214px;
+		text-align: left;
+		margin: 0;
+		line-height: 23px;
+	}
+
+	&.long {
+		p {
+			width: 244px;
+		}
+	}
 }
 
 td.label {
@@ -152,4 +167,22 @@ td.label.middle {
 th.icon, td.icon {
 	background: none;
 	display: table-cell;
+}
+
+td.checkbox {
+	text-align: right;
+	white-space: nowrap;
+
+	label {
+		display: inline;
+		display: inline-block;
+		text-align: left;
+		width: 194px;
+	}
+
+	&.long {
+		label {
+			width: 224px;		
+		}
+	}
 }
