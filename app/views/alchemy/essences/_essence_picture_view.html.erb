@@ -14,7 +14,8 @@
 		),
 		{
 			:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
-			:title => (content.essence.title.blank? ? nil : content.essence.title)
+			:title => (content.essence.title.blank? ? nil : content.essence.title),
+			:class => (content.essence.css_class.blank? ? nil : content.essence.css_class)
 		}.merge(html_options)
 	) -%>
 
