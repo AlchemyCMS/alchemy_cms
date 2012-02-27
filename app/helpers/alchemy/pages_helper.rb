@@ -261,15 +261,13 @@ module Alchemy
 			end
 			bc = []
 			pages.each do |page|
-				urlname = page.urlname
 				css_class = page.name == @page.name ? "active" : nil
 				if page == pages.last
 					css_class = css_class.blank? ? "last" : [css_class, "last"].join(" ")
 				elsif page == pages.first
 					css_class = css_class.blank? ? "first" : [css_class, "first"].join(" ")
 				end
-				url = alchemy.show_page_path(:urlname => urlname, :lang => multi_language? ? page.language_code : nil)
-				bc << link_to(h(page.name), url, :class => css_class, :title => page.title)
+				bc << link_to(h(page.name), show_page_path_params(page), :class => css_class, :title => page.title)
 			end
 			bc.join(options[:seperator]).html_safe
 		end
@@ -487,7 +485,7 @@ module Alchemy
 		# Returns the correct params-hash for passing to show_page_path
 		def show_page_path_params(page=nil, optional_params={})
 			return nil if page.class.name != "Alchemy::Page"
-			url_params = {:urlname => page.urlname}
+			url_params = {:level1 => nil, :level2 => nil, :level3 => nil, :urlname => page.urlname}
 			url_params.update(optional_params) if optional_params.class.name == "Hash"
 			url_params.update(params_for_nested_url(page)) if configuration(:url_nesting)
 			return multi_language? ? url_params.update(:lang => page.language_code) : url_params
