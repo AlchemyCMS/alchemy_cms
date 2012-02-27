@@ -106,6 +106,10 @@ module Alchemy
 				@resource_model_name ||= resources_name.singularize
 			end
 
+			def namespaced_resource_model_name
+				@namespaced_resource_model_name ||= namespaced_resources_name.singularize
+			end
+
 			def resource_model
 				@resource_model ||= (resource_namespace == "Admin" ? resource_model_name : "#{resource_namespace}/#{resource_model_name}").classify.constantize
 			end
