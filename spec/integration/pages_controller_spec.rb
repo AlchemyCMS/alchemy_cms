@@ -129,7 +129,7 @@ describe Alchemy::PagesController do
 				page.current_url.should match(/\?query=Peter/)
 			end
 
-			context "url nesting" do
+			context "with url nesting" do
 
 				before(:each) do
 					@level1 = Factory(:public_page, :parent_id => @default_language_root.id, :name => 'catalog', :language => @default_language)
