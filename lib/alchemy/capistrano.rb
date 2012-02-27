@@ -1,8 +1,5 @@
 # This recipe contains Capistrano recipes for handling the uploads, ferret index and picture cache files while deploying your application.
 # It also contains a ferret:rebuild_index task to rebuild the index after deploying your application.
-require "rails"
-require "alchemy/mount_point"
-
 Capistrano::Configuration.instance(:must_exist).load do
 
 	after "deploy:setup", "alchemy:shared_folders:create"
