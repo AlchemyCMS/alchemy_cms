@@ -5,6 +5,7 @@
 	:title => (options[:show_title] == true ? page.title : nil),
 	:target => configuration(:open_external_links_in_new_tab) ? '_blank' : nil
 ) -%>
+  Alchemy::Page.find_
 <%- else -%>
 <%= link_to(
 	h(page.name),

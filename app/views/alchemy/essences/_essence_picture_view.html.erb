@@ -9,7 +9,7 @@
 			:crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil,
 			:upsample  => options[:upsample],
 			:padding => options[:padding],
-			:format => options[:format],
+			:format => (options[:format] or 'png'),
 			:effects => options[:effects].blank? ? nil : options[:effects]
 		),
 		{
