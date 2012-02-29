@@ -5,6 +5,7 @@
 	:title => (options[:show_title] == true ? page.title : nil),
 	:target => '_blank'
 ) -%>
+  Alchemy::Page.find_
 <%- else -%>
 <%= link_to(
 	h(page.name),

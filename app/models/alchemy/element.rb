@@ -474,6 +474,12 @@ module Alchemy
 			end
 		end
 
+    def which_instance
+      'original'
+    end
+    def self.which_class
+      'original'
+    end
 	private
 
 		# creates the contents for this element as described in the elements.yml
