@@ -162,7 +162,7 @@ if (typeof(Alchemy) === 'undefined') {
 									top: ($(window).height() - $dialog.dialog('widget').height()) / 2
 								});
 							}
-							Alchemy.SelectBox('#alchemyOverlay select');
+							Alchemy.SelectBox('#alchemyOverlay select.alchemy_selectbox');
 							Alchemy.Datepicker('#alchemyOverlay input.date, #alchemyOverlay input[type="date"]');
 							Alchemy.ButtonObserver('#alchemyOverlay .button');
 						},
