@@ -7,7 +7,9 @@
     content.form_field_name,
     "1",
     content.ingredient == "1",
-    :onclick => "Alchemy.handleEssenceCheckbox(this)"
+    :onclick => "Alchemy.handleEssenceCheckbox(this)",
+    :class => html_options[:class],
+    :style => html_options[:style]
   ) %>
   <label for="<%= content.form_field_id %>" style="display: inline">
     <%= render_content_name(content) %>
@@ -37,7 +39,8 @@
     content.form_field_name,
     options_method,
     {
-      :class => "alchemy_selectbox essence_editor_select"
+      :class => ["alchemy_selectbox", "essence_editor_select", html_options[:class]].join(' '),
+      :style => html_options[:style]
     }
   ) %>
   <%- end -%>
@@ -57,7 +60,8 @@
   <%= text_field_tag(
     content.form_field_name,
     content.ingredient,
-    :class => "thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}"
+    :class => ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
+    :style => html_options[:style]
   ) %>
   
   <%- if content.settings[:linkable] -%>

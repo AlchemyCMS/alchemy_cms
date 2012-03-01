@@ -7,8 +7,8 @@ module Alchemy
 
 			# Renders the Content editor partial from the given Content.
 			# For options see -> render_essence
-			def render_essence_editor(content, options = {})
-				render_essence(content, :editor, :for_editor => options)
+			def render_essence_editor(content, options = {}, html_options = {})
+				render_essence(content, :editor, { :for_editor => options }, html_options)
 			end
 
 			# Renders the Content editor partial from essence_type.
@@ -65,7 +65,7 @@ module Alchemy
 			# 
 			# If you update the elements.yml file after creating an element this helper displays a error message with an option to create the content.
 			#
-			def render_essence_editor_by_name(element, name, options = {})
+			def render_essence_editor_by_name(element, name, options = {}, html_options = {})
 				if element.blank?
 					return warning('Element is nil', t("no_element_given"))
 				end
@@ -73,7 +73,7 @@ module Alchemy
 				if content.nil?
 					render_missing_content(element, name, options)
 				else
-					render_essence_editor(content, options)
+					render_essence_editor(content, options, html_options)
 				end
 			end
 
