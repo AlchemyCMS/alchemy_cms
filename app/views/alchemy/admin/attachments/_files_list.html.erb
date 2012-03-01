@@ -21,7 +21,7 @@
 		<th class="tools"></th>
 	</tr>
 	<%- end -%>
-	<%= render(:partial => @attachments) %>
+	<%= render :partial => 'alchemy/admin/attachments/attachment', :collection => @attachments %>
 </table>
 
 <%= paginate @attachments %>
