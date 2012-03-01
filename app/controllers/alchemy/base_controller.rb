@@ -9,7 +9,7 @@ module Alchemy
 		before_filter :set_language
 		before_filter :mailer_set_url_options
 
-		helper_method :current_server, :configuration, :multi_language?, :current_user, :t
+		helper_method :current_server, :current_user, :t
 
 		# Returns a host string with the domain the app is running on.
 		def current_server

@@ -1,6 +1,7 @@
 module Alchemy
 	module PagesHelper
 
+		include Alchemy::BaseHelper
 		include Alchemy::ElementsHelper
 
 		def render_classes(classes=[])

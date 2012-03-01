@@ -79,5 +79,25 @@ module Alchemy
 			nested_urL_params.symbolize_keys
 		end
 
+		# Returns the Alchemy configuration.
+		# 
+		# *DO NOT REMOVE THIS HERE.*
+		# 
+		# We need this, if an external engine or app includes this module into actionview.
+		# 
+		def configuration(name)
+			Alchemy::Config.get(name)
+		end
+
+		# Returns true if Alchemy is in multi language mode
+		# 
+		# *DO NOT REMOVE THIS HERE.*
+		# 
+		# We need this, if an external engine or app includes this module into actionview.
+		# 
+		def multi_language?
+			Alchemy::Language.published.count > 1
+		end
+
 	end
 end
