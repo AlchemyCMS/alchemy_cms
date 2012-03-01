@@ -260,7 +260,7 @@ module Alchemy
 						:lang => multi_language? ? page.language_code : nil
 					),
 					false
-				).path)
+				).path) unless page.redirects_to_external?
 			end
 
 			# Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
