@@ -90,7 +90,7 @@ module Alchemy
 				end
 				other_elements = elements - celled_elements
 				unless other_elements.blank?
-					optgroup_label = t('other Elements')
+					optgroup_label = t(:main_content)
 					options[optgroup_label] = other_elements.map do |e|
 						element_array_for_options(e, object_method)
 					end

@@ -419,6 +419,7 @@ de:
     login: "anmelden"
     logout: "abmelden"
     mail_to: "Empfängeradresse"
+    main_content: "Hauptinhalt"
     male: "Herr"
     medium_thumbnails: "mittlere Miniaturbilder"
     meta_data: "Meta Daten"
@@ -448,7 +449,6 @@ de:
     no_more_elements_to_add: "Keine weiteren Elemente verfügbar."
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
-    "other Elements": "sonst. Elemente"
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
