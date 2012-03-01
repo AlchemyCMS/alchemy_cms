@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
 	s.add_runtime_dependency(%q<dynamic_form>, ["~> 1.1"])
 	s.add_runtime_dependency(%q<jquery-rails>, ["~> 1.0.16"])
 	s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.2.1"])
-
+	s.add_runtime_dependency('sass-rails', ['~> 3.1.4'])
+	
 	s.add_development_dependency(%q<rspec-rails>, ["~> 2.8"])
 	s.add_development_dependency(%q<sqlite3>)
 
