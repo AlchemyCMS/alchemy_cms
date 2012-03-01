@@ -10,6 +10,7 @@ module Alchemy
 		#   :only => []                          # A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
 		#   :except => []                        # A list of element names to be rendered. The opposite of the only option.
 		#   :from_page                           # The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
+		#   :from_cell                           # The Cell object from which the elements are rendered from.
 		#   :count                               # The amount of elements to be rendered (begins with first element found)
 		#   :fallback => {                       # You can use the fallback option as an override. So you can take elements from a glo´bal laout page and only if the user adds an element on current page the local one gets rendered.
 		#     :for => 'ELEMENT_NAME',            # The name of the element the fallback is for

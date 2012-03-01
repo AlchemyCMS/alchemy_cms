@@ -66,6 +66,25 @@ describe Alchemy::ElementsHelper do
 				@another_element = Factory(:element, :page => @page, :cell_id => cell.id)
 				helper.render_elements(:from_cell => cell).should match(/id="#{@another_element.name}_#{@another_element.id}"/)
 			end
+
+			context "with from_cell and only option" do
+				it "should render certain elements from a certain cell" do
+					cell = Factory(:cell)
+					@another_element = Factory(:element, :page => @page, :cell_id => cell.id)
+					@another_element2 = Factory(:element, :page => @page)
+					helper.render_elements(:from_cell => cell, :only => @another_element.name).should_not match(/id="#{@another_element2.name}_#{@another_element2.id}"/)
+				end
+			end
+
+			context "with from_cell and except option" do
+				it "should render all elements except certain ones from a certain cell" do
+					cell = Factory(:cell)
+					@another_element = Factory(:element, :page => @page, :cell_id => cell.id)
+					@another_element2 = Factory(:element, :page => @page, :cell_id => cell.id)
+					helper.render_elements(:from_cell => cell, :except => @another_element.name).should_not match(/id="#{@another_element.name}_#{@another_element.id}"/)
+				end
+			end
+
 		end
 
 		context "with count option" do
