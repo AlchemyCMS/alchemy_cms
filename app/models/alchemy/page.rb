@@ -69,11 +69,10 @@ module Alchemy
 		# Pass true as second argument to get all elements.
 		# 
 		def find_selected_elements(options = {}, show_non_public = false)
-			elements = self.elements
 			if options[:from_cell].class.name == 'Alchemy::Cell'
 				elements = options[:from_cell].elements
 			else
-				elements = elements.not_in_cell
+				elements = self.elements.not_in_cell
 			end
 			if !options[:only].blank?
 				elements = elements.named(options[:only])
