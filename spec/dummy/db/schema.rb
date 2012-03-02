@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120216135355) do
+ActiveRecord::Schema.define(:version => 20120302040145) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -266,5 +266,16 @@ ActiveRecord::Schema.define(:version => 20120216135355) do
   end
 
   add_index "alchemy_users", ["perishable_token"], :name => "index_users_on_perishable_token"
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text     "description"
+    t.decimal  "entrance_fee"
+    t.boolean  "published"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
 end
