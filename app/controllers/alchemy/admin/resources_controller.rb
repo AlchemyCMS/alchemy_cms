@@ -2,6 +2,9 @@ module Alchemy
 	module Admin
 		class ResourcesController < Alchemy::Admin::BaseController
 
+
+			SKIP_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
+
 			rescue_from Exception, :with => :exception_handler
 
 			before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
@@ -78,6 +81,22 @@ module Alchemy
 
 			protected
 
+			def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
+				if object.errors.empty?
+					@redirect_url = redirect_url
+					flash[:notice] = t(flash_notice)
+					respond_to do |format|
+						format.js { render :action => :redirect }
+						format.html { redirect_to @redirect_url }
+					end
+				else
+					respond_to do |format|
+						format.js { render_remote_errors(object, button) }
+						format.html { render :action => :new}
+					end
+				end
+			end
+
 			# Returns a translated +flash[:notice]+.
 			# The key should look like "Modelname successfully created|updated|destroyed."
 			def flash_notice_for_resource_action(action = params[:action])
@@ -111,7 +130,7 @@ module Alchemy
 			def namespaced_resource_model_name
 				return @_namespaced_resource_model_name unless @_namespaced_resource_model_name.nil?
 				model_name_array = resource_model_array
-				model_name_array.delete(alchemy_module['engine_name'])
+				model_name_array.delete(alchemy_module['engine_name']) if is_alchemy_module?
 				@_namespaced_resource_model_name = model_name_array.join('_').singularize
 			end
 
@@ -123,7 +142,8 @@ module Alchemy
 
 			def resource_attributes
 				@resource_attributes ||= resource_model.columns.collect do |col|
-					unless ["id", "updated_at", "created_at", "creator_id", "updater_id"].include?(col.name)
+					skip_attributes = defined?(resource_model::SKIP_ATTRIBUTES) ? resource_model::SKIP_ATTRIBUTES : SKIP_ATTRIBUTES
+					unless skip_attributes.include?(col.name)
 						{:name => col.name, :type => col.type}
 					end
 				end.compact
