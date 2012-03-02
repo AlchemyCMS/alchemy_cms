@@ -9,6 +9,8 @@
 				<%= f.send :check_box, attribute[:name] -%>
 				<%= f.send :label, attribute[:name] %>
 			</td>
+			<%- elsif attribute[:type] == :text -%>
+			<td class="input"><%= f.send :text_area, attribute[:name] -%></td>
 			<%- else -%>
 			<td class="label"><%= f.send :label, attribute[:name] %></td>
 			<td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border' -%></td>
