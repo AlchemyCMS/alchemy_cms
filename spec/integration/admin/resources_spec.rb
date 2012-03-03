@@ -21,10 +21,10 @@ describe "Resources" do
 		end
 
 		it "should list existing items" do
-			without_access_control { visit '/admin/events' }
+			without_access_control { visit '/admin/events'
 			page.should have_content("My Event")
 			page.should have_content("something fancy")
-			page.should have_content("12.32")
+			page.should have_content("12.32") }
 		end
 
 		it "should list exising items nicely formatted"
@@ -56,7 +56,6 @@ describe "Resources" do
 					visit '/admin/events/new'
 					fill_in 'event_name', :with => '' #invalid!
 					click_on 'Save'
-					save_and_open_page
 					page.should have_selector "input#event_name"
 				}
 			end
@@ -69,16 +68,20 @@ describe "Resources" do
 		it "shows the updated value"
 	end
 
-	@javascript
 	describe "destroying an item" do
 		it "should'n be on the list anymore" do
-			without_access_control {
-				visit '/admin/events'
-				click_link 'Delete'
-				save_and_open_page
-				page.should_not have_content "My Event"
-			}
+			Event.create!(:name => 'My second Event',
+												:starts_at => DateTime.new(2012, 03, 02, 8, 15),
+												:ends_at => DateTime.new(2012, 03, 02, 19, 30),
+												:description => "something\nfancy",
+												:published => false,
+												:entrance_fee => 12.32)
 
+			login_into_alchemy
+			visit '/admin/events'
+			click_link 'delete_event_2'
+			page.should have_content "My Event"
+			page.should_not have_content "My second Event"
 		end
 	end
 
