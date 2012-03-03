@@ -169,12 +169,12 @@ module Alchemy
 				:urlname => @page.urlname
 			}
 			options = defaults.merge(options)
-			redirect_to show_page_path(options.merge(additional_params)), :status => 301
+			redirect_to show_page_path(additional_params.merge(options)), :status => 301
 		end
 
 		def additional_params
-			params.clone.delete_if do |key, value|
-				["action", "controller", "urlname", "lang", "level1", "level2", "level3"].include?(key)
+			params.each do |key, value|
+				params[key] = nil if ["action", "controller", "urlname", "lang", "level1", "level2", "level3"].include?(key)
 			end
 		end
 

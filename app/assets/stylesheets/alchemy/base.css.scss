@@ -251,10 +251,6 @@ div#page_editing_menu {
 	padding-right: 1px;
 }
 
-h2#sitemap_heading {
-	padding: 0;
-}
-
 div#userinfo {
 	text-align: right;
 	float: right;
@@ -431,24 +427,6 @@ ul.list div.detail_row div {
 
 ul.list span.right {
 	float: right;
-}
-
-#sitemap li.legend span.right {
-	margin-right: 52px;
-}
-
-#sitemap li.legend span.right span.page_move {
-	display: inline-block;
-	width: 74px;
-	text-align: center;
-}
-
-h2#sitemap_heading span.page_infos {
-	margin-right: 120px;
-	width: 40px;
-	text-align: center;
-	float: right;
-	line-height: 28px;
 }
 
 .handle {
@@ -1390,10 +1368,6 @@ select#url_protocol.medium {
 #alchemy .ui-dialog-content input.very_long {
 	width: 300px;
 	margin: 0;
-}
-
-#alchemy .ui-dialog-content .short {
-	width: 40px;
 }
 
 #alchemy .ui-dialog-content p a.button {

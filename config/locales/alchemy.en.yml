@@ -201,6 +201,7 @@ en:
     copy_language_tree_heading: "Copy page tree"
     copy_page: "Copy page"
     country_code_placeholder: 'i.e. us (optional)'
+    country_code_foot_note: "You only need to set a country code if you want to provide each country with an individual language."
     "Create language": "Create a new language"
     create_language_tree_heading: "Create empty language tree"
     create_page: "Create a new subpage"
@@ -299,7 +300,7 @@ en:
     "Page created": "Page: '%{name}' created."
     page_for_links.choose_page: "Choose %{name}"
     page_locked: "This page is locked by another user."
-    page_properties: "page properties"
+    page_properties: "Page properties"
     page_public: "published"
     page_published: "Published page"
     page_restricted: "restricted"

@@ -127,12 +127,9 @@ describe Alchemy::PagesHelper do
 		
 		before(:each) do
 			helper.stub(:multi_language?).and_return(false)
-			@root = mock_model('Page', :urlname => 'root', :name => 'Root', :title => 'Root', :visible? => false, :public? => false, :restricted? => false)
-			@language_root = mock_model('Page', :urlname => 'language_root', :name => 'Language Root', :title => 'Language Root', :visible? => true, :public? => true, :restricted? => false)
-			@page = mock_model('Page', :urlname => 'a-public-page', :name => 'A Public Page', :title => 'A Public Page', :visible? => true, :public? => true, :restricted? => false)
-			@root.should_receive(:parent).and_return(nil)
-			@language_root.should_receive(:parent).and_return(@root)
-			@page.should_receive(:parent).and_return(@language_root)
+			@root = mock_model('Page', :urlname => 'root', :name => 'Root', :title => 'Root', :visible? => false, :public? => false, :restricted? => false, :parent => nil)
+			@language_root = mock_model('Page', :urlname => 'language_root', :name => 'Language Root', :title => 'Language Root', :visible? => true, :public? => true, :restricted? => false, :parent => @root)
+			@page = mock_model('Page', :urlname => 'a-public-page', :name => 'A Public Page', :title => 'A Public Page', :visible? => true, :public? => true, :restricted? => false, :parent => @language_root)
 		end
 		
 		it "should render a breadcrumb to current page" do
