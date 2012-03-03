@@ -1,7 +1,7 @@
 <%= form_for resource_instance_variable, :url => resource_path(resource_instance_variable), :remote => true do |f| %>
 	<div id="errors" style="display: none"></div>
 	<table>
-		<%- resource_attributes.each do |attribute| -%>
+		<%- resource_handler.attributes.each do |attribute| -%>
 		<tr>
 			<%- if attribute[:type] == :boolean -%>
 			<td></td>

@@ -1,5 +1,5 @@
 <tr class="<%= cycle('even', 'odd') %>">
-	<%- resource_attributes.each do |attribute| -%>
+	<%- resource_handler.attributes.each do |attribute| -%>
 	<%- if attribute[:type] == :boolean -%>
 	<td class="center">
 		<% attr_value = resource.send(attribute[:name]) %>
@@ -12,16 +12,17 @@
 	<%- end -%>
 	<%- end -%>
 	<td class="tools">
-		<%- permitted_to?(:destroy, resources_permission) do -%>
+		<%- permitted_to?(:destroy, resource_permission_scope) do -%>
 		<%= link_to_confirmation_window(
 			'',
 			t("Are you sure?"),
 			resource_path(resource),
 			:title => t("Delete"),
-			:class => "icon destroy"
+			:class => "icon destroy",
+			:id => "delete_#{resource_handler.model_name}_#{resource.id}"
 		) -%>
 		<%- end -%>
-		<%- permitted_to?(:edit, resources_permission) do -%>
+		<%- permitted_to?(:edit, resource_permission_scope) do -%>
 		<%= link_to_overlay_window(
 			'',
 			edit_resource_path(resource),
