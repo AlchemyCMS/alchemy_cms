@@ -42,7 +42,7 @@ module Alchemy
 		def attributes
 			#@_attributes ||=
 			self.model.columns.collect do |col|
-				skip_attributes = defined?(self.model.SKIP_ATTRIBUTES) ? self.model.SKIP_ATTRIBUTES : SKIP_ATTRIBUTES
+				skip_attributes = defined?(self.model::SKIP_ATTRIBUTES) ? self.model::SKIP_ATTRIBUTES : SKIP_ATTRIBUTES
 				unless skip_attributes.include?(col.name)
 					{:name => col.name, :type => col.type}
 				end
