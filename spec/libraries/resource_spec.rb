@@ -86,7 +86,7 @@ describe Alchemy::Resource do
 				end
 
 				it "should prefer SKIP_ATTRIBUTES in model id defined" do
-					Event.stub(:SKIP_ATTRIBUTES) { ['name'] }
+					Event.const_set :SKIP_ATTRIBUTES, ['name']
 					@resource.attributes.should include({:name => "id", :type => :integer})
 					@resource.attributes.should_not include({:name => "name", :type => :string})
 				end
