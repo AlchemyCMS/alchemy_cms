@@ -1,16 +1,16 @@
 module Alchemy
-	module ResourcePathHelper
+	module ResourceHelper
 
 		def resource_window_size
-			@resource_window_size ||= "400x#{100 + resource_attributes.length * 35}"
+			@resource_window_size ||= "400x#{100 + resource_handler.attributes.length * 35}"
 		end
 
 		def resource_instance_variable
-			instance_variable_get("@#{resource_model_name}")
+			instance_variable_get("@#{resource_handler.model_name}")
 		end
 
 		def resources_instance_variable
-			instance_variable_get("@#{resources_name}")
+			instance_variable_get("@#{resource_handler.resources_name}")
 		end
 
 		def resource_url_proxy
@@ -39,6 +39,18 @@ module Alchemy
 
 		def edit_resource_path(resource=nil, options={})
 			edit_polymorphic_path (resource_scope+([resource] or model_array)), options
+		end
+
+		def resource_permission_scope
+			resource_handler.permission_scope
+		end
+
+		def resource_model_name
+			resource_handler.model_name
+		end
+
+		def resource_model
+			resource_handler.model
 		end
 	end
 end
