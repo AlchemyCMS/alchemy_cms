@@ -68,6 +68,8 @@ describe Alchemy::Resource do
 					column1 = stub(:column)
 					column1.stub(:name).and_return 'name'
 					column1.stub(:type).and_return :string
+					column1.stub(:name).and_return 'description'
+					column1.stub(:type).and_return :string
 					column2 = stub(:column)
 					column2.stub(:name).and_return 'starts_at'
 					column2.stub(:type).and_return :date
@@ -78,7 +80,7 @@ describe Alchemy::Resource do
 				end
 
 				it "parses and returns the resource-model's attributes from ActiveRecord::ModelSchema" do
-					@resource.attributes.should == [{:name => "name", :type => :string}, {:name => "starts_at", :type => :date}]
+					@resource.attributes.should == [{:name => "description", :type => :string}, {:name => "starts_at", :type => :date}]
 				end
 
 				it "skips attributes mentioned in SKIP_ATTRIBUTES" do
@@ -93,7 +95,7 @@ describe Alchemy::Resource do
 
 				describe "searchable_attributes" do
 					it "should return all attributes of type string" do
-						@resource.searchable_attributes.should == [{:name => "name", :type => :string}]
+						@resource.searchable_attributes.should == [{:name => "description", :type => :string}]
 					end
 				end
 			end
