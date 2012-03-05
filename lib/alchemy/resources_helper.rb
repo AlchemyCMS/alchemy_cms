@@ -1,5 +1,5 @@
 module Alchemy
-	module ResourceHelper
+	module ResourcesHelper
 
 		def resource_window_size
 			@resource_window_size ||= "400x#{100 + resource_handler.attributes.length * 35}"
