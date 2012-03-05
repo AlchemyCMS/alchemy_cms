@@ -1,5 +1,5 @@
 require_relative "../../lib/alchemy/resource"
-require_relative "../../lib/alchemy/resource_helper"
+require_relative "../../lib/alchemy/resources_helper"
 
 module Namespace
 	class MyResource
@@ -10,18 +10,18 @@ class ResourcesController
 	def resource_handler
 		@resource_handler = Alchemy::Resource.new('admin/namespace/my_resources')
 	end
-	include Alchemy::ResourceHelper
+	include Alchemy::ResourcesHelper
 end
 
 class ResourcesControllerForEngine
 	def resource_handler
 		@resource_handler = Alchemy::Resource.new('admin/engine_resources',{'engine_name'=> 'my_engine'})
 	end
-	include Alchemy::ResourceHelper
+	include Alchemy::ResourcesHelper
 end
 
 
-describe Alchemy::ResourceHelper do
+describe Alchemy::ResourcesHelper do
 
 	before :each do
 		@controller = ResourcesController.new
