@@ -2,8 +2,8 @@ module Alchemy
 	module Admin
 		class ResourcesController < Alchemy::Admin::BaseController
 
-			include Alchemy::ResourceHelper
-			helper Alchemy::ResourceHelper
+			include Alchemy::ResourcesHelper
+			helper Alchemy::ResourcesHelper
 			helper_method :resource_handler
 
 			rescue_from Exception, :with => :exception_handler
