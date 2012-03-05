@@ -1,10 +1,10 @@
 require_relative "../../../lib/alchemy/resource"
-require_relative "../../../lib/alchemy/resource_helper"
+require_relative "../../../lib/alchemy/resources_helper"
 
 module Alchemy
 	module Admin
 		class ResourcesController
-			helper Alchemy::ResourceHelper
+			helper Alchemy::ResourcesHelper
 		end
 	end
 end
