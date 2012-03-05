@@ -27,7 +27,7 @@ if (typeof(Alchemy) === 'undefined') {
             url: Alchemy.routes.link_admin_pages_path,
             success: function(data, textStatus, XMLHttpRequest) {
               $dialog.html(data);
-              Alchemy.SelectBox('#alchemyLinkOverlay select');
+              Alchemy.SelectBox('#alchemyLinkOverlay select.alchemy_selectbox');
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
