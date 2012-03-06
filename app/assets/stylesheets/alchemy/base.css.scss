@@ -787,7 +787,9 @@ div.field_with_errors {
 }
 
 p.foot_note {
-	font-size: 0.8em;
+	font-size: 10px;
+	line-height: 1.5em;
+	min-height: 1px !important;	
 }
 
 #errorExplanation ul {

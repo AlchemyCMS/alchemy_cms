@@ -1,18 +1,5 @@
 @import "alchemy/defaults";
 
-#alchemy div.content_editor input.text_with_icon.auto_resize.thin_border {
-	padding-right: 52px;
-	width: 314px;
-}
-
-.element_editor p.footnote {
-	clear: both;
-	float: left;
-	font-size: 10px;
-	margin-top: 4px;
-	width: 100%;
-}
-
 .element_heading .preview_text_quote {
 	font-size: 10px;
 	font-style: italic;
@@ -174,30 +161,75 @@ div.element_editor {
 	@include rounded-corner;
 	background-color: #f0e8d7;
 	margin-bottom: 8px;
-}
 
-div.element_editor.not-draggable {
-	@include opacity(50);
-}
+	&.not-draggable {
+		@include opacity(50);
+	}
 
-div.element_editor.dirty {
-	border-color: #d0c83d;
-}
+	&.dirty {
+		border-color: #d0c83d;
 
-div.element_editor.dirty .element_head,
-div.element_editor.dirty .element_foot {
-	background-color: #fff8df;
-}
+		.element_head, .element_foot {
+			background-color: #fff8df;
+		}
+	}
 
-div.element_editor.selected {
-	border-color: #4b93db;
-	-moz-box-shadow: 0 0 3px #4b93db;
-	-webkit-box-shadow: 0 0 3px #4b93db;
-	box-shadow: 0 0 3px #4b93db;
+	&.selected {
+		border-color: #4b93db;
+		-moz-box-shadow: 0 0 3px #4b93db;
+		-webkit-box-shadow: 0 0 3px #4b93db;
+		box-shadow: 0 0 3px #4b93db;
+	}
+
+	div.error {
+		padding: 8px 4px 8px 32px;
+		margin-bottom: 8px;
+		margin-top: 8px;
+		@include rounded-corner;
+		background-color: #f1c9ca;
+		color: #931f23;
+		border-style: solid;
+		border-width: 1px;
+		position: relative;
+
+		span.icon {
+			position: absolute;
+			left: 8px;
+			top: 8px;
+		}
+	}
+
+	.validation_notice {
+		font-size: 10px;
+		margin-top: 1em;
+		min-height: 1px !important;
+	}
+
+	.foot_note {
+		padding: $default-padding;
+		background-color: #fffdef;
+		@include rounded-corner;
+		margin-bottom: 1em;
+	}
+
+	p.content_editor_error {
+		border: 1px solid #f5b04e;
+		padding: 4px 8px;
+		line-height: 21px;
+		background-color: #f5dea9;
+		margin-top: 4px;
+		@include rounded-corner;
+
+		span.icon.warning {
+			position: relative;
+			top: 2px;
+			margin-right: 8px;
+		}
+	}
 }
 
 #alchemy .ui-dialog div.element_editor form {
-	margin: 4px 0 0;
+	margin: 0;
 	padding: 0 8px;
 	overflow: hidden;
 }
@@ -363,33 +395,6 @@ a.fold_element {
 	margin: 1px;
 }
 
-.content_editor select.essence_editor_select {
-	@include rounded-corner;
-	background: white;
-	border: 1px solid $button-border-color;
-	font-size:11px;
-	height:21px;
-	line-height:21px;
-	padding:2px;
-}
-
-.content_editor select.essence_editor_select optgroup {
-	color: gray;
-	font-style: normal;
-	font-weight: bold;
-	text-indent: 8px;
-}
-
-.content_editor select.essence_editor_select option {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	color: black;
-}
-
-.content_editor select.essence_editor_select optgroup option {
-	text-indent: 24px;
-}
-
 .droppable_element_placeholder {
 	border: 1px dotted $button-border-color;
 	background-color: $medium-gray;
@@ -437,30 +442,11 @@ a.icon_button.linked {
 	cursor: default;
 }
 
-div.content_editor.essence_date {
-	float: none;
-	display: inline;
-	display: inline-block;
-	vertical-align: top;
-
-	input.date {
-		width: 154px;
-	}
-}
-
 div.essence_picture_editor {
 	float: left;
 	height: 126px;
 	margin: 1px;
 	position: relative;
-}
-
-div.essence_picture_editor.content_editor {
-	float: none;
-	height: auto;
-	display: inline;
-	display: inline-block;
-	margin: 8px 0;
 }
 
 div.essence_picture_editor .picture_tool_delete {
@@ -676,14 +662,6 @@ div.content_text_editor input.text_short {
 	width: 100%;
 }
 
-// div.element_content {
-// 	white-space: nowrap;
-
-// 	p, div {
-// 		white-space: normal;
-// 	}
-// }
-
 div.content_editor {
 	margin-bottom: 8px;
 	margin-top: 8px;
@@ -750,46 +728,66 @@ div.content_editor {
 			min-width: 90px;
 			margin-right: 4px;
 		}
+
+		a.icon_button.small {
+			display: none;
+		}
 	}
-}
 
-.element_editor div.error {
-	background-color: #f5dea9;
-	padding: 8px 4px 8px 32px;
-	margin-bottom: 8px;
-	margin-top: 8px;
-	@include rounded-corner;
-	border: 1px solid #f5b04e;
-	position: relative;
-}
+	&:hover label a.icon_button.small {
+		display: inline-block;
+	}
 
-.element_editor div.error span.icon.warning {
-	position: absolute;
-	top: 8px;
-	left: 8px;
-}
+	input.text_with_icon.auto_resize.thin_border {
+		padding-right: 52px;
+		width: 314px;
+	}
 
-.element_editor p.content_editor_error {
-	border: 1px solid #f5b04e;
-	padding: 4px 8px;
-	line-height: 21px;
-	background-color: #f5dea9;
-	margin-top: 4px;
-	@include rounded-corner;
-}
+	select.essence_editor_select {
+		@include rounded-corner;
+		background: white;
+		border: 1px solid $button-border-color;
+		font-size:11px;
+		height:21px;
+		line-height:21px;
+		padding:2px;
 
-p.content_editor_error span.icon.warning {
-	position: relative;
-	top: 2px;
-	margin-right: 8px;
-}
+		optgroup {
+			color: gray;
+			font-style: normal;
+			font-weight: bold;
+			text-indent: 8px;
 
-div.content_editor label a.icon_button.small {
-	display: none;
-}
+			option {
+				text-indent: 24px;
+			}
+		}
 
-div.content_editor:hover label a.icon_button.small {
-	display: inline-block;
+		option {
+			padding-top: 2px;
+			padding-bottom: 2px;
+			color: black;
+		}
+	}
+
+	&.essence_date {
+		float: none;
+		display: inline;
+		display: inline-block;
+		vertical-align: top;
+
+		input.date {
+			width: 154px;
+		}
+	}
+
+	&.essence_picture_editor {
+		float: none;
+		height: auto;
+		display: inline;
+		display: inline-block;
+		margin: 8px 0;
+	}
 }
 
 .o2k7Skin span.alchemy_link {
@@ -834,24 +832,6 @@ textarea.tinymce {
 	border-width: 1px;
 }
 
-div.element_editor div.error {
-	padding: 8px 4px 8px 32px;
-	margin-bottom: 8px;
-	margin-top: 8px;
-	@include rounded-corner;
-	background-color: #f1c9ca;
-	color: #931f23;
-	border-style: solid;
-	border-width: 1px;
-	position: relative;
-}
-
-div.element_editor div.error span.icon {
-	position: absolute;
-	left: 8px;
-	top: 8px;
-}
-
 .element_errors {
 	margin-top: 8px;
 	margin-bottom: 8px;
@@ -862,9 +842,9 @@ div.element_editor div.error span.icon {
 	color: #931f23;
 	border-style: solid;
 	border-width: 1px;
-}
 
-.element_errors p {
-	margin: 0;
-	line-height: 24px;
+	p {
+		margin: 0;
+		line-height: 24px;
+	}
 }
