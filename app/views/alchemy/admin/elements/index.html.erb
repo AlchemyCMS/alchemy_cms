@@ -1,24 +1,28 @@
 <div id="element_area">
-  <%- if !@cells.blank? -%>
+  <% if @cells.any? -%>
   <div id="cells">
     <ul>
-      <%- @elements.each do |cell, elements| -%>
+      <% @elements.each do |cell, elements| -%>
+      <% if elements.any? -%>
       <li>
         <a href="#cell_<%= cell.name -%>">
           <%= cell.name == 'for_other_elements' ? t(:main_content) : t(cell.name, :scope => :cell_names) -%>
         </a>
       </li>
-      <%- end -%>
+      <% end -%>
+      <% end -%>
     </ul>
-    <%- @elements.each do |cell, elements| -%>
+    <% @elements.each do |cell, elements| -%>
+    <% if elements.any? -%>
     <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
     	<%= render :partial => 'element', :collection => elements, :locals => {:draggable => true} %>
     </div>
-    <%- end -%>
+    <% end -%>
+    <% end -%>
   </div>
-  <%- else -%>
+  <% else -%>
   <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements">
     <%= render :partial => @elements, :locals => {:draggable => true} %>
   </div>
-  <%- end -%>
+  <% end -%>
 </div>
