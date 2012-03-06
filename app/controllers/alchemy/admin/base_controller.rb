@@ -44,7 +44,7 @@ module Alchemy
 				@notice = "Error: #{e}"
 				@trace = e.backtrace
 				if request.xhr?
-					render :action => "error_notice"
+					render :action => "error_notice", :layout => false
 				else
 					flash.now[:error] = @notice
 					render '500', :status => 500
