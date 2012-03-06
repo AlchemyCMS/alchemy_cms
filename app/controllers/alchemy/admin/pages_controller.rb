@@ -57,7 +57,7 @@ module Alchemy
 					})
 					source_page.copy_children_to(page) unless source_page.children.blank?
 				else
-					page = Page.create(params[:page])
+					page = Page.create(params[:page], :as => current_user.role)
 				end
 				render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, t("Page created", :name => page.name), 'form#new_page_form button.button')
 			end
@@ -87,7 +87,7 @@ module Alchemy
 
 			def update
 				# fetching page via before filter
-				if @page.update_attributes(params[:page])
+				if @page.update_attributes(params[:page], :as => current_user.role)
 					@notice = t("Page saved", :name => @page.name)
 					@while_page_edit = request.referer.include?('edit')
 				else

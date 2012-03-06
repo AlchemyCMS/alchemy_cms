@@ -12,7 +12,7 @@ module Alchemy
 
 			def update
 				@essence_file = EssenceFile.find(params[:id])
-				@essence_file.update_attributes(params[:essence_file])
+				@essence_file.update_attributes(params[:essence_file], :as => current_user.role)
 			end
 
 			def assign

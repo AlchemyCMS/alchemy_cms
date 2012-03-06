@@ -28,7 +28,7 @@ module Alchemy
 			end
 
 			def create
-				@user = User.new(params[:user])
+				@user = User.new(params[:user], :as => current_user.role)
 				if @user.save
 					if @user.role == "registered" && params[:send_credentials]
 						Notifications.registered_user_created(@user).deliver
@@ -51,7 +51,7 @@ module Alchemy
 
 			def update
 				# User is fetched via before filter
-				@user.update_attributes(params[:user])
+				@user.update_attributes(params[:user], :as => current_user.role)
 				Notifications.admin_user_created(@user).deliver if params[:send_credentials]
 				render_errors_or_redirect(
 					@user,
