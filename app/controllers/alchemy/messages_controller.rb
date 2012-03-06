@@ -57,7 +57,8 @@ module Alchemy
 		end
 
 		def create#:nodoc:
-			@message = Message.new(params[:message].merge(:ip => request.remote_ip))
+			@message = Message.new(params[:message])
+			@message.ip = request.remote_ip
 			@element = Element.find_by_id(@message.contact_form_id)
 			@page = @element.page
 			@root_page = @page.get_language_root
@@ -99,7 +100,7 @@ module Alchemy
 			elsif mailer_config[:forward_to_page] && mailer_config[:mail_success_page]
 				urlname = Page.find_by_urlname(mailer_config[:mail_success_page]).urlname
 			else
-				flash[:notice] = Alchemy::I18n.t('alchemy.contactform.messages.success')
+				flash[:notice] = t(:success, :scope => 'contactform.messages')
 				urlname = Page.language_root_for(session[:language_id]).urlname
 			end
 			redirect_to show_page_path(:urlname => urlname, :lang => multi_language? ? session[:language_code] : nil)
