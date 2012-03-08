@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../../lib/alchemy/resource'
+require File.dirname(__FILE__) + '/../../lib/alchemy/resource'
 
 class Event;
 end
