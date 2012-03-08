@@ -1,5 +1,5 @@
-require_relative "../../../lib/alchemy/resource"
-require_relative "../../../lib/alchemy/resources_helper"
+require File.dirname(__FILE__) + "/../../../lib/alchemy/resource"
+require File.dirname(__FILE__) + "/../../../lib/alchemy/resources_helper"
 
 module Alchemy
 	module Admin
