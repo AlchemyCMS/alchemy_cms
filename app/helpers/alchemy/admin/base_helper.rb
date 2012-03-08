@@ -207,7 +207,7 @@ module Alchemy
 			end
 
 			def admin_subnavigation
-				alchemy_module = module_definition_for(:controller => params[:controller], :action => params[:action])
+				alchemy_module = module_definition_for(:controller => params[:controller], :action => 'index')
 				unless alchemy_module.nil?
 					entries = alchemy_module["navigation"].stringify_keys['sub_navigation']
 					render_admin_subnavigation(entries) unless entries.nil?
