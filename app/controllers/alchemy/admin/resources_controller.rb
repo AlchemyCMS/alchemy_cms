@@ -47,7 +47,7 @@ module Alchemy
 			end
 
 			def create
-				instance_variable_set("@#{resource_model_name}", resource_model.new(params[resource_model_name.to_sym], :as => current_user.role))
+				instance_variable_set("@#{resource_model_name}", resource_model.new(params[resource_model_name.to_sym], :as => current_user.role.to_sym))
 				resource_instance_variable.save
 				render_errors_or_redirect(
 					resource_instance_variable,
@@ -57,7 +57,7 @@ module Alchemy
 			end
 
 			def update
-				resource_instance_variable.update_attributes(params[resource_model_name.to_sym], :as => current_user.role)
+				resource_instance_variable.update_attributes(params[resource_model_name.to_sym], :as => current_user.role.to_sym)
 				render_errors_or_redirect(
 					resource_instance_variable,
 					resource_url_scope.url_for({:action => :index}),

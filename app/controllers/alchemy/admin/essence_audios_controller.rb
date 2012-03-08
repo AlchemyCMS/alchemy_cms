@@ -4,7 +4,7 @@ module Alchemy
 
 			def update
 				@essence_audio = EssenceAudio.find(params[:id])
-				@essence_audio.update_attributes(params[:essence_audio], :as => current_user.role)
+				@essence_audio.update_attributes(params[:essence_audio], :as => current_user.role.to_sym)
 			end
 
 		end

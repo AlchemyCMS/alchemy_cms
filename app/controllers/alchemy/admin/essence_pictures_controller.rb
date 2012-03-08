@@ -47,7 +47,7 @@ module Alchemy
 
 			def update
 				@essence_picture = EssencePicture.find(params[:id])
-				@essence_picture.update_attributes(params[:essence_picture], :as => current_user.role)
+				@essence_picture.update_attributes(params[:essence_picture], :as => current_user.role.to_sym)
 				@content = Content.find(params[:content_id])
 			end
 

@@ -30,7 +30,7 @@ module Alchemy
 
 			def update
 				content = Content.find(params[:id])
-				content.essence.update_attributes(params[:content], :as => current_user.role)
+				content.essence.update_attributes(params[:content], :as => current_user.role.to_sym)
 			end
 
 			def order

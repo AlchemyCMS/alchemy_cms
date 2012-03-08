@@ -50,7 +50,7 @@ module Alchemy
 			def update
 				@attachment = Attachment.find(params[:id])
 				oldname = @attachment.name
-				if @attachment.update_attributes(params[:attachment], :as => current_user.role)
+				if @attachment.update_attributes(params[:attachment], :as => current_user.role.to_sym)
 					flash[:notice] = t("File renamed successfully from: '%{from}' to '%{to}'", :from => oldname, :to => @attachment.name)
 				else
 					render :action => "edit"
