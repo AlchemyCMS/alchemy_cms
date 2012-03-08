@@ -16,6 +16,7 @@ module Alchemy
 				if @essence_picture.picture
 					@content = @essence_picture.content
 					@options = params[:options] || {}
+					@options[:format] ||= (configuration(:image_store_format) or 'png')
 					if @essence_picture.render_size.blank?
 						if @options[:image_size].blank?
 							@size_x, @size_y = 0, 0
