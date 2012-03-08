@@ -789,7 +789,6 @@ div.field_with_errors {
 p.foot_note {
 	font-size: 10px;
 	line-height: 1.5em;
-	min-height: 1px !important;	
 }
 
 #errorExplanation ul {
@@ -1357,10 +1356,6 @@ div.assign_file_file_icon img {
 .elements_for_page .alchemy_selectbox {
 	float: left;
 	width: 217px;
-}
-
-#alchemy .ui-dialog-content p {
-	min-height: 21px;
 }
 
 table.window_form td.checkbox {

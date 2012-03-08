@@ -35,6 +35,10 @@ td.input, td.submit, td.select {
 	padding-right: 0;
 }
 
+td.checkbox {
+	padding: 6px 4px;
+}
+
 td.value {
 	padding-left: 2*$default-padding;
 }
