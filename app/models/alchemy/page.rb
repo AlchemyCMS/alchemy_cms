@@ -63,7 +63,7 @@ module Alchemy
 		#     :count => Integer                  # Limit the count of returned elements
 		#     :offset => Integer                 # Starts with an offset while returning elements
 		#     :random => Boolean                 # Returning elements randomly shuffled
-		#     :from_cell => Cell                 # Returning elements from given cell
+		#     :from_cell => Cell or String       # Returning elements from given cell
 		# 
 		# Returns only public elements by default.
 		# Pass true as second argument to get all elements.
@@ -71,6 +71,9 @@ module Alchemy
 		def find_selected_elements(options = {}, show_non_public = false)
 			if options[:from_cell].class.name == 'Alchemy::Cell'
 				elements = options[:from_cell].elements
+			elsif !options[:from_cell].blank? && options[:from_cell].class.name == 'String'
+				cell = cells.find_by_name(options[:from_cell])
+				elements = cell ? cell.elements : nil
 			else
 				elements = self.elements.not_in_cell
 			end
