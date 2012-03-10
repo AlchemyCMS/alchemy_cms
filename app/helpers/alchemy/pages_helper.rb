@@ -421,10 +421,21 @@ module Alchemy
 
 		# Renders the partial for the cell with the given name of the current page.
 		# Cell partials are located in +app/views/cells/+ of your project.
-		def render_cell(name)
-			cell = @page.cells.find_by_name(name)
+		# 
+		# === Options are:
+		# 
+		#   :from_page => Alchemy::Page     # Alchemy::Page object from which the elements are rendered from.
+		#   :locals => Hash                 # Hash of variables that will be available in the partial. Example: {:user => var1, :product => var2}
+		#
+		def render_cell(name, options={})
+			default_options = {
+				:from_page => @page,
+				:locals => {}
+			}
+			options = default_options.merge(options)
+			cell = options[:from_page].cells.find_by_name(name)
 			return "" if cell.blank?
-			render :partial => "alchemy/cells/#{name}", :locals => {:cell => cell}
+			render :partial => "alchemy/cells/#{name}", :locals => {:cell => cell}.merge(options[:locals])
 		end
 
 		# Returns true or false if no elements are in the cell found by name.
