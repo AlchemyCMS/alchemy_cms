@@ -58,6 +58,25 @@ describe Alchemy::ElementsHelper do
 				@element_on_other_page = Factory(:element, :name => 'headline', :page => @another_page)
 				helper.render_elements(:from_page => @another_page).should match(/id="#{@element_on_other_page.name}_\d*"/)
 			end
+
+			it "should not render any elements in a cell from the given page" do
+				@another_page = Factory(:public_page)
+				@cell = Factory(:cell, :name => "Celltest", :page => @another_page)
+				@element_not_in_cell = Factory(:element, :name => 'headline', :page => @another_page)
+				@element_in_cell = Factory(:element, :name => 'article', :cell => @cell, :page => @another_page)
+				helper.render_elements(:from_page => @another_page).should_not match(/id="#{@element_in_cell.name}_#{@element_in_cell.id}*"/)
+			end
+
+			context "and from_cell option" do
+				it "should render all elements from the page's cell" do
+					@another_page = Factory(:public_page)
+					@cell = Factory(:cell, :name => "Celltest", :page => @another_page)
+					@element_not_in_cell = Factory(:element, :name => 'headline', :page => @another_page)
+					@element_in_cell = Factory(:element, :name => 'article', :cell => @cell, :page => @another_page)
+					helper.render_elements(:from_page => @another_page, :from_cell => "Celltest").should match(/id="#{@element_in_cell.name}_#{@element_in_cell.id}*"/)
+				end
+			end
+
 		end
 
 		context "with from_cell option" do
