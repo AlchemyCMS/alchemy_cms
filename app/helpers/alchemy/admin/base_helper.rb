@@ -239,6 +239,10 @@ module Alchemy
 				end
 			end
 
+			def admin_sub_navigation_entry_active?(entry)
+				params[:controller] == entry["controller"].gsub(/^\//, '') && ( params[:action] == entry["action"] || entry["nested_actions"] && entry["nested_actions"].include?(params[:action]) )
+			end
+
 			# Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
 			def url_for_module(alchemy_module)
 				navigation = alchemy_module['navigation'].stringify_keys

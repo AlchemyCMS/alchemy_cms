@@ -1,4 +1,5 @@
 <%- content_for(:subnav_additions) do -%>
+	<label><%= t('Active Pages') %> &raquo;</label>
 	<%- @locked_pages.each do |page| -%>
 	<%- if @page == page -%>
 	<%= render :partial => 'page_status' %>
