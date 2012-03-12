@@ -15,7 +15,7 @@ module Alchemy
         @elements = get_elements_from_yaml
         @elements.each do |element|
           @element = element
-          @contents = element["contents"]
+          @contents = ( element["contents"] or [] )
           @element_name = element["name"].underscore
           template "editor.html.erb", "#{@elements_dir}/_#{@element_name}_editor.html.erb"
           template "view.html.erb", "#{@elements_dir}/_#{@element_name}_view.html.erb"
