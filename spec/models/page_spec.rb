@@ -241,6 +241,14 @@ describe Alchemy::Page do
 	    Alchemy::Page.restricted.should have(1).pages
 	  end
 	end
+
+	context "#unlock" do
+		it "should set the locked status to false" do
+			@page = Factory(:public_page, :locked => true)
+			@page.unlock
+			@page.locked.should == false
+		end
+	end
 	
 	describe "#cell_definitions" do
 
@@ -331,6 +339,15 @@ describe Alchemy::Page do
 	end
 
 	describe "validations" do
+
+		context "saving a normal content page" do
+			it "should be possible to save when its urlname already exists in the scope of global pages" do
+				@contentpage = Factory(:page, :urlname => "existing_twice")
+				@global_with_same_urlname = Factory(:page, :urlname => "existing_twice", :layoutpage => true)
+				@contentpage.title = "new Title"
+				@contentpage.save.should == true
+			end
+		end
 
 		context "creating a normal content page" do
 
