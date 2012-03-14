@@ -101,24 +101,24 @@ de:
     contactform:
       labels:
         salutation: 'Anrede'
-        choose: Wählen Sie
+        choose: 'Wählen Sie'
         mr: 'Herr'
         mrs: 'Frau'
         firstname: 'Vorname'
-        lastname: 'Nachname'
-        address: 'Straße/Nr'
-        zip: 'PLZ/Ort'
+        lastname: 'Name*'
+        address: 'Straße / Nr.'
+        zip: 'PLZ / Ort'
         phone: 'Telefon'
-        email: 'Email'
+        email: 'E-Mail*'
         message: 'Nachricht'
-        send: 'Nachricht absenden!'
-        mandatory_fields: 'Pflichtfelder. Bitte füllen Sie diese Felder aus. Vielen Dank!'
+        send: 'absenden'
+        mandatory_fields: '*Pflichtfelder. Bitte füllen Sie diese Felder aus.'
       # Translations for the contactform validations.
       # Validations are set in the config/alchemy/config.yml mailer section.
       validations:
         enter_name: 'Bitte geben Sie Ihren Namen an'
-        enter_mail: 'Bitte geben Sie Ihre Email an'
-        wrong_email_format: 'Die Email Adresse scheint nicht richtig zu sein.'
+        enter_email: Bitte geben Sie Ihre E-Mail-Adresse an
+        wrong_email_format: 'Die E-Mail-Adresse scheint nicht richtig zu sein.'
       # The flash message shown after succesfully sending the message.
       messages:
         success: 'Ihre Nachricht wurde erfolgreich übermittelt.'

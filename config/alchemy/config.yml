@@ -74,10 +74,15 @@ default_language:
 # 
 # To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
 # 
+# === Validating fields:
+# 
+# Pass the field name as symbol and a message_id (will be translated) to :validate_fields:
+# 
 # ==== Options:
 # 
-# fields: An Array from Hashes with fieldname as keys and type as values. Types are ActiveRecord column types (i.e. string, text, boolean, etc.).
-# validate_fields: A Hash with fieldname as key and a Hash (with :message as key and a message_id as value) as value
+#   page_layout_name:           [String] # A +Alchemy::PageLayout+ name. Used to render the contactform on a page with this layout.
+#   fields:                     [Array]  # An Array of fieldnames
+#   validate_fields:            [Hash]   # A Hash with fieldname as key and a Hash (with :message as key and a message_id as value) as value
 # 
 # ==== Translating validation messages:
 # 
@@ -102,7 +107,7 @@ default_language:
     :lastname:
       :message: enter_name
     :email:
-      :message: enter_mail
+      :message: enter_email
 
 # === User roles
 # You can add own user roles. To set permissions for this roles please add an authorization_rules.rb file in your config folder.

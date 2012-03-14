@@ -1,24 +1,6 @@
 # This is a tableless model only used for validating Contactform Fields.
-# You can specify the fields for your contactform in the config/alchemy/config.yml file in the :mailer options
+# You can specify the fields for your contactform in the +config/alchemy/config.yml+ file in the +:mailer+ options
 # 
-# === Options:
-# 
-# - form_layout_name: A Alchemy::PageLayout name (String). Used to render the contactform on a page with this layout.
-# 
-# === Validating fields:
-# 
-# Pass the field name as symbol and a message_id (will be translated) to :validate_fields:
-# 
-# === Translating the validation messages:
-# 
-# Validationmessages will be send to +Alchemy::I18n.t+ method with the scope +"alchemy.contactform.validations.#{field[1][:message].to_s}"+.
-# So a +name+ field with the validation message_id +blank_name+ will be available for translation in your locale files like:
-# 
-#   de:
-#     contactform:
-#       validations:
-#         blank_name: 'Bitte geben Sie Ihren Namen an'
-#   
 # === Example Contactform Configuration:
 # 
 #   :mailer:
