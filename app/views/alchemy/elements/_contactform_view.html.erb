@@ -28,7 +28,7 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :lastname, t('contactform.labels.lastname') %>
+				<%= f.label :lastname, t('contactform.labels.lastname') + '*' %>
 			</td>
 			<td class="field">
 				<%= f.text_field(:lastname, :class => "field", :required => true) %>
@@ -61,7 +61,7 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :email, t('contactform.labels.email') %>
+				<%= f.label :email, t('contactform.labels.email') + '*' %>
 			</td>
 			<td class="field">
 				<%= f.email_field :email, :class => 'field', :required => true %>
