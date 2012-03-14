@@ -1,7 +1,6 @@
 <%= form_for(@message ||= Alchemy::Message.new, :html => {:id => "contact", "data-alchemy-element" => (@preview_mode ? element.id : nil)}) do |f| %>
 	<%= f.error_messages %>
 	<%= f.hidden_field "contact_form_id", :value => element.id %>
-	<%= hidden_field_tag "mail_to", params[:mail_to] %>
 	<table class="contactform">
 		<tr>
 			<td class="label">
@@ -29,10 +28,10 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :lastname, (t('contactform.labels.lastname') + '<small>*</small>').html_safe %>
+				<%= f.label :lastname, t('contactform.labels.lastname') %>
 			</td>
 			<td class="field">
-				<%= f.text_field(:lastname, :class => "field") %>
+				<%= f.text_field(:lastname, :class => "field", :required => true) %>
 			</td>
 		</tr>
 		<tr>
@@ -62,10 +61,10 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :email, (t('contactform.labels.email') + '<small>*</small>').html_safe %>
+				<%= f.label :email, t('contactform.labels.email') %>
 			</td>
 			<td class="field">
-				<%= f.text_field :email, :class => 'field' %>
+				<%= f.email_field :email, :class => 'field', :required => true %>
 			</td>
 		</tr>
 	</table>

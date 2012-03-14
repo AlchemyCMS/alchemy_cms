@@ -1,10 +1,10 @@
 # == Sending Messages:
 # To send Messages via contact forms you can create your form fields in the config.yml
+# 
 # === Example:
 # Make an Element with this options inside your @elements.yml file:
 #
-#   - name: contact
-#     display_name: Kontaktformular
+#   - name: contactform
 #     contents:
 #     - name: mail_to
 #       type: EssenceText
@@ -15,30 +15,27 @@
 #     - name: success_page
 #       type: EssenceText
 #
-# The fields mail_to, mail_from, subject and success_page are recommended.
-# The MessagesController uses them to send your mails. So your customer has full controll of these values inside his contactform @element.
+# The fields +mail_to+, +mail_from+, +subject+ and +success_page+ are recommended.
+# The +Alchemy::MessagesController+ uses them to send your mails. So your customer has full controll of these values inside his contactform element.
 # 
-# Then make a page layout for your contact page in the page_layouts.yml file:
+# Then make a page layout for your contact page in the +page_layouts.yml+ file:
 # 
 #   - name: contact
-#     display_name: Kontakt
 #     unique: true
 #     cache: false
-#     @elements: [pageheading, heading, contact, bild, absatz, file_download]
-#     autogenerate: [contact]
+#     elements: [pageheading, heading, contactform]
+#     autogenerate: [contactform]
 #
 # Disabling the page caching is stronlgy recommended!
 #
-# The editor view for your @element should have this layout:
+# The editor view for your element should have this layout:
 # 
-#   <%= render_essence_editor_by_name(@element, 'mail_from') %>
-#   <%= render_essence_editor_by_name(@element, 'mail_to') %>
-#   <%= render_essence_editor_by_name(@element, 'subject') %>
-#   <p>
-#     Folgeseite: <%= page_selector(@element, 'success_page') %>
-#   </p>
+#   <%= render_essence_editor_by_name(element, 'mail_from') %>
+#   <%= render_essence_editor_by_name(element, 'mail_to') %>
+#   <%= render_essence_editor_by_name(element, 'subject') %>
+#   <%= page_selector(element, 'success_page', :page_attribute => :urlname) %>
 # 
-# Please have a look at the alchemy/config/config.yml file for further Message settings.
+# Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
 
 module Alchemy
 	class MessagesController < Alchemy::BaseController

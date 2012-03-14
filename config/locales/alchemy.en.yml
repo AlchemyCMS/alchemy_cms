@@ -88,20 +88,20 @@ en:
         mr: 'Mr.'
         mrs: 'Mrs.'
         firstname: 'Firstname'
-        lastname: 'Lastname'
+        lastname: 'Lastname*'
         address: 'Street / No.'
         zip: 'Zipcode / City'
         phone: 'Telephone'
-        email: 'Email'
+        email: 'Email*'
         message: 'Message'
-        send: 'Send Message'
-        mandatory_fields: 'Mandatory fields.'
+        send: 'Send'
+        mandatory_fields: '*Mandatory fields.'
       # Translations for the contactform validations.
       # Validations are set in the config/alchemy/config.yml mailer section.
       validations:
         enter_name: 'Please enter your name'
-        enter_mail: 'Please enter your email'
-        wrong_email_format: 'Email has wrong format.'
+        enter_email: 'Please enter your email'
+        wrong_email_format: 'Email has wrong format'
       # The flash message shown after succesfully sending the message.
       messages:
         success: 'Your message was delivered succesfully.'
