@@ -130,7 +130,14 @@ module Alchemy
 					if request.referer == alchemy.login_url
 						render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
 					elsif request.xhr?
-						render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}
+						respond_to do |format|
+							format.js {
+								render :js => "Alchemy.growl('#{t('You are not authorized')}', 'warning'); Alchemy.enableButton('button.button, a.button, input.button');"
+							}
+							format.html {
+								render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}
+							}
+						end
 					else
 						flash[:error] = t('You are not authorized')
 						redirect_to alchemy.admin_dashboard_path
