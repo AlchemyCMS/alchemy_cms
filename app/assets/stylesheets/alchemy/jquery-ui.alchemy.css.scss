@@ -134,6 +134,10 @@
 	color: $text-color;;
 }
 
+#alchemy .ui-widget-content p {
+	overflow: hidden;
+}
+
 #alchemy .ui-widget-header {
 	border: 1px none #afafaf;
 	background: $light-blue;
