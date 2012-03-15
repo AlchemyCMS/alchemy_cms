@@ -4,7 +4,7 @@
 	<table>
 		<tr>
 			<td>
-				<%= f.select 'name', @contents.map { |a| [t("content_names.#{a['name']}"), a['name']] }, :class => 'alchemy_selectbox' %>
+				<%= f.select 'name', @contents.map { |a| [t("content_names.#{a['name']}"), a['name']] }, {}, {:class => 'alchemy_selectbox'} %>
 				<%= hidden_field_tag('options', @options) %>
 			</td>
 			<td class="submit">
