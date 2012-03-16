@@ -102,7 +102,7 @@ Resources
 
 * Homepage: <http://alchemy-cms.com>
 * Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo)
-* Wiki: <http://wiki.alchemy-cms.com>
+* Guidelines: <http://guides.alchemy-cms.com>
 * API Documentation: <http://api.alchemy-cms.com>
 * Issue-Tracker: <http://issues.alchemy-cms.com>
 * Sourcecode: <http://source.alchemy-cms.com>
