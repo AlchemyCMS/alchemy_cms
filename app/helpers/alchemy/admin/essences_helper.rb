@@ -83,18 +83,21 @@ module Alchemy
 			# 
 			#   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
 			#   :page_attribute  [Symbol]   # The Page attribute which will be stored.
+			#   :global          [Boolean]  # Display only global pages. Default is false.
 			# 
 			def page_selector(element, content_name, options = {}, select_options = {})
 				default_options = {
 					:page_attribute => :id,
+					:global => false,
 					:prompt => t('Choose page')
 				}
 				options = default_options.merge(options)
 				pages = Page.where({
 					:language_id => session[:language_id],
-					:page_layout => options[:only],
-					:public => true
+					:layoutpage => options[:global] == true,
+					:public => options[:global] == false
 				})
+				pages = pages.where({:page_layout => options[:only]}) if options[:only].present?
 				content = element.content_by_name(content_name)
 				options.update(
 					:select_values => pages_for_select(pages, content ? content.essence.body : nil, options[:prompt], options[:page_attribute])
