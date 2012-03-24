@@ -269,6 +269,7 @@ ActiveRecord::Schema.define(:version => 20120302040145) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
+    t.string   "hidden_name"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.text     "description"
