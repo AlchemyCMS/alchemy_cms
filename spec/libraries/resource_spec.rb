@@ -1,7 +1,7 @@
 require 'rspec'
 require File.dirname(__FILE__) + '/../../lib/alchemy/resource'
 
-class Event;
+class Event
 end
 
 
@@ -64,38 +64,36 @@ describe Alchemy::Resource do
 
 			describe "attributes" do
 				before :each do
-					#stubbing an ActiveRecord::ModelSchema...
-					column1 = stub(:column)
-					column1.stub(:name).and_return 'name'
-					column1.stub(:type).and_return :string
-					column1.stub(:name).and_return 'description'
-					column1.stub(:type).and_return :string
-					column2 = stub(:column)
-					column2.stub(:name).and_return 'starts_at'
-					column2.stub(:type).and_return :date
-					column3 = stub(:column)
-					column3.stub(:name).and_return 'id'
-					column3.stub(:type).and_return :integer
-					Event.stub(:columns).and_return [column1, column2, column3]
+					##stubbing an ActiveRecord::ModelSchema...
+					columns = [
+							mock(:column, {:name => 'name', :type => :string}),
+							mock(:column, {:name => 'hidden_value', :type => :string}),
+							mock(:column, {:name => 'description', :type => :string}),
+							mock(:column, {:name => 'id', :type => :integer}),
+							mock(:column, {:name => 'starts_at', :type => :datetime}),
+					]
+					Event.stub(:columns).and_return columns
 				end
 
 				it "parses and returns the resource-model's attributes from ActiveRecord::ModelSchema" do
-					@resource.attributes.should == [{:name => "description", :type => :string}, {:name => "starts_at", :type => :date}]
+					@resource.attributes.should == [{:name=>"name", :type=>:string}, {:name=>"hidden_value", :type=>:string}, {:name=>"description", :type=>:string}, {:name=>"starts_at", :type=>:datetime}]
 				end
 
 				it "skips attributes mentioned in SKIP_ATTRIBUTES" do
 					@resource.attributes.should_not include({:name => "id", :type => :integer})
+					@resource.attributes.should include({:name => "hidden_value", :type => :string})
 				end
 
-				it "should prefer SKIP_ATTRIBUTES in model id defined" do
-					Event.const_set :SKIP_ATTRIBUTES, ['name']
+				it "should prefer SKIP_ATTRIBUTES in model if defined" do
+					Event.const_set :SKIP_ATTRIBUTES, %W[hidden_value]
 					@resource.attributes.should include({:name => "id", :type => :integer})
-					@resource.attributes.should_not include({:name => "name", :type => :string})
+					@resource.attributes.should_not include({:name => "hidden_value", :type => :string})
 				end
 
 				describe "searchable_attributes" do
 					it "should return all attributes of type string" do
-						@resource.searchable_attributes.should == [{:name => "description", :type => :string}]
+							Event.const_set :SKIP_ATTRIBUTES, []
+							@resource.searchable_attributes.should == [{:name=>"name", :type=>:string}, {:name=>"hidden_value", :type=>:string}, {:name=>"description", :type=>:string}]
 					end
 				end
 			end
