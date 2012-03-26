@@ -1,6 +1,6 @@
 <%- unless content.essence.picture.nil? -%>
 	<%- img_tag = image_tag(
-		alchemy.show_picture_path(
+		alchemy.show_picture_url(
 			:id => content.essence.picture.id,
 			:name => content.essence.picture.urlname,
 			:size => options[:image_size],
