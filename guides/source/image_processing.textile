@@ -1,0 +1,15 @@
+h2. Image processing
+
+This guide explains the powerful imaage processing tools of Alchemy CMS.
+
+endprologue.
+
+INFO: under construction.
+
+h3. Rendering
+
+
+h3. Cropping
+
+
+h3. Caching

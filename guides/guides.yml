@@ -26,6 +26,9 @@ index:
     - title: How to work with Alchemy CMS
       url: how_to_work_with_alchemy
       text: Best practises for working on individual projects with Alchemy CMS
+    - title: Configure Alchemy
+      url: configuration
+      text: How to change Alchemy´s configuration options and what do they mean.
 
   2.) Architecture:
     - title: Alchemy´s Architecture

@@ -4,7 +4,8 @@ endprologue.
 
 h3. Conceptual page and content structuring
 
-When working with Alchemy CMS the very first thing the webdeveloper conceptually does is splitting the website´s layout into different types (called page-layouts).
+When working with Alchemy CMS the very first thing the webdeveloper conceptually does is splitting the website´s layout into different types (called page layouts).
+
 Every page which is structurally different to other, should get its own page-layout. A page-layout is a html template with specified properties.
 "More about PageLayouts »":page_layouts.html
 
@@ -25,6 +26,8 @@ h4. Using elements
 
 INFO: under construction
 
+Read more about "on how to create elements":creating_elements.html.
+
 h4. Using cells
 
 INFO: under construction
@@ -37,4 +40,4 @@ h4. Using the implemented fulltext search
 
 INFO: under construction
 
-´
+&nbsp;

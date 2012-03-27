@@ -31,7 +31,8 @@ h3. Create a remote git repo
 
 Create a new repository on "GitHub":https://github.com or, if you have one, into your own Gitolite/Gitosis server or where ever you have your git remote repositories.
 
-TIP: DO NOT EVER STORE ANY CRITICAL INFORMATIONS, LIKE DATABASE OR SSH PASSWORDS INTO YOUR GIT REPOSITORY, UNLESS YOU HAVE A PRIVATE ONE! Remember: GitHub repositories are open to the public.
+TIP: DO NOT EVER STORE ANY CRITICAL INFORMATIONS, LIKE DATABASE OR SSH PASSWORDS INTO YOUR GIT REPOSITORY, UNLESS YOU HAVE A PRIVATE ONE!<br>
+Remember: GitHub repositories from the free plan are open to the public.
 
 h4. Init your project as git repository
 

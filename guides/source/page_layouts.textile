@@ -1,24 +1,47 @@
-h2. Page layouts (templates)
+h2. Page layouts
 
 endprologue.
 
 h3. What are page layouts?
 
-Page layouts are templates for pages in Alchemy CMS.
+Every page in Alchemy depends on a page layout.
 
-Every page depends on a page_layout.
+Think of page layout as types of pages. They are used to give certain pages abilities, like available elements, caching settings, enable xml feeds, and so on.
 
-Alchemy CMS parses the <code>/config/alchemy/page_layouts.yml</code> file which defines all the available page layouts in the application.
+Page layouts are defined in the <code>config/alchemy/page_layouts.yml</code> file.
 
 h3. How do they work?
 
-In the <code>/app/views/layouts</code> folder of your rails project, Alchemy CMS first looks for the <code>application.html.erb</code> layout and if that's not present it looks for a file named <code>pages.html.erb</code> and renders it.
+When creating a page the user gets prompted to select a page layout. Depending on that page layouts configuration the user has elements to manage content with.
 
-Page layouts are templates (view partials) which are yielded on the <code>pages.html.erb</code> template.
-They are being parsed through ERB, so you can write HTML/CSS and execute ruby code there.
+h3. Rendering
 
-If no page_layout partial is found, the "_standard.html.erb" file gets rendered.
+Page layouts are Rails view partials which are yielded on the template. They are being parsed through ERB, so you can write HTML/CSS and execute Ruby code there.
 
-If using the caching option (defined in <code>/config/alchemy/config.yml</code>), your page_layouts will be cached for fast delivering. (action_caching)
+You can find all page layout partials in the <code>app/views/alchemy/page_layouts</code> folder.
 
-You can "create your own page layouts":create_own_page_layouts.html which can be chosen by the user in the backend when creating a new page.
+They are named after the page layout's name you defined in the <code>page_layouts.yml</code> file.
+
+If no page layout partial is found, the <code>_standard.html.erb</code> file gets rendered.
+
+INFO: Alchemy comes with generator that creates the partials for you.<br>
+Run <code>rails g alchemy:page_layouts --skip</code> inside you terminal.
+
+h3. Caching
+
+If using the caching option (defined in <code>config/alchemy/config.yml</code>), your page layouts will be cached for fast delivering through Rails action caching.
+
+INFO: You can disable the caching of a page in the <code>page_layouts.yml</code> file with the<br>
+<code>cache: false</code> option.
+
+h3. Creating Page Layouts
+
+Follow this guide to learn how to "create page layouts":creating_page_layouts.html which than can be chosen by the user while creating a new page.
+
+h3. Configuration options
+
+Page layouts can have many different configuration options.
+
+Please have a look at the source code. The "page_layouts.yml":https://github.com/magiclabs/alchemy_cms/blob/master/config/alchemy/page_layouts.yml file is pretty well documentated.
+
+&nbsp;

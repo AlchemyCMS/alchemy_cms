@@ -4,12 +4,9 @@ This guide explains the configuration options for Alchemy CMS.
 
 endprologue.
 
-INFO: under construction
+INFO: Under Construction.
 
-h3. Caching
+For now please "have a look into the source code":https://github.com/magiclabs/alchemy_cms/blob/master/config/alchemy/config.yml.
+The <code>config/alchemy/config.yml</code> file is pretty well documentated.
 
-
-h3. Image processing
-
-
-h3. URL-nesting
+&nbsp;

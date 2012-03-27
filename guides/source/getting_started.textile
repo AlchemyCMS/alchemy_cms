@@ -15,7 +15,6 @@ h3. Guide Assumptions
 This guide is designed for beginners who want to get started with Alchemy CMS from scratch. It does not assume that you have any prior experience with Alchemy CMS. However, to get the most out of it, you need to have some prerequisites installed:
 
 * The "Ruby":http://www.ruby-lang.org/en/downloads programming language
-* The "RubyGems":http://rubyforge.org/frs/?group_id=126 packaging system
 * The dependency manager "Bundler":http://gembundler.com/
 * At least one of these databases: "MySQL":http://www.mysql.com/downloads/mysql, or "SQLite":http://www.sqlite.org/download.html
 * The image processor "ImageMagick":http://www.imagemagick.org/script/install-source.php
@@ -28,17 +27,16 @@ You will understand much more and see things clearer if you know about the basic
 Installing Rails on your computer is easy. There are many excellent resources on the internet for learning Ruby on Rails, including:
 
 * "Try Ruby":http://tryruby.org
-* "Getting Started with Rails":http://guides.rubyonrails.org/getting_started.html
-* "Rails for Zombies":http://railsforzombies.org/labs
-* "Rails Guides":http://guides.rubyonrails.org/
-
+* "Getting Started with Rails":http://guides.rubyonrails.org/v3.1.3/getting_started.html
+* "Rails for Zombies":http://railsforzombies.org
+* "Railscasts":http://railscasts.com
 
 
 
 h3. What is Alchemy CMS?
 
-Alchemy CMS is a full featured Content Management System (CMS).
-It comes with an extreme flexible content storing architecture and a gorgeous user interface.
+Alchemy CMS is a mayor, full featured Content Management System (CMS).
+It comes with an extreme flexible "content storing architecture":architecture.html#storing-architecture and a gorgeous user interface.
 
 Alchemy CMS is shipped with a production ready website that can be used “out of the box”, 
 but it is mostly used for building individual web-applications that are rich in functionality.
@@ -46,8 +44,8 @@ but it is mostly used for building individual web-applications that are rich in 
 The name is program: Alchemy CMS is a kind of chemical construction kit for developers that 
 want to build professional web-applications in a very short time.
 
-Also content-managers are enthusiastic about Alchemy CMS because of its clear and powerful 
-backend that is very easy to use.
+Also content managers are enthusiastic about Alchemy CMS because of its clear and powerful 
+user interface that is very easy to use and intuitive to learn.
 
 
 
@@ -64,7 +62,7 @@ gem install alchemy_cms
 INFO: You now have the newest Alchemy CMS gem installed on your system!
 
 
-h4. create a new application
+h4. Create a new application
 
 The gem provides an executable file that can automagically create new rails applications with a pre-configured Alchemy CMS engine.
 While the installation process you will get asked about your local development environment. Just follow the instructions.
@@ -80,9 +78,9 @@ The following parameters are available for the installer:
 INFO: The installer creates a database, migrates the tables and also seeds them. After finishing, your application is ready to start!
 
 
-h4. to an existing rails application
+h4. Install into an existing Rails application
 
-If you already have an existing rails application, you can require the Alchemy CMS gem in your app.
+If you already have an existing Rails application, you can require the Alchemy CMS gem in your app.
 
 Just add this line to your Gemfile.
 
@@ -90,13 +88,15 @@ Just add this line to your Gemfile.
 gem 'alchemy_cms', '~>2.1'
 </pre>
 
-Since Alchemy CMS is a mountable engine, you need to define the mountpoint in your <code>routes.rb</code>
+Since Alchemy CMS is a mountable engine, you need to define the mountpoint in your <code>config/routes.rb</code> file.
 
 <pre>
 MyApp::Application.routes.draw do
   mount Alchemy::Engine => '/'
 end
 </pre>
+
+INFO: You can mount Alchemy on every route you want. <code>pages</code>, <code>cms</code>, <code>typo3</code>, what ever you want. Most of the time you go with the root route.
 
 Now you need to run bundler for installing the dependencies.
 <shell>
@@ -109,7 +109,7 @@ It´s recommended to create the folders Alchemy CMS needs.
 rails generate alchemy:scaffold
 </shell>
 
-Copy the assets and migration files to your application.
+Copy the database migration files to your application.
 <shell>
 rake alchemy:install:migrations
 </shell>
@@ -124,11 +124,12 @@ Seed the database with initial data.
 rake alchemy:db:seed
 </shell>
 
-INFO: You´re done! Alchemy is now available in your rails project!
+INFO: You´re done! Alchemy is now available in your Rails project!
 
 h3. Running Alchemy CMS!
 
 Now that you have Alchemy CMS successfully installed, let's move on by creating your first user with administrative privilegs.
+
 You just need to start a local ruby server on your development machine.
 
 <shell>
@@ -138,6 +139,8 @@ cd YOUR_APP_NAME && rails s
 Open a browser window and navigate to "http://localhost:3000":http://localhost:3000.
 You will be greeted with a screen that is prompting you to create the first user.
 
-INFO: Congratulations, you can access the backend now!
+<b>Congratulations, you can now access the backend!</b>
+
+Now let's customize the "page layouts":creating_page_layouts.html and "elements":creating_elements.html.
 
 &nbsp;
