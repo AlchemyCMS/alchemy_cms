@@ -141,6 +141,12 @@ You will be greeted with a screen that is prompting you to create the first user
 
 <b>Congratulations, you can now access the backend!</b>
 
-Now let's customize the "page layouts":creating_page_layouts.html and "elements":creating_elements.html.
+h3. Next steps
+
+As next you should to read about:
+
+* "Alchemy's architecture":architecture.html
+* "The Standard Set":standard_set.html
+* Customizing "page layouts":creating_page_layouts.html and "elements":creating_elements.html.
 
 &nbsp;

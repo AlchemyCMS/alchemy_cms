@@ -20,12 +20,15 @@ index:
     - title: Getting Started
       url: getting_started
       text: Everything you need to know to install and create your first Alchemy CMS project.
+
     - title: Standard-Set (website out of the box)
       url: standard_set
       text: Can be used with it's pre-defined set of elements and layout-templates.
+
     - title: How to work with Alchemy CMS
       url: how_to_work_with_alchemy
       text: Best practises for working on individual projects with Alchemy CMS
+
     - title: Configure Alchemy
       url: configuration
       text: How to change Alchemy´s configuration options and what do they mean.
@@ -34,18 +37,24 @@ index:
     - title: Alchemy´s Architecture
       text: How Alchemy CMS is working.
       url: architecture
+
     - title: Pages
       url: pages
       text: What are pages and how do they work.
+
     - title: Page layouts
       url: page_layouts
       text: What are page layouts and how do they work.
+
     - title: Cells
       url: cells
       text: What are page-cells and how do they work.
+      construction: true
+
     - title: Elements
       url: elements
       text: What are elements and how do they work.
+
     - title: Contents/Essences
       url: essences
       text: What are essences and how do they work.
@@ -54,6 +63,7 @@ index:
     - title: Creating own page layouts
       url: creating_page_layouts
       text: How to create own page layouts.
+
     - title: Creating own Elements
       url: creating_elements
       text: How to create own elements.
@@ -70,10 +80,10 @@ index:
       text: How to manage content.
       construction: true
 
-    - title: Working with images
-      url: working_with_images
-      text: How to work with images.
-      construction: true
+    - title: Processing images
+      url: image_processing
+      text: How to work with images and use the powerful Fleximage templates.
+
     - title: Creating own Essence-types
       url: creating_own_essence_types
       text: How to create own Essence-types.
@@ -87,3 +97,8 @@ index:
     - title: Deploying on RailsHoster
       url: deploy_on_railshoster
       text: How to deploy your Alchems site on RailsHoster.
+
+  5.) Management:
+    - title: Upgrading Alchemy
+      url: upgrading
+      text: Learn how to upgrade Alchemy to newest version
