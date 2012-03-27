@@ -43,7 +43,7 @@ body {
 	background: #33393F;
 	color: #33393F;
 	margin: 0;
-	font: 12px/18px "JunctionRegular", Helvetica, Arial, sans-serif;
+	font: 14px/18px "JunctionRegular", Helvetica, Arial, sans-serif;
 	background-image: -moz-radial-gradient(50% 100%, circle cover, #3c444a, #33393F 60%);
 	background-image: -webkit-radial-gradient(50% 100%, circle cover, #3c444a, #33393F 60%);
 	background-image: -o-radial-gradient(50% 100%, circle cover, #3c444a, #33393F 60%);
@@ -78,6 +78,10 @@ h2 {
 	letter-spacing: 1px;
 	text-transform: none;
 	margin-top: 20px;
+}
+
+h3 {
+	font-size: 16px;
 }
 
 code {
@@ -384,6 +388,11 @@ a, a:link, a:visited {
 #feature ul li {
 	background: url(../images/checkmark.png) no-repeat left 0.5em;
 	padding: 1.2em 1.75em 0.5em 3.5em;
+	font-size: 14px;
+}
+
+#feature p {
+	font-size: 14px;
 }
 
 
@@ -413,6 +422,7 @@ div.note {
 #content div.note p,
 #content div.info p {
 	margin-bottom: 0.5em;
+	font-size: 12px;
 }
 
 div.info {
@@ -426,6 +436,7 @@ div.code_container {
 	padding-left: 35px;
 	padding-bottom: 2px;
 	border: 1px solid #e0e0e0;
+	font-size: 12px;
 }
 
 #subCol h3.chapter img {
@@ -453,7 +464,7 @@ dl dt em {
 	margin: 0;
 	padding: 0;
 	line-height: inherit;
-	font-size: 1em;
+	font-size: 12px;
 }
 
 #guides hr {
