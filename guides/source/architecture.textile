@@ -1,50 +1,73 @@
 h2. Alchemy´s Architecture
 
-This guide explains Alchemy´s flexible architecture.
+Alchemy is the most user friendly and flexibale Rails based CMS today. In this guide you will learn about Alchemy's powerful features:
+
+* The content storing architecture
+* The image processing magick®
+* Caching
+* The ressources controller
 
 endprologue.
 
 h3. Rails Engine
 
-Since the Alchemy CMS project started, it is a rails engine.
-Rails 3.1 brought the possibility for namespacing and mounting of rails-engines.
-Since Alchemy CMS v2.1 it is now a mountable and completely namespaced rails-engine.
+Since the Alchemy CMS project started, it is a Rails engine.
+Rails 3.1 brought the possibility for namespacing and mounting of Rails engines.
+Since Alchemy CMS v2.1 it is now a mountable and completely namespaced Rails engine.
 
 h3. The Core modules
 
-Alchemy CMS comes with core modules:
+Alchemy CMS comes with four core modules:
 
-*# Dashboard
-*# Page
-*# Language
+*# Pages
+*# Languages
 *# Users
 *# Library (Pictures & Attachments)
 
 The core modules can be extended by own modules.
-A module should be a rails-engine that registers themself at Alchemy.
-Read more about "creating own modules":creating_own_modules.html.
+A module should be a Rails engine that registers themself at Alchemy.
+Read more about "creating own modules":creating_modules.html.
 
+h3. Storing architecture
 
-h3. Stored data-formats
+Alchemy stores content. Period. Really, that's it.
 
-Alchemy CMS stores ids, unformatted text and only some richtext content in the database.<br />
-No markup (beside basic text formatting inside the richtext elements), no styling, no layout.
+Unlike many other CMS's that store a whole page body with complete html markup from one of these a fancy WYSIWYG editors out there, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only some richtext content in the database. No html markup, no css, no styling, no layout. Just pure content.
 
-h3. Rendering process
+The webdeveloper is in full control of the markup and styling. The editor just manages the content.
 
-When rendering a Page through the pages_controller´s show method, the pages.html.erb view will be used.
-This view is yielding the corresponding page_layout partial which renders the "cells":cells.html and "elements":elements.html.
+Isn't that what CMS really should mean?
+
+h3. The Rendering Process en Detail
+
+Alchemy strongly uses the Rails partial rendering mechanism. It has no own templating language and no <i>special files</i>.
+
+When rendering a Page the Alchemy renders these files:
+
+*# <code>app/views/layouts/application.html.erb</code>
+*# <code>app/views/alchemy/page_layouts/_THE_NAME_OF_THE_PAGES_PAGE_LAYOUT.html.erb</code>
+*# <code>app/views/alchemy/elements/_THE_NAME_OF_THE_ELEMENT_view.html.erb</code>
+
+INFO: Alchemy comes with tons of useful helpers that render these partials for you. For further information please "have a look into the PagesHelper documentation":http://rdoc.info/github/magiclabs/alchemy_cms/Alchemy/PagesHelper.html
+
+h3. Processing images
+
+Alchemy uses RMagick (the Ruby ImageMagick library) and Fleximage (a powerful image processing template language) to render images.
+
+Images are stored as master images in the pictury library. The editor just assigns these master images to content elements you provide. You also set the image rendering bounderies. The max width and heigth values, or even the size an image should be cropped to. Alchemy even comes with a fancy Javascript based image cropper tool, so that your customer can define the mask to be used.
+
+"Read more about how can use the powerful image processing tools":image_processing.html.
 
 h3. Caching
 
-If not deactivated in the "configuration":configuration.html, Alchemy CMS uses action-caching for fast content delivering.
-This will cache the "page-layout":page_layouts.html partials where "cells":cells.html and "elements":elements.html are rendered on.
+If not deactivated in the "configuration":configuration.html, Alchemy uses Rails action_caching for fast content delivering.
+This will cache all "page layout":page_layouts.html partials where "cells":cells.html and "elements":elements.html are rendered on.
 
 h3. Ressources Controller
 
 Since Alchemy v2.1 there is a ressources controller available. When developing own modules for Alchemy, 
-your controller can inherit from that ressources controller (Alchemy::RessourcesController) and will get all the rails-like CRUD methods.
+your controller can inherit from that ressources controller (<code>Alchemy::RessourcesController</code>) and will get all the rails-like CRUD methods.
 
 The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
-Read more details of the ressources controller in the "module development":module_development.html guide.
+Read more details of the ressources controller in the "module development":creating_modules.html guide.
