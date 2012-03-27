@@ -49,7 +49,6 @@ index:
     - title: Cells
       url: cells
       text: What are page-cells and how do they work.
-      construction: true
 
     - title: Elements
       url: elements
@@ -71,6 +70,7 @@ index:
     - title: Creating own Essences
       url: creating_essences
       text: How to create own essences.
+
     - title: Creating own Modules
       url: creating_modules
       text: How to create custom modules.
@@ -83,11 +83,6 @@ index:
     - title: Processing images
       url: image_processing
       text: How to work with images and use the powerful Fleximage templates.
-
-    - title: Creating own Essence-types
-      url: creating_own_essence_types
-      text: How to create own Essence-types.
-      construction: true
     
     - title: Customizing the Richtext Editor
       url: customize_tinymce
