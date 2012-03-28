@@ -85,7 +85,7 @@ module Alchemy
 			if User.admins.count == 0 && @page.nil?
 				redirect_to signup_path
 			elsif @page.blank?
-				redirect_to_404
+				handle_404
 			elsif multi_language? && params[:lang].blank?
 				redirect_page(:lang => session[:language_code])
 			elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
@@ -97,7 +97,7 @@ module Alchemy
 			elsif !multi_language? && !params[:lang].blank?
 				redirect_page
 			elsif configuration(:url_nesting) && url_levels.any? && !levels_are_in_page_branch?
-				redirect_to_404
+				handle_404
 			elsif configuration(:url_nesting) && should_be_nested? && !url_levels.any?
 				redirect_page(params_for_nested_url)
 			elsif !configuration(:url_nesting) && url_levels.any?
@@ -157,7 +157,7 @@ module Alchemy
 		def redirect_to_public_child
 			@page = find_first_public(@page)
 			if @page.blank?
-				redirect_to_404
+				handle_404
 			else
 				redirect_page
 			end
@@ -178,8 +178,12 @@ module Alchemy
 			end
 		end
 
-		def redirect_to_404
-			redirect_to '/404'
+		def handle_404
+			if File.exists?("#{Rails.root}/public/404")
+				render :file => "#{Rails.root}/public/404", :status => 404, :layout => false
+			else
+				redirect_to '/404'
+			end
 		end
 
 		def url_levels
