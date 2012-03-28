@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Alchemy::PagesController do
-	
+
 	before(:each) do
 		@default_language = Alchemy::Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
@@ -19,8 +19,8 @@ describe Alchemy::PagesController do
 
 		it "should show the navigation with all visible pages" do
 			pages = [
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
+					Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
+					Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
 			]
 			visit '/alchemy/'
 			within('div#navigation ul') { page.should have_selector('li a[href="/alchemy/page-1"], li a[href="/alchemy/page-2"]') }
@@ -240,4 +240,40 @@ describe Alchemy::PagesController do
 
 	end
 
+	describe "Handling of non-existing pages" do
+
+		before { @user = Factory.create(:admin_user) if Alchemy::User.admins.count == 0 }
+		after { recover_static_404 }
+
+		def mute_static_404
+			File.rename("#{Rails.root}/public/404.html", "#{Rails.root}/public/tmp_404")
+		end
+
+		def recover_static_404
+			if File.exists?("#{Rails.root}/public/tmp_404")
+				File.rename("#{Rails.root}/public/tmp_404", "#{Rails.root}/public/404.html")
+			else
+				FileUtils.copy("#{Rails.root}/public/404.html.bak", "#{Rails.root}/public/404.html")
+			end
+		end
+
+		it "should render public/404.html when it exists" do
+			visit '/alchemy/thispagedoesntexist'
+			page.should have_content("The page you were looking for doesn't exist.")
+		end
+
+		it "should redirect to status_404_path when it is defined in main_app (to do custom error-handling)" do
+			mute_static_404
+			visit '/alchemy/thispagedoesntexist'
+			page.should have_content("custom error handling")
+		end
+
+		it "should fallback to 'Not found.' when neither 404.html exist nor status_404_path is defined" do
+			mute_static_404
+			Alchemy::PagesController.any_instance.stub(:main_app) { Object.new }
+			visit '/alchemy/thispagedoesntexist'
+			page.should have_content("Not found.")
+		end
+
+	end
 end

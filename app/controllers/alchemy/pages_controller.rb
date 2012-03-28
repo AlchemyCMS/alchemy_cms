@@ -179,10 +179,12 @@ module Alchemy
 		end
 
 		def handle_404
-			if File.exists?("#{Rails.root}/public/404")
+			if File.exists?("#{Rails.root}/public/404.html")
 				render :file => "#{Rails.root}/public/404", :status => 404, :layout => false
+			elsif main_app.respond_to?(:status_404_path)
+				redirect_to main_app.status_404_path
 			else
-				redirect_to '/404'
+				render :text => 'Not found.', :status => 404
 			end
 		end
 
