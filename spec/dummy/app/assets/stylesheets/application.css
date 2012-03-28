@@ -5,3 +5,7 @@
  *= require_self
  *= require_tree . 
 */
+
+.klass {
+  color: black;
+}
