@@ -2,6 +2,10 @@ source "http://rubygems.org"
 
 gemspec
 
+#For some strange reason it's only loaded outside any group
+gem 'jasmine'
+gem 'jasminerice'
+
 group :test do
 	gem 'rspec-rails'
 	gem 'sqlite3'
@@ -14,6 +18,8 @@ group :test do
 end
 
 group :assets do
+	gem 'sass-rails', '~> 3.2.3'
+	gem 'coffee-rails', '~> 3.2.1'
 	gem 'uglifier', '>= 1.0.3'
 end
 

@@ -35,5 +35,6 @@ Gem::Specification.new do |s|
 
 	s.add_development_dependency(%q<rspec-rails>, ["~> 2.8"])
 	s.add_development_dependency(%q<sqlite3>)
+	s.add_development_dependency(%q<jasminerice>)
 
 end
