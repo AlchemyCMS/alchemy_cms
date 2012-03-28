@@ -599,6 +599,7 @@ en:
     error_messages:
       login_blank: 'can not be blank'
       login_not_found: 'could not be found'
+      general_credentials_error: "User does not exist or invalid password!"
       consecutive_failed_logins_limit_exceeded: 'Consecutive failed logins limit exceeded, account is disabled.'
       email_invalid: 'should look like an email address.'
       password_blank: 'can not be blank'
@@ -618,3 +619,4 @@ en:
         email: Email
         password: Password
         remember_me: 'remember me'
+
