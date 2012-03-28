@@ -1,4 +1,4 @@
-describe "cache", ->
+describe "Alchemy.LinkOverlay", ->
 
 	beforeEach ->
 		setFixtures('<div id="myelement"></div>')
@@ -21,6 +21,22 @@ describe "cache", ->
 		it "should not b", ->
 			expect().toEqual null
 
-	describe "method", ->
+	describe "open", ->
+		it "should ....", ->            
+	describe "close", ->
+		it "should ....", ->
+	describe "selectPage", ->
+		it "should ....", ->
+	describe "createLink", ->
+		it "should ....", ->
+	describe "selectTab", ->
+		it "should ....", ->
+	describe "showElementsSelect", ->
+		it "should ....", ->
+	describe "hideElementsSelect", ->
+		it "should ....", ->
+	describe "createTempLink", ->
+		it "should ....", ->
+	describe "removeLink", ->
 		it "should ....", ->
 

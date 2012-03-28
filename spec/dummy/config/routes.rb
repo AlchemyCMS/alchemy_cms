@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 	end
 
 	mount Alchemy::Engine => "/alchemy"
+
 end
