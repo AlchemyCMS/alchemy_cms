@@ -23,3 +23,7 @@ group :development do
 	gem 'guard-spork'
 	gem 'yard'
 end
+
+group :development, :test do
+	gem "jasminerice"
+end
