@@ -807,6 +807,7 @@ de:
     error_messages:
       login_blank: "^Es wurde kein Benutzername angeben."
       login_not_found: "^Dieser Benutzername existiert nicht."
+      general_credentials_error: "Die Kombination aus Benutzername und Passwort ist nicht gültig."
       consecutive_failed_logins_limit_exceeded: "Zu viele Fehlversuche! Dieser Account ist aus Sicherheitsgründen gesperrt worden. Bitte wenden Sie sich an den Administrator."
       email_invalid: "Die Email-Adresse entspricht nicht dem Format einer Email-Adresse."
       password_blank: "^Bitte ein Passwort angegeben."
@@ -827,3 +828,4 @@ de:
         email: Email
         password: Passwort
         remember_me: "eingeloggt bleiben"
+
