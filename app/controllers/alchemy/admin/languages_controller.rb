@@ -4,9 +4,14 @@ module Alchemy
 
 			def new
 				@language = Alchemy::Language.new
-				default_page_layout = Alchemy::Config.get(:default_language).try('[]', 'page_layout')
-				@language.page_layout = default_page_layout if default_page_layout.present?
+				@language.page_layout = (configured_page_layout or @language.page_layout)
 				render :layout => !request.xhr?
+			end
+
+			protected
+
+			def configured_page_layout
+				Alchemy::Config.get(:default_language).try('[]', 'page_layout')
 			end
 
 		end
