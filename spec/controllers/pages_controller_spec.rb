@@ -121,13 +121,23 @@ describe Alchemy::PagesController do
 
 		context "with incorrect levelnames in params" do
 
-			it "should show 404 page" do
-				get :show, {:level1 => 'catalog', :level2 => 'faqs', :urlname => 'screwdriver'}
-				response.status.should == 404
+			it "should raise a RoutingError that is in turn handled by rails (as 404 status)" do
+				expect {
+					get :show, {:level1 => 'catalog', :level2 => 'faqs', :urlname => 'screwdriver'}
+				}.to raise_error(ActionController::RoutingError)
 			end
 
 		end
 
+	end
+
+	context "when a non-existent page is requested" do
+		it "should raise a RoutingError (that is handled by rails, see integration specs)" do
+			Factory(:admin_user) # otherwise we are redirected to create_user
+			expect {
+				get :show, {:urlname => 'doesntexist'}
+			}.to raise_error(ActionController::RoutingError)
+		end
 	end
 
 end

@@ -242,37 +242,12 @@ describe Alchemy::PagesController do
 
 	describe "Handling of non-existing pages" do
 
-		before { @user = Factory.create(:admin_user) if Alchemy::User.admins.count == 0 }
-		after { recover_static_404 }
+		context "404-Errors are handled by Rails now, so no need to test anymore.
+						 However, it still serves as documentation how they can be handled, so we leave it here" do
 
-		def mute_static_404
-			File.rename("#{Rails.root}/public/404.html", "#{Rails.root}/public/tmp_404")
-		end
+			it "should render public/404.html when it exists"
+			it "can be handled by matching /404 and routing it to a controller of choice when no public/404.html exists"
 
-		def recover_static_404
-			if File.exists?("#{Rails.root}/public/tmp_404")
-				File.rename("#{Rails.root}/public/tmp_404", "#{Rails.root}/public/404.html")
-			else
-				FileUtils.copy("#{Rails.root}/public/404.html.bak", "#{Rails.root}/public/404.html")
-			end
-		end
-
-		it "should render public/404.html when it exists" do
-			visit '/alchemy/thispagedoesntexist'
-			page.should have_content("The page you were looking for doesn't exist.")
-		end
-
-		it "should redirect to status_404_path when it is defined in main_app (to do custom error-handling)" do
-			mute_static_404
-			visit '/alchemy/thispagedoesntexist'
-			page.should have_content("custom error handling")
-		end
-
-		it "should fallback to 'Not found.' when neither 404.html exist nor status_404_path is defined" do
-			mute_static_404
-			Alchemy::PagesController.any_instance.stub(:main_app) { Object.new }
-			visit '/alchemy/thispagedoesntexist'
-			page.should have_content("Not found.")
 		end
 
 	end

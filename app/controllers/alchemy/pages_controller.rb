@@ -85,7 +85,7 @@ module Alchemy
 			if User.admins.count == 0 && @page.nil?
 				redirect_to signup_path
 			elsif @page.blank?
-				handle_404
+				raise_not_found_error
 			elsif multi_language? && params[:lang].blank?
 				redirect_page(:lang => session[:language_code])
 			elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
@@ -97,7 +97,7 @@ module Alchemy
 			elsif !multi_language? && !params[:lang].blank?
 				redirect_page
 			elsif configuration(:url_nesting) && url_levels.any? && !levels_are_in_page_branch?
-				handle_404
+				raise_not_found_error
 			elsif configuration(:url_nesting) && should_be_nested? && !url_levels.any?
 				redirect_page(params_for_nested_url)
 			elsif !configuration(:url_nesting) && url_levels.any?
@@ -157,7 +157,7 @@ module Alchemy
 		def redirect_to_public_child
 			@page = find_first_public(@page)
 			if @page.blank?
-				handle_404
+				raise_not_found_error
 			else
 				redirect_page
 			end
@@ -175,16 +175,6 @@ module Alchemy
 		def additional_params
 			params.each do |key, value|
 				params[key] = nil if ["action", "controller", "urlname", "lang", "level1", "level2", "level3"].include?(key)
-			end
-		end
-
-		def handle_404
-			if File.exists?("#{Rails.root}/public/404.html")
-				render :file => "#{Rails.root}/public/404", :status => 404, :layout => false
-			elsif main_app.respond_to?(:status_404_path)
-				redirect_to main_app.status_404_path
-			else
-				render :text => 'Not found.', :status => 404
 			end
 		end
 
