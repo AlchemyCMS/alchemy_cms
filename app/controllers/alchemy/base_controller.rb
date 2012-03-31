@@ -16,7 +16,7 @@ module Alchemy
 			# For local development server
 			if request.port != 80
 				"http://#{request.host}:#{request.port}"
-			# For remote production server
+				# For remote production server
 			else
 				"http://#{request.host}"
 			end
@@ -44,12 +44,16 @@ module Alchemy
 			!current_user.blank?
 		end
 
+		def raise_not_found_error
+			raise ActionController::RoutingError.new('Not Found')
+		end
+
 		# Overriding +I18n+s default +t+ helper, so we can pass it through +Alchemy::I18n+
 		def t(key, *args)
 			::Alchemy::I18n.t(key, *args)
 		end
 
-	private
+		private
 
 		# Sets the language for rendering pages in pages controller
 		def set_language
@@ -120,7 +124,7 @@ module Alchemy
 			end
 		end
 
-	protected
+		protected
 
 		def permission_denied
 			if current_user
