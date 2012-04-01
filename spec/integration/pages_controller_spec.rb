@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Alchemy::PagesController do
-	
+
 	before(:each) do
 		@default_language = Alchemy::Language.get_default
 		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
@@ -19,8 +19,8 @@ describe Alchemy::PagesController do
 
 		it "should show the navigation with all visible pages" do
 			pages = [
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
+					Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
+					Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
 			]
 			visit '/alchemy/'
 			within('div#navigation ul') { page.should have_selector('li a[href="/alchemy/page-1"], li a[href="/alchemy/page-2"]') }
@@ -240,4 +240,15 @@ describe Alchemy::PagesController do
 
 	end
 
+	describe "Handling of non-existing pages" do
+
+		context "404-Errors are handled by Rails now, so no need to test anymore.
+						 However, it still serves as documentation how they can be handled, so we leave it here" do
+
+			it "should render public/404.html when it exists"
+			it "can be handled by matching /404 and routing it to a controller of choice when no public/404.html exists"
+
+		end
+
+	end
 end
