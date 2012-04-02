@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<%= render_meta_data(:title_prefix => sitename_from_header_page, :title_seperator => "-") %>
-		<%= stylesheet_link_tag "alchemy/standard_set", :media => :screen %>
-		<%= stylesheet_link_tag "alchemy/standard_set", :media => :print %>
-	</head>
-	<body>
-		<div id="page">
-			<div id="language_select">
-				<%= language_switches(:linkname => :code) %>
-			</div>
-			<div id="breadcrump">
-				<%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
-			</div>
-			<div id="navigation">
-				<%= render_navigation :all_sub_menues => true %>
-			</div>
-			<%= yield %>
-			<div class="footer">
-				<%= render_elements(
-					:from_page => 'layout_footer',
-					:only => ['footnote']
-				) %>
-			</div>
-		</div>
-		<%= alchemy_preview_mode_code %>
-		<%= alchemy_menu_bar %>
-	</body>
+<head>
+  <!-- Your site title-prefix (That is YourSite in "YourSite - CurrentPage" is taken from a layout-page by default.
+    Alternatively you can hardcode it here -->
+  <%= render_meta_data(:title_prefix => sitename_from_header_page, :title_seperator => "-") %>
+  <!-- Paths here are relative to app/assets/stylesheets.
+    alchemy/standard_set, though, is located in Alchemy-source and doesn't have to be present in your app,
+     but you can copy it over and customize it of course. -->
+  <%= stylesheet_link_tag "alchemy/standard_set", :media => :screen %>
+  <%= stylesheet_link_tag "alchemy/standard_set", :media => :print %>
+  <!-- Here is also the place for custom javascripts. Put them in app/assets/javascripts/yourscript.js (or yourscript.js.coffee)
+    and include them like this (remove the \):
+    <\%= javascript_include_tag "yourscript" %> -->
+</head>
+<body>
+<div id="page">
+  <div id="language_select">
+    <!-- Render links with flags for all public languages -->
+    <%= language_switches(:linkname => :code) %>
+  </div>
+  <div id="breadcrump">
+    <!-- Renders a breadcrumb/ariadne-path. For customizing see docs for render_breadcrumb (link?) -->
+    <%= render_breadcrumb :seperator => "<span>&nbsp;<&nbsp;</span>" %>
+  </div>
+  <div id="navigation">
+    <!-- Renders main navigation. For customizing see docs for render_navigation (link?)
+        You can overwrite app/views/navigation/_renderer.html.erb and app/views/navigation/_link.html.erb
+        if you want to roll out your own markup -->
+    <%= render_navigation :all_sub_menues => true %>
+  </div>
+  <!-- Most important call here!
+    This yields (=inserts) all content of the current page.
+    Markup depends on page_layout, elements and essences and can be changed in app/views/alchemy/... -->
+  <%= yield %>
+  <div class="footer">
+    <!-- Renders elements that are called "footnote" (name-attribute in elements.yml)
+      from page_layout "layout_footer" (name-attribute in page_layout.yml) -->
+    <%= render_elements(
+          :from_page => 'layout_footer',
+          :only => ['footnote']
+        ) %>
+  </div>
+</div>
+<!-- This is used in Alchemy's backend to prevent navigating to other pages through the preview window -->
+<%= alchemy_preview_mode_code %>
+<!-- Renders a menu_bar when a user with sufficient rights visits a page -->
+<%= alchemy_menu_bar %>
+</body>
 </html>
+
