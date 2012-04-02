@@ -1,22 +1,22 @@
 <div class="button_with_label">
-	<%= select_tag(
-		'language', 
-		options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
-		:id => 'language_tree_select',
-		:class => 'alchemy_selectbox short'
-	) %>
-	<label><%= t("Language tree") %></label>
+  <%= select_tag(
+    'language',
+    options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
+    :id => 'language_tree_select',
+    :class => 'alchemy_selectbox short'
+  ) %>
+  <label><%= t("Language tree") %></label>
 </div>
 
 <% content_for :javascripts do %>
 <script type="text/javascript" charset="utf-8">
-	(function($) {
-		$('#language_tree_select').on('change', function() {
-			Alchemy.pleaseWaitOverlay();
-			$.get('<%= switch_language_admin_pages_path %>', {
-				language_id: this.value
-			});
-		});
-	})(jQuery);
+  (function($) {
+    $('#language_tree_select').on('change', function() {
+      Alchemy.pleaseWaitOverlay();
+      $.get('<%= switch_language_admin_pages_path %>', {
+        language_id: this.value
+      });
+    });
+  })(jQuery);
 </script>
 <% end %>

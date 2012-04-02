@@ -1,45 +1,45 @@
 <%- if @no_image_notice -%>
 <div class="with_padding">
-	<div class="info">
-		<%= render_icon('info') %>
-		<%= @no_image_notice %>
-	</div>
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= @no_image_notice %>
+  </div>
 </div>
 <%- else -%>
 <div id="overlay_toolbar">
-	<%= form_for(@essence_picture, :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options), :id => 'image_cropper_form', :remote => true) do |f| %>
-		<%= f.hidden_field :crop_from %>
-		<%= f.hidden_field :crop_size %>
-		<%= hidden_field_tag 'content_id', @content.id %>
-		<%= f.button t("save"), :class => 'button' %>
-	<% end %>
-	<div class="toolbar_spacer"></div>
-	<div class="button_with_label">
-		<%= link_to_function(
-			render_icon('delete-small'),
-			'Alchemy.ImageCropper.reset()',
-			:class => 'icon_button',
-			:title => t('Reset Imagemask')
-		) %>
-		<label><%= t("Reset Imagemask") %></label>
-	</div>
+  <%= form_for(@essence_picture, :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options), :id => 'image_cropper_form', :remote => true) do |f| %>
+    <%= f.hidden_field :crop_from %>
+    <%= f.hidden_field :crop_size %>
+    <%= hidden_field_tag 'content_id', @content.id %>
+    <%= f.button t("save"), :class => 'button' %>
+  <% end %>
+  <div class="toolbar_spacer"></div>
+  <div class="button_with_label">
+    <%= link_to_function(
+      render_icon('delete-small'),
+      'Alchemy.ImageCropper.reset()',
+      :class => 'icon_button',
+      :title => t('Reset Imagemask')
+    ) %>
+    <label><%= t("Reset Imagemask") %></label>
+  </div>
 </div>
 
 <div id="crop_explain" class="tip">
-	<%= t('explain cropping') %>
+  <%= t('explain cropping') %>
 </div>
 
 <div id="jscropper">
-	<%= image_tag(
-		alchemy.zoom_picture_path(:id => @essence_picture.picture.id, :name => @essence_picture.picture.urlname, :format => @options[:format] ),
-		:id => 'imageToCrop',
-		:onload => "Alchemy.ImageCropper.init(
-			[#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],
-			#{@size_x},
-			#{@size_y},
-			[#{@default_box[:x1]}, #{@default_box[:y1]}, #{@default_box[:x2]}, #{@default_box[:y2]}],
-			#{@ratio}
-		);"
-	) %>
+  <%= image_tag(
+    alchemy.zoom_picture_path(:id => @essence_picture.picture.id, :name => @essence_picture.picture.urlname, :format => @options[:format] ),
+    :id => 'imageToCrop',
+    :onload => "Alchemy.ImageCropper.init(
+      [#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],
+      #{@size_x},
+      #{@size_y},
+      [#{@default_box[:x1]}, #{@default_box[:y1]}, #{@default_box[:x2]}, #{@default_box[:y2]}],
+      #{@ratio}
+    );"
+  ) %>
 </div>
 <%- end -%>

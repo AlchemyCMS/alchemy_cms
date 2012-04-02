@@ -1,18 +1,18 @@
 <%= toolbar(
-	:buttons => [
-		{
-			:icon => 'upload',
-			:url => alchemy.new_admin_attachment_path,
-			:overlay_options => {
-				:title => t('upload_file'),
-				:size => '540x550'
-			},
-			:title => t('upload_file'),
-			:class => 'icon_button',
-			:label => t('upload_file'),
-			:if_permitted_to => [:new, :alchemy_admin_attachments]
-		}
-	]
+  :buttons => [
+    {
+      :icon => 'upload',
+      :url => alchemy.new_admin_attachment_path,
+      :overlay_options => {
+        :title => t('upload_file'),
+        :size => '540x550'
+      },
+      :title => t('upload_file'),
+      :class => 'icon_button',
+      :label => t('upload_file'),
+      :if_permitted_to => [:new, :alchemy_admin_attachments]
+    }
+  ]
 ) %>
 
 <%= render :partial => 'files_list' %>

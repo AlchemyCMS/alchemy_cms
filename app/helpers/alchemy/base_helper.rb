@@ -29,7 +29,7 @@ module Alchemy
     # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
     def warning(message, text = nil)
       logger.warn %(\n
-				++++ WARNING: #{message}! from: #{caller.first}\n
+      ++++ WARNING: #{message}! from: #{caller.first}\n
                   )
       unless text.nil?
         warning = content_tag('p', :class => 'content_editor_error') do

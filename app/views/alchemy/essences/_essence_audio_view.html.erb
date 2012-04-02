@@ -14,20 +14,20 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 //<!--[CDATA[
-	var alchemy_audio_player_<%= content.id %> = new SWFObject("/mediaplayer.swf", "mediaplayer", <%= width %>, <%= height %>, "8");
-	alchemy_audio_player_<%= content.id %>.addVariable("width", <%= width %>);
-	alchemy_audio_player_<%= content.id %>.addVariable("height", <%= height %>);
-	alchemy_audio_player_<%= content.id %>.addVariable("backcolor", '<%= options[:player_backcolor] || "0xFFFFFF" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.essence.show_eq ? "true" : "false" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.essence.show_navigation ? "true" : "false" %>');
-	alchemy_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.attachment.public_filename %>');
-	<%- unless options[:player_cover_image].blank? -%>
-	alchemy_audio_player_<%= content.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
+  var alchemy_audio_player_<%= content.id %> = new SWFObject("/mediaplayer.swf", "mediaplayer", <%= width %>, <%= height %>, "8");
+  alchemy_audio_player_<%= content.id %>.addVariable("width", <%= width %>);
+  alchemy_audio_player_<%= content.id %>.addVariable("height", <%= height %>);
+  alchemy_audio_player_<%= content.id %>.addVariable("backcolor", '<%= options[:player_backcolor] || "0xFFFFFF" %>');
+  alchemy_audio_player_<%= content.id %>.addVariable("frontcolor", '<%= options[:player_frontcolor] || "0x000000" %>');
+  alchemy_audio_player_<%= content.id %>.addVariable("lightcolor", '<%= options[:player_lightcolor] || "0xEDEDED" %>');
+  alchemy_audio_player_<%= content.id %>.addVariable("screencolor", '<%= options[:player_screencolor] || "0x000000" %>');
+  alchemy_audio_player_<%= content.id %>.addVariable("showeq", '<%= content.essence.show_eq ? "true" : "false" %>');
+  alchemy_audio_player_<%= content.id %>.addVariable("shownavigation", '<%= content.essence.show_navigation ? "true" : "false" %>');
+  alchemy_audio_player_<%= content.id %>.addVariable("file", '<%= content.essence.attachment.public_filename %>');
+  <%- unless options[:player_cover_image].blank? -%>
+  alchemy_audio_player_<%= content.id %>.addVariable("image", '<%= "/" + options[:player_cover_image].file_name %>');
   <%- end -%>
-	alchemy_audio_player_<%= content.id %>.write("alchemy_audio_player_<%= content.id %>");
+  alchemy_audio_player_<%= content.id %>.write("alchemy_audio_player_<%= content.id %>");
 //]]-->
 </script>
 <%- end -%>

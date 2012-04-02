@@ -1,27 +1,27 @@
 <%- if @attachments.blank? && params[:query].nil? -%>
 <div class="info" id="no_files_notice">
-	<%= render_icon('info') %>
-	<%= t("no_files_in_archive") %>
+  <%= render_icon('info') %>
+  <%= t("no_files_in_archive") %>
 </div>
 <%- elsif @attachments.blank? -%>
 <div class="info">
-	<%= render_icon('info') %>
-	<%= t("no_search_results") %>
+  <%= render_icon('info') %>
+  <%= t("no_search_results") %>
 </div>
 <%- end -%>
 <table id="all_files" class="list">
-	<%- unless @attachments.blank? -%>
-	<tr>
-		<th class="icon"></th>
-		<th class="name"><%= Alchemy::Attachment.human_attribute_name('name') %></th>
-		<th class="file_name"><%= Alchemy::Attachment.human_attribute_name('filename') %></th>
-		<th class="file_type"><%= Alchemy::Attachment.human_attribute_name('content_type') %></th>
-		<th class="file_size"><%= Alchemy::Attachment.human_attribute_name('size') %></th>
-		<th class="date"><%= Alchemy::Attachment.human_attribute_name('created_at') %></th>
-		<th class="tools"></th>
-	</tr>
-	<%- end -%>
-	<%= render :partial => 'alchemy/admin/attachments/attachment', :collection => @attachments %>
+  <%- unless @attachments.blank? -%>
+  <tr>
+    <th class="icon"></th>
+    <th class="name"><%= Alchemy::Attachment.human_attribute_name('name') %></th>
+    <th class="file_name"><%= Alchemy::Attachment.human_attribute_name('filename') %></th>
+    <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('content_type') %></th>
+    <th class="file_size"><%= Alchemy::Attachment.human_attribute_name('size') %></th>
+    <th class="date"><%= Alchemy::Attachment.human_attribute_name('created_at') %></th>
+    <th class="tools"></th>
+  </tr>
+  <%- end -%>
+  <%= render :partial => 'alchemy/admin/attachments/attachment', :collection => @attachments %>
 </table>
 
 <%= paginate @attachments %>

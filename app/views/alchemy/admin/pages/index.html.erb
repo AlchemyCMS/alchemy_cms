@@ -3,16 +3,16 @@
 <label><%= t('Active Pages') %> &raquo;</label>
 <%- @locked_pages.each do |page| -%>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-	<%= link_to alchemy.edit_admin_page_path(page) do %>
-	<span class="page_name" title="<%= page.name %>">
-		<%= truncate page.name, :length => 15 %>
-	</span>
-	<% end %>
-	<%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-		<button class="icon_button small" title="<%= t('explain_unlocking') %>">
-			<%= render_icon('close small') %>
-		</button>
-	<% end %>
+  <%= link_to alchemy.edit_admin_page_path(page) do %>
+  <span class="page_name" title="<%= page.name %>">
+    <%= truncate page.name, :length => 15 %>
+  </span>
+  <% end %>
+  <%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
+    <button class="icon_button small" title="<%= t('explain_unlocking') %>">
+      <%= render_icon('close small') %>
+    </button>
+  <% end %>
 </div>
 <%- end -%>
 <%- end -%>
@@ -20,66 +20,66 @@
 
 <%- content_for :toolbar do -%>
 <div id="toolbar_buttons">
-	<%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
-	<%- permitted_to?(:flush, :alchemy_admin_pages) do -%>
-	<div class="button_with_label">
-		<%= link_to(
-			render_icon('flush'),
-			alchemy.flush_admin_pages_path,
-			:remote => true,
-			:method => :post,
-			:class => 'icon_button please_wait',
-			:title => t('Flush page cache')
-		) -%>
-		<label><%= t('Flush page cache') %></label>
-	</div>
-	<%- end -%>
-	<%- permitted_to?(:sort, :alchemy_admin_pages) do -%>
-	<div class="button_with_label" id="page_sorting_button">
-		<%= link_to(
-			render_icon('sort'),
-			alchemy.sort_admin_pages_path,
-			:complete => '',
-			:method => :get,
-			:remote => true,
-			:class => 'icon_button please_wait',
-			:title => t('Sort pages')
-		) -%>
-		<label><%= t('Sort pages') %></label>
-	</div>
-	<%- end -%>
-	<div class="button_with_label" id="clipboard_button">
-		<%= link_to_overlay_window(
-			render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-			alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
-			{
-				:title => t('Clipboard'),
-				:size => '380x270'
-			},
-			:class => 'icon_button',
-			:title => t('Show clipboard')
-		) -%>
-		<label><%= t('Show clipboard') %></label>
-	</div>
+  <%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
+  <%- permitted_to?(:flush, :alchemy_admin_pages) do -%>
+  <div class="button_with_label">
+    <%= link_to(
+      render_icon('flush'),
+      alchemy.flush_admin_pages_path,
+      :remote => true,
+      :method => :post,
+      :class => 'icon_button please_wait',
+      :title => t('Flush page cache')
+    ) -%>
+    <label><%= t('Flush page cache') %></label>
+  </div>
+  <%- end -%>
+  <%- permitted_to?(:sort, :alchemy_admin_pages) do -%>
+  <div class="button_with_label" id="page_sorting_button">
+    <%= link_to(
+      render_icon('sort'),
+      alchemy.sort_admin_pages_path,
+      :complete => '',
+      :method => :get,
+      :remote => true,
+      :class => 'icon_button please_wait',
+      :title => t('Sort pages')
+    ) -%>
+    <label><%= t('Sort pages') %></label>
+  </div>
+  <%- end -%>
+  <div class="button_with_label" id="clipboard_button">
+    <%= link_to_overlay_window(
+      render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
+      alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
+      {
+        :title => t('Clipboard'),
+        :size => '380x270'
+      },
+      :class => 'icon_button',
+      :title => t('Show clipboard')
+    ) -%>
+    <label><%= t('Show clipboard') %></label>
+  </div>
 </div>
 <%- end -%>
 
 <%- if @page_root -%>
 
 <h2 id="sitemap_heading">
-	<span class="page_name"><%= t('Name') %></span>
-	<span class="page_infos"><%= t('Status') %></span>
+  <span class="page_name"><%= t('Name') %></span>
+  <span class="page_infos"><%= t('Status') %></span>
 </h2>
 
 <div id="bottom_panel" style="display: none">
-	<div class="info">
-		<%= render_icon('info') %>
-		<%= t('explain_sitemap_dragndrop_sorting') %>
-	</div>
-	<div id="bottom_buttons">
-		<%= link_to( t('cancel'), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
-		<%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' ) %>
-	</div>
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= t('explain_sitemap_dragndrop_sorting') %>
+  </div>
+  <div id="bottom_buttons">
+    <%= link_to( t('cancel'), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
+    <%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' ) %>
+  </div>
 </div>
 
 <%= render :partial => 'sitemap' %>
@@ -89,11 +89,11 @@
 <%= render :partial => 'create_language_form' %>
 <% content_for(:javascripts) do %>
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$('#create_language_tree_form').dialog({modal: true, width: 360, close: function() {
-			$(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
-		}});
-	});
+  jQuery(document).ready(function($) {
+    $('#create_language_tree_form').dialog({modal: true, width: 360, close: function() {
+      $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
+    }});
+  });
 </script>
 <%- end -%>
 

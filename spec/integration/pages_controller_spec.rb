@@ -243,7 +243,7 @@ describe Alchemy::PagesController do
   describe "Handling of non-existing pages" do
 
     context "404-Errors are handled by Rails now, so no need to test anymore.
-						 However, it still serves as documentation how they can be handled, so we leave it here" do
+             However, it still serves as documentation how they can be handled, so we leave it here" do
 
       it "should render public/404.html when it exists"
       it "can be handled by matching /404 and routing it to a controller of choice when no public/404.html exists"

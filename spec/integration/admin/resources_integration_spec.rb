@@ -77,8 +77,8 @@ describe "Resources" do
   describe "destroying an item" do
     it "should'n be on the list anymore", :js => true do
       pending "Needs js, but doesn't work, neither with selenium nor webkit.
-								When trying to create an user inside the 'without-access-control'-block
-								it's saved but not found anymore when trying to login"
+               When trying to create an user inside the 'without-access-control'-block
+               it's saved but not found anymore when trying to login"
 
       Event.create!(:name => 'My second Event',
                     :starts_at => DateTime.new(2012, 03, 02, 8, 15),

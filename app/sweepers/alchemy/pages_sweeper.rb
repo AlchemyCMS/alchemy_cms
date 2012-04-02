@@ -39,10 +39,10 @@ module Alchemy
       return if page.do_not_sweep
       # TODO: We should change this back to expire_action after Rails 3.2 was released.
       # expire_action(
-      # 	alchemy.show_page_url(
-      # 		:urlname => page.urlname_was,
-      # 		:lang => multi_language? ? page.language_code : nil
-      # 	)
+      # alchemy.show_page_url(
+      #     :urlname => page.urlname_was,
+      #     :lang => multi_language? ? page.language_code : nil
+      #   )
       # )
       # Temporarily fix for Rails 3 bug
       return if alchemy.nil?

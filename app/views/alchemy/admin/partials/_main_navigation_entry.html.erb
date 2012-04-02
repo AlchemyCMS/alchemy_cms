@@ -1,14 +1,14 @@
 <%- permitted_to? *navigate_module(navigation) do -%>
 
 <%= link_to url_for_module(alchemy_module), :class => main_navigation_css_classes(navigation) do %>
-	<%- if navigation["image"] -%>
-	<%= image_tag(navigation["image"]) %>
-	<%- elsif navigation["icon"] -%>
-	<span class="module icon <%= navigation["icon"] %>"></span>
-	<%- else -%>
-	<span class="module icon"></span>
-	<%- end -%>
-	<label><%= truncate t(navigation["name"]), :length => 10 -%></label>
+  <%- if navigation["image"] -%>
+  <%= image_tag(navigation["image"]) %>
+  <%- elsif navigation["icon"] -%>
+  <span class="module icon <%= navigation["icon"] %>"></span>
+  <%- else -%>
+  <span class="module icon"></span>
+  <%- end -%>
+  <label><%= truncate t(navigation["name"]), :length => 10 -%></label>
 <% end %>
 
 <%- end -%>

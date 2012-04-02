@@ -1,67 +1,67 @@
 <div class="info">
-	<%= render_icon('info') %>
-	<p><%= t('explain_upload.intro', :name => item_type) %>:</p>
-	<ol>
-		<li><%= t('explain_upload.step1', :name => item_type) %></li>
-		<li><%= t('explain_upload.step2', :name => item_type) %>*</li>
-		<li id="explain_step3"><%= t('explain_upload.step3') %></li>
-		<li id="explain_drag_n_drop"><%= t('explain_upload.dragndrop', :name => item_type) %></li>
-	</ol>
-	<%- unless file_types.first == '*' -%>
-	<p><%= t('You may upload files with following extensions', :file_types_description => file_types_description, :file_types => file_types.to_sentence) %>.</p>
-	<%- end -%>
-	<small>*<%= t('explain_upload.footnote', :name => item_type) %></small>
+  <%= render_icon('info') %>
+  <p><%= t('explain_upload.intro', :name => item_type) %>:</p>
+  <ol>
+    <li><%= t('explain_upload.step1', :name => item_type) %></li>
+    <li><%= t('explain_upload.step2', :name => item_type) %>*</li>
+    <li id="explain_step3"><%= t('explain_upload.step3') %></li>
+    <li id="explain_drag_n_drop"><%= t('explain_upload.dragndrop', :name => item_type) %></li>
+  </ol>
+  <%- unless file_types.first == '*' -%>
+  <p><%= t('You may upload files with following extensions', :file_types_description => file_types_description, :file_types => file_types.to_sentence) %>.</p>
+  <%- end -%>
+  <small>*<%= t('explain_upload.footnote', :name => item_type) %></small>
 </div>
 
 <%= render 'alchemy/admin/partials/flash_upload' %>
 
 <div class="browse">
-	<input id="multiple" type="file" multiple value="<%= t('browse') %>">
-	<a href="#" class="button no-spinner" id="cancelHTML5Queue" style="display: none">
-		<%= t("swfupload.cancel_uploads") %>
-	</a>
+  <input id="multiple" type="file" multiple value="<%= t('browse') %>">
+  <a href="#" class="button no-spinner" id="cancelHTML5Queue" style="display: none">
+    <%= t("swfupload.cancel_uploads") %>
+  </a>
 </div>
 
 <div id="dropbox"><%= t('Or drag files over here') %></div>
 
 <div class="flash notice" style="display: none; margin: 8px 0" id="upload_info_container">
-	<%= render_icon('tick') %>
-	<span id="upload_info"></span>
+  <%= render_icon('tick') %>
+  <span id="upload_info"></span>
 </div>
 
 <div id="uploadProgressContainer"></div>
 
 <%- post_params = {
-	:while_assigning => @while_assigning ? "true" : "false",
-	:content_id => @content.blank? ? nil : @content.id,
-	:element_id => @element.blank? ? nil : @element.id,
-	:size => @size,
-	:options => @options.to_param
+  :while_assigning => @while_assigning ? "true" : "false",
+  :content_id => @content.blank? ? nil : @content.id,
+  :element_id => @element.blank? ? nil : @element.id,
+  :size => @size,
+  :options => @options.to_param
 }.delete_if { |k,v| v.nil? }.to_json -%>
 
 <script type='text/javascript'>
 
-	Alchemy.Uploader.init({
-		upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
-		post_params: <%= post_params.html_safe %>,
-		file_size_limit: <%= configuration(:uploader)[:file_size_limit] || 100 -%>,
-		file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
-		file_types_description: "<%= file_types_description %>",
-		file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
-		locale: "<%= ::I18n.locale || 'en' %>"
-	});
+  Alchemy.Uploader.init({
+    upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
+    post_params: <%= post_params.html_safe %>,
+    file_size_limit: <%= configuration(:uploader)[:file_size_limit] || 100 -%>,
+    file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
+    file_types_description: "<%= file_types_description %>",
+    file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
+    locale: "<%= ::I18n.locale || 'en' %>"
+  });
 
-	(function($) {
-		$('#uploadswitcher').click(function() {
-			$('#choose_alternative_uploader').hide();
-			$('#alternativeUpload').show();
-			$('#swf_upload_container').hide();
-		});
-		$('#switch_to_flash_uploader').click(function() {
-			$('#choose_alternative_uploader').show();
-			$('#alternativeUpload').hide();
-			$('#swf_upload_container').show();
-		});
-	})(jQuery);
+  (function($) {
+    $('#uploadswitcher').click(function() {
+      $('#choose_alternative_uploader').hide();
+      $('#alternativeUpload').show();
+      $('#swf_upload_container').hide();
+    });
+    $('#switch_to_flash_uploader').click(function() {
+      $('#choose_alternative_uploader').show();
+      $('#alternativeUpload').hide();
+      $('#swf_upload_container').show();
+    });
+  })(jQuery);
 
 </script>

@@ -1,30 +1,30 @@
 <%- if @languages.any? -%>
 <table class="list" id="languages_list">
-	<tr>
-		<th>
-			<%= Alchemy::Language.human_attribute_name(:name) %>
-		</th>
-		<th>
-			<%= Alchemy::Language.human_attribute_name(:language_code) %>
-		</th>
-		<th>
-			<%= Alchemy::Language.human_attribute_name(:country_code) %>
-		</th>
-		<th>
-			<%= Alchemy::Language.human_attribute_name(:frontpage_name) %>
-		</th>
-		<th>
-			<%= Alchemy::Language.human_attribute_name(:page_layout) %>
-		</th>
-		<th class="center">
-			<%= Alchemy::Language.human_attribute_name(:public) %>
-		</th>
-		<th class="center">
-			<%= Alchemy::Language.human_attribute_name(:default) %>
-		</th>
-		<th class="tools"></th>
-	</tr>
-	<%= render_resources %>
+  <tr>
+    <th>
+      <%= Alchemy::Language.human_attribute_name(:name) %>
+    </th>
+    <th>
+      <%= Alchemy::Language.human_attribute_name(:language_code) %>
+    </th>
+    <th>
+      <%= Alchemy::Language.human_attribute_name(:country_code) %>
+    </th>
+    <th>
+      <%= Alchemy::Language.human_attribute_name(:frontpage_name) %>
+    </th>
+    <th>
+      <%= Alchemy::Language.human_attribute_name(:page_layout) %>
+    </th>
+    <th class="center">
+      <%= Alchemy::Language.human_attribute_name(:public) %>
+    </th>
+    <th class="center">
+      <%= Alchemy::Language.human_attribute_name(:default) %>
+    </th>
+    <th class="tools"></th>
+  </tr>
+  <%= render_resources %>
 </table>
 <%- elsif params[:query] -%>
 <p><%= t('Nothing found') %></p>

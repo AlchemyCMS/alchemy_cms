@@ -1,26 +1,26 @@
 <%= form_for resource_instance_variable, :url => resource_path(resource_instance_variable), :remote => true do |f| %>
-	<div id="errors" style="display: none"></div>
-	<table>
-		<%- resource_handler.attributes.each do |attribute| -%>
-		<tr>
-			<%- if attribute[:type] == :boolean -%>
-			<td></td>
-			<td class="checkbox">
-				<%= f.send :check_box, attribute[:name] -%>
-				<%= f.send :label, attribute[:name] %>
-			</td>
-			<%- elsif attribute[:type] == :text -%>
-			<td class="input"><%= f.send :text_area, attribute[:name] -%></td>
-			<%- else -%>
-			<td class="label"><%= f.send :label, attribute[:name] %></td>
-			<td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border' -%></td>
-			<%- end -%>
-		</tr>
-		<%- end -%>
-		<tr>
-			<td class="submit" colspan="2">
-				<%= f.button t('save'), :class => 'button' %>
-			</td>
-		</tr>
-	</table>
+  <div id="errors" style="display: none"></div>
+  <table>
+    <%- resource_handler.attributes.each do |attribute| -%>
+    <tr>
+      <%- if attribute[:type] == :boolean -%>
+      <td></td>
+      <td class="checkbox">
+        <%= f.send :check_box, attribute[:name] -%>
+        <%= f.send :label, attribute[:name] %>
+      </td>
+      <%- elsif attribute[:type] == :text -%>
+      <td class="input"><%= f.send :text_area, attribute[:name] -%></td>
+      <%- else -%>
+      <td class="label"><%= f.send :label, attribute[:name] %></td>
+      <td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border' -%></td>
+      <%- end -%>
+    </tr>
+    <%- end -%>
+    <tr>
+      <td class="submit" colspan="2">
+        <%= f.button t('save'), :class => 'button' %>
+      </td>
+    </tr>
+  </table>
 <% end %>

@@ -1,34 +1,34 @@
 <div class="picture_thumbnail <%= @size %>" id="picture_<%= picture.id %>" name="<%= picture.name %>">
-	<%- permitted_to?(:destroy, :alchemy_admin_pictures) do -%>
-	<span class="picture_tool_delete">
-		<%= link_to_confirmation_window(
-			"",
-			t("confirm_to_delete_image_from_server"),
-			alchemy.admin_picture_path(
-				:id => picture,
-				:query => params[:query],
-				:page => params[:page],
-				:per_page => params[:per_page]
-			),
-			{
-				:title => t('Delete image')
-			}
-		) -%>
-	</span>
-	<%- end -%>
-	<div class="image_spinner spinner">
-		<%= image_tag("alchemy/image_loader.gif", :alt => '') %>
-	</div>
-	<%= link_to_function(
-		image_tag(
-			alchemy.thumbnail_path(:id => picture, :size => @size),
-			:alt => picture.name,
-			:title => t('zoom_image'),
-			:onload => "Alchemy.fadeImage(this, '#picture_#{picture.id} .image_spinner');",
-			:style => "display: none;"
-		),
-		"Alchemy.zoomImage('#{show_in_window_admin_picture_path(picture.id)}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})",
-		:class => 'thumbnail_background'
-	) %>
-	<span class="picture_name<%= ' rename' if permitted_to?(:edit, :alchemy_admin_pictures) -%>" title="<%= permitted_to?(:edit, :alchemy_admin_pictures) ? picture.name + ' (' + t('Click to rename') + ')' : picture.name %>" id="image_picture_<%= picture.id %>_name"><%= picture.name %></span>
+  <%- permitted_to?(:destroy, :alchemy_admin_pictures) do -%>
+  <span class="picture_tool_delete">
+    <%= link_to_confirmation_window(
+      "",
+      t("confirm_to_delete_image_from_server"),
+      alchemy.admin_picture_path(
+        :id => picture,
+        :query => params[:query],
+        :page => params[:page],
+        :per_page => params[:per_page]
+      ),
+      {
+        :title => t('Delete image')
+      }
+    ) -%>
+  </span>
+  <%- end -%>
+  <div class="image_spinner spinner">
+    <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
+  </div>
+  <%= link_to_function(
+    image_tag(
+      alchemy.thumbnail_path(:id => picture, :size => @size),
+      :alt => picture.name,
+      :title => t('zoom_image'),
+      :onload => "Alchemy.fadeImage(this, '#picture_#{picture.id} .image_spinner');",
+      :style => "display: none;"
+    ),
+    "Alchemy.zoomImage('#{show_in_window_admin_picture_path(picture.id)}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})",
+    :class => 'thumbnail_background'
+  ) %>
+  <span class="picture_name<%= ' rename' if permitted_to?(:edit, :alchemy_admin_pictures) -%>" title="<%= permitted_to?(:edit, :alchemy_admin_pictures) ? picture.name + ' (' + t('Click to rename') + ')' : picture.name %>" id="image_picture_<%= picture.id %>_name"><%= picture.name %></span>
 </div>

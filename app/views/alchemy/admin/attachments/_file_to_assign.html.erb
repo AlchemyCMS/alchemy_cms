@@ -1,20 +1,20 @@
 <%-
-	prefix = "<div class=\"assign_file_file_icon\">"
-	suffix = "</div><div class=\"assign_file_file_name\">#{file_to_assign.filename}</div>"
+  prefix = "<div class=\"assign_file_file_icon\">"
+  suffix = "</div><div class=\"assign_file_file_name\">#{file_to_assign.filename}</div>"
 -%>
 <%- img_tag = "#{prefix}#{render_icon(file_to_assign.icon_css_class)}#{suffix}".html_safe -%>
 <li class="assign_file_file <%= cycle('even', 'odd') %>" name="<%= file_to_assign.filename %>">
-	<%= link_to(
-		img_tag,
-		{
-			:controller => :essence_files,
-			:action => :assign,
-			:attachment_id => file_to_assign.id,
-			:id => @content.id,
-			:options => @options
-		},
-		:remote => true,
-		:method => 'put',
-		:title => file_to_assign.filename
-	) %>
+  <%= link_to(
+    img_tag,
+    {
+      :controller => :essence_files,
+      :action => :assign,
+      :attachment_id => file_to_assign.id,
+      :id => @content.id,
+      :options => @options
+    },
+    :remote => true,
+    :method => 'put',
+    :title => file_to_assign.filename
+  ) %>
 </li>

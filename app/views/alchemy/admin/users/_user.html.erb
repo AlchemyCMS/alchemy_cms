@@ -1,37 +1,37 @@
 <tr class="<%= cycle('even', 'odd') %>">
-	<td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" -%></td>
-	<td>
-		<%= render_icon(user.logged_in? ? 'online' : 'offline') %>
-	</td>
-	<td class="login"><%= user.login %></td>
-	<td class="name"><%= user.firstname -%></td>
-	<td><%= user.lastname -%></td>
-	<td class="email"><%= user.email %></td>
-	<td><%= t(user.language, :scope => 'translations') %></td>
-	<td class="role"><%= user.human_role_name %></td>
-	<td class="tools">
-		<%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
-		<%= link_to_confirmation_window(
-			'',
-			t("confirm_to_delete_user"),
-			alchemy.admin_user_path(user),
-			:title => t('delete_user'),
-			:class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
-		) -%>
-		<%- end -%>
-		<%- permitted_to?(:edit, :alchemy_admin_users) do -%>
-		<%= link_to_overlay_window(
-			'',
-			alchemy.edit_admin_user_path(user),
-			{
-				:title => t('edit_user'),
-				:overflow => true
-			},
-			{
-				:class => "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
-				:title => t('edit_user')
-			}
-		) -%>
-		<%- end -%>
-	</td>
+  <td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" -%></td>
+  <td>
+    <%= render_icon(user.logged_in? ? 'online' : 'offline') %>
+  </td>
+  <td class="login"><%= user.login %></td>
+  <td class="name"><%= user.firstname -%></td>
+  <td><%= user.lastname -%></td>
+  <td class="email"><%= user.email %></td>
+  <td><%= t(user.language, :scope => 'translations') %></td>
+  <td class="role"><%= user.human_role_name %></td>
+  <td class="tools">
+    <%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
+    <%= link_to_confirmation_window(
+      '',
+      t("confirm_to_delete_user"),
+      alchemy.admin_user_path(user),
+      :title => t('delete_user'),
+      :class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
+    ) -%>
+    <%- end -%>
+    <%- permitted_to?(:edit, :alchemy_admin_users) do -%>
+    <%= link_to_overlay_window(
+      '',
+      alchemy.edit_admin_user_path(user),
+      {
+        :title => t('edit_user'),
+        :overflow => true
+      },
+      {
+        :class => "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
+        :title => t('edit_user')
+      }
+    ) -%>
+    <%- end -%>
+  </td>
 </tr>

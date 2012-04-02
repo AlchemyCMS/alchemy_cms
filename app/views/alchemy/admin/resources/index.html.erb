@@ -1,20 +1,20 @@
 <%- label_title = t("Create #{resource_model_name}", :default => t('Create')) -%>
 
 <%- toolbar(
-	:buttons => [
-		{
-			:icon => 'create',
-			:label => label_title,
-			:url => new_resource_path,
-			:title => label_title,
-			:overlay_options => {
-				:title => label_title
-			},
-			:if_permitted_to => [:new, resource_permission_scope]
-		}
-	],
-	:search => true,
-	:search_url => resources_path
+  :buttons => [
+    {
+      :icon => 'create',
+      :label => label_title,
+      :url => new_resource_path,
+      :title => label_title,
+      :overlay_options => {
+        :title => label_title
+      },
+      :if_permitted_to => [:new, resource_permission_scope]
+    }
+  ],
+  :search => true,
+  :search_url => resources_path
 ) -%>
 
 <%= render 'table' %>

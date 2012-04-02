@@ -1,20 +1,20 @@
 <%- if resources_instance_variable.any? -%>
 <table class="list" id="<%= resource_handler.resources_name %>_list">
-	<tr>
-		<%- resource_handler.attributes.each do |attribute| -%>
-		<%- if attribute[:type] == :boolean -%>
-		<th class="center">
-		<%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
-		<th class="right">
-		<%- else -%>
-		<th>
-		<%- end -%>
-			<%= resource_handler.model.human_attribute_name(attribute[:name]) %>
-		</th>
-		<%- end -%>
-		<th class="tools"></th>
-	</tr>
-	<%= render_resources %>
+  <tr>
+    <%- resource_handler.attributes.each do |attribute| -%>
+    <%- if attribute[:type] == :boolean -%>
+    <th class="center">
+    <%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
+    <th class="right">
+    <%- else -%>
+    <th>
+    <%- end -%>
+      <%= resource_handler.model.human_attribute_name(attribute[:name]) %>
+    </th>
+    <%- end -%>
+    <th class="tools"></th>
+  </tr>
+  <%= render_resources %>
 </table>
 <%- elsif params[:query] -%>
 <p><%= t('Nothing found') %></p>
