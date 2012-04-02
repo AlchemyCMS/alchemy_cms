@@ -1,69 +1,69 @@
 @import "alchemy/defaults";
 
 a.button.small.cloned-button img {
-	display: inline-block;
-	float: none;
-	position: relative;
-	height: 16px;
-	width: 16px;
-	top: -1px;
+  display: inline-block;
+  float: none;
+  position: relative;
+  height: 16px;
+  width: 16px;
+  top: -1px;
 }
 
 a.button {
-	padding: 5px 8px;
-	text-decoration: none;
-	float: left;
-	line-height: 13px;
+  padding: 5px 8px;
+  text-decoration: none;
+  float: left;
+  line-height: 13px;
 }
 
 a.button.small {
-	height: 14px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border-radius: 10px;
-	-o-border-radius: 10px;
-	-ms-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+  height: 14px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 
 a.small.button.with_icon span.icon {
-	margin-top: -5px;
-	position: relative;
-	top: 3px;
-	left: -1px;
+  margin-top: -5px;
+  position: relative;
+  top: 3px;
+  left: -1px;
 }
 
 input.button,
 a.button,
 button.button {
-	@include button-styles;
-	@include disable-user-select;
+  @include button-styles;
+  @include disable-user-select;
 }
 
 #new_element button.button {
-	float: right;
+  float: right;
 }
 
 input.button {
-	padding-left: 8px;
-	padding-right: 8px;
-	padding-bottom: 2px;
-	height: 25px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  height: 25px;
 }
 
 button.button {
-	padding: 4px 8px;
+  padding: 4px 8px;
 }
 
 .button img {
-	margin: 2px 0 0 0;
-	width: 16px;
-	height: 16px;
+  margin: 2px 0 0 0;
+  width: 16px;
+  height: 16px;
 }
 
 #new_page_form tbody tr td.second_row .button {
-	float: right;
+  float: right;
 }
 
 input.button:hover,
@@ -72,14 +72,14 @@ a.button:hover,
 a.button:focus,
 button.button:hover,
 button.button:focus {
-	@include button-hover-styles;
+  @include button-hover-styles;
 }
 
 input.button:active,
 a.button:active {
-	text-decoration: none;
-	text-shadow: none;
-	background-color: #e5e5e5;
+  text-decoration: none;
+  text-shadow: none;
+  background-color: #e5e5e5;
 }
 
 a.button.cloned-button,
@@ -91,266 +91,265 @@ input.button.cloned-button:active,
 button.button.cloned-button,
 button.button.cloned-button:hover,
 button.button.cloned-button:active {
-	color: $text-color;
-	text-shadow: none;
-	border-color: #ccc;
-	cursor: default;
-	background-image: none;
-	background-color: #f5f5f5;
-	padding: 1px 0 0;
-	line-height: 15px;
+  color: $text-color;
+  text-shadow: none;
+  border-color: #ccc;
+  cursor: default;
+  background-image: none;
+  background-color: #f5f5f5;
+  padding: 1px 0 0;
+  line-height: 15px;
 }
 
 a.button.cloned-button,
 a.button.cloned-button:hover,
 a.button.cloned-button:active {
-	padding: 2px 0 !important;
-	line-height: 13px !important;
-	text-align: center;
+  padding: 2px 0 !important;
+  line-height: 13px !important;
+  text-align: center;
 }
 
 a.button.cloned-button img {
-	display: inline-block;
-	float: none;
+  display: inline-block;
+  float: none;
 }
 
-
 div.button_with_label {
-	text-align: center;
-	margin-right: 8px;
-	margin-left: 8px;
-	float: left;
-	min-width: 70px;
-	line-height: 0;
-	cursor: pointer;
-	
-	&.active {
-		.icon_button {
-			background-color: #cdd6db;
-			border-style: inset;
-			border-color: #bfbfbf;
-		}
-		label {
-			color: black;
-			text-shadow: white 0 0 2px;
-		}
-	} 
+  text-align: center;
+  margin-right: 8px;
+  margin-left: 8px;
+  float: left;
+  min-width: 70px;
+  line-height: 0;
+  cursor: pointer;
 
-	.disabledButton {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-	}
+  &.active {
+    .icon_button {
+      background-color: #cdd6db;
+      border-style: inset;
+      border-color: #bfbfbf;
+    }
+    label {
+      color: black;
+      text-shadow: white 0 0 2px;
+    }
+  }
 
-	a.icon_button {
-		float: none;
-		margin-right: auto;
-		margin-left: auto;
-		display: inline-block;
-		position: relative;
-	}
+  .disabledButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
 
-	&.disabled {
-		position: relative;
-		@include opacity(50);
-		cursor: default;
-		
-		a:hover, a:active {
-			cursor: default;
-			background-color: #f7f7f7;
-			border: 1px solid #9a9a9a;
-		}
-		
-		&:before {
-			content: '';
-			position: absolute;
-			z-index: 1;
-			width: 100%;
-			height: 100%;
-			background-color: transparent;
-			@include opacity(50);
-		}
-		
-		&:hover label {
-			color: $text-color;
-			cursor: default;
-		}
-		
-	}
-	
+  a.icon_button {
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+    display: inline-block;
+    position: relative;
+  }
+
+  &.disabled {
+    position: relative;
+    @include opacity(50);
+    cursor: default;
+
+    a:hover, a:active {
+      cursor: default;
+      background-color: #f7f7f7;
+      border: 1px solid #9a9a9a;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      @include opacity(50);
+    }
+
+    &:hover label {
+      color: $text-color;
+      cursor: default;
+    }
+
+  }
+
 }
 
 .icon_button.disabled span {
-	position: relative;
-	@include opacity(30);
-	cursor: default;
+  position: relative;
+  @include opacity(30);
+  cursor: default;
 }
 
 .icon_button.disabled:hover {
-	background-color: #f7f7f7;
-	border: 1px solid #9a9a9a;
-	cursor: default;
+  background-color: #f7f7f7;
+  border: 1px solid #9a9a9a;
+  cursor: default;
 }
 
 div#toolbar label, div#overlay_toolbar label {
-	font-size: 10px;
-	text-shadow: #fff 0 1px 2px;
-	margin-top: $default-margin;
-	display: block;
-	line-height: 13px;
-	@include disable-user-select;
+  font-size: 10px;
+  text-shadow: #fff 0 1px 2px;
+  margin-top: $default-margin;
+  display: block;
+  line-height: 13px;
+  @include disable-user-select;
 }
 
 div.button_with_label:hover label {
-	color: #000;
-	text-shadow: #fff 0 1px 4px;
+  color: #000;
+  text-shadow: #fff 0 1px 4px;
 }
 
 div.search_field span.icon,
 div.js_filter_field_box span.icon {
-	position: absolute;
-	left: 6px;
-	top: 4px;
+  position: absolute;
+  left: 6px;
+  top: 4px;
 }
 
 button.icon_button {
-	@include button-styles;
-	padding: $default-padding;
-	height: 25px;
-	line-height: 19px;
-	font-size: 0;
-	width: 25px;
-	position: relative;
-	
-	.icon {
-		position: static;
-	}
-	
-	img {
-		margin: 0;
-		border-style: none;
-		border-width: 0;
-	}
-	
-	&.small {
-		background: transparent;
-		padding: 0;
-		width: 17px;
-		height: 17px;
-		border: none;
-		line-height: 13px;
-		
-		.icon {
-			position: relative;
-			right: 1px;
-			top: 2px;
-		}
-		
-		&:hover {
-			background-color: #e6f0f5;
-			color: $dark-gray;
-			border: 1px solid #888;
-			text-shadow: 0 1px 4px #fff;
-			text-decoration: none;
-		}
-	}
-	
-	&:hover {
-		background-color: #e6f0f5;
-		color: $dark-gray;
-		border: 1px solid #888;
-		text-shadow: 0 1px 4px #fff;
-		text-decoration: none;
-	}
-	
-	&:active {
-		background-color: #cdd6db;
-	}
+  @include button-styles;
+  padding: $default-padding;
+  height: 25px;
+  line-height: 19px;
+  font-size: 0;
+  width: 25px;
+  position: relative;
+
+  .icon {
+    position: static;
+  }
+
+  img {
+    margin: 0;
+    border-style: none;
+    border-width: 0;
+  }
+
+  &.small {
+    background: transparent;
+    padding: 0;
+    width: 17px;
+    height: 17px;
+    border: none;
+    line-height: 13px;
+
+    .icon {
+      position: relative;
+      right: 1px;
+      top: 2px;
+    }
+
+    &:hover {
+      background-color: #e6f0f5;
+      color: $dark-gray;
+      border: 1px solid #888;
+      text-shadow: 0 1px 4px #fff;
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    background-color: #e6f0f5;
+    color: $dark-gray;
+    border: 1px solid #888;
+    text-shadow: 0 1px 4px #fff;
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: #cdd6db;
+  }
 }
 
 a.icon_button {
-	float: left;
-	width: 23px;
-	height: 23px;
-	background-color: #f7f7f7;
-	background-image: image-url('alchemy/shading.png');
-	background-repeat: repeat-x;
-	background-position: 0 -75px;
-	margin-right: 8px;
-	border: 1px solid #9a9a9a;
-	@include rounded-corner;
-	@include disable-user-select;
-	overflow: hidden;
-	position: relative;
-	
-	.icon {
-		position: absolute;
-		left: 4px;
-		top: 4px;
-	}
-	
-	.old_icon {
-		position: relative;
-		background-repeat: no-repeat;
-		width: 22px;
-		height: 20px;
-		display: inline-block;
-		top: -1px;
-		left: -1px;
-	}
-	
-	img {
-		position: absolute;
-		top: 2px;
-		left: 3px;
-	}
-	
-	&.small {
-		width: 11px;
-		height: 11px;
-		float: none;
-		display: inline-block;
-		background-position: 0 -8px;
-		vertical-align: -2px;
-		
-		.icon {
-			height: 9px;
-			left: auto;
-			position: absolute;
-			right: 1px;
-			top: 1px;
-			width: 9px;
-		}
-	}
-	
-	&.old_icon {
-		width: 20px;
-		height: 19px;
-		
-		img {
-			top: 0;
-			left: 1px;
-		}
-	}
-	
-	&:hover {
-		background-color: #e6f0f5;
-		color: $dark-gray;
-		border: 1px solid #888;
-		text-shadow: 0 1px 4px #fff;
-		text-decoration: none;
-	}
-	
-	&:active {
-		background-color: #cdd6db;
-		border-style: inset;
-		border-color: #bfbfbf;
-	}
+  float: left;
+  width: 23px;
+  height: 23px;
+  background-color: #f7f7f7;
+  background-image: image-url('alchemy/shading.png');
+  background-repeat: repeat-x;
+  background-position: 0 -75px;
+  margin-right: 8px;
+  border: 1px solid #9a9a9a;
+  @include rounded-corner;
+  @include disable-user-select;
+  overflow: hidden;
+  position: relative;
+
+  .icon {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+  }
+
+  .old_icon {
+    position: relative;
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 20px;
+    display: inline-block;
+    top: -1px;
+    left: -1px;
+  }
+
+  img {
+    position: absolute;
+    top: 2px;
+    left: 3px;
+  }
+
+  &.small {
+    width: 11px;
+    height: 11px;
+    float: none;
+    display: inline-block;
+    background-position: 0 -8px;
+    vertical-align: -2px;
+
+    .icon {
+      height: 9px;
+      left: auto;
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      width: 9px;
+    }
+  }
+
+  &.old_icon {
+    width: 20px;
+    height: 19px;
+
+    img {
+      top: 0;
+      left: 1px;
+    }
+  }
+
+  &:hover {
+    background-color: #e6f0f5;
+    color: $dark-gray;
+    border: 1px solid #888;
+    text-shadow: 0 1px 4px #fff;
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: #cdd6db;
+    border-style: inset;
+    border-color: #bfbfbf;
+  }
 }
 
 div.sitemap_right_tools .sitemap_sitetools a.icon_button {
-	margin-right: 4px;
+  margin-right: 4px;
 }

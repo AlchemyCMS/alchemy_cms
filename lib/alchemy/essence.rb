@@ -5,13 +5,13 @@ module Alchemy #:nodoc:
     def self.included(base)
       base.extend(ClassMethods)
     end
-    
+
     # Delivers various methods we need for Essences in Alchemy.
     # To turn a model into an essence call acts_as_essence inside your model and you will get:
     #   * validations
     #   * several getters (ie: page, element, content, ingredient, preview_text)
     module ClassMethods
-      
+
       # Configuration options are:
       #
       # * +ingredient_column+ - specifies the column name you use for storing the content in the database (default: +body+)
@@ -24,13 +24,13 @@ module Alchemy #:nodoc:
         ingredient_column = configuration[:ingredient_column].blank? ? 'body' : configuration[:ingredient_column]
         preview_text_column = configuration[:preview_text_column].blank? ? ingredient_column : configuration[:preview_text_column]
         validate_column = configuration[:validate_column].blank? ? ingredient_column : configuration[:validate_column]
-        
+
         class_eval <<-EOV
           attr_accessor :validation_errors
           include Alchemy::Essence::InstanceMethods
           stampable
           validate :essence_validations, :on => :update
-					has_many :contents, :as => :essence
+          has_many :contents, :as => :essence
           
           def acts_as_essence_class
             #{self.name}
@@ -58,11 +58,11 @@ module Alchemy #:nodoc:
           
         EOV
       end
-      
+
     end
-    
+
     module InstanceMethods
-      
+
       # Essence Validations:
       # 
       # Essence validations can be set inside the config/elements.yml file.
@@ -94,62 +94,64 @@ module Alchemy #:nodoc:
       #       validate: [format]
       #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
       # 
-			def essence_validations
+      def essence_validations
         self.validation_errors ||= []
-				return true if description.blank? || description['validate'].blank?
-				description['validate'].each do |validation|
-					if validation == 'presence' && ingredient.blank?
-						self.validation_errors << :blank
-					elsif validation == 'format'
-						if description['validate_format_as'].blank? && !description['validate_format_with'].blank?
-							matcher = Regexp.new(description['validate_format_with'])
-						elsif !description['validate_format_as'].blank? && description['validate_format_with'].blank?
-							case description['validate_format_as']
-							when 'email'
-								then matcher = Authlogic::Regex.email
-							when 'url'
-								then matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
-							else
-								raise "No validation format matcher found for #{description['validate_format_as']}"
-							end
-						else
-							raise 'No validation format matcher given'
-						end
-						if ingredient.match(matcher).nil?
-							self.validation_errors << :invalid
-						end
-					elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
-						self.validation_errors << :taken
-					end
-				end
+        return true if description.blank? || description['validate'].blank?
+        description['validate'].each do |validation|
+          if validation == 'presence' && ingredient.blank?
+            self.validation_errors << :blank
+          elsif validation == 'format'
+            if description['validate_format_as'].blank? && !description['validate_format_with'].blank?
+              matcher = Regexp.new(description['validate_format_with'])
+            elsif !description['validate_format_as'].blank? && description['validate_format_with'].blank?
+              case description['validate_format_as']
+              when 'email'
+              then
+                matcher = Authlogic::Regex.email
+              when 'url'
+              then
+                matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+              else
+                raise "No validation format matcher found for #{description['validate_format_as']}"
+              end
+            else
+              raise 'No validation format matcher given'
+            end
+            if ingredient.match(matcher).nil?
+              self.validation_errors << :invalid
+            end
+          elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
+            self.validation_errors << :taken
+          end
+        end
         self.validation_errors.each do |validation_error|
           self.errors.add(self.ingredient_column, validation_error)
         end
-			end
+      end
 
       # Essence description from config/elements.yml
       def description
         return {} if element.nil? or element.content_descriptions.nil?
         element.content_descriptions.detect { |c| c['name'] == self.content.name }
       end
-      
+
       # Returns the Content Essence is in
       def content
         Alchemy::Content.find_by_essence_type_and_essence_id(acts_as_essence_class.to_s, self.id)
       end
-      
+
       # Returns the Element Essence is in
       def element
         return nil if content.nil?
         content.element
       end
-      
+
       # Returns the Page Essence is on
       def page
         return nil if element.nil?
         element.page
       end
-      
+
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.
       def preview_text(maxlength = 30)
         if preview_text_method.blank?
@@ -159,17 +161,17 @@ module Alchemy #:nodoc:
           ingredient.send(preview_text_method).to_s[0..maxlength]
         end
       end
-      
+
       def open_link_in_new_window?
         respond_to?(:link_target) && link_target == 'blank'
       end
-      
-			def partial_name
-				self.class.name.split('::').last.underscore
-			end
+
+      def partial_name
+        self.class.name.split('::').last.underscore
+      end
 
     end
-    
+
   end
 end
 ActiveRecord::Base.class_eval { include Alchemy::Essence } if defined?(Alchemy::Essence)

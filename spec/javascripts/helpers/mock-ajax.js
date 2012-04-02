@@ -50,39 +50,39 @@ function clearAjaxRequests() {
 function FakeXMLHttpRequest() {
   var extend = Object.extend || $.extend;
   extend(this, {
-    requestHeaders: {},
+    requestHeaders:{},
 
-    open: function() {
+    open:function () {
       this.method = arguments[0];
       this.url = arguments[1];
       this.readyState = 1;
     },
 
-    setRequestHeader: function(header, value) {
+    setRequestHeader:function (header, value) {
       this.requestHeaders[header] = value;
     },
 
-    abort: function() {
+    abort:function () {
       this.readyState = 0;
     },
 
-    readyState: 0,
+    readyState:0,
 
-    onreadystatechange: function(isTimeout) {
+    onreadystatechange:function (isTimeout) {
     },
 
-    status: null,
+    status:null,
 
-    send: function(data) {
+    send:function (data) {
       this.params = data;
       this.readyState = 2;
     },
 
-    getResponseHeader: function(name) {
+    getResponseHeader:function (name) {
       return this.responseHeaders[name];
     },
 
-    getAllResponseHeaders: function() {
+    getAllResponseHeaders:function () {
       var responseHeaders = [];
       for (var i in this.responseHeaders) {
         if (this.responseHeaders.hasOwnProperty(i)) {
@@ -92,20 +92,20 @@ function FakeXMLHttpRequest() {
       return responseHeaders.join('\r\n');
     },
 
-    responseText: null,
+    responseText:null,
 
-    response: function(response) {
+    response:function (response) {
       this.status = response.status;
       this.responseText = response.responseText || "";
       this.readyState = 4;
       this.responseHeaders = response.responseHeaders ||
-      {"Content-type": response.contentType || "application/json" };
+      {"Content-type":response.contentType || "application/json" };
       // uncomment for jquery 1.3.x support
       // jasmine.Clock.tick(20);
 
       this.onreadystatechange();
     },
-    responseTimeout: function() {
+    responseTimeout:function () {
       this.readyState = 4;
       jasmine.Clock.tick(jQuery.ajaxSettings.timeout || 30000);
       this.onreadystatechange('timeout');
@@ -118,17 +118,17 @@ function FakeXMLHttpRequest() {
 
 jasmine.Ajax = {
 
-  isInstalled: function() {
+  isInstalled:function () {
     return jasmine.Ajax.installed == true;
   },
 
-  assertInstalled: function() {
+  assertInstalled:function () {
     if (!jasmine.Ajax.isInstalled()) {
       throw new Error("Mock ajax is not installed, use jasmine.Ajax.useMock()")
     }
   },
 
-  useMock: function() {
+  useMock:function () {
     if (!jasmine.Ajax.isInstalled()) {
       var spec = jasmine.getEnv().currentSpec;
       spec.after(jasmine.Ajax.uninstallMock);
@@ -137,7 +137,7 @@ jasmine.Ajax = {
     }
   },
 
-  installMock: function() {
+  installMock:function () {
     if (typeof jQuery != 'undefined') {
       jasmine.Ajax.installJquery();
     } else if (typeof Prototype != 'undefined') {
@@ -148,21 +148,21 @@ jasmine.Ajax = {
     jasmine.Ajax.installed = true;
   },
 
-  installJquery: function() {
+  installJquery:function () {
     jasmine.Ajax.mode = 'jQuery';
     jasmine.Ajax.real = jQuery.ajaxSettings.xhr;
     jQuery.ajaxSettings.xhr = jasmine.Ajax.jQueryMock;
 
   },
 
-  installPrototype: function() {
+  installPrototype:function () {
     jasmine.Ajax.mode = 'Prototype';
     jasmine.Ajax.real = Ajax.getTransport;
 
     Ajax.getTransport = jasmine.Ajax.prototypeMock;
   },
 
-  uninstallMock: function() {
+  uninstallMock:function () {
     jasmine.Ajax.assertInstalled();
     if (jasmine.Ajax.mode == 'jQuery') {
       jQuery.ajaxSettings.xhr = jasmine.Ajax.real;
@@ -172,36 +172,36 @@ jasmine.Ajax = {
     jasmine.Ajax.reset();
   },
 
-  reset: function() {
+  reset:function () {
     jasmine.Ajax.installed = false;
     jasmine.Ajax.mode = null;
     jasmine.Ajax.real = null;
   },
 
-  jQueryMock: function() {
+  jQueryMock:function () {
     var newXhr = new FakeXMLHttpRequest();
     ajaxRequests.push(newXhr);
     return newXhr;
   },
 
-  prototypeMock: function() {
+  prototypeMock:function () {
     return new FakeXMLHttpRequest();
   },
 
-  installed: false,
-  mode: null
+  installed:false,
+  mode:null
 }
 
 
 // Jasmine-Ajax Glue code for Prototype.js
 if (typeof Prototype != 'undefined' && Ajax && Ajax.Request) {
   Ajax.Request.prototype.originalRequest = Ajax.Request.prototype.request;
-  Ajax.Request.prototype.request = function(url) {
+  Ajax.Request.prototype.request = function (url) {
     this.originalRequest(url);
     ajaxRequests.push(this);
   };
 
-  Ajax.Request.prototype.response = function(responseOptions) {
+  Ajax.Request.prototype.response = function (responseOptions) {
     return this.transport.response(responseOptions);
   };
 }

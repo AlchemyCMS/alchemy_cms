@@ -8,7 +8,7 @@ class Hash
   def add_key_for_checkboxes name
     self[name.to_s] = [] if self.stringify_keys[name.to_s].nil?
   end
-  
+
   def stringify
     inject({}) do |options, (key, value)|
       if value.is_a?(Hash) || value.is_a?(Array)
@@ -19,7 +19,7 @@ class Hash
       options
     end
   end
-  
+
   def stringify!
     each do |key, value|
       delete(key)
@@ -30,5 +30,5 @@ class Hash
       end
     end
   end
-  
+
 end

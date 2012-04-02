@@ -19,25 +19,25 @@ $default-font-style: $default-font-size $default-font-face;
 $default-border: 1px solid #AFAFAF;
 
 @mixin button-styles {
-	margin: 0;
-	font: 11px $default-font-face;
-	border: 1px solid $button-border-color;
-	background-color: $button-bg-color;
-	background-image: image-url('alchemy/shading.png');
-	background-repeat: repeat-x;
-	background-position: 0 -73px;
-	cursor: pointer;
-	color: $text-color;
-	text-shadow: $button-text-shadow;
-	@include rounded-corner;
+  margin: 0;
+  font: 11px $default-font-face;
+  border: 1px solid $button-border-color;
+  background-color: $button-bg-color;
+  background-image: image-url('alchemy/shading.png');
+  background-repeat: repeat-x;
+  background-position: 0 -73px;
+  cursor: pointer;
+  color: $text-color;
+  text-shadow: $button-text-shadow;
+  @include rounded-corner;
 }
 
 @mixin button-hover-styles {
-	text-decoration: none;
-	text-shadow: none;
-	border: 1px solid $button-hover-border-color;
-	background: $button-hover-bg-color image-url('alchemy/shading.png') repeat-x 50% -75px;
-	font-weight: normal;
+  text-decoration: none;
+  text-shadow: none;
+  border: 1px solid $button-hover-border-color;
+  background: $button-hover-bg-color image-url('alchemy/shading.png') repeat-x 50% -75px;
+  font-weight: normal;
 }
 
 @mixin rounded-corner {
@@ -59,97 +59,97 @@ $default-border: 1px solid #AFAFAF;
 }
 
 @mixin top-rounded-border {
-	$sidea: top-left;
-	$sideb: top-right;
-	$radius: 3px;
-	border-#{$sidea}-radius: $radius;
-	border-#{$sideb}-radius: $radius;
-	-o-border-#{$sidea}-radius: $radius;
-	-o-border-#{$sideb}-radius: $radius;
-	-ms-border-#{$sidea}-radius: $radius;
-	-ms-border-#{$sideb}-radius: $radius;
-	-moz-border-radius-#{$sidea}: $radius;
-	-moz-border-radius-#{$sideb}: $radius;
-	-webkit-border-#{$sidea}-radius: $radius;
-	-webkit-border-#{$sideb}-radius: $radius;
+  $sidea: top-left;
+  $sideb: top-right;
+  $radius: 3px;
+  border- #{$sidea} -radius: $radius;
+  border- #{$sideb} -radius: $radius;
+  -o-border- #{$sidea} -radius: $radius;
+  -o-border- #{$sideb} -radius: $radius;
+  -ms-border- #{$sidea} -radius: $radius;
+  -ms-border- #{$sideb} -radius: $radius;
+  -moz-border-radius- #{$sidea}: $radius;
+  -moz-border-radius- #{$sideb}: $radius;
+  -webkit-border- #{$sidea} -radius: $radius;
+  -webkit-border- #{$sideb} -radius: $radius;
 }
 
 @mixin left-rounded-border {
-	$sidea: bottom-left;
-	$sideb: top-left;
-	$radius: 3px;
-	border-#{$sidea}-radius: $radius;
-	border-#{$sideb}-radius: $radius;
-	-o-border-#{$sidea}-radius: $radius;
-	-o-border-#{$sideb}-radius: $radius;
-	-ms-border-#{$sidea}-radius: $radius;
-	-ms-border-#{$sideb}-radius: $radius;
-	-moz-border-radius-#{$sidea}: $radius;
-	-moz-border-radius-#{$sideb}: $radius;
-	-webkit-border-#{$sidea}-radius: $radius;
-	-webkit-border-#{$sideb}-radius: $radius;
+  $sidea: bottom-left;
+  $sideb: top-left;
+  $radius: 3px;
+  border- #{$sidea} -radius: $radius;
+  border- #{$sideb} -radius: $radius;
+  -o-border- #{$sidea} -radius: $radius;
+  -o-border- #{$sideb} -radius: $radius;
+  -ms-border- #{$sidea} -radius: $radius;
+  -ms-border- #{$sideb} -radius: $radius;
+  -moz-border-radius- #{$sidea}: $radius;
+  -moz-border-radius- #{$sideb}: $radius;
+  -webkit-border- #{$sidea} -radius: $radius;
+  -webkit-border- #{$sideb} -radius: $radius;
 }
 
 @mixin right-rounded-border {
-	$sidea: bottom-right;
-	$sideb: top-right;
-	$radius: 3px;
-	border-#{$sidea}-radius: $radius;
-	border-#{$sideb}-radius: $radius;
-	-o-border-#{$sidea}-radius: $radius;
-	-o-border-#{$sideb}-radius: $radius;
-	-ms-border-#{$sidea}-radius: $radius;
-	-ms-border-#{$sideb}-radius: $radius;
-	-moz-border-radius-#{$sidea}: $radius;
-	-moz-border-radius-#{$sideb}: $radius;
-	-webkit-border-#{$sidea}-radius: $radius;
-	-webkit-border-#{$sideb}-radius: $radius;
+  $sidea: bottom-right;
+  $sideb: top-right;
+  $radius: 3px;
+  border- #{$sidea} -radius: $radius;
+  border- #{$sideb} -radius: $radius;
+  -o-border- #{$sidea} -radius: $radius;
+  -o-border- #{$sideb} -radius: $radius;
+  -ms-border- #{$sidea} -radius: $radius;
+  -ms-border- #{$sideb} -radius: $radius;
+  -moz-border-radius- #{$sidea}: $radius;
+  -moz-border-radius- #{$sideb}: $radius;
+  -webkit-border- #{$sidea} -radius: $radius;
+  -webkit-border- #{$sideb} -radius: $radius;
 }
 
 @mixin bottom-rounded-border {
-	$sidea: bottom-left;
-	$sideb: bottom-right;
-	$radius: 3px;
-	border-#{$sidea}-radius: $radius;
-	border-#{$sideb}-radius: $radius;
-	-o-border-#{$sidea}-radius: $radius;
-	-o-border-#{$sideb}-radius: $radius;
-	-ms-border-#{$sidea}-radius: $radius;
-	-ms-border-#{$sideb}-radius: $radius;
-	-moz-border-radius-#{$sidea}: $radius;
-	-moz-border-radius-#{$sideb}: $radius;
-	-webkit-border-#{$sidea}-radius: $radius;
-	-webkit-border-#{$sideb}-radius: $radius;
+  $sidea: bottom-left;
+  $sideb: bottom-right;
+  $radius: 3px;
+  border- #{$sidea} -radius: $radius;
+  border- #{$sideb} -radius: $radius;
+  -o-border- #{$sidea} -radius: $radius;
+  -o-border- #{$sideb} -radius: $radius;
+  -ms-border- #{$sidea} -radius: $radius;
+  -ms-border- #{$sideb} -radius: $radius;
+  -moz-border-radius- #{$sidea}: $radius;
+  -moz-border-radius- #{$sideb}: $radius;
+  -webkit-border- #{$sidea} -radius: $radius;
+  -webkit-border- #{$sideb} -radius: $radius;
 }
 
 @mixin bottom-left-rounded-border {
-	$side: bottom-left;
-	$radius: 3px;
-	border-#{$side}-radius: $radius;
-	-o-border-#{$side}-radius: $radius;
-	-ms-border-#{$side}-radius: $radius;
-	-moz-border-radius-#{$side}: $radius;
-	-webkit-border-#{$side}-radius: $radius;
+  $side: bottom-left;
+  $radius: 3px;
+  border- #{$side} -radius: $radius;
+  -o-border- #{$side} -radius: $radius;
+  -ms-border- #{$side} -radius: $radius;
+  -moz-border-radius- #{$side}: $radius;
+  -webkit-border- #{$side} -radius: $radius;
 }
 
 @mixin rounded-search-field {
-	$radius: 12px;
-	border-radius: $radius;
-	-o-border-radius: $radius;
-	-ms-border-radius: $radius;
-	-moz-border-radius: $radius;
-	-webkit-border-radius: $radius;
+  $radius: 12px;
+  border-radius: $radius;
+  -o-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
 }
 
-@mixin opacity($opacity) {
-	opacity: $opacity/100;
-	filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity})");
+@mixin opacity($opacity){
+  opacity: $opacity/100;
+  filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity})");
 }
 
 @mixin disable-user-select {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }

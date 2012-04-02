@@ -7,7 +7,7 @@ class ChangeOpenLinkInNewWindowToLinkTarget < ActiveRecord::Migration
     change_column_default :essence_pictures, :link_target, nil
     change_column_default :essence_texts, :link_target, nil
   end
-  
+
   def self.down
     change_column_default :essence_texts, :link_target, 0
     change_column_default :essence_pictures, :link_target, 0

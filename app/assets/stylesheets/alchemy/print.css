@@ -9,26 +9,26 @@ div#corner,
 div#flash_notices,
 div.pagination span,
 div.pagination a {
-	display: none;
+  display: none;
 }
 
 div#archive_all {
-	padding: 0;
+  padding: 0;
 }
 
 span.icon.true:before {
-	content: 'x';
+  content: 'x';
 }
 
 div.pagination {
-	text-align: right;
+  text-align: right;
 }
 
 div.pagination em.current {
-	border: none;
-	text-shadow: none;
+  border: none;
+  text-shadow: none;
 }
 
 div.pagination em:before {
-	content: 'Page ';
+  content: 'Page ';
 }

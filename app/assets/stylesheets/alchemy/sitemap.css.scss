@@ -1,54 +1,54 @@
 @import "alchemy/defaults";
 
 div#bottom_panel {
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	z-index: 10;
-	background: $medium-gray image-url('alchemy/shading.png') repeat-x 0 0;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10;
+  background: $medium-gray image-url('alchemy/shading.png') repeat-x 0 0;
 }
 
 div#bottom_panel div.info {
-	margin: 16px 16px 8px 81px;
-	width: 720px;
+  margin: 16px 16px 8px 81px;
+  width: 720px;
 }
 
 div#bottom_buttons {
-	padding: 0 16px 16px;
-	margin-left: 65px;
+  padding: 0 16px 16px;
+  margin-left: 65px;
 }
 
 .sitemap_pagename_link {
-	background-color: #FFFFFF;
-	color: black;
-	display: block;
-	padding-left: 4px;
-	text-decoration: none;
+  background-color: #FFFFFF;
+  color: black;
+  display: block;
+  padding-left: 4px;
+  text-decoration: none;
 }
 
 .sitemap_pagename_link.inactive {
-	color: #656565;
+  color: #656565;
 }
 
 .redirect_url {
-	position: absolute;
-	top: 4px;
-	right: 184px;
-	text-align: right;
-	background-color: #fff0c4;
-	line-height: 22px;
-	padding-right: 4px;
-	font-size: 10px;
-	padding-left: 4px;
+  position: absolute;
+  top: 4px;
+  right: 184px;
+  text-align: right;
+  background-color: #fff0c4;
+  line-height: 22px;
+  padding-right: 4px;
+  font-size: 10px;
+  padding-left: 4px;
 }
 
 .sitemap_pagename_link.odd {
-	background-color: #fff;
+  background-color: #fff;
 }
 
 a.sitemap_pagename_link:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 div#page_selector_container a.sitemap_pagename_link:hover {
@@ -56,13 +56,13 @@ div#page_selector_container a.sitemap_pagename_link:hover {
 }
 
 a.sitemap_pagename_link:hover:after {
-	content: '';
-	width: 16px;
-	height: 16px;
-	float: left;
-	margin-right: 4px;
-	background: image-url('alchemy/icons.png') -160px -168px;
-	margin-top: 4px;
+  content: '';
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 4px;
+  background: image-url('alchemy/icons.png') -160px -168px;
+  margin-top: 4px;
 }
 
 div#page_selector_container a.sitemap_pagename_link:hover:after {
@@ -70,109 +70,109 @@ div#page_selector_container a.sitemap_pagename_link:hover:after {
 }
 
 .sitemap_line_spacer {
-	float: left;
-	width: 20px;
-	height: 28px;
+  float: left;
+  width: 20px;
+  height: 28px;
 }
 
 ul#layoutpages li {
-	padding: 0;
+  padding: 0;
 }
 
 div.sitemap_page {
-	height: 22px;
-	padding-bottom: 4px;
-	padding-top: 4px;
-	position: relative;
+  height: 22px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  position: relative;
 }
 
 div.sitemap_page:hover a.sitemap_pagename_link {
-	background-color: #fdffdf;
+  background-color: #fdffdf;
 }
 
 div.sitemap_left_images {
-	margin-top: 3px;
-	float: left;
-	margin-right: 8px;
-	background-color: $light-gray;
+  margin-top: 3px;
+  float: left;
+  margin-right: 8px;
+  background-color: $light-gray;
 }
 
 div.sitemap_right_tools {
-	height: 22px;
-	background-color: $light-gray;
-	padding-left: 16px;
-	float: right;
-	width: 100px;
+  height: 22px;
+  background-color: $light-gray;
+  padding-left: 16px;
+  float: right;
+  width: 100px;
 }
 
 div#page_selector_container div.sitemap_right_tools {
-	width: 24px;
+  width: 24px;
 }
 
 ul#sitemap {
 
-	li.legend {
+  li.legend {
 
-		span.right {
-			margin-right: 52px;
+    span.right {
+      margin-right: 52px;
 
-			span.page_move {
-				display: inline-block;
-				width: 74px;
-				text-align: center;
-			}
-		}
-	}
+      span.page_move {
+        display: inline-block;
+        width: 74px;
+        text-align: center;
+      }
+    }
+  }
 
-	a.page_folder {
-		background-image: image-url('alchemy/gui/toggle.png');
-		background-repeat: no-repeat;
-		height: 9px;
-		width: 9px;
-		font-size: 0;
-		float: left;
-		margin-left: -18px;
-		margin-top: 3px;
+  a.page_folder {
+    background-image: image-url('alchemy/gui/toggle.png');
+    background-repeat: no-repeat;
+    height: 9px;
+    width: 9px;
+    font-size: 0;
+    float: left;
+    margin-left: -18px;
+    margin-top: 3px;
 
-		&.collapsed {
-			background-position: 0 0;
-		}
+    &.collapsed {
+      background-position: 0 0;
+    }
 
-		&.folded {
-			background-position: -9px 0;
-		}
-	}
+    &.folded {
+      background-position: -9px 0;
+    }
+  }
 
-	ul {
-		margin: 0;
-		padding: 0;
-		display: block;
-	}
+  ul {
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
 
-	li {
-		padding-left: 0;
+  li {
+    padding-left: 0;
 
-		li {
-			padding-left: 22px;
-			padding-right: 0;
-		}
-	}
+    li {
+      padding-left: 22px;
+      padding-right: 0;
+    }
+  }
 }
 
 ul#sitemap li,
 ul#layoutpages li {
-	list-style-type: none;
-	display: block;
-	margin-left: 0;
-	margin-bottom: 0;
-	line-height: 22px;
+  list-style-type: none;
+  display: block;
+  margin-left: 0;
+  margin-bottom: 0;
+  line-height: 22px;
 }
 
 ul#sitemap li .sitemap_toolrow,
 ul.list li .sitemap_toolrow {
-	margin: 0;
-	overflow: auto;
-	padding: 4px 0;
+  margin: 0;
+  overflow: auto;
+  padding: 4px 0;
 }
 
 ul#sitemap .sitemap_sitename,
@@ -194,135 +194,135 @@ div.page_infos {
 }
 
 .page_status {
-	width: 16px;
-	height: 16px;
-	background-repeat: no-repeat;
-	float: left;
-	margin: 2px 2px 0 4px;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  float: left;
+  margin: 2px 2px 0 4px;
 }
 
 #sub_navigation span.page_status_and_name span.page_status {
-	float: none;
-	display: inline-block;
-	position: relative;
-	top: 1px;
-	margin-left: 2px;
+  float: none;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  margin-left: 2px;
 }
 
 span.page_status.restricted {
-	background: image-url('alchemy/icons.png') -258px -39px;
+  background: image-url('alchemy/icons.png') -258px -39px;
 }
 
 span.page_status.not_restricted {
-	background: image-url('alchemy/icons.png') -290px -39px;
-	@include opacity(30);
+  background: image-url('alchemy/icons.png') -290px -39px;
+  @include opacity(30);
 }
 
 span.page_status.visible {
-	background: image-url('alchemy/icons.png') -128px -39px;
+  background: image-url('alchemy/icons.png') -128px -39px;
 }
 
 span.page_status.not_visible {
-	background: image-url('alchemy/icons.png') -160px -39px;
-	@include opacity(30);
+  background: image-url('alchemy/icons.png') -160px -39px;
+  @include opacity(30);
 }
 
 span.page_status.public {
-	background: image-url('alchemy/icons.png') -192px -39px;
+  background: image-url('alchemy/icons.png') -192px -39px;
 }
 
 span.page_status.not_public {
-	background: image-url('alchemy/icons.png') -224px -39px;
-	@include opacity(30);
+  background: image-url('alchemy/icons.png') -224px -39px;
+  @include opacity(30);
 }
 
 .site_status {
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: image-url('alchemy/icons.png') no-repeat 0 -40px;
+  float: left;
+  width: 16px;
+  height: 16px;
+  background: image-url('alchemy/icons.png') no-repeat 0 -40px;
 }
 
 .locked .site_status {
-	background-position: -32px -40px;
+  background-position: -32px -40px;
 }
 
 #sub_navigation span.page_status_and_name span.site_status {
-	float: none;
-	display: inline-block;
-	margin-right: 4px;
-	margin-left: 0;
-	margin-bottom: 0;
+  float: none;
+  display: inline-block;
+  margin-right: 4px;
+  margin-left: 0;
+  margin-bottom: 0;
 }
 
 #sitemap img.link_arrow {
-	float: right;
-	text-align: right;
+  float: right;
+  text-align: right;
 }
 
 ul#sitemap li img {
-	border-width: 0;
-	border-style: none;
-	float: left;
+  border-width: 0;
+  border-style: none;
+  float: left;
 }
 
 .sitemap_sitestatus {
-	float: right;
-	margin-top: 4px;
+  float: right;
+  margin-top: 4px;
 }
 
 a.folder_link {
-	text-decoration: none;
-	outline: none;
+  text-decoration: none;
+  outline: none;
 }
 
 .sitemap_sitetools {
-	padding: 0;
-	float: left;
-	width: 70px;
-	margin-left: 8px;
+  padding: 0;
+  float: left;
+  width: 70px;
+  margin-left: 8px;
 }
 
 .sitemap_right_tools a {
-	float: left;
-	width: 21px;
-	height: 21px;
+  float: left;
+  width: 21px;
+  height: 21px;
 }
 
 .sitemap_sitetools .icon.blank {
-	margin-left: 2px;
-	float: left;
-	margin-top: 3px;
-	margin-right: 3px;
+  margin-left: 2px;
+  float: left;
+  margin-top: 3px;
+  margin-right: 3px;
 }
 
 .sitemap_right_tools span.icon {
-	margin-top: 3px;
-	margin-left: 2px;
+  margin-top: 3px;
+  margin-left: 2px;
 }
 
 #create_language_tree_form {
-	width: 360px;
+  width: 360px;
 
-	&.ui-dialog-content div.info {
-		margin: 2*$default-padding;
-		margin-bottom: 0;
-	}
+  &.ui-dialog-content div.info {
+    margin: 2*$default-padding;
+    margin-bottom: 0;
+  }
 }
 
 h2#sitemap_heading {
-	padding: 0;
+  padding: 0;
 
-	span.page_infos {
-		margin-right: 144px;
-		width: 40px;
-		text-align: center;
-		float: right;
-		line-height: 28px;
-	}
+  span.page_infos {
+    margin-right: 144px;
+    width: 40px;
+    text-align: center;
+    float: right;
+    line-height: 28px;
+  }
 
-	span.page_name {
-	    line-height: 28px;
-	    margin-left: 24px;
-	}
+  span.page_name {
+    line-height: 28px;
+    margin-left: 24px;
+  }
 }

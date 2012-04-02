@@ -1,5 +1,5 @@
 namespace :ferret do
-  
+
   desc "Updates the ferret index for the application."
   task :rebuild_index => :environment do
     puts "Rebuilding Ferret Index for EssenceText"
@@ -8,5 +8,5 @@ namespace :ferret do
     Alchemy::EssenceRichtext.rebuild_index
     puts "Completed Ferret Index Rebuild"
   end
-  
+
 end

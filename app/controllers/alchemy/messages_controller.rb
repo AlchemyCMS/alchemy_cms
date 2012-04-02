@@ -38,76 +38,76 @@
 # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
 
 module Alchemy
-	class MessagesController < Alchemy::BaseController
+  class MessagesController < Alchemy::BaseController
 
-		before_filter :get_page, :except => :create
+    before_filter :get_page, :except => :create
 
-		helper 'alchemy/pages'
+    helper 'alchemy/pages'
 
-		def index#:nodoc:
-			redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
-		end
+    def index #:nodoc:
+      redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
+    end
 
-		def new#:nodoc:
-			@message = Message.new
-			render :template => 'alchemy/pages/show', :layout => layout_for_page
-		end
+    def new #:nodoc:
+      @message = Message.new
+      render :template => 'alchemy/pages/show', :layout => layout_for_page
+    end
 
-		def create#:nodoc:
-			@message = Message.new(params[:message])
-			@message.ip = request.remote_ip
-			@element = Element.find_by_id(@message.contact_form_id)
-			@page = @element.page
-			@root_page = @page.get_language_root
-			if @message.valid?
-				Messages.contact_form_mail(@message, mail_to, mail_from, subject).deliver
-				redirect_to_success_page
-			else
-				render :template => 'alchemy/pages/show', :layout => layout_for_page
-			end
-		end
+    def create #:nodoc:
+      @message = Message.new(params[:message])
+      @message.ip = request.remote_ip
+      @element = Element.find_by_id(@message.contact_form_id)
+      @page = @element.page
+      @root_page = @page.get_language_root
+      if @message.valid?
+        Messages.contact_form_mail(@message, mail_to, mail_from, subject).deliver
+        redirect_to_success_page
+      else
+        render :template => 'alchemy/pages/show', :layout => layout_for_page
+      end
+    end
 
-	private
+    private
 
-		def mailer_config
-			Alchemy::Config.get(:mailer)
-		end
+    def mailer_config
+      Alchemy::Config.get(:mailer)
+    end
 
-		def mail_to
-			@element.ingredient("mail_to")
-		rescue
-			mailer_config[:mail_to]
-		end
+    def mail_to
+      @element.ingredient("mail_to")
+    rescue
+      mailer_config[:mail_to]
+    end
 
-		def mail_from
-			@element.ingredient("mail_from")
-		rescue
-			mailer_config[:mail_from]
-		end
+    def mail_from
+      @element.ingredient("mail_from")
+    rescue
+      mailer_config[:mail_from]
+    end
 
-		def subject
-			@element.ingredient("subject")
-		rescue
-			mailer_config[:subject]
-		end
+    def subject
+      @element.ingredient("subject")
+    rescue
+      mailer_config[:subject]
+    end
 
-		def redirect_to_success_page
-			if @element.ingredient("success_page")
-				urlname = @element.ingredient("success_page")
-			elsif mailer_config[:forward_to_page] && mailer_config[:mail_success_page]
-				urlname = Page.find_by_urlname(mailer_config[:mail_success_page]).urlname
-			else
-				flash[:notice] = t(:success, :scope => 'contactform.messages')
-				urlname = Page.language_root_for(session[:language_id]).urlname
-			end
-			redirect_to show_page_path(:urlname => urlname, :lang => multi_language? ? session[:language_code] : nil)
-		end
+    def redirect_to_success_page
+      if @element.ingredient("success_page")
+        urlname = @element.ingredient("success_page")
+      elsif mailer_config[:forward_to_page] && mailer_config[:mail_success_page]
+        urlname = Page.find_by_urlname(mailer_config[:mail_success_page]).urlname
+      else
+        flash[:notice] = t(:success, :scope => 'contactform.messages')
+        urlname = Page.language_root_for(session[:language_id]).urlname
+      end
+      redirect_to show_page_path(:urlname => urlname, :lang => multi_language? ? session[:language_code] : nil)
+    end
 
-		def get_page
-			@page = Page.find_by_page_layout_and_language_id(mailer_config[:page_layout_name], session[:language_id])
-			raise "Page for page_layout #{mailer_config[:page_layout_name]} not found" if @page.blank?
-			@root_page = @page.get_language_root
-		end
+    def get_page
+      @page = Page.find_by_page_layout_and_language_id(mailer_config[:page_layout_name], session[:language_id])
+      raise "Page for page_layout #{mailer_config[:page_layout_name]} not found" if @page.blank?
+      @root_page = @page.get_language_root
+    end
 
-	end
+  end
 end

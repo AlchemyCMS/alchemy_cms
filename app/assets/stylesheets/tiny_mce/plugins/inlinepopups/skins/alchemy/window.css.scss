@@ -3,172 +3,173 @@
 /* Reset */
 
 .alchemy, .alchemy div, .alchemy span, .alchemy a {
-	vertical-align: baseline;
-	text-align: left;
-	position: absolute;
-	border: 0;
-	padding: 0;
-	margin: 0;
-	font: $default-font-style;
-	color: $text-color;
-	text-decoration: none;
-	font-weight: normal;
-	width: auto;
-	height: auto;
-	overflow: hidden;
-	display: block;
-	background-color: transparent;
+  vertical-align: baseline;
+  text-align: left;
+  position: absolute;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: $default-font-style;
+  color: $text-color;
+  text-decoration: none;
+  font-weight: normal;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  display: block;
+  background-color: transparent;
 }
 
 /* General */
 
 .alchemy {
-	position: absolute;
-	direction: ltr;
-	border: $default-border;
-	@include rounded-corner;
+  position: absolute;
+  direction: ltr;
+  border: $default-border;
+  @include rounded-corner;
 }
 
 .alchemy .mceWrapper {
-	position: static;
+  position: static;
 }
 
 .mceEventBlocker {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%
 }
 
 .alchemy .mcePlaceHolder {
-	border: 1px solid #000;
-	background: #888;
-	top: 0;
-	left: 0;
-	@include opacity(50);
+  border: 1px solid #000;
+  background: #888;
+  top: 0;
+  left: 0;
+  @include opacity(50);
 }
 
 .alchemy_modalBlocker {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #f4f4f4;
-	@include opacity(50);
-	display: none
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+  @include opacity(50);
+  display: none
 }
 
 /* Top */
 
 .alchemy .mceTop, .alchemy .mceTop div {
-	top: 0;
-	width: 100%;
-	height: 31px;
+  top: 0;
+  width: 100%;
+  height: 31px;
 }
 
 .alchemy .mceTop .mceLeft {
-	width: 0px;
+  width: 0px;
 }
 
 .alchemy .mceTop .mceCenter,
 a.mceMove {
-	width: 100%;
-	height: 31px;
-	background: $light-blue;
-	color: $text-color;
+  width: 100%;
+  height: 31px;
+  background: $light-blue;
+  color: $text-color;
 }
 
 .alchemy .mceTop .mceRight {
-	right: 0;
-	width: 0px;
-	height: 32px;
+  right: 0;
+  width: 0px;
+  height: 32px;
 }
 
 .alchemy .mceTop span {
-	width: 100%;
-	text-align: left;
-	vertical-align: middle;
-	line-height: 31px;
-	font-weight: bold;
-	color: white;
-	padding-left: 12px;
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+  line-height: 31px;
+  font-weight: bold;
+  color: white;
+  padding-left: 12px;
 }
 
 /* Middle */
 
 .alchemy .mceMiddle, .alchemy .mceMiddle div {
-	top: 0
+  top: 0
 }
 
 .alchemy .mceMiddle {
-	width: 100%;
-	height: 100%;
-	/*clip: rect(23px auto auto auto)*/
+  width: 100%;
+  height: 100%;
+/*clip: rect(23px auto auto auto)*/
 }
 
 .alchemy .mceMiddle .mceLeft {
-	left: 0;
-	width: 0;
-	height: 100%;
-	background-color: white;
-	z-index: 1;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
 }
 
 .alchemy .mceMiddle span {
-	top: 31px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	background: #FFF
+  top: 31px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: #FFF
 }
 
 .alchemy .mceMiddle .mceRight {
-	right: 0;
-	width: 0px;
-	height: 100%;
-	background-color: white;
-	z-index: 1;
+  right: 0;
+  width: 0px;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
 }
 
 /* Bottom */
 
 .alchemy .mceBottom, .alchemy .mceBottom div {
-	height: 0}
+  height: 0
+}
 
 .alchemy .mceBottom {
-	left: 0;
-	bottom: 0;
-	width: 100%
+  left: 0;
+  bottom: 0;
+  width: 100%
 }
 
 .alchemy .mceBottom div {
-	top: 0
+  top: 0
 }
 
 .alchemy .mceBottom .mceLeft {
-	left: 0;
-	width: 0px;
+  left: 0;
+  width: 0px;
 }
 
 .alchemy .mceBottom .mceCenter {
-	width: 100%;
-	left: 0;
-	background-color: white;
+  width: 100%;
+  left: 0;
+  background-color: white;
 }
 
 .alchemy .mceBottom .mceRight {
-	right: 0;
-	width: 0px;
+  right: 0;
+  width: 0px;
 }
 
 .alchemy .mceBottom span {
-	display: none
+  display: none
 }
 
 .alchemy .mceStatusbar .mceBottom, .alchemy .mceStatusbar .mceBottom div {
-	height: 23px
+  height: 23px
 }
 
 .alchemy .mceStatusbar .mceBottom .mceLeft {
@@ -184,252 +185,252 @@ a.mceMove {
 }
 
 .alchemy .mceStatusbar .mceBottom span {
-	display: block;
-	left: 7px;
-	font: $default-font-style;
-	line-height: 23px
+  display: block;
+  left: 7px;
+  font: $default-font-style;
+  line-height: 23px
 }
 
 /* Actions */
 
 .alchemy a {
-	width: 29px;
-	height: 16px;
+  width: 29px;
+  height: 16px;
 }
 
 .alchemy .mceClose {
-	right: 8px;
-	background: image-url("alchemy/ui-icons_666666_256x240.png") -96px -128px;
-	width: 16px;
-	height: 16px;
-	top: 6px;
+  right: 8px;
+  background: image-url("alchemy/ui-icons_666666_256x240.png") -96px -128px;
+  width: 16px;
+  height: 16px;
+  top: 6px;
 
 }
 
 .alchemy .mceMin {
-	display: none;
-	right: 68px;
+  display: none;
+  right: 68px;
 }
 
 .alchemy .mceMed {
-	display: none;
-	right: 28px;
-	width: 16px;
-	height: 16px;
-	background: image-url("alchemy/ui-icons_666666_256x240.png") -49px -80px;
-	top: 6px;
+  display: none;
+  right: 28px;
+  width: 16px;
+  height: 16px;
+  background: image-url("alchemy/ui-icons_666666_256x240.png") -49px -80px;
+  top: 6px;
 }
 
 .alchemy .mceMax {
-	display: none;
-	right: 28px;
-	width: 16px;
-	height: 16px;
-	background: image-url("alchemy/ui-icons_666666_256x240.png") -32px -80px;
-	top: 6px;
+  display: none;
+  right: 28px;
+  width: 16px;
+  height: 16px;
+  background: image-url("alchemy/ui-icons_666666_256x240.png") -32px -80px;
+  top: 6px;
 }
 
 .alchemy .mceClose, .alchemy .mceMin, .alchemy .mceMed, .alchemy .mceMax {
-	&:hover {
-		border: 1px solid $button-hover-border-color;
-		@include rounded-corner;
-		background-color: $button-hover-bg-color;
-		color: $text-color;
-		font-weight: normal;
-	}
+  &:hover {
+    border: 1px solid $button-hover-border-color;
+    @include rounded-corner;
+    background-color: $button-hover-bg-color;
+    color: $text-color;
+    font-weight: normal;
+  }
 }
 
 .alchemy .mceClose {
-	&:hover {
-		background-position: -97px -129px;
-		right: 6px;
-	}
+  &:hover {
+    background-position: -97px -129px;
+    right: 6px;
+  }
 }
 
 .alchemy .mceMax {
-	&:hover {
-		background-position: -33px -81px;
-		right: 26px;
-	}
+  &:hover {
+    background-position: -33px -81px;
+    right: 26px;
+  }
 }
 
 .alchemy .mceMed {
-	&:hover {
-		background-position: -50px -81px;
-		right: 26px;
-	}
+  &:hover {
+    background-position: -50px -81px;
+    right: 26px;
+  }
 }
 
 .alchemy .mceMove {
-	display: none;
-	cursor: move;
-	height: 31px;
-	width: 100%;
+  display: none;
+  cursor: move;
+  height: 31px;
+  width: 100%;
 }
 
 .alchemy .mceMovable .mceMove {
-	display: block;
-	right: 0;
+  display: block;
+  right: 0;
 }
 
 /* Resize */
 
 .alchemy .mceResize {
-	top: auto;
-	left: auto;
-	display: none;
-	width: 4px;
-	height: 4px;
-	background: transparent no-repeat 0 -75px;
+  top: auto;
+  left: auto;
+  display: none;
+  width: 4px;
+  height: 4px;
+  background: transparent no-repeat 0 -75px;
 }
 
 .alchemy .mceResizable .mceResize {
-	display: block
+  display: block
 }
 
 .alchemy .mceResizable .mceMin, .alchemy .mceMax {
-	display: none
+  display: none
 }
 
 .alchemy .mceMinimizable .mceMin {
-	display: block
+  display: block
 }
 
 .alchemy .mceMaximizable .mceMax {
-	display: block
+  display: block
 }
 
 .alchemy .mceMaximized .mceMed {
-	display: block
+  display: block
 }
 
 .alchemy .mceMaximized .mceMax {
-	display: none
+  display: none
 }
 
 .alchemy a.mceResizeN {
-	top: 0;
-	left: 0;
-	width: 100%;
-	cursor: n-resize;
-	height: 4px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  cursor: n-resize;
+  height: 4px;
 }
 
 .alchemy a.mceResizeNW {
-	top: 0;
-	left: 0;
-	cursor: nw-resize
+  top: 0;
+  left: 0;
+  cursor: nw-resize
 }
 
 .alchemy a.mceResizeNE {
-	top: 0;
-	right: 0;
-	cursor: ne-resize
+  top: 0;
+  right: 0;
+  cursor: ne-resize
 }
 
 .alchemy a.mceResizeW {
-	top: 0;
-	left: 0;
-	height: 100%;
-	cursor: w-resize;
-	width: 4px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: w-resize;
+  width: 4px;
 }
 
 .alchemy a.mceResizeE {
-	top: 0;
-	right: 0;
-	height: 100%;
-	cursor: e-resize;
-	width: 4px;
+  top: 0;
+  right: 0;
+  height: 100%;
+  cursor: e-resize;
+  width: 4px;
 }
 
 .alchemy a.mceResizeS {
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	cursor: s-resize;
-	height: 4px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  cursor: s-resize;
+  height: 4px;
 }
 
 .alchemy a.mceResizeSW {
-	bottom: 0;
-	left: 0;
-	cursor: sw-resize
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize
 }
 
 .alchemy a.mceResizeSE {
-	bottom: 1px;
-	right: 1px;
-	cursor: se-resize;
-	background: image-url("alchemy/ui-icons_666666_256x240.png") no-repeat -80px -224px;
-	width: 14px;
-	height: 14px;
+  bottom: 1px;
+  right: 1px;
+  cursor: se-resize;
+  background: image-url("alchemy/ui-icons_666666_256x240.png") no-repeat -80px -224px;
+  width: 14px;
+  height: 14px;
 }
 
 /* Alert/Confirm */
 
 .alchemy .mceButton {
-	@include button-styles;
-	bottom: 10px;
-	width: 80px;
-	height: 25px;
-	line-height: 25px;
-	vertical-align: middle;
-	text-align: center;
-	outline: 0;
+  @include button-styles;
+  bottom: 10px;
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  vertical-align: middle;
+  text-align: center;
+  outline: 0;
 
-	&:hover {
-		@include button-hover-styles;
-	}
+  &:hover {
+    @include button-hover-styles;
+  }
 }
 
 .alchemy .mceMiddle .mceIcon {
-	left: 15px;
-	top: 35px;
-	width: 16px;
-	height: 16px;
+  left: 15px;
+  top: 35px;
+  width: 16px;
+  height: 16px;
 }
 
 .alchemy .mceAlert .mceMiddle span, .alchemy .mceConfirm .mceMiddle span {
-	background: transparent;
-	left: 8px;
-	top: 35px;
-	width: auto;
-	height: 50px;
-	text-align: center;
-	overflow: auto;
-	white-space: normal
+  background: transparent;
+  left: 8px;
+  top: 35px;
+  width: auto;
+  height: 50px;
+  text-align: center;
+  overflow: auto;
+  white-space: normal
 }
 
 .alchemy a:hover {
-	font-weight: normal;
+  font-weight: normal;
 }
 
 .alchemy .mceAlert .mceMiddle, .alchemy .mceConfirm .mceMiddle {
-	background: $light-gray;
+  background: $light-gray;
 }
 
 .alchemy .mceAlert .mceOk {
-	left: 50%;
-	top: auto;
-	margin-left: -40px
+  left: 50%;
+  top: auto;
+  margin-left: -40px
 }
 
 .alchemy .mceAlert .mceIcon {
-	background: image-url("alchemy/icons.png") 0 -88px;
+  background: image-url("alchemy/icons.png") 0 -88px;
 }
 
 .alchemy .mceConfirm .mceOk {
-	left: 50%;
-	top: auto;
-	margin-left: -90px
+  left: 50%;
+  top: auto;
+  margin-left: -90px
 }
 
 .alchemy .mceConfirm .mceCancel {
-	left: 50%;
-	top: auto
+  left: 50%;
+  top: auto
 }
 
 .alchemy .mceConfirm .mceIcon {
-	background: image-url("alchemy/icons.png") 0 -88px;
+  background: image-url("alchemy/icons.png") 0 -88px;
 }

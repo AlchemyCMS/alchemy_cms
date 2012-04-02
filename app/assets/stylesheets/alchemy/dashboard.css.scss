@@ -1,76 +1,76 @@
 @import "alchemy/defaults";
 
 #dashboard {
-	overflow: auto;
-	float: left;
-	padding: 8px;
-	width: 450px;
-	
-	h1 {
-		font-size: 2em;
-		margin-bottom: 0;
-		text-shadow: #fff 1px 1px 2px;
-	}
-	
-	h2 {
-		padding: 0;
-		margin-bottom: 2em;
-	}
-	
-	div.widget {
-		padding: 2*$default-padding;
-		margin: 16px 0;
-		background-color: $medium-gray;
-		border: $default-border;
-		@include rounded-corner;
-		
-		h2 {
-			padding-bottom: 0;
-			margin-bottom: 0;
-		}
-		
-		p {
-			margin: 4px 0;
-		}
-		
-		ul {
-			padding: 0;
-			list-style-type: none;
-			@include rounded-corner;
-			margin-right: -9px;
-			margin-left: -9px;
-			margin-bottom: -9px;
-			border: $default-border;
-			
-			li {
-				padding: 2*$default-padding;
-				margin-bottom: 0;
-				position: relative;
-				
-				form {
-					line-height: 10px;
-					position: absolute;
-					top: 2*$default-padding;
-					right: $default-padding;
-				}
-			}
-		} 
-	}
+  overflow: auto;
+  float: left;
+  padding: 8px;
+  width: 450px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 0;
+    text-shadow: #fff 1px 1px 2px;
+  }
+
+  h2 {
+    padding: 0;
+    margin-bottom: 2em;
+  }
+
+  div.widget {
+    padding: 2*$default-padding;
+    margin: 16px 0;
+    background-color: $medium-gray;
+    border: $default-border;
+    @include rounded-corner;
+
+    h2 {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    p {
+      margin: 4px 0;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+      @include rounded-corner;
+      margin-right: -9px;
+      margin-left: -9px;
+      margin-bottom: -9px;
+      border: $default-border;
+
+      li {
+        padding: 2*$default-padding;
+        margin-bottom: 0;
+        position: relative;
+
+        form {
+          line-height: 10px;
+          position: absolute;
+          top: 2*$default-padding;
+          right: $default-padding;
+        }
+      }
+    }
+  }
 }
 
 div#sideboard {
-	float: right;
-	width: 240px;
-	padding-right: 16px;
-	
-	div.sideboard_widget img {
-		margin-bottom: 16px;
-		float: none;
-	}
+  float: right;
+  width: 240px;
+  padding-right: 16px;
+
+  div.sideboard_widget img {
+    margin-bottom: 16px;
+    float: none;
+  }
 }
 
 div#license {
-	overflow: auto;
-	height: 24em;
-	background-color: white;
+  overflow: auto;
+  height: 24em;
+  background-color: white;
 }

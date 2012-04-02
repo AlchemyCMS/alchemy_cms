@@ -7,7 +7,7 @@ module ActionView
         end
       end
     end
-    
+
     class FormBuilder
       def button(label, options = {})
         @template.button(label, options)

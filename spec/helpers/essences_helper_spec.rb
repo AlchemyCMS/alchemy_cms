@@ -2,20 +2,20 @@ require 'spec_helper'
 
 describe Alchemy::EssencesHelper do
 
-	before(:each) do
-	  @element = Factory(:element)
-		@element.content_by_name('intro').essence.update_attributes(:body => 'hello!')
-	end
+  before(:each) do
+    @element = Factory(:element)
+    @element.content_by_name('intro').essence.update_attributes(:body => 'hello!')
+  end
 
-	it "should render an essence" do
-	  content = @element.content_by_name('intro')
+  it "should render an essence" do
+    content = @element.content_by_name('intro')
     render_essence(content).should match(/hello!/)
-	end
+  end
 
-	it "should render an essence view" do
-	  content = @element.content_by_name('intro')
+  it "should render an essence view" do
+    content = @element.content_by_name('intro')
     render_essence_view(content).should match(/hello!/)
-	end
+  end
 
   it "should render an essence view by name" do
     render_essence_view_by_name(@element, 'intro').should match(/hello!/)

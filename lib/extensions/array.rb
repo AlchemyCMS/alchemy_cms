@@ -1,5 +1,5 @@
 Array.class_eval do
-  
+
   def stringify
     map do |value|
       if value.is_a?(Hash) || value.is_a?(Array)
@@ -9,7 +9,7 @@ Array.class_eval do
       end
     end
   end
-  
+
   def stringify!
     a = []
     each do |value|
@@ -21,5 +21,5 @@ Array.class_eval do
     end
     replace(a)
   end
-  
+
 end

@@ -2,142 +2,142 @@ require 'spec_helper'
 
 describe Alchemy::PagesController do
 
-	render_views
+  render_views
 
-	before(:each) do
-		@default_language = Alchemy::Language.get_default
-		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
-	end
+  before(:each) do
+    @default_language = Alchemy::Language.get_default
+    @default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
+  end
 
-	context "requested for a page containing a feed" do
+  context "requested for a page containing a feed" do
 
-		before(:each) do
-			@page = Factory(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language)
-		end
+    before(:each) do
+      @page = Factory(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language)
+    end
 
-		it "should render a rss feed" do
-			get :show, :urlname => 'news', :format => :rss
-			response.content_type.should == 'application/rss+xml'
-		end
+    it "should render a rss feed" do
+      get :show, :urlname => 'news', :format => :rss
+      response.content_type.should == 'application/rss+xml'
+    end
 
-		it "should include content" do
-			@page.elements.first.content_by_name('news_headline').essence.update_attributes({:body => 'Peters Petshop'})
-			get :show, :urlname => 'news', :format => :rss
-			response.body.should match /Peters Petshop/
-		end
-	
-	end
+    it "should include content" do
+      @page.elements.first.content_by_name('news_headline').essence.update_attributes({:body => 'Peters Petshop'})
+      get :show, :urlname => 'news', :format => :rss
+      response.body.should match /Peters Petshop/
+    end
 
-	context "requested for a page that does not contain a feed" do
+  end
 
-		it "should render xml 404 error" do
-			get :show, :urlname => 'home', :format => :rss
-			response.status.should == 404
-		end
+  context "requested for a page that does not contain a feed" do
 
-	end
+    it "should render xml 404 error" do
+      get :show, :urlname => 'home', :format => :rss
+      response.status.should == 404
+    end
 
-	describe "Layout rendering" do
+  end
 
-		context "with param layout set to none" do
+  describe "Layout rendering" do
 
-			it "should not render a layout" do
-				get :show, :urlname => :home, :layout => false
-				response.body.should_not have_content('<head>')
-			end
+    context "with param layout set to none" do
 
-		end
+      it "should not render a layout" do
+        get :show, :urlname => :home, :layout => false
+        response.body.should_not have_content('<head>')
+      end
 
-		context "with param layout set to a custom layout" do
+    end
 
-			before do
-				@custom_layout = Rails.root.join('app/views/layouts', 'custom.html.erb')
-				File.open(@custom_layout, 'w') do |custom_layout|
-					custom_layout.puts "<html>I am a custom layout</html>"
-				end
-			end
+    context "with param layout set to a custom layout" do
 
-			it "should render the custom layout" do
-				get :show, :urlname => :home, :layout => 'custom'
-				response.body.should have_content('I am a custom layout')
-			end
+      before do
+        @custom_layout = Rails.root.join('app/views/layouts', 'custom.html.erb')
+        File.open(@custom_layout, 'w') do |custom_layout|
+          custom_layout.puts "<html>I am a custom layout</html>"
+        end
+      end
 
-			after do
-				FileUtils.rm(@custom_layout)
-			end
+      it "should render the custom layout" do
+        get :show, :urlname => :home, :layout => 'custom'
+        response.body.should have_content('I am a custom layout')
+      end
 
-		end
+      after do
+        FileUtils.rm(@custom_layout)
+      end
 
-		context "with application layout absent" do
+    end
 
-			it "should render pages layout" do
-				get :show, :urlname => :home
-				response.body.should_not have_content('I am the application layout')
-			end
+    context "with application layout absent" do
 
-		end
+      it "should render pages layout" do
+        get :show, :urlname => :home
+        response.body.should_not have_content('I am the application layout')
+      end
 
-		context "with application layout present" do
+    end
 
-			before do
-				@app_layout = Rails.root.join('app/views/layouts', 'application.html.erb')
-				File.open(@app_layout, 'w') do |app_layout|
-					app_layout.puts "<html>I am the application layout</html>"
-				end
-			end
+    context "with application layout present" do
 
-			it "should render application layout" do
-				get :show, :urlname => :home
-				response.body.should have_content('I am the application layout')
-			end
+      before do
+        @app_layout = Rails.root.join('app/views/layouts', 'application.html.erb')
+        File.open(@app_layout, 'w') do |app_layout|
+          app_layout.puts "<html>I am the application layout</html>"
+        end
+      end
 
-			after do
-				FileUtils.rm(@app_layout)
-			end
+      it "should render application layout" do
+        get :show, :urlname => :home
+        response.body.should have_content('I am the application layout')
+      end
 
-		end
+      after do
+        FileUtils.rm(@app_layout)
+      end
 
-	end
+    end
 
-	describe "url nesting" do
+  end
 
-		before(:each) do
-			@catalog = Factory(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
-			@products = Factory(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
-			@product = Factory(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
-			@product.elements.find_by_name('article').contents.essence_texts.first.essence.update_attribute(:body, 'screwdriver')
-			controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
-		end
+  describe "url nesting" do
 
-		context "with correct levelnames in params" do
+    before(:each) do
+      @catalog = Factory(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
+      @products = Factory(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
+      @product = Factory(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
+      @product.elements.find_by_name('article').contents.essence_texts.first.essence.update_attribute(:body, 'screwdriver')
+      controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
+    end
 
-			it "should show the requested page" do
-				get :show, {:level1 => 'catalog', :level2 => 'products', :urlname => 'screwdriver'}
-				response.status.should == 200
-				response.body.should have_content("screwdriver")
-			end
+    context "with correct levelnames in params" do
 
-		end
+      it "should show the requested page" do
+        get :show, {:level1 => 'catalog', :level2 => 'products', :urlname => 'screwdriver'}
+        response.status.should == 200
+        response.body.should have_content("screwdriver")
+      end
 
-		context "with incorrect levelnames in params" do
+    end
 
-			it "should raise a RoutingError that is in turn handled by rails (as 404 status)" do
-				expect {
-					get :show, {:level1 => 'catalog', :level2 => 'faqs', :urlname => 'screwdriver'}
-				}.to raise_error(ActionController::RoutingError)
-			end
+    context "with incorrect levelnames in params" do
 
-		end
+      it "should raise a RoutingError that is in turn handled by rails (as 404 status)" do
+        expect {
+          get :show, {:level1 => 'catalog', :level2 => 'faqs', :urlname => 'screwdriver'}
+        }.to raise_error(ActionController::RoutingError)
+      end
 
-	end
+    end
 
-	context "when a non-existent page is requested" do
-		it "should raise a RoutingError (that is handled by rails, see integration specs)" do
-			Factory(:admin_user) # otherwise we are redirected to create_user
-			expect {
-				get :show, {:urlname => 'doesntexist'}
-			}.to raise_error(ActionController::RoutingError)
-		end
-	end
+  end
+
+  context "when a non-existent page is requested" do
+    it "should raise a RoutingError (that is handled by rails, see integration specs)" do
+      Factory(:admin_user) # otherwise we are redirected to create_user
+      expect {
+        get :show, {:urlname => 'doesntexist'}
+      }.to raise_error(ActionController::RoutingError)
+    end
+  end
 
 end

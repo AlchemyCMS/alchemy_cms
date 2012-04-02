@@ -1,188 +1,189 @@
 @import "alchemy/defaults";
 
 table {
-	border-style: none;
-	border-spacing: 0 $default-padding;
-	padding: 0;
-	font-size: inherit;
-	width: 100%;
+  border-style: none;
+  border-spacing: 0 $default-padding;
+  padding: 0;
+  font-size: inherit;
+  width: 100%;
 
-	td, th {
-		padding: $default-padding;
-	}
+  td, th {
+    padding: $default-padding;
+  }
 
-	th {
-		text-align: left;
-		height: 22px;
-		vertical-align: top;
-	}
+  th {
+    text-align: left;
+    height: 22px;
+    vertical-align: top;
+  }
 }
 
 table tr td.tools {
-	width: 40px;
-	background-color: $light-gray;
-	white-space: nowrap;
-	@include disable-user-select;
+  width: 40px;
+  background-color: $light-gray;
+  white-space: nowrap;
+  @include disable-user-select;
 }
 
 td.input, td.label {
-	padding-top: 2px;
-	vertical-align: top;
+  padding-top: 2px;
+  vertical-align: top;
 }
 
 td.input, td.submit, td.select {
-	text-align: right;
-	padding-right: 0;
+  text-align: right;
+  padding-right: 0;
 }
 
 td.checkbox {
-	padding: 6px 4px;
+  padding: 6px 4px;
 }
 
 td.value {
-	text-align: right;
+  text-align: right;
 
-	p {
-		display: inline;
-		display: inline-block;
-		width: 214px;
-		text-align: left;
-		margin: 0;
-		line-height: 23px;
-	}
+  p {
+    display: inline;
+    display: inline-block;
+    width: 214px;
+    text-align: left;
+    margin: 0;
+    line-height: 23px;
+  }
 
-	&.long {
-		p {
-			width: 244px;
-		}
-	}
+  &.long {
+    p {
+      width: 244px;
+    }
+  }
 }
 
 td.label {
-	white-space: nowrap;
-	width: 80px;
-	padding: $default-padding 2*$default-padding 0 0;
-	line-height: 6*$default-padding;
+  white-space: nowrap;
+  width: 80px;
+  padding: $default-padding 2*$default-padding 0 0;
+  line-height: 6*$default-padding;
 }
 
 td.label.mandatory:after {
-	content: '*';
+  content: '*';
 }
 
 td.heading {
-	padding: $default-padding 0;
-	font-weight: bold;
-	text-decoration: underline;
+  padding: $default-padding 0;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 td.input input[type="checkbox"], td.input input[type="radio"] {
-	margin-top: 6px;
+  margin-top: 6px;
 }
 
 td.label.long {
-	width: 140px;
+  width: 140px;
 }
 
 td.label.very_long {
-	width: 230px;
+  width: 230px;
 }
 
 table tr td.tools a {
-	width: 19px;
-	height: 19px;
-	margin-right: 2px;
+  width: 19px;
+  height: 19px;
+  margin-right: 2px;
 }
 
 table tr td.tools.long {
-	width: 60px;
+  width: 60px;
 }
 
 table tr td.icon {
-	background-color: $light-gray;
-	width: 20px;
-	text-align: center;
+  background-color: $light-gray;
+  width: 20px;
+  text-align: center;
 }
 
 table.list tr:hover td {
-	background-color: #fffdef;
+  background-color: #fffdef;
 }
 
 td.file_type {
-	width: 130px;
-	white-space: nowrap;
+  width: 130px;
+  white-space: nowrap;
 }
 
 td.file_size {
-	width: 80px;
+  width: 80px;
 }
 
 td.date {
-	width: 150px;
+  width: 150px;
 }
 
 table td.right, table th.right {
-	text-align: right;
+  text-align: right;
 }
 
 table td.center, table th.center {
-	text-align: center;
+  text-align: center;
 }
 
 td.login {
-	width: 100px;
+  width: 100px;
 }
 
 td.email {
-	width: 270px;
+  width: 270px;
 }
 
 td.role {
-	width: 70px;
-	padding-right: 4px;
+  width: 70px;
+  padding-right: 4px;
 }
 
 table td.rights {
-	width: 60px;
+  width: 60px;
 }
+
 table.window_form {
-	width: 100%;
+  width: 100%;
 }
 
 th.login_status {
-	width: 16px;
+  width: 16px;
 }
 
 table tr.odd td {
-	background-color: #eaf3f9;
+  background-color: #eaf3f9;
 }
 
 table tr.even td {
-	background-color: white;
+  background-color: white;
 }
 
 td.label.middle {
-	padding-left: 2*$default-padding;
+  padding-left: 2*$default-padding;
 }
 
 th.icon, td.icon {
-	background: none;
-	display: table-cell;
+  background: none;
+  display: table-cell;
 }
 
 td.checkbox {
-	text-align: right;
-	white-space: nowrap;
+  text-align: right;
+  white-space: nowrap;
 
-	label {
-		display: inline;
-		display: inline-block;
-		text-align: left;
-		width: 194px;
-	}
+  label {
+    display: inline;
+    display: inline-block;
+    text-align: left;
+    width: 194px;
+  }
 
-	&.long {
-		label {
-			width: 224px;		
-		}
-	}
+  &.long {
+    label {
+      width: 224px;
+    }
+  }
 }
