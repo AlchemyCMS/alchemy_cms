@@ -62,74 +62,74 @@ $default-border: 1px solid #AFAFAF;
   $sidea: top-left;
   $sideb: top-right;
   $radius: 3px;
-  border- #{$sidea} -radius: $radius;
-  border- #{$sideb} -radius: $radius;
-  -o-border- #{$sidea} -radius: $radius;
-  -o-border- #{$sideb} -radius: $radius;
-  -ms-border- #{$sidea} -radius: $radius;
-  -ms-border- #{$sideb} -radius: $radius;
-  -moz-border-radius- #{$sidea}: $radius;
-  -moz-border-radius- #{$sideb}: $radius;
-  -webkit-border- #{$sidea} -radius: $radius;
-  -webkit-border- #{$sideb} -radius: $radius;
+  border-#{$sidea}-radius: $radius;
+  border-#{$sideb}-radius: $radius;
+  -o-border-#{$sidea}-radius: $radius;
+  -o-border-#{$sideb}-radius: $radius;
+  -ms-border-#{$sidea}-radius: $radius;
+  -ms-border-#{$sideb}-radius: $radius;
+  -moz-border-radius-#{$sidea}: $radius;
+  -moz-border-radius-#{$sideb}: $radius;
+  -webkit-border-#{$sidea}-radius: $radius;
+  -webkit-border-#{$sideb}-radius: $radius;
 }
 
 @mixin left-rounded-border {
   $sidea: bottom-left;
   $sideb: top-left;
   $radius: 3px;
-  border- #{$sidea} -radius: $radius;
-  border- #{$sideb} -radius: $radius;
-  -o-border- #{$sidea} -radius: $radius;
-  -o-border- #{$sideb} -radius: $radius;
-  -ms-border- #{$sidea} -radius: $radius;
-  -ms-border- #{$sideb} -radius: $radius;
-  -moz-border-radius- #{$sidea}: $radius;
-  -moz-border-radius- #{$sideb}: $radius;
-  -webkit-border- #{$sidea} -radius: $radius;
-  -webkit-border- #{$sideb} -radius: $radius;
+  border-#{$sidea}-radius: $radius;
+  border-#{$sideb}-radius: $radius;
+  -o-border-#{$sidea}-radius: $radius;
+  -o-border-#{$sideb}-radius: $radius;
+  -ms-border-#{$sidea}-radius: $radius;
+  -ms-border-#{$sideb}-radius: $radius;
+  -moz-border-radius-#{$sidea}: $radius;
+  -moz-border-radius-#{$sideb}: $radius;
+  -webkit-border-#{$sidea}-radius: $radius;
+  -webkit-border-#{$sideb}-radius: $radius;
 }
 
 @mixin right-rounded-border {
   $sidea: bottom-right;
   $sideb: top-right;
   $radius: 3px;
-  border- #{$sidea} -radius: $radius;
-  border- #{$sideb} -radius: $radius;
-  -o-border- #{$sidea} -radius: $radius;
-  -o-border- #{$sideb} -radius: $radius;
-  -ms-border- #{$sidea} -radius: $radius;
-  -ms-border- #{$sideb} -radius: $radius;
-  -moz-border-radius- #{$sidea}: $radius;
-  -moz-border-radius- #{$sideb}: $radius;
-  -webkit-border- #{$sidea} -radius: $radius;
-  -webkit-border- #{$sideb} -radius: $radius;
+  border-#{$sidea}-radius: $radius;
+  border-#{$sideb}-radius: $radius;
+  -o-border-#{$sidea}-radius: $radius;
+  -o-border-#{$sideb}-radius: $radius;
+  -ms-border-#{$sidea}-radius: $radius;
+  -ms-border-#{$sideb}-radius: $radius;
+  -moz-border-radius-#{$sidea}: $radius;
+  -moz-border-radius-#{$sideb}: $radius;
+  -webkit-border-#{$sidea}-radius: $radius;
+  -webkit-border-#{$sideb}-radius: $radius;
 }
 
 @mixin bottom-rounded-border {
   $sidea: bottom-left;
   $sideb: bottom-right;
   $radius: 3px;
-  border- #{$sidea} -radius: $radius;
-  border- #{$sideb} -radius: $radius;
-  -o-border- #{$sidea} -radius: $radius;
-  -o-border- #{$sideb} -radius: $radius;
-  -ms-border- #{$sidea} -radius: $radius;
-  -ms-border- #{$sideb} -radius: $radius;
-  -moz-border-radius- #{$sidea}: $radius;
-  -moz-border-radius- #{$sideb}: $radius;
-  -webkit-border- #{$sidea} -radius: $radius;
-  -webkit-border- #{$sideb} -radius: $radius;
+  border-#{$sidea}-radius: $radius;
+  border-#{$sideb}-radius: $radius;
+  -o-border-#{$sidea}-radius: $radius;
+  -o-border-#{$sideb}-radius: $radius;
+  -ms-border-#{$sidea}-radius: $radius;
+  -ms-border-#{$sideb}-radius: $radius;
+  -moz-border-radius-#{$sidea}: $radius;
+  -moz-border-radius-#{$sideb}: $radius;
+  -webkit-border-#{$sidea}-radius: $radius;
+  -webkit-border-#{$sideb}-radius: $radius;
 }
 
 @mixin bottom-left-rounded-border {
   $side: bottom-left;
   $radius: 3px;
-  border- #{$side} -radius: $radius;
-  -o-border- #{$side} -radius: $radius;
-  -ms-border- #{$side} -radius: $radius;
-  -moz-border-radius- #{$side}: $radius;
-  -webkit-border- #{$side} -radius: $radius;
+  border-#{$side}-radius: $radius;
+  -o-border-#{$side}-radius: $radius;
+  -ms-border-#{$side}-radius: $radius;
+  -moz-border-radius-#{$side}: $radius;
+  -webkit-border-#{$side}-radius: $radius;
 }
 
 @mixin rounded-search-field {

@@ -1,5 +1,5 @@
 /*
- *= require_self
+*= require_self
 */
 
 @import "alchemy/defaults";
@@ -23,11 +23,11 @@
 @mixin bottom-right-rounded-border {
   $side: bottom-right;
   $radius: 3px;
-  -webkit-border- #{$side} -radius: $radius;
-  -moz-border-radius- #{$side}: $radius;
-  -ms-border- #{$side} -radius: $radius;
-  -o-border- #{$side} -radius: $radius;
-  border- #{$side} -radius: $radius;
+  -webkit-border-#{$side}-radius: $radius;
+  -moz-border-radius-#{$side}: $radius;
+  -ms-border-#{$side}-radius: $radius;
+  -o-border-#{$side}-radius: $radius;
+  border-#{$side}-radius: $radius;
 }
 
 @mixin box-shadow {
