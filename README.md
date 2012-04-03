@@ -103,7 +103,7 @@ Tipps
 
 3. You can easily create your element files (for view and editor) depending on the `elements.yml` with this generator:
 
-        rails generate elements
+        rails generate alchemy:elements --skip
 
 Resources
 ---------
