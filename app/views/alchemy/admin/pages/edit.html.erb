@@ -1,3 +1,5 @@
+<% content_for(:title) { @page.name } -%>
+
 <%- content_for(:subnav_additions) do -%>
   <label><%= t('Active Pages') %> &raquo;</label>
   <%- @locked_pages.each do |page| -%>
