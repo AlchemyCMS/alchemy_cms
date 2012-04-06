@@ -123,9 +123,9 @@ module Alchemy
       return if element_descriptions.blank?
       element_scratch = element_descriptions.select { |m| m["name"] == attributes['name'].split('#').first }.first
       element = Element.new(
-        element_scratch.except('contents', 'available_contents', 'display_name').merge({
-                                                                                         :page_id => attributes['page_id']
-                                                                                       })
+        element_scratch.except('contents', 'available_contents', 'display_name', 'amount').merge({
+          :page_id => attributes['page_id']
+        })
       )
       element
     end
@@ -178,18 +178,23 @@ module Alchemy
       elements_for_layout = []
       elements_for_layout += all_definitions_for(page_layout['elements'])
       return [] if elements_for_layout.blank?
-      # all unique elements from this layout
-      unique_elements = elements_for_layout.select { |m| m["unique"] == true }
+      # all unique and limited elements from this layout
+      limited_elements = elements_for_layout.select{ |m| m["unique"] == true || (m["amount"] > 0 unless m["amount"].nil?) }
       elements_already_on_the_page = page.elements
-      # delete all elements from the elements that could be placed that are unique and already and the page
-      unique_elements.each do |unique_element|
-        elements_already_on_the_page.each do |already_placed_element|
-          if already_placed_element.name == unique_element["name"]
-            elements_for_layout.delete(unique_element)
-          end
+      # delete all elements from the elements that could be placed that are unique or limited and already and the page
+      elements_counts = Hash.new(0)
+      elements_already_on_the_page.each { |e| elements_counts[e.name] += 1 }
+      limited_elements.each do |limited_element|
+        next if elements_counts[limited_element["name"]] == 0
+        if limited_element["unique"]
+          elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] > 0
+          next
+        end
+        unless limited_element["amount"].nil?
+          elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] >= limited_element["amount"]
         end
       end
-      return elements_for_layout
+      elements_for_layout
     end
 
     def self.all_definitions_for(element_names)

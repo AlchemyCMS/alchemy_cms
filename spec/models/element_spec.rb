@@ -78,6 +78,44 @@ describe Alchemy::Element do
     Alchemy::Element.trashed.should include(@element)
   end
 
+  context "limited amount" do
+    before(:each) do
+      descriptions = Alchemy::Element.descriptions
+      descriptions << {
+        'name' => 'column_headline',
+        'amount' => 3,
+        'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+      }
+      descriptions << {
+        'name' => 'unique_headline',
+        'unique' => true,
+        'amount' => 3,
+        'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+      }
+      Alchemy::Element.stub!(:descriptions).and_return(descriptions)
+      Alchemy::PageLayout.add(
+        'name' => 'columns',
+        'elements' => ['column_headline', 'unique_headline'],
+        'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
+      )
+      @page = Factory(:page, :page_layout => 'columns')
+    end
+
+    it "should be readable" do
+      element = Alchemy::Element.all_definitions_for(['column_headline']).first
+      element['amount'].should be 3
+    end
+
+    it "should limit elements" do
+      Alchemy::Element.all_for_page(@page).each { |e| e['name'].should_not == 'column_headline' }
+    end
+    
+    it "should be ignored if unique" do
+      Alchemy::Element.all_for_page(@page).each { |e| e['name'].should_not == 'unique_headline' }
+    end
+
+  end
+
   context "trashed" do
 
     before(:each) do
