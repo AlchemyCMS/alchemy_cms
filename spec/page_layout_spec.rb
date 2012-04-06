@@ -27,5 +27,9 @@ describe Alchemy::PageLayout do
     end
 
   end
+  
+  it "should not display hidden page layouts" do
+    Alchemy::PageLayout.selectable_layouts(Factory(:language)).each { |e| e["hide"].should_not == true }
+  end
 
 end
