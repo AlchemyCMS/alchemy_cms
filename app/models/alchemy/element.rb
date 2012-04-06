@@ -13,7 +13,7 @@ module Alchemy
 		validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
 		validates_presence_of :name, :on => :create, :message => '^' + I18n.t(:choose_element)
 
-		attr_accessor :create_contents_after_create, :amount
+		attr_accessor :create_contents_after_create
 
 		after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
 
@@ -123,7 +123,7 @@ module Alchemy
 			return if element_descriptions.blank?
 			element_scratch = element_descriptions.select{ |m| m["name"] == attributes['name'].split('#').first }.first
 			element = Element.new(
-				element_scratch.except('contents', 'available_contents', 'display_name').merge({
+				element_scratch.except('contents', 'available_contents', 'display_name', 'amount').merge({
 					:page_id => attributes['page_id']
 				})
 			)
