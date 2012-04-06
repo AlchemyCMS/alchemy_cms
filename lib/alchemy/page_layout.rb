@@ -67,6 +67,7 @@ module Alchemy
 
     def self.selectable_layouts(language_id, layoutpage = false)
       get_layouts.select do |layout|
+        next if layout["hide"]
         used = layout["unique"] && has_a_page_this_layout?(layout["name"], language_id)
         if layoutpage
           layout["layoutpage"] == true && !used
