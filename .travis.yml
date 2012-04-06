@@ -7,7 +7,7 @@ rvm:
   - ree
 branches:
   only:
-    - master
+    - 2.1-stable
 before_script:
   #- "mysql -e 'create database alchemy_cms_test;'"
   - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:schema:load'"
