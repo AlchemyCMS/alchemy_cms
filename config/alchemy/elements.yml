@@ -120,6 +120,7 @@
 
 - name: intro_image_text
   unique: true
+  amount: 2
   contents:
   - name: headline
     type: EssenceText
@@ -195,6 +196,12 @@
   contents:
   - name: file
     type: EssenceFile
+
+- name: column_headline
+  amount: 3
+  contents:
+  - name: headline
+    type: EssenceText
 
 - name: news
   contents:

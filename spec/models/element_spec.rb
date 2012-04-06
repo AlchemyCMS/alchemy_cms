@@ -78,15 +78,32 @@ describe Alchemy::Element do
 		Alchemy::Element.trashed.should include(@element)
 	end
 
+	describe "limited amount" do
+		it "should be readable" do
+			element = Alchemy::Element.all_definitions_for(['column_headline']).first
+			element["amount"].should be 3
+		end
+
+		it "should limit elements" do
+			page = Factory(:page, :page_layout => 'columns')
+			Alchemy::Element.all_for_page(page).each { |e| e['name'].should_not == 'column_headline' }
+		end
+		
+		it "should be ignored if unique" do
+			page = Factory(:page, :page_layout => 'intro')
+			Alchemy::Element.all_for_page(page).each { |e| e['name'].should_not == 'intro_image_text' }
+		end
+	end
+
 	context "trashed" do
 
 		before(:each) do
-		  @element = Factory(:element)
+			@element = Factory(:element)
 			@element.trash
 		end
 	  
 		it "should be not public" do
-	   	@element.public.should be_false
+			@element.public.should be_false
 		end
 		
 		it "should have no page" do
@@ -94,13 +111,13 @@ describe Alchemy::Element do
 		end
 
 		it "should be folded" do
-	    @element.folded.should == true
+			@element.folded.should == true
 		end
 		
 	end
 
 	it "should raise error if all_for_page method has no page" do
-	  expect { Alchemy::Element.all_for_page(nil) }.should raise_error(TypeError)
+		expect { Alchemy::Element.all_for_page(nil) }.should raise_error(TypeError)
 	end
 
 	describe "#content_by_type" do

@@ -62,6 +62,11 @@
   layoutpage: true
   elements: [sitename, header]
 
+- name: columns
+  hide: true
+  elements: [headline, column_headline]
+  autogenerate: [column_headline, column_headline, column_headline]
+
 - name: layout_footer
   unique: true
   layoutpage: true

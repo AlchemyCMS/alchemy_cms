@@ -13,7 +13,7 @@ module Alchemy
 		validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
 		validates_presence_of :name, :on => :create, :message => '^' + I18n.t(:choose_element)
 
-		attr_accessor :create_contents_after_create
+		attr_accessor :create_contents_after_create, :amount
 
 		after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
 
