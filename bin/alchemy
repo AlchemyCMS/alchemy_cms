@@ -45,7 +45,7 @@ class AlchemyInstaller < Thor
 			
 			if with_standard_set
 				sentinel = /::Application\.configure do\s*$/
-				inject_into_file "#{@application}/environments/production.rb", "\n  config.assets.precompile += %w( alchemy/standard_set.css )\n", { :after => sentinel, :verbose => true }
+				inject_into_file "#{@application}/config/environments/production.rb", "\n  config.assets.precompile += %w( alchemy/standard_set.css )\n", { :after => sentinel, :verbose => true }
 			end
 			
 			%x[
