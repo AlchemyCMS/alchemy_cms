@@ -23,7 +23,7 @@ module Alchemy
             init.mode = 'specific_textareas';
             init.editor_selector = 'tinymce';
             init.plugins = '#{Alchemy::Tinymce.plugins.join(',')}';
-            init.language = '#{::I18n.locale}';
+            init.language = '#{::I18n.locale.to_s.split('-')[0].downcase }';
             init.init_instance_callback = function(inst) {
               jQuery('#' + inst.editorId).prev('.essence_richtext_loader').hide();
             }
