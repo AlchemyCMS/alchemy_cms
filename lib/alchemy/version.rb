@@ -1,5 +1,5 @@
 module Alchemy
 
-  VERSION = "2.2.rc3"
+  VERSION = "2.2.rc4"
 
 end
