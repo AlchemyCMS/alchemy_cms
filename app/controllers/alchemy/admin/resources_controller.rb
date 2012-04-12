@@ -10,7 +10,6 @@ module Alchemy
 
       before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
-
       def index
         if params[:query].blank?
           items = resource_handler.model
@@ -37,7 +36,7 @@ module Alchemy
       end
 
       def create
-        instance_variable_set("@#{resource_handler.model_name}", resource_handler.model.new(params[resource_handler.namespaced_model_name.to_sym], :as => current_user.role.to_sym))
+        instance_variable_set("@#{resource_handler.model_name}", resource_handler.model.new(params[resource_handler.namespaced_model_name.to_sym]))
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
@@ -47,7 +46,7 @@ module Alchemy
       end
 
       def update
-        resource_instance_variable.update_attributes(params[resource_handler.namespaced_model_name.to_sym], :as => current_user.role.to_sym)
+        resource_instance_variable.update_attributes(params[resource_handler.namespaced_model_name.to_sym])
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path,
