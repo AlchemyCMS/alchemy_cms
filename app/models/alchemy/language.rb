@@ -1,6 +1,17 @@
 module Alchemy
   class Language < ActiveRecord::Base
 
+    attr_accessible(
+      :name,
+      :language_code,
+      :frontpage_name,
+      :page_layout,
+      :public,
+      :default,
+      :country_code,
+      :code
+    )
+
     validates_presence_of :name
     validates_presence_of :language_code
     validates_presence_of :page_layout

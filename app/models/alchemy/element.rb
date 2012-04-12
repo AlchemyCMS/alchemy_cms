@@ -1,6 +1,16 @@
 module Alchemy
   class Element < ActiveRecord::Base
 
+    attr_accessible(
+      :name,
+      :unique,
+      :page_id,
+      :public,
+      :cell_id,
+      :folded,
+      :create_contents_after_create
+    )
+
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
     acts_as_list :scope => [:page_id, :cell_id]
     stampable :stamper_class_name => :user
@@ -218,8 +228,17 @@ module Alchemy
     #   @copy.public? # => false
     #
     def self.copy(source, differences = {})
-      attributes = source.attributes.except("id").merge(differences)
-      element = self.create!(attributes.merge(:create_contents_after_create => false, :id => nil, :position => nil))
+      attributes = source.attributes.except(
+        "id",
+        "position",
+        "folded",
+        "created_at",
+        "updated_at",
+        "creator_id",
+        "updater_id",
+        "cell_id"
+      ).merge(differences.stringify_keys)
+      element = self.create!(attributes.merge(:create_contents_after_create => false))
       source.contents.each do |content|
         new_content = Content.copy(content, :element_id => element.id)
         new_content.move_to_bottom

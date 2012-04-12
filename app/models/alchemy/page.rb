@@ -2,6 +2,24 @@
 module Alchemy
   class Page < ActiveRecord::Base
 
+    attr_accessible(
+      :name,
+      :urlname,
+      :title,
+      :page_layout,
+      :parent_id,
+      :public,
+      :visible,
+      :restricted,
+      :meta_description,
+      :meta_keywords,
+      :do_not_sweep,
+      :robot_index,
+      :robot_follow,
+      :sitemap,
+      :layoutpage
+    )
+
     RESERVED_URLNAMES = %w(admin messages)
 
     acts_as_nested_set(:dependent => :destroy)

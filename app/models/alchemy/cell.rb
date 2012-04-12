@@ -13,6 +13,8 @@
 module Alchemy
   class Cell < ActiveRecord::Base
 
+    attr_accessible :page_id, :name
+
     belongs_to :page
     validates_uniqueness_of :name, :scope => :page_id
     has_many :elements, :dependent => :destroy, :order => :position

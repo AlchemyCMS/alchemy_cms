@@ -1,6 +1,21 @@
 module Alchemy
   class EssencePicture < ActiveRecord::Base
 
+    attr_accessible(
+      :caption,
+      :title,
+      :alt_tag,
+      :link,
+      :link_class_name,
+      :link_title,
+      :css_class,
+      :link_target,
+      :crop_from,
+      :crop_size,
+      :render_size,
+      :picture_id
+    )
+
     acts_as_essence(
       :ingredient_column => :picture,
       :preview_text_method => :name

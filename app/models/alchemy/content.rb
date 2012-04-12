@@ -1,6 +1,8 @@
 module Alchemy
   class Content < ActiveRecord::Base
 
+    attr_accessible :name, :element_id, :do_not_index, :essence_type, :essence_id
+
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
 
@@ -73,11 +75,22 @@ module Alchemy
     #   @copy.element_id # => 3
     #
     def self.copy(source, differences = {})
-      differences[:position] = nil
-      differences[:id] = nil
-      attributes = source.attributes.except("id").merge(differences)
+      attributes = source.attributes.except(
+        "position",
+        "created_at",
+        "updated_at",
+        "creator_id",
+        "updater_id",
+        "id"
+      ).merge(differences.stringify_keys)
       content = self.create!(attributes)
-      new_essence = content.essence.class.new(content.essence.attributes.except('id'))
+      new_essence = content.essence.class.new(content.essence.attributes.except(
+        "id",
+        "creator_id",
+        "updater_id",
+        "created_at",
+        "updated_at"
+      ))
       new_essence.save!
       raise "Essence not cloned" if new_essence.id == content.essence_id
       content.update_attribute(:essence_id, new_essence.id)

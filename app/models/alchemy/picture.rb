@@ -15,6 +15,8 @@ module Alchemy
       end
     end
 
+    attr_accessible :name, :image_filename, :image_width, :image_height
+
     stampable
 
     def self.find_paginated(params, per_page)

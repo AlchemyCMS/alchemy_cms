@@ -1,6 +1,8 @@
 module Alchemy
   class EssenceHtml < ActiveRecord::Base
 
+    attr_accessible :source
+
     acts_as_essence(
       :ingredient_column => :source
     )

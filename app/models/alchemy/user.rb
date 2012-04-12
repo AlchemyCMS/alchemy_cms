@@ -8,6 +8,18 @@ module Alchemy
       c.logged_in_timeout = Config.get(:auto_logout_time).minutes
     end
 
+    attr_accessible(
+      :firstname,
+      :lastname,
+      :login,
+      :email,
+      :gender,
+      :role,
+      :language,
+      :password,
+      :password_confirmation
+    )
+
     has_many :folded_pages
 
     before_destroy :unlock_pages

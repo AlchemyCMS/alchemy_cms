@@ -1,3 +1,4 @@
 class Event < ActiveRecord::Base
+  attr_accessible :name, :hidden_name, :starts_at, :ends_at, :description, :published, :entrance_fee
   validates_presence_of :name
 end

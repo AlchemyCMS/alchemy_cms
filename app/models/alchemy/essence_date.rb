@@ -1,6 +1,8 @@
 module Alchemy
   class EssenceDate < ActiveRecord::Base
 
+    attr_accessible :date
+
     acts_as_essence(
       :ingredient_column => :date
     )
