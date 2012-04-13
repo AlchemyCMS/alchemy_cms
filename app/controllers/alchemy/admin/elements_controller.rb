@@ -54,7 +54,7 @@ module Alchemy
 				if @element.save
 					render :action => :create
 				else
-					render_remote_errors(@element, 'form#new_element button.button')
+					render_remote_errors(@element, 'form#new_alchemy_element button.button')
 				end
 			end
 
