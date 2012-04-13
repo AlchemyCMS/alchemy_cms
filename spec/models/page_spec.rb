@@ -300,7 +300,7 @@ describe Alchemy::Page do
 
       it "should return the pages" do
         page_1 = Factory(:page, :language => @language)
-        page_2 = Factory(:page, :language => @language)
+        page_2 = Factory(:page, :language => @language, :name => 'Another page')
         clipboard = [
           {:id => page_1.id, :action => "copy"},
           {:id => page_2.id, :action => "copy"}
@@ -326,7 +326,7 @@ describe Alchemy::Page do
 
       it "should return one page" do
         page_1 = Factory(:page, :language => @language, :page_layout => 'standard')
-        page_2 = Factory(:page, :language => @language, :page_layout => 'contact')
+        page_2 = Factory(:page, :name => 'Another page', :language => @language, :page_layout => 'contact')
         clipboard = [
           {:id => page_1.id, :action => "copy"},
           {:id => page_2.id, :action => "copy"}

@@ -76,7 +76,7 @@ describe Alchemy::Language do
     describe "#set_pages_language if language´s code has changed" do
       it "should update all its pages with the new code" do
         @page = Factory(:page, :language => @language)
-        @other_page = Factory(:page, :language => @language)
+        @other_page = Factory(:page, :language => @language, :name => 'Another page')
         @language.update_attributes(:code => "fo")
         @language.reload; @page.reload; @other_page.reload
         [@page.language_code, @other_page.language_code].should == [@language.code, @language.code]
@@ -85,7 +85,7 @@ describe Alchemy::Language do
     describe "#unpublish_pages" do
       it "should set all pages to unpublic if it gets set to unpublic" do
         @page = Factory(:page, :language => @language)
-        @other_page = Factory(:page, :language => @language)
+        @other_page = Factory(:page, :language => @language, :name => 'Another page')
         @language.update_attributes(:public => false)
         @language.reload; @page.reload; @other_page.reload
         [@page.public?, @other_page.public?].should == [false, false]

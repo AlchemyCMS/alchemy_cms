@@ -54,13 +54,13 @@ describe Alchemy::ElementsHelper do
 
     context "with from_page option" do
       it "should render all elements from a certain page" do
-        @another_page = Factory(:public_page)
+        @another_page = Factory(:public_page, :name => 'Another Page')
         @element_on_other_page = Factory(:element, :name => 'headline', :page => @another_page)
         helper.render_elements(:from_page => @another_page).should match(/id="#{@element_on_other_page.name}_\d*"/)
       end
 
       it "should not render any elements in a cell from the given page" do
-        @another_page = Factory(:public_page)
+        @another_page = Factory(:public_page, :name => 'And Another Page')
         @cell = Factory(:cell, :name => "Celltest", :page => @another_page)
         @element_not_in_cell = Factory(:element, :name => 'headline', :page => @another_page)
         @element_in_cell = Factory(:element, :name => 'article', :cell => @cell, :page => @another_page)
@@ -69,7 +69,7 @@ describe Alchemy::ElementsHelper do
 
       context "and from_cell option" do
         it "should render all elements from the page's cell" do
-          @another_page = Factory(:public_page)
+          @another_page = Factory(:public_page, :name => 'And even another page')
           @cell = Factory(:cell, :name => "Celltest", :page => @another_page)
           @element_not_in_cell = Factory(:element, :name => 'headline', :page => @another_page)
           @element_in_cell = Factory(:element, :name => 'article', :cell => @cell, :page => @another_page)
@@ -119,7 +119,7 @@ describe Alchemy::ElementsHelper do
     context "with offset option" do
       it "should render all elements beginning with the second." do
         @page.elements.delete_all
-        @another_page = Factory(:public_page)
+        @another_page = Factory(:public_page, :name => 'And even one more page')
         @another_element_1 = Factory(:element, :page => @page)
         @another_element_2 = Factory(:element, :page => @page)
         @another_element_3 = Factory(:element, :page => @page)
