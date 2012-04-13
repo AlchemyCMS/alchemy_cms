@@ -124,6 +124,13 @@ module Alchemy
       end
     end
 
+    def render_404(exception = nil)
+      if exception
+        logger.info "Rendering 404: #{exception.message}"
+      end
+      render :file => "#{Rails.root}/public/404", :status => 404
+    end
+
     protected
 
     def permission_denied
@@ -132,7 +139,7 @@ module Alchemy
           redirect_to alchemy.root_path
         else
           if request.referer == alchemy.login_url
-            render :file => File.join(Rails.root.to_s, 'public', '422.html'), :status => 422, :layout => false
+            render :file => Rails.root.join('public/422'), :status => 422
           elsif request.xhr?
             respond_to do |format|
               format.js {
