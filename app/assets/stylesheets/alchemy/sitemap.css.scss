@@ -41,6 +41,9 @@ div#bottom_buttons {
 	padding-right: 4px;
 	font-size: 10px;
 	padding-left: 4px;
+	max-width: 45%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .sitemap_pagename_link.odd {

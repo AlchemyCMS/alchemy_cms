@@ -90,7 +90,7 @@
 		<div class="sitemap_sitename">
 		<%- if page.redirects_to_external? -%>
 			<span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= page.name %></span>
-			<span class="redirect_url">
+			<span class="redirect_url" title="<%= h page.urlname %>">
 				&raquo; <%= t('Redirects to') %>:
 				<%= h page.urlname %>
 			</span>
