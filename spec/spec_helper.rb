@@ -49,10 +49,9 @@ end
 def seed
 	# This code will be run each time you run your specs.
 	DatabaseCleaner.clean
-
 	# Seed the database
 	Alchemy::Seeder.seed!
-
+	::I18n.locale = :en
 end
 
 if defined?(Spork)
