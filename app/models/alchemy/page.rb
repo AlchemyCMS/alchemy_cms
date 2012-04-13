@@ -3,21 +3,24 @@ module Alchemy
   class Page < ActiveRecord::Base
 
     attr_accessible(
+      :do_not_sweep,
+      :language_code,
+      :language_id,
+      :language_root,
+      :layoutpage,
+      :meta_description,
+      :meta_keywords,
       :name,
-      :urlname,
-      :title,
       :page_layout,
       :parent_id,
       :public,
-      :visible,
       :restricted,
-      :meta_description,
-      :meta_keywords,
-      :do_not_sweep,
       :robot_index,
       :robot_follow,
       :sitemap,
-      :layoutpage
+      :title,
+      :urlname,
+      :visible
     )
 
     RESERVED_URLNAMES = %w(admin messages)
