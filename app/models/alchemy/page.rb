@@ -24,7 +24,7 @@ module Alchemy
 		attr_accessor :do_not_sweep
 		attr_accessor :do_not_validate_language
 
-		before_save :set_url_name, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
+		before_validation :set_url_name, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
 		before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
 		before_save :set_language_code, :unless => :systempage?
 		before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
