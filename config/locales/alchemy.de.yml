@@ -113,12 +113,6 @@ de:
         message: 'Nachricht'
         send: 'absenden'
         mandatory_fields: '*Pflichtfelder. Bitte füllen Sie diese Felder aus.'
-      # Translations for the contactform validations.
-      # Validations are set in the config/alchemy/config.yml mailer section.
-      validations:
-        enter_name: 'Bitte geben Sie Ihren Namen an'
-        enter_email: Bitte geben Sie Ihre E-Mail-Adresse an
-        wrong_email_format: 'Die E-Mail-Adresse scheint nicht richtig zu sein.'
       # The flash message shown after succesfully sending the message.
       messages:
         success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
@@ -663,6 +657,19 @@ de:
       words_connector: ", "
       two_words_connector: " und "
       last_word_connector: " und "
+
+  activemodel:
+    attributes:
+      alchemy/message:
+        salutation: Anrede
+        firstname: Vorname
+        lastname: Nachname
+        address: Adresse
+        zip: PLZ
+        city: Ort
+        phone: Telefon
+        email: E-Mail
+        message: Nachricht
   
   # Translations for active record database models and error messages.
   activerecord:

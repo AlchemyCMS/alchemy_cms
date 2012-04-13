@@ -81,20 +81,20 @@ default_language:
 # ==== Options:
 # 
 #   page_layout_name:           [String] # A +Alchemy::PageLayout+ name. Used to render the contactform on a page with this layout.
-#   fields:                     [Array]  # An Array of fieldnames
-#   validate_fields:            [Hash]   # A Hash with fieldname as key and a Hash (with :message as key and a message_id as value) as value
+#   fields:                     [Array]  # An Array of fieldnames.
+#   validate_fields:            [Array]  # An Array of fieldnames to be validated on presence.
 # 
 # ==== Translating validation messages:
 # 
-# The message_id is passed through Alchemy::I18n.t so you can translate it in your language yml file.
+# The validation messages are passed through ::I18n.t so you can translate it in your language yml file.
 # 
-# Example:
+# ==== Example:
 # 
 #   de:  
-#     alchemy:
-#      contactform:
-#         validations:
-#           enter_name: 'Bitte geben Sie einen Namen an'
+#     activemodel:
+#       attributes:
+#         alchemy/message:
+#           firstname: Vorname
 # 
 :mailer:
   :page_layout_name: contact
@@ -103,11 +103,7 @@ default_language:
   :mail_from: your.mail@your-domain.com
   :mail_to: your.mail@your-domain.com
   :fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
-  :validate_fields:
-    :lastname:
-      :message: enter_name
-    :email:
-      :message: enter_email
+  :validate_fields: [lastname, email]
 
 # === User roles
 # You can add own user roles. To set permissions for this roles please add an authorization_rules.rb file in your config folder.
