@@ -15,7 +15,13 @@ module Alchemy
       end
     end
 
-    attr_accessible :name, :image_filename, :image_width, :image_height
+    attr_accessible(
+      :image_file,
+      :image_filename,
+      :image_height,
+      :image_width,
+      :name
+    )
 
     stampable
 
