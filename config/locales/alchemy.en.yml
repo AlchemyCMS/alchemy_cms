@@ -96,12 +96,6 @@ en:
         message: 'Message'
         send: 'Send'
         mandatory_fields: '*Mandatory fields.'
-      # Translations for the contactform validations.
-      # Validations are set in the config/alchemy/config.yml mailer section.
-      validations:
-        enter_name: 'Please enter your name'
-        enter_email: 'Please enter your email'
-        wrong_email_format: 'Email has wrong format'
       # The flash message shown after succesfully sending the message.
       messages:
         success: 'Your message was delivered succesfully.'
@@ -186,7 +180,6 @@ en:
     big_thumbnails: "Big thumbnails"
     choose_element_as_target: "Please choose an element as target"
     choose_element_to_link: "Please choose an element"
-    choose_element: "Please choose an element."
     choose_file_to_link: "Please choose a file to link"
     click_to_show_all: "Click to show all again."
     confirm_to_delete_file: "Do you really want to delete this file from the server?"
@@ -326,7 +319,6 @@ en:
     "Picture deleted successfully": "Picture %{name} deleted"
     place_link: "Link text"
     player_version: "Flashplayer Version"
-    "please enter a name": "Please enter a name."
     "please enter subject and mail address": "Please enter recipient and subject."
     please_confirm: "Please confirm"
     please_wait: "Please wait"
@@ -359,7 +351,6 @@ en:
     upload_file: "Upload file(s)"
     upload_image: "Upload image(s)"
     url_name: "URL-Name"
-    urlname_to_short: "The pages urlname is too short (minimum of 3 characters)"
     username: "Username"
     want_to_create_new_language: "Do you want to create a new empty language tree?"
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
@@ -488,6 +479,18 @@ en:
         one:  "over 1 year" 
         many: "over %{count} years"
   
+  activemodel:
+    attributes:
+      alchemy/message:
+        salutation: 'Salutation'
+        firstname: 'Firstname'
+        lastname: 'Lastname'
+        address: 'Street / No.'
+        zip: 'Zipcode / City'
+        phone: 'Telephone'
+        email: 'Email'
+        message: 'Message'
+
   # Translations for active record database models and error messages.
   activerecord:
     
@@ -589,10 +592,24 @@ en:
           attributes:
             essence:
               validation_failed: 'Validation failed.'
+        alchemy/element:
+          attributes:
+            name:
+              blank: "^Please choose an element."
         alchemy/language:
           attributes:
             code:
-              invalid: 'Format of languagecode is not valid. Please use exactly two lowercase characters.'
+              invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
+        alchemy/page:
+          attributes:
+            name:
+              blank: "^Please enter a name."
+            page_layout:
+              blank: "^Please choose a page layout."
+            urlname:
+              too_short: "^The pages urlname is too short (minimum of 3 characters)."
+              taken: "^URL-Name already taken."
+              exclusion: "^URL-Name reserved."
 
   # Translations for the authentication system used in alchemy.
   authlogic:

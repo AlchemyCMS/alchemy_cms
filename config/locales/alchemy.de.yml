@@ -247,8 +247,6 @@ de:
     "Picture cache flushed": "Bildercache wurde geleert"
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
     "Please choose": "Bitte wählen"
-    "Please choose a page layout.": "Bitte wählen Sie einen Seitentyp."
-    choose_element: "Bitte wählen Sie ein Element."
     "Please log in": "Bitte melden Sie sich an."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Publish page": "veröffentlichen"
@@ -280,7 +278,6 @@ de:
     "To manage your website open a browser and go to": "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden Link"
     "Trash": "Papierkorb"
     "URL": ""
-    "URL-Name already token": "Der URL-Name ist bereits vergeben."
     "User created": "%{name} wurde erstellt"
     "User deleted": "%{name} wurde gelöscht"
     "User updated": "%{name} wurde aktualisiert"
@@ -477,7 +474,6 @@ de:
     picture_gallery_editor: 'Bilder'
     place_link: "Text verlinken"
     player_version: "Flashplayer Version"
-    "please enter a name": "Bitte geben Sie einen Namen ein."
     "please enter subject and mail address": "Bitte geben Sie den Betreff und eine Empfängeradresse an."
     please_confirm: "Bitte bestätigen"
     please_wait: "Bitte warten"
@@ -516,7 +512,6 @@ de:
     upload_file: "Datei(en) hochladen"
     upload_image: "Bild(er) hochladen"
     url_name: "URL-Name"
-    urlname_to_short: "Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
     username: "Benutzername"
     visible: "sichtbar"
     want_to_create_new_language: "Wollen Sie einen neuen leeren Sprachbaum erstellen?"
@@ -810,11 +805,25 @@ de:
           attributes:
             essence:
               validation_failed: 'Validierung fehlgeschlagen.'
+        alchemy/element:
+          attributes:
+            name:
+              blank: "^Bitte wählen Sie ein Element."
         alchemy/language:
           attributes:
             language_code:
               invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
               taken: 'ist für dieses Länderkürzel bereits vergeben.'
+        alchemy/page:
+          attributes:
+            name:
+              blank: "^Bitte geben Sie einen Namen ein."
+            page_layout:
+              blank: "^Bitte wählen Sie einen Seitentyp."
+            urlname:
+              too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
+              taken: "^Der URL-Name ist bereits vergeben."
+              exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
   
   # Translations for the authentication system used in alchemy.
   authlogic:

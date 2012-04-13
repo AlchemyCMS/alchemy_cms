@@ -31,12 +31,12 @@ module Alchemy
     has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
     belongs_to :language
 
-    validates_presence_of :name, :message => '^' + I18n.t("please enter a name")
-    validates_presence_of :page_layout, :message => '^' + I18n.t("Please choose a page layout."), :unless => :systempage?
-    validates_presence_of :parent_id, :message => '^' + I18n.t("No parent page was given."), :if => proc { Page.count > 1 }
-    validates_length_of :urlname, :minimum => 3, :too_short => I18n.t("urlname_to_short"), :if => :urlname_entered?
-    validates_uniqueness_of :urlname, :message => '^' + I18n.t("URL-Name already token"), :scope => [:language_id, :layoutpage], :if => :urlname_entered?
-    validates :urlname, :exclusion => {:in => RESERVED_URLNAMES, :message => '^' + I18n.t("This urlname is reserved.")}
+    validates_presence_of :name
+    validates_presence_of :page_layout, :unless => :systempage?
+    validates_presence_of :parent_id, :if => proc { Page.count > 1 }
+    validates_length_of :urlname, :minimum => 3, :if => :urlname_entered?
+    validates_uniqueness_of :urlname, :scope => [:language_id, :layoutpage], :if => :urlname_entered?
+    validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
 
     attr_accessor :do_not_autogenerate
     attr_accessor :do_not_sweep
