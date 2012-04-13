@@ -78,13 +78,5 @@ module Alchemy
       ]
     end
 
-    def self.all_online
-      User.logged_in
-    end
-
-    def self.all_others_online
-      User.logged_in.to_a.delete(self)
-    end
-
   end
 end
