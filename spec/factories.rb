@@ -40,7 +40,7 @@ FactoryGirl.define do
   factory :page, :class => 'Alchemy::Page' do
 
     language { Alchemy::Language.find_by_language_code('kl') || Factory(:language) }
-    name "A Page"
+    sequence(:name) { |n| "A Page #{n}" }
     parent_id { (Alchemy::Page.find_by_language_root(true) || Factory(:language_root_page)).id }
     page_layout "standard"
 
@@ -53,7 +53,7 @@ FactoryGirl.define do
     end
 
     factory :public_page do
-      name "A Public Page"
+      sequence(:name) { |n| "A Public Page #{n}" }
       public true
     end
 

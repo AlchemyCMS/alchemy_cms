@@ -13,7 +13,7 @@ describe Alchemy::PagesController do
       p = Factory(:public_page, :language => @default_language)
       article = p.elements.find_by_name('article')
       article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
-      visit '/alchemy/a-public-page'
+      visit "/alchemy/#{p.urlname}"
       within('div#content div.article div.intro') { page.should have_content('Welcome to Peters Petshop') }
     end
 
@@ -90,8 +90,8 @@ describe Alchemy::PagesController do
       end
 
       it "should redirect to url with nested language code" do
-        visit '/alchemy/a-public-page'
-        page.current_path.should == '/alchemy/de/a-public-page'
+        visit "/alchemy/#{@page.urlname}"
+        page.current_path.should == "/alchemy/de/#{@page.urlname}"
       end
 
       context "should redirect to public child" do
@@ -125,7 +125,7 @@ describe Alchemy::PagesController do
       end
 
       it "should keep additional params" do
-        visit '/alchemy/a-public-page?query=Peter'
+        visit "/alchemy/#{@page.urlname}?query=Peter"
         page.current_url.should match(/\?query=Peter/)
       end
 
@@ -189,8 +189,8 @@ describe Alchemy::PagesController do
       end
 
       it "should redirect from nested language code url to normal url" do
-        visit '/alchemy/de/a-public-page'
-        page.current_path.should == '/alchemy/a-public-page'
+        visit "/alchemy/de/#{@page.urlname}"
+        page.current_path.should == "/alchemy/#{@page.urlname}"
       end
 
       context "with no lang parameter" do
@@ -232,7 +232,7 @@ describe Alchemy::PagesController do
       end
 
       it "should keep additional params" do
-        visit '/alchemy/de/a-public-page?query=Peter'
+        visit "/alchemy/de/#{@page.urlname}?query=Peter"
         page.current_url.should match(/\?query=Peter/)
       end
 

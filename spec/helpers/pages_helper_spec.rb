@@ -28,19 +28,19 @@ describe Alchemy::PagesHelper do
       end
 
       it "should render the page navigation" do
-        helper.render_navigation.should have_selector('ul.navigation_level_1 li.a-public-page.active.last a.active[href="/alchemy/a-public-page"]')
+        helper.render_navigation.should have_selector("ul.navigation_level_1 li.#{@page.urlname}.active.last a.active[href=\"/alchemy/#{@page.urlname}\"]")
       end
 
       context "with enabled url nesting" do
 
         before(:each) do
           helper.stub!(:configuration).and_return(true)
-          @level2 = Factory(:public_page, :parent_id => @page.id, :language => @language, :name => 'Level 2', :visible => true)
-          @page = Factory(:public_page, :parent_id => @level2.id, :language => @language, :name => 'Nested Page', :visible => true)
+          @level2 = Factory(:public_page, :parent_id => @page.id, :language => @language, :visible => true)
+          @level3 = Factory(:public_page, :parent_id => @level2.id, :language => @language, :visible => true)
         end
 
         it "should render nested page links" do
-          helper.render_navigation(:all_sub_menues => true).should have_selector('ul li a[href="/alchemy/a-public-page/level-2/nested-page"]')
+          helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/alchemy/#{@page.urlname}/#{@level2.urlname}/#{@level3.urlname}\"]")
         end
 
       end
