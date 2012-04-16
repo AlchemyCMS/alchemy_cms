@@ -17,7 +17,7 @@ module Alchemy
 			:cache_path => proc { show_page_url(:urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
 			:if => proc {
 				if Alchemy::Config.get(:cache_pages)
-					page = Page.find_by_urlname_and_language_id_and_public(
+					page = Page.contentpages.find_by_urlname_and_language_id_and_public(
 						params[:urlname],
 						session[:language_id],
 						true,
@@ -70,10 +70,10 @@ module Alchemy
 			if params[:urlname].blank?
 				@page = Page.language_root_for(Language.get_default.id)
 			else
-				@page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
+				@page = Page.contentpages.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
 				# try to find the page in another language
 				if @page.nil?
-					@page = Page.find_by_urlname(params[:urlname])
+					@page = Page.contentpages.find_by_urlname(params[:urlname])
 				else
 					return @page
 				end

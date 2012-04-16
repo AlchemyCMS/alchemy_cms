@@ -24,11 +24,11 @@ module Alchemy
 		attr_accessor :do_not_sweep
 		attr_accessor :do_not_validate_language
 
-		before_validation :set_url_name, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
-		before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
+		before_validation :set_url_name, :if => :contentpage?
+		before_save :set_title, :if => :contentpage?, :unless => proc { |page| !page.title.blank? }
 		before_save :set_language_code, :unless => :systempage?
-		before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
-		before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
+		before_save :set_restrictions_to_child_pages, :if => proc { |page| page.contentpage? && page.restricted_changed? }
+		before_save :inherit_restricted_status, :if => proc { |page| page.contentpage? && page.parent && page.parent.restricted? }
 		after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
 		after_create :create_cells, :unless => :systempage?
 
@@ -50,7 +50,7 @@ module Alchemy
 		scope :with_language, lambda { |language_id| where(:language_id => language_id) }
 		# Returns all pages that are not locked and public.
 		# Used for flushing all page caches at once.
-		scope :contentpages, where("`alchemy_pages`.`layoutpage` = 0 AND `alchemy_pages`.`parent_id` IS NOT NULL")
+		scope :contentpages, where(:layoutpage => false).where("`alchemy_pages`.`parent_id` IS NOT NULL")
 		scope :flushables, not_locked.published.contentpages
 		scope :searchables, not_restricted.published.contentpages
 
@@ -494,6 +494,10 @@ module Alchemy
 		def systempage?
 			return true if Page.root.nil?
 			rootpage? || (self.parent_id == Page.root.id && !self.language_root?)
+		end
+
+		def contentpage?
+			!systempage? && !redirects_to_external? && !layoutpage?
 		end
 
 		def self.rootpage

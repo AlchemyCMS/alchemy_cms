@@ -26,6 +26,19 @@ describe Alchemy::PagesController do
 			within('div#navigation ul') { page.should have_selector('li a[href="/alchemy/page-1"], li a[href="/alchemy/page-2"]') }
 		end
 
+		context "when a global page with the same urlname as the requested page exists in the language tree" do
+
+			it "should render the content page, not the global page" do
+				globalpage = Factory(:public_page, :layoutpage => true, :language => @default_language, :name => "samename", :urlname => "samename", :parent_id => @default_language_root.id)
+				contentpage = Factory(:public_page, :layoutpage => false, :language => @default_language, :name => "samename", :urlname => "samename", :parent_id => @default_language_root.id)
+				article = contentpage.elements.find_by_name('article')
+				article.content_by_name('intro').essence.update_attributes(:body => 'rendered on contentpage', :public => true)
+				visit("/alchemy/samename")
+				within('div#content div.article div.intro') { page.should have_content('rendered on contentpage') }
+			end
+
+		end
+
 	end
 
 	describe "fulltext search" do

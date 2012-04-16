@@ -105,6 +105,38 @@ describe Alchemy::Page do
 	
 	end
 
+	describe "#contentpage" do
+
+		it "should return false if its a systempage" do
+			@page = Factory(:page, :language => @language, :parent_id => @language_root.id)
+			@page.stub!(:systempage?).and_return(true)
+			@page.stub!(:redirects_to_external?).and_return(false)
+			@page.contentpage?.should be_false
+		end
+		
+		it "should return false if it redirects to an external website" do
+			@page = Factory(:page, :layoutpage => false, :language => @language, :parent_id => @language_root.id)
+			@page.stub!(:systempage?).and_return(false)
+			@page.stub!(:redirects_to_external?).and_return(true)
+			@page.contentpage?.should be_false
+		end
+
+		it "should return false if its a layoutpage" do
+			@page = Factory(:page, :layoutpage => true, :language => @language, :parent_id => @language_root.id)
+			@page.stub!(:systempage?).and_return(false)
+			@page.stub!(:redirects_to_external?).and_return(false)
+			@page.contentpage?.should be_false
+		end
+
+		it "should return true if its not a layoutpage, does not redirect to an external website and its not a systempage" do
+			@page = Factory(:page, :language => @language, :parent_id => @language_root.id)
+			@page.stub!(:systempage?).and_return(false)
+			@page.stub!(:redirects_to_external?).and_return(false)
+			@page.contentpage?.should be_true
+		end
+
+	end
+
 	describe '#create' do
 
 		context "before/after filter" do
@@ -132,6 +164,20 @@ describe Alchemy::Page do
 			it "should generate a three letter urlname from one letter name" do
 				page = Factory(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
 				page.urlname.should == '--a'
+			end
+
+			context "with attribute :layoutpage set to true (global page)" do
+				
+				it "should not set the title from its name if its a global page" do
+					page = Factory(:page, :layoutpage => true, :name => 'Page with no title', :language => @language, :parent_id => @language_root.id)
+					page.title.should be_blank
+				end
+
+				it "should not set an urlname" do
+					page = Factory(:page, :layoutpage => true, :name => 'Page with no urlname', :language => @language, :parent_id => @language_root.id)
+					page.urlname.should be_blank
+				end
+
 			end
 
 		end
