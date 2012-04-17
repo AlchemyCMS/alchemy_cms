@@ -226,6 +226,30 @@ describe Alchemy::Page do
 
 	end
 
+	context ".contentpages" do
+
+		before(:each) do
+			@klingonian = Factory(:language)
+			@layoutroot = Alchemy::Page.find_or_create_layout_root_for(@klingonian.id)
+			@layoutpage = Factory(:public_page, :name => 'layoutpage', :layoutpage => true, :parent_id => @layoutroot.id, :language => @klingonian)
+			@klingonian_lang_root = Factory(:language_root_page, :name => 'klingonian_lang_root', :layoutpage => nil, :language => @klingonian)
+			@contentpage = Factory(:public_page, :name => 'contentpage', :parent_id => @language_root.id, :language => @language)
+		end
+
+		it "should return a collection of contentpages" do
+			Alchemy::Page.contentpages.to_a.should == [@language_root, @klingonian_lang_root, @contentpage]
+		end
+
+		it "should not contain pages with attribute :layoutpage set to true" do
+			Alchemy::Page.contentpages.to_a.select { |p| p.layoutpage == true }.should be_empty
+		end
+
+		it "should contain pages with attribute :layoutpage set to nil" do
+			Alchemy::Page.contentpages.to_a.select { |p| p.layoutpage == nil }.should == [@klingonian_lang_root]
+		end
+
+	end
+
 	context ".public" do
 
 		it "should return pages that are public" do
