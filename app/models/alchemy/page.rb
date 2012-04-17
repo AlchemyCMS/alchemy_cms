@@ -69,9 +69,9 @@ module Alchemy
     scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('`alchemy_pages`.`updated_at` DESC').limit(5) }
     # Returns all pages that have the given language_id
     scope :with_language, lambda { |language_id| where(:language_id => language_id) }
+    scope :contentpages, where(:layoutpage => [false, nil]).where("`alchemy_pages`.`parent_id` IS NOT NULL")
     # Returns all pages that are not locked and public.
     # Used for flushing all page caches at once.
-    scope :contentpages, where("`alchemy_pages`.`layoutpage` = 0 AND `alchemy_pages`.`parent_id` IS NOT NULL")
     scope :flushables, not_locked.published.contentpages
     scope :searchables, not_restricted.published.contentpages
 

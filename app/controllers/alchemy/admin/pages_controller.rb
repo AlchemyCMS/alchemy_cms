@@ -181,8 +181,7 @@ module Alchemy
         new_language_root = Page.copy(
           original_language_root,
           :language_id => params[:languages][:new_lang_id],
-          :language_code => session[:language_code],
-          :layoutpage => params[:layoutpage]
+          :language_code => session[:language_code]
         )
         new_language_root.move_to_child_of Page.root
         original_language_root.copy_children_to(new_language_root)
