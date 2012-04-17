@@ -3,11 +3,15 @@ module Alchemy
   class Page < ActiveRecord::Base
 
     attr_accessible(
+      :do_not_autogenerate,
       :do_not_sweep,
       :language_code,
+      :language,
       :language_id,
       :language_root,
       :layoutpage,
+      :locked,
+      :locked_by,
       :meta_description,
       :meta_keywords,
       :name,
@@ -402,7 +406,7 @@ module Alchemy
         :locked => false,
         :locked_by => nil
       )
-      page = self.new(attributes.except(:id, :updated_at, :created_at, :created_id, :updater_id, :lft, :rgt, :depth))
+      page = self.new(attributes.except(:id, :updated_at, :created_at, :creator_id, :updater_id, :lft, :rgt, :depth))
       if page.save
         # copy the page´s cells
         source.cells.each do |cell|

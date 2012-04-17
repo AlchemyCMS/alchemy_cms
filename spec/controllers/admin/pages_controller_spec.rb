@@ -33,6 +33,7 @@ describe Alchemy::Admin::PagesController do
     end
 
     it "should copy all pages" do
+      @new_lang_root.should_not be_nil
       @new_lang_root.descendants.count.should == 4
       @new_lang_root.descendants.collect(&:name).should == ["Level 1 (Copy)", "Level 2 (Copy)", "Level 3 (Copy)", "Level 4 (Copy)"]
     end
