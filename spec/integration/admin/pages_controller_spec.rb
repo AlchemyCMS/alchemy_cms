@@ -10,10 +10,10 @@ unless ENV["CI"]
       context "in a multilangual environment" do
 
         before(:all) do
-          Factory.build(:admin_user).save_without_session_maintenance
-          @language = Factory(:language)
-          @german_root = Factory(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
-          @klingonian_root = Factory(:language_root_page, :name => 'Klingonian')
+          FactoryGirl.build(:admin_user).save_without_session_maintenance
+          @language = FactoryGirl.create(:language)
+          @german_root = FactoryGirl.create(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
+          @klingonian_root = FactoryGirl.create(:language_root_page, :name => 'Klingonian')
         end
 
         it "one should be able to switch the language tree" do
@@ -34,8 +34,8 @@ unless ENV["CI"]
       context "with no language root page" do
 
         before(:all) do
-          Factory.build(:admin_user).save_without_session_maintenance
-          @language = Factory(:language)
+          FactoryGirl.build(:admin_user).save_without_session_maintenance
+          @language = FactoryGirl.create(:language)
         end
 
         it "it should display the form for creating language root" do
@@ -56,7 +56,7 @@ unless ENV["CI"]
     describe "flush complete page cache" do
 
       before(:all) do
-        Factory.build(:admin_user).save_without_session_maintenance
+        FactoryGirl.build(:admin_user).save_without_session_maintenance
       end
 
       it "should remove the cache of all pages" do

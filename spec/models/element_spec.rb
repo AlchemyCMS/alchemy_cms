@@ -9,26 +9,26 @@ describe Alchemy::Element do
     end
 
     it "should return all public elements" do
-      elements = [Factory(:element, :public => true), Factory(:element, :public => true)]
+      elements = [FactoryGirl.create(:element, :public => true), FactoryGirl.create(:element, :public => true)]
       Alchemy::Element.published.all.should == elements
     end
 
     it "should return all elements by name" do
-      elements = [Factory(:element, :name => 'article'), Factory(:element, :name => 'article')]
+      elements = [FactoryGirl.create(:element, :name => 'article'), FactoryGirl.create(:element, :name => 'article')]
       Alchemy::Element.named(['article']).all.should == elements
     end
 
     it "should return all elements but excluded ones" do
-      Factory(:element, :name => 'article')
-      Factory(:element, :name => 'article')
-      excluded = [Factory(:element, :name => 'claim')]
+      FactoryGirl.create(:element, :name => 'article')
+      FactoryGirl.create(:element, :name => 'article')
+      excluded = [FactoryGirl.create(:element, :name => 'claim')]
       Alchemy::Element.excluded(['article']).all.should == excluded
     end
 
     context "not_in_cell" do
       it "should return all elements that are not in a cell" do
-        Factory(:element, :cell_id => 6)
-        Factory(:element, :cell_id => nil)
+        FactoryGirl.create(:element, :cell_id => 6)
+        FactoryGirl.create(:element, :cell_id => nil)
         Alchemy::Element.not_in_cell.should have(1).element
       end
     end
@@ -55,7 +55,7 @@ describe Alchemy::Element do
   context "retrieving contents, essences and ingredients" do
 
     before(:each) do
-      @element = Factory(:element, :name => 'news')
+      @element = FactoryGirl.create(:element, :name => 'news')
     end
 
     it "should return an ingredient by name" do
@@ -73,7 +73,7 @@ describe Alchemy::Element do
   end
 
   it "should return a collection of trashed elements" do
-    @element = Factory(:element)
+    @element = FactoryGirl.create(:element)
     @element.trash
     Alchemy::Element.trashed.should include(@element)
   end
@@ -98,7 +98,7 @@ describe Alchemy::Element do
         'elements' => ['column_headline', 'unique_headline'],
         'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
       )
-      @page = Factory(:page, :page_layout => 'columns')
+      @page = FactoryGirl.create(:page, :page_layout => 'columns')
     end
 
     it "should be readable" do
@@ -119,7 +119,7 @@ describe Alchemy::Element do
   context "trashed" do
 
     before(:each) do
-      @element = Factory(:element)
+      @element = FactoryGirl.create(:element)
       @element.trash
     end
 
@@ -144,7 +144,7 @@ describe Alchemy::Element do
   describe "#content_by_type" do
 
     before(:each) do
-      @element = Factory(:element, :name => 'headline')
+      @element = FactoryGirl.create(:element, :name => 'headline')
       @content = @element.contents.first
     end
 
@@ -169,7 +169,7 @@ describe Alchemy::Element do
   describe "#all_contents_by_type" do
 
     before(:each) do
-      @element = Factory(:element)
+      @element = FactoryGirl.create(:element)
       @contents = @element.contents.select { |c| c.essence_type == 'Alchemy::EssenceText' }
     end
 
@@ -194,7 +194,7 @@ describe Alchemy::Element do
   describe '#copy' do
 
     before(:each) do
-      @element = Factory(:element)
+      @element = FactoryGirl.create(:element)
     end
 
     it "should not create contents from scratch" do

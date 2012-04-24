@@ -4,7 +4,7 @@ require 'support/integration_spec_helper'
 describe "Modules" do
 
   before(:all) do
-    Factory.build(:admin_user).save_without_session_maintenance
+    FactoryGirl.build(:admin_user).save_without_session_maintenance
   end
   describe "a custom module with a main-apps controller" do
     it "should have a button in main_navigation, pointing to the configured controller" do

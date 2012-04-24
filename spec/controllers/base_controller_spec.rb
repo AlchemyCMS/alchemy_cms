@@ -11,14 +11,14 @@ describe Alchemy::BaseController do
     end
 
     it "should set the language from code" do
-      @language = Factory(:language, :code => 'kl')
+      @language = FactoryGirl.create(:language, :code => 'kl')
       controller.send :set_language_from, "kl"
       controller.session[:language_id].should == @language.id
       controller.session[:language_code].should == @language.code
     end
 
     it "should set the language from id as string" do
-      @language = Factory(:language)
+      @language = FactoryGirl.create(:language)
       controller.send :set_language_from, @language.id.to_s
       controller.session[:language_id].should == @language.id
       controller.session[:language_code].should == @language.code
@@ -42,7 +42,7 @@ describe Alchemy::BaseController do
     context "with lang param" do
 
       it "should set the language" do
-        @language = Factory(:language)
+        @language = FactoryGirl.create(:language)
         controller.stub!(:params).and_return({:lang => 'kl'})
         controller.send :set_language
         controller.session[:language_id].should == @language.id

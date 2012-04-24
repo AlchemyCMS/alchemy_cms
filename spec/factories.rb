@@ -39,9 +39,9 @@ FactoryGirl.define do
 
   factory :page, :class => 'Alchemy::Page' do
 
-    language { Alchemy::Language.find_by_language_code('kl') || Factory(:language) }
+    language { Alchemy::Language.find_by_language_code('kl') || FactoryGirl.create(:language) }
     sequence(:name) { |n| "A Page #{n}" }
-    parent_id { (Alchemy::Page.find_by_language_root(true) || Factory(:language_root_page)).id }
+    parent_id { (Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page)).id }
     page_layout "standard"
 
     factory :language_root_page do
@@ -68,7 +68,7 @@ FactoryGirl.define do
   end
 
   factory :cell, :class => 'Alchemy::Cell' do
-    page { Alchemy::Page.find_by_language_root(true) || Factory(:language_root_page) }
+    page { Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page) }
     name "A Cell"
   end
 

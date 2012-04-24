@@ -19,7 +19,7 @@ describe "Security: " do
   context "If user is present" do
 
     before(:all) do
-      Factory.build(:admin_user).save_without_session_maintenance
+      FactoryGirl.build(:admin_user).save_without_session_maintenance
     end
 
     it "a visitor should not be able to signup" do

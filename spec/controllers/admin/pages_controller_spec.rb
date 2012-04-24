@@ -4,7 +4,7 @@ describe Alchemy::Admin::PagesController do
 
   before(:each) do
     activate_authlogic
-    Alchemy::UserSession.create Factory(:admin_user)
+    Alchemy::UserSession.create FactoryGirl.create(:admin_user)
   end
 
   describe "#flush" do
@@ -20,12 +20,12 @@ describe Alchemy::Admin::PagesController do
 
     before(:each) do
       @language = Alchemy::Language.get_default
-      @language_root = Factory(:language_root_page, :language => @language, :name => 'Intro')
-      @level_1 = Factory(:public_page, :language => @language, :parent_id => @language_root.id, :visible => true, :name => 'Level 1')
-      @level_2 = Factory(:public_page, :language => @language, :parent_id => @level_1.id, :visible => true, :name => 'Level 2')
-      @level_3 = Factory(:public_page, :language => @language, :parent_id => @level_2.id, :visible => true, :name => 'Level 3')
-      @level_4 = Factory(:public_page, :language => @language, :parent_id => @level_3.id, :visible => true, :name => 'Level 4')
-      @new_language = Factory(:language)
+      @language_root = FactoryGirl.create(:language_root_page, :language => @language, :name => 'Intro')
+      @level_1 = FactoryGirl.create(:public_page, :language => @language, :parent_id => @language_root.id, :visible => true, :name => 'Level 1')
+      @level_2 = FactoryGirl.create(:public_page, :language => @language, :parent_id => @level_1.id, :visible => true, :name => 'Level 2')
+      @level_3 = FactoryGirl.create(:public_page, :language => @language, :parent_id => @level_2.id, :visible => true, :name => 'Level 3')
+      @level_4 = FactoryGirl.create(:public_page, :language => @language, :parent_id => @level_3.id, :visible => true, :name => 'Level 4')
+      @new_language = FactoryGirl.create(:language)
       session[:language_code] = @new_language.code
       session[:language_id] = @new_language.id
       post :copy_language_tree, {:languages => {:new_lang_id => @new_language.id, :old_lang_id => @language.id}}

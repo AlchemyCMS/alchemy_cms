@@ -5,8 +5,8 @@ include Alchemy::BaseHelper
 describe Alchemy::Admin::ElementsHelper do
 
   before(:each) do
-    @page = Factory(:public_page)
-    @element = Factory(:element, :page => @page)
+    @page = FactoryGirl.create(:public_page)
+    @element = FactoryGirl.create(:element, :page => @page)
   end
 
   it "should render an element editor partial" do

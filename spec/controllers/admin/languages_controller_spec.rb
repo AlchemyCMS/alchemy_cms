@@ -7,7 +7,7 @@ describe Alchemy::Admin::LanguagesController do
 
   before(:each) do
     activate_authlogic
-    Alchemy::UserSession.create Factory(:admin_user)
+    Alchemy::UserSession.create FactoryGirl.create(:admin_user)
   end
 
   describe "new" do

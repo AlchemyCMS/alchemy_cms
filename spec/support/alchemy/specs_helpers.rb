@@ -13,7 +13,7 @@ module Alchemy
       # === Example:
       #
       #   before(:all) do
-      #     Factory.build(:admin_user).save_without_session_maintenance
+      #     FactoryGirl.build(:admin_user).save_without_session_maintenance
       #   end
       #
       def login_into_alchemy

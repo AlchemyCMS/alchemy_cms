@@ -7,7 +7,7 @@ describe Alchemy::Page do
   before(:each) do
     @rootpage = Alchemy::Page.root
     @language = Alchemy::Language.get_default
-    @language_root = Factory(:language_root_page, :name => 'Default Language Root', :language => @language)
+    @language_root = FactoryGirl.create(:language_root_page, :name => 'Default Language Root', :language => @language)
   end
 
   describe ".layout_description" do
@@ -36,17 +36,17 @@ describe Alchemy::Page do
   end
 
   it "should return all rss feed elements" do
-    @page = Factory(:public_page, :page_layout => 'news', :parent_id => @language_root.id, :language => @language)
+    @page = FactoryGirl.create(:public_page, :page_layout => 'news', :parent_id => @language_root.id, :language => @language)
     @page.feed_elements.should == Alchemy::Element.find_all_by_name('news')
   end
 
   context "finding elements" do
 
     before(:each) do
-      @page = Factory(:public_page)
+      @page = FactoryGirl.create(:public_page)
       @non_public_elements = [
-        Factory(:element, :public => false, :page => @page),
-        Factory(:element, :public => false, :page => @page)
+        FactoryGirl.create(:element, :public => false, :page => @page),
+        FactoryGirl.create(:element, :public => false, :page => @page)
       ]
     end
 
@@ -110,27 +110,27 @@ describe Alchemy::Page do
     context "before/after filter" do
 
       it "should automatically set the title from its name" do
-        page = Factory(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
         page.title.should == 'My Testpage'
       end
 
       it "should get a webfriendly urlname" do
-        page = Factory(:page, :name => 'klingon$&stößel ', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'klingon$&stößel ', :language => @language, :parent_id => @language_root.id)
         page.urlname.should == 'klingon-stoessel'
       end
 
       it "should generate a three letter urlname from two letter name" do
-        page = Factory(:page, :name => 'Au', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'Au', :language => @language, :parent_id => @language_root.id)
         page.urlname.should == '-au'
       end
 
       it "should generate a three letter urlname from two letter name with umlaut" do
-        page = Factory(:page, :name => 'Aü', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'Aü', :language => @language, :parent_id => @language_root.id)
         page.urlname.should == 'aue'
       end
 
       it "should generate a three letter urlname from one letter name" do
-        page = Factory(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
         page.urlname.should == '--a'
       end
 
@@ -143,14 +143,14 @@ describe Alchemy::Page do
     context "before/after filter" do
 
       it "should not set the title automatically if the name changed but title is not blank" do
-        page = Factory(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
         page.name = "My Renaming Test"
         page.save; page.reload
         page.title.should == "My Testpage"
       end
 
       it "should not automatically set the title if it changed its value" do
-        page = Factory(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
+        page = FactoryGirl.create(:page, :name => 'My Testpage', :language => @language, :parent_id => @language_root.id)
         page.title = "I like SEO"
         page.save; page.reload
         page.title.should == "I like SEO"
@@ -163,10 +163,10 @@ describe Alchemy::Page do
   context "with children" do
 
     before(:each) do
-      @first_child = Factory(:page, :name => "First child", :language => @language, :public => false, :parent_id => @language_root.id)
+      @first_child = FactoryGirl.create(:page, :name => "First child", :language => @language, :public => false, :parent_id => @language_root.id)
       @first_child.move_to_child_of(@language_root)
 
-      @first_public_child = Factory(:page, :name => "First public child", :language => @language, :parent_id => @language_root.id, :public => true)
+      @first_public_child = FactoryGirl.create(:page, :name => "First public child", :language => @language, :parent_id => @language_root.id, :public => true)
       @first_public_child.move_to_child_of(@language_root)
     end
 
@@ -183,11 +183,11 @@ describe Alchemy::Page do
   context ".contentpages" do
 
     before(:each) do
-      @klingonian = Factory(:language)
+      @klingonian = FactoryGirl.create(:language)
       @layoutroot = Alchemy::Page.find_or_create_layout_root_for(@klingonian.id)
-      @layoutpage = Factory(:public_page, :name => 'layoutpage', :layoutpage => true, :parent_id => @layoutroot.id, :language => @klingonian)
-      @klingonian_lang_root = Factory(:language_root_page, :name => 'klingonian_lang_root', :layoutpage => nil, :language => @klingonian)
-      @contentpage = Factory(:public_page, :name => 'contentpage', :parent_id => @language_root.id, :language => @language)
+      @layoutpage = FactoryGirl.create(:public_page, :name => 'layoutpage', :layoutpage => true, :parent_id => @layoutroot.id, :language => @klingonian)
+      @klingonian_lang_root = FactoryGirl.create(:language_root_page, :name => 'klingonian_lang_root', :layoutpage => nil, :language => @klingonian)
+      @contentpage = FactoryGirl.create(:public_page, :name => 'contentpage', :parent_id => @language_root.id, :language => @language)
     end
 
     it "should return a collection of contentpages" do
@@ -207,8 +207,8 @@ describe Alchemy::Page do
   context ".public" do
 
     it "should return pages that are public" do
-      Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
-      Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.published.should have(3).pages
     end
 
@@ -217,22 +217,22 @@ describe Alchemy::Page do
   context ".not_locked" do
 
     it "should return pages that are not blocked by a user at the moment" do
-      Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
-      Factory(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'Second Public Child', :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.not_locked.should have(3).pages
     end
   end
 
   context ".all_locked" do
     it "should return 1 page that is blocked by a user at the moment" do
-      Factory(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :locked => true, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.all_locked.should have(1).pages
     end
   end
 
   context ".language_roots" do
     it "should return 1 language_root" do
-      Factory(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'First Public Child', :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.language_roots.should have(1).pages
     end
   end
@@ -240,35 +240,35 @@ describe Alchemy::Page do
 
   context ".layoutpages" do
     it "should return 1 layoutpage" do
-      Factory(:public_page, :layoutpage => true, :name => 'Layoutpage', :parent_id => @rootpage.id, :language => @language)
+      FactoryGirl.create(:public_page, :layoutpage => true, :name => 'Layoutpage', :parent_id => @rootpage.id, :language => @language)
       Alchemy::Page.layoutpages.should have(1).pages
     end
   end
 
   context ".visible" do
     it "should return 1 visible page" do
-      Factory(:public_page, :name => 'First Public Child', :visible => true, :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'First Public Child', :visible => true, :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.visible.should have(1).pages
     end
   end
 
   context ".accessable" do
     it "should return 2 accessable pages" do
-      Factory(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.accessable.should have(2).pages
     end
   end
 
   context ".restricted" do
     it "should return 1 restricted page" do
-      Factory(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
+      FactoryGirl.create(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
       Alchemy::Page.restricted.should have(1).pages
     end
   end
 
   context "#unlock" do
     it "should set the locked status to false" do
-      @page = Factory(:public_page, :locked => true)
+      @page = FactoryGirl.create(:public_page, :locked => true)
       @page.unlock
       @page.locked.should == false
     end
@@ -277,7 +277,7 @@ describe Alchemy::Page do
   describe "#cell_definitions" do
 
     before(:each) do
-      @page = Factory.build(:page, :page_layout => 'foo')
+      @page = FactoryGirl.build(:page, :page_layout => 'foo')
       @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
       @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
       Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
@@ -298,7 +298,7 @@ describe Alchemy::Page do
 
     context "with no elements defined that are not defined in a cell" do
       it "should not have a cell for 'other elements'" do
-        @page = Factory.build(:page, :page_layout => 'foo')
+        @page = FactoryGirl.build(:page, :page_layout => 'foo')
         @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2"]})
         @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
@@ -308,7 +308,7 @@ describe Alchemy::Page do
 
     context "with elements defined that are not defined in a cell" do
       it "should have a cell for 'other elements'" do
-        @page = Factory.build(:page, :page_layout => 'foo')
+        @page = FactoryGirl.build(:page, :page_layout => 'foo')
         @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2", "3"]})
         @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
@@ -323,8 +323,8 @@ describe Alchemy::Page do
     context "with clipboard holding pages having non unique page layout" do
 
       it "should return the pages" do
-        page_1 = Factory(:page, :language => @language)
-        page_2 = Factory(:page, :language => @language, :name => 'Another page')
+        page_1 = FactoryGirl.create(:page, :language => @language)
+        page_2 = FactoryGirl.create(:page, :language => @language, :name => 'Another page')
         clipboard = [
           {:id => page_1.id, :action => "copy"},
           {:id => page_2.id, :action => "copy"}
@@ -337,7 +337,7 @@ describe Alchemy::Page do
     context "with clipboard holding a page having unique page layout" do
 
       it "should not return any pages" do
-        page_1 = Factory(:page, :language => @language, :page_layout => 'contact')
+        page_1 = FactoryGirl.create(:page, :language => @language, :page_layout => 'contact')
         clipboard = [
           {:id => page_1.id, :action => "copy"}
         ]
@@ -349,8 +349,8 @@ describe Alchemy::Page do
     context "with clipboard holding two pages. One having a unique page layout." do
 
       it "should return one page" do
-        page_1 = Factory(:page, :language => @language, :page_layout => 'standard')
-        page_2 = Factory(:page, :name => 'Another page', :language => @language, :page_layout => 'contact')
+        page_1 = FactoryGirl.create(:page, :language => @language, :page_layout => 'standard')
+        page_2 = FactoryGirl.create(:page, :name => 'Another page', :language => @language, :page_layout => 'contact')
         clipboard = [
           {:id => page_1.id, :action => "copy"},
           {:id => page_2.id, :action => "copy"}
@@ -366,8 +366,8 @@ describe Alchemy::Page do
 
     context "saving a normal content page" do
       it "should be possible to save when its urlname already exists in the scope of global pages" do
-        @contentpage = Factory(:page, :urlname => "existing_twice")
-        @global_with_same_urlname = Factory(:page, :urlname => "existing_twice", :layoutpage => true)
+        @contentpage = FactoryGirl.create(:page, :urlname => "existing_twice")
+        @global_with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice", :layoutpage => true)
         @contentpage.title = "new Title"
         @contentpage.save.should == true
       end
@@ -376,7 +376,7 @@ describe Alchemy::Page do
     context "creating a normal content page" do
 
       before(:each) do
-        @contentpage = Factory.build(:page, :parent_id => nil, :page_layout => nil)
+        @contentpage = FactoryGirl.build(:page, :parent_id => nil, :page_layout => nil)
       end
 
       it "should validate the page_layout" do
@@ -395,7 +395,7 @@ describe Alchemy::Page do
 
       before(:each) do
         Alchemy::Page.delete_all
-        @rootpage = Factory.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
+        @rootpage = FactoryGirl.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
       end
 
       it "should be valid" do
@@ -408,7 +408,7 @@ describe Alchemy::Page do
     context "saving a systempage" do
 
       before(:each) do
-        @systempage = Factory.build(:systempage)
+        @systempage = FactoryGirl.build(:systempage)
       end
 
       it "should not validate the page_layout" do
@@ -425,7 +425,7 @@ describe Alchemy::Page do
     context "a normal page" do
 
       before(:each) do
-        @page = Factory.build(:page, :language_code => nil, :language => Factory(:language))
+        @page = FactoryGirl.build(:page, :language_code => nil, :language => FactoryGirl.create(:language))
       end
 
       it "should get the language code for language" do
@@ -442,7 +442,7 @@ describe Alchemy::Page do
 
         before(:each) do
           @page.save
-          @child1 = Factory(:page, :name => 'Child 1', :parent_id => @page.id)
+          @child1 = FactoryGirl.create(:page, :name => 'Child 1', :parent_id => @page.id)
           @page.reload
           @page.restricted = true
           @page.save
@@ -460,7 +460,7 @@ describe Alchemy::Page do
         before(:each) do
           @page.save
           @page.parent.update_attributes(:restricted => true)
-          @new_page = Factory(:page, :name => 'New Page', :parent_id => @page.id)
+          @new_page = FactoryGirl.create(:page, :name => 'New Page', :parent_id => @page.id)
         end
 
         it "should also be restricted" do
@@ -487,7 +487,7 @@ describe Alchemy::Page do
     context "a systempage" do
 
       before(:each) do
-        @page = Factory(:systempage)
+        @page = FactoryGirl.create(:systempage)
       end
 
       it "should not get the language code for language" do

@@ -6,7 +6,7 @@ describe Alchemy::Admin::ElementsController do
 
   before(:each) do
     activate_authlogic
-    Alchemy::UserSession.create Factory(:admin_user)
+    Alchemy::UserSession.create FactoryGirl.create(:admin_user)
   end
 
   let(:page) { mock_model('Page', {:id => 1, :urlname => 'lulu'}) }

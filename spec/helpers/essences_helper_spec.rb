@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::EssencesHelper do
 
   before(:each) do
-    @element = Factory(:element)
+    @element = FactoryGirl.create(:element)
     @element.content_by_name('intro').essence.update_attributes(:body => 'hello!')
   end
 
