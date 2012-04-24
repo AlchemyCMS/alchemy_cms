@@ -88,7 +88,8 @@ module Alchemy
     end
 
     def store_language_in_session(language)
-      if language
+      if language && language.id
+        return if language.id == session[:language_id]
         session[:language_code] = language.code
         session[:language_id] = language.id
       else

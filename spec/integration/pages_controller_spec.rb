@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'spec_helper'
 
 describe Alchemy::PagesController do
@@ -89,9 +90,9 @@ describe Alchemy::PagesController do
         Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : Alchemy::Config.parameter(arg) }
       end
 
-      it "should redirect to url with nested language code" do
+      it "should redirect to url with nested language code if no language params are given" do
         visit "/alchemy/#{@page.urlname}"
-        page.current_path.should == "/alchemy/de/#{@page.urlname}"
+        page.current_path.should == "/alchemy/#{@page.language_code}/#{@page.urlname}"
       end
 
       context "should redirect to public child" do
@@ -114,19 +115,32 @@ describe Alchemy::PagesController do
 
       end
 
-      it "should redirect to pages url, if requested url is index url" do
+      it "should redirect to pages url with default language, if requested url is index url" do
         visit '/alchemy/'
         page.current_path.should == '/alchemy/de/home'
       end
 
-      it "should redirect to pages url, if requested url is only the language code" do
+      it "should redirect to pages url with default language, if requested url is only the language code" do
         visit '/alchemy/de'
         page.current_path.should == '/alchemy/de/home'
+      end
+
+      context "requested url is only the urlname" do
+        it "then it should redirect to pages url with nested language." do
+          visit '/alchemy/home'
+          page.current_path.should == '/alchemy/de/home'
+        end
       end
 
       it "should keep additional params" do
         visit "/alchemy/#{@page.urlname}?query=Peter"
         page.current_url.should match(/\?query=Peter/)
+      end
+
+      it "should render 404 if urlname and lang parameter do not belong to same page" do
+        Alchemy::User.stub!(:admins).and_return(OpenStruct.new(:count => 2))
+        visit "/alchemy/en/#{@page.urlname}"
+        page.status_code.should == 404
       end
 
       context "with url nesting" do

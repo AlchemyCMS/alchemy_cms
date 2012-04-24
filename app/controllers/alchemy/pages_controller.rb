@@ -72,12 +72,12 @@ module Alchemy
       if params[:urlname].blank?
         @page = Page.language_root_for(Language.get_default.id)
       else
-        @page = Page.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
-        # try to find the page in another language
-        if @page.nil?
-          @page = Page.find_by_urlname(params[:urlname])
-        else
+        if params[:lang].blank?
+          @page = Page.contentpages.find_by_urlname(params[:urlname])
+          store_language_in_session(@page.language) if @page.present?
           return @page
+        else
+          @page = Page.contentpages.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
         end
       end
     end
