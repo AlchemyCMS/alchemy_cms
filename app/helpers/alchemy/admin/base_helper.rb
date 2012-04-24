@@ -253,6 +253,8 @@ module Alchemy
         if alchemy_module['engine_name']
           eval(alchemy_module['engine_name']).url_for(url_options)
         else
+          # hack to prefix any controller-path with / so it doesn't refer to alchemy/...
+          url_options[:controller] = url_options[:controller].gsub(/^([^\/])/, "/#{$1}")
           main_app.url_for(url_options)
         end
       end
