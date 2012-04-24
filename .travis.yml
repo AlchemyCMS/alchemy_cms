@@ -9,8 +9,11 @@ branches:
   only:
     - master
 before_script:
-  #- "mysql -e 'create database alchemy_cms_test;'"
+  - 'if [ "$DB" = "mysql" ]; then mysql -e "create database alchemy_cms_dummy_test;" -u root; fi'
+  - 'if [ "$DB" = "postgresql" ]; then psql -c "create database alchemy_cms_dummy_test;" -U postgres; fi'
   - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:schema:load'"
 script: "bundle exec rspec spec"
-# env:
-#   - DB=mysql
+env:
+  - DB=mysql
+  - DB=postgresql
+  - DB=sqlite

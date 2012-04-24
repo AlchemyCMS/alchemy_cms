@@ -7,12 +7,14 @@ gem 'jasmine'
 gem 'jasminerice'
 
 group :test do
+  gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
+  gem 'mysql2'                if ENV['DB'] == 'mysql'
+  gem 'pg'                    if ENV['DB'] == 'postgresql'
   gem 'rspec-rails'
-  gem 'sqlite3'
-  gem 'factory_girl_rails', '1.4.0'
+  gem 'factory_girl_rails'
   gem "capybara"
-  gem 'capybara-webkit', '~>0.8.0'
-  gem "launchy"
+  gem 'capybara-webkit'       unless ENV['CI']
+  gem "launchy"               unless ENV['CI']
   gem "database_cleaner"
 end
 
