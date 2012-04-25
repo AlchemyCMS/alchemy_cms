@@ -9,7 +9,7 @@ branches:
   only:
     - master
 before_script:
-  - "sh -c 'cd spec/dummy; RAILS_ENV=test bundle exec rake db:create db:schema:load --trace; cd ../..'"
+  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
 script: "bundle exec rspec spec"
 env:
   - DB=mysql

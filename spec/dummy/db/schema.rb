@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(:version => 20120302040145) do
     t.string   "urlname"
     t.string   "title"
     t.string   "language_code"
-    t.boolean  "language_root",    :limit => 255
+    t.boolean  "language_root"
     t.string   "page_layout"
     t.text     "meta_keywords"
     t.text     "meta_description"
