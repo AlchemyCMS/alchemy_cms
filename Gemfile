@@ -11,7 +11,8 @@ group :test do
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 1.7.0', :platform => :ruby_18
+  gem 'factory_girl_rails', '~> 3.2.0', :platform => :ruby_19
   gem "capybara"
   gem 'capybara-webkit'       unless ENV['CI']
   gem "launchy"               unless ENV['CI']
