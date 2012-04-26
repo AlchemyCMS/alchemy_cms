@@ -161,7 +161,7 @@ en:
     "Image size": "Imagesize"
     "Image deleted successfully": "Image deleted successfully."
     "Mandatory": "Mandatory fields"
-    "Page deleted": "Page: '%{name}' deleted."
+    "Page deleted": "Page: %{name} deleted."
     "Page saved": "Page: '%{name}' saved."
     "Password": "Password"
     "Paste from clipboard": "Paste from clipboard"
