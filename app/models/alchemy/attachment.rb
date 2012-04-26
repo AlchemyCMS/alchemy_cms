@@ -13,7 +13,8 @@ module Alchemy
     validates_as_attachment
 
     def self.find_paginated(params, per_page)
-      cond = "name LIKE '%#{params[:query]}%' OR filename LIKE '%#{params[:query]}%'"
+      attachments = Attachment.arel_table
+      cond = attachments[:name].matches("%#{params[:query]}%").or(attachments[:filename].matches("%#{params[:query]}%"))
       self.where(cond).page(params[:page] || 1).per(per_page).order(:name)
     end
 

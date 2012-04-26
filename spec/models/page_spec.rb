@@ -191,7 +191,7 @@ describe Alchemy::Page do
     end
 
     it "should return a collection of contentpages" do
-      Alchemy::Page.contentpages.to_a.should == [@language_root, @klingonian_lang_root, @contentpage]
+      Alchemy::Page.contentpages.to_a.should include(@language_root, @klingonian_lang_root, @contentpage)
     end
 
     it "should not contain pages with attribute :layoutpage set to true" do
@@ -199,7 +199,7 @@ describe Alchemy::Page do
     end
 
     it "should contain pages with attribute :layoutpage set to nil" do
-      Alchemy::Page.contentpages.to_a.select { |p| p.layoutpage == nil }.should == [@klingonian_lang_root]
+      Alchemy::Page.contentpages.to_a.select { |p| p.layoutpage == nil }.should include(@klingonian_lang_root)
     end
 
   end

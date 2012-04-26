@@ -29,30 +29,26 @@ module Alchemy
 
     # TODO: add a trashed column to elements table
     scope :trashed, where(:page_id => nil).order('updated_at DESC')
-    scope :not_trashed, where('`alchemy_elements`.`page_id` IS NOT NULL')
+    scope :not_trashed, where(Element.arel_table[:page_id].not_eq(nil))
     scope :published, where(:public => true)
-    scope :named, lambda { |names| where(arel_table[:name].in(names)) }
+    scope :named, lambda { |names| where(:name => names) }
     scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
     scope :not_in_cell, where(:cell_id => nil)
 
-    # Returns next Element on self.page or nil. Pass a Element.name to get next of this kind.
+    # Returns next public element from same page.
+    # Pass an element name to get next of this kind.
     def next(name = nil)
-      if name.nil?
-        find_conditions = ["public = 1 AND page_id = ? AND position > ?", self.page.id, self.position]
-      else
-        find_conditions = ["public = 1 AND page_id = ? AND name = ? AND position > ?", self.page.id, name, self.position]
-      end
-      self.class.where(find_conditions).order("position ASC").limit(1)
+      elements = page.elements.published.where(Element.arel_table[:position].gt(position))
+      elements = elements.where(:name => name) if name.present?
+      elements.order("position ASC").limit(1).first
     end
 
-    # Returns previous Element on self.page or nil. Pass a Element.name to get previous of this kind.
+    # Returns previous public element from same page.
+    # Pass an element name to get previous of this kind.
     def prev(name = nil)
-      if name.nil?
-        find_conditions = ["public = 1 AND page_id = ? AND position < ?", self.page.id, self.position]
-      else
-        find_conditions = ["public = 1 AND page_id = ? AND name = ? AND position < ?", self.page.id, name, self.position]
-      end
-      self.class.where(find_conditions).order("position DESC").limit(1)
+      elements = page.elements.published.where(Element.arel_table[:position].lt(position))
+      elements = elements.where(:name => name) if name.present?
+      elements.order("position DESC").limit(1).first
     end
 
     # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).

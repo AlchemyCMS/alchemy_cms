@@ -68,12 +68,12 @@ module Alchemy
     scope :restricted, where(:restricted => true)
     scope :not_restricted, where(:restricted => false)
     scope :public_language_roots, lambda {
-      where(:language_root => true).where("`alchemy_pages`.`language_code` IN ('#{Language.all_codes_for_published.join('\',\'')}')").where(:public => true)
+      where(:language_root => true, :language_code => Language.all_codes_for_published, :public => true)
     }
-    scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('`alchemy_pages`.`updated_at` DESC').limit(5) }
+    scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
     # Returns all pages that have the given language_id
     scope :with_language, lambda { |language_id| where(:language_id => language_id) }
-    scope :contentpages, where(:layoutpage => [false, nil]).where("`alchemy_pages`.`parent_id` IS NOT NULL")
+    scope :contentpages, where(:layoutpage => [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil))
     # Returns all pages that are not locked and public.
     # Used for flushing all page caches at once.
     scope :flushables, not_locked.published.contentpages

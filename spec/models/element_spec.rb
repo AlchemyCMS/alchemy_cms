@@ -78,6 +78,11 @@ describe Alchemy::Element do
     Alchemy::Element.trashed.should include(@element)
   end
 
+  it "should return a collection of not trashed elements" do
+    @element = FactoryGirl.create(:element, :page_id => 1)
+    Alchemy::Element.not_trashed.should include(@element)
+  end
+
   context "limited amount" do
     before(:each) do
       descriptions = Alchemy::Element.descriptions
@@ -210,6 +215,46 @@ describe Alchemy::Element do
     it "should make copies of all contents of source" do
       copy = Alchemy::Element.copy(@element)
       copy.contents.collect(&:id).should_not == @element.contents.collect(&:id)
+    end
+
+  end
+
+  describe "Finding previous or next element." do
+     
+    before(:each) do
+      @page = FactoryGirl.create(:language_root_page)
+      @page.elements.delete_all
+      @element1 = FactoryGirl.create(:element, :page => @page, :name => 'headline')
+      @element2 = FactoryGirl.create(:element, :page => @page)
+      @element3 = FactoryGirl.create(:element, :page => @page, :name => 'text')
+    end
+
+    describe '#prev' do
+
+      it "should return previous element on same page" do
+        @element2.prev.should == @element1
+      end
+
+      context "with name as parameter" do
+        it "should return previous of this kind" do
+          @element3.prev('headline').should == @element1
+        end
+      end
+
+    end    
+
+    describe '#next' do
+
+      it "should return next element on same page" do
+        @element1.next.should == @element2
+      end
+
+      context "with name as parameter" do
+        it "should return next of this kind" do
+          @element1.next('text').should == @element3
+        end
+      end
+
     end
 
   end

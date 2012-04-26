@@ -16,7 +16,7 @@ module Alchemy
         else
           search_terms = ActiveRecord::Base.sanitize("%#{params[:query]}%")
           items = resource_handler.model.where(resource_handler.searchable_attributes.map { |attribute|
-            "`#{resource_handler.namespaced_model_name.pluralize}`.`#{attribute[:name]}` LIKE #{search_terms}"
+            "#{resource_handler.namespaced_model_name.pluralize}.#{attribute[:name]} LIKE #{search_terms}"
           }.join(" OR "))
         end
         instance_variable_set("@#{resource_handler.resources_name}", items.page(params[:page] || 1).per(per_page_value_for_screen_size))
