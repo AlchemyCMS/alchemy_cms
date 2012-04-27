@@ -28,6 +28,7 @@ class AlchemyInstaller < Thor
   method_option :scm, :type => :string, :aliases => "-s", :desc => "Type of scm (git or svn) to use for this project. Leave blank for none."
   method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
   def new(project)
+    results = []
     @application = project.downcase.strip.gsub(/ /, '_')
     say "Install Alchemy CMS into ./#{@application}", :yellow
     say "Generating new Rails App...", :yellow
@@ -48,10 +49,11 @@ class AlchemyInstaller < Thor
         inject_into_file "#{@application}/config/environments/production.rb", "\n  config.assets.precompile += %w( alchemy/standard_set.css )\n", { :after => sentinel, :verbose => true }
       end
       
+      results << system("cd ./#{@application} && rake db:create alchemy:install:migrations db:migrate alchemy:db:seed")
+      results << system("cd ./#{@application} && rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}")
+
       %x[
         cd ./#{@application}
-        rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
-        rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
         rm ./public/index.html
         rm ./app/views/layouts/application.html.erb
         rm ./app/assets/images/rails.png
@@ -155,7 +157,7 @@ Thank you for using Alchemy CMS!
 http://alchemy-cms.com
 
 EOF
-      say readme, :green
+      say readme, :green if results.detect { |r| r == false }.nil?
     else
       say "\nError while installation!\n", :red
     end
