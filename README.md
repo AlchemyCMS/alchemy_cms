@@ -1,11 +1,15 @@
 Alchemy CMS
 ===========
 
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.1-stable)](http://travis-ci.org/magiclabs/alchemy_cms)
 [![Development Status](http://stillmaintained.com/magiclabs/alchemy_cms.png)](http://stillmaintained.com/magiclabs/alchemy_cms)
 
 About
 -----
+
+Alchemy is a Rails 3 CMS with a flexible content storing architecture.
+
+Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
 Features
 --------
