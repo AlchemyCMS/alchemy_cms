@@ -329,7 +329,7 @@ describe Alchemy::Page do
           {:id => page_1.id, :action => "copy"},
           {:id => page_2.id, :action => "copy"}
         ]
-        Alchemy::Page.all_from_clipboard_for_select(clipboard, @language.id).should == [page_1, page_2]
+        Alchemy::Page.all_from_clipboard_for_select(clipboard, @language.id).should include(page_1, page_2)
       end
 
     end
