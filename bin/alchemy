@@ -32,7 +32,7 @@ class AlchemyInstaller < Thor
     say "Install Alchemy CMS into ./#{@application}", :yellow
     say "Generating new Rails App...", :yellow
     
-    if system("rails _#{RAILS_VERSION}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
+    if system("rails new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
       
       create_database_yml if options[:database] == 'mysql'
       
@@ -50,12 +50,13 @@ class AlchemyInstaller < Thor
       
       %x[
         cd ./#{@application}
+        rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
         rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}
         rm ./public/index.html
         rm ./app/views/layouts/application.html.erb
         rm ./app/assets/images/rails.png
       ]
-      
+
       if !options[:scm].nil? && !options[:scm].empty?
         
         clean_mountpoint = mountpoint.gsub('/', '')
@@ -129,11 +130,6 @@ GIT
         end
         
       end
-      
-      %x[
-        cd ./#{@application}
-        rake db:create alchemy:install:migrations db:migrate alchemy:db:seed
-      ]
       
       readme = <<-EOF
 
