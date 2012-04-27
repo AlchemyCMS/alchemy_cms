@@ -83,6 +83,7 @@ module Alchemy
     #   <%= render_essence_view_by_type(element, 2) %>
     #
     def render_essence_view_by_position(element, position, options = {}, html_options = {})
+      ActiveSupport::Deprecation.warn 'Alchemy CMS: render_essence_view_by_position is not supported anymore and will be removed.'
       if element.blank?
         warning('Element is nil')
         return ""

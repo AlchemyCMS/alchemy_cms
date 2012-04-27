@@ -46,6 +46,7 @@ module Alchemy
       # Renders the Content editor partial from the given Element by position (e.g. 1).
       # For options see -> render_essence
       def render_essence_editor_by_position(element, position, options = {})
+        ActiveSupport::Deprecation.warn 'Alchemy CMS: render_essence_editor_by_position is not supported anymore and will be removed.'
         if element.blank?
           warning('Element is nil')
           return ""
