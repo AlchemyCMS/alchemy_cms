@@ -88,9 +88,6 @@ module Alchemy
           }
           options = default_options.merge(options)
           element.store_page(@page) if part == :view
-          path1 = "#{Rails.root}/app/views/elements/"
-          path2 = "#{Rails.root}/vendor/plugins/alchemy/app/views/elements/"
-          partial_name = "_#{element.name.underscore}_#{part}.html.erb"
           locals = options.delete(:locals)
           render(
             :partial => "alchemy/elements/#{element.name.underscore}_#{part}",
@@ -101,14 +98,10 @@ module Alchemy
             }.merge(locals || {})
           )
         end
-      rescue ActionView::MissingTemplate
+      rescue ActionView::MissingTemplate => e
         warning(%(
           Element #{part} partial not found for #{element.name}.\n
-          Looking for #{partial_name}, but not found
-          neither in #{path1}
-          nor in #{path2}
-          Use rails generate alchemy:elements to generate them.
-          Maybe you still have old style partial names? (like .rhtml). Then please rename them in .html.erb'
+          #{e}
         ))
         render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use rails generate alchemy:elements to generate them."}
       end
