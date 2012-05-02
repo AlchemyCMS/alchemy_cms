@@ -28,7 +28,7 @@ describe Alchemy::PagesHelper do
       end
 
       it "should render the page navigation" do
-        helper.render_navigation.should have_selector("ul.navigation_level_1 li.#{@page.urlname}.active.last a.active[href=\"/alchemy/#{@page.urlname}\"]")
+        helper.render_navigation.should have_selector("ul.navigation.level_1 li.#{@page.urlname}.active.last a.active[href=\"/alchemy/#{@page.urlname}\"]")
       end
 
       context "with enabled url nesting" do
