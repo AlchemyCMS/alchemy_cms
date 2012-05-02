@@ -27,3 +27,7 @@
 #         contact: Kontakt
 #         search: Suche
 # 
+
+- name: <%= Alchemy::Config.get(:default_language)['page_layout'] %>
+  unique: true
+  elements: []

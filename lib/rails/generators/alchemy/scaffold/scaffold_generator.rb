@@ -35,8 +35,8 @@ module Alchemy
           directory "#{page_layouts_path}/", "#{Rails.root}/app/views/alchemy/page_layouts/"
         else
           copy_file "#{File.dirname(__FILE__)}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
-          copy_file "#{File.dirname(__FILE__)}/files/page_layouts.yml", "#{Rails.root}/config/alchemy/page_layouts.yml"
-          copy_file "#{File.dirname(__FILE__)}/files/pages.html.erb", "#{Rails.root}/app/views/layouts/alchemy/pages.html.erb"
+          template "page_layouts.yml.tt", "#{Rails.root}/config/alchemy/page_layouts.yml"
+          copy_file "#{File.dirname(__FILE__)}/files/pages.html.erb", "#{Rails.root}/app/views/layouts/application.html.erb"
         end
       end
 
