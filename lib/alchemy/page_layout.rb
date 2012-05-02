@@ -90,10 +90,12 @@ module Alchemy
     # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
     def self.read_layouts_file
       if File.exists? "#{Rails.root}/config/alchemy/page_layouts.yml"
-        YAML.load_file "#{Rails.root}/config/alchemy/page_layouts.yml"
+        layouts = YAML.load_file "#{Rails.root}/config/alchemy/page_layouts.yml"
       else
         raise LoadError, "Could not find page_layouts.yml file! Please run: rails generate alchemy:scaffold"
       end
+      # Since YAML returns false for an empty file, we have to normalize it here.
+      layouts || []
     end
 
   end
