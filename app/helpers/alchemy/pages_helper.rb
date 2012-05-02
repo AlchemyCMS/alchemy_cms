@@ -112,12 +112,12 @@ module Alchemy
 
     # Renders the navigation.
     #
-    # It produces a html <ul><li></li></ul> structure with all necessary classes and ids so you can produce every navigation the web uses today.
+    # It produces a html <ul><li></li></ul> structure with all necessary classes so you can produce every navigation the web uses today.
     # I.E. dropdown-navigations, simple mainnavigations or even complex nested ones.
     # 
     # === En detail:
     # 
-    #   <ul class="navigation_level_1">
+    #   <ul class="navigation level_1">
     #     <li class="first home"><a href="/home" class="active" title="Homepage" lang="en" data-page-id="1">Homepage</a></li>
     #     <li class="contact"><a href="/contact" title="Contact" lang="en" data-page-id="2">Contact</a></li>
     #     <li class="last imprint"><a href="/imprint" title="Imprint" lang="en" data-page-id="3">Imprint</a></li>
@@ -143,7 +143,15 @@ module Alchemy
     #   :reverse => false                                     # Reverse the navigation
     #   :reverse_children => false                            # Reverse the nested children
     # 
-    def render_navigation(options = {})
+    # === Passing HTML classes and ids to the renderer
+    # 
+    # A second hash will be passed as html_options to the navigation renderer partial.
+    # 
+    # ==== Example:
+    # 
+    #   <%= render_navigation({from_page => 'subnavi'}, {:class => 'navigation', :id => 'subnavigation'}) %>
+    # 
+    def render_navigation(options = {}, html_options = {})
       default_options = {
         :submenu => false,
         :all_sub_menues => false,
@@ -179,7 +187,7 @@ module Alchemy
       if options[:reverse]
         pages.reverse!
       end
-      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages}
+      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages, :html_options => html_options}
     end
 
     # Renders navigation the children and all siblings of the given page (standard is the current page).

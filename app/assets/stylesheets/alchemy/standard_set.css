@@ -146,18 +146,17 @@ div#header_image {
   background-color: #ffa300;
 }
 
-#navigation ul.navigation_level_1 li {
+#navigation ul.navigation.level_1 li {
   display: inline;
   float: left;
 }
 
-#navigation ul.navigation_level_2 li,
-#navigation ul.navigation_level_-1 li {
+#navigation ul.navigation.level_2 li {
   display: block;
   float: none;
 }
 
-#navigation ul.navigation_level_3 li {
+#navigation ul.navigation.level_3 li {
 
 }
 
@@ -165,7 +164,7 @@ div#header_image {
   background-color: #c0c0c0;
 }
 
-#navigation ul.navigation_level_2 > li.last {
+#navigation ul.navigation.level_2 > li.last {
 
 }
 
@@ -181,7 +180,7 @@ div#header_image {
   color: #fff;
 }
 
-#navigation ul.navigation_level_2, #navigation ul.navigation_level_-1 {
+#navigation ul.navigation.level_2 {
   display: none;
   position: absolute;
   z-index: 10;
@@ -191,22 +190,22 @@ div#header_image {
   clear: both;
 }
 
-#navigation ul.navigation_level_3 {
+#navigation ul.navigation.level_3 {
   display: none;
   z-index: 20;
   background-color: white;
   float: none;
 }
 
-#navigation ul.navigation_level_3 li {
+#navigation ul.navigation.level_3 li {
   padding-left: 20px;
 }
 
-#navigation ul.navigation_level_1 li:hover ul.navigation_level_2, #navigation ul.navigation_level_1 li:hover ul.navigation_level_-1 {
+#navigation ul.navigation.level_1 li:hover ul.navigation.level_2 {
   display: block;
 }
 
-#navigation ul.navigation_level_2 li:hover ul.navigation_level_3 {
+#navigation ul.navigation.level_2 li:hover ul.navigation.level_3 {
   display: block;
 }
 

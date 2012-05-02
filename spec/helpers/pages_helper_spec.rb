@@ -47,6 +47,15 @@ describe Alchemy::PagesHelper do
 
     end
 
+    context "with id and class in the html options" do
+      it "should append id to the generated ul tag" do
+        helper.render_navigation({}, {:id => 'foobar_id'}).should have_selector("ul[id='foobar_id']")
+      end
+      it "should append the class to the generated ul tag" do
+        helper.render_navigation({}, {:class => 'foobar_class'}).should have_selector("ul[class~='foobar_class']")
+      end
+    end
+
   end
 
   describe '#render_subnavigation' do
