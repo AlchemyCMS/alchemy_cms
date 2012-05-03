@@ -187,7 +187,12 @@ module Alchemy
       if options[:reverse]
         pages.reverse!
       end
-      render :partial => options[:navigation_partial], :locals => {:options => options, :pages => pages, :html_options => html_options}
+      render(
+        options[:navigation_partial],
+        :options => options,
+        :pages => pages,
+        :html_options => html_options
+      )
     end
 
     # Renders navigation the children and all siblings of the given page (standard is the current page).
@@ -314,11 +319,10 @@ module Alchemy
     def render_title_tag(options={})
       default_options = {
         :prefix => "",
-        :seperator => "|"
+        :seperator => ""
       }
       options = default_options.merge(options)
-      title = render_page_title(options)
-      %(<title>#{title}</title>).html_safe
+      %(<title>#{render_page_title(options)}</title>).html_safe
     end
 
     # Renders a html <meta> tag for :name => "" and :content => ""
@@ -366,7 +370,7 @@ module Alchemy
       end
       default_options = {
         :title_prefix => "",
-        :title_seperator => "|",
+        :title_seperator => "",
         :default_lang => "de"
       }
       options = default_options.merge(options)
@@ -386,15 +390,15 @@ module Alchemy
       meta_string = %(
         <meta charset="UTF-8">
         #{render_title_tag(:prefix => options[:title_prefix], :seperator => options[:title_seperator])}
-      #{render_meta_tag(:name => "description", :content => description)}
-      #{render_meta_tag(:name => "keywords", :content => keywords)}
+        #{render_meta_tag(:name => "description", :content => description)}
+        #{render_meta_tag(:name => "keywords", :content => keywords)}
         <meta name="created" content="#{@page.updated_at}">
         <meta name="robots" content="#{robot}">
       )
       if @page.contains_feed?
         meta_string += %(
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, :protocol => 'feed', :format => :rss)}">
-      )
+          <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, :protocol => 'feed', :format => :rss)}">
+        )
       end
       return meta_string.html_safe
     end
