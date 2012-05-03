@@ -1,7 +1,7 @@
 <% unless pages.blank? -%>
   <%= content_tag(
     'ul',
-    :class => ['navigation', "level_#{pages.first.level - 1}", html_options[:class]].compact.join(' '),
+    :class => html_options[:class] || "navigation level_#{pages.first.level - 1}",
     :id => html_options[:id]
   ) do %>
     <% pages.each do |page| -%>
