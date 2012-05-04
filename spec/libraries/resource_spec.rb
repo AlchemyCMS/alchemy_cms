@@ -29,36 +29,34 @@ describe Alchemy::Resource do
   end
 
   describe "instance methods" do
-    before :each do
-      @resource = Alchemy::Resource.new("admin/events")
-    end
+      let(:resource) { Alchemy::Resource.new("admin/events") }
 
     describe "model" do
       it "returns resource's model-class" do
-        @resource.model.should be(Event)
+        resource.model.should be(Event)
       end
 
       describe "resources_name" do
         it "returns plural name (like events for model Event)" do
-          @resource.resources_name.should == 'events'
+          resource.resources_name.should == 'events'
         end
       end
 
       describe "model_name" do
         it "returns model_name (like event for model Event" do
-          @resource.model_name.should == 'event'
+          resource.model_name.should == 'event'
         end
       end
 
       describe "permission_scope" do
         it "should return the permissions_scope usable in declarative authorization" do
-          @resource.permission_scope.should == :admin_events
+          resource.permission_scope.should == :admin_events
         end
       end
 
       describe "namespace_for_scope" do
         it "returns a scope for use in url_for-based path-helpers" do
-          @resource.namespace_for_scope.should == ['admin']
+          resource.namespace_for_scope.should == ['admin']
         end
       end
 
@@ -76,24 +74,24 @@ describe Alchemy::Resource do
         end
 
         it "parses and returns the resource-model's attributes from ActiveRecord::ModelSchema" do
-          @resource.attributes.should == [{:name => "name", :type => :string}, {:name => "hidden_value", :type => :string}, {:name => "description", :type => :string}, {:name => "starts_at", :type => :datetime}]
+          resource.attributes.should == [{:name => "name", :type => :string}, {:name => "hidden_value", :type => :string}, {:name => "description", :type => :string}, {:name => "starts_at", :type => :datetime}]
         end
 
-        it "skips attributes mentioned in SKIP_ATTRIBUTES" do
-          @resource.attributes.should_not include({:name => "id", :type => :integer})
-          @resource.attributes.should include({:name => "hidden_value", :type => :string})
+        it "skips a set of default attributes (DEFAULT_SKIPPED_ATTRIBUTES)" do
+          resource.attributes.should_not include({:name => "id", :type => :integer})
+          resource.attributes.should include({:name => "hidden_value", :type => :string})
         end
 
-        it "should prefer SKIP_ATTRIBUTES in model if defined" do
-          Event.const_set :SKIP_ATTRIBUTES, %W[hidden_value]
-          @resource.attributes.should include({:name => "id", :type => :integer})
-          @resource.attributes.should_not include({:name => "hidden_value", :type => :string})
+        it "should skip attributes set via skip_attributes" do
+          resource.skip_attributes = %W[hidden_value]
+          resource.attributes.should include({:name => "id", :type => :integer})
+          resource.attributes.should_not include({:name => "hidden_value", :type => :string})
         end
 
         describe "searchable_attributes" do
           it "should return all attributes of type string" do
-            Event.const_set :SKIP_ATTRIBUTES, []
-            @resource.searchable_attributes.should == [{:name => "name", :type => :string}, {:name => "hidden_value", :type => :string}, {:name => "description", :type => :string}]
+            resource.skip_attributes = []
+            resource.searchable_attributes.should == [{:name => "name", :type => :string}, {:name => "hidden_value", :type => :string}, {:name => "description", :type => :string}]
           end
         end
       end

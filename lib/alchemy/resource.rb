@@ -3,11 +3,14 @@ require 'active_support/inflector'
 module Alchemy
   class Resource
 
-    SKIP_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
+    attr_accessor :skip_attributes
+
+    DEFAULT_SKIPPED_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
 
     def initialize(controller_path, module_definition=nil)
       @controller_path = controller_path
       @module_definition = module_definition
+      self.skip_attributes = DEFAULT_SKIPPED_ATTRIBUTES
     end
 
     def model_array
@@ -42,10 +45,7 @@ module Alchemy
     def attributes
       #@_attributes ||=
       self.model.columns.collect do |col|
-        skip_attributes = defined?(self.model::SKIP_ATTRIBUTES) ? self.model::SKIP_ATTRIBUTES : SKIP_ATTRIBUTES
-        unless skip_attributes.include?(col.name)
-          {:name => col.name, :type => col.type}
-        end
+        {:name => col.name, :type => col.type} unless self.skip_attributes.include?(col.name)
       end.compact
     end
 
