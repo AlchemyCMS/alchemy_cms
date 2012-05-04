@@ -39,9 +39,20 @@
 # 
 # After finishing the setup of your element layouts, you need to generate the files for the elements before using them in Alchemy.
 # For creating these files, use the following command in your terminal:
+#
+#
 # 
-#   rails generate elements
+#   rails generate alchemy:elements 
+#
+#
+#   or: 
+#  
+#   rails g alchemy:elements --skip 
+#
+#  
+#   to skip existing elements
 # 
+#
 # All new elements will be created as two different partials in Rails.root/app/views/elements.
 # For each element there is an editor-view wich will be rendered when editing them in Alchemy and another view for the website´s frontend.
 # 
