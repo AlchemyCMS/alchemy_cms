@@ -3,7 +3,8 @@
 	h(page.name),
 	page.urlname,
 	:title => (options[:show_title] == true ? page.title : nil),
-	:target => configuration(:open_external_links_in_new_tab) ? '_blank' : nil
+	:target => configuration(:open_external_links_in_new_tab) ? '_blank' : nil,
+	:class => external_page_css_class(page)
 ) -%>
 <%- else -%>
 <%= link_to(
