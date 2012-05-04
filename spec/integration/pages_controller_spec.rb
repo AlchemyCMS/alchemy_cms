@@ -256,6 +256,24 @@ describe Alchemy::PagesController do
 
   describe "Handling of non-existing pages" do
 
+    context "when a language root page exists" do
+
+      before(:each) do
+        # We need an admin user, because otherwise we will be redirected to UserSessions controller to create a new user
+        FactoryGirl.create(:admin_user)
+        visit "/alchemy/non-existing-page"
+      end
+
+      it "should render the status code in the title tag" do
+        within("title") { page.should have_content("404") }
+      end
+
+      it "should render the layout" do
+        page.should have_selector("#language_select")
+      end
+
+    end
+
     context "404-Errors are handled by Rails now, so no need to test anymore.
              However, it still serves as documentation how they can be handled, so we leave it here" do
 

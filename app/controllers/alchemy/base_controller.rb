@@ -129,7 +129,8 @@ module Alchemy
       if exception
         logger.info "Rendering 404: #{exception.message}"
       end
-      render :file => "#{Rails.root}/public/404", :status => 404
+      @page = Page.language_root_for(session[:language_id])
+      render :file => "#{Rails.root}/public/404", :status => 404, :layout => !@page.nil?
     end
 
     protected

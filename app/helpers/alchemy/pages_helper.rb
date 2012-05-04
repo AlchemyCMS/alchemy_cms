@@ -306,7 +306,7 @@ module Alchemy
         :seperator => ""
       }
       default_options.update(options)
-      [default_options[:prefix], @page.title].join(default_options[:seperator])
+      [default_options[:prefix], response.status == 200 ? @page.title : response.status].join(default_options[:seperator])
     end
 
     # Returns a complete html <title> tag for the <head> part of the html document.
