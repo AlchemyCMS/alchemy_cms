@@ -23,11 +23,11 @@
     :options => options
   ),
   {
-    :title => t('swap_image'),
+    :title => (content.essence.picture ? t('swap_image') : t('insert_image')),
     :size => '720x580',
     :resizable => "true"
   },
-  :title => t('swap_image')
+  :title => (content.essence.picture ? t('swap_image') : t('insert_image'))
 ) %>
 
 <%= link_to_function(

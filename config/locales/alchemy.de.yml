@@ -497,6 +497,7 @@ de:
     successfully_added_element: "Element wurde hinzugefügt."
     successfully_saved_element_position: "Die Elementposition wurde gespeichert."
     swap_image: "Bild tauschen"
+    insert_image: "Bild einfügen"
     swfupload:
       cancel_uploads: "Hochladen abbrechen"
     title: "Titel"
