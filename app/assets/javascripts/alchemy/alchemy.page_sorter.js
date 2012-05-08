@@ -32,7 +32,7 @@ if (typeof(Alchemy) === 'undefined') {
         $.post(Alchemy.routes.order_admin_pages_path, params);
         return false;
       });
-      $('#bottom_buttons .button').click(Alchemy.pleaseWaitOverlay);
+      $('#sort_panel .button').click(Alchemy.pleaseWaitOverlay);
       Alchemy.PageSorter.disableButton();
       Alchemy.resizeFrame();
     },

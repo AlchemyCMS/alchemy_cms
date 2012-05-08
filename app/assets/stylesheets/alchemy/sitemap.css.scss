@@ -1,22 +1,23 @@
 @import "alchemy/defaults";
 
-div#bottom_panel {
+div#sort_panel {
+  background: $medium-gray;
+  padding: 60px 0 8px 0;
   position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 100%;
+  top: 27px;
+  left: 0;
   z-index: 10;
-  background: $medium-gray image-url('alchemy/shading.png') repeat-x 0 0;
-}
+  width: 100%;
+  border-bottom: $default-border;
 
-div#bottom_panel div.info {
-  margin: 16px 16px 8px 81px;
-  width: 720px;
-}
+  div.info {
+    margin: 8px 8px 8px 104px;
+    width: 720px;
+  }
 
-div#bottom_buttons {
-  padding: 0 16px 16px;
-  margin-left: 65px;
+  div.buttons {
+    margin: 0 0 8px 104px;
+  }
 }
 
 .sitemap_pagename_link {

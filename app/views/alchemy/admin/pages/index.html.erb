@@ -66,21 +66,21 @@
 
 <%- if @page_root -%>
 
-<h2 id="sitemap_heading">
-  <span class="page_name"><%= t('Name') %></span>
-  <span class="page_infos"><%= t('Status') %></span>
-</h2>
-
-<div id="bottom_panel" style="display: none">
+<div id="sort_panel" style="display: none">
   <div class="info">
     <%= render_icon('info') %>
     <%= t('explain_sitemap_dragndrop_sorting') %>
   </div>
-  <div id="bottom_buttons">
+  <div class="buttons">
     <%= link_to( t('cancel'), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
     <%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' ) %>
   </div>
 </div>
+
+<h2 id="sitemap_heading">
+  <span class="page_name"><%= t('Name') %></span>
+  <span class="page_infos"><%= t('Status') %></span>
+</h2>
 
 <%= render :partial => 'sitemap' %>
 
