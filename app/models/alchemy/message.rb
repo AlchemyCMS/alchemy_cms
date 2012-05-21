@@ -1,13 +1,13 @@
 # This is a tableless model only used for validating contactform fields.
-# 
+#
 # You can specify the fields for your contactform in the +config/alchemy/config.yml+ file in the +:mailer+ options.
-# 
+#
 # === Example Contactform Configuration:
-# 
-#   :mailer:
-#     :form_layout_name: contact
-#     :fields: [subject, name, email, message, info]
-#     :validate_fields: [name, email]
+#
+#   mailer:
+#     form_layout_name: contact
+#     fields: [subject, name, email, message, info]
+#     validate_fields: [name, email]
 
 module Alchemy
   class Message
@@ -22,12 +22,12 @@ module Alchemy
     attr_accessor :contact_form_id, :ip
     attr_accessible :contact_form_id
 
-    @@config[:fields].each do |field|
+    @@config['fields'].each do |field|
       attr_accessor field.to_sym
       attr_accessible field.to_sym
     end
 
-    @@config[:validate_fields].each do |field|
+    @@config['validate_fields'].each do |field|
       validates_presence_of field
       if field.to_s == 'email'
         validates_format_of field, :with => ::Authlogic::Regex.email, :if => :email_is_filled
