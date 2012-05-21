@@ -339,6 +339,7 @@ en:
     successfully_added_element: "Succesfully added new element."
     successfully_saved_element_position: "Element position updated succesfully."
     swap_image: "Change image"
+    insert_image: "Insert image"
     swfupload:
       cancel_uploads: "Cancel uploads"
     title: "Title"
