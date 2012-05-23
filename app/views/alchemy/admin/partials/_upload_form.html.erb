@@ -44,10 +44,10 @@
   Alchemy.Uploader.init({
     upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
     post_params: <%= post_params.html_safe %>,
-    file_size_limit: <%= configuration(:uploader)[:file_size_limit] || 100 -%>,
+    file_size_limit: <%= configuration(:uploader)['file_size_limit'] || 100 -%>,
     file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
     file_types_description: "<%= file_types_description %>",
-    file_upload_limit: <%= configuration(:uploader)[:upload_limit] || 50 -%>,
+    file_upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>,
     locale: "<%= ::I18n.locale || 'en' %>"
   });
 
