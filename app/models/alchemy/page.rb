@@ -107,6 +107,7 @@ module Alchemy
       elsif !options[:except].blank?
         elements = elements.excluded(options[:except])
       end
+      elements = elements.reverse_order if options[:reverse_sort] || options[:reverse]
       elements = elements.offset(options[:offset]).limit(options[:count])
       elements = elements.order("RAND()") if options[:random]
       if show_non_public

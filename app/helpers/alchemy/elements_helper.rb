@@ -59,7 +59,6 @@ module Alchemy
         unless options[:sort_by].blank?
           all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
         end
-        all_elements.reverse! if options[:reverse_sort] || options[:reverse]
         element_string = ""
         if options[:fallback]
           unless all_elements.detect { |e| e.name == options[:fallback][:for] }
