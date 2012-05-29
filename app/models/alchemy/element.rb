@@ -121,22 +121,26 @@ module Alchemy
       contents.find_by_name(rss_title['name'])
     end
 
-    # Inits a new element for page as described in /config/alchemy/elements.yml from element_name
+    # Builds a new element as described in +/config/alchemy/elements.yml+
     def self.new_from_scratch(attributes)
       attributes.stringify_keys!
       return Element.new if attributes['name'].blank?
       element_descriptions = Element.descriptions
       return if element_descriptions.blank?
-      element_scratch = element_descriptions.select { |m| m["name"] == attributes['name'].split('#').first }.first
-      element = Element.new(
-        element_scratch.except('contents', 'available_contents', 'display_name', 'amount').merge({
-          :page_id => attributes['page_id']
-        })
-      )
-      element
+      element_name = attributes['name'].split('#').first
+      element_scratch = element_descriptions.detect { |m| m["name"] == element_name }
+      if element_scratch
+        Element.new(
+          element_scratch.except('contents', 'available_contents', 'display_name', 'amount').merge({
+            :page_id => attributes['page_id']
+          })
+        )
+      else
+        raise "Element description for #{element_name} not found. Please check your elements.yml"
+      end
     end
 
-    # Inits a new element for page as described in /config/alchemy/elements.yml from element_name and saves it
+    # Builds a new element as described in +/config/alchemy/elements.yml+ and saves it
     def self.create_from_scratch(attributes)
       element = Element.new_from_scratch(attributes)
       element.save if element
