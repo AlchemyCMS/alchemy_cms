@@ -134,6 +134,11 @@ describe Alchemy::Page do
         page.urlname.should == '--a'
       end
 
+      it "should add a user stamper" do
+        page = FactoryGirl.create(:page, :name => 'A', :language => @language, :parent_id => @language_root.id)
+        page.class.stamper_class.to_s.should == 'Alchemy::User'
+      end
+
     end
 
   end

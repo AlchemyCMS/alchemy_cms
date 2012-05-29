@@ -3,7 +3,7 @@ module Alchemy
 
     attr_accessible :uploaded_data, :name
 
-    stampable
+    stampable(:stamper_class_name => 'Alchemy::User')
 
     has_attachment(
       :storage => :file_system,
