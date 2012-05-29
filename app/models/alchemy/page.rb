@@ -261,7 +261,7 @@ module Alchemy
 
     def fold(user_id, status)
       folded_page = FoldedPage.find_or_create_by_user_id_and_page_id(user_id, self.id)
-      folded_page.update_attributes(:folded => status)
+      folded_page.folded = status
       folded_page.save
     end
 
