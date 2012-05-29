@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'support/integration_spec_helper'
 
 describe "Resources" do
 
@@ -21,7 +20,9 @@ describe "Resources" do
                   :entrance_fee => 12.32)
   end
 
-  before(:each) { login_with_admin_user }
+  before(:each) {
+    login_into_alchemy
+  }
 
   describe "index view" do
 

@@ -6,7 +6,7 @@ unless ENV["CI"]
   describe Alchemy::Admin::PagesController, :js => true do
 
     before(:all) do
-      FactoryGirl.build(:admin_user).save_without_session_maintenance
+      create_admin_user
     end
 
     before(:each) do
