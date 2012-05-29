@@ -23,7 +23,7 @@ module Alchemy
       :name
     )
 
-    stampable
+    stampable(:stamper_class_name => 'Alchemy::User')
 
     def self.find_paginated(params, per_page)
       Picture.where("name LIKE '%#{params[:query]}%'").page(params[:page] || 1).per(per_page).order(:name)

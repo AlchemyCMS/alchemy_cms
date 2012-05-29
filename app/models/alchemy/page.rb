@@ -30,7 +30,7 @@ module Alchemy
     RESERVED_URLNAMES = %w(admin messages)
 
     acts_as_nested_set(:dependent => :destroy)
-    stampable
+    stampable(:stamper_class_name => 'Alchemy::User')
 
     has_many :folded_pages
     has_many :cells, :dependent => :destroy

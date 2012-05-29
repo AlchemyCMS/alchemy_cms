@@ -2,7 +2,7 @@ module Alchemy
   class User < ActiveRecord::Base
 
     model_stamper
-    stampable
+    stampable(:stamper_class_name => 'Alchemy::User')
     acts_as_authentic do |c|
       c.transition_from_restful_authentication = true
       c.logged_in_timeout = Config.get(:auto_logout_time).minutes
