@@ -6,7 +6,7 @@ module Alchemy
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
 
-    stampable :stamper_class_name => :user
+    stampable(:stamper_class_name => 'Alchemy::User')
 
     acts_as_list
 

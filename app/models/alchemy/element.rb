@@ -13,7 +13,7 @@ module Alchemy
 
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
     acts_as_list :scope => [:page_id, :cell_id]
-    stampable :stamper_class_name => :user
+    stampable(:stamper_class_name => 'Alchemy::User')
 
     has_many :contents, :order => :position, :dependent => :destroy
     belongs_to :cell
