@@ -259,10 +259,10 @@ module Alchemy
       end
     end
 
-    context ".accessable" do
-      it "should return 2 accessable pages" do
+    context ".accessible" do
+      it "should return 2 accessible pages" do
         FactoryGirl.create(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => @language_root.id, :language => @language)
-        Page.accessable.should have(2).pages
+        Page.accessible.should have(2).pages
       end
     end
 

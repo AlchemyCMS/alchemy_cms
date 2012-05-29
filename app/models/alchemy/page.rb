@@ -64,7 +64,7 @@ module Alchemy
     scope :not_locked, where(:locked => false)
     scope :visible, where(:visible => true)
     scope :published, where(:public => true)
-    scope :accessable, where(:restricted => false)
+    scope :accessible, where(:restricted => false)
     scope :restricted, where(:restricted => true)
     scope :not_restricted, where(:restricted => false)
     scope :public_language_roots, lambda {
