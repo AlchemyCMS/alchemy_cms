@@ -14,6 +14,10 @@ module Alchemy
       "element_id = '#{element_id}' AND essence_type = '#{essence_type}'"
     end
 
+    def cache_key
+      "content_editor_#{id}"
+    end
+
     #validates_uniqueness_of :name, :scope => :element_id
     validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
@@ -55,9 +59,9 @@ module Alchemy
     # Settings from the elements.yml definition
     def settings
       return {} if description.blank?
-      settings = description['settings']
-      return {} if settings.blank?
-      settings.symbolize_keys
+      @settings ||= description['settings']
+      return {} if @settings.blank?
+      @settings.symbolize_keys
     end
 
     def siblings
@@ -104,11 +108,11 @@ module Alchemy
         logger.warn("\n+++++++++++ Warning: Content with id #{self.id} is missing its Element\n")
         return nil
       else
-        desc = self.element.content_description_for(self.name)
-        if desc.blank?
-          desc = self.element.available_content_description_for(self.name)
+        @desc ||= self.element.content_description_for(self.name)
+        if @desc.blank?
+          @desc ||= self.element.available_content_description_for(self.name)
         else
-          return desc
+          return @desc
         end
       end
     end

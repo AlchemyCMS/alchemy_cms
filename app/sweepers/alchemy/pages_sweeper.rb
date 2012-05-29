@@ -7,6 +7,7 @@ module Alchemy
       unless page.layoutpage?
         expire_page(page)
         check_multipage_elements(page)
+        expire_contents_displayed_as_select(page)
       end
     end
 
@@ -14,6 +15,7 @@ module Alchemy
       unless page.layoutpage?
         expire_page(page)
         check_multipage_elements(page)
+        expire_contents_displayed_as_select(page)
       end
     end
 
@@ -54,6 +56,14 @@ module Alchemy
         ),
         false
       ).path)
+    end
+
+    # Expires all content editor cache fragments that have a :display_as => :select setting
+    def expire_contents_displayed_as_select(page)
+      return unless page.urlname_changed? || page.name_changed?
+      Content.essence_texts.all.select { |c| c.settings[:display_as] == 'select'}.each do |content|
+        expire_fragment(content)
+      end
     end
 
   end
