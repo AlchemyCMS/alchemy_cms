@@ -1,5 +1,6 @@
 (function($) {
-  
+
+  $('#picture_to_assign_<%= @picture.id %> a').attr('href', '#').off('click');
   $('#<%= content_dom_id(@content) -%>').replaceWith('<%= escape_javascript(
     render(
       :partial => "alchemy/essences/essence_picture_editor",
@@ -11,5 +12,5 @@
 <%- end -%>
   Alchemy.closeCurrentWindow();
   Alchemy.setElementDirty('#element_<%= @content.element.id -%>');
-  
+
 })(jQuery);

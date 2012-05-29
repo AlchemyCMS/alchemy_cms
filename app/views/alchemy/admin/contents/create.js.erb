@@ -21,7 +21,7 @@
 
   <% case @content.essence_type -%>
   <% when "Alchemy::EssencePicture" -%>
-
+  $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
   <% if @contents_of_this_type.length > 1 -%>
   $('#element_<%= @element.id -%>_contents .essence_picture_editor').addClass('dragable_picture');
   <% end -%>
