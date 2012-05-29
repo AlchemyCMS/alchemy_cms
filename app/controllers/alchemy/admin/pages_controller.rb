@@ -10,6 +10,7 @@ module Alchemy
       filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :move, :flush], :attribute_check => false
 
       cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
+      cache_sweeper Alchemy::ContentSweeper, :only => [:create, :update, :destroy]
 
       def index
         @page_root = Page.language_root_for(session[:language_id])

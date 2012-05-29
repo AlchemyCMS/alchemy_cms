@@ -14,10 +14,6 @@ module Alchemy
       "element_id = '#{element_id}' AND essence_type = '#{essence_type}'"
     end
 
-    def cache_key
-      "content_editor_#{id}"
-    end
-
     #validates_uniqueness_of :name, :scope => :element_id
     validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
