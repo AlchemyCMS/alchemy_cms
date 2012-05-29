@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Alchemy::PagesController do
 
-  before(:each) do
+  before(:all) do
     @default_language = Alchemy::Language.get_default
     @default_language_root = FactoryGirl.create(:language_root_page, :language => @default_language, :name => 'Home')
   end
@@ -31,7 +31,7 @@ describe Alchemy::PagesController do
 
   describe "fulltext search" do
 
-    before(:each) do
+    before(:all) do
       @page = FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
       @element = FactoryGirl.create(:element, :name => 'article', :page => @page)
       FactoryGirl.create(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
@@ -145,7 +145,7 @@ describe Alchemy::PagesController do
 
       context "with url nesting" do
 
-        before(:each) do
+        before(:all) do
           @level1 = FactoryGirl.create(:public_page, :parent_id => @default_language_root.id, :name => 'catalog', :language => @default_language)
           @level2 = FactoryGirl.create(:public_page, :parent_id => @level1.id, :name => 'products', :language => @default_language)
           @level3 = FactoryGirl.create(:public_page, :parent_id => @level2.id, :name => 'screwdriver', :language => @default_language)
@@ -258,9 +258,12 @@ describe Alchemy::PagesController do
 
     context "when a language root page exists" do
 
-      before(:each) do
+      before(:all) do
         # We need an admin user, because otherwise we will be redirected to UserSessions controller to create a new user
-        FactoryGirl.create(:admin_user)
+        FactoryGirl.create(:admin_user, :login => 'foo-boo', :email => 'foo@boo.org')
+      end
+
+      before(:each) do
         visit "/alchemy/non-existing-page"
       end
 

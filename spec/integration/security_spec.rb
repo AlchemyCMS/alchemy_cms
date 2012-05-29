@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe "Security: " do
 
-  context "If no user is present" do
+  before(:all) do
+    Alchemy::Page.root.children.destroy_all
+    Alchemy::User.delete_all
+    # ensuring that we have the correct locale here
+    ::I18n.locale = :en
+  end
 
-    before(:all) do
-      Alchemy::User.delete_all
-      # ensuring that we have the correct locale here
-      ::I18n.locale = :en
-    end
+  context "If no user is present" do
 
     it "render the signup view" do
       visit '/alchemy/'
@@ -35,17 +36,16 @@ describe "Security: " do
     end
 
     context "that is already logged in" do
-      before(:all) do
-        visit '/alchemy/admin/login'
-        fill_in('alchemy_user_session_login', :with => 'jdoe')
-        fill_in('alchemy_user_session_password', :with => 's3cr3t')
-        click_on('Login')
+
+      before(:each) do
+        login_into_alchemy
       end
 
       it "should be redirected to dashboard" do
         visit '/alchemy/admin/login'
         current_path.should == '/alchemy/admin/dashboard'
       end
+
     end
 
   end

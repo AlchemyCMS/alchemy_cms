@@ -5,8 +5,9 @@ require 'spec_helper'
 module Alchemy
   describe Page do
 
-    before(:each) do
+    before(:all) do
       @rootpage = Page.root
+      @rootpage.children.destroy_all
       @language = Language.get_default
       @language_root = FactoryGirl.create(:language_root_page, :name => 'Default Language Root', :language => @language)
     end
@@ -512,7 +513,7 @@ module Alchemy
 
       before(:each) do
         @page = FactoryGirl.create(:public_page)
-        @user = FactoryGirl.create(:admin_user)
+        @user = FactoryGirl.create(:admin_user, :email => 'faz@baz.com', :login => 'foo_baz')
       end
 
       context "with folded status set to true" do
