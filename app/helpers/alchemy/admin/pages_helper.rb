@@ -50,6 +50,7 @@ module Alchemy
             jQuery(function($) {
               Alchemy.Tinymce.customInits = [];"
         Alchemy::Tinymce.custom_config_contents.each do |content|
+          next unless content['settings']['tinymce']
           config = Alchemy::Tinymce.init.merge(content['settings']['tinymce'].symbolize_keys)
           config = config.collect { |key, value| "#{key} : #{value.to_json}" }.join(', ')
           custom_config_string += "
