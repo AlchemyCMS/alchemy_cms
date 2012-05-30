@@ -21,6 +21,7 @@
     ),
     action_url,
     :remote => true,
+    :onclick => '$(self).attr("href", "#").off("click")',
     :method => action_method,
     :title => t("assign_image"),
     :class => 'thumbnail_background'
