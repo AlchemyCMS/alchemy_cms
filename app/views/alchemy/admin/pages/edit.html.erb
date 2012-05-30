@@ -160,6 +160,11 @@
       Alchemy.Tinymce.init(function() {
         Alchemy.ElementDirtyObserver('#element_area');
       });
+      if (Alchemy.Tinymce.customInits.length > 0) {
+        for (var i = Alchemy.Tinymce.customInits.length - 1; i >= 0; i--) {
+          Alchemy.Tinymce.customInits[i].call();
+        }
+      }
       jQuery('#cells').tabs();
       jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
     });

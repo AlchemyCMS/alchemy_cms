@@ -113,6 +113,11 @@ module Alchemy
       end
     end
 
+    # Returns all content descriptions from elements.yml
+    def self.descriptions
+      @descriptions ||= Element.descriptions.collect { |e| e['contents'] }.flatten.compact
+    end
+
     # Gets the ingredient from essence
     def ingredient
       return nil if self.essence.nil?
@@ -205,6 +210,10 @@ module Alchemy
       else
         essence_type
       end
+    end
+
+    def has_custom_tinymce_config?
+      settings[:tinymce].present?
     end
 
   end

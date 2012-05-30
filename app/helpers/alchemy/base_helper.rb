@@ -39,15 +39,6 @@ module Alchemy
       end
     end
 
-    # Taken from tinymce_hammer plugin
-    def append_class_name options, class_name #:nodoc:
-      key = options.has_key?('class') ? 'class' : :class
-      unless options[key].to_s =~ /(^|\s+)#{class_name}(\s+|$)/
-        options[key] = "#{options[key]} #{class_name}".strip
-      end
-      options
-    end
-
     # Returns an icon
     def render_icon(icon_class)
       content_tag('span', '', :class => "icon #{icon_class}")

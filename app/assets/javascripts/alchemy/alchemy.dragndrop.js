@@ -47,13 +47,13 @@ if (typeof(Alchemy) === 'undefined') {
           });
         },
         start:function (event, ui) {
-          var $textareas = ui.item.find('textarea.tinymce');
+          var $textareas = ui.item.find('textarea.default_tinymce, textarea.custom_tinymce');
           $textareas.each(function () {
             tinymce.get(this.id).remove();
           });
         },
         stop:function (event, ui) {
-          var $textareas = ui.item.find('textarea.tinymce');
+          var $textareas = ui.item.find('textarea.default_tinymce, textarea.custom_tinymce');
           $textareas.each(function () {
             Alchemy.Tinymce.addEditor(this.id);
           });

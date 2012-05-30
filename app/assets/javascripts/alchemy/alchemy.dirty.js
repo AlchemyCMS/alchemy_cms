@@ -8,12 +8,14 @@ if (typeof(Alchemy) === 'undefined') {
 
     ElementDirtyObserver:function (selector) {
       var $elements = $(selector);
-      $elements.find('textarea.tinymce').map(function () {
+      $elements.find('textarea.default_tinymce').map(function () {
         var $this = $(this);
         var ed = tinymce.get(this.id);
-        ed.onChange.add(function (ed, l) {
-          Alchemy.setElementDirty($this.parents('.element_editor'));
-        });
+        if (ed) {
+          ed.onChange.add(function (ed, l) {
+            Alchemy.setElementDirty($this.parents('.element_editor'));
+          });
+        }
       });
       $elements.find('input[type="text"]').bind('change', function () {
         $(this).addClass('dirty');

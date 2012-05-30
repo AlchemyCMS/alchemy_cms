@@ -47,5 +47,9 @@ module Alchemy
       @@init
     end
 
+    def self.custom_config_contents
+      @@custom_config_contents ||= Content.descriptions.select { |c| c['settings'] && c['settings']['tinymce'].present? }
+    end
+
   end
 end

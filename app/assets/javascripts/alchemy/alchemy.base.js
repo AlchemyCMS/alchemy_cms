@@ -118,19 +118,6 @@ if (typeof(Alchemy) === 'undefined') {
       }
     },
 
-    saveElement:function (form) {
-      // disabled for now. I think we don't need this.
-      return true;
-      // remove this comment if you have problems with saving tinymce content
-      // var $rtf_contents = $(form).find('div.content_rtf_editor');
-      // if ($rtf_contents.size() > 0) {
-      //   $rtf_contents.each(function() {
-      //     var id = $(this).children('textarea.tinymce').attr('id');
-      //     tinymce.get(id).save();
-      //   });
-      // }
-    },
-
     setElementSaved:function (selector) {
       var $element = $(selector);
       Alchemy.setElementClean(selector);

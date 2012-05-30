@@ -634,8 +634,8 @@ div.essence_richtext_loader {
   z-index: 1;
   width: 100%;
   height: 100%;
-  background-color: #ededed;
-  @include opacity(75);
+  background-color: #F0E8D7;
+  @include opacity(90);
 }
 
 div.essence_richtext_loader img {
@@ -828,11 +828,8 @@ textarea {
   height: 140px;
 }
 
-textarea.tinymce {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  border: 0 none;
+textarea.default_tinymce, textarea.custom_tinymce {
+  visibility: hidden;
 }
 
 .text_short_float_left {
