@@ -9,7 +9,7 @@ module Alchemy
     before_filter :set_language
     before_filter :mailer_set_url_options
 
-    helper_method :current_server, :current_user, :t
+    helper_method :current_server, :t
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -28,20 +28,6 @@ module Alchemy
 
     def multi_language?
       Language.published.count > 1
-    end
-
-    def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.record
-    end
-
-    def current_user_session
-      return @current_user_session if defined?(@current_user_session)
-      @current_user_session = UserSession.find
-    end
-
-    def logged_in?
-      !current_user.blank?
     end
 
     def raise_not_found_error

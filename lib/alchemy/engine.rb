@@ -41,5 +41,9 @@ module Alchemy
       Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
     end
 
+    initializer 'alchemy.include_authentication_helpers' do
+      require File.join(File.dirname(__FILE__), 'authentication_helpers')
+    end
+
   end
 end
