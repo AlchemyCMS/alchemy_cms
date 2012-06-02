@@ -46,10 +46,20 @@ describe Alchemy::Element do
     definitions.should == []
   end
 
-  it "should raise an error if no descriptions are found" do
-    FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'))
-    expect { Alchemy::Element.descriptions }.should raise_error
-    FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
+  context "no description files are found" do
+
+    before(:each) do
+      FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'))
+    end
+
+    it "should raise an error" do
+      expect { Alchemy::Element.descriptions }.should raise_error
+    end
+
+    after(:each) do
+      FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
+    end
+
   end
 
   context "retrieving contents, essences and ingredients" do
@@ -114,7 +124,7 @@ describe Alchemy::Element do
     it "should limit elements" do
       Alchemy::Element.all_for_page(@page).each { |e| e['name'].should_not == 'column_headline' }
     end
-    
+
     it "should be ignored if unique" do
       Alchemy::Element.all_for_page(@page).each { |e| e['name'].should_not == 'unique_headline' }
     end
@@ -220,7 +230,7 @@ describe Alchemy::Element do
   end
 
   describe "Finding previous or next element." do
-     
+
     before(:each) do
       @page = FactoryGirl.create(:language_root_page)
       @page.elements.delete_all
@@ -241,7 +251,7 @@ describe Alchemy::Element do
         end
       end
 
-    end    
+    end
 
     describe '#next' do
 
