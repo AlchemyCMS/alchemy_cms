@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency(%q<rails>, ["~> 3.2.1"])
+  s.add_runtime_dependency(%q<rails>, ["~> 3.2.5"])
   s.add_runtime_dependency(%q<authlogic>)
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
   s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.4"])
@@ -32,11 +32,14 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<dynamic_form>, ["~> 1.1"])
   s.add_runtime_dependency(%q<jquery-rails>, ["~> 2.0.0"])
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.2.1"])
-  s.add_runtime_dependency('sass-rails', ['~> 3.2.3'])
+  s.add_runtime_dependency(%q<sass-rails>, ['~> 3.2.3'])
 
+  s.add_development_dependency(%q<bumpy>)
+  s.add_development_dependency(%q<capybara>)
+  s.add_development_dependency(%q<database_cleaner>)
+  s.add_development_dependency(%q<factory_girl_rails>)
   s.add_development_dependency(%q<rspec-rails>)
   s.add_development_dependency(%q<sqlite3>)
-  s.add_development_dependency(%q<factory_girl_rails>)
-  s.add_development_dependency(%q<capybara>)
+  s.add_development_dependency(%q<yard>)
 
 end

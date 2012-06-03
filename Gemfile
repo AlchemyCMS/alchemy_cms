@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
 gemspec
 
@@ -10,9 +10,10 @@ group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'capybara-webkit'       unless ENV['CI']
-  gem "launchy"               unless ENV['CI']
-  gem "database_cleaner"
+  unless ENV['CI']
+    gem 'capybara-webkit'
+    gem 'launchy'
+  end
 end
 
 group :assets do
@@ -22,9 +23,9 @@ group :assets do
 end
 
 group :development do
-  gem 'guard-spork'
-  gem 'yard'
-  gem 'ruby-debug19', :require => 'ruby-debug', :platform => :ruby_19
-  gem 'ruby-debug', :platform => :ruby_18
-  gem 'bumpy'
+  unless ENV['CI']
+    gem 'guard-spork'
+    gem 'ruby-debug19', :require => 'ruby-debug', :platform => :ruby_19
+    gem 'ruby-debug', :platform => :ruby_18
+  end
 end
