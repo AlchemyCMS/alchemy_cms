@@ -163,17 +163,17 @@ module Alchemy
     # your own set of elements
     def self.descriptions
       if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-        @element_definitions ||= ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
+        element_definitions = ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
       end
-      if !@element_definitions
+      if !element_definitions
         if ::File.exists?(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
-          @element_definitions ||= ::YAML.load_file(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
+          element_definitions = ::YAML.load_file(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
         end
       end
-      if !@element_definitions
+      if !element_definitions
         raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
       end
-      @element_definitions
+      element_definitions
     end
 
     # List all elements for page_layout

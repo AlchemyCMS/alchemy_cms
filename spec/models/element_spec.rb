@@ -53,7 +53,7 @@ describe Alchemy::Element do
     end
 
     it "should raise an error" do
-      expect { Alchemy::Element.descriptions }.should raise_error
+      expect { Alchemy::Element.descriptions }.should raise_error(LoadError)
     end
 
     after(:each) do
