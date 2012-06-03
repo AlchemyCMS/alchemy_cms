@@ -4,18 +4,18 @@ module Alchemy
     class ClipboardController < Alchemy::Admin::BaseController
 
       def index
-        clipboard = get_clipboard(params[:remarkable_type])
-        @clipboard_items = model_class.all_from_clipboard(clipboard)
+        @clipboard = get_clipboard
+        @clipboard_items = model_class.all_from_clipboard(@clipboard.all(params[:remarkable_type]))
         respond_to do |format|
           format.html { render :layout => false }
         end
       end
 
       def insert
-        @clipboard = get_clipboard(params[:remarkable_type])
+        @clipboard = get_clipboard
         @item = model_class.find(params[:remarkable_id])
-        unless @clipboard.collect { |i| i[:id].to_s }.include?(params[:remarkable_id])
-          @clipboard.push({:id => params[:remarkable_id], :action => params[:remove] ? 'cut' : 'copy'})
+        unless @clipboard.contains? params[:remarkable_type], params[:remarkable_id]
+          @clipboard.push params[:remarkable_type], {:id => params[:remarkable_id], :action => params[:remove] ? 'cut' : 'copy'}
         end
         respond_to do |format|
           format.js
@@ -23,19 +23,19 @@ module Alchemy
       end
 
       def remove
-        @clipboard = get_clipboard(params[:remarkable_type])
+        @clipboard = get_clipboard
         @item = model_class.find(params[:remarkable_id])
-        @clipboard.delete_if { |i| i[:id].to_s == params[:remarkable_id] }
+        @clipboard.remove params[:remarkable_type], params[:remarkable_id]
         respond_to do |format|
           format.js
         end
       end
 
       def clear
-        session[:clipboard] = {}
+        session[:clipboard].clear(params[:remarkable_type])
       end
 
-      private
+    private
 
       def model_class
         "alchemy/#{params[:remarkable_type]}".classify.constantize

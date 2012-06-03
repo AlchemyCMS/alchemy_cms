@@ -27,7 +27,7 @@ module Alchemy
         @page = Page.find_by_id(params[:page_id])
         @element = @page.elements.build
         @elements = Element.all_for_page(@page)
-        clipboard_elements = get_clipboard('elements')
+        clipboard_elements = get_clipboard[:elements]
         unless clipboard_elements.blank?
           @clipboard_items = Element.all_from_clipboard_for_page(clipboard_elements, @page)
         end
@@ -43,7 +43,7 @@ module Alchemy
           @element = Element.copy(source_element, {:page_id => @page.id})
           if element_from_clipboard[:action] == 'cut'
             @cutted_element_id = source_element.id
-            @clipboard.delete_if { |i| i[:id].to_i == source_element.id }
+            @clipboard.remove :elements, source_element.id
             source_element.destroy
           end
         else
@@ -115,8 +115,8 @@ module Alchemy
       end
 
       def element_from_clipboard
-        @clipboard = get_clipboard(:elements)
-        @clipboard.detect { |i| i[:id].to_i == params[:paste_from_clipboard].to_i }
+        @clipboard = get_clipboard
+        @clipboard.get(:elements, params[:paste_from_clipboard])
       end
 
     end

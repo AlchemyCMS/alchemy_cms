@@ -1,49 +1,49 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::ClipboardController do
+module Alchemy
+  describe Admin::ClipboardController do
 
-  before(:each) do
-    activate_authlogic
-    Alchemy::UserSession.create(FactoryGirl.create(:admin_user))
+    let(:page)            { FactoryGirl.create(:public_page) }
+    let(:element)         { FactoryGirl.create(:element, :page => page) }
+    let(:another_element) { FactoryGirl.create(:element, :page => page) }
+
+    before(:each) do
+      activate_authlogic
+      UserSession.create(FactoryGirl.create(:admin_user))
+      session[:clipboard] = Clipboard.new
+    end
+
+    describe "#insert" do
+
+      it "should hold element ids" do
+        post(:insert, {:remarkable_type => :elements, :remarkable_id => element.id, :format => :js})
+        session[:clipboard][:elements].should == [{:id => element.id, :action => 'copy'}]
+      end
+
+      it "should not have the same element twice" do
+        session[:clipboard][:elements] = {:id => element.id, :action => 'copy'}
+        post(:insert, {:remarkable_type => :elements, :remarkable_id => element.id, :format => :js})
+        session[:clipboard][:elements].collect { |e| e[:id] }.should_not == [element.id, element.id]
+      end
+
+    end
+
+    describe "#delete" do
+      it "should remove element ids from clipboard" do
+        session[:clipboard][:elements] = {:id => element.id, :action => 'copy'}
+        session[:clipboard][:elements] << {:id => another_element.id, :action => 'copy'}
+        delete(:remove, {:remarkable_type => :elements, :remarkable_id => another_element.id, :format => :js})
+        session[:clipboard][:elements].should == [{:id => element.id, :action => 'copy'}]
+      end
+    end
+
+    describe "#clear" do
+      it "should be clearable" do
+        session[:clipboard][:elements] = {:id => element.id}
+        delete(:clear, :format => :js)
+        session[:clipboard].should be_empty
+      end
+    end
+
   end
-
-  context "clipboard" do
-
-    it "should hold element ids" do
-      @page = FactoryGirl.create(:page, :parent_id => Alchemy::Page.rootpage.id)
-      @element = FactoryGirl.create(:element, :page => @page)
-      @another_element = FactoryGirl.create(:element, :page => @page)
-      session['clipboard'] = {'elements' => [{:id => @element.id, :action => 'copy'}]}
-      post(:insert, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
-      session['clipboard']['elements'].should == [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id.to_s, :action => 'copy'}]
-    end
-
-    it "should not have the same element twice" do
-      @page = FactoryGirl.create(:page, :parent_id => Alchemy::Page.rootpage.id)
-      @element = FactoryGirl.create(:element, :page => @page)
-      session['clipboard'] = {'elements' => [{:id => @element.id, :action => 'copy'}]}
-      post(:insert, {:remarkable_type => 'element', :remarkable_id => @element.id, :format => :js})
-      session['clipboard']['elements'].should == [{:id => @element.id, :action => 'copy'}]
-    end
-
-    it "should remove element ids" do
-      @page = FactoryGirl.create(:page, :parent_id => Alchemy::Page.rootpage.id)
-      @element = FactoryGirl.create(:element, :page => @page)
-      @another_element = FactoryGirl.create(:element, :page => @page)
-      session['clipboard'] = {'elements' => [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id, :action => 'copy'}]}
-      delete(:remove, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
-      session['clipboard']['elements'].should == [{:id => @element.id, :action => 'copy'}]
-    end
-
-    it "should be clearable" do
-      @page = FactoryGirl.create(:page, :parent_id => Alchemy::Page.rootpage.id)
-      @element = FactoryGirl.create(:element, :page => @page)
-      @another_element = FactoryGirl.create(:element, :page => @page)
-      session['clipboard'] = {'elements' => [@element.id, @another_element.id]}
-      delete(:clear, :format => :js)
-      session['clipboard'].should == {}
-    end
-
-  end
-
 end

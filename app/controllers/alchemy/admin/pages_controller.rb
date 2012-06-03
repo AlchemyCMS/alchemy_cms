@@ -39,7 +39,7 @@ module Alchemy
       def new
         @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
         @page_layouts = PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
-        @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard('pages'), session[:language_id], @page.layoutpage?)
+        @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
         render :layout => false
       end
 
@@ -104,7 +104,6 @@ module Alchemy
         session[:language_id] = @page.language_id
         if @page.destroy
           @page_root = Page.language_root_for(session[:language_id])
-          get_clipboard('pages').delete(@page.id)
           @message = t("Page deleted", :name => name)
           flash[:notice] = @message
           respond_to do |format|
