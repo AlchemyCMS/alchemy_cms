@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<bumpy>)
   s.add_development_dependency(%q<capybara>)
   s.add_development_dependency(%q<database_cleaner>)
-  s.add_development_dependency(%q<factory_girl_rails>)
+  s.add_development_dependency(%q<factory_girl_rails>, ['~> 1.7.0'])
   s.add_development_dependency(%q<rspec-rails>)
   s.add_development_dependency(%q<sqlite3>)
   s.add_development_dependency(%q<yard>)
