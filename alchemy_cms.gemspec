@@ -34,8 +34,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.2.1"])
   s.add_runtime_dependency('sass-rails', ['~> 3.2.3'])
 
-  s.add_development_dependency(%q<rspec-rails>, ["~> 2.8"])
+  s.add_development_dependency(%q<rspec-rails>)
   s.add_development_dependency(%q<sqlite3>)
-  s.add_development_dependency(%q<jasminerice>)
+  s.add_development_dependency(%q<factory_girl_rails>)
+  s.add_development_dependency(%q<capybara>)
 
 end

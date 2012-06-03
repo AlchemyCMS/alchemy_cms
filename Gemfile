@@ -10,9 +10,6 @@ group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails', '~> 1.7.0'
-  gem "capybara"
   gem 'capybara-webkit'       unless ENV['CI']
   gem "launchy"               unless ENV['CI']
   gem "database_cleaner"
