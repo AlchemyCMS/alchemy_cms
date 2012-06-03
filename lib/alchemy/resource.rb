@@ -43,9 +43,8 @@ module Alchemy
     end
 
     def attributes
-      #@_attributes ||=
       self.model.columns.collect do |col|
-        {:name => col.name, :type => col.type} unless self.skip_attributes.include?(col.name)
+        {:name => (human_relation_name(col.name) || col.name), :type => (human_relation_name(col.name) || col.type)} unless self.skip_attributes.include?(col.name)
       end.compact
     end
 
@@ -76,6 +75,26 @@ module Alchemy
 
     def namespace_diff
       controller_path_array - model_array
+    end
+
+    def human_relation_name(column_name)
+      human_relation(column_name)[:attribute] if human_relation(column_name).present?
+    end
+
+    def human_relation_type(column_name)
+      human_relation(column_name)[:type] if human_relation(column_name).present?
+    end
+
+    def human_relation(column_name)
+      subnavigation = @module_definition['navigation']['sub_navigation']
+      if subnavigation.present?
+        subnavigation.each do |sub|
+          return nil if sub['human_relations'].nil?
+          sub['human_relations'].each_pair do |k,value|
+            return {:attribute => value.first, :type => value.last} if k == column_name
+          end
+        end
+      end
     end
 
   end

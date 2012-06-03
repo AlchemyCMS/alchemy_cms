@@ -13,7 +13,18 @@
       <td class="input"><%= f.send :text_area, attribute[:name] -%></td>
       <%- else -%>
       <td class="label"><%= f.send :label, attribute[:name] %></td>
-      <td class="input"><%= f.send :text_field, attribute[:name], :class => 'thin_border' -%></td>
+
+      <% attr_array = attribute[:name].split('.') %>
+      <% if attr_array.length > 1 %>
+        <td class="select">
+        <%= f.send :select, "#{attr_array[0]}_id", attr_array[0].classify.constantize.all.collect {|r| [r.send(attr_array[1]), r.id] }, {:prompt => t("Please choose")}, {:class => "alchemy_selectbox"} %>
+      </td>
+      <% else %>
+        <td class="input">
+        <%= f.send :text_field, attribute[:name], :class => 'thin_border' -%>
+      </td>
+      <% end %>
+
       <%- end -%>
     </tr>
     <%- end -%>

@@ -2,13 +2,16 @@
   <%- resource_handler.attributes.each do |attribute| -%>
   <%- if attribute[:type] == :boolean -%>
   <td class="center">
-    <% attr_value = resource.send(attribute[:name]) %>
+    <% attr_value = render_attribute(resource, attribute[:name]) %>
     <%= attr_value.blank? ? '' : render_icon(attr_value) -%>
   </td>
   <%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
-  <td class="right"><%= resource.send(attribute[:name]) -%></td>
+
+  <td class="right"><%= render_attribute(resource, attribute[:name]) -%></td>
   <%- else -%>
-  <td><%= resource.send(attribute[:name]) -%></td>
+  <td>
+    <%= render_attribute(resource, attribute[:name]) %>
+  </td>
   <%- end -%>
   <%- end -%>
   <td class="tools">

@@ -52,5 +52,13 @@ module Alchemy
     def resource_model
       resource_handler.model
     end
+
+    def render_attribute(obj, attribute)
+      attr_array = attribute.split('.')
+      attr_array.each do |attr|
+        obj = obj.send(attr) if obj
+      end
+      obj
+    end
   end
 end
