@@ -31,18 +31,13 @@ module Alchemy
           :resizable => false
         }
         options = default_options.merge(options)
-        link_to_function(
+        size = options[:size].to_s.split('x')
+        size_x = options[:size] ? size[0] : 'auto'
+        size_y = options[:size] ? size[1] : 'auto'
+        link_to(
           content,
-          "Alchemy.openWindow(
-            \'#{url}\',
-            \'#{options[:title]}\',
-            \'#{options[:size] ? options[:size].split('x')[0].to_s : 'auto'}\',
-            \'#{options[:size] ? options[:size].split('x')[1].to_s : 'auto'}\',
-            #{options[:resizable]},
-            #{options[:modal]},
-            #{options[:overflow]}
-          )",
-          html_options
+          '#',
+          html_options.merge(:onclick => "Alchemy.openWindow('#{url}', '#{options[:title]}', '#{size}', '#{size_y}', #{options[:resizable]}, #{options[:modal]}, #{options[:overflow]})")
         )
       end
 
@@ -90,18 +85,17 @@ module Alchemy
         }
         options = default_options.merge(options)
         options[:onkeyup] << ";jQuery('#search_field').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
-        filter_field = "<div class=\"js_filter_field_box\">"
+        filter_field = '<div class="js_filter_field_box">'
         filter_field << text_field_tag("filter", '', options)
         filter_field << content_tag('span', '', :class => 'icon search')
-        filter_field << link_to_function(
-          "",
-          "jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
+        filter_field << link_to('', '#', {
+          :onclick => "jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
           :class => "js_filter_field_clear",
           :style => "display:none",
           :title => t("click_to_show_all")
-        )
-        filter_field << "<label for=\"search_field\">" + t("search") + "</label>"
-        filter_field << "</div>"
+        })
+        filter_field << %(<label for="search_field">#{t(:search)}</label>)
+        filter_field << '</div>'
         filter_field.html_safe
       end
 
@@ -122,10 +116,10 @@ module Alchemy
         title = t("please_confirm")
         ok_lable = t("Yes")
         cancel_lable = t("No")
-        link_to_function(
+        link_to(
           link_string,
-          "Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');",
-          html_options
+          '#',
+          html_options.merge(:onclick => "Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');")
         )
       end
 

@@ -30,21 +30,19 @@
   :title => (content.ingredient ? t('swap_image') : t('insert_image'))
 ) %>
 
-<%= link_to_function(
-  render_icon('link'),
-  "Alchemy.LinkOverlay.open(this, 420)",
+<%= link_to(render_icon(:link), '#', {
+  :onclick => "Alchemy.LinkOverlay.open(this, 420)",
   :class => content.linked? ? 'linked' : nil,
   :title => t('link_image'),
   :name => "essence_picture_#{content.id}",
   :id => "edit_link_#{content.id}"
-) %>
+}) %>
 
-<%= link_to_function(
-  render_icon('unlink'),
-  "Alchemy.LinkOverlay.removeLink(this, #{content.id})",
+<%= link_to(render_icon('unlink'), '#', {
+  :onclick => "Alchemy.LinkOverlay.removeLink(this, #{content.id})",
   :class => content.linked? ? 'linked' : 'disabled',
   :title => t('unlink')
-) %>
+}) %>
 
 <%= link_to_overlay_window(
   render_icon('edit'),

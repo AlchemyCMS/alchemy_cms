@@ -50,7 +50,7 @@
         :title => t('edit_page_properties'),
         :size => @page.layoutpage? ? '340x150' : '410x620'
       },
-      :class => 'icon_button',
+      :class => :icon_button,
       :title => t('edit_page_properties')
     ) -%>
     <label><%= t('page_properties') %></label>
@@ -68,25 +68,19 @@
 </div>
 <div id="toolbar_buttons_right">
   <div class="button_with_label" id="show_preview_window">
-    <%= link_to_function(
-      render_icon('preview_window'),
-      "Alchemy.openPreviewWindow()",
-      {
-        :title => t('Show Preview Window'),
-        :class => 'icon_button'
-      }
-    ) %>
+    <%= link_to(render_icon(:preview_window), '#', {
+      :onclick => "Alchemy.openPreviewWindow()",
+      :title => t('Show Preview Window'),
+      :class => :icon_button
+    }) %>
     <label><%= t('Show Preview Window') %></label>
   </div>
   <div class="button_with_label" id="show_element_window">
-    <%= link_to_function(
-      render_icon('element_window'),
-      "Alchemy.openElementsWindow()",
-      {
-        :title => t('Show Elements Window'),
-        :class => 'icon_button'
-      }
-    ) %>
+    <%= link_to(render_icon(:element_window), '#', {
+      :onclick => "Alchemy.openElementsWindow()",
+      :title => t('Show Elements Window'),
+      :class => :icon_button
+    }) %>
     <label><%= t('Show Elements Window') %></label>
   </div>
 </div>

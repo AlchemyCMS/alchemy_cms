@@ -18,12 +18,11 @@
       :id => "element_#{element.id}_folder_spinner",
       :class => "element_folder_spinner"
     ) %>
-    <%= link_to_function(
-      "",
-      "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{ t('Warning!') }', message: '#{ t(:element_dirty_notice) }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'})",
+    <%= link_to('', '#', {
+      :onclick => "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{t('Warning!')}', message: '#{t(:element_dirty_notice)}', okLabel: '#{t('Yes')}', cancelLabel: '#{t('No')}'})",
       :class => element.folded? ? 'expand_element' : 'fold_element',
-      :title => element.folded? ? t('show_element_content') : t('hide_element_content'),
+      :title => element.folded? ? t(:show_element_content) : t(:hide_element_content),
       :id => "element_#{element.id}_folder"
-    ) %>
+    }) %>
   </span>
 </div>

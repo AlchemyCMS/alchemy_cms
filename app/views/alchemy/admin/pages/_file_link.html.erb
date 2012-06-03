@@ -35,18 +35,9 @@
     </tr>
   </table>
   <p>
-    <%= link_to_function(
-      t("apply"),
-      %(
-        Alchemy.LinkOverlay.createLink(
-          'file',
-          jQuery('#public_filename').val(),
-          jQuery('#file_link_title').val(),
-          jQuery('#file_link_target').val()
-        );
-        Alchemy.LinkOverlay.close()
-      ),
+    <%= link_to(t(:apply), '#', {
+      :onclick => "Alchemy.LinkOverlay.createLink('file', jQuery('#public_filename').val(), jQuery('#file_link_title').val(), jQuery('#file_link_target').val()); Alchemy.LinkOverlay.close()",
       :class => 'button'
-    ) %>
+    }) %>
   </p>
 </div>

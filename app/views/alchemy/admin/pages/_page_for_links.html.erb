@@ -22,17 +22,11 @@
       <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.restricted ? t('Page restricted') : t('Page not restricted') %>"></span>
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
-      <%= link_to_function(
-        page_for_links.name,
-        %(
-          Alchemy.LinkOverlay.selectPage(
-            '#{page_for_links.id}',
-            '#{@url_prefix + page_for_links.urlname}'
-          );
-        ),
+      <%= link_to(page_for_links.name, '#', {
+        :onclick => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}')",
         :title => t('page_for_links.choose_page', :name => page_for_links.name),
         :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
-      ) %>
+      }) %>
     </div>
   </div>
   <%- if !page_for_links.children.empty? -%>

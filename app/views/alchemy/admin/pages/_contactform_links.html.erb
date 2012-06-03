@@ -52,15 +52,9 @@
     </tr>
   </table>
   <p>
-    <%= link_to_function(
-      t("apply"),
-      "Alchemy.LinkOverlay.createLink(
-        'contact',
-        jQuery('#contactform_url').val() + '?subject=' + encodeURIComponent(jQuery('#contactform_subject').val()) + '&mail_to=' + encodeURIComponent(jQuery('#contactform_mailto').val()) + '&body=' + encodeURIComponent(jQuery('#contactform_body').val()),
-        jQuery('#contactform_link_title').val(),
-        null
-      ); Alchemy.LinkOverlay.close()",
+    <%= link_to(t(:apply), '#', {
+      :onclick => "Alchemy.LinkOverlay.createLink('contact', jQuery('#contactform_url').val() + '?subject=' + encodeURIComponent(jQuery('#contactform_subject').val()) + '&mail_to=' + encodeURIComponent(jQuery('#contactform_mailto').val()) + '&body=' + encodeURIComponent(jQuery('#contactform_body').val()), jQuery('#contactform_link_title').val(), null); Alchemy.LinkOverlay.close()",
       :class => 'button'
-    ) %>
+    }) %>
   </p>
 </div>

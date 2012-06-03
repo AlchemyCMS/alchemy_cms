@@ -15,12 +15,11 @@
   <% end %>
   <div class="toolbar_spacer"></div>
   <div class="button_with_label">
-    <%= link_to_function(
-      render_icon('delete-small'),
-      'Alchemy.ImageCropper.reset()',
+    <%= link_to(render_icon('delete-small'), '#', {
+      :onclick => 'Alchemy.ImageCropper.reset()',
       :class => 'icon_button',
       :title => t('Reset Imagemask')
-    ) %>
+    }) %>
     <label><%= t("Reset Imagemask") %></label>
   </div>
 </div>
