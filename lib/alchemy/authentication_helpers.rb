@@ -11,6 +11,8 @@ module Alchemy
       @current_user = current_user_session && current_user_session.record
     end
 
+  private
+
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find

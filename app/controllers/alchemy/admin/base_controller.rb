@@ -77,7 +77,7 @@ module Alchemy
       end
 
       def set_stamper
-        User.stamper = self.current_user
+        User.stamper = current_user
       end
 
       def reset_stamper
