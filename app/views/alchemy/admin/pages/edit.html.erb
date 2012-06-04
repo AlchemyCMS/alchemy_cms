@@ -112,8 +112,8 @@
             Alchemy.openWindow(
               '<%= alchemy.new_admin_element_path(:page_id => @page.id) -%>',
               '<%= t("New Element") -%>',
-              '320',
-              '120',
+              320,
+              120,
               false,
               true,
               true
@@ -129,8 +129,8 @@
             Alchemy.openWindow(
               '<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") -%>',
               '<%= t("Clipboard") -%>',
-              '380',
-              '270',
+              380,
+              270,
               false,
               true,
               true
@@ -154,7 +154,7 @@
       Alchemy.Tinymce.init(function() {
         Alchemy.ElementDirtyObserver('#element_area');
       });
-      if (Alchemy.Tinymce.customInits.length > 0) {
+      if (Alchemy.Tinymce.customInits) {
         for (var i = Alchemy.Tinymce.customInits.length - 1; i >= 0; i--) {
           Alchemy.Tinymce.customInits[i].call();
         }

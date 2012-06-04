@@ -32,12 +32,12 @@ module Alchemy
         }
         options = default_options.merge(options)
         size = options[:size].to_s.split('x')
-        size_x = options[:size] ? size[0] : 'auto'
-        size_y = options[:size] ? size[1] : 'auto'
+        size_x = size ? size[0] : 'auto'
+        size_y = size ? size[1] : 'auto'
         link_to(
           content,
           '#',
-          html_options.merge(:onclick => "Alchemy.openWindow('#{url}', '#{options[:title]}', '#{size}', '#{size_y}', #{options[:resizable]}, #{options[:modal]}, #{options[:overflow]})")
+          html_options.merge(:onclick => "Alchemy.openWindow('#{url}', '#{options[:title]}', #{size_x}, #{size_y}, #{options[:resizable]}, #{options[:modal]}, #{options[:overflow]})")
         )
       end
 
