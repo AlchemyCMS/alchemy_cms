@@ -84,45 +84,26 @@ if (typeof(Alchemy) === 'undefined') {
         },
         close:function () {
           $('#alchemyConfirmation').remove();
+          options.closeCallback();
         }
       });
     },
 
     confirmToDeleteWindow:function (url, title, message, okLabel, cancelLabel) {
-      var $confirmation = $('<div style="display:none" id="alchemyConfirmation"></div>');
-      $confirmation.appendTo('body');
-      $confirmation.html('<p>' + message + '</p>');
-      Alchemy.ConfirmationWindow = $confirmation.dialog({
-        resizable:false,
-        minHeight:100,
-        minWidth:300,
-        modal:true,
-        title:title,
-        show:"fade",
-        hide:"fade",
-        buttons:[
-          {
-            text:cancelLabel,
-            click:function () {
-              $(this).dialog("close");
-            }
-          },
-          {
-            text:okLabel,
-            click:function () {
-              $(this).dialog("close");
-              $.ajax({
-                url:url,
-                type:'DELETE'
-              });
-            }
-          }
-        ],
-        open:function () {
-          Alchemy.ButtonObserver('#alchemyConfirmation .button');
+      Alchemy.openConfirmWindow({
+        message: message,
+        title: title,
+        okLabel: okLabel,
+        cancelLabel: cancelLabel,
+        okCallback: function () {
+          $(this).dialog("close");
         },
-        close:function () {
-          $('#alchemyConfirmation').remove();
+        closeCallback: function() {
+          Alchemy.pleaseWaitOverlay();
+          $.ajax({
+            url:url,
+            type:'DELETE'
+          });
         }
       });
     },
@@ -281,4 +262,25 @@ if (typeof(Alchemy) === 'undefined') {
     }
 
   });
+
+  $(document).ready(function() {
+
+    $('a[data-alchemy-overlay]').on('click', function(event) {
+      var $this = $(this);
+      var options = $this.data('alchemy-overlay');
+      event.preventDefault();
+      Alchemy.openWindow($this.attr('href'), options.title, options.size_x, options.size_y, options.resizable, options.overflow);
+      return false;
+    });
+
+    $('a[data-alchemy-confirm]').on('click', function(event) {
+      var $this = $(this);
+      var options = $this.data('alchemy-confirm');
+      event.preventDefault();
+      Alchemy.confirmToDeleteWindow($this.attr('href'), options.title, options.message, options.ok_label, options.cancel_label);
+      return false;
+    });
+
+  });
+
 })(jQuery);

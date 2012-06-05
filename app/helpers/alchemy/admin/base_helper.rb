@@ -23,6 +23,7 @@ module Alchemy
       #   :overflow         [Boolean]             # Should the dialog have overlapping content. If not, it shows scrollbars. Good for select boxes. Default false.
       #   :resizable        [Boolean]             # Is the dialog window resizable? Default false.
       #   :modal            [Boolean]             # Show as modal window. Default true.
+      #   :overflow         [Boolean]             # Should the window show overflowing content? Default false.
       #
       def link_to_overlay_window(content, url, options={}, html_options={})
         default_options = {
@@ -32,12 +33,17 @@ module Alchemy
         }
         options = default_options.merge(options)
         size = options[:size].to_s.split('x')
-        size_x = size && size[0] ? size[0] : 'auto'
-        size_y = size && size[1] ? size[1] : 'auto'
-        link_to(
-          content,
-          '#',
-          html_options.merge(:onclick => "Alchemy.openWindow('#{url}', '#{options[:title]}', '#{size_x}', '#{size_y}', #{options[:resizable]}, #{options[:modal]}, #{options[:overflow]})")
+        link_to(content, url,
+          html_options.merge(
+            'data-alchemy-overlay' => {
+              :size_x => size && size[0] ? size[0] : 'auto',
+              :size_y => size && size[1] ? size[1] : 'auto',
+              :resizable => options[:resizable],
+              :modal => options[:modal],
+              :overflow => options[:overflow],
+              :title => options[:title]
+            }.to_json
+          )
         )
       end
 
@@ -113,13 +119,15 @@ module Alchemy
       #   <%= link_to_confirmation_window('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
       #
       def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
-        title = t("please_confirm")
-        ok_lable = t("Yes")
-        cancel_lable = t("No")
-        link_to(
-          link_string,
-          '#',
-          html_options.merge(:onclick => "Alchemy.confirmToDeleteWindow('#{url}', '#{title}', '#{message}', '#{ok_lable}', '#{cancel_lable}');")
+        link_to(link_string, url,
+          html_options.merge(
+            'data-alchemy-confirm' => {
+              :title => t("please_confirm"),
+              :message => message,
+              :ok_label => t("Yes"),
+              :cancel_label => t("No")
+            }.to_json
+          )
         )
       end
 
