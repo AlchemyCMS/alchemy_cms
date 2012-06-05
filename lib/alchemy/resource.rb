@@ -44,7 +44,7 @@ module Alchemy
 
     def attributes
       self.model.columns.collect do |col|
-        {:name => (human_relation_name(col.name) || col.name), :type => (human_relation_name(col.name) || col.type)} unless self.skip_attributes.include?(col.name)
+        {:name => (resource_relation_name(col.name) || col.name), :type => (resource_relation_type(col.name) || col.type)} unless self.skip_attributes.include?(col.name)
       end.compact
     end
 
@@ -67,7 +67,7 @@ module Alchemy
       @module_definition and @module_definition['engine_name']
     end
 
-    protected
+  protected
 
     def controller_path_array
       @controller_path.split('/')
@@ -77,24 +77,24 @@ module Alchemy
       controller_path_array - model_array
     end
 
-    def human_relation_name(column_name)
-      human_relation(column_name)[:attribute] if human_relation(column_name).present?
+    def resource_relation_name(column_name)
+      resource_relation(column_name)['attr_method'].to_s if resource_relation(column_name).present?
     end
 
-    def human_relation_type(column_name)
-      human_relation(column_name)[:type] if human_relation(column_name).present?
+    def resource_relation_type(column_name)
+      resource_relation(column_name)['attr_type'].to_sym if resource_relation(column_name).present?
     end
 
-    def human_relation(column_name)
-      subnavigation = @module_definition['navigation']['sub_navigation']
-      if subnavigation.present?
-        subnavigation.each do |sub|
-          return nil if sub['human_relations'].nil?
-          sub['human_relations'].each_pair do |k,value|
-            return {:attribute => value.first, :type => value.last} if k == column_name
-          end
-        end
-      end
+    def self.resource_relations
+      Config.get(:resource_relations)
+    end
+
+    def resource_relations
+      self.class.resource_relations[model_name.to_s] if self.class.resource_relations
+    end
+
+    def resource_relation(column_name)
+      resource_relations[column_name.to_s] if resource_relations
     end
 
   end
