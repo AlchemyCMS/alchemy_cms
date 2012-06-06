@@ -1459,7 +1459,7 @@ div#overlay_toolbar a.button:active {
       border: $default-border;
       background-color: white;
       @include rounded-corner;
-      &.element {
+      &.elements {
         background-color: #E5DCCA;
         border: 1px solid #BBA589;
       }

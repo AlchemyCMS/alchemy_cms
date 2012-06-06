@@ -69,6 +69,7 @@ if (typeof(Alchemy) === 'undefined') {
             text:options.cancelLabel,
             click:function () {
               $(this).dialog("close");
+              Alchemy.enableButton('.disabled.button');
             }
           },
           {
@@ -84,7 +85,6 @@ if (typeof(Alchemy) === 'undefined') {
         },
         close:function () {
           $('#alchemyConfirmation').remove();
-          options.closeCallback();
         }
       });
     },
@@ -97,8 +97,6 @@ if (typeof(Alchemy) === 'undefined') {
         cancelLabel: cancelLabel,
         okCallback: function () {
           $(this).dialog("close");
-        },
-        closeCallback: function() {
           Alchemy.pleaseWaitOverlay();
           $.ajax({
             url:url,
