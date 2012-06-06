@@ -4,7 +4,7 @@ describe Alchemy::Admin::ClipboardController do
 
 	before(:each) do
 		activate_authlogic
-	  Alchemy::UserSession.create(Factory(:admin_user))
+		Alchemy::UserSession.create(Factory(:admin_user))
 	end
 
 	context "clipboard" do
@@ -15,7 +15,7 @@ describe Alchemy::Admin::ClipboardController do
 			@another_element = Factory(:element, :page => @page)
 			session['clipboard'] = { 'elements' => [{:id => @element.id, :action => 'copy'}] }
 			post(:insert, {:remarkable_type => 'element', :remarkable_id => @another_element.id, :format => :js})
-			session['clipboard']['elements'].should == [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id.to_s, :action => 'copy'}]
+			session['clipboard']['elements'].should == [{:id => @element.id, :action => 'copy'}, {:id => @another_element.id, :action => 'copy'}]
 		end
 
 		it "should not have the same element twice" do

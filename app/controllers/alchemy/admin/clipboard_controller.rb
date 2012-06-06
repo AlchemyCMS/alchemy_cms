@@ -14,8 +14,8 @@ module Alchemy
 			def insert
 				@clipboard = get_clipboard(params[:remarkable_type])
 				@item = model_class.find(params[:remarkable_id])
-				unless @clipboard.collect { |i| i[:id].to_s }.include?(params[:remarkable_id])
-					@clipboard.push({:id => params[:remarkable_id], :action => params[:remove] ? 'cut' : 'copy'})
+				unless @clipboard.collect { |i| i[:id].to_i }.include?(params[:remarkable_id].to_i)
+					@clipboard.push({:id => params[:remarkable_id].to_i, :action => params[:remove] ? 'cut' : 'copy'})
 				end
 				respond_to do |format|
 					format.js
@@ -25,7 +25,7 @@ module Alchemy
 			def remove
 				@clipboard = get_clipboard(params[:remarkable_type])
 				@item = model_class.find(params[:remarkable_id])
-				@clipboard.delete_if { |i| i[:id].to_s == params[:remarkable_id] }
+				@clipboard.delete_if { |i| i[:id].to_i == params[:remarkable_id].to_i }
 				respond_to do |format|
 					format.js
 				end
