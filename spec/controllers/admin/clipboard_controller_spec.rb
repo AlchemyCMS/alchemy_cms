@@ -38,11 +38,23 @@ module Alchemy
     end
 
     describe "#clear" do
-      it "should be clearable" do
-        session[:clipboard][:elements] = {:id => element.id}
-        delete(:clear, :format => :js)
-        session[:clipboard].should be_empty
+
+      context "with elements as remarkable_type" do
+        it "should clear the elements clipboard" do
+          session[:clipboard][:elements] = {:id => element.id}
+          delete(:clear, {:remarkable_type => :elements, :format => :js})
+          session[:clipboard].should be_empty
+        end
       end
+
+      context "with pages as remarkable_type" do
+        it "should clear the pages clipboard" do
+          session[:clipboard][:pages] = {:id => page.id}
+          delete(:clear, {:remarkable_type => :pages, :format => :js})
+          session[:clipboard].should be_empty
+        end
+      end
+
     end
 
   end

@@ -81,10 +81,21 @@ module Alchemy
       end
 
       describe '#clear' do
-        it "should clear complete category collection" do
-          clipboard.clear(:elements)
-          clipboard[:elements].should be_empty
+
+        context "passing a category" do
+          it "should clear the category collection" do
+            clipboard.clear(:elements)
+            clipboard[:elements].should be_empty
+          end
         end
+
+        context "passing no category" do
+          it "should clear the complete clipboard" do
+            clipboard.clear
+            clipboard.should be_empty
+          end
+        end
+
       end
 
       describe '#get' do

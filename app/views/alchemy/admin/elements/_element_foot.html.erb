@@ -1,3 +1,4 @@
+<% remarkable_type = element.class.name.demodulize.underscore.pluralize %>
 <div class="element_foot">
   <span class="element_tools">
     <%= link_to(
@@ -10,7 +11,7 @@
     ) -%>
     <%= link_to(
       "",
-      alchemy.insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id, :remove => true),
+      alchemy.insert_admin_clipboard_path(:remarkable_type => remarkable_type, :remarkable_id => element.id, :remove => true),
       :remote => true,
       :method => :post,
       :class => "element_move_button",
@@ -18,7 +19,7 @@
     ) %>
     <%= link_to(
       "",
-      alchemy.insert_admin_clipboard_path(:remarkable_type => element.class.name.demodulize.underscore, :remarkable_id => element.id),
+      alchemy.insert_admin_clipboard_path(:remarkable_type => remarkable_type, :remarkable_id => element.id),
       :remote => true,
       :method => :post,
       :class => "element_copy_button",

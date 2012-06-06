@@ -22,7 +22,7 @@
         <%= link_to(
           render_icon("copy_page"),
           alchemy.insert_admin_clipboard_path(
-            :remarkable_type => layoutpage.class.name.demodulize.underscore,
+            :remarkable_type => layoutpage.class.name.demodulize.underscore.pluralize,
             :remarkable_id => layoutpage.id
           ),
           :remote => true,
