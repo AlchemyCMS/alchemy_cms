@@ -16,7 +16,7 @@ describe Alchemy::Admin::ContentsHelper do
 
   it "should render a link to add new content to element" do
     helper.stub!(:render_icon).and_return('')
-    helper.render_new_content_link(@element).should match(/Alchemy.openWindow.+\/admin\/elements\/#{@element.id}\/contents\/new/m)
+    helper.render_new_content_link(@element).should match(/a.+href.*admin\/elements\/#{@element.id}\/contents\/new/m)
   end
 
   it "should render a link to create a content in element" do
