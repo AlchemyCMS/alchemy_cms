@@ -239,6 +239,7 @@ if (typeof(Alchemy) === 'undefined') {
               // Need this for DragnDrop elements into elements window.
               // Badly this is screwing up maxHeight option
               $dialog.css({overflow:'visible'}).dialog('widget').css({overflow:'visible'});
+              Alchemy.overlayObserver('#alchemyTrashWindow');
             },
             error:function (XMLHttpRequest, textStatus, errorThrown) {
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);

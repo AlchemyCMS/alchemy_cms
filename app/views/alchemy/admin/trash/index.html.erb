@@ -11,7 +11,7 @@
   </div>
   <div id="trash_items">
     <%- @elements.each do |element| -%>
-    <%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil?} %>
+    <%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil? } %>
     <%- end -%>
     <p>
       <%= link_to_confirmation_window(t('clear trash'), t('Do you really want to clear the trash?'), alchemy.clear_admin_trash_path(:page_id => @page.id), :class => 'button') %>
