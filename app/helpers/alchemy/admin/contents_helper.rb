@@ -32,10 +32,13 @@ module Alchemy
         content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>".html_safe : content_name
       end
 
-      # Renders a link to show the new content overlay
+      # Renders a link to show the new content overlay that lets you add additional contents.
+      #
+      # See +render_create_content_link+ helper for exmaples on how to define additional contents.
+      #
       def render_new_content_link(element)
         link_to_overlay_window(
-          render_icon('create') + t('add new content'),
+          render_icon(:create) + t('add new content'),
           alchemy.new_admin_element_content_path(element),
           {
             :size => '335x70',
@@ -44,7 +47,7 @@ module Alchemy
           },
           {
             :id => "add_content_for_element_#{element.id}",
-            :class => 'small button with_icon new_content_link'
+            :class => 'button with_icon new_content_link'
           }
         )
       end
@@ -77,7 +80,7 @@ module Alchemy
           :label => t('Add %{name}', :name => t(content_name, :scope => :content_names))
         }
         options = defaults.merge(options)
-        link_to(options[:label], alchemy.admin_contents_path(
+        link_to(render_icon(:create) + options[:label], alchemy.admin_contents_path(
             :content => {
               :name => content_name,
               :element_id => element.id

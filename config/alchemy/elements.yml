@@ -87,9 +87,15 @@
 #     - name: big_text
 #       type: EssenceRichtext
 #
-# Add the +<%= render_create_content_link(element) %>+ to your element editor partial.
+# And add a +<%= render_create_content_link(element, 'big_text') %>+ helper to your element editor partial.
 #
 # Now an Alchemy user can add as many additional +big_text+ contents as s/he wants.
+#
+# If you have more then one additional content defined you should use the:
+#
+#   <%= render_new_content_link(element) %>
+#
+# helper. This opens an overlay from where the user can choose which content to add.
 #
 # === Translate element names
 #
@@ -127,10 +133,19 @@
     type: EssenceText
   - name: headline
     type: EssenceText
+    settings:
+      deletable: true
   - name: image
     type: EssencePicture
   - name: text
     type: EssenceRichtext
+    settings:
+      deletable: true
+  available_contents:
+  - name: text
+    type: EssenceRichtext
+  - name: headline
+    type: EssenceText
 
 - name: intro_image_text
   unique: true
@@ -209,6 +224,8 @@
   contents:
   - name: file
     type: EssenceFile
+    settings:
+      deletable: true
   available_contents:
   - name: file
     type: EssenceFile

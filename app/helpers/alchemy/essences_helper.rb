@@ -108,6 +108,7 @@ module Alchemy
     #   :for_editor => {}
     #
     def render_essence(content, part = :view, options = {}, html_options = {})
+      options = {:for_view => {}, :for_editor => {}}.update(options)
       if content.nil?
         return part == :view ? "" : warning('Content is nil', t("content_not_found"))
       elsif content.essence.nil?

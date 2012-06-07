@@ -1,37 +1,43 @@
 @import "alchemy/defaults";
 
-a.button.small.cloned-button img {
-  display: inline-block;
-  float: none;
-  position: relative;
-  height: 16px;
-  width: 16px;
-  top: -1px;
-}
-
 a.button {
   padding: 5px 8px;
   text-decoration: none;
   float: left;
   line-height: 13px;
-}
 
-a.button.small {
-  height: 14px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  border-radius: 10px;
-  -o-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-}
+  &.small {
+    height: 14px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 10px;
+    -o-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 
-a.small.button.with_icon span.icon {
-  margin-top: -5px;
-  position: relative;
-  top: 3px;
-  left: -1px;
+    &.cloned-button img {
+      display: inline-block;
+      float: none;
+      position: relative;
+      height: 16px;
+      width: 16px;
+      top: -1px;
+    }
+
+    &.with_icon span.icon {
+      margin-top: -5px;
+      position: relative;
+      top: 3px;
+      left: -1px;
+    }
+  }
+
+  span.icon {
+    vertical-align: -2px;
+    margin-bottom: -2px;
+    margin-left: -4px;
+  }
 }
 
 input.button,

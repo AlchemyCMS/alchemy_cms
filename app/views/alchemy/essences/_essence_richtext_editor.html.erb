@@ -1,6 +1,15 @@
 <% cache(content) do -%>
 <div class="content_editor content_rtf_editor" id="<%= content_dom_id(content) %>">
-  <label><%= render_content_name(content) %></label>
+  <label>
+    <%= render_content_name(content) %>
+    <%= link_to_confirmation_window(
+      render_icon('delete-small'),
+      t('Do you really want to delete this content?'),
+      alchemy.admin_content_path(content),
+      :class => 'icon_button small',
+      :title => t('Remove this content')
+    ) if content.settings[:deletable] %>
+  </label>
   <div style="position: relative">
     <% if content.has_custom_tinymce_config? && content.settings[:tinymce] -%>
     <div class="essence_richtext_loader">
