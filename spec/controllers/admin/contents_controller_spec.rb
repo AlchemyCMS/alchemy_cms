@@ -7,10 +7,27 @@ describe Alchemy::Admin::ContentsController do
     Alchemy::UserSession.create FactoryGirl.create(:admin_user)
   end
 
-  it "should update a content via ajax" do
-    @element = FactoryGirl.create(:element)
-    post :update, {:id => @element.contents.find_by_name('intro').id, :content => {:body => 'Peters Petshop'}, :format => :js}
-    @element.ingredient('intro').should == "Peters Petshop"
+  describe '#create' do
+
+    let(:element) { FactoryGirl.create(:element, :name => 'headline') }
+
+    it "should create a content via ajax post" do
+      length_before = element.contents.length
+      post :create, {:content => {:element_id => element.id, :name => 'headline'}, :format => :js}
+      element.contents.reload
+      element.contents.length.should == length_before + 1
+    end
+
+  end
+
+  describe '#update' do
+
+    it "should update a content via ajax" do
+      @element = FactoryGirl.create(:element)
+      post :update, {:id => @element.contents.find_by_name('intro').id, :content => {:body => 'Peters Petshop'}, :format => :js}
+      @element.ingredient('intro').should == "Peters Petshop"
+    end
+
   end
 
   describe "#order" do

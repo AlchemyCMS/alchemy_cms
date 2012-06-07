@@ -49,21 +49,41 @@ module Alchemy
         )
       end
 
-      # Renders a link to create a new content in element editor
-      def render_create_content_link(element, options = {})
+      # Renders a link that dynamically adds an additional content into your element editor view.
+      #
+      # NOTE: You have to define additional contents in your elements.yml file first.
+      #
+      # ==== Example:
+      #
+      #   # config/alchemy/elements.yml
+      #   - name: downloads:
+      #     contents:
+      #     - name: file
+      #       type: EssenceFile
+      #     additional_contents:
+      #     - name: file
+      #       type: EssenceFile
+      #
+      # Then add this helper into the elements editor view partial:
+      #
+      #   <%= render_create_content_link(element, 'file') %>
+      #
+      # Optionally you can pass a label:
+      #
+      #   <%= render_create_content_link(element, 'file', :label => 'Add a file') %>
+      #
+      def render_create_content_link(element, content_name, options = {})
         defaults = {
-          :label => t('add new content')
+          :label => t('Add %{name}', :name => t(content_name, :scope => :content_names))
         }
         options = defaults.merge(options)
-        link_to(
-          options[:label],
-          alchemy.admin_contents_path(
+        link_to(options[:label], alchemy.admin_contents_path(
             :content => {
-              :name => options[:content_name],
+              :name => content_name,
               :element_id => element.id
             }
           ),
-          :method => 'post',
+          :method => :post,
           :remote => true,
           :id => "add_content_for_element_#{element.id}",
           :class => 'button new_content_link'
