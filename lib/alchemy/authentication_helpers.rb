@@ -20,5 +20,3 @@ module Alchemy
 
   end
 end
-
-ApplicationController.send :include, Alchemy::AuthenticationHelpers

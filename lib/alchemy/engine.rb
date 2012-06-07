@@ -1,12 +1,11 @@
 require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
+require File.join(File.dirname(__FILE__), 'authentication_helpers')
 
 module Alchemy
   class Engine < Rails::Engine
 
     isolate_namespace Alchemy
-
     engine_name 'alchemy'
-
     config.mount_at = '/'
 
     # Enabling assets precompiling
@@ -41,8 +40,8 @@ module Alchemy
       Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
     end
 
-    initializer 'alchemy.include_authentication_helpers' do
-      require File.join(File.dirname(__FILE__), 'authentication_helpers')
+    config.to_prepare do
+      ApplicationController.send :include, Alchemy::AuthenticationHelpers
     end
 
   end
