@@ -94,14 +94,14 @@ module Alchemy
         }
         options = default_options.merge(options)
         pages = Page.where({
-                   :language_id => session[:language_id],
-                   :layoutpage => options[:global] == true,
-                   :public => options[:global] == false
-                 })
+          :language_id => session[:language_id],
+          :layoutpage => options[:global] == true,
+          :public => options[:global] == false
+        })
         pages = pages.where({:page_layout => options[:only]}) if options[:only].present?
         content = element.content_by_name(content_name)
         options.update(
-          :select_values => pages_for_select(pages, content ? content.essence.body : nil, options[:prompt], options[:page_attribute])
+          :select_values => pages_for_select(pages, content ? content.ingredient : nil, options[:prompt], options[:page_attribute])
         )
         if content.nil?
           render_missing_content(element, content_name, options)

@@ -33,12 +33,10 @@ module Alchemy
       end
     end
 
-    # Expires all content editor cache fragments that have a :display_as => :select setting
+    # Expires all EssenceSelect content editor cache fragments.
     def expire_contents_displayed_as_select(page)
       return unless page.urlname_changed? || page.name_changed?
-      Content.essence_texts.all.select { |c| c.settings[:display_as] == 'select'}.each do |content|
-        expire_fragment(content)
-      end
+      Content.essence_selects.each { |content| expire_fragment(content) }
     end
 
   end

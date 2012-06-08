@@ -1,88 +1,58 @@
-<%- cache(content) do -%>
-<div class="content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
+<% cache(content) do %>
+  <div class="content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
 
-  <%- if content.settings[:display_as] == "checkbox" -%>
+    <% if content.settings[:display_as] == "checkbox" %>
 
-  <%= check_box_tag(
-    content.form_field_name,
-    "1",
-    content.ingredient == "1",
-    :onclick => "Alchemy.handleEssenceCheckbox(this)",
-    :class => html_options[:class],
-    :style => html_options[:style]
-  ) %>
-  <label for="<%= content.form_field_id %>" style="display: inline">
-    <%= render_content_name(content) %>
-  </label>
-
-  <%- elsif content.settings[:display_as] == "select" -%>
-
-  <label><%= render_content_name(content) %></label>
-
-  <%- if options[:select_values].nil? -%>
-  <%= warning('options[:select_values] is nil', "No select values given. Please provide :select_values as argument to render_essence_editor_by_name() helper inside this element editor view.") %>
-  <%- else -%>
-  <%- if options[:select_values].is_a?(Hash)
-    options_method = grouped_options_for_select(
-      options[:select_values],
-      content.ingredient,
-      ''
-    )
-    else
-      options_method = options_for_select(
-        options[:select_values],
-        content.ingredient
-      )
-    end
-  %>
-  <%= select_tag(
-    content.form_field_name,
-    options_method,
-    {
-      :class => ["alchemy_selectbox", "essence_editor_select", html_options[:class]].join(' '),
+    <%= check_box_tag(
+      content.form_field_name,
+      "1",
+      content.ingredient == "1",
+      :onclick => "Alchemy.handleEssenceCheckbox(this)",
+      :class => html_options[:class],
       :style => html_options[:style]
-    }
-  ) %>
-  <%- end -%>
+    ) %>
+    <label for="<%= content.form_field_id %>" style="display: inline">
+      <%= render_content_name(content) %>
+    </label>
 
-  <%- else -%>
+    <% else %>
 
-  <label>
-    <%= render_content_name(content) %>
-    <%= link_to_confirmation_window(
-      render_icon('delete-small'),
-      t('Do you really want to delete this content?'),
-      alchemy.admin_content_path(content),
-      :class => 'icon_button small',
-      :title => t('Remove this content')
-    ) if content.settings[:deletable] %>
-  </label>
-  <%= text_field_tag(
-    content.form_field_name,
-    content.ingredient,
-    :class => ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
-    :style => html_options[:style]
-  ) %>
+    <label>
+      <%= render_content_name(content) %>
+      <%= link_to_confirmation_window(
+        render_icon('delete-small'),
+        t('Do you really want to delete this content?'),
+        alchemy.admin_content_path(content),
+        :class => 'icon_button small',
+        :title => t('Remove this content')
+      ) if content.settings[:deletable] %>
+    </label>
+    <%= text_field_tag(
+      content.form_field_name,
+      content.ingredient,
+      :class => ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
+      :style => html_options[:style]
+    ) %>
 
-  <%- if content.settings[:linkable] -%>
+    <% if content.settings[:linkable] %>
 
-  <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
-  <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
-  <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
-  <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
+    <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
+    <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
+    <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
+    <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
 
-  <span class="linkable_text_essence_tools">
-    <a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= t('place_link') -%>" class="icon_button <%= content.linked? ? ' linked' : '' -%>" name="essence_text_<%= content.id -%>" id="edit_link_<%= content.id -%>">
-      <span class="icon link"></span>
-    </a>
-    <a href="#" onclick="Alchemy.LinkOverlay.removeLink(this, <%= content.id -%>); return false;" title="<%= t('unlink') %>" class="icon_button unlink<%= content.linked? ? ' linked' : ' disabled' -%>" name="essence_text_<%= content.id -%>">
-      <span class="icon unlink"></span>
-    </a>
-  </span>
+    <span class="linkable_text_essence_tools">
+      <a href="#" onclick="Alchemy.LinkOverlay.open(this, 420); return false;" title="<%= t('place_link') -%>" class="icon_button <%= content.linked? ? ' linked' : '' -%>" name="essence_text_<%= content.id -%>" id="edit_link_<%= content.id -%>">
+        <span class="icon link"></span>
+      </a>
+      <a href="#" onclick="Alchemy.LinkOverlay.removeLink(this, <%= content.id -%>); return false;" title="<%= t('unlink') %>" class="icon_button unlink<%= content.linked? ? ' linked' : ' disabled' -%>" name="essence_text_<%= content.id -%>">
+        <span class="icon unlink"></span>
+      </a>
+    </span>
 
-  <%- end -%>
+    <% end %>
 
-  <%- end -%>
+    <% end %>
 
-</div>
-<%- end -%>
+  </div>
+<% end %>

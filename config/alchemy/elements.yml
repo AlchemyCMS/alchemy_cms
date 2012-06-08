@@ -26,34 +26,37 @@
 #       type: EssenceRichtext
 #
 # As already mentioned above, there are different content-types wich can be defined for each content in an element.
+#
 # Defining these types is used to render predefined views in the element.
 #
 # == Content-Types:
 #
 # * EssenceText               (Used to store a String (max. 255 Chars.) i.e. a headline, or productname. The editor is renderd as a single-lined input field. The view output will be sanitized and escaped. So it's XSS save.)
 # * EssenceRichtext           (Used to store editable richtext. Editor is rendered as a textarea with TinyMCE Editor.)
-# * EssencePicture            (Used to store picture ids from pictures assigned through the library. The editor is rendered as a picture-editor collection with a lot of options (i.e. image cropper). The view renders the assigned picture, resizes it, crops it and caches the result.)
-# * EssenceFlash              (Used to store attachment ids from attachments assigned through the library. The view renders an embeded object.)
+# * EssencePicture            (Used to store pictures assigned through the library. The editor view provides a lot of options (i.e. image cropper). The view renders the assigned picture, resizes it, crops it and caches the result.)
+# * EssenceFile               (Used to store attachments assigned through the library. The view renders download link.)
+# * EssenceAudio              (Used to store attachments assigned through the library. The view renders an flash audio player.)
+# * EssenceVideo              (Used to store attachments assigned through the library. The view renders an flash video player.)
+# * EssenceFlash              (Used to store attachments assigned through the library. The view renders the embeded flash object.)
 # * EssenceDate               (Used to store a DateTime object. The view output is passed through Rails I18n Library, so it will be fully localized.)
-# * EssenceHtml               (Used to store a String (max. 255 Chars.). The view output renders the raw, not sanitized or unescaped String. So be carefull!)
+# * EssenceHtml               (Used to store HTML code. The view output renders the raw, not sanitized or unescaped String. So be careful!)
+# * EssenceSelect             (Used to store a String (max. 255 Chars.) value. The editor view is displayed as a select box)
 #
 # After finishing the setup of your element layouts, you need to generate the files for the elements before using them in Alchemy.
+#
 # For creating these files, use the following command in your terminal:
-#
-#
 #
 #   rails generate alchemy:elements
 #
-#
-#   or:
+# or:
 #
 #   rails g alchemy:elements --skip
 #
+# to skip existing elements
 #
-#   to skip existing elements
 #
+# All new elements will be created as two different partials in +Rails.root/app/views/elements+.
 #
-# All new elements will be created as two different partials in Rails.root/app/views/elements.
 # For each element there is an editor-view wich will be rendered when editing them in Alchemy and another view for the website´s frontend.
 #
 #   app/views/elements/_elements_name_editor.html.erb
@@ -65,13 +68,14 @@
 #
 # == Setting a content as preview-text for the element
 #
-# You can set a content-essence as preview-text for its element like this
-# take_me_for_preview: true
+# You can set a content-essence as preview-text for its element like this:
 #
+#   take_me_for_preview: true
 #
 # == Adding contents dynamically in the frontend
 #
 # You are able to add content-essences dynamically to the element from the Alchemy frontend.
+#
 # You just have to make contents available for adding them.
 #
 # === Example:
@@ -261,8 +265,6 @@
     validate:
       - presence
   - name: success_page
-    type: EssenceText
-    settings:
-      display_as: select
+    type: EssenceSelect
     validate:
       - presence

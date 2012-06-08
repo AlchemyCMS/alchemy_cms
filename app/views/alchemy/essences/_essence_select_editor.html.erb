@@ -1,0 +1,35 @@
+<% cache(content) do %>
+  <div class="content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
+
+  <label><%= render_content_name(content) %></label>
+
+  <%- if options[:select_values].nil? -%>
+
+    <%= warning('options[:select_values] is nil', "No select values given. Please provide :select_values as argument to render_essence_editor_by_name() helper inside this element editor view.") %>
+
+  <%- else -%>
+
+    <%-
+    if options[:select_values].is_a?(Hash)
+      options_method = grouped_options_for_select(
+        options[:select_values],
+        content.ingredient,
+        ''
+      )
+    else
+      options_method = options_for_select(
+        options[:select_values],
+        content.ingredient
+      )
+    end
+    %>
+
+    <%= select_tag(content.form_field_name, options_method, {
+      :class => ["alchemy_selectbox", "essence_editor_select", html_options[:class]].join(' '),
+      :style => html_options[:style]
+    }) %>
+
+  <% end %>
+
+  </div>
+<% end %>

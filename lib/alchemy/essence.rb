@@ -15,9 +15,9 @@ module Alchemy #:nodoc:
       # Configuration options are:
       #
       # * +ingredient_column+ - specifies the column name you use for storing the content in the database (default: +body+)
-      # * +validate_column+ - which column should be validated. Takes the ingredient column if not present
+      # * +validate_column+ - which column should be validated. (default: ingredient_column)
       # * +preview_text_column+ - specifies the column for the preview_text method. (default: ingredient_column)
-      # * +preview_text_method+ - a method called on ingredient to get the preview text
+      # * +preview_text_method+ - a method called on ingredient to get the preview text. (default: ingredient_column)
       def acts_as_essence(options={})
         configuration = {}
         configuration.update(options) if options.is_a?(Hash)
@@ -31,31 +31,31 @@ module Alchemy #:nodoc:
           stampable(:stamper_class_name => 'Alchemy::User')
           validate :essence_validations, :on => :update
           has_many :contents, :as => :essence
-          
+
           def acts_as_essence_class
             #{self.name}
           end
-          
+
           def validation_column
             '#{validate_column}'
           end
-          
+
           def ingredient_column
             '#{ingredient_column}'
           end
-          
+
           def ingredient
             send('#{ingredient_column}')
           end
-          
+
           def preview_text_column
             '#{preview_text_column}'
           end
-          
+
           def preview_text_method
             '#{configuration[:preview_text_method]}'
           end
-          
+
         EOV
       end
 
@@ -64,24 +64,24 @@ module Alchemy #:nodoc:
     module InstanceMethods
 
       # Essence Validations:
-      # 
+      #
       # Essence validations can be set inside the config/elements.yml file.
       # Currently supported validations are:
       #   * presence
       #   * format
       #   * uniqueness
-      # 
+      #
       # If you want to validate the format you must additionally pass validate_format_as or validate_format_with:
-      # 
+      #
       # * validate_format_with has to be regex
       # * validate_format_as can be one of:
       # ** url
       # ** email
-      # 
+      #
       # Example:
-      # 
+      #
       #   - name: person
-      #     contents:  
+      #     contents:
       #     - name: name
       #       type: EssenceText
       #       validate: [presence]
@@ -93,7 +93,7 @@ module Alchemy #:nodoc:
       #       type: EssenceText
       #       validate: [format]
       #       validate_format_with: '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'
-      # 
+      #
       def essence_validations
         self.validation_errors ||= []
         return true if description.blank? || description['validate'].blank?
@@ -168,6 +168,14 @@ module Alchemy #:nodoc:
 
       def partial_name
         self.class.name.split('::').last.underscore
+      end
+
+      def acts_as_essence?
+        !acts_as_essence_class.blank?
+      end
+
+      def to_partial_path
+        "alchemy/essences/#{partial_name}_view"
       end
 
     end

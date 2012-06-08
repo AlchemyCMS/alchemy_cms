@@ -20,6 +20,7 @@ module Alchemy
     scope :essence_pictures, where(:essence_type => "Alchemy::EssencePicture")
     scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
     scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
+    scope :essence_selects, where(:essence_type => "Alchemy::EssenceSelect")
 
     # Creates a new Content as descriped in the elements.yml file
     def self.create_from_scratch(element, essences_hash)
