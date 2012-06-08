@@ -22,35 +22,92 @@ module Alchemy
     scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
     scope :essence_selects, where(:essence_type => "Alchemy::EssenceSelect")
 
-    # Creates a new Content as descriped in the elements.yml file
-    def self.create_from_scratch(element, essences_hash)
-      if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
-        essences_of_same_type = element.contents.where(
-          :essence_type => Content.normalize_essence_type(essences_hash[:essence_type])
-        )
-        description = {
-          'type' => essences_hash[:essence_type],
-          'name' => "#{essences_hash[:essence_type].classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
-        }
-      else
-        description = element.content_description_for(essences_hash[:name])
-        description = element.available_content_description_for(essences_hash[:name]) if description.blank?
+    class << self
+
+      # Creates a new Content as descriped in the elements.yml file
+      def create_from_scratch(element, essences_hash)
+        if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
+          essences_of_same_type = element.contents.where(
+            :essence_type => Content.normalize_essence_type(essences_hash[:essence_type])
+          )
+          description = {
+            'type' => essences_hash[:essence_type],
+            'name' => "#{essences_hash[:essence_type].classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
+          }
+        else
+          description = element.content_description_for(essences_hash[:name])
+          description = element.available_content_description_for(essences_hash[:name]) if description.blank?
+        end
+        raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
+        content = new(:name => description['name'], :element_id => element.id)
+        content.create_essence!(description)
       end
-      raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
-      essence_class = Content.normalize_essence_type(description['type']).constantize
-      content = self.new(:name => description['name'], :element_id => element.id)
-      if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
-        essence = essence_class.create(:do_not_index => !description['do_not_index'].nil?)
-      else
-        essence = essence_class.create
+
+      # Makes a copy of source and also copies the associated essence.
+      #
+      # You can pass a differences hash to update the attributes of the copy.
+      #
+      # === Example
+      #
+      #   @copy = Alchemy::Content.copy(@content, {:element_id => 3})
+      #   @copy.element_id # => 3
+      #
+      def copy(source, differences = {})
+        attributes = source.attributes.except(
+          "position",
+          "created_at",
+          "updated_at",
+          "creator_id",
+          "updater_id",
+          "id"
+        ).merge(differences.stringify_keys)
+        content = self.create!(attributes)
+        new_essence = content.essence.class.new(content.essence.attributes.except(
+          "id",
+          "creator_id",
+          "updater_id",
+          "created_at",
+          "updated_at"
+        ))
+        new_essence.save!
+        raise "Essence not cloned" if new_essence.id == content.essence_id
+        content.update_attribute(:essence_id, new_essence.id)
+        content
       end
-      if essence
-        content.essence = essence
-        content.save!
-      else
-        content = nil
+
+      # Returns the translated label for a content name.
+      #
+      # Translate it in your locale yml file:
+      #
+      #   alchemy:
+      #     content_names:
+      #      foo: Bar
+      #
+      # Optionally you can scope your content name to an element:
+      #
+      #   alchemy:
+      #     content_names:
+      #      article:
+      #       foo: Baz
+      #
+      def translated_label_for(content_name, element_name = nil)
+        Alchemy::I18n.t("content_names.#{element_name}.#{content_name}", :default => ["content_names.#{content_name}".to_sym, content_name.capitalize])
       end
-      return content
+
+      # Returns all content descriptions from elements.yml
+      def descriptions
+        @descriptions ||= Element.descriptions.collect { |e| e['contents'] }.flatten.compact
+      end
+
+      def normalize_essence_type(essence_type)
+        essence_type = essence_type.classify
+        if not essence_type.match(/^Alchemy::/)
+          essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
+        else
+          essence_type
+        end
+      end
+
     end
 
     # Settings from the elements.yml definition
@@ -64,38 +121,6 @@ module Alchemy
     def siblings
       return [] if !element
       self.element.contents
-    end
-
-    # Makes a copy of source and also copies the associated essence.
-    #
-    # You can pass a differences hash to update the attributes of the copy.
-    #
-    # === Example
-    #
-    #   @copy = Alchemy::Content.copy(@content, {:element_id => 3})
-    #   @copy.element_id # => 3
-    #
-    def self.copy(source, differences = {})
-      attributes = source.attributes.except(
-        "position",
-        "created_at",
-        "updated_at",
-        "creator_id",
-        "updater_id",
-        "id"
-      ).merge(differences.stringify_keys)
-      content = self.create!(attributes)
-      new_essence = content.essence.class.new(content.essence.attributes.except(
-        "id",
-        "creator_id",
-        "updater_id",
-        "created_at",
-        "updated_at"
-      ))
-      new_essence.save!
-      raise "Essence not cloned" if new_essence.id == content.essence_id
-      content.update_attribute(:essence_id, new_essence.id)
-      content
     end
 
     # Returns my description hash from elements.yml
@@ -112,11 +137,6 @@ module Alchemy
           return @desc
         end
       end
-    end
-
-    # Returns all content descriptions from elements.yml
-    def self.descriptions
-      @descriptions ||= Element.descriptions.collect { |e| e['contents'] }.flatten.compact
     end
 
     # Gets the ingredient from essence
@@ -173,25 +193,6 @@ module Alchemy
       self.class.translated_label_for(self.name, self.element.name)
     end
 
-    # Returns the translated label for a content name.
-    #
-    # Translate it in your locale yml file:
-    #
-    #   alchemy:
-    #     content_names:
-    #      foo: Bar
-    #
-    # Optionally you can scope your content name to an element:
-    #
-    #   alchemy:
-    #     content_names:
-    #      article:
-    #       foo: Baz
-    #
-    def self.translated_label_for(content_name, element_name = nil)
-      Alchemy::I18n.t("content_names.#{element_name}.#{content_name}", :default => ["content_names.#{content_name}".to_sym, content_name.capitalize])
-    end
-
     def linked?
       essence && !essence.link.blank?
     end
@@ -202,15 +203,6 @@ module Alchemy
 
     def normalized_essence_type
       self.class.normalize_essence_type(self.essence_type)
-    end
-
-    def self.normalize_essence_type(essence_type)
-      essence_type = essence_type.classify
-      if not essence_type.match(/^Alchemy::/)
-        essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
-      else
-        essence_type
-      end
     end
 
     def has_custom_tinymce_config?
@@ -224,6 +216,23 @@ module Alchemy
         end
       else
         "default_tinymce"
+      end
+    end
+
+    # Creates self.essence from description.
+    def create_essence!(description)
+      essence_class = self.class.normalize_essence_type(description['type']).constantize
+      if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
+        essence = essence_class.create(:do_not_index => !description['do_not_index'].nil?)
+      else
+        essence = essence_class.create
+      end
+      if essence
+        self.essence = essence
+        save!
+        self
+      else
+        nil
       end
     end
 
