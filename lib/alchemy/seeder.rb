@@ -59,7 +59,7 @@ module Alchemy
         end
       end
 
-      private
+    private
 
       def color(name)
         case name
@@ -84,6 +84,8 @@ module Alchemy
           puts "#{color(:yellow)}== Skipping! #{message}#{color(:clear)}"
         when :error
           puts "#{color(:red)}!! ERROR: #{message}#{color(:clear)}"
+        when :message
+          puts "#{color(:clear)}#{message}"
         else
           puts "#{color(:green)}== #{message}#{color(:clear)}"
         end
@@ -92,6 +94,29 @@ module Alchemy
       def desc(message)
         puts "\n#{message}"
         puts "#{'-' * message.length}\n"
+      end
+
+      def todo(todo)
+        add_todo todo
+      end
+
+      def add_todo(todo)
+        todos << todo
+      end
+
+      def todos
+        @@todos ||= []
+      end
+
+      def display_todos
+        if todos.length > 0
+          log "\nTODOS:", :message
+          log "------\n", :message
+          todos.each_with_index do |todo, i|
+            log "\n#{i+1}. ", :message
+            log todo, :message
+          end
+        end
       end
 
     end
