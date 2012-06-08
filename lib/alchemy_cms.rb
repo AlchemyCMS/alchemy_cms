@@ -10,6 +10,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'userstamp'
   require 'yaml'
   require 'sass-rails'
+  require 'coffee-rails'
   require 'declarative_authorization'
   require 'extensions/hash'
   require 'extensions/array'
