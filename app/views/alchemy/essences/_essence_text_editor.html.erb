@@ -15,6 +15,10 @@
       <%= render_content_name(content) %>
     </label>
 
+    <% elsif content.settings[:display_as] == "select" %>
+
+    <%= warning 'The display_as setting is deprecated! Please run rake alchemy:upgrade', 'You are using the display_as setting in your elements.yml. Please run rake alchemy:upgrade' %>
+
     <% else %>
 
     <label>
