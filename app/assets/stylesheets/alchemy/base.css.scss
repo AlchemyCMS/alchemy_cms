@@ -1489,6 +1489,12 @@ div#overlay_toolbar a.button:active {
 	}
 } 
 
+#trash_items {
+	height: 310px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
 .mceEditor table {
 	border-spacing: 0 !important;
 }
