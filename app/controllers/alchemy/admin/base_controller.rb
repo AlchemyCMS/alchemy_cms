@@ -60,9 +60,7 @@ module Alchemy
       end
 
       def get_clipboard
-        return @_clipboard unless @_clipboard.nil?
-        @_clipboard = session[:clipboard].is_a?(Clipboard) ? session[:clipboard] : Clipboard.new
-        session[:clipboard] = @_clipboard
+        session[:clipboard] = session[:clipboard].is_a?(Clipboard) ? session[:clipboard] : Clipboard.new
       end
 
       def clipboard_empty?(category = nil)
