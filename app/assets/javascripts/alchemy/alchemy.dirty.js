@@ -2,42 +2,42 @@ if (typeof(Alchemy) === 'undefined') {
   var Alchemy = {};
 }
 
-(function ($) {
+(function($) {
 
   $.extend(Alchemy, {
 
-    ElementDirtyObserver:function (selector) {
+    ElementDirtyObserver: function(selector) {
       var $elements = $(selector);
-      $elements.find('textarea.default_tinymce').map(function () {
+      $elements.find('textarea.default_tinymce').map(function() {
         var $this = $(this);
         var ed = tinymce.get(this.id);
         if (ed) {
-          ed.onChange.add(function (ed, l) {
+          ed.onChange.add(function(ed, l) {
             Alchemy.setElementDirty($this.parents('.element_editor'));
           });
         }
       });
-      $elements.find('input[type="text"]').bind('change', function () {
+      $elements.find('input[type="text"]').bind('change', function() {
         $(this).addClass('dirty');
         Alchemy.setElementDirty($(this).parents('.element_editor'));
       });
-      $elements.find('.element_foot input[type="checkbox"]').bind('click', function () {
+      $elements.find('.element_foot input[type="checkbox"]').bind('click', function() {
         $(this).addClass('dirty');
         Alchemy.setElementDirty($(this).parents('.element_editor'));
       });
-      $elements.find('select').bind('change', function () {
+      $elements.find('select').bind('change', function() {
         $(this).addClass('dirty');
         Alchemy.setElementDirty($(this).parents('.element_editor'));
       });
     },
 
-    setElementDirty:function (element) {
+    setElementDirty: function(element) {
       var $element = $(element);
       $element.addClass('dirty');
       $element.find('.element_head .icon').addClass('element_dirty');
     },
 
-    setElementClean:function (element) {
+    setElementClean: function(element) {
       var $element = $(element);
       $element.removeClass('dirty');
       $element.find('.element_foot input[type="checkbox"]').removeClass('dirty');
@@ -46,14 +46,14 @@ if (typeof(Alchemy) === 'undefined') {
       $element.find('.element_head .icon').removeClass('element_dirty');
     },
 
-    isPageDirty:function () {
+    isPageDirty: function() {
       return $('#element_area').find('.element_editor.dirty').size() > 0;
     },
 
-    checkPageDirtyness:function (element, text) {
+    checkPageDirtyness: function(element, text) {
       var okcallback;
       if ($(element).is('form')) {
-        okcallback = function () {
+        okcallback = function() {
           var $form = $('<form action="' + element.action + '" method="POST" style="display: none"></form>');
           $form.append($(element).find('input'));
           $form.appendTo('body');
@@ -61,18 +61,18 @@ if (typeof(Alchemy) === 'undefined') {
           $form.submit();
         };
       } else if ($(element).is('a')) {
-        okcallback = function () {
+        okcallback = function() {
           Alchemy.pleaseWaitOverlay();
           document.location = element.pathname;
         };
       }
       if (Alchemy.isPageDirty()) {
         Alchemy.openConfirmWindow({
-          title:text.title,
-          message:text.message,
-          okLabel:text.okLabel,
-          cancelLabel:text.cancelLabel,
-          okCallback:okcallback
+          title: text.title,
+          message: text.message,
+          okLabel: text.okLabel,
+          cancelLabel: text.cancelLabel,
+          okCallback: okcallback
         });
         return false;
       } else {
@@ -80,8 +80,8 @@ if (typeof(Alchemy) === 'undefined') {
       }
     },
 
-    PageLeaveObserver:function (texts) {
-      $('#main_navi a').click(function (event) {
+    PageLeaveObserver: function(texts) {
+      $('#main_navi a').click(function(event) {
         if (!Alchemy.checkPageDirtyness(event.currentTarget, texts)) {
           event.preventDefault();
         }

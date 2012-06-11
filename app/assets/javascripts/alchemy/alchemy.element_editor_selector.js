@@ -2,33 +2,33 @@ if (typeof(Alchemy) === 'undefined') {
   var Alchemy = {};
 }
 
-(function ($) {
+(function($) {
 
   var ElementEditorSelector = {};
   $.extend(Alchemy, ElementEditorSelector);
 
   Alchemy.ElementEditorSelector = {
 
-    init:function () {
+    init: function() {
       var $elements = $('#element_area .element_editor');
       var self = Alchemy.ElementEditorSelector;
       self.reinit($elements);
     },
 
-    reinit:function (elements) {
+    reinit: function(elements) {
       var self = Alchemy.ElementEditorSelector;
       var $elements = $(elements);
-      $elements.each(function () {
+      $elements.each(function() {
         self.bindEvent(this);
       });
       $elements.find('.element_head').click(self.onClickElement);
-      $elements.find('.element_head').dblclick(function () {
+      $elements.find('.element_head').dblclick(function() {
         var id = $(this).parent().attr('id').replace(/\D/g, '');
         self.foldElement(id);
       });
     },
 
-    onClickElement:function (e) {
+    onClickElement: function(e) {
       var self = Alchemy.ElementEditorSelector;
       var $element = $(this).parent('.element_editor');
       var id = $element.attr('id').replace(/\D/g, '');
@@ -42,12 +42,12 @@ if (typeof(Alchemy) === 'undefined') {
       $selected_element.trigger('Alchemy.SelectElement');
     },
 
-    bindEvent:function (element) {
+    bindEvent: function(element) {
       var self = Alchemy.ElementEditorSelector;
       $(element).bind('Alchemy.SelectElementEditor', self.selectElement);
     },
 
-    selectElement:function (e) {
+    selectElement: function(e) {
       var self = Alchemy.ElementEditorSelector;
       var id = this.id.replace(/\D/g, '');
       var $element = $(this);
@@ -68,15 +68,18 @@ if (typeof(Alchemy) === 'undefined') {
       }
     },
 
-    scrollToElement:function (el) {
-      $('#alchemyElementWindow').scrollTo(el, {duration:400, offset:-10});
+    scrollToElement: function(el) {
+      $('#alchemyElementWindow').scrollTo(el, {
+        duration: 400,
+        offset: -10
+      });
     },
 
-    foldElement:function (id) {
+    foldElement: function(id) {
       var self = Alchemy.ElementEditorSelector;
       $('#element_' + id + '_folder').hide();
       $('#element_' + id + '_folder_spinner').show();
-      $.post(Alchemy.routes.fold_admin_element_path(id), function () {
+      $.post(Alchemy.routes.fold_admin_element_path(id), function() {
         $('#element_' + id + '_folder').show();
         $('#element_' + id + '_folder_spinner').hide();
         self.scrollToElement('#element_' + id);

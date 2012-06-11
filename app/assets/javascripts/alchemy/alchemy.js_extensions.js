@@ -1,17 +1,15 @@
-String.prototype.beginsWith = function (t, i) {
+String.prototype.beginsWith = function(t, i) {
   if (i == false) {
     return (t == this.substring(0, t.length));
-  }
-  else {
+  } else {
     return (t.toLowerCase() == this.substring(0, t.length).toLowerCase());
   }
 };
 
-String.prototype.endsWith = function (t, i) {
+String.prototype.endsWith = function(t, i) {
   if (i == false) {
     return (t == this.substring(this.length - t.length));
-  }
-  else {
+  } else {
     return (t.toLowerCase() == this.substring(this.length - t.length).toLowerCase());
   }
 };

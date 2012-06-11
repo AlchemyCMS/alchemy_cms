@@ -2,7 +2,7 @@ if (typeof(Alchemy) === 'undefined') {
   var Alchemy = {};
 }
 
-(function ($) {
+(function($) {
 
   var ImageCropper = {};
   ImageCropper.initialized = false;
@@ -10,17 +10,17 @@ if (typeof(Alchemy) === 'undefined') {
 
   Alchemy.ImageCropper = {
 
-    init:function (box, size_x, size_y, default_box, ratio) {
+    init: function(box, size_x, size_y, default_box, ratio) {
       var crop_from_field = $('#essence_picture_crop_from');
       var crop_size_field = $('#essence_picture_crop_size');
       var options = {
-        onSelect:function (coords) {
+        onSelect: function(coords) {
           crop_from_field.val(coords.x + "x" + coords.y);
           crop_size_field.val(coords.w + "x" + coords.h);
         },
-        setSelect:box,
-        aspectRatio:ratio ? ratio : undefined,
-        minSize:[size_x, size_y]
+        setSelect: box,
+        aspectRatio: ratio ? ratio : undefined,
+        minSize: [size_x, size_y]
       };
       Alchemy.ImageCropper.box = box;
       Alchemy.ImageCropper.default_box = default_box;
@@ -34,21 +34,20 @@ if (typeof(Alchemy) === 'undefined') {
       $('.ui-dialog-titlebar-close').click(Alchemy.ImageCropper.destroy);
     },
 
-    undo:function () {
+    undo: function() {
       Alchemy.ImageCropper.api.setSelect(Alchemy.ImageCropper.box);
     },
 
-    reset:function () {
+    reset: function() {
       Alchemy.ImageCropper.api.setSelect(Alchemy.ImageCropper.default_box);
       Alchemy.ImageCropper.crop_from_field.val('');
       Alchemy.ImageCropper.crop_size_field.val('');
     },
 
-    destroy:function () {
+    destroy: function() {
       try {
         Alchemy.ImageCropper.api.destroy();
-      } catch (e) {
-      } finally {
+      } catch (e) {} finally {
         Alchemy.ImageCropper.initialized = false;
       }
     }

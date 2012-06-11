@@ -62,7 +62,6 @@ module Alchemy
           }
         )
       end
-
       alias_method :render_picture_editor, :render_picture_gallery_editor
 
       # Returns all elements that could be placed on that page because of the pages layout.

@@ -2,32 +2,32 @@ if (typeof(Alchemy) === 'undefined') {
   var Alchemy = {};
 }
 
-(function ($) {
+(function($) {
 
   var PageSorter = {};
   $.extend(Alchemy, PageSorter);
 
   Alchemy.PageSorter = {
 
-    init:function () {
+    init: function() {
       var $sortables = $('ul#sitemap').find('ul.level_1_children');
       $sortables.nestedSortable({
-        disableNesting:'no-nest',
-        forcePlaceholderSize:true,
-        handle:'span.handle',
-        items:'li',
-        listType:'ul',
-        opacity:0.5,
-        placeholder:'placeholder',
-        tabSize:16,
-        tolerance:'pointer',
-        toleranceElement:'> div'
+        disableNesting: 'no-nest',
+        forcePlaceholderSize: true,
+        handle: 'span.handle',
+        items: 'li',
+        listType: 'ul',
+        opacity: 0.5,
+        placeholder: 'placeholder',
+        tabSize: 16,
+        tolerance: 'pointer',
+        toleranceElement: '> div'
       });
-      $('#save_page_order').click(function (e) {
+      $('#save_page_order').click(function(e) {
         Alchemy.pleaseWaitOverlay();
         e.preventDefault();
         var params = {
-          set:JSON.stringify($sortables.nestedSortable('toHierarchy'))
+          set: JSON.stringify($sortables.nestedSortable('toHierarchy'))
         };
         $.post(Alchemy.routes.order_admin_pages_path, params);
         return false;
@@ -37,11 +37,13 @@ if (typeof(Alchemy) === 'undefined') {
       Alchemy.resizeFrame();
     },
 
-    disableButton:function () {
+    disableButton: function() {
       var $buttonLink = $('#page_sorting_button a');
       $buttonLink.removeAttr('onclick');
       $('#page_sorting_button').addClass('active');
-      $buttonLink.css({cursor:'default'});
+      $buttonLink.css({
+        cursor: 'default'
+      });
     }
 
   }
