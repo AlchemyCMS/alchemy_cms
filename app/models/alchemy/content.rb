@@ -21,6 +21,7 @@ module Alchemy
     scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
     scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
     scope :essence_selects, where(:essence_type => "Alchemy::EssenceSelect")
+    scope :essence_booleans, where(:essence_type => "Alchemy::EssenceBoolean")
 
     class << self
 

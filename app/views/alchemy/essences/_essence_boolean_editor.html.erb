@@ -1,0 +1,14 @@
+<% cache(content) do %>
+  <div class="content_editor essence_boolean" id="<%= content_dom_id(content) %>">
+    <%= check_box_tag(content.form_field_name, 1,
+      !content.ingredient.nil? ? content.ingredient : options[:default_value],
+      :onclick => "Alchemy.handleEssenceCheckbox(this)",
+      :class => html_options[:class],
+      :style => html_options[:style]
+    ) %>
+    <label for="<%= content.form_field_id %>" style="display: inline">
+      <%= render_content_name(content) %>
+      <%= delete_content_link(content) %>
+    </label>
+  </div>
+<% end %>

@@ -1,35 +1,35 @@
 # encoding: UTF-8
 
 en:
-  
+
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-    
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
-    # 
+    #
     # Example:
     #   de:
     #     alchemy:
     #       page_layout_names:
     #         contact: Kontakt
     #         search: Suche
-    # 
+    #
     page_layout_names:
       layout_header: 'Header Part'
       layout_footer: 'Footer Part'
-    
+
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
-    # 
+    #
     # Example:
     #   de:
     #     alchemy:
     #       element_names:
     #         article: Artikel
     #         intro_image_text: Intro Artikel
-    # 
+    #
     element_names:
       article: Article
       intro_image_text: Intro Article
@@ -47,10 +47,10 @@ en:
       news: News
       searchresult: Searchresults
       contactform: Contactform
-    
+
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
-    # 
+    #
     # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
     # To do so, just place the content_name under the element name
     content_names:
@@ -68,6 +68,7 @@ en:
       news_headline: "News Headline"
       image_mosaic:
         caption: "Mosaic Caption"
+        show_caption: "Show Caption"
       contactform:
         success_page: 'Followup page'
 
@@ -79,7 +80,7 @@ en:
         zero: 'Offers no results'
         one: 'Offers one result'
         other: 'Offers %{count} results'
-    
+
     # == Contactform translations
     contactform:
       labels:
@@ -110,19 +111,19 @@ en:
         username: 'Your username'
         password: 'Your password'
         greeting: 'Have a nice day'
-    
+
     # == Translated language names for translation select
     translations:
       de: 'German'
       en: 'English'
-    
+
     # == User roles translations
     user_roles:
       registered: "Registered"
       author: "Author"
       editor: "Editor"
       admin: "Administrator"
-    
+
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
@@ -150,12 +151,12 @@ en:
       image/tiff: 'TIFF-Image'
       'text/x-vcard': 'vCard'
       application/vcard: 'vCard'
-    
+
     link_target_options:
       default: Same Window
       blank: New Window/Tab
       overlay: Overlay
-    
+
     create_tree_as_new_language: "Create %{language} as a new language tree"
     "Delete image": "Remove this image"
     "Image size": "Imagesize"
@@ -362,7 +363,7 @@ en:
     zoom_image: "Zoom this image"
     "Nothing found": "Nothing found"
     "Validation failed": "Validation failed"
-  
+
   # END of Alchemy translation
 
   # == Rails translations
@@ -374,8 +375,8 @@ en:
       # You can provide other formats here if you like!
       default: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
-      short: "%b %d" 
-      long: "%B %d, %Y" 
+      short: "%b %d"
+      long: "%B %d, %Y"
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
@@ -388,13 +389,13 @@ en:
       - :day
   time:
     formats:
-      default: "%a, %d %b %Y %H:%M:%S %z" 
-      short: "%d %b %H:%M" 
-      long: "%B %d, %Y %H:%M" 
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
       date: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
-    am: "am" 
-    pm: "pm" 
+    am: "am"
+    pm: "pm"
   support:
     array:
       sentence_connector: "and"
@@ -404,82 +405,82 @@ en:
     # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
     format:
       # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
-      separator: "." 
+      separator: "."
       # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
-      delimiter: "," 
+      delimiter: ","
       # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
       precision: 3
-    
+
     # Used in number_to_currency()
     currency:
       format:
         # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
-        format: "%u%n" 
-        unit: "$" 
+        format: "%u%n"
+        unit: "$"
         # These three are to override number.format and are optional
-        separator: "." 
-        delimiter: "," 
+        separator: "."
+        delimiter: ","
         precision: 2
-    
+
     # Used in number_to_percentage()
     percentage:
       format:
         # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
-        # precision: 
+        # separator:
+        delimiter: ""
+        # precision:
 
     # Used in number_to_precision()
     precision:
       format:
         # These three are to override number.format and are optional
         # separator:
-        delimiter: "" 
+        delimiter: ""
         # precision:
 
     # Used in number_to_human_size()
     human:
       format:
         # These three are to override number.format and are optional
-        # separator: 
-        delimiter: "" 
+        # separator:
+        delimiter: ""
         precision: 1
 
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
-      half_a_minute: "half a minute" 
+      half_a_minute: "half a minute"
       less_than_x_seconds:
-        one:  "less than 1 second" 
-        many: "less than %{count} seconds" 
+        one:  "less than 1 second"
+        many: "less than %{count} seconds"
       x_seconds:
-        one:  "1 second" 
-        many: "%{count} seconds" 
+        one:  "1 second"
+        many: "%{count} seconds"
       less_than_x_minutes:
-        one:  "less than a minute" 
-        many: "less than %{count} minutes" 
+        one:  "less than a minute"
+        many: "less than %{count} minutes"
       x_minutes:
-        one:  "1 minute" 
-        many: "%{count} minutes" 
+        one:  "1 minute"
+        many: "%{count} minutes"
       about_x_hours:
-        one:  "about 1 hour" 
-        many: "about %{count} hours" 
+        one:  "about 1 hour"
+        many: "about %{count} hours"
       x_days:
-        one:  "1 day" 
-        many: "%{count} days" 
+        one:  "1 day"
+        many: "%{count} days"
       about_x_months:
-        one:  "about 1 month" 
-        many: "about %{count} months" 
+        one:  "about 1 month"
+        many: "about %{count} months"
       x_months:
-        one:  "1 month" 
-        many: "%{count} months" 
+        one:  "1 month"
+        many: "%{count} months"
       about_x_years:
-        one:  "about 1 year" 
+        one:  "about 1 year"
         many: "about %{count} years"
       over_x_years:
-        one:  "over 1 year" 
+        one:  "over 1 year"
         many: "over %{count} years"
-  
+
   activemodel:
     attributes:
       alchemy/message:
@@ -494,30 +495,30 @@ en:
 
   # Translations for active record database models and error messages.
   activerecord:
-    
+
     models:
-      
+
       alchemy/attachment:
         one: File
         other: Files
-      
+
     attributes:
-      
+
       alchemy/attachment:
         content_type: Filetype
         created_at: "Created at"
         filename: Filename
         name: Name
         size: Filesize
-      
+
       alchemy/element:
         display_name: "Name"
         name: "Name"
         public: "visible"
-      
+
       alchemy/essence_file:
         css_class: CSS Class
-      
+
       alchemy/language:
         code: "Languagecode"
         default: "Default"
@@ -525,7 +526,7 @@ en:
         name: "Name"
         page_layout: "Pagetype of frontpage"
         public: "Public"
-      
+
       alchemy/page:
         created_at: "Created at"
         language: "Language"
@@ -544,13 +545,13 @@ en:
         updated_at: "Updated at"
         urlname: "Urlname"
         visible: "visible in navigation"
-      
+
       alchemy/picture:
         image_filename: "Filename"
         image_height: "Imageheight"
         image_width: "Imagewidth"
         name: "Name"
-      
+
       alchemy/user:
         email: "Email"
         firstname: "Firstname"
@@ -562,32 +563,32 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         role: "Userrole"
-    
+
     errors:
       template:
         header: "Validation failed"
         body: ""
-        
+
       messages:
-        inclusion: "is not included in the list" 
-        exclusion: "is reserved" 
-        invalid: "is invalid" 
-        confirmation: "doesn't match confirmation" 
-        accepted: "must be accepted" 
-        empty: "can't be empty" 
-        blank: "can't be blank" 
-        too_long: "is too long (maximum is %{count} characters)" 
-        too_short: "is too short (minimum is %{count} characters)" 
-        wrong_length: "is the wrong length (should be %{count} characters)" 
-        taken: "has already been taken" 
-        not_a_number: "is not a number" 
-        greater_than: "must be greater than %{count}" 
-        greater_than_or_equal_to: "must be greater than or equal to %{count}" 
-        equal_to: "must be equal to %{count}" 
-        less_than: "must be less than %{count}" 
-        less_than_or_equal_to: "must be less than or equal to %{count}" 
-        odd: "must be odd" 
-        even: "must be even" 
+        inclusion: "is not included in the list"
+        exclusion: "is reserved"
+        invalid: "is invalid"
+        confirmation: "doesn't match confirmation"
+        accepted: "must be accepted"
+        empty: "can't be empty"
+        blank: "can't be blank"
+        too_long: "is too long (maximum is %{count} characters)"
+        too_short: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
+        taken: "has already been taken"
+        not_a_number: "is not a number"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        odd: "must be odd"
+        even: "must be even"
       models:
         alchemy/content:
           attributes:
@@ -628,7 +629,7 @@ en:
       no_authentication_details: 'You did not provide any details for authentication'
       login_not_valid: "is invalid. Please use letters, numbers, spaces and .-_@ only"
       login_too_short: "is too short. Please use 3 characters ar least"
-      
+
     models:
       alchemy/user_session: 'Session'
     attributes:

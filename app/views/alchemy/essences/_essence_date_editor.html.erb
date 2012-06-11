@@ -1,5 +1,5 @@
 <div class="content_editor essence_date" id="<%= content_dom_id(content) %>">
-  <label><%= render_content_name(content) %></label>
+  <%= label_and_remove_link(content) %>
   <%= alchemy_datepicker(
     content.essence, :date, {
       :name => content.form_field_name,

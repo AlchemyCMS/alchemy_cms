@@ -1,37 +1,37 @@
 # encoding: UTF-8
 
 de:
-  
+
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-    
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
-    # 
+    #
     # Example:
     #   de:
     #     alchemy:
     #       page_layout_names:
     #         contact: Kontakt
     #         search: Suche
-    # 
+    #
     page_layout_names:
       contact: Kontakt
       search: Suche
       layout_header: 'Header Bereich'
       layout_footer: 'Footer Bereich'
-    
+
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
-    # 
+    #
     # Example:
     #   de:
     #     alchemy:
     #       element_names:
     #         article: Artikel
     #         intro_image_text: Intro Artikel
-    # 
+    #
     element_names:
       article: Artikel
       intro_image_text: Intro Artikel
@@ -49,10 +49,10 @@ de:
       news: News
       searchresult: Suchergebnisse
       contactform: Kontaktformular
-    
+
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
-    # 
+    #
     # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
     # To do so, just place the content_name under the element name
     content_names:
@@ -70,6 +70,7 @@ de:
       news_headline: "News Überschrift"
       image_mosaic:
         caption: "Mosaik Bildunterschrift"
+        show_caption: "Bildunterschrift anzeigen"
       file: Datei
       contactform:
         success_page: 'Folgeseite'
@@ -81,13 +82,13 @@ de:
       errors:
         blank: '%{field} darf nicht leer sein.'
         wrong_format: '%{field} hat das falsche Format.'
-    
+
     essence_pictures:
       css_classes:
         left: 'Links vom Text'
         right: 'Rechts vom Text'
         no_float: 'Über dem Text'
-    
+
     # == Translations for the build in full text search.
     search_result_page:
       no_results: 'Ihre Suche ergab kein Ergebnis.'
@@ -96,7 +97,7 @@ de:
         zero: "Ergab keine Ergebnisse"
         one: "Ergab ein Ergebnis"
         other: "Ergab %{count} Ergebnisse"
-    
+
     # == Contactform translations
     contactform:
       labels:
@@ -116,7 +117,7 @@ de:
       # The flash message shown after succesfully sending the message.
       messages:
         success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
-    
+
     # == Translations for the mailer templates
     mailer:
       # The mail the user gets after registering for alchemy
@@ -127,19 +128,19 @@ de:
         username: 'Ihr Benutzername'
         password: 'Ihr Passwort'
         greeting: 'Einen schönen Tag noch'
-    
+
     # == Translated language names for translation select
     translations:
       de: 'Deutsch'
       en: 'Englisch'
-    
+
     # == User roles translations
     user_roles:
       registered: "Registriert"
       author: "Author"
       editor: "Redakteur"
       admin: "Administrator"
-    
+
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
@@ -168,12 +169,12 @@ de:
       image/tiff: 'TIFF-Bild'
       'text/x-vcard': 'vCard'
       application/vcard: 'vCard'
-    
+
     link_target_options:
       default: gleichem Fenster
       blank: neuem Fenster/Tab
       overlay: einem Overlay
-    
+
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
     "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
     "Active Pages": "Aktive Seiten"
@@ -542,9 +543,9 @@ de:
     complete: 'Abgeschlossen'
     "Uploading": "Hochladen"
     "Uploaded x files": "x Dateien hochgeladen."
-    
+
   # END of Alchemy translation
-  
+
   # == Rails translations
   # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:
@@ -664,53 +665,53 @@ de:
         phone: Telefon
         email: E-Mail
         message: Nachricht
-  
+
   # Translations for active record database models and error messages.
   activerecord:
-    
+
     models:
-      
+
       alchemy/attachment:
         one: "Datei"
         other: "Dateien"
-      
+
       alchemy/element:
         one: "Element"
         other: "Elemente"
-      
+
       alchemy/language:
         one: "Sprache"
         other: "Sprachen"
-      
+
       alchemy/page:
         one: "Seite"
         other: "Seiten"
-      
+
       alchemy/picture:
         one: Bild
         other: Bilder
-      
+
       alchemy/user:
         one: Benutzer
         other: Benutzer
-    
+
     attributes:
-      
+
       alchemy/attachment:
         content_type: "Dateityp"
         created_at: "Erstellt Am"
         filename: "Dateiname"
         name: "Name"
         size: "Dateigröße"
-      
+
       alchemy/element:
         display_name: "Name"
         name: "Name"
         public: "sichtbar"
-      
+
       alchemy/essence_file:
         css_class: Textanordnung
-      
+
       alchemy/essence_picture:
         caption: "Untertitel"
         title: "Titel"
@@ -724,7 +725,7 @@ de:
         crop_from: Bildmaskenursprung
         crop_size: Bildmaskenausmaß
         picture_id: Bild
-      
+
       alchemy/language:
         country_code: "Länderkürzel"
         language_code: "Sprachkürzel"
@@ -733,7 +734,7 @@ de:
         name: "Name"
         page_layout: "Seitentyp der Startseite"
         public: "Sprache veröffentlichen"
-      
+
       alchemy/page:
         created_at: "Erstellt am"
         language: "Sprache"
@@ -752,13 +753,13 @@ de:
         updated_at: "Aktualisiert am"
         urlname: "URL-Name"
         visible: "in der Navigation sichtbar"
-      
+
       alchemy/picture:
         image_filename: "Dateiname"
         image_height: "Bildhöhe"
         image_width: "Bildbreite"
         name: "Name"
-      
+
       alchemy/user:
         email: "Email"
         firstname: "Vorname"
@@ -770,13 +771,13 @@ de:
         password: "Passwort"
         password_confirmation: "Passwort Bestätigung"
         role: "Benutzerrolle"
-    
+
     errors:
       template:
-      
+
         header: "Prüfung fehlgeschlagen"
         body: ""
-      
+
       messages:
         inclusion: "ist kein gültiger Wert"
         exclusion: "ist nicht verfügbar"
@@ -798,7 +799,7 @@ de:
         less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
         odd: "muss ungerade sein"
         even: "muss gerade sein"
-      
+
       models:
         alchemy/content:
           attributes:
@@ -823,10 +824,10 @@ de:
               too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
               taken: "^Der URL-Name ist bereits vergeben."
               exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
-  
+
   # Translations for the authentication system used in alchemy.
   authlogic:
-    
+
     error_messages:
       login_blank: "^Es wurde kein Benutzername angeben."
       login_not_found: "^Dieser Benutzername existiert nicht."
@@ -841,10 +842,10 @@ de:
       no_authentication_details: 'Sie haben keinen Benutzernamen und/oder Passwort eingegeben.'
       login_not_valid: "^Der Benutzername darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
       login_too_short: "^Der Benutzername ist zu kurz. Bitte mindestens 3 Zeichen verwenden."
-    
+
     models:
       alchemy/user_session: 'Sitzung'
-    
+
     attributes:
       alchemy/user_session:
         login: Benutzername

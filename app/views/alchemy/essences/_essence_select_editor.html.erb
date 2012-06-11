@@ -1,15 +1,15 @@
 <% cache(content) do %>
   <div class="content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
 
-  <label><%= render_content_name(content) %></label>
+  <%= label_and_remove_link(content) %>
 
-  <%- if options[:select_values].nil? -%>
+  <% if options[:select_values].nil? %>
 
     <%= warning('options[:select_values] is nil', "No select values given. Please provide :select_values as argument to render_essence_editor_by_name() helper inside this element editor view.") %>
 
-  <%- else -%>
+  <% else %>
 
-    <%-
+    <%
     if options[:select_values].is_a?(Hash)
       options_method = grouped_options_for_select(
         options[:select_values],

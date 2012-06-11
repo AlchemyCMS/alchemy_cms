@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608085509) do
+ActiveRecord::Schema.define(:version => 20120611221734) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20120608085509) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  create_table "alchemy_essence_booleans", :force => true do |t|
+    t.boolean "value"
+    t.timestamps
+    t.userstamps
+  end
+
+  add_index "alchemy_essence_booleans", ["value"], :name => "index_alchemy_essence_booleans_on_value"
 
   create_table "alchemy_cells", :force => true do |t|
     t.integer  "page_id"

@@ -1,5 +1,5 @@
 <div class="content_editor content_text_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
-  <label><%= render_content_name(content) %></label>
+  <%= label_and_remove_link(content) %>
   <%= text_field_tag(
     content.form_field_name,
     content.ingredient,
