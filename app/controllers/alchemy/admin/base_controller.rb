@@ -61,6 +61,10 @@ module Alchemy
 
       def get_clipboard
         session[:clipboard] ||= Clipboard.new
+      rescue NoMethodError => e
+        exception_logger(e)
+        @notice = "You have an old style clipboard in your session. Please remove your cookies and try again."
+        render :action => "error_notice", :layout => false
       end
 
       def clipboard_empty?(category = nil)
