@@ -105,7 +105,6 @@ module Alchemy
         else
           log "No essence_type columns to be namespaced found.", :skip
         end
-        todo "Test mich nicht"
       end
 
       def strip_alchemy_from_schema_version_table
@@ -113,7 +112,6 @@ module Alchemy
         database_yml = YAML.load_file(Rails.root.join("config", "database.yml"))
         connection = Mysql2::Client.new(database_yml.fetch(Rails.env.to_s).symbolize_keys)
         connection.query "UPDATE schema_migrations SET `schema_migrations`.`version` = REPLACE(`schema_migrations`.`version`,'-alchemy','')"
-        todo "Teste mich"
       end
 
       def convert_essence_texts_displayed_as_select_into_essence_selects
