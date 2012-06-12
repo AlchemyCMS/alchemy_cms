@@ -486,9 +486,8 @@ module Alchemy
     end
 
     def rtf_contents
-      contents.select { |content| content.essence_type == 'Alchemy::EssenceRichtext' }
+      contents.essence_richtexts.all
     end
-
     alias_method :richtext_contents, :rtf_contents
 
     # The name of the cell the element could be placed in.
@@ -509,7 +508,7 @@ module Alchemy
       'original'
     end
 
-    private
+  private
 
     # creates the contents for this element as described in the elements.yml
     def create_contents
