@@ -1,15 +1,14 @@
-(function($) {
+$('#element_<%= @element.id %>').hide(200, function() {
+  $(this).remove();
+  Alchemy.growl('<%= escape_javascript(t("Element trashed")) %>');
+  $('#element_area').sortable('refresh');
+  Alchemy.refreshTrashWindow(<%= @page.id %>);
+  $('#element_trash_button .icon').addClass('full');
+  Alchemy.PreviewWindow.refresh();
 
-  $('#element_<%= @element.id -%>').hide(200, function() {
-    $(this).remove();
-    Alchemy.growl('<%= escape_javascript(t("Element trashed")) -%>');
-    $('#element_area').sortable('refresh');
-    Alchemy.refreshTrashWindow(<%= @page_id -%>);
-    $('#element_trash_button .icon').addClass('full');
-    Alchemy.PreviewWindow.refresh();
-  <%- @element.rtf_contents.each do |content| -%>
-    tinymce.get('contents_content_<%= content.id -%>_body').remove();
-  <%- end -%>
-  });
+  <% @element.contents.essence_richtexts.each do |content| %>
+  tinymce.get('contents_content_<%= content.id %>_body').remove();
+  <% end %>
 
-})(jQuery);
+  <%=raw update_elements_with_essence_selects(@page, @element) %>
+});

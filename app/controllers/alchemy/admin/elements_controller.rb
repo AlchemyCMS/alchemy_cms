@@ -77,7 +77,7 @@ module Alchemy
       # Trashes the Element instead of deleting it.
       def trash
         @element = Element.find(params[:id])
-        @page_id = @element.page_id
+        @page = @element.page
         @element.trash
       end
 
@@ -100,7 +100,7 @@ module Alchemy
         @element.save
       end
 
-      private
+    private
 
       def put_element_in_cell
         element_with_cell_name = @paste_from_clipboard ? params[:paste_from_clipboard] : params[:element][:name]

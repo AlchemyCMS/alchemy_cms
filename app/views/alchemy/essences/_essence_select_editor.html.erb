@@ -1,5 +1,5 @@
 <% cache(content) do %>
-  <div class="content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
+  <div class="content_editor essence_select<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content_dom_id(content) %>">
 
   <%= label_and_remove_link(content) %>
 

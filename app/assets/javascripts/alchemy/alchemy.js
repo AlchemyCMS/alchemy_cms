@@ -14,11 +14,12 @@
 //= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.element_editor_selector
 //= require alchemy/alchemy.growler
+//= require alchemy/alchemy.gui
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.js_extensions
 //= require alchemy/alchemy.link_overlay
 //= require alchemy/alchemy.page_sorter
-//= require alchemy/alchemy.uploader.js
+//= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.file_progress
 //= require alchemy/alchemy.swf_upload
 //= require alchemy/alchemy.windows

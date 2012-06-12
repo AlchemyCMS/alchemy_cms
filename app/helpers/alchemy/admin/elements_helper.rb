@@ -112,6 +112,28 @@ module Alchemy
         end
       end
 
+      def update_elements_with_essence_selects(page, element)
+        elements = page.contents.essence_selects.collect(&:element).uniq.delete_if { |e| e == element }
+        if elements.any?
+          js = "var $ess_sel_el;"
+          elements.each do |element|
+            rtfs = element.contents.essence_richtexts
+            js += "\n$ess_sel_el = $('#element_#{element.id}');"
+            rtfs.each do |content|
+              js += "\ntinymce.get('contents_content_#{content.id}_body').remove();"
+            end
+            js += "\n$('div.element_content', $ess_sel_el).html('#{escape_javascript render_editor(element)}');"
+            js += "\nAlchemy.GUI.initElement($ess_sel_el);"
+            rtfs.each do |content|
+              js += "\nAlchemy.Tinymce.addEditor('#{content.form_field_id}');"
+            end
+          end
+          js
+        else
+          nil
+        end
+      end
+
     end
   end
 end
