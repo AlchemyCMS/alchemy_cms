@@ -14,19 +14,18 @@ module Alchemy
         @content = Content.create_from_scratch(@element, params[:content])
         @options = params[:options] || {}
         @html_options = params[:html_options] || {}
-        # If options params come from Flash uploader then we have to parse them as hash.
         if @options.is_a?(String)
-          @options = Rack::Utils.parse_query(@options)
+          @options = JSON.parse(@options)
         end
         if @content.essence_type == "Alchemy::EssencePicture"
-          @element_dom_id = "#add_content_#{@element.id}"
+          @content_dom_id = "#add_content_#{@element.id}"
           @content.essence.picture_id = params[:picture_id]
           @content.essence.save
           @contents_of_this_type = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
           @dragable = @contents_of_this_type.length > 1
           @options = @options.merge(:dragable => @dragable)
         else
-          @element_dom_id = "#add_content_for_element_#{@element.id}"
+          @content_dom_id = "#add_content_for_element_#{@element.id}"
         end
         @locals = {
           :content => @content,

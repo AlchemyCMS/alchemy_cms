@@ -75,7 +75,7 @@ module Alchemy
       #
       #   <%= render_create_content_link(element, 'file', :label => 'Add a file') %>
       #
-      def render_create_content_link(element, content_name, options = {})
+      def render_create_content_link(element, content_name, options = {}, options_for_content = {})
         defaults = {
           :label => t('Add %{name}', :name => t(content_name, :scope => :content_names))
         }
@@ -84,7 +84,8 @@ module Alchemy
             :content => {
               :name => content_name,
               :element_id => element.id
-            }
+            },
+            :options => options_for_content.to_json
           ),
           :method => :post,
           :remote => true,
