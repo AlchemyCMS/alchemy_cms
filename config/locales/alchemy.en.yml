@@ -558,6 +558,7 @@ en:
         gender: "Gender"
         language: "Language"
         lastname: "Lastname"
+        last_login_at: "Last Login At"
         login: "Username"
         name: "Name"
         password: "Password"

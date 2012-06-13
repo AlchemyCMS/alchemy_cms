@@ -766,6 +766,7 @@ de:
         gender: "Anrede"
         language: "Sprache"
         lastname: "Nachname"
+        last_login_at: "letzter Login am"
         login: "Benutzername"
         name: "Name"
         password: "Passwort"
