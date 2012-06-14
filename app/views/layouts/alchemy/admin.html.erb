@@ -5,10 +5,8 @@
     <title><%= render_alchemy_title %></title>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag('alchemy/alchemy', :media => 'screen') %>
-    <%= stylesheet_link_tag('alchemy/alchemy_custom', :media => 'screen') %>
     <%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
     <%= yield :stylesheets %>
-    <%= yield :stylesheet_includes %>
     <script type="text/javascript" charset="utf-8">
       var tinyMCEPreInit = {
         base: '<%= Rails.application.config.assets.prefix %>/tiny_mce',
