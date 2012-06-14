@@ -29,8 +29,12 @@ module Alchemy
 
     @@config['validate_fields'].each do |field|
       validates_presence_of field
-      if field.to_s == 'email'
+
+      case field.to_sym
+      when :email
         validates_format_of field, :with => ::Authlogic::Regex.email, :if => :email_is_filled
+      when :email_confirmation
+        validates_confirmation_of :email
       end
     end
 
