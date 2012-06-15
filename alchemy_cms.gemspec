@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 	s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
 	s.require_paths = ["lib"]
 
-	s.add_runtime_dependency(%q<rails>, ["~> 3.1.4"])
+	s.add_runtime_dependency(%q<rails>, ["~> 3.1.6"])
 	s.add_runtime_dependency(%q<authlogic>)
 	s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
 	s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.4"])
