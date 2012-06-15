@@ -1,6 +1,6 @@
 // This object provides dynamically generated Rails routes in Javascript.
 // A little bit hacky, but the best solution so far. ^_^
-<% self.class.send(:include, Alchemy::Engine.routes.url_helpers) %>
+<% self.class.instance_eval { include Alchemy::Engine.routes.url_helpers } %>
 
 if (typeof(Alchemy) === 'undefined') {
   var Alchemy = {};
