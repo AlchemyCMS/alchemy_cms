@@ -4,13 +4,13 @@ describe Admin::TrashController do
 
 	before(:each) do
 		activate_authlogic
-		UserSession.create Factory(:admin_user)
+		UserSession.create FactoryGirl.create(:admin_user)
 	end
 
 	it "should hold trashed elements" do
 		pending "The controller behaves correct, the test not."
-		@page = Factory(:page, :parent_id => Page.rootpage.id)
-	  @element = Factory(:element, :page => @page)
+		@page = FactoryGirl.create(:page, :parent_id => Page.rootpage.id)
+	  @element = FactoryGirl.create(:element, :page => @page)
 		# Rails, RSpec and co. are sucking
 		@element.reload
 		@element.trash

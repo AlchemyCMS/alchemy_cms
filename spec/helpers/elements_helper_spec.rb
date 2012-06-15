@@ -5,8 +5,8 @@ include AlchemyHelper
 describe ElementsHelper do
 
 	before(:each) do
-		@page = Factory(:public_page)
-	  @element = Factory(:element, :page => @page)
+		@page = FactoryGirl.create(:public_page)
+	  @element = FactoryGirl.create(:element, :page => @page)
 	end
 
   it "should render an element view partial" do
@@ -14,18 +14,18 @@ describe ElementsHelper do
   end
 
 	it "should render all elements" do
-		@another_element = Factory(:element)
+		@another_element = FactoryGirl.create(:element)
 		helper.stub!(:configuration).and_return(true)
 		helper.render_elements.should match(/id="header_3.+id="article_5"/)
-	end 
+	end
 
 	it "should render a unique dom id for element" do
 	  helper.element_dom_id(@element).should == "#{@element.name}_#{@element.id}"
 	end
 
 	it "should render elements for a cell" do
-		cell = Factory(:cell)
-		Factory(:element, :cell_id => cell.id)
+		cell = FactoryGirl.create(:cell)
+		FactoryGirl.create(:element, :cell_id => cell.id)
 		helper.stub(:configuration).and_return(true)
 	  helper.render_cell_elements(cell).should match(/id="article_7"/)
 	end

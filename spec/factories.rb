@@ -1,5 +1,5 @@
 FactoryGirl.define do
-	
+
 	factory :user do
 		email 'john@doe.com'
 		login "jdoe"
@@ -23,7 +23,7 @@ FactoryGirl.define do
   	end
 
 	end
-	
+
 	factory :language do
 		code "kl"
 		name 'Klingonian'
@@ -34,9 +34,9 @@ FactoryGirl.define do
 	end
 
 	factory :page do
-		language { Language.find_by_code('kl') || Factory(:language) }
+		language { Language.find_by_code('kl') || FactoryGirl.create(:language) }
 		name "A Page"
-		parent_id { Factory(:language_root_page).id }
+		parent_id { FactoryGirl.create(:language_root_page).id }
 		page_layout "standard"
 
     factory :language_root_page do
@@ -53,14 +53,14 @@ FactoryGirl.define do
 	  end
 
 	end
-	
+
 	factory :cell do
-		page { Page.find_by_language_root(true) || Factory(:language_root_page) }
+		page { Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page) }
 		name "A Cell"
 	end
-	
+
 	factory :element do
 	  name 'article'
   end
-	
+
 end

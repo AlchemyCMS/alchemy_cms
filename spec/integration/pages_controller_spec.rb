@@ -4,15 +4,15 @@ describe PagesController do
 
 	before(:each) do
 		# We need an user or the signup view will show up
-	  Factory(:admin_user)
+	  FactoryGirl.create(:admin_user)
 		@default_language = Language.get_default
-		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
+		@default_language_root = FactoryGirl.create(:language_root_page, :language => @default_language, :name => 'Home')
 	end
 
 	context "rendering a page" do
 
 		it "should including all its elements and contents" do
-			p = Factory(:public_page, :language => @default_language)
+			p = FactoryGirl.create(:public_page, :language => @default_language)
 			article = p.elements.find_by_name('article')
 			article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
 			visit '/a-public-page'
@@ -21,8 +21,8 @@ describe PagesController do
 
 		it "should have show the navigation with all visible pages" do
 			pages = [
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
+				FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
+				FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
 			]
 			visit '/'
 			within('div#navigation ul') { page.should have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
@@ -31,34 +31,34 @@ describe PagesController do
 	end
 
 	context "performing a fulltext search" do
-	
+
 		before(:each) do
-		  @page = Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
-			@element = Factory(:element, :name => 'article', :page => @page)
+		  @page = FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
+			@element = FactoryGirl.create(:element, :name => 'article', :page => @page)
 		end
-	
+
 	  it "should display search results for richtext essences" do
 			@element.content_by_name('text').essence.update_attributes(:body => '<p>Welcome to Peters Petshop</p>', :public => true)
-			search_result_page = Factory(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
+			search_result_page = FactoryGirl.create(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
 			visit('/suche?query=Petshop')
 			within('div#content .searchresult') { page.should have_content('Petshop') }
 	  end
-	
+
 	  it "should display search results for text essences" do
 			@element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
-			search_result_page = Factory(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
+			search_result_page = FactoryGirl.create(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
 			visit('/suche?query=Petshop')
 			within('div#content .searchresult') { page.should have_content('Petshop') }
 	  end
-	
+
 	end
 
 	context "redirecting" do
-		
+
 		context "in multi language mode" do
 
 			before(:each) do
-			  @page = Factory(:public_page)
+			  @page = FactoryGirl.create(:public_page)
 			end
 
 			it "should redirect to url with nested language code" do
@@ -67,12 +67,12 @@ describe PagesController do
 			end
 
 			context "should redirect to public child" do
-				
+
 				before(:each) do
 					@page.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
-					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id)
+					@child = FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => @page.id)
 				end
-				
+
 				it ", if requested page is unpublished" do
 		    	visit '/kl/not-public'
 					page.current_path.should == '/kl/public-child'
@@ -82,7 +82,7 @@ describe PagesController do
 		    	visit '/not-public'
 					page.current_path.should == '/kl/public-child'
 				end
-			  
+
 			end
 
 			it "should redirect to pages url, if requested url is index url" do
@@ -101,11 +101,11 @@ describe PagesController do
 	  	end
 
 		end
-		
+
 		context "not in multi language mode" do
 
 			before(:each) do
-			  @page = Factory(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
+			  @page = FactoryGirl.create(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
 			end
 
 		  it "should redirect from nested language code url to normal url" do
@@ -114,12 +114,12 @@ describe PagesController do
 			end
 
 			context "should redirect to public child" do
-				
+
 				before(:each) do
 					@page.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
-					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id, :language => @default_language)
+					@child = FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => @page.id, :language => @default_language)
 				end
-				
+
 			  it ", if requested page is unpublished" do
 		    	visit '/not-public'
 					page.current_path.should == '/public-child'
@@ -129,7 +129,7 @@ describe PagesController do
 		    	visit '/de/not-public'
 					page.current_path.should == '/public-child'
 				end
-				
+
 			end
 
 			it "should redirect to pages url, if requested url is index url" do
@@ -143,7 +143,7 @@ describe PagesController do
 		  end
 
 		end
-		
+
 	end
 
 end

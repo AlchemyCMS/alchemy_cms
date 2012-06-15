@@ -9,19 +9,19 @@ describe Element do
 	  end
 
 		it "should return all public elements" do
-			elements = [Factory(:element, :public => true), Factory(:element, :public => true)]
+			elements = [FactoryGirl.create(:element, :public => true), FactoryGirl.create(:element, :public => true)]
 		  Element.published.all.should == elements
 		end
 
 		it "should return all elements by name" do
-			elements = [Factory(:element, :name => 'article'), Factory(:element, :name => 'article')]
+			elements = [FactoryGirl.create(:element, :name => 'article'), FactoryGirl.create(:element, :name => 'article')]
 		  Element.named(['article']).all.should == elements
 		end
 
 		it "should return all elements but excluded ones" do
-			Factory(:element, :name => 'article')
-			Factory(:element, :name => 'article')
-			excluded = [Factory(:element, :name => 'claim')]
+			FactoryGirl.create(:element, :name => 'article')
+			FactoryGirl.create(:element, :name => 'article')
+			excluded = [FactoryGirl.create(:element, :name => 'claim')]
 		  Element.excluded(['article']).all.should == excluded
 		end
 
@@ -47,7 +47,7 @@ describe Element do
 	context "retrieving contents, essences and ingredients" do
 
 		before(:each) do
-			@element = Factory(:element, :name => 'news')
+			@element = FactoryGirl.create(:element, :name => 'news')
 		end
 
 		it "should return an ingredient by name" do
@@ -65,7 +65,7 @@ describe Element do
 	end
 
 	it "should return a collection of trashed elements" do
-	  @element = Factory(:element)
+	  @element = FactoryGirl.create(:element)
 		@element.trash
 		Element.trashed.should include(@element)
 	end
@@ -73,14 +73,14 @@ describe Element do
 	context "trashed" do
 
 		before(:each) do
-		  @element = Factory(:element)
+		  @element = FactoryGirl.create(:element)
 			@element.trash
 		end
-	  
+
 		it "should be not public" do
 	   	@element.public.should be_false
 		end
-		
+
 		it "should have no page" do
 			@element.page.should == nil
 		end
@@ -88,7 +88,7 @@ describe Element do
 		it "should be folded" do
 	    @element.folded.should == true
 		end
-		
+
 	end
 
 	it "should raise error if all_for_page method has no page" do
