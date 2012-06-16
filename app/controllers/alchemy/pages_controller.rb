@@ -19,13 +19,12 @@ module Alchemy
       :cache_path => proc { show_page_url(:urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
       :if => proc {
         if Alchemy::Config.get(:cache_pages)
-          page = Page.find_by_urlname_and_language_id_and_public(
-            params[:urlname],
-            session[:language_id],
-            true,
-            :select => 'page_layout, language_id, urlname'
-          )
-          if page
+          page = Page.published.with_language(session[:language_id]).where(:urlname => params[:urlname]).select([
+            :page_layout,
+            :language_id,
+            :urlname
+          ])
+          if page.present?
             pagelayout = PageLayout.get(page.page_layout)
             pagelayout['cache'].nil? || pagelayout['cache']
           end

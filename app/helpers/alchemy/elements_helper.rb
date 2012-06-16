@@ -4,9 +4,9 @@ module Alchemy
     include Alchemy::EssencesHelper
 
     # Renders all elements from current page.
-    # 
+    #
     # === Options are:
-    # 
+    #
     #   :only => []                          # A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
     #   :except => []                        # A list of element names to be rendered. The opposite of the only option.
     #   :from_page                           # The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
@@ -16,14 +16,14 @@ module Alchemy
     #     :for => 'ELEMENT_NAME',            # The name of the element the fallback is for
     #     :with => 'ELEMENT_NAME',           # (OPTIONAL) the name of element to fallback with
     #     :from => 'PAGE_LAYOUT'             # The page_layout name from the global page the fallback elements lie on. I.E 'left_column'
-    #   }                                    # 
+    #   }                                    #
     #   :sort_by => Content#name             # A Content name to sort the elements by
     #   :reverse => boolean                  # Reverse the rendering order
     #   :random => boolean                   # Randomize the output of elements
-    # 
+    #
     # === Note:
     # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
-    # 
+    #
     def render_elements(options = {})
       default_options = {
         :except => [],
@@ -116,13 +116,13 @@ module Alchemy
       }
       options = default_options.merge(options)
       if options[:from_page] == :all
-        elements = Element.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+        elements = Element.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
       elsif options[:from_page].class == String
-        page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
+        page = Page.with_language(session[:language_id]).find_by_page_layout(options[:from_page])
         return [] if page.blank?
-        elements = page.elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+        elements = page.elements.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
       else
-        elements = options[:from_page].elements.find_all_by_name_and_public(name, true, :limit => options[:count] == :all ? nil : options[:count])
+        elements = options[:from_page].elements.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
       end
     end
 
@@ -135,12 +135,12 @@ module Alchemy
       }
       options = default_options.merge(options)
       if options[:page_id].blank?
-        page = Page.find_by_urlname_and_public(options[:page_urlname], true)
+        page = Page.published.find_by_urlname(options[:page_urlname])
       else
-        page = Page.find_by_id_and_public(options[:page_id], true)
+        page = Page.published.find_by_id(options[:page_id])
       end
       return "" if page.blank?
-      element = page.elements.find_by_name_and_public(options[:element_name], true)
+      element = page.elements.published.find_by_name(options[:element_name])
       return element
     end
 

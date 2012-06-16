@@ -17,11 +17,11 @@ module Alchemy
     end
 
     # == Helper for rendering language switches
-    # 
+    #
     # Renders links to all public language root pages
-    # 
+    #
     # === Options:
-    # 
+    #
     #   :linkname => :name,
     #   :spacer => "",
     #   :link_to_public_child => configuration(:redirect_to_public_child),
@@ -30,7 +30,7 @@ module Alchemy
     #   :reverse => false,
     #   :as_select_box => false,
     #   :show_flags => false
-    # 
+    #
     def language_switcher(options={})
       default_options = {
         :linkname => :name,
@@ -114,9 +114,9 @@ module Alchemy
     #
     # It produces a html <ul><li></li></ul> structure with all necessary classes so you can produce every navigation the web uses today.
     # I.E. dropdown-navigations, simple mainnavigations or even complex nested ones.
-    # 
+    #
     # === En detail:
-    # 
+    #
     #   <ul class="navigation level_1">
     #     <li class="first home"><a href="/home" class="active" title="Homepage" lang="en" data-page-id="1">Homepage</a></li>
     #     <li class="contact"><a href="/contact" title="Contact" lang="en" data-page-id="2">Contact</a></li>
@@ -142,15 +142,15 @@ module Alchemy
     #   :show_title => true                                   # Show a title on navigation links. Title attribute from page.
     #   :reverse => false                                     # Reverse the navigation
     #   :reverse_children => false                            # Reverse the nested children
-    # 
+    #
     # === Passing HTML classes and ids to the renderer
-    # 
+    #
     # A second hash will be passed as html_options to the navigation renderer partial.
-    # 
+    #
     # ==== Example:
-    # 
+    #
     #   <%= render_navigation({from_page => 'subnavi'}, {:class => 'navigation', :id => 'subnavigation'}) %>
-    # 
+    #
     def render_navigation(options = {}, html_options = {})
       default_options = {
         :submenu => false,
@@ -196,17 +196,17 @@ module Alchemy
     end
 
     # Renders navigation the children and all siblings of the given page (standard is the current page).
-    # 
+    #
     # Use this helper if you want to render the subnavigation independent from the mainnavigation. I.E. to place it in a different area on your website.
-    # 
+    #
     # This helper passes all its options to the the render_navigation helper.
-    # 
+    #
     # === Options:
-    # 
+    #
     #   :from_page => @page                              # The page to render the navigation from
     #   :submenu => true                                 # Shows the nested children
     #   :level => 2                                      # Normally there is no need to change the level parameter, just in a few special cases
-    # 
+    #
     def render_subnavigation(options = {})
       default_options = {
         :from_page => @page,
@@ -237,9 +237,9 @@ module Alchemy
     end
 
     # Returns page links in a breadcrumb beginning from root to current page.
-    # 
+    #
     # === Options:
-    # 
+    #
     #   :seperator => %(<span class="seperator">></span>)      # Maybe you don't want this seperator. Pass another one.
     #   :page => @page                                         # Pass a different Page instead of the default (@page).
     #   :without => nil                                        # Pass Pageobject or array of Pages that must not be displayed.
@@ -247,7 +247,7 @@ module Alchemy
     #   :visible_only => true                                  # Pass boolean for displaying (in navigation) visible pages only.
     #   :restricted_only => false                              # Pass boolean for displaying restricted pages only.
     #   :reverse => false                                      # Pass boolean for displaying reversed breadcrumb.
-    # 
+    #
     def render_breadcrumb(options={})
       default_options = {
         :seperator => %(<span class="seperator">&gt;</span>),
@@ -296,15 +296,15 @@ module Alchemy
     # Returns current page title
     #
     # === Options:
-    # 
+    #
     #   :prefix => ""                 # Prefix
     #   :seperator => ""              # Seperating prefix and title
     #
     # === Webdevelopers
-    # 
+    #
     # Please use the render_meta_data() helper instead. There all important meta information gets rendered in one helper.
     # So you dont have to worry about anything.
-    # 
+    #
     def render_page_title(options={})
       return "" if @page.title.blank?
       default_options = {
@@ -318,10 +318,10 @@ module Alchemy
     # Returns a complete html <title> tag for the <head> part of the html document.
     #
     # === Webdevelopers:
-    # 
+    #
     # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
     # So you dont have to worry about anything.
-    # 
+    #
     def render_title_tag(options={})
       default_options = {
         :prefix => "",
@@ -334,10 +334,10 @@ module Alchemy
     # Renders a html <meta> tag for :name => "" and :content => ""
     #
     # === Webdevelopers:
-    # 
+    #
     # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
     # So you dont have to worry about anything.
-    # 
+    #
     def render_meta_tag(options={})
       default_options = {
         :name => "",
@@ -350,17 +350,17 @@ module Alchemy
     end
 
     # This helper takes care of all important meta tags for your page.
-    # 
+    #
     # The meta data is been taken from the @page.title, @page.meta_description, @page.meta_keywords, @page.updated_at and @page.language database entries managed by the Alchemy user via the Alchemy cockpit.
-    # 
+    #
     # Assume that the user has entered following data into the Alchemy cockpit of the Page "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
-    # 
+    #
     # Title = Homepage
     # Description = Your page description
     # Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
-    # 
+    #
     # Then placing +render_meta_data(:title_prefix => "company", :title_seperator => "-")+ into the <head> part of the +pages.html.erb+ layout produces:
-    # 
+    #
     #   <meta charset="UTF-8">
     #   <title>Company - #{@page.title}</title>
     #   <meta name="description" content="Your page description">
@@ -368,7 +368,7 @@ module Alchemy
     #   <meta name="generator" content="Alchemy VERSION">
     #   <meta name="date" content="Tue Dec 16 10:21:26 +0100 2008">
     #   <meta name="robots" content="index, follow">
-    #  
+    #
     def render_meta_data options={}
       if @page.blank?
         warning("No Page found!")
@@ -382,13 +382,13 @@ module Alchemy
       options = default_options.merge(options)
       #render meta description of the root page from language if the current meta description is empty
       if @page.meta_description.blank?
-        description = Page.find_by_language_root_and_public_and_language_id(true, true, session[:language_id]).meta_description rescue ""
+        description = Page.published.with_language(session[:language_id]).find_by_language_root(true).try(:meta_description)
       else
         description = @page.meta_description
       end
       #render meta keywords of the root page from language if the current meta keywords is empty
       if @page.meta_keywords.blank?
-        keywords = Page.find_by_language_root_and_public_and_language_id(true, true, session[:language_id]).meta_keywords rescue ""
+        keywords = Page.published.with_language(session[:language_id]).find_by_language_root(true).try(:meta_keywords)
       else
         keywords = @page.meta_keywords
       end
@@ -410,14 +410,14 @@ module Alchemy
     end
 
     # This helper returns a path for use inside a link_to helper.
-    # 
+    #
     # You may pass a page_layout or an urlname.
     # Any additional options are passed to the url_helper, so you can add arguments to your url.
-    # 
+    #
     # Example:
-    # 
+    #
     #   <%= link_to '&raquo order now', page_path_for(:page_layout => 'orderform', :product_id => element.id) %>
-    # 
+    #
     def page_path_for(options={})
       return warning("No page_layout, or urlname given. I got #{options.inspect} ") if options[:page_layout].blank? && options[:urlname].blank?
       if options[:urlname].blank?
@@ -435,9 +435,9 @@ module Alchemy
 
     # Renders the partial for the cell with the given name of the current page.
     # Cell partials are located in +app/views/cells/+ of your project.
-    # 
+    #
     # === Options are:
-    # 
+    #
     #   :from_page => Alchemy::Page     # Alchemy::Page object from which the elements are rendered from.
     #   :locals => Hash                 # Hash of variables that will be available in the partial. Example: {:user => var1, :product => var2}
     #
@@ -521,12 +521,12 @@ module Alchemy
       return multi_language? ? url_params.update(:lang => page.language_code) : url_params
     end
 
-    # 
+    #
     def show_alchemy_page_path(page, optional_params={})
       alchemy.show_page_path(show_page_path_params(page, optional_params))
     end
 
-    # 
+    #
     def show_alchemy_page_url(page, optional_params={})
       alchemy.show_page_url(show_page_path_params(page, optional_params))
     end

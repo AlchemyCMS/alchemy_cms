@@ -24,8 +24,8 @@ module Alchemy
         # are their pages beneath mine?
         if !element.to_be_sweeped_pages.detect { |p| p != page }.nil?
           # yepp! there are more pages then mine
-          pages = element.to_be_sweeped_pages.find_all_by_public_and_locked(true, false)
-          if !pages.blank?
+          pages = element.to_be_sweeped_pages.published.where(:locked => false)
+          if pages.any?
             # expire current page, even if it's locked
             pages.push(page).each do |page|
               expire_page(page)

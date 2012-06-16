@@ -150,9 +150,9 @@ module Alchemy
           page = options[:from_page].is_a?(String) ? Page.find_by_page_layout(options[:from_page]) : options[:from_page]
         end
         if page
-          elements = options[:elements_with_name].blank? ? page.elements.find_all_by_public(true) : page.elements.find_all_by_public_and_name(true, options[:elements_with_name])
+          elements = options[:elements_with_name].blank? ? page.elements.published : page.elements.published.where(:name => options[:elements_with_name])
         else
-          elements = options[:elements_with_name].blank? ? Element.find_all_by_public(true) : Element.find_all_by_public_and_name(true, options[:elements_with_name])
+          elements = options[:elements_with_name].blank? ? Element.published : Element.published.where(:name => options[:elements_with_name])
         end
         select_options = [[options[:prompt], ""]]
         elements.each do |e|
@@ -171,7 +171,7 @@ module Alchemy
       def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
         result = [[prompt.blank? ? t('Choose page') : prompt, ""]]
         if pages.blank?
-          pages = Page.find_all_by_language_id_and_public(session[:language_id], true)
+          pages = Page.with_language(session[:language_id]).published
         end
         pages.each do |p|
           result << [p.name, p.send(page_attribute).to_s]
