@@ -6,7 +6,7 @@ module Alchemy
 
       before_filter :set_translation, :except => [:show]
 
-      filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :get_page_from_id, :model => Alchemy::Page
+      filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :load_page, :model => Alchemy::Page
       filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :move, :flush], :attribute_check => false
 
       cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
@@ -232,10 +232,11 @@ module Alchemy
         end
       end
 
-      private
+    private
 
-      def get_page_from_id
-        @page ||= Page.find(params[:id])
+      def load_page
+        @page ||= Page.with_language(session[:language_id]).find_by_urlname(params[:id])
+        @page ||= Page.find_by_id(params[:id])
       end
 
       def pages_from_raw_request

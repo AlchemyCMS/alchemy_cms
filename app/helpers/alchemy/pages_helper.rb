@@ -542,7 +542,7 @@ module Alchemy
           <script type="text/javascript">
             try {
               Alchemy.loadAlchemyMenuBar({
-                page_id: #{@page.id},
+                page_id: '#{@page.urlname || @page.id}',
                 route: '#{Alchemy.mount_point}',
                 locale: '#{current_user.language}'
               });

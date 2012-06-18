@@ -5,7 +5,7 @@ module Alchemy
 
     before(:each) do
       activate_authlogic
-      Alchemy::UserSession.create FactoryGirl.create(:admin_user)
+      UserSession.create FactoryGirl.create(:admin_user)
     end
 
     describe "#flush" do
@@ -64,7 +64,7 @@ module Alchemy
     describe '#copy_language_tree' do
 
       before(:each) do
-        @language = Alchemy::Language.get_default
+        @language = Language.get_default
         @language_root = FactoryGirl.create(:language_root_page, :language => @language, :name => 'Intro')
         @level_1 = FactoryGirl.create(:public_page, :language => @language, :parent_id => @language_root.id, :visible => true, :name => 'Level 1')
         @level_2 = FactoryGirl.create(:public_page, :language => @language, :parent_id => @level_1.id, :visible => true, :name => 'Level 2')
@@ -74,7 +74,7 @@ module Alchemy
         session[:language_code] = @new_language.code
         session[:language_id] = @new_language.id
         post :copy_language_tree, {:languages => {:new_lang_id => @new_language.id, :old_lang_id => @language.id}}
-        @new_lang_root = Alchemy::Page.language_root_for(@new_language.id)
+        @new_lang_root = Page.language_root_for(@new_language.id)
       end
 
       it "should copy all pages" do
@@ -89,6 +89,26 @@ module Alchemy
 
       it "should not set layoutpage attribute to true" do
         @new_lang_root.layoutpage.should_not be_true
+      end
+
+    end
+
+    describe '#edit' do
+
+      before(:each) do
+        @language = Language.get_default
+        @page = FactoryGirl.create(:public_page, :language => @language)
+        session[:language_id] = @language.id
+      end
+
+      it "should find a page from urlname" do
+        get :edit, {:id => @page.to_param}
+        response.status.should == 200
+      end
+
+      it "should find a page from id" do
+        get :edit, {:id => @page.id}
+        response.status.should == 200
       end
 
     end

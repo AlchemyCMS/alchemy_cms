@@ -527,5 +527,17 @@ module Alchemy
 
     end
 
+    describe '#to_param' do
+
+      before(:each) do
+        @page = FactoryGirl.create(:public_page)
+      end
+
+      it "should use the urlname as id parameter in urls" do
+        @page.to_param.should == @page.urlname
+      end
+
+    end
+
   end
 end
