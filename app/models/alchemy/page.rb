@@ -27,7 +27,7 @@ module Alchemy
       :visible
     )
 
-    RESERVED_URLNAMES = %w(admin messages)
+    RESERVED_URLNAMES = %w(admin messages new)
 
     acts_as_nested_set(:dependent => :destroy)
     stampable(:stamper_class_name => 'Alchemy::User')
