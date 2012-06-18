@@ -105,7 +105,11 @@ module Alchemy
         elements = options[:from_cell].elements
       elsif !options[:from_cell].blank? && options[:from_cell].class.name == 'String'
         cell = cells.find_by_name(options[:from_cell])
-        elements = cell ? cell.elements : nil
+        if cell
+          elements = cell.elements
+        else
+          raise(ActiveRecord::RecordNotFound, "Cell with name `#{options[:from_cell]}` could not be found!")
+        end
       else
         elements = self.elements.not_in_cell
       end
@@ -117,15 +121,11 @@ module Alchemy
       elements = elements.reverse_order if options[:reverse_sort] || options[:reverse]
       elements = elements.offset(options[:offset]).limit(options[:count])
       elements = elements.order("RAND()") if options[:random]
-      if show_non_public
-        elements
-      else
-        elements.published
-      end
+      show_non_public ? elements : elements.published
     end
 
-    def find_elements(options = {}, show_non_public = false) #:nodoc:
-                                                             # TODO: What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
+    # What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
+    def find_elements(options = {}, show_non_public = false)
       if !options[:collection].blank? && options[:collection].is_a?(Array)
         return options[:collection]
       else
