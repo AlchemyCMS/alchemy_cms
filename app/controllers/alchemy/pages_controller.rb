@@ -14,26 +14,16 @@ module Alchemy
 
     filter_access_to :show, :attribute_check => true, :model => Alchemy::Page, :load_method => :load_page
 
-    caches_action(
-      :show,
+    caches_action(:show,
       :cache_path => proc { show_page_url(:urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
       :if => proc {
         if Alchemy::Config.get(:cache_pages)
-          page = Page.published.with_language(session[:language_id]).where(:urlname => params[:urlname]).select([
-            :page_layout,
-            :language_id,
-            :urlname
-          ])
-          if page.present?
-            pagelayout = PageLayout.get(page.page_layout)
-            pagelayout['cache'].nil? || pagelayout['cache']
-          end
+           pagelayout = PageLayout.get(@page.page_layout)
+           pagelayout['cache'].nil? || pagelayout['cache']
         else
           false
         end
-      },
-      :layout => false
-    )
+      }, :layout => false)
 
     layout :layout_for_page
 
