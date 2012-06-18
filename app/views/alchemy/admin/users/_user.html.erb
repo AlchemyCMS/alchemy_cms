@@ -8,7 +8,7 @@
   <td><%= user.lastname -%></td>
   <td class="email"><%= user.email %></td>
   <td><%= t(user.language, :scope => 'translations') %></td>
-  <td><%= l(user.last_login_at, :format => :default) %></td>
+  <td><%= user.last_login_at.present? ? l(user.last_login_at, :format => :default) : t(:unknown) %></td>
   <td class="role"><%= user.human_role_name %></td>
   <td class="tools">
     <%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
