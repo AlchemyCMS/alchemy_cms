@@ -39,6 +39,12 @@
   box-shadow: $shadow;
 }
 
+@mixin box-sizing($box-sizing-type: content-box) {
+  -webkit-box-sizing: $box-sizing-type;
+  -moz-box-sizing: $box-sizing-type;
+  box-sizing: $box-sizing-type;
+}
+
 #alchemy_menubar {
   position: fixed;
   top: 0;
@@ -50,17 +56,23 @@
   @include bounce;
   @include bottom-right-rounded-border;
   @include box-shadow;
+  @include box-sizing;
   border-right: $default-border;
   border-bottom: $default-border;
-  line-height: 8*$default-padding;
-  height: 8*$default-padding;
+  line-height: 8 * $default-padding;
+  height: 8 * $default-padding;
   padding: 4px 40px 4px 8px;
   overflow: hidden;
+
+  * {
+    @include box-sizing;
+  }
+
   &:hover {
     left: 0;
     @include transition;
   }
-;
+
   &:after {
     content: '';
     width: 24px;
@@ -70,11 +82,12 @@
     top: 8px;
     background: image-url('alchemy/icons.png') -240px 0;
   }
-;
+
   ul {
     padding: 0;
     margin: 0;
     height: 32px;
+
     li {
       height: 32px;
       margin: 0 $default-padding 0 0;
@@ -82,6 +95,7 @@
       display: inline;
       display: inline-block;
       list-style-type: none;
+
       a {
         @include button-styles;
         display: block;
@@ -91,9 +105,12 @@
         width: 90px;
         text-decoration: none;
         outline: none;
+        white-space: nowrap;
+
         &:hover {
           @include button-hover-styles;
         }
+
         &:active {
           outline: none;
         }
