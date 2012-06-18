@@ -237,6 +237,7 @@ module Alchemy
       def load_page
         @page ||= Page.with_language(session[:language_id]).find_by_urlname(params[:id])
         @page ||= Page.find_by_id(params[:id])
+        raise ActiveRecord::RecordNotFound if @page.nil?
       end
 
       def pages_from_raw_request
