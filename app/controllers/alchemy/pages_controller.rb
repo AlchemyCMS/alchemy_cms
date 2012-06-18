@@ -15,7 +15,7 @@ module Alchemy
     filter_access_to :show, :attribute_check => true, :model => Alchemy::Page, :load_method => :load_page
 
     caches_action(:show,
-      :cache_path => proc { show_page_url(:urlname => params[:urlname], :lang => multi_language? ? params[:lang] : nil) },
+      :cache_path => proc { @page.cache_key(request) },
       :if => proc {
         if Alchemy::Config.get(:cache_pages)
            pagelayout = PageLayout.get(@page.page_layout)

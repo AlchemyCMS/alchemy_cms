@@ -535,7 +535,11 @@ module Alchemy
       self.root
     end
 
-    private
+    def cache_key(request = nil)
+      "alchemy/#{language_code}/#{urlname}"
+    end
+
+  private
 
     def find_next_or_previous_page(direction = "next", options = {})
       if direction == "previous"

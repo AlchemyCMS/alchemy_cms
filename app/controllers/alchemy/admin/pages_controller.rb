@@ -225,7 +225,7 @@ module Alchemy
 
       def flush
         Page.with_language(session[:language_id]).flushables.each do |page|
-          expire_page(page)
+          expire_action(page.cache_key)
         end
         respond_to do |format|
           format.js
@@ -241,16 +241,6 @@ module Alchemy
 
       def pages_from_raw_request
         request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
-      end
-
-      def expire_page(page)
-        return if page.do_not_sweep
-        expire_action(
-          alchemy.show_page_url(
-            :urlname => page.urlname_was,
-            :lang => multi_language? ? page.language_code : nil
-          )
-        )
       end
 
       # Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
