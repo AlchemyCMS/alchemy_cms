@@ -754,6 +754,12 @@ div#toolbar_buttons_right {
   border: 1px solid #d08f91;
   color: #690001;
   @include rounded-corner;
+
+  &.ajax_status_code_0 {
+    border-color: #c4c19c;
+    color: #726d23;
+    background-color: #f3f0c1;
+  }
 }
 
 #errorExplanation h2 {

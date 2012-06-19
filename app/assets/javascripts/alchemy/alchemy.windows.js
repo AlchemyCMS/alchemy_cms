@@ -32,12 +32,12 @@ if (typeof(Alchemy) === 'undefined') {
 
     AjaxErrorHandler: function($dialog, status, textStatus, errorThrown) {
       var $div = $('<div class="with_padding" />');
-      var $errorDiv = $('<div id="errorExplanation" />');
+      var $errorDiv = $('<div id="errorExplanation" class="ajax_status_code_' + status + '" />');
       $dialog.html($div);
       $div.append($errorDiv);
       if (status === 0) {
-        $errorDiv.append('<h2>The server does not respond!</h2>');
-        $errorDiv.append('<p>Please start server and try again.</p>');
+        $errorDiv.append('<h2>The server does not respond.</h2>');
+        $errorDiv.append('<p>Please check server and try again.</p>');
       } else {
         $errorDiv.append('<h2>' + errorThrown + ' (' + status + ')</h2>');
         $errorDiv.append('<p>Please check log and try again.</p>');
