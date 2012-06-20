@@ -17,7 +17,7 @@ module Alchemy
     caches_action(:show,
       :cache_path => proc { @page.cache_key(request) },
       :if => proc {
-        if @page || Alchemy::Config.get(:cache_pages)
+        if @page && Alchemy::Config.get(:cache_pages)
            pagelayout = PageLayout.get(@page.page_layout)
            pagelayout['cache'].nil? || pagelayout['cache']
         else
