@@ -30,15 +30,15 @@ module Alchemy
     let(:resource) { Resource.new("admin/events", module_definition) }
 
     describe "#initialize" do
-      it "should set an instance variable wich holds the controller path" do
+      it "should set an instance variable that holds the controller path" do
         resource.instance_variable_get(:@controller_path).should == "admin/events"
       end
 
-      it "should set an instance variable wich holds the module definition" do
+      it "should set an instance variable that holds the module definition" do
         resource.instance_variable_get(:@module_definition).should == module_definition
       end
 
-      it "should set the standard rails database attributes to be skipped" do
+      it "should set the standard database attributes (rails defaults) to be skipped" do
         resource.skip_attributes.should == %W[id updated_at created_at creator_id updater_id]
       end
     end
@@ -62,7 +62,7 @@ module Alchemy
     end
 
     describe "#permission_scope" do
-      it "should set an instance variable wich holds the permission scope for declarative authorization" do
+      it "should set an instance variable that holds the permission scope for declarative authorization" do
         resource.permission_scope
         resource.instance_variable_get(:@_permission).should == :admin_events
       end
@@ -75,7 +75,7 @@ module Alchemy
     end
 
     describe "#attributes" do
-      it "should not return the to be skipped attributes" do
+      it "should not return the to-be-skipped attributes" do
         resource.class.const_get(:DEFAULT_SKIPPED_ATTRIBUTES).each do |skipped_attr|
           resource.attributes.detect{|a| a[:name] == skipped_attr }.should == nil
         end
