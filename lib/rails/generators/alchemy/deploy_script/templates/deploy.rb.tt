@@ -2,46 +2,48 @@ require 'bundler/capistrano'
 require 'alchemy/capistrano'
 load 'deploy/assets'
 
-# ssh user settings. please change to customers
-set :user, "<%= @ssh_user %>"
-set :password, "<%= @ssh_password %>"
-set :port, <%= @ssh_port %>
-set :use_sudo, false
+# ssh settings
+set :user,                      "<%= @ssh_user %>"
+set :password,                  "<%= @ssh_password %>"
+set :port,                      <%= @ssh_port || 22 %>
 
 # domain names
-role :app, "<%= @server %>"
-role :web, "<%= @server %>"
-role :db,  "<%= @server %>", :primary => true
+role :app,                      "<%= @server %>"
+role :web,                      "<%= @server %>"
+role :db,                       "<%= @server %>", :primary => true
 
-# set the public webserver path
-set :deploy_to, "<%= @deploy_path %>"
+# the webserver path
+set :deploy_to,                 "<%= @deploy_path %>"
 
-set :rails_env, "production"
-
+# repository settings
 <%- if @scm == "svn" -%>
-set :repository_url, "<%= @repository_url %>"
-set :scm, "subversion"
-set :scm_user, "<%= @scm_user %>"
-set :scm_password, "<%= @scm_password %>"
+set :scm,                       "subversion"
+set :repository_url,            "<%= @repository_url %>"
 <%- if @scm_user && @scm_password -%>
-set :repository, Proc.new { "--username #{scm_user} --password #{scm_password} #{repository_url}" }
+set :scm_user,                  "<%= @scm_user %>"
+set :scm_password,              "<%= @scm_password %>"
+set :repository,                Proc.new { "--username #{scm_user} --password #{scm_password} #{repository_url}" }
 <%- else -%>
-set :repository, "<%= @repository_url %>"
+set :repository,                "<%= @repository_url %>"
 <%- end -%>
 <%- elsif @scm == "git" -%>
-set :scm, "git"
-set :repository, "<%= @repository_url %>"
-set :branch, "master"
+set :scm,                       "git"
+set :repository,                "<%= @repository_url %>"
+set :branch,                    "master"
 <%- end -%>
 
-before "deploy:start", "deploy:seed"
-before "deploy:restart", "deploy:migrate"
+# before hooks
+before "deploy:start",          "deploy:seed"
+before "deploy:create_symlink", "deploy:migrate"
 
+# after hooks
 <%- if @database_type == "mysql" -%>
-after "deploy:setup", "alchemy:database_yml:create"
-after "deploy:assets:symlink", "alchemy:database_yml:symlink"
+after "deploy:setup",           "alchemy:database_yml:create"
+after "deploy:assets:symlink",  "alchemy:database_yml:symlink"
 <%- end -%>
-after "deploy", "deploy:cleanup"
+after "deploy",                 "deploy:cleanup"
+
+# special tasks
 
 namespace :logs do
   desc "show last 100 lines of log"
@@ -70,3 +72,14 @@ namespace :deploy do
   end
 
 end
+
+## defaults
+
+# rails env
+set :rails_env,                 "production"
+
+# enable bundler binstubs
+set :bundle_flags,              "--deployment --binstubs"
+
+# do not use sudo
+set :use_sudo,                  false

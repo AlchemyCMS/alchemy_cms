@@ -42,17 +42,24 @@ Capistrano::Configuration.instance(:must_exist).load do
 
       desc "Creates the database.yml file"
       task :create do
-        db_config = ERB.new <<-EOF
+        db_adapter       = Capistrano::CLI.ui.ask("Please enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
+        db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/^mysql$/, 'mysql2')
+        db_name          = Capistrano::CLI.ui.ask("Please enter database name: ")
+        db_username      = Capistrano::CLI.ui.ask("Please enter database username: ")
+        db_password      = Capistrano::CLI.ui.ask("Please enter database password: ")
+        default_db_host  = db_adapter == 'mysql2' ? 'localhost' : '127.0.0.1'
+        db_host          = Capistrano::CLI.ui.ask("Please enter database host (Default: #{default_db_host}): ")
+        db_host          = db_host.empty? ? default_db_host : db_host
+        db_config        = ERB.new <<-EOF
 production:
-  adapter: mysql2
+  adapter: #{ db_adapter }
   encoding: utf8
   reconnect: false
   pool: 5
-  database: #{ Capistrano::CLI.ui.ask("Database name: ") }
-  username: #{ Capistrano::CLI.ui.ask("Database username: ") }
-  password: #{ Capistrano::CLI.ui.ask("Database password: ") }
-  socket: #{ Capistrano::CLI.ui.ask("Database socket: ") }
-  host: #{ Capistrano::CLI.ui.ask("Database host: ") }
+  database: #{ db_name }
+  username: #{ db_username }
+  password: #{ db_password }
+  host: #{ db_host }
 EOF
         run "mkdir -p #{shared_path}/config"
         put db_config.result, "#{shared_path}/config/database.yml"
