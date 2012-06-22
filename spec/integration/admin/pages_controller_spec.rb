@@ -1,12 +1,11 @@
-# Skipping on Travis-CI, because capybara-webkit does not install on travis.
-unless ENV["CI"]
+require 'spec_helper'
 
-  require 'spec_helper'
-
-  describe Alchemy::Admin::PagesController, :js => true do
+module Alchemy
+  describe Admin::PagesController, :js => true do
 
     before(:all) do
       create_admin_user
+      @german_root = FactoryGirl.create(:language_root_page, :language => Language.get_default, :name => 'Deutsch')
     end
 
     before(:each) do
@@ -22,7 +21,6 @@ unless ENV["CI"]
       context "in a multilangual environment" do
 
         before(:all) do
-          @german_root = FactoryGirl.create(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
           @klingonian_root = FactoryGirl.create(:language_root_page, :name => 'Klingonian')
         end
 
@@ -34,7 +32,6 @@ unless ENV["CI"]
 
         after(:all) {
           @klingonian_root.delete
-          @german_root.delete
         }
 
       end
@@ -65,6 +62,9 @@ unless ENV["CI"]
 
     end
 
-  end
+    after(:all) {
+      @german_root.delete
+    }
 
+  end
 end

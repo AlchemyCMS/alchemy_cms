@@ -28,10 +28,10 @@ def configure
 
   # Configure capybara for integration testing
   require "capybara/rails"
-  require 'capybara-webkit' unless ENV['CI']
+  require 'capybara/poltergeist'
   Capybara.default_driver = :rack_test
   Capybara.default_selector = :css
-  Capybara.javascript_driver = :webkit unless ENV['CI']
+  Capybara.javascript_driver = :poltergeist
 
   # Load support files
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
