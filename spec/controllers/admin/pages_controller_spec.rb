@@ -101,11 +101,6 @@ module Alchemy
         session[:language_id] = @language.id
       end
 
-      it "should find a page from urlname" do
-        get :edit, {:id => @page.to_param}
-        response.status.should == 200
-      end
-
       it "should find a page from id" do
         get :edit, {:id => @page.id}
         response.status.should == 200
