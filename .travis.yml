@@ -7,7 +7,7 @@ rvm:
   - rbx-19mode
 branches:
   only:
-    - master
+    - 2.2-stable
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
