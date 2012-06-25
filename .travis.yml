@@ -16,7 +16,6 @@ script: "bundle exec rspec spec --format=doc"
 env:
   - DB=mysql
   - DB=postgresql
-  - DB=sqlite
 matrix:
   allow_failures:
     - rvm: rbx-19mode
