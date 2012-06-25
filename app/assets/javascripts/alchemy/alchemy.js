@@ -6,7 +6,6 @@
 //= require tiny_mce/tiny_mce
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/
-//= require alchemy/alchemy.custom
 //= require alchemy/alchemy.routes
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.buttons
@@ -26,3 +25,4 @@
 //= require alchemy/alchemy.windows
 //= require alchemy/alchemy.preview_window
 //= require alchemy/alchemy.elements_window
+//= require alchemy/alchemy.custom

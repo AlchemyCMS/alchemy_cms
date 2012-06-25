@@ -2,7 +2,6 @@
 * -------------------------------
 *= require alchemy/base
 *= require alchemy/buttons
-*= require alchemy/custom
 *= require alchemy/dashboard
 *= require alchemy/elements
 *= require alchemy/flash
@@ -17,4 +16,5 @@
 *= require alchemy/jquery-ui.alchemy
 *= require alchemy/jquery.Jcrop
 *= require alchemy/jquery.sb
+*= require alchemy/custom
 */
