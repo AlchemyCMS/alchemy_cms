@@ -16,4 +16,5 @@
 *= require alchemy/jquery-ui.alchemy
 *= require alchemy/jquery.Jcrop
 *= require alchemy/jquery.sb
+*= require alchemy/custom
 */

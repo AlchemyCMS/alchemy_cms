@@ -25,3 +25,4 @@
 //= require alchemy/alchemy.windows
 //= require alchemy/alchemy.preview_window
 //= require alchemy/alchemy.elements_window
+//= require alchemy/alchemy.custom
