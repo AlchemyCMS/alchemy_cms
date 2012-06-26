@@ -80,12 +80,6 @@ module Alchemy
     scope :flushables, not_locked.published.contentpages
     scope :searchables, not_restricted.published.contentpages
 
-    # Using the urlname value as id parameter in URLs.
-    # Falls back to id, if no urlname is set yet.
-    def to_param
-      urlname || id.to_s
-    end
-
     # Finds selected elements from page.
     #
     # Options are:
