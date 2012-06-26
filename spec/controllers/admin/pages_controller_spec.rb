@@ -93,20 +93,5 @@ module Alchemy
 
     end
 
-    describe '#edit' do
-
-      before(:each) do
-        @language = Language.get_default
-        @page = FactoryGirl.create(:public_page, :language => @language)
-        session[:language_id] = @language.id
-      end
-
-      it "should find a page from id" do
-        get :edit, {:id => @page.id}
-        response.status.should == 200
-      end
-
-    end
-
   end
 end
