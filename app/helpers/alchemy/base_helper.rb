@@ -9,11 +9,11 @@ module Alchemy
 
     # Returns @current_language set in the action (e.g. Page.show)
     def current_language
-      if @current_language.nil?
+      if @language.nil?
         warning('@current_language is not set')
-        return nil
+        nil
       else
-        @current_language
+        @language
       end
     end
 
