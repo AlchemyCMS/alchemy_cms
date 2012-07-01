@@ -292,6 +292,7 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
     t.decimal  "entrance_fee", :precision => 6, :scale => 2
     t.boolean  "published"
     t.integer  "location_id"
+    t.integer  "organizer_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

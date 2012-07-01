@@ -6,6 +6,9 @@ module Namespace
   end
 end
 
+module EngineResource
+end
+
 class ResourcesController
   def resource_handler
     @resource_handler = Alchemy::Resource.new('admin/namespace/my_resources')

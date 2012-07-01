@@ -4,6 +4,25 @@ require File.dirname(__FILE__) + '/../../lib/alchemy/resource'
 class Event
 end
 
+module Namespace1
+  module Namespace2
+    class Event
+    end
+  end
+end
+
+module Namespace
+  class Event
+  end
+end
+
+module Engine
+  module Namespace
+    class Event
+    end
+  end
+end
+
 
 describe Alchemy::Resource do
 
@@ -29,7 +48,7 @@ describe Alchemy::Resource do
   end
 
   describe "instance methods" do
-      let(:resource) { Alchemy::Resource.new("admin/events") }
+    let(:resource) { Alchemy::Resource.new("admin/events") }
 
     describe "model" do
       it "returns resource's model-class" do
@@ -71,6 +90,8 @@ describe Alchemy::Resource do
             mock(:column, {:name => 'starts_at', :type => :datetime}),
           ]
           Event.stub(:columns).and_return columns
+          module Config; end
+          Config.stub(:get).and_return {}
         end
 
         it "parses and returns the resource-model's attributes from ActiveRecord::ModelSchema" do
@@ -99,6 +120,7 @@ describe Alchemy::Resource do
     end
 
     describe "namespaced_model_name" do
+
       it "returns model_name with namespace (namespace_event for Namespace::Event), i.e. for use in forms" do
         namespaced_resource = Alchemy::Resource.new("admin/namespace/events")
         namespaced_resource.namespaced_model_name.should == 'namespace_event'

@@ -16,17 +16,6 @@ module Alchemy
       }
     end
 
-    def resource_relations
-      {
-        "event" => {
-          "location_id" => {
-            "attr_method" => "location#name",
-            "attr_type" => "string"
-          }
-        }
-      }
-    end
-
     let(:resource) { Resource.new("admin/events", module_definition) }
 
     describe "#initialize" do
@@ -77,21 +66,61 @@ module Alchemy
     describe "#attributes" do
       it "should not return the to-be-skipped attributes" do
         resource.class.const_get(:DEFAULT_SKIPPED_ATTRIBUTES).each do |skipped_attr|
-          resource.attributes.detect{|a| a[:name] == skipped_attr }.should == nil
+          resource.attributes.detect { |a| a[:name] == skipped_attr }.should == nil
         end
       end
 
-      context "when resource relations defined in the config.yml" do
+      context "when skip_attributes is defined as class-method in the model" do
+        before do
+          Event.class_eval do
+            def self.skip_attributes
+              %W[hidden_name]
+            end
+          end
+        end
+        after do
+          Event.class_eval do
+            class << self
+              undef :skip_attributes
+            end
+          end
+        end
+
+        it "should not return the attributes returned by that method" do
+          resource.attributes.detect { |a| a[:name] == 'hidden_name' }.should be_nil
+          resource.attributes.detect { |a| a[:name] == 'name' }.should_not be_nil
+        end
+      end
+
+      context "when resource_relations defined as class-method in the model" do
+        before do
+          Event.class_eval do
+            def self.resource_relations
+              {
+                :location_id => {:attr_method => "location#name", :attr_type => :string},
+                :organizer_id => {:attr_method => "organizer#name", :attr_type => :string}
+              }
+            end
+          end
+        end
+        after do
+          Event.class_eval do
+            class << self
+              undef :resource_relations
+            end
+          end
+        end
         it "should use the attribute location#name instead of location_id" do
-          Config.stub(:get).with(:resource_relations).and_return(resource_relations)
-          resource.attributes.detect{|a| a[:name] == "location#name" }.should == {:name=>"location#name", :type=> :string}
+          resource.attributes.detect { |a| a[:name] == "location#name" }.should == {:name => "location#name", :type => :string}
+        end
+        it "should use the attribute organizer#name instead of organizer_id" do
+          resource.attributes.detect { |a| a[:name] == "organizer#name" }.should == {:name => "organizer#name", :type => :string}
         end
       end
 
-      context "when no resource relations defined in the config.yml" do
+      context "when resource_relation is not defined" do
         it "should use the attribute location_id" do
-          Config.stub(:get).with(:resource_relations).and_return(nil)
-          resource.attributes.detect{|a| a[:name] == "location_id" }.should == {:name=>"location_id", :type=> :integer}
+          resource.attributes.detect { |a| a[:name] == "location_id" }.should == {:name => "location_id", :type => :integer}
         end
       end
 
