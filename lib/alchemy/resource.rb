@@ -1,16 +1,18 @@
 require 'active_support/inflector'
+require 'active_support/core_ext'
 
 module Alchemy
   class Resource
 
-    attr_accessor :skip_attributes
+    attr_accessor :skip_attributes, :resource_relations
 
     DEFAULT_SKIPPED_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
 
     def initialize(controller_path, module_definition=nil)
       @controller_path = controller_path
       @module_definition = module_definition
-      self.skip_attributes = DEFAULT_SKIPPED_ATTRIBUTES
+      self.skip_attributes = model.respond_to?(:skip_attributes) ? model.skip_attributes : DEFAULT_SKIPPED_ATTRIBUTES
+      self.resource_relations = model.resource_relations if model.respond_to?(:resource_relations)
     end
 
     def model_array
@@ -43,7 +45,7 @@ module Alchemy
     end
 
     def attributes
-      self.model.columns.collect do |col|
+      @_attributes ||= self.model.columns.collect do |col|
         {:name => (resource_relation_name(col.name) || col.name), :type => (resource_relation_type(col.name) || col.type)} unless self.skip_attributes.include?(col.name)
       end.compact
     end
@@ -67,7 +69,7 @@ module Alchemy
       @module_definition and @module_definition['engine_name']
     end
 
-  protected
+    protected
 
     def controller_path_array
       @controller_path.split('/')
@@ -78,23 +80,15 @@ module Alchemy
     end
 
     def resource_relation_name(column_name)
-      resource_relation(column_name)['attr_method'].to_s if resource_relation(column_name).present?
+      resource_relation(column_name).try(:[], :attr_method)
     end
 
     def resource_relation_type(column_name)
-      resource_relation(column_name)['attr_type'].to_sym if resource_relation(column_name).present?
-    end
-
-    def self.resource_relations
-      Config.get(:resource_relations)
-    end
-
-    def resource_relations
-      self.class.resource_relations[model_name.to_s] if self.class.resource_relations
+      resource_relation(column_name).try(:[], :attr_type)
     end
 
     def resource_relation(column_name)
-      resource_relations[column_name.to_s] if resource_relations
+      resource_relations[column_name.to_sym] if resource_relations
     end
 
   end
