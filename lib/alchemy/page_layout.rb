@@ -77,12 +77,6 @@ module Alchemy
       end
     end
 
-    def self.get_page_layout_names
-      a = []
-      get_layouts.each { |l| a << l.keys.first }
-      a
-    end
-
     def self.has_a_page_this_layout?(layout, language_id)
       Page.where({:page_layout => layout, :language_id => language_id}).any?
     end
