@@ -51,7 +51,7 @@ module Alchemy
 		end
 
 		def leave
-			::I18n.locale = current_user.language.to_sym
+			::I18n.locale = current_user.try(:language)
 			render :layout => false
 		end
 
