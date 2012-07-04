@@ -9,10 +9,21 @@ module Alchemy
 
       def index
         @size = params[:size] || 'medium'
-        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
+        @pictures = Picture.scoped
+        @pictures = @pictures.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
+        @pictures = case params[:filter]
+        when 'recent'
+          @pictures.recent
+        when 'last_upload'
+          @pictures.last_upload
+        else
+          @pictures
+        end
+        @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
         if in_overlay?
           archive_overlay
         else
+
           # render index.html.erb
         end
       end
@@ -33,7 +44,7 @@ module Alchemy
       end
 
       def create
-        @picture = Picture.new(:image_file => params[:Filedata])
+        @picture = Picture.new(:image_file => params[:Filedata], :upload_hash => params[:hash])
         @picture.name = @picture.humanized_name
         @picture.save
         @size = params[:size] || 'medium'
@@ -45,7 +56,7 @@ module Alchemy
           @page = params[:page] || 1
           @per_page = pictures_per_page_for_size(@size)
         end
-        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
+        @pictures = Picture.last_upload.find_paginated(params, pictures_per_page_for_size(@size))
         @message = t('Picture uploaded succesfully', :name => @picture.name)
         # Are we using the Flash uploader? Or the plain html file uploader?
         if params[Rails.application.config.session_options[:key]].blank?

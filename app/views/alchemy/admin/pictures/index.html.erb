@@ -61,6 +61,39 @@
             :skip_permission_check => true
           ) %>
     <% end %>
+    <div class="toolbar_spacer"></div>
+    <div class="button_with_label">
+      <%= link_to(
+            render_icon('filter'),
+            alchemy.admin_pictures_path({
+                                          :size => params[:size],
+                                          :query => params[:query],
+                                          :filter => 'last_upload'
+                                        }),
+            :title => t("last_upload_only"),
+            :class => "icon_button please_wait"
+          ) %>
+      <%= link_to(
+            render_icon('filter'),
+            alchemy.admin_pictures_path({
+                                          :size => params[:size],
+                                          :query => params[:query],
+                                          :filter => 'recent'
+                                        }),
+            :title => t("recently_uploaded_only"),
+            :class => "icon_button please_wait"
+          ) %>
+      <%= link_to(
+            render_icon('filter'),
+            alchemy.admin_pictures_path({
+                                          :size => params[:size],
+                                          :query => params[:query]
+                                        }),
+            :title => t("all_pictures"),
+            :class => "icon_button please_wait"
+          ) %>
+      <label><%= t('Filter') %></label>
+    </div>
   </div>
   <%= render :partial => 'alchemy/admin/partials/search_form' %>
 <% end %>
@@ -70,11 +103,12 @@
     <div class="selected_item_tools">
       <%= t("edit_selected_pictures") %>
       <%= submit_tag t("Delete"), 'data-alchemy-confirm' => {
-                  :title => t("please_confirm"),
-                  :message => t("confirm_to_delete_images_from_server"),
-                  :ok_label => t("Yes"),
-                  :cancel_label => t("No")
-                }.to_json %></div>
+        :title => t("please_confirm"),
+        :message => t("confirm_to_delete_images_from_server"),
+        :ok_label => t("Yes"),
+        :cancel_label => t("No")
+      }.to_json %>
+    </div>
     <%= render :partial => 'pictures_list' %>
   <% end %>
 </div>
