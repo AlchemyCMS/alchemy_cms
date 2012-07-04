@@ -40,7 +40,7 @@ authorization do
   role :editor do
     includes :author
     has_permission_on :alchemy_admin_attachments, :to => [:manage]
-    has_permission_on :alchemy_admin_pictures, :to => [:manage, :flush]
+    has_permission_on :alchemy_admin_pictures, :to => [:manage, :flush, :update_multiple]
     has_permission_on :alchemy_admin_pages, :to => [:manage_pages]
     has_permission_on :alchemy_admin_layoutpages, :to => [:index]
   end

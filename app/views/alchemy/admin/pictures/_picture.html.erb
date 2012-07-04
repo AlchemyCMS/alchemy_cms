@@ -1,6 +1,9 @@
 <div class="picture_thumbnail <%= @size %>" id="picture_<%= picture.id %>" name="<%= picture.name %>">
+  <span class="picture_tool select">
+    <%= check_box_tag "picture_ids[]", picture.id %>
+  </span>
   <%- permitted_to?(:destroy, :alchemy_admin_pictures) do -%>
-  <span class="picture_tool_delete">
+  <span class="picture_tool delete">
     <%= link_to_confirmation_window(
       "",
       t("confirm_to_delete_image_from_server"),

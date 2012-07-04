@@ -1,83 +1,93 @@
-<%- content_for(:toolbar) do -%>
-<div id="toolbar_buttons">
-  <%= toolbar_button(
-    :icon => 'upload',
-    :label => t('upload_image'),
-    :url => alchemy.new_admin_picture_path(:size => @size),
-    :overlay_options => {
-      :title => t('upload_image'),
-      :size => '540x590'
-    },
-    :class => 'icon_button',
-    :title => t('upload_image'),
-    :if_permitted_to => [:new, :alchemy_admin_pictures]
-  ) %>
-  <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
-    <%= link_to(
-      render_icon('zoom-out'),
-      alchemy.admin_pictures_path({
-        :size => "small",
-        :query => params[:query]
-      }),
-      :title => t("small_thumbnails"),
-      :class => "icon_button please_wait"
-    ) %>
-    <%= link_to(
-      render_icon('zoom-equal'),
-      alchemy.admin_pictures_path({
-        :size => "medium",
-        :query => params[:query]
-      }),
-      :title => t("medium_thumbnails"),
-      :class => "icon_button please_wait"
-    ) %>
-    <%= link_to(
-      render_icon('zoom-in'),
-      alchemy.admin_pictures_path({
-        :size => "large",
-        :query => params[:query]
-      }),
-      :title => t("big_thumbnails"),
-      :class => "icon_button please_wait"
-    ) %>
-    <label><%= t('Image size') %></label>
-    <%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
-  </div>
+<% content_for(:toolbar) do %>
+  <div id="toolbar_buttons">
+    <%= toolbar_button(
+          :icon => 'upload',
+          :label => t('upload_image'),
+          :url => alchemy.new_admin_picture_path(:size => @size),
+          :overlay_options => {
+            :title => t('upload_image'),
+            :size => '540x590'
+          },
+          :class => 'icon_button',
+          :title => t('upload_image'),
+          :if_permitted_to => [:new, :alchemy_admin_pictures]
+        ) %>
+    <div class="toolbar_spacer"></div>
+    <div class="button_with_label">
+      <%= link_to(
+            render_icon('zoom-out'),
+            alchemy.admin_pictures_path({
+                                          :size => "small",
+                                          :query => params[:query]
+                                        }),
+            :title => t("small_thumbnails"),
+            :class => "icon_button please_wait"
+          ) %>
+      <%= link_to(
+            render_icon('zoom-equal'),
+            alchemy.admin_pictures_path({
+                                          :size => "medium",
+                                          :query => params[:query]
+                                        }),
+            :title => t("medium_thumbnails"),
+            :class => "icon_button please_wait"
+          ) %>
+      <%= link_to(
+            render_icon('zoom-in'),
+            alchemy.admin_pictures_path({
+                                          :size => "large",
+                                          :query => params[:query]
+                                        }),
+            :title => t("big_thumbnails"),
+            :class => "icon_button please_wait"
+          ) %>
+      <label><%= t('Image size') %></label>
+      <%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
+    </div>
 
-  <%- permitted_to?(:flush, :alchemy_admin_pictures) do -%>
-  <div class="toolbar_spacer"></div>
-  <%= toolbar_button(
-    :icon => 'flush',
-    :url => alchemy.flush_admin_pictures_path,
-    :overlay => false,
-    :link_options => {
-      :remote => true,
-      :method => :post
-    },
-    :label => t('Flush picture cache'),
-    :class => 'icon_button please_wait',
-    :title => t('Flush picture cache'),
-    :skip_permission_check => true
-  ) %>
-  <%- end -%>
-</div>
-<%= render :partial => 'alchemy/admin/partials/search_form' %>
-<%- end -%>
+    <% permitted_to?(:flush, :alchemy_admin_pictures) do %>
+      <div class="toolbar_spacer"></div>
+      <%= toolbar_button(
+            :icon => 'flush',
+            :url => alchemy.flush_admin_pictures_path,
+            :overlay => false,
+            :link_options => {
+              :remote => true,
+              :method => :post
+            },
+            :label => t('Flush picture cache'),
+            :class => 'icon_button please_wait',
+            :title => t('Flush picture cache'),
+            :skip_permission_check => true
+          ) %>
+    <% end %>
+  </div>
+  <%= render :partial => 'alchemy/admin/partials/search_form' %>
+<% end %>
 
 <div id="picture_archive">
-  <%= render :partial => 'pictures_list' %>
+  <%= form_tag update_multiple_admin_pictures_path do %>
+    <div class="selected_item_tools">
+      <%= t("edit_selected_pictures") %>
+      <%= submit_tag t("Delete"), 'data-alchemy-confirm' => {
+                  :title => t("please_confirm"),
+                  :message => t("confirm_to_delete_images_from_server"),
+                  :ok_label => t("Yes"),
+                  :cancel_label => t("No")
+                }.to_json %></div>
+    <%= render :partial => 'pictures_list' %>
+  <% end %>
 </div>
 
 <%- content_for :javascripts do -%>
-<script type="text/javascript" charset="utf-8">
+  <script type="text/javascript" charset="utf-8">
 
-  jQuery(document).ready(function($) {
-    Alchemy.inPlaceEditor({
-      save_label: "<%= t('save') %>",
-      cancel_label: "<%= t('cancel') %>"
+    jQuery(document).ready(function($) {
+      Alchemy.inPlaceEditor({
+        save_label: "<%= t('save') %>",
+        cancel_label: "<%= t('cancel') %>"
+      });
     });
-  });
 
-</script>
+  </script>
 <%- end -%>

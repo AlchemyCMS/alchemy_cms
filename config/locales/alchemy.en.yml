@@ -186,6 +186,7 @@ en:
     confirm_to_delete_file: "Do you really want to delete this file from the server?"
     confirm_to_delete_image: "Do you really want to delete this image from server?"
     confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
+    confirm_to_delete_images_from_server: "Do you really want to delete these images from the server?"
     confirm_to_delete_user: "Do you really want to delete this user?"
     contactform_body: "Message Template"
     content_essence_not_found: "Content essence not found"
@@ -218,6 +219,7 @@ en:
     edit_language: "Edit language"
     edit_page: "Edit this page"
     edit_page_properties: "Edit the page´s properties."
+    edit_selected_pictures: "Edit selected pictures"
     edit_user: "Edit the user´s properties."
     element_dirty_notice: "This element has unsaved changes. Do you really want to fold it?"
     element_dirty_close_window_notice: "You have unsaved elements. Do you really want to close the elements window?"
@@ -318,6 +320,11 @@ en:
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} deleted"
+    pictures_deleted_successfully: "Pictures %{name} deleted"
+    picture_library:
+      filter:
+        last_upload: "Showing only pictures from last upload"
+        recent: "Showing only recently uploaded pictures"
     place_link: "Link text"
     player_version: "Flashplayer Version"
     "please enter subject and mail address": "Please enter recipient and subject."

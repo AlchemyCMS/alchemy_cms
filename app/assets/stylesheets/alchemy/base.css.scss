@@ -187,24 +187,34 @@ div#page {
   background-position: right;
 }
 
-.picture_tool_delete {
+.picture_tool {
   width: 16px;
   height: 16px;
   position: absolute;
   background-color: white;
   top: 3px;
-  right: 4px;
   padding: 1px;
   z-index: 1;
   display: none;
-}
 
-.picture_tool_delete a {
-  display: block;
-  width: 16px;
-  height: 16px;
-  background: url('icons.png') no-repeat -63px -72px;
-  cursor: pointer;
+  &.select {
+    left: 4px;
+  }
+
+  &.delete {
+    right: 4px;
+
+    a {
+      background: image-url('alchemy/icons.png') no-repeat -63px -72px;
+    }
+  }
+
+  a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
 }
 
 div.tip {
@@ -819,13 +829,17 @@ div#image_assign_filter_and_image_sizing {
   text-align: center;
 }
 
+#picture_archive .selected_item_tools {
+  margin-bottom: 20px;
+}
+
 #pictures .picture_thumbnail {
   margin: 0 16px 16px 0;
   @include inline-block;
   float: none;
 }
 
-#pictures .picture_thumbnail:hover .picture_tool_delete {
+#pictures .picture_thumbnail:hover .picture_tool {
   display: block;
 }
 

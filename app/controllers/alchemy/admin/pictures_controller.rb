@@ -65,6 +65,19 @@ module Alchemy
         @message = t("Picture renamed successfully", :from => oldname, :to => @picture.name)
       end
 
+      def update_multiple
+        if params[:commit] == 'delete' and params[:picture_ids] and params[:picture_ids].any?
+          pictures = Picture.find(params[:picture_ids])
+          names = pictures.map{|p|p.name}.to_sentence
+          pictures.each do |picture|
+            picture.destroy
+          end
+          flash[:notice] = t("Pictures deleted successfully", :names => names)
+        end
+        index
+        render :action => :index
+      end
+
       def destroy
         @picture = Picture.find(params[:id])
         name = @picture.name

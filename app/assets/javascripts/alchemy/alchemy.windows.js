@@ -291,7 +291,7 @@ if (typeof(Alchemy) === 'undefined') {
         return false;
       });
 
-      $('a[data-alchemy-confirm]', scope).on('click', function(event) {
+      $('a[data-alchemy-confirm], input[data-alchemy-confirm]', scope).on('click', function(event) {
         var $this = $(this);
         var options = $this.data('alchemy-confirm');
         event.preventDefault();
