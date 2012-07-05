@@ -121,7 +121,7 @@ module Alchemy
       def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
           html_options.merge(
-            'data-alchemy-confirm' => {
+            'data-alchemy-confirm-delete' => {
               :title => t("please_confirm"),
               :message => message,
               :ok_label => t("Yes"),

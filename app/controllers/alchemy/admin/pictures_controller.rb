@@ -76,17 +76,18 @@ module Alchemy
         @message = t("Picture renamed successfully", :from => oldname, :to => @picture.name)
       end
 
-      def update_multiple
-        if params[:commit] == 'delete' and params[:picture_ids] and params[:picture_ids].any?
+      def delete_multiple
+        if request.delete? && params[:picture_ids].present?
           pictures = Picture.find(params[:picture_ids])
-          names = pictures.map{|p|p.name}.to_sentence
+          names = pictures.map(&:name).to_sentence
           pictures.each do |picture|
             picture.destroy
           end
-          flash[:notice] = t("Pictures deleted successfully", :names => names)
+          notice = t("Pictures deleted successfully", :names => names)
+        else
+          notice = t("Could not delete Pictures")
         end
-        index
-        render :action => :index
+        redirect_to :action => :index, :notice => notice
       end
 
       def destroy
@@ -108,7 +109,7 @@ module Alchemy
         render :layout => false
       end
 
-      private
+    private
 
       def pictures_per_page_for_size(size)
         case size

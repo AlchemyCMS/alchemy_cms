@@ -291,11 +291,19 @@ if (typeof(Alchemy) === 'undefined') {
         return false;
       });
 
-      $('a[data-alchemy-confirm], input[data-alchemy-confirm]', scope).on('click', function(event) {
+      $('a[data-alchemy-confirm-delete]', scope).on('click', function(event) {
         var $this = $(this);
-        var options = $this.data('alchemy-confirm');
+        var options = $this.data('alchemy-confirm-delete');
         event.preventDefault();
         Alchemy.confirmToDeleteWindow($this.attr('href'), options.title, options.message, options.ok_label, options.cancel_label);
+        return false;
+      });
+
+      $('input[data-alchemy-confirm], button[data-alchemy-confirm]', scope).on('click', function(event) {
+        var $this = $(this), self = this;
+        var options = $this.data('alchemy-confirm');
+        event.preventDefault();
+        Alchemy.openConfirmWindow($.extend(options, {okCallback: function(){self.form.submit();}}));
         return false;
       });
     }
