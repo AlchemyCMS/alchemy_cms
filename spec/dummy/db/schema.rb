@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
     t.datetime "updated_at",     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.string   "upload_hash"
   end
 
   create_table "alchemy_users", :force => true do |t|
