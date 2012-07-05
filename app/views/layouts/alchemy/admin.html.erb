@@ -84,7 +84,7 @@
         if ($('#flash_notices').length > 0) {
           Alchemy.Growler.fade();
         }
-        $('a.please_wait, form .button, form .icon_button, #main_navi a.main_navi_entry, #sub_navigation .subnavi_tab a, .pagination a').not('#subnav_additions .subnavi_tab button').click(function() {
+        $('a.please_wait, form .button, form .icon_button, #main_navi a.main_navi_entry, #sub_navigation .subnavi_tab a, .pagination a').not('.no-overlay, #subnav_additions .subnavi_tab button').click(function() {
           Alchemy.pleaseWaitOverlay();
         });
         // Hack for enabling tab focus for a's styled as button
