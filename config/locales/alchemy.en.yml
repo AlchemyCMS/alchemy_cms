@@ -195,6 +195,7 @@ en:
     copy_element: "Copy this element"
     copy_language_tree_heading: "Copy page tree"
     copy_page: "Copy page"
+    "Could not delete Pictures": "Could not delete Pictures"
     country_code_placeholder: 'i.e. us (optional)'
     country_code_foot_note: "You only need to set a country code if you want to provide each country with an individual language."
     "Create language": "Create a new language"
@@ -319,7 +320,8 @@ en:
     picture_gallery_editor: 'Pictures'
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
-    "Picture deleted successfully": "Picture %{name} deleted"
+    "Picture deleted successfully": "Picture %{name} successfully deleted"
+    "Pictures deleted successfully": "Pictures %{names} successfully deleted"
     pictures_deleted_successfully: "Pictures %{name} deleted"
     picture_library:
       filter:
