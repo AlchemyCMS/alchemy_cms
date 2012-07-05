@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611221734) do
+ActiveRecord::Schema.define(:version => 20120705214247) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -23,14 +23,6 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
-
-  create_table "alchemy_essence_booleans", :force => true do |t|
-    t.boolean "value"
-    t.timestamps
-    t.userstamps
-  end
-
-  add_index "alchemy_essence_booleans", ["value"], :name => "index_alchemy_essence_booleans_on_value"
 
   create_table "alchemy_cells", :force => true do |t|
     t.integer  "page_id"
@@ -85,6 +77,16 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
+
+  create_table "alchemy_essence_booleans", :force => true do |t|
+    t.boolean  "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "alchemy_essence_booleans", ["value"], :name => "index_alchemy_essence_booleans_on_value"
 
   create_table "alchemy_essence_dates", :force => true do |t|
     t.datetime "date"
@@ -154,9 +156,11 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
   end
 
   create_table "alchemy_essence_selects", :force => true do |t|
-    t.string "value"
-    t.timestamps
-    t.userstamps
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   add_index "alchemy_essence_selects", ["value"], :name => "index_alchemy_essence_selects_on_value"
@@ -224,17 +228,17 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
     t.integer  "rgt"
     t.integer  "parent_id"
     t.integer  "depth"
-    t.boolean  "visible",                         :default => false
-    t.boolean  "public",                          :default => false
-    t.boolean  "locked",                          :default => false
+    t.boolean  "visible",          :default => false
+    t.boolean  "public",           :default => false
+    t.boolean  "locked",           :default => false
     t.integer  "locked_by"
-    t.boolean  "restricted",                      :default => false
-    t.boolean  "robot_index",                     :default => true
-    t.boolean  "robot_follow",                    :default => true
-    t.boolean  "sitemap",                         :default => true
-    t.boolean  "layoutpage",                      :default => false
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.boolean  "restricted",       :default => false
+    t.boolean  "robot_index",      :default => true
+    t.boolean  "robot_follow",     :default => true
+    t.boolean  "sitemap",          :default => true
+    t.boolean  "layoutpage",       :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "language_id"
@@ -296,6 +300,23 @@ ActiveRecord::Schema.define(:version => 20120611221734) do
     t.integer  "organizer_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context"
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
   end
 
 end
