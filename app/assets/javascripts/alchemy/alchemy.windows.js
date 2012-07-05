@@ -303,7 +303,12 @@ if (typeof(Alchemy) === 'undefined') {
         var $this = $(this), self = this;
         var options = $this.data('alchemy-confirm');
         event.preventDefault();
-        Alchemy.openConfirmWindow($.extend(options, {okCallback: function(){self.form.submit();}}));
+        Alchemy.openConfirmWindow($.extend(options, {
+          okCallback: function() {
+            Alchemy.pleaseWaitOverlay();
+            self.form.submit();
+          }
+        }));
         return false;
       });
     }

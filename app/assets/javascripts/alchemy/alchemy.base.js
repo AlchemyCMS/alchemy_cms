@@ -59,6 +59,25 @@ if (typeof(Alchemy) === 'undefined') {
 
     },
 
+    pictureSelector: function() {
+      var
+        $selected_item_tools = $('.selected_item_tools'),
+        $picture_selects = $('.picture_tool.select input');
+
+      $picture_selects.on('click', function() {
+        if ($picture_selects.filter(':checked').size() > 0) {
+          $selected_item_tools.show();
+        } else {
+          $selected_item_tools.hide();
+        }
+        if (this.checked) {
+          $(this).parent().addClass('visible').removeClass('hidden');
+        } else {
+          $(this).parent().removeClass('visible').addClass('hidden');
+        }
+      });
+    },
+
     pleaseWaitOverlay: function(show) {
       if (typeof(show) == 'undefined') {
         show = true;

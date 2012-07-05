@@ -83,11 +83,11 @@ module Alchemy
           pictures.each do |picture|
             picture.destroy
           end
-          notice = t("Pictures deleted successfully", :names => names)
+          flash[:notice] = t("Pictures deleted successfully", :names => names)
         else
-          notice = t("Could not delete Pictures")
+          flash[:notice] = t("Could not delete Pictures")
         end
-        redirect_to :action => :index, :notice => notice
+        redirect_to :action => :index
       end
 
       def destroy

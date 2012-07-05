@@ -121,13 +121,7 @@
         save_label: "<%= t('save') %>",
         cancel_label: "<%= t('cancel') %>"
       });
-      $('.picture_tool.select input').on('click', function() {
-        if (this.checked) {
-          $(this).parent().addClass('visible').removeClass('hidden');
-        } else {
-          $(this).parent().removeClass('visible').addClass('hidden');
-        }
-      });
+      Alchemy.pictureSelector();
     });
 
   </script>
