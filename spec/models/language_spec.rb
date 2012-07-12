@@ -58,7 +58,7 @@ describe Alchemy::Language do
     if !@default_language
       @default_language = FactoryGirl.create(:language, :name => "default", :code => "aa", :frontpage_name => "intro", :default => true)
     end
-    expect { @default_language.destroy }.should raise_error
+    expect { @default_language.destroy }.to raise_error
   end
 
   describe "before save" do

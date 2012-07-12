@@ -53,7 +53,7 @@ describe Alchemy::Element do
     end
 
     it "should raise an error" do
-      expect { Alchemy::Element.descriptions }.should raise_error(LoadError)
+      expect { Alchemy::Element.descriptions }.to raise_error(LoadError)
     end
 
     after(:each) do
@@ -153,7 +153,7 @@ describe Alchemy::Element do
   end
 
   it "should raise error if all_for_page method has no page" do
-    expect { Alchemy::Element.all_for_page(nil) }.should raise_error(TypeError)
+    expect { Alchemy::Element.all_for_page(nil) }.to raise_error(TypeError)
   end
 
   describe "#content_by_type" do
