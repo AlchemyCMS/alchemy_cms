@@ -44,10 +44,6 @@ module Alchemy #:nodoc:
             '#{ingredient_column}'
           end
 
-          def ingredient
-            send('#{ingredient_column}')
-          end
-
           def preview_text_column
             '#{preview_text_column}'
           end
@@ -126,6 +122,13 @@ module Alchemy #:nodoc:
         end
         self.validation_errors.each do |validation_error|
           self.errors.add(self.ingredient_column, validation_error)
+        end
+      end
+
+      # Returns the value stored from the database column that is configured as ingredient column.
+      def ingredient
+        if self.respond_to?(ingredient_column)
+          self.send(ingredient_column)
         end
       end
 
