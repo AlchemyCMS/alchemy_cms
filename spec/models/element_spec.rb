@@ -48,7 +48,7 @@ describe Alchemy::Element do
 
 	it "should raise an error if no descriptions are found" do
 		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'))
-		expect { Alchemy::Element.descriptions }.should raise_error
+		expect { Alchemy::Element.descriptions }.to raise_error
 		FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
 	end
 
@@ -100,7 +100,7 @@ describe Alchemy::Element do
 	end
 
 	it "should raise error if all_for_page method has no page" do
-	  expect { Alchemy::Element.all_for_page(nil) }.should raise_error(TypeError)
+	  expect { Alchemy::Element.all_for_page(nil) }.to raise_error(TypeError)
 	end
 
 	describe "#content_by_type" do
