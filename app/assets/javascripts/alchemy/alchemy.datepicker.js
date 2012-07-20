@@ -14,7 +14,10 @@ if (typeof(Alchemy) === 'undefined') {
         changeYear: true,
         showWeek: true,
         showButtonPanel: true,
-        showOtherMonths: true
+        showOtherMonths: true,
+        onSelect: function() {
+          Alchemy.setElementDirty($(this).parents('div.element_editor'));
+        }
       };
       if (typeof(selector) === 'undefined') {
         var selector = 'input[type="date"], input.date'

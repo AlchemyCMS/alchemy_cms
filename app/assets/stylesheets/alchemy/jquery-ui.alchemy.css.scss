@@ -155,12 +155,11 @@
 ----------------------------------*/
 
 #alchemy .ui-state-default, #alchemy .ui-widget-content .ui-state-default, #alchemy .ui-widget-header .ui-state-default {
-  @include default-button-style;
-  // border: 1px solid $button-border-color;
-  // background: #ededed url('shading.png') repeat-x 50% -67px;
-  // font-weight: normal;
-  // color: $text-color;
-  // text-shadow: $button-text-shadow;
+  border: 1px solid $button-border-color;
+  background-color: #ededed;
+  font-weight: normal;
+  color: $text-color;
+  text-shadow: $button-text-shadow;
 }
 
 #alchemy .ui-state-default a, #alchemy .ui-state-default a:link, #alchemy .ui-state-default a:visited {
@@ -171,7 +170,7 @@
 .ui-dialog-titlebar-refresh, .ui-dialog-titlebar-close, .ui-dialog-titlebar-maximize, .ui-dialog-titlebar-restore {
   &:hover, &:focus {
     border: 1px solid $button-hover-border-color;
-    background: $button-hover-bg-color url('shading.png') repeat-x 50% -65px;
+    background: $button-hover-bg-color;
     font-weight: normal;
     color: $text-color;
   }
@@ -183,10 +182,10 @@
 }
 
 #alchemy .ui-state-active, #alchemy .ui-widget-content .ui-state-active, #alchemy .ui-widget-header .ui-state-active {
-  // color: $text-color;
-  // text-decoration: none;
-  // text-shadow: none;
-  // background-color: $button-hover-bg-color;
+  color: $text-color;
+  text-decoration: none;
+  text-shadow: none;
+  background-color: $button-hover-bg-color;
 }
 
 #alchemy .ui-state-active.stNav.stNext {
@@ -250,17 +249,14 @@
 
 #alchemy .ui-priority-primary, #alchemy .ui-widget-content .ui-priority-primary, #alchemy .ui-widget-header .ui-priority-primary {
   font-weight: normal;
-  background-position: 50% -73px;
 }
 
 #alchemy .ui-priority-secondary, #alchemy .ui-widget-content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary {
   font-weight: normal;
-  background-position: 50% -73px;
 }
 
 #alchemy .ui-state-disabled, #alchemy .ui-widget-content .ui-state-disabled, #alchemy .ui-widget-header .ui-state-disabled {
-  opacity: .35;
-  filter: Alpha(Opacity = 35);
+  @include opacity(.35);
   background-image: none;
 }
 
@@ -1336,7 +1332,8 @@
  * http://docs.jquery.com/UI/Button#theming
  */
 
-#alchemy .ui-button {
+#alchemy button.ui-button {
+  @include default-button-style;
   @include inline-block;
   position: relative;
   margin-right: .1em;
@@ -1344,7 +1341,6 @@
   cursor: pointer;
   text-align: center;
   overflow: visible;
-  padding: 0;
 
   &.ui-state-focus {
     @include default-focus-style;
