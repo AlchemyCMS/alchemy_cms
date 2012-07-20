@@ -59,10 +59,11 @@
   @include box-sizing;
   border-right: $default-border;
   border-bottom: $default-border;
-  line-height: 8 * $default-padding;
   height: 8 * $default-padding + 2px;
   padding: 4px 40px 4px 8px;
   overflow: hidden;
+  font: $default-font-style;
+  line-height: 8 * $default-padding;
 
   * {
     @include box-sizing;
