@@ -8,7 +8,10 @@
         "&nbsp;",
         alchemy.list_admin_elements_path(:page_id => page_for_links.id),
         :remote => true,
-        :onclick => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}'); Alchemy.LinkOverlay.showElementsSelect(#{page_for_links.id});",
+        :data => {
+          'page-id' => page_for_links.id,
+          :url => @url_prefix + page_for_links.urlname
+        },
         :class => "show_elements_to_link",
         :title => t('show_elements_from_page')
       ) %>
@@ -23,7 +26,10 @@
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
       <%= link_to(page_for_links.name, '#', {
-        :onclick => "Alchemy.LinkOverlay.selectPage('#{page_for_links.id}', '#{@url_prefix + page_for_links.urlname}')",
+        :data => {
+          'page-id' => page_for_links.id,
+          :url => @url_prefix + page_for_links.urlname
+        },
         :title => t('page_for_links.choose_page', :name => page_for_links.name),
         :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
       }) %>

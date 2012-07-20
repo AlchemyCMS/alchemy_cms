@@ -25,30 +25,74 @@ table tr td.tools {
   @include disable-user-select;
 }
 
-td.input, td.label {
-  padding-top: 2px;
+td.label, td.input, td.submit, td.select, td.value {
+  padding: 2px 0;
   vertical-align: top;
 }
 
-td.input, td.submit, td.select {
+td.input, td.submit, td.select, td.value {
   text-align: right;
-  padding-right: 0;
+
+  &.left {
+    text-align: left;
+  }
+}
+
+td.label {
+  white-space: nowrap;
+  width: 80px;
+  padding: 9px 2*$default-padding 0 0;
+  line-height: 21px;
+
+  &.mandatory:after {
+    content: '*';
+  }
+
+  &.long {
+    width: 140px;
+  }
+
+  &.middle {
+    padding-left: 2*$default-padding;
+  }
+
+  &.very_long {
+    width: 230px;
+  }
 }
 
 td.checkbox {
-  padding: 6px 4px;
+  padding-top: 10px;
+  text-align: right;
+  white-space: nowrap;
+
+  label {
+    @include inline-block;
+    text-align: left;
+    width: 194px;
+  }
+
+  &.long {
+    label {
+      width: 224px;
+    }
+  }
+
+  input[type="checkbox"] {
+    vertical-align: middle;
+    margin-top: 4px;
+  }
 }
 
 td.value {
-  text-align: right;
+  padding-top: 4px;
 
   p {
-    display: inline;
-    display: inline-block;
+    @include inline-block;
     width: 214px;
     text-align: left;
-    margin: 0;
-    line-height: 23px;
+    margin: $default-form-field-margin;
+    line-height: 25px;
   }
 
   &.long {
@@ -58,33 +102,10 @@ td.value {
   }
 }
 
-td.label {
-  white-space: nowrap;
-  width: 80px;
-  padding: $default-padding 2*$default-padding 0 0;
-  line-height: 6*$default-padding;
-}
-
-td.label.mandatory:after {
-  content: '*';
-}
-
 td.heading {
   padding: $default-padding 0;
   font-weight: bold;
   text-decoration: underline;
-}
-
-td.input input[type="checkbox"], td.input input[type="radio"] {
-  margin-top: 6px;
-}
-
-td.label.long {
-  width: 140px;
-}
-
-td.label.very_long {
-  width: 230px;
 }
 
 table tr td.tools a {
@@ -122,6 +143,7 @@ td.date {
 
 table td.right, table th.right {
   text-align: right;
+  padding-right: 0;
 }
 
 table td.center, table th.center {
@@ -161,29 +183,7 @@ table tr.even td {
   background-color: white;
 }
 
-td.label.middle {
-  padding-left: 2*$default-padding;
-}
-
 th.icon, td.icon {
   background: none;
   display: table-cell;
-}
-
-td.checkbox {
-  text-align: right;
-  white-space: nowrap;
-
-  label {
-    display: inline;
-    display: inline-block;
-    text-align: left;
-    width: 194px;
-  }
-
-  &.long {
-    label {
-      width: 224px;
-    }
-  }
 }

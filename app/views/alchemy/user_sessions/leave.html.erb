@@ -1,11 +1,11 @@
 <div class="with_padding">
   <h2><%= t("You are about to leave Alchemy") %>.</h2>
-  <p style="line-height: 24px">
-    <%= t("Do you want to") %>
+  <p class="buttons">
+    <label><%= t("Do you want to") %></label>
     <%= link_to t('stay logged in'), alchemy.root_path, :class => 'button' %>
   </p>
-  <p style="line-height: 24px">
-    <%= t('or to completly') %>
+  <p class="buttons">
+    <label><%= t('or to completly') %></label>
     <%= link_to t('logout'), alchemy.logout_path, :class => 'button' %>
   </p>
 </div>

@@ -1,0 +1,479 @@
+@import "alchemy/defaults";
+
+@mixin default-label-style {
+  font-size: 10px;
+  text-shadow: #fff 0 1px 2px;
+  margin-top: $default-margin;
+  display: block;
+  line-height: 100%;
+  @include disable-user-select;
+  clear: both;
+}
+
+button, input[type="submit"], a.button, input.button {
+  @include default-button-style;
+
+  &.small {
+    padding: 2px 6px;
+    @include border-radius(10px);
+  }
+
+  &.with_icon {
+    padding: 0.5em 1.5em 0.5em 0.5em;
+
+    span.icon {
+      margin-top: -5px;
+      padding-right: 0.25em;
+      height: 15px;
+    }
+  }
+
+  &.cloned-button, &.cloned-button:hover, &.cloned-button:active {
+    color: $text-color;
+    text-shadow: none;
+    cursor: default;
+    background-image: none;
+    padding: 0.4em 1.5em;
+    line-height: 19px;
+    text-align: center;
+
+    img {
+      vertical-align: middle;
+      margin-top: -2px;
+    }
+  }
+
+  &:focus {
+    @include default-focus-style;
+  }
+
+  // img {
+  //   margin: 2px 0 0 0;
+  //   width: 16px;
+  //   height: 16px;
+  // }
+}
+
+.icon_button {
+  @include default-button-style;
+  width: 21px;
+  height: 21px;
+  line-height: 19px;
+  margin: 0;
+  padding: 3px;
+  overflow: hidden;
+  text-align: center;
+
+  .icon {
+    @include inline-block;
+    vertical-align: middle;
+  }
+
+  .old_icon {
+    position: relative;
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 20px;
+    @include inline-block;
+    top: -1px;
+    left: -1px;
+  }
+
+  img {
+    position: absolute;
+    top: 2px;
+    left: 3px;
+  }
+
+  &.small {
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    float: none;
+    @include inline-block;
+    position: relative;
+    top: -2px;
+    background: none;
+    border: none;
+    @include box-shadow(none);
+
+    .icon {
+      left: auto;
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+    }
+
+    &:hover {
+      border: $default-border-width $default-border-style $button-hover-border-color;
+      @include border-radius($default-border-radius);
+      background: $button-hover-bg-color;
+      top: -2px;
+      right: 0px;
+
+      .icon {
+        right: 3px;
+        top: 3px;
+      }
+    }
+  }
+
+  &.old_icon {
+    width: 20px;
+    height: 19px;
+
+    img {
+      top: 0;
+      left: 1px;
+    }
+  }
+
+  &.disabled {
+
+    span {
+      position: relative;
+      @include opacity(0.3);
+      cursor: default;
+    }
+
+    &:hover {
+      background-color: #f7f7f7;
+      border: 1px solid #9a9a9a;
+      cursor: default;
+    }
+  }
+
+  &:focus {
+    @include default-focus-style;
+  }
+}
+
+button.icon_button {
+  width: 29px;
+  height: 29px;
+}
+
+// a.button {
+//   padding: 5px 8px;
+//   text-decoration: none;
+//   float: left;
+//   line-height: 13px;
+
+//   &.small {
+//     height: 14px;
+//     padding-top: 2px;
+//     padding-bottom: 2px;
+//     border-radius: 10px;
+//     -o-border-radius: 10px;
+//     -ms-border-radius: 10px;
+//     -moz-border-radius: 10px;
+//     -webkit-border-radius: 10px;
+
+//     &.cloned-button img {
+//       @include inline-block;
+//       float: none;
+//       position: relative;
+//       height: 16px;
+//       width: 16px;
+//       top: -1px;
+//     }
+
+//     &.with_icon span.icon {
+//       margin-top: -5px;
+//       position: relative;
+//       top: 3px;
+//       left: -1px;
+//     }
+//   }
+
+//   span.icon {
+//     vertical-align: -2px;
+//     margin-bottom: -2px;
+//     margin-left: -4px;
+//   }
+// }
+
+#new_element button.button {
+  float: right;
+}
+
+#new_page_form tbody tr td.second_row .button {
+  float: right;
+}
+
+div#toolbar label {
+  @include default-label-style;
+}
+
+div.button_with_label {
+  text-align: center;
+  margin-right: 8px;
+  margin-left: 8px;
+  float: left;
+  min-width: 70px;
+  line-height: 0;
+
+  label {
+    @include default-label-style;
+  }
+
+  &.active {
+
+    .icon_button {
+      $second-color: darken($sb-base-color, 10%);
+      @include sassy-button-active-shadow($second-color);
+      background-color: $second-color;
+      @include background(linear-gradient(color-stops(darken($sb-base-color, 2%), $second-color 50%, darken($second-color, 8%))))
+    }
+
+    label {
+      color: black;
+      text-shadow: white 0 0 2px;
+    }
+  }
+
+  .selectboxit-container {
+    margin: 0;
+    top: 0;
+  }
+
+  .icon_button {
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+    @include inline-block;
+    position: relative;
+  }
+
+  &.disabled {
+    position: relative;
+    @include opacity(0.5);
+    cursor: default;
+
+    a {
+      cursor: default;
+      background-color: #f7f7f7;
+      border: 1px solid #9a9a9a;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+div.sitemap_right_tools .sitemap_sitetools a.icon_button {
+  margin-right: 4px;
+}
+
+textarea, input[type="text"], input[type="email"], input[type="password"], .thin_border, .input_field {
+  @include default-input-style;
+
+  &.dirty {
+    background-color: #fff8df;
+  }
+}
+
+textarea {
+  height: auto;
+  padding: 4px !important;
+  line-height: 19px !important;
+}
+
+input#search_input_field {
+  width: 170px;
+  text-align: left;
+  @include border-radius(21px);
+  padding: 3px 26px;
+  margin: 0;
+  height: 21px;
+}
+
+div.search_field span.icon, div.js_filter_field_box span.icon {
+  position: absolute;
+  left: 8px;
+  top: 6px;
+}
+
+.js_filter_field_box {
+  position: relative;
+  float: right;
+  margin-left: 4px;
+}
+
+.js_filter_field_box .js_filter_field {
+  width: 170px;
+  text-align: left;
+  @include border-radius(12px);
+  padding: 3px 24px;
+  height: 21px;
+}
+
+.js_filter_field_box label {
+  text-shadow: #fefefe 1px 1px 0;
+  font-size: 10px;
+  @include inline-block;
+  text-align: center;
+}
+
+.js_filter_field_box .js_filter_field_clear {
+  width: 15px;
+  height: 15px;
+  background: url('icons.png') no-repeat 0 -70px;
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  @include rounded-corner;
+}
+
+// Just some basic styling for select tags.
+// Not used, because we use the .selectBoxIt() jQuery plugin.
+
+select {
+  @include default-button-style;
+  height: 29px;
+  padding: 0.4em 1.5em;
+}
+
+/*
+ * jQuery.selectBoxIt.css 0.9.0
+ * Author: @gregfranko
+ */
+
+div.selectboxit-container {
+  @include inline-block;
+  margin: $default-form-field-margin;
+  position: relative;
+  height: 29px;
+  text-align: left;
+  top: -2px;
+
+  div.selectboxit {
+    @include default-button-style;
+    width: 200px;
+    padding: 0.5em 0 0.5em 1.5em;
+    margin: 0;
+    @include inline-block;
+
+    &.short {
+      width: 80px;
+    }
+
+    &.medium {
+      width: 140px;
+    }
+
+    &.long {
+      width: 240px;
+    }
+
+    &.very_long {
+      width: 300px;
+    }
+
+    &.full_width {
+      width: 416px;
+    }
+
+    &:focus {
+      @include default-focus-style;
+    }
+
+    /* Dropdown list Default Icon Positioning */
+    span.selectboxit-default-icon {
+      float: left;
+    }
+
+    /* Dropdown List Box Text */
+    span.selectboxit-text {
+      font: $default-font-style;
+      overflow: hidden;
+      float: left;
+      white-space: nowrap;
+      @include disable-user-select;
+    }
+
+    /* Dropdown List Down Arrow Container (if an image is not used) */
+    span.selectboxit-arrow-container {
+      /* Positions the down arrow */
+      width: 16px;
+      padding: 0 0.25em 0 0;
+      margin-left: 0.5em;
+      float: right;
+      border-left: 1px solid darken($medium-gray, 10%);
+      height: auto !important;
+
+      /* Dropdown List Down Arrow */
+      span.selectboxit-arrow {
+        /* Horizontally centers the down arrow */
+        margin-right: auto;
+        margin-left: auto;
+        width: 16px;
+        height: 16px;
+        text-indent: -99999px;
+        overflow: hidden;
+        display: block;
+        background: url('ui-icons_666666_256x240.png') -127px -17px no-repeat;
+      }
+    }
+  }
+
+  /* Dropdown List Options List*/
+  ul {
+    min-width: 100%;
+    background: white;
+    max-height: 180px; /* A vertical scrollbar appears if your select box options are taller than this */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    overflow: auto;
+    cursor: pointer;
+    display: none;
+    z-index: 99999;
+    outline: none;
+    @include rounded-corner;
+    @include box-shadow(0 4px 16px $dark-gray);
+    border: $default-border;
+
+    /* Dropdown List Individual Options */
+    li, .optgroupHeader {
+      line-height: 1.5em; /* Height of Individual Select Box Options */
+      overflow: hidden;
+      white-space: nowrap;
+      list-style: none;
+      margin: 0;
+      padding: 0.5em 1.5em;
+    }
+
+    li.selectboxit-hover, li.selectboxit-focus {
+      background-color: #e6f0f5;
+      color: $text-color;
+    }
+
+    /* Dropdown List Individual Option Icon Positioning */
+    li span {
+      float:left;
+    }
+    /* Dropdown List Optgroup Headers */
+    .optgroupHeader {
+      font-weight: bold;
+    }
+
+    /* Dropdown List Optgroup Options */
+    .optgroupOption {
+      text-indent: 20px;
+    }
+
+    /* Dropdown List Optgroup Header hover psuedo class */
+    .optgroupHeader[data-disabled='true']:hover {
+      cursor: default;
+    }
+  }
+}

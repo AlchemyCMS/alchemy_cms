@@ -19,17 +19,19 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="link_target"><%= t("Open Link in") %>:</label>
+        <label for="external_link_target"><%= t("Open Link in") %>:</label>
       </td>
-      <td>
-        <%= select_tag 'link_target', options_for_select(@link_target_options), :class => 'alchemy_selectbox link_target medium' %>
+      <td class="select left">
+        <%= select_tag 'external_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target medium' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="submit" colspan="2">
+        <%= link_to(t(:apply), '#', {
+          :onclick => "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#external_link_target').val()); Alchemy.LinkOverlay.close()",
+          :class => 'button'
+        }) %>
       </td>
     </tr>
   </table>
-  <p>
-    <%= link_to(t(:apply), '#', {
-      :onclick => "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#link_target').val()); Alchemy.LinkOverlay.close()",
-      :class => 'button'
-    }) %>
-  </p>
 </div>

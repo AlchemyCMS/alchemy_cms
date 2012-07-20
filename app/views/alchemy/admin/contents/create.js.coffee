@@ -46,4 +46,4 @@ Alchemy.Tinymce.addEditor('contents_content_<%= @content.id %>_body')
 
 Alchemy.reloadPreview()
 Alchemy.closeCurrentWindow()
-Alchemy.SelectBox("#element_<%= @element.id %> select.alchemy_selectbox")
+Alchemy.SelectBox("#element_<%= @element.id %>")

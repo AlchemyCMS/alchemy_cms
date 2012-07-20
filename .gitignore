@@ -18,3 +18,4 @@ spec/dummy/uploads/
 spec/dummy/db/test.sqlite3-journal
 spec/dummy/db/seeds.rb
 .rvmrc
+spec/dummy/config/locales/**/*

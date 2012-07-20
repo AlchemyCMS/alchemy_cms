@@ -50,7 +50,7 @@ if (typeof(Alchemy) === 'undefined') {
       if (options.buttonId) $btn.attr({
         'id': options.buttonId
       });
-      $lnk = $('<a title="' + options.buttonTitle + '" class="icon_button"></a>');
+      $lnk = $('<a title="' + options.buttonTitle + '" class="icon_button" href="#"></a>');
       $lnk.click(options.onClick);
       $lnk.append('<span class="icon ' + options.iconClass + '"></span>');
       $btn.append($lnk);
@@ -110,7 +110,7 @@ if (typeof(Alchemy) === 'undefined') {
     },
 
     openWindow: function(action_url, title, size_x, size_y, resizable, modal, overflow) {
-      overflow == undefined ? overflow = false : overflow = overflow;
+      overflow == undefined ? overflow = true : overflow = overflow;
       if (size_x === 'fullscreen') {
         size_x = $(window).width() - 50;
         size_y = $(window).height() - 50;
@@ -151,7 +151,7 @@ if (typeof(Alchemy) === 'undefined') {
                   top: ($(window).height() - $dialog.dialog('widget').height()) / 2
                 });
               }
-              Alchemy.SelectBox('#alchemyOverlay select.alchemy_selectbox');
+              Alchemy.SelectBox('#alchemyOverlay');
               Alchemy.Datepicker('#alchemyOverlay input.date, #alchemyOverlay input[type="date"]');
               Alchemy.ButtonObserver('#alchemyOverlay .button');
               Alchemy.overlayObserver('#alchemyOverlay');
@@ -163,9 +163,6 @@ if (typeof(Alchemy) === 'undefined') {
               Alchemy.enableButton('.disabled.button');
             }
           });
-        },
-        beforeClose: function() {
-          $(".sb.open").triggerAll("close");
         },
         close: function() {
           $dialog.remove();

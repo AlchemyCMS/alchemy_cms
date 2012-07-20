@@ -121,7 +121,6 @@ module Alchemy
         end
         @area_name = params[:area_name]
         @content_id = params[:content_id]
-        @link_target_options = Page.link_target_options
         @attachments = Attachment.all.collect { |f| [f.name, download_attachment_path(:id => f.id, :name => f.name)] }
         if params[:link_urls_for] == "newsletter"
           # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.

@@ -1,35 +1,5 @@
 @import "alchemy/defaults";
 
-html {
-  height: 100%;
-}
-
-noscript {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  width: 100%;
-  text-align: center;
-  line-height: 1em;
-  border-bottom: 1px solid #c4c19c;
-  color: #726d23;
-  background-color: #f3f0c1;
-  h1, p {
-    margin: 16px 0;
-  }
-}
-
-body#alchemy {
-  margin: 0;
-  padding: 0;
-  color: $text-color;
-  font: $default-font-style;
-  background-color: $light-gray;
-  height: 100%;
-  cursor: default;
-}
-
 #top_menu {
   position: fixed;
   top: 0;
@@ -105,7 +75,7 @@ body#alchemy {
       border-style: none;
       height: 24px;
       width: 24px;
-      display: inline-block;
+      @include inline-block;
       margin-bottom: 4px;
       margin-top: 2px;
     }
@@ -195,7 +165,9 @@ div#user_info {
   position: relative;
 
   a {
-    display: block;
+    @include inline-block;
+    vertical-align: text-top;
+    line-height: 100%;
 
     &:hover {
       text-decoration: none;
@@ -219,7 +191,7 @@ div#user_info {
     .page_language {
       float: none;
       position: relative;
-      display: inline-block;
+      @include inline-block;
       bottom: 2px;
       border: 1px solid #f0c8d1;
       background-color: #f0c8d1;
@@ -257,9 +229,9 @@ div#user_info {
 
       form {
         position: absolute;
-        right: 3px;
-        top: 3px;
-        line-height: 10px;
+        right: $default-padding;
+        top: $default-padding;
+        line-height: 1;
       }
     }
 

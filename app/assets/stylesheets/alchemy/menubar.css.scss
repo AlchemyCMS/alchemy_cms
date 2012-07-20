@@ -30,7 +30,7 @@
   border-#{$side}-radius: $radius;
 }
 
-@mixin box-shadow {
+@mixin drop-shadow {
   $shadow: 0px 0px 4px $dark-gray;
   -webkit-box-shadow: $shadow;
   -moz-box-shadow: $shadow;
@@ -48,19 +48,19 @@
 #alchemy_menubar {
   position: fixed;
   top: 0;
-  left: -319px;
-  width: 312px;
+  left: -353px;
+  width: 346px;
   z-index: 10000;
   background: $light-gray;
   @include transition;
   @include bounce;
   @include bottom-right-rounded-border;
-  @include box-shadow;
+  @include drop-shadow;
   @include box-sizing;
   border-right: $default-border;
   border-bottom: $default-border;
   line-height: 8 * $default-padding;
-  height: 8 * $default-padding;
+  height: 8 * $default-padding + 2px;
   padding: 4px 40px 4px 8px;
   overflow: hidden;
 
@@ -79,41 +79,24 @@
     height: 24px;
     position: absolute;
     right: 10px;
-    top: 8px;
-    background: image-url('alchemy/icons.png') -240px 0;
+    top: 9px;
+    background: url('icons.png') -240px 0;
   }
 
   ul {
     padding: 0;
     margin: 0;
-    height: 32px;
+    height: auto;
 
     li {
-      height: 32px;
+      height: auto;
       margin: 0 $default-padding 0 0;
-      padding: 5px 0 0 0;
-      display: inline;
-      display: inline-block;
+      padding: 0;
+      @include inline-block;
       list-style-type: none;
 
       a {
-        @include button-styles;
-        display: block;
-        line-height: 16px;
-        text-align: center;
-        padding: 2px 4px;
-        width: 90px;
-        text-decoration: none;
-        outline: none;
-        white-space: nowrap;
-
-        &:hover {
-          @include button-hover-styles;
-        }
-
-        &:active {
-          outline: none;
-        }
+        @include default-button-style;
       }
     }
   }

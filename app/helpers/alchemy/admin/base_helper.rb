@@ -23,12 +23,12 @@ module Alchemy
       #   :overflow         [Boolean]             # Should the dialog have overlapping content. If not, it shows scrollbars. Good for select boxes. Default false.
       #   :resizable        [Boolean]             # Is the dialog window resizable? Default false.
       #   :modal            [Boolean]             # Show as modal window. Default true.
-      #   :overflow         [Boolean]             # Should the window show overflowing content? Default false.
+      #   :overflow         [Boolean]             # Should the window show overflowing content? Default true.
       #
       def link_to_overlay_window(content, url, options={}, html_options={})
         default_options = {
           :modal => true,
-          :overflow => false,
+          :overflow => true,
           :resizable => false
         }
         options = default_options.merge(options)

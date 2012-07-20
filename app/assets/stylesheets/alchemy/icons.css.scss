@@ -1,8 +1,8 @@
 @import "alchemy/defaults";
 
 .icon {
-  display: inline-block;
-  background: image-url('alchemy/icons.png') no-repeat;
+  @include inline-block;
+  background: url('icons.png') no-repeat;
   width: 16px;
   height: 16px;
 }
@@ -146,7 +146,7 @@
 }
 
 .icon.close.small {
-  background: image-url('alchemy/ui-icons_666666_256x240.png') -84px -132px;
+  background: url('ui-icons_666666_256x240.png') -84px -132px;
   width: 8px;
   height: 8px;
 }
@@ -280,7 +280,7 @@
 }
 
 .icon.search {
-  background: image-url('alchemy/ui-icons_666666_256x240.png') -160px -112px;
+  background: url('ui-icons_666666_256x240.png') -160px -112px;
 }
 
 .icon.user_delete.female {
@@ -291,7 +291,7 @@
   background-position: no-repeat -64px;
   width: 16px;
   height: 16px;
-  display: inline-block;
+  @include inline-block;
   position: relative;
   top: 3px;
   margin-right: 4px;

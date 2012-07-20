@@ -48,7 +48,7 @@
       alchemy.configure_admin_page_path(@page),
       {
         :title => t('edit_page_properties'),
-        :size => @page.layoutpage? ? '340x150' : '410x620'
+        :size => @page.layoutpage? ? '340x150' : '410x660'
       },
       :class => :icon_button,
       :title => t('edit_page_properties')
@@ -150,7 +150,7 @@
     }, function() {
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditorSelector.init();
-      Alchemy.SelectBox('.element_editor select');
+      Alchemy.SelectBox('.element_editor');
       Alchemy.Tinymce.init(function() {
         Alchemy.ElementDirtyObserver('#element_area');
       });

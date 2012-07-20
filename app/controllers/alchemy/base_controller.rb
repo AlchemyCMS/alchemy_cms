@@ -39,7 +39,22 @@ module Alchemy
       ::Alchemy::I18n.t(key, *args)
     end
 
-    private
+  private
+
+    # Sets Alchemy's GUI translation to users preffered language.
+    #
+    # Guesses the language from browser locale. If not successful it takes the default.
+    #
+    # You can set the default translation in your +config/application.rb+ file, via Rails +default_locale+ config option.
+    #
+    def set_translation
+      if current_user && current_user.language.present?
+        user_locale = current_user.language
+      else
+        user_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+      end
+      ::I18n.locale = user_locale
+    end
 
     # Sets the language for rendering pages in pages controller
     def set_language

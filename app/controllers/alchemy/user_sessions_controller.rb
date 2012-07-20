@@ -1,6 +1,7 @@
 module Alchemy
   class UserSessionsController < Alchemy::BaseController
 
+    before_filter :set_translation
     before_filter :check_user_count, :only => :login
 
     layout 'alchemy/login'
@@ -51,7 +52,6 @@ module Alchemy
     end
 
     def leave
-      ::I18n.locale = current_user.try(:language)
       render :layout => false
     end
 

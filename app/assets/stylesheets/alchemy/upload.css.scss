@@ -33,7 +33,7 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressBarContainer {
-  background: #F9F9F9 image-url('alchemy/shading.png') repeat-x 0 0;
+  background: #F9F9F9 url('shading.png') repeat-x 0 0;
   border: 1px solid #9E9E9E;
   @include rounded-corner;
   height: 16px;
@@ -42,31 +42,31 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressBarInProgress {
-  background: #77AAD5 image-url('alchemy/shading.png') repeat-x 0 -75px;
+  background: #77AAD5 url('shading.png') repeat-x 0 -75px;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarComplete {
-  background: #00D827 image-url('alchemy/shading.png') repeat-x 0 -75px;
+  background: #00D827 url('shading.png') repeat-x 0 -75px;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarError {
-  background: #F00 image-url('alchemy/shading.png') repeat-x 0 -75px;
+  background: #F00 url('shading.png') repeat-x 0 -75px;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarCanceled {
-  background: #E4E4E4 image-url('alchemy/shading.png') repeat-x 0 -75px;
+  background: #E4E4E4 url('shading.png') repeat-x 0 -75px;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressCancel {
-  background: #f1f1f1 image-url('alchemy/icons.png') no-repeat -1px -72px;
+  background: #f1f1f1 url('icons.png') no-repeat -1px -72px;
   border: 1px solid #9e9e9e;
   @include rounded-corner;
   width: 15px;

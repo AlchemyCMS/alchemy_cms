@@ -48,10 +48,9 @@
         position: relative;
 
         form {
-          line-height: 10px;
           position: absolute;
           top: 2*$default-padding;
-          right: $default-padding;
+          right: 2*$default-padding;
         }
       }
     }

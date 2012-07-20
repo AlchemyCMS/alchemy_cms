@@ -87,15 +87,23 @@ if (typeof(Alchemy) === 'undefined') {
 
     button: {
       enable: function() {
-        $('div#show_preview_window').removeClass('disabled');
+        $('div#show_preview_window').
+          removeClass('disabled').
+          find('a').removeAttr('tabindex');
       },
       disable: function() {
-        $('div#show_preview_window').addClass('disabled');
+        $('div#show_preview_window').
+          addClass('disabled').
+          find('a').attr('tabindex', '-1');
       },
       toggle: function() {
-        $('div#show_preview_window').toggleClass('disabled');
+        if ($('div#show_preview_window').hasClass('disabled')) {
+          Alchemy.PreviewWindow.button.enable();
+        } else {
+          Alchemy.PreviewWindow.button.disable();
+        }
       }
-    }
+    },
 
   };
 

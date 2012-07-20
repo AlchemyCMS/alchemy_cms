@@ -27,7 +27,10 @@
             url: Alchemy.routes.link_admin_pages_path,
             success: (data, textStatus, XMLHttpRequest) ->
               $dialog.html(data)
-              Alchemy.SelectBox('#alchemyLinkOverlay select.alchemy_selectbox')
+              Alchemy.SelectBox('#alchemyLinkOverlay')
+              $dialog.css overflow: 'visible'
+              $dialog.dialog('widget').css overflow: 'visible'
+              Alchemy.LinkOverlay.attachEvents();
             error: (XMLHttpRequest, textStatus, errorThrown) ->
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
           })
@@ -35,6 +38,16 @@
           $dialog.remove()
       })
       Alchemy.LinkOverlay.current.linked_element = linked_element
+
+    attachEvents: ->
+      self = Alchemy.LinkOverlay
+      $('a.sitemap_pagename_link, a.show_elements_to_link', '#alchemyLinkOverlay').on 'click', (e) ->
+        e.preventDefault()
+        $this = $(this)
+        page_id = $this.data('page-id')
+        url = $this.data('url')
+        self.selectPage(page_id, url)
+        self.showElementsSelect(page_id) if $this.hasClass('show_elements_to_link')
 
     close : ->
       Alchemy.LinkOverlay.current.dialog('close')

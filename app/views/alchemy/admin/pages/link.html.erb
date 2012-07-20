@@ -18,13 +18,10 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-
-  jQuery(function() {
-    jQuery( "#overlay_tabs" ).tabs();
+  jQuery(function($) {
+    $( "#overlay_tabs" ).tabs();
   });
-  
   if (Alchemy.LinkOverlay.current.linked_element) {
     Alchemy.LinkOverlay.selectTab();
   }
-
 </script>

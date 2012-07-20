@@ -21,7 +21,7 @@ rtf_<%= content.id -%>.remove() if rtf_<%= content.id %>
 <%- else %>
 
 $el.trigger('Alchemy.SelectElementEditor')
-Alchemy.SelectBox('select', $el)
+Alchemy.SelectBox($el)
 
 <% @element.rtf_contents.each do |content| %>
 Alchemy.Tinymce.addEditor '<%= content.form_field_id -%>'

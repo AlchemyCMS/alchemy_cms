@@ -180,11 +180,8 @@ if (typeof(Alchemy) === 'undefined') {
       });
     },
 
-    SelectBox: function(selector) {
-      $(selector).sb({
-        animDuration: 0,
-        fixedWidth: true
-      });
+    SelectBox: function(scope) {
+      $('select', scope).selectBoxIt();
     },
 
     Buttons: function(options) {
@@ -220,8 +217,26 @@ if (typeof(Alchemy) === 'undefined') {
       if (results) return results[1] || 0;
     },
 
+    isiPhone: navigator.userAgent.match(/iPhone/i) !== null,
+    isiPad: navigator.userAgent.match(/iPad/i) !== null,
+    isiPod: navigator.userAgent.match(/iPod/i) !== null,
+    isiOS: navigator.userAgent.match(/iPad|iPhone|iPod/i) !== null,
+    isFirefox: navigator.userAgent.match(/Firefox/i) !== null,
+    isChrome: navigator.userAgent.match(/Chrome/i) !== null,
+    isSafari: navigator.userAgent.match(/Safari/i) !== null,
+    isIE: navigator.userAgent.match(/MSIE/i) !== null,
+
     locale: 'en'
 
   });
+
+  Alchemy.getBrowserVersion = function(browser) {
+    return Alchemy['is' + browser] ? parseInt(navigator.userAgent.match(new RegExp(browser + ".[0-9]+", 'i'))[0].replace(new RegExp(browser + '.'), ''), 10) : null;
+  }
+
+  Alchemy.ChromeVersion = Alchemy.getBrowserVersion('Chrome');
+  Alchemy.FirefoxVersion = Alchemy.getBrowserVersion('Firefox');
+  Alchemy.SafariVersion = Alchemy.getBrowserVersion('Safari');
+  Alchemy.IEVersion = Alchemy.getBrowserVersion('MSIE');
 
 })(jQuery);

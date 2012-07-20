@@ -14,15 +14,7 @@ module Alchemy
 
       layout 'alchemy/admin'
 
-      private
-
-      # Setting the Alchemy GUI translation to users preffered language, or taking default translation.
-      # You can set the default translation in your +config/application.rb+ file
-      def set_translation
-        if current_user && current_user.language
-          ::I18n.locale = current_user.language
-        end
-      end
+    private
 
       # Handles exceptions
       def exception_handler(e)

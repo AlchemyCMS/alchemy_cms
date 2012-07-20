@@ -10,7 +10,7 @@ div.pagination {
   margin-top: 4*$default-padding;
 
   a, span, em {
-    font-size: 12px;
+    font-size: $default-font-size;
     height: 25px;
     line-height: 25px;
     padding: $default-padding;
@@ -23,12 +23,12 @@ div.pagination {
   }
 
   .current {
-    @include button-styles;
     background: $button-hover-bg-color;
     color: $text-color;
-    border: 1px solid #888;
+    border: $default-border;
     text-shadow: 0px 1px 1px #fff;
     cursor: default;
+    @include rounded-corner;
   }
 
   .previous_page {

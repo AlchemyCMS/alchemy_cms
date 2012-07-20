@@ -1,7 +1,7 @@
 /* Alchemy CMS Sprockets Manifest
 * -------------------------------
 *= require alchemy/base
-*= require alchemy/buttons
+*= require alchemy/form_elements
 *= require alchemy/dashboard
 *= require alchemy/elements
 *= require alchemy/flash
@@ -15,6 +15,5 @@
 *= require alchemy/upload
 *= require alchemy/jquery-ui.alchemy
 *= require alchemy/jquery.Jcrop
-*= require alchemy/jquery.sb
 *= require alchemy/custom
 */

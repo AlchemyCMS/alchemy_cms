@@ -7,6 +7,7 @@ if (typeof(Alchemy) === 'undefined') {
   $.extend(Alchemy, {
 
     Datepicker: function(selector) {
+      var browserHasDatepicker = Alchemy.isiOS || (Alchemy.isChrome && Alchemy.ChromeVersion >= 20);
       var datepicker_options = {
         dateFormat: 'yy-mm-dd',
         changeMonth: true,
@@ -32,7 +33,9 @@ if (typeof(Alchemy) === 'undefined') {
           prevText: 'vorheriger'
         });
       }
-      $(selector).datepicker(datepicker_options);
+      if (!browserHasDatepicker) {
+        $(selector).datepicker(datepicker_options);
+      }
     }
 
   });

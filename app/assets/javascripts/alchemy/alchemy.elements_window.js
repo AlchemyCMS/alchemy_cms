@@ -71,13 +71,21 @@ if (typeof(Alchemy) === 'undefined') {
 
     button: {
       enable: function() {
-        $('div#show_element_window').removeClass('disabled');
+        $('div#show_element_window').
+          removeClass('disabled').
+          find('a').removeAttr('tabindex');
       },
       disable: function() {
-        $('div#show_element_window').addClass('disabled');
+        $('div#show_element_window').
+          addClass('disabled').
+          find('a').attr('tabindex', '-1');
       },
       toggle: function() {
-        $('div#show_element_window').toggleClass('disabled');
+        if ($('div#show_element_window').hasClass('disabled')) {
+          Alchemy.ElementsWindow.button.enable();
+        } else {
+          Alchemy.ElementsWindow.button.disable();
+        }
       }
     },
 

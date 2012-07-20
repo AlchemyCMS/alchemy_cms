@@ -3,28 +3,30 @@
 /* Generic */
 
 body {
-  font: 12px "Lucida Grande", Arial, sans-serif;
-  color: #333;
-  background: #ededed;
+  font: $default-font-style;
+  color: $text-color;
+  background-color: $light-gray;
   padding: 0;
-  margin: 8px 8px 0 8px;
+  margin: 2*$default-margin;
+  margin-bottom: 0;
 }
 
 html {
-  background: #ededed;
+  background: $light-gray;
 }
 
-textarea {
-  resize: none;
-  outline: none;
-}
+a {
+  color: $text-color;
+  text-decoration: none;
 
-a:link, a:visited {
-  color: black;
-}
+  &:hover {
+    text-decoration: underline;
+  }
 
-a:hover {
-  color: #2B6FB6;
+  &:focus {
+    @include default-focus-style(rgba(white, 0.5), none);
+    color: black;
+  }
 }
 
 .nowrap {
@@ -61,17 +63,13 @@ input.invalid {
   border: 1px solid #EE0000;
 }
 
-input {
-  background: #FFF;
-  border: 1px solid #CCC;
-}
-
-input, select, textarea {
-  font: 12px "Lucida Grande", Arial, sans-serif;
-}
-
-input, select, textarea {
-  border: 1px solid #808080;
+textarea {
+  @include default-input-style;
+  margin: 0;
+  resize: none;
+  outline: none;
+  padding: 4px !important;
+  line-height: 19px !important;
 }
 
 input.radio {
@@ -93,12 +91,7 @@ input.checkbox {
 /* Buttons */
 
 #insert, #cancel, input.button, .updateButton {
-  @include button-styles;
-  height: 26px;
-
-  &:hover {
-    @include button-hover-styles;
-  }
+  @include default-button-style;
 }
 
 /* Browse */
@@ -128,9 +121,7 @@ a.browse:hover span {
 
 a.browse span.disabled {
   border: 1px solid white;
-  opacity: 0.3;
-  -ms-filter: 'alpha(opacity=30)';
-  filter: alpha(opacity = 30)
+  @include opacity(0.3);
 }
 
 a.browse:hover span.disabled {
@@ -177,29 +168,33 @@ td.charmap, #charmap a {
   line-height: 18px;
 }
 
-#charmap a {
-  display: block;
-  color: #000;
-  text-decoration: none;
-  border: 0
-}
+#charmap {
+  margin: 4px 0;
 
-#charmap a:hover {
-  background: #CCC;
-  color: #2B6FB6
-}
+  a {
+    display: block;
+    color: $text-color;
+    text-decoration: none;
+    border: 0;
 
-#charmap #codeN {
-  font-size: 10px;
-  font-family: "Lucida Grande", Arial, sans-serif;
-  text-align: center
-}
+    &:hover {
+      background: #CCC;
+      color: #2B6FB6
+    }
+  }
 
-#charmap #codeV {
-  font-size: 40px;
-  height: 80px;
-  border: 1px solid #AAA;
-  text-align: center
+  #codeN {
+    font-size: 10px;
+    font-family: "Lucida Grande", Arial, sans-serif;
+    text-align: center
+  }
+
+  #codeV {
+    font-size: 40px;
+    height: 80px;
+    border: 1px solid #AAA;
+    text-align: center
+  }
 }
 
 /* Source */
@@ -211,7 +206,7 @@ td.charmap, #charmap a {
 }
 
 .mceActionPanel {
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 /* Tabs classes */
@@ -230,7 +225,7 @@ td.charmap, #charmap a {
 
 .tabs li {
   float: left;
-  background: image-url('alchemy/shading.png') repeat-x 0 0;
+  background: url('shading.png') repeat-x 0 0;
   margin: 0 2px 0 0;
   padding: 0 0 0 10px;
   line-height: 17px;
@@ -408,4 +403,9 @@ h3 {
 
 #colorpicker #colornamecontainer {
   margin-top: 5px;
+}
+
+#iframecontainer iframe#iframe {
+  @include default-input-style;
+  padding: 0;
 }
