@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Alchemy::Picture do
 
+  it "is valid with valid attributes" do
+    picture = Alchemy::Picture.new(:image_file => File.new('../support/image.png'))
+    picture.should be_valid
+  end
+
   describe '#suffix' do
 
     it "should return the suffix of original filename" do
@@ -47,6 +52,44 @@ describe Alchemy::Picture do
         @pic.humanized_name.should == "Cute kitten"
       end
 
+    end
+
+  end
+
+  describe '#self.last_upload' do
+
+    it "should return all pictures that have the same upload-hash as the most recent picture" do
+      other_upload = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'), :upload_hash => '456')
+      same_upload = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'), :upload_hash => '123')
+      most_recent = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'), :upload_hash => '123')
+
+      Alchemy::Picture.last_upload.should include(most_recent)
+      Alchemy::Picture.last_upload.should include(same_upload)
+      Alchemy::Picture.last_upload.should_not include(other_upload)
+
+      [other_upload, same_upload, most_recent].each { |p| p.destroy }
+    end
+
+  end
+
+  describe '#self.recent' do
+
+    before(:all) do
+      now = Time.now
+      @recent = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'))
+      @old_picture = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'))
+      @recent.update_attribute(:created_at, now-23.hours)
+      @old_picture.update_attribute(:created_at, now-10.days)
+    end
+
+    after(:all) { [recent, now].each { |p| p.destroy } }
+
+    it "should return all pictures that have been created in the last 24 hours" do
+      Alchemy::Picture.recent.should include(@recent)
+    end
+
+    it "should not return old pictures" do
+      Alchemy::Picture.recent.should_not include(@old_picture)
     end
 
   end

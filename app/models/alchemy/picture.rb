@@ -28,7 +28,7 @@ module Alchemy
 
     stampable(:stamper_class_name => 'Alchemy::User')
 
-    scope :recent, where("created_at < ?", Time.now-24.hours).order(:created_at)
+    scope :recent, where("created_at > ?", Time.now-24.hours).order(:created_at)
 
     def self.find_paginated(params, per_page)
       Picture.where("name LIKE ?", "%#{params[:query]}%").page(params[:page] || 1).per(per_page).order(:name)
@@ -36,6 +36,7 @@ module Alchemy
 
     def self.last_upload
       last_picture = Picture.order('created_at DESC').first
+      return [] unless last_picture
       Picture.where(:upload_hash => last_picture.upload_hash)
     end
 
