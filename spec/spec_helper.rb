@@ -41,7 +41,7 @@ def configure
     config.include RSpec::Matchers
     config.include Alchemy::Engine.routes.url_helpers
     config.mock_with :rspec
-    config.use_transactional_fixtures = false
+    config.use_transactional_fixtures = true
   end
 
 end
