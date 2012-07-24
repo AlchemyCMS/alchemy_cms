@@ -23,7 +23,8 @@ module Alchemy
       :image_height,
       :image_width,
       :name,
-      :upload_hash
+      :upload_hash,
+      :tag_list
     )
 
     stampable(:stamper_class_name => 'Alchemy::User')
@@ -36,7 +37,7 @@ module Alchemy
 
     def self.last_upload
       last_picture = Picture.order('created_at DESC').first
-      return [] unless last_picture
+      return Picture.scoped unless last_picture
       Picture.where(:upload_hash => last_picture.upload_hash)
     end
 

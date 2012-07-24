@@ -76,4 +76,8 @@ FactoryGirl.define do
     name 'article'
   end
 
+  factory :picture, :class => 'Alchemy::Picture' do
+    image_file File.new('../../support/image.png')
+  end
+
 end

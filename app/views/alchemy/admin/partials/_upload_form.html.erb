@@ -13,10 +13,14 @@
   <small>*<%= t('explain_upload.footnote', :name => item_type) %></small>
 </div>
 
+<%= form.label :tag_list %>
+<%= form.text_field :tag_list %>
+
 <%= render 'alchemy/admin/partials/flash_upload' %>
 
 <div class="browse">
-  <input id="multiple" type="file" multiple value="<%= t('browse') %>">
+  <%= label_tag :multiple, t('browse'), :style => 'display:none;' %>
+  <input name="Filedata" id="multiple" type="file" multiple value="<%= t('browse') %>">
   <a href="#" class="button no-spinner" id="cancelHTML5Queue" style="display: none">
     <%= t("swfupload.cancel_uploads") %>
   </a>
