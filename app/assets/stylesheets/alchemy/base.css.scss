@@ -483,12 +483,13 @@ table td.tools .icon, table td.icon .icon {
 
 #archive_all {
   padding: 4*$default-padding;
+
+  .padding_left_right {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
 }
 
-#archive_all .padding_left_right {
-  padding-right: 8px;
-  padding-left: 8px;
-}
 
 .inplace-edit {
   background-color: $light-gray;

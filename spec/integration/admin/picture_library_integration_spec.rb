@@ -16,13 +16,41 @@ unless ENV["CI"]
       it "should be possible to tag pictures while uploading them" do
         visit '/alchemy/admin/pictures'
         click_on 'Upload image(s)'
-        fill_in :tags, :with => 'tag1, tag2'
+        fill_in :tag_list, :with => 'tag1, tag2'
         attach_file 'Browse', File.expand_path('../../../support/image.png', __FILE__)
         click_on 'upload'
         Alchemy::Picture.find_by_image_filename('image.png').tag_list.should include('tag1')
       end
 
     end
+
+    describe "Tagging" do
+
+      it "is possible to edit tags after clicking on the picture" do
+        picture = FactoryGirl.create(:picture, :tag_list => 'tag1')
+        #visit '/alchemy/admin/pictures'
+        #within("#picture_#{picture.id}") do
+        #  click_link ''
+        #end
+
+        # Doesn't work, so:
+        visit "/alchemy/admin/pictures/#{picture.id}/show_in_window"
+
+        fill_in :tag_list, :with => 'tag3, tag4'
+        click_on 'Update Picture'
+        page.should have_content 'tag3'
+      end
+
+      it "is possible to filter tags by clicking on its name in the tag list" do
+        picture = FactoryGirl.create(:picture, :tag_list => 'tag1', :name => 'TaggedWith1')
+        picture = FactoryGirl.create(:picture, :tag_list => 'tag2', :name => 'TaggedWith2')
+        visit '/alchemy/admin/pictures'
+        click_on 'tag1'
+        page.should have_content 'TaggedWith1'
+        page.should_not have_content 'TaggedWith2'
+      end
+    end
+
 
     describe "Filter by tag" do
       before do

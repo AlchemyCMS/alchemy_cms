@@ -1,0 +1,8 @@
+<h2>Filter by tag</h2>
+<ul>
+  <% ActsAsTaggableOn::Tag.all.each do |t| %>
+    <li>
+      <%= link_to t, "?tagged_with=#{t}" %>
+    </li>
+  <% end %>
+</ul>

@@ -78,6 +78,9 @@ FactoryGirl.define do
 
   factory :picture, :class => 'Alchemy::Picture' do
     image_file File.new('../../support/image.png')
+    name 'image'
+    image_filename 'image.png'
+    upload_hash Time.now.hash
   end
 
 end

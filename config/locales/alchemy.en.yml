@@ -321,6 +321,8 @@ en:
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} successfully deleted"
+    picture_updated_successfully: "Picture %{name} successfully updated"
+    picture_update_failed: "Failed to update picture %{name}"
     "Pictures deleted successfully": "Pictures %{names} successfully deleted"
     pictures_deleted_successfully: "Pictures %{name} deleted"
     picture_library:

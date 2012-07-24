@@ -108,12 +108,8 @@
       :cancelLabel => t("No")
     }.to_json, :class => 'button' %>
   </div>
-  <div id="tag_filter">
-    <ul>
-    <% ActsAsTaggableOn::Tag.all.each do |t| %>
-      <li><%= t %></li>
-    <% end %>
-    </ul>
+  <div id="tag_list">
+    <%= render :partial => 'tag_list' %>
   </div>
   <div id="picture_archive">
     <%= render :partial => 'pictures_list' %>
