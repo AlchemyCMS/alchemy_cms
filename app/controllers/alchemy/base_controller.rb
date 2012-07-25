@@ -49,11 +49,12 @@ module Alchemy
     #
     def set_translation
       if current_user && current_user.language.present?
-        user_locale = current_user.language
+        ::I18n.locale = current_user.language
+      elsif Rails.env == 'test' # OMG I hate to do this. But it helps...
+        ::I18n.locale = 'en'
       else
-        user_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+        ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /^[a-z]{2}/).try(:first)
       end
-      ::I18n.locale = user_locale
     end
 
     # Sets the language for rendering pages in pages controller
@@ -134,7 +135,7 @@ module Alchemy
       render :file => "#{Rails.root}/public/404", :status => 404, :layout => !@page.nil?
     end
 
-    protected
+  protected
 
     def permission_denied
       if current_user
