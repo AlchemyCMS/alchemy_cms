@@ -59,12 +59,12 @@ module Alchemy
         end
         link_to(
           '',
-          alchemy.fold_admin_page_path(page),
-          :remote => true,
-          :method => :post,
-          :class => "page_folder #{css_class}",
-          :title => title,
-          :id => "fold_button_#{page.id}"
+            alchemy.fold_admin_page_path(page),
+            :remote => true,
+            :method => :post,
+            :class => "page_folder #{css_class}",
+            :title => title,
+            :id => "fold_button_#{page.id}"
         )
       end
 
@@ -191,8 +191,8 @@ module Alchemy
         select_options = options_for_select(select_options, content.essence.content)
         select_tag(
           "contents[content_#{content.id}]",
-          select_options,
-          :class => 'alchemy_selectbox'
+            select_options,
+            :class => 'alchemy_selectbox'
         )
       end
 
@@ -314,11 +314,11 @@ module Alchemy
         end
         select_tag(
           'paste_from_clipboard',
-          !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
-          {
-            :class => [html_options[:class], 'alchemy_selectbox'].join(' '),
-            :style => html_options[:style]
-          }
+            !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+            {
+              :class => [html_options[:class], 'alchemy_selectbox'].join(' '),
+              :style => html_options[:style]
+            }
         )
       end
 
@@ -349,20 +349,20 @@ module Alchemy
         options = defaults.merge(options)
         button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
           link = if options[:overlay]
-                   link_to_overlay_window(
-                     render_icon(options[:icon]),
-                     options[:url],
-                     options[:overlay_options],
-                     {
-                       :class => 'icon_button',
-                       :title => options[:title]
-                     }
-                   )
-                 else
-                   link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
-                     render_icon(options[:icon])
-                   end
-                 end
+            link_to_overlay_window(
+              render_icon(options[:icon]),
+                options[:url],
+                options[:overlay_options],
+                {
+                  :class => 'icon_button',
+                  :title => options[:title]
+                }
+            )
+          else
+            link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
+              render_icon(options[:icon])
+            end
+          end
           link += content_tag('label', options[:label])
         end
         if options[:skip_permission_check]
@@ -452,6 +452,22 @@ module Alchemy
           :class => 'thin_border date',
           :value => object.send(method.to_sym).nil? ? nil : l(object.send(method.to_sym), :format => :datepicker)
         }.merge(html_options))
+      end
+
+      # Merges the params-hash with the given hash
+      def merge_params(p={})
+        params.merge(p).delete_if { |k, v| v.blank? }
+      end
+
+      # Deletes one or several params from the params-hash and merges some new params in
+      def merge_params_without(excludes, p={})
+        current_params = params.clone
+        if excludes.is_a?(Array)
+          excludes.each { |p| current_params.delete(p) }
+        else
+          current_params.delete(excludes)
+        end
+        current_params.merge(p).delete_if { |k, v| v.blank? }
       end
 
     end

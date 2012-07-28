@@ -1,8 +1,11 @@
 <h2>Filter by tag</h2>
 <ul>
-  <% ActsAsTaggableOn::Tag.all.each do |t| %>
+  <% Alchemy::Picture.tag_counts.each do |t| %>
+    <%= content_tag :li do %>
+      <%= link_to('remove tag-filter', url_for((params.delete(:tagged_with) and params.merge(:action => :index))), :remote => true) %>
+    <% end if params[:tagged_with].present? %>
     <li>
-      <%= link_to t, "?tagged_with=#{t}" %>
+      <%= link_to "#{t.name} (#{t.count})", url_for(params.merge(:action => :index, :tagged_with => t.name)), :remote => true %>
     </li>
   <% end %>
 </ul>

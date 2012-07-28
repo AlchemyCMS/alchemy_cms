@@ -26,15 +26,17 @@ unless ENV["CI"]
 
     describe "Tagging" do
 
-      it "is possible to edit tags after clicking on the picture" do
+      it "is possible to edit tags after clicking on the picture", :js => true do
         picture = FactoryGirl.create(:picture, :tag_list => 'tag1')
-        #visit '/alchemy/admin/pictures'
-        #within("#picture_#{picture.id}") do
-        #  click_link ''
-        #end
+        visit '/alchemy/admin/pictures'
+save_and_open_page
+        within("#picture_#{picture.id}") do
+          click_link 'show_in_window'
+        end
+save_and_open_page
 
         # Doesn't work, so:
-        visit "/alchemy/admin/pictures/#{picture.id}/show_in_window"
+        #visit "/alchemy/admin/pictures/#{picture.id}/show_in_window"
 
         fill_in :tag_list, :with => 'tag3, tag4'
         click_on 'Update Picture'
