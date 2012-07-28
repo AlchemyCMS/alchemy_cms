@@ -70,29 +70,6 @@
     <label><%= t('upload_image') %></label>
   </div>
   <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
-    <%= link_to(
-          render_icon('filter'),
-            alchemy.admin_pictures_path(merge_params(:filter => 'last_upload')),
-            :remote => true,
-            :title => t("last_upload_only"),
-            :class => "icon_button please_wait"
-        ) %>
-    <%= link_to(
-          render_icon('filter'),
-            alchemy.admin_pictures_path(merge_params(:filter => 'recent')),
-            :remote => true,
-            :title => t("recently_uploaded_only"),
-            :class => "icon_button please_wait"
-        ) %>
-    <%= link_to(
-          render_icon('filter'),
-            alchemy.admin_pictures_path(merge_params_without([:filter, :tagged_with])),
-            :remote => true,
-            :title => t("all_pictures"),
-            :class => "icon_button please_wait"
-        ) %>
-    <label><%= t('Filter') %></label>
-  </div>
+  <%= render :partial => 'filter_bar' %>
   <%= render(:partial => 'alchemy/admin/partials/remote_search_form') %>
 </div>

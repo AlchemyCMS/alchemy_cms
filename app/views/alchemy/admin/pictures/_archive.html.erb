@@ -1,0 +1,17 @@
+<%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
+  <div class="selected_item_tools">
+    <label><%= t("edit_selected_pictures") %></label>
+    <%= button_tag t("Delete"), 'data-alchemy-confirm' => {
+      :title => t("please_confirm"),
+      :message => t("confirm_to_delete_images_from_server"),
+      :okLabel => t("Yes"),
+      :cancelLabel => t("No")
+    }.to_json, :class => 'button' %>
+  </div>
+  <div id="tag_list">
+    <%= render :partial => 'tag_list' %>
+  </div>
+  <div id="picture_archive">
+    <%= render :partial => 'pictures_list' %>
+  </div>
+<% end %>

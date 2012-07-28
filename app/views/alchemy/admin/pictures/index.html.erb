@@ -62,38 +62,7 @@
           ) %>
     <% end %>
     <div class="toolbar_spacer"></div>
-    <div class="button_with_label">
-      <%= link_to(
-            render_icon('filter'),
-              alchemy.admin_pictures_path({
-                :size => params[:size],
-                :query => params[:query],
-                :filter => 'last_upload'
-              }),
-              :title => t("last_upload_only"),
-              :class => "icon_button please_wait"
-          ) %>
-      <%= link_to(
-            render_icon('filter'),
-              alchemy.admin_pictures_path({
-                :size => params[:size],
-                :query => params[:query],
-                :filter => 'recent'
-              }),
-              :title => t("recently_uploaded_only"),
-              :class => "icon_button please_wait"
-          ) %>
-      <%= link_to(
-            render_icon('filter'),
-              alchemy.admin_pictures_path({
-                :size => params[:size],
-                :query => params[:query]
-              }),
-              :title => t("all_pictures"),
-              :class => "icon_button please_wait"
-          ) %>
-      <label><%= t('Filter') %></label>
-    </div>
+    <%= render :partial => 'filter_bar' %>
   </div>
 
   <%= render :partial => 'alchemy/admin/partials/search_form' %>
