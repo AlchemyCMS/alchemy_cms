@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::Picture do
 
   it "is valid with valid attributes" do
-    picture = Alchemy::Picture.new(:image_file => File.new('../support/image.png'))
+    picture = Alchemy::Picture.new(:image_file => File.new(File.expand_path('../support/image.png', __FILE__)))
     picture.should be_valid
   end
 
@@ -59,9 +59,9 @@ describe Alchemy::Picture do
   describe '#self.last_upload' do
 
     it "should return all pictures that have the same upload-hash as the most recent picture" do
-      other_upload = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'), :upload_hash => '456')
-      same_upload = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'), :upload_hash => '123')
-      most_recent = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'), :upload_hash => '123')
+      other_upload = Alchemy::Picture.create!(:image_file => File.open(File.expand_path('../support/image.png', __FILE__)), :upload_hash => '456')
+      same_upload = Alchemy::Picture.create!(:image_file => File.open(File.expand_path('../support/image.png', __FILE__)), :upload_hash => '123')
+      most_recent = Alchemy::Picture.create!(:image_file => File.open(File.expand_path('../support/image.png', __FILE__)), :upload_hash => '123')
 
       Alchemy::Picture.last_upload.should include(most_recent)
       Alchemy::Picture.last_upload.should include(same_upload)
@@ -76,8 +76,8 @@ describe Alchemy::Picture do
 
     before(:all) do
       now = Time.now
-      @recent = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'))
-      @old_picture = Alchemy::Picture.create!(:image_file => File.open('../support/image.png'))
+      @recent = Alchemy::Picture.create!(:image_file => File.open(File.expand_path('../support/image.png', __FILE__)))
+      @old_picture = Alchemy::Picture.create!(:image_file => File.open(File.expand_path('../support/image.png', __FILE__)))
       @recent.update_attribute(:created_at, now-23.hours)
       @old_picture.update_attribute(:created_at, now-10.days)
     end
