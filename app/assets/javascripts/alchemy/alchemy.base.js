@@ -31,7 +31,7 @@ if (typeof(Alchemy) === 'undefined') {
             url: Alchemy.routes.admin_picture_path(id),
             type: 'PUT',
             data: {
-              name: value,
+              'picture[name]': value,
               size: Alchemy.getUrlParam('size')
             }
           });

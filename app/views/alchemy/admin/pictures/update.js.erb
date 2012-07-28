@@ -1,8 +1,4 @@
 Alchemy.growl('<%= @message %>');
-<% if @not_renamed %>
 $('#alchemyOverlay').remove();
 $("#tag_list").html('<%= escape_javascript(render(:partial => 'tag_list')) %>');
-<% else %>
-$('.inplace-edit').remove();
-<% end %>
 $("#picture_#{@picture.id}").replaceWith('<%= escape_javascript(render("picture", :picture => @picture)) %>');

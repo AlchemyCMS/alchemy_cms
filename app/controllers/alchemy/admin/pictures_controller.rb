@@ -70,22 +70,14 @@ module Alchemy
       def update
         @size = params[:size] || 'medium'
         @picture = Picture.find(params[:id])
-        oldname = @picture.name
-        if params[:name].present?
-          @picture.name = params[:name]
-          @message = t("Picture renamed successfully", :from => oldname, :to => @picture.name)
-        elsif params[:picture] and params[:picture][:tag_list].present?
-          @picture.tag_list = params[:picture][:tag_list]
-          @message = t('picture_updated_successfully', :name => @picture.name)
-          @not_renamed = true
-        end
 
-        unless @picture.save
-          @message = t('pictures_updated_successfully')
+        if @picture.update_attributes(params[:picture])
+          @message = t('picture_updated_successfully', :name => @picture.name)
+        else
+          @message = t('picture_update_failed')
         end
 
         respond_to do |format|
-          format.html { redirect_to admin_pictures_path }
           format.js
         end
       end
