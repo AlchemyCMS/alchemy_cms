@@ -105,7 +105,7 @@ describe Alchemy::PagesController do
       @catalog = FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
       @products = FactoryGirl.create(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
       @product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
-      @product.elements.find_by_name('article').contents.essence_texts.first.essence.update_attribute(:body, 'screwdriver')
+      @product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
     end
 

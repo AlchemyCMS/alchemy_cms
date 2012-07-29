@@ -71,11 +71,11 @@ module Alchemy
           essences.each do |essence|
             case essence.link_target
             when '1'
-              if essence.update_attribute(:link_target, 'blank')
+              if essence.update_column(:link_target, 'blank')
                 log("Updated #{essence.preview_text} link target to #{essence.link_target}.")
               end
             when '0'
-              essence.update_attribute(:link_target, nil)
+              essence.update_column(:link_target, nil)
               log("Updated #{essence.preview_text} link target to #{essence.link_target.inspect}.")
             else
               log("#{essence.preview_text} already upgraded.", :skip)
@@ -94,7 +94,7 @@ module Alchemy
           success = 0
           errors = []
           depricated_contents.each do |c|
-            if c.update_attribute(:essence_type, c.essence_type.gsub(/^Essence/, 'Alchemy::Essence'))
+            if c.update_column(:essence_type, c.essence_type.gsub(/^Essence/, 'Alchemy::Essence'))
               success += 1
             else
               errors << c.errors.full_messages

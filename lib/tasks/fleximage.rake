@@ -11,8 +11,8 @@ namespace :fleximage do
     model_class.find(:all).each do |obj|
       if obj.has_image?
         img = obj.load_image
-        obj.update_attribute :image_width, img.columns if obj.respond_to?(:image_width=)
-        obj.update_attribute :image_height, img.rows if obj.respond_to?(:image_height=)
+        obj.update_column :image_width, img.columns if obj.respond_to?(:image_width=)
+        obj.update_column :image_height, img.rows if obj.respond_to?(:image_height=)
       end
     end
   end

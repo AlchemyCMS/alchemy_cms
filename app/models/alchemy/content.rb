@@ -72,7 +72,7 @@ module Alchemy
         ))
         new_essence.save!
         raise "Essence not cloned" if new_essence.id == content.essence_id
-        content.update_attribute(:essence_id, new_essence.id)
+        content.update_attributes(:essence_id => new_essence.id)
         content
       end
 
