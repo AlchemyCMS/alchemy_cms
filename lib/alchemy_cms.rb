@@ -17,6 +17,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'extensions/hash'
   require 'extensions/array'
   require 'extensions/action_view'
+  require 'patches/acts_as_list'
   require 'alchemy/mount_point'
   require 'alchemy/version'
   require 'alchemy/auth_engine'
@@ -26,7 +27,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")
 else
-  raise "Alchemy 2.2 needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
+  raise "Alchemy 2.3 needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
 end
 
 module Alchemy
