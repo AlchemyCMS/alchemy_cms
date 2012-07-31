@@ -1,24 +1,24 @@
 <div id="filter_bar" class="button_with_label">
   <%= link_to(
-        render_icon('filter'),
-          alchemy.admin_pictures_path(merge_params(:filter => 'last_upload')),
-          :remote => true,
-          :title => t("last_upload_only"),
-          :class => "icon_button please_wait"
-      ) %>
+    render_icon('filter'),
+    alchemy.admin_pictures_path(merge_params(:filter => 'last_upload')),
+    :remote => request.xhr?,
+    :title => t("last_upload_only"),
+    :class => "icon_button please_wait"
+  ) %>
   <%= link_to(
-        render_icon('filter'),
-          alchemy.admin_pictures_path(merge_params(:filter => 'recent')),
-          :remote => true,
-          :title => t("recently_uploaded_only"),
-          :class => "icon_button please_wait"
-      ) %>
+    render_icon('filter'),
+    alchemy.admin_pictures_path(merge_params(:filter => 'recent')),
+    :remote => request.xhr?,
+    :title => t("recently_uploaded_only"),
+    :class => "icon_button please_wait"
+  ) %>
   <%= link_to(
-        render_icon('filter'),
-          alchemy.admin_pictures_path(merge_params_without([:filter])),
-          :remote => true,
-          :title => t("all_pictures"),
-          :class => "icon_button please_wait"
-      ) %>
+    render_icon('filter'),
+    alchemy.admin_pictures_path(merge_params_without([:filter])),
+    :remote => request.xhr?,
+    :title => t("all_pictures"),
+    :class => "icon_button please_wait"
+  ) %>
   <label><%= t('Filter') %></label>
 </div>
