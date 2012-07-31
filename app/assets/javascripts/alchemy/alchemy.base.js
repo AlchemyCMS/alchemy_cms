@@ -17,26 +17,26 @@ if (typeof(Alchemy) === 'undefined') {
       };
       var settings = jQuery.extend({}, defaults, options);
       var cancel_handler = function(element) {
-          jQuery(element).css({
-            overflow: 'hidden'
-          });
-          return true;
-        };
+        jQuery(element).css({
+          overflow: 'hidden'
+        });
+        return true;
+      };
       var submit_handler = function(element, id, value) {
-          $(element).css({
-            overflow: 'hidden'
-          });
-          id = id.match(/\d+/)[0];
-          $.ajax({
-            url: Alchemy.routes.admin_picture_path(id),
-            type: 'PUT',
-            data: {
-              'picture[name]': value,
-              size: Alchemy.getUrlParam('size')
-            }
-          });
-          return false;
-        };
+        $(element).css({
+          overflow: 'hidden'
+        });
+        id = id.match(/\d+/)[0];
+        $.ajax({
+          url: Alchemy.routes.admin_picture_path(id),
+          type: 'PUT',
+          data: {
+            'picture[name]': value,
+            size: Alchemy.getUrlParam('size')
+          }
+        });
+        return false;
+      };
 
       $('#alchemy .rename').click(function() {
         $(this).css({
@@ -63,7 +63,6 @@ if (typeof(Alchemy) === 'undefined') {
       var
         $selected_item_tools = $('.selected_item_tools'),
         $picture_selects = $('.picture_tool.select input');
-
       $picture_selects.on('click', function() {
         if ($picture_selects.filter(':checked').size() > 0) {
           $selected_item_tools.show();

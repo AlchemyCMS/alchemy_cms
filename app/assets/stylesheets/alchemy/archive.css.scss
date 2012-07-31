@@ -201,6 +201,11 @@ div.image_spinner img {
 
   &.select {
     left: 4px;
+
+    input {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   &.delete {
