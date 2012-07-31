@@ -1,0 +1,27 @@
+<%= form_tag update_multiple_admin_pictures_path do %>
+  <div class="info">
+    <%= render_icon :info %>
+    <p><%= t("You are about to edit these files at once.") %></p>
+    <ul id="edit_multiple_pictures_list">
+      <% @pictures.each do |picture| %>
+      <li>
+        <%= hidden_field_tag "picture_ids[]", picture.id, :id => nil %>
+        <%= picture.name %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <table>
+    <tr>
+      <td class="label"><%= label_tag :pictures_name, t('Name') %></td>
+      <td class="input"><%= text_field_tag :pictures_name, nil, :class => "thin_border long" %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= label_tag :pictures_name, t('Tags') %></td>
+      <td class="input"><%= text_field_tag :pictures_tag_list, nil, :class => "thin_border long" %></td>
+    </tr>
+    <tr>
+      <td class="submit" colspan="2"><%= button_tag t(:save), :name => nil, :class => 'button' %></td>
+    </tr>
+  </table>
+<% end %>

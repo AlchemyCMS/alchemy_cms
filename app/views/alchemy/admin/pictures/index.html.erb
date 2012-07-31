@@ -77,6 +77,14 @@
       :okLabel => t("Yes"),
       :cancelLabel => t("No")
     }.to_json, :class => 'button' %>
+    <%= link_to(
+      t("Edit"),
+      edit_multiple_admin_pictures_path,
+      :class => 'button',
+      :title => t('Edit mulitple pictures'),
+      :id => 'edit_multiple_pictures',
+      :style => 'float: none'
+    ) %>
   </div>
   <div id="tag_list">
     <%= render :partial => 'tag_list' %>
@@ -95,6 +103,22 @@
         cancel_label: "<%= t('cancel') %>"
       });
       Alchemy.pictureSelector();
+      $('a#edit_multiple_pictures').on('click', function(e) {
+        var
+          $this = $(this),
+          picture_ids = $("input:checkbox", '#picture_archive').serialize();
+        e.preventDefault();
+        Alchemy.openWindow(
+          $this.attr('href') + '?' + picture_ids,
+          $this.attr('title'),
+          400,
+          250,
+          false,
+          true,
+          false
+        );
+        return false;
+      });
     });
 
   </script>

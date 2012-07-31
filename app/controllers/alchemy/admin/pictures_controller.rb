@@ -67,6 +67,11 @@ module Alchemy
         end
       end
 
+      def edit_multiple
+        @pictures = Picture.find(params[:picture_ids])
+        render :layout => false
+      end
+
       def update
         @size = params[:size] || 'medium'
         @picture = Picture.find(params[:id])
@@ -80,6 +85,18 @@ module Alchemy
         respond_to do |format|
           format.js
         end
+      end
+
+      def update_multiple
+        @pictures = Picture.find(params[:picture_ids])
+        @pictures.each do |picture|
+          picture.update_attributes(
+            :name => params[:pictures_name],
+            :tag_list => params[:pictures_tag_list]
+          )
+        end
+        flash[:notice] = t("Pictures updated successfully")
+        redirect_to :action => :index
       end
 
       def delete_multiple

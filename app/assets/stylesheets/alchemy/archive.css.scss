@@ -228,3 +228,8 @@ div.image_spinner img {
   float: right;
   width: 200px;
 }
+
+ul#edit_multiple_pictures_list {
+  max-height: 4em;
+  overflow: auto;
+}

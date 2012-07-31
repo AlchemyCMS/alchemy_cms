@@ -85,8 +85,9 @@ Alchemy::Engine.routes.draw do
 
     resources :pictures do
       collection do
-        post :flush
+        post :flush, :update_multiple
         delete :delete_multiple
+        get :edit_multiple
       end
       member do
         get :show_in_window
