@@ -75,6 +75,22 @@ if (typeof(Alchemy) === 'undefined') {
           $(this).parent().removeClass('visible').addClass('hidden');
         }
       });
+      $('a#edit_multiple_pictures').on('click', function(e) {
+        var
+          $this = $(this),
+          picture_ids = $("input:checkbox", '#picture_archive').serialize();
+        e.preventDefault();
+        Alchemy.openWindow(
+          $this.attr('href') + '?' + picture_ids,
+          $this.attr('title'),
+          400,
+          250,
+          false,
+          true,
+          false
+        );
+        return false;
+      });
     },
 
     pleaseWaitOverlay: function(show) {
