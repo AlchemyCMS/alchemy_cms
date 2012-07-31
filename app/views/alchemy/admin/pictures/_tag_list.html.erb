@@ -2,10 +2,10 @@
 <ul>
   <% Alchemy::Picture.tag_counts.each do |t| %>
     <%= content_tag :li do %>
-      <%= link_to('remove tag-filter', url_for((params.delete(:tagged_with) and params.merge(:action => :index))), :remote => true) %>
+      <%= link_to('remove tag-filter', url_for((params.delete(:tagged_with) and params.merge(:action => :index))), :remote => request.xhr?) %>
     <% end if params[:tagged_with].present? %>
     <li>
-      <%= link_to "#{t.name} (#{t.count})", url_for(params.merge(:action => :index, :tagged_with => t.name)), :remote => true %>
+      <%= link_to "#{t.name} (#{t.count})", url_for(params.merge(:action => :index, :tagged_with => t.name)), :remote => request.xhr? %>
     </li>
   <% end %>
 </ul>
