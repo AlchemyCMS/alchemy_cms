@@ -59,12 +59,12 @@ module Alchemy
         end
         link_to(
           '',
-            alchemy.fold_admin_page_path(page),
-            :remote => true,
-            :method => :post,
-            :class => "page_folder #{css_class}",
-            :title => title,
-            :id => "fold_button_#{page.id}"
+          alchemy.fold_admin_page_path(page),
+          :remote => true,
+          :method => :post,
+          :class => "page_folder #{css_class}",
+          :title => title,
+          :id => "fold_button_#{page.id}"
         )
       end
 
@@ -191,8 +191,8 @@ module Alchemy
         select_options = options_for_select(select_options, content.essence.content)
         select_tag(
           "contents[content_#{content.id}]",
-            select_options,
-            :class => 'alchemy_selectbox'
+          select_options,
+          :class => 'alchemy_selectbox'
         )
       end
 
@@ -314,11 +314,11 @@ module Alchemy
         end
         select_tag(
           'paste_from_clipboard',
-            !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
-            {
-              :class => [html_options[:class], 'alchemy_selectbox'].join(' '),
-              :style => html_options[:style]
-            }
+          !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+          {
+            :class => [html_options[:class], 'alchemy_selectbox'].join(' '),
+            :style => html_options[:style]
+          }
         )
       end
 
@@ -351,12 +351,12 @@ module Alchemy
           link = if options[:overlay]
             link_to_overlay_window(
               render_icon(options[:icon]),
-                options[:url],
-                options[:overlay_options],
-                {
-                  :class => 'icon_button',
-                  :title => options[:title]
-                }
+              options[:url],
+              options[:overlay_options],
+              {
+                :class => 'icon_button',
+                :title => options[:title]
+              }
             )
           else
             link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
