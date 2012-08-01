@@ -470,6 +470,17 @@ module Alchemy
         current_params.merge(p).delete_if { |k, v| v.blank? }
       end
 
+      # Adds tag and tag list from params.
+      # Removes duplicate entries.
+      def unique_tags_for_params(tag)
+        tag_line = [tag.name]
+        if params[:tagged_with].present?
+          tags = params[:tagged_with].split(',')
+          tag_line += tags.delete_if { |t| t == tag.name }
+        end
+        tag_line.join(',')
+      end
+
     end
   end
 end

@@ -1,10 +1,15 @@
 <h2><%= t("Filter by tag") %></h2>
 <ul>
   <% Alchemy::Picture.tag_counts.each do |t| %>
-    <%= content_tag 'li', :class => params[:tagged_with] == t.name ? 'active' : nil do %>
+    <%= content_tag 'li', :class => params[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
       <%= link_to(
         "#{t.name} (#{t.count})",
-        url_for(params.delete_if { |p| p == "page" }.merge(:action => :index, :tagged_with => t.name)),
+        url_for(
+          params.delete_if { |p| p == "page" }.merge(
+            :action => :index,
+            :tagged_with => unique_tags_for_params(t)
+          )
+        ),
         :remote => request.xhr?
       ) %>
     <% end %>
