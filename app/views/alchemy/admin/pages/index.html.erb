@@ -64,37 +64,39 @@
 </div>
 <%- end -%>
 
+<div id="archive_all">
 <%- if @page_root -%>
 
-<div id="sort_panel" style="display: none">
-  <div class="info">
-    <%= render_icon('info') %>
-    <%= t('explain_sitemap_dragndrop_sorting') %>
+  <div id="sort_panel" style="display: none">
+    <div class="info">
+      <%= render_icon('info') %>
+      <%= t('explain_sitemap_dragndrop_sorting') %>
+    </div>
+    <div class="buttons">
+      <%= link_to( t('cancel'), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
+      <%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' ) %>
+    </div>
   </div>
-  <div class="buttons">
-    <%= link_to( t('cancel'), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
-    <%= submit_tag( t('save order'), :id => 'save_page_order', :class => 'button' ) %>
-  </div>
-</div>
 
-<h2 id="sitemap_heading">
-  <span class="page_name"><%= t('Name') %></span>
-  <span class="page_infos"><%= t('Status') %></span>
-</h2>
+  <h2 id="sitemap_heading">
+    <span class="page_name"><%= t('Name') %></span>
+    <span class="page_infos"><%= t('Status') %></span>
+  </h2>
 
-<%= render :partial => 'sitemap' %>
+  <%= render :partial => 'sitemap' %>
 
 <%- else -%>
 
-<%= render :partial => 'create_language_form' %>
-<% content_for(:javascripts) do %>
-<script type="text/javascript">
-  jQuery(document).ready(function($) {
-    $('#create_language_tree_form').dialog({modal: true, width: 360, close: function() {
-      $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
-    }});
-  });
-</script>
-<%- end -%>
+  <%= render :partial => 'create_language_form' %>
+  <% content_for(:javascripts) do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $('#create_language_tree_form').dialog({modal: true, width: 360, close: function() {
+        $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
+      }});
+    });
+  </script>
+  <%- end -%>
 
 <% end -%>
+</div>

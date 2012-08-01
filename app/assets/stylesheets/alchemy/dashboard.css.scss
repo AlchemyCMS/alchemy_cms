@@ -3,8 +3,9 @@
 #dashboard {
   overflow: auto;
   float: left;
-  padding: 8px;
+  padding: 4 * $default-padding;
   width: 450px;
+  position: relative;
 
   h1 {
     font-size: 2em;
@@ -60,7 +61,7 @@
 div#sideboard {
   float: right;
   width: 240px;
-  padding-right: 16px;
+  padding: 16px;
 
   div.sideboard_widget img {
     margin-bottom: 16px;

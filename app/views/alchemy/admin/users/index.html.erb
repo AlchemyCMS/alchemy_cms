@@ -13,29 +13,33 @@
   ]
 ) %>
 
-<%- if @users.any? -%>
-<table class="list" id="user_list">
-  <tr>
-    <th class="icon"></th>
-    <th class="login_status"></th>
-    <th class="login"><%= Alchemy::User.human_attribute_name('login') %></th>
-    <th class="name"><%= Alchemy::User.human_attribute_name('firstname') %></th>
-    <th><%= Alchemy::User.human_attribute_name('lastname') %></th>
-    <th class="email"><%= Alchemy::User.human_attribute_name('email') %></th>
-    <th><%= Alchemy::User.human_attribute_name('language') %></th>
-    <th><%= Alchemy::User.human_attribute_name('last_login_at') %></th>
-    <th class="role"><%= Alchemy::User.human_attribute_name('role') %></th>
-    <th class="tools"></th>
-  </tr>
-  <%= render :partial => 'alchemy/admin/users/user', :collection => @users %>
-</table>
-<%= paginate @users %>
+<div id="archive_all">
+<% if @users.any? %>
 
-<%- elsif params[:query] -%>
+  <table class="list" id="user_list">
+    <tr>
+      <th class="icon"></th>
+      <th class="login_status"></th>
+      <th class="login"><%= Alchemy::User.human_attribute_name('login') %></th>
+      <th class="name"><%= Alchemy::User.human_attribute_name('firstname') %></th>
+      <th><%= Alchemy::User.human_attribute_name('lastname') %></th>
+      <th class="email"><%= Alchemy::User.human_attribute_name('email') %></th>
+      <th><%= Alchemy::User.human_attribute_name('language') %></th>
+      <th><%= Alchemy::User.human_attribute_name('last_login_at') %></th>
+      <th class="role"><%= Alchemy::User.human_attribute_name('role') %></th>
+      <th class="tools"></th>
+    </tr>
+    <%= render :partial => 'alchemy/admin/users/user', :collection => @users %>
+  </table>
 
-<div class="info">
-  <%= render_icon('info') %>
-  <%= t('No users found') %>
+  <%= paginate @users %>
+
+<% elsif params[:query] %>
+
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= t('No users found') %>
+  </div>
+
+<% end %>
 </div>
-
-<%- end -%>

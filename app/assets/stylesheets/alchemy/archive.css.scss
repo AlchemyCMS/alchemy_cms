@@ -17,19 +17,23 @@ div#image_assign_filter_and_image_sizing {
   @include rounded-corner;
 }
 
-#picture_archive .selected_item_tools {
-  margin: -4*$default-padding;
-  border-bottom: 1px solid $default-border-color;
-  margin-bottom: 4*$default-padding;
-  padding: 4*$default-padding;
-  display: none;
+#picture_archive {
+  padding: 4 * $default-padding;
+
+  .selected_item_tools {
+    margin: -4*$default-padding;
+    border-bottom: 1px solid $default-border-color;
+    margin-bottom: 4*$default-padding;
+    padding: 4*$default-padding;
+    display: none;
+  }
 }
 
 #pictures {
-  padding-right: 200px;
+  padding-right: 232px;
 
   .picture_thumbnail {
-    margin: 0 16px 16px 0;
+    margin: 0 8px 8px 0;
     display: inline-block;
     float: none;
 
@@ -237,7 +241,7 @@ div#tag_list {
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
-  width: 168px;
+  width: 200px;
   padding: 0 4*$default-padding;
   height: 100%;
   z-index: 1;
