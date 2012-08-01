@@ -14,7 +14,7 @@ if (typeof(Alchemy) === 'undefined') {
       var
         $selected_item_tools = $('.selected_item_tools'),
         $picture_selects = $('.picture_tool.select input');
-      $picture_selects.on('click', function() {
+      $picture_selects.on('change', function() {
         if ($picture_selects.filter(':checked').size() > 0) {
           $selected_item_tools.show();
         } else {

@@ -15,6 +15,17 @@
       :id => 'edit_multiple_pictures',
       :style => 'float: none'
     ) %>
+    <%= link_to(
+      t("Clear selection"),
+      admin_pictures_path(
+        :query => params[:query],
+        :tagged_with => params[:tagged_with],
+        :size => params[:size],
+        :filter => params[:filter]
+      ),
+      :class => 'button',
+      :style => 'float: none'
+    ) %>
   </div>
   <div id="tag_list">
     <%= render :partial => 'tag_list' %>
