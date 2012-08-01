@@ -88,10 +88,10 @@ module Alchemy
       def update_multiple
         @pictures = Picture.find(params[:picture_ids])
         @pictures.each do |picture|
-          picture.update_attributes(
-            :name => params[:pictures_name],
-            :tag_list => params[:pictures_tag_list]
-          )
+          # Do not delete name from multiple pictures, if the form field is blank!
+          picture.name = params[:pictures_name] if params[:pictures_name].present?
+          picture.tag_list = params[:pictures_tag_list]
+          picture.save
         end
         flash[:notice] = t("Pictures updated successfully")
         redirect_to_index

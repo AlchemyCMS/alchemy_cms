@@ -5,7 +5,7 @@
   <%= hidden_field_tag :filter, params[:filter] %>
   <div class="info">
     <%= render_icon :info %>
-    <p><%= t("You are about to edit these files at once.") %></p>
+    <p><%= t("You are about to edit %{length} pictures at once") % {:length => @pictures.length} %></p>
     <ul id="edit_multiple_pictures_list">
       <% @pictures.each do |picture| %>
       <li>
@@ -18,14 +18,20 @@
   <table>
     <tr>
       <td class="label"><%= label_tag :pictures_name, t('Name') %></td>
-      <td class="input"><%= text_field_tag :pictures_name, nil, :class => "thin_border long" %></td>
+      <td class="input">
+        <%= text_field_tag :pictures_name, nil, :class => "thin_border long" %>
+      </td>
     </tr>
     <tr>
       <td class="label"><%= label_tag :pictures_tag_list, t('Tags') %></td>
-      <td class="input"><%= text_field_tag :pictures_tag_list, nil, :class => "thin_border long" %></td>
+      <td class="input">
+        <%= text_field_tag :pictures_tag_list, @pictures.collect(&:tag_list).flatten.uniq.join(', '), :class => "thin_border long" %>
+      </td>
     </tr>
     <tr>
-      <td class="submit" colspan="2"><%= button_tag t(:save), :name => nil, :class => 'button' %></td>
+      <td class="submit" colspan="2">
+        <%= button_tag t(:save), :name => nil, :class => 'button' %>
+      </td>
     </tr>
   </table>
 <% end %>
