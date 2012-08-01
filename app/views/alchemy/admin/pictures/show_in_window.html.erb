@@ -5,8 +5,3 @@
     :format => :png
   )
 ) %>
-<%= form_for [alchemy, :admin, @picture], :remote => :true do |f| %>
-  <%= f.label :tag_list %>
-  <%= f.text_field :tag_list %>
-  <%= f.submit %>
-<% end %>
