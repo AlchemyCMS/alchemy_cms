@@ -2,10 +2,10 @@
   <div id="overlay_toolbar">
     <%= render :partial => 'filter_and_size_bar' %>
   </div>
-  <div id="tag_list">
-    <%= render :partial => 'tag_list' %>
-  </div>
   <div id="assign_image_list" class="with_padding">
+    <div id="tag_list">
+      <%= render :partial => 'tag_list' %>
+    </div>
     <% if @pictures.empty? %>
       <p><%= t("no_images_in_archive") %></p>
     <% else %>

@@ -175,8 +175,13 @@ div.image_spinner img {
   left: 40px;
 }
 
-#assign_image_list div.assign_image_list_image img {
-  border-style: none;
+#assign_image_list {
+  position: relative;
+  padding-right: 244px;
+
+  div.assign_image_list_image img {
+    border-style: none;
+  }
 }
 
 #assign_image_list div.assign_image_list_image span {
