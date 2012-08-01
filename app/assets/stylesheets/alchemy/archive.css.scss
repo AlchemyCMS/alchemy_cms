@@ -26,7 +26,7 @@ div#image_assign_filter_and_image_sizing {
 }
 
 #pictures {
-  padding-right: 232px;
+  padding-right: 200px;
 
   .picture_thumbnail {
     margin: 0 16px 16px 0;
@@ -237,7 +237,7 @@ div#tag_list {
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
-  width: 200px;
+  width: 168px;
   padding: 0 4*$default-padding;
   height: 100%;
   z-index: 1;
@@ -255,8 +255,7 @@ div#tag_list {
     li {
       @include inline-block;
       padding: $default-padding 2*$default-padding;
-      margin: 0;
-      margin-right: $default-margin;
+      margin: 0 $default-margin 2*$default-margin 0;
       background-color: $medium-gray;
       @include border-radius(16px);
 

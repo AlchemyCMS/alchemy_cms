@@ -1,12 +1,19 @@
 <%= form_tag update_multiple_admin_pictures_path do %>
+
   <%= hidden_field_tag :query, params[:query] %>
   <%= hidden_field_tag :size, params[:size] %>
   <%= hidden_field_tag :tagged_with, params[:tagged_with] %>
   <%= hidden_field_tag :filter, params[:filter] %>
+
+  <% @pictures.each do |pic| %>
+  <%= hidden_field_tag "picture_ids[]", pic.id %>
+  <% end %>
+
   <div class="info">
     <%= render_icon :info %>
     <p><%= t("You are about to edit %{length} pictures at once") % {:length => @pictures.length} %></p>
   </div>
+
   <table>
     <tr>
       <td class="label"><%= label_tag :pictures_name, t('Name') %></td>
@@ -26,5 +33,7 @@
       </td>
     </tr>
   </table>
+
   <p class="foot_note"><%= t('Please seperate the tags with commata') %></p>
+
 <% end %>

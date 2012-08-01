@@ -4,7 +4,7 @@
     <%= content_tag 'li', :class => params[:tagged_with] == t.name ? 'active' : nil do %>
       <%= link_to(
         "#{t.name} (#{t.count})",
-        url_for(params.merge(:action => :index, :tagged_with => t.name)),
+        url_for(params.delete_if { |p| p == "page" }.merge(:action => :index, :tagged_with => t.name)),
         :remote => request.xhr?
       ) %>
     <% end %>
@@ -13,7 +13,7 @@
 <% if params[:tagged_with].present? %>
   <%= link_to(
     render_icon('delete-small') + t('Remove tag filter'),
-    url_for((params.delete(:tagged_with) and params.merge(:action => :index))),
+    url_for(params.delete_if { |p| p == "tagged_with" }.merge(:action => :index)),
     :remote => request.xhr?,
     :class => 'button small with_icon'
   ) %>

@@ -5,9 +5,8 @@
       :file_types => configuration(:uploader)['allowed_filetypes']['pictures'],
       :file_types_description => t('images'),
       :model_name => 'picture',
-      :item_type => t('images'),
-      :form => f
+      :item_type => t('images')
     }
   ) %>
-  <%= f.submit :upload, :style => 'display:none;' %>
+  <%= f.submit :upload, :style => 'display: none' %>
 <% end %>
