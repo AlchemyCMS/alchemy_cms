@@ -60,7 +60,7 @@ module Alchemy
           flash[:notice] = @message
           #redirect_to :back
           #TODO temporary workaround; has to be fixed.
-          redirect_to admin_pictures_path
+          redirect_to admin_pictures_path(:filter => 'last_upload')
         end
       end
 

@@ -6,14 +6,6 @@
   <div class="info">
     <%= render_icon :info %>
     <p><%= t("You are about to edit %{length} pictures at once") % {:length => @pictures.length} %></p>
-    <ul id="edit_multiple_pictures_list">
-      <% @pictures.each do |picture| %>
-      <li>
-        <%= hidden_field_tag "picture_ids[]", picture.id, :id => nil %>
-        <%= picture.name %>
-      </li>
-      <% end %>
-    </ul>
   </div>
   <table>
     <tr>
@@ -34,4 +26,5 @@
       </td>
     </tr>
   </table>
+  <p class="foot_note"><%= t('Please seperate the tags with commata') %></p>
 <% end %>

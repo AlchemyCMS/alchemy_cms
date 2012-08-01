@@ -2,8 +2,9 @@
 <%- if @while_assigning -%>
   $('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay")) -%>');
 <%- else -%>
-  $('#picture_archive').html('<%= escape_javascript(render(:partial => "pictures_list")) -%>');
+  $('#picture_archive').html("<%= escape_javascript(render :partial => 'archive', :locals => {:params => params.merge(:filter => 'last_upload')}) %>");
   Alchemy.pictureSelector();
+  Alchemy.overlayObserver('#picture_archive');
 <%- end -%>
   Alchemy.growl('<%= @message -%>');
 })(jQuery);

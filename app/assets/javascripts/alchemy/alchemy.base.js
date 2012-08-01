@@ -35,7 +35,7 @@ if (typeof(Alchemy) === 'undefined') {
           $this.attr('href') + '?' + picture_ids,
           $this.attr('title'),
           400,
-          250,
+          230,
           false,
           true,
           false
