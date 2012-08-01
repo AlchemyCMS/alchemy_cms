@@ -183,7 +183,6 @@ de:
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
     "Choose page": "Seite wählen"
     "Cleared trash": "Der Papierkorb wurde geleert"
-    "Click to rename": "Klicken zum umbenennen"
     "Clipboard": "Zwischenablage"
     "Copy": "Kopie"
     "Could not load Adobe Flash® Plugin!": "Adobe Flash® Plugin konnte nicht geladen werden!"
@@ -195,6 +194,7 @@ de:
     "Do you really want to delete this content?": "Wollen Sie diesen Inhalt wirklich löschen?"
     "Drag an element over to the element window to restore it": "Ziehen Sie ein Element mit der Maus in das Elemente Fenster, um es wieder herzustellen."
     "Edit Picturemask": "Bildmaske bearbeiten"
+    "Edit image": "Bild bearbeiten"
     "Elements": "Elemente"
     "Element trashed": "Das Element wurde in den Papierkorb gelegt"
     "Error with the Flash® Uploader!": "Fehler mit dem Flash® Uploader!"
@@ -250,6 +250,7 @@ de:
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
     "Please choose": "Bitte wählen"
     "Please log in": "Bitte melden Sie sich an."
+    "Please seperate the tags with commata": "*) Die Schlagwörter bitte mit Kommata getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
@@ -763,6 +764,7 @@ de:
         image_height: "Bildhöhe"
         image_width: "Bildbreite"
         name: "Name"
+        tag_list: Schlagwörter
 
       alchemy/user:
         email: "Email"

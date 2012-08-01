@@ -490,44 +490,6 @@ table td.tools .icon, table td.icon .icon {
   }
 }
 
-
-.inplace-edit {
-  background-color: $light-gray;
-  position: absolute;
-  left: -5px;
-  top: -8px;
-  width: 208px;
-  z-index: 10;
-  height: 78px;
-  border: $default-border;
-  @include rounded-corner;
-
-  div.buttons {
-    margin-top: 4px;
-    position: absolute;
-    bottom: 4px;
-    width: 200px;
-    padding-right: 4px;
-    padding-left: 4px;
-
-    input.cancel-button {
-      float: left;
-    }
-
-    input.save-button {
-      float: right;
-    }
-  }
-
-  input[type="text"] {
-    width: 190px;
-    font-family: "Courier New", Courier, mono;
-    position: absolute;
-    left: 4px;
-    top: 4px;
-  }
-}
-
 div.spinner {
   background-color: #ffffff;
   width: 100%;

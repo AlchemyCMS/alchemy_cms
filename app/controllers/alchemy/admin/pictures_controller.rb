@@ -8,22 +8,19 @@ module Alchemy
       respond_to :html, :js
 
       def index
-        @size = params[:size] || 'medium'
+        @size = params[:size].present? ? params[:size] : 'medium'
         @pictures = Picture.scoped
         @pictures = @pictures.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
-        @pictures = case params[:filter]
-        when 'recent'
-          @pictures.recent
-        when 'last_upload'
-          @pictures.last_upload
-        else
-          @pictures
+        case params[:filter]
+          when 'recent'
+            @pictures = @pictures.recent
+          when 'last_upload'
+            @pictures = @pictures.last_upload
         end
         @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
         if in_overlay?
           archive_overlay
         else
-
           # render index.html.erb
         end
       end
@@ -67,24 +64,25 @@ module Alchemy
         end
       end
 
+      def edit
+        @picture = Picture.find(params[:id])
+        render :layout => !request.xhr?
+      end
+
       def edit_multiple
         @pictures = Picture.find(params[:picture_ids])
-        render :layout => false
+        render :layout => !request.xhr?
       end
 
       def update
-        @size = params[:size] || 'medium'
         @picture = Picture.find(params[:id])
 
         if @picture.update_attributes(params[:picture])
-          @message = t('picture_updated_successfully', :name => @picture.name)
+          flash[:notice] = t('picture_updated_successfully', :name => @picture.name)
         else
-          @message = t('picture_update_failed')
+          flash[:error] = t('picture_update_failed')
         end
-
-        respond_to do |format|
-          format.js
-        end
+        redirect_to_index
       end
 
       def update_multiple
@@ -96,7 +94,7 @@ module Alchemy
           )
         end
         flash[:notice] = t("Pictures updated successfully")
-        redirect_to :action => :index
+        redirect_to_index
       end
 
       def delete_multiple
@@ -110,7 +108,7 @@ module Alchemy
         else
           flash[:notice] = t("Could not delete Pictures")
         end
-        redirect_to :action => :index
+        redirect_to_index
       end
 
       def destroy
@@ -162,6 +160,16 @@ module Alchemy
             render :action => :archive_overlay
           }
         end
+      end
+
+      def redirect_to_index
+        redirect_to(
+          :action => :index,
+          :query => params[:query],
+          :tagged_with => params[:tagged_with],
+          :size => params[:size],
+          :filter => params[:filter]
+        )
       end
 
     end

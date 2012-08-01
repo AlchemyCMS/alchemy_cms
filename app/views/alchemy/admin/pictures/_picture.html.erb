@@ -2,7 +2,7 @@
   <span class="picture_tool select">
     <%= check_box_tag "picture_ids[]", picture.id %>
   </span>
-  <%- permitted_to?(:destroy, :alchemy_admin_pictures) do -%>
+  <% permitted_to?(:destroy, :alchemy_admin_pictures) do %>
   <span class="picture_tool delete">
     <%= link_to_confirmation_window(
       "",
@@ -11,14 +11,38 @@
         :id => picture,
         :query => params[:query],
         :page => params[:page],
-        :per_page => params[:per_page]
+        :tagged_with => params[:tagged_with],
+        :size => params[:size],
+        :filter => params[:filter]
       ),
       {
         :title => t('Delete image')
       }
     ) -%>
   </span>
-  <%- end -%>
+  <% end %>
+  <% permitted_to?(:edit, :alchemy_admin_pictures) do %>
+  <span class="picture_tool edit">
+    <%= link_to_overlay_window(
+      "",
+      alchemy.edit_admin_picture_path(
+        :id => picture,
+        :query => params[:query],
+        :page => params[:page],
+        :tagged_with => params[:tagged_with],
+        :size => params[:size],
+        :filter => params[:filter]
+      ),
+      {
+        :title => t('Edit image'),
+        :size => "400x160"
+      },
+      {
+        :title => t('Edit image')
+      }
+    ) -%>
+  </span>
+  <% end %>
   <div class="image_spinner spinner">
     <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
   </div>
@@ -35,5 +59,7 @@
     :class => 'thumbnail_background',
     :id => 'show_in_window'
   ) %>
-  <span class="picture_name<%= ' rename' if permitted_to?(:edit, :alchemy_admin_pictures) -%>" title="<%= permitted_to?(:edit, :alchemy_admin_pictures) ? "#{picture.name} (#{t('Click to rename')})" : picture.name %>" id="image_picture_<%= picture.id %>_name"><%= picture.name %></span>
+  <span class="picture_name" title="<%= picture.name %>" id="image_picture_<%= picture.id %>_name">
+    <%= picture.name %>
+  </span>
 </div>

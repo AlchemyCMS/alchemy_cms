@@ -1,4 +1,8 @@
 <%= form_tag update_multiple_admin_pictures_path do %>
+  <%= hidden_field_tag :query, params[:query] %>
+  <%= hidden_field_tag :size, params[:size] %>
+  <%= hidden_field_tag :tagged_with, params[:tagged_with] %>
+  <%= hidden_field_tag :filter, params[:filter] %>
   <div class="info">
     <%= render_icon :info %>
     <p><%= t("You are about to edit these files at once.") %></p>
@@ -17,7 +21,7 @@
       <td class="input"><%= text_field_tag :pictures_name, nil, :class => "thin_border long" %></td>
     </tr>
     <tr>
-      <td class="label"><%= label_tag :pictures_name, t('Tags') %></td>
+      <td class="label"><%= label_tag :pictures_tag_list, t('Tags') %></td>
       <td class="input"><%= text_field_tag :pictures_tag_list, nil, :class => "thin_border long" %></td>
     </tr>
     <tr>

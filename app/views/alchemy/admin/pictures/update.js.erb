@@ -1,4 +1,0 @@
-Alchemy.growl('<%= @message %>');
-$('#alchemyOverlay').remove();
-$("#tag_list").html('<%= escape_javascript(render(:partial => 'tag_list')) %>');
-$("#picture_#{@picture.id}").replaceWith('<%= escape_javascript(render("picture", :picture => @picture)) %>');

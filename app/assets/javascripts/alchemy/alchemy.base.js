@@ -10,55 +10,6 @@ if (typeof(Alchemy) === 'undefined') {
   // The Alchemy JavaScript Object contains all Functions
   $.extend(Alchemy, {
 
-    inPlaceEditor: function(options) {
-      var defaults = {
-        save_label: 'save',
-        cancel_label: 'cancel'
-      };
-      var settings = jQuery.extend({}, defaults, options);
-      var cancel_handler = function(element) {
-        jQuery(element).css({
-          overflow: 'hidden'
-        });
-        return true;
-      };
-      var submit_handler = function(element, id, value) {
-        $(element).css({
-          overflow: 'hidden'
-        });
-        id = id.match(/\d+/)[0];
-        $.ajax({
-          url: Alchemy.routes.admin_picture_path(id),
-          type: 'PUT',
-          data: {
-            'picture[name]': value,
-            size: Alchemy.getUrlParam('size')
-          }
-        });
-        return false;
-      };
-
-      $('#alchemy .rename').click(function() {
-        $(this).css({
-          overflow: 'visible'
-        });
-      });
-
-      $('#alchemy .rename').inPlaceEdit({
-        submit: submit_handler,
-        cancel: cancel_handler,
-        html: ' \
-                <div class="inplace-edit"> \
-                  <input type="text" value="" class="thin_border field" /> \
-                  <div class="buttons"> \
-                    <input type="button" value="' + settings.save_label + '" class="save-button button" /> \
-                    <input type="button" value="' + settings.cancel_label + '" class="cancel-button button" /> \
-                  </div> \
-                </div>'
-      });
-
-    },
-
     pictureSelector: function() {
       var
         $selected_item_tools = $('.selected_item_tools'),
