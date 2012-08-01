@@ -1,3 +1,6 @@
+<div id="tag_list">
+  <%= render :partial => 'tag_list' %>
+</div>
 <%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
   <div class="selected_item_tools">
     <label><%= t("edit_selected_pictures") %></label>
@@ -26,9 +29,6 @@
       :class => 'button',
       :style => 'float: none'
     ) %>
-  </div>
-  <div id="tag_list">
-    <%= render :partial => 'tag_list' %>
   </div>
   <div id="picture_archive">
     <%= render :partial => 'pictures_list' %>
