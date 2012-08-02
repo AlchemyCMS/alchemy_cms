@@ -9,6 +9,13 @@ table {
 
   td, th {
     padding: $default-padding;
+    white-space: nowrap;
+    vertical-align: top;
+    line-height: 18px;
+
+    &.wrap-text {
+      white-space: normal !important;
+    }
   }
 
   th {
@@ -159,8 +166,7 @@ td.email {
 }
 
 td.role {
-  width: 70px;
-  padding-right: 4px;
+  width: 10%;
 }
 
 table td.rights {
