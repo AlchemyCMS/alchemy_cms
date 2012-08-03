@@ -70,4 +70,29 @@ describe Alchemy::Admin::BaseHelper do
     end
   end
 
+  describe "#merge_params_only" do
+
+    before(:each) do
+      controller.stub!(:params).and_return({:first => '1', :second => '2', :third => '3'})
+    end
+
+    it "can keep a single param" do
+      helper.merge_params_only(:second).should == {:second => '2'}
+    end
+
+    it "can keep several params" do
+      helper.merge_params_only([:first, :second]).should == {:first => '1', :second => '2'}
+    end
+
+    it "can keep a param and add new params at the same time" do
+      helper.merge_params_only([:first], {:third => '3'}).should == {:first => '1', :third => '3'}
+    end
+
+    it "should not change params" do
+      helper.merge_params_only([:first])
+      controller.params.should == {:first => '1', :second => '2', :third => '3'}
+    end
+
+  end
+
 end

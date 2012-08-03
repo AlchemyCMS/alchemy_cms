@@ -470,6 +470,18 @@ module Alchemy
         current_params.merge(p).delete_if { |k, v| v.blank? }
       end
 
+      # Deletes all params from the params-hash except the given ones and merges some new params in
+      def merge_params_only(includes, p={})
+        current_params = params.clone.symbolize_keys
+        if includes.is_a?(Array)
+          symbolized_includes = includes.map(&:to_sym)
+          current_params.delete_if { |k, v| !symbolized_includes.include?(k) }
+        else
+          current_params.delete_if { |k, v| k != includes.to_sym }
+        end
+        current_params.merge(p).delete_if { |k, v| v.blank? }
+      end
+
       # Adds tag and tag list from params.
       # Removes duplicate entries.
       def unique_tags_for_params(tag)
