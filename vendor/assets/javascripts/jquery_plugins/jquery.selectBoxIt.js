@@ -532,8 +532,8 @@
                         // Does not require a callback function because this animation will complete before the call to `scrollToView`
                         this.list.show();
 
-                       // Updates the list `scrollTop` attribute
-                       this._scrollToView("search");
+                        // Updates the list `scrollTop` attribute
+                        this._scrollToView("search");
 
                     break;
 
@@ -1014,6 +1014,9 @@
                 // `change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt": function() {
 
+                    // Find list item entry with value of original select
+                    self.currentFocus = self.listItems.index($('li[data-val="' + self.originalElem.value + '"]'));
+
                     // Sets the new dropdown list text to the value of the original dropdown list
                     self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
 
@@ -1037,6 +1040,12 @@
                     self.div.removeClass("ui-state-disabled");
                 }
             });
+
+            // // Binding the original change event to the new custom one
+            // .on("change", function(e) {
+            //     console.log(e)
+            //     self.selectBoxIt.trigger("change.selectBoxIt");
+            // });
 
             // Maintains chainability
             return this;
