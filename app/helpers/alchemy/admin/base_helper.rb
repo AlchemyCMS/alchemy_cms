@@ -461,11 +461,11 @@ module Alchemy
 
       # Deletes one or several params from the params-hash and merges some new params in
       def merge_params_without(excludes, p={})
-        current_params = params.clone
+        current_params = params.clone.symbolize_keys
         if excludes.is_a?(Array)
-          excludes.each { |p| current_params.delete(p) }
+          excludes.map { |i| current_params.delete(i.to_sym) }
         else
-          current_params.delete(excludes)
+          current_params.delete(excludes.to_sym)
         end
         current_params.merge(p).delete_if { |k, v| v.blank? }
       end
