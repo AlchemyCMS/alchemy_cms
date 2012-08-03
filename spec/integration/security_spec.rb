@@ -5,8 +5,6 @@ describe "Security: " do
   before(:all) do
     Alchemy::Page.root.children.destroy_all
     Alchemy::User.delete_all
-    # ensuring that we have the correct locale here
-    ::I18n.locale = :en
   end
 
   context "If no user is present" do
