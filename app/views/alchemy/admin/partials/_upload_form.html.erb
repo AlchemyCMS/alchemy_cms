@@ -37,7 +37,7 @@
   :content_id => @content.blank? ? nil : @content.id,
   :element_id => @element.blank? ? nil : @element.id,
   :size => @size,
-  :hash => Time.now.to_s,
+  :upload_hash => Time.now.hash,
   :options => @options.to_param
 }.delete_if { |k, v| v.nil? }.to_json -%>
 

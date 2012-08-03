@@ -41,7 +41,10 @@ module Alchemy
       end
 
       def create
-        @picture = Picture.new(:image_file => params[:Filedata], :upload_hash => params[:hash], :tag_list => params[:picture].try(:[],:tag_list))
+        @picture = Picture.new(
+          :image_file => params[:Filedata],
+          :upload_hash => params[:upload_hash]
+        )
         @picture.name = @picture.humanized_name
         @picture.save
         @size = params[:size] || 'medium'
