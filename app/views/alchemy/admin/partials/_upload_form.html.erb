@@ -43,15 +43,29 @@
 
 <script type='text/javascript'>
 
-  Alchemy.Uploader.init({
-    upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
-    post_params: <%= post_params.html_safe %>,
-    file_size_limit: <%= configuration(:uploader)['file_size_limit'] || 100 -%>,
-    file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
-    file_types_description: "<%= file_types_description %>",
-    file_upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>,
-    locale: "<%= ::I18n.locale || 'en' %>"
-  });
+  (function() {
+    var options = {
+      upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
+      post_params: <%= post_params.html_safe %>,
+      file_size_limit: <%= configuration(:uploader)['file_size_limit'] || 100 -%>,
+      file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
+      file_types_description: "<%= file_types_description %>",
+      file_upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>,
+      locale: "<%= ::I18n.locale || 'en' %>",
+      onQueueComplete: function() {
+        <% if @while_assigning %>
+        var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload, :element_id => @element.id, :content_id => @content.id).html_safe %>';
+        $.get(url, null, null, 'script');
+        <% else %>
+        var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload).html_safe %>';
+        Alchemy.pleaseWaitOverlay();
+        window.location = url;
+        <% end %>
+      }
+    };
+
+    Alchemy.Uploader.init(options);
+  })();
 
   (function($) {
     $('#uploadswitcher').click(function() {

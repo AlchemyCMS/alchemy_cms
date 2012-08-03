@@ -2,7 +2,7 @@
 <%- if @while_assigning -%>
   $('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay")) -%>');
 <%- else -%>
-  $('#picture_archive').html("<%= escape_javascript(render :partial => 'archive', :locals => {:params => params.merge(:filter => 'last_upload')}) %>");
+  $('#picture_archive').html("<%= escape_javascript(render :partial => 'archive') %>");
   Alchemy.pictureSelector();
   Alchemy.overlayObserver('#picture_archive');
   Alchemy.SelectBox('#filter_bar');

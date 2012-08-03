@@ -56,7 +56,7 @@ module Alchemy
           @page = params[:page] || 1
           @per_page = pictures_per_page_for_size(@size)
         end
-        @pictures = Picture.last_upload.find_paginated(params, pictures_per_page_for_size(@size))
+        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
         @message = t('Picture uploaded succesfully', :name => @picture.name)
         # Are we using the Flash uploader? Or the plain html file uploader?
         if params[Rails.application.config.session_options[:key]].blank?
