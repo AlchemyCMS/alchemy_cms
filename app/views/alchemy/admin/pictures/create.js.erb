@@ -5,6 +5,7 @@
   $('#picture_archive').html("<%= escape_javascript(render :partial => 'archive', :locals => {:params => params.merge(:filter => 'last_upload')}) %>");
   Alchemy.pictureSelector();
   Alchemy.overlayObserver('#picture_archive');
+  Alchemy.SelectBox('#filter_bar');
 <%- end -%>
   Alchemy.growl('<%= @message -%>');
 })(jQuery);
