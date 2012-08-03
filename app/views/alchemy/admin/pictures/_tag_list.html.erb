@@ -10,7 +10,8 @@
             :tagged_with => unique_tags_for_params(t)
           )
         ),
-        :remote => request.xhr?
+        :remote => request.xhr?,
+        :class => 'please_wait'
       ) %>
     <% end %>
   <% end %>
@@ -20,6 +21,6 @@
     render_icon('delete-small') + t('Remove tag filter'),
     url_for(params.delete_if { |p| p == "tagged_with" }.merge(:action => :index)),
     :remote => request.xhr?,
-    :class => 'button small with_icon'
+    :class => 'button small with_icon please_wait'
   ) %>
 <% end %>

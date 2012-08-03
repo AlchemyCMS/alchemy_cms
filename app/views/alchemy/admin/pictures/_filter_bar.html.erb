@@ -17,6 +17,7 @@
       if ($this.data('remote') === true) {
         $.get($this.val(), null, null, 'script');
       } else {
+        Alchemy.pleaseWaitOverlay();
         window.location = $this.val();
       }
       return false;
