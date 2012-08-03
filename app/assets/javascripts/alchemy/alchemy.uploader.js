@@ -68,7 +68,10 @@ Alchemy.Uploader = {
           if (status === 200) {
             window.setTimeout(function() {
               Alchemy.closeCurrentWindow();
-            }, 3500);
+              if (typeof(settings.onQueueComplete) !== 'undefined') {
+                settings.onQueueComplete.call();
+              }
+            }, 2000);
           }
         },
         onClientLoadStart: function(event, file) {
