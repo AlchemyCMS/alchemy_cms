@@ -36,7 +36,7 @@ module Alchemy
     end
 
     def self.last_upload
-      last_picture = Picture.order('created_at DESC').first
+      last_picture = Picture.last
       return Picture.scoped unless last_picture
       Picture.where(:upload_hash => last_picture.upload_hash)
     end
