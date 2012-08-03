@@ -9,7 +9,7 @@ branches:
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
+  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:setup --trace'"
 script: "bundle exec rspec spec --format=doc"
 env:
   - DB=mysql
