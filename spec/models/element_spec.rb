@@ -29,11 +29,14 @@ module Alchemy
       end
 
       context "not_in_cell" do
+
         it "should return all elements that are not in a cell" do
+          Element.delete_all
           FactoryGirl.create(:element, :cell_id => 6)
           FactoryGirl.create(:element, :cell_id => nil)
           Element.not_in_cell.should have(1).element
         end
+
       end
 
     end
