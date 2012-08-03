@@ -1,0 +1,9 @@
+<% if @pictures.empty? %>
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= t("no_images_in_archive") %>
+  </div>
+<% else %>
+  <%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
+  <%= paginate @pictures, :remote => true %>
+<% end %>

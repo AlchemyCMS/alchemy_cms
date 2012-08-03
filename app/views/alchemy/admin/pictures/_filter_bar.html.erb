@@ -1,24 +1,25 @@
-<div id="filter_bar" class="button_with_label">
-  <%= link_to(
-    render_icon('filter'),
-    alchemy.admin_pictures_path(merge_params(:filter => 'last_upload')),
-    :remote => request.xhr?,
-    :title => t("last_upload_only"),
-    :class => "icon_button please_wait"
+<div id="filter_bar">
+  <h2><%= t('Filter') %></h2>
+  <%= select_tag(
+    'picture_filter',
+    options_for_select([
+      [t("all_pictures"), alchemy.admin_pictures_path(merge_params_without([:filter]))],
+      [t("last_upload_only"), alchemy.admin_pictures_path(merge_params(:filter => 'last_upload'))],
+      [t("recently_uploaded_only"), alchemy.admin_pictures_path(merge_params(:filter => 'recent'))]
+    ], request.fullpath),
+    :data => { :remote => !!request.xhr? }
   ) %>
-  <%= link_to(
-    render_icon('filter'),
-    alchemy.admin_pictures_path(merge_params(:filter => 'recent')),
-    :remote => request.xhr?,
-    :title => t("recently_uploaded_only"),
-    :class => "icon_button please_wait"
-  ) %>
-  <%= link_to(
-    render_icon('filter'),
-    alchemy.admin_pictures_path(merge_params_without([:filter])),
-    :remote => request.xhr?,
-    :title => t("all_pictures"),
-    :class => "icon_button please_wait"
-  ) %>
-  <label><%= t('Filter') %></label>
 </div>
+<script type="text/javascript">
+  $(function() {
+    $('#picture_filter').on('change', function(e) {
+      var $this = $(this);
+      if ($this.data('remote') === true) {
+        $.get($this.val(), null, null, 'script');
+      } else {
+        window.location = $this.val();
+      }
+      return false;
+    });
+  });
+</script>

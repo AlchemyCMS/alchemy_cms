@@ -157,7 +157,7 @@ module Alchemy
             render :partial => 'archive_overlay'
           }
           format.js {
-            render :action => :archive_overlay
+            render :action => 'archive_overlay'
           }
         end
       end

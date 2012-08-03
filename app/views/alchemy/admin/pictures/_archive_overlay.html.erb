@@ -1,16 +1,16 @@
 <div id="alchemy_window_body">
   <div id="overlay_toolbar">
-    <%= render :partial => 'filter_and_size_bar' %>
+    <%= render 'filter_and_size_bar' %>
   </div>
   <div id="assign_image_list" class="with_padding">
-    <div id="tag_list">
-      <%= render :partial => 'tag_list' %>
+    <div id="library_sidebar">
+      <%= render 'filter_bar' %>
+      <div id="tag_list">
+        <%= render 'tag_list' %>
+      </div>
     </div>
-    <% if @pictures.empty? %>
-      <p><%= t("no_images_in_archive") %></p>
-    <% else %>
-      <%= render :partial => "picture_to_assign", :collection => @pictures, :locals => {:options => @options, :size => @size} %>
-      <%= paginate @pictures, :remote => true %>
-    <% end %>
+    <div id="overlay_picture_list">
+      <%= render 'overlay_picture_list' %>
+    </div>
   </div>
 </div>

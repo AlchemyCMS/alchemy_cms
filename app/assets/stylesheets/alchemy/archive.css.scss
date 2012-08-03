@@ -178,6 +178,7 @@ div.image_spinner img {
 #assign_image_list {
   position: relative;
   padding-right: 244px;
+  height: 519px;
 
   div.assign_image_list_image img {
     border-style: none;
@@ -241,7 +242,7 @@ div.image_spinner img {
   }
 }
 
-div#tag_list {
+div#library_sidebar {
   position: absolute;
   border-left: 1px solid $default-border-color;
   top: 0;
@@ -255,6 +256,16 @@ div#tag_list {
   h2 {
     margin-top: 4*$default-margin;
   }
+}
+
+div#filter_bar {
+
+  .selectboxit {
+    width: 180px;
+  }
+}
+
+div#tag_list {
 
   ul {
     list-style-type: none;

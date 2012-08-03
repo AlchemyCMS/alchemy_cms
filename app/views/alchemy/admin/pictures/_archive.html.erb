@@ -1,5 +1,8 @@
-<div id="tag_list">
-  <%= render :partial => 'tag_list' %>
+<div id="library_sidebar">
+  <%= render :partial => 'filter_bar' %>
+  <div id="tag_list">
+    <%= render :partial => 'tag_list' %>
+  </div>
 </div>
 <%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
   <div class="selected_item_tools">
@@ -31,21 +34,21 @@
       :style => 'float: none'
     ) %>
   </div>
-  <% if @pictures.blank? and @recent_pictures.blank? and params[:query].nil? %>
-  <div class="info">
-    <%= render_icon('info') %>
-    <%= t("no_images_in_archive") %>
-  </div>
-  <% elsif @pictures.blank? and @recent_pictures.blank? %>
-  <div class="info">
-    <%= render_icon('info') %>
-    <%= t("no_search_results") %>
-  </div>
-  <% else %>
   <%= content_tag :h3, t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
   <div id="pictures">
+  <% if @pictures.blank? and @recent_pictures.blank? and params[:query].nil? %>
+    <div class="info">
+      <%= render_icon('info') %>
+      <%= t("no_images_in_archive") %>
+    </div>
+  <% elsif @pictures.blank? and @recent_pictures.blank? %>
+    <div class="info">
+      <%= render_icon('info') %>
+      <%= t("no_search_results") %>
+    </div>
+  <% else %>
     <%= render :partial => 'picture', :collection => @pictures %>
     <%= paginate @pictures %>
-  </div>
   <% end %>
+  </div>
 <% end %>
