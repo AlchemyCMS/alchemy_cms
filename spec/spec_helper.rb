@@ -39,11 +39,9 @@ def configure
     config.include Alchemy::Engine.routes.url_helpers
     config.mock_with :rspec
     config.use_transactional_fixtures = true
-    unless ENV['CI']
-      config.before(:suite) do
-        truncate_all_tables
-        Alchemy::Seeder.seed!
-      end
+    config.before(:suite) do
+      truncate_all_tables
+      Alchemy::Seeder.seed!
     end
   end
 
