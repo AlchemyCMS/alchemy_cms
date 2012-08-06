@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<attachment_magic>, ["~> 0.2.1"])
   s.add_runtime_dependency(%q<sass-rails>, ['~> 3.2.3'])
   s.add_runtime_dependency(%q<coffee-rails>, ['~> 3.2.1'])
+  s.add_runtime_dependency(%q<compass-rails>, ['~> 1.0.3'])
 
   s.add_development_dependency(%q<bumpy>)
   s.add_development_dependency(%q<capybara>)
