@@ -156,7 +156,7 @@ div#user_info {
 
 #sub_navigation {
   height: 22px;
-  line-height: 23px;
+  line-height: 21px;
   padding-left: 5px;
   background: $light-blue;
   border-bottom: $default-border;
@@ -166,8 +166,6 @@ div#user_info {
 
   a {
     @include inline-block;
-    vertical-align: text-top;
-    line-height: 100%;
 
     &:hover {
       text-decoration: none;
@@ -214,7 +212,7 @@ div#user_info {
   div.subnavi_tab {
     float: left;
     padding: 0px 8px;
-    height: 21px;
+    line-height: 19px;
     text-shadow: #fff 0 0px 4px;
     background: #d6e0e6;
     color: #444;
