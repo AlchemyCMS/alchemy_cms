@@ -4,5 +4,6 @@
 <%- else -%>
   $('#archive_all').html('<%= escape_javascript(render(:partial => "files_list")) %>');
   Alchemy.growl('<%= @message %>');
+  Alchemy.overlayObserver('#archive_all');
 <%- end -%>
 })(jQuery);

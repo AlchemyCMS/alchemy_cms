@@ -56,7 +56,7 @@
         <% if @while_assigning %>
         var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload, :element_id => @element.id, :content_id => @content.id).html_safe %>';
         $.get(url, null, null, 'script');
-        <% else %>
+        <% elsif controller.class.name == 'Alchemy::Admin::PicturesController' %>
         var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload).html_safe %>';
         Alchemy.pleaseWaitOverlay();
         window.location = url;
