@@ -324,6 +324,7 @@ de:
     assign_file: "Datei zuweisen"
     assign_file_from_archive: "Datei aus dem Archiv zuweisen"
     assign_image: "Bild hinzufügen."
+    attachment_filename_notice: "*) Bitte verwenden Sie keine Sonderzeichen oder Umlaute in dem Dateinamen."
     auto_play: "Film automatisch abspielen"
     big_thumbnails: "große Miniaturbilder"
     browse: "durchsuchen"

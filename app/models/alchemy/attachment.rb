@@ -1,7 +1,7 @@
 module Alchemy
   class Attachment < ActiveRecord::Base
 
-    attr_accessible :uploaded_data, :name
+    attr_accessible :uploaded_data, :name, :filename
 
     stampable(:stamper_class_name => 'Alchemy::User')
 

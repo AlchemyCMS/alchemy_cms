@@ -24,9 +24,10 @@ module Alchemy
       end
 
       def create
-        @attachment = Attachment.new(:uploaded_data => params[:Filedata])
-        @attachment.name = @attachment.filename
-        @attachment.save
+        @attachment = Attachment.create(
+          :uploaded_data => params[:Filedata],
+          :name => params[:Filedata].original_filename
+        )
         if in_overlay?
           @while_assigning = true
           @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
