@@ -151,7 +151,11 @@ div#user_info {
   line-height: 27px;
   font-size: 11px;
   right: 10px;
-  top: 0;
+  top: -3px;
+
+  .selectboxit-container {
+    margin-right: 2 * $default-margin;
+  }
 }
 
 #sub_navigation {

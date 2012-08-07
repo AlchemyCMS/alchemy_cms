@@ -41,14 +41,20 @@ module Alchemy
 
   private
 
-    # Sets Alchemy's GUI translation to users preffered language.
+    # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
     #
     # Guesses the language from browser locale. If not successful it takes the default.
     #
     # You can set the default translation in your +config/application.rb+ file, via Rails +default_locale+ config option.
     #
+    # If one passes a locale parameter the locale is set to its value
+    #
     def set_translation
-      if current_user && current_user.language.present?
+      if params[:locale].blank? && session[:current_locale].present?
+        ::I18n.locale = session[:current_locale]
+      elsif params[:locale].present? && ::I18n.available_locales.include?(params[:locale].to_sym)
+        session[:current_locale] = ::I18n.locale = params[:locale]
+      elsif current_user && current_user.language.present?
         ::I18n.locale = current_user.language
       elsif Rails.env == 'test' # OMG I hate to do this. But it helps...
         ::I18n.locale = 'en'

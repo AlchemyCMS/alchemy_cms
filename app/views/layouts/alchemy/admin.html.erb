@@ -48,7 +48,7 @@
         <% end %>
       </div>
     </div>
-    <%- if current_user -%>
+    <% if current_user %>
     <div id="top_menu">
       <div id="sub_navigation">
         <%= admin_subnavigation %>
@@ -60,10 +60,11 @@
         <%= yield(:toolbar) %>
       </div>
       <div id="user_info">
+        <%= select_tag 'change_locale', options_for_select(::I18n.available_locales.map { |l| [l.upcase, l] }, ::I18n.locale), :class => 'alchemy_select tiny' %>
         <%= t('Logged in as') %> <%= current_user.name %>
       </div>
     </div>
-    <%- end -%>
+    <% end %>
     <%= render :partial => 'alchemy/admin/partials/flash_notices' %>
     <div id="main_content">
       <%= yield %>
@@ -87,6 +88,13 @@
         });
         // Hack for enabling tab focus for a's styled as button
         $('a.button').attr({tabindex: 0});
+
+        // Locale select handler
+        $('select#change_locale').on('change', function(e) {
+          var url = '<%= url_for.html_safe %>';
+          delimiter = url.match(/\?/) ? '&' : '?';
+          window.location = url + delimiter + 'locale=' + $(this).val();
+        });
       });
       jQuery(window).resize(function() {
         Alchemy.resizeFrame();

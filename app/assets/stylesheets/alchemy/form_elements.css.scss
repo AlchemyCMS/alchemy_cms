@@ -420,6 +420,17 @@ div.selectboxit-container {
       }
     }
 
+    &.tiny {
+      padding: 2px 2px 2px 8px;
+      height: 14px;
+
+      .selectboxit-text {
+        padding-right: 24px;
+        font-size: 10px;
+        line-height: 14px;
+      }
+    }
+
     &:focus {
       @include default-focus-style;
     }
