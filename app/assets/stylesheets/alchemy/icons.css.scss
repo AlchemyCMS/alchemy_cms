@@ -5,306 +5,286 @@
   background: url('icons.png') no-repeat;
   width: 16px;
   height: 16px;
-}
 
-.icon.zoom-out {
-  background-position: -416px -72px;
-}
-
-.icon.zoom-equal {
-  background-position: -448px -72px;
-}
-
-.icon.delete-small {
-  background-position: -1px -72px;
-}
-
-.icon_button.small {
-  .icon.delete-small {
-    background-position: -4px -76px;
+  &.add_page {
+    background-position: -96px -40px;
   }
-}
-
-.icon.zoom-in {
-  background-position: -480px -72px;
-}
-
-.icon.user_add {
-  background-position: -96px -104px;
-}
-
-.icon.language_add {
-  background-position: -47px -120px;
-}
-
-.icon.user {
-  background-position: 0 -104px;
-}
-
-.icon.language {
-  background-position: 0 -120px;
-}
-
-.icon.user.female {
-  background-position: -128px -104px;
-}
-
-.icon.user_edit {
-  background-position: -64px -104px;
-}
-
-.icon.language_edit {
-  background-position: -32px -120px;
-}
-
-.icon.user_edit.female {
-  background-position: -192px -104px;
-}
-
-.icon.settings {
-  background-position: -320px -40px;
-}
-
-.icon.visit_page {
-  background-position: -31px -137px;
-}
-
-.icon.upload {
-  background-position: 0 -136px;
-}
-
-.icon.pdf {
-  background-position: -161px -136px;
-}
-
-.icon.text {
-  background-position: -448px -136px;
-}
-
-.icon.archive {
-  background-position: -416px -136px;
-}
-
-.icon.audio {
-  background-position: -192px -136px;
-}
-
-.icon.image {
-  background-position: -224px -136px;
-}
-
-.icon.vcard {
-  background-position: -416px -104px;
-}
-
-.icon.psd {
-  background-position: -128px -136px;
-}
-
-.icon.flash {
-  background-position: -256px -136px;
-}
-
-.icon.video {
-  background-position: -288px -136px;
-}
-
-.icon.rtf {
-  background-position: -320px -136px;
-}
-
-.icon.word {
-  background-position: -384px -136px;
-}
-
-.icon.excel {
-  background-position: -176px -72px;
-}
-
-.icon.file {
-  background-position: 0 -40px;
-}
-
-.icon.flush {
-  background-position: -352px -39px;
-}
-
-.icon.publish {
-  background-position: -64px -136px;
-}
-
-.icon.info {
-  background-position: -64px -168px;
-}
-
-.icon.close {
-  background-position: -416px -40px;
-}
-
-.icon.sync {
-  background-position: -96px -136px;
-}
-
-.icon.close.small {
-  background: url('ui-icons_666666_256x240.png') -84px -132px;
-  width: 8px;
-  height: 8px;
-}
-
-.icon.online {
-  background-position: -224px -104px;
-}
-
-.icon.offline {
-  background-position: -255px -104px;
-}
-
-.icon.tick, .icon.true {
-  background-position: -32px -72px;
-}
-
-.icon.error {
-  background-position: -32px -168px;
-}
-
-.icon.false {
-  background-image: none;
-}
-
-.icon.link, a.link {
-  background-position: -320px -72px;
-}
-
-.icon.unlink {
-  background-position: -352px -72px;
-}
-
-.icon.swap_picture {
-  background-position: -288px -72px;
-}
-
-.icon.crop {
-  background-position: -256px -72px;
-}
-
-.icon.warning, .icon.warn {
-  background-position: 0 -168px;
-}
-
-.icon.element_public {
-  background-position: -94px -166px;
-}
-
-.icon.element_draft {
-  background-position: 1px -70px;
-}
-
-.icon.new_element {
-  background-position: -384px -40px;
-}
-
-.icon.element_window {
-  background-position: -512px -72px;
-}
-
-.icon.preview_window {
-  background-position: -448px -40px;
-}
-
-.icon.clipboard {
-  background-position: -288px -104px;
-}
-
-.icon.clipboard.full {
-  background-position: -320px -104px;
-}
-
-.icon.trash {
-  background-position: -352px -104px;
-}
-
-.icon.trash.full {
-  background-position: -384px -104px;
-}
-
-.icon.file_download {
-  background-position: -480px -136px;
-}
-
-.icon.download {
-  background-position: -240px -72px;
-}
-
-.icon.file_delete {
-  background-position: -64px -40px;
-}
-
-.icon.file_edit {
-  background-position: -32px -40px;
-}
-
-.icon.edit {
-  background-position: -160px -168px;
-}
-
-.icon.create {
-  background-position: -192px -168px;
-}
-
-.icon.add_page {
-  background-position: -96px -40px;
-}
-
-.icon.copy_page {
-  background-position: -544px -40px;
-}
-
-.icon.delete_page {
-  background-position: -64px -40px;
-}
-
-.icon.user_delete {
-  background-position: -32px -104px;
-}
-
-.icon.language_delete {
-  background-position: -16px -120px;
-}
-
-.icon.destroy {
-  background-position: -224px -168px;
-}
-
-.icon.configure_page {
-  background-position: -320px -40px;
-}
-
-.icon.search {
-  background: url('ui-icons_666666_256x240.png') -160px -112px;
-}
-
-.icon.user_delete.female {
-  background-position: -160px -104px;
-}
-
-.icon.remove {
-  background-position: no-repeat -64px;
-  width: 16px;
-  height: 16px;
-  @include inline-block;
-  position: relative;
-  top: 3px;
-  margin-right: 4px;
-}
-
-.icon.blank {
-  background: transparent;
-}
-
-.icon.sort {
-  background-position: -128px -168px;
-}
-
-.icon.select_all {
-  background-position: -256px -168px;
+
+  &.archive {
+    background-position: -416px -136px;
+  }
+
+  &.audio {
+    background-position: -192px -136px;
+  }
+
+  &.blank {
+    background: transparent;
+  }
+
+  &.clipboard {
+    background-position: -288px -104px;
+
+    &.full {
+      background-position: -320px -104px;
+    }
+  }
+
+  &.close {
+    background-position: -416px -40px;
+
+    &.small {
+      background: url('ui-icons_666666_256x240.png') -84px -132px;
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  &.configure_page {
+    background-position: -320px -40px;
+  }
+
+  &.copy_page {
+    background-position: -544px -40px;
+  }
+
+  &.create {
+    background-position: -192px -168px;
+  }
+
+  &.crop {
+    background-position: -256px -72px;
+  }
+
+  &.delete_page {
+    background-position: -64px -40px;
+  }
+
+  &.delete-small {
+    background-position: -1px -72px;
+  }
+
+  &.destroy {
+    background-position: -224px -168px;
+  }
+
+  &.edit {
+    background-position: -160px -168px;
+  }
+
+  &.element_draft {
+    background-position: 1px -70px;
+  }
+
+  &.element_public {
+    background-position: -94px -166px;
+  }
+
+  &.element_window {
+    background-position: -512px -72px;
+  }
+
+  &.error {
+    background-position: -32px -168px;
+  }
+
+  &.excel {
+    background-position: -176px -72px;
+  }
+
+  &.false {
+    background-image: none;
+  }
+
+  &.file {
+    background-position: 0 -40px;
+  }
+
+  &.file_delete {
+    background-position: -64px -40px;
+  }
+
+  &.file_download, &.download {
+    background-position: -480px -136px;
+  }
+
+  &.file_edit {
+    background-position: -32px -40px;
+  }
+
+  &.flash {
+    background-position: -256px -136px;
+  }
+
+  &.flush {
+    background-position: -352px -39px;
+  }
+
+  &.image {
+    background-position: -224px -136px;
+  }
+
+  &.info {
+    background-position: -64px -168px;
+  }
+
+  &.language {
+    background-position: 0 -120px;
+  }
+
+  &.language_add {
+    background-position: -47px -120px;
+  }
+
+  &.language_delete {
+    background-position: -16px -120px;
+  }
+
+  &.language_edit {
+    background-position: -32px -120px;
+  }
+
+  &.link {
+    background-position: -320px -72px;
+  }
+
+  &.new_element {
+    background-position: -384px -40px;
+  }
+
+  &.offline {
+    background-position: -255px -104px;
+  }
+
+  &.online {
+    background-position: -224px -104px;
+  }
+
+  &.pdf {
+    background-position: -161px -136px;
+  }
+
+  &.preview_window {
+    background-position: -448px -40px;
+  }
+
+  &.psd {
+    background-position: -128px -136px;
+  }
+
+  &.publish {
+    background-position: -64px -136px;
+  }
+
+  &.rtf {
+    background-position: -320px -136px;
+  }
+
+  &.search {
+    background: url('ui-icons_666666_256x240.png') -160px -112px;
+  }
+
+  &.select_all {
+    background-position: -256px -168px;
+  }
+
+  &.settings {
+    background-position: -320px -40px;
+  }
+
+  &.sort {
+    background-position: -128px -168px;
+  }
+
+  &.swap_picture {
+    background-position: -288px -72px;
+  }
+
+  &.sync {
+    background-position: -96px -136px;
+  }
+
+  &.text {
+    background-position: -448px -136px;
+  }
+
+  &.tick, &.true {
+    background-position: -32px -72px;
+  }
+
+  &.trash {
+    background-position: -352px -104px;
+
+    &.full {
+      background-position: -384px -104px;
+    }
+  }
+
+  &.unlink {
+    background-position: -352px -72px;
+  }
+
+  &.upload {
+    background-position: 0 -136px;
+  }
+
+  &.user {
+    background-position: 0 -104px;
+
+    &.female {
+      background-position: -128px -104px;
+    }
+  }
+
+  &.user_add {
+    background-position: -96px -104px;
+  }
+
+  &.user_delete {
+    background-position: -32px -104px;
+
+    &.female {
+      background-position: -160px -104px;
+    }
+  }
+
+  &.user_edit {
+    background-position: -64px -104px;
+
+    &.female {
+      background-position: -192px -104px;
+    }
+  }
+
+  &.vcard {
+    background-position: -416px -104px;
+  }
+
+  &.video {
+    background-position: -288px -136px;
+  }
+
+  &.visit_page {
+    background-position: -31px -137px;
+  }
+
+  &.warning, &.warn {
+    background-position: 0 -168px;
+  }
+
+  &.word {
+    background-position: -384px -136px;
+  }
+
+  &.zoom-equal {
+    background-position: -448px -72px;
+  }
+
+  &.zoom-in {
+    background-position: -480px -72px;
+  }
+
+  &.zoom-out {
+    background-position: -416px -72px;
+  }
 }

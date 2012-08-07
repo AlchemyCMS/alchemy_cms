@@ -108,6 +108,10 @@ button, input[type="submit"], a.button, input.button {
       top: 4px;
       width: 8px;
       height: 8px;
+
+      &.delete-small {
+        background-position: -4px -76px;
+      }
     }
 
     &:hover {
