@@ -98,6 +98,10 @@
 
       a {
         @include default-button-style;
+
+        &:hover {
+          text-decoration: none !important;
+        }
       }
     }
   }
