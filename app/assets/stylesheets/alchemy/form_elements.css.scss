@@ -354,6 +354,14 @@ select {
  * Author: @gregfranko
  */
 
+div.ui-dialog form table div.selectboxit {
+  width: 200px;
+
+  .selectboxit-text {
+    max-width: 180px !important;
+  }
+}
+
 div.selectboxit-container {
   @include inline-block;
   margin: $default-form-field-margin;
@@ -364,38 +372,56 @@ div.selectboxit-container {
 
   div.selectboxit {
     @include default-button-style;
-    width: 200px;
+    width: auto;
+    height: 16px;
     padding: 0.5em 0 0.5em 1.5em;
     margin: 0;
     @include inline-block;
+    overflow: hidden;
+    white-space: nowrap;
 
     &.short {
       width: 80px;
+
+      .selectboxit-text {
+        max-width: 60px !important;
+      }
     }
 
     &.medium {
       width: 140px;
+
+      .selectboxit-text {
+        max-width: 120px !important;
+      }
     }
 
     &.long {
       width: 240px;
+
+      .selectboxit-text {
+        max-width: 220px !important;
+      }
     }
 
     &.very_long {
       width: 300px;
+
+      .selectboxit-text {
+        max-width: 280px !important;
+      }
     }
 
     &.full_width {
       width: 416px;
+
+      .selectboxit-text {
+        max-width: 396px !important;
+      }
     }
 
     &:focus {
       @include default-focus-style;
-    }
-
-    /* Dropdown list Default Icon Positioning */
-    span.selectboxit-default-icon {
-      float: left;
     }
 
     /* Dropdown List Box Text */
@@ -405,6 +431,8 @@ div.selectboxit-container {
       float: left;
       white-space: nowrap;
       @include disable-user-select;
+      @include text-overflow(ellipsis);
+      padding-right: 32px;
     }
 
     /* Dropdown List Down Arrow Container (if an image is not used) */
@@ -413,7 +441,9 @@ div.selectboxit-container {
       width: 16px;
       padding: 0 0.25em 0 0;
       margin-left: 0.5em;
-      float: right;
+      position: absolute;
+      right: 0;
+      top: 7px;
       border-left: 1px solid darken($medium-gray, 10%);
       height: auto !important;
 
@@ -434,6 +464,7 @@ div.selectboxit-container {
 
   /* Dropdown List Options List*/
   ul {
+    min-height: 28px;
     min-width: 100%;
     background: white;
     max-height: 180px; /* A vertical scrollbar appears if your select box options are taller than this */
@@ -451,7 +482,7 @@ div.selectboxit-container {
     border: $default-border;
 
     /* Dropdown List Individual Options */
-    li, .optgroupHeader {
+    li, .selectboxit-optgroup-header {
       line-height: 1.5em; /* Height of Individual Select Box Options */
       overflow: hidden;
       white-space: nowrap;
@@ -469,18 +500,19 @@ div.selectboxit-container {
     li span {
       float:left;
     }
+
     /* Dropdown List Optgroup Headers */
-    .optgroupHeader {
+    .selectboxit-optgroup-header {
       font-weight: bold;
     }
 
     /* Dropdown List Optgroup Options */
-    .optgroupOption {
+    .selectboxit-optgroup-option {
       text-indent: 20px;
     }
 
     /* Dropdown List Optgroup Header hover psuedo class */
-    .optgroupHeader[data-disabled='true']:hover {
+    .selectboxit-optgroup-header[data-disabled='true']:hover {
       cursor: default;
     }
   }

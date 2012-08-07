@@ -404,14 +404,6 @@
             // Appends the down arrow element to the dropdown list
             this.div.append(this.downArrowContainer);
 
-            // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
-            this.divText.css({
-
-                "line-height": this.div.height() > 0 ? this.div.css("height") : "auto",
-
-                "max-width": this.div.width() - (this.downArrowContainer.width() + this.divImage.width()) - 5
-            });
-
             this.divImage.css({
 
                 "margin-top": height / 4

@@ -109,3 +109,10 @@ $default-form-field-margin: 0.3em 0;
     @include default-focus-style;
   }
 }
+
+@mixin text-overflow($prop: ellipsis) {
+  text-overflow: $prop;
+  -o-text-overflow: $prop;
+  -ms-text-overflow: $prop;
+  -moz-text-overflow: $prop;
+}
