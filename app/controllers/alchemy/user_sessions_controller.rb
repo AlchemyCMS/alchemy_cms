@@ -31,8 +31,6 @@ module Alchemy
       else
         if request.get?
           @user_session = UserSession.new()
-          @user_roles = User::ROLES.map { |role| [User.human_rolename(role), role] }
-          @user_genders = User.genders_for_select
           flash.now[:info] = params[:message] || t("welcome_please_identify_notice")
         else
           @user_session = UserSession.new(params[:alchemy_user_session])
