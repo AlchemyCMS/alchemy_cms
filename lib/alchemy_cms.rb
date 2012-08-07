@@ -13,7 +13,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'sass-rails'
   require 'compass-rails'
   require 'coffee-rails'
-  require 'tvdeyen_sassy-buttons'
+  require 'sassy-buttons'
   require 'declarative_authorization'
   require 'extensions/hash'
   require 'extensions/array'
