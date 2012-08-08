@@ -25,15 +25,31 @@ FactoryGirl.define do
   end
 
   factory :language, :class => 'Alchemy::Language' do
-    default false
+    name 'Deutsch'
+    code 'de'
+    default true
     frontpage_name 'Intro'
     page_layout 'intro'
     public true
+
+    factory :klingonian do
+      name 'Klingonian'
+      code 'kl'
+      frontpage_name 'Tuq'
+      default false
+    end
+
+    factory :english do
+      name 'English'
+      code 'en'
+      frontpage_name 'Intro'
+      default false
+    end
   end
 
   factory :page, :class => 'Alchemy::Page' do
 
-    language { Alchemy::Language.first || FactoryGirl.create(:language) }
+    language { Alchemy::Language.get_default || FactoryGirl.create(:language) }
     sequence(:name) { |n| "A Page #{n}" }
     parent_id { (Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page)).id }
     page_layout "standard"

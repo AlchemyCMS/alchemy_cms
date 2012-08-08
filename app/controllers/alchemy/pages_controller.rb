@@ -66,7 +66,11 @@ module Alchemy
           store_language_in_session(@page.language) if @page.present?
           return @page
         else
-          @page = Page.contentpages.find_by_urlname_and_language_id(params[:urlname], session[:language_id])
+          @page = Page.contentpages.where(
+            :urlname => params[:urlname],
+            :language_id => session[:language_id],  # Make sure that the current language
+            :language_code => params[:lang]         # matches the requested language code.
+          ).first
         end
       end
     end

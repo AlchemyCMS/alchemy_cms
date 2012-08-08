@@ -3,26 +3,20 @@ require 'spec_helper'
 module Alchemy
   describe Admin::PagesController, :js => true do
 
-    before(:all) do
-      create_admin_user
-      @german_root = FactoryGirl.create(:language_root_page, :language => Language.get_default, :name => 'Deutsch')
-    end
+    let(:klingonian) { FactoryGirl.create(:klingonian) }
+    let(:german_root) { FactoryGirl.create(:language_root_page) }
+    let(:klingonian_root) { FactoryGirl.create(:language_root_page, :name => 'Klingonian', :language => klingonian) }
 
-    before(:each) do
-      login_into_alchemy
+    before do
+      german_root
+      authorize_as_admin
     end
 
     describe "language tree switching" do
 
-      before(:all) do
-        @language = FactoryGirl.create(:language)
-      end
-
       context "in a multilangual environment" do
 
-        before(:all) do
-          @klingonian_root = FactoryGirl.create(:language_root_page, :name => 'Klingonian')
-        end
+        before { klingonian_root }
 
         it "one should be able to switch the language tree" do
           visit('/alchemy/admin/pages')
@@ -30,13 +24,11 @@ module Alchemy
           page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
         end
 
-        after(:all) {
-          @klingonian_root.delete
-        }
-
       end
 
       context "with no language root page" do
+
+        before { klingonian }
 
         it "it should display the form for creating language root" do
           visit('/alchemy/admin/pages')
@@ -45,10 +37,6 @@ module Alchemy
         end
 
       end
-
-      after(:all) {
-        @language.destroy
-      }
 
     end
 
@@ -61,10 +49,6 @@ module Alchemy
       end
 
     end
-
-    after(:all) {
-      @german_root.delete
-    }
 
   end
 end
