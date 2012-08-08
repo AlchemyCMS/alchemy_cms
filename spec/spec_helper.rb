@@ -35,7 +35,7 @@ def configure
   Capybara.default_wait_time = 5
 
   Capybara.register_driver(:rack_test_translated_header) do |app|
-    Capybara::RackTest::Driver.new(app, headers: { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
+    Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
   end
 
   # Load support files
