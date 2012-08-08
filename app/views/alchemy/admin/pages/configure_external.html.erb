@@ -2,14 +2,14 @@
   <div id="errors" style="display:none"></div>
   <table id="page_names">
     <tr>
-      <td><%= t("page_type") %>: </td>
-      <td>
-        <%= @page.layout_display_name %>
+      <td class="label"><%= t("page_type") %>: </td>
+      <td class="value long">
+        <p><%= @page.layout_display_name %></p>
       </td>
     </tr>
     <tr>
-      <td><%= t("page_status") %>: </td>
-      <td>
+      <td class="label"><%= t("page_status") %>: </td>
+      <td class="checkbox long">
         <%= f.check_box :visible -%>
         <%= f.label :visible %><br/>
         <%- if configuration(:sitemap)[:show_flag] -%><br/>
@@ -19,22 +19,22 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2"><strong><%= t("names") %></strong></td>
+      <td colspan="2" class="heading"><%= t("names") %></td>
     </tr>
     <tr>
-      <td><%= f.label "name" %>:&nbsp;</td>
-      <td><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
+      <td class="label"><%= f.label "name" %>:&nbsp;</td>
+      <td class="input"><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
     </tr>
     <tr>
-      <td><%= f.label "urlname" %>: </td>
-      <td><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
+      <td class="label"><%= f.label "urlname" %>: </td>
+      <td class="input"><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
     </tr>
     <tr>
-      <td><%= f.label "title" %>: </td>
-      <td><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
+      <td class="label"><%= f.label "title" %>: </td>
+      <td class="input"><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><%= f.button t("save"), :class => 'button' %></td>
+      <td colspan="2" class="submit"><%= f.button t("save"), :class => 'button' %></td>
     </tr>
   </table>
 <% end %>

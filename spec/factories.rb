@@ -25,27 +25,21 @@ FactoryGirl.define do
   end
 
   factory :language, :class => 'Alchemy::Language' do
-    language_code "kl"
-    name 'Klingonian'
     default false
-    frontpage_name 'Tuq'
+    frontpage_name 'Intro'
     page_layout 'intro'
     public true
-
-    factory :language_with_country_code do
-      country_code 'cr'
-    end
   end
 
   factory :page, :class => 'Alchemy::Page' do
 
-    language { Alchemy::Language.find_by_language_code('kl') || FactoryGirl.create(:language) }
+    language { Alchemy::Language.first || FactoryGirl.create(:language) }
     sequence(:name) { |n| "A Page #{n}" }
     parent_id { (Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page)).id }
     page_layout "standard"
 
     factory :language_root_page do
-      name 'Klingonian'
+      name 'Startseite'
       page_layout 'intro'
       language_root true
       public true

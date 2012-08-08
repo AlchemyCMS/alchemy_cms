@@ -21,6 +21,7 @@ de:
       search: Suche
       layout_header: 'Header Bereich'
       layout_footer: 'Footer Bereich'
+      external: Externer Link
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
