@@ -60,7 +60,7 @@
         <%= yield(:toolbar) %>
       </div>
       <div id="user_info">
-        <%= select_tag 'change_locale', options_for_select(::I18n.available_locales.map { |l| [l.upcase, l] }, ::I18n.locale), :class => 'alchemy_select tiny' %>
+        <%= select_tag 'change_locale', options_for_select(::I18n.available_locales.map { |l| [l.to_s.upcase, l] }, ::I18n.locale), :class => 'alchemy_select tiny' %>
         <%= t('Logged in as') %> <%= current_user.name %>
       </div>
     </div>
