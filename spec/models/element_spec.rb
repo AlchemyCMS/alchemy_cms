@@ -88,17 +88,6 @@ module Alchemy
 
     end
 
-    it "should return a collection of trashed elements" do
-      @element = FactoryGirl.create(:element)
-      @element.trash
-      Element.trashed.should include(@element)
-    end
-
-    it "should return a collection of not trashed elements" do
-      @element = FactoryGirl.create(:element, :page_id => 1)
-      Element.not_trashed.should include(@element)
-    end
-
     context "limited amount" do
       before(:each) do
         descriptions = Element.descriptions
@@ -137,23 +126,53 @@ module Alchemy
 
     end
 
-    context "trashed" do
+    context "collections" do
+      context "for trashed elements" do
+
+        let(:element) do
+          FactoryGirl.create(:element, :page_id => 1)
+        end
+
+        it "should return a collection of trashed elements" do
+          not_trashed_element = FactoryGirl.create(:element)
+          element.trash
+          Element.trashed.should include(element)
+        end
+
+        it "should return a collection of not trashed elements" do
+          Element.not_trashed.should include(element)
+        end
+
+      end
+    end
+
+    describe "#trash" do
 
       before(:each) do
-        @element = FactoryGirl.create(:element)
+        @element = FactoryGirl.create(:element, :page_id => 1, :cell_id => 1)
         @element.trash
       end
 
-      it "should be not public" do
-        @element.public.should be_false
+      it "should remove the elements position" do
+        @element.position.should == nil
       end
 
-      it "should have no page" do
-        @element.page.should == nil
+      it "should set the public state to false" do
+        @element.public?.should == false
       end
 
-      it "should be folded" do
-        @element.folded.should == true
+      it "should not remove the page_id" do
+        @element.page_id.should == 1
+      end
+
+      it "should not remove the cell_id" do
+        @element.cell_id.should == 1
+      end
+
+      it "it should be possible to trash more than one element from the same page" do
+        trashed_element_2 = FactoryGirl.create(:element, :page_id => 1)
+        trashed_element_2.trash
+        Element.trashed.should include(@element, trashed_element_2)
       end
 
     end

@@ -18,7 +18,6 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'extensions/hash'
   require 'extensions/array'
   require 'extensions/action_view'
-  require 'patches/acts_as_list'
   require 'alchemy/mount_point'
   require 'alchemy/version'
   require 'alchemy/auth_engine'

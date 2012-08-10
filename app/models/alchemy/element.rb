@@ -2,13 +2,14 @@ module Alchemy
   class Element < ActiveRecord::Base
 
     attr_accessible(
-      :name,
-      :unique,
-      :page_id,
-      :public,
       :cell_id,
+      :create_contents_after_create,
       :folded,
-      :create_contents_after_create
+      :name,
+      :page_id,
+      :position,
+      :public,
+      :unique
     )
 
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
@@ -20,16 +21,15 @@ module Alchemy
     belongs_to :page
     has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 
-    validates_uniqueness_of :position, :scope => [:page_id, :cell_id]
+    validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
 
     attr_accessor :create_contents_after_create
 
     after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
 
-    # TODO: add a trashed column to elements table
-    scope :trashed, where(:page_id => nil).order('updated_at DESC')
-    scope :not_trashed, where(Element.arel_table[:page_id].not_eq(nil))
+    scope :trashed, where(:position => nil).order('updated_at DESC')
+    scope :not_trashed, where(Element.arel_table[:position].not_eq(nil))
     scope :published, where(:public => true)
     scope :available, published.not_trashed
     scope :named, lambda { |names| where(:name => names) }
@@ -61,19 +61,18 @@ module Alchemy
       end
     end
 
-    # Nullifies the page_id and cell_id, fold the element, set it to unpublic and removes its position.
+    # Trashing an element means nullifying its position and unpublishing it.
     def trash
-      self.attributes = {
-        :page_id => nil,
-        :cell_id => nil,
-        :folded => true,
-        :public => false
-      }
+      self.update_column(:public, false)
       self.remove_from_list
     end
 
     def trashed?
-      page_id.nil?
+      self.position.nil?
+    end
+
+    def folded?
+      self.trashed? || self.read_attribute(:folded)
     end
 
     def content_by_name(name)
