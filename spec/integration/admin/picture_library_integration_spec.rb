@@ -12,12 +12,24 @@ describe "Picture Library", :js => true do
 
   describe "Tagging" do
 
-    it "it should be possible to filter tags by clicking on its name in the tag list" do
+    before(:each) do
       picture = FactoryGirl.create(:picture, :tag_list => 'tag1', :name => 'TaggedWith1')
       picture = FactoryGirl.create(:picture, :tag_list => 'tag2', :name => 'TaggedWith2')
+    end
+
+    it "it should be possible to filter tags by clicking on its name in the tag list" do
       visit '/alchemy/admin/pictures'
       click_on 'tag1 (1)'
       page.should have_content 'TaggedWith1'
+      page.should_not have_content 'TaggedWith2'
+    end
+
+    it "it should be possible to undo tag filtering by clicking on an active tag name" do
+      visit '/alchemy/admin/pictures'
+      click_on 'tag1 (1)'
+      click_on 'tag2 (1)'
+      page.should have_content 'TaggedWith2'
+      click_on 'tag2 (1)'
       page.should_not have_content 'TaggedWith2'
     end
 
