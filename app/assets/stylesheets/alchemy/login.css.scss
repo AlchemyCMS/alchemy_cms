@@ -27,10 +27,6 @@ div.login_signup_box {
   background-color: $medium-gray;
   @include rounded-corner;
   margin: 2em auto;
-
-  select {
-    width: 220px;
-  }
 }
 
 html.no-js {
