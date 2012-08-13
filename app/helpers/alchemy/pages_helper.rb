@@ -467,23 +467,13 @@ module Alchemy
     # Renders the search form
     def render_search_form(options={})
       default_options = {
-        :page => @search_result_page,
-        :html5 => false,
-        :button_value => t("search"),
-        :button_class => nil
+        :html5 => false
       }
-      options = default_options.merge(options)
-      if options[:page].class.name != "Alchemy::Page"
-        warning("No page found for #{options[:page].inspect}")
+      if @search_result_page.blank?
+        warning("No search result page found")
         return
       end
-      form_tag(show_alchemy_page_path(options[:page]), :method => :get, :class => 'fulltext_search') do
-        if options[:html5]
-          search_field_tag(:query, params[:query])
-        else
-          text_field_tag(:query, params[:query]) + submit_tag(options[:button_value], :class => options[:button_class], :name => nil)
-        end
-      end
+      render :partial => 'alchemy/search/form', :locals => {:options => default_options.merge(options)}
     end
 
     # Renders the search-results

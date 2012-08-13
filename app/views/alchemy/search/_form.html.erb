@@ -1,0 +1,8 @@
+<%= form_tag(show_alchemy_page_path(@search_result_page), :method => :get, :class => 'fulltext_search') do %>
+  <% if options[:html5] %>
+    <%= search_field_tag(:query, params[:query], :placeholder => t('search query')) %>
+  <% else %>
+    <%= text_field_tag(:query, params[:query]) %>
+  <% end %>
+  <%= submit_tag(t("search"), :name => nil) %>
+<% end %>
