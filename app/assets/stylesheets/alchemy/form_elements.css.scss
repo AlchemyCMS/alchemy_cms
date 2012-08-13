@@ -23,7 +23,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &.with_icon {
-    padding: 0.5em 1.5em 0.5em 0.5em;
+    padding: 6px 18px 6px 6px;
 
     span.icon {
       margin-top: -5px;
@@ -373,8 +373,8 @@ div.selectboxit-container {
   div.selectboxit {
     @include default-button-style;
     width: auto;
-    height: 16px;
-    padding: 0.5em 0 0.5em 1.5em;
+    height: 15px;
+    padding: 6px 0 6px 18px;
     margin: 0;
     @include inline-block;
     overflow: hidden;
@@ -464,7 +464,7 @@ div.selectboxit-container {
         margin-right: auto;
         margin-left: auto;
         width: 16px;
-        height: 16px;
+        height: 15px;
         text-indent: -99999px;
         overflow: hidden;
         display: block;

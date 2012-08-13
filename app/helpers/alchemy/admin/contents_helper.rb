@@ -90,7 +90,7 @@ module Alchemy
           :method => :post,
           :remote => true,
           :id => "add_content_for_element_#{element.id}",
-          :class => 'button new_content_link'
+          :class => 'button with_icon new_content_link'
         )
       end
 
