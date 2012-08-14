@@ -31,6 +31,8 @@ module Alchemy #:nodoc:
           stampable(:stamper_class_name => 'Alchemy::User')
           validate :essence_validations, :on => :update
           has_many :contents, :as => :essence
+          has_many :elements, :through => :contents
+          has_many :pages, :through => :elements
 
           def acts_as_essence_class
             #{self.name}
