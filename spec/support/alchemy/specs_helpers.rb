@@ -28,8 +28,6 @@ module Alchemy
       #
       def login_into_alchemy
         visit '/alchemy/admin/login'
-        # delay the capybara steps on travis ci under ruby 1.8.7
-        sleep 1 if ENV['CI'] && RUBY_VERSION == "1.8.7"
         fill_in('alchemy_user_session_login', :with => 'jdoe')
         fill_in('alchemy_user_session_password', :with => 's3cr3t')
         click_on('Login')

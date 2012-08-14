@@ -31,9 +31,8 @@ def configure
   Capybara.default_driver = :rack_test
   Capybara.default_selector = :css
   Capybara.javascript_driver = :poltergeist
-  # Rainsing the default wait time for capybara requests
-  Capybara.default_wait_time = 5
-
+  # Raising the default wait time for capybara requests on ci under ruby 1.8.7
+  Capybara.default_wait_time = 5 if ENV['CI'] && RUBY_VERSION == "1.8.7"
   Capybara.register_driver(:rack_test_translated_header) do |app|
     Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
   end
