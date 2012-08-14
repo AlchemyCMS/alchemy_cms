@@ -3,10 +3,12 @@ module Alchemy
 
     caches_page :show, :thumbnail, :zoom
 
+    before_filter :load_picture
+
+    filter_access_to :show, :attribute_check => true, :model => Alchemy::Picture, :load_method => :load_picture
     filter_access_to :thumbnail
 
     def show
-      @picture = Picture.find(params[:id])
       @size = params[:size]
       @crop = !params[:crop].nil?
       @crop_from = normalized_size(params[:crop_from])
@@ -22,7 +24,6 @@ module Alchemy
     end
 
     def thumbnail
-      @picture = Picture.find(params[:id])
       case params[:size]
       when "small"
         @size = "80x60"
@@ -43,16 +44,20 @@ module Alchemy
     end
 
     def zoom
-      @picture = Picture.find(params[:id])
+      #
     end
 
-    private
+  private
 
     def normalized_size(size)
       return "" if size.blank?
       size.split("x").map do |s|
         s.to_i < 0 ? 0 : s.to_i
       end.join('x')
+    end
+
+    def load_picture
+      @picture ||= Picture.find(params[:id])
     end
 
   end

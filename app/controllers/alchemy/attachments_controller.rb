@@ -1,9 +1,10 @@
 module Alchemy
   class AttachmentsController < Alchemy::BaseController
 
+    filter_access_to [:show, :download], :attribute_check => true, :model => Alchemy::Attachment, :load_method => :load_attachment
+
     # sends file inline. i.e. for viewing pdfs/movies in browser
     def show
-      @attachment = Attachment.find(params[:id])
       send_file(
         @attachment.public_filename,
         {
@@ -16,7 +17,6 @@ module Alchemy
 
     # sends file as attachment. aka download
     def download
-      @attachment = Attachment.find(params[:id])
       send_file(
         @attachment.full_filename, {
           :name => @attachment.filename,
@@ -24,6 +24,12 @@ module Alchemy
           :disposition => 'attachment'
         }
       )
+    end
+
+  private
+
+    def load_attachment
+      @attachment = Attachment.find(params[:id])
     end
 
   end

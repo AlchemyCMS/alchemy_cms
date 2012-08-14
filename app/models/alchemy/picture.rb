@@ -1,6 +1,11 @@
 module Alchemy
   class Picture < ActiveRecord::Base
 
+    has_many :essence_pictures, :class_name => 'Alchemy::EssencePicture', :foreign_key => 'picture_id'
+    has_many :contents, :through => :essence_pictures
+    has_many :elements, :through => :contents
+    has_many :pages, :through => :elements
+
     acts_as_fleximage do
       image_directory 'uploads/pictures'
       image_storage_format Config.get(:image_store_format).to_sym
@@ -129,6 +134,11 @@ module Alchemy
         new_y = 93
       end
       "#{new_x.round}x#{new_y.round}"
+    end
+
+    # Checks if the picture is restricted, because it is attached on restricted pages only
+    def restricted?
+      pages.not_restricted.blank?
     end
 
   end

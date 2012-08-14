@@ -7,7 +7,12 @@ authorization do
     has_permission_on :alchemy_elements, :to => [:show] do
       if_attribute :public => true
     end
-    has_permission_on :alchemy_pictures, :to => [:show]
+    has_permission_on :alchemy_attachments, :to => [:show, :download] do
+      if_attribute :restricted? => false
+    end
+    has_permission_on :alchemy_pictures, :to => [:show] do
+      if_attribute :restricted? => false
+    end
     has_permission_on :attachments, :to => [:show, :download]
   end
 
@@ -19,6 +24,8 @@ authorization do
     has_permission_on :alchemy_admin_users, :to => [:edit, :update] do
       if_attribute :id => is {user.id}
     end
+    has_permission_on :alchemy_attachments, :to => [:show, :download]
+    has_permission_on :alchemy_pictures, :to => [:show]
   end
 
   role :author do

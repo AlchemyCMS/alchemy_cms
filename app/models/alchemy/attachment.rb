@@ -1,6 +1,11 @@
 module Alchemy
   class Attachment < ActiveRecord::Base
 
+    has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
+    has_many :contents, :through => :essence_files
+    has_many :elements, :through => :contents
+    has_many :pages, :through => :elements
+
     attr_accessible :uploaded_data, :name, :filename
 
     stampable(:stamper_class_name => 'Alchemy::User')
@@ -22,10 +27,14 @@ module Alchemy
       ::CGI.escape(read_attribute(:filename).split('.').first)
     end
 
+    # Checks if the attachment is restricted, because it is attached on restricted pages only
+    def restricted?
+      pages.not_restricted.blank?
+    end
+
     def extension
       filename.split(".").last
     end
-
     alias_method :suffix, :extension
 
     def icon_css_class
