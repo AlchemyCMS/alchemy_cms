@@ -61,9 +61,10 @@ module Alchemy
       end
     end
 
-    # Trashing an element means nullifying its position and unpublishing it.
+    # Trashing an element means nullifying its position, folding and unpublishing it.
     def trash
       self.update_column(:public, false)
+      self.update_column(:folded, true)
       self.remove_from_list
     end
 
@@ -179,7 +180,7 @@ module Alchemy
       element_definitions
     end
 
-    # List all elements for page_layout
+    # List all element definitions for +self.page#page_layout+
     def self.all_for_page(page)
       raise TypeError if page.class.name != "Alchemy::Page"
       # if page_layout has cells, collect elements from cells and group them by cellname
@@ -193,7 +194,7 @@ module Alchemy
       return [] if elements_for_layout.blank?
       # all unique and limited elements from this layout
       limited_elements = elements_for_layout.select{ |m| m["unique"] == true || (m["amount"] > 0 unless m["amount"].nil?) }
-      elements_already_on_the_page = page.elements
+      elements_already_on_the_page = page.elements.not_trashed
       # delete all elements from the elements that could be placed that are unique or limited and already and the page
       elements_counts = Hash.new(0)
       elements_already_on_the_page.each { |e| elements_counts[e.name] += 1 }
