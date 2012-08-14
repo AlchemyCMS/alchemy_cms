@@ -131,9 +131,12 @@ module Alchemy
       element_scratch = element_descriptions.detect { |m| m["name"] == element_name }
       if element_scratch
         Element.new(
-          element_scratch.except('contents', 'available_contents', 'display_name', 'amount').merge({
-            :page_id => attributes['page_id']
-          })
+          element_scratch.except(
+            'contents',
+            'available_contents',
+            'display_name',
+            'amount'
+          ).merge(attributes)
         )
       else
         raise "Element description for #{element_name} not found. Please check your elements.yml"

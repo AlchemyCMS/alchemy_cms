@@ -445,6 +445,30 @@ module Alchemy
           @page.elements.should_not be_empty
         end
 
+        context "with cells" do
+
+          before do
+            @page.stub!(:definition).and_return({'name' => 'with_cells', 'cells' => ['header', 'main']})
+          end
+
+          it "should have the generated elements in their cells" do
+            @page.stub!(:cell_definitions).and_return([{'name' => 'header', 'elements' => ['article']}])
+            @page.save
+            @page.cells.where(:name => 'header').first.elements.should_not be_empty
+          end
+
+          context "and no elements in cell definitions" do
+
+            it "should have the elements in the nil cell" do
+              @page.stub!(:cell_definitions).and_return([{'name' => 'header', 'elements' => []}])
+              @page.save
+              @page.cells.collect(&:elements).flatten.should be_empty
+            end
+
+          end
+
+        end
+
         context "with children getting restricted set to true" do
 
           before do

@@ -56,8 +56,8 @@ module Alchemy
     before_save :set_language_code, :unless => :systempage?
     before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
     before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
-    after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
     after_create :create_cells, :unless => :systempage?
+    after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
@@ -563,14 +563,27 @@ module Alchemy
       return url_name
     end
 
-    # Looks in the layout_descripion, if there are elements to autogenerate.
-    # If so, it generates them.
+    # Looks in the page_layout descripion, if there are elements to autogenerate.
+    #
+    # And if so, it generates them.
+    #
+    # If the page has cells, it looks if there are elements to generate.
+    #
     def autogenerate_elements
       elements = self.layout_description["autogenerate"]
-      unless (elements.blank?)
+      if elements.present?
         elements.each do |element|
-          element = Element.create_from_scratch({'page_id' => self.id, 'name' => element})
-          element.move_to_bottom if element
+          if self.has_cells? && (cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) })
+            cell = self.cells.find_by_name(cell_definition['name'])
+            if cell
+              attributes = {'page_id' => self.id, 'cell_id' => cell.id, 'name' => element}
+            else
+              raise "Cell not found for page #{self.inspect}"
+            end
+          else
+            attributes = {'page_id' => self.id, 'name' => element}
+          end
+          Element.create_from_scratch(attributes)
         end
       end
     end
