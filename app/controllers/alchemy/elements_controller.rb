@@ -13,7 +13,7 @@ module Alchemy
       end
     end
 
-    private
+  private
 
     def load_element
       @element = Element.find(params[:id])

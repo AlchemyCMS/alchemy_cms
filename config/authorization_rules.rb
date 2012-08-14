@@ -5,7 +5,7 @@ authorization do
       if_attribute :public => true, :restricted => false
     end
     has_permission_on :alchemy_elements, :to => [:show] do
-      if_attribute :public => true
+      if_attribute :public => true, :restricted? => false
     end
     has_permission_on :alchemy_attachments, :to => [:show, :download] do
       if_attribute :restricted? => false
@@ -13,12 +13,14 @@ authorization do
     has_permission_on :alchemy_pictures, :to => [:show] do
       if_attribute :restricted? => false
     end
-    has_permission_on :attachments, :to => [:show, :download]
   end
 
   role :registered do
     includes :guest
     has_permission_on :alchemy_pages, :to => [:show] do
+      if_attribute :public => true
+    end
+    has_permission_on :alchemy_elements, :to => [:show] do
       if_attribute :public => true
     end
     has_permission_on :alchemy_admin_users, :to => [:edit, :update] do

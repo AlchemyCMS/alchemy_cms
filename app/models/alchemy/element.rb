@@ -511,6 +511,11 @@ module Alchemy
       'original'
     end
 
+    # returns true if the page this element is displayed on is restricted?
+    def restricted?
+      page.restricted?
+    end
+
   private
 
     # creates the contents for this element as described in the elements.yml
