@@ -21,7 +21,7 @@ describe Alchemy::Admin::ContentsHelper do
 
   it "should render a link to create a content in element" do
     helper.stub!(:render_icon).and_return('')
-    helper.render_create_content_link(@element, 'headline').should match(/a.+href.*admin\/contents.+class.+button new_content_link.*data-method.+post/)
+    helper.render_create_content_link(@element, 'headline').should match(/a.+href.*admin\/contents.+class.+new_content_link.*data-method.+post/)
   end
 
 end
