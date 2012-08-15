@@ -2,17 +2,13 @@ require 'spec_helper'
 
 describe "Picture Library", :js => true do
 
-  before(:all) do
-    create_admin_user
-  end
-
-  before(:each) do
-    login_into_alchemy
+  before do
+    authorize_as_admin
   end
 
   describe "Tagging" do
 
-    before(:each) do
+    before do
       picture = FactoryGirl.create(:picture, :tag_list => 'tag1', :name => 'TaggedWith1')
       picture = FactoryGirl.create(:picture, :tag_list => 'tag2', :name => 'TaggedWith2')
     end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Security: " do
 
-  before(:all) do
+  before do
     Alchemy::Page.root.children.destroy_all
     Alchemy::User.delete_all
   end
@@ -17,7 +17,7 @@ describe "Security: " do
 
   context "If user is present" do
 
-    before(:all) do
+    before do
       create_admin_user
     end
 
@@ -35,7 +35,7 @@ describe "Security: " do
 
     context "that is already logged in" do
 
-      before(:each) do
+      before do
         login_into_alchemy
       end
 

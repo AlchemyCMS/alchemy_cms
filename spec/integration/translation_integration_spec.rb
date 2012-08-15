@@ -5,8 +5,7 @@ describe "Translation integration" do
   context "in admin backend" do
 
     before do
-      create_admin_user
-      login_into_alchemy
+      authorize_as_admin
     end
 
     it "should be possible to set the locale of the admin backend via params" do

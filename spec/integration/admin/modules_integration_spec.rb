@@ -4,10 +4,9 @@ describe "Modules" do
 
   context "A custom module with a main-apps controller" do
 
-    before(:each) do
+    before do
       load_authorization_rules
-      create_admin_user
-      login_into_alchemy
+      authorize_as_admin
     end
 
     it "should have a button in main_navigation, pointing to the configured controller" do

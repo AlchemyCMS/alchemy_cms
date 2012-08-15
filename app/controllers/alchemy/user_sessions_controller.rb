@@ -4,7 +4,7 @@ module Alchemy
     before_filter :set_translation
     before_filter :check_user_count, :only => :login
 
-    layout 'alchemy/login'
+    layout 'alchemy/admin'
 
     helper 'Alchemy::Admin::Base'
 

@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "Resources" do
 
-  before(:all) do
-    create_admin_user
+  before do
     load_authorization_rules
+    authorize_as_admin
     Event.create!(:name => 'My Event',
                   :hidden_name => 'not shown',
                   :starts_at => DateTime.new(2012, 03, 02, 8, 15),
@@ -19,10 +19,6 @@ describe "Resources" do
                   :published => false,
                   :entrance_fee => 12.32)
   end
-
-  before(:each) {
-    login_into_alchemy
-  }
 
   describe "index view" do
 
