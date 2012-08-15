@@ -30,6 +30,11 @@ def configure
   require 'capybara/poltergeist'
   Capybara.default_driver = :rack_test
   Capybara.default_selector = :css
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, {
+      :debug => ENV['CI'] && RUBY_VERSION == "1.8.7"
+    })
+  end
   Capybara.javascript_driver = :poltergeist
   # Raising the default wait time for capybara requests on ci under ruby 1.8.7
   Capybara.default_wait_time = 5 if ENV['CI'] && RUBY_VERSION == "1.8.7"
