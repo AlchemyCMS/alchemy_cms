@@ -1,15 +1,15 @@
 # A cell is a group of elements that are rendered inside a specific area on your page_layout.
 # Think of it like a column, or section in your layout. I.e. a header or right column.
-# 
+#
 # Elements are displayed in tabs inside the elements window in page edit view.
 # Every cell is a list of elements with the position scoped to +cell_id+ and +page_id+.
-# 
+#
 # Define cells inside a +cells.yml+ file located in the +config/alchermy+ folder of your project.
-# 
+#
 # Render cells with the +render_cell+ helper
-# 
+#
 # Views for cells are inside the +app/views/cells+ folder in you project.
-# 
+#
 module Alchemy
   class Cell < ActiveRecord::Base
 
@@ -21,7 +21,7 @@ module Alchemy
 
     def self.definitions
       cell_yml = ::File.join(::Rails.root, 'config', 'alchemy', 'cells.yml')
-      ::YAML.load_file(cell_yml) if ::File.exist?(cell_yml)
+      ::YAML.load_file(cell_yml)
     end
 
     def self.definition_for(cellname)
@@ -52,12 +52,22 @@ module Alchemy
       definitions.collect { |d| d['name'] }
     end
 
-    def name_for_label
-      self.class.translated_label_for(self.name)
-    end
-
     def self.translated_label_for(cell_name)
       I18n.t(cell_name, :scope => :cell_names)
+    end
+
+    # Returns the cell definition defined in +config/alchemy/cells.yml+
+    def definition
+      self.class.definition_for(self.name)
+    end
+
+    # Returns all elements that can be placed in this cell
+    def available_elements
+      definition['elements']
+    end
+
+    def name_for_label
+      self.class.translated_label_for(self.name)
     end
 
   end

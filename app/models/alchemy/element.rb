@@ -493,13 +493,13 @@ module Alchemy
     end
     alias_method :richtext_contents, :rtf_contents
 
-    # The name of the cell the element could be placed in.
+    # The names of all cells from given page this element could be placed in.
     def belonging_cellnames(page)
-      cellnames = Cell.names_for_element(name)
+      cellnames = page.cells.select { |c| c.available_elements.include?(self.name) }.collect(&:name).flatten.uniq
       if cellnames.blank? || !page.has_cells?
-        return ['for_other_elements']
+        ['for_other_elements']
       else
-        return cellnames
+        cellnames
       end
     end
 
