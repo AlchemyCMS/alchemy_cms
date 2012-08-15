@@ -32,7 +32,8 @@ def configure
   Capybara.default_selector = :css
   Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, {
-      :debug => ENV['CI'] && RUBY_VERSION == "1.8.7"
+      :debug => ENV['CI'] && RUBY_VERSION == "1.8.7",
+      :js_errors => !(ENV['CI'] && RUBY_VERSION == "1.8.7")
     })
   end
   Capybara.javascript_driver = :poltergeist
