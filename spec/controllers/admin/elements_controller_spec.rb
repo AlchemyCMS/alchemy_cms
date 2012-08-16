@@ -73,9 +73,38 @@ module Alchemy
 
     describe '#create' do
 
-      render_views
+      context "with cells" do
+
+        before do
+          @page = FactoryGirl.create(:public_page)
+          @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
+          Page.any_instance.stub(:can_have_cells?).and_return(true)
+          Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
+        end
+
+        context "and cell name in element name" do
+
+          it "should put the element in the correct cell" do
+            post :create, {:element => {:name => "article#header", :page_id => @page.id}}
+            @cell.elements.first.should be_an_instance_of(Element)
+          end
+
+        end
+
+        context "and no cell name in element name" do
+
+          it "should put the element in the main cell" do
+            post :create, {:element => {:name => "article", :page_id => @page.id}}
+            @page.elements.not_in_cell.first.should be_an_instance_of(Element)
+          end
+
+        end
+
+      end
 
       context "with paste_from_clipboard in parameters" do
+
+        render_views
 
         let(:clipboard) { session[:clipboard] = Clipboard.new }
         let(:element_in_clipboard) { @element ||= FactoryGirl.create(:element, :page_id => page.id) }

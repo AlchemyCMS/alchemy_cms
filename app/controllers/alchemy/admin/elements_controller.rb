@@ -37,6 +37,7 @@ module Alchemy
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
       def create
         @page = Page.find(params[:element][:page_id])
+        @element_name = params[:element][:name] # storing the original element name, because the model alters the params hash
         @paste_from_clipboard = !params[:paste_from_clipboard].blank?
         if @paste_from_clipboard
           source_element = Element.find(element_from_clipboard[:id])
@@ -50,7 +51,6 @@ module Alchemy
           @element = Element.new_from_scratch(params[:element])
         end
         put_element_in_cell if @page.can_have_cells?
-        @element.page = @page
         if @element.save
           render :action => :create
         else
@@ -103,7 +103,7 @@ module Alchemy
     private
 
       def put_element_in_cell
-        element_with_cell_name = @paste_from_clipboard ? params[:paste_from_clipboard] : params[:element][:name]
+        element_with_cell_name = @paste_from_clipboard ? params[:paste_from_clipboard] : @element_name
         cell_definition = Cell.definition_for(element_with_cell_name.split('#').last) if !element_with_cell_name.blank?
         if cell_definition
           @cell = @page.cells.find_or_create_by_name(cell_definition['name'])

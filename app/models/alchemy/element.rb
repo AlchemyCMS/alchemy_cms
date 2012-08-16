@@ -1,6 +1,8 @@
 module Alchemy
   class Element < ActiveRecord::Base
 
+    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents display_name amount)
+
     attr_accessible(
       :cell_id,
       :create_contents_after_create,
@@ -128,19 +130,13 @@ module Alchemy
       return Element.new if attributes['name'].blank?
       element_descriptions = Element.descriptions
       return if element_descriptions.blank?
-      element_name = attributes['name'].split('#').first
-      element_scratch = element_descriptions.detect { |m| m["name"] == element_name }
+      # clean the name from cell name
+      attributes['name'] = attributes['name'].split('#').first
+      element_scratch = element_descriptions.detect { |m| m["name"] == attributes['name'] }
       if element_scratch
-        Element.new(
-          element_scratch.except(
-            'contents',
-            'available_contents',
-            'display_name',
-            'amount'
-          ).merge(attributes)
-        )
+        Element.new(element_scratch.except(*FORBIDDEN_DEFINITION_ATTRIBUTES).merge(attributes))
       else
-        raise "Element description for #{element_name} not found. Please check your elements.yml"
+        raise "Element description for #{attributes['name']} not found. Please check your elements.yml"
       end
     end
 
