@@ -1,0 +1,46 @@
+(function($) {
+
+  var $el = $('.element_editor[data-element-id="<%= @element.id %>"]');
+
+  function removeTinyMCEs(ids) {
+    for (var i = ids.length - 1; i >= 0; i--) {
+      tinymce.get(ids[i]).remove();
+    };
+  }
+
+  <% if @error %>
+
+    $("#element_<%= @element.id -%>_folder_spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
+
+  <% else %>
+
+    $el.replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
+    $el = $('#element_<%= @element.id %>');
+    $('#element_area .sortable_cell').sortable('refresh');
+    Alchemy.ElementEditorSelector.reinit($el);
+
+    <% if @element.folded %>
+
+      <% if @element.rtf_contents.any? %>
+        removeTinyMCEs(<%=raw @element.rtf_contents.collect(&:form_field_id).to_json %>);
+      <% end %>
+
+    <% else %>
+
+      $el.trigger('Alchemy.SelectElementEditor');
+      Alchemy.SelectBox($el);
+
+      <% @element.rtf_contents.each do |content| %>
+        Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
+      <% end %>
+
+      Alchemy.ElementDirtyObserver($el);
+      Alchemy.Datepicker('input[type="date"]', $el);
+      Alchemy.ButtonObserver('button.button', $el);
+      Alchemy.overlayObserver("#element_<%= @element.id -%>");
+
+    <% end %>
+
+  <% end %>
+
+})(jQuery);

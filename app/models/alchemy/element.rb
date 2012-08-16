@@ -74,10 +74,6 @@ module Alchemy
       self.position.nil?
     end
 
-    def folded?
-      self.trashed? || self.read_attribute(:folded)
-    end
-
     def content_by_name(name)
       self.contents.find_by_name(name)
     end
