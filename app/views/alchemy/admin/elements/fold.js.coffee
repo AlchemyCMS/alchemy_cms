@@ -1,12 +1,10 @@
-$el = $('.element_editor[data-element-id="<%= @element.id %>"]')
-
 <% if @error %>
 
 $("#element_<%= @element.id -%>_folder_spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>")
 
 <% else %>
 
-$el = $el.replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>')
+$('#element_<%= @element.id %>').replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>')
 $('#element_area .sortable_cell').sortable('refresh')
 Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @element.id %>"]')
 
@@ -16,10 +14,10 @@ Alchemy.ElementEditorSelector.reinit('.element_editor[data-element-id="<%= @elem
 rtf_<%= content.id -%> = tinymce.get '<%= content.form_field_id -%>'
 rtf_<%= content.id -%>.remove() if rtf_<%= content.id %>
 `delete rtf_<%= content.id -%>`
-<%- end %>
+<% end %>
 
-<%- else %>
-
+<% else %>
+$el = $('#element_<%= @element.id %>')
 $el.trigger('Alchemy.SelectElementEditor')
 Alchemy.SelectBox($el)
 
