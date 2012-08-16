@@ -14,11 +14,14 @@ button, input[type="submit"], a.button, input.button {
   @include default-button-style;
 
   &.small {
-    padding: 2px 6px;
+    padding: 2px 2*$default-padding;
     @include border-radius(10px);
+    vertical-align: inherit;
+    line-height: 4*$default-padding;
+    font-size: inherit;
 
     &.with_icon {
-      padding: 2px 8px 2px 4px;
+      padding: 2px 2*$default-padding 2px $default-padding;
     }
   }
 

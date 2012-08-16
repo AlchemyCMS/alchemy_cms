@@ -653,10 +653,9 @@ div.content_editor {
     font-size: 11px;
 
     span.icon.warning {
-      position: relative;
-      top: 2px;
-      left: 2px;
-      margin-right: 8px;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      margin-right: 6px;
     }
   }
 
