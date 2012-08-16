@@ -38,10 +38,9 @@ button, input[type="submit"], a.button, input.button {
   &.cloned-button, &.cloned-button:hover, &.cloned-button:active {
     color: $text-color;
     text-shadow: none;
+    @include box-shadow(none);
     cursor: default;
     background-image: none;
-    padding: 0.4em 1.5em;
-    line-height: 19px;
     text-align: center;
 
     img {
@@ -53,12 +52,6 @@ button, input[type="submit"], a.button, input.button {
   &:focus {
     @include default-focus-style;
   }
-
-  // img {
-  //   margin: 2px 0 0 0;
-  //   width: 16px;
-  //   height: 16px;
-  // }
 }
 
 .icon_button {
