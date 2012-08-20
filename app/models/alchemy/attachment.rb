@@ -29,7 +29,7 @@ module Alchemy
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
     def restricted?
-      pages.not_restricted.blank?
+      pages.any? && pages.not_restricted.blank?
     end
 
     def extension
