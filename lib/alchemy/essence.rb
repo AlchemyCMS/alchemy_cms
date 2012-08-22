@@ -134,6 +134,18 @@ module Alchemy #:nodoc:
         end
       end
 
+      # Returns the value stored from the database column that is configured as ingredient column.
+      def ingredient=(value)
+        if self.respond_to?(ingredient_setter_method)
+          self.send(ingredient_setter_method, value)
+        end
+      end
+
+      # Returns the setter method for ingredient column
+      def ingredient_setter_method
+        ingredient_column.to_s + '='
+      end
+
       # Essence description from config/elements.yml
       def description
         return {} if element.nil? or element.content_descriptions.nil?
