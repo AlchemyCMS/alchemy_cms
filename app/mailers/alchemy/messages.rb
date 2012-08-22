@@ -1,7 +1,7 @@
 module Alchemy
   class Messages < ActionMailer::Base
 
-    default :from => Alchemy::Config.get(:mailer)[:mail_from]
+    default :from => Alchemy::Config.get(:mailer)['mail_from']
 
     def contact_form_mail(message, mail_to, mail_from, subject)
       @message = message
