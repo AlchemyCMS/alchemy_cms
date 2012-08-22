@@ -49,6 +49,7 @@ module Alchemy
         raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
         content = new(:name => description['name'], :element_id => element.id)
         content.create_essence!(description)
+        content
       end
 
       # Makes a copy of source and also copies the associated essence.
@@ -238,9 +239,8 @@ module Alchemy
       if essence
         self.essence = essence
         save!
-        self
       else
-        nil
+        false
       end
     end
 
