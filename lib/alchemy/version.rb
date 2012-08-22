@@ -1,5 +1,5 @@
 module Alchemy
 
-  VERSION = "2.3.beta8"
+  VERSION = "2.3.beta9"
 
 end
