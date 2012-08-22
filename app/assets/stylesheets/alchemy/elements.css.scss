@@ -319,22 +319,17 @@ span.linkable_text_essence_tools {
   position: absolute;
   bottom: 0;
   right: 2px;
+
   a.icon_button {
     margin: 0 0 0 4px;
     position: absolute;
-    bottom: 0;
-    right: 26px;
+    bottom: 3px;
+    right: 28px;
     @include reset-border-radius;
-    height: 27px;
-    width: 27px;
-    background-position: 0 -72px;
+
     &.unlink {
       right: 0;
       @include right-rounded-border;
-    }
-    .icon {
-      left: 5px;
-      top: 6px;
     }
   }
 }
