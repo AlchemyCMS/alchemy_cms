@@ -1,28 +1,24 @@
 <div id="element_area">
-  <% if @cells.any? -%>
-  <div id="cells">
-    <ul>
+  <% if @cells.any? %>
+    <div id="cells">
+      <ul>
+        <% @elements.each do |cell, elements| %>
+          <li>
+            <a href="#cell_<%= cell.name %>">
+              <%= cell.name == 'for_other_elements' ? t(:main_content) : t(cell.name, :scope => :cell_names) %>
+            </a>
+          </li>
+          <% end %>
+      </ul>
       <% @elements.each do |cell, elements| -%>
-      <% if elements.any? -%>
-      <li>
-        <a href="#cell_<%= cell.name -%>">
-          <%= cell.name == 'for_other_elements' ? t(:main_content) : t(cell.name, :scope => :cell_names) -%>
-        </a>
-      </li>
-      <% end -%>
-      <% end -%>
-    </ul>
-    <% @elements.each do |cell, elements| -%>
-    <% if elements.any? -%>
-    <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
-      <%= render :partial => 'alchemy/admin/elements/element', :collection => elements, :locals => {:draggable => true} %>
+        <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
+          <%= render :partial => 'alchemy/admin/elements/element', :collection => elements, :locals => {:draggable => true} %>
+        </div>
+      <% end %>
     </div>
-    <% end -%>
-    <% end -%>
-  </div>
-  <% else -%>
-  <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements">
-    <%= render :partial => 'alchemy/admin/elements/element', :collection => @elements, :locals => {:draggable => true} %>
-  </div>
-  <% end -%>
+  <% else %>
+    <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements">
+      <%= render :partial => 'alchemy/admin/elements/element', :collection => @elements, :locals => {:draggable => true} %>
+    </div>
+  <% end %>
 </div>
