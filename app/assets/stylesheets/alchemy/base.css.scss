@@ -188,36 +188,6 @@ div#page {
   background-position: right;
 }
 
-.picture_tool {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  background-color: white;
-  top: 3px;
-  padding: 1px;
-  z-index: 1;
-  display: none;
-
-  &.select {
-    left: 4px;
-  }
-
-  &.delete {
-    right: 4px;
-
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -63px -72px;
-    }
-  }
-
-  a {
-    display: block;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-  }
-}
-
 div.tip {
   background-color: #eff8d0;
   border: 1px solid #cce21c;

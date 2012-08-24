@@ -3,7 +3,7 @@
   <label><%= render_content_name(content) %></label>
   <% end %>
   <div class="picture_thumbnail">
-    <span class="picture_tool_delete">
+    <span class="picture_tool delete">
       <% if options[:grouped] %>
       <%= link_to_confirmation_window(
         "",
@@ -13,8 +13,7 @@
           :options => options
         ),
         {
-          :title => t("delete_image"),
-          :class => "picture_delete"
+          :title => t("delete_image")
         }
       ) -%>
       <% else %>
