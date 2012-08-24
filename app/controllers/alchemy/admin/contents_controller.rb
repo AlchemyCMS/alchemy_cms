@@ -15,7 +15,7 @@ module Alchemy
         @options = params[:options] || {}
         @html_options = params[:html_options] || {}
         if @options.is_a?(String)
-          @options = JSON.parse(@options)
+          @options = @options.present? ? JSON.parse(@options) : {}
         end
         if @content.essence_type == "Alchemy::EssencePicture"
           @content_dom_id = "#add_picture_#{@element.id}"
@@ -50,9 +50,7 @@ module Alchemy
       def destroy
         @content = Content.find(params[:id])
         @content_dup = @content.clone
-        element = @content.element
-        content_name = @content.name
-        @notice = t("Successfully deleted content", :content => content_name)
+        @notice = t("Successfully deleted content", :content => @content.name_for_label)
         @content.destroy
       end
 

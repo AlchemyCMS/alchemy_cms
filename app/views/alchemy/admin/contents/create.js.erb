@@ -19,6 +19,7 @@
   ) %>');
   Alchemy.enableButton('.disabled.button');
   Alchemy.overlayObserver('#<%= content_dom_id(@content) %>');
+  Alchemy.growl('<%= t("Successfully added content") % {:content => @content.name_for_label} %>')
 
 <% end %>
 
