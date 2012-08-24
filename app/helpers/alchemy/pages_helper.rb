@@ -256,7 +256,8 @@ module Alchemy
         :public_only => true,
         :visible_only => true,
         :restricted_only => false,
-        :reverse => false
+        :reverse => false,
+        :link_active_page => false
       }
       options = default_options.merge(options)
       pages = breadcrumb(options[:page])
@@ -288,7 +289,11 @@ module Alchemy
         elsif page == pages.first
           css_class = css_class.blank? ? "first" : [css_class, "first"].join(" ")
         end
-        bc << link_to(h(page.name), show_alchemy_page_path(page), :class => css_class, :title => page.title)
+        if !options[:link_active_page] && page.name == @page.name
+          bc << content_tag(:span, h(page.name), :class => css_class)
+        else
+          bc << link_to(h(page.name), show_alchemy_page_path(page), :class => css_class, :title => page.title)
+        end
       end
       bc.join(options[:seperator]).html_safe
     end
