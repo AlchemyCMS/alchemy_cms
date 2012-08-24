@@ -15,7 +15,12 @@ module Alchemy
         @elements = get_elements_from_yaml
         @elements.each do |element|
           @element = element
-          @contents = (element["contents"] or [])
+          if @element['available_contents']
+            @available_contents_names = @element['available_contents'].collect { |c| c['name'] }
+            @contents = (element["contents"].delete_if { |c| @available_contents_names.include?(c['name']) } or [])
+          else
+            @contents = (element["contents"] or [])
+          end
           @element_name = element["name"].underscore
           template "editor.html.erb", "#{@elements_dir}/_#{@element_name}_editor.html.erb"
           template "view.html.erb", "#{@elements_dir}/_#{@element_name}_view.html.erb"

@@ -1,3 +1,12 @@
-<%- @contents.each do |content| -%>
+<%- if @element['picture_gallery'] -%>
+<%%= render_picture_gallery_editor(element, :max_images => nil, :crop => true) %>
+<%- end -%>
+<% @contents.each do |content| -%>
 <%%= render_essence_editor_by_name(element, '<%= content["name"] %>') %>
+<% end -%>
+<%- if @element['available_contents'] -%>
+<%% element.contents.where(:name => ['<%= @available_contents_names.join("', '") %>']).each do |content| %>
+  <%%= render_essence_editor content %>
+<%% end %>
+<p><%%= render_new_content_link(element) %></p>
 <%- end -%>
