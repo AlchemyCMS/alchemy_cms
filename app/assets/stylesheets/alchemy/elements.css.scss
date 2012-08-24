@@ -82,7 +82,7 @@ img.add_element_spinner {
 
 .add_picture {
   float: left;
-  margin: 1px;
+  margin: 3px;
   width: 111px;
   padding: 4px;
   background-color: #f0e8d7;
@@ -279,7 +279,11 @@ div.picture_gallery_images {
   border: 1px inset #cecece;
   @include rounded-corner;
   background-color: #e5dcca;
-  padding: 1px;
+  padding: 2px;
+
+  .essence_picture_editor {
+    margin: 3px;
+  }
 }
 
 div.picture_thumbnail div.picture_image {
