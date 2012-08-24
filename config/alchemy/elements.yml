@@ -185,9 +185,8 @@
     type: EssenceText
 
 - name: image_mosaic
+  picture_gallery: true
   contents:
-  - name: image
-    type: EssencePicture
   - name: caption
     type: EssenceText
   - name: show_caption

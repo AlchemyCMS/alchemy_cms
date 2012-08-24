@@ -1,2 +1,7 @@
-<%= render_picture_editor(element, :image_float_selector => true, :image_size => "450x300", :crop => true, :fixed_ratio => false) %>
+<%= render_essence_editor_by_name(element, 'image', {
+  :image_float_selector => true,
+  :image_size => "450x300",
+  :crop => true,
+  :fixed_ratio => false
+}) %>
 <%= render_essence_editor_by_name(element, 'text') %>
