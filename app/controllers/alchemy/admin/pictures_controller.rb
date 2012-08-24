@@ -31,7 +31,7 @@ module Alchemy
         @size = params[:size] || 'medium'
         if in_overlay?
           @while_assigning = true
-          @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
+          @content = Content.find_by_id(params[:content_id], :select => 'id')
           @element = Element.find(params[:element_id], :select => 'id')
           @options = hashified_options
           @page = params[:page]
