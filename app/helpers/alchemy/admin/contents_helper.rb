@@ -41,7 +41,7 @@ module Alchemy
           render_icon(:create) + t('add new content'),
           alchemy.new_admin_element_content_path(element),
           {
-            :size => '335x70',
+            :size => '310x115',
             :title => t('Select an content'),
             :overflow => true
           },
