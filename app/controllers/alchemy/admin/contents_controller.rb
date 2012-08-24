@@ -21,7 +21,7 @@ module Alchemy
           @content_dom_id = "#add_picture_#{@element.id}"
           @content.essence.picture_id = params[:picture_id]
           @content.essence.save
-          @contents_of_this_type = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
+          @contents_of_this_type = @element.contents.gallery_pictures
           @dragable = @contents_of_this_type.length > 1
           @options = @options.merge(:dragable => @dragable)
         else

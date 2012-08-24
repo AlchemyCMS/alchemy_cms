@@ -52,11 +52,10 @@ module Alchemy
           :grouped => true
         }
         options = default_options.merge(options)
-        picture_contents = element.contents.where(:essence_type => "Alchemy::EssencePicture")
         render(
-          :partial => "alchemy/admin/elements/picture_editor",
+          :partial => "alchemy/admin/elements/picture_gallery_editor",
           :locals => {
-            :picture_contents => picture_contents,
+            :pictures => element.contents.gallery_pictures,
             :element => element,
             :options => options
           }

@@ -1,25 +1,23 @@
 <%- max_image_count = options[:maximum_amount_of_images] || options[:max_images] -%>
-<div class="content_editor">
+<div class="content_editor picture_gallery_editor">
   <label><%= t("picture_gallery_editor.#{element.name}", :default => t('picture_gallery_editor')) %></label>
   <div class="picture_gallery_images" id="element_<%= element.id %>_contents">
-    <%- picture_contents.each do |picture_content| -%>
-      <%= render_essence_editor(picture_content, {
-        :dragable => (picture_contents.size > 1)
-      }.merge(options)) %>
+    <%- pictures.each do |picture| -%>
+      <%= render_essence_editor(picture, {:dragable => (pictures.size > 1)}.merge(options)) %>
     <%- end -%>
-    <%- if max_image_count.blank? || picture_contents.length < max_image_count.to_i -%>
+    <%- if max_image_count.blank? || pictures.length < max_image_count.to_i -%>
       <%= render(
         :partial => 'alchemy/admin/elements/add_picture',
         :locals => {
           :element => element,
           :options => options,
-          :dragable => (picture_contents.size > 1)
+          :dragable => (pictures.size > 1)
         }
       ) %>
     <%- end -%>
   </div>
 </div>
-<%- if picture_contents.size > 1 -%>
+<%- if pictures.size > 1 -%>
 <script type="text/javascript" charset="utf-8">
   Alchemy.SortableContents('#element_<%= element.id %>_contents', '<%= form_authenticity_token %>');
 </script>

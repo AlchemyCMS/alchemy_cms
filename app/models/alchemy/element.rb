@@ -1,7 +1,7 @@
 module Alchemy
   class Element < ActiveRecord::Base
 
-    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents display_name amount)
+    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents display_name amount picture_gallery)
 
     attr_accessible(
       :cell_id,

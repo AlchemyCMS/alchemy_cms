@@ -13,8 +13,8 @@ describe Alchemy::Admin::ElementsHelper do
     helper.render_editor(@element).should match(/class="content_editor".+id="essence_text_\d{1,}"/)
   end
 
-  it "should render a picture editor partial" do
-    helper.render_picture_editor(@element).should match(/class="essence_picture_editor"/)
+  it "should render a picture gallery editor partial" do
+    helper.render_picture_gallery_editor(@element).should match(/class=".+picture_gallery_editor"/)
   end
 
   describe "#grouped_elements_for_select" do
