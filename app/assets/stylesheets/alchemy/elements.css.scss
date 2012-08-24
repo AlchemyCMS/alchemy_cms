@@ -80,7 +80,7 @@ img.add_element_spinner {
   padding-bottom: 10px;
 }
 
-.add_content {
+.add_picture {
   float: left;
   margin: 1px;
   width: 111px;
@@ -89,27 +89,26 @@ img.add_element_spinner {
   border: 1px solid #c2baab;
   @include rounded-corner;
   height: 115px;
-}
 
-.add_content a {
-  text-decoration: none;
-  overflow: hidden;
-  text-align: center;
-  font-weight: bold;
-  line-height: 104px;
-  @include rounded-corner;
-  font-size: 40px;
-  display: block;
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
+  a {
+    text-decoration: none;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;
+    line-height: 104px;
+    @include rounded-corner;
+    font-size: 40px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
 
-.add_content a .icon.assign {
-  background: url('icons.png') no-repeat -288px -72px;
-  position: absolute;
-  top: 52px;
-  left: 47px;
+    .icon {
+      position: absolute;
+      top: 52px;
+      left: 47px;
+    }
+  }
 }
 
 .element_foot {

@@ -18,7 +18,7 @@ module Alchemy
           @options = JSON.parse(@options)
         end
         if @content.essence_type == "Alchemy::EssencePicture"
-          @content_dom_id = "#add_content_#{@element.id}"
+          @content_dom_id = "#add_picture_#{@element.id}"
           @content.essence.picture_id = params[:picture_id]
           @content.essence.save
           @contents_of_this_type = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
