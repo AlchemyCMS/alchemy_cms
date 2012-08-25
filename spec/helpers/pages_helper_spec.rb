@@ -145,7 +145,7 @@ module Alchemy
       end
 
       it "should render a breadcrumb to current page" do
-        helper.render_breadcrumb.should have_selector('a.active.last[href="/alchemy/a-public-page"]')
+        helper.render_breadcrumb.should have_selector('.active.last[contains("A Public Page")]')
       end
 
       it "should render a breadcrumb with a alternative seperator" do
@@ -153,12 +153,12 @@ module Alchemy
       end
 
       it "should render a breadcrumb in reversed order" do
-        helper.render_breadcrumb(:reverse => true).should have_selector('a.active.first[href="/alchemy/a-public-page"]')
+        helper.render_breadcrumb(:reverse => true).should have_selector('.active.first[contains("A Public Page")]')
       end
 
       it "should render a breadcrumb of restricted pages only" do
         @page.stub!(:restricted? => true, :urlname => 'a-restricted-public-page', :name => 'A restricted Public Page', :title => 'A restricted Public Page')
-        helper.render_breadcrumb(:restricted_only => true).should match(/^(<a(.[^>]+)>)A restricted Public Page/)
+        helper.render_breadcrumb(:restricted_only => true).should match(/^(<span(.[^>]+)>)A restricted Public Page/)
       end
 
       it "should render a breadcrumb of visible pages only" do
