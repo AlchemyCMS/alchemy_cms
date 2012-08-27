@@ -69,15 +69,35 @@ module Alchemy
 
     end
 
-    it "should return a list of element definitions for a list of element names" do
-      element_names = ["article"]
-      definitions = Element.all_definitions_for(element_names)
-      definitions.first.fetch("name").should == 'article'
-    end
+    describe '.all_definitions_for' do
 
-    it "should always return an array calling all_definitions_for()" do
-      definitions = Element.all_definitions_for(nil)
-      definitions.should == []
+      it "should return a list of element definitions for a list of element names" do
+        element_names = ["article"]
+        definitions = Element.all_definitions_for(element_names)
+        definitions.first.fetch("name").should == 'article'
+      end
+
+      context "given 'all' as element name" do
+
+        before do
+          @element_definition = [
+            {'name' => 'article'},
+            {'name' => 'headline'}
+          ]
+          Element.stub!(:definitions).and_return @element_definition
+        end
+
+        it "should return all element definitions" do
+          Element.all_definitions_for('all').should == @element_definition
+        end
+
+      end
+
+      it "should always return an array" do
+        definitions = Element.all_definitions_for(nil)
+        definitions.should == []
+      end
+
     end
 
     context "no description files are found" do
@@ -117,25 +137,29 @@ module Alchemy
     end
 
     context "limited amount" do
-      before(:each) do
-        descriptions = Element.descriptions
-        descriptions << {
-          'name' => 'column_headline',
-          'amount' => 3,
-          'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
-        }
-        descriptions << {
-          'name' => 'unique_headline',
-          'unique' => true,
-          'amount' => 3,
-          'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
-        }
-        Element.stub!(:descriptions).and_return(descriptions)
-        PageLayout.add(
+
+      before do
+        defs = [
+          {
+            'name' => 'column_headline',
+            'amount' => 3,
+            'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+          },
+          {
+            'name' => 'unique_headline',
+            'unique' => true,
+            'amount' => 3,
+            'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+          }
+        ]
+        # F&%#ing alias methods
+        Element.stub!(:definitions).and_return(defs)
+        Element.stub!(:descriptions).and_return(defs)
+        PageLayout.stub!(:get).and_return({
           'name' => 'columns',
           'elements' => ['column_headline', 'unique_headline'],
           'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
-        )
+        })
         @page = FactoryGirl.create(:page, :page_layout => 'columns')
       end
 
@@ -155,6 +179,7 @@ module Alchemy
     end
 
     context "collections" do
+
       context "for trashed elements" do
 
         let(:element) do
@@ -172,6 +197,7 @@ module Alchemy
         end
 
       end
+
     end
 
     describe "#trash" do

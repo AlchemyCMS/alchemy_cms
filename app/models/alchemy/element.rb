@@ -39,6 +39,164 @@ module Alchemy
     scope :not_in_cell, where(:cell_id => nil)
     scope :in_cell, where("#{self.table_name}.cell_id IS NOT NULL")
 
+    # class methods
+    class << self
+
+      # Builds a new element as described in +/config/alchemy/elements.yml+
+      def new_from_scratch(attributes)
+        attributes.stringify_keys!
+        return new if attributes['name'].blank?
+        return nil if descriptions.blank?
+        # clean the name from cell name
+        attributes['name'] = attributes['name'].split('#').first
+        element_scratch = descriptions.detect { |m| m["name"] == attributes['name'] }
+        if element_scratch
+          new(element_scratch.except(*FORBIDDEN_DEFINITION_ATTRIBUTES).merge(attributes))
+        else
+          raise "Element description for #{attributes['name']} not found. Please check your elements.yml"
+        end
+      end
+
+      # Builds a new element as described in +/config/alchemy/elements.yml+ and saves it
+      def create_from_scratch(attributes)
+        element = new_from_scratch(attributes)
+        element.save if element
+        return element
+      end
+
+      # Returns the descriptions from elements.yml file.
+      # Alchemy comes with its own elements.yml file. As so called standard set.
+      # Place a elements.yml file inside your apps config/alchemy folder to define
+      # your own set of elements
+      def descriptions
+        if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
+          element_definitions = ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
+        end
+        if !element_definitions
+          if ::File.exists?(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
+            element_definitions = ::YAML.load_file(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
+          end
+        end
+        if !element_definitions
+          raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
+        end
+        element_definitions
+      end
+      alias_method :definitions, :descriptions
+
+      # pastes a element from the clipboard in the session to page
+      def paste_from_clipboard(page_id, element, method, position)
+        element_copy = copy(element, :page_id => page_id)
+        element_copy.insert_at(position)
+        if method == "move" && element_copy.valid?
+          element.destroy
+        end
+        element_copy
+      end
+
+      # List all element definitions for +self.page#page_layout+
+      def all_for_page(page)
+        raise TypeError if page.class.name != "Alchemy::Page"
+        # if page_layout has cells, collect elements from cells and group them by cellname
+        page_layout = PageLayout.get(page.page_layout)
+        if page_layout.blank?
+          logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
+          return []
+        end
+        elements_for_layout = []
+        elements_for_layout += all_definitions_for(page_layout['elements'])
+        return [] if elements_for_layout.blank?
+        # all unique and limited elements from this layout
+        limited_elements = elements_for_layout.select{ |m| m["unique"] == true || (m["amount"] > 0 unless m["amount"].nil?) }
+        elements_already_on_the_page = page.elements.not_trashed
+        # delete all elements from the elements that could be placed that are unique or limited and already and the page
+        elements_counts = Hash.new(0)
+        elements_already_on_the_page.each { |e| elements_counts[e.name] += 1 }
+        limited_elements.each do |limited_element|
+          next if elements_counts[limited_element["name"]] == 0
+          if limited_element["unique"]
+            elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] > 0
+            next
+          end
+          unless limited_element["amount"].nil?
+            elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] >= limited_element["amount"]
+          end
+        end
+        elements_for_layout
+      end
+
+      def all_definitions_for(element_names)
+        return [] if element_names.blank?
+        if element_names.to_s == "all"
+          definitions
+        else
+          definitions.select { |e| element_names.include? e['name'] }
+        end
+      end
+
+      # This methods does a copy of source and all depending contents and all of their depending essences.
+      #
+      # == Options
+      #
+      # You can pass a differences Hash as second option to update attributes for the copy.
+      #
+      # == Example
+      #
+      #   @copy = Alchemy::Element.copy(@element, {:public => false})
+      #   @copy.public? # => false
+      #
+      def copy(source, differences = {})
+        attributes = source.attributes.except(
+          "id",
+          "position",
+          "folded",
+          "created_at",
+          "updated_at",
+          "creator_id",
+          "updater_id",
+          "cell_id"
+        ).merge(differences.stringify_keys)
+        element = self.create!(attributes.merge(:create_contents_after_create => false))
+        source.contents.each do |content|
+          new_content = Content.copy(content, :element_id => element.id)
+          new_content.move_to_bottom
+        end
+        element
+      end
+
+      # List all elements from page_layout
+      def elements_for_layout(layout)
+        elements = []
+        layout_elements = PageLayout.get(layout)["elements"]
+        return Element.descriptions if layout_elements == "all"
+        Element.descriptions.each do |element|
+          if layout_elements.include?(element["name"])
+            elements << element
+          end
+        end
+        elements
+      end
+
+      def get_from_clipboard(clipboard)
+        return nil if clipboard.blank?
+        find_by_id(clipboard[:element_id])
+      end
+
+      def all_from_clipboard(clipboard)
+        return [] if clipboard.nil?
+        find_all_by_id(clipboard.collect { |i| i[:id] })
+      end
+
+      def all_from_clipboard_for_page(clipboard, page)
+        return [] if clipboard.nil? || page.nil?
+        allowed_elements = all_for_page(page)
+        clipboard_elements = all_from_clipboard(clipboard)
+        allowed_element_names = allowed_elements.collect { |e| e['name'] }
+        clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
+      end
+
+    end
+
     # Returns next public element from same page.
     # Pass an element name to get next of this kind.
     def next(name = nil)
@@ -121,132 +279,6 @@ module Alchemy
       contents.find_by_name(rss_title['name'])
     end
 
-    # Builds a new element as described in +/config/alchemy/elements.yml+
-    def self.new_from_scratch(attributes)
-      attributes.stringify_keys!
-      return Element.new if attributes['name'].blank?
-      element_descriptions = Element.descriptions
-      return if element_descriptions.blank?
-      # clean the name from cell name
-      attributes['name'] = attributes['name'].split('#').first
-      element_scratch = element_descriptions.detect { |m| m["name"] == attributes['name'] }
-      if element_scratch
-        Element.new(element_scratch.except(*FORBIDDEN_DEFINITION_ATTRIBUTES).merge(attributes))
-      else
-        raise "Element description for #{attributes['name']} not found. Please check your elements.yml"
-      end
-    end
-
-    # Builds a new element as described in +/config/alchemy/elements.yml+ and saves it
-    def self.create_from_scratch(attributes)
-      element = Element.new_from_scratch(attributes)
-      element.save if element
-      return element
-    end
-
-    # pastes a element from the clipboard in the session to page
-    def self.paste_from_clipboard(page_id, element, method, position)
-      copy = self.copy(element, :page_id => page_id)
-      copy.insert_at(position)
-      if method == "move" && copy.valid?
-        element.destroy
-      end
-      copy
-    end
-
-    # Returns the descriptions from elements.yml file.
-    # Alchemy comes with its own elements.yml file. As so called standard set.
-    # Place a elements.yml file inside your apps config/alchemy folder to define
-    # your own set of elements
-    def self.descriptions
-      if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-        element_definitions = ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
-      end
-      if !element_definitions
-        if ::File.exists?(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
-          element_definitions = ::YAML.load_file(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
-        end
-      end
-      if !element_definitions
-        raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
-      end
-      element_definitions
-    end
-
-    # List all element definitions for +self.page#page_layout+
-    def self.all_for_page(page)
-      raise TypeError if page.class.name != "Alchemy::Page"
-      # if page_layout has cells, collect elements from cells and group them by cellname
-      page_layout = PageLayout.get(page.page_layout)
-      if page_layout.blank?
-        logger.warn "\n++++++\nWARNING! Could not find page_layout description for page: #{page.name}\n++++++++\n"
-        return []
-      end
-      elements_for_layout = []
-      elements_for_layout += all_definitions_for(page_layout['elements'])
-      return [] if elements_for_layout.blank?
-      # all unique and limited elements from this layout
-      limited_elements = elements_for_layout.select{ |m| m["unique"] == true || (m["amount"] > 0 unless m["amount"].nil?) }
-      elements_already_on_the_page = page.elements.not_trashed
-      # delete all elements from the elements that could be placed that are unique or limited and already and the page
-      elements_counts = Hash.new(0)
-      elements_already_on_the_page.each { |e| elements_counts[e.name] += 1 }
-      limited_elements.each do |limited_element|
-        next if elements_counts[limited_element["name"]] == 0
-        if limited_element["unique"]
-          elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] > 0
-          next
-        end
-        unless limited_element["amount"].nil?
-          elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] >= limited_element["amount"]
-        end
-      end
-      elements_for_layout
-    end
-
-    def self.all_definitions_for(element_names)
-      return [] if element_names.blank?
-      if element_names.to_s == "all"
-        return element_descriptions
-      else
-        return definitions.select { |e| element_names.include? e['name'] }
-      end
-    end
-
-    # This methods does a copy of source and all depending contents and all of their depending essences.
-    #
-    # == Options
-    #
-    # You can pass a differences Hash as second option to update attributes for the copy.
-    #
-    # == Example
-    #
-    #   @copy = Alchemy::Element.copy(@element, {:public => false})
-    #   @copy.public? # => false
-    #
-    def self.copy(source, differences = {})
-      attributes = source.attributes.except(
-        "id",
-        "position",
-        "folded",
-        "created_at",
-        "updated_at",
-        "creator_id",
-        "updater_id",
-        "cell_id"
-      ).merge(differences.stringify_keys)
-      element = self.create!(attributes.merge(:create_contents_after_create => false))
-      source.contents.each do |content|
-        new_content = Content.copy(content, :element_id => element.id)
-        new_content.move_to_bottom
-      end
-      element
-    end
-
-    def self.definitions
-      self.descriptions
-    end
-
     # Returns the array with the hashes for all element contents in the elements.yml file
     def content_descriptions
       return nil if description.blank?
@@ -279,7 +311,6 @@ module Alchemy
     def description
       self.class.descriptions.detect { |d| d['name'] == self.name }
     end
-
     alias_method :definition, :description
 
     # Human name for displaying in selectboxes and element editor views.
@@ -346,39 +377,6 @@ module Alchemy
 
     def dom_id
       "#{name}_#{id}"
-    end
-
-    # List all elements by from page_layout
-    def self.elements_for_layout(layout)
-      element_descriptions = Element.descriptions
-      elements = []
-      page_layout = PageLayout.get(layout)
-      layout_elements = page_layout["elements"]
-      return element_descriptions if layout_elements == "all"
-      element_descriptions.each do |element|
-        if layout_elements.include?(element["name"])
-          elements << element
-        end
-      end
-      return elements
-    end
-
-    def self.get_from_clipboard(clipboard)
-      return nil if clipboard.blank?
-      self.find_by_id(clipboard[:element_id])
-    end
-
-    def self.all_from_clipboard(clipboard)
-      return [] if clipboard.nil?
-      self.find_all_by_id(clipboard.collect { |i| i[:id] })
-    end
-
-    def self.all_from_clipboard_for_page(clipboard, page)
-      return [] if clipboard.nil? || page.nil?
-      allowed_elements = self.all_for_page(page)
-      clipboard_elements = self.all_from_clipboard(clipboard)
-      allowed_element_names = allowed_elements.collect { |e| e['name'] }
-      clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
     end
 
     # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
@@ -494,14 +492,6 @@ module Alchemy
       else
         cellnames
       end
-    end
-
-    def which_instance
-      'original'
-    end
-
-    def self.which_class
-      'original'
     end
 
     # returns true if the page this element is displayed on is restricted?
