@@ -57,6 +57,10 @@ def configure
       truncate_all_tables
       Alchemy::Seeder.seed!
     end
+    # Ensuring that the locale is always resetted to :en before running any tests
+    config.before(:each) do
+      ::I18n.locale = :en
+    end
   end
 
 end
