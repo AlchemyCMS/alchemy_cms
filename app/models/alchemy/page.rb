@@ -143,10 +143,6 @@ module Alchemy
     def elements_grouped_by_cells
       group = ::ActiveSupport::OrderedHash.new
       self.cells.each { |cell| group[cell] = cell.elements.not_trashed }
-      if element_names_not_in_cell.any?
-        group[Cell.new({:name => 'for_other_elements'})] = elements.not_trashed.not_in_cell
-      end
-      return group
     end
 
     def element_names_from_cells

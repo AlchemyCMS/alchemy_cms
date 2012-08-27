@@ -2,14 +2,18 @@
   <% if @cells.any? %>
     <div id="cells">
       <ul>
+        <li><a href="#cell_for_other_elements"><%= t(:main_content) %></a></li>
         <% @elements.each do |cell, elements| %>
           <li>
             <a href="#cell_<%= cell.name %>">
-              <%= cell.name == 'for_other_elements' ? t(:main_content) : t(cell.name, :scope => :cell_names) %>
+              <%= t(cell.name, :scope => :cell_names) %>
             </a>
           </li>
-          <% end %>
+        <% end %>
       </ul>
+      <div id="cell_for_other_elements" class="sortable_cell for_other_elements_cell">
+        <%= render :partial => 'alchemy/admin/elements/element', :collection => @page.elements.not_trashed.not_in_cell, :locals => {:draggable => true} %>
+      </div>
       <% @elements.each do |cell, elements| -%>
         <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
           <%= render :partial => 'alchemy/admin/elements/element', :collection => elements, :locals => {:draggable => true} %>
