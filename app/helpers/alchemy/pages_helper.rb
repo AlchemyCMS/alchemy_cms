@@ -481,31 +481,14 @@ module Alchemy
       render :partial => 'alchemy/search/form', :locals => {:options => default_options.merge(options)}
     end
 
-    # Renders the search-results
+    # Renders the search +results+ partial from +app/views/alchemy/search/+
     def render_search_results(options={})
       default_options = {
-        :partial => 'alchemy/search/result',
         :show_language => true,
         :show_result_count => true,
         :show_heading => true
       }
-      options = default_options.merge(options)
-      return content_tag :h2, t('search_result_page.no_results'), :class => 'no_search_results' if @search_results.blank?
-      results = ""
-      @search_results.each do |essence|
-        result = essence.highlight(
-          "*#{params[:query]}*", {
-            :field => (essence.class.name == "Alchemy::EssenceRichtext" ? :stripped_body : :body)
-          })
-        results << render(:partial => options[:partial], :locals => {:result => result, :options => options, :page => essence.page}) if essence.page
-      end
-      output = ""
-      output << content_tag(:h1, t("search_result_page.result_heading", :query => h(params[:query])), :class => 'search_results_heading') if options[:show_heading]
-      output << content_tag(:h2, t("search_result_page.result_count", :count => @search_results.length), :class => 'search_result_count') if options[:show_result_count]
-      output << content_tag(:ul, results.html_safe, :class => 'search_result_list')
-      content_tag :div, :class => 'search_results' do
-        output.html_safe
-      end
+      render 'alchemy/search/results', :options => default_options.merge(options)
     end
 
     # Returns the correct params-hash for passing to show_page_path

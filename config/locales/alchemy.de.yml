@@ -92,12 +92,12 @@ de:
 
     # == Translations for the build in full text search.
     search_result_page:
-      no_results: 'Ihre Suche ergab kein Ergebnis.'
+      result_page: Seite
+      no_results: "Ihre Suche nach '%{query}' ergab keine Treffer."
       result_heading: "Ihre Suche nach '%{query}'"
       result_count:
-        zero: "Ergab keine Ergebnisse"
-        one: "Ergab ein Ergebnis"
-        other: "Ergab %{count} Ergebnisse"
+        one: "Ergab einen Treffer"
+        other: "Ergab %{count} Treffer"
 
     # == Contactform translations
     contactform:

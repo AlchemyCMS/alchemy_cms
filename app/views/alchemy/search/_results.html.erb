@@ -1,0 +1,28 @@
+<div class="search_results">
+  <% if @search_results.blank? %>
+    <h2 class="no_search_results">
+      <%=raw t('search_result_page.no_results', :query => h(params[:query])) %>
+    </h2>
+  <% else %>
+    <% if options[:show_heading] %>
+      <h1 class="search_results_heading">
+        <%=raw t("search_result_page.result_heading", :query => h(params[:query])) %>
+      </h1>
+    <% end %>
+    <% if options[:show_result_count] %>
+      <h2 class="search_result_count">
+        <%=raw t("search_result_page.result_count", :count => @search_results.length) %>
+      </h2>
+    <% end %>
+    <ul class="search_result_list">
+      <% @search_results.each do |search_result| %>
+        <% result = search_result.highlight(
+          "*#{params[:query]}*", {
+            :field => (search_result.class.name == "Alchemy::EssenceRichtext" ? :stripped_body : :body)
+          }
+        ) %>
+        <%= render 'alchemy/search/result', :result => result, :options => options, :page => search_result.page %>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
