@@ -37,6 +37,7 @@ module Alchemy
     scope :named, lambda { |names| where(:name => names) }
     scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
     scope :not_in_cell, where(:cell_id => nil)
+    scope :in_cell, where("#{self.table_name}.cell_id IS NOT NULL")
 
     # Returns next public element from same page.
     # Pass an element name to get next of this kind.

@@ -141,8 +141,7 @@ module Alchemy
     end
 
     def elements_grouped_by_cells
-      group = ::ActiveSupport::OrderedHash.new
-      self.cells.each { |cell| group[cell] = cell.elements.not_trashed }
+      elements.not_trashed.in_cell.group_by(&:cell)
     end
 
     def element_names_from_cells

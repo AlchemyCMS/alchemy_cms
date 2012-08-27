@@ -296,27 +296,26 @@ module Alchemy
     describe "#elements_grouped_by_cells" do
 
       before do
-        @page = FactoryGirl.build(:page, :page_layout => 'foo')
-        cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        Cell.stub!(:definitions).and_return(cell_descriptions)
+        PageLayout.stub(:get).and_return({
+          'name' => 'standard',
+          'cells' => ['header'],
+          'elements' => ['header', 'text'],
+          'autogenerate' => ['header', 'text']
+        })
+        Cell.stub!(:definitions).and_return([{
+          'name' => "header",
+          'elements' => ["header"]
+        }])
+        @page = FactoryGirl.create(:public_page)
       end
 
-      context "with no elements defined that are not defined in a cell" do
-
-        it "should not have a cell for 'other elements'" do
-          @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2"]})
-          @page.elements_grouped_by_cells.keys.collect(&:name).should_not include('for_other_elements')
-        end
-
+      it "should return elements grouped by cell" do
+        @page.elements_grouped_by_cells.keys.first.should be_instance_of(Cell)
+        @page.elements_grouped_by_cells.values.first.first.should be_instance_of(Element)
       end
 
-      context "with elements defined that are not defined in a cell" do
-
-        it "should have a cell for 'other elements'" do
-          @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2", "3"]})
-          @page.elements_grouped_by_cells.keys.collect(&:name).should include('for_other_elements')
-        end
-
+      it "should only include elements beeing in a cell " do
+        @page.elements_grouped_by_cells.keys.should_not include(nil)
       end
 
     end
