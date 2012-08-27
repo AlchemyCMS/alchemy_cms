@@ -5,13 +5,14 @@ sqlite: &sqlite
 mysql: &mysql
   adapter: mysql2
   username: root
-  password: 
+  password:
   database: alchemy_cms_dummy_<%= Rails.env %>
 
 postgresql: &postgresql
   adapter: postgresql
+  <% if ENV['CI'] %>
   username: postgres
-  password: 
+  <% end %>
   database: alchemy_cms_dummy_<%= Rails.env %>
   min_messages: ERROR
 

@@ -25,7 +25,7 @@ module Alchemy
     validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
     scope :essence_pictures, where(:essence_type => "Alchemy::EssencePicture")
-    scope :gallery_pictures, essence_pictures.where("`#{self.table_name}`.`name` LIKE 'essence_picture_%'")
+    scope :gallery_pictures, essence_pictures.where("#{self.table_name}.name LIKE 'essence_picture_%'")
     scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
     scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
     scope :essence_selects, where(:essence_type => "Alchemy::EssenceSelect")
