@@ -70,6 +70,7 @@ $default-form-field-margin: 0.3em 0;
 
 @mixin default-button-style {
   @include sassy-button('shiny');
+  display: inline;
   border-color: $button-border-color;
   margin: $default-form-field-margin;
 }
