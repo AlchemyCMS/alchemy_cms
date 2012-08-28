@@ -12,12 +12,26 @@
 module Alchemy
   class Message
 
-    @@config = Config.get(:mailer)
-
     extend ::ActiveModel::Naming
     include ::ActiveModel::Validations
     include ::ActiveModel::Conversion
     include ::ActiveModel::MassAssignmentSecurity
+
+    def self.attr_accessor(*vars)
+      @attributes ||= {}
+      vars.map { |v| @attributes[v] = nil}
+      super(*vars)
+    end
+
+    def self.attributes
+      @attributes
+    end
+
+    def attributes
+      self.class.attributes
+    end
+
+    @@config = Config.get(:mailer)
 
     attr_accessor :contact_form_id, :ip
     attr_accessible :contact_form_id
@@ -39,8 +53,10 @@ module Alchemy
     end
 
     def initialize(attributes = {})
+      @attributes ||= {}
       attributes.keys.each do |a|
         send("#{a}=", attributes[a])
+        @attributes[a] = attributes[a]
       end
     end
 
@@ -48,7 +64,7 @@ module Alchemy
       false
     end
 
-    private
+  private
 
     def email_is_filled #:nodoc:
       !email.blank?
