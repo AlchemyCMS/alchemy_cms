@@ -1,6 +1,6 @@
 /*
-*= require_self
-*/
+ *= require_self
+ */
 
 @import "alchemy/defaults";
 
@@ -99,6 +99,7 @@
       a {
         @include default-button-style;
         font-weight: normal;
+        line-height: 34px;
 
         &:hover {
           text-decoration: none !important;
