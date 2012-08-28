@@ -12,7 +12,7 @@ describe Alchemy::PagesController do
   context "requested for a page containing a feed" do
 
     before(:each) do
-      @page = FactoryGirl.create(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language)
+      @page = FactoryGirl.create(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language, :do_not_autogenerate => false)
     end
 
     it "should render a rss feed" do
@@ -104,7 +104,7 @@ describe Alchemy::PagesController do
     before(:each) do
       @catalog = FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
       @products = FactoryGirl.create(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
-      @product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
+      @product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language, :do_not_autogenerate => false)
       @product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
     end

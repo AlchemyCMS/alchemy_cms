@@ -8,7 +8,7 @@ module Alchemy
     let(:default_language_root) { FactoryGirl.create(:language_root_page, :language => default_language, :name => 'Home') }
     let(:public_page_1) { FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1') }
     let(:public_child) { FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }
-    let(:search_page) { FactoryGirl.create(:public_page, :name => 'Suche', :page_layout => 'search') }
+    let(:search_page) { FactoryGirl.create(:public_page, :name => 'Suche', :page_layout => 'search', :do_not_autogenerate => false) }
     let(:element) { FactoryGirl.create(:element, :page => public_page_1) }
 
     before { default_language_root }
@@ -16,7 +16,7 @@ module Alchemy
     describe "#show" do
 
       it "should include all its elements and contents" do
-        p = FactoryGirl.create(:public_page)
+        p = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
         article = p.elements.find_by_name('article')
         article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
         visit "/alchemy/#{p.urlname}"

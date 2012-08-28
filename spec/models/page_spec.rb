@@ -11,7 +11,7 @@ module Alchemy
     let(:language_root) { FactoryGirl.create(:language_root_page) }
     let(:page)          { mock(:page, :page_layout => 'foo') }
     let(:public_page)   { FactoryGirl.create(:public_page) }
-    let(:news_page)     { FactoryGirl.create(:public_page, :page_layout => 'news') }
+    let(:news_page)     { FactoryGirl.create(:public_page, :page_layout => 'news', :do_not_autogenerate => false) }
 
     describe ".layout_description" do
 
@@ -38,6 +38,7 @@ module Alchemy
     end
 
     it "should return all rss feed elements" do
+      news_page.feed_elements.should_not be_empty
       news_page.feed_elements.should == Element.find_all_by_name('news')
     end
 
@@ -306,7 +307,7 @@ module Alchemy
           'name' => "header",
           'elements' => ["header"]
         }])
-        @page = FactoryGirl.create(:public_page)
+        @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
       end
 
       it "should return elements grouped by cell" do
@@ -431,7 +432,7 @@ module Alchemy
       context "a normal page" do
 
         before do
-          @page = FactoryGirl.build(:page, :language_code => nil, :language => klingonian)
+          @page = FactoryGirl.build(:page, :language_code => nil, :language => klingonian, :do_not_autogenerate => false)
         end
 
         it "should get the language code for language" do

@@ -54,6 +54,9 @@ FactoryGirl.define do
     parent_id { (Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page)).id }
     page_layout "standard"
 
+    # This speeds up creating of pages dramatically. Pass :do_not_autogenerate => false to generate elements
+    do_not_autogenerate true
+
     factory :language_root_page do
       name 'Startseite'
       page_layout 'intro'

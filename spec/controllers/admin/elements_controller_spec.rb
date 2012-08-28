@@ -76,7 +76,7 @@ module Alchemy
       context "with cells" do
 
         before do
-          @page = FactoryGirl.create(:public_page)
+          @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
           @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
           Page.any_instance.stub(:can_have_cells?).and_return(true)
           Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})

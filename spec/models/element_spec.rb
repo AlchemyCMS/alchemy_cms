@@ -160,7 +160,7 @@ module Alchemy
           'elements' => ['column_headline', 'unique_headline'],
           'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
         })
-        @page = FactoryGirl.create(:page, :page_layout => 'columns')
+        @page = FactoryGirl.create(:page, :page_layout => 'columns', :do_not_autogenerate => false)
       end
 
       it "should be readable" do
