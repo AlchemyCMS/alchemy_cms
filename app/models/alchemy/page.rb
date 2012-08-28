@@ -156,27 +156,25 @@ module Alchemy
     # Options:
     # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
     # => :public => boolean (standard: true) - next public page (true), skip public pages (false)
-    def previous_page(options = {})
-      default_options = {
+    def previous(options = {})
+      next_or_previous(:previous, {
         :restricted => nil,
         :public => true
-      }
-      options = default_options.merge(options)
-      find_next_or_previous_page("previous", options)
+      }.merge(options))
     end
+    alias_method :previous_page, :previous
 
     # Finds the next page on the same structure level. Otherwise it returns nil.
     # Options:
     # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
     # => :public => boolean (standard: true) - next public page (true), skip public pages (false)
-    def next_page(options = {})
-      default_options = {
+    def next(options = {})
+      next_or_previous(:next, {
         :restricted => nil,
         :public => true
-      }
-      options = default_options.merge(options)
-      find_next_or_previous_page("next", options)
+      }.merge(options))
     end
+    alias_method :next_page, :next
 
     def find_first_public(page)
       if (page.public == true)
@@ -531,23 +529,22 @@ module Alchemy
 
   private
 
-    def find_next_or_previous_page(direction = "next", options = {})
-      if direction == "previous"
-        step_direction = ["pages.lft < ?", self.lft]
+    def next_or_previous(direction = :next, options = {})
+      pages = self.class.scoped
+      if direction == :previous
+        step_direction = ["#{self.class.table_name}.lft < ?", self.lft]
         order_direction = "lft DESC"
       else
-        step_direction = ["pages.lft > ?", self.lft]
+        step_direction = ["#{self.class.table_name}.lft > ?", self.lft]
         order_direction = "lft"
       end
-      conditions = Page.merge_conditions(
-        {:parent_id => self.parent_id},
-        {:public => options[:public]},
-        step_direction
-      )
+      pages = pages.where(:public => options[:public])
+      pages = pages.where(:parent_id => self.parent_id)
+      pages = pages.where(step_direction)
       if !options[:restricted].nil?
-        conditions = Page.merge_conditions(conditions, {:restricted => options[:restricted]})
+        pages = pages.where(:restricted => options[:restricted])
       end
-      return Page.where(conditions).order(order_direction).limit(1)
+      pages.order(order_direction).limit(1).first
     end
 
     # Converts the given nbame into an url friendly string

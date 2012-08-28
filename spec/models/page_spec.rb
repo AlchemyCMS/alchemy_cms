@@ -549,5 +549,50 @@ module Alchemy
 
     end
 
+    describe 'previous and next. ' do
+
+      let(:center_page) { FactoryGirl.create(:public_page, :name => 'Center Page') }
+      let(:next_page) { FactoryGirl.create(:public_page, :name => 'Next Page') }
+
+      before do
+        public_page
+        center_page
+        next_page
+      end
+
+      describe '#previous' do
+
+        it "should return the previous page on the same level" do
+          center_page.previous.should == public_page
+        end
+
+        context "no previous page on same level present" do
+
+          it "should return nil" do
+            public_page.previous.should be_nil
+          end
+
+        end
+
+      end
+
+      describe '#next' do
+
+        it "should return the next page on the same level" do
+          center_page.next.should == next_page
+        end
+
+        context "no next page on same level present" do
+
+          it "should return nil" do
+            next_page.next.should be_nil
+          end
+
+        end
+
+      end
+
+    end
+
   end
 end
