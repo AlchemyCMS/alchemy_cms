@@ -493,7 +493,61 @@ en:
         one:  "over 1 year"
         many: "over %{count} years"
 
+  errors: &errors
+    template:
+      header: "Validation failed"
+      body: "Please review the form and check the errors."
+
+    messages:
+      inclusion: "is not included in the list"
+      exclusion: "is reserved"
+      invalid: "is invalid"
+      confirmation: "doesn't match confirmation"
+      accepted: "must be accepted"
+      empty: "can't be empty"
+      blank: "can't be blank"
+      too_long: "is too long (maximum is %{count} characters)"
+      too_short: "is too short (minimum is %{count} characters)"
+      wrong_length: "is the wrong length (should be %{count} characters)"
+      taken: "has already been taken"
+      not_a_number: "is not a number"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to: "must be equal to %{count}"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      odd: "must be odd"
+      even: "must be even"
+    models:
+      alchemy/content:
+        attributes:
+          essence:
+            validation_failed: 'Validation failed.'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^Please choose an element."
+      alchemy/language:
+        attributes:
+          code:
+            invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^Please enter a name."
+          page_layout:
+            blank: "^Please choose a page layout."
+          urlname:
+            too_short: "^The pages urlname is too short (minimum of 3 characters)."
+            taken: "^URL-Name already taken."
+            exclusion: "^URL-Name reserved."
+
   activemodel:
+    models:
+      alchemy/message:
+        one: Message
+        other: Messages
+
     attributes:
       alchemy/message:
         salutation: 'Salutation'
@@ -504,6 +558,9 @@ en:
         phone: 'Telephone'
         email: 'Email'
         message: 'Message'
+
+    errors:
+      <<: *errors
 
   # Translations for active record database models and error messages.
   activerecord:
@@ -578,53 +635,7 @@ en:
         role: "Userrole"
 
     errors:
-      template:
-        header: "Validation failed"
-        body: ""
-
-      messages:
-        inclusion: "is not included in the list"
-        exclusion: "is reserved"
-        invalid: "is invalid"
-        confirmation: "doesn't match confirmation"
-        accepted: "must be accepted"
-        empty: "can't be empty"
-        blank: "can't be blank"
-        too_long: "is too long (maximum is %{count} characters)"
-        too_short: "is too short (minimum is %{count} characters)"
-        wrong_length: "is the wrong length (should be %{count} characters)"
-        taken: "has already been taken"
-        not_a_number: "is not a number"
-        greater_than: "must be greater than %{count}"
-        greater_than_or_equal_to: "must be greater than or equal to %{count}"
-        equal_to: "must be equal to %{count}"
-        less_than: "must be less than %{count}"
-        less_than_or_equal_to: "must be less than or equal to %{count}"
-        odd: "must be odd"
-        even: "must be even"
-      models:
-        alchemy/content:
-          attributes:
-            essence:
-              validation_failed: 'Validation failed.'
-        alchemy/element:
-          attributes:
-            name:
-              blank: "^Please choose an element."
-        alchemy/language:
-          attributes:
-            code:
-              invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
-        alchemy/page:
-          attributes:
-            name:
-              blank: "^Please enter a name."
-            page_layout:
-              blank: "^Please choose a page layout."
-            urlname:
-              too_short: "^The pages urlname is too short (minimum of 3 characters)."
-              taken: "^URL-Name already taken."
-              exclusion: "^URL-Name reserved."
+      <<: *errors
 
   # Translations for the authentication system used in alchemy.
   authlogic:

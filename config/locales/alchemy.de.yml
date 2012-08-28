@@ -677,7 +677,66 @@ de:
       two_words_connector: " und "
       last_word_connector: " und "
 
+  errors: &errors
+    template:
+
+      header: "Formular-Prüfung fehlgeschlagen"
+      body: "Bitte überprüfen Sie Ihre Angaben an Hand der aufgelisteten Fehler"
+
+    messages:
+      inclusion: "ist kein gültiger Wert"
+      exclusion: "ist nicht verfügbar"
+      invalid: "ist nicht gültig"
+      record_invalid: 'Validierung von %{errors} ist fehlgeschlagen'
+      confirmation: "stimmt nicht mit der Bestätigung überein"
+      accepted: "muss akzeptiert werden"
+      empty: "muss ausgefüllt werden"
+      blank: "muss ausgefüllt werden"
+      too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
+      too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
+      wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
+      taken: "ist bereits vergeben"
+      not_a_number: "ist keine Zahl"
+      greater_than: "muss größer als %{count} sein"
+      greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
+      equal_to: "muss genau %{count} sein"
+      less_than: "muss kleiner als %{count} sein"
+      less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
+      odd: "muss ungerade sein"
+      even: "muss gerade sein"
+
+    models:
+      alchemy/content:
+        attributes:
+          essence:
+            validation_failed: 'Validierung fehlgeschlagen.'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^Bitte wählen Sie ein Element."
+      alchemy/language:
+        attributes:
+          language_code:
+            invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
+            taken: 'ist für dieses Länderkürzel bereits vergeben.'
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^Bitte geben Sie einen Namen ein."
+          page_layout:
+            blank: "^Bitte wählen Sie einen Seitentyp."
+          urlname:
+            too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
+            taken: "^Der URL-Name ist bereits vergeben."
+            exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+
   activemodel:
+
+    models:
+      alchemy/message:
+        one: "Nachricht"
+        other: "Nachrichten"
+
     attributes:
       alchemy/message:
         salutation: Anrede
@@ -689,6 +748,9 @@ de:
         phone: Telefon
         email: E-Mail
         message: Nachricht
+
+    errors:
+      <<: *errors
 
   # Translations for active record database models and error messages.
   activerecord:
@@ -799,57 +861,7 @@ de:
         role: "Benutzerrolle"
 
     errors:
-      template:
-
-        header: "Prüfung fehlgeschlagen"
-        body: ""
-
-      messages:
-        inclusion: "ist kein gültiger Wert"
-        exclusion: "ist nicht verfügbar"
-        invalid: "ist nicht gültig"
-        record_invalid: 'Validierung von %{errors} ist fehlgeschlagen'
-        confirmation: "stimmt nicht mit der Bestätigung überein"
-        accepted: "muss akzeptiert werden"
-        empty: "muss ausgefüllt werden"
-        blank: "muss ausgefüllt werden"
-        too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
-        too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
-        wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
-        taken: "ist bereits vergeben"
-        not_a_number: "ist keine Zahl"
-        greater_than: "muss größer als %{count} sein"
-        greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
-        equal_to: "muss genau %{count} sein"
-        less_than: "muss kleiner als %{count} sein"
-        less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
-        odd: "muss ungerade sein"
-        even: "muss gerade sein"
-
-      models:
-        alchemy/content:
-          attributes:
-            essence:
-              validation_failed: 'Validierung fehlgeschlagen.'
-        alchemy/element:
-          attributes:
-            name:
-              blank: "^Bitte wählen Sie ein Element."
-        alchemy/language:
-          attributes:
-            language_code:
-              invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
-              taken: 'ist für dieses Länderkürzel bereits vergeben.'
-        alchemy/page:
-          attributes:
-            name:
-              blank: "^Bitte geben Sie einen Namen ein."
-            page_layout:
-              blank: "^Bitte wählen Sie einen Seitentyp."
-            urlname:
-              too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
-              taken: "^Der URL-Name ist bereits vergeben."
-              exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+      <<: *errors
 
   # Translations for the authentication system used in alchemy.
   authlogic:
