@@ -17,7 +17,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         run "mkdir -p #{shared_path}/index"
         run "mkdir -p #{shared_path}/uploads/pictures"
         run "mkdir -p #{shared_path}/uploads/attachments"
-        run "mkdir -p #{File.join(shared_path, 'cache', Capistrano::CLI.ui.ask("Where is Alchemy CMS mounted at? ('/')"), 'pictures')}"
+        run "mkdir -p #{File.join(shared_path, 'cache', Capistrano::CLI.ui.ask("\nWhere is Alchemy CMS mounted at? ('/'): "), 'pictures')}"
       end
 
       # This task sets the symlinks for uploads, picture cache and ferret index folder.
@@ -42,7 +42,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
       desc "Creates the database.yml file"
       task :create do
-        db_adapter       = Capistrano::CLI.ui.ask("Please enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
+        db_adapter       = Capistrano::CLI.ui.ask("\nPlease enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
         db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/^mysql$/, 'mysql2')
         db_name          = Capistrano::CLI.ui.ask("Please enter database name: ")
         db_username      = Capistrano::CLI.ui.ask("Please enter database username: ")

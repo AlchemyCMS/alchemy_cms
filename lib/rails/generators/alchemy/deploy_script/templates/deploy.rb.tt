@@ -3,9 +3,21 @@ require 'alchemy/capistrano'
 load 'deploy/assets'
 
 # ssh settings
+<%- if @ssh_user.blank? -%>
+set(:user)                      { Capistrano::CLI.ui.ask('Enter your ssh username: ') }
+<%- else -%>
 set :user,                      "<%= @ssh_user %>"
+<%- end -%>
+<%- if @ssh_password.blank? -%>
+set(:password)                  { Capistrano::CLI.password_prompt("Enter the password for #{user}: ") }
+<%- else -%>
 set :password,                  "<%= @ssh_password %>"
-set :port,                      <%= @ssh_port || 22 %>
+<%- end -%>
+<%- if @ssh_port != "22" && !@store_credentials -%>
+set(:port)                      { Capistrano::CLI.ui.ask('Enter the ssh port: ') }
+<%- elsif @ssh_port != "22" && @store_credentials -%>
+set :port,                      <%= @ssh_port %>
+<%- end -%>
 
 # domain names
 role :app,                      "<%= @server %>"
