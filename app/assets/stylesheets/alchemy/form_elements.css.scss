@@ -310,31 +310,32 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
   position: relative;
   float: right;
   margin-left: 4px;
-}
 
-.js_filter_field_box .js_filter_field {
-  width: 170px;
-  text-align: left;
-  @include border-radius(12px);
-  padding: 3px 24px;
-  height: 21px;
-}
+  .js_filter_field {
+    width: 170px;
+    text-align: left;
+    @include border-radius(15px);
+    padding: 3px 24px;
+    height: 21px;
+    margin: 0;
+  }
 
-.js_filter_field_box label {
-  text-shadow: #fefefe 1px 1px 0;
-  font-size: 10px;
-  @include inline-block;
-  text-align: center;
-}
+  label {
+    font-size: 10px;
+    display: block;
+    text-align: center;
+    padding-top: 3px;
+  }
 
-.js_filter_field_box .js_filter_field_clear {
-  width: 15px;
-  height: 15px;
-  background: url('icons.png') no-repeat 0 -70px;
-  position: absolute;
-  right: 8px;
-  top: 4px;
-  @include rounded-corner;
+  .js_filter_field_clear {
+    width: 15px;
+    height: 15px;
+    background: url('icons.png') no-repeat 0 -70px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    @include rounded-corner;
+  }
 }
 
 // Just some basic styling for select tags.

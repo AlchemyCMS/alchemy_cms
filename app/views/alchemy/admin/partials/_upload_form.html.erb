@@ -53,7 +53,7 @@
       file_upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>,
       locale: "<%= ::I18n.locale || 'en' %>",
       onQueueComplete: function() {
-        <% if @while_assigning %>
+        <% if @while_assigning && model_name == 'picture' %>
         var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload, :element_id => @element.id, :content_id => @content ? @content.id : nil, :options => @options).html_safe %>';
         $.get(url, null, null, 'script');
         <% elsif controller.class.name == 'Alchemy::Admin::PicturesController' %>

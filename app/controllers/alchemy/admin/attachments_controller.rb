@@ -89,7 +89,7 @@ module Alchemy
         )
       end
 
-      private
+    private
 
       def in_overlay?
         !params[:content_id].blank?
