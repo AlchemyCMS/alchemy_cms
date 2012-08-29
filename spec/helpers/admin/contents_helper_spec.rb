@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::Admin::ContentsHelper do
 
   before(:each) do
-    @element = FactoryGirl.create(:element, :name => 'article')
+    @element = FactoryGirl.create(:element, :name => 'article', :create_contents_after_create => true)
   end
 
   it "should render a dom id" do

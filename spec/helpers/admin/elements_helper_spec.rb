@@ -4,20 +4,28 @@ include Alchemy::BaseHelper
 
 describe Alchemy::Admin::ElementsHelper do
 
-  before(:each) do
-    @page = FactoryGirl.create(:public_page)
-    @element = FactoryGirl.create(:element, :page => @page)
-  end
+  context "partial rendering" do
 
-  it "should render an element editor partial" do
-    helper.render_editor(@element).should match(/class="content_editor".+id="essence_text_\d{1,}"/)
-  end
+    before do
+      @page = FactoryGirl.create(:public_page)
+      @element = FactoryGirl.create(:element, :page => @page, :create_contents_after_create => true)
+    end
 
-  it "should render a picture gallery editor partial" do
-    helper.render_picture_gallery_editor(@element).should match(/class=".+picture_gallery_editor"/)
+    it "should render an element editor partial" do
+      helper.render_editor(@element).should match(/class="content_editor".+id="essence_text_\d{1,}"/)
+    end
+
+    it "should render a picture gallery editor partial" do
+      helper.render_picture_gallery_editor(@element).should match(/class=".+picture_gallery_editor"/)
+    end
+
   end
 
   describe "#grouped_elements_for_select" do
+
+    before do
+      @page = FactoryGirl.create(:public_page)
+    end
 
     before(:each) do
       @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})

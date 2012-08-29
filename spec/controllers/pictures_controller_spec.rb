@@ -10,8 +10,8 @@ module Alchemy
 
     let(:page)               { FactoryGirl.create(:public_page, :restricted => false) }
     let(:restricted_page)    { FactoryGirl.create(:public_page, :restricted => true) }
-    let(:element)            { FactoryGirl.create(:element, :page => page, :name => 'bild') }
-    let(:restricted_element) { FactoryGirl.create(:element, :page => restricted_page, :name => 'bild') }
+    let(:element)            { FactoryGirl.create(:element, :page => page, :name => 'bild', :create_contents_after_create => true) }
+    let(:restricted_element) { FactoryGirl.create(:element, :page => restricted_page, :name => 'bild', :create_contents_after_create => true) }
     let(:picture)            { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../support/image.png', __FILE__), 'image/png')) }
 
     context "Requesting a picture that is not assigned with any page" do

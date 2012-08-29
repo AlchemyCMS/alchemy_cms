@@ -9,7 +9,7 @@ module Alchemy
     let(:public_page_1) { FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1') }
     let(:public_child) { FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }
     let(:search_page) { FactoryGirl.create(:public_page, :name => 'Suche', :page_layout => 'search', :do_not_autogenerate => false) }
-    let(:element) { FactoryGirl.create(:element, :page => public_page_1) }
+    let(:element) { FactoryGirl.create(:element, :page => public_page_1, :create_contents_after_create => true) }
 
     before { default_language_root }
 

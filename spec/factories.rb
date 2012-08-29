@@ -87,6 +87,7 @@ FactoryGirl.define do
 
   factory :element, :class => 'Alchemy::Element' do
     name 'article'
+    create_contents_after_create false
   end
 
   factory :picture, :class => 'Alchemy::Picture' do

@@ -23,7 +23,7 @@ describe Alchemy::Admin::ContentsController do
   describe '#update' do
 
     it "should update a content via ajax" do
-      @element = FactoryGirl.create(:element)
+      @element = FactoryGirl.create(:element, :create_contents_after_create => true)
       post :update, {:id => @element.contents.find_by_name('intro').id, :content => {:body => 'Peters Petshop'}, :format => :js}
       @element.ingredient('intro').should == "Peters Petshop"
     end
@@ -35,7 +35,7 @@ describe Alchemy::Admin::ContentsController do
     context "with content_ids in params" do
 
       before(:each) do
-        @element = FactoryGirl.create(:element)
+        @element = FactoryGirl.create(:element, :create_contents_after_create => true)
       end
 
       it "should reorder the contents" do

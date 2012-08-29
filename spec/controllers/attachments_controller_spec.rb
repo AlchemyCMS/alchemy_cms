@@ -9,7 +9,7 @@ module Alchemy
   describe AttachmentsController do
 
     let(:page)       { FactoryGirl.create(:public_page, :restricted => true) }
-    let(:element)    { FactoryGirl.create(:element, :page => page, :name => 'download') }
+    let(:element)    { FactoryGirl.create(:element, :page => page, :name => 'download', :create_contents_after_create => true) }
     let(:attachment) { Attachment.create(:uploaded_data => fixture_file_upload(File.expand_path('../../support/image.png', __FILE__), 'image/png')) }
 
     before do

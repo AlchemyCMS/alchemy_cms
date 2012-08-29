@@ -118,20 +118,18 @@ module Alchemy
 
     context "retrieving contents, essences and ingredients" do
 
-      before(:each) do
-        @element = FactoryGirl.create(:element, :name => 'news')
-      end
+      let(:element) { FactoryGirl.create(:element, :name => 'news', :create_contents_after_create => true) }
 
       it "should return an ingredient by name" do
-        @element.ingredient('news_headline').should == EssenceText.first.ingredient
+        element.ingredient('news_headline').should == EssenceText.first.ingredient
       end
 
       it "should return the content for rss title" do
-        @element.content_for_rss_title.should == @element.contents.find_by_name('news_headline')
+        element.content_for_rss_title.should == element.contents.find_by_name('news_headline')
       end
 
       it "should return the content for rss description" do
-        @element.content_for_rss_description.should == @element.contents.find_by_name('body')
+        element.content_for_rss_description.should == element.contents.find_by_name('body')
       end
 
     end
@@ -287,35 +285,33 @@ module Alchemy
 
     describe '#copy' do
 
-      before(:each) do
-        @element = FactoryGirl.create(:element)
-      end
+      let(:element) { FactoryGirl.create(:element, :create_contents_after_create => true) }
 
       it "should not create contents from scratch" do
-        copy = Element.copy(@element)
-        copy.contents.count.should == @element.contents.count
+        copy = Element.copy(element)
+        copy.contents.count.should == element.contents.count
       end
 
       it "should create a new record with all attributes of source except given differences" do
-        copy = Element.copy(@element, {:name => 'foobar'})
+        copy = Element.copy(element, {:name => 'foobar'})
         copy.name.should == 'foobar'
       end
 
       it "should make copies of all contents of source" do
-        copy = Element.copy(@element)
-        copy.contents.collect(&:id).should_not == @element.contents.collect(&:id)
+        copy = Element.copy(element)
+        copy.contents.collect(&:id).should_not == element.contents.collect(&:id)
       end
 
     end
 
     describe "Finding previous or next element." do
 
+      let(:page) { FactoryGirl.create(:language_root_page) }
+
       before(:each) do
-        @page = FactoryGirl.create(:language_root_page)
-        @page.elements.delete_all
-        @element1 = FactoryGirl.create(:element, :page => @page, :name => 'headline')
-        @element2 = FactoryGirl.create(:element, :page => @page)
-        @element3 = FactoryGirl.create(:element, :page => @page, :name => 'text')
+        @element1 = FactoryGirl.create(:element, :page => page, :name => 'headline')
+        @element2 = FactoryGirl.create(:element, :page => page)
+        @element3 = FactoryGirl.create(:element, :page => page, :name => 'text')
       end
 
       describe '#prev' do

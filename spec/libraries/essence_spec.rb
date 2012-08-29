@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "ActsAsEssence" do
 
-  let(:element) { FactoryGirl.create(:element, :name => 'headline') }
+  let(:element) { FactoryGirl.create(:element, :name => 'headline', :create_contents_after_create => true) }
 
   describe '#ingredient=' do
 
