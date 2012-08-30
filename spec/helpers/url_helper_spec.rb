@@ -155,6 +155,14 @@ module Alchemy
 
         end
 
+        context "with additional params crop set to true" do
+
+          it "should include crop as parameter" do
+            helper.show_picture_path_params(picture, {:crop => true}).should include(:name => 'cute_kitten', :crop => 'crop')
+          end
+
+        end
+
       end
 
     end

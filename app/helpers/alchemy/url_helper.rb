@@ -26,7 +26,7 @@ module Alchemy
     # Returns the correct params-hash for passing to show_picture_path
     def show_picture_path_params(picture, optional_params={})
       url_params = {:id => picture.id, :name => picture.urlname, :format => configuration(:image_output_format)}
-      url_params.update(optional_params)
+      url_params.update(optional_params.update({:crop => optional_params[:crop] ? 'crop' : nil}))
     end
 
     # Returns the path for rendering an alchemy picture
