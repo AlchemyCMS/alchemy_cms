@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120728185830) do
+ActiveRecord::Schema.define(:version => 20120831135441) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -209,7 +209,7 @@ ActiveRecord::Schema.define(:version => 20120728185830) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.boolean  "default",        :default => false
-    t.string   "country_code"
+    t.string   "country_code",   :default => "",      :null => false
   end
 
   add_index "alchemy_languages", ["language_code", "country_code"], :name => "index_alchemy_languages_on_language_code_and_country_code"
@@ -299,8 +299,8 @@ ActiveRecord::Schema.define(:version => 20120728185830) do
     t.boolean  "published"
     t.integer  "location_id"
     t.integer  "organizer_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
   end
 
   create_table "taggings", :force => true do |t|

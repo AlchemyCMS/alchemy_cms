@@ -10,10 +10,13 @@ module Alchemy::Language::Code
   end
 
   module ClassMethods
+
     def find_by_code(code)
       codes = code.split('-')
-      codes << nil if codes.length == 1
+      codes << '' if codes.length == 1
       find_by_language_code_and_country_code *codes
     end
+
   end
+
 end
