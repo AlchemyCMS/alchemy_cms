@@ -50,7 +50,7 @@ module Alchemy
         return nil if (pages.blank? || pages.length == 1)
         pages.each_with_index do |page, i|
           if (options[:link_to_page_with_layout] != nil)
-            page_found_by_layout = Page.where(:page_layout => options[:link_to_page_with_layout].to_s, :language_id => page.language_id)
+            page_found_by_layout = Page.where(:page_layout => options[:link_to_page_with_layout].to_s, :language_id => page.language_id).first
           end
           page = page_found_by_layout || page
           page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? nil : page.first_public_child) : nil) if !page.public?
