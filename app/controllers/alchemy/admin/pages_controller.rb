@@ -101,7 +101,6 @@ module Alchemy
         name = @page.name
         @page_id = @page.id
         @layoutpage = @page.layoutpage?
-        session[:language_id] = @page.language_id
         if @page.destroy
           @page_root = Page.language_root_for(session[:language_id])
           @message = t("Page deleted", :name => name)
