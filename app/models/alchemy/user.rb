@@ -33,10 +33,9 @@ module Alchemy
     end
 
     def is_admin?
-      true if self.role == "admin"
+      self.role == "admin"
     end
-
-    alias :admin? :is_admin?
+    alias_method :admin?, :is_admin?
 
     def unlock_pages
       for page in pages_locked_by_me
