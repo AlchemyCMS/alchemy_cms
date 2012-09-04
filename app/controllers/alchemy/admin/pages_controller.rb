@@ -108,6 +108,8 @@ module Alchemy
           respond_to do |format|
             format.js
           end
+          # remove from clipboard
+          get_clipboard.remove(:pages, @page_id)
         end
       end
 

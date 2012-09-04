@@ -44,8 +44,8 @@ module Alchemy
       context "with paste_from_clipboard in parameters" do
 
         let(:clipboard) { session[:clipboard] = Clipboard.new }
-        let(:page_in_clipboard) { @page ||= FactoryGirl.create(:public_page) }
-        let(:parent) { @page ||= FactoryGirl.create(:public_page) }
+        let(:page_in_clipboard) { FactoryGirl.create(:public_page) }
+        let(:parent) { FactoryGirl.create(:public_page) }
 
         before(:each) do
           clipboard[:pages] = [{:id => page_in_clipboard.id, :action => 'cut'}]
@@ -90,6 +90,22 @@ module Alchemy
 
       it "should not set layoutpage attribute to true" do
         new_lang_root.layoutpage.should_not be_true
+      end
+
+    end
+
+    describe '#destroy' do
+
+      let(:clipboard) { session[:clipboard] = Clipboard.new }
+      let(:page) { FactoryGirl.create(:public_page) }
+
+      before do
+        clipboard[:pages] = [{:id => page.id}]
+      end
+
+      it "should also remove the page from clipboard" do
+        post :destroy, {:id => page.id, :_method => :delete}
+        clipboard[:pages].should be_empty
       end
 
     end
