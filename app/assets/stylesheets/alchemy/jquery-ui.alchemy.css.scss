@@ -1686,7 +1686,6 @@ button.ui-button::-moz-focus-inner {
   margin-bottom: 0;
   padding-bottom: 1px;
   background: $light-gray;
-  height: 26px;
 }
 
 #alchemy .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, #alchemy .ui-tabs .ui-tabs-nav li.ui-state-disabled a, #alchemy .ui-tabs .ui-tabs-nav li.ui-state-processing a {
@@ -1714,6 +1713,11 @@ button.ui-button::-moz-focus-inner {
 #alchemy .ui-tabs li.ui-tabs-paging-next {
   float: right !important;
   padding: 0 !important;
+}
+
+#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev,
+#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-next {
+  height: 26px;
 }
 
 #alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev a,
