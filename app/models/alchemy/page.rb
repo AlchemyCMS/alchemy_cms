@@ -420,7 +420,7 @@ module Alchemy
         end
         return page
       else
-        raise page.errors.full_messages
+        raise "`#{page.name}`: #{page.errors.full_messages}"
       end
     end
 
@@ -444,11 +444,11 @@ module Alchemy
       return layoutroot if layoutroot
       language = Language.find(language_id)
       layoutroot = Page.new({
-                              :name => "Layoutroot for #{language.name}",
-                              :layoutpage => true,
-                              :language => language,
-                              :do_not_autogenerate => true
-                            })
+        :name => "Layoutroot for #{language.name}",
+        :layoutpage => true,
+        :language => language,
+        :do_not_autogenerate => true
+      })
       if layoutroot.save(:validate => false)
         layoutroot.move_to_child_of(Page.root)
         return layoutroot
