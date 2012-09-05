@@ -53,7 +53,7 @@ module Alchemy
       #   end
       #
       def create_admin_user
-        @user = FactoryGirl.build(:admin_user).save_without_session_maintenance
+        @user ||= FactoryGirl.build(:admin_user).save_without_session_maintenance
       end
 
     end
