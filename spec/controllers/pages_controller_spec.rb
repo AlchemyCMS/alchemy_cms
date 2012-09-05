@@ -42,8 +42,25 @@ describe Alchemy::PagesController do
     context "with param layout set to none" do
 
       it "should not render a layout" do
-        get :show, :urlname => :home, :layout => false
-        response.body.should_not have_content('<head>')
+        get :show, :urlname => :home, :layout => 'none'
+        response.body.should_not match /<head>/
+      end
+
+    end
+
+    context "with param layout set to false" do
+
+      it "should not render a layout" do
+        get :show, :urlname => :home, :layout => 'false'
+        response.body.should_not match /<head>/
+      end
+
+    end
+
+    context "with params layout set to not existing layout" do
+
+      it "should raise ActionController::RoutingError" do
+        expect { get :show, :urlname => :home, :layout => 'lkuiuk' }.to raise_error(ActionController::RoutingError)
       end
 
     end
