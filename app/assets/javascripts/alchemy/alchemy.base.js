@@ -173,15 +173,6 @@ if (typeof(Alchemy) === 'undefined') {
       $("button, input:submit, a.button").button(options);
     },
 
-    handleEssenceCheckbox: function(checkbox) {
-      var $checkbox = $(checkbox);
-      if (checkbox.checked) {
-        $('#' + checkbox.id + '_hidden').remove();
-      } else {
-        $checkbox.after('<input type="hidden" value="0" name="' + checkbox.name + '" id="' + checkbox.id + '_hidden">');
-      }
-    },
-
     selectOrCreateCellTab: function(cell_name, label) {
       if ($('#cell_' + cell_name).size() === 0) {
         $('#cells').tabs('add', '#cell_' + cell_name, label);
