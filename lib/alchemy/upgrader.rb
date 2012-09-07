@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Alchemy
   class Upgrader < Alchemy::Seeder
 
@@ -14,6 +16,7 @@ module Alchemy
         upgrade_to_namespaced_essence_type
         convert_essence_texts_displayed_as_select_into_essence_selects
         convert_essence_texts_displayed_as_checkbox_into_essence_booleans
+        copy_new_config_file
 
         display_todos
       end
@@ -174,6 +177,18 @@ module Alchemy
         else
           log "No EssenceTexts with display_as checkbox setting found.", :skip
         end
+      end
+
+      def copy_new_config_file
+        desc "Copy config file"
+        old_config_file = Rails.root.join('config/alchemy/config.yml')
+        if File.exist?(old_config_file)
+          FileUtils.mv old_config_file, Rails.root.join('config/alchemy/config.yml.old')
+          log "Backed up old config file"
+        end
+        FileUtils.cp File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml'), old_config_file
+        log "Copied new config file"
+        todo "Check the config/alchemy/config.yml.old file for custom configuration options and insert them into the new config file."
       end
 
     end
