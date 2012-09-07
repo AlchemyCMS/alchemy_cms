@@ -129,15 +129,14 @@ module Alchemy
     # == Options:
     #
     #   :image_size => "111x93"                        # Used by EssencePicture to render the image via RMagick to that size. [Default nil]
-    #   :date_format => "Am %d. %m. %Y, um %H:%Mh"     # Espacially for EssenceDate. See Rubys Date.strftime for date formatting options. [Default nil]
-    #   :caption => true                               # Pass Boolean to enable/disable the EssencePicture.caption. [Default true]
-    #   :blank_value => "Not found"                    # Pass a String that gets rendered if the content.essence is blank. [Default nil]
+    #   :date_format => "Am %d. %m. %Y, um %H:%Mh"     # Especially for EssenceDate. See Rubys Date.strftime for date formatting options. [Default nil]
+    #   :show_caption => true                          # Pass Boolean to show/hide the caption of an EssencePicture. [Default true]
     #
     def render_essence_view(content, options = {}, html_options = {})
       defaults = {
-        :caption => true
+        :show_caption => true
       }
-      render_essence(content, :view, {:for_view => options}, html_options)
+      render_essence(content, :view, {:for_view => defaults.update(options)}, html_options)
     end
 
   end
