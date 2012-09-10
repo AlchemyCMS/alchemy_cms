@@ -11,7 +11,7 @@ module Alchemy
       if object.class.to_s == "Alchemy::Element"
         expire_cache_for(object.contents)
         expire_contents_displayed_as_select
-      elsif object.class.to_s == "Alchemy::Page" && (object.urlname_changed? || object.name_changed?)
+      elsif object.class.to_s == "Alchemy::Page" && (object.public_changed? || object.urlname_changed? || object.name_changed?)
         expire_contents_displayed_as_select
       end
     end
