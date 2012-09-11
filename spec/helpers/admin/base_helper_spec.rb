@@ -183,7 +183,7 @@ module Alchemy
 
         it "should return options for select with only these pages" do
           output = helper.pages_for_select(@pages)
-          output.should match(/A Public Page 1/m)
+          output.should match(/#{@pages.collect(&:name).join('.*')}/m)
           output.should_not match(/Page A/m)
         end
 
