@@ -13,3 +13,6 @@ script: "bundle exec rspec spec"
 env:
   - DB=mysql
   - DB=postgresql
+matrix:
+  allow_failures:
+    - rvm: ree
