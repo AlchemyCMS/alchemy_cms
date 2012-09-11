@@ -78,31 +78,42 @@ module Alchemy
         end
       end
 
-      # Renders the EssenceText editor partial with a form select for storing page urlnames
+      # Renders the EssenceSelect editor partial with a form select for storing page urlnames
       #
       # === Options:
       #
       #   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
       #   :page_attribute  [Symbol]   # The Page attribute which will be stored.
       #   :global          [Boolean]  # Display only global pages. Default is false.
+      #   :order_by        [Symbol]   # Order pages by this attribute.
+      #
+      # NOTE: The order option only works if the +only+ option is also set.
+      # Then the default is :name.
+      # Otherwise the pages are ordered by their position in the nested set.
       #
       def page_selector(element, content_name, options = {}, select_options = {})
         default_options = {
           :page_attribute => :id,
           :global => false,
-          :prompt => t('Choose page')
+          :prompt => t('Choose page'),
+          :order_by => :name
         }
         options = default_options.merge(options)
-        pages = Page.where({
-          :language_id => session[:language_id],
-          :layoutpage => options[:global] == true,
-          :public => options[:global] == false
-        })
-        pages = pages.where({:page_layout => options[:only]}) if options[:only].present?
         content = element.content_by_name(content_name)
-        options.update(
-          :select_values => pages_for_select(pages, content ? content.ingredient : nil, options[:prompt], options[:page_attribute])
-        )
+        if options[:global] || options[:only].present?
+          pages = Page.where({
+            :language_id => session[:language_id],
+            :layoutpage => options[:global] == true,
+            :public => options[:global] == false
+          })
+          if options[:only].present?
+            pages = pages.where({:page_layout => options[:only]})
+          end
+          pages_options_tags = pages_for_select(pages.order(options[:order_by]), content ? content.ingredient : nil, options[:prompt], options[:page_attribute])
+        else
+          pages_options_tags = pages_for_select(nil, content ? content.ingredient : nil, options[:prompt], options[:page_attribute])
+        end
+        options.update(:select_values => pages_options_tags)
         if content.nil?
           render_missing_content(element, content_name, options)
         else
