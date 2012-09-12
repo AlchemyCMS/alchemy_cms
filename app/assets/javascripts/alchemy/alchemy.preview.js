@@ -72,7 +72,7 @@ Alchemy.initAlchemyPreviewMode = function() {
       clickElement: function(e) {
         var $this = $(this);
         var parent$ = window.parent.jQuery;
-        var target_id = $this.attr('data-alchemy-element');
+        var target_id = $this.data('alchemy-element');
         var $element_editor = parent$('#element_area .element_editor').closest('[id="element_' + target_id + '"]');
         var $elementsWindow = parent$('#alchemyElementWindow');
         e.preventDefault();
