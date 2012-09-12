@@ -460,7 +460,6 @@ module Alchemy
     # Renders the search +results+ partial from +app/views/alchemy/search/+
     def render_search_results(options={})
       default_options = {
-        :show_language => true,
         :show_result_count => true,
         :show_heading => true
       }

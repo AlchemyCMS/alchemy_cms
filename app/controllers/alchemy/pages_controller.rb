@@ -126,8 +126,8 @@ module Alchemy
               "*#{params[:query]}*",
               {:limit => :all},
               {:conditions => [
-                'alchemy_pages.public = ? AND alchemy_pages.layoutpage = ? AND alchemy_pages.restricted = ?',
-                true, false, false
+                'alchemy_pages.public = ? AND alchemy_pages.layoutpage = ? AND alchemy_pages.restricted = ? AND alchemy_pages.language_id = ?',
+                true, false, false, session[:language_id]
               ]}
             )
           end
