@@ -1,15 +1,13 @@
 Alchemy CMS
 ===========
 
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.3-stable)](http://travis-ci.org/magiclabs/alchemy_cms)
 [![Maintenance Status](http://stillmaintained.com/magiclabs/alchemy_cms.png)](http://stillmaintained.com/magiclabs/alchemy_cms)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/magiclabs/alchemy_cms)
 [![Dependency Status](https://gemnasium.com/magiclabs/alchemy_cms.png)](https://gemnasium.com/magiclabs/alchemy_cms)
 
 About
 -----
-
-**This branch is a beta development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.2-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.2-stable).**
 
 Alchemy is a Rails 3 CMS with a flexible content storing architecture.
 
@@ -49,13 +47,14 @@ Ruby Version
 ------------
 
 Alchemy runs under Ruby 1.8.7, Ruby 1.9.2, Ruby 1.9.3 and REE (Ruby Enterprise Edition).
+We strongly recommend Ruby 1.9.3 for best performance and maximum security.
 
 Installation
 ------------
 
 Use the installer (recommended):
 
-    gem install alchemy_cms --pre
+    gem install alchemy_cms
     alchemy new my_magicpage
 
 Start the local server:
@@ -67,13 +66,9 @@ Then just switch to your browser and open `http://localhost:3000`
 Upgrading
 ------------
 
-Projects running with Alchemy CMS version < 2.1 needs to be upgraded.
+Projects running with Alchemy CMS version < 2.2 needs to be upgraded.
 
-Otherwise errors will be raised like this:
-`uninitialized constant EssenceText`
-
-You have to use the following Upgrade-Task.
-Run in terminal:
+Use the following Upgrade-Task:
 
     rake alchemy:upgrade
 
@@ -83,7 +78,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', :github => 'magiclabs/alchemy_cms'
+    gem 'alchemy_cms', :github => 'magiclabs/alchemy_cms', :branch => '2.3-stable'
 
 Run in terminal:
 

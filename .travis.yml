@@ -5,7 +5,7 @@ rvm:
   - 1.9.3
 branches:
   only:
-    - master
+    - 2.3-stable
 before_script:
   - "phantomjs -v"
   - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
