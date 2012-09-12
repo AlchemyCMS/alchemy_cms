@@ -50,11 +50,10 @@ module Alchemy
         warning('Page is nil')
         return ""
       else
-        show_non_public = configuration(:cache_pages) ? false : defined?(current_user)
         if page.class == Array
-          all_elements = page.collect { |p| p.find_elements(options, show_non_public) }.flatten
+          all_elements = page.collect { |p| p.find_elements(options) }.flatten
         else
-          all_elements = page.find_elements(options, show_non_public)
+          all_elements = page.find_elements(options)
         end
         unless options[:sort_by].blank?
           all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
