@@ -153,13 +153,13 @@ module Alchemy
     # Returns a string for the id attribute of a html element for the given element
     def element_dom_id(element)
       return "" if element.nil?
-      "#{element.name}_#{element.id}"
+      "#{element.name}_#{element.id}".html_safe
     end
 
     # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.
     def element_preview_code(element)
       return "" if element.nil?
-      " data-alchemy-element='#{element.id}'" if @preview_mode && element.page == @page
+      " data-alchemy-element='#{element.id}'".html_safe if @preview_mode && element.page == @page
     end
 
     # Returns the full url containing host, page and anchor for the given element
