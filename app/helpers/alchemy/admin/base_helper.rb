@@ -334,7 +334,7 @@ module Alchemy
       #   :overlay_options        [Hash]                # Overlay options. See link_to_overlay_window helper.
       #   :if_permitted_to        [Array]               # Check permission for button. [:action, :controller]. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
       #   :skip_permission_check  [Boolean]             # Skip the permission check. Default false. NOT RECOMMENDED!
-      #   :loading_indicator      [Boolean]             # Shows the please wait overlay while loading. Default false.
+      #   :loading_indicator      [Boolean]             # Shows the please wait overlay while loading. Only for buttons not opening an overlay window. Default true.
       #
       def toolbar_button(options = {})
         options.symbolize_keys!
@@ -344,7 +344,7 @@ module Alchemy
           :active => false,
           :link_options => {},
           :overlay_options => {},
-          :loading_indicator => false
+          :loading_indicator => true
         }
         options = defaults.merge(options)
         button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
@@ -359,7 +359,7 @@ module Alchemy
                      }
                    )
                  else
-                   link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
+                   link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? ' please_wait' : nil}", :title => options[:title]}.merge(options[:link_options]) do
                      render_icon(options[:icon])
                    end
                  end
