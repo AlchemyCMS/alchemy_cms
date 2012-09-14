@@ -10,7 +10,6 @@ group :test do
 
 	if !ENV["CI"]
 		gem "launchy"
-		gem "fuubar"
 	end
 end
 
