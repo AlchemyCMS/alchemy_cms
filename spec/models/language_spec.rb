@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Alchemy::Language do
 
 	before(:each) do
-		@language = Factory(:language)
+		@language = FactoryGirl.create(:language)
 	end
 
 	it "should return a label for code" do
@@ -30,7 +30,7 @@ describe Alchemy::Language do
 			end
 
 			it "should update all associated Pages with self.code as value for Page#language_code" do
-				@page = Factory(:page, :language => @language)
+				@page = FactoryGirl.create(:page, :language => @language)
 				@language.country_code = 'cr'
 				@language.save
 				@page.reload; @page.language_code.should == 'kl-cr'
@@ -43,8 +43,8 @@ describe Alchemy::Language do
 
 		context "removing the country_code" do
 			it "should update all associated Pages´s language_code with Language#code" do
-				language = Factory(:language_with_country_code)
-				@page = Factory(:page, :language => language)
+				language = FactoryGirl.create(:language_with_country_code)
+				@page = FactoryGirl.create(:page, :language => language)
 				language.country_code = ''
 				language.save
 				@page.reload; @page.language_code.should == "kl"
@@ -56,7 +56,7 @@ describe Alchemy::Language do
 	it "should not be deletable if it is the default language" do
 		@default_language = Alchemy::Language.find_by_default(true)
 		if !@default_language
-			@default_language = Factory(:language, :name => "default", :code => "aa", :frontpage_name => "intro", :default => true)
+			@default_language = FactoryGirl.create(:language, :name => "default", :code => "aa", :frontpage_name => "intro", :default => true)
 		end
 		expect { @default_language.destroy }.to raise_error
 	end
@@ -75,8 +75,8 @@ describe Alchemy::Language do
 	context "after_update" do
 		describe "#set_pages_language if language´s code has changed" do
 			it "should update all its pages with the new code" do
-				@page = Factory(:page, :language => @language)
-				@other_page = Factory(:page, :language => @language, :name => 'Another Page')
+				@page = FactoryGirl.create(:page, :language => @language)
+				@other_page = FactoryGirl.create(:page, :language => @language, :name => 'Another Page')
 				@language.update_attributes(:code => "fo")
 				@language.reload; @page.reload; @other_page.reload
 				[@page.language_code, @other_page.language_code].should == [@language.code, @language.code]
@@ -84,8 +84,8 @@ describe Alchemy::Language do
 		end
 		describe "#unpublish_pages" do
 			it "should set all pages to unpublic if it gets set to unpublic" do
-				@page = Factory(:page, :language => @language)
-				@other_page = Factory(:page, :language => @language, :name => 'Another Page')
+				@page = FactoryGirl.create(:page, :language => @language)
+				@other_page = FactoryGirl.create(:page, :language => @language, :name => 'Another Page')
 				@language.update_attributes(:public => false)
 				@language.reload; @page.reload; @other_page.reload
 				[@page.public?, @other_page.public?].should == [false, false]

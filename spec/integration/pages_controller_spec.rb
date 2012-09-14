@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe Alchemy::PagesController do
-	
+
 	before(:each) do
 		@default_language = Alchemy::Language.get_default
-		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home')
+		@default_language_root = FactoryGirl.create(:language_root_page, :language => @default_language, :name => 'Home')
 	end
 
 	describe "#show" do
 
 		it "should include all its elements and contents" do
-			p = Factory(:public_page, :language => @default_language)
+			p = FactoryGirl.create(:public_page, :language => @default_language)
 			article = p.elements.find_by_name('article')
 			article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
 			visit '/alchemy/a-public-page'
@@ -19,8 +19,8 @@ describe Alchemy::PagesController do
 
 		it "should show the navigation with all visible pages" do
 			pages = [
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
-				Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
+				FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id),
+				FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 2', :parent_id => @default_language_root.id)
 			]
 			visit '/alchemy/'
 			within('div#navigation ul') { page.should have_selector('li a[href="/alchemy/page-1"], li a[href="/alchemy/page-2"]') }
@@ -29,8 +29,8 @@ describe Alchemy::PagesController do
 		context "when a global page with the same urlname as the requested page exists in the language tree" do
 
 			it "should render the content page, not the global page" do
-				globalpage = Factory(:public_page, :layoutpage => true, :language => @default_language, :name => "samename", :urlname => "samename", :parent_id => @default_language_root.id)
-				contentpage = Factory(:public_page, :layoutpage => false, :language => @default_language, :name => "samename", :urlname => "samename", :parent_id => @default_language_root.id)
+				globalpage = FactoryGirl.create(:public_page, :layoutpage => true, :language => @default_language, :name => "samename", :urlname => "samename", :parent_id => @default_language_root.id)
+				contentpage = FactoryGirl.create(:public_page, :layoutpage => false, :language => @default_language, :name => "samename", :urlname => "samename", :parent_id => @default_language_root.id)
 				article = contentpage.elements.find_by_name('article')
 				article.content_by_name('intro').essence.update_attributes(:body => 'rendered on contentpage', :public => true)
 				visit("/alchemy/samename")
@@ -44,9 +44,9 @@ describe Alchemy::PagesController do
 	describe "fulltext search" do
 
 		before(:each) do
-			@page = Factory(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
-			@element = Factory(:element, :name => 'article', :page => @page)
-			Factory(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
+			@page = FactoryGirl.create(:public_page, :language => @default_language, :visible => true, :name => 'Page 1', :parent_id => @default_language_root.id)
+			@element = FactoryGirl.create(:element, :name => 'article', :page => @page)
+			FactoryGirl.create(:public_page, :language => @default_language, :name => 'Suche', :page_layout => 'search', :parent_id => @default_language_root.id)
 		end
 
 		it "should have a correct path in the form tag" do
@@ -98,7 +98,7 @@ describe Alchemy::PagesController do
 		context "in multi language mode" do
 
 			before(:each) do
-				@page = Factory(:public_page)
+				@page = FactoryGirl.create(:public_page)
 				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? true : Alchemy::Config.parameter(arg) }
 			end
 
@@ -111,7 +111,7 @@ describe Alchemy::PagesController do
 
 				before(:each) do
 					@page.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
-					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id)
+					@child = FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => @page.id)
 					Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : Alchemy::Config.parameter(arg) }
 				end
 
@@ -145,9 +145,9 @@ describe Alchemy::PagesController do
 			context "url nesting" do
 
 				before(:each) do
-					@level1 = Factory(:public_page, :parent_id => @default_language_root.id, :name => 'catalog', :language => @default_language)
-					@level2 = Factory(:public_page, :parent_id => @level1.id, :name => 'products', :language => @default_language)
-					@level3 = Factory(:public_page, :parent_id => @level2.id, :name => 'screwdriver', :language => @default_language)
+					@level1 = FactoryGirl.create(:public_page, :parent_id => @default_language_root.id, :name => 'catalog', :language => @default_language)
+					@level2 = FactoryGirl.create(:public_page, :parent_id => @level1.id, :name => 'products', :language => @default_language)
+					@level3 = FactoryGirl.create(:public_page, :parent_id => @level2.id, :name => 'screwdriver', :language => @default_language)
 				end
 
 				context "enabled" do
@@ -197,7 +197,7 @@ describe Alchemy::PagesController do
 		context "not in multi language mode" do
 
 			before(:each) do
-				@page = Factory(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
+				@page = FactoryGirl.create(:public_page, :language => @default_language, :parent_id => @default_language_root.id)
 				Alchemy::Config.stub!(:get) { |arg| arg == :url_nesting ? false : Alchemy::Config.parameter(arg) }
 			end
 
@@ -224,7 +224,7 @@ describe Alchemy::PagesController do
 
 				before(:each) do
 					@page.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
-					@child = Factory(:public_page, :name => 'Public Child', :parent_id => @page.id, :language => @default_language)
+					@child = FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => @page.id, :language => @default_language)
 				end
 
 				it "if requested page is unpublished" do

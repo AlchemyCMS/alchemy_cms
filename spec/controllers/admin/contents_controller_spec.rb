@@ -4,11 +4,11 @@ describe Alchemy::Admin::ContentsController do
 
 	before(:each) do
 		activate_authlogic
-		Alchemy::UserSession.create Factory(:admin_user)
+		Alchemy::UserSession.create FactoryGirl.create(:admin_user)
 	end
 
 	it "should update a content via ajax" do
-		@element = Factory(:element)
+		@element = FactoryGirl.create(:element)
 		post :update, {:id => @element.contents.find_by_name('intro').id, :content => {:body => 'Peters Petshop'}, :format => :js}
 		@element.ingredient('intro').should == "Peters Petshop"
 	end
@@ -18,7 +18,7 @@ describe Alchemy::Admin::ContentsController do
 		context "with content_ids in params" do
 
 			before(:each) do
-				@element = Factory(:element)
+				@element = FactoryGirl.create(:element)
 			end
 
 			it "should reorder the contents" do

@@ -11,9 +11,9 @@ unless ENV["CI"]
 
 				before(:all) do
 					Factory.build(:admin_user).save_without_session_maintenance
-					@language = Factory(:language)
-					@german_root = Factory(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
-					@klingonian_root = Factory(:language_root_page, :name => 'Klingonian')
+					@language = FactoryGirl.create(:language)
+					@german_root = FactoryGirl.create(:language_root_page, :language => Alchemy::Language.get_default, :name => 'Deutsch')
+					@klingonian_root = FactoryGirl.create(:language_root_page, :name => 'Klingonian')
 				end
 
 				it "one should be able to switch the language tree" do
@@ -35,7 +35,7 @@ unless ENV["CI"]
 
 				before(:all) do
 					Factory.build(:admin_user).save_without_session_maintenance
-					@language = Factory(:language)
+					@language = FactoryGirl.create(:language)
 				end
 
 				it "it should display the form for creating language root" do

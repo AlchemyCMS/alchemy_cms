@@ -6,13 +6,13 @@ describe Alchemy::PagesController do
 
 	before(:each) do
 		@default_language = Alchemy::Language.get_default
-		@default_language_root = Factory(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
+		@default_language_root = FactoryGirl.create(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
 	end
 
 	context "requested for a page containing a feed" do
 
 		before(:each) do
-			@page = Factory(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language)
+			@page = FactoryGirl.create(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language)
 		end
 
 		it "should render a rss feed" do
@@ -25,7 +25,7 @@ describe Alchemy::PagesController do
 			get :show, :urlname => 'news', :format => :rss
 			response.body.should match /Peters Petshop/
 		end
-	
+
 	end
 
 	context "requested for a page that does not contain a feed" do
@@ -102,9 +102,9 @@ describe Alchemy::PagesController do
 	describe "url nesting" do
 
 		before(:each) do
-			@catalog = Factory(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
-			@products = Factory(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
-			@product = Factory(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
+			@catalog = FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
+			@products = FactoryGirl.create(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
+			@product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language)
 			@product.elements.find_by_name('article').contents.essence_texts.first.essence.update_attribute(:body, 'screwdriver')
 			controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
 		end

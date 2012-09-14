@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::Content do
 
 	it "should return the ingredient from its essence" do
-		@element = Factory(:element, :name => 'headline')
+		@element = FactoryGirl.create(:element, :name => 'headline')
 		@content = @element.contents.find_by_essence_type('Alchemy::EssenceText')
 		@content.essence.update_attributes(:body => "Hello")
 		@content.ingredient.should == "Hello"
@@ -52,21 +52,21 @@ describe Alchemy::Content do
 	describe '#update_essence' do
 
 		it "should update the attributes of related essence and return true" do
-			@element = Factory(:element, :name => 'text')
+			@element = FactoryGirl.create(:element, :name => 'text')
 			@content = @element.contents.first
 			@content.update_essence(:body => 'Mikes Petshop')
 			@content.ingredient.should == "Mikes Petshop"
 		end
 
 		it "should add error messages if save fails and return false" do
-			@element = Factory(:element, :name => 'contactform')
+			@element = FactoryGirl.create(:element, :name => 'contactform')
 			@content = @element.contents.first
 			@content.update_essence
 			@content.errors[:essence].should have(1).item
 		end
 
 		it "should raise error if essence is missing" do
-			@element = Factory(:element, :name => 'text')
+			@element = FactoryGirl.create(:element, :name => 'text')
 			@content = @element.contents.first
 			@content.update_essence
 		end
@@ -76,7 +76,7 @@ describe Alchemy::Content do
 	describe '#copy' do
 
 		before(:each) do
-			@element = Factory(:element, :name => 'text')
+			@element = FactoryGirl.create(:element, :name => 'text')
 			@content = @element.contents.first
 		end
 
