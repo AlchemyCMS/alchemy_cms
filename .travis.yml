@@ -1,7 +1,6 @@
 language: ruby
 bundler_args: --without development
 rvm:
-  - 1.8.7
   - 1.9.2
   - 1.9.3
   - ree
@@ -9,8 +8,5 @@ branches:
   only:
     - 2.1-stable
 before_script:
-  #- "mysql -e 'create database alchemy_cms_test;'"
-  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:schema:load'"
+  - "sh -c 'cd spec/dummy; RAILS_ENV=test bundle exec rake db:reset'"
 script: "bundle exec rspec spec"
-# env:
-#   - DB=mysql

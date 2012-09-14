@@ -3,14 +3,15 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
-	gem 'rspec-rails'
-	gem 'sqlite3'
 	gem 'factory_girl_rails', '1.4.0'
 	gem "capybara"
 	gem 'capybara-webkit', '~>0.8.0'
-	gem "launchy"
 	gem "database_cleaner"
-	gem "fuubar"
+
+	if !ENV["CI"]
+		gem "launchy"
+		gem "fuubar"
+	end
 end
 
 group :assets do
