@@ -340,7 +340,7 @@ module Alchemy
 					:active => false,
 					:link_options => {},
 					:overlay_options => {},
-					:loading_indicator => false
+					:loading_indicator => true
 				}
 				options = defaults.merge(options)
 				button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
@@ -355,7 +355,7 @@ module Alchemy
 							}
 						)
 					else
-						link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? nil : ' please_wait'}", :title => options[:title]}.merge(options[:link_options]) do
+						link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? ' please_wait' : nil}", :title => options[:title]}.merge(options[:link_options]) do
 							render_icon(options[:icon])
 						end
 					end
