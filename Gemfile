@@ -18,8 +18,10 @@ group :assets do
 end
 
 group :development do
-	gem 'ruby-debug19', :require => 'ruby-debug', :platform => :ruby_19
-	gem 'ruby-debug', :platform => :ruby_18
-	gem 'guard-spork'
-	gem 'yard'
+	if !ENV["CI"]
+		gem 'debugger', :platform => :ruby_19
+		gem 'ruby-debug', :platform => :ruby_18
+		gem 'guard-spork'
+		gem 'yard'
+	end
 end
