@@ -25,7 +25,7 @@ end
 group :development do
   unless ENV['CI']
     gem 'guard-spork'
-    gem 'ruby-debug19', :require => 'ruby-debug', :platform => :ruby_19
+    gem 'debugger', :platform => :ruby_19
     gem 'ruby-debug', :platform => :ruby_18
   end
 end
