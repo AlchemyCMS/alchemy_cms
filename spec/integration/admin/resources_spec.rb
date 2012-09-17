@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Resources" do
 
 	before(:all) do
-		Factory.build(:admin_user).save_without_session_maintenance
+		FactoryGirl.build(:admin_user).save_without_session_maintenance
 	end
 
 	describe "index view" do

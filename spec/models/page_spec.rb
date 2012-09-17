@@ -323,7 +323,7 @@ describe Alchemy::Page do
 	describe "#cell_definitions" do
 
 		before(:each) do
-			@page = Factory.build(:page, :page_layout => 'foo')
+			@page = FactoryGirl.build(:page, :page_layout => 'foo')
 			@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
 			@cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
 			Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
@@ -344,7 +344,7 @@ describe Alchemy::Page do
 
 		context "with no elements defined that are not defined in a cell" do
 			it "should not have a cell for 'other elements'" do
-				@page = Factory.build(:page, :page_layout => 'foo')
+				@page = FactoryGirl.build(:page, :page_layout => 'foo')
 				@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2"]})
 				@cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
 				Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
@@ -354,7 +354,7 @@ describe Alchemy::Page do
 
 		context "with elements defined that are not defined in a cell" do
 			it "should have a cell for 'other elements'" do
-				@page = Factory.build(:page, :page_layout => 'foo')
+				@page = FactoryGirl.build(:page, :page_layout => 'foo')
 				@page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"], 'elements' => ["1", "2", "3"]})
 				@cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
 				Alchemy::Cell.stub!(:definitions).and_return(@cell_descriptions)
@@ -422,7 +422,7 @@ describe Alchemy::Page do
 		context "creating a normal content page" do
 
 			before(:each) do
-				@contentpage = Factory.build(:page, :parent_id => nil, :page_layout => nil)
+				@contentpage = FactoryGirl.build(:page, :parent_id => nil, :page_layout => nil)
 			end
 
 			it "should validate the page_layout" do
@@ -441,7 +441,7 @@ describe Alchemy::Page do
 
 			before(:each) do
 				Alchemy::Page.delete_all
-				@rootpage = Factory.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
+				@rootpage = FactoryGirl.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
 			end
 
 			it "should be valid" do
@@ -454,7 +454,7 @@ describe Alchemy::Page do
 		context "saving a systempage" do
 
 			before(:each) do
-				@systempage = Factory.build(:systempage)
+				@systempage = FactoryGirl.build(:systempage)
 			end
 
 			it "should not validate the page_layout" do
@@ -471,7 +471,7 @@ describe Alchemy::Page do
 		context "a normal page" do
 
 			before(:each) do
-				@page = Factory.build(:page, :language_code => nil, :language => FactoryGirl.create(:language))
+				@page = FactoryGirl.build(:page, :language_code => nil, :language => FactoryGirl.create(:language))
 			end
 
 			it "should get the language code for language" do
