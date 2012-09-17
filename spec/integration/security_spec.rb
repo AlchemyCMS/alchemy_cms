@@ -18,7 +18,7 @@ describe "Security: " do
 
 	context "If user is present" do
 
-		before(:all) do
+		before(:each) do
 			FactoryGirl.build(:admin_user).save_without_session_maintenance
 		end
 
@@ -35,7 +35,7 @@ describe "Security: " do
 		end
 
 		context "that is already logged in" do
-			before(:all) do
+			before(:each) do
 				visit '/alchemy/admin/login'
 				fill_in('alchemy_user_session_login', :with => 'jdoe')
 				fill_in('alchemy_user_session_password', :with => 's3cr3t')

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Resources" do
 
-	before(:all) do
+	before(:each) do
 		FactoryGirl.build(:admin_user).save_without_session_maintenance
 	end
 
