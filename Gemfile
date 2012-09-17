@@ -6,7 +6,6 @@ group :test do
 	gem 'factory_girl_rails', '1.4.0'
 	gem "capybara"
 	gem 'capybara-webkit', '~>0.8.0'
-	gem "database_cleaner"
 
 	if !ENV["CI"]
 		gem "launchy"

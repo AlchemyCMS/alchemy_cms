@@ -9,9 +9,6 @@ def configure
 
 	require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-	require 'database_cleaner'
-	DatabaseCleaner.strategy = :truncation
-
 	require 'authlogic/test_case'
 	include Authlogic::TestCase
 
@@ -43,12 +40,10 @@ def configure
 		config.mock_with :rspec
 		config.use_transactional_fixtures = true
 	end
-	
+
 end
 
 def seed
-	# This code will be run each time you run your specs.
-	DatabaseCleaner.clean
 	# Seed the database
 	Alchemy::Seeder.seed!
 	::I18n.locale = :en
