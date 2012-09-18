@@ -3,12 +3,9 @@ require 'spec_helper'
 module Alchemy
   describe Admin::PagesController, :js => true do
 
-    before(:all) do
+    before(:each) do
       create_admin_user
       @german_root = FactoryGirl.create(:language_root_page, :language => Language.get_default, :name => 'Deutsch')
-    end
-
-    before(:each) do
       login_into_alchemy
     end
 
@@ -61,10 +58,6 @@ module Alchemy
       end
 
     end
-
-    after(:all) {
-      @german_root.delete
-    }
 
   end
 end

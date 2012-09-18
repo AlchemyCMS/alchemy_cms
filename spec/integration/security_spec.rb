@@ -19,7 +19,7 @@ describe "Security: " do
 
   context "If user is present" do
 
-    before(:all) do
+    before(:each) do
       create_admin_user
     end
 

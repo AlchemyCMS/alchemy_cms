@@ -5,8 +5,6 @@ unless ENV["CI"]
   describe "Resources" do
 
     before(:all) do
-      create_admin_user
-      load_authorization_rules
       Event.create!(:name => 'My Event',
                     :hidden_name => 'not shown',
                     :starts_at => DateTime.new(2012, 03, 02, 8, 15),
@@ -23,6 +21,8 @@ unless ENV["CI"]
     end
 
     before(:each) {
+      load_authorization_rules
+      create_admin_user
       login_into_alchemy
     }
 
