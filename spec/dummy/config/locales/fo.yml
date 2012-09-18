@@ -1,0 +1,5 @@
+fo:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
