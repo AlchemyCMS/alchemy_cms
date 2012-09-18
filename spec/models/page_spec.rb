@@ -5,7 +5,7 @@ require 'spec_helper'
 module Alchemy
   describe Page do
 
-    before(:all) do
+    before(:each) do
       @rootpage = Page.root
       @rootpage.children.destroy_all
       @language = Language.get_default

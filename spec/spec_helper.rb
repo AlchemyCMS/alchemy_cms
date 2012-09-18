@@ -22,6 +22,8 @@ def configure
   ActionMailer::Base.default_url_options[:host] = "test.com"
 
   Rails.backtrace_cleaner.remove_silencers!
+  # Disable rails loggin for faster IO. Remove this if you want to have a test.log
+  Rails.logger.level = 4
 
   # Configure capybara for integration testing
   require "capybara/rails"
@@ -29,6 +31,9 @@ def configure
   Capybara.default_driver = :rack_test
   Capybara.default_selector = :css
   Capybara.javascript_driver = :poltergeist
+  Capybara.register_driver(:rack_test_translated_header) do |app|
+    Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
+  end
 
   # Load support files
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -39,20 +44,21 @@ def configure
     config.include Alchemy::Engine.routes.url_helpers
     config.mock_with :rspec
     config.use_transactional_fixtures = true
+    # Make sure the database is clean and ready for test
+    config.before(:suite) do
+      truncate_all_tables
+      Alchemy::Seeder.seed!
+    end
+    # Ensuring that the locale is always resetted to :en before running any tests
+    config.before(:each) do
+      ::I18n.locale = :en
+    end
   end
 
 end
 
-def seed
-  # Seed the database
-  Alchemy::Seeder.seed!
-  ::I18n.locale = :en
-end
-
 if defined?(Spork)
   Spork.prefork { configure }
-  Spork.each_run { seed }
 else
   configure
-  seed
 end
