@@ -2,13 +2,14 @@ module Alchemy
   class Element < ActiveRecord::Base
 
     attr_accessible(
-      :name,
-      :unique,
-      :page_id,
-      :public,
       :cell_id,
+      :create_contents_after_create,
       :folded,
-      :create_contents_after_create
+      :name,
+      :page_id,
+      :position,
+      :public,
+      :unique
     )
 
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.

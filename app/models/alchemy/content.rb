@@ -1,7 +1,14 @@
 module Alchemy
   class Content < ActiveRecord::Base
 
-    attr_accessible :name, :element_id, :do_not_index, :essence_type, :essence_id
+    attr_accessible(
+      :do_not_index,
+      :element_id,
+      :essence_id,
+      :essence_type,
+      :name,
+      :position
+    )
 
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
