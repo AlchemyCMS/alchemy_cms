@@ -18,14 +18,15 @@
     )
   ) %>');
   Alchemy.enableButton('.disabled.button');
-  Alchemy.overlayObserver('#<%= content_dom_id(@content) %>');
   Alchemy.growl('<%= t("Successfully added content") % {:content => @content.name_for_label} %>')
 
 <% end %>
 
 <% if @content.essence_type == "Alchemy::EssencePicture" %>
 
+  <% if @content.ingredient %>
   $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
+  <% end %>
 
   <% if @contents_of_this_type.length > 1 %>
   $('#element_<%= @element.id %>_contents .essence_picture_editor').addClass('dragable_picture');
@@ -50,5 +51,6 @@
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
   Alchemy.SelectBox("#element_<%= @element.id %>");
+  Alchemy.overlayObserver('#<%= content_dom_id(@content) %>');
 
 })()
