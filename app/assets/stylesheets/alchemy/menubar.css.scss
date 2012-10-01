@@ -100,10 +100,7 @@
         @include default-button-style;
         font-weight: normal;
         line-height: 34px;
-
-        &:hover {
-          text-decoration: none !important;
-        }
+        text-decoration: none !important;
       }
     }
   }
