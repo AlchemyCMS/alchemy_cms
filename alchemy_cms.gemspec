@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<authlogic>)
   s.add_runtime_dependency(%q<awesome_nested_set>, ["~> 2.0"])
   s.add_runtime_dependency(%q<acts-as-taggable-on>, ["~> 2.1"])
-  s.add_runtime_dependency(%q<declarative_authorization>, ["~> 0.5.4"])
+  s.add_runtime_dependency(%q<declarative_authorization>, ["0.5.5"])
   s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.2.0"])
   s.add_runtime_dependency(%q<kaminari>, ["~> 0.13.0"])
   s.add_runtime_dependency(%q<acts_as_ferret>, ["~> 0.5"])
