@@ -166,7 +166,7 @@ if (typeof(Alchemy) === 'undefined') {
     },
 
     SelectBox: function(scope) {
-      $('select', scope).selectBoxIt();
+      $('select.alchemy_selectbox', scope).selectBoxIt();
     },
 
     Buttons: function(options) {
