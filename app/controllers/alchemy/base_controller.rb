@@ -68,8 +68,7 @@ module Alchemy
       if params[:lang].blank? and session[:language_id].blank?
         set_language_to_default
       elsif !params[:lang].blank?
-        set_language_from(params[:lang])
-        ::I18n.locale = params[:lang]
+        ::I18n.locale = set_language_from(params[:lang])
       end
     end
 
@@ -97,9 +96,8 @@ module Alchemy
 
     def store_language_in_session(language)
       if language && language.id
-        return if language.id == session[:language_id]
-        session[:language_code] = language.code
         session[:language_id] = language.id
+        session[:language_code] = language.code
       else
         logger.warn "!!!! Language not found for #{language.inspect}. Setting to default!"
         set_language_to_default

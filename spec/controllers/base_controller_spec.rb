@@ -51,11 +51,22 @@ module Alchemy
 
         context "for language that does not exist" do
 
-          it "should set the language to default" do
+          before do
             controller.stub!(:params).and_return({:lang => 'fo'})
             controller.send :set_language
+          end
+
+          it "should set the language to default" do
             controller.session[:language_id].should == default_language.id
             controller.session[:language_code].should == default_language.code
+          end
+
+          it "should set the rails locale to default language code" do
+            ::I18n.locale.should == default_language.code.to_sym
+          end
+
+          it "should not set the rails locale to requested locale" do
+            ::I18n.locale.should_not == :fo
           end
 
         end
