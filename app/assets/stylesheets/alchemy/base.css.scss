@@ -1073,10 +1073,11 @@ select#url_protocol.medium {
 
 #alchemy .ui-dialog-content p.buttons {
   text-align: right;
-  line-height: 32px;
+  margin: 0;
 
   label {
     float: left;
+    line-height: 36px;
   }
 }
 

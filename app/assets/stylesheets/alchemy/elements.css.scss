@@ -582,10 +582,8 @@ table.content_editor_table {
 
 a.new_content_link {
   float: none;
-  @include inline-block;
-  margin-bottom: 8px;
-  margin-top: 4px;
-  line-height: 4em;
+  margin-bottom: 8px !important;
+  margin-top: 4px !important;
 }
 
 div.essence_richtext_loader {

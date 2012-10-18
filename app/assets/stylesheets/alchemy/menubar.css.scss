@@ -63,7 +63,6 @@
   padding: 4px 40px 4px 8px;
   overflow: hidden;
   font: $default-font-style;
-  line-height: 8 * $default-padding;
 
   * {
     @include box-sizing;
@@ -99,7 +98,6 @@
       a {
         @include default-button-style;
         font-weight: normal;
-        line-height: 34px;
         text-decoration: none !important;
       }
     }

@@ -39,7 +39,7 @@ if (typeof(Alchemy) === 'undefined') {
             url: path,
             success: function(data, textStatus, XMLHttpRequest) {
               $dialog.html(data);
-              Alchemy.ButtonObserver('#alchemyElementWindow .button');
+              Alchemy.Buttons.observe('#alchemyElementWindow');
               Alchemy.overlayObserver('#alchemyElementWindow');
               Alchemy.Datepicker('#alchemyElementWindow input.date, #alchemyElementWindow input[type="date"]');
               if (callback) {

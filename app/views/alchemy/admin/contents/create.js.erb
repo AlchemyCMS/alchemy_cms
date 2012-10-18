@@ -17,7 +17,7 @@
       :locals => @locals
     )
   ) %>');
-  Alchemy.enableButton('.disabled.button');
+  Alchemy.Buttons.enable();
   Alchemy.growl('<%= t("Successfully added content") % {:content => @content.name_for_label} %>')
 
 <% end %>

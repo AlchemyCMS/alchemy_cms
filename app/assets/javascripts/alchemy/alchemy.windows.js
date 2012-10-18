@@ -74,7 +74,7 @@ if (typeof(Alchemy) === 'undefined') {
           text: options.cancelLabel,
           click: function() {
             $(this).dialog("close");
-            Alchemy.enableButton('.disabled.button');
+            Alchemy.Buttons.enable();
           }
         }, {
           text: options.okLabel,
@@ -84,7 +84,7 @@ if (typeof(Alchemy) === 'undefined') {
           }
         }],
         open: function() {
-          Alchemy.ButtonObserver('#alchemyConfirmation .button');
+          Alchemy.Buttons.observe('#alchemyConfirmation');
         },
         close: function() {
           $('#alchemyConfirmation').remove();
@@ -153,14 +153,14 @@ if (typeof(Alchemy) === 'undefined') {
               }
               Alchemy.SelectBox('#alchemyOverlay');
               Alchemy.Datepicker('#alchemyOverlay input.date, #alchemyOverlay input[type="date"]');
-              Alchemy.ButtonObserver('#alchemyOverlay .button');
+              Alchemy.Buttons.observe('#alchemyOverlay');
               Alchemy.overlayObserver('#alchemyOverlay');
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
             },
             complete: function(jqXHR, textStatus) {
-              Alchemy.enableButton('.disabled.button');
+              Alchemy.Buttons.enable();
             }
           });
         },

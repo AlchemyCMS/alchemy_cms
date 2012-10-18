@@ -171,7 +171,7 @@ module Alchemy
           elsif request.xhr?
             respond_to do |format|
               format.js {
-                render :js => "Alchemy.growl('#{t('You are not authorized')}', 'warning'); Alchemy.enableButton('button.button, a.button, input.button');"
+                render :js => "Alchemy.growl('#{t('You are not authorized')}', 'warning'); Alchemy.Buttons.enable();"
               }
               format.html {
                 render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}

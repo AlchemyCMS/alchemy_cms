@@ -35,23 +35,14 @@ button, input[type="submit"], a.button, input.button {
     }
   }
 
-  &.cloned-button, &.cloned-button:hover, &.cloned-button:active {
-    display: inline-block;
-    padding: 0;
-    color: $text-color;
-    text-shadow: none;
-    @include box-shadow(none);
-    cursor: default;
-    background-image: none;
-    text-align: center;
-
-    img {
-      vertical-align: middle;
-    }
-  }
-
   &:focus {
     @include default-focus-style;
+  }
+
+  &.disabled {
+    line-height: 13px;
+    padding-top: 5px;
+    padding-bottom: 4px;
   }
 }
 
@@ -159,46 +150,6 @@ button.icon_button {
   width: 29px;
   height: 29px;
 }
-
-// a.button {
-//   padding: 5px 8px;
-//   text-decoration: none;
-//   float: left;
-//   line-height: 13px;
-
-//   &.small {
-//     height: 14px;
-//     padding-top: 2px;
-//     padding-bottom: 2px;
-//     border-radius: 10px;
-//     -o-border-radius: 10px;
-//     -ms-border-radius: 10px;
-//     -moz-border-radius: 10px;
-//     -webkit-border-radius: 10px;
-
-//     &.cloned-button img {
-//       @include inline-block;
-//       float: none;
-//       position: relative;
-//       height: 16px;
-//       width: 16px;
-//       top: -1px;
-//     }
-
-//     &.with_icon span.icon {
-//       margin-top: -5px;
-//       position: relative;
-//       top: 3px;
-//       left: -1px;
-//     }
-//   }
-
-//   span.icon {
-//     vertical-align: -2px;
-//     margin-bottom: -2px;
-//     margin-left: -4px;
-//   }
-// }
 
 #new_element button.button {
   float: right;
