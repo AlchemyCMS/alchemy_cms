@@ -1,0 +1,32 @@
+$ ->
+  # Preloading all background images from CSS files.
+  $.preloadCssImages()
+
+  # We obviously have javascript enabled.
+  $('html').removeClass('no-js')
+
+  # Initialize the GUI.
+  Alchemy.GUI.init()
+
+  # Fade all growl notifications.
+  if $('#flash_notices').length > 0
+    Alchemy.Growler.fade()
+
+  # Add observer for please wait overlay.
+  $('a.please_wait, #main_navi a.main_navi_entry, #sub_navigation .subnavi_tab a, .pagination a')
+    .not('*[data-alchemy-confirm], #subnav_additions .subnavi_tab button')
+    .click ->
+      Alchemy.pleaseWaitOverlay()
+
+  # Hack for enabling tab focus for <a>'s styled as button.
+  $('a.button').attr({tabindex: 0})
+
+  # Locale select handler
+  $('select#change_locale').on 'change', (e) ->
+    url = Alchemy.current_url
+    delimiter = url.match(/\?/) ? '&' : '?'
+    window.location = url + delimiter + 'locale=' + $(this).val()
+
+# Resize the Alchemy frame on every browser resize.
+jQuery(window).resize ->
+  Alchemy.resizeFrame()

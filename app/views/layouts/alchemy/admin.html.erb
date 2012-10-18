@@ -8,10 +8,18 @@
     <%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
     <%= yield :stylesheets %>
     <script type="text/javascript" charset="utf-8">
+
+      // Setting TinyMCE path.
       var tinyMCEPreInit = {
         base: '<%= Rails.application.config.assets.prefix %>/tiny_mce',
         suffix: ''
       };
+
+      // Initialize Alchemys JavaScript framework.
+      var Alchemy = {};
+      Alchemy.locale = '<%= ::I18n.locale %>';
+      Alchemy.current_url = '<%= url_for.html_safe %>';
+
     </script>
     <%= javascript_include_tag('alchemy/alchemy') %>
     <%= yield :javascript_includes %>
@@ -70,35 +78,5 @@
       <%= yield %>
     </div>
     <%= yield(:javascripts) %>
-    <script type="text/javascript" charset="utf-8">
-      jQuery(function($) {
-        // Preloading all background images from CSS files.
-        $.preloadCssImages();
-        $('html').removeClass('no-js');
-        Alchemy.locale = '<%= ::I18n.locale %>';
-        Alchemy.resizeFrame();
-        Alchemy.Tooltips();
-        Alchemy.SelectBox();
-        Alchemy.Datepicker();
-        if ($('#flash_notices').length > 0) {
-          Alchemy.Growler.fade();
-        }
-        $('a.please_wait, form button.button, form .icon_button, #main_navi a.main_navi_entry, #sub_navigation .subnavi_tab a, .pagination a').not('*[data-alchemy-confirm], #subnav_additions .subnavi_tab button').click(function() {
-          Alchemy.pleaseWaitOverlay();
-        });
-        // Hack for enabling tab focus for a's styled as button
-        $('a.button').attr({tabindex: 0});
-
-        // Locale select handler
-        $('select#change_locale').on('change', function(e) {
-          var url = '<%= url_for.html_safe %>';
-          delimiter = url.match(/\?/) ? '&' : '?';
-          window.location = url + delimiter + 'locale=' + $(this).val();
-        });
-      });
-      jQuery(window).resize(function() {
-        Alchemy.resizeFrame();
-      });
-    </script>
   </body>
 </html>
