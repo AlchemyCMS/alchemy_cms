@@ -9,7 +9,8 @@
       [t("last_upload_only"), 'last_upload'],
       [t("recently_uploaded_only"), 'recent']
     ], params[:filter]),
-    :data => { :remote => !!request.xhr? }
+    :data => { :remote => !!request.xhr? },
+    :class => 'alchemy_selectbox'
   ) %>
 </div>
 
