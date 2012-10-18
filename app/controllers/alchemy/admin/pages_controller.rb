@@ -49,18 +49,18 @@ module Alchemy
         params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
         if !params[:paste_from_clipboard].blank?
           source_page = Page.find(params[:paste_from_clipboard])
-          page = Page.copy(source_page, {
+          @page = Page.copy(source_page, {
             :name => params[:page][:name].blank? ? source_page.name + ' (' + t('Copy') + ')' : params[:page][:name],
             :urlname => '',
             :title => '',
             :parent_id => params[:page][:parent_id],
             :language => parent.language
           })
-          source_page.copy_children_to(page) unless source_page.children.blank?
+          source_page.copy_children_to(@page) unless source_page.children.blank?
         else
-          page = Page.create(params[:page])
+          @page = Page.create(params[:page])
         end
-        render_errors_or_redirect(page, parent.layoutpage? ? admin_layoutpages_path : admin_pages_path, t("Page created", :name => page.name), '#alchemyOverlay button.button')
+        render_errors_or_redirect(@page, edit_admin_page_path(@page), t("Page created", :name => @page.name), '#alchemyOverlay button.button')
       end
 
       # Edit the content of the page and all its elements and contents.
