@@ -32,37 +32,33 @@ class AlchemyInstaller < Thor
     @application = project.downcase.strip.gsub(/ /, '_')
     say "Install Alchemy CMS into ./#{@application}", :yellow
     say "Generating new Rails App...", :yellow
-    
+
     if system("rails new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
-      
+
       create_database_yml if options[:database] == 'mysql'
-      
-      mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
-      mountpoint = "/" if mountpoint.empty?
-      sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
-      inject_into_file "#{@application}/config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
-      
+
+      system "rake alchemy:mount"
+
       with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
-      
+
       if with_standard_set
         sentinel = /::Application\.configure do\s*$/
         inject_into_file "#{@application}/config/environments/production.rb", "\n  config.assets.precompile += %w( alchemy/standard_set.css )\n", { :after => sentinel, :verbose => true }
       end
-      
+
       results << system("cd ./#{@application} && rake db:create alchemy:install:migrations db:migrate alchemy:db:seed")
       results << system("cd ./#{@application} && rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}")
 
       %x[
         cd ./#{@application}
         rm ./public/index.html
-        rm ./app/views/layouts/application.html.erb
         rm ./app/assets/images/rails.png
       ]
 
       if !options[:scm].nil? && !options[:scm].empty?
-        
+
         clean_mountpoint = mountpoint.gsub('/', '')
-        
+
         %x[
           cd ./#{@application}
           rm -rf ./tmp/*
@@ -70,30 +66,30 @@ class AlchemyInstaller < Thor
           mkdir -p ./index
           mkdir -p ./uploads
         ]
-        
+
         if yes?("\nDo you want to generate a deploy script for Capistrano? (y/N)")
           system "cd #{@application} && rails g alchemy:deploy_script --scm=#{options[:scm]} --db=#{options[:database]}"
           say "\nCapifying...", :yellow
           system "cd #{@application} && capify ."
         end
-        
+
         case options[:scm]
           when 'svn'
             server = ask("\nURL of your svn server:")
             repository = ask("\nName of the repository (#{@application}):")
             repository = @application if repository.empty?
-            
+
             say "\nImporting #{@application} into #{server}/#{repository} ...", :yellow
             output = %x[svn import ./#{@application} #{server}/#{repository} -m 'initial import by Alchemy installer']; imported = $?.success?
-            
+
             if imported
-              
+
               say "Removing and checking out again...", :yellow
               %x[
                 rm -rf ./#{@application}
                 svn co #{server}/#{repository} #{@application}
               ]
-              
+
               say "Committing ignores...", :yellow
               %x[
                 cd ./#{@application}
@@ -103,11 +99,11 @@ class AlchemyInstaller < Thor
                 svn propset svn:ignore 'database.yml' ./config
                 svn commit -m 'set ignores'
               ]
-              
+
             else
               say "Error while importing!", :red
             end
-            
+
           when 'git'
             gitignore = <<-GIT
 log/*
@@ -119,7 +115,7 @@ public/#{clean_mountpoint.empty? ? 'pictures' : clean_mountpoint}
 public/assets
 config/database.yml
 GIT
-            
+
             %x[
               cd #{@application}
               echo "#{gitignore}" > .gitignore
@@ -130,9 +126,9 @@ GIT
               git commit -am 'inital commit'
             ]
         end
-        
+
       end
-      
+
       readme = <<-EOF
 
 Successfully installed Alchemy CMS into ./#{@application}
