@@ -60,7 +60,7 @@ module Alchemy
         else
           @page = Page.create(params[:page])
         end
-        render_errors_or_redirect(@page, edit_admin_page_path(@page), t("Page created", :name => @page.name), '#alchemyOverlay button.button')
+        render_errors_or_redirect(@page, @page.valid? ? edit_admin_page_path(@page) : admin_pages_path, t("Page created", :name => @page.name), '#alchemyOverlay button.button')
       end
 
       # Edit the content of the page and all its elements and contents.
