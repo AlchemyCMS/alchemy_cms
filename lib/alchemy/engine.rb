@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__), '../middleware/picture_request_security')
 require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 require File.join(File.dirname(__FILE__), 'authentication_helpers')
 
@@ -21,6 +22,10 @@ module Alchemy
         "alchemy/tinymce_dialog.css",
         "tiny_mce/*"
       ]
+    end
+
+    initializer 'alchemy.picture_request_security' do |config|
+      config.middleware.insert_after ActionDispatch::Static, Alchemy::Middleware::PictureRequestSecurity
     end
 
     initializer 'alchemy.flash_cookie' do |config|

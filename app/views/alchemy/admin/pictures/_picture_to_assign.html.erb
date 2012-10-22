@@ -13,7 +13,8 @@
     image_tag(
       alchemy.thumbnail_path(
         :id => picture_to_assign,
-        :size => size
+        :size => size,
+        :sh => picture_to_assign.security_token(:size => size)
       ),
       :alt => picture_to_assign.name,
       :onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .image_spinner');",

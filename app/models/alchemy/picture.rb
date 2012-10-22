@@ -141,5 +141,29 @@ module Alchemy
       pages.any? && pages.not_restricted.blank?
     end
 
+    # Returns a security token for signed picture rendering requests.
+    #
+    # Pass a params hash containing:
+    #
+    #   size       [String]  (Optional)
+    #   crop       [Boolean] (Optional)
+    #   crop_from  [String]  (Optional)
+    #   crop_size  [String]  (Optional)
+    #
+    # to sign them.
+    #
+    def security_token(params = {})
+      @params = params.stringify_keys
+      @params.update({'crop' => @params['crop'] ? 'crop' : nil})
+      Digest::SHA1.hexdigest(secured_params)[0..15]
+    end
+
+  private
+
+    def secured_params
+      secret = Rails.configuration.secret_token
+      [id, @params['size'], @params['crop'], @params['crop_from'], @params['crop_size'], secret].join('-')
+    end
+
   end
 end

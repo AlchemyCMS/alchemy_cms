@@ -2,6 +2,7 @@
   alchemy.zoom_picture_path(
     :id => @picture.id,
     :name => @picture.urlname,
-    :format => :png
+    :format => :png,
+    :sh => @picture.security_token
   )
 ) %>

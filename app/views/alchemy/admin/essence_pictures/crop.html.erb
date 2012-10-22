@@ -30,7 +30,7 @@
 
 <div id="jscropper">
   <%= image_tag(
-    alchemy.zoom_picture_path(:id => @essence_picture.picture.id, :name => @essence_picture.picture.urlname, :format => @options[:format] ),
+    alchemy.zoom_picture_path(:id => @essence_picture.picture.id, :name => @essence_picture.picture.urlname, :format => @options[:format], :sh => @essence_picture.picture.security_token),
     :id => 'imageToCrop',
     :onload => "Alchemy.ImageCropper.init(
       [#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],

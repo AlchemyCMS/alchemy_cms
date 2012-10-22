@@ -123,12 +123,12 @@ module Alchemy
 
     describe 'picture path helpers' do
 
-      let(:picture) { mock_model(Picture, :urlname => 'cute_kitten', :id => 42) }
+      let(:picture) { stub_model(Picture, :urlname => 'cute_kitten', :id => 42) }
 
       describe '#show_alchemy_picture_path' do
 
         it "should return the correct relative path string" do
-          helper.show_alchemy_picture_path(picture).should == "/alchemy/pictures/42/show/cute_kitten.jpg"
+          helper.show_alchemy_picture_path(picture).should =~ Regexp.new("/alchemy/pictures/42/show/cute_kitten.jpg")
         end
 
       end
@@ -136,7 +136,7 @@ module Alchemy
       describe '#show_alchemy_picture_url' do
 
         it "should return the correct url string" do
-          helper.show_alchemy_picture_url(picture).should == "http://#{helper.request.host}/alchemy/pictures/42/show/cute_kitten.jpg"
+          helper.show_alchemy_picture_url(picture).should =~ Regexp.new("http://#{helper.request.host}/alchemy/pictures/42/show/cute_kitten.jpg")
         end
 
       end
@@ -145,6 +145,11 @@ module Alchemy
 
         it "should return the correct params for rendering a picture" do
           helper.show_picture_path_params(picture).should include(:name => 'cute_kitten', :format => 'jpg')
+        end
+
+        it "should include the secure hash parameter" do
+          helper.show_picture_path_params(picture).keys.should include(:sh)
+          helper.show_picture_path_params(picture)[:sh].should_not be_empty
         end
 
         context "with additional params" do

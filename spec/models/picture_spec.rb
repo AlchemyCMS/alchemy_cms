@@ -61,7 +61,29 @@ module Alchemy
 
     end
 
-    describe '#self.last_upload' do
+    describe '#security_token' do
+
+      before do
+        @pic = stub_model(Picture, :id => 1)
+      end
+
+      it "should return a sha1 hash" do
+        @pic.security_token.should match(/\b([a-f0-9]{16})\b/)
+      end
+
+      it "should return a 16 chars long hash" do
+        @pic.security_token.length == 16
+      end
+
+      it "should convert crop true value into string" do
+        p = [@pic.id, nil, 'crop', nil, nil, Rails.configuration.secret_token].join('-')
+        digest = Digest::SHA1.hexdigest(p)[0..15]
+        @pic.security_token(:crop => true).should == digest
+      end
+
+    end
+
+    describe '.last_upload' do
 
       it "should return all pictures that have the same upload-hash as the most recent picture" do
         other_upload = Picture.create!(:image_file => image_file, :upload_hash => '456')
@@ -77,7 +99,7 @@ module Alchemy
 
     end
 
-    describe '#self.recent' do
+    describe '.recent' do
 
       before(:all) do
         now = Time.now
