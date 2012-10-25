@@ -20,9 +20,13 @@ module Alchemy
           if params[:send_credentials]
             Notifications.admin_user_created(@user).deliver
           end
+          flash[:notice] = t('Successfully signup admin user')
           redirect_to admin_dashboard_path
         end
       end
+    rescue Errno::ECONNREFUSED => e
+      flash[:error] = t(:signup_mail_delivery_error)
+      redirect_to admin_dashboard_path
     end
 
     def login
@@ -63,7 +67,7 @@ module Alchemy
       redirect_to root_url
     end
 
-    private
+  private
 
     def check_user_count
       if User.count == 0
