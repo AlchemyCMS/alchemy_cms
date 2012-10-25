@@ -10,26 +10,59 @@ module Alchemy
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
       def copy_script
+        @scm = options[:scm]
+        @database_type = options[:db]
+
         @server = ask('Please enter server ip or domain:')
-        if !yes?('Do you use ssh public keys to connect to your server? (y/N)')
-          if @store_credentials = yes?('Do want to store the ssh credentials? (PLEASE DO NOT STORE THEM IF THE REPOSITORY IS PUBLIC) (y/N)')
-            @ssh_user = ask('Please enter ssh username:')
-            @ssh_password = ask('Please enter ssh password:')
-            port = ask('Please enter ssh port (22):')
-            @ssh_port = port.blank? ? "22" : port
-          end
+        if @store_credentials = yes?('Do want to store the ssh credentials? (PLEASE DO NOT STORE THEM IF THE REPOSITORY IS PUBLIC) (y/N)')
+          ask_for_credentials
         end
         @deploy_path = ask('Please enter the path to the public html folder:')
-        @scm = options[:scm]
-        @repository_url = ask('Please enter the URL to your projects repository:')
-        if @scm == "svn" && yes?('Is your repository private? (y/N)')
-          @scm_user = ask('Please enter the username for your repository:')
-          @scm_password = ask('Please enter the password to your repository:')
+        if @scm == "git"
+          @repository_url = get_git_remote
         end
-        @database_type = options[:db]
+        if @repository_url.nil?
+          @repository_url = ask('Please enter the URL to your projects repository:')
+        end
+        if @scm == "svn" && yes?('Is your repository private? (y/N)')
+          ask_for_repo_credentials
+        end
         template "deploy.rb.tt", Rails.root.join('config', 'deploy.rb')
+        setup_capistrano
+        show_read_me
+      end
+
+    private
+
+      def ask_for_credentials
+        @ssh_user = ask('Please enter ssh username:')
+        port = ask('Please enter ssh port (22):')
+        @ssh_port = port.blank? ? "22" : port
+        @no_ssh_public_keys = !yes?('Do you use ssh public keys to connect to your server? (y/N)')
+        if @no_ssh_public_keys
+          @ssh_password = ask('Please enter ssh password:')
+        end
+      end
+
+      def ask_for_repo_credentials
+        @scm_user = ask('Please enter the username for your repository:')
+        @scm_password = ask('Please enter the password to your repository:')
+      end
+
+      def get_git_remote
+        remotes = `git remote -v`.split("\n")
+        remote = remotes.first
+        if remote
+          remote.split("\t")[1].split(" ")[0]
+        end
+      end
+
+      def setup_capistrano
         puts "\nSetting up Capistrano"
         `capify .`
+      end
+
+      def show_read_me
         puts "\nWe are done!\n"
         puts "\nPlease run 'cap deploy:setup'\n to setup the server for deployment."
         puts "\nIf you want to deploy Alchemy the first time type:\ncap deploy:cold"
