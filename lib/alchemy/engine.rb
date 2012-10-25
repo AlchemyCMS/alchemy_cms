@@ -25,7 +25,7 @@ module Alchemy
     end
 
     initializer 'alchemy.picture_request_security' do |config|
-      config.middleware.insert_after ActionDispatch::Static, Alchemy::Middleware::PictureRequestSecurity
+      config.middleware.use Alchemy::Middleware::PictureRequestSecurity
     end
 
     initializer 'alchemy.flash_cookie' do |config|
