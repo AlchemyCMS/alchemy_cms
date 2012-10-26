@@ -58,6 +58,8 @@ module Alchemy
     before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
     after_create :create_cells, :unless => :systempage?
     after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
+    after_update :trash_not_allowed_elements, :if => :page_layout_changed?
+    after_update :autogenerate_elements, :if => :page_layout_changed?
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
@@ -562,21 +564,27 @@ module Alchemy
     # If the page has cells, it looks if there are elements to generate.
     #
     def autogenerate_elements
+      elements_already_on_page = self.elements.available.collect(&:name)
       elements = self.layout_description["autogenerate"]
       if elements.present?
         elements.each do |element|
-          if self.has_cells? && (cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) })
-            cell = self.cells.find_by_name(cell_definition['name'])
-            if cell
-              attributes = {'page_id' => self.id, 'cell_id' => cell.id, 'name' => element}
-            else
-              raise "Cell not found for page #{self.inspect}"
-            end
-          else
-            attributes = {'page_id' => self.id, 'name' => element}
-          end
-          Element.create_from_scratch(attributes)
+          next if elements_already_on_page.include?(element)
+          Element.create_from_scratch(attributes_for_element_name(element))
         end
+      end
+    end
+
+    # Returns a hash of attributes for given element name
+    def attributes_for_element_name(element)
+      if self.has_cells? && (cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) })
+        cell = self.cells.find_by_name(cell_definition['name'])
+        if cell
+          return {'page_id' => self.id, 'cell_id' => cell.id, 'name' => element}
+        else
+          raise "Cell not found for page #{self.inspect}"
+        end
+      else
+        return {'page_id' => self.id, 'name' => element}
       end
     end
 
@@ -590,6 +598,11 @@ module Alchemy
       definition['cells'].each do |cellname|
         cells.create({:name => cellname})
       end
+    end
+
+    # Trashes all elements that are not allowed for this page_layout.
+    def trash_not_allowed_elements
+      elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash)
     end
 
   end

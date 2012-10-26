@@ -445,6 +445,12 @@ module Alchemy
           @page.elements.should_not be_empty
         end
 
+        it "should not autogenerate elements that are already on the page" do
+          @page.elements << FactoryGirl.create(:element, :name => 'header')
+          @page.save
+          @page.elements.select { |e| e.name == 'header' }.length.should == 1
+        end
+
         context "with cells" do
 
           before do
@@ -527,6 +533,23 @@ module Alchemy
 
         it "should not autogenerate the elements" do
           @page.elements.should be_empty
+        end
+
+      end
+
+      context "after changing the page layout" do
+
+        let(:news_element) { FactoryGirl.create(:element, :name => 'news') }
+
+        it "all elements not allowed on this page should be trashed" do
+          news_page.elements << news_element
+          news_page.update_attributes :page_layout => 'standard'
+          news_page.elements.trashed.should include(news_element)
+        end
+
+        it "should autogenerate elements" do
+          news_page.update_attributes :page_layout => 'standard'
+          news_page.elements.available.collect(&:name).should include('header')
         end
 
       end

@@ -38,7 +38,7 @@ module Alchemy
 
       def new
         @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
-        @page_layouts = PageLayout.get_layouts_for_select(session[:language_id], @page.layoutpage?)
+        @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
         @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
         render :layout => false
       end
@@ -82,12 +82,15 @@ module Alchemy
         if @page.redirects_to_external?
           render :action => 'configure_external', :layout => false
         else
+          @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
           render :layout => false
         end
       end
 
       def update
         # fetching page via before filter
+        # storing old page_layout value, because unfurtunally rails @page.changes does not work here.
+        @old_page_layout = @page.page_layout
         if @page.update_attributes(params[:page])
           @notice = t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')

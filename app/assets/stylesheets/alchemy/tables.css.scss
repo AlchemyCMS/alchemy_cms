@@ -32,7 +32,7 @@ table tr td.tools {
   @include disable-user-select;
 }
 
-td.label, td.input, td.submit, td.select, td.value {
+td.label, td.input, td.submit, td.select, td.value, td.note {
   padding: 2px 0;
   vertical-align: top;
 }
@@ -44,6 +44,8 @@ td.input, td.submit, td.select, td.value {
     text-align: left;
   }
 }
+
+td.submit p.foot_note { float: left; padding-top: 1em }
 
 td.label {
   white-space: nowrap;

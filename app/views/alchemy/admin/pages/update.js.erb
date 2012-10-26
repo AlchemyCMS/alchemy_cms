@@ -1,4 +1,12 @@
 (function() {
+
+Alchemy.growl("<%= @notice -%>");
+
+<% if @old_page_layout != @page.page_layout %>
+  Alchemy.ElementsWindow.reload();
+  Alchemy.growl('<%= t(:page_layout_changed_notice) %>');
+<% end %>
+
 <% if @while_page_edit %>
 
   Alchemy.reloadPreview();
@@ -25,6 +33,6 @@
 
 <% end %>
 
-  Alchemy.closeCurrentWindow();
-  Alchemy.growl("<%= @notice -%>");
+Alchemy.closeCurrentWindow();
+
 })()
