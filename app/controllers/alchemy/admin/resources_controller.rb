@@ -63,10 +63,9 @@ module Alchemy
         @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module)
       end
 
-      protected
+    protected
 
-
-      def render_errors_or_redirect(object, redirect_url, flash_notice, button = nil)
+      def render_errors_or_redirect(object, redirect_url, flash_notice)
         if object.errors.empty?
           @redirect_url = redirect_url
           flash[:notice] = t(flash_notice)
@@ -76,7 +75,7 @@ module Alchemy
           end
         else
           respond_to do |format|
-            format.js { render_remote_errors(object, button) }
+            format.js { render_remote_errors(object) }
             format.html { render :action => :new }
           end
         end
