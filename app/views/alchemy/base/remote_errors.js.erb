@@ -1,3 +1,2 @@
-jQuery('#errors').html('<%= escape_javascript(@errors) %>');
-jQuery('#errors').show();
+jQuery('<%= @error_div_id %>').html('<%= escape_javascript(@errors) %>').show();
 Alchemy.Buttons.enable();

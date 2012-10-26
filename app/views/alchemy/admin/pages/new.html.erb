@@ -13,7 +13,7 @@
   <div id="paste_page_tab">
     <%= form_for([:admin, @page], :remote => true, :html => {:id => 'paste_page_form'}) do |f| %>
       <%= f.hidden_field(:parent_id) %>
-      <table id="new_page_form">
+      <table id="paste_page_form">
         <tr>
           <td class="label">
             <label for="paste_from_clipboard"><%= t("Page") %></label>
