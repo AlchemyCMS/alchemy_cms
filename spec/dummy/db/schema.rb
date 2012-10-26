@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831135441) do
+ActiveRecord::Schema.define(:version => 20121026104128) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
