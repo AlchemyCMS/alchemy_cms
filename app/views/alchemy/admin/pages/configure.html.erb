@@ -3,7 +3,9 @@
   <table id="page_names">
     <tr>
       <td class="label"><%= t("page_type") %>: </td>
-      <td class="value long"><p><%= @page.layout_display_name %></p></td>
+      <td class="select">
+        <%= f.select('page_layout', @page_layouts, {}, {:class => 'alchemy_selectbox long'}) %>
+      </td>
     </tr>
     <%- unless @page.layoutpage -%>
     <tr>
@@ -64,10 +66,12 @@
     </tr>
     <%- end -%>
     <tr>
-      <td colspan="2" class="right"><%= f.button t("save"), :class => 'button' %></td>
+      <td colspan="2" class="submit">
+        <p class="foot_note">
+          *<%= t('pages.update.comma_seperated') %>
+        </p>
+        <%= f.button t("save"), :class => 'button' %>
+      </td>
     </tr>
   </table>
-  <p class="foot_note">
-    *<%= t('pages.update.comma_seperated') %>
-  </p>
 <% end %>

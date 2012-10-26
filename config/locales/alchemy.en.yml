@@ -296,7 +296,9 @@ en:
     "No users found": "No users found."
     "not a valid image": "This is not an valid image."
     "Page created": "Page: '%{name}' created."
-    page_for_links.choose_page: "Choose %{name}"
+    page_for_links:
+      choose_page: "Choose %{name}"
+    page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."
     page_locked: "This page is locked by another user."
     page_properties: "Page properties"
     page_public: "published"

@@ -3,28 +3,22 @@ require 'spec_helper'
 module Alchemy
   describe PageLayout do
 
-    context "method get_layouts" do
+    describe ".all" do
 
-      it "should generally return page_layouts, nothing else!" do
-        PageLayout.read_layouts_file.should be_instance_of(Array)
+      it "should return all page_layouts" do
+        layouts = PageLayout.all
+        layouts.should be_instance_of(Array)
+        layouts.collect { |l| l['name'] }.should include('standard')
       end
 
     end
 
-    context "with custom page layouts" do
+    describe '.layouts_with_own_for_select' do
 
-      it "should return the users page_layouts if exists in the application" do
-        @config_path = Rails.root.join("config/alchemy")
-        FileUtils.mv(File.join(@config_path, 'page_layouts.yml'), File.join(@config_path, 'page_layouts.bak'))
-        layouts_file = File.join(@config_path, 'page_layouts.yml')
-        File.open(layouts_file, 'w') do |page_layouts|
-          page_layouts.puts "- name: testlayout\n  elements:"
-        end
-        PageLayout.read_layouts_file.first.values.should include("testlayout")
-      end
-
-      after(:each) do
-        FileUtils.mv(File.join(@config_path, 'page_layouts.bak'), File.join(@config_path, 'page_layouts.yml'))
+      it "should not hold a layout twice" do
+        layouts = PageLayout.layouts_with_own_for_select('standard', 1, false)
+        layouts = layouts.collect(&:last)
+        layouts.select { |l| l == "standard" }.length.should == 1
       end
 
     end

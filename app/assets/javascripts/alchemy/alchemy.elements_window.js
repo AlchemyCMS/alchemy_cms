@@ -10,16 +10,20 @@ if (typeof(Alchemy) === 'undefined') {
   Alchemy.ElementsWindow = {
 
     init: function(path, options, callback) {
+      var self = Alchemy.ElementsWindow;
       var $dialog = $('<div style="display: none" id="alchemyElementWindow"></div>');
       var closeCallback = function() {
           $dialog.dialog("destroy");
           $('#alchemyElementWindow').remove();
           Alchemy.ElementsWindow.button.enable();
         };
+      self.path = path;
+      self.callback = callback;
       $dialog.html(Alchemy.getOverlaySpinner({
         x: 420,
         y: 300
       }));
+      self.dialog = $dialog;
       Alchemy.ElementsWindow.currentWindow = $dialog.dialog({
         modal: false,
         minWidth: 422,
@@ -35,21 +39,7 @@ if (typeof(Alchemy) === 'undefined') {
         },
         open: function(event, ui) {
           Alchemy.ElementsWindow.button.disable();
-          $.ajax({
-            url: path,
-            success: function(data, textStatus, XMLHttpRequest) {
-              $dialog.html(data);
-              Alchemy.Buttons.observe('#alchemyElementWindow');
-              Alchemy.overlayObserver('#alchemyElementWindow');
-              Alchemy.Datepicker('#alchemyElementWindow input.date, #alchemyElementWindow input[type="date"]');
-              if (callback) {
-                callback.call();
-              }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-              Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
-            }
-          });
+          Alchemy.ElementsWindow.reload(callback);
         },
         beforeClose: function() {
           if (Alchemy.isPageDirty()) {
@@ -104,6 +94,25 @@ if (typeof(Alchemy) === 'undefined') {
         }));
       }
       return $toolbar;
+    },
+
+    reload: function() {
+      var self = Alchemy.ElementsWindow;
+      $.ajax({
+        url: self.path,
+        success: function(data, textStatus, XMLHttpRequest) {
+          self.dialog.html(data);
+          Alchemy.Buttons.observe('#alchemyElementWindow');
+          Alchemy.overlayObserver('#alchemyElementWindow');
+          Alchemy.Datepicker('#alchemyElementWindow input.date, #alchemyElementWindow input[type="date"]');
+          if (self.callback) {
+            self.callback.call();
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);
+        }
+      });
     }
 
   }

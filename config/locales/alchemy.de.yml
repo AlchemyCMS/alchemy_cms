@@ -463,6 +463,7 @@ de:
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
+    page_layout_changed_notice: "Der Seitentyp wurde verändert. Nicht mehr verwendbare Elemente wurden in den Papierkorb verschoben."
     page_locked: "Die Seite ist gesperrt"
     page_properties: "Seiteneigenschaften"
     page_public: "öffentlich"
