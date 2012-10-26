@@ -10,6 +10,8 @@ module Alchemy
 
     let(:page) { mock_model('Page', {:id => 1, :urlname => 'lulu'}) }
     let(:element) { mock_model('Element', {:id => 1, :page_id => page.id, :public => true, :display_name_with_preview_text => 'lalaa', :dom_id => 1}) }
+    let(:element_in_clipboard) { @element ||= FactoryGirl.create(:element, :page_id => page.id) }
+    let(:clipboard) { session[:clipboard] = Clipboard.new }
 
     describe '#list' do
 
@@ -100,14 +102,35 @@ module Alchemy
 
         end
 
+        context "with paste_from_clipboard in parameters" do
+
+          before(:each) do
+            clipboard[:elements] = [{:id => element_in_clipboard.id}]
+          end
+
+          it "should create the element in the correct cell" do
+            post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+            @cell.elements.first.should be_an_instance_of(Element)
+          end
+
+          context "" do
+
+            before { @cell.elements.create(:page_id => @page.id, :name => "article", :create_contents_after_create => false) }
+
+            it "should set the correct position for the element" do
+              post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+              @cell.elements.last.position.should == @cell.elements.count
+            end
+
+          end
+
+        end
+
       end
 
       context "with paste_from_clipboard in parameters" do
 
         render_views
-
-        let(:clipboard) { session[:clipboard] = Clipboard.new }
-        let(:element_in_clipboard) { @element ||= FactoryGirl.create(:element, :page_id => page.id) }
 
         before(:each) do
           clipboard[:elements] = [{:id => element_in_clipboard.id, :action => 'cut'}]

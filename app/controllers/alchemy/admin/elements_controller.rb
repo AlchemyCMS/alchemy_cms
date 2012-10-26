@@ -108,6 +108,7 @@ module Alchemy
         if cell_definition
           @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
           @element.cell = @cell
+          @element.move_to_bottom
           return true
         else
           return false
