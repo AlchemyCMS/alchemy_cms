@@ -4,6 +4,7 @@
 *= require alchemy/archive
 *= require alchemy/dashboard
 *= require alchemy/elements
+*= require alchemy/errors
 *= require alchemy/flash
 *= require alchemy/form_elements
 *= require alchemy/frame

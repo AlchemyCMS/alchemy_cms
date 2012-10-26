@@ -1,5 +1,5 @@
 <%= form_for resource_instance_variable, :url => resource_path(resource_instance_variable), :remote => true do |f| %>
-  <div id="errors" style="display: none"></div>
+  <div id="errors"></div>
   <table>
     <%- resource_handler.attributes.each do |attribute| -%>
     <tr>

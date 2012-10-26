@@ -54,7 +54,7 @@ module Alchemy
         if @element.save
           render :action => :create
         else
-          render_remote_errors(@element, '#paste_element_errors')
+          render_remote_errors(@element, params[:paste_from_clipboard].nil? ? nil : '#paste_element_errors')
         end
       end
 

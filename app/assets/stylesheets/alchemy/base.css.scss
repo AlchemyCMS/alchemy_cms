@@ -646,37 +646,9 @@ div#toolbar_buttons_right {
   margin-left: 8px;
 }
 
-#errorExplanation {
-  background: #ffdfdf;
-  padding: 2*$default-padding;
-  text-align: left;
-  margin-bottom: 8px;
-  border: 1px solid #d08f91;
-  color: #690001;
-  @include rounded-corner;
-
-  &.ajax_status_code_0 {
-    border-color: #c4c19c;
-    color: #726d23;
-    background-color: #f3f0c1;
-  }
-}
-
-#errorExplanation h2 {
-  font-size: 1.2em;
-}
-
-div.field_with_errors {
-  display: inline;
-}
-
 p.foot_note {
   font-size: 10px;
   line-height: 1.5em;
-}
-
-#errorExplanation ul {
-  padding: 0 0 0 16px;
 }
 
 #all_files td.name a {
@@ -725,31 +697,6 @@ textarea#essence_picture_caption {
   overflow: auto;
   padding: 4px 0 0 4px;
   @include rounded-corner;
-}
-
-div#errors {
-  margin-bottom: 8px;
-  padding: 8px 8px 4px 28px;
-  border-width: 1px;
-  border-style: solid;
-  @include rounded-corner;
-  border-color: #c49c9c;
-  color: #592e2e;
-  background-color: #efd3d3;
-}
-
-#overlay_tabs div#errors {
-  margin: 8px 8px 0;
-}
-
-#errors ul li {
-  margin-bottom: 0.5em;
-}
-
-#errors ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: decimal;
 }
 
 #alchemyConfirmation .alchemy_window_buttons {

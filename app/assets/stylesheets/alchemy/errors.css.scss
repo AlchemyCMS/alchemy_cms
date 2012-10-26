@@ -1,0 +1,51 @@
+@import "alchemy/defaults";
+
+#errorExplanation {
+  background: #ffdfdf;
+  padding: 2*$default-padding;
+  text-align: left;
+  margin-bottom: 8px;
+  border: 1px solid #d08f91;
+  color: #690001;
+  @include rounded-corner;
+
+  &.ajax_status_code_0 {
+    border-color: #c4c19c;
+    color: #726d23;
+    background-color: #f3f0c1;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  ul {
+    padding: 0 0 0 16px;
+  }
+}
+
+div.field_with_errors {
+  display: inline;
+}
+
+div#errors, div.errors {
+  margin-bottom: 8px;
+  padding: 8px 8px 4px 28px;
+  border-width: 1px;
+  border-style: solid;
+  @include rounded-corner;
+  border-color: #c49c9c;
+  color: #592e2e;
+  background-color: #efd3d3;
+  display: none;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: decimal;
+  }
+
+  ul li {
+    margin-bottom: 0.5em;
+  }
+}

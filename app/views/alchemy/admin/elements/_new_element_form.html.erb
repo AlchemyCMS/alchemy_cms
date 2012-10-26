@@ -6,7 +6,7 @@
   </div>
 <%- else -%>
   <%= form_for [:admin, @element], :remote => true, :class => "add_element_content" do |form| %>
-    <div id="errors" style="display: none"></div>
+    <div id="errors"></div>
     <table>
       <tr>
         <td class="label">
