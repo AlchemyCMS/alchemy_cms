@@ -99,10 +99,15 @@ module Alchemy
       end
 
       # Displays an unordered list of objects errors in an errors div.
-      # You have to add a hidden div with the id '#errors' to make this work.
+      #
+      # Note: You have to have a hidden div with the id +#errors+ in your form, to make this work.
+      #
       # You can pass a div id as second argument to display the errors in alternative div.
-      def render_remote_errors(object, error_div_id = '#errors')
-        @error_div_id = error_div_id
+      #
+      # Hint: If you use an alternative div, please use the +errors+ css class to get the correct styling.
+      #
+      def render_remote_errors(object, error_div_id = nil)
+        @error_div_id = error_div_id || '#errors'
         @errors = ("<ul>" + object.errors.full_messages.map { |e| "<li>#{e}</li>" }.join + "</ul>").html_safe
         render :action => :remote_errors
       end
