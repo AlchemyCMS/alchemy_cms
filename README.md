@@ -94,7 +94,7 @@ Note: If you did not mounted Alchemy on the root route `'/'`, then you have to a
 
 Just paste this in your `app/controllers/application_controller.rb`
 
-`helper Alchemy::PagesHelpers`
+`helper Alchemy::PagesHelper`
 
 Tipps
 -----
