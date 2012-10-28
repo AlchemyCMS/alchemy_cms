@@ -87,10 +87,14 @@ In your Gemfile:
 
 Run in terminal:
 
-    bundle install
-    rake alchemy:install:migrations
-    rake db:migrate
-    rake alchemy:db:seed
+    bundle update
+    rake alchemy:install
+
+Note: If you did not mounted Alchemy on the root route `'/'`, then you have to add Alchemy's view helpers manually to your app.
+
+Just paste this in your `app/controllers/application_controller.rb`
+
+`helper Alchemy::PagesHelpers`
 
 Tipps
 -----
