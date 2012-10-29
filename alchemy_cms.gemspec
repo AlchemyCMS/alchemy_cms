@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "alchemy_cms"
   s.version     = Alchemy::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Thomas von Deyen", "Robin Böning", "Marc Schettke", "Carsten Fregin"]
+  s.authors     = ["Thomas von Deyen", "Robin Boening", "Marc Schettke", "Carsten Fregin"]
   s.email       = ["alchemy@magiclabs.de"]
   s.homepage    = "http://alchemy-cms.com"
   s.summary     = %q{An extremly flexbile CMS for Rails 3.2}
