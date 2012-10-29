@@ -157,21 +157,28 @@ describe Alchemy::ElementsHelper do
     end
   end
 
-  describe '#element_preview_code' do
-
-    context "in preview mode" do
+  context "in preview mode" do
+    describe '#element_preview_code_attributes' do
       it "should return the data-alchemy-element HTML attribute for element" do
         @preview_mode = true
+        helper.element_preview_code_attributes(@element).should == {:'data-alchemy-element' => @element.id}
+      end
+
+      it "should return an empty hash if not in preview_mode" do
+        helper.element_preview_code_attributes(@element).should == {}
+      end
+    end
+
+    describe '#element_preview_code' do
+      it "should return the data-alchemy-element HTML attribute for element" do
+        assign(:preview_mode, true)
         helper.element_preview_code(@element).should == " data-alchemy-element=\"#{@element.id}\""
       end
-    end
 
-    context "not in preview mode" do
-      it "should return nil" do
-        helper.element_preview_code(@element).should be_nil
+      it "should not return the data-alchemy-element HTML attribute if not in preview_mode" do
+        helper.element_preview_code(@element).should_not == " data-alchemy-element=\"#{@element.id}\""
       end
     end
-
   end
 
   describe '#element_tags' do
