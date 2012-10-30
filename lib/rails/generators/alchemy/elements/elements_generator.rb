@@ -1,8 +1,8 @@
-require 'rails'
+require File.join(__FILE__, '../../base')
 
 module Alchemy
   module Generators
-    class ElementsGenerator < ::Rails::Generators::Base
+    class ElementsGenerator < Base
       desc "This generator generates your elements view partials."
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
@@ -12,7 +12,7 @@ module Alchemy
       end
 
       def create_partials
-        @elements = get_elements_from_yaml
+        @elements = load_alchemy_yaml('elements.yml')
         @elements.each do |element|
           @element = element
           if @element['available_contents']
@@ -22,19 +22,11 @@ module Alchemy
             @contents = (element["contents"] or [])
           end
           @element_name = element["name"].underscore
-          template "editor.html.erb", "#{@elements_dir}/_#{@element_name}_editor.html.erb"
-          template "view.html.erb", "#{@elements_dir}/_#{@element_name}_view.html.erb"
+
+          conditional_template "editor.html.#{template_engine}", "#{@elements_dir}/_#{@element_name}_editor.html.#{template_engine}"
+          conditional_template "view.html.#{template_engine}", "#{@elements_dir}/_#{@element_name}_view.html.#{template_engine}"
         end if @elements
       end
-
-      private
-
-      def get_elements_from_yaml
-        YAML.load_file "#{Rails.root}/config/alchemy/elements.yml"
-      rescue Errno::ENOENT
-        puts "\nERROR: Could not read config/alchemy/elements.yml file. Please run: rails generate alchemy:scaffold"
-      end
-
     end
   end
 end

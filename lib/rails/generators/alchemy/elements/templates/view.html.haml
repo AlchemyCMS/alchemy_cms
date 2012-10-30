@@ -1,0 +1,15 @@
+= element_view_for(element) do |el|
+<%- if @element["picture_gallery"] -%>
+  .<%= @element_name %>_images
+    - element.contents.gallery_pictures.each do |image|
+    .<%= @element_name %>_image<%= image.essence.css_class ? ".#{image.essence.css_class}" : '' %>
+      = render_essence_view(image, :image_size => "160x120")
+<%- end -%>
+<%- @contents.each do |content| -%>
+  <%- if @contents.length > 1 -%>
+  .<%= content["name"] %>
+    = el.render :<%= content["name"] %>
+  <%- else -%>
+  = el.render :<%= content["name"] %>
+  <%- end -%>
+<%- end -%>
