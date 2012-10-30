@@ -378,6 +378,8 @@ div.selectboxit-container {
         font-size: 10px;
         line-height: 14px;
       }
+
+      .selectboxit-arrow-container { width: 16px }
     }
 
     &:focus {
@@ -385,7 +387,7 @@ div.selectboxit-container {
     }
 
     /* Dropdown List Box Text */
-    span.selectboxit-text {
+    .selectboxit-text {
       font: $default-font-style;
       overflow: hidden;
       float: left;
@@ -396,29 +398,30 @@ div.selectboxit-container {
     }
 
     /* Dropdown List Down Arrow Container (if an image is not used) */
-    span.selectboxit-arrow-container {
+    .selectboxit-arrow-container {
       /* Positions the down arrow */
-      width: 16px;
+      width: 24px;
       padding: 0 0.25em 0 0;
       margin-left: 0.5em;
       position: absolute;
       right: 0;
-      top: 7px;
+      top: 3px;
       border-left: 1px solid darken($medium-gray, 10%);
-      height: auto !important;
+      height: 23px !important;
+    }
 
-      /* Dropdown List Down Arrow */
-      span.selectboxit-arrow {
-        /* Horizontally centers the down arrow */
-        margin-right: auto;
-        margin-left: auto;
-        width: 16px;
-        height: 15px;
-        text-indent: -99999px;
-        overflow: hidden;
-        display: block;
-        background: url('ui-icons_666666_256x240.png') -127px -17px no-repeat;
-      }
+    /* Dropdown List Down Arrow */
+    .selectboxit-arrow {
+      /* Horizontally centers the down arrow */
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 4.5px !important;
+      width: 16px;
+      height: 15px;
+      text-indent: -99999px;
+      overflow: hidden;
+      display: block;
+      background: url('ui-icons_666666_256x240.png') -127px -17px no-repeat;
     }
   }
 
