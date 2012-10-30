@@ -49,7 +49,7 @@ Ruby Version
 
 Alchemy runs with Ruby 1.9.2 and Ruby 1.9.3.
 
-For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable.
+For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).
 
 Installation
 ------------
