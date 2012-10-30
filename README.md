@@ -38,16 +38,18 @@ Rails Version
 
 This version of Alchemy runs with Rails 3.2.8+.
 
-If you are looking for a Rails 3.1 compatible version check the 2.1-stable branch.
+If you are looking for a Rails 3.1 compatible version check the [2.1-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
 
-If you are looking for a Rails 3.0 compatible version check the 2.0-stable branch.
+If you are looking for a Rails 3.0 compatible version check the [2.0-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.0-stable).
 
-If you are looking for a Rails 2.3 compatible version check the 1.6-stable branch.
+If you are looking for a Rails 2.3 compatible version check the [1.6-stable branch](https://github.com/magiclabs/alchemy_cms/tree/1.6-stable).
 
 Ruby Version
 ------------
 
-Alchemy runs under Ruby 1.8.7, Ruby 1.9.2, Ruby 1.9.3 and REE (Ruby Enterprise Edition).
+Alchemy runs with Ruby 1.9.2 and Ruby 1.9.3.
+
+For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable.
 
 Installation
 ------------
@@ -66,12 +68,8 @@ Then just switch to your browser and open `http://localhost:3000`
 Upgrading
 ------------
 
-Projects running with Alchemy CMS version < 2.3 needs to be upgraded.
+After updating Alchemy you should run the upgrader.
 
-Otherwise errors will be raised like this:
-`uninitialized constant EssenceText`
-
-You have to use the following Upgrade-Task.
 Run in terminal:
 
     rake alchemy:upgrade
