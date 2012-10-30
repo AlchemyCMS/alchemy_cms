@@ -58,11 +58,9 @@ describe Alchemy::PagesController do
     end
 
     context "with params layout set to not existing layout" do
-
-      it "should raise ActionController::RoutingError" do
-        expect { get :show, :urlname => :home, :layout => 'lkuiuk' }.to raise_error(ActionController::RoutingError)
+      it "should raise ActionView::MissingTemplate" do
+        expect { get :show, :urlname => :home, :layout => 'lkuiuk' }.to raise_error(ActionView::MissingTemplate)
       end
-
     end
 
     context "with param layout set to a custom layout" do
@@ -84,36 +82,6 @@ describe Alchemy::PagesController do
       end
 
     end
-
-    context "with application layout absent" do
-
-      it "should render pages layout" do
-        get :show, :urlname => :home
-        response.body.should_not have_content('I am the application layout')
-      end
-
-    end
-
-    context "with application layout present" do
-
-      before do
-        @app_layout = Rails.root.join('app/views/layouts', 'application.html.erb')
-        File.open(@app_layout, 'w') do |app_layout|
-          app_layout.puts "<html>I am the application layout</html>"
-        end
-      end
-
-      it "should render application layout" do
-        get :show, :urlname => :home
-        response.body.should have_content('I am the application layout')
-      end
-
-      after do
-        FileUtils.rm(@app_layout)
-      end
-
-    end
-
   end
 
   describe "url nesting" do
