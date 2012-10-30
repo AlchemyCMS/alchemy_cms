@@ -16,7 +16,7 @@ module Alchemy
 
     context "Requesting a picture that is not assigned with any page" do
       it "should render the picture" do
-        get :show, :id => picture.id, :format => :png
+        get :show, :id => picture.id, :format => :png, :sh => picture.security_token
         response.status.should == 200
       end
     end
@@ -35,7 +35,7 @@ module Alchemy
 
       context "as guest user" do
         it "should render the picture" do
-          get :show, :id => picture.id, :format => :png
+          get :show, :id => picture.id, :format => :png, :sh => picture.security_token
           response.status.should == 200
         end
       end
@@ -53,7 +53,7 @@ module Alchemy
       context "as guest user" do
 
         it "should not render the picture, but redirect to login path" do
-          get :show, :id => picture.id
+          get :show, :id => picture.id, :sh => picture.security_token
           response.status.should == 302
           response.should redirect_to(login_path)
         end
@@ -68,7 +68,7 @@ module Alchemy
         end
 
         it "should render the picture" do
-          get :show, :id => picture.id, :format => :png
+          get :show, :id => picture.id, :format => :png, :sh => picture.security_token
           response.status.should == 200
         end
 
