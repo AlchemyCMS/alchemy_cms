@@ -120,6 +120,7 @@ Resources
 * Issue-Tracker: <http://issues.alchemy-cms.com>
 * Sourcecode: <http://source.alchemy-cms.com>
 * User Group: <http://groups.google.com/group/alchemy-cms>
+* Changelog: <http://revision.io/alchemy_cms>
 
 Authors
 ---------
