@@ -100,7 +100,7 @@ if (typeof(Alchemy) === 'undefined') {
         $(this).draggable({
           helper: 'clone',
           iframeFix: 'iframe#alchemyPreviewWindow',
-          connectToSortable: cell_classes,
+          connectToSortable: cell_classes.replace(/,.$/, ''),
           start: function(event, ui) {
             $(this).hide().addClass('dragged');
             ui.helper.css({
