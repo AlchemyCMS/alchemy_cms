@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-  - ree
   - 1.9.2
   - 1.9.3
 branches:
@@ -13,6 +12,3 @@ script: "bundle exec rspec spec"
 env:
   - DB=mysql
   - DB=postgresql
-matrix:
-  allow_failures:
-    - rvm: ree
