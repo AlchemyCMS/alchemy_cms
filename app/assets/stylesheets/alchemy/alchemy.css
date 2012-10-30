@@ -16,6 +16,6 @@
 *= require alchemy/tables
 *= require alchemy/upload
 *= require alchemy/jquery-ui.alchemy
-*= require alchemy/jquery.Jcrop
+*= require jquery.Jcrop.min
 *= require alchemy/custom
 */
