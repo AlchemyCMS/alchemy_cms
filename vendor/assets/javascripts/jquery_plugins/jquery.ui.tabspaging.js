@@ -53,14 +53,14 @@
         var maxDiff = 0;  // the max difference between a selected and unselected tab
         self.lis.each(function (i) {
           if (i == self.options.selected) {
-            selectedTabWidths[i] = $(this).outerWidth({ margin:true });
-            tabWidths[i] = self.lis.eq(i).removeClass('ui-tabs-selected').outerWidth({ margin:true });
+            selectedTabWidths[i] = $(this).outerWidth(true);
+            tabWidths[i] = self.lis.eq(i).removeClass('ui-tabs-selected').outerWidth(true);
             self.lis.eq(i).addClass('ui-tabs-selected');
             maxDiff = Math.min(maxDiff, Math.abs(selectedTabWidths[i] - tabWidths[i]));
             allTabsWidth += tabWidths[i];
           } else {
-            tabWidths[i] = $(this).outerWidth({ margin:true });
-            selectedTabWidths[i] = self.lis.eq(i).addClass('ui-tabs-selected').outerWidth({ margin:true });
+            tabWidths[i] = $(this).outerWidth(true);
+            selectedTabWidths[i] = self.lis.eq(i).addClass('ui-tabs-selected').outerWidth(true);
             self.lis.eq(i).removeClass('ui-tabs-selected');
             maxDiff = Math.max(maxDiff, Math.abs(selectedTabWidths[i] - tabWidths[i]));
             allTabsWidth += tabWidths[i];
@@ -83,7 +83,7 @@
             .html(opts.nextButton));
 
           self.lis.eq(self.length() - 1).after(li);
-          buttonWidth = li.outerWidth({ margin:true });
+          buttonWidth = li.outerWidth(true);
 
           // create prev button
           li = $('<li></li>')
@@ -95,7 +95,7 @@
             })
             .html(opts.prevButton));
           self.lis.eq(0).before(li);
-          buttonWidth += li.outerWidth({ margin:true });
+          buttonWidth += li.outerWidth(true);
 
           // TODO determine fix for padding issues to next button
           buttonWidth += 19;
