@@ -1,8 +1,8 @@
-<%- entries.each do |entry| -%>
-  <%- entry.stringify_keys! -%>
-  <%- permitted_to?(*navigate_module(entry)) do -%>
+<% entries.each do |entry| %>
+  <% entry.stringify_keys! %>
+  <% permitted_to?(*navigate_module(entry)) do %>
   <div class="subnavi_tab<%= admin_sub_navigation_entry_active?(entry) ? ' active' : nil %>">
     <%= link_to t(entry["name"]), url_for_module_sub_navigation(entry) %>
-  <%- end -%>
   </div>
-<%- end -%>
+  <% end %>
+<% end %>
