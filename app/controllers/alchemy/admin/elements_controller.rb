@@ -44,14 +44,16 @@ module Alchemy
           else
             @element = Element.new_from_scratch(params[:element])
             if @page.can_have_cells?
-              @element.cell = find_or_create_cell
+              @cell = find_or_create_cell
+              @element.cell = @cell
             end
             @element.save!
           end
-          if @page.definition['insert_elements_at'] == 'top'
+          if @insert_at_top = @page.definition['insert_elements_at'] == 'top'
             @element.move_to_top
           end
         end
+        @cell_name = @cell.nil? ? "for_other_elements" : @cell.name
         if @element.valid?
           render :action => :create
         else

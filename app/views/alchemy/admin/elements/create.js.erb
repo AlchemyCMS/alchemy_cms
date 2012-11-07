@@ -1,14 +1,22 @@
 var $el;
+var $element_area = $('#cell_<%= @cell_name -%>');
+var element_html = '<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>';
+
 <% if @cutted_element_id %>
 $('.element_editor[data-element-id="<%= @cutted_element_id %>"]').remove();
 <% end %>
 
 <% if @page.can_have_cells? %>
-Alchemy.selectOrCreateCellTab('<%= @cell.nil? ? "for_other_elements" : @cell.name -%>', '<%= @cell.nil? ? t("other Elements") : @cell.name_for_label -%>');
+Alchemy.selectOrCreateCellTab('<%= @cell_name -%>', '<%= @cell.nil? ? t("other Elements") : @cell.name_for_label -%>');
 <% end %>
 
-$('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').append('<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>');
-$('#cell_<%= @cell.nil? ? "for_other_elements" : @cell.name -%>').sortable('refresh');
+<% if @insert_at_top %>
+$element_area.prepend(element_html);
+<% else %>
+$element_area.append(element_html);
+<% end %>
+
+$element_area.sortable('refresh');
 Alchemy.growl('<%= t("successfully_added_element") -%>');
 Alchemy.closeCurrentWindow();
 
