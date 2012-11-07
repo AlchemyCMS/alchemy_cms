@@ -15,7 +15,7 @@ module Alchemy
     #   :fallback => {                       # You can use the fallback option as an override. So you can take elements from a glo´bal laout page and only if the user adds an element on current page the local one gets rendered.
     #     :for => 'ELEMENT_NAME',            # The name of the element the fallback is for
     #     :with => 'ELEMENT_NAME',           # (OPTIONAL) the name of element to fallback with
-    #     :from => 'PAGE_LAYOUT'             # The page_layout name from the global page the fallback elements lie on. I.E 'left_column'
+    #     :from => String || Page            # Pass a page_layout name from a page the fallback elements lie on or pass the page object.
     #   }                                    #
     #   :sort_by => Content#name             # A Content name to sort the elements by
     #   :reverse => boolean                  # Reverse the rendering order
@@ -55,13 +55,18 @@ module Alchemy
         else
           all_elements = page.find_elements(options)
         end
-        unless options[:sort_by].blank?
+        if options[:sort_by].present?
           all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
         end
         element_string = ""
         if options[:fallback]
-          unless all_elements.detect { |e| e.name == options[:fallback][:for] }
-            if from = Page.where(:page_layout => options[:fallback][:from]).with_language(session[:language_id]).first
+          if all_elements.detect { |e| e.name == options[:fallback][:for] }.blank?
+            if options[:fallback][:from].class.name == 'Alchemy::Page'
+              from = options[:fallback][:from]
+            else
+              from = Page.not_restricted.where(:page_layout => options[:fallback][:from]).with_language(session[:language_id]).first
+            end
+            if from
               all_elements += from.elements.named(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
             end
           end

@@ -128,10 +128,21 @@ describe Alchemy::ElementsHelper do
     end
 
     context "with option fallback" do
+      before do
+        @another_page = FactoryGirl.create(:public_page, :name => 'Another Page', :page_layout => 'news')
+        @another_element_1 = FactoryGirl.create(:element, :page => @another_page, :name => 'news')
+      end
+
       it "should render the fallback element, when no element with the given name is found" do
-        @page.elements.delete_all
-        @another_element_1 = FactoryGirl.create(:element, :page => @page)
-        helper.render_elements(:fallback => {:for => 'foo', :with => @another_element_1.name, :from => @page.page_layout}).should match(/id="#{@another_element_1.name}_#{@another_element_1.id}"/)
+        helper.render_elements(
+          :fallback => {:for => 'higgs', :with => 'news', :from => 'news'}
+        ).should match(/id="news_#{@another_element_1.id}"/)
+      end
+
+      it "should also take a page object as fallback from" do
+        helper.render_elements(
+          :fallback => {:for => 'higgs', :with => 'news', :from => @another_page}
+        ).should match(/id="news_#{@another_element_1.id}"/)
       end
     end
 
