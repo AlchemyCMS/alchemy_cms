@@ -156,8 +156,7 @@ module Alchemy
           "created_at",
           "updated_at",
           "creator_id",
-          "updater_id",
-          "cell_id"
+          "updater_id"
         ).merge(differences.stringify_keys)
         element = self.create!(attributes.merge(:create_contents_after_create => false))
         source.contents.each do |content|

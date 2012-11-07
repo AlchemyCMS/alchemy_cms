@@ -341,7 +341,6 @@ module Alchemy
         description
       end
     end
-
     alias_method :definition, :layout_description
 
     def cell_definitions

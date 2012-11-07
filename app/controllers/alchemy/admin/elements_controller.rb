@@ -38,29 +38,29 @@ module Alchemy
       def create
         @page = Page.find(params[:element][:page_id])
         @element_name = params[:element][:name] # storing the original element name, because the model alters the params hash
-        @paste_from_clipboard = !params[:paste_from_clipboard].blank?
-        if @paste_from_clipboard
-          source_element = Element.find(element_from_clipboard[:id])
-          @element = Element.copy(source_element, {:page_id => @page.id})
-          if element_from_clipboard[:action] == 'cut'
-            @cutted_element_id = source_element.id
-            @clipboard.remove :elements, source_element.id
-            source_element.destroy
+        Element.transaction do
+          if @paste_from_clipboard = !params[:paste_from_clipboard].blank?
+            @element = paste_element_from_clipboard
+          else
+            @element = Element.new_from_scratch(params[:element])
+            if @page.can_have_cells?
+              @element.cell = find_or_create_cell
+            end
+            @element.save!
           end
-        else
-          @element = Element.new_from_scratch(params[:element])
+          if @page.definition['insert_elements_at'] == 'top'
+            @element.move_to_top
+          end
         end
-        put_element_in_cell if @page.can_have_cells?
-        if @element.save
+        if @element.valid?
           render :action => :create
         else
           render_remote_errors(@element, params[:paste_from_clipboard].nil? ? nil : '#paste_element_errors')
         end
       end
 
-      # Saves all contents in the elements by calling save_content on each content
+      # Saves all contents in the elements by calling save_contents.
       # And then updates the element itself.
-      # If a Ferret::FileNotFoundError raises we gonna catch it and rebuilding the index.
       def update
         @element = Element.find_by_id(params[:id])
         if @element.save_contents(params)
@@ -102,22 +102,37 @@ module Alchemy
 
     private
 
-      def put_element_in_cell
+      # Returns the cell for element name in params.
+      # Creates the cell if necessary.
+      def find_or_create_cell
         element_with_cell_name = @paste_from_clipboard ? params[:paste_from_clipboard] : @element_name
-        cell_definition = Cell.definition_for(element_with_cell_name.split('#').last) if !element_with_cell_name.blank?
-        if cell_definition
-          @cell = @page.cells.find_or_create_by_name(cell_definition['name'])
-          @element.cell = @cell
-          @element.move_to_bottom
-          return true
-        else
-          return false
-        end
+        raise "No element with cell name given. Please provide the cell name after the element name (or id) seperated by #." if element_with_cell_name.blank?
+        cell_name = element_with_cell_name.split('#').last
+        cell_definition = Cell.definition_for(cell_name)
+        raise "Cell definition not found for #{cell_name}" if cell_definition.blank?
+        @page.cells.find_or_create_by_name(cell_definition['name'])
       end
 
       def element_from_clipboard
         @clipboard = get_clipboard
         @clipboard.get(:elements, params[:paste_from_clipboard])
+      end
+
+      def paste_element_from_clipboard
+        @source_element = Element.find(element_from_clipboard[:id])
+        new_attributes = {:page_id => @page.id}
+        if @page.can_have_cells?
+          new_attributes = new_attributes.merge({:cell_id => find_or_create_cell.id})
+        end
+        element = Element.copy(@source_element, new_attributes)
+        cut_element if element_from_clipboard[:action] == 'cut'
+        element
+      end
+
+      def cut_element
+        @cutted_element_id = @source_element.id
+        @clipboard.remove :elements, @source_element.id
+        @source_element.destroy
       end
 
     end
