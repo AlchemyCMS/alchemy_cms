@@ -168,7 +168,7 @@ module Alchemy
 
     # Returns the full url containing host, page and anchor for the given element
     def full_url_for_element(element)
-      "http://" + request.env["HTTP_HOST"] + "/" + element.page.urlname + "##{element.name}_#{element.id}"
+      "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
     end
 
   end

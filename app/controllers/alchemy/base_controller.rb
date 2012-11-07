@@ -15,15 +15,19 @@ module Alchemy
     def current_server
       # For local development server
       if request.port != 80
-        "http://#{request.host}:#{request.port}"
+        "#{request.protocol}#{request.host}:#{request.port}"
         # For remote production server
       else
-        "http://#{request.host}"
+        "#{request.protocol}#{request.host}"
       end
     end
 
+    # Returns the configuratin value of given key.
+    #
+    # Config file is in +config/alchemy/config.yml+
+    #
     def configuration(name)
-      return Alchemy::Config.get(name)
+      Alchemy::Config.get(name)
     end
 
     def multi_language?
@@ -157,6 +161,28 @@ module Alchemy
       end
       @page = Page.language_root_for(session[:language_id])
       render :file => Rails.root.join("public/404.html"), :status => 404, :layout => !@page.nil?
+    end
+
+    # Enforce ssl for login and all admin modules.
+    #
+    # Default is +false+
+    #
+    # === Usage
+    #
+    #   #config.yml
+    #   require_ssl: true
+    #
+    # === Note
+    #
+    # You have to create a ssl certificate if you want to use the ssl protection
+    #
+    def ssl_required?
+      (Rails.env == 'production' || Rails.env == 'staging') && configuration[:require_ssl]
+    end
+
+    # Redirects request to ssl.
+    def enforce_ssl
+      redirect_to url_for(protocol: 'https')
     end
 
   protected

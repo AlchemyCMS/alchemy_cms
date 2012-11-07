@@ -25,7 +25,7 @@ end
 group :development do
   unless ENV['CI']
     gem 'guard-spork'
-    gem 'debugger', :platform => :ruby_19
+    gem 'debugger'
     gem 'quiet_assets' # Mute assets loggin
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
   end
