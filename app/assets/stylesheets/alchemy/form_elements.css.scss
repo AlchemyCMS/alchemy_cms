@@ -319,6 +319,8 @@ div.selectboxit-container {
   text-align: left;
   top: -2px;
 
+  a { text-decoration: none }
+
   div.selectboxit {
     @include default-button-style;
     width: auto;
