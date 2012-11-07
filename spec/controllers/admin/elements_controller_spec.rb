@@ -8,10 +8,38 @@ module Alchemy
       Alchemy::UserSession.create FactoryGirl.create(:admin_user)
     end
 
-    let(:page) { mock_model('Page', {:id => 1, :urlname => 'lulu'}) }
-    let(:element) { mock_model('Element', {:id => 1, :page_id => page.id, :public => true, :display_name_with_preview_text => 'lalaa', :dom_id => 1}) }
-    let(:element_in_clipboard) { @element ||= FactoryGirl.create(:element, :page_id => page.id) }
+    let(:page) { FactoryGirl.create(:page, :urlname => 'lulu') }
+    let(:element) { FactoryGirl.create(:element, :page_id => page.id) }
+    let(:element_in_clipboard) { FactoryGirl.create(:element, :page_id => page.id) }
     let(:clipboard) { session[:clipboard] = Clipboard.new }
+
+    describe '#create' do
+
+      before { element }
+
+      it "should insert the element at bottom of list" do
+        post :create, {:element => {:name => 'news', :page_id => page.id}}
+        page.elements.count.should == 2
+        page.elements.last.name.should == 'news'
+      end
+
+      context "on a page with a setting for insert_elements_at of top" do
+
+        before do
+          PageLayout.stub(:get).and_return({
+            'name' => 'news',
+            'elements' => ['news'],
+            'insert_elements_at' => 'top'
+          })
+        end
+
+        it "should insert the element at top of list" do
+          post :create, {:element => {:name => 'news', :page_id => page.id}}
+          page.elements.count.should == 2
+          page.elements.first.name.should == 'news'
+        end
+      end
+    end
 
     describe '#list' do
 
@@ -77,51 +105,95 @@ module Alchemy
 
       context "with cells" do
 
-        before do
-          @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
-          @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
-          Page.any_instance.stub(:can_have_cells?).and_return(true)
-          Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
-        end
+        context "" do
 
-        context "and cell name in element name" do
-
-          it "should put the element in the correct cell" do
-            post :create, {:element => {:name => "article#header", :page_id => @page.id}}
-            @cell.elements.first.should be_an_instance_of(Element)
+          before do
+            @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
+            @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
+            PageLayout.stub(:get).and_return({
+              'name' => 'standard',
+              'elements' => ['article'],
+              'cells' => ['header']
+            })
+            Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
           end
 
-        end
+          context "and cell name in element name" do
 
-        context "and no cell name in element name" do
+            it "should put the element in the correct cell" do
+              post :create, {:element => {:name => "article#header", :page_id => @page.id}}
+              @cell.elements.first.should be_an_instance_of(Element)
+            end
 
-          it "should put the element in the main cell" do
-            post :create, {:element => {:name => "article", :page_id => @page.id}}
-            @page.elements.not_in_cell.first.should be_an_instance_of(Element)
+          end
+
+          context "and no cell name in element name" do
+
+            it "should put the element in the main cell" do
+              post :create, {:element => {:name => "article", :page_id => @page.id}}
+              @page.elements.not_in_cell.first.should be_an_instance_of(Element)
+            end
+
           end
 
         end
 
         context "with paste_from_clipboard in parameters" do
 
-          before(:each) do
-            clipboard[:elements] = [{:id => element_in_clipboard.id}]
-          end
-
-          it "should create the element in the correct cell" do
-            post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
-            @cell.elements.first.should be_an_instance_of(Element)
-          end
-
           context "" do
-
-            before { @cell.elements.create(:page_id => @page.id, :name => "article", :create_contents_after_create => false) }
-
-            it "should set the correct position for the element" do
-              post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
-              @cell.elements.last.position.should == @cell.elements.count
+            before do
+              @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
+              @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
+              PageLayout.stub(:get).and_return({
+                'name' => 'standard',
+                'elements' => ['article'],
+                'cells' => ['header']
+              })
+              Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
+              clipboard[:elements] = [{:id => element_in_clipboard.id}]
             end
 
+            it "should create the element in the correct cell" do
+              post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+              @cell.elements.first.should be_an_instance_of(Element)
+            end
+
+            context "" do
+
+              before { @cell.elements.create(:page_id => @page.id, :name => "article", :create_contents_after_create => false) }
+
+              it "should set the correct position for the element" do
+                post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+                @cell.elements.last.position.should == @cell.elements.count
+              end
+
+            end
+          end
+
+          context "on a page with a setting for insert_elements_at of top" do
+            let(:page)                 { FactoryGirl.create(:public_page, :name => 'News') }
+            let(:element_in_clipboard) { FactoryGirl.create(:element, :page => page, :name => 'news') }
+            let(:cell)                 { page.cells.first }
+            let(:element)              { FactoryGirl.create(:element, :name => 'news', :page => page, :cell => cell) }
+
+            before do
+              PageLayout.stub(:get).and_return({
+                'name' => 'news',
+                'elements' => ['news'],
+                'insert_elements_at' => 'top',
+                'cells' => ['news']
+              })
+              Cell.stub!(:definition_for).and_return({'name' => 'news', 'elements' => ['news']})
+              clipboard[:elements] = [{:id => element_in_clipboard.id}]
+              cell.elements << element
+            end
+
+            it "should insert the element at top of list" do
+              post :create, {:element => {:name => 'news', :page_id => page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{cell.name}", :format => :js}
+              cell.elements.count.should == 2
+              cell.elements.first.name.should == 'news'
+              cell.elements.first.should_not == element
+            end
           end
 
         end
