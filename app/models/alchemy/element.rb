@@ -44,16 +44,16 @@ module Alchemy
 
       # Builds a new element as described in +/config/alchemy/elements.yml+
       def new_from_scratch(attributes)
-        attributes.stringify_keys!
-        return new if attributes['name'].blank?
+        attributes = attributes.dup.symbolize_keys
+        return new if attributes[:name].blank?
         return nil if descriptions.blank?
         # clean the name from cell name
-        attributes['name'] = attributes['name'].split('#').first
-        element_scratch = descriptions.detect { |m| m["name"] == attributes['name'] }
+        attributes[:name] = attributes[:name].split('#').first
+        element_scratch = descriptions.detect { |el| el['name'] == attributes[:name] }
         if element_scratch
-          new(element_scratch.except(*FORBIDDEN_DEFINITION_ATTRIBUTES).merge(attributes))
+          new(element_scratch.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
         else
-          raise "Element description for #{attributes['name']} not found. Please check your elements.yml"
+          raise "Element description for #{attributes[:name]} not found. Please check your elements.yml"
         end
       end
 
