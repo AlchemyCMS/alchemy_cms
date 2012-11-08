@@ -41,6 +41,59 @@ module Alchemy
       end
     end
 
+    describe '#find_or_create_cell' do
+
+      before do
+        Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['header']})
+        controller.instance_variable_set(:@page, page)
+      end
+
+      context "with element name and cell name in the params" do
+
+        before do
+          controller.stub(:params).and_return({
+            :element => {:name => 'header#header'}
+          })
+        end
+
+        context "with cell not existing" do
+          it "should create the cell" do
+            expect {
+              controller.send(:find_or_create_cell)
+            }.to change(page.cells, :count).from(0).to(1)
+          end
+        end
+
+        context "with the cell already present" do
+
+          before { FactoryGirl.create(:cell, :page => page, :name => 'header') }
+
+          it "should load the cell" do
+            expect {
+              controller.send(:find_or_create_cell)
+            }.to_not change(page.cells, :count)
+          end
+
+        end
+
+      end
+
+      context "with only the element name in the params" do
+
+        before do
+          controller.stub(:params).and_return({
+            :element => {:name => 'header'}
+          })
+        end
+
+        it "should return nil" do
+          controller.send(:find_or_create_cell).should be_nil
+        end
+
+      end
+
+    end
+
     describe '#list' do
 
       render_views

@@ -37,9 +37,8 @@ module Alchemy
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
       def create
         @page = Page.find(params[:element][:page_id])
-        @element_name = params[:element][:name] # storing the original element name, because the model alters the params hash
         Element.transaction do
-          if @paste_from_clipboard = !params[:paste_from_clipboard].blank?
+          if @paste_from_clipboard = params[:paste_from_clipboard].present?
             @element = paste_element_from_clipboard
           else
             @element = Element.new_from_scratch(params[:element])
@@ -107,11 +106,22 @@ module Alchemy
       # Returns the cell for element name in params.
       # Creates the cell if necessary.
       def find_or_create_cell
-        element_with_cell_name = @paste_from_clipboard ? params[:paste_from_clipboard] : @element_name
-        raise "No element with cell name given. Please provide the cell name after the element name (or id) seperated by #." if element_with_cell_name.blank?
+        if @paste_from_clipboard
+          element_with_cell_name = params[:paste_from_clipboard]
+        else
+          element_with_cell_name = params[:element][:name]
+        end
+        if element_with_cell_name.blank?
+          raise "No element with cell name given. Please provide the cell name after the element name (or id) seperated by #."
+        end
+        unless element_with_cell_name.include?('#')
+          return nil
+        end
         cell_name = element_with_cell_name.split('#').last
         cell_definition = Cell.definition_for(cell_name)
-        raise "Cell definition not found for #{cell_name}" if cell_definition.blank?
+        if cell_definition.blank?
+          raise "Cell definition not found for #{cell_name}"
+        end
         @page.cells.find_or_create_by_name(cell_definition['name'])
       end
 
