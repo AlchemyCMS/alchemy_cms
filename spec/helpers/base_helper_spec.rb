@@ -19,5 +19,12 @@ module Alchemy
 
     end
 
+    describe "#configuration" do
+      it "should return certain configuration options" do
+        Config.stub!(:show).and_return({"some_option" => true})
+        helper.configuration(:some_option).should == true
+      end
+    end
+
   end
 end
