@@ -18,7 +18,7 @@ module Alchemy
       before { element }
 
       it "should insert the element at bottom of list" do
-        post :create, {:element => {:name => 'news', :page_id => page.id}}
+        post :create, {:element => {:name => 'news', :page_id => page.id}, :format => :js}
         page.elements.count.should == 2
         page.elements.last.name.should == 'news'
       end
@@ -34,7 +34,7 @@ module Alchemy
         end
 
         it "should insert the element at top of list" do
-          post :create, {:element => {:name => 'news', :page_id => page.id}}
+          post :create, {:element => {:name => 'news', :page_id => page.id}, :format => :js}
           page.elements.count.should == 2
           page.elements.first.name.should == 'news'
         end
@@ -116,19 +116,19 @@ module Alchemy
       end
 
       it "should set a new position to the element" do
-        post :order, {:element_ids => ["#{@element.id}"]}
+        post :order, {:element_ids => ["#{@element.id}"], :format => :js}
         @element.reload
         @element.position.should_not == nil
       end
 
       it "should assign the (new) page_id to the element" do
-        post :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => nil}
+        post :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => nil, :format => :js}
         @element.reload
         @element.page_id.should == 1
       end
 
       it "should assign the (new) cell_id to the element" do
-        post :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => 5}
+        post :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => 5, :format => :js}
         @element.reload
         @element.cell_id.should == 5
       end
@@ -174,7 +174,7 @@ module Alchemy
           context "and cell name in element name" do
 
             it "should put the element in the correct cell" do
-              post :create, {:element => {:name => "article#header", :page_id => @page.id}}
+              post :create, {:element => {:name => "article#header", :page_id => @page.id}, :format => :js}
               @cell.elements.first.should be_an_instance_of(Element)
             end
 
@@ -183,7 +183,7 @@ module Alchemy
           context "and no cell name in element name" do
 
             it "should put the element in the main cell" do
-              post :create, {:element => {:name => "article", :page_id => @page.id}}
+              post :create, {:element => {:name => "article", :page_id => @page.id}, :format => :js}
               @page.elements.not_in_cell.first.should be_an_instance_of(Element)
             end
 
