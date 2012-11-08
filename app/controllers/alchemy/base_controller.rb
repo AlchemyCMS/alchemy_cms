@@ -177,7 +177,7 @@ module Alchemy
     # You have to create a ssl certificate if you want to use the ssl protection
     #
     def ssl_required?
-      (Rails.env == 'production' || Rails.env == 'staging') && configuration[:require_ssl]
+      (Rails.env == 'production' || Rails.env == 'staging') && configuration(:require_ssl)
     end
 
     # Redirects request to ssl.
