@@ -12,7 +12,7 @@ describe Alchemy::Admin::UsersController do
     end
 
     it "assigns user to @user" do
-      post :update, :id => user.id, :user => {}
+      post :update, :id => user.id, :user => {}, :format => :js
       assigns(:user).should eq(user)
     end
 

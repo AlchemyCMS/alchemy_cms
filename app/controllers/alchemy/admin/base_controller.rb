@@ -10,7 +10,7 @@ module Alchemy
 
       filter_access_to :all
 
-      rescue_from Exception, :with => :exception_handler
+      rescue_from Exception, :with => :exception_handler unless Rails.env == 'test'
 
       layout 'alchemy/admin'
 
