@@ -28,7 +28,7 @@ module Alchemy
 
     attr_accessor :create_contents_after_create
 
-    after_create :create_contents, :unless => Proc.new { |m| m.create_contents_after_create == false }
+    after_create :create_contents, :unless => proc { |e| e.create_contents_after_create == false }
 
     scope :trashed, where(:position => nil).order('updated_at DESC')
     scope :not_trashed, where(Element.arel_table[:position].not_eq(nil))
@@ -311,7 +311,12 @@ module Alchemy
 
     # returns the description of the element with my name in element.yml
     def description
-      self.class.descriptions.detect { |d| d['name'] == self.name }
+      description = self.class.descriptions.detect { |d| d['name'] == self.name }
+      if description.blank?
+        raise "Could not find element definition for #{self.name}. Please check your elements.yml"
+      else
+        return description
+      end
     end
     alias_method :definition, :description
 
@@ -461,12 +466,12 @@ module Alchemy
       essence_errors.each do |content_name, errors|
         errors.each do |error|
           messages << I18n.t(error,
-                             :scope => [:content_validations, self.name, content_name],
-                             :default => [
-                               "alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
-                               "alchemy.content_validations.errors.#{error}".to_sym
-                             ],
-                             :field => Content.translated_label_for(content_name)
+            :scope => [:content_validations, self.name, content_name],
+            :default => [
+              "alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
+              "alchemy.content_validations.errors.#{error}".to_sym
+            ],
+            :field => Content.translated_label_for(content_name)
           )
         end
       end
