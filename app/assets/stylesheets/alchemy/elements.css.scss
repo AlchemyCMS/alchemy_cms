@@ -180,7 +180,7 @@ div.element_editor {
     box-shadow: 0 0 3px #4b93db;
   }
 
-  div.error {
+  div.error, div.warning {
     padding: 8px 4px 8px 32px;
     margin-bottom: 8px;
     margin-top: 8px;
@@ -196,6 +196,11 @@ div.element_editor {
       left: 8px;
       top: 8px;
     }
+  }
+
+  div.warning {
+    background-color: #f7efb8;
+    color: #756f47;
   }
 
   .validation_notice {
