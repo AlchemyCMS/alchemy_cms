@@ -577,12 +577,12 @@ module Alchemy
       if self.has_cells? && (cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) })
         cell = self.cells.find_by_name(cell_definition['name'])
         if cell
-          return {'page_id' => self.id, 'cell_id' => cell.id, 'name' => element}
+          return {:page_id => self.id, :cell_id => cell.id, :name => element}
         else
           raise "Cell not found for page #{self.inspect}"
         end
       else
-        return {'page_id' => self.id, 'name' => element}
+        return {:page_id => self.id, :name => element}
       end
     end
 
