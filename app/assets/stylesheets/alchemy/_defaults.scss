@@ -69,7 +69,8 @@ $default-form-field-margin: 0.3em 0;
 }
 
 @mixin default-button-style {
-  @include sassy-button('shiny');
+  @include sassy-button('shiny', $sb-border-radius, $sb-font-size, $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
+
   border-color: $button-border-color;
   margin: $default-form-field-margin;
 }

@@ -304,7 +304,7 @@ select {
  */
 
 form td.select div.selectboxit {
-  width: 200px;
+  width: 208px;
 
   .selectboxit-text {
     max-width: 180px !important;
@@ -325,11 +325,19 @@ div.selectboxit-container {
     @include default-button-style;
     width: auto;
     height: 15px;
-    padding: 6px 0 6px 18px;
+    padding: 6px 0 6px 10px;
     margin: 0;
     @include inline-block;
     overflow: hidden;
     white-space: nowrap;
+
+    &.very_short {
+      width: 80px;
+
+      .selectboxit-text {
+        max-width: 60px !important;
+      }
+    }
 
     &.short {
       width: 80px;
@@ -340,7 +348,7 @@ div.selectboxit-container {
     }
 
     &.medium {
-      width: 140px;
+      width: 148px;
 
       .selectboxit-text {
         max-width: 120px !important;
@@ -348,7 +356,7 @@ div.selectboxit-container {
     }
 
     &.long {
-      width: 230px;
+      width: 238px;
 
       .selectboxit-text {
         max-width: 210px !important;
@@ -356,7 +364,7 @@ div.selectboxit-container {
     }
 
     &.very_long {
-      width: 300px;
+      width: 308px;
 
       .selectboxit-text {
         max-width: 280px !important;
@@ -364,7 +372,7 @@ div.selectboxit-container {
     }
 
     &.full_width {
-      width: 416px;
+      width: 424px;
 
       .selectboxit-text {
         max-width: 396px !important;
@@ -402,7 +410,7 @@ div.selectboxit-container {
     /* Dropdown List Down Arrow Container (if an image is not used) */
     .selectboxit-arrow-container {
       /* Positions the down arrow */
-      width: 24px;
+      width: 20px;
       padding: 0 0.25em 0 0;
       margin-left: 0.5em;
       position: absolute;
@@ -453,7 +461,7 @@ div.selectboxit-container {
       white-space: nowrap;
       list-style: none;
       margin: 0;
-      padding: 0.5em 1.5em;
+      padding: 6px 10px;
     }
 
     li.selectboxit-hover, li.selectboxit-focus {
@@ -473,7 +481,7 @@ div.selectboxit-container {
 
     /* Dropdown List Optgroup Options */
     .selectboxit-optgroup-option {
-      text-indent: 20px;
+      text-indent: 10px;
     }
 
     /* Dropdown List Optgroup Header hover psuedo class */
