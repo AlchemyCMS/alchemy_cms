@@ -1,7 +1,12 @@
 <div id="overlay_tab_external_link">
-  <h2>
-    <%= t("enter_external_link") %>
-  </h2>
+  <h2><%= t("enter_external_link") %></h2>
+  <%= render_message do %>
+    <p><%= t(:external_link_notice_1) %></p>
+    <p><%= t(:external_link_notice_2) %></p>
+  <% end %>
+  <div id="errors" class="errors">
+    <ul></ul>
+  </div>
   <table class="window_form">
     <tr>
       <td class="label long">
@@ -28,7 +33,7 @@
     <tr>
       <td class="submit" colspan="2">
         <%= link_to(t(:apply), '#', {
-          :onclick => "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#external_link_target').val()); Alchemy.LinkOverlay.close()",
+          :onclick => "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#external_link_target').val());",
           :class => 'button'
         }) %>
       </td>

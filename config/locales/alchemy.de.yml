@@ -395,6 +395,8 @@ de:
       step2: "Wählen Sie alle %{name} aus, die Sie gleichzeitig hochladen wollen"
       step3: "Klicken Sie auf 'öffnen'. Das Hochladen beginnt!"
       dragndrop: "Alternativ können Sie Dateien auch von Ihrem Computer mit der Maus auf die untere Fläche ziehen."
+    external_link_notice_1: "Bitte geben Sie die URL komplett mit http:// (oder vergleichbarem Protokoll) ein."
+    external_link_notice_2: "Um auf einen Pfad innerhalb der Webseiten URL zu verweisen, beginnen Sie mit einem /."
     female: "Frau"
     file: "Datei"
     file_rename_error: "Datei konnte nicht umbenannt werden."

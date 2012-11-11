@@ -200,9 +200,7 @@ if (typeof(Alchemy) === 'undefined') {
     isFirefox: navigator.userAgent.match(/Firefox/i) !== null,
     isChrome: navigator.userAgent.match(/Chrome/i) !== null,
     isSafari: navigator.userAgent.match(/Safari/i) !== null,
-    isIE: navigator.userAgent.match(/MSIE/i) !== null,
-
-    locale: 'en'
+    isIE: navigator.userAgent.match(/MSIE/i) !== null
 
   });
 

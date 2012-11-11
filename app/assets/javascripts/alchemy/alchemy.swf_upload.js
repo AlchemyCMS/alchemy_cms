@@ -172,7 +172,7 @@ if (typeof(Alchemy) === 'undefined') {
 
       queueComplete: function(numFilesUploaded) {
         var $status = $("#upload_info");
-        if (Alchemy.Uploader.locale == 'en') {
+        if (Alchemy.locale === 'en') {
           $status.text(numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.");
         } else {
           $status.text(numFilesUploaded + " Datei" + (numFilesUploaded === 1 ? "" : "en") + " hochgeladen.");

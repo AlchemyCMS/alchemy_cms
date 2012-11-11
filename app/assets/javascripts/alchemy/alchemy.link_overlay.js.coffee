@@ -1,5 +1,4 @@
-''
-(($, window, document) ->
+(($, window) ->
 
   if (typeof(Alchemy) is 'undefined')
     window.Alchemy = {}
@@ -30,7 +29,7 @@
               Alchemy.SelectBox('#alchemyLinkOverlay')
               $dialog.css overflow: 'visible'
               $dialog.dialog('widget').css overflow: 'visible'
-              Alchemy.LinkOverlay.attachEvents();
+              Alchemy.LinkOverlay.attachEvents()
             error: (XMLHttpRequest, textStatus, errorThrown) ->
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
           })
@@ -62,43 +61,33 @@
       $('#sitemap_sitename_' + selected_element).addClass('selected_page').attr('name', urlname)
 
     createLink : (link_type, url, title, target) ->
+      self = Alchemy.LinkOverlay
+      if link_type == 'external'
+        if self.validateURLFormat(url)
+          self.setLink(url, link_type, title, target)
+        else
+          return self.showValidationError()
+      else
+        self.setLink(url, link_type, title, target)
+      self.close()
+
+    setLink: (url, link_type, title, target) ->
+      self = Alchemy.LinkOverlay
       element = Alchemy.LinkOverlay.current.linked_element
       Alchemy.setElementDirty($(element).parents('.element_editor'))
       if (element.editor)
         # aka we are linking text inside of TinyMCE
-        editor = element.editor
-        editor.execCommand('mceInsertLink', false, {
-          href: url,
-          'class': link_type,
-          title: title,
-          'data-link-target': target,
-          target: if target == 'blank' then '_blank' else null
-        })
-        editor.selection.collapse()
+        self.executeTinyMCEcommand(url, title, link_type, target)
       else
         # aka: we are linking an essence
-        essence_type = element.name.replace('essence_', '').split('_')[0]
-        content_id = null
-        switch (essence_type)
-          when "picture" then content_id = element.name.replace('essence_picture_', '')
-          when "text" then content_id = element.name.replace('essence_text_', '')
-
-        $('#contents_content_' + content_id + '_link').val(url).change()
-        $('#contents_content_' + content_id + '_link_title').val(title)
-        $('#contents_content_' + content_id + '_link_class_name').val(link_type)
-        $('#contents_content_' + content_id + '_link_target').val(target)
-        $(element).addClass('linked')
-        $(element).next().addClass('linked').removeClass('disabled')
+        self.linkEssence(url, title, link_type, target)
 
     # Selects the tab for kind of link and fills all fields.
     selectTab : ->
       linked_element = Alchemy.LinkOverlay.current.linked_element
-      link = '' # initialization really needed?
-
       # Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
       if (linked_element.nodeType)
         link = Alchemy.LinkOverlay.createTempLink(linked_element)
-
       # Restoring the bookmarked selection inside the TinyMCE of an EssenceRichtext.
       else
         if (linked_element.node.nodeName == 'A')
@@ -146,16 +135,16 @@
 
         # Handling a contactform link.
         if (link.className == 'contact')
-          link_url = link.pathname;
-          link_params = link.search;
-          link_subject = link_params.split('&')[0];
-          link_mailto = link_params.split('&')[1];
-          link_body = link_params.split('&')[2];
-          $('#overlay_tabs').tabs("select", '#overlay_tab_contactform_link');
-          $('#contactform_url').val(link_url);
-          $('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')).replace(/\?/, ''));
-          $('#contactform_body').val(unescape(link_body.replace(/body=/, '')).replace(/\?/, ''));
-          $('#contactform_mailto').val(link_mailto.replace(/mail_to=/, '').replace(/\?/, ''));
+          link_url = link.pathname
+          link_params = link.search
+          link_subject = link_params.split('&')[0]
+          link_mailto = link_params.split('&')[1]
+          link_body = link_params.split('&')[2]
+          $('#overlay_tabs').tabs("select", '#overlay_tab_contactform_link')
+          $('#contactform_url').val(link_url)
+          $('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')).replace(/\?/, ''))
+          $('#contactform_body').val(unescape(link_body.replace(/body=/, '')).replace(/\?/, ''))
+          $('#contactform_mailto').val(link_mailto.replace(/mail_to=/, '').replace(/\?/, ''))
 
     showElementsSelect: (id) ->
       $('#elements_for_page_' + id).show()
@@ -190,5 +179,55 @@
       $('#contents_content_' + content_id + '_link_target').val('')
       $(link).removeClass('linked').addClass('disabled')
       $('#edit_link_' + content_id).removeClass('linked')
+
+    executeTinyMCEcommand: (url, title, link_type, target) ->
+      element = Alchemy.LinkOverlay.current.linked_element
+      editor = element.editor
+      editor.execCommand('mceInsertLink', false, {
+        href: url,
+        'class': link_type,
+        title: title,
+        'data-link-target': target,
+        target: if target == 'blank' then '_blank' else null
+      })
+      editor.selection.collapse()
+
+    linkEssence: (url, title, link_type, target) ->
+      element = Alchemy.LinkOverlay.current.linked_element
+      essence_type = element.name.replace('essence_', '').split('_')[0]
+      switch (essence_type)
+        when "picture" then content_id = element.name.replace('essence_picture_', '')
+        when "text" then content_id = element.name.replace('essence_text_', '')
+      $('#contents_content_' + content_id + '_link').val(url).change()
+      $('#contents_content_' + content_id + '_link_title').val(title)
+      $('#contents_content_' + content_id + '_link_class_name').val(link_type)
+      $('#contents_content_' + content_id + '_link_target').val(target)
+      $(element).addClass('linked')
+      $(element).next().addClass('linked').removeClass('disabled')
+
+    validateURLFormat: (url) ->
+      if url.match(/^(\/|[a-z]+:\/\/)/)
+        return true
+      else
+        return false
+
+    showValidationError: ->
+      self = Alchemy.LinkOverlay
+      $('#errors ul').html("<li>#{self.t('url_validation_failed')}</li>")
+      $('#errors').show()
+
+    t: (id) ->
+      self = Alchemy.LinkOverlay
+      translation = self.translations[id]
+      if translation
+        return translation[Alchemy.locale]
+      else
+        return id
+
+    translations:
+      'url_validation_failed':
+        'de': 'Die URL hat kein gültiges Format.'
+        'en': 'The url has no valid format.'
+
   }
-)(jQuery, window, document)
+)(jQuery, window)

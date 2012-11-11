@@ -45,7 +45,7 @@ Alchemy.Uploader = {
         },
         onQueueStart: function(files) {
           var $status = $("#upload_info");
-          if (Alchemy.Uploader.locale == 'en') {
+          if (Alchemy.locale === 'en') {
             $status.text(files + " file" + (files === 1 ? "" : "s") + " queued.");
           } else {
             $status.text(files + " Datei" + (files === 1 ? "" : "en") + " in der Warteschlange.");
@@ -57,7 +57,7 @@ Alchemy.Uploader = {
         },
         onQueueComplete: function(files, status) {
           var $status = $("#upload_info");
-          if (Alchemy.Uploader.locale == 'en') {
+          if (Alchemy.locale === 'en') {
             $status.text(files + " file" + (files === 1 ? "" : "s") + " uploaded.");
           } else {
             $status.text(files + " Datei" + (files === 1 ? "" : "en") + " hochgeladen.");
@@ -125,7 +125,7 @@ Alchemy.Uploader = {
           file_upload_limit: settings.file_upload_limit,
           file_queue_limit: 0,
           custom_settings: {
-            language: settings.locale
+            language: Alchemy.locale
           },
           debug: false,
           button_image_url: "/assets/alchemy/swfupload/browse_button.png",
@@ -161,8 +161,6 @@ Alchemy.Uploader = {
         $('#flash_upload_error_explanation').show();
       }
     }
-
-    self.locale = settings.locale;
 
     if (self.HTML5uploadPossible()) {
       $('#swf_upload_container').hide();
@@ -264,7 +262,7 @@ Alchemy.Uploader = {
       var self = Alchemy.Uploader;
       var translation = self.translation[id];
       if (translation) {
-        return translation[self.locale];
+        return translation[Alchemy.locale];
       } else {
         return id;
       }
