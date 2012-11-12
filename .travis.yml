@@ -6,7 +6,9 @@ branches:
   only:
     - master
 before_script:
-  - "phantomjs -v"
+  - sudo spec/support/ci/install_phantomjs
+  - "export PATH=phantomjs/bin:$PATH"
+  - phantomjs --version
   - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
 script: "bundle exec rspec spec"
 env:
