@@ -38,19 +38,4 @@ describe "Translation integration" do
 
   end
 
-  context "with translated header" do
-
-    before do
-      # Hack my hack.... OMG
-      Rails.stub(:env).and_return('foo')
-      Capybara.current_driver = :rack_test_translated_header
-    end
-
-    it "should use the browsers language setting if no other parameter is given" do
-      visit root_path
-      ::I18n.locale.should == :de
-    end
-
-  end
-
 end
