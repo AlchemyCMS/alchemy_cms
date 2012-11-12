@@ -113,12 +113,14 @@ module Alchemy
           PagesController.any_instance.stub(:multi_language?).and_return(true)
         end
 
-        it "should redirect to url with nested language code if no language params are given" do
-          visit "/alchemy/#{public_page_1.urlname}"
-          page.current_path.should == "/alchemy/#{public_page_1.language_code}/#{public_page_1.urlname}"
+        context "if no language params are given" do
+          it "should redirect to url with nested language code" do
+            visit "/alchemy/#{public_page_1.urlname}"
+            page.current_path.should == "/alchemy/#{public_page_1.language_code}/#{public_page_1.urlname}"
+          end
         end
 
-        context "should redirect to public child" do
+        context "if requested page is unpublished" do
 
           before do
             public_page_1.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
@@ -126,26 +128,32 @@ module Alchemy
             Config.stub!(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
           end
 
-          it "if requested page is unpublished" do
+          it "should redirect to public child" do
             visit "/alchemy/#{default_language.code}/not-public"
             page.current_path.should == "/alchemy/#{default_language.code}/public-child"
           end
 
-          it "with nested language code, if requested page is unpublished and url has no language code" do
-            visit '/alchemy/not-public'
-            page.current_path.should == "/alchemy/#{default_language.code}/public-child"
+          context "and url has no language code" do
+            it "should redirect to url of public child with language code of default language" do
+              visit '/alchemy/not-public'
+              page.current_path.should == "/alchemy/#{default_language.code}/public-child"
+            end
           end
 
         end
 
-        it "should redirect to pages url with default language, if requested url is index url" do
-          visit '/alchemy/'
-          page.current_path.should == "/alchemy/#{default_language.code}/home"
+        context "if requested url is index url" do
+          it "should redirect to pages url with default language" do
+            visit '/alchemy/'
+            page.current_path.should == "/alchemy/#{default_language.code}/home"
+          end
         end
 
-        it "should redirect to pages url with default language, if requested url is only the language code" do
-          visit "/alchemy/#{default_language.code}"
-          page.current_path.should == "/alchemy/#{default_language.code}/home"
+        context "if requested url is only the language code" do
+          it "should redirect to pages url with default language" do
+            visit "/alchemy/#{default_language.code}"
+            page.current_path.should == "/alchemy/#{default_language.code}/home"
+          end
         end
 
         context "requested url is only the urlname" do

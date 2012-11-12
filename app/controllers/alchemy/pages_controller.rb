@@ -53,7 +53,7 @@ module Alchemy
       end
     end
 
-    protected
+  private
 
     def load_page
       # we need this, because of a dec_auth bug (it calls this method after the before_filter again).
@@ -136,25 +136,12 @@ module Alchemy
       end
     end
 
-    def find_first_public(page)
-      if page.public == true
-        return page
-      end
-      page.children.each do |child|
-        result = find_first_public(child)
-        if result != nil
-          return result
-        end
-      end
-      return nil
-    end
-
     def redirect_to_public_child
-      @page = find_first_public(@page)
-      if @page.blank?
-        raise_not_found_error
-      else
+      @page = @page.self_and_descendants.published.not_restricted.first
+      if @page
         redirect_page
+      else
+        raise_not_found_error
       end
     end
 

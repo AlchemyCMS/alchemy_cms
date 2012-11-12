@@ -157,4 +157,43 @@ describe Alchemy::PagesController do
     end
   end
 
+  describe '#redirect_to_public_child' do
+
+    let(:root_page)    { FactoryGirl.create(:language_root_page, :public => false) }
+    let(:page)         { FactoryGirl.create(:page, :parent_id => root_page.id) }
+    let(:public_page)  { FactoryGirl.create(:public_page, :parent_id => page.id) }
+
+    before { controller.instance_variable_set("@page", root_page) }
+
+    context "with unpublished and published pages in page tree" do
+
+      before do
+        public_page
+        root_page.reload
+      end
+
+      it "should redirect to first public child" do
+        controller.should_receive(:redirect_page)
+        controller.send(:redirect_to_public_child)
+        controller.instance_variable_get('@page').should == public_page
+      end
+
+    end
+
+    context "with only unpublished pages in page tree" do
+
+      before do
+        page
+        root_page.reload
+      end
+
+      it "should raise not found error" do
+        expect {
+          controller.send(:redirect_to_public_child)
+        }.to raise_error(ActionController::RoutingError)
+      end
+
+    end
+  end
+
 end

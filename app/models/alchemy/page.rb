@@ -177,19 +177,6 @@ module Alchemy
     end
     alias_method :next_page, :next
 
-    def find_first_public(page)
-      if (page.public == true)
-        return page
-      end
-      page.children.each do |child|
-        result = find_first_public(child)
-        if (result!=nil)
-          return result
-        end
-      end
-      return nil
-    end
-
     def name_entered?
       !self.name.blank?
     end
