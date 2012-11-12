@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 begin
   require 'spork'
 rescue LoadError => e

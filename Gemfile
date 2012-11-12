@@ -13,6 +13,7 @@ group :test do
   gem 'poltergeist', '0.7.0'
   unless ENV['CI']
     gem 'launchy'
+    gem 'simplecov', :require => false
   end
 end
 
