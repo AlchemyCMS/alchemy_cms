@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026104128) do
+ActiveRecord::Schema.define(:version => 20121113115120) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(:version => 20121026104128) do
     t.integer  "updater_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "alchemy_essence_links", :force => true do |t|
+    t.string   "link"
+    t.string   "link_title"
+    t.string   "link_target"
+    t.string   "link_class_name"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "alchemy_essence_pictures", :force => true do |t|

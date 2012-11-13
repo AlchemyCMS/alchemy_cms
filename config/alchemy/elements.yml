@@ -42,6 +42,7 @@
 # * EssenceHtml               (Used to store HTML code. The view output renders the raw, not sanitized or unescaped String. So be careful!)
 # * EssenceSelect             (Used to store a String (max. 255 Chars.) value. The editor view is displayed as a select box)
 # * EssenceBoolean            (Used to store a Boolean (true or false) value. The editor view is displayed as a check box)
+# * EssenceLink               (Used to store an URL. The link button opens the same link overlay as the link button in the EssenceRichtext TinyMCE editor.)
 #
 # After finishing the setup of your element layouts, you need to generate the files for the elements before using them in Alchemy.
 #

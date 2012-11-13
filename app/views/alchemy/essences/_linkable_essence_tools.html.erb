@@ -1,0 +1,19 @@
+<span class="linkable_essence_tools">
+  <%= link_to(
+    render_icon(:link),
+    '#',
+    :onclick => "Alchemy.LinkOverlay.open(this, 420); return false;",
+    :class => "icon_button#{content.linked? ? ' linked' : ''}",
+    :data => {'content-id' => content.id},
+    :title => t('place_link'),
+    :id => "edit_link_#{content.id}"
+  ) %>
+  <%= link_to(
+    render_icon(:unlink),
+    '#',
+    :onclick => "Alchemy.LinkOverlay.removeLink(this, #{content.id}); return false;",
+    :class => "icon_button unlink #{content.linked? ? 'linked' : 'disabled'}",
+    :data => {'content-id' => content.id},
+    :title => t('unlink')
+  ) %>
+</span>

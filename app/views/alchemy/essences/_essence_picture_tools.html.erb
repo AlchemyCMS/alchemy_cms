@@ -34,7 +34,7 @@
   :onclick => "Alchemy.LinkOverlay.open(this, 420)",
   :class => content.linked? ? 'linked' : nil,
   :title => t('link_image'),
-  :name => "essence_picture_#{content.id}",
+  :data => {'content-id' => content.id},
   :id => "edit_link_#{content.id}"
 }) %>
 

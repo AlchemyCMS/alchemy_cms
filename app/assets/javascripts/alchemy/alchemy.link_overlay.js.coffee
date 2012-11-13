@@ -8,12 +8,13 @@
 
   Alchemy.LinkOverlay = {
 
-    open:  (linked_element, width) ->
+    open: (linked_element, width) ->
+      self = Alchemy.LinkOverlay
       $dialog = $('<div style="display:none" id="alchemyLinkOverlay"></div>')
 
       $dialog.html(Alchemy.getOverlaySpinner({x: width}))
 
-      Alchemy.LinkOverlay.current = $dialog.dialog({
+      self.current = $dialog.dialog({
         modal: true,
         minWidth: if parseInt(width) < 600 then 600 else parseInt(width),
         minHeight: 450,
@@ -29,14 +30,14 @@
               Alchemy.SelectBox('#alchemyLinkOverlay')
               $dialog.css overflow: 'visible'
               $dialog.dialog('widget').css overflow: 'visible'
-              Alchemy.LinkOverlay.attachEvents()
+              self.attachEvents()
             error: (XMLHttpRequest, textStatus, errorThrown) ->
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
           })
         close: ->
           $dialog.remove()
       })
-      Alchemy.LinkOverlay.current.linked_element = linked_element
+      self.current.linked_element = linked_element
 
     attachEvents: ->
       self = Alchemy.LinkOverlay
@@ -158,12 +159,7 @@
 
     createTempLink: (linked_element) ->
       $tmp_link = $("<a></a>")
-      essence_type = $(linked_element).attr('name').replace('essence_', '').split('_')[0]
-      content_id
-      switch (essence_type)
-        when "picture" then content_id = $(linked_element).attr('name').replace('essence_picture_', '')
-        when "text" then content_id = $(linked_element).attr('name').replace('essence_text_', '')
-
+      content_id = $(linked_element).data('contentId')
       $tmp_link.attr('href', $('#contents_content_' + content_id + '_link').val())
       $tmp_link.attr('title', $('#contents_content_' + content_id + '_link_title').val())
       $tmp_link.attr('data-link-target', $('#contents_content_' + content_id + '_link_target').val())
@@ -194,10 +190,7 @@
 
     linkEssence: (url, title, link_type, target) ->
       element = Alchemy.LinkOverlay.current.linked_element
-      essence_type = element.name.replace('essence_', '').split('_')[0]
-      switch (essence_type)
-        when "picture" then content_id = element.name.replace('essence_picture_', '')
-        when "text" then content_id = element.name.replace('essence_text_', '')
+      content_id = $(element).data('contentId')
       $('#contents_content_' + content_id + '_link').val(url).change()
       $('#contents_content_' + content_id + '_link_title').val(title)
       $('#contents_content_' + content_id + '_link_class_name').val(link_type)
