@@ -22,13 +22,24 @@ module Alchemy
     )
 
     belongs_to :picture
+    before_save :fix_crop_values
     before_save :replace_newlines
-    before_save :fix_crop_from
 
-    private
+  private
 
-    def fix_crop_from
-      write_attribute(:crop_from, self.crop_from.to_s.split('x').map { |number| number.to_i < 0 ? "0" : number }.join('x'))
+    def fix_crop_values
+      %w(crop_from crop_size).each do |crop_value|
+        write_attribute crop_value, normalize_crop_value(crop_value)
+      end
+    end
+
+    def normalize_crop_value(crop_value)
+      self.send(crop_value).to_s.split('x').map { |n| normalize_number(n) }.join('x')
+    end
+
+    def normalize_number(number)
+      number = number.to_f.round
+      number < 0 ? 0 : number
     end
 
     def replace_newlines

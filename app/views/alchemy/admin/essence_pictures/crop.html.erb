@@ -1,11 +1,11 @@
-<%- if @no_image_notice -%>
+<% if @no_image_notice %>
 <div class="with_padding">
   <div class="info">
     <%= render_icon('info') %>
     <%= @no_image_notice %>
   </div>
 </div>
-<%- else -%>
+<% else %>
 <div id="overlay_toolbar">
   <%= form_for(@essence_picture, :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options), :id => 'image_cropper_form', :remote => true) do |f| %>
     <%= f.hidden_field :crop_from %>
@@ -30,7 +30,12 @@
 
 <div id="jscropper">
   <%= image_tag(
-    alchemy.zoom_picture_path(:id => @essence_picture.picture.id, :name => @essence_picture.picture.urlname, :format => @options[:format], :sh => @essence_picture.picture.security_token),
+    alchemy.zoom_picture_path(
+      :id => @essence_picture.picture.id,
+      :name => @essence_picture.picture.urlname,
+      :format => @options[:format],
+      :sh => @essence_picture.picture.security_token
+    ),
     :id => 'imageToCrop',
     :onload => "Alchemy.ImageCropper.init(
       [#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],
@@ -41,4 +46,4 @@
     );"
   ) %>
 </div>
-<%- end -%>
+<% end %>
