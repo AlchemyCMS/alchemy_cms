@@ -1,5 +1,4 @@
-<%= form_for([:admin, @essence_file], :remote => true, :method => "put") do |f| %>
-  <%- if @content.essence_type == "Alchemy::EssenceFile" -%>
+<%= form_for([:admin, @essence_file], :remote => true) do |f| %>
   <table>
     <tr>
       <td class="label"><%= f.label "title" %></td>
@@ -7,7 +6,17 @@
     </tr>
     <tr>
       <td class="label"><%= f.label "css_class" %></td>
-      <td class="select"><%= f.select "css_class", [[t("Layout default"), ""], [t("above"), "no_float"], [t("left"), "left"], [t("right"), "right"]], :class => 'alchemy_selectbox' %></td>
+      <td class="select">
+        <%= f.select(
+          "css_class", [
+            [t("Layout default"), ""],
+            [t("above"), "no_float"],
+            [t("left"), "left"],
+            [t("right"), "right"]
+          ],
+          :class => 'alchemy_selectbox'
+        ) %>
+      </td>
     </tr>
     <tr>
       <td colspan="2" class="submit">
@@ -15,77 +24,4 @@
       </td>
     </tr>
   </table>
-  <%- elsif @content.essence_type == "Alchemy::EssenceFlash" -%>
-  <table>
-    <tr>
-      <td class="label"><%= f.label "width" %></td>
-      <td class="input"><%= f.text_field "width", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "height" %></td>
-      <td class="input"><%= f.text_field "height", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "player_version" %></td>
-      <td class="input"><%= f.text_field "player_version", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="submit">
-        <%= f.button t("save"), :class => 'button' %>
-      </td>
-    </tr>
-  </table>
-  <%- elsif @content.essence_type == "Alchemy::EssenceVideo" -%>
-  <table>
-    <tr>
-      <td class="label"><%= f.label "width" %></td>
-      <td class="input"><%= f.text_field "width", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "height" %></td>
-      <td class="input"><%= f.text_field "height", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "allow_fullscreen" %></td>
-      <td class="checkbox"><%= f.check_box "allow_fullscreen" %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "auto_play" %></td>
-      <td class="checkbox"><%= f.check_box "auto_play" %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "show_navigation" %></td>
-      <td class="check_box"><%= f.check_box "show_navigation" %></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="submit">
-        <%= f.button t("save"), :class => 'button' %>
-      </td>
-    </tr>
-  </table>
-  <%- elsif @content.essence_type == "Alchemy::EssenceAudio" -%>
-  <table>
-    <tr>
-      <td class="label"><%= f.label "width" %></td>
-      <td class="input"><%= f.text_field "width", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "height" %></td>
-      <td class="input"><%= f.text_field "height", :class => 'thin_border' %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "show_eq" %></td>
-      <td class="checkbox"><%= f.check_box "show_eq" %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "show_navigation" %></td>
-      <td class="checkbox"><%= f.check_box "show_navigation" %></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="submit">
-        <%= f.button t("save"), :class => 'button' %>
-      </td>
-    </tr>
-  </table>
-  <%- end -%>
-<%- end -%>
+<% end %>

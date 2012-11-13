@@ -116,8 +116,6 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_videos
-
     resources :languages
 
     # OHOHOH lovely Rails! Why, oh why I always have to hack thou?

@@ -17,6 +17,7 @@ module Alchemy
         convert_essence_texts_displayed_as_select_into_essence_selects
         convert_essence_texts_displayed_as_checkbox_into_essence_booleans
         copy_new_config_file
+        removed_richmedia_essences_notice
 
         display_todos
       end
@@ -189,6 +190,22 @@ module Alchemy
         FileUtils.cp File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml'), old_config_file
         log "Copied new config file"
         todo "Check the config/alchemy/config.yml.old file for custom configuration options and insert them into the new config file."
+      end
+
+      def removed_richmedia_essences_notice
+        warn = <<-WARN
+We removed the EssenceAudio, EssenceFlash and EssenceVideo essences from Alchemy core!
+In order to get the essences back, install the `alchemy-richmedia-essences` gem.
+
+gem 'alchemy-richmedia-essences'
+
+We left the tables in your database, you can simply drop them if you don't use these essences in your project.
+
+drop_table :alchemy_essence_audios
+drop_table :alchemy_essence_flashes
+drop_table :alchemy_essence_videos
+WARN
+        todo warn
       end
 
     end
