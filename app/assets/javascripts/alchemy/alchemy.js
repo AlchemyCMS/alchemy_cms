@@ -3,6 +3,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require autocomplete-rails
 //= require tiny_mce/tiny_mce
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/

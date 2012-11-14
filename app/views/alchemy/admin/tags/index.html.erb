@@ -1,0 +1,45 @@
+<% content_for :toolbar do %>
+  <div id="toolbar_buttons">
+    <div class="button_with_label">
+      <%= link_to_overlay_window(
+        content_tag('span', '', :class => 'icon tag_add'),
+        new_admin_tag_path,
+        {
+          :title => t('New Tag'),
+          :size => '310x210'
+        },
+        :title => t('New Tag'),
+        :class => 'icon_button'
+      ) %><br />
+      <label><%= t('New Tag') %></label>
+    </div>
+  </div>
+  <%= render :partial => 'alchemy/admin/partials/search_form' %>
+<% end %>
+
+<div id="archive_all">
+  <% if @tags.any? %>
+
+  <table class="list" id="tag_list">
+    <tr class="legend">
+      <th class="icon"></th>
+      <th class="name"><%= ActsAsTaggableOn::Tag.human_attribute_name(:name) %></th>
+      <th class="count"><%= ActsAsTaggableOn::Tag.human_attribute_name(:taggings_count) %></th>
+      <th class="tools"></th>
+    </tr>
+    <%= render :partial => 'tag', :collection => @tags %>
+  </table>
+
+  <%= render 'alchemy/admin/partials/pagination_links', :items => @tags %>
+
+  <% else %>
+
+  <%= render_message do %>
+    <h2><%= t('No Tags found') %></h2>
+    <% if params[:query].blank? %>
+      <p><%= t(:tags_get_created_if_used_the_first_time) %></p>
+    <% end %>
+  <% end %>
+
+  <% end %>
+</div>

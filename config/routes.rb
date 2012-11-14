@@ -118,7 +118,6 @@ Alchemy::Engine.routes.draw do
 
     resources :languages
 
-    # OHOHOH lovely Rails! Why, oh why I always have to hack thou?
     resource :clipboard, :only => :index, :controller => 'clipboard' do
       collection do
         get :index
@@ -128,11 +127,16 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    # OHOHOH lovely Rails! Why, oh why I always have to hack thou?
     resource :trash, :only => :index, :controller => 'trash' do
       collection do
         get :index
         delete :clear
+      end
+    end
+
+    resources :tags do
+      collection do
+        get :autocomplete
       end
     end
 

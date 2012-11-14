@@ -13,7 +13,7 @@
     <tr>
       <td class="label"><%= f.label :tag_list %>*</td>
       <td class="input">
-        <%= f.text_field :tag_list, :class => "thin_border long" %>
+        <%= f.autocomplete_field :tag_list, alchemy.autocomplete_admin_tags_path, :class => "thin_border long", :data => {:delimiter => ', '} %>
       </td>
     </tr>
     <tr>

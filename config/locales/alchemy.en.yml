@@ -286,6 +286,7 @@ en:
       library: "Library"
       pages: "Pages"
       users: "Users"
+      tags: "Tags"
     name: "Name"
     names: "Names"
     navigation_name: "Navigationname"

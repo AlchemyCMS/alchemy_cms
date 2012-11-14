@@ -1,0 +1,16 @@
+<%= form_for [:admin, @tag], :as => :tag, :url => admin_tags_path, :html => {:id => 'new_tag'}, :remote => true do |form| %>
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= t(:tags_get_created_if_used_the_first_time) %>
+  </div>
+  <div id="errors" style="display: none"></div>
+  <table>
+    <tr>
+      <td class="label"><%= form.label :name %></td>
+      <td class="input"><%= form.text_field :name, :class => 'input_field' %></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="submit"><%= form.button t('save'), :name => nil, :class => 'button' %></td>
+    </tr>
+  </table>
+<% end %>

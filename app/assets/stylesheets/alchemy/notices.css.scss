@@ -1,0 +1,53 @@
+@import "alchemy/defaults";
+
+@mixin message {
+  padding: 8px 8px 8px 32px;
+  line-height: 17px;
+  border-width: 1px;
+  border-style: solid;
+  @include rounded-corner;
+  position: relative;
+  margin-bottom: 8px;
+
+  h2 { margin-top: 0 }
+
+  span.icon {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+  }
+
+  &.footnote {
+    font-size: 10px;
+    margin: 16px;
+  }
+
+  ol {
+    margin: 0 0 8px;
+    padding-left: 20px;
+
+    li {
+      text-indent: 0;
+      margin-bottom: 4px;
+    }
+  }
+}
+
+div.info {
+  @include message;
+  color: $text-color;
+  background-color: #eaf4f9;
+  border-color: #0b5c84;
+}
+
+div.error {
+  @include message;
+  background-color: #f1c9ca;
+  color: #931f23;
+}
+
+div.warning {
+  @include message;
+  background-color: #f7efb8;
+  color: #756f47;
+}

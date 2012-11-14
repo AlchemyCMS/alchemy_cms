@@ -118,16 +118,6 @@ a.drop_down_select img {
   margin-right: 4px;
 }
 
-#alchemy a.search_field_clear {
-  width: 16px;
-  height: 16px;
-  background: url('ui-icons_666666_256x240.png') no-repeat -80px -128px;
-  position: absolute;
-  right: 8px;
-  top: 7px;
-  @include rounded-corner;
-}
-
 #language_select {
   margin-bottom: 4px;
 }
@@ -142,22 +132,6 @@ div.edit_source_buttons {
   margin-top: 8px;
   float: right;
   clear: both;
-}
-
-div.info {
-  padding: 8px 8px 8px 32px;
-  line-height: 17px;
-  color: $text-color;
-  border: 1px solid #0b5c84;
-  @include rounded-corner;
-  background-color: #eaf4f9;
-  position: relative;
-  margin-bottom: 8px;
-}
-
-div.info.footnote {
-  font-size: 10px;
-  margin: 16px;
 }
 
 div#page {
@@ -284,12 +258,6 @@ div#user_list_legend {
   margin-top: $default-margin;
 }
 
-#toolbar div.search_field {
-  position: relative;
-  float: left;
-  margin-bottom: $default-margin;
-}
-
 #toolbar div p {
   float: right;
   margin: 3px $default-margin 0 0;
@@ -326,12 +294,6 @@ div#toolbar a.button:active {
 
 #page_sorting_panel p {
   margin-top: 1em;
-}
-
-div.info span.icon.info {
-  position: absolute;
-  top: 8px;
-  left: 8px;
 }
 
 div.table_right span.tools a.icon_button img {
@@ -749,12 +711,6 @@ input#user_admin {
   }
 }
 
-div#image_assign_filter_and_image_sizing form div.search_field {
-  margin-right: 4px;
-  float: left;
-  position: relative;
-}
-
 div#image_assign_filter_and_image_sizing form input.button {
   float: right;
 }
@@ -1036,16 +992,6 @@ select#url_protocol.medium {
 
 .assign_file_file.selected_file {
   background-color: #d1d1d1;
-}
-
-div.info ol {
-  margin: 0 0 8px;
-  padding-left: 20px;
-}
-
-div.info ol li {
-  text-indent: 0;
-  margin-bottom: 4px;
 }
 
 div#overlay_toolbar {

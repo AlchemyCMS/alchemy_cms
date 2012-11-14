@@ -1,0 +1,65 @@
+@import "alchemy/defaults";
+
+#toolbar div.search_field {
+  position: relative;
+  float: left;
+  margin-bottom: $default-margin;
+}
+
+div#image_assign_filter_and_image_sizing form div.search_field {
+  margin-right: 4px;
+  float: left;
+  position: relative;
+}
+
+#alchemy a.search_field_clear {
+  width: 16px;
+  height: 16px;
+  background: url('ui-icons_666666_256x240.png') no-repeat -80px -128px;
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  @include rounded-corner;
+}
+
+td#tags_tag_list {
+  text-align: left;
+
+  ul.tags {
+    max-height: 10em;
+    padding: 1px;
+    margin: 0;
+    margin-top: 2px;
+    overflow: auto;
+    text-align: left;
+    list-style-type: none;
+
+    li {
+      background-color: white;
+      padding: 4px;
+      margin: 0;
+
+      &.odd {
+        background-color: #eaf3f9;
+      }
+    }
+  }
+
+  .js_filter_field_box {
+    float: none;
+    margin: 0;
+
+    .js_filter_field {
+      width: 260px;
+      border-radius: 3px;
+      -o-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+    }
+
+    label {
+      display: none
+    }
+  }
+}

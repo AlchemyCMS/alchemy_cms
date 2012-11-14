@@ -7,6 +7,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'dynamic_form'
   require 'fleximage'
   require 'jquery-rails'
+  require 'rails3-jquery-autocomplete'
   require 'kaminari'
   require 'userstamp'
   require 'yaml'

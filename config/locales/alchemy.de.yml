@@ -227,10 +227,13 @@ de:
     "New": "Neu"
     "New Element": "Element hinzufügen"
     "New page": "Neue Seite"
+    "New Tag": "Neues Tag"
+    "New Tag Created": "Neues Tag wurde erstellt"
     "No": "Nein"
     "No EssenceType given": ""
     "No image found. Did you saved the element?": "Es wurde kein Bild gefunden. Haben Sie das Element auch gespeichert?"
     "No items in your clipboard": "Ihre Zwischenablage ist leer"
+    "No Tags found": "Keine Tags gefunden"
     "None": "keine"
     "Open Link in": "Link öffnen in"
     "Page deleted": "%{name} wurde gelöscht"
@@ -367,16 +370,19 @@ de:
     delete_image: "Bild löschen."
     delete_language: "Sprache löschen"
     delete_page: "Seite löschen"
+    delete_tag: 'Tag löschen'
     delete_user: "Benutzer löschen"
     document: "Dokument"
     documents: "Dateien"
     download_file: "%{filename} runterladen"
+    do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
     drag_to_sort: "Mit der Maus halten und verschieben"
     edit_file_properties: "Dateieigenschaften bearbeiten"
     edit_image_properties: "Bildeigenschaften bearbeiten"
     edit_language: "Sprache bearbeiten"
     edit_page: "Seite bearbeiten"
     edit_page_properties: "Seiteneigenschaften bearbeiten"
+    edit_tag: 'Tag bearbeiten'
     edit_user: "Benutzer bearbeiten"
     edit_selected_pictures: "Selektierte Bilder:"
     element_dirty_page_leave_warning: "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie wirklich fortfahren?"
@@ -448,6 +454,7 @@ de:
       library: "Bibliothek"
       pages: "Seiten"
       users: "Benutzer"
+      tags: "Tags"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
@@ -462,6 +469,7 @@ de:
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
     "or": 'oder'
+    or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
@@ -506,6 +514,9 @@ de:
     "regular method": "herkömmlichen Methode"
     remove: "entfernen"
     rename_file: "Datei umbenennen"
+    rename: umbenennen
+    replace: ersetzen
+    'Replaced Tag %{old_tag} with %{new_tag}': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
     right: "rechts"
     robot_follow: "den Robot Links folgen lassen"
     robot_index: "durch Robot indizieren"
@@ -516,6 +527,7 @@ de:
     'search query': 'Suchbegriff'
     search_engines: "Suchmaschinen"
     select_element: "Element wählen"
+    seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
     show_element_content: "Element ausklappen"
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
@@ -525,11 +537,14 @@ de:
     small_thumbnails: "kleine Miniaturbilder"
     subject: "Betreff"
     successfully_added_element: "Element wurde hinzugefügt."
+    successfully_deleted_tag: "Das Tag wurde gelöscht"
     successfully_saved_element_position: "Die Elementposition wurde gespeichert."
+    successfully_updated_tag: "Das Tag wurde gespeichert"
     swap_image: "Bild tauschen"
     insert_image: "Bild einfügen"
     swfupload:
       cancel_uploads: "Hochladen abbrechen"
+    tags_get_created_if_used_the_first_time: 'Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
     title: "Titel"
     "trash element": "Element in den Papierkorb legen"
     unknown: "unbekannt"
@@ -548,6 +563,7 @@ de:
     "We need at least one default.": "Es muss eine Standardsprache geben."
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
     width: "Breite"
+    you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
     zoom_image: "Bild in voller Größe anzeigen."
     "Leave Alchemy": "Alchemy verlassen"
     leave: "verlassen"
@@ -787,6 +803,9 @@ de:
         other: Benutzer
 
     attributes:
+
+      acts_as_taggable_on/tag:
+        taggings_count: Verwendung
 
       alchemy/attachment:
         content_type: "Dateityp"

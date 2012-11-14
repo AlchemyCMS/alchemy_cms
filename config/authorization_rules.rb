@@ -44,6 +44,7 @@ authorization do
     has_permission_on :alchemy_admin_users, :to => [:index]
     has_permission_on :alchemy_admin_trash, :to => [:index, :clear]
     has_permission_on :alchemy_admin_clipboard, :to => [:index, :insert, :remove, :clear]
+    has_permission_on :alchemy_admin_tags, :to => [:autocomplete]
   end
 
   role :editor do
@@ -52,6 +53,7 @@ authorization do
     has_permission_on :alchemy_admin_pictures, :to => [:manage, :flush, :delete_multiple, :edit_multiple, :update_multiple]
     has_permission_on :alchemy_admin_pages, :to => [:manage_pages]
     has_permission_on :alchemy_admin_layoutpages, :to => [:index]
+    has_permission_on :alchemy_admin_tags, :to => [:manage]
   end
 
   role :admin do

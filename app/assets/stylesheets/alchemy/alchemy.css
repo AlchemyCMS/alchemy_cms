@@ -11,7 +11,9 @@
 *= require alchemy/icons
 *= require alchemy/login
 *= require alchemy/modules
+*= require alchemy/notices
 *= require alchemy/pagination
+*= require alchemy/search
 *= require alchemy/sitemap
 *= require alchemy/tables
 *= require alchemy/upload
