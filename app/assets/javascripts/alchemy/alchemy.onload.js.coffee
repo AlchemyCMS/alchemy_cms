@@ -24,7 +24,7 @@ $ ->
   # Locale select handler
   $('select#change_locale').on 'change', (e) ->
     url = Alchemy.current_url
-    delimiter = url.match(/\?/) ? '&' : '?'
+    delimiter = if url.match(/\?/) then '&' else '?'
     window.location = url + delimiter + 'locale=' + $(this).val()
 
 # Resize the Alchemy frame on every browser resize.
