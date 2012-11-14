@@ -6,13 +6,12 @@
   Please consult Alchemy::Content.rb docs for further methods on the content object
 %>
 <%% cache(content) do %>
-
 <div class="content_editor <%= @essence_name %>" id="<%%= content_dom_id(content) %>">
-  <%%#= text_field_tag(
+  <%%= label_and_remove_link(content) %>
+  <%%= text_field_tag(
     content.form_field_name,
     content.ingredient,
     :id => content.form_field_id
   ) %>
 </div>
-
 <%% end %>
