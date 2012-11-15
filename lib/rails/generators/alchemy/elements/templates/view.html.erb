@@ -1,5 +1,5 @@
-<div class="<%= @element_name %>" id="<%%= element_dom_id(element) %>"<%%= element_preview_code(element) %>>
-<%- if @element["picture_gallery"] -%>
+<div class="<%= @element_name %>" id="<%%= element_dom_id(element) %>"<%%= element_preview_code(element) %><%- if @element['taggable'] == true -%><%%= element_tags(element) %><%- end -%>>
+<%- if @element["picture_gallery"] == true -%>
   <div class="<%= @element_name %>_images">
     <%%- element.contents.gallery_pictures.each do |image| -%>
     <div class="<%= @element_name %>_image <%%= image.essence.css_class %>">

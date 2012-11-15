@@ -1,4 +1,4 @@
-<div class="article" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
+<div class="article" id="<%= element_dom_id(element) %>"<%= element_preview_code(element) -%><%= element_tags(element) %>>
   <%- intro = render_essence_view_by_name(element, 'intro') -%>
   <%- if !intro.blank? -%>
   <div class="intro">
