@@ -1,0 +1,9 @@
+<div class="autocomplete_tag_list">
+  <%= f.label :tag_list, render_icon(:tag_label), :for => "autocomplete_tag_list_#{object.id}", :title => t(:tag_list) %>
+  <%= f.autocomplete_field(
+    :tag_list,
+    alchemy.autocomplete_admin_tags_path,
+    :data => {:delimiter => ', '},
+    :id => "autocomplete_tag_list_#{object.id}"
+  ) %>
+</div>

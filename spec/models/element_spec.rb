@@ -400,5 +400,33 @@ module Alchemy
 
     end
 
+    describe '#taggable?' do
+
+      context "description has 'taggable' key with true value" do
+        it "should return true" do
+          element = FactoryGirl.create(:element)
+          element.stub(:description).and_return({'name' => 'article', 'taggable' => true})
+          element.taggable?.should be_true
+        end
+      end
+
+      context "description has 'taggable' key with foo value" do
+        it "should return false" do
+          element = FactoryGirl.create(:element)
+          element.stub(:description).and_return({'name' => 'article', 'taggable' => 'foo'})
+          element.taggable?.should be_false
+        end
+      end
+
+      context "description has no 'taggable' key" do
+        it "should return false" do
+          element = FactoryGirl.create(:element)
+          element.stub(:description).and_return({'name' => 'article'})
+          element.taggable?.should be_false
+        end
+      end
+
+    end
+
   end
 end

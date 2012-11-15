@@ -66,8 +66,7 @@ module Alchemy
         @element = Element.find_by_id(params[:id])
         if @element.save_contents(params)
           @page = @element.page
-          @element.public = !params[:public].nil?
-          @element_validated = @element.save!
+          @element_validated = @element.update_attributes!(params[:element])
         else
           @element_validated = false
           @notice = t('Validation failed')

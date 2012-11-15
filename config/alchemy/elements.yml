@@ -134,6 +134,7 @@
 #    * uniqueness
 #
 - name: article
+  taggable: true
   contents:
   - name: intro
     type: EssenceText

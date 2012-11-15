@@ -28,8 +28,8 @@ module Alchemy
       :image_height,
       :image_width,
       :name,
-      :upload_hash,
-      :tag_list
+      :tag_list,
+      :upload_hash
     )
 
     stampable(:stamper_class_name => 'Alchemy::User')

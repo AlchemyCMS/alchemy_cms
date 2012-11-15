@@ -7,33 +7,33 @@
         <%= f.select('page_layout', @page_layouts, {}, {:class => 'alchemy_selectbox long'}) %>
       </td>
     </tr>
-    <%- unless @page.layoutpage -%>
+    <% unless @page.layoutpage %>
     <tr>
       <td class="label"><%= t("page_status") %>: </td>
       <td class="checkbox long">
-        <%= f.check_box :public -%>
+        <%= f.check_box :public %>
         <%= f.label :public %><br/>
-        <%= f.check_box :visible -%>
+        <%= f.check_box :visible %>
         <%= f.label :visible %><br/>
-        <%= f.check_box :restricted -%>
+        <%= f.check_box :restricted %>
         <%= f.label :restricted %>
-        <%- if configuration(:sitemap)[:show_flag] -%><br/>
-        <%= f.check_box :sitemap -%>
+        <% if configuration(:sitemap)[:show_flag] %><br/>
+        <%= f.check_box :sitemap %>
         <%= f.label :sitemap %>
-        <%- end -%>
+        <% end %>
       </td>
     </tr>
-    <%- end -%>
-    <%- unless @page.layoutpage -%>
+    <% end %>
+    <% unless @page.layoutpage %>
     <tr>
       <td colspan="2" class="heading"><%= t("names") %></td>
     </tr>
-    <%- end -%>
+    <% end %>
     <tr>
       <td class="label"><%= f.label "name" %>: </td>
       <td class="input"><%= f.text_field "name", :size => 31, :class => "thin_border long", :autofocus => true %></td>
     </tr>
-    <%- unless @page.layoutpage -%>
+    <% unless @page.layoutpage %>
     <tr>
       <td class="label"><%= f.label "urlname" %>: </td>
       <td class="input"><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
@@ -64,12 +64,22 @@
         <%= f.text_area "meta_keywords", :class => "thin_border long" %><br/>
       </td>
     </tr>
-    <%- end -%>
+    <% end %>
+    <% if @page.taggable? %>
+    <tr>
+      <td class="label"><%= f.label :tag_list %>*:&nbsp;</td>
+      <td class="input">
+        <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => @page %>
+      </td>
+    </tr>
+    <% end %>
     <tr>
       <td colspan="2" class="submit">
+        <% if !@page.layoutpage || @page.taggable? %>
         <p class="foot_note">
           *<%= t('pages.update.comma_seperated') %>
         </p>
+        <% end %>
         <%= f.button t("save"), :class => 'button' %>
       </td>
     </tr>

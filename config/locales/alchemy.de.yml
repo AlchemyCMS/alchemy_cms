@@ -544,6 +544,7 @@ de:
     insert_image: "Bild einfügen"
     swfupload:
       cancel_uploads: "Hochladen abbrechen"
+    tag_list: Schlagwörter
     tags_get_created_if_used_the_first_time: 'Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
     title: "Titel"
     "trash element": "Element in den Papierkorb legen"
@@ -818,6 +819,7 @@ de:
         display_name: "Name"
         name: "Name"
         public: "sichtbar"
+        tag_list: Schlagwörter
 
       alchemy/essence_file:
         css_class: Textanordnung
@@ -859,6 +861,7 @@ de:
         robot_follow: "den Robot Links folgen lassen"
         robot_index: "durch Robot indizieren"
         sitemap: "in der Seitenübersicht sichtbar"
+        tag_list: Schlagwörter
         title: "Seitentitel"
         updated_at: "Aktualisiert am"
         urlname: "URL-Name"
@@ -883,6 +886,7 @@ de:
         password: "Passwort"
         password_confirmation: "Passwort Bestätigung"
         role: "Benutzerrolle"
+        tag_list: Schlagwörter
 
     errors:
       <<: *errors

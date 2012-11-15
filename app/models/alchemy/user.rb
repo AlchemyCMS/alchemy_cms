@@ -7,6 +7,7 @@ module Alchemy
       c.transition_from_restful_authentication = true
       c.logged_in_timeout = Config.get(:auto_logout_time).minutes
     end
+    acts_as_taggable
 
     attr_accessible(
       :firstname,
@@ -17,7 +18,8 @@ module Alchemy
       :role,
       :language,
       :password,
-      :password_confirmation
+      :password_confirmation,
+      :tag_list
     )
 
     has_many :folded_pages

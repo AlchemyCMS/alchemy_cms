@@ -37,6 +37,7 @@
 - name: standard
   elements: [article, claim, header, bild, bild_text, text, intro, headline, image_mosaic, download]
   autogenerate: [header, claim, article]
+  taggable: true
 
 - name: contact
   unique: true
@@ -62,6 +63,7 @@
 - name: layout_header
   unique: true
   layoutpage: true
+  taggable: true
   elements: [sitename, header]
 
 - name: layout_footer

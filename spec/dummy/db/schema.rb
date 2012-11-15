@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113115120) do
+ActiveRecord::Schema.define(:version => 20121115100736) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -49,14 +49,15 @@ ActiveRecord::Schema.define(:version => 20121113115120) do
     t.string   "name"
     t.integer  "position"
     t.integer  "page_id"
-    t.boolean  "public",     :default => true
-    t.boolean  "folded",     :default => false
-    t.boolean  "unique",     :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "public",          :default => true
+    t.boolean  "folded",          :default => false
+    t.boolean  "unique",          :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "cell_id"
+    t.text     "cached_tag_list"
   end
 
   add_index "alchemy_elements", ["page_id", "position"], :name => "index_elements_on_page_id_and_position"
@@ -153,6 +154,14 @@ ActiveRecord::Schema.define(:version => 20121113115120) do
 
   add_index "alchemy_essence_selects", ["value"], :name => "index_alchemy_essence_selects_on_value"
 
+  create_table "alchemy_essence_tag_lists", :force => true do |t|
+    t.text     "cached_tag_list"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "alchemy_essence_texts", :force => true do |t|
     t.text     "body"
     t.string   "link"
@@ -217,6 +226,7 @@ ActiveRecord::Schema.define(:version => 20121113115120) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "language_id"
+    t.text     "cached_tag_list"
   end
 
   add_index "alchemy_pages", ["language_id"], :name => "index_pages_on_language_id"
@@ -260,6 +270,7 @@ ActiveRecord::Schema.define(:version => 20121113115120) do
     t.datetime "updated_at",                                                   :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.text     "cached_tag_list"
   end
 
   add_index "alchemy_users", ["perishable_token"], :name => "index_users_on_perishable_token"

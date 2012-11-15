@@ -45,6 +45,10 @@ td.input, td.submit, td.select, td.value {
   }
 }
 
+td.input {
+  .autocomplete_tag_list { float: right }
+}
+
 td.submit p.foot_note { float: left; padding-top: 1em }
 
 td.label {
@@ -171,9 +175,10 @@ td.role {
   width: 10%;
 }
 
-td.count {
-  width: 80px;
-  text-align: center;
+th.count, td.count {
+  width: 120px;
+  text-align: right;
+  padding-right: 16px;
 }
 
 table td.rights {

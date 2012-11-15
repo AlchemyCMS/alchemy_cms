@@ -23,6 +23,7 @@ module Alchemy
       :robot_index,
       :robot_follow,
       :sitemap,
+      :tag_list,
       :title,
       :urlname,
       :visible
@@ -30,7 +31,9 @@ module Alchemy
 
     RESERVED_URLNAMES = %w(admin messages new)
 
+    acts_as_taggable
     acts_as_nested_set(:dependent => :destroy)
+
     stampable(:stamper_class_name => 'Alchemy::User')
 
     has_many :folded_pages
@@ -512,6 +515,10 @@ module Alchemy
 
     def cache_key(request = nil)
       "alchemy/#{language_code}/#{urlname}"
+    end
+
+    def taggable?
+      definition['taggable'] == true
     end
 
   private

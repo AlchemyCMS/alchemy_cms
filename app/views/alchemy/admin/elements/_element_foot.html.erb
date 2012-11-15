@@ -27,7 +27,7 @@
     ) %>
   </span>
   <span class="element_public">
-    <%= check_box_tag "public", "1", element.public?, :id => "element_#{element.id}_public" -%>
+    <%= f.check_box :public, :id => "element_#{element.id}_public" -%>
     <%= label_tag "element_#{element.id}_public", t("visible") -%>
   </span>
   <button type="submit" class="button">

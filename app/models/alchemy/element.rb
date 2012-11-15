@@ -1,7 +1,9 @@
 module Alchemy
   class Element < ActiveRecord::Base
 
-    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents display_name amount picture_gallery)
+    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable)
+
+    acts_as_taggable
 
     attr_accessible(
       :cell_id,
@@ -11,6 +13,7 @@ module Alchemy
       :page_id,
       :position,
       :public,
+      :tag_list,
       :unique
     )
 
@@ -504,6 +507,11 @@ module Alchemy
     # returns true if the page this element is displayed on is restricted?
     def restricted?
       page.restricted?
+    end
+
+    # Returns true if the definition of this element has a taggable true value.
+    def taggable?
+      description['taggable'] == true
     end
 
   private

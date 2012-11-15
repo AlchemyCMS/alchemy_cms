@@ -22,9 +22,18 @@
       </td>
     </tr>
     <tr>
-      <td class="label"><%= label_tag :pictures_tag_list, t('Tags') %></td>
+      <td class="label"><%= label_tag :pictures_tag_list, t('Tags') + '*' %></td>
       <td class="input">
-        <%= text_field_tag :pictures_tag_list, @pictures.collect(&:tag_list).flatten.uniq.join(', '), :class => "thin_border long" %>
+        <div class="autocomplete_tag_list">
+          <%= label_tag :tag_list, render_icon(:tag_label), :for => "autocomplete_tag_list", :title => t(:tag_list) %>
+          <%= autocomplete_field_tag(
+            :pictures_tag_list,
+            @pictures.collect(&:tag_list).flatten.uniq.join(', '),
+            alchemy.autocomplete_admin_tags_path,
+            :data => {:delimiter => ', '},
+            :id => "autocomplete_tag_list"
+          ) %>
+        </div>
       </td>
     </tr>
     <tr>

@@ -496,3 +496,18 @@ div.selectboxit-container {
     }
   }
 }
+
+.autocomplete_tag_list {
+  position: relative;
+
+  label {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+  }
+
+  input[data-autocomplete] {
+    width: 220px;
+    padding-left: 24px;
+  }
+}

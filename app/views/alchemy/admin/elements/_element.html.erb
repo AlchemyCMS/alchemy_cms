@@ -1,23 +1,20 @@
-<div class="element_editor<%= element.folded ? ' folded' : '' %> <%= defined?(draggable) && !draggable ? 'not-draggable' : 'draggable'  %>" id="element_<%= element.id -%>" data-element-id="<%= element.id -%>">
+<div class="element_editor<%= element.folded ? ' folded' : '' %> <%= defined?(draggable) && !draggable ? 'not-draggable' : 'draggable'  %>" id="element_<%= element.id %>" data-element-id="<%= element.id %>">
   <%= render :partial => "alchemy/admin/elements/element_head", :locals => {:element => element} %>
-  <%- if !element.folded? -%>
-    <%= form_for(
-      [:admin, element],
-      :remote => true,
-      :html => {
-        :id => "element_#{element.id}_form"
-      }
-    ) do %>
+  <% if !element.folded? %>
+    <%= form_for [:admin, element], :remote => true, :html => {:id => "element_#{element.id}_form"} do |f| %>
       <div id="element_<%= element.id %>_errors" class="element_errors" style="display: none"></div>
       <div id="element_<%= element.id %>_content" class="element_content">
         <%= render_editor(element) %>
       </div>
-      <%- if element.has_validations? -%>
+      <% if element.has_validations? %>
       <p class="validation_notice">
         <span class="validation_indicator">*</span> <%= t('Mandatory') %>
       </p>
-      <%- end -%>
-      <%= render :partial => 'alchemy/admin/elements/element_foot', :locals => {:element => element} %>
+      <% end %>
+      <% if element.taggable? %>
+        <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => element %>
+      <% end %>
+      <%= render :partial => 'alchemy/admin/elements/element_foot', :locals => {:element => element, :f => f} %>
     <% end %>
-  <%- end -%>
+  <% end %>
 </div>

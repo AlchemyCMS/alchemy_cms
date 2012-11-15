@@ -21,12 +21,14 @@ div#alchemy_greeting {
 }
 
 div.login_signup_box {
-  width: 360px;
+  width: 390px;
   padding: 4*$default-padding;
   border: $default-border;
   background-color: $medium-gray;
   @include rounded-corner;
   margin: 2em auto;
+
+  input[type="text"], input.thin_border { width: 240px }
 }
 
 html.no-js {
