@@ -806,7 +806,8 @@ de:
     attributes:
 
       acts_as_taggable_on/tag:
-        taggings_count: Verwendung
+        taggings_types: Verwendet an
+        taggings_count: Anzahl Verwendung
 
       alchemy/attachment:
         content_type: "Dateityp"

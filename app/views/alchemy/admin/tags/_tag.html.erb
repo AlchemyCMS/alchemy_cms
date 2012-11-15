@@ -1,6 +1,9 @@
 <tr class="<%= cycle('even', 'odd') %>">
   <td class="icon"><%= render_icon :tag %></td>
   <td class="name"><%= tag.name %></td>
+  <td class="count">
+    <%= tag.taggings.collect(&:taggable).collect { |t| t.class.model_name.human }.uniq.join(', ') %>
+  </td>
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
     <%= link_to_overlay_window(
