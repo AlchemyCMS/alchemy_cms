@@ -157,15 +157,37 @@ describe Alchemy::ElementsHelper do
     end
   end
 
-  context "in preview mode" do
+  describe '#element_preview_code' do
 
-    it "should return the data-alchemy-element HTML attribute for element" do
-      @preview_mode = true
-      helper.element_preview_code(@element).should == " data-alchemy-element='#{@element.id}'"
+    context "in preview mode" do
+      it "should return the data-alchemy-element HTML attribute for element" do
+        @preview_mode = true
+        helper.element_preview_code(@element).should == " data-alchemy-element=\"#{@element.id}\""
+      end
     end
 
-    it "should not return the data-alchemy-element HTML attribute if not in preview_mode" do
-      helper.element_preview_code(@element).should_not == " data-alchemy-element='#{@element.id}'"
+    context "not in preview mode" do
+      it "should return nil" do
+        helper.element_preview_code(@element).should be_nil
+      end
+    end
+
+  end
+
+  describe '#element_tags' do
+
+    context "element having tags" do
+      before { @element.tag_list = "peter, lustig"; @element.save! }
+
+      it "should return tag list as HTML data attribute" do
+        helper.element_tags(@element).should == " data-element-tags=\"peter, lustig\""
+      end
+    end
+
+    context "element not having tags" do
+      it "should return empty string" do
+        helper.element_tags(@element).should == ""
+      end
     end
 
   end
