@@ -154,14 +154,6 @@ ActiveRecord::Schema.define(:version => 20121115100736) do
 
   add_index "alchemy_essence_selects", ["value"], :name => "index_alchemy_essence_selects_on_value"
 
-  create_table "alchemy_essence_tag_lists", :force => true do |t|
-    t.text     "cached_tag_list"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "alchemy_essence_texts", :force => true do |t|
     t.text     "body"
     t.string   "link"
