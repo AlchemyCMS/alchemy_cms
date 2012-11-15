@@ -622,7 +622,7 @@ module Alchemy
 
       context "definition has 'taggable' key with true value" do
         it "should return true" do
-          page = FactoryGirl.create(:page)
+          page = FactoryGirl.build(:page)
           page.stub(:definition).and_return({'name' => 'standard', 'taggable' => true})
           page.taggable?.should be_true
         end
@@ -630,7 +630,7 @@ module Alchemy
 
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
-          page = FactoryGirl.create(:page)
+          page = FactoryGirl.build(:page)
           page.stub(:definition).and_return({'name' => 'standard', 'taggable' => 'foo'})
           page.taggable?.should be_false
         end
@@ -638,8 +638,8 @@ module Alchemy
 
       context "definition has no 'taggable' key" do
         it "should return false" do
-          page = FactoryGirl.create(:page)
-          page.stub(:description).and_return({'name' => 'standard'})
+          page = FactoryGirl.build(:page)
+          page.stub(:definition).and_return({'name' => 'standard'})
           page.taggable?.should be_false
         end
       end
