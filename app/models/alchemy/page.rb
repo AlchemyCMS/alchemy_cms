@@ -2,6 +2,17 @@
 module Alchemy
   class Page < ActiveRecord::Base
 
+    RESERVED_URLNAMES = %w(admin messages new)
+    DEFAULT_ATTRIBUTES_FOR_COPY = {
+      :do_not_autogenerate => true,
+      :do_not_sweep => true,
+      :visible => false,
+      :public => false,
+      :locked => false,
+      :locked_by => nil
+    }
+    SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth cached_tag_list)
+
     attr_accessible(
       :do_not_autogenerate,
       :do_not_sweep,
@@ -28,8 +39,6 @@ module Alchemy
       :urlname,
       :visible
     )
-
-    RESERVED_URLNAMES = %w(admin messages new)
 
     acts_as_taggable
     acts_as_nested_set(:dependent => :destroy)
@@ -384,16 +393,11 @@ module Alchemy
     # You can pass any kind of Page#attributes as a difference to source.
     # Notice: It prevents the element auto_generator from running.
     def self.copy(source, differences = {})
-      attributes = source.attributes.symbolize_keys.merge(differences)
-      attributes.merge!(
-        :do_not_autogenerate => true,
-        :do_not_sweep => true,
-        :visible => false,
-        :public => false,
-        :locked => false,
-        :locked_by => nil
-      )
-      page = self.new(attributes.except(:id, :updated_at, :created_at, :creator_id, :updater_id, :lft, :rgt, :depth))
+      source.attributes.stringify_keys!
+      differences.stringify_keys!
+      attributes = source.attributes.merge(differences)
+      attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
+      page = self.new(attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY))
       if page.save
         # copy the page´s cells
         source.cells.each do |cell|

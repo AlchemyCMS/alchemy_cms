@@ -2,6 +2,7 @@ module Alchemy
   class Element < ActiveRecord::Base
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable)
+    SKIPPED_ATTRIBUTES_ON_COPY = %w(id position folded created_at updated_at creator_id updater_id cached_tag_list)
 
     acts_as_taggable
 
@@ -152,15 +153,9 @@ module Alchemy
       #   @copy.public? # => false
       #
       def copy(source, differences = {})
-        attributes = source.attributes.except(
-          "id",
-          "position",
-          "folded",
-          "created_at",
-          "updated_at",
-          "creator_id",
-          "updater_id"
-        ).merge(differences.stringify_keys)
+        source.attributes.stringify_keys!
+        differences.stringify_keys!
+        attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences)
         element = self.create!(attributes.merge(:create_contents_after_create => false))
         source.contents.each do |content|
           new_content = Content.copy(content, :element_id => element.id)
