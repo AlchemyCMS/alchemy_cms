@@ -292,7 +292,7 @@ module Alchemy
         if content_for?(:title)
           title = content_for(:title)
         else
-          title = t(controller_name, :scope => :libraries)
+          title = t(controller_name, :scope => :modules)
         end
         "Alchemy CMS - #{title}"
       end
