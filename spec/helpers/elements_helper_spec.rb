@@ -179,8 +179,16 @@ describe Alchemy::ElementsHelper do
     context "element having tags" do
       before { @element.tag_list = "peter, lustig"; @element.save! }
 
-      it "should return tag list as HTML data attribute" do
-        helper.element_tags(@element).should == " data-element-tags=\"peter, lustig\""
+      context "with no delimiter options given" do
+        it "should return tag list as HTML data attribute" do
+          helper.element_tags(@element).should == " data-element-tags=\"peter lustig\""
+        end
+      end
+
+      context "with delimiter option set to ', '" do
+        it "should return a comma seperated HTML data attribute" do
+          helper.element_tags(@element, :delimiter => ', ').should == " data-element-tags=\"peter, lustig\""
+        end
       end
     end
 

@@ -174,9 +174,17 @@ module Alchemy
     end
 
     # Returns elements tags as a data-element-tags attribute.
-    def element_tags(element)
+    #
+    # === Options:
+    #
+    #   :delimiter => ' '     # Pass a delimiter string for tag list. Default is ' '
+    #
+    def element_tags(element, options = {})
+      options = {
+        :delimiter => ' '
+      }.merge(options)
       return "" if !element.taggable? || element.tag_list.blank?
-      tag_options(:data => {'element-tags' => element.tag_list.join(', ')})
+      tag_options(:data => {'element-tags' => element.tag_list.join(options[:delimiter])})
     end
 
   end
