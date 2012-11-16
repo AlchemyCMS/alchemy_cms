@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115100736) do
+ActiveRecord::Schema.define(:version => 20121116141016) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(:version => 20121115100736) do
     t.integer  "size"
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "cached_tag_list"
   end
 
   create_table "alchemy_cells", :force => true do |t|
@@ -230,12 +231,12 @@ ActiveRecord::Schema.define(:version => 20121115100736) do
     t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.string   "upload_hash"
-    t.string   "cached_tag_list"
+    t.text     "cached_tag_list", :limit => 255
   end
 
   create_table "alchemy_users", :force => true do |t|

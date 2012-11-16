@@ -6,10 +6,11 @@ module Alchemy
     has_many :elements, :through => :contents
     has_many :pages, :through => :elements
 
-    attr_accessible :uploaded_data, :name, :filename
+    attr_accessible :uploaded_data, :name, :filename, :tag_list
 
     stampable(:stamper_class_name => 'Alchemy::User')
 
+    acts_as_taggable
     has_attachment(
       :storage => :file_system,
       :file_system_path => 'uploads/attachments',

@@ -3,31 +3,31 @@
     <%= render_icon attachment.icon_css_class %>
   </td>
   <td class="name">
-    <%- if permitted_to?(:show, :attachments) -%>
+  <% if permitted_to?(:show, :attachments) %>
     <%= link_to(
       attachment.name,
       alchemy.admin_attachment_path(attachment),
       :target => '_blank',
       :title => t('View File')
     ) %>
-    <%- else -%>
+  <% else %>
     <%= attachment.name %>
-    <%- end -%>
+  <% end %>
   </td>
   <td class="file_name"><%= attachment.filename %></td>
   <td class="file_type"><%= mime_to_human(attachment.content_type) %></td>
   <td class="file_size"><%= number_to_human_size(attachment.size) %></td>
   <td class="date"><%= l(attachment.created_at, :format => :short) %></td>
   <td class="tools long">
-    <%- permitted_to?(:download, :attachments) do -%>
+  <% permitted_to?(:download, :alchemy_attachments) do %>
     <%= link_to(
       "",
       alchemy.download_admin_attachment_path(attachment),
       :title => t("download_file", :filename => attachment.filename),
       :class => "icon file_download"
     ) %>
-    <%- end -%>
-    <%- permitted_to?(:destroy, :alchemy_admin_attachments) do -%>
+  <% end %>
+  <% permitted_to?(:destroy, :alchemy_admin_attachments) do %>
     <%= link_to_confirmation_window(
       "",
       t("confirm_to_delete_file"),
@@ -41,18 +41,18 @@
         :class => 'icon file_delete',
         :title => t('delete_file')
       }
-    ) -%>
-    <%- end -%>
-    <%- permitted_to?(:edit, :alchemy_admin_attachments) do -%>
+    ) %>
+  <% end %>
+  <% permitted_to?(:edit, :alchemy_admin_attachments) do %>
     <%= link_to_overlay_window("",
       alchemy.edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
       {
         :title => t('rename_file'),
-        :size => '410x180'
+        :size => '380x220'
       },
       :class => 'icon file_edit',
       :title => t('rename_file')
-    ) -%>
-    <%- end -%>
+    ) %>
+  <% end %>
   </td>
 </tr>

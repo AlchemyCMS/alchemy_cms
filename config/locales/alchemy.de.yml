@@ -819,6 +819,7 @@ de:
         filename: "Dateiname"
         name: "Name"
         size: "Dateigröße"
+        tag_list: Schlagworte
 
       alchemy/element:
         display_name: "Name"
