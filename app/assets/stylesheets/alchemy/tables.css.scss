@@ -9,7 +9,6 @@ table {
 
   td, th {
     padding: $default-padding;
-    white-space: nowrap;
     vertical-align: top;
     line-height: 18px;
 
@@ -19,6 +18,7 @@ table {
   }
 
   th {
+    white-space: nowrap;
     text-align: left;
     height: 22px;
     vertical-align: top;
@@ -204,4 +204,9 @@ table tr.even td {
 th.icon, td.icon {
   background: none;
   display: table-cell;
+  vertical-align: top;
+}
+
+td.file_name {
+  word-break: break-all;
 }
