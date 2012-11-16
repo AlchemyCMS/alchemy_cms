@@ -206,7 +206,7 @@ de:
     "File renamed successfully from: '%{from}' to '%{to}'": "Datei wurde erfolgreich von: '%{from}' nach '%{to}' umbenannt."
     "File upload error: %{error}": "Datei konnte nicht hochgeladen werden: %{error}"
     "File: '%{name}' deleted successfully": "%{name} wurde gelöscht"
-    "Filter by tag": "Nach Schlagwörtern filtern"
+    "Filter by tag": "Nach Schlagworten filtern"
     "Flush page cache": "Seitencache löschen"
     "Flush picture cache": "Bildercache löschen"
     "Have much fun with Alchemy!": "Viel Spaß mit Alchemy!"
@@ -227,13 +227,13 @@ de:
     "New": "Neu"
     "New Element": "Element hinzufügen"
     "New page": "Neue Seite"
-    "New Tag": "Neues Tag"
-    "New Tag Created": "Neues Tag wurde erstellt"
+    "New Tag": "Neues Schlagwort"
+    "New Tag Created": "Neues Schlagwort wurde erstellt"
     "No": "Nein"
     "No EssenceType given": ""
     "No image found. Did you saved the element?": "Es wurde kein Bild gefunden. Haben Sie das Element auch gespeichert?"
     "No items in your clipboard": "Ihre Zwischenablage ist leer"
-    "No Tags found": "Keine Tags gefunden"
+    "No Tags found": "Keine Schlagworte gefunden"
     "None": "keine"
     "Open Link in": "Link öffnen in"
     "Page deleted": "%{name} wurde gelöscht"
@@ -258,7 +258,7 @@ de:
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
     "Please choose": "Bitte wählen"
     "Please log in": "Bitte melden Sie sich an."
-    "Please seperate the tags with commata": "*) Die Schlagwörter bitte mit Kommata getrennt eingeben."
+    "Please seperate the tags with commata": "*) Die Schlagworte bitte mit Kommata getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
@@ -286,7 +286,7 @@ de:
     sitemap_editor_info: "Die Sitemap wird automatisch generiert"
     searchresults_editor_info: "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
     element_dirty_notice: "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich einklappen?"
-    "Tags": "Schlagwörter"
+    "Tags": "Schlagworte"
     "This page is locked by %{name}": "Diese Seite wird gerade von %{name} blockiert"
     "Title": "Titel"
     "To manage your website open a browser and go to": "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden Link"
@@ -370,19 +370,19 @@ de:
     delete_image: "Bild löschen."
     delete_language: "Sprache löschen"
     delete_page: "Seite löschen"
-    delete_tag: 'Tag löschen'
+    delete_tag: 'Schlagwort löschen'
     delete_user: "Benutzer löschen"
     document: "Dokument"
     documents: "Dateien"
     download_file: "%{filename} runterladen"
-    do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
+    do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Schlagwort wirklich löschen?"
     drag_to_sort: "Mit der Maus halten und verschieben"
     edit_file_properties: "Dateieigenschaften bearbeiten"
     edit_image_properties: "Bildeigenschaften bearbeiten"
     edit_language: "Sprache bearbeiten"
     edit_page: "Seite bearbeiten"
     edit_page_properties: "Seiteneigenschaften bearbeiten"
-    edit_tag: 'Tag bearbeiten'
+    edit_tag: 'Schlagwort bearbeiten'
     edit_user: "Benutzer bearbeiten"
     edit_selected_pictures: "Selektierte Bilder:"
     element_dirty_page_leave_warning: "Sie haben ungesicherte Elemente auf der Seite. Möchten Sie wirklich fortfahren?"
@@ -442,7 +442,7 @@ de:
     medium_thumbnails: "mittlere Miniaturbilder"
     meta_data: "Meta Daten"
     meta_description: "Meta Beschreibung"
-    meta_keywords: "Meta Schlagwörter"
+    meta_keywords: "Meta Schlagworte"
     missing_image: "Bild wird vermisst."
     modules:
       user_sessions: "Anmeldung"
@@ -454,7 +454,7 @@ de:
       library: "Bibliothek"
       pages: "Seiten"
       users: "Benutzer"
-      tags: "Tags"
+      tags: "Schlagworte"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
@@ -469,7 +469,7 @@ de:
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
     "or": 'oder'
-    or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
+    or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Schlagwort'
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
@@ -516,7 +516,7 @@ de:
     rename_file: "Datei umbenennen"
     rename: umbenennen
     replace: ersetzen
-    'Replaced Tag %{old_tag} with %{new_tag}': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    'Replaced Tag %{old_tag} with %{new_tag}': "Das Schlagwort '%{old_tag}' wurde durch das Schlagwort '%{new_tag}' ersetzt"
     right: "rechts"
     robot_follow: "den Robot Links folgen lassen"
     robot_index: "durch Robot indizieren"
@@ -527,7 +527,7 @@ de:
     'search query': 'Suchbegriff'
     search_engines: "Suchmaschinen"
     select_element: "Element wählen"
-    seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
+    seperate_tags_with_comma: 'Mehrere Schlagworte mit Komma trennen.'
     show_element_content: "Element ausklappen"
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
@@ -537,15 +537,15 @@ de:
     small_thumbnails: "kleine Miniaturbilder"
     subject: "Betreff"
     successfully_added_element: "Element wurde hinzugefügt."
-    successfully_deleted_tag: "Das Tag wurde gelöscht"
+    successfully_deleted_tag: "Das Schlagwort wurde gelöscht"
     successfully_saved_element_position: "Die Elementposition wurde gespeichert."
-    successfully_updated_tag: "Das Tag wurde gespeichert"
+    successfully_updated_tag: "Das Schlagwort wurde gespeichert"
     swap_image: "Bild tauschen"
     insert_image: "Bild einfügen"
     swfupload:
       cancel_uploads: "Hochladen abbrechen"
-    tag_list: Schlagwörter
-    tags_get_created_if_used_the_first_time: 'Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
+    tag_list: Schlagworte
+    tags_get_created_if_used_the_first_time: 'Ein Schlagwort wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
     title: "Titel"
     "trash element": "Element in den Papierkorb legen"
     unknown: "unbekannt"
@@ -564,7 +564,7 @@ de:
     "We need at least one default.": "Es muss eine Standardsprache geben."
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
     width: "Breite"
-    you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
+    you_can_rename_this_tag: "Sie können dieses Schlagwort umbenennen"
     zoom_image: "Bild in voller Größe anzeigen."
     "Leave Alchemy": "Alchemy verlassen"
     leave: "verlassen"
@@ -803,6 +803,10 @@ de:
         one: Benutzer
         other: Benutzer
 
+      alchemy/user_session:
+        one: Anmeldung
+        other: Anmeldungen
+
     attributes:
 
       acts_as_taggable_on/tag:
@@ -820,7 +824,7 @@ de:
         display_name: "Name"
         name: "Name"
         public: "sichtbar"
-        tag_list: Schlagwörter
+        tag_list: Schlagworte
 
       alchemy/essence_file:
         css_class: Textanordnung
@@ -862,7 +866,7 @@ de:
         robot_follow: "den Robot Links folgen lassen"
         robot_index: "durch Robot indizieren"
         sitemap: "in der Seitenübersicht sichtbar"
-        tag_list: Schlagwörter
+        tag_list: Schlagworte
         title: "Seitentitel"
         updated_at: "Aktualisiert am"
         urlname: "URL-Name"
@@ -873,7 +877,7 @@ de:
         image_height: "Bildhöhe"
         image_width: "Bildbreite"
         name: "Name"
-        tag_list: Schlagwörter
+        tag_list: Schlagworte
 
       alchemy/user:
         email: "Email"
@@ -887,7 +891,7 @@ de:
         password: "Passwort"
         password_confirmation: "Passwort Bestätigung"
         role: "Benutzerrolle"
-        tag_list: Schlagwörter
+        tag_list: Schlagworte
 
     errors:
       <<: *errors
