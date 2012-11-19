@@ -28,6 +28,7 @@ role :db,                       "<%= @server %>", :primary => true
 
 # the webserver path
 set :deploy_to,                 "<%= @deploy_path %>"
+set :deploy_via,                :remote_cache
 
 # repository settings
 <%- if @scm == "svn" -%>
@@ -45,6 +46,9 @@ set :scm,                       "git"
 set :repository,                "<%= @repository_url %>"
 set :branch,                    "master"
 <%- end -%>
+
+# rails env
+set :rails_env,                 "production"
 
 # before hooks
 before "deploy:start",          "deploy:seed"
@@ -91,11 +95,14 @@ end
 
 ## defaults
 
-# rails env
-set :rails_env,                 "production"
-
 # enable bundler binstubs
 set :bundle_flags,              "--deployment --binstubs"
 
 # do not use sudo
 set :use_sudo,                  false
+
+# enable ssh-agent forwarding
+ssh_options[:forward_agent] =   true
+
+# Enable git password prompting
+default_run_options[:pty]   =   true
