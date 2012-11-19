@@ -30,7 +30,7 @@ Alchemy.loadjQuery = function(callback) {
     head.appendChild(script);
   }
 
-  getScript('/assets/jquery.min.js', function() {
+  getScript('//code.jquery.com/jquery.min.js', function() {
     if (typeof(jQuery) !== 'undefined') {
       if (thisPageUsingOtherJSLibrary) {
         jQuery.noConflict();
