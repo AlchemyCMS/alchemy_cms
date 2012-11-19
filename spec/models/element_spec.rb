@@ -199,32 +199,19 @@ module Alchemy
     end
 
     describe "#trash" do
+      let(:element)         { FactoryGirl.create(:element, :page_id => 1, :cell_id => 1) }
+      let(:trashed_element) { element.trash ; element }
+      subject               { trashed_element }
 
-      before(:each) do
-        @element = FactoryGirl.create(:element, :page_id => 1, :cell_id => 1)
-        @element.trash
-      end
-
-      it "should remove the elements position" do
-        @element.position.should == nil
-      end
-
-      it "should set the public state to false" do
-        @element.public?.should == false
-      end
-
-      it "should not remove the page_id" do
-        @element.page_id.should == 1
-      end
-
-      it "should not remove the cell_id" do
-        @element.cell_id.should == 1
-      end
+      it             { should_not be_public }
+      its(:position) { should be_nil }
+      specify        { expect { element.trash }.to_not change(element, :page_id) }
+      specify        { expect { element.trash }.to_not change(element, :cell_id) }
 
       it "it should be possible to trash more than one element from the same page" do
         trashed_element_2 = FactoryGirl.create(:element, :page_id => 1)
         trashed_element_2.trash
-        Element.trashed.should include(@element, trashed_element_2)
+        Element.trashed.should include(trashed_element, trashed_element_2)
       end
 
     end
@@ -259,26 +246,19 @@ module Alchemy
     end
 
     describe "#all_contents_by_type" do
-
-      before(:each) do
-        @element = FactoryGirl.create(:element)
-        @contents = @element.contents.select { |c| c.essence_type == 'Alchemy::EssenceText' }
-      end
+      let(:element) { FactoryGirl.create(:element, create_contents_after_create: true) }
+      let(:expected_contents) { element.contents.essence_texts }
 
       context "with namespaced essence type" do
-
-        it "should return content by passing a essence type" do
-          @element.all_contents_by_type('Alchemy::EssenceText').should == @contents
-        end
-
+        subject { element.all_contents_by_type('Alchemy::EssenceText') }
+        it { should_not be_empty }
+        it('should return the correct list of essences') { should == expected_contents }
       end
 
       context "without namespaced essence type" do
-
-        it "should return content by passing a essence type" do
-          @element.all_contents_by_type('EssenceText').should == @contents
-        end
-
+        subject { element.all_contents_by_type('EssenceText') }
+        it { should_not be_empty }
+        it('should return the correct list of essences') { should == expected_contents }
       end
 
     end
