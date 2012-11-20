@@ -13,7 +13,7 @@ module Alchemy
       app.config.assets.precompile += [
         "alchemy/alchemy.js",
         "alchemy/preview.js",
-        "alchemy/alchemy.css",
+        "alchemy/admin.css",
         "alchemy/menubar.css",
         "alchemy/menubar.js",
         "alchemy/print.css",

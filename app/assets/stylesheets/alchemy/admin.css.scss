@@ -1,0 +1,25 @@
+/*  Alchemy CMS Sprockets Manifest
+ *  -------------------------------
+ *= require_self
+ */
+@import "alchemy/defaults";
+@import "alchemy/base";
+@import "alchemy/archive";
+@import "alchemy/dashboard";
+@import "alchemy/elements";
+@import "alchemy/errors";
+@import "alchemy/flash";
+@import "alchemy/form_elements";
+@import "alchemy/frame";
+@import "alchemy/icons";
+@import "alchemy/login";
+@import "alchemy/modules";
+@import "alchemy/notices";
+@import "alchemy/pagination";
+@import "alchemy/search";
+@import "alchemy/sitemap";
+@import "alchemy/tables";
+@import "alchemy/upload";
+@import "alchemy/jquery-ui";
+@import "jquery.Jcrop.min";
+@import "alchemy/custom";
