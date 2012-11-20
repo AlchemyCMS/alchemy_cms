@@ -176,18 +176,37 @@ module Alchemy
       "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
     end
 
-    # Returns elements tags as a data-element-tags attribute.
+    # Returns the element's tags information as a string. Parameters and options
+    # are equivalent to {#element_tags_attributes}.
     #
-    # === Options:
+    # @see #element_tags_attributes
     #
-    #   :delimiter => ' '     # Pass a delimiter string for tag list. Default is ' '
+    # @return [String]
+    #   HTML tag attributes containing the element's tag information.
     #
     def element_tags(element, options = {})
+      tag_options(element_tags_attributes(element, options))
+    end
+
+
+    # Returns the element's tags information as an attribute hash.
+    #
+    # @param [Alchemy::Element] element The element.
+    #
+    # @option options [Proc] :formatter
+    #   ('lambda { |tags| tags.join(' ') }')
+    #   Lambda converting array of tags to a string.
+    #
+    # @return [Hash]
+    #   HTML tag attributes containing the element's tag information.
+    #
+    def element_tags_attributes(element, options = {})
       options = {
-        :delimiter => ' '
+        formatter: lambda { |tags| tags.join(' ') }
       }.merge(options)
-      return "" if !element.taggable? || element.tag_list.blank?
-      tag_options(:data => {'element-tags' => element.tag_list.join(options[:delimiter])})
+
+      return {} if !element.taggable? || element.tag_list.blank?
+      { :'data-element-tags' => options[:formatter].call(element.tag_list) }
     end
 
   end
