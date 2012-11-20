@@ -64,6 +64,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
           scrollTop: $this.offset().top - offset
           scrollLeft: $this.offset().left - offset
         , 400
+        return
 
       clickElement: (e) ->
         $this = $(this)
@@ -79,6 +80,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
           else
             $elementsWindow.dialog "open"
         $this.trigger("Alchemy.SelectElement")
+        return
 
       getStyle: (state) ->
         self = Alchemy.ElementSelector
