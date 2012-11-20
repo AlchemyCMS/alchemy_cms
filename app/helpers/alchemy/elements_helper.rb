@@ -160,12 +160,15 @@ module Alchemy
       "#{element.name}_#{element.id}".html_safe
     end
 
-    # Renders the data-alchemy-element HTML attribut used for the preview window hover effect.
+    # Renders the HTML tag attributes required for preview mode.
     def element_preview_code(element)
-      return "" if element.nil?
-      if @preview_mode && element.page == @page
-        tag_options(:data => {'alchemy-element' => element.id})
-      end
+      tag_options(element_preview_code_attributes(element))
+    end
+
+    # Returns a hash containing the HTML tag attributes required for preview mode.
+    def element_preview_code_attributes(element)
+      return {} unless element.present? && @preview_mode && element.page == @page
+      { :'data-alchemy-element' => element.id }
     end
 
     # Returns the full url containing host, page and anchor for the given element
