@@ -231,12 +231,12 @@ ActiveRecord::Schema.define(:version => 20121116141016) do
     t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.string   "upload_hash"
-    t.text     "cached_tag_list", :limit => 255
+    t.text     "cached_tag_list"
   end
 
   create_table "alchemy_users", :force => true do |t|
