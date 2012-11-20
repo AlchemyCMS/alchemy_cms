@@ -44,6 +44,18 @@ module Alchemy
       def ingredient(name)
         element.ingredient(name)
       end
+
+      # Returns true if the given content has been filled by the user.
+      #
+      def has?(name)
+        element.has_ingredient?(name)
+      end
+
+      # Return's the given content's essence.
+      #
+      def essence(name)
+        content(name).try(:essence)
+      end
     end
 
     # Block-level helper class for element editors.

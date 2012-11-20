@@ -98,6 +98,22 @@ module Alchemy
           subject.ingredient :title
         end
       end
+
+      describe '#has?' do
+        it "should delegate to the element's #has_ingredient? method" do
+          element.should_receive(:has_ingredient?).with(:title)
+          subject.has? :title
+        end
+      end
+
+      describe '#essence' do
+        it "should provide the specified content essence" do
+          subject.should_receive(:content).with(:title).
+            and_return(mock('content', :essence => mock('essence')))
+
+          subject.essence :title
+        end
+      end
     end
 
     describe ElementsBlockHelper::ElementEditorHelper do
