@@ -9,6 +9,7 @@
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/
 //= require alchemy/alchemy.routes
 //= require alchemy/alchemy.base
+//= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
 //= require alchemy/alchemy.datepicker
 //= require alchemy/alchemy.dirty

@@ -175,10 +175,8 @@ div.element_editor {
   }
 
   &.selected {
-    border-color: #4b93db;
-    -moz-box-shadow: 0 0 3px #4b93db;
-    -webkit-box-shadow: 0 0 3px #4b93db;
-    box-shadow: 0 0 3px #4b93db;
+    border-color: $blue;
+    @include box-shadow(0 0 4px $blue);
   }
 
   .validation_notice {
