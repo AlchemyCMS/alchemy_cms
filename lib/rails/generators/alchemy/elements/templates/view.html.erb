@@ -1,5 +1,5 @@
-<div class="<%= @element_name %>" id="<%%= element_dom_id(element) %>"<%%= element_preview_code(element) %><%- if @element['taggable'] == true -%><%%= element_tags(element) %><%- end -%>>
-<%- if @element["picture_gallery"] == true -%>
+<%%= element_view_for(element) do |el| -%>
+<%- if @element["picture_gallery"] -%>
   <div class="<%= @element_name %>_images">
     <%%- element.contents.gallery_pictures.each do |image| -%>
     <div class="<%= @element_name %>_image <%%= image.essence.css_class %>">
@@ -11,10 +11,10 @@
 <%- @contents.each do |content| -%>
   <%- if @contents.length > 1 -%>
   <div class="<%= content["name"] %>">
-    <%%= render_essence_view_by_name(element, '<%= content["name"] %>') %>
+    <%%= el.render :<%= content["name"] %> %>
   </div>
   <%- else -%>
-  <%%= render_essence_view_by_name(element, '<%= content["name"] %>') %>
+  <%%= el.render :<%= content["name"] %> %>
   <%- end -%>
 <%- end -%>
-</div>
+<%%- end -%>

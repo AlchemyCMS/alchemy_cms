@@ -3,6 +3,7 @@ module Alchemy
 
     include Alchemy::BaseHelper
     include Alchemy::ElementsHelper
+    include Alchemy::ElementsBlockHelper
     include Alchemy::UrlHelper
 
     def render_classes(classes=[])
