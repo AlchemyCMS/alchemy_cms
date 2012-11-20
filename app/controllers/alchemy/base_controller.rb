@@ -125,33 +125,19 @@ module Alchemy
       end
     end
 
-    # Handles the layout rendering
+    # Returns the layout to be used by the current page. This method is being
+    # used in PageController#show's invocation of #render.
     #
-    # Can be used inside the controller´s +layout+ class method
-    #
-    # === Example:
-    #   layout :layout_for_page
-    #
-    # === Usage:
-    # 1. You can pass none or false as url parameter to avoid any layout rendering.
-    # 2. You can pass a layout name of any existing layout file in +app/views/layouts+ folder.
-    #
-    # If no layout name is given, Alchemy tries to render +app/views/layouts/application/+ layout.
-    # If that is not present, Alchemy tries to render +app/views/layouts/alchemy/pages+ layout.
+    # It allows you to request a specific page layout by passing a 'layout' parameter
+    # in a request. If this parameter is set to 'none' or 'false', no layout whatsoever
+    # will be used to render the page; otherwise, a layout by the given name
+    # will be applied.
     #
     def layout_for_page
       if params[:layout] == 'none' || params[:layout] == 'false'
         false
-      elsif !params[:layout].blank?
-        if File.exist?(Rails.root.join('app/views/layouts', "#{params[:layout]}.html.erb"))
-          params[:layout]
-        else
-          raise_not_found_error
-        end
-      elsif File.exist?(Rails.root.join('app/views/layouts', 'application.html.erb'))
-        'application'
       else
-        'alchemy/pages'
+        params[:layout] || 'application'
       end
     end
 
@@ -159,8 +145,7 @@ module Alchemy
       if exception
         logger.info "Rendering 404: #{exception.message}"
       end
-      @page = Page.language_root_for(session[:language_id])
-      render :file => Rails.root.join("public/404.html"), :status => 404, :layout => !@page.nil?
+      render :file => Rails.root.join("public/404.html"), :status => 404, :layout => false
     end
 
     # Enforce ssl for login and all admin modules.

@@ -309,10 +309,6 @@ module Alchemy
           within("title") { page.should have_content("404") }
         end
 
-        it "should render the layout" do
-          page.should have_selector("#language_select")
-        end
-
       end
 
       it "should render public/404.html when it exists" do
