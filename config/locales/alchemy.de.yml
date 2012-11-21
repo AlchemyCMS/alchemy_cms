@@ -874,9 +874,10 @@ de:
         visible: "in der Navigation sichtbar"
 
       alchemy/picture:
-        image_filename: "Dateiname"
-        image_height: "Bildhöhe"
-        image_width: "Bildbreite"
+        image_file_name: "Dateiname"
+        image_file_height: "Bildhöhe"
+        image_file_width: "Bildbreite"
+        image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Schlagworte
 

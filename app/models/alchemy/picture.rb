@@ -6,27 +6,27 @@ module Alchemy
     has_many :elements, :through => :contents
     has_many :pages, :through => :elements
 
-    acts_as_fleximage do
-      image_directory 'uploads/pictures'
-      image_storage_format Config.get(:image_store_format).to_sym
-      require_image true
-      missing_image_message I18n.t("missing_image")
-      invalid_image_message I18n.t("not a valid image")
-      output_image_jpg_quality Config.get(:output_image_jpg_quality) if Config.get(:image_output_format) == "jpg"
-      unless Config.get(:preprocess_image_resize).blank?
-        preprocess_image do |image|
-          image.resize Config.get(:preprocess_image_resize)
-        end
-      end
+    # acts_as_fleximage do
+    #   require_image true
+    #   missing_image_message I18n.t("missing_image")
+    #   invalid_image_message I18n.t("not a valid image")
+    #   unless Config.get(:preprocess_image_resize).blank?
+    #     preprocess_image do |image|
+    #       image.resize Config.get(:preprocess_image_resize)
+    #     end
+    #   end
+    # end
+
+    image_accessor :image_file do
+      storage_path :image_storage_path
     end
+
+    # TODO: Write task for converting image store format to new one. Escpecially because of id based file storage of fleximage.
 
     acts_as_taggable
 
     attr_accessible(
       :image_file,
-      :image_filename,
-      :image_height,
-      :image_width,
       :name,
       :tag_list,
       :upload_hash
@@ -60,32 +60,31 @@ module Alchemy
     end
 
     def suffix
-      if image_filename =~ /\./
-        image_filename.split('.').last.downcase
-      else
-        ""
-      end
+      image_file.ext
     end
 
     def humanized_name
-      return "" if image_filename.blank?
-      (image_filename.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '')).humanize
+      return "" if image_file_name.blank?
+      (image_file_name.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '')).humanize
     end
 
     # Returning true if picture's width is greater than it's height
     def landscape_format?
-      return (self.image_width > self.image_height) ? true : false
+      image_file.landscape?
     end
+    alias_method :landscape?, :landscape_format?
 
     # Returning true if picture's width is smaller than it's height
     def portrait_format?
-      return (self.image_width < self.image_height) ? true : false
+      image_file.portrait?
     end
+    alias_method :portrait?, :portrait_format?
 
     # Returning true if picture's width and height is equal
     def square_format?
-      return (self.image_width == self.image_height) ? true : false
+      image_file.aspect_ratio == 1.0
     end
+    alias_method :square?, :square_format?
 
     # Returns the default centered image mask for a given size
     def default_mask(size)
@@ -93,24 +92,24 @@ module Alchemy
       width = size.split('x')[0].to_i
       height = size.split('x')[1].to_i
       if (width > height)
-        zoom_factor = image_width.to_f / width
+        zoom_factor = image_file_width.to_f / width
         mask_height = (height * zoom_factor).round
         x1 = 0
-        x2 = image_width
-        y1 = (image_height - mask_height) / 2
+        x2 = image_file_width
+        y1 = (image_file_height - mask_height) / 2
         y2 = y1 + mask_height
       elsif (width == 0 && height == 0)
         x1 = 0
-        x2 = image_width
+        x2 = image_file_width
         y1 = 0
-        y2 = image_height
+        y2 = image_file_height
       else
-        zoom_factor = image_height.to_f / height
+        zoom_factor = image_file_height.to_f / height
         mask_width = (width * zoom_factor).round
-        x1 = (image_width - mask_width) / 2
+        x1 = (image_file_width - mask_width) / 2
         x2 = x1 + mask_width
         y1 = 0
-        y2 = image_height
+        y2 = image_file_height
       end
       {
         :x1 => x1,
@@ -163,6 +162,11 @@ module Alchemy
     def secured_params
       secret = Rails.configuration.secret_token
       [id, @params['size'], @params['crop'], @params['crop_from'], @params['crop_size'], secret].join('-')
+    end
+
+    def image_storage_path
+      now = Time.now
+      File.join(now.year.to_s, now.month.to_s, now.day.to_s, image_file_name).to_s
     end
 
   end
