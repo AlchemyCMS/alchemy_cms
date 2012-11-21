@@ -110,7 +110,7 @@ module Alchemy
       options = {
         :tag   => :div,
         :id    => element_dom_id(element),
-        :class => element.name,
+        :class => ['element', element.name],
         :tags_formatter => lambda { |tags| tags.join(" ") }
       }.merge(options)
 
