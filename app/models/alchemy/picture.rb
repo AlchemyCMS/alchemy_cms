@@ -6,22 +6,14 @@ module Alchemy
     has_many :elements, :through => :contents
     has_many :pages, :through => :elements
 
-    # acts_as_fleximage do
-    #   require_image true
-    #   missing_image_message I18n.t("missing_image")
-    #   invalid_image_message I18n.t("not a valid image")
-    #   unless Config.get(:preprocess_image_resize).blank?
-    #     preprocess_image do |image|
-    #       image.resize Config.get(:preprocess_image_resize)
-    #     end
-    #   end
-    # end
-
     image_accessor :image_file do
-      storage_path :image_storage_path
+      if Config.get(:preprocess_image_resize).present?
+        after_assign { |a| a.process!(:resize, Config.get(:preprocess_image_resize)) }
+      end
     end
 
-    # TODO: Write task for converting image store format to new one. Escpecially because of id based file storage of fleximage.
+    validates_presence_of :image_file
+    validates_property :format, :of => :image_file, :in => [:jpg, :png, :gif], :message => I18n.t("not a valid image")
 
     acts_as_taggable
 
@@ -162,11 +154,6 @@ module Alchemy
     def secured_params
       secret = Rails.configuration.secret_token
       [id, @params['size'], @params['crop'], @params['crop_from'], @params['crop_size'], secret].join('-')
-    end
-
-    def image_storage_path
-      now = Time.now
-      File.join(now.year.to_s, now.month.to_s, now.day.to_s, image_file_name).to_s
     end
 
   end
