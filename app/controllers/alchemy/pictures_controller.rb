@@ -21,7 +21,7 @@ module Alchemy
       if params[:crop_size].present? && params[:crop_from].present?
         crop_from = params[:crop_from].split('x')
         image_file = image_file.process(:thumb, "#{params[:crop_size]}+#{crop_from[0]}+#{crop_from[1]}")
-      elsif params[:crop] == 'crop'
+      elsif params[:crop] == 'crop' && size.present?
         image_file = image_file.process(:thumb, "#{size}#")
       end
 
@@ -29,7 +29,9 @@ module Alchemy
         size += '^'
       end
 
-      image_file = image_file.process(:resize, size)
+      if size.present?
+        image_file = image_file.process(:resize, size)
+      end
 
       respond_to { |format| send_image(image_file, format) }
     end
@@ -49,11 +51,13 @@ module Alchemy
       if params[:crop_size].present? && params[:crop_from].present?
         crop_from = params[:crop_from].split('x')
         image_file = image_file.process(:thumb, "#{params[:crop_size]}+#{crop_from[0]}+#{crop_from[1]}")
-      elsif params[:crop] == 'crop'
+      elsif params[:crop] == 'crop' && size.present?
         image_file = image_file.process(:thumb, "#{size}#")
       end
 
-      image_file = image_file.process(:resize, size)
+      if size.present?
+        image_file = image_file.process(:resize, size)
+      end
 
       respond_to { |format| send_image(image_file, format) }
     end
@@ -99,7 +103,7 @@ module Alchemy
           else
             image_file = image_file.encode(type)
           end
-          send_data image_file.data, :type => type, :disposition => 'inline'
+          render :text => image_file.data
         end
       end
     end
