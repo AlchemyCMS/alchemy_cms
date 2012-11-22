@@ -16,6 +16,7 @@ module Alchemy
       upsample = params[:upsample] == 'true'
       crop_from = normalized_size(params[:crop_from])
       crop_size = params[:crop_size]
+      size = params[:size]
 
       if params[:crop_size].present? && params[:crop_from].present?
         crop_from = params[:crop_from].split('x')
@@ -24,12 +25,8 @@ module Alchemy
         image_file = image_file.process(:thumb, "#{size}#")
       end
 
-      unless upsample
-        size = params[:size] + '>'
-      end
-
       if size.present?
-        image_file = image_file.process(:resize, size)
+        image_file = image_file.process(:resize, size + '>')
       end
 
       respond_to { |format| send_image(image_file, format) }
