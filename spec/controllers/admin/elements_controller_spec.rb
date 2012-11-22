@@ -156,7 +156,7 @@ module Alchemy
 
     describe '#create' do
 
-      context "with cells" do
+      context "if page has cells" do
 
         context "" do
 
@@ -206,9 +206,18 @@ module Alchemy
               clipboard[:elements] = [{:id => element_in_clipboard.id}]
             end
 
-            it "should create the element in the correct cell" do
-              post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
-              @cell.elements.first.should be_an_instance_of(Element)
+            context "and cell name in element name" do
+              it "should create the element in the correct cell" do
+                post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+                @cell.elements.first.should be_an_instance_of(Element)
+              end
+            end
+
+            context "and no cell name in element name" do
+              it "should create the element in the nil cell" do
+                post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}", :format => :js}
+                @page.elements.first.cell.should == nil
+              end
             end
 
             context "" do
