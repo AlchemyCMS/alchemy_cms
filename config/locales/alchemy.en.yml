@@ -275,7 +275,6 @@ en:
     meta_data: "Meta-Data"
     meta_description: "Meta-Description"
     meta_keywords: "Meta-Keywords"
-    missing_image: "Missing image"
     modules:
       user_sessions: "Login"
       attachments: "Files"

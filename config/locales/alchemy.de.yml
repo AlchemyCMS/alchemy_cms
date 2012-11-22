@@ -443,7 +443,6 @@ de:
     meta_data: "Meta Daten"
     meta_description: "Meta Beschreibung"
     meta_keywords: "Meta Schlagworte"
-    missing_image: "Bild wird vermisst."
     modules:
       user_sessions: "Anmeldung"
       attachments: "Dateien"
@@ -751,6 +750,10 @@ de:
             too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
             taken: "^Der URL-Name ist bereits vergeben."
             exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "^Bitte fügen Sie ein Bild an."
 
   activemodel:
 
