@@ -307,7 +307,7 @@ select {
  * Author: @gregfranko
  */
 
-form td.select div.selectboxit {
+form td.select .selectboxit {
   width: 208px;
 
   .selectboxit-text {
@@ -315,7 +315,7 @@ form td.select div.selectboxit {
   }
 }
 
-div.selectboxit-container {
+.selectboxit-container {
   @include inline-block;
   margin: $default-form-field-margin;
   position: relative;
@@ -325,7 +325,7 @@ div.selectboxit-container {
 
   a { text-decoration: none }
 
-  div.selectboxit {
+  .selectboxit {
     @include default-button-style;
     width: auto;
     height: 15px;
@@ -441,6 +441,7 @@ div.selectboxit-container {
 
   /* Dropdown List Options List*/
   ul {
+    @include box-sizing(border-box);
     min-height: 28px;
     min-width: 100%;
     background: white;
@@ -468,7 +469,7 @@ div.selectboxit-container {
       padding: 6px 10px;
     }
 
-    li.selectboxit-hover, li.selectboxit-focus {
+    li.selectboxit-hover, li.selectboxit-focus, li.active {
       background-color: #e6f0f5;
       color: $text-color;
     }
