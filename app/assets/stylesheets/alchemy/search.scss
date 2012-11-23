@@ -48,12 +48,8 @@ td#tags_tag_list {
     margin: 0;
 
     .js_filter_field {
-      width: 260px;
-      border-radius: 3px;
-      -o-border-radius: 3px;
-      -ms-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
+      width: 100%;
+      @include border-radius(3px);
     }
 
     label {

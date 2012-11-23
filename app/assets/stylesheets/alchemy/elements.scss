@@ -216,7 +216,7 @@ div.element_editor {
 
     input[data-autocomplete] {
       padding-left: 25px;
-      width: 357px;
+      width: 100%;
       background-color: #F1EAD9;
     }
   }
@@ -629,7 +629,7 @@ div.content_editor {
   position: relative;
 
   input.thin_border {
-    width: 97%;
+    width: 100%;
   }
 
   &.missing p {

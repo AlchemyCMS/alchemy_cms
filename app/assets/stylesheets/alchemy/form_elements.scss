@@ -240,19 +240,35 @@ textarea, input[type="text"], input[type="email"], input[type="password"], .thin
   }
 }
 
+#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
+  width: 100%;
+}
+
+#alchemy .ui-dialog-content input.medium_long {
+  width: 139px;
+}
+
+#alchemy .ui-dialog-content input.long, #alchemy .ui-dialog-content textarea.long {
+  width: 250px;
+}
+
+#alchemy .ui-dialog-content input.very_long {
+  width: 310px;
+}
+
 textarea {
   height: auto;
-  padding: 4px !important;
+  padding: 4px 8px !important;
   line-height: 19px !important;
 }
 
 input#search_input_field {
-  width: 170px;
+  width: 224px;
   text-align: left;
   @include border-radius(21px);
   padding: 3px 26px;
   margin: 0;
-  height: 21px;
+  height: 29px;
 }
 
 div.search_field span.icon, div.js_filter_field_box span.icon {
@@ -267,11 +283,11 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
   margin-left: 4px;
 
   .js_filter_field {
-    width: 170px;
+    width: 220px;
     text-align: left;
     @include border-radius(15px);
     padding: 3px 24px;
-    height: 21px;
+    height: 29px;
     margin: 0;
   }
 
@@ -329,7 +345,7 @@ form td.select .selectboxit {
     @include default-button-style;
     width: auto;
     height: 15px;
-    padding: 6px 0 6px 10px;
+    padding: 6px 0 6px 8px;
     margin: 0;
     @include inline-block;
     overflow: hidden;
@@ -344,7 +360,7 @@ form td.select .selectboxit {
     }
 
     &.short {
-      width: 80px;
+      width: 82px;
 
       .selectboxit-text {
         max-width: 60px !important;
@@ -352,7 +368,7 @@ form td.select .selectboxit {
     }
 
     &.medium {
-      width: 148px;
+      width: 150px;
 
       .selectboxit-text {
         max-width: 120px !important;
@@ -360,7 +376,7 @@ form td.select .selectboxit {
     }
 
     &.long {
-      width: 238px;
+      width: 240px;
 
       .selectboxit-text {
         max-width: 210px !important;
@@ -368,7 +384,7 @@ form td.select .selectboxit {
     }
 
     &.very_long {
-      width: 308px;
+      width: 310px;
 
       .selectboxit-text {
         max-width: 280px !important;
@@ -376,7 +392,7 @@ form td.select .selectboxit {
     }
 
     &.full_width {
-      width: 424px;
+      width: 426px;
 
       .selectboxit-text {
         max-width: 396px !important;
@@ -466,7 +482,7 @@ form td.select .selectboxit {
       white-space: nowrap;
       list-style: none;
       margin: 0;
-      padding: 6px 10px;
+      padding: 6px 8px;
     }
 
     li.selectboxit-hover, li.selectboxit-focus, li.active {
@@ -486,7 +502,7 @@ form td.select .selectboxit {
 
     /* Dropdown List Optgroup Options */
     .selectboxit-optgroup-option {
-      text-indent: 10px;
+      text-indent: 8px;
     }
 
     /* Dropdown List Optgroup Header hover psuedo class */
@@ -506,7 +522,7 @@ form td.select .selectboxit {
   }
 
   input[data-autocomplete] {
-    width: 220px;
+    width: 250px;
     padding-left: 24px;
   }
 }

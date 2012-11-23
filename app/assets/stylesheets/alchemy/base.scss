@@ -175,7 +175,7 @@ div.tip {
 }
 
 #page_names textarea {
-  height: 56px;
+  height: 67px;
 }
 
 div#new_page_from_clipboard {
@@ -858,7 +858,7 @@ div.elements_for_page {
 
   .alchemy_selectbox {
     float: left;
-    width: 217px;
+    width: 212px;
   }
 }
 
@@ -952,24 +952,8 @@ select#url_protocol.medium {
   margin: 0;
 }
 
-#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
-  width: 98%;
-}
-
 #alchemy .ui-dialog-content td.medium {
   width: 76px;
-}
-
-#alchemy .ui-dialog-content input.medium_long {
-  width: 129px;
-}
-
-#alchemy .ui-dialog-content input.long, #alchemy .ui-dialog-content textarea.long {
-  width: 240px;
-}
-
-#alchemy .ui-dialog-content input.very_long {
-  width: 300px;
 }
 
 #alchemy .ui-dialog-content p.buttons {
