@@ -157,6 +157,7 @@ module Alchemy
         differences.stringify_keys!
         attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences)
         element = self.create!(attributes.merge(:create_contents_after_create => false))
+        element.tag_list = source.tag_list
         source.contents.each do |content|
           new_content = Content.copy(content, :element_id => element.id)
           new_content.move_to_bottom

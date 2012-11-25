@@ -53,13 +53,12 @@ module Alchemy
         if !params[:paste_from_clipboard].blank?
           source_page = Page.find(params[:paste_from_clipboard])
           @page = Page.copy(source_page, {
-            :name => params[:page][:name].blank? ? source_page.name + ' (' + t('Copy') + ')' : params[:page][:name],
-            :urlname => '',
-            :title => '',
             :parent_id => params[:page][:parent_id],
             :language => parent.language
           })
-          source_page.copy_children_to(@page) unless source_page.children.blank?
+          if source_page.children.any?
+            source_page.copy_children_to(@page)
+          end
         else
           @page = Page.create(params[:page])
         end

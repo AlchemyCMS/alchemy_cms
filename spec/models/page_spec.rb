@@ -646,5 +646,41 @@ module Alchemy
 
     end
 
+    describe '.copy' do
+      let (:page) { FactoryGirl.create(:page, :name => 'Source') }
+      subject { Page.copy(page) }
+
+      it "the copy should have added (copy) to name" do
+        subject.name.should == "#{page.name} (Copy)"
+      end
+
+      context "page with tags" do
+        before { page.tag_list = 'red, yellow'; page.save }
+
+        it "the copy should have source tag_list" do
+          subject.tag_list.should_not be_empty
+          subject.tag_list.should == page.tag_list
+        end
+      end
+
+      context "page with elements" do
+        before { page.elements << FactoryGirl.create(:element) }
+
+        it "the copy should have source elements" do
+          subject.elements.should_not be_empty
+          subject.elements.count.should == page.elements.count
+        end
+      end
+
+      context "page with cells" do
+        before { page.cells << FactoryGirl.create(:cell) }
+
+        it "the copy should have source cells" do
+          subject.cells.should_not be_empty
+          subject.cells.count.should == page.cells.length # It must be length, because!
+        end
+      end
+    end
+
   end
 end

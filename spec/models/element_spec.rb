@@ -263,9 +263,9 @@ module Alchemy
 
     end
 
-    describe '#copy' do
+    describe '.copy' do
 
-      let(:element) { FactoryGirl.create(:element, :create_contents_after_create => true) }
+      let(:element) { FactoryGirl.create(:element, :create_contents_after_create => true, :tag_list => 'red, yellow') }
 
       it "should not create contents from scratch" do
         copy = Element.copy(element)
@@ -280,6 +280,11 @@ module Alchemy
       it "should make copies of all contents of source" do
         copy = Element.copy(element)
         copy.contents.collect(&:id).should_not == element.contents.collect(&:id)
+      end
+
+      it "the copy should include source element tags" do
+        copy = Element.copy(element)
+        copy.tag_list.should == element.tag_list
       end
 
     end
