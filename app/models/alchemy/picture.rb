@@ -140,6 +140,7 @@ module Alchemy
     #   crop       [Boolean] (Optional)
     #   crop_from  [String]  (Optional)
     #   crop_size  [String]  (Optional)
+    #   quality    [Integer] (Optional)
     #
     # to sign them.
     #
@@ -153,7 +154,7 @@ module Alchemy
 
     def secured_params
       secret = Rails.configuration.secret_token
-      [id, @params['size'], @params['crop'], @params['crop_from'], @params['crop_size'], secret].join('-')
+      [id, @params['size'], @params['crop'], @params['crop_from'], @params['crop_size'], @params['quality'], secret].join('-')
     end
 
   end

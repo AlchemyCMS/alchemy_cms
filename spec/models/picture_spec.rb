@@ -75,7 +75,7 @@ module Alchemy
       end
 
       it "should convert crop true value into string" do
-        p = [@pic.id, nil, 'crop', nil, nil, Rails.configuration.secret_token].join('-')
+        p = [@pic.id, nil, 'crop', nil, nil, nil, Rails.configuration.secret_token].join('-')
         digest = Digest::SHA1.hexdigest(p)[0..15]
         @pic.security_token(:crop => true).should == digest
       end
