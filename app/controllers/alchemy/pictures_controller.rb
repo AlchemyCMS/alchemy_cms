@@ -83,7 +83,7 @@ module Alchemy
     end
 
     def secured_params
-      [params[:id], params[:size], params[:crop], params[:crop_from], params[:crop_size], Rails.configuration.secret_token].join('-')
+      [params[:id], params[:size], params[:crop], params[:crop_from], params[:crop_size], params[:quality], Rails.configuration.secret_token].join('-')
     end
 
     def bad_request
@@ -95,7 +95,8 @@ module Alchemy
       ALLOWED_IMAGE_TYPES.each do |type|
         format.send(type) do
           if type == "jpeg"
-            image_file = image_file.encode(type, "-quality #{Config.get(:output_image_jpg_quality)}")
+            quality = params[:quality] || Config.get(:output_image_jpg_quality)
+            image_file = image_file.encode(type, "-quality #{quality}")
           else
             image_file = image_file.encode(type)
           end
