@@ -126,6 +126,7 @@ Authors
 * Thomas von Deyen: <https://github.com/tvdeyen>
 * Robin Böning: <https://github.com/robinboening>
 * Marc Schettke: <https://github.com/masche842>
+* Hendrik Mans: <https://github.com/hmans>
 * Carsten Fregin: <https://github.com/cfregin>
 
 License
