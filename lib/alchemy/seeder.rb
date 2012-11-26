@@ -8,55 +8,8 @@ module Alchemy
       # This seed builds the necessary page structure for alchemy in your database.
       # Run the alchemy:db:seed rake task to seed your database.
       def seed!
-        desc "Seeding your database"
-        errors = []
-        notices = []
-
-        default_language = Alchemy::Config.get(:default_language)
-
-        lang = Alchemy::Language.find_or_initialize_by_language_code(
-          :name => default_language['name'],
-          :language_code => default_language['code'],
-          :frontpage_name => default_language['frontpage_name'],
-          :page_layout => default_language['page_layout'],
-          :public => true,
-          :default => true
-        )
-        if lang.new_record?
-          if lang.save
-            log "Created language #{lang.name}."
-          else
-            errors << "Errors while creating language #{lang.name}: #{lang.errors.full_messages}"
-          end
-        else
-          notices << "Language #{lang.name} was already present."
-        end
-
-        root = Alchemy::Page.find_or_initialize_by_name(
-          :name => 'Root',
-          :do_not_sweep => true
-        )
-        if root.new_record?
-          if root.save
-            log "Created page #{root.name}."
-          else
-            errors << "Errors while creating page #{root.name}: #{root.errors.full_messages}"
-          end
-        else
-          notices << "Page #{root.name} was already present."
-        end
-
-        if errors.blank?
-          log "Successfully seeded your database!\n" if notices.blank?
-          notices.each do |note|
-            log(note, :skip)
-          end
-        else
-          log("Some pages could not be created:", :error)
-          errors.each do |error|
-            log(error, :error)
-          end
-        end
+        create_default_language
+        create_root_page
       end
 
     private
@@ -116,6 +69,43 @@ module Alchemy
             log "\n#{i+1}. ", :message
             log todo, :message
           end
+        end
+      end
+
+    protected
+
+      def create_default_language
+        desc "Creating default language"
+        default_language = Alchemy::Config.get(:default_language)
+        lang = Alchemy::Language.find_or_initialize_by_language_code(
+          :name => default_language['name'],
+          :language_code => default_language['code'],
+          :frontpage_name => default_language['frontpage_name'],
+          :page_layout => default_language['page_layout'],
+          :public => true,
+          :default => true
+        )
+        if lang.new_record?
+          if lang.save!
+            log "Created language #{lang.name}."
+          end
+        else
+          log "Language #{lang.name} was already present.", :skip
+        end
+      end
+
+      def create_root_page
+        desc "Creating root page"
+        root = Alchemy::Page.find_or_initialize_by_name(
+          :name => 'Root',
+          :do_not_sweep => true
+        )
+        if root.new_record?
+          if root.save!
+            log "Created page #{root.name}."
+          end
+        else
+          log "Page #{root.name} was already present.", :skip
         end
       end
 
