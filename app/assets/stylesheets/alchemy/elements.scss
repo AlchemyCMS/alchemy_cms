@@ -207,10 +207,10 @@ div.element_editor {
   .autocomplete_tag_list {
     background-color: #e5dcca;
     margin: 0 -8px 1px -8px;
-    padding: 2 * $default-padding;
+    padding: 2*$default-padding;
 
     label {
-      top: 17px;
+      top: 18px;
       left: 14px;
     }
 
@@ -271,7 +271,7 @@ form.add_gallery_to_index {
 
 div.picture_gallery_images {
   overflow: hidden;
-  margin-bottom: 8px;
+  margin: $default-margin 0;
   border: 1px inset #cecece;
   @include rounded-corner;
   background-color: #e5dcca;
@@ -279,6 +279,10 @@ div.picture_gallery_images {
 
   .essence_picture_editor {
     margin: 1px;
+    float: left;
+    height: 126px;
+
+    .picture_thumbnail { margin: 0 }
   }
 }
 
@@ -317,7 +321,7 @@ div#element_area .sortable_cell {
 span.linkable_essence_tools {
   position: absolute;
   bottom: 0;
-  right: 2px;
+  right: 0;
 
   a.icon_button {
     margin: 0 0 0 4px;
@@ -405,27 +409,45 @@ div.content_editor.essence_date {
 }
 
 div.essence_picture_editor {
-  float: left;
-  height: 126px;
-  margin: 1px;
   position: relative;
-}
 
-div.essence_picture_editor .picture_tool_delete {
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  padding: 2px 2px 0;
-  z-index: 2;
-}
+  .picture_tool_delete {
+    position: absolute;
+    right: $default-margin;
+    top: $default-margin;
+    padding: 2px 2px 0;
+    z-index: 2;
+  }
 
-div.essence_picture_editor.validation_failed .picture_thumbnail {
-  border-color: #931f23;
-  -webkit-box-shadow: #931f23 0px 1px 3px;
-  -moz-box-shadow: #931f23 0px 1px 3px;
-  -ms-box-shadow: #931f23 0px 1px 3px;
-  -o-box-shadow: #931f23 0px 1px 3px;
-  box-shadow: #931f23 0px 1px 3px;
+  .picture_thumbnail:hover .picture_tool_delete {
+    display: block;
+  }
+
+  .picture_thumbnail {
+    width: 111px;
+    height: 115px;
+    margin: $default-margin 0;
+
+    .thumbnail_background {
+      width: 111px;
+      height: 93px;
+    }
+  }
+
+  &.validation_failed .picture_thumbnail {
+    border-color: #931f23;
+    -webkit-box-shadow: #931f23 0px 1px 3px;
+    -moz-box-shadow: #931f23 0px 1px 3px;
+    -ms-box-shadow: #931f23 0px 1px 3px;
+    -o-box-shadow: #931f23 0px 1px 3px;
+    box-shadow: #931f23 0px 1px 3px;
+  }
+
+  .thumbnail_background.missing {
+    background-image: url('placeholder.png');
+    background-repeat: no-repeat;
+    background-position: center 12px;
+  }
 }
 
 div.essence_picture_css_class {
@@ -440,16 +462,6 @@ div.essence_picture_css_class {
   text-align: right;
   height: 12px;
   overflow: hidden;
-}
-
-div.essence_picture_editor .picture_thumbnail:hover .picture_tool_delete {
-  display: block;
-}
-
-div.essence_picture_editor .thumbnail_background.missing {
-  background-image: url('placeholder.png');
-  background-repeat: no-repeat;
-  background-position: center 12px;
 }
 
 .dragable_picture {
@@ -485,17 +497,6 @@ div.essence_picture_editor .thumbnail_background.missing {
     margin-top: -16px;
     margin-left: -16px;
   }
-}
-
-.essence_picture_editor .picture_thumbnail {
-  width: 111px;
-  height: 115px;
-  margin: 0;
-}
-
-.essence_picture_editor .picture_thumbnail .thumbnail_background {
-  width: 111px;
-  height: 93px;
 }
 
 div.file {
@@ -578,6 +579,11 @@ a.new_content_link {
   margin-top: 4px !important;
 }
 
+div.tinymce_container {
+  position: relative;
+  margin: $default-margin 0;
+}
+
 div.essence_richtext_loader {
   position: absolute;
   top: 0;
@@ -587,12 +593,12 @@ div.essence_richtext_loader {
   height: 100%;
   background-color: #F0E8D7;
   @include opacity(0.9);
-}
 
-div.essence_richtext_loader img {
-  position: absolute;
-  top: 46%;
-  left: 46%;
+  img {
+    position: absolute;
+    top: 46%;
+    left: 46%;
+  }
 }
 
 div.content_text_editor.text_short {
@@ -671,7 +677,7 @@ div.content_editor {
 
   label {
     display: block;
-    margin-bottom: 0.5em;
+    margin-bottom: 2px;
     font-size: 10px;
     text-shadow: #fff5e1 1px 1px 0;
     line-height: 15px;
@@ -706,6 +712,8 @@ div.content_editor {
       }
     }
   }
+
+  &.essence_select label { margin-bottom: 4px }
 
   &:hover label a.icon_button.small {
     @include inline-block;
