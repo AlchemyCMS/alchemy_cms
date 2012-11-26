@@ -5,7 +5,7 @@ module Alchemy
 
     @@setup = nil
 
-    @@plugins = %w(autoresize paste fullscreen inlinepopups alchemy_link)
+    @@plugins = %w(alchemy_link autoresize fullscreen inlinepopups paste table)
 
     @@languages = ['en', 'de']
 
