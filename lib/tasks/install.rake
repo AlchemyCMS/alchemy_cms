@@ -7,10 +7,10 @@ class Alchemy::RoutesInjector < Thor
 
   no_tasks do
     def inject
-      mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
-      mountpoint = "/" if mountpoint.empty?
+      @mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
+      @mountpoint = "/" if @mountpoint.empty?
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
-      inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
+      inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{@mountpoint}'\n", { :after => sentinel, :verbose => true }
     end
   end
 end
@@ -36,13 +36,13 @@ Now:
 
 2. Open your browser and enter the following URL:
 
-  http://localhost:3000/admin/signup
+  http://localhost:3000/#{@mountpoint == '/' ? '' : @mountpoint}/admin/signup
 
 3. Follow the instructions to complete the installation!
 
 Thank you for using Alchemy CMS!
 
-http://alchemy-cms.com
+http://alchemy-cms.com/
 
 EOF
   end
