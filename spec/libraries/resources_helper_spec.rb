@@ -1,3 +1,4 @@
+require 'ostruct'
 require File.dirname(__FILE__) + "/../../lib/alchemy/resource"
 require File.dirname(__FILE__) + "/../../lib/alchemy/resources_helper"
 
@@ -103,6 +104,9 @@ describe Alchemy::ResourcesHelper do
   end
 
   describe "resource_window_size" do
-    it "should do something"
+    it "should return overlay size string depending on resource attributes length" do
+      @controller.stub(:resource_handler).and_return(OpenStruct.new(:attributes => OpenStruct.new(:length => 4)))
+      @controller.resource_window_size.should == "400x240"
+    end
   end
 end

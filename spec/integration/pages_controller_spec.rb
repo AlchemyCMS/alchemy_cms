@@ -315,8 +315,6 @@ module Alchemy
         within("title") { page.should have_content("404") }
       end
 
-      it "can be handled by matching /404 and routing it to a controller of choice when no public/404.html exists"
-
     end
   end
 end
