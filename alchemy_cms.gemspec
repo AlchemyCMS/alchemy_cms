@@ -14,24 +14,24 @@ Gem::Specification.new do |s|
   s.requirements         << 'ImageMagick (libmagick), v6.6 or greater.'
   s.required_ruby_version = '~> 1.9.2'
   s.license               = 'BSD New'
-  s.post_install_message  = "Fuck you!"
-#   s.post_install_message  = <<-POST_INSTALL
+  s.post_install_message  = <<-POST_INSTALL
 
-#   _______.-=` Alchemy CMS Post Install Message ´=-._______
+_______.-=` Alchemy CMS Post Install Message ´=-._______
 
-#   A. If you are installing Alchemy the first time
-#   ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-#     $ bundle exec rake alchemy:install
 
-#   B. If you are upgrading an existing Alchemy installation
-#   ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-#     $ bundle exec rake alchemy:upgrade
+ If you are installing Alchemy the first time
+ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+  $ bundle exec rake alchemy:install
 
-#   Please follow the on screen instructions.
 
-#   ♥ ♥ ♥ ♥ ♥ ♥ ♥ Thanks for using Alchemy CMS ♥ ♥ ♥ ♥ ♥ ♥ ♥
+ If you are upgrading an existing Alchemy installation
+ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+  $ bundle exec rake alchemy:upgrade
 
-# POST_INSTALL
+
+♥ ♥ ♥ ♥ ♥ ♥ ♥ Thanks for using Alchemy CMS ♥ ♥ ♥ ♥ ♥ ♥ ♥
+
+POST_INSTALL
 
   s.files                 = `git ls-files`.split("\n")
   s.test_files            = `git ls-files -- {test,spec,features}/*`.split("\n")

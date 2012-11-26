@@ -20,3 +20,4 @@ spec/dummy/db/seeds.rb
 .rvmrc
 spec/dummy/config/locales/**/*
 /coverage/
+*.gem
