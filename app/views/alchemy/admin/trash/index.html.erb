@@ -11,7 +11,7 @@
   </div>
   <div id="trash_items">
     <%- @elements.each do |element| -%>
-    <%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil? } %>
+    <%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil? } rescue "" %>
     <%- end -%>
   </div>
   <p>
