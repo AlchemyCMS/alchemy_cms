@@ -402,14 +402,23 @@ form td.select .selectboxit {
     &.tiny {
       padding: 2px 2px 2px 8px;
       height: 14px;
+      background-position: left 1px;
 
       .selectboxit-text {
         padding-right: 24px;
         font-size: 10px;
-        line-height: 14px;
+        line-height: 1.5 !important;
       }
 
-      .selectboxit-arrow-container { width: 16px }
+      .selectboxit-arrow-container {
+        width: 16px;
+        top: 8px;
+        height: 14px !important;
+      }
+
+      .selectboxit-arrow {
+        margin-top: 0 !important;
+      }
     }
 
     &:focus {

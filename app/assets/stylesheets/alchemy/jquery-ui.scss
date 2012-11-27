@@ -1491,7 +1491,7 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-dialog .ui-dialog-titlebar-refresh {
   position: absolute;
-  right: 50px;
+  right: 48px;
   top: 50%;
   width: 19px;
   margin: -10px 0 0 0;
@@ -1501,7 +1501,7 @@ button.ui-button::-moz-focus-inner {
 
 #alchemy .ui-dialog .ui-dialog-titlebar-maximize,
 #alchemy .ui-dialog .ui-dialog-titlebar-restore {
-  margin-right: 12px;
+  margin-right: 0;
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar-close span {

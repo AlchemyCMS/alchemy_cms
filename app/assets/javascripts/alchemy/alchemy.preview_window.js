@@ -34,9 +34,10 @@ if (typeof(Alchemy) === 'undefined') {
           create: function() {
             var $spinner = $('<img src="/assets/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
             var $reload = $('<a href="#" class="ui-dialog-titlebar-refresh ui-corner-all" role="button"></a>');
-            $('#ui-dialog-title-alchemyPreviewWindow').after($spinner);
+            var titlebar = $('#alchemyPreviewWindow').prev();
             $reload.append('<span class="ui-icon ui-icon-refresh">reload</span>');
-            $('#ui-dialog-title-alchemyPreviewWindow').after($reload);
+            titlebar.append($reload);
+            titlebar.append($spinner);
             $reload.click(Alchemy.reloadPreview);
           },
           close: function(event, ui) {
@@ -47,28 +48,10 @@ if (typeof(Alchemy) === 'undefined') {
               width: '100%'
             });
             Alchemy.PreviewWindow.button.disable();
-            Alchemy.previewWindowFrameWidth = $('#alchemyPreviewWindow').width();
           }
         }).dialogExtend({
           "maximize": true,
-          "dblclick": "maximize",
-          "events": {
-            beforeMaximize: function(evt, dlg) {
-              Alchemy.previewWindowPosition = $('#alchemyPreviewWindow').dialog('widget').offset();
-              Alchemy.previewWindowFrameWidth = $('#alchemyPreviewWindow').width();
-            },
-            maximize: function(evt, dlg) {
-              $('#alchemyPreviewWindow').css({
-                width: "100%"
-              });
-            },
-            restore: function(evt, dlg) {
-              $('#alchemyPreviewWindow').dialog('widget').css(Alchemy.previewWindowPosition);
-              $('#alchemyPreviewWindow').css({
-                width: Alchemy.previewWindowFrameWidth
-              });
-            }
-          }
+          "dblclick": "maximize"
         });
       } else {
         $('#alchemyPreviewWindow').dialog('open');
