@@ -138,22 +138,14 @@
   contents:
   - name: intro
     type: EssenceText
-    validate:
-      - presence
   - name: headline
     type: EssenceText
     settings:
       deletable: true
-    validate:
-      - presence
   - name: image
     type: EssencePicture
-    validate:
-      - presence
   - name: text
     type: EssenceRichtext
-    validate:
-      - presence
     settings:
       deletable: true
   available_contents:
