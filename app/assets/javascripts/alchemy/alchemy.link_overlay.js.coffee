@@ -199,7 +199,7 @@
       $(element).next().addClass('linked').removeClass('disabled')
 
     validateURLFormat: (url) ->
-      if url.match(/^(\/|[a-z]+:\/\/)/)
+      if url.match(/^(mailto:|\/|[a-z]+:\/\/)/)
         return true
       else
         return false
