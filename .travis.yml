@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-  - 1.9.2
   - 1.9.3
 branches:
   only:
@@ -10,7 +9,11 @@ before_script:
   - "export PATH=phantomjs/bin:$PATH"
   - phantomjs --version
   - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
-script: "bundle exec rspec spec"
+script: "bundle exec rspec spec $SPEC_FLAGS"
 env:
-  - DB=mysql
-  - DB=postgresql
+  - DB=mysql SPEC_FLAGS=-t ~type:request
+  - DB=postgresql SPEC_FLAGS=-t ~type:request
+  - DB=mysql SPEC_FLAGS=-t type:request
+matrix:
+  allow_failures:
+    - env: DB=mysql SPEC_FLAGS=-t type:request
