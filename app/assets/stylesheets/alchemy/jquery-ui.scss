@@ -1675,8 +1675,16 @@ button.ui-button::-moz-focus-inner {
   @include border-bottom-radius(0);
   padding: 0;
   white-space: nowrap;
-  background-color: #e5e5e5;
+  background-color: $medium-gray;
   font-weight: normal;
+
+  &.ui-tabs-active {
+    background-color: $light-gray;
+    margin-bottom: 0px;
+    height: 27px;
+
+    a { cursor: default }
+  }
 }
 
 #alchemy .ui-tabs .ui-tabs-nav li a {
