@@ -18,7 +18,12 @@ $element_area.prepend(element_html);
 $element_area.append(element_html);
 <% end %>
 
-$element_area.sortable('refresh');
+if ($element_area.find('.element_editor').length > 0) {
+  Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>', $element_area);
+} else {
+  $element_area.sortable('refresh');
+}
+
 Alchemy.growl('<%= t("successfully_added_element") -%>');
 Alchemy.closeCurrentWindow();
 

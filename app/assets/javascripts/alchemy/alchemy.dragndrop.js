@@ -6,8 +6,11 @@ if (typeof(Alchemy) === 'undefined') {
 
   $.extend(Alchemy, {
 
-    SortableElements: function(page_id, form_token) {
-      $('#element_area .sortable_cell').sortable({
+    SortableElements: function(page_id, form_token, selector) {
+      if (typeof(selector) === 'undefined') {
+        selector = '#element_area .sortable_cell';
+      }
+      $(selector).sortable({
         items: 'div.element_editor',
         handle: '.element_handle',
         axis: 'y',
