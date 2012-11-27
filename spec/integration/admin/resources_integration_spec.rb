@@ -60,9 +60,7 @@ describe "Resources" do
       end
 
       it "shows a success message" do
-        within('#flash_notices') {
-          page.should have_content("Succesfully created")
-        }
+        page.should have_content("Succesfully created")
       end
     end
 
@@ -103,9 +101,7 @@ describe "Resources" do
     end
 
     it "shows a success message" do
-      within('#flash_notices') {
-        page.should have_content("Succesfully updated")
-      }
+      page.should have_content("Succesfully updated")
     end
   end
 
@@ -126,9 +122,7 @@ describe "Resources" do
     end
 
     it "should display success message" do
-      within('#flash_notices') {
-        page.should have_content("Succesfully removed")
-      }
+      page.should have_content("Succesfully removed")
     end
   end
 
