@@ -50,6 +50,13 @@
   }
 }
 
+@mixin field_with_error {
+  border-color: $error_border_color;
+  color: $error_text_color;
+  background-color: lighten($error_background_color, 8%);
+  @include box-shadow(inset 1px 1px 4px rgba($error_border_color, 0.5));
+}
+
 @mixin default-input-style {
   @include box-sizing(border-box);
   $border-inset-color: lighten($default-border-color, 20%);
@@ -72,6 +79,8 @@
   &:focus {
     @include default-focus-style;
   }
+
+  &.with_error { @include field_with_error }
 }
 
 @mixin text-overflow($prop: ellipsis) {

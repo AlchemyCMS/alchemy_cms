@@ -435,12 +435,7 @@ div.essence_picture_editor {
   }
 
   &.validation_failed .picture_thumbnail {
-    border-color: #931f23;
-    -webkit-box-shadow: #931f23 0px 1px 3px;
-    -moz-box-shadow: #931f23 0px 1px 3px;
-    -ms-box-shadow: #931f23 0px 1px 3px;
-    -o-box-shadow: #931f23 0px 1px 3px;
-    box-shadow: #931f23 0px 1px 3px;
+    border-color: $error_border_color
   }
 
   .thumbnail_background.missing {
@@ -665,13 +660,10 @@ div.content_editor {
 
   &.validation_failed {
 
-    label {
-      color: #931f23;
-    }
-
-    input {
-      border: 1px solid #931f23;
-      background-color: #f9e8e9;
+    label { color: $error_text_color }
+    input { @include field_with_error }
+    .tinymce_container {
+      outline: 1px solid $error_border_color;
     }
   }
 
@@ -805,13 +797,12 @@ textarea.default_tinymce, textarea.custom_tinymce {
 .element_errors {
   margin-top: 8px;
   margin-bottom: 8px;
-  background-color: #f1c9ca;
+  background-color: $error_background_color;
   padding: 2*$default-padding;
   list-style-type: none;
   @include rounded-corner;
-  color: #931f23;
-  border-style: solid;
-  border-width: 1px;
+  color: $error_text_color;
+  border: 1px solid $error_border_color;
 
   p {
     margin: 0;

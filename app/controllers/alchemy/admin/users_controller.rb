@@ -5,6 +5,8 @@ module Alchemy
       filter_access_to [:edit, :update, :destroy], :attribute_check => true, :load_method => :load_user, :model => Alchemy::User
       filter_access_to [:index, :new, :create], :attribute_check => false
 
+      before_filter :set_roles_and_genders, :except => [:index, :destroy]
+
       def index
         if !params[:query].blank?
           users = User.where([
@@ -22,8 +24,6 @@ module Alchemy
 
       def new
         @user = User.new
-        @user_roles = User::ROLES.map { |role| [User.human_rolename(role), role] }
-        @user_genders = User.genders_for_select
         render :layout => false
       end
 
@@ -44,8 +44,6 @@ module Alchemy
       end
 
       def edit
-        @user_roles = User::ROLES.map { |role| [User.human_rolename(role), role] }
-        @user_genders = User.genders_for_select
         render :layout => false
       end
 
@@ -71,10 +69,15 @@ module Alchemy
         render :action => :redirect
       end
 
-      protected
+    private
 
       def load_user
         @user = User.find(params[:id])
+      end
+
+      def set_roles_and_genders
+        @user_roles = User::ROLES.map { |role| [User.human_rolename(role), role] }
+        @user_genders = User.genders_for_select
       end
 
     end

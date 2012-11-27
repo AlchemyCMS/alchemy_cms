@@ -31,9 +31,9 @@ div.flash {
   }
 
   &.error {
-    border-color: #c49c9c;
-    color: #592e2e;
-    background-color: #efd3d3;
+    border-color: $error_border_color;
+    color: $error_text_color;
+    background-color: $error_background_color;
   }
 
   &.info {

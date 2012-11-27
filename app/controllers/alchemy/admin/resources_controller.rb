@@ -6,8 +6,6 @@ module Alchemy
       helper Alchemy::ResourcesHelper
       helper_method :resource_handler
 
-      rescue_from Exception, :with => :exception_handler
-
       before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
       def index
@@ -64,22 +62,6 @@ module Alchemy
       end
 
     protected
-
-      def render_errors_or_redirect(object, redirect_url, flash_notice)
-        if object.errors.empty?
-          @redirect_url = redirect_url
-          flash[:notice] = t(flash_notice)
-          respond_to do |format|
-            format.js { render :action => :redirect }
-            format.html { redirect_to @redirect_url }
-          end
-        else
-          respond_to do |format|
-            format.js { render_remote_errors(object) }
-            format.html { render :action => :new }
-          end
-        end
-      end
 
       # Returns a translated +flash[:notice]+.
       # The key should look like "Modelname successfully created|updated|destroyed."

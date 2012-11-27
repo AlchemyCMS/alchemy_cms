@@ -751,6 +751,12 @@ de:
             too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
             taken: "^Der URL-Name ist bereits vergeben."
             exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+      alchemy/user:
+        attributes:
+          login:
+            invalid: "darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
+          email:
+            invalid: "entspricht nicht dem Format einer E-Mail-Adresse."
 
   activemodel:
 
@@ -881,7 +887,7 @@ de:
         tag_list: Schlagworte
 
       alchemy/user:
-        email: "Email"
+        email: "E-Mail"
         firstname: "Vorname"
         gender: "Anrede"
         language: "Sprache"
@@ -905,15 +911,12 @@ de:
       login_not_found: "^Dieser Benutzername existiert nicht."
       general_credentials_error: "Die Kombination aus Benutzername und Passwort ist nicht gültig."
       consecutive_failed_logins_limit_exceeded: "Zu viele Fehlversuche! Dieser Account ist aus Sicherheitsgründen gesperrt worden. Bitte wenden Sie sich an den Administrator."
-      email_invalid: "Die Email-Adresse entspricht nicht dem Format einer Email-Adresse."
       password_blank: "^Bitte ein Passwort angegeben."
       password_invalid: "^Das Passwort ist nicht richtig."
       not_active: "Dieser Account wurde noch nicht aktiviert."
       not_confirmed: "Dieser Account wurde noch nicht bestätigt."
       not_approved: "Dieser Account wurde noch nicht freigeschaltet."
       no_authentication_details: 'Sie haben keinen Benutzernamen und/oder Passwort eingegeben.'
-      login_not_valid: "^Der Benutzername darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
-      login_too_short: "^Der Benutzername ist zu kurz. Bitte mindestens 3 Zeichen verwenden."
 
     models:
       alchemy/user_session: 'Sitzung'

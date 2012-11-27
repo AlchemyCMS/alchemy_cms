@@ -526,3 +526,5 @@ form td.select .selectboxit {
     padding-left: 24px;
   }
 }
+
+label.with_error { color: $error_text_color }
