@@ -99,7 +99,6 @@ if (typeof(Alchemy) === 'undefined') {
         okLabel: okLabel,
         cancelLabel: cancelLabel,
         okCallback: function() {
-          $(this).dialog("close");
           Alchemy.pleaseWaitOverlay();
           $.ajax({
             url: url,
