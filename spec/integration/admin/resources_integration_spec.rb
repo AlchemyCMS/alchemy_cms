@@ -90,8 +90,7 @@ describe "Resources" do
 
   describe "updating an item" do
     before do
-      event
-      visit('/admin/events/1/edit')
+      visit("/admin/events/#{event.id}/edit")
       fill_in 'event_name', :with => 'New event name'
       click_on 'Save'
     end
