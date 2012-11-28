@@ -22,7 +22,7 @@ module Alchemy
 
     before_save :strip_content
 
-    private
+  private
 
     def strip_content
       self.stripped_body = strip_tags(self.body)
