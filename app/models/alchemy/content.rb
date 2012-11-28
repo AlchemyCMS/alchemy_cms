@@ -6,6 +6,7 @@ module Alchemy
       :element_id,
       :essence_id,
       :essence_type,
+      :ingredient,
       :name,
       :position
     )
@@ -35,6 +36,8 @@ module Alchemy
 
       # Creates a new Content as descriped in the elements.yml file
       def create_from_scratch(element, essences_hash)
+        # If no name given, we can create the content from essence type.
+        # Used in picture gallery
         if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
           essences_of_same_type = element.contents.where(
             :essence_type => Content.normalize_essence_type(essences_hash[:essence_type])
@@ -43,6 +46,7 @@ module Alchemy
             'type' => essences_hash[:essence_type],
             'name' => "#{essences_hash[:essence_type].classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
           }
+        # Normal way to create
         else
           description = element.content_description_for(essences_hash[:name])
           description = element.available_content_description_for(essences_hash[:name]) if description.blank?
@@ -151,8 +155,14 @@ module Alchemy
 
     # Gets the ingredient from essence
     def ingredient
-      return nil if self.essence.nil?
-      self.essence.ingredient
+      return nil if essence.nil?
+      essence.ingredient
+    end
+
+    # Sets the ingredient from essence
+    def ingredient=(value)
+      raise "No essence found" if essence.nil?
+      essence.ingredient = value
     end
 
     # Calls essence.update_attributes. Called from +Alchemy::Element#save_contents+
@@ -232,11 +242,13 @@ module Alchemy
     # Creates self.essence from description.
     def create_essence!(description)
       essence_class = self.class.normalize_essence_type(description['type']).constantize
+      attributes = {
+        :ingredient => description['default']
+      }
       if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
-        essence = essence_class.create(:do_not_index => !description['do_not_index'].nil?)
-      else
-        essence = essence_class.create
+        attributes.merge!(:do_not_index => !description['do_not_index'].nil?)
       end
+      essence = essence_class.create(attributes)
       if essence
         self.essence = essence
         save!

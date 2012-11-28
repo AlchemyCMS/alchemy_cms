@@ -99,5 +99,36 @@ module Alchemy
 
     end
 
+    describe '.create' do
+      let (:element) { FactoryGirl.create(:element, :name => 'headline') }
+
+      context "with default value present" do
+        before do
+          element.stub(:content_description_for).and_return({'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'})
+        end
+
+        it "should have the ingredient column filled with default value." do
+          Content.create_from_scratch(element, :name => 'headline').ingredient.should == "Welcome"
+        end
+      end
+    end
+
+    describe '#ingredient=' do
+      it "should set the given value to the ingredient column of essence" do
+        c = Content.create_from_scratch(element, :name => 'headline')
+        c.ingredient = "Welcome"
+        c.ingredient.should == "Welcome"
+      end
+
+      context "no essence associated" do
+        let (:element) { FactoryGirl.create(:element, :name => 'headline') }
+
+        it "should raise error" do
+          c = Content.create(:element_id => element.id, :name => 'headline')
+          expect { c.ingredient = "Welcome" }.to raise_error
+        end
+      end
+    end
+
   end
 end

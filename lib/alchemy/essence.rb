@@ -27,6 +27,7 @@ module Alchemy #:nodoc:
 
         class_eval <<-EOV
           attr_accessor :validation_errors
+          attr_accessible :ingredient
           include Alchemy::Essence::InstanceMethods
           stampable(:stamper_class_name => 'Alchemy::User')
           validate :essence_validations, :on => :update
