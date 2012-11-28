@@ -3,7 +3,7 @@
 <%- if params[:remove] -%>
   $(".element_editor[data-element-id='<%= @item.id -%>']").remove();
 <%- if @item.class.to_s == 'Element' -%>
-  $('#element_area').sortable('refresh');
+  $('#element_area .sortable_cell').sortable('refresh');
 <%- end -%>
   Alchemy.growl('<%= escape_javascript t("item moved to clipboard", :name => @item.class.to_s == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) -%>');
 <%- else -%>
