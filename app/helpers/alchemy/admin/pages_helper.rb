@@ -49,7 +49,12 @@ module Alchemy
           <script type='text/javascript'>
             jQuery(function($) {
               Alchemy.Tinymce.customInits = [];"
-        Alchemy::Tinymce.custom_config_contents.each do |content|
+        custom_config_contents = Alchemy::Tinymce.custom_config_contents
+        content_names = custom_config_contents.collect{ |c| c['name'] }
+        if content_names.uniq.length != content_names.length
+          raise "Duplicated content names with tinymce setting in elements.yml found. Please rename these contents."
+        end
+        custom_config_contents.each do |content|
           next unless content['settings']['tinymce']
           config = Alchemy::Tinymce.init.merge(content['settings']['tinymce'].symbolize_keys)
           config = config.collect { |key, value| "#{key} : #{value.to_json}" }.join(', ')
