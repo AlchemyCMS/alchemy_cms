@@ -98,7 +98,7 @@ EOF
         run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} DUMP_FILENAME=#{filename} #{rake} alchemy:db:dump"
         FileUtils.mkdir_p "./db/dumps"
         download "#{current_path}/db/dumps/#{filename}", "db/dumps/#{filename}"
-        run_locally "mysql -u#{database_config['username']}#{database_config['password'] ? ' -p' + database_config['password'] : nil} #{database_config['database']} < ./db/dumps/#{filename}"
+        run_locally "mysql -u#{database_config['username']}#{database_config['password'] ? ' -p"' + database_config['password'] + '"' : nil} #{database_config['database']} < ./db/dumps/#{filename}"
       end
 
       desc "Imports attachments into your local machine."
