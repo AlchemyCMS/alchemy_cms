@@ -2,6 +2,9 @@ require 'bundler/capistrano'
 require 'alchemy/capistrano'
 load 'deploy/assets'
 
+# application name
+set :application,               "<%= @app_name %>"
+
 # ssh settings
 <%- if @ssh_user.blank? || !@store_credentials -%>
 set(:user)                      { Capistrano::CLI.ui.ask('Enter your ssh username: ') }

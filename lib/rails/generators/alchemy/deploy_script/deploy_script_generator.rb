@@ -12,7 +12,7 @@ module Alchemy
       def copy_script
         @scm = options[:scm]
         @database_type = options[:db]
-
+        @app_name = ask('Please enter a name for your application:')
         @server = ask('Please enter server ip or domain:')
         if @store_credentials = yes?('Do want to store the ssh credentials? (PLEASE DO NOT STORE THEM IF THE REPOSITORY IS PUBLIC) (y/N)')
           ask_for_credentials

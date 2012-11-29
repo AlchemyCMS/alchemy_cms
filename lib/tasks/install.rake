@@ -52,15 +52,6 @@ EOF
     Alchemy::RoutesInjector.new.inject
   end
 
-  namespace :db do
-
-    desc "Seeds your database with essential data for Alchemy CMS."
-    task :seed => :environment do
-      Alchemy::Seeder.seed!
-    end
-
-  end
-
   namespace :standard_set do
 
     desc "Install Alchemy CMS's standard set."

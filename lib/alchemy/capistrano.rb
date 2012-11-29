@@ -1,6 +1,8 @@
 # This recipe contains Capistrano recipes for handling the uploads, ferret index and picture cache files while deploying your application.
 # It also contains a ferret:rebuild_index task to rebuild the index after deploying your application.
-Capistrano::Configuration.instance(:must_exist).load do
+require 'fileutils'
+
+::Capistrano::Configuration.instance(:must_exist).load do
 
   after "deploy:setup", "alchemy:shared_folders:create"
   after "deploy:finalize_update", "alchemy:shared_folders:symlink"
@@ -77,6 +79,62 @@ EOF
       desc "Seeds the database with essential data."
       task :seed, :roles => :app do
         run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:seed"
+      end
+
+    end
+
+    namespace :import do
+
+      desc "Imports all data (Pictures, attachments and the database) into your local development machine."
+      task :all, :roles => [:app, :db] do
+        pictures
+        attachments
+        database
+      end
+
+      desc "Imports the database into your local development machine."
+      task :database, :roles => [:db] do
+        filename = "#{fetch(:application, 'dump')}-#{timestamp}.sql"
+        run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} DUMP_FILENAME=#{filename} #{rake} alchemy:db:dump"
+        FileUtils.mkdir_p "./db/dumps"
+        download "#{current_path}/db/dumps/#{filename}", "db/dumps/#{filename}"
+        run_locally "mysql -u#{database_config['username']}#{database_config['password'] ? ' -p' + database_config['password'] : nil} #{database_config['database']} < ./db/dumps/#{filename}"
+      end
+
+      desc "Imports attachments into your local machine."
+      task :attachments, :roles => [:app] do
+        filename = zip_files('attachments')
+        FileUtils.mkdir_p "./uploads"
+        download "#{shared_path}/uploads/#{filename}", "./uploads/#{filename}"
+        unzip_files('attachments', filename)
+      end
+
+      desc "Imports pictures into your local machine."
+      task :pictures, :roles => [:app] do
+        filename = zip_files('pictures')
+        FileUtils.mkdir_p "./uploads"
+        download "#{shared_path}/uploads/#{filename}", "./uploads/#{filename}"
+        unzip_files('pictures', filename)
+      end
+
+      def zip_files(type)
+        filename = "#{type}-#{timestamp}.tar.gz"
+        run "cd #{shared_path}/uploads && tar cvfz #{filename} #{type}/"
+        filename
+      end
+
+      def timestamp
+        timestamp ||= Time.now.strftime('%Y-%m-%d-%H-%M')
+      end    
+
+      def unzip_files(type, filename)
+        FileUtils.rm_rf "./uploads/#{type}"
+        run_locally "cd ./uploads && tar xvzf #{filename}"
+      end
+
+      def database_config
+        raise "database.yml not found!" if !File.exists?("./config/database.yml")
+        YAML.load_file("./config/database.yml")['development']
       end
 
     end
