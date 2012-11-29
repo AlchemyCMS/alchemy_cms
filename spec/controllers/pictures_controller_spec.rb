@@ -22,7 +22,6 @@ module Alchemy
     end
 
     context "Requesting a picture that is assigned on restricted and non-restricted pages" do
-
       before do
         essence = element.contents.where(:name => 'image').first.essence
         essence.picture_id = picture.id
@@ -39,11 +38,9 @@ module Alchemy
           response.status.should == 200
         end
       end
-
     end
 
     context "Requesting a picture that is assigned with restricted pages only" do
-
       before do
         essence = restricted_element.contents.where(:name => 'image').first.essence
         essence.picture_id = picture.id
@@ -51,17 +48,14 @@ module Alchemy
       end
 
       context "as guest user" do
-
         it "should not render the picture, but redirect to login path" do
           get :show, :id => picture.id, :sh => picture.security_token
           response.status.should == 302
           response.should redirect_to(login_path)
         end
-
       end
 
       context "as registered user" do
-
         before do
           activate_authlogic
           UserSession.create(FactoryGirl.create(:registered_user))
@@ -71,10 +65,19 @@ module Alchemy
           get :show, :id => picture.id, :format => :png, :sh => picture.security_token
           response.status.should == 200
         end
-
       end
+    end
 
-
+    context "Requesting a picture with crop and size parameters" do
+      it "should render a cropped image" do
+        options = {
+          :crop => 'crop',
+          :size => '10x10',
+          :format => 'png'
+        }
+        get :show, options.merge(:id => picture.id, :sh => picture.security_token(options))
+        response.body[0x10..0x18].unpack('NN').should == [10,10]
+      end
     end
 
 
