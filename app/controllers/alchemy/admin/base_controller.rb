@@ -119,7 +119,7 @@ module Alchemy
       #
       def render_remote_errors(object, error_div_id = nil)
         @error_div_id = error_div_id || '#errors'
-        @error_fields = object.errors.messages.keys.map { |f| "#{object.class.class_name.underscore}_#{f}" }
+        @error_fields = object.errors.messages.keys.map { |f| "#{object.class.model_name.demodulize.underscore}_#{f}" }
         @errors = ("<ul>" + object.errors.full_messages.map { |e| "<li>#{e}</li>" }.join + "</ul>").html_safe
         render :action => :remote_errors
       end

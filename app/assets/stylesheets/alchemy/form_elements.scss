@@ -462,6 +462,8 @@ form td.select .selectboxit {
       display: block;
       background: url('ui-icons_666666_256x240.png') -127px -17px no-repeat;
     }
+
+    &.with_error { border-color: $error_border_color }
   }
 
   /* Dropdown List Options List*/
