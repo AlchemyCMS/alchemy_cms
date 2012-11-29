@@ -40,13 +40,14 @@ module Alchemy
         Element.transaction do
           if @paste_from_clipboard = params[:paste_from_clipboard].present?
             @element = paste_element_from_clipboard
+            @cell = @element.cell
           else
             @element = Element.new_from_scratch(params[:element])
             if @page.can_have_cells?
               @cell = find_or_create_cell
               @element.cell = @cell
             end
-            @element.save!
+            @element.save
           end
           if @insert_at_top = @page.definition['insert_elements_at'] == 'top'
             @element.move_to_top
@@ -110,12 +111,8 @@ module Alchemy
         else
           element_with_cell_name = params[:element][:name]
         end
-        if element_with_cell_name.blank?
-          raise "No element with cell name given. Please provide the cell name after the element name (or id) seperated by #."
-        end
-        unless element_with_cell_name.include?('#')
-          return nil
-        end
+        return nil if element_with_cell_name.blank?
+        return nil unless element_with_cell_name.include?('#')
         cell_name = element_with_cell_name.split('#').last
         cell_definition = Cell.definition_for(cell_name)
         if cell_definition.blank?
