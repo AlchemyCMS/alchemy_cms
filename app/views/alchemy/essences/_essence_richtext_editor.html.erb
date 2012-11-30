@@ -1,5 +1,5 @@
 <% cache(content) do -%>
-<div class="content_editor content_rtf_editor" id="<%= content_dom_id(content) %>">
+<div class="content_editor essence_richtext" id="<%= content_dom_id(content) %>">
   <%= label_and_remove_link(content) %>
   <div class="tinymce_container">
     <% if content.has_custom_tinymce_config? && content.settings[:tinymce] -%>

@@ -224,7 +224,7 @@ div.element_editor {
 
 #alchemy .ui-dialog div.element_editor form {
   margin: 0;
-  padding: 0 8px;
+  padding: 8px 8px 0 8px;
 }
 
 div.element_tools {
@@ -626,7 +626,6 @@ div.content_text_editor input.text_short {
 
 div.content_editor {
   margin-bottom: 8px;
-  margin-top: 8px;
   position: relative;
 
   input.thin_border {
