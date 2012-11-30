@@ -1,3 +1,4 @@
+<%- if @element['contents'].present? -%>
 = element_view_for(element) do |el|
 <%- if @element["picture_gallery"] -%>
   .<%= @element_name %>_images
@@ -12,4 +13,5 @@
   <%- else -%>
   = el.render :<%= content["name"] %>
   <%- end -%>
+<%- end -%>
 <%- end -%>
