@@ -147,9 +147,12 @@ div#user_info {
   position: absolute;
   z-index: 10;
   line-height: 27px;
+  height: 29px;
   font-size: 11px;
-  right: 10px;
+  right: 0;
   top: -3px;
+  padding: 0 8px;
+  background-color: $light-blue;
 
   .selectboxit-container {
     margin-right: 2 * $default-margin;
