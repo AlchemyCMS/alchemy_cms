@@ -8,9 +8,9 @@ Alchemy CMS
 About
 -----
 
-**This branch is a beta development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.3-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).**
+**This branch is a beta development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.4-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.4-stable).**
 
-Alchemy is a Rails 3 CMS with a flexible content storing architecture.
+Alchemy is a powerful, userfriendly and flexible Rails 3 CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
