@@ -1,6 +1,6 @@
 module Alchemy
 
-  VERSION = "2.4.rc4"
+  VERSION = "2.4.0"
 
   def self.version
     VERSION
