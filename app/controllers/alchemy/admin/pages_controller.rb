@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
+      include Alchemy::FerretSearch
 
       helper "alchemy/pages"
 

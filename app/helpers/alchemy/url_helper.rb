@@ -76,6 +76,7 @@ module Alchemy
 
     # Returns the correct params-hash for passing to show_page_path
     def show_page_path_params(page, optional_params={})
+      raise ArgumentError, 'Page is nil' if page.nil?
       url_params = {:level1 => nil, :level2 => nil, :level3 => nil, :urlname => page.urlname}
       url_params.update(optional_params)
       url_params.update(params_for_nested_url(page)) if configuration(:url_nesting)

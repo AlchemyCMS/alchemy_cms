@@ -23,7 +23,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'alchemy/version'
   require 'alchemy/auth_engine'
   require 'alchemy/engine'
-  %w(config essence page_layout modules tinymce i18n scoped_pagination_url_helper resource resources_helper).each do |class_name|
+  %w(config essence page_layout modules tinymce i18n scoped_pagination_url_helper resource resources_helper ferret_search).each do |class_name|
     require File.join(File.dirname(__FILE__), "alchemy", class_name)
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")

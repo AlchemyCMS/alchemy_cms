@@ -1,13 +1,14 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
-
-    rescue_from ActionController::RoutingError, :with => :render_404
+    include Alchemy::FerretSearch
 
     # We need to include this helper because we need the breadcrumb method.
     # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
     # Not the best solution, but's working.
     # Anyone with a better idea please provide a patch.
     include Alchemy::BaseHelper
+
+    rescue_from ActionController::RoutingError, :with => :render_404
 
     before_filter :render_page_or_redirect, :only => [:show, :sitemap]
     before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
@@ -18,9 +19,13 @@ module Alchemy
       :cache_path => proc { @page.cache_key(request) },
       :if => proc {
         if @page && Alchemy::Config.get(:cache_pages)
-           pagelayout = PageLayout.get(@page.page_layout)
-           pagelayout['cache'].nil? || pagelayout['cache']
+          pagelayout = PageLayout.get(@page.page_layout)
+          if (pagelayout['cache'].nil? || pagelayout['cache']) && !pagelayout['searchresults']
+            logger.info("Caching page #{@page.name}")
+            true
+          end
         else
+          logger.info("Not caching page #{@page.name}")
           false
         end
       }, :layout => false)
@@ -106,32 +111,6 @@ module Alchemy
           @root_page = @page
         else
           @root_page = Page.language_root_for(session[:language_id])
-        end
-      end
-    end
-
-    # Performs a search on EssenceRichtext and EssenceText for params['query'].
-    # Only performing the search when ferret is enabled in the alchemy/config.yml and
-    # a Page gets found where the searchresults can be rendered. This Page gets found
-    # when a page_layout is marked for rendering searchresults:
-    # 'searchresults: true' in alchemy/page_layouts.yml
-    def perform_search
-      searchresult_page_layouts = PageLayout.get_all_by_attributes({:searchresults => true})
-      if searchresult_page_layouts.any?
-        @search_result_page = Page.find_by_page_layout_and_public_and_language_id(searchresult_page_layouts.first["name"], true, session[:language_id])
-        if !params[:query].blank? && @search_result_page
-          @search_results = []
-          %w(Alchemy::EssenceText Alchemy::EssenceRichtext).each do |e|
-            @search_results += e.constantize.includes(:contents => {:element => :page}).find_with_ferret(
-              "*#{params[:query]}*",
-              {:limit => :all},
-              {:conditions => [
-                'alchemy_pages.public = ? AND alchemy_pages.layoutpage = ? AND alchemy_pages.restricted = ? AND alchemy_pages.language_id = ?',
-                true, false, false, session[:language_id]
-              ]}
-            )
-          end
-          return @search_results.sort { |y, x| x.ferret_score <=> y.ferret_score } if @search_results.any?
         end
       end
     end

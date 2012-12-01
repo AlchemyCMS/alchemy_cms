@@ -63,5 +63,6 @@ POST_INSTALL
   s.add_development_dependency %q<rspec-rails>
   s.add_development_dependency %q<sqlite3>
   s.add_development_dependency %q<yard>
+  s.add_development_dependency %q<redcarpet>
 
 end
