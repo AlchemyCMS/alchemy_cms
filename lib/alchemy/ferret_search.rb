@@ -68,9 +68,9 @@ module Alchemy
     # @return [Alchemy::Page]
     #
     def find_search_result_page
-      if searchresult_page_layouts = PageLayout.get_all_by_attributes(:searchresults => true)
+      if searchresult_page_layout = PageLayout.get_all_by_attributes(:searchresults => true).first
         search_result_page = Page.published.where(
-          :page_layout => searchresult_page_layouts.first["name"],
+          :page_layout => searchresult_page_layout["name"],
           :language_id => session[:language_id]
         ).limit(1).first
       end

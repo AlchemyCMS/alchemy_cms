@@ -20,12 +20,10 @@ module Alchemy
       :if => proc {
         if @page && Alchemy::Config.get(:cache_pages)
           pagelayout = PageLayout.get(@page.page_layout)
-          if (pagelayout['cache'].nil? || pagelayout['cache']) && !pagelayout['searchresults']
-            logger.info("Caching page #{@page.name}")
+          if (pagelayout['cache'].nil? || pagelayout['cache']) && pagelayout['searchresults'] != true
             true
           end
         else
-          logger.info("Not caching page #{@page.name}")
           false
         end
       }, :layout => false)
