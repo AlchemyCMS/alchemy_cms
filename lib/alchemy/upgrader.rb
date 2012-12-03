@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'active_record'
 
 module Alchemy
   class Upgrader < Alchemy::Seeder
@@ -114,8 +115,8 @@ module Alchemy
       def strip_alchemy_from_schema_version_table
         desc "Strip -alchemy suffix from schema_version table."
         database_yml = YAML.load_file(Rails.root.join("config", "database.yml"))
-        connection = Mysql2::Client.new(database_yml.fetch(Rails.env.to_s).symbolize_keys)
-        connection.query "UPDATE schema_migrations SET `schema_migrations`.`version` = REPLACE(`schema_migrations`.`version`,'-alchemy','')"
+        adapter = ActiveRecord::Base.establish_connection(database_yml.fetch(Rails.env.to_s).symbolize_keys)
+        adapter.connection.update("UPDATE schema_migrations SET version = REPLACE(`schema_migrations`.`version`,'-alchemy','')")
       end
 
       def convert_essence_texts_displayed_as_select_into_essence_selects
