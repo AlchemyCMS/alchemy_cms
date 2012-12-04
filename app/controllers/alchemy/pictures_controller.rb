@@ -13,6 +13,10 @@ module Alchemy
     def show
       image_file = @picture.image_file
 
+      if image_file.nil?
+        raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
+      end
+
       upsample = params[:upsample] == 'true'
       crop_from = normalized_size(params[:crop_from])
       crop_size = params[:crop_size]
@@ -102,4 +106,8 @@ module Alchemy
     end
 
   end
+
+  class MissingImageFileError < StandardError
+  end
+
 end
