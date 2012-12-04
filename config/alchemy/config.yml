@@ -83,9 +83,9 @@ url_nesting: false
 
 # === Picture rendering settings
 #
-# Alchemy uses Fleximage and RMagick to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
+# Alchemy uses Dragonfly and RMagick to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
 #
-# See https://github.com/Squeegy/fleximage for further infos.
+# See http://markevans.github.com/dragonfly for further infos.
 #
 # ==== Options:
 #
