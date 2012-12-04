@@ -74,11 +74,10 @@ module Alchemy
           :language_id => session[:language_id]
         ).limit(1).first
       end
-      if search_result_page.blank?
-        raise ActiveRecord::RecordNotFound, "No published search result page found. Please create one or publish your search result page."
-      else
-        search_result_page
+      if search_result_page.nil?
+        logger.warn "\n++++++\nNo published search result page found. Please create one or publish your search result page.\n++++++\n"
       end
+      search_result_page
     end
 
   end

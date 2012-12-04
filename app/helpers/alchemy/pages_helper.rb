@@ -472,7 +472,7 @@ module Alchemy
         :class => 'fulltext_search',
         :id => 'search'
       }
-      render :partial => 'alchemy/search/form', :locals => {:options => default_options.merge(options)}
+      render :partial => 'alchemy/search/form', :locals => {:options => default_options.merge(options), :search_result_page => find_search_result_page}
     end
 
     # Renders the search results partial within +app/views/alchemy/search/_results.html+
