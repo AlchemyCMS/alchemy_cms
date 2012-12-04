@@ -4,6 +4,6 @@
     <%= link_to page.name, show_alchemy_page_path(page) %>
   </h3>
   <%- result.each do |highlight| -%>
-    <p><%= sanitize highlight %></p>
+    <p><%= sanitize highlight.force_encoding('UTF-8') %></p>
   <%- end -%>
 </li>
