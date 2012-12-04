@@ -46,7 +46,7 @@ module Alchemy
           :upload_hash => params[:upload_hash]
         )
         @picture.name = @picture.humanized_name
-        @picture.save
+        @picture.save!
         @size = params[:size] || 'medium'
         if in_overlay?
           @while_assigning = true

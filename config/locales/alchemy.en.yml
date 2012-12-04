@@ -275,7 +275,6 @@ en:
     meta_data: "Meta-Data"
     meta_description: "Meta-Description"
     meta_keywords: "Meta-Keywords"
-    missing_image: "Missing image"
     modules:
       user_sessions: "Login"
       attachments: "Files"
@@ -622,9 +621,10 @@ en:
         visible: "visible in navigation"
 
       alchemy/picture:
-        image_filename: "Filename"
-        image_height: "Imageheight"
-        image_width: "Imagewidth"
+        image_file_name: "Filename"
+        image_file_height: "Height"
+        image_file_width: "Width"
+        image_file_size: "Filesize"
         name: "Name"
 
       alchemy/user:

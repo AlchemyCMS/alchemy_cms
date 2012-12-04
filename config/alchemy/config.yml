@@ -91,14 +91,12 @@ url_nesting: false
 #
 #   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
 #   preprocess_image_resize   [String]        # I.E.: 1000x1000. If you are limited on diskspace use this option to downsize large images to that value. (Default nil)
-#   image_store_format        [String]        # The storage format of the master image. All images get rendered from this master image, so a lossless format (png) is strongly recommended. (Default png)
 #   image_output_format       [String]        # The global image output format setting.
 #
 # TIP: You can always override the output format in the options of your Essence. I.E. {:format => :gif}
 #
 output_image_jpg_quality: 85
 preprocess_image_resize:
-image_store_format: png
 image_output_format: jpg
 
 # This is the default language for the seeder.

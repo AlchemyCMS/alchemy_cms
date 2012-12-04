@@ -19,6 +19,7 @@ module Alchemy
         convert_essence_texts_displayed_as_checkbox_into_essence_booleans
         copy_new_config_file
         removed_richmedia_essences_notice
+        convert_picture_storage
 
         display_todos
       end
@@ -207,6 +208,30 @@ drop_table :alchemy_essence_flashes
 drop_table :alchemy_essence_videos
 WARN
         todo warn
+      end
+
+      def convert_picture_storage
+        desc "Convert the picture storage"
+        converted_images = []
+        images = Dir.glob Rails.root.join 'uploads/pictures/**/*.*'
+        if images.blank?
+          log "No pictures found", :skip
+        else
+          images.each do |image|
+            image_uid = image.gsub(/#{Rails.root.to_s}\/uploads\/pictures\//, '')
+            image_id = image_uid.split('/').last.split('.').first
+            picture = Alchemy::Picture.find_by_id(image_id)
+            if picture && picture.image_file_uid.blank?
+              picture.image_file_uid = image_uid
+              picture.image_file_size = File.new(image).size
+              if picture.save!
+                log "Converted #{image_uid}"
+              end
+            else
+              log "Picture with id #{image_id} not found or already converted.", :skip
+            end
+          end
+        end
       end
 
     end

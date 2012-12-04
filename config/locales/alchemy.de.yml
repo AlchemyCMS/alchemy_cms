@@ -447,7 +447,6 @@ de:
     meta_data: "Meta Daten"
     meta_description: "Meta Beschreibung"
     meta_keywords: "Meta Schlagworte"
-    missing_image: "Bild wird vermisst."
     modules:
       user_sessions: "Anmeldung"
       attachments: "Dateien"
@@ -755,6 +754,10 @@ de:
             too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
             taken: "^Der URL-Name ist bereits vergeben."
             exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "^Bitte fügen Sie ein Bild an."
       alchemy/user:
         attributes:
           login:
@@ -884,9 +887,10 @@ de:
         visible: "in der Navigation sichtbar"
 
       alchemy/picture:
-        image_filename: "Dateiname"
-        image_height: "Bildhöhe"
-        image_width: "Bildbreite"
+        image_file_name: "Dateiname"
+        image_file_height: "Bildhöhe"
+        image_file_width: "Bildbreite"
+        image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Schlagworte
 

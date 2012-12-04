@@ -55,7 +55,7 @@
       :style => "display: none;"
     ),
     '#',
-    :onclick => "Alchemy.zoomImage('#{show_in_window_admin_picture_path(:id => picture.id, :sh => picture.security_token)}', '#{picture.name}', #{picture.image_width || 320}, #{picture.image_height || 240})",
+    :onclick => "Alchemy.zoomImage('#{show_in_window_admin_picture_path(:id => picture.id, :sh => picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240})",
     :class => 'thumbnail_background',
     :id => 'show_in_window'
   ) %>
