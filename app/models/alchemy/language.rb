@@ -16,7 +16,7 @@ module Alchemy
     validates_presence_of :language_code
     validates_presence_of :page_layout
     validates_presence_of :frontpage_name
-    validates_uniqueness_of :language_code, :scope => :country_code
+    validates_uniqueness_of :language_code, :scope => [:site_id, :country_code]
     validate :presence_of_default_language
     validate :publicity_of_default_language
     has_many :pages
