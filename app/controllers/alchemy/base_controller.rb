@@ -49,7 +49,7 @@ module Alchemy
     # Sets the current site.
     def set_current_site
       Site.current = begin
-        Site.first
+        Site.where(host: request.host).first || Site.first
       end
     end
 
