@@ -10,5 +10,10 @@ module Alchemy
 
     # associations
     has_many :languages
+
+    # Returns true if this site is the current site
+    def current?
+      self.class.current == self
+    end
   end
 end
