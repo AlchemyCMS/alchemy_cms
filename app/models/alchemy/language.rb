@@ -30,7 +30,10 @@ module Alchemy
     before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
     scope :published, where(:public => true)
+
+    # multi-site support
     scope :on_site, lambda { |s| s.present? ? where(site_id: s) : scoped }
+    default_scope { on_site(Site.current) }
 
     def self.all_for_created_language_trees
       find(Page.language_roots.collect(&:language_id))

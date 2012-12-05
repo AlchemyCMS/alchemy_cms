@@ -6,6 +6,7 @@ module Alchemy
 
     protect_from_forgery
 
+    before_filter :set_current_site
     before_filter :set_language
     before_filter :mailer_set_url_options
 
@@ -45,10 +46,10 @@ module Alchemy
 
   private
 
-    # Returns the current site.
-    def current_site
-      @_current_site ||= begin
-        Site.first # FIXME
+    # Sets the current site.
+    def set_current_site
+      Site.current = begin
+        Site.first
       end
     end
 

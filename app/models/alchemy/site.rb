@@ -1,5 +1,7 @@
 module Alchemy
   class Site < ActiveRecord::Base
+    cattr_accessor :current
+
     attr_accessible :host, :name
 
     # validations
