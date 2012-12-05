@@ -48,8 +48,9 @@ module Alchemy
 
     # Sets the current site.
     def set_current_site
-      Site.current = begin
-        Site.where(host: request.host).first || Site.first
+      Site.current = Site.where(host: request.host).first || Site.first || begin
+        Site.create!(host: request.host)
+        # XXX: create default language
       end
     end
 
