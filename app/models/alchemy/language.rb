@@ -35,8 +35,11 @@ module Alchemy
     scope :on_site, lambda { |s| s.present? ? where(site_id: s) : scoped }
     default_scope { on_site(Site.current) }
 
+    # Returns all languages for which a language root page exists.
     def self.all_for_created_language_trees
-      find(Page.language_roots.collect(&:language_id))
+      # don't use 'find' here as it would clash with our default_scopes
+      # in various unholy ways you don't want to find out about.
+      where(id: Page.language_roots.collect(&:language_id))
     end
 
     def self.all_codes_for_published
