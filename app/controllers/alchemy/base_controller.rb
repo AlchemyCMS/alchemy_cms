@@ -45,6 +45,13 @@ module Alchemy
 
   private
 
+    # Returns the current site.
+    def current_site
+      @_current_site ||= begin
+        Site.first # FIXME
+      end
+    end
+
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
     #
     # Guesses the language from browser locale. If not successful it takes the default.
