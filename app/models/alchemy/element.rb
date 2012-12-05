@@ -510,6 +510,10 @@ module Alchemy
       description['taggable'] == true
     end
 
+    def to_partial_path
+      "alchemy/elements/#{name}_view"
+    end
+
   private
 
     # creates the contents for this element as described in the elements.yml
