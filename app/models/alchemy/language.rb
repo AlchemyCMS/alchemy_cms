@@ -20,6 +20,7 @@ module Alchemy
     validate :presence_of_default_language
     validate :publicity_of_default_language
     has_many :pages
+    belongs_to :site
     after_destroy :delete_language_root_page
     validates_format_of :language_code, :with => /^[a-z]{2}$/, :if => proc { language_code.present? }
     validates_format_of :country_code, :with => /^[a-z]{2}$/, :if => proc { country_code.present? }
@@ -29,6 +30,7 @@ module Alchemy
     before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
     scope :published, where(:public => true)
+    scope :on_site, lambda { |s| s.present? ? where(site_id: s) : scoped }
 
     def self.all_for_created_language_trees
       find(Page.language_roots.collect(&:language_id))
