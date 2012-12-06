@@ -78,8 +78,8 @@ module Alchemy
       def create_default_site
         desc "Creating default site"
         site = Alchemy::Site.find_or_initialize_by_host(
-          :name => 'Default',
-          :host => 'default'
+          :name => 'Default Site',
+          :host => '*'
         )
         if site.new_record?
           site.save!
