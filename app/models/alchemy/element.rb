@@ -29,6 +29,7 @@ module Alchemy
 
     validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
+    validates_format_of :name, :on => :create, :with => /\A[a-z0-9_-]+\z/
 
     attr_accessor :create_contents_after_create
 
