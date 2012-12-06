@@ -7,8 +7,7 @@ module Alchemy
       :essence_id,
       :essence_type,
       :ingredient,
-      :name,
-      :position
+      :name
     )
 
     belongs_to :essence, :polymorphic => true, :dependent => :destroy

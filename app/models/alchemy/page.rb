@@ -28,7 +28,6 @@ module Alchemy
       :name,
       :page_layout,
       :parent_id,
-      :position,
       :public,
       :restricted,
       :robot_index,
