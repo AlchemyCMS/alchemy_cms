@@ -37,7 +37,7 @@ class AlchemyInstaller < Thor
 
       create_database_yml if options[:database] == 'mysql'
 
-      system "rake alchemy:mount"
+      system "cd #{@application} && rake alchemy:mount"
 
       with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
 
