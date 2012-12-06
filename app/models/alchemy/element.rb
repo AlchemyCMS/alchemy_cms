@@ -38,6 +38,7 @@ module Alchemy
     scope :trashed, where(:position => nil).order('updated_at DESC')
     scope :not_trashed, where(Element.arel_table[:position].not_eq(nil))
     scope :published, where(:public => true)
+    scope :not_restricted, joins(:page).where("alchemy_pages" => {:restricted => false})
     scope :available, published.not_trashed
     scope :named, lambda { |names| where(:name => names) }
     scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }

@@ -18,7 +18,7 @@ module Alchemy
     def load_element
       element = Element.available
       if !current_user
-        element = element.joins(:page).where("alchemy_pages" => {:restricted => false})
+        element = element.not_restricted
       end
       @element = element.find(params[:id])
     end
