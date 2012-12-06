@@ -9,7 +9,8 @@ module Alchemy
       :public,
       :default,
       :country_code,
-      :code
+      :code,
+      :site
     )
 
     validates_presence_of :name
