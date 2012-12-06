@@ -12,7 +12,6 @@ module Alchemy
       :folded,
       :name,
       :page_id,
-      :position,
       :public,
       :tag_list,
       :unique
