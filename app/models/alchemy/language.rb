@@ -9,17 +9,19 @@ module Alchemy
       :public,
       :default,
       :country_code,
-      :code
+      :code,
+      :site
     )
 
     validates_presence_of :name
     validates_presence_of :language_code
     validates_presence_of :page_layout
     validates_presence_of :frontpage_name
-    validates_uniqueness_of :language_code, :scope => :country_code
+    validates_uniqueness_of :language_code, :scope => [:site_id, :country_code]
     validate :presence_of_default_language
     validate :publicity_of_default_language
     has_many :pages
+    belongs_to :site
     after_destroy :delete_language_root_page
     validates_format_of :language_code, :with => /^[a-z]{2}$/, :if => proc { language_code.present? }
     validates_format_of :country_code, :with => /^[a-z]{2}$/, :if => proc { country_code.present? }
@@ -30,8 +32,15 @@ module Alchemy
 
     scope :published, where(:public => true)
 
+    # multi-site support
+    scope :on_site, lambda { |s| s.present? ? where(site_id: s) : scoped }
+    default_scope { on_site(Site.current) }
+
+    # Returns all languages for which a language root page exists.
     def self.all_for_created_language_trees
-      find(Page.language_roots.collect(&:language_id))
+      # don't use 'find' here as it would clash with our default_scopes
+      # in various unholy ways you don't want to find out about.
+      where(id: Page.language_roots.collect(&:language_id))
     end
 
     def self.all_codes_for_published

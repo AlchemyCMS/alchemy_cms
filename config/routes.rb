@@ -140,6 +140,8 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :sites
+
   end
 
   match '/:lang' => 'pages#show',

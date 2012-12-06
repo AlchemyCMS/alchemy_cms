@@ -8,6 +8,7 @@ module Alchemy
       # This seed builds the necessary page structure for alchemy in your database.
       # Run the alchemy:db:seed rake task to seed your database.
       def seed!
+        create_default_site
         create_default_language
         create_root_page
       end
@@ -74,6 +75,20 @@ module Alchemy
 
     protected
 
+      def create_default_site
+        desc "Creating default site"
+        site = Alchemy::Site.find_or_initialize_by_host(
+          :name => 'Default',
+          :host => 'default'
+        )
+        if site.new_record?
+          site.save!
+          log "Created default site."
+        else
+          log "Default site was already present.", :skip
+        end
+      end
+
       def create_default_language
         desc "Creating default language"
         default_language = Alchemy::Config.get(:default_language)
@@ -83,7 +98,8 @@ module Alchemy
           :frontpage_name => default_language['frontpage_name'],
           :page_layout => default_language['page_layout'],
           :public => true,
-          :default => true
+          :default => true,
+          :site => Site.first
         )
         if lang.new_record?
           if lang.save!

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121162313) do
+ActiveRecord::Schema.define(:version => 20121205155004) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -187,10 +187,12 @@ ActiveRecord::Schema.define(:version => 20121121162313) do
     t.integer  "updater_id"
     t.boolean  "default",        :default => false
     t.string   "country_code",   :default => "",      :null => false
+    t.integer  "site_id"
   end
 
   add_index "alchemy_languages", ["language_code", "country_code"], :name => "index_alchemy_languages_on_language_code_and_country_code"
   add_index "alchemy_languages", ["language_code"], :name => "index_alchemy_languages_on_language_code"
+  add_index "alchemy_languages", ["site_id"], :name => "index_alchemy_languages_on_site_id"
 
   create_table "alchemy_pages", :force => true do |t|
     t.string   "name"
@@ -240,6 +242,15 @@ ActiveRecord::Schema.define(:version => 20121121162313) do
     t.string   "image_file_uid"
     t.integer  "image_file_size"
   end
+
+  create_table "alchemy_sites", :force => true do |t|
+    t.string   "host"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "alchemy_sites", ["host"], :name => "index_alchemy_sites_on_host"
 
   create_table "alchemy_users", :force => true do |t|
     t.string   "firstname"

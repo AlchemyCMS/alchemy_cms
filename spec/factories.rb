@@ -107,4 +107,8 @@ FactoryGirl.define do
     entrance_fee 12.3
   end
 
+  factory :site, class: 'Alchemy::Site' do
+    name 'A Site'
+    host 'domain.com'
+  end
 end
