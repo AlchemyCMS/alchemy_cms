@@ -13,7 +13,7 @@ module Alchemy
     end
 
     validates_presence_of :image_file
-    validates_property :format, :of => :image_file, :in => [:jpg, :png, :gif], :message => I18n.t("not a valid image")
+    validates_property :format, :of => :image_file, :in => Config.get('uploader')['allowed_filetypes']['pictures'].map(&:to_sym), :message => I18n.t("not a valid image")
 
     acts_as_taggable
 

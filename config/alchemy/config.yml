@@ -169,7 +169,11 @@ uploader:
   upload_limit: 50
   file_size_limit: 100
   allowed_filetypes:
-    pictures: [jpg, jpeg, gif, png, psd, pdf]
+    pictures:
+    - :jpg
+    - :jpeg
+    - :gif
+    - :png
     attachments: ['*']
 
 # === Link Target Options
