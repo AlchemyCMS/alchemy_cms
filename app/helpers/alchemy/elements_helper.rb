@@ -2,6 +2,8 @@ module Alchemy
   module ElementsHelper
 
     include Alchemy::EssencesHelper
+    include Alchemy::UrlHelper
+    include Alchemy::ElementsBlockHelper
 
     # Renders all elements from current page.
     #
