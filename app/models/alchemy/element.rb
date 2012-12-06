@@ -29,6 +29,7 @@ module Alchemy
 
     validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
+    validates_format_of :name, :on => :create, :with => /\A[a-z0-9_-]+\z/
 
     attr_accessor :create_contents_after_create
 
@@ -37,6 +38,7 @@ module Alchemy
     scope :trashed, where(:position => nil).order('updated_at DESC')
     scope :not_trashed, where(Element.arel_table[:position].not_eq(nil))
     scope :published, where(:public => true)
+    scope :not_restricted, joins(:page).where("alchemy_pages" => {:restricted => false})
     scope :available, published.not_trashed
     scope :named, lambda { |names| where(:name => names) }
     scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
@@ -508,6 +510,10 @@ module Alchemy
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
       description['taggable'] == true
+    end
+
+    def to_partial_path
+      "alchemy/elements/#{name}_view"
     end
 
   private

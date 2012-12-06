@@ -1,6 +1,1 @@
-<%= render(
-  :partial => "alchemy/elements/#{@element.name}_view.html.erb",
-  :locals => {
-    :element => @element
-  }
-) -%>
+<%= render @element, :element => @element %>

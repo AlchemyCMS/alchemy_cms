@@ -52,6 +52,7 @@ module Alchemy
     has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
     belongs_to :language
 
+    validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :name
     validates_presence_of :page_layout, :unless => :systempage?
     validates_presence_of :parent_id, :if => proc { Page.count > 1 }

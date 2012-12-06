@@ -16,7 +16,11 @@ module Alchemy
   private
 
     def load_element
-      @element = Element.find(params[:id])
+      element = Element.available
+      if !current_user
+        element = element.not_restricted
+      end
+      @element = element.find(params[:id])
     end
 
   end
