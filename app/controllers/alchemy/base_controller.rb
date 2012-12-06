@@ -6,6 +6,7 @@ module Alchemy
 
     protect_from_forgery
 
+    before_filter :set_current_site
     before_filter :set_language
     before_filter :mailer_set_url_options
 
@@ -44,6 +45,11 @@ module Alchemy
     end
 
   private
+
+    # Sets the current site.
+    def set_current_site
+      Site.current = Site.where(host: request.host).first || Site.first
+    end
 
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
     #

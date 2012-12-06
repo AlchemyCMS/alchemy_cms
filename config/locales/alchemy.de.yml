@@ -458,6 +458,7 @@ de:
       pages: "Seiten"
       users: "Benutzer"
       tags: "Schlagworte"
+      sites: "Multisite"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
@@ -907,6 +908,10 @@ de:
         password_confirmation: "Passwort Bestätigung"
         role: "Benutzerrolle"
         tag_list: Schlagworte
+
+      alchemy/site:
+        name: "Bezeichnung"
+        host: "Host/Domain"
 
     errors:
       <<: *errors

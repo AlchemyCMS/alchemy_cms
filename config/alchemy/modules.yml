@@ -80,3 +80,15 @@
     - name: 'modules.tags'
       controller: 'alchemy/admin/tags'
       action: index
+
+- name: sites
+  engine_name: alchemy
+  navigation:
+    name: 'modules.sites'
+    controller: 'alchemy/admin/sites'
+    action: index
+    icon: sites
+    sub_navigation:
+    - name: 'modules.sites'
+      controller: 'alchemy/admin/sites'
+      action: index
