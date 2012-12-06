@@ -458,7 +458,7 @@ de:
       pages: "Seiten"
       users: "Benutzer"
       tags: "Schlagworte"
-      sites: "Multisite"
+      sites: "Websites"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
@@ -820,6 +820,10 @@ de:
       alchemy/user_session:
         one: Anmeldung
         other: Anmeldungen
+
+      alchemy/site:
+        one: Website
+        other: Websites
 
     attributes:
 
