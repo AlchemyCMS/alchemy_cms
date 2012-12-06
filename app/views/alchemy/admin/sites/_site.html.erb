@@ -1,0 +1,26 @@
+<tr class="<%= cycle('even', 'odd') %>">
+  <td class="icon"><%= render_icon :tag %></td>
+  <td class="host"><%= site.host %></td>
+  <td class="name"><%= site.name %></td>
+  <td class="tools">
+    <%= link_to_overlay_window(
+      "",
+      edit_admin_site_path(site),
+      {
+        :title => t(:edit_site),
+        :size => '360x385'
+      },
+      {
+        :title => t(:edit_site),
+        :class => 'icon site_edit'
+      }
+    ) %>
+    <%= link_to_confirmation_window(
+      '',
+      t(:do_you_really_want_to_delete_this_site?),
+      admin_site_path(site),
+      :title => t(:delete_site),
+      :class => "icon site_delete"
+    ) %>
+  </td>
+</tr>
