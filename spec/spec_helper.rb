@@ -56,6 +56,7 @@ def configure
     end
     # Ensuring that the locale is always resetted to :en before running any tests
     config.before(:each) do
+      Alchemy::Site.current = nil
       ::I18n.locale = :en
     end
   end

@@ -9,7 +9,6 @@ module Alchemy
       # Run the alchemy:db:seed rake task to seed your database.
       def seed!
         create_default_site
-        create_default_language
         create_root_page
       end
 
@@ -83,30 +82,9 @@ module Alchemy
         )
         if site.new_record?
           site.save!
-          log "Created default site."
+          log "Created default site with default language."
         else
           log "Default site was already present.", :skip
-        end
-      end
-
-      def create_default_language
-        desc "Creating default language"
-        default_language = Alchemy::Config.get(:default_language)
-        lang = Alchemy::Language.find_or_initialize_by_language_code(
-          :name => default_language['name'],
-          :language_code => default_language['code'],
-          :frontpage_name => default_language['frontpage_name'],
-          :page_layout => default_language['page_layout'],
-          :public => true,
-          :default => true,
-          :site => Site.first
-        )
-        if lang.new_record?
-          if lang.save!
-            log "Created language #{lang.name}."
-          end
-        else
-          log "Language #{lang.name} was already present.", :skip
         end
       end
 
