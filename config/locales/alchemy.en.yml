@@ -625,6 +625,7 @@ en:
         image_file_name: "Filename"
         image_file_height: "Height"
         image_file_width: "Width"
+        image_file_dimensions: "Dimensions"
         image_file_size: "Filesize"
         name: "Name"
 

@@ -894,8 +894,9 @@ de:
 
       alchemy/picture:
         image_file_name: "Dateiname"
-        image_file_height: "Bildhöhe"
-        image_file_width: "Bildbreite"
+        image_file_height: "Höhe"
+        image_file_width: "Breite"
+        image_file_dimensions: "Abmessungen"
         image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Schlagworte
