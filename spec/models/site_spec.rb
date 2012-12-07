@@ -22,7 +22,7 @@ module Alchemy
         end
 
         context 'when it already has a language' do
-          let(:language) { FactoryGirl.build(:language) }
+          let(:language) { FactoryGirl.build(:language, site: nil) }
           before { subject.languages << language }
 
           it 'should not create any additional languages' do

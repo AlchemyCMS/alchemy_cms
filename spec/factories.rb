@@ -31,6 +31,7 @@ FactoryGirl.define do
     frontpage_name 'Intro'
     page_layout 'intro'
     public true
+    site { Alchemy::Site.first }
 
     factory :klingonian do
       name 'Klingonian'
