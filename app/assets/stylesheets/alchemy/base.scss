@@ -95,16 +95,6 @@ ul {
   float: left;
 }
 
-/* @group overlay */
-
-#user_list li.table_row div.table_left span.icon img {
-  width: 16px;
-  height: 16px;
-  position: relative;
-  top: 1px;
-  left: -1px;
-}
-
 span.updated_at {
   float: right;
 }
@@ -311,16 +301,6 @@ li.odd {
   background-color: #eaf3f9;
 }
 
-ul.list li.table_row {
-  display: block;
-  margin: 0 0 8px;
-  background-color: #ffffff;
-  position: relative;
-  line-height: 18px;
-  float: left;
-  width: 100%;
-}
-
 ul.list {
   margin: 0;
   padding: 2*$default-padding;
@@ -355,19 +335,6 @@ ul.list li.legend {
   float: left;
 }
 
-ul.list div.detail_row {
-  background-color: $medium-gray;
-  font-size: 10px;
-  margin-top: 3px;
-  padding: $default-padding;
-  overflow: hidden;
-}
-
-ul.list div.detail_row div {
-  padding-top: 1px;
-  padding-bottom: 1px;
-}
-
 ul.list span.right {
   float: right;
 }
@@ -392,24 +359,6 @@ table td.tools .icon, table td.icon .icon {
   background-repeat: no-repeat;
   @include inline-block;
   margin-right: 4px;
-}
-
-.list li.table_row div.table_right span {
-  float: left;
-  text-align: left;
-}
-
-.list li.table_row div.table_center {
-  float: none;
-  padding-left: 24px;
-}
-
-.list div.table_left {
-  float: left;
-}
-
-.list div.table_right {
-  float: right;
 }
 
 #archive_all {

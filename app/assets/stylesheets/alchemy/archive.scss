@@ -294,3 +294,20 @@ div#tag_list {
     }
   }
 }
+
+div#pictures_page_list {
+
+  h2 { margin: 0 8px }
+  h3 { padding: 0 }
+
+  ul.list {
+    height: 100px;
+    overflow: auto;
+    margin: 8px;
+    background-color: $medium-gray;
+
+    ul { padding: 0 4px }
+  }
+
+  li.even, li.odd { padding: 4px }
+}
