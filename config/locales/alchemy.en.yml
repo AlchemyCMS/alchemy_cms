@@ -201,6 +201,7 @@ en:
     country_code_placeholder: 'i.e. us (optional)'
     country_code_foot_note: "You only need to set a country code if you want to provide each country with an individual language."
     "Create language": "Create a new language"
+    "Create site": "Create a new site"
     create_language_tree_heading: "Create empty language tree"
     create_page: "Create a new subpage"
     create_user: "Create a new user"
@@ -287,6 +288,7 @@ en:
       pages: "Pages"
       users: "Users"
       tags: "Tags"
+      sites: "Sites"
     name: "Name"
     names: "Names"
     navigation_name: "Navigationname"
@@ -641,6 +643,9 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         role: "Userrole"
+
+      alchemy/site:
+        host: Host/Domain
 
     errors:
       <<: *errors
