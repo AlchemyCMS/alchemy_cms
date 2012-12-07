@@ -8,7 +8,8 @@
       :url => new_resource_path,
       :title => label_title,
       :overlay_options => {
-        :title => label_title
+        :title => label_title,
+        :size => resource_window_size
       },
       :if_permitted_to => [:new, resource_permission_scope]
     }
