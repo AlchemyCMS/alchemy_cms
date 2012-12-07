@@ -122,5 +122,19 @@ module Alchemy
 
     end
 
+    describe '#destroy' do
+      context "a picture that is assigned in an essence" do
+
+        let(:essence_picture) { EssencePicture.create }
+        let(:picture) { FactoryGirl.create :picture }
+        before { essence_picture.update_attributes(:picture_id => picture.id) }
+
+        it "should raise error message" do
+          expect { picture.destroy }.to raise_error PictureInUseError
+        end
+
+      end
+    end
+
   end
 end

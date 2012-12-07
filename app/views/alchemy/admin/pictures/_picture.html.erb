@@ -2,7 +2,7 @@
   <span class="picture_tool select">
     <%= check_box_tag "picture_ids[]", picture.id %>
   </span>
-  <% permitted_to?(:destroy, :alchemy_admin_pictures) do %>
+  <% if permitted_to?(:destroy, :alchemy_admin_pictures) && picture.deletable? %>
   <span class="picture_tool delete">
     <%= link_to_confirmation_window(
       "",
@@ -39,6 +39,28 @@
       },
       {
         :title => t('Edit image')
+      }
+    ) -%>
+  </span>
+  <% end %>
+  <% permitted_to?(:info, :alchemy_admin_pictures) do %>
+  <span class="picture_tool info">
+    <%= link_to_overlay_window(
+      "",
+      alchemy.info_admin_picture_path(
+        :id => picture,
+        :query => params[:query],
+        :page => params[:page],
+        :tagged_with => params[:tagged_with],
+        :size => params[:size],
+        :filter => params[:filter]
+      ),
+      {
+        :title => t('Image infos'),
+        :size => "400x300"
+      },
+      {
+        :title => t('Show image infos')
       }
     ) -%>
   </span>

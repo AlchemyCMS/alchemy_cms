@@ -103,14 +103,19 @@ module Alchemy
       def delete_multiple
         if request.delete? && params[:picture_ids].present?
           pictures = Picture.find(params[:picture_ids])
-          names = pictures.map(&:name).to_sentence
+          names = []
           pictures.each do |picture|
+            next unless picture.deletable?
+            names << picture.name
             picture.destroy
           end
-          flash[:notice] = t("Pictures deleted successfully", :names => names)
+          flash[:notice] = t("Pictures deleted successfully", :names => names.to_sentence)
         else
           flash[:notice] = t("Could not delete Pictures")
         end
+      rescue Exception => e
+        flash[:error] = e.message
+      ensure
         redirect_to_index
       end
 
@@ -119,8 +124,11 @@ module Alchemy
         name = @picture.name
         @picture.destroy
         flash[:notice] = t("Picture deleted successfully", :name => name)
+      rescue Exception => e
+        flash[:error] = e.message
+      ensure
         @redirect_url = admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
-        render :action => :redirect
+        render :redirect
       end
 
       def flush
@@ -129,6 +137,11 @@ module Alchemy
       end
 
       def show_in_window
+        @picture = Picture.find(params[:id])
+        render :layout => false
+      end
+
+      def info
         @picture = Picture.find(params[:id])
         render :layout => false
       end

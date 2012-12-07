@@ -6,6 +6,15 @@ module Alchemy
     has_many :elements, :through => :contents
     has_many :pages, :through => :elements
 
+    # Raise error, if picture is in use (aka. assigned to an EssencePicture)
+    #
+    # === CAUTION:
+    # This HAS to be placed for Dragonfly's class methods, to ensure this runs before Dragonfly's before_destroy callback.
+    #
+    before_destroy :unless => :deletable? do
+      raise PictureInUseError, I18n.t(:cannot_delete_picture_notice) % { :name => name }
+    end
+
     image_accessor :image_file do
       if Config.get(:preprocess_image_resize).present?
         after_assign { |a| a.process!(:resize, Config.get(:preprocess_image_resize)) }
@@ -27,6 +36,7 @@ module Alchemy
     stampable(:stamper_class_name => 'Alchemy::User')
 
     scope :recent, where("#{self.table_name}.created_at > ?", Time.now-24.hours).order(:created_at)
+    scope :deletable, where("alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
 
     def self.find_paginated(params, per_page)
       Picture.where("name LIKE ?", "%#{params[:query]}%").page(params[:page] || 1).per(per_page).order(:name)
@@ -132,6 +142,14 @@ module Alchemy
       pages.any? && pages.not_restricted.blank?
     end
 
+    def deletable?
+      !essence_pictures.any?
+    end
+
+    def image_file_dimensions
+      "#{image_file_width} x #{image_file_height}"
+    end
+
     # Returns a security token for signed picture rendering requests.
     #
     # Pass a params hash containing:
@@ -152,4 +170,5 @@ module Alchemy
     end
 
   end
+  class PictureInUseError < StandardError; end
 end

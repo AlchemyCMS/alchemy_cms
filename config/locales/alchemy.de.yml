@@ -338,6 +338,7 @@ de:
     big_thumbnails: "große Miniaturbilder"
     browse: "durchsuchen"
     cancel: "abbrechen"
+    cannot_delete_picture_notice: "Das Bild %{name} kann nicht gelöscht werden, da es noch auf Seiten benutzt wird."
     choose_element_as_target: "Wählen Sie ein Element dieser Seite als Ziel"
     choose_element_to_link: "Bitte wählen Sie ein Element."
     choose_file_to_link: "Bitte wählen Sie eine Datei zum Verlinken aus."

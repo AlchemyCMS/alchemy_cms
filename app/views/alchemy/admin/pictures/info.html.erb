@@ -1,0 +1,43 @@
+<div class="with_padding">
+  <table>
+    <tr>
+      <td class="label"><%= Alchemy::Picture.human_attribute_name :name %></td>
+      <td class="value"><p><%= @picture.name %></p></td>
+    </tr>
+    <tr>
+      <td class="label"><%= Alchemy::Picture.human_attribute_name :image_file_name %></td>
+      <td class="value"><p><%= @picture.image_file_name %></p></td>
+    </tr>
+    <tr>
+      <td class="label"><%= Alchemy::Picture.human_attribute_name :image_file_dimensions %></td>
+      <td class="value"><p><%= @picture.image_file_dimensions %> px</p></td>
+    </tr>
+    <tr>
+      <td class="label"><%= Alchemy::Picture.human_attribute_name :image_file_size %></td>
+      <td class="value"><p><%= number_to_human_size @picture.image_file_size %></p></td>
+    </tr>
+  </table>
+</div>
+<div class="with_margin info">
+  <%= render_icon :info %>
+<% if @picture.deletable? %>
+  <h2>Dieses Bild wird auf keiner Seiten benutzt.</h2>
+<% else %>
+  <h2>Dieses Bild wird auf folgenden Seiten benutzt:</h2>
+  <ul style="max-height: 100px; overflow: auto">
+  <% @picture.essence_pictures.group_by(&:page).each do |page, essence_pictures| %>
+    <li>
+      <strong><%= link_to page.name, edit_admin_page_path(page) %></strong>
+      <ul>
+        <% essence_pictures.group_by(&:element).each do |element, essence_pictures| %>
+        <li>
+          <%= element.display_name_with_preview_text %> in
+          <%= essence_pictures.collect { |e| e.content.name_for_label }.to_sentence %>
+        </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+</div>

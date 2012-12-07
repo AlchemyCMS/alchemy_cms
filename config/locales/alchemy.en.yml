@@ -180,6 +180,7 @@ en:
     attachment_filename_notice: "*) Please do not use any special characters for the filename."
     auto_play: "Play movie after load"
     big_thumbnails: "Big thumbnails"
+    cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
     choose_element_as_target: "Please choose an element as target"
     choose_element_to_link: "Please choose an element"
     choose_file_to_link: "Please choose a file to link"

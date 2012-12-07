@@ -224,6 +224,16 @@ div.image_spinner {
     }
   }
 
+  &.info {
+    top: auto;
+    left: 4px;
+    bottom: 24px;
+
+    a {
+      background: image-url('alchemy/icons.png') no-repeat -64px -168px;
+    }
+  }
+
   a {
     display: block;
     width: 16px;

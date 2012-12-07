@@ -36,7 +36,7 @@ authorization do
     has_permission_on :alchemy_pictures, :to => [:thumbnail]
     has_permission_on :alchemy_admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :alchemy_admin_elements, :to => [:manage_elements]
-    has_permission_on :alchemy_admin_pictures, :to => [:index, :archive_overlay, :show_in_window]
+    has_permission_on :alchemy_admin_pictures, :to => [:index, :archive_overlay, :show_in_window, :info]
     has_permission_on :alchemy_admin_attachments, :to => [:index, :archive_overlay, :show, :download]
     has_permission_on :alchemy_admin_contents, :to => [:manage_contents]
     has_permission_on :alchemy_admin_essence_pictures, :to => [:manage_picture_essences]
@@ -50,7 +50,10 @@ authorization do
   role :editor do
     includes :author
     has_permission_on :alchemy_admin_attachments, :to => [:manage]
-    has_permission_on :alchemy_admin_pictures, :to => [:manage, :flush, :delete_multiple, :edit_multiple, :update_multiple]
+    has_permission_on :alchemy_admin_pictures, :to => [:create, :read, :update, :flush, :delete_multiple, :edit_multiple, :update_multiple]
+    has_permission_on :alchemy_admin_pictures, :to => [:destroy] do
+      if_attribute :essence_pictures => is { debugger }
+    end
     has_permission_on :alchemy_admin_pages, :to => [:manage_pages]
     has_permission_on :alchemy_admin_layoutpages, :to => [:index]
     has_permission_on :alchemy_admin_tags, :to => [:manage]

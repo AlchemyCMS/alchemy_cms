@@ -90,7 +90,7 @@ Alchemy::Engine.routes.draw do
         get :edit_multiple
       end
       member do
-        get :show_in_window
+        get :show_in_window, :info
         delete :remove
       end
     end
