@@ -31,8 +31,9 @@ module Alchemy
         desc "Creating default site and migrating existing languages to it"
         if Site.count == 0
           Alchemy::Site.transaction do
-            site = Alchemy::Site.create!(host: '*', name: 'Default Site')
-            Alchemy::Language.update_all(site_id: site.id)
+            site = Alchemy::Site.new(host: '*', name: 'Default Site')
+            site.languages << Alchemy::Language.all
+            site.save!
             log "Done."
           end
         else
