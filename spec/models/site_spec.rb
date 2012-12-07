@@ -5,6 +5,36 @@ module Alchemy
     let(:site) { FactoryGirl.create(:site) }
     let(:another_site) { FactoryGirl.create(:site, name: 'Another Site', host: 'another.com') }
 
+    describe 'new instances' do
+      subject { FactoryGirl.build(:site) }
+
+      it 'should start out with on languages' do
+        subject.languages.should be_empty
+      end
+
+      context 'when being saved' do
+        context 'when it has no languages yet' do
+          it 'should automatically create a default language' do
+            subject.save!
+            subject.languages.count.should == 1
+            subject.languages.first.should be_default
+          end
+        end
+
+        context 'when it already has a language' do
+          let(:language) { FactoryGirl.build(:language) }
+          before { subject.languages << language }
+
+          it 'should not create any additional languages' do
+            subject.languages.should == [language]
+
+            expect { subject.save! }.
+              to_not change(subject, "languages")
+          end
+        end
+      end
+    end
+
     describe '.current' do
       context 'when set to a site' do
         before { Site.current = site }
