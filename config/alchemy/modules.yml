@@ -66,6 +66,18 @@
         controller: 'alchemy/admin/users'
         action: index
 
+- name: tags
+  engine_name: alchemy
+  navigation:
+    name: 'modules.tags'
+    controller: 'alchemy/admin/tags'
+    action: index
+    icon: tags
+    sub_navigation:
+    - name: 'modules.tags'
+      controller: 'alchemy/admin/tags'
+      action: index
+
 - name: archive
   engine_name: alchemy
   navigation:
@@ -80,15 +92,3 @@
       - name: 'modules.attachments'
         controller: 'alchemy/admin/attachments'
         action: index
-
-- name: tags
-  engine_name: alchemy
-  navigation:
-    name: 'modules.tags'
-    controller: 'alchemy/admin/tags'
-    action: index
-    icon: tags
-    sub_navigation:
-    - name: 'modules.tags'
-      controller: 'alchemy/admin/tags'
-      action: index
