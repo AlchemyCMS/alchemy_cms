@@ -81,6 +81,18 @@ module Alchemy
         custom_config_string.html_safe
       end
 
+      def preview_sizes_for_select
+        options_for_select([
+          'auto',
+          [t('240', :scope => 'preview_sizes'), 240],
+          [t('320', :scope => 'preview_sizes'), 320],
+          [t('480', :scope => 'preview_sizes'), 480],
+          [t('768', :scope => 'preview_sizes'), 768],
+          [t('1024', :scope => 'preview_sizes'), 1024],
+          [t('1280', :scope => 'preview_sizes'), 1280]
+        ])
+      end
+
     end
   end
 end

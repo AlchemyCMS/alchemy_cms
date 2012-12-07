@@ -65,6 +65,10 @@
     <% end %>
   </div>
   <% end %>
+  <div class="button_with_label">
+    <%= select_tag('preview_size', preview_sizes_for_select, :class => 'alchemy_selectbox short') %>
+    <label><%= t :preview_size %></label>
+  </div>
 </div>
 <div id="toolbar_buttons_right">
   <div class="button_with_label" id="show_preview_window">
@@ -182,6 +186,24 @@
     Alchemy.PageLeaveObserver(texts);
     Alchemy.openElementsWindow();
     Alchemy.openPreviewWindow();
+
+    $('#preview_size').bind('open.selectBoxIt', function (e) {
+      $('#top_menu').css('z-index', 5000);
+    });
+
+    $('#preview_size').bind('blur.selectBoxIt', function (e) {
+      $('#top_menu').css('z-index', 5);
+    });
+
+    Alchemy.PreviewWindow.currentWidth = Alchemy.PreviewWindow.currentWindow.dialog('widget').width();
+
+    $('select#preview_size').on('change', function(e) {
+      var width = this.value;
+      if (this.value === 'auto') {
+        width = Alchemy.PreviewWindow.currentWidth;
+      }
+      Alchemy.PreviewWindow.currentWindow.dialog('widget').css('width', width);
+    });
   });
 
 </script>

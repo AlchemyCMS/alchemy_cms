@@ -518,6 +518,14 @@ de:
     "please enter subject and mail address": "Bitte geben Sie den Betreff und eine Empfängeradresse an."
     please_confirm: "Bitte bestätigen"
     please_wait: "Bitte warten"
+    preview_size: "Vorschaugröße"
+    preview_sizes:
+      '240': '240px (kleines Mobiltelefon)'
+      '320': '320px (iPhone)'
+      '480': '480px (kleines Tablet)'
+      '768': '768px (iPad - Portrait)'
+      '1024': '1024px (iPad - Breitbild)'
+      '1280': '1280px (Desktop)'
     recently_uploaded_only: 'Kürzlich hochgeladene'
     "regular method": "herkömmlichen Methode"
     remove: "entfernen"

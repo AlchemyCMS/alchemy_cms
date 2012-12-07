@@ -342,6 +342,13 @@ en:
     "please enter subject and mail address": "Please enter recipient and subject."
     please_confirm: "Please confirm"
     please_wait: "Please wait"
+    preview_sizes:
+      '240': '240px (small phone)'
+      '320': '320px (iPhone)'
+      '480': '480px (small Tablet)'
+      '768': '768px (iPad - Portrait)'
+      '1024': '1024px (iPad - Landscape)'
+      '1280': '1280px (Desktop)'
     rename_file: "Rename this file."
     robot_follow: "robot may follow links."
     robot_index: "allow robot to index."
