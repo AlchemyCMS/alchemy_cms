@@ -160,10 +160,14 @@
         }
       }
       jQuery('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
+
+      if (window.location.hash) {
+        $(window.location.hash).trigger('Alchemy.SelectElementEditor');
+      }
     });
   }
 
-  jQuery(document).ready(function($) {
+  jQuery(function($) {
     var texts = {
       title: '<%= t("Warning!") %>',
       message: '<%= t(:element_dirty_page_leave_warning) %>',
