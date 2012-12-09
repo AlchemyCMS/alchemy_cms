@@ -1,3 +1,0 @@
-# Your plugins german translation.
-msgid "Hello world"
-msgstr "Hallo Welt"
