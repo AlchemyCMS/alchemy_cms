@@ -39,10 +39,6 @@ class AlchemyInstaller < Thor
 
       results << system("cd ./#{@application} && rake alchemy:install")
 
-      if ENV['INSTALL_DEMO_KIT']
-        results << system("cd ./#{@application} && rails g alchemy:demo_kit")
-      end
-
       %x[
         cd ./#{@application}
         rm ./public/index.html
@@ -123,31 +119,6 @@ GIT
 
       end
 
-      readme = <<-EOF
-
-Successfully installed Alchemy CMS into ./#{@application}
-
-Next steps:
-
-1. Go into your projects folder:
-
- cd ./#{@application}
-
-2. Start your local Rails server:
-
- rails server
-
-3. Open a browser and enter the following URL:
-
- http://localhost:3000
-
-4. Follow the instructions to complete the installation!
-
-Thank you for using Alchemy CMS!
-http://alchemy-cms.com
-
-EOF
-      say readme, :green if results.detect { |r| r == false }.nil?
     else
       say "\nError while installation!\n", :red
     end

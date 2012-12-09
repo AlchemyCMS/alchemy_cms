@@ -37,7 +37,7 @@ Now:
 
 2. Open your browser and enter the following URL:
 
-  http://localhost:3000/#{@mountpoint == '/' ? '' : @mountpoint}/admin/signup
+  http://localhost:3000/#{@mountpoint}
 
 3. Follow the instructions to complete the installation!
 
