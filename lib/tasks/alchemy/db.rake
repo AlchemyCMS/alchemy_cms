@@ -6,7 +6,7 @@ namespace :alchemy do
       Alchemy::Seeder.seed!
     end
 
-    desc "Dumps the database into 'db/dumps'"
+    desc "Dumps the database into 'db/dumps'. NOTE: This only works with MySQL yet."
     task :dump => :environment do
       db_conf = Rails.configuration.database_configuration.fetch(Rails.env)
       raise "Alchemy only supports MySQL database dumping at the moment." unless db_conf['adapter'] =~ /mysql/

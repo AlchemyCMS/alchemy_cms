@@ -55,6 +55,9 @@ set :rails_env,                 "production"
 
 # before hooks
 before "deploy:start",          "deploy:seed"
+<%- if @database_type == "mysql" -%>
+before "deploy:migrate",        "alchemy:db:dump"
+<%- end -%>
 before "deploy:create_symlink", "deploy:migrate"
 
 # after hooks

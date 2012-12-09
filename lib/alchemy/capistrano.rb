@@ -77,8 +77,13 @@ EOF
     namespace :db do
 
       desc "Seeds the database with essential data."
-      task :seed, :roles => :app do
+      task :seed, :roles => :db do
         run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:seed"
+      end
+
+      desc "Dumps the database into 'db/dumps'"
+      task :dump, :roles => :db do
+        run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:dump"
       end
 
     end
@@ -125,7 +130,7 @@ EOF
 
       def timestamp
         timestamp ||= Time.now.strftime('%Y-%m-%d-%H-%M')
-      end    
+      end
 
       def unzip_files(type, filename)
         FileUtils.rm_rf "./uploads/#{type}"
