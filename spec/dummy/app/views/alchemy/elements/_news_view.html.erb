@@ -1,0 +1,11 @@
+<div class="news" id="<%= element_dom_id(element) %>" <%= element_preview_code(element) -%>>
+    <div class="date">
+        <%= render_essence_view_by_name(element, 'date', :date_format => "%d.%m.%Y") %>
+    </div>
+    <h2>
+        <%= render_essence_view_by_name(element, 'news_headline') %>
+    </h2>
+    <div class="body">
+        <%= render_essence_view_by_name(element, 'body') %>
+    </div>
+</div>

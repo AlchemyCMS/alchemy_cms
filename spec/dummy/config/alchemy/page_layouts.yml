@@ -1,0 +1,26 @@
+- name: intro
+  unique: true
+
+- name: standard
+  elements: [article, header]
+  autogenerate: [header, article]
+
+- name: news
+  feed: true
+  unique: true
+  insert_elements_at: top
+  elements: [headline, news]
+  autogenerate: [news]
+  feed_elements: [news]
+
+- name: contact
+  unique: true
+  cache: false
+  elements: [headline, text, contactform]
+  autogenerate: [headline, text, contactform]
+
+- name: search
+  unique: true
+  elements: [headline, text, searchresult]
+  autogenerate: [searchresult]
+  searchresults: true

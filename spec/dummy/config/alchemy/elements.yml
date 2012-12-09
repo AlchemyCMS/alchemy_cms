@@ -1,0 +1,86 @@
+- name: header
+  unique: true
+  contents:
+  - name: image
+    type: EssencePicture
+
+- name: headline
+  contents:
+  - name: headline
+    type: EssenceText
+
+- name: article
+  taggable: true
+  contents:
+  - name: intro
+    type: EssenceText
+  - name: headline
+    type: EssenceText
+    settings:
+      deletable: true
+  - name: image
+    type: EssencePicture
+  - name: text
+    type: EssenceRichtext
+    settings:
+      deletable: true
+  available_contents:
+  - name: text
+    type: EssenceRichtext
+  - name: headline
+    type: EssenceText
+
+- name: text
+  contents:
+  - name: text
+    type: EssenceRichtext
+
+- name: news
+  contents:
+  - name: date
+    type: EssenceDate
+  - name: news_headline
+    type: EssenceText
+    rss_title: true
+  - name: body
+    type: EssenceRichtext
+    rss_description: true
+
+- name: download
+  contents:
+  - name: file
+    type: EssenceFile
+    settings:
+      deletable: true
+  available_contents:
+  - name: file
+    type: EssenceFile
+
+- name: bild
+  contents:
+  - name: image
+    type: EssencePicture
+
+- name: contactform
+  unique: true
+  contents:
+  - name: mail_from
+    type: EssenceText
+    validate:
+      - presence
+  - name: mail_to
+    type: EssenceText
+    validate:
+      - presence
+  - name: subject
+    type: EssenceText
+    take_me_for_preview: true
+    validate:
+      - presence
+  - name: success_page
+    type: EssenceSelect
+    validate:
+      - presence
+
+- name: searchresult
+  unique: true

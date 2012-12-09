@@ -1,0 +1,11 @@
+<%= render_essence_editor_by_name(element, 'intro') %>
+<%= render_essence_editor_by_name(element, 'image', {
+  :image_size => "450x300",
+  :crop => true,
+  :image_float_selector => true,
+  :fixed_ratio => false
+}) %>
+<% element.contents.where(:name => ['headline', 'text']).each do |content| %>
+  <%= render_essence_editor content %>
+<% end %>
+<%= render_new_content_link(element) %>

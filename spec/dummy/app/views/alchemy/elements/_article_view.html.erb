@@ -1,0 +1,25 @@
+<div class="article" id="<%= element_dom_id(element) %>"<%= element_preview_code(element) -%><%= element_tags(element) %>>
+  <%- intro = render_essence_view_by_name(element, 'intro') -%>
+  <%- if !intro.blank? -%>
+  <div class="intro">
+    <%= intro %>
+  </div>
+  <%- end -%>
+  <% element.contents.where(:name => 'headline').each do |content| %>
+  <% next if content.ingredient.blank? %>
+  <h1 class="headline"><%= render_essence content %></h1>
+  <% end %>
+  <div class="text_bild_container">
+    <%- content = element.contents.find_by_essence_type("Alchemy::EssencePicture") -%>
+    <%- if content -%>
+    <div class="image <%= content.essence.css_class %>">
+      <%= render_essence_view(content, :image_size => "450x1000", :crop => true) %>
+    </div>
+    <%- end -%>
+    <% element.contents.where(:name => 'text').each do |content| %>
+    <div class="text">
+      <%= render_essence content %>
+    </div>
+    <% end %>
+  </div>
+</div>

@@ -102,16 +102,16 @@ module Alchemy
 
     context "no description files are found" do
 
-      before(:each) do
-        FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'))
+      before do
+        FileUtils.mv(File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml'), File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml.bak'))
       end
 
       it "should raise an error" do
         expect { Element.descriptions }.to raise_error(LoadError)
       end
 
-      after(:each) do
-        FileUtils.mv(File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml.bak'), File.join(File.dirname(__FILE__), '..', '..', 'config', 'alchemy', 'elements.yml'))
+      after do
+        FileUtils.mv(File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml.bak'), File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml'))
       end
 
     end
