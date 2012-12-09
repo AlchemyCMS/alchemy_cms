@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../alchemy/upgrader.rb')
+require File.join(File.dirname(__FILE__), '../../alchemy/upgrader.rb')
 
 namespace :alchemy do
 
