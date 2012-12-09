@@ -29,7 +29,7 @@ namespace :alchemy do
 
 \\o/ Successfully installed Alchemy CMS \\o/
 
-Now:
+Now cd into your app folder and
 
 1. Start your Rails server:
 
@@ -40,6 +40,12 @@ Now:
   http://localhost:3000/#{@mountpoint}
 
 3. Follow the instructions to complete the installation!
+
+== First time Alchemy user?
+
+Then we recommend to install the Alchemy demo kit.
+
+Just add `gem "alchemy-demo_kit"` to your apps Gemfile and run `bundle install`.
 
 Thank you for using Alchemy CMS!
 
