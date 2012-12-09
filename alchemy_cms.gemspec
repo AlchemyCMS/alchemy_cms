@@ -16,9 +16,6 @@ Gem::Specification.new do |s|
   s.license               = 'BSD New'
   s.post_install_message  = <<-POST_INSTALL
 
-_______.-=` Alchemy CMS Post Install Message ´=-._______
-
-
  If you are installing Alchemy the first time
  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
   $ bundle exec rake alchemy:install
@@ -27,9 +24,6 @@ _______.-=` Alchemy CMS Post Install Message ´=-._______
  If you are upgrading an existing Alchemy installation
  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
   $ bundle exec rake alchemy:upgrade
-
-
-♥ ♥ ♥ ♥ ♥ ♥ ♥ Thanks for using Alchemy CMS ♥ ♥ ♥ ♥ ♥ ♥ ♥
 
 POST_INSTALL
 
