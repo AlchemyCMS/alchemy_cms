@@ -21,6 +21,7 @@ module Alchemy
         removed_richmedia_essences_notice
         convert_picture_storage
         upgrade_to_sites
+        removed_standard_set_notice
 
         display_todos
       end
@@ -249,6 +250,14 @@ WARN
             end
           end
         end
+      end
+
+      def removed_standard_set_notice
+        warn = <<-WARN
+We removed the standard set from Alchemy core!
+In order to get the standard set back, install the `alchemy-demo_kit` gem.
+WARN
+        todo warn
       end
 
     end
