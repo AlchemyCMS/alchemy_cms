@@ -33,21 +33,15 @@ class AlchemyInstaller < Thor
     say "Install Alchemy CMS into ./#{@application}", :yellow
     say "Generating new Rails App...", :yellow
 
-    if system("rails new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT --old-style-hash #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
+    if system("rails new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT #{options[:scm].nil? || options[:scm].empty? || options[:scm] == 'svn' ? '--skip-git' : ''}")
 
       create_database_yml if options[:database] == 'mysql'
 
-      system "cd #{@application} && rake alchemy:mount"
+      results << system("cd ./#{@application} && rake alchemy:install")
 
-      with_standard_set = yes?("\nDo you want to copy the files of Alchemy´s Standardset into your App? (y/N)")
-
-      if with_standard_set
-        sentinel = /::Application\.configure do\s*$/
-        inject_into_file "#{@application}/config/environments/production.rb", "\n  config.assets.precompile += %w( alchemy/standard_set.css )\n", { :after => sentinel, :verbose => true }
+      if ENV['INSTALL_DEMO_KIT']
+        results << system("cd ./#{@application} && rails g alchemy:demo_kit")
       end
-
-      results << system("cd ./#{@application} && rake db:create alchemy:install:migrations db:migrate alchemy:db:seed")
-      results << system("cd ./#{@application} && rails g alchemy:scaffold#{' --with-standard-set' if with_standard_set}")
 
       %x[
         cd ./#{@application}
