@@ -65,16 +65,6 @@ Start the local server:
 
 Then just switch to your browser and open `http://localhost:3000`
 
-Upgrading
-------------
-
-After updating Alchemy you should run the upgrader.
-
-Run in terminal:
-
-    rake alchemy:upgrade
-
-
 Add to existing Rails project
 -----------------------------
 
@@ -92,6 +82,16 @@ Note: If you did not mounted Alchemy on the root route `'/'`, then you have to a
 Just paste this in your `app/controllers/application_controller.rb`
 
 `helper Alchemy::PagesHelper`
+
+Upgrading
+---------
+
+After updating Alchemy you should run the upgrader.
+
+Run in terminal:
+
+    rake alchemy:upgrade
+
 
 Tipps
 -----
