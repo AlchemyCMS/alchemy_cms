@@ -113,10 +113,9 @@ Resources
 
 * Homepage: <http://alchemy-cms.com>
 * Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo)
-* Wiki: <http://wiki.alchemy-cms.com>
-* API Documentation: <http://api.alchemy-cms.com>
-* Issue-Tracker: <http://issues.alchemy-cms.com>
-* Sourcecode: <http://source.alchemy-cms.com>
+* API Documentation: <http://rubydoc.info/github/magiclabs/alchemy_cms>
+* Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
+* Sourcecode: <https://github.com/magiclabs/alchemy_cms>
 * User Group: <http://groups.google.com/group/alchemy-cms>
 * Changelog: <http://revision.io/alchemy_cms>
 
