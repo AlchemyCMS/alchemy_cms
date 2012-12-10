@@ -57,7 +57,7 @@ module Alchemy
     def namespaced_model_name
       return @_namespaced_model_name unless @_namespaced_model_name.nil?
       model_name_array = self.model_array
-      model_name_array.delete(self.engine_name) if in_engine? && engine_name != 'alchemy'
+      model_name_array.delete(self.engine_name) if in_engine?
       @_namespaced_model_name = model_name_array.join('_').singularize
     end
 
