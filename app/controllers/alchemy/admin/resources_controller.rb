@@ -44,7 +44,6 @@ module Alchemy
       end
 
       def update
-        debugger
         resource_instance_variable.update_attributes(params[resource_handler.namespaced_model_name.to_sym])
         render_errors_or_redirect(
           resource_instance_variable,
