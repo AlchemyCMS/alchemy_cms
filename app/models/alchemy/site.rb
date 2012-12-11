@@ -2,7 +2,7 @@ module Alchemy
   class Site < ActiveRecord::Base
     cattr_accessor :current
 
-    attr_accessible :host, :name
+    attr_accessible :host, :name, :public
 
     # validations
     validates_presence_of :host
@@ -11,9 +11,17 @@ module Alchemy
     # associations
     has_many :languages
 
+    scope :published, where(public: true)
+
     # Returns true if this site is the current site
     def current?
       self.class.current == self
+    end
+
+    class << self
+      def default
+        Site.first
+      end
     end
 
     before_create do

@@ -931,6 +931,7 @@ de:
       alchemy/site:
         name: "Bezeichnung"
         host: "Host/Domain"
+        public: "veröffentlicht"
 
     errors:
       <<: *errors

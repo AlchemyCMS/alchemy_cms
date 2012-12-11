@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205155004) do
+ActiveRecord::Schema.define(:version => 20121211163003) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -246,10 +246,12 @@ ActiveRecord::Schema.define(:version => 20121205155004) do
   create_table "alchemy_sites", :force => true do |t|
     t.string   "host"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "public",     :default => false
   end
 
+  add_index "alchemy_sites", ["host", "public"], :name => "alchemy_sites_public_hosts_idx"
   add_index "alchemy_sites", ["host"], :name => "index_alchemy_sites_on_host"
 
   create_table "alchemy_users", :force => true do |t|

@@ -48,7 +48,7 @@ module Alchemy
 
     # Sets the current site.
     def set_current_site
-      Site.current = Site.where(host: request.host).first || Site.first
+      Site.current = Site.where(host: request.host).first || Site.default
     end
 
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
