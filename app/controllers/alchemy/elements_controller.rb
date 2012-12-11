@@ -4,12 +4,22 @@ module Alchemy
     filter_access_to :show, :attribute_check => true, :model => Alchemy::Element, :load_method => :load_element
     layout false
 
-    # Returns the element partial as HTML or as JavaScript that tries to replace a given +container_id+ with the partial content via jQuery.
+    # == Renders the element view partial
+    #
+    # === Accepted Formats
+    #
+    # * html
+    # * js (Tries to replace a given +container_id+ with the elements view partial content via jQuery.)
+    # * json (A JSON object that includes all contents and their essences)
+    #
     def show
       @page = @element.page
       respond_to do |format|
         format.html
         format.js
+        format.json do
+          render json: @element.to_json(include: {contents: {include: :essence}})
+        end
       end
     end
 
