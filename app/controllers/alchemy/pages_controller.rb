@@ -65,7 +65,7 @@ module Alchemy
         @page = Page.language_root_for(Language.get_default.id)
       else
         if params[:lang].blank?
-          @page = Page.contentpages.find_by_urlname(params[:urlname])
+          @page = Page.contentpages.where(urlname: params[:urlname], language_id: Language.get_default).first
           store_language_in_session(@page.language) if @page.present?
           return @page
         else
