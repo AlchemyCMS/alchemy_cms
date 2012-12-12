@@ -11,6 +11,7 @@
     <span class="preview_text_element_name"><%= element.display_name %></span>
     <span class="preview_text_quote"><%= sanitize(element.preview_text) %></span>
   </span>
+  <%= render_hint_for(element) %>
   <span class="ajax_folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
     <%= image_tag(
       "alchemy/ajax_loader.gif",

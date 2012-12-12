@@ -539,6 +539,13 @@ module Alchemy
         taglist.uniq.join(',')
       end
 
+      def render_hint_for(element)
+        return unless element.has_hint?
+        link_to '#', :class => 'element_hint' do
+          render_icon(:hint) + content_tag(:span, element.hint, :class => 'bubble')
+        end
+      end
+
     end
   end
 end
