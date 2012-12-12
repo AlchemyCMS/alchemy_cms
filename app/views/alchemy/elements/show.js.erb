@@ -1,11 +1,5 @@
 (function($) {
-  
-  $('#<%= @container_id -%>').html('<%= escape_javascript(render(
-    :partial => "alchemy/elements/<%= @element.name -%>_view.html.erb",
-    :locals => {
-      :element => @element,
-      :options => @options
-    }
-  )) -%>');
-  
+  $('#<%= @container_id -%>').html('<%= escape_javascript(
+    render @element, :element => @element, :options => @options
+  ) -%>');
 })(jQuery);
