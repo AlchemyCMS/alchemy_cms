@@ -84,7 +84,7 @@ module Alchemy
     end
 
     def remove_old_default
-      lang = Language.get_default
+      lang = Language.on_site(site).get_default
       return true if lang.nil?
       lang.default = false
       lang.save(:validate => false)
