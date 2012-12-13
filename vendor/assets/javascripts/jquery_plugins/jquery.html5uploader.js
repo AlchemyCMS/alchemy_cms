@@ -182,7 +182,7 @@
                 settings.onServerError(e, file, xmlHttpRequest.statusText);
               }
             }
-            if (queuedFiles[Math.abs(queuedFiles.length) - 1] === file) {
+            if (successfullyUploadedFiles === queuedFiles.length) {
               completeQueue(xmlHttpRequest.status);
             }
           }
