@@ -90,17 +90,17 @@ module Alchemy
           :id => "search_field"
         }
         options = default_options.merge(options)
-        options[:onkeyup] << ";jQuery('#search_field').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
+        options[:onkeyup] << "; jQuery('##{options[:id]}').val().length >= 1 ? jQuery('.js_filter_field_clear').show() : jQuery('.js_filter_field_clear').hide();"
         filter_field = '<div class="js_filter_field_box">'
         filter_field << text_field_tag("filter", '', options)
         filter_field << content_tag('span', '', :class => 'icon search')
         filter_field << link_to('', '#', {
-          :onclick => "jQuery('##{options[:id]}').val('');#{options[:onkeyup]}",
+          :onclick => "jQuery('##{options[:id]}').val(''); #{options[:onkeyup]}",
           :class => "js_filter_field_clear",
-          :style => "display:none",
+          :style => "display: none",
           :title => t("click_to_show_all")
         })
-        filter_field << %(<label for="search_field">#{t(:search)}</label>)
+        filter_field << %(<label for="#{options[:id]}">#{t(:search)}</label>)
         filter_field << '</div>'
         filter_field.html_safe
       end

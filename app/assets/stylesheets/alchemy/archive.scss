@@ -266,33 +266,60 @@ div#filter_bar {
 }
 
 div#tag_list {
+  height: 90%;
+
+  .js_filter_field_box {
+
+    input { width: 200px }
+    label { display: none }
+  }
 
   ul {
     list-style-type: none;
     padding: 0;
     margin: $default-margin 0 3*$default-margin 0;
+    height: inherit;
+    width: 100%;
+    overflow: auto;
 
     li {
-      @include inline-block;
-      padding: $default-padding 2*$default-padding;
-      margin: 0 $default-margin 2*$default-margin 0;
+      display: block;
+      padding: $default-padding 4*$default-padding $default-padding 6*$default-padding ;
+      margin: 2*$default-margin 0;
       background-color: $medium-gray;
       @include border-radius(16px);
       white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 7px;
+        background: url("ui-icons_666666_256x240.png") -242px -100px;
+        width: 12px;
+        height: 12px;
+      }
 
       a {
         text-decoration: none;
+        display: block;
       }
+
+      &:hover { background-color: $very-light-blue }
 
       &.active {
         background-color: $dark-gray;
 
-        a {
-          color: $light-gray;
-        }
+        a { color: $light-gray }
       }
     }
   }
+}
+
+div#alchemy_window_body div#tag_list ul {
+  height: 364px;
 }
 
 div#pictures_page_list {

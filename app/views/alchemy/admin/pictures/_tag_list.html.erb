@@ -1,9 +1,10 @@
 <% p = params.dup %>
 <h2><%= t("Filter by tag") %></h2>
+<%#= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')", :id => 'tag_list_filter' %>
 <ul>
   <% Alchemy::Picture.tag_counts.each do |t| %>
     <% picture_tags = pictures_filtered_by_tag?(t) ? picture_tag_filter(:remove => t) : picture_tag_filter(:add => t) %>
-    <%= content_tag 'li', :class => p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
+    <%= content_tag 'li', :name => t.name, :class => p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
       <%= link_to(
         "#{t.name} (#{t.count})",
         url_for(
