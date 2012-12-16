@@ -561,7 +561,12 @@ module Alchemy
     end
 
     def cache_key(request = nil)
-      "alchemy/#{language_code}/#{urlname}"
+      if timestamp = updated_at
+        timestamp = timestamp.utc.to_s(:number)
+        "alchemy/pages/#{id}-#{timestamp}"
+      else
+        "alchemy/pages/#{id}"
+      end
     end
 
     def taggable?
