@@ -279,8 +279,9 @@ div#tag_list {
     padding: 0;
     margin: $default-margin 0 3*$default-margin 0;
     height: inherit;
-    width: 100%;
-    overflow: auto;
+    width: 204px;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     li {
       display: block;
