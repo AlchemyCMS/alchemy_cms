@@ -44,7 +44,7 @@ module Alchemy
         return ""
       end
       content = element.content_by_name(name)
-      render_essence(content, :view, {:for_view => options}, html_options)
+      render_essence_view(content, options, html_options)
     end
 
     # Renders the +Essence+ view partial from given +Element+ and +Essence+ type.
@@ -130,12 +130,11 @@ module Alchemy
     #
     #   :image_size => "111x93"                        # Used by EssencePicture to render the image via RMagick to that size. [Default nil]
     #   :date_format => "Am %d. %m. %Y, um %H:%Mh"     # Especially for EssenceDate. See Rubys Date.strftime for date formatting options. [Default nil]
-    #   :show_caption => true                          # Pass Boolean to show/hide the caption of an EssencePicture. [Default true]
+    #   :show_caption => false                         # Pass Boolean to show/hide the caption of an EssencePicture. [Default true]
+    #   :disable_link => true                          # You can surpress the link of an EssencePicture. Default false
     #
     def render_essence_view(content, options = {}, html_options = {})
-      defaults = {
-        :show_caption => true
-      }
+      defaults = {:show_caption => true, :disable_link => false}
       render_essence(content, :view, {:for_view => defaults.update(options)}, html_options)
     end
 

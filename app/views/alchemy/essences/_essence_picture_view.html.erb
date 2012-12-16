@@ -1,42 +1,39 @@
 <% if content.essence.picture.present? %>
 
-  <% img_tag = image_tag(
-    show_alchemy_picture_url(content.essence.picture,
-      options.merge(
-        :size => options.delete(:image_size),
-        :crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
-        :crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil
-      ).delete_if { |k,v| v.blank? || k.to_sym == :show_caption || k.to_sym == :disable_link }
-    ),
-    {
-      :alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
-      :title => (content.essence.title.blank? ? nil : content.essence.title),
-      :class => (content.essence.css_class.blank? ? nil : content.essence.css_class)
-    }.merge(html_options)
-  ) %>
+<% img_tag = image_tag(
+  show_alchemy_picture_url(content.essence.picture,
+    options.merge(
+      :size => options.delete(:image_size),
+      :crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
+      :crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil
+    ).delete_if { |k,v| v.blank? || k.to_sym == :show_caption || k.to_sym == :disable_link }
+  ),
+  {
+    :alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
+    :title => (content.essence.title.blank? ? nil : content.essence.title),
+    :class => (content.essence.css_class.blank? ? nil : content.essence.css_class)
+  }.merge(html_options)
+) %>
 
-  <% caption = content_tag("div", content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption") %>
+<% if content.essence.caption.present? && options[:show_caption] %>
+  <% caption = content_tag(:figcaption, content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption") %>
+<figure>
+<% end %>
 
   <% if content.essence.link.blank? || options[:disable_link] %>
 
-    <%= img_tag %>
-
-    <% if options[:show_caption] && content.essence.caption.present? %>
-
-      <%= caption %>
-
-    <% end %>
+    <%= caption ? img_tag + caption : img_tag %>
 
   <% else %>
 
-    <%= link_to(
-      content.essence.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
-      url_for(content.essence.link),
+    <%= link_to(url_for(content.essence.link), {
       :title => content.essence.link_title,
       :target => (content.essence.link_target == "blank" ? "_blank" : nil),
       'data-link-target' => content.essence.link_target
-    ) %>
+    }) do %>
+      <%= caption ? img_tag + caption : img_tag %>
+    <% end %>
 
   <% end %>
-
+<% if caption %></figure><% end %>
 <% end %>
