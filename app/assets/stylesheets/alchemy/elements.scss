@@ -808,7 +808,7 @@ textarea.default_tinymce, textarea.custom_tinymce {
   }
 }
 
-a.element_hint {
+a.hint {
   position: absolute;
   right: 32px;
   top: 8px;
@@ -829,6 +829,7 @@ a.element_hint {
     padding: 8px;
     line-height: 1.5em;
     min-width: 180px;
+    font-size: 12px;
 
     &:before {
       content: '';
@@ -840,6 +841,27 @@ a.element_hint {
       border-style: solid;
       border-width: 0 8px 8px 8px;
       border-color: transparent transparent $light_yellow transparent;
+    }
+  }
+}
+
+.content_editor .hint {
+  position: relative;
+  top: auto;
+  right: auto;
+  display: inline-block;
+  margin-right: 4px;
+  margin-top: -2px;
+  margin-left: -1px;
+
+  .bubble {
+    right: auto;
+    left: -4px;
+    top: 24px;
+
+    &:before {
+      right: auto;
+      left: 5px;
     }
   }
 }

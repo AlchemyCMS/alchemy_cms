@@ -108,7 +108,7 @@ module Alchemy
       # Renders the label and a remove link for a content.
       def label_and_remove_link(content)
         content_tag :label do
-          [render_content_name(content).to_s, delete_content_link(content).to_s].join('&nbsp;').html_safe
+          [render_hint_for(content), render_content_name(content), delete_content_link(content)].compact.join('&nbsp;').html_safe
         end
       end
 
