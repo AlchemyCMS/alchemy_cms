@@ -133,7 +133,8 @@ module Alchemy
       end
 
       def flush
-        FileUtils.rm_rf Rails.root.join('public', Alchemy.mount_point, 'pictures')
+        # FileUtils.rm_rf only takes arrays of folders...
+        FileUtils.rm_rf Dir.glob(Rails.root.join('public', Alchemy.mount_point, 'pictures', '*'))
         @notice = t('Picture cache flushed')
       end
 
