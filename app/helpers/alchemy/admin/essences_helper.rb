@@ -78,17 +78,17 @@ module Alchemy
         end
       end
 
-      # Renders the EssenceSelect editor partial with a form select for storing page urlnames
+      # Renders the EssenceSelect editor partial with a form select for storing page ids
       #
       # === Options:
       #
       #   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
-      #   :page_attribute  [Symbol]   # The Page attribute which will be stored.
+      #   :page_attribute  [Symbol]   # The Page attribute which will be stored. Default is id.
       #   :global          [Boolean]  # Display only global pages. Default is false.
       #   :order_by        [Symbol]   # Order pages by this attribute.
       #
-      # NOTE: The order option only works if the +only+ option is also set.
-      # Then the default is :name.
+      # NOTE: The +order_by+ option only works if the +only+ or the +global+ option is also set.
+      # Then the default ordering is by :name.
       # Otherwise the pages are ordered by their position in the nested set.
       #
       def page_selector(element, content_name, options = {}, select_options = {})
