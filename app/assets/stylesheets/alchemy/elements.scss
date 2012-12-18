@@ -19,9 +19,25 @@ img.add_element_spinner {
   bottom: 6px;
 }
 
-#element_area h2#no_elements_on_page_notice {
-  padding: 2*$default-padding;
-  text-align: center;
+div#element_area {
+  padding: 0;
+  margin: 0;
+  min-height: 90%;
+
+  .sortable_cell {
+    min-height: 100px;
+    padding: 8px 8px 2px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 140px;
+  }
+
+  h2#no_elements_on_page_notice {
+    padding: 2*$default-padding;
+    text-align: center;
+  }
 }
 
 .element_handle {
@@ -294,19 +310,8 @@ div.picture_thumbnail div.picture_image {
   }
 }
 
-div#element_area {
-  padding: 0;
-  margin: 0;
-  min-height: 90%;
-}
-
 div#cells {
   min-height: 100px;
-}
-
-div#element_area .sortable_cell {
-  min-height: 100px;
-  padding: 8px 8px 2px;
 }
 
 .place_element_spinner {
@@ -776,13 +781,12 @@ div.pictures_for_element {
   margin-top: 4px;
 }
 
-#element_area textarea {
-  width: 97%;
-  height: 140px;
-}
-
 textarea.default_tinymce, textarea.custom_tinymce {
   visibility: hidden;
+}
+
+.essence_html_editor textarea {
+  font-family: $mono-font-face;
 }
 
 .text_short_float_left {

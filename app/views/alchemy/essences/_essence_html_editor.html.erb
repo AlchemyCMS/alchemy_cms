@@ -1,8 +1,8 @@
-<div class="content_editor content_text_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
+<div class="content_editor essence_html_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
   <%= label_and_remove_link(content) %>
-  <%= text_field_tag(
+  <%= text_area_tag(
     content.form_field_name,
     content.ingredient,
-    :class => 'thin_border text_long'
+    :class => 'thin_border'
   ) %>
 </div>
