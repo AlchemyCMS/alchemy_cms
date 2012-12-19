@@ -1,7 +1,5 @@
 module Alchemy
   class Site < ActiveRecord::Base
-    cattr_accessor :current
-
     attr_accessible :host, :name, :public
 
     # validations
@@ -19,6 +17,14 @@ module Alchemy
     end
 
     class << self
+      def current=(v)
+        Thread.current[:alchemy_current_site] = v
+      end
+
+      def current
+        Thread.current[:alchemy_current_site]
+      end
+
       def default
         Site.first
       end
