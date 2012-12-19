@@ -58,23 +58,22 @@ module Alchemy
 
   private
 
+    # Load the current page and store it in @page.
+    #
     def load_page
-      # we need this, because of a dec_auth bug (it calls this method after the before_filter again).
-      return @page if @page
-      if params[:urlname].blank?
-        @page = Page.language_root_for(Language.get_default.id)
+      @page ||= if params[:urlname].present?
+        # Load by urlname. If a language is specified in the request parameters,
+        # scope pages to it to make sure we can raise a 404 if the urlname
+        # is not available in that language.
+        Page.contentpages.where(
+          urlname:       params[:urlname],
+          language_id:   @language.id,
+          language_code: params[:lang] || @language.code
+        ).first
       else
-        if params[:lang].blank?
-          @page = Page.contentpages.where(urlname: params[:urlname], language_id: Language.get_default).first
-          store_language_in_session(@page.language) if @page.present?
-          return @page
-        else
-          @page = Page.contentpages.where(
-            :urlname => params[:urlname],
-            :language_id => session[:language_id],  # Make sure that the current language
-            :language_code => params[:lang]         # matches the requested language code.
-          ).first
-        end
+        # No urlname was given, so just load the language root for the
+        # currently active language.
+        Page.language_root_for(@language.id)
       end
     end
 
