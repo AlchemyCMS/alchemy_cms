@@ -83,16 +83,9 @@ module Alchemy
     end
 
     def set_language_from(language_code_or_id)
-      if language_code_or_id.is_a?(String) && language_code_or_id.match(/^\d+$/)
-        language_code_or_id = language_code_or_id.to_i
+      if @language = Language.find_by_id(language_code_or_id) || Language.find_by_code(language_code_or_id)
+        store_language_in_session(@language)
       end
-      case language_code_or_id.class.name
-      when "String"
-        @language = Language.find_by_code(language_code_or_id)
-      when "Fixnum"
-        @language = Language.find(language_code_or_id)
-      end
-      store_language_in_session(@language)
     end
 
     def set_language_to_default
