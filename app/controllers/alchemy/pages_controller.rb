@@ -104,7 +104,7 @@ module Alchemy
         redirect_to main_app.url_for(@page.controller_and_action)
       else
         # setting the language to page.language to be sure it's correct
-        set_language_from(@page.language_id)
+        set_language(@page.language)
         if params[:urlname].blank?
           @root_page = @page
         else
