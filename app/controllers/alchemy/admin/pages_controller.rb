@@ -219,7 +219,7 @@ module Alchemy
       end
 
       def switch_language
-        set_language_from(params[:language_id])
+        set_language(params[:language_id])
         redirect_path = request.referer.include?('admin/layoutpages') ? admin_layoutpages_path : admin_pages_path
         if request.xhr?
           @redirect_url = redirect_path
