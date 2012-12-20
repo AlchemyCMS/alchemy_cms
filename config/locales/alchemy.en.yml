@@ -652,7 +652,7 @@ en:
         role: "Userrole"
 
       alchemy/site:
-        host: Host/Domain
+        host: primary Host
 
     errors:
       <<: *errors

@@ -930,10 +930,10 @@ de:
 
       alchemy/site:
         name: "Bezeichnung"
-        host: "Host/Domain"
+        host: "primäre Domain"
         public: "veröffentlicht"
         aliases: "Domain-Aliases"
-        redirect_to_primary_host: "Primären Host erzwingen"
+        redirect_to_primary_host: "Auf primäre Domain weiterleiten"
 
     errors:
       <<: *errors
