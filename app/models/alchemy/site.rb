@@ -1,6 +1,6 @@
 module Alchemy
   class Site < ActiveRecord::Base
-    attr_accessible :host, :name, :public
+    attr_accessible :host, :aliases, :name, :public, :redirect_to_primary_host
 
     # validations
     validates_presence_of :host
@@ -27,6 +27,21 @@ module Alchemy
 
       def default
         Site.first
+      end
+
+      def find_for_host(host)
+        # These are split up into two separate queries in order to run the
+        # fastest query first (selecting the domain by its primary host name).
+        #
+        where(host: host).first || find_in_aliases(host) || default
+      end
+
+      def find_in_aliases(host)
+        return nil if host.blank?
+
+        all.find do |site|
+          site.aliases.split.include?(host) if site.aliases.present?
+        end
       end
     end
 

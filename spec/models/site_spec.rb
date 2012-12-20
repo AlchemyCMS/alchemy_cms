@@ -8,7 +8,7 @@ module Alchemy
     describe 'new instances' do
       subject { FactoryGirl.build(:site) }
 
-      it 'should start out with on languages' do
+      it 'should start out with no languages' do
         subject.languages.should be_empty
       end
 
@@ -32,6 +32,46 @@ module Alchemy
               to_not change(subject, "languages")
           end
         end
+      end
+    end
+
+    describe '.find_for_host' do
+      # No need to create a default site, as it has already been added through the seeds.
+      # But let's add some more:
+      #
+      let(:default_site)    { Site.default }
+      let!(:magiclabs_site) { FactoryGirl.create(:site, host: 'www.magiclabs.de', aliases: 'magiclabs.de magiclabs.com www.magiclabs.com') }
+
+      subject { Site.find_for_host(host) }
+
+      context "when the request doesn't match anything" do
+        let(:host) { 'oogabooga.com' }
+        it { should == default_site }
+      end
+
+      context "when the request matches a site's host field" do
+        let(:host) { 'www.magiclabs.de' }
+        it { should == magiclabs_site }
+      end
+
+      context "when the request matches one of the site's aliases" do
+        let(:host) { 'magiclabs.com' }
+        it { should == magiclabs_site }
+      end
+
+      context "when the request matches the site's first alias" do
+        let(:host) { 'magiclabs.de' }
+        it { should == magiclabs_site }
+      end
+
+      context "when the request matches the site's last alias" do
+        let(:host) { 'www.magiclabs.com' }
+        it { should == magiclabs_site }
+      end
+
+      context "when the request host matches only part of a site's aliases" do
+        let(:host) { 'labs.com' }
+        it { should == default_site }
       end
     end
 
