@@ -248,10 +248,6 @@ textarea, input[type="text"], input[type="email"], input[type="password"], .thin
   width: 139px;
 }
 
-#alchemy .ui-dialog-content input.long, #alchemy .ui-dialog-content textarea.long {
-  width: 250px;
-}
-
 #alchemy .ui-dialog-content input.very_long {
   width: 310px;
 }
@@ -324,10 +320,9 @@ select {
  */
 
 form td.select .selectboxit {
-  width: 208px;
 
   .selectboxit-text {
-    max-width: 180px !important;
+    line-height: 17px !important;
   }
 }
 
@@ -434,6 +429,7 @@ form td.select .selectboxit {
       @include disable-user-select;
       @include text-overflow(ellipsis);
       padding-right: 32px;
+      line-height: normal !important;
     }
 
     /* Dropdown List Down Arrow Container (if an image is not used) */

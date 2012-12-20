@@ -558,6 +558,10 @@ div#toolbar_buttons_right {
 p.foot_note {
   font-size: 10px;
   line-height: 1.5em;
+  padding: $default-padding;
+  background-color: $light_yellow;
+  border: 1px solid $medium-gray;
+  @include rounded-corner;
 }
 
 #all_files td.name a {

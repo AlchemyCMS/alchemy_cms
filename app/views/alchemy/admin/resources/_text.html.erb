@@ -1,0 +1,5 @@
+<td class="label"><%= f.send :label, attribute[:name] %></td>
+<td class="input">
+  <%= f.send :text_area, attribute[:name], :rows => 4 %>
+  <%= resource_help_text attribute %>
+</td>

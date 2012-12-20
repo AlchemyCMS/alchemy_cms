@@ -33,26 +33,36 @@ table tr td.tools {
 td.label, td.input, td.submit, td.select, td.value, td.note {
   padding: 2px 0;
   vertical-align: top;
-}
 
-td.input, td.submit, td.select, td.value {
-  text-align: right;
-
-  &.left {
-    text-align: left;
+  input[type="text"], input[type="email"], input[type="password"], textarea {
+    width: 100%;
   }
 }
 
-td.input {
-  .autocomplete_tag_list { float: right }
+td.select {
+
+  .selectboxit-container {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .selectboxit {
+    box-sizing: border-box;
+    width: 100% !important;
+    height: 100%;
+  }
 }
 
-td.submit p.foot_note { float: left; padding-top: 1em }
+td.submit { text-align: right }
+
+td.input {
+  .autocomplete_tag_list { width: 100% }
+}
 
 td.label {
   white-space: nowrap;
-  width: 80px;
-  padding: 9px 2*$default-padding 0 0;
+  width: 60px;
+  padding: 9px 4*$default-padding 0 0;
   line-height: 21px;
 
   &.mandatory:after {
@@ -74,25 +84,8 @@ td.label {
 
 td.checkbox {
   padding-top: 10px;
-  text-align: right;
+  padding-left: 0;
   white-space: nowrap;
-
-  label {
-    @include inline-block;
-    text-align: left;
-    width: 195px;
-  }
-
-  &.long {
-    label {
-      width: 226px;
-    }
-  }
-
-  input[type="checkbox"] {
-    vertical-align: middle;
-    margin-top: 4px;
-  }
 }
 
 td.value {

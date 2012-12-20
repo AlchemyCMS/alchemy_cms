@@ -62,6 +62,11 @@
       <td class="label"><%= f.label "meta_keywords" %>*:&nbsp;</td>
       <td class="input">
         <%= f.text_area "meta_keywords", :class => "thin_border long" %><br/>
+        <% if !@page.layoutpage %>
+        <p class="foot_note">
+          * <%= t('pages.update.comma_seperated') %>
+        </p>
+        <% end %>
       </td>
     </tr>
     <% end %>
@@ -75,11 +80,6 @@
     <% end %>
     <tr>
       <td colspan="2" class="submit">
-        <% if !@page.layoutpage || @page.taggable? %>
-        <p class="foot_note">
-          *<%= t('pages.update.comma_seperated') %>
-        </p>
-        <% end %>
         <%= f.button t("save"), :class => 'button' %>
       </td>
     </tr>

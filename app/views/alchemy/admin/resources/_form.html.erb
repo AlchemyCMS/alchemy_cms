@@ -7,37 +7,26 @@
     </ul>
   </div>
   <table>
-    <%- resource_handler.attributes.each do |attribute| -%>
+  <% resource_handler.attributes.each do |attribute| %>
     <tr>
-      <%- if attribute[:type] == :boolean -%>
-      <td></td>
-      <td class="checkbox">
-        <%= f.send :check_box, attribute[:name] -%>
-        <%= f.send :label, attribute[:name] %>
+    <% attr_array = attribute[:name].split('.') %>
+    <% if attr_array.length > 1 %>
+      <td class="select">
+        <%= f.send(:select,
+          "#{attr_array[0]}_id",
+          attr_array[0].classify.constantize.all.collect {|r| [r.send(attr_array[1]), r.id] },
+          { :prompt => t("Please choose") }, { :class => "alchemy_selectbox" }
+        ) %>
       </td>
-      <%- elsif attribute[:type] == :text -%>
-      <td class="label"><%= f.send :label, attribute[:name] %></td>
-      <td class="input"><%= f.send :text_area, attribute[:name], :rows => 4 -%></td>
-      <%- elsif attribute[:type] == :datetime -%>
-      <td class="label"><%= f.send :label, attribute[:name] %></td>
-      <td class="input"><%= f.send :text_field, attribute[:name], :type => :date -%></td>
-      <%- else -%>
-      <td class="label"><%= f.send :label, attribute[:name] %></td>
-
-      <% attr_array = attribute[:name].split('.') %>
-      <% if attr_array.length > 1 %>
-        <td class="select">
-        <%= f.send :select, "#{attr_array[0]}_id", attr_array[0].classify.constantize.all.collect {|r| [r.send(attr_array[1]), r.id] }, {:prompt => t("Please choose")}, {:class => "alchemy_selectbox"} %>
-      </td>
-      <% else %>
-        <td class="input">
-        <%= f.send :text_field, attribute[:name], :class => 'thin_border' -%>
-      </td>
+    <% else %>
+      <% begin %>
+      <%= render attribute[:type].to_s, attribute: attribute, f: f %>
+      <% rescue ActionView::MissingTemplate %>
+      <%= render 'string', attribute: attribute, f: f %>
       <% end %>
-
-      <%- end -%>
+    <% end %>
     </tr>
-    <%- end -%>
+  <% end %>
     <tr>
       <td class="submit" colspan="2">
         <%= f.button t('save'), :class => 'button' %>

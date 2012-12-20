@@ -2,7 +2,7 @@ module Alchemy
   module ResourcesHelper
 
     def resource_window_size
-      @resource_window_size ||= "400x#{100 + resource_handler.attributes.length * 35}"
+      @resource_window_size ||= "420x#{100 + resource_handler.attributes.length * 40}"
     end
 
     def resource_instance_variable
@@ -60,5 +60,12 @@ module Alchemy
       end
       obj
     end
+
+    def resource_help_text(attribute)
+      if help_text = resource_handler.help_text_for(attribute)
+        content_tag(:p, help_text, class: 'foot_note')
+      end
+    end
+
   end
 end

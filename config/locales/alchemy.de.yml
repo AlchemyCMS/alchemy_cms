@@ -180,6 +180,10 @@ de:
       blank: neuem Fenster/Tab
       overlay: einem Overlay
 
+    resource_help_texts:
+      site:
+        aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
+
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
     "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
     "Active Pages": "Aktive Seiten"
@@ -263,7 +267,7 @@ de:
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
     "Please choose": "Bitte wählen"
     "Please log in": "Bitte melden Sie sich an."
-    "Please seperate the tags with commata": "*) Die Tags bitte mit Kommata getrennt eingeben."
+    "Please seperate the tags with commata": "* Die Tags bitte mit Kommata getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
@@ -335,7 +339,7 @@ de:
     assign_file: "Datei zuweisen"
     assign_file_from_archive: "Datei aus dem Archiv zuweisen"
     assign_image: "Bild hinzufügen."
-    attachment_filename_notice: "*) Bitte verwenden Sie keine Sonderzeichen oder Umlaute in dem Dateinamen."
+    attachment_filename_notice: "* Bitte verwenden Sie keine Sonderzeichen oder Umlaute in dem Dateinamen."
     auto_play: "Film automatisch abspielen"
     big_thumbnails: "große Miniaturbilder"
     browse: "durchsuchen"

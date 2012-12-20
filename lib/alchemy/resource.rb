@@ -69,7 +69,23 @@ module Alchemy
       @module_definition and @module_definition['engine_name']
     end
 
-    protected
+    # Returns a help text for resource's form
+    #
+    # === Example:
+    #
+    #   de:
+    #     alchemy:
+    #       resource_help_texts:
+    #         my_resource_model_name:
+    #           attribute_name: This is the fancy help text
+    #
+    def help_text_for(attribute)
+      ::I18n.translate!(attribute[:name], :scope => [:alchemy, :resource_help_texts, model_name])
+    rescue ::I18n::MissingTranslationData
+      false
+    end
+
+  protected
 
     def controller_path_array
       @controller_path.split('/')

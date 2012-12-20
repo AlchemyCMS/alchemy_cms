@@ -55,8 +55,12 @@ module Alchemy
     #     <p>Caution! This is a warning!</p>
     #   <% end %>
     #
-    def render_message(type = :info, &blk)
-      content_tag :div, render_icon(type) + capture(&blk), :class => "#{type} message"
+    def render_message(type = :info, msg = nil, &blk)
+      if block_given?
+        content_tag :div, render_icon(type) + capture(&blk), :class => "#{type} message"
+      else
+        content_tag :div, render_icon(type) + msg, :class => "#{type} message"
+      end
     end
 
     # Returns an array of all pages in the same branch from current.
