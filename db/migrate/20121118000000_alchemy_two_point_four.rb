@@ -1,11 +1,11 @@
-# This is a compressed migration for creating all Alchemy 2.3 tables at once.
+# This is a compressed migration for creating all Alchemy 2.4 tables at once.
 #
 # === Notice
 #
 # In order to upgrade from an old version of Alchemy, you have to run all migrations from
 # each version you missed up to the version you want to upgrade to, before running this migration.
 #
-class AlchemyTwoPointThree < ActiveRecord::Migration
+class AlchemyTwoPointFour < ActiveRecord::Migration
   def up
     # Do not run if Alchemy tables are already present
     return if table_exists?(:alchemy_pages)
@@ -17,8 +17,9 @@ class AlchemyTwoPointThree < ActiveRecord::Migration
       t.integer  "size"
       t.integer  "creator_id"
       t.integer  "updater_id"
-      t.datetime "created_at",   :null => false
-      t.datetime "updated_at",   :null => false
+      t.datetime "created_at",      :null => false
+      t.datetime "updated_at",      :null => false
+      t.text     "cached_tag_list"
     end
 
     create_table "alchemy_cells", :force => true do |t|
@@ -46,14 +47,15 @@ class AlchemyTwoPointThree < ActiveRecord::Migration
       t.string   "name"
       t.integer  "position"
       t.integer  "page_id"
-      t.boolean  "public",     :default => true
-      t.boolean  "folded",     :default => false
-      t.boolean  "unique",     :default => false
-      t.datetime "created_at",                    :null => false
-      t.datetime "updated_at",                    :null => false
+      t.boolean  "public",          :default => true
+      t.boolean  "folded",          :default => false
+      t.boolean  "unique",          :default => false
+      t.datetime "created_at",                         :null => false
+      t.datetime "updated_at",                         :null => false
       t.integer  "creator_id"
       t.integer  "updater_id"
       t.integer  "cell_id"
+      t.text     "cached_tag_list"
     end
 
     add_index "alchemy_elements", ["page_id", "position"], :name => "index_elements_on_page_id_and_position"
@@ -97,6 +99,17 @@ class AlchemyTwoPointThree < ActiveRecord::Migration
       t.integer  "updater_id"
       t.datetime "created_at", :null => false
       t.datetime "updated_at", :null => false
+    end
+
+    create_table "alchemy_essence_links", :force => true do |t|
+      t.string   "link"
+      t.string   "link_title"
+      t.string   "link_target"
+      t.string   "link_class_name"
+      t.datetime "created_at",      :null => false
+      t.datetime "updated_at",      :null => false
+      t.integer  "creator_id"
+      t.integer  "updater_id"
     end
 
     create_table "alchemy_essence_pictures", :force => true do |t|
@@ -203,6 +216,7 @@ class AlchemyTwoPointThree < ActiveRecord::Migration
       t.integer  "creator_id"
       t.integer  "updater_id"
       t.integer  "language_id"
+      t.text     "cached_tag_list"
     end
 
     add_index "alchemy_pages", ["language_id"], :name => "index_pages_on_language_id"
@@ -219,7 +233,7 @@ class AlchemyTwoPointThree < ActiveRecord::Migration
       t.integer  "creator_id"
       t.integer  "updater_id"
       t.string   "upload_hash"
-      t.string   "cached_tag_list"
+      t.text     "cached_tag_list"
     end
 
     create_table "alchemy_users", :force => true do |t|
@@ -246,31 +260,40 @@ class AlchemyTwoPointThree < ActiveRecord::Migration
       t.datetime "updated_at",                                                   :null => false
       t.integer  "creator_id"
       t.integer  "updater_id"
+      t.text     "cached_tag_list"
     end
 
     add_index "alchemy_users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
-    # Skip migrations for acts-as-taggable-on, if the tables are already present
-    unless table_exists?(:taggings)
-      create_table "taggings", :force => true do |t|
-        t.integer  "tag_id"
-        t.integer  "taggable_id"
-        t.string   "taggable_type"
-        t.integer  "tagger_id"
-        t.string   "tagger_type"
-        t.string   "context"
-        t.datetime "created_at"
-      end
-
-      add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-      add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    create_table "events", :force => true do |t|
+      t.string   "name"
+      t.string   "hidden_name"
+      t.datetime "starts_at"
+      t.datetime "ends_at"
+      t.text     "description"
+      t.decimal  "entrance_fee", :precision => 6, :scale => 2
+      t.boolean  "published"
+      t.integer  "location_id"
+      t.integer  "organizer_id"
+      t.datetime "created_at",                                 :null => false
+      t.datetime "updated_at",                                 :null => false
     end
 
-    unless table_exists?(:tags)
-      create_table "tags", :force => true do |t|
-        t.string "name"
-      end
+    create_table "taggings", :force => true do |t|
+      t.integer  "tag_id"
+      t.integer  "taggable_id"
+      t.string   "taggable_type"
+      t.integer  "tagger_id"
+      t.string   "tagger_type"
+      t.string   "context"
+      t.datetime "created_at"
     end
 
+    add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+    add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+    create_table "tags", :force => true do |t|
+      t.string "name"
+    end
   end
 end
