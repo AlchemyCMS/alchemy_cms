@@ -52,7 +52,7 @@ module Alchemy
         custom_config_contents = Alchemy::Tinymce.custom_config_contents
         content_names = custom_config_contents.collect{ |c| c['name'] }
         if content_names.uniq.length != content_names.length
-          raise "Duplicated content names with tinymce setting in elements.yml found. Please rename these contents."
+          raise TinymceError, "Duplicated content names with tinymce setting in elements.yml found. Please rename these contents."
         end
         custom_config_contents.each do |content|
           next unless content['settings']['tinymce']

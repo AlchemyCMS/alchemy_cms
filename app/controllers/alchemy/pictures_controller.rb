@@ -106,8 +106,4 @@ module Alchemy
     end
 
   end
-
-  class MissingImageFileError < StandardError
-  end
-
 end

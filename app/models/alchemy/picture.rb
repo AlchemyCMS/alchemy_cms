@@ -170,5 +170,4 @@ module Alchemy
     end
 
   end
-  class PictureInUseError < StandardError; end
 end

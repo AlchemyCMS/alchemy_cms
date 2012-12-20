@@ -50,7 +50,9 @@ module Alchemy
           description = element.content_description_for(essences_hash[:name])
           description = element.available_content_description_for(essences_hash[:name]) if description.blank?
         end
-        raise "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}" if description.blank?
+        if description.blank?
+          raise ContentDefinitionError, "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}"
+        end
         content = new(:name => description['name'], :element_id => element.id)
         content.create_essence!(description)
         content
@@ -161,14 +163,14 @@ module Alchemy
 
     # Sets the ingredient from essence
     def ingredient=(value)
-      raise "No essence found" if essence.nil?
+      raise EssenceMissingError if essence.nil?
       essence.ingredient = value
     end
 
     # Calls essence.update_attributes. Called from +Alchemy::Element#save_contents+
     # Ads errors to self.base if essence validation fails.
     def update_essence(params={})
-      raise "Essence not found" if essence.nil?
+      raise EssenceMissingError if essence.nil?
       if essence.update_attributes(params)
         return true
       else

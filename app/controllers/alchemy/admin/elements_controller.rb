@@ -116,7 +116,7 @@ module Alchemy
         cell_name = element_with_cell_name.split('#').last
         cell_definition = Cell.definition_for(cell_name)
         if cell_definition.blank?
-          raise "Cell definition not found for #{cell_name}"
+          raise CellDefinitionError, "Cell definition not found for #{cell_name}"
         end
         @page.cells.find_or_create_by_name(cell_definition['name'])
       end

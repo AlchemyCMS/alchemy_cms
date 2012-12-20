@@ -58,7 +58,7 @@ module Alchemy
         if element_scratch
           new(element_scratch.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
         else
-          raise "Element description for #{attributes[:name]} not found. Please check your elements.yml"
+          raise ElementDefinitionError, "Element description for #{attributes[:name]} not found. Please check your elements.yml"
         end
       end
 
@@ -313,7 +313,7 @@ module Alchemy
     def description
       description = self.class.descriptions.detect { |d| d['name'] == self.name }
       if description.blank?
-        raise "Could not find element definition for #{self.name}. Please check your elements.yml"
+        raise ElementDefinitionError, "Could not find element definition for #{self.name}. Please check your elements.yml"
       else
         return description
       end

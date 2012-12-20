@@ -463,7 +463,7 @@ module Alchemy
       return {} if self.systempage?
       description = PageLayout.get(self.page_layout)
       if description.nil?
-        raise "Description could not be found for page layout named #{self.page_layout}. Please check page_layouts.yml file."
+        raise PageLayoutDefinitionError, "Description could not be found for page layout named #{self.page_layout}. Please check page_layouts.yml file."
       else
         description
       end

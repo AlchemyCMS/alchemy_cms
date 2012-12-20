@@ -8,6 +8,7 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'awesome_nested_set'
   require 'dragonfly'
   require 'dynamic_form'
+  require 'errors'
   require 'jquery-rails'
   require 'rails3-jquery-autocomplete'
   require 'kaminari'
@@ -32,9 +33,4 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")
 else
   raise "Alchemy 2.5 needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
-end
-
-module Alchemy
-  class EssenceError < StandardError;
-  end
 end

@@ -117,7 +117,7 @@ module Alchemy
     end
 
     def load_language_default
-      Language.get_default
+      Language.get_default || raise(DefaultLanguageNotFoundError)
     end
 
     def store_language_in_session(language)
