@@ -10,6 +10,7 @@ module Alchemy
 
     rescue_from ActionController::RoutingError, :with => :render_404
 
+    before_filter :enforce_primary_host_for_site
     before_filter :render_page_or_redirect, :only => [:show, :sitemap]
     before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
 
@@ -75,6 +76,18 @@ module Alchemy
         # currently active language.
         Page.language_root_for(@language.id)
       end
+    end
+
+    def enforce_primary_host_for_site
+      if needs_redirect_to_primary_host?
+        redirect_to url_for(host: current_site.host)
+      end
+    end
+
+    def needs_redirect_to_primary_host?
+      current_site.redirect_to_primary_host? &&
+        current_site.host != '*' &&
+        current_site.host != request.host
     end
 
     def render_page_or_redirect

@@ -10,7 +10,7 @@ module Alchemy
     before_filter :set_language
     before_filter :mailer_set_url_options
 
-    helper_method :current_server, :t
+    helper_method :current_server, :current_site, :t
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -46,9 +46,17 @@ module Alchemy
 
   private
 
-    # Sets the current site.
+    # Returns the current site.
+    #
+    def current_site
+      @current_site ||= Site.find_for_host(request.host)
+    end
+
+    # Sets the current site in a cvar so the Language model
+    # can be scoped against it.
+    #
     def set_current_site
-      Site.current = Site.where(host: request.host).first || Site.default
+      Site.current = current_site
     end
 
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
