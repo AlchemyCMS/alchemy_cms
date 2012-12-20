@@ -932,6 +932,8 @@ de:
         name: "Bezeichnung"
         host: "Host/Domain"
         public: "veröffentlicht"
+        aliases: "Domain-Aliases"
+        redirect_to_primary_host: "Primären Host erzwingen"
 
     errors:
       <<: *errors
