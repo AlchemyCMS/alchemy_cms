@@ -106,7 +106,7 @@ describe Alchemy::ResourcesHelper do
   describe "resource_window_size" do
     it "should return overlay size string depending on resource attributes length" do
       @controller.stub(:resource_handler).and_return(OpenStruct.new(:attributes => OpenStruct.new(:length => 4)))
-      @controller.resource_window_size.should == "400x240"
+      @controller.resource_window_size.should == "420x260"
     end
   end
 end
