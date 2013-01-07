@@ -120,7 +120,7 @@ EOF
         FileUtils.mkdir_p "./uploads"
         server = find_servers_for_task(current_task).first
         if server
-          system "rsync --progress -rue 'ssh -p #{port}' #{user}@#{server}:#{shared_path}/uploads/pictures ./uploads/"
+          system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' #{user}@#{server}:#{shared_path}/uploads/pictures ./uploads/"
         else
           raise "No server found"
         end
