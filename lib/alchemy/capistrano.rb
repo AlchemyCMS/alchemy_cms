@@ -98,7 +98,7 @@ EOF
       end
 
       desc "Imports the database into your local development machine."
-      task :database, :roles => [:db] do
+      task :database, :roles => [:db], :only => {:primary => true} do
         filename = "#{fetch(:application, 'dump')}-#{timestamp}.sql"
         run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} DUMP_FILENAME=#{filename} #{rake} alchemy:db:dump"
         FileUtils.mkdir_p "./db/dumps"
