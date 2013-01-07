@@ -106,35 +106,28 @@ EOF
         run_locally "mysql -u#{database_config['username']}#{database_config['password'] ? ' -p"' + database_config['password'] + '"' : nil} #{database_config['database']} < ./db/dumps/#{filename}"
       end
 
-      desc "Imports attachments into your local machine."
+      desc "Imports attachments into your local machine using rsync."
       task :attachments, :roles => [:app] do
-        filename = zip_files('attachments')
-        FileUtils.mkdir_p "./uploads"
-        download "#{shared_path}/uploads/#{filename}", "./uploads/#{filename}"
-        unzip_files('attachments', filename)
+        get_files :attachments
       end
 
-      desc "Imports pictures into your local machine."
+      desc "Imports pictures into your local machine using rsync."
       task :pictures, :roles => [:app] do
-        filename = zip_files('pictures')
-        FileUtils.mkdir_p "./uploads"
-        download "#{shared_path}/uploads/#{filename}", "./uploads/#{filename}"
-        unzip_files('pictures', filename)
+        get_files :pictures
       end
 
-      def zip_files(type)
-        filename = "#{type}-#{timestamp}.tar.gz"
-        run "cd #{shared_path}/uploads && tar cvfz #{filename} #{type}/"
-        filename
+      def get_files(type)
+        FileUtils.mkdir_p "./uploads"
+        server = find_servers_for_task(current_task).first
+        if server
+          system "rsync --progress -rue 'ssh -p #{port}' #{user}@#{server}:#{shared_path}/uploads/pictures ./uploads/"
+        else
+          raise "No server found"
+        end
       end
 
       def timestamp
         timestamp ||= Time.now.strftime('%Y-%m-%d-%H-%M')
-      end
-
-      def unzip_files(type, filename)
-        FileUtils.rm_rf "./uploads/#{type}"
-        run_locally "cd ./uploads && tar xvzf #{filename}"
       end
 
       def database_config
