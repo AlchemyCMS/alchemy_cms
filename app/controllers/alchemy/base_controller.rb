@@ -56,8 +56,6 @@ module Alchemy
         session[:current_locale] = ::I18n.locale = params[:locale]
       elsif current_user && current_user.language.present?
         ::I18n.locale = current_user.language
-      elsif Rails.env == 'test' # OMG I hate to do this. But it helps...
-        ::I18n.locale = 'en'
       else
         ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /^[a-z]{2}/).try(:first)
       end
