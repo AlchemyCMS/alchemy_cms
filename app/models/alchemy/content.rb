@@ -245,7 +245,7 @@ module Alchemy
     def create_essence!(description)
       essence_class = self.class.normalize_essence_type(description['type']).constantize
       attributes = {
-        :ingredient => default_or_lorem_ipsum(description['default'])
+        :ingredient => default_text(description['default'])
       }
       if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
         attributes.merge!(:do_not_index => !description['do_not_index'].nil?)
@@ -259,7 +259,7 @@ module Alchemy
       end
     end
 
-    def default_or_lorem_ipsum(default)
+    def default_text(default)
       return if default.nil?
       if default.is_a? Symbol
         I18n.t(default, :scope => :default_content_texts)
