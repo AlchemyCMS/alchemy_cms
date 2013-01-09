@@ -26,7 +26,7 @@ Features
 - RSS Feeds
 - Contactforms
 - Attachments and downloads
-- Powerfull image rendering
+- Powerful image rendering
 - Extendable
 - Integrates in exsiting Rails Apps
 - Caching
