@@ -5,6 +5,7 @@ FactoryGirl.define do
     login "jdoe"
     password 's3cr3t'
     password_confirmation 's3cr3t'
+    language 'en'
 
     factory :admin_user do
       role "admin"
