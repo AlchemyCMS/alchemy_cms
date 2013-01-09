@@ -38,10 +38,10 @@ def configure
   require 'capybara/poltergeist'
   Capybara.default_driver = :rack_test
   Capybara.default_selector = :css
-  Capybara.javascript_driver = :poltergeist
   Capybara.register_driver(:rack_test_translated_header) do |app|
     Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
   end
+  Capybara.javascript_driver = :poltergeist
 
   # Load support files
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }

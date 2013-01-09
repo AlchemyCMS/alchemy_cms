@@ -10,8 +10,8 @@ describe "Security: " do
   context "If no user is present" do
 
     it "render the signup view" do
-      visit '/alchemy/'
-      within('#alchemy_greeting') { page.should have_content('signup') }
+      visit '/alchemy'
+      current_path.should == '/alchemy/admin/signup'
     end
   end
 

@@ -75,7 +75,7 @@ module Alchemy
       elsif current_user && current_user.language.present?
         ::I18n.locale = current_user.language
       else
-        ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /^[a-z]{2}/).try(:first)
+        ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /^[a-z]{2}/).try(:first) || ::I18n.default_locale
       end
     end
 

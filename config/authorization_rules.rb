@@ -51,9 +51,7 @@ authorization do
     includes :author
     has_permission_on :alchemy_admin_attachments, :to => [:manage]
     has_permission_on :alchemy_admin_pictures, :to => [:create, :read, :update, :flush, :delete_multiple, :edit_multiple, :update_multiple]
-    has_permission_on :alchemy_admin_pictures, :to => [:destroy] do
-      if_attribute :essence_pictures => is { debugger }
-    end
+    has_permission_on :alchemy_admin_pictures, :to => [:destroy]
     has_permission_on :alchemy_admin_pages, :to => [:manage_pages]
     has_permission_on :alchemy_admin_layoutpages, :to => [:index]
     has_permission_on :alchemy_admin_tags, :to => [:manage]

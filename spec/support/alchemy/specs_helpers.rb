@@ -15,9 +15,9 @@ module Alchemy
       #   * create_admin_user
       #   * login_into_alchemy
       #
-      def authorize_as_admin(locale = 'en')
+      def authorize_as_admin
         create_admin_user
-        login_into_alchemy(locale)
+        login_into_alchemy
       end
 
       # Capybara actions to login into Alchemy Backend
@@ -26,8 +26,12 @@ module Alchemy
       #
       # See: create_admin_user method
       #
-      def login_into_alchemy(locale = 'en')
-        visit "/alchemy/admin/login?locale=#{locale}"
+      def login_into_alchemy
+        # Ensure that phantomjs has always the same browser language.
+        if Capybara.current_driver == :poltergeist
+          page.driver.headers = { 'Accept-Language' => 'en' }
+        end
+        visit "/alchemy/admin/login"
         fill_in('alchemy_user_session_login', :with => 'jdoe')
         fill_in('alchemy_user_session_password', :with => 's3cr3t')
         click_on('Login')
@@ -53,7 +57,7 @@ module Alchemy
       #   end
       #
       def create_admin_user
-        @user ||= FactoryGirl.build(:admin_user).save_without_session_maintenance
+        FactoryGirl.build(:admin_user).save_without_session_maintenance
       end
 
     end
