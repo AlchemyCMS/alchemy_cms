@@ -38,7 +38,7 @@ POST_INSTALL
   s.executables           = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths         = ["lib"]
 
-  s.add_runtime_dependency %q<rails>,                      ["~> 3.2.8"]
+  s.add_runtime_dependency %q<rails>,                      ["~> 3.2.11"]
   s.add_runtime_dependency %q<authlogic>,                  ["~> 3.1.3"]
   s.add_runtime_dependency %q<awesome_nested_set>,         ["~> 2.0"]
   s.add_runtime_dependency %q<acts-as-taggable-on>,        ["~> 2.1"]
