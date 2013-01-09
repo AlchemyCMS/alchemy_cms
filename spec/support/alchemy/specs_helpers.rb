@@ -15,9 +15,9 @@ module Alchemy
       #   * create_admin_user
       #   * login_into_alchemy
       #
-      def authorize_as_admin
+      def authorize_as_admin(locale = 'en')
         create_admin_user
-        login_into_alchemy
+        login_into_alchemy(locale)
       end
 
       # Capybara actions to login into Alchemy Backend
@@ -26,8 +26,8 @@ module Alchemy
       #
       # See: create_admin_user method
       #
-      def login_into_alchemy
-        visit '/alchemy/admin/login'
+      def login_into_alchemy(locale = 'en')
+        visit "/alchemy/admin/login?locale=#{locale}"
         fill_in('alchemy_user_session_login', :with => 'jdoe')
         fill_in('alchemy_user_session_password', :with => 's3cr3t')
         click_on('Login')
