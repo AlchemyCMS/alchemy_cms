@@ -362,14 +362,13 @@ module Alchemy
     # Description = Your page description
     # Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
     #
-    # Then placing +render_meta_data(:title_prefix => "company", :title_seperator => "-")+ into the <head> part of the +pages.html.erb+ layout produces:
+    # Then placing +render_meta_data(:title_prefix => "Company", :title_seperator => "-")+ into the <head> part of the +pages.html.erb+ layout produces:
     #
     #   <meta charset="UTF-8">
     #   <title>Company - #{@page.title}</title>
     #   <meta name="description" content="Your page description">
     #   <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax">
-    #   <meta name="generator" content="Alchemy VERSION">
-    #   <meta name="date" content="Tue Dec 16 10:21:26 +0100 2008">
+    #   <meta name="created" content="Tue Dec 16 10:21:26 +0100 2008">
     #   <meta name="robots" content="index, follow">
     #
     def render_meta_data options={}
