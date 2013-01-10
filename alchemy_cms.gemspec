@@ -54,7 +54,7 @@ POST_INSTALL
   s.add_development_dependency %q<bumpy>
   s.add_development_dependency %q<capybara>
   s.add_development_dependency %q<factory_girl_rails>
-  s.add_development_dependency %q<rspec-rails>
+  s.add_development_dependency %q<rspec-rails>,            ['2.12.0']
   s.add_development_dependency %q<sqlite3>
   s.add_development_dependency %q<yard>
   s.add_development_dependency %q<redcarpet>
