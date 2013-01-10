@@ -2,26 +2,21 @@ require 'spec_helper'
 
 describe Alchemy::PagesController do
 
-  render_views
-
-  before(:each) do
-    @default_language = Alchemy::Language.get_default
-    @default_language_root = FactoryGirl.create(:language_root_page, :language => @default_language, :name => 'Home', :public => true)
-  end
+  let(:default_language)      { Alchemy::Language.get_default }
+  let(:default_language_root) { FactoryGirl.create(:language_root_page, :language => default_language, :name => 'Home', :public => true) }
 
   context "requested for a page containing a feed" do
+    render_views
 
-    before(:each) do
-      @page = FactoryGirl.create(:public_page, :parent_id => @default_language_root.id, :page_layout => 'news', :name => 'News', :language => @default_language, :do_not_autogenerate => false)
-    end
+    let(:page) { FactoryGirl.create(:public_page, :parent_id => default_language_root.id, :page_layout => 'news', :name => 'News', :language => default_language, :do_not_autogenerate => false) }
 
     it "should render a rss feed" do
-      get :show, :urlname => 'news', :format => :rss
+      get :show, :urlname => page.urlname, :format => :rss
       response.content_type.should == 'application/rss+xml'
     end
 
     it "should include content" do
-      @page.elements.first.content_by_name('news_headline').essence.update_attributes({:body => 'Peters Petshop'})
+      page.elements.first.content_by_name('news_headline').essence.update_attributes({:body => 'Peters Petshop'})
       get :show, :urlname => 'news', :format => :rss
       response.body.should match /Peters Petshop/
     end
@@ -31,7 +26,7 @@ describe Alchemy::PagesController do
   context "requested for a page that does not contain a feed" do
 
     it "should render xml 404 error" do
-      get :show, :urlname => 'home', :format => :rss
+      get :show, :urlname => default_language_root.urlname, :format => :rss
       response.status.should == 404
     end
 
@@ -59,11 +54,14 @@ describe Alchemy::PagesController do
 
     context "with params layout set to not existing layout" do
       it "should raise ActionView::MissingTemplate" do
-        expect { get :show, :urlname => :home, :layout => 'lkuiuk' }.to raise_error(ActionView::MissingTemplate)
+        expect {
+          get :show, :urlname => default_language_root.urlname, :layout => 'lkuiuk'
+        }.to raise_error(ActionView::MissingTemplate)
       end
     end
 
     context "with param layout set to a custom layout" do
+      render_views
 
       before do
         @custom_layout = Rails.root.join('app/views/layouts', 'custom.html.erb')
@@ -73,7 +71,7 @@ describe Alchemy::PagesController do
       end
 
       it "should render the custom layout" do
-        get :show, :urlname => :home, :layout => 'custom'
+        get :show, :urlname => default_language_root.urlname, :layout => 'custom'
         response.body.should have_content('I am a custom layout')
       end
 
@@ -85,11 +83,12 @@ describe Alchemy::PagesController do
   end
 
   describe "url nesting" do
+    render_views
 
     before(:each) do
-      @catalog = FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => @default_language_root.id, :language => @default_language)
-      @products = FactoryGirl.create(:public_page, :name => "Products", :parent_id => @catalog.id, :language => @default_language)
-      @product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => @default_language, :do_not_autogenerate => false)
+      @catalog = FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => default_language_root.id, :language => default_language)
+      @products = FactoryGirl.create(:public_page, :name => "Products", :parent_id => @catalog.id, :language => default_language)
+      @product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => default_language, :do_not_autogenerate => false)
       @product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
     end
