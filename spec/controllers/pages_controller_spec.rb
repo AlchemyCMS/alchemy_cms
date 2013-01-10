@@ -170,8 +170,10 @@ describe Alchemy::PagesController do
       before { FactoryGirl.create(:admin_user) }
 
       let(:page)        { FactoryGirl.create(:public_page, :name => 'New page name') }
+      let(:second_page) { FactoryGirl.create(:public_page, :name => 'Second Page') }
       let(:legacy_page) { FactoryGirl.create(:public_page, :name => 'Legacy Url') }
       let(:legacy_url)  { Alchemy::LegacyPageUrl.create(:urlname => 'legacy-url', :page => page) }
+      let(:legacy_url2) { Alchemy::LegacyPageUrl.create(:urlname => 'legacy-url', :page => second_page) }
 
       it "should redirect permanently to page that belongs to legacy page url." do
         get :show, :urlname => legacy_url.urlname
@@ -184,6 +186,12 @@ describe Alchemy::PagesController do
         get :show, :urlname => legacy_page.urlname
         response.status.should == 200
         response.should_not redirect_to('/alchemy/new-page-name')
+      end
+
+      it "should redirect to last page that has that legacy url" do
+        legacy_url
+        get :show, :urlname => legacy_url2.urlname
+        response.should redirect_to('/alchemy/second-page')
       end
 
     end
