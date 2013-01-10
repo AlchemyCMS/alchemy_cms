@@ -17,6 +17,18 @@ module Alchemy
       picture.should_not be_valid
     end
 
+    it "is valid with capitalized image file extension" do
+      image_file = File.new(File.expand_path('../../support/image2.PNG', __FILE__))
+      picture = Picture.new(:image_file => image_file)
+      picture.should be_valid
+    end
+
+    it "is valid with jpeg image file extension" do
+      image_file = File.new(File.expand_path('../../support/image3.jpeg', __FILE__))
+      picture = Picture.new(:image_file => image_file)
+      picture.should be_valid
+    end
+
     describe '#suffix' do
 
       it "should return the suffix of original filename" do
