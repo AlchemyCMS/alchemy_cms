@@ -163,4 +163,30 @@ describe Alchemy::PagesController do
     end
   end
 
+  describe 'Redirecting to legacy page urls' do
+    context 'Request a page with legacy url' do
+
+      # otherwise we are redirected to signup
+      before { FactoryGirl.create(:admin_user) }
+
+      let(:page)        { FactoryGirl.create(:public_page, :name => 'New page name') }
+      let(:legacy_page) { FactoryGirl.create(:public_page, :name => 'Legacy Url') }
+      let(:legacy_url)  { Alchemy::LegacyPageUrl.create(:urlname => 'legacy-url', :page => page) }
+
+      it "should redirect permanently to page that belongs to legacy page url." do
+        get :show, :urlname => legacy_url.urlname
+        response.status.should == 301
+        response.should redirect_to('/alchemy/new-page-name')
+      end
+
+      it "should only redirect to legacy url if no page was found for urlname" do
+        legacy_url
+        get :show, :urlname => legacy_page.urlname
+        response.status.should == 200
+        response.should_not redirect_to('/alchemy/new-page-name')
+      end
+
+    end
+  end
+
 end

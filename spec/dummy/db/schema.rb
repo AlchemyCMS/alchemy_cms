@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220102223) do
+ActiveRecord::Schema.define(:version => 20130110212411) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -193,6 +193,15 @@ ActiveRecord::Schema.define(:version => 20121220102223) do
   add_index "alchemy_languages", ["language_code", "country_code"], :name => "index_alchemy_languages_on_language_code_and_country_code"
   add_index "alchemy_languages", ["language_code"], :name => "index_alchemy_languages_on_language_code"
   add_index "alchemy_languages", ["site_id"], :name => "index_alchemy_languages_on_site_id"
+
+  create_table "alchemy_legacy_page_urls", :force => true do |t|
+    t.string   "urlname",    :null => false
+    t.integer  "page_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "alchemy_legacy_page_urls", ["urlname"], :name => "index_alchemy_legacy_page_urls_on_urlname"
 
   create_table "alchemy_pages", :force => true do |t|
     t.string   "name"

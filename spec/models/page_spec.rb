@@ -144,20 +144,37 @@ module Alchemy
 
     describe '#update' do
 
+      let(:page) { FactoryGirl.create(:page, :name => 'My Testpage', :language => language, :parent_id => language_root.id) }
+
       context "before/after filter" do
 
         it "should not set the title automatically if the name changed but title is not blank" do
-          page = FactoryGirl.create(:page, :name => 'My Testpage', :language => language, :parent_id => language_root.id)
           page.name = "My Renaming Test"
           page.save; page.reload
           page.title.should == "My Testpage"
         end
 
         it "should not automatically set the title if it changed its value" do
-          page = FactoryGirl.create(:page, :name => 'My Testpage', :language => language, :parent_id => language_root.id)
           page.title = "I like SEO"
           page.save; page.reload
           page.title.should == "I like SEO"
+        end
+
+        context "urlname has changed" do
+          it "should store legacy url" do
+            page.urlname = 'new-urlname'
+            page.save!
+            page.legacy_urls.should_not be_empty
+            page.legacy_urls.first.urlname.should == 'my-testpage'
+          end
+        end
+
+        context "urlname has not changed" do
+          it "should not store a legacy url" do
+            page.urlname = 'my-testpage'
+            page.save!
+            page.legacy_urls.should be_empty
+          end
         end
 
       end

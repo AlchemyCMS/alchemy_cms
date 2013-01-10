@@ -48,6 +48,7 @@ module Alchemy
     has_many :cells, :dependent => :destroy
     has_many :elements, :dependent => :destroy, :order => :position
     has_many :contents, :through => :elements
+    has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
     belongs_to :language
 
@@ -72,6 +73,7 @@ module Alchemy
     after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
+    after_update :create_legacy_url, :if => :urlname_changed?
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
@@ -647,6 +649,12 @@ module Alchemy
     # Trashes all elements that are not allowed for this page_layout.
     def trash_not_allowed_elements
       elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash)
+    end
+
+    # Stores the old urlname in a LegacyPageUrl
+    def create_legacy_url
+      legacy_url = legacy_urls.new(:urlname => urlname_was)
+      legacy_url.save!
     end
 
   end

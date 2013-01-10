@@ -94,6 +94,9 @@ module Alchemy
       @page ||= load_page
       if User.admins.count == 0 && @page.nil?
         redirect_to signup_path
+      elsif @page.nil? && legacy_url = LegacyPageUrl.find_by_urlname(params[:urlname])
+        @page = legacy_url.page
+        redirect_page
       elsif @page.blank?
         raise_not_found_error
       elsif multi_language? && params[:lang].blank?
