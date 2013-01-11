@@ -80,7 +80,7 @@ module Alchemy
 
     def enforce_primary_host_for_site
       if needs_redirect_to_primary_host?
-        redirect_to url_for(host: current_site.host)
+        redirect_to url_for(host: current_site.host), :status => 301
       end
     end
 
