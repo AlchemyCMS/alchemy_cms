@@ -132,7 +132,7 @@ EOF
 
       def database_config
         raise "database.yml not found!" if !File.exists?("./config/database.yml")
-        YAML.load_file("./config/database.yml")['development']
+        YAML.load_file("./config/database.yml").fetch(ENV['RAILS_ENV'] || 'development')
       end
 
     end
