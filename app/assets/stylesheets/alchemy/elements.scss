@@ -784,6 +784,7 @@ textarea.default_tinymce, textarea.custom_tinymce {
 
 .essence_html_editor textarea {
   font-family: $mono-font-face;
+  resize: vertical;
 }
 
 .text_short_float_left {
