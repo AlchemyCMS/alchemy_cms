@@ -6,12 +6,14 @@ namespace :alchemy do
       Alchemy::Seeder.seed!
     end
 
-    desc "Dumps the database into 'db/dumps'. NOTE: This only works with MySQL yet."
+    desc "Dumps the database to STDOUT. Pass DUMP_FILENAME to store the dump into 'db/dumps'. NOTE: This only works with MySQL yet."
     task :dump => :environment do
       db_conf = Rails.configuration.database_configuration.fetch(Rails.env)
-      raise "Alchemy only supports MySQL database dumping at the moment." unless db_conf['adapter'] =~ /mysql/
-      FileUtils.mkdir_p(Rails.root.join('db/dumps'))
-      `mysqldump -u#{db_conf['username']}#{db_conf['password'].present? ? " -p'#{db_conf['password']}'" : nil} #{db_conf['database']} > #{Rails.root.join('db/dumps', dump_name)}`
+      raise "Sorry, but Alchemy only supports MySQL database dumping at the moment." unless db_conf['adapter'] =~ /mysql/
+      FileUtils.mkdir_p(Rails.root.join('db/dumps')) if ENV['DUMP_FILENAME']
+      dump_store = ENV['DUMP_FILENAME'] ? " > #{Rails.root.join('db/dumps', dump_name)}" : ""
+      cmd = "mysqldump -u#{db_conf['username']}#{db_conf['password'].present? ? " -p'#{db_conf['password']}'" : nil} #{db_conf['database']}#{dump_store}"
+      system cmd
     end
 
     def dump_name
