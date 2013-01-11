@@ -99,11 +99,11 @@ EOF
 
       desc "Imports the database into your local development machine."
       task :database, :roles => [:db], :only => {:primary => true} do
-        filename = "#{fetch(:application, 'dump')}-#{timestamp}.sql"
-        run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} DUMP_FILENAME=#{filename} #{rake} alchemy:db:dump"
-        FileUtils.mkdir_p "./db/dumps"
-        download "#{current_path}/db/dumps/#{filename}", "db/dumps/#{filename}"
-        run_locally "mysql -u#{database_config['username']}#{database_config['password'] ? ' -p"' + database_config['password'] + '"' : nil} #{database_config['database']} < ./db/dumps/#{filename}"
+        server = find_servers_for_task(current_task).first
+        dump_cmd = "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:dump"
+        sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
+        mysql_credentials = "-u #{database_config['username']}#{database_config['password'] ? ' -p "' + database_config['password'] + '"' : nil}"
+        run_locally "#{sql_stream} | mysql #{mysql_credentials} #{database_config['database']}"
       end
 
       desc "Imports attachments into your local machine using rsync."
@@ -124,10 +124,6 @@ EOF
         else
           raise "No server found"
         end
-      end
-
-      def timestamp
-        timestamp ||= Time.now.strftime('%Y-%m-%d-%H-%M')
       end
 
       def database_config
