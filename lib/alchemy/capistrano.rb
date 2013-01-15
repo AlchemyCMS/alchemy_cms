@@ -102,8 +102,11 @@ EOF
         server = find_servers_for_task(current_task).first
         dump_cmd = "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:dump"
         sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
-        mysql_credentials = "-u #{database_config['username']}#{database_config['password'] ? ' -p "' + database_config['password'] + '"' : nil}"
-        run_locally "#{sql_stream} | mysql #{mysql_credentials} #{database_config['database']}"
+        mysql_credentials = ["--user='#{database_config['username']}'"]
+        if database_config['password']
+          mysql_credentials << "--password='#{database_config['password']}'"
+        end
+        system "#{sql_stream} | mysql #{mysql_credentials.join(' ')} #{database_config['database']}"
       end
 
       desc "Imports attachments into your local machine using rsync."
