@@ -15,7 +15,7 @@
         <%= f.send(:select,
           "#{attr_array[0]}_id",
           attr_array[0].classify.constantize.all.collect {|r| [r.send(attr_array[1]), r.id] },
-          { :prompt => t("Please choose") }, { :class => "alchemy_selectbox" }
+          { :prompt => _t("Please choose") }, { :class => "alchemy_selectbox" }
         ) %>
       </td>
     <% else %>
@@ -29,7 +29,7 @@
   <% end %>
     <tr>
       <td class="submit" colspan="2">
-        <%= f.button t('save'), :class => 'button' %>
+        <%= f.button _t('save'), :class => 'button' %>
       </td>
     </tr>
   </table>

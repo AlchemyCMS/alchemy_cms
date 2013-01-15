@@ -1,4 +1,4 @@
-<h2 class="with_padding"><%= t(:you_can_rename_this_tag) %></h2>
+<h2 class="with_padding"><%= _t(:you_can_rename_this_tag) %></h2>
 <%= form_for @tag, :as => :tag, :url => {:controller => :tags, :action => "update", :id => @tag.id}, :html => {:method => :put}, :remote => true do |f| %>
   <table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
     <tr>
@@ -11,13 +11,13 @@
     </tr>
     <tr>
       <td colspan="2" class="submit">
-        <%= f.button t(:rename), :class => "button" %>
+        <%= f.button _t(:rename), :class => "button" %>
       </td>
     </tr>
   </table>
 <% end %>
 <% if @tags.any? -%>
-  <h2 class="with_padding"><%= t(:or_replace_it_with_an_existing_tag) %>:</h2>
+  <h2 class="with_padding"><%= _t(:or_replace_it_with_an_existing_tag) %>:</h2>
   <%= form_for @tag, :as => :tag, :url => {:controller => :tags, :action => "update", :id => @tag.id, :replace => true}, :html => {:method => :put, :style => "clear: both"}, :remote => true do |f| %>
     <table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
       <tr>
@@ -33,7 +33,7 @@
       </tr>
       <tr>
         <td colspan="2" class="submit">
-          <%= f.button t(:replace), :class => "button", :id => "tag_replace_button" %>
+          <%= f.button _t(:replace), :class => "button", :id => "tag_replace_button" %>
         </td>
       </tr>
     </table>

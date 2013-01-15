@@ -9,10 +9,10 @@
       <td class="select">
         <%= f.select(
           "css_class", [
-            [t("Layout default"), ""],
-            [t("above"), "no_float"],
-            [t("left"), "left"],
-            [t("right"), "right"]
+            [_t("Layout default"), ""],
+            [_t("above"), "no_float"],
+            [_t("left"), "left"],
+            [_t("right"), "right"]
           ],
           :class => 'alchemy_selectbox'
         ) %>
@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td colspan="2" class="submit">
-        <%= f.button t("save"), :class => 'button' %>
+        <%= f.button _t("save"), :class => 'button' %>
       </td>
     </tr>
   </table>

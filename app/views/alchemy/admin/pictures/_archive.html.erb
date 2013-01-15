@@ -6,24 +6,24 @@
 </div>
 <%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
   <div class="selected_item_tools">
-    <h2><%= t("edit_selected_pictures") %></h2>
+    <h2><%= _t("edit_selected_pictures") %></h2>
     <%= link_to(
-      render_icon('edit') + t("Edit"),
+      render_icon('edit') + _t("Edit"),
       edit_multiple_admin_pictures_path,
       :class => 'button with_icon',
-      :title => t('Edit multiple pictures'),
+      :title => _t('Edit multiple pictures'),
       :id => 'edit_multiple_pictures',
       :style => 'float: none'
     ) %>
-    <%= button_tag render_icon('destroy') + t("Delete"), 'data-alchemy-confirm' => {
-      :title => t("please_confirm"),
-      :message => t("confirm_to_delete_images_from_server"),
-      :okLabel => t("Yes"),
-      :cancelLabel => t("No")
+    <%= button_tag render_icon('destroy') + _t("Delete"), 'data-alchemy-confirm' => {
+      :title => _t("please_confirm"),
+      :message => _t("confirm_to_delete_images_from_server"),
+      :okLabel => _t("Yes"),
+      :cancelLabel => _t("No")
     }.to_json, :class => 'button with_icon' %>
-    &nbsp;<%= t('or') %>&nbsp;
+    &nbsp;<%= _t('or') %>&nbsp;
     <%= link_to(
-      render_icon('delete-small') + t("Clear selection"),
+      render_icon('delete-small') + _t("Clear selection"),
       admin_pictures_path(
         :query => params[:query],
         :tagged_with => params[:tagged_with],
@@ -34,17 +34,17 @@
       :style => 'float: none'
     ) %>
   </div>
-  <%= content_tag :h3, t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
+  <%= content_tag :h3, _t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
   <div id="pictures">
   <% if @pictures.blank? and @recent_pictures.blank? and params[:query].nil? %>
     <div class="info">
       <%= render_icon('info') %>
-      <%= t("no_images_in_archive") %>
+      <%= _t("no_images_in_archive") %>
     </div>
   <% elsif @pictures.blank? and @recent_pictures.blank? %>
     <div class="info">
       <%= render_icon('info') %>
-      <%= t("no_search_results") %>
+      <%= _t("no_search_results") %>
     </div>
   <% else %>
     <%= render :partial => 'picture', :collection => @pictures %>

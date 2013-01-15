@@ -1,7 +1,7 @@
 module Alchemy
-  class I18n
+  module I18n
 
-    # A I18n Proxy for Alchemy translations
+    # Alchemy translation methods
     #
     # Instead of having to translate strings and defining a default value:
     #
@@ -15,12 +15,14 @@ module Alchemy
     #
     #     Alchemy::I18n.t("Hello %{world}!", :world => @world)
     #
+    # It offers a shortcut method and view helper called _t
+    #
     # === Notes
     #
     # All translations are scoped into the +alchemy+ namespace.
     # Even scopes are scoped into the +alchemy+ namespace.
     #
-    # So a call for t('hello', :scope => :world) has to be translated like this:
+    # So a call for _t('hello', :scope => :world) has to be translated like this:
     #
     #   de:
     #     alchemy:

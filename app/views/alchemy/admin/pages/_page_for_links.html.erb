@@ -13,7 +13,7 @@
             :url => @url_prefix + page_for_links.urlname
           },
           :class => "show_elements_to_link",
-          :title => t('show_elements_from_page')
+          :title => _t('show_elements_from_page')
         ) %>
         <div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page">
           <%= image_tag("alchemy/ajax_loader.gif", :alt => '') %>
@@ -21,9 +21,9 @@
       <% end %>
     </div>
     <div class="page_infos">
-      <span class="page_status <%= page_for_links.public ? 'public' : 'not_public' %>" title="<%= page_for_links.public ? t('Page public') : t('Page not public') %>"></span>
-      <span class="page_status <%= page_for_links.visible ? 'visible' : 'not_visible' %>" title="<%= page_for_links.visible ? t('Page visible') : t('Page not visible') %>"></span>
-      <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.restricted ? t('Page restricted') : t('Page not restricted') %>"></span>
+      <span class="page_status <%= page_for_links.public ? 'public' : 'not_public' %>" title="<%= page_for_links.public ? _t('Page public') : _t('Page not public') %>"></span>
+      <span class="page_status <%= page_for_links.visible ? 'visible' : 'not_visible' %>" title="<%= page_for_links.visible ? _t('Page visible') : _t('Page not visible') %>"></span>
+      <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.restricted ? _t('Page restricted') : _t('Page not restricted') %>"></span>
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
       <% if page_for_links.redirects_to_external? %>
@@ -34,7 +34,7 @@
             'page-id' => page_for_links.id,
             :url => @url_prefix + page_for_links.urlname
           },
-          :title => t('page_for_links.choose_page', :name => page_for_links.name),
+          :title => _t('page_for_links.choose_page', :name => page_for_links.name),
           :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
         }) %>
       <% end %>

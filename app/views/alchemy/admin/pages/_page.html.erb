@@ -4,21 +4,21 @@
       <%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
       <span class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %> tooltip"></span>
       <div class="tooltip_content" style="display: none;">
-        <h1><%= t("page_type") %>: <%= page.layout_display_name %></h1>
+        <h1><%= _t("page_type") %>: <%= page.layout_display_name %></h1>
         <p>
           <%= page.humanized_status %>
         </p>
         <p>
-          <strong><%= t("created_at") %>:</strong>
+          <strong><%= _t("created_at") %>:</strong>
           <%= l(page.created_at) %> von <%= page.creator %>
         </p>
         <p>
-          <strong><%= t("updated_at") %>:</strong>
+          <strong><%= _t("updated_at") %>:</strong>
           <%= l(page.updated_at) %> durch <%= page.updater %>
         </p>
         <%- if page.locked? -%>
         <p>
-          <%= t("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
+          <%= _t("currently_edited_by") %>: <span style="font-weight: bold;"><%= page.current_editor %></span>
         </p>
         <%- end -%>
       </div>
@@ -30,11 +30,11 @@
         render_icon('configure_page'),
         alchemy.configure_admin_page_path(page),
         {
-          :title => t('edit_page_properties'),
+          :title => _t('edit_page_properties'),
           :size => page.redirects_to_external? ? '410x270' : '410x655'
         },
         :class => '',
-        :title => t('edit_page_properties')
+        :title => _t('edit_page_properties')
       ) -%>
       <%- end -%>
       <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
@@ -49,13 +49,13 @@
           :remote => true,
           :method => :post,
           :class => "",
-          :title => t("copy_page")
+          :title => _t("copy_page")
         ) %>
         <%- end -%>
         <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
         <%= link_to_confirmation_window(
           render_icon('delete_page'),
-          t("confirm_to_delete_page"),
+          _t("confirm_to_delete_page"),
           url_for(
             :controller => 'pages',
             :action => 'destroy',
@@ -63,7 +63,7 @@
           ),
           {
             :class => "",
-            :title => t("delete_page")
+            :title => _t("delete_page")
           }
         ) -%>
         <%- end -%>
@@ -72,12 +72,12 @@
           render_icon('add_page'),
           alchemy.new_admin_page_path(:parent_id => page.id),
           {
-            :title => t('create_page'),
+            :title => _t('create_page'),
             :size => '340x150',
             :overflow => true
           },
           :class => '',
-          :title => t('create_page')
+          :title => _t('create_page')
         ) -%>
         <%- end -%>
       </span>
@@ -91,7 +91,7 @@
     <%- if page.redirects_to_external? -%>
       <span class="sitemap_pagename_link <%= cycle('even', 'odd') %> inactive"><%= page.name %></span>
       <span class="redirect_url" title="<%= h page.urlname %>">
-        &raquo; <%= t('Redirects to') %>:
+        &raquo; <%= _t('Redirects to') %>:
         <%= h page.urlname %>
       </span>
     <%- else -%>
@@ -100,7 +100,7 @@
         @sorting,
         page.name,
         alchemy.edit_admin_page_path(page),
-        :title => t("edit_page"),
+        :title => _t("edit_page"),
         :class => "sitemap_pagename_link #{cycle_class}"
       ) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
     <%- end -%>

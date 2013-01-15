@@ -7,14 +7,14 @@
     </tr>
     <tr>
       <td class="label"><%= f.label :language_code %></td>
-      <td class="input"><%= f.text_field :language_code, :class => 'thin_border', :placeholder => t(:language_code_placeholder) -%></td>
+      <td class="input"><%= f.text_field :language_code, :class => 'thin_border', :placeholder => _t(:language_code_placeholder) -%></td>
     </tr>
     <tr>
       <td class="label"><%= f.label :country_code %>*</td>
       <td class="input">
-        <%= f.text_field :country_code, :class => 'thin_border', :placeholder => t(:country_code_placeholder) -%>
+        <%= f.text_field :country_code, :class => 'thin_border', :placeholder => _t(:country_code_placeholder) -%>
         <p class="foot_note">
-          * <%= t(:country_code_foot_note) %>
+          * <%= _t(:country_code_foot_note) %>
         </p>
       </td>
     </tr>
@@ -42,7 +42,7 @@
     </tr>
     <tr>
       <td class="submit" colspan="2">
-        <%= f.button t('save'), :class => 'button' %>
+        <%= f.button _t('save'), :class => 'button' %>
       </td>
     </tr>
   </table>

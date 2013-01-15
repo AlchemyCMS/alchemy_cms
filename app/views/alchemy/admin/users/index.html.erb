@@ -2,11 +2,11 @@
   :buttons => [
     {
       :icon => 'user_add',
-      :label => t('create_user'),
+      :label => _t('create_user'),
       :url => alchemy.new_admin_user_path,
-      :title => t('create_user'),
+      :title => _t('create_user'),
       :overlay_options => {
-        :title => t('create_user'),
+        :title => _t('create_user'),
         :size => "420x560"
       },
       :if_permitted_to => [:new, :alchemy_admin_users]
@@ -39,7 +39,7 @@
 
   <div class="info">
     <%= render_icon('info') %>
-    <%= t('No users found') %>
+    <%= _t('No users found') %>
   </div>
 
 <% end %>

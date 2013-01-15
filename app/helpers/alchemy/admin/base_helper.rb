@@ -52,10 +52,10 @@ module Alchemy
         return '' if page.level == 1
         if page.folded?(current_user.id)
           css_class = 'folded'
-          title = t('Show childpages')
+          title = _t('Show childpages')
         else
           css_class = 'collapsed'
-          title = t('Hide childpages')
+          title = _t('Hide childpages')
         end
         link_to(
           '',
@@ -78,7 +78,7 @@ module Alchemy
       # Used for translations selector in Alchemy cockpit user settings.
       def translations_for_select
         Alchemy::I18n.available_locales.map do |locale|
-          [t(locale, :scope => :translations), locale]
+          [_t(locale, :scope => :translations), locale]
         end
       end
 
@@ -98,9 +98,9 @@ module Alchemy
           :onclick => "jQuery('##{options[:id]}').val(''); #{options[:onkeyup]}",
           :class => "js_filter_field_clear",
           :style => "display: none",
-          :title => t("click_to_show_all")
+          :title => _t("click_to_show_all")
         })
-        filter_field << %(<label for="#{options[:id]}">#{t(:search)}</label>)
+        filter_field << %(<label for="#{options[:id]}">#{_t(:search)}</label>)
         filter_field << '</div>'
         filter_field.html_safe
       end
@@ -122,10 +122,10 @@ module Alchemy
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {
-              :title => t("please_confirm"),
+              :title => _t("please_confirm"),
               :message => message,
-              :ok_label => t("Yes"),
-              :cancel_label => t("No")
+              :ok_label => _t("Yes"),
+              :cancel_label => _t("No")
             }.to_json
           )
         )
@@ -143,7 +143,7 @@ module Alchemy
         defaults = {
           :from_page => nil,
           :elements_with_name => nil,
-          :prompt => t('Please choose')
+          :prompt => _t('Please choose')
         }
         options = defaults.merge(options)
         if options[:from_page]
@@ -171,7 +171,7 @@ module Alchemy
       # 4. The fourth parameter is the method that is called on the page object to get the value that is passed with the params of the form.
       #
       def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
-        result = [[prompt.blank? ? t('Choose page') : prompt, ""]]
+        result = [[prompt.blank? ? _t('Choose page') : prompt, ""]]
         if pages.blank?
           pages = Page.with_language(session[:language_id]).published.order(:lft)
           pages.each do |p|
@@ -192,7 +192,7 @@ module Alchemy
           content = element.contents[content - 1]
         end
         if content.essence.nil?
-          return warning('Element', t('content_essence_not_found'))
+          return warning('Element', _t('content_essence_not_found'))
         end
         select_options = options_for_select(select_options, content.essence.content)
         select_tag(
@@ -292,7 +292,7 @@ module Alchemy
         if content_for?(:title)
           title = content_for(:title)
         else
-          title = t(controller_name, :scope => :modules)
+          title = _t(controller_name, :scope => :modules)
         end
         "Alchemy CMS - #{title}"
       end
@@ -314,7 +314,7 @@ module Alchemy
 
       # (internal) Renders a select tag for all items in the clipboard
       def clipboard_select_tag(items, html_options = {})
-        options = [[t('Please choose'), ""]]
+        options = [[_t('Please choose'), ""]]
         items.each do |item|
           options << [item.class.to_s == 'Alchemy::Element' ? item.display_name_with_preview_text : item.name, item.id]
         end

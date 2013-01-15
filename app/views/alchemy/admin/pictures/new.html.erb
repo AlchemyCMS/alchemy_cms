@@ -3,9 +3,9 @@
     :partial => "alchemy/admin/partials/upload_form",
     :locals => {
       :file_types => configuration(:uploader)['allowed_filetypes']['pictures'],
-      :file_types_description => t('images'),
+      :file_types_description => _t('images'),
       :model_name => 'picture',
-      :item_type => t('images')
+      :item_type => _t('images')
     }
   ) %>
   <%= f.submit :upload, :style => 'display: none' %>

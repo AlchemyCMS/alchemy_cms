@@ -68,7 +68,7 @@ module Alchemy
       # The elements are returned as an array to be used in alchemy_selectbox form builder.
       def elements_for_select(elements)
         return [] if elements.nil?
-        options = elements.collect { |e| [t(e['name'], :scope => :element_names), e["name"]] }
+        options = elements.collect { |e| [_t(e['name'], :scope => :element_names), e["name"]] }
         return options_for_select(options)
       end
 
@@ -90,7 +90,7 @@ module Alchemy
         end
         other_elements = elements - celled_elements
         unless other_elements.blank?
-          optgroup_label = t(:main_content)
+          optgroup_label = _t(:main_content)
           options[optgroup_label] = other_elements.map do |e|
             element_array_for_options(e, object_method)
           end

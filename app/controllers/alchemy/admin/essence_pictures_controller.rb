@@ -40,7 +40,7 @@ module Alchemy
           end
           @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
         else
-          @no_image_notice = t('No image found. Did you saved the element?')
+          @no_image_notice = _t('No image found. Did you saved the element?')
         end
         render :layout => false
       end
@@ -73,7 +73,7 @@ module Alchemy
         @picture_essence.link = params[:link]
         @picture_essence.link_title = params[:title]
         @picture_essence.open_link_in_new_window = params[:blank]
-        @notice = t("saved_link")
+        @notice = _t("saved_link")
         @picture_essence.save
       end
 

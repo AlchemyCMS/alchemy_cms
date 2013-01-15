@@ -30,9 +30,9 @@
       :remote => true,
       :class => "search_field_clear",
       :id => "search_field_clear",
-      :title => t("click_to_show_all"),
+      :title => _t("click_to_show_all"),
       :style => (params[:query].nil? ? "display: none" : "display: block")
     ) %>
   </div>
-  <%= submit_tag t('search'), :name => nil, :class => 'button' %>
+  <%= submit_tag _t('search'), :name => nil, :class => 'button' %>
 <% end %>

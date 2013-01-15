@@ -2,36 +2,36 @@
   <div id="spanButtonPlaceHolder">
     <p>
       <%= image_tag('alchemy/ajax_loader.gif', :style => 'width: 16px; height: 16px; top: 3px; position: relative') %>
-      <%= t('Please wait. Flash® is loading...') %>
+      <%= _t('Please wait. Flash® is loading...') %>
     </p>
   </div>
   <a href="#" class="button no-spinner" onclick="swfu.cancelQueue(); return false" style="display: none">
-    <%= t("swfupload.cancel_uploads") %>
+    <%= _t("swfupload.cancel_uploads") %>
   </a>
   <p style="margin-top: 8px" id="choose_alternative_uploader">
     <small>
-      <%= raw t('If you have any problems using the Flash uploader you can switch to', :link => t('<a href="#" id="uploadswitcher">%{value}</a>', :value => t('regular method'))) %>
+      <%= raw _t('If you have any problems using the Flash uploader you can switch to', :link => _t('<a href="#" id="uploadswitcher">%{value}</a>', :value => _t('regular method'))) %>
     </small>
   </p>
 </div>
 
-<h2 id="swfUploadFlashError" style="display: none"><%= t('Could not load Adobe Flash® Plugin!') %></h2>
+<h2 id="swfUploadFlashError" style="display: none"><%= _t('Could not load Adobe Flash® Plugin!') %></h2>
 
 <div id="alternativeUpload" style="display: none">
   <h2 id="flash_upload_error_explanation" style="display: none">
-    <%= t('Error with the Flash® Uploader!') %>
+    <%= _t('Error with the Flash® Uploader!') %>
   </h2>
-  <p><%= t('use_alternative_uploader_instead') %></p>
+  <p><%= _t('use_alternative_uploader_instead') %></p>
   <p>
     <%= file_field_tag('Filedata') %>
   </p>
   <p>
-    <%= submit_tag t('upload'), :class => 'button' %>
+    <%= submit_tag _t('upload'), :class => 'button' %>
   </p>
   <p>
     <small>
       <a href="#" id="switch_to_flash_uploader" class="underline">
-        <%= t('Switch to Flash® Uploader') %>
+        <%= _t('Switch to Flash® Uploader') %>
       </a>
     </small>
   </p>

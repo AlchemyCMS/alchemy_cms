@@ -4,10 +4,10 @@
   alchemy.crop_admin_essence_picture_path(content.essence, :options => options),
   {
     :size => "fullscreen",
-    :title => t('Edit Picturemask')
+    :title => _t('Edit Picturemask')
   },
   {
-    :title => t('Edit Picturemask')
+    :title => _t('Edit Picturemask')
   }
 ) %>
 <%- else -%>
@@ -23,17 +23,17 @@
     :options => options
   ),
   {
-    :title => (content.ingredient ? t('swap_image') : t('insert_image')),
+    :title => (content.ingredient ? _t('swap_image') : _t('insert_image')),
     :size => '780x580',
     :resizable => "true"
   },
-  :title => (content.ingredient ? t('swap_image') : t('insert_image'))
+  :title => (content.ingredient ? _t('swap_image') : _t('insert_image'))
 ) %>
 
 <%= link_to(render_icon(:link), '#', {
   :onclick => "Alchemy.LinkOverlay.open(this, 420)",
   :class => content.linked? ? 'linked' : nil,
-  :title => t('link_image'),
+  :title => _t('link_image'),
   :data => {'content-id' => content.id},
   :id => "edit_link_#{content.id}"
 }) %>
@@ -41,7 +41,7 @@
 <%= link_to(render_icon('unlink'), '#', {
   :onclick => "Alchemy.LinkOverlay.removeLink(this, #{content.id})",
   :class => content.linked? ? 'linked' : 'disabled',
-  :title => t('unlink')
+  :title => _t('unlink')
 }) %>
 
 <%= link_to_overlay_window(
@@ -52,8 +52,8 @@
     :options => options
   ),
   {
-    :title => t('edit_image_properties'),
+    :title => _t('edit_image_properties'),
     :size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '380x230' : '380x210') : (options[:manual_image_size] ? '380x190' : '380x180'))
   },
-  :title => t('edit_image_properties')
+  :title => _t('edit_image_properties')
 ) %>

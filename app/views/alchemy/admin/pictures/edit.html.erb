@@ -14,12 +14,12 @@
       <td class="label"><%= f.label :tag_list %>*</td>
       <td class="input">
         <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => @picture %>
-        <p class="foot_note"><%= t('Please seperate the tags with commata') %></p>
+        <p class="foot_note"><%= _t('Please seperate the tags with commata') %></p>
       </td>
     </tr>
     <tr>
       <td class="submit" colspan="2">
-        <%= f.button t(:save), :name => nil, :class => 'button' %>
+        <%= f.button _t(:save), :name => nil, :class => 'button' %>
       </td>
     </tr>
   </table>

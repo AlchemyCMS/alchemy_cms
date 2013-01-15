@@ -63,14 +63,14 @@ module Alchemy
         else
           @page = Page.create(params[:page])
         end
-        render_errors_or_redirect(@page, @page.valid? ? edit_admin_page_path(@page) : admin_pages_path, t("Page created", :name => @page.name))
+        render_errors_or_redirect(@page, @page.valid? ? edit_admin_page_path(@page) : admin_pages_path, _t("Page created", :name => @page.name))
       end
 
       # Edit the content of the page and all its elements and contents.
       def edit
         # fetching page via before filter
         if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
-          flash[:notice] = t("This page is locked by %{name}", :name => (@page.locker.name rescue t('unknown')))
+          flash[:notice] = _t("This page is locked by %{name}", :name => (@page.locker.name rescue _t('unknown')))
           redirect_to admin_pages_path
         else
           @page.lock(current_user)
@@ -95,7 +95,7 @@ module Alchemy
         # storing old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
         if @page.update_attributes(params[:page])
-          @notice = t("Page saved", :name => @page.name)
+          @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
           render_remote_errors(@page, "#alchemyOverlay button.button")
@@ -109,7 +109,7 @@ module Alchemy
         @layoutpage = @page.layoutpage?
         if @page.destroy
           @page_root = Page.language_root_for(session[:language_id])
-          @message = t("Page deleted", :name => name)
+          @message = _t("Page deleted", :name => name)
           flash[:notice] = @message
           respond_to do |format|
             format.js
@@ -153,7 +153,7 @@ module Alchemy
       def unlock
         # fetching page via before filter
         @page.unlock
-        flash[:notice] = t("unlocked_page", :name => @page.name)
+        flash[:notice] = _t("unlocked_page", :name => @page.name)
         @pages_locked_by_user = Page.all_locked_by(current_user)
         respond_to do |format|
           format.js
@@ -173,7 +173,7 @@ module Alchemy
         # fetching page via before filter
         @page.public = true
         @page.save
-        flash[:notice] = t("page_published", :name => @page.name)
+        flash[:notice] = _t("page_published", :name => @page.name)
         redirect_back_or_to_default(admin_pages_path)
       end
 
@@ -191,7 +191,7 @@ module Alchemy
         )
         new_language_root.move_to_child_of Page.root
         original_language_root.copy_children_to(new_language_root)
-        flash[:notice] = t('language_pages_copied')
+        flash[:notice] = _t('language_pages_copied')
         redirect_to params[:layoutpage] == "true" ? admin_layoutpages_path : :action => :index
       end
 
@@ -213,7 +213,7 @@ module Alchemy
           prev_item = dbitem.reload
         end
 
-        flash[:notice] = t("Pages order saved")
+        flash[:notice] = _t("Pages order saved")
         @redirect_url = admin_pages_path
         render :action => :redirect
       end

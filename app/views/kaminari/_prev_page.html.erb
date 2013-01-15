@@ -7,7 +7,7 @@
     remote:        data-remote
 -%>
 <% if current_page.first? -%>
-<span class="previous_page disabled"><%= raw(t 'pagination.previous_page') %></span>
+<span class="previous_page disabled"><%= raw(_t 'pagination.previous_page') %></span>
 <% else -%>
-<%= link_to raw(t 'pagination.previous_page'), url, :rel => 'prev', :remote => remote, :class => 'previous_page' -%>
+<%= link_to raw(_t 'pagination.previous_page'), url, :rel => 'prev', :remote => remote, :class => 'previous_page' -%>
 <% end -%>

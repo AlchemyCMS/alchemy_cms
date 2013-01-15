@@ -5,9 +5,9 @@
 <%- if @item.class.to_s == 'Element' -%>
   $('#element_area .sortable_cell').sortable('refresh');
 <%- end -%>
-  Alchemy.growl('<%= escape_javascript t("item moved to clipboard", :name => @item.class.to_s == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) -%>');
+  Alchemy.growl('<%= escape_javascript _t("item moved to clipboard", :name => @item.class.to_s == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) -%>');
 <%- else -%>
-  Alchemy.growl('<%= escape_javascript t("item copied to clipboard", :name => @item.class.to_s == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) -%>')
+  Alchemy.growl('<%= escape_javascript _t("item copied to clipboard", :name => @item.class.to_s == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) -%>')
 <%- end -%>
   $('#clipboard_button .icon.clipboard').addClass('full');
 

@@ -1,6 +1,10 @@
 module Alchemy
   module BaseHelper
 
+    def _t(key, *args)
+      I18n.t(key, *args)
+    end
+
     # An alias for truncate.
     # Left here for downwards compatibilty.
     def shorten(text, length)
@@ -29,9 +33,7 @@ module Alchemy
 
     # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
     def warning(message, text = nil)
-      logger.warn %(\n
-      ++++ WARNING: #{message}! from: #{caller.first}\n
-                  )
+      logger.warn %(\n++++ WARNING: #{message}! from: #{caller.first}\n)
       unless text.nil?
         warning = content_tag('p', :class => 'content_editor_error') do
           render_icon('warning') + text

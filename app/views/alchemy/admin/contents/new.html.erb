@@ -3,17 +3,17 @@
   <%= f.hidden_field :element_id %>
   <table>
     <tr>
-      <td class="label"><%= f.label :name, t('name') %></td>
+      <td class="label"><%= f.label :name, _t('name') %></td>
       <td class="select">
         <%= f.select('name', @contents.map { |a|
-          [t("content_names.#{a['name']}"), a['name']]
+          [_t("content_names.#{a['name']}"), a['name']]
         }, {}, {:class => 'alchemy_selectbox'}) %>
       </td>
     </tr>
     <tr>
       <td class="submit" colspan="2">
         <%= hidden_field_tag('options', @options) %>
-        <%= f.button t(:create), :class => 'button' %>
+        <%= f.button _t(:create), :class => 'button' %>
       </td>
     </tr>
   </table>

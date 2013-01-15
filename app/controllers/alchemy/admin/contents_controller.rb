@@ -44,13 +44,13 @@ module Alchemy
           content = Content.find(id)
           content.move_to_bottom
         end
-        @notice = t("Successfully saved content position")
+        @notice = _t("Successfully saved content position")
       end
 
       def destroy
         @content = Content.find(params[:id])
         @content_dup = @content.clone
-        @notice = t("Successfully deleted content", :content => @content.name_for_label)
+        @notice = _t("Successfully deleted content", :content => @content.name_for_label)
         @content.destroy
       end
 

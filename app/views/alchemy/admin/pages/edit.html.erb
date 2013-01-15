@@ -1,7 +1,7 @@
 <% content_for(:title) { @page.name } %>
 
 <% content_for(:subnav_additions) do %>
-  <label><%= t('Active Pages') %> &raquo;</label>
+  <label><%= _t('Active Pages') %> &raquo;</label>
   <% @locked_pages.each do |page| %>
   <% if @page == page %>
   <%= render :partial => 'page_status' %>
@@ -13,7 +13,7 @@
     </span>
     <% end %>
     <%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-      <button class="icon_button small" title="<%= t('explain_unlocking') %>">
+      <button class="icon_button small" title="<%= _t('explain_unlocking') %>">
         <%= render_icon('close small') %>
       </button>
     <% end %>
@@ -26,19 +26,19 @@
 <div id="toolbar_buttons">
   <div class="button_with_label">
     <%= form_tag alchemy.unlock_admin_page_path(@page, :redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), :id => 'unlock_page_form' do %>
-      <button class="icon_button" title="<%= t('explain_unlocking') %>">
+      <button class="icon_button" title="<%= _t('explain_unlocking') %>">
         <%= render_icon('close') %>
       </button>
-      <label><%= t("unlock_page") %></label>
+      <label><%= _t("unlock_page") %></label>
     <% end %>
   </div>
   <% unless @page.layoutpage? %>
   <div class="button_with_label">
     <%= form_tag alchemy.visit_admin_page_path(@page), :id => 'visit_page_form' do %>
-      <button class="icon_button" title="<%= t('Visit page') %>">
+      <button class="icon_button" title="<%= _t('Visit page') %>">
         <%= render_icon('visit_page') %>
       </button>
-      <label><%= t("Visit page") %></label>
+      <label><%= _t("Visit page") %></label>
     <% end %>
   </div>
   <% end %>
@@ -47,45 +47,45 @@
       render_icon('settings'),
       alchemy.configure_admin_page_path(@page),
       {
-        :title => t('edit_page_properties'),
+        :title => _t('edit_page_properties'),
         :size => @page.layoutpage? ? '410x150' : '410x650'
       },
       :class => :icon_button,
-      :title => t('edit_page_properties')
+      :title => _t('edit_page_properties')
     ) %>
-    <label><%= t('page_properties') %></label>
+    <label><%= _t('page_properties') %></label>
   </div>
   <% if configuration(:cache_pages) && !@page.layoutpage? %>
   <div class="button_with_label">
     <%= form_tag alchemy.publish_admin_page_path(@page), :id => 'publish_page_form' do %>
-      <button class="icon_button" title="<%= t('explain_publishing') %>">
+      <button class="icon_button" title="<%= _t('explain_publishing') %>">
         <%= render_icon('publish') %>
       </button>
-      <label><%= t("Publish page") %></label>
+      <label><%= _t("Publish page") %></label>
     <% end %>
   </div>
   <% end %>
   <div class="button_with_label">
     <%= select_tag('preview_size', preview_sizes_for_select, :class => 'alchemy_selectbox short') %>
-    <label><%= t :preview_size %></label>
+    <label><%= _t(:preview_size) %></label>
   </div>
 </div>
 <div id="toolbar_buttons_right">
   <div class="button_with_label" id="show_preview_window">
     <%= link_to(render_icon(:preview_window), '#', {
       :onclick => "Alchemy.openPreviewWindow()",
-      :title => t('Show Preview Window'),
+      :title => _t('Show Preview Window'),
       :class => :icon_button
     }) %>
-    <label><%= t('Show Preview Window') %></label>
+    <label><%= _t('Show Preview Window') %></label>
   </div>
   <div class="button_with_label" id="show_element_window">
     <%= link_to(render_icon(:element_window), '#', {
       :onclick => "Alchemy.openElementsWindow()",
-      :title => t('Show Elements Window'),
+      :title => _t('Show Elements Window'),
       :class => :icon_button
     }) %>
-    <label><%= t('Show Elements Window') %></label>
+    <label><%= _t('Show Elements Window') %></label>
   </div>
 </div>
 <% end %>
@@ -95,27 +95,27 @@
 <script type="text/javascript" charset="utf-8">
 
   Alchemy.openPreviewWindow = function() {
-    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>', '<%= t("Page Preview") %>');
+    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>', '<%= _t("Page Preview") %>');
   }
 
   Alchemy.openElementsWindow = function() {
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(:page_id => @page.id) %>', {
       texts: {
-        title: '<%= t("Elements") %>',
-        dirtyTitle: '<%= t("Warning!") %>',
-        dirtyMessage: '<%= t(:element_dirty_close_window_notice) %>',
-        okLabel: '<%= t("Yes") %>',
-        cancelLabel: '<%= t("No") %>'
+        title: '<%= _t("Elements") %>',
+        dirtyTitle: '<%= _t("Warning!") %>',
+        dirtyMessage: '<%= _t(:element_dirty_close_window_notice) %>',
+        okLabel: '<%= _t("Yes") %>',
+        cancelLabel: '<%= _t("No") %>'
       },
       toolbarButtons: [
         {
-          title: '<%= t("New Element") %>',
-          label: '<%= t("New Element") %>',
+          title: '<%= _t("New Element") %>',
+          label: '<%= _t("New Element") %>',
           iconClass: 'new_element',
           onClick: function() {
             Alchemy.openWindow(
               '<%= alchemy.new_admin_element_path(:page_id => @page.id) %>',
-              '<%= t("New Element") %>',
+              '<%= _t("New Element") %>',
               320,
               120,
               false,
@@ -125,14 +125,14 @@
           }
         },
         {
-          title: '<%= t("Clipboard") %>',
-          label: '<%= t("Show clipboard") %>',
+          title: '<%= _t("Clipboard") %>',
+          label: '<%= _t("Show clipboard") %>',
           iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
             Alchemy.openWindow(
               '<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") %>',
-              '<%= t("Clipboard") %>',
+              '<%= _t("Clipboard") %>',
               380,
               270,
               false,
@@ -142,12 +142,12 @@
           }
         },
         {
-          title: '<%= t("Show trash") %>',
-          label: '<%= t("Show trash") %>',
+          title: '<%= _t("Show trash") %>',
+          label: '<%= _t("Show trash") %>',
           iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
           buttonId: 'element_trash_button',
           onClick: function() {
-            Alchemy.openTrashWindow(<%= @page.id %>, '<%= t("Trash") %>');
+            Alchemy.openTrashWindow(<%= @page.id %>, '<%= _t("Trash") %>');
           }
         }
       ]
@@ -173,10 +173,10 @@
 
   jQuery(function($) {
     var texts = {
-      title: '<%= t("Warning!") %>',
-      message: '<%= t(:element_dirty_page_leave_warning) %>',
-      okLabel: '<%= t("Yes") %>',
-      cancelLabel: '<%= t("No") %>'
+      title: '<%= _t("Warning!") %>',
+      message: '<%= _t(:element_dirty_page_leave_warning) %>',
+      okLabel: '<%= _t("Yes") %>',
+      cancelLabel: '<%= _t("No") %>'
     };
     $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this, texts);

@@ -11,21 +11,21 @@
 
   <div class="info">
     <%= render_icon :info %>
-    <p><%= t("You are about to edit %{length} pictures at once") % {:length => @pictures.length} %></p>
+    <p><%= _t("You are about to edit %{length} pictures at once") % {:length => @pictures.length} %></p>
   </div>
 
   <table>
     <tr>
-      <td class="label"><%= label_tag :pictures_name, t('Name') %></td>
+      <td class="label"><%= label_tag :pictures_name, _t('Name') %></td>
       <td class="input">
         <%= text_field_tag :pictures_name, nil, :class => "thin_border long" %>
       </td>
     </tr>
     <tr>
-      <td class="label"><%= label_tag :pictures_tag_list, t('Tags') + '*' %></td>
+      <td class="label"><%= label_tag :pictures_tag_list, _t('Tags') + '*' %></td>
       <td class="input">
         <div class="autocomplete_tag_list">
-          <%= label_tag :tag_list, render_icon(:tag_label), :for => "autocomplete_tag_list", :title => t(:tag_list) %>
+          <%= label_tag :tag_list, render_icon(:tag_label), :for => "autocomplete_tag_list", :title => _t(:tag_list) %>
           <%= autocomplete_field_tag(
             :pictures_tag_list,
             @pictures.collect(&:tag_list).flatten.uniq.join(', '),
@@ -38,11 +38,11 @@
     </tr>
     <tr>
       <td class="submit" colspan="2">
-        <%= button_tag t(:save), :name => nil, :class => 'button' %>
+        <%= button_tag _t(:save), :name => nil, :class => 'button' %>
       </td>
     </tr>
   </table>
 
-  <p class="foot_note"><%= t('Please seperate the tags with commata') %></p>
+  <p class="foot_note"><%= _t('Please seperate the tags with commata') %></p>
 
 <% end %>

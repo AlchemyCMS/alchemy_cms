@@ -7,7 +7,7 @@ $('.element_editor[data-element-id="<%= @cutted_element_id %>"]').remove();
 <% end %>
 
 <% if @page.can_have_cells? %>
-Alchemy.selectOrCreateCellTab('<%= @cell_name -%>', '<%= @cell.nil? ? t("other Elements") : @cell.name_for_label -%>');
+Alchemy.selectOrCreateCellTab('<%= @cell_name -%>', '<%= @cell.nil? ? _t("other Elements") : @cell.name_for_label -%>');
 <% end %>
 
 $element_area = $('#cell_<%= @cell_name -%>');
@@ -24,7 +24,7 @@ if ($element_area.find('.element_editor').length > 0) {
   $element_area.sortable('refresh');
 }
 
-Alchemy.growl('<%= t("successfully_added_element") -%>');
+Alchemy.growl('<%= _t("successfully_added_element") -%>');
 Alchemy.closeCurrentWindow();
 
 <% @element.contents.essence_richtexts.each do |content| %>

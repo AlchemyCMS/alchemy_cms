@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td class="label"><%= f.label 'gender' %></td>
-    <td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => t('Please choose')}, :class => 'alchemy_selectbox long', :autofocus => true -%></td>
+    <td class="select"><%= f.select 'gender', options_for_select(@user_genders, @user.gender), {:prompt => _t('Please choose')}, :class => 'alchemy_selectbox long', :autofocus => true -%></td>
   </tr>
   <tr>
     <td class="label"><%= f.label 'firstname' %></td>
@@ -51,12 +51,12 @@
     <td>&nbsp;</td>
     <td class="checkbox long">
       <%= check_box_tag('send_credentials', true, @user.new_record?) %>
-      <%= label_tag('send_credentials', t('Send email with credentials')) %>
+      <%= label_tag('send_credentials', _t('Send email with credentials')) %>
     </td>
   </tr>
   <tr>
     <td class="submit" colspan="2">
-      <%= f.button t('save'), :class => 'button' %>
+      <%= f.button _t('save'), :class => 'button' %>
     </td>
   </tr>
 </table>

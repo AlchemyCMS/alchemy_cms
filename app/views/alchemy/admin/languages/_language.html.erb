@@ -24,9 +24,9 @@
     <%- permitted_to?(:destroy, :alchemy_admin_languages) do -%>
     <%= link_to_confirmation_window(
       '',
-      t("Are you sure?"),
+      _t("Are you sure?"),
       alchemy.admin_language_path(language),
-      :title => t("Delete"),
+      :title => _t("Delete"),
       :class => "icon destroy"
     ) -%>
     <%- end -%>
@@ -35,11 +35,11 @@
       '',
       alchemy.edit_admin_language_path(language),
       {
-        :title => t("Edit")
+        :title => _t("Edit")
       },
       {
         :class => "icon edit",
-        :title => t("Edit")
+        :title => _t("Edit")
       }
     ) -%>
     <%- end -%>

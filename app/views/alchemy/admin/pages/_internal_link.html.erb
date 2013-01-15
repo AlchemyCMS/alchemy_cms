@@ -1,5 +1,5 @@
 <div id="overlay_tab_internal_link">
-  <h2><%= t("internal_link_headline") %></h2>
+  <h2><%= _t("internal_link_headline") %></h2>
   <table class="window_form">
     <tr>
       <td colspan="2">
@@ -14,7 +14,7 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="internal_link_title"><%= t('Title') %>:</label>
+        <label for="internal_link_title"><%= _t('Title') %>:</label>
       </td>
       <td class="input">
         <%= text_field_tag "internal_link_title", '', :class => 'thin_border auto_resize link_title' %>
@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="internal_link_target"><%= t("Open Link in") %>:</label>
+        <label for="internal_link_target"><%= _t("Open Link in") %>:</label>
       </td>
       <td class="select left">
         <%= select_tag 'internal_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target medium' %>
@@ -32,7 +32,7 @@
       <td class="submit" colspan="2">
         <%= hidden_field_tag(:internal_urlname) %>
         <%= hidden_field_tag(:page_anchor) %>
-        <%= link_to(t(:apply), '#', {
+        <%= link_to(_t(:apply), '#', {
           :onclick => "Alchemy.LinkOverlay.createLink('internal', jQuery('#internal_urlname').val() + jQuery('#page_anchor').val(), jQuery('#internal_link_title').val(), jQuery('#internal_link_target').val()); Alchemy.LinkOverlay.close()",
           :class => 'button'
         }) %>

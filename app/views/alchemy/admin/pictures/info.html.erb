@@ -20,9 +20,9 @@
 </div>
 <div id="pictures_page_list">
 <% if @picture.deletable? %>
-  <h2><%= t :this_picture_is_not_used_on_any_page %></h2>
+  <h2><%= _t(:this_picture_is_not_used_on_any_page) %></h2>
 <% else %>
-  <h2><%= t :this_picture_is_used_on_these_pages %>:</h2>
+  <h2><%= _t(:this_picture_is_used_on_these_pages) %>:</h2>
   <ul class="list">
   <% @picture.essence_pictures.group_by(&:page).each do |page, essence_pictures| %>
     <li>

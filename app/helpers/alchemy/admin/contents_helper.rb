@@ -26,7 +26,7 @@ module Alchemy
         end
         if content.description.blank?
           warning("Content #{content.name} is missing its description")
-          title = t(:content_description_missing)
+          title = _t(:content_description_missing)
           content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;#{content_name}).html_safe
         end
         content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>".html_safe : content_name
@@ -38,11 +38,11 @@ module Alchemy
       #
       def render_new_content_link(element)
         link_to_overlay_window(
-          render_icon(:create) + t('add new content'),
+          render_icon(:create) + _t('add new content'),
           alchemy.new_admin_element_content_path(element),
           {
             :size => '310x115',
-            :title => t('Select an content'),
+            :title => _t('Select an content'),
             :overflow => true
           },
           {
@@ -77,7 +77,7 @@ module Alchemy
       #
       def render_create_content_link(element, content_name, options = {}, options_for_content = {})
         defaults = {
-          :label => t('Add %{name}', :name => t(content_name, :scope => :content_names))
+          :label => _t('Add %{name}', :name => _t(content_name, :scope => :content_names))
         }
         options = defaults.merge(options)
         link_to(render_icon(:create) + options[:label], alchemy.admin_contents_path(
@@ -98,10 +98,10 @@ module Alchemy
       def delete_content_link(content)
         link_to_confirmation_window(
           render_icon('delete-small'),
-          t('Do you really want to delete this content?'),
+          _t('Do you really want to delete this content?'),
           alchemy.admin_content_path(content),
           :class => 'icon_button small',
-          :title => t('Remove this content')
+          :title => _t('Remove this content')
         ) if content.settings[:deletable]
       end
 

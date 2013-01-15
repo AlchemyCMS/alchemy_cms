@@ -3,7 +3,7 @@
     <%- if multi_language? -%>
     <span class="page_language"><%= @page.language_code %></span>
     <%- end -%>
-    <span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? t('Page public') : t('Page not public') %>"></span>
-    <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.visible ? t('Page visible') : t('Page not visible') %>"></span>
-    <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? t('Page restricted') : t('Page not restricted') %>"></span>
+    <span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.public ? _t('Page public') : _t('Page not public') %>"></span>
+    <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.visible ? _t('Page visible') : _t('Page not visible') %>"></span>
+    <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.restricted ? _t('Page restricted') : _t('Page not restricted') %>"></span>
 </span>

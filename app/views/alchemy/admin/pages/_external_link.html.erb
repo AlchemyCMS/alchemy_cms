@@ -1,8 +1,8 @@
 <div id="overlay_tab_external_link">
-  <h2><%= t("enter_external_link") %></h2>
+  <h2><%= _t("enter_external_link") %></h2>
   <%= render_message do %>
-    <p><%= t(:external_link_notice_1) %></p>
-    <p><%= t(:external_link_notice_2) %></p>
+    <p><%= _t(:external_link_notice_1) %></p>
+    <p><%= _t(:external_link_notice_2) %></p>
   <% end %>
   <div id="errors" class="errors">
     <ul></ul>
@@ -18,13 +18,13 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="extern_link_title"><%= t("link_title") %></label>
+        <label for="extern_link_title"><%= _t("link_title") %></label>
       </td>
       <td class="input"><%= text_field_tag "extern_link_title", '', :class => 'thin_border auto_resize link_title' %></td>
     </tr>
     <tr>
       <td class="label long">
-        <label for="external_link_target"><%= t("Open Link in") %>:</label>
+        <label for="external_link_target"><%= _t("Open Link in") %>:</label>
       </td>
       <td class="select left">
         <%= select_tag 'external_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target medium' %>
@@ -32,7 +32,7 @@
     </tr>
     <tr>
       <td class="submit" colspan="2">
-        <%= link_to(t(:apply), '#', {
+        <%= link_to(_t(:apply), '#', {
           :onclick => "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#external_link_target').val());",
           :class => 'button'
         }) %>

@@ -2,11 +2,11 @@
   <% if @cells.any? %>
     <div id="cells">
       <ul>
-        <li><a href="#cell_for_other_elements"><%= t(:main_content) %></a></li>
+        <li><a href="#cell_for_other_elements"><%= _t(:main_content) %></a></li>
         <% @elements.each do |cell, elements| %>
           <li>
             <a href="#cell_<%= cell.name %>">
-              <%= t(cell.name, :scope => :cell_names) %>
+              <%= _t(cell.name, :scope => :cell_names) %>
             </a>
           </li>
         <% end %>

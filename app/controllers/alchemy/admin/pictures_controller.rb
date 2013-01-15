@@ -57,7 +57,7 @@ module Alchemy
           @per_page = pictures_per_page_for_size(@size)
         end
         @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
-        @message = t('Picture uploaded succesfully', :name => @picture.name)
+        @message = _t('Picture uploaded succesfully', :name => @picture.name)
         # Are we using the single file uploader?
         if params[Rails.application.config.session_options[:key]].blank?
           flash[:notice] = @message
@@ -82,9 +82,9 @@ module Alchemy
         @picture = Picture.find(params[:id])
 
         if @picture.update_attributes(params[:picture])
-          flash[:notice] = t('picture_updated_successfully', :name => @picture.name)
+          flash[:notice] = _t('picture_updated_successfully', :name => @picture.name)
         else
-          flash[:error] = t('picture_update_failed')
+          flash[:error] = _t('picture_update_failed')
         end
         redirect_to_index
       end
@@ -97,7 +97,7 @@ module Alchemy
           picture.tag_list = params[:pictures_tag_list]
           picture.save
         end
-        flash[:notice] = t("Pictures updated successfully")
+        flash[:notice] = _t("Pictures updated successfully")
         redirect_to_index
       end
 
@@ -110,9 +110,9 @@ module Alchemy
             names << picture.name
             picture.destroy
           end
-          flash[:notice] = t("Pictures deleted successfully", :names => names.to_sentence)
+          flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
         else
-          flash[:notice] = t("Could not delete Pictures")
+          flash[:notice] = _t("Could not delete Pictures")
         end
       rescue Exception => e
         flash[:error] = e.message
@@ -124,7 +124,7 @@ module Alchemy
         @picture = Picture.find(params[:id])
         name = @picture.name
         @picture.destroy
-        flash[:notice] = t("Picture deleted successfully", :name => name)
+        flash[:notice] = _t("Picture deleted successfully", :name => name)
       rescue Exception => e
         flash[:error] = e.message
       ensure
@@ -135,7 +135,7 @@ module Alchemy
       def flush
         # FileUtils.rm_rf only takes arrays of folders...
         FileUtils.rm_rf Dir.glob(Rails.root.join('public', Alchemy.mount_point, 'pictures', '*'))
-        @notice = t('Picture cache flushed')
+        @notice = _t('Picture cache flushed')
       end
 
       def show_in_window

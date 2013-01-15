@@ -12,13 +12,13 @@
       <% if options[:grouped] %>
       <%= link_to_confirmation_window(
         "",
-        t("confirm_to_delete_image"),
+        _t("confirm_to_delete_image"),
         alchemy.admin_essence_picture_path(
           :id => content,
           :options => options
         ),
         {
-          :title => t("delete_image")
+          :title => _t("delete_image")
         }
       ) -%>
       <% else %>
@@ -30,7 +30,7 @@
       <% end %>
     </span>
     <%- if content.ingredient -%>
-    <div class="picture_handle" title="<%= t('drag_to_sort') if options[:dragable] %>"></div>
+    <div class="picture_handle" title="<%= _t('drag_to_sort') if options[:dragable] %>"></div>
     <div class="picture_content_spinner">
       <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
     </div>
@@ -52,7 +52,7 @@
           }.merge(image_options)),
           :alt => content.ingredient.name,
           :class => 'img_paddingtop',
-          :title => t("image_name") + ": #{content.ingredient.name}",
+          :title => _t("image_name") + ": #{content.ingredient.name}",
           :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
           :style => "display: none;"
         ) %>
@@ -62,7 +62,7 @@
     </div>
     <%- unless options[:css_class].blank? || content.essence.css_class.blank? -%>
     <div class="essence_picture_css_class">
-      <%= t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", :default => content.essence.css_class.camelcase) %>
+      <%= _t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", :default => content.essence.css_class.camelcase) %>
     </div>
     <%- end -%>
     <div class="edit_images_bottom">

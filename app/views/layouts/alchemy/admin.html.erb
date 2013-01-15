@@ -26,13 +26,13 @@
   </head>
   <body id="alchemy">
     <noscript>
-      <h1><%= t(:javascript_disabled_headline) %></h1>
-      <p><%= t(:javascript_disabled_text) %></p>
+      <h1><%= _t(:javascript_disabled_headline) %></h1>
+      <p><%= _t(:javascript_disabled_text) %></p>
     </noscript>
     <div id="overlay">
       <div id="overlay_text_box">
         <%= image_tag('alchemy/ajax_loader.gif', :id => 'ajax_loader') %>
-        <span id="overlay_text"><%= t("please_wait") %></span>
+        <span id="overlay_text"><%= _t("please_wait") %></span>
       </div>
     </div>
     <div id="left_menu">
@@ -43,15 +43,15 @@
       <div id="logout">
         <% if current_user %>
           <%= link_to_overlay_window(
-            "<span class='module icon exit'></span><label>#{t('leave')}</label>".html_safe,
+            "<span class='module icon exit'></span><label>#{_t('leave')}</label>".html_safe,
             alchemy.leave_admin_path, {
               :size => "300x105",
-              :title => t("Leave Alchemy")
+              :title => _t("Leave Alchemy")
           }) %>
         <% else %>
           <%= link_to(alchemy.root_path) do %>
             <span class="module icon exit"></span>
-            <label><%= t('leave') %></label>
+            <label><%= _t('leave') %></label>
           <% end %>
         <% end %>
       </div>
@@ -69,7 +69,7 @@
       </div>
       <div id="user_info">
         <%= select_tag 'change_locale', options_for_select(::I18n.available_locales.map { |l| [l.to_s.upcase, l] }, ::I18n.locale), :class => 'alchemy_selectbox tiny' %>
-        <%= t('Logged in as') %> <%= current_user.name %>
+        <%= _t('Logged in as') %> <%= current_user.name %>
       </div>
     </div>
     <% end %>

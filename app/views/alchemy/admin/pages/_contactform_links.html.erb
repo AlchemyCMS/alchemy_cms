@@ -1,6 +1,6 @@
 <div id="overlay_tab_contactform_link">
   <h2>
-    <%= t("please enter subject and mail address") %>
+    <%= _t("please enter subject and mail address") %>
   </h2>
   <table class="window_form">
     <%= hidden_field_tag(
@@ -12,7 +12,7 @@
     ) %>
     <tr>
       <td class="label">
-        <label for="contactform_subject" class="medium"><%= t("subject") %></label>
+        <label for="contactform_subject" class="medium"><%= _t("subject") %></label>
       </td>
       <td class="input">
         <%= text_field_tag "contactform_subject", {}, :class => "thin_border auto_resize" %>
@@ -20,12 +20,12 @@
     </tr>
     <tr>
       <td class="label">
-        <label for="contactform_mailto" class="medium"><%= t("mail_to") %></label>
+        <label for="contactform_mailto" class="medium"><%= _t("mail_to") %></label>
       </td>
       <td class="input">
         <%= select_tag(
           "contactform_mailto",
-          options_for_select(configuration(:mailer)[:mail_addresses].map{ |a| [t('alchemy.mailer.mail_addresses.'+a[0]), a[0]] }),
+          options_for_select(configuration(:mailer)[:mail_addresses].map{ |a| [_t('alchemy.mailer.mail_addresses.'+a[0]), a[0]] }),
           :style => "width: 300px", :class => 'alchemy_selectbox'
         ) %>
       </td>
@@ -33,7 +33,7 @@
     <tr>
       <td class="label">
         <label for="contactform_body" class="medium">
-          <%= t("contactform_body") %>
+          <%= _t("contactform_body") %>
         </label>
       </td>
       <td class="input">
@@ -43,7 +43,7 @@
     <tr>
       <td class="label">
         <label for="contactform_link_title" class="medium">
-          <%= t("link_title") %>
+          <%= _t("link_title") %>
         </label>
       </td>
       <td class="input">
@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <td class="submit" colspan="2">
-        <%= link_to(t(:apply), '#', {
+        <%= link_to(_t(:apply), '#', {
           :onclick => "Alchemy.LinkOverlay.createLink('contact', jQuery('#contactform_url').val() + '?subject=' + encodeURIComponent(jQuery('#contactform_subject').val()) + '&mail_to=' + encodeURIComponent(jQuery('#contactform_mailto').val()) + '&body=' + encodeURIComponent(jQuery('#contactform_body').val()), jQuery('#contactform_link_title').val(), null); Alchemy.LinkOverlay.close()",
           :class => 'button'
         }) %>

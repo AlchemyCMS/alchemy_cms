@@ -5,13 +5,13 @@
         content_tag('span', '', :class => 'icon tag_add'),
         new_admin_tag_path,
         {
-          :title => t('New Tag'),
+          :title => _t('New Tag'),
           :size => '310x210'
         },
-        :title => t('New Tag'),
+        :title => _t('New Tag'),
         :class => 'icon_button'
       ) %><br />
-      <label><%= t('New Tag') %></label>
+      <label><%= _t('New Tag') %></label>
     </div>
   </div>
   <%= render :partial => 'alchemy/admin/partials/search_form' %>
@@ -36,9 +36,9 @@
   <% else %>
 
   <%= render_message do %>
-    <h2><%= t('No Tags found') %></h2>
+    <h2><%= _t('No Tags found') %></h2>
     <% if params[:query].blank? %>
-      <p><%= t(:tags_get_created_if_used_the_first_time) %></p>
+      <p><%= _t(:tags_get_created_if_used_the_first_time) %></p>
     <% end %>
   <% end %>
 

@@ -11,21 +11,21 @@
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
     <%= hidden_field_tag 'content_id', @content.id %>
-    <%= f.button t("save"), :class => 'button' %>
+    <%= f.button _t("save"), :class => 'button' %>
   <% end %>
   <div class="toolbar_spacer"></div>
   <div class="button_with_label">
     <%= link_to(render_icon('delete-small'), '#', {
       :onclick => 'Alchemy.ImageCropper.reset()',
       :class => 'icon_button',
-      :title => t('Reset Imagemask')
+      :title => _t('Reset Imagemask')
     }) %>
-    <label><%= t("Reset Imagemask") %></label>
+    <label><%= _t("Reset Imagemask") %></label>
   </div>
 </div>
 
 <div id="crop_explain" class="tip">
-  <%= t('explain cropping') %>
+  <%= _t('explain cropping') %>
 </div>
 
 <div id="jscropper">

@@ -10,19 +10,19 @@
       "",
       edit_admin_tag_path(tag),
       {
-        :title => t(:edit_tag),
+        :title => _t(:edit_tag),
         :size => '360x385'
       },
       {
-        :title => t(:edit_tag),
+        :title => _t(:edit_tag),
         :class => 'icon tag_edit'
       }
     ) %>
     <%= link_to_confirmation_window(
       '',
-      t(:do_you_really_want_to_delete_this_tag?),
+      _t(:do_you_really_want_to_delete_this_tag?),
       admin_tag_path(tag),
-      :title => t(:delete_tag),
+      :title => _t(:delete_tag),
       :class => "icon tag_delete"
     ) %>
   </td>

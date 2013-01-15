@@ -30,7 +30,7 @@
       <%= f.select(
         "render_size",
         options_for_select(
-          [[t('Layout default'), @options[:image_size]]] + @options[:sizes].sort,
+          [[_t('Layout default'), @options[:image_size]]] + @options[:sizes].sort,
           @essence_picture.render_size
         ), :class => 'alchemy_selectbox'
       ) %>
@@ -49,7 +49,7 @@
       <td class="select">
         <%= f.select(
           "css_class",
-          [[t("Layout default"), ""], [t("above"), "no_float"], [t("left"), "left"], [t("right"), "right"]],
+          [[_t("Layout default"), ""], [_t("above"), "no_float"], [_t("left"), "left"], [_t("right"), "right"]],
           {},
           {:class => 'alchemy_selectbox'}
         ) %>
@@ -62,7 +62,7 @@
       <td class="select">
         <%= f.select(
           "css_class",
-          options_for_select([[t('None'), '']] + @options[:css_classes].sort, @essence_picture.css_class),
+          options_for_select([[_t('None'), '']] + @options[:css_classes].sort, @essence_picture.css_class),
           {},
           {:class => 'alchemy_selectbox'}
         ) %>
@@ -78,7 +78,7 @@
     <tr>
       <td colspan="2" class="submit">
         <%= hidden_field_tag 'content_id', @content.id %>
-        <%= f.button t("apply"), :class => 'button' %>
+        <%= f.button _t("apply"), :class => 'button' %>
       </td>
     </tr>
   </table>

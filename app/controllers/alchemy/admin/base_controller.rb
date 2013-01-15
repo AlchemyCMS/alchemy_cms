@@ -93,7 +93,7 @@ module Alchemy
       def render_errors_or_redirect(object, redirect_url, flash_notice)
         if object.errors.empty?
           @redirect_url = redirect_url
-          flash[:notice] = t(flash_notice)
+          flash[:notice] = _t(flash_notice)
           respond_to do |format|
             format.js   { render :action => :redirect }
             format.html { redirect_to @redirect_url }

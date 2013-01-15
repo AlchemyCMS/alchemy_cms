@@ -2,7 +2,7 @@
   <div class="element_handle">
     <span class="element_icon"></span>
     <% if element.description.blank? %>
-    <span class="warning icon" title="<%= t(:element_description_missing) %>"></span>
+    <span class="warning icon" title="<%= _t(:element_description_missing) %>"></span>
     <% else %>
     <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
     <% end %>
@@ -20,9 +20,9 @@
       :class => "element_folder_spinner"
     ) %>
     <%= link_to('', '#', {
-      :onclick => "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{t('Warning!')}', message: '#{t(:element_dirty_notice)}', okLabel: '#{t('Yes')}', cancelLabel: '#{t('No')}'})",
+      :onclick => "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{_t('Warning!')}', message: '#{_t(:element_dirty_notice)}', okLabel: '#{_t('Yes')}', cancelLabel: '#{_t('No')}'})",
       :class => element.folded? ? 'expand_element' : 'fold_element',
-      :title => element.folded? ? t(:show_element_content) : t(:hide_element_content),
+      :title => element.folded? ? _t(:show_element_content) : _t(:hide_element_content),
       :id => "element_#{element.id}_folder"
     }) %>
   </span>

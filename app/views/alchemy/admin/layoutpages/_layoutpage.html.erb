@@ -9,11 +9,11 @@
         render_icon('configure_page'),
         alchemy.configure_admin_page_path(layoutpage),
         {
-          :title => t('edit_page_properties'),
+          :title => _t('edit_page_properties'),
           :size => '410x150'
         },
         :class => '',
-        :title => t('edit_page_properties')
+        :title => _t('edit_page_properties')
       ) -%>
       <%- end -%>
       <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
@@ -28,13 +28,13 @@
           :remote => true,
           :method => :post,
           :class => "",
-          :title => t("copy_page")
+          :title => _t("copy_page")
         ) %>
         <%- end -%>
         <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
         <%= link_to_confirmation_window(
           render_icon('delete_page'),
-          t("confirm_to_delete_page"),
+          _t("confirm_to_delete_page"),
           url_for(
             :controller => 'pages',
             :action => 'destroy',
@@ -42,7 +42,7 @@
           ),
           {
             :class => "",
-            :title => t("delete_page")
+            :title => _t("delete_page")
           }
         ) -%>
         <%- end -%>
@@ -53,7 +53,7 @@
       <%= link_to(
         layoutpage.name,
         alchemy.edit_admin_page_path(layoutpage),
-        :title => t("edit_page"),
+        :title => _t("edit_page"),
         :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
       ) -%>
     </div>

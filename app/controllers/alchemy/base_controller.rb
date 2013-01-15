@@ -10,7 +10,7 @@ module Alchemy
     before_filter :set_language
     before_filter :mailer_set_url_options
 
-    helper_method :current_server, :current_site, :t
+    helper_method :current_server, :current_site
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -39,9 +39,9 @@ module Alchemy
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    # Overriding +I18n+s default +t+ helper, so we can pass it through +Alchemy::I18n+
-    def t(key, *args)
-      ::Alchemy::I18n.t(key, *args)
+    # Shortcut for Alchemy::I18n.translate method
+    def _t(key, *args)
+      I18n.t(key, *args)
     end
 
   private
@@ -199,19 +199,19 @@ module Alchemy
           elsif request.xhr?
             respond_to do |format|
               format.js {
-                render :js => "Alchemy.growl('#{t('You are not authorized')}', 'warning'); Alchemy.Buttons.enable();"
+                render :js => "Alchemy.growl('#{_t('You are not authorized')}', 'warning'); Alchemy.Buttons.enable();"
               }
               format.html {
-                render :partial => 'alchemy/admin/partials/flash', :locals => {:message => t('You are not authorized'), :flash_type => 'warning'}
+                render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _t('You are not authorized'), :flash_type => 'warning'}
               }
             end
           else
-            flash[:error] = t('You are not authorized')
+            flash[:error] = _t('You are not authorized')
             redirect_to alchemy.admin_dashboard_path
           end
         end
       else
-        flash[:info] = t('Please log in')
+        flash[:info] = _t('Please log in')
         if request.xhr?
           render :action => :permission_denied
         else

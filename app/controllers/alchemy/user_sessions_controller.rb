@@ -21,22 +21,22 @@ module Alchemy
           if params[:send_credentials]
             Notifications.admin_user_created(@user).deliver
           end
-          flash[:notice] = t('Successfully signup admin user')
+          flash[:notice] = _t('Successfully signup admin user')
           redirect_to admin_dashboard_path
         end
       end
     rescue Errno::ECONNREFUSED => e
-      flash[:error] = t(:signup_mail_delivery_error)
+      flash[:error] = _t(:signup_mail_delivery_error)
       redirect_to admin_dashboard_path
     end
 
     def login
       if current_user
-        redirect_to admin_dashboard_path, :notice => t('You are already logged in')
+        redirect_to admin_dashboard_path, :notice => _t('You are already logged in')
       else
         if request.get?
           @user_session = UserSession.new()
-          flash.now[:info] = params[:message] || t("welcome_please_identify_notice")
+          flash.now[:info] = params[:message] || _t("welcome_please_identify_notice")
         else
           @user_session = UserSession.new(params[:alchemy_user_session])
           store_screen_size
@@ -59,7 +59,7 @@ module Alchemy
     end
 
     def logout
-      message = params[:message] || t("logged_out")
+      message = params[:message] || _t("logged_out")
       @user_session = UserSession.find
       if @user_session
         @user_session.destroy
