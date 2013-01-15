@@ -142,17 +142,15 @@ module Alchemy
     # Returns my description hash from elements.yml
     # Returns the description from available_contents if my own description is blank
     def description
-      if self.element.blank?
-        logger.warn("\n+++++++++++ Warning: Content with id #{self.id} is missing its Element\n")
-        return nil
-      else
-        @desc ||= self.element.content_description_for(self.name)
-        if @desc.blank?
-          @desc ||= self.element.available_content_description_for(self.name)
-        else
-          return @desc
-        end
+      if element.blank?
+        warn "Content with id #{self.id} is missing its Element."
+        return {}
       end
+      desc = self.element.content_description_for(self.name)
+      if desc.blank?
+        self.element.available_content_description_for(self.name)
+      end
+      desc || {}
     end
     alias_method :definition, :description
 

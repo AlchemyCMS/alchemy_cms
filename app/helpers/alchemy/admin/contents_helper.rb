@@ -26,7 +26,7 @@ module Alchemy
         end
         if content.description.blank?
           warning("Content #{content.name} is missing its description")
-          title = t("Warning: Content is missing its description.", :contentname => content.name)
+          title = t(:content_description_missing)
           content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;#{content_name}).html_safe
         end
         content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>".html_safe : content_name

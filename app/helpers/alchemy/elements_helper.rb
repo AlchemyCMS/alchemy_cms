@@ -81,7 +81,7 @@ module Alchemy
     end
 
     # This helper renders the Element partial for either the view or the editor part.
-    # Generate element partials with ./script/generate elements
+    # Generate element partials with rails generate alchemy:elements
     def render_element(element, part = :view, options = {}, i = 1)
       begin
         if element.blank?
