@@ -1,5 +1,6 @@
 module Alchemy
   class Content < ActiveRecord::Base
+    include Logger
 
     attr_accessible(
       :do_not_index,
