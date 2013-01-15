@@ -70,22 +70,16 @@ module Alchemy
       end
 
       # Returns the descriptions from elements.yml file.
-      # Alchemy comes with its own elements.yml file. As so called standard set.
+      #
       # Place a elements.yml file inside your apps config/alchemy folder to define
       # your own set of elements
+      #
       def descriptions
         if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-          element_definitions = ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
-        end
-        if !element_definitions
-          if ::File.exists?(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
-            element_definitions = ::YAML.load_file(::File.join(::File.dirname(__FILE__), "../../../config/alchemy/elements.yml"))
-          end
-        end
-        if !element_definitions
+          ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
+        else
           raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
         end
-        element_definitions
       rescue TypeError => e
         Rails.logger.warn "\n++++ WARNING: Your elements.yml is empty.\n"
         []
