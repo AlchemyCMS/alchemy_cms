@@ -14,7 +14,7 @@ module Alchemy
 
       # Returns all layouts defined in +config/alchemy/page_layout.yml+.
       def all
-        @@definitions ||= read_layouts_file
+        @@definitions = read_layouts_file
       end
 
       # Add additional pagelayout definitions. I.E. from your module.
@@ -100,11 +100,11 @@ module Alchemy
       def read_layouts_file
         if File.exists? "#{Rails.root}/config/alchemy/page_layouts.yml"
           layouts = YAML.load_file "#{Rails.root}/config/alchemy/page_layouts.yml"
+          # Since YAML returns false for an empty file, we have to normalize it here.
+          layouts || []
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run: rails generate alchemy:scaffold"
         end
-        # Since YAML returns false for an empty file, we have to normalize it here.
-        layouts || []
       end
 
     end
