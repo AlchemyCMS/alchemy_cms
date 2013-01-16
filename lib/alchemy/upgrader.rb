@@ -22,6 +22,7 @@ module Alchemy
         convert_picture_storage
         upgrade_to_sites
         removed_standard_set_notice
+        renamed_t_method
 
         display_todos
       end
@@ -256,6 +257,14 @@ WARN
         warn = <<-WARN
 We removed the standard set from Alchemy core!
 In order to get the standard set back, install the `alchemy-demo_kit` gem.
+WARN
+        todo warn
+      end
+
+      def renamed_t_method
+        warn = <<-WARN
+We renamed alchemy's `t` method override into `_t` to avoid conflicts with Rails own t method!
+If you use the `t` method to translate alchemy scoped keys, then you have to use the `_t` method from now on.
 WARN
         todo warn
       end
