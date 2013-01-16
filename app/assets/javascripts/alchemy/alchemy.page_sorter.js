@@ -14,7 +14,7 @@ if (typeof(Alchemy) === 'undefined') {
       $sortables.nestedSortable({
         disableNesting: 'no-nest',
         forcePlaceholderSize: true,
-        handle: 'span.handle',
+        handle: '.handle',
         items: 'li',
         listType: 'ul',
         opacity: 0.5,
