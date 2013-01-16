@@ -141,30 +141,6 @@ if (typeof(Alchemy) === 'undefined') {
       }
     },
 
-    Tooltips: function() {
-      var xOffset = 10;
-      var yOffset = 20;
-      $(".tooltip").hover(function(e) {
-        this.original_title = this.title;
-        if (this.original_title == '') {
-          this.tooltip_content = $(this).next('.tooltip_content').html();
-        } else {
-          this.tooltip_content = this.original_title;
-        }
-        if (this.tooltip_content != null) {
-          this.title = "";
-          $("body").append("<div id='tooltip'>" + this.tooltip_content + "</div>");
-          $("#tooltip").css("top", (e.pageY - xOffset) + "px").css("left", (e.pageX + yOffset) + "px").fadeIn(400);
-        }
-      }, function() {
-        this.title = this.original_title;
-        $("#tooltip").remove();
-      });
-      $(".tooltip").mousemove(function(e) {
-        $("#tooltip").css("top", (e.pageY - xOffset) + "px").css("left", (e.pageX + yOffset) + "px");
-      });
-    },
-
     SelectBox: function(scope) {
       $('select.alchemy_selectbox', scope).selectBoxIt();
     },

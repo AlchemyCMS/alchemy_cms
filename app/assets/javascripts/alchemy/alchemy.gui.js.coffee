@@ -3,7 +3,6 @@ window.Alchemy = {} if window.Alchemy == undefined
 Alchemy.GUI =
 
   init: ->
-    Alchemy.Tooltips()
     Alchemy.SelectBox()
     Alchemy.Datepicker()
     Alchemy.Buttons.observe()

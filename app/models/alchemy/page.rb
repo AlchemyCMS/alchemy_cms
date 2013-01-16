@@ -401,12 +401,6 @@ module Alchemy
       elements.select { |m| type.include? m.name }
     end
 
-    # Returns the translated explanation of the page´s status.
-    #
-    def humanized_status
-      I18n.t(status.to_a.map{ |k, v| "#{k}.#{v}" }.flatten, :scope => "page_states").join(" ")
-    end
-
     # Returns a Hash of attributes describing the status of the Page.
     #
     def status

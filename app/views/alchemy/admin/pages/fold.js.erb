@@ -1,5 +1,4 @@
 (function($) {
   $('#page_<%= @page.id -%>').replaceWith('<%= escape_javascript(render(:partial => "page", :locals => {:page => @page})) -%>');
-  Alchemy.Tooltips();
   Alchemy.overlayObserver('#page_<%= @page.id -%>');
 })(jQuery);

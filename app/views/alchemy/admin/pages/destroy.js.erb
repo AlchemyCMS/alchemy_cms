@@ -8,7 +8,6 @@ window.location.replace('<%= alchemy.admin_layoutpages_path -%>');
 
 $('#sitemap').replaceWith('<%= escape_javascript(render(:partial => "sitemap")) -%>');
 Alchemy.growl('<%= @message -%>');
-Alchemy.Tooltips();
 Alchemy.overlayObserver('#sitemap');
 
 <% else %>

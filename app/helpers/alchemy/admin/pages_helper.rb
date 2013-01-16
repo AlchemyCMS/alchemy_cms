@@ -93,6 +93,12 @@ module Alchemy
         ])
       end
 
+      # Returns the translated explanation of the page´s status.
+      #
+      def combined_page_status(page)
+        _t(page.status.to_a.map{ |k, v| "#{k}.#{v}" }.flatten, :scope => "page_states").delete_if(&:blank?).join("<br>").html_safe
+      end
+
     end
   end
 end

@@ -269,11 +269,41 @@ span.page_status {
   width: 16px;
   height: 16px;
   background: url('icons.png') no-repeat 0 -40px;
+  position: relative;
+  cursor: help;
 }
 
 .locked .site_status {
   background-position: -32px -40px;
 }
+
+.tooltip {
+  @include tooltip;
+  right: auto;
+  left: -12px;
+  top: 24px;
+  min-width: 240px;
+
+  &:before {
+    right: auto;
+    left: 12px;
+  }
+
+  p, h3 {
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+  }
+
+  h3 { margin-top: 0.5em }
+}
+
+#sitemap.sorting {
+  .site_status { cursor: move }
+  .tooltip { display: none }
+}
+
+.site_status:hover .tooltip { display: block }
 
 #sub_navigation span.page_status_and_name span.site_status {
   float: none;

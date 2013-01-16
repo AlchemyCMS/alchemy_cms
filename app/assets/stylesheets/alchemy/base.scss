@@ -456,26 +456,6 @@ div.all_rights {
   margin-top: 10px;
 }
 
-#tooltip {
-  border: 1px solid #0b5c84;
-  color: #333333;
-  position: absolute;
-  display: none;
-  padding: $default-padding;
-  font-size: 11px;
-  max-width: 200px;
-  @include rounded-corner;
-  -moz-box-shadow: 0 2px 8px $dark-gray;
-  -webkit-box-shadow: 0 2px 8px $dark-gray;
-  box-shadow: 0 2px 8px $dark-gray;
-  background-color: #eaf4f9;
-}
-
-#tooltip p,
-#tooltip h1 {
-  font-size: 11px;
-}
-
 .date_select_without_time #date_date_4i {
   display: none;
 }
