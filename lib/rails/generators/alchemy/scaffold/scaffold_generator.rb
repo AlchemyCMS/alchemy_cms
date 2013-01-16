@@ -4,6 +4,7 @@ module Alchemy
   module Generators
     class ScaffoldGenerator < ::Rails::Generators::Base
       desc "This generator generates the Alchemy scaffold."
+      class_option :copy_views, :default => false, :type => :boolean, :desc => "Copy all Alchemy views into your app.", :aliases => '-v'
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
       def create_config_dir
@@ -13,6 +14,10 @@ module Alchemy
       def create_view_dirs
         empty_directory Rails.root.join("app/views/alchemy/elements")
         empty_directory Rails.root.join("app/views/alchemy/page_layouts")
+      end
+
+      def copy_view_dirs
+        copy_alchemy_views if @options['copy_views']
       end
 
       def copy_config
@@ -29,6 +34,14 @@ module Alchemy
 
       def config_path
         @config_path ||= File.expand_path('../../../../../config/alchemy', File.dirname(__FILE__))
+      end
+
+      def copy_alchemy_views
+        %w(messages navigation notifications search).each do |dir|
+          src = File.expand_path("../../../../../app/views/alchemy/#{dir}", File.dirname(__FILE__))
+          dest = Rails.root.join('app/views/alchemy', dir)
+          directory src, dest
+        end
       end
 
     end
