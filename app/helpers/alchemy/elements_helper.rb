@@ -108,7 +108,7 @@ module Alchemy
           Element #{part} partial not found for #{element.name}.\n
           #{e}
         ))
-        render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found. Use rails generate alchemy:elements to generate them."}
+        render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found.<br>Use <code>rails generate alchemy:elements</code> to generate it."}
       end
     end
 
