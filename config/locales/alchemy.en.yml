@@ -306,16 +306,24 @@ en:
     page_for_links:
       choose_page: "Choose %{name}"
     page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."
-    page_locked: "This page is locked by another user."
     page_properties: "Page properties"
     page_public: "published"
     page_published: "Published page"
     page_restricted: "restricted"
+    page_states:
+      visible:
+        "true": "Page is visible in navigation."
+        "false": "Page is not visible in navigation."
+      public:
+        "true": "Page is published."
+        "false": "Page is unpublished."
+      locked:
+        "true": "Page is being edited at the moment."
+        "false": ""
+      restricted:
+        "true": "Page is restricted."
+        "false": ""
     page_status: "Status"
-    page_status_invisible_public: "Page is invisible in navigation but public."
-    page_status_invisible_unpublic: "Page is invisible in navigation and unpublic."
-    page_status_visible_public: "Page is visible in navigation and public."
-    page_status_visible_unpublic: "Page is visible in navigation but unpublic."
     page_title: "Title"
     page_type: "Type"
     page_visible_in_navigation: "visible in the navigation"

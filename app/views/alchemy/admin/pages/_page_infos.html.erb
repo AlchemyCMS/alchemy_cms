@@ -1,3 +1,3 @@
-<span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.public ? _t('Page public') : _t('Page not public') %>"></span>
-<span class="page_status <%= page.visible ? 'visible' : 'not_visible' %>" title="<%= page.visible ? _t('Page visible') : _t('Page not visible') %>"></span>
-<span class="page_status <%= page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page.restricted ? _t('Page restricted') : _t('Page not restricted') %>"></span>
+<span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.status_title(:public) %>"></span>
+<span class="page_status <%= page.visible ? 'visible' : 'not_visible' %>" title="<%= page.status_title(:visible) %>"></span>
+<span class="page_status <%= page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page.status_title(:restricted) %>"></span>

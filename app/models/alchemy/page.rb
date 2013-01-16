@@ -401,52 +401,29 @@ module Alchemy
       elements.select { |m| type.include? m.name }
     end
 
-    # Returns the translated explanation of seven the page stati.
-    # TODO: Let I18n do this!
+    # Returns the translated explanation of the page´s status.
+    #
     def humanized_status
-      case self.status
-      when 0
-        return I18n.t('page_status_visible_public_locked')
-      when 1
-        return I18n.t('page_status_visible_unpublic_locked')
-      when 2
-        return I18n.t('page_status_invisible_public_locked')
-      when 3
-        return I18n.t('page_status_invisible_unpublic_locked')
-      when 4
-        return I18n.t('page_status_visible_public')
-      when 5
-        return I18n.t('page_status_visible_unpublic')
-      when 6
-        return I18n.t('page_status_invisible_public')
-      when 7
-        return I18n.t('page_status_invisible_unpublic')
-      end
+      I18n.t(status.to_a.map{ |k, v| "#{k}.#{v}" }.flatten, :scope => "page_states").join(" ")
     end
 
-    # Returns the status code. Used by humanized_status and the page status icon inside the sitemap rendered by Pages.index.
+    # Returns a Hash of attributes describing the status of the Page.
+    #
     def status
-      if self.locked
-        if self.public? && self.visible?
-          return 0
-        elsif !self.public? && self.visible?
-          return 1
-        elsif self.public? && !self.visible?
-          return 2
-        elsif !self.public? && !self.visible?
-          return 3
-        end
-      else
-        if self.public? && self.visible?
-          return 4
-        elsif !self.public? && self.visible?
-          return 5
-        elsif self.public? && !self.visible?
-          return 6
-        elsif !self.public? && !self.visible?
-          return 7
-        end
-      end
+      combined_status = {}
+      combined_status[:visible] = self.visible?
+      combined_status[:public] = self.public?
+      combined_status[:locked] = self.locked?
+      combined_status[:restricted] = self.restricted?
+      return combined_status
+    end
+
+    # Returns the translated status for given status type.
+    #
+    # @param [Symbol] status_type
+    #
+    def status_title(status_type)
+      I18n.t(self.send(status_type), :scope => "page_states.#{status_type}")
     end
 
     def has_controller?
