@@ -45,11 +45,11 @@ module Alchemy
     end
 
     def self.available_locales
-      translation_files.collect { |f| f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '') }.uniq
+      translation_files.collect { |f| f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '') }
     end
 
     def self.translation_files
-      Rails.application.config.i18n.load_path.select { |p| p.split('/').last.match(/alchemy/) }
+      Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
     end
 
   end
