@@ -71,7 +71,7 @@ module Alchemy
 
     # Returns all elements that can be placed in this cell
     def available_elements
-      definition['elements'] || []
+      description['elements'] || []
     end
 
     def name_for_label
