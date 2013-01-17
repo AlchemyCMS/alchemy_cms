@@ -6,7 +6,7 @@ begin
   require 'rails/version'
   RAILS_VERSION = Rails::VERSION::STRING
   if RAILS_VERSION < "3.2"
-    raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.2.1'"
+    raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.2.11'"
   end
   require "thor"
   require File.join(File.dirname(__FILE__), '..', 'lib/alchemy/version')
