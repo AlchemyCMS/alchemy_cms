@@ -37,7 +37,7 @@ Now cd into your app folder and
 
 2. Open your browser and enter the following URL:
 
-  http://localhost:3000/#{@mountpoint}
+  http://localhost:3000/#{@mountpoint.gsub(/^\//, '')}
 
 3. Follow the instructions to complete the installation!
 
