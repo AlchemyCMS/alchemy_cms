@@ -12,6 +12,7 @@
 #
 module Alchemy
   class Cell < ActiveRecord::Base
+    include Logger
 
     attr_accessible :page_id, :name
 
@@ -57,13 +58,20 @@ module Alchemy
     end
 
     # Returns the cell definition defined in +config/alchemy/cells.yml+
-    def definition
-      self.class.definition_for(self.name)
+    def description
+      description = self.class.definition_for(self.name)
+      if description.blank?
+        warn "Could not find cell definition for #{self.name}. Please check your cells.yml!"
+        return {}
+      else
+        description
+      end
     end
+    alias_method :definition, :description
 
     # Returns all elements that can be placed in this cell
     def available_elements
-      definition['elements']
+      definition['elements'] || []
     end
 
     def name_for_label
