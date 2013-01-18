@@ -34,6 +34,17 @@ div.flash {
     border-color: $error_border_color;
     color: $error_text_color;
     background-color: $error_background_color;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 2*$default-padding;
+      top: 2*$default-padding;
+      width: 16px;
+      height: 16px;
+      background: url(ui-icons_666666_256x240.png) -96px -128px no-repeat;
+    }
   }
 
   &.info {

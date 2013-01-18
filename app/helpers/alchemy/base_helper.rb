@@ -111,5 +111,14 @@ module Alchemy
       Alchemy::Language.published.count > 1
     end
 
+    # Renders the flash partial (+alchemy/admin/partials/flash+)
+    #
+    # @param [String] notice The notice you want to display
+    # @param [Symbol] style The style of this flash. Valid values are +:notice+ (default), +:warn+ and +:error+
+    #
+    def render_flash_notice(notice, style = :notice)
+      render('alchemy/admin/partials/flash', flash_type: style, message: notice)
+    end
+
   end
 end

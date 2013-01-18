@@ -20,14 +20,12 @@ if (typeof(Alchemy) === 'undefined') {
     },
 
     fade: function() {
-      $('#flash_notices div[class="flash notice"]').delay(5000).hide('drop', {
+      $('.flash.notice, .flash.warn', '#flash_notices').delay(5000).hide('drop', {
         direction: "up"
       }, 400, function() {
         $(this).remove();
       });
-      $('#flash_notices div[class!="flash notice"]').css({
-        cursor: 'pointer'
-      }).click(function() {
+      $('.flash.error', '#flash_notices').click(function() {
         $(this).hide('drop', {
           direction: "up"
         }, 400, function() {
