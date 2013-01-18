@@ -73,6 +73,10 @@ en:
         success_page: 'Followup page'
 
     # == Translations for the build in full text search.
+    search_form:
+      placeholder: 'Search query'
+      submit: 'Search'
+
     search_result_page:
       result_page: Page
       no_results: "Your search for '%{query}' offers no result"
