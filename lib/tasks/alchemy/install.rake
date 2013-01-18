@@ -7,12 +7,14 @@ class Alchemy::RoutesInjector < Thor
 
   no_tasks do
     def inject
-      @mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
-      @mountpoint = "/" if @mountpoint.empty?
+      mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
+      mountpoint = "/" if mountpoint.empty?
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
-      inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{@mountpoint}'\n", { :after => sentinel, :verbose => true }
+      inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { :after => sentinel, :verbose => true }
+      mountpoint
     end
   end
+
 end
 
 namespace :alchemy do
@@ -56,7 +58,7 @@ EOF
 
   desc "Mounts Alchemy into your routes."
   task :mount do
-    Alchemy::RoutesInjector.new.inject
+    @mountpoint = Alchemy::RoutesInjector.new.inject
   end
 
 end
