@@ -3,8 +3,6 @@ require 'thor'
 class Alchemy::RoutesInjector < Thor
   include Thor::Actions
 
-  def initialize; super; end
-
   no_tasks do
     def inject
       mountpoint = ask "\nWhere do you want to mount Alchemy CMS? (/)"
