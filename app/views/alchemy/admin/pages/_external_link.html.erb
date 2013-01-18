@@ -27,7 +27,7 @@
         <label for="external_link_target"><%= _t("Open Link in") %>:</label>
       </td>
       <td class="select left">
-        <%= select_tag 'external_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target medium' %>
+        <%= select_tag 'external_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target' %>
       </td>
     </tr>
     <tr>

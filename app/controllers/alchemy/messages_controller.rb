@@ -17,7 +17,7 @@ module Alchemy
   #     - name: mail_from
   #       type: EssenceText
   #     - name: success_page
-  #       type: EssenceText
+  #       type: EssenceSelect
   #
   # The fields +mail_to+, +mail_from+, +subject+ and +success_page+ are recommended.
   # The +Alchemy::MessagesController+ uses them to send your mails. So your customer has full controll of these values inside his contactform element.

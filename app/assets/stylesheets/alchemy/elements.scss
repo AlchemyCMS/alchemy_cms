@@ -705,7 +705,21 @@ div.content_editor {
     }
   }
 
-  &.essence_select label { margin-bottom: 4px }
+  &.essence_select {
+
+    label { margin-bottom: 4px }
+
+    .selectboxit-container {
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .selectboxit {
+      box-sizing: border-box;
+      width: 100% !important;
+      height: 100%;
+    }
+  }
 
   &:hover label a.icon_button.small {
     @include inline-block;
