@@ -42,7 +42,11 @@
   border: $border;
   @include box-shadow(0 0 6px $blue, inset 0 0 4px $light-blue);
   outline: none;
-  @include transition(all 0.25s ease-in-out);
+  @include transition(
+    box-shadow 0.25s ease-in-out,
+    background-color 0.25s ease-in-out,
+    border 0.25s ease-in-out
+  );
 
   &::-moz-focus-inner {
     border: none !important;
@@ -74,7 +78,11 @@
   font-size: 12px;
   line-height: 12px;
   height: 29px;
-  @include transition(all 0.25s ease-in-out);
+    @include transition(
+    box-shadow 0.25s ease-in-out,
+    background-color 0.25s ease-in-out,
+    border 0.25s ease-in-out
+  );
 
   &:focus {
     @include default-focus-style;
