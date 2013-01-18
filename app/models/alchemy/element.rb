@@ -432,7 +432,7 @@ module Alchemy
 
     # Essence validation errors
     #
-    # Messages are translated via I18n.
+    # == Error messages are translated via I18n
     #
     # Inside your translation file add translations like:
     #
@@ -442,11 +442,11 @@ module Alchemy
     #         name_of_the_content:
     #           validation_error_type: Error Message
     #
-    # validation_error_type has to be one of:
+    # NOTE: +validation_error_type+ has to be one of:
     #
-    # * blank
-    # * taken
-    # * wrong_format
+    #   * blank
+    #   * taken
+    #   * invalid
     #
     # === Example:
     #
@@ -455,17 +455,44 @@ module Alchemy
     #       content_validations:
     #         contactform:
     #           email:
-    #             wrong_format: 'Die Email hat nicht das richtige Format'
+    #             invalid: 'Die Email hat nicht das richtige Format'
+    #
+    #
+    # == Error message translation fallbacks
+    #
+    # In order to not translate every single content for every element you can provide default error messages per content name:
+    #
+    # === Example
+    #
+    #   en:
+    #     alchemy:
+    #       content_validations:
+    #         fields:
+    #           email:
+    #             invalid: E-Mail has wrong format
+    #             blank: E-Mail can't be blank
+    #
+    # And even further you can provide general field agnostic error messages:
+    #
+    # === Example
+    #
+    #   en:
+    #     alchemy:
+    #       content_validations:
+    #         errors:
+    #           invalid: %{field} has wrong format
+    #           blank: %{field} can't be blank
     #
     def essence_error_messages
       messages = []
       essence_errors.each do |content_name, errors|
         errors.each do |error|
-          messages << I18n.t(error,
-            :scope => [:content_validations, self.name, content_name],
+          messages << I18n.t(
+            "#{name}.#{content_name}.#{error}",
+            :scope => :content_validations,
             :default => [
-              "alchemy.content_validations.fields.#{content_name}.#{error}".to_sym,
-              "alchemy.content_validations.errors.#{error}".to_sym
+              "fields.#{content_name}.#{error}".to_sym,
+              "errors.#{error}".to_sym
             ],
             :field => Content.translated_label_for(content_name)
           )

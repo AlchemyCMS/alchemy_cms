@@ -76,13 +76,16 @@ de:
       contactform:
         success_page: 'Folgeseite'
 
+    # Translations for content validations
+    #
     content_validations:
       contactform:
         success_page:
           blank: 'Bitte wählen Sie eine Folgeseite'
       errors:
-        blank: '%{field} darf nicht leer sein.'
-        wrong_format: '%{field} hat das falsche Format.'
+        blank: '%{field} darf nicht leer sein'
+        invalid: '%{field} hat das falsche Format'
+        taken: '%{field} wurde schon benutzt'
 
     default_content_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -303,7 +306,7 @@ de:
     "User deleted": "%{name} wurde gelöscht"
     "User updated": "%{name} wurde aktualisiert"
     "Username": "Benutzername"
-    "Validation failed": "Pflichtfelder wurden nicht ausgefüllt."
+    "Validation failed": "Einige Pflichtfelder wurden nicht richtig ausgefüllt."
     "Version": "Version"
     "View File": "Datei anzeigen"
     "Visit page": "zur Seite gehen"

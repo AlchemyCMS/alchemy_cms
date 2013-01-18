@@ -72,6 +72,17 @@ en:
       contactform:
         success_page: 'Followup page'
 
+    # Translations for content validations
+    #
+    content_validations:
+      contactform:
+        success_page:
+          blank: 'Please choose a follow up page'
+      errors:
+        blank: "%{field} can't be blank"
+        invalid: '%{field} has wrong format'
+        taken: '%{field} has already been taken'
+
     # == Translations for the build in full text search.
     search_form:
       placeholder: 'Search query'

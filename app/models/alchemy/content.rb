@@ -183,8 +183,7 @@ module Alchemy
     end
 
     def has_validations?
-      return false if description.blank?
-      !description['validate'].blank?
+      description['validate'].present?
     end
 
     # Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
