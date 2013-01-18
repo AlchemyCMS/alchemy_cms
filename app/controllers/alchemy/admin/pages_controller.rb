@@ -28,8 +28,9 @@ module Alchemy
         end
       end
 
+      # Used by page preview iframe in Page#edit view.
+      #
       def show
-        # fetching page via before filter
         @preview_mode = true
         @root_page = Page.language_root_for(session[:language_id])
         # Setting the locale to pages language. so the page content has its correct translation
@@ -63,7 +64,13 @@ module Alchemy
         else
           @page = Page.create(params[:page])
         end
-        render_errors_or_redirect(@page, @page.valid? ? edit_admin_page_path(@page) : admin_pages_path, _t("Page created", :name => @page.name))
+        redirect_path =
+          if @page.valid?
+            params[:redirect_to] || edit_admin_page_path(@page)
+          else
+            admin_pages_path
+          end
+        render_errors_or_redirect(@page, redirect_path, _t("Page created", :name => @page.name))
       end
 
       # Edit the content of the page and all its elements and contents.

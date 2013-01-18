@@ -39,13 +39,13 @@ module Alchemy
 
     describe '#create' do
 
-      render_views
+      let(:parent) { FactoryGirl.create(:public_page) }
 
       context "with paste_from_clipboard in parameters" do
+        render_views
 
         let(:clipboard) { session[:clipboard] = Clipboard.new }
         let(:page_in_clipboard) { FactoryGirl.create(:public_page) }
-        let(:parent) { FactoryGirl.create(:public_page) }
 
         before(:each) do
           clipboard[:pages] = [{:id => page_in_clipboard.id, :action => 'cut'}]
@@ -57,6 +57,18 @@ module Alchemy
           response.body.should match /window.location.*admin.*pages/
         end
 
+      end
+
+      context "with redirect_to in the parameters" do
+
+        let(:page_params) do
+          {:name => "Foobar", :page_layout => 'standard', :parent_id => parent.id}
+        end
+
+        it "should redirect to given url" do
+          post :create, :page => page_params, :redirect_to => admin_users_path
+          response.should redirect_to(admin_users_path)
+        end
       end
 
     end
