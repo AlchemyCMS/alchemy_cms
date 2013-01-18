@@ -33,6 +33,7 @@ module Alchemy
         image_file = image_file.process(:resize, size + '>')
       end
 
+      expires_in 1.month, public: !@picture.restricted?
       respond_to { |format| send_image(image_file, format) }
     end
 
