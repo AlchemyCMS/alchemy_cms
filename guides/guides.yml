@@ -1,15 +1,16 @@
 title: Alchemy CMS Guides
 description: "Alchemy CMS is an awesome Content Management System with a flexible content storing architecture."
-version: "2.1"
+version: "2.4.0"
 
 authors:
   Core Team:
     - name: Thomas von Deyen
       nick: tvdeyen
-      image: credits/tvd.png
+      image: http://www.gravatar.com/avatar/6d89be962aea6ca120236b264edcf2ca.png
       description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
     - name: Robin Böning
       nick: robinboening
+      image: http://www.gravatar.com/avatar/484db0b16e6eca3339f582a21e3dfc6f.png
       description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
     - name: Marc Schettke
       nick: masche842

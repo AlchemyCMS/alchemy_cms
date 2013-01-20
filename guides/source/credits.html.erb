@@ -11,9 +11,15 @@
 <% Guides.meta["authors"].each do |group, authors| %>
   <h3 class="section"><%= group %></h3>
   <% authors.each do |author| %>
-    <%= author(author["name"], author["nick"]) do %>
+    <div class="author clearfix" id="<%= author["nick"] %>">
+      <% if author["image"] %>
+      <img alt="<%= author["name"] %>" class="left pic" src="<%= author["image"] %>" width=80 height=80>
+      <% else %>
+      <img alt="<%= author["name"] %>" class="left pic" src="/images/credits_pic_blank.gif" width=80 height=80>
+      <% end %>
+      <h3><%= author["name"] %></h3>
       <%= author["description"].html_safe %>
-    <% end %>
+    </div>
   <% end %>
 <% end %>
 
