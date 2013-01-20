@@ -82,7 +82,7 @@ index:
 
     - title: Sending mails
       url: sending_mails
-      text: How to use the build messages mailer to send emails via a contact form.
+      text: How to use the build-in messages mailer to send emails via a contact form.
 
   4.) Deployment:
     - title: Deploying on RailsHoster
