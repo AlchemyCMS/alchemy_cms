@@ -1,4 +1,4 @@
-/* @override 
+/* @override
 	http://0.0.0.0:9292/stylesheets/overrides.style.css
 	http://localhost:9292/stylesheets/overrides.style.css
 */
@@ -84,6 +84,10 @@ h3 {
 	font-size: 16px;
 }
 
+h4 {
+	font-size: 1em;
+}
+
 code {
 	font: 12px Menlo, Monaco, mono;
 	background-color: #F8F8F8;
@@ -99,6 +103,10 @@ pre {
 	text-align: left;
 	overflow-x: auto;
 	overflow-y: none;
+}
+
+strong {
+	color: black;
 }
 
 #content p, #content li {
@@ -452,7 +460,7 @@ div.code_container {
 #guides dl.L,
 #guides dl.R {
 	font: 12px/18px "JunctionRegular", Helvetica, Arial, sans-serif;
-	
+
 }
 
 dl dt em {

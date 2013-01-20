@@ -57,7 +57,7 @@ index:
     - title: Contents/Essences
       url: essences
       text: What are essences and how do they work.
-    
+
   3.) In depth guides:
     - title: Creating own page layouts
       url: creating_page_layouts
@@ -74,7 +74,7 @@ index:
     - title: Creating own Modules
       url: creating_modules
       text: How to create custom modules.
-      
+
     - title: Managing content
       url: manage_content
       text: How to manage content.
@@ -86,8 +86,12 @@ index:
     
     - title: Customizing the Richtext Editor
       url: customize_tinymce
-      text: Learn how to customize the TinyMCE richtext editor
-    
+      text: Learn how to customize the TinyMCE richtext editor.
+
+    - title: Sending mails
+      url: sending_mails
+      text: How to use the build messages mailer to send emails via a contact form.
+
   4.) Deployment:
     - title: Deploying on RailsHoster
       url: deploy_on_railshoster
