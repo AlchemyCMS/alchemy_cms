@@ -75,15 +75,10 @@ index:
       url: creating_modules
       text: How to create custom modules.
 
-    - title: Managing content
-      url: manage_content
-      text: How to manage content.
-      construction: true
-
-    - title: Processing images
-      url: image_processing
+    - title: Render images
+      url: render_images
       text: How to work with images and use the powerful Fleximage templates.
-    
+
     - title: Customizing the Richtext Editor
       url: customize_tinymce
       text: Learn how to customize the TinyMCE richtext editor.
