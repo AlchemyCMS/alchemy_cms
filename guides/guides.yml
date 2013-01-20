@@ -22,10 +22,6 @@ index:
       url: getting_started
       text: Everything you need to know to install and create your first Alchemy CMS project.
 
-    - title: Standard-Set (website out of the box)
-      url: standard_set
-      text: Can be used with it's pre-defined set of elements and layout-templates.
-
     - title: How to work with Alchemy CMS
       url: how_to_work_with_alchemy
       text: Best practises for working on individual projects with Alchemy CMS
