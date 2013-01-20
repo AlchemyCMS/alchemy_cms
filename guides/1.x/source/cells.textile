@@ -1,9 +1,0 @@
-h2. Page-Cells
-
-endprologue.
-
-h3. What are Page-Cells?
-
-Cells are areas on a page. Elements can be rendered within a cell.
-
-You can define cells in the /config/alchemy/cells.yml.
