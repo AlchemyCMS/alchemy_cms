@@ -40,8 +40,8 @@ module Alchemy
       Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
     end
 
-    config.to_prepare do
-      ApplicationController.send :include, Alchemy::AuthenticationHelpers
+    config.after_initialize do
+      #ApplicationController.send :include, Alchemy::AuthenticationHelpers
     end
 
   end

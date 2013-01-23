@@ -8,7 +8,7 @@
       <% end -%>
     </h1>
     <p>
-      <small><%= _t('Your last login was on %{time}', :time => l(current_user.last_login_at)) unless current_user.last_login_at.blank? %></small>
+      <small><%= _t('Your last login was on %{time}', :time => l(current_user.last_sign_in_at)) unless current_user.last_sign_in_at.blank? %></small>
     </p>
   </div>
   <div class="widget">

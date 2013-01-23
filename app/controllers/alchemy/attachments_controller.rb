@@ -1,5 +1,5 @@
 module Alchemy
-  class AttachmentsController < Alchemy::BaseController
+  class AttachmentsController < BaseController
 
     filter_access_to [:show, :download], :attribute_check => true, :model => Alchemy::Attachment, :load_method => :load_attachment
 

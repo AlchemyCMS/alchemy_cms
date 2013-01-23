@@ -3,9 +3,8 @@ require 'spec_helper'
 module Alchemy
   describe Admin::PagesController do
 
-    before(:each) do
-      activate_authlogic
-      UserSession.create FactoryGirl.create(:admin_user)
+    before do
+      sign_in :user, FactoryGirl.create(:admin_user)
     end
 
     describe "#flush" do

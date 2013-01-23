@@ -20,7 +20,7 @@ if (typeof(Alchemy) === 'undefined') {
     },
 
     fade: function() {
-      $('.flash.notice, .flash.warn', '#flash_notices').delay(5000).hide('drop', {
+      $('.flash.notice, .flash.warn, .flash.alert', '#flash_notices').delay(5000).hide('drop', {
         direction: "up"
       }, 400, function() {
         $(this).remove();

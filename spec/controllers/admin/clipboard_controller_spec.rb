@@ -7,9 +7,8 @@ module Alchemy
     let(:element)         { FactoryGirl.create(:element, :page => page) }
     let(:another_element) { FactoryGirl.create(:element, :page => page) }
 
-    before(:each) do
-      activate_authlogic
-      UserSession.create(FactoryGirl.create(:admin_user))
+    before do
+      sign_in :user, FactoryGirl.create(:admin_user)
       session[:clipboard] = Clipboard.new
     end
 

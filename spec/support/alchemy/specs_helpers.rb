@@ -31,9 +31,9 @@ module Alchemy
         if Capybara.current_driver == :poltergeist
           page.driver.headers = { 'Accept-Language' => 'en' }
         end
-        visit "/alchemy/admin/login"
-        fill_in('alchemy_user_session_login', :with => 'jdoe')
-        fill_in('alchemy_user_session_password', :with => 's3cr3t')
+        visit login_path
+        fill_in('user_login', :with => 'jdoe')
+        fill_in('user_password', :with => 's3cr3t')
         click_on('Login')
       end
 
@@ -57,7 +57,7 @@ module Alchemy
       #   end
       #
       def create_admin_user
-        FactoryGirl.build(:admin_user).save_without_session_maintenance
+        FactoryGirl.create(:admin_user)
       end
 
     end

@@ -235,7 +235,7 @@
     background-position: -448px -136px;
   }
 
-  &.tick, &.true {
+  &.tick, &.true, &.notice {
     background-position: -32px -73px;
   }
 
@@ -295,7 +295,7 @@
     background-position: -31px -137px;
   }
 
-  &.warning, &.warn {
+  &.warning, &.warn, &.alert {
     background-position: 0 -168px;
   }
 

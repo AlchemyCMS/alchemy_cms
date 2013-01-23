@@ -16,8 +16,7 @@ module Alchemy
       end
 
       before do
-        activate_authlogic
-        UserSession.create FactoryGirl.create(:admin_user)
+        sign_in :user, FactoryGirl.create(:admin_user)
         element.trash
       end
 

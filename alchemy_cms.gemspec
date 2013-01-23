@@ -33,7 +33,8 @@ POST_INSTALL
   s.require_paths         = ["lib"]
 
   s.add_runtime_dependency %q<rails>,                      ["~> 3.2.11"]
-  s.add_runtime_dependency %q<authlogic>,                  ["~> 3.1.3"]
+  s.add_runtime_dependency %q<devise>,                     ["~> 2.2.2"]
+  s.add_runtime_dependency %q<devise-encryptable>,         ["~> 0.1.1"]
   s.add_runtime_dependency %q<awesome_nested_set>,         ["~> 2.0"]
   s.add_runtime_dependency %q<acts-as-taggable-on>,        ["~> 2.1"]
   s.add_runtime_dependency %q<declarative_authorization>,  ["= 0.5.5"]

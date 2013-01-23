@@ -5,6 +5,7 @@
 <%= @url %>
 
 <%= Alchemy::I18n.t('mailer.new_user_mail.username') %>: <%= @user.login %>
-<%= Alchemy::I18n.t('mailer.new_user_mail.password') %>: <%= @user.password %>
+
+<%= Alchemy::I18n.t('mailer.new_user_mail.password_notice') % {:url => new_password_url(@user)}%>
 
 <%= Alchemy::I18n.t('mailer.new_user_mail.greeting') %>

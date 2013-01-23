@@ -2,40 +2,56 @@ Alchemy::Engine.routes.draw do
 
   root :to => 'pages#show'
 
-  match '/admin' => redirect(
+  get '/admin' => redirect(
     "#{Alchemy.mount_point}/admin/dashboard"
   )
-  match '/admin/login' => 'user_sessions#login',
-        :as => :login
-  match '/admin/signup' => 'user_sessions#signup',
-        :as => :signup
-  match '/admin/leave' => 'user_sessions#leave',
-        :as => :leave_admin
-  match '/admin/logout' => 'user_sessions#logout',
-        :as => :logout
-  match '/admin/dashboard' => 'admin/dashboard#index',
+
+  get '/admin/dashboard' => 'admin/dashboard#index',
         :as => :admin_dashboard
 
-  match '/attachment/:id/download(/:name)(.:format)' => 'attachments#download',
+  devise_scope :user do
+    get '/admin/login' => 'user_sessions#new', :as => :login
+    post '/admin/login' => 'user_sessions#create', :as => :login
+    delete '/admin/logout' => 'user_sessions#destroy', :as => :logout
+    get '/admin/dashboard' => 'admin/dashboard#index', :as => :user_root
+    get '/admin/leave' => 'user_sessions#leave', :as => :leave_admin
+    get '/admin/passwords' => 'passwords#new', :as => :new_password
+    get '/admin/passwords/:id/edit' => 'passwords#edit', :as => :edit_password
+    post '/admin/passwords' => 'passwords#create', :as => :password
+    put '/admin/passwords' => 'passwords#update', :as => :password
+  end
+
+  # This actualy does all the Devise magic. I.e. current_user method in ApplicationController
+  devise_for(
+    :user,
+    :class_name => 'Alchemy::User',
+    :controllers => {
+      :sessions => 'alchemy/user_sessions'
+    },
+    :skip => [:sessions, :passwords] # skipping Devise default routes.
+  )
+
+  get '/admin/signup' => 'users#new', :as => :signup
+  post '/admin/signup' => 'users#create', :as => :signup
+
+  get '/attachment/:id/download(/:name)(.:format)' => 'attachments#download',
         :as => :download_attachment
-
-  # catching legacy download urls
-  match '/wa_files/download/:id' => 'attachments#download'
-  match '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
-
-  match '/attachment/:id/show' => 'attachments#show',
+  get '/attachment/:id/show' => 'attachments#show',
         :as => :show_attachment
 
-  match "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)(/:quality)/:name.:format" => 'pictures#show',
+  # Legacy download urls
+  get '/wa_files/download/:id' => 'attachments#download'
+  get '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
+
+  # Picture urls
+  get "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)(/:quality)/:name.:format" => 'pictures#show',
         :as => :show_picture
-  match '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
+  get '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
         :as => :zoom_picture
-  match "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
+  get "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
         :as => :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
 
   resources :messages, :only => [:index, :new, :create]
-
-  resources :user_sessions
   resources :elements, :only => :show
 
   namespace :admin do

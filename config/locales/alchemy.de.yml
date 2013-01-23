@@ -137,8 +137,8 @@ de:
         subject: 'Ihre Zugangsdaten zu meiner Seite'
         welcome: 'Willkommen auf meiner Seite'
         login_url_explanation: 'Zum Anmelden klicken Sie bitte auf folgenden Link'
-        username: 'Ihr Benutzername'
-        password: 'Ihr Passwort'
+        username: 'Ihr Benutzername lautet:'
+        password_notice: "(Aus Sicherheitsgründen stellen wir Ihr Passwort hier nicht da. Wenn Sie Ihr Passwort vergessen haben oder dies Ihr erster Login ist, gehen Sie bitte auf: %{url})"
         greeting: 'Einen schönen Tag noch'
 
     # == Translated language names for translation select
@@ -197,10 +197,13 @@ de:
     "Add global page": "Neue globale Seite"
     "Adobe Website": "Adobe Webseite"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
+    "Change password": "Passwort ändern"
     "Choose page": "Seite wählen"
     "Cleared trash": "Der Papierkorb wurde geleert"
     "Clear selection": "Auswahl aufheben"
+    "Forgot your password?": "Passwort vergessen?"
     "Clipboard": "Zwischenablage"
+    "Confirm new password": "Neues Passwort bestätigen"
     "Copy": "Kopie"
     "Could not load Adobe Flash® Plugin!": "Adobe Flash® Plugin konnte nicht geladen werden!"
     "Currently locked pages": "Momentan bearbeitete Seiten"
@@ -224,7 +227,6 @@ de:
     "Filter by tag": "Nach Tags filtern"
     "Flush page cache": "Seitencache löschen"
     "Flush picture cache": "Bildercache löschen"
-    "Have much fun with Alchemy!": "Viel Spaß mit Alchemy!"
     "Hide childpages": "Unterseiten ausblenden"
     "If you have any problems using the Flash uploader you can switch to": "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur %{link}"
     "Image missing": "Bild fehlt"
@@ -242,6 +244,7 @@ de:
     "New": "Neu"
     "New Element": "Element hinzufügen"
     "New page": "Neue Seite"
+    "New password": "Neues Passwort"
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "No": "Nein"
@@ -257,6 +260,7 @@ de:
     "Page cache flushed": "Seitencache wurde geleert"
     "Pages order saved": "Seitensortierung wurde gespeichert"
     "Password": "Passwort"
+    "Password reset": "Passwort zurücksetzen"
     "Paste from clipboard": "Aus Zwischenablage"
     "Picture infos": "Bild Informationen"
     "Picture uploaded succesfully": "Bild %{name} wurde hochgeladen"
@@ -267,6 +271,8 @@ de:
     "Picture cache flushed": "Bildercache wurde geleert"
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
     "Please choose": "Bitte wählen"
+    "Please enter a new password": "Bitte geben Sie Ihr neues Passwort ein."
+    "Please enter your email address": "Bitte geben Sie Ihre E-Mail-Adresse ein."
     "Please log in": "Bitte melden Sie sich an."
     "Please seperate the tags with commata": "* Die Tags bitte mit Kommata getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
@@ -281,6 +287,7 @@ de:
     "Select an content": "Wählen Sie einen Inhalt aus"
     "Select style": "Stilvorlage"
     "Send email with credentials": "Sende Benutzerdaten per Email"
+    "Send reset instructions": "Anweisungen senden"
     "Show Elements Window": "Elementeliste anzeigen"
     "Show Preview Window": "Seitenvorschau anzeigen"
     "Show childpages": "Unterseiten anzeigen"
@@ -300,12 +307,10 @@ de:
     "Tags": "Tags"
     "This page is locked by %{name}": "Diese Seite wird gerade von %{name} blockiert"
     "Title": "Titel"
-    "To manage your website open a browser and go to": "Um die Inhalte Ihrer Webseite zu bearbeiten klicken Sie bitte auf folgenden Link"
     "Trash": "Papierkorb"
     "User created": "%{name} wurde erstellt"
     "User deleted": "%{name} wurde gelöscht"
     "User updated": "%{name} wurde aktualisiert"
-    "Username": "Benutzername"
     "Validation failed": "Einige Pflichtfelder wurden nicht richtig ausgefüllt."
     "Version": "Version"
     "View File": "Datei anzeigen"
@@ -315,7 +320,6 @@ de:
     element_description_missing: "Warnung! Für dieses Element konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     "Welcome back, %{name}": "Willkommen zurück, %{name}!"
     "Welcome, %{name}": "Willkommen, %{name}!"
-    "Welcome to Alchemy": "Willkommen in Alchemy!"
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"
     "You are not authorized": "Sie sind dazu nicht authorisiert."
@@ -325,7 +329,6 @@ de:
     "You may upload any file": "Sie können jede Art von Datei hochladen."
     "Your last login was on %{time}": "Sie waren zuletzt angemeldet am %{time}."
     "Your Alchemy Login": "Ihre Alchemy Zugangsdaten"
-    "Your credentials are": "Ihre Zugangsdaten lauten"
     "Your last updated pages": "Ihre zuletzt bearbeiteten Seiten"
     "Your trash is empty": "Der Papierkorb ist leer"
     above: "darüber"
@@ -447,7 +450,6 @@ de:
       file: "Datei"
       internal: "Intern"
     link_title: "Linktitel"
-    logged_out: "Sie wurden abgemeldet."
     login: "anmelden"
     logout: "abmelden"
     mail_to: "Empfängeradresse"
@@ -841,10 +843,6 @@ de:
         one: Benutzer
         other: Benutzer
 
-      alchemy/user_session:
-        one: Anmeldung
-        other: Anmeldungen
-
       alchemy/site:
         one: Website
         other: Websites
@@ -930,7 +928,7 @@ de:
         gender: "Anrede"
         language: "Sprache"
         lastname: "Nachname"
-        last_login_at: "letzter Login am"
+        last_sign_in_at: "letzter Login am"
         login: "Benutzername"
         name: "Name"
         password: "Passwort"
@@ -947,29 +945,3 @@ de:
 
     errors:
       <<: *errors
-
-  # Translations for the authentication system used in alchemy.
-  authlogic:
-
-    error_messages:
-      login_blank: "^Es wurde kein Benutzername angeben."
-      login_not_found: "^Dieser Benutzername existiert nicht."
-      general_credentials_error: "Die Kombination aus Benutzername und Passwort ist nicht gültig."
-      consecutive_failed_logins_limit_exceeded: "Zu viele Fehlversuche! Dieser Account ist aus Sicherheitsgründen gesperrt worden. Bitte wenden Sie sich an den Administrator."
-      password_blank: "^Bitte ein Passwort angegeben."
-      password_invalid: "^Das Passwort ist nicht richtig."
-      not_active: "Dieser Account wurde noch nicht aktiviert."
-      not_confirmed: "Dieser Account wurde noch nicht bestätigt."
-      not_approved: "Dieser Account wurde noch nicht freigeschaltet."
-      no_authentication_details: 'Sie haben keinen Benutzernamen und/oder Passwort eingegeben.'
-
-    models:
-      alchemy/user_session: 'Sitzung'
-
-    attributes:
-      alchemy/user_session:
-        login: Benutzername
-        email: Email
-        password: Passwort
-        remember_me: "eingeloggt bleiben"
-

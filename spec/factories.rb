@@ -1,6 +1,8 @@
 FactoryGirl.define do
 
   factory :user, :class => 'Alchemy::User' do
+    firstname "John"
+    lastname "Doe"
     email 'john@doe.com'
     login "jdoe"
     password 's3cr3t'

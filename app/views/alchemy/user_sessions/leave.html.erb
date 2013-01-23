@@ -4,8 +4,8 @@
     <label><%= _t("Do you want to") %></label>
     <%= link_to _t('stay logged in'), alchemy.root_path, :class => 'button' %>
   </p>
-  <p class="buttons">
+  <%= form_tag alchemy.logout_path, :method => :delete, :class => 'buttons' do %>
     <label><%= _t('or to completly') %></label>
-    <%= link_to _t('logout'), alchemy.logout_path, :class => 'button' %>
-  </p>
+    <%= button _t('logout') %>
+  <% end %>
 </div>

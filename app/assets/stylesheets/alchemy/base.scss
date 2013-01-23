@@ -889,9 +889,10 @@ select#url_protocol.medium {
   width: 76px;
 }
 
-#alchemy .ui-dialog-content p.buttons {
+#alchemy .ui-dialog .ui-dialog-content .buttons {
   text-align: right;
   margin: 0;
+  padding: 0;
 
   label {
     float: left;

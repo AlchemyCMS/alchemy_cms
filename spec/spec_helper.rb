@@ -1,3 +1,4 @@
+
 begin
   require 'simplecov'
   SimpleCov.start('rails') do
@@ -16,9 +17,6 @@ def configure
   ENV["RAILS_ENV"] = "test"
 
   require File.expand_path("../dummy/config/environment.rb", __FILE__)
-
-  require 'authlogic/test_case'
-  include Authlogic::TestCase
 
   require "rails/test_help"
   require "rspec/rails"
@@ -50,6 +48,7 @@ def configure
     require 'rspec/expectations'
     config.include RSpec::Matchers
     config.include Alchemy::Engine.routes.url_helpers
+    config.include Devise::TestHelpers, :type => :controller
     config.mock_with :rspec
     config.use_transactional_fixtures = true
     # Make sure the database is clean and ready for test

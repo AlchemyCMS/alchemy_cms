@@ -9,6 +9,7 @@ module Alchemy
     before_filter :set_current_site
     before_filter :set_language
     before_filter :mailer_set_url_options
+    before_filter :store_user_request_time
 
     helper_method :current_server, :current_site
 
@@ -185,6 +186,13 @@ module Alchemy
     # Redirects request to ssl.
     def enforce_ssl
       redirect_to url_for(protocol: 'https')
+    end
+
+    # Stores the users request time.
+    def store_user_request_time
+      if user_signed_in?
+        current_user.store_request_time!
+      end
     end
 
   protected

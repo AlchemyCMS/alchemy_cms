@@ -23,6 +23,7 @@ module Alchemy
         upgrade_to_sites
         removed_standard_set_notice
         renamed_t_method
+        migrated_to_devise
 
         display_todos
       end
@@ -265,6 +266,37 @@ WARN
         warn = <<-WARN
 We renamed alchemy's `t` method override into `_t` to avoid conflicts with Rails own t method!
 If you use the `t` method to translate alchemy scoped keys, then you have to use the `_t` method from now on.
+WARN
+        todo warn
+      end
+
+      def migrated_to_devise
+        warn = <<-WARN
+We changed the authentication provider from Authlogic to Devise.
+
+If you are upgrading from an old Alchemy version < 2.5.0, then you have to make changes to your Devise configuration.
+
+  1. Run:
+
+  $ rails g alchemy:devise
+
+  And alter the encryptor to authlogic_sha512
+  and the stretches value from 10 to 20
+
+  # config/initializers/devise.rb
+  config.stretches = Rails.env.test? ? 1 : 20
+  config.encryptor = :authlogic_sha512
+
+  2. Add the encryptable module to your Alchemy config.yml:
+
+  # config/alchemy/config.yml
+  devise_modules:
+    - :database_authenticatable
+    - :trackable
+    - :validatable
+    - :timeoutable
+    - :encryptable
+
 WARN
         todo warn
       end

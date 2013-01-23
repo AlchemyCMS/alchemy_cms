@@ -4,8 +4,7 @@ module Alchemy
   describe Admin::ElementsController do
 
     before(:each) do
-      activate_authlogic
-      Alchemy::UserSession.create FactoryGirl.create(:admin_user)
+      sign_in :user, FactoryGirl.create(:admin_user)
     end
 
     let(:page) { FactoryGirl.create(:page, :urlname => 'lulu') }

@@ -46,7 +46,7 @@ module Alchemy
 
       case field.to_sym
       when :email
-        validates_format_of field, :with => ::Authlogic::Regex.email, :if => :email_is_filled
+        validates_format_of field, :with => ::Devise.email_regexp, :if => :email_is_filled
       when :email_confirmation
         validates_confirmation_of :email
       end

@@ -25,7 +25,7 @@ module Alchemy
         process_alchemy_action(action, parameters, session, flash, "DELETE")
       end
 
-      private
+    private
 
       def process_alchemy_action(action, parameters = nil, session = nil, flash = nil, method = "GET")
         parameters ||= {}

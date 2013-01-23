@@ -7,13 +7,44 @@ describe Alchemy::Admin::UsersController do
     let!(:user) { FactoryGirl.create(:admin_user) }
 
     before do
-      activate_authlogic
-      Alchemy::UserSession.create user
+      sign_in :user, user
     end
 
-    it "assigns user to @user" do
-      post :update, :id => user.id, :user => {}, :format => :js
-      assigns(:user).should eq(user)
+    describe '#update' do
+      before { ActionMailer::Base.deliveries = [] }
+
+      it "assigns user to @user" do
+        post :update, :id => user.id, :user => {}, :format => :js
+        assigns(:user).should eq(user)
+      end
+
+      context "with empty password passed" do
+        it "should update the user" do
+          post :update, :id => user.id, :user => {:firstname => 'Johnny', :password => '', :password_confirmation => ''}, :format => :js
+          assigns(:user).should be_valid
+        end
+      end
+
+      context "with new password passed" do
+        it "should update the user" do
+          post :update, :id => user.id, :user => {:firstname => 'Johnny', :password => 'newpassword', :password_confirmation => 'newpassword'}, :format => :js
+          assigns(:user).password.should == 'newpassword'
+        end
+      end
+
+      context "with send_credentials set to true" do
+        it "should send an email notification" do
+          post :update, :id => user.id, :send_credentials => true, :user => {}
+          ActionMailer::Base.deliveries.should_not be_empty
+        end
+      end
+
+      context "with send_credentials left blank" do
+        it "should not send an email notification" do
+          post :update, :id => user.id, :user => {}
+          ActionMailer::Base.deliveries.should be_empty
+        end
+      end
     end
 
     context "if user is permitted to update roles" do

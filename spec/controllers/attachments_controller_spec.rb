@@ -27,8 +27,7 @@ module Alchemy
     context "as registered user" do
 
       before do
-        activate_authlogic
-        UserSession.create(FactoryGirl.create(:registered_user))
+        sign_in :user, FactoryGirl.create(:registered_user)
       end
 
       it "should be possible to download attachments from restricted pages" do
@@ -47,8 +46,7 @@ module Alchemy
     context "as registered user" do
 
       before do
-        activate_authlogic
-        UserSession.create(FactoryGirl.create(:registered_user))
+        sign_in :user, FactoryGirl.create(:registered_user)
       end
 
       it "should be possible to see attachments from restricted pages" do

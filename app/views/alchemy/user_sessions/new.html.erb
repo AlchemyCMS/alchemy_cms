@@ -3,7 +3,7 @@
     <%= image_tag("alchemy/alchemy-logo.png", :style => "width: 240px; height: 70px") %>
   </div>
   <div class="login_signup_box">
-    <%= form_for @user_session, :url => {:action => 'login'}, :html => { :id => "login" } do |f| %>
+    <%= form_for :user, :url => {:action => :create}, :html => { :id => "login" } do |f| %>
       <%= f.error_messages %>
       <table>
         <tr>
@@ -20,6 +20,9 @@
           </td>
           <td class="input">
             <%= f.password_field :password, :class => 'thin_border' %>
+            <p class="foot_note">
+              <%= link_to _t('Forgot your password?'), new_password_path(@user) %>
+            </p>
           </td>
         </tr>
         <tr>
@@ -36,7 +39,7 @@
 <%- content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   jQuery(function($) {
-    $('#alchemy_user_session_login').focus();
+    $('#user_login').focus();
     $('#user_screensize').val(function() {
       return screen.width+'x'+screen.height;
     });

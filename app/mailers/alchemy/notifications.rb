@@ -21,5 +21,10 @@ module Alchemy
       )
     end
 
+    def reset_password_instructions(user, opts={})
+      @user = user
+      mail :to => user.email, :subject => Alchemy::I18n.t("Reset password instructions")
+    end
+
   end
 end

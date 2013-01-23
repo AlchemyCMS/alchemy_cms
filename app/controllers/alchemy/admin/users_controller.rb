@@ -50,8 +50,14 @@ module Alchemy
       def update
         # User is fetched via before filter
         params[:user].delete(:role) unless permitted_to?(:update_role)
-        @user.update_attributes(params[:user])
-        Notifications.admin_user_created(@user).deliver if params[:send_credentials]
+        if params[:user][:password].present?
+          @user.update_attributes(params[:user])
+        else
+          @user.update_without_password(params[:user])
+        end
+        if params[:send_credentials]
+          Notifications.admin_user_created(@user).deliver
+        end
         render_errors_or_redirect(
           @user,
           admin_users_path,

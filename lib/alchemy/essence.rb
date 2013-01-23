@@ -106,7 +106,7 @@ module Alchemy #:nodoc:
               case description['validate_format_as']
               when 'email'
               then
-                matcher = Authlogic::Regex.email
+                matcher = Devise.email_regexp
               when 'url'
               then
                 matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix

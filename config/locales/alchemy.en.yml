@@ -123,8 +123,8 @@ en:
         subject: 'Your credentials for my site'
         welcome: 'Welcome to my site'
         login_url_explanation: 'To login just click this link'
-        username: 'Your username'
-        password: 'Your password'
+        username: 'Your username is'
+        password_notice: "(For security reasons we do not show your password here. If you forgot your password or this is your first login, please goto: %{url})"
         greeting: 'Have a nice day'
 
     # == Translated language names for translation select
@@ -287,7 +287,6 @@ en:
       file: "File"
       internal: "Internal"
     link_title: "Linktitle"
-    logged_out: "You´re logged out successfully."
     mail_to: "Recipient"
     male: "Male"
     medium_thumbnails: "Medium thumbnails"
@@ -669,7 +668,7 @@ en:
         gender: "Gender"
         language: "Language"
         lastname: "Lastname"
-        last_login_at: "Last Login At"
+        last_sign_in_at: "Last Login At"
         login: "Username"
         name: "Name"
         password: "Password"
@@ -681,30 +680,3 @@ en:
 
     errors:
       <<: *errors
-
-  # Translations for the authentication system used in alchemy.
-  authlogic:
-    error_messages:
-      login_blank: 'can not be blank'
-      login_not_found: 'could not be found'
-      general_credentials_error: "User does not exist or invalid password!"
-      consecutive_failed_logins_limit_exceeded: 'Consecutive failed logins limit exceeded, account is disabled.'
-      email_invalid: 'should look like an email address.'
-      password_blank: 'can not be blank'
-      password_invalid: 'is not correct'
-      not_active: 'Your account is not active'
-      not_confirmed: 'Your account is not confirmed'
-      not_approved: 'Your account is not approved'
-      no_authentication_details: 'You did not provide any details for authentication'
-      login_not_valid: "is invalid. Please use letters, numbers, spaces and .-_@ only"
-      login_too_short: "is too short. Please use 3 characters ar least"
-
-    models:
-      alchemy/user_session: 'Session'
-    attributes:
-      alchemy/user_session:
-        login: Username
-        email: Email
-        password: Password
-        remember_me: 'remember me'
-

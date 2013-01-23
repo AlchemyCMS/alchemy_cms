@@ -88,7 +88,7 @@ module Alchemy
           before do
             element
             english_element
-            controller.stub!(:multi_language?).and_return(true)
+            PagesController.any_instance.stub(:multi_language?).and_return(true)
           end
 
           it "should not display search results from other languages then current" do

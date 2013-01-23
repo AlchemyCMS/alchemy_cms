@@ -57,8 +57,7 @@ module Alchemy
 
       context "as registered user" do
         before do
-          activate_authlogic
-          UserSession.create(FactoryGirl.create(:registered_user))
+          sign_in :user, FactoryGirl.create(:registered_user)
         end
 
         it "should render the picture" do
