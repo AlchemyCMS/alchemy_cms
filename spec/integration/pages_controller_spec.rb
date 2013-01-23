@@ -316,5 +316,13 @@ module Alchemy
       end
 
     end
+
+    context "with invalid byte code char in urlname parameter" do
+      it "should render page not found" do
+        visit '/alchemy/%ed'
+        page.status_code.should == 404
+      end
+    end
+
   end
 end
