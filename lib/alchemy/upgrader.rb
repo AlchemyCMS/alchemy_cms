@@ -295,6 +295,7 @@ If you are upgrading from an old Alchemy version < 2.5.0, then you have to make 
     - :trackable
     - :validatable
     - :timeoutable
+    - :recoverable
     - :encryptable
 
 WARN

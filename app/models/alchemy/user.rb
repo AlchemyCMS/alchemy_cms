@@ -26,7 +26,9 @@ module Alchemy
     # Unlock all locked pages before destroy and before the user gets logged out.
     before_destroy :unlock_pages!
     Warden::Manager.before_logout do |user, auth, opts|
-      user.unlock_pages!
+      if user
+        user.unlock_pages!
+      end
     end
 
     scope :admins, where(:role => 'admin')
