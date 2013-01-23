@@ -697,6 +697,17 @@ module Alchemy
           subject.cells.count.should == page.cells.length # It must be length, because!
         end
       end
+
+      context "page with autogenerate elements" do
+        before do
+          page = FactoryGirl.create(:page)
+          page.stub!(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
+        end
+
+        it "the copy should not autogenerate elements" do
+          subject.elements.should be_empty
+        end
+      end
     end
 
   end
