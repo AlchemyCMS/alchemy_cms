@@ -202,16 +202,16 @@ module Alchemy
     # Pass an element name to get next of this kind.
     def next(name = nil)
       elements = page.elements.published.where(Element.arel_table[:position].gt(position))
-      elements = elements.where(:name => name) if name.present?
-      elements.order("position ASC").limit(1).first
+      elements = elements.named(name) if name.present?
+      elements.reorder("position ASC").limit(1).first
     end
 
     # Returns previous public element from same page.
     # Pass an element name to get previous of this kind.
     def prev(name = nil)
       elements = page.elements.published.where(Element.arel_table[:position].lt(position))
-      elements = elements.where(:name => name) if name.present?
-      elements.order("position DESC").limit(1).first
+      elements = elements.named(name) if name.present?
+      elements.reorder("position DESC").limit(1).first
     end
 
     # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).

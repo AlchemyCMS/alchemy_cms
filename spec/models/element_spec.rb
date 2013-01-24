@@ -302,7 +302,7 @@ module Alchemy
       describe '#prev' do
 
         it "should return previous element on same page" do
-          @element2.prev.should == @element1
+          @element3.prev.should == @element2
         end
 
         context "with name as parameter" do
@@ -316,7 +316,7 @@ module Alchemy
       describe '#next' do
 
         it "should return next element on same page" do
-          @element1.next.should == @element2
+          @element2.next.should == @element3
         end
 
         context "with name as parameter" do
