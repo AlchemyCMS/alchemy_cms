@@ -95,6 +95,10 @@ module Alchemy
     # Used for flushing all page caches at once.
     scope :flushables, not_locked.published.contentpages
     scope :searchables, not_restricted.published.contentpages
+    # Scope for only the pages from Alchemy::Site.current
+    scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current}).joins(:language) }
+    # TODO: add this as default_scope
+    #default_scope { from_current_site }
 
     # Class methods
     #
