@@ -689,6 +689,17 @@ module Alchemy
         end
       end
 
+      context "page with trashed elements" do
+        before do
+          page.elements << FactoryGirl.create(:element)
+          page.elements.first.trash
+        end
+
+        it "the copy should not hold a copy of the trashed elements" do
+          subject.elements.should be_empty
+        end
+      end
+
       context "page with cells" do
         before { page.cells << FactoryGirl.create(:cell) }
 

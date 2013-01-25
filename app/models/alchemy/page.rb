@@ -162,7 +162,7 @@ module Alchemy
       #
       def copy_elements(source, target)
         new_elements = []
-        source.elements.each do |element|
+        source.elements.not_trashed.each do |element|
           # detect cell for element
           if element.cell
             cell = target.cells.detect { |c| c.name == element.cell.name }
