@@ -3,7 +3,7 @@ rvm:
   - 1.9.3
 branches:
   only:
-    - devise
+    - master
 before_script:
   - sudo spec/support/ci/install_phantomjs
   - "export PATH=phantomjs/bin:$PATH"
