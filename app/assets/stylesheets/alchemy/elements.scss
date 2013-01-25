@@ -710,12 +710,12 @@ div.content_editor {
     label { margin-bottom: 4px }
 
     .selectboxit-container {
-      box-sizing: border-box;
+      @include box-sizing(border-box);
       width: 100%;
     }
 
     .selectboxit {
-      box-sizing: border-box;
+      @include box-sizing(border-box);
       width: 100% !important;
       height: 100%;
     }

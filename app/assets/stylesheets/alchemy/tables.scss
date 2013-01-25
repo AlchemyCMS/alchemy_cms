@@ -42,12 +42,12 @@ td.label, td.input, td.submit, td.select, td.value, td.note {
 td.select {
 
   .selectboxit-container {
-    box-sizing: border-box;
+    @include box-sizing(border-box);
     width: 100%;
   }
 
   .selectboxit {
-    box-sizing: border-box;
+    @include box-sizing(border-box);
     width: 100% !important;
     height: 100%;
   }
