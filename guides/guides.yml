@@ -26,11 +26,6 @@ index:
       url: how_to_work_with_alchemy
       text: Best practises for working on individual projects with Alchemy CMS
 
-    - title: Configure Alchemy
-      url: configuration
-      text: How to change Alchemy´s configuration options and what do they mean.
-
-  2.) Architecture:
     - title: Alchemy´s Architecture
       text: How Alchemy CMS is working.
       url: architecture
@@ -51,25 +46,29 @@ index:
       url: elements
       text: What are elements and how do they work.
 
-    - title: Contents/Essences
+    - title: Essences
       url: essences
       text: What are essences and how do they work.
 
-  3.) In depth guides:
-    - title: Creating own page layouts
-      url: creating_page_layouts
-      text: How to create own page layouts.
+    - title: Configure Alchemy
+      url: configuration
+      text: How to change Alchemy´s configuration options and what do they mean.
 
-    - title: Creating own Elements
-      url: creating_elements
-      text: How to create own elements.
+  3.) Customization guides:
+    - title: Create Page Layouts
+      url: create_page_layouts
+      text: How to create page layouts.
 
-    - title: Creating own Essences
-      url: creating_essences
-      text: How to create own essences.
+    - title: Create Elements
+      url: create_elements
+      text: How to create elements.
 
-    - title: Creating own Modules
-      url: creating_modules
+    - title: Create Essences
+      url: create_essences
+      text: How to create essences.
+
+    - title: Create Modules
+      url: create_modules
       text: How to create custom modules.
 
     - title: Render images

@@ -1,29 +1,32 @@
 h2. Pages
 
-This guide explains Pages in Alchemy CMS.
+Pages are organized as tree and represent your navigation.
 
+Pages *do not hold the actual content*. The actual content is stored in the "essences":essences.html from the elements of that page.
+
+Besides a language, a Page has attributes for names, the visibility, the public status, restriction and all SEO relevant attributes, like meta tags and meta descriptions.
+
+Every Page has a "page_layout":page_layouts.html which is also defined with properties (caching, uniqueness, feed, ...) and has "elements":elements.html and "cells":cells.html.
 endprologue.
-
-
-h3. Page structure
-
-Pages are structured with the "awesome_nested_set":https://github.com/collectiveidea/awesome_nested_set in language-trees.
-Beside the language, a Page has attributes for naming, visibility, publicity, restriction, locking and seo.
-
-Every Page has a "page-layout":page_layouts.html which is also defined with properties (caching, uniqueness, controller, feed, ...) and relations to 
-"elements":elements.html and "cells":cells.html.
-
 
 h3. Global pages
 
-NOTE: under construction
+Global pages (or layout pages) are pages that are not in the default page tree (your navigation). Use them to store elements, that you render on other pages (ie. sidebars, footer, header, etc) or on the application layout.
 
-h3. System pages
+To define a global page set <code>layoutpage: true</code> in the page layout definition of that page.
 
-NOTE: under construction
+h4. Render an element from a global page
 
-h3. Content pages
+To render an element from a global page use the from_page option of the <code>render_elements</code> helper.
 
-NOTE: under construction
+Example:
 
-´
+<pre>
+<%= render_elements only: 'news_teaser', from_page: 'sidebar' %>
+</pre>
+
+h3. Render a page content
+
+INFO: coming soon.
+
+&nbsp;

@@ -1,12 +1,12 @@
 h2. Configuration of Alchemy CMS
 
-This guide explains the configuration options for Alchemy CMS.
+Alchemy configuration is done in the <code>config/alchemy/config.yml</code> file.
+
+Use <code>rake alchemy:install</code> or <code>rails g alchemy:scaffold</code> to generate it.
 
 endprologue.
 
-INFO: Under Construction.
+h3. The configuration file
 
-For now please "have a look into the source code":https://github.com/magiclabs/alchemy_cms/blob/master/config/alchemy/config.yml.
-The <code>config/alchemy/config.yml</code> file is pretty well documentated.
-
-&nbsp;
+Please "have a look into the source code":http://raw.github.com/magiclabs/alchemy_cms/master/config/alchemy/config.yml.
+The file is pretty well documentated and much more up to date then this guide.

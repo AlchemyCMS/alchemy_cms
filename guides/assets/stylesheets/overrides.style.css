@@ -483,3 +483,56 @@ dl dt em {
 #header ul.nav li.index {
 	background-color: #88ad59;
 }
+
+@media screen and (max-width: 960px) {
+	#main h2 { max-width: 70% }
+	#subCol {
+		height: 30px;
+		width: 30px;
+		padding: 20px;
+		top: 20px;
+		opacity: 1;
+		font-size: 18px
+	}
+	#subCol.active {
+		height: auto;
+		width: auto;
+		padding: 30px;
+	}
+	#subCol h3 { text-indent: -99999px; font-size: 18px }
+	#subCol.active h3 { text-indent: 0 }
+	#subCol ol.chapters { display: none; margin-left: 23px }
+	#subCol.active ol { display: block }
+	#subCol ol.chapters li a p { font-size: 18px }
+	#main_navigation.open, #main_navigation.open ul, #main_navigation.open li.index { position: static }
+	#main_navigation { top: 96px }
+	#main_navigation.open { padding-top: 96px }
+	#main_navigation ul li a { font-size: 21px }
+	#logo {
+		right: auto;
+		left: -10px;
+		top: -14px;
+	}
+	div.holder { width: 570px }
+	#main .holder { padding-right: 0 }
+	#footer .column { width: 50%; margin-right: 0 }
+	#guides {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		top: 82px;
+		width: 100%;
+		left: 0;
+	}
+	#guides dl.L dd a, #guides dl.R dd a {
+		font-size: 17px;
+		line-height: 28px;
+	}
+	#guides dt {
+		font-size: 21px;
+	}
+}
+
+@media screen and (max-width: 620px) {
+	div.code_container { font-size: 20px }
+}

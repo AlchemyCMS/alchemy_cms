@@ -4,15 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+<meta name="viewport" content="width=610"/>
 <title><%= yield(:page_title) %></title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 <link rel="stylesheet" type="text/css" href="stylesheets/overrides.style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/overrides.print.css" media="print" />
-
-
 <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
 </head>
@@ -77,6 +75,7 @@
 </div>
 
 <script type="text/javascript" src="javascripts/guides.js"></script>
+<script type="text/javascript" src="javascripts/zepto.min.js"></script>
 <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
 <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
 <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushJScript.js"></script>
@@ -86,6 +85,12 @@
 <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
 <script type="text/javascript">
 	SyntaxHighlighter.all()
+	$('#subCol h3').click(function() {
+		$(this).parent().toggleClass('active');
+	});
+	$('#guidesMenu').click(function() {
+		$('#main_navigation').toggleClass('open');
+	})
 </script>
 </body>
 </html>

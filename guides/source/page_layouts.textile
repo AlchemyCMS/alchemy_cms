@@ -4,9 +4,9 @@ endprologue.
 
 h3. What are page layouts?
 
-Every page in Alchemy depends on a page layout.
+Every page in Alchemy has a page layout.
 
-Think of page layout as types of pages. They are used to give certain pages abilities, like available elements, caching settings, enable xml feeds, and so on.
+Think of page layout as types of pages. They are used to define page abilities, like available elements, caching settings, enabling xml feeds, and so on.
 
 Page layouts are defined in the <code>config/alchemy/page_layouts.yml</code> file.
 
@@ -36,7 +36,7 @@ INFO: You can disable the caching of a page in the <code>page_layouts.yml</code>
 
 h3. Creating Page Layouts
 
-Follow this guide to learn how to "create page layouts":creating_page_layouts.html which than can be chosen by the user while creating a new page.
+Follow this guide to learn how to "create page layouts":create_page_layouts.html which than can be chosen by the user while creating a new page.
 
 h3. Configuration options
 
@@ -44,4 +44,4 @@ Page layouts can have many different configuration options.
 
 Please have a look at the source code. The "page_layouts.yml":https://github.com/magiclabs/alchemy_cms/blob/master/config/alchemy/page_layouts.yml file is pretty well documentated.
 
-&nbsp;
+Next: How to "create your own page layouts":create_page_layouts.html

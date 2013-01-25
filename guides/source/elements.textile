@@ -1,27 +1,31 @@
 h2. Elements
 
+Elements are customizable parts of your page. An article with headline, text block and a picture is a typically element.
+
+An element contains one or more contents of a specific essences type.
+There are "essence types":essences.html for every type of data that can be stored in a database.
+
 endprologue.
 
-h3. What are elements?
+h3. Defining elements
 
-Elements can be rendered on a page directly (or in a cell that is rendered on a page).
+Elements get defined in the <code>config/alchemy/elements.yml</code> file.
 
-Normally an element contains one or more essences of a specific type. There are essences for every type of data that can be stored in the database. When talking about essences - and not talking about a specific essence-type - we are talking about element´s contents.
-
-Elements are defined in the <code>/config/alchemy/elements.yml</code> file. The file is pretty well documentated, so please take a look in there for the usage and the correct syntax.
-
-After defining an element, you can take use of the rails generator Alchemy CMS is shipped with:
+Run the scaffold generator to create the file:
 
 <shell>
-rails g alchemy:elements --skip
+rails g alchemy:scaffold
 </shell>
 
-The generator will create two files for every element in the <code>/app/views/alchemy/elements</code> folder: One file is named like myelement_view.html.erb and the second file is named like <code>myelement_editor.html.erb</code>.
+Please read the "guide for creating elements":create_elements.html for further information on the syntax.
 
-The generator does not only create empty files, it also generates the necessary code for you. Mostly you can take use of this generated code in the *_view partials and make them nifty by putting some CSS stylings on it.
+h3. Element views
 
-The element´s *_view file will be rendered in the frontend, when a user requests your webpage. The element´s *_editor file will be rendered in the backend, when you edit the page where the element is placed on.
+Every element has to view partials.
 
-You can often pass parameters to the helper methods that are getting called in these partials. If you want to know more about the helper methods and their option-parameters, you can take a look at these page where the most used helpers with their options are listed. Alternativly you can take a closer look at "http://rubydoc.info/github/magiclabs/alchemy_cms":http://rubydoc.info/github/magiclabs/alchemy_cms where you can find the helpers sourcecode.
+# The element's view file (ie: <code>_article_view.html.erb</code>) gets rendered when a user requests your webpage.
+# The element's editor file (ie: <code>_article_editor.html.erb</code>) gets rendered when you edit the page in the Alchemy page editor.
 
-&nbsp;
+NOTE: If you want to know more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/magiclabs/alchemy_cms?q=helper.
+
+Now is a good time to read the "guide for creating elements":create_elements.html.
