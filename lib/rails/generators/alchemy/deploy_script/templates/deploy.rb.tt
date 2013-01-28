@@ -63,7 +63,7 @@ before "deploy:create_symlink", "deploy:migrate"
 # after hooks
 <%- if @database_type == "mysql" -%>
 after "deploy:setup",           "alchemy:database_yml:create"
-after "deploy:assets:symlink",  "alchemy:database_yml:symlink"
+after "deploy:finalize_update", "alchemy:database_yml:symlink"
 <%- end -%>
 after "deploy",                 "deploy:cleanup"
 
