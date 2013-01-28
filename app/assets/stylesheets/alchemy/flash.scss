@@ -35,6 +35,7 @@ div.flash {
     color: $error_text_color;
     background-color: $error_background_color;
     cursor: pointer;
+    padding-right: 24px;
 
     &:after {
       content: '';
