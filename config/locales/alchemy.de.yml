@@ -320,6 +320,7 @@ de:
     element_description_missing: "Warnung! Für dieses Element konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     "Welcome back, %{name}": "Willkommen zurück, %{name}!"
     "Welcome, %{name}": "Willkommen, %{name}!"
+    "Welcome to Alchemy": "Willkommen in Alchemy"
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"
     "You are not authorized": "Sie sind dazu nicht authorisiert."
