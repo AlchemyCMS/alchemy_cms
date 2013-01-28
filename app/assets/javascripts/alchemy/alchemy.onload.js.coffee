@@ -26,7 +26,3 @@ $ ->
     url = Alchemy.current_url
     delimiter = if url.match(/\?/) then '&' else '?'
     window.location = url + delimiter + 'locale=' + $(this).val()
-
-# Resize the Alchemy frame on every browser resize.
-jQuery(window).resize ->
-  Alchemy.resizeFrame()

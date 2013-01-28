@@ -34,7 +34,6 @@ if (typeof(Alchemy) === 'undefined') {
       });
       $('#sort_panel .button').click(Alchemy.pleaseWaitOverlay);
       Alchemy.PageSorter.disableButton();
-      Alchemy.resizeFrame();
     },
 
     disableButton: function() {

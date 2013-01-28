@@ -1,0 +1,79 @@
+#toolbar {
+  z-index: 10;
+  padding: 4px;
+  height: 44px;
+  background: $medium-gray url('shading.png') repeat-x 0 -40px;
+  margin-right: 0px;
+  border: $default-border;
+  border-top-style: none;
+  border-right-style: none;
+  @include bottom-left-rounded-border;
+  position: relative;
+  margin-left: 5px;
+
+  form {
+    margin: 0 0 0 8px;
+    float: right;
+    text-align: center;
+  }
+
+  div.button_with_label {
+
+    form {
+      float: none;
+      margin: 0;
+      @include inline-block;
+      line-height: 5px;
+
+      select { margin: 0 }
+
+      label {
+        margin-top: $default-margin;
+      }
+    }
+  }
+
+  div p {
+    float: right;
+    margin: 3px $default-margin 0 0;
+    padding: 0;
+  }
+
+  div.toolbar_spacer {
+    float: left;
+    width: 1px;
+    height: 37px;
+    border-right-style: dotted;
+    border-right-width: 1px;
+    margin-right: 2*$default-margin;
+    margin-left: $default-margin;
+  }
+
+  a.button {
+    width: 25px;
+    height: 21px;
+    text-decoration: none;
+    float: right;
+    border-width: 0;
+    border-style: none;
+    font-size: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    &:active {
+      text-decoration: none;
+      background-position: 0 -21px;
+    }
+  }
+}
+
+div#toolbar_buttons {
+  float: left;
+  margin-right: 6px;
+}
+
+div#toolbar_buttons_right {
+  float: right;
+  margin-left: 8px;
+}

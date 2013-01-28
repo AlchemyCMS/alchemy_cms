@@ -114,33 +114,6 @@ if (typeof(Alchemy) === 'undefined') {
       Alchemy.Buttons.enable($element);
     },
 
-    resizeFrame: function() {
-      var options = {
-        left: 65,
-        right: 0
-      };
-      var $mainFrame = $('#main_content');
-      var $topFrame = $('#top_menu');
-      var view_height = $(window).height();
-      var view_width = $(window).width();
-      var topFrameHeight = $topFrame.height();
-      var mainFrameHeight = view_height - topFrameHeight;
-      var width = view_width - options.left - options.right;
-      if ($mainFrame.length > 0) {
-        $mainFrame.css({
-          top: topFrameHeight,
-          width: width,
-          height: mainFrameHeight
-        });
-      }
-      if ($topFrame.length > 0) {
-        $topFrame.css({
-          width: width,
-          height: topFrameHeight
-        });
-      }
-    },
-
     SelectBox: function(scope) {
       $('select.alchemy_selectbox', scope).selectBoxIt();
     },

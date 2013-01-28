@@ -6,7 +6,6 @@ Alchemy.GUI =
     Alchemy.SelectBox()
     Alchemy.Datepicker()
     Alchemy.Buttons.observe()
-    Alchemy.resizeFrame()
 
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)

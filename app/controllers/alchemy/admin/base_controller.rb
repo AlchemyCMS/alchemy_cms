@@ -127,7 +127,7 @@ module Alchemy
       def per_page_value_for_screen_size
         return 25 if session[:screen_size].blank?
         screen_height = session[:screen_size].split('x').last.to_i
-        (screen_height / 30) - 12
+        (screen_height / 30) - 10
       end
 
     end

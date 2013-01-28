@@ -157,7 +157,7 @@ module Alchemy
         when 'large'
           per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor + 1
         else
-          per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 1
+          per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
         end
         return per_page
       end

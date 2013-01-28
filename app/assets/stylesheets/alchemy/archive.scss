@@ -4,7 +4,6 @@ div#image_assign_filter_and_image_sizing {
 }
 
 #picture_archive {
-  padding: 4 * $default-padding;
 
   .selected_item_tools {
     margin: -4*$default-padding;
@@ -133,7 +132,7 @@ div#image_assign_filter_and_image_sizing {
 }
 
 #pictures {
-  padding-right: 232px;
+  margin-right: 232px;
 
   .picture_thumbnail {
     margin: 0 8px 8px 0;
@@ -243,11 +242,13 @@ div.image_spinner {
 }
 
 div#library_sidebar {
+  @include box-sizing(border-box);
   position: absolute;
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
-  width: 200px;
+  width: 232px;
+  padding-top: 96px;
   padding: 0 4*$default-padding;
   height: 100%;
   z-index: 1;
@@ -266,7 +267,8 @@ div#filter_bar {
 }
 
 div#tag_list {
-  height: 90%;
+  @include box-sizing(border-box);
+  height: 85%;
 
   .js_filter_field_box {
 
@@ -277,8 +279,9 @@ div#tag_list {
   ul {
     list-style-type: none;
     padding: 0;
-    margin: $default-margin 0 3*$default-margin 0;
-    height: inherit;
+    margin-top: $default-margin;
+    margin: 0;
+    height: 98%;
     width: 204px;
     overflow-x: hidden;
     overflow-y: auto;
