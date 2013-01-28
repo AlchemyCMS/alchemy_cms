@@ -4,6 +4,21 @@ div#flash_notices {
   z-index: 400000;
   width: 348px;
   top: 0;
+
+  .flash.error {
+    cursor: pointer;
+    padding-right: 24px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 2*$default-padding;
+      top: 2*$default-padding;
+      width: 16px;
+      height: 16px;
+      background: url(ui-icons_666666_256x240.png) -96px -128px no-repeat;
+    }
+  }
 }
 
 div.flash {
@@ -34,18 +49,6 @@ div.flash {
     border-color: $error_border_color;
     color: $error_text_color;
     background-color: $error_background_color;
-    cursor: pointer;
-    padding-right: 24px;
-
-    &:after {
-      content: '';
-      position: absolute;
-      right: 2*$default-padding;
-      top: 2*$default-padding;
-      width: 16px;
-      height: 16px;
-      background: url(ui-icons_666666_256x240.png) -96px -128px no-repeat;
-    }
   }
 
   &.info {
