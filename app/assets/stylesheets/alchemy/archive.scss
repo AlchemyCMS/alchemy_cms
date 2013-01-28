@@ -279,9 +279,8 @@ div#tag_list {
   ul {
     list-style-type: none;
     padding: 0;
-    margin-top: $default-margin;
-    margin: 0;
-    height: 98%;
+    margin: $default-margin 0;
+    height: 95%;
     width: 204px;
     overflow-x: hidden;
     overflow-y: auto;
