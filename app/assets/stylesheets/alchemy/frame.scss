@@ -2,7 +2,8 @@
   @include box-sizing(border-box);
   position: fixed;
   top: 0;
-  padding-left: 65px;
+  margin-left: 65px;
+  padding-right: 65px;
   z-index: 5;
   width: 100%;
   @include disable-user-select;
@@ -153,7 +154,7 @@ div#user_info {
   line-height: 27px;
   height: 29px;
   font-size: 11px;
-  right: 0;
+  right: 65px;
   top: -3px;
   padding: 0 8px;
   background-color: $light-blue;
