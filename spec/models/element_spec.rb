@@ -116,6 +116,15 @@ module Alchemy
 
     end
 
+    context "without any descriptions in elements.yml file" do
+
+      it "should return an empty array" do
+        YAML.stub(:load_file).and_return(false) # Yes, YAML.load_file returns false if an empty file exists.
+        Element.descriptions.should == []
+      end
+
+    end
+
     context "retrieving contents, essences and ingredients" do
 
       let(:element) { FactoryGirl.create(:element, :name => 'news', :create_contents_after_create => true) }

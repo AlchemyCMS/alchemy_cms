@@ -130,5 +130,16 @@ module Alchemy
       end
     end
 
+    describe "#descriptions" do
+
+      context "without any descriptions in elements.yml file" do
+        it "should return an empty array" do
+          Element.stub(:descriptions).and_return([])
+          Content.descriptions.should == []
+        end
+      end
+
+    end
+
   end
 end

@@ -81,7 +81,7 @@ module Alchemy
       #
       def descriptions
         if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-          ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml")
+          ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml") || []
         else
           raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
         end
