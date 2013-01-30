@@ -16,7 +16,6 @@ module Alchemy
         it "should update the value to false" do
           essence.stub!(:description).and_return({'do_not_index' => nil})
           essence.update_attributes(:body => 'hello')
-          essence.do_not_index.should be_false
           essence.do_not_index.should_not be_nil
         end
       end
@@ -25,7 +24,7 @@ module Alchemy
     context "with `do_not_index` set to true" do
       it "should disable ferret indexing" do
         EssenceText.any_instance.stub(:description).and_return({'do_not_index' => true})
-        essence = EssenceText.create
+        essence = EssenceText.create!
         essence.ferret_enabled?.should be_false
       end
     end
