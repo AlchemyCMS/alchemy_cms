@@ -8,24 +8,23 @@
 
   h1 {
     font-size: 2em;
-    margin-bottom: 0;
-    text-shadow: #fff 1px 1px 2px;
+    margin-bottom: 8px;
   }
 
   h2 {
     padding: 0;
-    margin-bottom: 2em;
+    margin-bottom: 16px;
   }
 
   div.column {
-    width: 48%;
+    width: 50%;
     float: left;
-    margin-right: 8px;
+    padding-right: 16px;
   }
 
   div.widget {
     width: 100%;
-    margin: 16px 16px 0 0;
+    margin-bottom: 16px;
     background-color: $medium-gray;
     border: $default-border;
     @include top-rounded-border;
