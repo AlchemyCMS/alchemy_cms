@@ -46,7 +46,7 @@ module Alchemy
 
     has_many :folded_pages
     has_many :cells, :dependent => :destroy
-    has_many :elements, :dependent => :destroy, :order => :position
+    has_many :elements, :order => :position
     has_many :contents, :through => :elements
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
@@ -74,6 +74,7 @@ module Alchemy
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
     after_update :create_legacy_url, :if => :urlname_changed?
+    after_destroy { elements.each {|el| el.destroy unless el.trashed? } }
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
