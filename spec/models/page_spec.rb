@@ -181,6 +181,23 @@ module Alchemy
 
     end
 
+    describe "#destroy" do
+
+      context "with trashed but still assigned elements" do
+
+        before do
+          news_page.elements.map(&:trash)
+        end
+
+        it "should not delete the trashed elements" do
+          news_page.destroy
+          Element.trashed.should_not be_empty
+        end
+
+      end
+
+    end
+
     describe '#first_public_child' do
 
       before do
