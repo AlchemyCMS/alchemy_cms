@@ -166,8 +166,12 @@ module Alchemy
       essence.ingredient = value
     end
 
-    # Calls essence.update_attributes. Called from +Alchemy::Element#save_contents+
-    # Ads errors to self.base if essence validation fails.
+    # Calls essence.update_attributes.
+    #
+    # Called from +Alchemy::Element#save_contents+
+    #
+    # Adds errors to self.base if essence validation fails.
+    #
     def update_essence(params={})
       raise EssenceMissingError if essence.nil?
       if essence.update_attributes(params)

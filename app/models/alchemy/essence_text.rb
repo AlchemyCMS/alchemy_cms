@@ -13,24 +13,33 @@ module Alchemy
       :link_target
     )
 
-    # Require acts_as_ferret only if Ferret full text search is enabled (default).
+    # Enable Ferret indexing.
+    #
+    # But only, if Ferret full text search is enabled (default).
+    #
     # You can disable it in +config/alchemy/config.yml+
+    #
     if Config.get(:ferret) == true
       require 'acts_as_ferret'
-      acts_as_ferret(
-        :fields => {
-          :body => {:store => :yes}
-        },
-        :remote => false
-      )
-      before_save :check_ferret_indexing
-    end
+      acts_as_ferret(:fields => { :body => {:store => :yes} }, :remote => false)
 
-    private
+      # Ensures that the current setting for do_not_index gets updated in the db.
+      before_save { write_attribute(:do_not_index, description['do_not_index']) }
 
-    def check_ferret_indexing
-      if self.do_not_index
-        self.disable_ferret(:always)
+      # Disables the ferret indexing, if do_not_index attribute is set to true
+      #
+      # You can disable indexing in the elements.yml file.
+      #
+      # === Example
+      #
+      #   name: contact_form
+      #   contents:
+      #   - name: email
+      #     type: EssenceText
+      #     do_not_index: true
+      #
+      def ferret_enabled?(is_bulk_index = false)
+        !do_not_index?
       end
     end
 
