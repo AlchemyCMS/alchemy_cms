@@ -11,7 +11,7 @@ module Alchemy
     before_filter :mailer_set_url_options
     before_filter :store_user_request_time
 
-    helper_method :current_server, :current_site
+    helper_method :current_server, :current_site, :multi_site?
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -34,6 +34,10 @@ module Alchemy
 
     def multi_language?
       Language.published.count > 1
+    end
+
+    def multi_site?
+      Site.count > 1
     end
 
     def raise_not_found_error

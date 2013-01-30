@@ -8,6 +8,8 @@ Alchemy::Engine.routes.draw do
 
   get '/admin/dashboard' => 'admin/dashboard#index',
         :as => :admin_dashboard
+  get '/admin/dashboard/info' => 'admin/dashboard#info',
+        :as => :dashboard_info
 
   devise_scope :user do
     get '/admin/login' => 'user_sessions#new', :as => :login

@@ -1,9 +1,10 @@
 #dashboard {
   overflow: auto;
-  float: left;
   padding: 4 * $default-padding;
-  width: 450px;
+  width: 100%;
   position: relative;
+  @include box-sizing(border-box);
+  * { @include box-sizing(border-box) }
 
   h1 {
     font-size: 2em;
@@ -16,15 +17,22 @@
     margin-bottom: 2em;
   }
 
+  div.column {
+    width: 48%;
+    float: left;
+    margin-right: 8px;
+  }
+
   div.widget {
-    padding: 2*$default-padding;
-    margin: 16px 0;
+    width: 100%;
+    margin: 16px 16px 0 0;
     background-color: $medium-gray;
     border: $default-border;
-    @include rounded-corner;
+    @include top-rounded-border;
+    float: left;
 
     h2 {
-      padding-bottom: 0;
+      padding: 2 * $default-padding;
       margin-bottom: 0;
     }
 
@@ -32,32 +40,35 @@
       margin: 4px 0;
     }
 
-    ul {
+    table {
+      width: 100%;
       padding: 0;
-      list-style-type: none;
-      @include rounded-corner;
-      margin-right: -9px;
-      margin-left: -9px;
-      margin-bottom: -9px;
-      border: $default-border;
+      border-spacing: 0;
 
-      li {
-        padding: 2*$default-padding;
+      td {
+        padding: 2 * $default-padding;
         margin-bottom: 0;
         position: relative;
+        color: #aaa;
+
+        &:first-child { width: 40% }
 
         form {
           position: absolute;
           top: 2*$default-padding;
           right: 2*$default-padding;
         }
+
+        span { color: #333 }
       }
     }
   }
 }
 
 div#sideboard {
-  float: right;
+  right: 16px;
+  top: 82px;
+  position: absolute;
   width: 240px;
   padding: 16px;
 
