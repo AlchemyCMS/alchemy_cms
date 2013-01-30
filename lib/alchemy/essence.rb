@@ -116,7 +116,7 @@ module Alchemy #:nodoc:
             else
               raise 'No validation format matcher given'
             end
-            if ingredient.match(matcher).nil?
+            if ingredient.to_s.match(matcher).nil?
               self.validation_errors << :invalid
             end
           elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
