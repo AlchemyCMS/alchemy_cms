@@ -5,16 +5,26 @@ module Alchemy
 
     it "should save a HTML tag free version of body column" do
       essence = EssenceRichtext.new(:body => '<h1>Hello!</h1><p>Welcome to Peters Petshop.</p>')
-      essence.save!
+      essence.save
       essence.stripped_body.should == "Hello!Welcome to Peters Petshop."
     end
 
     describe '.after_save' do
+      let(:essence) { EssenceRichtext.create }
+
       it "should update the value for `do_not_index`" do
-        essence = EssenceRichtext.create
         essence.stub!(:description).and_return({'do_not_index' => true})
         essence.update_attributes(:body => 'hello')
         essence.do_not_index.should be_true
+      end
+
+      context "with `do_not_index` set to nil" do
+        it "should update the value to false" do
+          essence.stub!(:description).and_return({'do_not_index' => nil})
+          essence.update_attributes(:body => 'hello')
+          essence.do_not_index.should be_false
+          essence.do_not_index.should_not be_nil
+        end
       end
     end
 

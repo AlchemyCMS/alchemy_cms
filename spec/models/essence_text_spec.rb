@@ -4,11 +4,21 @@ module Alchemy
   describe EssenceText do
 
     describe '.after_save' do
+      let(:essence) { EssenceText.create }
+
       it "should update the value for `do_not_index`" do
-        essence = EssenceText.create
         essence.stub!(:description).and_return({'do_not_index' => true})
         essence.update_attributes(:body => 'hello')
         essence.do_not_index.should be_true
+      end
+
+      context "with `do_not_index` set to nil" do
+        it "should update the value to false" do
+          essence.stub!(:description).and_return({'do_not_index' => nil})
+          essence.update_attributes(:body => 'hello')
+          essence.do_not_index.should be_false
+          essence.do_not_index.should_not be_nil
+        end
       end
     end
 
