@@ -51,13 +51,7 @@
         color: #aaa;
 
         &:first-child { width: 40% }
-
-        form {
-          position: absolute;
-          top: 2*$default-padding;
-          right: 2*$default-padding;
-        }
-
+        form { float: right }
         span { color: #333 }
       }
     }
