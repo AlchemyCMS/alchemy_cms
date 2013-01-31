@@ -56,7 +56,9 @@ module Alchemy
           source_page = Page.find(params[:paste_from_clipboard])
           @page = Page.copy(source_page, {
             :parent_id => params[:page][:parent_id],
-            :language => parent.language
+            :language => parent.language,
+            :name => params[:page][:name],
+            :title => params[:page][:name]
           })
           if source_page.children.any?
             source_page.copy_children_to(@page)

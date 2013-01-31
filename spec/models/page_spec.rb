@@ -736,6 +736,13 @@ module Alchemy
           subject.elements.should be_empty
         end
       end
+
+      context "with different page name given" do
+        subject { Page.copy(page, {:name => 'Different name'}) }
+        it "should take this name" do
+          subject.name.should == 'Different name'
+        end
+      end
     end
 
   end

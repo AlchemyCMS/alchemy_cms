@@ -131,7 +131,8 @@ module Alchemy
         differences.stringify_keys!
         attributes = source.attributes.merge(differences)
         attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
-        attributes.merge!('name' => "#{source.name} (#{I18n.t('Copy')})")
+        new_name = differences['name'].present? ? differences['name'] : "#{source.name} (#{I18n.t('Copy')})"
+        attributes.merge!('name' => new_name)
         page = self.new(attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY))
         page.tag_list = source.tag_list
         if page.save!
