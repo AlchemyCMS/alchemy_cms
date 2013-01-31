@@ -197,6 +197,7 @@ de:
     "Add global page": "Neue globale Seite"
     "Adobe Website": "Adobe Webseite"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
+    "Alchemy is up to date": 'Alchemy ist aktuell'
     "Change password": "Passwort ändern"
     "Choose page": "Seite wählen"
     "Cleared trash": "Der Papierkorb wurde geleert"
@@ -619,6 +620,8 @@ de:
     "Now drop the files": "Lassen Sie die Dateien nun los"
     "Queued x files": "x Dateien in der Warteschlange."
     complete: 'Abgeschlossen'
+    "Update available": 'Es ist ein Update verfügbar'
+    "Update status unavailable": 'Update Status konnte nicht ermittelt werden'
     "Uploading": "Hochladen"
     "Uploaded x files": "x Dateien hochgeladen."
 

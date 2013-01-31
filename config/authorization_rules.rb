@@ -45,7 +45,7 @@ authorization do
     has_permission_on :alchemy_admin_trash, :to => [:index, :clear]
     has_permission_on :alchemy_admin_clipboard, :to => [:index, :insert, :remove, :clear]
     has_permission_on :alchemy_admin_tags, :to => [:autocomplete]
-    has_permission_on :alchemy_admin_dashboard, :to => [:info]
+    has_permission_on :alchemy_admin_dashboard, :to => [:info, :update_check]
   end
 
   role :editor do

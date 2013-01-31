@@ -42,4 +42,11 @@ module Alchemy
 
   class TinymceError < StandardError; end
 
+  class UpdateServiceUnavailable < StandardError
+    # Raised it no succesful connection to GitHub was possible
+    def message
+      "The update service is temporarily unavailable!"
+    end
+  end
+
 end

@@ -1,7 +1,24 @@
 <p class="center with_margin"><%= image_tag('alchemy/alchemy-logo.png') %></p>
+<h2 class="center with_margin">
+  <%= _t("Version") %>: <%= @alchemy_version %>
+</h2>
+<p class="center with_margin" id="update_check">
+  <%= image_tag('alchemy/ajax_loader.gif', :id => 'load_info') %>
+  <span id="update_available">
+    <%= render_icon('warn') %>
+    <%= _t 'Update available' %>
+  </span>
+  <span id="up_to_date">
+    <%= render_icon('tick') %>
+    <%= _t 'Alchemy is up to date' %>
+  </span>
+  <span id="error">
+    <%= render_icon('error') %>
+    <%= _t 'Update status unavailable' %>
+  </span>
+</p>
 <div class="info with_margin">
   <%= render_icon('info') %>
-  <h2><%= _t("Version") %>: <%= @alchemy_version %></h2>
   <p><%= _t('Alchemy is open software and itself uses open software and free resources:') %></p>
   <ul>
     <li>
@@ -24,3 +41,16 @@
     </li>
   </ul>
 </div>
+<script type="text/javascript">
+  $.get('/admin/dashboard/update_check', function(data, textStatus, jqXHR) {
+    if (data == 'true') {
+      $('#update_available').show();
+    } else {
+      $('#up_to_date').show();
+    }
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    $('#error').show();
+  }).always(function() {
+    $('#load_info').hide();
+  });
+</script>

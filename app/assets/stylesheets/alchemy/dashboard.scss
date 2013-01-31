@@ -76,3 +76,16 @@ div#license {
   height: 24em;
   background-color: white;
 }
+
+#update_check {
+  height: 16px;
+
+  img#load_info {
+    width: 16px;
+    height: 16px;
+    display: none;
+  }
+
+  & > span { display: none }
+  span.icon { vertical-align: top }
+}
