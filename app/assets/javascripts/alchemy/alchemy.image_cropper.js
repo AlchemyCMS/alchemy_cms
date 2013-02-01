@@ -10,7 +10,7 @@ if (typeof(Alchemy) === 'undefined') {
 
   Alchemy.ImageCropper = {
 
-    init: function(box, size_x, size_y, default_box, ratio) {
+    init: function(box, size_x, size_y, default_box, ratio, true_size) {
       var crop_from_field = $('#essence_picture_crop_from');
       var crop_size_field = $('#essence_picture_crop_size');
       var options = {
@@ -20,7 +20,10 @@ if (typeof(Alchemy) === 'undefined') {
         },
         setSelect: box,
         aspectRatio: ratio ? ratio : undefined,
-        minSize: [size_x, size_y]
+        minSize: [size_x, size_y],
+        boxWidth: 800,
+        boxHeight: 600,
+        trueSize: true_size
       };
       Alchemy.ImageCropper.box = box;
       Alchemy.ImageCropper.default_box = default_box;

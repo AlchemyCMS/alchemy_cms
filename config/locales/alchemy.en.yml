@@ -249,6 +249,7 @@ en:
     element_of_type: "Element"
     element_saved: "Saved element."
     enter_external_link: "Please enter the URL you want to link with"
+    'explain cropping': "Move the frame and change its size to adjust the image section. Click on apply when you are satisfied."
     explain_publishing: "Publish the page and remove the cached version from the server."
     explain_sitemap_dragndrop_sorting: "Tip: Drag the pages at the icon in order to sort them."
     explain_unlocking: "Leave page and unlock it for other users."

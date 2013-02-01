@@ -3,6 +3,8 @@ module Alchemy
     class EssencePicturesController < Alchemy::Admin::BaseController
 
       helper "alchemy/admin/contents"
+      helper "alchemy/admin/essences"
+      helper "alchemy/url"
 
       def edit
         @essence_picture = EssencePicture.find(params[:id])
@@ -49,6 +51,7 @@ module Alchemy
         @essence_picture = EssencePicture.find(params[:id])
         @essence_picture.update_attributes(params[:essence_picture])
         @content = Content.find(params[:content_id])
+        @options = params[:options] || {}
       end
 
       def assign

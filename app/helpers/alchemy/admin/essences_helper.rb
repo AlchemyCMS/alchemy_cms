@@ -125,6 +125,27 @@ module Alchemy
         render :partial => 'alchemy/admin/contents/missing', :locals => {:element => element, :name => name, :options => options}
       end
 
+      def essence_picture_thumbnail(content, options)
+        image_options = {
+          :size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
+          :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
+          :crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
+          :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil
+        }
+        image_tag(
+          alchemy.thumbnail_path({
+            :id => content.ingredient.id,
+            :name => content.ingredient.urlname,
+            :sh => content.ingredient.security_token(image_options)
+          }.merge(image_options)),
+          :alt => content.ingredient.name,
+          :class => 'img_paddingtop',
+          :title => _t("image_name") + ": #{content.ingredient.name}",
+          :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
+          :style => "display: none;"
+        )
+      end
+
     end
   end
 end

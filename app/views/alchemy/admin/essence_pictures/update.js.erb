@@ -1,8 +1,6 @@
 (function($) {
   Alchemy.ImageCropper.destroy();
   Alchemy.closeCurrentWindow();
-  Alchemy.setElementDirty('#element_<%= @content.element.id -%>');
-<%- if @content.element.all_contents_by_type("Alchemy::EssencePicture").count > 1 -%>
-  Alchemy.SortableContents('<%= form_authenticity_token -%>');
-<%- end -%>
+  Alchemy.setElementDirty('#element_<%= @content.element.id %>');
+  $('.thumbnail_background img', '#<%= content_dom_id(@content) %>').replaceWith('<%= essence_picture_thumbnail(@content, @options) %>');
 })(jQuery);

@@ -152,15 +152,6 @@ div#page {
   background-position: right;
 }
 
-div.tip {
-  background-color: #eff8d0;
-  border: 1px solid #cce21c;
-  padding: 2*$default-padding;
-  margin: 8px 0;
-  @include rounded-corner;
-  width: 450px;
-}
-
 #back_to_site {
   float: right;
   margin-right: 8px;
@@ -469,15 +460,42 @@ p.foot_note {
   margin-left: 22px;
 }
 
-div#jscropper {
-  padding: 2*$default-padding;
-  @include inline-block;
-}
+#alchemy .ui-dialog div#jscropper {
+  padding: 2 * $default-padding;
 
-div#crop_explain.tip {
-  margin: 8px 8px 0;
-  float: right;
-  width: 25%;
+  .thumbnail_background {
+    @include thumbnail-background;
+    width: 800px;
+    height: 600px;
+    position: relative;
+  }
+
+  .picture_content_spinner {
+    left: 400px;
+    top: 300px;
+    margin-top: -16px;
+    margin-left: -16px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .jcrop-holder { @include inline-block }
+
+  img {
+    width: auto;
+    max-height: 600px;
+  }
+
+  form {
+    padding: 0;
+    text-align: right;
+    position: absolute;
+    width: 800px;
+    bottom: 2 * $default-padding;
+    left: 2 * $default-padding;
+
+    .button.with_icon { float: left }
+  }
 }
 
 textarea#essence_picture_caption {

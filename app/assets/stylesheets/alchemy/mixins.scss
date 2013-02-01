@@ -124,3 +124,12 @@
     border-color: transparent transparent $light_yellow transparent;
   }
 }
+
+@mixin thumbnail-background {
+  display: table-cell;
+  background-color: $dark-gray;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+  line-height: 0;
+}

@@ -26,14 +26,9 @@ div#image_assign_filter_and_image_sizing {
   @include rounded-corner;
 
   .thumbnail_background {
-    display: table-cell;
+    @include thumbnail-background;
     width: 160px;
     height: 120px;
-    background-color: $dark-gray;
-    text-align: center;
-    vertical-align: middle;
-    padding: 0;
-    line-height: 0;
   }
 
   .picture_name {

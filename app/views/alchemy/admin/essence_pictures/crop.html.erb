@@ -1,49 +1,46 @@
+<div id="jscropper">
 <% if @no_image_notice %>
-<div class="with_padding">
-  <div class="info">
-    <%= render_icon('info') %>
+  <%= render_message do %>
     <%= @no_image_notice %>
-  </div>
-</div>
+  <% end %>
 <% else %>
-<div id="overlay_toolbar">
-  <%= form_for(@essence_picture, :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options), :id => 'image_cropper_form', :remote => true) do |f| %>
+  <%= render_message do %>
+    <%= _t('explain cropping') %>
+  <% end %>
+  <div class="thumbnail_background">
+    <span class="picture_content_spinner">
+      <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
+    </span>
+    <%= image_tag(show_alchemy_picture_path(@essence_picture.picture, :size => '800x600', :format => :png),
+      :id => 'imageToCrop',
+      :onload => %(
+        Alchemy.fadeImage(this, '#jscropper .picture_content_spinner');
+        Alchemy.ImageCropper.init(
+          [#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],
+          #{@size_x},
+          #{@size_y},
+          [#{@default_box[:x1]}, #{@default_box[:y1]}, #{@default_box[:x2]}, #{@default_box[:y2]}],
+          #{@ratio},
+          [#{@essence_picture.picture.image_file_width}, #{@essence_picture.picture.image_file_height}]
+        );
+      ),
+      :style => "display: none;"
+    ) %>
+  </div>
+  <%= form_for(
+    @essence_picture,
+    :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options),
+    :id => 'image_cropper_form',
+    :remote => true
+  ) do |f| %>
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
-    <%= hidden_field_tag 'content_id', @content.id %>
-    <%= f.button _t("save"), :class => 'button' %>
-  <% end %>
-  <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
-    <%= link_to(render_icon('delete-small'), '#', {
+    <%= hidden_field_tag :content_id, @content.id %>
+    <%= link_to(render_icon('delete-small') + _t('Reset Imagemask'), '#', {
       :onclick => 'Alchemy.ImageCropper.reset()',
-      :class => 'icon_button',
-      :title => _t('Reset Imagemask')
+      :class => 'button with_icon'
     }) %>
-    <label><%= _t("Reset Imagemask") %></label>
-  </div>
-</div>
-
-<div id="crop_explain" class="tip">
-  <%= _t('explain cropping') %>
-</div>
-
-<div id="jscropper">
-  <%= image_tag(
-    alchemy.zoom_picture_path(
-      :id => @essence_picture.picture.id,
-      :name => @essence_picture.picture.urlname,
-      :format => @options[:format],
-      :sh => @essence_picture.picture.security_token
-    ),
-    :id => 'imageToCrop',
-    :onload => "Alchemy.ImageCropper.init(
-      [#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],
-      #{@size_x},
-      #{@size_y},
-      [#{@default_box[:x1]}, #{@default_box[:y1]}, #{@default_box[:x2]}, #{@default_box[:y2]}],
-      #{@ratio}
-    );"
-  ) %>
-</div>
+    <%= f.button _t("apply"), :class => 'button' %>
+  <% end %>
 <% end %>
+</div>
