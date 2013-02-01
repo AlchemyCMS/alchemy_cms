@@ -137,10 +137,8 @@ module Alchemy
         end
         @area_name = params[:area_name]
         @content_id = params[:content_id]
-        @attachments = Attachment.all.collect { |f| [f.name, download_attachment_path(:id => f.id, :name => f.name)] }
+        @attachments = Attachment.all.collect { |f| [f.name, download_attachment_path(:id => f.id, :name => f.urlname)] }
         if params[:link_urls_for] == "newsletter"
-          # TODO: links in newsletters has to go through statistic controller. therfore we have to put a string inside the content_rtfs and replace this string with recipient.id before sending the newsletter.
-          #@url_prefix = "#{current_server}/recipients/reacts"
           @url_prefix = current_server
         end
         if multi_language?

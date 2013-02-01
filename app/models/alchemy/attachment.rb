@@ -25,7 +25,9 @@ module Alchemy
     end
 
     def urlname
-      ::CGI.escape(read_attribute(:filename).split('.').first)
+      parts = filename.split('.')
+      sfx = parts.pop
+      "#{parts.join('-')}.#{sfx}"
     end
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only

@@ -38,7 +38,7 @@ Alchemy::Engine.routes.draw do
   get '/admin/signup' => 'users#new', :as => :signup
   post '/admin/signup' => 'users#create', :as => :signup
 
-  get '/attachment/:id/download(/:name)(.:format)' => 'attachments#download',
+  get '/attachment/:id/download(/:name)' => 'attachments#download',
         :as => :download_attachment
   get '/attachment/:id/show' => 'attachments#show',
         :as => :show_attachment
