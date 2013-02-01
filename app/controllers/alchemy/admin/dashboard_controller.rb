@@ -1,3 +1,5 @@
+require 'net/http'
+
 module Alchemy
   module Admin
     class DashboardController < Alchemy::Admin::BaseController
