@@ -20,7 +20,10 @@ Alchemy.loadAlchemyMenuBar = function(options) {
     build: function() {
       var self = Alchemy.Menubar;
       var bar = self._$('<div id="alchemy_menubar"/>').append('<ul/>');
-      bar.find('ul').append('<li><a href="' + options.route + '/admin">' + Alchemy.Menubar.t("to_alchemy") + '</a></li>').append('<li><a href="' + options.route + '/admin/pages/' + options.page_id + '/edit">' + Alchemy.Menubar.t("edit_page") + '</a></li>').append('<li><a href="' + options.route + '/admin/logout">' + Alchemy.Menubar.t("logout") + '</a></li>');
+      bar.find('ul')
+        .append('<li><a href="' + options.route + '/admin">' + Alchemy.Menubar.t("to_alchemy") + '</a></li>')
+        .append('<li><a href="' + options.route + '/admin/pages/' + options.page_id + '/edit">' + Alchemy.Menubar.t("edit_page") + '</a></li>')
+        .append('<li><form action="' + options.route + '/admin/logout" method="post"><input type="hidden" name="_method" value="delete"><button>' + Alchemy.Menubar.t("logout") + '</button></form></li>');
       return bar;
     },
 

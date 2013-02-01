@@ -94,11 +94,13 @@
       @include inline-block;
       list-style-type: none;
 
-      a {
+      a, button {
         line-height: 14px;
         @include default-button-style;
         font-weight: normal;
         text-decoration: none !important;
+        color: $text-color !important;
+        font-family: $default-font-face;
       }
     }
   }
