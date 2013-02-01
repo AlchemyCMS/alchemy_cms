@@ -100,6 +100,8 @@ module Alchemy
     scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current}).joins(:language) }
     # TODO: add this as default_scope
     #default_scope { from_current_site }
+    # Returns an empty relation. Can be removed with Rails 4
+    scope :none, where('1 = 0')
 
     # Class methods
     #
@@ -233,17 +235,17 @@ module Alchemy
 
     # Finds selected elements from page.
     #
-    # Options are:
+    # Returns only public elements by default.
+    # Pass true as second argument to get all elements.
+    #
+    # === Options are:
     #
     #     :only => Array of element names    # Returns only elements with given names
     #     :except => Array of element names  # Returns all elements except the ones with given names
     #     :count => Integer                  # Limit the count of returned elements
     #     :offset => Integer                 # Starts with an offset while returning elements
-    #     :random => Boolean                 # Returning elements randomly shuffled
-    #     :from_cell => Cell or String       # Returning elements from given cell
-    #
-    # Returns only public elements by default.
-    # Pass true as second argument to get all elements.
+    #     :random => Boolean                 # Return elements randomly shuffled
+    #     :from_cell => Cell or String       # Return elements from given cell
     #
     def find_selected_elements(options = {}, show_non_public = false)
       if options[:from_cell].class.name == 'Alchemy::Cell'
@@ -253,7 +255,8 @@ module Alchemy
         if cell
           elements = cell.elements
         else
-          raise(ActiveRecord::RecordNotFound, "Cell with name `#{options[:from_cell]}` could not be found!")
+          warn("Cell with name `#{options[:from_cell]}` could not be found!")
+          elements = self.none
         end
       else
         elements = self.elements.not_in_cell
