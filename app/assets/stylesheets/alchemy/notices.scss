@@ -45,7 +45,7 @@ div.error {
   color: #931f23;
 }
 
-div.warning {
+div.warning, div.warn {
   @include message;
   background-color: #f7efb8;
   color: #756f47;

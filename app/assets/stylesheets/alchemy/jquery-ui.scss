@@ -1318,10 +1318,11 @@
 }
 
 #alchemy .ui-menu .ui-menu-item a.ui-state-hover,
-#alchemy .ui-menu .ui-menu-item a.ui-state-active {
+#alchemy .ui-menu .ui-menu-item a.ui-state-active,
+#alchemy .ui-menu .ui-menu-item a.ui-state-focus {
   font-weight: normal;
   cursor: pointer;
-  background-color: #e6f0f5;
+  background-color: $button-hover-bg-color;
   color: $text-color;
 }
 

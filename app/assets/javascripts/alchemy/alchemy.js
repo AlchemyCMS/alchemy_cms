@@ -1,8 +1,15 @@
 // Alchemy CMS Sprockets Manifest
 // ------------------------------
 //= require jquery
-//= require jquery-ui
 //= require jquery_ujs
+//= require jquery.ui.autocomplete
+//= require jquery.ui.datepicker
+//= require jquery.ui.dialog
+//= require jquery.ui.effect-drop
+//= require jquery.ui.effect-fade
+//= require jquery.ui.resizable
+//= require jquery.ui.sortable
+//= require jquery.ui.tabs
 //= require autocomplete-rails
 //= require tiny_mce/tiny_mce
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/

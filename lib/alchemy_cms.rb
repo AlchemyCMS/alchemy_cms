@@ -10,6 +10,7 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'dragonfly'
   require 'dynamic_form'
   require 'jquery-rails'
+  require 'jquery-ui-rails'
   require 'rails3-jquery-autocomplete'
   require 'kaminari'
   require 'userstamp'

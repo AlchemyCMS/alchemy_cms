@@ -485,7 +485,7 @@ form td.select .selectboxit {
     }
 
     li.selectboxit-hover, li.selectboxit-focus, li.active {
-      background-color: #e6f0f5;
+      background-color: $button-hover-bg-color;
       color: $text-color;
     }
 
