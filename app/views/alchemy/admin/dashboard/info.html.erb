@@ -42,6 +42,7 @@
   </ul>
 </div>
 <script type="text/javascript">
+  $('#load_info').show();
   $.get('/admin/dashboard/update_check', function(data, textStatus, jqXHR) {
     if (data == 'true') {
       $('#update_available').show();

@@ -1,11 +1,11 @@
 <div class="widget">
   <h2><%= _t('Currently locked pages') %>:</h2>
   <table>
-    <% if @locked_pages.blank? %>
-    <tr>
-      <td class="even"><%= _t('no pages') %></td>
+  <% if @locked_pages.blank? %>
+    <tr class="even">
+      <td><%= _t('no pages') %></td>
     </tr>
-    <% else %>
+  <% else %>
     <% @locked_pages.each do |page| %>
     <tr class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
       <% if current_user.id == page.locked_by %>
@@ -32,7 +32,7 @@
     <% end %>
     </tr>
     <% end %>
-  </table>
   <% end %>
+  </table>
 </div>
 <% reset_cycle('locked_pages') %>
