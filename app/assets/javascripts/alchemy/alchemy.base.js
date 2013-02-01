@@ -130,6 +130,13 @@ if (typeof(Alchemy) === 'undefined') {
       $('#cells').tabs('select', 'cell_' + cell_name);
     },
 
+    buildTabbedCells: function(label) {
+      var $cells = $('<div id="cells"/>');
+      $('#cell_for_other_elements').wrap($cells);
+      $('#cells').prepend('<ul><li><a href="#cell_for_other_elements">'+label+'</a></li></ul>');
+      $('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
+    },
+
     debug: function(e) {
       if (window['console']) {
         console.debug(e);
