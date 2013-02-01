@@ -100,8 +100,6 @@ module Alchemy
     scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current}).joins(:language) }
     # TODO: add this as default_scope
     #default_scope { from_current_site }
-    # Returns an empty relation. Can be removed with Rails 4
-    scope :none, where('1 = 0')
 
     # Class methods
     #
@@ -256,7 +254,8 @@ module Alchemy
           elements = cell.elements
         else
           warn("Cell with name `#{options[:from_cell]}` could not be found!")
-          elements = self.none
+          # Returns an empty relation. Can be removed with the release of Rails 4
+          elements = self.elements.where('1 = 0')
         end
       else
         elements = self.elements.not_in_cell
