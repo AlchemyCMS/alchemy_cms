@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors               = ["Thomas von Deyen", "Robin Boening", "Marc Schettke", "Hendrik Mans", "Carsten Fregin"]
   s.email                 = ["alchemy@magiclabs.de"]
   s.homepage              = "http://alchemy-cms.com"
-  s.summary               = %q{An extremly flexbile CMS for Rails 3.2}
-  s.description           = %q{Alchemy is a Rails 3 CMS with a flexible content storing architecture.}
+  s.summary               = %q{A powerful, userfriendly and flexible CMS for Rails 3}
+  s.description           = %q{Alchemy is a powerful, userfriendly and flexible Rails 3 CMS.}
   s.requirements         << 'ImageMagick (libmagick), v6.6 or greater.'
   s.required_ruby_version = '~> 1.9.2'
   s.license               = 'BSD New'
