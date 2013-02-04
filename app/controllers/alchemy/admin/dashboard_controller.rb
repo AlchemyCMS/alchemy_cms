@@ -42,7 +42,6 @@ module Alchemy
       # Get alchemy versions from rubygems or github, if rubygems failes.
       def get_alchemy_versions
         # first we try rubygems.org
-        logger.info "\nquery rubygems\n"
         response = query_rubygems
         if response.code == "200"
           alchemy_versions = JSON.parse(response.body)
@@ -50,7 +49,6 @@ module Alchemy
         else
           # rubygems.org not available?
           # then we try github
-          logger.info "\nquery github\n"
           response = query_github
           if response.code == "200"
             alchemy_tags = JSON.parse(response.body)
