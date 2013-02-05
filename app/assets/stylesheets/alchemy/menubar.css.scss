@@ -88,10 +88,10 @@
     height: auto;
 
     li {
-      height: auto;
+      height: 35px;
       margin: 0 $default-padding 0 0;
       padding: 0;
-      @include inline-block(baseline);
+      @include inline-block;
       list-style-type: none;
 
       a, button {
