@@ -847,6 +847,7 @@ div#overlay_toolbar {
   background: $medium-gray url('shading.png') repeat-x 0 -42px;
   border: $default-border;
   height: 44px;
+  border-top-style: none;
   border-left-style: none;
   border-right-style: none;
   padding: $default-padding;

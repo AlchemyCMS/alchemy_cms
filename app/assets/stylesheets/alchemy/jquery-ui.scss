@@ -1473,6 +1473,7 @@ button.ui-button::-moz-focus-inner {
   padding: 8px 12px;
   position: relative;
   margin-bottom: 0;
+  @include border-bottom-radius(0)
 }
 
 #alchemy .ui-dialog .ui-dialog-title {
