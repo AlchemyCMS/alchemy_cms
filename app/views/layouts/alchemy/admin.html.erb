@@ -25,7 +25,7 @@
     <%= javascript_include_tag('alchemy/alchemy') %>
     <%= yield :javascript_includes %>
   </head>
-  <body id="alchemy">
+  <body id="alchemy" class="<%= body_class %>">
     <noscript>
       <h1><%= _t(:javascript_disabled_headline) %></h1>
       <p><%= _t(:javascript_disabled_text) %></p>

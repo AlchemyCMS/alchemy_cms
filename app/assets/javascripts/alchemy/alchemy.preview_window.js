@@ -22,8 +22,8 @@ if (typeof(Alchemy) === 'undefined') {
         Alchemy.PreviewWindow.currentWindow = $iframe.dialog({
           modal: false,
           title: title,
-          width: $(window).width() - 504,
-          height: $(window).height() - 78,
+          width: $(window).width() - 502,
+          height: $(window).height() - 76,
           minWidth: 600,
           minHeight: 300,
           show: "fade",
