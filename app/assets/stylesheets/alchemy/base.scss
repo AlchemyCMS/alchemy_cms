@@ -26,6 +26,9 @@ body {
   background-color: $light-gray;
   height: 100%;
   cursor: default;
+
+  // Fix for strange element window offset
+  &.pages.edit { overflow: hidden }
 }
 
 h1 {

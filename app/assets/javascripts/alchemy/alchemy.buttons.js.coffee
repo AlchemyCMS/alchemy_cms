@@ -1,4 +1,4 @@
-window.Alchemy = {} if window.Alchemy == undefined
+window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 Alchemy.Buttons =
 

@@ -546,6 +546,11 @@ module Alchemy
         end
       end
 
+      # Appends the current controller and action to body as css class.
+      def body_class
+        "#{controller_name} #{action_name}"
+      end
+
     end
   end
 end
