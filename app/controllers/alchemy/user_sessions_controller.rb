@@ -53,5 +53,10 @@ module Alchemy
       session[:screen_size] = params[:user_screensize]
     end
 
+    # Ovewriting the default of Devise
+    def after_sign_out_path_for(resource_or_scope)
+      request.referer || root_path
+    end
+
   end
 end
