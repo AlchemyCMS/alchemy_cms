@@ -91,7 +91,7 @@
       height: auto;
       margin: 0 $default-padding 0 0;
       padding: 0;
-      @include inline-block;
+      @include inline-block(baseline);
       list-style-type: none;
 
       a, button {
