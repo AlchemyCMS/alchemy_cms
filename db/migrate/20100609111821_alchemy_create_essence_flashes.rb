@@ -1,5 +1,6 @@
-class CreateEssenceFlashes < ActiveRecord::Migration
+class AlchemyCreateEssenceFlashes < ActiveRecord::Migration
   def self.up
+    return if table_exists?(:essence_flashes)
     create_table :essence_flashes do |t|
       t.integer :attachment_id
       t.integer :width, :default => 400

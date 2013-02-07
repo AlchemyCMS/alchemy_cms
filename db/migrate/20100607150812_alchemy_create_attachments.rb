@@ -1,5 +1,6 @@
-class CreateAttachments < ActiveRecord::Migration
+class AlchemyCreateAttachments < ActiveRecord::Migration
   def self.up
+    return if table_exists?(:attachments)
     create_table :attachments do |t|
       t.string :name
       t.string :filename

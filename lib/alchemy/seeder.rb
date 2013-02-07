@@ -1,7 +1,7 @@
 module Alchemy
   class Seeder
     require 'yaml'
-    
+
     # This seed builds the necessary page structure for alchemy in your db.
     # Put Alchemy::Seeder.seed! inside your db/seeds.rb file and run it with rake db:seed.
     def self.seed!
@@ -9,12 +9,12 @@ module Alchemy
       FastGettext.text_domain = 'alchemy'
       FastGettext.available_locales = ['de', 'en']
       FastGettext.locale = Alchemy::Config.get(:default_translation)
-      
+
       errors = []
       notices = []
-      
+
       default_language = Alchemy::Config.get(:default_language)
-      
+
       lang = Language.find_or_initialize_by_code(
         :name => default_language['name'],
         :code => default_language['code'],
@@ -32,7 +32,7 @@ module Alchemy
       else
         notices << "== Skipping! Language #{lang.name} was already present"
       end
-      
+
       root = Page.find_or_initialize_by_name(
         :name => 'Root',
         :page_layout => "rootpage",
@@ -52,7 +52,7 @@ module Alchemy
       else
         notices << "== Skipping! Page #{root.name} was already present"
       end
-      
+
       if errors.blank?
         puts "Success!"
         notices.map{ |note| puts note }
@@ -61,7 +61,7 @@ module Alchemy
         errors.map{ |error| puts error }
       end
     end
-    
+
     # This method is for running after upgrading an old Alchemy version without Language Model (pre v1.5).
     # Put Alchemy::Seeder.upgrade! inside your db/seeds.rb file and run it with rake db:seed.
     def self.upgrade!
@@ -107,6 +107,6 @@ module Alchemy
         end
       end
     end
-    
+
   end
 end

@@ -1,5 +1,6 @@
-class CreateEssenceFiles < ActiveRecord::Migration
+class AlchemyCreateEssenceFiles < ActiveRecord::Migration
   def self.up
+    return if table_exists?(:essence_files)
     create_table :essence_files do |t|
       t.integer :attachment_id
       t.string :title

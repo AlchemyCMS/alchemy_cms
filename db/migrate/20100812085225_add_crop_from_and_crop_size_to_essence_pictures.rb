@@ -1,7 +1,11 @@
 class AddCropFromAndCropSizeToEssencePictures < ActiveRecord::Migration
   def self.up
-    add_column :essence_pictures, :crop_from, :string
-    add_column :essence_pictures, :crop_size, :string
+    unless column_exists? :essence_pictures, :crop_from
+      add_column :essence_pictures, :crop_from, :string
+    end
+    unless column_exists? :essence_pictures, :crop_from
+      add_column :essence_pictures, :crop_size, :string
+    end
   end
 
   def self.down

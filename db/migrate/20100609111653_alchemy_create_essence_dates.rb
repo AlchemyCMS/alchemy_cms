@@ -1,5 +1,6 @@
-class CreateEssenceDates < ActiveRecord::Migration
+class AlchemyCreateEssenceDates < ActiveRecord::Migration
   def self.up
+    return if table_exists?(:essence_dates)
     create_table :essence_dates do |t|
       t.datetime :date
       t.userstamps

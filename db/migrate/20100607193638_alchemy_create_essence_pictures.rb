@@ -1,6 +1,7 @@
-class CreateEssencePictures < ActiveRecord::Migration
-  
+class AlchemyCreateEssencePictures < ActiveRecord::Migration
+
   def self.up
+    return if table_exists?(:essence_pictures)
     create_table :essence_pictures do |t|
       t.integer :picture_id
       t.string :caption
@@ -15,9 +16,9 @@ class CreateEssencePictures < ActiveRecord::Migration
       t.timestamps
     end
   end
-  
+
   def self.down
     drop_table :essence_pictures
   end
-  
+
 end
