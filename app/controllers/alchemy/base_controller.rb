@@ -15,13 +15,7 @@ module Alchemy
 
     # Returns a host string with the domain the app is running on.
     def current_server
-      # For local development server
-      if request.port != 80
-        "#{request.protocol}#{request.host}:#{request.port}"
-        # For remote production server
-      else
-        "#{request.protocol}#{request.host}"
-      end
+     "#{request.protocol}#{request.raw_host_with_port}"
     end
 
     # Returns the configuratin value of given key.
