@@ -1,5 +1,6 @@
-class CreateContents < ActiveRecord::Migration
+class AlchemyCreateContents < ActiveRecord::Migration
   def self.up
+    return if table_exists?(:contents)
     create_table :contents do |t|
       t.string :name
       t.string :essence_type
