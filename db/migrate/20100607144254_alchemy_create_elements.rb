@@ -1,4 +1,4 @@
-class CreateElements < ActiveRecord::Migration
+class AlchemyCreateElements < ActiveRecord::Migration
   def self.up
     return if table_exists?(:elements)
     create_table :elements do |t|

@@ -1,4 +1,4 @@
-class CreateEssenceHtmls < ActiveRecord::Migration
+class AlchemyCreateEssenceHtmls < ActiveRecord::Migration
   def self.up
     return if table_exists?(:essence_htmls)
     create_table :essence_htmls do |t|
