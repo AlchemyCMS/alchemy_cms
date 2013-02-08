@@ -183,15 +183,17 @@ module Alchemy
       end
 
       def copy_new_config_file
-        desc "Copy config file"
-        old_config_file = Rails.root.join('config/alchemy/config.yml')
-        if File.exist?(old_config_file)
-          FileUtils.mv old_config_file, Rails.root.join('config/alchemy/config.yml.old')
-          log "Backed up old config file"
+        desc "Copy configuration file."
+        config_file = Rails.root.join('config/alchemy/config.yml')
+        default_config = File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml')
+        if FileUtils.identical? default_config, config_file
+          log "Configuration file already present.", :skip
+        else
+          log "Custom configuration file found."
+          FileUtils.cp default_config, Rails.root.join('config/alchemy/config.yml.defaults')
+          log "Copied new default configuration file."
+          todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file."
         end
-        FileUtils.cp File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml'), old_config_file
-        log "Copied new config file"
-        todo "Check the config/alchemy/config.yml.old file for custom configuration options and insert them into the new config file."
       end
 
       def removed_richmedia_essences_notice
