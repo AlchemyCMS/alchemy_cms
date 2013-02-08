@@ -2,6 +2,8 @@ module Alchemy
   module Admin
     class ContentsController < Alchemy::Admin::BaseController
 
+      helper "alchemy/admin/essences"
+
       def new
         @element = Element.find(params[:element_id])
         @contents = @element.available_contents
