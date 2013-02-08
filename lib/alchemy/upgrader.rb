@@ -11,6 +11,7 @@ module Alchemy
         Rake::Task['alchemy:install:migrations'].invoke
         strip_alchemy_from_schema_version_table
         Rake::Task['db:migrate'].invoke
+        Seeder.seed!
         upgrade_to_language
         upgrade_layoutpages
         upgrade_essence_link_target_default
@@ -32,7 +33,7 @@ module Alchemy
         Alchemy::Page.all.each do |page|
           if !page.language_code.blank? && page.language.nil?
             root = page.get_language_root
-            lang = Alchemy::Language.find_or_create_by_code(
+            lang = Alchemy::Language.find_or_create_by_language_code(
               :name => page.language_code.capitalize,
               :code => page.language_code,
               :frontpage_name => root.name,
