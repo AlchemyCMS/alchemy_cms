@@ -1,5 +1,6 @@
-class CreateEssenceRichtexts < ActiveRecord::Migration
+class AlchemyCreateEssenceRichtexts < ActiveRecord::Migration
   def self.up
+    return if table_exists?(:essence_richtexts)
     create_table :essence_richtexts do |t|
       t.text :body
       t.text :stripped_body
