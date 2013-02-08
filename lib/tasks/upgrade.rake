@@ -5,6 +5,9 @@ namespace :alchemy do
 	desc "Upgrades database to Alchemy CMS v#{Alchemy::VERSION}."
 	task :upgrade => :environment do
 		Alchemy::Upgrader.run!
+    Rake::Task['alchemy:upgrade:move_files'].invoke
+    Rake::Task['alchemy:upgrade:convert_files'].invoke
+    Rake::Task['alchemy:upgrade:copy_config'].invoke
 	end
 
 	namespace :upgrade do
