@@ -15,7 +15,7 @@ module Alchemy
 
     # Returns a host string with the domain the app is running on.
     def current_server
-     "#{request.protocol}#{request.raw_host_with_port}"
+     "#{request.protocol}#{request.host_with_port}"
     end
 
     # Returns the configuratin value of given key.
