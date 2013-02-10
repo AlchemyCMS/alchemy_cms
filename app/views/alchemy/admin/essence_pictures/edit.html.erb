@@ -7,7 +7,7 @@
     <tr>
       <td class="label"><%= f.label "caption" %></td>
       <td class="input">
-        <%- if @options[:caption_as_textarea] -%>
+        <%- if @options[:caption_as_textarea] == 'true' -%>
         <%= f.text_area "caption", :class => 'thin_border' %>
         <%- else -%>
         <%= f.text_field "caption", :class => 'thin_border' %>
@@ -43,7 +43,7 @@
       </td>
     </tr>
     <%- end -%>
-    <%- if @options[:image_float_selector] -%>
+    <%- if @options[:image_float_selector] == 'true' -%>
     <tr>
       <td class="label"><%= f.label "css_class" %></td>
       <td class="select">
