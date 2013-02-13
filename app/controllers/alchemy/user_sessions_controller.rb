@@ -55,7 +55,11 @@ module Alchemy
 
     # Ovewriting the default of Devise
     def after_sign_out_path_for(resource_or_scope)
-      request.referer || root_path
+      if request.referer.blank? || request.referer.to_s =~ /admin/
+        root_path
+      else
+        request.referer
+      end
     end
 
   end
