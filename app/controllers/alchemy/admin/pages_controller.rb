@@ -107,7 +107,7 @@ module Alchemy
           @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
-          render_remote_errors(@page, "#alchemyOverlay button.button")
+          render_remote_errors(@page)
         end
       end
 
