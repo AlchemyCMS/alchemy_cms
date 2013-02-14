@@ -17,14 +17,12 @@ end
 
 namespace :alchemy do
 
+  desc "Creates, migrates and seeds the database to run Alchemy."
+  task :prepare => ["db:create", "alchemy:install:migrations", "db:migrate", "alchemy:db:seed"]
+
   desc "Installs Alchemy CMS into your app."
-  task :install do
-    Rake::Task["db:create"].invoke
-    Rake::Task["alchemy:install:migrations"].invoke
-    Rake::Task["alchemy:mount"].invoke
+  task :install => ["alchemy:prepare", "alchemy:mount"] do
     system("rails g alchemy:scaffold")
-    Rake::Task["db:migrate"].invoke
-    Rake::Task["alchemy:db:seed"].invoke
     puts <<-EOF
 
 \\o/ Successfully installed Alchemy CMS \\o/
