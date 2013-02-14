@@ -27,7 +27,7 @@ a {
   }
 
   &:focus {
-    @include default-focus-style(rgba(white, 0.5), none);
+    @extend %white-focus-style;
     color: black;
   }
 }
@@ -67,7 +67,7 @@ input.invalid {
 }
 
 textarea {
-  @include default-input-style;
+  @extend %default-input-style;
   margin: 0;
   resize: none;
   outline: none;
@@ -94,7 +94,7 @@ input.checkbox {
 /* Buttons */
 
 #insert, #cancel, input.button, .updateButton {
-  @include default-button-style;
+  @extend %button-defaults;
 }
 
 /* Browse */
@@ -413,6 +413,6 @@ h3 {
 }
 
 #iframecontainer iframe#iframe {
-  @include default-input-style;
+  @extend %default-input-style;
   padding: 0;
 }

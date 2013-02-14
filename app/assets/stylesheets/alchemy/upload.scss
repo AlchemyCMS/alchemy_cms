@@ -14,7 +14,7 @@ a#uploadswitcher, a.underline {
   position: relative;
   margin-bottom: 8px;
   border: 1px solid #9e9e9e;
-  @include rounded-corner;
+  @extend .rounded-border;
 }
 
 #uploadProgressContainer .progressName,
@@ -33,7 +33,7 @@ a#uploadswitcher, a.underline {
 #uploadProgressContainer .progressBarContainer {
   background: #F9F9F9 url('shading.png') repeat-x 0 0;
   border: 1px solid #9E9E9E;
-  @include rounded-corner;
+  @extend .rounded-border;
   height: 16px;
   overflow: hidden;
   width: 100%;
@@ -66,7 +66,7 @@ a#uploadswitcher, a.underline {
 #uploadProgressContainer .progressCancel {
   background: #f1f1f1 url('icons.png') no-repeat -1px -72px;
   border: 1px solid #9e9e9e;
-  @include rounded-corner;
+  @extend .rounded-border;
   width: 15px;
   height: 16px;
   position: absolute;
@@ -92,7 +92,7 @@ object.swfupload {
 #dropbox {
   background: $medium-gray;
   border: $default-border;
-  @include rounded-corner;
+  @extend .rounded-border;
   padding: $default-padding;
   margin-bottom: 2*$default-padding;
   text-align: center;

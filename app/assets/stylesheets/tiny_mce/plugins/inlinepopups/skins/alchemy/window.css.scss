@@ -26,7 +26,7 @@
   position: absolute;
   direction: ltr;
   border: $default-border;
-  @include rounded-corner;
+  @extend .rounded-border;
 }
 
 .alchemy .mceWrapper {
@@ -233,7 +233,7 @@ a.mceMove {
 .alchemy .mceClose, .alchemy .mceMin, .alchemy .mceMed, .alchemy .mceMax {
   &:hover {
     border: 1px solid $button-hover-border-color;
-    @include rounded-corner;
+    @extend .rounded-border;
     background-color: $button-hover-bg-color;
     color: $text-color;
     font-weight: normal;
@@ -370,7 +370,7 @@ a.mceMove {
 /* Alert/Confirm */
 
 .alchemy .mceButton {
-  @include default-button-style;
+  @extend %button-defaults;
   bottom: 10px;
   // width: 80px;
   // height: 25px;

@@ -23,10 +23,10 @@ div#image_assign_filter_and_image_sizing {
   display: inline-block;
   border: 1px solid #c0c0c0;
   position: relative;
-  @include rounded-corner;
+  @extend .rounded-border;
 
   .thumbnail_background {
-    @include thumbnail-background;
+    @extend %thumbnail-background;
     width: 160px;
     height: 120px;
   }

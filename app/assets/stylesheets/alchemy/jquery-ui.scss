@@ -1337,7 +1337,7 @@
  */
 
 #alchemy button.ui-button {
-  @include default-button-style;
+  @extend %button-defaults;
   @include inline-block;
   position: relative;
   margin-right: .1em;
@@ -1347,7 +1347,7 @@
   overflow: visible;
 
   &.ui-state-focus {
-    @include default-focus-style;
+    @extend %blue-focus-style;
   }
 }
 

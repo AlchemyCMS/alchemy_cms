@@ -211,7 +211,7 @@ ul.list .sitemap_sitename {
 }
 
 div.page_infos {
-  @include top-rounded-border;
+  @extend .top-rounded-border;
   background-color: #FFFFFF;
   border-left: 1px solid #EDEDED;
   float: right;
@@ -278,7 +278,7 @@ span.page_status {
 }
 
 .tooltip {
-  @include tooltip;
+  @extend %tooltip;
   right: auto;
   left: -12px;
   top: 24px;

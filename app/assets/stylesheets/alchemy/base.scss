@@ -13,6 +13,7 @@ noscript {
   border-bottom: 1px solid #c4c19c;
   color: #726d23;
   background-color: #f3f0c1;
+
   h1, p {
     margin: 16px 0;
   }
@@ -67,7 +68,7 @@ a {
   }
 
   &:focus {
-    @include default-focus-style(rgba(white, 0.5), none);
+    @extend %white-focus-style;
     color: black;
   }
 
@@ -285,7 +286,7 @@ ul.list span.right {
 table td.tools .icon, table td.icon .icon {
   width: 16px;
   height: 16px;
-  @include disable-user-select;
+  @extend .disable-user-select;
   margin-top: 0;
   background-repeat: no-repeat;
   @include inline-block;
@@ -447,7 +448,7 @@ p.foot_note {
   padding: $default-padding;
   background-color: $light_yellow;
   border: 1px solid $medium-gray;
-  @include rounded-corner;
+  @extend .rounded-border;
 }
 
 #all_files td.name a {
@@ -467,7 +468,7 @@ p.foot_note {
   padding: 2 * $default-padding;
 
   .thumbnail_background {
-    @include thumbnail-background;
+    @extend %thumbnail-background;
     width: 800px;
     height: 600px;
     position: relative;
@@ -522,7 +523,7 @@ textarea#essence_picture_caption {
   border: 1px inset #e8e8e8;
   overflow: auto;
   padding: 4px 0 0 4px;
-  @include rounded-corner;
+  @extend .rounded-border;
 }
 
 #alchemyConfirmation .alchemy_window_buttons {
@@ -713,7 +714,7 @@ div.elements_for_page {
   padding: $default-padding;
   border: $default-border;
   @include box-shadow(#9ea09f 0px 0px 4px);
-  @include rounded-corner;
+  @extend .rounded-border;
 
   img {
     width: 20px;
@@ -912,7 +913,7 @@ div#overlay_toolbar a.button:active {
       padding: 2*$default-padding;
       border: $default-border;
       background-color: white;
-      @include rounded-corner;
+      @extend .rounded-border;
       &.elements {
         background-color: #E5DCCA;
         border: 1px solid #BBA589;
@@ -935,7 +936,7 @@ div#overlay_toolbar a.button:active {
 #dropbox {
   background: $medium-gray;
   border: $default-border;
-  @include rounded-corner;
+  @extend .rounded-border;
   padding: $default-padding;
   margin-bottom: 2*$default-padding;
   text-align: center;

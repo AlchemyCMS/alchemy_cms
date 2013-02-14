@@ -27,7 +27,7 @@
     margin-bottom: 16px;
     background-color: $medium-gray;
     border: $default-border;
-    @include top-rounded-border;
+    @extend .top-rounded-border;
     float: left;
 
     h2 {

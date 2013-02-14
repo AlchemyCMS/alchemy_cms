@@ -4,12 +4,12 @@
   margin-top: $default-margin;
   display: block;
   line-height: 100%;
-  @include disable-user-select;
+  @extend .disable-user-select;
   clear: both;
 }
 
 button, input[type="submit"], a.button, input.button {
-  @include default-button-style;
+  @extend %button-defaults;
 
   &.small {
     padding: 2px 2*$default-padding;
@@ -34,7 +34,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &:focus {
-    @include default-focus-style;
+    @extend %blue-focus-style;
   }
 
   &.disabled {
@@ -45,7 +45,7 @@ button, input[type="submit"], a.button, input.button {
 }
 
 .icon_button {
-  @include default-button-style;
+  @extend %button-defaults;
   width: 21px;
   height: 21px;
   line-height: 19px;
@@ -146,7 +146,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &:focus {
-    @include default-focus-style;
+    @extend %blue-focus-style;
   }
 }
 
@@ -233,7 +233,7 @@ div.sitemap_right_tools .sitemap_sitetools a.icon_button {
 }
 
 textarea, input[type="text"], input[type="email"], input[type="password"], .thin_border, .input_field {
-  @include default-input-style;
+  @extend %default-input-style;
 
   &.dirty {
     background-color: #fff8df;
@@ -301,7 +301,7 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
     position: absolute;
     right: 8px;
     top: 4px;
-    @include rounded-corner;
+    @extend .rounded-border;
   }
 }
 
@@ -309,7 +309,7 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
 // Not used, because we use the .selectBoxIt() jQuery plugin.
 
 select {
-  @include default-button-style;
+  @extend %button-defaults;
   height: 29px;
   padding: 0.4em 0.6em;
 }
@@ -337,7 +337,7 @@ form td.select .selectboxit {
   a { text-decoration: none }
 
   .selectboxit {
-    @include default-button-style;
+    @extend %button-defaults;
     width: auto;
     height: 15px;
     padding: 6px 0 6px 8px;
@@ -409,7 +409,7 @@ form td.select .selectboxit {
     }
 
     &:focus {
-      @include default-focus-style;
+      @extend %blue-focus-style;
     }
 
     /* Dropdown List Box Text */
@@ -418,8 +418,8 @@ form td.select .selectboxit {
       overflow: hidden;
       float: left;
       white-space: nowrap;
-      @include disable-user-select;
-      @include text-overflow(ellipsis);
+      @extend .disable-user-select;
+      @extend %text-overflow;
       padding-right: 32px;
       line-height: normal !important;
     }
@@ -470,7 +470,7 @@ form td.select .selectboxit {
     display: none;
     z-index: 99999;
     outline: none;
-    @include rounded-corner;
+    @extend .rounded-border;
     @include box-shadow(0 4px 16px $dark-gray);
     border: $default-border;
 

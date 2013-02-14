@@ -27,7 +27,7 @@ table tr td.tools {
   width: 40px;
   background-color: $light-gray;
   white-space: nowrap;
-  @include disable-user-select;
+  @extend .disable-user-select;
 }
 
 td.label, td.input, td.submit, td.select, td.value, td.note {

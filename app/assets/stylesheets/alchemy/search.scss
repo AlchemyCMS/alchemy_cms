@@ -17,7 +17,7 @@ div#image_assign_filter_and_image_sizing form div.search_field {
   position: absolute;
   right: 8px;
   top: 7px;
-  @include rounded-corner;
+  @extend .rounded-border;
 }
 
 td#tags_tag_list {

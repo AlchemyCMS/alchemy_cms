@@ -7,7 +7,7 @@
   border: $default-border;
   border-top-style: none;
   border-right-style: none;
-  @include bottom-left-rounded-border;
+  @extend .bottom-left-rounded-border;
   position: relative;
   margin-left: 5px;
 

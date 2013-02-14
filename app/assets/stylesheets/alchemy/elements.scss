@@ -101,7 +101,7 @@ div#element_area {
   padding: 4px;
   background-color: #f0e8d7;
   border: 1px solid #c2baab;
-  @include rounded-corner;
+  @extend .rounded-border;
   height: 115px;
 
   a {
@@ -110,7 +110,7 @@ div#element_area {
     text-align: center;
     font-weight: bold;
     line-height: 104px;
-    @include rounded-corner;
+    @extend .rounded-border;
     font-size: 40px;
     display: block;
     height: 100%;
@@ -172,7 +172,7 @@ div#element_area {
 
 div.element_editor {
   border: 1px solid #bba589;
-  @include rounded-corner;
+  @extend .rounded-border;
   background-color: #f0e8d7;
   margin-bottom: 8px;
 
@@ -208,7 +208,7 @@ div.element_editor {
     line-height: 21px;
     background-color: #f5dea9;
     margin-top: 4px;
-    @include rounded-corner;
+    @extend .rounded-border;
 
     span.icon.warning {
       position: relative;
@@ -274,7 +274,7 @@ a.element_move_button {
   border-top-color: #e3e3e3;
   height: 20px;
   background-color: #e5dcca;
-  @include disable-user-select;
+  @extend .disable-user-select;
 }
 
 form.add_gallery_to_index {
@@ -285,7 +285,7 @@ div.picture_gallery_images {
   overflow: hidden;
   margin: $default-margin 0;
   border: 1px inset #cecece;
-  @include rounded-corner;
+  @extend .rounded-border;
   background-color: #e5dcca;
   padding: 1px;
 
@@ -303,7 +303,7 @@ div.picture_thumbnail div.picture_image {
   overflow: hidden;
 
   img.img_paddingtop {
-    @include disable-user-select;
+    @extend .disable-user-select;
   }
 }
 
@@ -329,11 +329,11 @@ span.linkable_essence_tools {
     position: absolute;
     bottom: 4px;
     right: 28px;
-    @include reset-border-radius;
+    @extend %border-radius-reset;
 
     &.unlink {
       right: 0;
-      @include right-rounded-border;
+      @extend .right-rounded-border;
     }
   }
 }
@@ -381,7 +381,7 @@ a.fold_element {
 
 .edit_images_bottom a.linked {
   position: relative;
-  @include rounded-corner;
+  @extend .rounded-border;
   background-image: url('shading.png');
   background-repeat: repeat-x;
   background-position: 0 -75px;
@@ -472,7 +472,7 @@ div.essence_picture_css_class {
   top: 4px;
   left: 4px;
   background-color: transparent;
-  @include disable-user-select;
+  @extend .disable-user-select;
 }
 
 .dragable_picture .picture_handle {
@@ -501,7 +501,7 @@ div.file {
   margin-bottom: 4px;
   border: 1px solid #c0c0c0;
   background-color: #f3f3f3;
-  @include rounded-corner;
+  @extend .rounded-border;
   height: 24px;
 }
 
@@ -638,7 +638,7 @@ div.content_editor {
     padding: 2*$default-padding;
     border: 1px solid #f5b04e;
     background-color: #f5dea9;
-    @include rounded-corner;
+    @extend .rounded-border;
     font-size: 11px;
 
     span.icon.warning {
@@ -661,7 +661,7 @@ div.content_editor {
   &.validation_failed {
 
     label { color: $error_text_color }
-    input { @include field_with_error }
+    input { @extend %field-with-error }
     .tinymce_container {
       outline: 1px solid $error_border_color;
     }
@@ -731,7 +731,7 @@ div.content_editor {
   }
 
   select.essence_editor_select {
-    @include rounded-corner;
+    @extend .rounded-border;
     background: white;
     border: 1px solid $button-border-color;
     font-size: 11px;
@@ -815,7 +815,7 @@ textarea.default_tinymce, textarea.custom_tinymce {
   background-color: $error_background_color;
   padding: 2*$default-padding;
   list-style-type: none;
-  @include rounded-corner;
+  @extend .rounded-border;
   color: $error_text_color;
   border: 1px solid $error_border_color;
 
@@ -834,7 +834,7 @@ a.hint {
   cursor: help !important;
 
   &:hover span.bubble { display: block }
-  span.bubble { @include tooltip }
+  span.bubble { @extend %tooltip }
 }
 
 .content_editor .hint {
