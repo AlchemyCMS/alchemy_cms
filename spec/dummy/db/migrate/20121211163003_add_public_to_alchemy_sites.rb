@@ -1,1 +1,0 @@
-../../../../db/migrate/20121211163003_add_public_to_alchemy_sites.rb

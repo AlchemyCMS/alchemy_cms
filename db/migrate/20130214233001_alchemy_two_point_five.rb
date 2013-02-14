@@ -1,11 +1,11 @@
-# This is a compressed migration for creating all Alchemy 2.4 tables at once.
+# This is a compressed migration for creating all Alchemy 2.5 tables at once.
 #
 # === Notice
 #
 # In order to upgrade from an old version of Alchemy, you have to run all migrations from
 # each version you missed up to the version you want to upgrade to, before running this migration.
 #
-class AlchemyTwoPointFour < ActiveRecord::Migration
+class AlchemyTwoPointFive < ActiveRecord::Migration
   def up
     # Do not run if Alchemy tables are already present
     return if table_exists?(:alchemy_pages)
@@ -184,10 +184,21 @@ class AlchemyTwoPointFour < ActiveRecord::Migration
       t.integer  "updater_id"
       t.boolean  "default",        :default => false
       t.string   "country_code",   :default => "",      :null => false
+      t.integer  "site_id"
     end
 
     add_index "alchemy_languages", ["language_code", "country_code"], :name => "index_alchemy_languages_on_language_code_and_country_code"
     add_index "alchemy_languages", ["language_code"], :name => "index_alchemy_languages_on_language_code"
+    add_index "alchemy_languages", ["site_id"], :name => "index_alchemy_languages_on_site_id"
+
+    create_table "alchemy_legacy_page_urls", :force => true do |t|
+      t.string   "urlname",    :null => false
+      t.integer  "page_id",    :null => false
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
+
+    add_index "alchemy_legacy_page_urls", ["urlname"], :name => "index_alchemy_legacy_page_urls_on_urlname"
 
     create_table "alchemy_pages", :force => true do |t|
       t.string   "name"
@@ -225,16 +236,31 @@ class AlchemyTwoPointFour < ActiveRecord::Migration
 
     create_table "alchemy_pictures", :force => true do |t|
       t.string   "name"
-      t.string   "image_filename"
-      t.integer  "image_width"
-      t.integer  "image_height"
-      t.datetime "created_at",      :null => false
-      t.datetime "updated_at",      :null => false
+      t.string   "image_file_name"
+      t.integer  "image_file_width"
+      t.integer  "image_file_height"
+      t.datetime "created_at",        :null => false
+      t.datetime "updated_at",        :null => false
       t.integer  "creator_id"
       t.integer  "updater_id"
       t.string   "upload_hash"
       t.text     "cached_tag_list"
+      t.string   "image_file_uid"
+      t.integer  "image_file_size"
     end
+
+    create_table "alchemy_sites", :force => true do |t|
+      t.string   "host"
+      t.string   "name"
+      t.datetime "created_at",                                  :null => false
+      t.datetime "updated_at",                                  :null => false
+      t.boolean  "public",                   :default => false
+      t.text     "aliases"
+      t.boolean  "redirect_to_primary_host"
+    end
+
+    add_index "alchemy_sites", ["host", "public"], :name => "alchemy_sites_public_hosts_idx"
+    add_index "alchemy_sites", ["host"], :name => "index_alchemy_sites_on_host"
 
     create_table "alchemy_users", :force => true do |t|
       t.string   "firstname"
@@ -242,42 +268,29 @@ class AlchemyTwoPointFour < ActiveRecord::Migration
       t.string   "login"
       t.string   "email"
       t.string   "gender"
-      t.string   "role",                               :default => "registered"
+      t.string   "role",                                  :default => "registered"
       t.string   "language"
-      t.string   "crypted_password",    :limit => 128, :default => "",           :null => false
-      t.string   "password_salt",       :limit => 128, :default => "",           :null => false
-      t.integer  "login_count",                        :default => 0,            :null => false
-      t.integer  "failed_login_count",                 :default => 0,            :null => false
+      t.string   "encrypted_password",     :limit => 128, :default => "",           :null => false
+      t.string   "password_salt",          :limit => 128, :default => "",           :null => false
+      t.integer  "sign_in_count",                         :default => 0,            :null => false
+      t.integer  "failed_attempts",                       :default => 0,            :null => false
       t.datetime "last_request_at"
-      t.datetime "current_login_at"
-      t.datetime "last_login_at"
-      t.string   "current_login_ip"
-      t.string   "last_login_ip"
-      t.string   "persistence_token",                                            :null => false
-      t.string   "single_access_token",                                          :null => false
-      t.string   "perishable_token",                                             :null => false
-      t.datetime "created_at",                                                   :null => false
-      t.datetime "updated_at",                                                   :null => false
+      t.datetime "current_sign_in_at"
+      t.datetime "last_sign_in_at"
+      t.string   "current_sign_in_ip"
+      t.string   "last_sign_in_ip"
+      t.datetime "created_at",                                                      :null => false
+      t.datetime "updated_at",                                                      :null => false
       t.integer  "creator_id"
       t.integer  "updater_id"
       t.text     "cached_tag_list"
+      t.string   "reset_password_token"
+      t.datetime "reset_password_sent_at"
     end
 
-    add_index "alchemy_users", ["perishable_token"], :name => "index_users_on_perishable_token"
-
-    create_table "events", :force => true do |t|
-      t.string   "name"
-      t.string   "hidden_name"
-      t.datetime "starts_at"
-      t.datetime "ends_at"
-      t.text     "description"
-      t.decimal  "entrance_fee", :precision => 6, :scale => 2
-      t.boolean  "published"
-      t.integer  "location_id"
-      t.integer  "organizer_id"
-      t.datetime "created_at",                                 :null => false
-      t.datetime "updated_at",                                 :null => false
-    end
+    add_index "alchemy_users", ["email"], :name => "index_alchemy_users_on_email", :unique => true
+    add_index "alchemy_users", ["login"], :name => "index_alchemy_users_on_login", :unique => true
+    add_index "alchemy_users", ["reset_password_token"], :name => "index_alchemy_users_on_reset_password_token", :unique => true
 
     create_table "taggings", :force => true do |t|
       t.integer  "tag_id"
@@ -295,5 +308,6 @@ class AlchemyTwoPointFour < ActiveRecord::Migration
     create_table "tags", :force => true do |t|
       t.string "name"
     end
+
   end
 end

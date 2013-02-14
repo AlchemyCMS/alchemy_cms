@@ -1,1 +1,0 @@
-../../../../db/migrate/20130121092645_migrate_to_devise.rb

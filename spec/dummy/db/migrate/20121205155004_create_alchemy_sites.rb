@@ -1,1 +1,0 @@
-../../../../db/migrate/20121205155004_create_alchemy_sites.rb
