@@ -19,7 +19,7 @@ module Alchemy
         before { klingonian_root }
 
         it "one should be able to switch the language tree" do
-          visit('/alchemy/admin/pages')
+          visit('/admin/pages')
           page.select 'Klingonian', :from => 'language'
           page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
         end
@@ -31,7 +31,7 @@ module Alchemy
         before { klingonian }
 
         it "it should display the form for creating language root" do
-          visit('/alchemy/admin/pages')
+          visit('/admin/pages')
           page.select 'Klingonian', :from => 'language'
           page.should have_content('This language tree does not exist')
         end
@@ -43,7 +43,7 @@ module Alchemy
     describe "flush complete page cache" do
 
       it "should remove the cache of all pages" do
-        visit '/alchemy/admin/pages'
+        visit '/admin/pages'
         click_link 'Flush page cache'
         page.should have_content('Page cache flushed')
       end

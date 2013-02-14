@@ -10,7 +10,7 @@ describe 'Picture renderung security', :js => true do
   context "passing no security token" do
 
     it 'should return a bad request (400)' do
-      visit "/alchemy/pictures/#{picture.id}/show/image.png"
+      visit "/pictures/#{picture.id}/show/image.png"
       page.status_code.should == 400
     end
 
@@ -19,7 +19,7 @@ describe 'Picture renderung security', :js => true do
   context "passing correct security token" do
 
     before do
-      visit "/alchemy/pictures/#{picture.id}/show/image.png?sh=#{picture.security_token}"
+      visit "/pictures/#{picture.id}/show/image.png?sh=#{picture.security_token}"
     end
 
     it 'should return image' do

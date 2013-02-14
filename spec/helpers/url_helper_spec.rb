@@ -58,11 +58,11 @@ module Alchemy
         end
 
         it "should return the correct relative path string" do
-          helper.show_alchemy_page_path(@page).should == "/alchemy/#{@page.language_code}/testpage"
+          helper.show_alchemy_page_path(@page).should == "/#{@page.language_code}/testpage"
         end
 
         it "should return the correct relative path string with additional parameters" do
-          helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/alchemy/#{@page.language_code}/testpage?query=test"
+          helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/#{@page.language_code}/testpage?query=test"
         end
 
       end
@@ -74,11 +74,11 @@ module Alchemy
         end
 
         it "should return the correct relative path string" do
-          helper.show_alchemy_page_path(@page).should == "/alchemy/testpage"
+          helper.show_alchemy_page_path(@page).should == "/testpage"
         end
 
         it "should return the correct relative path string with additional parameter" do
-          helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/alchemy/testpage?query=test"
+          helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/testpage?query=test"
         end
 
       end
@@ -94,11 +94,11 @@ module Alchemy
         end
 
         it "should return the correct url string" do
-          helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/alchemy/#{@page.language_code}/testpage"
+          helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/#{@page.language_code}/testpage"
         end
 
         it "should return the correct url string with additional parameters" do
-          helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/alchemy/#{@page.language_code}/testpage?query=test"
+          helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/#{@page.language_code}/testpage?query=test"
         end
 
       end
@@ -110,11 +110,11 @@ module Alchemy
         end
 
         it "should return the correct url string" do
-          helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/alchemy/testpage"
+          helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/testpage"
         end
 
         it "should return the correct url string with additional parameter" do
-          helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/alchemy/testpage?query=test"
+          helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/testpage?query=test"
         end
 
       end
@@ -128,7 +128,7 @@ module Alchemy
       describe '#show_alchemy_picture_path' do
 
         it "should return the correct relative path string" do
-          helper.show_alchemy_picture_path(picture).should =~ Regexp.new("/alchemy/pictures/42/show/cute_kitten.jpg")
+          helper.show_alchemy_picture_path(picture).should =~ Regexp.new("/pictures/42/show/cute_kitten.jpg")
         end
 
       end
@@ -136,7 +136,7 @@ module Alchemy
       describe '#show_alchemy_picture_url' do
 
         it "should return the correct url string" do
-          helper.show_alchemy_picture_url(picture).should =~ Regexp.new("http://#{helper.request.host}/alchemy/pictures/42/show/cute_kitten.jpg")
+          helper.show_alchemy_picture_url(picture).should =~ Regexp.new("http://#{helper.request.host}/pictures/42/show/cute_kitten.jpg")
         end
 
       end

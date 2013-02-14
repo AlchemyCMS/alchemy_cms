@@ -20,7 +20,7 @@ describe "Modules" do
             :action => 'index'
           }
         })
-      visit '/alchemy/admin'
+      visit '/admin'
       click_on 'Events'
       page.should_not have_content('Upps!')
     end

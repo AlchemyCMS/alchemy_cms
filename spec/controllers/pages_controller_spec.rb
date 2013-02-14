@@ -178,20 +178,20 @@ describe Alchemy::PagesController do
       it "should redirect permanently to page that belongs to legacy page url." do
         get :show, :urlname => legacy_url.urlname
         response.status.should == 301
-        response.should redirect_to('/alchemy/new-page-name')
+        response.should redirect_to('/new-page-name')
       end
 
       it "should only redirect to legacy url if no page was found for urlname" do
         legacy_url
         get :show, :urlname => legacy_page.urlname
         response.status.should == 200
-        response.should_not redirect_to('/alchemy/new-page-name')
+        response.should_not redirect_to('/new-page-name')
       end
 
       it "should redirect to last page that has that legacy url" do
         legacy_url
         get :show, :urlname => legacy_url2.urlname
-        response.should redirect_to('/alchemy/second-page')
+        response.should redirect_to('/second-page')
       end
 
     end

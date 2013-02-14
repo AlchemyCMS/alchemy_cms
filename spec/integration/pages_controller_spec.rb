@@ -19,7 +19,7 @@ module Alchemy
         p = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
         article = p.elements.find_by_name('article')
         article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
-        visit "/alchemy/#{p.urlname}"
+        visit "/#{p.urlname}"
         within('div#content div.article div.intro') { page.should have_content('Welcome to Peters Petshop') }
       end
 
@@ -28,8 +28,8 @@ module Alchemy
           FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1'),
           FactoryGirl.create(:public_page, :visible => true, :name => 'Page 2')
         ]
-        visit '/alchemy/'
-        within('div#navigation ul') { page.should have_selector('li a[href="/alchemy/page-1"], li a[href="/alchemy/page-2"]') }
+        visit '/'
+        within('div#navigation ul') { page.should have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
       end
 
     end
@@ -39,42 +39,42 @@ module Alchemy
       before { search_page }
 
       it "should have a correct path in the form tag" do
-        visit('/alchemy/suche')
-        page.should have_selector('div#content form[action="/alchemy/suche"]')
+        visit('/suche')
+        page.should have_selector('div#content form[action="/suche"]')
       end
 
       context "performing the search" do
 
         it "should display search results for richtext essences" do
           element.content_by_name('text').essence.update_attributes(:body => '<p>Welcome to Peters Petshop</p>')
-          visit('/alchemy/suche?query=Petshop')
+          visit('/suche?query=Petshop')
           within('div#content .search_result') { page.should have_content('Petshop') }
         end
 
         it "should display search results for text essences" do
           element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/alchemy/suche?query=Petshop')
+          visit('/suche?query=Petshop')
           within('div#content .search_result') { page.should have_content('Petshop') }
         end
 
         it "should not find contents placed on global-pages (layoutpage => true)" do
           public_page_1.update_attributes(:layoutpage => true)
           element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/alchemy/suche?query=Petshop')
+          visit('/suche?query=Petshop')
           within('div#content') { page.should have_css('h2.no_search_results') }
         end
 
         it "should not find contents placed on unpublished pages (public => false)" do
           public_page_1.update_attributes(:public => false)
           element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/alchemy/suche?query=Petshop')
+          visit('/suche?query=Petshop')
           within('div#content') { page.should have_css('h2.no_search_results') }
         end
 
         it "should not find contents placed on restricted pages (restricted => true)" do
           public_page_1.update_attributes(:restricted => true)
           element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/alchemy/suche?query=Petshop')
+          visit('/suche?query=Petshop')
           within('div#content') { page.should have_css('h2.no_search_results') }
         end
 
@@ -93,7 +93,7 @@ module Alchemy
 
           it "should not display search results from other languages then current" do
             english_element.content_by_name('headline').essence.update_attributes(:body => 'Joes Hardware')
-            visit('/alchemy/de/suche?query=Hardware')
+            visit('/de/suche?query=Hardware')
             within('div#content') { page.should have_css('h2.no_search_results') }
             page.should_not have_css('div#content .search_result')
           end
@@ -115,8 +115,8 @@ module Alchemy
 
         context "if no language params are given" do
           it "should redirect to url with nested language code" do
-            visit "/alchemy/#{public_page_1.urlname}"
-            page.current_path.should == "/alchemy/#{public_page_1.language_code}/#{public_page_1.urlname}"
+            visit "/#{public_page_1.urlname}"
+            page.current_path.should == "/#{public_page_1.language_code}/#{public_page_1.urlname}"
           end
         end
 
@@ -129,14 +129,14 @@ module Alchemy
           end
 
           it "should redirect to public child" do
-            visit "/alchemy/#{default_language.code}/not-public"
-            page.current_path.should == "/alchemy/#{default_language.code}/public-child"
+            visit "/#{default_language.code}/not-public"
+            page.current_path.should == "/#{default_language.code}/public-child"
           end
 
           context "and url has no language code" do
             it "should redirect to url of public child with language code of default language" do
-              visit '/alchemy/not-public'
-              page.current_path.should == "/alchemy/#{default_language.code}/public-child"
+              visit '/not-public'
+              page.current_path.should == "/#{default_language.code}/public-child"
             end
           end
 
@@ -144,27 +144,27 @@ module Alchemy
 
         context "if requested url is index url" do
           it "should redirect to pages url with default language" do
-            visit '/alchemy/'
-            page.current_path.should == "/alchemy/#{default_language.code}/home"
+            visit '/'
+            page.current_path.should == "/#{default_language.code}/home"
           end
         end
 
         context "if requested url is only the language code" do
           it "should redirect to pages url with default language" do
-            visit "/alchemy/#{default_language.code}"
-            page.current_path.should == "/alchemy/#{default_language.code}/home"
+            visit "/#{default_language.code}"
+            page.current_path.should == "/#{default_language.code}/home"
           end
         end
 
         context "requested url is only the urlname" do
           it "then it should redirect to pages url with nested language." do
-            visit '/alchemy/home'
-            page.current_path.should == '/alchemy/de/home'
+            visit '/home'
+            page.current_path.should == '/de/home'
           end
         end
 
         it "should keep additional params" do
-          visit "/alchemy/#{public_page_1.urlname}?query=Peter"
+          visit "/#{public_page_1.urlname}?query=Peter"
           page.current_url.should match(/\?query=Peter/)
         end
 
@@ -174,12 +174,12 @@ module Alchemy
 
           it "should render 404 if urlname and lang parameter do not belong to same page" do
             FactoryGirl.create(:english)
-            visit "/alchemy/en/#{public_page_1.urlname}"
+            visit "/en/#{public_page_1.urlname}"
             page.status_code.should == 404
           end
 
           it "should render 404 if requested language does not exist" do
-            visit "/alchemy/fo/#{public_page_1.urlname}"
+            visit "/fo/#{public_page_1.urlname}"
             page.status_code.should == 404
           end
 
@@ -202,14 +202,14 @@ module Alchemy
             context "requesting a non nested url" do
 
               it "should redirect to nested url" do
-                visit "/alchemy/de/screwdriver"
-                page.current_path.should == '/alchemy/de/catalog/products/screwdriver'
+                visit "/de/screwdriver"
+                page.current_path.should == '/de/catalog/products/screwdriver'
               end
 
               it "should only redirect to nested url if page is nested" do
-                visit "/alchemy/de/catalog"
+                visit "/de/catalog"
                 page.status_code.should == 200
-                page.current_path.should == "/alchemy/de/catalog"
+                page.current_path.should == "/de/catalog"
               end
 
             end
@@ -225,8 +225,8 @@ module Alchemy
             context "requesting a nested url" do
 
               it "should redirect to not nested url" do
-                visit "/alchemy/de/catalog/products/screwdriver"
-                page.current_path.should == "/alchemy/de/screwdriver"
+                visit "/de/catalog/products/screwdriver"
+                page.current_path.should == "/de/screwdriver"
               end
 
             end
@@ -245,8 +245,8 @@ module Alchemy
         end
 
         it "should redirect from nested language code url to normal url" do
-          visit "/alchemy/de/#{public_page_1.urlname}"
-          page.current_path.should == "/alchemy/#{public_page_1.urlname}"
+          visit "/de/#{public_page_1.urlname}"
+          page.current_path.should == "/#{public_page_1.urlname}"
         end
 
         context "with no lang parameter" do
@@ -271,24 +271,24 @@ module Alchemy
           end
 
           it "if requested page is unpublished" do
-            visit '/alchemy/not-public'
-            page.current_path.should == '/alchemy/public-child'
+            visit '/not-public'
+            page.current_path.should == '/public-child'
           end
 
           it "with normal url, if requested url has nested language code and is not public" do
-            visit '/alchemy/de/not-public'
-            page.current_path.should == '/alchemy/public-child'
+            visit '/de/not-public'
+            page.current_path.should == '/public-child'
           end
 
         end
 
         it "should redirect to pages url, if requested url is index url" do
-          visit '/alchemy/'
-          page.current_path.should == '/alchemy/home'
+          visit '/'
+          page.current_path.should == '/home'
         end
 
         it "should keep additional params" do
-          visit "/alchemy/de/#{public_page_1.urlname}?query=Peter"
+          visit "/de/#{public_page_1.urlname}?query=Peter"
           page.current_url.should match(/\?query=Peter/)
         end
 
@@ -300,7 +300,7 @@ module Alchemy
 
       before do
         User.stub!(:admins).and_return([1, 2]) # We need a admin user or the signup page will show up
-        visit "/alchemy/non-existing-page"
+        visit "/non-existing-page"
       end
 
       context "if a language root page exists" do
@@ -319,7 +319,7 @@ module Alchemy
 
     context "with invalid byte code char in urlname parameter" do
       it "should render page not found" do
-        visit '/alchemy/%ed'
+        visit '/%ed'
         page.status_code.should == 404
       end
     end

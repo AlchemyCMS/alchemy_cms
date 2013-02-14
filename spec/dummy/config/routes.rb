@@ -6,6 +6,6 @@ Rails.application.routes.draw do
     resources :events
   end
 
-  mount Alchemy::Engine => "/alchemy"
+  mount Alchemy::Engine => "/"
 
 end

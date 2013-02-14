@@ -10,8 +10,8 @@ describe "Security: " do
   context "If no user is present" do
 
     it "render the signup view" do
-      visit '/alchemy'
-      current_path.should == '/alchemy/admin/signup'
+      visit '/'
+      current_path.should == '/admin/signup'
     end
   end
 
@@ -22,14 +22,14 @@ describe "Security: " do
     end
 
     it "a visitor should not be able to signup" do
-      visit '/alchemy/admin/signup'
+      visit '/admin/signup'
       within('#alchemy_greeting') { page.should_not have_content('have to signup') }
     end
 
     context "that is not logged in" do
       it "should see login-form" do
-        visit '/alchemy/admin/dashboard'
-        current_path.should == '/alchemy/admin/login'
+        visit '/admin/dashboard'
+        current_path.should == '/admin/login'
       end
     end
 
@@ -40,8 +40,8 @@ describe "Security: " do
       end
 
       it "should be redirected to dashboard" do
-        visit '/alchemy/admin/login'
-        current_path.should == '/alchemy/admin/dashboard'
+        visit '/admin/login'
+        current_path.should == '/admin/dashboard'
       end
 
     end

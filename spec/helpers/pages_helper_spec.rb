@@ -41,7 +41,7 @@ module Alchemy
         end
 
         it "should render the page navigation" do
-          helper.render_navigation.should have_selector("ul.navigation.level_1 li.#{visible_page.urlname} a[href=\"/alchemy/#{visible_page.urlname}\"]")
+          helper.render_navigation.should have_selector("ul.navigation.level_1 li.#{visible_page.urlname} a[href=\"/#{visible_page.urlname}\"]")
         end
 
         context "with enabled url nesting" do
@@ -52,7 +52,7 @@ module Alchemy
           end
 
           it "should render nested page links" do
-            helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/alchemy/#{visible_page.urlname}/#{level_2_page.urlname}/#{level_3_page.urlname}\"]")
+            helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/#{visible_page.urlname}/#{level_2_page.urlname}/#{level_3_page.urlname}\"]")
           end
 
         end
@@ -88,11 +88,11 @@ module Alchemy
         before { @page = level_2_page }
 
         it "should render the navigation from current page" do
-          helper.render_subnavigation.should have_selector("ul > li > a[href='/alchemy/#{level_2_page.urlname}']")
+          helper.render_subnavigation.should have_selector("ul > li > a[href='/#{level_2_page.urlname}']")
         end
 
         it "should set current page active" do
-          helper.render_subnavigation.should have_selector("a[href='/alchemy/#{level_2_page.urlname}'].active")
+          helper.render_subnavigation.should have_selector("a[href='/#{level_2_page.urlname}'].active")
         end
 
       end
@@ -102,11 +102,11 @@ module Alchemy
         before { @page = level_3_page }
 
         it "should render the navigation from current pages parent" do
-          helper.render_subnavigation.should have_selector("ul > li > ul > li > a[href='/alchemy/#{level_3_page.urlname}']")
+          helper.render_subnavigation.should have_selector("ul > li > ul > li > a[href='/#{level_3_page.urlname}']")
         end
 
         it "should set current page active" do
-          helper.render_subnavigation.should have_selector("a[href='/alchemy/#{level_3_page.urlname}'].active")
+          helper.render_subnavigation.should have_selector("a[href='/#{level_3_page.urlname}'].active")
         end
 
       end
@@ -116,17 +116,17 @@ module Alchemy
         before { @page = level_4_page }
 
         it "should render the navigation from current pages parents parent" do
-          helper.render_subnavigation.should have_selector("ul > li > ul > li > ul > li > a[href='/alchemy/#{level_4_page.urlname}']")
+          helper.render_subnavigation.should have_selector("ul > li > ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
         end
 
         it "should set current page active" do
-          helper.render_subnavigation.should have_selector("a[href='/alchemy/#{level_4_page.urlname}'].active")
+          helper.render_subnavigation.should have_selector("a[href='/#{level_4_page.urlname}'].active")
         end
 
         context "beginning with level 3" do
 
           it "should render the navigation beginning from its parent" do
-            helper.render_subnavigation(:level => 3).should have_selector("ul > li > ul > li > a[href='/alchemy/#{level_4_page.urlname}']")
+            helper.render_subnavigation(:level => 3).should have_selector("ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
           end
 
         end
