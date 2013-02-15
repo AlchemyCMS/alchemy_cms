@@ -73,7 +73,7 @@ module Alchemy
     after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
-    after_update :create_legacy_url, :if => :urlname_changed?
+    after_update :create_legacy_url, :if => proc { |page| page.urlname_changed? && !page.redirects_to_external? }
     after_destroy { elements.each {|el| el.destroy unless el.trashed? } }
 
     scope :language_roots, where(:language_root => true)
