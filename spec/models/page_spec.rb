@@ -161,20 +161,31 @@ module Alchemy
         end
 
         context "urlname has changed" do
-          it "should store legacy url" do
+
+          it "should store legacy url if page is not redirect to external page" do
             page.urlname = 'new-urlname'
             page.save!
             page.legacy_urls.should_not be_empty
             page.legacy_urls.first.urlname.should == 'my-testpage'
           end
+
+          it "should not store legacy url if page is redirect to external page" do
+            page.urlname = 'new-urlname'
+            page.page_layout = "external"
+            page.save!
+            page.legacy_urls.should be_empty
+          end
+
         end
 
         context "urlname has not changed" do
+
           it "should not store a legacy url" do
             page.urlname = 'my-testpage'
             page.save!
             page.legacy_urls.should be_empty
           end
+          
         end
 
       end
