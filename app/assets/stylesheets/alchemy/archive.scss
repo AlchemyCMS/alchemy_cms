@@ -322,17 +322,17 @@ div#alchemy_window_body div#tag_list ul {
 
 div#pictures_page_list {
 
-  h2 { margin: 0 8px }
-  h3 { padding: 0 }
+  h2 { margin: 0 2*$default-padding }
+  h3 { padding: 0 $default-padding }
 
   ul.list {
-    height: 100px;
+    max-height: 100px;
     overflow: auto;
-    margin: 8px;
+    margin: 2*$default-margin;
     background-color: $medium-gray;
 
-    ul { padding: 0 4px }
+    ul { padding: 0 $default-padding }
   }
 
-  li.even, li.odd { padding: 4px }
+  li.even, li.odd { padding: $default-padding }
 }

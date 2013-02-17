@@ -90,6 +90,7 @@ td.checkbox {
 
 td.value {
   padding-top: 4px;
+  overflow: hidden;
 
   p {
     @include inline-block;
