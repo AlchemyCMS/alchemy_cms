@@ -316,8 +316,15 @@ div#tag_list {
   }
 }
 
-div#alchemy_window_body div#tag_list ul {
-  height: 364px;
+div#alchemy_window_body {
+
+  #library_sidebar {
+    padding: 0 4*$default-padding;
+  }
+
+  div#tag_list ul {
+    height: 364px;
+  }
 }
 
 div#pictures_page_list {
