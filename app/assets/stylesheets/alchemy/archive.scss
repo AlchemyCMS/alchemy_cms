@@ -244,7 +244,7 @@ div#library_sidebar {
   right: 0;
   width: 232px;
   padding-top: 96px;
-  padding: 0 4*$default-padding;
+  padding: 84px 4*$default-padding 0 4*$default-padding;
   height: 100%;
   z-index: 1;
   background-color: $light-gray;
@@ -263,7 +263,7 @@ div#filter_bar {
 
 div#tag_list {
   @include box-sizing(border-box);
-  height: 85%;
+  height: 80%;
 
   .js_filter_field_box {
 
