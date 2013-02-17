@@ -306,6 +306,7 @@ de:
     searchresults_editor_info: "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
     element_dirty_notice: "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich einklappen?"
     "Tags": "Tags"
+    "These pictures could not be deleted, because they where in use": "Diese Bilder konnten nicht gelöscht werden, da sie in Benutzung sind: %{names}"
     "This page is locked by %{name}": "Diese Seite wird gerade von %{name} blockiert"
     "Title": "Titel"
     "Trash": "Papierkorb"
