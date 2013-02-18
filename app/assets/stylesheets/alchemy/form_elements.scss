@@ -319,10 +319,11 @@ select {
  * Author: @gregfranko
  */
 
-form td.select .selectboxit {
+td.select .selectboxit {
 
   .selectboxit-text {
     line-height: 17px !important;
+    max-width: 80% !important;
   }
 }
 
