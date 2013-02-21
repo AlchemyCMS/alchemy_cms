@@ -23,5 +23,25 @@ module Alchemy
 
     end
 
+    context 'mp3 file' do
+      subject { stub_model(Attachment, :content_type => 'audio/mpeg') }
+      its(:icon_css_class) { should == "audio" }
+    end
+
+    context 'png file' do
+      subject { stub_model(Attachment, :content_type => 'image/png') }
+      its(:icon_css_class) { should == "image" }
+    end
+
+    context 'vcf file' do
+      subject { stub_model(Attachment, :content_type => 'application/vcard') }
+      its(:icon_css_class) { should == "vcard" }
+    end
+
+    context 'zip file' do
+      subject { stub_model(Attachment, :content_type => 'application/zip') }
+      its(:icon_css_class) { should == "archive" }
+    end
+
   end
 end
