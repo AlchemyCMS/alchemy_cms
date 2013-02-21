@@ -1,5 +1,6 @@
 module Alchemy
   class Picture < ActiveRecord::Base
+    include NameConversions
 
     has_many :essence_pictures, :class_name => 'Alchemy::EssencePicture', :foreign_key => 'picture_id'
     has_many :contents, :through => :essence_pictures
@@ -22,7 +23,8 @@ module Alchemy
     end
 
     validates_presence_of :image_file
-    validates_property :format, :of => :image_file, :in => Config.get('uploader')['allowed_filetypes']['pictures'], :case_sensitive => false, :message => I18n.t("not a valid image")
+    validates_size_of :image_file, :maximum => Config.get(:uploader)['file_size_limit'].megabytes
+    validates_property :format, :of => :image_file, :in => Config.get(:uploader)['allowed_filetypes']['pictures'], :case_sensitive => false, :message => I18n.t("not a valid image")
 
     acts_as_taggable
 
@@ -38,20 +40,23 @@ module Alchemy
     scope :recent, where("#{self.table_name}.created_at > ?", Time.now-24.hours).order(:created_at)
     scope :deletable, where("alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
 
-    def self.find_paginated(params, per_page)
-      Picture.where("name LIKE ?", "%#{params[:query]}%").page(params[:page] || 1).per(per_page).order(:name)
+    # Class methods
+
+    class << self
+
+      def find_paginated(params, per_page)
+        Picture.where("name LIKE ?", "%#{params[:query]}%").page(params[:page] || 1).per(per_page).order(:name)
+      end
+
+      def last_upload
+        last_picture = Picture.last
+        return Picture.scoped unless last_picture
+        Picture.where(:upload_hash => last_picture.upload_hash)
+      end
+
     end
 
-    def self.last_upload
-      last_picture = Picture.last
-      return Picture.scoped unless last_picture
-      Picture.where(:upload_hash => last_picture.upload_hash)
-    end
-
-    # Returning the filepath relative to Rails.root public folder.
-    def public_file_path
-      self.file_path.gsub("#{::Rails.root}/public", '')
-    end
+    # Instance methods
 
     def urlname
       if self.name.blank?
@@ -67,7 +72,7 @@ module Alchemy
 
     def humanized_name
       return "" if image_file_name.blank?
-      (image_file_name.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '')).humanize
+      convert_to_humanized_name(image_file_name, suffix)
     end
 
     # Returning true if picture's width is greater than it's height

@@ -3,27 +3,32 @@
     <%= render_icon attachment.icon_css_class %>
   </td>
   <td class="name">
-  <% if permitted_to?(:show, :attachments) %>
-    <%= link_to(
+  <% if permitted_to?(:show, :alchemy_attachments) && %w(audio image video flash pdf text).include?(attachment.icon_css_class) %>
+    <%= link_to_overlay_window(
       attachment.name,
       alchemy.admin_attachment_path(attachment),
-      :target => '_blank',
-      :title => _t('View File')
+      {
+        :title => attachment.name,
+        :size => "fullscreen"
+      },
+      {
+        :title => _t('View File')
+      }
     ) %>
   <% else %>
     <%= attachment.name %>
   <% end %>
   </td>
-  <td class="file_name"><%= attachment.filename %></td>
-  <td class="file_type"><%= mime_to_human(attachment.content_type) %></td>
-  <td class="file_size"><%= number_to_human_size(attachment.size) %></td>
+  <td class="file_name"><%= attachment.file_name %></td>
+  <td class="file_type"><%= mime_to_human(attachment.file_mime_type) %></td>
+  <td class="file_size"><%= number_to_human_size(attachment.file_size) %></td>
   <td class="date"><%= l(attachment.created_at, :format => :short) %></td>
   <td class="tools long">
   <% permitted_to?(:download, :alchemy_attachments) do %>
     <%= link_to(
       "",
       alchemy.download_admin_attachment_path(attachment),
-      :title => _t("download_file", :filename => attachment.filename),
+      :title => _t("download_file", :filename => attachment.file_name),
       :class => "icon file_download"
     ) %>
   <% end %>

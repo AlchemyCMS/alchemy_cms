@@ -11,19 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214233001) do
+ActiveRecord::Schema.define(:version => 20130221200514) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
-    t.string   "filename"
-    t.string   "content_type"
-    t.integer  "size"
+    t.string   "file_name"
+    t.string   "file_mime_type"
+    t.integer  "file_size"
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.text     "cached_tag_list"
+    t.string   "file_uid"
   end
+
+  add_index "alchemy_attachments", ["file_uid"], :name => "index_alchemy_attachments_on_file_uid"
 
   create_table "alchemy_cells", :force => true do |t|
     t.integer  "page_id"
