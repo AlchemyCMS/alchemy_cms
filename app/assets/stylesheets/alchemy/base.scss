@@ -281,18 +281,6 @@ ul.list span.right {
   font-weight: bold;
 }
 
-/* @group image_upload */
-
-table td.tools .icon, table td.icon .icon {
-  width: 16px;
-  height: 16px;
-  @extend .disable-user-select;
-  margin-top: 0;
-  background-repeat: no-repeat;
-  @include inline-block;
-  margin-right: 4px;
-}
-
 div.spinner {
   background-color: #ffffff;
   width: 100%;

@@ -9,7 +9,7 @@
     <%- else -%>
     <th>
     <%- end -%>
-    <%= resource_handler.model.human_attribute_name(attribute[:name]) %>
+    <%= sortable_column(resource_handler.model.human_attribute_name(attribute[:name]), :column => attribute[:name]) %>
     </th>
     <%- end -%>
     <th class="tools"></th>

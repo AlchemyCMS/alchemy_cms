@@ -21,12 +21,22 @@
     <tr>
       <th class="icon"></th>
       <th class="login_status"></th>
-      <th class="login"><%= Alchemy::User.human_attribute_name('login') %></th>
-      <th class="name"><%= Alchemy::User.human_attribute_name('firstname') %></th>
-      <th><%= Alchemy::User.human_attribute_name('lastname') %></th>
-      <th class="email"><%= Alchemy::User.human_attribute_name('email') %></th>
+      <th class="login">
+        <%= sortable_column(Alchemy::User.human_attribute_name('login'), :column => :login) %>
+      </th>
+      <th class="name">
+        <%= sortable_column(Alchemy::User.human_attribute_name('firstname'), :column => :firstname) %>
+      </th>
+      <th>
+        <%= sortable_column(Alchemy::User.human_attribute_name('lastname'), :column => :lastname) %>
+      </th>
+      <th class="email">
+        <%= sortable_column(Alchemy::User.human_attribute_name('email'), :column => :email) %>
+      </th>
       <th><%= Alchemy::User.human_attribute_name('language') %></th>
-      <th><%= Alchemy::User.human_attribute_name('last_sign_in_at') %></th>
+      <th>
+        <%= sortable_column(Alchemy::User.human_attribute_name('last_sign_in_at'), :column => :last_sign_in_at) %>
+      </th>
       <th class="role"><%= Alchemy::User.human_attribute_name('role') %></th>
       <th class="tools"></th>
     </tr>

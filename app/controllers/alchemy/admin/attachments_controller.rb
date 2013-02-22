@@ -1,6 +1,6 @@
 module Alchemy
   module Admin
-    class AttachmentsController < Alchemy::Admin::BaseController
+    class AttachmentsController < ResourcesController
 
       protect_from_forgery :except => [:create]
 
@@ -8,7 +8,7 @@ module Alchemy
         if in_overlay?
           archive_overlay
         else
-          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size)
+          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sortable_column_order)
         end
       end
 
