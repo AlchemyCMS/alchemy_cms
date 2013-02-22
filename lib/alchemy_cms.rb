@@ -3,7 +3,6 @@ require 'rails'
 if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'acts_as_list'
   require 'acts-as-taggable-on'
-  require 'attachment_magic'
   require 'devise'
   require 'devise-encryptable'
   require 'awesome_nested_set'
