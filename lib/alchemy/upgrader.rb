@@ -276,6 +276,29 @@ WARN
         end
       end
 
+      def convert_attachment_storage
+        desc "Convert the attachment storage"
+        attachments = Dir.glob Rails.root.join 'uploads/attachments/**/*.*'
+        if attachments.blank?
+          log "No attachments found", :skip
+        else
+          attachments.each do |attachment|
+            file_uid = attachment.gsub(/#{Rails.root.to_s}\/uploads\/attachments\//, '')
+            url_parts = file_uid.split('/')
+            file_id = url_parts[url_parts.length-2].to_i
+            attachment = Alchemy::Attachment.find_by_id(file_id)
+            if attachment && attachment.file_uid.blank?
+              attachment.file_uid = file_uid
+              if attachment.save!
+                log "Converted #{file_uid}"
+              end
+            else
+              log "Attachment with id #{file_id} not found or already converted.", :skip
+            end
+          end
+        end
+      end
+
       def removed_standard_set_notice
         warn = <<-WARN
 We removed the standard set from Alchemy core!
