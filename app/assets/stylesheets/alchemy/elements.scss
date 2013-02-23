@@ -383,16 +383,15 @@ a.fold_element {
 .edit_images_bottom a.linked {
   position: relative;
   @extend .rounded-border;
-  background-image: url('shading.png');
-  background-repeat: repeat-x;
-  background-position: 0 -75px;
-  background-color: #ffd77a;
+  background-color: $linked-color;
   border: 1px solid #9a9a9a;
   bottom: 1px;
   margin-right: 2px;
-  width: 17px;
-  height: 17px;
-  margin-left: 1px;
+  width: 18px;
+  height: 18px;
+  margin-left: 0;
+
+  .icon { margin-left: 1px }
 }
 
 .edit_images_bottom a.disabled {

@@ -31,7 +31,8 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressBarContainer {
-  background: #F9F9F9 url('shading.png') repeat-x 0 0;
+  background-color: #F9F9F9;
+  @include background-image(linear-gradient(top, darken($medium-gray, 10) 5%, $light-gray 35%, lighten($light-gray, 10) 90%));
   border: 1px solid #9E9E9E;
   @extend .rounded-border;
   height: 16px;
@@ -40,25 +41,29 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressBarInProgress {
-  background: #77AAD5 url('shading.png') repeat-x 0 -75px;
+  background-color: #77AAD5;
+  @extend %progressbar;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarComplete {
-  background: #00D827 url('shading.png') repeat-x 0 -75px;
+  background-color: #00D827;
+  @extend %progressbar;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarError {
-  background: #F00 url('shading.png') repeat-x 0 -75px;
+  background-color: #F00;
+  @extend %progressbar;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarCanceled {
-  background: #E4E4E4 url('shading.png') repeat-x 0 -75px;
+  background-color: #E4E4E4;
+  @extend %progressbar;
   height: 16px;
   width: 0;
 }

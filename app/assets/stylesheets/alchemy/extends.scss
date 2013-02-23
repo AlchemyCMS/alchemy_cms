@@ -117,6 +117,15 @@
   &.with_error { @extend %field-with-error }
 }
 
+%gradiated-toolbar {
+  background: $medium-gray;
+  @include background(linear-gradient(top, $medium-gray 85%, darken($medium-gray, 10) 100%));
+}
+
+%progressbar {
+  @include background-image(linear-gradient(top, rgba(lighten($light-gray, 10), .5) 5%, rgba($light-gray, 0.5) 65%, rgba(darken($medium-gray, 10), 0.5) 90%));
+}
+
 // Useful base classes
 
 .rounded-border {

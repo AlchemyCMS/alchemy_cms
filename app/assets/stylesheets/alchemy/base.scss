@@ -764,8 +764,8 @@ ul#assign_file_list {
 }
 
 ul#sitemap li .sitemap_sitename.selected_page a {
-  background-color: #DB694C;
-  color: #f5f5f5;
+  background-color: $linked-color;
+  color: $dark-gray;
 }
 
 #alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
@@ -833,7 +833,7 @@ select#url_protocol.medium {
 }
 
 div#overlay_toolbar {
-  background: $medium-gray url('shading.png') repeat-x 0 -42px;
+  @extend %gradiated-toolbar;
   border: $default-border;
   height: 44px;
   border-top-style: none;
