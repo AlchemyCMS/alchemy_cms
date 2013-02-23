@@ -31,7 +31,7 @@ module Alchemy
           @swap = params[:swap]
           @options = hashified_options
         end
-        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size)
+        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sortable_column_order)
         @message = _t('File %{name} uploaded succesfully', :name => @attachment.name)
         # Are we using the Flash uploader? Or the plain html file uploader?
         if params[Rails.application.config.session_options[:key]].blank?
