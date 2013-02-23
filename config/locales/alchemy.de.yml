@@ -519,10 +519,6 @@ de:
     pages:
       update:
         comma_seperated: "Durch Kommata getrennt eingeben"
-    pagination:
-      next_page: "nächste Seite &raquo;"
-      previous_page: "&laquo; vorherige Seite"
-      truncate: '...'
     password: "Passwort"
     paste: "einfügen"
     picture_gallery_editor: 'Bilder'
@@ -952,3 +948,11 @@ de:
 
     errors:
       <<: *errors
+
+  views:
+    pagination:
+      first: "erste Seite"
+      previous_page: "vorherige Seite"
+      next_page: "nächste Seite"
+      last: "letzte Seite"
+      truncate: '...'

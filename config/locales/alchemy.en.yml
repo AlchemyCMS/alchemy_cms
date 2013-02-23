@@ -345,10 +345,6 @@ en:
     pages:
       update:
         comma_seperated: "Separate by comma"
-    pagination:
-      next_page: "next page &raquo;"
-      previous_page: "&laquo; previous page"
-      truncate: '...'
     password: "Password"
     picture_gallery_editor: 'Pictures'
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
@@ -683,3 +679,11 @@ en:
 
     errors:
       <<: *errors
+
+  views:
+    pagination:
+      first: "First Page"
+      previous_page: "Previous Page"
+      next_page: "Next Page"
+      last: "Last Page"
+      truncate: '...'
