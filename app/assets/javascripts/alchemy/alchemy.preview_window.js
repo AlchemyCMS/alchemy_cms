@@ -51,7 +51,11 @@ if (typeof(Alchemy) === 'undefined') {
           }
         }).dialogExtend({
           "maximize": true,
-          "dblclick": "maximize"
+          "dblclick": "maximize",
+          "icons" : {
+            "maximize" : "ui-icon-fullscreen",
+            "restore" : "ui-icon-exit-fullscreen"
+          }
         });
       } else {
         $('#alchemyPreviewWindow').dialog('open');

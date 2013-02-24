@@ -291,13 +291,11 @@ div#tag_list {
       position: relative;
 
       &:before {
-        content: '';
         position: absolute;
         left: 8px;
         top: 7px;
-        background: url("ui-icons_666666_256x240.png") -242px -100px;
-        width: 12px;
-        height: 12px;
+        font-family: 'Alchemy Icons';
+        @extend .icon-tag:before;
       }
 
       a {
@@ -310,7 +308,7 @@ div#tag_list {
       &.active {
         background-color: $dark-gray;
 
-        a { color: $light-gray }
+        a, &:before { color: $light-gray }
       }
     }
   }

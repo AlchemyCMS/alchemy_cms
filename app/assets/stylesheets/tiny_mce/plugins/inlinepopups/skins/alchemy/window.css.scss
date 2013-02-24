@@ -199,12 +199,13 @@ a.mceMove {
 }
 
 .alchemy .mceClose {
-  right: 8px;
-  background: image-url("alchemy/ui-icons_666666_256x240.png") -96px -128px;
+  @extend .icon-cancel;
   width: 16px;
   height: 16px;
-  top: 6px;
-
+  top: 7px;
+  right: 8px;
+  text-align: center;
+  &:before { font-size: 16px }
 }
 
 .alchemy .mceMin {
@@ -217,8 +218,9 @@ a.mceMove {
   right: 28px;
   width: 16px;
   height: 16px;
-  background: image-url("alchemy/ui-icons_666666_256x240.png") -49px -80px;
+  @extend .icon-exit-fullscreen;
   top: 6px;
+  padding-top: 3px;
 }
 
 .alchemy .mceMax {
@@ -226,11 +228,13 @@ a.mceMove {
   right: 28px;
   width: 16px;
   height: 16px;
-  background: image-url("alchemy/ui-icons_666666_256x240.png") -32px -80px;
+  @extend .icon-fullscreen;
   top: 6px;
+  padding-top: 3px;
 }
 
 .alchemy .mceClose, .alchemy .mceMin, .alchemy .mceMed, .alchemy .mceMax {
+
   &:hover {
     border: 1px solid $button-hover-border-color;
     @extend .rounded-border;
@@ -242,22 +246,15 @@ a.mceMove {
 
 .alchemy .mceClose {
   &:hover {
-    background-position: -97px -129px;
-    right: 6px;
+    top: 6px;
+    right: 7px;
   }
 }
 
-.alchemy .mceMax {
+.alchemy .mceMax, .alchemy .mceMed {
   &:hover {
-    background-position: -33px -81px;
-    right: 26px;
-  }
-}
-
-.alchemy .mceMed {
-  &:hover {
-    background-position: -50px -81px;
-    right: 26px;
+    top: 5px;
+    right: 27px;
   }
 }
 
