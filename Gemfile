@@ -5,7 +5,6 @@ gemspec
 #For some strange reason it's only loaded outside any group
 gem 'jasmine'
 gem 'jasminerice'
-gem 'handles_sortable_columns', github: 'dadooda/handles_sortable_columns'
 
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'

@@ -11,6 +11,7 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'jquery-rails'
   require 'jquery-ui-rails'
   require 'rails3-jquery-autocomplete'
+  require 'handles_sortable_columns'
   require 'kaminari'
   require 'userstamp'
   require 'yaml'
