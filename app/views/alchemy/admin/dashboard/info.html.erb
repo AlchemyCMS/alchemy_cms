@@ -43,7 +43,7 @@
 </div>
 <%= javascript_tag do %>
   $('#load_info').show();
-  $.get('<%= update_check_path %>', function(data, textStatus, jqXHR) {
+  $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
     if (data == 'true') {
       $('#update_available').show();
     } else {
