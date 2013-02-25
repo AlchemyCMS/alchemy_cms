@@ -47,6 +47,8 @@
         page_id = $this.data('page-id')
         url = $this.data('url')
         self.selectPage(page_id, url)
+        if $this.is('.show_elements_to_link')
+          Alchemy.Spinner.small().spin($this.next()[0])
         self.showElementsSelect(page_id) if $this.hasClass('show_elements_to_link')
 
     close : ->
@@ -54,9 +56,9 @@
       return true
 
     selectPage : (selected_element, urlname) ->
-      $('#page_anchor').removeAttr('value')
       # We have to remove the Attribute. If not the value does not get updated.
-      $('.elements_for_page').hide()
+      $('#page_anchor').removeAttr('value')
+      $('.elements_for_page').hide().html('')
       $('#internal_urlname').val('/' + urlname)
       $('#alchemyLinkOverlay #sitemap .selected_page').removeClass('selected_page')
       $('#sitemap_sitename_' + selected_element).addClass('selected_page').attr('name', urlname)
@@ -153,7 +155,6 @@
 
     hideElementsSelect: (id) ->
       $('#elements_for_page_' + id).hide()
-      $('#elements_for_page_' + id).html('<img src="/assets/alchemy/ajax_loader.gif" alt="">')
       $('#page_anchor').removeAttr('value')
       $('#page_selector_container').scrollTo('#sitemap_sitename_'+id, {duration: 400, offset: -10})
 

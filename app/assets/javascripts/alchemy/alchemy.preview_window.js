@@ -14,7 +14,7 @@ if (typeof(Alchemy) === 'undefined') {
       if ($iframe.length === 0) {
         $iframe = $('<iframe src="' + url + '" id="alchemyPreviewWindow" frameborder="0"></iframe>');
         $iframe.load(function() {
-          $('#preview_load_info').hide();
+          $('.preview-refresh-spinner').hide();
         });
         $iframe.css({
           'background-color': '#ffffff'
@@ -32,12 +32,12 @@ if (typeof(Alchemy) === 'undefined') {
           autoResize: true,
           closeOnEscape: false,
           create: function() {
-            var $spinner = $('<img src="/assets/alchemy/ajax_loader.gif" alt="" id="preview_load_info" />');
+            var spinner = Alchemy.Spinner.small({className: 'preview-refresh-spinner'});
             var $reload = $('<a href="#" class="ui-dialog-titlebar-refresh ui-corner-all" role="button"></a>');
-            var titlebar = $('#alchemyPreviewWindow').prev();
+            var $titlebar = $('#alchemyPreviewWindow').prev();
             $reload.append('<span class="ui-icon ui-icon-refresh">reload</span>');
-            titlebar.append($reload);
-            titlebar.append($spinner);
+            $titlebar.append($reload);
+            $titlebar.append(spinner.spin().el);
             $reload.click(Alchemy.reloadPreview);
           },
           close: function(event, ui) {
@@ -64,9 +64,9 @@ if (typeof(Alchemy) === 'undefined') {
 
     refresh: function() {
       var $iframe = $('#alchemyPreviewWindow');
-      $('#preview_load_info').show();
+      $('.preview-refresh-spinner').show();
       $iframe.load(function() {
-        $('#preview_load_info').hide();
+        $('.preview-refresh-spinner').hide();
       });
       $iframe.attr('src', $iframe.attr('src'));
       return true;

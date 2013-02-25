@@ -14,6 +14,7 @@
 //= require tiny_mce/tiny_mce
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/
+//= require ../../../../vendor/assets/javascripts/spin.min
 //= require alchemy/alchemy.routes
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.browser
@@ -31,6 +32,7 @@
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.file_progress
+//= require alchemy/alchemy.spinner
 //= require alchemy/alchemy.swf_upload
 //= require alchemy/alchemy.windows
 //= require alchemy/alchemy.preview_window
