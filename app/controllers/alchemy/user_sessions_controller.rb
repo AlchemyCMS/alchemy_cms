@@ -1,13 +1,14 @@
 module Alchemy
   class UserSessionsController < Devise::SessionsController
+    # Necessary because this controller is also used for general login.
+    include Alchemy::FerretSearch
+    helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
 
     before_filter { enforce_ssl if ssl_required? && !request.ssl? }
     before_filter :set_translation
     before_filter :check_user_count, :only => :new
 
-    layout 'alchemy/admin'
-
-    helper 'Alchemy::Admin::Base'
+    layout 'alchemy/login'
 
     def new
       super
