@@ -41,9 +41,9 @@
     </li>
   </ul>
 </div>
-<script type="text/javascript">
+<%= javascript_tag do %>
   $('#load_info').show();
-  $.get('/admin/dashboard/update_check', function(data, textStatus, jqXHR) {
+  $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
     if (data == 'true') {
       $('#update_available').show();
     } else {
@@ -54,4 +54,4 @@
   }).always(function() {
     $('#load_info').hide();
   });
-</script>
+<% end %>
