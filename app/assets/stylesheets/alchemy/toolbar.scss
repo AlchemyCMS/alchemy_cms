@@ -2,7 +2,7 @@
   z-index: 10;
   padding: 4px;
   height: 44px;
-  background: $medium-gray url('shading.png') repeat-x 0 -40px;
+  @extend %gradiated-toolbar;
   margin-right: 0px;
   border: $default-border;
   border-top-style: none;

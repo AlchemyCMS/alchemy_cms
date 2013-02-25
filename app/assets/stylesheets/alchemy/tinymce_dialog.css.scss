@@ -188,7 +188,6 @@ td.charmap, #charmap a {
 
   #codeN {
     font-size: 10px;
-    font-family: "Lucida Grande", Arial, sans-serif;
     text-align: center
   }
 
@@ -216,7 +215,7 @@ td.charmap, #charmap a {
 
 .tabs {
   width: 100%;
-  height: 18px;
+  height: 27px;
   line-height: normal;
 }
 
@@ -228,14 +227,14 @@ td.charmap, #charmap a {
 
 .tabs li {
   float: left;
-  background: url('shading.png') repeat-x 0 0;
   margin: 0 2px 0 0;
-  padding: 0 0 0 10px;
+  padding: 4px 12px;
   line-height: 17px;
   height: 18px;
   display: block;
   border: 1px solid #9a9a9a;
   border-bottom-style: none;
+  @extend .top-rounded-border;
 }
 
 .tabs li.current {
@@ -247,18 +246,15 @@ td.charmap, #charmap a {
 .tabs span {
   float: left;
   display: block;
-  background: image-url('tiny_mce/themes/advanced/skins/default/img/tabs.gif') no-repeat right -36px;
-  padding: 0px 10px 0 0;
+  padding: 0;
 }
 
 .tabs .current span {
-  background: image-url('tiny_mce/themes/advanced/skins/default/img/tabs.gif') no-repeat right -54px;
+
 }
 
 .tabs a {
   text-decoration: none;
-  font-family: "Lucida Grande", Arial, sans-serif;
-  font-size: 10px;
 }
 
 .tabs a:link, .tabs a:visited, .tabs a:hover {
@@ -274,11 +270,11 @@ td.charmap, #charmap a {
 .panel_wrapper div.current {
   display: block;
   width: 100%;
-  height: 300px;
+  height: 287px;
   overflow: visible;
 }
 
-div#general_panel { height: 245px }
+div#general_panel { height: 287px }
 
 div#advanced_panel { height: 300px }
 
@@ -324,7 +320,7 @@ h3 {
 
 .title {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: normal;
   color: $text-color;
 }
 
@@ -415,4 +411,10 @@ h3 {
 #iframecontainer iframe#iframe {
   @extend %default-input-style;
   padding: 0;
+}
+
+#htmlSource {
+  margin-top: 1em;
+  height: 496px !important;
+  margin-bottom: 4px;
 }

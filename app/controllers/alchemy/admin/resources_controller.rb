@@ -8,6 +8,13 @@ module Alchemy
 
       before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
 
+      handles_sortable_columns do |c|
+        c.default_sort_value = :name
+        c.link_class = 'sortable'
+        c.indicator_class = {:asc => "sorted asc", :desc => "sorted desc"}
+        c.indicator_text = {:asc => "<i>&nbsp;&darr;&nbsp;</i>", :desc => "<i>&nbsp;&uarr;&nbsp;</i>"}
+      end
+
       def index
         if params[:query].blank?
           items = resource_handler.model

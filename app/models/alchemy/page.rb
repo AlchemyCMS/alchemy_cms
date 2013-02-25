@@ -1,6 +1,6 @@
-# encoding: UTF-8
 module Alchemy
   class Page < ActiveRecord::Base
+    include NameConversions
 
     RESERVED_URLNAMES = %w(admin messages new)
     DEFAULT_ATTRIBUTES_FOR_COPY = {
@@ -64,7 +64,7 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_validation :set_url_name, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
+    before_validation :set_urlname, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
     before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
     before_save :set_language_code, :unless => :systempage?
     before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
@@ -336,14 +336,6 @@ module Alchemy
       !self.urlname.blank?
     end
 
-    def set_url_name
-      self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
-    end
-
-    def set_title
-      self.title = self.name
-    end
-
     def show_in_navigation?
       if visible?
         return true
@@ -574,12 +566,26 @@ module Alchemy
       pages.order(order_direction).limit(1).first
     end
 
-    # Converts the given nbame into an url friendly string
-    # Names shorter than 3 will be filled with dashes, so it does not collidate with the language code.
+    def set_urlname
+      self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
+    end
+
+    def set_title
+      self.title = self.name
+    end
+
+    # Converts the given name into an url friendly string.
+    #
+    # Names shorter than 3 will be filled up with dashes,
+    # so it does not collidate with the language code.
+    #
     def convert_url_name(name)
-      url_name = name.gsub(/[äÄ]/, 'ae').gsub(/[üÜ]/, 'ue').gsub(/[öÖ]/, 'oe').parameterize
-      url_name = ('-' * (3 - url_name.length)) + url_name if url_name.length < 3
-      return url_name
+      url_name = convert_to_urlname(name)
+      if url_name.length < 3
+        ('-' * (3 - url_name.length)) + url_name
+      else
+        url_name
+      end
     end
 
     # Looks in the page_layout descripion, if there are elements to autogenerate.

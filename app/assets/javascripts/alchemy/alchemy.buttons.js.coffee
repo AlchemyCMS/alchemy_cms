@@ -14,13 +14,14 @@ Alchemy.Buttons =
 
   disable: (button) ->
     $button = $(button)
-    spinner = '<img src="/assets/alchemy/ajax_loader.gif" style="width: 16px; height: 16px">'
+    spinner = Alchemy.Spinner.small()
     $button.data('label', $button.text())
     $button.attr('disabled', true)
     $button.addClass('disabled')
     $button.css
       width: $button.outerWidth()
-    $button.html(spinner)
+    $button.text('')
+    spinner.spin($button[0])
     return true
 
   enable: (scope) ->

@@ -4,30 +4,84 @@ table {
   padding: 0;
   font-size: inherit;
   width: 100%;
+}
 
-  td, th {
-    padding: $default-padding;
-    vertical-align: top;
-    line-height: 18px;
+.list td, .list th {
+  padding: $default-padding 2*$default-padding;
+  vertical-align: top;
+  line-height: 18px;
+  border-right: 1px solid $medium-gray;
 
-    &.wrap-text {
-      white-space: normal !important;
-    }
-  }
-
-  th {
-    white-space: nowrap;
-    text-align: left;
-    height: 22px;
-    vertical-align: top;
+  &.wrap-text {
+    white-space: normal !important;
   }
 }
 
-table tr td.tools {
+.list td:first-child, .list th:first-child {
+  border-left: 1px solid $medium-gray
+}
+
+th {
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: top;
+  @include background(linear-gradient(top, lighten($light-gray, 10) 0%, $light-gray 30%, $light-gray 90%, darken($light-gray, 10) 100%));
+  border-top: 1px solid $medium-gray;
+  color: #666;
+  font-weight: normal;
+  position: relative;
+
+  i {
+    font-style: normal;
+    position: absolute;
+    right: 2px;
+    top: 5px;
+    color: #999;
+    @include text-shadow(1px 1px 0px #fff);
+  }
+
+  a {
+    @include text-shadow(1px 1px 0px #fff);
+
+    &.sortable {
+      display: block;
+      padding-right: 17px;
+
+    }
+
+    &.sorted {
+      margin: -4px -8px;
+      padding: 4px 8px;
+      @include background(linear-gradient(top, lighten($light-gray, 10) 0%, $very-light-blue 50%, $light-gray 90%, darken($light-gray, 10) 100%));
+    }
+  }
+}
+
+tr.odd td {
+  background-color: #eaf3f9;
+}
+
+tr.even td {
+  background-color: white;
+}
+
+.list tr .tools {
   width: 40px;
-  background-color: $light-gray;
+  background: $light-gray;
+  border-top: 0 none;
+  border-right: 0 none;
   white-space: nowrap;
   @extend .disable-user-select;
+
+  a {
+    width: 19px;
+    height: 19px;
+    margin-right: 2px;
+  }
+
+  &.long {
+    width: 60px;
+  }
 }
 
 td.label, td.input, td.submit, td.select, td.value, td.note {
@@ -90,6 +144,7 @@ td.checkbox {
 
 td.value {
   padding-top: 4px;
+  overflow: hidden;
 
   p {
     @include inline-block;
@@ -112,23 +167,30 @@ td.heading {
   text-decoration: underline;
 }
 
-table tr td.tools a {
-  width: 19px;
-  height: 19px;
-  margin-right: 2px;
-}
-
-table tr td.tools.long {
-  width: 60px;
-}
-
-table tr td.icon {
+.list td.icon, .list th.icon {
   background-color: $light-gray;
-  width: 20px;
+  background-image: none;
+  border: 0 none;
+  padding: 0;
+  border-right: 1px solid $medium-gray;
   text-align: center;
+  display: table-cell; // reset the .icon display: inline-block
 }
 
-table.list tr:hover td {
+.list .tools .icon, .list td.icon .icon {
+  @include inline-block;
+  width: 16px;
+  height: 16px;
+  @extend .disable-user-select;
+  background-repeat: no-repeat;
+  margin: 0 $default-margin;
+}
+
+.list td.icon .icon {
+  margin: $default-margin 2*$default-margin 0;
+}
+
+.list tr:hover td {
   background-color: $light_yellow;
 }
 
@@ -145,12 +207,12 @@ td.date {
   width: 150px;
 }
 
-table td.right, table th.right {
+td.right, th.right {
   text-align: right;
   padding-right: 0;
 }
 
-table td.center, table th.center {
+td.center, th.center {
   text-align: center;
 }
 
@@ -172,7 +234,7 @@ th.count, td.count {
   padding-right: 16px;
 }
 
-table td.rights {
+td.rights {
   width: 60px;
 }
 
@@ -180,22 +242,8 @@ table.window_form {
   width: 100%;
 }
 
-th.login_status {
+.list .login_status {
   width: 16px;
-}
-
-table tr.odd td {
-  background-color: #eaf3f9;
-}
-
-table tr.even td {
-  background-color: white;
-}
-
-th.icon, td.icon {
-  background: none;
-  display: table-cell;
-  vertical-align: top;
 }
 
 td.file_name {

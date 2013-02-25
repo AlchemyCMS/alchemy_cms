@@ -39,6 +39,7 @@ button, input[type="submit"], a.button, input.button {
 
   &.disabled {
     line-height: 13px;
+    height: 29px;
     padding-top: 5px;
     padding-bottom: 4px;
   }
@@ -82,7 +83,7 @@ button, input[type="submit"], a.button, input.button {
     float: none;
     @include inline-block;
     position: relative;
-    top: -2px;
+    top: 0px;
     background: none;
     border: none;
     @include box-shadow(none);
@@ -90,8 +91,8 @@ button, input[type="submit"], a.button, input.button {
     .icon {
       left: auto;
       position: absolute;
-      right: 4px;
-      top: 4px;
+      right: 5px;
+      top: 2px;
       width: 8px;
       height: 8px;
 
@@ -104,12 +105,12 @@ button, input[type="submit"], a.button, input.button {
       border: $default-border-width $default-border-style $button-hover-border-color;
       @include border-radius($default-border-radius);
       background: $button-hover-bg-color;
-      top: -2px;
+      top: 0px;
       right: 0px;
 
       .icon {
-        right: 3px;
-        top: 3px;
+        right: 4px;
+        top: 1px;
       }
     }
   }
@@ -270,7 +271,7 @@ input#search_input_field {
 div.search_field span.icon, div.js_filter_field_box span.icon {
   position: absolute;
   left: 8px;
-  top: 6px;
+  top: 8px;
 }
 
 .js_filter_field_box {
@@ -319,10 +320,11 @@ select {
  * Author: @gregfranko
  */
 
-form td.select .selectboxit {
+td.select .selectboxit {
 
   .selectboxit-text {
     line-height: 17px !important;
+    max-width: 80% !important;
   }
 }
 
@@ -400,11 +402,13 @@ form td.select .selectboxit {
       .selectboxit-arrow-container {
         width: 16px;
         top: 8px;
+        line-height: 1em;
         height: 14px !important;
       }
 
       .selectboxit-arrow {
-        margin-top: 0 !important;
+        margin-top: 2px !important;
+        font-size: 10px;
       }
     }
 
@@ -442,13 +446,14 @@ form td.select .selectboxit {
       /* Horizontally centers the down arrow */
       margin-right: auto;
       margin-left: auto;
-      margin-top: 4.5px !important;
-      width: 16px;
-      height: 15px;
-      text-indent: -99999px;
-      overflow: hidden;
+      margin-top: 6px !important;
+      width: 6px;
+      height: 1em;
+      line-height: 1em;
+      margin-left: 0.3em;
+      font-style: normal;
       display: block;
-      background: url('ui-icons_666666_256x240.png') -127px -17px no-repeat;
+      @extend .icon-double-arrow;
     }
 
     &.with_error { border-color: $error_border_color }
@@ -516,8 +521,8 @@ form td.select .selectboxit {
 
   label {
     position: absolute;
-    top: 8px;
-    left: 6px;
+    top: 13px;
+    left: 8px;
   }
 
   input[data-autocomplete] {

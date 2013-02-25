@@ -1,11 +1,15 @@
 module Alchemy
   module Admin
-    class UsersController < Alchemy::Admin::BaseController
+    class UsersController < ResourcesController
 
       filter_access_to [:edit, :update, :destroy], :attribute_check => true, :load_method => :load_user, :model => Alchemy::User
       filter_access_to [:index, :new, :create], :attribute_check => false
 
       before_filter :set_roles_and_genders, :except => [:index, :destroy]
+
+      handles_sortable_columns do |c|
+        c.default_sort_value = :login
+      end
 
       def index
         if !params[:query].blank?
@@ -19,7 +23,7 @@ module Alchemy
         else
           users = User.scoped
         end
-        @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order('login')
+        @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sortable_column_order)
       end
 
       def new

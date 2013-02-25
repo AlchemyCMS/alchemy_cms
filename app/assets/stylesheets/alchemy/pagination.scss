@@ -20,13 +20,17 @@ div.pagination {
     text-decoration: underline;
   }
 
+  span a { padding: 0 }
+
+  .button { padding: 0px 8px }
+
   .current {
-    background: $button-hover-bg-color;
     color: $text-color;
     border: $default-border;
     text-shadow: 0px 1px 1px #fff;
     cursor: default;
     @extend .rounded-border;
+    padding: 5px 8px;
   }
 
   .previous_page {
@@ -37,7 +41,7 @@ div.pagination {
     margin-left: 2*$default-padding;
   }
 
-  .disabled {
+  .disabled, span {
     color: #c0c0c0;
   }
 

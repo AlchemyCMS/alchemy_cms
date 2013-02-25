@@ -1,6 +1,6 @@
 module Alchemy
   module Admin
-    class AttachmentsController < Alchemy::Admin::BaseController
+    class AttachmentsController < ResourcesController
 
       protect_from_forgery :except => [:create]
 
@@ -8,7 +8,7 @@ module Alchemy
         if in_overlay?
           archive_overlay
         else
-          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size)
+          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sortable_column_order)
         end
       end
 
@@ -24,17 +24,14 @@ module Alchemy
       end
 
       def create
-        @attachment = Attachment.create(
-          :uploaded_data => params[:Filedata],
-          :name => params[:Filedata].original_filename
-        )
+        @attachment = Attachment.create!(:file => params[:Filedata])
         if in_overlay?
           @while_assigning = true
           @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
           @swap = params[:swap]
           @options = hashified_options
         end
-        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size)
+        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sortable_column_order)
         @message = _t('File %{name} uploaded succesfully', :name => @attachment.name)
         # Are we using the Flash uploader? Or the plain html file uploader?
         if params[Rails.application.config.session_options[:key]].blank?
@@ -51,12 +48,12 @@ module Alchemy
       def update
         @attachment = Attachment.find(params[:id])
         oldname = @attachment.name
-        if @attachment.update_attributes(params[:attachment])
-          flash[:notice] = _t("File renamed successfully from: '%{from}' to '%{to}'", :from => oldname, :to => @attachment.name)
-        else
-          render :action => "edit"
-        end
-        redirect_to admin_attachments_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page])
+        @attachment.update_attributes(params[:attachment])
+        render_errors_or_redirect(
+          @attachment,
+          admin_attachments_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page]),
+          _t("File successfully updated")
+        )
       end
 
       def destroy
@@ -68,23 +65,15 @@ module Alchemy
 
       def show
         @attachment = Attachment.find(params[:id])
-        send_file(
-          @attachment.public_filename,
-          {
-            :name => @attachment.filename,
-            :type => @attachment.content_type,
-            :disposition => 'inline'
-          }
-        )
+        render :layout => false
       end
 
       def download
         @attachment = Attachment.find(params[:id])
-        send_file(
-          @attachment.full_filename, {
-            :name => @attachment.filename,
-            :type => @attachment.content_type,
-            :disposition => 'attachment'
+        send_data(
+          @attachment.file.data, {
+            :filename => @attachment.file_name,
+            :type => @attachment.file_mime_type
           }
         )
       end

@@ -7,7 +7,7 @@
     remote:        data-remote
 -%>
 <% if current_page.last? -%>
-<span class="next_page disabled"><%= raw(_t 'pagination.next_page') -%></span>
+<span class="next_page disabled">&rsaquo;</span>
 <% else -%>
-<%= link_to raw(_t 'pagination.next_page'), url, :rel => 'next', :remote => remote -%>
+<%= link_to '&rsaquo;'.html_safe, url, :rel => 'next', :remote => remote, :title => t('views.pagination.next_page'), :class => "next_page button" -%>
 <% end -%>

@@ -1,18 +1,19 @@
-<%= form_for([:admin, @attachment], :url => {:action => :update, :query => params[:query], :page => params[:page]}) do |f| -%>
+<%= form_for([:admin, @attachment], :url => {:action => :update, :query => params[:query], :page => params[:page]}, :remote => true) do |f| -%>
+  <div id="errors"></div>
   <table>
     <tr>
-      <td class="label"><%= f.label 'name' %></td>
-      <td class="input"><%= f.text_field 'name', :class => 'thin_border long', :autofocus => true %></td>
+      <td class="label"><%= f.label :name %></td>
+      <td class="input"><%= f.text_field :name, :class => 'thin_border long', :autofocus => true %></td>
     </tr>
     <tr>
-      <td class="label"><%= f.label 'filename' %>*</td>
+      <td class="label"><%= f.label :file_name %>*</td>
       <td class="input">
-        <%= f.text_field 'filename', :class => 'thin_border long' %>
+        <%= f.text_field :file_name, :class => 'thin_border long' %>
         <p class="foot_note"><%= _t(:attachment_filename_notice) %></p>
       </td>
     </tr>
     <tr>
-      <td class="label"><%= f.label 'tag_list' %></td>
+      <td class="label"><%= f.label :tag_list %></td>
       <td class="input">
         <%= render 'alchemy/admin/partials/autocomplete_tag_list', :object => @attachment, :f => f %>
       </td>

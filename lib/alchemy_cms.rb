@@ -3,7 +3,6 @@ require 'rails'
 if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'acts_as_list'
   require 'acts-as-taggable-on'
-  require 'attachment_magic'
   require 'devise'
   require 'devise-encryptable'
   require 'awesome_nested_set'
@@ -12,6 +11,7 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'jquery-rails'
   require 'jquery-ui-rails'
   require 'rails3-jquery-autocomplete'
+  require 'handles_sortable_columns'
   require 'kaminari'
   require 'userstamp'
   require 'yaml'
@@ -28,7 +28,22 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'alchemy/auth_engine'
   require 'alchemy/engine'
   require 'alchemy/picture_attributes'
-  %w(config logger errors essence page_layout modules tinymce i18n scoped_pagination_url_helper resource resources_helper ferret_search).each do |class_name|
+  [
+    'config',
+    'logger',
+    'errors',
+    'essence',
+    'page_layout',
+    'modules',
+    'tinymce',
+    'i18n',
+    'scoped_pagination_url_helper',
+    'resource',
+    'resources_helper',
+    'ferret_search',
+    'filetypes',
+    'name_conversions'
+  ].each do |class_name|
     require File.join(File.dirname(__FILE__), "alchemy", class_name)
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")

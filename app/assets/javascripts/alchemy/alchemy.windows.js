@@ -16,17 +16,11 @@ if (typeof(Alchemy) === 'undefined') {
         width: settings.x,
         height: settings.y
       });
-      var $spinner = $('<img src="/assets/alchemy/ajax_loader.gif" />');
-      $spinner_container.append($spinner);
-      $spinner.css({
-        position: 'absolute',
-        width: 32,
-        height: 32,
-        left: '50%',
-        top: '50%',
-        marginLeft: '-16px',
-        marginTop: '-16px'
+      var spinner = Alchemy.Spinner.medium({
+        top: settings.y / 2 - 8 + 'px',
+        left: settings.x / 2 - 8 + 'px'
       });
+      spinner.spin($spinner_container[0]);
       return $spinner_container;
     },
 

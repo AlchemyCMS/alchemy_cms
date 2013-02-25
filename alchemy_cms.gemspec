@@ -38,7 +38,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<awesome_nested_set>,         ["~> 2.0"]
   s.add_runtime_dependency %q<acts-as-taggable-on>,        ["~> 2.1"]
   s.add_runtime_dependency %q<declarative_authorization>,  ["= 0.5.5"]
-  s.add_runtime_dependency %q<dragonfly>,                  ["~> 0.9.12"]
+  s.add_runtime_dependency %q<dragonfly>,                  ["~> 0.9.14"]
   s.add_runtime_dependency %q<kaminari>,                   ["~> 0.13.0"]
   s.add_runtime_dependency %q<acts_as_ferret>,             ["~> 0.5"]
   s.add_runtime_dependency %q<acts_as_list>,               ["~> 0.1.9"]
@@ -46,12 +46,12 @@ POST_INSTALL
   s.add_runtime_dependency %q<dynamic_form>,               ["~> 1.1"]
   s.add_runtime_dependency %q<jquery-rails>,               ["~> 2.1.3"]
   s.add_runtime_dependency %q<jquery-ui-rails>,            ["~> 3.0.1"]
-  s.add_runtime_dependency %q<attachment_magic>,           ["~> 0.2.1"]
   s.add_runtime_dependency %q<sass-rails>,                 ['~> 3.2.3']
   s.add_runtime_dependency %q<coffee-rails>,               ['~> 3.2.1']
   s.add_runtime_dependency %q<compass-rails>,              ['~> 1.0.3']
   s.add_runtime_dependency %q<sassy-buttons>,              ['~> 0.1.3']
   s.add_runtime_dependency %q<rails3-jquery-autocomplete>, ['~> 1.0.10']
+  s.add_runtime_dependency %q<handles_sortable_columns>,   ['~> 0.1.4']
 
   s.add_development_dependency %q<bumpy>
   s.add_development_dependency %q<capybara>

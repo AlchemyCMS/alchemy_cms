@@ -5,8 +5,10 @@
   height: 16px;
 
   &.add {
-    background-image: url('ui-icons_666666_256x240.png');
-    background-position: -16px -129px;
+    background: none;
+    @extend .icon-plus;
+    line-height: 1em;
+    font-size: 19px;
   }
 
   &.add_page {
@@ -37,9 +39,9 @@
     background-position: -416px -40px;
 
     &.small {
-      background: url('ui-icons_666666_256x240.png') -84px -132px;
-      width: 8px;
-      height: 8px;
+      background: none;
+      @extend .icon-cancel;
+      line-height: 0;
     }
   }
 
@@ -188,7 +190,9 @@
   }
 
   &.search {
-    background: url('ui-icons_666666_256x240.png') -160px -112px;
+    background: none;
+    padding-top: 2px;
+    @extend .icon-search;
   }
 
   &.select_all {
@@ -220,7 +224,8 @@
   }
 
   &.tag_label {
-    background: url('ui-icons_666666_256x240.png') -240px -97px;
+    background: none;
+    @extend .icon-tag;
   }
 
   &.tag_edit {

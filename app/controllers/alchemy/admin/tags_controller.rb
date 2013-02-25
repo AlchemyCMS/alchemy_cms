@@ -1,6 +1,6 @@
 module Alchemy
   module Admin
-    class TagsController < BaseController
+    class TagsController < ResourcesController
 
       before_filter :load_tag, :only => [:edit, :update, :destroy]
 

@@ -2,13 +2,13 @@
 <table class="list" id="languages_list">
   <tr>
     <th>
-      <%= Alchemy::Language.human_attribute_name(:name) %>
+      <%= sortable_column(Alchemy::Language.human_attribute_name(:name), :column => :name) %>
     </th>
     <th>
-      <%= Alchemy::Language.human_attribute_name(:language_code) %>
+      <%= sortable_column(Alchemy::Language.human_attribute_name(:language_code), :column => :language_code) %>
     </th>
     <th>
-      <%= Alchemy::Language.human_attribute_name(:country_code) %>
+      <%= sortable_column(Alchemy::Language.human_attribute_name(:country_code), :column => :country_code) %>
     </th>
     <th>
       <%= Alchemy::Language.human_attribute_name(:frontpage_name) %>

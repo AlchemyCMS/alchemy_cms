@@ -281,27 +281,6 @@ ul.list span.right {
   font-weight: bold;
 }
 
-/* @group image_upload */
-
-table td.tools .icon, table td.icon .icon {
-  width: 16px;
-  height: 16px;
-  @extend .disable-user-select;
-  margin-top: 0;
-  background-repeat: no-repeat;
-  @include inline-block;
-  margin-right: 4px;
-}
-
-div.spinner {
-  background-color: #ffffff;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 .headline_text_editor {
   overflow: auto;
   width: 374px;
@@ -716,11 +695,10 @@ div.elements_for_page {
   @include box-shadow(#9ea09f 0px 0px 4px);
   @extend .rounded-border;
 
-  img {
-    width: 20px;
-    height: 20px;
+  .spinner {
+    top: 17px !important;
+    left: 50% !important;
     margin-left: 4px;
-    margin-top: 7px;
   }
 
   .alchemy_selectbox {
@@ -776,8 +754,8 @@ ul#assign_file_list {
 }
 
 ul#sitemap li .sitemap_sitename.selected_page a {
-  background-color: #DB694C;
-  color: #f5f5f5;
+  background-color: $linked-color;
+  color: $dark-gray;
 }
 
 #alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
@@ -845,7 +823,7 @@ select#url_protocol.medium {
 }
 
 div#overlay_toolbar {
-  background: $medium-gray url('shading.png') repeat-x 0 -42px;
+  @extend %gradiated-toolbar;
   border: $default-border;
   height: 44px;
   border-top-style: none;
@@ -892,11 +870,9 @@ div#overlay_toolbar a.button:active {
   padding: 2*$default-padding;
 }
 
-#preview_load_info {
+.ui-dialog-titlebar .preview-refresh-spinner {
   float: left;
-  width: 16px;
-  height: 16px;
-  margin: 1px 0 0 -12px;
+  margin-top: 8px;
 }
 
 #clipboard_items {

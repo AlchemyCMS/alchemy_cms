@@ -1,33 +1,55 @@
 module Alchemy
   class Attachment < ActiveRecord::Base
+    include Filetypes
+    include NameConversions
+
+    acts_as_taggable
+    file_accessor :file
+    stampable :stamper_class_name => 'Alchemy::User'
+
+    attr_accessible :file, :name, :file_name, :tag_list
 
     has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
     has_many :contents, :through => :essence_files
     has_many :elements, :through => :contents
     has_many :pages, :through => :elements
 
-    attr_accessible :uploaded_data, :name, :filename, :tag_list
-
-    stampable(:stamper_class_name => 'Alchemy::User')
-
-    acts_as_taggable
-    has_attachment(
-      :storage => :file_system,
-      :file_system_path => 'uploads/attachments',
-      :size => 0.kilobytes..1000.megabytes
+    validates_presence_of :file
+    validates_format_of :file_name, :with => /^[A-Za-z0-9\.\-_]+$/, :on => :update
+    validates_size_of :file, :maximum => Config.get(:uploader)['file_size_limit'].megabytes
+    validates_property(
+      :format,
+      :of => :file,
+      :in => Config.get(:uploader)['allowed_filetypes']['attachments'],
+      :case_sensitive => false,
+      :message => I18n.t("not a valid file"),
+      :unless => proc { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
     )
-    validates_as_attachment
 
-    def self.find_paginated(params, per_page)
-      attachments = Attachment.arel_table
-      cond = attachments[:name].matches("%#{params[:query]}%").or(attachments[:filename].matches("%#{params[:query]}%"))
-      self.where(cond).page(params[:page] || 1).per(per_page).order(:name)
+    before_create do
+      write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
+      write_attribute(:file_name, self.urlname)
     end
 
+    # Class methods
+
+    class << self
+
+      def find_paginated(params, per_page, order)
+        attachments = Attachment.arel_table
+        cond = attachments[:name].matches("%#{params[:query]}%").or(attachments[:file_name].matches("%#{params[:query]}%"))
+        self.where(cond).page(params[:page] || 1).per(per_page).order(order)
+      end
+
+    end
+
+    # Instance methods
+
     def urlname
-      parts = filename.split('.')
+      parts = file_name.split('.')
       sfx = parts.pop
-      "#{parts.join('-')}.#{sfx}"
+      name = convert_to_urlname(parts.join('-'))
+      "#{name}.#{sfx}"
     end
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
@@ -36,39 +58,39 @@ module Alchemy
     end
 
     def extension
-      filename.split(".").last
+      file_name.split(".").last
     end
     alias_method :suffix, :extension
 
+    # Returns a css class name for kind of file
+    #
     def icon_css_class
-      case content_type
-      when "application/x-flash-video" then "video"
-      when "video/x-flv" then "video"
-      when "video/mp4" then "video"
-      when "video/mpeg" then "video"
-      when "video/quicktime" then "video"
-      when "video/x-msvideo" then "video"
-      when "video/x-ms-wmv" then "video"
-      when "application/zip" then "archive"
-      when "application/x-rar" then "archive"
-      when "audio/mpeg" then "audio"
-      when "audio/mp4" then "audio"
-      when "audio/wav" then "audio"
-      when "audio/x-wav" then "audio"
-      when "application/x-shockwave-flash" then "flash"
-      when "image/gif" then "image"
-      when "image/jpeg" then "image"
-      when "image/png" then "image"
-      when "image/tiff" then "image"
-      when "image/x-psd" then "psd"
-      when "text/plain" then "text"
-      when "application/rtf" then "rtf"
-      when "application/pdf" then "pdf"
-      when "application/msword" then "word"
-      when "application/vnd.ms-excel" then "excel"
-      when "text/x-vcard" then "vcard"
-      when "application/vcard" then "vcard"
-      else "file"
+      case file_mime_type
+        when *ARCHIVE_FILE_TYPES
+          then "archive"
+        when *AUDIO_FILE_TYPES
+          then "audio"
+        when *IMAGE_FILE_TYPES
+          then "image"
+        when *VIDEO_FILE_TYPES
+          then "video"
+        when "application/x-shockwave-flash"
+          then "flash"
+        when "image/x-psd"
+          then "psd"
+        when "text/plain"
+          then "text"
+        when "application/rtf"
+          then "rtf"
+        when "application/pdf"
+          then "pdf"
+        when "application/msword"
+          then "word"
+        when "application/vnd.ms-excel"
+          then "excel"
+        when *VCARD_FILE_TYPES
+          then "vcard"
+        else "file"
       end
     end
 

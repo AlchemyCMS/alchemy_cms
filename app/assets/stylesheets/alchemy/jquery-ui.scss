@@ -572,7 +572,42 @@
 }
 
 #alchemy .ui-icon-refresh {
-  background-position: -63px -79px;
+  background: none !important;
+  position: relative;
+
+  &:before {
+    text-indent: 0;
+    position: absolute;
+    right: 1px;
+    top: 3px;
+    @extend .icon-reload:before
+  }
+}
+
+#alchemy .ui-icon-fullscreen {
+  background: none !important;
+  position: relative;
+
+  &:before {
+    text-indent: 0;
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    @extend .icon-fullscreen:before
+  }
+}
+
+#alchemy .ui-icon-exit-fullscreen {
+  background: none !important;
+  position: relative;
+
+  &:before {
+    text-indent: 0;
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    @extend .icon-exit-fullscreen:before
+  }
 }
 
 #alchemy .ui-icon-shuffle {
@@ -740,7 +775,17 @@
 }
 
 #alchemy .ui-icon-closethick {
-  background-position: -96px -128px;
+  background: none !important;
+  position: relative;
+
+  &:before {
+    @extend .icon-cancel:before;
+    text-indent: 0;
+    position: absolute;
+    right: 2px;
+    top: 0px;
+    font-size: 16px;
+  }
 }
 
 #alchemy .ui-icon-key {
@@ -1502,8 +1547,9 @@ button.ui-button::-moz-focus-inner {
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar-maximize,
+#alchemy .ui-dialog .ui-dialog-titlebar-refresh,
 #alchemy .ui-dialog .ui-dialog-titlebar-restore {
-  margin-right: 0;
+  margin-right: 2px;
 }
 
 #alchemy .ui-dialog .ui-dialog-titlebar-close span {

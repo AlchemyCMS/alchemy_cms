@@ -105,14 +105,22 @@ module Alchemy
         if request.delete? && params[:picture_ids].present?
           pictures = Picture.find(params[:picture_ids])
           names = []
+          not_deletable = []
           pictures.each do |picture|
-            next unless picture.deletable?
-            names << picture.name
-            picture.destroy
+            if picture.deletable?
+              names << picture.name
+              picture.destroy
+            else
+              not_deletable << picture.name
+            end
           end
-          flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
+          if not_deletable.any?
+            flash[:warn] = _t("These pictures could not be deleted, because they where in use", :names => not_deletable.to_sentence)
+          else
+            flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
+          end
         else
-          flash[:notice] = _t("Could not delete Pictures")
+          flash[:warn] = _t("Could not delete Pictures")
         end
       rescue Exception => e
         flash[:error] = e.message

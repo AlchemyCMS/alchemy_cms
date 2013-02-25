@@ -6,17 +6,31 @@ module Alchemy
 
     class << self
 
-      # Runs all ugrades
+      # Runs ugrades
+      #
+      # Set UPGRADE env variable to only run a specific task.
       def run!
+        if ENV['UPGRADE']
+          ENV['UPGRADE'].split(',').each do |task|
+            self.send(task)
+          end
+        else
+          run_all
+        end
+        display_todos
+      end
+
+      def run_all
         Rake::Task['alchemy:install:migrations'].invoke
         strip_alchemy_from_schema_version_table
         Rake::Task['db:migrate'].invoke
+        Seeder.seed!
         upgrade_to_language
         upgrade_layoutpages
-        upgrade_essence_link_target_default
+        upgrade_essence_link
         upgrade_to_namespaced_essence_type
-        convert_essence_texts_displayed_as_select_into_essence_selects
-        convert_essence_texts_displayed_as_checkbox_into_essence_booleans
+        convert_essence_texts_to_essence_selects
+        convert_essence_texts_to_essence_booleans
         copy_new_config_file
         removed_richmedia_essences_notice
         convert_picture_storage
@@ -24,8 +38,17 @@ module Alchemy
         removed_standard_set_notice
         renamed_t_method
         migrated_to_devise
+      end
 
-        display_todos
+      def list_tasks
+        puts "\nAvailable upgrade tasks"
+        puts "-----------------------\n"
+        (self.private_methods - Object.private_methods - superclass.private_methods).each do |method|
+          puts method
+        end
+        puts "\nUsage:"
+        puts "------"
+        puts "Run one or more tasks with `bundle exec rake alchemy:upgrade UPGRADE=task_name1,task_name2`\n"
       end
 
     private
@@ -51,7 +74,7 @@ module Alchemy
         Alchemy::Page.all.each do |page|
           if !page.language_code.blank? && page.language.nil?
             root = page.get_language_root
-            lang = Alchemy::Language.find_or_create_by_code(
+            lang = Alchemy::Language.find_or_create_by_language_code(
               :name => page.language_code.capitalize,
               :code => page.language_code,
               :frontpage_name => root.name,
@@ -88,7 +111,7 @@ module Alchemy
         end
       end
 
-      def upgrade_essence_link_target_default
+      def upgrade_essence_link
         desc "Setting new link_target default"
         essences = (Alchemy::EssencePicture.all + Alchemy::EssenceText.all)
         if essences.any?
@@ -138,7 +161,7 @@ module Alchemy
         adapter.connection.update("UPDATE schema_migrations SET version = REPLACE(`schema_migrations`.`version`,'-alchemy','')")
       end
 
-      def convert_essence_texts_displayed_as_select_into_essence_selects
+      def convert_essence_texts_to_essence_selects
         desc "Converting EssenceTexts displayed as select into EssenceSelects"
         contents_found = 0
         elements = Alchemy::Element.descriptions.select { |e| e['contents'].present? && !e['contents'].detect { |c| c['settings'].present? && c['settings']['display_as'] == 'select' }.nil? }
@@ -169,7 +192,7 @@ module Alchemy
         end
       end
 
-      def convert_essence_texts_displayed_as_checkbox_into_essence_booleans
+      def convert_essence_texts_to_essence_booleans
         desc "Converting EssenceTexts displayed as checkbox into EssenceBooleans"
         contents_found = 0
         elements = Alchemy::Element.descriptions.select { |e| e['contents'].present? && !e['contents'].detect { |c| c['settings'].present? && c['settings']['display_as'] == 'checkbox' }.nil? }
@@ -232,7 +255,6 @@ WARN
 
       def convert_picture_storage
         desc "Convert the picture storage"
-        converted_images = []
         images = Dir.glob Rails.root.join 'uploads/pictures/**/*.*'
         if images.blank?
           log "No pictures found", :skip
@@ -249,6 +271,29 @@ WARN
               end
             else
               log "Picture with id #{image_id} not found or already converted.", :skip
+            end
+          end
+        end
+      end
+
+      def convert_attachment_storage
+        desc "Convert the attachment storage"
+        attachments = Dir.glob Rails.root.join 'uploads/attachments/**/*.*'
+        if attachments.blank?
+          log "No attachments found", :skip
+        else
+          attachments.each do |attachment|
+            file_uid = attachment.gsub(/#{Rails.root.to_s}\/uploads\/attachments\//, '')
+            url_parts = file_uid.split('/')
+            file_id = url_parts[url_parts.length-2].to_i
+            attachment = Alchemy::Attachment.find_by_id(file_id)
+            if attachment && attachment.file_uid.blank?
+              attachment.file_uid = file_uid
+              if attachment.save!
+                log "Converted #{file_uid}"
+              end
+            else
+              log "Attachment with id #{file_id} not found or already converted.", :skip
             end
           end
         end

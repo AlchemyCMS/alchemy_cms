@@ -1,6 +1,7 @@
 language: ruby
 rvm:
   - 1.9.3
+  - 2.0.0
 branches:
   only:
     - 2.5-stable
@@ -17,3 +18,4 @@ env:
 matrix:
   allow_failures:
     - env: DB=mysql SPEC_FLAGS="-t type:request"
+    - rvm: 2.0.0

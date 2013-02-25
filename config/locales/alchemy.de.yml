@@ -222,7 +222,7 @@ de:
     "Error with the Flash® Uploader!": "Fehler mit dem Flash® Uploader!"
     "Excerpt": "Auszug"
     "File %{name} uploaded succesfully": "Datei %{name} wurde hochgeladen"
-    "File renamed successfully from: '%{from}' to '%{to}'": "Datei wurde erfolgreich von: '%{from}' nach '%{to}' umbenannt."
+    "File successfully updated": "Datei wurde erfolgreich gespeichert."
     "File upload error: %{error}": "Datei konnte nicht hochgeladen werden: %{error}"
     "File: '%{name}' deleted successfully": "%{name} wurde gelöscht"
     "Filter by tag": "Nach Tags filtern"
@@ -307,6 +307,7 @@ de:
     searchresults_editor_info: "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
     element_dirty_notice: "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich einklappen?"
     "Tags": "Tags"
+    "These pictures could not be deleted, because they where in use": "Diese Bilder konnten nicht gelöscht werden, da sie in Benutzung sind: %{names}"
     "This page is locked by %{name}": "Diese Seite wird gerade von %{name} blockiert"
     "Title": "Titel"
     "Trash": "Papierkorb"
@@ -518,10 +519,6 @@ de:
     pages:
       update:
         comma_seperated: "Durch Kommata getrennt eingeben"
-    pagination:
-      next_page: "nächste Seite &raquo;"
-      previous_page: "&laquo; vorherige Seite"
-      truncate: '...'
     password: "Passwort"
     paste: "einfügen"
     picture_gallery_editor: 'Bilder'
@@ -860,11 +857,11 @@ de:
         taggings_count: Anzahl Verwendung
 
       alchemy/attachment:
-        content_type: "Dateityp"
+        file_mime_type: "Dateityp"
         created_at: "Erstellt Am"
-        filename: "Dateiname"
+        file_name: "Dateiname"
         name: "Name"
-        size: "Dateigröße"
+        file_size: "Dateigröße"
         tag_list: Tags
 
       alchemy/element:
@@ -951,3 +948,11 @@ de:
 
     errors:
       <<: *errors
+
+  views:
+    pagination:
+      first: "erste Seite"
+      previous_page: "vorherige Seite"
+      next_page: "nächste Seite"
+      last: "letzte Seite"
+      truncate: '...'

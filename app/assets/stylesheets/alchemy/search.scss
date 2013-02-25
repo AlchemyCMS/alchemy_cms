@@ -13,11 +13,11 @@ div#image_assign_filter_and_image_sizing form div.search_field {
 #alchemy a.search_field_clear {
   width: 16px;
   height: 16px;
-  background: url('ui-icons_666666_256x240.png') no-repeat -80px -128px;
+  @extend .icon-cancel;
   position: absolute;
   right: 8px;
   top: 7px;
-  @extend .rounded-border;
+  text-decoration: none;
 }
 
 td#tags_tag_list {

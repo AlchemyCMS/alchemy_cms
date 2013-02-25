@@ -23,9 +23,9 @@
   <table class="list" id="tag_list">
     <tr class="legend">
       <th class="icon"></th>
-      <th class="name"><%= ActsAsTaggableOn::Tag.human_attribute_name(:name) %></th>
+      <th class="name"><%= sortable_column(ActsAsTaggableOn::Tag.human_attribute_name(:name), :column => :name) %></th>
       <th class="count"><%= ActsAsTaggableOn::Tag.human_attribute_name(:taggings_types) %></th>
-      <th class="count"><%= ActsAsTaggableOn::Tag.human_attribute_name(:taggings_count) %></th>
+      <th class="count"><%= sortable_column(ActsAsTaggableOn::Tag.human_attribute_name(:taggings_count), :column => :taggings_count) %></th>
       <th class="tools"></th>
     </tr>
     <%= render :partial => 'tag', :collection => @tags %>
