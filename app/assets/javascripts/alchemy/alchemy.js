@@ -22,7 +22,7 @@
 //= require alchemy/alchemy.datepicker
 //= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop
-//= require alchemy/alchemy.element_editor_selector
+//= require alchemy/alchemy.element_editors
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.image_cropper

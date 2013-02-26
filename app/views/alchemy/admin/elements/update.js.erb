@@ -19,7 +19,7 @@ $('#element_<%= @element.id %>_errors').html('<%= @error_message %><ul><li><%= @
 $("#element_<%= @element.id %>_errors").show();
 $('div.content_editor').removeClass('validation_failed');
 $('<%= @element.contents_with_errors.map { |content| "#" + content_dom_id(content) }.join(", ") %>').addClass('validation_failed');
-Alchemy.ElementEditorSelector.scrollToElement('#element_<%= @element.id %>');
+Alchemy.ElementEditors.scrollToElement('#element_<%= @element.id %>');
 Alchemy.Buttons.enable($el);
 
 <% end %>

@@ -35,7 +35,7 @@ Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
 <% end %>
 
 Alchemy.PreviewWindow.refresh();
-Alchemy.ElementEditorSelector.init();
+Alchemy.ElementEditors.init();
 
 $el = $('#element_<%= @element.id -%>');
 $el.trigger('Alchemy.SelectElementEditor');

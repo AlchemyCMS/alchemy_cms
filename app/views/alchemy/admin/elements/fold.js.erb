@@ -17,7 +17,7 @@
     $el.replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
     $el = $('#element_<%= @element.id %>');
     $('#element_area .sortable_cell').sortable('refresh');
-    Alchemy.ElementEditorSelector.reinit($el);
+    Alchemy.ElementEditors.reinit($el);
 
     <% if @element.folded %>
 

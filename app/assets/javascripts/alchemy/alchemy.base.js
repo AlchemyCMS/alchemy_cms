@@ -52,31 +52,20 @@ if (typeof(Alchemy) === 'undefined') {
       $overlay.css("visibility", show ? 'visible' : 'hidden');
     },
 
-    toggleElement: function(id, url, token, text) {
-      var spinner = Alchemy.Spinner.small();
-      var element = $('.ajax_folder', '#element_' + id);
-      var toggle = function() {
-        $('#element_' + id + '_folder').hide();
-        element.prepend(spinner.spin().el);
-        return true;
-        $.post(url, {
-          authenticity_token: encodeURIComponent(token)
-        }, function(request) {
-          $('#element_' + id + '_folder').show();
-          spinner.stop();
-        });
-      }
+    toggleElement: function(id, text) {
       if (Alchemy.isPageDirty()) {
         Alchemy.openConfirmWindow({
           title: text.title,
           message: text.message,
           okLabel: text.okLabel,
           cancelLabel: text.cancelLabel,
-          okCallback: toggle
+          okCallback: function() {
+            Alchemy.ElementEditors.toggleFold(id);
+          }
         });
         return false;
       } else {
-        toggle();
+        Alchemy.ElementEditors.toggleFold(id);
       }
     },
 

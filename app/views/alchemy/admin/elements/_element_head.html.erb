@@ -14,7 +14,7 @@
   <%= render_hint_for(element) %>
   <span class="ajax_folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
     <%= link_to('', '#', {
-      :onclick => "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{_t('Warning!')}', message: '#{_t(:element_dirty_notice)}', okLabel: '#{_t('Yes')}', cancelLabel: '#{_t('No')}'})",
+      :onclick => "Alchemy.toggleElement(#{element.id}, {title: '#{_t('Warning!')}', message: '#{_t(:element_dirty_notice)}', okLabel: '#{_t('Yes')}', cancelLabel: '#{_t('No')}'})",
       :class => element.folded? ? 'expand_element' : 'fold_element',
       :title => element.folded? ? _t(:show_element_content) : _t(:hide_element_content),
       :id => "element_#{element.id}_folder"
