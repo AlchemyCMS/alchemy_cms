@@ -99,7 +99,21 @@ Open the <code>config/environments/production.rb</code> file in your editor and 
 config.assets.precompile += %w( tinymce_content.css )
 </pre>
 
+h3. Per element customization
 
+You can also set tinymce configuration options per element.
+
+<pre>
+# elements.yml
+- name: minimal_text
+  contents:
+  - name: text
+    type: EssenceRichtext
+    settings:
+      tinymce:
+        theme_advanced_buttons1: 'bold,italic,underline'
+        theme_advanced_buttons2: ''
+</pre>
 
 h3. Configuration Syntax
 

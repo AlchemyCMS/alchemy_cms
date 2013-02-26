@@ -1,142 +1,23 @@
 h2. Creating custom Modules
 
+Basicly there are two ways to set up a module:
+
+* Use Alchemy as your Rails admin backend
+* Create a new Engine
+
 endprologue.
 
 
 
-h3. The anatomy of an alchemy module
+h3. Using Alchemy as your Rails admin backend
 
-Basicly there are two ways to set up a module:
+Hence every module is a subsection of a Rails application or a gem you can roll out your own admin backend if you like.
 
-* bundle Controllers residing in the main app
-* create a new Rails::Engine
+By using Alchemy's backend interface you get a whole bunch of things:
 
-h3. Integrate your module in alchemy
-
-h4. Describing the module
-
-The module needs to be described, so that Alchemy CMS can handle with it. 
-This can be done within a yml file which will be loaded when initializing the module.
-
-When using a Rails engine:
-
-<pre>
-# your_module/config/module_definition.yml
-
-name: your_module
-engine_name: your_module
-order: 1
-navigation:
-  name: modules.name_of_your_module                  # The name in the main navigation (translated via I18n)
-  controller: your_module/admin/mailings             # controller which will be used.
-  action: index                                      # action which will be used
-  image: /assets/your_module/module_icon.png         # image which will be rendered as navigation icon
-  sub_navigation:
-    - name: products                                 # name for subnavigation tab
-      controller: your_module/admin/products         # controller which will be used
-      action: index                                  # action which will be used
-    - name: variants                                 # name for subnavigation tab
-      controller: your_module/admin/variants         # controller which will be used
-      action: index                                  # action which will be used
-</pre>
-
-When using your mainapp and not a new engine:
-
-<pre>
-# main_app/config/module_definition.yml
-
-name: your_module
-order: 1
-navigation:
-  name: modules.name_of_your_module                  # The name in the main navigation (translated via I18n)
-  controller: /admin/products                        # controller which will be used.
-  action: index                                      # action which will be used
-  image: /assets/module_icon.png                     # image which will be rendered as navigation icon
-  sub_navigation:
-    - name: products                                 # name for subnavigation tab (translated via I18n)
-      controller: /admin/prodcuts                    # controller which will be used
-      action: index                                  # action which will be used
-    - name: variants                                 # name for subnavigation tab (translated via I18n)
-      controller: /admin/variants                    # controller which will be used
-      action: index                                  # action which will be used
-</pre>
-
-h4. Initialization
-
-This is done via Rails' initializers.
-
-* If your module is set up in the main app, create a new file (i.e. xy_module.rb) in config/initializers.
-* If it's an engine use the Rails::Engine.initializer method.
-
-Example for an Engine
-
-<pre>
-# /lib/my_engine/engine.rb
-
-# Registering module in Alchemy CMS
-initializer 'your_module.register_as_alchemy_module' do
-  Alchemy::Modules.register_module(YAML.load_file(File.join(File.dirname(__FILE__), '../..', 'config/module_definition.yml')))
-end
-
-# Loading authorization rules and register them to auth engine instance
-initializer "your_module.add_authorization_rules" do
-  Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
-end
-</pre>
-
-
-Example for setting up in the main app
-
-<pre>
-# config/initializers/alchemy_modules.rb
-
-# Registering module in Alchemy CMS
-Alchemy::Modules.register_module(YAML.load_file(File.join(File.dirname(__FILE__), '../..', 'config/module_definition.yml')))
-
-# Loading authorization rules and register them to auth engine instance
-Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
-</pre>
-
-h4. Mounting
-
-Additionaly, for an engine, you have to mount it in your routes:
-
-<pre>
-# config/routes.rb
-YourApp::Application.routes.draw do
-  ...
-  mount YourAlchemyModule::Engine => '/'
-  mount Alchemy::Engine => '/'
-end
-</pre>
-
-For a resource residing in the main app a normal resource entry is enough:
-
-<pre>
-# config/routes.rb
-YourApp::Application.routes.draw do
-  
-  resources :your_resource
-  
-  namespace :admin do
-    resources :your_resource
-  end
-  
-  mount Alchemy::Engine => '/'
-end
-</pre>
-
-
-Notice: Due to alchemy's strong routes it is recommenend to mount your engine before mounting alchemy.
-
-h3. Create your own backend using Alchemy
-
-Hence every module is a subsection of a rails application or a gem you can roll out your own admin backend if you like.
-But using Alchemy's backend interface takes a whole bunch of work for you:
-
-- authentication and authorization
-- a highly and fine grained customizable resource manager (CRUD interface)
-- a nicely styled user interface
+  # Authentication and Authorization
+  # A highly and fine grained customizable resource manager (CRUD interface)
+  # A nicely styled user interface
 
 And it's easy as this:
 
@@ -147,14 +28,15 @@ module Admin
 end
 </pre>
 
-You can overwrite the default controller actions and views as you like. 
-An instance-variable named after the resource (i.e. @your_resource for YourResource) is defined for use in your views.
+You can overwrite the default controller actions and views as you like.
+An instance-variable named after the resource (i.e. <code>@your_resource</code> for <code>YourResource</code>) is defined for use in your views.
 
 After you setting up your routes you have to take care for control access:
 
 h3. Authorization
 
-Rights and roles are set in config/authorization_rules.rb. Just create the file if it doesn't exist already.
+Rights and roles are set in <code>config/authorization_rules.rb</code>.
+Just create the file if it doesn't exist already.
 
 <pre>
 # config/authorization_rules.rb
@@ -167,12 +49,106 @@ authorization do
 end
 </pre>
 
-More information about authorization can be found in the docs of the declerative_authorization-gem: 
--> "https://github.com/stffn/declarative_authorization":https://github.com/stffn/declarative_authorization
+More information about authorization can be found in the docs of the <code>declarative_authorization</code> gem ("https://github.com/stffn/declarative_authorization":https://github.com/stffn/declarative_authorization)
+
+h3. Mounting
+
+h4. For an engine:
+
+<pre>
+# config/routes.rb
+YourApp::Application.routes.draw do
+  ...
+  mount YourAlchemyModule::Engine => '/'
+  mount Alchemy::Engine => '/'
+end
+</pre>
+
+h4. For your apps resources:
+
+<pre>
+# config/routes.rb
+YourApp::Application.routes.draw do
+
+  resources :your_resource
+
+  namespace :admin do
+    resources :your_resource
+  end
+
+  mount Alchemy::Engine => '/'
+end
+</pre>
+
+Notice: Due to alchemy's strong routes it is recommenend to mount your engine before mounting alchemy.
+
+h3. Registering the module
+
+Last but not least the module needs to be registered to Alchemy CMS.
+
+h4. When using your host app:
+
+<pre>
+# my_host_app/config/initializers/alchemy.rb
+Alchemy::Modules.register_module({
+  name: 'your_module',
+  order: 1,
+  navigation: {
+    name: 'Products',                   # The name in the main navigation (translated via I18n)
+    controller: '/admin/products',      # The controller which will be used.
+    action: 'index',                    # The action which will be used
+    image: '/assets/module_icon.png',   # image which will be rendered as navigation icon
+    sub_navigation: [
+      {
+        name: 'Products',               # The name for the subnavigation tab (translated via I18n)
+        controller: '/admin/products',  # controller which will be used
+        action: 'index'                 # action which will be used
+      },
+      {
+        name: 'Variants',               # The name for the subnavigation tab (translated via I18n)
+        controller: '/admin/variants',  # controller which will be used
+        action: 'index'                 # action which will be used
+      }
+    ]
+  }
+})
+</pre>
+
+h4. Using a Rails engine:
+
+<pre>
+# my_engine/config/initializers/alchemy.rb
+Alchemy::Modules.register_module({
+  name: 'your_module',
+  engine_name: 'your_engine_name'
+  order: 1,
+  navigation: {
+    name: 'Products',                             # The name in the main navigation (translated via I18n)
+    controller: '/admin/products',                # The controller which will be used.
+    action: 'index',                              # The action which will be used
+    image: '/assets/module_icon.png',             # image which will be rendered as navigation icon
+    sub_navigation: [
+      {
+        name: 'Products',                         # The name for the subnavigation tab (translated via I18n)
+        controller: 'your_module/admin/products', # controller which will be used
+        action: 'index'                           # action which will be used
+      },
+      {
+        name: 'Variants',                         # The name for the subnavigation tab (translated via I18n)
+        controller: 'your_module/admin/variants', # controller which will be used
+        action: 'index'                           # action which will be used
+      }
+    ]
+  }
+})
+
+# Loading authorization rules and register them to auth engine instance
+Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), 'authorization_rules.rb'))
+</pre>
 
 h3. Get Ready!
 
-Restart, point your browser to localhost:3000/admin/your_resources and start CRUDing!
+Restart, point your browser to <code>localhost:3000/admin/your_resources</code>!
 
 
 &nbsp;
