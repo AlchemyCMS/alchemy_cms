@@ -3,7 +3,6 @@
   <%= _t("Version") %>: <%= @alchemy_version %>
 </h2>
 <p class="center with_margin" id="update_check">
-  <%= image_tag('alchemy/ajax_loader.gif', :id => 'load_info') %>
   <span id="update_available">
     <%= render_icon('warn') %>
     <%= _t 'Update available' %>
@@ -42,16 +41,20 @@
   </ul>
 </div>
 <script type="text/javascript">
-  $('#load_info').show();
-  $.get('/admin/dashboard/update_check', function(data, textStatus, jqXHR) {
-    if (data == 'true') {
-      $('#update_available').show();
-    } else {
-      $('#up_to_date').show();
-    }
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    $('#error').show();
-  }).always(function() {
-    $('#load_info').hide();
-  });
+  (function() {
+    var el = $('#update_check');
+    var spinner = Alchemy.Spinner.small();
+    spinner.spin(el[0]);
+    $.get('/admin/dashboard/update_check', function(data, textStatus, jqXHR) {
+      if (data == 'true') {
+        $('#update_available').show();
+      } else {
+        $('#up_to_date').show();
+      }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      $('#error').show();
+    }).always(function() {
+      spinner.stop();
+    });
+  })();
 </script>

@@ -53,16 +53,19 @@ if (typeof(Alchemy) === 'undefined') {
     },
 
     toggleElement: function(id, url, token, text) {
+      var spinner = Alchemy.Spinner.small();
+      var element = $('.ajax_folder', '#element_' + id);
       var toggle = function() {
-          $('#element_' + id + '_folder').hide();
-          $('#element_' + id + '_folder_spinner').show();
-          $.post(url, {
-            authenticity_token: encodeURIComponent(token)
-          }, function(request) {
-            $('#element_' + id + '_folder').show();
-            $('#element_' + id + '_folder_spinner').hide();
-          });
-        }
+        $('#element_' + id + '_folder').hide();
+        element.prepend(spinner.spin().el);
+        return true;
+        $.post(url, {
+          authenticity_token: encodeURIComponent(token)
+        }, function(request) {
+          $('#element_' + id + '_folder').show();
+          spinner.stop();
+        });
+      }
       if (Alchemy.isPageDirty()) {
         Alchemy.openConfirmWindow({
           title: text.title,

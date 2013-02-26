@@ -13,12 +13,6 @@
   </span>
   <%= render_hint_for(element) %>
   <span class="ajax_folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
-    <%= image_tag(
-      "alchemy/ajax_loader.gif",
-      :style => "display: none",
-      :id => "element_#{element.id}_folder_spinner",
-      :class => "element_folder_spinner"
-    ) %>
     <%= link_to('', '#', {
       :onclick => "Alchemy.toggleElement(#{element.id}, '#{alchemy.fold_admin_element_path(element)}', '#{form_authenticity_token}', {title: '#{_t('Warning!')}', message: '#{_t(:element_dirty_notice)}', okLabel: '#{_t('Yes')}', cancelLabel: '#{_t('No')}'})",
       :class => element.folded? ? 'expand_element' : 'fold_element',

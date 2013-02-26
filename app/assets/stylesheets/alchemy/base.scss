@@ -374,31 +374,6 @@ div.all_rights {
   margin: 2*$default-padding;
 }
 
-.element_spinner {
-  float: right;
-  height: 23px;
-  position: relative;
-  bottom: 3px;
-  right: -3px;
-}
-
-.element_folder_spinner {
-  position: relative;
-  bottom: 2px;
-  width: 24px;
-  height: 24px;
-  right: -2px;
-}
-
-.element_spinner img {
-  bottom: 1px;
-  float: left;
-  position: relative;
-  width: 24px;
-  height: 24px;
-  right: 0;
-}
-
 span.spinner_wait_text {
   float: left;
   position: relative;

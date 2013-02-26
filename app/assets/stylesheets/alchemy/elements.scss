@@ -171,7 +171,7 @@ div#element_area {
   width: 322px;
 }
 
-div.element_editor {
+.element_editor {
   border: 1px solid #bba589;
   @extend .rounded-border;
   background-color: #f0e8d7;
@@ -203,7 +203,7 @@ div.element_editor {
     margin-bottom: 1em;
   }
 
-  p.content_editor_error {
+  .content_editor_error {
     border: 1px solid #f5b04e;
     padding: 4px 8px;
     line-height: 21px;
@@ -234,6 +234,28 @@ div.element_editor {
       width: 100%;
       background-color: #F1EAD9;
     }
+  }
+
+  .spinner {
+    top: 9px;
+    right: 9px;
+  }
+}
+
+.element_spinner {
+  float: right;
+  height: 23px;
+  position: relative;
+  bottom: 3px;
+  right: -3px;
+
+  img {
+    bottom: 1px;
+    float: left;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    right: 0;
   }
 }
 
