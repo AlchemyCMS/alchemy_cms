@@ -19,12 +19,14 @@ module Alchemy
             Alchemy.Tinymce = {
               init : function(callback) {
                 var init = { #{init} };
+                var spinner = Alchemy.Spinner.small();
+                $('.tinymce_container').prepend(spinner.spin().el);
                 init.mode = 'specific_textareas';
                 init.editor_selector = 'default_tinymce';
                 init.plugins = '#{Alchemy::Tinymce.plugins.join(',')}';
                 init.language = '#{::I18n.locale.to_s.split('-')[0].downcase }';
                 init.init_instance_callback = function(inst) {
-                  $('#' + inst.editorId).prev('.essence_richtext_loader').hide();
+                  spinner.stop();
                 }
                 if (callback)
                   init.oninit = callback;
@@ -67,9 +69,10 @@ module Alchemy
                 init.language = '#{::I18n.locale.to_s.split('-')[0].downcase }';
                 init.init_instance_callback = function(inst) {
                   var $this = $('#' + inst.editorId);
-                  $this.prev('.essence_richtext_loader').hide();
+                  var parent = $this.parents('.element_editor');
+                  parent.find('.spinner').remove();
                   inst.onChange.add(function (ed, l) {
-                    Alchemy.setElementDirty($this.parents('.element_editor'));
+                    Alchemy.setElementDirty(parent);
                   });
                 }
                 tinymce.init(init);

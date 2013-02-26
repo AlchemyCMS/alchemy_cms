@@ -601,22 +601,10 @@ a.new_content_link {
 div.tinymce_container {
   position: relative;
   margin: $default-margin 0;
-}
 
-div.essence_richtext_loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  background-color: #F0E8D7;
-  @include opacity(0.9);
-
-  img {
-    position: absolute;
-    top: 46%;
-    left: 46%;
+  .spinner {
+    top: 70px;
+    left: 50%;
   }
 }
 
