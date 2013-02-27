@@ -1,14 +1,11 @@
 <div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
-<%- unless params[:image_assign_url].blank? -%>
-  <%- action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" -%>
-  <%- action_method = params[:image_assign_method] -%>
-<%- else -%>
-  <%- action_url = create_or_assign_url(picture_to_assign, @options) -%>
-  <%- action_method = @content.blank? ? 'post' : 'put' -%>
-<%- end -%>
-  <div class="image_spinner spinner">
-    <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
-  </div>
+<% unless params[:image_assign_url].blank? %>
+  <% action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" %>
+  <% action_method = params[:image_assign_method] %>
+<% else %>
+  <% action_url = create_or_assign_url(picture_to_assign, @options) %>
+  <% action_method = @content.blank? ? 'post' : 'put' %>
+<% end %>
   <%= link_to(
     image_tag(
       alchemy.thumbnail_path(
@@ -16,9 +13,7 @@
         :size => size,
         :sh => picture_to_assign.security_token(:size => size)
       ),
-      :alt => picture_to_assign.name,
-      :onload => "Alchemy.fadeImage(this, '#picture_to_assign_#{picture_to_assign.id} .image_spinner');",
-      :style => "display: none;"
+      :alt => picture_to_assign.name
     ),
     action_url,
     :remote => true,

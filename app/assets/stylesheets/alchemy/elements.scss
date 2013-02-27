@@ -1,7 +1,18 @@
-.element_heading .preview_text_quote {
-  font-size: 10px;
-  font-style: italic;
-  line-height: 15px;
+.element_heading {
+  padding: 0;
+  z-index: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+  left: 35px;
+  top: 11px;
+  width: 322px;
+
+  .preview_text_quote {
+    font-size: 10px;
+    font-style: italic;
+    line-height: 15px;
+  }
 }
 
 span.preview_text_element_name {
@@ -9,14 +20,6 @@ span.preview_text_element_name {
   text-shadow: #efefef 1px 1px 1px;
   font-weight: bold;
   line-height: 15px;
-}
-
-img.add_element_spinner {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  left: 5px;
-  bottom: 6px;
 }
 
 div#element_area {
@@ -160,17 +163,6 @@ div#element_area {
   top: 8px;
 }
 
-.element_heading {
-  padding: 0;
-  z-index: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  position: absolute;
-  left: 35px;
-  top: 11px;
-  width: 322px;
-}
-
 .element_editor {
   border: 1px solid #bba589;
   @extend .rounded-border;
@@ -235,28 +227,6 @@ div#element_area {
       background-color: #F1EAD9;
     }
   }
-
-  .spinner {
-    top: 9px;
-    right: 9px;
-  }
-}
-
-.element_spinner {
-  float: right;
-  height: 23px;
-  position: relative;
-  bottom: 3px;
-  right: -3px;
-
-  img {
-    bottom: 1px;
-    float: left;
-    position: relative;
-    width: 24px;
-    height: 24px;
-    right: 0;
-  }
 }
 
 #alchemy .ui-dialog div.element_editor form {
@@ -299,6 +269,11 @@ a.element_move_button {
   height: 20px;
   background-color: #e5dcca;
   @extend .disable-user-select;
+
+  .spinner {
+    top: 9px;
+    right: 9px;
+  }
 }
 
 form.add_gallery_to_index {
@@ -333,14 +308,6 @@ div.picture_thumbnail div.picture_image {
 
 div#cells {
   min-height: 100px;
-}
-
-.place_element_spinner {
-  position: absolute;
-  right: 8px;
-  width: 24px;
-  height: 24px;
-  top: 5px;
 }
 
 span.linkable_essence_tools {
@@ -500,22 +467,6 @@ div.essence_picture_css_class {
 
 .dragable_picture .picture_handle {
   cursor: move;
-}
-
-.picture_content_spinner {
-  background: #666666;
-  height: 93px;
-  left: 4px;
-  position: absolute;
-  top: 4px;
-  width: inherit;
-  img {
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    margin-top: -16px;
-    margin-left: -16px;
-  }
 }
 
 div.file {

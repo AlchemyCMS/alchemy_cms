@@ -17,6 +17,7 @@ $ ->
     .not('*[data-alchemy-confirm], #subnav_additions .subnavi_tab button')
     .click ->
       Alchemy.pleaseWaitOverlay()
+      return
 
   # Hack for enabling tab focus for <a>'s styled as button.
   $('a.button').attr({tabindex: 0})
@@ -26,3 +27,9 @@ $ ->
     url = Alchemy.current_url
     delimiter = if url.match(/\?/) then '&' else '?'
     window.location = url + delimiter + 'locale=' + $(this).val()
+    return
+
+  # Attaches the image loader on all images
+  Alchemy.ImageLoader('img')
+
+  return

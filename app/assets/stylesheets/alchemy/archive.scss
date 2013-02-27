@@ -59,16 +59,6 @@ div#image_assign_filter_and_image_sizing {
       width: 80px;
       height: 60px;
     }
-
-    .image_spinner {
-      height: 60px;
-      margin: $default-margin;
-
-      img {
-        top: 14px;
-        left: 25px;
-      }
-    }
   }
 
   &.medium {
@@ -83,16 +73,6 @@ div#image_assign_filter_and_image_sizing {
       width: 160px;
       height: 120px;
     }
-
-    .image_spinner {
-      height: 120px;
-      margin: $default-margin;
-
-      img {
-        top: 42px;
-        left: 64px;
-      }
-    }
   }
 
   &.large {
@@ -106,15 +86,6 @@ div#image_assign_filter_and_image_sizing {
     .thumbnail_background {
       width: 240px;
       height: 180px;
-    }
-
-    .image_spinner {
-      height: 180px;
-
-      img {
-        top: 74px;
-        left: 108px;
-      }
     }
   }
 
@@ -148,19 +119,6 @@ div.assign_image_list_image {
   text-align: center;
   overflow: hidden;
   position: relative;
-}
-
-div.image_spinner {
-  background-color: $dark-gray;
-  width: 1px;
-  margin: $default-margin;
-
-  img {
-    position: absolute;
-    z-index: 0;
-    top: 32px;
-    left: 40px;
-  }
 }
 
 #assign_image_list {

@@ -10,7 +10,7 @@
 
   <% if @error %>
 
-    $("#element_<%= @element.id -%>_folder_spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
+    $("#element_<%= @element.id -%> .spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
 
   <% else %>
 
@@ -37,7 +37,8 @@
       Alchemy.ElementDirtyObserver($el);
       Alchemy.Datepicker('input[type="date"]', $el);
       Alchemy.Buttons.observe($el);
-      Alchemy.overlayObserver("#element_<%= @element.id -%>");
+      Alchemy.overlayObserver("#element_<%= @element.id %>");
+      Alchemy.ImageLoader('#element_<%= @element.id -%> img');
 
     <% end %>
 

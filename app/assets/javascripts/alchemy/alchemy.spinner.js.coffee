@@ -4,10 +4,10 @@ Alchemy.Spinner =
 
   DEFAULTS:
     lines: 5
-    corners: 0.3
+    corners: 0.75
     rotate: 54
     trail: 75
-    speed: 1.5
+    speed: 1.25
     hwaccel: true
 
   small: (opts) ->

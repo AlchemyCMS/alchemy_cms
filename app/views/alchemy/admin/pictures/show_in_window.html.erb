@@ -4,5 +4,9 @@
     :name => @picture.urlname,
     :format => :png,
     :sh => @picture.security_token
-  )
+  ),
+  :id => "zoomed_picture_#{@picture.id}"
 ) %>
+<script type="text/javascript">
+  Alchemy.ImageLoader('#zoomed_picture_<%= @picture.id %>', {size: 'medium', color: '#000'});
+</script>

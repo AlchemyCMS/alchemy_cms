@@ -72,14 +72,19 @@ $.extend Alchemy,
       return
     return
 
-  # Fades an image and hides the spinner.
-  # Used by all thumbnails load events in Alchemy.
-  fadeImage: (image, spinner_selector) ->
-    try
-      $(spinner_selector).hide()
-      $(image).fadeIn 600
-    catch e
-      Alchemy.debug e
+  # Shows spinner while loading images and
+  # fades the image after its been loaded
+  ImageLoader: (selector = 'img', options = {color: '#fff'}) ->
+    $(selector).each ->
+      image = $(this).hide()
+      parent = image.parent()
+      spinner = Alchemy.Spinner.small options
+      spinner.spin parent[0]
+      image.load ->
+        image.fadeIn 600
+        spinner.stop()
+        return
+      return
     return
 
   removePicture: (selector) ->

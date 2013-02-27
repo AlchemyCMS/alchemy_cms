@@ -148,6 +148,7 @@ if (typeof(Alchemy) === 'undefined') {
               Alchemy.Datepicker('#alchemyOverlay input.date, #alchemyOverlay input[type="date"]');
               Alchemy.Buttons.observe('#alchemyOverlay');
               Alchemy.overlayObserver('#alchemyOverlay');
+              //Alchemy.ImageLoader('#alchemyOverlay img', {color: '#fff'});
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown);

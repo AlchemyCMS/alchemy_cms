@@ -141,9 +141,7 @@ module Alchemy
           }.merge(image_options)),
           :alt => content.ingredient.name,
           :class => 'img_paddingtop',
-          :title => _t("image_name") + ": #{content.ingredient.name}",
-          :onload => "Alchemy.fadeImage(this, '##{content_dom_id(content)} .picture_content_spinner');",
-          :style => "display: none;"
+          :title => _t("image_name") + ": #{content.ingredient.name}"
         )
       end
 

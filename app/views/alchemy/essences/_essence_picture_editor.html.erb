@@ -31,9 +31,6 @@
     </span>
     <%- if content.ingredient -%>
     <div class="picture_handle" title="<%= _t('drag_to_sort') if options[:dragable] %>"></div>
-    <div class="picture_content_spinner">
-      <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
-    </div>
     <%- end -%>
     <div class="picture_image">
       <div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">

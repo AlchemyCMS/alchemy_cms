@@ -8,23 +8,9 @@
     <%= _t('explain cropping') %>
   <% end %>
   <div class="thumbnail_background">
-    <span class="picture_content_spinner">
-      <%= image_tag("alchemy/image_loader.gif", :alt => '') %>
-    </span>
-    <%= image_tag(show_alchemy_picture_path(@essence_picture.picture, :size => '800x600', :format => :png),
-      :id => 'imageToCrop',
-      :onload => %(
-        Alchemy.fadeImage(this, '#jscropper .picture_content_spinner');
-        Alchemy.ImageCropper.init(
-          [#{@initial_box[:x1]}, #{@initial_box[:y1]}, #{@initial_box[:x2]}, #{@initial_box[:y2]}],
-          #{@size_x},
-          #{@size_y},
-          [#{@default_box[:x1]}, #{@default_box[:y1]}, #{@default_box[:x2]}, #{@default_box[:y2]}],
-          #{@ratio},
-          [#{@essence_picture.picture.image_file_width}, #{@essence_picture.picture.image_file_height}]
-        );
-      ),
-      :style => "display: none;"
+    <%= image_tag(
+      show_alchemy_picture_path(@essence_picture.picture, :size => '800x600', :format => :png),
+      :id => 'imageToCrop'
     ) %>
   </div>
   <%= form_for(
@@ -44,3 +30,16 @@
   <% end %>
 <% end %>
 </div>
+<script type="text/javascript">
+  Alchemy.ImageLoader('#imageToCrop', {color: '#fff'});
+  $('#imageToCrop').load(function() {
+    Alchemy.ImageCropper.init(
+      [<%= @initial_box[:x1] %>, <%= @initial_box[:y1] %>, <%= @initial_box[:x2] %>, <%= @initial_box[:y2] %>],
+      <%= @size_x %>,
+      <%= @size_y %>,
+      [<%= @default_box[:x1] %>, <%= @default_box[:y1] %>, <%= @default_box[:x2] %>, <%= @default_box[:y2] %>],
+      <%= @ratio %>,
+      [<%= @essence_picture.picture.image_file_width %>, <%= @essence_picture.picture.image_file_height %>]
+    );
+  });
+</script>
