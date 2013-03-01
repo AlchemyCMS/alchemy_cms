@@ -67,5 +67,10 @@ module Alchemy
       end
     end
 
+    # Renders the human model name with a count as h1 header
+    def resources_header
+      content_tag :h1, "#{resources_instance_variable.total_count} #{resource_model.model_name.human(:count => resources_instance_variable.total_count)}"
+    end
+
   end
 end

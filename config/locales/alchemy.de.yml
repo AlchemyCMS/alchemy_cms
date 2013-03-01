@@ -821,6 +821,9 @@ de:
   activerecord:
 
     models:
+      acts_as_taggable_on/tag:
+        one: Tag
+        other: Tags
 
       alchemy/attachment:
         one: "Datei"

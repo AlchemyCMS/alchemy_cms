@@ -72,6 +72,10 @@
 <% end %>
 
 <div id="picture_archive">
+  <h1>
+    <%= @pictures.total_count %>
+    <%= Alchemy::Picture.model_name.human(:count => @pictures.total_count) %>
+  </h1>
   <%= render 'archive' %>
 </div>
 
