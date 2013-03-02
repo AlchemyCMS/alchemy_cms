@@ -83,7 +83,7 @@ module Alchemy
           redirect_to admin_pages_path
         else
           @page.lock(current_user)
-          @locked_pages = Page.from_current_site.from_current_site.all_locked_by(current_user)
+          @locked_pages = Page.from_current_site.all_locked_by(current_user)
         end
         @layoutpage = @page.layoutpage?
       end
