@@ -84,7 +84,7 @@ url_nesting: false
 # ==== Options:
 #
 #   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
-#   preprocess_image_resize   [String]        # I.E.: 1000x1000. If you are limited on diskspace use this option to downsize large images to that value. (Default nil)
+#   preprocess_image_resize   [String]        # Use this option to resize images to that value. Downsizing example: '1000x1000>' (Default nil)
 #   image_output_format       [String]        # The global image output format setting.
 #
 # TIP: You can always override the output format in the options of your Essence. I.E. {:format => :gif}
