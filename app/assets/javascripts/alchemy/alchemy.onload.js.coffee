@@ -32,4 +32,7 @@ $ ->
   # Attaches the image loader on all images
   Alchemy.ImageLoader('img')
 
+  # Observes overlay links
+  Alchemy.overlayObserver()
+
   return

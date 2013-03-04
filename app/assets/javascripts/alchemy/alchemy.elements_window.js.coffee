@@ -12,7 +12,7 @@ Alchemy.ElementsWindow =
 
     self.path = path
     self.callback = callback
-    $dialog.html Alchemy.getOverlaySpinner(x: 420, y: 300)
+    $dialog.html Alchemy.getOverlaySpinner(width: 420, height: 300)
     self.dialog = $dialog
     $('#main_content').append($dialog)
     Alchemy.ElementsWindow.currentWindow = $dialog.dialog(

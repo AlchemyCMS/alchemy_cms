@@ -36,8 +36,8 @@ module Alchemy
         link_to(content, url,
           html_options.merge(
             'data-alchemy-overlay' => {
-              :size_x => size && size[0] ? size[0] : 'auto',
-              :size_y => size && size[1] ? size[1] : 'auto',
+              :width => size && size[0] ? size[0] : 'auto',
+              :height => size && size[1] ? size[1] : 'auto',
               :resizable => options[:resizable],
               :modal => options[:modal],
               :overflow => options[:overflow],

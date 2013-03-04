@@ -47,7 +47,7 @@ if (typeof(Alchemy) === 'undefined') {
             data: params_string,
             complete: function() {
               $(event.target).css("cursor", "auto");
-              Alchemy.refreshTrashWindow(page_id);
+              Alchemy.TrashWindow.refresh(page_id);
             }
           });
         },

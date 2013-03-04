@@ -12,7 +12,7 @@
       self = Alchemy.LinkOverlay
       $dialog = $('<div style="display:none" id="alchemyLinkOverlay"></div>')
 
-      $dialog.html(Alchemy.getOverlaySpinner({x: width}))
+      $dialog.html(Alchemy.getOverlaySpinner({width: width}))
 
       self.current = $dialog.dialog({
         modal: true,

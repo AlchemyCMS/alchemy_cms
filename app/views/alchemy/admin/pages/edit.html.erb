@@ -113,15 +113,11 @@
           label: '<%= _t("New Element") %>',
           iconClass: 'new_element',
           onClick: function() {
-            Alchemy.openWindow(
-              '<%= alchemy.new_admin_element_path(:page_id => @page.id) %>',
-              '<%= _t("New Element") %>',
-              320,
-              120,
-              false,
-              true,
-              true
-            );
+            Alchemy.openWindow('<%= alchemy.new_admin_element_path(:page_id => @page.id) %>', {
+              title: '<%= _t("New Element") %>',
+              width: 320,
+              height: 120
+            });
           }
         },
         {
@@ -130,15 +126,11 @@
           iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
-            Alchemy.openWindow(
-              '<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") %>',
-              '<%= _t("Clipboard") %>',
-              380,
-              270,
-              false,
-              true,
-              true
-            );
+            Alchemy.openWindow('<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") %>', {
+              title :'<%= _t("Clipboard") %>',
+              width: 380,
+              height: 270
+            });
           }
         },
         {
@@ -147,7 +139,7 @@
           iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
           buttonId: 'element_trash_button',
           onClick: function() {
-            Alchemy.openTrashWindow(<%= @page.id %>, '<%= _t("Trash") %>');
+            Alchemy.TrashWindow.open(<%= @page.id %>, '<%= _t("Trash") %>');
           }
         }
       ]

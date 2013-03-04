@@ -25,7 +25,7 @@ $.extend Alchemy,
       $this = $(this)
       picture_ids = $("input:checkbox", "#picture_archive").serialize()
       e.preventDefault()
-      Alchemy.openWindow $this.attr("href") + "?" + picture_ids, $this.attr("title"), 400, 230, false, true, false
+      Alchemy.openWindow $this.attr("href") + "?" + picture_ids, {title: $this.attr("title"), height: 230, overflow: false}
       false
     return
 
