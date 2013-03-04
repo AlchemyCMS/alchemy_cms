@@ -71,7 +71,6 @@ module Alchemy
     before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
     after_create :create_cells, :unless => :systempage?
     after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
-    before_update :handle_published_at, :if => :public_changed?
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
     after_update :create_legacy_url, :if => proc { |page| page.urlname_changed? && !page.redirects_to_external? }
@@ -544,11 +543,7 @@ module Alchemy
 
     # Overwrites the cache_key method so it uses the published_at attribute instead of updated_at.
     def cache_key(request = nil)
-      if timestamp = published_at
-        "alchemy/pages/#{id}-#{timestamp.utc.to_s(:number)}"
-      else
-        "alchemy/pages/#{id}"
-      end
+      "alchemy/pages/#{id}"
     end
 
     def taggable?
@@ -557,10 +552,9 @@ module Alchemy
 
     # Publishes the page
     #
-    # Sets public true, published_at to current time and saves the object.
+    # Sets public true and saves the object.
     def publish!
       self.public = true
-      self.published_at = Time.now
       self.save
     end
 
@@ -644,14 +638,6 @@ module Alchemy
     def create_legacy_url
       legacy_url = legacy_urls.new(:urlname => urlname_was)
       legacy_url.save!
-    end
-
-    def handle_published_at
-      if self.public
-        self.published_at = Time.now
-      else
-        self.published_at = nil
-      end
     end
 
   end
