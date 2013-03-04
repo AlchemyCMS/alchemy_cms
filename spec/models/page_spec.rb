@@ -185,7 +185,31 @@ module Alchemy
             page.save!
             page.legacy_urls.should be_empty
           end
-          
+
+        end
+
+        context "public has changed" do
+
+          context "from false to true" do
+            it "published_at should be current time" do
+              page.published_at = nil
+              page.public = true
+              page.save!
+              page.published_at.should_not be_nil
+            end
+          end
+
+          context "from true to false" do
+            it "published_at should be nil" do
+              page.public = true
+              page.save!
+              timestamp = page.published_at
+              page.public = false
+              page.save!
+              page.published_at.should be_nil
+            end
+          end
+
         end
 
       end
@@ -692,7 +716,7 @@ module Alchemy
     end
 
     describe '.copy' do
-      let (:page) { FactoryGirl.create(:page, :name => 'Source') }
+      let(:page) { FactoryGirl.create(:page, :name => 'Source') }
       subject { Page.copy(page) }
 
       it "the copy should have added (copy) to name" do
@@ -753,6 +777,25 @@ module Alchemy
         it "should take this name" do
           subject.name.should == 'Different name'
         end
+      end
+    end
+
+    describe "#cache_key" do
+      let(:timestamp) { Time.now }
+      subject { stub_model(Page, published_at: timestamp) }
+      its(:cache_key) { should match(timestamp.utc.to_s(:number)) }
+    end
+
+    describe "#publish!" do
+      let(:page) { stub_model(Page, published_at: nil, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
+      before { page.publish! }
+
+      it "sets public attribute to true" do
+        page.public.should == true
+      end
+
+      it "should set the published_at attribute" do
+        page.published_at.should_not be_nil
       end
     end
 

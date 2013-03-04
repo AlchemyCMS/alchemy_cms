@@ -121,5 +121,20 @@ module Alchemy
 
     end
 
+    describe '#publish' do
+
+      let(:page) { stub_model(Page, published_at: nil, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
+      before do
+        @controller.stub!(:load_page).and_return(page)
+        @controller.instance_variable_set("@page", page)
+      end
+
+      it "should publish the page" do
+        page.should_receive(:publish!)
+        post :publish, { id: page.id }
+      end
+
+    end
+
   end
 end
