@@ -19,6 +19,7 @@ module Alchemy
         convert_essence_texts_displayed_as_select_into_essence_selects
         convert_essence_texts_displayed_as_checkbox_into_essence_booleans
         copy_new_config_file
+        gallery_pictures_change_notice
         removed_richmedia_essences_notice
 
         display_todos
@@ -194,6 +195,17 @@ module Alchemy
           log "Copied new default configuration file."
           todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file."
         end
+      end
+
+      def gallery_pictures_change_notice
+        txt = ["We have changed the way Alchemy handles EssencePictures in elements."]
+        txt << "It is now possible to have single EssencePictures and galleries side by side in the same element."
+        txt << "All element editor views containing render_picture_editor with option `maximum_amount_of_images => 1` must be changed into render_essence_editor_by_name."
+        txt << "In the yml description of these elements add a new content for this picture."
+        txt << "\nIn order to upgrade your elements in the database run:"
+        txt << "\nrails g alchemy:gallery_pictures_migration\n"
+        txt << "and alter `db/seeds.rb`, so that it contains all elements that have essence pictures."
+        todo txt.join("\n")
       end
 
       def removed_richmedia_essences_notice
