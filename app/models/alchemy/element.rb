@@ -45,7 +45,7 @@ module Alchemy
     scope :not_in_cell, where(:cell_id => nil)
     scope :in_cell, where("#{self.table_name}.cell_id IS NOT NULL")
     # Scope for only the elements from Alchemy::Site.current
-    scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current}).joins(:page => :language) }
+    scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current || Site.default}).joins(:page => :language) }
     # TODO: add this as default_scope
     #default_scope { from_current_site }
 
