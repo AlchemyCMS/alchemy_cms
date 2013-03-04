@@ -178,8 +178,7 @@ module Alchemy
       # Sets the page public and sweeps the page cache
       def publish
         # fetching page via before filter
-        @page.public = true
-        @page.save
+        @page.publish!
         flash[:notice] = _t("page_published", :name => @page.name)
         redirect_back_or_to_default(admin_pages_path)
       end
