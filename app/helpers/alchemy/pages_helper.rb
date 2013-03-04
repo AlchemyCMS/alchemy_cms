@@ -44,11 +44,11 @@ module Alchemy
       options = default_options.merge(options)
       if multi_language?
         language_links = []
-        pages = (options[:link_to_public_child] == true) ? Page.language_roots : Page.public_language_roots
+        pages = (options[:link_to_public_child] == true) ? Page.from_current_site.language_roots : Page.from_current_site.public_language_roots
         return nil if (pages.blank? || pages.length == 1)
         pages.each_with_index do |page, i|
           if (options[:link_to_page_with_layout] != nil)
-            page_found_by_layout = Page.where(:page_layout => options[:link_to_page_with_layout].to_s, :language_id => page.language_id).first
+            page_found_by_layout = Page.from_current_site.where(:page_layout => options[:link_to_page_with_layout].to_s, :language_id => page.language_id).first
           end
           page = page_found_by_layout || page
           page = (options[:link_to_public_child] ? (page.first_public_child.blank? ? nil : page.first_public_child) : nil) if !page.public?
