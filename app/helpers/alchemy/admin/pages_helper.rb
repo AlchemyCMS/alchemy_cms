@@ -26,7 +26,7 @@ module Alchemy
                 init.plugins = '#{Alchemy::Tinymce.plugins.join(',')}';
                 init.language = '#{::I18n.locale.to_s.split('-')[0].downcase }';
                 init.init_instance_callback = function(inst) {
-                  spinner.stop();
+                  $('#' + inst.editorId).prev('.spinner').remove();
                 }
                 if (callback)
                   init.oninit = callback;
