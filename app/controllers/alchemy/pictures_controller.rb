@@ -11,56 +11,23 @@ module Alchemy
     filter_access_to :thumbnail
 
     def show
-      image_file = @picture.image_file
-
-      if image_file.nil?
-        raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
-      end
-
-      upsample = params[:upsample] == 'true'
-      crop_from = normalized_size(params[:crop_from])
-      crop_size = params[:crop_size]
-      size = params[:size]
-
-      if params[:crop_size].present? && params[:crop_from].present?
-        crop_from = params[:crop_from].split('x')
-        image_file = image_file.process(:thumb, "#{params[:crop_size]}+#{crop_from[0]}+#{crop_from[1]}")
-      elsif params[:crop] == 'crop' && size.present?
-        image_file = image_file.process(:thumb, "#{size}#")
-      end
-
-      if size.present?
-        image_file = image_file.process(:resize, upsample ? size : "#{size}>")
-      end
+      @size = params[:size]
 
       expires_in 1.month, public: !@picture.restricted?
-      respond_to { |format| send_image(image_file, format) }
+      respond_to { |format| send_image(processed_image, format) }
     end
 
     def thumbnail
-      image_file = @picture.image_file
-
       case params[:size]
-        when "small" then size = "80x60"
-        when "medium" then size = "160x120"
-        when "large" then size = "240x180"
-        when nil then size = "111x93"
+        when "small" then @size = "80x60"
+        when "medium" then @size = "160x120"
+        when "large" then @size = "240x180"
+        when nil then @size = "111x93"
       else
-        size = params[:size]
+        @size = params[:size]
       end
 
-      if params[:crop_size].present? && params[:crop_from].present?
-        crop_from = params[:crop_from].split('x')
-        image_file = image_file.process(:thumb, "#{params[:crop_size]}+#{crop_from[0]}+#{crop_from[1]}")
-      elsif params[:crop] == 'crop' && size.present?
-        image_file = image_file.process(:thumb, "#{size}#")
-      end
-
-      if size.present?
-        image_file = image_file.process(:resize, size + '>')
-      end
-
-      respond_to { |format| send_image(image_file, format) }
+      respond_to { |format| send_image(processed_image, format) }
     end
 
     def zoom
@@ -103,6 +70,36 @@ module Alchemy
           end
           render :text => image_file.data
         end
+      end
+    end
+
+    # Return the processed image dependent of size and cropping parameters
+    def processed_image
+      image_file = @picture.image_file
+      if image_file.nil?
+        raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
+      end
+      if params[:crop_size].present? && params[:crop_from].present?
+        crop_from = params[:crop_from].split('x')
+        image_file = image_file.process(:thumb, "#{params[:crop_size]}+#{crop_from[0]}+#{crop_from[1]}")
+        image_file.process(:resize, @size + '>')
+      elsif params[:crop] == 'crop' && @size.present?
+        width, height = @size.split('x').collect(&:to_i)
+        # prevent upscaling unless :upsample param is true
+        # unfurtunally dragonfly does not handle this correctly while cropping
+        unless params[:upsample] == 'true'
+          if width > image_file.width
+            width = image_file.width
+          end
+          if height > image_file.height
+            height = image_file.height
+          end
+        end
+        image_file.process(:resize_and_crop, :width => width, :height => height, :gravity => '#')
+      elsif @size.present?
+        image_file.process(:resize, "#{@size}>")
+      else
+        image_file
       end
     end
 
