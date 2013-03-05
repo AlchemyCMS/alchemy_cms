@@ -67,18 +67,50 @@ module Alchemy
       end
     end
 
-    context "Requesting a picture with crop and size parameters" do
-      it "should render a cropped image" do
-        options = {
-          :crop => 'crop',
-          :size => '10x10',
-          :format => 'png'
-        }
-        get :show, options.merge(:id => picture.id, :sh => picture.security_token(options))
-        response.body[0x10..0x18].unpack('NN').should == [10,10]
-      end
-    end
+    describe 'Picture processing' do
 
+      context "with crop and size parameters" do
+
+        let(:big_picture) { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../support/80x60.png', __FILE__), 'image/png')) }
+
+        it "should return a cropped image." do
+          options = {
+            :crop => 'crop',
+            :size => '10x10',
+            :format => 'png'
+          }
+          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          response.body[0x10..0x18].unpack('NN').should == [10,10]
+        end
+
+        context "without upsample parameter" do
+          it "should not upsample the image." do
+            options = {
+              :crop => 'crop',
+              :size => '10x10',
+              :format => 'png'
+            }
+            get :show, options.merge(:id => picture.id, :sh => picture.security_token(options))
+            response.body[0x10..0x18].unpack('NN').should == [1,1]
+          end
+        end
+
+        context "and with upsample true" do
+          it "should return an upsampled image." do
+            options = {
+              :crop => 'crop',
+              :size => '10x10',
+              :upsample => 'true',
+              :format => 'png'
+            }
+            get :show, options.merge(:id => picture.id, :sh => picture.security_token(options))
+            response.body[0x10..0x18].unpack('NN').should == [10,10]
+          end
+        end
+
+      end
+
+    end
 
   end
 end
