@@ -22,7 +22,6 @@ module Alchemy
         gallery_pictures_change_notice
         removed_richmedia_essences_notice
         convert_picture_storage
-        upgrade_to_sites
         removed_standard_set_notice
         renamed_t_method
         migrated_to_devise
@@ -31,20 +30,6 @@ module Alchemy
       end
 
     private
-
-      def upgrade_to_sites
-        desc "Creating default site and migrating existing languages to it"
-        if Site.count == 0
-          Alchemy::Site.transaction do
-            site = Alchemy::Site.new(host: '*', name: 'Default Site')
-            site.languages << Alchemy::Language.all
-            site.save!
-            log "Done."
-          end
-        else
-          log "Site(s) already present.", :skip
-        end
-      end
 
       # Creates Language model if it does not exist (Alchemy CMS prior v1.5)
       # Also creates missing associations between pages and languages

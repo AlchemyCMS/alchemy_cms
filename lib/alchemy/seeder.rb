@@ -81,6 +81,9 @@ module Alchemy
           :host => '*'
         )
         if site.new_record?
+          if Alchemy::Language.any?
+            site.languages = Alchemy::Language.all
+          end
           site.save!
           log "Created default site with default language."
         else
