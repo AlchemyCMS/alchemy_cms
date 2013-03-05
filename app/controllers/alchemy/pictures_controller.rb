@@ -95,7 +95,7 @@ module Alchemy
             height = image_file.height
           end
         end
-        image_file.process(:resize_and_crop, :width => width, :height => height, :gravity => '#')
+        image_file.process(:resize_and_crop, :width => width, :height => height, :gravity => 'c')
       elsif @size.present?
         image_file.process(:resize, "#{@size}>")
       else
