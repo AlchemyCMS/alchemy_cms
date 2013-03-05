@@ -2,4 +2,3 @@
 
 * image preloader
   * image cropper
-  * archive overlay filter/search/pagination
