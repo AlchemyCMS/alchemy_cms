@@ -4,5 +4,6 @@
   Alchemy.setElementDirty('#element_<%= @content.element.id %>');
 <% if @content.ingredient %>
   $('.thumbnail_background img', '#<%= content_dom_id(@content) %>').replaceWith('<%= essence_picture_thumbnail(@content, @options) %>');
+  Alchemy.ImageLoader('#<%= content_dom_id(@content) %> .thumbnail_background img');
 <% end %>
 })(jQuery);
