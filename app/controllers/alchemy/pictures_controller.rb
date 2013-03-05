@@ -30,7 +30,7 @@ module Alchemy
       end
 
       if size.present?
-        image_file = image_file.process(:resize, size + '>')
+        image_file = image_file.process(:resize, upsample ? size : "#{size}>")
       end
 
       expires_in 1.month, public: !@picture.restricted?
