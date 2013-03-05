@@ -36,7 +36,7 @@ authorization do
     has_permission_on :alchemy_pictures, :to => [:thumbnail]
     has_permission_on :alchemy_admin_pages, :to => [:index, :fold, :edit_page_content, :link]
     has_permission_on :alchemy_admin_elements, :to => [:manage_elements]
-    has_permission_on :alchemy_admin_pictures, :to => [:index, :archive_overlay, :show_in_window, :info]
+    has_permission_on :alchemy_admin_pictures, :to => [:read, :archive_overlay, :info]
     has_permission_on :alchemy_admin_attachments, :to => [:index, :archive_overlay, :show, :download]
     has_permission_on :alchemy_admin_contents, :to => [:manage_contents]
     has_permission_on :alchemy_admin_essence_pictures, :to => [:manage_picture_essences]

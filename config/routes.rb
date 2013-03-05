@@ -110,7 +110,7 @@ Alchemy::Engine.routes.draw do
         get :edit_multiple
       end
       member do
-        get :show_in_window, :info
+        get :info
         delete :remove
       end
     end

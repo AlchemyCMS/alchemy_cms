@@ -160,6 +160,7 @@ $.extend Alchemy,
       modal: true
       overflow: true
       image_loader: true
+      image_loader_color: '#fff'
     $.extend(options, opts)
     if options.width is "fullscreen"
       options.width = $(window).width() - 50
@@ -174,6 +175,7 @@ $.extend Alchemy,
       modal: options.modal
       minWidth: (if options.width is "auto" then 400 else options.width)
       minHeight: (if options.height is "auto" then 300 else options.height)
+      maxHeight: options.maxHeight
       title: options.title
       resizable: options.resizable
       show: "fade"
@@ -196,7 +198,7 @@ $.extend Alchemy,
             Alchemy.Buttons.observe "#alchemyOverlay"
             Alchemy.overlayObserver "#alchemyOverlay"
             if options.image_loader
-              Alchemy.ImageLoader '#alchemyOverlay img', {color: '#fff'}
+              Alchemy.ImageLoader '#alchemyOverlay img', {color: options.image_loader_color}
             return
           error: (XMLHttpRequest, textStatus, errorThrown) ->
             Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
@@ -223,36 +225,20 @@ $.extend Alchemy,
   # Opens an image in an overlay
   # Used by the picture library
   zoomImage: (url, title, width, height) ->
-    window_height = height
-    window_width = width
     $doc_width = $(window).width()
     $doc_height = $(window).height()
-    window_width = $doc_width - 50  if width > $doc_width
-    window_height = $doc_height - 50  if height > $doc_height
-    $dialog = $("<div style=\"display:none\" id=\"alchemyOverlay\"></div>")
-    $dialog.appendTo "body"
-    $dialog.html Alchemy.getOverlaySpinner({width: width, height: height})
-    $dialog.dialog
-      modal: false
-      minWidth: (if window_width < 320 then 320 else window_width)
-      minHeight: (if window_height < 240 then 240 else window_height)
+    if width > $doc_width
+      width = 'fullscreen'
+    if height > $doc_height
+      height = $doc_height
+    Alchemy.openWindow url,
+      width: width
+      height: height
+      maxHeight: height
       title: title
-      show: "fade"
-      hide: "fade"
-      open: (event, ui) ->
-        $.ajax
-          url: url
-          success: (data, textStatus, XMLHttpRequest) ->
-            $dialog.html data
-            return
-          error: (XMLHttpRequest, textStatus, errorThrown) ->
-            Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
-            return
-        return
-      close: ->
-        $dialog.remove()
-        return
-    false
+      overflow: false
+      modal: false
+      image_loader_color: '#000'
 
   # Trash window methods
   TrashWindow:

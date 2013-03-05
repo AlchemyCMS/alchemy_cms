@@ -68,6 +68,11 @@ module Alchemy
         end
       end
 
+      def show
+        @picture = Picture.find(params[:id])
+        render :layout => false
+      end
+
       def edit
         @picture = Picture.find(params[:id])
         render :layout => !request.xhr?
@@ -144,11 +149,6 @@ module Alchemy
         # FileUtils.rm_rf only takes arrays of folders...
         FileUtils.rm_rf Dir.glob(Rails.root.join('public', Alchemy.mount_point, 'pictures', '*'))
         @notice = _t('Picture cache flushed')
-      end
-
-      def show_in_window
-        @picture = Picture.find(params[:id])
-        render :layout => false
       end
 
       def info
