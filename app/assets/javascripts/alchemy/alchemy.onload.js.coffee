@@ -30,7 +30,7 @@ $ ->
     return
 
   # Attaches the image loader on all images
-  Alchemy.ImageLoader('img')
+  Alchemy.ImageLoader('#main_content img')
 
   # Observes overlay links
   Alchemy.overlayObserver()
