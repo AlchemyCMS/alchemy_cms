@@ -32,17 +32,13 @@ module Alchemy
           :resizable => false
         }
         options = default_options.merge(options)
-        size = options[:size].to_s.split('x')
+        size = options.delete(:size).to_s.split('x')
         link_to(content, url,
           html_options.merge(
-            'data-alchemy-overlay' => {
+            'data-alchemy-overlay' => options.update(
               :width => size && size[0] ? size[0] : 'auto',
               :height => size && size[1] ? size[1] : 'auto',
-              :resizable => options[:resizable],
-              :modal => options[:modal],
-              :overflow => options[:overflow],
-              :title => options[:title]
-            }.to_json
+            ).to_json
           )
         )
       end

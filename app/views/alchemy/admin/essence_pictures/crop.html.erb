@@ -31,7 +31,7 @@
 <% end %>
 </div>
 <script type="text/javascript">
-  Alchemy.ImageLoader('#imageToCrop', {color: '#fff'});
+  Alchemy.ImageLoader('#imageToCrop');
   $('#imageToCrop').load(function() {
     Alchemy.ImageCropper.init(
       [<%= @initial_box[:x1] %>, <%= @initial_box[:y1] %>, <%= @initial_box[:x2] %>, <%= @initial_box[:y2] %>],
