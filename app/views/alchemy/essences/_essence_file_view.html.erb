@@ -5,5 +5,5 @@
     :name => content.essence.attachment.urlname
   ),
   :class => "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
-  :title => "#{content.essence.title.blank? ? content.essence.attachment.filename : content.essence.title}"
+  :title => "#{content.essence.title.blank? ? content.essence.attachment.file_name : content.essence.title}"
 ) if content.essence.attachment %>
