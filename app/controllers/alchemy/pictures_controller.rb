@@ -75,6 +75,11 @@ module Alchemy
 
     # Return the processed image dependent of size and cropping parameters
     def processed_image
+      if params[:upsample] == 'true'
+        resize_string = @size.to_s
+      else
+        resize_string = "#{@size}>"
+      end
       image_file = @picture.image_file
       if image_file.nil?
         raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
@@ -82,7 +87,7 @@ module Alchemy
       if params[:crop_size].present? && params[:crop_from].present?
         crop_from = params[:crop_from].split('x')
         image_file = image_file.process(:thumb, "#{params[:crop_size]}+#{crop_from[0]}+#{crop_from[1]}")
-        image_file.process(:resize, @size + '>')
+        image_file.process(:resize, resize_string)
       elsif params[:crop] == 'crop' && @size.present?
         width, height = @size.split('x').collect(&:to_i)
         # prevent upscaling unless :upsample param is true
@@ -97,7 +102,7 @@ module Alchemy
         end
         image_file.process(:resize_and_crop, :width => width, :height => height, :gravity => 'c')
       elsif @size.present?
-        image_file.process(:resize, "#{@size}>")
+        image_file.process(:resize, resize_string)
       else
         image_file
       end
