@@ -54,7 +54,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<handles_sortable_columns>,   ['~> 0.1.4']
 
   s.add_development_dependency %q<bumpy>
-  s.add_development_dependency %q<capybara>
+  s.add_development_dependency %q<capybara>,               ['~> 2.0.2']
   s.add_development_dependency %q<factory_girl_rails>
   s.add_development_dependency %q<rspec-rails>,            ['2.12.0']
   s.add_development_dependency %q<sqlite3>

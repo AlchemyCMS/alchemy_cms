@@ -249,20 +249,6 @@ module Alchemy
           page.current_path.should == "/#{public_page_1.urlname}"
         end
 
-        context "with no lang parameter" do
-
-          it "should have defaults language language_id in the session" do
-            get show_page_path(:urlname => 'a-public-page')
-            controller.session[:language_id].should == Language.get_default.id
-          end
-
-          it "should have defaults language language_code in the session" do
-            get show_page_path(:urlname => 'a-public-page')
-            controller.session[:language_code].should == Language.get_default.code
-          end
-
-        end
-
         context "should redirect to public child" do
 
           before do
@@ -303,16 +289,8 @@ module Alchemy
         visit "/non-existing-page"
       end
 
-      context "if a language root page exists" do
-
-        it "should render the status code in the title tag" do
-          within("title") { page.should have_content("404") }
-        end
-
-      end
-
-      it "should render public/404.html when it exists" do
-        within("title") { page.should have_content("404") }
+      it "should render public/404.html" do
+        page.status_code.should == 404
       end
 
     end

@@ -66,5 +66,5 @@ module Alchemy
 end
 
 RSpec.configure do |c|
-  c.include Alchemy::Specs::Helpers, :type => :request
+  c.include Alchemy::Specs::Helpers, :type => :feature
 end
