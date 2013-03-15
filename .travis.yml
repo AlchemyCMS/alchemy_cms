@@ -6,6 +6,7 @@ branches:
   only:
     - master
 before_script:
+  - phantomjs --version
   - sudo spec/support/ci/install_phantomjs
   - "export PATH=phantomjs/bin:$PATH"
   - phantomjs --version
