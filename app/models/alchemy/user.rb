@@ -14,10 +14,10 @@ module Alchemy
       :login,
       :email,
       :gender,
-      :role,
       :language,
       :password,
       :password_confirmation,
+      :roles,
       :tag_list
     )
 
@@ -31,7 +31,10 @@ module Alchemy
       end
     end
 
-    scope :admins, where(:role => 'admin')
+    scope :admins, where(arel_table[:roles].matches("%admin%")) # not pleased with that approach
+    # mysql regexp word matching would be much nicer, but it's not included in SQLite functions per se.
+    # scope :admins, where("#{table_name}.roles REGEXP '[[:<:]]admin[[:>:]]'")
+
     scope :logged_in, lambda { where("last_request_at > ?", logged_in_timeout.seconds.ago) }
     scope :logged_out, lambda { where("last_request_at is NULL or last_request_at <= ?", logged_in_timeout.seconds.ago) }
 
@@ -55,14 +58,31 @@ module Alchemy
     end
 
     def role_symbols
-      [role.to_sym]
+      roles.map(&:to_sym)
+    end
+
+    def roles
+      read_attribute(:roles).split(' ')
+    end
+
+    def roles=(roles_string)
+      if roles_string.is_a? Array
+        write_attribute(:roles, roles_string.join(' '))
+      elsif roles_string.is_a? String
+        write_attribute(:roles, roles_string)
+      end
     end
 
     # Returns true if the user ahs admin role
     def is_admin?
-      role == "admin"
+      has_role? 'admin'
     end
     alias_method :admin?, :is_admin?
+
+    # Returns true if the user has the given role.
+    def has_role?(role)
+      roles.include? role.to_s
+    end
 
     # Calls unlock on all locked pages
     def unlock_pages!
@@ -107,8 +127,10 @@ module Alchemy
       !logged_in?
     end
 
-    def human_role_name
-      self.class.human_rolename(self.role)
+    def human_roles_string
+      roles.map do |role|
+        self.class.human_rolename(role)
+      end.to_sentence
     end
 
     def store_request_time!

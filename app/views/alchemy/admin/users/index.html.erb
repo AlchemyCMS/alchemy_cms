@@ -7,7 +7,7 @@
       :title => _t('create_user'),
       :overlay_options => {
         :title => _t('create_user'),
-        :size => "420x560"
+        :size => "420x580"
       },
       :if_permitted_to => [:new, :alchemy_admin_users]
     }
@@ -38,7 +38,7 @@
       <th>
         <%= sortable_column(Alchemy::User.human_attribute_name('last_sign_in_at'), :column => :last_sign_in_at) %>
       </th>
-      <th class="role"><%= Alchemy::User.human_attribute_name('role') %></th>
+      <th class="role"><%= Alchemy::User.human_attribute_name('roles') %></th>
       <th class="tools"></th>
     </tr>
     <%= render :partial => 'alchemy/admin/users/user', :collection => @users %>

@@ -939,7 +939,7 @@ de:
         name: "Name"
         password: "Passwort"
         password_confirmation: "Passwort Bestätigung"
-        role: "Benutzerrolle"
+        roles: "Benutzerrollen"
         tag_list: Tags
 
       alchemy/site:

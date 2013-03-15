@@ -249,3 +249,13 @@ table.window_form {
 td.file_name {
   word-break: break-all;
 }
+
+td#user_roles {
+  padding: 9px 0;
+
+  label {
+    @include inline-block;
+    white-space: nowrap;
+    min-width: 40%;
+  }
+}

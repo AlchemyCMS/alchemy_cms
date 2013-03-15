@@ -6,9 +6,91 @@ module Alchemy
     let(:user) { FactoryGirl.build(:user) }
     let(:page) { FactoryGirl.create(:page) }
 
-    it "should have a role" do
+    it "should have at least registered role" do
       user.save!
-      user.role.should_not be_nil
+      user.roles.should_not be_blank
+      user.roles.should include('registered')
+    end
+
+    describe 'scopes' do
+      describe '.admins' do
+        before do
+          user.roles = 'admin'
+          user.save!
+        end
+
+        it "should only return users with admin role" do
+          User.admins.should include(user)
+        end
+      end
+    end
+
+    describe ".human_rolename" do
+      it "return a translated role name" do
+        ::I18n.locale = :de
+        User.human_rolename('registered').should == "Registriert"
+      end
+    end
+
+    describe "#human_roles_string" do
+      it "should return a humanized roles string." do
+        ::I18n.locale = :de
+        user.roles = ['registered', 'admin']
+        user.human_roles_string.should == "Registriert und Administrator"
+      end
+    end
+
+    describe '#role_symbols' do
+      it "should return an array of user role symbols" do
+        user.role_symbols.should == [:registered]
+      end
+    end
+
+    describe '#has_role?' do
+
+      context "with given role" do
+        it "should return true." do
+          user.has_role?('registered').should be_true
+        end
+      end
+
+      context "with role given as symbol" do
+        it "should return true." do
+          user.has_role?(:registered).should be_true
+        end
+      end
+
+      context "without given role" do
+        it "should return true." do
+          user.has_role?('admin').should be_false
+        end
+      end
+
+    end
+
+    describe '#roles' do
+      it "should return an array of user roles" do
+        user.roles.should == ["registered"]
+      end
+    end
+
+    describe '#roles=' do
+
+      it "should accept an array of user roles" do
+        user.roles = ["admin"]
+        user.roles.should == ["admin"]
+      end
+
+      it "should accept a string of user roles" do
+        user.roles = "admin registered"
+        user.roles.should == ["admin", "registered"]
+      end
+
+      it "should store the user roles as space seperated string" do
+        user.roles = ["admin", "registered"]
+        user.read_attribute(:roles).should == "admin registered"
+      end
+
     end
 
     describe '#logged_in?' do
@@ -53,7 +135,7 @@ module Alchemy
 
     describe '#is_admin?' do
       it "should return true if the user has admin role" do
-        user.role = "admin"
+        user.roles = "admin"
         user.save!
         user.is_admin?.should be_true
       end

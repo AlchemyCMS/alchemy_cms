@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121092645) do
+ActiveRecord::Schema.define(:version => 20130312205327) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -274,7 +274,7 @@ ActiveRecord::Schema.define(:version => 20130121092645) do
     t.string   "login"
     t.string   "email"
     t.string   "gender"
-    t.string   "role",                                  :default => "registered"
+    t.text     "roles",                  :limit => 255, :default => "registered"
     t.string   "language"
     t.string   "encrypted_password",     :limit => 128, :default => "",           :null => false
     t.string   "password_salt",          :limit => 128, :default => "",           :null => false
@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(:version => 20130121092645) do
   add_index "alchemy_users", ["email"], :name => "index_alchemy_users_on_email", :unique => true
   add_index "alchemy_users", ["login"], :name => "index_alchemy_users_on_login", :unique => true
   add_index "alchemy_users", ["reset_password_token"], :name => "index_alchemy_users_on_reset_password_token", :unique => true
+  add_index "alchemy_users", ["roles"], :name => "index_alchemy_users_on_roles"
 
   create_table "events", :force => true do |t|
     t.string   "name"

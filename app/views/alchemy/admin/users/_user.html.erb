@@ -9,7 +9,7 @@
   <td class="email"><%= user.email %></td>
   <td><%= _t(user.language, :scope => 'translations') %></td>
   <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, :format => :default) : _t(:unknown) %></td>
-  <td class="role"><%= user.human_role_name %></td>
+  <td class="role"><%= user.human_roles_string %></td>
   <td class="tools">
     <%- permitted_to?(:destroy, :alchemy_admin_users) do -%>
     <%= link_to_confirmation_window(
@@ -27,7 +27,7 @@
       {
         :title => _t('edit_user'),
         :overflow => true,
-        :size => '420x560'
+        :size => '420x580'
       },
       {
         :class => "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",

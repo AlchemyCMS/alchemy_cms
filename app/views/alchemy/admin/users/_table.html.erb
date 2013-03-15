@@ -32,11 +32,18 @@
     <td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border long', :autocomplete => "off", :required => action_name == 'signup' %></td>
   </tr>
   <% if @signup %>
-  <%= f.hidden_field :role %>
-  <% elsif permitted_to? :update_role %>
+  <%= f.hidden_field :roles %>
+  <% elsif permitted_to? :update_roles %>
   <tr>
-    <td class="label"><%= f.label 'role' %></td>
-    <td class="select"><%= f.select :role, options_for_select(@user_roles, @user.role), {}, {:class => 'alchemy_selectbox long'} %></td>
+    <td class="label"><%= f.label 'roles' %></td>
+    <td id="user_roles">
+    <% Alchemy::User::ROLES.each do |role| %>
+      <label>
+        <%= check_box_tag 'user[roles][]', role, @user.has_role?(role) %>
+        <%= Alchemy::User.human_rolename(role) %>
+      </label>
+    <% end %>
+    </td>
   </tr>
   <% end %>
   <% unless @signup %>

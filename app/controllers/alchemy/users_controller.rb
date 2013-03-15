@@ -12,7 +12,7 @@ module Alchemy
 
     def new
       @signup = true
-      @user = User.new(:role => 'admin')
+      @user = User.new(:roles => 'admin')
     end
 
     def create

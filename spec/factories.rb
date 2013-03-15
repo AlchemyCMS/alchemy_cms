@@ -10,19 +10,19 @@ FactoryGirl.define do
     language 'en'
 
     factory :admin_user do
-      role "admin"
+      roles 'admin'
     end
 
     factory :registered_user do
-      role "registered"
+      roles 'registered'
     end
 
     factory :author_user do
-      role "author"
+      roles 'author'
     end
 
     factory :editor_user do
-      role "editor"
+      roles 'editor'
     end
 
   end

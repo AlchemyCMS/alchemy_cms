@@ -22,11 +22,11 @@ module Alchemy
       end
 
       it "should render hidden field for role" do
-        response.body.should have_selector('input[type="hidden"]#user_role')
+        response.body.should have_selector('input[type="hidden"]#user_roles')
       end
 
       it "should set the role to admin" do
-        assigns(:user).role.should == "admin"
+        assigns(:user).roles.should include("admin")
       end
     end
 
