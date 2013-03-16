@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gemspec
 
+# For Ruby 2.0.0 compatibility. Can be removed when Rails 3.2.13 is released.
+gem 'rails', github: 'rails/rails', branch: '3-2-13'
+
 #For some strange reason it's only loaded outside any group
 gem 'jasmine'
 gem 'jasminerice'
@@ -26,7 +29,7 @@ end
 group :development do
   unless ENV['CI']
     gem 'guard-spork'
-    gem 'debugger'
+    #gem 'debugger'
     gem 'quiet_assets' # Mute assets loggin
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
   end
