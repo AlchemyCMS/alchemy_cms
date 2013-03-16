@@ -69,7 +69,7 @@ Alchemy.ElementEditors =
     $element.addClass "selected"
     if $cells.size() > 0
       $cell = $element.parent(".sortable_cell")
-      $("#cells").tabs "select", $cell.attr("id")
+      $("#cells").tabs "option", "active", $cells.index($cell)
     if $element.hasClass("folded")
       self.toggleFold id
     else
