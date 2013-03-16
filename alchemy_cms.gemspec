@@ -41,7 +41,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<dragonfly>,                  ["~> 0.9.14"]
   s.add_runtime_dependency %q<kaminari>,                   ["~> 0.13.0"]
   s.add_runtime_dependency %q<acts_as_ferret>,             ["~> 0.5"]
-  s.add_runtime_dependency %q<acts_as_list>,               ["~> 0.1.9"]
+  s.add_runtime_dependency %q<acts_as_list>,               ["~> 0.2.0"]
   s.add_runtime_dependency %q<magiclabs-userstamp>,        ["~> 2.0.2"]
   s.add_runtime_dependency %q<dynamic_form>,               ["~> 1.1"]
   s.add_runtime_dependency %q<jquery-rails>,               ["~> 2.1.3"]
