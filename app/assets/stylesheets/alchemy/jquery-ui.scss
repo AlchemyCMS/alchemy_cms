@@ -11,17 +11,17 @@
 /* Layout helpers
 ----------------------------------*/
 
-#alchemy .ui-helper-hidden {
+.ui-helper-hidden {
   display: none;
 }
 
-#alchemy .ui-helper-hidden-accessible {
+.ui-helper-hidden-accessible {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-#alchemy .ui-helper-reset {
+.ui-helper-reset {
   margin: 0;
   padding: 0;
   border: 0;
@@ -32,7 +32,7 @@
   list-style: none;
 }
 
-#alchemy .ui-helper-clearfix:after {
+.ui-helper-clearfix:after {
   content: ".";
   display: block;
   height: 0;
@@ -40,7 +40,7 @@
   visibility: hidden;
 }
 
-#alchemy .ui-helper-clearfix {
+.ui-helper-clearfix {
   @include inline-block;
 }
 
@@ -50,13 +50,13 @@
   height: 1%;
 }
 
-#alchemy .ui-helper-clearfix {
+.ui-helper-clearfix {
   display: block;
 }
 
 /* end clearfix */
 
-#alchemy .ui-helper-zfix {
+.ui-helper-zfix {
   width: 100%;
   height: 100%;
   top: 0;
@@ -69,7 +69,7 @@
 /* Interaction Cues
 ----------------------------------*/
 
-#alchemy .ui-state-disabled {
+.ui-state-disabled {
   cursor: default !important;
 }
 
@@ -78,7 +78,7 @@
 
 /* states and images */
 
-#alchemy .ui-icon {
+.ui-icon {
   display: block;
   text-indent: -99999px;
   overflow: hidden;
@@ -90,12 +90,13 @@
 
 /* Overlays */
 
-#alchemy .ui-widget-overlay {
+.ui-widget-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 9;
 }
 
 /*
@@ -113,26 +114,26 @@
 /* Component containers
 ----------------------------------*/
 
-#alchemy .ui-widget {
+.ui-widget {
   font-family: $default-font-face;
   font-size: $default-font-size;
 }
 
-#alchemy .ui-widget .ui-widget {
+.ui-widget .ui-widget {
   font-size: 1em;
 }
 
-#alchemy .ui-widget-content {
+.ui-widget-content {
   border: $default-border;
   background-color: $light-gray;
   color: $text-color;
 }
 
-#alchemy .ui-widget-content a {
+.ui-widget-content a {
   color: $text-color;
 }
 
-#alchemy .ui-widget-header {
+.ui-widget-header {
   border: 1px none #afafaf;
   background: $light-blue;
   color: $text-color;
@@ -145,14 +146,14 @@
   border-bottom-right-radius: 0;
 }
 
-#alchemy .ui-widget-header a {
+.ui-widget-header a {
   color: $text-color;
 }
 
 /* Interaction states
 ----------------------------------*/
 
-#alchemy .ui-state-default, #alchemy .ui-widget-content .ui-state-default, #alchemy .ui-widget-header .ui-state-default {
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   border: 1px solid $button-border-color;
   background-color: #ededed;
   font-weight: normal;
@@ -160,33 +161,24 @@
   text-shadow: $button-text-shadow;
 }
 
-#alchemy .ui-state-default a, #alchemy .ui-state-default a:link, #alchemy .ui-state-default a:visited {
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
   color: $text-color;
   text-decoration: none;
 }
 
-.ui-dialog-titlebar-refresh, .ui-dialog-titlebar-close, .ui-dialog-titlebar-maximize, .ui-dialog-titlebar-restore {
-  &:hover, &:focus {
-    border: 1px solid $button-hover-border-color;
-    background: $button-hover-bg-color;
-    font-weight: normal;
-    color: $text-color;
-  }
-}
-
-#alchemy .ui-state-hover a, #alchemy .ui-state-hover a:hover {
+.ui-state-hover a, .ui-state-hover a:hover {
   color: $dark-gray;
   text-decoration: none;
 }
 
-#alchemy .ui-state-active, #alchemy .ui-widget-content .ui-state-active, #alchemy .ui-widget-header .ui-state-active {
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
   color: $text-color;
   text-decoration: none;
   text-shadow: none;
   background-color: $button-hover-bg-color;
 }
 
-#alchemy .ui-state-active.stNav.stNext {
+.ui-state-active.stNav.stNext {
   background-color: $light-gray;
   margin: 0 -3px 0 0;
   border: 0 solid #cacaca;
@@ -194,7 +186,7 @@
   border-top-width: 1px;
 }
 
-#alchemy .ui-state-active.stNav.stPrev {
+.ui-state-active.stNav.stPrev {
   background-color: $light-gray;
   margin: 0 0 0 -3px;
   border: 0 solid #cacaca;
@@ -209,51 +201,51 @@
   top: 7px;
 }
 
-#alchemy .ui-state-active a, #alchemy .ui-state-active a:link, #alchemy .ui-state-active a:visited {
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
   color: $text-color;
   text-decoration: none;
 }
 
-#alchemy .ui-widget :active {
+.ui-widget :active {
   outline: none;
 }
 
 /* Interaction Cues
 ----------------------------------*/
 
-#alchemy .ui-state-highlight, #alchemy .ui-widget-content .ui-state-highlight, #alchemy .ui-widget-header .ui-state-highlight {
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
   border: 1px solid $dark-gray;
   background: $light-blue;
   color: $text-color;
 }
 
-#alchemy .ui-state-highlight a, #alchemy .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
   color: $text-color;
 }
 
-#alchemy .ui-state-error, #alchemy .ui-widget-content .ui-state-error, #alchemy .ui-widget-header .ui-state-error {
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
   border: 1px solid #cd0a0a;
   background: #cd0a0a;
   color: #ffffff;
 }
 
-#alchemy .ui-state-error a, #alchemy .ui-widget-content .ui-state-error a, #alchemy .ui-widget-header .ui-state-error a {
+.ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a {
   color: #ffffff;
 }
 
-#alchemy .ui-state-error-text, #alchemy .ui-widget-content .ui-state-error-text, #alchemy .ui-widget-header .ui-state-error-text {
+.ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text {
   color: #ffffff;
 }
 
-#alchemy .ui-priority-primary, #alchemy .ui-widget-content .ui-priority-primary, #alchemy .ui-widget-header .ui-priority-primary {
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary {
   font-weight: normal;
 }
 
-#alchemy .ui-priority-secondary, #alchemy .ui-widget-content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary {
+.ui-priority-secondary, .ui-widget-content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary {
   font-weight: normal;
 }
 
-#alchemy .ui-state-disabled, #alchemy .ui-widget-content .ui-state-disabled, #alchemy .ui-widget-header .ui-state-disabled {
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
   @include opacity(.35);
   background-image: none;
 }
@@ -263,328 +255,329 @@
 
 /* states and images */
 
-#alchemy .ui-icon {
+.ui-icon {
   width: 16px;
   height: 16px;
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-widget-content .ui-icon {
+.ui-widget-content .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-widget-header .ui-icon {
+.ui-widget-header .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-state-default .ui-icon {
+.ui-state-default .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-state-hover .ui-icon, #alchemy .ui-state-focus .ui-icon {
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-state-active .ui-icon {
+.ui-state-active .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-state-highlight .ui-icon {
+.ui-state-highlight .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
-#alchemy .ui-state-error .ui-icon, #alchemy .ui-state-error-text .ui-icon {
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
   background-image: url('ui-icons_666666_256x240.png');
 }
 
 /* positioning */
 
-#alchemy .ui-icon-carat-1-n {
+.ui-icon-carat-1-n {
   background-position: 0 0;
 }
 
-#alchemy .ui-icon-carat-1-ne {
+.ui-icon-carat-1-ne {
   background-position: -16px 0;
 }
 
-#alchemy .ui-icon-carat-1-e {
+.ui-icon-carat-1-e {
   background-position: -32px 0;
 }
 
-#alchemy .ui-icon-carat-1-se {
+.ui-icon-carat-1-se {
   background-position: -48px 0;
 }
 
-#alchemy .ui-icon-carat-1-s {
+.ui-icon-carat-1-s {
   background-position: -64px 0;
 }
 
-#alchemy .ui-icon-carat-1-sw {
+.ui-icon-carat-1-sw {
   background-position: -80px 0;
 }
 
-#alchemy .ui-icon-carat-1-w {
+.ui-icon-carat-1-w {
   background-position: -96px 0;
 }
 
-#alchemy .ui-icon-carat-1-nw {
+.ui-icon-carat-1-nw {
   background-position: -112px 0;
 }
 
-#alchemy .ui-icon-carat-2-n-s {
+.ui-icon-carat-2-n-s {
   background-position: -128px 0;
 }
 
-#alchemy .ui-icon-carat-2-e-w {
+.ui-icon-carat-2-e-w {
   background-position: -144px 0;
 }
 
-#alchemy .ui-icon-triangle-1-n {
+.ui-icon-triangle-1-n {
   background-position: 0 -16px;
 }
 
-#alchemy .ui-icon-triangle-1-ne {
+.ui-icon-triangle-1-ne {
   background-position: -16px -16px;
 }
 
-#alchemy .ui-icon-triangle-1-e {
+.ui-icon-triangle-1-e {
   background-position: -32px -16px;
 }
 
-#alchemy .ui-icon-triangle-1-se {
+.ui-icon-triangle-1-se {
   background-position: -48px -16px;
 }
 
-#alchemy .ui-icon-triangle-1-s {
+.ui-icon-triangle-1-s {
   background-position: -64px -16px;
 }
 
-#alchemy .ui-icon-triangle-1-sw {
+.ui-icon-triangle-1-sw {
   background-position: -80px -16px;
 }
 
-#alchemy .ui-icon-triangle-1-w {
+.ui-icon-triangle-1-w {
   background-position: -96px -16px;
 }
 
-#alchemy .ui-icon-triangle-1-nw {
+.ui-icon-triangle-1-nw {
   background-position: -112px -16px;
 }
 
-#alchemy .ui-icon-triangle-2-n-s {
+.ui-icon-triangle-2-n-s {
   background-position: -128px -16px;
 }
 
-#alchemy .ui-icon-triangle-2-e-w {
+.ui-icon-triangle-2-e-w {
   background-position: -144px -16px;
 }
 
-#alchemy .ui-icon-arrow-1-n {
+.ui-icon-arrow-1-n {
   background-position: 0 -32px;
 }
 
-#alchemy .ui-icon-arrow-1-ne {
+.ui-icon-arrow-1-ne {
   background-position: -16px -32px;
 }
 
-#alchemy .ui-icon-arrow-1-e {
+.ui-icon-arrow-1-e {
   background-position: -32px -32px;
 }
 
-#alchemy .ui-icon-arrow-1-se {
+.ui-icon-arrow-1-se {
   background-position: -48px -32px;
 }
 
-#alchemy .ui-icon-arrow-1-s {
+.ui-icon-arrow-1-s {
   background-position: -64px -32px;
 }
 
-#alchemy .ui-icon-arrow-1-sw {
+.ui-icon-arrow-1-sw {
   background-position: -80px -32px;
 }
 
-#alchemy .ui-icon-arrow-1-w {
+.ui-icon-arrow-1-w {
   background-position: -96px -32px;
 }
 
-#alchemy .ui-icon-arrow-1-nw {
+.ui-icon-arrow-1-nw {
   background-position: -112px -32px;
 }
 
-#alchemy .ui-icon-arrow-2-n-s {
+.ui-icon-arrow-2-n-s {
   background-position: -128px -32px;
 }
 
-#alchemy .ui-icon-arrow-2-ne-sw {
+.ui-icon-arrow-2-ne-sw {
   background-position: -144px -32px;
 }
 
-#alchemy .ui-icon-arrow-2-e-w {
+.ui-icon-arrow-2-e-w {
   background-position: -160px -32px;
 }
 
-#alchemy .ui-icon-arrow-2-se-nw {
+.ui-icon-arrow-2-se-nw {
   background-position: -176px -32px;
 }
 
-#alchemy .ui-icon-arrowstop-1-n {
+.ui-icon-arrowstop-1-n {
   background-position: -192px -32px;
 }
 
-#alchemy .ui-icon-arrowstop-1-e {
+.ui-icon-arrowstop-1-e {
   background-position: -208px -32px;
 }
 
-#alchemy .ui-icon-arrowstop-1-s {
+.ui-icon-arrowstop-1-s {
   background-position: -224px -32px;
 }
 
-#alchemy .ui-icon-arrowstop-1-w {
+.ui-icon-arrowstop-1-w {
   background-position: -240px -32px;
 }
 
-#alchemy .ui-icon-arrowthick-1-n {
+.ui-icon-arrowthick-1-n {
   background-position: 0 -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-ne {
+.ui-icon-arrowthick-1-ne {
   background-position: -16px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-e {
+.ui-icon-arrowthick-1-e {
   background-position: -32px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-se {
+.ui-icon-arrowthick-1-se {
   background-position: -48px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-s {
+.ui-icon-arrowthick-1-s {
   background-position: -64px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-sw {
+.ui-icon-arrowthick-1-sw {
   background-position: -80px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-w {
+.ui-icon-arrowthick-1-w {
   background-position: -96px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-1-nw {
+.ui-icon-arrowthick-1-nw {
   background-position: -112px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-2-n-s {
+.ui-icon-arrowthick-2-n-s {
   background-position: -128px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-2-ne-sw {
+.ui-icon-arrowthick-2-ne-sw {
   background-position: -144px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-2-e-w {
+.ui-icon-arrowthick-2-e-w {
   background-position: -160px -48px;
 }
 
-#alchemy .ui-icon-arrowthick-2-se-nw {
+.ui-icon-arrowthick-2-se-nw {
   background-position: -176px -48px;
 }
 
-#alchemy .ui-icon-arrowthickstop-1-n {
+.ui-icon-arrowthickstop-1-n {
   background-position: -192px -48px;
 }
 
-#alchemy .ui-icon-arrowthickstop-1-e {
+.ui-icon-arrowthickstop-1-e {
   background-position: -208px -48px;
 }
 
-#alchemy .ui-icon-arrowthickstop-1-s {
+.ui-icon-arrowthickstop-1-s {
   background-position: -224px -48px;
 }
 
-#alchemy .ui-icon-arrowthickstop-1-w {
+.ui-icon-arrowthickstop-1-w {
   background-position: -240px -48px;
 }
 
-#alchemy .ui-icon-arrowreturnthick-1-w {
+.ui-icon-arrowreturnthick-1-w {
   background-position: 0 -64px;
 }
 
-#alchemy .ui-icon-arrowreturnthick-1-n {
+.ui-icon-arrowreturnthick-1-n {
   background-position: -16px -64px;
 }
 
-#alchemy .ui-icon-arrowreturnthick-1-e {
+.ui-icon-arrowreturnthick-1-e {
   background-position: -32px -64px;
 }
 
-#alchemy .ui-icon-arrowreturnthick-1-s {
+.ui-icon-arrowreturnthick-1-s {
   background-position: -48px -64px;
 }
 
-#alchemy .ui-icon-arrowreturn-1-w {
+.ui-icon-arrowreturn-1-w {
   background-position: -64px -64px;
 }
 
-#alchemy .ui-icon-arrowreturn-1-n {
+.ui-icon-arrowreturn-1-n {
   background-position: -80px -64px;
 }
 
-#alchemy .ui-icon-arrowreturn-1-e {
+.ui-icon-arrowreturn-1-e {
   background-position: -96px -64px;
 }
 
-#alchemy .ui-icon-arrowreturn-1-s {
+.ui-icon-arrowreturn-1-s {
   background-position: -112px -64px;
 }
 
-#alchemy .ui-icon-arrowrefresh-1-w {
+.ui-icon-arrowrefresh-1-w {
   background-position: -128px -64px;
 }
 
-#alchemy .ui-icon-arrowrefresh-1-n {
+.ui-icon-arrowrefresh-1-n {
   background-position: -144px -64px;
 }
 
-#alchemy .ui-icon-arrowrefresh-1-e {
+.ui-icon-arrowrefresh-1-e {
   background-position: -160px -64px;
 }
 
-#alchemy .ui-icon-arrowrefresh-1-s {
+.ui-icon-arrowrefresh-1-s {
   background-position: -176px -64px;
 }
 
-#alchemy .ui-icon-arrow-4 {
+.ui-icon-arrow-4 {
   background-position: 0 -80px;
 }
 
-#alchemy .ui-icon-arrow-4-diag {
+.ui-icon-arrow-4-diag {
   background-position: -16px -80px;
 }
 
-#alchemy .ui-icon-extlink {
+.ui-icon-extlink {
   background-position: -32px -80px;
 }
 
-#alchemy .ui-icon-newwin {
+.ui-icon-newwin {
   background-position: -48px -80px;
 }
 
-#alchemy .ui-icon-refresh {
+.ui-icon-refresh {
   background: none !important;
   position: relative;
+  left: 1px;
 
   &:before {
     text-indent: 0;
     position: absolute;
     right: 1px;
-    top: 3px;
+    top: 2px;
     @extend .icon-reload:before
   }
 }
 
-#alchemy .ui-icon-fullscreen {
+.ui-icon-fullscreen {
   background: none !important;
   position: relative;
 
@@ -597,7 +590,7 @@
   }
 }
 
-#alchemy .ui-icon-exit-fullscreen {
+.ui-icon-exit-fullscreen {
   background: none !important;
   position: relative;
 
@@ -610,171 +603,171 @@
   }
 }
 
-#alchemy .ui-icon-shuffle {
+.ui-icon-shuffle {
   background-position: -80px -80px;
 }
 
-#alchemy .ui-icon-transfer-e-w {
+.ui-icon-transfer-e-w {
   background-position: -96px -80px;
 }
 
-#alchemy .ui-icon-transferthick-e-w {
+.ui-icon-transferthick-e-w {
   background-position: -112px -80px;
 }
 
-#alchemy .ui-icon-folder-collapsed {
+.ui-icon-folder-collapsed {
   background-position: 0 -96px;
 }
 
-#alchemy .ui-icon-folder-open {
+.ui-icon-folder-open {
   background-position: -16px -96px;
 }
 
-#alchemy .ui-icon-document {
+.ui-icon-document {
   background-position: -32px -96px;
 }
 
-#alchemy .ui-icon-document-b {
+.ui-icon-document-b {
   background-position: -48px -96px;
 }
 
-#alchemy .ui-icon-note {
+.ui-icon-note {
   background-position: -64px -96px;
 }
 
-#alchemy .ui-icon-mail-closed {
+.ui-icon-mail-closed {
   background-position: -80px -96px;
 }
 
-#alchemy .ui-icon-mail-open {
+.ui-icon-mail-open {
   background-position: -96px -96px;
 }
 
-#alchemy .ui-icon-suitcase {
+.ui-icon-suitcase {
   background-position: -112px -96px;
 }
 
-#alchemy .ui-icon-comment {
+.ui-icon-comment {
   background-position: -128px -96px;
 }
 
-#alchemy .ui-icon-person {
+.ui-icon-person {
   background-position: -144px -96px;
 }
 
-#alchemy .ui-icon-print {
+.ui-icon-print {
   background-position: -160px -96px;
 }
 
-#alchemy .ui-icon-trash {
+.ui-icon-trash {
   background-position: -176px -96px;
 }
 
-#alchemy .ui-icon-locked {
+.ui-icon-locked {
   background-position: -192px -96px;
 }
 
-#alchemy .ui-icon-unlocked {
+.ui-icon-unlocked {
   background-position: -208px -96px;
 }
 
-#alchemy .ui-icon-bookmark {
+.ui-icon-bookmark {
   background-position: -224px -96px;
 }
 
-#alchemy .ui-icon-tag {
+.ui-icon-tag {
   background-position: -240px -96px;
 }
 
-#alchemy .ui-icon-home {
+.ui-icon-home {
   background-position: 0 -112px;
 }
 
-#alchemy .ui-icon-flag {
+.ui-icon-flag {
   background-position: -16px -112px;
 }
 
-#alchemy .ui-icon-calendar {
+.ui-icon-calendar {
   background-position: -32px -112px;
 }
 
-#alchemy .ui-icon-cart {
+.ui-icon-cart {
   background-position: -48px -112px;
 }
 
-#alchemy .ui-icon-pencil {
+.ui-icon-pencil {
   background-position: -64px -112px;
 }
 
-#alchemy .ui-icon-clock {
+.ui-icon-clock {
   background-position: -80px -112px;
 }
 
-#alchemy .ui-icon-disk {
+.ui-icon-disk {
   background-position: -96px -112px;
 }
 
-#alchemy .ui-icon-calculator {
+.ui-icon-calculator {
   background-position: -112px -112px;
 }
 
-#alchemy .ui-icon-zoomin {
+.ui-icon-zoomin {
   background-position: -128px -112px;
 }
 
-#alchemy .ui-icon-zoomout {
+.ui-icon-zoomout {
   background-position: -144px -112px;
 }
 
-#alchemy .ui-icon-search {
+.ui-icon-search {
   background-position: -160px -112px;
 }
 
-#alchemy .ui-icon-wrench {
+.ui-icon-wrench {
   background-position: -176px -112px;
 }
 
-#alchemy .ui-icon-gear {
+.ui-icon-gear {
   background-position: -192px -112px;
 }
 
-#alchemy .ui-icon-heart {
+.ui-icon-heart {
   background-position: -208px -112px;
 }
 
-#alchemy .ui-icon-star {
+.ui-icon-star {
   background-position: -224px -112px;
 }
 
-#alchemy .ui-icon-link {
+.ui-icon-link {
   background-position: -240px -112px;
 }
 
-#alchemy .ui-icon-cancel {
+.ui-icon-cancel {
   background-position: 0 -128px;
 }
 
-#alchemy .ui-icon-plus {
+.ui-icon-plus {
   background-position: -16px -128px;
 }
 
-#alchemy .ui-icon-plusthick {
+.ui-icon-plusthick {
   background-position: -32px -128px;
 }
 
-#alchemy .ui-icon-minus {
+.ui-icon-minus {
   background-position: -48px -128px;
 }
 
-#alchemy .ui-icon-minusthick {
+.ui-icon-minusthick {
   background-position: -64px -128px;
 }
 
-#alchemy .ui-icon-close {
+.ui-icon-close {
   background-position: -80px -128px;
 }
 
-#alchemy .ui-icon-closethick {
+.ui-icon-closethick {
   background: none !important;
   position: relative;
 
@@ -788,257 +781,257 @@
   }
 }
 
-#alchemy .ui-icon-key {
+.ui-icon-key {
   background-position: -112px -128px;
 }
 
-#alchemy .ui-icon-lightbulb {
+.ui-icon-lightbulb {
   background-position: -128px -128px;
 }
 
-#alchemy .ui-icon-scissors {
+.ui-icon-scissors {
   background-position: -144px -128px;
 }
 
-#alchemy .ui-icon-clipboard {
+.ui-icon-clipboard {
   background-position: -160px -128px;
 }
 
-#alchemy .ui-icon-copy {
+.ui-icon-copy {
   background-position: -176px -128px;
 }
 
-#alchemy .ui-icon-contact {
+.ui-icon-contact {
   background-position: -192px -128px;
 }
 
-#alchemy .ui-icon-image {
+.ui-icon-image {
   background-position: -208px -128px;
 }
 
-#alchemy .ui-icon-video {
+.ui-icon-video {
   background-position: -224px -128px;
 }
 
-#alchemy .ui-icon-script {
+.ui-icon-script {
   background-position: -240px -128px;
 }
 
-#alchemy .ui-icon-alert {
+.ui-icon-alert {
   background-position: 0 -144px;
 }
 
-#alchemy .ui-icon-info {
+.ui-icon-info {
   background-position: -16px -144px;
 }
 
-#alchemy .ui-icon-notice {
+.ui-icon-notice {
   background-position: -32px -144px;
 }
 
-#alchemy .ui-icon-help {
+.ui-icon-help {
   background-position: -48px -144px;
 }
 
-#alchemy .ui-icon-check {
+.ui-icon-check {
   background-position: -64px -144px;
 }
 
-#alchemy .ui-icon-bullet {
+.ui-icon-bullet {
   background-position: -80px -144px;
 }
 
-#alchemy .ui-icon-radio-off {
+.ui-icon-radio-off {
   background-position: -96px -144px;
 }
 
-#alchemy .ui-icon-radio-on {
+.ui-icon-radio-on {
   background-position: -112px -144px;
 }
 
-#alchemy .ui-icon-pin-w {
+.ui-icon-pin-w {
   background-position: -128px -144px;
 }
 
-#alchemy .ui-icon-pin-s {
+.ui-icon-pin-s {
   background-position: -144px -144px;
 }
 
-#alchemy .ui-icon-play {
+.ui-icon-play {
   background-position: 0 -160px;
 }
 
-#alchemy .ui-icon-pause {
+.ui-icon-pause {
   background-position: -16px -160px;
 }
 
-#alchemy .ui-icon-seek-next {
+.ui-icon-seek-next {
   background-position: -32px -160px;
 }
 
-#alchemy .ui-icon-seek-prev {
+.ui-icon-seek-prev {
   background-position: -48px -160px;
 }
 
-#alchemy .ui-icon-seek-end {
+.ui-icon-seek-end {
   background-position: -64px -160px;
 }
 
-#alchemy .ui-icon-seek-start {
+.ui-icon-seek-start {
   background-position: -80px -160px;
 }
 
 /* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
 
-#alchemy .ui-icon-seek-first {
+.ui-icon-seek-first {
   background-position: -80px -160px;
 }
 
-#alchemy .ui-icon-stop {
+.ui-icon-stop {
   background-position: -96px -160px;
 }
 
-#alchemy .ui-icon-eject {
+.ui-icon-eject {
   background-position: -112px -160px;
 }
 
-#alchemy .ui-icon-volume-off {
+.ui-icon-volume-off {
   background-position: -128px -160px;
 }
 
-#alchemy .ui-icon-volume-on {
+.ui-icon-volume-on {
   background-position: -144px -160px;
 }
 
-#alchemy .ui-icon-power {
+.ui-icon-power {
   background-position: 0 -176px;
 }
 
-#alchemy .ui-icon-signal-diag {
+.ui-icon-signal-diag {
   background-position: -16px -176px;
 }
 
-#alchemy .ui-icon-signal {
+.ui-icon-signal {
   background-position: -32px -176px;
 }
 
-#alchemy .ui-icon-battery-0 {
+.ui-icon-battery-0 {
   background-position: -48px -176px;
 }
 
-#alchemy .ui-icon-battery-1 {
+.ui-icon-battery-1 {
   background-position: -64px -176px;
 }
 
-#alchemy .ui-icon-battery-2 {
+.ui-icon-battery-2 {
   background-position: -80px -176px;
 }
 
-#alchemy .ui-icon-battery-3 {
+.ui-icon-battery-3 {
   background-position: -96px -176px;
 }
 
-#alchemy .ui-icon-circle-plus {
+.ui-icon-circle-plus {
   background-position: 0 -192px;
 }
 
-#alchemy .ui-icon-circle-minus {
+.ui-icon-circle-minus {
   background-position: -16px -192px;
 }
 
-#alchemy .ui-icon-circle-close {
+.ui-icon-circle-close {
   background-position: -32px -192px;
 }
 
-#alchemy .ui-icon-circle-triangle-e {
+.ui-icon-circle-triangle-e {
   background-position: -48px -192px;
 }
 
-#alchemy .ui-icon-circle-triangle-s {
+.ui-icon-circle-triangle-s {
   background-position: -64px -192px;
 }
 
-#alchemy .ui-icon-circle-triangle-w {
+.ui-icon-circle-triangle-w {
   background-position: -80px -192px;
 }
 
-#alchemy .ui-icon-circle-triangle-n {
+.ui-icon-circle-triangle-n {
   background-position: -96px -192px;
 }
 
-#alchemy .ui-icon-circle-arrow-e {
+.ui-icon-circle-arrow-e {
   background-position: -112px -192px;
 }
 
-#alchemy .ui-icon-circle-arrow-s {
+.ui-icon-circle-arrow-s {
   background-position: -128px -192px;
 }
 
-#alchemy .ui-icon-circle-arrow-w {
+.ui-icon-circle-arrow-w {
   background-position: -144px -192px;
 }
 
-#alchemy .ui-icon-circle-arrow-n {
+.ui-icon-circle-arrow-n {
   background-position: -160px -192px;
 }
 
-#alchemy .ui-icon-circle-zoomin {
+.ui-icon-circle-zoomin {
   background-position: -176px -192px;
 }
 
-#alchemy .ui-icon-circle-zoomout {
+.ui-icon-circle-zoomout {
   background-position: -192px -192px;
 }
 
-#alchemy .ui-icon-circle-check {
+.ui-icon-circle-check {
   background-position: -208px -192px;
 }
 
-#alchemy .ui-icon-circlesmall-plus {
+.ui-icon-circlesmall-plus {
   background-position: 0 -208px;
 }
 
-#alchemy .ui-icon-circlesmall-minus {
+.ui-icon-circlesmall-minus {
   background-position: -16px -208px;
 }
 
-#alchemy .ui-icon-circlesmall-close {
+.ui-icon-circlesmall-close {
   background-position: -32px -208px;
 }
 
-#alchemy .ui-icon-squaresmall-plus {
+.ui-icon-squaresmall-plus {
   background-position: -48px -208px;
 }
 
-#alchemy .ui-icon-squaresmall-minus {
+.ui-icon-squaresmall-minus {
   background-position: -64px -208px;
 }
 
-#alchemy .ui-icon-squaresmall-close {
+.ui-icon-squaresmall-close {
   background-position: -80px -208px;
 }
 
-#alchemy .ui-icon-grip-dotted-vertical {
+.ui-icon-grip-dotted-vertical {
   background-position: 0 -224px;
 }
 
-#alchemy .ui-icon-grip-dotted-horizontal {
+.ui-icon-grip-dotted-horizontal {
   background-position: -16px -224px;
 }
 
-#alchemy .ui-icon-grip-solid-vertical {
+.ui-icon-grip-solid-vertical {
   background-position: -32px -224px;
 }
 
-#alchemy .ui-icon-grip-solid-horizontal {
+.ui-icon-grip-solid-horizontal {
   background-position: -48px -224px;
 }
 
-#alchemy .ui-icon-gripsmall-diagonal-se {
+.ui-icon-gripsmall-diagonal-se {
   background-position: -64px -224px;
 }
 
-#alchemy .ui-icon-grip-diagonal-se {
+.ui-icon-grip-diagonal-se {
   background-position: -80px -224px;
 }
 
@@ -1047,31 +1040,31 @@
 
 /* Corner radius */
 
-#alchemy .ui-corner-tl {
+.ui-corner-tl {
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
 }
 
-#alchemy .ui-corner-tr {
+.ui-corner-tr {
   -moz-border-radius-topright: 3px;
   -webkit-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
 }
 
-#alchemy .ui-corner-bl {
+.ui-corner-bl {
   -moz-border-radius-bottomleft: 3px;
   -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-#alchemy .ui-corner-br {
+.ui-corner-br {
   -moz-border-radius-bottomright: 3px;
   -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-#alchemy .ui-corner-top {
+.ui-corner-top {
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
@@ -1080,7 +1073,7 @@
   border-top-right-radius: 3px;
 }
 
-#alchemy .ui-corner-bottom {
+.ui-corner-bottom {
   -moz-border-radius-bottomleft: 3px;
   -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
@@ -1089,7 +1082,7 @@
   border-bottom-right-radius: 3px;
 }
 
-#alchemy .ui-corner-right {
+.ui-corner-right {
   -moz-border-radius-topright: 3px;
   -webkit-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
@@ -1098,7 +1091,7 @@
   border-bottom-right-radius: 3px;
 }
 
-#alchemy .ui-corner-left {
+.ui-corner-left {
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
@@ -1107,7 +1100,7 @@
   border-bottom-left-radius: 3px;
 }
 
-#alchemy .ui-corner-all {
+.ui-corner-all {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -1115,12 +1108,12 @@
 
 /* Overlays */
 
-#alchemy .ui-widget-overlay {
+.ui-widget-overlay {
   background-color: rgba(229, 229, 229, 0.4);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #40E5E5E5, endColorstr = #40E5E5E5);
 }
 
-#alchemy .ui-widget-shadow {
+.ui-widget-shadow {
   margin: -8px 0 0 -8px;
   padding: 8px;
   background: #000000 50% 50% repeat-x;
@@ -1138,22 +1131,22 @@
  * http://docs.jquery.com/UI/Resizable#theming
  */
 
-#alchemy .ui-resizable {
+.ui-resizable {
   position: relative;
 }
 
-#alchemy .ui-resizable-handle {
+.ui-resizable-handle {
   position: absolute;
   font-size: 0.1px;
   z-index: 99999;
   display: block;
 }
 
-#alchemy .ui-resizable-disabled .ui-resizable-handle, #alchemy .ui-resizable-autohide .ui-resizable-handle {
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle {
   display: none;
 }
 
-#alchemy .ui-resizable-n {
+.ui-resizable-n {
   cursor: n-resize;
   height: 7px;
   width: 100%;
@@ -1161,7 +1154,7 @@
   left: 0;
 }
 
-#alchemy .ui-resizable-s {
+.ui-resizable-s {
   cursor: s-resize;
   height: 7px;
   width: 100%;
@@ -1169,7 +1162,7 @@
   left: 0;
 }
 
-#alchemy .ui-resizable-e {
+.ui-resizable-e {
   cursor: e-resize;
   width: 7px;
   right: -5px;
@@ -1177,7 +1170,7 @@
   height: 100%;
 }
 
-#alchemy .ui-resizable-w {
+.ui-resizable-w {
   cursor: w-resize;
   width: 7px;
   left: -5px;
@@ -1185,7 +1178,7 @@
   height: 100%;
 }
 
-#alchemy .ui-resizable-se {
+.ui-resizable-se {
   cursor: se-resize;
   width: 12px;
   height: 12px;
@@ -1193,7 +1186,7 @@
   bottom: 1px;
 }
 
-#alchemy .ui-resizable-sw {
+.ui-resizable-sw {
   cursor: sw-resize;
   width: 9px;
   height: 9px;
@@ -1201,7 +1194,7 @@
   bottom: -5px;
 }
 
-#alchemy .ui-resizable-nw {
+.ui-resizable-nw {
   cursor: nw-resize;
   width: 9px;
   height: 9px;
@@ -1209,7 +1202,7 @@
   top: -5px;
 }
 
-#alchemy .ui-resizable-ne {
+.ui-resizable-ne {
   cursor: ne-resize;
   width: 9px;
   height: 9px;
@@ -1227,7 +1220,7 @@
  * http://docs.jquery.com/UI/Selectable#theming
  */
 
-#alchemy .ui-selectable-helper {
+.ui-selectable-helper {
   position: absolute;
   z-index: 100;
   border: 1px dotted black;
@@ -1245,43 +1238,43 @@
 
 /* IE/Win - Fix animation bug - #4615 */
 
-#alchemy .ui-accordion {
+.ui-accordion {
   width: 100%;
 }
 
-#alchemy .ui-accordion .ui-accordion-header {
+.ui-accordion .ui-accordion-header {
   cursor: pointer;
   position: relative;
   margin-top: 1px;
   zoom: 1;
 }
 
-#alchemy .ui-accordion .ui-accordion-li-fix {
+.ui-accordion .ui-accordion-li-fix {
   display: inline;
 }
 
-#alchemy .ui-accordion .ui-accordion-header-active {
+.ui-accordion .ui-accordion-header-active {
   border-bottom: 0 !important;
 }
 
-#alchemy .ui-accordion .ui-accordion-header a {
+.ui-accordion .ui-accordion-header a {
   display: block;
   font-size: 1em;
   padding: .5em .5em .5em .7em;
 }
 
-#alchemy .ui-accordion-icons .ui-accordion-header a {
+.ui-accordion-icons .ui-accordion-header a {
   padding-left: 2.2em;
 }
 
-#alchemy .ui-accordion .ui-accordion-header .ui-icon {
+.ui-accordion .ui-accordion-header .ui-icon {
   position: absolute;
   left: .5em;
   top: 50%;
   margin-top: -8px;
 }
 
-#alchemy .ui-accordion .ui-accordion-content {
+.ui-accordion .ui-accordion-content {
   padding: 1em 2.2em;
   border-top: 0;
   margin-top: -2px;
@@ -1293,7 +1286,7 @@
   zoom: 1;
 }
 
-#alchemy .ui-accordion .ui-accordion-content-active {
+.ui-accordion .ui-accordion-content-active {
   display: block;
 }
 
@@ -1307,7 +1300,7 @@
  * http://docs.jquery.com/UI/Autocomplete#theming
  */
 
-#alchemy .ui-autocomplete {
+.ui-autocomplete {
   position: absolute;
   cursor: default;
 }
@@ -1330,7 +1323,7 @@
  * http://docs.jquery.com/UI/Menu#theming
  */
 
-#alchemy .ui-menu {
+.ui-menu {
   list-style: none;
   padding: 2px;
   margin: 0;
@@ -1341,11 +1334,11 @@
   border: $default-border;
 }
 
-#alchemy .ui-menu .ui-menu {
+.ui-menu .ui-menu {
   margin-top: -3px;
 }
 
-#alchemy .ui-menu .ui-menu-item {
+.ui-menu .ui-menu-item {
   margin: 0;
   padding: 0;
   zoom: 1;
@@ -1354,7 +1347,7 @@
   width: 100%;
 }
 
-#alchemy .ui-menu .ui-menu-item a {
+.ui-menu .ui-menu-item a {
   text-decoration: none;
   display: block;
   padding: .2em .4em;
@@ -1362,9 +1355,9 @@
   zoom: 1;
 }
 
-#alchemy .ui-menu .ui-menu-item a.ui-state-hover,
-#alchemy .ui-menu .ui-menu-item a.ui-state-active,
-#alchemy .ui-menu .ui-menu-item a.ui-state-focus {
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active,
+.ui-menu .ui-menu-item a.ui-state-focus {
   font-weight: normal;
   cursor: pointer;
   background-color: $button-hover-bg-color;
@@ -1381,7 +1374,7 @@
  * http://docs.jquery.com/UI/Button#theming
  */
 
-#alchemy button.ui-button {
+.ui-button {
   @extend %button-defaults;
   @include inline-block;
   position: relative;
@@ -1398,7 +1391,7 @@
 
 /* the overflow property removes extra width in IE */
 
-#alchemy .ui-button-icon-only {
+.ui-button-icon-only {
   width: 2.2em;
 }
 
@@ -1410,7 +1403,7 @@ button.ui-button-icon-only {
 
 /* button elements seem to need a little more width */
 
-#alchemy .ui-button-icons-only {
+.ui-button-icons-only {
   width: 3.4em;
 }
 
@@ -1420,28 +1413,28 @@ button.ui-button-icons-only {
 
 /*button text element */
 
-#alchemy .ui-button .ui-button-text {
+.ui-button .ui-button-text {
   display: block;
 }
 
-#alchemy .ui-button-text-only .ui-button-text {
+.ui-button-text-only .ui-button-text {
   padding: 0;
 }
 
-#alchemy .ui-button-icon-only .ui-button-text, #alchemy .ui-button-icons-only .ui-button-text {
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text {
   padding: .4em;
   text-indent: -9999999px;
 }
 
-#alchemy .ui-button-text-icon-primary .ui-button-text, #alchemy .ui-button-text-icons .ui-button-text {
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text {
   padding: .4em 1em .4em 2.1em;
 }
 
-#alchemy .ui-button-text-icon-secondary .ui-button-text, #alchemy .ui-button-text-icons .ui-button-text {
+.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text {
   padding: .4em 2.1em .4em 1em;
 }
 
-#alchemy .ui-button-text-icons .ui-button-text {
+.ui-button-text-icons .ui-button-text {
   padding-left: 2.1em;
   padding-right: 2.1em;
 }
@@ -1454,36 +1447,31 @@ input.ui-button {
 
 /*button icon element(s) */
 
-#alchemy .ui-button-icon-only .ui-icon, #alchemy .ui-button-text-icon-primary .ui-icon, #alchemy .ui-button-text-icon-secondary .ui-icon, #alchemy .ui-button-text-icons .ui-icon, #alchemy .ui-button-icons-only .ui-icon {
+.ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon {
   position: absolute;
   top: 50%;
   margin-top: -8px;
 }
 
-#alchemy .ui-button-icon-only .ui-icon {
-  left: 50%;
-  margin-left: -8px;
-}
-
-#alchemy .ui-button-text-icon-primary .ui-button-icon-primary, #alchemy .ui-button-text-icons .ui-button-icon-primary, #alchemy .ui-button-icons-only .ui-button-icon-primary {
+.ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary {
   left: .5em;
 }
 
-#alchemy .ui-button-text-icon-secondary .ui-button-icon-secondary, #alchemy .ui-button-text-icons .ui-button-icon-secondary, #alchemy .ui-button-icons-only .ui-button-icon-secondary {
+.ui-button-text-icon-secondary .ui-button-icon-secondary, .ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary {
   right: .5em;
 }
 
-#alchemy .ui-button-text-icons .ui-button-icon-secondary, #alchemy .ui-button-icons-only .ui-button-icon-secondary {
+.ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary {
   right: .5em;
 }
 
 /*button sets*/
 
-#alchemy .ui-buttonset {
+.ui-buttonset {
   margin-right: 7px;
 }
 
-#alchemy .ui-buttonset .ui-button {
+.ui-buttonset .ui-button {
   margin-left: 0;
   margin-right: -.3em;
 }
@@ -1507,65 +1495,102 @@ button.ui-button::-moz-focus-inner {
  * http://docs.jquery.com/UI/Dialog#theming
  */
 
-#alchemy .ui-dialog {
+.ui-dialog {
   position: absolute;
   width: 300px;
   overflow: hidden;
   padding: 0;
+  z-index: 10;
 }
 
-#alchemy .ui-dialog .ui-dialog-titlebar {
+.ui-dialog-titlebar {
   padding: 8px 12px;
   position: relative;
   margin-bottom: 0;
-  @include border-bottom-radius(0)
+  @include border-bottom-radius(0);
 }
 
-#alchemy .ui-dialog .ui-dialog-title {
+.ui-dialog .ui-dialog-title {
   float: left;
   margin: .1em 16px .2em 0;
 }
 
-#alchemy .ui-dialog .ui-dialog-titlebar-close {
+.ui-dialog-titlebar-close {
   position: absolute;
-  right: 2*$default-padding;
+  right: 2 * $default-padding;
   top: 50%;
   width: 19px;
   margin: -10px 0 0 0;
   padding: 1px;
   height: 18px;
+  float: right;
+
+  &.ui-state-default {
+    background: transparent;
+    border: 0;
+    @include text-shadow(none);
+    @include box-shadow(none);
+    width: 18px;
+  }
+
+  &.ui-state-hover {
+    @extend %foc
+  }
 }
 
-#alchemy .ui-dialog .ui-dialog-titlebar-refresh {
+.ui-dialog .ui-dialog-titlebar-refresh {
   position: absolute;
-  right: 48px;
-  top: 50%;
-  width: 19px;
-  margin: -10px 0 0 0;
-  padding: 1px;
+  right: 42px;
+  top: 7px;
   height: 18px;
+
+  &.ui-state-hover { margin-right: 3px }
 }
 
-#alchemy .ui-dialog .ui-dialog-titlebar-maximize,
-#alchemy .ui-dialog .ui-dialog-titlebar-refresh,
-#alchemy .ui-dialog .ui-dialog-titlebar-restore {
+.ui-dialog .ui-dialog-titlebar-maximize,
+.ui-dialog .ui-dialog-titlebar-restore,
+.ui-dialog .ui-dialog-titlebar-refresh {
   margin-right: 2px;
-}
-
-#alchemy .ui-dialog .ui-dialog-titlebar-close span {
-  display: block;
-  margin: 1px;
-}
-
-#alchemy .ui-dialog .ui-dialog-titlebar-close:hover, #alchemy .ui-dialog .ui-dialog-titlebar-close:focus {
+  margin-top: 0;
   padding: 0;
+
+  .ui-icon {
+    margin: 0;
+    left: -1px;
+  }
+
+  &.ui-state-default {
+    background: transparent;
+    border: 0;
+    @include text-shadow(none);
+    @include box-shadow(none);
+    width: 18px;
+  }
+
+  &.ui-state-hover {
+    width: 18px;
+    height: 18px;
+    @include box-shadow(none);
+    @include text-shadow(none);
+
+    .ui-icon {
+      margin: 0;
+    }
+  }
 }
 
-#alchemy .ui-dialog .ui-dialog-titlebar-refresh:hover, #alchemy .ui-dialog .ui-dialog-titlebar-refresh:focus {
-  padding: 0;
+.ui-dialog-titlebar-close, .ui-dialog-titlebar-refresh, .ui-dialog-titlebar-maximize, .ui-dialog-titlebar-restore {
+
+  &.ui-state-hover, &.ui-state-focus {
+    border: 1px solid $button-hover-border-color;
+    background: $button-hover-bg-color;
+    font-weight: normal;
+    color: $text-color;
+    padding: 0;
+  }
 }
 
-#alchemy .ui-dialog .ui-dialog-content {
+.ui-dialog .ui-dialog-content {
   position: relative;
   border: 0;
   padding: 0;
@@ -1574,11 +1599,11 @@ button.ui-button::-moz-focus-inner {
   zoom: 1;
 }
 
-#alchemy .ui-dialog .ui-dialog-content form {
+.ui-dialog .ui-dialog-content form {
   padding: 12px;
 }
 
-#alchemy .ui-dialog .ui-dialog-buttonpane {
+.ui-dialog .ui-dialog-buttonpane {
   text-align: left;
   border-width: 0 0 0 0;
   background-image: none;
@@ -1586,23 +1611,23 @@ button.ui-button::-moz-focus-inner {
   padding: 0;
 }
 
-#alchemy .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
   float: right;
 }
 
-#alchemy .ui-dialog .ui-dialog-buttonpane button {
+.ui-dialog .ui-dialog-buttonpane button {
   margin: 8px 8px 8px 0;
   cursor: pointer;
 }
 
-#alchemy .ui-dialog .ui-resizable-se {
+.ui-dialog .ui-resizable-se {
   width: 14px;
   height: 14px;
   right: 3px;
   bottom: 3px;
 }
 
-#alchemy .ui-draggable .ui-dialog-titlebar {
+.ui-draggable .ui-dialog-titlebar {
   cursor: move;
 }
 
@@ -1616,12 +1641,12 @@ button.ui-button::-moz-focus-inner {
  * http://docs.jquery.com/UI/Slider#theming
  */
 
-#alchemy .ui-slider {
+.ui-slider {
   position: relative;
   text-align: left;
 }
 
-#alchemy .ui-slider .ui-slider-handle {
+.ui-slider .ui-slider-handle {
   position: absolute;
   z-index: 2;
   width: 1.2em;
@@ -1629,7 +1654,7 @@ button.ui-button::-moz-focus-inner {
   cursor: default;
 }
 
-#alchemy .ui-slider .ui-slider-range {
+.ui-slider .ui-slider-range {
   position: absolute;
   z-index: 1;
   font-size: .7em;
@@ -1638,49 +1663,49 @@ button.ui-button::-moz-focus-inner {
   background-position: 0 0;
 }
 
-#alchemy .ui-slider-horizontal {
+.ui-slider-horizontal {
   height: .8em;
 }
 
-#alchemy .ui-slider-horizontal .ui-slider-handle {
+.ui-slider-horizontal .ui-slider-handle {
   top: -.3em;
   margin-left: -.6em;
 }
 
-#alchemy .ui-slider-horizontal .ui-slider-range {
+.ui-slider-horizontal .ui-slider-range {
   top: 0;
   height: 100%;
 }
 
-#alchemy .ui-slider-horizontal .ui-slider-range-min {
+.ui-slider-horizontal .ui-slider-range-min {
   left: 0;
 }
 
-#alchemy .ui-slider-horizontal .ui-slider-range-max {
+.ui-slider-horizontal .ui-slider-range-max {
   right: 0;
 }
 
-#alchemy .ui-slider-vertical {
+.ui-slider-vertical {
   width: .8em;
   height: 100px;
 }
 
-#alchemy .ui-slider-vertical .ui-slider-handle {
+.ui-slider-vertical .ui-slider-handle {
   left: -.3em;
   margin-left: 0;
   margin-bottom: -.6em;
 }
 
-#alchemy .ui-slider-vertical .ui-slider-range {
+.ui-slider-vertical .ui-slider-range {
   left: 0;
   width: 100%;
 }
 
-#alchemy .ui-slider-vertical .ui-slider-range-min {
+.ui-slider-vertical .ui-slider-range-min {
   bottom: 0;
 }
 
-#alchemy .ui-slider-vertical .ui-slider-range-max {
+.ui-slider-vertical .ui-slider-range-max {
   top: 0;
 }
 
@@ -1694,7 +1719,7 @@ button.ui-button::-moz-focus-inner {
  * http://docs.jquery.com/UI/Tabs#theming
  */
 
-#alchemy .ui-tabs {
+.ui-tabs {
   position: relative;
   padding: 0;
   zoom: 1;
@@ -1705,7 +1730,7 @@ button.ui-button::-moz-focus-inner {
 
 /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed') */
 
-#alchemy .ui-tabs .ui-tabs-nav {
+.ui-tabs .ui-tabs-nav {
   padding: 4px 8px 0;
   background: transparent;
   @include border-radius(0);
@@ -1713,7 +1738,7 @@ button.ui-button::-moz-focus-inner {
   margin: 0;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav li {
+.ui-tabs .ui-tabs-nav li {
   list-style: none;
   float: left;
   position: relative;
@@ -1735,52 +1760,52 @@ button.ui-button::-moz-focus-inner {
   }
 }
 
-#alchemy .ui-tabs .ui-tabs-nav li a {
+.ui-tabs .ui-tabs-nav li a {
   float: left;
   text-decoration: none;
   padding: 6px 12px 5px;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
   margin-bottom: 0;
   padding-bottom: 1px;
   background: $light-gray;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, #alchemy .ui-tabs .ui-tabs-nav li.ui-state-disabled a, #alchemy .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
   cursor: default;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav li a, #alchemy .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
   cursor: pointer;
 }
 
 /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 
-#alchemy .ui-tabs .ui-tabs-panel {
+.ui-tabs .ui-tabs-panel {
   display: block;
   border-width: 0;
   background: none;
 }
 
-#alchemy .ui-tabs .ui-tabs-hide {
+.ui-tabs .ui-tabs-hide {
   display: none !important;
 }
 
 /* UI Tabs Paging */
 
-#alchemy .ui-tabs li.ui-tabs-paging-next {
+.ui-tabs li.ui-tabs-paging-next {
   float: right !important;
   padding: 0 !important;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev,
-#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-next {
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-prev,
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-next {
   height: 26px;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev a,
-#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-next a {
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-prev a,
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-next a {
   display: block;
   position: relative;
   top: 1px;
@@ -1793,16 +1818,16 @@ button.ui-button::-moz-focus-inner {
   cursor: pointer;
 }
 
-#alchemy .ui-tabs .ui-tabs-paging-next a:hover,
-#alchemy .ui-tabs .ui-tabs-paging-next a:focus,
-#alchemy .ui-tabs .ui-tabs-paging-next a:active,
-#alchemy .ui-tabs .ui-tabs-paging-prev a:hover,
-#alchemy .ui-tabs .ui-tabs-paging-prev a:focus,
-#alchemy .ui-tabs .ui-tabs-paging-prev a:active {
+.ui-tabs .ui-tabs-paging-next a:hover,
+.ui-tabs .ui-tabs-paging-next a:focus,
+.ui-tabs .ui-tabs-paging-next a:active,
+.ui-tabs .ui-tabs-paging-prev a:hover,
+.ui-tabs .ui-tabs-paging-prev a:focus,
+.ui-tabs .ui-tabs-paging-prev a:active {
   background: #eee;
 }
 
-#alchemy .ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled {
+.ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled {
   visibility: hidden;
 }
 
@@ -1816,48 +1841,48 @@ button.ui-button::-moz-focus-inner {
  * http://docs.jquery.com/UI/Datepicker#theming
  */
 
-#alchemy .ui-datepicker {
+.ui-datepicker {
   width: 17em;
   padding: $default-padding;
   display: none;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-header {
+.ui-datepicker .ui-datepicker-header {
   position: relative;
   padding: $default-padding;
   margin: -$default-padding;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-prev, #alchemy .ui-datepicker .ui-datepicker-next {
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
   position: absolute;
   top: $default-padding;
   width: 1.8em;
   height: 1.8em;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-prev-hover, #alchemy .ui-datepicker .ui-datepicker-next-hover {
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover {
   top: $default-padding;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-prev {
+.ui-datepicker .ui-datepicker-prev {
   left: $default-padding;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-next {
+.ui-datepicker .ui-datepicker-next {
   right: $default-padding;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-prev-hover {
+.ui-datepicker .ui-datepicker-prev-hover {
   top: $default-padding - 1;
   left: $default-padding - 1;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-next-hover {
+.ui-datepicker .ui-datepicker-next-hover {
   top: $default-padding - 1;
   right: $default-padding - 1;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-prev span, #alchemy .ui-datepicker .ui-datepicker-next span {
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
   display: block;
   position: absolute;
   left: 50%;
@@ -1866,61 +1891,61 @@ button.ui-button::-moz-focus-inner {
   margin-top: -8px;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-title {
+.ui-datepicker .ui-datepicker-title {
   margin: 0 2.3em;
   line-height: 1.8em;
   text-align: center;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-title select {
+.ui-datepicker .ui-datepicker-title select {
   font-size: 1em;
   margin: 1px 0;
 }
 
-#alchemy .ui-datepicker select.ui-datepicker-month-year {
+.ui-datepicker select.ui-datepicker-month-year {
   width: 100%;
 }
 
-#alchemy .ui-datepicker select.ui-datepicker-month,
-#alchemy .ui-datepicker select.ui-datepicker-year {
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
   width: 49%;
 }
 
-#alchemy .ui-datepicker table {
+.ui-datepicker table {
   width: 100%;
   font-size: 1em;
   border-collapse: collapse;
   margin: 0 0 .4em;
 }
 
-#alchemy .ui-datepicker th {
+.ui-datepicker th {
   padding: .7em .3em;
   text-align: center;
   font-weight: bold;
   border: 0;
 }
 
-#alchemy .ui-datepicker td {
+.ui-datepicker td {
   border: 0;
   padding: 1px;
 }
 
-#alchemy .ui-datepicker td.ui-datepicker-week-col {
+.ui-datepicker td.ui-datepicker-week-col {
   padding-left: $default-padding;
 }
 
-#alchemy .ui-datepicker td.ui-datepicker-current-day {
+.ui-datepicker td.ui-datepicker-current-day {
   background-color: $dark-gray;
 }
 
-#alchemy .ui-datepicker td span, #alchemy .ui-datepicker td a {
+.ui-datepicker td span, .ui-datepicker td a {
   display: block;
   padding: .2em;
   text-align: right;
   text-decoration: none;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-buttonpane {
+.ui-datepicker .ui-datepicker-buttonpane {
   background-image: none;
   margin: .7em 0 0 0;
   padding: 0 .2em;
@@ -1929,7 +1954,7 @@ button.ui-button::-moz-focus-inner {
   border-bottom: 0;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-buttonpane button {
+.ui-datepicker .ui-datepicker-buttonpane button {
   float: right;
   margin: .5em .2em .4em;
   cursor: pointer;
@@ -1938,109 +1963,109 @@ button.ui-button::-moz-focus-inner {
   overflow: visible;
 }
 
-#alchemy .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
   float: left;
 }
 
 /* with multiple calendars */
 
-#alchemy .ui-datepicker.ui-datepicker-multi {
+.ui-datepicker.ui-datepicker-multi {
   width: auto;
 }
 
-#alchemy .ui-datepicker-multi .ui-datepicker-group {
+.ui-datepicker-multi .ui-datepicker-group {
   float: left;
 }
 
-#alchemy .ui-datepicker-multi .ui-datepicker-group table {
+.ui-datepicker-multi .ui-datepicker-group table {
   width: 95%;
   margin: 0 auto .4em;
 }
 
-#alchemy .ui-datepicker-multi-2 .ui-datepicker-group {
+.ui-datepicker-multi-2 .ui-datepicker-group {
   width: 50%;
 }
 
-#alchemy .ui-datepicker-multi-3 .ui-datepicker-group {
+.ui-datepicker-multi-3 .ui-datepicker-group {
   width: 33.3%;
 }
 
-#alchemy .ui-datepicker-multi-4 .ui-datepicker-group {
+.ui-datepicker-multi-4 .ui-datepicker-group {
   width: 25%;
 }
 
-#alchemy .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header {
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header {
   border-left-width: 0;
 }
 
-#alchemy .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
   border-left-width: 0;
 }
 
-#alchemy .ui-datepicker-multi .ui-datepicker-buttonpane {
+.ui-datepicker-multi .ui-datepicker-buttonpane {
   clear: left;
 }
 
-#alchemy .ui-datepicker-row-break {
+.ui-datepicker-row-break {
   clear: both;
   width: 100%;
 }
 
 /* RTL support */
 
-#alchemy .ui-datepicker-rtl {
+.ui-datepicker-rtl {
   direction: rtl;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-prev {
+.ui-datepicker-rtl .ui-datepicker-prev {
   right: 2px;
   left: auto;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-next {
+.ui-datepicker-rtl .ui-datepicker-next {
   left: 2px;
   right: auto;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-prev:hover {
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
   right: 1px;
   left: auto;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-next:hover {
+.ui-datepicker-rtl .ui-datepicker-next:hover {
   left: 1px;
   right: auto;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-buttonpane {
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
   clear: right;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-buttonpane button {
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
   float: left;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current {
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current {
   float: right;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-group {
+.ui-datepicker-rtl .ui-datepicker-group {
   float: right;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header {
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header {
   border-right-width: 0;
   border-left-width: 1px;
 }
 
-#alchemy .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
   border-right-width: 0;
   border-left-width: 1px;
 }
 
 /* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
 
-#alchemy .ui-datepicker-cover {
+.ui-datepicker-cover {
   display: none;
 /*sorry for IE5*/
   display /**/: block;
@@ -2071,12 +2096,12 @@ button.ui-button::-moz-focus-inner {
  * http://docs.jquery.com/UI/Progressbar#theming
  */
 
-#alchemy .ui-progressbar {
+.ui-progressbar {
   height: 2em;
   text-align: left;
 }
 
-#alchemy .ui-progressbar .ui-progressbar-value {
+.ui-progressbar .ui-progressbar-value {
   margin: -1px;
   height: 100%;
 }

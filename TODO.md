@@ -2,3 +2,7 @@
 
 * icon-font replacement
   * overlay resize handle
+* jQueryUI 1.10:
+  * Dialog autofocus
+  * Fix Tabspaging extension
+  * Fix zindex of element and preview window ( and maximized preview window)

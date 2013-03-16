@@ -1,9 +1,7 @@
 /*!
- * jQuery DialogExtend 1.0.1
+ * jQuery DialogExtend 1.1.0
  *
- * tvd: fixes for jQuery UI 1.9 and adjusts sizes.
- *
- * Copyright (c) 2010 Shum Ting Hin
+ * Copyright (c) 2013 Shum Ting Hin, Thomas von Deyen
  *
  * Licensed under MIT
  *   http:// www.opensource.org/licenses/mit-license.php
@@ -12,8 +10,8 @@
  *   http:// code.google.com/p/jquery-dialogextend/
  *
  * Depends:
- *   jQuery 1.7.2
- *   jQuery UI Dialog 1.8.22
+ *   jQuery 1.9.1
+ *   jQuery UI Dialog 1.10.1
  *
  */
 (function($){
@@ -137,8 +135,7 @@
 				// fix dialog from scrolling
 				.dialog("widget")
 					.css({
-						// ie6 does not support {position:fixed} ===> simply use {absolute}
-						"position" : ( $.browser.msie && parseInt($.browser.version) <= 6 ) ? "absolute" : "fixed"
+						"position" : "fixed"
 					})
 				.find(".ui-dialog-content")
 				// show content
@@ -181,8 +178,7 @@
 				var fixedContainer = $('<div id="dialog-extend-fixed-container"></div>').appendTo("body");
 			}
 			$(fixedContainer).css({
-				// ie6 does not support {position:fixed} ===> simply use {absolute}
-				"position" : ( $.browser.mise && parseInt($.browser.version) <= 6 ) ? "absolute" : "fixed",
+				"position" : "fixed",
 				"bottom" : 1,
 				"left" : 1,
 				"z-index" : 9999
@@ -288,16 +284,28 @@
 				.end();
 			// append other buttons to button-pane
 			$(buttonPane)
-				.append('<a class="ui-dialog-titlebar-maximize ui-corner-all" href="#"><span class="ui-icon '+settings.icons.maximize+'">maximize</span></a>')
-				.append('<a class="ui-dialog-titlebar-restore ui-corner-all" href="#"><span class="ui-icon '+settings.icons.restore+'">restore</span></a>')
-				.append('<a class="ui-dialog-titlebar-minimize ui-corner-all" href="#"><span class="ui-icon '+settings.icons.minimize+'">minimize</span></a>')
+				.append('<button class="ui-dialog-titlebar-maximize ui-corner-all ui-state-default"><span class="ui-icon '+settings.icons.maximize+'">maximize</span></button>')
+				.append('<button class="ui-dialog-titlebar-restore ui-corner-all ui-state-default"><span class="ui-icon '+settings.icons.restore+'">restore</span></button>')
+				.append('<button class="ui-dialog-titlebar-minimize ui-corner-all ui-state-default"><span class="ui-icon '+settings.icons.minimize+'">minimize</span></button>')
 				// add effect to buttons
 				.find(".ui-dialog-titlebar-maximize,.ui-dialog-titlebar-minimize,.ui-dialog-titlebar-restore")
 					.attr("role", "button")
-					.mouseover(function(){ $(this).addClass("ui-state-hover"); })
-					.mouseout(function(){ $(this).removeClass("ui-state-hover"); })
-					.focus(function(){ $(this).addClass("ui-state-focus"); })
-					.blur(function(){ $(this).removeClass("ui-state-focus"); })
+					.mouseover(function(){
+						$(this).addClass("ui-state-hover");
+						$(this).removeClass("ui-state-default");
+					})
+					.mouseout(function(){
+						$(this).removeClass("ui-state-hover");
+						$(this).addClass("ui-state-default");
+					})
+					.focus(function(){
+						$(this).addClass("ui-state-focus");
+						$(this).removeClass("ui-state-default");
+					})
+					.blur(function(){
+						$(this).removeClass("ui-state-focus");
+						$(this).addClass("ui-state-default");
+					})
 				.end()
 				// default show buttons
 				// set button positions
