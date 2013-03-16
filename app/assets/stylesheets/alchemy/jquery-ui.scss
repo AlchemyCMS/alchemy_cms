@@ -1505,6 +1505,8 @@ button.ui-button::-moz-focus-inner {
   &.alchemy-preview-window, &.alchemy-elements-window {
     z-index: 5;
   }
+
+  &:focus { outline: none }
 }
 
 .ui-dialog-titlebar {
