@@ -21,6 +21,7 @@ Alchemy.PreviewWindow =
         position: [70, 84]
         autoResize: true
         closeOnEscape: false
+        dialogClass: 'alchemy-preview-window'
         create: ->
           spinner = Alchemy.Spinner.small(className: "preview-refresh-spinner")
           $reload = $("<button class=\"ui-dialog-titlebar-refresh ui-corner-all ui-state-default\" role=\"button\"></button>")

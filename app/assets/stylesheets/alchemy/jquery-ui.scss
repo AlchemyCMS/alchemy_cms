@@ -1501,6 +1501,10 @@ button.ui-button::-moz-focus-inner {
   overflow: hidden;
   padding: 0;
   z-index: 10;
+
+  &.alchemy-preview-window, &.alchemy-elements-window {
+    z-index: 5;
+  }
 }
 
 .ui-dialog-titlebar {

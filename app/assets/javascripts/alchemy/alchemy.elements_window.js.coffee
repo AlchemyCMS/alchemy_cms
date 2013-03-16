@@ -26,6 +26,7 @@ Alchemy.ElementsWindow =
       position:
         my: "right bottom", at: "right-4px bottom-4px"
       closeOnEscape: false
+      dialogClass: 'alchemy-elements-window'
       create: ->
         $dialog.before Alchemy.ElementsWindow.createToolbar(options.toolbarButtons)
 
