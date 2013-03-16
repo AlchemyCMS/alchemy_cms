@@ -274,19 +274,19 @@ ActiveRecord::Schema.define(:version => 20130312205327) do
     t.string   "login"
     t.string   "email"
     t.string   "gender"
-    t.text     "roles",                  :limit => 255, :default => "registered"
+    t.text     "roles",                  :limit => 255
     t.string   "language"
-    t.string   "encrypted_password",     :limit => 128, :default => "",           :null => false
-    t.string   "password_salt",          :limit => 128, :default => "",           :null => false
-    t.integer  "sign_in_count",                         :default => 0,            :null => false
-    t.integer  "failed_attempts",                       :default => 0,            :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "password_salt",          :limit => 128, :default => "", :null => false
+    t.integer  "sign_in_count",                         :default => 0,  :null => false
+    t.integer  "failed_attempts",                       :default => 0,  :null => false
     t.datetime "last_request_at"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.text     "cached_tag_list"

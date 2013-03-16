@@ -27,7 +27,7 @@ module Alchemy
       end
 
       def new
-        @user = User.new
+        @user = User.new(roles: 'registered')
         render :layout => false
       end
 

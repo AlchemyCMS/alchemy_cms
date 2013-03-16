@@ -8,6 +8,7 @@ FactoryGirl.define do
     password 's3cr3t'
     password_confirmation 's3cr3t'
     language 'en'
+    roles 'registered'
 
     factory :admin_user do
       roles 'admin'

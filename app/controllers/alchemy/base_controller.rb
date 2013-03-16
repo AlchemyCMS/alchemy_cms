@@ -197,9 +197,7 @@ module Alchemy
 
     def permission_denied
       if current_user
-        if current_user.role == 'registered'
-          redirect_to alchemy.root_path
-        else
+        if permitted_to? :index_alchemy_admin_dashboard
           if request.referer == alchemy.login_url
             render :file => Rails.root.join('public/422'), :status => 422
           elsif request.xhr?
@@ -215,6 +213,8 @@ module Alchemy
             flash[:error] = _t('You are not authorized')
             redirect_to alchemy.admin_dashboard_path
           end
+        else
+          redirect_to alchemy.root_path
         end
       else
         flash[:info] = _t('Please log in')
