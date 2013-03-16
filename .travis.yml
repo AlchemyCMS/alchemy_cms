@@ -12,9 +12,9 @@ before_script:
   - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
 script: "bundle exec rspec spec $SPEC_FLAGS"
 env:
-  - DB=mysql SPEC_FLAGS="-t ~type:request"
-  - DB=postgresql SPEC_FLAGS="-t ~type:request"
-  - DB=mysql SPEC_FLAGS="-t type:request"
+  - DB=mysql SPEC_FLAGS="-t ~type:feature"
+  - DB=postgresql SPEC_FLAGS="-t ~type:feature"
+  - DB=mysql SPEC_FLAGS="-t type:feature"
 matrix:
   allow_failures:
-    - env: DB=mysql SPEC_FLAGS="-t type:request"
+    - env: DB=mysql SPEC_FLAGS="-t type:feature"
