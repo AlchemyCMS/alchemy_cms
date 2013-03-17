@@ -38,7 +38,6 @@ $.extend Alchemy,
     else
       $errorDiv.append "<h2>" + errorThrown + " (" + status + ")</h2>"
       $errorDiv.append "<p>Please check log and try again.</p>"
-    return
 
   # Adds buttons into a toolbar inside of overlay windows
   # Used by Alchemy.ElementsWindow
@@ -67,7 +66,7 @@ $.extend Alchemy,
     $confirmation = $('<div style="display: none" id="alchemyConfirmation" />')
     $confirmation.appendTo "body"
     $confirmation.html "<p>" + options.message + "</p>"
-    Alchemy.ConfirmationWindow = $confirmation.dialog(
+    Alchemy.ConfirmationWindow = $confirmation.dialog
       resizable: false
       minHeight: 100
       minWidth: 300
@@ -93,12 +92,8 @@ $.extend Alchemy,
       ]
       open: ->
         Alchemy.Buttons.observe "#alchemyConfirmation"
-        return
       close: ->
         $("#alchemyConfirmation").remove()
-        return
-    )
-    return
 
   # Opens a confirm to delete window
   #
@@ -131,8 +126,6 @@ $.extend Alchemy,
         $.ajax
           url: url
           type: "DELETE"
-        return
-    return
 
   # Opens a new dialog window
   #
@@ -167,11 +160,10 @@ $.extend Alchemy,
       options.height = $(window).height() - 50
     $dialog = $('<div style="display: none" id="alchemyOverlay" />')
     $dialog.appendTo "body"
-    $dialog.html Alchemy.getOverlaySpinner(
+    $dialog.html Alchemy.getOverlaySpinner
       width: (if options.width is "auto" then 400 else options.width)
       height: (if options.height is "auto" then 300 else options.height)
-    )
-    Alchemy.CurrentWindow = $dialog.dialog(
+    Alchemy.CurrentWindow = $dialog.dialog
       modal: options.modal
       minWidth: (if options.width is "auto" then 400 else options.width)
       minHeight: (if options.height is "auto" then 300 else options.height)
@@ -199,19 +191,12 @@ $.extend Alchemy,
             Alchemy.overlayObserver "#alchemyOverlay"
             if options.image_loader
               Alchemy.ImageLoader '#alchemyOverlay img', {color: options.image_loader_color}
-            return
           error: (XMLHttpRequest, textStatus, errorThrown) ->
             Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
-            return
           complete: (jqXHR, textStatus) ->
             Alchemy.Buttons.enable()
-            return
-        return
       close: ->
         $dialog.remove()
-        return
-    )
-    return
 
   # Closes the current dialog
   closeCurrentWindow: ->
@@ -245,49 +230,21 @@ $.extend Alchemy,
 
     # Opens the trash window
     open: (page_id, title) ->
-      $dialog = $('<div style="display: none" id="alchemyTrashWindow" />')
-      $dialog.appendTo("body")
-      $dialog.html Alchemy.getOverlaySpinner({width: 380, height: 450})
-      Alchemy.TrashWindow.current = $dialog.dialog(
+      Alchemy.TrashWindow.current = Alchemy.openWindow(
+        Alchemy.routes.admin_trash_path(page_id),
+        title: title,
+        width: 380,
+        height: 450,
+        maxHeight: $(window).height() - 50,
         modal: false
-        width: 380
-        minHeight: 450
-        maxHeight: $(window).height() - 50
-        title: title
-        resizable: false
-        show: "fade"
-        hide: "fade"
-        open: (event, ui) ->
-          $.ajax
-            url: Alchemy.routes.admin_trash_path(page_id)
-            success: (data, textStatus, XMLHttpRequest) ->
-              $dialog.html data
-              # Need this for DragnDrop elements into elements window.
-              # Badly this is screwing up maxHeight option
-              $dialog.css(overflow: "visible").dialog("widget").css overflow: "visible"
-              Alchemy.overlayObserver "#alchemyTrashWindow"
-              return
-            error: (XMLHttpRequest, textStatus, errorThrown) ->
-              Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
-              return
-          return
-        close: ->
-          $dialog.remove()
-          return
       )
-      return
 
     # Refreshes the trash window
     refresh: (page_id) ->
-      if $("#alchemyTrashWindow").length > 0
-        $("#alchemyTrashWindow").html Alchemy.getOverlaySpinner(
-          width: 380
-          height: 270
-        )
+      if Alchemy.TrashWindow.current
+        Alchemy.TrashWindow.current.html Alchemy.getOverlaySpinner(width: 380, height: 270)
         $.get Alchemy.routes.admin_trash_path(page_id), (html) ->
-          $("#alchemyTrashWindow").html html
-          return
-      return
+          Alchemy.TrashWindow.current.html html
 
   # Adds onClick events for Alchemy overlays
   #
