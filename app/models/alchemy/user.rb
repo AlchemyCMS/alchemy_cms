@@ -63,6 +63,10 @@ module Alchemy
       roles.map(&:to_sym)
     end
 
+    def role
+      roles.first
+    end
+
     def roles
       read_attribute(:roles).split(' ')
     end

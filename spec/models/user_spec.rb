@@ -68,6 +68,24 @@ module Alchemy
 
     end
 
+    describe '#role' do
+      context "when user doesn't have any roles" do
+        before { user.roles = [] }
+
+        it 'should return nil' do
+          user.role.should be_nil
+        end
+      end
+
+      context "when user has multiple roles" do
+        before { user.roles = ["admin", "registered"] }
+
+        it 'should return the first role' do
+          user.role.should == "admin"
+        end
+      end
+    end
+
     describe '#roles' do
       it "should return an array of user roles" do
         user.roles.should == ["registered"]
