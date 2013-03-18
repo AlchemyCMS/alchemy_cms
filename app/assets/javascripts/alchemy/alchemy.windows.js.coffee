@@ -39,19 +39,6 @@ $.extend Alchemy,
       $errorDiv.append "<h2>" + errorThrown + " (" + status + ")</h2>"
       $errorDiv.append "<p>Please check log and try again.</p>"
 
-  # Adds buttons into a toolbar inside of overlay windows
-  # Used by Alchemy.ElementsWindow
-  ToolbarButton: (options) ->
-    $btn = $('<div class="button_with_label" />')
-    if options.buttonId
-      $btn.attr(id: options.buttonId)
-    $lnk = $("<a title='#{options.buttonTitle}' class='icon_button' href='#' />")
-    $lnk.click options.onClick
-    $lnk.append "<span class='icon #{options.iconClass}' />"
-    $btn.append $lnk
-    $btn.append "<br><label>#{options.buttonLabel}</label>"
-    $btn
-
   # Opens a confirm window
   #
   # Options:

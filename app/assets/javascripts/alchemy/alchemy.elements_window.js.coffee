@@ -1,5 +1,18 @@
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
+
+# Adds buttons into a toolbar inside of overlay windows
+Alchemy.ToolbarButton = (options) ->
+  $btn = $('<div class="button_with_label" />')
+  if options.buttonId
+    $btn.attr(id: options.buttonId)
+  $lnk = $("<a title='#{options.buttonTitle}' class='icon_button' href='#' />")
+  $lnk.click options.onClick
+  $lnk.append "<span class='icon #{options.iconClass}' />"
+  $btn.append $lnk
+  $btn.append "<br><label>#{options.buttonLabel}</label>"
+  $btn
+
 Alchemy.ElementsWindow =
 
   init: (path, options, callback) ->
@@ -9,13 +22,12 @@ Alchemy.ElementsWindow =
       $dialog.dialog "destroy"
       $("#alchemyElementWindow").remove()
       Alchemy.ElementsWindow.button.enable()
-
     self.path = path
     self.callback = callback
     $dialog.html Alchemy.getOverlaySpinner(width: 420, height: 300)
     self.dialog = $dialog
     $('#main_content').append($dialog)
-    Alchemy.ElementsWindow.currentWindow = $dialog.dialog(
+    self.currentWindow = $dialog.dialog
       modal: false
       minWidth: 420
       minHeight: 300
@@ -29,11 +41,9 @@ Alchemy.ElementsWindow =
       dialogClass: 'alchemy-elements-window'
       create: ->
         $dialog.before Alchemy.ElementsWindow.createToolbar(options.toolbarButtons)
-
       open: (event, ui) ->
         Alchemy.ElementsWindow.button.disable()
-        Alchemy.ElementsWindow.reload callback
-
+        Alchemy.ElementsWindow.reload()
       beforeClose: ->
         if Alchemy.isPageDirty()
           Alchemy.openConfirmWindow
@@ -42,21 +52,16 @@ Alchemy.ElementsWindow =
             okLabel: options.texts.okLabel
             cancelLabel: options.texts.cancelLabel
             okCallback: closeCallback
-
           false
         else
           true
-
       close: closeCallback
-    )
 
   button:
     enable: ->
       $("div#show_element_window").removeClass("disabled").find("a").removeAttr "tabindex"
-
     disable: ->
       $("div#show_element_window").addClass("disabled").find("a").attr "tabindex", "-1"
-
     toggle: ->
       if $("div#show_element_window").hasClass("disabled")
         Alchemy.ElementsWindow.button.enable()
@@ -64,19 +69,14 @@ Alchemy.ElementsWindow =
         Alchemy.ElementsWindow.button.disable()
 
   createToolbar: (buttons) ->
-    $toolbar = $("<div id=\"overlay_toolbar\"></div>")
-    btn = undefined
-    i = 0
-    while i < buttons.length
-      btn = buttons[i]
-      $toolbar.append Alchemy.ToolbarButton(
+    $toolbar = $('<div id="overlay_toolbar"/>')
+    for btn in buttons
+      $toolbar.append Alchemy.ToolbarButton
         buttonTitle: btn.title
         buttonLabel: btn.label
         iconClass: btn.iconClass
         onClick: btn.onClick
         buttonId: btn.buttonId
-      )
-      i++
     $toolbar
 
   reload: ->
@@ -88,7 +88,7 @@ Alchemy.ElementsWindow =
         Alchemy.Buttons.observe "#alchemyElementWindow"
         Alchemy.overlayObserver "#alchemyElementWindow"
         Alchemy.Datepicker "#alchemyElementWindow input.date, #alchemyElementWindow input[type=\"date\"]"
-        self.callback.call()  if self.callback
-
+        if self.callback
+          self.callback.call()
       error: (XMLHttpRequest, textStatus, errorThrown) ->
         Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
