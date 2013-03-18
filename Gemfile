@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 gemspec
 
-# For Ruby 2.0.0 compatibility. Can be removed when Rails 3.2.13 is released.
-gem 'rails', github: 'rails/rails', branch: '3-2-13'
-
 #For some strange reason it's only loaded outside any group
 gem 'jasmine'
 gem 'jasminerice'
