@@ -2,8 +2,7 @@ div.pagination {
   background: $light_gray;
   width: 100%;
   left: 82px;
-  line-height: 24px;
-  height: 24px;
+  height: 35px;
   padding: 2 * $default-padding 0;
   text-align: right;
 
@@ -17,7 +16,7 @@ div.pagination {
   a:hover {
     color: #000;
     text-shadow: none;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   span a { padding: 0 }

@@ -39,7 +39,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<acts-as-taggable-on>,        ["~> 2.1"]
   s.add_runtime_dependency %q<declarative_authorization>,  ["~> 0.5.7"]
   s.add_runtime_dependency %q<dragonfly>,                  ["~> 0.9.14"]
-  s.add_runtime_dependency %q<kaminari>,                   ["~> 0.13.0"]
+  s.add_runtime_dependency %q<kaminari>,                   ["~> 0.14.1"]
   s.add_runtime_dependency %q<acts_as_ferret>,             ["~> 0.5"]
   s.add_runtime_dependency %q<acts_as_list>,               ["~> 0.2.0"]
   s.add_runtime_dependency %q<magiclabs-userstamp>,        ["~> 2.0.2"]
