@@ -18,7 +18,7 @@ module Alchemy
 
     image_accessor :image_file do
       if Config.get(:preprocess_image_resize).present?
-        after_assign { |a| a.process!(:resize, Config.get(:preprocess_image_resize)) }
+        after_assign { |a| a.process!(:resize, "#{Config.get(:preprocess_image_resize)}>") }
       end
     end
 
