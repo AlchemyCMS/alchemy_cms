@@ -28,7 +28,7 @@ module Alchemy
 
     before_create do
       write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
-      write_attribute(:file_name, self.urlname)
+      write_attribute(:file_name, sanitized_filename)
     end
 
     # Class methods
@@ -46,10 +46,7 @@ module Alchemy
     # Instance methods
 
     def urlname
-      parts = file_name.split('.')
-      sfx = parts.pop
-      name = convert_to_urlname(parts.join('-'))
-      "#{name}.#{sfx}"
+      read_attribute :file_name
     end
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
@@ -92,6 +89,15 @@ module Alchemy
           then "vcard"
         else "file"
       end
+    end
+
+  private
+
+    def sanitized_filename
+      parts = self.file_name.split('.')
+      sfx = parts.pop
+      name = convert_to_urlname(parts.join('-'))
+      "#{name}.#{sfx}"
     end
 
   end

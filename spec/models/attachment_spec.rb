@@ -20,6 +20,28 @@ module Alchemy
       after { attachment.destroy }
     end
 
+    describe 'urlname sanitizing' do
+      it "should sanitize url characters in the filename" do
+        attachment.file_name = 'f#%&cking cute kitten pic.png'
+        attachment.save!
+        attachment.urlname.should == 'f-cking-cute-kitten-pic.png'
+      end
+
+      it "should sanitize lot of dots in the name" do
+        attachment.file_name = 'cute.kitten.pic.png'
+        attachment.save!
+        attachment.urlname.should == 'cute-kitten-pic.png'
+      end
+
+      it "should sanitize umlauts in the name" do
+        attachment.file_name = 'süßes katzenbild.png'
+        attachment.save!
+        attachment.urlname.should == 'suesses-katzenbild.png'
+      end
+
+      after { attachment.destroy }
+    end
+
     describe 'validations' do
 
       context "having a png, but only pdf allowed" do
@@ -38,23 +60,6 @@ module Alchemy
         end
       end
 
-    end
-
-    describe 'urlname sanitizing' do
-      context "with url characters in the filename" do
-        subject { stub_model(Attachment, :file_name => 'f#%&cking cute kitten pic.png') }
-        its(:urlname) { should == 'f-cking-cute-kitten-pic.png' }
-      end
-
-      context "with lot of dots in the name" do
-        subject { stub_model(Attachment, :file_name => 'cute.kitten.pic.png') }
-        its(:urlname) { should == 'cute-kitten-pic.png' }
-      end
-
-      context "with umlauts in the name" do
-        subject { stub_model(Attachment, :file_name => 'süßes katzenbild.png') }
-        its(:urlname) { should == 'suesses-katzenbild.png' }
-      end
     end
 
     context 'PNG image' do
