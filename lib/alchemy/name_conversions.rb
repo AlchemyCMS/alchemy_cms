@@ -21,7 +21,7 @@ module Alchemy
     # Converts a filename and suffix into a human readable name.
     #
     def convert_to_humanized_name(name, suffix)
-      name.downcase.gsub(/\.#{::Regexp.quote(suffix)}$/, '').humanize
+      name.gsub(/\.#{::Regexp.quote(suffix)}$/i, '').gsub(/_/, ' ').strip
     end
 
   end

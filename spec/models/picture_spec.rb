@@ -52,21 +52,21 @@ module Alchemy
       it "should return a humanized version of original filename" do
         pic = stub_model(Picture, :image_file_name => 'cute_kitten.JPG')
         pic.stub(:image_file).and_return(OpenStruct.new({:ext => 'jpg'}))
-        pic.humanized_name.should == "Cute kitten"
+        pic.humanized_name.should == "cute kitten"
       end
 
       it "should not remove incidents of suffix from filename" do
         pic = stub_model(Picture, :image_file_name => 'cute_kitten_mo.jpgi.JPG')
         pic.stub(:image_file).and_return(OpenStruct.new({:ext => 'jpg'}))
-        pic.humanized_name.should == "Cute kitten mo.jpgi"
-        pic.humanized_name.should_not == "Cute kitten moi"
+        pic.humanized_name.should == "cute kitten mo.jpgi"
+        pic.humanized_name.should_not == "cute kitten moi"
       end
 
       context "image has no suffix" do
         it "should return humanized name" do
           pic = stub_model(Picture, :image_file_name => 'cute_kitten')
           pic.stub(:suffix).and_return("")
-          pic.humanized_name.should == "Cute kitten"
+          pic.humanized_name.should == "cute kitten"
         end
       end
 
@@ -116,7 +116,7 @@ module Alchemy
 
     describe '.recent' do
 
-      before(:all) do
+      before do
         now = Time.now
         @recent = Picture.create!(:image_file => image_file)
         @old_picture = Picture.create!(:image_file => image_file)

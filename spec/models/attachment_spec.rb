@@ -10,7 +10,7 @@ module Alchemy
       before { attachment.save! }
 
       it "should have a humanized name" do
-        attachment.name.should == "Image with spaces"
+        attachment.name.should == "image with spaces"
       end
 
       it "should have a valid file_name" do
