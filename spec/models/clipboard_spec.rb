@@ -46,7 +46,7 @@ module Alchemy
 
     context "full clipboard" do
 
-      before(:all) do
+      before do
         clipboard[:elements] = [{:id => 1}, {:id => 2}]
         clipboard[:pages] = [{:id => 2}, {:id => 3}]
       end
