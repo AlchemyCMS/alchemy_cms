@@ -29,6 +29,17 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
+task :default => ['alchemy:spec:prepare', :spec]
 
 Bundler::GemHelper.install_tasks
+
+namespace :alchemy do
+  namespace :spec do
+
+    desc "Prepares database for testing Alchemy"
+    task :prepare do
+      system 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:drop db:create db:migrate:reset && cd -'
+    end
+
+  end
+end
