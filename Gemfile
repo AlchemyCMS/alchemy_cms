@@ -10,7 +10,7 @@ group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'poltergeist', '1.1.0'
+  gem 'poltergeist', '1.0.2'
   unless ENV['CI']
     gem 'launchy'
     gem 'simplecov', :require => false

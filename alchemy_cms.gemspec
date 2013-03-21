@@ -54,7 +54,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<rails3-jquery-autocomplete>, ['~> 1.0.10']
 
   s.add_development_dependency %q<bumpy>
-  s.add_development_dependency %q<capybara>
+  s.add_development_dependency %q<capybara>,               ['1.1.4']
   s.add_development_dependency %q<factory_girl_rails>
   s.add_development_dependency %q<rspec-rails>,            ['2.12.0']
   s.add_development_dependency %q<sqlite3>
