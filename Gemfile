@@ -30,4 +30,5 @@ group :development do
     gem 'quiet_assets' # Mute assets loggin
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
   end
+  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: 'master'
 end

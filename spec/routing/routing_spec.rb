@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "The Routing", :type => :routing do
+describe "The Routing" do
 
-  before { @routes = Alchemy::Engine.routes }
+  routes { Alchemy::Engine.routes }
 
   context "for downloads" do
 
