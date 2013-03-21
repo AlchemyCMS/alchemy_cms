@@ -533,7 +533,7 @@ module Alchemy
       rootpage? || (self.parent_id == Page.root.id && !self.language_root?)
     end
 
-    # Overwrites the cache_key method so it uses the published_at attribute instead of updated_at.
+    # Overwrites the cache_key method.
     def cache_key(request = nil)
       "alchemy/pages/#{id}"
     end

@@ -7,12 +7,12 @@ module Alchemy
 
       render_views
 
-      let(:page) do
+      let(:alchemy_page) do
         FactoryGirl.create(:page, :parent_id => Page.rootpage.id)
       end
 
       let(:element) do
-        FactoryGirl.create(:element, :public => false, :page => page)
+        FactoryGirl.create(:element, :public => false, :page => alchemy_page)
       end
 
       before do
@@ -21,13 +21,13 @@ module Alchemy
       end
 
       it "should hold trashed elements" do
-        get :index, :page_id => page.id
+        get :index, :page_id => alchemy_page.id
         response.body.should have_selector("#element_#{element.id}.element_editor")
       end
 
       it "should not hold elements that are not trashed" do
-        element = FactoryGirl.create(:element, :page => page, :public => false)
-        get :index, :page_id => page.id
+        element = FactoryGirl.create(:element, :page => alchemy_page, :public => false)
+        get :index, :page_id => alchemy_page.id
         response.body.should_not have_selector("#element_#{element.id}.element_editor")
       end
 
@@ -42,7 +42,7 @@ module Alchemy
         context "and no unique elements on the page" do
 
           it "unique elements should be draggable" do
-            get :index, :page_id => page.id
+            get :index, :page_id => alchemy_page.id
             response.body.should have_selector("#element_#{element.id}.element_editor.draggable")
           end
 
@@ -51,8 +51,8 @@ module Alchemy
         context "and with an unique element on the page" do
 
           it "unique elements should not be draggable" do
-            FactoryGirl.create(:element, :page => page, :public => false)
-            get :index, :page_id => page.id
+            FactoryGirl.create(:element, :page => alchemy_page, :public => false)
+            get :index, :page_id => alchemy_page.id
             response.body.should have_selector("#element_#{element.id}.element_editor.not-draggable")
           end
 
@@ -63,7 +63,7 @@ module Alchemy
       context "#clear" do
 
         it "should destroy all containing elements" do
-          post :clear, {:page_id => page.id, :format => :js}
+          post :clear, {:page_id => alchemy_page.id, :format => :js}
           Element.trashed.should be_empty
         end
 

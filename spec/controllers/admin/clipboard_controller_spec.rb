@@ -3,9 +3,9 @@ require 'spec_helper'
 module Alchemy
   describe Admin::ClipboardController do
 
-    let(:page)            { FactoryGirl.create(:public_page) }
-    let(:element)         { FactoryGirl.create(:element, :page => page) }
-    let(:another_element) { FactoryGirl.create(:element, :page => page) }
+    let(:public_page)     { FactoryGirl.create(:public_page) }
+    let(:element)         { FactoryGirl.create(:element, :page => public_page) }
+    let(:another_element) { FactoryGirl.create(:element, :page => public_page) }
 
     before do
       sign_in :user, FactoryGirl.create(:admin_user)
@@ -48,7 +48,7 @@ module Alchemy
 
       context "with pages as remarkable_type" do
         it "should clear the pages clipboard" do
-          session[:clipboard][:pages] = {:id => page.id}
+          session[:clipboard][:pages] = {:id => public_page.id}
           delete(:clear, {:remarkable_type => :pages, :format => :js})
           session[:clipboard].should be_empty
         end

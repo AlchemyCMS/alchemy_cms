@@ -4,3 +4,4 @@
 * icon-font replacement
   * overlay resize handle
 * Update selectboxit
+* Refactor url nesting feature

@@ -3,8 +3,8 @@ require 'spec_helper'
 module Alchemy
   describe ElementsController do
 
-    let(:page)                { FactoryGirl.create(:public_page) }
-    let(:element)             { FactoryGirl.create(:element, :page => page, :name => 'download') }
+    let(:public_page)         { FactoryGirl.create(:public_page) }
+    let(:element)             { FactoryGirl.create(:element, :page => public_page, :name => 'download') }
     let(:restricted_page)     { FactoryGirl.create(:public_page, :restricted => true) }
     let(:restricted_element)  { FactoryGirl.create(:element, :page => restricted_page, :name => 'download') }
 

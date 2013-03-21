@@ -7,9 +7,9 @@ module Alchemy
       sign_in :user, FactoryGirl.create(:admin_user)
     end
 
-    let(:page) { FactoryGirl.create(:page, :urlname => 'lulu') }
-    let(:element) { FactoryGirl.create(:element, :page_id => page.id) }
-    let(:element_in_clipboard) { FactoryGirl.create(:element, :page_id => page.id) }
+    let(:alchemy_page) { FactoryGirl.create(:page, :urlname => 'lulu') }
+    let(:element) { FactoryGirl.create(:element, :page_id => alchemy_page.id) }
+    let(:element_in_clipboard) { FactoryGirl.create(:element, :page_id => alchemy_page.id) }
     let(:clipboard) { session[:clipboard] = Clipboard.new }
 
     describe '#create' do
@@ -17,9 +17,9 @@ module Alchemy
       before { element }
 
       it "should insert the element at bottom of list" do
-        post :create, {:element => {:name => 'news', :page_id => page.id}, :format => :js}
-        page.elements.count.should == 2
-        page.elements.last.name.should == 'news'
+        post :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :format => :js}
+        alchemy_page.elements.count.should == 2
+        alchemy_page.elements.last.name.should == 'news'
       end
 
       context "on a page with a setting for insert_elements_at of top" do
@@ -33,9 +33,9 @@ module Alchemy
         end
 
         it "should insert the element at top of list" do
-          post :create, {:element => {:name => 'news', :page_id => page.id}, :format => :js}
-          page.elements.count.should == 2
-          page.elements.first.name.should == 'news'
+          post :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :format => :js}
+          alchemy_page.elements.count.should == 2
+          alchemy_page.elements.first.name.should == 'news'
         end
       end
     end
@@ -44,7 +44,7 @@ module Alchemy
 
       before do
         Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['header']})
-        controller.instance_variable_set(:@page, page)
+        controller.instance_variable_set(:@page, alchemy_page)
       end
 
       context "with element name and cell name in the params" do
@@ -59,18 +59,18 @@ module Alchemy
           it "should create the cell" do
             expect {
               controller.send(:find_or_create_cell)
-            }.to change(page.cells, :count).from(0).to(1)
+            }.to change(alchemy_page.cells, :count).from(0).to(1)
           end
         end
 
         context "with the cell already present" do
 
-          before { FactoryGirl.create(:cell, :page => page, :name => 'header') }
+          before { FactoryGirl.create(:cell, :page => alchemy_page, :name => 'header') }
 
           it "should load the cell" do
             expect {
               controller.send(:find_or_create_cell)
-            }.to_not change(page.cells, :count)
+            }.to_not change(alchemy_page.cells, :count)
           end
 
         end
@@ -98,9 +98,9 @@ module Alchemy
       render_views
 
       it "should return a select tag with elements" do
-        Alchemy::Page.should_receive(:find_by_urlname_and_language_id).and_return(page)
+        Alchemy::Page.should_receive(:find_by_urlname_and_language_id).and_return(alchemy_page)
         Alchemy::Element.stub_chain([:published, :find_all_by_page_id]).and_return([element])
-        get :list, {:page_urlname => page.urlname, :format => :js}
+        get :list, {:page_urlname => alchemy_page.urlname, :format => :js}
         response.body.should match(/select(.*)elements_from_page_selector(.*)option/)
       end
 
@@ -145,7 +145,7 @@ module Alchemy
         end
 
         it "should load all elements from clipboard" do
-          get :new, {:page_id => page.id, :format => :js}
+          get :new, {:page_id => alchemy_page.id, :format => :js}
           assigns(:clipboard_items).should be_kind_of(Array)
         end
 
@@ -232,10 +232,10 @@ module Alchemy
           end
 
           context "on a page with a setting for insert_elements_at of top" do
-            let(:page)                 { FactoryGirl.create(:public_page, :name => 'News') }
-            let(:element_in_clipboard) { FactoryGirl.create(:element, :page => page, :name => 'news') }
-            let(:cell)                 { page.cells.first }
-            let(:element)              { FactoryGirl.create(:element, :name => 'news', :page => page, :cell => cell) }
+            let(:alchemy_page)                 { FactoryGirl.create(:public_page, :name => 'News') }
+            let(:element_in_clipboard) { FactoryGirl.create(:element, :page => alchemy_page, :name => 'news') }
+            let(:cell)                 { alchemy_page.cells.first }
+            let(:element)              { FactoryGirl.create(:element, :name => 'news', :page => alchemy_page, :cell => cell) }
 
             before do
               PageLayout.stub(:get).and_return({
@@ -250,7 +250,7 @@ module Alchemy
             end
 
             it "should insert the element at top of list" do
-              post :create, {:element => {:name => 'news', :page_id => page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{cell.name}", :format => :js}
+              post :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{cell.name}", :format => :js}
               cell.elements.count.should == 2
               cell.elements.first.name.should == 'news'
               cell.elements.first.should_not == element
@@ -270,7 +270,7 @@ module Alchemy
         end
 
         it "should create an element from clipboard" do
-          post :create, {:paste_from_clipboard => element_in_clipboard.id, :element => {:page_id => page.id}, :format => :js}
+          post :create, {:paste_from_clipboard => element_in_clipboard.id, :element => {:page_id => alchemy_page.id}, :format => :js}
           response.status.should == 200
           response.body.should match(/Succesfully added new element/)
         end
@@ -278,7 +278,7 @@ module Alchemy
         context "and with cut as action parameter" do
 
           it "should also remove the element id from clipboard" do
-            post :create, {:paste_from_clipboard => element_in_clipboard.id, :element => {:page_id => page.id}, :format => :js}
+            post :create, {:paste_from_clipboard => element_in_clipboard.id, :element => {:page_id => alchemy_page.id}, :format => :js}
             session[:clipboard].contains?(:elements, element_in_clipboard.id).should_not be_true
           end
 
