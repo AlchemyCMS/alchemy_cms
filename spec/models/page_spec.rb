@@ -446,9 +446,10 @@ module Alchemy
           before { Config.stub!(:get).and_return(true) }
 
           it "should only validate urlname dependent of parent" do
-            with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice", :parent_id => 1)
+            other_parent = FactoryGirl.create(:page, parent_id: Page.root.id)
+            with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice")
             contentpage.urlname = 'existing_twice'
-            contentpage.parent_id = 2
+            contentpage.parent_id = other_parent.id
             contentpage.should be_valid
           end
 
