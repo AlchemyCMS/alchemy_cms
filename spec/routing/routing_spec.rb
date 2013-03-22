@@ -62,8 +62,7 @@ describe "The Routing" do
         }.should route_to(
           :controller => "alchemy/pages",
           :action => "show",
-          :level1 => "products",
-          :urlname => "my-product"
+          :urlname => "products/my-product"
         )
       end
 
@@ -75,8 +74,7 @@ describe "The Routing" do
           }.should route_to(
             :controller => "alchemy/pages",
             :action => "show",
-            :level1 => "products",
-            :urlname => "my-product",
+            :urlname => "products/my-product",
             :lang => "de"
           )
         end
@@ -93,9 +91,7 @@ describe "The Routing" do
         }.should route_to(
           :controller => "alchemy/pages",
           :action => "show",
-          :level1 => "catalog",
-          :level2 => "products",
-          :urlname => "my-product"
+          :urlname => "catalog/products/my-product"
         )
       end
 
@@ -107,9 +103,7 @@ describe "The Routing" do
           }.should route_to(
             :controller => "alchemy/pages",
             :action => "show",
-            :level1 => "catalog",
-            :level2 => "products",
-            :urlname => "my-product",
+            :urlname => "catalog/products/my-product",
             :lang => "de"
           )
         end
@@ -126,10 +120,7 @@ describe "The Routing" do
         }.should route_to(
           :controller => "alchemy/pages",
           :action => "show",
-          :level1 => "2011",
-          :level2 => "12",
-          :level3 => "08",
-          :urlname => "my-post"
+          :urlname => "2011/12/08/my-post"
         )
       end
 
@@ -141,10 +132,7 @@ describe "The Routing" do
           }.should route_to(
             :controller => "alchemy/pages",
             :action => "show",
-            :level1 => "2011",
-            :level2 => "12",
-            :level3 => "08",
-            :urlname => "my-post",
+            :urlname => "2011/12/08/my-post",
             :lang => "de"
           )
         end

@@ -113,12 +113,6 @@ module Alchemy
         redirect_page
       elsif !multi_language? && !params[:lang].blank?
         redirect_page
-      elsif configuration(:url_nesting) && url_levels.any? && !levels_are_in_page_branch?
-        raise_not_found_error
-      elsif configuration(:url_nesting) && should_be_nested? && !url_levels.any?
-        redirect_page(params_for_nested_url)
-      elsif !configuration(:url_nesting) && url_levels.any?
-        redirect_page
       elsif @page.has_controller?
         redirect_to main_app.url_for(@page.controller_and_action)
       else
@@ -152,22 +146,8 @@ module Alchemy
 
     def additional_params
       params.each do |key, value|
-        params[key] = nil if ["action", "controller", "urlname", "lang", "level1", "level2", "level3"].include?(key)
+        params[key] = nil if ["action", "controller", "urlname", "lang"].include?(key)
       end
-    end
-
-    def url_levels
-      params.keys.grep(/^level[1-3]$/)
-    end
-
-    def levels_are_in_page_branch?
-      nested_urlnames = breadcrumb(@page).collect(&:urlname)
-      level_names = params.select { |k, v| url_levels.include?(k) }.map(&:second)
-      level_names & nested_urlnames == level_names
-    end
-
-    def should_be_nested?
-      !params_for_nested_url.blank?
     end
 
   end

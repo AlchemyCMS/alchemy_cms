@@ -123,9 +123,9 @@ module Alchemy
         context "if requested page is unpublished" do
 
           before do
+            Config.stub!(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
             public_page_1.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
             public_child
-            Config.stub!(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
           end
 
           it "should redirect to public child" do
@@ -181,56 +181,6 @@ module Alchemy
           it "should render 404 if requested language does not exist" do
             visit "/fo/#{public_page_1.urlname}"
             page.status_code.should == 404
-          end
-
-        end
-
-        context "with url nesting" do
-
-          before do
-            level1 = FactoryGirl.create(:public_page, :name => 'catalog')
-            level2 = FactoryGirl.create(:public_page, :parent_id => level1.id, :name => 'products')
-            level3 = FactoryGirl.create(:public_page, :parent_id => level2.id, :name => 'screwdriver')
-          end
-
-          context "enabled" do
-
-            before(:each) do
-              Config.stub!(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
-            end
-
-            context "requesting a non nested url" do
-
-              it "should redirect to nested url" do
-                visit "/de/screwdriver"
-                page.current_path.should == '/de/catalog/products/screwdriver'
-              end
-
-              it "should only redirect to nested url if page is nested" do
-                visit "/de/catalog"
-                page.status_code.should == 200
-                page.current_path.should == "/de/catalog"
-              end
-
-            end
-
-          end
-
-          context "disabled" do
-
-            before(:each) do
-              Config.stub!(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
-            end
-
-            context "requesting a nested url" do
-
-              it "should redirect to not nested url" do
-                visit "/de/catalog/products/screwdriver"
-                page.current_path.should == "/de/screwdriver"
-              end
-
-            end
-
           end
 
         end

@@ -57,14 +57,23 @@ module Alchemy
     validates_presence_of :page_layout, :unless => :systempage?
     validates_presence_of :parent_id, :if => proc { Page.count > 1 }
     validates_length_of :urlname, :minimum => 3, :if => :urlname_entered?
-    validates_uniqueness_of :urlname, :scope => [:language_id, :layoutpage], :if => :urlname_entered?
+    validates_uniqueness_of(
+      :urlname,
+      :scope => [:language_id, :layoutpage],
+      :if => proc { |p| p.urlname_entered? && !Config.get(:url_nesting) }
+    )
+    validates_uniqueness_of(
+      :urlname,
+      :scope => [:language_id, :layoutpage, :parent_id],
+      :if => proc { |p| p.urlname_entered? && Config.get(:url_nesting) }
+    )
     validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
 
     attr_accessor :do_not_autogenerate
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_validation :set_urlname, :unless => proc { |page| page.systempage? || page.redirects_to_external? }
+    before_validation :set_urlname, :if => proc { |page| self.name_changed? && (!page.systempage? || !page.redirects_to_external?) }
     before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
     before_save :set_language_code, :unless => :systempage?
     before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
@@ -74,6 +83,11 @@ module Alchemy
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
     after_update :create_legacy_url, :if => proc { |page| page.urlname_changed? && !page.redirects_to_external? }
+    after_update(:if => proc { Config.get(:url_nesting) && self.urlname_changed? } ) do
+      self.reload
+      self.descendants.map(&:update_urlname!)
+    end
+    after_move :update_urlname!, :if => proc { Config.get(:url_nesting) }
     after_destroy { elements.each {|el| el.destroy unless el.trashed? } }
 
     scope :language_roots, where(:language_root => true)
@@ -550,6 +564,24 @@ module Alchemy
       self.save
     end
 
+    # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
+    # So the whole path is stored as urlname in tha database.
+    def update_urlname!
+      names = ancestors.contentpages.where(language_root: nil).map(&:slug).compact
+      names << slug
+      # update without callbacks
+      if new_record?
+        write_attribute :urlname, names.join('/')
+      else
+        update_column :urlname, names.join('/')
+      end
+    end
+
+    # Returns always the last part of a urlname path
+    def slug
+      urlname.to_s.split('/').last
+    end
+
   private
 
     def next_or_previous(direction = :next, options = {})
@@ -570,8 +602,13 @@ module Alchemy
       pages.order(order_direction).limit(1).first
     end
 
+    # Sets the urlname to a url friendly slug.
     def set_urlname
-      self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
+      if Config.get(:url_nesting)
+        self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.slug))
+      else
+        self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
+      end
     end
 
     def set_title

@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'spec_helper'
 
 module Alchemy
@@ -86,18 +87,20 @@ module Alchemy
     describe "url nesting" do
       render_views
 
-      before(:each) do
-        @catalog = FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => default_language_root.id, :language => default_language)
-        @products = FactoryGirl.create(:public_page, :name => "Products", :parent_id => @catalog.id, :language => default_language)
-        @product = FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => @products.id, :language => default_language, :do_not_autogenerate => false)
-        @product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
-        controller.stub!(:configuration) { |arg| arg == :url_nesting ? true : false }
+      let(:catalog)  { FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => default_language_root.id, :language => default_language) }
+      let(:products) { FactoryGirl.create(:public_page, :name => "Products", :parent_id => catalog.id, :language => default_language) }
+      let(:product)  { FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => products.id, :language => default_language, :do_not_autogenerate => false) }
+
+      before do
+        User.stub!(:admins).and_return(OpenStruct.new(count: 1))
+        Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
+        product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 
       context "with correct levelnames in params" do
 
         it "should show the requested page" do
-          get :show, {:level1 => 'catalog', :level2 => 'products', :urlname => 'screwdriver'}
+          get :show, {:urlname => 'catalog/products/screwdriver'}
           response.status.should == 200
           response.body.should have_content("screwdriver")
         end
@@ -107,7 +110,7 @@ module Alchemy
       context "with incorrect levelnames in params" do
 
         it "should render a 404 page" do
-          get :show, {:level1 => 'catalog', :level2 => 'faqs', :urlname => 'screwdriver'}
+          get :show, {:urlname => 'catalog/faqs/screwdriver'}
           response.status.should == 404
           response.body.should have_content('The page you were looking for doesn\'t exist')
         end

@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'spec_helper'
 
 module Alchemy
@@ -34,6 +35,20 @@ module Alchemy
 
       end
 
+    end
+
+    describe "#configure" do
+      render_views
+
+      context "with page having nested urlname" do
+        let(:page) { mock_model(Page, {name: 'Foobar', slug: 'foobar', urlname: 'root/parent/foobar', redirects_to_external?: false, layoutpage?: false, taggable?: false}) }
+
+        it "should always show the slug" do
+          Page.stub!(:find).and_return(page)
+          get :configure, {:id => page.id, :format => :js}
+          response.body.should match /value="foobar"/
+        end
+      end
     end
 
     describe '#create' do

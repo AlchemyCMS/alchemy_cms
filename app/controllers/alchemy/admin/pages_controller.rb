@@ -52,7 +52,8 @@ module Alchemy
         parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
         params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
         params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
-        if !params[:paste_from_clipboard].blank?
+        # Copy the page
+        if params[:paste_from_clipboard].present?
           source_page = Page.find(params[:paste_from_clipboard])
           @page = Page.copy(source_page, {
             :parent_id => params[:page][:parent_id],
@@ -64,14 +65,15 @@ module Alchemy
             source_page.copy_children_to(@page)
           end
         else
+          # Create new page
           @page = Page.create(params[:page])
         end
-        redirect_path =
-          if @page.valid?
-            params[:redirect_to] || edit_admin_page_path(@page)
-          else
-            admin_pages_path
-          end
+        if @page.valid?
+          redirect_path = params[:redirect_to] || edit_admin_page_path(@page)
+        else
+          # TODO: Make a rollback, because the page is already persisted here.
+          redirect_path = admin_pages_path
+        end
         render_errors_or_redirect(@page, redirect_path, _t("Page created", :name => @page.name))
       end
 

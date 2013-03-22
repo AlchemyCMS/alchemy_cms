@@ -19,8 +19,8 @@ module Alchemy
     let(:klingonian_public_page)    { FactoryGirl.create(:public_page, :language => klingonian, :parent_id => klingonian_language_root.id) }
 
     before do
+      Config.stub!(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
       @root_page = language_root # We need this instance variable in the helpers
-      helper.stub(:configuration).and_return(false)
     end
 
     it "should render the current page layout" do
@@ -52,7 +52,7 @@ module Alchemy
           end
 
           it "should render nested page links" do
-            helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/#{visible_page.urlname}/#{level_2_page.urlname}/#{level_3_page.urlname}\"]")
+            helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
           end
 
         end

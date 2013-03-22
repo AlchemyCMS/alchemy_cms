@@ -410,35 +410,53 @@ module Alchemy
 
     end
 
-    describe "validations" do
+    describe "Validations: " do
 
-      context "saving a normal content page" do
+      context "Creating a normal content page" do
 
-        it "should be possible to save when its urlname already exists in the scope of global pages" do
-          contentpage = FactoryGirl.create(:page, :urlname => "existing_twice")
-          global_with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice", :layoutpage => true)
-          contentpage.title = "new Title"
-          contentpage.save.should == true
-        end
+        let(:contentpage) { FactoryGirl.build(:page) }
 
-      end
-
-      context "creating a normal content page" do
-
-        before do
-          @contentpage = FactoryGirl.build(:page)
+        context "when its urlname exists as global page" do
+          it "it should be possible to save." do
+            contentpage.urlname = "existing_twice"
+            global_with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice", :layoutpage => true)
+            contentpage.should be_valid
+          end
         end
 
         it "should validate the page_layout" do
-          @contentpage.page_layout = nil
-          @contentpage.save
-          @contentpage.should have(1).error_on(:page_layout)
+          contentpage.page_layout = nil
+          contentpage.save
+          contentpage.should have(1).error_on(:page_layout)
         end
 
         it "should validate the parent_id" do
-          @contentpage.parent_id = nil
-          @contentpage.save
-          @contentpage.should have(1).error_on(:parent_id)
+          contentpage.parent_id = nil
+          contentpage.save
+          contentpage.should have(1).error_on(:parent_id)
+        end
+
+        it "should validate the uniqueness of urlname" do
+          with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice")
+          contentpage.urlname = 'existing_twice'
+          contentpage.should_not be_valid
+        end
+
+        context "with url_nesting set to true" do
+          before { Config.stub!(:get).and_return(true) }
+
+          it "should only validate urlname dependent of parent" do
+            with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice", :parent_id => 1)
+            contentpage.urlname = 'existing_twice'
+            contentpage.parent_id = 2
+            contentpage.should be_valid
+          end
+
+          it "should validate urlname dependent of parent" do
+            with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice")
+            contentpage.urlname = 'existing_twice'
+            contentpage.should_not be_valid
+          end
         end
 
       end
@@ -763,11 +781,75 @@ module Alchemy
     end
 
     describe "#publish!" do
-      let(:page) { stub_model(Page, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
+      let(:page) { FactoryGirl.create(:page) }
       before { page.publish! }
 
       it "sets public attribute to true" do
         page.public.should == true
+      end
+    end
+
+    describe 'urlname updating' do
+      let(:parentparent) { FactoryGirl.create(:page, name: 'parentparent') }
+      let(:parent)       { FactoryGirl.create(:page, parent_id: parentparent.id, name: 'parent') }
+      let(:page)         { FactoryGirl.create(:page, parent_id: parent.id, name: 'page') }
+
+      context "with activated url_nesting" do
+        before { Config.stub!(:get).and_return(true) }
+
+        it "should store all parents urlnames delimited by slash" do
+          page.urlname.should == 'parentparent/parent/page'
+        end
+
+        it "should not include the root page" do
+          page.urlname.should_not =~ /root/
+        end
+
+        it "should not include the language root page" do
+          page.urlname.should_not =~ /startseite/
+        end
+
+        it "should update urlnames of descendants after changing my urlname" do
+          page
+          parentparent.urlname = 'new-urlname'
+          parentparent.save!
+          page.reload
+          page.urlname.should == 'new-urlname/parent/page'
+        end
+      end
+
+      context "with disabled url_nesting" do
+        before { Config.stub!(:get).and_return(false) }
+
+        it "should only store my urlname" do
+          page.urlname.should == 'page'
+        end
+      end
+    end
+
+    describe '#slug' do
+      context "with parents path saved in urlname" do
+        let(:page) { FactoryGirl.build(:page, urlname: 'root/parent/my-name')}
+
+        it "should return the last part of the urlname" do
+          page.slug.should == 'my-name'
+        end
+      end
+
+      context "with single urlname" do
+        let(:page) { FactoryGirl.build(:page, urlname: 'my-name')}
+
+        it "should return the last part of the urlname" do
+          page.slug.should == 'my-name'
+        end
+      end
+
+      context "with nil as urlname" do
+        let(:page) { FactoryGirl.build(:page, urlname: nil)}
+
+        it "should return nil" do
+          page.slug.should be_nil
+        end
       end
     end
 
