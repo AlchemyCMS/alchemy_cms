@@ -83,7 +83,7 @@ module Alchemy
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
     after_update :create_legacy_url, :if => proc { |page| page.urlname_changed? && !page.redirects_to_external? }
-    after_update(:if => proc { Config.get(:url_nesting) && self.urlname_changed? } ) do
+    after_update(:if => proc { Config.get(:url_nesting) && (self.urlname_changed? || self.visible_changed?) } ) do
       self.reload
       self.descendants.map(&:update_urlname!)
     end
@@ -567,7 +567,7 @@ module Alchemy
     # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
     # So the whole path is stored as urlname in tha database.
     def update_urlname!
-      names = ancestors.contentpages.where(language_root: nil).map(&:slug).compact
+      names = ancestors.visible.contentpages.where(language_root: nil).map(&:slug).compact
       names << slug
       # update without callbacks
       if new_record?

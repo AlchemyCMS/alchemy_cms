@@ -791,9 +791,11 @@ module Alchemy
     end
 
     describe 'urlname updating' do
-      let(:parentparent) { FactoryGirl.create(:page, name: 'parentparent') }
-      let(:parent)       { FactoryGirl.create(:page, parent_id: parentparent.id, name: 'parent') }
-      let(:page)         { FactoryGirl.create(:page, parent_id: parent.id, name: 'page') }
+      let(:parentparent) { FactoryGirl.create(:page, name: 'parentparent', visible: true) }
+      let(:parent)       { FactoryGirl.create(:page, parent_id: parentparent.id, name: 'parent', visible: true) }
+      let(:page)         { FactoryGirl.create(:page, parent_id: parent.id, name: 'page', visible: true) }
+      let(:invisible)    { FactoryGirl.create(:page, parent_id: page.id, name: 'invisible', visible: false) }
+      let(:contact)      { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
 
       context "with activated url_nesting" do
         before { Config.stub!(:get).and_return(true) }
@@ -810,12 +812,28 @@ module Alchemy
           page.urlname.should_not =~ /startseite/
         end
 
-        it "should update urlnames of descendants after changing my urlname" do
-          page
-          parentparent.urlname = 'new-urlname'
-          parentparent.save!
-          page.reload
-          page.urlname.should == 'new-urlname/parent/page'
+        it "should not include invisible pages" do
+          contact.urlname.should_not =~ /invisible/
+        end
+
+        context "after changing my urlname" do
+          it "should update urlnames of descendants" do
+            page
+            parentparent.urlname = 'new-urlname'
+            parentparent.save!
+            page.reload
+            page.urlname.should == 'new-urlname/parent/page'
+          end
+        end
+
+        context "after updating my visibility" do
+          it "should update urlnames of descendants" do
+            page
+            parentparent.visible = false
+            parentparent.save!
+            page.reload
+            page.urlname.should == 'parent/page'
+          end
         end
       end
 
