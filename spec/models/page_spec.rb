@@ -824,6 +824,13 @@ module Alchemy
             page.reload
             page.urlname.should == 'new-urlname/parent/page'
           end
+
+          it "should create a legacy url" do
+            page.stub!(:slug).and_return('foo')
+            page.update_urlname!
+            page.legacy_urls.should_not be_empty
+            page.legacy_urls.collect(&:urlname).should include('parentparent/parent/page')
+          end
         end
 
         context "after updating my visibility" do

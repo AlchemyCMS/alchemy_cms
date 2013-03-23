@@ -28,7 +28,7 @@ namespace :alchemy do
         count = pages.count
         pages.each_with_index do |page, n|
           puts "Updating page #{n+1} of #{count}"
-          page.update_column :urlname, page.slug
+          page.update_attribute :urlname, page.slug
         end
         puts "Done."
       end

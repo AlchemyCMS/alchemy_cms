@@ -573,6 +573,7 @@ module Alchemy
       if new_record?
         write_attribute :urlname, names.join('/')
       else
+        legacy_urls.create(:urlname => urlname)
         update_column :urlname, names.join('/')
       end
     end
