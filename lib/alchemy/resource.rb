@@ -9,9 +9,10 @@ module Alchemy
     DEFAULT_SKIPPED_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
     DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
 
-    def initialize(controller_path, module_definition=nil)
+    def initialize(controller_path, module_definition=nil, custom_model=nil)
       @controller_path = controller_path
       @module_definition = module_definition
+      @model = custom_model
       self.skip_attributes = model.respond_to?(:skip_attributes) ? model.skip_attributes : DEFAULT_SKIPPED_ATTRIBUTES
       if model.respond_to?(:resource_relations)
         store_model_associations
@@ -26,7 +27,7 @@ module Alchemy
     end
 
     def model
-      @_model ||= model_array.join('/').classify.constantize
+      @model ||= model_array.join('/').classify.constantize
     end
 
     def resources_name
@@ -34,7 +35,7 @@ module Alchemy
     end
 
     def model_name
-      @_model_name ||= resources_name.singularize
+      @model_name ||= resources_name.singularize
     end
 
     def permission_scope
@@ -67,7 +68,7 @@ module Alchemy
     def namespaced_model_name
       return @_namespaced_model_name unless @_namespaced_model_name.nil?
       model_name_array = self.model_array
-      model_name_array.delete(self.engine_name) if in_engine?
+      model_name_array.delete(engine_name) if in_engine?
       @_namespaced_model_name = model_name_array.join('_').singularize
     end
 
