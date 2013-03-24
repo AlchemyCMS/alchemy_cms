@@ -1,14 +1,4 @@
-require File.dirname(__FILE__) + "/../../../lib/alchemy/resource"
-require File.dirname(__FILE__) + "/../../../lib/alchemy/resources_helper"
-
-module Alchemy
-  module Admin
-    class ResourcesController
-      helper Alchemy::ResourcesHelper
-    end
-  end
-end
-
+require "spec_helper"
 
 describe Alchemy::Admin::ResourcesController do
   describe "index" do

@@ -28,7 +28,7 @@ module Alchemy
       end
 
       def new
-        instance_variable_set("@#{resource_handler.model_name}", resource_handler.model.new)
+        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new)
         render :layout => !request.xhr?
       end
 
@@ -41,7 +41,7 @@ module Alchemy
       end
 
       def create
-        instance_variable_set("@#{resource_handler.model_name}", resource_handler.model.new(params[resource_handler.namespaced_model_name.to_sym]))
+        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(params[resource_handler.namespaced_resource_name.to_sym]))
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
@@ -51,7 +51,7 @@ module Alchemy
       end
 
       def update
-        resource_instance_variable.update_attributes(params[resource_handler.namespaced_model_name.to_sym])
+        resource_instance_variable.update_attributes(params[resource_handler.namespaced_resource_name.to_sym])
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path,
@@ -82,7 +82,7 @@ module Alchemy
         when :destroy
           verb = "removed"
         end
-        flash[:notice] = _t("#{resource_handler.model_name.classify} successfully #{verb}", :default => _t("Succesfully #{verb}"))
+        flash[:notice] = _t("#{resource_handler.resource_name.classify} successfully #{verb}", :default => _t("Succesfully #{verb}"))
       end
 
       def is_alchemy_module?
@@ -94,7 +94,7 @@ module Alchemy
       end
 
       def load_resource
-        instance_variable_set("@#{resource_handler.model_name}", resource_handler.model.find(params[:id]))
+        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.find(params[:id]))
       end
 
       # Returns a sort order for AR#sort method

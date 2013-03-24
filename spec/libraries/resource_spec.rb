@@ -63,57 +63,78 @@ module Alchemy
       end
 
       context "when initialized with a module definition" do
-        it "should set an instance variable that holds the module definition" do
+        it "sets an instance variable that holds the module definition" do
           resource = Resource.new("admin/events", module_definition)
           resource.instance_variable_get(:@module_definition).should == module_definition
         end
       end
 
+      context "when initialized with a custom model" do
+        it "sets @model to custom model" do
+          CustomEvent = Class.new
+          resource = Resource.new("admin/events", nil, CustomEvent)
+          resource.instance_variable_get(:@model).should == CustomEvent
+        end
+      end
+      context "when initialized without custom model" do
+        it "guesses the model by the controller_path" do
+          resource = Resource.new("admin/events", nil, nil)
+          resource.instance_variable_get(:@model).should == Event
+        end
+      end
+
     end
 
-    describe "#model_array" do
+    describe "#resource_array" do
 
       it "splits the controller_path and returns it as array." do
         resource = Resource.new("namespace1/namespace2/events")
-        resource.model_array.should eql(%W[namespace1 namespace2 events])
+        resource.resource_array.should eql(%W[namespace1 namespace2 events])
       end
 
       it "deletes 'admin' if found hence our model isn't in the admin-namespace by convention" do
         resource = Resource.new("admin/events")
-        resource.model_array.should eql(%W[events])
+        resource.resource_array.should eql(%W[events])
       end
 
     end
 
     describe "#model" do
-      it "should return the classified and constantized model name" do
+      it "returns the @model instance variable" do
         resource = Resource.new("admin/events")
-        resource.model.should == Event
+        resource.model.should == resource.instance_variable_get(:@model)
       end
     end
 
-    describe "#model_name" do
-      it "should return the model name (singularized and as a string)" do
+    describe "#resources_name" do
+      it "returns plural name (like events for model Event)" do
         resource = Resource.new("admin/events")
-        resource.model_name.should == "event"
+        resource.resources_name.should == "events"
       end
     end
 
-    describe "#namespaced_model_name" do
+    describe "#resource_name" do
+      it "returns the resources name as singular" do
+        resource = Resource.new("admin/events")
+        resource.resource_name.should == "event"
+      end
+    end
 
-      it "returns model_name with namespace (namespace_event for Namespace::Event), i.e. for use in forms" do
+    describe "#namespaced_resource_name" do
+
+      it "returns resource_name with namespace (namespace_event for Namespace::Event), i.e. for use in forms" do
         namespaced_resource = Resource.new("admin/namespace/events")
-        namespaced_resource.namespaced_model_name.should == 'namespace_event'
+        namespaced_resource.namespaced_resource_name.should == 'namespace_event'
       end
 
-      it "should equal model_name if model not namespaced" do
+      it "equals resource_name if resource not namespaced" do
         namespaced_resource = Resource.new("admin/events")
-        namespaced_resource.namespaced_model_name.should == namespaced_resource.model_name
+        namespaced_resource.namespaced_resource_name.should == 'event'
       end
 
-      it "should not include the engine's name" do
+      it "doesn't include the engine's name" do
         namespaced_resource = Resource.new("admin/event_engine/namespace/events", module_definition)
-        namespaced_resource.namespaced_model_name.should == 'namespace_event'
+        namespaced_resource.namespaced_resource_name.should == 'namespace_event'
       end
 
     end
@@ -122,14 +143,6 @@ module Alchemy
       it "should return the engine name of the module" do
         resource = Resource.new("admin/event_engine/namespace/events", module_definition)
         resource.engine_name.should == "event_engine"
-      end
-    end
-
-
-    describe "#resources_name" do
-      it "returns plural name (like events for model Event)" do
-        resource = Resource.new("admin/events")
-        resource.resources_name.should == "events"
       end
     end
 
@@ -205,51 +218,60 @@ module Alchemy
         resource.attributes.should_not include({:name => "hidden_value", :type => :string})
       end
     end
-  end
 
-  describe "#skip_attributes" do
-    let(:resource) { Resource.new("admin/events") }
 
-    it "returns a set of default attributes (Rails' default database attributes)" do
-      # read from Resource::DEFAULT_SKIPPED_ATTRIBUTES
-      default_skipped_attributes = %W[id updated_at created_at creator_id updater_id]
-      resource.skip_attributes = default_skipped_attributes
-    end
+    describe "#skip_attributes" do
+      let(:resource) { Resource.new("admin/events") }
 
-    context "when skip_attributes is defined as class-method in the model" do
-      before do
-        Event.class_eval do
-          def self.skip_attributes
-            %W[hidden_name]
+      it "returns a set of default attributes (Rails' default database attributes)" do
+        # read from Resource::DEFAULT_SKIPPED_ATTRIBUTES
+        default_skipped_attributes = %W[id updated_at created_at creator_id updater_id]
+        resource.skip_attributes = default_skipped_attributes
+      end
+
+      context "when skip_attributes is defined as class-method in the model" do
+        before do
+          Event.class_eval do
+            def self.skip_attributes
+              %W[hidden_name]
+            end
           end
         end
-      end
-      after do
-        Event.class_eval do
-          class << self
-            undef skip_attributes
+        after do
+          Event.class_eval do
+            class << self
+              undef skip_attributes
+            end
           end
+        end
+
+        it "returns the result of Model.skip_attributes" do
+          custom_skipped_attributes = %W[hidden_name]
+          resource.skip_attributes = custom_skipped_attributes
+        end
+
+      end
+
+      describe "#searchable_attributes" do
+        it "returns all attributes of type string" do
+          resource = Resource.new("admin/events")
+          resource.skip_attributes = []
+          resource.searchable_attributes.should == [
+            {:name => "name", :type => :string},
+            {:name => "hidden_value", :type => :string},
+            {:name => "description", :type => :string}
+          ]
         end
       end
 
-      it "returns the result of Model.skip_attributes" do
-        custom_skipped_attributes = %W[hidden_name]
-        resource.skip_attributes = custom_skipped_attributes
+      describe "#namespaced_model_name" do
+        it "is deprecated" do
+          ActiveSupport::Deprecation.should_receive(:warn)
+          resource = Resource.new("admin/events")
+          resource.namespaced_model_name
+        end
       end
 
     end
-
-    describe "#searchable_attributes" do
-      it "returns all attributes of type string" do
-        resource = Resource.new("admin/events")
-        resource.skip_attributes = []
-        resource.searchable_attributes.should == [
-          {:name => "name", :type => :string},
-          {:name => "hidden_value", :type => :string},
-          {:name => "description", :type => :string}
-        ]
-      end
-    end
-
   end
 end

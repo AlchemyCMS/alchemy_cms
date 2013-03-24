@@ -1,12 +1,18 @@
 module Alchemy
   module ResourcesHelper
+    # = Alchemy::ResourceHelper
+    #
+    # Used to DRY up resource like structures in Alchemy's admin backend in combination with Alchemy::Resource
+    #
+    # See Alchemy::Resource for examples how to initialize a resource_handler
+    #
 
     def resource_window_size
       @resource_window_size ||= "420x#{100 + resource_handler.attributes.length * 40}"
     end
 
     def resource_instance_variable
-      instance_variable_get("@#{resource_handler.model_name}")
+      instance_variable_get("@#{resource_handler.resource_name}")
     end
 
     def resources_instance_variable
@@ -25,20 +31,21 @@ module Alchemy
       @_resource_scope ||= [resource_url_proxy].concat(resource_handler.namespace_for_scope)
     end
 
-    def resources_path(resource=resource_handler.model, options={})
-      polymorphic_path (resource_scope + [resource]), options
+    def resources_path(resource_or_name=resource_handler.resources_name, options={})
+      polymorphic_path (resource_scope + [resource_or_name]), options
     end
 
-    def resource_path(resource=resource_handler.model, options={})
+    def resource_path(resource=resource_handler.resource_name, options={})
       resources_path(resource, options)
     end
 
     def new_resource_path(options={})
-      new_polymorphic_path (resource_scope + [resource_handler.model]), options
+      new_polymorphic_path (resource_scope + [resource_handler.resource_name]), options
     end
 
     def edit_resource_path(resource=nil, options={})
-      edit_polymorphic_path (resource_scope+([resource] or model_array)), options
+      path_segments = (resource_scope + [resource] or resource_handler.resource_array)
+      edit_polymorphic_path path_segments, options
     end
 
     def resource_permission_scope
@@ -46,7 +53,12 @@ module Alchemy
     end
 
     def resource_model_name
-      resource_handler.model_name
+      ActiveSupport::Deprecation.warn("resource_model_name is deprecated. Please use resource_name instead!")
+      resource_handler.resource_name
+    end
+
+    def resource_name
+      resource_handler.resource_name
     end
 
     def resource_model
