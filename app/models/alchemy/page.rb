@@ -680,8 +680,7 @@ module Alchemy
 
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
-      legacy_url = legacy_urls.new(:urlname => urlname_was)
-      legacy_url.save!
+      legacy_urls.find_or_create_by_urlname(:urlname => urlname_was)
     end
 
   end

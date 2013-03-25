@@ -176,6 +176,16 @@ module Alchemy
             page.legacy_urls.should be_empty
           end
 
+          it "should not store legacy url twice for same urlname" do
+            page.urlname = 'new-urlname'
+            page.save!
+            page.urlname = 'my-testpage'
+            page.save!
+            page.urlname = 'another-urlname'
+            page.save!
+            page.legacy_urls.select { |u| u.urlname == 'my-testpage' }.size.should == 1
+          end
+
         end
 
         context "urlname has not changed" do
