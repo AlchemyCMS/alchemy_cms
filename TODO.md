@@ -5,5 +5,4 @@
   * overlay resize handle
 * Update selectboxit
 * Refactor url nesting feature
-  * Maybe set url nesting to default?
 * Do not show not visible pages in breadcrumb helper

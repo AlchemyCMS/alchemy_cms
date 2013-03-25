@@ -60,20 +60,16 @@ sitemap:
 
 # === URL nesting
 #
-# By default Alchemy does not nest page urls respectivley to their page tree position.
+# Since Alchemy 2.6.0 page urls are nested, respectivley to their tree position.
 #
-# Enable +url_nesting+ to get nested urls.
+# Disable +url_nesting+ to get slug only urls.
 #
-# ==== Example of a nested url:
+# NOTE: After changing the url_nesting, you should run one of these convert rake task:
 #
-# +http://homepage.com/company/history/the-early-years+
+#   rake alchemy:convert:urlnames:to_nested
+#   rake alchemy:convert:urlnames:to_slug
 #
-# Alchemy supports url nesting up to three levels deep. We think that's more then enough,
-# because URLs like this are possible:
-#
-# +http://homepage.com/en/2011/12/08/my-post
-#
-url_nesting: false
+url_nesting: true
 
 # === Picture rendering settings
 #
