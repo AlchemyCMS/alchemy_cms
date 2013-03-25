@@ -87,9 +87,9 @@ module Alchemy
     describe "url nesting" do
       render_views
 
-      let(:catalog)  { FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => default_language_root.id, :language => default_language) }
-      let(:products) { FactoryGirl.create(:public_page, :name => "Products", :parent_id => catalog.id, :language => default_language) }
-      let(:product)  { FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => products.id, :language => default_language, :do_not_autogenerate => false) }
+      let(:catalog)  { FactoryGirl.create(:public_page, :name => "Catalog", :parent_id => default_language_root.id, :language => default_language, :visible => true) }
+      let(:products) { FactoryGirl.create(:public_page, :name => "Products", :parent_id => catalog.id, :language => default_language, :visible => true) }
+      let(:product)  { FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => products.id, :language => default_language, :do_not_autogenerate => false, :visible => true) }
 
       before do
         User.stub!(:admins).and_return(OpenStruct.new(count: 1))
