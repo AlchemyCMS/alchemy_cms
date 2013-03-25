@@ -60,12 +60,7 @@ module Alchemy
     validates_uniqueness_of(
       :urlname,
       :scope => [:language_id, :layoutpage],
-      :if => proc { |p| p.urlname_entered? && !Config.get(:url_nesting) }
-    )
-    validates_uniqueness_of(
-      :urlname,
-      :scope => [:language_id, :layoutpage, :parent_id],
-      :if => proc { |p| p.urlname_entered? && Config.get(:url_nesting) }
+      :if => proc { |p| p.urlname_entered? }
     )
     validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
 
@@ -73,7 +68,7 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_validation :set_urlname, :if => proc { |page| self.name_changed? && (!page.systempage? || !page.redirects_to_external?) }
+    before_validation :set_urlname, :if => proc { |page| (page.name_changed? || page.urlname_changed?) && (!page.systempage? || !page.redirects_to_external?) }
     before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
     before_save :set_language_code, :unless => :systempage?
     before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
@@ -604,12 +599,18 @@ module Alchemy
     end
 
     # Sets the urlname to a url friendly slug.
+    # Either from name, or if present, from urlname.
+    # If url_nesting is enabled the urlname contains the whole path.
     def set_urlname
       if Config.get(:url_nesting)
-        self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.slug))
+        url_name = [
+          self.parent.language_root? ? nil : self.parent.urlname,
+          convert_url_name((self.urlname.blank? ? self.name : self.slug))
+        ].compact.join('/')
       else
-        self.urlname = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
+        url_name = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
       end
+      write_attribute :urlname, url_name
     end
 
     def set_title

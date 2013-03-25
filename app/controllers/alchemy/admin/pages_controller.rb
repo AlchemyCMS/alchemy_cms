@@ -66,9 +66,9 @@ module Alchemy
           end
         else
           # Create new page
-          @page = Page.create(params[:page])
+          @page = Page.new(params[:page])
         end
-        if @page.valid?
+        if @page.save
           redirect_path = params[:redirect_to] || edit_admin_page_path(@page)
         else
           # TODO: Make a rollback, because the page is already persisted here.
