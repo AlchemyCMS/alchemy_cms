@@ -179,6 +179,8 @@ module Alchemy
           end
 
           it "should render 404 if requested language does not exist" do
+            public_page_1
+            LegacyPageUrl.delete_all
             visit "/fo/#{public_page_1.urlname}"
             page.status_code.should == 404
           end

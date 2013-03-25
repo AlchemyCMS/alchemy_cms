@@ -98,8 +98,8 @@ module Alchemy
       @page ||= load_page
       if User.admins.count == 0 && @page.nil?
         redirect_to signup_path
-      elsif @page.nil? && legacy_url = LegacyPageUrl.where(urlname: params[:urlname]).last
-        @page = legacy_url.page
+      elsif @page.nil? && last_legacy_url
+        @page = last_legacy_url.page
         redirect_page
       elsif @page.blank?
         raise_not_found_error
@@ -148,6 +148,14 @@ module Alchemy
       params.each do |key, value|
         params[key] = nil if ["action", "controller", "urlname", "lang"].include?(key)
       end
+    end
+
+    def legacy_urls
+      LegacyPageUrl.joins(:page).where(urlname: params[:urlname], alchemy_pages: {language_id: session[:language_id]})
+    end
+
+    def last_legacy_url
+      legacy_urls.last
     end
 
   end
