@@ -1,6 +1,5 @@
 module Alchemy
   class Page < ActiveRecord::Base
-    include NameConversions
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
