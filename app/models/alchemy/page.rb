@@ -467,19 +467,14 @@ module Alchemy
       definition["redirects_to_external"]
     end
 
+    # Returns the first published child
     def first_public_child
-      self.children.where(:public => true).limit(1).first
+      children.published.first
     end
 
     # Gets the language_root page for page
     def get_language_root
-      return self if self.language_root
-      page = self
-      while page.parent do
-        page = page.parent
-        break if page.language_root?
-      end
-      return page
+      self_and_ancestors.where(:language_root => true).first
     end
 
     def copy_children_to(new_parent)
