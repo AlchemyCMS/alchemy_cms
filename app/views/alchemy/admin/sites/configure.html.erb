@@ -3,8 +3,8 @@
   <table>
     <% @properties.each do |property| %>
       <tr>
-        <td><label for="property_<%=property.name%>"><%= property.name %></label></td>
-        <td><input type="text" id="property_<%= property.name %>" name="properties[<%= property.name %>]" value="<%= property.value %>"/></td>
+        <td class="label"><label for="property_<%=property.id%>"><%= _t(property.name) %></label></td>
+        <td class="input"><input type="text" id="property_<%= property.id %>" name="properties[<%= property.id %>]" value="<%= property.value %>"/></td>
       </tr>
     <% end %>
     <tr>

@@ -10,8 +10,8 @@ module Alchemy
 
       def configure_set
         load_resource
-        params[:properties].each do |name, value|
-          property = @site.properties.where(name: name).first
+        params[:properties].each do |id, value|
+          property = @site.properties.find_by_id(id)
           property.value = value
           property.save!
         end

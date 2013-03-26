@@ -14,10 +14,9 @@ module Alchemy
         click_on "Edit the site's properties"
 
         within "#alchemyOverlay" do
-          puts page.body
-          page.should have_css("input[id=property_stylesheet]")
+          page.should have_css("input[type='text']")
 
-          fill_in "stylesheet", with: "disco"
+          fill_in "Stylesheet", with: "disco"
 
           click_on "Save"
         end
@@ -27,7 +26,7 @@ module Alchemy
         click_on "Edit the site's properties"
 
         within "#alchemyOverlay" do
-          page.should have_field("stylesheet", with: "disco")
+          page.should have_field("Stylesheet", with: "disco")
         end
       end
     end
