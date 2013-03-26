@@ -1,5 +1,8 @@
 # This file specifies the keys for the site properties
+# There are two types of properties: "string" and "boolean"
 # 
 # Example:
-# - name: stylesheet
+# - name: "Stylesheet"
 #   type: string
+# - name: "Use red buttons"
+#   type: boolean

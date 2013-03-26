@@ -15,8 +15,10 @@ module Alchemy
 
         within "#alchemyOverlay" do
           page.should have_css("input[type='text']")
+          page.should have_css("input[type='checkbox']")
 
           fill_in "Stylesheet", with: "disco"
+          check "Is awesome"
 
           click_on "Save"
         end
@@ -27,8 +29,10 @@ module Alchemy
 
         within "#alchemyOverlay" do
           page.should have_field("Stylesheet", with: "disco")
+          page.should have_checked_field("Is awesome")
         end
       end
     end
+
   end
 end

@@ -3,8 +3,16 @@
   <table>
     <% @properties.each do |property| %>
       <tr>
-        <td class="label"><label for="property_<%=property.id%>"><%= _t(property.name) %></label></td>
-        <td class="input"><input type="text" id="property_<%= property.id %>" name="properties[<%= property.id %>]" value="<%= property.value %>"/></td>
+        <td class="label">
+          <label for="property_<%=property.id%>"><%= _t(property.name) %></label>
+        </td>
+        <td class="<%= property.property_type == 'string' ? 'input' : 'checkbox'%>">
+          <% if property.property_type == 'string' %>
+            <input type="text" id="property_<%= property.id %>" name="properties[<%= property.id %>]" value="<%= property.value %>"/>
+          <% elsif property.property_type == 'boolean' %>
+            <input type="checkbox" id="property_<%= property.id %>" name="properties[<%= property.id %>]" <%= property.value == '1' ? "checked" : ""%> />
+          <% end %>
+        </td>
       </tr>
     <% end %>
     <tr>
