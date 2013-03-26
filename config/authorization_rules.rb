@@ -63,7 +63,7 @@ authorization do
     has_permission_on :alchemy_admin_users, :to => [:manage, :update_roles]
     has_permission_on :alchemy_admin_languages, :to => [:manage]
     has_permission_on :authorization_rules, :to => :read
-    has_permission_on :alchemy_admin_sites, :to => [:manage, :configure, :configure_set]
+    has_permission_on :alchemy_admin_sites, :to => [:manage_sites]
   end
 
 end
@@ -99,6 +99,10 @@ privileges do
 
   privilege :edit_page_content, :alchemy_admin_pages do
     includes :edit, :unlock, :show, :publish, :visit
+  end
+
+  privilege :manage_sites, :alchemy_admin_sites do
+    includes :manage, :configure, :configure_set
   end
 
 end
