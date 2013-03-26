@@ -26,6 +26,7 @@ module Alchemy
 
       def copy_files
         copy_file "#{File.dirname(__FILE__)}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
+        copy_file "#{File.dirname(__FILE__)}/files/site_properties.yml", "#{Rails.root}/config/alchemy/site_properties.yml"
         template "page_layouts.yml.tt", "#{Rails.root}/config/alchemy/page_layouts.yml"
         copy_file "#{File.dirname(__FILE__)}/files/application.html.erb", "#{Rails.root}/app/views/layouts/application.html.erb"
       end
