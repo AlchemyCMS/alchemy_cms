@@ -44,7 +44,6 @@ module Alchemy
     stampable(:stamper_class_name => 'Alchemy::User')
 
     has_many :folded_pages
-    has_many :cells, :dependent => :destroy
     has_many :elements, :order => :position
     has_many :contents, :through => :elements
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
@@ -62,7 +61,6 @@ module Alchemy
     before_save :set_language_code, :unless => :systempage?
     before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
     before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
-    after_create :create_cells, :unless => :systempage?
     after_create :autogenerate_elements, :unless => proc { systempage? || do_not_autogenerate }
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
@@ -71,6 +69,7 @@ module Alchemy
 
     # Concerns
     include Naming
+    include Cells
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
@@ -136,20 +135,6 @@ module Alchemy
           copy_elements(source, page)
           page
         end
-      end
-
-      # Copy page cells
-      #
-      # @param source [Alchemy::Page]
-      # @param target [Alchemy::Page]
-      # @return [Array]
-      #
-      def copy_cells(source, target)
-        new_cells = []
-        source.cells.each do |cell|
-          new_cells << Cell.create(:name => cell.name, :page_id => target.id)
-        end
-        new_cells
       end
 
       # Copy page elements
@@ -288,18 +273,6 @@ module Alchemy
       elements.find_all_by_name(definition['feed_elements'])
     end
 
-    def elements_grouped_by_cells
-      elements.not_trashed.in_cell.group_by(&:cell)
-    end
-
-    def element_names_from_cells
-      cell_definitions.collect { |c| c['elements'] }.flatten.uniq
-    end
-
-    def element_names_not_in_cell
-      layout_description['elements'].uniq - element_names_from_cells
-    end
-
     # Finds the previous page on the same structure level. Otherwise it returns nil.
     # Options:
     # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
@@ -431,12 +404,6 @@ module Alchemy
     end
     alias_method :definition, :layout_description
 
-    def cell_definitions
-      cell_names = self.layout_description['cells']
-      return [] if cell_names.blank?
-      Cell.all_definitions_for(cell_names)
-    end
-
     # Returns translated name of the pages page_layout value.
     # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
     # Translate the name in your config/locales language yml file.
@@ -487,15 +454,6 @@ module Alchemy
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
       end
-    end
-
-    # Returns true or false if the page has a page_layout that has cells.
-    def can_have_cells?
-      !definition['cells'].blank?
-    end
-
-    def has_cells?
-      cells.any?
     end
 
     def locker_name
@@ -583,13 +541,6 @@ module Alchemy
     def set_language_code
       return false if self.language.blank?
       self.language_code = self.language.code
-    end
-
-    def create_cells
-      return false if !can_have_cells?
-      definition['cells'].each do |cellname|
-        cells.create({:name => cellname})
-      end
     end
 
     # Trashes all elements that are not allowed for this page_layout.
