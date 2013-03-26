@@ -60,7 +60,7 @@ module Alchemy
     validates_uniqueness_of(
       :urlname,
       :scope => [:language_id, :layoutpage],
-      :if => proc { |p| p.urlname_entered? }
+      :if => :urlname_entered?
     )
     validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
 
@@ -68,22 +68,22 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_validation :set_urlname, :if => proc { |page| (page.name_changed? || page.urlname_changed?) && (!page.systempage? || !page.redirects_to_external?) }
-    before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
+    before_validation :set_urlname, :if => proc { name_changed? || urlname_changed? }, :unless => proc { systempage? || redirects_to_external? }
+    before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
     before_save :set_language_code, :unless => :systempage?
-    before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
-    before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
+    before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
+    before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
     after_create :create_cells, :unless => :systempage?
-    after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
+    after_create :autogenerate_elements, :unless => proc { systempage? || do_not_autogenerate }
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
-    after_update :create_legacy_url, :if => proc { |page| page.urlname_changed? && !page.redirects_to_external? }
-    after_update(:if => proc { Config.get(:url_nesting) && (self.urlname_changed? || self.visible_changed?) } ) do
+    after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
+    after_update(:if => proc { Config.get(:url_nesting) && (self.urlname_changed? || self.visible_changed?) }) do
       self.reload
       self.descendants.map(&:update_urlname!)
     end
     after_move :update_urlname!, :if => proc { Config.get(:url_nesting) }
-    after_destroy { elements.each {|el| el.destroy unless el.trashed? } }
+    after_destroy { elements.each { |el| el.destroy unless el.trashed? } }
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
