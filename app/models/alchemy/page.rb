@@ -2,7 +2,6 @@ module Alchemy
   class Page < ActiveRecord::Base
     include NameConversions
 
-    RESERVED_URLNAMES = %w(admin messages new)
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
       :do_not_sweep => true,
@@ -53,23 +52,13 @@ module Alchemy
     belongs_to :language
 
     validates_presence_of :language, :on => :create, :unless => :root
-    validates_presence_of :name
     validates_presence_of :page_layout, :unless => :systempage?
     validates_presence_of :parent_id, :if => proc { Page.count > 1 }
-    validates_length_of :urlname, :minimum => 3, :if => :urlname_entered?
-    validates_uniqueness_of(
-      :urlname,
-      :scope => [:language_id, :layoutpage],
-      :if => :urlname_entered?
-    )
-    validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
 
     attr_accessor :do_not_autogenerate
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_validation :set_urlname, :if => proc { name_changed? || urlname_changed? }, :unless => proc { systempage? || redirects_to_external? }
-    before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
     before_save :set_language_code, :unless => :systempage?
     before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
     before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
@@ -78,12 +67,10 @@ module Alchemy
     after_update :trash_not_allowed_elements, :if => :page_layout_changed?
     after_update :autogenerate_elements, :if => :page_layout_changed?
     after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
-    after_update(:if => proc { Config.get(:url_nesting) && (self.urlname_changed? || self.visible_changed?) }) do
-      self.reload
-      self.descendants.map(&:update_urlname!)
-    end
-    after_move :update_urlname!, :if => proc { Config.get(:url_nesting) }
     after_destroy { elements.each { |el| el.destroy unless el.trashed? } }
+
+    # Concerns
+    include Naming
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
@@ -337,14 +324,6 @@ module Alchemy
     end
     alias_method :next_page, :next
 
-    def name_entered?
-      !self.name.blank?
-    end
-
-    def urlname_entered?
-      !self.urlname.blank?
-    end
-
     def show_in_navigation?
       if visible?
         return true
@@ -465,10 +444,6 @@ module Alchemy
       I18n.t(self.page_layout, :scope => :page_layout_names)
     end
 
-    def renamed?
-      self.name_was != self.name || self.urlname_was != self.urlname
-    end
-
     def changed_publicity?
       self.public_was != self.public
     end
@@ -559,27 +534,6 @@ module Alchemy
       self.save
     end
 
-    # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
-    # So the whole path is stored as urlname in tha database.
-    def update_urlname!
-      names = ancestors.visible.contentpages.where(language_root: nil).map(&:slug).compact
-      new_urlname = (names << slug).join('/')
-      # update without callbacks
-      if new_record?
-        write_attribute :urlname, new_urlname
-      else
-        if urlname != new_urlname
-          legacy_urls.create(:urlname => urlname)
-        end
-        update_column :urlname, new_urlname
-      end
-    end
-
-    # Returns always the last part of a urlname path
-    def slug
-      urlname.to_s.split('/').last
-    end
-
   private
 
     def next_or_previous(direction = :next, options = {})
@@ -598,39 +552,6 @@ module Alchemy
         pages = pages.where(:restricted => options[:restricted])
       end
       pages.order(order_direction).limit(1).first
-    end
-
-    # Sets the urlname to a url friendly slug.
-    # Either from name, or if present, from urlname.
-    # If url_nesting is enabled the urlname contains the whole path.
-    def set_urlname
-      if Config.get(:url_nesting)
-        url_name = [
-          parent.nil? || parent.language_root? ? nil : parent.urlname,
-          convert_url_name((urlname.blank? ? name : slug))
-        ].compact.join('/')
-      else
-        url_name = convert_url_name((urlname.blank? ? name : urlname))
-      end
-      write_attribute :urlname, url_name
-    end
-
-    def set_title
-      self.title = self.name
-    end
-
-    # Converts the given name into an url friendly string.
-    #
-    # Names shorter than 3 will be filled up with dashes,
-    # so it does not collidate with the language code.
-    #
-    def convert_url_name(name)
-      url_name = convert_to_urlname(name)
-      if url_name.length < 3
-        ('-' * (3 - url_name.length)) + url_name
-      else
-        url_name
-      end
     end
 
     # Looks in the page_layout descripion, if there are elements to autogenerate.
