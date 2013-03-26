@@ -1,28 +1,19 @@
-require File.join(__FILE__, '../../base')
+require File.join(File.dirname(__FILE__), '../base')
+require File.join(File.dirname(__FILE__), '../../../../alchemy/site_properties_creator')
+
 module Alchemy
   module Generators
+
     class CreateSitePropertiesGenerator < Base
       source_root File.expand_path('../templates', __FILE__)
-      desc "does stuff"
+      desc "Creates site properties in the database based on the site properties configuration file."
 
       def create_site_properties
-        Alchemy::Site.all.each do |site|
-          site_properties.each do |property|
-            attributes = {site_id: site.id, name: property['name'], property_type: property['type']}
-            unless Alchemy::SiteProperty.exists?(attributes)
-              Alchemy::SiteProperty.create(attributes)
-            end
-          end
-        end
-      end
-
-      private
-
-      def site_properties
-        load_alchemy_yaml("site_properties.yml")
+        Alchemy::SitePropertiesCreator.create_properties
       end
 
     end
+
   end
 end
 
