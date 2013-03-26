@@ -563,13 +563,15 @@ module Alchemy
     # So the whole path is stored as urlname in tha database.
     def update_urlname!
       names = ancestors.visible.contentpages.where(language_root: nil).map(&:slug).compact
-      names << slug
+      new_urlname = (names << slug).join('/')
       # update without callbacks
       if new_record?
-        write_attribute :urlname, names.join('/')
+        write_attribute :urlname, new_urlname
       else
-        legacy_urls.create(:urlname => urlname)
-        update_column :urlname, names.join('/')
+        if urlname != new_urlname
+          legacy_urls.create(:urlname => urlname)
+        end
+        update_column :urlname, new_urlname
       end
     end
 
