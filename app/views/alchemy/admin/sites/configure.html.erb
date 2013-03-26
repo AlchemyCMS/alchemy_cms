@@ -1,0 +1,16 @@
+<form method="POST" action="<%= alchemy.configure_admin_site_path(@site) %>">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+  <table>
+    <% @properties.each do |property| %>
+      <tr>
+        <td><label for="property_<%=property.name%>"><%= property.name %></label></td>
+        <td><input type="text" id="property_<%= property.name %>" name="properties[<%= property.name %>]" value="<%= property.value %>"/></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="2" class="submit">
+        <input type="submit" value="Save" class="button" />
+      </td>
+    </tr>
+  </table>
+</form>

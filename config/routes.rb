@@ -160,7 +160,12 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :sites
+    resources :sites do
+      member do
+        get :configure
+        post :configure, :to => :configure_set
+      end
+    end
 
   end
 

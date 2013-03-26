@@ -8,6 +8,7 @@ module Alchemy
 
     # associations
     has_many :languages
+    has_many :properties, :class_name => 'Alchemy::SiteProperty'
 
     scope :published, where(public: true)
 
