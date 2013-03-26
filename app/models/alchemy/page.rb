@@ -604,11 +604,11 @@ module Alchemy
     def set_urlname
       if Config.get(:url_nesting)
         url_name = [
-          self.parent.language_root? ? nil : self.parent.urlname,
-          convert_url_name((self.urlname.blank? ? self.name : self.slug))
+          parent.nil? || parent.language_root? ? nil : parent.urlname,
+          convert_url_name((urlname.blank? ? name : slug))
         ].compact.join('/')
       else
-        url_name = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
+        url_name = convert_url_name((urlname.blank? ? name : urlname))
       end
       write_attribute :urlname, url_name
     end
