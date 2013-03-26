@@ -9,7 +9,7 @@
       <% position = 'last' if page == pages.to_a.last -%>
       <%= content_tag(
         'li',
-        :class => [page.urlname, position, page_active?(page) ? 'active' : nil].compact.join(' ')
+        :class => [page.slug, position, page_active?(page) ? 'active' : nil].compact.join(' ')
       ) do %>
         <%= render(
           :partial => options[:navigation_link_partial],
