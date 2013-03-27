@@ -9,7 +9,7 @@
     <%- else -%>
     <th>
     <%- end -%>
-    <%= sortable_column(resource_handler.model.human_attribute_name(attribute[:name]), :column => attribute[:name]) %>
+    <%= sortable_column(resource_handler.model.human_attribute_name(attribute[:name]), :column => attribute[:name], :route_proxy => resource_url_proxy) %>
     </th>
     <%- end -%>
     <th class="tools"></th>

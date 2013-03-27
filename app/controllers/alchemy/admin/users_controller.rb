@@ -23,7 +23,7 @@ module Alchemy
         else
           users = User.scoped
         end
-        @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sortable_column_order)
+        @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
       end
 
       def new

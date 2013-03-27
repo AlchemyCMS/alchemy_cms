@@ -24,7 +24,7 @@ module Alchemy
             "`#{resource_handler.model.table_name}`.`#{attribute[:name]}` LIKE #{search_terms}"
           }.join(" OR "))
         end
-        instance_variable_set("@#{resource_handler.resources_name}", items.page(params[:page] || 1).per(per_page_value_for_screen_size))
+        instance_variable_set("@#{resource_handler.resources_name}", items.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order))
       end
 
       def new
@@ -95,6 +95,19 @@ module Alchemy
 
       def load_resource
         instance_variable_set("@#{resource_handler.model_name}", resource_handler.model.find(params[:id]))
+      end
+
+      # Returns a sort order for AR#sort method
+      # Falls back to id, if the requested column is not a column of model.
+      # Used by handles_sortable_columns
+      def sort_order
+        sortable_column_order do |column, direction|
+          if resource_handler.model.column_names.include?(column.to_s)
+            "`#{resource_handler.model.table_name}`.`#{column}` #{direction}"
+          else
+            "`#{resource_handler.model.table_name}`.`id` #{direction}"
+          end
+        end
       end
     end
   end
