@@ -6,3 +6,5 @@
 * Update selectboxit
 * Refactor url nesting feature
 * Do not show not visible pages in breadcrumb helper
+* Fix Resource Table header filter link for local controllers
+* Fix resource relations with alchemy models (ie: alchemy/user)

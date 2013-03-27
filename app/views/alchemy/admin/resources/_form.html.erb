@@ -11,6 +11,7 @@
     <tr>
     <% attr_array = attribute[:name].split('.') %>
     <% if attr_array.length > 1 %>
+      <td class="label"><%= f.send(:label, attribute[:name]) %></td>
       <td class="select">
         <%= f.send(:select,
           "#{attr_array[0]}_id",
