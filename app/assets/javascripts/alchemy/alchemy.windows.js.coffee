@@ -159,7 +159,6 @@ $.extend Alchemy,
       resizable: options.resizable
       show: "fade"
       hide: "fade"
-      width: options.width
       open: (event, ui) ->
         $.ajax
           url: url
