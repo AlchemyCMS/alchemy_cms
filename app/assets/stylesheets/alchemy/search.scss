@@ -36,9 +36,20 @@ td#tags_tag_list {
       background-color: white;
       padding: 4px;
       margin: 0;
+      position: relative;
 
-      &.odd {
-        background-color: #eaf3f9;
+      &.odd { background-color: #eaf3f9 }
+
+      input {
+        position: absolute;
+        top: 3px;
+        left: 4px;
+      }
+
+      label {
+        display: inline-block;
+        margin-left: 2em;
+        line-height: 1.6em;
       }
     }
   }
