@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class AttachmentsController < ResourcesController
+      helper 'alchemy/admin/tags'
 
       protect_from_forgery :except => [:create]
 
@@ -9,6 +10,9 @@ module Alchemy
           archive_overlay
         else
           @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sort_order)
+          if params[:tagged_with].present?
+            @attachments = @attachments.tagged_with(params[:tagged_with])
+          end
         end
       end
 

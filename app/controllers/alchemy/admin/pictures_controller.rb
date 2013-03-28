@@ -2,6 +2,7 @@ module Alchemy
   module Admin
     class PicturesController < Alchemy::Admin::BaseController
       protect_from_forgery :except => [:create]
+      helper 'alchemy/admin/tags'
 
       cache_sweeper Alchemy::PicturesSweeper, :only => [:update, :destroy]
 

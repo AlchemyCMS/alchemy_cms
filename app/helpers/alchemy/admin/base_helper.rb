@@ -484,57 +484,6 @@ module Alchemy
         current_params.merge(p).delete_if { |k, v| v.blank? }
       end
 
-      # Checks if the pictures tag-filter contains the given tag
-      def pictures_filtered_by_tag?(tag)
-        if params[:tagged_with].present?
-          tags = params[:tagged_with].split(',')
-          tags.include?(tag.name)
-        else
-          false
-        end
-      end
-
-      # Adds the given tag to the pictures tag-filter
-      def add_to_picture_tag_filter(tag)
-        if params[:tagged_with].present?
-          tags = params[:tagged_with].split(',')
-          tags << tag.name
-        else
-          [tag.name]
-        end
-      end
-
-      # Removes the given tag from the pictures tag-filter
-      def remove_from_picture_tag_filter(tag)
-        if params[:tagged_with].present?
-          tags = params[:tagged_with].split(',')
-          tags.delete_if { |t| t == tag.name }
-        else
-          []
-        end
-      end
-
-      # Returns the picture tag-filter from params.
-      # A tag can be added to the filter.
-      # A tag can also be removed.
-      #
-      # Options are:
-      #   * options (Hash):
-      #   ** :add (ActsAsTaggableOn::Tag) - The tag that should be added to the tag-filter
-      #   ** :remove (ActsAsTaggableOn::Tag) - The tag that should be removed from the tag-filter
-      def picture_tag_filter(options={})
-        case
-          when options[:add]
-            taglist = add_to_picture_tag_filter(options[:add]) if options[:add]
-          when options[:remove]
-            taglist = remove_from_picture_tag_filter(options[:remove]) if options[:remove]
-          else
-            return params[:tagged_with]
-        end
-        return nil if taglist.blank?
-        taglist.uniq.join(',')
-      end
-
       def render_hint_for(element)
         return unless element.has_hint?
         link_to '#', :class => 'hint' do
