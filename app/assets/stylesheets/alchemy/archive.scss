@@ -110,6 +110,7 @@ div#image_assign_filter_and_image_sizing {
 
 #pictures {
   margin-right: 232px;
+  padding-bottom: 60px;
 
   .picture_thumbnail {
     margin: 0 8px 8px 0;
@@ -207,7 +208,7 @@ div.assign_image_list_image {
 
 div#library_sidebar {
   @include box-sizing(border-box);
-  position: absolute;
+  position: fixed;
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
@@ -215,7 +216,7 @@ div#library_sidebar {
   padding-top: 96px;
   padding: 84px 4*$default-padding 0 4*$default-padding;
   height: 100%;
-  z-index: 1;
+  z-index: 0;
   background-color: $light-gray;
 
   h2 {
@@ -232,7 +233,10 @@ div#filter_bar {
 
 div#tag_list {
   @include box-sizing(border-box);
-  height: 80%;
+  height: 100%;
+  padding-bottom: 96px;
+
+  &.with_filter_bar { height: 80% }
 
   .js_filter_field_box {
 

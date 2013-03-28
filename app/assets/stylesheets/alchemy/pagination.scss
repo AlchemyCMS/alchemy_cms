@@ -8,19 +8,10 @@ div.pagination {
   left: 0px;
   height: 50px;
   padding: 2*$default-padding $default-padding;
-  text-align: right;
+  padding-left: 76px;
+  text-align: left;
   border-top: $default-border;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: -21px;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: $light_gray;
-    @include background(linear-gradient(top, rgba($light_gray, 0) 0%, $light_gray 90%));
-  }
+  z-index: 1;
 
   a, span, em {
     font-size: $default-font-size;
