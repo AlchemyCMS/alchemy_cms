@@ -94,27 +94,65 @@ module Alchemy
 
       context "when resource_relations defined as class-method in the model" do
         before do
+          @previous_setting = ::ActiveSupport::Deprecation.silenced
+          ::ActiveSupport::Deprecation.silenced = true
           Event.class_eval do
             def self.resource_relations
               {
-                :location_id => {:attr_method => "location#name", :attr_type => :string},
-                :organizer_id => {:attr_method => "organizer#name", :attr_type => :string}
+                :location => {:attr_method => "location#name", :attr_type => :string}
               }
             end
           end
         end
+
+        it "should contain model_association from ActiveRecord::Reflections" do
+          relation = resource.resource_relations[:location_id]
+          relation.keys.should include(:model_association)
+          relation[:model_association].class.should be(ActiveRecord::Reflection::AssociationReflection)
+        end
+
+        it "should skip default alchemy model associations" do
+          resource.model_associations.collect(&:name).should_not include(*resource.class.const_get(:DEFAULT_SKIPPED_ASSOCIATIONS).map(&:to_sym))
+        end
+
+        it "should add _id to relation key" do
+          resource.resource_relations[:location_id].should_not be_nil
+        end
+
+        it "should store the relation name" do
+          relation = resource.resource_relations[:location_id]
+          relation.keys.should include(:name)
+          relation[:name].should == 'location'
+        end
+
+        context "with old hash delimited attr_method style" do
+          it "should show deprecation warnings" do
+            ActiveSupport::Deprecation.should_receive(:warn)
+            resource.resource_relations
+          end
+
+          it "should return the last part as attr_method" do
+            resource.resource_relations[:location_id][:attr_method].should == 'name'
+          end
+        end
+
+        context "#attributes" do
+          it "should contain the relation" do
+            resource.attributes.detect { |a| a[:name] == 'location_id' }.keys.should include(:relation)
+          end
+
+          it "should have the relation column type as type" do
+            resource.attributes.detect { |a| a[:name] == "location_id" }[:type].should == :string
+          end
+        end
+
         after do
+          ::ActiveSupport::Deprecation.silenced = @previous_setting
           Event.class_eval do
             class << self
               undef :resource_relations
             end
           end
-        end
-        it "should use the attribute location#name instead of location_id" do
-          resource.attributes.detect { |a| a[:name] == "location#name" }.should == {:name => "location#name", :type => :string}
-        end
-        it "should use the attribute organizer#name instead of organizer_id" do
-          resource.attributes.detect { |a| a[:name] == "organizer#name" }.should == {:name => "organizer#name", :type => :string}
         end
       end
 

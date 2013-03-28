@@ -4,15 +4,19 @@ require 'active_support/core_ext'
 module Alchemy
   class Resource
 
-    attr_accessor :skip_attributes, :resource_relations
+    attr_accessor :skip_attributes, :resource_relations, :model_associations
 
     DEFAULT_SKIPPED_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
+    DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
 
     def initialize(controller_path, module_definition=nil)
       @controller_path = controller_path
       @module_definition = module_definition
       self.skip_attributes = model.respond_to?(:skip_attributes) ? model.skip_attributes : DEFAULT_SKIPPED_ATTRIBUTES
-      self.resource_relations = model.resource_relations if model.respond_to?(:resource_relations)
+      if model.respond_to?(:resource_relations)
+        store_model_associations
+        map_relations
+      end
     end
 
     def model_array
@@ -46,10 +50,16 @@ module Alchemy
 
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
-        {:name => (resource_relation_name(col.name) || col.name), :type => (resource_relation_type(col.name) || col.type)} unless self.skip_attributes.include?(col.name)
+        unless self.skip_attributes.include?(col.name)
+          { :name => col.name, :type => resource_relation_type(col.name) || col.type, :relation => resource_relation(col.name) }.delete_if { |k, v | v.nil? }
+        end
       end.compact
     end
 
+    # Returns all columns that are searchable
+    #
+    # For now it only uses string type columns
+    #
     def searchable_attributes
       self.attributes.select { |a| a[:type] == :string }
     end
@@ -85,7 +95,7 @@ module Alchemy
       false
     end
 
-  protected
+  private
 
     def controller_path_array
       @controller_path.split('/')
@@ -95,16 +105,37 @@ module Alchemy
       controller_path_array - model_array
     end
 
-    def resource_relation_name(column_name)
-      resource_relation(column_name).try(:[], :attr_method)
-    end
-
     def resource_relation_type(column_name)
       resource_relation(column_name).try(:[], :attr_type)
     end
 
     def resource_relation(column_name)
       resource_relations[column_name.to_sym] if resource_relations
+    end
+
+    # Expands the resource_relations hash with matching activerecord associations data.
+    def map_relations
+      self.resource_relations = {}
+      model.resource_relations.each do |name, options|
+        name = name.to_s.gsub(/_id$/, '') # ensure that we don't have an id
+        association = association_from_relation_name(name)
+        foreign_key = association.options[:foreign_key] || "#{association.name}_id".to_sym
+        if options[:attr_method].to_s =~ /#/
+          ActiveSupport::Deprecation.warn('Old style :attr_method used in Alchemy::Ressource#resource_relations. Please remove the # and pass column name only.', caller[2..10])
+          options[:attr_method] = options[:attr_method].split('#').last
+        end
+        self.resource_relations[foreign_key] = options.merge(:model_association => association, :name => name)
+      end
+    end
+
+    # Stores all activerecord associations in model_associations attribute
+    def store_model_associations
+      self.model_associations = model.reflect_on_all_associations.delete_if { |a| DEFAULT_SKIPPED_ASSOCIATIONS.include?(a.name.to_s) }
+    end
+
+    # Returns activerecord association that has the given name
+    def association_from_relation_name(name)
+      model_associations.detect { |a| a.name == name.to_sym }
     end
 
   end

@@ -53,12 +53,18 @@ module Alchemy
       resource_handler.model
     end
 
-    def render_attribute(obj, attribute)
-      attr_array = attribute.split('.')
-      attr_array.each do |attr|
-        obj = obj.send(attr) if obj
+    # Returns the value from resource attribute
+    #
+    # If the attribute has a relation, the related object's attribute value will be returned
+    #
+    def render_attribute(resource, attribute)
+      value = resource.send(attribute[:name])
+      if (relation = attribute[:relation]) && value.present?
+        record = relation[:model_association].klass.find(value)
+        record.send(relation[:attr_method])
+      else
+        value
       end
-      obj
     end
 
     def resource_help_text(attribute)
@@ -70,6 +76,28 @@ module Alchemy
     # Renders the human model name with a count as h1 header
     def resources_header
       content_tag :h1, "#{resources_instance_variable.total_count} #{resource_model.model_name.human(:count => resources_instance_variable.total_count)}"
+    end
+
+    # Returns true if the resource contains any relations
+    def contains_relations?
+      resource_handler.resource_relations.present?
+    end
+
+    # Returns an array of all resource_relations names
+    def resource_relations_names
+      resource_handler.resource_relations.collect { |k, v| v[:name].to_sym }
+    end
+
+    # Returns the attribute's column for sorting
+    #
+    # If the attribute contains a resource_relation, then the table and column for related model will be returned.
+    #
+    def sortable_resource_header_column(attribute)
+      if relation = attribute[:relation]
+        "#{relation[:model_association].table_name}.#{relation[:attr_method]}"
+      else
+        attribute[:name]
+      end
     end
 
   end

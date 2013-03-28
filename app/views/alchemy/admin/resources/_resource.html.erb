@@ -1,21 +1,21 @@
 <tr class="<%= cycle('even', 'odd') %>">
-  <%- resource_handler.attributes.each do |attribute| -%>
-  <%- if attribute[:type] == :boolean -%>
+<% resource_handler.attributes.each do |attribute| %>
+  <% if attribute[:type] == :boolean %>
   <td class="center">
-    <% attr_value = render_attribute(resource, attribute[:name]) %>
-    <%= attr_value.blank? ? '' : render_icon(attr_value) -%>
+    <% attr_value = render_attribute(resource, attribute) %>
+    <%= attr_value.blank? ? '' : render_icon(attr_value) %>
   </td>
-  <%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
+  <% elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal %>
 
-  <td class="right"><%= render_attribute(resource, attribute[:name]) -%></td>
-  <%- else -%>
+  <td class="right"><%= render_attribute(resource, attribute) %></td>
+  <% else %>
   <td>
-    <%= render_attribute(resource, attribute[:name]) %>
+    <%= render_attribute(resource, attribute) %>
   </td>
-  <%- end -%>
-  <%- end -%>
+  <% end %>
+<% end %>
   <td class="tools">
-    <%- permitted_to?(:destroy, resource_permission_scope) do -%>
+    <% permitted_to?(:destroy, resource_permission_scope) do %>
     <%= link_to_confirmation_window(
       '',
       _t("Are you sure?"),
@@ -23,9 +23,9 @@
       :title => _t("Delete"),
       :class => "icon destroy",
       :id => "delete_#{resource_handler.model_name}_#{resource.id}"
-    ) -%>
-    <%- end -%>
-    <%- permitted_to?(:edit, resource_permission_scope) do -%>
+    ) %>
+    <% end %>
+    <% permitted_to?(:edit, resource_permission_scope) do %>
     <%= link_to_overlay_window(
       '',
       edit_resource_path(resource),
@@ -37,7 +37,7 @@
         :class => "icon edit",
         :title => _t("Edit")
       }
-    ) -%>
-    <%- end -%>
+    ) %>
+    <% end %>
   </td>
 </tr>

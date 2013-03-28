@@ -9,13 +9,12 @@
   <table>
   <% resource_handler.attributes.each do |attribute| %>
     <tr>
-    <% attr_array = attribute[:name].split('.') %>
-    <% if attr_array.length > 1 %>
-      <td class="label"><%= f.send(:label, attribute[:name]) %></td>
+    <% if relation = attribute[:relation] %>
+      <td class="label"><%= f.label attribute[:name] %></td>
       <td class="select">
-        <%= f.send(:select,
-          "#{attr_array[0]}_id",
-          attr_array[0].classify.constantize.all.collect {|r| [r.send(attr_array[1]), r.id] },
+        <%= f.select(
+          attribute[:name],
+          relation[:model_association].klass.all.collect { |r| [r.send(relation[:attr_method]), r.id] },
           { :prompt => _t("Please choose") }, { :class => "alchemy_selectbox" }
         ) %>
       </td>

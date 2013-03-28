@@ -109,4 +109,22 @@ describe Alchemy::ResourcesHelper do
       @controller.resource_window_size.should == "420x260"
     end
   end
+
+  describe "render_attribute" do
+    it "should return the value from resource attribute" do
+      @resource_item.stub!(:name).and_return('my-name')
+      @controller.render_attribute(@resource_item, {:name => 'name'}).should == 'my-name'
+    end
+
+    context "resource having a relation" do
+      it "should return the value from the related object attribute" do
+        @resource_item.stub!(:name).and_return('my-name')
+        associated_object = double("location", :title => 'Title of related object')
+        associated_klass = double("klass", :find => associated_object)
+        relation = {:attr_method => :title, :model_association => OpenStruct.new(:klass => associated_klass)}
+        @controller.render_attribute(@resource_item, {:name => 'name', :relation => relation}).should == 'Title of related object'
+      end
+    end
+  end
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312205327) do
+ActiveRecord::Schema.define(:version => 20130328101418) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -308,9 +308,14 @@ ActiveRecord::Schema.define(:version => 20130312205327) do
     t.decimal  "entrance_fee", :precision => 6, :scale => 2
     t.boolean  "published"
     t.integer  "location_id"
-    t.integer  "organizer_id"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "taggings", :force => true do |t|
