@@ -91,6 +91,11 @@ module Alchemy
       @_resource_name ||= resources_name.singularize
     end
 
+    def model_name
+      ActiveSupport::Deprecation.warn("model_name is deprecated. Please use resource_name instead!")
+      resource_name
+    end
+
     def namespaced_resource_name
       return @_namespaced_resource_name unless @_namespaced_resource_name.nil?
       resource_name_array = resource_array
@@ -149,7 +154,7 @@ module Alchemy
     #           attribute_name: This is the fancy help text
     #
     def help_text_for(attribute)
-      ::I18n.translate!(attribute[:name], :scope => [:alchemy, :resource_help_texts, model_name])
+      ::I18n.translate!(attribute[:name], :scope => [:alchemy, :resource_help_texts, resource_name])
     rescue ::I18n::MissingTranslationData
       false
     end

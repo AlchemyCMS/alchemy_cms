@@ -22,7 +22,7 @@
       resource_path(resource),
       :title => _t("Delete"),
       :class => "icon destroy",
-      :id => "delete_#{resource_handler.model_name}_#{resource.id}"
+      :id => "delete_#{resource_handler.resource_name}_#{resource.id}"
     ) %>
     <% end %>
     <% permitted_to?(:edit, resource_permission_scope) do %>

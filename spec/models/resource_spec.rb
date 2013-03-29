@@ -44,9 +44,9 @@ module Alchemy
       end
     end
 
-    describe "#model_name" do
+    describe "#resource_name" do
       it "should return the model name (singularized and as a string)" do
-        resource.model_name.should == "event"
+        resource.resource_name.should == "event"
       end
     end
 
@@ -94,7 +94,6 @@ module Alchemy
 
       context "when resource_relations defined as class-method in the model" do
         before do
-          @previous_setting = ::ActiveSupport::Deprecation.silenced
           ::ActiveSupport::Deprecation.silenced = true
           Event.class_eval do
             def self.resource_relations
@@ -147,7 +146,7 @@ module Alchemy
         end
 
         after do
-          ::ActiveSupport::Deprecation.silenced = @previous_setting
+          ::ActiveSupport::Deprecation.silenced = false
           Event.class_eval do
             class << self
               undef :resource_relations
