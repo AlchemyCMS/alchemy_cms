@@ -153,7 +153,7 @@ module Alchemy
     #   de:
     #     alchemy:
     #       resource_help_texts:
-    #         my_resource_model_name:
+    #         my_resource_name:
     #           attribute_name: This is the fancy help text
     #
     def help_text_for(attribute)
