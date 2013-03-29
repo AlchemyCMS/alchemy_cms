@@ -92,10 +92,18 @@ module Alchemy
               {location: {attr_method: 'name', type: 'string'}}
             end
           end
+          Event.stub!(:respond_to?).and_return { |arg|
+            case arg
+            when :reflect_on_all_associations
+              then false
+            when :resource_relations
+              then true
+            end
+          }
         end
 
-        context "but not an ActiveRecord association" do
-          it "raises error" do
+        context ", but not an ActiveRecord association" do
+          it "should raise error." do
             expect { Resource.new("admin/events") }.to raise_error(MissingActiveRecordAssociation)
           end
         end
