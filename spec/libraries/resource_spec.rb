@@ -1,5 +1,6 @@
 require 'rspec'
 require File.dirname(__FILE__) + '/../../lib/alchemy/resource'
+require File.dirname(__FILE__) + '/../../lib/alchemy/errors'
 
 class Event
 end
@@ -76,10 +77,35 @@ module Alchemy
           resource.instance_variable_get(:@model).should == CustomEvent
         end
       end
+
       context "when initialized without custom model" do
         it "guesses the model by the controller_path" do
           resource = Resource.new("admin/events", nil, nil)
           resource.instance_variable_get(:@model).should == Event
+        end
+      end
+
+      context "when model has resource_relations defined" do
+        before do
+          Event.class_eval do
+            def self.resource_relations
+              {location: {attr_method: 'name', type: 'string'}}
+            end
+          end
+        end
+
+        context "but not an ActiveRecord association" do
+          it "raises error" do
+            expect { Resource.new("admin/events") }.to raise_error(MissingActiveRecordAssociation)
+          end
+        end
+
+        after do
+          Event.class_eval do
+            class << self
+              undef resource_relations
+            end
+          end
         end
       end
 
@@ -179,43 +205,6 @@ module Alchemy
           {:name => "location_id", :type => :integer},
           {:name => "organizer_id", :type => :integer},
         ]
-      end
-
-      context "when resource_relations is defined as class-method in the model" do
-        before do
-          Event.class_eval do
-            def self.resource_relations
-              {
-                :location_id => {:attr_method => "location#name", :attr_type => :string},
-                :organizer_id => {:attr_method => "organizer#name", :attr_type => :string}
-              }
-            end
-          end
-        end
-        after do
-          Event.class_eval do
-            class << self
-              undef resource_relations
-            end
-          end
-        end
-
-        # set while initializing, so new test object is needed...
-        let(:resource) { Resource.new("admin/events") }
-
-        it "uses the attribute location#name instead of location_id" do
-          resource = Resource.new('admin/events')
-          resource.attributes.detect { |a| a[:name] == "location#name" }.should == {:name => "location#name", :type => :string}
-        end
-        it "uses the attribute organizer#name instead of organizer_id" do
-          resource.attributes.detect { |a| a[:name] == "organizer#name" }.should == {:name => "organizer#name", :type => :string}
-        end
-      end
-
-      context "when resource_relation is not defined" do
-        it "uses the attribute location_id" do
-          resource.attributes.detect { |a| a[:name] == "location_id" }.should == {:name => "location_id", :type => :integer}
-        end
       end
 
       it "skips attributes returned by skip_attributes" do

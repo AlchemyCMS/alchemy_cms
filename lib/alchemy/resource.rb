@@ -74,6 +74,9 @@ module Alchemy
       @model = (custom_model or guess_model_from_controller_path)
       self.skip_attributes = model.respond_to?(:skip_attributes) ? model.skip_attributes : DEFAULT_SKIPPED_ATTRIBUTES
       if model.respond_to?(:resource_relations)
+        if not model.respond_to?(:reflect_on_all_associations)
+          raise MissingActiveRecordAssociation
+        end
         store_model_associations
         map_relations
       end
