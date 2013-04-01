@@ -1,9 +1,8 @@
-<%= link_to(
-  h(content.essence.attachment.name),
-  alchemy.download_attachment_path(
-    :id => content.essence.attachment.id,
-    :name => content.essence.attachment.urlname
-  ),
-  :class => "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
-  :title => "#{content.essence.title.blank? ? content.essence.attachment.file_name : content.essence.title}"
-) if content.essence.attachment %>
+<% if attachment = content.essence.attachment %>
+  <%= link_to(
+    h(attachment.name),
+    download_alchemy_attachment_path(attachment),
+    :class => "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
+    :title => "#{content.essence.title.blank? ? attachment.file_name : content.essence.title}"
+  ) %>
+<% end %>
