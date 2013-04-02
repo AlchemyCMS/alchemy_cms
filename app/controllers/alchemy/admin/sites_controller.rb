@@ -10,7 +10,7 @@ module Alchemy
       end
 
       def configure_set
-        current_site.properties.each do |property|
+        @site.properties.each do |property|
           property.value = parse_value(property, params[:properties][property.id.to_s])
           property.save!
         end
