@@ -131,39 +131,39 @@ module Alchemy
     #   :submenu => false                                     # Do you want a nested <ul> <li> structure for the deeper levels of your navigation, or not? Used to display the subnavigation within the mainnaviagtion. E.g. for dropdown menues.
     #   :all_sub_menues => false                              # Renders the whole page tree.
     #   :from_page => @root_page                              # Do you want to render a navigation from a different page then the current page? Then pass an Page instance or a Alchemy::PageLayout name as string.
-    #   :spacer => ""                                         # Yeah even a spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>". Only your imagination is the limit. And the W3C of course :)
-    #   :navigation_partial => "navigation/renderer"          # Pass a different partial to be taken for the navigation rendering. CAUTION: Only for the advanced Alchemy webdevelopers. The standard partial takes care of nearly everything. But maybe you are an adventures one ^_^
+    #   :spacer => nil                                        # A spacer for the entries can be passed. Simple string, or even a complex html structure. E.g: "<span class='spacer'>|</spacer>".
+    #   :navigation_partial => "navigation/renderer"          # Pass a different partial to be taken for the navigation rendering.
     #   :navigation_link_partial => "navigation/link"         # Alchemy places an <a> html link in <li> tags. The tag automatically has an active css class if necessary. So styling is everything. But maybe you don't want this. So feel free to make you own partial and pass the filename here.
     #   :show_nonactive => false                              # Commonly Alchemy only displays the submenu of the active page (if :submenu => true). If you want to display all child pages then pass true (together with :submenu => true of course). E.g. for the popular css-driven dropdownmenues these days.
     #   :show_title => true                                   # For our beloved SEOs :). Appends a title attribute to all links and places the page.title content into it.
-    #   :restricted_only => nil                               # Render only restricted pages.
+    #   :restricted_only => false                             # Render only restricted pages. I.E for members only navigations.
     #   :show_title => true                                   # Show a title on navigation links. Title attribute from page.
     #   :reverse => false                                     # Reverse the navigation
     #   :reverse_children => false                            # Reverse the nested children
+    #   :deepness => nil                                      # Show only pages up to this depth.
     #
     # === Passing HTML classes and ids to the renderer
     #
-    # A second hash will be passed as html_options to the navigation renderer partial.
+    # A second hash can be passed as html_options to the navigation renderer partial.
     #
     # ==== Example:
     #
     #   <%= render_navigation({from_page => 'subnavi'}, {:class => 'navigation', :id => 'subnavigation'}) %>
     #
     def render_navigation(options = {}, html_options = {})
-      default_options = {
+      options = {
         :submenu => false,
         :all_sub_menues => false,
         :from_page => @root_page || Page.language_root_for(session[:language_id]),
-        :spacer => "",
+        :spacer => nil,
         :navigation_partial => "alchemy/navigation/renderer",
         :navigation_link_partial => "alchemy/navigation/link",
         :show_nonactive => false,
-        :restricted_only => nil,
+        :restricted_only => false,
         :show_title => true,
         :reverse => false,
         :reverse_children => false
-      }
-      options = default_options.merge(options)
+      }.merge(options)
       if options[:from_page].is_a?(String)
         page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
       else
@@ -173,15 +173,14 @@ module Alchemy
         warning("No Page found for #{options[:from_page]}")
         return ""
       end
-      conditions = {
-        :parent_id => page.id,
-        :restricted => options[:restricted_only] || false,
-        :visible => true
-      }
-      if options[:restricted_only].nil?
-        conditions.delete(:restricted)
+      if options.delete(:restricted_only)
+        pages = page.children.visible.restricted
+      else
+        pages = page.children.visible
       end
-      pages = Page.where(conditions).order("lft ASC")
+      if depth = options[:deepness]
+        pages = pages.where("`#{Page.table_name}`.`depth` <= #{depth}")
+      end
       if options[:reverse]
         pages.reverse!
       end

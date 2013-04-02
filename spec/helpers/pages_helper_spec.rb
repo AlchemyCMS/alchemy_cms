@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 include Alchemy::BaseHelper
@@ -29,16 +30,10 @@ module Alchemy
     end
 
     describe "#render_navigation" do
-
-      before do
-        visible_page
-      end
+      before { visible_page }
 
       context "not in multi_language mode" do
-
-        before do
-          helper.stub(:multi_language?).and_return(false)
-        end
+        before { helper.stub(:multi_language?).and_return(false) }
 
         it "should render the page navigation" do
           helper.render_navigation.should have_selector("ul.navigation.level_1 li.#{visible_page.urlname} a[href=\"/#{visible_page.urlname}\"]")
@@ -69,6 +64,34 @@ module Alchemy
           helper.render_navigation({}, {:class => 'foobar_class'}).should have_selector("ul[class='foobar_class']")
         end
 
+      end
+
+      context "with options[:deepness] set" do
+        before { level_3_page }
+
+        it "shows only pages up to this depth" do
+          output = helper.render_navigation(deepness: 3, all_sub_menues: true)
+          output.should have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
+          output.should_not have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
+        end
+      end
+
+      context "with options[:spacer] set" do
+        before { visible_page }
+
+        context "with two pages on same level" do
+          before { FactoryGirl.create(:public_page, visible: true) }
+
+          it "should render the given spacer" do
+            helper.render_navigation(spacer: '•').should match(/•/)
+          end
+        end
+
+        context "only one page in current level" do
+          it "should not render the spacer" do
+            helper.render_navigation(spacer: '•').should_not match(/•/)
+          end
+        end
       end
 
     end
