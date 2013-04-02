@@ -5,5 +5,3 @@
   * overlay resize handle
 * Update selectboxit
 * Do not show not visible pages in breadcrumb helper
-* horizontal scrollable resources table
-* Fix Tag#edit view
