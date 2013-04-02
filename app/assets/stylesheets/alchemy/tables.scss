@@ -192,9 +192,12 @@ td.heading {
   background-color: $light_yellow;
 }
 
+td.name {
+  width: 280px;
+}
+
 td.file_type {
   width: 130px;
-  white-space: nowrap;
 }
 
 td.file_size {
@@ -241,10 +244,6 @@ table.window_form {
 
 .list .login_status {
   width: 16px;
-}
-
-td.file_name {
-  word-break: break-all;
 }
 
 td#user_roles {
