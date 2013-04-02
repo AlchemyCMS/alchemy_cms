@@ -255,6 +255,15 @@ ActiveRecord::Schema.define(:version => 20130325193541) do
     t.integer  "image_file_size"
   end
 
+  create_table "alchemy_site_properties", :force => true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.string   "property_type"
+    t.integer  "site_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "alchemy_sites", :force => true do |t|
     t.string   "host"
     t.string   "name"
@@ -311,15 +320,6 @@ ActiveRecord::Schema.define(:version => 20130325193541) do
     t.integer  "organizer_id"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
-  end
-
-  create_table "site_properties", :force => true do |t|
-    t.string   "name"
-    t.string   "value"
-    t.string   "type"
-    t.integer  "site_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "taggings", :force => true do |t|
