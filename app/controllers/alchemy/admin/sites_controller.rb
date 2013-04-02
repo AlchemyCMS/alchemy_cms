@@ -2,14 +2,14 @@ module Alchemy
   module Admin
     class SitesController < ResourcesController
 
+      before_filter :load_resource, only: [:configure, :configure_set]
+
       def configure
-        load_resource
         @properties = @site.properties
         render layout: false
       end
 
       def configure_set
-        load_resource
         current_site.properties.each do |property|
           property.value = parse_value(property, params[:properties][property.id.to_s])
           property.save!
