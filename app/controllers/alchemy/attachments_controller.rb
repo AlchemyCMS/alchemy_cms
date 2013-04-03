@@ -5,7 +5,6 @@ module Alchemy
 
     # sends file inline. i.e. for viewing pdfs/movies in browser
     def show
-      @attachment = Attachment.find(params[:id])
       send_data(
         @attachment.file.data,
         {
@@ -18,7 +17,6 @@ module Alchemy
 
     # sends file as attachment. aka download
     def download
-      @attachment = Attachment.find(params[:id])
       send_data(
         @attachment.file.data, {
           :filename => @attachment.file_name,
