@@ -4,4 +4,3 @@
 * icon-font replacement
   * overlay resize handle
 * Update selectboxit
-* Do not show not visible pages in breadcrumb helper

@@ -69,12 +69,7 @@ module Alchemy
     # I.e. used to find the active page in navigation.
     def breadcrumb(current)
       return [] if current.nil?
-      result = Array.new
-      result << current
-      while current = current.parent
-        result << current
-      end
-      return result.reverse
+      current.self_and_ancestors.where("parent_id IS NOT NULL")
     end
 
     # Returns the Alchemy configuration.

@@ -1,0 +1,15 @@
+<% css_classes = [options[:page] == page ? "active" : nil] %>
+<% if page == pages.first %>
+  <% css_classes << "first" %>
+<% elsif page == pages.last %>
+  <% css_classes << "last" %>
+<% end %>
+<%= link_to_unless(
+  !options[:link_active_page] && options[:page] == page,
+  h(page.name),
+  show_alchemy_page_path(page),
+  class: css_classes.compact.join(" "),
+  title: page.title
+) do |name, url, html_options| %>
+  <%= content_tag :span, name, html_options %>
+<% end %>

@@ -239,60 +239,44 @@ module Alchemy
     #
     #   :seperator => %(<span class="seperator">></span>)      # Maybe you don't want this seperator. Pass another one.
     #   :page => @page                                         # Pass a different Page instead of the default (@page).
-    #   :without => nil                                        # Pass Pageobject or array of Pages that must not be displayed.
-    #   :public_only => false                                  # Pass boolean for displaying published pages only.
-    #   :visible_only => true                                  # Pass boolean for displaying (in navigation) visible pages only.
+    #   :without => nil                                        # Pass Page object or array of Pages that must not be displayed.
+    #   :public_only => true                                   # Pass boolean for displaying published pages only.
+    #   :visible_only => true                                  # Pass boolean for displaying visible pages only.
     #   :restricted_only => false                              # Pass boolean for displaying restricted pages only.
-    #   :reverse => false                                      # Pass boolean for displaying reversed breadcrumb.
+    #   :reverse => false                                      # Pass boolean for displaying breadcrumb in reversed reversed.
     #
     def render_breadcrumb(options={})
-      default_options = {
+      options = {
         :seperator => %(<span class="seperator">&gt;</span>),
         :page => @page,
-        :without => nil,
         :public_only => true,
         :visible_only => true,
         :restricted_only => false,
         :reverse => false,
         :link_active_page => false
-      }
-      options = default_options.merge(options)
+      }.merge(options)
       pages = breadcrumb(options[:page])
-      pages.delete(Page.root)
-      unless options[:without].nil?
-        unless options[:without].class == Array
-          pages.delete(options[:without])
-        else
-          pages = pages - options[:without]
-        end
-      end
-      if options[:visible_only]
-        pages.reject! { |p| !p.visible? }
-      end
-      if options[:public_only]
-        pages.reject! { |p| !p.public? }
-      end
       if options[:restricted_only]
-        pages.reject! { |p| !p.restricted? }
+        pages = pages.restricted
+      else
+        pages = pages.not_restricted
       end
-      if options[:reverse]
-        pages.reverse!
-      end
-      bc = []
-      pages.each do |page|
-        css_class = page.name == @page.name ? "active" : nil
-        if page == pages.last
-          css_class = css_class.blank? ? "last" : [css_class, "last"].join(" ")
-        elsif page == pages.first
-          css_class = css_class.blank? ? "first" : [css_class, "first"].join(" ")
-        end
-        if !options[:link_active_page] && page.name == @page.name
-          bc << content_tag(:span, h(page.name), :class => css_class)
+      pages = pages.visible if options[:visible_only]
+      pages = pages.published if options[:public_only]
+      pages.to_a.reverse! if options[:reverse]
+      if options[:without].present?
+        if options[:without].class == Array
+          pages = pages.to_a - options[:without]
         else
-          bc << link_to(h(page.name), show_alchemy_page_path(page), :class => css_class, :title => page.title)
+          pages.to_a.delete(options[:without])
         end
       end
-      bc.join(options[:seperator]).html_safe
+      render(
+        partial: 'alchemy/breadcrumb/page',
+        collection: pages,
+        spacer_template: 'alchemy/breadcrumb/spacer',
+        locals: {pages: pages, options: options}
+      )
     end
 
     # Returns current page title

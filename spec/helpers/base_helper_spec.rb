@@ -4,7 +4,6 @@ module Alchemy
   describe BaseHelper do
 
     describe "#render_message" do
-
       context "if no argument is passed" do
         it "should render a div with an info icon and the given content" do
           helper.render_message{ content_tag(:p, "my notice") }.should match(/<div class="info message"><span class="icon info"><\/span><p>my notice/)
@@ -16,7 +15,6 @@ module Alchemy
           helper.render_message(:error){ content_tag(:p, "my notice") }.should match(/<div class="error message"><span class="icon error">/)
         end
       end
-
     end
 
     describe "#configuration" do
@@ -27,7 +25,6 @@ module Alchemy
     end
 
     describe "#multi_language?" do
-
       context "if more than one published language exists" do
         it "should return true" do
           Alchemy::Language.stub_chain(:published, :count).and_return(2)
@@ -41,7 +38,26 @@ module Alchemy
           helper.multi_language?.should == false
         end
       end
+    end
 
+    describe '#breadcrumb' do
+      let(:lang_root) { Page.language_root_for(Language.get_default.id) }
+      let(:parent)    { FactoryGirl.create(:public_page) }
+      let(:page)      { FactoryGirl.create(:public_page, parent_id: parent.id) }
+
+      it "returns an array of all parents including self" do
+        helper.breadcrumb(page).should == [lang_root, parent, page]
+      end
+
+      it "does not include the root page" do
+        helper.breadcrumb(page).should_not include(Page.root)
+      end
+
+      context "with current page nil" do
+        it "should return an empty array" do
+          helper.breadcrumb(nil).should == []
+        end
+      end
     end
 
   end

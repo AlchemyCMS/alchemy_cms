@@ -159,56 +159,77 @@ module Alchemy
     end
 
     describe "#render_breadcrumb" do
+      let(:parent)    { FactoryGirl.create(:public_page, visible: true) }
+      let(:page)      { FactoryGirl.create(:public_page, parent_id: parent.id, visible: true) }
 
       before do
         helper.stub(:multi_language?).and_return(false)
-        @root = mock_model('Page', :urlname => 'root', :name => 'Root', :title => 'Root', :visible? => false, :public? => false, :restricted? => false, :parent => nil)
-        @language_root = mock_model('Page', :urlname => 'language_root', :name => 'Language Root', :title => 'Language Root', :visible? => true, :public? => true, :restricted? => false, :parent => @root)
-        @page = mock_model('Page', :urlname => 'a-public-page', :name => 'A Public Page', :title => 'A Public Page', :visible? => true, :public? => true, :restricted? => false, :parent => @language_root)
       end
 
       it "should render a breadcrumb to current page" do
-        helper.render_breadcrumb.should have_selector('.active.last[contains("A Public Page")]')
+        helper.render_breadcrumb(page: page).should have_selector(".active.last[contains('#{page.name}')]")
       end
 
-      it "should render a breadcrumb with a alternative seperator" do
-        helper.render_breadcrumb(:seperator => '<span>###</span>').should have_selector('span[contains("###")]')
+      context "with options[:seperator] given" do
+        it "should render a breadcrumb with an alternative seperator" do
+          helper.render_breadcrumb(page: page, seperator: '<span>###</span>').should have_selector('span[contains("###")]')
+        end
       end
 
-      it "should render a breadcrumb in reversed order" do
-        helper.render_breadcrumb(:reverse => true).should have_selector('.active.first[contains("A Public Page")]')
+      context "with options[:reverse] set to true" do
+        it "should render a breadcrumb in reversed order" do
+          helper.render_breadcrumb(page: page, reverse: true).should have_selector('.active.first[contains("A Public Page")]')
+        end
       end
 
-      it "should render a breadcrumb of restricted pages only" do
-        @page.stub!(:restricted? => true, :urlname => 'a-restricted-public-page', :name => 'A restricted Public Page', :title => 'A restricted Public Page')
-        helper.render_breadcrumb(:restricted_only => true).should match(/^(<span(.[^>]+)>)A restricted Public Page/)
+      context "with options[:restricted_only] set to true" do
+        it "should render a breadcrumb of restricted pages only" do
+          page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
+          helper.render_breadcrumb(page: page, restricted_only: true).strip.should match(/^(<span(.[^>]+)>)A restricted Public Page/)
+        end
       end
 
-      it "should render a breadcrumb of visible pages only" do
-        @page.stub!(:visible? => false, :urlname => 'a-invisible-public-page', :name => 'A invisible Public Page', :title => 'A invisible Public Page')
-        helper.render_breadcrumb(:visible_only => true).should_not match(/A invisible Public Page/)
+      context "with options[:visible_only] set to true" do
+        it "should render a breadcrumb of visible pages only." do
+          page.update_attributes!(visible: false, urlname: 'a-invisible-public-page', name: 'A invisible Public Page', title: 'A invisible Public Page')
+          helper.render_breadcrumb(page: page, visible_only: true).should_not match(/A invisible Public Page/)
+        end
       end
 
-      it "should render a breadcrumb of visible and invisible pages" do
-        @page.stub!(:visible? => false, :urlname => 'a-invisible-public-page', :name => 'A invisible Public Page', :title => 'A invisible Public Page')
-        helper.render_breadcrumb(:visible_only => false).should match(/A invisible Public Page/)
+      context "with options[:visible_only] set to false" do
+        it "should render a breadcrumb of visible and invisible pages." do
+          page.update_attributes!(visible: false, urlname: 'a-invisible-public-page', name: 'A invisible Public Page', title: 'A invisible Public Page')
+          helper.render_breadcrumb(page: page, visible_only: false).should match(/A invisible Public Page/)
+        end
       end
 
-      it "should render a breadcrumb of published pages only" do
-        @page.stub!(:public => false, :public? => false, :urlname => 'a-unpublic-page', :name => 'A Unpublic Page', :title => 'A Unpublic Page')
-        helper.render_breadcrumb(:public_only => true).should_not match(/A Unpublic Page/)
+      context "with options[:public_only] set to true" do
+        it "should render a breadcrumb of published pages only" do
+          page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+          helper.render_breadcrumb(page: page, public_only: true).should_not match(/A Unpublic Page/)
+        end
       end
 
-      it "should render a breadcrumb of published and unpublished pages" do
-        @page.stub!(:public => false, :public? => false, :urlname => 'a-unpublic-page', :name => 'A Unpublic Page', :title => 'A Unpublic Page')
-        helper.render_breadcrumb(:public_only => false).should match(/A Unpublic Page/)
+      context "with options[:public_only] set to false" do
+        it "should render a breadcrumb of published and unpublished pages." do
+          page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+          helper.render_breadcrumb(page: page, public_only: false).should match(/A Unpublic Page/)
+        end
       end
 
-      it "should render a breadcrumb without the page named 'Not Me'" do
-        @page.stub!(:urlname => 'not-me', :name => 'Not Me', :title => 'Not Me')
-        helper.render_breadcrumb(:without => @page).should_not match(/Not Me/)
+      context "with options[:without]" do
+        it "should render a breadcrumb without this page" do
+          page.update_attributes!(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
+          helper.render_breadcrumb(page: page, without: page).should_not match(/Not Me/)
+        end
       end
 
+      context "with options[:without] as array" do
+        it "should render a breadcrumb without these pages." do
+          page.update_attributes!(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
+          helper.render_breadcrumb(page: page, without: [page]).should_not match(/Not Me/)
+        end
+      end
     end
 
     describe "#render_meta_data" do
