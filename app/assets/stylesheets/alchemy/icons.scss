@@ -45,6 +45,10 @@
     }
   }
 
+  &.collapse.small {
+    background-position: -512px -106px;
+  }
+
   &.configure_page {
     background-position: -320px -40px;
   }
@@ -95,6 +99,10 @@
 
   &.excel {
     background-position: -353px -136px;
+  }
+
+  &.expand.small {
+    background-position: -498px -106px;
   }
 
   &.false {
