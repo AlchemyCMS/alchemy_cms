@@ -179,7 +179,7 @@ module Alchemy
         pages = page.children.visible
       end
       if depth = options[:deepness]
-        pages = pages.where("`#{Page.table_name}`.`depth` <= #{depth}")
+        pages = pages.where("#{Page.table_name}.depth <= #{depth}")
       end
       if options[:reverse]
         pages.reverse!

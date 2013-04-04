@@ -108,12 +108,12 @@ module Alchemy
           if resource_handler.model_associations.present? && column.match(/\./)
             table, column = column.split('.')
             if resource_handler.model_associations.detect { |a| a.table_name == table }
-              "`#{table}`.`#{column}` #{direction}"
+              "#{table}.#{column} #{direction}"
             else
               fallback_sort_order(direction)
             end
           elsif resource_handler.model.column_names.include?(column.to_s)
-            "`#{resource_handler.model.table_name}`.`#{column}` #{direction}"
+            "#{resource_handler.model.table_name}.#{column} #{direction}"
           else
             fallback_sort_order(direction)
           end
@@ -125,7 +125,7 @@ module Alchemy
       # Overwrite this in your controller to define custom fallback
       #
       def fallback_sort_order(direction)
-        "`#{resource_handler.model.table_name}`.`id` #{direction}"
+        "#{resource_handler.model.table_name}.id #{direction}"
       end
 
       # Returns an activerecord object that contains items matching params[:query]
@@ -145,9 +145,9 @@ module Alchemy
       def search_query(search_terms)
         resource_handler.searchable_attributes.map do |attribute|
           if relation = attribute[:relation]
-            "`#{relation[:model_association].klass.table_name}`.`#{relation[:attr_method]}` LIKE #{search_terms}"
+            "#{relation[:model_association].klass.table_name}.#{relation[:attr_method]} LIKE #{search_terms}"
           else
-            "`#{resource_handler.model.table_name}`.`#{attribute[:name]}` LIKE #{search_terms}"
+            "#{resource_handler.model.table_name}.#{attribute[:name]} LIKE #{search_terms}"
           end
         end.join(" OR ")
       end
