@@ -173,11 +173,8 @@ module Alchemy
         warning("No Page found for #{options[:from_page]}")
         return ""
       end
-      if options.delete(:restricted_only)
-        pages = page.children.visible.restricted
-      else
-        pages = page.children.visible
-      end
+      pages = page.children.visible.with_permissions_to(:show, :context => :alchemy_pages)
+      pages = pages.restricted if options.delete(:restricted_only)
       if depth = options[:deepness]
         pages = pages.where("#{Page.table_name}.depth <= #{depth}")
       end

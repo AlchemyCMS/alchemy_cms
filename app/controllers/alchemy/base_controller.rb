@@ -10,6 +10,7 @@ module Alchemy
     before_filter :set_language
     before_filter :mailer_set_url_options
     before_filter :store_user_request_time
+    before_filter :set_authorization_user
 
     helper_method :current_server, :current_site, :multi_site?
 
@@ -56,6 +57,12 @@ module Alchemy
     #
     def set_current_site
       Site.current = current_site
+    end
+
+    # Stores the current_user for declarative_authorization
+    #
+    def set_authorization_user
+      Authorization.current_user = current_user
     end
 
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.

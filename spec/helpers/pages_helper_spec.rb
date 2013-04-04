@@ -12,6 +12,7 @@ module Alchemy
     let(:language_root)             { FactoryGirl.create(:language_root_page) }
     let(:public_page)               { FactoryGirl.create(:public_page) }
     let(:visible_page)              { FactoryGirl.create(:public_page, :visible => true) }
+    let(:restricted_page)           { FactoryGirl.create(:public_page, :visible => true, :restricted => true) }
     let(:level_2_page)              { FactoryGirl.create(:public_page, :parent_id => visible_page.id, :visible => true, :name => 'Level 2') }
     let(:level_3_page)              { FactoryGirl.create(:public_page, :parent_id => level_2_page.id, :visible => true, :name => 'Level 3') }
     let(:level_4_page)              { FactoryGirl.create(:public_page, :parent_id => level_3_page.id, :visible => true, :name => 'Level 4') }
@@ -37,6 +38,25 @@ module Alchemy
 
         it "should render the page navigation" do
           helper.render_navigation.should have_selector("ul.navigation.level_1 li.#{visible_page.urlname} a[href=\"/#{visible_page.urlname}\"]")
+        end
+
+        context "as guest user" do
+          before { restricted_page }
+
+          it "should not render restricted pages" do
+            helper.render_navigation.should_not have_selector("ul.navigation.level_1 li a[href=\"/#{restricted_page.urlname}\"]")
+          end
+        end
+
+        context "as registered user" do
+          before do
+            restricted_page
+            Authorization.stub!(:current_user).and_return(FactoryGirl.build(:registered_user))
+          end
+
+          it "should render restricted pages" do
+            helper.render_navigation.should have_selector("ul.navigation.level_1 li a[href=\"/#{restricted_page.urlname}\"]")
+          end
         end
 
         context "with enabled url nesting" do
