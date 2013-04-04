@@ -11,6 +11,7 @@ module Alchemy
     # * link_to_confirmation_window
     #
     module BaseHelper
+      include Alchemy::BaseHelper
 
       # This helper renders the link for an overlay window.
       #
