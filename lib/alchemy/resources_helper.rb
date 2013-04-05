@@ -77,6 +77,9 @@ module Alchemy
       else
         value
       end
+    rescue ActiveRecord::RecordNotFound => e
+      warning e
+      _t "not_found"
     end
 
     def resource_help_text(attribute)
