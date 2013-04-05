@@ -2,7 +2,7 @@ module Alchemy
   module Admin
     class SitesController < ResourcesController
 
-      before_filter :load_resource, only: [:configure, :configure_set]
+      before_filter :load_resource, only: [:configure, :configure_set, :show, :edit, :update, :destroy]
 
       def configure
         @properties = @site.properties
