@@ -102,7 +102,7 @@ module Alchemy
         filter_field.html_safe
       end
 
-      # Returns a link that opens a modal confirmation window.
+      # Returns a link that opens a modal confirmation to delete window.
       #
       # === Parameters:
       #
@@ -126,6 +126,35 @@ module Alchemy
             }.to_json
           )
         )
+      end
+
+      # Returns a form and a button that opens a modal confirm window.
+      #
+      # After confirmation it proceeds to send the form's action.
+      #
+      # === Parameters:
+      #
+      # 1. The content inside the <a> tag
+      # 2. The url that gets opened after confirmation
+      # 3. Options for the Alchemy confirm overlay (See: app/assets/javascripts/alchemy/alchemy.window.js#openConfirmWindow)
+      # 4. HTML options that get passed to the button_tag helper.
+      #
+      # NOTE: The method option in the html_options hash gets passed to the form_tag helper!
+      #
+      # === Example:
+      #
+      #   <%= button_with_confirm('pay', '/admin/orders/1/pay', message: 'Do you really want to mark this order as payed?') %>
+      #
+      def button_with_confirm(value = "", url = "", options = {}, html_options = {})
+        options = {
+          message: _t('confirm_to_proceed'),
+          ok_label: _t("Yes"),
+          title: _t("please_confirm"),
+          cancel_label: _t("No")
+        }.merge(options)
+        form_tag url, {method: html_options.delete(:method)} do
+          button_tag value, html_options.merge('data-alchemy-confirm' => options.to_json)
+        end
       end
 
       # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.

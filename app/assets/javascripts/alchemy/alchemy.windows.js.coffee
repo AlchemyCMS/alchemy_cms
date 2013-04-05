@@ -268,6 +268,8 @@ $.extend Alchemy,
       options = $this.data("alchemy-confirm")
       event.preventDefault()
       Alchemy.openConfirmWindow $.extend(options,
+        okLabel: options.okLabel || options.ok_label, #hmpf
+        cancelLabel: options.cancelLabel || options.cancel_label, #hmpf
         okCallback: ->
           Alchemy.pleaseWaitOverlay()
           self.form.submit()
