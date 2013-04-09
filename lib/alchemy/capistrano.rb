@@ -37,7 +37,7 @@ require 'fileutils'
 
     desc "Upgrades production database to current Alchemy CMS version"
     task :upgrade do
-      run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:upgrade"
+      run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:upgrade"
     end
 
     namespace :database_yml do
@@ -78,12 +78,12 @@ EOF
 
       desc "Seeds the database with essential data."
       task :seed, :roles => :db do
-        run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:seed"
+        run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:seed"
       end
 
       desc "Dumps the database into 'db/dumps'"
       task :dump, :roles => :db do
-        run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:dump"
+        run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
       end
 
     end
@@ -100,7 +100,7 @@ EOF
       desc "Imports the database into your local development machine."
       task :database, :roles => [:db], :only => {:primary => true} do
         server = find_servers_for_task(current_task).first
-        dump_cmd = "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} alchemy:db:dump"
+        dump_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
         sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
         mysql_credentials = ["--user='#{database_config['username']}'"]
         if database_config['password']
@@ -145,7 +145,7 @@ EOF
     # It uses the +alchemy:rebuild_index+ rake task found in +vendor/plugins/alchemy/lib/tasks+.
     desc "Rebuild the ferret index. Call before deploy:restart"
     task :rebuild_index, :roles => :app do
-      run "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, 'production')} #{rake} ferret:rebuild_index"
+      run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} ferret:rebuild_index"
     end
 
   end
