@@ -1,3 +1,5 @@
+require 'csv'
+
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
@@ -23,8 +25,16 @@ module Alchemy
         if params[:query].present?
           items = query_items(items)
         end
-        items = items.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
-        instance_variable_set("@#{resource_handler.resources_name}", items)
+        items = items.order(sort_order)
+        respond_to do |format|
+          format.html {
+            items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
+            instance_variable_set("@#{resource_handler.resources_name}", items)
+          }
+          format.csv {
+            instance_variable_set("@#{resource_handler.resources_name}", items)
+          }
+        end
       end
 
       def new

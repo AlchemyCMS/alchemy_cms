@@ -231,6 +231,7 @@ en:
     delete_user: "Delete this user"
     document: "File"
     documents: "Files"
+    download_csv: "Download CSV"
     download_file: "Download file '%{filename}'"
     "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it."
     drag_to_sort: "Drag'n'Drop to sort images"
