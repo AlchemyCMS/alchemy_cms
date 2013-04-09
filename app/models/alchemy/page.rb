@@ -1,8 +1,6 @@
 module Alchemy
   class Page < ActiveRecord::Base
-    include NameConversions
 
-    RESERVED_URLNAMES = %w(admin messages new)
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
       :do_not_sweep => true,
@@ -45,45 +43,20 @@ module Alchemy
     stampable(:stamper_class_name => 'Alchemy::User')
 
     has_many :folded_pages
-    has_many :cells, :dependent => :destroy
-    has_many :elements, :order => :position
-    has_many :contents, :through => :elements
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
-    has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
     belongs_to :language
 
     validates_presence_of :language, :on => :create, :unless => :root
-    validates_presence_of :name
     validates_presence_of :page_layout, :unless => :systempage?
     validates_presence_of :parent_id, :if => proc { Page.count > 1 }
-    validates_length_of :urlname, :minimum => 3, :if => :urlname_entered?
-    validates_uniqueness_of(
-      :urlname,
-      :scope => [:language_id, :layoutpage],
-      :if => proc { |p| p.urlname_entered? }
-    )
-    validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
 
-    attr_accessor :do_not_autogenerate
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_validation :set_urlname, :if => proc { |page| (page.name_changed? || page.urlname_changed?) && (!page.systempage? || !page.redirects_to_external?) }
-    before_save :set_title, :unless => proc { |page| page.systempage? || page.redirects_to_external? || !page.title.blank? }
     before_save :set_language_code, :unless => :systempage?
-    before_save :set_restrictions_to_child_pages, :if => proc { |page| !page.systempage? && page.restricted_changed? }
-    before_save :inherit_restricted_status, :if => proc { |page| !page.systempage? && page.parent && page.parent.restricted? }
-    after_create :create_cells, :unless => :systempage?
-    after_create :autogenerate_elements, :unless => proc { |page| page.systempage? || page.do_not_autogenerate }
-    after_update :trash_not_allowed_elements, :if => :page_layout_changed?
-    after_update :autogenerate_elements, :if => :page_layout_changed?
-    after_update :create_legacy_url, :if => proc { |page| page.urlname_changed? && !page.redirects_to_external? }
-    after_update(:if => proc { Config.get(:url_nesting) && (self.urlname_changed? || self.visible_changed?) } ) do
-      self.reload
-      self.descendants.map(&:update_urlname!)
-    end
-    after_move :update_urlname!, :if => proc { Config.get(:url_nesting) }
-    after_destroy { elements.each {|el| el.destroy unless el.trashed? } }
+    before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
+    before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
+    after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
 
     scope :language_roots, where(:language_root => true)
     scope :layoutpages, where(:layoutpage => true)
@@ -109,6 +82,11 @@ module Alchemy
     scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current || Site.default}).joins(:language) }
     # TODO: add this as default_scope
     #default_scope { from_current_site }
+
+    # Concerns
+    include Naming
+    include Cells
+    include Elements
 
     # Class methods
     #
@@ -149,44 +127,6 @@ module Alchemy
           copy_elements(source, page)
           page
         end
-      end
-
-      # Copy page cells
-      #
-      # @param source [Alchemy::Page]
-      # @param target [Alchemy::Page]
-      # @return [Array]
-      #
-      def copy_cells(source, target)
-        new_cells = []
-        source.cells.each do |cell|
-          new_cells << Cell.create(:name => cell.name, :page_id => target.id)
-        end
-        new_cells
-      end
-
-      # Copy page elements
-      #
-      # @param source [Alchemy::Page]
-      # @param target [Alchemy::Page]
-      # @return [Array]
-      #
-      def copy_elements(source, target)
-        new_elements = []
-        source.elements.not_trashed.each do |element|
-          # detect cell for element
-          if element.cell
-            cell = target.cells.detect { |c| c.name == element.cell.name }
-          else
-            cell = nil
-          end
-          # if cell is nil also pass nil to element.cell_id
-          new_element = Element.copy(element, :page_id => target.id, :cell_id => (cell.blank? ? nil : cell.id))
-          # move element to bottom of the list
-          new_element.move_to_bottom
-          new_elements << new_element
-        end
-        new_elements
       end
 
       def layout_root_for(language_id)
@@ -240,79 +180,6 @@ module Alchemy
     # Instance methods
     #
 
-    # Finds selected elements from page.
-    #
-    # Returns only public elements by default.
-    # Pass true as second argument to get all elements.
-    #
-    # === Options are:
-    #
-    #     :only => Array of element names    # Returns only elements with given names
-    #     :except => Array of element names  # Returns all elements except the ones with given names
-    #     :count => Integer                  # Limit the count of returned elements
-    #     :offset => Integer                 # Starts with an offset while returning elements
-    #     :random => Boolean                 # Return elements randomly shuffled
-    #     :from_cell => Cell or String       # Return elements from given cell
-    #
-    def find_selected_elements(options = {}, show_non_public = false)
-      if options[:from_cell].class.name == 'Alchemy::Cell'
-        elements = options[:from_cell].elements
-      elsif !options[:from_cell].blank? && options[:from_cell].class.name == 'String'
-        cell = cells.find_by_name(options[:from_cell])
-        if cell
-          elements = cell.elements
-        else
-          warn("Cell with name `#{options[:from_cell]}` could not be found!")
-          # Returns an empty relation. Can be removed with the release of Rails 4
-          elements = self.elements.where('1 = 0')
-        end
-      else
-        elements = self.elements.not_in_cell
-      end
-      if !options[:only].blank?
-        elements = elements.named(options[:only])
-      elsif !options[:except].blank?
-        elements = elements.excluded(options[:except])
-      end
-      elements = elements.reverse_order if options[:reverse_sort] || options[:reverse]
-      elements = elements.offset(options[:offset]).limit(options[:count])
-      elements = elements.order("RAND()") if options[:random]
-      show_non_public ? elements : elements.published
-    end
-
-    # What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
-    def find_elements(options = {}, show_non_public = false)
-      if !options[:collection].blank? && options[:collection].is_a?(Array)
-        return options[:collection]
-      else
-        find_selected_elements(options, show_non_public)
-      end
-    end
-
-    # Returns all elements that should be feeded via rss.
-    #
-    # Define feedable elements in your +page_layouts.yml+:
-    #
-    #   - name: news
-    #     feed: true
-    #     feed_elements: [element_name, element_2_name]
-    #
-    def feed_elements
-      elements.find_all_by_name(definition['feed_elements'])
-    end
-
-    def elements_grouped_by_cells
-      elements.not_trashed.in_cell.group_by(&:cell)
-    end
-
-    def element_names_from_cells
-      cell_definitions.collect { |c| c['elements'] }.flatten.uniq
-    end
-
-    def element_names_not_in_cell
-      layout_description['elements'].uniq - element_names_from_cells
-    end
-
     # Finds the previous page on the same structure level. Otherwise it returns nil.
     # Options:
     # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
@@ -337,21 +204,6 @@ module Alchemy
     end
     alias_method :next_page, :next
 
-    def name_entered?
-      !self.name.blank?
-    end
-
-    def urlname_entered?
-      !self.urlname.blank?
-    end
-
-    def show_in_navigation?
-      if visible?
-        return true
-      end
-      return false
-    end
-
     def lock(user)
       self.locked = true
       self.locked_by = user.id
@@ -363,10 +215,6 @@ module Alchemy
       self.locked_by = nil
       self.do_not_sweep = true
       self.save
-    end
-
-    def public_elements
-      self.elements.select { |m| m.public? }
     end
 
     # Returns the name of the creator of this page.
@@ -404,10 +252,6 @@ module Alchemy
       folded_page = FoldedPage.find_by_user_id_and_page_id(user_id, self.id)
       return false if folded_page.nil?
       folded_page.folded
-    end
-
-    def elements_by_type type
-      elements.select { |m| type.include? m.name }
     end
 
     # Returns a Hash of attributes describing the status of the Page.
@@ -452,21 +296,11 @@ module Alchemy
     end
     alias_method :definition, :layout_description
 
-    def cell_definitions
-      cell_names = self.layout_description['cells']
-      return [] if cell_names.blank?
-      Cell.all_definitions_for(cell_names)
-    end
-
     # Returns translated name of the pages page_layout value.
     # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
     # Translate the name in your config/locales language yml file.
     def layout_display_name
       I18n.t(self.page_layout, :scope => :page_layout_names)
-    end
-
-    def renamed?
-      self.name_was != self.name || self.urlname_was != self.urlname
     end
 
     def changed_publicity?
@@ -492,19 +326,14 @@ module Alchemy
       definition["redirects_to_external"]
     end
 
+    # Returns the first published child
     def first_public_child
-      self.children.where(:public => true).limit(1).first
+      children.published.first
     end
 
     # Gets the language_root page for page
     def get_language_root
-      return self if self.language_root
-      page = self
-      while page.parent do
-        page = page.parent
-        break if page.language_root?
-      end
-      return page
+      self_and_ancestors.where(:language_root => true).first
     end
 
     def copy_children_to(new_parent)
@@ -517,15 +346,6 @@ module Alchemy
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
       end
-    end
-
-    # Returns true or false if the page has a page_layout that has cells.
-    def can_have_cells?
-      !definition['cells'].blank?
-    end
-
-    def has_cells?
-      cells.any?
     end
 
     def locker_name
@@ -559,25 +379,6 @@ module Alchemy
       self.save
     end
 
-    # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
-    # So the whole path is stored as urlname in tha database.
-    def update_urlname!
-      names = ancestors.visible.contentpages.where(language_root: nil).map(&:slug).compact
-      names << slug
-      # update without callbacks
-      if new_record?
-        write_attribute :urlname, names.join('/')
-      else
-        legacy_urls.create(:urlname => urlname)
-        update_column :urlname, names.join('/')
-      end
-    end
-
-    # Returns always the last part of a urlname path
-    def slug
-      urlname.to_s.split('/').last
-    end
-
   private
 
     def next_or_previous(direction = :next, options = {})
@@ -598,85 +399,9 @@ module Alchemy
       pages.order(order_direction).limit(1).first
     end
 
-    # Sets the urlname to a url friendly slug.
-    # Either from name, or if present, from urlname.
-    # If url_nesting is enabled the urlname contains the whole path.
-    def set_urlname
-      if Config.get(:url_nesting)
-        url_name = [
-          self.parent.language_root? ? nil : self.parent.urlname,
-          convert_url_name((self.urlname.blank? ? self.name : self.slug))
-        ].compact.join('/')
-      else
-        url_name = convert_url_name((self.urlname.blank? ? self.name : self.urlname))
-      end
-      write_attribute :urlname, url_name
-    end
-
-    def set_title
-      self.title = self.name
-    end
-
-    # Converts the given name into an url friendly string.
-    #
-    # Names shorter than 3 will be filled up with dashes,
-    # so it does not collidate with the language code.
-    #
-    def convert_url_name(name)
-      url_name = convert_to_urlname(name)
-      if url_name.length < 3
-        ('-' * (3 - url_name.length)) + url_name
-      else
-        url_name
-      end
-    end
-
-    # Looks in the page_layout descripion, if there are elements to autogenerate.
-    #
-    # And if so, it generates them.
-    #
-    # If the page has cells, it looks if there are elements to generate.
-    #
-    def autogenerate_elements
-      elements_already_on_page = self.elements.available.collect(&:name)
-      elements = self.layout_description["autogenerate"]
-      if elements.present?
-        elements.each do |element|
-          next if elements_already_on_page.include?(element)
-          Element.create_from_scratch(attributes_for_element_name(element))
-        end
-      end
-    end
-
-    # Returns a hash of attributes for given element name
-    def attributes_for_element_name(element)
-      if self.has_cells? && (cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) })
-        cell = self.cells.find_by_name(cell_definition['name'])
-        if cell
-          return {:page_id => self.id, :cell_id => cell.id, :name => element}
-        else
-          raise "Cell not found for page #{self.inspect}"
-        end
-      else
-        return {:page_id => self.id, :name => element}
-      end
-    end
-
     def set_language_code
       return false if self.language.blank?
       self.language_code = self.language.code
-    end
-
-    def create_cells
-      return false if !can_have_cells?
-      definition['cells'].each do |cellname|
-        cells.create({:name => cellname})
-      end
-    end
-
-    # Trashes all elements that are not allowed for this page_layout.
-    def trash_not_allowed_elements
-      elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash)
     end
 
     # Stores the old urlname in a LegacyPageUrl

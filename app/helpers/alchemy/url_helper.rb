@@ -81,5 +81,15 @@ module Alchemy
       multi_language? ? url_params.update(:lang => page.language_code) : url_params
     end
 
+    # Returns the path for downloading an alchemy attachment
+    def download_alchemy_attachment_path(attachment)
+      alchemy.download_attachment_path(attachment, attachment.urlname)
+    end
+
+    # Returns the url for downloading an alchemy attachment
+    def download_alchemy_attachment_url(attachment)
+      alchemy.download_attachment_url(attachment, attachment.urlname)
+    end
+
   end
 end

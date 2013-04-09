@@ -11,6 +11,7 @@ module Alchemy
     # * link_to_confirmation_window
     #
     module BaseHelper
+      include Alchemy::BaseHelper
 
       # This helper renders the link for an overlay window.
       #
@@ -101,7 +102,7 @@ module Alchemy
         filter_field.html_safe
       end
 
-      # Returns a link that opens a modal confirmation window.
+      # Returns a link that opens a modal confirmation to delete window.
       #
       # === Parameters:
       #
@@ -125,6 +126,35 @@ module Alchemy
             }.to_json
           )
         )
+      end
+
+      # Returns a form and a button that opens a modal confirm window.
+      #
+      # After confirmation it proceeds to send the form's action.
+      #
+      # === Parameters:
+      #
+      # 1. The content inside the <a> tag
+      # 2. The url that gets opened after confirmation
+      # 3. Options for the Alchemy confirm overlay (See: app/assets/javascripts/alchemy/alchemy.window.js#openConfirmWindow)
+      # 4. HTML options that get passed to the button_tag helper.
+      #
+      # NOTE: The method option in the html_options hash gets passed to the form_tag helper!
+      #
+      # === Example:
+      #
+      #   <%= button_with_confirm('pay', '/admin/orders/1/pay', message: 'Do you really want to mark this order as payed?') %>
+      #
+      def button_with_confirm(value = "", url = "", options = {}, html_options = {})
+        options = {
+          message: _t('confirm_to_proceed'),
+          ok_label: _t("Yes"),
+          title: _t("please_confirm"),
+          cancel_label: _t("No")
+        }.merge(options)
+        form_tag url, {method: html_options.delete(:method)} do
+          button_tag value, html_options.merge('data-alchemy-confirm' => options.to_json)
+        end
       end
 
       # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
@@ -423,7 +453,7 @@ module Alchemy
       # NOTE: Alchemy gives you a local variable named like your resource
       #
       def render_resources
-        render :partial => resource_model_name, :collection => resources_instance_variable
+        render :partial => resource_name, :collection => resources_instance_variable
       rescue ActionView::MissingTemplate
         render :partial => 'resource', :collection => resources_instance_variable
       end
@@ -482,57 +512,6 @@ module Alchemy
           current_params.delete_if { |k, v| k != includes.to_sym }
         end
         current_params.merge(p).delete_if { |k, v| v.blank? }
-      end
-
-      # Checks if the pictures tag-filter contains the given tag
-      def pictures_filtered_by_tag?(tag)
-        if params[:tagged_with].present?
-          tags = params[:tagged_with].split(',')
-          tags.include?(tag.name)
-        else
-          false
-        end
-      end
-
-      # Adds the given tag to the pictures tag-filter
-      def add_to_picture_tag_filter(tag)
-        if params[:tagged_with].present?
-          tags = params[:tagged_with].split(',')
-          tags << tag.name
-        else
-          [tag.name]
-        end
-      end
-
-      # Removes the given tag from the pictures tag-filter
-      def remove_from_picture_tag_filter(tag)
-        if params[:tagged_with].present?
-          tags = params[:tagged_with].split(',')
-          tags.delete_if { |t| t == tag.name }
-        else
-          []
-        end
-      end
-
-      # Returns the picture tag-filter from params.
-      # A tag can be added to the filter.
-      # A tag can also be removed.
-      #
-      # Options are:
-      #   * options (Hash):
-      #   ** :add (ActsAsTaggableOn::Tag) - The tag that should be added to the tag-filter
-      #   ** :remove (ActsAsTaggableOn::Tag) - The tag that should be removed from the tag-filter
-      def picture_tag_filter(options={})
-        case
-          when options[:add]
-            taglist = add_to_picture_tag_filter(options[:add]) if options[:add]
-          when options[:remove]
-            taglist = remove_from_picture_tag_filter(options[:remove]) if options[:remove]
-          else
-            return params[:tagged_with]
-        end
-        return nil if taglist.blank?
-        taglist.uniq.join(',')
       end
 
       def render_hint_for(element)

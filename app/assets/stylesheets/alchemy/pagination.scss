@@ -1,10 +1,17 @@
 div.pagination {
   background: $light_gray;
+  @include box-sizing(border-box);
+  position: fixed;
+  bottom: 0;
+  right: 0;
   width: 100%;
-  left: 82px;
-  height: 35px;
-  padding: 2 * $default-padding 0;
-  text-align: right;
+  left: 0px;
+  height: 50px;
+  padding: 2*$default-padding $default-padding;
+  padding-left: 76px;
+  text-align: left;
+  border-top: $default-border;
+  z-index: 1;
 
   a, span, em {
     font-size: $default-font-size;
@@ -52,5 +59,6 @@ div.pagination {
 }
 
 #assign_image_list div.pagination {
-  margin-bottom: 8px;
+  position: absolute;
+  padding-left: 8px;
 }

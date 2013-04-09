@@ -1,7 +1,7 @@
 # Just holds some useful tag methods.
 # The original Tag model is ActsAsTaggableOn::Tag
 module Alchemy
-  class Tag
+  class Tag < ActsAsTaggableOn::Tag
 
     # Replaces tag with new tag on all models tagged with tag.
     def self.replace(tag, new_tag)

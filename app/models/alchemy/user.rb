@@ -79,6 +79,10 @@ module Alchemy
       end
     end
 
+    def add_role(role)
+      self.roles = self.roles.push(role.to_s).uniq
+    end
+
     # Returns true if the user ahs admin role
     def is_admin?
       has_role? 'admin'

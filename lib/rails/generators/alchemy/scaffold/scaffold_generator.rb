@@ -38,7 +38,7 @@ module Alchemy
       end
 
       def copy_alchemy_views
-        %w(messages navigation notifications search).each do |dir|
+        %w(breadcrumb messages navigation notifications search).each do |dir|
           src = File.expand_path("../../../../../app/views/alchemy/#{dir}", File.dirname(__FILE__))
           dest = Rails.root.join('app/views/alchemy', dir)
           directory src, dest

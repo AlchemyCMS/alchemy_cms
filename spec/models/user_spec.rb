@@ -111,6 +111,18 @@ module Alchemy
 
     end
 
+    describe "#add_role" do
+      it "should add the given role to roles array" do
+        user.add_role "member"
+        user.roles.should == ["registered", "member"]
+      end
+
+      it "should not add the given role twice" do
+        user.add_role "registered"
+        user.roles.should == ["registered"]
+      end
+    end
+
     describe '#logged_in?' do
       before { Config.stub!(:get).and_return 60 }
 

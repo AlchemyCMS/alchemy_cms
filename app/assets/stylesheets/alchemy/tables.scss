@@ -29,13 +29,12 @@ th {
   border-top: 1px solid $medium-gray;
   color: #666;
   font-weight: normal;
-  position: relative;
 
   i {
     font-style: normal;
     position: absolute;
     right: 2px;
-    top: 5px;
+    top: 4px;
     color: #999;
     @include text-shadow(1px 1px 0px #fff);
   }
@@ -45,13 +44,12 @@ th {
 
     &.sortable {
       display: block;
-      padding-right: 17px;
-
+      margin: -4px -8px;
+      padding: 4px 18px 4px 8px;
     }
 
     &.sorted {
-      margin: -4px -8px;
-      padding: 4px 8px;
+      position: relative;
       @include background(linear-gradient(top, lighten($light-gray, 10) 0%, $very-light-blue 50%, $light-gray 90%, darken($light-gray, 10) 100%));
     }
   }
@@ -196,7 +194,6 @@ td.heading {
 
 td.file_type {
   width: 130px;
-  white-space: nowrap;
 }
 
 td.file_size {
@@ -209,7 +206,6 @@ td.date {
 
 td.right, th.right {
   text-align: right;
-  padding-right: 0;
 }
 
 td.center, th.center {
@@ -244,10 +240,6 @@ table.window_form {
 
 .list .login_status {
   width: 16px;
-}
-
-td.file_name {
-  word-break: break-all;
 }
 
 td#user_roles {

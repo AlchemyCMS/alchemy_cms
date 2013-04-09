@@ -2,15 +2,15 @@
 <h2><%= _t("Filter by tag") %></h2>
 <%#= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')", :id => 'tag_list_filter' %>
 <ul>
-  <% Alchemy::Picture.tag_counts.each do |t| %>
-    <% picture_tags = filtered_by_tag?(t) ? tag_filter(:remove => t) : tag_filter(:add => t) %>
+  <% Alchemy::Attachment.tag_counts.each do |t| %>
+    <% attachment_tags = filtered_by_tag?(t) ? tag_filter(:remove => t) : tag_filter(:add => t) %>
     <%= content_tag 'li', :name => t.name, :class => p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
       <%= link_to(
         "#{t.name} (#{t.count})",
         url_for(
           p.delete_if { |k, v| k == "page" }.merge(
             :action => :index,
-            :tagged_with => picture_tags
+            :tagged_with => attachment_tags
           )
         ),
         :remote => request.xhr?,

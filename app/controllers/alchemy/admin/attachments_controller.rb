@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class AttachmentsController < ResourcesController
+      helper 'alchemy/admin/tags'
 
       protect_from_forgery :except => [:create]
 
@@ -8,7 +9,10 @@ module Alchemy
         if in_overlay?
           archive_overlay
         else
-          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sortable_column_order)
+          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sort_order)
+          if params[:tagged_with].present?
+            @attachments = @attachments.tagged_with(params[:tagged_with])
+          end
         end
       end
 
@@ -31,7 +35,7 @@ module Alchemy
           @swap = params[:swap]
           @options = hashified_options
         end
-        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sortable_column_order)
+        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sort_order)
         @message = _t('File %{name} uploaded succesfully', :name => @attachment.name)
         # Are we using the Flash uploader? Or the plain html file uploader?
         if params[Rails.application.config.session_options[:key]].blank?

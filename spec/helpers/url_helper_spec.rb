@@ -5,123 +5,127 @@ include Alchemy::BaseHelper
 module Alchemy
   describe UrlHelper do
 
-    before do
-      @page = mock_model(Page, :urlname => 'testpage', :language_code => 'en')
+    context 'page path helpers' do
+
+      before do
+        @page = mock_model(Page, :urlname => 'testpage', :language_code => 'en')
+      end
+
+      describe "#show_page_path_params" do
+
+        context "when multi_language" do
+
+          before do
+            helper.stub!(:multi_language?).and_return(true)
+          end
+
+          it "should return a Hash with urlname and language_id parameter" do
+            helper.stub!(:multi_language?).and_return(true)
+            helper.show_page_path_params(@page).should include(:urlname => 'testpage', :lang => 'en')
+          end
+
+          it "should return a Hash with urlname, language_id and query parameter" do
+            helper.stub!(:multi_language?).and_return(true)
+            helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :lang => 'en', :query => 'test')
+          end
+
+        end
+
+        context "not multi_language" do
+
+          before do
+            helper.stub!(:multi_language?).and_return(false)
+          end
+
+          it "should return a Hash with the urlname but without language_id parameter" do
+            helper.show_page_path_params(@page).should include(:urlname => 'testpage')
+            helper.show_page_path_params(@page).should_not include(:lang => 'en')
+          end
+
+          it "should return a Hash with urlname and query parameter" do
+            helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :query => 'test')
+            helper.show_page_path_params(@page).should_not include(:lang => 'en')
+          end
+
+        end
+
+      end
+
+      describe "#show_alchemy_page_path" do
+
+        context "when multi_language" do
+
+          before do
+            helper.stub!(:multi_language?).and_return(true)
+          end
+
+          it "should return the correct relative path string" do
+            helper.show_alchemy_page_path(@page).should == "/#{@page.language_code}/testpage"
+          end
+
+          it "should return the correct relative path string with additional parameters" do
+            helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/#{@page.language_code}/testpage?query=test"
+          end
+
+        end
+
+        context "not multi_language" do
+
+          before do
+            helper.stub!(:multi_language?).and_return(false)
+          end
+
+          it "should return the correct relative path string" do
+            helper.show_alchemy_page_path(@page).should == "/testpage"
+          end
+
+          it "should return the correct relative path string with additional parameter" do
+            helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/testpage?query=test"
+          end
+
+        end
+
+      end
+
+      describe "#show_alchemy_page_url" do
+
+        context "when multi_language" do
+
+          before do
+            helper.stub!(:multi_language?).and_return(true)
+          end
+
+          it "should return the correct url string" do
+            helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/#{@page.language_code}/testpage"
+          end
+
+          it "should return the correct url string with additional parameters" do
+            helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/#{@page.language_code}/testpage?query=test"
+          end
+
+        end
+
+        context "not multi_language" do
+
+          before do
+            helper.stub!(:multi_language?).and_return(false)
+          end
+
+          it "should return the correct url string" do
+            helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/testpage"
+          end
+
+          it "should return the correct url string with additional parameter" do
+            helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/testpage?query=test"
+          end
+
+        end
+
+      end
+
     end
 
-    describe "#show_page_path_params" do
-
-      context "when multi_language" do
-
-        before do
-          helper.stub!(:multi_language?).and_return(true)
-        end
-
-        it "should return a Hash with urlname and language_id parameter" do
-          helper.stub!(:multi_language?).and_return(true)
-          helper.show_page_path_params(@page).should include(:urlname => 'testpage', :lang => 'en')
-        end
-
-        it "should return a Hash with urlname, language_id and query parameter" do
-          helper.stub!(:multi_language?).and_return(true)
-          helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :lang => 'en', :query => 'test')
-        end
-
-      end
-
-      context "not multi_language" do
-
-        before do
-          helper.stub!(:multi_language?).and_return(false)
-        end
-
-        it "should return a Hash with the urlname but without language_id parameter" do
-          helper.show_page_path_params(@page).should include(:urlname => 'testpage')
-          helper.show_page_path_params(@page).should_not include(:lang => 'en')
-        end
-
-        it "should return a Hash with urlname and query parameter" do
-          helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :query => 'test')
-          helper.show_page_path_params(@page).should_not include(:lang => 'en')
-        end
-
-      end
-
-    end
-
-    describe "#show_alchemy_page_path" do
-
-      context "when multi_language" do
-
-        before do
-          helper.stub!(:multi_language?).and_return(true)
-        end
-
-        it "should return the correct relative path string" do
-          helper.show_alchemy_page_path(@page).should == "/#{@page.language_code}/testpage"
-        end
-
-        it "should return the correct relative path string with additional parameters" do
-          helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/#{@page.language_code}/testpage?query=test"
-        end
-
-      end
-
-      context "not multi_language" do
-
-        before do
-          helper.stub!(:multi_language?).and_return(false)
-        end
-
-        it "should return the correct relative path string" do
-          helper.show_alchemy_page_path(@page).should == "/testpage"
-        end
-
-        it "should return the correct relative path string with additional parameter" do
-          helper.show_alchemy_page_path(@page, {:query => 'test'}).should == "/testpage?query=test"
-        end
-
-      end
-
-    end
-
-    describe "#show_alchemy_page_url" do
-
-      context "when multi_language" do
-
-        before do
-          helper.stub!(:multi_language?).and_return(true)
-        end
-
-        it "should return the correct url string" do
-          helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/#{@page.language_code}/testpage"
-        end
-
-        it "should return the correct url string with additional parameters" do
-          helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/#{@page.language_code}/testpage?query=test"
-        end
-
-      end
-
-      context "not multi_language" do
-
-        before do
-          helper.stub!(:multi_language?).and_return(false)
-        end
-
-        it "should return the correct url string" do
-          helper.show_alchemy_page_url(@page).should == "http://#{helper.request.host}/testpage"
-        end
-
-        it "should return the correct url string with additional parameter" do
-          helper.show_alchemy_page_url(@page, {:query => 'test'}).should == "http://#{helper.request.host}/testpage?query=test"
-        end
-
-      end
-
-    end
-
-    describe 'picture path helpers' do
+    context 'picture path helpers' do
 
       let(:picture) { stub_model(Picture, :urlname => 'cute_kitten', :id => 42) }
 
@@ -168,6 +172,22 @@ module Alchemy
 
         end
 
+      end
+
+    end
+
+    context 'attachment path helpers' do
+
+      before do
+        @attachment = mock_model(Attachment, :urlname => 'test-attachment.pdf')
+      end
+
+      it 'should return the correct relative path to download an attachment' do
+        helper.download_alchemy_attachment_path(@attachment).should == "/attachment/#{@attachment.id}/download/#{@attachment.urlname}"
+      end
+
+      it 'should return the correct url to download an attachment' do
+        helper.download_alchemy_attachment_url(@attachment).should == "http://#{helper.request.host}/attachment/#{@attachment.id}/download/#{@attachment.urlname}"
       end
 
     end

@@ -14,7 +14,12 @@
     }
   ]
 ) %>
-<div id="archive_all">
+<div id="archive_all" class="with_tag_filter">
   <%= resources_header %>
   <%= render :partial => 'files_list' %>
+  <div id="library_sidebar">
+    <div id="tag_list">
+      <%= render :partial => 'tag_list' %>
+    </div>
+  </div>
 </div>

@@ -350,6 +350,7 @@ module Alchemy
     end
 
     describe "#elements_grouped_by_cells" do
+      let(:page) { FactoryGirl.create(:public_page, :do_not_autogenerate => false) }
 
       before do
         PageLayout.stub(:get).and_return({
@@ -362,16 +363,16 @@ module Alchemy
           'name' => "header",
           'elements' => ["header"]
         }])
-        @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
       end
 
       it "should return elements grouped by cell" do
-        @page.elements_grouped_by_cells.keys.first.should be_instance_of(Cell)
-        @page.elements_grouped_by_cells.values.first.first.should be_instance_of(Element)
+        elements = page.elements_grouped_by_cells
+        elements.keys.first.should be_instance_of(Cell)
+        elements.values.first.first.should be_instance_of(Element)
       end
 
       it "should only include elements beeing in a cell " do
-        @page.elements_grouped_by_cells.keys.should_not include(nil)
+        page.elements_grouped_by_cells.keys.should_not include(nil)
       end
 
     end
