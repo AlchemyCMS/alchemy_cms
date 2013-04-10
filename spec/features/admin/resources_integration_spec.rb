@@ -56,7 +56,7 @@ describe "Resources" do
 
       it "lists the new item" do
         page.should have_content "My second event"
-        page.should have_content "2012-03-03"
+        page.should have_content "03 Mar 2012"
       end
 
       it "shows a success message" do
