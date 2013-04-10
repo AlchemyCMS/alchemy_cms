@@ -16,16 +16,18 @@ module Alchemy
 
       context "in a multilangual environment" do
 
-        before { klingonian_root }
+        before do
+          klingonian_root
+          Capybara.default_wait_time = 3 # Raising this helps this test to pass, even on travis-ci
+        end
 
         it "one should be able to switch the language tree" do
           visit('/admin/pages')
           page.select 'Klingonian', :from => 'language'
           page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
-          # If this test fails on travis then use this to grap a screenshot
-          #page.save_screenshot(Rails.root.join('tmp/language_tree_switching.png').to_s)
-          # and upload it to s3 like described here http://about.travis-ci.org/blog/2012-12-18-travis-artifacts/
         end
+
+        after { Capybara.default_wait_time = 2 } # Reset to default
 
       end
 
