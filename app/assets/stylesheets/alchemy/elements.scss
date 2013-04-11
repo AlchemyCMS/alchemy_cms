@@ -615,7 +615,7 @@ div.content_editor {
     margin-right: 4px;
     vertical-align: top;
 
-    input.thin_border {
+    .thin_border {
       width: 170px;
     }
   }
@@ -681,6 +681,10 @@ div.content_editor {
       width: 100% !important;
       height: 100%;
     }
+
+    &.display_inline .selectboxit-container {
+      width: 170px;
+    }
   }
 
   &:hover label a.icon_button.small {
@@ -733,7 +737,6 @@ div.content_editor {
     float: none;
     height: auto;
     @include inline-block;
-    margin: 8px 0;
   }
 }
 
