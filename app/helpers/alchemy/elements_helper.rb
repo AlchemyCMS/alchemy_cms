@@ -11,9 +11,9 @@ module Alchemy
     #
     #   :only => []                          # A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
     #   :except => []                        # A list of element names to be rendered. The opposite of the only option.
-    #   :from_page                           # The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
-    #   :from_cell                           # The Cell object from which the elements are rendered from.
-    #   :count                               # The amount of elements to be rendered (begins with first element found)
+    #   :from_page => @page                  # The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
+    #   :from_cell => nil                    # The Cell object from which the elements are rendered from.
+    #   :count => nil                        # The amount of elements to be rendered (begins with first element found)
     #   :fallback => {                       # You can use the fallback option as an override. So you can take elements from a glo´bal laout page and only if the user adds an element on current page the local one gets rendered.
     #     :for => 'ELEMENT_NAME',            # The name of the element the fallback is for
     #     :with => 'ELEMENT_NAME',           # (OPTIONAL) the name of element to fallback with
@@ -30,7 +30,7 @@ module Alchemy
       default_options = {
         :except => [],
         :only => [],
-        :from_page => "",
+        :from_page => @page,
         :from_cell => nil,
         :count => nil,
         :offset => nil,
@@ -39,14 +39,10 @@ module Alchemy
         :fallback => nil
       }
       options = default_options.merge(options)
-      if options[:from_page].blank?
-        page = @page
+      if options[:from_page].class == Page
+        page = options[:from_page]
       else
-        if options[:from_page].class == Page
-          page = options[:from_page]
-        else
-          page = Page.where(:page_layout => options[:from_page]).with_language(session[:language_id]).all
-        end
+        page = Page.where(:page_layout => options[:from_page]).with_language(session[:language_id]).all
       end
       if page.blank?
         warning('Page is nil')

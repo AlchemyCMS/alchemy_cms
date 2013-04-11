@@ -164,15 +164,7 @@ module Alchemy
         :reverse => false,
         :reverse_children => false
       }.merge(options)
-      if options[:from_page].is_a?(String)
-        page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
-      else
-        page = options[:from_page]
-      end
-      if page.blank?
-        warning("No Page found for #{options[:from_page]}")
-        return ""
-      end
+      page = page_or_find(options[:from_page])
       pages = page.children.visible.with_permissions_to(:show, :context => :alchemy_pages)
       pages = pages.restricted if options.delete(:restricted_only)
       if depth = options[:deepness]

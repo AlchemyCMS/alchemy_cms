@@ -101,5 +101,20 @@ module Alchemy
       render('alchemy/admin/partials/flash', flash_type: style, message: notice)
     end
 
+    # Checks if the given argument is a String or a Page object.
+    # If a String is given, it tries to find the page via page_layout
+    # Logs a warning if no page is given.
+    def page_or_find(page)
+      if page.is_a?(String)
+        page = Page.where(page_layout: page, language_id: session[:language_id]).first
+      end
+      if page.blank?
+        warning("No Page found for #{page.inspect}")
+        return
+      else
+        page
+      end
+    end
+
   end
 end
