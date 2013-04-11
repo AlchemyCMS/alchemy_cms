@@ -203,38 +203,22 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
+        before { Authorization.current_user = FactoryGirl.build(:registered_user) }
+
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
           helper.render_breadcrumb(page: page, restricted_only: true).strip.should match(/^(<span(.[^>]+)>)A restricted Public Page/)
         end
       end
 
-      context "with options[:visible_only] set to true" do
-        it "should render a breadcrumb of visible pages only." do
-          page.update_attributes!(visible: false, urlname: 'a-invisible-public-page', name: 'A invisible Public Page', title: 'A invisible Public Page')
-          helper.render_breadcrumb(page: page, visible_only: true).should_not match(/A invisible Public Page/)
-        end
+      it "should render a breadcrumb of visible pages only." do
+        page.update_attributes!(visible: false, urlname: 'a-invisible-public-page', name: 'A invisible Public Page', title: 'A invisible Public Page')
+        helper.render_breadcrumb(page: page, visible_only: true).should_not match(/A invisible Public Page/)
       end
 
-      context "with options[:visible_only] set to false" do
-        it "should render a breadcrumb of visible and invisible pages." do
-          page.update_attributes!(visible: false, urlname: 'a-invisible-public-page', name: 'A invisible Public Page', title: 'A invisible Public Page')
-          helper.render_breadcrumb(page: page, visible_only: false).should match(/A invisible Public Page/)
-        end
-      end
-
-      context "with options[:public_only] set to true" do
-        it "should render a breadcrumb of published pages only" do
-          page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
-          helper.render_breadcrumb(page: page, public_only: true).should_not match(/A Unpublic Page/)
-        end
-      end
-
-      context "with options[:public_only] set to false" do
-        it "should render a breadcrumb of published and unpublished pages." do
-          page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
-          helper.render_breadcrumb(page: page, public_only: false).should match(/A Unpublic Page/)
-        end
+      it "should render a breadcrumb of published pages only" do
+        page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        helper.render_breadcrumb(page: page, public_only: true).should_not match(/A Unpublic Page/)
       end
 
       context "with options[:without]" do
