@@ -66,6 +66,14 @@
       background-position: 0 -21px;
     }
   }
+
+  .js_filter_field_box {
+    margin-right: 2*$default-margin;
+
+    label {
+      margin: 0;
+    }
+  }
 }
 
 div#toolbar_buttons {

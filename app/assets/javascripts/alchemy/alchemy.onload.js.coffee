@@ -17,7 +17,6 @@ $ ->
     .not('*[data-alchemy-confirm], #subnav_additions .subnavi_tab button')
     .click ->
       Alchemy.pleaseWaitOverlay()
-      return
 
   # Hack for enabling tab focus for <a>'s styled as button.
   $('a.button').attr({tabindex: 0})
@@ -27,7 +26,6 @@ $ ->
     url = Alchemy.current_url
     delimiter = if url.match(/\?/) then '&' else '?'
     window.location = url + delimiter + 'locale=' + $(this).val()
-    return
 
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content img')
@@ -35,4 +33,12 @@ $ ->
   # Observes overlay links
   Alchemy.overlayObserver()
 
-  return
+  # Binds keyboard shortcuts to searchfields
+  keymage 'alt-f',
+    ->
+      $('#search_field, #search_input_field').focus()
+      keymage.setScope('search')
+    ,
+    preventDefault: true
+  keymage 'search', 'esc',
+    -> $('#search_field, #search_input_field').val('')

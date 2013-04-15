@@ -1,7 +1,7 @@
-<%- content_for(:subnav_additions) do -%>
-<%- unless @locked_pages.blank? -%>
+<% content_for(:subnav_additions) do %>
+<% unless @locked_pages.blank? %>
 <label><%= _t('Active Pages') %> &raquo;</label>
-<%- @locked_pages.each do |page| -%>
+<% @locked_pages.each do |page| %>
 <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
   <%= link_to alchemy.edit_admin_page_path(page) do %>
   <span class="page_name" title="<%= page.name %>">
@@ -14,14 +14,14 @@
     </button>
   <% end %>
 </div>
-<%- end -%>
-<%- end -%>
-<%- end -%>
+<% end %>
+<% end %>
+<% end %>
 
-<%- content_for :toolbar do -%>
+<% content_for :toolbar do %>
 <div id="toolbar_buttons">
   <%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
-  <%- permitted_to?(:flush, :alchemy_admin_pages) do -%>
+  <% permitted_to?(:flush, :alchemy_admin_pages) do %>
   <div class="button_with_label">
     <%= link_to(
       render_icon('flush'),
@@ -30,11 +30,11 @@
       :method => :post,
       :class => 'icon_button please_wait',
       :title => _t('Flush page cache')
-    ) -%>
+    ) %>
     <label><%= _t('Flush page cache') %></label>
   </div>
-  <%- end -%>
-  <%- permitted_to?(:sort, :alchemy_admin_pages) do -%>
+  <% end %>
+  <% permitted_to?(:sort, :alchemy_admin_pages) do %>
   <div class="button_with_label" id="page_sorting_button">
     <%= link_to(
       render_icon('sort'),
@@ -44,10 +44,10 @@
       :remote => true,
       :class => 'icon_button please_wait',
       :title => _t('Sort pages')
-    ) -%>
+    ) %>
     <label><%= _t('Sort pages') %></label>
   </div>
-  <%- end -%>
+  <% end %>
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_overlay_window(
       render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
@@ -58,14 +58,22 @@
       },
       :class => 'icon_button',
       :title => _t('Show clipboard')
-    ) -%>
+    ) %>
     <label><%= _t('Show clipboard') %></label>
   </div>
 </div>
-<%- end -%>
+<div class="js_filter_field_box">
+  <input name="filter" id="search_field" class="thin_border js_filter_field">
+  <%= render_icon :search %>
+  <%= link_to('', '#', {
+    class: "js_filter_field_clear",
+    title: _t("click_to_show_all")
+  }) %>
+</div>
+<% end %>
 
 <div id="archive_all">
-<%- if @page_root -%>
+<% if @page_root %>
 
   <div id="sort_panel" style="display: none">
     <div class="info">
@@ -78,6 +86,8 @@
     </div>
   </div>
 
+  <h1 id="page_filter_result"></h1>
+
   <h2 id="sitemap_heading">
     <span class="page_name"><%= _t('Name') %></span>
     <span class="page_infos"><%= _t('Status') %></span>
@@ -85,7 +95,7 @@
 
   <%= render :partial => 'sitemap' %>
 
-<%- else -%>
+<% else %>
 
   <%= render :partial => 'create_language_form' %>
   <% content_for(:javascripts) do %>
@@ -96,7 +106,7 @@
       }});
     });
   </script>
-  <%- end -%>
+  <% end %>
 
-<% end -%>
+<% end %>
 </div>

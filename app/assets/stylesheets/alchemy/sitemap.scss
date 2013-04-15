@@ -24,6 +24,7 @@ div#sort_panel {
   display: block;
   padding-left: 4px;
   text-decoration: none;
+  @include transition(background-color, 400ms);
 
   &.inactive {
     color: #656565;
@@ -32,19 +33,19 @@ div#sort_panel {
   &.odd {
     background-color: #fff;
   }
-}
 
-a.sitemap_pagename_link:hover {
-  text-decoration: underline;
+  :hover {
+    text-decoration: underline;
 
-  &:after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    float: left;
-    margin-right: 4px;
-    background: url('icons.png') -160px -168px;
-    margin-top: 4px;
+    &:after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      float: left;
+      margin-right: 4px;
+      background: url('icons.png') -160px -168px;
+      margin-top: 4px;
+    }
   }
 }
 
@@ -63,11 +64,11 @@ a.sitemap_pagename_link:hover {
   overflow: hidden;
 }
 
-div#page_selector_container a.sitemap_pagename_link:hover {
+#page_selector_container .sitemap_pagename_link:hover {
   text-decoration: none;
 }
 
-div#page_selector_container a.sitemap_pagename_link:hover:after {
+#page_selector_container .sitemap_pagename_link:hover:after {
   display: none;
 }
 
@@ -77,19 +78,27 @@ div#page_selector_container a.sitemap_pagename_link:hover:after {
   height: 28px;
 }
 
-ul#layoutpages li {
+#layoutpages li {
   padding: 0;
 }
 
-div.sitemap_page {
+.sitemap_page {
   height: 22px;
   padding-bottom: 4px;
   padding-top: 4px;
   position: relative;
-}
 
-div.sitemap_page:hover a.sitemap_pagename_link {
-  background-color: #fdffdf;
+  &.highlight .sitemap_pagename_link {
+    background-color: #FFFBA5;
+  }
+
+  &.no-match .sitemap_pagename_link {
+    color: $medium-gray;
+  }
+
+  &:hover .sitemap_pagename_link {
+    background-color: #fdffdf;
+  }
 }
 
 div.sitemap_left_images {
@@ -353,4 +362,9 @@ h2#sitemap_heading {
 
 select#language_tree_select {
   margin: 0;
+}
+
+#page_filter_result {
+  display: none;
+  padding-left: 4*$default-padding;
 }

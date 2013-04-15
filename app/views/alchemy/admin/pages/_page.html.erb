@@ -1,5 +1,5 @@
-<li id="page_<%= page.id %>" class="<%= "page_level_#{page.level} #{page.page_layout}" %>">
-  <div class="sitemap_page<%= page.locked ? ' locked' : '' %>">
+<li id="page_<%= page.id %>" class="page_level_<%= "#{page.level} #{page.page_layout}" %>">
+  <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name.downcase %>">
     <div class="sitemap_left_images">
       <%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
       <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>">

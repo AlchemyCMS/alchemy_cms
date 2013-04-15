@@ -65,12 +65,13 @@ $.extend Alchemy,
   # Pass a jQuery selector to define the filterable items.
   ListFilter: (selector) ->
     text = $("#search_field").val().toLowerCase()
-    $boxes = $(selector)
-    $boxes.map ->
+    $(selector).map ->
       $this = $(this)
-      $this.css display: (if $this.attr("name").toLowerCase().indexOf(text) isnt -1 then "" else "none")
-      return
-    return
+      if $this.attr("name").toLowerCase().indexOf(text) != -1
+        display = ""
+      else
+        display = "none"
+      $this.css display: display
 
   # Shows spinner while loading images and
   # fades the image after its been loaded
