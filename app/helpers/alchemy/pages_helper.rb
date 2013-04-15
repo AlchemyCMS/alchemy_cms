@@ -164,15 +164,7 @@ module Alchemy
         :reverse => false,
         :reverse_children => false
       }.merge(options)
-      if options[:from_page].is_a?(String)
-        page = Page.find_by_page_layout_and_language_id(options[:from_page], session[:language_id])
-      else
-        page = options[:from_page]
-      end
-      if page.blank?
-        warning("No Page found for #{options[:from_page]}")
-        return ""
-      end
+      page = page_or_find(options[:from_page])
       pages = page.children.visible.with_permissions_to(:show, :context => :alchemy_pages)
       pages = pages.restricted if options.delete(:restricted_only)
       if depth = options[:deepness]
@@ -237,8 +229,6 @@ module Alchemy
     #   :seperator => %(<span class="seperator">></span>)      # Maybe you don't want this seperator. Pass another one.
     #   :page => @page                                         # Pass a different Page instead of the default (@page).
     #   :without => nil                                        # Pass Page object or array of Pages that must not be displayed.
-    #   :public_only => true                                   # Pass boolean for displaying published pages only.
-    #   :visible_only => true                                  # Pass boolean for displaying visible pages only.
     #   :restricted_only => false                              # Pass boolean for displaying restricted pages only.
     #   :reverse => false                                      # Pass boolean for displaying breadcrumb in reversed reversed.
     #
@@ -246,20 +236,12 @@ module Alchemy
       options = {
         :seperator => %(<span class="seperator">&gt;</span>),
         :page => @page,
-        :public_only => true,
-        :visible_only => true,
         :restricted_only => false,
         :reverse => false,
         :link_active_page => false
       }.merge(options)
-      pages = breadcrumb(options[:page])
-      if options[:restricted_only]
-        pages = pages.restricted
-      else
-        pages = pages.not_restricted
-      end
-      pages = pages.visible if options[:visible_only]
-      pages = pages.published if options[:public_only]
+      pages = breadcrumb(options[:page]).published.visible.with_permissions_to(:show, :context => :alchemy_pages)
+      pages = pages.restricted if options.delete(:restricted_only)
       pages.to_a.reverse! if options[:reverse]
       if options[:without].present?
         if options[:without].class == Array

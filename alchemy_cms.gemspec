@@ -54,9 +54,9 @@ POST_INSTALL
   s.add_runtime_dependency %q<tvdeyen-handles_sortable_columns>, ['~> 0.1.5']
 
   s.add_development_dependency %q<bumpy>
-  s.add_development_dependency %q<capybara>,               ['~> 2.0']
+  s.add_development_dependency %q<capybara>,               ['~> 2.0.3']
   s.add_development_dependency %q<factory_girl_rails>
-  s.add_development_dependency %q<rspec-rails>,            ['~> 2.13']
+  #s.add_development_dependency %q<rspec-rails>,            ['~> 2.13.0']
   s.add_development_dependency %q<sqlite3>
   s.add_development_dependency %q<yard>
   s.add_development_dependency %q<redcarpet>

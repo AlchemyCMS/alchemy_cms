@@ -395,6 +395,7 @@ de:
     delete_user: "Benutzer löschen"
     document: "Dokument"
     documents: "Dateien"
+    download_csv: "CSV runterladen"
     download_file: "%{filename} runterladen"
     do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
     drag_to_sort: "Mit der Maus halten und verschieben"

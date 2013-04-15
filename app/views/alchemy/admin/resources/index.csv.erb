@@ -1,0 +1,13 @@
+<% csv = CSV.generate(:col_sep => ";", :row_sep => "\r\n") do |row| %>
+  <% row << resource_handler.attributes.collect { |a| resource_handler.model.human_attribute_name(a[:name]) } %>
+  <% resources_instance_variable.each do |resource| %>
+    <% row << resource_handler.attributes.map { |a|
+      if a[:type] == :boolean
+        resource.send(a[:name]) ? 'x' : ''
+      else
+        render_attribute(resource, a).to_s.strip
+      end
+    } %>
+  <% end %>
+<% end %>
+<%= csv.html_safe %>

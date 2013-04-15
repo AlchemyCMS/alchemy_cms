@@ -6,7 +6,6 @@
     <%= attr_value.blank? ? '' : render_icon(attr_value) %>
   </td>
   <% elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal %>
-
   <td class="right"><%= render_attribute(resource, attribute) %></td>
   <% else %>
   <td>

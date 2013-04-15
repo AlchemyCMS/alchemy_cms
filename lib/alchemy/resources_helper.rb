@@ -74,6 +74,8 @@ module Alchemy
       if (relation = attribute[:relation]) && value.present?
         record = relation[:model_association].klass.find(value)
         record.send(relation[:attr_method])
+      elsif attribute[:type] == :datetime && value.present?
+        l(value)
       else
         value
       end
