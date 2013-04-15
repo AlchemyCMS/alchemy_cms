@@ -1,91 +1,95 @@
 <% content_for(:toolbar) do %>
   <div id="toolbar_buttons">
     <%= toolbar_button(
-      :icon => 'upload',
-      :label => _t('upload_image'),
-      :url => alchemy.new_admin_picture_path(:size => @size),
-      :overlay_options => {
-        :title => _t('upload_image'),
-        :size => '540x590'
+      icon: 'upload',
+      label: _t('upload_image'),
+      url: alchemy.new_admin_picture_path(size: @size),
+      hotkey: 'alt-n',
+      overlay_options: {
+        title: _t('upload_image'),
+        size: '540x590'
       },
-      :class => 'icon_button',
-      :title => _t('upload_image'),
-      :if_permitted_to => [:new, :alchemy_admin_pictures]
+      class: 'icon_button',
+      title: _t('upload_image'),
+      if_permitted_to: [:new, :alchemy_admin_pictures]
     ) %>
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
       <%= link_to(
         render_icon('zoom-out'),
         alchemy.admin_pictures_path({
-          :size => "small",
-          :query => params[:query]
+          size: "small",
+          query: params[:query]
         }),
-        :title => _t("small_thumbnails"),
-        :class => "icon_button please_wait"
+        title: _t("small_thumbnails"),
+        class: "icon_button please_wait"
       ) %>
       <%= link_to(
         render_icon('zoom-equal'),
         alchemy.admin_pictures_path({
-          :size => "medium",
-          :query => params[:query]
+          size: "medium",
+          query: params[:query]
         }),
-        :title => _t("medium_thumbnails"),
-        :class => "icon_button please_wait"
+        title: _t("medium_thumbnails"),
+        class: "icon_button please_wait"
       ) %>
       <%= link_to(
         render_icon('zoom-in'),
         alchemy.admin_pictures_path({
-          :size => "large",
-          :query => params[:query]
+          size: "large",
+          query: params[:query]
         }),
-        :title => _t("big_thumbnails"),
-        :class => "icon_button please_wait"
+        title: _t("big_thumbnails"),
+        class: "icon_button please_wait"
       ) %>
       <label><%= _t('Image size') %></label>
-      <%= hidden_field_tag('size', @size, :id => 'overlay_thumbnails_size') %>
+      <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
     </div>
 
     <% permitted_to?(:flush, :alchemy_admin_pictures) do %>
       <div class="toolbar_spacer"></div>
       <%= toolbar_button(
-        :icon => 'flush',
-        :url => alchemy.flush_admin_pictures_path,
-        :overlay => false,
-        :link_options => {
-          :remote => true,
-          :method => :post
+        icon: 'flush',
+        url: alchemy.flush_admin_pictures_path,
+        overlay: false,
+        link_options: {
+          remote: true,
+          method: :post
         },
-        :label => _t('Flush picture cache'),
-        :class => 'icon_button please_wait',
-        :title => _t('Flush picture cache'),
-        :skip_permission_check => true
+        label: _t('Flush picture cache'),
+        class: 'icon_button please_wait',
+        title: _t('Flush picture cache'),
+        skip_permission_check: true
       ) %>
     <% end %>
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
-      <%= link_to render_icon('select_all'), '', :id => 'select_all_pictures', :class => 'icon_button' %>
+      <%= link_to(
+        render_icon('select_all'),
+        '',
+        id: 'select_all_pictures',
+        class: 'icon_button',
+        'data-alchemy-hotkey' => 'alt-a'
+      ) %>
       <label><%= _t("Select all") %></label>
     </div>
   </div>
 
-  <%= render :partial => 'alchemy/admin/partials/search_form' %>
+  <%= render partial: 'alchemy/admin/partials/search_form' %>
 <% end %>
 
 <div id="picture_archive">
   <h1>
     <%= @pictures.total_count %>
-    <%= Alchemy::Picture.model_name.human(:count => @pictures.total_count) %>
+    <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
   </h1>
   <%= render 'archive' %>
 </div>
 
-<%- content_for :javascripts do -%>
+<% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
-
-    jQuery(document).ready(function($) {
-
+    $(function() {
       Alchemy.pictureSelector();
-
       $('#select_all_pictures').on('click', function(e) {
         $('.picture_tool.select :checkbox').prop('checked', true).change();
         e.preventDefault;
@@ -93,6 +97,5 @@
       });
 
     });
-
   </script>
-<%- end -%>
+<% end %>

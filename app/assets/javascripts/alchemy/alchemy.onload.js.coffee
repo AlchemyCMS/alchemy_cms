@@ -33,4 +33,4 @@ $ ->
   # Observes overlay links
   Alchemy.overlayObserver()
 
-  Alchemy.KeyboardShortcuts()
+  Alchemy.Hotkeys()

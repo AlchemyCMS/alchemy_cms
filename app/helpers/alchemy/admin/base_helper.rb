@@ -361,6 +361,7 @@ module Alchemy
       #   :label                  [String]              # Text for button label.
       #   :url                    [String]              # Url for link.
       #   :title                  [String]              # Text for title tag.
+      #   :hotkey                 [String]              # Keyboard shortcut for this button. I.E 'alt-n'
       #   :overlay                [Boolean]             # Pass true to open the link in a modal overlay window.
       #   :overlay_options        [Hash]                # Overlay options. See link_to_overlay_window helper.
       #   :if_permitted_to        [Array]               # Check permission for button. [:action, :controller]. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
@@ -386,11 +387,12 @@ module Alchemy
               options[:overlay_options],
               {
                 :class => 'icon_button',
-                :title => options[:title]
-              }
+                :title => options[:title],
+                'data-alchemy-hotkey' => options[:hotkey]
+              }.merge(options[:link_options])
             )
           else
-            link_to options[:url], {:class => "icon_button#{options[:loading_indicator] ? ' please_wait' : nil}", :title => options[:title]}.merge(options[:link_options]) do
+            link_to options[:url], {:class => ("icon_button#{options[:loading_indicator] ? ' please_wait' : nil}"), :title => options[:title], 'data-alchemy-hotkey' => options[:hotkey]}.merge(options[:link_options]) do
               render_icon(options[:icon])
             end
           end

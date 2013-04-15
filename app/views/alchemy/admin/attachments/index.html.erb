@@ -1,25 +1,26 @@
 <%= toolbar(
-  :buttons => [
+  buttons: [
     {
-      :icon => 'upload',
-      :url => alchemy.new_admin_attachment_path,
-      :overlay_options => {
-        :title => _t('upload_file'),
-        :size => '540x550'
+      icon: 'upload',
+      url: alchemy.new_admin_attachment_path,
+      hotkey: 'alt-n',
+      overlay_options: {
+        title: _t('upload_file'),
+        size: '540x550'
       },
-      :title => _t('upload_file'),
-      :class => 'icon_button',
-      :label => _t('upload_file'),
-      :if_permitted_to => [:new, :alchemy_admin_attachments]
+      title: _t('upload_file'),
+      class: 'icon_button',
+      label: _t('upload_file'),
+      if_permitted_to: [:new, :alchemy_admin_attachments]
     }
   ]
 ) %>
 <div id="archive_all" class="with_tag_filter">
   <%= resources_header %>
-  <%= render :partial => 'files_list' %>
+  <%= render partial: 'files_list' %>
   <div id="library_sidebar">
     <div id="tag_list">
-      <%= render :partial => 'tag_list' %>
+      <%= render partial: 'tag_list' %>
     </div>
   </div>
 </div>

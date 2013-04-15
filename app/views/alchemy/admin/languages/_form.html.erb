@@ -1,18 +1,20 @@
-<%= form_for [alchemy, :admin, @language], :remote => true, :html => {:style => 'width: 403px'} do |f| %>
+<%= form_for [alchemy, :admin, @language], remote: true, html: {style: 'width: 403px'} do |f| %>
   <div id="errors"></div>
   <table>
     <tr>
       <td class="label"><%= f.label :name %></td>
-      <td class="input"><%= f.text_field :name, :class => 'thin_border' -%></td>
+      <td class="input"><%= f.text_field :name, class: 'thin_border', autofocus: 'true' %></td>
     </tr>
     <tr>
       <td class="label"><%= f.label :language_code %></td>
-      <td class="input"><%= f.text_field :language_code, :class => 'thin_border', :placeholder => _t(:language_code_placeholder) -%></td>
+      <td class="input">
+        <%= f.text_field :language_code, class: 'thin_border', placeholder: _t(:language_code_placeholder) %>
+      </td>
     </tr>
     <tr>
       <td class="label"><%= f.label :country_code %>*</td>
       <td class="input">
-        <%= f.text_field :country_code, :class => 'thin_border', :placeholder => _t(:country_code_placeholder) -%>
+        <%= f.text_field :country_code, class: 'thin_border', placeholder: _t(:country_code_placeholder) %>
         <p class="foot_note">
           * <%= _t(:country_code_foot_note) %>
         </p>
@@ -20,29 +22,29 @@
     </tr>
     <tr>
       <td class="label"><%= f.label :frontpage_name %></td>
-      <td class="input"><%= f.text_field :frontpage_name, :class => 'thin_border' -%></td>
+      <td class="input"><%= f.text_field :frontpage_name, class: 'thin_border' %></td>
     </tr>
     <tr>
       <td class="label"><%= f.label :page_layout %></td>
-      <td class="input"><%= f.text_field :page_layout, :class => 'thin_border' -%></td>
+      <td class="input"><%= f.text_field :page_layout, class: 'thin_border' %></td>
     </tr>
     <tr>
       <td></td>
       <td class="checkbox">
-        <%= f.check_box :public -%>
+        <%= f.check_box :public %>
         <%= f.label :public %>
       </td>
     </tr>
     <tr>
       <td></td>
       <td class="checkbox">
-        <%= f.check_box :default -%>
-        <%= f.label :default -%>
+        <%= f.check_box :default %>
+        <%= f.label :default %>
       </td>
     </tr>
     <tr>
       <td class="submit" colspan="2">
-        <%= f.button _t('save'), :class => 'button' %>
+        <%= f.button _t('save'), class: 'button' %>
       </td>
     </tr>
   </table>

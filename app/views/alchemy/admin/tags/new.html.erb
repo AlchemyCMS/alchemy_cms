@@ -1,4 +1,4 @@
-<%= form_for [:admin, @tag], :as => :tag, :url => admin_tags_path, :html => {:id => 'new_tag'}, :remote => true do |form| %>
+<%= form_for [:admin, @tag], as: :tag, url: admin_tags_path, html: {id: 'new_tag'}, remote: true do |form| %>
   <div class="info">
     <%= render_icon('info') %>
     <%= _t(:tags_get_created_if_used_the_first_time) %>
@@ -7,10 +7,10 @@
   <table>
     <tr>
       <td class="label"><%= form.label :name %></td>
-      <td class="input"><%= form.text_field :name, :class => 'input_field' %></td>
+      <td class="input"><%= form.text_field :name, class: 'input_field', autofocus: true %></td>
     </tr>
     <tr>
-      <td colspan="2" class="submit"><%= form.button _t('save'), :name => nil, :class => 'button' %></td>
+      <td colspan="2" class="submit"><%= form.button _t('save'), name: nil, class: 'button' %></td>
     </tr>
   </table>
 <% end %>

@@ -26,9 +26,9 @@
 //= require alchemy/alchemy.element_editors
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
+//= require alchemy/alchemy.hotkeys
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.string_extension
-//= require alchemy/alchemy.keyboard_shortcuts
 //= require alchemy/alchemy.link_overlay
 //= require alchemy/alchemy.onload
 //= require alchemy/alchemy.page_sorter

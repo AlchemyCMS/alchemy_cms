@@ -1,22 +1,23 @@
-<%- label_title = _t("Create #{resource_name}", :default => _t('Create')) -%>
+<% label_title = _t("Create #{resource_name}", default: _t('Create')) %>
 
-<%- toolbar(
-  :buttons => [
+<% toolbar(
+  buttons: [
     {
-      :icon => 'create',
-      :label => label_title,
-      :url => new_resource_path,
-      :title => label_title,
-      :overlay_options => {
-        :title => label_title,
-        :size => "430x400"
+      icon: 'create',
+      label: label_title,
+      url: new_resource_path,
+      title: label_title,
+      hotkey: 'alt-n',
+      overlay_options: {
+        title: label_title,
+        size: "430x400"
       },
-      :if_permitted_to => [:new, resource_permission_scope]
+      if_permitted_to: [:new, resource_permission_scope]
     }
   ],
-  :search => true,
-  :search_url => resources_path
-) -%>
+  search: true,
+  search_url: resources_path
+) %>
 
 <div id="archive_all">
   <%= resources_header %>
