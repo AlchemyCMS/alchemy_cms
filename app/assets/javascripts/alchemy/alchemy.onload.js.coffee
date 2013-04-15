@@ -33,12 +33,4 @@ $ ->
   # Observes overlay links
   Alchemy.overlayObserver()
 
-  # Binds keyboard shortcuts to searchfields
-  keymage 'alt-f',
-    ->
-      $('#search_field, #search_input_field').focus()
-      keymage.setScope('search')
-    ,
-    preventDefault: true
-  keymage 'search', 'esc',
-    -> $('#search_field, #search_input_field').val('')
+  Alchemy.KeyboardShortcuts()
