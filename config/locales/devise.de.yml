@@ -29,6 +29,7 @@ de:
       updated: 'Ihr Passwort wurde geändert. Sie sind jetzt angemeldet.'
       updated_not_active: 'Ihr Passwort wurde geändert.'
       send_paranoid_instructions: "Falls Ihre E-Mail-Adresse in unserer Datenbank existiert erhalten Sie in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihr Passwort zurücksetzen können."
+      no_token: "Es wurde nicht alle benötigten Parameter übergeben. Bitte überprüfen Sie, ob die komplette URL aus der E-Mail benutzt wurde."
     confirmations:
       send_instructions: 'Sie erhalten in wenigen Minuten eine E-Mail, mit der Sie Ihre Registrierung bestätigen können.'
       send_paranoid_instructions: 'Falls Ihre E-Mail-Adresse in unserer Datenbank existiert erhalten Sie in wenigen Minuten eine E-Mail mit der die Sie Ihre Registrierung bestätigen können.'

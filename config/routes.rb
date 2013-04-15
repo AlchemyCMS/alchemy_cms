@@ -20,7 +20,7 @@ Alchemy::Engine.routes.draw do
     get '/admin/dashboard' => 'admin/dashboard#index', :as => :user_root
     get '/admin/leave' => 'user_sessions#leave', :as => :leave_admin
     get '/admin/passwords' => 'passwords#new', :as => :new_password
-    get '/admin/passwords/:id/edit' => 'passwords#edit', :as => :edit_password
+    get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit', :as => :edit_password
     post '/admin/passwords' => 'passwords#create', :as => :password
     put '/admin/passwords' => 'passwords#update', :as => :password
   end

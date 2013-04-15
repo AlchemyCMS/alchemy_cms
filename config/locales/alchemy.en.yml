@@ -120,12 +120,7 @@ en:
     mailer:
       # The mail the user gets after registering for alchemy
       new_user_mail:
-        subject: 'Your credentials for my site'
-        welcome: 'Welcome to my site'
-        login_url_explanation: 'To login just click this link'
-        username: 'Your username is'
-        password_notice: "(For security reasons we do not show your password here. If you forgot your password or this is your first login, please goto: %{url})"
-        greeting: 'Have a nice day'
+        subject: 'Your user credentials'
 
     # == Translated language names for translation select
     translations:

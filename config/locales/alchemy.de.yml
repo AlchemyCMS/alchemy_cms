@@ -134,12 +134,7 @@ de:
     mailer:
       # The mail the user gets after registering for alchemy
       new_user_mail:
-        subject: 'Ihre Zugangsdaten zu meiner Seite'
-        welcome: 'Willkommen auf meiner Seite'
-        login_url_explanation: 'Zum Anmelden klicken Sie bitte auf folgenden Link'
-        username: 'Ihr Benutzername lautet:'
-        password_notice: "(Aus Sicherheitsgründen stellen wir Ihr Passwort hier nicht da. Wenn Sie Ihr Passwort vergessen haben oder dies Ihr erster Login ist, gehen Sie bitte auf: %{url})"
-        greeting: 'Einen schönen Tag noch'
+        subject: 'Ihre Zugangsdaten'
 
     # == Translated language names for translation select
     translations:

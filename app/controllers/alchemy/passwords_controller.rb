@@ -1,12 +1,16 @@
 module Alchemy
   class PasswordsController < Devise::PasswordsController
+    include Alchemy::FerretSearch
+    helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
 
     before_filter { enforce_ssl if ssl_required? && !request.ssl? }
     before_filter :set_translation
 
-    layout 'alchemy/admin'
+    layout 'alchemy/login'
 
-    helper 'Alchemy::Admin::Base'
+    def new
+      build_resource(email: params[:email])
+    end
 
   private
 
@@ -17,6 +21,14 @@ module Alchemy
 
     def edit_password_url(resource, options={})
       alchemy.edit_password_url(options)
+    end
+
+    def after_sign_in_path_for(resource_or_scope)
+      if permitted_to?(:index, :alchemy_admin_dashboard)
+        alchemy.admin_dashboard_path
+      else
+        main_app.root_path
+      end
     end
 
   end
