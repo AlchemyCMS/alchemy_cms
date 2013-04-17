@@ -106,6 +106,9 @@ EOF
         if database_config['password']
           mysql_credentials << "--password='#{database_config['password']}'"
         end
+        if host = database_config['host'] && host != 'localhost'
+          mysql_credentials << "--host='#{host}'"
+        end
         system "#{sql_stream} | mysql #{mysql_credentials.join(' ')} #{database_config['database']}"
       end
 
