@@ -1,6 +1,7 @@
-div.pagination {
-  background: $light_gray;
+.pagination {
   @include box-sizing(border-box);
+  background: $light_gray;
+  color: $text-color;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -51,7 +52,7 @@ div.pagination {
     color: #c0c0c0;
   }
 
-  span.gap {
+  .gap {
     border: none;
     background: transparent;
     cursor: default;
