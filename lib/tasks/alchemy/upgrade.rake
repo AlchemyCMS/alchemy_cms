@@ -10,7 +10,17 @@ namespace :alchemy do
   namespace :upgrade do
     desc "List all available upgrade tasks."
     task :list => [:environment] do
-      Alchemy::Upgrader.list_tasks
+      puts "\nAvailable upgrade tasks"
+      puts "-----------------------\n"
+      methods = (Alchemy::Upgrader.private_methods - Object.private_methods - Alchemy::Upgrader.superclass.private_methods)
+      if methods.any?
+        methods.each { |method| puts method }
+        puts "\nUsage:"
+        puts "------"
+        puts "Run one or more tasks with `bundle exec rake alchemy:upgrade UPGRADE=task_name1,task_name2`\n"
+      else
+        puts "No upgrades available."
+      end
     end
   end
 
