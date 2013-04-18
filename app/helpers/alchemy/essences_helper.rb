@@ -146,7 +146,7 @@ module Alchemy
         caption = content_tag(:figcaption, content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption")
       end
       img_tag = image_tag(
-        show_alchemy_picture_url(content.essence.picture,
+        show_alchemy_picture_path(content.essence.picture,
           options.merge(
             :size => options.delete(:image_size),
             :crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
