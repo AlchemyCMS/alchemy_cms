@@ -21,3 +21,4 @@ spec/dummy/db/seeds.rb
 spec/dummy/config/locales/**/*
 /coverage/
 *.gem
+.ruby-version
