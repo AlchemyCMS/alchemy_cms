@@ -16,12 +16,11 @@
     <% end %>
     <ul class="search_result_list">
       <% @search_results.each do |search_result| %>
-        <% result = search_result.highlight(
-          "*#{params[:query]}*", {
-            :field => (search_result.class.name == "Alchemy::EssenceRichtext" ? :stripped_body : :body)
-          }
+        <%= render('alchemy/search/result',
+          result: search_result.highlight("*#{params[:query]}*"),
+          options: options,
+          page: search_result.page
         ) %>
-        <%= render 'alchemy/search/result', :result => result, :options => options, :page => search_result.page %>
       <% end %>
     </ul>
   <% end %>
