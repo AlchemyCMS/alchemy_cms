@@ -81,12 +81,12 @@ $.extend Alchemy,
       parent = image.parent()
       spinner = Alchemy.Spinner.small options
       spinner.spin parent[0]
-      image.load ->
+      image.on 'load', ->
         image.fadeIn 600
         spinner.stop()
-        return
-      return
-    return
+      image.on 'error', ->
+        spinner.stop()
+        image.parent().html('<span class="icon warn"/>')
 
   removePicture: (selector) ->
     $form_field = $(selector)
