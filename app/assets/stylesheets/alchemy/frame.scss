@@ -4,14 +4,14 @@
   top: 0;
   margin-left: 65px;
   padding-right: 65px;
-  z-index: 5;
+  z-index: 30;
   width: 100%;
   @extend .disable-user-select;
 }
 
 #left_menu {
   white-space: nowrap;
-  z-index: 2;
+  z-index: 20;
   height: 100%;
   position: fixed;
   top: 0;
