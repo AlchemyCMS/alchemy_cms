@@ -49,7 +49,7 @@
       <td class="select">
         <%= f.select(
           "css_class",
-          [[_t("Layout default"), ""], [_t("above"), "no_float"], [_t("left"), "left"], [_t("right"), "right"]],
+          [[_t("Layout default"), ""], [_t(:above), "no_float"], [_t(:left), "left"], [_t(:right), "right"]],
           {},
           {:class => 'alchemy_selectbox'}
         ) %>
@@ -78,7 +78,7 @@
     <tr>
       <td colspan="2" class="submit">
         <%= hidden_field_tag 'content_id', @content.id %>
-        <%= f.button _t("apply"), :class => 'button' %>
+        <%= f.button _t(:apply), :class => 'button' %>
       </td>
     </tr>
   </table>

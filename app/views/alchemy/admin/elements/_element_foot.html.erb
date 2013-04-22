@@ -15,7 +15,7 @@
       :remote => true,
       :method => :post,
       :class => "element_move_button",
-      :title => _t("cut_element")
+      :title => _t(:cut_element)
     ) %>
     <%= link_to(
       "",
@@ -23,14 +23,14 @@
       :remote => true,
       :method => :post,
       :class => "element_copy_button",
-      :title => _t("copy_element")
+      :title => _t(:copy_element)
     ) %>
   </span>
   <span class="element_public">
     <%= f.check_box :public, :id => "element_#{element.id}_public" -%>
-    <%= label_tag "element_#{element.id}_public", _t("visible") -%>
+    <%= label_tag "element_#{element.id}_public", _t(:visible) -%>
   </span>
   <button type="submit" class="button">
-    <%= _t('save') %>
+    <%= _t(:save) %>
   </button>
 </div>

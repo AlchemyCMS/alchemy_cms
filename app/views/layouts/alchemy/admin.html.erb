@@ -32,7 +32,7 @@
     </noscript>
     <div id="overlay">
       <div id="overlay_text_box">
-        <span id="overlay_text"><%= _t("please_wait") %></span>
+        <span id="overlay_text"><%= _t(:please_wait) %></span>
       </div>
     </div>
     <div id="left_menu">
@@ -43,7 +43,7 @@
       <div id="logout">
         <% if current_user %>
           <%= link_to_overlay_window(
-            "<span class='module icon exit'></span><label>#{_t('leave')}</label>".html_safe,
+            "<span class='module icon exit'></span><label>#{_t(:leave)}</label>".html_safe,
             alchemy.leave_admin_path, {
               :size => "300x105",
               :title => _t("Leave Alchemy")
@@ -51,7 +51,7 @@
         <% else %>
           <%= link_to(alchemy.root_path) do %>
             <span class="module icon exit"></span>
-            <label><%= _t('leave') %></label>
+            <label><%= _t(:leave) %></label>
           <% end %>
         <% end %>
       </div>

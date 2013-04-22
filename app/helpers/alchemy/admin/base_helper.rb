@@ -94,7 +94,7 @@ module Alchemy
         filter_field << link_to('', '#', {
           :onclick => "$('##{options[:id]}').val(''); #{options[:onkeyup]}",
           :class => "js_filter_field_clear",
-          :title => _t("click_to_show_all")
+          :title => _t(:click_to_show_all)
         })
         filter_field << %(<label for="#{options[:id]}">#{_t(:search)}</label>)
         filter_field << '</div>'
@@ -118,7 +118,7 @@ module Alchemy
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {
-              :title => _t("please_confirm"),
+              :title => _t(:please_confirm),
               :message => message,
               :ok_label => _t("Yes"),
               :cancel_label => _t("No")
@@ -146,9 +146,9 @@ module Alchemy
       #
       def button_with_confirm(value = "", url = "", options = {}, html_options = {})
         options = {
-          message: _t('confirm_to_proceed'),
+          message: _t(:confirm_to_proceed),
           ok_label: _t("Yes"),
-          title: _t("please_confirm"),
+          title: _t(:please_confirm),
           cancel_label: _t("No")
         }.merge(options)
         form_tag url, {method: html_options.delete(:method)} do
@@ -217,7 +217,7 @@ module Alchemy
           content = element.contents[content - 1]
         end
         if content.essence.nil?
-          return warning('Element', _t('content_essence_not_found'))
+          return warning('Element', _t(:content_essence_not_found))
         end
         select_options = options_for_select(select_options, content.essence.content)
         select_tag(

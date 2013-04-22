@@ -76,7 +76,7 @@ module Alchemy
         @picture_essence.link = params[:link]
         @picture_essence.link_title = params[:title]
         @picture_essence.open_link_in_new_window = params[:blank]
-        @notice = _t("saved_link")
+        @notice = _t(:saved_link)
         @picture_essence.save
       end
 

@@ -2,15 +2,15 @@
   <div id="toolbar_buttons">
     <%= toolbar_button(
       icon: 'upload',
-      label: _t('upload_image'),
+      label: _t(:upload_image),
       url: alchemy.new_admin_picture_path(size: @size),
       hotkey: 'alt-n',
       overlay_options: {
-        title: _t('upload_image'),
+        title: _t(:upload_image),
         size: '540x590'
       },
       class: 'icon_button',
-      title: _t('upload_image'),
+      title: _t(:upload_image),
       if_permitted_to: [:new, :alchemy_admin_pictures]
     ) %>
     <div class="toolbar_spacer"></div>
@@ -21,7 +21,7 @@
           size: "small",
           query: params[:query]
         }),
-        title: _t("small_thumbnails"),
+        title: _t(:small_thumbnails),
         class: "icon_button please_wait"
       ) %>
       <%= link_to(
@@ -30,7 +30,7 @@
           size: "medium",
           query: params[:query]
         }),
-        title: _t("medium_thumbnails"),
+        title: _t(:medium_thumbnails),
         class: "icon_button please_wait"
       ) %>
       <%= link_to(
@@ -39,7 +39,7 @@
           size: "large",
           query: params[:query]
         }),
-        title: _t("big_thumbnails"),
+        title: _t(:big_thumbnails),
         class: "icon_button please_wait"
       ) %>
       <label><%= _t('Image size') %></label>

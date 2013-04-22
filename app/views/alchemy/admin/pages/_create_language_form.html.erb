@@ -2,14 +2,14 @@
 <div id="create_language_tree_form" style="display: none">
   <div class="info">
     <%= render_icon('info') %>
-    <%= _t("language_does_not_exist") %>
+    <%= _t(:language_does_not_exist) %>
   </div>
 <%- if @language -%>
 
   <%- if @languages_with_page_tree.size >= 1 -%>
     <%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>
-      <h2><%= _t('copy_language_tree_heading') %></h2>
-      <p><%= _t("want_to_make_copy_of_existing_language") %></p>
+      <h2><%= _t(:copy_language_tree_heading) %></h2>
+      <p><%= _t(:want_to_make_copy_of_existing_language) %></p>
       <table>
         <tr>
           <td class="label"><%= label_tag('languages[old_lang_id]', _t('Language tree')) %></td>
@@ -21,7 +21,7 @@
         <tr>
           <td class="submit" colspan="2">
             <%= hidden_field_tag("layoutpage", params[:action] == "layoutpages") if params[:action] == "layoutpages" %>
-            <%= submit_tag _t("copy"), :class => 'button' %>
+            <%= submit_tag _t(:copy), :class => 'button' %>
           </td>
         </tr>
       </table>
@@ -31,8 +31,8 @@
   <%- if params[:action] == "index" -%>
 
   <%= form_for([:admin, Alchemy::Page.new], :remote => true) do |form| %>
-    <h2><%= _t('create_language_tree_heading') %></h2>
-    <p><%= _t("want_to_create_new_language") %></p>
+    <h2><%= _t(:create_language_tree_heading) %></h2>
+    <p><%= _t(:want_to_create_new_language) %></p>
     <%= form.hidden_field :name, :value => @language.frontpage_name %>
     <%= form.hidden_field :language_id, :value => @language.id %>
     <%= form.hidden_field :language_code, :value => @language.code %>

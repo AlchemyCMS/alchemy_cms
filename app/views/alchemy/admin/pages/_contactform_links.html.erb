@@ -12,7 +12,7 @@
     ) %>
     <tr>
       <td class="label">
-        <label for="contactform_subject" class="medium"><%= _t("subject") %></label>
+        <label for="contactform_subject" class="medium"><%= _t(:subject) %></label>
       </td>
       <td class="input">
         <%= text_field_tag "contactform_subject", {}, :class => "thin_border auto_resize" %>
@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td class="label">
-        <label for="contactform_mailto" class="medium"><%= _t("mail_to") %></label>
+        <label for="contactform_mailto" class="medium"><%= _t(:mail_to) %></label>
       </td>
       <td class="input">
         <%= select_tag(
@@ -33,7 +33,7 @@
     <tr>
       <td class="label">
         <label for="contactform_body" class="medium">
-          <%= _t("contactform_body") %>
+          <%= _t(:contactform_body) %>
         </label>
       </td>
       <td class="input">
@@ -43,7 +43,7 @@
     <tr>
       <td class="label">
         <label for="contactform_link_title" class="medium">
-          <%= _t("link_title") %>
+          <%= _t(:link_title) %>
         </label>
       </td>
       <td class="input">

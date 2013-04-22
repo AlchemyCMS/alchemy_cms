@@ -6,7 +6,7 @@
   <span class="picture_tool delete">
     <%= link_to_confirmation_window(
       "",
-      _t("confirm_to_delete_image_from_server"),
+      _t(:confirm_to_delete_image_from_server),
       alchemy.admin_picture_path(
         :id => picture,
         :query => params[:query],
@@ -69,7 +69,7 @@
     image_tag(
       alchemy.thumbnail_path(:id => picture, :size => @size, :sh => picture.security_token(:size => @size)),
       :alt => picture.name,
-      :title => _t('zoom_image')
+      :title => _t(:zoom_image)
     ),
     '#',
     :onclick => "Alchemy.zoomImage('#{admin_picture_path(:id => picture.id, :sh => picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240})",

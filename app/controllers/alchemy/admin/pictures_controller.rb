@@ -88,9 +88,9 @@ module Alchemy
         @picture = Picture.find(params[:id])
 
         if @picture.update_attributes(params[:picture])
-          flash[:notice] = _t('picture_updated_successfully', :name => @picture.name)
+          flash[:notice] = _t(:picture_updated_successfully, :name => @picture.name)
         else
-          flash[:error] = _t('picture_update_failed')
+          flash[:error] = _t(:picture_update_failed)
         end
         redirect_to_index
       end

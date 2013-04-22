@@ -9,7 +9,7 @@
   </span>
   <% end %>
   <%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-    <button class="icon_button small" title="<%= _t('explain_unlocking') %>">
+    <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
       <%= render_icon('close small') %>
     </button>
   <% end %>
@@ -67,7 +67,7 @@
   <%= render_icon :search %>
   <%= link_to('', '#', {
     class: "js_filter_field_clear",
-    title: _t("click_to_show_all")
+    title: _t(:click_to_show_all)
   }) %>
   <label><%= _t :search %></label>
 </div>
@@ -79,10 +79,10 @@
   <div id="sort_panel" style="display: none">
     <div class="info">
       <%= render_icon('info') %>
-      <%= _t('explain_sitemap_dragndrop_sorting') %>
+      <%= _t(:explain_sitemap_dragndrop_sorting) %>
     </div>
     <div class="buttons">
-      <%= link_to( _t('cancel'), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
+      <%= link_to( _t(:cancel), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
       <%= submit_tag( _t('save order'), :id => 'save_page_order', :class => 'button' ) %>
     </div>
   </div>

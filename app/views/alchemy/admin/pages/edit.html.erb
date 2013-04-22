@@ -13,7 +13,7 @@
     </span>
     <% end %>
     <%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-      <button class="icon_button small" title="<%= _t('explain_unlocking') %>">
+      <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
         <%= render_icon('close small') %>
       </button>
     <% end %>
@@ -26,10 +26,10 @@
 <div id="toolbar_buttons">
   <div class="button_with_label">
     <%= form_tag alchemy.unlock_admin_page_path(@page, :redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), :id => 'unlock_page_form' do %>
-      <button class="icon_button" title="<%= _t('explain_unlocking') %>">
+      <button class="icon_button" title="<%= _t(:explain_unlocking) %>">
         <%= render_icon('close') %>
       </button>
-      <label><%= _t("unlock_page") %></label>
+      <label><%= _t(:unlock_page) %></label>
     <% end %>
   </div>
   <% unless @page.layoutpage? %>
@@ -47,18 +47,18 @@
       render_icon('settings'),
       alchemy.configure_admin_page_path(@page),
       {
-        :title => _t('edit_page_properties'),
+        :title => _t(:edit_page_properties),
         :size => @page.layoutpage? ? '410x150' : '410x650'
       },
       :class => :icon_button,
-      :title => _t('edit_page_properties')
+      :title => _t(:edit_page_properties)
     ) %>
-    <label><%= _t('page_properties') %></label>
+    <label><%= _t(:page_properties) %></label>
   </div>
   <% if configuration(:cache_pages) && !@page.layoutpage? %>
   <div class="button_with_label">
     <%= form_tag alchemy.publish_admin_page_path(@page), :id => 'publish_page_form' do %>
-      <button class="icon_button" title="<%= _t('explain_publishing') %>">
+      <button class="icon_button" title="<%= _t(:explain_publishing) %>">
         <%= render_icon('publish') %>
       </button>
       <label><%= _t("Publish page") %></label>

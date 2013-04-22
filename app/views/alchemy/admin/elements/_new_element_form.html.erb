@@ -2,7 +2,7 @@
 <%- if @elements.blank? -%>
   <div class="info with_margin">
     <%= render_icon('info') %>
-    <%= _t('no_more_elements_to_add') %>
+    <%= _t(:no_more_elements_to_add) %>
   </div>
 <%- else -%>
   <%= form_for [:admin, @element], :remote => true, :class => "add_element_content" do |form| %>
@@ -10,13 +10,13 @@
     <table>
       <tr>
         <td class="label">
-          <%= form.label :name, _t("element_of_type") %>
+          <%= form.label :name, _t(:element_of_type) %>
         </td>
         <td class="select">
           <%= form.select(
             'name',
             @page.can_have_cells? ? grouped_elements_for_select(@elements) : elements_for_select(@elements),
-            { :prompt => _t('select_element') },
+            { :prompt => _t(:select_element) },
             { :class => "alchemy_selectbox", :autofocus => true }
           ) -%>
         </td>
@@ -24,7 +24,7 @@
       <tr>
         <td colspan="2" class="submit">
           <%= form.hidden_field 'page_id' %>
-          <%= form.button _t('add'), :class => 'button' %>
+          <%= form.button _t(:add), :class => 'button' %>
         </td>
       </tr>
     </table>

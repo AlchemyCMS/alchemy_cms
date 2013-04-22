@@ -35,7 +35,7 @@
   <% permitted_to?(:destroy, :alchemy_admin_attachments) do %>
     <%= link_to_confirmation_window(
       "",
-      _t("confirm_to_delete_file"),
+      _t(:confirm_to_delete_file),
       alchemy.admin_attachment_path(
         :id => attachment,
         :query => params[:query],
@@ -44,7 +44,7 @@
       ),
       {
         :class => 'icon file_delete',
-        :title => _t('delete_file')
+        :title => _t(:delete_file)
       }
     ) %>
   <% end %>
@@ -52,11 +52,11 @@
     <%= link_to_overlay_window("",
       alchemy.edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
       {
-        :title => _t('rename_file'),
+        :title => _t(:rename_file),
         :size => '380x220'
       },
       :class => 'icon file_edit',
-      :title => _t('rename_file')
+      :title => _t(:rename_file)
     ) %>
   <% end %>
   </td>

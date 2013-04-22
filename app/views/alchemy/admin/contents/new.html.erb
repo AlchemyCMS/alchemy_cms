@@ -3,10 +3,13 @@
   <%= f.hidden_field :element_id %>
   <table>
     <tr>
-      <td class="label"><%= f.label :name, _t('name') %></td>
+      <td class="label"><%= f.label :name %></td>
       <td class="select">
-        <%= f.select('name', @contents.map { |a|
-          [_t("content_names.#{a['name']}"), a['name']]
+        <%= f.select('name', @contents.map { |content|
+          [
+            _t(content['name'], scope: 'content_names', default: content['name'].humanize),
+            content['name']
+          ]
         }, {}, {:class => 'alchemy_selectbox'}) %>
       </td>
     </tr>

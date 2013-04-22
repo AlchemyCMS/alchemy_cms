@@ -22,7 +22,7 @@ module Alchemy
       #   * editor_options (Hash) - Will be passed to the render_essence_editor partial renderer
       #
       def render_essence_editor_by_type(element, essence_type, options = {}, editor_options = {})
-        return warning('Element is nil', _t("no_element_given")) if element.blank?
+        return warning('Element is nil', _t(:no_element_given)) if element.blank?
         return warning('EssenceType is blank', _t("No EssenceType given")) if essence_type.blank?
         defaults = {
           :position => 1,
@@ -68,7 +68,7 @@ module Alchemy
       #
       def render_essence_editor_by_name(element, name, options = {}, html_options = {})
         if element.blank?
-          return warning('Element is nil', _t("no_element_given"))
+          return warning('Element is nil', _t(:no_element_given))
         end
         content = element.content_by_name(name)
         if content.nil?
@@ -141,7 +141,7 @@ module Alchemy
           }.merge(image_options)),
           :alt => content.ingredient.name,
           :class => 'img_paddingtop',
-          :title => _t("image_name") + ": #{content.ingredient.name}"
+          :title => _t(:image_name) + ": #{content.ingredient.name}"
         )
       end
 

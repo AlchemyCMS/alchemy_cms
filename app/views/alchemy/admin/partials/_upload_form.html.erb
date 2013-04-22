@@ -16,8 +16,8 @@
 <%= render 'alchemy/admin/partials/flash_upload' %>
 
 <div class="browse">
-  <%= label_tag :multiple, _t('browse'), :style => 'display:none;' %>
-  <input name="Filedata" id="multiple" type="file" multiple value="<%= _t('browse') %>">
+  <%= label_tag :multiple, _t(:browse), :style => 'display:none;' %>
+  <input name="Filedata" id="multiple" type="file" multiple value="<%= _t(:browse) %>">
   <a href="#" class="button no-spinner" id="cancelHTML5Queue" style="display: none">
     <%= _t("swfupload.cancel_uploads") %>
   </a>

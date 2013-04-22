@@ -1,5 +1,5 @@
 <div id="overlay_tab_external_link">
-  <h2><%= _t("enter_external_link") %></h2>
+  <h2><%= _t(:enter_external_link) %></h2>
   <%= render_message do %>
     <p><%= _t(:external_link_notice_1) %></p>
     <p><%= _t(:external_link_notice_2) %></p>
@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td class="label long">
-        <label for="extern_link_title"><%= _t("link_title") %></label>
+        <label for="extern_link_title"><%= _t(:link_title) %></label>
       </td>
       <td class="input"><%= text_field_tag "extern_link_title", '', :class => 'thin_border auto_resize link_title' %></td>
     </tr>

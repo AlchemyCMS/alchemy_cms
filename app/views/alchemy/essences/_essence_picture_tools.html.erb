@@ -24,17 +24,17 @@
     :options => options
   ),
   {
-    :title => (content.ingredient ? _t('swap_image') : _t('insert_image')),
+    :title => (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
     :size => '780x580',
     :resizable => "true"
   },
-  :title => (content.ingredient ? _t('swap_image') : _t('insert_image'))
+  :title => (content.ingredient ? _t(:swap_image) : _t(:insert_image))
 ) %>
 
 <%= link_to(render_icon(:link), '#', {
   :onclick => "Alchemy.LinkOverlay.open(this, 420)",
   :class => content.linked? ? 'linked' : nil,
-  :title => _t('link_image'),
+  :title => _t(:link_image),
   :data => {'content-id' => content.id},
   :id => "edit_link_#{content.id}"
 }) %>
@@ -42,7 +42,7 @@
 <%= link_to(render_icon('unlink'), '#', {
   :onclick => "Alchemy.LinkOverlay.removeLink(this, #{content.id})",
   :class => content.linked? ? 'linked' : 'disabled',
-  :title => _t('unlink')
+  :title => _t(:unlink)
 }) %>
 
 <%= link_to_overlay_window(
@@ -53,8 +53,8 @@
     :options => options
   ),
   {
-    :title => _t('edit_image_properties'),
+    :title => _t(:edit_image_properties),
     :size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '380x230' : '380x210') : (options[:manual_image_size] ? '380x190' : '380x180'))
   },
-  :title => _t('edit_image_properties')
+  :title => _t(:edit_image_properties)
 ) %>

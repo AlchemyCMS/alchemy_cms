@@ -81,7 +81,7 @@ module Alchemy
       def edit
         # fetching page via before filter
         if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
-          flash[:notice] = _t("This page is locked by %{name}", :name => (@page.locker.name rescue _t('unknown')))
+          flash[:notice] = _t("This page is locked by %{name}", :name => (@page.locker.name rescue _t(:unknown)))
           redirect_to admin_pages_path
         else
           @page.lock(current_user)
@@ -162,7 +162,7 @@ module Alchemy
       def unlock
         # fetching page via before filter
         @page.unlock
-        flash[:notice] = _t("unlocked_page", :name => @page.name)
+        flash[:notice] = _t(:unlocked_page, :name => @page.name)
         @pages_locked_by_user = Page.from_current_site.all_locked_by(current_user)
         respond_to do |format|
           format.js
@@ -181,7 +181,7 @@ module Alchemy
       def publish
         # fetching page via before filter
         @page.publish!
-        flash[:notice] = _t("page_published", :name => @page.name)
+        flash[:notice] = _t(:page_published, :name => @page.name)
         redirect_back_or_to_default(admin_pages_path)
       end
 
@@ -199,7 +199,7 @@ module Alchemy
         )
         new_language_root.move_to_child_of Page.root
         original_language_root.copy_children_to(new_language_root)
-        flash[:notice] = _t('language_pages_copied')
+        flash[:notice] = _t(:language_pages_copied)
         redirect_to params[:layoutpage] == "true" ? admin_layoutpages_path : :action => :index
       end
 

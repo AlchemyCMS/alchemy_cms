@@ -7,7 +7,7 @@ $('.element_heading .preview_text_quote', $el).html('<%= escape_javascript(@elem
 $('div.content_editor').removeClass('validation_failed');
 $("#element_<%= @element.id %>_errors").hide();
 Alchemy.setElementSaved($el);
-Alchemy.growl('<%= _t("element_saved") %>');
+Alchemy.growl('<%= _t(:element_saved) %>');
 Alchemy.PreviewWindow.refresh();
 
 <%=raw update_elements_with_essence_selects(@page, @element) %>

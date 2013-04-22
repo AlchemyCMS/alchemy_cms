@@ -4,9 +4,9 @@
       <%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
       <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>">
         <div class="tooltip">
-          <h3><%= _t("page_type") %>:</h3>
+          <h3><%= _t(:page_type) %>:</h3>
           <p><%= page.layout_display_name %></p>
-          <h3><%= _t("page_status") %>:</h3>
+          <h3><%= _t(:page_status) %>:</h3>
           <p><%= combined_page_status(page) %></p>
           <h3><%= _t(:created_at) %>:</h3>
           <p><%= l(page.created_at) %></p>
@@ -17,7 +17,7 @@
           <h3><%= _t(:updated_by) %>:</h3>
           <p><%= page.updater %></p>
           <%- if page.locked? -%>
-          <h3><%= _t("currently_edited_by") %>:</h3>
+          <h3><%= _t(:currently_edited_by) %>:</h3>
           <p><%= page.current_editor %></p>
           <%- end -%>
         </div>
@@ -30,11 +30,11 @@
         render_icon('configure_page'),
         alchemy.configure_admin_page_path(page),
         {
-          :title => _t('edit_page_properties'),
+          :title => _t(:edit_page_properties),
           :size => page.redirects_to_external? ? '410x270' : '410x655'
         },
         :class => '',
-        :title => _t('edit_page_properties')
+        :title => _t(:edit_page_properties)
       ) -%>
       <%- end -%>
       <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
@@ -49,13 +49,13 @@
           :remote => true,
           :method => :post,
           :class => "",
-          :title => _t("copy_page")
+          :title => _t(:copy_page)
         ) %>
         <%- end -%>
         <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
         <%= link_to_confirmation_window(
           render_icon('delete_page'),
-          _t("confirm_to_delete_page"),
+          _t(:confirm_to_delete_page),
           url_for(
             :controller => 'pages',
             :action => 'destroy',
@@ -63,7 +63,7 @@
           ),
           {
             :class => "",
-            :title => _t("delete_page")
+            :title => _t(:delete_page)
           }
         ) -%>
         <%- end -%>
@@ -72,12 +72,12 @@
           render_icon('add_page'),
           alchemy.new_admin_page_path(:parent_id => page.id),
           {
-            :title => _t('create_page'),
+            :title => _t(:create_page),
             :size => '340x150',
             :overflow => true
           },
           :class => '',
-          :title => _t('create_page')
+          :title => _t(:create_page)
         ) -%>
         <%- end -%>
       </span>
@@ -100,7 +100,7 @@
         @sorting,
         page.name,
         alchemy.edit_admin_page_path(page),
-        :title => _t("edit_page"),
+        :title => _t(:edit_page),
         :class => "sitemap_pagename_link #{cycle_class}"
       ) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
     <%- end -%>

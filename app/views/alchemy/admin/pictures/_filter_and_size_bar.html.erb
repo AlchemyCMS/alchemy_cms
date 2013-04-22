@@ -11,7 +11,7 @@
         :options => @options
       }),
       :remote => true,
-      :title => _t("small_thumbnails"),
+      :title => _t(:small_thumbnails),
       :class => "icon_button"
     ) %>
     <%= link_to(
@@ -25,7 +25,7 @@
         :options => @options
       }),
       :remote => true,
-      :title => _t("medium_thumbnails"),
+      :title => _t(:medium_thumbnails),
       :class => "icon_button"
     ) %>
     <%= link_to(
@@ -39,7 +39,7 @@
         :options => @options
       }),
       :remote => true,
-      :title => _t("big_thumbnails"),
+      :title => _t(:big_thumbnails),
       :class => "icon_button"
     ) %>
     <label><%= _t('Image size') %></label>
@@ -59,14 +59,14 @@
       ),
       {
         :size => "540x550",
-        :title => _t('upload_image')
+        :title => _t(:upload_image)
       },
       {
         :class => 'icon_button',
-        :title => _t('upload_image')
+        :title => _t(:upload_image)
       }
     ) %>
-    <label><%= _t('upload_image') %></label>
+    <label><%= _t(:upload_image) %></label>
   </div>
   <%= render :partial => 'alchemy/admin/partials/remote_search_form' %>
 </div>

@@ -5,9 +5,9 @@
   <%= select_tag(
     'picture_filter',
     options_for_select([
-      [_t("all_pictures"), ''],
-      [_t("last_upload_only"), 'last_upload'],
-      [_t("recently_uploaded_only"), 'recent']
+      [_t(:all_pictures), ''],
+      [_t(:last_upload_only), 'last_upload'],
+      [_t(:recently_uploaded_only), 'recent']
     ], params[:filter]),
     :data => { :remote => !!request.xhr? },
     :class => 'alchemy_selectbox'
