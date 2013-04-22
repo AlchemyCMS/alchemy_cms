@@ -402,9 +402,10 @@ module Alchemy
       self.ingredient(name).present?
     end
 
-    def save_contents(params)
+    def save_contents(contents_attributes)
+      return true if contents_attributes.nil?
       contents.each do |content|
-        unless content.update_essence(params[:contents]["content_#{content.id}"])
+        unless content.update_essence(contents_attributes["content_#{content.id}"])
           errors.add(:base, :essence_validation_failed)
         end
       end

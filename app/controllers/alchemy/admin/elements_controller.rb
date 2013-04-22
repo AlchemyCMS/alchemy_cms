@@ -65,7 +65,7 @@ module Alchemy
       # And then updates the element itself.
       def update
         @element = Element.find_by_id(params[:id])
-        if @element.save_contents(params)
+        if @element.save_contents(params[:contents])
           @page = @element.page
           @element_validated = @element.update_attributes!(params[:element])
         else

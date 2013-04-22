@@ -422,5 +422,12 @@ module Alchemy
 
     end
 
+    describe '#save_contents', focus: true do
+      it "should return true if attributes hash is nil" do
+        element = FactoryGirl.create(:element, create_contents_after_create: true)
+        element.save_contents(nil).should be_true
+      end
+    end
+
   end
 end
