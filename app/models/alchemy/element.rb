@@ -326,14 +326,15 @@ module Alchemy
     # Translate the name in your config/locales language file. Example:
     #
     #   de:
-    #     element_names:
-    #       contactform: 'Kontakt Formular'
+    #     alchemy:
+    #       element_names:
+    #         contactform: 'Kontakt Formular'
     #
-    # If no translation is found the capitalized name is used!
+    # If no translation is found a humanized name is used.
     #
     def display_name
-      return name.capitalize if description.blank?
-      I18n.t(description['name'], :scope => :element_names)
+      return name.humanize if description.blank?
+      I18n.t(description['name'], scope: 'element_names', default: description['name'].to_s.humanize)
     end
 
     # Gets the preview text from the first Content found in the +elements.yml+ Element description file.

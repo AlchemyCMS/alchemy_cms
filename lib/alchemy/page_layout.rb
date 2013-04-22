@@ -54,13 +54,15 @@ module Alchemy
 
       # Returns page layouts ready for Rails' select form helper.
       def layouts_for_select(language_id, layoutpage = false)
-        map_layouts(selectable_layouts(language_id, layoutpage), [[I18n.t("Please choose"), ""]])
+        map_layouts(selectable_layouts(language_id, layoutpage), [[I18n.t('Please choose'), '']])
       end
 
       def layouts_with_own_for_select(own_layout, language_id, layoutpage)
         layouts = selectable_layouts(language_id, layoutpage)
         if layouts.detect { |l| l['name'] == own_layout } == nil
-          map_array = [[I18n.t(own_layout, :scope => 'page_layout_names'), own_layout]]
+          map_array = [
+            [I18n.t(own_layout, scope: 'page_layout_names', default: own_layout.to_s.humanize), own_layout]
+          ]
         else
           map_array = []
         end
@@ -71,7 +73,7 @@ module Alchemy
       def map_layouts(layouts, map_array = [])
         layouts.each do |layout|
           map_array << [
-            I18n.t(layout['name'], :scope => 'page_layout_names'),
+            I18n.t(layout['name'], scope: 'page_layout_names', default: layout['name'].to_s.humanize),
             layout["name"]
           ]
         end

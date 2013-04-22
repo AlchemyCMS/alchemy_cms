@@ -165,12 +165,10 @@ module Alchemy
       end
 
       def link_target_options
-        options = [
-          [I18n.t('default', :scope => :link_target_options), '']
-        ]
+        options = [[I18n.t(:default, scope: 'link_target_options'), '']]
         link_target_options = Config.get(:link_target_options)
         link_target_options.each do |option|
-          options << [I18n.t(option, :scope => :link_target_options), option]
+          options << [I18n.t(option, scope: 'link_target_options', default: option.to_s.humanize), option]
         end
         options
       end

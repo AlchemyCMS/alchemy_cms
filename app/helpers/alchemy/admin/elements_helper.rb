@@ -64,12 +64,20 @@ module Alchemy
       end
       alias_method :render_picture_editor, :render_picture_gallery_editor
 
-      # Returns all elements that could be placed on that page because of the pages layout.
-      # The elements are returned as an array to be used in alchemy_selectbox form builder.
+      # Returns a elements options string for select helper.
+      #
+      # @param [Array] elements descriptions
+      # @return [String]
+      #
       def elements_for_select(elements)
         return [] if elements.nil?
-        options = elements.collect { |e| [_t(e['name'], :scope => :element_names), e["name"]] }
-        return options_for_select(options)
+        options = elements.collect do |e|
+          [
+            _t(e['name'], scope: 'element_names', default: e['name'].to_s.humanize),
+            e['name']
+          ]
+        end
+        options_for_select(options)
       end
 
       # Returns all elements that could be placed on that page because of the pages layout.
@@ -106,7 +114,7 @@ module Alchemy
           ]
         else
           [
-            Alchemy::I18n.t(e['name'], :scope => :element_names),
+            _t(e['name'], scope: :element_names, default: e['name'].to_s.humanize),
             e[object_method] + (cell ? "##{cell['name']}" : "")
           ]
         end

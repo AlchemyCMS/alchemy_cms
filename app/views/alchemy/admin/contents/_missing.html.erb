@@ -1,5 +1,5 @@
 <div class="content_editor missing" id="element_<%= element.id %>_content_missing">
-  <label><%= Alchemy::I18n.t("content_names.#{element.name}.#{name}", :default => ["content_names.#{name}".to_sym, name.capitalize]) %></label>
+  <label><%= Alchemy::Content.translated_label_for(name, element.name) %></label>
   <p>
     <%= render_icon('warning') %>
     <%= _t(:content_not_found) %>

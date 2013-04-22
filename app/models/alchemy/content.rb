@@ -102,17 +102,21 @@ module Alchemy
       #
       #   alchemy:
       #     content_names:
-      #      foo: Bar
+      #       foo: Bar
       #
       # Optionally you can scope your content name to an element:
       #
       #   alchemy:
       #     content_names:
-      #      article:
-      #       foo: Baz
+      #       article:
+      #         foo: Baz
       #
       def translated_label_for(content_name, element_name = nil)
-        Alchemy::I18n.t("content_names.#{element_name}.#{content_name}", :default => ["content_names.#{content_name}".to_sym, content_name.capitalize])
+        I18n.t(
+          content_name,
+          scope: "content_names.#{element_name}",
+          default: I18n.t("content_names.#{content_name}", default: content_name.humanize)
+        )
       end
 
       # Returns all content descriptions from elements.yml
@@ -266,10 +270,12 @@ module Alchemy
       end
     end
 
+    # Returns the default value from content description
+    # If the value is a symbol it gets passed through i18n inside the +alchemy.default_content_texts+ scope
     def default_text(default)
-      return if default.nil?
-      if default.is_a? Symbol
-        I18n.t(default, :scope => :default_content_texts)
+      case default
+      when Symbol
+        I18n.t(default, scope: :default_content_texts)
       else
         default
       end

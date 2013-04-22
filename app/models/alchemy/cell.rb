@@ -54,7 +54,7 @@ module Alchemy
     end
 
     def self.translated_label_for(cell_name)
-      I18n.t(cell_name, :scope => :cell_names)
+      I18n.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
     end
 
     # Returns the cell definition defined in +config/alchemy/cells.yml+
