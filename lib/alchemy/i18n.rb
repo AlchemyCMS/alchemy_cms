@@ -30,8 +30,9 @@ module Alchemy
     #         hello: Hallo
     #
     def self.t(msg, *args)
+      raise ArgumentError, 'Please provide a tanslation key' if msg.nil?
       options = args.extract_options!
-      options[:default] = options[:default] ? options[:default] : msg.to_s.humanize
+      humanize_default_string!(msg, options)
       scope = ['alchemy']
       case options[:scope].class.name
       when "Array"
@@ -50,6 +51,14 @@ module Alchemy
 
     def self.translation_files
       Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
+    end
+
+  private
+
+    def self.humanize_default_string!(msg, options)
+      if options[:default].blank?
+        options[:default] = msg.is_a?(Symbol) ? msg.to_s.humanize : msg
+      end
     end
 
   end
