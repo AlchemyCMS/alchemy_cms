@@ -30,7 +30,6 @@ module Alchemy
     #         hello: Hallo
     #
     def self.t(msg, *args)
-      raise ArgumentError, 'Please provide a tanslation key' if msg.nil?
       options = args.extract_options!
       humanize_default_string!(msg, options)
       scope = ['alchemy']
