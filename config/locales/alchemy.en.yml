@@ -367,6 +367,9 @@ en:
       '1024': '1024px (iPad - Landscape)'
       '1280': '1280px (Desktop)'
     rename_file: "Rename this file."
+    resources:
+      relation_select:
+        blank: '- none -'
     robot_follow: "robot may follow links."
     robot_index: "allow robot to index."
     saved_link: "Link saved."

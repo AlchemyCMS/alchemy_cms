@@ -1,4 +1,4 @@
-<%= form_for resource_instance_variable, :url => resource_path(resource_instance_variable), :remote => true do |f| %>
+<%= form_for resource_instance_variable, url: resource_path(resource_instance_variable), remote: true do |f| %>
   <div id="errors">
     <ul>
     <% resource_instance_variable.errors.full_messages.each do |error| %>
@@ -14,8 +14,9 @@
       <td class="select">
         <%= f.select(
           attribute[:name],
-          relation[:model_association].klass.all.collect { |r| [r.send(relation[:attr_method]), r.id] },
-          { :prompt => _t("Please choose") }, { :class => "alchemy_selectbox" }
+          options_for_resource_relation_select(relation),
+          {include_blank: _t(:blank, scope: 'resources.relation_select')},
+          {class: "alchemy_selectbox"}
         ) %>
       </td>
     <% else %>
@@ -29,7 +30,7 @@
   <% end %>
     <tr>
       <td class="submit" colspan="2">
-        <%= f.button _t('save'), :class => 'button' %>
+        <%= f.button _t('save'), class: 'button' %>
       </td>
     </tr>
   </table>

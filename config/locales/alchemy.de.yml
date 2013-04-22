@@ -542,6 +542,9 @@ de:
     rename: umbenennen
     replace: ersetzen
     'Replaced Tag %{old_tag} with %{new_tag}': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    resources:
+      relation_select:
+        blank: '- ohne -'
     right: "rechts"
     robot_follow: "den Robot Links folgen lassen"
     robot_index: "durch Robot indizieren"

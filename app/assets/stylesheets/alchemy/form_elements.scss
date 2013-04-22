@@ -515,6 +515,10 @@ td.select .selectboxit {
       cursor: default;
     }
   }
+
+  .selectboxit-option-anchor {
+    @include inline-block;
+  }
 }
 
 .autocomplete_tag_list {

@@ -117,5 +117,16 @@ module Alchemy
       end
     end
 
+    # Returns resource relations options hash for a rails select helper.
+    #
+    # @param [Hash] relation
+    # @returns Hash
+    #
+    def options_for_resource_relation_select(relation)
+      relation[:model_association].klass.all.collect do |r|
+        [r.send(relation[:attr_method]), r.id]
+      end
+    end
+
   end
 end
