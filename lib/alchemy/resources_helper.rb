@@ -67,21 +67,29 @@ module Alchemy
 
     # Returns the value from resource attribute
     #
-    # If the attribute has a relation, the related object's attribute value will be returned
+    # If the attribute has a relation, the related object's attribute value will be returned.
     #
-    def render_attribute(resource, attribute)
+    # The output will be truncated after 50 chars.
+    #
+    # @param [Alchemy::Resource] resource
+    # @param [Hash] attribute
+    # @option options [Hash] :truncate (50) The length of the value returned.
+    #
+    # @return [String]
+    #
+    def render_attribute(resource, attribute, options={})
+      options.reverse_merge!(truncate: 50)
       value = resource.send(attribute[:name])
       if (relation = attribute[:relation]) && value.present?
         record = relation[:model_association].klass.find(value)
-        record.send(relation[:attr_method])
+        value = record.send(relation[:attr_method])
       elsif attribute[:type] == :datetime && value.present?
-        l(value)
-      else
-        value
+        value = l(value)
       end
+      truncate(value.to_s, length: options[:truncate])
     rescue ActiveRecord::RecordNotFound => e
       warning e
-      _t "not_found"
+      _t(:not_found)
     end
 
     def resource_help_text(attribute)

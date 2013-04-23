@@ -1,17 +1,12 @@
 <tr class="<%= cycle('even', 'odd') %>">
 <% resource_handler.attributes.each do |attribute| %>
+  <td class="<%= attribute[:type] %> <%= attribute[:name] %>">
   <% if attribute[:type] == :boolean %>
-  <td class="center">
-    <% attr_value = render_attribute(resource, attribute) %>
-    <%= attr_value.blank? ? '' : render_icon(attr_value) %>
-  </td>
-  <% elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal %>
-  <td class="right"><%= render_attribute(resource, attribute) %></td>
+    <%= render_icon render_attribute(company, attribute) %>
   <% else %>
-  <td>
     <%= render_attribute(resource, attribute) %>
-  </td>
   <% end %>
+  </td>
 <% end %>
   <td class="tools">
     <% permitted_to?(:destroy, resource_permission_scope) do %>

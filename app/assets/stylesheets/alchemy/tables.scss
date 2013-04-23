@@ -204,12 +204,15 @@ td.date {
   width: 150px;
 }
 
-td.right, th.right {
-  text-align: right;
-}
+td, th {
 
-td.center, th.center {
-  text-align: center;
+  &.center, &.boolean {
+    text-align: center;
+  }
+
+  &.right {
+    text-align: right;
+  }
 }
 
 td.login {
