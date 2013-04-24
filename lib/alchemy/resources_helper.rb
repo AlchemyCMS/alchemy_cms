@@ -86,7 +86,7 @@ module Alchemy
       elsif attribute[:type] == :datetime && value.present?
         value = l(value)
       end
-      truncate(value.to_s, length: options[:truncate])
+      value.to_s.truncate(options[:truncate])
     rescue ActiveRecord::RecordNotFound => e
       warning e
       _t(:not_found)
