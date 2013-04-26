@@ -23,7 +23,7 @@
 <% end %>
 
 <% content_for(:toolbar) do %>
-<div id="toolbar_buttons">
+<div class="toolbar_buttons">
   <div class="button_with_label">
     <%= form_tag alchemy.unlock_admin_page_path(@page, :redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), :id => 'unlock_page_form' do %>
       <button class="icon_button" title="<%= _t(:explain_unlocking) %>">
@@ -70,7 +70,7 @@
     <label><%= _t(:preview_size) %></label>
   </div>
 </div>
-<div id="toolbar_buttons_right">
+<div class="toolbar_buttons right">
   <div class="button_with_label" id="show_preview_window">
     <%= link_to(render_icon(:preview_window), '#', {
       :onclick => "Alchemy.openPreviewWindow()",

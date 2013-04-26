@@ -11,16 +11,9 @@
   position: relative;
   margin-left: 5px;
 
-  form {
-    margin: 0 8px;
-    float: right;
-    text-align: center;
-  }
-
   div.button_with_label {
 
     form {
-      float: none;
       margin: 0;
       @include inline-block;
       line-height: 5px;
@@ -39,8 +32,8 @@
     padding: 0;
   }
 
-  div.toolbar_spacer {
-    float: left;
+  .toolbar_spacer {
+    @include inline-block;
     width: 1px;
     height: 37px;
     border-right-style: dotted;
@@ -74,14 +67,23 @@
       margin: 0;
     }
   }
+
+  .search_form {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    text-align: center;
+  }
 }
 
-div#toolbar_buttons {
-  float: left;
-  margin-right: 6px;
-}
+.toolbar_buttons {
+  margin-right: 8px;
+  white-space: nowrap;
 
-div#toolbar_buttons_right {
-  float: right;
-  margin-left: 8px;
+  &.right {
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    margin-left: 8px;
+  }
 }

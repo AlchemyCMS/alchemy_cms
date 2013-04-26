@@ -168,11 +168,11 @@ div#toolbar label {
   @include default-label-style;
 }
 
-div.button_with_label {
+.button_with_label {
+  @include inline-block(top);
   text-align: center;
   margin-right: 8px;
   margin-left: 8px;
-  float: left;
   min-width: 70px;
   line-height: 0;
 
@@ -275,9 +275,9 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
 }
 
 .js_filter_field_box {
-  position: relative;
-  float: right;
-  margin-left: 4px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
 
   .js_filter_field {
     width: 220px;
