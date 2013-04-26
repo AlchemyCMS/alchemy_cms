@@ -55,7 +55,9 @@ td#tags_tag_list {
   }
 
   .js_filter_field_box {
-    float: none;
+    position: relative;
+    top: 0;
+    right: 0;
     margin: 0;
 
     .js_filter_field {

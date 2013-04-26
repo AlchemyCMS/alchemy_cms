@@ -461,7 +461,7 @@ td.select .selectboxit {
   }
 
   /* Dropdown List Options List*/
-  ul {
+  .selectboxit-options {
     @include box-sizing(border-box);
     min-height: 28px;
     min-width: 100%;
@@ -517,7 +517,10 @@ td.select .selectboxit {
   }
 
   .selectboxit-option-anchor {
-    @include inline-block;
+    display: block;
+    min-height: 19px;
+    max-width: 410px;
+    @extend %text-overflow;
   }
 }
 
