@@ -32,16 +32,6 @@
     padding: 0;
   }
 
-  .toolbar_spacer {
-    @include inline-block;
-    width: 1px;
-    height: 37px;
-    border-right-style: dotted;
-    border-right-width: 1px;
-    margin-right: 2*$default-margin;
-    margin-left: $default-margin;
-  }
-
   a.button {
     width: 25px;
     height: 21px;
@@ -85,5 +75,49 @@
     right: 8px;
     top: 4px;
     margin-left: 8px;
+  }
+}
+
+.toolbar_spacer {
+  @include inline-block;
+  width: 1px;
+  height: 37px;
+  border-right-style: dotted;
+  border-right-width: 1px;
+  margin-right: 2*$default-margin;
+  margin-left: $default-margin;
+}
+
+#overlay_toolbar {
+  @extend %gradiated-toolbar;
+  border: $default-border;
+  height: 44px;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  padding: $default-padding;
+
+  a.button {
+    width: 25px;
+    height: 21px;
+    text-decoration: none;
+    float: right;
+    border-width: 0;
+    border-style: none;
+    font-size: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    &:active {
+      text-decoration: none;
+      background-position: 0 -21px;
+    }
+  }
+
+  form {
+    float: left;
+    padding: 0;
+    margin-right: 8px;
   }
 }

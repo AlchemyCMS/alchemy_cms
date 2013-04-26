@@ -782,50 +782,6 @@ select#url_protocol.medium {
   background-color: #d1d1d1;
 }
 
-div#overlay_toolbar {
-  @extend %gradiated-toolbar;
-  border: $default-border;
-  height: 44px;
-  border-top-style: none;
-  border-left-style: none;
-  border-right-style: none;
-  padding: $default-padding;
-}
-
-div#overlay_toolbar div.toolbar_spacer {
-  float: left;
-  width: 1px;
-  height: 37px;
-  border-right-style: dotted;
-  border-right-width: 1px;
-  margin-right: 8px;
-  margin-left: 4px;
-}
-
-div#overlay_toolbar a.button {
-  width: 25px;
-  height: 21px;
-  text-decoration: none;
-  float: right;
-  border-width: 0;
-  border-style: none;
-  font-size: 0;
-  padding: 0;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-}
-
-div#overlay_toolbar a.button:active {
-  text-decoration: none;
-  background-position: 0 -21px;
-}
-
-#alchemy div#overlay_toolbar form {
-  float: left;
-  padding: 0;
-  margin-right: 8px;
-}
-
 #alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {
   padding: 2*$default-padding;
 }
