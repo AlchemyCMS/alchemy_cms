@@ -27,7 +27,7 @@ module Alchemy
       if permitted_to?(:index, :alchemy_admin_dashboard)
         alchemy.admin_dashboard_path
       else
-        main_app.root_path
+        alchemy.root_path
       end
     end
 
