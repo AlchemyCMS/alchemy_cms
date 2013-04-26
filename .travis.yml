@@ -5,11 +5,7 @@ rvm:
 branches:
   only:
     - master
-before_script:
-  - phantomjs --version
-  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'"
-script: "bundle exec rspec spec"
+script: rake
 env:
   - DB=mysql
   - DB=postgresql
-  - DB=mysql
