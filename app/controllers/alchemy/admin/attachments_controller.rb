@@ -46,7 +46,7 @@ module Alchemy
 
       def edit
         @attachment = Attachment.find(params[:id])
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def update
@@ -69,7 +69,7 @@ module Alchemy
 
       def show
         @attachment = Attachment.find(params[:id])
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def download

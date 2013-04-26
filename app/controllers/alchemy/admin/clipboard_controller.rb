@@ -7,7 +7,7 @@ module Alchemy
         @clipboard = get_clipboard
         @clipboard_items = model_class.all_from_clipboard(@clipboard.all(params[:remarkable_type]))
         respond_to do |format|
-          format.html { render :layout => false }
+          format.html { render layout: !request.xhr? }
         end
       end
 

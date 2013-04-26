@@ -8,7 +8,7 @@ module Alchemy
         render :layout => !request.xhr?
       end
 
-      protected
+    protected
 
       def configured_page_layout
         Alchemy::Config.get(:default_language).try('[]', 'page_layout')

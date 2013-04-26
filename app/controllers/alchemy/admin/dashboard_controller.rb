@@ -14,7 +14,7 @@ module Alchemy
 
       def info
         @alchemy_version = Alchemy.version
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def update_check

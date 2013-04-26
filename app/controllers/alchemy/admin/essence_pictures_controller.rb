@@ -10,7 +10,7 @@ module Alchemy
         @essence_picture = EssencePicture.find(params[:id])
         @content = Content.find(params[:content_id])
         @options = params[:options] || {}
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def crop
@@ -44,7 +44,7 @@ module Alchemy
         else
           @no_image_notice = _t('No image found. Did you saved the element?')
         end
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def update

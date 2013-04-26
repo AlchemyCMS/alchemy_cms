@@ -7,7 +7,7 @@ module Alchemy
       def edit
         @content = Content.find(params[:id])
         @essence_file = @content.essence
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def update

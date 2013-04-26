@@ -43,7 +43,7 @@ module Alchemy
       end
 
       def show
-        render :layout => !request.xhr?
+        render action: 'edit', layout: !request.xhr?
       end
 
       def edit

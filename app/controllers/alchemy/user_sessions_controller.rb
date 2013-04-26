@@ -31,7 +31,7 @@ module Alchemy
     end
 
     def leave
-      render :layout => false
+      render layout: !request.xhr?
     end
 
     def destroy

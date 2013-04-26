@@ -45,7 +45,7 @@ module Alchemy
         @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
         @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
         @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def create
@@ -94,10 +94,10 @@ module Alchemy
       def configure
         # fetching page via before filter
         if @page.redirects_to_external?
-          render :action => 'configure_external', :layout => false
+          render action: 'configure_external', layout: !request.xhr?
         else
           @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
-          render :layout => false
+          render layout: !request.xhr?
         end
       end
 
@@ -146,7 +146,7 @@ module Alchemy
         if multi_language?
           @url_prefix = "#{session[:language_code]}/"
         end
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def fold

@@ -26,11 +26,6 @@ module Alchemy
         @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
       end
 
-      def new
-        @user = User.new
-        render :layout => false
-      end
-
       def create
         @user = User.new(params[:user])
         if @user.save
@@ -45,10 +40,6 @@ module Alchemy
           admin_users_path,
           _t("User created", :name => @user.name)
         )
-      end
-
-      def edit
-        render :layout => false
       end
 
       def update

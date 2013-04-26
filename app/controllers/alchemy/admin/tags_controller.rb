@@ -12,7 +12,7 @@ module Alchemy
 
       def new
         @tag = ActsAsTaggableOn::Tag.new
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def create
@@ -22,7 +22,7 @@ module Alchemy
 
       def edit
         @tags = ActsAsTaggableOn::Tag.order("name ASC").all - [@tag]
-        render :layout => false
+        render layout: !request.xhr?
       end
 
       def update
