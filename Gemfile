@@ -2,9 +2,12 @@ source 'http://rubygems.org'
 
 gemspec
 
-#For some strange reason it's only loaded outside any group
+# For some strange reason it's only loaded outside any group
 gem 'jasmine'
 gem 'jasminerice'
+
+# Code coverage plattform
+gem 'coveralls', require: false
 
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
@@ -13,7 +16,6 @@ group :test do
   gem 'poltergeist', '1.1.0'
   unless ENV['CI']
     gem 'launchy'
-    gem 'simplecov', :require => false
   end
 end
 

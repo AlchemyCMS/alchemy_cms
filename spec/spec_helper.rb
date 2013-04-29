@@ -1,11 +1,5 @@
-
-begin
-  require 'simplecov'
-  SimpleCov.start('rails') do
-    add_filter "/spec/"
-  end
-rescue LoadError => e
-end
+require 'coveralls'
+Coveralls.wear!
 
 begin
   require 'spork'
