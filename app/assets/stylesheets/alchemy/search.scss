@@ -1,16 +1,10 @@
-#toolbar div.search_field {
+.search_field {
   position: relative;
-  float: left;
   margin-bottom: $default-margin;
 }
 
-div#image_assign_filter_and_image_sizing form div.search_field {
-  margin-right: 4px;
-  float: left;
-  position: relative;
-}
-
-#alchemy a.search_field_clear {
+.search_field_clear, .js_filter_field_clear {
+  display: none;
   width: 16px;
   height: 16px;
   @extend .icon-cancel;
@@ -22,6 +16,7 @@ div#image_assign_filter_and_image_sizing form div.search_field {
 
 td#tags_tag_list {
   text-align: left;
+  padding-top: 5px;
 
   ul.tags {
     max-height: 10em;
@@ -62,11 +57,14 @@ td#tags_tag_list {
 
     .js_filter_field {
       width: 100%;
-      @include border-radius(3px);
     }
 
     label {
       display: none
     }
+  }
+
+  .js_filter_field_clear {
+    right: 4px;
   }
 }

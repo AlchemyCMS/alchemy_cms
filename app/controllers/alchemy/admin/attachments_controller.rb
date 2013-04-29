@@ -6,13 +6,13 @@ module Alchemy
       protect_from_forgery :except => [:create]
 
       def index
+        @attachments = Attachment.scoped
+        @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
+        @attachments = @attachments.find_paginated(params, 15, sort_order)
         if in_overlay?
           archive_overlay
         else
-          @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sort_order)
-          if params[:tagged_with].present?
-            @attachments = @attachments.tagged_with(params[:tagged_with])
-          end
+          # render index.html.erb
         end
       end
 
@@ -85,22 +85,19 @@ module Alchemy
     private
 
       def in_overlay?
-        !params[:content_id].blank?
+        params[:content_id].present?
       end
 
       def archive_overlay
-        @content = Content.find(params[:content_id])
-        @options = params[:options]
-        if !params[:only].blank?
-          condition = "filename LIKE '%.#{params[:only].join("' OR filename LIKE '%.")}'"
-        elsif !params[:except].blank?
-          condition = "filename NOT LIKE '%.#{params[:except].join("' OR filename NOT LIKE '%.")}'"
-        else
-          condition = ""
-        end
-        @attachments = Attachment.where(condition).order(:name)
+        @content = Content.find(params[:content_id], select: 'id')
+        @options = hashified_options
         respond_to do |format|
-          format.html { render :partial => 'archive_overlay' }
+          format.html {
+            render partial: 'archive_overlay'
+          }
+          format.js {
+            render action: 'archive_overlay'
+          }
         end
       end
 

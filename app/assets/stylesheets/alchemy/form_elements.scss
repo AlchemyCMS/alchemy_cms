@@ -282,7 +282,7 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
   .js_filter_field {
     width: 220px;
     text-align: left;
-    @include border-radius(15px);
+    @include border-radius(3px);
     padding: 3px 24px;
     height: 29px;
     margin: 0;
@@ -293,17 +293,6 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
     display: block;
     text-align: center;
     padding-top: 3px;
-  }
-
-  .js_filter_field_clear {
-    display: none;
-    width: 15px;
-    height: 15px;
-    background: url('icons.png') no-repeat 0 -70px;
-    position: absolute;
-    right: 8px;
-    top: 4px;
-    @extend .rounded-border;
   }
 }
 

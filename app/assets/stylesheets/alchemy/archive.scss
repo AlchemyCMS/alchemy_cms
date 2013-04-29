@@ -131,16 +131,16 @@ div.assign_image_list_image {
   text-align: center;
   overflow: hidden;
   position: relative;
+
+  img {
+    border-style: none;
+  }
 }
 
-#assign_image_list {
+#assign_image_list, #assign_file_list {
   position: relative;
   padding-right: 244px;
   height: 519px;
-
-  div.assign_image_list_image img {
-    border-style: none;
-  }
 }
 
 .picture_tool {
@@ -243,9 +243,21 @@ div#tag_list {
   &.with_filter_bar { height: 80% }
 
   .js_filter_field_box {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 204px;
 
-    input { width: 200px }
+    input {
+      width: 204px;
+      background-color: #f8f8f8;
+    }
+
     label { display: none }
+  }
+
+  .js_filter_field_clear {
+    right: 4px;
   }
 
   ul {
@@ -296,10 +308,14 @@ div#alchemy_window_body {
   #library_sidebar {
     padding: 0 4*$default-padding;
   }
+}
 
-  div#tag_list ul {
-    height: 364px;
-  }
+#assign_image_list #tag_list ul {
+  height: 294px;
+}
+
+#assign_file_list #tag_list ul {
+  height: 374px;
 }
 
 div#pictures_page_list {
@@ -317,4 +333,29 @@ div#pictures_page_list {
   }
 
   li.even, li.odd { padding: $default-padding }
+}
+
+#overlay_file_list {
+
+  .assign_file_file {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  > ul {
+    margin: 0;
+
+    a {
+      @extend %text-overflow;
+      display: block;
+      line-height: 25px;
+      text-decoration: none;
+      padding: 0px 4px 2px 4px;
+    }
+
+    .icon {
+      margin-top: -2px;
+      margin-right: 4px;
+    }
+  }
 }

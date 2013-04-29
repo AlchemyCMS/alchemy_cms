@@ -502,44 +502,6 @@ input#user_admin {
   line-height: 19px;
 }
 
-#alchemy div#overlay_toolbar div#image_assign_filter_and_image_sizing form {
-  float: right;
-  width: 310px;
-  height: 25px;
-  margin-top: 2px;
-  padding: 0 !important;
-  margin-right: 0;
-
-  .button {
-    margin: 0;
-  }
-}
-
-div#image_assign_filter_and_image_sizing form input.button {
-  float: right;
-}
-
-li.assign_file_file {
-  display: block;
-  text-align: center;
-  width: 100%;
-  margin-bottom: 4px;
-}
-
-#assign_file_list li.assign_file_file a {
-  overflow: hidden;
-  display: block;
-  padding-right: 4px;
-  text-align: left;
-  line-height: 25px;
-}
-
-div.assign_file_file_icon {
-  float: left;
-  margin: $default-margin;
-  line-height: normal;
-}
-
 #alchemy .ui-dialog-content a img {
   border-style: none;
 }
@@ -704,15 +666,6 @@ a.close_elements_from_page_selector {
   float: none;
 }
 
-ul#assign_file_list {
-  margin-bottom: 8px;
-  margin-top: 8px;
-  clear: both;
-  height: 280px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 ul#sitemap li .sitemap_sitename.selected_page a {
   background-color: $linked-color;
   color: $dark-gray;
@@ -725,20 +678,6 @@ ul#sitemap li .sitemap_sitename.selected_page a {
 
 #alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename a:hover {
   font-weight: bold;
-}
-
-div.assign_file_file_name {
-  float: left;
-}
-
-.selected_file a {
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-div.assign_file_file_icon img {
-  margin-top: 2px;
 }
 
 #external_link_table .padding_right {
@@ -776,10 +715,6 @@ select#url_protocol.medium {
   float: none;
   @include inline-block;
   vertical-align: inherit;
-}
-
-.assign_file_file.selected_file {
-  background-color: #d1d1d1;
 }
 
 #alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {

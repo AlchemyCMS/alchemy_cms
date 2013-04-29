@@ -5,7 +5,7 @@
   </label>
   <div class="file" id="file_<%= content.id %>">
     <div class="file_icon">
-    <%- if content.ingredient.nil? -%>
+    <% if content.ingredient.nil? %>
       <%= link_to_overlay_window("",
         alchemy.admin_attachments_path(
           :content_id => content.id,
@@ -15,20 +15,20 @@
         ),
         {
           :title => _t(:assign_file),
-          :size => '520x400',
+          :size => '780x580',
           :resizable => 'true'
         },
         :class => 'assign_file',
         :title => _t(:assign_file)
       ) %>
-    <%- else -%>
+    <% else %>
       <%= render_icon(content.ingredient.icon_css_class) %>
-    <%- end -%>
+    <% end %>
     </div>
     <div class="file_name">
       <%= content.ingredient.name rescue ("&#x2190;" + _t(:assign_file_from_archive)).html_safe %>
     </div>
-    <%- unless content.ingredient.nil? -%>
+    <% unless content.ingredient.nil? %>
     <%= hidden_field_tag content.form_field_name(:attachment_id), content.ingredient.id %>
     <div class="essence_file_tools">
       <%= link_to_overlay_window("",
@@ -40,7 +40,7 @@
         ),
         {
           :title => _t(:assign_file),
-          :size => '520x400',
+          :size => '780x580',
           :resizable => 'true'
         },
         :class => 'assign_file',
@@ -60,6 +60,6 @@
         :title => _t(:edit_file_properties)
       ) %>
     </div>
-    <%- end -%>
+    <% end %>
   </div>
 </div>

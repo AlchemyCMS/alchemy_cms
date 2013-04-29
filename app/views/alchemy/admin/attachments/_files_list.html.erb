@@ -1,16 +1,16 @@
-<%- if @attachments.blank? && params[:query].nil? -%>
+<% if @attachments.blank? && params[:query].nil? %>
 <div class="info" id="no_files_notice">
   <%= render_icon('info') %>
   <%= _t(:no_files_in_archive) %>
 </div>
-<%- elsif @attachments.blank? -%>
+<% elsif @attachments.blank? %>
 <div class="info">
   <%= render_icon('info') %>
   <%= _t(:no_search_results) %>
 </div>
-<%- end -%>
+<% end %>
 <table id="all_files" class="list">
-  <%- unless @attachments.blank? -%>
+  <% unless @attachments.blank? %>
   <tr>
     <th class="icon"></th>
     <th class="name">
@@ -28,7 +28,7 @@
     </th>
     <th class="tools"></th>
   </tr>
-  <%- end -%>
+  <% end %>
   <%= render :partial => 'alchemy/admin/attachments/attachment', :collection => @attachments %>
 </table>
 

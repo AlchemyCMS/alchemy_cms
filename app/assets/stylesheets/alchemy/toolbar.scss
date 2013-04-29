@@ -50,6 +50,10 @@
     }
   }
 
+  .js_filter_field {
+    @include border-radius(15px);
+  }
+
   .js_filter_field_box {
     margin-right: 2*$default-margin;
 
@@ -115,9 +119,21 @@
     }
   }
 
+  .search_field {
+    width: 225px;
+  }
+
   form {
-    float: left;
-    padding: 0;
-    margin-right: 8px;
+    float: right;
+    width: 310px;
+    margin-top: 2px;
+    padding: 0 !important;
+    margin-right: 0;
+
+    .button {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+    }
   }
 }

@@ -172,7 +172,7 @@ module Alchemy
       end
 
       def in_overlay?
-        !params[:element_id].blank?
+        params[:element_id].present?
       end
 
       def archive_overlay

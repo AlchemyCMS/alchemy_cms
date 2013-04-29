@@ -1,29 +1,31 @@
 <% p = params.dup %>
-<h2><%= _t("Filter by tag") %></h2>
-<%#= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')", :id => 'tag_list_filter' %>
-<ul>
-  <% Alchemy::Attachment.tag_counts.each do |t| %>
-    <% attachment_tags = filtered_by_tag?(t) ? tag_filter(:remove => t) : tag_filter(:add => t) %>
-    <%= content_tag 'li', :name => t.name, :class => p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
-      <%= link_to(
-        "#{t.name} (#{t.count})",
-        url_for(
-          p.delete_if { |k, v| k == "page" }.merge(
-            :action => :index,
-            :tagged_with => attachment_tags
-          )
-        ),
-        :remote => request.xhr?,
-        :class => 'please_wait'
-      ) %>
+<% if Alchemy::Attachment.tag_counts.any? %>
+  <h2><%= _t("Filter by tag") %></h2>
+  <%= js_filter_field onkeyup: "Alchemy.ListFilter('#tag_list li', {search_field: '#tag_list_filter'})", id: 'tag_list_filter' %>
+  <ul>
+    <% Alchemy::Attachment.tag_counts.each do |t| %>
+      <% attachment_tags = filtered_by_tag?(t) ? tag_filter(remove: t) : tag_filter(add: t) %>
+      <%= content_tag 'li', name: t.name, class: p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
+        <%= link_to(
+          "#{t.name} (#{t.count})",
+          url_for(
+            p.delete_if { |k, v| k == "page" }.merge(
+              action: 'index',
+              tagged_with: attachment_tags
+            )
+          ),
+          remote: request.xhr?,
+          class: 'please_wait'
+        ) %>
+      <% end %>
     <% end %>
+  </ul>
+  <% if p[:tagged_with].present? %>
+    <%= link_to(
+      render_icon('delete-small') + _t('Remove tag filter'),
+      url_for(p.delete_if { |k, v| k == "tagged_with" }.merge(action: 'index')),
+      remote: request.xhr?,
+      class: 'button small with_icon please_wait'
+    ) %>
   <% end %>
-</ul>
-<% if p[:tagged_with].present? %>
-  <%= link_to(
-    render_icon('delete-small') + _t('Remove tag filter'),
-    url_for(p.delete_if { |k, v| k == "tagged_with" }.merge(:action => :index)),
-    :remote => request.xhr?,
-    :class => 'button small with_icon please_wait'
-  ) %>
 <% end %>

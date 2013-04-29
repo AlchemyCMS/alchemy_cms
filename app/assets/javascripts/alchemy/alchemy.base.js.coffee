@@ -63,8 +63,8 @@ $.extend Alchemy,
   # The list items need a name attribute
   # Hides all list items that don't match
   # Pass a jQuery selector to define the filterable items.
-  ListFilter: (selector) ->
-    text = $("#search_field").val().toLowerCase()
+  ListFilter: (selector, options = {search_field: '#search_field'}) ->
+    text = $(options.search_field).val().toLowerCase()
     $(selector).map ->
       $this = $(this)
       if $this.attr("name").toLowerCase().indexOf(text) != -1

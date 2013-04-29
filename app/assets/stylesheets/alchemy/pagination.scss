@@ -59,7 +59,7 @@
   }
 }
 
-#assign_image_list div.pagination {
+#assign_image_list .pagination, #assign_file_list .pagination {
   position: absolute;
   padding-left: 8px;
 }
