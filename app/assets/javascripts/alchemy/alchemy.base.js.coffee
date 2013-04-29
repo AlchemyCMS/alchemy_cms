@@ -72,6 +72,11 @@ $.extend Alchemy,
       else
         display = "none"
       $this.css display: display
+    $items = $(selector)
+    # Fix the even and odd classes
+    $items.removeClass('even odd')
+    $items.filter(':visible:even').addClass('even')
+    $items.filter(':visible:odd').addClass('odd')
 
   # Shows spinner while loading images and
   # fades the image after its been loaded
