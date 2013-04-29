@@ -1,7 +1,7 @@
 (function($) {
   $('#sitemap').replaceWith('<%= escape_javascript(render(:partial => "sitemap")) -%>');
   $('#sort_panel').show();
-  $('#sitemap_heading').css({'padding-top': 82});
+  $('#sitemap_heading').css({'padding-top': 102});
   Alchemy.PageSorter.init();
   Alchemy.pleaseWaitOverlay(false);
 })(jQuery);
