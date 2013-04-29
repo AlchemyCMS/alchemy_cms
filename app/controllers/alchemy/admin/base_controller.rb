@@ -42,10 +42,10 @@ module Alchemy
       end
 
       def redirect_back_or_to_default(default_path = admin_dashboard_path)
-        if request.env["HTTP_REFERER"].blank?
-          redirect_to default_path
-        else
+        if request.referer.present?
           redirect_to :back
+        else
+          redirect_to default_path
         end
       end
 
