@@ -67,7 +67,7 @@ $.extend Alchemy,
     text = $(options.search_field).val().toLowerCase()
     $(selector).map ->
       $this = $(this)
-      if $this.attr("name").toLowerCase().indexOf(text) != -1
+      if $this.attr("name").indexOf(text) != -1
         display = ""
       else
         display = "none"

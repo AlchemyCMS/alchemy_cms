@@ -5,7 +5,7 @@
   <ul>
     <% Alchemy::Attachment.tag_counts.each do |t| %>
       <% attachment_tags = filtered_by_tag?(t) ? tag_filter(remove: t) : tag_filter(add: t) %>
-      <%= content_tag 'li', name: t.name, class: p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
+      <%= content_tag 'li', name: t.name.downcase, class: p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
         <%= link_to(
           "#{t.name} (#{t.count})",
           url_for(
