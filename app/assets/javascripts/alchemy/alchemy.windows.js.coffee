@@ -175,6 +175,7 @@ $.extend Alchemy,
             Alchemy.Datepicker '#alchemyOverlay input.date, #alchemyOverlay input[type="date"]'
             Alchemy.Buttons.observe "#alchemyOverlay"
             Alchemy.overlayObserver "#alchemyOverlay"
+            Alchemy.Hotkeys '#alchemyOverlay'
             if options.image_loader
               Alchemy.ImageLoader '#alchemyOverlay img', {color: options.image_loader_color}
           error: (XMLHttpRequest, textStatus, errorThrown) ->
