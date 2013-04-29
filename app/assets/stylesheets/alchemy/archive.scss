@@ -231,25 +231,36 @@ div#library_sidebar {
 div#filter_bar {
 
   .selectboxit {
-    width: 192px;
+    width: 194px;
   }
 }
 
-div#tag_list {
+#tag_list {
   @include box-sizing(border-box);
   height: 100%;
-  padding-bottom: 96px;
+  padding-bottom: 138px;
 
-  &.with_filter_bar { height: 80% }
+  &.filtered {
+    padding-bottom: 164px;
+  }
+
+  &.with_filter_bar {
+    padding-bottom: 218px;
+
+    &.filtered {
+      padding-bottom: 244px;
+    }
+  }
 
   .js_filter_field_box {
-    position: relative;
+    position: absolute;
     right: auto;
     top: auto;
-    width: 204px;
+    width: 200px;
+    z-index: 1;
 
     input {
-      width: 204px;
+      width: 200px;
       background-color: #f8f8f8;
     }
 
@@ -261,11 +272,12 @@ div#tag_list {
   }
 
   ul {
+    @include box-sizing(border-box);
     list-style-type: none;
     padding: 0;
-    margin: $default-margin 0;
-    height: 95%;
-    width: 204px;
+    margin: 40px 0 4px 0;
+    height: 100%;
+    width: 200px;
     overflow-x: hidden;
     overflow-y: auto;
 
@@ -277,6 +289,8 @@ div#tag_list {
       @extend .rounded-border;
       overflow: hidden;
       position: relative;
+
+      &:first-child { margin-top: 0 }
 
       &:before {
         position: absolute;
@@ -310,12 +324,26 @@ div#alchemy_window_body {
   }
 }
 
-#assign_image_list #tag_list ul {
-  height: 294px;
+#assign_image_list {
+
+  #tag_list ul {
+    height: 316px;
+  }
+
+  &.filtered #tag_list ul {
+    height: 292px;
+  }
 }
 
-#assign_file_list #tag_list ul {
-  height: 374px;
+#assign_file_list {
+
+  #tag_list ul {
+    height: 396px;
+  }
+
+  &.filtered #tag_list ul {
+    height: 372px;
+  }
 }
 
 div#pictures_page_list {

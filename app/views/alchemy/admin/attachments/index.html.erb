@@ -19,7 +19,7 @@
   <%= resources_header %>
   <%= render partial: 'files_list' %>
   <div id="library_sidebar">
-    <div id="tag_list">
+    <div id="tag_list" class="<%= params[:tagged_with].present? ? 'filtered' : '' %>">
       <%= render partial: 'tag_list' %>
     </div>
   </div>
