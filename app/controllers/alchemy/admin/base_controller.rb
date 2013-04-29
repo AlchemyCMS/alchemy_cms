@@ -22,12 +22,6 @@ module Alchemy
         show_error_notice(e)
       end
 
-      # Logs the current exception to the error log.
-      def exception_logger(e)
-        Rails.logger.error("\n#{e.class} #{e.message} in #{e.backtrace.first}")
-        Rails.logger.error(e.backtrace[1..50].each { |l| l.gsub(/#{Rails.root.to_s}/, '') }.join("\n"))
-      end
-
       # Displays an error notice in the Alchemy backend.
       def show_error_notice(e)
         # truncate the message, because very long error messages (i.e from mysql2) causes cookie oveflow errors
