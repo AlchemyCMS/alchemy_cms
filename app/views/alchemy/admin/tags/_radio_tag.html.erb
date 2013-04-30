@@ -1,4 +1,4 @@
-<li class="<%= cycle('even', 'odd') %>" name="<%= radio_tag.name.downcase %>">
+<li name="<%= radio_tag.name.downcase %>">
   <%= radio_button_tag name + "[merge_to]", radio_tag.id, false, :id => radio_tag.name + "_tag_list" %>
   <label for="<%= radio_tag.name + "_tag_list" %>">
     <%= radio_tag.name %>

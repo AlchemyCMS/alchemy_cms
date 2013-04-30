@@ -387,3 +387,8 @@ div#pictures_page_list {
     }
   }
 }
+
+// Fixes an issue with jquery ui dialog
+#alchemyOverlay .js_filter_field_box {
+  z-index: 1100;
+}

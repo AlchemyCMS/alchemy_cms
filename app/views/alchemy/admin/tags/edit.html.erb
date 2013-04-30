@@ -25,7 +25,7 @@
           <label>Tags</label>
         </td>
         <td class="input" id="tags_tag_list">
-          <%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')" %>
+          <%= js_filter_field '#tag_list li' %>
           <ul id="tag_list" class="tags">
             <%= render :partial => "radio_tag", :collection => @tags, :locals => {:name => "tag"} %>
           </ul>

@@ -79,26 +79,22 @@ module Alchemy
         end
       end
 
-      # Used by Alchemy to display a javascript driven filter for lists in the Alchemy cockpit.
-      def js_filter_field options = {}
-        default_options = {
-          :class => "thin_border js_filter_field",
-          :onkeyup => "Alchemy.ListFilter('#contact_list li')",
-          :id => "search_field"
-        }
-        options = default_options.merge(options)
-        options[:onkeyup] << "; $('##{options[:id]}').val().length >= 1 ? $('.js_filter_field_clear').show() : $('.js_filter_field_clear').hide();"
-        filter_field = '<div class="js_filter_field_box">'
-        filter_field << text_field_tag("filter", '', options)
-        filter_field << content_tag('span', '', :class => 'icon search')
-        filter_field << link_to('', '#', {
-          :onclick => "$('##{options[:id]}').val(''); #{options[:onkeyup]}",
-          :class => "js_filter_field_clear",
-          :title => _t(:click_to_show_all)
-        })
-        filter_field << %(<label for="#{options[:id]}">#{_t(:search)}</label>)
-        filter_field << '</div>'
-        filter_field.html_safe
+      # Used by Alchemy to display a javascript driven filter for lists.
+      #
+      # @param [String] a jquery compatible selector string that represents the items to filter
+      # @param [Hash] html options passed to the input field
+      #
+      def js_filter_field(items, options = {})
+        options = {
+          class: 'js_filter_field',
+          data: {'alchemy-list-filter' => items}
+        }.merge(options)
+        content_tag(:div, class: 'js_filter_field_box') do
+          concat text_field_tag(nil, nil, options)
+          concat content_tag('span', '', class: 'icon search')
+          concat link_to('', '', class: 'js_filter_field_clear', title: _t(:click_to_show_all))
+          concat content_tag(:label, _t(:search), for: options[:id])
+        end
       end
 
       # Returns a link that opens a modal confirmation to delete window.

@@ -2,7 +2,7 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 # Handles Alchemy hotkeys
 #
-Alchemy.Hotkeys = (scope = document) ->
+Alchemy.Hotkeys = (scope) ->
   $search_fields = $('#search_field, #search_input_field', scope)
   $search_fields_clear = $('.search_field_clear, .js_filter_field_clear', scope)
 

@@ -59,25 +59,6 @@ $.extend Alchemy,
       Alchemy.ElementEditors.toggleFold id
     return
 
-  # Filters lists
-  # The list items need a name attribute
-  # Hides all list items that don't match
-  # Pass a jQuery selector to define the filterable items.
-  ListFilter: (selector, options = {search_field: '#search_field'}) ->
-    text = $(options.search_field).val().toLowerCase()
-    $(selector).map ->
-      $this = $(this)
-      if $this.attr("name").indexOf(text) != -1
-        display = ""
-      else
-        display = "none"
-      $this.css display: display
-    $items = $(selector)
-    # Fix the even and odd classes
-    $items.removeClass('even odd')
-    $items.filter(':visible:even').addClass('even')
-    $items.filter(':visible:odd').addClass('odd')
-
   # Shows spinner while loading images and
   # fades the image after its been loaded
   ImageLoader: (selector = 'img', options = {color: '#fff'}) ->

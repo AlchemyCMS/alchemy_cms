@@ -1,11 +1,11 @@
 <% p = params.dup %>
 <% if Alchemy::Picture.tag_counts.any? %>
   <h2><%= _t("Filter by tag") %></h2>
-  <%= js_filter_field onkeyup: "Alchemy.ListFilter('#tag_list li', {search_field: '#tag_list_filter'})", id: 'tag_list_filter' %>
+  <%= js_filter_field '#tag_list li' %>
   <ul>
     <% Alchemy::Picture.tag_counts.each do |t| %>
       <% picture_tags = filtered_by_tag?(t) ? tag_filter(remove: t) : tag_filter(add: t) %>
-      <%= content_tag 'li', name: t.name.downcase, class: p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
+      <%= content_tag 'li', name: t.name, class: p[:tagged_with].try(:split, ',').try(:include?, t.name) ? 'active' : nil do %>
         <%= link_to(
           "#{t.name} (#{t.count})",
           url_for(

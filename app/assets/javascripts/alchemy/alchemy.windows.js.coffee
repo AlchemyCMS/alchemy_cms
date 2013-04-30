@@ -123,13 +123,14 @@ $.extend Alchemy,
   #
   # Options are:
   #
-  #   title: ''           - The title for the overlay window (String)
-  #   width: 400          - The width of the window (Number)
-  #   height: 300         - The height of the window (Number)
-  #   resizable: false    - Make the overlay resizable (Boolean)
-  #   modal: true         - Make the window a modal dialog (Boolean)
-  #   overflow: true      - Display overflowing content, or show scrollbars (Boolean)
-  #   image_loader: true  - Init the image loader after opening the dialog (Boolean)
+  #   title: ''              - The title for the overlay window (String)
+  #   width: 400             - The width of the window (Number)
+  #   height: 300            - The height of the window (Number)
+  #   resizable: false       - Make the overlay resizable (Boolean)
+  #   modal: true            - Make the window a modal dialog (Boolean)
+  #   close_on_escape: true  - Should the overlay close on escape key (Boolean)
+  #   overflow: true         - Display overflowing content, or show scrollbars (Boolean)
+  #   image_loader: true     - Init the image loader after opening the dialog (Boolean)
   #
   openWindow: (url, opts) ->
     options =
@@ -140,6 +141,7 @@ $.extend Alchemy,
       modal: true
       overflow: true
       image_loader: true
+      close_on_escape: true
       image_loader_color: '#fff'
     $.extend(options, opts)
     if options.width is "fullscreen"
@@ -159,6 +161,7 @@ $.extend Alchemy,
       resizable: options.resizable
       show: "fade"
       hide: "fade"
+      closeOnEscape: options.close_on_escape
       open: (event, ui) ->
         $.ajax
           url: url
@@ -176,6 +179,7 @@ $.extend Alchemy,
             Alchemy.Buttons.observe "#alchemyOverlay"
             Alchemy.overlayObserver "#alchemyOverlay"
             Alchemy.Hotkeys '#alchemyOverlay'
+            Alchemy.ListFilter '#alchemyOverlay'
             if options.image_loader
               Alchemy.ImageLoader '#alchemyOverlay img', {color: options.image_loader_color}
           error: (XMLHttpRequest, textStatus, errorThrown) ->

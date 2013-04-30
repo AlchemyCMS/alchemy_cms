@@ -33,4 +33,8 @@ $ ->
   # Observes overlay links
   Alchemy.overlayObserver()
 
+  # Observes links with hotkeys
   Alchemy.Hotkeys()
+
+  # Observes list filter fields
+  Alchemy.ListFilter()

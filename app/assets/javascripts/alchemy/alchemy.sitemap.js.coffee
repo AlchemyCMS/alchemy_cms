@@ -13,15 +13,22 @@ Alchemy.Sitemap =
 
   # Filters the sitemap
   filter: (term) ->
+    results = []
     self = Alchemy.Sitemap
-    $results = self.items.filter("[name*='#{term}']")
-    length = $results.length
-    $results.addClass('highlight').removeClass('no-match')
-    self.items.not("[name*='#{term}']").addClass('no-match').removeClass('highlight')
+    self.items.map ->
+      item = $(this)
+      if term != '' && item.attr('name').toLowerCase().indexOf(term) != -1
+        item.addClass('highlight')
+        item.removeClass('no-match')
+        results.push item
+      else
+        item.addClass('no-match')
+        item.removeClass('highlight')
     self.filter_field_clear.show()
+    length = results.length
     if length == 1
       self.display.show().text("1 #{self._t('page_found')}")
-      $.scrollTo($results, {duration: 400, offset: -80})
+      $.scrollTo(results[0], {duration: 400, offset: -80})
     else if length > 1
       self.display.show().text("#{length} #{self._t('pages_found')}")
     else
@@ -34,8 +41,8 @@ Alchemy.Sitemap =
   _observe: ->
     filter = @filter
     @search_field.on 'keyup', ->
-      term = $(this).val().toLowerCase()
-      filter(term)
+      term = $(this).val()
+      filter(term.toLowerCase())
     @search_field.on 'focus', ->
       keymage.setScope('search')
     @filter_field_clear.click =>
