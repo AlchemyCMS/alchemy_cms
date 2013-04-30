@@ -176,7 +176,7 @@ $.extend Alchemy,
               widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
             Alchemy.GUI.init "#alchemyOverlay"
             if options.image_loader
-              Alchemy.ImageLoader '#alchemyOverlay img', {color: options.image_loader_color}
+              Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
           error: (XMLHttpRequest, textStatus, errorThrown) ->
             Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
           complete: (jqXHR, textStatus) ->

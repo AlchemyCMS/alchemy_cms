@@ -28,4 +28,4 @@ $ ->
     window.location = url + delimiter + 'locale=' + $(this).val()
 
   # Attaches the image loader on all images
-  Alchemy.ImageLoader('#main_content img')
+  Alchemy.ImageLoader('#main_content')

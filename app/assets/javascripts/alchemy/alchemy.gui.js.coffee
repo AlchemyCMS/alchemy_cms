@@ -15,3 +15,4 @@ Alchemy.GUI =
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)
     Alchemy.GUI.init($el)
+    Alchemy.ImageLoader($el);

@@ -61,8 +61,8 @@ $.extend Alchemy,
 
   # Shows spinner while loading images and
   # fades the image after its been loaded
-  ImageLoader: (selector = 'img', options = {color: '#fff'}) ->
-    $(selector).each ->
+  ImageLoader: (scope = document, options = {color: '#fff'}) ->
+    $('img', scope).each ->
       image = $(this).hide()
       parent = image.parent()
       spinner = Alchemy.Spinner.small options
