@@ -27,3 +27,6 @@ Alchemy.Hotkeys = (scope) ->
     key = $this.data('alchemy-hotkey')
     keymage key, ->
       $this.click()
+
+  keymage 'alt-w', ->
+    Alchemy.CurrentWindow.dialog('close')
