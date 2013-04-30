@@ -85,9 +85,7 @@ Alchemy.ElementsWindow =
       url: self.path
       success: (data, textStatus, XMLHttpRequest) ->
         self.dialog.html data
-        Alchemy.Buttons.observe "#alchemyElementWindow"
-        Alchemy.overlayObserver "#alchemyElementWindow"
-        Alchemy.Datepicker "#alchemyElementWindow input.date, #alchemyElementWindow input[type=\"date\"]"
+        Alchemy.GUI.init "#alchemyElementWindow"
         if self.callback
           self.callback.call()
       error: (XMLHttpRequest, textStatus, errorThrown) ->

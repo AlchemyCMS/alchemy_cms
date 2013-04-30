@@ -29,12 +29,3 @@ $ ->
 
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content img')
-
-  # Observes overlay links
-  Alchemy.overlayObserver()
-
-  # Observes links with hotkeys
-  Alchemy.Hotkeys()
-
-  # Observes list filter fields
-  Alchemy.ListFilter()

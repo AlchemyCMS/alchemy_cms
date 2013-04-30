@@ -1,15 +1,17 @@
 window.Alchemy = {} if window.Alchemy == undefined
 
+# Alchemy GUI initializers
 Alchemy.GUI =
 
-  init: ->
-    Alchemy.SelectBox()
-    Alchemy.Datepicker()
-    Alchemy.Buttons.observe()
+  # Initializes all Alchemy GUI elements in given scope
+  init: (scope) ->
+    Alchemy.SelectBox(scope)
+    Alchemy.Datepicker(scope)
+    Alchemy.Buttons.observe(scope)
+    Alchemy.overlayObserver(scope)
+    Alchemy.Hotkeys(scope)
+    Alchemy.ListFilter(scope)
 
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)
-    Alchemy.SelectBox($el)
-    Alchemy.Buttons.observe($el)
-    Alchemy.Datepicker('input[type="date"]', $el)
-    Alchemy.overlayObserver($el)
+    Alchemy.GUI.init($el)

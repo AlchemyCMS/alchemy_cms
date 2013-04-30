@@ -34,10 +34,7 @@
         Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
       <% end %>
 
-      Alchemy.ElementDirtyObserver($el);
-      Alchemy.Datepicker('input[type="date"]', $el);
-      Alchemy.Buttons.observe($el);
-      Alchemy.overlayObserver("#element_<%= @element.id %>");
+      Alchemy.GUI.initElement($el);
       Alchemy.ImageLoader('#element_<%= @element.id -%> img');
 
     <% end %>

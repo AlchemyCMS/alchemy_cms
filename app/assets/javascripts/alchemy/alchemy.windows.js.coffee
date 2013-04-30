@@ -174,12 +174,7 @@ $.extend Alchemy,
               widget.css left: (($(window).width() / 2) - ($dialog.width() / 2))
             if options.height is "auto"
               widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
-            Alchemy.SelectBox "#alchemyOverlay"
-            Alchemy.Datepicker '#alchemyOverlay input.date, #alchemyOverlay input[type="date"]'
-            Alchemy.Buttons.observe "#alchemyOverlay"
-            Alchemy.overlayObserver "#alchemyOverlay"
-            Alchemy.Hotkeys '#alchemyOverlay'
-            Alchemy.ListFilter '#alchemyOverlay'
+            Alchemy.GUI.init "#alchemyOverlay"
             if options.image_loader
               Alchemy.ImageLoader '#alchemyOverlay img', {color: options.image_loader_color}
           error: (XMLHttpRequest, textStatus, errorThrown) ->
