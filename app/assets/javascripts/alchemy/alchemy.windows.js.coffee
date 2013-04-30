@@ -147,7 +147,7 @@ $.extend Alchemy,
     if options.width is "fullscreen"
       options.width = $(window).width() - 50
       options.height = $(window).height() - 50
-    $dialog = $('<div style="display: none" id="alchemyOverlay" />')
+    $dialog = $('<div style="display: none" class="alchemy_overlay" />')
     $dialog.appendTo "body"
     $dialog.html Alchemy.getOverlaySpinner
       width: (if options.width is "auto" then 400 else options.width)
@@ -174,7 +174,7 @@ $.extend Alchemy,
               widget.css left: (($(window).width() / 2) - ($dialog.width() / 2))
             if options.height is "auto"
               widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
-            Alchemy.GUI.init "#alchemyOverlay"
+            Alchemy.GUI.init Alchemy.CurrentWindow
             if options.image_loader
               Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
           error: (XMLHttpRequest, textStatus, errorThrown) ->
@@ -190,7 +190,7 @@ $.extend Alchemy,
       Alchemy.CurrentWindow.dialog "close"
       Alchemy.CurrentWindow = null
     else
-      $("#alchemyOverlay").dialog "close"
+      $(".alchemy_overlay").dialog "close"
     true
 
   # Opens an image in an overlay

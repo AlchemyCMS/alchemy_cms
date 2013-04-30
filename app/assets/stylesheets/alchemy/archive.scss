@@ -224,7 +224,7 @@ div#library_sidebar {
   }
 }
 
-#alchemyOverlay #library_sidebar {
+.alchemy_overlay #library_sidebar {
   position: absolute;
 }
 
@@ -257,7 +257,7 @@ div#filter_bar {
     right: auto;
     top: auto;
     width: 200px;
-    z-index: 1;
+    z-index: 1100;
 
     input {
       width: 200px;
@@ -386,9 +386,4 @@ div#pictures_page_list {
       margin-right: 4px;
     }
   }
-}
-
-// Fixes an issue with jquery ui dialog
-#alchemyOverlay .js_filter_field_box {
-  z-index: 1100;
 }

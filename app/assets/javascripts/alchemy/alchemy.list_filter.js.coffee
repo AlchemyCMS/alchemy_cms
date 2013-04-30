@@ -16,10 +16,7 @@ class Alchemy.ListFilterHandler
     @_observe()
 
   _observe: ->
-    @filter_field.on 'keydown', (e) ->
-      console.log(e)
     @filter_field.on 'keyup', (e) =>
-      console.log(e)
       @clear.show()
       @_filter @filter_field.val()
     @clear.click (e) =>

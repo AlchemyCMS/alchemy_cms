@@ -25,7 +25,7 @@ Alchemy.ImageCropper =
     unless Alchemy.ImageCropper.initialized
       Alchemy.ImageCropper.api = $.Jcrop("#imageToCrop", options)
       Alchemy.ImageCropper.initialized = true
-    $("#alchemyOverlay").on 'dialogclose', Alchemy.ImageCropper.destroy
+    $(".alchemy_overlay").on 'dialogclose', Alchemy.ImageCropper.destroy
     return
 
   undo: ->
