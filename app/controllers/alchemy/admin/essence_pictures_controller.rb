@@ -55,8 +55,8 @@ module Alchemy
       end
 
       def assign
-        @content = Content.find(params[:id])
-        @picture = Picture.find(params[:picture_id])
+        @content = Content.find_by_id(params[:id])
+        @picture = Picture.find_by_id(params[:picture_id])
         @content.essence.picture = @picture
         @options = params[:options] || {}
         @element = @content.element
