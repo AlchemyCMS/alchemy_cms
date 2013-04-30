@@ -44,16 +44,18 @@ require 'fileutils'
 
       desc "Creates the database.yml file"
       task :create do
-        db_adapter       = Capistrano::CLI.ui.ask("\nPlease enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
+        environment      = Capistrano::CLI.ui.ask("\nPlease enter the environment (Default: #{fetch(:rails_env, 'production')})")
+        environment      = fetch(:rails_env, 'production') if environment.empty?
+        db_adapter       = Capistrano::CLI.ui.ask("Please enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
         db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/^mysql$/, 'mysql2')
         db_name          = Capistrano::CLI.ui.ask("Please enter database name: ")
         db_username      = Capistrano::CLI.ui.ask("Please enter database username: ")
-        db_password      = Capistrano::CLI.ui.ask("Please enter database password: ")
+        db_password      = Capistrano::CLI.password_prompt("Please enter database password: ")
         default_db_host  = db_adapter == 'mysql2' ? 'localhost' : '127.0.0.1'
         db_host          = Capistrano::CLI.ui.ask("Please enter database host (Default: #{default_db_host}): ")
         db_host          = db_host.empty? ? default_db_host : db_host
         db_config        = ERB.new <<-EOF
-production:
+#{environment}:
   adapter: #{ db_adapter }
   encoding: utf8
   reconnect: false
