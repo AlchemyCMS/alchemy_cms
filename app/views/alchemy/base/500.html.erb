@@ -1,5 +1,26 @@
-<h1>Upps!</h1>
-<h2><%= @notice %></h2>
-<pre>
-<%= @trace.join("\n") %>
-</pre>
+<%= toolbar(
+  buttons: [
+    {
+      icon: 'back',
+      url: request.referer || alchemy.admin_dashboard_path,
+      label: _t(:back),
+      title: _t(:back),
+      hotkey: 'alt-z',
+      overlay: false,
+      skip_permission_check: true
+    }
+  ]
+) %>
+
+<%= render_message(:error) do %>
+  <h1><%= _t('An error happened') %></h1>
+  <h2>
+    <%= @error.class %>
+    <%= @notice %>
+  </h2>
+  <p>
+  <% @trace.each do |line| %>
+    <%= line %><br>
+  <% end %>
+  </p>
+<% end %>

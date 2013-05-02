@@ -24,13 +24,13 @@ module Alchemy
 
       # Displays an error notice in the Alchemy backend.
       def show_error_notice(e)
-        # truncate the message, because very long error messages (i.e from mysql2) causes cookie oveflow errors
-        @notice = "Error: #{e.message[0..255]}"
-        @trace = e.backtrace
+        @error = e
+        # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
+        @notice = e.message[0..255]
+        @trace = e.backtrace[0..35]
         if request.xhr?
           render :action => "error_notice", :layout => false
         else
-          flash.now[:error] = @notice
           render '500', :status => 500
         end
       end

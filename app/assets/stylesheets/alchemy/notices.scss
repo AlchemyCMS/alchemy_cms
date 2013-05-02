@@ -8,7 +8,12 @@
   margin-bottom: 8px;
   text-align: left;
 
-  h2 { margin-top: 0 }
+  h1 {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  h1, h2 { margin-top: 0 }
 
   span.icon {
     position: absolute;

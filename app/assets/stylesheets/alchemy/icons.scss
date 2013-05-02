@@ -23,6 +23,17 @@
     background-position: -192px -136px;
   }
 
+  &.back {
+    background: none;
+    line-height: 14px;
+    font-size: 20px;
+    color: #666;
+
+    &:before {
+      content: '\00ab';
+    }
+  }
+
   &.blank {
     background: transparent;
   }

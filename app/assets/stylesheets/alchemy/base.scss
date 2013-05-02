@@ -643,3 +643,11 @@ div.browse {
 #alchemyPreviewWindow {
   width: 100% !important;
 }
+
+#error_trace {
+  border: $default-border;
+  width: 80%;
+  padding: $default-padding;
+  overflow: auto;
+  @extend .rounded-border;
+}
