@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: 'Alchemy Icons';
-  src: url("/assets/alchemy-icons.eot?23044784");
-  src: url("/assets/alchemy-icons.eot?23044784#iefix") format('embedded-opentype'),
-       url("/assets/alchemy-icons.woff?23044784") format('woff'),
-       url("/assets/alchemy-icons.ttf?23044784") format('truetype'),
-       url("/assets/alchemy-icons.svg?23044784#alchemy") format('svg');
+  src: font-url('alchemy/icons.eot');
+  src: font-url('alchemy/icons.eot?#iefix') format('embedded-opentype'),
+       font-url('alchemy/icons.woff') format('woff'),
+       font-url('alchemy/icons.ttf') format('truetype'),
+       font-url('alchemy/icons.svg#alchemy') format('svg');
   font-weight: normal;
   font-style: normal;
 }

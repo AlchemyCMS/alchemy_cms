@@ -39,7 +39,7 @@ div#sort_panel {
       height: 16px;
       float: left;
       margin-right: 4px;
-      background: url('icons.png') -160px -168px;
+      background: image-url('alchemy/icons.png') -160px -168px;
       margin-top: 4px;
     }
   }
@@ -231,7 +231,7 @@ div.page_infos {
 span.page_status {
   width: 16px;
   height: 16px;
-  background-image: url('icons.png');
+  background-image: image-url('alchemy/icons.png');
   background-repeat: no-repeat;
   float: left;
   margin: 2px 2px 0 4px;
@@ -268,7 +268,7 @@ span.page_status {
   float: left;
   width: 16px;
   height: 16px;
-  background: url('icons.png') no-repeat 0 -40px;
+  background: image-url('alchemy/icons.png') no-repeat 0 -40px;
   position: relative;
   cursor: help;
 }
