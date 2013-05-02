@@ -429,6 +429,7 @@ td.select .selectboxit {
       top: 3px;
       border-left: 1px solid darken($medium-gray, 10%);
       height: 23px !important;
+      line-height: 0;
     }
 
     /* Dropdown List Down Arrow */
@@ -468,47 +469,48 @@ td.select .selectboxit {
     @extend .rounded-border;
     @include box-shadow(0 4px 16px $dark-gray);
     border: $default-border;
+  }
 
-    /* Dropdown List Individual Options */
-    li, .selectboxit-optgroup-header {
-      line-height: 1.5em; /* Height of Individual Select Box Options */
-      overflow: hidden;
-      white-space: nowrap;
-      list-style: none;
-      margin: 0;
-      padding: 6px 8px;
-    }
+  /* Dropdown List Individual Options */
+  .selectboxit-option, .selectboxit-optgroup-header {
+    line-height: 1.5em; /* Height of Individual Select Box Options */
+    overflow: hidden;
+    white-space: nowrap;
+    list-style: none;
+    margin: 0;
+    padding: 6px 8px;
+  }
 
-    li.selectboxit-hover, li.selectboxit-focus, li.active {
-      background-color: $button-hover-bg-color;
-      color: $text-color;
-    }
+  .selectboxit-option.selectboxit-hover, .selectboxit-option.selectboxit-focus, .selectboxit-option.active {
+    background-color: $button-hover-bg-color;
+    color: $text-color;
+  }
 
-    /* Dropdown List Individual Option Icon Positioning */
-    li span {
-      float:left;
-    }
+  .selectboxit-option-icon {
+    float: left;
+  }
 
-    /* Dropdown List Optgroup Headers */
-    .selectboxit-optgroup-header {
-      font-weight: bold;
-    }
+  /* Dropdown List Optgroup Headers */
+  .selectboxit-optgroup-header {
+    font-weight: bold;
+  }
 
-    /* Dropdown List Optgroup Options */
-    .selectboxit-optgroup-option {
-      text-indent: 8px;
-    }
+  /* Dropdown List Optgroup Options */
+  .selectboxit-optgroup-option {
+    text-indent: 8px;
+  }
 
-    /* Dropdown List Optgroup Header hover psuedo class */
-    .selectboxit-optgroup-header[data-disabled='true']:hover {
-      cursor: default;
-    }
+  /* Dropdown List Optgroup Header hover psuedo class */
+  .selectboxit-optgroup-header[data-disabled='true']:hover {
+    cursor: default;
   }
 
   .selectboxit-option-anchor {
     display: block;
+    width: 100%;
     min-height: 19px;
     max-width: 410px;
+    text-align: left;
     @extend %text-overflow;
   }
 }

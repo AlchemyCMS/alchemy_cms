@@ -10,12 +10,11 @@
         onclick:function () {
           ed.focus();
           Alchemy.LinkOverlay.open({
-              node:ed.selection.getNode(),
-              bookmark:ed.selection.getBookmark(),
-              selection:ed.selection,
-              editor:ed
-            },
-            (ed.settings.alchemy_link_overlay_width || 408));
+            node:ed.selection.getNode(),
+            bookmark:ed.selection.getBookmark(),
+            selection:ed.selection,
+            editor:ed
+          });
         }
       });
       ed.onNodeChange.add(function (ed, cm, n, co) {
@@ -34,7 +33,7 @@
         author:'magic labs*',
         authorurl:'http://magiclabs.de',
         infourl:'http://alchemy-app.com',
-        version:"0.3.2"
+        version:"0.4.0"
       };
     }
   });

@@ -19,7 +19,7 @@ div#sort_panel {
 }
 
 .sitemap_pagename_link {
-  background-color: #FFFFFF;
+  background-color: #fff;
   color: black;
   display: block;
   padding-left: 4px;
@@ -28,10 +28,6 @@ div#sort_panel {
 
   &.inactive {
     color: #656565;
-  }
-
-  &.odd {
-    background-color: #fff;
   }
 
   :hover {
@@ -179,6 +175,11 @@ ul#sitemap {
   li {
     padding-left: 0;
 
+    .selected_page a {
+      background-color: $linked-color;
+      color: $dark-gray;
+    }
+
     li {
       padding-left: 22px;
       padding-right: 0;
@@ -204,16 +205,15 @@ ul.list li .sitemap_toolrow {
 
 ul#sitemap .sitemap_sitename,
 ul.list .sitemap_sitename {
-  background-color: #EDEDED;
   height: 22px;
   line-height: 22px;
   overflow: hidden;
 }
 
 div.page_infos {
-  @extend .top-rounded-border;
-  background-color: #FFFFFF;
-  border-left: 1px solid #EDEDED;
+  @extend .right-rounded-border;
+  background-color: #fff;
+  border-left: 1px solid $light-gray;
   float: right;
   height: 20px;
   padding: 1px;
@@ -367,4 +367,63 @@ select#language_tree_select {
 #page_filter_result {
   display: none;
   padding-left: 4*$default-padding;
+}
+
+.ui-dialog-content ul#sitemap {
+  margin: 0;
+  padding: 0 8px 8px 0;
+
+  .site_status { cursor: default }
+
+  li li.selectboxit-option {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .selectboxit-options {
+    right: 0;
+  }
+
+  .close_elements_from_page_selector {
+    position: absolute;
+    right: 4px;
+    top: 12px;
+    font-size: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    @extend .icon-cancel;
+  }
+}
+
+.show_elements_to_link {
+  background: image-url('alchemy/icons.png') no-repeat -510px -69px;
+}
+
+.elements_from_page_selector {
+  width: 154px;
+}
+
+.elements_for_page {
+  position: absolute;
+  right: 32px;
+  top: -7px;
+  z-index: 15;
+  background-color: white;
+  width: 280px;
+  height: 33px;
+  padding: $default-padding;
+  border: $default-border;
+  @include box-shadow(#9ea09f 0px 0px 4px);
+  @extend .rounded-border;
+
+  .spinner {
+    top: 17px !important;
+    left: 50% !important;
+    margin-left: 4px;
+  }
+
+  .alchemy_selectbox {
+    width: 252px;
+  }
 }

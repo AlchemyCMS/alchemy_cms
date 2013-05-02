@@ -32,7 +32,7 @@
 ) %>
 
 <%= link_to(render_icon(:link), '#', {
-  :onclick => "Alchemy.LinkOverlay.open(this, 420)",
+  :onclick => "Alchemy.LinkOverlay.open(this)",
   :class => content.linked? ? 'linked' : nil,
   :title => _t(:link_image),
   :data => {'content-id' => content.id},

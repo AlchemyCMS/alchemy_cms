@@ -8,15 +8,15 @@
 
   Alchemy.LinkOverlay = {
 
-    open: (linked_element, width) ->
+    open: (linked_element) ->
       self = Alchemy.LinkOverlay
       $dialog = $('<div style="display:none" id="alchemyLinkOverlay"></div>')
 
-      $dialog.html(Alchemy.getOverlaySpinner({width: width}))
+      $dialog.html(Alchemy.getOverlaySpinner({width: 600, height: 450}))
 
       self.current = $dialog.dialog({
         modal: true,
-        minWidth: if parseInt(width) < 600 then 600 else parseInt(width),
+        minWidth: 600,
         minHeight: 450,
         title: 'Link setzen',
         show: "fade",
