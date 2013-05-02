@@ -1538,10 +1538,6 @@ button.ui-button::-moz-focus-inner {
     @include box-shadow(none);
     width: 18px;
   }
-
-  &.ui-state-hover {
-    @extend %foc
-  }
 }
 
 .ui-dialog .ui-dialog-titlebar-refresh {
