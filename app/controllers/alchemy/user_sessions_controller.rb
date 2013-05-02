@@ -4,7 +4,7 @@ module Alchemy
     include Alchemy::FerretSearch
     helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
 
-    before_filter { enforce_ssl if ssl_required? && !request.ssl? }
+    before_filter(except: 'destroy') { enforce_ssl if ssl_required? && !request.ssl? }
     before_filter :set_translation
     before_filter :check_user_count, :only => :new
 
