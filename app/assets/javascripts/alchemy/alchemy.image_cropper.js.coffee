@@ -11,7 +11,6 @@ Alchemy.ImageCropper =
       onSelect: (coords) ->
         crop_from_field.val coords.x + "x" + coords.y
         crop_size_field.val coords.w + "x" + coords.h
-        return
       setSelect: box
       aspectRatio: (if ratio then ratio else `undefined`)
       minSize: [size_x, size_y]
@@ -26,21 +25,17 @@ Alchemy.ImageCropper =
       Alchemy.ImageCropper.api = $.Jcrop("#imageToCrop", options)
       Alchemy.ImageCropper.initialized = true
     $(".alchemy_overlay").on 'dialogclose', Alchemy.ImageCropper.destroy
-    return
 
   undo: ->
     Alchemy.ImageCropper.api.setSelect Alchemy.ImageCropper.box
-    return
 
   reset: ->
     Alchemy.ImageCropper.api.setSelect Alchemy.ImageCropper.default_box
     Alchemy.ImageCropper.crop_from_field.val ""
     Alchemy.ImageCropper.crop_size_field.val ""
-    return
 
   destroy: ->
-    try
+    if Alchemy.ImageCropper.api
       Alchemy.ImageCropper.api.destroy()
-    finally
-      Alchemy.ImageCropper.initialized = false
-    return
+    Alchemy.ImageCropper.initialized = false
+    true
