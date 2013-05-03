@@ -185,8 +185,8 @@ class UpgradeDatabaseToAlchemy < ActiveRecord::Migration
     # Converts users table
     add_column_unless_exist :users, :gender, :string
     add_column_unless_exist :users, :role, :string
-    change_column :users, :crypted_password, :string, :limit => 128, :null => false, :default => ""
-    change_column :users, :salt, :string, :limit => 128, :null => false, :default => ""
+    change_column_if_exist :users, :crypted_password, :string, :limit => 128, :null => false, :default => ""
+    change_column_if_exist :users, :salt, :string, :limit => 128, :null => false, :default => ""
     rename_column_if_exist :users, :salt, :password_salt
     remove_column_if_exist :users, :remember_token
     remove_column_if_exist :users, :remember_token_expires_at
@@ -202,7 +202,7 @@ class UpgradeDatabaseToAlchemy < ActiveRecord::Migration
     add_column_unless_exist :users, :perishable_token, :string, :null => false
     add_index_unless_exist :users, :perishable_token
     remove_column_if_exist :users, :admin
-    execute("UPDATE users SET role = 'admin'")
+    execute("UPDATE users SET role = 'admin' WHERE role IS NULL")
 
     # Phew!
   end
@@ -250,8 +250,14 @@ private
   end
 
   def self.remove_index_if_exist(*args)
-    if index_exists?(*args) && table_exists?(args.first)
+    if table_exists?(args.first) && index_exists?(*args)
       remove_index(*args)
+    end
+  end
+
+  def self.change_column_if_exist(*args)
+    if column_exists?(*args[0..1])
+      change_column(*args)
     end
   end
 
