@@ -263,93 +263,81 @@ module Alchemy
 
     end
 
-    describe "#language_switcher" do
+    describe "#language_links" do
 
-      before do
-        # simulates link_to_public_child = true
-        helper.stub(:multi_language?).and_return(true)
-        helper.stub(:configuration) { |arg| arg == :redirect_to_public_child ? true : false }
-      end
+      context "with two public languages" do
+        
+        # Always create second language
+        before { klingonian }
 
-      it "should return nil when having only one public language" do
-        helper.language_switcher.should be nil
-      end
-
-      context "with two public languages and two language_roots" do
-
-        before do
-          language_root
+        context "with only one language root page" do
+          it "should return nil" do
+            expect(helper.language_links).to be_nil
+          end
         end
 
-        context "and config redirect_to_public_child is set to TRUE" do
+        context "with two language root pages" do
 
-          it "should return nil if only one language_root is public and both do not have children" do
-            klingonian_language_root.update_attributes(:public => false)
-            helper.language_switcher.should == nil
+          # Always create a language root page for klingonian
+          before { klingonian_language_root }
+
+          it "should render two language links" do
+            expect(helper.language_links).to have_selector('a', :count => 2)
           end
 
-          it "should return nil if only one language_root is public and both have none public children" do
-            klingonian_language_root.update_attributes(:public => false)
-            FactoryGirl.create(:page)
-            FactoryGirl.create(:page, :language => klingonian, :parent_id => klingonian_language_root.id)
-            helper.language_switcher.should == nil
+          it "should render language links referring to their language root page" do
+            code = klingonian_language_root.language_code
+            urlname = klingonian_language_root.urlname
+            expect(helper.language_links).to have_selector("a.#{code}[href='/#{code}/#{urlname}']")
           end
 
-          it "should render two links when having two public language_root pages" do
-            klingonian_language_root
-            helper.language_switcher.should have_selector('a', :count => 2)
+          context "with options[:linkname]" do
+            context "set to 'name'" do
+              it "should render the name of the language" do
+                expect(helper.language_links(linkname: 'name')).to have_selector("span[contains('#{klingonian_language_root.language.name}')]")
+              end
+            end
+
+            context "set to 'code'" do
+              it "should render the code of the language" do
+                expect(helper.language_links(linkname: 'code')).to have_selector("span[contains('#{klingonian_language_root.language.code}')]")
+              end
+            end
           end
 
-          it "should render two links when having just one public language_root but a public children in both language_roots" do
-            klingonian_language_root.update_attributes(:public => false)
-            public_page
-            klingonian_public_page
-            helper.language_switcher.should have_selector('a', :count => 2)
+          context "spacer set to '\o/'" do
+            it "should render the given string as a spacer" do
+              expect(helper.language_links(spacer: '<span>\o/</span>')).to have_selector('span[contains("\o/")]', :count => 1)
+            end
           end
 
-          it "should render two links when having two not public language_roots but a public children in both" do
-            language_root.update_attributes(:public => false)
-            klingonian_language_root.update_attributes(:public => false)
-            public_page
-            klingonian_public_page
-            helper.language_switcher.should have_selector('a', :count => 2)
+          context "with options[:reverse]" do
+            context "set to false" do
+              it "should render the language links in an ascending order" do
+                expect(helper.language_links(reverse: false)).to have_selector("a.de + a.kl")
+              end
+            end
+
+            context "set to true" do
+              it "should render the language links in a descending order" do
+                expect(helper.language_links(reverse: true)).to have_selector("a.kl + a.de")
+              end
+            end
           end
+          
+          context "with options[:show_title]" do
+            context "set to true" do
+              it "should render the language links with titles" do
+                helper.stub!(:_t).and_return("my title")
+                expect(helper.language_links(show_title: true)).to have_selector('a[title="my title"]')
+              end
+            end
 
-          it "should return nil when having two not public language_roots and a public children in only one of them" do
-            language_root.update_attributes(:public => false)
-            klingonian_language_root.update_attributes(:public => false)
-            FactoryGirl.create(:page)
-            klingonian_public_page
-            helper.language_switcher.should == nil
-          end
-
-        end
-
-        context "and config redirect_to_public_child is set to FALSE" do
-
-          before do
-            klingonian_language_root
-            # simulates link_to_public_child = false
-            helper.stub(:configuration).and_return(false)
-          end
-
-          it "should render two links when having two public language_root pages" do
-            helper.language_switcher.should have_selector('a', :count => 2)
-          end
-
-          it "should render nil when having just one public language_root but a public children in both language_roots" do
-            klingonian_language_root.update_attributes(:public => false)
-            public_page
-            klingonian_public_page
-            helper.language_switcher.should == nil
-          end
-
-          it "should render nil when having two not public language_roots but a public children in both" do
-            language_root.update_attributes(:public => false)
-            klingonian_language_root.update_attributes(:public => false)
-            public_page
-            klingonian_public_page
-            helper.language_switcher.should == nil
+            context "set to false" do
+              it "should render the language links without titles" do
+                expect(helper.language_links(show_title: false)).to_not have_selector('a[title]')
+              end
+            end
           end
 
         end

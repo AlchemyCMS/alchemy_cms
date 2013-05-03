@@ -1,0 +1,12 @@
+<% css_classes = [language.code] %>
+<% css_classes << 'active' if session[:language_id] == language.id %>
+<% css_classes << 'first' if languages.first == language %>
+<% css_classes << 'last' if languages.last == language %>
+<% link_title = options[:show_title] ? _t("#{language.code}.title", scope: 'language_links', default: language.name) : nil %>
+
+<%= link_to(
+  content_tag(:span, language.label(options[:linkname])).html_safe,
+  show_alchemy_page_path(language.pages.language_roots.first, lang: language.code),
+  class: css_classes.join(" "),
+  title: link_title
+) %>
