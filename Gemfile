@@ -14,6 +14,7 @@ group :test do
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
   gem 'poltergeist', '1.1.0'
+  gem 'faye-websocket', '0.4.7' # https://github.com/jonleighton/poltergeist/issues/320
   unless ENV['CI']
     gem 'launchy'
   end
@@ -32,5 +33,4 @@ group :development do
     gem 'quiet_assets' # Mute assets loggin
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
   end
-  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '2-13-maintenance'
 end
