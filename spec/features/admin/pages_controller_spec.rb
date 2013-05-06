@@ -18,7 +18,7 @@ module Alchemy
 
         before do
           klingonian_root
-          Capybara.default_wait_time = 3 # Raising this helps this test to pass, even on travis-ci
+          Capybara.default_wait_time = 4 # Raising this helps this test to pass, even on travis-ci
         end
 
         it "one should be able to switch the language tree" do
