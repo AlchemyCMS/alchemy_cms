@@ -192,18 +192,6 @@ td.heading {
   background-color: $light_yellow;
 }
 
-td.file_type {
-  width: 130px;
-}
-
-td.file_size {
-  width: 80px;
-}
-
-td.date {
-  width: 150px;
-}
-
 td, th {
 
   &.center, &.boolean {
@@ -215,26 +203,45 @@ td, th {
   }
 }
 
-td.login {
-  width: 100px;
-}
+td {
 
-td.email {
-  width: 270px;
-}
+  &.file_name {
+    word-break: break-all;
+  }
 
-td.role {
-  width: 10%;
+  &.file_type {
+    width: 130px;
+  }
+
+  &.file_size {
+    width: 80px;
+  }
+
+  &.date {
+    width: 150px;
+  }
+
+  &.login {
+    width: 100px;
+  }
+
+  &.email {
+    width: 270px;
+  }
+
+  &.role {
+    width: 10%;
+  }
+
+  &.rights {
+    width: 60px;
+  }
 }
 
 th.count, td.count {
   width: 120px;
   text-align: right;
   padding-right: 16px;
-}
-
-td.rights {
-  width: 60px;
 }
 
 table.window_form {
