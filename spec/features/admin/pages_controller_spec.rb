@@ -18,7 +18,7 @@ module Alchemy
 
         before do
           klingonian_root
-          #Capybara.default_wait_time = 3 # Raising this helps this test to pass, even on travis-ci
+          Capybara.default_wait_time = 3 # Raising this helps this test to pass, even on travis-ci
         end
 
         it "one should be able to switch the language tree" do
@@ -27,7 +27,7 @@ module Alchemy
           page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
         end
 
-        #after { Capybara.default_wait_time = 2 } # Reset to default
+        after { Capybara.default_wait_time = 2 } # Reset to default
 
       end
 
