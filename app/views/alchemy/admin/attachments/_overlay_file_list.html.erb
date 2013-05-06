@@ -4,7 +4,7 @@
     <%= _t(:no_files_in_archive) %>
   </div>
 <% else %>
-  <ul class="with_padding">
+  <ul>
     <%= render :partial => 'file_to_assign', :collection => @attachments %>
   </ul>
   <%= paginate @attachments, :remote => true %>

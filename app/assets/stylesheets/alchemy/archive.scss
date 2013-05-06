@@ -137,12 +137,6 @@ div.assign_image_list_image {
   }
 }
 
-#assign_image_list, #assign_file_list {
-  position: relative;
-  padding-right: 244px;
-  height: 519px;
-}
-
 .picture_tool {
   width: 16px;
   height: 16px;
@@ -324,7 +318,13 @@ div#alchemy_window_body {
   }
 }
 
+#assign_image_list, #assign_file_list {
+  position: relative;
+  height: 519px;
+}
+
 #assign_image_list {
+  padding-right: 244px;
 
   #tag_list ul {
     height: 316px;
@@ -365,13 +365,23 @@ div#pictures_page_list {
 
 #overlay_file_list {
 
+  &.with_tag_list {
+    padding-right: 234px;
+  }
+
   .assign_file_file {
     display: block;
     margin-bottom: 4px;
+    word-break: break-all;
+
+    &:hover {
+      background-color: $light_yellow;
+    }
   }
 
   > ul {
     margin: 0;
+    padding: 4px 0;
 
     a {
       @extend %text-overflow;

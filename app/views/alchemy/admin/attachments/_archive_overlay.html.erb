@@ -20,12 +20,14 @@
     <%= render 'alchemy/admin/partials/remote_search_form' %>
   </div>
   <div id="assign_file_list" class="with_padding<%= params[:tagged_with].present? ? ' filtered' : '' %>">
+    <% if any_tags = Alchemy::Attachment.tag_counts.any? %>
     <div id="library_sidebar">
       <div id="tag_list">
         <%= render 'tag_list' %>
       </div>
     </div>
-    <div id="overlay_file_list">
+    <% end %>
+    <div id="overlay_file_list" class="<%= any_tags ? 'with_tag_list' : nil %>">
       <%= render 'overlay_file_list' %>
     </div>
   </div>
