@@ -15,6 +15,7 @@ group :test do
   gem 'pg'                    if ENV['DB'] == 'postgresql'
   gem 'poltergeist', '1.1.0'
   gem 'faye-websocket', '0.4.7' # https://github.com/jonleighton/poltergeist/issues/320
+  gem 'connection_pool' # https://gist.github.com/mperham/3049152
   unless ENV['CI']
     gem 'launchy'
   end
