@@ -7,7 +7,7 @@ namespace :alchemy do
       Rake::Task['alchemy:migrations:sync'].invoke
       Rake::Task['db:migrate'].invoke
       Rake::Task['alchemy:legacy:convert_page_layouts'].invoke
-      Rake::Task['alchemy:legacy:elements'].invoke
+      Rake::Task['alchemy:legacy:convert_elements'].invoke
       Rake::Task['alchemy:legacy:convert_views'].invoke
       Alchemy::Seeder.seed!
       Rake::Task['alchemy:legacy:create_languages'].invoke
