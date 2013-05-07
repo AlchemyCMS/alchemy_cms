@@ -78,6 +78,7 @@ class UpgradeDatabaseToAlchemy < ActiveRecord::Migration
     execute("UPDATE contents SET essence_type = REPLACE(essence_type, 'WaAtom', 'Essence')")
     execute("UPDATE contents SET essence_type = REPLACE(essence_type, 'EssenceRtf', 'EssenceRichtext')")
     execute("UPDATE contents SET essence_type = REPLACE(essence_type, 'EssenceFlashvideo', 'EssenceVideo')")
+    execute("UPDATE contents SET name = REPLACE(name, 'wa_atom_picture_', 'essence_picture_')")
 
     # Renaming old userstamp columns to new userstamp columns
     rename_column_if_exist :pages, :created_by, :creator_id
