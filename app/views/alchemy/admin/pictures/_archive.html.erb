@@ -34,7 +34,6 @@
       :style => 'float: none'
     ) %>
   </div>
-  <%= content_tag :h3, _t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
   <div id="pictures">
   <% if @pictures.blank? and @recent_pictures.blank? and params[:query].nil? %>
     <div class="info">

@@ -522,8 +522,9 @@ de:
     picture_gallery_editor: 'Bilder'
     picture_library:
       filter:
-        last_upload: "Zuletzt hochgeladene Bilder"
-        recent: "Bilder der letzten 24 Stunden"
+        last_upload: "die zuletzt hochgeladen wurden"
+        recent: "aus den letzten 24 Stunden"
+        without_tag: "ohne Tag"
     place_link: "Text verlinken"
     player_version: "Flashplayer Version"
     "please enter subject and mail address": "Bitte geben Sie den Betreff und eine Empfängeradresse an."
@@ -596,6 +597,7 @@ de:
     "We need at least one default.": "Es muss eine Standardsprache geben."
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
     width: "Breite"
+    without_tag: 'Ohne Tag'
     you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
     zoom_image: "Bild in voller Größe anzeigen."
     "Leave Alchemy": "Alchemy verlassen"
