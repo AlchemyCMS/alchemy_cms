@@ -150,10 +150,26 @@ h5. Example
 de:
   alchemy:
     element_names:
-      contact: Kontakt
+      contact_form: Kontaktformular
       search: Suche
     content_names:
       headline: Überschrift
+</pre>
+
+Content names can also be translated depending their element.
+This is useful for contents with the same name that should have different translations.
+
+h5. Example
+
+<pre>
+de:
+  alchemy:
+    element_names:
+      contact_form: Kontaktformular
+    content_names:
+      color: Farbe
+      contact_form:
+        color: Button Farbe
 </pre>
 
 h4. An example element
