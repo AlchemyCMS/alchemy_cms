@@ -17,6 +17,8 @@ module Alchemy
             @pictures = @pictures.recent
           when 'last_upload'
             @pictures = @pictures.last_upload
+          when 'without_tag'
+            @pictures = @pictures.where("cached_tag_list IS NULL OR cached_tag_list = ''")
         end
         @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
         if in_overlay?
