@@ -8,6 +8,8 @@ namespace :alchemy do
       Rake::Task['db:migrate'].invoke
       Rake::Task['alchemy:legacy:convert_page_layouts'].invoke
       Rake::Task['alchemy:legacy:convert_elements'].invoke
+      Rake::Task['alchemy:legacy:create_element_translations'].invoke
+      Rake::Task['alchemy:legacy:create_page_layouts_translations'].invoke
       Rake::Task['alchemy:legacy:convert_views'].invoke
       Rake::Task['alchemy:legacy:convert_models_and_methods'].invoke
       Alchemy::Seeder.seed!
@@ -130,6 +132,41 @@ namespace :alchemy do
         FileUtils.cp default_config, 'config/alchemy/config.yml.defaults'
         puts "Copied new default configuration file."
         puts "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file."
+      end
+    end
+
+    desc "Generates element names translations."
+    task :create_element_translations => [:environment, 'alchemy:legacy:convert_elements'] do
+      create_translations_for('element')
+    end
+
+    desc "Generates page_layout names translations."
+    task :create_page_layouts_translations => [:environment, 'alchemy:legacy:convert_page_layouts'] do
+      create_translations_for('page_layout')
+    end
+
+    def create_translations_for(entity)
+      lang = ::I18n.default_locale.to_s
+      entities = YAML.load_file("config/alchemy/#{entity}s.yml")
+      abort "No #{entity} descriptions found. Please check #{entity}s.yml file." if entities.blank?
+      locale_file = "config/locales/#{lang}.yml"
+      # load or create locale hash
+      if File.exists?(locale_file)
+        locale = YAML.load_file(locale_file)
+      else
+        locale = {lang => {'alchemy' => {"#{entity}_names" => {}}}}
+      end
+      # preparing the locale file
+      locale[lang] ||= {'alchemy' => {"#{entity}_names" => {}}}
+      locale[lang]['alchemy'] ||= {"#{entity}_names" => {}}
+      locale[lang]['alchemy']["#{entity}_names"] ||= {}
+      # store page_layout names in locale file
+      entities.each do |e|
+        locale[lang]['alchemy']["#{entity}_names"].merge!(e['name'] => e['display_name'])
+      end
+      # write the file out
+      File.open(locale_file, "w") do |f|
+        f.write(locale.to_yaml.sub("---\n", ''))
       end
     end
 
