@@ -2,7 +2,7 @@
 
 /* Reset */
 
-.alchemy, .alchemy div, .alchemy span, .alchemy a {
+.alchemy-tinymce-dialog, .alchemy-tinymce-dialog div, .alchemy-tinymce-dialog span, .alchemy-tinymce-dialog a {
   vertical-align: baseline;
   text-align: left;
   position: absolute;
@@ -22,14 +22,14 @@
 
 /* General */
 
-.alchemy {
+.alchemy-tinymce-dialog {
   position: absolute;
   direction: ltr;
   border: $default-border;
   @extend .rounded-border;
 }
 
-.alchemy .mceWrapper {
+.alchemy-tinymce-dialog .mceWrapper {
   position: static;
 }
 
@@ -41,7 +41,7 @@
   height: 100%
 }
 
-.alchemy .mcePlaceHolder {
+.alchemy-tinymce-dialog .mcePlaceHolder {
   border: 1px solid #000;
   background: #888;
   top: 0;
@@ -49,7 +49,7 @@
   @include opacity(0.5);
 }
 
-.alchemy_modalBlocker {
+.alchemy-tinymce-dialog_modalBlocker {
   position: fixed;
   left: 0;
   top: 0;
@@ -62,17 +62,17 @@
 
 /* Top */
 
-.alchemy .mceTop, .alchemy .mceTop div {
+.alchemy-tinymce-dialog .mceTop, .alchemy-tinymce-dialog .mceTop div {
   top: 0;
   width: 100%;
   height: 31px;
 }
 
-.alchemy .mceTop .mceLeft {
+.alchemy-tinymce-dialog .mceTop .mceLeft {
   width: 0px;
 }
 
-.alchemy .mceTop .mceCenter,
+.alchemy-tinymce-dialog .mceTop .mceCenter,
 a.mceMove {
   width: 100%;
   height: 31px;
@@ -80,13 +80,13 @@ a.mceMove {
   color: $text-color;
 }
 
-.alchemy .mceTop .mceRight {
+.alchemy-tinymce-dialog .mceTop .mceRight {
   right: 0;
   width: 0px;
   height: 32px;
 }
 
-.alchemy .mceTop span {
+.alchemy-tinymce-dialog .mceTop span {
   width: 100%;
   text-align: left;
   vertical-align: middle;
@@ -98,17 +98,17 @@ a.mceMove {
 
 /* Middle */
 
-.alchemy .mceMiddle, .alchemy .mceMiddle div {
+.alchemy-tinymce-dialog .mceMiddle, .alchemy-tinymce-dialog .mceMiddle div {
   top: 0
 }
 
-.alchemy .mceMiddle {
+.alchemy-tinymce-dialog .mceMiddle {
   width: 100%;
   height: 100%;
 /*clip: rect(23px auto auto auto)*/
 }
 
-.alchemy .mceMiddle .mceLeft {
+.alchemy-tinymce-dialog .mceMiddle .mceLeft {
   left: 0;
   width: 0;
   height: 100%;
@@ -116,7 +116,7 @@ a.mceMove {
   z-index: 1;
 }
 
-.alchemy .mceMiddle span {
+.alchemy-tinymce-dialog .mceMiddle span {
   top: 31px;
   left: 0px;
   width: 100%;
@@ -124,7 +124,7 @@ a.mceMove {
   background: #FFF
 }
 
-.alchemy .mceMiddle .mceRight {
+.alchemy-tinymce-dialog .mceMiddle .mceRight {
   right: 0;
   width: 0px;
   height: 100%;
@@ -134,57 +134,57 @@ a.mceMove {
 
 /* Bottom */
 
-.alchemy .mceBottom, .alchemy .mceBottom div {
+.alchemy-tinymce-dialog .mceBottom, .alchemy-tinymce-dialog .mceBottom div {
   height: 0
 }
 
-.alchemy .mceBottom {
+.alchemy-tinymce-dialog .mceBottom {
   left: 0;
   bottom: 0;
   width: 100%
 }
 
-.alchemy .mceBottom div {
+.alchemy-tinymce-dialog .mceBottom div {
   top: 0
 }
 
-.alchemy .mceBottom .mceLeft {
+.alchemy-tinymce-dialog .mceBottom .mceLeft {
   left: 0;
   width: 0px;
 }
 
-.alchemy .mceBottom .mceCenter {
+.alchemy-tinymce-dialog .mceBottom .mceCenter {
   width: 100%;
   left: 0;
   background-color: white;
 }
 
-.alchemy .mceBottom .mceRight {
+.alchemy-tinymce-dialog .mceBottom .mceRight {
   right: 0;
   width: 0px;
 }
 
-.alchemy .mceBottom span {
+.alchemy-tinymce-dialog .mceBottom span {
   display: none
 }
 
-.alchemy .mceStatusbar .mceBottom, .alchemy .mceStatusbar .mceBottom div {
+.alchemy-tinymce-dialog .mceStatusbar .mceBottom, .alchemy-tinymce-dialog .mceStatusbar .mceBottom div {
   height: 23px
 }
 
-.alchemy .mceStatusbar .mceBottom .mceLeft {
+.alchemy-tinymce-dialog .mceStatusbar .mceBottom .mceLeft {
 
 }
 
-.alchemy .mceStatusbar .mceBottom .mceCenter {
+.alchemy-tinymce-dialog .mceStatusbar .mceBottom .mceCenter {
 
 }
 
-.alchemy .mceStatusbar .mceBottom .mceRight {
+.alchemy-tinymce-dialog .mceStatusbar .mceBottom .mceRight {
 
 }
 
-.alchemy .mceStatusbar .mceBottom span {
+.alchemy-tinymce-dialog .mceStatusbar .mceBottom span {
   display: block;
   left: 7px;
   font: $default-font-style;
@@ -193,37 +193,42 @@ a.mceMove {
 
 /* Actions */
 
-.alchemy a {
+.alchemy-tinymce-dialog a {
   width: 29px;
   height: 16px;
 }
 
-.alchemy .mceClose {
-  @extend .icon-cancel;
+.alchemy-tinymce-dialog .mceClose {
+  @extend .icon-cross;
   width: 16px;
   height: 16px;
   top: 7px;
   right: 8px;
   text-align: center;
-  &:before { font-size: 16px }
+
+  &:before {
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+  }
 }
 
-.alchemy .mceMin {
+.alchemy-tinymce-dialog .mceMin {
   display: none;
   right: 68px;
 }
 
-.alchemy .mceMed {
+.alchemy-tinymce-dialog .mceMed {
   display: none;
   right: 28px;
   width: 16px;
   height: 16px;
-  @extend .icon-exit-fullscreen;
+  @extend .icon-fullscreen-exit;
   top: 6px;
   padding-top: 3px;
 }
 
-.alchemy .mceMax {
+.alchemy-tinymce-dialog .mceMax {
   display: none;
   right: 28px;
   width: 16px;
@@ -233,7 +238,7 @@ a.mceMove {
   padding-top: 3px;
 }
 
-.alchemy .mceClose, .alchemy .mceMin, .alchemy .mceMed, .alchemy .mceMax {
+.alchemy-tinymce-dialog .mceClose, .alchemy-tinymce-dialog .mceMin, .alchemy-tinymce-dialog .mceMed, .alchemy-tinymce-dialog .mceMax {
 
   &:hover {
     border: 1px solid $button-hover-border-color;
@@ -244,35 +249,35 @@ a.mceMove {
   }
 }
 
-.alchemy .mceClose {
+.alchemy-tinymce-dialog .mceClose {
   &:hover {
     top: 6px;
     right: 7px;
   }
 }
 
-.alchemy .mceMax, .alchemy .mceMed {
+.alchemy-tinymce-dialog .mceMax, .alchemy-tinymce-dialog .mceMed {
   &:hover {
     top: 5px;
     right: 27px;
   }
 }
 
-.alchemy .mceMove {
+.alchemy-tinymce-dialog .mceMove {
   display: none;
   cursor: move;
   height: 31px;
   width: 100%;
 }
 
-.alchemy .mceMovable .mceMove {
+.alchemy-tinymce-dialog .mceMovable .mceMove {
   display: block;
   right: 0;
 }
 
 /* Resize */
 
-.alchemy .mceResize {
+.alchemy-tinymce-dialog .mceResize {
   top: auto;
   left: auto;
   display: none;
@@ -281,31 +286,31 @@ a.mceMove {
   background: transparent no-repeat 0 -75px;
 }
 
-.alchemy .mceResizable .mceResize {
+.alchemy-tinymce-dialog .mceResizable .mceResize {
   display: block
 }
 
-.alchemy .mceResizable .mceMin, .alchemy .mceMax {
+.alchemy-tinymce-dialog .mceResizable .mceMin, .alchemy-tinymce-dialog .mceMax {
   display: none
 }
 
-.alchemy .mceMinimizable .mceMin {
+.alchemy-tinymce-dialog .mceMinimizable .mceMin {
   display: block
 }
 
-.alchemy .mceMaximizable .mceMax {
+.alchemy-tinymce-dialog .mceMaximizable .mceMax {
   display: block
 }
 
-.alchemy .mceMaximized .mceMed {
+.alchemy-tinymce-dialog .mceMaximized .mceMed {
   display: block
 }
 
-.alchemy .mceMaximized .mceMax {
+.alchemy-tinymce-dialog .mceMaximized .mceMax {
   display: none
 }
 
-.alchemy a.mceResizeN {
+.alchemy-tinymce-dialog a.mceResizeN {
   top: 0;
   left: 0;
   width: 100%;
@@ -313,19 +318,19 @@ a.mceMove {
   height: 4px;
 }
 
-.alchemy a.mceResizeNW {
+.alchemy-tinymce-dialog a.mceResizeNW {
   top: 0;
   left: 0;
   cursor: nw-resize
 }
 
-.alchemy a.mceResizeNE {
+.alchemy-tinymce-dialog a.mceResizeNE {
   top: 0;
   right: 0;
   cursor: ne-resize
 }
 
-.alchemy a.mceResizeW {
+.alchemy-tinymce-dialog a.mceResizeW {
   top: 0;
   left: 0;
   height: 100%;
@@ -333,7 +338,7 @@ a.mceMove {
   width: 4px;
 }
 
-.alchemy a.mceResizeE {
+.alchemy-tinymce-dialog a.mceResizeE {
   top: 0;
   right: 0;
   height: 100%;
@@ -341,7 +346,7 @@ a.mceMove {
   width: 4px;
 }
 
-.alchemy a.mceResizeS {
+.alchemy-tinymce-dialog a.mceResizeS {
   bottom: 0;
   left: 0;
   width: 100%;
@@ -349,13 +354,13 @@ a.mceMove {
   height: 4px;
 }
 
-.alchemy a.mceResizeSW {
+.alchemy-tinymce-dialog a.mceResizeSW {
   bottom: 0;
   left: 0;
   cursor: sw-resize
 }
 
-.alchemy a.mceResizeSE {
+.alchemy-tinymce-dialog a.mceResizeSE {
   bottom: 1px;
   right: 1px;
   cursor: se-resize;
@@ -366,7 +371,7 @@ a.mceMove {
 
 /* Alert/Confirm */
 
-.alchemy .mceButton {
+.alchemy-tinymce-dialog .mceButton {
   @extend %button-defaults;
   bottom: 10px;
   // width: 80px;
@@ -377,14 +382,14 @@ a.mceMove {
   outline: 0;
 }
 
-.alchemy .mceMiddle .mceIcon {
+.alchemy-tinymce-dialog .mceMiddle .mceIcon {
   left: 15px;
   top: 35px;
   width: 16px;
   height: 16px;
 }
 
-.alchemy .mceAlert .mceMiddle span, .alchemy .mceConfirm .mceMiddle span {
+.alchemy-tinymce-dialog .mceAlert .mceMiddle span, .alchemy-tinymce-dialog .mceConfirm .mceMiddle span {
   background: transparent;
   left: 8px;
   top: 35px;
@@ -395,35 +400,35 @@ a.mceMove {
   white-space: normal
 }
 
-.alchemy a:hover {
+.alchemy-tinymce-dialog a:hover {
   font-weight: normal;
 }
 
-.alchemy .mceAlert .mceMiddle, .alchemy .mceConfirm .mceMiddle {
+.alchemy-tinymce-dialog .mceAlert .mceMiddle, .alchemy-tinymce-dialog .mceConfirm .mceMiddle {
   background: $light-gray;
 }
 
-.alchemy .mceAlert .mceOk {
+.alchemy-tinymce-dialog .mceAlert .mceOk {
   left: 50%;
   top: auto;
   margin-left: -40px
 }
 
-.alchemy .mceAlert .mceIcon {
+.alchemy-tinymce-dialog .mceAlert .mceIcon {
   background: image-url("alchemy/icons.png") 0 -88px;
 }
 
-.alchemy .mceConfirm .mceOk {
+.alchemy-tinymce-dialog .mceConfirm .mceOk {
   left: 50%;
   top: auto;
   margin-left: -90px
 }
 
-.alchemy .mceConfirm .mceCancel {
+.alchemy-tinymce-dialog .mceConfirm .mceCancel {
   left: 50%;
   top: auto
 }
 
-.alchemy .mceConfirm .mceIcon {
+.alchemy-tinymce-dialog .mceConfirm .mceIcon {
   background: image-url("alchemy/icons.png") 0 -88px;
 }

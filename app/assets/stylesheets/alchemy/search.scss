@@ -7,11 +7,12 @@
   display: none;
   width: 16px;
   height: 16px;
-  @extend .icon-cancel;
+  line-height: 16px;
+  @extend .icon-cross;
   position: absolute;
   right: 8px;
   top: 7px;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 td#tags_tag_list {

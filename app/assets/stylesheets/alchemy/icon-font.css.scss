@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'Alchemy Icons';
+  src: font-url('alchemy/icons.eot');
+  src: font-url('alchemy/icons.eot?#iefix') format('embedded-opentype'),
+       font-url('alchemy/icons.woff') format('woff'),
+       font-url('alchemy/icons.ttf') format('truetype'),
+       font-url('alchemy/icons.svg#Alchemy-Icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-plus,
+.icon-minus,
+.icon-cross,
+.icon-plus-2,
+.icon-minus-2,
+.icon-pencil,
+.icon-tag,
+.icon-info,
+.icon-warning,
+.icon-checkmark,
+.icon-ccw,
+.icon-trash,
+.icon-cross-2,
+.icon-pictures,
+.icon-menu,
+.icon-magnifying-glass,
+.icon-fullscreen-exit,
+.icon-help,
+.icon-fullscreen,
+.icon-cog {
+  font-family: 'Alchemy Icons';
+  speak: none;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  width: 16px;
+  color: #666;
+  text-align: center;
+  line-height: 1em;
+  @include inline-block;
+}
+
+.icon-plus:before { content: "\e000" }
+.icon-minus:before { content: "\e001" }
+.icon-cross:before { content: "\e004" }
+.icon-plus-2:before { content: "\e005" }
+.icon-minus-2:before { content: "\e006" }
+.icon-pencil:before { content: "\e007" }
+.icon-tag:before { content: "\e034" }
+.icon-info:before { content: "\e008" }
+.icon-warning:before { content: "\e009" }
+.icon-checkmark:before { content: "\e00a" }
+.icon-ccw:before { content: "\e00b" }
+.icon-trash:before { content: "\f014" }
+.icon-cross-2:before { content: "\e00e" }
+.icon-pictures:before { content: "\e00f" }
+.icon-menu:before { content: "\e010" }
+.icon-magnifying-glass:before { content: "\e011" }
+.icon-fullscreen-exit:before { content: "\e01e" }
+.icon-help:before { content: "\e00c" }
+.icon-fullscreen:before { content: "\e01d" }
+.icon-cog:before { content: "\f013" }

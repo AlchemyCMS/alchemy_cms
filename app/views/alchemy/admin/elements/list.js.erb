@@ -1,6 +1,6 @@
 (function($) {
 
-  var close = $('<a class="close_elements_from_page_selector" title="<%= _t(:remove) -%>">–</a>');
+  var close = $('<a class="close_elements_from_page_selector" title="<%= _t(:remove) -%>"/>');
   $('#elements_for_page_<%= @page_id -%>').html('<%= escape_javascript(render("elements_select")) %>');
   $('#elements_for_page_<%= @page_id -%>').append(close);
 
