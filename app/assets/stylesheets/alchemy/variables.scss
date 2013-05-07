@@ -7,6 +7,7 @@ $medium-gray: #E3E3E3;
 $dark-gray: #666666;
 $light_yellow: #ffffdc;
 $linked-color: #ffd77a;
+$white: #f2f2f2;
 
 $default-padding: 4px;
 $default-margin: $default-padding;
@@ -26,7 +27,7 @@ $button-bg-color: #F7F7F7;
 $button-hover-bg-color: #e6f0f5;
 $button-border-color: #9A9A9A;
 $button-hover-border-color: #888888;
-$button-text-shadow: #f2f2f2 1px 1px 0;
+$button-text-shadow: $white 1px 1px 0;
 
 $sb-base-color:      $light-gray;
 $sb-border-radius:   $default-border-radius;
