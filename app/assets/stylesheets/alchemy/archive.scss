@@ -292,7 +292,7 @@ div#filter_bar {
         top: 8px;
         font-family: 'Alchemy Icons';
         @extend .icon-tag:before;
-        line-height: 10px;
+        line-height: 8px;
       }
 
       a {
@@ -395,5 +395,43 @@ div#pictures_page_list {
       margin-top: -2px;
       margin-right: 4px;
     }
+  }
+}
+
+.picture_tags {
+  @include box-sizing(border-box);
+  width: 50%;
+  max-height: 100%;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  padding: $default-padding;
+  pointer-events: none;
+  display: none;
+}
+
+.picture_thumbnail:hover .picture_tags {
+  display: block;
+}
+
+.tag {
+  @include inline-block;
+  @extend .rounded-border;
+  padding: $default-padding 2*$default-padding $default-padding 4*$default-padding;
+  margin: $default-margin/2 0;
+  background-color: rgba($medium-gray, 0.85);
+  color: $text-color;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+  font-size: 10px;
+
+  &:before {
+    position: absolute;
+    left: $default-padding;
+    top: 2*$default-padding;
+    font-family: 'Alchemy Icons';
+    @extend .icon-tag:before;
+    line-height: 6px;
   }
 }

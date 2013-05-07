@@ -79,4 +79,9 @@
   <span class="picture_name" title="<%= picture.name %>" id="image_picture_<%= picture.id %>_name">
     <%= picture.name %>
   </span>
+  <div class="picture_tags">
+  <% picture.tag_list.each do |tag| %>
+    <span class="tag"><%= tag %></span>
+  <% end %>
+  </div>
 </div>
