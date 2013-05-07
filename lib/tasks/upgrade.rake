@@ -9,6 +9,7 @@ namespace :alchemy do
       Rake::Task['alchemy:legacy:convert_page_layouts'].invoke
       Rake::Task['alchemy:legacy:convert_elements'].invoke
       Rake::Task['alchemy:legacy:convert_views'].invoke
+      Rake::Task['alchemy:legacy:convert_models_and_methods'].invoke
       Alchemy::Seeder.seed!
       Rake::Task['alchemy:legacy:create_languages'].invoke
       Rake::Task['alchemy:legacy:assign_languages_to_layout_pages'].invoke
@@ -136,6 +137,7 @@ namespace :alchemy do
       files.each do |file_name|
         text = File.read(file_name)
         text.gsub!(/wa_molecule/, 'element')
+        text.gsub!(/molecule/, 'element')
         text.gsub!(/wa_page/, 'page')
         text.gsub!(/WaMolecule/, 'Element')
         text.gsub!(/WaPage/, 'Page')
@@ -161,6 +163,8 @@ namespace :alchemy do
         text.gsub!(/@mail_data\[\:(\S+)\]/, '@message.\1')
         text.gsub!(/@mail_data\["(\S+)"\]/, '@message.\1')
         text.gsub!(/@mail_data\['(\S+)'\]/, '@message.\1')
+        text.gsub!(/\.get_root\("\S+"\)/, '.language_root_for(session[:language_id])')
+        text.gsub!(/\scurrent_page/, ' @page')
         File.open(file_name, "w") { |file| file.puts text }
       end
     end
