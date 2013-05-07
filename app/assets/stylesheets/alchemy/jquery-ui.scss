@@ -565,41 +565,40 @@
 
 .ui-icon-refresh {
   background: none !important;
-  position: relative;
-  left: 1px;
+  @extend .icon-ccw;
 
   &:before {
     text-indent: 0;
     position: absolute;
-    right: 1px;
-    top: 2px;
-    @extend .icon-reload:before
+    right: 3px;
+    top: 3px;
+    font-size: 14px;
   }
 }
 
 .ui-icon-fullscreen {
   background: none !important;
   position: relative;
+  @extend .icon-fullscreen;
 
   &:before {
     text-indent: 0;
     position: absolute;
     right: 1px;
     top: 2px;
-    @extend .icon-fullscreen:before
   }
 }
 
 .ui-icon-exit-fullscreen {
   background: none !important;
   position: relative;
+  @extend .icon-fullscreen-exit;
 
   &:before {
     text-indent: 0;
     position: absolute;
     right: 1px;
     top: 2px;
-    @extend .icon-exit-fullscreen:before
   }
 }
 
@@ -770,13 +769,13 @@
 .ui-icon-closethick {
   background: none !important;
   position: relative;
+  @extend .icon-cross;
 
   &:before {
-    @extend .icon-cancel:before;
     text-indent: 0;
     position: absolute;
-    right: 0px;
-    top: 2px;
+    left: 1px;
+    top: 3px;
     font-size: 16px;
   }
 }
@@ -1524,12 +1523,10 @@ button.ui-button::-moz-focus-inner {
 .ui-dialog-titlebar-close {
   position: absolute;
   right: 2 * $default-padding;
-  top: 50%;
+  top: 2 * $default-padding;
   width: 19px;
-  margin: -10px 0 0 0;
   padding: 1px;
   height: 18px;
-  float: right;
 
   &.ui-state-default {
     background: transparent;
@@ -1538,22 +1535,37 @@ button.ui-button::-moz-focus-inner {
     @include box-shadow(none);
     width: 18px;
   }
+
+  &.ui-state-hover {
+
+    .ui-icon-closethick:before {
+      right: -1px;
+      top: 3px;
+    }
+  }
 }
 
 .ui-dialog .ui-dialog-titlebar-refresh {
   position: absolute;
-  right: 42px;
+  right: 46px;
   top: 7px;
   height: 18px;
 
-  &.ui-state-hover { margin-right: 3px }
+  &.ui-state-hover {
+    margin-right: 3px;
+
+    .ui-icon-refresh:before {
+      top: 2px;
+      right: 1px;
+    }
+  }
 }
 
 .ui-dialog .ui-dialog-titlebar-maximize,
 .ui-dialog .ui-dialog-titlebar-restore,
 .ui-dialog .ui-dialog-titlebar-refresh {
   margin-right: 2px;
-  margin-top: 0;
+  margin-top: 1px;
   padding: 0;
 
   .ui-icon {

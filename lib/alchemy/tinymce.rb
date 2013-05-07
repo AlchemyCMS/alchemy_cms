@@ -20,7 +20,7 @@ module Alchemy
       :theme => 'advanced',
       :skin => 'o2k7',
       :skin_variant => 'silver',
-      :inlinepopups_skin => 'alchemy',
+      :inlinepopups_skin => 'alchemy-tinymce-dialog',
       :popup_css => "/assets/alchemy/tinymce_dialog.css",
       :content_css => "/assets/alchemy/tinymce_content.css",
       :dialog_type => "modal",

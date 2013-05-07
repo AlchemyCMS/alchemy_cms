@@ -6,7 +6,7 @@
 
   &.add {
     background: none;
-    @extend .icon-plus;
+    @extend .icon-plus-2;
     line-height: 1em;
     font-size: 19px;
   }
@@ -52,7 +52,7 @@
 
     &.small {
       background: none;
-      @extend .icon-cancel;
+      @extend .icon-cross;
       line-height: 0;
     }
   }
@@ -212,7 +212,7 @@
   &.search {
     background: none;
     padding-top: 2px;
-    @extend .icon-search;
+    @extend .icon-magnifying-glass;
   }
 
   &.select_all {
