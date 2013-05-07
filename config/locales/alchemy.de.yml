@@ -222,7 +222,7 @@ de:
     "File successfully updated": "Datei wurde erfolgreich gespeichert."
     "File upload error: %{error}": "Datei konnte nicht hochgeladen werden: %{error}"
     "File: '%{name}' deleted successfully": "%{name} wurde gelöscht"
-    "Filter by tag": "Nach Tags filtern"
+    "Filter by tag": "Nach Tag filtern"
     "Flush page cache": "Seitencache löschen"
     "Flush picture cache": "Bildercache löschen"
     "Hide childpages": "Unterseiten ausblenden"
