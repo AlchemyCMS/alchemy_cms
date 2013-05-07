@@ -15,6 +15,10 @@ module Alchemy
 
       default_language = Alchemy::Config.get(:default_language)
 
+      if default_language.blank? || default_language['code'].blank?
+        abort "Could not find default language, please check Alchemy config file."
+      end
+
       lang = Language.find_or_initialize_by_code(
         :name => default_language['name'],
         :code => default_language['code'],
@@ -57,7 +61,7 @@ module Alchemy
         puts "Success!"
         notices.map{ |note| puts note }
       else
-        puts "WARNING! Some pages could not be created:"
+        puts "WARNING! Some records could not be created:"
         errors.map{ |error| puts error }
       end
     end
