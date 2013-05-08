@@ -570,9 +570,8 @@
   &:before {
     text-indent: 0;
     position: absolute;
-    right: 3px;
+    right: 4px;
     top: 3px;
-    font-size: 14px;
   }
 }
 
@@ -584,8 +583,9 @@
   &:before {
     text-indent: 0;
     position: absolute;
-    right: 1px;
+    right: 2px;
     top: 2px;
+    font-size: 10px;
   }
 }
 
@@ -1556,7 +1556,7 @@ button.ui-button::-moz-focus-inner {
 
     .ui-icon-refresh:before {
       top: 2px;
-      right: 1px;
+      right: 2px;
     }
   }
 }
