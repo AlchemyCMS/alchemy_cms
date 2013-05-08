@@ -40,6 +40,7 @@ module Alchemy
             if attachment && attachment.file_uid.blank?
               attachment.file_uid = file_uid
               attachment.file_size = File.new(file).size
+              attachment.file_name = attachment.sanitized_filename
               if attachment.save!
                 log "Converted #{file_uid}"
               end
