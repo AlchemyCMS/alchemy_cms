@@ -98,15 +98,14 @@ namespace :alchemy do
 
     desc "Create languages for pages"
     task :create_languages => [:environment, 'alchemy:legacy:rename_files_and_folders'] do
-      pages = Page.all
-      pages.each do |page|
+      Page.all.each do |page|
         language = Language.find_or_create_by_code(
           :code => page.language_code || ::I18n.default_locale,
           :name => page.language_code || ::I18n.default_locale,
           :page_layout => 'intro',
-          :frontpage_name => 'Intro',
-          :default => pages.first == page
+          :frontpage_name => 'Intro'
         )
+        language.update_attribute(:default, Language.all.first == language)
         page.language = language
         page.save(:validate => false)
       end
