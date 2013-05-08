@@ -23,9 +23,9 @@ module Alchemy
 				Alchemy::Page.all.each do |page|
 					if !page.language_code.blank? && page.language.nil?
 						root = page.get_language_root
-						lang = Alchemy::Language.find_or_create_by_code(
+						lang = Alchemy::Language.find_or_create_by_language_code(
 							:name => page.language_code.capitalize,
-							:code => page.language_code,
+							:language_code => page.language_code,
 							:frontpage_name => root.name,
 							:page_layout => root.page_layout,
 							:public => true
@@ -43,6 +43,7 @@ module Alchemy
 			def upgrade_layoutpages
 				desc "Setting language of layoutpages"
 				default_language = Alchemy::Language.get_default
+				raise "No default language found." if default_language.nil?
 				layoutpages = Alchemy::Page.layoutpages
 				if layoutpages.any?
 					layoutpages.each do |page|
