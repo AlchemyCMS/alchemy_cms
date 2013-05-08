@@ -91,8 +91,6 @@ module Alchemy
       end
     end
 
-  private
-
     def sanitized_filename
       parts = self.file_name.split('.')
       sfx = parts.pop
