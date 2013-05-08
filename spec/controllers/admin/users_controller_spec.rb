@@ -49,7 +49,7 @@ describe Alchemy::Admin::UsersController do
 
     context "if user is permitted to update roles" do
       it "updates the user including role" do
-        controller.stub(:permitted_to?).with(:update_role).and_return { true }
+        controller.stub(:permitted_to?).with(:update_roles).and_return { true }
         Alchemy::User.any_instance.should_receive(:update_attributes).with({'roles' => ['Administrator']})
         post :update, :id => user.id, :user => {:roles => ['Administrator']}, :format => :js
       end
@@ -57,7 +57,7 @@ describe Alchemy::Admin::UsersController do
 
     context "if the user is not permitted to update roles" do
       it "updates user without role" do
-        controller.stub(:permitted_to?).with(:update_role).and_return { false }
+        controller.stub(:permitted_to?).with(:update_roles).and_return { false }
         Alchemy::User.any_instance.should_receive(:update_attributes).with({})
         post :update, :id => user.id, :user => {'roles' => ['Administrator']}, :format => :js
       end

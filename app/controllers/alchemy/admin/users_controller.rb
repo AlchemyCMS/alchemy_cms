@@ -44,7 +44,7 @@ module Alchemy
 
       def update
         # User is fetched via before filter
-        params[:user].delete(:roles) unless permitted_to?(:update_role)
+        params[:user].delete(:roles) unless permitted_to?(:update_roles)
         if params[:user][:password].present?
           @user.update_attributes(params[:user])
         else
