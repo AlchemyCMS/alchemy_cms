@@ -27,5 +27,27 @@ module Alchemy
       PageLayout.selectable_layouts(Language.get_default).each { |e| e["hide"].should_not == true }
     end
 
+    describe ".element_names_for" do
+
+      it "should return all element names for the given pagelayout" do
+        PageLayout.stub(:get).with('default').and_return({'name' => 'default', 'elements' => ['element_1', 'element_2']})
+        expect(PageLayout.element_names_for('default')).to eq(['element_1', 'element_2'])
+      end
+
+      context "when given page_layout name does not exist" do
+        it "should return an empty array" do
+          expect(PageLayout.element_names_for('layout_does_not_exist!')).to eq([])
+        end
+      end
+
+      context "when page_layout description does not contain the elements key" do
+        it "should return an empty array" do
+          PageLayout.stub(:get).with('layout_without_elements_key').and_return({'name' => 'layout_without_elements_key'})
+          expect(PageLayout.element_names_for('layout_without_elements_key')).to eq([])
+        end
+      end
+
+    end
+
   end
 end
