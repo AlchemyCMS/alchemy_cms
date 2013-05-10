@@ -8,7 +8,7 @@ module Alchemy
           puts "\n+++ Warning: No Layout Description for #{page_layout} found! in page_layouts.yml\n"
           return []
         else
-          layout_description["elements"]
+          layout_description["elements"] || []
         end
       end
 
