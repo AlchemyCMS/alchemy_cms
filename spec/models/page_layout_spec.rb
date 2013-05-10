@@ -49,5 +49,12 @@ module Alchemy
 
     end
 
+    describe ".get" do
+      it "should return the page_layout description found by given name" do
+        PageLayout.stub(:all).and_return([{'name' => 'default'}, {'name' => 'contact'}])
+        expect(PageLayout.get('default')).to eq({'name' => 'default'})
+      end
+    end
+
   end
 end
