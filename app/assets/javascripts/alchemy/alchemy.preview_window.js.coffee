@@ -8,6 +8,7 @@ Alchemy.PreviewWindow =
       $iframe = $("<iframe src=\"#{url}\" id=\"alchemyPreviewWindow\" frameborder=\"0\"/>")
       $iframe.load ->
         $(".preview-refresh-spinner").hide()
+        $(".ui-dialog-titlebar-refresh").show()
       $iframe.css "background-color": "#ffffff"
       Alchemy.PreviewWindow.currentWindow = $iframe.dialog(
         modal: false
@@ -23,20 +24,16 @@ Alchemy.PreviewWindow =
         closeOnEscape: false
         dialogClass: 'alchemy-preview-window'
         create: ->
-          spinner = Alchemy.Spinner.small(className: "preview-refresh-spinner")
-          $reload = $("<button class=\"ui-dialog-titlebar-refresh ui-corner-all ui-state-default\" role=\"button\"></button>")
           $titlebar = $("#alchemyPreviewWindow").prev()
-          $reload.append "<span class=\"ui-icon ui-icon-refresh\">reload</span>"
-          $titlebar.append $reload
+          $titlebar.append Alchemy.PreviewWindow.reloadButton()
+          spinner = Alchemy.Spinner.small(className: "preview-refresh-spinner")
           $titlebar.append spinner.spin().el
-          $reload.click Alchemy.reloadPreview
-          $reload.hover ->
-            $(this).toggleClass "ui-state-hover ui-state-default"
         close: (event, ui) ->
           Alchemy.PreviewWindow.button.enable()
         open: (event, ui) ->
           $(this).css width: "100%"
           Alchemy.PreviewWindow.button.disable()
+          Alchemy.Hotkeys('.alchemy-preview-window')
       ).dialogExtend
           maximize: true
           dblclick: "maximize"
@@ -48,9 +45,13 @@ Alchemy.PreviewWindow =
 
   refresh: ->
     $iframe = $("#alchemyPreviewWindow")
-    $(".preview-refresh-spinner").show()
+    $spinner = $(".preview-refresh-spinner")
+    $refresh = $('.ui-dialog-titlebar-refresh')
+    $spinner.show()
+    $refresh.hide()
     $iframe.load ->
-      $(".preview-refresh-spinner").hide()
+      $spinner.hide()
+      $refresh.show()
     $iframe.attr("src", $iframe.attr("src"))
     true
 
@@ -66,6 +67,15 @@ Alchemy.PreviewWindow =
         Alchemy.PreviewWindow.button.enable()
       else
         Alchemy.PreviewWindow.button.disable()
+
+  reloadButton: ->
+    $reload = $('<button class="ui-dialog-titlebar-refresh ui-corner-all ui-state-default" role="button" data-alchemy-hotkey="alt-r" />')
+    $reload.append('<span class="ui-icon ui-icon-refresh" />')
+    $reload.click Alchemy.reloadPreview
+    $reload.hover ->
+      $(this).toggleClass "ui-state-hover ui-state-default"
+    $reload.hide()
+    $reload
 
 Alchemy.reloadPreview = ->
   Alchemy.PreviewWindow.refresh()

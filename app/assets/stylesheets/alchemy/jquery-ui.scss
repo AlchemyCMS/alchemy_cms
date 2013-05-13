@@ -1545,6 +1545,12 @@ button.ui-button::-moz-focus-inner {
   }
 }
 
+.preview-refresh-spinner {
+  position: absolute !important; // when will js lib authors stop to add styles to elements.... :/
+  top: 16px;
+  right: 57px;
+}
+
 .ui-dialog .ui-dialog-titlebar-refresh {
   position: absolute;
   right: 46px;
