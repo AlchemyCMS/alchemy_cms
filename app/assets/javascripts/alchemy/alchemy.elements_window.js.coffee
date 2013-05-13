@@ -6,11 +6,13 @@ Alchemy.ToolbarButton = (options) ->
   $btn = $('<div class="button_with_label" />')
   if options.buttonId
     $btn.attr(id: options.buttonId)
-  $lnk = $("<a title='#{options.buttonTitle}' class='icon_button' href='#' />")
+  $lnk = $("<a title='#{options.title}' class='icon_button' href='#' />")
+  if options.hotkey
+    $lnk.attr('data-alchemy-hotkey', options.hotkey)
   $lnk.click options.onClick
   $lnk.append "<span class='icon #{options.iconClass}' />"
   $btn.append $lnk
-  $btn.append "<br><label>#{options.buttonLabel}</label>"
+  $btn.append "<br><label>#{options.label}</label>"
   $btn
 
 Alchemy.ElementsWindow =
@@ -71,12 +73,7 @@ Alchemy.ElementsWindow =
   createToolbar: (buttons) ->
     $toolbar = $('<div id="overlay_toolbar"/>')
     for btn in buttons
-      $toolbar.append Alchemy.ToolbarButton
-        buttonTitle: btn.title
-        buttonLabel: btn.label
-        iconClass: btn.iconClass
-        onClick: btn.onClick
-        buttonId: btn.buttonId
+      $toolbar.append Alchemy.ToolbarButton(btn)
     $toolbar
 
   reload: ->
