@@ -99,7 +99,7 @@ module Alchemy
     #
     # @option options :tag (:div)
     #   The HTML tag to be used for the wrapping element.
-    # @option options :id (the element's ID)
+    # @option options :id (the element's dom_id)
     #   The wrapper tag's DOM ID.
     # @option options :class (the element's essence name)
     #   The wrapper tag's DOM class.

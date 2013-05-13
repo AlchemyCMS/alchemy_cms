@@ -1,30 +1,75 @@
 module Alchemy
+  # This helpers are useful to render elements from pages.
+  #
+  # The most important helper for frontend developers is the {#render_elements} helper.
+  #
   module ElementsHelper
-
     include Alchemy::EssencesHelper
     include Alchemy::UrlHelper
     include Alchemy::ElementsBlockHelper
 
-    # Renders all elements from current page.
+    # Renders all elements from current page
     #
-    # === Options are:
+    # == Examples:
     #
-    #   :only => []                          # A list of element names to be rendered only. Very useful if you want to render a specific element type in a special html part (e.g.. <div>) of your page and all other elements in another part.
-    #   :except => []                        # A list of element names to be rendered. The opposite of the only option.
-    #   :from_page => @page                  # The Alchemy::Page.page_layout string from which the elements are rendered from, or you even pass a Page object.
-    #   :from_cell => nil                    # The Cell object from which the elements are rendered from.
-    #   :count => nil                        # The amount of elements to be rendered (begins with first element found)
-    #   :fallback => {                       # You can use the fallback option as an override. So you can take elements from a glo´bal laout page and only if the user adds an element on current page the local one gets rendered.
-    #     :for => 'ELEMENT_NAME',            # The name of the element the fallback is for
-    #     :with => 'ELEMENT_NAME',           # (OPTIONAL) the name of element to fallback with
-    #     :from => String || Page            # Pass a page_layout name from a page the fallback elements lie on or pass the page object.
-    #   }                                    #
-    #   :sort_by => Content#name             # A Content name to sort the elements by
-    #   :reverse => boolean                  # Reverse the rendering order
-    #   :random => boolean                   # Randomize the output of elements
+    # === Render only certain elements:
     #
-    # === Note:
-    # This helper also stores all pages where elements gets rendered on, so we can sweep them later if caching expires!
+    #   <header>
+    #     <%= render_elements only: ['header', 'claim'] %>
+    #   </header>
+    #   <section id="content">
+    #     <%= render_elements except: ['header', 'claim'] %>
+    #   </section>
+    #
+    # === Render elements from global page:
+    #
+    #   <footer>
+    #     <%= render_elements from_page: 'footer' %>
+    #   </footer>
+    #
+    # === Render elements from cell:
+    #
+    #   <aside>
+    #     <%= render_elements from_cell: 'sidebar' %>
+    #   </aside>
+    #
+    # === Fallback to elements from global page:
+    #
+    # You can use the fallback option as an override for elements that are stored on another page.
+    # So you can take elements from a global page and only if the user adds an element on current page the
+    # local one gets rendered.
+    #
+    # 1. You have to pass the the name of the element the fallback is for as <tt>for</tt> key.
+    # 2. You have to pass a <tt>page_layout</tt> name or {Alchemy::Page} from where the fallback elements is taken from as <tt>from</tt> key.
+    # 3. You can pass the name of element to fallback with as <tt>with</tt> key. This is optional (the element name from the <tt>for</tt> key is taken as default).
+    #
+    #   <%= render_elements(fallback: {
+    #     for: 'contact_teaser',
+    #     from: 'sidebar',
+    #     with: 'contact_teaser'
+    #   }) %>
+    #
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @option options [Number] :count
+    #   The amount of elements to be rendered (begins with first element found)
+    # @option options [Array or String] :except ([])
+    #   A list of element names not to be rendered.
+    # @option options [Hash] :fallback
+    #   Define elements that are rendered from another page.
+    # @option options [Alchemy::Cell or String] :from_cell
+    #   The cell the elements are rendered from. You can pass a {Alchemy::Cell} name String or a {Alchemy::Cell} object.
+    # @option options [Alchemy::Page or String] :from_page (@page)
+    #   The page the elements are rendered from. You can pass a page_layout String or a {Alchemy::Page} object.
+    # @option options [Array or String] :only ([])
+    #   A list of element names only to be rendered.
+    # @option options [Boolean] :random
+    #   Randomize the output of elements
+    # @option options [Boolean] :reverse
+    #   Reverse the rendering order
+    # @option options [String] :sort_by
+    #   The name of a {Alchemy::Content} to sort the elements by
     #
     def render_elements(options = {})
       default_options = {
@@ -76,26 +121,69 @@ module Alchemy
       end
     end
 
-    # This helper renders the Element partial for either the view or the editor part.
-    # Generate element partials with rails generate alchemy:elements
-    def render_element(element, part = :view, options = {}, i = 1)
+    # This helper renders a {Alchemy::Element} partial.
+    #
+    # A element has always two partials:
+    #
+    # 1. A view partial (This is the view presented to the website visitor)
+    # 2. A editor partial (This is the form presented to the website editor while in page edit mode)
+    #
+    # The partials are located in <tt>app/views/alchemy/elements</tt>.
+    #
+    # == View partial naming
+    #
+    # The partials have to be named after the name of the element as defined in the <tt>elements.yml</tt> file and has to be suffixed with the partial part.
+    #
+    # === Example
+    #
+    # Given a headline element
+    #
+    #   # elements.yml
+    #   - name: headline
+    #     contents:
+    #     - name: text
+    #       type: EssenceText
+    #
+    # Then your element view partials has to be named like:
+    #
+    #   app/views/alchemy/elements/_headline_editor.html.erb
+    #   app/views/alchemy/elements/_headline_view.html.erb
+    #
+    # === Element partials generator
+    #
+    # You can use this handy generator to let Alchemy generate the partials for you:
+    #
+    #   $ rails generate alchemy:elements --skip
+    #
+    # == Usage
+    #
+    #   <%= render_element(Alchemy::Element.published.named(:headline).first) %>
+    #
+    # @param [Alchemy::Element] element
+    #   The element you want to render the view for
+    # @param [Symbol] part
+    #   The type of element partial (<tt>:editor</tt> or <tt>:view</tt>) you want to render
+    # @param [Hash] options
+    #   Additional options
+    # @param [Number] counter
+    #   a counter
+    #
+    # @note If the view partial is not found <tt>alchemy/elements/_view_not_found.html.erb</tt> or <tt>alchemy/elements/_editor_not_found.html.erb</tt> gets rendered.
+    #
+    def render_element(element, part = :view, options = {}, counter = 1)
       begin
         if element.blank?
           warning('Element is nil')
           render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => 'nil'}
         else
-          default_options = {
-            :shorten_to => nil
-          }
-          options = default_options.merge(options)
           element.store_page(@page) if part == :view
           locals = options.delete(:locals)
           render(
             :partial => "alchemy/elements/#{element.name.underscore}_#{part}",
             :locals => {
               :element => element,
-              :options => options,
-              :counter => i
+              :counter => counter,
+              :options => options
             }.merge(locals || {})
           )
         end
@@ -189,7 +277,7 @@ module Alchemy
 
     # Returns the element's tags information as an attribute hash.
     #
-    # @param [Alchemy::Element] element The element.
+    # @param [Alchemy::Element] element The {Alchemy::Element} you want to render the tags from.
     #
     # @option options [Proc] :formatter
     #   ('lambda { |tags| tags.join(' ') }')
