@@ -83,6 +83,7 @@ Alchemy.ElementsWindow =
       success: (data, textStatus, XMLHttpRequest) ->
         self.dialog.html data
         Alchemy.GUI.init "#alchemyElementWindow"
+        Alchemy.Hotkeys "#overlay_toolbar"
         if self.callback
           self.callback.call()
       error: (XMLHttpRequest, textStatus, errorThrown) ->

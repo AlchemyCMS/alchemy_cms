@@ -22,10 +22,9 @@ Alchemy.Hotkeys = (scope) ->
   # Simply add a data-alchemy-hotkey attribute to your link.
   # If a hotkey is triggered by user, the click event of the element gets triggerd.
   #
-  $('[data-alchemy-hotkey]').each ->
+  $('[data-alchemy-hotkey]', scope).each ->
     $this = $(this)
-    key = $this.data('alchemy-hotkey')
-    keymage key, ->
+    keymage $this.data('alchemy-hotkey'), ->
       $this.click()
 
   keymage 'alt-w', ->
