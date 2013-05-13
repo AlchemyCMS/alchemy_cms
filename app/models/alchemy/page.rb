@@ -252,15 +252,15 @@ module Alchemy
       folded_page.folded
     end
 
-    # Returns a Hash of attributes describing the status of the Page.
+    # Returns a Hash describing the status of the Page.
     #
     def status
-      combined_status = {}
-      combined_status[:visible] = self.visible?
-      combined_status[:public] = self.public?
-      combined_status[:locked] = self.locked?
-      combined_status[:restricted] = self.restricted?
-      return combined_status
+      {
+        visible: visible?,
+        public: public?,
+        locked: locked?,
+        restricted: restricted?
+      }
     end
 
     # Returns the translated status for given status type.
@@ -268,7 +268,7 @@ module Alchemy
     # @param [Symbol] status_type
     #
     def status_title(status_type)
-      I18n.t(self.send(status_type), :scope => "page_states.#{status_type}")
+      I18n.t(self.status[status_type].to_s, scope: "page_states.#{status_type}")
     end
 
     def has_controller?

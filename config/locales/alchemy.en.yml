@@ -333,7 +333,7 @@ en:
         "false": ""
       restricted:
         "true": "Page is restricted."
-        "false": ""
+        "false": "Page is not restricted."
     page_status: "Status"
     page_title: "Title"
     page_type: "Type"
