@@ -733,8 +733,11 @@ module Alchemy
         before { page.tag_list = 'red, yellow'; page.save }
 
         it "the copy should have source tag_list" do
+          # The order of tags varies between postgresql and sqlite/mysql
+          # This is related to acts-as-taggable-on v.2.4.1
+          # To fix the spec we sort the tags until the issue is solved (https://github.com/mbleigh/acts-as-taggable-on/issues/363)
           subject.tag_list.should_not be_empty
-          subject.tag_list.should == page.tag_list
+          subject.tag_list.sort.should == page.tag_list.sort
         end
       end
 
