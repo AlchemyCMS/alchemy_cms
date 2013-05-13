@@ -890,5 +890,34 @@ module Alchemy
       end
     end
 
+    describe "page status methods" do
+      let(:page) { FactoryGirl.build(:page, public: true, visible: true, restricted: false, locked: false)}
+
+      describe '#status' do
+        it "returns a combined status hash" do
+          page.status.should == {public: true, visible: true, restricted: false, locked: false}
+        end
+      end
+
+      describe '#status_title' do
+        it "returns a translated status string for public status" do
+          page.status_title(:public).should == 'Page is published.'
+        end
+
+        it "returns a translated status string for visible status" do
+          page.status_title(:visible).should == 'Page is visible in navigation.'
+        end
+
+        it "returns a translated status string for locked status" do
+          page.status_title(:locked).should == ''
+        end
+
+        it "returns a translated status string for restricted status" do
+          page.status_title(:restricted).should == 'Page is not restricted.'
+        end
+      end
+
+    end
+
   end
 end
