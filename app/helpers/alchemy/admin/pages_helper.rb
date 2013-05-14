@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     module PagesHelper
+      include Alchemy::BaseHelper
 
       def tinymce_javascript_tags
         init = Alchemy::Tinymce.init
