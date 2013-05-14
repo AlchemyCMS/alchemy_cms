@@ -122,6 +122,7 @@ module Alchemy
         :reverse_children => false
       }.merge(options)
       page = page_or_find(options[:from_page])
+      return nil if page.blank?
       pages = page.children.visible.with_permissions_to(:show, :context => :alchemy_pages)
       pages = pages.restricted if options.delete(:restricted_only)
       if depth = options[:deepness]
