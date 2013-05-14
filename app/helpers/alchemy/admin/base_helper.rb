@@ -5,26 +5,43 @@ module Alchemy
     #
     # The most important helpers for module developers are:
     #
-    # * toolbar
-    # * toolbar_button
-    # * link_to_overlay_window
-    # * link_to_confirmation_window
+    # * {#toolbar}
+    # * {#toolbar_button}
+    # * {#link_to_overlay_window}
+    # * {#link_to_confirmation_window}
     #
     module BaseHelper
       include Alchemy::BaseHelper
 
-      # This helper renders the link for an overlay window.
+      # This helper renders the link to an overlay window.
       #
       # We use this for our fancy modal overlay windows in the Alchemy cockpit.
       #
-      # === Options:
+      # == Example
       #
-      #   :size             [String]              # String with format of "WidthxHeight". I.E. ("420x280")
-      #   :title            [String]              # Text for the overlay title bar.
-      #   :overflow         [Boolean]             # Should the dialog have overlapping content. If not, it shows scrollbars. Good for select boxes. Default false.
-      #   :resizable        [Boolean]             # Is the dialog window resizable? Default false.
-      #   :modal            [Boolean]             # Show as modal window. Default true.
-      #   :overflow         [Boolean]             # Should the window show overflowing content? Default true.
+      #   <%= link_to_overlay_window('Edit', edit_product_path, {size: '200x300'}, {class: 'icon_button'}) %>
+      #
+      # @param [String] content
+      #   The string inside the link tag
+      # @param [String or Hash] url
+      #   The url of the action displayed inside the overlay window.
+      # @param [Hash] options
+      #   options for the overlay window.
+      # @param [Hash] html_options
+      #   HTML options passed to the <tt>link_to</tt> helper
+      #
+      # @option options [String] :size
+      #    String with format of "WidthxHeight". I.E. ("420x280")
+      # @option options [String] :title
+      #    Text for the overlay title bar.
+      # @option options [Boolean] :overflow (false)
+      #    Should the dialog have overlapping content. If not, it shows scrollbars. Good for select boxes.
+      # @option options [Boolean] :resizable (false)
+      #    Is the dialog window resizable?
+      # @option options [Boolean] :modal (true)
+      #    Show as modal window.
+      # @option options [Boolean] :overflow (true)
+      #    Should the window show overflowing content?
       #
       def link_to_overlay_window(content, url, options={}, html_options={})
         default_options = {
@@ -79,10 +96,30 @@ module Alchemy
         end
       end
 
-      # Used by Alchemy to display a javascript driven filter for lists.
+      # Returns a javascript driven live filter for lists.
       #
-      # @param [String] a jquery compatible selector string that represents the items to filter
-      # @param [Hash] html options passed to the input field
+      # The items must have a html +name+ attribute that holds the filterable value.
+      #
+      # == Example
+      #
+      # Given a list of items:
+      #
+      #   <%= js_filter_field('#products .product') %>
+      #
+      #   <ul id="products">
+      #     <li class="product" name="kat litter">Kat Litter</li>
+      #     <li class="product" name="milk">Milk</li>
+      #   </ul>
+      #
+      # @param [String] items
+      #   A jquery compatible selector string that represents the items to filter
+      # @param [Hash] options
+      #   HTML options passed to the input field
+      #
+      # @option options [String] :class ('js_filter_field')
+      #   The css class of the <input> tag
+      # @option options [String or Hash] :data ({'alchemy-list-filter' => items})
+      #   A HTML data attribute that holds the jQuery selector that represents the list to be filtered
       #
       def js_filter_field(items, options = {})
         options = {
@@ -99,16 +136,27 @@ module Alchemy
 
       # Returns a link that opens a modal confirmation to delete window.
       #
-      # === Parameters:
-      #
-      # 1. The content inside the <a> tag
-      # 2. The message that is displayed in the overlay window
-      # 3. The url that gets opened after confirmation (Note: This is an Ajax request with a method of DELETE!)
-      # 4. html options get passed to the link
-      #
       # === Example:
       #
       #   <%= link_to_confirmation_window('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
+      #
+      # @param [String] link_string
+      #   The content inside the <a> tag
+      # @param [String] message
+      #   The message that is displayed in the overlay window
+      # @param [String] url
+      #   The url that gets opened after confirmation (Note: This is an Ajax request with a method of DELETE!)
+      # @param [Hash] html_options
+      #   HTML options get passed to the link
+      #
+      # @option html_options [String] :title (_t(:please_confirm))
+      #   The overlay title
+      # @option html_options [String] :message (message)
+      #   The message displayed in the overlay
+      # @option html_options [String] :ok_label (_t("Yes"))
+      #   The label for the ok button
+      # @option html_options [String] :cancel_label (_t("No"))
+      #   The label for the cancel button
       #
       def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
@@ -127,18 +175,20 @@ module Alchemy
       #
       # After confirmation it proceeds to send the form's action.
       #
-      # === Parameters:
-      #
-      # 1. The content inside the <a> tag
-      # 2. The url that gets opened after confirmation
-      # 3. Options for the Alchemy confirm overlay (See: app/assets/javascripts/alchemy/alchemy.window.js#openConfirmWindow)
-      # 4. HTML options that get passed to the button_tag helper.
-      #
-      # NOTE: The method option in the html_options hash gets passed to the form_tag helper!
-      #
       # === Example:
       #
       #   <%= button_with_confirm('pay', '/admin/orders/1/pay', message: 'Do you really want to mark this order as payed?') %>
+      #
+      # @param [String] value
+      #   The content inside the <tt><a></tt> tag
+      # @param [String] url
+      #   The url that gets opened after confirmation
+      # @param [Hash] options
+      #   Options for the Alchemy confirm overlay (see also +app/assets/javascripts/alchemy/alchemy.window.js#openConfirmWindow+)
+      # @param [Hash] html_options
+      #   HTML options that get passed to the +button_tag+ helper.
+      #
+      # @note The method option in the <tt>html_options</tt> hash gets passed to the <tt>form_tag</tt> helper!
       #
       def button_with_confirm(value = "", url = "", options = {}, html_options = {})
         options = {
@@ -153,12 +203,15 @@ module Alchemy
       end
 
       # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
-      # Usefull for the select_values options from the render_essence_editor helpers.
       #
-      # == Options:
+      # Useful for the <tt>select_values</tt> options from the {Alchemy::Admin::EssencesHelper#render_essence_editor} helpers.
       #
-      #   :from_page            [String, Page]     # Return only elements from this page. You can either pass a Page instance, or a page_layout name
-      #   :elements_with_name   [Array, String]    # Return only elements with this name(s).
+      # @option options [String or Page] :from_page (nil)
+      #   Return only elements from this page. You can either pass a Page instance, or a page_layout name
+      # @option options [Array or String] :elements_with_name (nil)
+      #   Return only elements with this name(s).
+      # @option options [String] :prompt (_t('Please choose'))
+      #   Prompt inside the select tag.
       #
       def elements_for_essence_editor_select(options={})
         defaults = {
@@ -184,12 +237,14 @@ module Alchemy
 
       # Returns all public pages from current language as an option tags string suitable or the Rails +select_tag+ helper.
       #
-      # === Parameters
-      #
-      # 1. A collection of pages so it only returns these pages and does not query the database.
-      # 2. Pass a +Page#name+ or +Page#id+ as second parameter to be passed as selected item to the +options_for_select+ helper.
-      # 3. The third parameter is used as prompt message in the select tag
-      # 4. The fourth parameter is the method that is called on the page object to get the value that is passed with the params of the form.
+      # @param [Array]
+      #   A collection of pages so it only returns these pages and does not query the database.
+      # @param [String]
+      #   Pass a +Page#name+ or +Page#id+ as selected item to the +options_for_select+ helper.
+      # @param [String]
+      #   Used as prompt message in the select tag
+      # @param [Symbol]
+      #   Method that is called on the page object to get the value that is passed with the params of the form.
       #
       def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
         result = [[prompt.blank? ? _t('Choose page') : prompt, ""]]
@@ -223,6 +278,7 @@ module Alchemy
         )
       end
 
+      # Renders the admin main navigation
       def admin_main_navigation
         entries = ""
         alchemy_modules.each do |alchemy_module|
@@ -231,10 +287,16 @@ module Alchemy
         entries.html_safe
       end
 
+      # Renders one admin main navigation entry
+      #
+      # @param [Hash] alchemy_module
+      #   The Hash representing a Alchemy module
+      #
       def alchemy_main_navigation_entry(alchemy_module)
         render 'alchemy/admin/partials/main_navigation_entry', :alchemy_module => alchemy_module.stringify_keys, :navigation => alchemy_module['navigation'].stringify_keys
       end
 
+      # Renders the subnavigation in the admin areas
       def admin_subnavigation
         alchemy_module = module_definition_for(:controller => params[:controller], :action => 'index')
         unless alchemy_module.nil?
@@ -268,6 +330,7 @@ module Alchemy
         end
       end
 
+      # Returns true if the subnavigation entry is in the current params
       def admin_sub_navigation_entry_active?(entry)
         params[:controller] == entry["controller"].gsub(/^\//, '') && (params[:action] == entry["action"] || entry["nested_actions"] && entry["nested_actions"].include?(params[:action]))
       end
@@ -351,18 +414,26 @@ module Alchemy
 
       # Renders a toolbar button for the Alchemy toolbar
       #
-      # == Options:
-      #
-      #   :icon                   [String]              # Icon class. See base.css.sccs for available icons, or make your own.
-      #   :label                  [String]              # Text for button label.
-      #   :url                    [String]              # Url for link.
-      #   :title                  [String]              # Text for title tag.
-      #   :hotkey                 [String]              # Keyboard shortcut for this button. I.E 'alt-n'
-      #   :overlay                [Boolean]             # Pass true to open the link in a modal overlay window.
-      #   :overlay_options        [Hash]                # Overlay options. See link_to_overlay_window helper.
-      #   :if_permitted_to        [Array]               # Check permission for button. [:action, :controller]. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
-      #   :skip_permission_check  [Boolean]             # Skip the permission check. Default false. NOT RECOMMENDED!
-      #   :loading_indicator      [Boolean]             # Shows the please wait overlay while loading. Only for buttons not opening an overlay window. Default true.
+      # @option options [String] :icon
+      #   Icon class. See +app/assets/stylesheets/alchemy/icons.css.sccs+ for available icons, or make your own.
+      # @option options [String] :label
+      #   Text for button label.
+      # @option options [String] :url
+      #   Url for link.
+      # @option options [String] :title
+      #   Text for title tag.
+      # @option options [String] :hotkey
+      #   Keyboard shortcut for this button. I.E +alt-n+
+      # @option options [Boolean] :overlay (true)
+      #   Open the link in a modal overlay window.
+      # @option options [Hash] :overlay_options
+      #   Overlay options. See link_to_overlay_window helper.
+      # @option options [Array] :if_permitted_to ([:action, :controller])
+      #   Check permission for button. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
+      # @option options [Boolean] :skip_permission_check (false)
+      #   Skip the permission check. NOT RECOMMENDED!
+      # @option options [Boolean] :loading_indicator (true)
+      #   Shows the please wait overlay while loading. Only for buttons not opening an overlay window.
       #
       def toolbar_button(options = {})
         options.symbolize_keys!
@@ -409,12 +480,32 @@ module Alchemy
         end
       end
 
-      # Renders the Alchemy backend toolbar
+      # Renders the toolbar shown on top of the records.
       #
-      # == Options
+      # == Example
       #
-      #   :buttons  [Array]          # Pass an Array with button options. They will be passed to toolbar_button helper. For options see toolbar_button
-      #   :search   [Boolean]        # Show searchfield. Default true.
+      #   <% label_title = _t("Create #{resource_name}", default: _t('Create')) %>
+      #   <% toolbar(
+      #     buttons: [
+      #       {
+      #         icon: 'create',
+      #         label: label_title,
+      #         url: new_resource_path,
+      #         title: label_title,
+      #         hotkey: 'alt-n',
+      #         overlay_options: {
+      #           title: label_title,
+      #           size: "430x400"
+      #         },
+      #         if_permitted_to: [:new, resource_permission_scope]
+      #       }
+      #     ]
+      #   ) %>
+      #
+      # @option options [Array] :buttons ([])
+      #   Pass an Array with button options. They will be passed to {#toolbar_button} helper.
+      # @option options [Boolean] :search (true)
+      #   Show searchfield.
       #
       def toolbar(options = {})
         defaults = {
@@ -467,13 +558,23 @@ module Alchemy
 
       # Renders a textfield ready to display a datepicker
       #
-      # Uses a HTML5 +input type="date"+ field.
-      #
-      # Pass a type as third option to override that. But old browsers hand this as text field anyway. So there is no need to override that.
+      # Uses a HTML5 <tt><input type="date"></tt> field.
       #
       # === Example
       #
       #   <%= alchemy_datepicker(@person, :birthday) %>
+      #
+      # @param [ActiveModel::Base] object
+      #   An instance of a model
+      # @param [String or Symbol] method
+      #   The attribute method to be called for the date value
+      #
+      # @option html_options [String] :type ('date')
+      #   The type of text field
+      # @option html_options [String] :class ('thin_border date')
+      #   CSS classes of the input field
+      # @option html_options [String] :value (object.send(method.to_sym).nil? ? nil : l(object.send(method.to_sym), :format => :datepicker))
+      #   The value the input displays
       #
       def alchemy_datepicker(object, method, html_options={})
         text_field(object.class.name.underscore.to_sym, method.to_sym, {
