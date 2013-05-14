@@ -46,5 +46,5 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")
 else
-  raise "Alchemy 2.5 needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
+  raise "Alchemy #{Alchemy::VERSION} needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
 end
