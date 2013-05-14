@@ -114,6 +114,34 @@ module Alchemy
         end
       end
 
+      context "with options[:from_page] set" do
+        before { level_2_page }
+
+        context "passing a page object" do
+          it "should render the pages underneath the given one" do
+            output = helper.render_navigation(from_page: visible_page)
+            output.should_not have_selector("ul li a[href=\"/#{visible_page.urlname}\"]")
+            output.should have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
+          end
+        end
+
+        context "passing a page_layout" do
+          it "should render the pages underneath the page with the given page_layout" do
+            helper.stub(:page_or_find).with('contact').and_return(visible_page)
+            output = helper.render_navigation(from_page: 'contact')
+            output.should_not have_selector("ul li a[href=\"/#{visible_page.urlname}\"]")
+            output.should have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
+          end
+        end
+
+        context "passing a page_layout of a not existing page" do
+          it "should render nothing" do
+            expect(helper.render_navigation(from_page: 'news')).to be_nil
+          end
+        end
+
+      end
+
     end
 
     describe '#render_subnavigation' do
