@@ -121,7 +121,7 @@ module Alchemy
 
       # Returns all content descriptions from elements.yml
       def descriptions
-        @descriptions ||= Element.descriptions.collect { |e| e['contents'] }.flatten.compact
+        Element.descriptions.collect { |e| e['contents'] }.flatten.compact
       end
 
       def normalize_essence_type(essence_type)
