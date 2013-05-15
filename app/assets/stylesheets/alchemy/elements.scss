@@ -534,19 +534,6 @@ div.essence_file_tools a.edit_file {
   background: image-url('alchemy/icons.png') -160px -167px;
 }
 
-td.content_editor_essence_type {
-  width: 90px;
-  height: 20px;
-}
-
-table.content_editor_table {
-  margin-bottom: 8px;
-}
-
-.content_editor_table .thin_border {
-  width: 210px;
-}
-
 a.new_content_link {
   float: none;
   margin-bottom: 12px !important;
@@ -563,12 +550,6 @@ div.tinymce_container {
   }
 }
 
-div.content_text_editor.text_short {
-  margin-top: 0;
-  margin-bottom: 0;
-  display: inline;
-}
-
 input.long,
 input.text_long {
   width: 363px;
@@ -580,13 +561,6 @@ select.long {
   padding: 0;
 }
 
-div.content_text_editor input.text_short {
-  border-width: 1px;
-  width: 50px;
-  margin-right: 4px;
-  padding: 2px;
-}
-
 #alchemy .ui-dialog-content div.content_editor input.auto_resize {
   width: 100%;
 }
@@ -595,7 +569,7 @@ div.content_editor {
   margin-bottom: 8px;
   position: relative;
 
-  input.thin_border {
+  .thin_border, input[type="text"] {
     width: 100%;
   }
 
@@ -619,7 +593,7 @@ div.content_editor {
     margin-right: 4px;
     vertical-align: top;
 
-    .thin_border {
+    .thin_border, input[type="text"] {
       width: 170px;
     }
   }
