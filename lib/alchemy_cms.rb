@@ -20,8 +20,6 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'coffee-rails'
   require 'sassy-buttons'
   require 'declarative_authorization'
-  require 'extensions/hash'
-  require 'extensions/array'
   require 'extensions/action_view'
   require 'alchemy/mount_point'
   require 'alchemy/version'
@@ -48,5 +46,5 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")
 else
-  raise "Alchemy 2.5 needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
+  raise "Alchemy #{Alchemy::VERSION} needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
 end
