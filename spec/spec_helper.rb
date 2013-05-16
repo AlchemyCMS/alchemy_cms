@@ -1,10 +1,12 @@
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start do
-  add_filter '/spec/'
+if ENV['CI']
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+else
+  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
 end
+SimpleCov.start 'alchemy'
 
 begin
   require 'spork'
