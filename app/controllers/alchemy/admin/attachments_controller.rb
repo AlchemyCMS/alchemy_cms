@@ -20,7 +20,7 @@ module Alchemy
         @attachment = Attachment.new
         if in_overlay?
           @while_assigning = true
-          @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
+          @content = Content.find(params[:content_id], :select => 'id')
           @swap = params[:swap]
           @options = hashified_options
         end

@@ -42,6 +42,28 @@ module Alchemy
       end
 
     end
+    
+    describe "#new" do
+      
+      context "in overlay" do
+
+        before do
+          controller.stub!(:in_overlay?).and_return(true)
+          Content.stub(:find).and_return(mock_model('Content'))
+        end
+
+        it "should set @while_assigning to true" do
+          get :new
+          assigns(:while_assigning).should eq(true)
+        end
+
+        it "should set @swap to params[:swap]" do
+          get :new, swap: 'true'
+          assigns(:swap).should eq('true')
+        end
+      end
+
+    end
 
   end
 end
