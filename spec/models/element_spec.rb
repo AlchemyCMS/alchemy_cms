@@ -100,27 +100,22 @@ module Alchemy
 
     end
 
-    context "no description files are found" do
+    describe "#descriptions" do
 
-      before do
-        FileUtils.mv(File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml'), File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml.bak'))
+      context "without existing yml files" do
+        before { File.stub!(:exists?).and_return(false) }
+
+        it "should raise an error" do
+          expect { Element.descriptions }.to raise_error(LoadError)
+        end
       end
 
-      it "should raise an error" do
-        expect { Element.descriptions }.to raise_error(LoadError)
-      end
+      context "without any descriptions in elements.yml" do
+        before { YAML.stub!(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
 
-      after do
-        FileUtils.mv(File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml.bak'), File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml'))
-      end
-
-    end
-
-    context "without any descriptions in elements.yml file" do
-
-      it "should return an empty array" do
-        YAML.stub(:load_file).and_return(false) # Yes, YAML.load_file returns false if an empty file exists.
-        Element.descriptions.should == []
+        it "should return an empty array" do
+          Element.descriptions.should == []
+        end
       end
 
     end

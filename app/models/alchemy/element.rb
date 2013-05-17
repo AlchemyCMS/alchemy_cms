@@ -85,9 +85,6 @@ module Alchemy
         else
           raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
         end
-      rescue TypeError => e
-        warn "Your elements.yml is empty."
-        []
       end
       alias_method :definitions, :descriptions
 
