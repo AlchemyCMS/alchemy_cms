@@ -3,8 +3,68 @@ require 'spec_helper'
 module Alchemy
   describe Admin::TagsHelper do
 
-    let(:tag) do
-      mock_model(ActsAsTaggableOn::Tag, :name => "foo")
+    let(:tag)    { mock_model(ActsAsTaggableOn::Tag, name: 'foo', count: 1) }
+    let(:tag2)   { mock_model(ActsAsTaggableOn::Tag, name: 'abc', count: 1) }
+    let(:params) { {controller: 'admin/attachments', action: 'index', use_route: 'alchemy', tagged_with: 'foo'} }
+
+    describe '#render_tag_list' do
+      context "with tagged objects" do
+        before { Attachment.stub!(:tag_counts).and_return([tag, tag2]) }
+
+        it "returns a tag list as <li> tags" do
+          helper.render_tag_list('Alchemy::Attachment', params).should match(/li/)
+        end
+
+        it "has the tags name in the li's name attribute" do
+          helper.render_tag_list('Alchemy::Attachment', params).should match(/li.+name="#{tag.name}"/)
+        end
+
+        it "has active class if tag is present in params" do
+          helper.render_tag_list('Alchemy::Attachment', params).should match(/li.+class="active"/)
+        end
+
+        it "tags are sorted alphabetically" do
+          helper.render_tag_list('Alchemy::Attachment', params).should match(/li.+name="#{tag2.name}.+li.+name="#{tag.name}/)
+        end
+
+        context "with lowercase and uppercase tag names mixed" do
+          let(:tag) { mock_model(ActsAsTaggableOn::Tag, name: 'Foo', count: 1) }
+
+          it "tags are sorted alphabetically correctly" do
+            helper.render_tag_list('Alchemy::Attachment', params).should match(/li.+name="#{tag2.name}.+li.+name="#{tag.name}/)
+          end
+        end
+
+        it "output is html_safe" do
+          helper.render_tag_list('Alchemy::Attachment', params).html_safe?.should be_true
+        end
+      end
+
+      context "without any tagged objects" do
+        it "returns empty string" do
+          render_tag_list('Alchemy::Attachment', params).should be_empty
+        end
+      end
+
+      context "with nil given as class_name parameter" do
+        it "raises argument error" do
+          expect { render_tag_list(nil, params) }.to raise_error(ArgumentError)
+        end
+      end
+    end
+
+    describe '#tag_list_tag_active?' do
+      context "the tag is in params" do
+        it "returns true" do
+          tag_list_tag_active?(tag, params).should be_true
+        end
+      end
+
+      context "params[:tagged_with] is not present" do
+        it "returns false" do
+          tag_list_tag_active?(tag, {}).should be_false
+        end
+      end
     end
 
     describe "#filtered_by_tag?" do

@@ -2,6 +2,48 @@ module Alchemy
   module Admin
     module TagsHelper
 
+      # Renders tags list items for given class name
+      #
+      # @param class_name [String]
+      #   The class_name representing a tagged class
+      #
+      # @return [String]
+      #   A HTML string containing <tt><li></tt> tags
+      #
+      def render_tag_list(class_name, params)
+        raise ArgumentError.new('Please provide a String as class_name') if class_name.nil?
+        li_s = []
+        class_name.constantize.tag_counts.sort { |x, y| x.name.downcase <=> y.name.downcase }.each do |tag|
+          tags = filtered_by_tag?(tag) ? tag_filter(remove: tag) : tag_filter(add: tag)
+          li_s << content_tag('li', name: tag.name, class: tag_list_tag_active?(tag, params) ? 'active' : nil) do
+            link_to(
+              "#{tag.name} (#{tag.count})",
+              url_for(
+                params.delete_if { |k, v| k == "page" }.merge(
+                  action: 'index',
+                  tagged_with: tags
+                )
+              ),
+              remote: request.xhr?,
+              class: 'please_wait'
+            )
+          end
+        end
+        li_s.join.html_safe
+      end
+
+      # Returns true if the given tag is in +params[:tag_list]+
+      #
+      # @param tag [ActsAsTaggableOn::Tag]
+      #   the tag
+      # @param params [Hash]
+      #   url params
+      # @return [Boolean]
+      #
+      def tag_list_tag_active?(tag, params)
+        params[:tagged_with].to_s.split(',').include?(tag.name)
+      end
+
       # Checks if the tagged_with param contains the given tag
       def filtered_by_tag?(tag)
         if params[:tagged_with].present?
