@@ -424,5 +424,17 @@ module Alchemy
       end
     end
 
+    describe ".all_for_page" do
+
+      context "page_layout of given page not found" do
+
+        let(:page) { mock_model(Page, page_layout: 'not_existing_one') }
+
+        it "should return an empty Array" do
+          expect(Element.all_for_page(page)).to eq([])
+        end  
+      end
+    end
+
   end
 end
