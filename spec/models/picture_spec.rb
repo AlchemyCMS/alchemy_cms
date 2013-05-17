@@ -182,7 +182,7 @@ module Alchemy
 
     end
     
-    describe "#cropped_thumbnail_size", focus: true do
+    describe "#cropped_thumbnail_size" do
 
       context "if given size is blank or 111x93" do
         it "should return the default size of '111x93'" do
