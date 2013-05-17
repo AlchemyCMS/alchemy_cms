@@ -5,7 +5,7 @@ module Alchemy
       def element_names_for(page_layout)
         layout_description = get(page_layout)
         if layout_description.blank?
-          puts "\n+++ Warning: No Layout Description for #{page_layout} found! in page_layouts.yml\n"
+          Rails.logger.warn "\n+++ Warning: No Layout Description for #{page_layout} found! in page_layouts.yml\n"
           return []
         else
           layout_description["elements"] || []
