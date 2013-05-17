@@ -8,11 +8,6 @@ else
 end
 SimpleCov.start 'alchemy'
 
-begin
-  require 'spork'
-rescue LoadError => e
-end
-
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
