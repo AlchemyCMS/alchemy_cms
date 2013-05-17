@@ -40,6 +40,29 @@ module Alchemy
       end
 
     end
+    
+    describe '.definitions' do
+      it "should return an Array" do
+        expect(Cell.definitions).to be_a(Array)
+      end
+    end
+    
+    describe ".definitions_for_element" do
+      before do
+        Cell.stub!(:definitions).and_return([
+          {'name' => 'cell_1', 'elements' => ['target', 'other']},
+          {'name' => 'cell_2', 'elements' => ['other', 'other']},
+          {'name' => 'cell_3', 'elements' => ['other', 'target']}
+        ])
+      end
+
+      it "should return all cell definitions that includes the given element name" do
+        expect(Cell.definitions_for_element('target')).to eq([
+          {'name' => 'cell_1', 'elements' => ['target', 'other']},
+          {'name' => 'cell_3', 'elements' => ['other', 'target']}
+        ])
+      end
+    end
 
   end
 end

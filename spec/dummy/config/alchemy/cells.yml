@@ -1,0 +1,3 @@
+- name: right_column
+  elements: [search]
+  
