@@ -182,6 +182,7 @@ td.heading {
   @extend .disable-user-select;
   background-repeat: no-repeat;
   margin: 0 $default-margin;
+  text-indent: -100px;
 }
 
 .list td.icon .icon {
