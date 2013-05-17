@@ -79,14 +79,14 @@ module Alchemy
       context 'when set to a site' do
         before { Site.current = site }
         specify "Language should be scoped to that site" do
-          Language.scoped.to_sql.should match(/WHERE "alchemy_languages"\."site_id" = #{site.id}/)
+          Language.scoped.to_sql.should match(/alchemy_languages.+site_id.+#{site.id}/)
         end
       end
 
       context 'when set to nil' do
         before { Site.current = nil }
         specify "Language should not be scoped to a site" do
-          Language.scoped.to_sql.should_not match(/WHERE "alchemy_languages"\."site_id" = #{site.id}/)
+          Language.scoped.to_sql.should_not match(/alchemy_languages.+site_id.+#{site.id}/)
         end
       end
     end
