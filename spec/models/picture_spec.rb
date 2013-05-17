@@ -8,6 +8,8 @@ module Alchemy
       File.new(File.expand_path('../../support/image.png', __FILE__))
     end
 
+    let(:picture) { Picture.new }
+
     it "is valid with valid attributes" do
       picture = Picture.new(:image_file => image_file)
       picture.should be_valid
@@ -151,8 +153,6 @@ module Alchemy
 
     describe '#default_mask' do
 
-      let(:picture) { Picture.new }
-
       before do
         picture.stub!(:image_file_width).and_return(200)
         picture.stub!(:image_file_height).and_return(100)
@@ -180,6 +180,35 @@ module Alchemy
         end
       end
 
+    end
+    
+    describe "#cropped_thumbnail_size", focus: true do
+
+      context "if given size is blank or 111x93" do
+        it "should return the default size of '111x93'" do
+          expect(picture.cropped_thumbnail_size('')).to eq('111x93')
+          expect(picture.cropped_thumbnail_size('111x93')).to eq('111x93')
+        end
+      end
+
+      context "if the given width is 400 and the height is 300 because of picture cropping" do
+        it "should return the correct recalculated size value" do
+          expect(picture.cropped_thumbnail_size('400x300')).to eq('111x83')
+        end
+      end
+
+      context "if the given width is 300 and the height is 400 because of picture cropping" do
+        it "should return the correct recalculated size value" do
+          expect(picture.cropped_thumbnail_size('300x400')).to eq('70x93')
+        end
+      end
+    end
+    
+    describe "#image_file_dimensions" do
+      it "should return the width and height in the format of '1024x768'" do
+        picture.image_file = image_file
+        expect(picture.image_file_dimensions).to eq('1 x 1')
+      end
     end
 
   end
