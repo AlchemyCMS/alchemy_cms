@@ -95,7 +95,7 @@ FactoryGirl.define do
   end
 
   factory :picture, :class => 'Alchemy::Picture' do
-    image_file File.new(File.expand_path('../support/image.png', __FILE__))
+    image_file File.new(File.expand_path('../image.png', __FILE__))
     name 'image'
     image_file_name 'image.png'
     upload_hash Time.now.hash
