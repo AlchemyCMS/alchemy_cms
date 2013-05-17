@@ -45,11 +45,11 @@ Capybara.javascript_driver = :poltergeist
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  require 'rspec/expectations'
-  config.include RSpec::Matchers
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
   config.include Devise::TestHelpers, :type => :controller
-  config.mock_with :rspec
   config.use_transactional_fixtures = true
   # Make sure the database is clean and ready for test
   config.before(:suite) do
