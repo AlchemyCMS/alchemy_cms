@@ -73,6 +73,11 @@ module Alchemy
         its(:icon_css_class) { should == "audio" }
       end
 
+      context 'video file' do
+        subject { stub_model(Attachment, :file_mime_type => 'video/mpeg') }
+        its(:icon_css_class) { should == "video" }
+      end
+
       context 'png file' do
         subject { stub_model(Attachment, :file_mime_type => 'image/png') }
         its(:icon_css_class) { should == "image" }
@@ -86,6 +91,46 @@ module Alchemy
       context 'zip file' do
         subject { stub_model(Attachment, :file_mime_type => 'application/zip') }
         its(:icon_css_class) { should == "archive" }
+      end
+
+      context 'flash file' do
+        subject { stub_model(Attachment, :file_mime_type => 'application/x-shockwave-flash') }
+        its(:icon_css_class) { should == "flash" }
+      end
+
+      context 'photoshop file' do
+        subject { stub_model(Attachment, :file_mime_type => 'image/x-psd') }
+        its(:icon_css_class) { should == "psd" }
+      end
+
+      context 'text file' do
+        subject { stub_model(Attachment, :file_mime_type => 'text/plain') }
+        its(:icon_css_class) { should == "text" }
+      end
+
+      context 'rtf file' do
+        subject { stub_model(Attachment, :file_mime_type => 'application/rtf') }
+        its(:icon_css_class) { should == "rtf" }
+      end
+
+      context 'pdf file' do
+        subject { stub_model(Attachment, :file_mime_type => 'application/pdf') }
+        its(:icon_css_class) { should == "pdf" }
+      end
+
+      context 'word file' do
+        subject { stub_model(Attachment, :file_mime_type => 'application/msword') }
+        its(:icon_css_class) { should == "word" }
+      end
+
+      context 'excel file' do
+        subject { stub_model(Attachment, :file_mime_type => 'application/vnd.ms-excel') }
+        its(:icon_css_class) { should == "excel" }
+      end
+
+      context 'unknown file' do
+        subject { stub_model(Attachment, :file_mime_type => '') }
+        its(:icon_css_class) { should == "file" }
       end
     end
 
