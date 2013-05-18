@@ -425,14 +425,33 @@ module Alchemy
     end
 
     describe ".all_for_page" do
-
       context "page_layout of given page not found" do
-
         let(:page) { mock_model(Page, page_layout: 'not_existing_one') }
 
         it "should return an empty Array" do
           expect(Element.all_for_page(page)).to eq([])
         end  
+      end
+    end
+
+    describe ".elements_for_layout" do
+      context "if no element exists in the definition of the given page_layout" do
+        before { PageLayout.stub!(:get).with('layout_without_elements').and_return({'elements' => []}) }
+
+        it "should return an empty Array" do
+          expect(Element.elements_for_layout('layout_without_elements')).to eq([])
+        end
+      end
+
+      context "with elements in the definition of the given page_layout" do
+        before do
+          PageLayout.stub!(:get).with('my_layout').and_return({'elements' => ['element_1', 'element_2']})
+          Element.stub!(:descriptions).and_return([{'name' => 'element_1'}, {'name' => 'element_2'}])
+        end
+
+        it "should return an Array of these element definitions found for the given page_layout name" do
+          expect(Element.elements_for_layout('my_layout')).to eq([{'name' => 'element_1'}, {'name' => 'element_2'}])
+        end
       end
     end
 
