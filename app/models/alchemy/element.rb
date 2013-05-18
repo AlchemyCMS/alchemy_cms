@@ -175,11 +175,6 @@ module Alchemy
         elements
       end
 
-      def get_from_clipboard(clipboard)
-        return nil if clipboard.blank?
-        find_by_id(clipboard[:element_id])
-      end
-
       def all_from_clipboard(clipboard)
         return [] if clipboard.nil?
         find_all_by_id(clipboard.collect { |i| i[:id] })
