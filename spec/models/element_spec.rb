@@ -424,6 +424,12 @@ module Alchemy
       end
     end
 
+    describe "#to_partial_path" do
+      it "should return a String in the format of 'alchemy/elements/#{name}_view'" do
+        expect(Element.new(name: 'mock').to_partial_path).to eq('alchemy/elements/mock_view')
+      end
+    end
+
     describe ".all_for_page" do
       context "page_layout of given page not found" do
         let(:page) { mock_model(Page, page_layout: 'not_existing_one') }
