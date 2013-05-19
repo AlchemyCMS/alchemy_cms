@@ -42,7 +42,7 @@ module Alchemy
           end
           @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
         else
-          @no_image_notice = _t('No image found. Did you saved the element?')
+          @no_image_notice = _t('No image found. Did you save the element?')
         end
         render layout: !request.xhr?
       end
