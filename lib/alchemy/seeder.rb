@@ -49,29 +49,6 @@ module Alchemy
         puts "#{'-' * message.length}\n"
       end
 
-      def todo(todo)
-        add_todo todo
-      end
-
-      def add_todo(todo)
-        todos << todo
-      end
-
-      def todos
-        @@todos ||= []
-      end
-
-      def display_todos
-        if todos.length > 0
-          log "\nTODOS:", :message
-          log "------\n", :message
-          todos.each_with_index do |todo, i|
-            log "\n#{i+1}. ", :message
-            log todo, :message
-          end
-        end
-      end
-
     protected
 
       def create_default_site
