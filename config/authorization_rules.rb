@@ -91,7 +91,7 @@ privileges do
   end
 
   privilege :manage_picture_essences, :alchemy_admin_essence_pictures do
-    includes :manage, :save_link, :assign, :crop
+    includes :manage, :assign, :crop
   end
 
   privilege :manage_file_essences, :alchemy_admin_essence_files do

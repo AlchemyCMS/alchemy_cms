@@ -70,16 +70,6 @@ module Alchemy
         )
       end
 
-      def save_link
-        @content = Content.find(params[:id])
-        @picture_essence = @content.essence
-        @picture_essence.link = params[:link]
-        @picture_essence.link_title = params[:title]
-        @picture_essence.open_link_in_new_window = params[:blank]
-        @notice = _t(:saved_link)
-        @picture_essence.save
-      end
-
       def destroy
         content = Content.find_by_id(params[:id])
         @element = content.element
