@@ -241,13 +241,13 @@ module Alchemy
     end
 
     def fold(user_id, status)
-      folded_page = FoldedPage.find_or_create_by_user_id_and_page_id(user_id, self.id)
+      folded_page = folded_pages.find_or_create_by_user_id(user_id)
       folded_page.folded = status
       folded_page.save
     end
 
     def folded?(user_id)
-      folded_page = FoldedPage.find_by_user_id_and_page_id(user_id, self.id)
+      folded_page = folded_pages.find_by_user_id(user_id)
       return false if folded_page.nil?
       folded_page.folded
     end

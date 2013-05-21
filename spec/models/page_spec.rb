@@ -631,21 +631,37 @@ module Alchemy
 
     end
 
-    describe '#fold' do
+    context 'folding the page' do
+      let(:user) { mock_model('User') }
 
-      before do
-        @user = FactoryGirl.create(:admin_user, :email => 'faz@baz.com', :login => 'foo_baz')
+      describe '#fold' do
+        context "with folded status set to true" do
+          it "should create a folded page for user" do
+            public_page.fold(user.id, true)
+            expect(public_page.folded_pages.first.user_id).to eq(user.id)
+          end
+        end
       end
 
-      context "with folded status set to true" do
+      describe '#folded?' do
+        let(:page) { Page.new }
 
-        it "should create a folded page for user" do
-          public_page.fold(@user.id, true)
-          FoldedPage.find_or_create_by_user_id_and_page_id(@user.id, public_page.id).should_not be_nil
+        context 'if page is folded' do
+          before do
+            page.stub_chain(:folded_pages, :find_by_user_id).and_return(mock_model('FoldedPage', folded: true))
+          end
+
+          it "should return true" do
+            expect(page.folded?(user.id)).to eq(true)
+          end
         end
 
+        context 'if page is not folded' do
+          it "should return false" do
+            expect(page.folded?(101093)).to eq(false)
+          end
+        end
       end
-
     end
 
     describe 'previous and next. ' do
@@ -920,6 +936,48 @@ module Alchemy
         end
       end
 
+    end
+
+    context "methods to indicate page editors" do
+
+      let(:page) { Page.new }
+
+      before do
+        User.stub!(:find_by_id).and_return(User.new(firstname: 'Paul', lastname: 'Page'))
+      end
+
+      describe '#creator' do
+        it "should return the name of the creator" do
+          expect(page.creator).to eq('Paul Page')
+        end
+      end
+
+      describe '#updater' do
+        it "should return the name of the updater" do
+          expect(page.updater).to eq('Paul Page')
+        end
+      end
+
+      describe '#current_editor' do
+        it "should return the name of the current page editor" do
+          expect(page.current_editor).to eq('Paul Page')
+        end
+      end
+
+      describe '#locker' do
+        it "should return an instance of the page locker" do
+          expect(page.locker).to be_a(User)
+        end
+      end
+
+      describe '#locker_name' do
+        it "should return the name of the page locker" do
+          expect(page.locker_name).to eq('Paul Page')
+        end
+      end
+    end
+
+    describe '#controller_and_action' do
     end
 
   end
