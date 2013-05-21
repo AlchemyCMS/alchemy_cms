@@ -123,7 +123,7 @@ module Alchemy
             end
           end
           if not_deletable.any?
-            flash[:warn] = _t("These pictures could not be deleted, because they where in use", :names => not_deletable.to_sentence)
+            flash[:warn] = _t("These pictures could not be deleted, because they were in use", :names => not_deletable.to_sentence)
           else
             flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
           end
