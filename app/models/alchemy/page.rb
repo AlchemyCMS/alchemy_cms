@@ -277,8 +277,10 @@ module Alchemy
 
     def controller_and_action
       if self.has_controller?
-        controller = self.layout_description["controller"].gsub(/^([^\/])/, "/#{$1}")
-        {:controller => controller, :action => self.layout_description["action"]}
+        {
+          controller: self.layout_description["controller"].gsub(/(^\b)/, "/#{$1}"),
+          action: self.layout_description["action"]
+        }
       end
     end
 
