@@ -242,5 +242,34 @@ module Alchemy
       end
     end
 
+    describe '#element_from_page' do
+      let(:page) { mock_model('Page', urlname: 'page-1') }
+      let(:element) { mock_model('Element', name: 'el_name') }
+
+      before do
+        page.stub_chain(:elements, :published, :find_by_name).and_return(element)
+      end
+
+      context "options[:page_urlname] and options[:element_name] is passed" do
+        before do
+          Page.stub_chain(:published, :find_by_urlname).and_return(page)
+        end
+
+        it "should return the element with the given name" do
+          expect(helper.element_from_page(element_name: element.name, page_urlname: page.urlname)).to eq(element)
+        end
+      end
+
+      context "options[:page_id] and options[:element_name] is passed" do
+        before do
+          Page.stub_chain(:published, :find_by_id).and_return(page)
+        end
+
+        it "should return the element with the given name" do
+          expect(helper.element_from_page(element_name: element.name, page_id: page.id)).to eq(element)
+        end
+      end
+    end
+
   end
 end

@@ -226,25 +226,36 @@ module Alchemy
       end
 
       return [] if page.blank?
-      page.elements.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
+      page.elements.published.where(name: name).limit(options[:count] == :all ? nil : options[:count])
     end
 
-    # Returns the public element found by Element.name from the given public Page, either by Page.id or by Page.urlname
+    # This helper returns a published element found by the given name and the given published Page, either by Page.id or by Page.urlname
+    #
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @option options [String] :page_urlname
+    #   The urlname of the Page the element is associated with
+    #
+    # @option options [Integer] :page_id
+    #   The id of the Page the element is associated with
+    #
     def element_from_page(options = {})
       default_options = {
-        :page_urlname => "",
-        :page_id => nil,
-        :element_name => ""
-      }
-      options = default_options.merge(options)
-      if options[:page_id].blank?
-        page = Page.published.find_by_urlname(options[:page_urlname])
+        page_urlname: "",
+        page_id: nil,
+        element_name: ""
+      }.merge(options)
+
+      page = case options[:page_id]
+      when nil
+        Page.published.find_by_urlname(options[:page_urlname])
       else
-        page = Page.published.find_by_id(options[:page_id])
+        Page.published.find_by_id(options[:page_id])
       end
+
       return "" if page.blank?
-      element = page.elements.published.find_by_name(options[:element_name])
-      return element
+      page.elements.published.find_by_name(options[:element_name])
     end
 
     # Renders all element partials from given cell.
