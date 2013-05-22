@@ -72,26 +72,6 @@ module Alchemy
       render_essence_view(content, options, html_options)
     end
 
-    # Renders the +Essence+ view partial from +Element+ by position.
-    #
-    # Pass the position of the +Content+ inside the Element as second argument.
-    #
-    # == Example:
-    #
-    # This renders the second +Content+ from element.
-    #
-    #   <%= render_essence_view_by_type(element, 2) %>
-    #
-    def render_essence_view_by_position(element, position, options = {}, html_options = {})
-      ActiveSupport::Deprecation.warn 'Alchemy CMS: render_essence_view_by_position is not supported anymore and will be removed.'
-      if element.blank?
-        warning('Element is nil')
-        return ""
-      end
-      content = element.contents.find_by_position(position)
-      render_essence_view(content, options, html_options)
-    end
-
     # Renders the +Esssence+ partial for given +Content+.
     #
     # The helper renders the view partial as default.

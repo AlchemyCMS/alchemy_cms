@@ -94,21 +94,11 @@ module Alchemy
       @_resource_name ||= resources_name.singularize
     end
 
-    def model_name
-      ActiveSupport::Deprecation.warn("model_name is deprecated. Please use resource_name instead!")
-      resource_name
-    end
-
     def namespaced_resource_name
       return @_namespaced_resource_name unless @_namespaced_resource_name.nil?
       resource_name_array = resource_array
       resource_name_array.delete(engine_name) if in_engine?
       @_namespaced_resource_name = resource_name_array.join('_').singularize
-    end
-
-    def namespaced_model_name
-      ActiveSupport::Deprecation.warn("namespaced_model_name is deprecated. Please use namespaced_resource_name instead!")
-      namespaced_resource_name
     end
 
     def permission_scope

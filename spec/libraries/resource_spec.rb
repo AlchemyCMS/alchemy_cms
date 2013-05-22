@@ -154,13 +154,6 @@ module Alchemy
       end
     end
 
-    describe "#model_name" do
-      it "is deprecated" do
-        ActiveSupport::Deprecation.should_receive(:warn)
-        Resource.new("admin/events").model_name
-      end
-    end
-
     describe "#namespaced_resource_name" do
 
       it "returns resource_name with namespace (namespace_event for Namespace::Event), i.e. for use in forms" do
@@ -265,14 +258,6 @@ module Alchemy
             {:name => "hidden_value", :type => :string},
             {:name => "description", :type => :string}
           ]
-        end
-      end
-
-      describe "#namespaced_model_name" do
-        it "is deprecated" do
-          ActiveSupport::Deprecation.should_receive(:warn)
-          resource = Resource.new("admin/events")
-          resource.namespaced_model_name
         end
       end
 

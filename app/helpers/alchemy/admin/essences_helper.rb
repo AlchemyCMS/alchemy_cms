@@ -43,22 +43,6 @@ module Alchemy
         return_string
       end
 
-      # Renders the Content editor partial from the given Element by position (e.g. 1).
-      # For options see -> render_essence
-      def render_essence_editor_by_position(element, position, options = {})
-        ActiveSupport::Deprecation.warn 'Alchemy CMS: render_essence_editor_by_position is not supported anymore and will be removed.'
-        if element.blank?
-          warning('Element is nil')
-          return ""
-        end
-        content = element.contents.find_by_position(position)
-        if content.nil?
-          render_missing_content(element, position, options)
-        else
-          render_essence_editor(content, options)
-        end
-      end
-
       # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
       # For options see -> render_essence
       #
