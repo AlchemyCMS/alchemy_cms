@@ -11,17 +11,6 @@ module Alchemy
       text.truncate(:length => length)
     end
 
-    # Returns @language set in the action (e.g. Page.show)
-    def current_language
-      ActiveSupport::Deprecation.warn('This Proxy-method is deprecated. Please use @language directly.')
-      if @language.nil?
-        warning('@language is not set')
-        nil
-      else
-        @language
-      end
-    end
-
     def parse_sitemap_name(page)
       if multi_language?
         pathname = "/#{session[:language_code]}/#{page.urlname}"
