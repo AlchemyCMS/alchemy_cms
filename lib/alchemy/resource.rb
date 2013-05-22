@@ -94,11 +94,6 @@ module Alchemy
       @_resource_name ||= resources_name.singularize
     end
 
-    def model_name
-      ActiveSupport::Deprecation.warn("model_name is deprecated. Please use resource_name instead!")
-      resource_name
-    end
-
     def namespaced_resource_name
       return @_namespaced_resource_name unless @_namespaced_resource_name.nil?
       resource_name_array = resource_array
