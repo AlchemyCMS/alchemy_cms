@@ -138,13 +138,6 @@ describe Alchemy::ResourcesHelper do
     end
   end
 
-  describe "#resource_model_name" do
-    it "is deprecated" do
-      ActiveSupport::Deprecation.should_receive(:warn)
-      @controller.resource_model_name
-    end
-  end
-
   describe "#resource_name" do
     it "returns resource_handler.resource_name" do
       @controller.resource_name.should == "my_resource"
