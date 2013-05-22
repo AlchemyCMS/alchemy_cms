@@ -209,5 +209,38 @@ module Alchemy
 
     end
 
+    describe '#all_elements_by_name' do
+      let(:page) { mock_model('Page') }
+      let(:element) { mock_model('Element') }
+
+      it "should return all public elements found by name" do
+        Element.stub_chain(:published, :where, :limit).and_return([element])
+        expect(helper.all_elements_by_name('el_name')).to eq([element])
+      end
+
+      it "should return an empty collection if element not found" do
+        expect(helper.all_elements_by_name('not_existing_name')).to eq([])
+      end
+
+      context "options[:from_page] is passed" do
+        before do
+          Page.stub_chain(:with_language, :find_by_page_layout).and_return(page)
+          page.stub_chain(:elements, :published, :where, :limit).and_return([element])
+        end
+
+        context "as a String" do
+          it "should return all elements associated with the page found by the given layout name" do
+            expect(helper.all_elements_by_name('el_name', from_page: 'layout_name')).to eq([element])
+          end
+        end
+
+        context "as a Page object" do
+          it "should return all elements associated with this given page" do
+            expect(helper.all_elements_by_name('el_name', from_page: page)).to eq([element])
+          end
+        end        
+      end
+    end
+
   end
 end

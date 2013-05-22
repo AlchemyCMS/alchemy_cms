@@ -196,24 +196,37 @@ module Alchemy
       end
     end
 
-    # Returns all public elements found by Element.name.
-    # Pass a count to return only an limited amount of elements.
+    # This helper returns all published elements with the given name.
+    #
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @option options [Number] :count
+    #   The amount of elements to be returned.
+    #
+    # @option options [Alchemy::Page/String] :from_page
+    #   Only elements associated with this page are returned.
+    #
+    # @note When passing a String for options :from_page, it must be a page_layout name.
+    #
     def all_elements_by_name(name, options = {})
       warning('options[:language] option not allowed any more in all_elements_by_name helper') unless options[:language].blank?
-      default_options = {
-        :count => :all,
-        :from_page => :all
-      }
-      options = default_options.merge(options)
-      if options[:from_page] == :all
-        elements = Element.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
-      elsif options[:from_page].class == String
+      options = {
+        count: :all,
+        from_page: :all
+      }.merge(options)
+
+      case options[:from_page]
+      when :all
+        return Element.published.where(name: name).limit(options[:count] == :all ? nil : options[:count])
+      when String
         page = Page.with_language(session[:language_id]).find_by_page_layout(options[:from_page])
-        return [] if page.blank?
-        elements = page.elements.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
       else
-        elements = options[:from_page].elements.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
+        page = options[:from_page]
       end
+
+      return [] if page.blank?
+      page.elements.published.where(:name => name).limit(options[:count] == :all ? nil : options[:count])
     end
 
     # Returns the public element found by Element.name from the given public Page, either by Page.id or by Page.urlname
