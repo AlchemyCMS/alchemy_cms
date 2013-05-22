@@ -52,11 +52,6 @@ module Alchemy
       resource_handler.permission_scope
     end
 
-    def resource_model_name
-      ActiveSupport::Deprecation.warn("resource_model_name is deprecated. Please use resource_name instead!")
-      resource_handler.resource_name
-    end
-
     def resource_name
       resource_handler.resource_name
     end
