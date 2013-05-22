@@ -57,14 +57,6 @@ module Alchemy
       render :partial => "alchemy/page_layouts/standard"
     end
 
-    def sitename_from_header_page
-      header_page = Page.find_by_page_layout_and_layoutpage('layout_header', true)
-      return "" if header_page.nil?
-      page_title = header_page.elements.find_by_name('sitename')
-      return "" if page_title.nil?
-      page_title.ingredient('name')
-    end
-
     # Renders the navigation.
     #
     # It produces a html <ul><li></li></ul> structure with all necessary classes so you can produce every navigation the web uses today.
