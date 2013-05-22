@@ -101,11 +101,6 @@ module Alchemy
       @_namespaced_resource_name = resource_name_array.join('_').singularize
     end
 
-    def namespaced_model_name
-      ActiveSupport::Deprecation.warn("namespaced_model_name is deprecated. Please use namespaced_resource_name instead!")
-      namespaced_resource_name
-    end
-
     def permission_scope
       #(resource_namespaced? ? "#{resource_namespace.underscore}_admin_#{resources_name}" : "admin_#{resources_name}").to_sym
       @_permission = @controller_path.gsub('/', '_').to_sym
