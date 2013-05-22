@@ -261,14 +261,6 @@ module Alchemy
         end
       end
 
-      describe "#namespaced_model_name" do
-        it "is deprecated" do
-          ActiveSupport::Deprecation.should_receive(:warn)
-          resource = Resource.new("admin/events")
-          resource.namespaced_model_name
-        end
-      end
-
     end
   end
 end
