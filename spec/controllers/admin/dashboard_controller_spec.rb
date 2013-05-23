@@ -16,7 +16,15 @@ module Alchemy
 
     describe '#update_check' do
 
+      before do
+        Net::HTTP.any_instance.stub(:request).and_return(
+          OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
+        )
+      end
+
       context "if current Alchemy version equals the latest released version or it is newer" do
+        before { Alchemy.stub!(:version).and_return("2.6") }
+
         it "should render 'false'" do
           get :update_check
           expect(response.body).to eq('false')
@@ -24,9 +32,7 @@ module Alchemy
       end
 
       context "if current Alchemy version is older than latest released version" do
-        before do
-          Alchemy.stub!(:version).and_return("2.5")
-        end
+        before { Alchemy.stub!(:version).and_return("2.5") }
 
         it "should render 'true'" do
           get :update_check
