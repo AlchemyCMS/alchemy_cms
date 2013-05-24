@@ -47,12 +47,6 @@ module Alchemy
       definitions.select { |d| d['elements'].include?(element_name) }
     end
 
-    def self.names_for_element(element_name)
-      definitions = definitions_for_element(element_name)
-      return nil if definitions.blank?
-      definitions.collect { |d| d['name'] }
-    end
-
     def self.translated_label_for(cell_name)
       I18n.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
     end
