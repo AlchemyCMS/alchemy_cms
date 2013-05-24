@@ -64,5 +64,12 @@ module Alchemy
       end
     end
 
+    describe "#name_for_label" do
+      it "should call translated_label_for" do
+        Cell.should_receive(:translated_label_for).with(cell.name)
+        cell.name_for_label
+      end
+    end
+
   end
 end
