@@ -54,7 +54,7 @@ If you add the picture gallery to an existing element, you have to insert the fo
     = el.render :show_caption
 </pre>
 
-Alternatively, if you want to customize the way the gallery pictures are rendered, you may use the Alchemy Picutre Url Helper:
+Alternatively, if you want to customize the way the gallery pictures are rendered, you may use the Alchemy Picture Url Helper:
 <code>image_tag show_alchemy_picture_url(image.essence.picture, :size => "102x73", :format => "png")</code>
 
 h4. Adding contents dynamically
