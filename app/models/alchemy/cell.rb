@@ -34,14 +34,6 @@ module Alchemy
       definitions.select { |c| cellnames.include? c['name'] }
     end
 
-    def self.all_element_definitions_for(cellnames)
-      element_names = []
-      all_definitions_for(cellnames).each do |cell|
-        element_names += cell['elements']
-      end
-      Element.all_definitions_for(element_names.uniq)
-    end
-
     def self.definitions_for_element(element_name)
       return [] if definitions.blank?
       definitions.select { |d| d['elements'].include?(element_name) }
