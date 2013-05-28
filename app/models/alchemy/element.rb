@@ -104,7 +104,7 @@ module Alchemy
         # if page_layout has cells, collect elements from cells and group them by cellname
         page_layout = PageLayout.get(page.page_layout)
         if page_layout.blank?
-          log_warning "Could not find page_layout description for page: #{page.name}"
+          Alchemy::Logger.warn "Could not find page_layout description for page: #{page.name}", caller.first
           return []
         end
         elements_for_layout = []
