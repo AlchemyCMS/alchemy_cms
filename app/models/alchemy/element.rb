@@ -104,7 +104,7 @@ module Alchemy
         # if page_layout has cells, collect elements from cells and group them by cellname
         page_layout = PageLayout.get(page.page_layout)
         if page_layout.blank?
-          warn "Could not find page_layout description for page: #{page.name}"
+          log_warning "Could not find page_layout description for page: #{page.name}"
           return []
         end
         elements_for_layout = []
@@ -287,7 +287,7 @@ module Alchemy
     # Returns the description for given content_name
     def content_description_for(content_name)
       if content_descriptions.blank?
-        warn "Element #{self.name} is missing the content description for #{content_name}"
+        log_warning "Element #{self.name} is missing the content description for #{content_name}"
         return nil
       else
         content_descriptions.detect { |d| d['name'] == content_name }
@@ -304,7 +304,7 @@ module Alchemy
     def description
       description = self.class.descriptions.detect { |d| d['name'] == self.name }
       if description.blank?
-        warn "Could not find element definition for #{self.name}. Please check your elements.yml!"
+        log_warning "Could not find element definition for #{self.name}. Please check your elements.yml!"
         return {}
       else
         return description
@@ -582,7 +582,7 @@ module Alchemy
     def create_contents
       contents = []
       if description["contents"].blank?
-        warn "Could not find any content descriptions for element: #{self.name}"
+        log_warning "Could not find any content descriptions for element: #{self.name}"
       else
         description["contents"].each do |content_hash|
           contents << Content.create_from_scratch(self, content_hash.symbolize_keys)

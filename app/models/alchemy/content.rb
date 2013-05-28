@@ -152,7 +152,7 @@ module Alchemy
     # Returns the description from available_contents if my own description is blank
     def description
       if element.blank?
-        warn "Content with id #{self.id} is missing its Element."
+        log_warning "Content with id #{self.id} is missing its Element."
         return {}
       end
       desc = self.element.content_description_for(self.name)

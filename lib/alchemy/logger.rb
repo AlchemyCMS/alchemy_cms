@@ -7,10 +7,9 @@ module Alchemy
       return nil
     end
 
-    def warn(message)
+    def log_warning(message)
       Alchemy::Logger.warn(message, caller.first)
     end
-    alias_method :warning, :warn
 
   end
 end

@@ -61,7 +61,7 @@ module Alchemy
     def description
       description = self.class.definition_for(self.name)
       if description.blank?
-        warn "Could not find cell definition for #{self.name}. Please check your cells.yml!"
+        log_warning "Could not find cell definition for #{self.name}. Please check your cells.yml!"
         return {}
       else
         description
