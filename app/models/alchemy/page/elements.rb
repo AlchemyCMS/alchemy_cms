@@ -66,7 +66,7 @@ module Alchemy
         if cell
           elements = cell.elements
         else
-          log_warning "Cell with name `#{options[:from_cell]}` could not be found!"
+          Alchemy::Logger.warn "Cell with name `#{options[:from_cell]}` could not be found!", caller.first
           # Returns an empty relation. Can be removed with the release of Rails 4
           elements = self.elements.where('1 = 0')
         end
