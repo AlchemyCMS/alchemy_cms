@@ -5,9 +5,9 @@ module Alchemy
 
     # Helpers for integration specs
     #
-    # This file is auto included in rspec integration/request tests.
+    # This file is included in rspec integration/request tests.
     #
-    module Helpers
+    module IntegrationHelpers
       include Authorization::TestHelper
 
       # Shortcut method for:
@@ -63,8 +63,4 @@ module Alchemy
     end
 
   end
-end
-
-RSpec.configure do |c|
-  c.include Alchemy::Specs::Helpers, :type => :feature
 end

@@ -3,17 +3,18 @@ require 'spec_helper'
 module Alchemy
   describe UserSessionsController do
 
-    let(:user)         { FactoryGirl.create(:admin_user) }
-    let(:alchemy_page) { FactoryGirl.create(:page) }
+    let(:user) { FactoryGirl.build_stubbed(:admin_user) }
 
-    before { sign_in :user, user }
+    before do
+      controller.stub!(:store_user_request_time)
+      sign_in(user)
+    end
 
-    describe "signout" do
+    describe "#destroy" do
       it "should unlock all pages" do
         @request.env["devise.mapping"] = Devise.mappings[:user]
-        alchemy_page.lock(user)
+        user.should_receive(:unlock_pages!)
         delete :destroy
-        user.locked_pages.should be_empty
       end
     end
 

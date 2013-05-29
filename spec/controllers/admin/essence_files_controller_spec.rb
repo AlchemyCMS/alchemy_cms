@@ -2,8 +2,9 @@ require "spec_helper"
 
 module Alchemy
   describe Admin::EssenceFilesController do
+
     before do
-      sign_in :user, FactoryGirl.create(:admin_user)
+      sign_in(admin_user)
     end
 
     let(:content) { mock_model('Content', essence: essence_file) }

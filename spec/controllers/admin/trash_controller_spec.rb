@@ -16,7 +16,7 @@ module Alchemy
       end
 
       before do
-        sign_in :user, FactoryGirl.create(:admin_user)
+        sign_in(admin_user)
         element.trash
       end
 

@@ -44,6 +44,8 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
   config.include Devise::TestHelpers, :type => :controller
+  config.include Alchemy::Specs::ControllerHelpers, :type => :controller
+  config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
   config.use_transactional_fixtures = true
   # Make sure the database is clean and ready for test
   config.before(:suite) do

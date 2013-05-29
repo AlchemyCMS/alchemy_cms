@@ -5,7 +5,7 @@ module Alchemy
   describe Admin::PagesController do
 
     before do
-      sign_in :user, FactoryGirl.create(:admin_user)
+      sign_in(admin_user)
     end
 
     describe "#flush" do

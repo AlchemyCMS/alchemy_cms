@@ -8,7 +8,7 @@ module Alchemy
     let(:another_element) { FactoryGirl.create(:element, :page => public_page) }
 
     before do
-      sign_in :user, FactoryGirl.create(:admin_user)
+      sign_in(admin_user)
       session[:clipboard] = Clipboard.new
     end
 

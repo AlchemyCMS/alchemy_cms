@@ -4,7 +4,7 @@ module Alchemy
   describe Admin::ElementsController do
 
     before(:each) do
-      sign_in :user, FactoryGirl.create(:admin_user)
+      sign_in(admin_user)
     end
 
     let(:alchemy_page) { FactoryGirl.create(:page, :urlname => 'lulu') }

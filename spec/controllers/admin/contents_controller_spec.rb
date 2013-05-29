@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::Admin::ContentsController do
 
   before(:each) do
-    sign_in :user, FactoryGirl.create(:admin_user)
+    sign_in(admin_user)
   end
 
   describe '#create' do
