@@ -3,6 +3,8 @@ require 'spec_helper'
 module Alchemy
   describe Admin::AttachmentsController do
 
+    let(:attachment) { mock_model('Attachment', file_name: 'testfile', file_mime_type: 'image/png', file: mock('File', data: nil)) }
+
     before do
       sign_in(admin_user)
     end
@@ -63,6 +65,59 @@ module Alchemy
         end
       end
 
+    end
+
+    describe "#show" do
+      before do
+        Attachment.stub!(:find).with("#{attachment.id}").and_return(attachment)
+      end
+
+      it "should assign @attachment with Attachment found by id" do
+        get :edit, id: attachment.id
+        expect(assigns(:attachment)).to eq(attachment)
+      end
+
+      context "if xhr request" do
+        it "should render no layout" do
+          xhr :get, :edit, id: attachment.id
+          expect(@layouts.keys).to eq([nil])
+        end
+      end
+    end
+
+    describe "#edit" do
+      before do
+        Attachment.stub!(:find).with("#{attachment.id}").and_return(attachment)
+      end
+
+      it "should assign @attachment with Attachment found by id" do
+        get :edit, id: attachment.id
+        expect(assigns(:attachment)).to eq(attachment)
+      end
+
+      context "if xhr request" do
+        it "should render no layout" do
+          xhr :get, :edit, id: attachment.id
+          expect(@layouts.keys).to eq([nil])
+        end
+      end
+    end
+
+    describe "#download" do
+      before do
+        Attachment.stub!(:find).with("#{attachment.id}").and_return(attachment)
+        controller.stub!(:render).and_return(nil)
+      end
+
+      it "should assign @attachment with Attachment found by id" do
+        get :download, id: attachment.id
+        expect(assigns(:attachment)).to eq(attachment)
+      end
+
+      it "should send the data to the browser" do
+        controller.should_receive(:send_data)
+        get :download, id: attachment.id
+      end
     end
 
   end
