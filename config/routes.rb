@@ -3,7 +3,7 @@ Alchemy::Engine.routes.draw do
   root :to => 'pages#show'
 
   get '/admin' => redirect(
-    "#{Alchemy.mount_point}/admin/dashboard"
+    "#{Alchemy::MountPoint.get}/admin/dashboard"
   )
 
   get '/admin/dashboard' => 'admin/dashboard#index',

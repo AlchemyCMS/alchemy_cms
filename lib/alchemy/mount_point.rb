@@ -1,16 +1,41 @@
 module Alchemy
+  # Utitlities for Alchemy's mount point in the host rails app.
+  #
+  class MountPoint
 
-  # Returns alchemys mount point in current rails app.
-  # Pass false to not return a leading slash on empty mount point.
-  def self.mount_point(remove_leading_slash_if_blank = true)
-    alchemy_routes = Rails.application.routes.named_routes[:alchemy]
-    raise "Alchemy not mounted! Please mount Alchemy::Engine in your config/routes.rb file." if alchemy_routes.nil?
-    mount_point = alchemy_routes.path.spec.to_s
-    if remove_leading_slash_if_blank && mount_point == "/"
-      mount_point.gsub(/^\/$/, '')
-    else
-      mount_point
+    # Returns the path of Alchemy's mount point in current rails app.
+    #
+    # @param [Boolean] remove_leading_slash_if_blank
+    #   Pass false to not return a leading slash on empty mount point.
+    #
+    def self.get(remove_leading_slash_if_blank = true)
+      if self.mount_point == "/" && remove_leading_slash_if_blank
+        self.mount_point.gsub(/^\/$/, '')
+      else
+        self.mount_point
+      end
     end
-  end
 
+    # Returns the routes object from Alchemy in the host app.
+    #
+    def self.routes
+      ::Rails.application.routes.named_routes[:alchemy]
+    end
+
+    # Returns the raw mount point path from the Rails app routes.
+    #
+    # If Alchemy is not mounted in the main app, it falls back to root path.
+    #
+    def self.mount_point
+      if self.routes.nil?
+        ::Rails.logger.warn <<-WARN
+Alchemy is not mounted! Falling back to root path (/).
+If you want to change Alchemy's mount point, please mount Alchemy::Engine in your config/routes.rb file.
+WARN
+        return '/'
+      end
+      routes.path.spec.to_s
+    end
+
+  end
 end

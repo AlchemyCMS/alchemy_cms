@@ -409,7 +409,7 @@ module Alchemy
             try {
               Alchemy.loadAlchemyMenuBar({
                 page_id: #{@page.id},
-                route: '#{Alchemy.mount_point}',
+                route: '#{Alchemy::MountPoint.get}',
                 locale: '#{current_user.language || ::I18n.default_locale}'
               });
             } catch(e) {
