@@ -14,7 +14,7 @@ module Alchemy
 
     def expire_cache_for(picture)
       # Removing all variants of the picture with FileUtils.
-      FileUtils.rm_rf(Rails.root.join('public', Alchemy.mount_point, 'pictures', picture.id.to_s))
+      FileUtils.rm_rf(Rails.root.join('public', Alchemy::MountPoint.get, 'pictures', picture.id.to_s))
     end
 
   end
