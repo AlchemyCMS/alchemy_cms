@@ -324,7 +324,7 @@ module Alchemy
     context "#unlock" do
       it "should set the locked status to false" do
         page = FactoryGirl.create(:public_page, :locked => true)
-        page.unlock
+        page.unlock!
         page.locked.should == false
       end
     end
@@ -634,10 +634,10 @@ module Alchemy
     context 'folding the page' do
       let(:user) { mock_model('User') }
 
-      describe '#fold' do
+      describe '#fold!' do
         context "with folded status set to true" do
           it "should create a folded page for user" do
-            public_page.fold(user.id, true)
+            public_page.fold!(user.id, true)
             expect(public_page.folded_pages.first.user_id).to eq(user.id)
           end
         end

@@ -151,8 +151,7 @@ module Alchemy
 
       def fold
         # @page is fetched via before filter
-        @page.fold(current_user.id, !@page.folded?(current_user.id))
-        @page.save
+        @page.fold!(current_user.id, !@page.folded?(current_user.id))
         respond_to do |format|
           format.js
         end
@@ -161,7 +160,7 @@ module Alchemy
       # Leaves the page editing mode and unlocks the page for other users
       def unlock
         # fetching page via before filter
-        @page.unlock
+        @page.unlock!
         flash[:notice] = _t(:unlocked_page, :name => @page.name)
         @pages_locked_by_user = Page.from_current_site.all_locked_by(current_user)
         respond_to do |format|
@@ -173,7 +172,7 @@ module Alchemy
       end
 
       def visit
-        @page.unlock
+        @page.unlock!
         redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
       end
 

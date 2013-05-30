@@ -96,7 +96,7 @@ module Alchemy
 
     # Calls unlock on all locked pages
     def unlock_pages!
-      pages_locked_by_me.map(&:unlock)
+      pages_locked_by_me.map(&:unlock!)
     end
 
     # Returns all pages locked by user.

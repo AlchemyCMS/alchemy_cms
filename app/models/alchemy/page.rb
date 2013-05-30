@@ -208,7 +208,7 @@ module Alchemy
       self.save(:validate => false)
     end
 
-    def unlock
+    def unlock!
       self.locked = false
       self.locked_by = nil
       self.do_not_sweep = true
@@ -240,7 +240,7 @@ module Alchemy
       User.find_by_id(self.locked_by)
     end
 
-    def fold(user_id, status)
+    def fold!(user_id, status)
       folded_page = folded_pages.find_or_create_by_user_id(user_id)
       folded_page.folded = status
       folded_page.save
