@@ -123,7 +123,7 @@ module Alchemy
       }.merge(options)
       page = page_or_find(options[:from_page])
       return nil if page.blank?
-      pages = page.children.visible.with_permissions_to(:show, :context => :alchemy_pages)
+      pages = page.children.with_permissions_to(:see, :context => :alchemy_pages)
       pages = pages.restricted if options.delete(:restricted_only)
       if depth = options[:deepness]
         pages = pages.where("#{Page.table_name}.depth <= #{depth}")
@@ -198,7 +198,7 @@ module Alchemy
         :reverse => false,
         :link_active_page => false
       }.merge(options)
-      pages = breadcrumb(options[:page]).published.visible.with_permissions_to(:show, :context => :alchemy_pages)
+      pages = breadcrumb(options[:page]).with_permissions_to(:see, :context => :alchemy_pages)
       pages = pages.restricted if options.delete(:restricted_only)
       pages.to_a.reverse! if options[:reverse]
       if options[:without].present?

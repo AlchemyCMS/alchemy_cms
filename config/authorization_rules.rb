@@ -1,6 +1,9 @@
 authorization do
 
   role :guest do
+    has_permission_on :alchemy_pages, :to => [:see] do
+      if_attribute :visible => true, :restricted => false
+    end
     has_permission_on :alchemy_pages, :to => [:show] do
       if_attribute :public => true, :restricted => false
     end
@@ -17,6 +20,9 @@ authorization do
 
   role :registered do
     includes :guest
+    has_permission_on :alchemy_pages, :to => [:see] do
+      if_attribute :visible => true, :restricted => true
+    end
     has_permission_on :alchemy_pages, :to => [:show] do
       if_attribute :public => true, :restricted => true
       if_attribute :public => true, :restricted => false
