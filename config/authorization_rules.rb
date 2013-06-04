@@ -25,7 +25,6 @@ authorization do
     end
     has_permission_on :alchemy_pages, :to => [:show] do
       if_attribute :public => true, :restricted => true
-      if_attribute :public => true, :restricted => false
     end
     has_permission_on :alchemy_elements, :to => [:show] do
       if_attribute :public => true
