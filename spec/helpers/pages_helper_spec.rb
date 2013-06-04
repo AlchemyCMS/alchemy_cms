@@ -25,13 +25,25 @@ module Alchemy
       @root_page = language_root # We need this instance variable in the helpers
     end
 
-    it "should render the current page layout" do
-      @page = public_page
-      helper.render_page_layout.should have_selector('div#content')
+    describe "#render_page_layout" do
+      it "should render the current page layout" do
+        @page = public_page
+        helper.render_page_layout.should have_selector('div#content')
+      end
     end
 
     describe "#render_navigation" do
       before { visible_page }
+
+      it "should render only visible pages" do
+        not_visible_page = FactoryGirl.create(:page, visible: false)
+        helper.render_navigation.should_not match(/#{not_visible_page.name}/)
+      end
+
+      it "should render visible unpublished pages" do
+        unpublished_visible_page = FactoryGirl.create(:page, visible: true, public: false)
+        helper.render_navigation.should match(/#{unpublished_visible_page.name}/)
+      end
 
       context "not in multi_language mode" do
         before { helper.stub(:multi_language?).and_return(false) }
@@ -54,8 +66,10 @@ module Alchemy
             Authorization.stub!(:current_user).and_return(FactoryGirl.build(:registered_user))
           end
 
-          it "should render restricted pages" do
-            helper.render_navigation.should have_selector("ul.navigation.level_1 li a[href=\"/#{restricted_page.urlname}\"]")
+          it "should render also restricted pages" do
+            not_restricted_page = FactoryGirl.create(:public_page, restricted: false, visible: true)
+            helper.render_navigation.should match(/#{restricted_page.name}/)
+            helper.render_navigation.should match(/#{not_restricted_page.name}/)
           end
         end
 
@@ -239,14 +253,14 @@ module Alchemy
         end
       end
 
-      it "should render a breadcrumb of visible pages only." do
-        page.update_attributes!(visible: false, urlname: 'a-invisible-public-page', name: 'A invisible Public Page', title: 'A invisible Public Page')
-        helper.render_breadcrumb(page: page, visible_only: true).should_not match(/A invisible Public Page/)
+      it "should render a breadcrumb of visible pages only" do
+        page.update_attributes!(visible: false, urlname: 'a-invisible-page', name: 'A Invisible Page', title: 'A Invisible Page')
+        helper.render_breadcrumb(page: page).should_not match(/A Invisible Page/)
       end
 
-      it "should render a breadcrumb of published pages only" do
+      it "should render a breadcrumb of visible and unpublished pages" do
         page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
-        helper.render_breadcrumb(page: page, public_only: true).should_not match(/A Unpublic Page/)
+        helper.render_breadcrumb(page: page).should match(/A Unpublic Page/)
       end
 
       context "with options[:without]" do
@@ -294,7 +308,7 @@ module Alchemy
     describe "#language_links" do
 
       context "with two public languages" do
-        
+
         # Always create second language
         before { klingonian }
 
@@ -352,7 +366,7 @@ module Alchemy
               end
             end
           end
-          
+
           context "with options[:show_title]" do
             context "set to true" do
               it "should render the language links with titles" do
