@@ -10,9 +10,7 @@ module Alchemy
     end
 
     def picture_essence_caption(content)
-      return "" if content.nil?
-      return "" if content.essence.nil?
-      content.essence.caption
+      content.try(:essence).try(:caption)
     end
 
     # Renders links to language root pages of all published languages.

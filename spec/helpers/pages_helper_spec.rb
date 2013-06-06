@@ -388,5 +388,14 @@ module Alchemy
 
     end
 
+    describe "#picture_essence_caption" do
+      let(:essence) { mock_model('EssencePicture', caption: 'my caption') }
+      let(:content) { mock_model('Content', essence: essence) }
+
+      it "should return the caption of the contents essence" do
+        expect(helper.picture_essence_caption(content)).to eq "my caption"
+      end
+    end
+
   end
 end
