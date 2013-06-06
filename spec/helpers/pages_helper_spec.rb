@@ -397,5 +397,21 @@ module Alchemy
       end
     end
 
+    describe "#language_switches" do
+      it "should return a deprecation warning" do
+        ActiveSupport::Deprecation.should_receive(:warn)
+        helper.should_receive(:language_links).and_return(nil)
+        helper.language_switches
+      end
+    end
+
+    describe "#language_switcher" do
+      it "should return a deprecation warning" do
+        ActiveSupport::Deprecation.should_receive(:warn)
+        helper.should_receive(:language_links).and_return(nil)
+        helper.language_switcher
+      end
+    end
+
   end
 end
