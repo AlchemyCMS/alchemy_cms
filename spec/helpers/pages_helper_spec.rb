@@ -280,6 +280,12 @@ module Alchemy
 
     describe "#render_meta_data" do
 
+      context "@page is not set" do
+        it "should reutrn nil" do
+          expect(helper.render_meta_data.should).to eq(nil)
+        end
+      end
+
       it "should render meta keywords of current page" do
         @page = mock_model('Page', :language => language, :title => 'A Public Page', :meta_description => '', :meta_keywords => 'keyword1, keyword2', :robot_index? => false, :robot_follow? => false, :contains_feed? => false, :updated_at => '2011-11-29-23:00:00')
         helper.render_meta_data.should have_selector('meta[name="keywords"][content="keyword1, keyword2"]')
