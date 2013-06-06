@@ -321,11 +321,26 @@ module Alchemy
       end
     end
 
-    context "#unlock" do
+    describe "#unlock!" do
+      let(:page) { Page.new(locked: true) }
+
+      before do
+        page.stub!(:save).and_return(true)
+      end
+
       it "should set the locked status to false" do
-        page = FactoryGirl.create(:public_page, :locked => true)
         page.unlock!
         page.locked.should == false
+      end
+
+      it "should set do_not_sweep to true" do
+        page.unlock!
+        page.do_not_sweep.should == true
+      end
+
+      it "should set locked_by to nil" do
+        page.unlock!
+        page.locked_by.should == nil
       end
     end
 
