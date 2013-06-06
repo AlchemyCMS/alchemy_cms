@@ -48,7 +48,7 @@ module Alchemy
         return [] if elements.nil?
         options = elements.collect do |e|
           [
-            _t(e['name'], scope: 'element_names', default: e['name'].to_s.humanize),
+            e.display_name,
             e['name']
           ]
         end
@@ -89,7 +89,7 @@ module Alchemy
           ]
         else
           [
-            _t(e['name'], scope: :element_names, default: e['name'].to_s.humanize),
+            e.display_name,
             e[object_method] + (cell ? "##{cell['name']}" : "")
           ]
         end

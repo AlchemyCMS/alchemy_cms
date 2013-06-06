@@ -30,7 +30,10 @@ describe Alchemy::Admin::ElementsHelper do
     before(:each) do
       @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
       cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-      @elements = [{'name' => '1'}, {'name' => '2'}]
+      @elements = [
+        mock_model('Element', name: '1', display_name: '1'),
+        mock_model('Element', name: '2', display_name: '2')
+      ]
       Alchemy::Cell.stub!(:definitions).and_return(cell_descriptions)
     end
 
@@ -56,8 +59,8 @@ describe Alchemy::Admin::ElementsHelper do
   describe "#elements_for_select" do
     before do
       @elements = [
-        mock_model('Element', name: 'element_1'),
-        mock_model('Element', name: 'element_2')
+        mock_model('Element', name: 'element_1', display_name: 'Element 1'),
+        mock_model('Element', name: 'element_2', display_name: 'Element 2')
       ]
     end
 
