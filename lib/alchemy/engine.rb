@@ -1,5 +1,4 @@
 require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
-require File.join(File.dirname(__FILE__), 'authentication_helpers')
 
 module Alchemy
   class Engine < Rails::Engine
@@ -38,10 +37,6 @@ module Alchemy
 
     initializer "alchemy.add_authorization_rules" do
       Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
-    end
-
-    config.after_initialize do
-      #ApplicationController.send :include, Alchemy::AuthenticationHelpers
     end
 
   end
