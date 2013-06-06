@@ -329,6 +329,24 @@ module Alchemy
       end
     end
 
+    describe "#lock!" do
+      let(:page) { Page.new }
+      let(:user) { mock_model('User') }
+
+      before do
+        page.stub!(:save).and_return(true)
+        page.lock!(user)
+      end
+
+      it "should set locked to true" do
+        page.locked.should == true
+      end
+
+      it "should set locked_by to the users id" do
+        page.locked_by.should == user.id
+      end
+    end
+
     describe "#cell_definitions" do
 
       before do

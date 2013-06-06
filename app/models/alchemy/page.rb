@@ -202,7 +202,7 @@ module Alchemy
     end
     alias_method :next_page, :next
 
-    def lock(user)
+    def lock!(user)
       self.locked = true
       self.locked_by = user.id
       self.save(:validate => false)
