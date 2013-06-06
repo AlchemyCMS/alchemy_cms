@@ -4,11 +4,6 @@ module Alchemy
     include Alchemy::BaseHelper
     include Alchemy::ElementsHelper
 
-    def render_classes(classes=[])
-      s = classes.uniq.delete_if { |x| x.blank? }.join(" ")
-      s.blank? ? "" : "class='#{s}'"
-    end
-
     def picture_essence_caption(content)
       content.try(:essence).try(:caption)
     end
