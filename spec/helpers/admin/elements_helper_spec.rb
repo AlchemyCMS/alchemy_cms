@@ -53,4 +53,19 @@ describe Alchemy::Admin::ElementsHelper do
 
   end
 
+  describe "#elements_for_select" do
+    before do
+      @elements = [
+        mock_model('Element', name: 'element_1'),
+        mock_model('Element', name: 'element_2')
+      ]
+    end
+
+    it "should return a String with html option tags" do
+      helper.should_receive(:options_for_select)
+      helper.elements_for_select(@elements)
+    end
+
+  end
+
 end
