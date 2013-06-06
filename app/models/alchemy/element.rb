@@ -278,12 +278,6 @@ module Alchemy
       description['contents']
     end
 
-    # Returns the array with the hashes for all element available_contents in the elements.yml file
-    def available_content_descriptions
-      return nil if description.blank?
-      description['available_contents']
-    end
-
     # Returns the description for given content_name
     def content_description_for(content_name)
       if content_descriptions.blank?
@@ -296,8 +290,8 @@ module Alchemy
 
     # Returns the description for given content_name inside the available_contents
     def available_content_description_for(content_name)
-      return nil if available_content_descriptions.blank?
-      available_content_descriptions.detect { |d| d['name'] == content_name }
+      return nil if available_contents.blank?
+      available_contents.detect { |d| d['name'] == content_name }
     end
 
     # returns the description of the element with my name in element.yml
