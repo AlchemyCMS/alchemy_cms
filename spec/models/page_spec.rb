@@ -878,8 +878,12 @@ module Alchemy
     end
 
     describe "#publish!" do
-      let(:page) { FactoryGirl.create(:page) }
-      before { page.publish! }
+      let(:page) { FactoryGirl.build_stubbed(:page, public: false) }
+
+      before do
+        page.stub!(:save).and_return(true)
+        page.publish!
+      end
 
       it "sets public attribute to true" do
         page.public.should == true
