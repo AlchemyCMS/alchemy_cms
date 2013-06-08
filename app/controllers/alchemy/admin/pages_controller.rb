@@ -49,24 +49,13 @@ module Alchemy
       end
 
       def create
-        parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
-        params[:page][:language_id] ||= parent.language ? parent.language.id : Language.get_default.id
-        params[:page][:language_code] ||= parent.language ? parent.language.code : Language.get_default.code
-        # Copy the page
-        if params[:paste_from_clipboard].present?
-          source_page = Page.find(params[:paste_from_clipboard])
-          @page = Page.copy(source_page, {
-            :parent_id => params[:page][:parent_id],
-            :language => parent.language,
-            :name => params[:page][:name],
-            :title => params[:page][:name]
-          })
-          if source_page.children.any?
-            source_page.copy_children_to(@page)
-          end
+        if params[:paste_from_clipboard]
+          source = Page.find(params[:paste_from_clipboard])
+          parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
+          @page = Page.paste_from_clipboard(source, parent, params[:page][:name])
         else
-          # Create new page
           @page = Page.new(params[:page])
+          @page.set_language_from_parent_or_default_language
         end
         if @page.save
           redirect_path = params[:redirect_to] || edit_admin_page_path(@page)

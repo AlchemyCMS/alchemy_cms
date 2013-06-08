@@ -151,6 +151,19 @@ module Alchemy
         end
       end
 
+      def paste_from_clipboard(source, new_parent, new_name)
+          page = copy(source, {
+            parent_id: new_parent.id,
+            language: new_parent.language,
+            name: new_name,
+            title: new_name
+          })
+          if source.children.any?
+            source.copy_children_to(page)
+          end
+          return page
+      end
+
       def all_from_clipboard(clipboard)
         return [] if clipboard.blank?
         self.find_all_by_id(clipboard.collect { |i| i[:id] })
@@ -377,6 +390,11 @@ module Alchemy
     def publish!
       self.public = true
       self.save
+    end
+
+    def set_language_from_parent_or_default_language
+      self.language = self.parent.language || Language.get_default
+      set_language_code
     end
 
   private

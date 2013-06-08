@@ -70,37 +70,71 @@ module Alchemy
     end
 
     describe '#create' do
-
-      let(:parent) { FactoryGirl.create(:public_page) }
-
-      context "with paste_from_clipboard in parameters" do
-        render_views
-
-        let(:clipboard) { session[:clipboard] = Clipboard.new }
-        let(:page_in_clipboard) { FactoryGirl.create(:public_page) }
-
-        before(:each) do
-          clipboard[:pages] = [{id: page_in_clipboard.id, action: 'cut'}]
-        end
-
-        it "should create a page from clipboard" do
-          post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id}, format: :js}
-          response.status.should == 200
-          response.body.should match /window.location.*admin.*pages/
-        end
-
+      let(:language) { mock_model('Language', code: 'kl') }
+      let(:parent) { mock_model('Page', language: language) }
+      let(:page_params) do
+        {parent_id: parent.id, name: 'new Page'} 
       end
 
-      context "with redirect_to in the parameters" do
-
-        let(:page_params) do
-          {name: "Foobar", page_layout: 'standard', parent_id: parent.id}
+      context "" do
+        before do
+          Page.any_instance.stub(:set_language_from_parent_or_default_language)
+          Page.any_instance.stub(:save).and_return(true)
         end
 
-        it "should redirect to given url" do
-          post :create, page: page_params, redirect_to: admin_users_path
-          response.should redirect_to(admin_users_path)
+        it "nests a new page under given parent" do
+          controller.stub!(:edit_admin_page_path).and_return('bla')
+          post :create, {page: page_params, format: :js}
+          expect(assigns(:page).parent_id).to eq(parent.id)
         end
+
+        context "if new page can not be saved" do
+          it "should redirect to admin_pages_path" do
+            Page.any_instance.stub(:save).and_return(false)
+            post :create, page: {}
+            response.should redirect_to(admin_pages_path)
+          end
+        end
+
+        context "with redirect_to in params" do
+          let(:page_params) do
+            {name: "Foobar", page_layout: 'standard', parent_id: parent.id}
+          end
+
+          it "should redirect to given url" do
+            post :create, page: page_params, redirect_to: admin_users_path
+            response.should redirect_to(admin_users_path)
+          end
+
+          context "but new page can not be saved" do
+            it "should redirect to admin_pages_path" do
+              Page.any_instance.stub(:save).and_return(false)
+              post :create, page: {}, redirect_to: admin_users_path
+              response.should redirect_to(admin_pages_path)
+            end
+          end
+        end
+      end
+
+      context "with paste_from_clipboard in parameters" do
+        let(:page_in_clipboard) { mock_model('Page') }
+
+        before do
+          Page.stub!(:find_by_id).with(parent.id).and_return(parent)
+          Page.stub!(:find).with(page_in_clipboard.id).and_return(page_in_clipboard)
+        end
+
+        it "should call Page#paste_from_clipboard" do
+          Page.should_receive(:paste_from_clipboard).with(
+            page_in_clipboard,
+            parent,
+            'pasted Page'
+          ).and_return(
+            mock_model('Page', save: true, name: 'pasted Page')
+          )
+          post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}, format: :js}
+        end
+
       end
 
     end

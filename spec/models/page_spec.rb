@@ -838,6 +838,39 @@ module Alchemy
       end
     end
 
+    describe '#paste_from_clipboard' do
+      let(:source) { FactoryGirl.build_stubbed(:page) }
+      let(:new_parent) { FactoryGirl.build_stubbed(:page) }
+      let(:page_name) { "Pagename (pasted)" }
+      let(:copied_page) { mock_model('Page') }
+
+      subject { Page.paste_from_clipboard(source, new_parent, page_name) }
+
+      it "should copy the source page with the given name to the new parent" do
+        Page.should_receive(:copy).with(source, {
+          parent_id: new_parent.id,
+          language: new_parent.language,
+          name: page_name,
+          title: page_name
+          })
+        subject
+      end
+
+      it "should return the copied page" do
+        Page.stub!(:copy).and_return(copied_page)
+        expect(subject).to be_a(copied_page.class)
+      end
+
+      context "if source page has children" do
+        it "should also copy and paste the children" do
+          Page.stub!(:copy).and_return(copied_page)
+          source.stub!(:children).and_return([mock_model('Page')])
+          source.should_receive(:copy_children_to).with(copied_page)
+          subject
+        end
+      end
+    end
+
     describe "#cache_key" do
       let(:page) { stub_model(Page) }
       subject { page }
@@ -851,6 +884,39 @@ module Alchemy
       it "sets public attribute to true" do
         page.public.should == true
       end
+    end
+
+    describe '#set_language_from_parent_or_default_language' do
+      let(:default_language) { mock_model('Language', code: 'es') }
+      let(:page) { Page.new }
+
+      before { page.stub!(:parent).and_return(parent) }
+
+      subject { page }
+
+      context "parent has a language" do
+        let(:parent) { mock_model('Page', language: default_language, language_id: default_language.id, language_code: default_language.code) }
+
+        before do
+          page.set_language_from_parent_or_default_language
+        end
+
+        its(:language_id) { should eq(parent.language_id) }
+        its(:language_code) { should eq(parent.language_code) }
+      end
+
+      context "parent has no language" do
+        let(:parent) { mock_model('Page', language: nil, language_id: nil, language_code: nil) }
+
+        before do
+          Language.stub!(:get_default).and_return(default_language)
+          page.set_language_from_parent_or_default_language
+        end
+
+        its(:language_id) { should eq(default_language.id) }
+        its(:language_code) { should eq(default_language.code) }
+      end
+
     end
 
     describe 'urlname updating' do
