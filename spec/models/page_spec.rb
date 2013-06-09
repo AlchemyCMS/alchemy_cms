@@ -699,11 +699,15 @@ module Alchemy
 
     describe 'previous and next. ' do
 
-      let(:center_page) { FactoryGirl.create(:public_page, :name => 'Center Page') }
-      let(:next_page) { FactoryGirl.create(:public_page, :name => 'Next Page') }
+      let(:center_page)     { FactoryGirl.create(:public_page, name: 'Center Page') }
+      let(:next_page)       { FactoryGirl.create(:public_page, name: 'Next Page') }
+      let(:non_public_page) { FactoryGirl.create(:page, name: 'Not public Page') }
+      let(:restricted_page) { FactoryGirl.create(:restricted_page, public: true) }
 
       before do
         public_page
+        restricted_page
+        non_public_page
         center_page
         next_page
       end
@@ -715,11 +719,37 @@ module Alchemy
         end
 
         context "no previous page on same level present" do
-
           it "should return nil" do
             public_page.previous.should be_nil
           end
+        end
 
+        context "with options restricted" do
+          context "set to true" do
+            it "returns previous restricted page" do
+              center_page.previous(restricted: true).should == restricted_page
+            end
+          end
+
+          context "set to false" do
+            it "skips restricted page" do
+              center_page.previous(restricted: false).should == public_page
+            end
+          end
+        end
+
+        context "with options public" do
+          context "set to true" do
+            it "returns previous public page" do
+              center_page.previous(public: true).should == public_page
+            end
+          end
+
+          context "set to false" do
+            it "skips public page" do
+              center_page.previous(public: false).should == non_public_page
+            end
+          end
         end
 
       end

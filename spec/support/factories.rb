@@ -82,6 +82,11 @@ FactoryGirl.define do
       language nil
     end
 
+    factory :restricted_page do
+      name "Restricted page"
+      restricted true
+    end
+
   end
 
   factory :cell, :class => 'Alchemy::Cell' do

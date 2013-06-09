@@ -191,27 +191,21 @@ module Alchemy
     # Instance methods
     #
 
-    # Finds the previous page on the same structure level. Otherwise it returns nil.
-    # Options:
-    # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
-    # => :public => boolean (standard: true) - next public page (true), skip public pages (false)
+    # Returns the previous page on the same level or nil.
+    #
+    # For options @see #next_or_previous
+    #
     def previous(options = {})
-      next_or_previous(:previous, {
-        :restricted => nil,
-        :public => true
-      }.merge(options))
+      next_or_previous('<', options)
     end
     alias_method :previous_page, :previous
 
-    # Finds the next page on the same structure level. Otherwise it returns nil.
-    # Options:
-    # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
-    # => :public => boolean (standard: true) - next public page (true), skip public pages (false)
+    # Returns the next page on the same level or nil.
+    #
+    # For options @see #next_or_previous
+    #
     def next(options = {})
-      next_or_previous(:next, {
-        :restricted => nil,
-        :public => true
-      }.merge(options))
+      next_or_previous('>', options)
     end
     alias_method :next_page, :next
 
@@ -399,22 +393,28 @@ module Alchemy
 
   private
 
-    def next_or_previous(direction = :next, options = {})
-      pages = self.class.scoped
-      if direction == :previous
-        step_direction = ["#{self.class.table_name}.lft < ?", self.lft]
-        order_direction = "lft DESC"
-      else
-        step_direction = ["#{self.class.table_name}.lft > ?", self.lft]
-        order_direction = "lft"
-      end
-      pages = pages.where(:public => options[:public])
-      pages = pages.where(:parent_id => self.parent_id)
-      pages = pages.where(step_direction)
-      if !options[:restricted].nil?
-        pages = pages.where(:restricted => options[:restricted])
-      end
-      pages.order(order_direction).limit(1).first
+    # Returns the next or previous page on the same level or nil.
+    #
+    # @param [String]
+    #   Pass '>' for next and '<' for previous page.
+    #
+    # @option options [Boolean] :restricted (nil)
+    #   only restricted pages (true), skip restricted pages (false)
+    # @option options [Boolean] :public (true)
+    #   only public pages (true), skip public pages (false)
+    #
+    def next_or_previous(dir = '>', options = {})
+      options = {
+        restricted: false,
+        public: true
+      }.update(options)
+
+      self_and_siblings
+        .where(["#{self.class.table_name}.lft #{dir} ?", lft])
+        .where(public: options[:public])
+        .where(restricted: options[:restricted])
+        .order(dir == '>' ? 'lft' : 'lft DESC')
+        .limit(1).first
     end
 
     def set_language_code
