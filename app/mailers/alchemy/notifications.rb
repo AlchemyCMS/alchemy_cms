@@ -1,14 +1,14 @@
 module Alchemy
   class Notifications < ActionMailer::Base
 
-    default :from => Alchemy::Config.get(:mailer)['mail_from']
+    default(from: Config.get(:mailer)['mail_from'])
 
     def registered_user_created(user)
       @user = user
       @url = login_url
       mail(
-        :to => user.email,
-        :subject => Alchemy::I18n.t("alchemy.mailer.new_user_mail.subject")
+        to: user.email,
+        subject: I18n.t(:subject, scope: 'mailer.new_user_mail')
       )
     end
 
@@ -16,14 +16,17 @@ module Alchemy
       @user = user
       @url = admin_url
       mail(
-        :to => user.email,
-        :subject => Alchemy::I18n.t("Your Alchemy Login")
+        to: user.email,
+        subject: I18n.t("Your Alchemy Login")
       )
     end
 
     def reset_password_instructions(user, opts={})
       @user = user
-      mail :to => user.email, :subject => Alchemy::I18n.t("Reset password instructions")
+      mail(
+        to: user.email,
+        subject: I18n.t("Reset password instructions")
+      )
     end
 
   end
