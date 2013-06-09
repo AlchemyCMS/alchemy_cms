@@ -88,16 +88,6 @@ module Alchemy
       end
       alias_method :definitions, :descriptions
 
-      # pastes a element from the clipboard in the session to page
-      def paste_from_clipboard(page_id, element, method, position)
-        element_copy = copy(element, :page_id => page_id)
-        element_copy.insert_at(position)
-        if method == "move" && element_copy.valid?
-          element.destroy
-        end
-        element_copy
-      end
-
       # List all element definitions for +self.page#page_layout+
       def all_for_page(page)
         raise TypeError if page.class.name != "Alchemy::Page"
