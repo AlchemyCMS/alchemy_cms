@@ -1,0 +1,12 @@
+<%= @message.message %>
+
+--
+
+Sender:
+
+<%= Alchemy::I18n.t(@message.salutation, scope: 'contactform.labels') %> <%= @message.firstname %> <%= @message.lastname %>
+<%= @message.address %>
+<%= @message.zip %> <%= @message.city %>
+
+Phone: <%= @message.phone %>
+Email: <%= @message.email %>
