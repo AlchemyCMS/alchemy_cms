@@ -48,7 +48,7 @@ module Alchemy
         return [] if elements.nil?
         options = elements.collect do |e|
           [
-            e.display_name,
+            Element.display_name_for(e['name']),
             e['name']
           ]
         end
@@ -89,7 +89,7 @@ module Alchemy
           ]
         else
           [
-            e.display_name,
+            Element.display_name_for(e['name']),
             e[object_method] + (cell ? "##{cell['name']}" : "")
           ]
         end

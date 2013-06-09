@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 module Alchemy
@@ -458,6 +459,26 @@ module Alchemy
         it "should return an Array of these element definitions found for the given page_layout name" do
           expect(Element.elements_for_layout('my_layout')).to eq([{'name' => 'element_1'}, {'name' => 'element_2'}])
         end
+      end
+    end
+
+    describe '.display_name_for' do
+      it "should return the translation for the given name" do
+        I18n.should_receive(:t).with('subheadline', scope: "element_names", default: 'Subheadline').and_return('Überschrift')
+        expect(Element.display_name_for('subheadline')).to eq('Überschrift')
+      end
+
+      it "should return the humanized name if no translation found" do
+        expect(Element.display_name_for('not_existing_one')).to eq('Not existing one')
+      end
+    end
+
+    describe '#display_name' do
+      let(:element) { Element.new(name: 'article') }
+
+      it "should call .display_name_for" do
+        Element.should_receive(:display_name_for).with(element.name)
+        element.display_name
       end
     end
 

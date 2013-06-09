@@ -178,6 +178,10 @@ module Alchemy
         clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
       end
 
+      def display_name_for(name)
+        I18n.t(name, scope: 'element_names', default: name.to_s.humanize)
+      end
+
     end
 
     # Returns next public element from same page.
@@ -309,8 +313,7 @@ module Alchemy
     # If no translation is found a humanized name is used.
     #
     def display_name
-      return name.humanize if description.blank?
-      I18n.t(description['name'], scope: 'element_names', default: description['name'].to_s.humanize)
+      self.class.display_name_for(description['name'] || self.name)
     end
 
     # Gets the preview text from the first Content found in the +elements.yml+ Element description file.
