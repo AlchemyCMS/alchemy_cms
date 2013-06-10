@@ -5,6 +5,7 @@ gemspec
 # For some strange reason it's only loaded outside any group
 gem 'jasmine'
 gem 'jasminerice'
+gem 'multi_json', '1.7.2' # http://stackoverflow.com/q/16543693
 
 # Code coverage plattform
 gem 'coveralls', require: false
@@ -13,8 +14,7 @@ group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'poltergeist', '1.1.0'
-  gem 'faye-websocket', '0.4.7' # https://github.com/jonleighton/poltergeist/issues/320
+  gem 'poltergeist'
   gem 'connection_pool' # https://gist.github.com/mperham/3049152
   unless ENV['CI']
     gem 'launchy'
