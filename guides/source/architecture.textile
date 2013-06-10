@@ -74,4 +74,4 @@ your controller can inherit from that ressources controller (<code>Alchemy::Admi
 
 The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
-Read more details of the ressources controller in the "module development":creating_modules.html guide.
+Read more details of the ressources controller in the "module development":create_modules.html guide.
