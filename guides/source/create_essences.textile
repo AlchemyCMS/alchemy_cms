@@ -22,7 +22,7 @@ As widely known in the rails-world, just add acts_as_essence to the model:
 <pre>
 # app/models/alchemy/essence_product.rb
 module Alchemy
-  EssenceProduct < ActiveRecord::Base
+  class EssenceProduct < ActiveRecord::Base
     belongs_to :product
     acts_as_essence :ingredient_column => :product_id
   end
