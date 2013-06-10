@@ -23,5 +23,21 @@ module Alchemy
       essence.caption.should == "hello<br/>kitty"
     end
 
+    describe '#preview_text' do
+      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens')}
+      let(:essence) { EssencePicture.new }
+
+      it "should return the pictures name as preview text" do
+        essence.stub(:picture).and_return(picture)
+        essence.preview_text.should == 'Cute Cat Kittens'
+      end
+
+      context "with no picture assigned" do
+        it "returns empty string" do
+          essence.preview_text.should == ''
+        end
+      end
+    end
+
   end
 end

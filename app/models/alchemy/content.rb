@@ -230,6 +230,17 @@ module Alchemy
       essence && !essence.link.blank?
     end
 
+    # Returns true if this content should be taken for element preview.
+    def preview_content?
+      !!description['take_me_for_preview']
+    end
+
+    # Proxy method that returns the preview text from essence.
+    #
+    def preview_text(maxlength = 30)
+      essence.preview_text(maxlength)
+    end
+
     def essence_partial_name
       essence.partial_name
     end

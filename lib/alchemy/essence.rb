@@ -7,23 +7,26 @@ module Alchemy #:nodoc:
     end
 
     # Delivers various methods we need for Essences in Alchemy.
+    #
     # To turn a model into an essence call acts_as_essence inside your model and you will get:
     #   * validations
     #   * several getters (ie: page, element, content, ingredient, preview_text)
+    #
     module ClassMethods
 
-      # Configuration options are:
+      # Turn any active record model into an essence by calling this class method
       #
-      # * +ingredient_column+ - specifies the column name you use for storing the content in the database (default: +body+)
-      # * +validate_column+ - which column should be validated. (default: ingredient_column)
-      # * +preview_text_column+ - specifies the column for the preview_text method. (default: ingredient_column)
-      # * +preview_text_method+ - a method called on ingredient to get the preview text. (default: ingredient_column)
+      # @option options [String || Symbol] ingredient_column ('body')
+      #   specifies the column name you use for storing the content in the database (default: +body+)
+      # @option options [String || Symbol] validate_column (ingredient_column)
+      #   The column the the validations run against.
+      # @option options [String || Symbol] preview_text_column (ingredient_column)
+      #   Specify the column for the preview_text method.
+      #
       def acts_as_essence(options={})
-        configuration = {}
-        configuration.update(options) if options.is_a?(Hash)
-        ingredient_column = configuration[:ingredient_column].blank? ? 'body' : configuration[:ingredient_column]
-        preview_text_column = configuration[:preview_text_column].blank? ? ingredient_column : configuration[:preview_text_column]
-        validate_column = configuration[:validate_column].blank? ? ingredient_column : configuration[:validate_column]
+        configuration = {
+          ingredient_column: 'body'
+        }.update(options)
 
         class_eval <<-EOV
           attr_accessor :validation_errors
@@ -39,22 +42,17 @@ module Alchemy #:nodoc:
             #{self.name}
           end
 
-          def validation_column
-            '#{validate_column}'
+          def ingredient_column
+            '#{configuration[:ingredient_column]}'
           end
 
-          def ingredient_column
-            '#{ingredient_column}'
+          def validation_column
+            '#{configuration[:validate_column] || configuration[:ingredient_column]}'
           end
 
           def preview_text_column
-            '#{preview_text_column}'
+            '#{configuration[:preview_text_column] || configuration[:ingredient_column]}'
           end
-
-          def preview_text_method
-            '#{configuration[:preview_text_method]}'
-          end
-
         EOV
       end
 
@@ -65,10 +63,12 @@ module Alchemy #:nodoc:
       # Essence Validations:
       #
       # Essence validations can be set inside the config/elements.yml file.
+      #
       # Currently supported validations are:
-      #   * presence
-      #   * format
-      #   * uniqueness
+      #
+      # * presence
+      # * format
+      # * uniqueness
       #
       # If you want to validate the format you must additionally pass validate_format_as or validate_format_with:
       #
@@ -171,13 +171,9 @@ module Alchemy #:nodoc:
       end
 
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.
+      #
       def preview_text(maxlength = 30)
-        if preview_text_method.blank?
-          self.send(preview_text_column).to_s[0..maxlength]
-        else
-          return "" if ingredient.blank?
-          ingredient.send(preview_text_method).to_s[0..maxlength]
-        end
+        self.send(preview_text_column).to_s[0..maxlength-1]
       end
 
       def open_link_in_new_window?

@@ -437,7 +437,7 @@ module Alchemy
 
         it "should return an empty Array" do
           expect(Element.all_for_page(page)).to eq([])
-        end  
+        end
       end
     end
 
@@ -479,6 +479,58 @@ module Alchemy
       it "should call .display_name_for" do
         Element.should_receive(:display_name_for).with(element.name)
         element.display_name
+      end
+    end
+
+    describe '#preview_text' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+      let(:content) { mock_model(Content, preview_text: 'Lorem', preview_content?: false) }
+      let(:content_2) { mock_model(Content, preview_text: 'Lorem', preview_content?: false) }
+      let(:preview_content) { mock_model(Content, preview_text: 'Lorem', preview_content?: true) }
+
+      context "without a content marked as preview" do
+        let(:contents) { [content, content_2] }
+        before { element.stub!(:contents).and_return(contents) }
+
+        it "returns the preview text of first content found" do
+          content.should_receive(:preview_text).with(30)
+          element.preview_text
+        end
+      end
+
+      context "with a content marked as preview" do
+        let(:contents) { [content, preview_content] }
+        before { element.stub!(:contents).and_return(contents) }
+
+        it "should return the preview_text of this content" do
+          preview_content.should_receive(:preview_text).with(30)
+          element.preview_text
+        end
+      end
+
+      context "without any contents present" do
+        before { element.stub!(:contents).and_return([]) }
+
+        it "should return nil" do
+          element.preview_text.should be_nil
+        end
+      end
+    end
+
+    describe '#display_name_with_preview_text' do
+      let(:element) { FactoryGirl.build_stubbed(:element, name: 'Foo') }
+
+      it "returns a string with display name and preview text" do
+        element.stub(:preview_text).and_return('Fula')
+        element.display_name_with_preview_text.should == "Foo: Fula"
+      end
+    end
+
+    describe '#dom_id' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+
+      it "returns an string from element name and id" do
+        element.dom_id.should == "#{element.name}_#{element.id}"
       end
     end
 

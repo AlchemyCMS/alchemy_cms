@@ -16,14 +16,16 @@ module Alchemy
       :picture_id
     )
 
-    acts_as_essence(
-      :ingredient_column => :picture,
-      :preview_text_method => :name
-    )
+    acts_as_essence ingredient_column: 'picture'
 
     belongs_to :picture
     before_save :fix_crop_values
     before_save :replace_newlines
+
+    def preview_text(max=30)
+      return "" if picture.nil?
+      picture.name.to_s[0..max-1]
+    end
 
   private
 

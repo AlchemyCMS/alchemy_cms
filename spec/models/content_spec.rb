@@ -142,5 +142,15 @@ module Alchemy
 
     end
 
+    describe '#preview_text' do
+      let(:essence) { mock_model(EssenceText, preview_text: 'Lorem') }
+      let(:content) { c = Content.new; c.essence = essence; c }
+
+      it "should return the essences preview_text" do
+        essence.should_receive(:preview_text).with(30)
+        content.preview_text
+      end
+    end
+
   end
 end
