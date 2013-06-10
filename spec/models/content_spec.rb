@@ -1,9 +1,9 @@
 require 'spec_helper'
+require 'ostruct'
 
 module Alchemy
   describe Content do
-
-    let(:element) { FactoryGirl.create(:element, :name => 'headline', :create_contents_after_create => true) }
+    let(:element) { FactoryGirl.create(:element, name: 'headline', :create_contents_after_create => true) }
     let(:content) { element.contents.find_by_essence_type('Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
@@ -12,47 +12,34 @@ module Alchemy
     end
 
     describe '.normalize_essence_type' do
-
       context "passing namespaced essence type" do
-
         it "should not add alchemy namespace" do
           Content.normalize_essence_type('Alchemy::EssenceText').should == "Alchemy::EssenceText"
         end
-
       end
 
       context "passing not namespaced essence type" do
-
         it "should add alchemy namespace" do
           Content.normalize_essence_type('EssenceText').should == "Alchemy::EssenceText"
         end
-
       end
-
     end
 
     describe '#normalized_essence_type' do
-
       context "without namespace in essence_type column" do
-
         it "should return the namespaced essence type" do
           Content.new(:essence_type => 'EssenceText').normalized_essence_type.should == 'Alchemy::EssenceText'
         end
-
       end
 
       context "with namespace in essence_type column" do
-
         it "should return the namespaced essence type" do
           Content.new(:essence_type => 'Alchemy::EssenceText').normalized_essence_type.should == 'Alchemy::EssenceText'
         end
-
       end
-
     end
 
     describe '#update_essence' do
-
       it "should update the attributes of related essence and return true" do
         @element = FactoryGirl.create(:element, :name => 'text', :create_contents_after_create => true)
         @content = @element.contents.first
@@ -72,11 +59,9 @@ module Alchemy
         @content = @element.contents.first
         @content.update_essence
       end
-
     end
 
-    describe '#copy' do
-
+    describe '.copy' do
       before(:each) do
         @element = FactoryGirl.create(:element, :name => 'text', :create_contents_after_create => true)
         @content = @element.contents.first
@@ -96,42 +81,115 @@ module Alchemy
         copy = Content.copy(@content, {:element_id => @element.id + 1})
         copy.essence.body == @content.essence.body
       end
-
     end
 
-    describe '.create' do
-      let (:element) { FactoryGirl.create(:element, :name => 'headline') }
+    describe '.build' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+
+      it "builds a new instance from elements.yml description" do
+        Content.build(element, {name: 'headline'}).should be_instance_of(Content)
+      end
+    end
+
+    describe '.content_description' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+
+      context "with blank name key" do
+        it "returns a essence hash build from essence type" do
+          Content.should_receive(:content_description_from_essence_type).with(element, 'EssenceText')
+          Content.content_description(element, essence_type: 'EssenceText')
+        end
+      end
+
+      context "with name key present" do
+        it "returns a essence hash from element" do
+          Content.should_receive(:content_description_from_element).with(element, 'headline')
+          Content.content_description(element, name: 'headline')
+        end
+      end
+    end
+
+    describe '.content_description_from_element' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+      let(:essence) { {name: 'headline', type: 'EssenceText'} }
+
+      it "returns the description hash from element" do
+        element.should_receive(:content_description_for).and_return(essence)
+        Content.content_description(element, name: 'headline').should == essence
+      end
+
+      context "with content description not found" do
+        before {
+          element.should_receive(:content_description_for).and_return(nil)
+          element.should_receive(:available_content_description_for).and_return(essence)
+        }
+
+        it "returns the description hash from available contents" do
+          Content.content_description(element, name: 'headline').should == essence
+        end
+      end
+    end
+
+    describe '.content_description_from_essence_type' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+
+      it "returns the description hash from element" do
+        Content.should_receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
+        Content.content_description_from_essence_type(element, 'EssenceText').should == {
+          'type' => 'EssenceText',
+          'name' => 'Foo'
+        }
+      end
+    end
+
+    describe '.content_name_from_element_and_essence_type' do
+      let(:element) { FactoryGirl.build_stubbed(:element) }
+
+      it "returns a name from essence type and count of essences in element" do
+        Content.content_name_from_element_and_essence_type(element, 'EssenceText').should == "essence_text_1"
+      end
+    end
+
+    describe '.create_from_scratch' do
+      let(:element) { FactoryGirl.create(:element, name: 'article') }
+
+      it "builds the content from essence hash" do
+        Content.should_receive(:build)
+        Content.create_from_scratch(element, name: 'headline')
+      end
+
+      it "creates the essence" do
+        content = Content.create_from_scratch(element, name: 'headline')
+        content.essence.should_not be_nil
+      end
 
       context "with default value present" do
-        before do
-          element.stub(:content_description_for).and_return({'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'})
-        end
-
         it "should have the ingredient column filled with default value." do
-          Content.create_from_scratch(element, :name => 'headline').ingredient.should == "Welcome"
+          Content.stub(:content_description_from_element).and_return({'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'})
+          content = Content.create_from_scratch(element, name: 'headline')
+          content.ingredient.should == "Welcome"
         end
       end
     end
 
     describe '#ingredient=' do
       it "should set the given value to the ingredient column of essence" do
-        c = Content.create_from_scratch(element, :name => 'headline')
+        c = Content.create_from_scratch(element, name: 'headline')
         c.ingredient = "Welcome"
         c.ingredient.should == "Welcome"
       end
 
       context "no essence associated" do
-        let (:element) { FactoryGirl.create(:element, :name => 'headline') }
+        let (:element) { FactoryGirl.create(:element, name: 'headline') }
 
         it "should raise error" do
-          c = Content.create(:element_id => element.id, :name => 'headline')
+          c = Content.create(:element_id => element.id, name: 'headline')
           expect { c.ingredient = "Welcome" }.to raise_error
         end
       end
     end
 
     describe "#descriptions" do
-
       context "without any descriptions in elements.yml file" do
         before { Element.stub(:descriptions).and_return([]) }
 
@@ -139,7 +197,6 @@ module Alchemy
           Content.descriptions.should == []
         end
       end
-
     end
 
     describe '#preview_text' do

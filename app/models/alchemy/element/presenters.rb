@@ -1,6 +1,7 @@
-# Methods used for presenting an alchemy element.
-#
 module Alchemy
+
+  # Methods used for presenting an Alchemy Element.
+  #
   module Element::Presenters
     extend ActiveSupport::Concern
 

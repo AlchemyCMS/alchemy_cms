@@ -2,6 +2,9 @@ module Alchemy
   class Content < ActiveRecord::Base
     include Logger
 
+    # Concerns
+    include Factory
+
     attr_accessible(
       :do_not_index,
       :element_id,
@@ -14,7 +17,7 @@ module Alchemy
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
 
-    stampable(:stamper_class_name => 'Alchemy::User')
+    stampable stamper_class_name: 'Alchemy::User'
 
     acts_as_list
 
@@ -38,64 +41,6 @@ module Alchemy
     scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
 
     class << self
-
-      # Creates a new Content as descriped in the elements.yml file
-      def create_from_scratch(element, essences_hash)
-        # If no name given, we can create the content from essence type.
-        # Used in picture gallery
-        if essences_hash[:name].blank? && !essences_hash[:essence_type].blank?
-          essences_of_same_type = element.contents.where(
-            :essence_type => Content.normalize_essence_type(essences_hash[:essence_type])
-          )
-          description = {
-            'type' => essences_hash[:essence_type],
-            'name' => "#{essences_hash[:essence_type].classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
-          }
-        # Normal way to create
-        else
-          description = element.content_description_for(essences_hash[:name])
-          description = element.available_content_description_for(essences_hash[:name]) if description.blank?
-        end
-        if description.blank?
-          raise ContentDefinitionError, "No description found in elements.yml for #{essences_hash.inspect} and #{element.inspect}"
-        end
-        content = new(:name => description['name'], :element_id => element.id)
-        content.create_essence!(description)
-        content
-      end
-
-      # Makes a copy of source and also copies the associated essence.
-      #
-      # You can pass a differences hash to update the attributes of the copy.
-      #
-      # === Example
-      #
-      #   @copy = Alchemy::Content.copy(@content, {:element_id => 3})
-      #   @copy.element_id # => 3
-      #
-      def copy(source, differences = {})
-        attributes = source.attributes.except(
-          "position",
-          "created_at",
-          "updated_at",
-          "creator_id",
-          "updater_id",
-          "id"
-        ).merge(differences.stringify_keys)
-        content = self.create!(attributes)
-        new_essence = content.essence.class.new(content.essence.attributes.except(
-          "id",
-          "creator_id",
-          "updater_id",
-          "created_at",
-          "updated_at"
-        ))
-        new_essence.save!
-        raise "Essence not cloned" if new_essence.id == content.essence_id
-        content.update_attributes(:essence_id => new_essence.id)
-        content
-      end
-
       # Returns the translated label for a content name.
       #
       # Translate it in your locale yml file:
@@ -118,21 +63,6 @@ module Alchemy
           default: I18n.t("content_names.#{content_name}", default: content_name.humanize)
         )
       end
-
-      # Returns all content descriptions from elements.yml
-      def descriptions
-        Element.descriptions.collect { |e| e['contents'] }.flatten.compact
-      end
-
-      def normalize_essence_type(essence_type)
-        essence_type = essence_type.classify
-        if not essence_type.match(/^Alchemy::/)
-          essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
-        else
-          essence_type
-        end
-      end
-
     end
 
     # Settings from the elements.yml definition
@@ -147,21 +77,6 @@ module Alchemy
       return [] if !element
       self.element.contents
     end
-
-    # Returns my description hash from elements.yml
-    # Returns the description from available_contents if my own description is blank
-    def description
-      if element.blank?
-        log_warning "Content with id #{self.id} is missing its Element."
-        return {}
-      end
-      desc = self.element.content_description_for(self.name)
-      if desc.blank?
-        self.element.available_content_description_for(self.name)
-      end
-      desc || {}
-    end
-    alias_method :definition, :description
 
     # Gets the ingredient from essence
     def ingredient
@@ -260,24 +175,6 @@ module Alchemy
         end
       else
         "default_tinymce"
-      end
-    end
-
-    # Creates self.essence from description.
-    def create_essence!(description)
-      essence_class = self.class.normalize_essence_type(description['type']).constantize
-      attributes = {
-        :ingredient => default_text(description['default'])
-      }
-      if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
-        attributes.merge!(:do_not_index => !description['do_not_index'].nil?)
-      end
-      essence = essence_class.create(attributes)
-      if essence
-        self.essence = essence
-        save!
-      else
-        false
       end
     end
 
