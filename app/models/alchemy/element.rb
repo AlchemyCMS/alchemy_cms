@@ -184,19 +184,19 @@ module Alchemy
     end
 
     # Returns next public element from same page.
+    #
     # Pass an element name to get next of this kind.
+    #
     def next(name = nil)
-      elements = page.elements.published.where(Element.arel_table[:position].gt(position))
-      elements = elements.named(name) if name.present?
-      elements.reorder("position ASC").limit(1).first
+      previous_or_next('>', name)
     end
 
     # Returns previous public element from same page.
+    #
     # Pass an element name to get previous of this kind.
+    #
     def prev(name = nil)
-      elements = page.elements.published.where(Element.arel_table[:position].lt(position))
-      elements = elements.named(name) if name.present?
-      elements.reorder("position DESC").limit(1).first
+      previous_or_next('<', name)
     end
 
     # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).
@@ -508,6 +508,19 @@ module Alchemy
           contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
         end
       end
+    end
+
+    # Returns previous or next public element from same page.
+    #
+    # @param [String]
+    #   Pass '>' or '<' to find next or previous public element.
+    # @param [String]
+    #   Pass an element name to get previous of this kind.
+    #
+    def previous_or_next(dir, name = nil)
+      elements = page.elements.published.where("#{self.class.table_name}.position #{dir} #{position}")
+      elements = elements.named(name) if name.present?
+      elements.reorder("position #{dir == '>' ? 'ASC' : 'DESC'}").limit(1).first
     end
 
   end
