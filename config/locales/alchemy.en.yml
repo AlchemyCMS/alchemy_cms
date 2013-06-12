@@ -116,12 +116,6 @@ en:
       messages:
         success: 'Your message was delivered succesfully.'
 
-    # == Translations for the mailer templates
-    mailer:
-      # The mail the user gets after registering for alchemy
-      new_user_mail:
-        subject: 'Your user credentials'
-
     # == Translated language names for translation select
     translations:
       de: 'German'
