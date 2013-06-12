@@ -1,7 +1,7 @@
 <li id="page_<%= page.id %>" class="page_level_<%= "#{page.level} #{page.page_layout}" %>">
   <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name %>">
     <div class="sitemap_left_images">
-      <%= sitemapFolderLink(page) unless page.children.blank? || @sorting %>
+      <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
       <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>">
         <div class="tooltip">
           <h3><%= _t(:page_type) %>:</h3>

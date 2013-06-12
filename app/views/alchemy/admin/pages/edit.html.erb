@@ -92,7 +92,10 @@
 <% end %>
 
 <% content_for :javascripts do %>
-<%= tinymce_javascript_tags %>
+<%= render 'tinymce_javascript_tag' %>
+<% if Alchemy::Tinymce.custom_config_contents.present? %>
+  <%= render 'custom_tinymce_javascript_tag' %>
+<% end %>
 <script type="text/javascript" charset="utf-8">
 
   Alchemy.openPreviewWindow = function() {

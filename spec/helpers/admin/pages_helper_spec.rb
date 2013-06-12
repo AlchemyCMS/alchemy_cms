@@ -2,15 +2,33 @@ require 'spec_helper'
 
 describe Alchemy::Admin::PagesHelper do
 
-  describe '#tinymce_javascript_tags' do
-    it "renders script tag for tinymce initalization" do
-      helper.tinymce_javascript_tags.squish.should match(/script.+Alchemy\.Tinymce/)
-    end
-  end
+  describe '#sitemap_folder_link' do
+    let(:user) { FactoryGirl.build_stubbed(:admin_user) }
+    before { helper.stub(:current_user).and_return(user) }
+    subject { helper.sitemap_folder_link(page) }
 
-  describe '#custom_tinymce_javascript_tags' do
-    it "renders script tag for custom tinymce initalization" do
-      helper.custom_tinymce_javascript_tags.squish.should match(/Alchemy\.Tinymce\.customInits/)
+    context "with folded page" do
+      let(:page) { mock_model(Alchemy::Page, folded?: true) }
+
+      it "renders a link with folded class" do
+        should match /class="page_folder folded"/
+      end
+
+      it "renders a link with hide title" do
+        should match /title="Show childpages"/
+      end
+    end
+
+    context "with collapsed page" do
+      let(:page) { mock_model(Alchemy::Page, folded?: false) }
+
+      it "renders a link with collapsed class" do
+        should match /class="page_folder collapsed"/
+      end
+
+      it "renders a link with hide title" do
+        should match /title="Hide childpages"/
+      end
     end
   end
 

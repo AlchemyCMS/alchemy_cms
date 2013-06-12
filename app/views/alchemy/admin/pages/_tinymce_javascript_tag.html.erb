@@ -1,0 +1,28 @@
+<script type='text/javascript'>
+  jQuery(function($) {
+    Alchemy.Tinymce = {
+      init : function(callback) {
+        var init = <%= raw Alchemy::Tinymce.init.to_json %>;
+        var spinner = Alchemy.Spinner.small();
+        $('.tinymce_container').prepend(spinner.spin().el);
+        init.mode = 'specific_textareas';
+        init.editor_selector = 'default_tinymce';
+        init.plugins = '<%= Alchemy::Tinymce.plugins.join(',') %>';
+        init.language = '<%= ::I18n.locale.to_s.split('-')[0].downcase %>';
+        init.init_instance_callback = function(inst) {
+          $('#' + inst.editorId).prev('.spinner').remove();
+        }
+        if (callback) {
+          init.oninit = callback
+        }
+        <% if Alchemy::Tinymce.setup %>
+        init.setup = <%= Alchemy::Tinymce.setup %>;
+        <% end %>
+        tinymce.init(init);
+      },
+      addEditor : function(dom_id) {
+        tinymce.execCommand('mceAddControl', true, dom_id);
+      }
+    };
+  });
+</script>

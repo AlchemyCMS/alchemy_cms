@@ -61,27 +61,6 @@ module Alchemy
         )
       end
 
-      # (internal) Used for rendering the folder link in +Admin::Pages#index+ sitemap.
-      def sitemapFolderLink(page)
-        return '' if page.level == 1
-        if page.folded?(current_user.id)
-          css_class = 'folded'
-          title = _t('Show childpages')
-        else
-          css_class = 'collapsed'
-          title = _t('Hide childpages')
-        end
-        link_to(
-          '',
-          alchemy.fold_admin_page_path(page),
-          :remote => true,
-          :method => :post,
-          :class => "page_folder #{css_class}",
-          :title => title,
-          :id => "fold_button_#{page.id}"
-        )
-      end
-
       # Used for language selector in Alchemy cockpit sitemap. So the user can select the language branche of the page.
       def language_codes_for_select
         configuration(:languages).collect { |language|
