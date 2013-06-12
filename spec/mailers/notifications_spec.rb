@@ -21,7 +21,7 @@ module Alchemy
       end
 
       it "mail body includes password instructions" do
-        mail.body.should match /#{Regexp.escape(new_password_url(user, email: user.email, use_route: 'alchemy', only_path: true))}/
+        mail.body.should match /#{Regexp.escape(new_password_url(email: user.email, use_route: 'alchemy', only_path: true))}/
       end
     end
 

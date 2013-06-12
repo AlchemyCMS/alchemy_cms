@@ -130,12 +130,6 @@ de:
       messages:
         success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
 
-    # == Translations for the mailer templates
-    mailer:
-      # The mail the user gets after registering for alchemy
-      new_user_mail:
-        subject: 'Ihre Zugangsdaten'
-
     # == Translated language names for translation select
     translations:
       de: 'Deutsch'
@@ -282,6 +276,7 @@ de:
     "Remove tag filter": "Filter entfernen"
     "Remove this content": "Diesen Inhalt entfernen"
     "Reset Imagemask": "Bildmaske zurücksetzen"
+    "Reset password instructions": "Anweisungen um Ihr Passwort zurückzusetzen"
     "Select all": "Alle auswählen"
     "Select an content": "Wählen Sie einen Inhalt aus"
     "Select style": "Stilvorlage"
@@ -329,6 +324,7 @@ de:
     "You may upload files with following extensions": "Sie können %{file_types_description} mit folgenden Endungen hochladen: %{file_types}"
     "You may upload any file": "Sie können jede Art von Datei hochladen."
     "Your last login was on %{time}": "Sie waren zuletzt angemeldet am %{time}."
+    "Your user credentials": "Ihre Zugangsdaten"
     "Your Alchemy Login": "Ihre Alchemy Zugangsdaten"
     "Your last updated pages": "Ihre zuletzt bearbeiteten Seiten"
     "Your trash is empty": "Der Papierkorb ist leer"

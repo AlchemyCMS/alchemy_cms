@@ -8,7 +8,7 @@ module Alchemy
       @url = login_url
       mail(
         to: user.email,
-        subject: I18n.t(:subject, scope: 'mailer.new_user_mail')
+        subject: I18n.t("Your user credentials")
       )
     end
 
