@@ -1,7 +1,9 @@
-require 'thor/shell/color'
+require "#{File.dirname(__FILE__)}/to_do_list"
 
 module Alchemy
   class Seeder
+
+    extend ToDoList
 
     class << self
 
@@ -13,36 +15,6 @@ module Alchemy
       end
 
     private
-
-      def color(name)
-        case name
-        when :green
-          Thor::Shell::Color::GREEN
-        when :red
-          Thor::Shell::Color::RED
-        when :yellow
-          Thor::Shell::Color::YELLOW
-        when :black
-          Thor::Shell::Color::BLACK
-        when :clear
-          Thor::Shell::Color::CLEAR
-        else
-          ""
-        end
-      end
-
-      def log(message, type=nil)
-        case type
-        when :skip
-          puts "#{color(:yellow)}== Skipping! #{message}#{color(:clear)}"
-        when :error
-          puts "#{color(:red)}!! ERROR: #{message}#{color(:clear)}"
-        when :message
-          puts "#{color(:clear)}#{message}"
-        else
-          puts "#{color(:green)}== #{message}#{color(:clear)}"
-        end
-      end
 
       def desc(message)
         puts "\n#{message}"
