@@ -76,11 +76,11 @@ module Alchemy
 
       def create_default_site
         desc "Creating default site"
-        site = Alchemy::Site.find_or_initialize_by_host(
-          :name => 'Default Site',
-          :host => '*'
-        )
-        if site.new_record?
+        if Alchemy::Site.count == 0
+          site = Alchemy::Site.new(
+            name: 'Default Site',
+            host: '*'
+          )
           if Alchemy::Language.any?
             site.languages = Alchemy::Language.all
           end
