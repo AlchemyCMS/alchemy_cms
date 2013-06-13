@@ -12,7 +12,7 @@ namespace :alchemy do
     task :list => [:environment] do
       puts "\nAvailable upgrade tasks"
       puts "-----------------------\n"
-      methods = (Alchemy::Upgrader.private_methods - Object.private_methods - Alchemy::Upgrader.superclass.private_methods)
+      methods = Alchemy::Upgrader.all_upgrade_tasks
       if methods.any?
         methods.each { |method| puts method }
         puts "\nUsage:"

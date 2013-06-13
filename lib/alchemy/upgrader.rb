@@ -1,54 +1,54 @@
 module Alchemy
   class Upgrader < Alchemy::Seeder
+
+    Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
+
+    extend TwoPointSix
+    extend TwoPointFive
+    extend TwoPointFour
+    extend TwoPointThree
+    extend TwoPointTwo
+    extend TwoPointOne
+    extend TwoPointZero
+
     class << self
 
       # Runs ugrades
       #
-      # Set UPGRADE env variable to only run a specific task.
       def run!
-        if ENV['UPGRADE']
-          ENV['UPGRADE'].split(',').each do |task|
-            self.send(task)
-          end
-        else
-          run_all
+        upgrade_tasks.each do |task|
+          self.send(task)
         end
         display_todos
       end
 
-      def run_all
-        Rake::Task['alchemy:install:migrations'].invoke
-        Rake::Task['db:migrate'].invoke
-        Seeder.seed!
-        convert_attachment_storage
-        copy_new_config_file
+      # Tasks that should run.
+      #
+      # Set UPGRADE env variable to only run a specific task.
+      #
+      # Run +rake alchemy:upgrade:list+ for all available tasks
+      #
+      def upgrade_tasks
+        if ENV['UPGRADE'].present?
+          ENV['UPGRADE'].split(',')
+        else
+          all_upgrade_tasks
+        end
+      end
+
+      # All available upgrade tasks
+      # 
+      def all_upgrade_tasks
+        private_methods - Object.private_methods - superclass.private_methods
       end
 
     private
 
-      def convert_attachment_storage
-        desc "Convert the attachment storage"
-        converted_files = []
-        files = Dir.glob Rails.root.join 'uploads/attachments/**/*.*'
-        if files.blank?
-          log "No attachments found", :skip
-        else
-          files.each do |file|
-            file_uid = file.gsub(/#{Rails.root.to_s}\/uploads\/attachments\//, '')
-            file_id = file_uid.split('/')[1].to_i
-            attachment = Alchemy::Attachment.find_by_id(file_id)
-            if attachment && attachment.file_uid.blank?
-              attachment.file_uid = file_uid
-              attachment.file_size = File.new(file).size
-              attachment.file_name = attachment.sanitized_filename
-              if attachment.save!
-                log "Converted #{file_uid}"
-              end
-            else
-              log "Attachment with id #{file_id} not found or already converted.", :skip
-            end
-          end
-        end
+      # Setup task
+      def setup
+        Rake::Task['alchemy:install:migrations'].invoke
+        Rake::Task['db:migrate'].invoke
+        Seeder.seed!
       end
 
       def copy_new_config_file
