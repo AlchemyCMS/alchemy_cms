@@ -17,31 +17,31 @@ module Alchemy
     include ::ActiveModel::Conversion
     include ::ActiveModel::MassAssignmentSecurity
 
-    def self.attr_accessor(*vars)
-      @attributes ||= {}
-      vars.map { |v| @attributes[v] = nil}
-      super(*vars)
-    end
+    class << self
+      def attr_accessor(*vars)
+        @attributes ||= {}
+        vars.map { |v| @attributes[v] = nil}
+        super(*vars)
+      end
 
-    def self.attributes
-      @attributes
-    end
+      def attributes
+        @attributes
+      end
 
-    def attributes
-      self.class.attributes
+      def config
+        Config.get(:mailer)
+      end
     end
-
-    @@config = Config.get(:mailer)
 
     attr_accessor :contact_form_id, :ip
     attr_accessible :contact_form_id
 
-    @@config['fields'].each do |field|
+    config['fields'].each do |field|
       attr_accessor field.to_sym
       attr_accessible field.to_sym
     end
 
-    @@config['validate_fields'].each do |field|
+    config['validate_fields'].each do |field|
       validates_presence_of field
 
       case field.to_sym
@@ -58,6 +58,10 @@ module Alchemy
         send("#{a}=", attributes[a])
         @attributes[a] = attributes[a]
       end
+    end
+
+    def attributes
+      self.class.attributes
     end
 
     def persisted? #:nodoc:
