@@ -4,9 +4,9 @@ require 'thor/shell/color'
 module Alchemy
 
   # Provides methods for collecting sentences and displaying them
-  # in a ordered ToDo list on the shell / log 
+  # in a list on the shell / log 
   #
-  module ToDoList
+  module Shell
 
     def todo(todo)
       add_todo todo
@@ -41,7 +41,7 @@ module Alchemy
       end
     end
 
-    # Logs the given todo message with the color due to the message type
+    # Prints out the given todo message with the color due to its type
     #
     # @param [String] message
     # @param [Symbol] type
@@ -61,7 +61,8 @@ module Alchemy
 
   private
 
-    # Colorizes the message using Thor
+    # Gives the color string using Thor
+    # Used for colorizing the message on the shell
     #
     # @param [String] name
     # @return [String]
