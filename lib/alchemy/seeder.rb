@@ -1,9 +1,9 @@
-require "#{File.dirname(__FILE__)}/to_do_list"
+require "#{File.dirname(__FILE__)}/shell"
 
 module Alchemy
   class Seeder
 
-    extend ToDoList
+    extend Shell
 
     class << self
 

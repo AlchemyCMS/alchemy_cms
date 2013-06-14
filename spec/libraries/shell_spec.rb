@@ -4,10 +4,10 @@ module Alchemy
 
   # Class fixture
   class MyToDoList
-    extend ToDoList
+    extend Shell
   end
 
-  describe ToDoList do
+  describe Shell do
 
     before { MyToDoList.stub!(:puts) }
 
