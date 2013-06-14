@@ -56,26 +56,23 @@ module Alchemy
         self.language_roots.find_by_language_id(language_id)
       end
 
-      # Creates a copy of source
+      # Creates a copy of given source.
       #
       # Also copies all elements included in source.
       #
       # === Note:
+      #
       # It prevents the element auto generator from running.
       #
       # @param source [Alchemy::Page]
+      #   The source page the copy is taken from
       # @param differences [Hash]
+      #   A optional hash with attributes that take precedence over the source attributes
       #
       # @return [Alchemy::Page]
       #
       def copy(source, differences = {})
-        source.attributes.stringify_keys!
-        differences.stringify_keys!
-        attributes = source.attributes.merge(differences)
-        attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
-        new_name = differences['name'].present? ? differences['name'] : "#{source.name} (#{I18n.t('Copy')})"
-        attributes.merge!('name' => new_name)
-        page = self.new(attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY))
+        page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
         page.tag_list = source.tag_list
         if page.save!
           copy_cells(source, page)
@@ -107,16 +104,16 @@ module Alchemy
       end
 
       def paste_from_clipboard(source, new_parent, new_name)
-          page = copy(source, {
-            parent_id: new_parent.id,
-            language: new_parent.language,
-            name: new_name,
-            title: new_name
-          })
-          if source.children.any?
-            source.copy_children_to(page)
-          end
-          return page
+        page = copy(source, {
+          parent_id: new_parent.id,
+          language: new_parent.language,
+          name: new_name,
+          title: new_name
+        })
+        if source.children.any?
+          source.copy_children_to(page)
+        end
+        return page
       end
 
       def all_from_clipboard(clipboard)
@@ -139,6 +136,39 @@ module Alchemy
           options << [I18n.t(option, scope: 'link_target_options', default: option.to_s.humanize), option]
         end
         options
+      end
+
+    private
+
+      # Aggregates the attributes from given source for copy of page.
+      #
+      # @param [Alchemy::Page]
+      #   The source page
+      # @param [Hash]
+      #   A optional hash with attributes that take precedence over the source attributes
+      #
+      def attributes_from_source_for_copy(source, differences = {})
+        source.attributes.stringify_keys!
+        differences.stringify_keys!
+        attributes = source.attributes.merge(differences)
+        attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
+        attributes.merge!('name' => new_name_for_copy(differences['name'], source.name))
+        attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
+      end
+
+      # Returns a new name for copy of page.
+      #
+      # If the differences hash includes a new name this is taken.
+      # Otherwise +source.name+
+      #
+      # @param [String]
+      #   The differences hash that contains a new name
+      # @param [String]
+      #   The name of the source
+      #
+      def new_name_for_copy(custom_name, source_name)
+        return custom_name if custom_name.present?
+        "#{source_name} (#{I18n.t('Copy')})"
       end
 
     end
