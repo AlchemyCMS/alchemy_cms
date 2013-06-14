@@ -10,9 +10,32 @@ module Alchemy
       :locked_by => nil
     }
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
-    ACCESSIBLE_ATTRIBUTES = %w(do_not_autogenerate do_not_sweep language_code language language_id language_root layoutpage locked locked_by meta_description meta_keywords name page_layout parent_id public restricted robot_index robot_follow sitemap tag_list title urlname visible)
 
-    attr_accessible(*ACCESSIBLE_ATTRIBUTES)
+    attr_accessible(
+      :do_not_autogenerate,
+      :do_not_sweep,
+      :language_code,
+      :language,
+      :language_id,
+      :language_root,
+      :layoutpage,
+      :locked,
+      :locked_by,
+      :meta_description,
+      :meta_keywords,
+      :name,
+      :page_layout,
+      :parent_id,
+      :public,
+      :restricted,
+      :robot_index,
+      :robot_follow,
+      :sitemap,
+      :tag_list,
+      :title,
+      :urlname,
+      :visible
+    )
 
     acts_as_taggable
     acts_as_nested_set(:dependent => :destroy)
