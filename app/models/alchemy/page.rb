@@ -58,32 +58,8 @@ module Alchemy
     before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
     after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
 
-    scope :language_roots, where(:language_root => true)
-    scope :layoutpages, where(:layoutpage => true)
-    scope :all_locked, where(:locked => true)
-    scope :all_locked_by, lambda { |user| where(:locked => true, :locked_by => user.id) }
-    scope :not_locked, where(:locked => false)
-    scope :visible, where(:visible => true)
-    scope :published, where(:public => true)
-    scope :not_restricted, where(:restricted => false)
-    scope :restricted, where(:restricted => true)
-    scope :public_language_roots, lambda {
-      where(:language_root => true, :language_code => Language.all_codes_for_published, :public => true)
-    }
-    scope :all_last_edited_from, lambda { |user| where(:updater_id => user.id).order('updated_at DESC').limit(5) }
-    # Returns all pages that have the given language_id
-    scope :with_language, lambda { |language_id| where(:language_id => language_id) }
-    scope :contentpages, where(:layoutpage => [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil))
-    # Returns all pages that are not locked and public.
-    # Used for flushing all page caches at once.
-    scope :flushables, not_locked.published.contentpages
-    scope :searchables, not_restricted.published.contentpages
-    # Scope for only the pages from Alchemy::Site.current
-    scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current || Site.default}).joins(:language) }
-    # TODO: add this as default_scope
-    #default_scope { from_current_site }
-
     # Concerns
+    include Scopes
     include Natures
     include Naming
     include Users
