@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary               = %q{A powerful, userfriendly and flexible CMS for Rails 3}
   s.description           = %q{Alchemy is a powerful, userfriendly and flexible Rails 3 CMS.}
   s.requirements         << 'ImageMagick (libmagick), v6.6 or greater.'
-  s.required_ruby_version = '~> 1.9.2'
+  s.required_ruby_version = '>= 1.9.3'
   s.license               = 'BSD New'
   s.post_install_message  = <<-POST_INSTALL
 
