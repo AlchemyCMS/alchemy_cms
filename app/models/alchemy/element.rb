@@ -80,14 +80,7 @@ module Alchemy
       # your own set of elements
       #
       def descriptions
-        if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-          ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml") || []
-        else
-          raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
-        end
-      rescue TypeError => e
-        warn "Your elements.yml is empty."
-        []
+        ElementsDescription.descriptions
       end
       alias_method :definitions, :descriptions
 

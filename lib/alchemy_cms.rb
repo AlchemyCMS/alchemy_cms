@@ -35,6 +35,7 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
     'essence',
     'page_layout',
     'modules',
+    'elements_description',
     'tinymce',
     'i18n',
     'scoped_pagination_url_helper',

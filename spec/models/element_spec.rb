@@ -100,31 +100,6 @@ module Alchemy
 
     end
 
-    context "no description files are found" do
-
-      before do
-        FileUtils.mv(File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml'), File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml.bak'))
-      end
-
-      it "should raise an error" do
-        expect { Element.descriptions }.to raise_error(LoadError)
-      end
-
-      after do
-        FileUtils.mv(File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml.bak'), File.join(File.dirname(__FILE__), '../dummy/config/alchemy/elements.yml'))
-      end
-
-    end
-
-    context "without any descriptions in elements.yml file" do
-
-      it "should return an empty array" do
-        YAML.stub(:load_file).and_return(false) # Yes, YAML.load_file returns false if an empty file exists.
-        Element.descriptions.should == []
-      end
-
-    end
-
     context "retrieving contents, essences and ingredients" do
 
       let(:element) { FactoryGirl.create(:element, :name => 'news', :create_contents_after_create => true) }
@@ -422,5 +397,15 @@ module Alchemy
 
     end
 
+    describe "#descriptions" do
+
+      it "calls ElementsDescription to get descriptions" do
+        ElementsDescription.should_receive(:descriptions)
+        Element.descriptions
+      end
+
+    end
+
   end
+
 end
