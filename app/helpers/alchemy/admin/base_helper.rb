@@ -393,6 +393,21 @@ module Alchemy
 
       # Renders a toolbar button for the Alchemy toolbar
       #
+      # == Example
+      #
+      #   <%= toolbar_button(
+      #     icon: 'create',
+      #     label: 'Create',
+      #     url: new_resource_path,
+      #     title: 'Create Resource',
+      #     hotkey: 'alt-n',
+      #     overlay_options: {
+      #       title: 'Create Resource',
+      #       size: "430x400"
+      #     },
+      #     if_permitted_to: [:new, resource_permission_scope]
+      #   ) %>
+      #
       # @option options [String] :icon
       #   Icon class. See +app/assets/stylesheets/alchemy/icons.css.sccs+ for available icons, or make your own.
       # @option options [String] :label
@@ -415,47 +430,22 @@ module Alchemy
       #   Shows the please wait overlay while loading. Only for buttons not opening an overlay window.
       #
       def toolbar_button(options = {})
-        options.symbolize_keys!
-        defaults = {
-          :overlay => true,
-          :skip_permission_check => false,
-          :active => false,
-          :link_options => {},
-          :overlay_options => {},
-          :loading_indicator => true
-        }
-        options = defaults.merge(options)
-        button = content_tag('div', :class => 'button_with_label' + (options[:active] ? ' active' : '')) do
-          link = if options[:overlay]
-            link_to_overlay_window(
-              render_icon(options[:icon]),
-              options[:url],
-              options[:overlay_options],
-              {
-                :class => 'icon_button',
-                :title => options[:title],
-                'data-alchemy-hotkey' => options[:hotkey]
-              }.merge(options[:link_options])
-            )
-          else
-            link_to options[:url], {:class => ("icon_button#{options[:loading_indicator] ? ' please_wait' : nil}"), :title => options[:title], 'data-alchemy-hotkey' => options[:hotkey]}.merge(options[:link_options]) do
-              render_icon(options[:icon])
-            end
-          end
-          link += content_tag('label', options[:label])
-        end
-        if options[:skip_permission_check]
-          return button
+        options = {
+          overlay: true,
+          skip_permission_check: false,
+          active: false,
+          link_options: {},
+          overlay_options: {},
+          loading_indicator: true
+        }.merge(options.symbolize_keys)
+        button = render(
+          'alchemy/admin/partials/toolbar_button',
+          options: options
+        )
+        if options[:skip_permission_check] || permitted_to?(*permission_from_options(options))
+          button
         else
-          if options[:if_permitted_to].blank?
-            action_controller = options[:url].gsub(/^\//, '').split('/')
-            options[:if_permitted_to] = [action_controller.last.to_sym, action_controller[0..action_controller.length-2].join('_').to_sym]
-          end
-          if permitted_to?(*options[:if_permitted_to])
-            return button
-          else
-            return ""
-          end
+          ""
         end
       end
 
@@ -601,6 +591,24 @@ module Alchemy
       # Appends the current controller and action to body as css class.
       def body_class
         "#{controller_name} #{action_name}"
+      end
+
+    private
+
+      def permission_from_options(options)
+        if options[:if_permitted_to].blank?
+          options[:if_permitted_to] = permission_array_from_url(options)
+        else
+          options[:if_permitted_to]
+        end
+      end
+
+      def permission_array_from_url(options)
+        action_controller = options[:url].gsub(/^\//, '').split('/')
+        [
+          action_controller.last.to_sym,
+          action_controller[0..action_controller.length-2].join('_').to_sym
+        ]
       end
 
     end

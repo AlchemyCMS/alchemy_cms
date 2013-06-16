@@ -146,5 +146,74 @@ module Alchemy
 
     end
 
+    describe '#toolbar_button' do
+      context "with permission" do
+        before {
+          helper.stub(:permitted_to?).and_return(true)
+        }
+
+        it "renders a toolbar button" do
+          helper.toolbar_button(
+            url: admin_users_path
+          ).should match /<div.+class="button_with_label/
+        end
+      end
+
+      context "without permission" do
+        before {
+          helper.stub(:permitted_to?).and_return(false)
+        }
+
+        it "returns empty string" do
+          helper.toolbar_button(
+            url: admin_users_path
+          ).should be_empty
+        end
+      end
+
+      context "with disabled permission check" do
+        before {
+          helper.stub(:permitted_to?).and_return(false)
+        }
+
+        it "returns the button" do
+          helper.toolbar_button(
+            url: admin_users_path,
+            skip_permission_check: true
+          ).should match /<div.+class="button_with_label/
+        end
+      end
+
+      context "with empty permission option" do
+        before {
+          helper.stub(:permitted_to?).and_return(true)
+        }
+
+        it "returns reads the permission from url" do
+          helper.should_receive(:permission_array_from_url)
+          helper.toolbar_button(
+            url: admin_users_path,
+            if_permitted_to: ''
+          ).should_not be_empty
+        end
+      end
+
+      context "with overlay option set to false" do
+        before {
+          helper.stub(:permitted_to?).and_return(true)
+          helper.should_receive(:permission_array_from_url)
+        }
+
+        it "renders a normal link" do
+          button = helper.toolbar_button(
+            url: admin_users_path,
+            overlay: false
+          )
+          button.should match /<a.+href="#{admin_users_path}"/
+          button.should_not match /data-alchemy-overlay/
+        end
+      end
+    end
+
   end
 end
