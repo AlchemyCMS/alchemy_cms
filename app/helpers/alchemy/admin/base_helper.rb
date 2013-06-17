@@ -181,39 +181,6 @@ module Alchemy
         end
       end
 
-      # Returns an Array build for passing it to the options_for_select helper inside an essence editor partial.
-      #
-      # Useful for the <tt>select_values</tt> options from the {Alchemy::Admin::EssencesHelper#render_essence_editor} helpers.
-      #
-      # @option options [String or Page] :from_page (nil)
-      #   Return only elements from this page. You can either pass a Page instance, or a page_layout name
-      # @option options [Array or String] :elements_with_name (nil)
-      #   Return only elements with this name(s).
-      # @option options [String] :prompt (_t('Please choose'))
-      #   Prompt inside the select tag.
-      #
-      def elements_for_essence_editor_select(options={})
-        defaults = {
-          :from_page => nil,
-          :elements_with_name => nil,
-          :prompt => _t('Please choose')
-        }
-        options = defaults.merge(options)
-        if options[:from_page]
-          page = options[:from_page].is_a?(String) ? Page.find_by_page_layout(options[:from_page]) : options[:from_page]
-        end
-        if page
-          elements = options[:elements_with_name].blank? ? page.elements.published : page.elements.published.where(:name => options[:elements_with_name])
-        else
-          elements = options[:elements_with_name].blank? ? Element.published : Element.published.where(:name => options[:elements_with_name])
-        end
-        select_options = [[options[:prompt], ""]]
-        elements.each do |e|
-          select_options << [e.display_name_with_preview_text, e.id.to_s]
-        end
-        select_options
-      end
-
       # Returns all public pages from current language as an option tags string suitable or the Rails +select_tag+ helper.
       #
       # @param [Array]
@@ -238,23 +205,6 @@ module Alchemy
           end
         end
         options_for_select(result, selected.to_s)
-      end
-
-      def render_essence_selection_editor(element, content, select_options)
-        if content.class == String
-          content = element.contents.find_by_name(content)
-        else
-          content = element.contents[content - 1]
-        end
-        if content.essence.nil?
-          return warning('Element', _t(:content_essence_not_found))
-        end
-        select_options = options_for_select(select_options, content.essence.content)
-        select_tag(
-          "contents[content_#{content.id}]",
-          select_options,
-          :class => 'alchemy_selectbox'
-        )
       end
 
       # Renders the admin main navigation
