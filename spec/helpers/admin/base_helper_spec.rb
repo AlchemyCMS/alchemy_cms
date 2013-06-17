@@ -96,56 +96,6 @@ module Alchemy
 
     end
 
-    describe '#pages_for_select' do
-
-      let(:contact_form) { FactoryGirl.create(:element, :name => 'contactform', :create_contents_after_create => true) }
-      let(:page_a) { FactoryGirl.create(:public_page, :name => 'Page A') }
-      let(:page_b) { FactoryGirl.create(:public_page, :name => 'Page B') }
-      let(:page_c) { FactoryGirl.create(:public_page, :name => 'Page C', :parent_id => page_b.id) }
-
-      before do
-        # to be shure the ordering is alphabetic
-        page_b
-        page_a
-        helper.session[:language_id] = 1
-      end
-
-      context "with no arguments given" do
-
-        it "should return options for select with all pages ordered by lft" do
-          helper.pages_for_select.should match(/option.*Page B.*Page A/m)
-        end
-
-        it "should return options for select with nested page names" do
-          page_c
-          output = helper.pages_for_select
-          output.should match(/option.*Startseite.*>&nbsp;&nbsp;Page B.*>&nbsp;&nbsp;&nbsp;&nbsp;Page C.*>&nbsp;&nbsp;Page A/m)
-        end
-
-      end
-
-      context "with pages passed in" do
-
-        before do
-          @pages = []
-          3.times { @pages << FactoryGirl.create(:public_page) }
-        end
-
-        it "should return options for select with only these pages" do
-          output = helper.pages_for_select(@pages)
-          output.should match(/#{@pages.collect(&:name).join('.*')}/m)
-          output.should_not match(/Page A/m)
-        end
-
-        it "should not nest the page names" do
-          output = helper.pages_for_select(@pages)
-          output.should_not match(/option.*&nbsp;/m)
-        end
-
-      end
-
-    end
-
     describe '#toolbar_button' do
       context "with permission" do
         before {

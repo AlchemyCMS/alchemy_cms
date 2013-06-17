@@ -105,6 +105,27 @@ module Alchemy
         end
       end
 
+      # Returns all public pages from current language as an option tags string suitable or the Rails +select_tag+ helper.
+      #
+      # @param [Array]
+      #   A collection of pages so it only returns these pages and does not query the database.
+      # @param [String]
+      #   Pass a +Page#name+ or +Page#id+ as selected item to the +options_for_select+ helper.
+      # @param [String]
+      #   Used as prompt message in the select tag
+      # @param [Symbol]
+      #   Method that is called on the page object to get the value that is passed with the params of the form.
+      #
+      def pages_for_select(pages = nil, selected = nil, prompt = "Choose page", page_attribute = :id)
+        values = [[_t(prompt), ""]]
+        pages ||= begin
+          nested = true
+          Page.with_language(session[:language_id]).published.order(:lft)
+        end
+        values += pages_attributes_for_select(pages, page_attribute, nested)
+        options_for_select(values, selected.to_s)
+      end
+
       def render_missing_content(element, name, options)
         render :partial => 'alchemy/admin/contents/missing', :locals => {:element => element, :name => name, :options => options}
       end
@@ -127,6 +148,25 @@ module Alchemy
           :class => 'img_paddingtop',
           :title => _t(:image_name) + ": #{content.ingredient.name}"
         )
+      end
+
+    private
+
+      def pages_attributes_for_select(pages, page_attribute, nested = false)
+        pages.map do |page|
+          [
+            page_name_attribute_for_select(page, nested),
+            page.send(page_attribute).to_s
+          ]
+        end
+      end
+
+      def page_name_attribute_for_select(page, nested = false)
+        if nested
+          ("&nbsp;&nbsp;" * (page.level - 1) + page.name).html_safe
+        else
+          page.name
+        end
       end
 
     end

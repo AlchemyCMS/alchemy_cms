@@ -182,32 +182,6 @@ module Alchemy
         end
       end
 
-      # Returns all public pages from current language as an option tags string suitable or the Rails +select_tag+ helper.
-      #
-      # @param [Array]
-      #   A collection of pages so it only returns these pages and does not query the database.
-      # @param [String]
-      #   Pass a +Page#name+ or +Page#id+ as selected item to the +options_for_select+ helper.
-      # @param [String]
-      #   Used as prompt message in the select tag
-      # @param [Symbol]
-      #   Method that is called on the page object to get the value that is passed with the params of the form.
-      #
-      def pages_for_select(pages = nil, selected = nil, prompt = "", page_attribute = :id)
-        result = [[prompt.blank? ? _t('Choose page') : prompt, ""]]
-        if pages.blank?
-          pages = Page.with_language(session[:language_id]).published.order(:lft)
-          pages.each do |p|
-            result << [("&nbsp;&nbsp;" * (p.level - 1) + p.name).html_safe, p.send(page_attribute).to_s]
-          end
-        else
-          pages.each do |p|
-            result << [p.name, p.send(page_attribute).to_s]
-          end
-        end
-        options_for_select(result, selected.to_s)
-      end
-
       # (internal) Renders translated Module Names for html title element.
       def render_alchemy_title
         if content_for?(:title)
