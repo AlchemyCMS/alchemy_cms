@@ -37,7 +37,9 @@
     </div>
     <div id="left_menu">
       <div id="main_navi">
-        <%= admin_main_navigation %>
+        <% alchemy_modules.each do |alchemy_module| %>
+          <%= alchemy_main_navigation_entry(alchemy_module) %>
+        <% end %>
         <%= yield(:alchemy_main_navigation) %>
       </div>
       <div id="logout">

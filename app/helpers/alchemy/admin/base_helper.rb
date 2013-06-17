@@ -12,6 +12,7 @@ module Alchemy
     #
     module BaseHelper
       include Alchemy::BaseHelper
+      include Alchemy::Admin::NavigationHelper
 
       # This helper renders the link to an overlay window.
       #
@@ -205,99 +206,6 @@ module Alchemy
           end
         end
         options_for_select(result, selected.to_s)
-      end
-
-      # Renders the admin main navigation
-      def admin_main_navigation
-        entries = ""
-        alchemy_modules.each do |alchemy_module|
-          entries << alchemy_main_navigation_entry(alchemy_module)
-        end
-        entries.html_safe
-      end
-
-      # Renders one admin main navigation entry
-      #
-      # @param [Hash] alchemy_module
-      #   The Hash representing a Alchemy module
-      #
-      def alchemy_main_navigation_entry(alchemy_module)
-        render 'alchemy/admin/partials/main_navigation_entry', :alchemy_module => alchemy_module.stringify_keys, :navigation => alchemy_module['navigation'].stringify_keys
-      end
-
-      # Renders the subnavigation in the admin areas
-      def admin_subnavigation
-        alchemy_module = module_definition_for(:controller => params[:controller], :action => 'index')
-        unless alchemy_module.nil?
-          entries = alchemy_module["navigation"].stringify_keys['sub_navigation']
-          render_admin_subnavigation(entries) unless entries.nil?
-        else
-          ""
-        end
-      end
-
-      # Renders the Subnavigation for the admin interface.
-      def render_admin_subnavigation(entries)
-        render "alchemy/admin/partials/sub_navigation_tab", :entries => entries
-      end
-
-      # Used for checking the main navi permissions
-      def navigate_module(navigation)
-        [navigation["action"].to_sym, navigation["controller"].gsub(/^\//, '').gsub(/\//, '_').to_sym]
-      end
-
-      # Returns true if the current controller and action is in a modules navigation definition.
-      def admin_mainnavi_active?(mainnav)
-        mainnav.stringify_keys!
-        subnavi = mainnav["sub_navigation"].map(&:stringify_keys) if mainnav["sub_navigation"]
-        nested = mainnav["nested"].map(&:stringify_keys) if mainnav["nested"]
-        if subnavi
-          (!subnavi.detect { |subnav| subnav["controller"].gsub(/^\//, '') == params[:controller] && subnav["action"] == params[:action] }.blank?) ||
-            (nested && !nested.detect { |n| n["controller"] == params[:controller] && n["action"] == params[:action] }.blank?)
-        else
-          mainnav["controller"] == params[:controller] && mainnav["action"] == params["action"]
-        end
-      end
-
-      # Returns true if the subnavigation entry is in the current params
-      def admin_sub_navigation_entry_active?(entry)
-        params[:controller] == entry["controller"].gsub(/^\//, '') && (params[:action] == entry["action"] || entry["nested_actions"] && entry["nested_actions"].include?(params[:action]))
-      end
-
-      # Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
-      def url_for_module(alchemy_module)
-        navigation = alchemy_module['navigation'].stringify_keys
-        url_options = {
-          :controller => navigation['controller'],
-          :action => navigation['action']
-        }
-        if alchemy_module['engine_name']
-          eval(alchemy_module['engine_name']).url_for(url_options)
-        else
-          # hack to prefix any controller-path with / so it doesn't refer to alchemy/...
-          url_options[:controller] = url_options[:controller].gsub(/(^\b)/, "/#{$1}")
-          main_app.url_for(url_options)
-        end
-      end
-
-      # Calls the url_for helper on either an alchemy module engine, or the app alchemy is mounted at.
-      def url_for_module_sub_navigation(navigation)
-        alchemy_module = module_definition_for(navigation)
-        engine_name = alchemy_module['engine_name'] if alchemy_module
-        navigation.stringify_keys!
-        url_options = {
-          :controller => navigation['controller'],
-          :action => navigation['action']
-        }
-        if engine_name
-          eval(engine_name).url_for(url_options)
-        else
-          main_app.url_for(url_options)
-        end
-      end
-
-      def main_navigation_css_classes(navigation)
-        ['main_navi_entry', admin_mainnavi_active?(navigation) ? 'active' : nil].compact.join(" ")
       end
 
       # (internal) Renders translated Module Names for html title element.
