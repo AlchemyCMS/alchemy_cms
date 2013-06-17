@@ -1,3 +1,5 @@
+require 'alchemy/site_properties_creator'
+
 module Alchemy
   class Site < ActiveRecord::Base
     attr_accessible :host, :aliases, :name, :public, :redirect_to_primary_host
@@ -8,8 +10,11 @@ module Alchemy
 
     # associations
     has_many :languages
+    has_many :properties, :class_name => 'Alchemy::SiteProperty'
 
     scope :published, where(public: true)
+
+    after_create :generate_properties
 
     # Returns true if this site is the current site
     def current?
@@ -43,6 +48,10 @@ module Alchemy
           site.aliases.split.include?(host) if site.aliases.present?
         end
       end
+    end
+
+    def generate_properties
+      Alchemy::SitePropertiesCreator.create_properties
     end
 
     before_create do

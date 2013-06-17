@@ -1,0 +1,57 @@
+<tr class="<%= cycle('even', 'odd') %>">
+  <%- resource_handler.attributes.each do |attribute| -%>
+  <%- if attribute[:type] == :boolean -%>
+  <td class="center">
+    <% attr_value = render_attribute(site, attribute) %>
+    <%= attr_value.blank? ? '' : render_icon(attr_value) -%>
+  </td>
+  <%- elsif attribute[:type] == :integer || attribute[:type] == :float || attribute[:type] == :decimal -%>
+
+  <td class="right"><%= render_attribute(site, attribute) -%></td>
+  <%- else -%>
+  <td>
+    <%= render_attribute(site, attribute) %>
+  </td>
+  <%- end -%>
+  <%- end -%>
+  <td class="tools">
+    <%- permitted_to?(:edit, resource_permission_scope) do -%>
+    <%= link_to_overlay_window(
+      '',
+      alchemy.configure_admin_site_path(site),
+      {
+        :title => _t("edit_site_properties"),
+        :size => resource_window_size
+      },
+      {
+        :class => "icon configure_page",
+        :title => _t("edit_site_properties")
+      }
+    ) -%>
+    <%- end -%>
+    <%- permitted_to?(:destroy, resource_permission_scope) do -%>
+    <%= link_to_confirmation_window(
+      '',
+      _t("Are you sure?"),
+      resource_path(site),
+      :title => _t("Delete"),
+      :class => "icon destroy",
+      :id => "delete_#{resource_handler.model_name}_#{site.id}"
+    ) -%>
+    <%- end -%>
+    <%- permitted_to?(:edit, resource_permission_scope) do -%>
+    <%= link_to_overlay_window(
+      '',
+      edit_resource_path(site),
+      {
+        :title => _t("Edit"),
+        :size => resource_window_size
+      },
+      {
+        :class => "icon edit",
+        :title => _t("Edit")
+      }
+    ) -%>
+    <%- end -%>
+  </td>
+</tr>

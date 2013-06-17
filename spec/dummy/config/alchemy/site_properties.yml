@@ -1,0 +1,4 @@
+- name: stylesheet
+  type: string
+- name: is awesome
+  type: boolean

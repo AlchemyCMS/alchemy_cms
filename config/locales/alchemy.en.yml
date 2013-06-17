@@ -230,6 +230,7 @@ en:
     edit_page: "Edit this page"
     edit_page_properties: "Edit the page´s properties."
     edit_selected_pictures: "Edit selected pictures"
+    edit_site_properties: "Edit the site's properties"
     edit_user: "Edit the user´s properties."
     element_description_missing: "WARNING! Missing description. Please check your elements.yml file."
     element_dirty_notice: "This element has unsaved changes. Do you really want to fold it?"
