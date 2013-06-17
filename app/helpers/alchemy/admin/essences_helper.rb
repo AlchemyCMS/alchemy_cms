@@ -126,8 +126,10 @@ module Alchemy
         options_for_select(values, selected.to_s)
       end
 
+      # Renders the missing content partial
+      #
       def render_missing_content(element, name, options)
-        render :partial => 'alchemy/admin/contents/missing', :locals => {:element => element, :name => name, :options => options}
+        render 'alchemy/admin/contents/missing', {element: element, name: name, options: options}
       end
 
       def essence_picture_thumbnail(content, options)
@@ -152,17 +154,33 @@ module Alchemy
 
     private
 
-      def pages_attributes_for_select(pages, page_attribute, nested = false)
+      # Returns an Array with page attributes for select options
+      #
+      # @param [Array]
+      #   The pages
+      # @param [String || Symbol]
+      #   The attribute that is used as value
+      # @param [Boolean] (false)
+      #   Should the name be indented or not
+      #
+      def pages_attributes_for_select(pages, page_attribute, indent = false)
         pages.map do |page|
           [
-            page_name_attribute_for_select(page, nested),
+            page_name_attribute_for_select(page, indent),
             page.send(page_attribute).to_s
           ]
         end
       end
 
-      def page_name_attribute_for_select(page, nested = false)
-        if nested
+      # Returns the page name for pages_for_select helper
+      #
+      # @param [Alchemy::Page]
+      #   The page
+      # @param [Boolean] (false)
+      #   Should the page be indented or not
+      #
+      def page_name_attribute_for_select(page, indent = false)
+        if indent
           ("&nbsp;&nbsp;" * (page.level - 1) + page.name).html_safe
         else
           page.name
