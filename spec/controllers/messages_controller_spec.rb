@@ -16,8 +16,8 @@ module Alchemy
         expect(get :index).to redirect_to(show_page_path(urlname: page.urlname))
       end
     end
-    
-    describe "#new" do      
+
+    describe "#new" do
 
       it "should render the alchemy/pages/show template" do
         get :new
@@ -29,13 +29,14 @@ module Alchemy
         get :new
       end
     end
-    
+
     describe "#create" do
 
       before { controller.stub!(:params).and_return({message: {email: ''}}) }
 
       let(:page) { mock_model('Page', get_language_root: mock_model('Page')) }
       let(:element) { mock_model('Element', page: page, ingredient: '') }
+      let(:message) { Message.new }
 
       it "should raise ActiveRecord::RecordNotFound if element of contactform could not be found" do
         expect { get :create }.to raise_error(ActiveRecord::RecordNotFound)
@@ -57,7 +58,7 @@ module Alchemy
         end
 
         context "is true" do
-          before do 
+          before do
             Message.any_instance.stub(:valid?).and_return(true)
             Messages.stub_chain(:contact_form_mail, :deliver).and_return(true)
           end
@@ -65,6 +66,90 @@ module Alchemy
           it "Messages should call Messages#contact_form_mail to send the email" do
             Messages.should_receive(:contact_form_mail)
             get :create
+          end
+
+          describe '#mail_to' do
+            context "with element having mail_to ingredient" do
+              before {
+                element.stub(:ingredient).with(:mail_to).and_return('peter@schroeder.de')
+                message
+                Message.stub(:new).and_return(message)
+              }
+
+              it "returns the ingredient" do
+                Messages.should_receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
+                get :create
+              end
+            end
+
+            context "with element having no mail_to ingredient" do
+              before {
+                element.stub(:ingredient).with(:mail_to).and_return(nil)
+                message
+                Message.stub(:new).and_return(message)
+              }
+
+              it "returns the config value" do
+                Messages.should_receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
+                get :create
+              end
+            end
+          end
+
+          describe '#mail_from' do
+            context "with element having mail_from ingredient" do
+              before {
+                element.stub(:ingredient).with(:mail_from).and_return('peter@schroeder.de')
+                message
+                Message.stub(:new).and_return(message)
+              }
+
+              it "returns the ingredient" do
+                Messages.should_receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
+                get :create
+              end
+            end
+
+            context "with element having no mail_from ingredient" do
+              before {
+                element.stub(:ingredient).with(:mail_from).and_return(nil)
+                message
+                Message.stub(:new).and_return(message)
+              }
+
+              it "returns the config value" do
+                Messages.should_receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
+                get :create
+              end
+            end
+          end
+
+          describe '#subject' do
+            context "with element having subject ingredient" do
+              before {
+                element.stub(:ingredient).with(:subject).and_return('A new message')
+                message
+                Message.stub(:new).and_return(message)
+              }
+
+              it "returns the ingredient" do
+                Messages.should_receive(:contact_form_mail).with(message, '', '', 'A new message')
+                get :create
+              end
+            end
+
+            context "with element having no subject ingredient" do
+              before {
+                element.stub(:ingredient).with(:subject).and_return(nil)
+                message
+                Message.stub(:new).and_return(message)
+              }
+
+              it "returns the config value" do
+                Messages.should_receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
+                get :create
+              end
+            end
           end
 
           describe "#redirect_to_success_page" do
@@ -108,7 +193,7 @@ module Alchemy
         end
 
       end
-      
+
     end
 
   end

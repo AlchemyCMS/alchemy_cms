@@ -81,21 +81,15 @@ module Alchemy
     end
 
     def mail_to
-      @element.ingredient("mail_to")
-    rescue
-      mailer_config['mail_to']
+      @element.ingredient(:mail_to) || mailer_config['mail_to']
     end
 
     def mail_from
-      @element.ingredient("mail_from")
-    rescue
-      mailer_config['mail_from']
+      @element.ingredient(:mail_from) || mailer_config['mail_from']
     end
 
     def subject
-      @element.ingredient("subject")
-    rescue
-      mailer_config['subject']
+      @element.ingredient(:subject) || mailer_config['subject']
     end
 
     def redirect_to_success_page
