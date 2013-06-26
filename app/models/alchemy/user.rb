@@ -26,6 +26,7 @@ module Alchemy
 
     has_many :folded_pages
 
+    validates_uniqueness_of :login
     validates_presence_of :roles
 
     # Unlock all locked pages before destroy and before the user gets logged out.
