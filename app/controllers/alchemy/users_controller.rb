@@ -18,9 +18,6 @@ module Alchemy
     def create
       @user = User.new(params[:user])
       if @user.save
-        if params[:send_credentials]
-          Notifications.admin_user_created(@user).deliver
-        end
         flash[:notice] = _t('Successfully signup admin user')
         sign_in :user, @user
         redirect_to admin_dashboard_path

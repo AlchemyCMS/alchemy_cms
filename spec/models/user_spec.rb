@@ -12,6 +12,46 @@ module Alchemy
       user.roles.should include('registered')
     end
 
+    context ".after_save" do
+      let(:user) { FactoryGirl.build(:admin_user) }
+
+      context "with send_credentials set to true" do
+        before { user.send_credentials = true }
+
+        it "delivers the admin welcome mail." do
+          Notifications.should_receive(:admin_user_created).and_return(OpenStruct.new(deliver: true))
+          user.save!
+        end
+
+        context "of author user" do
+          before { user.roles = %w(author) }
+
+          it "delivers the admin welcome mail." do
+            Notifications.should_receive(:admin_user_created).and_return(OpenStruct.new(deliver: true))
+            user.save!
+          end
+        end
+
+        context "of registered user" do
+          before { user.roles = %w(registered) }
+
+          it "delivers the welcome mail." do
+            Notifications.should_receive(:registered_user_created).and_return(OpenStruct.new(deliver: true))
+            user.save!
+          end
+        end
+      end
+
+      context "with send_credentials set to false" do
+        before { user.send_credentials = false }
+
+        it "does not deliver any mail" do
+          Notifications.should_not_receive(:admin_user_created)
+          user.save!
+        end
+      end
+    end
+
     describe 'scopes' do
       describe '.admins' do
         before do
