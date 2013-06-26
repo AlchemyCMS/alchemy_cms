@@ -280,7 +280,6 @@ de:
     "Select all": "Alle auswählen"
     "Select an content": "Wählen Sie einen Inhalt aus"
     "Select style": "Stilvorlage"
-    "Send email with credentials": "Sende Benutzerdaten per Email"
     "Send reset instructions": "Anweisungen senden"
     "Show Elements Window": "Elementeliste anzeigen"
     "Show Preview Window": "Seitenvorschau anzeigen"
@@ -940,6 +939,7 @@ de:
         password_confirmation: "Passwort Bestätigung"
         roles: "Benutzerrollen"
         tag_list: Tags
+        send_credentials: "Sende Benutzerdaten per E-Mail"
 
       alchemy/site:
         name: "Bezeichnung"

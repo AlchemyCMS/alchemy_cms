@@ -18,8 +18,11 @@ module Alchemy
       :password,
       :password_confirmation,
       :roles,
+      :send_credentials,
       :tag_list
     )
+
+    attr_accessor :send_credentials
 
     has_many :folded_pages
 
@@ -32,6 +35,8 @@ module Alchemy
         user.unlock_pages!
       end
     end
+
+    after_save :deliver_welcome_mail, if: -> { send_credentials }
 
     scope :admins, where(arel_table[:roles].matches("%admin%")) # not pleased with that approach
     # mysql regexp word matching would be much nicer, but it's not included in SQLite functions per se.
@@ -151,6 +156,16 @@ module Alchemy
 
     def logged_in_timeout
       self.class.logged_in_timeout
+    end
+
+    # Delivers a welcome mail depending from user's role.
+    #
+    def deliver_welcome_mail
+      if has_role?('author') || has_role?('editor') || has_role?('admin')
+        Notifications.admin_user_created(self).deliver
+      else
+        Notifications.registered_user_created(self).deliver
+      end
     end
 
   end

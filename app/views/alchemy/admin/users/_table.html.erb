@@ -57,8 +57,8 @@
   <tr>
     <td>&nbsp;</td>
     <td class="checkbox long">
-      <%= check_box_tag('send_credentials', true, @user.new_record?) %>
-      <%= label_tag('send_credentials', _t('Send email with credentials')) %>
+      <%= f.check_box(:send_credentials, checked: @user.new_record?) %>
+      <%= f.label(:send_credentials) %>
     </td>
   </tr>
   <tr>

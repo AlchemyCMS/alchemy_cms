@@ -36,8 +36,7 @@ module Alchemy
       context "with send_credentials set to true" do
         it "should send an email notification" do
           post :create, {
-            :user => FactoryGirl.attributes_for(:admin_user),
-            :send_credentials => true
+            :user => FactoryGirl.attributes_for(:admin_user).merge(send_credentials: true)
           }
           ActionMailer::Base.deliveries.should_not be_empty
         end
