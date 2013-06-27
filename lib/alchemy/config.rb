@@ -18,7 +18,7 @@ module Alchemy
       # 
       # Alchemy´s default config: +gems/../alchemy_cms/config/alchemy/config.yml+
       # Your apps default config: +your_app/config/alchemy/config.yml+
-      # Environment specific config: +your_app/config/alchemy/config_development.yml+
+      # Environment specific config: +your_app/config/alchemy/development.config.yml+
       #
       # An environment specific config overwrites the settings of your apps default config, 
       # while your apps default config has precedence over Alchemy´s default config.
@@ -41,7 +41,7 @@ module Alchemy
 
       # Rails Environment specific configuration
       def env_specific_config
-        read_file("#{Rails.root}/config/alchemy/config_#{Rails.env}.yml")
+        read_file("#{Rails.root}/config/alchemy/#{Rails.env}.config.yml")
       end
 
       # Tries to load yaml file from given path.
