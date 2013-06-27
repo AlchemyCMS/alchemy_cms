@@ -41,7 +41,7 @@ module Alchemy
 
       # Rails Environment specific configuration
       def env_specific_config
-        read_file("#{Rails.root}/config/alchemy/config_#{Rails.env}.yml")
+        read_file("#{Rails.root}/config/alchemy/#{Rails.env}.config.yml")
       end
 
       # Tries to load yaml file from given path.

@@ -25,7 +25,7 @@ module Alchemy
     end
 
     describe '.env_specific_config' do
-      let(:env_specific_config_path) { "#{Rails.root}/config/alchemy/config_#{Rails.env}.yml" }
+      let(:env_specific_config_path) { "#{Rails.root}/config/alchemy/#{Rails.env}.config.yml" }
 
       it "should call and return .read_file with the correct config path" do
         Config.should_receive(:read_file).with(env_specific_config_path).once.and_return({setting: 'true'})
