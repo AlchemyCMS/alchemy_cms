@@ -26,7 +26,7 @@ module Alchemy
       def new
         @page = Page.find_by_id(params[:page_id])
         @element = @page.elements.build
-        @elements = Element.all_for_page(@page)
+        @elements = @page.available_element_definitions
         clipboard_elements = get_clipboard[:elements]
         unless clipboard_elements.blank?
           @clipboard_items = Element.all_from_clipboard_for_page(clipboard_elements, @page)

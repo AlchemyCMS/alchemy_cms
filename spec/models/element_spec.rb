@@ -6,49 +6,6 @@ module Alchemy
 
     # ClassMethods
 
-    describe '.all_definitions_for' do
-      it "should return a list of element definitions for a list of element names" do
-        element_names = ["article"]
-        definitions = Element.all_definitions_for(element_names)
-        definitions.first.fetch("name").should == 'article'
-      end
-
-      context "given 'all' as element name" do
-        before do
-          @element_definition = [
-            {'name' => 'article'},
-            {'name' => 'headline'}
-          ]
-          Element.stub!(:definitions).and_return @element_definition
-        end
-
-        it "should return all element definitions" do
-          Element.all_definitions_for('all').should == @element_definition
-        end
-      end
-
-      it "should always return an array" do
-        definitions = Element.all_definitions_for(nil)
-        definitions.should == []
-      end
-    end
-
-    describe '.all_for_page' do
-      context 'no page given' do
-        it 'should raise an error' do
-          expect { Element.all_for_page(nil) }.to raise_error(TypeError)
-        end
-      end
-
-      context "page_layout of given page not found" do
-        let(:page) { mock_model(Page, page_layout: 'not_existing_one') }
-
-        it "should return an empty Array" do
-          expect(Element.all_for_page(page)).to eq([])
-        end  
-      end
-    end
-
     describe '.copy' do
       let(:element) { FactoryGirl.create(:element, :create_contents_after_create => true, :tag_list => 'red, yellow') }
 
@@ -81,27 +38,6 @@ module Alchemy
 
       it "should return the humanized name if no translation found" do
         expect(Element.display_name_for('not_existing_one')).to eq('Not existing one')
-      end
-    end
-
-    describe '.elements_for_layout' do
-      context "if no element exists in the definition of the given page_layout" do
-        before { PageLayout.stub!(:get).with('layout_without_elements').and_return({'elements' => []}) }
-
-        it "should return an empty Array" do
-          expect(Element.elements_for_layout('layout_without_elements')).to eq([])
-        end
-      end
-
-      context "with elements in the definition of the given page_layout" do
-        before do
-          PageLayout.stub!(:get).with('my_layout').and_return({'elements' => ['element_1', 'element_2']})
-          Element.stub!(:descriptions).and_return([{'name' => 'element_1'}, {'name' => 'element_2'}])
-        end
-
-        it "should return an Array of these element definitions found for the given page_layout name" do
-          expect(Element.elements_for_layout('my_layout')).to eq([{'name' => 'element_1'}, {'name' => 'element_2'}])
-        end
       end
     end
 
@@ -167,46 +103,33 @@ module Alchemy
       end
     end
 
-    context 'limited amount' do
-      before do
-        defs = [
-          {
-            'name' => 'column_headline',
-            'amount' => 3,
-            'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
-          },
-          {
-            'name' => 'unique_headline',
-            'unique' => true,
-            'amount' => 3,
-            'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
-          }
-        ]
-        # F&%#ing alias methods
-        Element.stub!(:definitions).and_return(defs)
-        Element.stub!(:descriptions).and_return(defs)
-        PageLayout.stub!(:get).and_return({
-          'name' => 'columns',
-          'elements' => ['column_headline', 'unique_headline'],
-          'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
-        })
-        @page = FactoryGirl.create(:page, :page_layout => 'columns', :do_not_autogenerate => false)
+    describe '.all_from_clipboard_for_page' do
+      let(:element_1) { FactoryGirl.build_stubbed(:element) }
+      let(:element_2) { FactoryGirl.build_stubbed(:element, name: 'news') }
+      let(:page) { FactoryGirl.build_stubbed(:public_page) }
+      let(:clipboard) { [{id: element_1.id}, {id: element_2.id}] }
+      before {
+        Element.stub(:find_all_by_id).and_return([element_1, element_2])
+      }
+
+      it "return all elements from clipboard that could be placed on page" do
+        elements = Element.all_from_clipboard_for_page(clipboard, page)
+        elements.should == [element_1]
+        elements.should_not == [element_2]
       end
 
-      it "should be readable" do
-        element = Element.all_definitions_for(['column_headline']).first
-        element['amount'].should be 3
+      context "page nil" do
+        it "returns empty array" do
+          Element.all_from_clipboard_for_page(clipboard, nil).should == []
+        end
       end
 
-      it "should limit elements" do
-        Element.all_for_page(@page).each { |e| e['name'].should_not == 'column_headline' }
-      end
-
-      it "should be ignored if unique" do
-        Element.all_for_page(@page).each { |e| e['name'].should_not == 'unique_headline' }
+      context "clipboard nil" do
+        it "returns empty array" do
+          Element.all_from_clipboard_for_page(nil, page).should == []
+        end
       end
     end
-
 
     # InstanceMethods
 
@@ -324,7 +247,7 @@ module Alchemy
 
     describe '#display_name_with_preview_text' do
       let(:element) { FactoryGirl.build_stubbed(:element, name: 'Foo') }
- 
+
       it "returns a string with display name and preview text" do
         element.stub(:preview_text).and_return('Fula')
         element.display_name_with_preview_text.should == "Foo: Fula"
@@ -333,7 +256,7 @@ module Alchemy
 
     describe '#dom_id' do
       let(:element) { FactoryGirl.build_stubbed(:element) }
- 
+
       it "returns an string from element name and id" do
         element.dom_id.should == "#{element.name}_#{element.id}"
       end
@@ -370,30 +293,30 @@ module Alchemy
       let(:content) { mock_model(Content, preview_text: 'Lorem', preview_content?: false) }
       let(:content_2) { mock_model(Content, preview_text: 'Lorem', preview_content?: false) }
       let(:preview_content) { mock_model(Content, preview_text: 'Lorem', preview_content?: true) }
- 
+
       context "without a content marked as preview" do
         let(:contents) { [content, content_2] }
         before { element.stub!(:contents).and_return(contents) }
- 
+
         it "returns the preview text of first content found" do
           content.should_receive(:preview_text).with(30)
           element.preview_text
         end
       end
- 
+
       context "with a content marked as preview" do
         let(:contents) { [content, preview_content] }
         before { element.stub!(:contents).and_return(contents) }
- 
+
         it "should return the preview_text of this content" do
           preview_content.should_receive(:preview_text).with(30)
           element.preview_text
         end
       end
- 
+
       context "without any contents present" do
         before { element.stub!(:contents).and_return([]) }
- 
+
         it "should return nil" do
           element.preview_text.should be_nil
         end

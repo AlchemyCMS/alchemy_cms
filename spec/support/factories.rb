@@ -97,6 +97,11 @@ FactoryGirl.define do
   factory :element, :class => 'Alchemy::Element' do
     name 'article'
     create_contents_after_create false
+
+    factory :unique_element do
+      unique true
+      name 'header'
+    end
   end
 
   factory :picture, :class => 'Alchemy::Picture' do

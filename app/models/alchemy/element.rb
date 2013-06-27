@@ -91,46 +91,6 @@ module Alchemy
       end
       alias_method :definitions, :descriptions
 
-      # List all element definitions for +self.page#page_layout+
-      def all_for_page(page)
-        raise TypeError if page.class.name != "Alchemy::Page"
-        # if page_layout has cells, collect elements from cells and group them by cellname
-        page_layout = PageLayout.get(page.page_layout)
-        if page_layout.blank?
-          Alchemy::Logger.warn "Could not find page_layout description for page: #{page.name}", caller.first
-          return []
-        end
-        elements_for_layout = []
-        elements_for_layout += all_definitions_for(page_layout['elements'])
-        return [] if elements_for_layout.blank?
-        # all unique and limited elements from this layout
-        limited_elements = elements_for_layout.select{ |m| m["unique"] == true || (m["amount"] > 0 unless m["amount"].nil?) }
-        elements_already_on_the_page = page.elements.not_trashed
-        # delete all elements from the elements that could be placed that are unique or limited and already and the page
-        elements_counts = Hash.new(0)
-        elements_already_on_the_page.each { |e| elements_counts[e.name] += 1 }
-        limited_elements.each do |limited_element|
-          next if elements_counts[limited_element["name"]] == 0
-          if limited_element["unique"]
-            elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] > 0
-            next
-          end
-          unless limited_element["amount"].nil?
-            elements_for_layout.delete(limited_element) if elements_counts[limited_element["name"]] >= limited_element["amount"]
-          end
-        end
-        elements_for_layout
-      end
-
-      def all_definitions_for(element_names)
-        return [] if element_names.blank?
-        if element_names.to_s == "all"
-          definitions
-        else
-          definitions.select { |e| element_names.include? e['name'] }
-        end
-      end
-
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
       # == Options
@@ -155,30 +115,18 @@ module Alchemy
         element
       end
 
-      # List all elements from page_layout
-      def elements_for_layout(layout)
-        elements = []
-        layout_elements = PageLayout.get(layout)["elements"]
-        return Element.descriptions if layout_elements == "all"
-        Element.descriptions.each do |element|
-          if layout_elements.include?(element["name"])
-            elements << element
-          end
-        end
-        elements
-      end
-
       def all_from_clipboard(clipboard)
         return [] if clipboard.nil?
-        find_all_by_id(clipboard.collect { |i| i[:id] })
+        find_all_by_id(clipboard.collect { |e| e[:id] })
       end
 
+      # All elements in clipboard that could be placed on page
+      #
       def all_from_clipboard_for_page(clipboard, page)
         return [] if clipboard.nil? || page.nil?
-        allowed_elements = all_for_page(page)
-        clipboard_elements = all_from_clipboard(clipboard)
-        allowed_element_names = allowed_elements.collect { |e| e['name'] }
-        clipboard_elements.select { |ce| allowed_element_names.include?(ce.name) }
+        all_from_clipboard(clipboard).select { |ce|
+          page.available_element_names.include?(ce.name)
+        }
       end
 
     end

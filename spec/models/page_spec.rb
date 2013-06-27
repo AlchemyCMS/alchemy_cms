@@ -502,6 +502,86 @@ module Alchemy
 
     # InstanceMethods (a-z)
 
+    describe '#available_element_definitions' do
+      let(:page) { FactoryGirl.build_stubbed(:public_page) }
+
+      it "returns all element definitions of available elements" do
+        page.available_element_definitions.should be_an(Array)
+        page.available_element_definitions.collect { |e| e['name'] }.should include('header')
+      end
+
+      context "with unique elements already on page" do
+        let(:element) { FactoryGirl.build_stubbed(:unique_element) }
+        before { page.stub_chain(:elements, :not_trashed, :pluck).and_return([element.name]) }
+
+        it "does not return unique element definitions" do
+          page.available_element_definitions.collect { |e| e['name'] }.should include('article')
+          page.available_element_definitions.collect { |e| e['name'] }.should_not include('header')
+        end
+      end
+
+      context "for page_layout not existing" do
+        let(:page) { FactoryGirl.build_stubbed(:page, page_layout: 'not_existing_one') }
+
+        it "should raise error" do
+          expect {
+            page.available_element_definitions
+          }.to raise_error(Alchemy::PageLayoutDefinitionError)
+        end
+      end
+
+      context 'limited amount' do
+        let(:page) { FactoryGirl.build_stubbed(:page, page_layout: 'columns') }
+        let(:unique_element) { FactoryGirl.build_stubbed(:unique_element, name: 'unique_headline') }
+        let(:element_1) { FactoryGirl.build_stubbed(:element, name: 'column_headline') }
+        let(:element_2) { FactoryGirl.build_stubbed(:element, name: 'column_headline') }
+        let(:element_3) { FactoryGirl.build_stubbed(:element, name: 'column_headline') }
+
+        before {
+          Element.stub(:definitions).and_return([
+            {
+              'name' => 'column_headline',
+              'amount' => 3,
+              'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+            },
+            {
+              'name' => 'unique_headline',
+              'unique' => true,
+              'amount' => 3,
+              'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+            }
+          ])
+          PageLayout.stub(:get).and_return({
+            'name' => 'columns',
+            'elements' => ['column_headline', 'unique_headline'],
+            'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
+          })
+          page.stub_chain(:elements, :not_trashed, :pluck).and_return([unique_element.name, element_1.name, element_2.name, element_3.name])
+        }
+
+        it "should be readable" do
+          element = page.element_definitions_by_name('column_headline').first
+          element['amount'].should be 3
+        end
+
+        it "should limit elements" do
+          page.available_element_definitions.collect { |e| e['name'] }.should_not include('column_headline')
+        end
+
+        it "should be ignored if unique" do
+          page.available_element_definitions.collect { |e| e['name'] }.should_not include('unique_headline')
+        end
+      end
+    end
+
+    describe '#available_element_names' do
+      let(:page) { FactoryGirl.build_stubbed(:page) }
+
+      it "returns all names of elements that could be placed on current page" do
+        page.available_element_names == %w(header article)
+      end
+    end
+
     describe '#cache_key' do
       let(:page) { stub_model(Page) }
       subject { page }
@@ -536,6 +616,43 @@ module Alchemy
           Element.trashed.should_not be_empty
         end
 
+      end
+    end
+
+    describe '#element_definitions_by_name' do
+      let(:page) { FactoryGirl.build_stubbed(:public_page) }
+
+      context "with no name given" do
+        it "returns empty array" do
+          page.element_definitions_by_name(nil).should == []
+        end
+      end
+
+      context "with 'all' passed as name" do
+        it "returns all element definitions" do
+          Element.should_receive(:definitions)
+          page.element_definitions_by_name('all')
+        end
+      end
+
+      context "with :all passed as name" do
+        it "returns all element definitions" do
+          Element.should_receive(:definitions)
+          page.element_definitions_by_name(:all)
+        end
+      end
+    end
+
+    describe '#element_definition_names' do
+      let(:page) { FactoryGirl.build_stubbed(:public_page) }
+
+      it "returns all element names defined in page layout" do
+        page.element_definition_names.should == %w(article header)
+      end
+
+      it "returns always an array" do
+        page.stub(:definition).and_return({})
+        page.element_definition_names.should be_an(Array)
       end
     end
 
@@ -759,7 +876,7 @@ module Alchemy
               center_page.previous(restricted: true).should == restricted_page
             end
           end
- 
+
           context "set to false" do
             it "skips restricted page" do
               center_page.previous(restricted: false).should == public_page
@@ -773,7 +890,7 @@ module Alchemy
               center_page.previous(public: true).should == public_page
             end
           end
- 
+
           context "set to false" do
             it "skips public page" do
               center_page.previous(public: false).should == non_public_page

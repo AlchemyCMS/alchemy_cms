@@ -44,6 +44,70 @@ module Alchemy
 
     end
 
+    # All available element definitions that can actually be placed on current page.
+    #
+    # It extracts all definitions that are unique or limited and already on page.
+    #
+    # == Example of unique element:
+    #
+    #   - name: headline
+    #     unique: true
+    #     contents:
+    #     - name: headline
+    #       type: EssenceText
+    #
+    # == Example of limited element:
+    #
+    #   - name: article
+    #     amount: 2
+    #     contents:
+    #     - name: text
+    #       type: EssenceRichtext
+    #
+    def available_element_definitions
+      @elements_for_layout = element_definitions_by_name(element_definition_names)
+      return [] if @elements_for_layout.blank?
+      @page_element_names = elements.not_trashed.pluck(:name)
+      delete_unique_element_definitions!
+      delete_outnumbered_element_definitions!
+      @elements_for_layout
+    end
+
+    # All names of elements that can actually be placed on current page.
+    #
+    def available_element_names
+      available_element_definitions.collect { |e| e['name'] }
+    end
+
+    # All names of elements that are defined in the page's page_layout definition.
+    #
+    # Define elements in +config/alchemy/page_layout.yml+ file
+    #
+    # == Example:
+    #
+    #   - name: contact
+    #     elements: [headline, contactform]
+    #
+    def element_definition_names
+      definition['elements'] || []
+    end
+
+    # Returns Element definitions with given name(s)
+    #
+    # @param [Array || String]
+    #   one or many Alchemy::Element names. Pass +'all'+ to get all Element definitions
+    # @return [Array]
+    #   An Array of element definitions
+    #
+    def element_definitions_by_name(names)
+      return [] if names.blank?
+      if names.to_s == "all"
+        Element.definitions
+      else
+        Element.definitions.select { |e| names.include? e['name'] }
+      end
+    end
+
     # Finds selected elements from page.
     #
     # Returns only public elements by default.
@@ -141,6 +205,22 @@ module Alchemy
     # Trashes all elements that are not allowed for this page_layout.
     def trash_not_allowed_elements
       elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash)
+    end
+
+    # Deletes unique and already present definitions from @elements_for_layout.
+    #
+    def delete_unique_element_definitions!
+      @elements_for_layout.delete_if { |element|
+        element['unique'] && @page_element_names.include?(element['name'])
+      }
+    end
+
+    # Deletes limited and outnumbered definitions from @elements_for_layout.
+    #
+    def delete_outnumbered_element_definitions!
+      @elements_for_layout.delete_if { |element|
+        element['amount'] && @page_element_names.select { |i| i == element['name'] }.count >= element['amount'].to_i
+      }
     end
 
   end
