@@ -2,7 +2,6 @@ require "#{File.dirname(__FILE__)}/shell"
 
 module Alchemy
   class Seeder
-
     extend Shell
 
     class << self
@@ -12,13 +11,6 @@ module Alchemy
       def seed!
         create_default_site
         create_root_page
-      end
-
-    private
-
-      def desc(message)
-        puts "\n#{message}"
-        puts "#{'-' * message.length}\n"
       end
 
     protected

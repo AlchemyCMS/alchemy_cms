@@ -4,9 +4,14 @@ require 'thor/shell/color'
 module Alchemy
 
   # Provides methods for collecting sentences and displaying them
-  # in a list on the shell / log 
+  # in a list on the shell / log
   #
   module Shell
+
+    def desc(message)
+      puts "\n#{message}"
+      puts "#{'-' * message.length}\n"
+    end
 
     def todo(todo)
       add_todo todo

@@ -4,6 +4,7 @@ namespace :alchemy do
     desc "Tidy up Alchemy database."
     task :up do
       Rake::Task['alchemy:tidy:cells'].invoke
+      Rake::Task['alchemy:tidy:element_positions'].invoke
     end
 
     desc "Creates missing cells for pages."
@@ -17,14 +18,20 @@ namespace :alchemy do
       end
     end
 
+    desc "Fixes element positions."
+    task :element_positions => [:environment] do
+      Alchemy::Tidy.update_element_positions
+    end
+
   end
 end
 
 module Alchemy
-  module Tidy
+  class Tidy
+    extend Shell
 
     def self.create_missing_cells(page_layouts, cells)
-      puts "== Creating missing cells"
+      desc "Create missing cells"
       page_layouts.each do |layout|
         next if layout['cells'].blank?
         cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
@@ -34,9 +41,26 @@ module Alchemy
             cell.elements << page.elements.select { |element| cell_for_layout['elements'].include?(element.name) }
             if cell.new_record?
               cell.save
-              puts "  Creating cell #{cell.name} for page #{page.name}"
+              log "Creating cell #{cell.name} for page #{page.name}"
             else
-              puts "  Skipping! Cell #{cell.name} for page #{page.name} already present"
+              log "Cell #{cell.name} for page #{page.name} already present", :skip
+            end
+          end
+        end
+      end
+    end
+
+    def self.update_element_positions
+      desc "Update element positions"
+      Alchemy::Page.all.each do |page|
+        page.elements.group_by(&:cell_id).each do |cell_id, elements|
+          elements.each_with_index do |element, idx|
+            position = idx + 1
+            if element.position != position
+              log "Updating position for element ##{element.id} to #{position}"
+              element.update_column(:position, position)
+            else
+              log "Position for element ##{element.id} is already correct", :skip
             end
           end
         end
