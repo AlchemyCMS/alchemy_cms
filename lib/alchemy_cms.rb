@@ -1,6 +1,6 @@
 require 'rails'
 
-if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
+if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
   require 'acts_as_list'
   require 'acts-as-taggable-on'
   require 'devise'
@@ -46,5 +46,5 @@ if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   end
   require File.join(File.dirname(__FILE__), "alchemy", "seeder")
 else
-  raise "Alchemy #{Alchemy::VERSION} needs Rails 3.2 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
+  raise "Alchemy #{Alchemy::VERSION} needs Rails 4.0 or higher. You are currently using Rails #{Rails::VERSION::STRING}"
 end

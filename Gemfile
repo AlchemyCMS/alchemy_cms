@@ -2,9 +2,17 @@ source 'http://rubygems.org'
 
 gemspec
 
+# rails 4 specific
+gem 'awesome_nested_set', :github => 'collectiveidea/awesome_nested_set', :branch => 'rails4'
+gem 'protected_attributes', :github => 'rails/protected_attributes'
+#gem 'actionpack-action_caching', :github => 'rails/actionpack-action_caching'
+#gem 'actionpack-page_caching', :github => 'rails/actionpack-page_caching'
+gem 'acts-as-taggable-on', :github => 'mbleigh/acts-as-taggable-on'
+gem 'acts_as_list', :github => 'tvdeyen/acts_as_list', :branch => 'ar3-find-syntax-fix'
+
 # For some strange reason it's only loaded outside any group
-gem 'jasmine'
-gem 'jasminerice'
+#gem 'jasmine'
+#gem 'jasminerice'
 gem 'multi_json', '1.7.2' # http://stackoverflow.com/q/16543693
 
 # Code coverage plattform
@@ -21,16 +29,9 @@ group :test do
   end
 end
 
-group :assets do
-  gem 'sass-rails', '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
-
 group :development do
   unless ENV['CI']
     gem 'debugger'
-    gem 'quiet_assets' # Mute assets loggin
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
   end
 end
