@@ -54,8 +54,8 @@ module Alchemy
     attr_accessor :do_not_validate_language
 
     before_save :set_language_code, :unless => :systempage?
-    before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
-    before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
+    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
+    after_update :set_restrictions_to_child_pages, unless: :systempage?
     after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
 
     scope :language_roots, where(:language_root => true)
@@ -305,14 +305,10 @@ module Alchemy
       self.public_was != self.public
     end
 
+    # Sets my restricted value to all child pages
+    #
     def set_restrictions_to_child_pages
-      descendants.each do |child|
-        child.update_attributes(:restricted => self.restricted?)
-      end
-    end
-
-    def inherit_restricted_status
-      self.restricted = parent.restricted?
+      descendants.update_all(restricted: self.restricted?)
     end
 
     def contains_feed?
@@ -405,6 +401,12 @@ module Alchemy
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
       legacy_urls.find_or_create_by_urlname(:urlname => urlname_was)
+    end
+
+    # Sets my restricted status to parent's restricted status
+    #
+    def inherit_restricted_status
+      self.restricted = parent.restricted?
     end
 
   end

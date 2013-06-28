@@ -550,21 +550,36 @@ module Alchemy
 
         end
 
-        context "with children getting restricted set to true" do
-
-          before do
+        context "with children" do
+          before {
             @page.save
             @child1 = FactoryGirl.create(:page, :name => 'Child 1', :parent_id => @page.id)
             @page.reload
-            @page.restricted = true
-            @page.save
+          }
+
+          context "and restricted been set to true" do
+            before {
+              @page.restricted = true
+              @page.save
+            }
+
+            it "should restrict all children" do
+              @child1.reload
+              @child1.restricted?.should be_true
+            end
           end
 
-          it "should restrict all its children" do
-            @child1.reload
-            @child1.restricted?.should be_true
-          end
+          context "and restricted been set to false" do
+            before {
+              @page.restricted = false
+              @page.save
+            }
 
+            it "should unrestrict all children" do
+              @child1.reload
+              @child1.restricted?.should be_false
+            end
+          end
         end
 
         context "with restricted parent gets created" do
