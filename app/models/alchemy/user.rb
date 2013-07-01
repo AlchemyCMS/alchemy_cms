@@ -39,12 +39,9 @@ module Alchemy
 
     after_save :deliver_welcome_mail, if: -> { send_credentials }
 
-    scope :admins, where(arel_table[:roles].matches("%admin%")) # not pleased with that approach
-    # mysql regexp word matching would be much nicer, but it's not included in SQLite functions per se.
-    # scope :admins, where("#{table_name}.roles REGEXP '[[:<:]]admin[[:>:]]'")
-
-    scope :logged_in, lambda { where("last_request_at > ?", logged_in_timeout.seconds.ago) }
-    scope :logged_out, lambda { where("last_request_at is NULL or last_request_at <= ?", logged_in_timeout.seconds.ago) }
+    scope :admins,     -> { where(arel_table[:roles].matches('%admin%')) }
+    scope :logged_in,  -> { where('last_request_at > ?', logged_in_timeout.seconds.ago) }
+    scope :logged_out, -> { where('last_request_at is NULL or last_request_at <= ?', logged_in_timeout.seconds.ago) }
 
     ROLES = Config.get(:user_roles)
 

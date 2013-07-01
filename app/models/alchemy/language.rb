@@ -30,11 +30,9 @@ module Alchemy
     after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
     before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
-    scope :published, where(:public => true)
-    scope :with_language_root, joins(:pages).where("alchemy_pages" => {language_root: true})
-
-    # multi-site support
-    scope :on_site, lambda { |s| s.present? ? where(site_id: s) : scoped }
+    scope :published,          -> { where(public: true) }
+    scope :with_language_root, -> { joins(:pages).where('alchemy_pages' => {language_root: true}) }
+    scope :on_site,            ->(s) { s.present? ? where(site_id: s) : scoped }
     default_scope { on_site(Site.current) }
 
     class << self

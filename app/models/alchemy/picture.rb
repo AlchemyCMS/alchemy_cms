@@ -37,8 +37,8 @@ module Alchemy
 
     stampable(:stamper_class_name => 'Alchemy::User')
 
-    scope :recent, where("#{self.table_name}.created_at > ?", Time.now-24.hours).order(:created_at)
-    scope :deletable, where("alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
+    scope :recent,    -> { where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at) }
+    scope :deletable, -> { where('alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)') }
 
     # Class methods
 

@@ -35,19 +35,16 @@ module Alchemy
 
     after_create :create_contents, :unless => proc { |e| e.create_contents_after_create == false }
 
-    scope :trashed, where(:position => nil).order('updated_at DESC')
-    scope :not_trashed, where(Element.arel_table[:position].not_eq(nil))
-    scope :published, where(:public => true)
-    scope :not_restricted, joins(:page).where("alchemy_pages" => {:restricted => false})
-    scope :available, published.not_trashed
-    scope :named, lambda { |names| where(:name => names) }
-    scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
-    scope :not_in_cell, where(:cell_id => nil)
-    scope :in_cell, where("#{self.table_name}.cell_id IS NOT NULL")
-    # Scope for only the elements from Alchemy::Site.current
-    scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current || Site.default}).joins(:page => :language) }
-    # TODO: add this as default_scope
-    #default_scope { from_current_site }
+    scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
+    scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
+    scope :published,         -> { where(public: true) }
+    scope :not_restricted,    -> { joins(:page).where('alchemy_pages' => {restricted: false}) }
+    scope :available,         -> { published.not_trashed }
+    scope :named,             ->(names) { where(name: names) }
+    scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
+    scope :not_in_cell,       -> { where(cell_id: nil) }
+    scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
+    scope :from_current_site, -> { where(alchemy_languages: {site_id: Site.current || Site.default}).joins(page: 'language') }
 
     # Concerns
     include Definitions

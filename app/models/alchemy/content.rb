@@ -29,16 +29,16 @@ module Alchemy
     validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
     # Essence scopes
-    scope :essence_booleans, where(:essence_type => "Alchemy::EssenceBoolean")
-    scope :essence_dates, where(:essence_type => "Alchemy::EssenceDate")
-    scope :essence_files, where(:essence_type => "Alchemy::EssenceFile")
-    scope :essence_htmls, where(:essence_type => "Alchemy::EssenceHtml")
-    scope :essence_links, where(:essence_type => "Alchemy::EssenceLink")
-    scope :essence_pictures, where(:essence_type => "Alchemy::EssencePicture")
-    scope :gallery_pictures, essence_pictures.where("#{self.table_name}.name LIKE 'essence_picture_%'")
-    scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
-    scope :essence_selects, where(:essence_type => "Alchemy::EssenceSelect")
-    scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
+    scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }
+    scope :essence_dates,     -> { where(essence_type: "Alchemy::EssenceDate") }
+    scope :essence_files,     -> { where(essence_type: "Alchemy::EssenceFile") }
+    scope :essence_htmls,     -> { where(essence_type: "Alchemy::EssenceHtml") }
+    scope :essence_links,     -> { where(essence_type: "Alchemy::EssenceLink") }
+    scope :essence_pictures,  -> { where(essence_type: "Alchemy::EssencePicture") }
+    scope :gallery_pictures,  -> { essence_pictures.where("#{self.table_name}.name LIKE 'essence_picture_%'") }
+    scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
+    scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
+    scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
 
     class << self
       # Returns the translated label for a content name.
