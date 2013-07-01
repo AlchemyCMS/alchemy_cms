@@ -13,7 +13,7 @@
       <%= devise_error_messages! %>
     </div>
     <% end %>
-    <%= form_for(:user, :url => password_path, :html => { :method => :post }) do |f| %>
+    <%= form_for(:user, :url => reset_password_path, :html => { :method => :post }) do |f| %>
       <table>
         <tr>
           <td class="label"><%= f.label :email %></td>

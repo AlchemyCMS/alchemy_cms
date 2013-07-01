@@ -7,7 +7,7 @@
 </div>
 
 <div id="user_signup" class="login_signup_box">
-  <%= form_for @user, :url => alchemy.signup_path do |f| %>
+  <%= form_for @user do |f| %>
     <%= f.error_messages %>
     <%= render :partial => 'alchemy/admin/users/table', :locals => {:f => f} %>
   <% end %>

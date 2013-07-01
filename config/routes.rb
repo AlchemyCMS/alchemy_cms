@@ -15,14 +15,14 @@ Alchemy::Engine.routes.draw do
 
   devise_scope :user do
     get '/admin/login' => 'user_sessions#new', :as => :login
-    post '/admin/login' => 'user_sessions#create', :as => :login
+    post '/admin/login' => 'user_sessions#create'
     delete '/admin/logout' => 'user_sessions#destroy', :as => :logout
     get '/admin/dashboard' => 'admin/dashboard#index', :as => :user_root
     get '/admin/leave' => 'user_sessions#leave', :as => :leave_admin
     get '/admin/passwords' => 'passwords#new', :as => :new_password
     get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit', :as => :edit_password
-    post '/admin/passwords' => 'passwords#create', :as => :password
-    put '/admin/passwords' => 'passwords#update', :as => :password
+    post '/admin/passwords' => 'passwords#create', :as => :reset_password
+    put '/admin/passwords' => 'passwords#update', :as => :update_password
   end
 
   # This actualy does all the Devise magic. I.e. current_user method in ApplicationController
@@ -36,7 +36,7 @@ Alchemy::Engine.routes.draw do
   )
 
   get '/admin/signup' => 'users#new', :as => :signup
-  post '/admin/signup' => 'users#create', :as => :signup
+  resources :users, only: [:create]
 
   get '/attachment/:id/download(/:name)' => 'attachments#download',
         :as => :download_attachment
@@ -164,13 +164,13 @@ Alchemy::Engine.routes.draw do
 
   end
 
-  match '/:lang' => 'pages#show',
-        :constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
-        :as => :show_language_root
+  get '/:lang' => 'pages#show',
+      :constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
+      :as => :show_language_root
 
   # The page show action has to be last route
-  match '(/:lang)/*urlname(.:format)' => 'pages#show',
-        :constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
-        :as => :show_page
+  get '(/:lang)/*urlname(.:format)' => 'pages#show',
+      :constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
+      :as => :show_page
 
 end
