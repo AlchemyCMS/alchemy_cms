@@ -6,9 +6,9 @@ module Alchemy
     included do
       attr_accessor :do_not_autogenerate
 
-      has_many :elements, :order => :position
+      has_many :elements, -> { order(:position) }
       has_many :contents, :through => :elements
-      has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
+      has_and_belongs_to_many :to_be_sweeped_elements, -> { uniq }, class_name: 'Alchemy::Element', join_table: 'alchemy_elements_alchemy_pages'
 
       after_create :autogenerate_elements, :unless => proc { systempage? || do_not_autogenerate }
       after_update :trash_not_allowed_elements, :if => :page_layout_changed?

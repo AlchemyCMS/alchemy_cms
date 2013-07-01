@@ -22,10 +22,10 @@ module Alchemy
     acts_as_list :scope => [:page_id, :cell_id]
     stampable(:stamper_class_name => 'Alchemy::User')
 
-    has_many :contents, :order => :position, :dependent => :destroy
+    has_many :contents, -> { order(:position) }, dependent: :destroy
     belongs_to :cell
     belongs_to :page
-    has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
+    has_and_belongs_to_many :to_be_sweeped_pages, -> { uniq }, class_name: 'Alchemy::Page', join_table: 'alchemy_elements_alchemy_pages'
 
     validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
