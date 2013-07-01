@@ -12,7 +12,7 @@ gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 gem 'declarative_authorization',        "~> 0.5.7"
 gem 'dragonfly',                        "~> 0.9.14"
 gem 'kaminari',                         "~> 0.14.1"
-gem 'acts_as_ferret',                   "~> 0.5"
+gem 'acts_as_ferret', github: 'tvdeyen/acts_as_ferret', branch: 'rails-4'
 gem 'acts_as_list', github: 'philippfranke/acts_as_list', branch: 'rails4_compatibility'
 gem 'magiclabs-userstamp',              "~> 2.0.2"
 gem 'dynamic_form',                     "~> 1.1"
