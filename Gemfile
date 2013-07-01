@@ -25,9 +25,15 @@ gem 'compass-rails',                    '~> 1.0.3'
 gem 'sassy-buttons',                    '~> 0.1.3'
 #gem 'rails3-jquery-autocomplete',       '~> 1.0.10' #https://github.com/crowdint/rails3-jquery-autocomplete/issues/198
 gem 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
+
+# for attr_accesible
 gem 'protected_attributes', github: 'rails/protected_attributes'
+
+# for caching and sweepers
+gem 'rails-observers', github: 'rails/rails-observers'
 gem 'actionpack-action_caching', github: 'rails/actionpack-action_caching'
 gem 'actionpack-page_caching', github: 'rails/actionpack-page_caching'
+
 gem 'multi_json', '1.7.2' # http://stackoverflow.com/q/16543693
 
 # Code coverage plattform
