@@ -12,6 +12,9 @@ module Alchemy
     # concerns
     include Layout
 
+    # concerns
+    include Layout
+
     # Returns true if this site is the current site
     def current?
       self.class.current == self
