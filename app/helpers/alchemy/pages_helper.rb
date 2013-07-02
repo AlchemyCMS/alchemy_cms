@@ -50,6 +50,26 @@ module Alchemy
       render :partial => "alchemy/page_layouts/standard"
     end
 
+    # Renders a partial for current site
+    #
+    # Place a rails partial into +app/views/alchemy/site_layouts+
+    #
+    # and name it like your site name.
+    #
+    # == Example:
+    #
+    #   <%= render_site_layout %>
+    #
+    # renders +app/views/alchemy/site_layouts/_default_site.html.erb+ for the site named "Default Site".
+    #
+    def render_site_layout
+      partial_name = current_site.name.parameterize.underscore
+      render "alchemy/site_layouts/#{partial_name}"
+    rescue ActionView::MissingTemplate
+      warning("Site layout for #{current_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
+      return ""
+    end
+
     # Renders the navigation.
     #
     # It produces a html <ul><li></li></ul> structure with all necessary classes so you can produce every navigation the web uses today.
