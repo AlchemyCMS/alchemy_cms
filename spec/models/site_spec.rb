@@ -162,6 +162,28 @@ module Alchemy
       end
     end
 
+    describe '.layout_definitions' do
+      # To prevent memoization across specs
+      before { Site.instance_variable_set("@layout_definitions", nil) }
+
+      subject { Site.layout_definitions }
+
+      context "with file present" do
+        let(:definitions) { [{'name' => 'lala'}] }
+        before { YAML.should_receive(:load_file).and_return(definitions) }
+        it { should == definitions }
+      end
+
+      context "with empty file" do
+        before { YAML.should_receive(:load_file).and_return(false) }
+        it { should == [] }
+      end
+
+      context "with no file present" do
+        it { should == [] }
+      end
+    end
+
     describe '#current?' do
       subject { site.current? }
 
