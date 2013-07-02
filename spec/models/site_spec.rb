@@ -109,5 +109,13 @@ module Alchemy
         it { should be_false }
       end
     end
+
+    describe '#to_partial_path' do
+      let(:site) {Site.new(name: 'My custom site')}
+
+      it "returns the path to partial" do
+        site.to_partial_path.should == "alchemy/site_layouts/my_custom_site"
+      end
+    end
   end
 end

@@ -63,8 +63,7 @@ module Alchemy
     # renders +app/views/alchemy/site_layouts/_default_site.html.erb+ for the site named "Default Site".
     #
     def render_site_layout
-      partial_name = current_site.name.parameterize.underscore
-      render "alchemy/site_layouts/#{partial_name}"
+      render current_site
     rescue ActionView::MissingTemplate
       warning("Site layout for #{current_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
       return ""

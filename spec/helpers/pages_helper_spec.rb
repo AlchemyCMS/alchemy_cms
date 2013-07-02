@@ -34,16 +34,16 @@ module Alchemy
 
     describe '#render_site_layout' do
       let(:default_site) { Alchemy::Site.default }
-      let(:partial_name) { default_site.name.parameterize.underscore }
-      before { helper.should_receive(:current_site).and_return(default_site) }
 
       it "renders the partial for current site" do
-        helper.should_receive(:render).with("alchemy/site_layouts/#{partial_name}")
+        helper.should_receive(:current_site).and_return(default_site)
+        helper.should_receive(:render).with(default_site)
         helper.render_site_layout
       end
 
       context "with missing partial" do
         it "returns empty string and logges warning" do
+          helper.should_receive(:current_site).twice.and_return(default_site)
           expect(helper.render_site_layout).to eq("")
         end
       end

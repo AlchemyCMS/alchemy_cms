@@ -16,6 +16,16 @@ module Alchemy
       self.class.current == self
     end
 
+    # Returns the path to site's view partial.
+    #
+    # Site view partials live in +app/views/alchemy/site_layouts+
+    #
+    # Please use <tt>rails g alchemy:site_layouts</tt> to generate partials for all your sites.
+    #
+    def to_partial_path
+      "alchemy/site_layouts/#{partial_name}"
+    end
+
     class << self
       def current=(v)
         Thread.current[:alchemy_current_site] = v
@@ -61,5 +71,12 @@ module Alchemy
         )
       end
     end
+
+  private
+
+    def partial_name
+      name.parameterize.underscore
+    end
+
   end
 end
