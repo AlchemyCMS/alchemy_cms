@@ -91,6 +91,28 @@ module Alchemy
       end
     end
 
+    describe '.layout_definitions' do
+      # To prevent memoization across specs
+      before { Site.instance_variable_set("@layout_definitions", nil) }
+
+      subject { Site.layout_definitions }
+
+      context "with file present" do
+        let(:definitions) { [{'name' => 'lala'}] }
+        before { YAML.should_receive(:load_file).and_return(definitions) }
+        it { should == definitions }
+      end
+
+      context "with empty file" do
+        before { YAML.should_receive(:load_file).and_return(false) }
+        it { should == [] }
+      end
+
+      context "with no file present" do
+        it { should == [] }
+      end
+    end
+
     describe '#current?' do
       subject { site.current? }
 
@@ -117,5 +139,24 @@ module Alchemy
         site.to_partial_path.should == "alchemy/site_layouts/my_custom_site"
       end
     end
+
+    describe '#layout_partial_name' do
+      let(:site) {Site.new(name: 'My custom site')}
+
+      it "returns the name for layout partial" do
+        site.layout_partial_name.should == "my_custom_site"
+      end
+    end
+
+    describe '#layout_definition' do
+      let(:site) {Site.new(name: 'My custom site')}
+      let(:definitions) { [{'name' => 'my_custom_site', 'page_layouts' => %w(standard)}] }
+
+      it "returns layout definition from site_layouts.yml file" do
+        Site.stub(:layout_definitions).and_return(definitions)
+        site.layout_definition.should == definitions.first
+      end
+    end
+
   end
 end

@@ -11,6 +11,9 @@ module Alchemy
 
     scope :published, where(public: true)
 
+    # concerns
+    include Layout
+
     # Returns true if this site is the current site
     def current?
       self.class.current == self
@@ -23,7 +26,7 @@ module Alchemy
     # Please use <tt>rails g alchemy:site_layouts</tt> to generate partials for all your sites.
     #
     def to_partial_path
-      "alchemy/site_layouts/#{partial_name}"
+      "alchemy/site_layouts/#{layout_partial_name}"
     end
 
     class << self
@@ -70,12 +73,6 @@ module Alchemy
           default:        true
         )
       end
-    end
-
-  private
-
-    def partial_name
-      name.parameterize.underscore
     end
 
   end
