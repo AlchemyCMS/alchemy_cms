@@ -65,6 +65,8 @@
 
   * {
     @include box-sizing;
+    margin: 0;
+    padding: 0;
   }
 
   &:hover {
