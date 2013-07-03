@@ -20,44 +20,56 @@ module Alchemy
     validates_uniqueness_of :name, :scope => :page_id
     has_many :elements, :dependent => :destroy, :order => :position
 
-    def self.definitions
-      cell_yml = ::File.join(::Rails.root, 'config', 'alchemy', 'cells.yml')
-      ::YAML.load_file(cell_yml)
-    end
+    class << self
+      def definitions
+        @definitions ||= read_yml_file
+      end
 
-    def self.definition_for(cellname)
-      return nil if cellname.blank?
-      definitions.detect { |c| c['name'] == cellname }
-    end
+      def definition_for(cellname)
+        return nil if cellname.blank?
+        definitions.detect { |c| c['name'] == cellname }
+      end
 
-    def self.all_definitions_for(cellnames)
-      definitions.select { |c| cellnames.include? c['name'] }
-    end
+      def all_definitions_for(cellnames)
+        definitions.select { |c| cellnames.include? c['name'] }
+      end
 
-    def self.definitions_for_element(element_name)
-      return [] if definitions.blank?
-      definitions.select { |d| d['elements'].include?(element_name) }
-    end
+      def definitions_for_element(element_name)
+        return [] if definitions.blank?
+        definitions.select { |d| d['elements'].include?(element_name) }
+      end
 
-    def self.translated_label_for(cell_name)
-      I18n.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
+      def translated_label_for(cell_name)
+        I18n.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
+      end
+
+    private
+
+      def read_yml_file
+        ::YAML.load_file(yml_file_path) || []
+      end
+
+      def yml_file_path
+        Rails.root.join('config', 'alchemy', 'cells.yml')
+      end
     end
 
     # Returns the cell definition defined in +config/alchemy/cells.yml+
-    def description
-      description = self.class.definition_for(self.name)
-      if description.blank?
+    #
+    def definition
+      definition = self.class.definition_for(self.name)
+      if definition.blank?
         log_warning "Could not find cell definition for #{self.name}. Please check your cells.yml!"
         return {}
       else
-        description
+        definition
       end
     end
-    alias_method :definition, :description
+    alias_method :description, :definition
 
     # Returns all elements that can be placed in this cell
     def available_elements
-      description['elements'] || []
+      definition['elements'] || []
     end
 
     def name_for_label
