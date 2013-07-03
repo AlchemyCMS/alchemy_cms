@@ -45,7 +45,7 @@ If you are looking for a Rails 2.3 compatible version check the [1.6-stable bran
 Ruby Version
 ------------
 
-Alchemy runs with Ruby 1.9.2 and Ruby 1.9.3 only.
+Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0.0).
 
 For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).
 
