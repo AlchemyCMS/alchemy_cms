@@ -60,10 +60,12 @@ module Alchemy
     end
 
     describe '.selectable_layouts' do
-      subject { PageLayout.selectable_layouts(Language.get_default.id) }
+      let(:language) { Language.get_default }
+      before { language }
+      subject { PageLayout.selectable_layouts(language.id) }
 
       it "should not display hidden page layouts" do
-        subject.each { |e| e['hide'].should_not == true }
+        subject.each { |l| l['hide'].should_not == true }
       end
 
       context "with already taken layouts" do
@@ -73,7 +75,18 @@ module Alchemy
         }
 
         it "should not include unique layouts" do
-          subject.each { |e| e['unique'].should_not == true }
+          subject.each { |l| l['unique'].should_not == true }
+        end
+      end
+
+      context "with sites layouts present" do
+        let(:site) { Site.new }
+        let(:definitions) { [{'name' => 'default_site', 'page_layouts' => %w(intro)}] }
+        before { Site.stub(:layout_definitions).and_return(definitions) }
+
+        it "should only return layouts for site" do
+          subject.length.should == 1
+          subject.first['name'].should == 'intro'
         end
       end
     end
@@ -94,6 +107,25 @@ module Alchemy
         it "should return an empty array" do
           PageLayout.stub(:get).with('layout_without_elements_key').and_return({'name' => 'layout_without_elements_key'})
           expect(PageLayout.element_names_for('layout_without_elements_key')).to eq([])
+        end
+      end
+    end
+
+    describe '.human_layout_name' do
+      let(:layout) { {'name' => 'contact'} }
+      subject { PageLayout.human_layout_name(layout['name']) }
+
+      context "with no translation present" do
+        it "returns the name capitalized" do
+          should == 'Contact'
+        end
+      end
+
+      context "with translation present" do
+        before { I18n.should_receive(:t).and_return('Kontakt') }
+
+        it "returns the translated name" do
+          should == 'Kontakt'
         end
       end
     end

@@ -55,19 +55,17 @@ module Alchemy
 
       # Returns page layouts ready for Rails' select form helper.
       #
-      def layouts_for_select(language_id, layoutpage = false)
+      def layouts_for_select(language_id, only_layoutpages = false)
         @map_array = [[I18n.t('Please choose'), '']]
-        mapped_layouts_for_select(selectable_layouts(language_id, layoutpage))
+        mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages))
       end
 
       # Returns page layouts including given layout ready for Rails' select form helper.
       #
-      def layouts_with_own_for_select(own_layout, language_id, layoutpage)
-        layouts = selectable_layouts(language_id, layoutpage)
-        if layouts.detect { |l| l['name'] == own_layout }.nil?
-          @map_array = [
-            [I18n.t(own_layout, scope: 'page_layout_names', default: own_layout.to_s.humanize), own_layout]
-          ]
+      def layouts_with_own_for_select(page_layout_name, language_id, only_layoutpages = false)
+        layouts = selectable_layouts(language_id, only_layoutpages)
+        if layouts.detect { |l| l['name'] == page_layout_name }.nil?
+          @map_array = [[human_layout_name(page_layout_name), page_layout_name]]
         else
           @map_array = []
         end
@@ -105,12 +103,28 @@ module Alchemy
         end
       end
 
+      # Translates name for given layout
+      #
+      # === Translation example
+      #
+      #   de:
+      #     alchemy:
+      #       page_layout_names:
+      #         products_overview: Produktübersicht
+      #
+      # @param [String]
+      #   The layout name
+      #
+      def human_layout_name(layout)
+        I18n.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
+      end
+
     private
 
       # Returns true if the given layout is unique and not already taken or it should be hidden.
       #
       def layout_available?(layout)
-        !already_taken?(layout) && !layout['hide']
+        !layout['hide'] && !already_taken?(layout) && available_on_site?(layout)
       end
 
       # Returns true if this layout is unique and already taken by another page.
@@ -123,6 +137,20 @@ module Alchemy
       #
       def page_with_layout_existing?(layout)
         Page.where(page_layout: layout, language_id: @language_id).pluck(:id).any?
+      end
+
+      # Returns true if given layout is available for current site.
+      #
+      # If no site layouts are defined it always returns true.
+      #
+      # == Example
+      #
+      #   # config/alchemy/site_layouts.yml
+      #   - name: default_site
+      #     page_layouts: [default_intro]
+      #
+      def available_on_site?(layout)
+        Site.current.layout_definition.blank? || Site.current.layout_definition.fetch('page_layouts', []).include?(layout['name'])
       end
 
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
@@ -145,10 +173,7 @@ module Alchemy
       #
       def mapped_layouts_for_select(layouts)
         layouts.each do |layout|
-          @map_array << [
-            I18n.t(layout['name'], scope: 'page_layout_names', default: layout['name'].to_s.humanize),
-            layout["name"]
-          ]
+          @map_array << [human_layout_name(layout['name']), layout["name"]]
         end
         @map_array
       end
