@@ -50,6 +50,7 @@ module Alchemy
     #default_scope { from_current_site }
 
     # Concerns
+    include Definitions
     include Presenters
 
     # class methods
@@ -59,14 +60,13 @@ module Alchemy
       def new_from_scratch(attributes)
         attributes = attributes.dup.symbolize_keys
         return new if attributes[:name].blank?
-        return nil if descriptions.blank?
+        return nil if definitions.blank?
         # clean the name from cell name
         attributes[:name] = attributes[:name].split('#').first
-        element_scratch = descriptions.detect { |el| el['name'] == attributes[:name] }
-        if element_scratch
+        if element_scratch = definitions.detect { |el| el['name'] == attributes[:name] }
           new(element_scratch.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
         else
-          raise ElementDefinitionError, "Element description for #{attributes[:name]} not found. Please check your elements.yml"
+          raise ElementDefinitionError, "Element definition for #{attributes[:name]} not found. Please check your elements.yml"
         end
       end
 
@@ -76,20 +76,6 @@ module Alchemy
         element.save if element
         return element
       end
-
-      # Returns the descriptions from elements.yml file.
-      #
-      # Place a elements.yml file inside your apps config/alchemy folder to define
-      # your own set of elements
-      #
-      def descriptions
-        if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-          ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml") || []
-        else
-          raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
-        end
-      end
-      alias_method :definitions, :descriptions
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
@@ -198,9 +184,9 @@ module Alchemy
       contents.find_by_name(rss_title['name'])
     end
 
-    # Returns the content that is marked as rss description.
+    # Returns the content that is marked as rss definition.
     #
-    # Mark a content as rss description in your +elements.yml+ file:
+    # Mark a content as rss definition in your +elements.yml+ file:
     #
     #   - name: news
     #     contents:
@@ -215,41 +201,29 @@ module Alchemy
 
     # Returns the array with the hashes for all element contents in the elements.yml file
     def content_descriptions
-      return nil if description.blank?
-      description['contents']
+      return nil if definition.blank?
+      definition['contents']
     end
 
-    # Returns the description for given content_name
+    # Returns the definition for given content_name
     def content_description_for(content_name)
       if content_descriptions.blank?
-        log_warning "Element #{self.name} is missing the content description for #{content_name}"
+        log_warning "Element #{self.name} is missing the content definition for #{content_name}"
         return nil
       else
         content_descriptions.detect { |d| d['name'] == content_name }
       end
     end
 
-    # Returns the description for given content_name inside the available_contents
+    # Returns the definition for given content_name inside the available_contents
     def available_content_description_for(content_name)
       return nil if available_contents.blank?
       available_contents.detect { |d| d['name'] == content_name }
     end
 
-    # returns the description of the element with my name in element.yml
-    def description
-      description = self.class.descriptions.detect { |d| d['name'] == self.name }
-      if description.blank?
-        log_warning "Could not find element definition for #{self.name}. Please check your elements.yml!"
-        return {}
-      else
-        return description
-      end
-    end
-    alias_method :definition, :description
-
     # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
     def available_contents
-      description['available_contents']
+      definition['available_contents']
     end
 
     # Returns the contents ingredient for passed content name.
@@ -397,7 +371,7 @@ module Alchemy
 
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
-      description['taggable'] == true
+      definition['taggable'] == true
     end
 
     def to_partial_path
@@ -449,10 +423,10 @@ module Alchemy
     # creates the contents for this element as described in the elements.yml
     def create_contents
       contents = []
-      if description["contents"].blank?
+      if definition["contents"].blank?
         log_warning "Could not find any content descriptions for element: #{self.name}"
       else
-        description["contents"].each do |content_hash|
+        definition["contents"].each do |content_hash|
           contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
         end
       end

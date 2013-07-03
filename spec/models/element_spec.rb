@@ -3,6 +3,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Element do
+    # to prevent memoization
+    before { Element.instance_variable_set("@definitions", nil) }
 
     # ClassMethods
 
@@ -27,6 +29,24 @@ module Alchemy
       it "the copy should include source element tags" do
         copy = Element.copy(element)
         copy.tag_list.should == element.tag_list
+      end
+    end
+
+    describe '.definitions' do
+      context "without existing yml files" do
+        before { File.stub!(:exists?).and_return(false) }
+
+        it "should raise an error" do
+          expect { Element.definitions }.to raise_error(LoadError)
+        end
+      end
+
+      context "without any definitions in elements.yml" do
+        before { YAML.stub!(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
+
+        it "should return an empty array" do
+          Element.definitions.should == []
+        end
       end
     end
 
@@ -218,24 +238,6 @@ module Alchemy
       end
     end
 
-    describe '#descriptions' do
-      context "without existing yml files" do
-        before { File.stub!(:exists?).and_return(false) }
-
-        it "should raise an error" do
-          expect { Element.descriptions }.to raise_error(LoadError)
-        end
-      end
-
-      context "without any descriptions in elements.yml" do
-        before { YAML.stub!(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
-
-        it "should return an empty array" do
-          Element.descriptions.should == []
-        end
-      end
-    end
-
     describe '#display_name' do
       let(:element) { Element.new(name: 'article') }
 
@@ -368,7 +370,7 @@ module Alchemy
         element.content_for_rss_title.should == element.contents.find_by_name('news_headline')
       end
 
-      it "should return the content for rss description" do
+      it "should return the content for rss descdefinitionription" do
         element.content_for_rss_description.should == element.contents.find_by_name('body')
       end
     end
@@ -381,26 +383,26 @@ module Alchemy
     end
 
     describe '#taggable?' do
-      context "description has 'taggable' key with true value" do
+      context "definition has 'taggable' key with true value" do
         it "should return true" do
           element = FactoryGirl.build(:element)
-          element.stub(:description).and_return({'name' => 'article', 'taggable' => true})
+          element.stub(:definition).and_return({'name' => 'article', 'taggable' => true})
           element.taggable?.should be_true
         end
       end
 
-      context "description has 'taggable' key with foo value" do
+      context "definition has 'taggable' key with foo value" do
         it "should return false" do
           element = FactoryGirl.build(:element)
-          element.stub(:description).and_return({'name' => 'article', 'taggable' => 'foo'})
+          element.stub(:definition).and_return({'name' => 'article', 'taggable' => 'foo'})
           element.taggable?.should be_false
         end
       end
 
-      context "description has no 'taggable' key" do
+      context "definition has no 'taggable' key" do
         it "should return false" do
           element = FactoryGirl.build(:element)
-          element.stub(:description).and_return({'name' => 'article'})
+          element.stub(:definition).and_return({'name' => 'article'})
           element.taggable?.should be_false
         end
       end
