@@ -35,7 +35,7 @@ module Alchemy
       end
 
       def current
-        Thread.current[:alchemy_current_site]
+        Thread.current[:alchemy_current_site] || default
       end
 
       def default

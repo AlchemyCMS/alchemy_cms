@@ -88,6 +88,11 @@ module Alchemy
         specify "Language should not be scoped to a site" do
           Language.scoped.to_sql.should_not match(/alchemy_languages.+site_id.+#{site.id}/)
         end
+
+        it "should return default site" do
+          Site.current.should_not be_nil
+          Site.current.should == Site.default
+        end
       end
     end
 
