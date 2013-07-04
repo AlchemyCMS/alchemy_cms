@@ -1,7 +1,7 @@
 module Alchemy
   module Admin
     class BaseController < Alchemy::BaseController
-
+      include ActionController::Caching::Sweeping
       include Userstamp
       before_filter { enforce_ssl if ssl_required? && !request.ssl? }
       before_filter :set_translation

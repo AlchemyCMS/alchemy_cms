@@ -1,5 +1,6 @@
 module Alchemy
   class PicturesController < Alchemy::BaseController
+    include ActionController::Caching::Pages
 
     ALLOWED_IMAGE_TYPES = %w(png jpeg gif)
 
