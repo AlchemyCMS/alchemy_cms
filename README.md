@@ -5,7 +5,9 @@
 
 About
 -----
-Alchemy is a powerful, userfriendly and flexible Rails 3 CMS.
+**This branch is a eraly alpha development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.6-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).**
+
+Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
@@ -32,7 +34,9 @@ Features
 Rails Version
 -------------
 
-This version of Alchemy runs with Rails 3.2.11+.
+This version of Alchemy runs with Rails 4.0.0.
+
+If you are looking for a Rails 3.2 compatible version check the [2.6-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).
 
 If you are looking for a Rails 3.1 compatible version check the [2.1-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
 
