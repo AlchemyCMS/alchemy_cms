@@ -15,7 +15,7 @@ module Alchemy
     has_many :pages, :through => :elements
 
     validates_presence_of :file
-    validates_format_of :file_name, :with => /^[A-Za-z0-9\.\-_]+$/, :on => :update
+    validates_format_of :file_name, with: /\A[A-Za-z0-9\.\-_]+\z/, on: :update
     validates_size_of :file, :maximum => Config.get(:uploader)['file_size_limit'].megabytes
     validates_property(
       :format,

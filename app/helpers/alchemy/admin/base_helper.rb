@@ -436,7 +436,7 @@ module Alchemy
       end
 
       def permission_array_from_url(options)
-        action_controller = options[:url].gsub(/^\//, '').split('/')
+        action_controller = options[:url].gsub(/\A\//, '').split('/')
         [
           action_controller.last.to_sym,
           action_controller[0..action_controller.length-2].join('_').to_sym

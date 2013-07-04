@@ -126,10 +126,10 @@ module Alchemy
       #
       def normalize_essence_type(essence_type)
         essence_type = essence_type.classify
-        if essence_type.match(/^Alchemy::/)
+        if essence_type.match(/\AAlchemy::/)
           essence_type
         else
-          essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
+          essence_type.gsub!(/\AEssence/, 'Alchemy::Essence')
         end
       end
 

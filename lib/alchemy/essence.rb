@@ -109,7 +109,7 @@ module Alchemy #:nodoc:
                 matcher = Devise.email_regexp
               when 'url'
               then
-                matcher = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+                matcher = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
               else
                 raise "No validation format matcher found for #{description['validate_format_as']}"
               end

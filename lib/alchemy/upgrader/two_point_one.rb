@@ -78,7 +78,7 @@ module Alchemy
         success = 0
         errors = []
         depricated_contents.each do |c|
-          if c.update_attribute(:essence_type, c.essence_type.gsub(/^Essence/, 'Alchemy::Essence'))
+          if c.update_attribute(:essence_type, c.essence_type.gsub(/\AEssence/, 'Alchemy::Essence'))
             success += 1
           else
             errors << c.errors.full_messages

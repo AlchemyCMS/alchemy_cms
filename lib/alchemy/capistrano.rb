@@ -47,7 +47,7 @@ require 'fileutils'
         environment      = Capistrano::CLI.ui.ask("\nPlease enter the environment (Default: #{fetch(:rails_env, 'production')})")
         environment      = fetch(:rails_env, 'production') if environment.empty?
         db_adapter       = Capistrano::CLI.ui.ask("Please enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
-        db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/^mysql$/, 'mysql2')
+        db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/\Amysql\z/, 'mysql2')
         db_name          = Capistrano::CLI.ui.ask("Please enter database name: ")
         db_username      = Capistrano::CLI.ui.ask("Please enter database username: ")
         db_password      = Capistrano::CLI.password_prompt("Please enter database password: ")

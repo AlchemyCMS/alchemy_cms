@@ -22,7 +22,7 @@ module Alchemy
           redirect_path = admin_dashboard_path
         else
           # We have to strip double slashes from beginning of path, because of strange rails/rack bug.
-          redirect_path = session[:redirect_path].gsub(/^\/{2,}/, '/')
+          redirect_path = session[:redirect_path].gsub(/\A\/{2,}/, '/')
         end
         redirect_to redirect_path, :notice => t(:signed_in, :scope => 'devise.sessions')
       else

@@ -36,7 +36,7 @@ module Alchemy
       def navigate_module(navigation)
         [
           navigation['action'].to_sym,
-          navigation['controller'].gsub(/^\//, '').gsub(/\//, '_').to_sym
+          navigation['controller'].gsub(/\A\//, '').gsub(/\//, '_').to_sym
         ]
       end
 
@@ -179,7 +179,7 @@ module Alchemy
       # Returns true if the given entry's controller is current controller
       #
       def is_entry_controller_active?(entry)
-        entry['controller'].gsub(/^\//, '') == params[:controller]
+        entry['controller'].gsub(/\A\//, '') == params[:controller]
       end
 
       # Returns true if the given entry's action is current controllers action

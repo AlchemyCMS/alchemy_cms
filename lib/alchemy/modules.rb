@@ -21,7 +21,7 @@ module Alchemy
           module_navi = alchemy_module["navigation"].stringify_keys
           if module_navi["sub_navigation"]
             module_navi["sub_navigation"].map(&:stringify_keys).detect do |subnavi|
-              subnavi["controller"].gsub(/^\//, '') == name[:controller] && subnavi["action"] == name[:action]
+              subnavi["controller"].gsub(/\A\//, '') == name[:controller] && subnavi["action"] == name[:action]
             end
           end
         end

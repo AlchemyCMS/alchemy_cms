@@ -10,7 +10,7 @@ module Alchemy
     #
     def self.get(remove_leading_slash_if_blank = true)
       if self.mount_point == "/" && remove_leading_slash_if_blank
-        self.mount_point.gsub(/^\/$/, '')
+        self.mount_point.gsub(/\A\/\z/, '')
       else
         self.mount_point
       end
