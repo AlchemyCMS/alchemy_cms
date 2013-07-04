@@ -10,7 +10,7 @@ if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
   require 'dynamic_form'
   require 'jquery-rails'
   require 'jquery-ui-rails'
-  #require 'rails3-jquery-autocomplete'
+  require 'rails3-jquery-autocomplete'
   require 'handles_sortable_columns'
   require 'kaminari'
   require 'userstamp'

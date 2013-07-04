@@ -21,9 +21,9 @@ gem 'jquery-ui-rails',                  "~> 3.0.1"
 gem 'sass-rails',                       '~> 4.0.0'
 gem 'uglifier',                         '>= 1.3.0'
 gem 'coffee-rails',                     '~> 4.0.0'
-gem 'compass-rails',                    '~> 1.0.3'
+gem 'compass-rails',                    github: 'milgner/compass-rails', branch: 'rails4'
 gem 'sassy-buttons',                    '~> 0.1.3'
-#gem 'rails3-jquery-autocomplete',       '~> 1.0.10' #https://github.com/crowdint/rails3-jquery-autocomplete/issues/198
+gem 'rails3-jquery-autocomplete',       github: 'francisd/rails3-jquery-autocomplete'
 gem 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
 
 # for attr_accesible
