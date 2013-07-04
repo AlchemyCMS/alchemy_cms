@@ -1,4 +1,3 @@
-require 'rspec'
 require 'ostruct'
 require File.dirname(__FILE__) + "/../../lib/alchemy/resource"
 require File.dirname(__FILE__) + "/../../lib/alchemy/resources_helper"
