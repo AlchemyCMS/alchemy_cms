@@ -59,9 +59,10 @@ Alternatively, if you want to customize the way the gallery pictures are rendere
 
 h4. Adding contents dynamically
 
-You are able to allow your user to add contents dynamically to the element.
+You are able to allow your users to add contents dynamically to the element.
 
-You just have to make contents available for adding them.
+You just need to define available contents in the <code>elements.yml</code>.
+If you also want to allow the users to delete these contents you can also define that.
 
 h5. Example
 
@@ -73,12 +74,29 @@ h5. Example
   available_contents:
   - name: big_text
     type: EssenceRichtext
+    settings:
+      deletable: true
 </pre>
 
-Now an Alchemy user can add the content <code>big_text</code> from the element as much as desired.
+Additionally you need to alter the editor partial of that element for rendering the dynamically created contents. You just need to iterate through them and use the following helper methods.
 
-NOTE: You have to alter the editor partial of that element, so it automatically renders all dynamically created contents.
-Use the <code>render_new_content_link</code> or <code>render_create_content_link</code> to place a button in editor view.
+h5. Example
+
+<pre>
+  <% element.all_contents_by_name('big_text').each do |content| %>
+    <%= label_and_remove_link(content) %>
+    <%= render_essence_editor(content) %>
+  <% end %>
+  <p><%= render_create_content_link(element, 'big_text', :label => _t('add_big_text')) %></p>
+</pre>
+
+As you can see in the example, we've used the <code>label_and_remove_link</code> helper. It renders a label with the name of that content and a small button to delete it.
+
+We've also used the <code>render_create_content_link</code> helper. It renders a button to create certain contents instantly.
+
+If you have more than one available content, you can use the <code>render_new_content_link</code> helper instead. It will render a button that opens an overlay with a selectbox holding all available contents.
+
+Now an Alchemy user can add the content <code>big_text</code> from the element as much as desired and is able to delete them again.
 
 h4. Taggable elements
 
