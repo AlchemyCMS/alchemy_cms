@@ -44,8 +44,8 @@ module Alchemy
 
       def destroy
         @content = Content.find_by_id(params[:id])
-        @element = @content.element
-        @content_id = @content.id
+        @element = content.element
+        @content_id = content.id
         @content.destroy
         @essence_pictures = @element.contents.essence_pictures
       end
