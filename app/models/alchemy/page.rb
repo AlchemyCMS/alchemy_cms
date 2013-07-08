@@ -231,7 +231,7 @@ module Alchemy
     end
 
     def fold!(user_id, status)
-      folded_page = folded_pages.find_or_create_by_user_id(user_id)
+      folded_page = folded_pages.find_or_create_by(user_id: user_id)
       folded_page.folded = status
       folded_page.save
     end
@@ -318,7 +318,7 @@ module Alchemy
 
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
-      legacy_urls.find_or_create_by_urlname(:urlname => urlname_was)
+      legacy_urls.find_or_create_by(urlname: urlname_was)
     end
 
   end

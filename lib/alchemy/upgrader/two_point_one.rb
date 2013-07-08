@@ -10,16 +10,14 @@ module Alchemy
       Alchemy::Page.all.each do |page|
         if !page.language_code.blank? && page.language.nil?
           root = page.get_language_root
-          lang = Alchemy::Language.find_or_create_by_language_code(
-            :name => page.language_code.capitalize,
-            :language_code => page.language_code,
-            :frontpage_name => root.name,
-            :page_layout => root.page_layout,
-            :public => true
-          )
-          page.language = lang
+          language = Alchemy::Language.find_or_create_by(language_code: page.language_code)
+          language.name = page.language_code.capitalize
+          language.frontpage_name = root.name
+          language.page_layout = root.page_layout
+          language.public = true
+          page.language = language
           if page.save(:validate => false)
-            log "Set language for page #{page.name} to #{lang.name}."
+            log "Set language for page #{page.name} to #{language.name}."
           end
         else
           log("Language for page #{page.name} already set.", :skip)

@@ -117,7 +117,7 @@ module Alchemy
         if cell_definition.blank?
           raise CellDefinitionError, "Cell definition not found for #{cell_name}"
         end
-        @page.cells.find_or_create_by_name(cell_definition['name'])
+        @page.cells.find_or_create_by(name: cell_definition['name'])
       end
 
       def element_from_clipboard
