@@ -347,7 +347,7 @@ module Alchemy
     end
 
     def rtf_contents
-      contents.essence_richtexts.all
+      contents.essence_richtexts
     end
     alias_method :richtext_contents, :rtf_contents
 

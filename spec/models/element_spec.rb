@@ -66,7 +66,7 @@ module Alchemy
         FactoryGirl.create(:element, :name => 'article')
         FactoryGirl.create(:element, :name => 'article')
         excluded = FactoryGirl.create(:element, :name => 'claim')
-        Element.excluded(['claim']).all.should_not include(excluded)
+        Element.excluded(['claim']).should_not include(excluded)
       end
     end
 
@@ -74,7 +74,7 @@ module Alchemy
       it "should return all elements by name" do
         element_1 = FactoryGirl.create(:element, :name => 'article')
         element_2 = FactoryGirl.create(:element, :name => 'article')
-        elements = Element.named(['article']).all
+        elements = Element.named(['article'])
         elements.should include(element_1)
         elements.should include(element_2)
       end
@@ -93,7 +93,7 @@ module Alchemy
       it "should return all public elements" do
         element_1 = FactoryGirl.create(:element, :public => true)
         element_2 = FactoryGirl.create(:element, :public => true)
-        elements = Element.published.all
+        elements = Element.published
         elements.should include(element_1)
         elements.should include(element_2)
       end

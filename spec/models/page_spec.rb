@@ -686,7 +686,7 @@ module Alchemy
     describe '#feed_elements' do
       it "should return all rss feed elements" do
         news_page.feed_elements.should_not be_empty
-        news_page.feed_elements.should == Element.where(name: 'news').all
+        news_page.feed_elements.should == Element.where(name: 'news').to_a
       end
     end
 
@@ -698,23 +698,23 @@ module Alchemy
 
       context "with show_non_public argument TRUE" do
         it "should return all elements from empty options" do
-          public_page.find_elements({}, true).all.should == public_page.elements.all
+          public_page.find_elements({}, true).to_a.should == public_page.elements.to_a
         end
 
         it "should only return the elements passed as options[:only]" do
-          public_page.find_elements({:only => ['article']}, true).all.should == public_page.elements.named('article').all
+          public_page.find_elements({:only => ['article']}, true).to_a.should == public_page.elements.named('article').to_a
         end
 
         it "should not return the elements passed as options[:except]" do
-          public_page.find_elements({:except => ['article']}, true).all.should == public_page.elements - public_page.elements.named('article').all
+          public_page.find_elements({:except => ['article']}, true).to_a.should == public_page.elements - public_page.elements.named('article').to_a
         end
 
         it "should return elements offsetted" do
-          public_page.find_elements({:offset => 2}, true).all.should == public_page.elements.offset(2)
+          public_page.find_elements({:offset => 2}, true).to_a.should == public_page.elements.offset(2)
         end
 
         it "should return elements limitted in count" do
-          public_page.find_elements({:count => 1}, true).all.should == public_page.elements.limit(1)
+          public_page.find_elements({:count => 1}, true).to_a.should == public_page.elements.limit(1)
         end
       end
 
@@ -762,23 +762,23 @@ module Alchemy
 
       context "with show_non_public argument FALSE" do
         it "should return all elements from empty arguments" do
-          public_page.find_elements().all.should == public_page.elements.published.all
+          public_page.find_elements().to_a.should == public_page.elements.published.to_a
         end
 
         it "should only return the public elements passed as options[:only]" do
-          public_page.find_elements(:only => ['article']).all.should == public_page.elements.published.named('article').all
+          public_page.find_elements(:only => ['article']).to_a.should == public_page.elements.published.named('article').to_a
         end
 
         it "should return all public elements except the ones passed as options[:except]" do
-          public_page.find_elements(:except => ['article']).all.should == public_page.elements.published.all - public_page.elements.published.named('article').all
+          public_page.find_elements(:except => ['article']).to_a.should == public_page.elements.published.to_a - public_page.elements.published.named('article').to_a
         end
 
         it "should return elements offsetted" do
-          public_page.find_elements({:offset => 2}).all.should == public_page.elements.published.offset(2)
+          public_page.find_elements({:offset => 2}).to_a.should == public_page.elements.published.offset(2)
         end
 
         it "should return elements limitted in count" do
-          public_page.find_elements({:count => 1}).all.should == public_page.elements.published.limit(1)
+          public_page.find_elements({:count => 1}).to_a.should == public_page.elements.published.limit(1)
         end
       end
     end

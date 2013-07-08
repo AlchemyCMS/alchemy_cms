@@ -21,7 +21,7 @@ module Alchemy
       end
 
       def edit
-        @tags = ActsAsTaggableOn::Tag.order("name ASC").all - [@tag]
+        @tags = ActsAsTaggableOn::Tag.order("name ASC").to_a - [@tag]
         render layout: !request.xhr?
       end
 
