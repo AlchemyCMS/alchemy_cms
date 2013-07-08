@@ -34,8 +34,8 @@ module Alchemy
         @size = params[:size] || 'medium'
         if in_overlay?
           @while_assigning = true
-          @content = Content.find_by_id(params[:content_id], :select => 'id')
-          @element = Element.find(params[:element_id], :select => 'id')
+          @content = Content.select('id').find_by_id(params[:content_id])
+          @element = Element.select('id').find_by_id(params[:element_id])
           @options = hashified_options
           @page = params[:page]
           @per_page = params[:per_page]
@@ -178,8 +178,8 @@ module Alchemy
       end
 
       def archive_overlay
-        @content = Content.find_by_id(params[:content_id], :select => 'id')
-        @element = Element.find_by_id(params[:element_id], :select => 'id')
+        @content = Content.select('id').find_by_id(params[:content_id])
+        @element = Element.select('id').find_by_id(params[:element_id])
         @options = hashified_options
         respond_to do |format|
           format.html {
