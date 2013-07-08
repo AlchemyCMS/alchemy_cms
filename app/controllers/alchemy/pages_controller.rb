@@ -52,9 +52,9 @@ module Alchemy
 
     # Renders a Google conform sitemap in xml
     def sitemap
-      @pages = Page.find_all_by_sitemap_and_public(true, true)
+      @pages = Page.published.where(sitemap: true)
       respond_to do |format|
-        format.xml { render :layout => "sitemap" }
+        format.xml { render layout: 'sitemap' }
       end
     end
 

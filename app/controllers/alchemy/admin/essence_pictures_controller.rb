@@ -75,7 +75,7 @@ module Alchemy
         @element = content.element
         @content_id = content.id
         content.destroy
-        @essence_pictures = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
+        @essence_pictures = @element.contents.essence_pictures
         @options = params[:options]
       end
 

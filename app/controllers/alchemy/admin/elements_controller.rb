@@ -19,7 +19,7 @@ module Alchemy
         if @page_id.blank? && !params[:page_urlname].blank?
           @page_id = Page.find_by_urlname_and_language_id(params[:page_urlname], session[:language_id]).id
         end
-        @elements = Element.published.find_all_by_page_id(@page_id)
+        @elements = Element.published.where(page_id: @page_id)
       end
 
       def new

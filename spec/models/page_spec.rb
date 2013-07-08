@@ -686,7 +686,7 @@ module Alchemy
     describe '#feed_elements' do
       it "should return all rss feed elements" do
         news_page.feed_elements.should_not be_empty
-        news_page.feed_elements.should == Element.find_all_by_name('news')
+        news_page.feed_elements.should == Element.where(name: 'news').all
       end
     end
 

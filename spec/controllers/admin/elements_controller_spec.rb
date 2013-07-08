@@ -99,7 +99,7 @@ module Alchemy
 
       it "should return a select tag with elements" do
         Alchemy::Page.should_receive(:find_by_urlname_and_language_id).and_return(alchemy_page)
-        Alchemy::Element.stub_chain([:published, :find_all_by_page_id]).and_return([element])
+        Alchemy::Element.stub_chain([:published, :where]).and_return([element])
         get :list, {:page_urlname => alchemy_page.urlname, :format => :js}
         response.body.should match(/select(.*)elements_from_page_selector(.*)option/)
       end
