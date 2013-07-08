@@ -37,7 +37,7 @@ module Alchemy
 
       it "should assign @sites" do
         get :index
-        expect(assigns(:sites)).to eq(Site.scoped)
+        expect(assigns(:sites)).to eq(Site.all)
       end
     end
     

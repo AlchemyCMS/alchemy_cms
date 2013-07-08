@@ -15,7 +15,7 @@ module Alchemy
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
-          Picture.should_receive(:tagged_with).and_return(Picture.scoped)
+          Picture.should_receive(:tagged_with).and_return(Picture.all)
           get :index, tagged_with: "red"
         end
       end

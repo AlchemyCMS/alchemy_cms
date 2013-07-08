@@ -6,7 +6,7 @@ module Alchemy
       protect_from_forgery :except => [:create]
 
       def index
-        @attachments = Attachment.scoped
+        @attachments = Attachment.all
         @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
         @attachments = @attachments.find_paginated(params, 15, sort_order)
         if in_overlay?

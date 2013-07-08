@@ -9,7 +9,7 @@ module Alchemy
         @locked_pages = Page.from_current_site.all_locked
         @online_users = User.logged_in.to_a - [current_user]
         @first_time = current_user.sign_in_count == 1 && current_user.last_sign_in_at.nil?
-        @sites = Site.scoped
+        @sites = Site.all
       end
 
       def info

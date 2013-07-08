@@ -32,7 +32,7 @@ module Alchemy
 
     scope :published,          -> { where(public: true) }
     scope :with_language_root, -> { joins(:pages).where('alchemy_pages' => {language_root: true}) }
-    scope :on_site,            ->(s) { s.present? ? where(site_id: s) : scoped }
+    scope :on_site,            ->(s) { s.present? ? where(site_id: s) : all }
     default_scope { on_site(Site.current) }
 
     class << self

@@ -50,7 +50,7 @@ module Alchemy
 
       def last_upload
         last_picture = Picture.last
-        return Picture.scoped unless last_picture
+        return Picture.all unless last_picture
         Picture.where(:upload_hash => last_picture.upload_hash)
       end
 

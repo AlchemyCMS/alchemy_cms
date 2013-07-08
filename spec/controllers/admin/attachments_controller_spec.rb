@@ -18,7 +18,7 @@ module Alchemy
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
-          Attachment.should_receive(:tagged_with).and_return(Attachment.scoped)
+          Attachment.should_receive(:tagged_with).and_return(Attachment.all)
           get :index, tagged_with: "pdf"
         end
       end

@@ -21,7 +21,7 @@ module Alchemy
            "%#{params[:query]}%"
          ])
         else
-          users = User.scoped
+          users = User.all
         end
         @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
       end
