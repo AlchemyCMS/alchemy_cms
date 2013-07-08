@@ -29,7 +29,7 @@ module Alchemy
       context 'xhr request' do
         it "should not render a layout" do
           xhr :get, :edit, id: content.id
-          expect(@layouts).to be_empty
+          response.should render_template(layout: nil)
         end
       end
     end
