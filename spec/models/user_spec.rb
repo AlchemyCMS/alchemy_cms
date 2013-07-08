@@ -186,7 +186,7 @@ module Alchemy
     describe "#pages_locked_by_me" do
       it "should return all pages that are locked by user" do
         user.save!
-        page.lock!(user)
+        page.lock_to!(user)
         user.locked_pages.should include(page)
       end
     end
@@ -194,7 +194,7 @@ module Alchemy
     describe '#unlock_pages' do
       before do
         user.save!
-        page.lock!(user)
+        page.lock_to!(user)
       end
 
       it "should unlock all users lockes pages" do

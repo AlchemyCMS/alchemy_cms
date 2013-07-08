@@ -831,13 +831,13 @@ module Alchemy
       end
     end
 
-    describe '#lock!' do
+    describe '#lock_to!' do
       let(:page) { Page.new }
       let(:user) { mock_model('User') }
 
       before do
         page.stub!(:save).and_return(true)
-        page.lock!(user)
+        page.lock_to!(user)
       end
 
       it "should set locked to true" do
