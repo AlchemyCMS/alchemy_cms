@@ -73,7 +73,7 @@ module Alchemy
       let(:language) { mock_model('Language', code: 'kl') }
       let(:parent) { mock_model('Page', language: language) }
       let(:page_params) do
-        {parent_id: parent.id, name: 'new Page'} 
+        {parent_id: parent.id, name: 'new Page'}
       end
 
       context "" do
@@ -182,7 +182,7 @@ module Alchemy
       end
 
       it "should also remove the page from clipboard" do
-        post :destroy, {id: page.id, _method: :delete}
+        post :destroy, {id: page.id, _method: :delete, format: 'js'}
         clipboard[:pages].should be_empty
       end
 
@@ -283,7 +283,7 @@ module Alchemy
           end
         end
       end
-      
+
     end
 
   end
