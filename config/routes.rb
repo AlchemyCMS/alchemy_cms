@@ -43,10 +43,6 @@ Alchemy::Engine.routes.draw do
   get '/attachment/:id/show' => 'attachments#show',
         :as => :show_attachment
 
-  # Legacy download urls
-  get '/wa_files/download/:id' => 'attachments#download'
-  get '/uploads/files/0000/:id/:name(.:suffix)' => 'attachments#download'
-
   # Picture urls
   get "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)(/:quality)/:name.:format" => 'pictures#show',
         :as => :show_picture
