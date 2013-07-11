@@ -54,7 +54,7 @@ module Alchemy
           parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
           @page = Page.paste_from_clipboard(source, parent, params[:page][:name])
         else
-          @page = Page.new(params[:page])
+          @page = Page.new(page_params)
           @page.set_language_from_parent_or_default_language
         end
         if @page.save
@@ -94,7 +94,7 @@ module Alchemy
         # fetching page via before filter
         # storing old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
-        if @page.update_attributes(params[:page])
+        if @page.update_attributes(page_params)
           @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
@@ -260,6 +260,25 @@ module Alchemy
         else
           admin_pages_path
         end
+      end
+
+      def page_params
+        params.require(:page).permit(
+          :meta_description,
+          :meta_keywords,
+          :name,
+          :page_layout,
+          :parent_id,
+          :public,
+          :restricted,
+          :robot_index,
+          :robot_follow,
+          :sitemap,
+          :tag_list,
+          :title,
+          :urlname,
+          :visible
+        )
       end
 
     end

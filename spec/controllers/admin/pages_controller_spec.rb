@@ -91,7 +91,7 @@ module Alchemy
         context "if new page can not be saved" do
           it "should redirect to admin_pages_path" do
             Page.any_instance.stub(:save).and_return(false)
-            post :create, page: {}
+            post :create, page: {name: 'page'}
             response.should redirect_to(admin_pages_path)
           end
         end
@@ -109,7 +109,7 @@ module Alchemy
           context "but new page can not be saved" do
             it "should redirect to admin_pages_path" do
               Page.any_instance.stub(:save).and_return(false)
-              post :create, page: {}, redirect_to: admin_users_path
+              post :create, page: {name: 'page'}, redirect_to: admin_users_path
               response.should redirect_to(admin_pages_path)
             end
           end
