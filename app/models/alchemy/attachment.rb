@@ -7,8 +7,6 @@ module Alchemy
     file_accessor :file
     stampable :stamper_class_name => 'Alchemy::User'
 
-    attr_accessible :file, :name, :file_name, :tag_list
-
     has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
     has_many :contents, :through => :essence_files
     has_many :elements, :through => :contents

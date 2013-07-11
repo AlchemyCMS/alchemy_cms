@@ -7,17 +7,6 @@ module Alchemy
 
     acts_as_taggable
 
-    attr_accessible(
-      :cell_id,
-      :create_contents_after_create,
-      :folded,
-      :name,
-      :page_id,
-      :public,
-      :tag_list,
-      :unique
-    )
-
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
     acts_as_list :scope => [:page_id, :cell_id]
     stampable(:stamper_class_name => 'Alchemy::User')

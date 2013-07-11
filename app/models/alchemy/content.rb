@@ -5,15 +5,6 @@ module Alchemy
     # Concerns
     include Factory
 
-    attr_accessible(
-      :do_not_index,
-      :element_id,
-      :essence_id,
-      :essence_type,
-      :ingredient,
-      :name
-    )
-
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
 

@@ -1,14 +1,8 @@
 module Alchemy
   class EssenceRichtext < ActiveRecord::Base
-
-    acts_as_essence(
-      :preview_text_column => :stripped_body
-    )
-
-    attr_accessible :do_not_index, :body, :public, :stripped_body
+    acts_as_essence preview_text_column: 'stripped_body'
 
     before_save :strip_content
-
 
     # Enable Ferret indexing.
     #

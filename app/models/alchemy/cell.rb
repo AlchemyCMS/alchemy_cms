@@ -14,8 +14,6 @@ module Alchemy
   class Cell < ActiveRecord::Base
     include Logger
 
-    attr_accessible :page_id, :name
-
     belongs_to :page
     validates_uniqueness_of :name, :scope => :page_id
     has_many :elements, -> { order(:position) }, dependent: :destroy

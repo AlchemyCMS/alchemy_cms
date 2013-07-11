@@ -1,26 +1,11 @@
 module Alchemy
   class User < ActiveRecord::Base
-
     model_stamper
     stampable(:stamper_class_name => 'Alchemy::User')
 
     devise(*Config.get(:devise_modules))
 
     acts_as_taggable
-
-    attr_accessible(
-      :firstname,
-      :lastname,
-      :login,
-      :email,
-      :gender,
-      :language,
-      :password,
-      :password_confirmation,
-      :roles,
-      :send_credentials,
-      :tag_list
-    )
 
     attr_accessor :send_credentials
 

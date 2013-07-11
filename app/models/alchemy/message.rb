@@ -34,11 +34,9 @@ module Alchemy
     end
 
     attr_accessor :contact_form_id, :ip
-    attr_accessible :contact_form_id
 
     config['fields'].each do |field|
       attr_accessor field.to_sym
-      attr_accessible field.to_sym
     end
 
     config['validate_fields'].each do |field|

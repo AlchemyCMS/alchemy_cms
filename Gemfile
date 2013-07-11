@@ -26,9 +26,6 @@ gem 'sassy-buttons',                    '~> 0.1.3'
 gem 'rails3-jquery-autocomplete',       github: 'francisd/rails3-jquery-autocomplete'
 gem 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
 
-# for attr_accesible
-gem 'protected_attributes', github: 'rails/protected_attributes'
-
 # for caching and sweepers
 gem 'rails-observers', github: 'rails/rails-observers'
 gem 'actionpack-action_caching', github: 'rails/actionpack-action_caching'

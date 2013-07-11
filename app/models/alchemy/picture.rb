@@ -28,13 +28,6 @@ module Alchemy
 
     acts_as_taggable
 
-    attr_accessible(
-      :image_file,
-      :name,
-      :tag_list,
-      :upload_hash
-    )
-
     stampable(:stamper_class_name => 'Alchemy::User')
 
     scope :recent,    -> { where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at) }
