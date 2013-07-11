@@ -60,7 +60,7 @@ module Alchemy
         end
 
         it "assigns user to @user" do
-          post :update, id: admin.id, user: {}, format: :js
+          post :update, id: admin.id, user: {email: admin.email}, format: :js
           assigns(:user).should eq(admin)
         end
 
@@ -92,7 +92,7 @@ module Alchemy
 
         context "with send_credentials left blank" do
           it "should not send an email notification" do
-            post :update, id: admin.id, user: {}, format: :js
+            post :update, id: admin.id, user: {email: admin.login}, format: :js
             ActionMailer::Base.deliveries.should be_empty
           end
         end
@@ -115,7 +115,7 @@ module Alchemy
 
           it "updates user without role" do
             admin.should_receive(:update_without_password).with({})
-            post :update, id: admin.id, user: {'roles' => ['Administrator']}, format: :js
+            post :update, id: admin.id, user: {roles: ['Administrator']}, format: :js
           end
         end
 
