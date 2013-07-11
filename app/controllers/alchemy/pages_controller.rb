@@ -77,10 +77,6 @@ module Alchemy
         # currently active language.
         Page.language_root_for(@language.id)
       end
-    rescue ArgumentError => e
-      # If encoding errors raises (ie. because of invalid byte chars in params),
-      # we render a 404 page
-      raise ActionController::RoutingError.new(e.message)
     end
 
     def enforce_primary_host_for_site
