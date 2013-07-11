@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::PagesController, :js => true do
+  describe Admin::PagesController, js: true do
 
     let(:klingonian) { FactoryGirl.create(:klingonian) }
     let(:german_root) { FactoryGirl.create(:language_root_page) }
@@ -13,12 +13,11 @@ module Alchemy
     end
 
     describe "language tree switching" do
-
       context "in a multilangual environment" do
 
         before do
           klingonian_root
-          Capybara.default_wait_time = 4 # Raising this helps this test to pass, even on travis-ci
+          Capybara.default_wait_time = 5 # Raising this helps this test to pass, even on travis-ci
         end
 
         it "one should be able to switch the language tree" do
@@ -28,11 +27,9 @@ module Alchemy
         end
 
         after { Capybara.default_wait_time = 2 } # Reset to default
-
       end
 
       context "with no language root page" do
-
         before { klingonian }
 
         it "it should display the form for creating language root" do
@@ -40,20 +37,8 @@ module Alchemy
           page.select 'Klingonian', :from => 'language'
           page.should have_content('This language tree does not exist')
         end
-
       end
 
     end
-
-    describe "flush complete page cache" do
-
-      it "should remove the cache of all pages" do
-        visit '/admin/pages'
-        click_link 'Flush page cache'
-        page.should have_content('Page cache flushed')
-      end
-
-    end
-
   end
 end
