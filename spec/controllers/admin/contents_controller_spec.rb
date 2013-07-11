@@ -23,7 +23,7 @@ describe Alchemy::Admin::ContentsController do
 
     it "should update a content via ajax" do
       @element = FactoryGirl.create(:element, :create_contents_after_create => true)
-      post :update, {:id => @element.contents.find_by_name('intro').id, :content => {:body => 'Peters Petshop'}, :format => :js}
+      post :update, {:id => @element.contents.find_by_name('intro').id, :content => {:ingredient => 'Peters Petshop'}, :format => :js}
       @element.ingredient('intro').should == "Peters Petshop"
     end
 

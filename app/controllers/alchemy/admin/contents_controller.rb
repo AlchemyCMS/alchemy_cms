@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class ContentsController < Alchemy::Admin::BaseController
-
       helper "alchemy/admin/essences"
 
       def new
@@ -13,7 +12,7 @@ module Alchemy
 
       def create
         @element = Element.find(params[:content][:element_id])
-        @content = Content.create_from_scratch(@element, params[:content])
+        @content = Content.create_from_scratch(@element, content_params)
         @options = params[:options] || {}
         @html_options = params[:html_options] || {}
         if @options.is_a?(String)
@@ -38,7 +37,7 @@ module Alchemy
 
       def update
         content = Content.find(params[:id])
-        content.essence.update_attributes(params[:content])
+        content.essence.update_attributes(content_params)
       end
 
       def order
@@ -54,6 +53,12 @@ module Alchemy
         @content_dup = @content.clone
         @notice = _t("Successfully deleted content", :content => @content.name_for_label)
         @content.destroy
+      end
+
+    private
+
+      def content_params
+        params.require(:content).permit(:element_id, :name, :ingredient)
       end
 
     end
