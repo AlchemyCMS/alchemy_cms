@@ -216,12 +216,11 @@ module Alchemy
 
       def switch_language
         set_language(params[:language_id])
-        redirect_path = request.referer.include?('admin/layoutpages') ? admin_layoutpages_path : admin_pages_path
         if request.xhr?
-          @redirect_url = redirect_path
+          @redirect_url = redirect_path_for_switch_language
           render :action => :redirect
         else
-          redirect_to redirect_path
+          redirect_to redirect_path_for_switch_language
         end
       end
 
@@ -252,6 +251,14 @@ module Alchemy
           prevchild.nil? ? childitem.move_to_child_of(dbitem) : childitem.move_to_right_of(prevchild)
           sort_children(child, childitem) unless child['children'].nil?
           prevchild = childitem
+        end
+      end
+
+      def redirect_path_for_switch_language
+        if request.referer && request.referer.include?('admin/layoutpages')
+          admin_layoutpages_path
+        else
+          admin_pages_path
         end
       end
 

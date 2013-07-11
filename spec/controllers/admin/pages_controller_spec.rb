@@ -283,7 +283,32 @@ module Alchemy
           end
         end
       end
+    end
 
+    describe "#switch_language" do
+      let(:language) { FactoryGirl.build_stubbed(:klingonian)}
+      before {
+        Language.should_receive(:find_by_id).and_return(language)
+      }
+
+      it "should store the current language in session" do
+        get :switch_language, {language_id: language.id}
+        expect(session[:language_id]).to eq(language.id)
+      end
+
+      it "should redirect to sitemap" do
+        expect(get :switch_language, {language_id: language.id}).to redirect_to(admin_pages_path)
+      end
+
+      context "coming from layoutpages" do
+        before {
+          request.stub(:referer).and_return('admin/layoutpages')
+        }
+
+        it "should redirect to layoutpages" do
+          expect(get :switch_language, {language_id: language.id}).to redirect_to(admin_layoutpages_path)
+        end
+      end
     end
 
   end
