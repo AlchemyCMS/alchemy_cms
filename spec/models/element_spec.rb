@@ -129,7 +129,7 @@ module Alchemy
       let(:page) { FactoryGirl.build_stubbed(:public_page) }
       let(:clipboard) { [{id: element_1.id}, {id: element_2.id}] }
       before {
-        Element.stub(:where).and_return([element_1, element_2])
+        Element.stub(:all_from_clipboard).and_return([element_1, element_2])
       }
 
       it "return all elements from clipboard that could be placed on page" do
