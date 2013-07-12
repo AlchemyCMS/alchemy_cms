@@ -11,11 +11,9 @@
 
 module Alchemy
   class Message
-
     extend ::ActiveModel::Naming
     include ::ActiveModel::Validations
     include ::ActiveModel::Conversion
-    include ::ActiveModel::MassAssignmentSecurity
 
     class << self
       def attr_accessor(*vars)
