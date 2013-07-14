@@ -739,7 +739,7 @@ module Alchemy
             }
 
             it "returns empty set" do
-              public_page.elements.should_receive(:where).with('1 = 0').and_return(elements)
+              Element.should_receive(:none).and_return(elements)
               public_page.find_elements(from_cell: 'Lolo').to_a.should == []
             end
 

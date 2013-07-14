@@ -234,8 +234,7 @@ module Alchemy
         cell.elements
       else
         Alchemy::Logger.warn("Cell with name `#{name}` could not be found!", caller.first)
-        # Returns an empty relation. Can be removed with the release of Rails 4
-        self.elements.where('1 = 0')
+        Element.none
       end
     end
 
