@@ -47,13 +47,16 @@ module Alchemy
     def get_search_results
       search_results = []
       %w(Alchemy::EssenceText Alchemy::EssenceRichtext).each do |e|
-        search_results += e.constantize.includes(:contents => {:element => :page}).find_with_ferret(
+        search_results += e.constantize.includes(contents: {element: 'page'}).find_with_ferret(
           "*#{params[:query]}*",
-          {:limit => :all},
-          {:conditions => [
-            'alchemy_pages.public = ? AND alchemy_pages.layoutpage = ? AND alchemy_pages.restricted = ? AND alchemy_pages.language_id = ?',
-            true, false, false, session[:language_id]
-          ]}
+          {limit: :all},
+          {
+            conditions: [
+              'alchemy_pages.public = ? AND alchemy_pages.layoutpage = ? AND alchemy_pages.restricted = ? AND alchemy_pages.language_id = ?',
+              true, false, false, session[:language_id]
+            ],
+            references: 'alchemy_pages'
+          }
         )
       end
       if search_results.any?
