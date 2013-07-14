@@ -696,11 +696,6 @@ module Alchemy
         FactoryGirl.create(:element, :public => false, :page => public_page)
       end
 
-      it "should return the collection of elements if passed an array into options[:collection]" do
-        options = {:collection => public_page.elements}
-        public_page.find_elements(options).all.should == public_page.elements.all
-      end
-
       context "with show_non_public argument TRUE" do
         it "should return all elements from empty options" do
           public_page.find_elements({}, true).all.should == public_page.elements.all
@@ -720,6 +715,48 @@ module Alchemy
 
         it "should return elements limitted in count" do
           public_page.find_elements({:count => 1}, true).all.should == public_page.elements.limit(1)
+        end
+      end
+
+      context "with options[:from_cell]" do
+        let(:element) { FactoryGirl.build_stubbed(:element) }
+
+        context "given as String" do
+          context '' do
+            before {
+              public_page.cells.stub_chain(:find_by_name, :elements, :offset, :limit, :published).and_return([element])
+            }
+
+            it "returns only the elements from given cell" do
+              public_page.find_elements(from_cell: 'A Cell').to_a.should == [element]
+            end
+          end
+
+          context "that can not be found" do
+            let(:elements) {[]}
+            before {
+              elements.stub_chain(:offset, :limit, :published).and_return([])
+            }
+
+            it "returns empty set" do
+              public_page.elements.should_receive(:where).with('1 = 0').and_return(elements)
+              public_page.find_elements(from_cell: 'Lolo').to_a.should == []
+            end
+
+            it "loggs a warning" do
+              Rails.logger.should_receive(:warn)
+              public_page.find_elements(from_cell: 'Lolo')
+            end
+          end
+        end
+
+        context "given as cell object" do
+          let(:cell) { FactoryGirl.build_stubbed(:cell, page: public_page) }
+
+          it "returns only the elements from given cell" do
+            cell.stub_chain(:elements, :offset, :limit, :published).and_return([element])
+            public_page.find_elements(from_cell: cell).to_a.should == [element]
+          end
         end
       end
 

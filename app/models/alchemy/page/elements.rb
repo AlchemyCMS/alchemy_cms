@@ -108,54 +108,45 @@ module Alchemy
       end
     end
 
-    # Finds selected elements from page.
+    # Finds elements of page.
     #
-    # Returns only public elements by default.
-    # Pass true as second argument to get all elements.
+    # @param [Hash]
+    #   options hash
+    # @param [Boolean] (false)
+    #   Pass true, if you want to also have not published elements.
     #
-    # === Options are:
+    # @option options [Array] only
+    #   Returns only elements with given names
+    # @option options [Array] except
+    #   Returns all elements except the ones with given names
+    # @option options [Fixnum] count
+    #   Limit the count of returned elements
+    # @option options [Fixnum] offset
+    #   Starts with an offset while returning elements
+    # @option options [Boolean] random (false)
+    #   Return elements randomly shuffled
+    # @option options [Alchemy::Cell || String] from_cell
+    #   Return elements from given cell
     #
-    #     :only => Array of element names    # Returns only elements with given names
-    #     :except => Array of element names  # Returns all elements except the ones with given names
-    #     :count => Integer                  # Limit the count of returned elements
-    #     :offset => Integer                 # Starts with an offset while returning elements
-    #     :random => Boolean                 # Return elements randomly shuffled
-    #     :from_cell => Cell or String       # Return elements from given cell
+    # @return [ActiveRecord::Relation]
     #
-    def find_selected_elements(options = {}, show_non_public = false)
-      if options[:from_cell].class.name == 'Alchemy::Cell'
-        elements = options[:from_cell].elements
-      elsif !options[:from_cell].blank? && options[:from_cell].class.name == 'String'
-        cell = cells.find_by_name(options[:from_cell])
-        if cell
-          elements = cell.elements
-        else
-          Alchemy::Logger.warn "Cell with name `#{options[:from_cell]}` could not be found!", caller.first
-          # Returns an empty relation. Can be removed with the release of Rails 4
-          elements = self.elements.where('1 = 0')
-        end
-      else
-        elements = self.elements.not_in_cell
-      end
-      if !options[:only].blank?
+    def find_elements(options = {}, show_non_public = false)
+      elements = elements_from_cell_or_self(options[:from_cell])
+      if options[:only].present?
         elements = elements.named(options[:only])
-      elsif !options[:except].blank?
+      elsif options[:except].present?
         elements = elements.excluded(options[:except])
       end
-      elements = elements.reverse_order if options[:reverse_sort] || options[:reverse]
+      if options[:reverse_sort] || options[:reverse]
+        elements = elements.reverse_order
+      end
       elements = elements.offset(options[:offset]).limit(options[:count])
-      elements = elements.order("RAND()") if options[:random]
+      if options[:random]
+        elements = elements.order("RAND()")
+      end
       show_non_public ? elements : elements.published
     end
-
-    # What is this? A Kind of proxy method? Why not rendering the elements directly if you already have them????
-    def find_elements(options = {}, show_non_public = false)
-      if !options[:collection].blank? && options[:collection].is_a?(Array)
-        return options[:collection]
-      else
-        find_selected_elements(options, show_non_public)
-      end
-    end
+    alias_method :find_selected_elements, :find_elements
 
     # Returns all elements that should be feeded via rss.
     #
@@ -221,6 +212,31 @@ module Alchemy
       @elements_for_layout.delete_if { |element|
         element['amount'] && @page_element_names.select { |i| i == element['name'] }.count >= element['amount'].to_i
       }
+    end
+
+    # Returns elements either from given cell or self
+    #
+    def elements_from_cell_or_self(cell)
+      case cell.class.name
+      when 'Alchemy::Cell'
+        cell.elements
+      when 'String'
+        cell_elements_by_name(cell)
+      else
+        self.elements.not_in_cell
+      end
+    end
+
+    # Returns all elements from given cell name
+    #
+    def cell_elements_by_name(name)
+      if cell = cells.find_by_name(name)
+        cell.elements
+      else
+        Alchemy::Logger.warn("Cell with name `#{name}` could not be found!", caller.first)
+        # Returns an empty relation. Can be removed with the release of Rails 4
+        self.elements.where('1 = 0')
+      end
     end
 
   end

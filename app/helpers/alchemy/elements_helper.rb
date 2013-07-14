@@ -298,7 +298,6 @@ module Alchemy
       tag_options(element_tags_attributes(element, options))
     end
 
-
     # Returns the element's tags information as an attribute hash.
     #
     # @param [Alchemy::Element] element The {Alchemy::Element} you want to render the tags from.
