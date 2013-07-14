@@ -75,25 +75,10 @@ module Alchemy
 
       def secure_attributes
         if permitted_to?(:update_roles)
-          permitted_attributes + [{roles: []}]
+          User::PERMITTED_ATTRIBUTES + [{roles: []}]
         else
-          permitted_attributes
+          User::PERMITTED_ATTRIBUTES
         end
-      end
-
-      def permitted_attributes
-        [
-          :firstname,
-          :lastname,
-          :login,
-          :email,
-          :gender,
-          :language,
-          :password,
-          :password_confirmation,
-          :send_credentials,
-          :tag_list
-        ]
       end
 
     end

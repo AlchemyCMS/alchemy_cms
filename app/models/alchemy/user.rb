@@ -1,5 +1,18 @@
 module Alchemy
   class User < ActiveRecord::Base
+    PERMITTED_ATTRIBUTES = [
+      :firstname,
+      :lastname,
+      :login,
+      :email,
+      :gender,
+      :language,
+      :password,
+      :password_confirmation,
+      :send_credentials,
+      :tag_list
+    ]
+
     model_stamper
     stampable(:stamper_class_name => 'Alchemy::User')
 

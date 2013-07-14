@@ -1,6 +1,5 @@
 module Alchemy
   class UsersController < BaseController
-
     before_filter { enforce_ssl if ssl_required? && !request.ssl? }
     before_filter :set_translation
     before_filter :check_user_count
@@ -16,7 +15,7 @@ module Alchemy
     end
 
     def create
-      @user = User.new(params[:user])
+      @user = User.new(user_params)
       if @user.save
         flash[:notice] = _t('Successfully signup admin user')
         sign_in :user, @user
@@ -40,6 +39,14 @@ module Alchemy
       if User.count > 0
         redirect_to admin_dashboard_path
       end
+    end
+
+    def user_params
+      params.require(:user).permit(*secure_attributes)
+    end
+
+    def secure_attributes
+      User::PERMITTED_ATTRIBUTES + [{roles: []}]
     end
 
   end
