@@ -38,7 +38,7 @@ describe Alchemy::MountPoint do
 
   describe '.routes' do
     it "returns the routes object from alchemy engine" do
-      Alchemy::MountPoint.routes.should be_instance_of(Journey::Route)
+      Alchemy::MountPoint.routes.should be_instance_of(ActionDispatch::Journey::Route)
     end
   end
 
