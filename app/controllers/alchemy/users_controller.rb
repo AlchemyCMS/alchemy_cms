@@ -11,11 +11,12 @@ module Alchemy
 
     def new
       @signup = true
-      @user = User.new(:roles => 'admin')
+      @user = User.new
     end
 
     def create
       @user = User.new(user_params)
+      @user.roles = %w(admin)
       if @user.save
         flash[:notice] = _t('Successfully signup admin user')
         sign_in :user, @user
@@ -46,7 +47,7 @@ module Alchemy
     end
 
     def secure_attributes
-      User::PERMITTED_ATTRIBUTES + [{roles: []}]
+      User::PERMITTED_ATTRIBUTES
     end
 
   end

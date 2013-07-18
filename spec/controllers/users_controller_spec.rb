@@ -20,18 +20,15 @@ module Alchemy
       it "should not render tag list input" do
         response.body.should_not have_selector('.autocomplete_tag_list')
       end
-
-      it "should render hidden field for role" do
-        response.body.should have_selector('input[type="hidden"]#user_roles')
-      end
-
-      it "should set the role to admin" do
-        assigns(:user).roles.should include("admin")
-      end
     end
 
     describe '#create' do
       before { ActionMailer::Base.deliveries = [] }
+
+      it "should set the role to admin" do
+        post :create, {:user => FactoryGirl.attributes_for(:admin_user)}
+        assigns(:user).roles.should include("admin")
+      end
 
       context "with send_credentials set to true" do
         it "should send an email notification" do
