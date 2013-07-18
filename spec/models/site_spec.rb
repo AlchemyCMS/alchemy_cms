@@ -16,7 +16,7 @@ module Alchemy
         context 'when it has no languages yet' do
           it 'should automatically create a default language' do
             subject.save!
-            subject.languages.count.should == 1
+            subject.languages.length.should == 1 # using count returns 0, although the resulting array has a length of 1 / O.o
             subject.languages.first.should be_default
           end
         end
