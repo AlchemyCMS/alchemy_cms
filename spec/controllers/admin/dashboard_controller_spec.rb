@@ -48,10 +48,10 @@ module Alchemy
     describe '#update_check' do
 
       context "if current Alchemy version equals the latest released version or it is newer" do
-        before {
+        before do
           controller.stub(:latest_alchemy_version).and_return('2.6')
           Alchemy.stub(:version).and_return("2.6")
-        }
+        end
 
         it "should render 'false'" do
           get :update_check
@@ -60,10 +60,10 @@ module Alchemy
       end
 
       context "if current Alchemy version is older than latest released version" do
-        before {
+        before do
           controller.stub(:latest_alchemy_version).and_return('2.6')
           Alchemy.stub(:version).and_return("2.5")
-        }
+        end
 
         it "should render 'true'" do
           get :update_check
@@ -72,12 +72,12 @@ module Alchemy
       end
 
       context "requesting rubygems.org" do
-        before {
+        before do
           Net::HTTP.any_instance.stub(:request).and_return(
             OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
           )
           Alchemy.stub(:version).and_return("2.6")
-        }
+        end
 
         it "should have response code of 200" do
           get :update_check
@@ -86,12 +86,12 @@ module Alchemy
       end
 
       context "requesting github.com" do
-        before {
+        before do
           controller.stub(:query_rubygems).and_return(OpenStruct.new({code: '503'}))
           Net::HTTP.any_instance.stub(:request).and_return(
             OpenStruct.new({code: '200', body: '[{"name": "2.6"}, {"name": "2.5"}]'})
           )
-        }
+        end
 
         it "should have response code of 200" do
           get :update_check
@@ -100,11 +100,11 @@ module Alchemy
       end
 
       context "rubygems.org and github.com are unavailable" do
-        before {
+        before do
           Net::HTTP.any_instance.stub(:request).and_return(
             OpenStruct.new({code: '503'})
           )
-        }
+        end
 
         it "should have status code 503" do
           get :update_check
