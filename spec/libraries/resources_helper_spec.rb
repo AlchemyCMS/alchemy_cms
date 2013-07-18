@@ -32,7 +32,7 @@ describe Alchemy::ResourcesHelper do
   before :each do
     @controller = ResourcesController.new
     @controller.stub(:main_app).and_return 'main_app_proxy'
-    @resource_item = stub('resource-item')
+    @resource_item = double('resource-item')
     @controller.instance_variable_set('@my_resource', @resource_item)
     @controller.instance_variable_set('@my_resources', [@resource_item])
   end
@@ -64,7 +64,7 @@ describe Alchemy::ResourcesHelper do
     describe "#resource_path" do
 
       it "invokes polymorphic-path with correct scope and object" do
-        my_resource_item = stub
+        my_resource_item = double
         @controller.should_receive(:polymorphic_path).with(["main_app_proxy", "admin", my_resource_item], {})
         @controller.resource_path(my_resource_item)
       end
@@ -93,7 +93,7 @@ describe Alchemy::ResourcesHelper do
 
     describe "#edit_resource_path" do
       it "invokes edit_polymorphic_path with correct scope and resource_name" do
-        my_resource_item = stub
+        my_resource_item = double
         @controller.should_receive(:edit_polymorphic_path).with(["main_app_proxy", "admin", my_resource_item], {})
         @controller.edit_resource_path(my_resource_item)
       end
@@ -122,13 +122,13 @@ describe Alchemy::ResourcesHelper do
 
   describe "#render_attribute" do
     it "should return the value from resource attribute" do
-      @resource_item.stub!(:name).and_return('my-name')
+      @resource_item.stub(:name).and_return('my-name')
       @controller.render_attribute(@resource_item, {:name => 'name'}).should == 'my-name'
     end
 
     context "resource having a relation" do
       it "should return the value from the related object attribute" do
-        @resource_item.stub!(:name).and_return('my-name')
+        @resource_item.stub(:name).and_return('my-name')
         associated_object = double("location", :title => 'Title of related object')
         associated_klass = double("klass", :find => associated_object)
         relation = {:attr_method => :title, :model_association => OpenStruct.new(:klass => associated_klass)}

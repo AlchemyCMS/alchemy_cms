@@ -154,8 +154,8 @@ module Alchemy
     describe '#default_mask' do
 
       before do
-        picture.stub!(:image_file_width).and_return(200)
-        picture.stub!(:image_file_height).and_return(100)
+        picture.stub(:image_file_width).and_return(200)
+        picture.stub(:image_file_height).and_return(100)
       end
 
       it "should return a Hash" do
@@ -181,7 +181,7 @@ module Alchemy
       end
 
     end
-    
+
     describe "#cropped_thumbnail_size" do
 
       context "if given size is blank or 111x93" do
@@ -203,7 +203,7 @@ module Alchemy
         end
       end
     end
-    
+
     describe "#image_file_dimensions" do
       it "should return the width and height in the format of '1024x768'" do
         picture.image_file = image_file

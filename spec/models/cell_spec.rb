@@ -30,7 +30,7 @@ module Alchemy
 
     describe ".definitions_for_element" do
       before do
-        Cell.stub!(:definitions).and_return([
+        Cell.stub(:definitions).and_return([
           {'name' => 'cell_1', 'elements' => ['target', 'other']},
           {'name' => 'cell_2', 'elements' => ['other', 'other']},
           {'name' => 'cell_3', 'elements' => ['other', 'target']}
@@ -58,14 +58,14 @@ module Alchemy
     describe "#available_elements" do
       context "without assigned elements" do
         it "should return an empty Array" do
-          cell.stub!(:definition).and_return({})
+          cell.stub(:definition).and_return({})
           cell.available_elements.should == []
         end
       end
 
       context "with assigned elements" do
         it "should return an Array of element names" do
-          cell.stub!(:definition).and_return({'elements' => ['test_element', 'test_element_2']})
+          cell.stub(:definition).and_return({'elements' => ['test_element', 'test_element_2']})
           cell.available_elements.should == ['test_element', 'test_element_2']
         end
       end
@@ -74,14 +74,14 @@ module Alchemy
     describe "#definition" do
       context "without a definition for the expected cellname" do
         it "should return an empty Hash" do
-          Cell.stub!(:definition_for).and_return({})
+          Cell.stub(:definition_for).and_return({})
           cell.definition.should == {}
         end
       end
 
       context "with a definition for the expected cellname found" do
         it "should return its definition Hash" do
-          Cell.stub!(:definition_for).and_return({'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']})
+          Cell.stub(:definition_for).and_return({'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']})
           cell.definition.should == {'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']}
         end
       end

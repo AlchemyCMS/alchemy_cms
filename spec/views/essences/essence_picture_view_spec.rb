@@ -8,7 +8,7 @@ describe "essences/_essence_picture_view" do
   before do
     ActionView::Base.send(:include, Alchemy::UrlHelper)
     ActionView::Base.send(:include, Alchemy::EssencesHelper)
-    view.stub!(:configuration).and_return(:jpg)
+    view.stub(:configuration).and_return(:jpg)
   end
 
   context "with caption" do

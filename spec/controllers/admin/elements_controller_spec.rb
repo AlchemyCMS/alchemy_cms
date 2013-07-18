@@ -43,7 +43,7 @@ module Alchemy
     describe '#find_or_create_cell' do
 
       before do
-        Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['header']})
+        Cell.stub(:definition_for).and_return({'name' => 'header', 'elements' => ['header']})
         controller.instance_variable_set(:@page, alchemy_page)
       end
 
@@ -167,7 +167,7 @@ module Alchemy
               'elements' => ['article'],
               'cells' => ['header']
             })
-            Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
+            Cell.stub(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
           end
 
           context "and cell name in element name" do
@@ -201,7 +201,7 @@ module Alchemy
                 'elements' => ['article'],
                 'cells' => ['header']
               })
-              Cell.stub!(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
+              Cell.stub(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
               clipboard[:elements] = [{:id => element_in_clipboard.id}]
             end
 
@@ -244,7 +244,7 @@ module Alchemy
                 'insert_elements_at' => 'top',
                 'cells' => ['news']
               })
-              Cell.stub!(:definition_for).and_return({'name' => 'news', 'elements' => ['news']})
+              Cell.stub(:definition_for).and_return({'name' => 'news', 'elements' => ['news']})
               clipboard[:elements] = [{:id => element_in_clipboard.id}]
               cell.elements << element
             end

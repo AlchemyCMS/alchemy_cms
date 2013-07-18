@@ -92,8 +92,8 @@ module Alchemy
       let(:product)  { FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => products.id, :language => default_language, :do_not_autogenerate => false, :visible => true) }
 
       before do
-        User.stub!(:admins).and_return(OpenStruct.new(count: 1))
-        Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
+        User.stub(:admins).and_return(OpenStruct.new(count: 1))
+        Config.stub(:get) { |arg| arg == :url_nesting ? true : false }
         product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 

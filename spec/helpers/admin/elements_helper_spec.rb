@@ -30,13 +30,13 @@ module Alchemy
       end
 
       before(:each) do
-        @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
+        @page.stub(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         @elements = [
           mock_model('Element', name: '1', display_name: '1'),
           mock_model('Element', name: '2', display_name: '2')
         ]
-        Alchemy::Cell.stub!(:definitions).and_return(cell_descriptions)
+        Alchemy::Cell.stub(:definitions).and_return(cell_descriptions)
       end
 
       it "should return string of elements grouped by cell for select_tag helper" do
@@ -51,7 +51,7 @@ module Alchemy
 
       context "with empty cell definitions" do
         it "should return an empty string" do
-          @page.stub!(:layout_description).and_return({'name' => "foo"})
+          @page.stub(:layout_description).and_return({'name' => "foo"})
           helper.grouped_elements_for_select(@elements).should == ""
         end
       end

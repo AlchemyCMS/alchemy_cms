@@ -10,10 +10,10 @@ module Alchemy
     let(:content) { mock_model('Content', essence: essence_file) }
     let(:essence_file) { mock_model('EssenceFile', :attachment= => nil) }
     let(:attachment) { mock_model('Attachment') }
-    
+
     describe '#edit' do
       before do
-        Content.stub!(:find).with(content.id.to_s).and_return(content)
+        Content.stub(:find).with(content.id.to_s).and_return(content)
       end
 
       it "should assign @content with the Content found by id" do
@@ -36,7 +36,7 @@ module Alchemy
 
     describe '#update' do
       before do
-        EssenceFile.stub!(:find).with(essence_file.id.to_s).and_return(essence_file)
+        EssenceFile.stub(:find).with(essence_file.id.to_s).and_return(essence_file)
       end
 
       it "should update the attributes of essence_file" do
@@ -47,8 +47,8 @@ module Alchemy
 
     describe '#assign' do
       before do
-        Content.stub!(:find_by_id).with(content.id.to_s).and_return(content)
-        Attachment.stub!(:find_by_id).and_return(attachment)
+        Content.stub(:find_by_id).with(content.id.to_s).and_return(content)
+        Attachment.stub(:find_by_id).and_return(attachment)
       end
 
       it "should assign @attachment with the Attachment found by attachment_id" do

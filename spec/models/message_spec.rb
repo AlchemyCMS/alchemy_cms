@@ -27,14 +27,14 @@ module Alchemy
     describe '#email_is_filled' do
       context 'if email attribute is filled' do
         it "should return true" do
-          message.stub!(:email).and_return('me@you.com')
+          message.stub(:email).and_return('me@you.com')
           expect(message.send(:email_is_filled)).to eq(true)
         end
       end
 
       context 'if email attribute is not filled' do
         it "should return false" do
-          message.stub!(:email).and_return('')
+          message.stub(:email).and_return('')
           expect(message.send(:email_is_filled)).to eq(false)
         end
       end

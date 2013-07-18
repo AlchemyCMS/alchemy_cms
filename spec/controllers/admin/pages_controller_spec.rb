@@ -40,8 +40,8 @@ module Alchemy
       let(:page) { mock_model('Page', language_code: 'nl') }
 
       before do
-        Page.stub!(:find).with("#{page.id}").and_return(page)
-        Page.stub!(:language_root_for).and_return(mock_model('Page'))
+        Page.stub(:find).with("#{page.id}").and_return(page)
+        Page.stub(:language_root_for).and_return(mock_model('Page'))
       end
 
       it "should assign @preview_mode with true" do
@@ -62,7 +62,7 @@ module Alchemy
         let(:page) { mock_model(Page, {name: 'Foobar', slug: 'foobar', urlname: 'root/parent/foobar', redirects_to_external?: false, layoutpage?: false, taggable?: false}) }
 
         it "should always show the slug" do
-          Page.stub!(:find).and_return(page)
+          Page.stub(:find).and_return(page)
           get :configure, {id: page.id, format: :js}
           response.body.should match /value="foobar"/
         end
@@ -83,7 +83,7 @@ module Alchemy
         end
 
         it "nests a new page under given parent" do
-          controller.stub!(:edit_admin_page_path).and_return('bla')
+          controller.stub(:edit_admin_page_path).and_return('bla')
           post :create, {page: page_params, format: :js}
           expect(assigns(:page).parent_id).to eq(parent.id)
         end
@@ -120,8 +120,8 @@ module Alchemy
         let(:page_in_clipboard) { mock_model('Page') }
 
         before do
-          Page.stub!(:find_by_id).with(parent.id).and_return(parent)
-          Page.stub!(:find).with(page_in_clipboard.id).and_return(page_in_clipboard)
+          Page.stub(:find_by_id).with(parent.id).and_return(parent)
+          Page.stub(:find).with(page_in_clipboard.id).and_return(page_in_clipboard)
         end
 
         it "should call Page#paste_from_clipboard" do
@@ -192,7 +192,7 @@ module Alchemy
 
       let(:page) { stub_model(Page, published_at: nil, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
       before do
-        @controller.stub!(:load_page).and_return(page)
+        @controller.stub(:load_page).and_return(page)
         @controller.instance_variable_set("@page", page)
       end
 
@@ -207,9 +207,9 @@ module Alchemy
       let(:page) { mock_model('Page', urlname: 'home') }
 
       before do
-        Page.stub!(:find).with("#{page.id}").and_return(page)
-        page.stub!(:unlock!).and_return(true)
-        @controller.stub!(:multi_language?).and_return(false)
+        Page.stub(:find).with("#{page.id}").and_return(page)
+        page.stub(:unlock!).and_return(true)
+        @controller.stub(:multi_language?).and_return(false)
       end
 
       it "should redirect to the page path" do
@@ -221,12 +221,12 @@ module Alchemy
       let(:page) { mock_model('Page') }
 
       before do
-        Page.stub!(:find).with(page.id).and_return(page)
+        Page.stub(:find).with(page.id).and_return(page)
       end
 
       context "if page is currently not folded" do
         before do
-          page.stub!(:folded?).and_return(false)
+          page.stub(:folded?).and_return(false)
         end
 
         it "should fold the page" do
@@ -237,7 +237,7 @@ module Alchemy
 
       context "if page is already folded" do
         before do
-          page.stub!(:folded?).and_return(true)
+          page.stub(:folded?).and_return(true)
         end
 
         it "should unfold the page" do
@@ -249,7 +249,7 @@ module Alchemy
 
     describe '#sort' do
       before do
-        Page.stub!(:language_root_for).and_return(mock_model('Page'))
+        Page.stub(:language_root_for).and_return(mock_model('Page'))
       end
 
       it "should assign @sorting with true" do
@@ -262,8 +262,8 @@ module Alchemy
       let(:page) { mock_model('Page', name: 'Best practices') }
 
       before do
-        page.stub!(:unlock!).and_return(true)
-        Page.stub!(:find).with("#{page.id}").and_return(page)
+        page.stub(:unlock!).and_return(true)
+        Page.stub(:find).with("#{page.id}").and_return(page)
         Page.stub_chain(:from_current_site, :all_locked_by).and_return(nil)
       end
 

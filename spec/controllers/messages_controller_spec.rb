@@ -5,7 +5,7 @@ module Alchemy
 
     before do
       controller.instance_variable_set(:@page, page)
-      controller.stub!(:get_page).and_return(page)
+      controller.stub(:get_page).and_return(page)
     end
 
     describe "#index" do
@@ -32,7 +32,7 @@ module Alchemy
 
     describe "#create" do
 
-      before { controller.stub!(:params).and_return({message: {email: ''}}) }
+      before { controller.stub(:params).and_return({message: {email: ''}}) }
 
       let(:page) { mock_model('Page', get_language_root: mock_model('Page')) }
       let(:element) { mock_model('Element', page: page, ingredient: '') }
@@ -45,7 +45,7 @@ module Alchemy
       context "if validation of message" do
 
         before do
-          Element.stub!(:find_by_id).and_return(element)
+          Element.stub(:find_by_id).and_return(element)
           element.stub(:ingredient).with(:success_page).and_return('thank-you')
           Message.any_instance.stub(:contact_form_id).and_return(1)
         end
@@ -156,7 +156,7 @@ module Alchemy
           describe "#redirect_to_success_page" do
 
             context "if 'success_page' ingredient of element is set with urlname" do
-              before { element.stub!(:ingredient).with(:success_page).and_return('success-page') }
+              before { element.stub(:ingredient).with(:success_page).and_return('success-page') }
 
               it "should redirect to the given urlname" do
                 expect(post :create).to redirect_to(show_page_path(urlname: 'success-page'))
@@ -164,11 +164,11 @@ module Alchemy
             end
 
             context "if 'success_page' ingredient of element is not set" do
-              before { element.stub!(:ingredient).with(:success_page).and_return(nil) }
+              before { element.stub(:ingredient).with(:success_page).and_return(nil) }
 
               context "but mailer_config['forward_to_page'] is true and mailer_config['mail_success_page'] is set" do
                 before do
-                  controller.stub!(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
+                  controller.stub(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
                   Page.stub_chain(:find_by_urlname, :urlname).and_return('mailer-config-success-page')
                 end
 
@@ -179,7 +179,7 @@ module Alchemy
 
               context "and mailer_config has no instructions for success_page" do
                 before do
-                  controller.stub!(:mailer_config).and_return({})
+                  controller.stub(:mailer_config).and_return({})
                 end
 
                 it "should redirect to the language root page" do

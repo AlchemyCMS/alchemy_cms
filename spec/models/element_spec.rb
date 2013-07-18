@@ -34,7 +34,7 @@ module Alchemy
 
     describe '.definitions' do
       context "without existing yml files" do
-        before { File.stub!(:exists?).and_return(false) }
+        before { File.stub(:exists?).and_return(false) }
 
         it "should raise an error" do
           expect { Element.definitions }.to raise_error(LoadError)
@@ -42,7 +42,7 @@ module Alchemy
       end
 
       context "without any definitions in elements.yml" do
-        before { YAML.stub!(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
+        before { YAML.stub(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
 
         it "should return an empty array" do
           Element.definitions.should == []
@@ -178,7 +178,7 @@ module Alchemy
 
       context "with page having cells defining the correct elements" do
         before do
-          Cell.stub!(:definitions).and_return([
+          Cell.stub(:definitions).and_return([
             {'name' => 'header', 'elements' => ['article', 'headline']},
             {'name' => 'footer', 'elements' => ['article', 'text']},
             {'name' => 'sidebar', 'elements' => ['teaser']}
@@ -203,7 +203,7 @@ module Alchemy
 
       context "with page having cells defining the wrong elements" do
         before do
-          Cell.stub!(:definitions).and_return([
+          Cell.stub(:definitions).and_return([
             {'name' => 'header', 'elements' => ['download', 'headline']},
             {'name' => 'footer', 'elements' => ['contactform', 'text']},
             {'name' => 'sidebar', 'elements' => ['teaser']}
@@ -298,7 +298,7 @@ module Alchemy
 
       context "without a content marked as preview" do
         let(:contents) { [content, content_2] }
-        before { element.stub!(:contents).and_return(contents) }
+        before { element.stub(:contents).and_return(contents) }
 
         it "returns the preview text of first content found" do
           content.should_receive(:preview_text).with(30)
@@ -308,7 +308,7 @@ module Alchemy
 
       context "with a content marked as preview" do
         let(:contents) { [content, preview_content] }
-        before { element.stub!(:contents).and_return(contents) }
+        before { element.stub(:contents).and_return(contents) }
 
         it "should return the preview_text of this content" do
           preview_content.should_receive(:preview_text).with(30)
@@ -317,7 +317,7 @@ module Alchemy
       end
 
       context "without any contents present" do
-        before { element.stub!(:contents).and_return([]) }
+        before { element.stub(:contents).and_return([]) }
 
         it "should return nil" do
           element.preview_text.should be_nil

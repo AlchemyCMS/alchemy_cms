@@ -15,13 +15,13 @@ describe Alchemy::Admin::ContentsHelper do
   end
 
   it "should render a link to add new content to element" do
-    helper.stub!(:render_icon).and_return('')
+    helper.stub(:render_icon).and_return('')
     helper.render_new_content_link(@element).should match(/a.+href.*admin\/elements\/#{@element.id}\/contents\/new/m)
   end
 
   it "should render a link to create a content in element" do
-    helper.stub!(:render_icon).and_return('')
-    helper.render_create_content_link(@element, 'headline').should match(/a.+href.*admin\/contents.+class.+new_content_link.*data-method.+post/)
+    helper.stub(:render_icon).and_return('')
+    helper.render_create_content_link(@element, 'headline').should have_selector('a.new_content_link[data-method="post"]')
   end
 
 end

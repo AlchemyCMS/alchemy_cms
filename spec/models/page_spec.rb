@@ -9,7 +9,7 @@ module Alchemy
     let(:language)      { Language.get_default }
     let(:klingonian)    { FactoryGirl.create(:klingonian) }
     let(:language_root) { FactoryGirl.create(:language_root_page) }
-    let(:page)          { mock(:page, :page_layout => 'foo') }
+    let(:page)          { mock_model(:page, :page_layout => 'foo') }
     let(:public_page)   { FactoryGirl.create(:public_page) }
     let(:news_page)     { FactoryGirl.create(:public_page, :page_layout => 'news', :do_not_autogenerate => false) }
 
@@ -47,7 +47,7 @@ module Alchemy
         end
 
         context "with url_nesting set to true" do
-          before { Config.stub!(:get).and_return(true) }
+          before { Config.stub(:get).and_return(true) }
 
           it "should only validate urlname dependent of parent" do
             other_parent = FactoryGirl.create(:page, parent_id: Page.root.id)
@@ -170,18 +170,18 @@ module Alchemy
 
         context "with cells" do
           before do
-            @page.stub!(:definition).and_return({'name' => 'with_cells', 'cells' => ['header', 'main']})
+            @page.stub(:definition).and_return({'name' => 'with_cells', 'cells' => ['header', 'main']})
           end
 
           it "should have the generated elements in their cells" do
-            @page.stub!(:cell_definitions).and_return([{'name' => 'header', 'elements' => ['article']}])
+            @page.stub(:cell_definitions).and_return([{'name' => 'header', 'elements' => ['article']}])
             @page.save
             @page.cells.where(:name => 'header').first.elements.should_not be_empty
           end
 
           context "and no elements in cell definitions" do
             it "should have the elements in the nil cell" do
-              @page.stub!(:cell_definitions).and_return([{'name' => 'header', 'elements' => []}])
+              @page.stub(:cell_definitions).and_return([{'name' => 'header', 'elements' => []}])
               @page.save
               @page.cells.collect(&:elements).flatten.should be_empty
             end
@@ -376,7 +376,7 @@ module Alchemy
       context "page with autogenerate elements" do
         before do
           page = FactoryGirl.create(:page)
-          page.stub!(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
+          page.stub(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
         end
 
         it "the copy should not autogenerate elements" do
@@ -591,9 +591,9 @@ module Alchemy
     describe '#cell_definitions' do
       before do
         @page = FactoryGirl.build(:page, :page_layout => 'foo')
-        @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
+        @page.stub(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        Cell.stub!(:definitions).and_return(@cell_descriptions)
+        Cell.stub(:definitions).and_return(@cell_descriptions)
       end
 
       it "should return all cell definitions for its page_layout" do
@@ -601,7 +601,7 @@ module Alchemy
       end
 
       it "should return empty array if no cells defined in page layout" do
-        @page.stub!(:layout_description).and_return({'name' => "foo"})
+        @page.stub(:layout_description).and_return({'name' => "foo"})
         @page.cell_definitions.should == []
       end
     end
@@ -666,7 +666,7 @@ module Alchemy
           'elements' => ['header', 'text'],
           'autogenerate' => ['header', 'text']
         })
-        Cell.stub!(:definitions).and_return([{
+        Cell.stub(:definitions).and_return([{
           'name' => "header",
           'elements' => ["header"]
         }])
@@ -836,7 +836,7 @@ module Alchemy
       let(:user) { mock_model('User') }
 
       before do
-        page.stub!(:save).and_return(true)
+        page.stub(:save).and_return(true)
         page.lock_to!(user)
       end
 
@@ -868,14 +868,14 @@ module Alchemy
       end
 
       it "should return the copied page" do
-        Page.stub!(:copy).and_return(copied_page)
+        Page.stub(:copy).and_return(copied_page)
         expect(subject).to be_a(copied_page.class)
       end
 
       context "if source page has children" do
         it "should also copy and paste the children" do
-          Page.stub!(:copy).and_return(copied_page)
-          source.stub!(:children).and_return([mock_model('Page')])
+          Page.stub(:copy).and_return(copied_page)
+          source.stub(:children).and_return([mock_model('Page')])
           source.should_receive(:copy_children_to).with(copied_page)
           subject
         end
@@ -953,7 +953,7 @@ module Alchemy
       let(:page) { FactoryGirl.build_stubbed(:page, public: false) }
 
       before do
-        page.stub!(:save).and_return(true)
+        page.stub(:save).and_return(true)
         page.publish!
       end
 
@@ -966,7 +966,7 @@ module Alchemy
       let(:default_language) { mock_model('Language', code: 'es') }
       let(:page) { Page.new }
 
-      before { page.stub!(:parent).and_return(parent) }
+      before { page.stub(:parent).and_return(parent) }
 
       subject { page }
 
@@ -985,7 +985,7 @@ module Alchemy
         let(:parent) { mock_model('Page', language: nil, language_id: nil, language_code: nil) }
 
         before do
-          Language.stub!(:get_default).and_return(default_language)
+          Language.stub(:get_default).and_return(default_language)
           page.set_language_from_parent_or_default_language
         end
 
@@ -1024,7 +1024,7 @@ module Alchemy
       let(:page) { Page.new(locked: true) }
 
       before do
-        page.stub!(:save).and_return(true)
+        page.stub(:save).and_return(true)
       end
 
       it "should set the locked status to false" do
@@ -1051,7 +1051,7 @@ module Alchemy
       let(:contact)      { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
 
       context "with activated url_nesting" do
-        before { Config.stub!(:get).and_return(true) }
+        before { Config.stub(:get).and_return(true) }
 
         it "should store all parents urlnames delimited by slash" do
           page.urlname.should == 'parentparent/parent/page'
@@ -1079,7 +1079,7 @@ module Alchemy
           end
 
           it "should create a legacy url" do
-            page.stub!(:slug).and_return('foo')
+            page.stub(:slug).and_return('foo')
             page.update_urlname!
             page.legacy_urls.should_not be_empty
             page.legacy_urls.collect(&:urlname).should include('parentparent/parent/page')
@@ -1098,7 +1098,7 @@ module Alchemy
       end
 
       context "with disabled url_nesting" do
-        before { Config.stub!(:get).and_return(false) }
+        before { Config.stub(:get).and_return(false) }
 
         it "should only store my urlname" do
           page.urlname.should == 'page'
@@ -1164,7 +1164,7 @@ module Alchemy
       let(:page) { Page.new }
 
       before do
-        User.stub!(:find_by_id).and_return(User.new(firstname: 'Paul', lastname: 'Page'))
+        User.stub(:find_by_id).and_return(User.new(firstname: 'Paul', lastname: 'Page'))
       end
 
       describe '#creator' do
@@ -1203,8 +1203,8 @@ module Alchemy
 
       context 'if the page has a custom controller defined in its description' do
         before do
-          page.stub!(:has_controller?).and_return(true)
-          page.stub!(:layout_description).and_return({'controller' => 'comments', 'action' => 'index'})
+          page.stub(:has_controller?).and_return(true)
+          page.stub(:layout_description).and_return({'controller' => 'comments', 'action' => 'index'})
         end
         it "should return a Hash with controller and action key-value pairs" do
           expect(page.controller_and_action).to eq({controller: '/comments', action: 'index'})

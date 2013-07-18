@@ -6,10 +6,10 @@ module Alchemy
       let(:admin) { FactoryGirl.build_stubbed(:admin_user) }
 
       before do
-        controller.stub!(:store_user_request_time)
-        User.stub!(:find).and_return(admin)
-        admin.stub!(:update_without_password).and_return(true)
-        admin.stub!(:update_attributes).and_return(true)
+        controller.stub(:store_user_request_time)
+        User.stub(:find).and_return(admin)
+        admin.stub(:update_without_password).and_return(true)
+        admin.stub(:update_attributes).and_return(true)
         sign_in(admin)
       end
 
@@ -82,7 +82,7 @@ module Alchemy
 
         context "with send_credentials set to true" do
           let(:user) { FactoryGirl.build(:user) }
-          before { User.stub!(:find).and_return(user) }
+          before { User.stub(:find).and_return(user) }
 
           it "should send an email notification" do
             post :update, id: user.id, user: {send_credentials: true}
@@ -99,7 +99,7 @@ module Alchemy
 
         context "if user is permitted to update roles" do
           before do
-            controller.stub!(:permitted_to?).with(:update_roles).and_return(true)
+            controller.stub(:permitted_to?).with(:update_roles).and_return(true)
           end
 
           it "updates the user including role" do
@@ -110,7 +110,7 @@ module Alchemy
 
         context "if the user is not permitted to update roles" do
           before do
-            controller.stub!(:permitted_to?).with(:update_roles).and_return(false)
+            controller.stub(:permitted_to?).with(:update_roles).and_return(false)
           end
 
           it "updates user without role" do

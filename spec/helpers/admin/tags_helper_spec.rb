@@ -9,7 +9,7 @@ module Alchemy
 
     describe '#render_tag_list' do
       context "with tagged objects" do
-        before { Attachment.stub!(:tag_counts).and_return([tag, tag2]) }
+        before { Attachment.stub(:tag_counts).and_return([tag, tag2]) }
 
         it "returns a tag list as <li> tags" do
           helper.render_tag_list('Alchemy::Attachment', params).should match(/li/)

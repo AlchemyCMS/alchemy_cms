@@ -22,7 +22,7 @@ module Alchemy
     describe "#render_elements" do
 
       before(:each) do
-        helper.stub!(:configuration).and_return(true)
+        helper.stub(:configuration).and_return(true)
       end
 
       context "with no certain option given" do
@@ -238,7 +238,7 @@ module Alchemy
           it "should return all elements associated with this given page" do
             expect(helper.all_elements_by_name('el_name', from_page: page)).to eq([element])
           end
-        end        
+        end
       end
     end
 

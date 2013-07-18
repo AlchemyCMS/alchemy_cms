@@ -11,8 +11,8 @@ module Alchemy
       before do
         Page.stub_chain(:from_current_site, :all_last_edited_from).and_return([])
         Page.stub_chain(:from_current_site, :all_locked).and_return([])
-        User.stub!(:logged_in).and_return([controller.current_user])
-        controller.current_user.stub!(:sign_in_count).and_return(5)
+        User.stub(:logged_in).and_return([controller.current_user])
+        controller.current_user.stub(:sign_in_count).and_return(5)
       end
 
       it "should assign @last_edited_pages" do
@@ -40,7 +40,7 @@ module Alchemy
         expect(assigns(:sites)).to eq(Site.all)
       end
     end
-    
+
     describe '#info' do
       it "should assign @alchemy_version with the current Alchemy version" do
         get :info
@@ -52,8 +52,8 @@ module Alchemy
 
       context "if current Alchemy version equals the latest released version or it is newer" do
         before do
-          controller.stub!(:latest_alchemy_version).and_return('2.6')
-          Alchemy.stub!(:version).and_return("2.6")
+          controller.stub(:latest_alchemy_version).and_return('2.6')
+          Alchemy.stub(:version).and_return("2.6")
         end
 
         it "should render 'false'" do
@@ -64,8 +64,8 @@ module Alchemy
 
       context "if current Alchemy version is older than latest released version" do
         before do
-          controller.stub!(:latest_alchemy_version).and_return('2.6')
-          Alchemy.stub!(:version).and_return("2.5")
+          controller.stub(:latest_alchemy_version).and_return('2.6')
+          Alchemy.stub(:version).and_return("2.5")
         end
 
         it "should render 'true'" do
@@ -79,7 +79,7 @@ module Alchemy
           Net::HTTP.any_instance.stub(:request).and_return(
             OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
           )
-          Alchemy.stub!(:version).and_return("2.6")
+          Alchemy.stub(:version).and_return("2.6")
         end
 
         it "should have response code of 200" do
@@ -90,7 +90,7 @@ module Alchemy
 
       context "requesting github.com" do
         before do
-          controller.stub!(:query_rubygems).and_return(OpenStruct.new({code: '503'}))
+          controller.stub(:query_rubygems).and_return(OpenStruct.new({code: '503'}))
           Net::HTTP.any_instance.stub(:request).and_return(
             OpenStruct.new({code: '200', body: '[{"name": "2.6"}, {"name": "2.5"}]'})
           )

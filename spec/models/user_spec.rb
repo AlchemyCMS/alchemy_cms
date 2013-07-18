@@ -164,7 +164,7 @@ module Alchemy
     end
 
     describe '#logged_in?' do
-      before { Config.stub!(:get).and_return 60 }
+      before { Config.stub(:get).and_return 60 }
 
       it "should return logged in status" do
         user.last_request_at = 30.minutes.ago
@@ -174,7 +174,7 @@ module Alchemy
     end
 
     describe '#logged_out?' do
-      before { Config.stub!(:get).and_return 60 }
+      before { Config.stub(:get).and_return 60 }
 
       it "should return logged in status" do
         user.last_request_at = 2.hours.ago

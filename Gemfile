@@ -51,9 +51,9 @@ group :development do
     gem 'debugger'
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
     gem 'bumpy'
-    gem 'capybara', '~> 2.0.3'
+    gem 'capybara'
     gem 'factory_girl_rails'
-    gem 'rspec-rails', '~> 2.13.1'
+    gem 'rspec-rails'
     gem 'yard'
     gem 'redcarpet'
   end

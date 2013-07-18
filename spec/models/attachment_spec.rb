@@ -45,7 +45,7 @@ module Alchemy
     describe 'validations' do
 
       context "having a png, but only pdf allowed" do
-        before { Config.stub!(:get).and_return({'allowed_filetypes' => {'attachments' => ['pdf']}}) }
+        before { Config.stub(:get).and_return({'allowed_filetypes' => {'attachments' => ['pdf']}}) }
 
         it "should not be valid" do
           attachment.should_not be_valid
@@ -53,7 +53,7 @@ module Alchemy
       end
 
       context "having a png and everything allowed" do
-        before { Config.stub!(:get).and_return({'allowed_filetypes' => {'attachments' => ['*']}}) }
+        before { Config.stub(:get).and_return({'allowed_filetypes' => {'attachments' => ['*']}}) }
 
         it "should be valid" do
           attachment.should be_valid

@@ -6,7 +6,7 @@ module Alchemy
     let(:user) { FactoryGirl.build_stubbed(:admin_user) }
 
     before do
-      controller.stub!(:store_user_request_time)
+      controller.stub(:store_user_request_time)
       sign_in(user)
     end
 

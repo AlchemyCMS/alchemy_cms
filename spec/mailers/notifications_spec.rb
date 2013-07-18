@@ -47,7 +47,7 @@ module Alchemy
       let(:user) { FactoryGirl.build_stubbed(:user) }
       let(:mail) { Notifications.reset_password_instructions(user) }
 
-      before { user.stub!(:reset_password_token).and_return('123') }
+      before { user.stub(:reset_password_token).and_return('123') }
 
       it "delivers a mail to user" do
         mail.to.should == [user.email]

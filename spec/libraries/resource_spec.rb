@@ -43,13 +43,13 @@ module Alchemy
     before :each do
       # stubbing an ActiveRecord::ModelSchema...
       columns = [
-        mock(:column, {:name => 'name', :type => :string}),
-        mock(:column, {:name => 'hidden_value', :type => :string}),
-        mock(:column, {:name => 'description', :type => :string}),
-        mock(:column, {:name => 'id', :type => :integer}),
-        mock(:column, {:name => 'starts_at', :type => :datetime}),
-        mock(:column, {:name => 'location_id', :type => :integer}),
-        mock(:column, {:name => 'organizer_id', :type => :integer}),
+        double(:column, {:name => 'name', :type => :string}),
+        double(:column, {:name => 'hidden_value', :type => :string}),
+        double(:column, {:name => 'description', :type => :string}),
+        double(:column, {:name => 'id', :type => :integer}),
+        double(:column, {:name => 'starts_at', :type => :datetime}),
+        double(:column, {:name => 'location_id', :type => :integer}),
+        double(:column, {:name => 'organizer_id', :type => :integer}),
       ]
       Event.stub(:columns).and_return columns
       #Alchemy::Config.stub(:get).and_return {}
@@ -91,7 +91,7 @@ module Alchemy
               {location: {attr_method: 'name', type: 'string'}}
             end
           end
-          Event.stub!(:respond_to?).and_return { |arg|
+          Event.stub(:respond_to?).and_return { |arg|
             case arg
             when :reflect_on_all_associations
               then false

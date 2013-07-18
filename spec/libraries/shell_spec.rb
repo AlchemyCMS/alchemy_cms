@@ -9,7 +9,7 @@ module Alchemy
 
   describe Shell do
 
-    before { MyToDoList.stub!(:puts) }
+    before { MyToDoList.stub(:puts) }
 
     describe '.todo' do
       it "should add given string as a todo by delegating to .add_todo" do
@@ -35,11 +35,11 @@ module Alchemy
     describe '.display_todos' do
       context 'if there are todos in the list' do
         before do
-          MyToDoList.stub!(:todos).and_return(['My first todo', 'My second todo'])
+          MyToDoList.stub(:todos).and_return(['My first todo', 'My second todo'])
         end
 
         it "should log them" do
-          MyToDoList.should_receive(:log).any_number_of_times
+          MyToDoList.should_receive(:log).at_least(1).times
           MyToDoList.display_todos
         end
 
@@ -51,7 +51,7 @@ module Alchemy
 
       context 'if there are todos in the list' do
         before do
-          MyToDoList.stub!(:todos).and_return([])
+          MyToDoList.stub(:todos).and_return([])
         end
 
         it "should not log anything" do
@@ -99,7 +99,7 @@ module Alchemy
 
       context 'if given name is a constant of Thor::Shell::Color' do
         before do
-          Thor::Shell::Color.stub!(:const_defined?).and_return(true)
+          Thor::Shell::Color.stub(:const_defined?).and_return(true)
         end
 
         it "should call the constant" do
@@ -110,7 +110,7 @@ module Alchemy
 
       context 'if given name is not a defined constant of Thor::Shell::Color' do
         before do
-          Thor::Shell::Color.stub!(:const_defined?).and_return(false)
+          Thor::Shell::Color.stub(:const_defined?).and_return(false)
         end
 
         it "should return en empty string" do

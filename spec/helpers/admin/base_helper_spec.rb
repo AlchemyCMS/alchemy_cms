@@ -41,7 +41,7 @@ module Alchemy
 
     describe "#merge_params" do
       before(:each) do
-        controller.stub!(:params).and_return({:first => '1', :second => '2'})
+        controller.stub(:params).and_return({:first => '1', :second => '2'})
       end
 
       it "returns a hash that contains the current params and additional params given as attributes" do
@@ -51,7 +51,7 @@ module Alchemy
 
     describe "#merge_params_without" do
       before(:each) do
-        controller.stub!(:params).and_return({:first => '1', :second => '2'})
+        controller.stub(:params).and_return({:first => '1', :second => '2'})
       end
       it "can delete a single param" do
         helper.merge_params_without(:second).should == {:first => '1'}
@@ -74,7 +74,7 @@ module Alchemy
     describe "#merge_params_only" do
 
       before(:each) do
-        controller.stub!(:params).and_return({:first => '1', :second => '2', :third => '3'})
+        controller.stub(:params).and_return({:first => '1', :second => '2', :third => '3'})
       end
 
       it "can keep a single param" do

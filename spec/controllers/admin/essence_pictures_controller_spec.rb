@@ -14,8 +14,8 @@ module Alchemy
 
     describe '#edit' do
       before do
-        EssencePicture.stub!(:find).and_return(essence)
-        Content.stub!(:find).and_return(content)
+        EssencePicture.stub(:find).and_return(essence)
+        Content.stub(:find).and_return(content)
       end
 
       it 'should assign @essence_picture and @content instance variables' do
@@ -24,12 +24,12 @@ module Alchemy
         expect(assigns(:content)).to be_a(Content)
       end
     end
-    
+
     describe '#assign' do
       before do
-        Content.stub!(:find_by_id).and_return(content)
+        Content.stub(:find_by_id).and_return(content)
         Content.any_instance.stub(:essence).and_return(essence)
-        Picture.stub!(:find_by_id).and_return(picture)
+        Picture.stub(:find_by_id).and_return(picture)
       end
 
       it "should assign a Picture" do
