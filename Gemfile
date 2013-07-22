@@ -47,12 +47,12 @@ group :test do
 end
 
 group :development do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
   unless ENV['CI']
     gem 'debugger'
     gem 'bumpy'
-    gem 'capybara'
-    gem 'factory_girl_rails'
-    gem 'rspec-rails'
     gem 'yard'
     gem 'redcarpet'
   end
