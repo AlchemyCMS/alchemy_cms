@@ -2,3 +2,4 @@
 * test all admin controllers create/update methods bcz. rails4 secure params
 * use CanCan to permit secure params hash
 * Remove Flash based uploader
+* Fix creating of first language tree

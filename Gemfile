@@ -49,7 +49,6 @@ end
 group :development do
   unless ENV['CI']
     gem 'debugger'
-    gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
     gem 'bumpy'
     gem 'capybara'
     gem 'factory_girl_rails'
