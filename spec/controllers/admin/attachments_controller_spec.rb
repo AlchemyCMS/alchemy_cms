@@ -80,7 +80,7 @@ module Alchemy
       context "if xhr request" do
         it "should render no layout" do
           xhr :get, :edit, id: attachment.id
-          expect(@layouts.keys).to eq([nil])
+          expect(@layouts).to be_empty
         end
       end
     end
@@ -98,7 +98,7 @@ module Alchemy
       context "if xhr request" do
         it "should render no layout" do
           xhr :get, :edit, id: attachment.id
-          expect(@layouts.keys).to eq([nil])
+          expect(@layouts).to be_empty
         end
       end
     end
