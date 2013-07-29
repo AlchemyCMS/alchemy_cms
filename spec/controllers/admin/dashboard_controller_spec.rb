@@ -9,7 +9,7 @@ module Alchemy
 
     describe '#index' do
       before do
-        Page.stub!(:all_last_edited_from).and_return([])
+        Page.stub_chain(:from_current_site, :all_last_edited_from).and_return([])
         Page.stub_chain(:from_current_site, :all_locked).and_return([])
         User.stub!(:logged_in).and_return([controller.current_user])
         controller.current_user.stub!(:sign_in_count).and_return(5)
