@@ -47,6 +47,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::Specs::ControllerHelpers, :type => :controller
   config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
+  config.include FactoryGirl::Syntax::Methods
   config.use_transactional_fixtures = true
   # Make sure the database is clean and ready for test
   config.before(:suite) do

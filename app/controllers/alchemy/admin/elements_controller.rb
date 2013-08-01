@@ -3,6 +3,8 @@ module Alchemy
     class ElementsController < Alchemy::Admin::BaseController
       cache_sweeper Alchemy::ContentSweeper, :only => [:create, :update, :destroy]
 
+      authorize_resource class: Alchemy::Element
+
       def index
         @page = Page.find(params[:page_id], :include => {:elements => :contents})
         @cells = @page.cells

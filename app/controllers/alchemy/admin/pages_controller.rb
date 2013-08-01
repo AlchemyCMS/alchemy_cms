@@ -3,15 +3,22 @@ module Alchemy
     class PagesController < Alchemy::Admin::BaseController
       include Alchemy::FerretSearch
 
-      helper "alchemy/pages"
+      helper 'alchemy/pages'
 
-      before_filter :set_translation, :except => [:show]
+      before_filter :set_translation,
+        except: [:show]
 
-      filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :load_page, :model => Alchemy::Page
-      filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :move, :flush], :attribute_check => false
+      before_filter :load_page,
+        only: [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
 
-      cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
-      cache_sweeper Alchemy::ContentSweeper, :only => [:create, :update, :destroy]
+      authorize_resource class: Alchemy::Page
+
+      cache_sweeper Alchemy::PagesSweeper,
+        only: [:publish],
+        if: proc { Alchemy::Config.get(:cache_pages) }
+
+      cache_sweeper Alchemy::ContentSweeper,
+        only: [:create, :update, :destroy]
 
       def index
         @page_root = Page.language_root_for(session[:language_id])

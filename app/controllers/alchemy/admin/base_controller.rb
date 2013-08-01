@@ -8,9 +8,15 @@ module Alchemy
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
-      filter_access_to :all
+      check_authorization
 
-      rescue_from Exception, :with => :exception_handler unless Rails.env == 'test'
+      rescue_from Exception do |exception|
+        if exception.is_a? CanCan::AccessDenied
+          permission_denied(exception)
+        else
+          exception_handler
+        end
+      end
 
       layout 'alchemy/admin'
 

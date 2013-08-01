@@ -237,7 +237,7 @@ module Alchemy
       #       title: 'Create Resource',
       #       size: "430x400"
       #     },
-      #     if_permitted_to: [:new, resource_permission_scope]
+      #     if_permitted_to: [:create, resource_model]
       #   ) %>
       #
       # @option options [String] :icon
@@ -274,7 +274,7 @@ module Alchemy
           'alchemy/admin/partials/toolbar_button',
           options: options
         )
-        if options[:skip_permission_check] || permitted_to?(*permission_from_options(options))
+        if options[:skip_permission_check] || can?(*permission_from_options(options))
           button
         else
           ""
@@ -298,7 +298,7 @@ module Alchemy
       #           title: label_title,
       #           size: "430x400"
       #         },
-      #         if_permitted_to: [:new, resource_permission_scope]
+      #         if_permitted_to: [:create, resource_model]
       #       }
       #     ]
       #   ) %>

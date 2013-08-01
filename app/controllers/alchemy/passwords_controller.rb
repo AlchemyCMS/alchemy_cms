@@ -24,7 +24,7 @@ module Alchemy
     end
 
     def after_sign_in_path_for(resource_or_scope)
-      if permitted_to?(:index, :alchemy_admin_dashboard)
+      if can? :index, :dashboard
         alchemy.admin_dashboard_path
       else
         alchemy.root_path

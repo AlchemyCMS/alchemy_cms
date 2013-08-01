@@ -35,6 +35,8 @@ module Alchemy
     scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
     scope :from_current_site, -> { where(alchemy_languages: {site_id: Site.current || Site.default}).joins(page: 'language') }
 
+    delegate :restricted?, to: :page, allow_nil: true
+
     # Concerns
     include Definitions
     include Presenters
@@ -348,11 +350,6 @@ module Alchemy
       else
         cellnames
       end
-    end
-
-    # returns true if the page this element is displayed on is restricted?
-    def restricted?
-      page.restricted?
     end
 
     # Returns true if the definition of this element has a taggable true value.

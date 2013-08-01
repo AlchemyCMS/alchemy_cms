@@ -1,14 +1,10 @@
 require 'spec_helper'
 
 describe "Resources" do
-
   let(:event)        { FactoryGirl.create(:event) }
   let(:second_event) { FactoryGirl.create(:event, :name => 'My second Event', :entrance_fee => 12.32) }
 
-  before do
-    load_authorization_rules
-    authorize_as_admin
-  end
+  before { authorize_as_admin }
 
   describe "index view" do
 
@@ -115,7 +111,7 @@ describe "Resources" do
       click_on 'Yes'
     end
 
-    it "should'n be on the list anymore" do
+    it "shouldn't be on the list anymore" do
       page.should have_content "My Event"
       page.should_not have_content "My second Event"
     end

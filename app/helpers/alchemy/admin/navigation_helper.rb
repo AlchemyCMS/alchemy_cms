@@ -33,10 +33,25 @@ module Alchemy
 
       # Used for checking the main navi permissions
       #
+      # To let your module be navigatable by the user you have to provide an Ability for it.
+      #
+      # === Example:
+      #
+      #   # module.yml
+      #   name: 'my_module'
+      #   navigation: {
+      #     controller: 'my/admin/posts'
+      #     action: 'index'
+      #   }
+      #
+      #   # ability.rb
+      #   can :index, :my_admin_posts
+      #
       def navigate_module(navigation)
+        navigation.stringify_keys!
         [
           navigation['action'].to_sym,
-          navigation['controller'].gsub(/\A\//, '').gsub(/\//, '_').to_sym
+          navigation['controller'].to_s.gsub(/\A\//, '').gsub(/\//, '_').to_sym
         ]
       end
 

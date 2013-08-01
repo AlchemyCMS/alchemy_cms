@@ -50,13 +50,6 @@ module Alchemy
       end
     end
 
-    describe "#permission_scope" do
-      it "should set an instance variable that holds the permission scope for declarative authorization" do
-        resource.permission_scope
-        resource.instance_variable_get(:@_permission).should == :admin_events
-      end
-    end
-
     describe "#namespace_for_scope" do
       it "should return the namespace" do
         resource.namespace_for_scope.should == ["admin"]

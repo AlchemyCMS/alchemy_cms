@@ -12,7 +12,7 @@
         title: label_title,
         size: resource_window_size
       },
-      if_permitted_to: [:new, resource_permission_scope]
+      if_permitted_to: [:create, resource_model]
     },
     {
       icon: 'download',
@@ -21,7 +21,7 @@
       title: _t(:download_csv),
       overlay: false,
       loading_indicator: false,
-      if_permitted_to: [:index, resource_permission_scope]
+      if_permitted_to: [:index, resource_model]
     }
   ]
 ) %>

@@ -1,10 +1,11 @@
 module Alchemy
   module Admin
     class EssencePicturesController < Alchemy::Admin::BaseController
+      authorize_resource class: Alchemy::EssencePicture
 
-      helper "alchemy/admin/contents"
-      helper "alchemy/admin/essences"
-      helper "alchemy/url"
+      helper 'alchemy/admin/contents'
+      helper 'alchemy/admin/essences'
+      helper 'alchemy/url'
 
       def edit
         @essence_picture = EssencePicture.find(params[:id])

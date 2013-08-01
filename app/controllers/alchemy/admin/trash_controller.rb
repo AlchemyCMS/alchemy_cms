@@ -4,6 +4,8 @@ module Alchemy
 
       helper "alchemy/admin/elements"
 
+      authorize_resource class: false
+
       def index
         @elements = Element.trashed
         @page = Page.find(params[:page_id])

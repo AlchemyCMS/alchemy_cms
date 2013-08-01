@@ -99,7 +99,7 @@ module Alchemy
 
         context "if user is permitted to update roles" do
           before do
-            controller.stub(:permitted_to?).with(:update_roles).and_return(true)
+            controller.stub(:can?).with(:update_role, Alchemy::User).and_return(true)
           end
 
           it "updates the user including role" do
@@ -110,7 +110,7 @@ module Alchemy
 
         context "if the user is not permitted to update roles" do
           before do
-            controller.stub(:permitted_to?).with(:update_roles).and_return(false)
+            controller.stub(:can?).with(:update_role, Alchemy::User).and_return(false)
           end
 
           it "updates user without role" do

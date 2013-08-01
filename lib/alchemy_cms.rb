@@ -19,12 +19,12 @@ if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
   require 'compass-rails'
   require 'coffee-rails'
   require 'sassy-buttons'
-  require 'declarative_authorization'
+  require 'cancan'
   require 'extensions/action_view'
   require 'alchemy/mount_point'
   require 'alchemy/version'
-  require 'alchemy/auth_engine'
   require 'alchemy/engine'
+  require 'alchemy/permissions'
   require 'alchemy/picture_attributes'
   [
     'config',

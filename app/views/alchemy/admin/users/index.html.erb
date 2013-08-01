@@ -10,7 +10,7 @@
         title: _t(:create_user),
         size: "420x580"
       },
-      if_permitted_to: [:new, :alchemy_admin_users]
+      if_permitted_to: [:create, Alchemy::User]
     }
   ]
 ) %>

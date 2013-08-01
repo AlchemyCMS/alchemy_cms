@@ -1,8 +1,11 @@
 module Alchemy
   class ElementsController < Alchemy::BaseController
-
-    filter_access_to :show, :attribute_check => true, :model => Alchemy::Element, :load_method => :load_element
+    load_and_authorize_resource
     layout false
+
+    rescue_from CanCan::AccessDenied do |exception|
+      raise ActiveRecord::RecordNotFound
+    end
 
     # == Renders the element view partial
     #
@@ -37,16 +40,6 @@ module Alchemy
           )
         end
       end
-    end
-
-  private
-
-    def load_element
-      element = Element.available
-      if !current_user
-        element = element.not_restricted
-      end
-      @element = element.find(params[:id])
     end
 
   end

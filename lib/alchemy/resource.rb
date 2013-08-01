@@ -101,11 +101,6 @@ module Alchemy
       @_namespaced_resource_name = resource_name_array.join('_').singularize
     end
 
-    def permission_scope
-      #(resource_namespaced? ? "#{resource_namespace.underscore}_admin_#{resources_name}" : "admin_#{resources_name}").to_sym
-      @_permission = @controller_path.gsub('/', '_').to_sym
-    end
-
     def namespace_for_scope
       namespace_array = namespace_diff
       namespace_array.delete(engine_name) if in_engine?

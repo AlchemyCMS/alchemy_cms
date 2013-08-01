@@ -111,6 +111,12 @@ FactoryGirl.define do
     upload_hash Time.now.hash
   end
 
+  factory :attachment, :class => 'Alchemy::Attachment' do
+    file File.new(File.expand_path('../image.png', __FILE__))
+    name 'image'
+    file_name 'image.png'
+  end
+
   factory :event do
     name 'My Event'
     hidden_name 'not shown'

@@ -1,5 +1,3 @@
-require 'declarative_authorization/maintenance'
-
 module Alchemy
   module Specs
 
@@ -8,7 +6,6 @@ module Alchemy
     # This file is included in rspec integration/request tests.
     #
     module IntegrationHelpers
-      include Authorization::TestHelper
 
       # Shortcut method for:
       #
@@ -35,15 +32,6 @@ module Alchemy
         fill_in('user_login', :with => 'jdoe')
         fill_in('user_password', :with => 's3cr3t')
         click_on('Login')
-      end
-
-      # Load additional authorization_rules for specs.
-      #
-      # For some strange reason, this isn't done automatically while running the specs
-      #
-      def load_authorization_rules
-        instance = Alchemy::AuthEngine.get_instance
-        instance.load(File.join(File.dirname(__FILE__), '../../dummy', 'config/authorization_rules.rb'))
       end
 
       # Creates an admin user in a way it works

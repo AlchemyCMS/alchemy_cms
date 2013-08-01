@@ -3,54 +3,44 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::PagesController do
-
-    before do
-      sign_in(admin_user)
-    end
+    before { sign_in(editor_user) }
 
     describe "#flush" do
-
       it "should remove the cache of all pages" do
         post :flush, format: :js
         response.status.should == 200
       end
-
     end
 
     describe '#new' do
       context "pages in clipboard" do
-
         let(:clipboard) { session[:clipboard] = Clipboard.new }
-        let(:page) { mock_model('Page', name: 'Foobar') }
+        let(:page) { mock_model(Alchemy::Page, name: 'Foobar') }
 
-        before do
-          clipboard[:pages] = [{id: page.id, action: 'copy'}]
-        end
+        before { clipboard[:pages] = [{id: page.id, action: 'copy'}] }
 
         it "should load all pages from clipboard" do
           get :new, {page_id: page.id, format: :js}
           assigns(:clipboard_items).should be_kind_of(Array)
         end
-
       end
     end
 
     describe '#show' do
-
-      let(:page) { mock_model('Page', language_code: 'nl') }
+      let(:page) { mock_model(Alchemy::Page, language_code: 'nl') }
 
       before do
-        Page.stub(:find).with("#{page.id}").and_return(page)
-        Page.stub(:language_root_for).and_return(mock_model('Page'))
+        Page.should_receive(:find).with("#{page.id}").and_return(page)
+        Page.stub(:language_root_for).and_return(mock_model(Alchemy::Page))
       end
 
       it "should assign @preview_mode with true" do
-        post :show, id: page.id
+        get :show, id: page.id
         expect(assigns(:preview_mode)).to eq(true)
       end
 
       it "should set the I18n locale to the pages language code" do
-        post :show, id: page.id
+        get :show, id: page.id
         expect(::I18n.locale).to eq(:nl)
       end
     end
@@ -71,10 +61,8 @@ module Alchemy
 
     describe '#create' do
       let(:language) { mock_model('Language', code: 'kl') }
-      let(:parent) { mock_model('Page', language: language) }
-      let(:page_params) do
-        {parent_id: parent.id, name: 'new Page'}
-      end
+      let(:parent) { mock_model(Alchemy::Page, language: language) }
+      let(:page_params) { {parent_id: parent.id, name: 'new Page'} }
 
       context "" do
         before do
@@ -117,7 +105,7 @@ module Alchemy
       end
 
       context "with paste_from_clipboard in parameters" do
-        let(:page_in_clipboard) { mock_model('Page') }
+        let(:page_in_clipboard) { mock_model(Alchemy::Page) }
 
         before do
           Page.stub(:find_by_id).with(parent.id).and_return(parent)
@@ -130,23 +118,20 @@ module Alchemy
             parent,
             'pasted Page'
           ).and_return(
-            mock_model('Page', save: true, name: 'pasted Page')
+            mock_model(Alchemy::Page, save: true, name: 'pasted Page')
           )
           post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}, format: :js}
         end
-
       end
-
     end
 
     describe '#copy_language_tree' do
-
       let(:language) { Language.get_default }
       let(:new_language) { FactoryGirl.create(:klingonian) }
       let(:language_root) { FactoryGirl.create(:language_root_page, language: language) }
       let(:new_lang_root) { Page.language_root_for(new_language.id) }
 
-      before(:each) do
+      before do
         level_1 = FactoryGirl.create(:public_page, parent_id: language_root.id, visible: true, name: 'Level 1')
         level_2 = FactoryGirl.create(:public_page, parent_id: level_1.id, visible: true, name: 'Level 2')
         level_3 = FactoryGirl.create(:public_page, parent_id: level_2.id, visible: true, name: 'Level 3')
@@ -173,24 +158,20 @@ module Alchemy
     end
 
     describe '#destroy' do
-
       let(:clipboard) { session[:clipboard] = Clipboard.new }
       let(:page) { FactoryGirl.create(:public_page) }
 
-      before do
-        clipboard[:pages] = [{id: page.id}]
-      end
+      before { clipboard[:pages] = [{id: page.id}] }
 
       it "should also remove the page from clipboard" do
         post :destroy, {id: page.id, _method: :delete, format: 'js'}
         clipboard[:pages].should be_empty
       end
-
     end
 
     describe '#publish' do
-
       let(:page) { stub_model(Page, published_at: nil, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
+
       before do
         @controller.stub(:load_page).and_return(page)
         @controller.instance_variable_set("@page", page)
@@ -200,11 +181,10 @@ module Alchemy
         page.should_receive(:publish!)
         post :publish, { id: page.id }
       end
-
     end
 
     describe '#visit' do
-      let(:page) { mock_model('Page', urlname: 'home') }
+      let(:page) { mock_model(Alchemy::Page, urlname: 'home') }
 
       before do
         Page.stub(:find).with("#{page.id}").and_return(page)
@@ -218,16 +198,11 @@ module Alchemy
     end
 
     describe '#fold' do
-      let(:page) { mock_model('Page') }
-
-      before do
-        Page.stub(:find).with(page.id).and_return(page)
-      end
+      let(:page) { mock_model(Alchemy::Page) }
+      before { Page.stub(:find).and_return(page) }
 
       context "if page is currently not folded" do
-        before do
-          page.stub(:folded?).and_return(false)
-        end
+        before { page.stub(:folded?).and_return(false) }
 
         it "should fold the page" do
           page.should_receive(:fold!).with(controller.current_user.id, true).and_return(true)
@@ -236,9 +211,7 @@ module Alchemy
       end
 
       context "if page is already folded" do
-        before do
-          page.stub(:folded?).and_return(true)
-        end
+        before { page.stub(:folded?).and_return(true) }
 
         it "should unfold the page" do
           page.should_receive(:fold!).with(controller.current_user.id, false).and_return(true)
@@ -248,9 +221,7 @@ module Alchemy
     end
 
     describe '#sort' do
-      before do
-        Page.stub(:language_root_for).and_return(mock_model('Page'))
-      end
+      before { Page.stub(:language_root_for).and_return(mock_model(Alchemy::Page)) }
 
       it "should assign @sorting with true" do
         get :sort, format: :js
@@ -259,16 +230,15 @@ module Alchemy
     end
 
     describe '#unlock' do
-      let(:page) { mock_model('Page', name: 'Best practices') }
+      let(:page) { mock_model(Alchemy::Page, name: 'Best practices') }
 
       before do
-        page.stub(:unlock!).and_return(true)
         Page.stub(:find).with("#{page.id}").and_return(page)
         Page.stub_chain(:from_current_site, :all_locked_by).and_return(nil)
+        page.should_receive(:unlock!).and_return(true)
       end
 
       it "should unlock the page" do
-        page.should_receive(:unlock!)
         post :unlock, id: "#{page.id}", format: :js
       end
 

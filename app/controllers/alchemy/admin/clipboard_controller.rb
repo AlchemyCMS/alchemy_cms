@@ -1,7 +1,7 @@
 module Alchemy
   module Admin
-
     class ClipboardController < Alchemy::Admin::BaseController
+      authorize_resource class: Alchemy::Clipboard
 
       def index
         @clipboard = get_clipboard

@@ -178,13 +178,6 @@ module Alchemy
       end
     end
 
-    describe "#permission_scope" do
-      it "returns a permission_scope usable in declarative authorization" do
-        resource = Resource.new("admin/parties")
-        resource.permission_scope.should == :admin_parties
-      end
-    end
-
     describe "#namespace_for_scope" do
       it "returns a scope for use in url_for-based path-helpers" do
         resource = Resource.new("admin/parties")

@@ -31,7 +31,7 @@
     <td class="label mandatory"><%= f.label 'password_confirmation' %></td>
     <td class="input"><%= f.password_field 'password_confirmation', :class => 'thin_border long', :autocomplete => "off", :required => action_name == 'signup' %></td>
   </tr>
-  <% if permitted_to? :update_roles %>
+  <% if can? :update_role, @user %>
   <tr>
     <td class="label"><%= f.label 'roles' %></td>
     <td id="user_roles">

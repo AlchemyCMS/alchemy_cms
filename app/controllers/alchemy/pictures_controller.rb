@@ -6,10 +6,9 @@ module Alchemy
 
     caches_page :show, :thumbnail, :zoom
 
-    before_filter :load_picture, :ensure_secure_params
+    before_filter :ensure_secure_params
 
-    filter_access_to :show, :attribute_check => true, :model => Alchemy::Picture, :load_method => :load_picture
-    filter_access_to :thumbnail
+    load_and_authorize_resource
 
     def show
       @size = params[:size]
@@ -45,10 +44,6 @@ module Alchemy
       end.join('x')
     end
 
-    def load_picture
-      @picture ||= Picture.find(params[:id])
-    end
-
     def ensure_secure_params
       token = params[:sh]
       digest = PictureAttributes.secure(params)
@@ -56,7 +51,7 @@ module Alchemy
     end
 
     def bad_request
-      render :text => "Bad picture parameters in #{request.path}", :status => 400
+      render text: "Bad picture parameters in #{request.path}", status: 400
       return false
     end
 

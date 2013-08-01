@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class EssenceFilesController < Alchemy::Admin::BaseController
+      authorize_resource class: Alchemy::EssenceFile
 
       helper "Alchemy::Admin::Contents"
 

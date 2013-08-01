@@ -14,8 +14,8 @@ module Alchemy
     before_filter :enforce_primary_host_for_site
     before_filter :render_page_or_redirect, :only => [:show, :sitemap]
     before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
-
-    filter_access_to :show, :attribute_check => true, :model => Alchemy::Page, :load_method => :load_page
+    before_filter :load_page
+    authorize_resource only: 'show'
 
     caches_action(:show,
       :cache_path => proc { @page.cache_key(request) },

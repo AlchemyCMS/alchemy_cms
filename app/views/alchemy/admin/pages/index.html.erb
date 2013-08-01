@@ -21,7 +21,7 @@
 <% content_for :toolbar do %>
 <div class="toolbar_buttons">
   <%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
-  <% permitted_to?(:flush, :alchemy_admin_pages) do %>
+  <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
       render_icon('flush'),
@@ -34,7 +34,7 @@
     <label><%= _t('Flush page cache') %></label>
   </div>
   <% end %>
-  <% permitted_to?(:sort, :alchemy_admin_pages) do %>
+  <% if can?(:sort, Alchemy::Page) %>
   <div class="button_with_label" id="page_sorting_button">
     <%= link_to(
       render_icon('sort'),

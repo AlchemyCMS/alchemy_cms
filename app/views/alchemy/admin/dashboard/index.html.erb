@@ -1,30 +1,30 @@
 <%= toolbar(
-  :buttons => [
+  buttons: [
     {
-      :icon => 'info',
-      :label => _t(:info),
-      :url => alchemy.dashboard_info_path,
-      :title => _t(:info),
-      :overlay_options => {
-        :title => _t(:info),
-        :size => "420x360"
+      icon: 'info',
+      label: _t(:info),
+      url: alchemy.dashboard_info_path,
+      title: _t(:info),
+      overlay_options: {
+        title: _t(:info),
+        size: "420x360"
       },
-      :if_permitted_to => [:info, :alchemy_admin_dashboard]
+      if_permitted_to: [:info, :dashboard]
     }
   ],
-  :search => false
+  search: false
 ) %>
 
 <div id="dashboard">
   <h1>
     <% if @first_time -%>
-    <%= _t('Welcome, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+    <%= _t('Welcome, %{name}', name: current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
     <% else -%>
-    <%= _t('Welcome back, %{name}', :name => current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+    <%= _t('Welcome back, %{name}', name: current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
     <% end -%>
   </h1>
   <p>
-    <small><%= _t('Your last login was on %{time}', :time => l(current_user.last_sign_in_at)) unless current_user.last_sign_in_at.blank? %></small>
+    <small><%= _t('Your last login was on %{time}', time: l(current_user.last_sign_in_at)) unless current_user.last_sign_in_at.blank? %></small>
   </p>
   <div class="column left">
     <%= render 'locked_pages' %>

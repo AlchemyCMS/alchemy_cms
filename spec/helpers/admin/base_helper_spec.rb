@@ -99,7 +99,7 @@ module Alchemy
     describe '#toolbar_button' do
       context "with permission" do
         before {
-          helper.stub(:permitted_to?).and_return(true)
+          helper.stub(:can?).and_return(true)
         }
 
         it "renders a toolbar button" do
@@ -111,7 +111,7 @@ module Alchemy
 
       context "without permission" do
         before {
-          helper.stub(:permitted_to?).and_return(false)
+          helper.stub(:can?).and_return(false)
         }
 
         it "returns empty string" do
@@ -123,7 +123,7 @@ module Alchemy
 
       context "with disabled permission check" do
         before {
-          helper.stub(:permitted_to?).and_return(false)
+          helper.stub(:can?).and_return(false)
         }
 
         it "returns the button" do
@@ -136,7 +136,7 @@ module Alchemy
 
       context "with empty permission option" do
         before {
-          helper.stub(:permitted_to?).and_return(true)
+          helper.stub(:can?).and_return(true)
         }
 
         it "returns reads the permission from url" do
@@ -150,7 +150,7 @@ module Alchemy
 
       context "with overlay option set to false" do
         before {
-          helper.stub(:permitted_to?).and_return(true)
+          helper.stub(:can?).and_return(true)
           helper.should_receive(:permission_array_from_url)
         }
 

@@ -3,12 +3,17 @@ require 'csv'
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
-
       include Alchemy::ResourcesHelper
+
       helper Alchemy::ResourcesHelper
       helper_method :resource_handler
 
-      before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
+      before_filter :load_resource,
+        only: [:show, :edit, :update, :destroy]
+
+      before_filter do
+        authorize! action_name, resource_handler.model
+      end
 
       handles_sortable_columns do |c|
         c.default_sort_value = :name

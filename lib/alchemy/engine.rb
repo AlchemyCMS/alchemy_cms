@@ -35,9 +35,5 @@ module Alchemy
       app.config.filter_parameters += [:password, :password_confirmation]
     end
 
-    initializer "alchemy.add_authorization_rules" do
-      Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
-    end
-
   end
 end

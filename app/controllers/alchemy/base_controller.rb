@@ -1,7 +1,6 @@
 # This is the main Alchemy controller all other controllers inheret from.
 module Alchemy
   class BaseController < ApplicationController
-
     include Alchemy::Modules
 
     protect_from_forgery
@@ -10,9 +9,12 @@ module Alchemy
     before_filter :set_language
     before_filter :mailer_set_url_options
     before_filter :store_user_request_time
-    before_filter :set_authorization_user
 
     helper_method :current_server, :current_site, :multi_site?
+
+    rescue_from CanCan::AccessDenied do |exception|
+      permission_denied(exception)
+    end
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -46,6 +48,22 @@ module Alchemy
 
   private
 
+    # Ensures usage of Alchemy's permissions class.
+    #
+    # Also merges existing abilities.
+    #
+    def current_ability
+      @current_ability ||= begin
+        alchemy_permissions = ::Alchemy::Permissions.new(current_user)
+        # Ruby, ruby, ruby...... o.O
+        if (Object.const_get('Ability') rescue false)
+          alchemy_permissions.merge(Ability.new(current_user))
+        else
+          alchemy_permissions
+        end
+      end
+    end
+
     # Returns the current site.
     #
     def current_site
@@ -57,12 +75,6 @@ module Alchemy
     #
     def set_current_site
       Site.current = current_site
-    end
-
-    # Stores the current_user for declarative_authorization
-    #
-    def set_authorization_user
-      Authorization.current_user = current_user
     end
 
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
@@ -202,33 +214,43 @@ module Alchemy
 
   protected
 
-    def permission_denied
+    def permission_denied(exception = nil)
       if current_user
-        if permitted_to? :index, :alchemy_admin_dashboard
-          if request.referer == alchemy.login_url
-            render :file => Rails.root.join('public/422'), :status => 422
-          elsif request.xhr?
-            respond_to do |format|
-              format.js { render status: 403 }
-              format.html {
-                render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _t('You are not authorized'), :flash_type => 'warning'}
-              }
-            end
-          else
-            flash[:error] = _t('You are not authorized')
-            redirect_to alchemy.admin_dashboard_path
-          end
-        else
-          redirect_to alchemy.root_path
+        handle_redirect_for_user
+      else
+        handle_redirect_for_guest
+      end
+    end
+
+    def handle_redirect_for_user
+      if can?(:index, :dashboard)
+        redirect_or_render_notice
+      else
+        redirect_to('/')
+      end
+    end
+
+    def redirect_or_render_notice
+      if request.xhr?
+        respond_to do |format|
+          format.js { render status: 403 }
+          format.html {
+            render(partial: 'alchemy/admin/partials/flash', locals: {message: _t('You are not authorized'), flash_type: 'warning'})
+          }
         end
       else
-        flash[:info] = _t('Please log in')
-        if request.xhr?
-          render :action => :permission_denied
-        else
-          store_location
-          redirect_to alchemy.login_path
-        end
+        flash[:error] = _t('You are not authorized')
+        redirect_to(alchemy.admin_dashboard_path)
+      end
+    end
+
+    def handle_redirect_for_guest
+      flash[:info] = _t('Please log in')
+      if request.xhr?
+        render(:action => :permission_denied)
+      else
+        store_location
+        redirect_to(alchemy.login_path)
       end
     end
 
@@ -236,6 +258,10 @@ module Alchemy
     def exception_logger(e)
       Rails.logger.error("\n#{e.class} #{e.message} in #{e.backtrace.first}")
       Rails.logger.error(e.backtrace[1..50].each { |l| l.gsub(/#{Rails.root.to_s}/, '') }.join("\n"))
+    end
+
+    def raise_authorization_exception(exception)
+      raise("Not permitted to #{exception.action} #{exception.subject}")
     end
 
   end

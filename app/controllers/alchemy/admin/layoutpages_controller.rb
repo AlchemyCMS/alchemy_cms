@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class LayoutpagesController < Alchemy::Admin::BaseController
+      authorize_resource class: :alchemy_admin_layoutpages
 
       def index
         @locked_pages = Page.from_current_site.all_locked_by(current_user)

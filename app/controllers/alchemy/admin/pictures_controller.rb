@@ -8,6 +8,8 @@ module Alchemy
 
       respond_to :html, :js
 
+      authorize_resource class: Alchemy::Picture
+
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
         @pictures = Picture.all

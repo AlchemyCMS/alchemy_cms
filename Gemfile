@@ -9,7 +9,7 @@ gem 'devise', github: 'plataformatec/devise'
 gem 'devise-encryptable',               "~> 0.1.1"
 gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set', branch: 'rails4'
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
-gem 'declarative_authorization',        "~> 0.5.7"
+gem 'cancan',                           "~> 1.6.10"
 gem 'dragonfly',                        "~> 0.9.14"
 gem 'kaminari',                         "~> 0.14.1"
 gem 'acts_as_ferret', github: 'tvdeyen/acts_as_ferret', branch: 'rails-4'

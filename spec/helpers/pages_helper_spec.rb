@@ -50,7 +50,12 @@ module Alchemy
     end
 
     describe "#render_navigation" do
-      before { visible_page }
+      let(:user) { nil }
+
+      before do
+        visible_page
+        helper.stub(:current_ability).and_return(Alchemy::Permissions.new(user))
+      end
 
       it "should render only visible pages" do
         not_visible_page = FactoryGirl.create(:page, visible: false)
@@ -78,10 +83,9 @@ module Alchemy
         end
 
         context "as registered user" do
-          before do
-            restricted_page
-            Authorization.stub(:current_user).and_return(FactoryGirl.build(:registered_user))
-          end
+          let(:user) { build_stubbed(:registered_user) }
+
+          before { restricted_page }
 
           it "should render also restricted pages" do
             not_restricted_page = FactoryGirl.create(:public_page, restricted: false, visible: true)
@@ -91,7 +95,6 @@ module Alchemy
         end
 
         context "with enabled url nesting" do
-
           before do
             helper.stub(:configuration).and_return(true)
             level_3_page
@@ -100,13 +103,10 @@ module Alchemy
           it "should render nested page links" do
             helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
           end
-
         end
-
       end
 
       context "with id and class in the html options" do
-
         it "should append id to the generated ul tag" do
           helper.render_navigation({}, {:id => 'foobar_id'}).should have_selector("ul[id='foobar_id']")
         end
@@ -114,7 +114,6 @@ module Alchemy
         it "should replace the default css class from the generated ul tag" do
           helper.render_navigation({}, {:class => 'foobar_class'}).should have_selector("ul[class='foobar_class']")
         end
-
       end
 
       context "with options[:deepness] set" do
@@ -170,23 +169,22 @@ module Alchemy
             expect(helper.render_navigation(from_page: 'news')).to be_nil
           end
         end
-
       end
-
     end
 
     describe '#render_subnavigation' do
+      let(:user) { nil }
 
-      before do
+      before {
         helper.stub(:multi_language?).and_return(false)
-      end
+        helper.stub(:current_ability).and_return(Alchemy::Permissions.new(user))
+      }
 
       it "should return nil if no @page is set" do
         helper.render_subnavigation.should be(nil)
       end
 
       context "showing a page with level 2" do
-
         before { @page = level_2_page }
 
         it "should render the navigation from current page" do
@@ -196,11 +194,9 @@ module Alchemy
         it "should set current page active" do
           helper.render_subnavigation.should have_selector("a[href='/#{level_2_page.urlname}'].active")
         end
-
       end
 
       context "showing a page with level 3" do
-
         before { @page = level_3_page }
 
         it "should render the navigation from current pages parent" do
@@ -210,11 +206,9 @@ module Alchemy
         it "should set current page active" do
           helper.render_subnavigation.should have_selector("a[href='/#{level_3_page.urlname}'].active")
         end
-
       end
 
       context "showing a page with level 4" do
-
         before { @page = level_4_page }
 
         it "should render the navigation from current pages parents parent" do
@@ -226,23 +220,21 @@ module Alchemy
         end
 
         context "beginning with level 3" do
-
           it "should render the navigation beginning from its parent" do
             helper.render_subnavigation(:level => 3).should have_selector("ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
           end
-
         end
-
       end
-
     end
 
     describe "#render_breadcrumb" do
-      let(:parent)    { FactoryGirl.create(:public_page, visible: true) }
-      let(:page)      { FactoryGirl.create(:public_page, parent_id: parent.id, visible: true) }
+      let(:parent) { FactoryGirl.create(:public_page, visible: true) }
+      let(:page)   { FactoryGirl.create(:public_page, parent_id: parent.id, visible: true) }
+      let(:user)   { nil }
 
       before do
         helper.stub(:multi_language?).and_return(false)
+        helper.stub(:current_ability).and_return(Alchemy::Permissions.new(user))
       end
 
       it "should render a breadcrumb to current page" do
@@ -262,7 +254,7 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
-        before { Authorization.current_user = FactoryGirl.build(:registered_user) }
+        let(:user) { build_stubbed(:registered_user) }
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')

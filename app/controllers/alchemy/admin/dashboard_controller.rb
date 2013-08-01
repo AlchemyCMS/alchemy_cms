@@ -4,6 +4,8 @@ module Alchemy
   module Admin
     class DashboardController < Alchemy::Admin::BaseController
 
+      authorize_resource class: :alchemy_admin_dashboard
+
       def index
         @last_edited_pages = Page.from_current_site.all_last_edited_from(current_user)
         @locked_pages = Page.from_current_site.all_locked

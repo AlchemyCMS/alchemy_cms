@@ -48,10 +48,6 @@ module Alchemy
       edit_polymorphic_path path_segments, options
     end
 
-    def resource_permission_scope
-      resource_handler.permission_scope
-    end
-
     def resource_name
       resource_handler.resource_name
     end

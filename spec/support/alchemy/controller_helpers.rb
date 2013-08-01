@@ -13,12 +13,20 @@ module Alchemy
         controller.stub :current_user => user
       end
 
-      def admin_user
-        mock_user([:admin])
-      end
-
       def registered_user
         mock_user([:registered])
+      end
+
+      def author_user
+        mock_user([:author])
+      end
+
+      def editor_user
+        mock_user([:editor])
+      end
+
+      def admin_user
+        mock_user([:admin])
       end
 
       def mock_user(roles)

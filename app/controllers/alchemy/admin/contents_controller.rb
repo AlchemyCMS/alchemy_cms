@@ -1,7 +1,9 @@
 module Alchemy
   module Admin
     class ContentsController < Alchemy::Admin::BaseController
-      helper "alchemy/admin/essences"
+      helper 'alchemy/admin/essences'
+
+      authorize_resource class: Alchemy::Content
 
       def new
         @element = Element.find(params[:element_id])

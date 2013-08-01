@@ -11,7 +11,7 @@
   <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, :format => :default) : _t(:unknown) %></td>
   <td class="role"><%= user.human_roles_string %></td>
   <td class="tools">
-    <% permitted_to?(:destroy, :alchemy_admin_users) do %>
+  <% if can?(:destroy, user) %>
     <%= link_to_confirmation_window(
       '',
       _t(:confirm_to_delete_user),
@@ -19,8 +19,8 @@
       :title => _t(:delete_user),
       :class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
     ) %>
-    <% end %>
-    <% permitted_to?(:edit, :alchemy_admin_users) do %>
+  <% end %>
+  <% if can?(:edit, user) %>
     <%= link_to_overlay_window(
       '',
       alchemy.edit_admin_user_path(user),
@@ -34,6 +34,6 @@
         :title => _t(:edit_user)
       }
     ) %>
-    <% end %>
+  <% end %>
   </td>
 </tr>
