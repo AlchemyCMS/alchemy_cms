@@ -4,7 +4,7 @@ gemspec
 
 # rails 4 specific
 gem 'acts_as_ferret',             github: 'tvdeyen/acts_as_ferret',             branch: 'rails-4'
-gem 'acts_as_list',               github: 'philippfranke/acts_as_list',         branch: 'rails4_compatibility'
+gem 'acts_as_list',               github: 'swanandp/acts_as_list'
 gem 'rails3-jquery-autocomplete', github: 'francisd/rails3-jquery-autocomplete'
 
 # for caching and sweepers
