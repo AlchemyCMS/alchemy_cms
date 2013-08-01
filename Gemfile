@@ -14,6 +14,7 @@ gem 'coveralls', require: false
 gem 'multi_json', '1.7.8'
 
 group :test do
+  gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
   unless ENV['FAST_SPECS']
