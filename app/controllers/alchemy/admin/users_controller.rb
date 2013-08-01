@@ -4,6 +4,12 @@ module Alchemy
 
       before_filter :set_roles_and_genders, except: [:index, :destroy]
 
+      load_and_authorize_resource class: Alchemy::User,
+        only: [:edit, :update, :destroy]
+
+      authorize_resource class: Alchemy::User,
+        only: [:index, :new, :create]
+
       handles_sortable_columns do |c|
         c.default_sort_value = :login
       end

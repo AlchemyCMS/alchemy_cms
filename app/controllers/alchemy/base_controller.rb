@@ -256,5 +256,9 @@ WARN
       Rails.logger.error(e.backtrace[1..50].each { |l| l.gsub(/#{Rails.root.to_s}/, '') }.join("\n"))
     end
 
+    def raise_authorization_exception(exception)
+      raise("Not permitted to #{exception.action} #{exception.subject}")
+    end
+
   end
 end

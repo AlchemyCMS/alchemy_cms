@@ -30,7 +30,7 @@ module Alchemy
         end
       end
 
-      context "for registered user" do
+      context "for member user" do
         before { sign_in(member_user) }
 
         it "should render elements of restricted pages" do

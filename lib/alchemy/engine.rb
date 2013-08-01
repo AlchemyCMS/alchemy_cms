@@ -24,6 +24,7 @@ require 'alchemy/modules'
 require 'alchemy/mount_point'
 require 'alchemy/name_conversions'
 require 'alchemy/page_layout'
+require 'alchemy/permissions'
 require 'alchemy/picture_attributes'
 require 'alchemy/tinymce'
 

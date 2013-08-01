@@ -27,7 +27,6 @@
             :title => _t(:edit_page_properties),
             :size => page.redirects_to_external? ? '410x270' : '410x655'
           },
-          :class => '',
           :title => _t(:edit_page_properties)
         ) -%>
       <%- end -%>
@@ -41,7 +40,6 @@
           ),
           :remote => true,
           :method => :post,
-          :class => "",
           :title => _t(:copy_page)
         ) %>
       <%- end -%>
@@ -55,7 +53,6 @@
             :id => page.id
           ),
           {
-            :class => "",
             :title => _t(:delete_page)
           }
         ) -%>
@@ -69,7 +66,6 @@
             :size => '340x150',
             :overflow => true
           },
-          :class => '',
           :title => _t(:create_page)
         ) -%>
       <%- end -%>
