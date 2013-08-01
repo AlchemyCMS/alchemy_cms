@@ -12,8 +12,6 @@ gem 'rails-observers',            github: 'rails/rails-observers'
 gem 'actionpack-action_caching',  github: 'rails/actionpack-action_caching'
 gem 'actionpack-page_caching',    github: 'rails/actionpack-page_caching'
 
-gem 'multi_json', '1.7.2' # http://stackoverflow.com/q/16543693
-
 # Code coverage plattform
 gem 'coveralls', require: false
 
