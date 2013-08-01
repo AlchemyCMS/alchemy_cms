@@ -13,8 +13,8 @@ module Alchemy
         controller.stub :current_user => user
       end
 
-      def registered_user
-        mock_user([:registered])
+      def member_user
+        mock_user([:member])
       end
 
       def author_user

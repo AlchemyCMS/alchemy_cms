@@ -46,7 +46,7 @@ module Alchemy
       end
     end
 
-    # Prints out the given todo message with the color due to its type
+    # Prints out the given log message with the color due to its type
     #
     # @param [String] message
     # @param [Symbol] type

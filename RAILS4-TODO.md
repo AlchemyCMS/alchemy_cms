@@ -12,4 +12,3 @@
 ## CanCan
 
 * use CanCan to permit secure params hash
-* Rename registered role to member role.

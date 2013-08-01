@@ -62,7 +62,6 @@ module Alchemy
     end
 
     describe '.log' do
-
       context 'if the message type is "skip"' do
         it "the output color should be yellow and cleared again" do
           MyToDoList.should_receive(:color).with(:yellow)

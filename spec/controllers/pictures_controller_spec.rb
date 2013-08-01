@@ -55,9 +55,9 @@ module Alchemy
         end
       end
 
-      context "as registered user" do
+      context "as member user" do
         before do
-          sign_in(registered_user)
+          sign_in(member_user)
         end
 
         it "should render the picture" do

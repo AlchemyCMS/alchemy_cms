@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130328101418) do
+ActiveRecord::Schema.define(version: 20130801200601) do
 
   create_table "alchemy_attachments", force: true do |t|
     t.string   "name"
@@ -274,19 +274,19 @@ ActiveRecord::Schema.define(version: 20130328101418) do
     t.string   "login"
     t.string   "email"
     t.string   "gender"
-    t.string   "roles",                              default: "registered"
+    t.string   "roles",                              default: "member"
     t.string   "language"
-    t.string   "encrypted_password",     limit: 128, default: "",           null: false
-    t.string   "password_salt",          limit: 128, default: "",           null: false
-    t.integer  "sign_in_count",                      default: 0,            null: false
-    t.integer  "failed_attempts",                    default: 0,            null: false
+    t.string   "encrypted_password",     limit: 128, default: "",       null: false
+    t.string   "password_salt",          limit: 128, default: "",       null: false
+    t.integer  "sign_in_count",                      default: 0,        null: false
+    t.integer  "failed_attempts",                    default: 0,        null: false
     t.datetime "last_request_at"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.text     "cached_tag_list"
@@ -316,6 +316,19 @@ ActiveRecord::Schema.define(version: 20130328101418) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "parties", force: true do |t|
+    t.string   "name"
+    t.string   "hidden_name"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text     "description"
+    t.decimal  "entrance_fee", precision: 6, scale: 2
+    t.boolean  "published"
+    t.integer  "location_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "taggings", force: true do |t|

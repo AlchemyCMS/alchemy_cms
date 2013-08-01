@@ -3,9 +3,9 @@ require 'spec_helper'
 module Alchemy
   describe Notifications do
 
-    context "when a registered user was created" do
+    context "when a member user was created" do
       let(:user) { FactoryGirl.build_stubbed(:user) }
-      let(:mail) { Notifications.registered_user_created(user) }
+      let(:mail) { Notifications.member_created(user) }
 
       it "delivers a mail to user" do
         mail.to.should == [user.email]
@@ -27,7 +27,7 @@ module Alchemy
 
     context "when an admin user was created" do
       let(:user) { FactoryGirl.build_stubbed(:admin_user) }
-      let(:mail) { Notifications.admin_user_created(user) }
+      let(:mail) { Notifications.alchemy_user_created(user) }
 
       it "delivers a mail to user" do
         mail.to.should == [user.email]

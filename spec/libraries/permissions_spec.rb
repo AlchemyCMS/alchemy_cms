@@ -56,9 +56,9 @@ describe Alchemy::Permissions do
     end
   end
 
-  context "A registered user" do
-    let(:user) { build_stubbed(:registered_user) }
-    let(:another_user) { build_stubbed(:registered_user) }
+  context "A member" do
+    let(:user) { build_stubbed(:member_user) }
+    let(:another_user) { build_stubbed(:member_user) }
 
     it "can download all attachments" do
       should be_able_to(:download, attachment)

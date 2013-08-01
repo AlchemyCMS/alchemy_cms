@@ -82,8 +82,8 @@ module Alchemy
           end
         end
 
-        context "as registered user" do
-          let(:user) { build_stubbed(:registered_user) }
+        context "as member user" do
+          let(:user) { build_stubbed(:member_user) }
 
           before { restricted_page }
 
@@ -254,7 +254,7 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
-        let(:user) { build_stubbed(:registered_user) }
+        let(:user) { build_stubbed(:member_user) }
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')

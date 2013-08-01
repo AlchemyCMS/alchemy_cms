@@ -134,10 +134,11 @@ mailer:
 
 # === User roles
 #
-# You can add own user roles. To set permissions for this roles please add an authorization_rules.rb file in your config folder.
+# You can add own user roles.
+#
 # Further documentation for the auth system used please visit:
 #
-# https://github.com/stffn/declarative_authorization/blob/master/README.rdoc
+# https://github.com/ryanb/cancan/wiki
 #
 # ==== Translating User roles
 #
@@ -147,7 +148,7 @@ mailer:
 #     user_roles:
 #       rolename: Name of the role
 #
-user_roles: [registered, author, editor, admin]
+user_roles: [member, author, editor, admin]
 
 # === Uploader Settings
 #

@@ -31,7 +31,7 @@ module Alchemy
       end
 
       context "for registered user" do
-        before { sign_in(registered_user) }
+        before { sign_in(member_user) }
 
         it "should render elements of restricted pages" do
           get :show, :id => restricted_element.id

@@ -21,11 +21,11 @@ module Alchemy
       can([:show, :download], Picture)    { |p| !p.restricted? }
     end
 
-    # == Registered user rules
+    # == Member rules
     #
     # Includes guest users rules
     #
-    def registered_rules
+    def member_rules
       guest_user_rules
 
       # Resources
@@ -39,10 +39,10 @@ module Alchemy
 
     # == Author rules
     #
-    # Includes registered users rules
+    # Includes member users rules
     #
     def author_rules
-      registered_rules
+      member_rules
 
       # Navigation
       can :index, [

@@ -13,8 +13,8 @@ FactoryGirl.define do
       roles 'admin'
     end
 
-    factory :registered_user do
-      roles 'registered'
+    factory :member_user do
+      roles 'member'
     end
 
     factory :author_user do

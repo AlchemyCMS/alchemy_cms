@@ -21,9 +21,9 @@ module Alchemy
       response.should redirect_to(login_path)
     end
 
-    context "as registered user" do
+    context "as member user" do
       before {
-        sign_in(registered_user)
+        sign_in(member_user)
       }
 
       it "should be possible to download attachments from restricted pages" do
