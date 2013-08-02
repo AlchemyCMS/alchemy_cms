@@ -1,22 +1,19 @@
-<% content_for :toolbar do %>
-  <div class="toolbar_buttons">
-    <div class="button_with_label">
-      <%= link_to_overlay_window(
-        content_tag('span', '', class: 'icon tag_add'),
-        new_admin_tag_path,
-        {
-          title: _t('New Tag'),
-          size: '310x210'
-        },
+<%= toolbar(
+  buttons: [
+    {
+      icon: 'tag_add',
+      label: _t('New Tag'),
+      url: alchemy.new_admin_tag_path,
+      title: _t('New Tag'),
+      hotkey: 'alt-n',
+      overlay_options: {
         title: _t('New Tag'),
-        class: 'icon_button',
-        'data-alchemy-hotkey' => 'alt-n'
-      ) %><br />
-      <label><%= _t('New Tag') %></label>
-    </div>
-  </div>
-  <%= render partial: 'alchemy/admin/partials/search_form' %>
-<% end %>
+        size: '310x210'
+      },
+      if_permitted_to: [:create, Alchemy::Tag]
+    }
+  ]
+) %>
 
 <div id="archive_all">
   <h1>
