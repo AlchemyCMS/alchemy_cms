@@ -6,3 +6,4 @@
 * Compress migrations
 * Fix 500.html.erb alchemy method not defined
 * Do not display rendered javascript in overlay window. i.e: not authorized, logged out.
+* Fix user#create view with failed validations. Undefined method demodulize for active model.

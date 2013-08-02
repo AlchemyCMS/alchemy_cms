@@ -13,7 +13,9 @@
       title: _t(:upload_image),
       if_permitted_to: [:create, Alchemy::Picture]
     ) %>
+    <% if can? :create, Alchemy::Picture %>
     <div class="toolbar_spacer"></div>
+    <% end %>
     <div class="button_with_label">
       <%= link_to(
         render_icon('zoom-out'),
