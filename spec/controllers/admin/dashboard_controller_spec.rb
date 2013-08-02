@@ -6,7 +6,7 @@ module Alchemy
     let(:locked_page) { build_stubbed(:page, locked: true) }
 
     before {
-      sign_in(author_user)
+      sign_in(admin_user)
     }
 
     describe '#index' do

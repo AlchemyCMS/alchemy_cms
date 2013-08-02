@@ -34,7 +34,7 @@ module Alchemy
       can :show,              Page,      public: true
       can :see,               Page,      restricted: true, visible: true
       can [:show, :download], Picture
-      can :update,            User,      id: @user.id
+      can [:read, :update],   User,      id: @user.id
     end
 
     # == Author rules
@@ -51,12 +51,13 @@ module Alchemy
         :alchemy_admin_layoutpages,
         :alchemy_admin_pages,
         :alchemy_admin_pictures,
-        :alchemy_admin_tags
+        :alchemy_admin_tags,
+        :alchemy_admin_users
       ]
 
       # Controller actions
-      can [:info, :update_check],         :alchemy_admin_dashboard
-      can [:index, :clear],               :trash
+      can :info,                          :alchemy_admin_dashboard
+      can :index,                         :trash
 
       # Resources
       can [:read, :download],             Attachment
@@ -67,7 +68,7 @@ module Alchemy
       can :manage,                        EssencePicture
       can :edit_content,                  Page
       can [:read, :thumbnail, :info],     Picture
-      can :autocomplete,                  Tag
+      can [:read, :autocomplete],         Tag
     end
 
     # == Editor rules
@@ -82,6 +83,9 @@ module Alchemy
         :alchemy_admin_languages,
         :alchemy_admin_users
       ]
+
+      # Controller actions
+      can :clear,  :trash
 
       # Resources
       can :manage, Page
@@ -99,12 +103,15 @@ module Alchemy
       editor_rules
 
       # Navigation
-      can :index,  [:alchemy_admin_sites]
+      can :index,                 [:alchemy_admin_sites]
+
+      # Controller actions
+      can [:info, :update_check], :alchemy_admin_dashboard
 
       # Resources
-      can :manage, User
-      can :manage, Language
-      can :manage, Site
+      can :manage,                User
+      can :manage,                Language
+      can :manage,                Site
     end
 
   private

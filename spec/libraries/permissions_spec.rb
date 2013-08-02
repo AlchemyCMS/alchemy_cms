@@ -100,6 +100,10 @@ describe Alchemy::Permissions do
       should be_able_to(:update, user)
       should_not be_able_to(:update, another_user)
     end
+
+    it "can see all user records" do
+      should be_able_to(:read, user)
+    end
   end
 
   context "An author" do
@@ -108,7 +112,6 @@ describe Alchemy::Permissions do
     it "can visit the dashboard" do
       should be_able_to(:index, :alchemy_admin_dashboard)
       should be_able_to(:info, :alchemy_admin_dashboard)
-      should be_able_to(:update_check, :alchemy_admin_dashboard)
     end
 
     it "can see picture thumbnails" do
@@ -149,13 +152,16 @@ describe Alchemy::Permissions do
       should be_able_to(:manage, Alchemy::EssenceFile)
     end
 
-    it "can see and clear the trash" do
+    it "can see the trash" do
       should be_able_to(:index, :trash)
-      should be_able_to(:clear, :trash)
+    end
+
+    it "can manage the clipboard" do
       should be_able_to(:manage, Alchemy::Clipboard)
     end
 
-    it "can autocomplete tags" do
+    it "can see tags" do
+      should be_able_to(:read, Alchemy::Tag)
       should be_able_to(:autocomplete, Alchemy::Tag)
     end
 
@@ -169,6 +175,10 @@ describe Alchemy::Permissions do
 
     it "can manage pages" do
       should be_able_to(:manage, Alchemy::Page)
+    end
+
+    it "can clear the trash" do
+      should be_able_to(:clear, :trash)
     end
 
     it "can manage attachments" do
@@ -190,6 +200,10 @@ describe Alchemy::Permissions do
 
   context "An admin" do
     let(:user) { build_stubbed(:admin_user) }
+
+    it "can check for alchemy updates" do
+      should be_able_to(:update_check, :alchemy_admin_dashboard)
+    end
 
     it "can manage users" do
       should be_able_to(:manage, Alchemy::User)
