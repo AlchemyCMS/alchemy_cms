@@ -100,25 +100,21 @@ module Alchemy
     end
 
     context 'trash' do
+      let(:element) { FactoryGirl.create(:element, page_id: 1) }
+
       describe '.not_trashed' do
-        let(:element) do
-          FactoryGirl.create(:element, :page_id => 1)
-        end
+        before { element }
 
         it "should return a collection of not trashed elements" do
-          Element.not_trashed.should include(element)
+          expect(Element.not_trashed.to_a).to eq([element])
         end
       end
 
       describe ".trashed" do
-        let(:element) do
-          FactoryGirl.create(:element, :page_id => 1)
-        end
+        before { element.trash }
 
         it "should return a collection of trashed elements" do
-          not_trashed_element = FactoryGirl.create(:element)
-          element.trash
-          Element.trashed.should include(element)
+          expect(Element.trashed.to_a).to eq([element])
         end
       end
     end
@@ -409,19 +405,27 @@ module Alchemy
     end
 
     describe '#trash' do
-      let(:element)         { FactoryGirl.create(:element, :page_id => 1, :cell_id => 1) }
+      let(:element)         { FactoryGirl.create(:element, page_id: 1, cell_id: 1) }
       let(:trashed_element) { element.trash ; element }
       subject               { trashed_element }
 
       it             { should_not be_public }
+      it             { should be_folded }
       its(:position) { should be_nil }
       specify        { expect { element.trash }.to_not change(element, :page_id) }
       specify        { expect { element.trash }.to_not change(element, :cell_id) }
 
-      it "it should be possible to trash more than one element from the same page" do
-        trashed_element_2 = FactoryGirl.create(:element, :page_id => 1)
-        trashed_element_2.trash
-        Element.trashed.should include(trashed_element, trashed_element_2)
+      context "with already one trashed element on the same page" do
+        let(:element_2) { FactoryGirl.create(:element, page_id: 1) }
+        before {
+          trashed_element
+          element_2
+        }
+
+        it "it should be possible to trash another" do
+          element_2.trash
+          expect(Element.trashed.to_a).to include(trashed_element, element_2)
+        end
       end
     end
 

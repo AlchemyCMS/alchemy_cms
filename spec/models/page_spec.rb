@@ -242,17 +242,19 @@ module Alchemy
       end
 
       context "after changing the page layout" do
-        let(:news_element) { FactoryGirl.create(:element, :name => 'news') }
+        let(:news_element) { news_page.elements.find_by(name: 'news') }
 
         it "all elements not allowed on this page should be trashed" do
-          news_page.elements << news_element
-          news_page.update_attributes :page_layout => 'standard'
-          news_page.elements.trashed.should include(news_element)
+          expect(news_page.elements.trashed).to be_empty
+          news_page.update_attributes(page_layout: 'standard')
+          trashed = news_page.elements.trashed.collect(&:name)
+          expect(trashed).to eq(['news'])
+          expect(trashed).to_not include('article', 'header')
         end
 
         it "should autogenerate elements" do
-          news_page.update_attributes :page_layout => 'standard'
-          news_page.elements.available.collect(&:name).should include('header')
+          news_page.update_attributes(page_layout: 'contact')
+          news_page.elements.collect(&:name).should include('contactform')
         end
       end
     end
