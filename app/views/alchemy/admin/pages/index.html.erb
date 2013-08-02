@@ -96,7 +96,7 @@
 
   <%= render :partial => 'sitemap' %>
 
-<% else %>
+<% elsif can?(:create, Alchemy::Page) %>
 
   <%= render :partial => 'create_language_form' %>
   <% content_for(:javascripts) do %>
@@ -107,6 +107,13 @@
       }});
     });
   </script>
+  <% end %>
+
+<% else %>
+
+  <%= render_message :warn do %>
+    <h2>No language root page found.</h2>
+    <p>Please ask the admin to create one.</p>
   <% end %>
 
 <% end %>

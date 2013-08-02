@@ -270,22 +270,15 @@ module Alchemy
       end
 
       def page_params
-        params.require(:page).permit(
-          :meta_description,
-          :meta_keywords,
-          :name,
-          :page_layout,
-          :parent_id,
-          :public,
-          :restricted,
-          :robot_index,
-          :robot_follow,
-          :sitemap,
-          :tag_list,
-          :title,
-          :urlname,
-          :visible
-        )
+        params.require(:page).permit(*secure_attributes)
+      end
+
+      def secure_attributes
+        if can?(:create, Alchemy::Page)
+          Page::PERMITTED_ATTRIBUTES + [:language_root, :parent_id, :language_id, :language_code]
+        else
+          Page::PERMITTED_ATTRIBUTES
+        end
       end
 
     end

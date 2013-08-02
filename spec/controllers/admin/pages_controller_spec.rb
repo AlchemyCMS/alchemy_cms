@@ -5,6 +5,16 @@ module Alchemy
   describe Admin::PagesController do
     before { sign_in(editor_user) }
 
+    describe '#index' do
+      let(:language_root) { build_stubbed(:language_root_page) }
+
+      it "assigns @page_root variable" do
+        Page.should_receive(:language_root_for).with(1).and_return(language_root)
+        get :index
+        assigns(:page_root).should be(language_root)
+      end
+    end
+
     describe "#flush" do
       it "should remove the cache of all pages" do
         post :flush, format: :js
@@ -64,20 +74,24 @@ module Alchemy
       let(:parent) { mock_model(Alchemy::Page, language: language) }
       let(:page_params) { {parent_id: parent.id, name: 'new Page'} }
 
-      context "" do
+      context "a language root page" do
+        it "should permit params"
+      end
+
+      context "a new page" do
         before do
-          Page.any_instance.stub(:set_language_from_parent_or_default_language)
+          Page.any_instance.stub(:set_language_from_parent_or_default)
           Page.any_instance.stub(:save).and_return(true)
         end
 
-        it "nests a new page under given parent" do
+        it "is nested under given parent" do
           controller.stub(:edit_admin_page_path).and_return('bla')
           post :create, {page: page_params, format: :js}
           expect(assigns(:page).parent_id).to eq(parent.id)
         end
 
-        context "if new page can not be saved" do
-          it "should redirect to admin_pages_path" do
+        context "not saved" do
+          it "redirects to sitemap" do
             Page.any_instance.stub(:save).and_return(false)
             post :create, page: {name: 'page'}
             response.should redirect_to(admin_pages_path)
