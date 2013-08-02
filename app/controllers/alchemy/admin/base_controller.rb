@@ -14,7 +14,7 @@ module Alchemy
         if exception.is_a? CanCan::AccessDenied
           permission_denied(exception)
         else
-          exception_handler
+          exception_handler(exception)
         end
       end
 
