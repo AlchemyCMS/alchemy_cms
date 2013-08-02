@@ -9,6 +9,21 @@ module Alchemy
       :locked_by => nil
     }
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
+    PERMITTED_ATTRIBUTES = [
+      :meta_description,
+      :meta_keywords,
+      :name,
+      :page_layout,
+      :public,
+      :restricted,
+      :robot_index,
+      :robot_follow,
+      :sitemap,
+      :tag_list,
+      :title,
+      :urlname,
+      :visible
+    ]
 
     acts_as_taggable
     acts_as_nested_set(:dependent => :destroy)
@@ -26,10 +41,11 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_save :set_language_code, :unless => :systempage?
-    before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
-    before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
-    after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
+    before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
+    before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
+    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
+    before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
+    after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
 
     # Concerns
     include Scopes
@@ -253,11 +269,6 @@ module Alchemy
       self.save
     end
 
-    def set_language_from_parent_or_default_language
-      self.language = self.parent.language || Language.get_default
-      set_language_code
-    end
-
   private
 
     # Returns the next or previous page on the same level or nil.
@@ -284,8 +295,11 @@ module Alchemy
         .limit(1).first
     end
 
+    def set_language_from_parent_or_default
+      self.language = self.parent.language || Language.get_default
+    end
+
     def set_language_code
-      return false if self.language.blank?
       self.language_code = self.language.code
     end
 

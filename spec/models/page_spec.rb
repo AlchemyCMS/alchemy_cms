@@ -425,6 +425,20 @@ module Alchemy
           page = FactoryGirl.create(:page, :name => 'A', :language => language, :parent_id => language_root.id)
           page.class.stamper_class.to_s.should == 'Alchemy::User'
         end
+
+        context "with language given" do
+          it "does not set the language from parent" do
+            Page.any_instance.should_not_receive(:set_language_from_parent_or_default)
+            Page.create!(name: 'A', parent_id: language_root.id, page_layout: 'standard', language: language)
+          end
+        end
+
+        context "with no language given" do
+          it "sets the language from parent" do
+            Page.any_instance.should_receive(:set_language_from_parent_or_default)
+            Page.create!(name: 'A', parent_id: language_root.id, page_layout: 'standard')
+          end
+        end
       end
     end
 
@@ -962,7 +976,7 @@ module Alchemy
       end
     end
 
-    describe '#set_language_from_parent_or_default_language' do
+    describe '#set_language_from_parent_or_default' do
       let(:default_language) { mock_model('Language', code: 'es') }
       let(:page) { Page.new }
 
@@ -974,11 +988,10 @@ module Alchemy
         let(:parent) { mock_model('Page', language: default_language, language_id: default_language.id, language_code: default_language.code) }
 
         before do
-          page.set_language_from_parent_or_default_language
+          page.send(:set_language_from_parent_or_default)
         end
 
         its(:language_id) { should eq(parent.language_id) }
-        its(:language_code) { should eq(parent.language_code) }
       end
 
       context "parent has no language" do
@@ -986,11 +999,10 @@ module Alchemy
 
         before do
           Language.stub(:get_default).and_return(default_language)
-          page.set_language_from_parent_or_default_language
+          page.send(:set_language_from_parent_or_default)
         end
 
         its(:language_id) { should eq(default_language.id) }
-        its(:language_code) { should eq(default_language.code) }
       end
     end
 

@@ -62,7 +62,6 @@ module Alchemy
           @page = Page.paste_from_clipboard(source, parent, params[:page][:name])
         else
           @page = Page.new(page_params)
-          @page.set_language_from_parent_or_default_language
         end
         if @page.save
           redirect_path = params[:redirect_to] || edit_admin_page_path(@page)
