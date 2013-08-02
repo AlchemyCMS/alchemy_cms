@@ -132,8 +132,8 @@ module Alchemy
 
     # Trashing an element means nullifying its position, folding and unpublishing it.
     def trash!
-      self.update_column(:public, false)
-      self.update_column(:folded, true)
+      self.public = false
+      self.folded = true
       self.remove_from_list
     end
 
