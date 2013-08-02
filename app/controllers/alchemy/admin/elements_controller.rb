@@ -80,7 +80,7 @@ module Alchemy
       def trash
         @element = Element.find(params[:id])
         @page = @element.page
-        @element.trash
+        @element.trash!
       end
 
       def order

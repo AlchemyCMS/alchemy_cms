@@ -111,7 +111,7 @@ module Alchemy
       end
 
       describe ".trashed" do
-        before { element.trash }
+        before { element.trash! }
 
         it "should return a collection of trashed elements" do
           expect(Element.trashed.to_a).to eq([element])
@@ -404,16 +404,16 @@ module Alchemy
       end
     end
 
-    describe '#trash' do
+    describe '#trash!' do
       let(:element)         { FactoryGirl.create(:element, page_id: 1, cell_id: 1) }
-      let(:trashed_element) { element.trash ; element }
+      let(:trashed_element) { element.trash! ; element }
       subject               { trashed_element }
 
       it             { should_not be_public }
       it             { should be_folded }
       its(:position) { should be_nil }
-      specify        { expect { element.trash }.to_not change(element, :page_id) }
-      specify        { expect { element.trash }.to_not change(element, :cell_id) }
+      specify        { expect { element.trash! }.to_not change(element, :page_id) }
+      specify        { expect { element.trash! }.to_not change(element, :cell_id) }
 
       context "with already one trashed element on the same page" do
         let(:element_2) { FactoryGirl.create(:element, page_id: 1) }
@@ -423,7 +423,7 @@ module Alchemy
         }
 
         it "it should be possible to trash another" do
-          element_2.trash
+          element_2.trash!
           expect(Element.trashed.to_a).to include(trashed_element, element_2)
         end
       end

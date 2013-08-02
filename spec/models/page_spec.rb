@@ -358,7 +358,7 @@ module Alchemy
       context "page with trashed elements" do
         before do
           page.elements << FactoryGirl.create(:element)
-          page.elements.first.trash
+          page.elements.first.trash!
         end
 
         it "the copy should not hold a copy of the trashed elements" do
@@ -610,14 +610,12 @@ module Alchemy
 
     describe '#destroy' do
       context "with trashed but still assigned elements" do
-
-        before { news_page.elements.map(&:trash) }
+        before { news_page.elements.map(&:trash!) }
 
         it "should not delete the trashed elements" do
           news_page.destroy
           Element.trashed.should_not be_empty
         end
-
       end
     end
 
