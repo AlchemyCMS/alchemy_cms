@@ -12,7 +12,7 @@ module Alchemy
         only: [:show, :edit, :update, :destroy]
 
       before_filter do
-        authorize! action_name, resource_handler.model
+        authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
       end
 
       handles_sortable_columns do |c|
