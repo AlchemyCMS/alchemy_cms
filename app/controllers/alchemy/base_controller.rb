@@ -215,6 +215,11 @@ module Alchemy
   protected
 
     def permission_denied(exception = nil)
+      Rails.logger.warn <<-WARN
+
+/!\\ Failed to permit #{exception.action} on #{exception.subject.inspect} for:
+#{current_user.inspect}
+WARN
       if current_user
         handle_redirect_for_user
       else
@@ -223,7 +228,7 @@ module Alchemy
     end
 
     def handle_redirect_for_user
-      if can?(:index, :dashboard)
+      if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
       else
         redirect_to('/')
@@ -239,7 +244,7 @@ module Alchemy
           }
         end
       else
-        flash[:error] = _t('You are not authorized')
+        flash[:warning] = _t('You are not authorized')
         redirect_to(alchemy.admin_dashboard_path)
       end
     end
@@ -258,10 +263,6 @@ module Alchemy
     def exception_logger(e)
       Rails.logger.error("\n#{e.class} #{e.message} in #{e.backtrace.first}")
       Rails.logger.error(e.backtrace[1..50].each { |l| l.gsub(/#{Rails.root.to_s}/, '') }.join("\n"))
-    end
-
-    def raise_authorization_exception(exception)
-      raise("Not permitted to #{exception.action} #{exception.subject}")
     end
 
   end
