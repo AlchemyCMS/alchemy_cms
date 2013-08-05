@@ -25,7 +25,7 @@ module Alchemy
         it "does not convert other roles into member roles" do
           FactoryGirl.create(:admin_user, email: 'admin@show.com', login: 'admin')
           upgrader.send(:rename_registered_role_into_member)
-          User.all.where('roles LIKE "%admin%"').each do |admin|
+          User.all.where("roles LIKE '%admin%'").each do |admin|
             expect(admin.roles).to eq(['admin'])
           end
         end

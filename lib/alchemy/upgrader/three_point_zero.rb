@@ -5,7 +5,7 @@ module Alchemy
 
     def rename_registered_role_into_member
       desc "Rename registered user's role into member"
-      users = User.all.where('roles LIKE "%registered%"')
+      users = User.all.where("roles LIKE '%registered%'")
       if users.count == 0
         log "No users with registered role found.", :skip
       else
