@@ -120,7 +120,7 @@ Resources
 * Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
 * Sourcecode: <https://github.com/magiclabs/alchemy_cms>
 * User Group: <http://groups.google.com/group/alchemy-cms>
-* IRC Channel: 
+* IRC Channel: #alchemy_cms on irc.freenode.net
 * Discussion Board: <https://trello.com/alchemycms>
 
 Authors
