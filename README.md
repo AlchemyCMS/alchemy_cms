@@ -103,6 +103,14 @@ Tipps
 - Ask the community: http://groups.google.com/group/alchemy-cms
 
 
+Getting Help
+------------
+
+* If you have bugs, please use the [issue tracker on Github](https://github.com/magiclabs/alchemy_cms/issues).
+* For Q&A and general usage, please use the [User Group](http://groups.google.com/group/alchemy-cms) or the IRC channel.
+* New features should be discussed on our [Trello Board](https://trello.com/alchemycms). *PLEASE* don't use the Github issues for new features.
+
+
 Resources
 ---------
 
@@ -112,7 +120,8 @@ Resources
 * Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
 * Sourcecode: <https://github.com/magiclabs/alchemy_cms>
 * User Group: <http://groups.google.com/group/alchemy-cms>
-* Changelog: <http://revision.io/alchemy_cms>
+* IRC Channel: 
+* Discussion Board: <https://trello.com/alchemycms>
 
 Authors
 ---------
