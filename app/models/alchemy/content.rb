@@ -83,7 +83,7 @@ module Alchemy
 
     # Calls essence.update_attributes.
     #
-    # Called from +Alchemy::Element#save_contents+
+    # Called from +Alchemy::Element#update_contents+
     #
     # Adds errors to self.base if essence validation fails.
     #
@@ -113,18 +113,18 @@ module Alchemy
     #
     # === Options:
     #
-    # You can pass an Essence column_name. Default is self.essence.ingredient_column
+    # You can pass an Essence column_name. Default is 'ingredient'
     #
     # ==== Example:
     #
     #   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
     #
-    def form_field_name(essence_column = self.essence.ingredient_column)
-      "contents[content_#{self.id}][#{essence_column}]"
+    def form_field_name(essence_column = 'ingredient')
+      "contents[#{self.id}][#{essence_column}]"
     end
 
-    def form_field_id(essence_column = self.essence.ingredient_column)
-      "contents_content_#{self.id}_#{essence_column}"
+    def form_field_id(essence_column = 'ingredient')
+      "contents_#{self.id}_#{essence_column}"
     end
 
     # Returns the translated name for displaying in labels, etc.

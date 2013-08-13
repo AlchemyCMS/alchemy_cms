@@ -209,5 +209,33 @@ module Alchemy
       end
     end
 
+    describe '#form_field_name' do
+      let(:content) { Content.new(id: 1) }
+
+      it "returns a name value for form fields with ingredient as default" do
+        content.form_field_name.should == 'contents[1][ingredient]'
+      end
+
+      context 'with a essence column given' do
+        it "returns a name value for form fields for that column" do
+          content.form_field_name(:link_title).should == 'contents[1][link_title]'
+        end
+      end
+    end
+
+    describe '#form_field_id' do
+      let(:content) { Content.new(id: 1) }
+
+      it "returns a id value for form fields with ingredient as default" do
+        content.form_field_id.should == 'contents_1_ingredient'
+      end
+
+      context 'with a essence column given' do
+        it "returns a id value for form fields for that column" do
+          content.form_field_id(:link_title).should == 'contents_1_link_title'
+        end
+      end
+    end
+
   end
 end

@@ -225,10 +225,25 @@ module Alchemy
       self.ingredient(name).present?
     end
 
-    def save_contents(contents_attributes)
+    # Updates all related contents by calling +update_essence+ on each of them.
+    #
+    # @param contents_attributes [Hash]
+    #   Hash of contents attributes.
+    #   The keys has to be the #id of the content to update.
+    #   The values a Hash of attribute names and values
+    #
+    # @return [Boolean]
+    #   True if +self.errors+ are blank or +contents_attributes+ hash is nil
+    #
+    # == Example
+    #
+    #   @element.update_contents({1 => {ingredient: 'Title'}, 2 => {link: 'https://google.com'}})
+    #
+    def update_contents(contents_attributes)
       return true if contents_attributes.nil?
-      contents.each do |content|
-        unless content.update_essence(contents_attributes["content_#{content.id}"])
+      contents_attributes.each do |id, essence_attributes|
+        content = self.contents.find(id)
+        unless content.update_essence(essence_attributes)
           errors.add(:base, :essence_validation_failed)
         end
       end

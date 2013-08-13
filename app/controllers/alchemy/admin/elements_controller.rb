@@ -2,7 +2,7 @@ module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
       cache_sweeper Alchemy::ContentSweeper, :only => [:create, :update, :destroy]
-
+      before_action :load_element, only: [:update, :trash, :fold]
       authorize_resource class: Alchemy::Element
 
       def index
@@ -62,13 +62,14 @@ module Alchemy
         end
       end
 
-      # Saves all contents in the elements by calling save_contents.
-      # And then updates the element itself.
+      # Updates the element.
+      #
+      # And update all contents in the elements by calling update_contents.
+      #
       def update
-        @element = Element.find_by_id(params[:id])
-        if @element.save_contents(params[:contents])
+        if @element.update_contents(contents_params)
           @page = @element.page
-          @element_validated = @element.update_attributes!(params[:element])
+          @element_validated = @element.update_attributes!(element_params)
         else
           @element_validated = false
           @notice = _t('Validation failed')
@@ -78,7 +79,6 @@ module Alchemy
 
       # Trashes the Element instead of deleting it.
       def trash
-        @element = Element.find(params[:id])
         @page = @element.page
         @element.trash!
       end
@@ -96,13 +96,16 @@ module Alchemy
       end
 
       def fold
-        @element = Element.find(params[:id])
         @page = @element.page
         @element.folded = !@element.folded
         @element.save
       end
 
     private
+
+      def load_element
+        @element = Element.find(params[:id])
+      end
 
       # Returns the cell for element name in params.
       # Creates the cell if necessary.
@@ -142,6 +145,14 @@ module Alchemy
         @cutted_element_id = @source_element.id
         @clipboard.remove :elements, @source_element.id
         @source_element.destroy
+      end
+
+      def contents_params
+        params.require(:contents).permit!
+      end
+
+      def element_params
+        params.require(:element).permit(:public, :tag_list)
       end
 
     end

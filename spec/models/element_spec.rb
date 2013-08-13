@@ -371,10 +371,31 @@ module Alchemy
       end
     end
 
-    describe '#save_contents' do
-      it "should return true if attributes hash is nil" do
-        element = FactoryGirl.create(:element, create_contents_after_create: true)
-        element.save_contents(nil).should be_true
+    describe '#update_contents' do
+      let(:element) { build_stubbed(:element) }
+      let(:content) { double(:content) }
+
+      context "with attributes hash is nil" do
+        it "returns true" do
+          element.update_contents(nil).should be_true
+        end
+      end
+
+      context "with valid attributes hash" do
+        before { element.contents.should_receive(:find).with(1).and_return(content) }
+
+        it "updates essence and returns true" do
+          content.should_receive(:update_essence).with({body: 'Title'}).and_return(true)
+          element.update_contents({1 => {body: 'Title'}}).should be_true
+        end
+
+        context 'with failing validations' do
+          it "adds error and returns false" do
+            content.should_receive(:update_essence).with({body: 'Title'}).and_return(false)
+            element.update_contents({1 => {body: 'Title'}}).should be_false
+            element.errors.should_not be_empty
+          end
+        end
       end
     end
 

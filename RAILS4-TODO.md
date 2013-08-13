@@ -1,9 +1,18 @@
-# Rails 4 Todos
+# Alchemy 3.0 Todos
 
-* change essence editor views to use ingredient form field, instead of body, bcz of consistence and rails4 secure params
-* test all admin controllers create/update methods bcz. rails4 secure params
+
+## General
+
 * Remove Flash based uploader
 * Compress migrations
-* Fix 500.html.erb alchemy method not defined
 * Do not display rendered javascript in overlay window. i.e: not authorized, logged out.
+* Replace dynamic_form with simple_form
+* New responsive interface
+
+
+## Rails 4 Todos
+
+* test all admin controllers create/update methods bcz. rails4 secure params
+* Fix 500.html.erb alchemy method not defined
 * Fix user#create view with failed validations. Undefined method demodulize for active model.
+* Use turbo links
