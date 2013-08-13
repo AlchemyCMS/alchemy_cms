@@ -5,8 +5,6 @@ module Alchemy
       before_action :load_element, only: [:update, :trash, :fold]
       authorize_resource class: Alchemy::Element
 
-      authorize_resource class: Alchemy::Element
-
       def index
         @page = Page.find(params[:page_id], :include => {:elements => :contents})
         @cells = @page.cells
