@@ -2,12 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::DashboardController do
-    let(:last_edited_page) { build_stubbed(:page) }
-    let(:locked_page) { build_stubbed(:page, locked: true) }
-
-    before {
-      sign_in(admin_user)
-    }
+    before { sign_in(admin_user) }
 
     describe '#index' do
       before do
@@ -19,12 +14,12 @@ module Alchemy
 
       it "assigns @last_edited_pages" do
         get :index
-        expect(assigns(:last_edited_pages)).to eq([last_edited_page])
+        expect(assigns(:last_edited_pages)).to eq([])
       end
 
       it "assigns @locked_pages" do
         get :index
-        expect(assigns(:locked_pages)).to eq([locked_page])
+        expect(assigns(:locked_pages)).to eq([])
       end
 
       it "assigns @online_users" do
