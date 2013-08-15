@@ -5,7 +5,7 @@
 
 About
 -----
-**This branch is a eraly alpha development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.6-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).**
+**This branch is a early alpha development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.6-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).**
 
 Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.
 
