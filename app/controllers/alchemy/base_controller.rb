@@ -204,14 +204,12 @@ module Alchemy
 
     def permission_denied
       if current_user
-        if permitted_to? :index_alchemy_admin_dashboard
+        if permitted_to? :index, :alchemy_admin_dashboard
           if request.referer == alchemy.login_url
             render :file => Rails.root.join('public/422'), :status => 422
           elsif request.xhr?
             respond_to do |format|
-              format.js {
-                render :js => "Alchemy.growl('#{_t('You are not authorized')}', 'warning'); Alchemy.Buttons.enable();"
-              }
+              format.js { render status: 403 }
               format.html {
                 render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _t('You are not authorized'), :flash_type => 'warning'}
               }

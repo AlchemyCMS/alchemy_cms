@@ -7,7 +7,7 @@
   color: #690001;
   @extend .rounded-border;
 
-  &.ajax_status_code_0 {
+  &.ajax_status_code.warning {
     border-color: #c4c19c;
     color: #726d23;
     background-color: #f3f0c1;

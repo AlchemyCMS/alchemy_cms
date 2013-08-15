@@ -28,16 +28,24 @@ $.extend Alchemy,
   # Display a error message for dialogs
   # Used by Alchemy.openWindow if errors happen
   AjaxErrorHandler: ($dialog, status, textStatus, errorThrown) ->
+    error_type = "warning"
     $div = $('<div class="with_padding" />')
-    $errorDiv = $("<div id=\"errorExplanation\" class=\"ajax_status_code_#{status}\" />")
     $dialog.html $div
+    switch status
+      when 0
+        error_header = "The server does not respond."
+        error_body = "Please check server and try again."
+      when 403
+        error_header = "You are not authorized!"
+        error_body = "Please close this window."
+      else
+        error_header = "#{errorThrown} (#{status})"
+        error_body = "Please check log and try again."
+        error_type = "error"
+    $errorDiv = $("<div id=\"errorExplanation\" class=\"ajax_status_code #{error_type}\" />")
+    $errorDiv.append "<h2>#{error_header}</h2>"
+    $errorDiv.append "<p>#{error_body}</p>"
     $div.append $errorDiv
-    if status is 0
-      $errorDiv.append "<h2>The server does not respond.</h2>"
-      $errorDiv.append "<p>Please check server and try again.</p>"
-    else
-      $errorDiv.append "<h2>" + errorThrown + " (" + status + ")</h2>"
-      $errorDiv.append "<p>Please check log and try again.</p>"
 
   # Opens a confirm window
   #
@@ -167,16 +175,19 @@ $.extend Alchemy,
           url: url
           success: (data, textStatus, XMLHttpRequest) ->
             widget = $dialog.dialog("widget")
-            $dialog.html(data)
-            $dialog.css(overflow: (if options.overflow then "visible" else "auto"))
-            widget.css(overflow: (if options.overflow then "visible" else "hidden"))
-            if options.width is "auto"
-              widget.css left: (($(window).width() / 2) - ($dialog.width() / 2))
-            if options.height is "auto"
-              widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
-            Alchemy.GUI.init Alchemy.CurrentWindow
-            if options.image_loader
-              Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
+            if XMLHttpRequest.getResponseHeader('Content-Type').match(/javascript/)
+              $dialog.empty()
+            else
+              $dialog.html(data)
+              $dialog.css(overflow: (if options.overflow then "visible" else "auto"))
+              widget.css(overflow: (if options.overflow then "visible" else "hidden"))
+              if options.width is "auto"
+                widget.css left: (($(window).width() / 2) - ($dialog.width() / 2))
+              if options.height is "auto"
+                widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
+              Alchemy.GUI.init Alchemy.CurrentWindow
+              if options.image_loader
+                Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
           error: (XMLHttpRequest, textStatus, errorThrown) ->
             Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
           complete: (jqXHR, textStatus) ->
