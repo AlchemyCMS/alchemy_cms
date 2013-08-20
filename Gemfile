@@ -4,13 +4,7 @@ gemspec
 
 # rails 4 specific
 gem 'acts_as_ferret',             github: 'tvdeyen/acts_as_ferret',             branch: 'rails-4'
-gem 'acts_as_list',               github: 'swanandp/acts_as_list'
 gem 'rails3-jquery-autocomplete', github: 'francisd/rails3-jquery-autocomplete'
-
-# for caching and sweepers
-gem 'rails-observers',            github: 'rails/rails-observers'
-gem 'actionpack-action_caching',  github: 'rails/actionpack-action_caching'
-gem 'actionpack-page_caching',    github: 'rails/actionpack-page_caching'
 
 # Code coverage plattform
 gem 'coveralls', require: false
@@ -33,4 +27,8 @@ group :development do
     gem 'yard'
     gem 'redcarpet'
   end
+end
+
+group :development, :test do
+  gem 'jasmine-rails', github: 'searls/jasmine-rails'
 end

@@ -1,6 +1,9 @@
 require 'rails'
 
 if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
+  require 'rails-observers'
+  require 'actionpack/action_caching'
+  require 'actionpack/page_caching'
   require 'acts_as_list'
   require 'acts-as-taggable-on'
   require 'devise'

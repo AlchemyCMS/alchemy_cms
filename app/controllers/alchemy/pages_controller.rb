@@ -1,6 +1,5 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
-    include ActionController::Caching::Actions
     include Alchemy::FerretSearch
 
     # We need to include this helper because we need the breadcrumb method.
