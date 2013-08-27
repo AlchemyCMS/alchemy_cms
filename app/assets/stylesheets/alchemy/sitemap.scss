@@ -335,12 +335,19 @@ a.folder_link {
 }
 
 #create_language_tree_form {
-  width: 360px;
+  width: 340px;
+  margin: auto;
+}
 
-  &.ui-dialog-content div.info {
-    margin: 2*$default-padding;
-    margin-bottom: 0;
-  }
+#archive_all #create_language_tree_form {
+  height: 130px;
+  padding: 8px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @extend .rounded-border;
 }
 
 h2#sitemap_heading {

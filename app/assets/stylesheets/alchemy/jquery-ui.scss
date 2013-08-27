@@ -1506,6 +1506,11 @@ button.ui-button::-moz-focus-inner {
   }
 
   &:focus { outline: none }
+
+  div.info {
+    margin: 8px;
+    margin-bottom: 0;
+  }
 }
 
 .ui-dialog-titlebar {
