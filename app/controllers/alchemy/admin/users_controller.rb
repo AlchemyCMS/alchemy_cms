@@ -23,6 +23,10 @@ module Alchemy
         @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
       end
 
+      def new
+        @user = User.new(send_credentials: true)
+      end
+
       def create
         @user = User.create(user_params)
         render_errors_or_redirect(
