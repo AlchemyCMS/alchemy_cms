@@ -52,9 +52,10 @@ module Alchemy
         end
       end
 
-      context "#clear" do
+      describe "#clear" do
         it "should destroy all containing elements" do
-          post :clear, {:page_id => alchemy_page.id, :format => :js}
+          Element.trashed.should_not be_empty
+          xhr :post, :clear, page_id: alchemy_page.id
           Element.trashed.should be_empty
         end
       end

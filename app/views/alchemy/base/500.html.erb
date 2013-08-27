@@ -2,7 +2,7 @@
   buttons: [
     {
       icon: 'back',
-      url: request.referer || alchemy.admin_dashboard_path,
+      url: request.referer || "#{Alchemy::MountPoint.get}/admin/dashboard",
       label: _t(:back),
       title: _t(:back),
       hotkey: 'alt-z',
