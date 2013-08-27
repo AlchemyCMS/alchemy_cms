@@ -11,7 +11,7 @@ module Alchemy
 
     def new
       @signup = true
-      @user = User.new
+      @user = User.new(send_credentials: true)
     end
 
     def create
