@@ -1,12 +1,10 @@
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.7-stable)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.7-stable)](https://coveralls.io/r/magiclabs/alchemy_cms)
 
 About
 -----
-**This branch is a beta development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.6-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).**
-
 Alchemy is a powerful, userfriendly and flexible Rails 3 CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
@@ -54,7 +52,7 @@ Installation
 
 Use the installer (recommended):
 
-    gem install alchemy_cms
+    gem install alchemy_cms --pre
     alchemy new my_magicpage
     cd my_magicpage
 
@@ -69,7 +67,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.7-stable'
 
 Run in terminal:
 
@@ -135,4 +133,4 @@ Authors
 License
 -------
 
-* BSD: <https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE>
+* BSD: <https://raw.github.com/magiclabs/alchemy_cms/2.7-stable/LICENSE>
