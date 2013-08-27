@@ -9,6 +9,11 @@ gem 'rails3-jquery-autocomplete', github: 'francisd/rails3-jquery-autocomplete'
 # Code coverage plattform
 gem 'coveralls', require: false
 
+# Fixes
+# - http://stackoverflow.com/questions/18394817/json-error-with-coffeescript-rails-asset-pipeline
+# - https://github.com/sstephenson/execjs/issues/129
+gem 'multi_json', '1.7.8'
+
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
