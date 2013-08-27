@@ -1,26 +1,29 @@
-# This is a compressed migration for creating all Alchemy 2.5 tables at once.
+# This is a compressed migration for creating all Alchemy 2.6 tables at once.
 #
 # === Notice
 #
 # In order to upgrade from an old version of Alchemy, you have to run all migrations from
 # each version you missed up to the version you want to upgrade to, before running this migration.
 #
-class AlchemyTwoPointFive < ActiveRecord::Migration
+class AlchemyTwoPointSix < ActiveRecord::Migration
   def up
     # Do not run if Alchemy tables are already present
     return if table_exists?(:alchemy_pages)
 
     create_table "alchemy_attachments", :force => true do |t|
       t.string   "name"
-      t.string   "filename"
-      t.string   "content_type"
-      t.integer  "size"
+      t.string   "file_name"
+      t.string   "file_mime_type"
+      t.integer  "file_size"
       t.integer  "creator_id"
       t.integer  "updater_id"
       t.datetime "created_at",      :null => false
       t.datetime "updated_at",      :null => false
       t.text     "cached_tag_list"
+      t.string   "file_uid"
     end
+
+    add_index "alchemy_attachments", ["file_uid"], :name => "index_alchemy_attachments_on_file_uid"
 
     create_table "alchemy_cells", :force => true do |t|
       t.integer  "page_id"
@@ -268,7 +271,7 @@ class AlchemyTwoPointFive < ActiveRecord::Migration
       t.string   "login"
       t.string   "email"
       t.string   "gender"
-      t.string   "role",                                  :default => "registered"
+      t.string   "roles",                                 :default => "registered"
       t.string   "language"
       t.string   "encrypted_password",     :limit => 128, :default => "",           :null => false
       t.string   "password_salt",          :limit => 128, :default => "",           :null => false
@@ -291,6 +294,26 @@ class AlchemyTwoPointFive < ActiveRecord::Migration
     add_index "alchemy_users", ["email"], :name => "index_alchemy_users_on_email", :unique => true
     add_index "alchemy_users", ["login"], :name => "index_alchemy_users_on_login", :unique => true
     add_index "alchemy_users", ["reset_password_token"], :name => "index_alchemy_users_on_reset_password_token", :unique => true
+    add_index "alchemy_users", ["roles"], :name => "index_alchemy_users_on_roles"
+
+    create_table "events", :force => true do |t|
+      t.string   "name"
+      t.string   "hidden_name"
+      t.datetime "starts_at"
+      t.datetime "ends_at"
+      t.text     "description"
+      t.decimal  "entrance_fee", :precision => 6, :scale => 2
+      t.boolean  "published"
+      t.integer  "location_id"
+      t.datetime "created_at",                                 :null => false
+      t.datetime "updated_at",                                 :null => false
+    end
+
+    create_table "locations", :force => true do |t|
+      t.string   "name"
+      t.datetime "created_at", :null => false
+      t.datetime "updated_at", :null => false
+    end
 
     create_table "taggings", :force => true do |t|
       t.integer  "tag_id"
