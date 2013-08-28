@@ -2,6 +2,7 @@
 // ------------------------------
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
 //= require jquery.ui.autocomplete
 //= require jquery.ui.datepicker
 //= require jquery.ui.dialog
@@ -31,7 +32,7 @@
 //= require alchemy/alchemy.string_extension
 //= require alchemy/alchemy.link_overlay
 //= require alchemy/alchemy.list_filter
-//= require alchemy/alchemy.onload
+//= require alchemy/alchemy.initializer
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.file_progress

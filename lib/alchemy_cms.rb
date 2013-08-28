@@ -13,6 +13,7 @@ if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
   require 'dynamic_form'
   require 'jquery-rails'
   require 'jquery-ui-rails'
+  require 'turbolinks'
   require 'rails3-jquery-autocomplete' if defined?(Rails3JQueryAutocomplete)
   require 'handles_sortable_columns'
   require 'kaminari'

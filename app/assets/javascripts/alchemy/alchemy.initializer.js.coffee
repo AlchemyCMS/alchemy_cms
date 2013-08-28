@@ -1,6 +1,10 @@
-$ ->
+# Initialize all onload scripts at once.
+#
+# Called at jQuery ready event and Turbolinks page change event.
+#
+Alchemy.Initializer = ->
   # Preloading all background images from CSS files.
-  $.preloadCssImages()
+  # $.preloadCssImages()
 
   # We obviously have javascript enabled.
   $('html').removeClass('no-js')
@@ -29,3 +33,11 @@ $ ->
 
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content')
+
+# jQuery DOM ready
+$ ->
+  Alchemy.Initializer()
+
+# Turbolinks DOM Ready
+$(document).on 'page:change', ->
+  Alchemy.Initializer()

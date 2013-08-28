@@ -5,8 +5,8 @@
     <title><%= render_alchemy_title %></title>
     <%= csrf_meta_tag %>
     <meta name="robots" content="noindex">
-    <%= stylesheet_link_tag('alchemy/admin', :media => 'screen') %>
-    <%= stylesheet_link_tag('alchemy/print', :media => 'print') %>
+    <%= stylesheet_link_tag('alchemy/admin', :media => 'screen', "data-turbolinks-track" => true) %>
+    <%= stylesheet_link_tag('alchemy/print', :media => 'print', "data-turbolinks-track" => true) %>
     <%= yield :stylesheets %>
     <script type="text/javascript" charset="utf-8">
 
@@ -22,7 +22,7 @@
       Alchemy.current_url = '<%= url_for.html_safe %>';
 
     </script>
-    <%= javascript_include_tag('alchemy/alchemy') %>
+    <%= javascript_include_tag('alchemy/alchemy', "data-turbolinks-track" => true) %>
     <%= yield :javascript_includes %>
   </head>
   <body id="alchemy" class="<%= body_class %>">
