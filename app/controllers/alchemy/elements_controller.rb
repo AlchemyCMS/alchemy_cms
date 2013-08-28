@@ -32,7 +32,7 @@ module Alchemy
                 methods: [:ingredient],
                 include: {
                   essence: {
-                    except: [:created_at, :creator_id, :do_not_index, :public, :updater_id]
+                    except: [:created_at, :creator_id, :public, :updater_id]
                   }
                 }
               }

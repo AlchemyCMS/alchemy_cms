@@ -20,7 +20,6 @@ Features
 - Multidomain
 - SEO friendly
 - Access Control
-- Fulltext Search
 - RSS Feeds
 - Contactforms
 - Attachments and downloads

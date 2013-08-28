@@ -1,7 +1,0 @@
-<li class="search_result">
-  <h3><%= page.name %></h3>
-  <% result.each do |highlight| %>
-    <p><%= sanitize highlight.force_encoding('UTF-8') %></p>
-  <% end %>
-  <p><%= link_to page.urlname, show_alchemy_page_path(page) %></p>
-</li>

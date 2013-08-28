@@ -97,19 +97,6 @@ de:
         right: 'Rechts vom Text'
         no_float: 'Über dem Text'
 
-    # == Translations for the build in full text search.
-    search_form:
-      placeholder: 'Suchbegriff'
-      submit: 'Suchen'
-
-    search_result_page:
-      result_page: Seite
-      no_results: "Ihre Suche nach '%{query}' ergab keine Treffer."
-      result_heading: "Ihre Suche nach '%{query}'"
-      result_count:
-        one: "Ergab einen Treffer"
-        other: "Ergab %{count} Treffer"
-
     # == Contactform translations
     contactform:
       labels:

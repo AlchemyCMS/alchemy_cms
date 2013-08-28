@@ -1,7 +1,5 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
-    include Alchemy::FerretSearch
-
     # We need to include this helper because we need the breadcrumb method.
     # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
     # Not the best solution, but's working.
@@ -12,7 +10,6 @@ module Alchemy
 
     before_filter :enforce_primary_host_for_site
     before_filter :render_page_or_redirect, :only => [:show, :sitemap]
-    before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
     before_filter :load_page
     authorize_resource only: 'show'
 

@@ -19,12 +19,6 @@
   elements: [headline, text, contactform]
   autogenerate: [headline, text, contactform]
 
-- name: search
-  unique: true
-  elements: [headline, text, searchresult]
-  autogenerate: [searchresult]
-  searchresults: true
-
 - name: external
   unique: false
   redirects_to_external: true

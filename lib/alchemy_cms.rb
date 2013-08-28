@@ -13,7 +13,7 @@ if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
   require 'dynamic_form'
   require 'jquery-rails'
   require 'jquery-ui-rails'
-  require 'rails3-jquery-autocomplete'
+  require 'rails3-jquery-autocomplete' if defined?(Rails3JQueryAutocomplete)
   require 'handles_sortable_columns'
   require 'kaminari'
   require 'userstamp'
@@ -41,7 +41,6 @@ if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR == 0
     'scoped_pagination_url_helper',
     'resource',
     'resources_helper',
-    'ferret_search',
     'filetypes',
     'name_conversions'
   ].each do |class_name|

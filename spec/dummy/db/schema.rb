@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130801200601) do
+ActiveRecord::Schema.define(version: 20130828121120) do
 
   create_table "alchemy_attachments", force: true do |t|
     t.string   "name"
@@ -140,12 +140,11 @@ ActiveRecord::Schema.define(version: 20130801200601) do
   create_table "alchemy_essence_richtexts", force: true do |t|
     t.text     "body"
     t.text     "stripped_body"
-    t.boolean  "do_not_index",  default: false
     t.boolean  "public"
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "alchemy_essence_selects", force: true do |t|
@@ -164,7 +163,6 @@ ActiveRecord::Schema.define(version: 20130801200601) do
     t.string   "link_title"
     t.string   "link_class_name"
     t.boolean  "public",          default: false
-    t.boolean  "do_not_index",    default: false
     t.string   "link_target"
     t.integer  "creator_id"
     t.integer  "updater_id"

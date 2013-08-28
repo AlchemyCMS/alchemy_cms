@@ -42,8 +42,6 @@ module Alchemy
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
   class MessagesController < Alchemy::BaseController
-    include Alchemy::FerretSearch
-
     before_filter :get_page, :except => :create
 
     helper 'alchemy/pages'

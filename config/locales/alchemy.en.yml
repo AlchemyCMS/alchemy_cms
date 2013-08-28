@@ -83,19 +83,6 @@ en:
         invalid: '%{field} has wrong format'
         taken: '%{field} has already been taken'
 
-    # == Translations for the build in full text search.
-    search_form:
-      placeholder: 'Search query'
-      submit: 'Search'
-
-    search_result_page:
-      result_page: Page
-      no_results: "Your search for '%{query}' offers no result"
-      result_heading: "Your search for '%{query}'"
-      result_count:
-        one: 'Offers one result'
-        other: 'Offers %{count} results'
-
     # == Contactform translations
     contactform:
       labels:

@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gemspec
 
 # rails 4 specific
-gem 'acts_as_ferret',             github: 'tvdeyen/acts_as_ferret',             branch: 'rails-4'
 gem 'rails3-jquery-autocomplete', github: 'francisd/rails3-jquery-autocomplete'
 
 # Code coverage plattform
