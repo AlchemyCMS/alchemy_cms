@@ -14,6 +14,7 @@ require 'rails3-jquery-autocomplete' if defined?(Rails3JQueryAutocomplete)
 require 'rails-observers'
 require 'sass-rails'
 require 'sassy-buttons'
+require 'turbolinks'
 
 # Require globally used Alchemy mixins
 require 'alchemy/auth/engine'
