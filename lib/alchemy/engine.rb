@@ -1,4 +1,7 @@
 # Require globally used external libraries
+require 'actionpack/action_caching'
+require 'actionpack/page_caching'
+require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
 require 'declarative_authorization'
@@ -7,7 +10,8 @@ require 'dynamic_form'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'kaminari'
-require 'rails3-jquery-autocomplete'
+require 'rails3-jquery-autocomplete' if defined?(Rails3JQueryAutocomplete)
+require 'rails-observers'
 require 'sass-rails'
 require 'sassy-buttons'
 
