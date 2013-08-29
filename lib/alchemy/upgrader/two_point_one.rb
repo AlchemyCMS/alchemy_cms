@@ -7,18 +7,18 @@ module Alchemy
     # Also creates missing associations between pages and languages
     def upgrade_to_language
       desc "Creating languages for pages"
-      Alchemy::Page.all.each do |page|
-        if !page.language_code.blank? && page.language.nil?
+      Alchemy::Page.contentpages.each do |page|
+        if page.language_id.nil? && page.language_code.present?
           root = page.get_language_root
           lang = Alchemy::Language.find_or_create_by_language_code(
-            :name => page.language_code.capitalize,
-            :language_code => page.language_code,
-            :frontpage_name => root.name,
-            :page_layout => root.page_layout,
-            :public => true
+            name: page.language_code.capitalize,
+            language_code: page.language_code,
+            frontpage_name: root.name,
+            page_layout: root.page_layout,
+            public: true
           )
           page.language = lang
-          if page.save(:validate => false)
+          if page.save(validate: false)
             log "Set language for page #{page.name} to #{lang.name}."
           end
         else
@@ -34,9 +34,9 @@ module Alchemy
       layoutpages = Alchemy::Page.layoutpages
       if layoutpages.any?
         layoutpages.each do |page|
-          if page.language.class == String || page.language.nil?
+          if page.language_id.nil?
             page.language = default_language
-            if page.save(:validate => false)
+            if page.save(validate: false)
               log "Set language for page #{page.name} to #{default_language.name}."
             end
           else
