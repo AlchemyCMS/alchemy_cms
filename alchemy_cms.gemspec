@@ -55,6 +55,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<sassy-buttons>,                    ['~> 0.1.3']
   # s.add_runtime_dependency %q<rails3-jquery-autocomplete>,       ['~> 1.0.10']
   s.add_runtime_dependency %q<tvdeyen-handles_sortable_columns>, ['~> 0.1.5']
+  s.add_runtime_dependency %q<spinner.rb>
   s.add_runtime_dependency "turbolinks", "~> 1.3.0"
 
   s.add_development_dependency %q<rspec-rails>
