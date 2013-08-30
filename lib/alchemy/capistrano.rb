@@ -128,7 +128,7 @@ EOF
 
       def database_config
         raise "database.yml not found!" if !File.exists?("./config/database.yml")
-        YAML.load_file("./config/database.yml").fetch(ENV['RAILS_ENV'] || 'development')
+        YAML.load_file("./config/database.yml").fetch(ENV['RAILS_ENV'], 'development')
       end
 
       def db_import_cmd(server)
@@ -138,7 +138,7 @@ EOF
         if database_config['password']
           mysql_credentials << "--password='#{database_config['password']}'"
         end
-        if host = database_config['host'] && host != 'localhost'
+        if (host = database_config['host']) && (host != 'localhost')
           mysql_credentials << "--host='#{host}'"
         end
         "#{sql_stream} | mysql #{mysql_credentials.join(' ')} #{database_config['database']}"
