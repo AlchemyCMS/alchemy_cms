@@ -42,8 +42,7 @@ module Alchemy
           @tag.destroy
           flash[:notice] = _t(:successfully_deleted_tag)
         end
-        @redirect_url = admin_tags_path
-        render :action => :redirect
+        do_redirect_to admin_tags_path
       end
 
       def autocomplete

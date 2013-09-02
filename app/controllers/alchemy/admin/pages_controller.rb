@@ -211,18 +211,12 @@ module Alchemy
         end
 
         flash[:notice] = _t("Pages order saved")
-        @redirect_url = admin_pages_path
-        render :action => :redirect
+        do_redirect_to admin_pages_path
       end
 
       def switch_language
         set_language(params[:language_id])
-        if request.xhr?
-          @redirect_url = redirect_path_for_switch_language
-          render :action => :redirect
-        else
-          redirect_to redirect_path_for_switch_language
-        end
+        do_redirect_to redirect_path_for_switch_language
       end
 
       def flush

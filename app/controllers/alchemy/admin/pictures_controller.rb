@@ -142,8 +142,7 @@ module Alchemy
       rescue Exception => e
         flash[:error] = e.message
       ensure
-        @redirect_url = admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
-        render :redirect
+        do_redirect_to admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
       end
 
       def flush

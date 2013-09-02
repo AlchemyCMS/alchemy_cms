@@ -56,8 +56,7 @@ module Alchemy
         if @user.destroy
           flash[:notice] = _t("User deleted", :name => name)
         end
-        @redirect_url = admin_users_path
-        render :action => :redirect
+        do_redirect_to admin_users_path
       end
 
     private

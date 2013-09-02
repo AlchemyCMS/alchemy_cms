@@ -100,12 +100,8 @@ module Alchemy
       #
       def render_errors_or_redirect(object, redirect_url, flash_notice)
         if object.errors.empty?
-          @redirect_url = redirect_url
           flash[:notice] = _t(flash_notice)
-          respond_to do |format|
-            format.js   { render :action => :redirect }
-            format.html { redirect_to @redirect_url }
-          end
+          do_redirect_to redirect_url
         else
           respond_to do |format|
             format.js   { render_remote_errors(object) }
@@ -136,6 +132,15 @@ module Alchemy
         return 25 if session[:screen_size].blank?
         screen_height = session[:screen_size].split('x').last.to_i
         (screen_height / 30) - 10
+      end
+
+      # Does redirects for html and js requests
+      #
+      def do_redirect_to(url_or_path)
+        respond_to do |format|
+          format.js   { render :redirect }
+          format.html { redirect_to url_or_path }
+        end
       end
 
     end
