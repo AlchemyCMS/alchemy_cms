@@ -5,7 +5,6 @@ module Alchemy
       def new
         @language = Alchemy::Language.new
         @language.page_layout = (configured_page_layout or @language.page_layout)
-        render :layout => !request.xhr?
       end
 
     protected

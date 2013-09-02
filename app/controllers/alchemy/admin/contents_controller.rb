@@ -9,7 +9,6 @@ module Alchemy
         @element = Element.find(params[:element_id])
         @contents = @element.available_contents
         @content = @element.contents.build
-        render layout: !request.xhr?
       end
 
       def create

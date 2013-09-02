@@ -13,7 +13,6 @@ module Alchemy
         else
           @elements = @page.elements_grouped_by_cells
         end
-        render layout: !request.xhr?
       end
 
       def list
@@ -32,7 +31,6 @@ module Alchemy
         unless clipboard_elements.blank?
           @clipboard_items = Element.all_from_clipboard_for_page(clipboard_elements, @page)
         end
-        render layout: !request.xhr?
       end
 
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.

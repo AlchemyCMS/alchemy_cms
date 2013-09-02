@@ -44,16 +44,13 @@ module Alchemy
 
       def new
         instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new)
-        render :layout => !request.xhr?
       end
 
       def show
-        render action: 'edit', layout: !request.xhr?
+        render action: 'edit'
       end
 
-      def edit
-        render :layout => !request.xhr?
-      end
+      def edit; end
 
       def create
         instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))

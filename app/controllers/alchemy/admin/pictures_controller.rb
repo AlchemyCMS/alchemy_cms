@@ -42,7 +42,6 @@ module Alchemy
           @page = params[:page]
           @per_page = params[:per_page]
         end
-        render layout: !request.xhr?
       end
 
       def create
@@ -75,17 +74,14 @@ module Alchemy
 
       def show
         @picture = Picture.find(params[:id])
-        render layout: !request.xhr?
       end
 
       def edit
         @picture = Picture.find(params[:id])
-        render :layout => !request.xhr?
       end
 
       def edit_multiple
         @pictures = Picture.find(params[:picture_ids])
-        render :layout => !request.xhr?
       end
 
       def update
@@ -158,7 +154,6 @@ module Alchemy
 
       def info
         @picture = Picture.find(params[:id])
-        render layout: !request.xhr?
       end
 
     private

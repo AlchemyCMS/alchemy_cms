@@ -17,9 +17,14 @@ module Alchemy
         end
       end
 
-      layout 'alchemy/admin'
+      layout :set_layout
 
     private
+
+      # Disable layout rendering for xhr requests.
+      def set_layout
+        request.xhr? ? false : 'alchemy/admin'
+      end
 
       # Handles exceptions
       def exception_handler(e)
@@ -37,7 +42,7 @@ module Alchemy
         @notice = e.message[0..255]
         @trace = e.backtrace[0..35]
         if request.xhr?
-          render :action => "error_notice", :layout => false
+          render :action => "error_notice"
         else
           render '500', :status => 500
         end

@@ -24,7 +24,6 @@ module Alchemy
           @swap = params[:swap]
           @options = hashified_options
         end
-        render :layout => !request.xhr?
       end
 
       def create
@@ -46,7 +45,6 @@ module Alchemy
 
       def edit
         @attachment = Attachment.find(params[:id])
-        render layout: !request.xhr?
       end
 
       def update
@@ -69,7 +67,6 @@ module Alchemy
 
       def show
         @attachment = Attachment.find(params[:id])
-        render layout: !request.xhr?
       end
 
       def download
