@@ -25,8 +25,6 @@ div.login_signup_box {
   background-color: $medium-gray;
   @extend .rounded-border;
   margin: 2em auto;
-
-  input[type="text"], input.thin_border { width: 250px }
 }
 
 html.no-js {

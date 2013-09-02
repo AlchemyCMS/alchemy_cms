@@ -3,35 +3,16 @@
     <%= image_tag("alchemy/alchemy-logo.png", :style => "width: 240px; height: 70px") %>
   </div>
   <div class="login_signup_box">
-    <%= form_for :user, :url => {:action => :create}, :html => { :id => "login" } do |f| %>
-      <%= f.error_messages %>
-      <table>
-        <tr>
-          <td class="label">
-            <%= f.label :login %>
-          </td>
-          <td class="input">
-            <%= f.text_field :login, :class => 'thin_border', :autofocus => true %>
-          </td>
-        </tr>
-        <tr>
-          <td class="label">
-            <%= f.label :password %>
-          </td>
-          <td class="input">
-            <%= f.password_field :password, :class => 'thin_border' %>
-            <p class="foot_note">
-              <%= link_to _t('Forgot your password?'), new_password_path %>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" class="submit">
-            <%= hidden_field_tag 'user_screensize' %>
-            <%= f.button _t(:login), :class => 'button', :name => nil %>
-          </td>
-        </tr>
-      </table>
+    <%= simple_form_for :user, url: {action: 'create'}, html: {id: 'login'} do |f| %>
+      <%= f.input :login, :autofocus => true %>
+      <%= f.input :password %>
+      <p class="foot_note">
+        <%= link_to _t('Forgot your password?'), new_password_path %>
+      </p>
+      <div class="submit">
+        <%= hidden_field_tag 'user_screensize' %>
+        <%= f.button :submit, _t(:login) %>
+      </div>
     <% end %>
   </div>
 </div>

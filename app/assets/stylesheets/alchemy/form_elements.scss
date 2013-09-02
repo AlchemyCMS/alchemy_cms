@@ -304,14 +304,6 @@ select {
  * Author: @gregfranko
  */
 
-td.select .selectboxit {
-
-  .selectboxit-text {
-    line-height: 17px !important;
-    max-width: 80% !important;
-  }
-}
-
 .selectboxit-container {
   @include inline-block;
   margin: $default-form-field-margin;
@@ -324,9 +316,9 @@ td.select .selectboxit {
 
   .selectboxit {
     @extend %button-defaults;
-    width: auto;
-    height: 15px;
-    padding: 6px 0 6px 8px;
+    width: 100%;
+    @include box-sizing(border-box);
+    padding: 5px 0 5px 8px;
     margin: 0;
     @include inline-block;
     overflow: hidden;
@@ -373,8 +365,7 @@ td.select .selectboxit {
     }
 
     &.tiny {
-      padding: 2px 2px 2px 8px;
-      height: 14px;
+      padding: 2px 2px 1px 8px;
       background-position: left 1px;
 
       .selectboxit-text {

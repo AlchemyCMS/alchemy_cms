@@ -5,7 +5,6 @@ require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
 require 'devise'
-require 'dynamic_form'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'kaminari'
@@ -13,6 +12,7 @@ require 'rails3-jquery-autocomplete' if defined?(Rails3JQueryAutocomplete)
 require 'rails-observers'
 require 'sass-rails'
 require 'sassy-buttons'
+require 'simple_form'
 require 'turbolinks'
 
 # Require globally used Alchemy mixins
