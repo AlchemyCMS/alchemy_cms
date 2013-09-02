@@ -1,24 +1,3 @@
-// Some few mixins
-
-@mixin default-focus-style($bg-color: $very-light-blue, $border: 1px solid $blue) {
-  background-color: $bg-color;
-  border: $border;
-  @include box-shadow(0 0 6px $blue, inset 0 0 4px $light-blue);
-  outline: none;
-  @include transition(
-    box-shadow 0.25s ease-in-out,
-    background-color 0.25s ease-in-out,
-    border 0.25s ease-in-out
-  );
-
-  &::-moz-focus-inner {
-    border: none !important;
-    padding: 1px !important;
-  }
-}
-
-// Extends without base classes. They are the better mixins ;)
-
 %text-overflow {
   white-space: nowrap;
   overflow: hidden;
@@ -126,34 +105,4 @@
 
 %progressbar {
   @include background-image(linear-gradient(top, rgba(lighten($light-gray, 10), .5) 5%, rgba($light-gray, 0.5) 65%, rgba(darken($medium-gray, 10), 0.5) 90%));
-}
-
-// Useful base classes
-
-.rounded-border {
-  @include border-radius($default-border-radius);
-}
-
-.top-rounded-border {
-  @include border-top-radius($default-border-radius);
-}
-
-.left-rounded-border {
-  @include border-left-radius($default-border-radius);
-}
-
-.right-rounded-border {
-  @include border-right-radius($default-border-radius);
-}
-
-.bottom-rounded-border {
-  @include border-bottom-radius($default-border-radius);
-}
-
-.bottom-left-rounded-border {
-  @include border-bottom-left-radius($default-border-radius);
-}
-
-.disable-user-select {
-  @include user-select(none);
 }

@@ -3,47 +3,6 @@
  */
 @import "alchemy/defaults";
 
-@mixin transition {
-  -webkit-transition: left 0.15s ease-in-out;
-  -moz-transition: left 0.15s ease-in-out;
-  -ms-transition: left 0.15s ease-in-out;
-  -o-transition: left 0.15s ease-in-out;
-  transition: left 0.15s ease-in-out;
-}
-
-@mixin bounce {
-  -webkit-transition-timing-function: cubic-bezier(0, 0.5, .5, 1.3);
-  -moz-transition-timing-function: cubic-bezier(0, 0.5, .5, 1.3);
-  -ms-transition-timing-function: cubic-bezier(0, 0.5, .5, 1.3);
-  -o-transition-timing-function: cubic-bezier(0, 0.5, .5, 1.3);
-  transition-timing-function: cubic-bezier(0, 0.5, .5, 1.3);
-}
-
-@mixin bottom-right-rounded-border {
-  $side: bottom-right;
-  $radius: 3px;
-  -webkit-border-#{$side}-radius: $radius;
-  -moz-border-radius-#{$side}: $radius;
-  -ms-border-#{$side}-radius: $radius;
-  -o-border-#{$side}-radius: $radius;
-  border-#{$side}-radius: $radius;
-}
-
-@mixin drop-shadow {
-  $shadow: 0px 0px 4px $dark-gray;
-  -webkit-box-shadow: $shadow;
-  -moz-box-shadow: $shadow;
-  -ms-box-shadow: $shadow;
-  -o-box-shadow: $shadow;
-  box-shadow: $shadow;
-}
-
-@mixin box-sizing($box-sizing-type: content-box) {
-  -webkit-box-sizing: $box-sizing-type;
-  -moz-box-sizing: $box-sizing-type;
-  box-sizing: $box-sizing-type;
-}
-
 #alchemy_menubar {
   position: fixed;
   top: 0;
@@ -51,7 +10,7 @@
   width: 346px;
   z-index: 10000;
   background: $light-gray;
-  @include transition;
+  @include animate-left;
   @include bounce;
   @include bottom-right-rounded-border;
   @include drop-shadow;
