@@ -37,7 +37,7 @@ module Alchemy
       end
     end
 
-    after_save :deliver_welcome_mail, if: -> { send_credentials }
+    after_save :deliver_welcome_mail, if: -> { send_credentials == '1' }
 
     scope :admins, where(arel_table[:roles].matches("%admin%")) # not pleased with that approach
     # mysql regexp word matching would be much nicer, but it's not included in SQLite functions per se.

@@ -35,14 +35,21 @@ module Alchemy
         before { ActionMailer::Base.deliveries = [] }
 
         it "creates an user record" do
-          post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: true)
+          post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: '1')
           Alchemy::User.count.should == 1
         end
 
-        context "with send_credentials set to true" do
+        context "with send_credentials set to '1'" do
           it "should send an email notification" do
-            post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: true)
+            post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: '1')
             ActionMailer::Base.deliveries.should_not be_empty
+          end
+        end
+
+        context "with send_credentials set to true" do
+          it "should not send an email notification" do
+            post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: true)
+            ActionMailer::Base.deliveries.should be_empty
           end
         end
 
@@ -80,12 +87,12 @@ module Alchemy
           end
         end
 
-        context "with send_credentials set to true" do
+        context "with send_credentials set to '1'" do
           let(:user) { FactoryGirl.build(:user) }
           before { User.stub!(:find).and_return(user) }
 
           it "should send an email notification" do
-            post :update, id: user.id, user: {send_credentials: true}
+            post :update, id: user.id, user: {send_credentials: '1'}
             ActionMailer::Base.deliveries.should_not be_empty
           end
         end
