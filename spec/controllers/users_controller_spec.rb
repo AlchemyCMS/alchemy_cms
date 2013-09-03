@@ -30,10 +30,10 @@ module Alchemy
         assigns(:user).roles.should include("admin")
       end
 
-      context "with send_credentials set to true" do
+      context "with send_credentials set to '1'" do
         it "should send an email notification" do
           post :create, {
-            :user => FactoryGirl.attributes_for(:admin_user).merge(send_credentials: true)
+            :user => FactoryGirl.attributes_for(:admin_user).merge(send_credentials: '1')
           }
           ActionMailer::Base.deliveries.should_not be_empty
         end

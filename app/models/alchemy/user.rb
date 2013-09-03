@@ -35,7 +35,7 @@ module Alchemy
       end
     end
 
-    after_save :deliver_welcome_mail, if: -> { send_credentials }
+    after_save :deliver_welcome_mail, if: -> { send_credentials == '1' }
 
     scope :admins,     -> { where(arel_table[:roles].matches('%admin%')) }
     scope :logged_in,  -> { where('last_request_at > ?', logged_in_timeout.seconds.ago) }

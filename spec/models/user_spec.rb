@@ -15,8 +15,8 @@ module Alchemy
     context ".after_save" do
       let(:user) { FactoryGirl.build(:admin_user) }
 
-      context "with send_credentials set to true" do
-        before { user.send_credentials = true }
+      context "with send_credentials set to '1'" do
+        before { user.send_credentials = '1' }
 
         it "delivers the admin welcome mail." do
           Notifications.should_receive(:alchemy_user_created).and_return(OpenStruct.new(deliver: true))
