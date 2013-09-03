@@ -153,14 +153,16 @@ module Alchemy
     describe '.create_from_scratch' do
       let(:element) { FactoryGirl.create(:element, name: 'article') }
 
-      it "builds the content from essence hash" do
-        Content.should_receive(:build)
-        Content.create_from_scratch(element, name: 'headline')
+      it "builds the content" do
+        expect(Content.create_from_scratch(element, name: 'headline')).to be_instance_of(Alchemy::Content)
       end
 
-      it "creates the essence" do
-        content = Content.create_from_scratch(element, name: 'headline')
-        content.essence.should_not be_nil
+      it "creates the essence from name" do
+        expect(Content.create_from_scratch(element, name: 'headline').essence).to_not be_nil
+      end
+
+      it "creates the essence from essence_type" do
+        expect(Content.create_from_scratch(element, essence_type: 'EssenceText').essence).to_not be_nil
       end
 
       context "with default value present" do
