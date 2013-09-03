@@ -211,7 +211,7 @@ en:
     create_page: "Create a new subpage"
     create_user: "Create a new user"
     created_at: "Created at"
-    currently_edited_by: "This page is currently locked by"
+    currently_edited_by: "This page is locked by"
     cut_element: "Cut this element."
     delete_file: "Delete this file from server."
     delete_image: "Remove this image"
@@ -254,6 +254,7 @@ en:
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
+    from_at: "from %{by} at %{at}"
     height: "Height"
     hide_element_content: "Hide this elements content."
     dashboard: "Dashboard"
@@ -332,6 +333,8 @@ en:
     page_title: "Title"
     page_type: "Type"
     page_visible_in_navigation: "visible in the navigation"
+    page_was_created: "Was created"
+    page_was_updated: "Was updated"
     pages:
       update:
         comma_seperated: "Separate by comma"
@@ -435,6 +438,7 @@ en:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
+      page_status: "%m.%d.%Y %H:%M"
       long: "%B %d, %Y %H:%M"
       date: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"

@@ -2,90 +2,84 @@
   <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name %>">
     <div class="sitemap_left_images">
       <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
-      <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>">
-        <div class="tooltip">
-          <h3><%= _t(:page_type) %>:</h3>
-          <p><%= page.layout_display_name %></p>
-          <h3><%= _t(:page_status) %>:</h3>
-          <p><%= combined_page_status(page) %></p>
-          <h3><%= _t(:created_at) %>:</h3>
-          <p><%= l(page.created_at) %></p>
-          <h3><%= _t(:created_by) %>:</h3>
-          <p><%= page.creator %></p>
-          <h3><%= _t(:updated_at) %>:</h3>
-          <p><%= l(page.updated_at) %></p>
-          <h3><%= _t(:updated_by) %>:</h3>
-          <p><%= page.updater %></p>
-          <%- if page.locked? -%>
-          <h3><%= _t(:currently_edited_by) %>:</h3>
-          <p><%= page.current_editor %></p>
-          <%- end -%>
-        </div>
-      </div>
+      <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
     </div>
     <div class="sitemap_right_tools">
       <%- unless @sorting -%>
-      <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
-      <%= link_to_overlay_window(
-        render_icon('configure_page'),
-        alchemy.configure_admin_page_path(page),
-        {
-          :title => _t(:edit_page_properties),
-          :size => page.redirects_to_external? ? '410x270' : '410x655'
-        },
-        :class => '',
-        :title => _t(:edit_page_properties)
-      ) -%>
-      <%- end -%>
-      <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
-      <span class="sitemap_sitetools">
-        <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
-        <%= link_to(
-          render_icon("copy_page"),
-          alchemy.insert_admin_clipboard_path(
-            :remarkable_type => page.class.name.demodulize.underscore.pluralize,
-            :remarkable_id => page.id
-          ),
-          :remote => true,
-          :method => :post,
-          :class => "",
-          :title => _t(:copy_page)
-        ) %>
+        <%- permitted_to?(:info, :alchemy_admin_pages) do -%>
+          <%= link_to_overlay_window(
+            render_icon('info'),
+            alchemy.info_admin_page_path(page),
+            {
+              title: _t(:page_infos),
+              size: '460x320'
+            },
+            {
+              title: _t(:page_infos)
+            }
+          ) %>
         <%- end -%>
-        <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
-        <%= link_to_confirmation_window(
-          render_icon('delete_page'),
-          _t(:confirm_to_delete_page),
-          url_for(
-            :controller => 'pages',
-            :action => 'destroy',
-            :id => page.id
-          ),
-          {
-            :class => "",
-            :title => _t(:delete_page)
-          }
-        ) -%>
+        <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
+          <%= link_to_overlay_window(
+            render_icon('configure_page'),
+            alchemy.configure_admin_page_path(page),
+            {
+              :title => _t(:edit_page_properties),
+              :size => page.redirects_to_external? ? '410x270' : '410x655'
+            },
+            :title => _t(:edit_page_properties)
+          ) -%>
         <%- end -%>
-        <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
-        <%= link_to_overlay_window(
-          render_icon('add_page'),
-          alchemy.new_admin_page_path(:parent_id => page.id),
-          {
-            :title => _t(:create_page),
-            :size => '340x150',
-            :overflow => true
-          },
-          :class => '',
-          :title => _t(:create_page)
-        ) -%>
+        <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
+          <span class="sitemap_sitetools">
+            <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
+              <%= link_to(
+                render_icon("copy_page"),
+                alchemy.insert_admin_clipboard_path(
+                  :remarkable_type => page.class.name.demodulize.underscore.pluralize,
+                  :remarkable_id => page.id
+                ),
+                :remote => true,
+                :method => :post,
+                :title => _t(:copy_page)
+              ) %>
+            <%- end -%>
+            <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
+              <%= link_to_confirmation_window(
+                render_icon('delete_page'),
+                _t(:confirm_to_delete_page),
+                url_for(
+                  :controller => 'pages',
+                  :action => 'destroy',
+                  :id => page.id
+                ),
+                {
+                  :title => _t(:delete_page)
+                }
+              ) -%>
+            <%- end -%>
+            <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
+              <%= link_to_overlay_window(
+                render_icon('add_page'),
+                alchemy.new_admin_page_path(:parent_id => page.id),
+                {
+                  :title => _t(:create_page),
+                  :size => '340x150',
+                  :overflow => true
+                },
+                {
+                  :title => _t(:create_page)
+                }
+              ) -%>
+            <%- end -%>
+          </span>
         <%- end -%>
-      </span>
-      <%- end -%>
       <%- end -%>
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
-      <%= render :partial => 'page_infos', :locals => {:page => page} %>
+      <span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.status_title(:public) %>"></span>
+      <span class="page_status <%= page.visible ? 'visible' : 'not_visible' %>" title="<%= page.status_title(:visible) %>"></span>
+      <span class="page_status <%= page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page.status_title(:restricted) %>"></span>
     </div>
     <div class="sitemap_sitename">
     <%- if page.redirects_to_external? -%>
@@ -95,14 +89,13 @@
         <%= h page.urlname %>
       </span>
     <%- else -%>
-      <%- cycle_class = cycle('even', 'odd') -%>
       <%= link_to_unless(
         @sorting,
         page.name,
         alchemy.edit_admin_page_path(page),
         :title => _t(:edit_page),
-        :class => "sitemap_pagename_link #{cycle_class}"
-      ) { content_tag('span', page.name, :class => "sitemap_pagename_link #{cycle_class}") } -%>
+        :class => "sitemap_pagename_link"
+      ) { content_tag('span', page.name, :class => "sitemap_pagename_link") } -%>
     <%- end -%>
     </div>
   </div>

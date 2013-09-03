@@ -7,7 +7,7 @@ module Alchemy
 
       before_filter :set_translation, :except => [:show]
 
-      filter_access_to [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :load_page, :model => Alchemy::Page
+      filter_access_to [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :load_page, :model => Alchemy::Page
       filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :move, :flush], :attribute_check => false
 
       cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
@@ -39,6 +39,10 @@ module Alchemy
       rescue Exception => e
         exception_logger(e)
         render :file => Rails.root.join('public', '500.html'), :status => 500, :layout => false
+      end
+
+      def info
+        render layout: !request.xhr?
       end
 
       def new

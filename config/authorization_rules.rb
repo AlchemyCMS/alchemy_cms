@@ -40,7 +40,7 @@ authorization do
     includes :registered
     has_permission_on :alchemy_admin_dashboard, :to => [:index]
     has_permission_on :alchemy_pictures, :to => [:thumbnail]
-    has_permission_on :alchemy_admin_pages, :to => [:index, :fold, :edit_page_content, :link]
+    has_permission_on :alchemy_admin_pages, :to => [:index, :info, :fold, :edit_page_content, :link]
     has_permission_on :alchemy_admin_elements, :to => [:manage_elements]
     has_permission_on :alchemy_admin_pictures, :to => [:read, :archive_overlay, :info]
     has_permission_on :alchemy_admin_attachments, :to => [:index, :archive_overlay, :show, :download]
