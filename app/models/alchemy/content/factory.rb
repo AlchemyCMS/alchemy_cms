@@ -31,8 +31,9 @@ module Alchemy
       # @return [Alchemy::Content]
       #
       def create_from_scratch(element, essence_hash)
+        essence_hash.stringify_keys!
         if content = build(element, essence_hash)
-          content.create_essence!
+          content.create_essence!(essence_hash['essence_type'])
         end
         content
       end
@@ -62,11 +63,12 @@ module Alchemy
       # 2. It builds a description hash from essence type, if the the name key is not present
       #
       def content_description(element, essence_hash)
+        essence_hash.stringify_keys!
         # No name given. We build the content from essence type.
-        if essence_hash[:name].blank?
-          content_description_from_essence_type(element, essence_hash[:essence_type])
+        if essence_hash['name'].blank? && essence_hash['essence_type'].present?
+          content_description_from_essence_type(element, essence_hash['essence_type'])
         else
-          content_description_from_element(element, essence_hash[:name])
+          content_description_from_element(element, essence_hash['name'])
         end
       end
 
@@ -150,8 +152,10 @@ module Alchemy
 
     # Creates essence from description.
     #
-    def create_essence!
-      self.essence = essence_class.create!(prepared_attributes_for_essence)
+    # If an optional type is passed, this type of essence gets created.
+    #
+    def create_essence!(type = nil)
+      self.essence = essence_class(type).create!(prepared_attributes_for_essence)
       self.save!
     end
 
@@ -159,8 +163,10 @@ module Alchemy
 
     # Returns a class constant from description's type field.
     #
-    def essence_class
-      Content.normalize_essence_type(description['type']).constantize
+    # If an optional type is passed, this type of essence gets constantized.
+    #
+    def essence_class(type = nil)
+      Content.normalize_essence_type(type || description['type']).constantize
     end
 
     # Prepares the attributes for creating the essence.
