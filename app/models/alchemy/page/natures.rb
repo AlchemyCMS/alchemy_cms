@@ -1,6 +1,6 @@
 module Alchemy
   module Page::Natures
-    
+
     extend ActiveSupport::Concern
 
     def taggable?
@@ -47,8 +47,8 @@ module Alchemy
     #
     def status
       {
-        visible: visible?,
         public: public?,
+        visible: visible?,
         locked: locked?,
         restricted: restricted?
       }

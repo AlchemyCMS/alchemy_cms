@@ -362,9 +362,7 @@ de:
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
     create_page: "Eine Unterseite anlegen"
     create_user: "Einen Benutzer anlegen"
-    created_at: "Erstellt am"
-    created_by: "Erstellt von"
-    currently_edited_by: "Wird momentan bearbeitet von"
+    currently_edited_by: "Wird bearbeitet von"
     cut_element: "Element ausschneiden"
     delete_file: "Datei vom Server löschen"
     delete_image: "Bild löschen."
@@ -408,6 +406,7 @@ de:
     file: "Datei"
     file_rename_error: "Datei konnte nicht umbenannt werden."
     files: "Dateien"
+    from_at: "von %{by} am %{at}"
     height: "Höhe"
     hide_element_content: "Element einklappen"
     dashboard: "Dashboard"
@@ -474,6 +473,7 @@ de:
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
+    page_infos: 'Seiteninformationen'
     page_layout_changed_notice: "Der Seitentyp wurde verändert. Nicht mehr verwendbare Elemente wurden in den Papierkorb verschoben."
     page_properties: "Seiteneigenschaften"
     page_public: "öffentlich"
@@ -496,6 +496,8 @@ de:
     page_title: "Titel"
     page_type: "Typ"
     page_visible_in_navigation: "in der Navigation sichtbar"
+    page_was_created: "Wurde erstellt"
+    page_was_updated: "Wurde bearbeitet"
     pages:
       update:
         comma_seperated: "Durch Kommata getrennt eingeben"
@@ -566,8 +568,6 @@ de:
     unlink: "Link entfernen"
     unlock_page: "Seite verlassen"
     unlocked_page: "Seite %{name} wurde freigegeben."
-    updated_at: "Bearbeitet am"
-    updated_by: "Bearbeitet von"
     upload: "Datei hochladen"
     upload_file: "Datei(en) hochladen"
     upload_image: "Bild(er) hochladen"
@@ -632,6 +632,7 @@ de:
       default: "%d. %b. %Y, %H:%M Uhr"
       short: "%d. %B, %H:%Mh"
       long: "%A, %d. %B %Y um %H:%M Uhr"
+      page_status: "%d.%m.%Y um %H:%M Uhr"
       date: "%d.%m.%Y"
       datepicker: "%d.%m.%Y"
       time: "%H:%M"

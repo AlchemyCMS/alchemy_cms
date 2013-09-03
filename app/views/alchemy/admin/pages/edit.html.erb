@@ -44,6 +44,22 @@
   <% end %>
   <div class="button_with_label">
     <%= link_to_overlay_window(
+      render_icon('info'),
+      alchemy.info_admin_page_path(@page),
+      {
+        title: _t(:page_infos),
+        size: '460x320'
+      },
+      {
+        class: 'icon_button',
+        title: _t(:page_infos),
+        'data-alchemy-hotkey' => 'alt-i'
+      }
+    ) %>
+    <label><%= _t(:page_infos) %></label>
+  </div>
+  <div class="button_with_label">
+    <%= link_to_overlay_window(
       render_icon('settings'),
       alchemy.configure_admin_page_path(@page),
       {

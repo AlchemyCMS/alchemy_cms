@@ -7,7 +7,7 @@ module Alchemy
         except: [:show]
 
       before_filter :load_page,
-        only: [:show, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
+        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
 
       authorize_resource class: Alchemy::Page
 
@@ -44,6 +44,10 @@ module Alchemy
       rescue Exception => e
         exception_logger(e)
         render :file => Rails.root.join('public', '500.html'), :status => 500, :layout => false
+      end
+
+      def info
+        render layout: !request.xhr?
       end
 
       def new

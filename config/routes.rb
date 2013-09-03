@@ -82,6 +82,7 @@ Alchemy::Engine.routes.draw do
         post :visit
         get :configure
         get :preview
+        get :info
       end
     end
 

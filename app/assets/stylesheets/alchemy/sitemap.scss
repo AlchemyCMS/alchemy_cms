@@ -108,13 +108,13 @@ div.sitemap_left_images {
 div.sitemap_right_tools {
   height: 22px;
   background-color: $light-gray;
-  padding-left: 16px;
+  padding-left: 8px;
   float: right;
-  width: 100px;
+  width: 120px;
 
   a {
     float: left;
-    width: 21px;
+    width: 24px;
     height: 21px;
     text-align: center;
 
@@ -134,8 +134,7 @@ div.sitemap_right_tools {
 .sitemap_sitetools {
   padding: 0;
   float: left;
-  width: 70px;
-  margin-left: 8px;
+  width: 72px;
 }
 
 div#page_selector_container div.sitemap_right_tools {
@@ -217,7 +216,7 @@ div.page_infos {
   float: right;
   height: 20px;
   padding: 1px;
-  width: 66px;
+  width: 68px;
 }
 
 #sub_navigation span.page_status_and_name span.page_status {
@@ -234,14 +233,13 @@ span.page_status {
   background-image: image-url('alchemy/icons.png');
   background-repeat: no-repeat;
   float: left;
-  margin: 2px 2px 0 4px;
 
   &.restricted {
     background-position: -258px -39px;
   }
 
   &.not_restricted {
-    background-position: -290px -39px;
+    background-position: -288px -39px;
     @include opacity(0.3);
   }
 
@@ -264,46 +262,35 @@ span.page_status {
   }
 }
 
+#sitemap .page_status {
+  margin: 2px 2px 0 4px;
+}
+
+.alchemy_overlay .page_status {
+  margin: 4px 4px 0 0;
+}
+
 .site_status {
   float: left;
   width: 16px;
   height: 16px;
   background: image-url('alchemy/icons.png') no-repeat 0 -40px;
   position: relative;
-  cursor: help;
+
+  a {
+    display: block;
+    height: 100%;
+    cursor: help;
+  }
 }
 
 .locked .site_status {
   background-position: -32px -40px;
 }
 
-.tooltip {
-  @extend %tooltip;
-  right: auto;
-  left: -12px;
-  top: 24px;
-  min-width: 240px;
-
-  &:before {
-    right: auto;
-    left: 12px;
-  }
-
-  p, h3 {
-    font-size: 11px;
-    margin: 0;
-    padding: 0;
-  }
-
-  h3 { margin-top: 0.5em }
-}
-
 #sitemap.sorting {
   .site_status { cursor: move }
-  .tooltip { display: none }
 }
-
-.site_status:hover .tooltip { display: block }
 
 #sub_navigation span.page_status_and_name span.site_status {
   float: none;

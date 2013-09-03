@@ -145,11 +145,11 @@ td.value {
   overflow: hidden;
 
   p {
-    @include inline-block;
-    width: 214px;
+    background: white;
     text-align: left;
-    margin: $default-form-field-margin;
+    padding: $default-padding 2*$default-padding;
     line-height: 25px;
+    @extend .rounded-border;
   }
 
   &.long {
