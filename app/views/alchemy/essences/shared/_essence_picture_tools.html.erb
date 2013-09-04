@@ -1,4 +1,4 @@
-<% if options[:crop].to_s == 'true' && content.ingredient %>
+<% if options[:crop] && content.ingredient %>
 <%= link_to_overlay_window(
   render_icon('crop'),
   alchemy.crop_admin_essence_picture_path(content.essence, :options => options.to_json),
@@ -19,7 +19,7 @@
   render_icon('swap_picture'),
   alchemy.admin_pictures_path(
     :element_id => content.element,
-    :content_id => content,
+    :content_id => content.id,
     :swap => true,
     :options => options.to_json
   ),
