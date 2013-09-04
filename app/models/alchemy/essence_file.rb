@@ -1,5 +1,3 @@
-require 'alchemy/essence'
-
 module Alchemy
   class EssenceFile < ActiveRecord::Base
     belongs_to :attachment

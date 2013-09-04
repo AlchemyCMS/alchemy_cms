@@ -1,8 +1,6 @@
 require 'acts-as-taggable-on'
 require 'dragonfly'
 require 'userstamp'
-require 'alchemy/name_conversions'
-require 'alchemy/picture_attributes'
 
 module Alchemy
   class Picture < ActiveRecord::Base

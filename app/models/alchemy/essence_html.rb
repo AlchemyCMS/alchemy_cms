@@ -1,5 +1,3 @@
-require 'alchemy/essence'
-
 module Alchemy
   class EssenceHtml < ActiveRecord::Base
     acts_as_essence ingredient_column: 'source'
