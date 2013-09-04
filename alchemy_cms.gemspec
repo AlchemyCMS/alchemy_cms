@@ -37,7 +37,6 @@ POST_INSTALL
   s.add_runtime_dependency %q<actionpack-action_caching>,        ["~> 1.0.0"]
   s.add_runtime_dependency %q<actionpack-page_caching>,          ["~> 1.0.0"]
   s.add_runtime_dependency %q<devise>,                           ["~> 3.0.0"]
-  s.add_runtime_dependency %q<devise-encryptable>,               ["~> 0.1.1"]
   s.add_runtime_dependency %q<awesome_nested_set>,               ["~> 3.0.0.rc.1"]
   s.add_runtime_dependency %q<acts-as-taggable-on>,              ["~> 2.4.1"]
   s.add_runtime_dependency %q<cancan>,                           ["~> 1.6.10"]

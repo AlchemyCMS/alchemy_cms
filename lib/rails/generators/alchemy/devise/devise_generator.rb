@@ -9,11 +9,16 @@ module Alchemy
       def copy_devise_config
         copy_file "devise.rb", "#{Rails.root}/config/initializers/devise.rb"
         msg = <<-MSG
-If your are upgrading from Alchemy < 2.5.0, alter the encryptor to authlogic_sha512
-and the stretches value from 10 to 20:
+If your are upgrading from Alchemy < 2.5.0:
 
-  config.stretches = Rails.env.test? ? 1 : 20
-  config.encryptor = :authlogic_sha512
+1. Add `gem 'devise-encryptable'` into your Gemfile
+2. Run `bundle install`
+3. Alter the encryptor and the stretches value in your devise config:
+
+  # config/initializers/devise.rb
+  ...
+    config.stretches = Rails.env.test? ? 1 : 20
+    config.encryptor = :authlogic_sha512
 
 MSG
         puts msg
