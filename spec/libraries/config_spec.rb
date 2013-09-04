@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'fast_specs'
 
 module Alchemy
   describe Config do
