@@ -1,5 +1,4 @@
 require 'userstamp'
-require 'devise-encryptable'
 require 'acts-as-taggable-on'
 
 module Alchemy

@@ -2,7 +2,7 @@ module Alchemy
   module Upgrader::TwoPointFive
 
   private
-  
+
     def convert_picture_storage
       desc "Convert the picture storage"
       converted_images = []
@@ -49,18 +49,25 @@ We changed the authentication provider from Authlogic to Devise.
 
 If you are upgrading from an old Alchemy version < 2.5.0, then you have to make changes to your Devise configuration.
 
-1. Run:
+1. Add devise-encryptable to your Gemfile
+
+# Gemfile
+gem 'devise-encryptable'
+
+$ bundle install
+
+2. Generate devise config:
 
 $ rails g alchemy:devise
 
-And alter the encryptor to authlogic_sha512
-and the stretches value from 10 to 20
+And alter the encryptor and stretches values
 
 # config/initializers/devise.rb
-config.stretches = Rails.env.test? ? 1 : 20
-config.encryptor = :authlogic_sha512
+  ...
+  config.stretches = Rails.env.test? ? 1 : 20
+  config.encryptor = :authlogic_sha512
 
-2. Add the encryptable module to your Alchemy config.yml:
+3. Add the encryptable module to your Alchemy config.yml:
 
 # config/alchemy/config.yml
 devise_modules:
@@ -74,6 +81,6 @@ devise_modules:
 WARN
       todo warn
     end
-    
+
   end
 end
