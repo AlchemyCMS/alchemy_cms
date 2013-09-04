@@ -36,7 +36,7 @@ module Alchemy
           @while_assigning = true
           @content = Content.find_by_id(params[:content_id], :select => 'id')
           @element = Element.find(params[:element_id], :select => 'id')
-          @options = hashified_options
+          @options = options_from_params
           @page = params[:page]
           @per_page = params[:per_page]
         end
@@ -55,7 +55,7 @@ module Alchemy
           @while_assigning = true
           @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
           @element = Element.find(params[:element_id], :select => 'id')
-          @options = hashified_options
+          @options = options_from_params
           @page = params[:page] || 1
           @per_page = pictures_per_page_for_size(@size)
         end
@@ -180,7 +180,7 @@ module Alchemy
       def archive_overlay
         @content = Content.find_by_id(params[:content_id], :select => 'id')
         @element = Element.find_by_id(params[:element_id], :select => 'id')
-        @options = hashified_options
+        @options = options_from_params
         respond_to do |format|
           format.html {
             render :partial => 'archive_overlay'
