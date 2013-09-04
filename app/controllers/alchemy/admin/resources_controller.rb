@@ -1,4 +1,7 @@
 require 'csv'
+require 'alchemy/resource'
+require 'alchemy/resources_helper'
+require 'handles_sortable_columns'
 
 module Alchemy
   module Admin

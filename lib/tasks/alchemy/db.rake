@@ -1,3 +1,5 @@
+require 'alchemy/seeder'
+
 namespace :alchemy do
   namespace :db do
 

@@ -1,3 +1,5 @@
+require 'alchemy/essence'
+
 module Alchemy
   class EssenceDate < ActiveRecord::Base
     acts_as_essence ingredient_column: 'date'

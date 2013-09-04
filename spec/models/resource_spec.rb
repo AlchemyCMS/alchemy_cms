@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'alchemy/resource'
 
 module Alchemy
   describe Resource do

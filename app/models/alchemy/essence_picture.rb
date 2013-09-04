@@ -1,3 +1,5 @@
+require 'alchemy/essence'
+
 module Alchemy
   class EssencePicture < ActiveRecord::Base
     acts_as_essence ingredient_column: 'picture'

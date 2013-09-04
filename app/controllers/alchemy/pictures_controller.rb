@@ -1,3 +1,5 @@
+require 'alchemy/picture_attributes'
+
 module Alchemy
   class PicturesController < Alchemy::BaseController
     ALLOWED_IMAGE_TYPES = %w(png jpeg gif)

@@ -17,10 +17,12 @@ group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'poltergeist'
-  gem 'connection_pool' # https://gist.github.com/mperham/3049152
-  unless ENV['CI']
-    gem 'launchy'
+  unless ENV['FAST_SPECS']
+    gem 'poltergeist'
+    gem 'connection_pool' # https://gist.github.com/mperham/3049152
+    unless ENV['CI']
+      gem 'launchy'
+    end
   end
 end
 

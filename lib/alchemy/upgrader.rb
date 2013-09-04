@@ -1,3 +1,5 @@
+require 'alchemy/seeder'
+
 module Alchemy
   class Upgrader < Alchemy::Seeder
 

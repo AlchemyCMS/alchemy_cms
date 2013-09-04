@@ -1,3 +1,5 @@
+require 'alchemy/essence'
+
 module Alchemy
   class EssenceRichtext < ActiveRecord::Base
     acts_as_essence preview_text_column: 'stripped_body'

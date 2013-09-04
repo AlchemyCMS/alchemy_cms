@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/shell"
+require "alchemy/shell"
 
 module Alchemy
   class Seeder
