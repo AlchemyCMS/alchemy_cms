@@ -78,9 +78,10 @@ EOF
         run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:seed"
       end
 
-      desc "Dumps the database into 'db/dumps'"
+      desc "Dumps the database into 'db/dumps' on the server."
       task :dump, :roles => :db do
-        run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
+        timestamp = Time.now.strftime('%Y-%m-%d-%H-%M')
+        run "cd #{current_path} && mkdir -p db/dumps && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} DUMP_FILENAME=db/dumps/#{timestamp}.sql alchemy:db:dump"
       end
 
     end
