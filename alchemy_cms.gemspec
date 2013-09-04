@@ -44,7 +44,7 @@ POST_INSTALL
   s.add_runtime_dependency %q<acts_as_list>,                     ["~> 0.2.0"]
   s.add_runtime_dependency %q<magiclabs-userstamp>,              ["~> 2.0.2"]
   s.add_runtime_dependency %q<dynamic_form>,                     ["~> 1.1"]
-  s.add_runtime_dependency %q<jquery-rails>,                     ["~> 2.2.1"]
+  s.add_runtime_dependency %q<jquery-rails>,                     ["~> 3.0.4"]
   s.add_runtime_dependency %q<jquery-ui-rails>,                  ["~> 3.0.1"]
   s.add_runtime_dependency %q<sass-rails>,                       ['~> 3.2.3']
   s.add_runtime_dependency %q<coffee-rails>,                     ['~> 3.2.1']
