@@ -1,5 +1,3 @@
-require 'declarative_authorization'
-
 module Alchemy
   module Auth
     module Engine

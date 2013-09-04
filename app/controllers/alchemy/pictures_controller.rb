@@ -1,5 +1,3 @@
-require 'alchemy/picture_attributes'
-
 module Alchemy
   class PicturesController < Alchemy::BaseController
 

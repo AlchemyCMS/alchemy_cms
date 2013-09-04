@@ -1,6 +1,4 @@
-require 'alchemy/modules'
-
-# This is the main Alchemy controller all other controllers inheret from.
+# This is the main Alchemy controller all other controllers inherit from.
 module Alchemy
   class BaseController < ApplicationController
     include Alchemy::Modules

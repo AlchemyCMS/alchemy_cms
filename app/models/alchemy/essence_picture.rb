@@ -1,5 +1,3 @@
-require 'alchemy/essence'
-
 module Alchemy
   class EssencePicture < ActiveRecord::Base
 
