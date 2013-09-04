@@ -1,3 +1,5 @@
+require 'alchemy/name_conversions'
+
 module Alchemy
   module Page::Naming
 
