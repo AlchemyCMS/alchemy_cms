@@ -1,3 +1,26 @@
+# Require globally used external libraries
+require 'coffee-rails'
+require 'compass-rails'
+require 'devise'
+require 'dynamic_form'
+require 'jquery-rails'
+require 'jquery-ui-rails'
+require 'kaminari'
+require 'rails3-jquery-autocomplete'
+require 'sass-rails'
+require 'sassy-buttons'
+
+# Require globally used alchemy mixins
+require 'alchemy/auth/engine'
+require 'alchemy/config'
+require 'alchemy/errors'
+require 'alchemy/i18n'
+require 'alchemy/kaminari/scoped_pagination_url_helper'
+require 'alchemy/logger'
+require 'alchemy/page_layout'
+require 'alchemy/tinymce'
+
+# Require middleware
 require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 
 module Alchemy
@@ -36,7 +59,7 @@ module Alchemy
     end
 
     initializer "alchemy.add_authorization_rules" do
-      Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
+      Alchemy::Auth::Engine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
     end
 
   end

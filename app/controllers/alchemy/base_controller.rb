@@ -1,7 +1,8 @@
+require 'alchemy/modules'
+
 # This is the main Alchemy controller all other controllers inheret from.
 module Alchemy
   class BaseController < ApplicationController
-
     include Alchemy::Modules
 
     protect_from_forgery

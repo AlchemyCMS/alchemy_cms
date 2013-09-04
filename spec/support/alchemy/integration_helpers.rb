@@ -8,7 +8,7 @@ module Alchemy
     # This file is included in rspec integration/request tests.
     #
     module IntegrationHelpers
-      include Authorization::TestHelper
+      include ::Authorization::TestHelper
 
       # Shortcut method for:
       #
@@ -42,7 +42,7 @@ module Alchemy
       # For some strange reason, this isn't done automatically while running the specs
       #
       def load_authorization_rules
-        instance = Alchemy::AuthEngine.get_instance
+        instance = Alchemy::Auth::Engine.get_instance
         instance.load(File.join(File.dirname(__FILE__), '../../dummy', 'config/authorization_rules.rb'))
       end
 

@@ -1,3 +1,5 @@
+require 'alchemy/ferret/search'
+
 module Alchemy
   #
   # == Sending Messages:
@@ -42,7 +44,7 @@ module Alchemy
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
   class MessagesController < Alchemy::BaseController
-    include Alchemy::FerretSearch
+    include Alchemy::Ferret::Search
 
     before_filter :get_page, :except => :create
 

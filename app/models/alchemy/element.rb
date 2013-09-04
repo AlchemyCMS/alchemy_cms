@@ -1,3 +1,7 @@
+require 'acts-as-taggable-on'
+require 'userstamp'
+require 'acts_as_list'
+
 module Alchemy
   class Element < ActiveRecord::Base
     include Logger

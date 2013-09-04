@@ -1,9 +1,11 @@
 require 'csv'
+require 'alchemy/resource'
+require 'alchemy/resources_helper'
+require 'handles_sortable_columns'
 
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
-
       include Alchemy::ResourcesHelper
       helper Alchemy::ResourcesHelper
       helper_method :resource_handler

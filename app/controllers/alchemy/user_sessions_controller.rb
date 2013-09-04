@@ -1,7 +1,9 @@
+require 'alchemy/ferret/search'
+
 module Alchemy
   class UserSessionsController < Devise::SessionsController
     # Necessary because this controller is also used for general login.
-    include Alchemy::FerretSearch
+    include Alchemy::Ferret::Search
     helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
 
     before_filter(except: 'destroy') { enforce_ssl if ssl_required? && !request.ssl? }

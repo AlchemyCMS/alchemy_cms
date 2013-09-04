@@ -1,3 +1,5 @@
+require 'alchemy/seeder'
+
 module Alchemy
   class Upgrader < Alchemy::Seeder
 
@@ -37,7 +39,7 @@ module Alchemy
       end
 
       # All available upgrade tasks
-      # 
+      #
       def all_upgrade_tasks
         private_methods - Object.private_methods - superclass.private_methods
       end

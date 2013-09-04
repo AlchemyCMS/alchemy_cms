@@ -1,3 +1,5 @@
+require 'alchemy/essence'
+
 module Alchemy
   class EssenceHtml < ActiveRecord::Base
 

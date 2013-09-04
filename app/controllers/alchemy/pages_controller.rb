@@ -1,6 +1,8 @@
+require 'alchemy/ferret/search'
+
 module Alchemy
   class PagesController < Alchemy::BaseController
-    include Alchemy::FerretSearch
+    include Alchemy::Ferret::Search
 
     # We need to include this helper because we need the breadcrumb method.
     # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.

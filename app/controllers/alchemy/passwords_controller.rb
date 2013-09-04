@@ -1,6 +1,8 @@
+require 'alchemy/ferret/search'
+
 module Alchemy
   class PasswordsController < Devise::PasswordsController
-    include Alchemy::FerretSearch
+    include Alchemy::Ferret::Search
     helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
 
     before_filter { enforce_ssl if ssl_required? && !request.ssl? }

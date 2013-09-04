@@ -1,3 +1,5 @@
+require 'alchemy/essence'
+
 module Alchemy
   class EssenceFile < ActiveRecord::Base
     attr_accessible :title, :css_class, :attachment_id
