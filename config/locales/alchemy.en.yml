@@ -290,6 +290,7 @@ en:
     no_default_language_found: "No default language found."
     no_element_given: "No element given."
     no_files_in_archive: "You do not have any files in your archive."
+    no_image_for_cropper_found: "No image found. Please save the element first."
     no_images_in_archive: "You don't have any images in your archive."
     no_more_elements_to_add: "No more elements available."
     no_search_results: "Your search did not return any results."

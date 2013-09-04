@@ -11,6 +11,19 @@ module Alchemy
       picture.name.to_s[0..max-1]
     end
 
+    # Returns a hash suitable for the js image cropper.
+    #
+    def cropping_mask
+      crop_from = self.crop_from.split('x')
+      crop_size = self.crop_size.split('x')
+      {
+        x1: crop_from[0].to_i,
+        y1: crop_from[1].to_i,
+        x2: crop_from[0].to_i + crop_size[0].to_i,
+        y2: crop_from[1].to_i + crop_size[1].to_i
+      }
+    end
+
   private
 
     def fix_crop_values

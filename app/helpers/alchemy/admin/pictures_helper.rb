@@ -19,7 +19,7 @@ module Alchemy
             :controller => :essence_pictures,
             :action => :assign,
             :picture_id => picture_to_assign.id,
-            :id => @content.id,
+            :content_id => @content.id,
             :options => options
           }
         end

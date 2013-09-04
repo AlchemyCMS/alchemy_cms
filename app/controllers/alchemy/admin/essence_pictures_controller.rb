@@ -3,79 +3,104 @@ module Alchemy
     class EssencePicturesController < Alchemy::Admin::BaseController
       authorize_resource class: Alchemy::EssencePicture
 
+      before_filter :load_essence_picture, only: [:edit, :crop, :update]
+      before_filter :load_content, only: [:edit, :update, :assign]
+      before_filter :load_options
+
       helper 'alchemy/admin/contents'
       helper 'alchemy/admin/essences'
       helper 'alchemy/url'
 
       def edit
-        @essence_picture = EssencePicture.find(params[:id])
-        @content = Content.find(params[:content_id])
-        @options = options_from_params
       end
 
       def crop
-        @essence_picture = EssencePicture.find(params[:id])
-        if @essence_picture.picture
+        if @picture = @essence_picture.picture
           @content = @essence_picture.content
-          @options = options_from_params
           @options[:format] ||= (configuration(:image_store_format) or 'png')
-          if @essence_picture.render_size.blank?
-            if @options[:image_size].blank?
-              @size_x, @size_y = 0, 0
-            else
-              @size_x, @size_y = @options[:image_size].split('x')[0], @options[:image_size].split('x')[1]
-            end
-          else
-            @size_x, @size_y = @essence_picture.render_size.split('x')[0], @essence_picture.render_size.split('x')[1]
-          end
-          if @essence_picture.crop_from.blank? && @essence_picture.crop_size.blank?
-            @initial_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
-            @default_box = @initial_box
-          else
-            @initial_box = {
-              :x1 => @essence_picture.crop_from.split('x')[0].to_i,
-              :y1 => @essence_picture.crop_from.split('x')[1].to_i,
-              :x2 => @essence_picture.crop_from.split('x')[0].to_i + @essence_picture.crop_size.split('x')[0].to_i,
-              :y2 => @essence_picture.crop_from.split('x')[1].to_i + @essence_picture.crop_size.split('x')[1].to_i
-            }
-            @default_box = @essence_picture.picture.default_mask("#{@size_x}x#{@size_y}")
-          end
-          @ratio = @options[:fixed_ratio] == 'false' ? false : (@size_x.to_f / @size_y.to_f)
+          @size_x, @size_y = sizes_from_essence_or_params
+          @initial_box, @default_box = cropping_boxes
+          @ratio = ratio_from_size_or_params
         else
-          @no_image_notice = _t('No image found. Did you save the element?')
+          @no_image_notice = _t(:no_image_for_cropper_found)
         end
       end
 
       def update
-        @essence_picture = EssencePicture.find(params[:id])
         @essence_picture.update_attributes(params[:essence_picture])
-        @content = Content.find(params[:content_id])
-        @options = options_from_params
       end
 
+      # Assigns picture, but does not saves it.
+      #
+      # When the user press save on the element, it gets saved.
+      #
       def assign
-        @content = Content.find_by_id(params[:id])
         @picture = Picture.find_by_id(params[:picture_id])
         @content.essence.picture = @picture
-        @options = options_from_params
         @element = @content.element
         @dragable = @options[:grouped]
-        # If options params come from Flash uploader then we have to parse them as hash.
-        if @options.is_a?(String)
-          @options = Rack::Utils.parse_query(@options)
-        end
-        @options = @options.merge(
-          :dragable => @dragable
-        )
+        @options = @options.merge(dragable: @dragable)
       end
 
       def destroy
-        content = Content.find_by_id(params[:id])
-        @element = content.element
-        @content_id = content.id
-        content.destroy
+        @content = Content.find_by_id(params[:id])
+        @element = @content.element
+        @content_id = @content.id
+        @content.destroy
         @essence_pictures = @element.contents.essence_pictures
+      end
+
+    private
+
+      def load_options
         @options = options_from_params
+      end
+
+      def load_essence_picture
+        @essence_picture = EssencePicture.find(params[:id])
+      end
+
+      def load_content
+        @content = Content.find(params[:content_id])
+      end
+
+      def sizes_from_essence_or_params
+        sizes_from_essence || sizes_from_params
+      end
+
+      def sizes_from_params
+        return [0, 0] if @options[:image_size].blank?
+        @options[:image_size].split('x')
+      end
+
+      def sizes_from_essence
+        return if @essence_picture.render_size.blank?
+        @essence_picture.render_size.split('x')
+      end
+
+      def sizes_string
+        @sizes_string ||= "#{@size_x}x#{@size_y}"
+      end
+
+      def cropping_boxes
+        if @essence_picture.crop_from.blank? || @essence_picture.crop_size.blank?
+          initial_box = @picture.default_mask(sizes_string)
+          default_box = initial_box
+        else
+          initial_box = @essence_picture.cropping_mask
+          default_box = @picture.default_mask(sizes_string)
+        end
+        [initial_box, default_box]
+      end
+
+      def ratio_from_size_or_params
+        if @options[:fixed_ratio] == false
+          false
+        elsif @size_y == 0
+          1
+        else
+          @size_x.to_f / @size_y.to_f
+        end
       end
 
     end
