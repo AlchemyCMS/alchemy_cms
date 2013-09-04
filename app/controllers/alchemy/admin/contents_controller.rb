@@ -14,11 +14,8 @@ module Alchemy
       def create
         @element = Element.find(params[:content][:element_id])
         @content = Content.create_from_scratch(@element, content_params)
-        @options = params[:options] || {}
+        @options = options_from_params
         @html_options = params[:html_options] || {}
-        if @options.is_a?(String)
-          @options = @options.present? ? JSON.parse(@options) : {}
-        end
         if @content.essence_type == "Alchemy::EssencePicture"
           @content_dom_id = "#add_picture_#{@element.id}"
           @content.essence.picture_id = params[:picture_id]

@@ -1,84 +1,67 @@
 <%= form_for(
     @essence_picture,
-    :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options),
-    :remote => true
+    url: alchemy.admin_essence_picture_path(@essence_picture, options: @options.to_json),
+    remote: true
 ) do |f| %>
   <table>
     <tr>
       <td class="label"><%= f.label "caption" %></td>
       <td class="input">
         <%- if @options[:caption_as_textarea] == 'true' -%>
-        <%= f.text_area "caption", :class => 'thin_border' %>
+        <%= f.text_area "caption", class: 'thin_border' %>
         <%- else -%>
-        <%= f.text_field "caption", :class => 'thin_border' %>
+        <%= f.text_field "caption", class: 'thin_border' %>
         <%- end -%>
       </td>
     </tr>
     <tr>
       <td class="label"><%= f.label "title" %></td>
-      <td class="input"><%= f.text_field "title", :class => 'thin_border' %></td>
+      <td class="input"><%= f.text_field "title", class: 'thin_border' %></td>
     </tr>
     <tr>
       <td class="label"><%= f.label "alt_tag" %></td>
-      <td class="input"><%= f.text_field "alt_tag", :class => 'thin_border' %></td>
+      <td class="input"><%= f.text_field "alt_tag", class: 'thin_border' %></td>
     </tr>
-    <%# Have to use a Hash here, because Rails has a Hash.to_params bug with nested Arrays!!!! %>
-    <%- if @options[:sizes].is_a?(HashWithIndifferentAccess) -%>
+    <%- if @options[:sizes].present? -%>
     <tr>
       <td class="label"><%= f.label "render_size" %></td>
       <td class="select">
-      <%= f.select(
-        "render_size",
-        options_for_select(
-          [[_t('Layout default'), @options[:image_size]]] + @options[:sizes].sort,
-          @essence_picture.render_size
-        ), :class => 'alchemy_selectbox'
+      <%= f.select(:render_size,
+        [[_t('Layout default'), @options[:image_size]]] + @options[:sizes].to_a,
+        {}, {class: 'alchemy_selectbox'}
       ) %>
       </td>
     </tr>
-    <%- elsif @options[:sizes] && !@options[:sizes].is_a?(HashWithIndifferentAccess) -%>
-    <tr>
-      <td colspan="2">
-        <%= warning("Did not passed a Hash as sizes option", "Sizes Selector Error. Please provide a Hash.") %>
-      </td>
-    </tr>
     <%- end -%>
-    <%- if @options[:image_float_selector] == 'true' -%>
+    <%- if @options[:image_float_selector] -%>
     <tr>
       <td class="label"><%= f.label "css_class" %></td>
       <td class="select">
-        <%= f.select(
-          "css_class",
-          [[_t("Layout default"), ""], [_t(:above), "no_float"], [_t(:left), "left"], [_t(:right), "right"]],
-          {},
-          {:class => 'alchemy_selectbox'}
+        <%= f.select(:css_class, [
+            [_t("Layout default"), ""],
+            [_t(:above), "no_float"],
+            [_t(:left), "left"],
+            [_t(:right), "right"]
+          ], {}, {class: 'alchemy_selectbox'}
         ) %>
       </td>
     </tr>
-    <%# Have to use a Hash here, because Rails has a Hash.to_params bug with nested Arrays!!!! %>
-    <%- elsif @options[:css_classes].is_a?(HashWithIndifferentAccess) -%>
+    <%- elsif @options[:css_classes].present? -%>
     <tr>
       <td class="label"><%= f.label "css_class" %></td>
       <td class="select">
-        <%= f.select(
-          "css_class",
-          options_for_select([[_t('None'), '']] + @options[:css_classes].sort, @essence_picture.css_class),
+        <%= f.select(:css_class,
+          [[_t('None'), '']] + @options[:css_classes].to_a,
           {},
-          {:class => 'alchemy_selectbox'}
+          {class: 'alchemy_selectbox'}
         ) %>
-      </td>
-    </tr>
-    <%- elsif @options[:css_classes] && !@options[:css_classes].is_a?(HashWithIndifferentAccess) -%>
-    <tr>
-      <td colspan="2">
-        <%= warning("Did not passed a Hash as css_classes option", "CSS Class Selector Error. Please provide a Hash.") %>
       </td>
     </tr>
     <%- end -%>
     <tr>
       <td colspan="2" class="submit">
         <%= hidden_field_tag 'content_id', @content.id %>
-        <%= f.button _t(:apply), :class => 'button' %>
+        <%= f.button _t(:apply), class: 'button' %>
       </td>
     </tr>
   </table>

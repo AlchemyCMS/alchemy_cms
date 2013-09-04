@@ -19,7 +19,7 @@ module Alchemy
         @content = Content.find_by_id(params[:id])
         @attachment = Attachment.find_by_id(params[:attachment_id])
         @content.essence.attachment = @attachment
-        @options = params[:options] || {}
+        @options = options_from_params
       end
 
     end

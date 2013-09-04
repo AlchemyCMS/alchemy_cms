@@ -15,7 +15,7 @@
   </div>
   <%= form_for(
     @essence_picture,
-    :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options),
+    :url => alchemy.admin_essence_picture_path(@essence_picture, :options => @options.to_json),
     :id => 'image_cropper_form',
     :remote => true
   ) do |f| %>
