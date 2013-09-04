@@ -128,6 +128,23 @@ module Alchemy
         (screen_height / 30) - 10
       end
 
+      # Extracts options from params.
+      #
+      # Helps to parse JSONified options into Hash or Array
+      #
+      def options_from_params
+        case params[:options]
+        when String
+          JSON.parse(params[:options])
+        when Hash
+          params[:options]
+        when Array
+          params[:options]
+        else
+          {}
+        end.symbolize_keys
+      end
+
     end
   end
 end

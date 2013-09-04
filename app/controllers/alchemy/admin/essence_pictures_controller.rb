@@ -9,7 +9,7 @@ module Alchemy
       def edit
         @essence_picture = EssencePicture.find(params[:id])
         @content = Content.find(params[:content_id])
-        @options = params[:options] || {}
+        @options = options_from_params
         render layout: !request.xhr?
       end
 
@@ -17,7 +17,7 @@ module Alchemy
         @essence_picture = EssencePicture.find(params[:id])
         if @essence_picture.picture
           @content = @essence_picture.content
-          @options = params[:options] || {}
+          @options = options_from_params
           @options[:format] ||= (configuration(:image_store_format) or 'png')
           if @essence_picture.render_size.blank?
             if @options[:image_size].blank?
@@ -51,14 +51,14 @@ module Alchemy
         @essence_picture = EssencePicture.find(params[:id])
         @essence_picture.update_attributes(params[:essence_picture])
         @content = Content.find(params[:content_id])
-        @options = params[:options] || {}
+        @options = options_from_params
       end
 
       def assign
         @content = Content.find_by_id(params[:id])
         @picture = Picture.find_by_id(params[:picture_id])
         @content.essence.picture = @picture
-        @options = params[:options] || {}
+        @options = options_from_params
         @element = @content.element
         @dragable = @options[:grouped]
         # If options params come from Flash uploader then we have to parse them as hash.
@@ -76,7 +76,7 @@ module Alchemy
         @content_id = content.id
         content.destroy
         @essence_pictures = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
-        @options = params[:options]
+        @options = options_from_params
       end
 
     end

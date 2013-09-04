@@ -1,7 +1,7 @@
 <% if options[:crop].to_s == 'true' && content.ingredient %>
 <%= link_to_overlay_window(
   render_icon('crop'),
-  alchemy.crop_admin_essence_picture_path(content.essence, :options => options),
+  alchemy.crop_admin_essence_picture_path(content.essence, :options => options.to_json),
   {
     :size => "816x754",
     :title => _t('Edit Picturemask'),
@@ -21,7 +21,7 @@
     :element_id => content.element,
     :content_id => content,
     :swap => true,
-    :options => options
+    :options => options.to_json
   ),
   {
     :title => (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
@@ -50,7 +50,7 @@
   alchemy.edit_admin_essence_picture_path(
     :id => content.essence.id,
     :content_id => content.id,
-    :options => options
+    :options => options.to_json
   ),
   {
     :title => _t(:edit_image_properties),
