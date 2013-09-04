@@ -22,7 +22,7 @@ module Alchemy
           @while_assigning = true
           @content = Content.find(params[:content_id], :select => 'id')
           @swap = params[:swap]
-          @options = hashified_options
+          @options = options_from_params
         end
       end
 
@@ -32,7 +32,7 @@ module Alchemy
           @while_assigning = true
           @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
           @swap = params[:swap]
-          @options = hashified_options
+          @options = options_from_params
         end
         @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sort_order)
         @message = _t('File %{name} uploaded succesfully', :name => @attachment.name)
@@ -87,7 +87,7 @@ module Alchemy
 
       def archive_overlay
         @content = Content.find(params[:content_id], select: 'id')
-        @options = hashified_options
+        @options = options_from_params
         respond_to do |format|
           format.html {
             render partial: 'archive_overlay'

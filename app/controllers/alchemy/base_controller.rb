@@ -153,15 +153,6 @@ module Alchemy
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
     end
 
-    def hashified_options
-      return nil if params[:options].blank?
-      if params[:options].is_a?(String)
-        Rack::Utils.parse_query(params[:options])
-      else
-        params[:options]
-      end
-    end
-
     # Returns the layout to be used by the current page. This method is being
     # used in PageController#show's invocation of #render.
     #

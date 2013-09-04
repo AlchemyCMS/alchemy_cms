@@ -1,22 +1,22 @@
 <div class="info">
   <%= render_icon('info') %>
-  <p><%= _t('explain_upload.intro', :name => item_type) %>:</p>
+  <p><%= _t('explain_upload.intro', name: item_type) %>:</p>
   <ol>
-    <li><%= _t('explain_upload.step1', :name => item_type) %></li>
-    <li><%= _t('explain_upload.step2', :name => item_type) %>*</li>
+    <li><%= _t('explain_upload.step1', name: item_type) %></li>
+    <li><%= _t('explain_upload.step2', name: item_type) %>*</li>
     <li id="explain_step3"><%= _t('explain_upload.step3') %></li>
-    <li id="explain_drag_n_drop"><%= _t('explain_upload.dragndrop', :name => item_type) %></li>
+    <li id="explain_drag_n_drop"><%= _t('explain_upload.dragndrop', name: item_type) %></li>
   </ol>
   <%- unless file_types.first == '*' -%>
-    <p><%= _t('You may upload files with following extensions', :file_types_description => file_types_description, :file_types => file_types.to_sentence) %>.</p>
+    <p><%= _t('You may upload files with following extensions', file_types_description: file_types_description, file_types: file_types.to_sentence) %>.</p>
   <%- end -%>
-  <small>*<%= _t('explain_upload.footnote', :name => item_type) %></small>
+  <small>*<%= _t('explain_upload.footnote', name: item_type) %></small>
 </div>
 
 <%= render 'alchemy/admin/partials/flash_upload' %>
 
 <div class="browse">
-  <%= label_tag :multiple, _t(:browse), :style => 'display:none;' %>
+  <%= label_tag :multiple, _t(:browse), style: 'display:none;' %>
   <input name="Filedata" id="multiple" type="file" multiple value="<%= _t(:browse) %>">
   <a href="#" class="button no-spinner" id="cancelHTML5Queue" style="display: none">
     <%= _t("swfupload.cancel_uploads") %>
@@ -33,12 +33,12 @@
 <div id="uploadProgressContainer"></div>
 
 <%- post_params = {
-  :while_assigning => @while_assigning ? "true" : "false",
-  :content_id => @content.blank? ? nil : @content.id,
-  :element_id => @element.blank? ? nil : @element.id,
-  :size => @size,
-  :upload_hash => Time.now.hash,
-  :options => @options.to_param
+  while_assigning: @while_assigning ? "true" : "false",
+  content_id: @content.blank? ? nil : @content.id,
+  element_id: @element.blank? ? nil : @element.id,
+  size: @size,
+  upload_hash: Time.now.hash,
+  options: @options.to_json
 }.delete_if { |k, v| v.nil? }.to_json -%>
 
 <script type='text/javascript'>
@@ -55,11 +55,11 @@
       onQueueComplete: function() {
         // While assigning picture in page edit mode
         <% if @while_assigning && model_name == 'picture' %>
-        var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload, :element_id => @element.id, :content_id => @content ? @content.id : nil, :options => @options).html_safe %>';
+        var url = '<%= alchemy.admin_pictures_path(size: params[:size], filter: "last_upload", element_id: @element.id, content_id: @content ? @content.id : nil, options: @options.to_json).html_safe %>';
         $.get(url, null, null, 'script');
         // While uploading picture in library
         <% elsif controller.class.name == 'Alchemy::Admin::PicturesController' %>
-        var url = '<%= alchemy.admin_pictures_path(:size => params[:size], :filter => :last_upload).html_safe %>';
+        var url = '<%= alchemy.admin_pictures_path(size: params[:size], filter: "last_upload").html_safe %>';
         Alchemy.pleaseWaitOverlay();
         window.location = url;
         <% end %>

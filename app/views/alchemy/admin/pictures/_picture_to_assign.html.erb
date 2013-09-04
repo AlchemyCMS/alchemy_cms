@@ -3,24 +3,24 @@
   <% action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" %>
   <% action_method = params[:image_assign_method] %>
 <% else %>
-  <% action_url = create_or_assign_url(picture_to_assign, @options) %>
+  <% action_url = create_or_assign_url(picture_to_assign, @options.to_json) %>
   <% action_method = @content.blank? ? 'post' : 'put' %>
 <% end %>
   <%= link_to(
     image_tag(
       alchemy.thumbnail_path(
-        :id => picture_to_assign,
-        :size => size,
-        :sh => picture_to_assign.security_token(:size => size)
+        id: picture_to_assign,
+        size: size,
+        sh: picture_to_assign.security_token(size: size)
       ),
-      :alt => picture_to_assign.name
+      alt: picture_to_assign.name
     ),
     action_url,
-    :remote => true,
-    :onclick => '$(self).attr("href", "#").off("click")',
-    :method => action_method,
-    :title => _t(:assign_image),
-    :class => 'thumbnail_background'
+    remote: true,
+    onclick: '$(self).attr("href", "#").off("click")',
+    method: action_method,
+    title: _t(:assign_image),
+    class: 'thumbnail_background'
   ) %>
   <div class="picture_name" title="<%= picture_to_assign.name %>">
     <%= picture_to_assign.name.empty? ? "&nbsp;" : picture_to_assign.name %>
