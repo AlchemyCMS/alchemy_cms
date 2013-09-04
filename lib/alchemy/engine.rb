@@ -20,6 +20,9 @@ require 'alchemy/logger'
 require 'alchemy/page_layout'
 require 'alchemy/tinymce'
 
+# Require hacks
+require File.join(File.dirname(__FILE__), '../extensions/action_view')
+
 # Require middleware
 require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 
