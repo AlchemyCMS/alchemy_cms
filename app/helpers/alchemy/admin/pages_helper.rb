@@ -18,7 +18,7 @@ module Alchemy
           alchemy.fold_admin_page_path(page),
           remote: true,
           method: :post,
-          class: "page_folder #{css_class}",
+          class: "page_folder #{css_class} spinner",
           title: title,
           id: "fold_button_#{page.id}"
         )
