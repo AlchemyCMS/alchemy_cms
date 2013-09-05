@@ -11,8 +11,10 @@ Alchemy.GUI =
     Alchemy.overlayObserver(scope)
     Alchemy.Hotkeys(scope)
     Alchemy.ListFilter(scope)
+    Alchemy.Spinner.watch(scope)
 
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)
     Alchemy.GUI.init($el)
-    Alchemy.ImageLoader($el);
+    Alchemy.ImageLoader($el)
+    Alchemy.Spinner.watch($el)

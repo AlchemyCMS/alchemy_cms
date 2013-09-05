@@ -11,7 +11,7 @@ describe Alchemy::Admin::PagesHelper do
       let(:page) { mock_model(Alchemy::Page, folded?: true) }
 
       it "renders a link with folded class" do
-        should match /class="page_folder folded"/
+        should match /class="page_folder folded spinner"/
       end
 
       it "renders a link with hide title" do
@@ -23,7 +23,7 @@ describe Alchemy::Admin::PagesHelper do
       let(:page) { mock_model(Alchemy::Page, folded?: false) }
 
       it "renders a link with collapsed class" do
-        should match /class="page_folder collapsed"/
+        should match /class="page_folder collapsed spinner"/
       end
 
       it "renders a link with hide title" do
