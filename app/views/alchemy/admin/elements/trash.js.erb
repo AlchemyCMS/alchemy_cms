@@ -8,5 +8,5 @@ $('#element_<%= @element.id %>').hide(200, function() {
   <% @element.contents.essence_richtexts.each do |content| %>
   tinymce.get('contents_content_<%= content.id %>_body').remove();
   <% end %>
-  <%=raw update_elements_with_essence_selects(@page, @element) %>
+  <%= update_essence_select_elements(@page, @element) -%>
 });
