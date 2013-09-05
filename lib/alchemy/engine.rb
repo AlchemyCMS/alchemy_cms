@@ -11,21 +11,24 @@ require 'rails3-jquery-autocomplete'
 require 'sass-rails'
 require 'sassy-buttons'
 
-# Require globally used alchemy mixins
+# Require globally used Alchemy mixins
 require 'alchemy/auth/engine'
 require 'alchemy/config'
 require 'alchemy/errors'
 require 'alchemy/essence'
+require 'alchemy/ferret/search'
+require 'alchemy/filetypes'
 require 'alchemy/i18n'
-require 'alchemy/kaminari/scoped_pagination_url_helper'
 require 'alchemy/logger'
 require 'alchemy/modules'
+require 'alchemy/mount_point'
 require 'alchemy/name_conversions'
-require 'alchemy/picture_attributes'
 require 'alchemy/page_layout'
+require 'alchemy/picture_attributes'
 require 'alchemy/tinymce'
 
 # Require hacks
+require 'alchemy/kaminari/scoped_pagination_url_helper'
 require File.join(File.dirname(__FILE__), '../extensions/action_view')
 
 # Require middleware
