@@ -1,5 +1,9 @@
 require 'rails'
 
+# Instantiate the global Alchemy namespace
+module Alchemy
+end
+
 if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 2
   require 'alchemy/engine'
 else
