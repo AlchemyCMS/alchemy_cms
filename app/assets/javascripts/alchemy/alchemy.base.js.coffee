@@ -7,6 +7,8 @@ $.fx.speeds._default = 400
 # All other modules uses this global Alchemy object as namespace.
 $.extend Alchemy,
 
+  currentPreviewElement: null
+
   # Multiple picture select handler for the picture archive.
   pictureSelector: ->
     $selected_item_tools = $(".selected_item_tools")
