@@ -16,6 +16,7 @@ Alchemy.ElementEditors =
     $elements = $("#element_area .element_editor")
     self = Alchemy.ElementEditors
     self.reinit $elements
+    self.currentBindedRTFEditors = []
 
   # Binds events to all given element editors.
   #
