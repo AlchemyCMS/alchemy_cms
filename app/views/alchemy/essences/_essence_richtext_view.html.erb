@@ -1,4 +1,13 @@
 <% cache(content) do %>
 <% options = local_assigns.fetch(:options, {}) %>
-<%= raw content.essence.send(options[:plain_text] ? :stripped_body : :body) %>
+<% output = capture do %>
+  <%= raw content.essence.send(options[:plain_text] ? :stripped_body : :body) %>
+<% end %>
+<% if @preview_mode %>
+<alchemy:content data-alchemy-content-id="<%= content.id %>">
+  <%= output %>
+</alchemy:content>
+<% else %>
+<%= output %>
+<% end %>
 <% end %>

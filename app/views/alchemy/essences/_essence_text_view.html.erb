@@ -1,17 +1,26 @@
 <% cache(content) do %>
 <% options = local_assigns.fetch(:options, {}) %>
 <% html_options = local_assigns.fetch(:html_options, {}) %>
-<%- if content.essence.link.blank? || options[:disable_link] -%>
-<%= content.ingredient -%>
-<%- else -%>
-<%= link_to(
-  content.ingredient,
-  url_for(content.essence.link),
-  {
-    title: content.essence.link_title,
-    target: (content.essence.link_target == "blank" ? "_blank" : nil),
-    'data-link-target' => content.essence.link_target
-  }.merge(html_options)
-) %>
-<%- end -%>
+<% output = capture do %>
+  <%- if content.essence.link.blank? || options[:disable_link] -%>
+  <%= content.ingredient -%>
+  <%- else -%>
+  <%= link_to(
+    content.ingredient,
+    url_for(content.essence.link),
+    {
+      title: content.essence.link_title,
+      target: (content.essence.link_target == "blank" ? "_blank" : nil),
+      'data-link-target' => content.essence.link_target
+    }.merge(html_options)
+  ) %>
+  <%- end -%>
+<% end %>
+<% if @preview_mode %>
+<alchemy:content data-alchemy-content-id="<%= content.id %>">
+  <%= output %>
+</alchemy:content>
+<% else %>
+<%= output %>
+<% end %>
 <% end %>
