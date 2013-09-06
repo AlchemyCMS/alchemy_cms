@@ -1,14 +1,14 @@
 <div class="article" id="<%= element_dom_id(element) %>"<%= element_preview_code(element) -%><%= element_tags(element) %>>
-  <%- intro = render_essence_view_by_name(element, 'intro') -%>
-  <%- if !intro.blank? -%>
-  <div class="intro">
-    <%= intro %>
-  </div>
-  <%- end -%>
   <% element.contents.where(:name => 'headline').each do |content| %>
-  <% next if content.ingredient.blank? %>
+  <% next if content.ingredient.blank? && !@preview_mode%>
   <h1 class="headline"><%= render_essence content %></h1>
   <% end %>
+  <%- intro = render_essence_view_by_name(element, 'intro') -%>
+  <%- if !intro.blank? -%>
+  <h2 class="intro">
+    <%= intro %>
+  </h2>
+  <%- end -%>
   <div class="text_bild_container">
     <%- content = element.contents.find_by_essence_type("Alchemy::EssencePicture") -%>
     <%- if content -%>
