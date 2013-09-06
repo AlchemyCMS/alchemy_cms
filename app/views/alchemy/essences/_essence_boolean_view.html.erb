@@ -1,2 +1,8 @@
 <% content = local_assigns[:content] || local_assigns[:essence_boolean_view] %>
-<%= Alchemy.t(content.ingredient) unless content.ingredient.nil? -%>
+<% if @preview_mode %>
+<alchemy-content data-alchemy-content-id=<%= content.id %>>
+  <%= Alchemy.t(content.ingredient) %>
+</alchemy-content>
+<% else %>
+<%= Alchemy.t(content.ingredient) %>
+<% end %>

@@ -26,7 +26,8 @@
     end %>
     <%= select_tag content.form_field_name, options_tags, {
       class: ["alchemy_selectbox", "essence_editor_select", html_options[:class]].compact,
-      style: html_options[:style]
+      style: html_options[:style],
+      data: {'alchemy-content-id' => content.id}
     } %>
   <% end %>
 <% end %>

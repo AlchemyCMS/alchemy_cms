@@ -4,7 +4,8 @@
     content.essence, :date, {
       name: content.form_field_name,
       id: content.form_field_id,
-      value: content.settings_value(:default_value, local_assigns.fetch(:options, {}))
+      value: content.settings_value(:default_value, local_assigns.fetch(:options, {})),
+      data: {'alchemy-content-id' => content.id}
     }
   ) %>
   <label for="<%= content.form_field_id %>" class="essence_date--label">

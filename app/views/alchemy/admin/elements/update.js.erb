@@ -7,10 +7,15 @@
 
   $errors.hide();
   $el.trigger('SaveElement.Alchemy', {previewText: '<%= j sanitize(@element.preview_text) %>'});
+  Alchemy.LivePreview.updateElement('<%= j render_element(@element) %>');
   Alchemy.growl('<%= Alchemy.t(:element_saved) %>');
+  <% if !!@element.previous_changes['public'] %>
   Alchemy.PreviewWindow.refresh(function() {
     Alchemy.ElementEditors.selectElementInPreview(<%= @element.id %>);
   });
+  <% else %>
+  Alchemy.LiveUpdate.updateElement(<%= @element.id %>, '<%= j render_element(@element) %>');
+  <% end %>
 
 <%- else -%>
 

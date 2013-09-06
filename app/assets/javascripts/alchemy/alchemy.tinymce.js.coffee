@@ -80,14 +80,22 @@ $.extend Alchemy.Tinymce,
   #
   remove: (ids) ->
     for id in ids
-      editor = tinymce.get("tinymce_#{id}")
+      editor_id = "tinymce_#{id}"
+      @unbindLivePreview(editor_id)
+      editor = tinymce.get(editor_id)
       if editor
         editor.remove()
 
   # Remove all tinymce instances for given selector
   removeFrom: (selector) ->
-    $(selector).each ->
-      elem = tinymce.get(this.id)
-      elem.remove() if elem
+    $(selector).each (_i, element) =>
+      editor = tinymce.get(element.id)
+      editor.remove() if editor
+      @unbindLivePreview(element.id)
       return
     return
+
+  unbindLivePreview: (editor_id) ->
+    arr = Alchemy.LivePreview.currentBindedRTFEditors
+    idx = arr.indexOf(editor_id)
+    arr.splice(idx, 1) unless idx == -1

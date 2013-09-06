@@ -5,7 +5,7 @@
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
       <%= link_to render_icon(:times), '#',
-        onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}');" %>
+        onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}', #{content.id});" %>
     </span>
     <div class="picture_image">
       <div class="thumbnail_background">
@@ -30,7 +30,7 @@
     </div>
   </div>
   <%= hidden_field_tag content.form_field_name(:picture_id),
-    content.ingredient.try!(:id) %>
+    content.ingredient&.id, data: {'picture-id' => content.ingredient&.id} %>
   <%= hidden_field_tag content.form_field_name(:link),
     content.essence.link %>
   <%= hidden_field_tag content.form_field_name(:link_title),

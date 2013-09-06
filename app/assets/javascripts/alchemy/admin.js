@@ -38,6 +38,7 @@
 //= require alchemy/alchemy.string_extension
 //= require alchemy/alchemy.link_dialog
 //= require alchemy/alchemy.list_filter
+//= require alchemy/alchemy.live_update
 //= require alchemy/alchemy.initializer
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader

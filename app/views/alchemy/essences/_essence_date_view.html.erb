@@ -2,9 +2,18 @@
 <%- date_format = content.settings_value(:date_format,
   local_assigns.fetch(:options, {})) || :'alchemy.essence_date' -%>
 <%- if content.ingredient.present? -%>
-<%- if date_format == 'rfc822' -%>
-<%= content.ingredient.to_s(:rfc822) %>
-<%- else -%>
-<%= l(content.ingredient, format: date_format) %>
-<%- end -%>
+  <% output = capture do %>
+    <%- if date_format == 'rfc822' -%>
+      <%= content.ingredient.to_s(:rfc822) %>
+    <%- else -%>
+      <%= l(content.ingredient, format: date_format) %>
+    <%- end -%>
+  <% end %>
+  <% if @preview_mode %>
+    <alchemy-content data-alchemy-content-id="<%= content.id %>">
+      <%= output %>
+    </alchemy-content>
+  <% else %>
+    <%= output %>
+  <% end %>
 <%- end -%>

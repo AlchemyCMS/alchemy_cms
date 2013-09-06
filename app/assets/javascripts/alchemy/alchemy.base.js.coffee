@@ -7,6 +7,8 @@ $.fx.speeds._default = 400
 # All other modules uses this global Alchemy object as namespace.
 $.extend Alchemy,
 
+  currentPreviewElement: null
+
   # Multiple picture select handler for the picture archive.
   pictureSelector: ->
     $selected_item_tools = $(".selected_item_tools")
@@ -59,9 +61,10 @@ $.extend Alchemy,
           $parent.html('<span class="icon warn"/>')
 
   # Removes the picture from essence picture thumbnail
-  removePicture: (selector) ->
+  removePicture: (selector, content_id) ->
     $form_field = $(selector)
     $element = $form_field.closest(".element-editor")
+    $element.trigger('RemovePicture.Alchemy', content_id)
     if $form_field[0]
       $form_field.val ""
       $element.find(".thumbnail_background").html('<i class="icon far fa-image fa-fw"/>')

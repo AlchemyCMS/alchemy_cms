@@ -86,6 +86,7 @@ Alchemy.ElementEditors =
   selectElement: ($element, scroll = false) ->
     $("#element_area .element-editor").not($element[0]).removeClass("selected")
     $element.addClass("selected")
+    Alchemy.LiveUpdate.bind($element)
     @scrollToElement($element) if scroll
     return
 

@@ -1,3 +1,5 @@
+#= require alchemy/live_preview
+
 window.Alchemy = Alchemy || {}
 
 Alchemy.initAlchemyPreviewMode = ->
@@ -20,7 +22,7 @@ Alchemy.initAlchemyPreviewMode = ->
           outline: "2px dashed #90b9d0"
           "outline-offset": "4px"
 
-      init: ->
+      init: (selector = "[data-alchemy-element]") ->
         window.addEventListener "message", (event) =>
           if event.origin != window.location.origin
             console.warn 'Unsafe message origin!', event.origin
@@ -28,9 +30,10 @@ Alchemy.initAlchemyPreviewMode = ->
           switch event.data.message
             when "Alchemy.blurElements" then @blurElements()
             when "Alchemy.focusElement" then @focusElement(event.data)
+            when "Alchemy.updateElement" then @updateElement(event.data)
             else console.info("Received unknown message!", event.data)
           return
-        @elements = Array.from document.querySelectorAll("[data-alchemy-element]")
+        @elements = Array.from document.querySelectorAll(selector)
         @elements.forEach (element) =>
           element.addEventListener 'mouseover', =>
             unless element.classList.contains('selected')
@@ -48,6 +51,14 @@ Alchemy.initAlchemyPreviewMode = ->
             return
           return
         return
+
+      # Updates a preview element with given content
+      updateElement: (data) ->
+        element = @getElement(data.element_id)
+        if element
+          element.innerHTML = data.content
+        else
+          @missingElementWarning(data.element_id)
 
       # Mark element in preview frame as selected and scrolls to it.
       selectElement: (element) ->
@@ -94,6 +105,12 @@ Alchemy.initAlchemyPreviewMode = ->
         else
           @styles[state]
 
+      missingElementWarning: (element_id) ->
+        console.warn("Alchemy Element with id #{element_id} not found! Make sure to add [data-alchemy-element] to the element you want to update.")
+        console.warn('Current loaded Alchemy Elements', @elements)
+        return
+
   Alchemy.ElementSelector.init()
+  Alchemy.LivePreview.init()
 
 Alchemy.initAlchemyPreviewMode()

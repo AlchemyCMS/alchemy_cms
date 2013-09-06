@@ -16,16 +16,21 @@ module Alchemy
       sizes: []
     }.with_indifferent_access
 
-    def initialize(content, options = {}, html_options = {})
+    def initialize(content, options = {}, html_options = {}, preview_mode = false)
       @content = content
       @options = DEFAULT_OPTIONS.merge(content.settings).merge(options)
       @html_options = html_options
       @essence = content.essence
       @picture = essence.picture
+      @preview_mode = preview_mode
     end
 
     def render
-      return if picture.blank?
+      if picture.blank? && @preview_mode
+        return content_tag('alchemy-content', nil, data: {'alchemy-content-id' => content.id})
+      elsif picture.blank?
+        return
+      end
 
       output = caption ? img_tag + caption : img_tag
 
@@ -52,7 +57,7 @@ module Alchemy
     end
 
     def img_tag
-      @_img_tag ||= image_tag(
+      tag = image_tag(
         essence.picture_url(options.except(*DEFAULT_OPTIONS.keys)), {
           alt: essence.alt_tag.presence,
           title: essence.title.presence,
@@ -61,6 +66,11 @@ module Alchemy
           sizes: options[:sizes].join(', ').presence
         }.merge(caption ? {} : html_options)
       )
+      if @preview_mode
+        content_tag('alchemy-content', tag, data: {'alchemy-content-id' => content.id})
+      else
+        tag
+      end
     end
 
     def show_caption?

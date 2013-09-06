@@ -34,6 +34,7 @@ module Alchemy
 
       def update
         @essence_picture.update(essence_picture_params)
+        @picture_url = @essence_picture.picture_url(options_from_params)
       end
 
       # Assigns picture, but does not save it.
@@ -44,7 +45,7 @@ module Alchemy
         @picture = Picture.find_by(id: params[:picture_id])
         @content.essence.picture = @picture
         @element = @content.element
-
+        @picture_url = @content.essence.picture_url(options_from_params)
         # We need to update timestamp here because we don't save yet,
         # but the cache needs to be get invalid.
         @content.touch

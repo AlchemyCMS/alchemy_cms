@@ -5,6 +5,11 @@
       :default_value, local_assigns.fetch(:options, {})
     ),
     class: local_assigns.fetch(:html_options, {})[:class],
+    data: {
+      'alchemy-content-id' => content.id,
+      'true-value' => Alchemy.t(:true),
+      'false-value' => Alchemy.t(:false)
+    },
     style: local_assigns.fetch(:html_options, {})[:style] %>
   <label for="<%= content.form_field_id %>" style="display: inline">
     <%= render_content_name(content) %>

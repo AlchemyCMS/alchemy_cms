@@ -1,2 +1,8 @@
 <% content = local_assigns[:content] || local_assigns[:essence_select_view] %>
+<% if @preview_mode %>
+<alchemy-content data-alchemy-content-id=<%= content.id %>>
+  <%= content.ingredient %>
+</alchemy-content>
+<% else %>
 <%= content.ingredient %>
+<% end %>
