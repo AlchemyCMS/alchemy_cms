@@ -63,6 +63,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         $el = $(e.delegateTarget)
         $elements = @$previewElements
         offset = @scrollOffset
+        window.parent.Alchemy.currentPreviewElement = $el
         e.preventDefault()
         $elements.removeClass("selected").css(@getStyle("reset"))
         $el.addClass("selected").css(@getStyle("selected"))
@@ -75,6 +76,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
       clickElement: (e) ->
         $el = $(e.delegateTarget)
         parent$ = window.parent.jQuery
+        window.parent.Alchemy.currentPreviewElement = $el
         target_id = $el.data("alchemy-element")
         $element_editor = parent$("#element_area .element_editor").closest("[id=\"element_" + target_id + "\"]")
         elementsWindow = window.parent.Alchemy.ElementsWindow

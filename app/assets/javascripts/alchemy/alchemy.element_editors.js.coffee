@@ -26,6 +26,7 @@ Alchemy.ElementEditors =
     $elements = $(elements)
     $elements.each ->
       self.bindEvent this
+    $elements.find('.essence_text.content_editor input[type="text"]').focus self.onClickElement
     $elements.find(".element_head").click self.onClickElement
     $elements.find(".element_head").dblclick ->
       id = $(this).parent().attr("id").replace(/\D/g, "")
@@ -39,20 +40,33 @@ Alchemy.ElementEditors =
   #
   onClickElement: (e) ->
     self = Alchemy.ElementEditors
-    $element = $(this).parent(".element_editor")
+    $element = $(this).parents(".element_editor")
     id = $element.attr("id").replace(/\D/g, "")
     e.preventDefault()
     $("#element_area .element_editor").removeClass "selected"
     $element.addClass "selected"
     self.scrollToElement this
     self.selectElementInPreview id
+    self.bindUpdate($element)
+    return
 
-  # Selcts and scrolls to element with given id in the preview window.
+  # Selects and scrolls to element with given id in the preview window.
   #
   selectElementInPreview: (id) ->
     $frame_elements = document.getElementById("alchemy_preview_window").contentWindow.jQuery("[data-alchemy-element]")
     $selected_element = $frame_elements.closest("[data-alchemy-element='#{id}']")
     $selected_element.trigger "Alchemy.SelectElement"
+
+  bindUpdate: ($element) ->
+    $('.essence_text.content_editor input[type="text"]', $element).on 'keyup', (e) ->
+      Alchemy.currentPreviewElement.text($(this).val())
+    rtf = $('.essence_richtext.content_editor textarea', $element)
+    if rtf_id = rtf.attr('id')
+      ed = tinymce.get(rtf_id)
+      ed.onKeyUp.add (ed, e) ->
+        Alchemy.currentPreviewElement.html(ed.getContent())
+      ed.onChange.add (ed, e) ->
+        Alchemy.currentPreviewElement.html(ed.getContent())
 
   # Binds the custom 'Alchemy.SelectElementEditor' event.
   #
@@ -78,6 +92,7 @@ Alchemy.ElementEditors =
     e.preventDefault()
     $elements.removeClass "selected"
     $element.addClass "selected"
+    self.bindUpdate($element)
     if $cells.size() > 0
       $cell = $element.parent(".sortable_cell")
       $("#cells").tabs "option", "active", $cells.index($cell)
