@@ -16,6 +16,7 @@ Alchemy.ElementEditors =
     $elements = $("#element_area .element_editor")
     self = Alchemy.ElementEditors
     self.reinit $elements
+    self.currentBindedRTFEditors = []
 
   # Binds events to all given element editors.
   #
@@ -24,13 +25,8 @@ Alchemy.ElementEditors =
   reinit: (elements) ->
     self = Alchemy.ElementEditors
     $elements = $(elements)
-    $elements.each ->
-      self.bindEvent this
-    $elements.find('.essence_text.content_editor input[type="text"]').focus self.onClickElement
-    $elements.find(".element_head").click self.onClickElement
-    $elements.find(".element_head").dblclick ->
-      id = $(this).parent().attr("id").replace(/\D/g, "")
-      self.toggle id
+    Alchemy.ElementEditors.all = $elements
+    self.bindEvents($elements)
     Alchemy.ElementEditors.observeToggler($elements)
     Alchemy.ElementEditors.missingContentsObserver($elements)
 
@@ -48,7 +44,6 @@ Alchemy.ElementEditors =
     self.scrollToElement this
     self.selectElementInPreview id
     self.bindUpdate($element)
-    return
 
   # Selects and scrolls to element with given id in the preview window.
   #
@@ -58,23 +53,40 @@ Alchemy.ElementEditors =
     $selected_element.trigger "Alchemy.SelectElement"
 
   bindUpdate: ($element) ->
-    $('.essence_text.content_editor input[type="text"]', $element).on 'keyup', (e) ->
-      Alchemy.currentPreviewElement.text($(this).val())
-    rtf = $('.essence_richtext.content_editor textarea', $element)
-    if rtf_id = rtf.attr('id')
-      ed = tinymce.get(rtf_id)
-      ed.onKeyUp.add (ed, e) ->
-        Alchemy.currentPreviewElement.html(ed.getContent())
-      ed.onChange.add (ed, e) ->
-        Alchemy.currentPreviewElement.html(ed.getContent())
-
-  # Binds the custom 'Alchemy.SelectElementEditor' event.
-  #
-  # Triggered, if an element gets selected inside the preview iframe.
-  #
-  bindEvent: (element) ->
     self = Alchemy.ElementEditors
-    $(element).bind "Alchemy.SelectElementEditor", self.selectElement
+    # unbind keyup events of all other elements
+    $('.essence_text.content_editor input[type="text"]').off 'keyup'
+    # rebind for current element
+    $('.essence_text.content_editor input[type="text"]', $element).on 'keyup', (e) ->
+      $this = $(this)
+      content_id = $this.data('alchemy-content-id')
+      content = Alchemy.currentPreviewElement.find("*[data-alchemy-content-id='#{content_id}']")
+      content.text($this.val())
+      true
+    rtf = $('.essence_richtext.content_editor textarea', $element)
+    rtf_id = rtf.attr('id')
+    rtfUpdateEvent = (ed) ->
+      textarea = $("##{ed.editorId}")
+      content_id = textarea.data('alchemy-content-id')
+      content = Alchemy.currentPreviewElement.find("*[data-alchemy-content-id='#{content_id}']")
+      content.html(ed.getContent())
+    if rtf_id and rtf_id not in self.currentBindedRTFEditors
+      self.currentBindedRTFEditors.push rtf_id
+      ed = tinymce.get(rtf_id)
+      ed.onKeyUp.add (ed, e) -> rtfUpdateEvent(ed)
+      ed.onChange.add (ed, e) -> rtfUpdateEvent(ed)
+
+  # Binds events to element editors
+  bindEvents: ->
+    self = Alchemy.ElementEditors
+    self.all.each ->
+      $element = $(this)
+      $element.bind "Alchemy.SelectElementEditor", self.selectElement
+    self.all.find('.essence_text.content_editor input[type="text"]').focus self.onClickElement
+    self.all.find(".element_head").click self.onClickElement
+    self.all.find(".element_head").dblclick ->
+      id = $(this).parent().attr("id").replace(/\D/g, "")
+      self.toggleFold id
 
   # Selects an element in the element window.
   #

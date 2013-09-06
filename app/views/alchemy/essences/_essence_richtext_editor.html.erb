@@ -6,6 +6,7 @@
       content.form_field_name,
       content.ingredient || '',
       class: content.tinymce_class_name,
+      data: {'alchemy-content-id' => content.id},
       id: "tinymce_#{content.id}"
     ) %>
   </div>

@@ -5,7 +5,8 @@
       content.form_field_name,
       content.ingredient,
       class: ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
-      style: html_options[:style]
+      style: html_options[:style],
+      data: {'alchemy-content-id' => content.id}
     ) %>
     <% if content.settings[:linkable] %>
       <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
