@@ -23,6 +23,7 @@ group :assets do
 end
 
 group :development do
+  gem 'nokogiri', '~> 1.5.10' # capybara allows nokogiri 1.6.0, but this breaks ruby 1.8.7 compatibility
   unless ENV['CI']
     #gem 'localeapp'
     gem 'guard-spork'
