@@ -2,11 +2,9 @@ source 'http://rubygems.org'
 
 gemspec
 
-unless ENV['CI']
-  # For some strange reason it's only loaded outside any group
-  gem 'jasmine'
-  gem 'jasminerice'
-end
+# For some strange reason it's only loaded outside any group
+gem 'jasmine'
+gem 'jasminerice'
 
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
