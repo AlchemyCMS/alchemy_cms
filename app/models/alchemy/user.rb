@@ -19,7 +19,14 @@ module Alchemy
     model_stamper
     stampable(:stamper_class_name => 'Alchemy::User')
 
-    devise(*Config.get(:devise_modules))
+    begin
+      devise(*Config.get(:devise_modules))
+    rescue NameError => e
+      abort <<-WARN
+You enabled the encrytable devise module, but did not have the `devise-encrytable` gem installed!
+Please add the `devise-encrytable` gem into your Gemfile.
+WARN
+    end
 
     acts_as_taggable
 
