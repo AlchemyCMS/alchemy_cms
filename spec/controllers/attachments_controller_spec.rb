@@ -15,6 +15,10 @@ module Alchemy
       response.should redirect_to(login_path)
     end
 
+    it "should raise ActiveRecord::RecordNotFound for requesting not existing attachments" do
+      expect { get :download, id: 0 }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     it "should not be possible to see attachments from restricted pages" do
       get :show, :id => attachment.id
       response.status.should == 302
