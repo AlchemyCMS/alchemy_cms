@@ -28,7 +28,7 @@ module Alchemy
   private
 
     def load_attachment
-      @attachment = Attachment.where(:id => params[:id]).first
+      @attachment = Attachment.find(params[:id])
     end
 
   end
