@@ -1,4 +1,4 @@
-class AlchemyCreatePages < ActiveRecord::Migration
+class CreatePages < ActiveRecord::Migration
   def self.up
     return if table_exists?(:pages)
     create_table :pages do |t|

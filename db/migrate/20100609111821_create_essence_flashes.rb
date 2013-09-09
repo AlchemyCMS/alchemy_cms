@@ -1,4 +1,4 @@
-class AlchemyCreateEssenceFlashes < ActiveRecord::Migration
+class CreateEssenceFlashes < ActiveRecord::Migration
   def self.up
     return if table_exists?(:essence_flashes)
     create_table :essence_flashes do |t|

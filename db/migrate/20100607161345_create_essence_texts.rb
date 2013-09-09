@@ -1,4 +1,4 @@
-class AlchemyCreateEssenceTexts < ActiveRecord::Migration
+class CreateEssenceTexts < ActiveRecord::Migration
   def self.up
     return if table_exists?(:essence_texts)
     create_table :essence_texts do |t|

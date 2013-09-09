@@ -1,4 +1,4 @@
-class AlchemyCreateFoldedPages < ActiveRecord::Migration
+class CreateFoldedPages < ActiveRecord::Migration
   def self.up
     return if table_exists?(:folded_pages)
     create_table :folded_pages do |t|
