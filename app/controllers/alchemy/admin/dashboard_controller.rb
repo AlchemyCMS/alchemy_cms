@@ -1,4 +1,5 @@
 require 'net/http'
+require 'alchemy/version'
 
 module Alchemy
   module Admin
