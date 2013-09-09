@@ -2,15 +2,17 @@ source 'http://rubygems.org'
 
 gemspec
 
-#For some strange reason it's only loaded outside any group
-gem 'jasmine'
-gem 'jasminerice'
+unless ENV['CI']
+  # For some strange reason it's only loaded outside any group
+  gem 'jasmine'
+  gem 'jasminerice'
+end
 
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'poltergeist'
+  gem 'poltergeist', '~> 1.0.3'
   unless ENV['CI']
     gem 'launchy'
   end

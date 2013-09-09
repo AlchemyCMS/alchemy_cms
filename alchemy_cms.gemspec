@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<tvdeyen-fleximage>, ["~> 1.2.0"])
   s.add_runtime_dependency(%q<kaminari>, ["~> 0.13.0"])
   s.add_runtime_dependency(%q<acts_as_ferret>, ["~> 0.5"])
-  s.add_runtime_dependency(%q<acts_as_list>, ["~> 0.1"])
+  s.add_runtime_dependency(%q<acts_as_list>, ["~> 0.1.9"])
   s.add_runtime_dependency(%q<magiclabs-userstamp>, ["~> 2.0.2"])
   s.add_runtime_dependency(%q<dynamic_form>, ["~> 1.1"])
   s.add_runtime_dependency(%q<jquery-rails>, ["~> 2.0.0"])
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<sassy-buttons>, ['~> 0.1.3'])
 
   s.add_development_dependency(%q<bumpy>)
-  s.add_development_dependency(%q<capybara>, ['~> 2.0.3'])
+  s.add_development_dependency(%q<capybara>, ['~> 1.1.4'])
   s.add_development_dependency(%q<factory_girl_rails>, ['~> 1.7.0'])
   s.add_development_dependency(%q<rspec-rails>,        ['2.12.0'])
   s.add_development_dependency(%q<sqlite3>)
