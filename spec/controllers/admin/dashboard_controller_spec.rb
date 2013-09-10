@@ -14,12 +14,12 @@ module Alchemy
 
       it "assigns @last_edited_pages" do
         get :index
-        expect(assigns(:last_edited_pages)).to eq([last_edited_page])
+        expect(assigns(:last_edited_pages)).to eq([])
       end
 
       it "assigns @locked_pages" do
         get :index
-        expect(assigns(:locked_pages)).to eq([locked_page])
+        expect(assigns(:locked_pages)).to eq([])
       end
 
       it "assigns @online_users" do

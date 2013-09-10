@@ -56,7 +56,7 @@ module Alchemy
     private
 
       def content_params
-        params.require(:content).permit(:element_id, :name, :ingredient)
+        params.require(:content).permit(:element_id, :name, :ingredient, :essence_type)
       end
 
     end

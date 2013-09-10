@@ -316,19 +316,6 @@ ActiveRecord::Schema.define(version: 20130828121120) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "parties", force: true do |t|
-    t.string   "name"
-    t.string   "hidden_name"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.text     "description"
-    t.decimal  "entrance_fee", precision: 6, scale: 2
-    t.boolean  "published"
-    t.integer  "location_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-  end
-
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

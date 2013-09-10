@@ -1,6 +1,7 @@
 module Alchemy
   class AttachmentsController < BaseController
-    load_and_authorize_resource class: Alchemy::Attachment
+    before_action :load_attachment
+    authorize_resource class: Alchemy::Attachment
 
     # sends file inline. i.e. for viewing pdfs/movies in browser
     def show
@@ -22,6 +23,12 @@ module Alchemy
           type: @attachment.file_mime_type
         }
       )
+    end
+
+  private
+
+    def load_attachment
+      @attachment = Attachment.find(params[:id])
     end
 
   end

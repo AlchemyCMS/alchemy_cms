@@ -146,7 +146,7 @@ module Alchemy
 
     describe '#assign' do
       before do
-        Content.stub(:find_by_id).and_return(content)
+        Content.stub(:find).and_return(content)
         Content.any_instance.stub(:essence).and_return(essence)
         Picture.stub(:find_by_id).and_return(picture)
       end
