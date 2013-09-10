@@ -1,5 +1,3 @@
-require 'alchemy/ferret/search'
-
 module Alchemy
   #
   # == Sending Messages:

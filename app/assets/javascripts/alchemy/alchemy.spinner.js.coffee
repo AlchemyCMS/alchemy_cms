@@ -10,6 +10,14 @@ Alchemy.Spinner =
     speed: 1.25
     hwaccel: true
 
+  tiny: (opts) ->
+    defaults = $.extend({}, Alchemy.Spinner.DEFAULTS,
+      length: 2
+      width: 1
+      radius: 1
+    )
+    new Spinner($.extend(defaults, opts))
+
   small: (opts) ->
     defaults = $.extend({}, Alchemy.Spinner.DEFAULTS,
       length: 2
@@ -33,3 +41,9 @@ Alchemy.Spinner =
       radius: 8
     )
     new Spinner($.extend(defaults, opts))
+
+  watch: (scope) ->
+    $('a.spinner', scope).click ->
+      spinner = Alchemy.Spinner.tiny()
+      spinner.spin(this)
+      $(this).css('background': 'none').off('click')

@@ -95,26 +95,23 @@ module Alchemy
         end
       end
 
-      def update_elements_with_essence_selects(page, element)
-        elements = page.contents.essence_selects.collect(&:element).uniq.delete_if { |e| e == element }
-        if elements.any?
-          js = "var $ess_sel_el;"
-          elements.each do |element|
-            rtfs = element.contents.essence_richtexts
-            js += "\n$ess_sel_el = $('#element_#{element.id}');"
-            rtfs.each do |content|
-              js += "\ntinymce.get('contents_content_#{content.id}_body').remove();"
-            end
-            js += "\n$('div.element_content', $ess_sel_el).html('#{escape_javascript render_editor(element)}');"
-            js += "\nAlchemy.GUI.initElement($ess_sel_el);"
-            rtfs.each do |content|
-              js += "\nAlchemy.Tinymce.addEditor('#{content.form_field_id}');"
-            end
-          end
-          js
-        else
-          nil
-        end
+      # This helper loads all elements from page that have EssenceSelects in them.
+      #
+      # It returns a javascript function that replaces all editor partials of this elements.
+      #
+      # We need this while updating, creating or trashing an element,
+      # because another element on the same page could have a element selector in it.
+      #
+      # In cases like this one wants Ember.js databinding!
+      #
+      def update_essence_select_elements(page, element)
+        elements = page.elements.not_trashed.joins(:contents)
+          .where("alchemy_contents.element_id != #{element.id}")
+          .where("alchemy_contents.essence_type" => "Alchemy::EssenceSelect")
+        return if elements.blank?
+        elements.collect do |element|
+          render 'alchemy/admin/elements/refresh_editor', element: element
+        end.join.html_safe
       end
 
     end

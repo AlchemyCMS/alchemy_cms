@@ -101,6 +101,41 @@ module Alchemy
 
     end
 
+    describe '.filtered_by' do
+
+      let :picture do
+        FactoryGirl.build_stubbed(:picture)
+      end
+
+      context "with 'recent' as argument" do
+        it 'should call the .recent scope' do
+          Picture.should_receive(:recent).and_return(picture)
+          Picture.filtered_by('recent').should eq(picture)
+        end
+      end
+
+      context "with 'last_upload' as argument" do
+        it 'should call the .last_upload scope' do
+          Picture.should_receive(:last_upload).and_return(picture)
+          Picture.filtered_by('last_upload').should eq(picture)
+        end
+      end
+
+      context "with 'without_tag' as argument" do
+        it 'should call the .without_tag scope' do
+          Picture.should_receive(:where).with("cached_tag_list IS NULL OR cached_tag_list = ''").and_return(picture)
+          Picture.filtered_by('without_tag').should eq(picture)
+        end
+      end
+
+      context "with no argument" do
+        it 'should return the scoped collection' do
+          Picture.should_receive(:scoped).and_return(picture)
+          Picture.filtered_by('').should eq(picture)
+        end
+      end
+    end
+
     describe '.last_upload' do
 
       it "should return all pictures that have the same upload-hash as the most recent picture" do

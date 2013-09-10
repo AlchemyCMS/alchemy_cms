@@ -1,5 +1,3 @@
-require 'alchemy/mount_point'
-
 Alchemy::Engine.routes.draw do
 
   root :to => 'pages#show'

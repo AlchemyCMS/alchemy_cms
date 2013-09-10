@@ -1,11 +1,10 @@
 require 'userstamp'
 require 'acts-as-taggable-on'
-require 'alchemy/filetypes'
 
 module Alchemy
   class Attachment < ActiveRecord::Base
     include Filetypes
-    include Alchemy::NameConversions
+    include NameConversions
 
     acts_as_taggable
     file_accessor :file

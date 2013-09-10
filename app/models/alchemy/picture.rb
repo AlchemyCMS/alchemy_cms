@@ -43,6 +43,7 @@ module Alchemy
 
     scope :recent, where("#{self.table_name}.created_at > ?", Time.now-24.hours).order(:created_at)
     scope :deletable, where("alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
+    scope :without_tag, where("cached_tag_list IS NULL OR cached_tag_list = ''")
 
     # Class methods
 
@@ -56,6 +57,16 @@ module Alchemy
         last_picture = Picture.last
         return Picture.scoped unless last_picture
         Picture.where(:upload_hash => last_picture.upload_hash)
+      end
+
+      def filtered_by(filter = '')
+        case filter
+          when 'recent'      then recent
+          when 'last_upload' then last_upload
+          when 'without_tag' then without_tag
+        else
+          scoped
+        end
       end
 
     end
