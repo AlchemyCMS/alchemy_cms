@@ -1,17 +1,17 @@
 <div id="login_box">
   <div id="alchemy_greeting">
-    <%= image_tag("alchemy/alchemy-logo.png", :style => "width: 240px; height: 70px") %>
+    <%= image_tag("alchemy/alchemy-logo.png", style: "width: 240px; height: 70px") %>
   </div>
   <div class="login_signup_box">
-    <%= simple_form_for :user, url: {action: 'create'}, html: {id: 'login'} do |f| %>
-      <%= f.input :login, :autofocus => true %>
+    <%= alchemy_form_for :user, url: {action: 'create'}, html: {id: 'login'} do |f| %>
+      <%= f.input :login, autofocus: true %>
       <%= f.input :password %>
       <p class="foot_note">
         <%= link_to _t('Forgot your password?'), new_password_path %>
       </p>
       <div class="submit">
         <%= hidden_field_tag 'user_screensize' %>
-        <%= f.button :submit, _t(:login) %>
+        <button><%= _t(:login) %></button>
       </div>
     <% end %>
   </div>

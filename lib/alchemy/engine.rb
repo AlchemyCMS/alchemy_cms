@@ -22,6 +22,7 @@ require 'alchemy/errors'
 require 'alchemy/essence'
 require 'alchemy/ferret/search'
 require 'alchemy/filetypes'
+require "alchemy/forms/builder"
 require 'alchemy/i18n'
 require 'alchemy/logger'
 require 'alchemy/modules'

@@ -1,9 +1,7 @@
-<%= simple_form_for([:admin, @page], :remote => true) do |f| %>
+<%= alchemy_form_for([:admin, @page], :remote => true) do |f| %>
   <%= f.hidden_field(:parent_id) %>
   <%= f.hidden_field(:layoutpage) %>
   <%= f.input :page_layout, collection: @page_layouts, label: _t(:page_type), include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :name %>
-  <div class="submit">
-    <%= f.button :submit, _t(:create) %>
-  </div>
+  <%= f.submit, _t(:create) %>
 <% end %>

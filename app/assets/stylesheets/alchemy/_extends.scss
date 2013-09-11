@@ -94,8 +94,6 @@
   &:focus {
     @extend %blue-focus-style;
   }
-
-  &.with_error { @extend %field-with-error }
 }
 
 %gradiated-toolbar {

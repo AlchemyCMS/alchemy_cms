@@ -45,6 +45,30 @@ form {
         max-width: 80% !important;
       }
     }
+
+    &.field_with_errors {
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      textarea {
+        @extend %field-with-error
+      }
+
+      .selectboxit-container { border-color: $error_border_color }
+
+      label { color: $error_text_color }
+    }
+
+    small.error {
+      color: $error_text_color;
+      display: block;
+      margin-left: $form-left-width;
+      line-height: 1.5em;
+      clear: both;
+      text-align: right;
+      margin-bottom: 0.25em;
+    }
   }
 
   .checkbox_group {

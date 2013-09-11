@@ -7,6 +7,8 @@ module Alchemy
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
+      helper 'alchemy/admin/form'
+
       check_authorization
 
       rescue_from Exception do |exception|
