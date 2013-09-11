@@ -131,6 +131,10 @@ hr {
   @include user-select(none);
 }
 
+.border-box-sizing {
+  @include box-sizing(border-box);
+}
+
 span.updated_at {
   float: right;
 }

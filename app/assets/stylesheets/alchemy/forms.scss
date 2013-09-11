@@ -18,7 +18,13 @@ form {
   }
 
   h2 {
-    text-decoration: underline;
+    border-bottom: 1px solid #CECECE;
+    padding-right: 8px;
+    margin-top: 8px;
+    text-align: right;
+    font-weight: normal;
+    color: #585858;
+    text-transform: uppercase;
   }
 
   .input {
@@ -26,12 +32,15 @@ form {
     @include pie-clearfix;
 
     > label {
-      // width: $form-left-width;
+      @extend .border-box-sizing;
+      width: $form-left-width;
       padding-right: 2*$default-padding;
+      margin-top: 4px;
       vertical-align: top;
-      padding-top: 11px;
+      line-height: 29px;
       word-break: break-all;
       float: left;
+      text-align: right;
     }
 
     &.select {
@@ -55,7 +64,10 @@ form {
         @extend %field-with-error
       }
 
-      .selectboxit-container { border-color: $error_border_color }
+      .selectboxit {
+        border-color: $error_border_color;
+        color: $error_text_color;
+      }
 
       label { color: $error_text_color }
     }
