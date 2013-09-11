@@ -1,27 +1,12 @@
-<%= form_for([:admin, @attachment], :url => {:action => :update, :query => params[:query], :page => params[:page]}, :remote => true) do |f| -%>
-  <div id="errors"></div>
-  <table>
-    <tr>
-      <td class="label"><%= f.label :name %></td>
-      <td class="input"><%= f.text_field :name, :class => 'thin_border long', :autofocus => true %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label :file_name %>*</td>
-      <td class="input">
-        <%= f.text_field :file_name, :class => 'thin_border long' %>
-        <p class="foot_note"><%= _t(:attachment_filename_notice) %></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label :tag_list %></td>
-      <td class="input">
-        <%= render 'alchemy/admin/partials/autocomplete_tag_list', :object => @attachment, :f => f %>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="submit">
-        <%= f.button _t(:save), :class => 'button' %>
-      </td>
-    </tr>
-  </table>
+<%= simple_form_for([:admin, @attachment],
+  url: {action: :update, query: params[:query], page: params[:page]}, remote: true) do |f| -%>
+  <%= f.input :name, input_html: {autofocus: true} %>
+  <%= f.input :file_name, input_html: {autofocus: true}, hint: _t(:attachment_filename_notice) %>
+  <div class="input string">
+    <%= f.label :tag_list %>
+    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @attachment %>
+  </div>
+  <div class="submit">
+    <%= f.button :submit, _t(:save) %>
+  </div>
 <% end %>

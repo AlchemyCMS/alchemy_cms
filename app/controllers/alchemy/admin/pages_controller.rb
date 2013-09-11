@@ -65,12 +65,13 @@ module Alchemy
           @page = Page.new(page_params)
         end
         if @page.save
-          redirect_path = params[:redirect_to] || edit_admin_page_path(@page)
+          flash[:notice] = _t("Page created", :name => @page.name)
+          do_redirect_to(params[:redirect_to] || edit_admin_page_path(@page))
         else
-          # TODO: Make a rollback, because the page is already persisted here.
-          redirect_path = admin_pages_path
+          @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
+          @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
+          render :new
         end
-        render_errors_or_redirect(@page, redirect_path, _t("Page created", :name => @page.name))
       end
 
       # Edit the content of the page and all its elements and contents.
@@ -89,10 +90,11 @@ module Alchemy
       # Set page configuration like page names, meta tags and states.
       def configure
         # fetching page via before filter
+        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
         if @page.redirects_to_external?
           render action: 'configure_external'
         else
-          @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
+          render action: 'configure'
         end
       end
 

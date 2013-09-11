@@ -3,7 +3,12 @@ $form-right-width: 65%;
 
 form {
 
-  input[type="text"], input[type="email"], input[type="password"], textarea, .selectboxit-container {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  .selectboxit-container,
+  .autocomplete_tag_list {
     width: $form-right-width;
     float: right;
   }

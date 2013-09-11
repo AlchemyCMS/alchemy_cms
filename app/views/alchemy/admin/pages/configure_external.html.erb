@@ -1,40 +1,28 @@
-<%= form_for([:admin, @page], :remote => true) do |f| %>
+<%= simple_form_for([:admin, @page], :remote => true) do |f| %>
   <div id="errors"></div>
-  <table id="page_names">
-    <tr>
-      <td class="label"><%= _t(:page_type) %>: </td>
-      <td class="value long">
-        <p><%= @page.layout_display_name %></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="label"><%= _t(:page_status) %>: </td>
-      <td class="checkbox long">
-        <%= f.check_box :visible -%>
-        <%= f.label :visible %><br/>
-        <%- if configuration(:sitemap)[:show_flag] -%><br/>
-          <%= f.check_box :sitemap -%>
-          <%= f.label :sitemap %>
-        <%- end -%>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" class="heading"><%= _t(:names) %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "name" %>:&nbsp;</td>
-      <td class="input"><%= f.text_field( "name", :size => 31, :class => "thin_border long") %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "urlname" %>: </td>
-      <td class="input"><%= f.text_field "urlname", :size => 31, :class => "thin_border long" %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "title" %>: </td>
-      <td class="input"><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="submit"><%= f.button _t(:save), :class => 'button' %></td>
-    </tr>
-  </table>
+  <%= f.input :page_layout, collection: @page_layouts, label: _t(:page_type), include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
+  <div class="input">
+    <label><%= _t(:page_status) %></label>
+    <div class="checkbox_group">
+      <%= f.check_box :visible %>
+      <%= f.label :visible %><br/>
+      <% if configuration(:sitemap)[:show_flag] %><br/>
+        <%= f.check_box :sitemap %>
+        <%= f.label :sitemap %>
+      <% end %>
+    </div>
+  </div>
+  <h2><%= _t(:names) %></h2>
+  <%= f.input :name, autofocus: true %>
+  <%= f.input :urlname, as: 'string' %>
+  <%= f.input :title %>
+  <% if @page.taggable? %>
+    <div class="input string">
+      <%= f.label :tag_list %>
+      <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => @page %>
+    </div>
+  <% end %>
+  <div class="submit">
+    <%= f.button :submit, _t(:save) %>
+  </div>
 <% end %>
