@@ -106,7 +106,8 @@ module Alchemy
           @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
-          render_remote_errors(@page)
+          raise 'Implement alternative for render_remote_errors'
+          # render_remote_errors(@page)
         end
       end
 

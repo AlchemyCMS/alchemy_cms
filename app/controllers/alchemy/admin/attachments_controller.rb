@@ -49,11 +49,10 @@ module Alchemy
 
       def update
         @attachment = Attachment.find(params[:id])
-        oldname = @attachment.name
-        @attachment.update_attributes(params[:attachment])
+        @attachment.update_attributes(attachment_attributes)
         render_errors_or_redirect(
           @attachment,
-          admin_attachments_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page]),
+          admin_attachments_path(page: params[:page], query: params[:query], per_page: params[:per_page]),
           _t("File successfully updated")
         )
       end
@@ -62,7 +61,7 @@ module Alchemy
         @attachment = Attachment.find(params[:id])
         name = @attachment.name
         @attachment.destroy
-        flash[:notice] = _t("File: '%{name}' deleted successfully", :name => name)
+        flash[:notice] = _t("File: '%{name}' deleted successfully", name: name)
       end
 
       def show
@@ -96,6 +95,10 @@ module Alchemy
             render action: 'archive_overlay'
           }
         end
+      end
+
+      def attachment_attributes
+        params.require(:attachment).permit(:name, :file_name, :tag_list)
       end
 
     end

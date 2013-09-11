@@ -201,7 +201,7 @@ $.extend Alchemy,
     form.bind "ajax:complete", (e, xhr, status) ->
       if status == 'success'
         if xhr.getResponseHeader('Content-Type').match(/javascript/)
-          dialog.empty()
+          Alchemy.closeCurrentWindow()
         else
           dialog.html(xhr.responseText)
           Alchemy.GUI.init(dialog)
@@ -210,12 +210,17 @@ $.extend Alchemy,
         Alchemy.AjaxErrorHandler(dialog, xhr.status, status)
 
   # Closes the current dialog
-  closeCurrentWindow: ->
-    if Alchemy.CurrentWindow
-      Alchemy.CurrentWindow.dialog "close"
-      Alchemy.CurrentWindow = null
-    else
-      $(".alchemy_overlay").dialog "close"
+  #
+  # You can pass a callback function that will be executed after dialog gets closed.
+  #
+  closeCurrentWindow: (callback) ->
+    dialog = Alchemy.CurrentWindow || $(".alchemy_overlay")
+    if callback
+      dialog.on "dialogclose", (event, ui) ->
+        callback()
+        dialog.remove()
+    Alchemy.CurrentWindow = undefined
+    dialog.dialog("close")
     true
 
   # Opens an image in an overlay

@@ -1,6 +1,0 @@
-$('<%= @error_div_id %>').html('<%= escape_javascript(@errors) %>').show();
-$('label, input, select').removeClass('with_error');
-<% @error_fields.each do |field| %>
-$('label[for="<%= field %>"], input#<%= field %>, #<%= field %>SelectBoxIt').addClass('with_error');
-<% end %>
-Alchemy.Buttons.enable();

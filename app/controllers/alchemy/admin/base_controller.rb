@@ -105,29 +105,8 @@ module Alchemy
           flash[:notice] = _t(flash_notice)
           do_redirect_to redirect_url
         else
-          respond_to do |format|
-            format.js   { render_remote_errors(object) }
-            format.html { render :action => (params[:action] == "update" ? :edit : :new) }
-          end
+          render action: (params[:action] == 'update' ? 'edit' : 'new')
         end
-      end
-
-      # Renders an unordered list of objects errors in an errors div via javascript.
-      #
-      # Note: You have to have a hidden div with the id +#errors+ in your form, to make this work.
-      #
-      # You can pass a div id as second argument to display the errors in alternative div.
-      #
-      # Hint: If you use an alternative div, please use the +errors+ css class to get the correct styling.
-      #
-      # @param object [ActiveRecord::Base]
-      # @param error_div_id [String]
-      #
-      def render_remote_errors(object, error_div_id = nil)
-        @error_div_id = error_div_id || '#errors'
-        @error_fields = object.errors.messages.keys.map { |f| "#{object.class.model_name.to_s.demodulize.underscore}_#{f}" }
-        @errors = ("<ul>" + object.errors.full_messages.map { |e| "<li>#{e}</li>" }.join + "</ul>").html_safe
-        render :action => :remote_errors
       end
 
       def per_page_value_for_screen_size
@@ -140,7 +119,10 @@ module Alchemy
       #
       def do_redirect_to(url_or_path)
         respond_to do |format|
-          format.js   { render :redirect }
+          format.js   {
+            @redirect_url = url_or_path
+            render :redirect
+          }
           format.html { redirect_to url_or_path }
         end
       end
