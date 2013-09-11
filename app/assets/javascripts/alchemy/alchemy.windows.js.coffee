@@ -185,15 +185,29 @@ $.extend Alchemy,
                 widget.css left: (($(window).width() / 2) - ($dialog.width() / 2))
               if options.height is "auto"
                 widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
-              Alchemy.GUI.init Alchemy.CurrentWindow
+              Alchemy.GUI.init(Alchemy.CurrentWindow)
               if options.image_loader
                 Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
+              Alchemy.watchRemoteForms($dialog)
           error: (XMLHttpRequest, textStatus, errorThrown) ->
-            Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
+            Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
           complete: (jqXHR, textStatus) ->
             Alchemy.Buttons.enable()
       close: ->
         $dialog.remove()
+
+  watchRemoteForms: (dialog) ->
+    form = $('[data-remote="true"]', dialog)
+    form.bind "ajax:complete", (e, xhr, status) ->
+      if status == 'success'
+        if xhr.getResponseHeader('Content-Type').match(/javascript/)
+          dialog.empty()
+        else
+          dialog.html(xhr.responseText)
+          Alchemy.GUI.init(dialog)
+          Alchemy.watchRemoteForms(dialog)
+      else
+        Alchemy.AjaxErrorHandler(dialog, xhr.status, status)
 
   # Closes the current dialog
   closeCurrentWindow: ->
