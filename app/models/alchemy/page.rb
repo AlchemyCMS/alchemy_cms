@@ -26,7 +26,8 @@ module Alchemy
       :tag_list,
       :title,
       :urlname,
-      :visible
+      :visible,
+      :layoutpage
     ]
 
     acts_as_taggable
