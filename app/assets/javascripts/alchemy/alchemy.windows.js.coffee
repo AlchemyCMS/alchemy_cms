@@ -186,6 +186,7 @@ $.extend Alchemy,
               if options.height is "auto"
                 widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
               Alchemy.GUI.init(Alchemy.CurrentWindow)
+              $("#overlay_tabs", $dialog).tabs()
               if options.image_loader
                 Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
               Alchemy.watchRemoteForms($dialog)

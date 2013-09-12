@@ -31,6 +31,7 @@
               $dialog.css overflow: 'visible'
               $dialog.dialog('widget').css overflow: 'visible'
               self.attachEvents()
+              $('#overlay_tabs').tabs()
             error: (XMLHttpRequest, textStatus, errorThrown) ->
               Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
           })
