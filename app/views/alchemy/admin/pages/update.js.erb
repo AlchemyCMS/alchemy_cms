@@ -1,6 +1,6 @@
 (function() {
 
-Alchemy.growl("<%= @notice -%>");
+  Alchemy.growl("<%= @notice -%>");
 
 <% if @old_page_layout != @page.page_layout %>
   Alchemy.ElementsWindow.reload();
@@ -33,6 +33,6 @@ Alchemy.growl("<%= @notice -%>");
 
 <% end %>
 
-Alchemy.closeCurrentWindow();
+  Alchemy.closeCurrentWindow();
 
 })()

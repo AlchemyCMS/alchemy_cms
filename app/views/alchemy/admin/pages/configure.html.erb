@@ -1,4 +1,4 @@
-<%= alchemy_form_for([:admin, @page], :remote => true) do |f| %>
+<%= alchemy_form_for [:admin, @page], remote: true, class: 'edit_page' do |f| %>
   <%= f.input :page_layout, collection: @page_layouts, label: _t(:page_type), include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
   <% unless @page.layoutpage %>
     <div class="input">
@@ -38,8 +38,8 @@
   <% if @page.taggable? %>
     <div class="input string">
       <%= f.label :tag_list %>
-      <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => @page %>
+      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @page %>
     </div>
   <% end %>
-  <%= f.submit, _t(:save) %>
+  <%= f.submit _t(:save) %>
 <% end %>

@@ -89,8 +89,7 @@ module Alchemy
 
       # Set page configuration like page names, meta tags and states.
       def configure
-        # fetching page via before filter
-        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
+        @page_layouts = load_page_layouts
         if @page.redirects_to_external?
           render action: 'configure_external'
         else
@@ -106,8 +105,8 @@ module Alchemy
           @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
-          raise 'Implement alternative for render_remote_errors'
-          # render_remote_errors(@page)
+          @page_layouts = load_page_layouts
+          render :configure
         end
       end
 
@@ -239,6 +238,10 @@ module Alchemy
 
       def load_page
         @page = Page.find(params[:id])
+      end
+
+      def load_page_layouts
+        PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
       end
 
       def pages_from_raw_request
