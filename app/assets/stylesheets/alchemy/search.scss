@@ -1,6 +1,7 @@
 .search_field {
   position: relative;
   margin-bottom: $default-margin;
+  height: 29px;
 }
 
 .search_field_clear, .js_filter_field_clear {
@@ -15,7 +16,7 @@
   text-decoration: none !important;
 }
 
-td#tags_tag_list {
+#tags_tag_list {
   text-align: left;
   padding-top: 5px;
 

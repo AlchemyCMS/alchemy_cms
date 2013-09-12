@@ -8,6 +8,9 @@ module Alchemy
 
       respond_to :html, :js
 
+      before_action :load_picture,
+        only: [:show, :edit, :update, :info, :destroy]
+
       authorize_resource class: Alchemy::Picture
 
       def index
@@ -73,11 +76,12 @@ module Alchemy
       end
 
       def show
-        @picture = Picture.find(params[:id])
+      end
+
+      def info
       end
 
       def edit
-        @picture = Picture.find(params[:id])
       end
 
       def edit_multiple
@@ -85,10 +89,8 @@ module Alchemy
       end
 
       def update
-        @picture = Picture.find(params[:id])
-
-        if @picture.update_attributes(params[:picture])
-          flash[:notice] = _t(:picture_updated_successfully, :name => @picture.name)
+        if @picture.update_attributes(picture_params)
+          flash[:notice] = _t(:picture_updated_successfully, name: @picture.name)
         else
           flash[:error] = _t(:picture_update_failed)
         end
@@ -135,7 +137,6 @@ module Alchemy
       end
 
       def destroy
-        @picture = Picture.find(params[:id])
         name = @picture.name
         @picture.destroy
         flash[:notice] = _t("Picture deleted successfully", :name => name)
@@ -151,11 +152,11 @@ module Alchemy
         @notice = _t('Picture cache flushed')
       end
 
-      def info
+    private
+
+      def load_picture
         @picture = Picture.find(params[:id])
       end
-
-    private
 
       def pictures_per_page_for_size(size)
         case size
@@ -195,6 +196,10 @@ module Alchemy
           :size => params[:size],
           :filter => params[:filter]
         )
+      end
+
+      def picture_params
+        params.require(:picture).permit(:name, :tag_list)
       end
 
     end

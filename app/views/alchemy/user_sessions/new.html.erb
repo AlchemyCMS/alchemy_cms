@@ -3,7 +3,7 @@
     <%= image_tag("alchemy/alchemy-logo.png", style: "width: 240px; height: 70px") %>
   </div>
   <div class="login_signup_box">
-    <%= alchemy_form_for :user, url: {action: 'create'}, html: {id: 'login'} do |f| %>
+    <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login' do |f| %>
       <%= f.input :login, autofocus: true %>
       <%= f.input :password %>
       <p class="foot_note">

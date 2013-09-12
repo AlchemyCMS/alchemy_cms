@@ -9,6 +9,7 @@ module Alchemy
         @attachments = Attachment.all
         @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
         @attachments = @attachments.find_paginated(params, 15, sort_order)
+        @options = options_from_params
         if in_overlay?
           archive_overlay
         else

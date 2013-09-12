@@ -1,14 +1,22 @@
-<%= alchemy_form_for([:admin, @page], :remote => true) do |f| %>
-  <%= f.input :page_layout, collection: @page_layouts, label: _t(:page_type), include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
+<%= alchemy_form_for [:admin, @page] do |f| %>
+  <%= f.input :page_layout,
+    collection: @page_layouts,
+    label: _t(:page_type),
+    include_blank: false,
+    input_html: {class: 'alchemy_selectbox'} %>
   <div class="input">
     <label><%= _t(:page_status) %></label>
     <div class="checkbox_group">
-      <%= f.check_box :visible %>
-      <%= f.label :visible %><br/>
-      <% if configuration(:sitemap)[:show_flag] %><br/>
+      <label class="checkbox">
+        <%= f.check_box :visible %>
+        <%= f.object.class.human_attribute_name :visible %>
+      </label>
+    <% if configuration(:sitemap)[:show_flag] %>
+      <label class="checkbox">
         <%= f.check_box :sitemap %>
-        <%= f.label :sitemap %>
-      <% end %>
+        <%= f.object.class.human_attribute_name :sitemap %>
+      </label>
+    <% end %>
     </div>
   </div>
   <h2><%= _t(:names) %></h2>

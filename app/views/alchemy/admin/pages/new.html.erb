@@ -1,42 +1,23 @@
 <%- if @clipboard_items.blank? -%>
-<%= render :partial => 'new_page_form' %>
+  <%= render 'new_page_form' %>
 <%- else -%>
 <div id="overlay_tabs">
   <ul>
     <li><a href="#create_page_tab"><%= _t('New page') %></a></li>
     <li><a href="#paste_page_tab"><%= _t('Paste from clipboard') %></a></li>
   </ul>
-  <div id="errors"></div>
   <div id="create_page_tab">
-    <%= render :partial => 'new_page_form' %>
+    <%= render 'new_page_form' %>
   </div>
   <div id="paste_page_tab">
-    <%= form_for([:admin, @page], :remote => true, :html => {:id => 'paste_page_form'}) do |f| %>
+    <%= alchemy_form_for [:admin, @page] do |f| %>
       <%= f.hidden_field(:parent_id) %>
-      <table id="paste_page_form">
-        <tr>
-          <td class="label">
-            <label for="paste_from_clipboard"><%= _t("Page") %></label>
-          </td>
-          <td class="select">
-            <%= clipboard_select_tag(@clipboard_items) %>
-          </td>
-        </tr>
-        <tr>
-          <td class="label">
-            <%= f.label :name %>
-          </td>
-          <td class="input">
-            <%= f.text_field(:name, :size => 15, :class => "thin_border") %>
-          </td>
-        </tr>
-        <tr>
-          <td class="label">&nbsp;</td>
-          <td class="submit">
-            <%= f.button _t(:paste), :class => 'button', :name => nil %>
-          </td>
-        </tr>
-      </table>
+      <div class="input select">
+        <label for="paste_from_clipboard"><%= _t("Page") %></label>
+        <%= clipboard_select_tag(@clipboard_items) %>
+      </div>
+      <%= f.input :name %>
+      <%= f.submit _t(:paste) %>
     <% end %>
   </div>
 </div>

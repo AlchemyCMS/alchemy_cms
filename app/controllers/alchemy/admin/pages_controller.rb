@@ -66,7 +66,7 @@ module Alchemy
         end
         if @page.save
           flash[:notice] = _t("Page created", :name => @page.name)
-          do_redirect_to(params[:redirect_to] || edit_admin_page_path(@page))
+          do_redirect_to(redirect_path_for_create_language)
         else
           @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
           @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
@@ -89,24 +89,22 @@ module Alchemy
 
       # Set page configuration like page names, meta tags and states.
       def configure
-        @page_layouts = load_page_layouts
-        if @page.redirects_to_external?
-          render action: 'configure_external'
-        else
-          render action: 'configure'
-        end
+        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
+        render @page.redirects_to_external? ? 'configure_external' : 'configure'
       end
 
+      # Updates page
+      #
+      # * fetches page via before filter
+      #
       def update
-        # fetching page via before filter
-        # storing old page_layout value, because unfurtunally rails @page.changes does not work here.
+        # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
         if @page.update_attributes(page_params)
           @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
-          @page_layouts = load_page_layouts
-          render :configure
+          configure
         end
       end
 
@@ -240,10 +238,6 @@ module Alchemy
         @page = Page.find(params[:id])
       end
 
-      def load_page_layouts
-        PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
-      end
-
       def pages_from_raw_request
         request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
       end
@@ -264,6 +258,14 @@ module Alchemy
           admin_layoutpages_path
         else
           admin_pages_path
+        end
+      end
+
+      def redirect_path_for_create_language
+        if @page.redirects_to_external?
+          admin_pages_path
+        else
+          params[:redirect_to] || edit_admin_page_path(@page)
         end
       end
 

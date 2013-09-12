@@ -368,6 +368,7 @@ select {
         padding-right: 24px;
         font-size: 10px;
         line-height: 1.5 !important;
+        height: auto;
       }
 
       .selectboxit-arrow-container {
@@ -398,7 +399,8 @@ select {
       @extend .disable-user-select;
       @extend %text-overflow;
       padding-right: 32px;
-      line-height: normal !important;
+      line-height: 17px !important;
+      height: 17px;
     }
 
     /* Dropdown List Down Arrow Container (if an image is not used) */

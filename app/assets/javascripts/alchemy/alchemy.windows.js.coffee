@@ -206,6 +206,7 @@ $.extend Alchemy,
         else
           dialog.html(xhr.responseText)
           Alchemy.GUI.init(dialog)
+          $("#overlay_tabs", dialog).tabs()
           Alchemy.watchRemoteForms(dialog)
       else
         Alchemy.AjaxErrorHandler(dialog, xhr.status, status)

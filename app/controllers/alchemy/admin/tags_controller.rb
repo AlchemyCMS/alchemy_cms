@@ -15,7 +15,7 @@ module Alchemy
       end
 
       def create
-        @tag = ActsAsTaggableOn::Tag.create(params[:tag])
+        @tag = ActsAsTaggableOn::Tag.create(tag_params)
         render_errors_or_redirect @tag, admin_tags_path, _t('New Tag Created')
       end
 
@@ -25,12 +25,12 @@ module Alchemy
 
       def update
         if params[:replace]
-          @new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
+          @new_tag = ActsAsTaggableOn::Tag.find(tag_params[:merge_to])
           Tag.replace(@tag, @new_tag)
           operation_text = _t('Replaced Tag %{old_tag} with %{new_tag}') % {:old_tag => @tag.name, :new_tag => @new_tag.name}
           @tag.destroy
         else
-          @tag.update_attributes(params[:tag])
+          @tag.update_attributes(tag_params)
           @tag.save
           operation_text = _t(:successfully_updated_tag)
         end
@@ -54,6 +54,10 @@ module Alchemy
 
       def load_tag
         @tag = ActsAsTaggableOn::Tag.find(params[:id])
+      end
+
+      def tag_params
+        params.require(:tag).permit(:name, :merge_to)
       end
 
     end

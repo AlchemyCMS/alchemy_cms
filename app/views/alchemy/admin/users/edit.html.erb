@@ -1,6 +1,3 @@
-<div id="user_edit">
-  <%= form_for [:admin, @user], :remote => true do |f| %>
-    <div id="errors"></div>
-    <%= render :partial => 'table', :locals => {:f => f} %>
-  <% end %>
-</div>
+<%= alchemy_form_for [:admin, @user] do |f| %>
+  <%= render 'fields', f: f %>
+<% end %>

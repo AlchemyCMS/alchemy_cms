@@ -12,6 +12,9 @@ module Alchemy
       helper 'alchemy/url'
 
       def edit
+        if @options[:image_float_selector]
+          ActiveSupport::Deprecation.warn('The `image_float_selector` option for EssencePicture editor partials is deprecated. You can safely remove the option from your editor partial, the selector is shown anyway.')
+        end
       end
 
       def crop
@@ -27,7 +30,7 @@ module Alchemy
       end
 
       def update
-        @essence_picture.update_attributes(params[:essence_picture])
+        @essence_picture.update_attributes(essence_picture_params)
       end
 
       # Assigns picture, but does not saves it.
@@ -101,6 +104,10 @@ module Alchemy
         else
           @size_x.to_f / @size_y.to_f
         end
+      end
+
+      def essence_picture_params
+        params.require(:essence_picture).permit(:alt_tag, :caption, :css_class, :render_size, :title)
       end
 
     end

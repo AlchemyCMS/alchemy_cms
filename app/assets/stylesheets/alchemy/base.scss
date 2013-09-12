@@ -234,25 +234,12 @@ div#userinfo {
   top: 1px;
 }
 
-div#user_list_legend {
-  overflow: auto;
-  padding: 1px 1px 4px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid black;
-  width: 370px;
-}
-
 #page_sorting_panel p {
   margin-top: 1em;
 }
 
 div.table_right span.tools a.icon_button img {
   left: -1px;
-}
-
-#user_edit form {
-  margin: 0;
-  padding: 2*$default-padding;
 }
 
 li.even {
@@ -471,15 +458,6 @@ div#images {
 
     .button.with_icon { float: left }
   }
-}
-
-textarea#essence_picture_caption {
-  width: 233px;
-  height: 61px;
-}
-
-#alchemy .ui-dialog-content form.with_padding table td {
-  vertical-align: top;
 }
 
 #page_selector_scroll_container {

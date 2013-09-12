@@ -565,6 +565,11 @@ en:
             too_short: "^The pages urlname is too short (minimum of 3 characters)."
             taken: "^URL-Name already taken."
             exclusion: "^URL-Name reserved."
+      alchemy/user:
+        attributes:
+          roles:
+            blank: "at least one role must be given"
+
 
   activemodel:
     models:
@@ -617,7 +622,10 @@ en:
         public: "visible"
 
       alchemy/essence_file:
-        css_class: CSS Class
+        css_class: Style
+
+      alchemy/essence_picture:
+        css_class: Style
 
       alchemy/language:
         code: "Languagecode"

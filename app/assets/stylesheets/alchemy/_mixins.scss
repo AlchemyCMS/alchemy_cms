@@ -25,6 +25,41 @@
   clear: both;
 }
 
+@mixin form-label {
+  @extend .border-box-sizing;
+  width: $form-left-width;
+  padding-right: 2*$default-padding;
+  padding-top: $default-padding + 1;
+  margin-top: 4px;
+  vertical-align: top;
+  line-height: 19px;
+  word-break: normal;
+  float: left;
+  text-align: right;
+}
+
+@mixin form-heading {
+  border-bottom: 1px solid #CECECE;
+  padding-right: 8px;
+  margin-top: 8px;
+  text-align: right;
+  font-weight: normal;
+  color: #585858;
+  text-transform: uppercase;
+}
+
+@mixin form-value-display {
+  float: right;
+  width: $form-right-width;
+  margin: $default-form-field-margin;
+  padding: $default-padding 2*$default-padding;
+  line-height: 21px;
+  min-height: 29px;
+  background: white;
+  @extend .rounded-border;
+  @extend .border-box-sizing;
+}
+
 @mixin animate-left {
   -webkit-transition: left 0.15s ease-in-out;
   -moz-transition: left 0.15s ease-in-out;

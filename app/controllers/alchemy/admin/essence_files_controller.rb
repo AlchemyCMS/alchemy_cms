@@ -7,6 +7,7 @@ module Alchemy
 
       def edit
         @content = Content.find(params[:id])
+        @options = options_from_params
         @essence_file = @content.essence
       end
 

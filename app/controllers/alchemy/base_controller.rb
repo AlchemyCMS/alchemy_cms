@@ -12,6 +12,8 @@ module Alchemy
 
     helper_method :current_server, :current_site, :multi_site?
 
+    helper 'alchemy/admin/form'
+
     rescue_from CanCan::AccessDenied do |exception|
       permission_denied(exception)
     end

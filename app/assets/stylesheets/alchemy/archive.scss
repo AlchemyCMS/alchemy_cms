@@ -347,20 +347,23 @@ div#alchemy_window_body {
 }
 
 div#pictures_page_list {
+  max-height: 100px;
+  overflow: auto;
 
-  h2 { margin: 0 2*$default-padding }
   h3 { padding: 0 $default-padding }
 
-  ul.list {
-    max-height: 100px;
-    overflow: auto;
-    margin: 2*$default-margin;
-    background-color: $medium-gray;
-
-    ul { padding: 0 $default-padding }
+  ul {
+    @include form-value-display;
+    list-style-type: none;
   }
 
-  li.even, li.odd { padding: $default-padding }
+  li {
+    padding: 0 $default-padding;
+
+    &.even { background: #F7F7F7 }
+
+    &:last-child { margin-bottom: 0 }
+  }
 }
 
 #overlay_file_list {

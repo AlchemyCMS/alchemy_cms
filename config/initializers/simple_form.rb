@@ -80,10 +80,10 @@ SimpleForm.setup do |config|
   # config.collection_value_methods = [ :id, :to_s ]
 
   # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
-  # config.collection_wrapper_tag = nil
+  config.collection_wrapper_tag = :div
 
   # You can define the class to use on all collection wrappers. Defaulting to none.
-  # config.collection_wrapper_class = nil
+  config.collection_wrapper_class = 'control_group'
 
   # You can wrap each item in a collection of radio/check boxes with a tag,
   # defaulting to :span. Please note that when using :boolean_style = :nested,
@@ -97,7 +97,7 @@ SimpleForm.setup do |config|
   config.label_text = lambda { |label, required| "#{label}#{required}" }
 
   # You can define the class to use on all labels. Default is nil.
-  # config.label_class = 'control-label'
+  config.label_class = 'control-label'
 
   # You can define the class to use on all forms. Default is simple_form.
   config.form_class = nil

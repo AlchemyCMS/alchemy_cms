@@ -209,16 +209,21 @@ module Alchemy
 
       # (internal) Renders a select tag for all items in the clipboard
       def clipboard_select_tag(items, html_options = {})
-        options = [[_t('Please choose'), ""]]
+        options = []
         items.each do |item|
           options << [item.class.to_s == 'Alchemy::Element' ? item.display_name_with_preview_text : item.name, item.id]
         end
+        option_tags = if !@page.new_record? && @page.can_have_cells?
+          grouped_options_for_select(grouped_elements_for_select(items, :id))
+        else
+          options_for_select(options)
+        end
         select_tag(
           'paste_from_clipboard',
-          !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+          option_tags,
           {
-            :class => [html_options[:class], 'alchemy_selectbox'].join(' '),
-            :style => html_options[:style]
+            class: [html_options[:class], 'alchemy_selectbox'].join(' '),
+            style: html_options[:style]
           }
         )
       end

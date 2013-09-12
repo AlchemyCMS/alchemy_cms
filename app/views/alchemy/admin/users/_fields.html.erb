@@ -1,0 +1,24 @@
+<%= f.input :gender,
+  collection: @user_genders,
+  prompt: _t('Please choose'),
+  input_html: {class: 'alchemy_selectbox'} %>
+<%= f.input :firstname %>
+<%= f.input :lastname %>
+<%= f.input :login, autofocus: true %>
+<%= f.input :email %>
+<%= f.input :language, collection: translations_for_select, include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
+<%= f.input :password %>
+<%= f.input :password_confirmation %>
+<% if can? :update_role, @user %>
+  <%= f.input :roles,
+    collection: Alchemy::User::ROLES.map { |role| [Alchemy::User.human_rolename(role), role] },
+    as: 'check_boxes' %>
+<% end %>
+<% unless @signup %>
+  <div class="input tag_list">
+    <%= f.label :tag_list %>
+    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @user %>
+  </div>
+<% end %>
+<%= f.input :send_credentials, as: 'boolean' %>
+<%= f.submit _t(:save) %>

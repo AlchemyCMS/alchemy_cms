@@ -11,7 +11,7 @@
           :content_id => content.id,
           :only => options[:file_assign_show_only],
           :except => options[:file_assign_do_not_show],
-          :options => options
+          :options => options.to_json
         ),
         {
           :title => _t(:assign_file),
@@ -36,7 +36,7 @@
           :content_id => content.id,
           :only => options[:file_assign_show_only],
           :except => options[:file_assign_do_not_show],
-          :options => options
+          :options => options.to_json
         ),
         {
           :title => _t(:assign_file),
@@ -50,6 +50,7 @@
         url_for(
           :controller => 'essence_files',
           :action => 'edit',
+          :options => options.to_json,
           :id => content
         ),
         {

@@ -230,7 +230,7 @@ de:
     "No EssenceType given": ""
     "No items in your clipboard": "Ihre Zwischenablage ist leer"
     "No Tags found": "Keine Tags gefunden"
-    "None": "keine"
+    "None": "ohne"
     "Open Link in": "Link öffnen in"
     "Page": "Seite"
     "Page deleted": "%{name} wurde gelöscht"
@@ -253,7 +253,7 @@ de:
     "Please enter a new password": "Bitte geben Sie Ihr neues Passwort ein."
     "Please enter your email address": "Bitte geben Sie Ihre E-Mail-Adresse ein."
     "Please log in": "Bitte melden Sie sich an."
-    "Please seperate the tags with commata": "* Die Tags bitte mit Kommata getrennt eingeben."
+    "Please seperate the tags with commata": "* Die Tags bitte mit Komma getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
@@ -514,6 +514,7 @@ de:
     "please enter subject and mail address": "Bitte geben Sie den Betreff und eine Empfängeradresse an."
     please_confirm: "Bitte bestätigen"
     please_wait: "Bitte warten"
+    position_in_text: "Textanordnung"
     preview_size: "Vorschaugröße"
     preview_sizes:
       '240': '240px (kleines Mobiltelefon)'
@@ -754,7 +755,7 @@ de:
       alchemy/element:
         attributes:
           name:
-            blank: "^Bitte wählen Sie ein Element."
+            blank: "Bitte wählen Sie ein Element."
       alchemy/language:
         attributes:
           language_code:
@@ -779,7 +780,9 @@ de:
           login:
             invalid: "darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
           email:
-            invalid: "entspricht nicht dem Format einer E-Mail-Adresse."
+            invalid: "entspricht nicht dem Format einer E-Mail-Adresse"
+          roles:
+            blank: "mindestens eine Rolle muss angegeben sein"
 
   activemodel:
 
@@ -860,7 +863,7 @@ de:
         tag_list: Tags
 
       alchemy/essence_file:
-        css_class: Textanordnung
+        css_class: Stil
 
       alchemy/essence_picture:
         caption: "Untertitel"
@@ -869,7 +872,7 @@ de:
         link: Link
         link_class_name: "Link CSS-Klasse"
         link_title: Link-Titel
-        css_class: Textanordnung
+        css_class: Stil
         link_target: Link-Ziel
         render_size: Darstellungsgröße
         crop_from: Bildmaskenursprung

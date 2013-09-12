@@ -27,10 +27,7 @@ module Alchemy
         @page = Page.find_by_id(params[:page_id])
         @element = @page.elements.build
         @elements = @page.available_element_definitions
-        clipboard_elements = get_clipboard[:elements]
-        unless clipboard_elements.blank?
-          @clipboard_items = Element.all_from_clipboard_for_page(clipboard_elements, @page)
-        end
+        @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard[:elements], @page)
       end
 
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
@@ -54,10 +51,12 @@ module Alchemy
         end
         @cell_name = @cell.nil? ? "for_other_elements" : @cell.name
         if @element.valid?
-          render :action => :create
+          render :create
         else
-          # render_remote_errors(@element, params[:paste_from_clipboard].nil? ? nil : '#paste_element_errors')
-          raise 'Implement alternative for render_remote_errors'
+          @element.page = @page
+          @elements = @page.available_element_definitions
+          @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard[:elements], @page)
+          render :new
         end
       end
 
