@@ -763,17 +763,17 @@ de:
       alchemy/page:
         attributes:
           name:
-            blank: "^Bitte geben Sie einen Namen ein."
+            blank: "Bitte geben Sie einen Namen ein."
           page_layout:
-            blank: "^Bitte wählen Sie einen Seitentyp."
+            blank: "Bitte wählen Sie einen Seitentyp."
           urlname:
-            too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
-            taken: "^Der URL-Name ist bereits vergeben."
-            exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+            too_short: "ist zu kurz (min. 3 Zeichen)"
+            taken: "ist bereits vergeben."
+            exclusion: "kann nicht benutzt werden."
       alchemy/picture:
         attributes:
           image_file:
-            blank: "^Bitte fügen Sie ein Bild an."
+            blank: "Bitte fügen Sie ein Bild an."
       alchemy/user:
         attributes:
           login:
