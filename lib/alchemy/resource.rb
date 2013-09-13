@@ -28,13 +28,18 @@ module Alchemy
   #
   # == Resource relations
   #
-  # Alchemy::Resource can take care of ActiveRecord relations. You will have to announce relations by defining a
-  # resource_relations class method in your model class that returns a hash like this:
+  # Alchemy::Resource can take care of ActiveRecord relations.
   #
-  #     {
-  #       :location_id => {:attr_method => "location#name", :attr_type => :string},
-  #       :organizer_id => {:attr_method => "organizer#name", :attr_type => :string}
-  #     }
+  # === BelongsTo Relations
+  #
+  # For belongs_to associations you will have to define a +alchemy_resource_relations+ class method in your model class:
+  #
+  #     def self.alchemy_resource_relations
+  #       {
+  #         location: {attr_method: 'name', attr_type: 'string'},
+  #         organizer: {attr_method: 'name', attr_type: 'string'}
+  #       }
+  #     end
   #
   # With this knowledge Resource#attributes will return location#name and organizer#name instead of location_id
   # and organizer_id. Refer to Alchemy::ResourcesController for further details on usage.
@@ -73,7 +78,7 @@ module Alchemy
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
       self.skip_attributes = model.respond_to?(:skip_attributes) ? model.skip_attributes : DEFAULT_SKIPPED_ATTRIBUTES
-      if model.respond_to?(:resource_relations)
+      if model.respond_to?(:alchemy_resource_relations)
         if not model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
         end
@@ -173,14 +178,10 @@ module Alchemy
     # Expands the resource_relations hash with matching activerecord associations data.
     def map_relations
       self.resource_relations = {}
-      model.resource_relations.each do |name, options|
+      model.alchemy_resource_relations.each do |name, options|
         name = name.to_s.gsub(/_id$/, '') # ensure that we don't have an id
         association = association_from_relation_name(name)
         foreign_key = association.options[:foreign_key] || "#{association.name}_id".to_sym
-        if options[:attr_method].to_s =~ /#/
-          ActiveSupport::Deprecation.warn('Old style :attr_method used in Alchemy::Ressource#resource_relations. Please remove the # and pass column name only.', caller[2..10])
-          options[:attr_method] = options[:attr_method].split('#').last
-        end
         self.resource_relations[foreign_key] = options.merge(:model_association => association, :name => name)
       end
     end

@@ -30,7 +30,7 @@ def module_definition
     "engine_name" => "party_engine",
     "navigation" => {
       "name" => "modules.party_list",
-      "controller" => "admin/parties",
+      "controller" => "/admin/parties",
       "action" => "index",
       "image" => "/assets/party_list_module.png"
     }
@@ -83,10 +83,10 @@ module Alchemy
         end
       end
 
-      context "when model has resource_relations defined" do
+      context "when model has alchemy_resource_relations defined" do
         before do
           Party.class_eval do
-            def self.resource_relations
+            def self.alchemy_resource_relations
               {location: {attr_method: 'name', type: 'string'}}
             end
           end
@@ -94,7 +94,7 @@ module Alchemy
             case arg
             when :reflect_on_all_associations
               then false
-            when :resource_relations
+            when :alchemy_resource_relations
               then true
             end
           }
@@ -109,7 +109,7 @@ module Alchemy
         after do
           Party.class_eval do
             class << self
-              undef resource_relations
+              undef alchemy_resource_relations
             end
           end
         end
