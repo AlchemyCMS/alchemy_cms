@@ -5,7 +5,7 @@
 <% end %>
 <% if @tags.any? -%>
   <h2 class="with_padding"><%= _t(:or_replace_it_with_an_existing_tag) %>:</h2>
-  <%= alchemy_form_for @tag, as: 'tag', url: alchemy.admin_tag_path(@tag, replace: true), html: {method: 'patch'} do |f| %>
+  <%= alchemy_form_for @tag, as: 'tag', url: alchemy.admin_tag_path(@tag), html: {method: 'patch'} do |f| %>
     <div class="input tags">
       <label class="control-label">Tags</label>
       <div class="control_group" id="tags_tag_list">

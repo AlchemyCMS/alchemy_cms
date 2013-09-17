@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class TagsController < ResourcesController
-
       before_filter :load_tag, :only => [:edit, :update, :destroy]
 
       def index
@@ -24,7 +23,7 @@ module Alchemy
       end
 
       def update
-        if params[:replace]
+        if tag_params[:merge_to]
           @new_tag = ActsAsTaggableOn::Tag.find(tag_params[:merge_to])
           Tag.replace(@tag, @new_tag)
           operation_text = _t('Replaced Tag %{old_tag} with %{new_tag}') % {:old_tag => @tag.name, :new_tag => @new_tag.name}
@@ -57,7 +56,7 @@ module Alchemy
       end
 
       def tag_params
-        params.require(:tag).permit(:name, :merge_to)
+        @tag_params ||= params.require(:tag).permit(:name, :merge_to)
       end
 
     end
