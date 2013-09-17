@@ -31,6 +31,11 @@ Alchemy.Initializer = ->
     delimiter = if url.match(/\?/) then '&' else '?'
     window.location = url + delimiter + 'locale=' + $(this).val()
 
+  # Submit forms of selects with `data-autosubmit="true"`
+  $('select[data-auto-submit="true"]').on 'change', (e) ->
+    Alchemy.pleaseWaitOverlay()
+    $(this.form).submit()
+
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content')
 

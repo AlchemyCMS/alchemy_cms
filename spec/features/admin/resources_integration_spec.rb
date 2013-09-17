@@ -72,9 +72,7 @@ describe "Resources" do
       end
 
       it "lists invalid fields" do
-        within('#errors') {
-          page.should have_content("Name can't be blank")
-        }
+        page.should have_content("can't be blank")
       end
 
       it "should not display success notice" do

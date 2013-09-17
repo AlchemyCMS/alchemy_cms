@@ -17,8 +17,8 @@ module Alchemy
         render_views
 
         it "has send_credentials checkbox activated" do
-          get :new
-          response.body.should match /<input checked="checked" id="user_send_credentials" name="user\[send_credentials\]" type="checkbox"/
+          xhr :get, :new
+          response.body.should match /<input checked=\"checked\".+name=\"user\[send_credentials\]\".+type=\"checkbox\"/
         end
       end
 
@@ -26,8 +26,8 @@ module Alchemy
         render_views
 
         it "has send_credentials checkbox deactivated" do
-          get :edit, id: admin.id
-          response.body.should match /<input id="user_send_credentials" name="user\[send_credentials\]" type="checkbox"/
+          xhr :get, :edit, id: admin.id
+          response.body.should match /<input name=\"user\[send_credentials\]\".+type=\"checkbox\"/
         end
       end
 

@@ -14,19 +14,13 @@ module Alchemy
 
     describe "language tree switching" do
       context "in a multilangual environment" do
-
-        before do
-          klingonian_root
-          Capybara.default_wait_time = 5 # Raising this helps this test to pass, even on travis-ci
-        end
+        before { klingonian_root }
 
         it "one should be able to switch the language tree" do
           visit('/admin/pages')
-          page.select 'Klingonian', :from => 'language'
-          page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
+          page.select 'Klingonian', from: 'language_id'
+          page.should have_selector('#sitemap .sitemap_pagename_link', text: 'Klingonian')
         end
-
-        after { Capybara.default_wait_time = 2 } # Reset to default
       end
 
       context "with no language root page" do
@@ -34,7 +28,7 @@ module Alchemy
 
         it "it should display the form for creating language root" do
           visit('/admin/pages')
-          page.select 'Klingonian', :from => 'language'
+          page.select 'Klingonian', from: 'language_id'
           page.should have_content('This language tree does not exist')
         end
       end
