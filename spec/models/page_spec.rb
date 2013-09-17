@@ -406,6 +406,13 @@ module Alchemy
           page.urlname.should == 'klingon-stoessel'
         end
 
+        context "with no name set" do
+          it "should not set a urlname" do
+            page = Page.create(name: '', language: language, parent_id: language_root.id)
+            expect(page.urlname).to be_blank
+          end
+        end
+
         it "should generate a three letter urlname from two letter name" do
           page = FactoryGirl.create(:page, :name => 'Au', :language => language, :parent_id => language_root.id)
           page.urlname.should == '-au'

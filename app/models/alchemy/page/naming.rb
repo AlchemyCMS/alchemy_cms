@@ -6,7 +6,7 @@ module Alchemy
     RESERVED_URLNAMES = %w(admin messages new)
 
     included do
-      before_validation :set_urlname, :if => :renamed?, :unless => proc { systempage? || redirects_to_external? }
+      before_validation :set_urlname, :if => :renamed?, :unless => proc { systempage? || redirects_to_external? || name.blank? }
 
       validates_presence_of :name
       validates_length_of :urlname, :minimum => 3, :if => 'urlname.present?'
