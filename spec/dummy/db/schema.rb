@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20131015125201) do
     t.integer  "updater_id"
     t.integer  "language_id"
     t.text     "cached_tag_list"
+    t.datetime "published_at"
   end
 
   add_index "alchemy_pages", ["language_id"], name: "index_pages_on_language_id"

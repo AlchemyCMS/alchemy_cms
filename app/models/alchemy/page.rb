@@ -271,12 +271,16 @@ module Alchemy
       end
     end
 
-    # Publishes the page
+    # Publishes the page.
     #
-    # Sets public true and saves the object.
+    # Sets +public+ to true and the +published_at+ value to current time.
+    #
+    # The +published_at+ attribute is used for +cache_key+.
+    #
     def publish!
       self.public = true
-      self.save
+      self.published_at = Time.now
+      self.save!
     end
 
   private

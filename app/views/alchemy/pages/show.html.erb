@@ -1,1 +1,3 @@
-<%= render_page_layout %>
+<% cache @page do %>
+  <%= render_page_layout %>
+<% end %>

@@ -1003,14 +1003,21 @@ module Alchemy
 
     describe '#publish!' do
       let(:page) { FactoryGirl.build_stubbed(:page, public: false) }
+      let(:current_time) { Time.now }
 
       before do
-        page.stub(:save).and_return(true)
+        current_time
+        Time.stub(:now).and_return(current_time)
+        page.stub(:save!).and_return(true)
         page.publish!
       end
 
       it "sets public attribute to true" do
         page.public.should == true
+      end
+
+      it "sets published_at attribute to current time" do
+        page.published_at.should == current_time
       end
     end
 

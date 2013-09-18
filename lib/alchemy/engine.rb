@@ -1,5 +1,4 @@
 # Require globally used external libraries
-require 'actionpack/action_caching'
 require 'actionpack/page_caching'
 require 'cancan'
 require 'coffee-rails'

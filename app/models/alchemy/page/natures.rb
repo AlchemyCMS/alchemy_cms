@@ -81,9 +81,12 @@ module Alchemy
       I18n.t(self.page_layout, :scope => :page_layout_names)
     end
 
-    # Overwrites the cache_key method.
-    def cache_key(request = nil)
-      "alchemy/pages/#{id}"
+    # Returns the key that's taken for cache path.
+    #
+    # Uses the +published_at+ value, that's updated when the user publishes the page.
+    #
+    def cache_key
+      "alchemy/pages/#{id}-#{published_at}"
     end
 
   end

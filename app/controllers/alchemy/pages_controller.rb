@@ -13,19 +13,6 @@ module Alchemy
     before_filter :load_page
     authorize_resource only: 'show'
 
-    caches_action(:show,
-      :cache_path => proc { @page.cache_key(request) },
-      :if => proc {
-        if @page && Alchemy::Config.get(:cache_pages)
-          pagelayout = PageLayout.get(@page.page_layout)
-          if (pagelayout['cache'].nil? || pagelayout['cache']) && pagelayout['searchresults'] != true
-            true
-          end
-        else
-          false
-        end
-      }, :layout => false)
-
     layout :layout_for_page
 
     # Showing page from params[:urlname]
@@ -34,15 +21,18 @@ module Alchemy
     # @language fetched via before_filter in alchemy_controller
     # querying for search results if any query is present via before_filter
     def show
-      respond_to do |format|
-        format.html { render }
-        format.rss {
-          if @page.contains_feed?
-            render :action => "show", :layout => false, :handlers => [:builder]
-          else
-            render :xml => {:error => 'Not found'}, :status => 404
-          end
-        }
+      expires_in cache_page? ? 1.month : 0
+      if !cache_page? || stale?(etag: @page, last_modified: @page.published_at, public: !@page.restricted)
+        respond_to do |format|
+          format.html { render }
+          format.rss {
+            if @page.contains_feed?
+              render action: 'show', layout: false, handlers: [:builder]
+            else
+              render xml: {error: 'Not found'}, status: 404
+            end
+          }
+        end
       end
     end
 
@@ -155,6 +145,29 @@ module Alchemy
 
     def last_legacy_url
       legacy_urls.last
+    end
+
+    # Returns true if the page should be cached.
+    #
+    # == Disable Alchemy's page caching globally
+    #
+    #     # config/alchemy/config.yml
+    #     ...
+    #     cache_pages: false
+    #
+    # == Disable caching on page layout level
+    #
+    #     # config/alchemy/page_layouts.yml
+    #     - name: contact
+    #       cache: false
+    #
+    # NOTE: Pages that are marked as searchresults are also not cached.
+    #
+    # @returns Boolean
+    def cache_page?
+      return false unless @page && Alchemy::Config.get(:cache_pages)
+      pagelayout = PageLayout.get(@page.page_layout)
+      pagelayout['cache'] != false && pagelayout['searchresults'] != true
     end
 
   end

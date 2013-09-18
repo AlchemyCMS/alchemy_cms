@@ -11,10 +11,6 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page
 
-      cache_sweeper Alchemy::PagesSweeper,
-        only: [:publish],
-        if: proc { Alchemy::Config.get(:cache_pages) }
-
       cache_sweeper Alchemy::ContentSweeper,
         only: [:create, :update, :destroy]
 
@@ -170,7 +166,7 @@ module Alchemy
         redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
       end
 
-      # Sets the page public and sweeps the page cache
+      # Sets the page public
       def publish
         # fetching page via before filter
         @page.publish!
