@@ -42,6 +42,7 @@ module Alchemy
 
     validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :page_layout, :unless => :systempage?
+    validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
     validates_presence_of :parent_id, :if => proc { Page.count > 1 }
 
     attr_accessor :do_not_sweep
@@ -197,6 +198,14 @@ module Alchemy
     # Touches the timestamps and userstamps
     def touch
       Page.where(id: self.id).update_all(updated_at: Time.now, updater_id: Alchemy.user_class.try(:stamper))
+    end
+
+    # The page's view partial is dependent from its page layout
+    #
+    # Page layout partials live in +app/views/alchemy/page_layouts+
+    #
+    def to_partial_path
+      "alchemy/page_layouts/#{page_layout}"
     end
 
     # Returns the previous page on the same level or nil.

@@ -1,22 +1,29 @@
 <%- if @element['contents'].present? -%>
-<%%= element_view_for(element) do |el| -%>
-<%- if @element["picture_gallery"] -%>
-  <div class="<%= @element_name %>_images">
-    <%%- element.contents.gallery_pictures.each do |image| -%>
-    <div class="<%= @element_name %>_image <%%= image.essence.css_class %>">
-      <%%= render_essence_view(image, :image_size => "160x120") %>
+<%%- cache(<%= @element_name %>_view) do -%>
+  <%%= element_view_for(<%= @element_name %>_view) do |el| -%>
+  <%- if @element["picture_gallery"] -%>
+    <div class="<%= @element_name %>_images">
+      <%%- <%= @element_name %>_view.contents.gallery_pictures.each do |image| -%>
+      <div class="<%= @element_name %>_image <%%= image.essence.css_class %>">
+        <%%= render_essence_view(image, :image_size => "160x120") %>
+      </div>
+      <%%- end -%>
     </div>
-    <%%- end -%>
-  </div>
-<%- end -%>
-<%- @contents.each do |content| -%>
-  <%- if @contents.length > 1 -%>
-  <div class="<%= content["name"] %>">
-    <%%= el.render :<%= content["name"] %> %>
-  </div>
-  <%- else -%>
-  <%%= el.render :<%= content["name"] %> %>
   <%- end -%>
-<%- end -%>
+  <%- @contents.each do |content| -%>
+    <%- if @contents.length > 1 -%>
+    <div class="<%= content["name"] %>">
+      <%%= el.render :<%= content["name"] %> %>
+    </div>
+    <%- else -%>
+    <%%= el.render :<%= content["name"] %> %>
+    <%- end -%>
+  <%- end -%>
+  <%- if @element['available_contents'] -%>
+    <%%- <%= @element_name %>_view.contents.where(name: ['<%= @available_contents_names.join("', '") %>']).each do |content| -%>
+      <%%= render_essence_view(content) %>
+    <%%- end -%>
+  <%- end -%>
+  <%%- end -%>
 <%%- end -%>
 <%- end -%>

@@ -10,6 +10,6 @@
   - element.contents.where(:name => ['<%= @available_contents_names.join("', '") %>']).each do |content|
     = render_essence_editor content
 
-  p= render_new_content_link(element)
+  p = render_new_content_link(element)
 <% end -%>
 <%- end -%>

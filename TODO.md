@@ -13,8 +13,9 @@
 
 * Cache element views and touch all pages that have this element on if element gets publishes
   => (pages_sweeper#pages_to_be_sweeped)
-* Cache content views and touch element on publish
+* Cache esssence views with name and updated_at as cache_key
 * Rack::Cache for pictures?
 * Remove sweepers
-* Benchamrk disk usage of local file system cache
+* Benchmark disk usage of local file system cache
 * Refactor Pages#flush. Use page.publish! ?
+* Do we need the fallback to page_layouts/standard?

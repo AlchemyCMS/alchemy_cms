@@ -1,5 +1,6 @@
 # Require globally used external libraries
 require 'actionpack/page_caching'
+require 'action_view/dependency_tracker'
 require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
@@ -17,6 +18,7 @@ require 'userstamp'
 
 # Require globally used Alchemy mixins
 require 'alchemy/auth_accessors'
+require 'alchemy/cache_digests/template_tracker'
 require 'alchemy/config'
 require 'alchemy/errors'
 require 'alchemy/essence'
@@ -67,6 +69,10 @@ module Alchemy
         Alchemy::Middleware::FlashSessionCookie,
         ::Rails.configuration.session_options[:key]
       )
+    end
+
+    initializer 'alchemy.dependency_tracker' do |app|
+      ActionView::DependencyTracker.register_tracker :erb, CacheDigests::TemplateTracker
     end
 
     config.after_initialize do
