@@ -202,6 +202,16 @@ module Alchemy
 
     # The page's view partial is dependent from its page layout
     #
+    # == Define page layouts
+    #
+    # Page layouts are defined in the +config/alchemy/page_layouts.yml+ file
+    #
+    #     - name: contact
+    #       elements: [contactform]
+    #       ...
+    #
+    # == Override the view
+    #
     # Page layout partials live in +app/views/alchemy/page_layouts+
     #
     def to_partial_path

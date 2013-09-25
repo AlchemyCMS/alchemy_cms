@@ -98,13 +98,20 @@
 
 <% elsif can?(:create, Alchemy::Page) %>
 
-  <%= render :partial => 'create_language_form' %>
+  <%= render partial: 'create_language_form' %>
   <% content_for(:javascripts) do %>
   <script type="text/javascript">
-    $(function($) {
-      Alchemy.CurrentWindow = $('#create_language_tree_form').dialog({modal: false, width: 360, resizable: false, close: function() {
-        $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
-      }});
+    $(function() {
+      Alchemy.CurrentWindow = $('#create_language_tree_form').dialog(
+        {
+          modal: false,
+          width: 360,
+          resizable: false,
+          close: function() {
+            $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
+          }
+        }
+      );
     });
   </script>
   <% end %>

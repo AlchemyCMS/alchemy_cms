@@ -15,7 +15,8 @@ module Alchemy
     include Logger
 
     belongs_to :page
-    validates_uniqueness_of :name, :scope => :page_id
+    validates_uniqueness_of :name, scope: 'page_id'
+    validates_format_of :name, with: /\A[a-z0-9_-]+\z/
     has_many :elements, -> { order(:position) }, dependent: :destroy
 
     class << self
@@ -50,6 +51,10 @@ module Alchemy
       def yml_file_path
         Rails.root.join('config', 'alchemy', 'cells.yml')
       end
+    end
+
+    def to_partial_path
+      "alchemy/cells/#{name}"
     end
 
     # Returns the cell definition defined in +config/alchemy/cells.yml+

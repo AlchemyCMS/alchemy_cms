@@ -381,6 +381,20 @@ module Alchemy
       definition['taggable'] == true
     end
 
+    # The element's view partial is dependent from its name
+    #
+    # == Define elements
+    #
+    # Elements are defined in the +config/alchemy/elements.yml+ file
+    #
+    #     - name: article
+    #       contents:
+    #       ...
+    #
+    # == Override the view
+    #
+    # Element partials live in +app/views/alchemy/elements+
+    #
     def to_partial_path
       "alchemy/elements/#{name}_view"
     end

@@ -58,6 +58,25 @@ module Alchemy
       end
     end
 
+    # The content's view partial is dependent from its name
+    #
+    # == Define contents
+    #
+    # Contents are defined in the +config/alchemy/elements.yml+ file
+    #
+    #     - name: article
+    #       contents:
+    #       - name: headline
+    #         type: EssenceText
+    #
+    # == Override the view
+    #
+    # Content partials live in +app/views/alchemy/essences+
+    #
+    def to_partial_path
+      "alchemy/essences/#{essence_partial_name}_view"
+    end
+
     # Settings from the elements.yml definition
     def settings
       return {} if description.blank?
