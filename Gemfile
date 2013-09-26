@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gemspec
 
+gem 'rails', github: 'rails/rails', branch: '4-0-stable'
+
 # rails 4 specific
 gem 'rails3-jquery-autocomplete', github: 'francisd/rails3-jquery-autocomplete'
 
