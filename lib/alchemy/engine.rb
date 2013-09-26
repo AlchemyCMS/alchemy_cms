@@ -72,7 +72,9 @@ module Alchemy
     end
 
     initializer 'alchemy.dependency_tracker' do |app|
-      ActionView::DependencyTracker.register_tracker :erb, CacheDigests::TemplateTracker
+      [:erb, :slim, :haml].each do |handler|
+        ActionView::DependencyTracker.register_tracker(handler, CacheDigests::TemplateTracker)
+      end
     end
 
     config.after_initialize do

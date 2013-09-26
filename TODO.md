@@ -7,12 +7,11 @@
 
 * Fix element window reload after click on element window buttons (new element)
 * Fix options json parsing, if null object. (Contents#new)
-* Validate for uniqueness of element and content names
+* Validate for uniqueness of element and content names (scoped to element)
 
 ## Caching-Redux
 
 * Write template_tracker specs!
-* Get the element/essence_* template dependencies working
 * Cache element views and touch all pages that have this element on if element gets published
   => (pages_sweeper#pages_to_be_sweeped)
 * Cache esssence views with name and updated_at as cache_key

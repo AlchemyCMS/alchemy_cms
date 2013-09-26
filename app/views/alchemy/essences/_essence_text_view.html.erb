@@ -1,15 +1,15 @@
 <% cache(essence_text_view) do %>
-  <%- if essence_text_view.essence.link.blank? || options[:disable_link] -%>
-  <%= essence_text_view.ingredient -%>
-  <%- else -%>
-  <%= link_to(
-    essence_text_view.ingredient,
-    url_for(essence_text_view.essence.link),
-    {
-      title: essence_text_view.essence.link_title,
-      target: (essence_text_view.essence.link_target == "blank" ? "_blank" : nil),
-      'data-link-target' => essence_text_view.essence.link_target
-    }.merge(html_options)
-  ) %>
-  <%- end -%>
+<%- if essence_text_view.essence.link.blank? || options[:disable_link] -%>
+<%= essence_text_view.ingredient -%>
+<%- else -%>
+<%= link_to(
+  essence_text_view.ingredient,
+  url_for(essence_text_view.essence.link),
+  {
+    title: essence_text_view.essence.link_title,
+    target: (essence_text_view.essence.link_target == "blank" ? "_blank" : nil),
+    'data-link-target' => essence_text_view.essence.link_target
+  }.merge(html_options)
+) %>
+<%- end -%>
 <% end %>
