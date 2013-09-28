@@ -211,6 +211,19 @@ module Alchemy
       end
     end
 
+    describe '#tinymce_class_name' do
+      let(:element) { FactoryGirl.build_stubbed(:element, name: 'article') }
+      let(:content) { c = Content.new(name: 'text'); c.element = element; c }
+      subject { content.tinymce_class_name }
+
+      it { eq('default_tinymce') }
+
+      context 'having custom tinymce config' do
+        before { content.stub(:has_custom_tinymce_config?).and_return(true) }
+        it('returns name including element name') { eq('custom_tinymce article-text') }
+      end
+    end
+
     describe '#form_field_name' do
       let(:content) { Content.new(id: 1) }
 

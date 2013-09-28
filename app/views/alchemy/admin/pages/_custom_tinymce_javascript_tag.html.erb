@@ -6,7 +6,7 @@
         Alchemy.Tinymce.customInits.push(function(callback) {
           var init = <%= raw config.to_json %>;
           init.mode = 'specific_textareas';
-          init.editor_selector = /custom_tinymce <%= Regexp.escape(content['name']) %>/;
+          init.editor_selector = /custom_tinymce <%= Regexp.escape("#{content['element']}-#{content['name']}") %>/;
           init.plugins = '<%= Alchemy::Tinymce.plugins.join(',') %>';
           init.language = '<%= ::I18n.locale.to_s.split('-')[0].downcase %>';
           init.init_instance_callback = function(inst) {
