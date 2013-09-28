@@ -1,5 +1,4 @@
-require 'fast_specs'
-require 'alchemy/resource'
+require 'spec_helper'
 
 module Alchemy
   describe Resource do

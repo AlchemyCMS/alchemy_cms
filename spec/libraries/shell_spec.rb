@@ -1,4 +1,4 @@
-require 'fast_specs'
+require 'spec_helper'
 require 'alchemy/shell'
 
 module Alchemy
