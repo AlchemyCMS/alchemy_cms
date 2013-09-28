@@ -765,7 +765,7 @@ module Alchemy
             end
 
             it "loggs a warning" do
-              Rails.logger.should_receive(:warn)
+              Rails.logger.should_receive(:debug)
               public_page.find_elements(from_cell: 'Lolo')
             end
           end
