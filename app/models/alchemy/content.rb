@@ -168,14 +168,12 @@ module Alchemy
     end
 
     def has_custom_tinymce_config?
-      !settings[:tinymce].nil?
+      settings[:tinymce].present?
     end
 
     def tinymce_class_name
       if has_custom_tinymce_config?
-        if settings[:tinymce]
-          "custom_tinymce #{name}"
-        end
+        "custom_tinymce #{element.name}-#{name}"
       else
         "default_tinymce"
       end
