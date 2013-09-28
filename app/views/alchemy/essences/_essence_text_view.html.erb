@@ -1,4 +1,6 @@
 <% cache(essence_text_view) do %>
+<% options = local_assigns.fetch(:options, {}) %>
+<% html_options = local_assigns.fetch(:html_options, {}) %>
 <%- if essence_text_view.essence.link.blank? || options[:disable_link] -%>
 <%= essence_text_view.ingredient -%>
 <%- else -%>

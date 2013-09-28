@@ -11,9 +11,9 @@
 
 ## Caching-Redux
 
+* spec all essence views
 * Cache element views and touch all pages that have this element on if element gets published
   => (pages_sweeper#pages_to_be_sweeped)
-* Cache esssence views with name and updated_at as cache_key
 * Rack::Cache for pictures?
 * Remove sweepers
 * Benchmark disk usage of local file system cache

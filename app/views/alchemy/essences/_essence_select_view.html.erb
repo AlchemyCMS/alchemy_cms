@@ -1,1 +1,3 @@
-<%= content.ingredient %>
+<% cache(essence_select_view) do %>
+<%= essence_select_view.ingredient %>
+<% end %>

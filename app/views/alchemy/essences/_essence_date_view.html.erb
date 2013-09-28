@@ -1,5 +1,7 @@
-<%- if content.essence.date.present? -%>
-<%= l(content.essence.date, :format => (options[:date_format])) -%>
-<%- elsif options[:date_format] == :rfc822 -%>
-<%= content.essence.date.to_s(:rfc822) -%>
+<% cache(essence_date_view) do %>
+<%- if essence_date_view.has_ingredient? -%>
+<%= l(essence_date_view.ingredient, format: (options[:date_format])) -%>
+<%- elsif options[:date_format].to_s == 'rfc822' -%>
+<%= essence_date_view.ingredient.to_s(:rfc822) -%>
 <%- end -%>
+<% end %>

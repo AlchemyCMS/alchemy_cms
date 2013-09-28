@@ -1,1 +1,3 @@
-<%= raw content.essence.source %>
+<% cache(essence_html_view) do %>
+<%= raw essence_html_view.ingredient %>
+<% end %>

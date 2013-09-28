@@ -1,8 +1,10 @@
-<% if attachment = content.essence.attachment %>
+<% cache(essence_file_view) do %>
+<% if attachment = essence_file_view.essence.attachment %>
   <%= link_to(
     h(attachment.name),
     download_alchemy_attachment_path(attachment),
-    :class => "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
-    :title => "#{content.essence.title.blank? ? attachment.file_name : content.essence.title}"
+    class: "file_link #{essence_file_view.essence.css_class.blank? ? "" : essence_file_view.essence.css_class}",
+    title: "#{essence_file_view.essence.title.blank? ? attachment.file_name : essence_file_view.essence.title}"
   ) %>
+<% end %>
 <% end %>
