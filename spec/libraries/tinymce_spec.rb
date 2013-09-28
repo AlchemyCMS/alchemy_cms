@@ -1,0 +1,47 @@
+require 'spec_helper'
+
+module Alchemy
+  describe Tinymce do
+
+    describe '.init' do
+      subject { Tinymce.init }
+
+      it "returns the default config" do
+        should eq(Tinymce.class_variable_get('@@init'))
+      end
+    end
+
+    describe '.init=' do
+      let(:another_config) { {theme_advanced_buttons3: 'table'} }
+
+      it "merges the default config with given config" do
+        Tinymce.init = another_config
+        Tinymce.init.should include(another_config)
+      end
+    end
+
+    describe '.custom_config_contents' do
+      let(:content_definition) { {'name' => 'text', 'settings' => {'tinymce' => {'foo' => 'bar'}}} }
+      let(:element_definition) { {'name' => 'article', 'contents' => [content_definition]} }
+
+      subject { Tinymce.custom_config_contents }
+
+      before do
+        # Preventing memoization
+        Tinymce.class_variable_set('@@custom_config_contents', nil)
+        Element.stub(:definitions).and_return([element_definition])
+      end
+
+      it "returns an array of content definitions that contain custom tinymce config and element name" do
+        should be_an(Array)
+        should include({'element' => element_definition['name']}.merge(content_definition))
+      end
+
+      context 'with no contents having custom tinymce config' do
+        let(:content_definition) { {'name' => 'text'} }
+        it { should eq([]) }
+      end
+    end
+
+  end
+end
