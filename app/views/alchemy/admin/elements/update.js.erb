@@ -12,7 +12,7 @@
   <%= update_essence_select_elements(@page, @element) -%>
 <%- else -%>
   Alchemy.growl('<%= escape_javascript(@notice) %>', 'warn');
-  $('#element_<%= @element.id %>_errors').html('<%= @error_message %><ul><li><%= @element.essence_error_messages.join("</li><li>").html_safe %></li></ul>');
+  $('#element_<%= @element.id %>_errors').html('<%= escape_javascript(@error_message) %><ul><li><%= escape_javascript(@element.essence_error_messages.join("</li><li>").html_safe) %></li></ul>');
   $("#element_<%= @element.id %>_errors").show();
   $('div.content_editor').removeClass('validation_failed');
   $('<%= @element.contents_with_errors.map { |content| "#" + content_dom_id(content) }.join(", ") %>').addClass('validation_failed');
