@@ -34,6 +34,8 @@ Rails Version
 
 This version of Alchemy runs with Rails 3.2.11+.
 
+If you are looking for a **Rails 4** compatible version check the [3.0-dev branch](https://github.com/magiclabs/alchemy_cms/tree/3.0-dev). *But be warned, this branch is still in heavy development.*
+
 If you are looking for a Rails 3.1 compatible version check the [2.1-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
 
 If you are looking for a Rails 3.0 compatible version check the [2.0-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.0-stable).
