@@ -31,6 +31,12 @@
   Alchemy.growl('<%= _t(:successfully_added_element) -%>');
   Alchemy.closeCurrentWindow();
 
+  if (Alchemy.Tinymce.customInits) {
+    for (var i = Alchemy.Tinymce.customInits.length - 1; i >= 0; i--) {
+      Alchemy.Tinymce.customInits[i].call();
+    }
+  }
+
 <%- @element.contents.essence_richtexts.each do |content| -%>
   Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
 <%- end -%>

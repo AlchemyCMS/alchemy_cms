@@ -30,6 +30,12 @@
       $el.trigger('Alchemy.SelectElementEditor');
       Alchemy.SelectBox($el);
 
+      if (Alchemy.Tinymce.customInits) {
+        for (var i = Alchemy.Tinymce.customInits.length - 1; i >= 0; i--) {
+          Alchemy.Tinymce.customInits[i].call();
+        }
+      }
+
       <% @element.rtf_contents.each do |content| %>
         Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
       <% end %>
