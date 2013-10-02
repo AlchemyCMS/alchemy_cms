@@ -22,6 +22,7 @@ $.extend Alchemy,
     window.onbeforeunload = @pageUnload
 
   pageUnload: ->
+    Alchemy.pleaseWaitOverlay(false)
     Alchemy._t('page_dirty_notice')
 
   setElementClean: (element) ->
