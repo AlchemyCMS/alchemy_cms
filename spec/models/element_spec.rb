@@ -375,6 +375,17 @@ module Alchemy
       end
     end
 
+    describe '#save' do
+      let(:time) { Time.now }
+      let(:page) { FactoryGirl.create(:page, updated_at: time) }
+      let(:element) { FactoryGirl.create(:element, page: page) }
+
+      it "updates page timestamps" do
+        element.save
+        page.updated_at.should_not eq(time)
+      end
+    end
+
     describe '#save_contents' do
       it "should return true if attributes hash is nil" do
         element = FactoryGirl.create(:element, create_contents_after_create: true)
@@ -383,9 +394,10 @@ module Alchemy
     end
 
     describe '#taggable?' do
+      let(:element) { FactoryGirl.build(:element) }
+
       context "definition has 'taggable' key with true value" do
         it "should return true" do
-          element = FactoryGirl.build(:element)
           element.stub(:definition).and_return({'name' => 'article', 'taggable' => true})
           element.taggable?.should be_true
         end
@@ -393,7 +405,6 @@ module Alchemy
 
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
-          element = FactoryGirl.build(:element)
           element.stub(:definition).and_return({'name' => 'article', 'taggable' => 'foo'})
           element.taggable?.should be_false
         end
@@ -401,7 +412,6 @@ module Alchemy
 
       context "definition has no 'taggable' key" do
         it "should return false" do
-          element = FactoryGirl.build(:element)
           element.stub(:definition).and_return({'name' => 'article'})
           element.taggable?.should be_false
         end

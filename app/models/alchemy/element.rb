@@ -28,7 +28,7 @@ module Alchemy
 
     has_many :contents, :order => :position, :dependent => :destroy
     belongs_to :cell
-    belongs_to :page
+    belongs_to :page, touch: true
     has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
 
     validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
