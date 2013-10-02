@@ -220,7 +220,7 @@ module Alchemy
 
       context 'having custom tinymce config' do
         before { content.stub(:has_custom_tinymce_config?).and_return(true) }
-        it('returns name including element name') { eq('custom_tinymce article-text') }
+        it('returns name including element name') { eq('custom_tinymce article_text') }
       end
     end
 

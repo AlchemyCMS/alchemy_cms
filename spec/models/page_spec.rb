@@ -640,6 +640,17 @@ module Alchemy
       end
     end
 
+    describe '#element_definitions' do
+      let(:page) { FactoryGirl.build_stubbed(:page) }
+      subject { page.element_definitions }
+      before { Element.should_receive(:definitions).and_return([{'name' => 'article'}, {'name' => 'header'}]) }
+
+      it "returns all element definitions that could be placed on current page" do
+        should include({'name' => 'article'})
+        should include({'name' => 'header'})
+      end
+    end
+
     describe '#element_definitions_by_name' do
       let(:page) { FactoryGirl.build_stubbed(:public_page) }
 

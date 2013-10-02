@@ -15,7 +15,7 @@ module Alchemy
 
       context "when params[:filter] is set" do
         it "should filter the pictures collection by the given filter string." do
-          Picture.should_receive(:filtered_by).with('recent').and_return(Picture.scoped)
+          Picture.should_receive(:filtered_by).with('recent').and_return(Picture.all)
           get :index, filter: 'recent'
         end
       end

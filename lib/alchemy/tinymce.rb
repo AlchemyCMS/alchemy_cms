@@ -43,7 +43,17 @@ module Alchemy
     end
 
     def self.custom_config_contents
-      @@custom_config_contents ||= Element.definitions.collect do |el|
+      @@custom_config_contents ||= content_definitions_from_elements(Element.definitions)
+    end
+
+    def self.page_custom_config_contents(page)
+      @@page_custom_config_contents ||= content_definitions_from_elements(page.element_definitions)
+    end
+
+  private
+
+    def self.content_definitions_from_elements(definitions)
+      definitions.collect do |el|
         contents = el.fetch('contents', []).select { |c| c['settings'] && c['settings']['tinymce'].present? }
         next if contents.blank?
         contents.map { |c| c.merge('element' => el['name']) }

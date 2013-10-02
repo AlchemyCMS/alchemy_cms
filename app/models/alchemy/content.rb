@@ -164,7 +164,7 @@ module Alchemy
 
     def tinymce_class_name
       if has_custom_tinymce_config?
-        "custom_tinymce #{element.name}-#{name}"
+        "custom_tinymce #{element.name}_#{name}"
       else
         "default_tinymce"
       end

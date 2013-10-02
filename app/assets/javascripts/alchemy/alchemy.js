@@ -25,6 +25,7 @@
 //= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.element_editors
+//= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys
@@ -36,10 +37,10 @@
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.file_progress
+//= require alchemy/alchemy.preview_window
 //= require alchemy/alchemy.sitemap
 //= require alchemy/alchemy.spinner
 //= require alchemy/alchemy.swf_upload
+//= require alchemy/alchemy.translations
 //= require alchemy/alchemy.windows
-//= require alchemy/alchemy.preview_window
-//= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.custom
