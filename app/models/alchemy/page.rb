@@ -194,6 +194,11 @@ module Alchemy
     # Instance methods
     #
 
+    # Touches the timestamps and userstamps
+    def touch
+      Page.where(id: self.id).update_all(updated_at: Time.now, updater_id: User.stamper)
+    end
+
     # Returns the previous page on the same level or nil.
     #
     # For options @see #next_or_previous

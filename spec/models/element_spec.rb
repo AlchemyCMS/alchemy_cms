@@ -377,12 +377,22 @@ module Alchemy
 
       context 'touch page' do
         let(:time)    { Time.now }
-        let(:page)    { FactoryGirl.create(:page, updated_at: time) }
+        let(:locker)  { build_stubbed(:user) }
+        let(:page)    { create(:page, updated_at: time) }
         let(:element) { create(:element, page: page) }
+
+        before { User.stub(:stamper).and_return(locker.id) }
 
         it "updates page timestamps" do
           element.save
+          page.reload
           page.updated_at.should_not eq(time)
+        end
+
+        it "updates page userstamps" do
+          element.save
+          page.reload
+          page.updater_id.should eq(locker.id)
         end
       end
 
