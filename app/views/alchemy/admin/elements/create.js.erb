@@ -30,11 +30,9 @@
 
   Alchemy.growl('<%= _t(:successfully_added_element) -%>');
   Alchemy.closeCurrentWindow();
-
-<%- @element.contents.essence_richtexts.each do |content| -%>
-  Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
-<%- end -%>
-
+<% if (rtfs = @element.contents.essence_richtexts).any? %>
+  Alchemy.Tinymce.addEditor('<%= contents_form_field_ids_string(rtfs) %>');
+<% end %>
   Alchemy.PreviewWindow.refresh();
   Alchemy.ElementEditors.init();
 

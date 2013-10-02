@@ -44,7 +44,7 @@
 
 <% elsif @content.essence_type == "Alchemy::EssenceRichtext" %>
 
-  Alchemy.Tinymce.addEditor('contents_content_<%= @content.id %>_body');
+  Alchemy.Tinymce.addEditor('#<%= @content.form_field_id %>');
 
 <% end %>
 

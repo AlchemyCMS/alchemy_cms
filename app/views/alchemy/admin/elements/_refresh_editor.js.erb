@@ -6,7 +6,5 @@
   <% end %>
   $element.html('<%= escape_javascript render_editor(element) %>');
   Alchemy.GUI.init($element);
-  <% rtfs.each do |content| %>
-  Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
-  <% end %>
+  Alchemy.Tinymce.addEditor('<%= contents_form_field_ids_string(rtfs) %>');
 })();

@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     module ContentsHelper
-
       include Alchemy::Admin::BaseHelper
 
       # Returns a string for the id attribute of a html element for the given content
@@ -14,6 +13,11 @@ module Alchemy
           c = content
         end
         "#{c.essence_type.demodulize.underscore}_#{c.id}"
+      end
+
+      # Returns a jquery selector string of form field ids from given contents
+      def contents_form_field_ids_string(contents)
+        contents.collect { |c| "##{c.form_field_id}" }.join(', ')
       end
 
       # Renders the name of elements content or the default name defined in elements.yml

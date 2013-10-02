@@ -65,7 +65,7 @@ module Alchemy
     #       type: EssenceRichtext
     #
     def available_element_definitions
-      @elements_for_layout = element_definitions_by_name(element_definition_names)
+      @elements_for_layout ||= element_definitions
       return [] if @elements_for_layout.blank?
       @page_element_names = elements.not_trashed.pluck(:name)
       delete_unique_element_definitions!
@@ -77,6 +77,12 @@ module Alchemy
     #
     def available_element_names
       available_element_definitions.collect { |e| e['name'] }
+    end
+
+    # All element definitions defined for page's page layout
+    #
+    def element_definitions
+      element_definitions_by_name(element_definition_names)
     end
 
     # All names of elements that are defined in the page's page_layout definition.
@@ -158,6 +164,13 @@ module Alchemy
     #
     def feed_elements
       elements.named(definition['feed_elements'])
+    end
+
+    # Returns an array of selectors for all contents with custom tinymce config.
+    def custom_tinymce_contents_selectors
+      Tinymce.page_custom_config_contents(self).collect do |c|
+        "#{c['element']}_#{c['name']}"
+      end
     end
 
   private

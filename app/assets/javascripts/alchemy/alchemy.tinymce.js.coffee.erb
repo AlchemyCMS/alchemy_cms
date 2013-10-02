@@ -1,0 +1,96 @@
+# Alchemy Tinymce wrapper
+#
+window.Alchemy.Tinymce =
+
+  # Holds the default Alchemy TinyMCE configuration
+  #
+  defaults:
+    plugins: "<%= Alchemy::Tinymce.plugins.join(',') %>"
+    <% Alchemy::Tinymce.init.each do |k, v| %>
+    <%= k %>: <%= v.to_json %>
+    <% end %>
+    <% if Alchemy::Tinymce.setup %>
+    setup: <%= Alchemy::Tinymce.setup %>
+    <% end %>
+
+  # Holds custom tinymce configurations
+  #
+  # The key has to be a unique selector in the format of: "element_name_content_name"
+  #
+  # The value has to be a valid tinymce configuration object.
+  #
+  customConfigs: {}
+
+  # Returns default config for tinymce editors.
+  #
+  getDefaultConfig: ->
+    config = @defaults
+    config.language = Alchemy.locale
+    config.mode = "specific_textareas"
+    config.editor_selector = "default_tinymce"
+    config.init_instance_callback = (inst) ->
+      $this = $("##{inst.editorId}")
+      parent = $this.parents('.element_editor')
+      parent.find('.spinner').remove()
+      inst.onChange.add ->
+        Alchemy.setElementDirty(parent)
+    return config
+
+  # Returns configuration for given custom tinymce editor selector.
+  #
+  # It uses the +.getDefaultConfig+ and merges the custom parts.
+  #
+  getCustomConfig: (editor) ->
+    if editor_config = @customConfigs[editor]
+      config = $.extend({}, @getDefaultConfig(), editor_config)
+      config.mode = 'specific_textareas'
+      config.editor_selector = new RegExp("custom_tinymce #{editor}")
+      return config
+
+  # Initializes all default TinyMCE instances
+  #
+  init: ->
+    spinner = Alchemy.Spinner.small()
+    $('.tinymce_container').prepend spinner.spin().el
+    tinymce.init @getDefaultConfig()
+
+  # Initializes all tinymce editors with custom configuration.
+  #
+  # @param editors [Array]
+  #   - Editor selectors that should be initialized. The selector has to be in format of:
+  #     "element_name_content_name"
+  #
+  initCustomEditors: (editors) ->
+    return if not editors
+    for editor in editors
+      if custom_editor_config = @getCustomConfig(editor)
+        tinymce.init custom_editor_config
+
+  # Adds a TinyMCE editor to given dom elements.
+  #
+  # Checks if element has custom tinymce config and uses this to init editor.
+  # Otherwise it uses the default config.
+  #
+  addEditor: (elements) ->
+    self = Alchemy.Tinymce
+    $(elements).each ->
+      if custom_editor = this.classList[1]
+        config = self.getCustomConfig(custom_editor)
+      else
+        config = self.getDefaultConfig()
+      tinymce.init(config)
+      tinymce.execCommand('mceAddControl', true, this.id)
+
+  # Removes the TinyMCE editor from given dom elements.
+  #
+  removeEditor: (elements) ->
+    $(elements).each ->
+      tinymce.get(this.id).remove()
+
+# Populate custom tinymce configurations
+<% Alchemy::Tinymce.custom_config_contents.each do |content| %>
+Alchemy.Tinymce.customConfigs["<%= content['element'] %>_<%= content['name'] %>"] =
+  <% content.fetch('settings', {}).fetch('tinymce', {}).each do |k, v| %>
+  <%= k %>: <%= v.to_json %>
+  <% end %>
+<% end %>
