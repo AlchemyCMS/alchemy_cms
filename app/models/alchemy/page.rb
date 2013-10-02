@@ -211,17 +211,16 @@ module Alchemy
     end
     alias_method :next_page, :next
 
+    # Locks the page to given user without updating the timestamps
+    #
     def lock_to!(user)
-      self.locked = true
-      self.locked_by = user.id
-      self.save(:validate => false)
+      self.update_columns(locked: true, locked_by: user.id)
     end
 
+    # Unlocks the page without updating the timestamps
+    #
     def unlock!
-      self.locked = false
-      self.locked_by = nil
-      self.do_not_sweep = true
-      self.save
+      self.update_columns(locked: false, locked_by: nil)
     end
 
     def fold!(user_id, status)

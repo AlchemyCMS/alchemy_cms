@@ -864,19 +864,18 @@ module Alchemy
     end
 
     describe '#lock_to!' do
-      let(:page) { Page.new }
+      let(:page) { create(:page) }
       let(:user) { mock_model('User') }
 
-      before do
-        page.stub(:save).and_return(true)
-        page.lock_to!(user)
-      end
+      before { page.lock_to!(user) }
 
       it "should set locked to true" do
+        page.reload
         page.locked.should == true
       end
 
       it "should set locked_by to the users id" do
+        page.reload
         page.locked_by.should == user.id
       end
     end
@@ -1051,7 +1050,8 @@ module Alchemy
     end
 
     describe '#unlock!' do
-      let(:page) { Page.new(locked: true) }
+      let(:time) { Time.now }
+      let(:page) { FactoryGirl.create(:page, locked: true, locked_by: 1, updated_at: time) }
 
       before do
         page.stub(:save).and_return(true)
@@ -1059,16 +1059,19 @@ module Alchemy
 
       it "should set the locked status to false" do
         page.unlock!
+        page.reload
         page.locked.should == false
       end
 
-      it "should set do_not_sweep to true" do
+      it "should not update the timestamps " do
         page.unlock!
-        page.do_not_sweep.should == true
+        page.reload
+        expect(page.updated_at).to eq time
       end
 
       it "should set locked_by to nil" do
         page.unlock!
+        page.reload
         page.locked_by.should == nil
       end
     end
