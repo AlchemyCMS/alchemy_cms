@@ -119,5 +119,4 @@ Alchemy.ElementEditors =
 
   observeToggler: (scope) ->
     $('[data-element-dirty]', scope).click ->
-      console.log('clicked toggler', this)
       Alchemy.ElementEditors.toggle $(this).data('element-dirty')
