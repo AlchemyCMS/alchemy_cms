@@ -20,26 +20,40 @@ module Alchemy
       end
     end
 
-    describe '.custom_config_contents' do
+    context 'Methods for contents with custom tinymce config.' do
       let(:content_definition) { {'name' => 'text', 'settings' => {'tinymce' => {'foo' => 'bar'}}} }
       let(:element_definition) { {'name' => 'article', 'contents' => [content_definition]} }
 
-      subject { Tinymce.custom_config_contents }
+      describe '.custom_config_contents' do
+        subject { Tinymce.custom_config_contents }
 
-      before do
-        # Preventing memoization
-        Tinymce.class_variable_set('@@custom_config_contents', nil)
-        Element.stub(:definitions).and_return([element_definition])
+        before do
+          Element.stub(:definitions).and_return([element_definition])
+          # Preventing memoization
+          Tinymce.class_variable_set('@@custom_config_contents', nil)
+        end
+
+        it "returns an array of content definitions that contain custom tinymce config and element name" do
+          should be_an(Array)
+          should include({'element' => element_definition['name']}.merge(content_definition))
+        end
+
+        context 'with no contents having custom tinymce config' do
+          let(:content_definition) { {'name' => 'text'} }
+          it { should eq([]) }
+        end
       end
 
-      it "returns an array of content definitions that contain custom tinymce config and element name" do
-        should be_an(Array)
-        should include({'element' => element_definition['name']}.merge(content_definition))
-      end
+      describe '.page_custom_config_contents' do
+        let(:page) { FactoryGirl.build_stubbed(:page) }
+        subject { Tinymce.page_custom_config_contents(page) }
 
-      context 'with no contents having custom tinymce config' do
-        let(:content_definition) { {'name' => 'text'} }
-        it { should eq([]) }
+        before { page.stub(:element_definitions).and_return([element_definition]) }
+
+        it "returns an array of content definitions that contain custom tinymce config for page" do
+          should be_an(Array)
+          should include({'element' => element_definition['name']}.merge(content_definition))
+        end
       end
     end
 

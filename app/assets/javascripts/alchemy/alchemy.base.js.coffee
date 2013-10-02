@@ -42,23 +42,6 @@ $.extend Alchemy,
       $overlay.css "visibility", "hidden"
     return
 
-  # Checks if the element is dirty (has unsaved changes)
-  # and only calls the Alchemy.ElementEditors.toggleFold function, if it is not dirty.
-  toggleElement: (id, text) ->
-    if Alchemy.isPageDirty()
-      Alchemy.openConfirmWindow
-        title: text.title
-        message: text.message
-        okLabel: text.okLabel
-        cancelLabel: text.cancelLabel
-        okCallback: ->
-          Alchemy.ElementEditors.toggleFold id
-          return
-      false
-    else
-      Alchemy.ElementEditors.toggleFold id
-    return
-
   # Shows spinner while loading images and
   # fades the image after its been loaded
   ImageLoader: (scope = document, options = {color: '#fff'}) ->
@@ -126,6 +109,15 @@ $.extend Alchemy,
       console.debug e
       console.trace()
     return
+
+  # Translates given string
+  #
+  _t: (id) ->
+    translation = Alchemy.translations[id]
+    if (translation)
+      translation[Alchemy.locale]
+    else
+      id
 
   getUrlParam: (name) ->
     results = new RegExp("[\\?&]" + name + "=([^&#]*)").exec(window.location.href)

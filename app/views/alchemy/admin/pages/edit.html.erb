@@ -108,10 +108,7 @@
 <% end %>
 
 <% content_for :javascripts do %>
-<%= render 'tinymce_javascript_tag' %>
-<% if Alchemy::Tinymce.custom_config_contents.present? %>
-  <%= render 'custom_tinymce_javascript_tag' %>
-<% end %>
+<%= javascript_include_tag 'alchemy/alchemy.tinymce' %>
 <script type="text/javascript" charset="utf-8">
 
   Alchemy.openPreviewWindow = function() {
@@ -169,16 +166,10 @@
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element_editor');
-      Alchemy.Tinymce.init(function() {
-        Alchemy.ElementDirtyObserver('#element_area');
-      });
-      if (Alchemy.Tinymce.customInits) {
-        for (var i = Alchemy.Tinymce.customInits.length - 1; i >= 0; i--) {
-          Alchemy.Tinymce.customInits[i].call();
-        }
-      }
+      Alchemy.Tinymce.init();
+      Alchemy.Tinymce.initCustomEditors(<%= raw @page.custom_tinymce_contents_selectors.to_json %>);
       jQuery('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
-
+      Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('Alchemy.SelectElementEditor');
       }
@@ -186,18 +177,12 @@
   }
 
   jQuery(function($) {
-    var texts = {
-      title: '<%= _t("Warning!") %>',
-      message: '<%= _t(:element_dirty_page_leave_warning) %>',
-      okLabel: '<%= _t("Yes") %>',
-      cancelLabel: '<%= _t("No") %>'
-    };
     $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
-      var not_dirty = Alchemy.checkPageDirtyness(this, texts);
+      var not_dirty = Alchemy.checkPageDirtyness(this);
       if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
       return not_dirty;
     });
-    Alchemy.PageLeaveObserver(texts);
+    Alchemy.PageLeaveObserver();
     Alchemy.openElementsWindow();
     Alchemy.openPreviewWindow();
 

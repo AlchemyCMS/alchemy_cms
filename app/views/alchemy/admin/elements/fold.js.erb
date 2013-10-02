@@ -1,43 +1,39 @@
-(function($) {
+<% rtfs = @element.contents.essence_richtexts %>
 
+(function($) {
   var $el = $('.element_editor[data-element-id="<%= @element.id %>"]');
 
-  function removeTinyMCEs(ids) {
-    for (var i = ids.length - 1; i >= 0; i--) {
-      tinymce.get(ids[i]).remove();
-    };
-  }
+<% if @error %>
 
-  <% if @error %>
+  $("#element_<%= @element.id -%> .spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
 
-    $("#element_<%= @element.id -%> .spinner").replaceWith("<span class='error_icon' title='<%= @error -%>'>!</span>");
+<% else %>
 
-  <% else %>
+  $el.replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
+  $el = $('#element_<%= @element.id %>');
+  $('#element_area .sortable_cell').sortable('refresh');
+  Alchemy.ElementEditors.reinit($el);
 
-    $el.replaceWith('<%= escape_javascript render(:partial => "element", :object => @element) -%>');
-    $el = $('#element_<%= @element.id %>');
-    $('#element_area .sortable_cell').sortable('refresh');
-    Alchemy.ElementEditors.reinit($el);
+<% if @element.folded %>
 
-    <% if @element.folded %>
+<% if rtfs.any? %>
 
-      <% if @element.rtf_contents.any? %>
-        removeTinyMCEs(<%=raw @element.rtf_contents.collect(&:form_field_id).to_json %>);
-      <% end %>
+  Alchemy.Tinymce.removeEditor('<%= contents_form_field_ids_string(rtfs) %>');
 
-    <% else %>
+<% end %>
 
-      $el.trigger('Alchemy.SelectElementEditor');
-      Alchemy.SelectBox($el);
+<% else %>
 
-      <% @element.rtf_contents.each do |content| %>
-        Alchemy.Tinymce.addEditor('<%= content.form_field_id -%>');
-      <% end %>
+  $el.trigger('Alchemy.SelectElementEditor');
+  Alchemy.SelectBox($el);
 
-      Alchemy.GUI.initElement($el);
+<% if rtfs.any? %>
+  Alchemy.Tinymce.addEditor('<%= contents_form_field_ids_string(rtfs) %>');
+<% end %>
 
-    <% end %>
+  Alchemy.GUI.initElement($el);
 
-  <% end %>
+<% end %>
 
+<% end %>
 })(jQuery);
