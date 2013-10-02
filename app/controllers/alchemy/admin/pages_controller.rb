@@ -78,7 +78,7 @@ module Alchemy
       def edit
         # fetching page via before filter
         if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
-          flash[:notice] = _t("This page is locked by %{name}", :name => (@page.locker.name rescue _t(:unknown)))
+          flash[:notice] = _t("This page is locked by %{name}", name: @page.locker_name)
           redirect_to admin_pages_path
         else
           @page.lock_to!(current_user)
