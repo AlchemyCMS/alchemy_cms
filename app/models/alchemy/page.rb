@@ -221,17 +221,20 @@ module Alchemy
     end
     alias_method :next_page, :next
 
+    # Locks the page to given user without updating the timestamps
+    #
     def lock!(user)
-      self.locked = true
-      self.locked_by = user.id
-      self.save(:validate => false)
+      # Yes, since +update_columns+ is not available in Rails 3.2,
+      # we use this workaround to update straight in the db.
+      Page.where(id: self.id).update_all(locked: true, locked_by: user.id)
     end
 
+    # Unlocks the page without updating the timestamps
+    #
     def unlock!
-      self.locked = false
-      self.locked_by = nil
-      self.do_not_sweep = true
-      self.save
+      # Yes, since +update_columns+ is not available in Rails 3.2,
+      # we use this workaround to update straight in the db.
+      Page.where(id: self.id).update_all(locked: false, locked_by: nil)
     end
 
     def fold!(user_id, status)
