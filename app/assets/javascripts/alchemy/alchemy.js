@@ -41,6 +41,7 @@
 //= require alchemy/alchemy.sitemap
 //= require alchemy/alchemy.spinner
 //= require alchemy/alchemy.swf_upload
+//= require alchemy/alchemy.tinymce
 //= require alchemy/alchemy.translations
 //= require alchemy/alchemy.windows
 //= require alchemy/alchemy.custom
