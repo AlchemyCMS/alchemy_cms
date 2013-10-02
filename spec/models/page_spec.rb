@@ -1172,40 +1172,32 @@ module Alchemy
 
     context 'indicate page editors' do
       let(:page) { Page.new }
+      let(:user) { User.new(firstname: 'Paul', lastname: 'Page') }
 
-      before do
-        User.stub!(:find_by_id).and_return(User.new(firstname: 'Paul', lastname: 'Page'))
-      end
+      describe '#creator_name' do
+        before { page.stub(:creator).and_return(user) }
 
-      describe '#creator' do
         it "should return the name of the creator" do
-          expect(page.creator).to eq('Paul Page')
+          expect(page.creator_name).to eq('Paul Page')
         end
       end
 
-      describe '#updater' do
+      describe '#updater_name' do
+        before { page.stub(:updater).and_return(user) }
+
         it "should return the name of the updater" do
-          expect(page.updater).to eq('Paul Page')
-        end
-      end
-
-      describe '#current_editor' do
-        it "should return the name of the current page editor" do
-          expect(page.current_editor).to eq('Paul Page')
-        end
-      end
-
-      describe '#locker' do
-        it "should return an instance of the page locker" do
-          expect(page.locker).to be_a(User)
+          expect(page.updater_name).to eq('Paul Page')
         end
       end
 
       describe '#locker_name' do
-        it "should return the name of the page locker" do
+        before { page.stub(:locker).and_return(user) }
+
+        it "should return the name of the current page editor" do
           expect(page.locker_name).to eq('Paul Page')
         end
       end
+
     end
 
     describe '#controller_and_action' do

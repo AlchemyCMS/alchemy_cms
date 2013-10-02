@@ -13,19 +13,19 @@
     <tr>
       <td class="label"><label><%= _t(:page_was_created) %></label></td>
       <td class="value">
-        <p><%= _t(:from_at) % {by: @page.creator, at: l(@page.created_at, format: :page_status)} %></p>
+        <p><%= _t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :page_status)} %></p>
       </td>
     </tr>
     <tr>
       <td class="label"><label><%= _t(:page_was_updated) %></label></td>
       <td class="value">
-        <p><%= _t(:from_at) % {by: @page.updater, at: l(@page.updated_at, format: :page_status)} %></p>
+        <p><%= _t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :page_status)} %></p>
       </td>
     </tr>
     <%- if @page.locked? -%>
       <tr>
         <td class="label"><label><%= _t(:currently_edited_by) %></label></td>
-        <td class="value"><p><%= @page.current_editor %></p></td>
+        <td class="value"><p><%= @page.locker_name %></p></td>
       </tr>
     <% end %>
   </table>
