@@ -1043,7 +1043,7 @@ module Alchemy
       it "should not update the timestamps " do
         page.unlock!
         page.reload
-        expect(page.updated_at).to eq time
+        expect(page.updated_at.to_datetime).to eq time.to_datetime
       end
 
       it "should set locked_by to nil" do
