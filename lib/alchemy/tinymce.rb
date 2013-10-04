@@ -47,7 +47,7 @@ module Alchemy
     end
 
     def self.page_custom_config_contents(page)
-      @@page_custom_config_contents ||= content_definitions_from_elements(page.element_definitions)
+      content_definitions_from_elements(page.element_definitions)
     end
 
   private
