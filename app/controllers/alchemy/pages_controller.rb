@@ -9,7 +9,7 @@ module Alchemy
     rescue_from ActionController::RoutingError, :with => :render_404
 
     before_filter :enforce_primary_host_for_site
-    before_filter :render_page_or_redirect, :only => [:show, :sitemap]
+    before_filter :render_page_or_redirect, :only => [:show]
     before_filter :load_page
     authorize_resource only: 'show'
 
@@ -46,11 +46,11 @@ module Alchemy
       end
     end
 
-    # Renders a Google conform sitemap in xml
+    # Renders a search engine compatible xml sitemap.
     def sitemap
-      @pages = Page.published.where(sitemap: true)
+      @pages = Page.sitemap
       respond_to do |format|
-        format.xml { render layout: 'sitemap' }
+        format.xml { render layout: 'alchemy/sitemap' }
       end
     end
 

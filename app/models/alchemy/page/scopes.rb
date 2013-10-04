@@ -83,6 +83,10 @@ module Alchemy
       scope :from_current_site, -> {
         where(alchemy_languages: {site_id: Site.current || Site.default}).joins(:language)
       }
+
+      # All pages for xml sitemap
+      #
+      scope :sitemap, -> { published.contentpages.where(sitemap: true) }
     end
 
   end
