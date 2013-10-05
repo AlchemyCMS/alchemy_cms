@@ -134,6 +134,8 @@ module Alchemy
       #
       def options_from_params
         case params[:options]
+        when ''
+          {}
         when String
           JSON.parse(params[:options])
         when Hash
