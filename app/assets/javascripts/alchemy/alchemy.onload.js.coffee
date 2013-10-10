@@ -25,7 +25,7 @@ $ ->
   $('select#change_locale').on 'change', (e) ->
     url = Alchemy.current_url
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location = url + delimiter + 'locale=' + $(this).val()
+    window.location.href = "#{url}#{delimiter}locale=#{$(this).val()}"
 
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content')
