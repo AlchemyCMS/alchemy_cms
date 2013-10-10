@@ -29,7 +29,7 @@ Alchemy.Initializer = ->
   $('select#change_locale').on 'change', (e) ->
     url = Alchemy.current_url
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location = url + delimiter + 'locale=' + $(this).val()
+    window.location.href = "#{url}#{delimiter}locale=#{$(this).val()}"
 
   # Submit forms of selects with `data-autosubmit="true"`
   $('select[data-auto-submit="true"]').on 'change', (e) ->

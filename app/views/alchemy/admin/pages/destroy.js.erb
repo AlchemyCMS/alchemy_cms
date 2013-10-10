@@ -2,7 +2,7 @@ $('#locked_page_<%= @page_id -%>').remove();
 
 <% if @layoutpage %>
 
-window.location.replace('<%= alchemy.admin_layoutpages_path -%>');
+window.location.href = '<%= alchemy.admin_layoutpages_path -%>';
 
 <% elsif @page_root %>
 
@@ -12,7 +12,7 @@ Alchemy.overlayObserver('#sitemap');
 
 <% else %>
 
-window.location.replace('<%= alchemy.admin_pages_path -%>');
+window.location.href = '<%= alchemy.admin_pages_path -%>';
 
 <% end %>
 
