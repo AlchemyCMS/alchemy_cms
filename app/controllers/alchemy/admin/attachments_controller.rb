@@ -64,7 +64,12 @@ module Alchemy
         @attachment = Attachment.find(params[:id])
         name = @attachment.name
         @attachment.destroy
-        flash[:notice] = _t("File: '%{name}' deleted successfully", :name => name)
+        @url = admin_attachments_url(
+          per_page: params[:per_page],
+          page: params[:page],
+          query: params[:query]
+        )
+        flash[:notice] = _t("File: '%{name}' deleted successfully", name: name)
       end
 
       def show
