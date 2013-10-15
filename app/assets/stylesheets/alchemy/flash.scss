@@ -31,6 +31,7 @@ div.flash {
   margin: $default-margin;
   position: relative;
   min-height: 1.3em;
+  word-break: break-all;
 
   span.icon {
     position: absolute;
