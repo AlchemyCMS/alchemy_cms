@@ -1,0 +1,58 @@
+<%= toolbar(
+  buttons: [
+    {
+      icon: 'user_add',
+      label: _t(:create_user),
+      url: alchemy.new_admin_user_path,
+      title: _t(:create_user),
+      hotkey: 'alt-n',
+      overlay_options: {
+        title: _t(:create_user),
+        size: "430x580"
+      },
+      if_permitted_to: [:create, Alchemy::User]
+    }
+  ]
+) %>
+
+<div id="archive_all">
+  <%= resources_header %>
+<% if @users.any? %>
+
+  <table class="list" id="user_list">
+    <tr>
+      <th class="icon"></th>
+      <th class="login_status"></th>
+      <th class="login">
+        <%= sortable_column(Alchemy::User.human_attribute_name('login'), column: :login) %>
+      </th>
+      <th class="name">
+        <%= sortable_column(Alchemy::User.human_attribute_name('firstname'), column: :firstname) %>
+      </th>
+      <th>
+        <%= sortable_column(Alchemy::User.human_attribute_name('lastname'), column: :lastname) %>
+      </th>
+      <th class="email">
+        <%= sortable_column(Alchemy::User.human_attribute_name('email'), column: :email) %>
+      </th>
+      <th><%= Alchemy::User.human_attribute_name('language') %></th>
+      <th>
+        <%= sortable_column(Alchemy::User.human_attribute_name('last_sign_in_at'), column: :last_sign_in_at) %>
+      </th>
+      <th class="role"><%= Alchemy::User.human_attribute_name('roles') %></th>
+      <th class="tools"></th>
+    </tr>
+    <%= render partial: 'alchemy/admin/users/user', collection: @users %>
+  </table>
+
+  <%= paginate @users %>
+
+<% elsif params[:query] %>
+
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= _t('No users found') %>
+  </div>
+
+<% end %>
+</div>

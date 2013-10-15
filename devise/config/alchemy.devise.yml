@@ -1,0 +1,10 @@
+# === Devise modules
+#
+# List of Devise modules that should be activated on the user model.
+#
+devise_modules:
+  - :database_authenticatable
+  - :trackable
+  - :validatable
+  - :timeoutable
+  - :recoverable

@@ -1,0 +1,39 @@
+<tr class="<%= cycle('even', 'odd') %>">
+  <td class="icon"><%= content_tag 'span', '', :class => "icon user#{user.gender == 'female' ? ' female' : ' male'}" %></td>
+  <td>
+    <%= render_icon(user.logged_in? ? 'online' : 'offline') %>
+  </td>
+  <td class="login"><%= user.login %></td>
+  <td class="name"><%= user.firstname %></td>
+  <td><%= user.lastname %></td>
+  <td class="email"><%= user.email %></td>
+  <td><%= _t(user.language, scope: 'translations', default: _t(:unknown)) %></td>
+  <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, :format => :default) : _t(:unknown) %></td>
+  <td class="role"><%= user.human_roles_string %></td>
+  <td class="tools">
+  <% if can?(:destroy, user) %>
+    <%= link_to_confirmation_window(
+      '',
+      _t(:confirm_to_delete_user),
+      alchemy.admin_user_path(user),
+      :title => _t(:delete_user),
+      :class => "icon user_delete#{user.gender == 'female' ? ' female' : ' male'}"
+    ) %>
+  <% end %>
+  <% if can?(:edit, user) %>
+    <%= link_to_overlay_window(
+      '',
+      alchemy.edit_admin_user_path(user),
+      {
+        :title => _t(:edit_user),
+        :overflow => true,
+        :size => '430x580'
+      },
+      {
+        :class => "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
+        :title => _t(:edit_user)
+      }
+    ) %>
+  <% end %>
+  </td>
+</tr>

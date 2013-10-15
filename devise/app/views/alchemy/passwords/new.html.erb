@@ -1,0 +1,21 @@
+<div id="login_box">
+  <div id="alchemy_greeting">
+    <%= image_tag("alchemy/alchemy-logo.png", style: "width: 240px; height: 70px") %>
+  </div>
+  <div class="login_signup_box">
+  <% if @user.errors.blank? %>
+    <%= render_message do %>
+      <h1><%= _t 'Password reset' %></h1>
+      <p><%= _t 'Please enter your email address' %></p>
+    <% end %>
+  <% else %>
+    <div id="errors" style="display: block">
+      <%= devise_error_messages! %>
+    </div>
+  <% end %>
+    <%= alchemy_form_for :user, url: reset_password_path, html: {method: 'post'} do |f| %>
+      <%= f.input :email, autofocus: true %>
+      <%= f.submit _t("Send reset instructions") %>
+    <% end %>
+  </div>
+</div>

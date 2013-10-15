@@ -1,0 +1,13 @@
+<div id="alchemy_greeting">
+  <%= image_tag("alchemy/alchemy-logo.png") %>
+  <h1><%= _t('Welcome to Alchemy') %></h1>
+  <p>
+    <%= _t("Please Signup") %>
+  </p>
+</div>
+
+<div id="user_signup" class="login_signup_box">
+  <%= alchemy_form_for @user do |f| %>
+    <%= render 'alchemy/admin/users/fields', f: f %>
+  <% end %>
+</div>

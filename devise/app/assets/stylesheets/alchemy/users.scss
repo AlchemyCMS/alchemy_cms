@@ -1,0 +1,42 @@
+form {
+
+  &.user_roles .checkbox {
+    display: inline-block;
+    width: 50%;
+  }
+}
+
+.icon {
+
+  &.user {
+    background-position: 0 -104px;
+
+    &.female {
+      background-position: -128px -104px;
+    }
+  }
+
+  &.user_add {
+    background-position: -96px -104px;
+  }
+
+  &.user_delete {
+    background-position: -32px -104px;
+
+    &.female {
+      background-position: -160px -104px;
+    }
+  }
+
+  &.user_edit {
+    background-position: -64px -104px;
+
+    &.female {
+      background-position: -192px -104px;
+    }
+  }
+}
+
+span.module.users {
+  background-position: -80px 0;
+}
