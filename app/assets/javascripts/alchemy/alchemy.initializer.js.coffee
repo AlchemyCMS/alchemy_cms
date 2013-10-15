@@ -27,7 +27,7 @@ Alchemy.Initializer = ->
 
   # Locale select handler
   $('select#change_locale').on 'change', (e) ->
-    url = Alchemy.current_url
+    url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
     window.location.href = "#{url}#{delimiter}locale=#{$(this).val()}"
 
