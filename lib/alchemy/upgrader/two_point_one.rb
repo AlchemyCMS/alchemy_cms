@@ -16,7 +16,7 @@ module Alchemy
           language.page_layout = root.page_layout
           language.public = true
           page.language = language
-          if page.save(:validate => false)
+          if page.save(validate: false)
             log "Set language for page #{page.name} to #{language.name}."
           end
         else

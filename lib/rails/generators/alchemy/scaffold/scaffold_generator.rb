@@ -31,6 +31,7 @@ module Alchemy
         copy_file "#{File.dirname(__FILE__)}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
         template "page_layouts.yml.tt", "#{Rails.root}/config/alchemy/page_layouts.yml"
         copy_file "#{File.dirname(__FILE__)}/files/application.html.erb", "#{Rails.root}/app/views/layouts/application.html.erb"
+        copy_file "#{File.dirname(__FILE__)}/files/_standard.html.erb", "#{Rails.root}/app/views/alchemy/page_layouts/_standard.html.erb"
       end
 
     private

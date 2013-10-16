@@ -1,16 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
+gem 'rails', '~> 3.2.14'
 
-begin
-  require "rubygems"
-  require 'rails/version'
-  RAILS_VERSION = Rails::VERSION::STRING
-  if RAILS_VERSION < "3.2"
-    raise LoadError, "Wrong rails version installed. Please run gem install rails -v'~>3.2.11'"
-  end
-  require "thor"
-  require File.join(File.dirname(__FILE__), '..', 'lib/alchemy/version')
-end
+require 'rails/version'
+require "thor"
+require File.expand_path('../../lib/alchemy/version', __FILE__)
 
 class AlchemyInstaller < Thor
   include Thor::Actions
@@ -19,16 +13,16 @@ class AlchemyInstaller < Thor
   map "--version" => :version
   desc "version", "Prints current Alchemy CMS version", :hide => true
   def version
-    puts Alchemy::VERSION
+    puts Alchemy.version
   end
 
   desc "new PROJECT", "Creates a new Alchemy CMS project."
   method_option :database, :type => :string, :default => 'mysql', :aliases => "-d", :desc => "Type of database to use for this project. Default mysql."
   def new(project)
     @application = project.downcase.strip.gsub(/ /, '_')
-    if system("rails new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
+    if system("rails _#{Rails::VERSION::STRING}_ new #{@application} -m #{File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')} -d #{options[:database]} -JT")
       create_database_yml if options[:database] == 'mysql'
-      system("cd ./#{@application} && rake alchemy:install")
+      system("cd ./#{@application} && bundle exec rake alchemy:install")
       gitignore = <<-GIT
 log/*
 tmp/*

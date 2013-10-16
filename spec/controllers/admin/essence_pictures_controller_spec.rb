@@ -146,9 +146,9 @@ module Alchemy
 
     describe '#assign' do
       before do
-        Content.stub(:find).and_return(content)
+        Content.should_receive(:find).and_return(content)
         Content.any_instance.stub(:essence).and_return(essence)
-        Picture.stub(:find_by_id).and_return(picture)
+        Picture.should_receive(:find_by_id).and_return(picture)
       end
 
       it "should assign a Picture" do

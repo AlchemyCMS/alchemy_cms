@@ -1,7 +1,7 @@
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=3.0-dev)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=3.0-dev)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=3.0-dev)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=3.0-dev)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms)
 
 About
 -----
@@ -35,7 +35,7 @@ Rails Version
 
 This version of Alchemy runs with Rails 4.0.0.
 
-If you are looking for a Rails 3.2 compatible version check the [2.6-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).
+If you are looking for a Rails 3.2 compatible version check the [2.7-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).
 
 If you are looking for a Rails 3.1 compatible version check the [2.1-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
 
@@ -55,7 +55,7 @@ Installation
 
 Use the installer (recommended):
 
-    gem install alchemy_cms --pre
+    gem install alchemy_cms
     alchemy new my_magicpage
     cd my_magicpage
 

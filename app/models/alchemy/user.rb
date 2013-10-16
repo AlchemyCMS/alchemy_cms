@@ -12,6 +12,7 @@ module Alchemy
       :language,
       :password,
       :password_confirmation,
+      :roles,
       :send_credentials,
       :tag_list
     ]
@@ -23,8 +24,8 @@ module Alchemy
       devise(*Config.get(:devise_modules))
     rescue NameError => e
       abort <<-WARN
-You enabled the encrytable devise module, but did not have the `devise-encrytable` gem installed!
-Please add the `devise-encrytable` gem into your Gemfile.
+You enabled the encryptable devise module, but did not have the `devise-encryptable` gem installed!
+Please add the `devise-encryptable` gem into your Gemfile.
 WARN
     end
 
