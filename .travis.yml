@@ -4,7 +4,7 @@ rvm:
   - 2.0.0
 branches:
   only:
-    - 2.7-stable
+    - master
 script: rake
 env:
   - DB=mysql
