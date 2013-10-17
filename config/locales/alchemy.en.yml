@@ -403,6 +403,8 @@ en:
     want_to_create_new_language: "Do you want to create a new empty language tree?"
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
     "Welcome to Alchemy": "Welcome to Alchemy"
+    welcome_note: "Welcome %{name}"
+    welcome_back_note: "Welcome back %{name}"
     welcome_please_identify_notice: "Welcome! Please identify."
     width: "Width"
     "You are already logged in": "You are already logged in."

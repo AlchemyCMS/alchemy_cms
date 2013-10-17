@@ -310,8 +310,6 @@ de:
     "Warning!": "Achtung!"
     content_description_missing: "Warnung: Für diesen Content konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     element_description_missing: "Warnung! Für dieses Element konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
-    "Welcome back, %{name}": "Willkommen zurück, %{name}!"
-    "Welcome, %{name}": "Willkommen, %{name}!"
     "Welcome to Alchemy": "Willkommen in Alchemy"
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"
@@ -589,6 +587,8 @@ de:
     want_to_create_new_language: "Wollen Sie einen neuen leeren Sprachbaum erstellen?"
     want_to_make_copy_of_existing_language: "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
     "We need at least one default.": "Es muss eine Standardsprache geben."
+    welcome_note: "Willkommen %{name}"
+    welcome_back_note: "Willkommen zurück %{name}"
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
     width: "Breite"
     without_tag: 'Ohne Tag'

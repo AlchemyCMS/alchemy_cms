@@ -1,4 +1,3 @@
-require 'userstamp'
 require 'acts-as-taggable-on'
 
 module Alchemy
@@ -8,7 +7,7 @@ module Alchemy
 
     acts_as_taggable
     file_accessor :file
-    stampable :stamper_class_name => 'Alchemy::User'
+    stampable stamper_class_name: Alchemy.user_class_name
 
     attr_accessible :file, :name, :file_name, :tag_list
 

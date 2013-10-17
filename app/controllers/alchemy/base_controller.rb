@@ -8,10 +8,18 @@ module Alchemy
     before_filter :set_current_site
     before_filter :set_language
     before_filter :mailer_set_url_options
-    before_filter :store_user_request_time
     before_filter :set_authorization_user
 
-    helper_method :current_server, :current_site, :multi_site?
+    helper_method :current_alchemy_user,
+      :current_site,
+      :multi_site?,
+      :current_server
+
+    def leave
+      render layout: !request.xhr?
+    end
+
+    private
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -43,7 +51,25 @@ module Alchemy
       I18n.t(key, *args)
     end
 
-  private
+    # The current authorized user.
+    #
+    # In order to have Alchemy's authorization work, you have to
+    # provide a +current_user+ method in your app's ApplicationController,
+    # that returns the current user.
+    #
+    # If you don't have an App that can provide a +current_user+ object,
+    # you can install the `alchemy-devise` gem that provides everything you need.
+    #
+    def current_alchemy_user
+      raise NoCurrentUserFoundError if !defined?(current_user)
+      current_user
+    end
+
+    # Returns true if a +current_alchemy_user+ is present
+    #
+    def alchemy_user_signed_in?
+      current_alchemy_user.present?
+    end
 
     # Returns the current site.
     #
@@ -61,7 +87,7 @@ module Alchemy
     # Stores the current_user for declarative_authorization
     #
     def set_authorization_user
-      Authorization.current_user = current_user
+      Authorization.current_user = current_alchemy_user
     end
 
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
@@ -77,8 +103,8 @@ module Alchemy
         ::I18n.locale = session[:current_locale]
       elsif params[:locale].present? && ::I18n.available_locales.include?(params[:locale].to_sym)
         session[:current_locale] = ::I18n.locale = params[:locale]
-      elsif current_user && current_user.language.present?
-        ::I18n.locale = current_user.language
+      elsif current_alchemy_user && current_alchemy_user.respond_to?(:language) && current_alchemy_user.language.present?
+        ::I18n.locale = current_alchemy_user.language
       else
         ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /^[a-z]{2}/).try(:first) || ::I18n.default_locale
       end
@@ -137,17 +163,10 @@ module Alchemy
       redirect_to url_for(protocol: 'https')
     end
 
-    # Stores the users request time.
-    def store_user_request_time
-      if user_signed_in?
-        current_user.store_request_time!
-      end
-    end
-
-  protected
+    protected
 
     def permission_denied
-      if current_user
+      if current_alchemy_user
         if permitted_to? :index, :alchemy_admin_dashboard
           if request.referer == alchemy.login_url
             render :file => Rails.root.join('public/422'), :status => 422

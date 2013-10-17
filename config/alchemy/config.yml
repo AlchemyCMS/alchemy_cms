@@ -147,7 +147,7 @@ mailer:
 #     user_roles:
 #       rolename: Name of the role
 #
-user_roles: [registered, author, editor, admin]
+user_roles: [member, author, editor, admin]
 
 # === Uploader Settings
 #
@@ -183,14 +183,4 @@ link_target_options: [blank]
 # Should pages that redirect to an external url open the link in a new tab/window?
 open_external_links_in_new_tab: true
 
-# === Devise modules
-#
-# List of Devise modules that should be activated on the user model.
-#
-devise_modules:
-  - :database_authenticatable
-  - :trackable
-  - :validatable
-  - :timeoutable
-  - :recoverable
-  # - :encryptable # Uncomment this if you are upgrading from an Alchemy version < 2.5.0
+email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'

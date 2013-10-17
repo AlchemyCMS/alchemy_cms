@@ -18,7 +18,7 @@ module Alchemy
       #
       scope :all_locked, where(locked: true)
 
-      # All pages locked by given +Alchemy::User+
+      # All pages locked by given user
       #
       scope :all_locked_by, ->(user) {
         all_locked.where(locked_by: user.id)
@@ -52,7 +52,7 @@ module Alchemy
         )
       }
 
-      # Last 5 pages that where recently edited by given +Alchemy::User+
+      # Last 5 pages that where recently edited by given user
       #
       scope :all_last_edited_from, ->(user) {
         where(updater_id: user.id).order('updated_at DESC').limit(5)

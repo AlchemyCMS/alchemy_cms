@@ -423,7 +423,7 @@ module Alchemy
               Alchemy.loadAlchemyMenuBar({
                 page_id: #{@page.id},
                 route: '#{Alchemy::MountPoint.get}',
-                locale: '#{current_user.language || ::I18n.default_locale}'
+                locale: '#{current_alchemy_user.language || ::I18n.default_locale}'
               });
             } catch(e) {
               if(console){console.log(e)}

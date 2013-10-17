@@ -1,6 +1,5 @@
 require 'acts-as-taggable-on'
 require 'awesome_nested_set'
-require 'userstamp'
 
 module Alchemy
   class Page < ActiveRecord::Base
@@ -44,12 +43,13 @@ module Alchemy
     acts_as_taggable
     acts_as_nested_set(:dependent => :destroy)
 
-    stampable(:stamper_class_name => 'Alchemy::User')
+    stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :folded_pages
+
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
-    belongs_to :locker, class_name: 'Alchemy::User', foreign_key: 'locked_by'
+    belongs_to :locker, class_name: Alchemy.user_class_name, foreign_key: 'locked_by'
 
     validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :page_layout, :unless => :systempage?
@@ -206,7 +206,9 @@ module Alchemy
 
     # Touches the timestamps and userstamps
     def touch
-      Page.where(id: self.id).update_all(updated_at: Time.now, updater_id: User.stamper)
+      update_hash = {updated_at: Time.now}
+      update_hash[:updater_id] = Alchemy.user_class.stamper if Alchemy.user_class.respond_to?(:stamper)
+      Page.where(id: self.id).update_all(update_hash)
     end
 
     # Returns the previous page on the same level or nil.

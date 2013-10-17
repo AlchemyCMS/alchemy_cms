@@ -21,7 +21,7 @@ module Alchemy
     let(:klingonian_public_page)    { FactoryGirl.create(:public_page, :language => klingonian, :parent_id => klingonian_language_root.id) }
 
     before do
-      Config.stub!(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
+      Config.stub(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
       @root_page = language_root # We need this instance variable in the helpers
     end
 
@@ -77,11 +77,10 @@ module Alchemy
           end
         end
 
-        context "as registered user" do
-          before do
-            restricted_page
-            Authorization.stub!(:current_user).and_return(FactoryGirl.build(:registered_user))
-          end
+        context "as member user" do
+          let(:user) { mock_model('User', alchemy_roles: %w(member)) }
+
+          before { restricted_page }
 
           it "should render also restricted pages" do
             not_restricted_page = FactoryGirl.create(:public_page, restricted: false, visible: true)
@@ -93,7 +92,7 @@ module Alchemy
         context "with enabled url nesting" do
 
           before do
-            helper.stub!(:configuration).and_return(true)
+            helper.stub(:configuration).and_return(true)
             level_3_page
           end
 
@@ -262,7 +261,7 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
-        before { Authorization.current_user = FactoryGirl.build(:registered_user) }
+        before { Authorization.current_user = mock_model('User', alchemy_roles: %w(member)) }
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
@@ -303,35 +302,37 @@ module Alchemy
         end
       end
 
-      it "should render meta keywords of current page" do
-        @page = mock_model('Page', :language => language, :title => 'A Public Page', :meta_description => '', :meta_keywords => 'keyword1, keyword2', :robot_index? => false, :robot_follow? => false, :contains_feed? => false, :updated_at => '2011-11-29-23:00:00')
-        helper.render_meta_data.should have_selector('meta[name="keywords"][content="keyword1, keyword2"]')
-      end
+      context "@page is set" do
+        let(:page) { mock_model('Page', language: language, title: 'A Public Page', meta_description: 'blah blah', meta_keywords: 'keyword1, keyword2', robot_index?: false, robot_follow?: false, contains_feed?: false, updated_at: '2011-11-29-23:00:00') }
+        before { helper.instance_variable_set('@page', page) }
+        subject { helper.render_meta_data }
 
-      it "should render meta description 'blah blah' of current page" do
-        @page = mock_model('Page', :language => language, :title => 'A Public Page', :meta_description => 'blah blah', :meta_keywords => '', :robot_index? => false, :robot_follow? => false, :contains_feed? => false, :updated_at => '2011-11-29-23:00:00')
-        helper.render_meta_data.should have_selector('meta[name="description"][content="blah blah"]')
+        it "should render meta keywords of current page" do
+          should match /meta name="keywords" content="keyword1, keyword2"/
+        end
+
+        it "should render meta description 'blah blah' of current page" do
+          should match /meta name="description" content="blah blah"/
+        end
       end
     end
 
     describe "#render_title_tag" do
+      let(:page) { mock_model('Page', title: 'A Public Page') }
+      before { helper.instance_variable_set('@page', page) }
 
       it "should render a title tag for current page" do
-        @page = mock_model('Page', :title => 'A Public Page')
-        helper.render_title_tag.should have_selector('title[contains("A Public Page")]')
+        helper.render_title_tag.should match /<title>A Public Page<\/title>/
       end
 
       it "should render a title tag for current page with a prefix and a seperator" do
-        @page = mock_model('Page', :title => 'A Public Page')
-        helper.render_title_tag(:prefix => 'Peters Petshop', :seperator => ' ### ').should have_selector('title[contains("Peters Petshop ### A Public Page")]')
+        helper.render_title_tag(prefix: 'Peters Petshop', seperator: ' ### ').should match /<title>Peters Petshop ### A Public Page<\/title>/
       end
 
     end
 
     describe "#language_links" do
-
       context "with two public languages" do
-
         # Always create second language
         before { klingonian }
 
@@ -342,7 +343,6 @@ module Alchemy
         end
 
         context "with two language root pages" do
-
           # Always create a language root page for klingonian
           before { klingonian_language_root }
 
@@ -393,7 +393,7 @@ module Alchemy
           context "with options[:show_title]" do
             context "set to true" do
               it "should render the language links with titles" do
-                helper.stub!(:_t).and_return("my title")
+                helper.stub(:_t).and_return("my title")
                 expect(helper.language_links(show_title: true)).to have_selector('a[title="my title"]')
               end
             end
@@ -404,11 +404,8 @@ module Alchemy
               end
             end
           end
-
         end
-
       end
-
     end
 
     describe "#picture_essence_caption" do

@@ -34,7 +34,7 @@ module Alchemy
 
     describe '.definitions' do
       context "without existing yml files" do
-        before { File.stub!(:exists?).and_return(false) }
+        before { File.stub(:exists?).and_return(false) }
 
         it "should raise an error" do
           expect { Element.definitions }.to raise_error(LoadError)
@@ -42,7 +42,7 @@ module Alchemy
       end
 
       context "without any definitions in elements.yml" do
-        before { YAML.stub!(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
+        before { YAML.stub(:load_file).and_return(false) } # Yes, YAML.load_file returns false if an empty file exists.
 
         it "should return an empty array" do
           Element.definitions.should == []
@@ -66,7 +66,7 @@ module Alchemy
         FactoryGirl.create(:element, :name => 'article')
         FactoryGirl.create(:element, :name => 'article')
         excluded = FactoryGirl.create(:element, :name => 'claim')
-        Element.excluded(['claim']).all.should_not include(excluded)
+        Element.excluded(['claim']).should_not include(excluded)
       end
     end
 
@@ -74,7 +74,7 @@ module Alchemy
       it "should return all elements by name" do
         element_1 = FactoryGirl.create(:element, :name => 'article')
         element_2 = FactoryGirl.create(:element, :name => 'article')
-        elements = Element.named(['article']).all
+        elements = Element.named(['article'])
         elements.should include(element_1)
         elements.should include(element_2)
       end
@@ -100,25 +100,21 @@ module Alchemy
     end
 
     context 'trash' do
+      let(:element) { FactoryGirl.create(:element, page_id: 1) }
+
       describe '.not_trashed' do
-        let(:element) do
-          FactoryGirl.create(:element, :page_id => 1)
-        end
+        before { element }
 
         it "should return a collection of not trashed elements" do
-          Element.not_trashed.should include(element)
+          expect(Element.not_trashed.to_a).to eq([element])
         end
       end
 
       describe ".trashed" do
-        let(:element) do
-          FactoryGirl.create(:element, :page_id => 1)
-        end
+        before { element.trash! }
 
         it "should return a collection of trashed elements" do
-          not_trashed_element = FactoryGirl.create(:element)
-          element.trash
-          Element.trashed.should include(element)
+          expect(Element.trashed.to_a).to eq([element])
         end
       end
     end
@@ -178,7 +174,7 @@ module Alchemy
 
       context "with page having cells defining the correct elements" do
         before do
-          Cell.stub!(:definitions).and_return([
+          Cell.stub(:definitions).and_return([
             {'name' => 'header', 'elements' => ['article', 'headline']},
             {'name' => 'footer', 'elements' => ['article', 'text']},
             {'name' => 'sidebar', 'elements' => ['teaser']}
@@ -203,7 +199,7 @@ module Alchemy
 
       context "with page having cells defining the wrong elements" do
         before do
-          Cell.stub!(:definitions).and_return([
+          Cell.stub(:definitions).and_return([
             {'name' => 'header', 'elements' => ['download', 'headline']},
             {'name' => 'footer', 'elements' => ['contactform', 'text']},
             {'name' => 'sidebar', 'elements' => ['teaser']}
@@ -298,7 +294,7 @@ module Alchemy
 
       context "without a content marked as preview" do
         let(:contents) { [content, content_2] }
-        before { element.stub!(:contents).and_return(contents) }
+        before { element.stub(:contents).and_return(contents) }
 
         it "returns the preview text of first content found" do
           content.should_receive(:preview_text).with(30)
@@ -308,7 +304,7 @@ module Alchemy
 
       context "with a content marked as preview" do
         let(:contents) { [content, preview_content] }
-        before { element.stub!(:contents).and_return(contents) }
+        before { element.stub(:contents).and_return(contents) }
 
         it "should return the preview_text of this content" do
           preview_content.should_receive(:preview_text).with(30)
@@ -317,7 +313,7 @@ module Alchemy
       end
 
       context "without any contents present" do
-        before { element.stub!(:contents).and_return([]) }
+        before { element.stub(:contents).and_return([]) }
 
         it "should return nil" do
           element.preview_text.should be_nil
@@ -375,34 +371,6 @@ module Alchemy
       end
     end
 
-    describe '#save' do
-      let(:time) { Time.now }
-      let(:locker) { FactoryGirl.build_stubbed(:user) }
-      let(:page) { FactoryGirl.create(:page, updated_at: time) }
-      let(:element) { FactoryGirl.create(:element, page: page) }
-
-      before { User.stub(:stamper).and_return(locker.id) }
-
-      it "updates page timestamps" do
-        element.save
-        page.reload
-        page.updated_at.should_not eq(time)
-      end
-
-      it "updates page userstamps" do
-        element.save
-        page.reload
-        page.updater_id.should eq(locker.id)
-      end
-    end
-
-    describe '#save_contents' do
-      it "should return true if attributes hash is nil" do
-        element = FactoryGirl.create(:element, create_contents_after_create: true)
-        element.save_contents(nil).should be_true
-      end
-    end
-
     describe '#taggable?' do
       let(:element) { FactoryGirl.build(:element) }
 
@@ -428,20 +396,28 @@ module Alchemy
       end
     end
 
-    describe '#trash' do
-      let(:element)         { FactoryGirl.create(:element, :page_id => 1, :cell_id => 1) }
-      let(:trashed_element) { element.trash ; element }
+    describe '#trash!' do
+      let(:element)         { FactoryGirl.create(:element, page_id: 1, cell_id: 1) }
+      let(:trashed_element) { element.trash! ; element }
       subject               { trashed_element }
 
       it             { should_not be_public }
+      it             { should be_folded }
       its(:position) { should be_nil }
-      specify        { expect { element.trash }.to_not change(element, :page_id) }
-      specify        { expect { element.trash }.to_not change(element, :cell_id) }
+      specify        { expect { element.trash! }.to_not change(element, :page_id) }
+      specify        { expect { element.trash! }.to_not change(element, :cell_id) }
 
-      it "it should be possible to trash more than one element from the same page" do
-        trashed_element_2 = FactoryGirl.create(:element, :page_id => 1)
-        trashed_element_2.trash
-        Element.trashed.should include(trashed_element, trashed_element_2)
+      context "with already one trashed element on the same page" do
+        let(:element_2) { FactoryGirl.create(:element, page_id: 1) }
+        before {
+          trashed_element
+          element_2
+        }
+
+        it "it should be possible to trash another" do
+          element_2.trash!
+          expect(Element.trashed.to_a).to include(trashed_element, element_2)
+        end
       end
     end
 

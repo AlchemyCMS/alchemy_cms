@@ -59,7 +59,6 @@ module Alchemy
       def create_admin_user
         FactoryGirl.create(:admin_user)
       end
-
     end
 
   end

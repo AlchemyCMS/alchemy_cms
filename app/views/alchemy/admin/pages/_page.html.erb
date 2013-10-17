@@ -99,7 +99,7 @@
     <%- end -%>
     </div>
   </div>
-  <%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
+  <%- if @sorting || (!page.folded?(current_alchemy_user) && !page.children.empty?) -%>
   <ul id="page_<%= page.id %>_children" class="level_<%= page.level %>_children">
     <%= render :partial => 'page', :collection => page.children %>
   </ul>

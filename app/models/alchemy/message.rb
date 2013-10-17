@@ -46,7 +46,7 @@ module Alchemy
 
       case field.to_sym
       when :email
-        validates_format_of field, :with => ::Devise.email_regexp, :if => :email_is_filled
+        validates_format_of field, with: Alchemy::Config.get(:email_regexp), if: -> { email.present? }
       when :email_confirmation
         validates_confirmation_of :email
       end
@@ -66,12 +66,6 @@ module Alchemy
 
     def persisted? #:nodoc:
       false
-    end
-
-  private
-
-    def email_is_filled #:nodoc:
-      !email.blank?
     end
 
   end

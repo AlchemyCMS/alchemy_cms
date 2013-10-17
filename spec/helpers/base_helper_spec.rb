@@ -83,7 +83,6 @@ module Alchemy
           expect(helper.page_or_find(page)).to eq(page)
         end
       end
-
     end
 
   end

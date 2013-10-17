@@ -19,7 +19,7 @@ Alchemy.growl("<%= @notice -%>");
   $page = $('#page_<%= @page.id %>');
   Alchemy.overlayObserver($page);
 
-  <% if @page.locked? && @page.locker == current_user %>
+  <% if @page.locked? && @page.locker == current_alchemy_user %>
     $('#locked_page_<%= @page.id %> > a').html('<%= @page.name -%>');
   <% end %>
 

@@ -14,7 +14,7 @@ module Alchemy
 
       layout 'alchemy/admin'
 
-    private
+      private
 
       # Handles exceptions
       def exception_handler(e)
@@ -30,7 +30,7 @@ module Alchemy
         @error = e
         # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
         @notice = e.message[0..255]
-        @trace = e.backtrace[0..35]
+        @trace = e.backtrace[0..50]
         if request.xhr?
           render :action => "error_notice", :layout => false
         else
@@ -68,17 +68,21 @@ module Alchemy
       end
 
       def set_stamper
-        User.stamper = current_user
+        if Alchemy.user_class < ActiveRecord::Base
+          Alchemy.user_class.stamper = current_alchemy_user
+        end
       end
 
       def reset_stamper
-        User.reset_stamper
+        if Alchemy.user_class < ActiveRecord::Base
+          Alchemy.user_class.reset_stamper
+        end
       end
 
-      # Returns true if the current_user (The logged-in Alchemy User) has the admin role.
+      # Returns true if the current_alchemy_user (The logged-in Alchemy User) has the admin role.
       def is_admin?
-        return false if !current_user
-        current_user.admin?
+        return false if !current_alchemy_user
+        current_alchemy_user.admin?
       end
 
       # Displays errors in a #errors div if any errors are present on the object.

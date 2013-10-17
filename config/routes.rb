@@ -15,31 +15,6 @@ Alchemy::Engine.routes.draw do
   get '/admin/dashboard/update_check' => 'admin/dashboard#update_check',
         :as => :update_check
 
-  devise_scope :user do
-    get '/admin/login' => 'user_sessions#new', :as => :login
-    post '/admin/login' => 'user_sessions#create', :as => :login
-    delete '/admin/logout' => 'user_sessions#destroy', :as => :logout
-    get '/admin/dashboard' => 'admin/dashboard#index', :as => :user_root
-    get '/admin/leave' => 'user_sessions#leave', :as => :leave_admin
-    get '/admin/passwords' => 'passwords#new', :as => :new_password
-    get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit', :as => :edit_password
-    post '/admin/passwords' => 'passwords#create', :as => :password
-    put '/admin/passwords' => 'passwords#update', :as => :password
-  end
-
-  # This actualy does all the Devise magic. I.e. current_user method in ApplicationController
-  devise_for(
-    :user,
-    :class_name => 'Alchemy::User',
-    :controllers => {
-      :sessions => 'alchemy/user_sessions'
-    },
-    :skip => [:sessions, :passwords] # skipping Devise default routes.
-  )
-
-  get '/admin/signup' => 'users#new', :as => :signup
-  post '/admin/signup' => 'users#create', :as => :signup
-
   get '/attachment/:id/download(/:name)' => 'attachments#download',
         :as => :download_attachment
   get '/attachment/:id/show' => 'attachments#show',
@@ -57,12 +32,12 @@ Alchemy::Engine.routes.draw do
   get "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
         :as => :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
 
+  get '/admin/leave' => 'base#leave', :as => :leave_admin
+
   resources :messages, :only => [:index, :new, :create]
   resources :elements, :only => :show
 
   namespace :admin do
-
-    resources :users
 
     resources :contents do
       collection do

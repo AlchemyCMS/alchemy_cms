@@ -207,7 +207,7 @@ module Alchemy
 
     # Trashes all elements that are not allowed for this page_layout.
     def trash_not_allowed_elements
-      elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash)
+      elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash!)
     end
 
     # Deletes unique and already present definitions from @elements_for_layout.

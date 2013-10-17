@@ -43,7 +43,7 @@
         <%= yield(:alchemy_main_navigation) %>
       </div>
       <div id="logout">
-        <% if current_user %>
+        <% if current_alchemy_user %>
           <%= link_to_overlay_window(
             "<span class='module icon exit'></span><label>#{_t(:leave)}</label>".html_safe,
             alchemy.leave_admin_path, {
@@ -58,7 +58,7 @@
         <% end %>
       </div>
     </div>
-    <% if current_user %>
+    <% if current_alchemy_user %>
     <div id="top_menu">
       <div id="sub_navigation">
         <%= admin_subnavigation %>
@@ -71,7 +71,7 @@
       </div>
       <div id="user_info">
         <%= select_tag 'change_locale', options_for_select(::I18n.available_locales.map { |l| [l.to_s.upcase, l] }, ::I18n.locale), :class => 'alchemy_selectbox tiny' %>
-        <%= _t('Logged in as') %> <%= current_user.name %>
+        <%= _t('Logged in as') %> <%= current_alchemy_user.try(:name) %>
       </div>
     </div>
     <% end %>

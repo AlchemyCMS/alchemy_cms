@@ -57,7 +57,7 @@ module Alchemy
       end
     end
 
-  private
+    private
 
     # Load the current page and store it in @page.
     #
@@ -96,7 +96,7 @@ module Alchemy
 
     def render_page_or_redirect
       @page ||= load_page
-      if User.admins.count == 0 && @page.nil?
+      if signup_required?
         redirect_to signup_path
       elsif @page.nil? && last_legacy_url
         @page = last_legacy_url.page
@@ -123,6 +123,12 @@ module Alchemy
         else
           @root_page = Page.language_root_for(session[:language_id])
         end
+      end
+    end
+
+    def signup_required?
+      if Alchemy.user_class.respond_to?(:admins)
+        Alchemy.user_class.admins.size == 0 && @page.nil?
       end
     end
 

@@ -1,6 +1,5 @@
 require 'acts-as-taggable-on'
 require 'dragonfly'
-require 'userstamp'
 
 module Alchemy
   class Picture < ActiveRecord::Base
@@ -39,7 +38,7 @@ module Alchemy
       :upload_hash
     )
 
-    stampable(:stamper_class_name => 'Alchemy::User')
+    stampable stamper_class_name: Alchemy.user_class_name
 
     scope :recent, where("#{self.table_name}.created_at > ?", Time.now-24.hours).order(:created_at)
     scope :deletable, where("alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")

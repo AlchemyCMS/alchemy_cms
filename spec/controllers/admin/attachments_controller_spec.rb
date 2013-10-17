@@ -8,7 +8,7 @@ module Alchemy
     before do
       sign_in(admin_user)
     end
-    
+
     describe "#index" do
 
       it "should always paginate the records" do
@@ -44,9 +44,9 @@ module Alchemy
       end
 
     end
-    
+
     describe "#new" do
-      
+
       context "in overlay" do
 
         before do

@@ -1,4 +1,3 @@
-require 'userstamp'
 require 'acts_as_list'
 
 module Alchemy
@@ -20,7 +19,7 @@ module Alchemy
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
 
-    stampable stamper_class_name: 'Alchemy::User'
+    stampable stamper_class_name: Alchemy.user_class_name
 
     acts_as_list
 
