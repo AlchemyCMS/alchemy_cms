@@ -1,20 +1,30 @@
 module Alchemy
   module Admin
     class BaseController < Alchemy::BaseController
-
       include Userstamp
       before_filter { enforce_ssl if ssl_required? && !request.ssl? }
       before_filter :set_translation
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
-      filter_access_to :all
+      check_authorization
 
-      rescue_from Exception, :with => :exception_handler unless Rails.env == 'test'
+      rescue_from Exception do |exception|
+        if exception.is_a? CanCan::AccessDenied
+          permission_denied(exception)
+        else
+          exception_handler(exception)
+        end
+      end
 
-      layout 'alchemy/admin'
+      layout :set_layout
 
-    private
+      private
+
+      # Disable layout rendering for xhr requests.
+      def set_layout
+        request.xhr? ? false : 'alchemy/admin'
+      end
 
       # Handles exceptions
       def exception_handler(e)
@@ -30,9 +40,9 @@ module Alchemy
         @error = e
         # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
         @notice = e.message[0..255]
-        @trace = e.backtrace[0..35]
+        @trace = e.backtrace[0..50]
         if request.xhr?
-          render :action => "error_notice", :layout => false
+          render :action => "error_notice"
         else
           render '500', :status => 500
         end
@@ -68,17 +78,21 @@ module Alchemy
       end
 
       def set_stamper
-        User.stamper = current_user
+        if Alchemy.user_class < ActiveRecord::Base
+          Alchemy.user_class.stamper = current_alchemy_user
+        end
       end
 
       def reset_stamper
-        User.reset_stamper
+        if Alchemy.user_class < ActiveRecord::Base
+          Alchemy.user_class.reset_stamper
+        end
       end
 
-      # Returns true if the current_user (The logged-in Alchemy User) has the admin role.
+      # Returns true if the current_alchemy_user (The logged-in Alchemy User) has the admin role.
       def is_admin?
-        return false if !current_user
-        current_user.admin?
+        return false if !current_alchemy_user
+        current_alchemy_user.admin?
       end
 
       # Displays errors in a #errors div if any errors are present on the object.
@@ -90,42 +104,29 @@ module Alchemy
       #
       def render_errors_or_redirect(object, redirect_url, flash_notice)
         if object.errors.empty?
-          @redirect_url = redirect_url
           flash[:notice] = _t(flash_notice)
-          respond_to do |format|
-            format.js   { render :action => :redirect }
-            format.html { redirect_to @redirect_url }
-          end
+          do_redirect_to redirect_url
         else
-          respond_to do |format|
-            format.js   { render_remote_errors(object) }
-            format.html { render :action => (params[:action] == "update" ? :edit : :new) }
-          end
+          render action: (params[:action] == 'update' ? 'edit' : 'new')
         end
-      end
-
-      # Renders an unordered list of objects errors in an errors div via javascript.
-      #
-      # Note: You have to have a hidden div with the id +#errors+ in your form, to make this work.
-      #
-      # You can pass a div id as second argument to display the errors in alternative div.
-      #
-      # Hint: If you use an alternative div, please use the +errors+ css class to get the correct styling.
-      #
-      # @param object [ActiveRecord::Base]
-      # @param error_div_id [String]
-      #
-      def render_remote_errors(object, error_div_id = nil)
-        @error_div_id = error_div_id || '#errors'
-        @error_fields = object.errors.messages.keys.map { |f| "#{object.class.model_name.demodulize.underscore}_#{f}" }
-        @errors = ("<ul>" + object.errors.full_messages.map { |e| "<li>#{e}</li>" }.join + "</ul>").html_safe
-        render :action => :remote_errors
       end
 
       def per_page_value_for_screen_size
         return 25 if session[:screen_size].blank?
         screen_height = session[:screen_size].split('x').last.to_i
         (screen_height / 30) - 10
+      end
+
+      # Does redirects for html and js requests
+      #
+      def do_redirect_to(url_or_path)
+        respond_to do |format|
+          format.js   {
+            @redirect_url = url_or_path
+            render :redirect
+          }
+          format.html { redirect_to url_or_path }
+        end
       end
 
       # Extracts options from params.

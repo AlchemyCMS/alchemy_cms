@@ -21,7 +21,7 @@
 <% content_for :toolbar do %>
 <div class="toolbar_buttons">
   <%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
-  <% permitted_to?(:flush, :alchemy_admin_pages) do %>
+  <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
       render_icon('flush'),
@@ -34,7 +34,7 @@
     <label><%= _t('Flush page cache') %></label>
   </div>
   <% end %>
-  <% permitted_to?(:sort, :alchemy_admin_pages) do %>
+  <% if can?(:sort, Alchemy::Page) %>
   <div class="button_with_label" id="page_sorting_button">
     <%= link_to(
       render_icon('sort'),
@@ -96,17 +96,24 @@
 
   <%= render :partial => 'sitemap' %>
 
-<% else %>
+<% elsif can?(:create, Alchemy::Page) %>
 
   <%= render :partial => 'create_language_form' %>
   <% content_for(:javascripts) do %>
   <script type="text/javascript">
-    jQuery(document).ready(function($) {
-      $('#create_language_tree_form').dialog({modal: true, width: 360, close: function() {
+    $(function($) {
+      Alchemy.CurrentWindow = $('#create_language_tree_form').dialog({modal: false, width: 360, resizable: false, close: function() {
         $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
       }});
     });
   </script>
+  <% end %>
+
+<% else %>
+
+  <%= render_message :warn do %>
+    <h2>No language root page found.</h2>
+    <p>Please ask the admin to create one.</p>
   <% end %>
 
 <% end %>

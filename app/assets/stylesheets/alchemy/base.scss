@@ -97,15 +97,43 @@ hr {
   @include opacity(0.5);
 }
 
-.float_right {
-  float: right;
-}
+.float_right { float: right }
 
-.float_left {
-  float: left;
-}
+.float_left { float: left }
 
 .center { text-align: center }
+
+.rounded-border {
+  @include border-radius($default-border-radius);
+}
+
+.top-rounded-border {
+  @include border-top-radius($default-border-radius);
+}
+
+.left-rounded-border {
+  @include border-left-radius($default-border-radius);
+}
+
+.right-rounded-border {
+  @include border-right-radius($default-border-radius);
+}
+
+.bottom-rounded-border {
+  @include border-bottom-radius($default-border-radius);
+}
+
+.bottom-left-rounded-border {
+  @include border-bottom-left-radius($default-border-radius);
+}
+
+.disable-user-select {
+  @include user-select(none);
+}
+
+.border-box-sizing {
+  @include box-sizing(border-box);
+}
 
 span.updated_at {
   float: right;
@@ -167,10 +195,6 @@ div#page {
   margin-right: 8px;
 }
 
-#page_names textarea {
-  height: 67px;
-}
-
 div#new_page_from_clipboard {
   display: none;
 }
@@ -199,36 +223,12 @@ div#page_editing_menu {
   padding-right: 1px;
 }
 
-div#userinfo {
-  text-align: right;
-  float: right;
-  margin-right: 8px;
-}
-
-#userinfo img {
-  position: relative;
-  top: 1px;
-}
-
-div#user_list_legend {
-  overflow: auto;
-  padding: 1px 1px 4px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid black;
-  width: 370px;
-}
-
 #page_sorting_panel p {
   margin-top: 1em;
 }
 
 div.table_right span.tools a.icon_button img {
   left: -1px;
-}
-
-#user_edit form {
-  margin: 0;
-  padding: 2*$default-padding;
 }
 
 li.even {
@@ -279,12 +279,6 @@ ul.list span.right {
 
 .handle {
   cursor: move;
-}
-
-#userinfo p {
-  padding: 0;
-  margin: 0;
-  font-weight: bold;
 }
 
 .headline_text_editor {
@@ -396,13 +390,15 @@ div#images {
   overflow: visible;
 }
 
-p.foot_note {
+.foot_note, form .hint {
   font-size: 10px;
   line-height: 1.5em;
   padding: $default-padding;
   background-color: $light_yellow;
   border: 1px solid $medium-gray;
   @extend .rounded-border;
+  display: block;
+  clear: both;
 }
 
 #all_files td.name a {
@@ -447,15 +443,6 @@ p.foot_note {
   }
 }
 
-textarea#essence_picture_caption {
-  width: 233px;
-  height: 61px;
-}
-
-#alchemy .ui-dialog-content form.with_padding table td {
-  vertical-align: top;
-}
-
 #page_selector_scroll_container {
   position: relative;
   width: 100%;
@@ -487,13 +474,6 @@ input.with_border {
   padding: 1px;
   font-size: 12px;
   border: 1px solid silver;
-}
-
-input#user_admin {
-  margin: 0 0 0 1px;
-  padding: 0;
-  border-width: 0;
-  border-style: none;
 }
 
 #image_edit div {

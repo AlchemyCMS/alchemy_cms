@@ -5,7 +5,7 @@ module Alchemy
 
     before do
       controller.instance_variable_set(:@page, page)
-      controller.stub!(:get_page).and_return(page)
+      controller.stub(:get_page).and_return(page)
     end
 
     describe "#index" do
@@ -32,20 +32,21 @@ module Alchemy
 
     describe "#create" do
 
-      before { controller.stub!(:params).and_return({message: {email: ''}}) }
+      before { controller.stub(:params).and_return({message: {email: ''}}) }
 
       let(:page) { mock_model('Page', get_language_root: mock_model('Page')) }
       let(:element) { mock_model('Element', page: page, ingredient: '') }
       let(:message) { Message.new }
 
       it "should raise ActiveRecord::RecordNotFound if element of contactform could not be found" do
-        expect { get :create }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { post :create }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       context "if validation of message" do
 
         before do
-          Element.stub!(:find_by_id).and_return(element)
+          Element.stub(:find_by_id).and_return(element)
+          element.stub(:ingredient).with(:success_page).and_return('thank-you')
           Message.any_instance.stub(:contact_form_id).and_return(1)
         end
 
@@ -53,7 +54,7 @@ module Alchemy
           before { Message.any_instance.stub(:valid?).and_return(false) }
 
           it "should render 'alchemy/pages/show' template" do
-            expect(get :create).to render_template('alchemy/pages/show')
+            expect(post :create).to render_template('alchemy/pages/show')
           end
         end
 
@@ -65,7 +66,7 @@ module Alchemy
 
           it "Messages should call Messages#contact_form_mail to send the email" do
             Messages.should_receive(:contact_form_mail)
-            get :create
+            post :create
           end
 
           describe '#mail_to' do
@@ -78,7 +79,7 @@ module Alchemy
 
               it "returns the ingredient" do
                 Messages.should_receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
-                get :create
+                post :create
               end
             end
 
@@ -91,7 +92,7 @@ module Alchemy
 
               it "returns the config value" do
                 Messages.should_receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
-                get :create
+                post :create
               end
             end
           end
@@ -106,7 +107,7 @@ module Alchemy
 
               it "returns the ingredient" do
                 Messages.should_receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
-                get :create
+                post :create
               end
             end
 
@@ -119,7 +120,7 @@ module Alchemy
 
               it "returns the config value" do
                 Messages.should_receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
-                get :create
+                post :create
               end
             end
           end
@@ -134,7 +135,7 @@ module Alchemy
 
               it "returns the ingredient" do
                 Messages.should_receive(:contact_form_mail).with(message, '', '', 'A new message')
-                get :create
+                post :create
               end
             end
 
@@ -147,7 +148,7 @@ module Alchemy
 
               it "returns the config value" do
                 Messages.should_receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
-                get :create
+                post :create
               end
             end
           end
@@ -155,35 +156,35 @@ module Alchemy
           describe "#redirect_to_success_page" do
 
             context "if 'success_page' ingredient of element is set with urlname" do
-              before { element.stub!(:ingredient).with('success_page').and_return('success-page') }
+              before { element.stub(:ingredient).with(:success_page).and_return('success-page') }
 
               it "should redirect to the given urlname" do
-                expect(get :create).to redirect_to(show_page_path(urlname: 'success-page'))
+                expect(post :create).to redirect_to(show_page_path(urlname: 'success-page'))
               end
             end
 
             context "if 'success_page' ingredient of element is not set" do
-              before { element.stub!(:ingredient).with('success_page').and_return(nil) }
+              before { element.stub(:ingredient).with(:success_page).and_return(nil) }
 
               context "but mailer_config['forward_to_page'] is true and mailer_config['mail_success_page'] is set" do
                 before do
-                  controller.stub!(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
+                  controller.stub(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
                   Page.stub_chain(:find_by_urlname, :urlname).and_return('mailer-config-success-page')
                 end
 
                 it "redirect to the given success page" do
-                  expect(get :create).to redirect_to(show_page_path(urlname: 'mailer-config-success-page'))
+                  expect(post :create).to redirect_to(show_page_path(urlname: 'mailer-config-success-page'))
                 end
               end
 
               context "and mailer_config has no instructions for success_page" do
                 before do
-                  controller.stub!(:mailer_config).and_return({})
+                  controller.stub(:mailer_config).and_return({})
                 end
 
                 it "should redirect to the language root page" do
                   Page.stub_chain(:language_root_for, :urlname).and_return('lang-root')
-                  expect(get :create).to redirect_to(show_page_path(urlname: 'lang-root'))
+                  expect(post :create).to redirect_to(show_page_path(urlname: 'lang-root'))
                 end
               end
 

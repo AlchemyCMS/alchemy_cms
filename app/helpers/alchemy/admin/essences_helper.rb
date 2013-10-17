@@ -32,12 +32,12 @@ module Alchemy
         essence_type = Alchemy::Content.normalize_essence_type(essence_type)
         return_string = ""
         if options[:all]
-          contents = element.contents.find_all_by_essence_type_and_name(essence_type, options[:all])
+          contents = element.contents.where(essence_type: essence_type, name: options[:all])
           contents.each do |content|
             return_string << render_essence_editor(content, editor_options)
           end
         else
-          content = element.contents.find_by_essence_type_and_position(essence_type, options[:position])
+          content = element.contents.where(essence_type: essence_type, position: options[:position]).first
           return_string = render_essence_editor(content, editor_options)
         end
         return_string

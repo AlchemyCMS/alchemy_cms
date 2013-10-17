@@ -30,17 +30,17 @@ module Alchemy
       end
 
       before(:each) do
-        @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
+        @page.stub(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         @elements = [
           mock_model('Element', name: '1', display_name: '1'),
           mock_model('Element', name: '2', display_name: '2')
         ]
-        Alchemy::Cell.stub!(:definitions).and_return(cell_descriptions)
+        Alchemy::Cell.stub(:definitions).and_return(cell_descriptions)
       end
 
-      it "should return string of elements grouped by cell for select_tag helper" do
-        helper.grouped_elements_for_select(@elements).should == helper.grouped_options_for_select({"Foo cell" => [["1", "1#foo_cell"], ["2", "2#foo_cell"]]})
+      it "should return array of elements grouped by cell for select_tag helper" do
+        helper.grouped_elements_for_select(@elements).should include("Foo cell" => [["1", "1#foo_cell"], ["2", "2#foo_cell"]])
       end
 
       context "with empty elements array" do
@@ -51,7 +51,7 @@ module Alchemy
 
       context "with empty cell definitions" do
         it "should return an empty string" do
-          @page.stub!(:layout_description).and_return({'name' => "foo"})
+          @page.stub(:layout_description).and_return({'name' => "foo"})
           helper.grouped_elements_for_select(@elements).should == ""
         end
       end
@@ -68,9 +68,9 @@ module Alchemy
           ]
         end
 
-        it "should return a String with html option tags" do
-          helper.should_receive(:options_for_select)
-          helper.elements_for_select(element_objects)
+        it "should return a array for option tags" do
+          helper.elements_for_select(element_objects).should include(['Element 1', 'element_1'])
+          helper.elements_for_select(element_objects).should include(['Element 2', 'element_2'])
         end
       end
 
@@ -84,9 +84,8 @@ module Alchemy
 
         subject { helper.elements_for_select(element_descriptions) }
 
-        it "should return a String with html option tags" do
-          helper.should_receive(:options_for_select)
-          subject
+        it "should return a array for option tags" do
+          subject.should include(['Headline', 'headline'])
         end
 
         it "should render the elements display name" do

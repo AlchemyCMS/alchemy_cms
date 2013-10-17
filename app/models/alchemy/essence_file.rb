@@ -1,6 +1,5 @@
 module Alchemy
   class EssenceFile < ActiveRecord::Base
-    attr_accessible :title, :css_class, :attachment_id
     belongs_to :attachment
     acts_as_essence ingredient_column: 'attachment'
 

@@ -12,7 +12,7 @@
       title: _t(:upload_file),
       class: 'icon_button',
       label: _t(:upload_file),
-      if_permitted_to: [:new, :alchemy_admin_attachments]
+      if_permitted_to: [:create, Alchemy::Attachment]
     }
   ]
 ) %>

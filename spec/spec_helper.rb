@@ -34,6 +34,7 @@ Capybara.register_driver(:rack_test_translated_header) do |app|
   Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
 end
 Capybara.javascript_driver = :poltergeist
+Capybara.ignore_hidden_elements = false
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -45,9 +46,9 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
-  config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::Specs::ControllerHelpers, :type => :controller
   config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
+  config.include FactoryGirl::Syntax::Methods
   config.use_transactional_fixtures = true
   # Make sure the database is clean and ready for test
   config.before(:suite) do

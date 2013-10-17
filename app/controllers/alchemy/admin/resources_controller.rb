@@ -7,10 +7,16 @@ module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
       include Alchemy::ResourcesHelper
+
       helper Alchemy::ResourcesHelper
       helper_method :resource_handler
 
-      before_filter :load_resource, :only => [:show, :edit, :update, :destroy]
+      before_filter :load_resource,
+        only: [:show, :edit, :update, :destroy]
+
+      before_filter do
+        authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
+      end
 
       handles_sortable_columns do |c|
         c.default_sort_value = :name
@@ -41,19 +47,16 @@ module Alchemy
 
       def new
         instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new)
-        render :layout => !request.xhr?
       end
 
       def show
-        render action: 'edit', layout: !request.xhr?
+        render action: 'edit'
       end
 
-      def edit
-        render :layout => !request.xhr?
-      end
+      def edit; end
 
       def create
-        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(params[resource_handler.namespaced_resource_name.to_sym]))
+        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
@@ -63,7 +66,7 @@ module Alchemy
       end
 
       def update
-        resource_instance_variable.update_attributes(params[resource_handler.namespaced_resource_name.to_sym])
+        resource_instance_variable.update_attributes(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path,
@@ -162,6 +165,18 @@ module Alchemy
             "#{resource_handler.model.table_name}.#{attribute[:name]} LIKE #{search_terms}"
           end
         end.join(" OR ")
+      end
+
+      # Permits all parameters as default!
+      #
+      # THIS IS INSECURE! Although only signed in admin users can send requests anyway, but we should change this.
+      #
+      # Please define this method in your inheriting controller and set the parameters you want to permit.
+      #
+      # TODO: Hook this into authorization provider.
+      #
+      def resource_params
+        params.require(resource_handler.namespaced_resource_name).permit!
       end
 
     end

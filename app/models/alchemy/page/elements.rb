@@ -6,9 +6,9 @@ module Alchemy
     included do
       attr_accessor :do_not_autogenerate
 
-      has_many :elements, :order => :position
+      has_many :elements, -> { order(:position) }
       has_many :contents, :through => :elements
-      has_and_belongs_to_many :to_be_sweeped_elements, :class_name => 'Alchemy::Element', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
+      has_and_belongs_to_many :to_be_sweeped_elements, -> { uniq }, class_name: 'Alchemy::Element', join_table: 'alchemy_elements_alchemy_pages'
 
       after_create :autogenerate_elements, :unless => proc { systempage? || do_not_autogenerate }
       after_update :trash_not_allowed_elements, :if => :page_layout_changed?
@@ -208,7 +208,7 @@ module Alchemy
 
     # Trashes all elements that are not allowed for this page_layout.
     def trash_not_allowed_elements
-      elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash)
+      elements.select { |e| !definition['elements'].include?(e.name) }.map(&:trash!)
     end
 
     # Deletes unique and already present definitions from @elements_for_layout.
@@ -247,8 +247,7 @@ module Alchemy
         cell.elements
       else
         Alchemy::Logger.warn("Cell with name `#{name}` could not be found!", caller.first)
-        # Returns an empty relation. Can be removed with the release of Rails 4
-        self.elements.where('1 = 0')
+        Element.none
       end
     end
 

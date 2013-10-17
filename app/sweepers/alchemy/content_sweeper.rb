@@ -1,6 +1,6 @@
 module Alchemy
   class ContentSweeper < ActionController::Caching::Sweeper
-
+    include ActionController::Caching::Fragments
     observe Element, Page
 
     def after_create(object)
@@ -35,6 +35,11 @@ module Alchemy
     # Expires all EssenceSelect content editor cache fragments.
     def expire_contents_displayed_as_select
       Content.essence_selects.each { |content| expire_fragment(content) }
+    end
+
+    # Adds this method because rails' expire_action method depends on it.
+    def cache_configured?
+      !!Rails.application.config.action_controller.perform_caching
     end
 
   end

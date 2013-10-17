@@ -1,10 +1,8 @@
 require 'acts-as-taggable-on'
 require 'awesome_nested_set'
-require 'userstamp'
 
 module Alchemy
   class Page < ActiveRecord::Base
-
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
       :do_not_sweep => true,
@@ -14,22 +12,11 @@ module Alchemy
       :locked_by => nil
     }
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
-
-    attr_accessible(
-      :do_not_autogenerate,
-      :do_not_sweep,
-      :language_code,
-      :language,
-      :language_id,
-      :language_root,
-      :layoutpage,
-      :locked,
-      :locked_by,
+    PERMITTED_ATTRIBUTES = [
       :meta_description,
       :meta_keywords,
       :name,
       :page_layout,
-      :parent_id,
       :public,
       :restricted,
       :robot_index,
@@ -38,18 +25,20 @@ module Alchemy
       :tag_list,
       :title,
       :urlname,
-      :visible
-    )
+      :visible,
+      :layoutpage
+    ]
 
     acts_as_taggable
     acts_as_nested_set(:dependent => :destroy)
 
-    stampable(:stamper_class_name => 'Alchemy::User')
+    stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :folded_pages
+
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
-    belongs_to :locker, class_name: 'Alchemy::User', foreign_key: 'locked_by'
+    belongs_to :locker, class_name: Alchemy.user_class_name, foreign_key: 'locked_by'
 
     validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :page_layout, :unless => :systempage?
@@ -58,10 +47,11 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_save :set_language_code, :unless => :systempage?
-    before_save :set_restrictions_to_child_pages, :if => :restricted_changed?, :unless => :systempage?
-    before_save :inherit_restricted_status, :if => proc { parent && parent.restricted? }, :unless => :systempage?
-    after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
+    before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
+    before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
+    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
+    before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
+    after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
 
     # Concerns
     include Scopes
@@ -146,7 +136,7 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.blank?
-        self.find_all_by_id(clipboard.collect { |i| i[:id] })
+        where(id: clipboard.collect { |p| p[:id] })
       end
 
       def all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
@@ -206,7 +196,7 @@ module Alchemy
 
     # Touches the timestamps and userstamps
     def touch
-      Page.where(id: self.id).update_all(updated_at: Time.now, updater_id: User.stamper)
+      Page.where(id: self.id).update_all(updated_at: Time.now, updater_id: Alchemy.user_class.try(:stamper))
     end
 
     # Returns the previous page on the same level or nil.
@@ -229,22 +219,18 @@ module Alchemy
 
     # Locks the page to given user without updating the timestamps
     #
-    def lock!(user)
-      # Yes, since +update_columns+ is not available in Rails 3.2,
-      # we use this workaround to update straight in the db.
-      Page.where(id: self.id).update_all(locked: true, locked_by: user.id)
+    def lock_to!(user)
+      self.update_columns(locked: true, locked_by: user.id)
     end
 
     # Unlocks the page without updating the timestamps
     #
     def unlock!
-      # Yes, since +update_columns+ is not available in Rails 3.2,
-      # we use this workaround to update straight in the db.
-      Page.where(id: self.id).update_all(locked: false, locked_by: nil)
+      self.update_columns(locked: false, locked_by: nil)
     end
 
     def fold!(user_id, status)
-      folded_page = folded_pages.find_or_create_by_user_id(user_id)
+      folded_page = folded_pages.find_or_create_by(user_id: user_id)
       folded_page.folded = status
       folded_page.save
     end
@@ -293,11 +279,6 @@ module Alchemy
       self.save
     end
 
-    def set_language_from_parent_or_default_language
-      self.language = self.parent.language || Language.get_default
-      set_language_code
-    end
-
   private
 
     # Returns the next or previous page on the same level or nil.
@@ -324,14 +305,17 @@ module Alchemy
         .limit(1).first
     end
 
+    def set_language_from_parent_or_default
+      self.language = self.parent.language || Language.get_default
+    end
+
     def set_language_code
-      return false if self.language.blank?
       self.language_code = self.language.code
     end
 
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
-      legacy_urls.find_or_create_by_urlname(:urlname => urlname_was)
+      legacy_urls.find_or_create_by(urlname: urlname_was)
     end
 
   end

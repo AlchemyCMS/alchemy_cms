@@ -8,7 +8,7 @@
   <% else %>
     <% @locked_pages.each do |page| %>
     <tr class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
-      <% if current_user.id == page.locked_by %>
+      <% if current_alchemy_user.id == page.locked_by %>
       <td>
         <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>
       </td>

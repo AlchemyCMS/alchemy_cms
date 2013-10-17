@@ -15,13 +15,13 @@ module Alchemy
       if name.is_a? String
         alchemy_modules.detect { |p| p["name"] == name }
       elsif name.is_a? Hash
+        name.stringify_keys!
         alchemy_modules.detect do |alchemy_module|
-          alchemy_module.stringify_keys!
-          name.symbolize_keys!
           module_navi = alchemy_module["navigation"].stringify_keys
           if module_navi["sub_navigation"]
             module_navi["sub_navigation"].map(&:stringify_keys).detect do |subnavi|
-              subnavi["controller"].gsub(/^\//, '') == name[:controller] && subnavi["action"] == name[:action]
+              subnavi["controller"].gsub(/\A\//, '') == name['controller'].gsub(/\A\//, '') &&
+                subnavi["action"] == name['action']
             end
           end
         end

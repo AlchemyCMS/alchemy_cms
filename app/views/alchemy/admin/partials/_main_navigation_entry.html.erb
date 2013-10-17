@@ -1,4 +1,4 @@
-<% if permitted_to? *navigate_module(navigation) %>
+<% if can? *navigate_module(navigation) %>
   <%= link_to url_for_module(alchemy_module), class: main_navigation_css_classes(navigation) do %>
     <% if navigation["image"] %>
     <%= image_tag(navigation["image"]) %>

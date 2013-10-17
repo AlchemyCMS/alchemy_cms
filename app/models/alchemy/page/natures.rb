@@ -17,8 +17,8 @@ module Alchemy
     end
 
     def folded?(user_id)
-      folded_page = folded_pages.find_by_user_id(user_id)
-      folded_page.try(:folded) || false
+      return unless Alchemy.user_class < ActiveRecord::Base
+      folded_pages.where(user_id: user_id, folded: true).any?
     end
 
     def contains_feed?

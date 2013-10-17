@@ -1,4 +1,3 @@
-require 'userstamp'
 require 'acts-as-taggable-on'
 
 module Alchemy
@@ -8,9 +7,7 @@ module Alchemy
 
     acts_as_taggable
     file_accessor :file
-    stampable :stamper_class_name => 'Alchemy::User'
-
-    attr_accessible :file, :name, :file_name, :tag_list
+    stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
     has_many :contents, :through => :essence_files
@@ -18,7 +15,7 @@ module Alchemy
     has_many :pages, :through => :elements
 
     validates_presence_of :file
-    validates_format_of :file_name, :with => /^[A-Za-z0-9\.\-_]+$/, :on => :update
+    validates_format_of :file_name, with: /\A[A-Za-z0-9\.\-_]+\z/, on: :update
     validates_size_of :file, :maximum => Config.get(:uploader)['file_size_limit'].megabytes
     validates_property(
       :format,

@@ -1,21 +1,26 @@
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
-      include Ferret::Search
+      helper 'alchemy/pages'
 
-      helper "alchemy/pages"
+      before_filter :set_translation,
+        except: [:show]
 
-      before_filter :set_translation, :except => [:show]
+      before_filter :load_page,
+        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
 
-      filter_access_to [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold], :attribute_check => true, :load_method => :load_page, :model => Alchemy::Page
-      filter_access_to [:index, :link, :layoutpages, :new, :switch_language, :create, :move, :flush], :attribute_check => false
+      authorize_resource class: Alchemy::Page
 
-      cache_sweeper Alchemy::PagesSweeper, :only => [:publish], :if => proc { Alchemy::Config.get(:cache_pages) }
-      cache_sweeper Alchemy::ContentSweeper, :only => [:create, :update, :destroy]
+      cache_sweeper Alchemy::PagesSweeper,
+        only: [:publish],
+        if: proc { Alchemy::Config.get(:cache_pages) }
+
+      cache_sweeper Alchemy::ContentSweeper,
+        only: [:create, :update, :destroy]
 
       def index
         @page_root = Page.language_root_for(session[:language_id])
-        @locked_pages = Page.from_current_site.all_locked_by(current_user)
+        @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
         if !@page_root
           if @languages.length == 1
@@ -49,7 +54,6 @@ module Alchemy
         @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
         @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
         @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
-        render layout: !request.xhr?
       end
 
       def create
@@ -58,51 +62,49 @@ module Alchemy
           parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
           @page = Page.paste_from_clipboard(source, parent, params[:page][:name])
         else
-          @page = Page.new(params[:page])
-          @page.set_language_from_parent_or_default_language
+          @page = Page.new(page_params)
         end
         if @page.save
-          redirect_path = params[:redirect_to] || edit_admin_page_path(@page)
+          flash[:notice] = _t("Page created", :name => @page.name)
+          do_redirect_to(redirect_path_for_create_language)
         else
-          # TODO: Make a rollback, because the page is already persisted here.
-          redirect_path = admin_pages_path
+          @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
+          @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
+          render :new
         end
-        render_errors_or_redirect(@page, redirect_path, _t("Page created", :name => @page.name))
       end
 
       # Edit the content of the page and all its elements and contents.
       def edit
         # fetching page via before filter
-        if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
+        if page_is_locked?
           flash[:notice] = _t("This page is locked by %{name}", name: @page.locker_name)
           redirect_to admin_pages_path
         else
-          @page.lock!(current_user)
-          @locked_pages = Page.from_current_site.all_locked_by(current_user)
+          @page.lock_to!(current_alchemy_user)
+          @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         end
         @layoutpage = @page.layoutpage?
       end
 
       # Set page configuration like page names, meta tags and states.
       def configure
-        # fetching page via before filter
-        if @page.redirects_to_external?
-          render action: 'configure_external', layout: !request.xhr?
-        else
-          @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
-          render layout: !request.xhr?
-        end
+        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
+        render @page.redirects_to_external? ? 'configure_external' : 'configure'
       end
 
+      # Updates page
+      #
+      # * fetches page via before filter
+      #
       def update
-        # fetching page via before filter
-        # storing old page_layout value, because unfurtunally rails @page.changes does not work here.
+        # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
-        if @page.update_attributes(params[:page])
+        if @page.update_attributes(page_params)
           @notice = _t("Page saved", :name => @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
-          render_remote_errors(@page)
+          configure
         end
       end
 
@@ -139,12 +141,11 @@ module Alchemy
         if multi_language?
           @url_prefix = "#{session[:language_code]}/"
         end
-        render layout: !request.xhr?
       end
 
       def fold
         # @page is fetched via before filter
-        @page.fold!(current_user.id, !@page.folded?(current_user.id))
+        @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
         respond_to do |format|
           format.js
         end
@@ -155,7 +156,7 @@ module Alchemy
         # fetching page via before filter
         @page.unlock!
         flash[:notice] = _t(:unlocked_page, :name => @page.name)
-        @pages_locked_by_user = Page.from_current_site.all_locked_by(current_user)
+        @pages_locked_by_user = Page.from_current_site.all_locked_by(current_alchemy_user)
         respond_to do |format|
           format.js
           format.html {
@@ -214,19 +215,12 @@ module Alchemy
         end
 
         flash[:notice] = _t("Pages order saved")
-        @redirect_url = admin_pages_path
-        render :action => :redirect
+        do_redirect_to admin_pages_path
       end
 
       def switch_language
         set_language(params[:language_id])
-        redirect_path = request.referer.include?('admin/layoutpages') ? admin_layoutpages_path : admin_pages_path
-        if request.xhr?
-          @redirect_url = redirect_path
-          render :action => :redirect
-        else
-          redirect_to redirect_path
-        end
+        do_redirect_to redirect_path_for_switch_language
       end
 
       def flush
@@ -238,7 +232,7 @@ module Alchemy
         end
       end
 
-    private
+      private
 
       def load_page
         @page = Page.find(params[:id])
@@ -257,6 +251,39 @@ module Alchemy
           sort_children(child, childitem) unless child['children'].nil?
           prevchild = childitem
         end
+      end
+
+      def redirect_path_for_switch_language
+        if request.referer && request.referer.include?('admin/layoutpages')
+          admin_layoutpages_path
+        else
+          admin_pages_path
+        end
+      end
+
+      def redirect_path_for_create_language
+        if @page.redirects_to_external?
+          admin_pages_path
+        else
+          params[:redirect_to] || edit_admin_page_path(@page)
+        end
+      end
+
+      def page_params
+        params.require(:page).permit(*secure_attributes)
+      end
+
+      def secure_attributes
+        if can?(:create, Alchemy::Page)
+          Page::PERMITTED_ATTRIBUTES + [:language_root, :parent_id, :language_id, :language_code]
+        else
+          Page::PERMITTED_ATTRIBUTES
+        end
+      end
+
+      def page_is_locked?
+        return if !@page.locker.try(:logged_in?)
+        @page.locked? && @page.locker != current_alchemy_user
       end
 
     end

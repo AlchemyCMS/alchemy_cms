@@ -16,16 +16,16 @@ module Alchemy
         context "when multi_language" do
 
           before do
-            helper.stub!(:multi_language?).and_return(true)
+            helper.stub(:multi_language?).and_return(true)
           end
 
           it "should return a Hash with urlname and language_id parameter" do
-            helper.stub!(:multi_language?).and_return(true)
+            helper.stub(:multi_language?).and_return(true)
             helper.show_page_path_params(@page).should include(:urlname => 'testpage', :lang => 'en')
           end
 
           it "should return a Hash with urlname, language_id and query parameter" do
-            helper.stub!(:multi_language?).and_return(true)
+            helper.stub(:multi_language?).and_return(true)
             helper.show_page_path_params(@page, {:query => 'test'}).should include(:urlname => 'testpage', :lang => 'en', :query => 'test')
           end
 
@@ -34,7 +34,7 @@ module Alchemy
         context "not multi_language" do
 
           before do
-            helper.stub!(:multi_language?).and_return(false)
+            helper.stub(:multi_language?).and_return(false)
           end
 
           it "should return a Hash with the urlname but without language_id parameter" do
@@ -56,7 +56,7 @@ module Alchemy
         context "when multi_language" do
 
           before do
-            helper.stub!(:multi_language?).and_return(true)
+            helper.stub(:multi_language?).and_return(true)
           end
 
           it "should return the correct relative path string" do
@@ -72,7 +72,7 @@ module Alchemy
         context "not multi_language" do
 
           before do
-            helper.stub!(:multi_language?).and_return(false)
+            helper.stub(:multi_language?).and_return(false)
           end
 
           it "should return the correct relative path string" do
@@ -99,7 +99,7 @@ module Alchemy
         context "when multi_language" do
 
           before do
-            helper.stub!(:multi_language?).and_return(true)
+            helper.stub(:multi_language?).and_return(true)
           end
 
           it "should return the correct url string" do
@@ -115,7 +115,7 @@ module Alchemy
         context "not multi_language" do
 
           before do
-            helper.stub!(:multi_language?).and_return(false)
+            helper.stub(:multi_language?).and_return(false)
           end
 
           it "should return the correct url string" do

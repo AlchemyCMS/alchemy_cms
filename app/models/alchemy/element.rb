@@ -1,5 +1,4 @@
 require 'acts-as-taggable-on'
-require 'userstamp'
 require 'acts_as_list'
 
 module Alchemy
@@ -11,25 +10,14 @@ module Alchemy
 
     acts_as_taggable
 
-    attr_accessible(
-      :cell_id,
-      :create_contents_after_create,
-      :folded,
-      :name,
-      :page_id,
-      :public,
-      :tag_list,
-      :unique
-    )
-
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
     acts_as_list :scope => [:page_id, :cell_id]
-    stampable(:stamper_class_name => 'Alchemy::User')
+    stampable stamper_class_name: Alchemy.user_class_name
 
-    has_many :contents, :order => :position, :dependent => :destroy
+    has_many :contents, -> { order(:position) }, dependent: :destroy
     belongs_to :cell
     belongs_to :page, touch: true
-    has_and_belongs_to_many :to_be_sweeped_pages, :class_name => 'Alchemy::Page', :uniq => true, :join_table => 'alchemy_elements_alchemy_pages'
+    has_and_belongs_to_many :to_be_sweeped_pages, -> { uniq }, class_name: 'Alchemy::Page', join_table: 'alchemy_elements_alchemy_pages'
 
     validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
@@ -39,19 +27,18 @@ module Alchemy
 
     after_create :create_contents, :unless => proc { |e| e.create_contents_after_create == false }
 
-    scope :trashed, where(:position => nil).order('updated_at DESC')
-    scope :not_trashed, where(Element.arel_table[:position].not_eq(nil))
-    scope :published, where(:public => true)
-    scope :not_restricted, joins(:page).where("alchemy_pages" => {:restricted => false})
-    scope :available, published.not_trashed
-    scope :named, lambda { |names| where(:name => names) }
-    scope :excluded, lambda { |names| where(arel_table[:name].not_in(names)) }
-    scope :not_in_cell, where(:cell_id => nil)
-    scope :in_cell, where("#{self.table_name}.cell_id IS NOT NULL")
-    # Scope for only the elements from Alchemy::Site.current
-    scope :from_current_site, lambda { where(:alchemy_languages => {site_id: Site.current || Site.default}).joins(:page => :language) }
-    # TODO: add this as default_scope
-    #default_scope { from_current_site }
+    scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
+    scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
+    scope :published,         -> { where(public: true) }
+    scope :not_restricted,    -> { joins(:page).where('alchemy_pages' => {restricted: false}) }
+    scope :available,         -> { published.not_trashed }
+    scope :named,             ->(names) { where(name: names) }
+    scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
+    scope :not_in_cell,       -> { where(cell_id: nil) }
+    scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
+    scope :from_current_site, -> { where(alchemy_languages: {site_id: Site.current || Site.default}).joins(page: 'language') }
+
+    delegate :restricted?, to: :page, allow_nil: true
 
     # Concerns
     include Definitions
@@ -107,7 +94,7 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.nil?
-        find_all_by_id(clipboard.collect { |e| e[:id] })
+        where(id: clipboard.collect { |e| e[:id] })
       end
 
       # All elements in clipboard that could be placed on page
@@ -147,9 +134,9 @@ module Alchemy
     end
 
     # Trashing an element means nullifying its position, folding and unpublishing it.
-    def trash
-      self.update_column(:public, false)
-      self.update_column(:folded, true)
+    def trash!
+      self.public = false
+      self.folded = true
       self.remove_from_list
     end
 
@@ -241,10 +228,25 @@ module Alchemy
       self.ingredient(name).present?
     end
 
-    def save_contents(contents_attributes)
+    # Updates all related contents by calling +update_essence+ on each of them.
+    #
+    # @param contents_attributes [Hash]
+    #   Hash of contents attributes.
+    #   The keys has to be the #id of the content to update.
+    #   The values a Hash of attribute names and values
+    #
+    # @return [Boolean]
+    #   True if +self.errors+ are blank or +contents_attributes+ hash is nil
+    #
+    # == Example
+    #
+    #   @element.update_contents({1 => {ingredient: 'Title'}, 2 => {link: 'https://google.com'}})
+    #
+    def update_contents(contents_attributes)
       return true if contents_attributes.nil?
-      contents.each do |content|
-        unless content.update_essence(contents_attributes["content_#{content.id}"])
+      contents_attributes.each do |id, essence_attributes|
+        content = self.contents.find(id)
+        unless content.update_essence(essence_attributes)
           errors.add(:base, :essence_validation_failed)
         end
       end
@@ -354,7 +356,7 @@ module Alchemy
     end
 
     def rtf_contents
-      contents.essence_richtexts.all
+      contents.essence_richtexts
     end
     alias_method :richtext_contents, :rtf_contents
 
@@ -366,11 +368,6 @@ module Alchemy
       else
         cellnames
       end
-    end
-
-    # returns true if the page this element is displayed on is restricted?
-    def restricted?
-      page.restricted?
     end
 
     # Returns true if the definition of this element has a taggable true value.

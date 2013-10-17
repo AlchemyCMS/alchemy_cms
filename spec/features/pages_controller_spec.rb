@@ -8,8 +8,6 @@ module Alchemy
     let(:default_language_root) { FactoryGirl.create(:language_root_page, :language => default_language, :name => 'Home') }
     let(:public_page_1) { FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1') }
     let(:public_child) { FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }
-    let(:search_page) { FactoryGirl.create(:public_page, :name => 'Suche', :page_layout => 'search', :do_not_autogenerate => false) }
-    let(:element) { FactoryGirl.create(:element, :page => public_page_1, :create_contents_after_create => true) }
 
     before { default_language_root }
 
@@ -34,82 +32,12 @@ module Alchemy
 
     end
 
-    describe "fulltext search" do
-
-      before { search_page }
-
-      it "should have a correct path in the form tag" do
-        visit('/suche')
-        page.should have_selector('div#content form[action="/suche"]')
-      end
-
-      context "performing the search" do
-
-        it "should display search results for richtext essences" do
-          element.content_by_name('text').essence.update_attributes(:body => '<p>Welcome to Peters Petshop</p>')
-          visit('/suche?query=Petshop')
-          within('div#content .search_result') { page.should have_content('Petshop') }
-        end
-
-        it "should display search results for text essences" do
-          element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/suche?query=Petshop')
-          within('div#content .search_result') { page.should have_content('Petshop') }
-        end
-
-        it "should not find contents placed on global-pages (layoutpage => true)" do
-          public_page_1.update_attributes(:layoutpage => true)
-          element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/suche?query=Petshop')
-          within('div#content') { page.should have_css('h2.no_search_results') }
-        end
-
-        it "should not find contents placed on unpublished pages (public => false)" do
-          public_page_1.update_attributes(:public => false)
-          element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/suche?query=Petshop')
-          within('div#content') { page.should have_css('h2.no_search_results') }
-        end
-
-        it "should not find contents placed on restricted pages (restricted => true)" do
-          public_page_1.update_attributes(:restricted => true)
-          element.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop')
-          visit('/suche?query=Petshop')
-          within('div#content') { page.should have_css('h2.no_search_results') }
-        end
-
-        context "in multi_language mode" do
-
-          let(:english_language)      { FactoryGirl.create(:english) }
-          let(:english_language_root) { FactoryGirl.create(:language_root_page, :language => english_language, :name => 'Home') }
-          let(:english_page)          { FactoryGirl.create(:public_page, :parent_id => english_language_root.id, :language => english_language) }
-          let(:english_element)       { FactoryGirl.create(:element, :page_id => english_page.id, :name => 'headline', :create_contents_after_create => true) }
-
-          before do
-            element
-            english_element
-            PagesController.any_instance.stub(:multi_language?).and_return(true)
-          end
-
-          it "should not display search results from other languages then current" do
-            english_element.content_by_name('headline').essence.update_attributes(:body => 'Joes Hardware')
-            visit('/de/suche?query=Hardware')
-            within('div#content') { page.should have_css('h2.no_search_results') }
-            page.should_not have_css('div#content .search_result')
-          end
-
-        end
-
-      end
-
-    end
-
     describe "redirecting" do
 
       context "in multi language mode" do
 
         before do
-          Config.stub!(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
+          Config.stub(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
           PagesController.any_instance.stub(:multi_language?).and_return(true)
         end
 
@@ -123,7 +51,7 @@ module Alchemy
         context "if requested page is unpublished" do
 
           before do
-            Config.stub!(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
+            Config.stub(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
             public_page_1.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
             public_child
           end
@@ -170,7 +98,7 @@ module Alchemy
 
         context "wrong language requested" do
 
-          before { User.stub!(:admins).and_return([1, 2]) }
+          before { Alchemy.user_class.stub(:admins).and_return([1, 2]) }
 
           it "should render 404 if urlname and lang parameter do not belong to same page" do
             FactoryGirl.create(:english)
@@ -193,7 +121,7 @@ module Alchemy
 
         before do
           PagesController.any_instance.stub(:multi_language?).and_return(false)
-          Config.stub!(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
+          Config.stub(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
         end
 
         it "should redirect from nested language code url to normal url" do
@@ -237,7 +165,7 @@ module Alchemy
     describe "Handling of non-existing pages" do
 
       before do
-        User.stub!(:admins).and_return([1, 2]) # We need a admin user or the signup page will show up
+        Alchemy.user_class.stub(:admins).and_return([1, 2]) # We need a admin user or the signup page will show up
         visit "/non-existing-page"
       end
 
@@ -248,9 +176,8 @@ module Alchemy
     end
 
     context "with invalid byte code char in urlname parameter" do
-      it "should render page not found" do
-        visit '/%ed'
-        page.status_code.should == 404
+      it "should raise BadRequest (400) error" do
+        expect { visit '/%ed' }.to raise_error(ActionController::BadRequest)
       end
     end
 

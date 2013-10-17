@@ -438,20 +438,20 @@ div.essence_picture_editor {
     color: $medium-gray;
     vertical-align: top;
   }
-}
 
-div.essence_picture_css_class {
-  position: absolute;
-  z-index: 1;
-  bottom: 24px;
-  width: 99px;
-  background-color: white;
-  background-color: rgba(255, 254, 255, 0.7);
-  padding: 4px 8px;
-  font-size: 10px;
-  text-align: right;
-  height: 12px;
-  overflow: hidden;
+  .essence_picture_css_class {
+    position: absolute;
+    z-index: 1;
+    bottom: 24px;
+    width: 99px;
+    background-color: white;
+    background-color: rgba(255, 254, 255, 0.7);
+    padding: 4px 8px;
+    font-size: 10px;
+    text-align: right;
+    height: 12px;
+    overflow: hidden;
+  }
 }
 
 .dragable_picture {

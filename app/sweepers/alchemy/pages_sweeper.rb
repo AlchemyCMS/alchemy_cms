@@ -1,6 +1,6 @@
 module Alchemy
   class PagesSweeper < ActionController::Caching::Sweeper
-
+    include ActionController::Caching::Actions
     observe Page
 
     def after_update(page)
@@ -38,6 +38,11 @@ module Alchemy
     def expire_page(page)
       return if page.do_not_sweep
       expire_action(page.cache_key)
+    end
+
+    # Adds this method because rails' expire_action method depends on it.
+    def cache_configured?
+      !!Rails.application.config.action_controller.perform_caching
     end
 
   end

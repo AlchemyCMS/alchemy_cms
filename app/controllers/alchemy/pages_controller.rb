@@ -1,7 +1,5 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
-    include Ferret::Search
-
     # We need to include this helper because we need the breadcrumb method.
     # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
     # Not the best solution, but's working.
@@ -12,9 +10,8 @@ module Alchemy
 
     before_filter :enforce_primary_host_for_site
     before_filter :render_page_or_redirect, :only => [:show]
-    before_filter :perform_search, :only => :show, :if => proc { configuration(:ferret) }
-
-    filter_access_to :show, :attribute_check => true, :model => Alchemy::Page, :load_method => :load_page
+    before_filter :load_page
+    authorize_resource only: 'show'
 
     caches_action(:show,
       :cache_path => proc { @page.cache_key(request) },
@@ -57,7 +54,7 @@ module Alchemy
       end
     end
 
-  private
+    private
 
     # Load the current page and store it in @page.
     #
@@ -76,10 +73,6 @@ module Alchemy
         # currently active language.
         Page.language_root_for(@language.id)
       end
-    rescue ArgumentError => e
-      # If encoding errors raises (ie. because of invalid byte chars in params),
-      # we render a 404 page
-      raise ActionController::RoutingError.new(e.message)
     end
 
     def enforce_primary_host_for_site
@@ -96,7 +89,7 @@ module Alchemy
 
     def render_page_or_redirect
       @page ||= load_page
-      if User.admins.count == 0 && @page.nil?
+      if signup_required?
         redirect_to signup_path
       elsif @page.nil? && last_legacy_url
         @page = last_legacy_url.page
@@ -123,6 +116,12 @@ module Alchemy
         else
           @root_page = Page.language_root_for(session[:language_id])
         end
+      end
+    end
+
+    def signup_required?
+      if Alchemy.user_class.respond_to?(:admins)
+        Alchemy.user_class.admins.size == 0 && @page.nil?
       end
     end
 

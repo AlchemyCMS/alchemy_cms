@@ -32,7 +32,7 @@
     },
     title: _t('Add global page'),
     label: _t('Add global page'),
-    if_permitted_to: [:new, :alchemy_admin_pages]
+    if_permitted_to: [:create, Alchemy::Page]
   ) %>
   <%= toolbar_button(
     icon: "clipboard#{clipboard_empty?('pages') ? '' : ' full'}",

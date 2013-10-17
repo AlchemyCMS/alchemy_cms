@@ -1,7 +1,5 @@
 module Alchemy
   class Site < ActiveRecord::Base
-    attr_accessible :host, :aliases, :name, :public, :redirect_to_primary_host
-
     # validations
     validates_presence_of :host
     validates_uniqueness_of :host
@@ -9,7 +7,10 @@ module Alchemy
     # associations
     has_many :languages
 
-    scope :published, where(public: true)
+    scope :published, -> { where(public: true) }
+
+    # concerns
+    include Layout
 
     # concerns
     include Layout

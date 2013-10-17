@@ -1,19 +1,19 @@
 module Alchemy
   module Admin
     class ContentsController < Alchemy::Admin::BaseController
+      helper 'alchemy/admin/essences'
 
-      helper "alchemy/admin/essences"
+      authorize_resource class: Alchemy::Content
 
       def new
         @element = Element.find(params[:element_id])
         @contents = @element.available_contents
         @content = @element.contents.build
-        render layout: !request.xhr?
       end
 
       def create
         @element = Element.find(params[:content][:element_id])
-        @content = Content.create_from_scratch(@element, params[:content])
+        @content = Content.create_from_scratch(@element, content_params)
         @options = options_from_params
         @html_options = params[:html_options] || {}
         if @content.essence_type == "Alchemy::EssencePicture"
@@ -35,7 +35,7 @@ module Alchemy
 
       def update
         content = Content.find(params[:id])
-        content.essence.update_attributes(params[:content])
+        content.essence.update_attributes(content_params)
       end
 
       def order
@@ -51,6 +51,12 @@ module Alchemy
         @content_dup = @content.clone
         @notice = _t("Successfully deleted content", :content => @content.name_for_label)
         @content.destroy
+      end
+
+    private
+
+      def content_params
+        params.require(:content).permit(:element_id, :name, :ingredient, :essence_type)
       end
 
     end

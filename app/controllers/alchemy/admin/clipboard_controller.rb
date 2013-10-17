@@ -1,13 +1,13 @@
 module Alchemy
   module Admin
-
     class ClipboardController < Alchemy::Admin::BaseController
+      authorize_resource class: Alchemy::Clipboard
 
       def index
         @clipboard = get_clipboard
         @clipboard_items = model_class.all_from_clipboard(@clipboard.all(params[:remarkable_type]))
         respond_to do |format|
-          format.html { render layout: !request.xhr? }
+          format.html
         end
       end
 

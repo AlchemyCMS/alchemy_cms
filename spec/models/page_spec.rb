@@ -9,7 +9,7 @@ module Alchemy
     let(:language)      { Language.get_default }
     let(:klingonian)    { FactoryGirl.create(:klingonian) }
     let(:language_root) { FactoryGirl.create(:language_root_page) }
-    let(:page)          { mock(:page, :page_layout => 'foo') }
+    let(:page)          { mock_model(:page, :page_layout => 'foo') }
     let(:public_page)   { FactoryGirl.create(:public_page) }
     let(:news_page)     { FactoryGirl.create(:public_page, :page_layout => 'news', :do_not_autogenerate => false) }
 
@@ -47,7 +47,7 @@ module Alchemy
         end
 
         context "with url_nesting set to true" do
-          before { Config.stub!(:get).and_return(true) }
+          before { Config.stub(:get).and_return(true) }
 
           it "should only validate urlname dependent of parent" do
             other_parent = FactoryGirl.create(:page, parent_id: Page.root.id)
@@ -170,18 +170,18 @@ module Alchemy
 
         context "with cells" do
           before do
-            @page.stub!(:definition).and_return({'name' => 'with_cells', 'cells' => ['header', 'main']})
+            @page.stub(:definition).and_return({'name' => 'with_cells', 'cells' => ['header', 'main']})
           end
 
           it "should have the generated elements in their cells" do
-            @page.stub!(:cell_definitions).and_return([{'name' => 'header', 'elements' => ['article']}])
+            @page.stub(:cell_definitions).and_return([{'name' => 'header', 'elements' => ['article']}])
             @page.save
             @page.cells.where(:name => 'header').first.elements.should_not be_empty
           end
 
           context "and no elements in cell definitions" do
             it "should have the elements in the nil cell" do
-              @page.stub!(:cell_definitions).and_return([{'name' => 'header', 'elements' => []}])
+              @page.stub(:cell_definitions).and_return([{'name' => 'header', 'elements' => []}])
               @page.save
               @page.cells.collect(&:elements).flatten.should be_empty
             end
@@ -242,17 +242,19 @@ module Alchemy
       end
 
       context "after changing the page layout" do
-        let(:news_element) { FactoryGirl.create(:element, :name => 'news') }
+        let(:news_element) { news_page.elements.find_by(name: 'news') }
 
         it "all elements not allowed on this page should be trashed" do
-          news_page.elements << news_element
-          news_page.update_attributes :page_layout => 'standard'
-          news_page.elements.trashed.should include(news_element)
+          expect(news_page.elements.trashed).to be_empty
+          news_page.update_attributes(page_layout: 'standard')
+          trashed = news_page.elements.trashed.collect(&:name)
+          expect(trashed).to eq(['news'])
+          expect(trashed).to_not include('article', 'header')
         end
 
         it "should autogenerate elements" do
-          news_page.update_attributes :page_layout => 'standard'
-          news_page.elements.available.collect(&:name).should include('header')
+          news_page.update_attributes(page_layout: 'contact')
+          news_page.elements.collect(&:name).should include('contactform')
         end
       end
     end
@@ -356,7 +358,7 @@ module Alchemy
       context "page with trashed elements" do
         before do
           page.elements << FactoryGirl.create(:element)
-          page.elements.first.trash
+          page.elements.first.trash!
         end
 
         it "the copy should not hold a copy of the trashed elements" do
@@ -376,7 +378,7 @@ module Alchemy
       context "page with autogenerate elements" do
         before do
           page = FactoryGirl.create(:page)
-          page.stub!(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
+          page.stub(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
         end
 
         it "the copy should not autogenerate elements" do
@@ -404,6 +406,13 @@ module Alchemy
           page.urlname.should == 'klingon-stoessel'
         end
 
+        context "with no name set" do
+          it "should not set a urlname" do
+            page = Page.create(name: '', language: language, parent_id: language_root.id)
+            expect(page.urlname).to be_blank
+          end
+        end
+
         it "should generate a three letter urlname from two letter name" do
           page = FactoryGirl.create(:page, :name => 'Au', :language => language, :parent_id => language_root.id)
           page.urlname.should == '-au'
@@ -421,7 +430,21 @@ module Alchemy
 
         it "should add a user stamper" do
           page = FactoryGirl.create(:page, :name => 'A', :language => language, :parent_id => language_root.id)
-          page.class.stamper_class.to_s.should == 'Alchemy::User'
+          page.class.stamper_class.to_s.should == 'User'
+        end
+
+        context "with language given" do
+          it "does not set the language from parent" do
+            Page.any_instance.should_not_receive(:set_language_from_parent_or_default)
+            Page.create!(name: 'A', parent_id: language_root.id, page_layout: 'standard', language: language)
+          end
+        end
+
+        context "with no language given" do
+          it "sets the language from parent" do
+            Page.any_instance.should_receive(:set_language_from_parent_or_default)
+            Page.create!(name: 'A', parent_id: language_root.id, page_layout: 'standard')
+          end
         end
       end
     end
@@ -591,9 +614,9 @@ module Alchemy
     describe '#cell_definitions' do
       before do
         @page = FactoryGirl.build(:page, :page_layout => 'foo')
-        @page.stub!(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
+        @page.stub(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        Cell.stub!(:definitions).and_return(@cell_descriptions)
+        Cell.stub(:definitions).and_return(@cell_descriptions)
       end
 
       it "should return all cell definitions for its page_layout" do
@@ -601,21 +624,30 @@ module Alchemy
       end
 
       it "should return empty array if no cells defined in page layout" do
-        @page.stub!(:layout_description).and_return({'name' => "foo"})
+        @page.stub(:layout_description).and_return({'name' => "foo"})
         @page.cell_definitions.should == []
       end
     end
 
     describe '#destroy' do
       context "with trashed but still assigned elements" do
-
-        before { news_page.elements.map(&:trash) }
+        before { news_page.elements.map(&:trash!) }
 
         it "should not delete the trashed elements" do
           news_page.destroy
           Element.trashed.should_not be_empty
         end
+      end
+    end
 
+    describe '#element_definitions' do
+      let(:page) { FactoryGirl.build_stubbed(:page) }
+      subject { page.element_definitions }
+      before { Element.should_receive(:definitions).and_return([{'name' => 'article'}, {'name' => 'header'}]) }
+
+      it "returns all element definitions that could be placed on current page" do
+        should include({'name' => 'article'})
+        should include({'name' => 'header'})
       end
     end
 
@@ -677,7 +709,7 @@ module Alchemy
           'elements' => ['header', 'text'],
           'autogenerate' => ['header', 'text']
         })
-        Cell.stub!(:definitions).and_return([{
+        Cell.stub(:definitions).and_return([{
           'name' => "header",
           'elements' => ["header"]
         }])
@@ -697,7 +729,7 @@ module Alchemy
     describe '#feed_elements' do
       it "should return all rss feed elements" do
         news_page.feed_elements.should_not be_empty
-        news_page.feed_elements.should == Element.find_all_by_name('news')
+        news_page.feed_elements.should == Element.where(name: 'news').to_a
       end
     end
 
@@ -709,23 +741,23 @@ module Alchemy
 
       context "with show_non_public argument TRUE" do
         it "should return all elements from empty options" do
-          public_page.find_elements({}, true).all.should == public_page.elements.all
+          public_page.find_elements({}, true).to_a.should == public_page.elements.to_a
         end
 
         it "should only return the elements passed as options[:only]" do
-          public_page.find_elements({:only => ['article']}, true).all.should == public_page.elements.named('article').all
+          public_page.find_elements({:only => ['article']}, true).to_a.should == public_page.elements.named('article').to_a
         end
 
         it "should not return the elements passed as options[:except]" do
-          public_page.find_elements({:except => ['article']}, true).all.should == public_page.elements - public_page.elements.named('article').all
+          public_page.find_elements({:except => ['article']}, true).to_a.should == public_page.elements - public_page.elements.named('article').to_a
         end
 
         it "should return elements offsetted" do
-          public_page.find_elements({:offset => 2}, true).all.should == public_page.elements.offset(2)
+          public_page.find_elements({:offset => 2}, true).to_a.should == public_page.elements.offset(2)
         end
 
         it "should return elements limitted in count" do
-          public_page.find_elements({:count => 1}, true).all.should == public_page.elements.limit(1)
+          public_page.find_elements({:count => 1}, true).to_a.should == public_page.elements.limit(1)
         end
       end
 
@@ -750,7 +782,7 @@ module Alchemy
             }
 
             it "returns empty set" do
-              public_page.elements.should_receive(:where).with('1 = 0').and_return(elements)
+              Element.should_receive(:none).and_return(elements)
               public_page.find_elements(from_cell: 'Lolo').to_a.should == []
             end
 
@@ -773,23 +805,23 @@ module Alchemy
 
       context "with show_non_public argument FALSE" do
         it "should return all elements from empty arguments" do
-          public_page.find_elements().all.should == public_page.elements.published.all
+          public_page.find_elements().to_a.should == public_page.elements.published.to_a
         end
 
         it "should only return the public elements passed as options[:only]" do
-          public_page.find_elements(:only => ['article']).all.should == public_page.elements.published.named('article').all
+          public_page.find_elements(:only => ['article']).to_a.should == public_page.elements.published.named('article').to_a
         end
 
         it "should return all public elements except the ones passed as options[:except]" do
-          public_page.find_elements(:except => ['article']).all.should == public_page.elements.published.all - public_page.elements.published.named('article').all
+          public_page.find_elements(:except => ['article']).to_a.should == public_page.elements.published.to_a - public_page.elements.published.named('article').to_a
         end
 
         it "should return elements offsetted" do
-          public_page.find_elements({:offset => 2}).all.should == public_page.elements.published.offset(2)
+          public_page.find_elements({:offset => 2}).to_a.should == public_page.elements.published.offset(2)
         end
 
         it "should return elements limitted in count" do
-          public_page.find_elements({:count => 1}).all.should == public_page.elements.published.limit(1)
+          public_page.find_elements({:count => 1}).to_a.should == public_page.elements.published.limit(1)
         end
       end
     end
@@ -824,30 +856,36 @@ module Alchemy
       describe '#folded?' do
         let(:page) { Page.new }
 
-        context 'if page is folded' do
+        context 'with user is a active record model' do
           before do
-            page.stub_chain(:folded_pages, :find_by_user_id).and_return(mock_model('FoldedPage', folded: true))
+            Alchemy.user_class.should_receive(:'<').and_return(true)
           end
 
-          it "should return true" do
-            expect(page.folded?(user.id)).to eq(true)
-          end
-        end
+          context 'if page is folded' do
+            before do
+              page.stub_chain(:folded_pages, :where, :any?).and_return(true)
+            end
 
-        context 'if page is not folded' do
-          it "should return false" do
-            expect(page.folded?(101093)).to eq(false)
+            it "should return true" do
+              expect(page.folded?(user.id)).to eq(true)
+            end
+          end
+
+          context 'if page is not folded' do
+            it "should return false" do
+              expect(page.folded?(101093)).to eq(false)
+            end
           end
         end
       end
     end
 
-    describe '#lock!' do
-      let(:page) { FactoryGirl.create(:page) }
+    describe '#lock_to!' do
+      let(:page) { create(:page) }
       let(:user) { mock_model('User') }
 
       it "should set locked to true" do
-        page.lock!(user)
+        page.lock_to!(user)
         page.reload
         page.locked.should == true
       end
@@ -857,7 +895,7 @@ module Alchemy
       end
 
       it "should set locked_by to the users id" do
-        page.lock!(user)
+        page.lock_to!(user)
         page.reload
         page.locked_by.should == user.id
       end
@@ -882,14 +920,14 @@ module Alchemy
       end
 
       it "should return the copied page" do
-        Page.stub!(:copy).and_return(copied_page)
+        Page.stub(:copy).and_return(copied_page)
         expect(subject).to be_a(copied_page.class)
       end
 
       context "if source page has children" do
         it "should also copy and paste the children" do
-          Page.stub!(:copy).and_return(copied_page)
-          source.stub!(:children).and_return([mock_model('Page')])
+          Page.stub(:copy).and_return(copied_page)
+          source.stub(:children).and_return([mock_model('Page')])
           source.should_receive(:copy_children_to).with(copied_page)
           subject
         end
@@ -967,7 +1005,7 @@ module Alchemy
       let(:page) { FactoryGirl.build_stubbed(:page, public: false) }
 
       before do
-        page.stub!(:save).and_return(true)
+        page.stub(:save).and_return(true)
         page.publish!
       end
 
@@ -976,11 +1014,11 @@ module Alchemy
       end
     end
 
-    describe '#set_language_from_parent_or_default_language' do
+    describe '#set_language_from_parent_or_default' do
       let(:default_language) { mock_model('Language', code: 'es') }
       let(:page) { Page.new }
 
-      before { page.stub!(:parent).and_return(parent) }
+      before { page.stub(:parent).and_return(parent) }
 
       subject { page }
 
@@ -988,23 +1026,21 @@ module Alchemy
         let(:parent) { mock_model('Page', language: default_language, language_id: default_language.id, language_code: default_language.code) }
 
         before do
-          page.set_language_from_parent_or_default_language
+          page.send(:set_language_from_parent_or_default)
         end
 
         its(:language_id) { should eq(parent.language_id) }
-        its(:language_code) { should eq(parent.language_code) }
       end
 
       context "parent has no language" do
         let(:parent) { mock_model('Page', language: nil, language_id: nil, language_code: nil) }
 
         before do
-          Language.stub!(:get_default).and_return(default_language)
-          page.set_language_from_parent_or_default_language
+          Language.stub(:get_default).and_return(default_language)
+          page.send(:set_language_from_parent_or_default)
         end
 
         its(:language_id) { should eq(default_language.id) }
-        its(:language_code) { should eq(default_language.code) }
       end
     end
 
@@ -1037,7 +1073,11 @@ module Alchemy
     describe '#unlock!' do
       let(:page) { FactoryGirl.create(:page, locked: true, locked_by: 1) }
 
-      its "should set the locked status to false" do
+      before do
+        page.stub(:save).and_return(true)
+      end
+
+      it "should set the locked status to false" do
         page.unlock!
         page.reload
         page.locked.should == false
@@ -1062,7 +1102,7 @@ module Alchemy
       let(:contact)      { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
 
       context "with activated url_nesting" do
-        before { Config.stub!(:get).and_return(true) }
+        before { Config.stub(:get).and_return(true) }
 
         it "should store all parents urlnames delimited by slash" do
           page.urlname.should == 'parentparent/parent/page'
@@ -1090,7 +1130,7 @@ module Alchemy
           end
 
           it "should create a legacy url" do
-            page.stub!(:slug).and_return('foo')
+            page.stub(:slug).and_return('foo')
             page.update_urlname!
             page.legacy_urls.should_not be_empty
             page.legacy_urls.collect(&:urlname).should include('parentparent/parent/page')
@@ -1109,7 +1149,7 @@ module Alchemy
       end
 
       context "with disabled url_nesting" do
-        before { Config.stub!(:get).and_return(false) }
+        before { Config.stub(:get).and_return(false) }
 
         it "should only store my urlname" do
           page.urlname.should == 'page'
@@ -1173,32 +1213,62 @@ module Alchemy
 
     context 'indicate page editors' do
       let(:page) { Page.new }
-      let(:user) { User.new(firstname: 'Paul', lastname: 'Page') }
 
-      describe '#creator_name' do
-        before { page.stub(:creator).and_return(user) }
+      context 'with user class having a name accessor' do
+        let(:user) { Alchemy.user_class_name = double(name: 'Paul Page') }
 
-        it "should return the name of the creator" do
-          expect(page.creator_name).to eq('Paul Page')
+        describe '#creator_name' do
+          before { page.stub(:creator).and_return(user) }
+
+          it "returns the name of the creator" do
+            expect(page.creator_name).to eq('Paul Page')
+          end
+        end
+
+        describe '#updater_name' do
+          before { page.stub(:updater).and_return(user) }
+
+          it "returns the name of the updater" do
+            expect(page.updater_name).to eq('Paul Page')
+          end
+        end
+
+        describe '#locker_name' do
+          before { page.stub(:locker).and_return(user) }
+
+          it "returns the name of the current page editor" do
+            expect(page.locker_name).to eq('Paul Page')
+          end
         end
       end
 
-      describe '#updater_name' do
-        before { page.stub(:updater).and_return(user) }
+      context 'with user class not having a name accessor' do
+        let(:user) { Alchemy.user_class.new }
 
-        it "should return the name of the updater" do
-          expect(page.updater_name).to eq('Paul Page')
+        describe '#creator_name' do
+          before { page.stub(:creator).and_return(user) }
+
+          it "returns unknown" do
+            expect(page.creator_name).to eq('unknown')
+          end
+        end
+
+        describe '#updater_name' do
+          before { page.stub(:updater).and_return(user) }
+
+          it "returns unknown" do
+            expect(page.updater_name).to eq('unknown')
+          end
+        end
+
+        describe '#locker_name' do
+          before { page.stub(:locker).and_return(user) }
+
+          it "returns unknown" do
+            expect(page.locker_name).to eq('unknown')
+          end
         end
       end
-
-      describe '#locker_name' do
-        before { page.stub(:locker).and_return(user) }
-
-        it "should return the name of the current page editor" do
-          expect(page.locker_name).to eq('Paul Page')
-        end
-      end
-
     end
 
     describe '#controller_and_action' do
@@ -1206,8 +1276,8 @@ module Alchemy
 
       context 'if the page has a custom controller defined in its description' do
         before do
-          page.stub!(:has_controller?).and_return(true)
-          page.stub!(:layout_description).and_return({'controller' => 'comments', 'action' => 'index'})
+          page.stub(:has_controller?).and_return(true)
+          page.stub(:layout_description).and_return({'controller' => 'comments', 'action' => 'index'})
         end
         it "should return a Hash with controller and action key-value pairs" do
           expect(page.controller_and_action).to eq({controller: '/comments', action: 'index'})

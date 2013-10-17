@@ -10,7 +10,7 @@ module Alchemy
 
       before {
         sign_in(admin_user)
-        element.trash
+        element.trash!
       }
 
       it "should hold trashed elements" do

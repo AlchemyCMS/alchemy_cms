@@ -56,4 +56,10 @@ module Alchemy
     end
   end
 
+  class NoCurrentUserFoundError < StandardError
+    # Raised if no current_user is found to authorize against.
+    def message
+      "You need to provide a current_user method in your ApplicationController that returns the current authenticated user."
+    end
+  end
 end

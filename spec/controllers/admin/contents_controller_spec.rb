@@ -23,7 +23,7 @@ describe Alchemy::Admin::ContentsController do
 
   describe '#update' do
     it "should update a content via ajax" do
-      xhr :post, :update, {id: element.contents.find_by_name('intro').id, content: {body: 'Peters Petshop'}}
+      xhr :post, :update, {id: element.contents.find_by_name('intro').id, content: {ingredient: 'Peters Petshop'}}
       element.ingredient('intro').should == "Peters Petshop"
     end
   end

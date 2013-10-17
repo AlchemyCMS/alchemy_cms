@@ -1,32 +1,24 @@
-<div class="with_padding">
-  <table>
-    <tr>
-      <td class="label"><label><%= _t(:page_type) %></label></td>
-      <td class="value"><p><%= @page.layout_display_name %></p></td>
-    </tr>
-    <tr>
-      <td class="label"><label><%= _t(:page_status) %></label></td>
-      <td class="value">
-        <p><%= combined_page_status(@page) %></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="label"><label><%= _t(:page_was_created) %></label></td>
-      <td class="value">
-        <p><%= _t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :page_status)} %></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="label"><label><%= _t(:page_was_updated) %></label></td>
-      <td class="value">
-        <p><%= _t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :page_status)} %></p>
-      </td>
-    </tr>
-    <%- if @page.locked? -%>
-      <tr>
-        <td class="label"><label><%= _t(:currently_edited_by) %></label></td>
-        <td class="value"><p><%= @page.locker_name %></p></td>
-      </tr>
-    <% end %>
-  </table>
+<div class="resource_info">
+  <div class="value">
+    <label><%= _t(:page_type) %></label>
+    <p><%= @page.layout_display_name %></p>
+  </div>
+  <div class="value">
+    <label><%= _t(:page_status) %></label>
+    <p><%= combined_page_status(@page) %></p>
+  </div>
+  <div class="value">
+    <label><%= _t(:page_was_created) %></label>
+    <p><%= _t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :page_status)} %></p>
+  </div>
+  <div class="value">
+    <label><%= _t(:page_was_updated) %></label>
+    <p><%= _t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :page_status)} %></p>
+  </div>
+  <% if @page.locked? %>
+  <div class="value">
+    <label><%= _t(:currently_edited_by) %></label>
+    <p><%= @page.locker_name %></p>
+  </div>
+  <% end %>
 </div>

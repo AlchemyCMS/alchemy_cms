@@ -54,7 +54,7 @@
   ),
   {
     :title => _t(:edit_image_properties),
-    :size => (options[:caption_as_textarea] ? (options[:manual_image_size] ? '380x230' : '380x210') : (options[:manual_image_size] ? '380x190' : '380x180'))
+    :size => (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x240'))
   },
   :title => _t(:edit_image_properties)
 ) %>

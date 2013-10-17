@@ -1506,6 +1506,11 @@ button.ui-button::-moz-focus-inner {
   }
 
   &:focus { outline: none }
+
+  div.info, div.message {
+    margin: 8px;
+    margin-bottom: 0;
+  }
 }
 
 .ui-dialog-titlebar {
@@ -1865,6 +1870,10 @@ button.ui-button::-moz-focus-inner {
   width: 17em;
   padding: $default-padding;
   display: none;
+
+  select {
+    height: 19px;
+  }
 }
 
 .ui-datepicker .ui-datepicker-header {

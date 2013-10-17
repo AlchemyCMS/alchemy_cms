@@ -1,29 +1,11 @@
-<%= form_for([:admin, @page], :remote => true, :html => {:id => 'new_page_form'}) do |f| %>
+<%= alchemy_form_for([:admin, @page]) do |f| %>
   <%= f.hidden_field(:parent_id) %>
   <%= f.hidden_field(:layoutpage) %>
-  <div id="errors"></div>
-  <table id="new_page_form">
-    <tr>
-      <td class="label">
-        <%= f.label :page_layout %>
-      </td>
-      <td class="select">
-        <%= f.select('page_layout', @page_layouts, {}, { :class => 'alchemy_selectbox', :autofocus => true }) %>
-      </td>
-    </tr>
-    <tr>
-      <td class="label">
-        <%= f.label :name %>
-      </td>
-      <td class="input">
-        <%= f.text_field(:name, :class => "thin_border") %>
-      </td>
-    </tr>
-    <tr>
-      <td class="label">&nbsp;</td>
-      <td class="submit">
-        <%= f.button _t(:create), :class => 'button', :name => nil %>
-      </td>
-    </tr>
-  </table>
+  <%= f.input :page_layout,
+    collection: @page_layouts,
+    label: _t(:page_type),
+    include_blank: false,
+    input_html: {class: 'alchemy_selectbox'} %>
+  <%= f.input :name %>
+  <%= f.submit _t(:create) %>
 <% end %>

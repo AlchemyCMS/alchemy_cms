@@ -37,7 +37,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with permission" do
       before {
-        helper.stub(:permitted_to?).and_return(true)
+        helper.stub(:can?).and_return(true)
       }
 
       it "renders the main navigation entry partial" do
@@ -47,7 +47,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "without permission" do
       before {
-        helper.stub(:permitted_to?).and_return(false)
+        helper.stub(:can?).and_return(false)
       }
 
       it "returns empty string" do
@@ -65,7 +65,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with permission" do
       before {
-        helper.stub(:permitted_to?).and_return(true)
+        helper.stub(:can?).and_return(true)
       }
 
       it "renders the sub navigation for current module" do
@@ -75,7 +75,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "without permission" do
       before {
-        helper.stub(:permitted_to?).and_return(false)
+        helper.stub(:can?).and_return(false)
       }
 
       it "renders the sub navigation for current module" do
@@ -95,8 +95,16 @@ describe Alchemy::Admin::NavigationHelper do
   end
 
   describe '#navigate_module' do
-    it "returns array with symbolized controller and action name" do
+    it "returns array with symbolized action and controller name" do
       helper.navigate_module(navigation).should == [:index, :alchemy_admin_dashboard]
+    end
+
+    it "stringifies keys" do
+      helper.navigate_module({action: 'index', controller: 'alchemy/admin/pictures'}).should == [:index, :alchemy_admin_pictures]
+    end
+
+    it "removes leading slash" do
+      helper.navigate_module({action: 'index', controller: '/admin/pictures'}).should == [:index, :admin_pictures]
     end
   end
 

@@ -1,13 +1,3 @@
-@mixin default-label-style {
-  font-size: 10px;
-  text-shadow: #fff 0 1px 2px;
-  margin-top: $default-margin;
-  display: block;
-  line-height: 100%;
-  @extend .disable-user-select;
-  clear: both;
-}
-
 button, input[type="submit"], a.button, input.button {
   @extend %button-defaults;
 
@@ -164,10 +154,6 @@ button.icon_button {
   float: right;
 }
 
-#new_page_form tbody tr td.second_row .button {
-  float: right;
-}
-
 div#toolbar label {
   @include default-label-style;
 }
@@ -314,14 +300,6 @@ select {
  * Author: @gregfranko
  */
 
-td.select .selectboxit {
-
-  .selectboxit-text {
-    line-height: 17px !important;
-    max-width: 80% !important;
-  }
-}
-
 .selectboxit-container {
   @include inline-block;
   margin: $default-form-field-margin;
@@ -334,9 +312,9 @@ td.select .selectboxit {
 
   .selectboxit {
     @extend %button-defaults;
-    width: auto;
-    height: 15px;
-    padding: 6px 0 6px 8px;
+    width: 100%;
+    @include box-sizing(border-box);
+    padding: 5px 0 5px 8px;
     margin: 0;
     @include inline-block;
     overflow: hidden;
@@ -383,14 +361,14 @@ td.select .selectboxit {
     }
 
     &.tiny {
-      padding: 2px 2px 2px 8px;
-      height: 14px;
+      padding: 2px 2px 1px 8px;
       background-position: left 1px;
 
       .selectboxit-text {
         padding-right: 24px;
         font-size: 10px;
         line-height: 1.5 !important;
+        height: auto;
       }
 
       .selectboxit-arrow-container {
@@ -421,7 +399,8 @@ td.select .selectboxit {
       @extend .disable-user-select;
       @extend %text-overflow;
       padding-right: 32px;
-      line-height: normal !important;
+      line-height: 17px !important;
+      height: 17px;
     }
 
     /* Dropdown List Down Arrow Container (if an image is not used) */
@@ -451,8 +430,6 @@ td.select .selectboxit {
       display: block;
       @extend .icon-menu;
     }
-
-    &.with_error { border-color: $error_border_color }
   }
 
   /* Dropdown List Options List*/
@@ -530,9 +507,7 @@ td.select .selectboxit {
   }
 
   input[data-autocomplete] {
-    width: 250px;
+    width: 100%;
     padding-left: 24px;
   }
 }
-
-label.with_error { color: $error_text_color }

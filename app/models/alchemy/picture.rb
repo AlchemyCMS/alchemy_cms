@@ -1,6 +1,5 @@
 require 'acts-as-taggable-on'
 require 'dragonfly'
-require 'userstamp'
 
 module Alchemy
   class Picture < ActiveRecord::Base
@@ -32,18 +31,11 @@ module Alchemy
 
     acts_as_taggable
 
-    attr_accessible(
-      :image_file,
-      :name,
-      :tag_list,
-      :upload_hash
-    )
+    stampable stamper_class_name: Alchemy.user_class_name
 
-    stampable(:stamper_class_name => 'Alchemy::User')
-
-    scope :recent, where("#{self.table_name}.created_at > ?", Time.now-24.hours).order(:created_at)
-    scope :deletable, where("alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
-    scope :without_tag, where("cached_tag_list IS NULL OR cached_tag_list = ''")
+    scope :recent,      -> { where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at) }
+    scope :deletable,   -> { where('alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)') }
+    scope :without_tag, -> { where("cached_tag_list IS NULL OR cached_tag_list = ''") }
 
     # Class methods
 
@@ -55,7 +47,7 @@ module Alchemy
 
       def last_upload
         last_picture = Picture.last
-        return Picture.scoped unless last_picture
+        return Picture.all unless last_picture
         Picture.where(:upload_hash => last_picture.upload_hash)
       end
 

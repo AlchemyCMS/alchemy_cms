@@ -21,7 +21,7 @@
     <%= language.default? ? render_icon('true') : '' %>
   </td>
   <td class="tools">
-    <%- permitted_to?(:destroy, :alchemy_admin_languages) do -%>
+  <%- if can?(:destroy, language) -%>
     <%= link_to_confirmation_window(
       '',
       _t("Are you sure?"),
@@ -29,20 +29,20 @@
       :title => _t("Delete"),
       :class => "icon destroy"
     ) -%>
-    <%- end -%>
-    <%- permitted_to?(:edit, :alchemy_admin_languages) do -%>
+  <%- end -%>
+  <%- if can?(:edit, language) -%>
     <%= link_to_overlay_window(
       '',
       alchemy.edit_admin_language_path(language),
       {
         :title => _t("Edit"),
-        :size => "430xauto"
+        :size => "450xauto"
       },
       {
         :class => "icon edit",
         :title => _t("Edit")
       }
     ) -%>
-    <%- end -%>
+  <%- end -%>
   </td>
 </tr>

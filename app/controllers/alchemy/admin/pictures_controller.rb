@@ -8,9 +8,14 @@ module Alchemy
 
       respond_to :html, :js
 
+      before_action :load_picture,
+        only: [:show, :edit, :update, :info, :destroy]
+
+      authorize_resource class: Alchemy::Picture
+
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
-        @pictures = Picture.scoped
+        @pictures = Picture.all
         @pictures = @pictures.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
         @pictures = @pictures.filtered_by(params[:filter]) if params[:filter]
         @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
@@ -27,13 +32,12 @@ module Alchemy
         @size = params[:size] || 'medium'
         if in_overlay?
           @while_assigning = true
-          @content = Content.find_by_id(params[:content_id], :select => 'id')
-          @element = Element.find(params[:element_id], :select => 'id')
+          @content = Content.select('id').find_by_id(params[:content_id])
+          @element = Element.select('id').find_by_id(params[:element_id])
           @options = options_from_params
           @page = params[:page]
           @per_page = params[:per_page]
         end
-        render layout: !request.xhr?
       end
 
       def create
@@ -65,25 +69,21 @@ module Alchemy
       end
 
       def show
-        @picture = Picture.find(params[:id])
-        render layout: !request.xhr?
+      end
+
+      def info
       end
 
       def edit
-        @picture = Picture.find(params[:id])
-        render :layout => !request.xhr?
       end
 
       def edit_multiple
         @pictures = Picture.find(params[:picture_ids])
-        render :layout => !request.xhr?
       end
 
       def update
-        @picture = Picture.find(params[:id])
-
-        if @picture.update_attributes(params[:picture])
-          flash[:notice] = _t(:picture_updated_successfully, :name => @picture.name)
+        if @picture.update_attributes(picture_params)
+          flash[:notice] = _t(:picture_updated_successfully, name: @picture.name)
         else
           flash[:error] = _t(:picture_update_failed)
         end
@@ -130,15 +130,13 @@ module Alchemy
       end
 
       def destroy
-        @picture = Picture.find(params[:id])
         name = @picture.name
         @picture.destroy
         flash[:notice] = _t("Picture deleted successfully", :name => name)
       rescue Exception => e
         flash[:error] = e.message
       ensure
-        @redirect_url = admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
-        render :redirect
+        do_redirect_to admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
       end
 
       def flush
@@ -147,12 +145,11 @@ module Alchemy
         @notice = _t('Picture cache flushed')
       end
 
-      def info
-        @picture = Picture.find(params[:id])
-        render layout: !request.xhr?
-      end
-
     private
+
+      def load_picture
+        @picture = Picture.find(params[:id])
+      end
 
       def pictures_per_page_for_size(size)
         case size
@@ -171,8 +168,8 @@ module Alchemy
       end
 
       def archive_overlay
-        @content = Content.find_by_id(params[:content_id], :select => 'id')
-        @element = Element.find_by_id(params[:element_id], :select => 'id')
+        @content = Content.select('id').find_by_id(params[:content_id])
+        @element = Element.select('id').find_by_id(params[:element_id])
         @options = options_from_params
         respond_to do |format|
           format.html {
@@ -192,6 +189,10 @@ module Alchemy
           :size => params[:size],
           :filter => params[:filter]
         )
+      end
+
+      def picture_params
+        params.require(:picture).permit(:name, :tag_list)
       end
 
     end

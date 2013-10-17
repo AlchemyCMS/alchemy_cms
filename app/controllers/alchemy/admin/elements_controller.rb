@@ -1,8 +1,9 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-
       cache_sweeper Alchemy::ContentSweeper, :only => [:create, :update, :destroy]
+      before_action :load_element, only: [:update, :trash, :fold]
+      authorize_resource class: Alchemy::Element
 
       def index
         @page = Page.find(params[:page_id], :include => {:elements => :contents})
@@ -12,7 +13,6 @@ module Alchemy
         else
           @elements = @page.elements_grouped_by_cells
         end
-        render layout: !request.xhr?
       end
 
       def list
@@ -20,18 +20,14 @@ module Alchemy
         if @page_id.blank? && !params[:page_urlname].blank?
           @page_id = Page.find_by_urlname_and_language_id(params[:page_urlname], session[:language_id]).id
         end
-        @elements = Element.published.find_all_by_page_id(@page_id)
+        @elements = Element.published.where(page_id: @page_id)
       end
 
       def new
         @page = Page.find_by_id(params[:page_id])
         @element = @page.elements.build
         @elements = @page.available_element_definitions
-        clipboard_elements = get_clipboard[:elements]
-        unless clipboard_elements.blank?
-          @clipboard_items = Element.all_from_clipboard_for_page(clipboard_elements, @page)
-        end
-        render layout: !request.xhr?
+        @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard[:elements], @page)
       end
 
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
@@ -55,19 +51,23 @@ module Alchemy
         end
         @cell_name = @cell.nil? ? "for_other_elements" : @cell.name
         if @element.valid?
-          render :action => :create
+          render :create
         else
-          render_remote_errors(@element, params[:paste_from_clipboard].nil? ? nil : '#paste_element_errors')
+          @element.page = @page
+          @elements = @page.available_element_definitions
+          @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard[:elements], @page)
+          render :new
         end
       end
 
-      # Saves all contents in the elements by calling save_contents.
-      # And then updates the element itself.
+      # Updates the element.
+      #
+      # And update all contents in the elements by calling update_contents.
+      #
       def update
-        @element = Element.find_by_id(params[:id])
-        if @element.save_contents(params[:contents])
+        if @element.update_contents(contents_params)
           @page = @element.page
-          @element_validated = @element.update_attributes!(params[:element])
+          @element_validated = @element.update_attributes!(element_params)
         else
           @element_validated = false
           @notice = _t('Validation failed')
@@ -77,9 +77,8 @@ module Alchemy
 
       # Trashes the Element instead of deleting it.
       def trash
-        @element = Element.find(params[:id])
         @page = @element.page
-        @element.trash
+        @element.trash!
       end
 
       def order
@@ -95,13 +94,16 @@ module Alchemy
       end
 
       def fold
-        @element = Element.find(params[:id])
         @page = @element.page
         @element.folded = !@element.folded
         @element.save
       end
 
     private
+
+      def load_element
+        @element = Element.find(params[:id])
+      end
 
       # Returns the cell for element name in params.
       # Creates the cell if necessary.
@@ -118,7 +120,7 @@ module Alchemy
         if cell_definition.blank?
           raise CellDefinitionError, "Cell definition not found for #{cell_name}"
         end
-        @page.cells.find_or_create_by_name(cell_definition['name'])
+        @page.cells.find_or_create_by(name: cell_definition['name'])
       end
 
       def element_from_clipboard
@@ -141,6 +143,14 @@ module Alchemy
         @cutted_element_id = @source_element.id
         @clipboard.remove :elements, @source_element.id
         @source_element.destroy
+      end
+
+      def contents_params
+        params.require(:contents).permit!
+      end
+
+      def element_params
+        params.require(:element).permit(:public, :tag_list)
       end
 
     end

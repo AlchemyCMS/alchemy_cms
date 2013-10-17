@@ -1,2 +1,3 @@
-Alchemy.closeCurrentWindow();
-window.location.href = '<%= alchemy.login_path %>';
+Alchemy.closeCurrentWindow(function() {
+  window.location.href = '<%= Alchemy.login_path %>';
+});

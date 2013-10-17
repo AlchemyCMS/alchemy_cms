@@ -4,7 +4,7 @@
       <span class="site_status <%= layoutpage.locked ? ' locked' : '' %>" ></span>
     </div>
     <div class="sitemap_right_tools">
-      <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
+      <%- if can?(:configure, layoutpage) -%>
       <%= link_to_overlay_window(
         render_icon('configure_page'),
         alchemy.configure_admin_page_path(layoutpage),
@@ -16,9 +16,8 @@
         :title => _t(:edit_page_properties)
       ) -%>
       <%- end -%>
-      <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
       <span class="sitemap_sitetools">
-        <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
+      <%- if can?(:copy, layoutpage) -%>
         <%= link_to(
           render_icon("copy_page"),
           alchemy.insert_admin_clipboard_path(
@@ -30,8 +29,8 @@
           :class => "",
           :title => _t(:copy_page)
         ) %>
-        <%- end -%>
-        <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
+      <%- end -%>
+      <%- if can?(:destroy, layoutpage) -%>
         <%= link_to_confirmation_window(
           render_icon('delete_page'),
           _t(:confirm_to_delete_page),
@@ -45,9 +44,8 @@
             :title => _t(:delete_page)
           }
         ) -%>
-        <%- end -%>
-      </span>
       <%- end -%>
+      </span>
     </div>
     <div class="sitemap_sitename">
       <%= link_to(

@@ -1,4 +1,3 @@
-require 'userstamp'
 require 'acts_as_list'
 
 module Alchemy
@@ -8,19 +7,10 @@ module Alchemy
     # Concerns
     include Factory
 
-    attr_accessible(
-      :do_not_index,
-      :element_id,
-      :essence_id,
-      :essence_type,
-      :ingredient,
-      :name
-    )
-
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element
 
-    stampable stamper_class_name: 'Alchemy::User'
+    stampable stamper_class_name: Alchemy.user_class_name
 
     acts_as_list
 
@@ -32,16 +22,16 @@ module Alchemy
     validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
 
     # Essence scopes
-    scope :essence_booleans, where(:essence_type => "Alchemy::EssenceBoolean")
-    scope :essence_dates, where(:essence_type => "Alchemy::EssenceDate")
-    scope :essence_files, where(:essence_type => "Alchemy::EssenceFile")
-    scope :essence_htmls, where(:essence_type => "Alchemy::EssenceHtml")
-    scope :essence_links, where(:essence_type => "Alchemy::EssenceLink")
-    scope :essence_pictures, where(:essence_type => "Alchemy::EssencePicture")
-    scope :gallery_pictures, essence_pictures.where("#{self.table_name}.name LIKE 'essence_picture_%'")
-    scope :essence_richtexts, where(:essence_type => "Alchemy::EssenceRichtext")
-    scope :essence_selects, where(:essence_type => "Alchemy::EssenceSelect")
-    scope :essence_texts, where(:essence_type => "Alchemy::EssenceText")
+    scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }
+    scope :essence_dates,     -> { where(essence_type: "Alchemy::EssenceDate") }
+    scope :essence_files,     -> { where(essence_type: "Alchemy::EssenceFile") }
+    scope :essence_htmls,     -> { where(essence_type: "Alchemy::EssenceHtml") }
+    scope :essence_links,     -> { where(essence_type: "Alchemy::EssenceLink") }
+    scope :essence_pictures,  -> { where(essence_type: "Alchemy::EssencePicture") }
+    scope :gallery_pictures,  -> { essence_pictures.where("#{self.table_name}.name LIKE 'essence_picture_%'") }
+    scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
+    scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
+    scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
 
     class << self
       # Returns the translated label for a content name.
@@ -95,7 +85,7 @@ module Alchemy
 
     # Calls essence.update_attributes.
     #
-    # Called from +Alchemy::Element#save_contents+
+    # Called from +Alchemy::Element#update_contents+
     #
     # Adds errors to self.base if essence validation fails.
     #
@@ -125,18 +115,18 @@ module Alchemy
     #
     # === Options:
     #
-    # You can pass an Essence column_name. Default is self.essence.ingredient_column
+    # You can pass an Essence column_name. Default is 'ingredient'
     #
     # ==== Example:
     #
     #   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
     #
-    def form_field_name(essence_column = self.essence.ingredient_column)
-      "contents[content_#{self.id}][#{essence_column}]"
+    def form_field_name(essence_column = 'ingredient')
+      "contents[#{self.id}][#{essence_column}]"
     end
 
-    def form_field_id(essence_column = self.essence.ingredient_column)
-      "contents_content_#{self.id}_#{essence_column}"
+    def form_field_id(essence_column = 'ingredient')
+      "contents_#{self.id}_#{essence_column}"
     end
 
     # Returns the translated name for displaying in labels, etc.

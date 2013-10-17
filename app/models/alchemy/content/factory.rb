@@ -128,10 +128,10 @@ module Alchemy
       #
       def normalize_essence_type(essence_type)
         essence_type = essence_type.classify
-        if essence_type.match(/^Alchemy::/)
+        if essence_type.match(/\AAlchemy::/)
           essence_type
         else
-          essence_type.gsub!(/^Essence/, 'Alchemy::Essence')
+          essence_type.gsub!(/\AEssence/, 'Alchemy::Essence')
         end
       end
 
@@ -172,15 +172,11 @@ module Alchemy
     # Prepares the attributes for creating the essence.
     #
     # 1. It sets a default text if given in +elements.yml+
-    # 2. It sets do_not_index value for EssenceText and EssenceRichtext essences
     #
     def prepared_attributes_for_essence
       attributes = {
         ingredient: default_text(description['default'])
       }
-      if description['type'] == "EssenceRichtext" || description['type'] == "EssenceText"
-        attributes.merge!(do_not_index: !!description['do_not_index'])
-      end
       attributes
     end
 

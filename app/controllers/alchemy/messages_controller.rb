@@ -42,8 +42,6 @@ module Alchemy
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
   class MessagesController < Alchemy::BaseController
-    include Alchemy::Ferret::Search
-
     before_filter :get_page, :except => :create
 
     helper 'alchemy/pages'
@@ -94,8 +92,8 @@ module Alchemy
 
     def redirect_to_success_page
       flash[:notice] = _t(:success, :scope => 'contactform.messages')
-      if @element.ingredient("success_page")
-        urlname = @element.ingredient("success_page")
+      if @element.ingredient(:success_page)
+        urlname = @element.ingredient(:success_page)
       elsif mailer_config['forward_to_page'] && mailer_config['mail_success_page']
         urlname = Page.find_by_urlname(mailer_config['mail_success_page']).urlname
       else

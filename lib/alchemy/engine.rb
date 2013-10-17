@@ -1,30 +1,36 @@
 # Require globally used external libraries
+require 'actionpack/action_caching'
+require 'actionpack/page_caching'
+require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
-require 'declarative_authorization'
-require 'devise'
-require 'dynamic_form'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'kaminari'
-require 'rails3-jquery-autocomplete'
+require 'rails3-jquery-autocomplete' if defined?(Rails3JQueryAutocomplete)
+require 'rails-observers'
 require 'sass-rails'
 require 'sassy-buttons'
+require 'simple_form'
+require 'turbolinks'
+require 'userstamp'
 
 # Require globally used Alchemy mixins
-require 'alchemy/auth/engine'
+require 'alchemy/auth_accessors'
 require 'alchemy/config'
 require 'alchemy/errors'
 require 'alchemy/essence'
-require 'alchemy/ferret/search'
 require 'alchemy/filetypes'
+require "alchemy/forms/builder"
 require 'alchemy/i18n'
 require 'alchemy/logger'
 require 'alchemy/modules'
 require 'alchemy/mount_point'
 require 'alchemy/name_conversions'
 require 'alchemy/page_layout'
+require 'alchemy/permissions'
 require 'alchemy/picture_attributes'
+require 'alchemy/resource'
 require 'alchemy/tinymce'
 
 # Require hacks
@@ -36,7 +42,6 @@ require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 
 module Alchemy
   class Engine < Rails::Engine
-
     isolate_namespace Alchemy
     engine_name 'alchemy'
     config.mount_at = '/'
@@ -64,14 +69,8 @@ module Alchemy
       )
     end
 
-    # filter sensitive information during logging
-    initializer "alchemy.params.filter" do |app|
-      app.config.filter_parameters += [:password, :password_confirmation]
+    config.after_initialize do
+      require 'alchemy/user'
     end
-
-    initializer "alchemy.add_authorization_rules" do
-      Alchemy::Auth::Engine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
-    end
-
   end
 end

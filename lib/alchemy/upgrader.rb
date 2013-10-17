@@ -5,6 +5,7 @@ module Alchemy
 
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
+    extend ThreePointZero
     extend TwoPointSix
     extend TwoPointFive
     extend TwoPointFour
@@ -57,7 +58,10 @@ module Alchemy
         desc "Copy configuration file."
         config_file = Rails.root.join('config/alchemy/config.yml')
         default_config = File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml')
-        if FileUtils.identical? default_config, config_file
+        if !File.exists? config_file
+          log "No configuration file found. Creating it."
+          FileUtils.cp default_config, Rails.root.join('config/alchemy/config.yml')
+        elsif FileUtils.identical? default_config, config_file
           log "Configuration file already present.", :skip
         else
           log "Custom configuration file found."

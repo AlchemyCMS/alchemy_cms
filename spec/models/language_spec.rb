@@ -119,7 +119,7 @@ module Alchemy
 
     describe '.all_codes_for_published' do
       it "should return all codes of published languages" do
-        Language.stub!(:published).and_return([mock_model('Language', code: 'de'), mock_model('Language', code: 'en')])
+        Language.stub(:published).and_return([mock_model('Language', code: 'de'), mock_model('Language', code: 'en')])
         expect(Language.all_codes_for_published).to eq(['de', 'en'])
       end
     end
@@ -139,8 +139,8 @@ module Alchemy
       describe 'presence_of_default_language' do
         context 'if no default language would exist anymore' do
           before do
-            Language.stub!(:get_default).and_return(language)
-            language.stub!(:default_changed?).and_return(true)
+            Language.stub(:get_default).and_return(language)
+            language.stub(:default_changed?).and_return(true)
           end
 
           it "should add an error to the object" do

@@ -12,7 +12,7 @@
         title: label_title,
         size: resource_window_size
       },
-      if_permitted_to: [:new, resource_permission_scope]
+      if_permitted_to: [:create, Alchemy::Site]
     }
   ]
 ) %>

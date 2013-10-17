@@ -11,9 +11,11 @@
       },
       class: 'icon_button',
       title: _t(:upload_image),
-      if_permitted_to: [:new, :alchemy_admin_pictures]
+      if_permitted_to: [:create, Alchemy::Picture]
     ) %>
+    <% if can? :create, Alchemy::Picture %>
     <div class="toolbar_spacer"></div>
+    <% end %>
     <div class="button_with_label">
       <%= link_to(
         render_icon('zoom-out'),
@@ -46,7 +48,7 @@
       <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
     </div>
 
-    <% permitted_to?(:flush, :alchemy_admin_pictures) do %>
+    <% if can?(:flush, Alchemy::Picture) %>
       <div class="toolbar_spacer"></div>
       <%= toolbar_button(
         icon: 'flush',

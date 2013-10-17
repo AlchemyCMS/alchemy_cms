@@ -1,13 +1,14 @@
 module Alchemy
   module Admin
     class EssenceFilesController < Alchemy::Admin::BaseController
+      authorize_resource class: Alchemy::EssenceFile
 
       helper "Alchemy::Admin::Contents"
 
       def edit
         @content = Content.find(params[:id])
+        @options = options_from_params
         @essence_file = @content.essence
-        render layout: !request.xhr?
       end
 
       def update

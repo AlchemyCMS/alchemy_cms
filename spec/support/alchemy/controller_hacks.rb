@@ -29,7 +29,7 @@ module Alchemy
 
       def process_alchemy_action(action, parameters = nil, session = nil, flash = nil, method = "GET")
         parameters ||= {}
-        process(action, parameters.merge!(:use_route => :alchemy), session, flash, method)
+        process(action, method, parameters.merge!(:use_route => :alchemy), session, flash)
       end
 
     end

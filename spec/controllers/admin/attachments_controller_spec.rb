@@ -3,12 +3,12 @@ require 'spec_helper'
 module Alchemy
   describe Admin::AttachmentsController do
 
-    let(:attachment) { mock_model('Attachment', file_name: 'testfile', file_mime_type: 'image/png', file: mock('File', data: nil)) }
+    let(:attachment) { mock_model('Attachment', file_name: 'testfile', file_mime_type: 'image/png', file: double('File', data: nil)) }
 
     before do
       sign_in(admin_user)
     end
-    
+
     describe "#index" do
 
       it "should always paginate the records" do
@@ -18,7 +18,7 @@ module Alchemy
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
-          Attachment.should_receive(:tagged_with).and_return(Attachment.scoped)
+          Attachment.should_receive(:tagged_with).and_return(Attachment.all)
           get :index, tagged_with: "pdf"
         end
       end
@@ -28,7 +28,7 @@ module Alchemy
 
         context "is set" do
           it "should render the archive_overlay partial" do
-            Content.stub!(:find).with('1', {:select => 'id'}).and_return(mock_model(Content))
+            Content.stub(:find).with('1', {:select => 'id'}).and_return(mock_model(Content))
             get :index, {content_id: 1, format: :html}
             expect(response).to render_template(partial: '_archive_overlay')
           end
@@ -44,13 +44,13 @@ module Alchemy
       end
 
     end
-    
+
     describe "#new" do
-      
+
       context "in overlay" do
 
         before do
-          controller.stub!(:in_overlay?).and_return(true)
+          controller.stub(:in_overlay?).and_return(true)
           Content.stub(:find).and_return(mock_model('Content'))
         end
 
@@ -69,7 +69,7 @@ module Alchemy
 
     describe "#show" do
       before do
-        Attachment.stub!(:find).with("#{attachment.id}").and_return(attachment)
+        Attachment.stub(:find).with("#{attachment.id}").and_return(attachment)
       end
 
       it "should assign @attachment with Attachment found by id" do
@@ -80,14 +80,14 @@ module Alchemy
       context "if xhr request" do
         it "should render no layout" do
           xhr :get, :edit, id: attachment.id
-          expect(@layouts).to be_empty
+          response.should render_template(layout: nil)
         end
       end
     end
 
     describe "#edit" do
       before do
-        Attachment.stub!(:find).with("#{attachment.id}").and_return(attachment)
+        Attachment.stub(:find).with("#{attachment.id}").and_return(attachment)
       end
 
       it "should assign @attachment with Attachment found by id" do
@@ -98,15 +98,15 @@ module Alchemy
       context "if xhr request" do
         it "should render no layout" do
           xhr :get, :edit, id: attachment.id
-          expect(@layouts).to be_empty
+          response.should render_template(layout: nil)
         end
       end
     end
 
     describe "#download" do
       before do
-        Attachment.stub!(:find).with("#{attachment.id}").and_return(attachment)
-        controller.stub!(:render).and_return(nil)
+        Attachment.stub(:find).with("#{attachment.id}").and_return(attachment)
+        controller.stub(:render).and_return(nil)
       end
 
       it "should assign @attachment with Attachment found by id" do

@@ -16,7 +16,7 @@ module Alchemy
         context 'when it has no languages yet' do
           it 'should automatically create a default language' do
             subject.save!
-            subject.languages.count.should == 1
+            subject.languages.length.should == 1 # using count returns 0, although the resulting array has a length of 1 / O.o
             subject.languages.first.should be_default
           end
         end
@@ -79,20 +79,86 @@ module Alchemy
       context 'when set to a site' do
         before { Site.current = site }
         specify "Language should be scoped to that site" do
-          Language.scoped.to_sql.should match(/alchemy_languages.+site_id.+#{site.id}/)
+          Language.all.to_sql.should match(/alchemy_languages.+site_id.+#{site.id}/)
         end
       end
 
       context 'when set to nil' do
         before { Site.current = nil }
         specify "Language should not be scoped to a site" do
-          Language.scoped.to_sql.should_not match(/alchemy_languages.+site_id.+#{site.id}/)
+          Language.all.to_sql.should_not match(/alchemy_languages.+site_id.+#{site.id}/)
         end
 
         it "should return default site" do
           Site.current.should_not be_nil
           Site.current.should == Site.default
         end
+      end
+    end
+
+    describe '.layout_definitions' do
+      # To prevent memoization across specs
+      before { Site.instance_variable_set("@layout_definitions", nil) }
+
+      subject { Site.layout_definitions }
+
+      context "with file present" do
+        let(:definitions) { [{'name' => 'lala'}] }
+        before { YAML.should_receive(:load_file).and_return(definitions) }
+        it { should == definitions }
+      end
+
+      context "with empty file" do
+        before { YAML.should_receive(:load_file).and_return(false) }
+        it { should == [] }
+      end
+
+      context "with no file present" do
+        it { should == [] }
+      end
+    end
+
+    describe '.layout_definitions' do
+      # To prevent memoization across specs
+      before { Site.instance_variable_set("@layout_definitions", nil) }
+
+      subject { Site.layout_definitions }
+
+      context "with file present" do
+        let(:definitions) { [{'name' => 'lala'}] }
+        before { YAML.should_receive(:load_file).and_return(definitions) }
+        it { should == definitions }
+      end
+
+      context "with empty file" do
+        before { YAML.should_receive(:load_file).and_return(false) }
+        it { should == [] }
+      end
+
+      context "with no file present" do
+        it { should == [] }
+      end
+    end
+
+    describe '.layout_definitions' do
+      # To prevent memoization across specs
+      before { Site.instance_variable_set("@layout_definitions", nil) }
+
+      subject { Site.layout_definitions }
+
+      context "with file present" do
+        let(:definitions) { [{'name' => 'lala'}] }
+        before { YAML.should_receive(:load_file).and_return(definitions) }
+        it { should == definitions }
+      end
+
+      context "with empty file" do
+        before { YAML.should_receive(:load_file).and_return(false) }
+        it { should == [] }
+      end
+
+      context "with no file present" do
+        it { should == [] }
       end
     end
 

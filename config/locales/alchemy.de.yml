@@ -97,19 +97,6 @@ de:
         right: 'Rechts vom Text'
         no_float: 'Über dem Text'
 
-    # == Translations for the build in full text search.
-    search_form:
-      placeholder: 'Suchbegriff'
-      submit: 'Suchen'
-
-    search_result_page:
-      result_page: Seite
-      no_results: "Ihre Suche nach '%{query}' ergab keine Treffer."
-      result_heading: "Ihre Suche nach '%{query}'"
-      result_count:
-        one: "Ergab einen Treffer"
-        other: "Ergab %{count} Treffer"
-
     # == Contactform translations
     contactform:
       labels:
@@ -137,7 +124,7 @@ de:
 
     # == User roles translations
     user_roles:
-      registered: "Registriert"
+      member: "Mitglied"
       author: "Author"
       editor: "Redakteur"
       admin: "Administrator"
@@ -243,7 +230,7 @@ de:
     "No EssenceType given": ""
     "No items in your clipboard": "Ihre Zwischenablage ist leer"
     "No Tags found": "Keine Tags gefunden"
-    "None": "keine"
+    "None": "ohne"
     "Open Link in": "Link öffnen in"
     "Page": "Seite"
     "Page deleted": "%{name} wurde gelöscht"
@@ -266,7 +253,7 @@ de:
     "Please enter a new password": "Bitte geben Sie Ihr neues Passwort ein."
     "Please enter your email address": "Bitte geben Sie Ihre E-Mail-Adresse ein."
     "Please log in": "Bitte melden Sie sich an."
-    "Please seperate the tags with commata": "* Die Tags bitte mit Kommata getrennt eingeben."
+    "Please seperate the tags with commata": "* Die Tags bitte mit Komma getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
@@ -310,8 +297,6 @@ de:
     "Warning!": "Achtung!"
     content_description_missing: "Warnung: Für diesen Content konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     element_description_missing: "Warnung! Für dieses Element konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
-    "Welcome back, %{name}": "Willkommen zurück, %{name}!"
-    "Welcome, %{name}": "Willkommen, %{name}!"
     "Welcome to Alchemy": "Willkommen in Alchemy"
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"
@@ -525,6 +510,7 @@ de:
     "please enter subject and mail address": "Bitte geben Sie den Betreff und eine Empfängeradresse an."
     please_confirm: "Bitte bestätigen"
     please_wait: "Bitte warten"
+    position_in_text: "Textanordnung"
     preview_size: "Vorschaugröße"
     preview_sizes:
       '240': '240px (kleines Mobiltelefon)'
@@ -588,6 +574,8 @@ de:
     want_to_create_new_language: "Wollen Sie einen neuen leeren Sprachbaum erstellen?"
     want_to_make_copy_of_existing_language: "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
     "We need at least one default.": "Es muss eine Standardsprache geben."
+    welcome_note: "Willkommen %{name}"
+    welcome_back_note: "Willkommen zurück %{name}"
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
     width: "Breite"
     without_tag: 'Ohne Tag'
@@ -765,7 +753,7 @@ de:
       alchemy/element:
         attributes:
           name:
-            blank: "^Bitte wählen Sie ein Element."
+            blank: "Bitte wählen Sie ein Element."
       alchemy/language:
         attributes:
           language_code:
@@ -774,23 +762,25 @@ de:
       alchemy/page:
         attributes:
           name:
-            blank: "^Bitte geben Sie einen Namen ein."
+            blank: "Bitte geben Sie einen Namen ein."
           page_layout:
-            blank: "^Bitte wählen Sie einen Seitentyp."
+            blank: "Bitte wählen Sie einen Seitentyp."
           urlname:
-            too_short: "^Der URL-Name der Seite ist zu kurz (min. 3 Zeichen)"
-            taken: "^Der URL-Name ist bereits vergeben."
-            exclusion: "^Der URL-Name der Seite kann nicht benutzt werden."
+            too_short: "ist zu kurz (min. 3 Zeichen)"
+            taken: "ist bereits vergeben."
+            exclusion: "kann nicht benutzt werden."
       alchemy/picture:
         attributes:
           image_file:
-            blank: "^Bitte fügen Sie ein Bild an."
+            blank: "Bitte fügen Sie ein Bild an."
       alchemy/user:
         attributes:
           login:
             invalid: "darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
           email:
-            invalid: "entspricht nicht dem Format einer E-Mail-Adresse."
+            invalid: "entspricht nicht dem Format einer E-Mail-Adresse"
+          roles:
+            blank: "mindestens eine Rolle muss angegeben sein"
 
   activemodel:
 
@@ -871,7 +861,7 @@ de:
         tag_list: Tags
 
       alchemy/essence_file:
-        css_class: Textanordnung
+        css_class: Stil
 
       alchemy/essence_picture:
         caption: "Untertitel"
@@ -880,7 +870,7 @@ de:
         link: Link
         link_class_name: "Link CSS-Klasse"
         link_title: Link-Titel
-        css_class: Textanordnung
+        css_class: Stil
         link_target: Link-Ziel
         render_size: Darstellungsgröße
         crop_from: Bildmaskenursprung

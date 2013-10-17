@@ -3,7 +3,7 @@
 
   $('#essence_picture_<%= @content_id -%>').remove();
 
-  <% if max_image_count.present? && @essence_pictures.length < max_image_count.to_i %>
+  <% if max_image_count.present? && @essence_pictures.count < max_image_count.to_i %>
 
     $picture_editor = $('#element_<%= @element.id -%>_contents');
 

@@ -6,9 +6,10 @@ module Alchemy
       protect_from_forgery :except => [:create]
 
       def index
-        @attachments = Attachment.scoped
+        @attachments = Attachment.all
         @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
         @attachments = @attachments.find_paginated(params, 15, sort_order)
+        @options = options_from_params
         if in_overlay?
           archive_overlay
         else
@@ -24,7 +25,6 @@ module Alchemy
           @swap = params[:swap]
           @options = options_from_params
         end
-        render :layout => !request.xhr?
       end
 
       def create
@@ -46,16 +46,14 @@ module Alchemy
 
       def edit
         @attachment = Attachment.find(params[:id])
-        render layout: !request.xhr?
       end
 
       def update
         @attachment = Attachment.find(params[:id])
-        oldname = @attachment.name
-        @attachment.update_attributes(params[:attachment])
+        @attachment.update_attributes(attachment_attributes)
         render_errors_or_redirect(
           @attachment,
-          admin_attachments_path(:page => params[:page], :query => params[:query], :per_page => params[:per_page]),
+          admin_attachments_path(page: params[:page], query: params[:query], per_page: params[:per_page]),
           _t("File successfully updated")
         )
       end
@@ -74,7 +72,6 @@ module Alchemy
 
       def show
         @attachment = Attachment.find(params[:id])
-        render layout: !request.xhr?
       end
 
       def download
@@ -104,6 +101,10 @@ module Alchemy
             render action: 'archive_overlay'
           }
         end
+      end
+
+      def attachment_attributes
+        params.require(:attachment).permit(:name, :file_name, :tag_list)
       end
 
     end

@@ -1,5 +1,5 @@
-# This recipe contains Capistrano recipes for handling the uploads, ferret index and picture cache files while deploying your application.
-# It also contains a ferret:rebuild_index task to rebuild the index after deploying your application.
+# This recipe contains Capistrano recipes for handling the uploads and picture cache files while deploying your application.
+#
 require 'fileutils'
 
 ::Capistrano::Configuration.instance(:must_exist).load do
@@ -12,25 +12,20 @@ require 'fileutils'
 
     namespace :shared_folders do
 
-      # This task creates the shared folders for uploads, picture cache and ferret index while setting up your server.
-      # Call after deploy:setup like +after "deploy:setup", "alchemy:create_shared_folders"+ in your +deploy.rb+.
-      desc "Creates the uploads and picture cache directory in the shared folder. Call after deploy:setup"
+      # This task creates the shared folders for uploads and picture cache while setting up your server.
+      desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
       task :create, :roles => :app do
-        run "mkdir -p #{shared_path}/index"
         run "mkdir -p #{shared_path}/uploads/pictures"
         run "mkdir -p #{shared_path}/uploads/attachments"
         run "mkdir -p #{File.join(shared_path, 'cache', Capistrano::CLI.ui.ask("\nWhere is Alchemy CMS mounted at? ('/'): "), 'pictures')}"
       end
 
-      # This task sets the symlinks for uploads, picture cache and ferret index folder.
-      # Call after deploy:symlink like +after "deploy:symlink", "alchemy:symlink_folders"+ in your +deploy.rb+.
-      desc "Sets the symlinks for uploads, picture cache and ferret index folder. Call after deploy:symlink"
+      # This task sets the symlinks for uploads and picture cache folder.
+      desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:finalize_update"
       task :symlink, :roles => :app do
         run "rm -rf #{release_path}/uploads"
         run "ln -nfs #{shared_path}/uploads #{release_path}/"
         run "ln -nfs #{shared_path}/cache/* #{release_path}/public/"
-        run "rm -rf #{release_path}/index"
-        run "ln -nfs #{shared_path}/index #{release_path}/"
       end
 
     end
@@ -47,7 +42,7 @@ require 'fileutils'
         environment      = Capistrano::CLI.ui.ask("\nPlease enter the environment (Default: #{fetch(:rails_env, 'production')})")
         environment      = fetch(:rails_env, 'production') if environment.empty?
         db_adapter       = Capistrano::CLI.ui.ask("Please enter database adapter (Options: mysql2, or postgresql. Default mysql2): ")
-        db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/^mysql$/, 'mysql2')
+        db_adapter       = db_adapter.empty? ? 'mysql2' : db_adapter.gsub(/\Amysql\z/, 'mysql2')
         db_name          = Capistrano::CLI.ui.ask("Please enter database name: ")
         db_username      = Capistrano::CLI.ui.ask("Please enter database username: ")
         db_password      = Capistrano::CLI.password_prompt("Please enter database password: ")
@@ -164,18 +159,6 @@ EOF
         mysql_credentials.join(' ')
       end
 
-    end
-
-  end
-
-  namespace :ferret do
-
-    # This task rebuilds the ferret index for the EssenceText and EssenceRichtext Models.
-    # Call it before deploy:restart like +before "deploy:restart", "alchemy:rebuild_index"+ in your +deploy.rb+.
-    # It uses the +alchemy:rebuild_index+ rake task found in +vendor/plugins/alchemy/lib/tasks+.
-    desc "Rebuild the ferret index. Call before deploy:restart"
-    task :rebuild_index, :roles => :app do
-      run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} ferret:rebuild_index"
     end
 
   end

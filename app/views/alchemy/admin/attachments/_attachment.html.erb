@@ -3,7 +3,7 @@
     <%= render_icon attachment.icon_css_class %>
   </td>
   <td class="name">
-  <% if permitted_to?(:show, :alchemy_attachments) && %w(audio image video flash pdf text).include?(attachment.icon_css_class) %>
+  <% if can?(:show, attachment) && %w(audio image video flash pdf text).include?(attachment.icon_css_class) %>
     <%= link_to_overlay_window(
       attachment.name,
       alchemy.admin_attachment_path(attachment),
@@ -24,7 +24,7 @@
   <td class="file_size"><%= number_to_human_size(attachment.file_size) %></td>
   <td class="date"><%= l(attachment.created_at, :format => :short) %></td>
   <td class="tools long">
-  <% permitted_to?(:download, :alchemy_attachments) do %>
+  <% if can?(:download, attachment) %>
     <%= link_to(
       "",
       alchemy.download_admin_attachment_path(attachment),
@@ -32,7 +32,7 @@
       :class => "icon file_download"
     ) %>
   <% end %>
-  <% permitted_to?(:destroy, :alchemy_admin_attachments) do %>
+  <% if can?(:destroy, attachment) %>
     <%= link_to_confirmation_window(
       "",
       _t(:confirm_to_delete_file),
@@ -48,7 +48,7 @@
       }
     ) %>
   <% end %>
-  <% permitted_to?(:edit, :alchemy_admin_attachments) do %>
+  <% if can?(:edit, attachment) %>
     <%= link_to_overlay_window("",
       alchemy.edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
       {

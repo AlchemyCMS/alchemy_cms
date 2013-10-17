@@ -71,7 +71,7 @@ module Alchemy
     end
 
     describe ElementsBlockHelper::ElementViewHelper do
-      let(:scope) { mock }
+      let(:scope) { double }
       subject { ElementsBlockHelper::ElementViewHelper.new(scope, element: element) }
 
       it 'should have a reference to the specified element' do
@@ -109,7 +109,7 @@ module Alchemy
       describe '#essence' do
         it "should provide the specified content essence" do
           subject.should_receive(:content).with(:title).
-            and_return(mock('content', :essence => mock('essence')))
+            and_return(mock_model('Content', :essence => mock_model('EssenceText')))
 
           subject.essence :title
         end
@@ -117,7 +117,7 @@ module Alchemy
     end
 
     describe ElementsBlockHelper::ElementEditorHelper do
-      let(:scope) { mock }
+      let(:scope) { double }
       subject { ElementsBlockHelper::ElementEditorHelper.new(scope, element: element) }
 
       it 'should have a reference to the specified element' do

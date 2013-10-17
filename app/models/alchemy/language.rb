@@ -1,18 +1,5 @@
 module Alchemy
   class Language < ActiveRecord::Base
-
-    attr_accessible(
-      :name,
-      :language_code,
-      :frontpage_name,
-      :page_layout,
-      :public,
-      :default,
-      :country_code,
-      :code,
-      :site
-    )
-
     validates_presence_of :name
     validates_presence_of :language_code
     validates_presence_of :page_layout
@@ -23,18 +10,16 @@ module Alchemy
     has_many :pages
     belongs_to :site
     after_destroy :delete_language_root_page
-    validates_format_of :language_code, :with => /^[a-z]{2}$/, :if => proc { language_code.present? }
-    validates_format_of :country_code, :with => /^[a-z]{2}$/, :if => proc { country_code.present? }
+    validates_format_of :language_code, with: /\A[a-z]{2}\z/, if: -> { language_code.present? }
+    validates_format_of :country_code, with: /\A[a-z]{2}\z/, if: -> { country_code.present? }
     before_destroy :check_for_default
     after_update :set_pages_language, :if => proc { |m| m.language_code_changed? || m.country_code_changed? }
     after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
     before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
 
-    scope :published, where(:public => true)
-    scope :with_language_root, joins(:pages).where("alchemy_pages" => {language_root: true})
-
-    # multi-site support
-    scope :on_site, lambda { |s| s.present? ? where(site_id: s) : scoped }
+    scope :published,          -> { where(public: true) }
+    scope :with_language_root, -> { joins(:pages).where('alchemy_pages' => {language_root: true}) }
+    scope :on_site,            ->(s) { s.present? ? where(site_id: s) : all }
     default_scope { on_site(Site.current) }
 
     class << self

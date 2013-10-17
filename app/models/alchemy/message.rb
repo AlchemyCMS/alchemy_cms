@@ -11,11 +11,9 @@
 
 module Alchemy
   class Message
-
     extend ::ActiveModel::Naming
     include ::ActiveModel::Validations
     include ::ActiveModel::Conversion
-    include ::ActiveModel::MassAssignmentSecurity
 
     class << self
       def attr_accessor(*vars)
@@ -34,11 +32,9 @@ module Alchemy
     end
 
     attr_accessor :contact_form_id, :ip
-    attr_accessible :contact_form_id
 
     config['fields'].each do |field|
       attr_accessor field.to_sym
-      attr_accessible field.to_sym
     end
 
     config['validate_fields'].each do |field|
@@ -46,7 +42,7 @@ module Alchemy
 
       case field.to_sym
       when :email
-        validates_format_of field, :with => ::Devise.email_regexp, :if => :email_is_filled
+        validates_format_of field, with: Alchemy::Config.get(:email_regexp), if: -> { email.present? }
       when :email_confirmation
         validates_confirmation_of :email
       end
@@ -66,12 +62,6 @@ module Alchemy
 
     def persisted? #:nodoc:
       false
-    end
-
-  private
-
-    def email_is_filled #:nodoc:
-      !email.blank?
     end
 
   end

@@ -2,10 +2,8 @@ source 'http://rubygems.org'
 
 gemspec
 
-# For some strange reason it's only loaded outside any group
-gem 'jasmine'
-gem 'jasminerice'
-gem 'multi_json', '1.7.2' # http://stackoverflow.com/q/16543693
+# rails 4 specific
+gem 'rails3-jquery-autocomplete', github: 'francisd/rails3-jquery-autocomplete'
 
 # Code coverage plattform
 gem 'coveralls', require: false
@@ -23,16 +21,15 @@ group :test do
   end
 end
 
-group :assets do
-  gem 'sass-rails', '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
-
 group :development do
   unless ENV['CI']
     gem 'debugger'
-    gem 'quiet_assets' # Mute assets loggin
-    gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
+    gem 'bumpy'
+    gem 'yard'
+    gem 'redcarpet'
   end
+end
+
+group :development, :test do
+  gem 'jasmine-rails', github: 'searls/jasmine-rails'
 end

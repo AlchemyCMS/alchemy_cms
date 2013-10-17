@@ -87,7 +87,7 @@ module Alchemy
       if options[:from_page].class == Page
         page = options[:from_page]
       else
-        page = Page.where(:page_layout => options[:from_page]).with_language(session[:language_id]).all
+        page = Page.where(:page_layout => options[:from_page]).with_language(session[:language_id]).to_a
       end
       if page.blank?
         warning('Page is nil')

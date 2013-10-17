@@ -9,7 +9,7 @@
     <% @last_edited_pages.each do |page| %>
     <tr class="<%= cycle('even', 'odd', :name => 'edited_pages') %>">
       <td>
-        <%= link_to_if((page.locked_by.blank? || page.locked_by == current_user.id), page.name, edit_admin_page_path(page)) %>
+        <%= link_to_if((page.locked_by.blank? || page.locked_by == current_alchemy_user.id), page.name, edit_admin_page_path(page)) %>
       </td>
       <td>
         <small><%= l(page.updated_at) %></small>

@@ -5,76 +5,72 @@
       <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
     </div>
     <div class="sitemap_right_tools">
-      <%- unless @sorting -%>
-        <%- permitted_to?(:info, :alchemy_admin_pages) do -%>
-          <%= link_to_overlay_window(
-            render_icon('info'),
-            alchemy.info_admin_page_path(page),
-            {
-              title: _t(:page_infos),
-              size: '460x320'
-            },
-            {
-              title: _t(:page_infos)
-            }
-          ) %>
-        <%- end -%>
-        <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
-          <%= link_to_overlay_window(
-            render_icon('configure_page'),
-            alchemy.configure_admin_page_path(page),
-            {
-              :title => _t(:edit_page_properties),
-              :size => page.redirects_to_external? ? '410x270' : '410x655'
-            },
-            :title => _t(:edit_page_properties)
-          ) -%>
-        <%- end -%>
-        <%- permitted_to?([:new, :destroy, :copy], :alchemy_admin_pages) do -%>
-          <span class="sitemap_sitetools">
-            <%- permitted_to?(:copy, :alchemy_admin_pages) do -%>
-              <%= link_to(
-                render_icon("copy_page"),
-                alchemy.insert_admin_clipboard_path(
-                  :remarkable_type => page.class.name.demodulize.underscore.pluralize,
-                  :remarkable_id => page.id
-                ),
-                :remote => true,
-                :method => :post,
-                :title => _t(:copy_page)
-              ) %>
-            <%- end -%>
-            <%- permitted_to?(:destroy, :alchemy_admin_pages) do -%>
-              <%= link_to_confirmation_window(
-                render_icon('delete_page'),
-                _t(:confirm_to_delete_page),
-                url_for(
-                  :controller => 'pages',
-                  :action => 'destroy',
-                  :id => page.id
-                ),
-                {
-                  :title => _t(:delete_page)
-                }
-              ) -%>
-            <%- end -%>
-            <%- permitted_to?(:new, :alchemy_admin_pages) do -%>
-              <%= link_to_overlay_window(
-                render_icon('add_page'),
-                alchemy.new_admin_page_path(:parent_id => page.id),
-                {
-                  :title => _t(:create_page),
-                  :size => '340x150',
-                  :overflow => true
-                },
-                {
-                  :title => _t(:create_page)
-                }
-              ) -%>
-            <%- end -%>
-          </span>
-        <%- end -%>
+    <%- unless @sorting -%>
+      <%- if can?(:info, page) -%>
+        <%= link_to_overlay_window(
+          render_icon('info'),
+          alchemy.info_admin_page_path(page),
+          {
+            title: _t(:page_infos),
+            size: '480x320'
+          },
+          {
+            title: _t(:page_infos)
+          }
+        ) %>
       <%- end -%>
+      <%- if can?(:configure, page) -%>
+        <%= link_to_overlay_window(
+          render_icon('configure_page'),
+          alchemy.configure_admin_page_path(page),
+          {
+            :title => _t(:edit_page_properties),
+            :size => page.redirects_to_external? ? '410x270' : '410x655'
+          },
+          :title => _t(:edit_page_properties)
+        ) -%>
+      <%- end -%>
+      <span class="sitemap_sitetools">
+      <%- if can?(:copy, page) -%>
+        <%= link_to(
+          render_icon("copy_page"),
+          alchemy.insert_admin_clipboard_path(
+            :remarkable_type => page.class.name.demodulize.underscore.pluralize,
+            :remarkable_id => page.id
+          ),
+          :remote => true,
+          :method => :post,
+          :title => _t(:copy_page)
+        ) %>
+      <%- end -%>
+      <%- if can?(:destroy, page) -%>
+        <%= link_to_confirmation_window(
+          render_icon('delete_page'),
+          _t(:confirm_to_delete_page),
+          url_for(
+            :controller => 'pages',
+            :action => 'destroy',
+            :id => page.id
+          ),
+          {
+            :title => _t(:delete_page)
+          }
+        ) -%>
+      <%- end -%>
+      <%- if can?(:create, Alchemy::Page) -%>
+        <%= link_to_overlay_window(
+          render_icon('add_page'),
+          alchemy.new_admin_page_path(:parent_id => page.id),
+          {
+            :title => _t(:create_page),
+            :size => '340x150',
+            :overflow => true
+          },
+          :title => _t(:create_page)
+        ) -%>
+      <%- end -%>
+      </span>
+    <%- end -%>
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
       <span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.status_title(:public) %>"></span>
@@ -99,7 +95,7 @@
     <%- end -%>
     </div>
   </div>
-  <%- if @sorting || (!page.folded?(current_user) && !page.children.empty?) -%>
+  <%- if @sorting || (!page.folded?(current_alchemy_user) && !page.children.empty?) -%>
   <ul id="page_<%= page.id %>_children" class="level_<%= page.level %>_children">
     <%= render :partial => 'page', :collection => page.children %>
   </ul>

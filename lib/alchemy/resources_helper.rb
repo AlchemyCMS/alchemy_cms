@@ -48,10 +48,6 @@ module Alchemy
       edit_polymorphic_path path_segments, options
     end
 
-    def resource_permission_scope
-      resource_handler.permission_scope
-    end
-
     def resource_name
       resource_handler.resource_name
     end
@@ -87,9 +83,22 @@ module Alchemy
       _t(:not_found)
     end
 
-    def resource_help_text(attribute)
-      if help_text = resource_handler.help_text_for(attribute)
-        content_tag(:p, help_text, class: 'foot_note')
+    # Returns a options hash for simple_form input fields.
+    def resource_attribute_field_options(attribute)
+      options = {hint: resource_handler.help_text_for(attribute)}
+      case attribute[:type].to_s
+      when 'boolean'
+        options
+      when 'date', 'datetime'
+        options.merge as: 'string',
+          input_html: {
+            type: 'date',
+            value: l(resource_instance_variable.send(attribute[:name]) || Time.now, format: :datepicker)
+          }
+      when 'text'
+        options.merge(as: 'text', input_html: {rows: 4})
+      else
+        options.merge(as: 'string')
       end
     end
 
@@ -117,17 +126,6 @@ module Alchemy
         "#{relation[:model_association].table_name}.#{relation[:attr_method]}"
       else
         attribute[:name]
-      end
-    end
-
-    # Returns resource relations options hash for a rails select helper.
-    #
-    # @param [Hash] relation
-    # @returns Hash
-    #
-    def options_for_resource_relation_select(relation)
-      relation[:model_association].klass.all.collect do |r|
-        [r.send(relation[:attr_method]), r.id]
       end
     end
 

@@ -6,7 +6,7 @@ module Alchemy
       # Used for rendering the folder link in +Admin::Pages#index+ sitemap.
       #
       def sitemap_folder_link(page)
-        if page.folded?(current_user.id)
+        if page.folded?(current_alchemy_user.id)
           css_class = 'folded'
           title = _t('Show childpages')
         else

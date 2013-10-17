@@ -6,7 +6,7 @@ module Alchemy
     before do
       sign_in(admin_user)
     end
-    
+
     describe "#index" do
       it "should always paginate the records" do
         Picture.should_receive(:find_paginated)
@@ -15,14 +15,14 @@ module Alchemy
 
       context "when params[:filter] is set" do
         it "should filter the pictures collection by the given filter string." do
-          Picture.should_receive(:filtered_by).with('recent').and_return(Picture.scoped)
+          Picture.should_receive(:filtered_by).with('recent').and_return(Picture.all)
           get :index, filter: 'recent'
         end
       end
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
-          Picture.should_receive(:tagged_with).and_return(Picture.scoped)
+          Picture.should_receive(:tagged_with).and_return(Picture.all)
           get :index, tagged_with: "red"
         end
       end
@@ -32,7 +32,7 @@ module Alchemy
 
         context "is set" do
           it "should render the archive_overlay partial" do
-            Element.stub!(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
+            Element.stub(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
             get :index, {element_id: 1, format: :html}
             expect(response).to render_template(partial: '_archive_overlay')
           end
@@ -62,7 +62,7 @@ module Alchemy
       context "picture_ids given" do
         context "all are deletable" do
           before do
-            Picture.stub!(:find).and_return([deletable_picture])
+            Picture.stub(:find).and_return([deletable_picture])
           end
 
           it "should delete the pictures give a notice about deleting them" do
@@ -73,7 +73,7 @@ module Alchemy
 
         context "deletable and not deletable" do
           before do
-            Picture.stub!(:find).and_return([deletable_picture, not_deletable_picture])
+            Picture.stub(:find).and_return([deletable_picture, not_deletable_picture])
           end
 
           it "should give a warning for the non deletable pictures and delete the others" do

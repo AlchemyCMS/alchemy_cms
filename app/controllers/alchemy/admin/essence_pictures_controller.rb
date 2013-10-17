@@ -1,16 +1,20 @@
 module Alchemy
   module Admin
     class EssencePicturesController < Alchemy::Admin::BaseController
+      authorize_resource class: Alchemy::EssencePicture
+
       before_filter :load_essence_picture, only: [:edit, :crop, :update]
       before_filter :load_content, only: [:edit, :update, :assign]
       before_filter :load_options
 
-      helper "alchemy/admin/contents"
-      helper "alchemy/admin/essences"
-      helper "alchemy/url"
+      helper 'alchemy/admin/contents'
+      helper 'alchemy/admin/essences'
+      helper 'alchemy/url'
 
       def edit
-        render layout: !request.xhr?
+        if @options[:image_float_selector]
+          ActiveSupport::Deprecation.warn('The `image_float_selector` option for EssencePicture editor partials is deprecated. You can safely remove the option from your editor partial, the selector is shown anyway.')
+        end
       end
 
       def crop
@@ -23,11 +27,10 @@ module Alchemy
         else
           @no_image_notice = _t(:no_image_for_cropper_found)
         end
-        render layout: !request.xhr?
       end
 
       def update
-        @essence_picture.update_attributes(params[:essence_picture])
+        @essence_picture.update_attributes(essence_picture_params)
       end
 
       # Assigns picture, but does not saves it.
@@ -47,7 +50,7 @@ module Alchemy
         @element = @content.element
         @content_id = @content.id
         @content.destroy
-        @essence_pictures = @element.contents.find_all_by_essence_type('Alchemy::EssencePicture')
+        @essence_pictures = @element.contents.essence_pictures
       end
 
     private
@@ -101,6 +104,10 @@ module Alchemy
         else
           @size_x.to_f / @size_y.to_f
         end
+      end
+
+      def essence_picture_params
+        params.require(:essence_picture).permit(:alt_tag, :caption, :css_class, :render_size, :title)
       end
 
     end

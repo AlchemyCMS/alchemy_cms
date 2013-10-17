@@ -1,8 +1,0 @@
-<td class="label"><%= f.label attribute[:name] %></td>
-<td class="input">
-  <%= f.text_field(
-    attribute[:name],
-    type: 'date',
-    value: l(resource_instance_variable.send(attribute[:name]) || Time.now, format: :datepicker)
-  ) %>
-</td>

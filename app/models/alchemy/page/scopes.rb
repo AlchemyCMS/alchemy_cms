@@ -8,17 +8,17 @@ module Alchemy
     included do
       # All language root pages
       #
-      scope :language_roots, where(language_root: true)
+      scope :language_roots, -> { where(language_root: true) }
 
       # All layout pages
       #
-      scope :layoutpages, where(layoutpage: true)
+      scope :layoutpages, -> { where(layoutpage: true) }
 
       # All locked pages
       #
-      scope :all_locked, where(locked: true)
+      scope :all_locked, -> { where(locked: true) }
 
-      # All pages locked by given +Alchemy::User+
+      # All pages locked by given user
       #
       scope :all_locked_by, ->(user) {
         all_locked.where(locked_by: user.id)
@@ -26,23 +26,23 @@ module Alchemy
 
       # All not locked pages
       #
-      scope :not_locked, where(locked: false)
+      scope :not_locked, -> { where(locked: false) }
 
       # All visible pages
       #
-      scope :visible, where(visible: true)
+      scope :visible, -> { where(visible: true) }
 
       # All public pages
       #
-      scope :published, where(public: true)
+      scope :published, -> { where(public: true) }
 
       # All not restricted pages
       #
-      scope :not_restricted, where(restricted: false)
+      scope :not_restricted, -> { where(restricted: false) }
 
       # All restricted pages
       #
-      scope :restricted, where(restricted: true)
+      scope :restricted, -> { where(restricted: true) }
 
       # All pages that are a published language root
       #
@@ -52,7 +52,7 @@ module Alchemy
         )
       }
 
-      # Last 5 pages that where recently edited by given +Alchemy::User+
+      # Last 5 pages that where recently edited by given user
       #
       scope :all_last_edited_from, ->(user) {
         where(updater_id: user.id).order('updated_at DESC').limit(5)
@@ -66,17 +66,17 @@ module Alchemy
 
       # Returns all content pages.
       #
-      scope :contentpages, where(layoutpage: [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil))
+      scope :contentpages, -> { where(layoutpage: [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil)) }
 
       # Returns all public contentpages that are not locked.
       #
       # Used for flushing all pages caches at once.
       #
-      scope :flushables, not_locked.published.contentpages
+      scope :flushables, -> { not_locked.published.contentpages }
 
       # All searchable pages
       #
-      scope :searchables, not_restricted.published.contentpages
+      scope :searchables, -> { not_restricted.published.contentpages }
 
       # All pages from +Alchemy::Site.current+
       #
@@ -86,7 +86,7 @@ module Alchemy
 
       # All pages for xml sitemap
       #
-      scope :sitemap, published.contentpages.where(sitemap: true)
+      scope :sitemap, -> { published.contentpages.where(sitemap: true) }
     end
 
   end

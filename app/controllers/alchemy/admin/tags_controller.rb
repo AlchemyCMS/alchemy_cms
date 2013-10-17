@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class TagsController < ResourcesController
-
       before_filter :load_tag, :only => [:edit, :update, :destroy]
 
       def index
@@ -12,27 +11,25 @@ module Alchemy
 
       def new
         @tag = ActsAsTaggableOn::Tag.new
-        render layout: !request.xhr?
       end
 
       def create
-        @tag = ActsAsTaggableOn::Tag.create(params[:tag])
+        @tag = ActsAsTaggableOn::Tag.create(tag_params)
         render_errors_or_redirect @tag, admin_tags_path, _t('New Tag Created')
       end
 
       def edit
-        @tags = ActsAsTaggableOn::Tag.order("name ASC").all - [@tag]
-        render layout: !request.xhr?
+        @tags = ActsAsTaggableOn::Tag.order("name ASC").to_a - [@tag]
       end
 
       def update
-        if params[:replace]
-          @new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
+        if tag_params[:merge_to]
+          @new_tag = ActsAsTaggableOn::Tag.find(tag_params[:merge_to])
           Tag.replace(@tag, @new_tag)
           operation_text = _t('Replaced Tag %{old_tag} with %{new_tag}') % {:old_tag => @tag.name, :new_tag => @new_tag.name}
           @tag.destroy
         else
-          @tag.update_attributes(params[:tag])
+          @tag.update_attributes(tag_params)
           @tag.save
           operation_text = _t(:successfully_updated_tag)
         end
@@ -44,8 +41,7 @@ module Alchemy
           @tag.destroy
           flash[:notice] = _t(:successfully_deleted_tag)
         end
-        @redirect_url = admin_tags_path
-        render :action => :redirect
+        do_redirect_to admin_tags_path
       end
 
       def autocomplete
@@ -57,6 +53,10 @@ module Alchemy
 
       def load_tag
         @tag = ActsAsTaggableOn::Tag.find(params[:id])
+      end
+
+      def tag_params
+        @tag_params ||= params.require(:tag).permit(:name, :merge_to)
       end
 
     end

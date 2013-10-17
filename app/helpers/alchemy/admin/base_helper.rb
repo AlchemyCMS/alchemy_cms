@@ -195,30 +195,27 @@ module Alchemy
       # (internal) Returns max image count as integer or nil. Used for the picture editor in element editor views.
       def max_image_count
         return nil if !@options
-        if @options[:maximum_amount_of_images].blank?
-          image_count = @options[:max_images]
-        else
-          image_count = @options[:maximum_amount_of_images]
-        end
-        if image_count.blank?
-          nil
-        else
-          image_count.to_i
-        end
+        image_count = @options[:maximum_amount_of_images] || @options[:max_images]
+        image_count.blank? ? nil : image_count.to_i
       end
 
       # (internal) Renders a select tag for all items in the clipboard
       def clipboard_select_tag(items, html_options = {})
-        options = [[_t('Please choose'), ""]]
+        options = []
         items.each do |item|
           options << [item.class.to_s == 'Alchemy::Element' ? item.display_name_with_preview_text : item.name, item.id]
         end
+        option_tags = if !@page.new_record? && @page.can_have_cells?
+          grouped_options_for_select(grouped_elements_for_select(items, :id))
+        else
+          options_for_select(options)
+        end
         select_tag(
           'paste_from_clipboard',
-          !@page.new_record? && @page.can_have_cells? ? grouped_elements_for_select(items, :id) : options_for_select(options),
+          option_tags,
           {
-            :class => [html_options[:class], 'alchemy_selectbox'].join(' '),
-            :style => html_options[:style]
+            class: [html_options[:class], 'alchemy_selectbox'].join(' '),
+            style: html_options[:style]
           }
         )
       end
@@ -237,7 +234,7 @@ module Alchemy
       #       title: 'Create Resource',
       #       size: "430x400"
       #     },
-      #     if_permitted_to: [:new, resource_permission_scope]
+      #     if_permitted_to: [:create, resource_model]
       #   ) %>
       #
       # @option options [String] :icon
@@ -274,7 +271,7 @@ module Alchemy
           'alchemy/admin/partials/toolbar_button',
           options: options
         )
-        if options[:skip_permission_check] || permitted_to?(*permission_from_options(options))
+        if options[:skip_permission_check] || can?(*permission_from_options(options))
           button
         else
           ""
@@ -298,7 +295,7 @@ module Alchemy
       #           title: label_title,
       #           size: "430x400"
       #         },
-      #         if_permitted_to: [:new, resource_permission_scope]
+      #         if_permitted_to: [:create, resource_model]
       #       }
       #     ]
       #   ) %>
@@ -436,7 +433,7 @@ module Alchemy
       end
 
       def permission_array_from_url(options)
-        action_controller = options[:url].gsub(/^\//, '').split('/')
+        action_controller = options[:url].gsub(/\A\//, '').split('/')
         [
           action_controller.last.to_sym,
           action_controller[0..action_controller.length-2].join('_').to_sym

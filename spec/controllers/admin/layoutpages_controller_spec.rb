@@ -19,9 +19,8 @@ module Alchemy
       end
 
       it "should assign @languages" do
-        Language.stub!(:all).and_return([])
         get :index
-        expect(assigns(:languages)).to eq([])
+        expect(assigns(:languages).first).to be_a(Language)
       end
     end
   end

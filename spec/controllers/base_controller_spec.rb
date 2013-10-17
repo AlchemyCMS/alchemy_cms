@@ -41,7 +41,7 @@ module Alchemy
       context "with no lang param" do
 
         it "should set the default language" do
-          controller.stub!(:params).and_return({})
+          controller.stub(:params).and_return({})
           controller.send :set_language
           assigns(:language).should == default_language
           controller.session.should include_language_information_for(default_language)
@@ -51,7 +51,7 @@ module Alchemy
 
       context "with language set in the session" do
         before do
-          controller.stub!(:session).and_return(language_id: klingonian.id, language_code: klingonian.code)
+          controller.stub(:session).and_return(language_id: klingonian.id, language_code: klingonian.code)
         end
 
         it "should use the language set in the session cookie" do
@@ -63,7 +63,7 @@ module Alchemy
       context "with lang param" do
 
         it "should set the language" do
-          controller.stub!(:params).and_return(:lang => klingonian.code)
+          controller.stub(:params).and_return(:lang => klingonian.code)
           controller.send :set_language
           assigns(:language).should == klingonian
           controller.session.should include_language_information_for(klingonian)
@@ -72,7 +72,7 @@ module Alchemy
         context "for language that does not exist" do
 
           before do
-            controller.stub!(:params).and_return(:lang => 'fo')
+            controller.stub(:params).and_return(:lang => 'fo')
             controller.send :set_language
           end
 
@@ -95,49 +95,24 @@ module Alchemy
 
     end
 
-    describe '#store_user_request_time' do
-
-      context "user not logged in" do
-        before { controller.stub!(:user_signed_in?).and_return(false) }
-
-        it "should not store the current request time" do
-          controller.send(:store_user_request_time).should == nil
-        end
-
-      end
-
-      context "user logged in" do
-        before do
-          controller.stub!(:user_signed_in?).and_return(true)
-          controller.stub!(:current_user).and_return(FactoryGirl.create(:user))
-        end
-
-        it "should not store the current request time" do
-          controller.send(:store_user_request_time).should == true
-        end
-
-      end
-
-    end
-    
     describe "#layout_for_page" do
       it "should return false if params[:layout] is set to false" do
-        controller.stub!(:params).and_return(layout: 'false')
+        controller.stub(:params).and_return(layout: 'false')
         expect(controller.send(:layout_for_page)).to be_false
       end
 
       it "should return false if params[:layout] is set to none" do
-        controller.stub!(:params).and_return(layout: 'none')
+        controller.stub(:params).and_return(layout: 'none')
         expect(controller.send(:layout_for_page)).to be_false
       end
 
       it "should return the layout name set through params[:layout]" do
-        controller.stub!(:params).and_return(layout: 'my_layout')
+        controller.stub(:params).and_return(layout: 'my_layout')
         expect(controller.send(:layout_for_page)).to eq('my_layout')
       end
 
       it "should return 'application' if params[:layout] is not set" do
-        controller.stub!(:params).and_return({})
+        controller.stub(:params).and_return({})
         expect(controller.send(:layout_for_page)).to eq('application')
       end
     end

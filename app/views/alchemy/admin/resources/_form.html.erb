@@ -1,37 +1,13 @@
-<%= form_for resource_instance_variable, url: resource_path(resource_instance_variable), remote: true do |f| %>
-  <div id="errors">
-    <ul>
-    <% resource_instance_variable.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-    </ul>
-  </div>
-  <table>
+<%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable) do |f| %>
   <% resource_handler.attributes.each do |attribute| %>
-    <tr>
     <% if relation = attribute[:relation] %>
-      <td class="label"><%= f.label attribute[:name] %></td>
-      <td class="select">
-        <%= f.select(
-          attribute[:name],
-          options_for_resource_relation_select(relation),
-          {include_blank: _t(:blank, scope: 'resources.relation_select')},
-          {class: "alchemy_selectbox"}
-        ) %>
-      </td>
+      <%= f.association relation[:name],
+        label_method: relation[:attr_method],
+        include_blank: _t(:blank, scope: 'resources.relation_select'),
+        input_html: {class: 'alchemy_selectbox'} %>
     <% else %>
-      <% begin %>
-      <%= render attribute[:type].to_s, attribute: attribute, f: f %>
-      <% rescue ActionView::MissingTemplate %>
-      <%= render 'string', attribute: attribute, f: f %>
-      <% end %>
+      <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
     <% end %>
-    </tr>
   <% end %>
-    <tr>
-      <td class="submit" colspan="2">
-        <%= f.button _t(:save), class: 'button' %>
-      </td>
-    </tr>
-  </table>
+  <%= f.submit _t(:save) %>
 <% end %>

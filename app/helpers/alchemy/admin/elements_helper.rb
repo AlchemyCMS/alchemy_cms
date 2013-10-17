@@ -39,20 +39,19 @@ module Alchemy
       end
       alias_method :render_picture_editor, :render_picture_gallery_editor
 
-      # Returns a elements options string for select helper.
+      # Returns an elements array for select helper.
       #
       # @param [Array] elements descriptions
-      # @return [String]
+      # @return [Array]
       #
       def elements_for_select(elements)
         return [] if elements.nil?
-        options = elements.collect do |e|
+        elements.collect do |e|
           [
             Element.display_name_for(e['name']),
             e['name']
           ]
         end
-        options_for_select(options)
       end
 
       # Returns all elements that could be placed on that page because of the pages layout.
@@ -78,7 +77,7 @@ module Alchemy
             element_array_for_options(e, object_method)
           end
         end
-        return grouped_options_for_select(options)
+        options
       end
 
       def element_array_for_options(e, object_method, cell = nil)

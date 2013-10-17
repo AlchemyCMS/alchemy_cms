@@ -185,23 +185,44 @@ $.extend Alchemy,
                 widget.css left: (($(window).width() / 2) - ($dialog.width() / 2))
               if options.height is "auto"
                 widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
-              Alchemy.GUI.init Alchemy.CurrentWindow
+              Alchemy.GUI.init(Alchemy.CurrentWindow)
+              $("#overlay_tabs", $dialog).tabs()
               if options.image_loader
                 Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
+              Alchemy.watchRemoteForms($dialog)
           error: (XMLHttpRequest, textStatus, errorThrown) ->
-            Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
+            Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
           complete: (jqXHR, textStatus) ->
             Alchemy.Buttons.enable()
       close: ->
         $dialog.remove()
 
+  watchRemoteForms: (dialog) ->
+    form = $('[data-remote="true"]', dialog)
+    form.bind "ajax:complete", (e, xhr, status) ->
+      if status == 'success'
+        if xhr.getResponseHeader('Content-Type').match(/javascript/)
+          Alchemy.closeCurrentWindow()
+        else
+          dialog.html(xhr.responseText)
+          Alchemy.GUI.init(dialog)
+          $("#overlay_tabs", dialog).tabs()
+          Alchemy.watchRemoteForms(dialog)
+      else
+        Alchemy.AjaxErrorHandler(dialog, xhr.status, status)
+
   # Closes the current dialog
-  closeCurrentWindow: ->
-    if Alchemy.CurrentWindow
-      Alchemy.CurrentWindow.dialog "close"
-      Alchemy.CurrentWindow = null
-    else
-      $(".alchemy_overlay").dialog "close"
+  #
+  # You can pass a callback function that will be executed after dialog gets closed.
+  #
+  closeCurrentWindow: (callback) ->
+    dialog = Alchemy.CurrentWindow || $(".alchemy_overlay")
+    if callback
+      dialog.on "dialogclose", (event, ui) ->
+        callback()
+        dialog.remove()
+    Alchemy.CurrentWindow = undefined
+    dialog.dialog("close")
     true
 
   # Opens an image in an overlay

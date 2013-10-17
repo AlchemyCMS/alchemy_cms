@@ -37,7 +37,7 @@ module Alchemy
         cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
         Alchemy::Page.where(page_layout: layout['name']).each do |page|
           cells_for_layout.each do |cell_for_layout|
-            cell = Alchemy::Cell.find_or_initialize_by_name_and_page_id(name: cell_for_layout['name'], page_id: page.id)
+            cell = Alchemy::Cell.find_or_initialize_by(name: cell_for_layout['name'], page_id: page.id)
             cell.elements << page.elements.select { |element| cell_for_layout['elements'].include?(element.name) }
             if cell.new_record?
               cell.save

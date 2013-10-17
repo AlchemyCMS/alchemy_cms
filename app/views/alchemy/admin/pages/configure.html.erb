@@ -1,87 +1,57 @@
-<%= form_for([:admin, @page], :remote => true) do |f| %>
-  <div id="errors"></div>
-  <table id="page_names">
-    <tr>
-      <td class="label"><%= _t(:page_type) %>: </td>
-      <td class="select">
-        <%= f.select('page_layout', @page_layouts, {}, {:class => 'alchemy_selectbox long'}) %>
-      </td>
-    </tr>
-    <% unless @page.layoutpage %>
-    <tr>
-      <td class="label"><%= _t(:page_status) %>: </td>
-      <td class="checkbox long">
-        <%= f.check_box :public %>
-        <%= f.label :public %><br/>
-        <%= f.check_box :visible %>
-        <%= f.label :visible %><br/>
-        <%= f.check_box :restricted %>
-        <%= f.label :restricted %>
-        <% if configuration(:sitemap)[:show_flag] %><br/>
-        <%= f.check_box :sitemap %>
-        <%= f.label :sitemap %>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-    <% unless @page.layoutpage %>
-    <tr>
-      <td colspan="2" class="heading"><%= _t(:names) %></td>
-    </tr>
-    <% end %>
-    <tr>
-      <td class="label"><%= f.label "name" %>: </td>
-      <td class="input"><%= f.text_field "name", :size => 31, :class => "thin_border long", :autofocus => true %></td>
-    </tr>
-    <% unless @page.layoutpage %>
-    <tr>
-      <td class="label"><%= f.label "urlname" %>: </td>
-      <td class="input"><%= f.text_field "urlname", :value => @page.slug, :size => 31, :class => "thin_border long" %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "title" %>: </td>
-      <td class="input"><%= f.text_field "title", :size => 31, :class => "thin_border long" %></td>
-    </tr>
-    <tr>
-      <td colspan="2" class="heading"><%= _t(:meta_data) %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= _t(:search_engines) %>: </td>
-      <td class="checkbox long">
-        <%= f.check_box "robot_index" %>
-        <%= f.label "robot_index" %><br/>
-        <%= f.check_box "robot_follow" %>
-        <%= f.label "robot_follow" %><br/>
-      </td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "meta_description" %>:&nbsp;</td>
-      <td class="input"><%= f.text_area "meta_description", :class => "thin_border long" %></td>
-    </tr>
-    <tr>
-      <td class="label"><%= f.label "meta_keywords" %>*:&nbsp;</td>
-      <td class="input">
-        <%= f.text_area "meta_keywords", :class => "thin_border long" %><br/>
-        <% if !@page.layoutpage %>
-        <p class="foot_note">
-          * <%= _t('pages.update.comma_seperated') %>
-        </p>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-    <% if @page.taggable? %>
-    <tr>
-      <td class="label"><%= f.label :tag_list %>*:&nbsp;</td>
-      <td class="input">
-        <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => @page %>
-      </td>
-    </tr>
-    <% end %>
-    <tr>
-      <td colspan="2" class="submit">
-        <%= f.button _t(:save), :class => 'button' %>
-      </td>
-    </tr>
-  </table>
+<%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
+  <%= f.input :page_layout, collection: @page_layouts, label: _t(:page_type), include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
+  <% unless @page.layoutpage %>
+    <div class="input check_boxes">
+      <label class="control-label"><%= _t(:page_status) %></label>
+      <div class="control_group">
+        <label class="checkbox">
+          <%= f.check_box :public %>
+          <%= f.object.class.human_attribute_name :public %>
+        </label>
+        <label class="checkbox">
+          <%= f.check_box :visible %>
+          <%= f.object.class.human_attribute_name :visible %>
+        </label>
+        <label class="checkbox">
+          <%= f.check_box :restricted %>
+          <%= f.object.class.human_attribute_name :restricted %>
+        </label>
+      <% if configuration(:sitemap)[:show_flag] %>
+        <label class="checkbox">
+          <%= f.check_box :sitemap %>
+          <%= f.object.class.human_attribute_name :sitemap %>
+        </label>
+      <% end %>
+      </div>
+    </div>
+    <h2><%= _t(:names) %></h2>
+  <% end %>
+  <%= f.input :name, autofocus: true %>
+  <% unless @page.layoutpage %>
+    <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
+    <%= f.input :title %>
+    <h2><%= _t(:meta_data) %></h2>
+    <div class="input check_boxes">
+      <label class="control-label"><%= _t(:search_engines) %></label>
+      <div class="control_group">
+        <label class="checkbox">
+          <%= f.check_box :robot_index %>
+          <%= f.object.class.human_attribute_name :robot_index %>
+        </label>
+        <label class="checkbox">
+          <%= f.check_box :robot_follow %>
+          <%= f.object.class.human_attribute_name :robot_follow %>
+        </label>
+      </div>
+    </div>
+    <%= f.input :meta_description, as: 'text' %>
+    <%= f.input :meta_keywords, as: 'text', hint: _t('pages.update.comma_seperated') %>
+  <% end %>
+  <% if @page.taggable? %>
+    <div class="input string">
+      <%= f.label :tag_list %>
+      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @page %>
+    </div>
+  <% end %>
+  <%= f.submit _t(:save) %>
 <% end %>

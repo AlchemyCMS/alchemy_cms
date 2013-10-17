@@ -6,11 +6,12 @@ module Alchemy
 
     let(:default_language)      { Language.get_default }
     let(:default_language_root) { FactoryGirl.create(:language_root_page, :language => default_language, :name => 'Home', :public => true) }
+    let(:page) { FactoryGirl.create(:public_page, :parent_id => default_language_root.id, :page_layout => 'news', :name => 'News', :language => default_language, :do_not_autogenerate => false) }
+
+    before { controller.stub(:signup_required?).and_return(false) }
 
     context "requested for a page containing a feed" do
       render_views
-
-      let(:page) { FactoryGirl.create(:public_page, :parent_id => default_language_root.id, :page_layout => 'news', :name => 'News', :language => default_language, :do_not_autogenerate => false) }
 
       it "should render a rss feed" do
         get :show, :urlname => page.urlname, :format => :rss
@@ -35,23 +36,18 @@ module Alchemy
     end
 
     describe "Layout rendering" do
-
       context "with param layout set to none" do
-
         it "should not render a layout" do
-          get :show, :urlname => :home, :layout => 'none'
+          get :show, :urlname => page.urlname, :layout => 'none'
           response.body.should_not match /<head>/
         end
-
       end
 
       context "with param layout set to false" do
-
         it "should not render a layout" do
-          get :show, :urlname => :home, :layout => 'false'
+          get :show, :urlname => page.urlname, :layout => 'false'
           response.body.should_not match /<head>/
         end
-
       end
 
       context "with params layout set to not existing layout" do
@@ -92,8 +88,8 @@ module Alchemy
       let(:product)  { FactoryGirl.create(:public_page, :name => "Screwdriver", :parent_id => products.id, :language => default_language, :do_not_autogenerate => false, :visible => true) }
 
       before do
-        User.stub!(:admins).and_return(OpenStruct.new(count: 1))
-        Config.stub!(:get) { |arg| arg == :url_nesting ? true : false }
+        Alchemy.user_class.stub(:admins).and_return(OpenStruct.new(count: 1))
+        Config.stub(:get) { |arg| arg == :url_nesting ? true : false }
         product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 
@@ -121,7 +117,6 @@ module Alchemy
 
     context "when a non-existent page is requested" do
       it "should rescue a RoutingError with rendering a 404 page." do
-        FactoryGirl.create(:admin_user) # otherwise we are redirected to create_user
         get :show, {:urlname => 'doesntexist'}
         response.status.should == 404
         response.body.should have_content('The page you were looking for doesn\'t exist')
@@ -169,9 +164,6 @@ module Alchemy
 
     describe 'Redirecting to legacy page urls' do
       context 'Request a page with legacy url' do
-
-        # otherwise we are redirected to signup
-        before { FactoryGirl.create(:admin_user) }
 
         let(:page)        { FactoryGirl.create(:public_page, :name => 'New page name') }
         let(:second_page) { FactoryGirl.create(:public_page, :name => 'Second Page') }

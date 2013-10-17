@@ -1,1 +1,4 @@
-window.location.href = '<%= url_for(@redirect_url) %>';
+Alchemy.closeCurrentWindow(function() {
+  Alchemy.pleaseWaitOverlay();
+  window.location.href = '<%= url_for(@redirect_url) %>';
+});

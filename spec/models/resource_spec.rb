@@ -50,13 +50,6 @@ module Alchemy
       end
     end
 
-    describe "#permission_scope" do
-      it "should set an instance variable that holds the permission scope for declarative authorization" do
-        resource.permission_scope
-        resource.instance_variable_get(:@_permission).should == :admin_events
-      end
-    end
-
     describe "#namespace_for_scope" do
       it "should return the namespace" do
         resource.namespace_for_scope.should == ["admin"]
@@ -92,13 +85,13 @@ module Alchemy
         end
       end
 
-      context "when resource_relations defined as class-method in the model" do
+      context "when alchemy_resource_relations defined as class-method in the model" do
         before do
           ::ActiveSupport::Deprecation.silenced = true
           Event.class_eval do
-            def self.resource_relations
+            def self.alchemy_resource_relations
               {
-                :location => {:attr_method => "location#name", :attr_type => :string}
+                :location => {:attr_method => "name", :attr_type => :string}
               }
             end
           end
@@ -124,17 +117,6 @@ module Alchemy
           relation[:name].should == 'location'
         end
 
-        context "with old hash delimited attr_method style" do
-          it "should show deprecation warnings" do
-            ActiveSupport::Deprecation.should_receive(:warn)
-            resource.resource_relations
-          end
-
-          it "should return the last part as attr_method" do
-            resource.resource_relations[:location_id][:attr_method].should == 'name'
-          end
-        end
-
         context "#attributes" do
           it "should contain the relation" do
             resource.attributes.detect { |a| a[:name] == 'location_id' }.keys.should include(:relation)
@@ -149,7 +131,7 @@ module Alchemy
           ::ActiveSupport::Deprecation.silenced = false
           Event.class_eval do
             class << self
-              undef :resource_relations
+              undef :alchemy_resource_relations
             end
           end
         end
