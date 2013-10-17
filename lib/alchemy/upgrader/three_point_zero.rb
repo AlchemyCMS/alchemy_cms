@@ -1,23 +1,22 @@
 module Alchemy
   module Upgrader::ThreePointZero
+    private
 
-  private
+    def removed_users_model
+      notice = <<-NOTE
+We removed the users model from Alchemy core!
 
-    def rename_registered_role_into_member
-      desc "Rename registered user's role into member"
-      users = User.all.where("roles LIKE '%registered%'")
-      if users.count == 0
-        log "No users with registered role found.", :skip
-      else
-        users.each do |user|
-          user.roles = user.roles.each { |r| r.gsub!(/\bregistered\b/, 'member') }
-          if user.save
-            log "User ##{user.id} converted"
-          else
-            log "User ##{user.id} not converted", :error
-          end
-        end
-      end
+You have to provide your own user model or
+add the `alchemy-devise` gem to your Gemfile.
+
+In order to provide your own user model,
+you have to be sure to met the API requirements
+mentioned in the dummy user model:
+
+  app/models/alchemy/dummy_user.rb
+
+NOTE
+      todo notice
     end
 
   end

@@ -19,20 +19,24 @@
 <div id="dashboard">
   <h1>
     <% if @first_time -%>
-    <%= _t('Welcome, %{name}', name: current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+    <%= _t(:welcome_note, name: current_alchemy_user.try(:name)) %>
     <% else -%>
-    <%= _t('Welcome back, %{name}', name: current_user.firstname.blank? ? current_user.login : current_user.firstname) %>
+    <%= _t(:welcome_back_note, name: current_alchemy_user.try(:name)) %>
     <% end -%>
   </h1>
+  <% if @last_sign_at %>
   <p>
-    <small><%= _t('Your last login was on %{time}', time: l(current_user.last_sign_in_at)) unless current_user.last_sign_in_at.blank? %></small>
+    <small><%= _t('Your last login was on %{time}', time: l(@last_sign_at)) %></small>
   </p>
+  <% end %>
   <div class="column left">
     <%= render 'locked_pages' %>
     <%= render 'recent_pages' %>
   </div>
   <div class="column right">
-    <%= render 'users' %>
+    <% if @online_users %>
+      <%= render 'users' %>
+    <% end %>
     <% if multi_site? %>
       <%= render 'sites' %>
     <% end %>

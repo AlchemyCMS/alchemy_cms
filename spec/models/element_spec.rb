@@ -377,11 +377,11 @@ module Alchemy
 
       context 'touch page' do
         let(:time)    { Time.now }
-        let(:locker)  { build_stubbed(:user) }
+        let(:locker)  { mock_model('User') }
         let(:page)    { create(:page, updated_at: time) }
         let(:element) { create(:element, page: page) }
 
-        before { User.stub(:stamper).and_return(locker.id) }
+        before { Alchemy.user_class.stub(:stamper).and_return(locker.id) }
 
         it "updates page timestamps" do
           element.save

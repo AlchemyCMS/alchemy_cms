@@ -34,7 +34,7 @@ module Alchemy
       can :show,              Page,      public: true
       can :see,               Page,      restricted: true, visible: true
       can [:show, :download], Picture
-      can [:read, :update],   User,      id: @user.id
+      can [:read, :update],   Alchemy.user_class, id: @user.id
     end
 
     # == Author rules
@@ -91,7 +91,7 @@ module Alchemy
       can :manage, Page
       can :manage, Picture
       can :manage, Attachment
-      can :read,   User
+      can :read,   Alchemy.user_class
       can :manage, Tag
     end
 
@@ -109,7 +109,7 @@ module Alchemy
       can [:info, :update_check], :alchemy_admin_dashboard
 
       # Resources
-      can :manage,                User
+      can :manage,                Alchemy.user_class
       can :manage,                Language
       can :manage,                Site
     end
@@ -117,8 +117,9 @@ module Alchemy
   private
 
     def user_rules
-      @user.roles.each do |role|
-        exec_role_rules(role) if @user.roles.include?(role)
+      return [] if @user.alchemy_roles.nil?
+      @user.alchemy_roles.each do |role|
+        exec_role_rules(role) if @user.alchemy_roles.include?(role)
       end
     end
 

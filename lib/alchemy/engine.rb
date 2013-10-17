@@ -4,7 +4,6 @@ require 'actionpack/page_caching'
 require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
-require 'devise'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'kaminari'
@@ -14,9 +13,10 @@ require 'sass-rails'
 require 'sassy-buttons'
 require 'simple_form'
 require 'turbolinks'
+require 'userstamp'
 
 # Require globally used Alchemy mixins
-require 'alchemy/auth/engine'
+require 'alchemy/auth_accessors'
 require 'alchemy/config'
 require 'alchemy/errors'
 require 'alchemy/essence'
@@ -30,6 +30,7 @@ require 'alchemy/name_conversions'
 require 'alchemy/page_layout'
 require 'alchemy/permissions'
 require 'alchemy/picture_attributes'
+require 'alchemy/resource'
 require 'alchemy/tinymce'
 
 # Require hacks
@@ -41,7 +42,6 @@ require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
 
 module Alchemy
   class Engine < Rails::Engine
-
     isolate_namespace Alchemy
     engine_name 'alchemy'
     config.mount_at = '/'
@@ -69,10 +69,8 @@ module Alchemy
       )
     end
 
-    # filter sensitive information during logging
-    initializer "alchemy.params.filter" do |app|
-      app.config.filter_parameters += [:password, :password_confirmation]
+    config.after_initialize do
+      require 'alchemy/user'
     end
-
   end
 end

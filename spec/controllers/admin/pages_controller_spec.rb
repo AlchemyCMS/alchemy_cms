@@ -3,7 +3,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::PagesController do
-    before { sign_in(editor_user) }
+    let(:user) { editor_user }
+    before { sign_in(user) }
 
     describe '#index' do
       let(:language_root) { build_stubbed(:language_root_page) }
@@ -106,8 +107,8 @@ module Alchemy
           end
 
           it "should redirect to given url" do
-            post :create, page: page_params, redirect_to: admin_users_path
-            response.should redirect_to(admin_users_path)
+            post :create, page: page_params, redirect_to: admin_pictures_path
+            response.should redirect_to(admin_pictures_path)
           end
 
           context "but new page can not be saved" do
@@ -115,7 +116,7 @@ module Alchemy
 
             it "should render the `new` template" do
               Page.any_instance.stub(:save).and_return(false)
-              xhr :post, :create, page: {name: 'page'}, redirect_to: admin_users_path
+              xhr :post, :create, page: {name: 'page'}, redirect_to: admin_pictures_path
               response.body.should match /form.+action=\"\/admin\/pages\"/
             end
           end
@@ -223,7 +224,7 @@ module Alchemy
         before { page.stub(:folded?).and_return(false) }
 
         it "should fold the page" do
-          page.should_receive(:fold!).with(controller.current_user.id, true).and_return(true)
+          page.should_receive(:fold!).with(user.id, true).and_return(true)
           post :fold, id: page.id, format: :js
         end
       end
@@ -232,7 +233,7 @@ module Alchemy
         before { page.stub(:folded?).and_return(true) }
 
         it "should unfold the page" do
-          page.should_receive(:fold!).with(controller.current_user.id, false).and_return(true)
+          page.should_receive(:fold!).with(user.id, false).and_return(true)
           post :fold, id: page.id, format: :js
         end
       end

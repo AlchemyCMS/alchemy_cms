@@ -57,8 +57,8 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user) { build_stubbed(:member_user) }
-    let(:another_user) { build_stubbed(:member_user) }
+    let(:user)         { mock_model('User', alchemy_roles: %w(member)) }
+    let(:another_user) { mock_model('User', alchemy_roles: %w(member)) }
 
     it "can download all attachments" do
       should be_able_to(:download, attachment)
@@ -107,7 +107,7 @@ describe Alchemy::Permissions do
   end
 
   context "An author" do
-    let(:user) { build_stubbed(:author_user) }
+    let(:user) { mock_model('User', alchemy_roles: %w(author)) }
 
     it "can visit the dashboard" do
       should be_able_to(:index, :alchemy_admin_dashboard)
@@ -171,7 +171,7 @@ describe Alchemy::Permissions do
   end
 
   context "An editor" do
-    let(:user) { build_stubbed(:editor_user) }
+    let(:user) { mock_model('User', alchemy_roles: %w(editor)) }
 
     it "can manage pages" do
       should be_able_to(:manage, Alchemy::Page)
@@ -190,7 +190,7 @@ describe Alchemy::Permissions do
     end
 
     it "can see all users" do
-      should be_able_to(:read, Alchemy::User)
+      should be_able_to(:read, Alchemy.user_class)
     end
 
     it "can manage tags" do
@@ -199,14 +199,14 @@ describe Alchemy::Permissions do
   end
 
   context "An admin" do
-    let(:user) { build_stubbed(:admin_user) }
+    let(:user) { mock_model('User', alchemy_roles: %w(admin)) }
 
     it "can check for alchemy updates" do
       should be_able_to(:update_check, :alchemy_admin_dashboard)
     end
 
     it "can manage users" do
-      should be_able_to(:manage, Alchemy::User)
+      should be_able_to(:manage, Alchemy.user_class)
     end
 
     it "can manage languages" do

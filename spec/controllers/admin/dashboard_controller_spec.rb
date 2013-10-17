@@ -2,14 +2,14 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::DashboardController do
-    before { sign_in(admin_user) }
+    let(:user) { admin_user }
+
+    before { sign_in(user) }
 
     describe '#index' do
       before do
         Page.stub_chain(:from_current_site, :all_last_edited_from).and_return([])
         Page.stub_chain(:from_current_site, :all_locked).and_return([])
-        User.stub(:logged_in).and_return([controller.current_user])
-        controller.current_user.stub(:sign_in_count).and_return(5)
       end
 
       it "assigns @last_edited_pages" do
@@ -22,14 +22,38 @@ module Alchemy
         expect(assigns(:locked_pages)).to eq([])
       end
 
-      it "assigns @online_users" do
-        get :index
-        expect(assigns(:online_users)).to eq([])
+      context 'with user class having logged_in scope' do
+        context 'with other users online' do
+          let(:another_user) { mock_model('User') }
+
+          before do
+            Alchemy.user_class.should_receive(:logged_in).and_return([another_user])
+          end
+
+          it "assigns @online_users" do
+            get :index
+            expect(assigns(:online_users)).to eq([another_user])
+          end
+        end
+
+        context 'without other users online' do
+          it "does not assign @online_users" do
+            get :index
+            expect(assigns(:online_users)).to eq([])
+          end
+        end
       end
 
-      it "assigns @first_time" do
-        get :index
-        expect(assigns(:first_time)).to eq(false)
+      context 'user having signed in before' do
+        before do
+          user.should_receive(:sign_in_count).and_return(5)
+          user.should_receive(:last_sign_in_at).and_return(Time.now)
+        end
+
+        it "assigns @first_time" do
+          get :index
+          expect(assigns(:first_time)).to eq(false)
+        end
       end
 
       it "assigns @sites" do
@@ -46,7 +70,6 @@ module Alchemy
     end
 
     describe '#update_check' do
-
       context "if current Alchemy version equals the latest released version or it is newer" do
         before {
           controller.stub(:latest_alchemy_version).and_return('2.6')
@@ -111,7 +134,6 @@ module Alchemy
           expect(response.code).to eq('503')
         end
       end
-
     end
 
   end

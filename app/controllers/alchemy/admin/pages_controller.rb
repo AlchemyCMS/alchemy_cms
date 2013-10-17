@@ -20,7 +20,7 @@ module Alchemy
 
       def index
         @page_root = Page.language_root_for(session[:language_id])
-        @locked_pages = Page.from_current_site.all_locked_by(current_user)
+        @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
         if !@page_root
           if @languages.length == 1
@@ -77,12 +77,12 @@ module Alchemy
       # Edit the content of the page and all its elements and contents.
       def edit
         # fetching page via before filter
-        if @page.locked? && @page.locker && @page.locker.logged_in? && @page.locker != current_user
+        if page_is_locked?
           flash[:notice] = _t("This page is locked by %{name}", name: @page.locker_name)
           redirect_to admin_pages_path
         else
-          @page.lock_to!(current_user)
-          @locked_pages = Page.from_current_site.all_locked_by(current_user)
+          @page.lock_to!(current_alchemy_user)
+          @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         end
         @layoutpage = @page.layoutpage?
       end
@@ -145,7 +145,7 @@ module Alchemy
 
       def fold
         # @page is fetched via before filter
-        @page.fold!(current_user.id, !@page.folded?(current_user.id))
+        @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
         respond_to do |format|
           format.js
         end
@@ -156,7 +156,7 @@ module Alchemy
         # fetching page via before filter
         @page.unlock!
         flash[:notice] = _t(:unlocked_page, :name => @page.name)
-        @pages_locked_by_user = Page.from_current_site.all_locked_by(current_user)
+        @pages_locked_by_user = Page.from_current_site.all_locked_by(current_alchemy_user)
         respond_to do |format|
           format.js
           format.html {
@@ -232,7 +232,7 @@ module Alchemy
         end
       end
 
-    private
+      private
 
       def load_page
         @page = Page.find(params[:id])
@@ -279,6 +279,11 @@ module Alchemy
         else
           Page::PERMITTED_ATTRIBUTES
         end
+      end
+
+      def page_is_locked?
+        return if !@page.locker.try(:logged_in?)
+        @page.locked? && @page.locker != current_alchemy_user
       end
 
     end

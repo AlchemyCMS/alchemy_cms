@@ -9,29 +9,27 @@ module Alchemy
     end
 
     context 'with restricted attachment' do
-      before {
+      before do
         attachment.stub(:restricted?).and_return(true)
         Attachment.stub(:find).and_return(attachment)
-      }
+      end
 
       context 'as anonymous user' do
         it "should not be possible to download attachments from restricted pages" do
           get :download, :id => attachment.id
           response.status.should == 302
-          response.should redirect_to(login_path)
+          response.should redirect_to(Alchemy.login_path)
         end
 
         it "should not be possible to see attachments from restricted pages" do
           get :show, :id => attachment.id
           response.status.should == 302
-          response.should redirect_to(login_path)
+          response.should redirect_to(Alchemy.login_path)
         end
       end
 
       context "as member user" do
-        before {
-          sign_in(member_user)
-        }
+        before { sign_in(member_user) }
 
         it "should be possible to download attachments from restricted pages" do
           get :download, :id => attachment.id

@@ -51,7 +51,7 @@ module Alchemy
         it "should not render the picture, but redirect to login path" do
           get :show, :id => picture.id, :sh => picture.security_token
           response.status.should == 302
-          response.should redirect_to(login_path)
+          response.should redirect_to(Alchemy.login_path)
         end
       end
 

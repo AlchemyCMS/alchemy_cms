@@ -1,1 +1,0 @@
-../../../../db/migrate/20130828100601_change_alchemy_users_roles_default_to_member.rb

@@ -83,7 +83,7 @@ module Alchemy
         end
 
         context "as member user" do
-          let(:user) { build_stubbed(:member_user) }
+          let(:user) { mock_model('User', alchemy_roles: %w(member)) }
 
           before { restricted_page }
 
@@ -254,7 +254,7 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
-        let(:user) { build_stubbed(:member_user) }
+        let(:user) { mock_model('User', alchemy_roles: %w(member)) }
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
@@ -323,9 +323,7 @@ module Alchemy
     end
 
     describe "#language_links" do
-
       context "with two public languages" do
-
         # Always create second language
         before { klingonian }
 
@@ -336,7 +334,6 @@ module Alchemy
         end
 
         context "with two language root pages" do
-
           # Always create a language root page for klingonian
           before { klingonian_language_root }
 
@@ -398,11 +395,8 @@ module Alchemy
               end
             end
           end
-
         end
-
       end
-
     end
 
     describe "#picture_essence_caption" do

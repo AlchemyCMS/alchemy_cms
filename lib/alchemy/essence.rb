@@ -31,7 +31,7 @@ module Alchemy #:nodoc:
         class_eval <<-EOV
           attr_accessor :validation_errors
           include Alchemy::Essence::InstanceMethods
-          stampable(:stamper_class_name => 'Alchemy::User')
+          stampable stamper_class_name: Alchemy.user_class_name
           validate :essence_validations, :on => :update
           has_many :contents, :as => :essence
           has_many :elements, :through => :contents
@@ -105,7 +105,7 @@ module Alchemy #:nodoc:
               case description['validate_format_as']
               when 'email'
               then
-                matcher = Devise.email_regexp
+                matcher = Alchemy::Config.get(:email_regexp)
               when 'url'
               then
                 matcher = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix

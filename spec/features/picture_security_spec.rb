@@ -5,7 +5,7 @@ describe 'Picture renderung security', :js => true do
   let(:picture) { Alchemy::Picture.create(:image_file => File.new(File.expand_path('../../support/image.png', __FILE__))) }
 
   # Prevent the signup view from being rendered.
-  before { Alchemy::User.stub(:count).and_return 1 }
+  before { Alchemy.user_class.stub(:count).and_return 1 }
 
   context "passing no security token" do
 

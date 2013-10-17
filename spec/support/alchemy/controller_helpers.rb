@@ -7,10 +7,8 @@ module Alchemy
     #
     module ControllerHelpers
 
-      def sign_in(user=admin_user)
-        request.env['warden'].stub :authenticate! => user
-        request.env['warden'].set_user(user, store: false, run_callbacks: false)
-        controller.stub :current_user => user
+      def sign_in(user = admin_user)
+        controller.stub current_alchemy_user: user
       end
 
       def member_user
@@ -30,11 +28,7 @@ module Alchemy
       end
 
       def mock_user(roles)
-        mock_model(User,
-          name: 'Hermes Trismegistus',
-          roles: roles.map(&:to_sym),
-          store_request_time!: nil
-        )
+        mock_model(Alchemy.user_class, alchemy_roles: roles.map(&:to_sym))
       end
 
     end

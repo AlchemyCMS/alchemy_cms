@@ -7,47 +7,20 @@ module Alchemy
     #
     module IntegrationHelpers
 
-      # Shortcut method for:
+      # Used in Capybara features specs. Stubs the current_alchemy_user
       #
-      #   * create_admin_user
-      #   * login_into_alchemy
+      # It mocks an admin user, but you can pass in a user object that would be used as stub.
       #
-      def authorize_as_admin
-        create_admin_user
-        login_into_alchemy
-      end
-
-      # Capybara actions to login into Alchemy Backend
-      #
-      # You should have a admin user before loggin in.
-      #
-      # See: create_admin_user method
-      #
-      def login_into_alchemy
+      def authorize_as_admin(user=nil)
         # Ensure that phantomjs has always the same browser language.
         if Capybara.current_driver == :poltergeist
           page.driver.headers = { 'Accept-Language' => 'en' }
         end
-        visit login_path
-        fill_in('user_login', :with => 'jdoe')
-        fill_in('user_password', :with => 's3cr3t')
-        click_on('Login')
+        if !user
+          user = mock_model('User', alchemy_roles: %w(admin), language: 'en')
+        end
+        ApplicationController.any_instance.stub(:current_user).and_return(user)
       end
-
-      # Creates an admin user in a way it works
-      #
-      # You should create it once in a before block
-      #
-      # === Example:
-      #
-      #   before do
-      #     create_admin_user
-      #   end
-      #
-      def create_admin_user
-        FactoryGirl.create(:admin_user)
-      end
-
     end
 
   end

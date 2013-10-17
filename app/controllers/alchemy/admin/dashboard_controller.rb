@@ -4,14 +4,18 @@ require 'alchemy/version'
 module Alchemy
   module Admin
     class DashboardController < Alchemy::Admin::BaseController
-
       authorize_resource class: :alchemy_admin_dashboard
 
       def index
-        @last_edited_pages = Page.from_current_site.all_last_edited_from(current_user)
+        @last_edited_pages = Page.from_current_site.all_last_edited_from(current_alchemy_user)
         @locked_pages = Page.from_current_site.all_locked
-        @online_users = User.logged_in.to_a - [current_user]
-        @first_time = current_user.sign_in_count == 1 && current_user.last_sign_in_at.nil?
+        if Alchemy.user_class.respond_to?(:logged_in)
+          @online_users = Alchemy.user_class.logged_in.to_a - [current_alchemy_user]
+        end
+        if current_alchemy_user.respond_to?(:sign_in_count) && current_alchemy_user.respond_to?(:last_sign_in_at)
+          @last_sign_at = current_alchemy_user.last_sign_in_at
+          @first_time = current_alchemy_user.sign_in_count == 1 && @last_sign_at.nil?
+        end
         @sites = Site.all
       end
 
@@ -30,7 +34,7 @@ module Alchemy
         render :text => e, :status => 503
       end
 
-    private
+      private
 
       # Returns latest alchemy version.
       def latest_alchemy_version

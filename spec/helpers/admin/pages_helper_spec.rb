@@ -3,8 +3,10 @@ require 'spec_helper'
 describe Alchemy::Admin::PagesHelper do
 
   describe '#sitemap_folder_link' do
-    let(:user) { FactoryGirl.build_stubbed(:admin_user) }
-    before { helper.stub(:current_user).and_return(user) }
+    let(:user) { mock_model('User', alchemy_roles: %w(admin)) }
+
+    before { helper.stub(:current_alchemy_user).and_return(user) }
+
     subject { helper.sitemap_folder_link(page) }
 
     context "with folded page" do

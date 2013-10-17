@@ -430,7 +430,7 @@ module Alchemy
 
         it "should add a user stamper" do
           page = FactoryGirl.create(:page, :name => 'A', :language => language, :parent_id => language_root.id)
-          page.class.stamper_class.to_s.should == 'Alchemy::User'
+          page.class.stamper_class.to_s.should == 'User'
         end
 
         context "with language given" do
@@ -856,19 +856,25 @@ module Alchemy
       describe '#folded?' do
         let(:page) { Page.new }
 
-        context 'if page is folded' do
+        context 'with user is a active record model' do
           before do
-            page.stub_chain(:folded_pages, :find_by_user_id).and_return(mock_model('FoldedPage', folded: true))
+            Alchemy.user_class.should_receive(:'<').and_return(true)
           end
 
-          it "should return true" do
-            expect(page.folded?(user.id)).to eq(true)
-          end
-        end
+          context 'if page is folded' do
+            before do
+              page.stub_chain(:folded_pages, :where, :any?).and_return(true)
+            end
 
-        context 'if page is not folded' do
-          it "should return false" do
-            expect(page.folded?(101093)).to eq(false)
+            it "should return true" do
+              expect(page.folded?(user.id)).to eq(true)
+            end
+          end
+
+          context 'if page is not folded' do
+            it "should return false" do
+              expect(page.folded?(101093)).to eq(false)
+            end
           end
         end
       end
@@ -1207,32 +1213,62 @@ module Alchemy
 
     context 'indicate page editors' do
       let(:page) { Page.new }
-      let(:user) { User.new(firstname: 'Paul', lastname: 'Page') }
 
-      describe '#creator_name' do
-        before { page.stub(:creator).and_return(user) }
+      context 'with user class having a name accessor' do
+        let(:user) { Alchemy.user_class_name = double(name: 'Paul Page') }
 
-        it "should return the name of the creator" do
-          expect(page.creator_name).to eq('Paul Page')
+        describe '#creator_name' do
+          before { page.stub(:creator).and_return(user) }
+
+          it "returns the name of the creator" do
+            expect(page.creator_name).to eq('Paul Page')
+          end
+        end
+
+        describe '#updater_name' do
+          before { page.stub(:updater).and_return(user) }
+
+          it "returns the name of the updater" do
+            expect(page.updater_name).to eq('Paul Page')
+          end
+        end
+
+        describe '#locker_name' do
+          before { page.stub(:locker).and_return(user) }
+
+          it "returns the name of the current page editor" do
+            expect(page.locker_name).to eq('Paul Page')
+          end
         end
       end
 
-      describe '#updater_name' do
-        before { page.stub(:updater).and_return(user) }
+      context 'with user class not having a name accessor' do
+        let(:user) { Alchemy.user_class.new }
 
-        it "should return the name of the updater" do
-          expect(page.updater_name).to eq('Paul Page')
+        describe '#creator_name' do
+          before { page.stub(:creator).and_return(user) }
+
+          it "returns unknown" do
+            expect(page.creator_name).to eq('unknown')
+          end
+        end
+
+        describe '#updater_name' do
+          before { page.stub(:updater).and_return(user) }
+
+          it "returns unknown" do
+            expect(page.updater_name).to eq('unknown')
+          end
+        end
+
+        describe '#locker_name' do
+          before { page.stub(:locker).and_return(user) }
+
+          it "returns unknown" do
+            expect(page.locker_name).to eq('unknown')
+          end
         end
       end
-
-      describe '#locker_name' do
-        before { page.stub(:locker).and_return(user) }
-
-        it "should return the name of the current page editor" do
-          expect(page.locker_name).to eq('Paul Page')
-        end
-      end
-
     end
 
     describe '#controller_and_action' do

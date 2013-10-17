@@ -1,5 +1,4 @@
 require 'acts-as-taggable-on'
-require 'userstamp'
 require 'acts_as_list'
 
 module Alchemy
@@ -13,7 +12,7 @@ module Alchemy
 
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
     acts_as_list :scope => [:page_id, :cell_id]
-    stampable(:stamper_class_name => 'Alchemy::User')
+    stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :contents, -> { order(:position) }, dependent: :destroy
     belongs_to :cell

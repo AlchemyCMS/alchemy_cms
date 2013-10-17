@@ -98,7 +98,7 @@ module Alchemy
 
         context "wrong language requested" do
 
-          before { User.stub(:admins).and_return([1, 2]) }
+          before { Alchemy.user_class.stub(:admins).and_return([1, 2]) }
 
           it "should render 404 if urlname and lang parameter do not belong to same page" do
             FactoryGirl.create(:english)
@@ -165,7 +165,7 @@ module Alchemy
     describe "Handling of non-existing pages" do
 
       before do
-        User.stub(:admins).and_return([1, 2]) # We need a admin user or the signup page will show up
+        Alchemy.user_class.stub(:admins).and_return([1, 2]) # We need a admin user or the signup page will show up
         visit "/non-existing-page"
       end
 

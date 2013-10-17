@@ -8,15 +8,23 @@ module Alchemy
     before_filter :set_current_site
     before_filter :set_language
     before_filter :mailer_set_url_options
-    before_filter :store_user_request_time
 
-    helper_method :current_server, :current_site, :multi_site?
+    helper_method :current_alchemy_user,
+      :current_site,
+      :multi_site?,
+      :current_server
 
     helper 'alchemy/admin/form'
 
     rescue_from CanCan::AccessDenied do |exception|
       permission_denied(exception)
     end
+
+    def leave
+      render layout: !request.xhr?
+    end
+
+    private
 
     # Returns a host string with the domain the app is running on.
     def current_server
@@ -48,7 +56,25 @@ module Alchemy
       I18n.t(key, *args)
     end
 
-  private
+    # The current authorized user.
+    #
+    # In order to have Alchemy's authorization work, you have to
+    # provide a +current_user+ method in your app's ApplicationController,
+    # that returns the current user.
+    #
+    # If you don't have an App that can provide a +current_user+ object,
+    # you can install the `alchemy-devise` gem that provides everything you need.
+    #
+    def current_alchemy_user
+      raise NoCurrentUserFoundError if !defined?(current_user)
+      current_user
+    end
+
+    # Returns true if a +current_alchemy_user+ is present
+    #
+    def alchemy_user_signed_in?
+      current_alchemy_user.present?
+    end
 
     # Ensures usage of Alchemy's permissions class.
     #
@@ -56,10 +82,10 @@ module Alchemy
     #
     def current_ability
       @current_ability ||= begin
-        alchemy_permissions = ::Alchemy::Permissions.new(current_user)
+        alchemy_permissions = ::Alchemy::Permissions.new(current_alchemy_user)
         # Ruby, ruby, ruby...... o.O
         if (Object.const_get('Ability') rescue false)
-          alchemy_permissions.merge(Ability.new(current_user))
+          alchemy_permissions.merge(Ability.new(current_alchemy_user))
         else
           alchemy_permissions
         end
@@ -92,8 +118,8 @@ module Alchemy
         ::I18n.locale = session[:current_locale]
       elsif params[:locale].present? && ::I18n.available_locales.include?(params[:locale].to_sym)
         session[:current_locale] = ::I18n.locale = params[:locale]
-      elsif current_user && current_user.language.present?
-        ::I18n.locale = current_user.language
+      elsif current_alchemy_user && current_alchemy_user.respond_to?(:language) && current_alchemy_user.language.present?
+        ::I18n.locale = current_alchemy_user.language
       else
         ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /\A[a-z]{2}/).try(:first) || ::I18n.default_locale
       end
@@ -198,22 +224,15 @@ module Alchemy
       redirect_to url_for(protocol: 'https')
     end
 
-    # Stores the users request time.
-    def store_user_request_time
-      if user_signed_in?
-        current_user.store_request_time!
-      end
-    end
-
-  protected
+    protected
 
     def permission_denied(exception = nil)
-      Rails.logger.warn <<-WARN
+      Rails.logger.debug <<-WARN
 
 /!\\ Failed to permit #{exception.action} on #{exception.subject.inspect} for:
-#{current_user.inspect}
+#{current_alchemy_user.inspect}
 WARN
-      if current_user
+      if current_alchemy_user
         handle_redirect_for_user
       else
         handle_redirect_for_guest
@@ -224,6 +243,7 @@ WARN
       if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
       else
+        flash[:warning] = _t('You are not authorized')
         redirect_to('/')
       end
     end
@@ -237,7 +257,6 @@ WARN
           }
         end
       else
-        flash[:warning] = _t('You are not authorized')
         redirect_to(alchemy.admin_dashboard_path)
       end
     end
@@ -245,10 +264,10 @@ WARN
     def handle_redirect_for_guest
       flash[:info] = _t('Please log in')
       if request.xhr?
-        render(:action => :permission_denied)
+        render :permission_denied
       else
         store_location
-        redirect_to(alchemy.login_path)
+        redirect_to Alchemy.login_path
       end
     end
 
