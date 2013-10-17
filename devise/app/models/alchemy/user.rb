@@ -16,9 +16,6 @@ module Alchemy
       :tag_list
     ]
 
-    model_stamper
-    stampable(:stamper_class_name => 'Alchemy::User')
-
     begin
       devise(*Config.get(:devise_modules))
     rescue NameError => e
@@ -155,7 +152,7 @@ WARN
     end
 
     def store_request_time!
-      update_attribute(:last_request_at, Time.now)
+      update_column(:last_request_at, Time.now)
     end
 
   private

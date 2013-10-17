@@ -13,3 +13,7 @@ Alchemy::Modules.register_module({
     }
   }
 })
+
+Alchemy.user_class_name = 'Alchemy::User'
+Alchemy.login_path = '/admin/login'
+Alchemy.logout_path = '/admin/logout'

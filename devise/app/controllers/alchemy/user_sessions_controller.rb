@@ -28,10 +28,6 @@ module Alchemy
       end
     end
 
-    def leave
-      render layout: !request.xhr?
-    end
-
     def destroy
       cookies.clear
       session.clear
