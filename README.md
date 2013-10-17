@@ -1,13 +1,13 @@
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=3.0-dev)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=master)
 
 About
 -----
-**This branch is a early alpha development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.6-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.6-stable).**
+**This branch is a early alpha development branch. For productive environments use the current rubygems version, or the [latest stable branch (2.7-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).**
 
-Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.
+Alchemy is the most powerful, userfriendly and flexible Rails CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
@@ -33,7 +33,7 @@ Features
 Rails Version
 -------------
 
-This version of Alchemy runs with Rails 4.0.0.
+**This version of Alchemy CMS runs with Rails 4.0.0 only!**
 
 If you are looking for a Rails 3.2 compatible version check the [2.7-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).
 
@@ -70,7 +70,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '3.0-dev'
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
 
 Run in terminal:
 
