@@ -3,8 +3,8 @@
 # Thanks!
 
 module Alchemy
-  module Specs
-    module ControllerHacks
+  module TestSupport
+    module ControllerRequests
 
       def get(action, parameters = nil, session = nil, flash = nil)
         process_alchemy_action(action, parameters, session, flash, "GET")
@@ -25,7 +25,7 @@ module Alchemy
         process_alchemy_action(action, parameters, session, flash, "DELETE")
       end
 
-    private
+      private
 
       def process_alchemy_action(action, parameters = nil, session = nil, flash = nil, method = "GET")
         parameters ||= {}
@@ -34,8 +34,4 @@ module Alchemy
 
     end
   end
-end
-
-RSpec.configure do |c|
-  c.include Alchemy::Specs::ControllerHacks, :type => :controller
 end

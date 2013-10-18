@@ -1,11 +1,9 @@
 module Alchemy
-  module Specs
+  module TestSupport
 
-    # Helpers for controller specs
+    # Helpers for authentication
     #
-    # This file is included in rspec controller tests.
-    #
-    module ControllerHelpers
+    module AuthHelpers
 
       def sign_in(user = admin_user)
         controller.stub current_alchemy_user: user

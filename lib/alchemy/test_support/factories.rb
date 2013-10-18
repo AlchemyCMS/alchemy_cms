@@ -1,27 +1,5 @@
 FactoryGirl.define do
 
-  factory :user, class: 'User' do
-    email 'john@doe.com'
-    password 's3cr3t'
-
-    factory :admin_user do
-      alchemy_roles 'admin'
-    end
-
-    factory :member_user do
-      alchemy_roles 'member'
-    end
-
-    factory :author_user do
-      alchemy_roles 'author'
-    end
-
-    factory :editor_user do
-      alchemy_roles 'editor'
-    end
-
-  end
-
   factory :language, :class => 'Alchemy::Language' do
     name 'Deutsch'
     code 'de'
@@ -100,14 +78,14 @@ FactoryGirl.define do
   end
 
   factory :picture, :class => 'Alchemy::Picture' do
-    image_file File.new(File.expand_path('../image.png', __FILE__))
+    image_file File.new(File.expand_path('../../../../spec/fixtures/image.png', __FILE__))
     name 'image'
     image_file_name 'image.png'
     upload_hash Time.now.hash
   end
 
   factory :attachment, :class => 'Alchemy::Attachment' do
-    file File.new(File.expand_path('../image.png', __FILE__))
+    file File.new(File.expand_path('../../../../spec/fixtures/image.png', __FILE__))
     name 'image'
     file_name 'image.png'
   end

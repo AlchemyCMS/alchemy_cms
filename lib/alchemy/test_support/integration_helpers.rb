@@ -1,5 +1,5 @@
 module Alchemy
-  module Specs
+  module TestSupport
 
     # Helpers for integration specs
     #

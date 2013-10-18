@@ -25,9 +25,16 @@ Rails.backtrace_cleaner.remove_silencers!
 # Disable rails loggin for faster IO. Remove this if you want to have a test.log
 Rails.logger.level = 4
 
-# Configure capybara for integration testing
 require "capybara/rails"
 require 'capybara/poltergeist'
+require 'alchemy/seeder'
+require 'alchemy/test_support/auth_helpers'
+require 'alchemy/test_support/controller_requests'
+require 'alchemy/test_support/integration_helpers'
+require 'alchemy/test_support/factories'
+require_relative "support/test_tweaks.rb"
+
+# Configure capybara for integration testing
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.register_driver(:rack_test_translated_header) do |app|
@@ -36,19 +43,16 @@ end
 Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = false
 
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-
-require 'alchemy/seeder'
-
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
-  config.include Alchemy::Specs::ControllerHelpers, :type => :controller
-  config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
+  config.include Alchemy::TestSupport::AuthHelpers
+  config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
+  config.include Alchemy::TestSupport::IntegrationHelpers, :type => :feature
   config.include FactoryGirl::Syntax::Methods
+
   config.use_transactional_fixtures = true
   # Make sure the database is clean and ready for test
   config.before(:suite) do

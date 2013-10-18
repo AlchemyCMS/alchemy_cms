@@ -57,8 +57,8 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user)         { mock_model('User', alchemy_roles: %w(member)) }
-    let(:another_user) { mock_model('User', alchemy_roles: %w(member)) }
+    let(:user)         { member_user }
+    let(:another_user) { member_user }
 
     it "can download all attachments" do
       should be_able_to(:download, attachment)
@@ -107,7 +107,7 @@ describe Alchemy::Permissions do
   end
 
   context "An author" do
-    let(:user) { mock_model('User', alchemy_roles: %w(author)) }
+    let(:user) { author_user }
 
     it "can visit the dashboard" do
       should be_able_to(:index, :alchemy_admin_dashboard)
@@ -171,7 +171,7 @@ describe Alchemy::Permissions do
   end
 
   context "An editor" do
-    let(:user) { mock_model('User', alchemy_roles: %w(editor)) }
+    let(:user) { editor_user }
 
     it "can manage pages" do
       should be_able_to(:manage, Alchemy::Page)
@@ -199,7 +199,7 @@ describe Alchemy::Permissions do
   end
 
   context "An admin" do
-    let(:user) { mock_model('User', alchemy_roles: %w(admin)) }
+    let(:user) { admin_user }
 
     it "can check for alchemy updates" do
       should be_able_to(:update_check, :alchemy_admin_dashboard)

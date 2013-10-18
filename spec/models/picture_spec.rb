@@ -5,7 +5,7 @@ module Alchemy
   describe Picture do
 
     let :image_file do
-      File.new(File.expand_path('../../support/image.png', __FILE__))
+      File.new(File.expand_path('../../fixtures/image.png', __FILE__))
     end
 
     let(:picture) { Picture.new }
@@ -21,13 +21,13 @@ module Alchemy
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.new(File.expand_path('../../support/image2.PNG', __FILE__))
+      image_file = File.new(File.expand_path('../../fixtures/image2.PNG', __FILE__))
       picture = Picture.new(:image_file => image_file)
       picture.should be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.new(File.expand_path('../../support/image3.jpeg', __FILE__))
+      image_file = File.new(File.expand_path('../../fixtures/image3.jpeg', __FILE__))
       picture = Picture.new(:image_file => image_file)
       picture.should be_valid
     end
