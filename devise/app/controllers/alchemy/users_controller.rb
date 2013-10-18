@@ -1,9 +1,9 @@
 module Alchemy
   class UsersController < BaseController
-    before_filter { enforce_ssl if ssl_required? && !request.ssl? }
-    before_filter :set_translation
-    before_filter :check_user_count
-    before_filter :load_genders
+    before_action { enforce_ssl if ssl_required? && !request.ssl? }
+    before_action :set_translation
+    before_action :check_user_count
+    before_action :load_genders
 
     layout 'alchemy/admin'
 

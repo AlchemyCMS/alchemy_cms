@@ -3,7 +3,7 @@ require 'spec_helper'
 module Alchemy
   describe Admin::UsersController do
 
-      let(:admin) { FactoryGirl.build_stubbed(:admin_user) }
+      let(:admin) { build_stubbed(:admin_user) }
 
       before do
         controller.stub(:store_user_request_time)
@@ -88,7 +88,7 @@ module Alchemy
         end
 
         context "with send_credentials set to '1'" do
-          let(:user) { FactoryGirl.build(:user) }
+          let(:user) { build_stubbed(:user) }
           before { User.stub(:find).and_return(user) }
 
           it "should send an email notification" do

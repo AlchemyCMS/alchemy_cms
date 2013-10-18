@@ -3,7 +3,7 @@ require 'spec_helper'
 module Alchemy
   describe UserSessionsController do
 
-    let(:user) { FactoryGirl.build_stubbed(:admin_user) }
+    let(:user) { build_stubbed(:admin_user) }
 
     before do
       controller.stub(:store_user_request_time)

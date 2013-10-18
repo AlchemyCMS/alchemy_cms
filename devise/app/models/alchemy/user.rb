@@ -16,14 +16,9 @@ module Alchemy
       :tag_list
     ]
 
-    begin
-      devise(*Config.get(:devise_modules))
-    rescue NameError => e
-      abort <<-WARN
-You enabled the encrytable devise module, but did not have the `devise-encrytable` gem installed!
-Please add the `devise-encrytable` gem into your Gemfile.
-WARN
-    end
+    devise :database_authenticatable,
+      :trackable, :validatable,
+      :timeoutable, :recoverable
 
     acts_as_taggable
 
@@ -32,7 +27,7 @@ WARN
     has_many :folded_pages
 
     validates_uniqueness_of :login
-    validates_presence_of :roles
+    validates_presence_of :alchemy_roles
 
     # Unlock all locked pages before destroy and before the user gets logged out.
     before_destroy :unlock_pages!
@@ -44,7 +39,7 @@ WARN
 
     after_save :deliver_welcome_mail, if: -> { send_credentials == '1' }
 
-    scope :admins,     -> { where(arel_table[:roles].matches('%admin%')) }
+    scope :admins,     -> { where(arel_table[:alchemy_roles].matches('%admin%')) }
     scope :logged_in,  -> { where('last_request_at > ?', logged_in_timeout.seconds.ago) }
     scope :logged_out, -> { where('last_request_at is NULL or last_request_at <= ?', logged_in_timeout.seconds.ago) }
 
@@ -68,27 +63,27 @@ WARN
     end
 
     def role_symbols
-      roles.map(&:to_sym)
+      alchemy_roles.map(&:to_sym)
     end
 
     def role
-      roles.first
+      alchemy_roles.first
     end
 
-    def roles
-      read_attribute(:roles).split(' ')
+    def alchemy_roles
+      read_attribute(:alchemy_roles).split(' ')
     end
 
-    def roles=(roles_string)
+    def alchemy_roles=(roles_string)
       if roles_string.is_a? Array
-        write_attribute(:roles, roles_string.join(' '))
+        write_attribute(:alchemy_roles, roles_string.join(' '))
       elsif roles_string.is_a? String
-        write_attribute(:roles, roles_string)
+        write_attribute(:alchemy_roles, roles_string)
       end
     end
 
     def add_role(role)
-      self.roles = self.roles.push(role.to_s).uniq
+      self.alchemy_roles = self.alchemy_roles.push(role.to_s).uniq
     end
 
     # Returns true if the user ahs admin role
@@ -99,7 +94,7 @@ WARN
 
     # Returns true if the user has the given role.
     def has_role?(role)
-      roles.include? role.to_s
+      alchemy_roles.include? role.to_s
     end
 
     # Calls unlock on all locked pages
@@ -146,7 +141,7 @@ WARN
     end
 
     def human_roles_string
-      roles.map do |role|
+      alchemy_roles.map do |role|
         self.class.human_rolename(role)
       end.to_sentence
     end

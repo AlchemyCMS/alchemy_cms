@@ -1,0 +1,7 @@
+# == This file defines the page_layouts for new pages.
+#
+# For further informations please see http://guides.alchemy-cms.com/create_page_layouts.html
+
+- name: intro
+  unique: true
+  elements: []

@@ -2,7 +2,7 @@ module Alchemy
   module Admin
     class UsersController < ResourcesController
 
-      before_filter :set_roles_and_genders, except: [:index, :destroy]
+      before_action :set_roles_and_genders, except: [:index, :destroy]
 
       load_and_authorize_resource class: Alchemy::User,
         only: [:edit, :update, :destroy]

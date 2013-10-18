@@ -5,11 +5,10 @@ module Alchemy
   module Devise
     class Engine < ::Rails::Engine
       isolate_namespace Alchemy
-      engine_name 'alchemy'
-      config.mount_at = '/'
+      engine_name 'alchemy_devise'
 
       config.to_prepare do
-        require_relative '../../../controllers/alchemy/base_controller.rb'
+        require_relative '../../../app/controllers/alchemy/base_controller_extension.rb'
       end
     end
   end

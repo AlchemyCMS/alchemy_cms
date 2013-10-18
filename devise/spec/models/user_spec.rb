@@ -2,18 +2,16 @@ require 'spec_helper'
 
 module Alchemy
   describe User do
-
-    let(:user) { FactoryGirl.build(:user) }
-    let(:page) { FactoryGirl.create(:page) }
+    let(:user) { build_stubbed(:user) }
+    let(:page) { build_stubbed(:page) }
 
     it "should have at least member role" do
-      user.save!
-      user.roles.should_not be_blank
-      user.roles.should include('member')
+      user.alchemy_roles.should_not be_blank
+      user.alchemy_roles.should include('member')
     end
 
     context ".after_save" do
-      let(:user) { FactoryGirl.build(:admin_user) }
+      let(:user) { build_stubbed(:admin_user) }
 
       context "with send_credentials set to '1'" do
         before { user.send_credentials = '1' }
@@ -24,7 +22,7 @@ module Alchemy
         end
 
         context "of author user" do
-          before { user.roles = %w(author) }
+          before { user.alchemy_roles = %w(author) }
 
           it "delivers the admin welcome mail." do
             Notifications.should_receive(:alchemy_user_created).and_return(OpenStruct.new(deliver: true))
@@ -33,7 +31,7 @@ module Alchemy
         end
 
         context "of member user" do
-          before { user.roles = %w(member) }
+          before { user.alchemy_roles = %w(member) }
 
           it "delivers the welcome mail." do
             Notifications.should_receive(:member_created).and_return(OpenStruct.new(deliver: true))
@@ -53,12 +51,9 @@ module Alchemy
     end
 
     describe 'scopes' do
-      describe '.admins' do
-        before do
-          user.roles = 'admin'
-          user.save!
-        end
+      let(:user) { create(:admin_user) }
 
+      describe '.admins' do
         it "should only return users with admin role" do
           User.admins.should include(user)
         end
@@ -75,7 +70,7 @@ module Alchemy
     describe "#human_roles_string" do
       it "should return a humanized roles string." do
         ::I18n.locale = :de
-        user.roles = ['member', 'admin']
+        user.alchemy_roles = ['member', 'admin']
         user.human_roles_string.should == "Mitglied und Administrator"
       end
     end
@@ -87,7 +82,6 @@ module Alchemy
     end
 
     describe '#has_role?' do
-
       context "with given role" do
         it "should return true." do
           user.has_role?('member').should be_true
@@ -105,12 +99,11 @@ module Alchemy
           user.has_role?('admin').should be_false
         end
       end
-
     end
 
     describe '#role' do
       context "when user doesn't have any roles" do
-        before { user.roles = [] }
+        before { user.alchemy_roles = [] }
 
         it 'should return nil' do
           user.role.should be_nil
@@ -118,7 +111,7 @@ module Alchemy
       end
 
       context "when user has multiple roles" do
-        before { user.roles = ["admin", "member"] }
+        before { user.alchemy_roles = ["admin", "member"] }
 
         it 'should return the first role' do
           user.role.should == "admin"
@@ -126,27 +119,27 @@ module Alchemy
       end
     end
 
-    describe '#roles' do
+    describe '#alchemy_roles' do
       it "should return an array of user roles" do
-        user.roles.should == ["member"]
+        user.alchemy_roles.should == ["member"]
       end
     end
 
-    describe '#roles=' do
+    describe '#alchemy_roles=' do
 
       it "should accept an array of user roles" do
-        user.roles = ["admin"]
-        user.roles.should == ["admin"]
+        user.alchemy_roles = ["admin"]
+        user.alchemy_roles.should == ["admin"]
       end
 
       it "should accept a string of user roles" do
-        user.roles = "admin member"
-        user.roles.should == ["admin", "member"]
+        user.alchemy_roles = "admin member"
+        user.alchemy_roles.should == ["admin", "member"]
       end
 
       it "should store the user roles as space seperated string" do
-        user.roles = ["admin", "member"]
-        user.read_attribute(:roles).should == "admin member"
+        user.alchemy_roles = ["admin", "member"]
+        user.read_attribute(:alchemy_roles).should == "admin member"
       end
 
     end
@@ -154,12 +147,12 @@ module Alchemy
     describe "#add_role" do
       it "should add the given role to roles array" do
         user.add_role "admin"
-        user.roles.should == ["member", "admin"]
+        user.alchemy_roles.should == ["member", "admin"]
       end
 
       it "should not add the given role twice" do
         user.add_role "member"
-        user.roles.should == ["member"]
+        user.alchemy_roles.should == ["member"]
       end
     end
 
@@ -205,8 +198,7 @@ module Alchemy
 
     describe '#is_admin?' do
       it "should return true if the user has admin role" do
-        user.roles = "admin"
-        user.save!
+        user.alchemy_roles = "admin"
         user.is_admin?.should be_true
       end
     end
@@ -220,7 +212,7 @@ module Alchemy
         it "should return the login" do
           user.firstname = nil
           user.lastname = nil
-          user.fullname.should == "jdoe"
+          user.fullname.should == user.login
         end
       end
 

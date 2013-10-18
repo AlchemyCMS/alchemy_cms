@@ -1,0 +1,177 @@
+# encoding: UTF-8
+#
+# == This is the global Alchemy configuration file
+#
+
+# === Require SSL for login form and all admin modules
+#
+# NOTE: You have to create a SSL certificate on your server to make this work
+#
+require_ssl: false
+
+# === Auto Log Out Time
+#
+# The amount of time of inactivity in minutes after which the user is kicked out of his current session.
+#
+# INFO: This is only active in production environments
+#
+auto_logout_time: 30
+
+# === Redirect Options
+#
+#   redirect_index            [Boolean]   # You can disable the redirect to first child page for not public pages.
+#   redirect_to_public_child  [Boolean]   # Alchemy redirects to the first public child page found, if a page is not visible.
+#
+redirect_index: true
+redirect_to_public_child: true
+
+# === Page caching
+#
+# Enable/Disable pagecaching globally.
+#
+# Hint: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
+#
+cache_pages: true
+
+# === Sitemap
+#
+# Alchemy renders a nice HTML (<ul><li> style) and XML (Google conform!) Sitemap for you.
+#
+# Just place a sitemap element for a page layout in your page_layouts.yml file. Alchemy does the rest.
+#
+# ==== Options:
+#
+#   show_root [Boolean] # Show language root page in sitemap?
+#   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibilit of pages in the sitemap.
+#
+sitemap:
+  show_root: true
+  show_flag: false
+
+# === URL nesting
+#
+# Since Alchemy 2.6.0 page urls are nested, respectivley to their tree position.
+#
+# Disable +url_nesting+ to get slug only urls.
+#
+# NOTE: After changing the url_nesting, you should run one of these convert rake task:
+#
+#   rake alchemy:convert:urlnames:to_nested
+#   rake alchemy:convert:urlnames:to_slug
+#
+url_nesting: true
+
+# === Picture rendering settings
+#
+# Alchemy uses Dragonfly to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
+#
+# See http://markevans.github.com/dragonfly for further infos.
+#
+# ==== Options:
+#
+#   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
+#   preprocess_image_resize   [String]        # Use this option to resize images to that value. Downsizing example: '1000x1000>' (Default nil)
+#   image_output_format       [String]        # The global image output format setting.
+#
+# TIP: You can always override the output format in the options of your Essence. I.E. {:format => :gif}
+#
+output_image_jpg_quality: 85
+preprocess_image_resize:
+image_output_format: jpg
+
+# This is the default language for the seeder.
+default_language:
+  code: de
+  name: Deutsch
+  page_layout: intro
+  frontpage_name: Intro
+
+# === Mailer Settings:
+#
+# To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
+#
+# === Validating fields:
+#
+# Pass the field name as symbol and a message_id (will be translated) to :validate_fields:
+#
+# ==== Options:
+#
+#   page_layout_name:           [String] # A +Alchemy::PageLayout+ name. Used to render the contactform on a page with this layout.
+#   fields:                     [Array]  # An Array of fieldnames.
+#   validate_fields:            [Array]  # An Array of fieldnames to be validated on presence.
+#
+# ==== Translating validation messages:
+#
+# The validation messages are passed through ::I18n.t so you can translate it in your language yml file.
+#
+# ==== Example:
+#
+#   de:
+#     activemodel:
+#       attributes:
+#         alchemy/message:
+#           firstname: Vorname
+#
+mailer:
+  page_layout_name: contact
+  forward_to_page: false
+  mail_success_page: thanks
+  mail_from: your.mail@your-domain.com
+  mail_to: your.mail@your-domain.com
+  subject: A new contact form message
+  fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
+  validate_fields: [lastname, email]
+
+# === User roles
+#
+# You can add own user roles.
+#
+# Further documentation for the auth system used please visit:
+#
+# https://github.com/ryanb/cancan/wiki
+#
+# ==== Translating User roles
+#
+# Userroles can be translated inside your the language yml file under:
+#
+#   alchemy:
+#     user_roles:
+#       rolename: Name of the role
+#
+user_roles: [member, author, editor, admin]
+
+# === Uploader Settings
+#
+#   upload_limit       [Integer]    # Set an amount of files upload limit of files which can be uploaded at once. Set 0 for unlimited.
+#   file_size_limit*   [Integer]    # Set a file size limit in mega bytes for a per file limit.
+#
+# *) Allow filetypes to upload. Pass * to allow all kind of files.
+#
+uploader:
+  upload_limit: 50
+  file_size_limit: 100
+  allowed_filetypes:
+    pictures:
+    - :jpg
+    - :jpeg
+    - :gif
+    - :png
+    attachments: ['*']
+
+# === Link Target Options
+#
+# Values for the link target selectbox inside the page link overlay.
+# The value gets attached as a data-link-target attribute to the link.
+#
+# == Example:
+#
+# Open all links set to overlay inside an jQuery UI Dialog Window.
+#
+#   jQuery(a[data-link-target="overlay"]).dialog();
+#
+link_target_options: [blank]
+
+# Should pages that redirect to an external url open the link in a new tab/window?
+open_external_links_in_new_tab: true
+
+email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'

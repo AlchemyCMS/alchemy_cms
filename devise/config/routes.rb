@@ -1,7 +1,15 @@
-Rails.application.routes.draw do
+Alchemy::Engine.routes.draw do
+  devise_for :user,
+    class_name: 'Alchemy::User',
+    controllers: {
+      sessions: 'alchemy/user_sessions'
+    },
+    skip: [:sessions, :passwords]
+end
 
-  get '/admin/signup' => 'users#new', :as => :signup
+Alchemy::Engine.routes.prepend do
   resources :users, only: [:create]
+  get '/admin/signup' => 'users#new', :as => :signup
 
   devise_scope :user do
     get '/admin/login' => 'user_sessions#new', :as => :login
@@ -14,16 +22,7 @@ Rails.application.routes.draw do
     put '/admin/passwords' => 'passwords#update', :as => :update_password
   end
 
-  # This actualy does all the Devise magic. I.e. current_user method in ApplicationController
-  devise_for :user,
-    class_name: 'Alchemy::User',
-    controllers: {
-      sessions: 'alchemy/user_sessions'
-    },
-    skip: [:sessions, :passwords] # skipping Devise default routes.
-
   namespace :admin do
     resources :users
   end
-
 end

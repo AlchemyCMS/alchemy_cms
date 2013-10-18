@@ -4,7 +4,7 @@ module Alchemy
   describe Notifications do
 
     context "when a member user was created" do
-      let(:user) { mock_model('User', alchemy_roles: %w(member)) }
+      let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe') }
       let(:mail) { Notifications.member_created(user) }
 
       it "delivers a mail to user" do
@@ -26,7 +26,7 @@ module Alchemy
     end
 
     context "when an admin user was created" do
-      let(:user) { mock_model('User', alchemy_roles: %w(admin)) }
+      let(:user) { mock_model('User', alchemy_roles: %w(admin), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe') }
       let(:mail) { Notifications.alchemy_user_created(user) }
 
       it "delivers a mail to user" do
@@ -44,7 +44,7 @@ module Alchemy
     end
 
     describe '#reset_password_instructions' do
-      let(:user) { mock_model('User', alchemy_roles: %w(member)) }
+      let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe') }
       let(:mail) { Notifications.reset_password_instructions(user) }
 
       before { user.stub(:reset_password_token).and_return('123') }

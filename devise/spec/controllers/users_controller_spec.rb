@@ -4,7 +4,7 @@ module Alchemy
   describe UsersController do
 
     context "with users present" do
-      before { FactoryGirl.create(:admin_user) }
+      before { build_stubbed(:admin_user) }
 
       it "should redirect to admin dashboard" do
         get :new

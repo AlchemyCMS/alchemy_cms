@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BaseController do
+describe Alchemy::BaseController do
 
   describe '#store_user_request_time' do
     context "user not logged in" do
@@ -14,7 +14,7 @@ describe BaseController do
     context "user logged in" do
       before do
         controller.stub(:alchemy_user_signed_in?).and_return(true)
-        controller.stub(:current_alchemy_user).and_return(FactoryGirl.create(:user))
+        controller.stub(:current_alchemy_user).and_return(mock_model('User', store_request_time!: true))
       end
 
       it "should not store the current request time" do

@@ -7,7 +7,7 @@ class CreateAlchemyUsers < ActiveRecord::Migration
       t.string   "login"
       t.string   "email"
       t.string   "gender"
-      t.string   "roles",                              default: "member"
+      t.string   "alchemy_roles",                              default: "member"
       t.string   "language"
       t.string   "encrypted_password",     limit: 128, default: "",       null: false
       t.string   "password_salt",          limit: 128, default: "",       null: false
@@ -30,6 +30,6 @@ class CreateAlchemyUsers < ActiveRecord::Migration
     add_index "alchemy_users", ["email"], name: "index_alchemy_users_on_email", unique: true
     add_index "alchemy_users", ["login"], name: "index_alchemy_users_on_login", unique: true
     add_index "alchemy_users", ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
-    add_index "alchemy_users", ["roles"], name: "index_alchemy_users_on_roles"
+    add_index "alchemy_users", ["alchemy_roles"], name: "index_alchemy_users_on_alchemy_roles"
   end
 end
