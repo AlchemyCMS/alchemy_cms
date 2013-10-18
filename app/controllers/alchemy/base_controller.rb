@@ -240,10 +240,10 @@ WARN
     end
 
     def handle_redirect_for_user
+      flash[:warning] = _t('You are not authorized')
       if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
       else
-        flash[:warning] = _t('You are not authorized')
         redirect_to('/')
       end
     end
