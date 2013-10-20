@@ -9,9 +9,9 @@ end
 
 Alchemy::Engine.routes.prepend do
   resources :users, only: [:create]
-  get '/admin/signup' => 'users#new', :as => :signup
 
   devise_scope :user do
+    get '/admin/signup' => 'users#new', :as => :signup
     get '/admin/login' => 'user_sessions#new', :as => :login
     post '/admin/login' => 'user_sessions#create'
     delete '/admin/logout' => 'user_sessions#destroy', :as => :logout
