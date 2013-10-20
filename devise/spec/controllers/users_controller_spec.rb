@@ -27,7 +27,7 @@ module Alchemy
 
       it "should set the role to admin" do
         post :create, {:user => FactoryGirl.attributes_for(:admin_user)}
-        assigns(:user).roles.should include("admin")
+        assigns(:user).alchemy_roles.should include("admin")
       end
 
       context "with send_credentials set to '1'" do
