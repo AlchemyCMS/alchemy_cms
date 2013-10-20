@@ -70,7 +70,9 @@ module Alchemy
     end
 
     config.after_initialize do
-      require 'alchemy/user'
+      require 'alchemy/userstamp'
+      # We need to reload the routes, because alchemy extensions (i.e. alchemy-devise) prepends routes.
+      Rails.application.routes_reloader.reload!
     end
   end
 end
