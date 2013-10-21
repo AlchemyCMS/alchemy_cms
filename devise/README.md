@@ -28,7 +28,7 @@ $ rake db:migrate
 Getting Help
 ------------
 
-* If you have bugs, please use the [issue tracker on Github](https://github.com/magiclabs/alchemy_cms/issues).
+* If you have bugs, please use the [issue tracker on Github](https://github.com/magiclabs/alchemy-devise/issues).
 * For Q&A and general usage, please use the [User Group](http://groups.google.com/group/alchemy-cms) or the IRC channel.
 * New features should be discussed on our [Trello Board](https://trello.com/alchemycms). *PLEASE* don't use the Github issues for new features.
 
