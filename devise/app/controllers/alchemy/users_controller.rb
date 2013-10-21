@@ -30,7 +30,7 @@ module Alchemy
       redirect_to admin_dashboard_path
     end
 
-  private
+    private
 
     def load_genders
       @user_genders = User.genders_for_select

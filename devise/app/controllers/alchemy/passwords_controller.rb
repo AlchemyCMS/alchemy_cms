@@ -6,10 +6,6 @@ class Alchemy::PasswordsController < Devise::PasswordsController
 
   layout 'alchemy/login'
 
-  def new
-    build_resource(email: params[:email])
-  end
-
   private
 
   # Override for Devise method
@@ -21,7 +17,7 @@ class Alchemy::PasswordsController < Devise::PasswordsController
     alchemy.edit_password_url(options)
   end
 
-  def after_sign_in_path_for(resource_or_scope)
+  def after_resetting_password_path_for(resource)
     if can? :index, :dashboard
       alchemy.admin_dashboard_path
     else

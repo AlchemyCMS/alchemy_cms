@@ -177,6 +177,11 @@ module Alchemy
     end
 
     describe "#pages_locked_by_me" do
+      let(:user) { create(:admin_user) }
+      let(:page) { create(:page) }
+
+      before { Alchemy::PageLayout.stub(:get).and_return({}) }
+
       it "should return all pages that are locked by user" do
         user.save!
         page.lock_to!(user)
@@ -231,6 +236,8 @@ module Alchemy
     end
 
     describe '#store_request_time!' do
+      let(:user) { create(:admin_user) }
+
       it "should store the timestamp of the request" do
         last_request_at = 2.hours.ago
         user.last_request_at = last_request_at

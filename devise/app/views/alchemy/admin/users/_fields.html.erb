@@ -10,7 +10,7 @@
 <%= f.input :password %>
 <%= f.input :password_confirmation %>
 <% if can? :update_role, @user %>
-  <%= f.input :roles,
+  <%= f.input :alchemy_roles,
     collection: Alchemy::User::ROLES.map { |role| [Alchemy::User.human_rolename(role), role] },
     as: 'check_boxes' %>
 <% end %>

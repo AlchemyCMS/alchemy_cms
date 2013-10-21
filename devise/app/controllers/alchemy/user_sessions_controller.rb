@@ -28,18 +28,17 @@ class Alchemy::UserSessionsController < Devise::SessionsController
   end
 
   def destroy
+    current_alchemy_user.unlock_pages!
     cookies.clear
     session.clear
     super
   end
 
-private
+  private
 
   def check_user_count
-    if User.count == 0
+    if Alchemy::User.count == 0
       redirect_to signup_path
-    else
-      return true
     end
   end
 
@@ -47,7 +46,7 @@ private
     session[:screen_size] = params[:user_screensize]
   end
 
-  # Ovewriting the default of Devise
+  # Overwriting the default of Devise
   def after_sign_out_path_for(resource_or_scope)
     if request.referer.blank? || request.referer.to_s =~ /admin/
       root_path

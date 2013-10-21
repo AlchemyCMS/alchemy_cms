@@ -19,7 +19,7 @@ Alchemy::Engine.routes.prepend do
     get '/admin/passwords' => 'passwords#new', :as => :new_password
     get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit', :as => :edit_password
     post '/admin/passwords' => 'passwords#create', :as => :reset_password
-    put '/admin/passwords' => 'passwords#update', :as => :update_password
+    patch '/admin/passwords' => 'passwords#update', :as => :update_password
   end
 
   namespace :admin do

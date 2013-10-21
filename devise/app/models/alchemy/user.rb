@@ -29,13 +29,8 @@ module Alchemy
     validates_uniqueness_of :login
     validates_presence_of :alchemy_roles
 
-    # Unlock all locked pages before destroy and before the user gets logged out.
+    # Unlock all locked pages before destroy.
     before_destroy :unlock_pages!
-    Warden::Manager.before_logout do |user, auth, opts|
-      if user
-        user.unlock_pages!
-      end
-    end
 
     after_save :deliver_welcome_mail, if: -> { send_credentials == '1' }
 
@@ -150,7 +145,7 @@ module Alchemy
       update_column(:last_request_at, Time.now)
     end
 
-  private
+    private
 
     def logged_in_timeout
       self.class.logged_in_timeout

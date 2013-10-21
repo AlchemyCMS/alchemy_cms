@@ -6,11 +6,11 @@ Alchemy::Modules.register_module({
     controller: 'alchemy/admin/users',
     action: 'index',
     icon: 'users',
-    sub_navigation: {
+    sub_navigation: [{
       name: 'modules.users',
       controller: 'alchemy/admin/users',
       action: 'index'
-    }
+    }]
   }
 })
 

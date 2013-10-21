@@ -13,11 +13,11 @@ module Alchemy
       end
 
       it "mail body includes users name" do
-        mail.body.should match /#{user.name}/
+        mail.body.should have_content user.name
       end
 
       it "mail body includes users login" do
-        mail.body.should match /#{user.login}/
+        mail.body.should have_content user.login
       end
 
       it "mail body includes password instructions" do
@@ -44,7 +44,7 @@ module Alchemy
     end
 
     describe '#reset_password_instructions' do
-      let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe') }
+      let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe', fullname: 'John Doe') }
       let(:mail) { Notifications.reset_password_instructions(user) }
 
       before { user.stub(:reset_password_token).and_return('123') }

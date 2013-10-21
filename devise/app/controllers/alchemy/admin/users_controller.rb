@@ -15,8 +15,8 @@ module Alchemy
       end
 
       def index
-        if !params[:query].blank?
-          users = User.where([
+        if params[:query].present?
+          @users = User.where([
            "login LIKE ? OR email LIKE ? OR firstname LIKE ? OR lastname LIKE ?",
            "%#{params[:query]}%",
            "%#{params[:query]}%",
@@ -24,9 +24,9 @@ module Alchemy
            "%#{params[:query]}%"
          ])
         else
-          users = User.all
+          @users = User.all
         end
-        @users = users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
+        @users = @users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
       end
 
       def new
@@ -60,7 +60,7 @@ module Alchemy
         # User is fetched via before filter
         name = @user.name
         if @user.destroy
-          flash[:notice] = _t("User deleted", :name => name)
+          flash[:notice] = _t("User deleted", name: name)
         end
         do_redirect_to admin_users_path
       end
@@ -78,7 +78,7 @@ module Alchemy
 
       def secure_attributes
         if can?(:update_role, Alchemy::User)
-          User::PERMITTED_ATTRIBUTES + [{roles: []}]
+          User::PERMITTED_ATTRIBUTES + [{alchemy_roles: []}]
         else
           User::PERMITTED_ATTRIBUTES
         end

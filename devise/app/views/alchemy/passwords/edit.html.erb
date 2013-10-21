@@ -13,10 +13,10 @@
       <%= devise_error_messages! %>
     </div>
   <% end %>
-    <%= alchemy_form_for :user, url: update_password_path, html: {method: 'patch'} do |f| %>
+    <%= alchemy_form_for resource, as: resource_name, url: update_password_path, method: 'patch' do |f| %>
       <%= f.hidden_field :reset_password_token %>
-      <%= f.password, autofocus: true, label: _t("New password") %>
-      <%= f.password_confirmation label: _t("Confirm new password") %>
+      <%= f.input :password, autofocus: true, label: _t("New password") %>
+      <%= f.input :password_confirmation, label: _t("Confirm new password") %>
       <%= f.submit _t("Change password") %>
     <% end %>
   </div>

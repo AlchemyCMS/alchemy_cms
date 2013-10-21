@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
@@ -12,12 +15,15 @@ require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
 require_relative 'support/factories'
 
+ActionMailer::Base.delivery_method = :test
+ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = "test.com"
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 
 RSpec.configure do |config|
+  config.use_transactional_fixtures = true
   config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::TestSupport::AuthHelpers
   config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
