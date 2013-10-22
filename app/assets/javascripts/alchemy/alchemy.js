@@ -17,6 +17,8 @@
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/
 //= require spin.min
 //= require keymage.min
+//= require select2
+//= require select2_locale_de
 //= require alchemy/alchemy.routes
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.browser

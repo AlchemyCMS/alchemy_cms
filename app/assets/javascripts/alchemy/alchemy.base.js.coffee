@@ -77,7 +77,7 @@ $.extend Alchemy,
   # Initializes all select tag with .alchemy_selectbox class as selectBoxIt instance
   # Pass a jQuery scope to only init a subset of selectboxes.
   SelectBox: (scope) ->
-    $("select.alchemy_selectbox", scope).selectBoxIt()
+    $("select.alchemy_selectbox", scope).select2()
     return
 
   Buttons: (options) ->

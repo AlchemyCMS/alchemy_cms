@@ -12,6 +12,7 @@ require 'rails-observers'
 require 'sass-rails'
 require 'sassy-buttons'
 require 'simple_form'
+require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
 
