@@ -5,3 +5,31 @@ select {
   height: 29px;
   padding: 0.4em 0.6em;
 }
+
+.select2-container {
+
+  &.tiny {
+
+    .select2-choice {
+      height: 18px;
+      line-height: 18px;
+
+      .select2-arrow b {
+        background-position: 0 -3px;
+      }
+    }
+
+    &.select2-dropdown-open {
+      .select2-choice .select2-arrow b {
+        background-position: -18px -3px;
+      }
+    }
+  }
+}
+
+.select2-results {
+
+  li {
+    margin: 0;
+  }
+}

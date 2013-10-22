@@ -649,18 +649,11 @@ div.content_editor {
 
     label { margin-bottom: 4px }
 
-    .selectboxit-container {
-      @include box-sizing(border-box);
+    .select2-container {
       width: 100%;
     }
 
-    .selectboxit {
-      @include box-sizing(border-box);
-      width: 100% !important;
-      height: 100%;
-    }
-
-    &.display_inline .selectboxit-container {
+    &.display_inline .select2-container {
       width: 170px;
     }
   }

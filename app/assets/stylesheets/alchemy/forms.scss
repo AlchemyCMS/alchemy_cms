@@ -20,7 +20,7 @@ form {
     input[type="email"],
     input[type="password"],
     textarea,
-    .selectboxit-container,
+    .select2-container,
     .autocomplete_tag_list {
       width: $form-right-width;
       float: right;
@@ -32,7 +32,7 @@ form {
 
     &.select {
 
-      .selectboxit-container {
+      .select2-container {
         margin-top: 6px;
       }
     }
