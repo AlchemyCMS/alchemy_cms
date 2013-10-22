@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+branches:
+  only:
+    - master
+script: rake
+env:
+  - DB=mysql
+  - DB=postgresql

@@ -1,5 +1,7 @@
 ## Devise based authentication for Alchemy 3.0
 
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_devise.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_devise)
+
 Alchemy 3.0 has dropped the authentication from its core. So now it is possibly to bring your own authentication and use it to authorize users in Alchemy.
 
 In order to bring the authentication from Alchemy back into your app (For instance, because you don't have your own user authorization), you can use this gem.

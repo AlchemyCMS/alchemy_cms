@@ -9,3 +9,5 @@ spec/dummy/.sass-cache
 Gemfile.lock
 
 /coverage/
+
+/rdoc/
