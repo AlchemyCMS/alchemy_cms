@@ -78,7 +78,7 @@ $.extend Alchemy,
   # Pass a jQuery scope to only init a subset of selectboxes.
   SelectBox: (scope) ->
     $("select.alchemy_selectbox", scope).select2
-      minimumResultsForSearch: -1
+      minimumResultsForSearch: 7
     return
 
   Buttons: (options) ->

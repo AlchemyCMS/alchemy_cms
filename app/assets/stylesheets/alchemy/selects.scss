@@ -58,9 +58,20 @@ select {
       padding: 4px;
       margin: 0;
     }
+
+    .select2-result-label {
+      padding: 4px 8px;
+    }
   }
 
   &.select2-drop-active {
     border-color: $blue;
+  }
+}
+
+.window_form, #filter_bar {
+
+  .select2-container {
+    width: 100%;
   }
 }
