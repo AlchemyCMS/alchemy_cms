@@ -105,14 +105,14 @@ div.sitemap_left_images {
   background-color: $light-gray;
 }
 
-div.sitemap_right_tools {
+.sitemap_right_tools {
   height: 22px;
   background-color: $light-gray;
   padding-left: 8px;
   float: right;
   width: 120px;
 
-  a {
+  .show_elements_to_link, .sitemap_tool {
     float: left;
     width: 24px;
     height: 21px;

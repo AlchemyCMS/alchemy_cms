@@ -25,11 +25,42 @@ select {
       }
     }
   }
+
+  &.select2-container-active {
+
+    .select2-choice, .select2-choices {
+      @extend %blue-focus-style;
+    }
+  }
 }
 
-.select2-results {
+.select2-drop {
 
-  li {
+  .select2-results {
+    padding: 0;
     margin: 0;
+
+    .select2-result {
+      margin: 0;
+      padding: 4px;
+
+      &.select2-highlighted {
+        background: $button-hover-bg-color;
+        color: $text-color;
+      }
+
+      &.select2-result-with-children {
+        padding: 0;
+      }
+    }
+
+    .select2-no-results {
+      padding: 4px;
+      margin: 0;
+    }
+  }
+
+  &.select2-drop-active {
+    border-color: $blue;
   }
 }

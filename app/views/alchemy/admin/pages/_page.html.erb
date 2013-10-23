@@ -15,7 +15,8 @@
             size: '480x320'
           },
           {
-            title: _t(:page_infos)
+            title: _t(:page_infos),
+            class: 'sitemap_tool'
           }
         ) %>
       <%- end -%>
@@ -27,7 +28,8 @@
             :title => _t(:edit_page_properties),
             :size => page.redirects_to_external? ? '410x270' : '410x655'
           },
-          :title => _t(:edit_page_properties)
+          :title => _t(:edit_page_properties),
+          class: 'sitemap_tool'
         ) -%>
       <%- end -%>
       <span class="sitemap_sitetools">
@@ -40,7 +42,8 @@
           ),
           :remote => true,
           :method => :post,
-          :title => _t(:copy_page)
+          :title => _t(:copy_page),
+          class: 'sitemap_tool'
         ) %>
       <%- end -%>
       <%- if can?(:destroy, page) -%>
@@ -53,7 +56,8 @@
             :id => page.id
           ),
           {
-            :title => _t(:delete_page)
+            :title => _t(:delete_page),
+            class: 'sitemap_tool'
           }
         ) -%>
       <%- end -%>
@@ -66,7 +70,8 @@
             :size => '340x150',
             :overflow => true
           },
-          :title => _t(:create_page)
+          :title => _t(:create_page),
+          class: 'sitemap_tool'
         ) -%>
       <%- end -%>
       </span>

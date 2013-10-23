@@ -30,7 +30,7 @@ form {
       line-height: 16px;
     }
 
-    &.select {
+    &.select, &.grouped_select {
 
       .select2-container {
         margin-top: 6px;
@@ -120,5 +120,13 @@ textarea#essence_picture_caption {
     p {
       @include form-value-display;
     }
+  }
+}
+
+// styles for link overlay selects
+.window_form {
+
+  .select2-container {
+    width: 100%;
   }
 }
