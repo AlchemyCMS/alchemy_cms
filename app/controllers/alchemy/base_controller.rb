@@ -67,11 +67,7 @@ module Alchemy
     #
     def current_alchemy_user
       raise NoCurrentUserFoundError if !defined?(current_user)
-      if current_user.nil?
-        handle_redirect_for_guest
-      else
-        current_user
-      end
+      current_user
     end
 
     # Returns true if a +current_alchemy_user+ is present
