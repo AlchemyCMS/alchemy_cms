@@ -31,4 +31,5 @@ group :development, :test do
     gem 'redcarpet'
   end
   gem 'jasmine-rails', github: 'searls/jasmine-rails'
+  gem 'pry'
 end
