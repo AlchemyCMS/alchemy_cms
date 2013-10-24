@@ -13,8 +13,6 @@ module Alchemy
     before_filter :load_page
     authorize_resource only: 'show'
 
-    layout :layout_for_page
-
     # Showing page from params[:urlname]
     # @page is fetched via before filter
     # @root_page is fetched via before filter
@@ -24,14 +22,14 @@ module Alchemy
       expires_in cache_page? ? 1.month : 0
       if !cache_page? || stale?(etag: @page, last_modified: @page.published_at, public: !@page.restricted)
         respond_to do |format|
-          format.html { render }
-          format.rss {
+          format.html { render layout: layout_for_page }
+          format.rss do
             if @page.contains_feed?
               render action: 'show', layout: false, handlers: [:builder]
             else
               render xml: {error: 'Not found'}, status: 404
             end
-          }
+          end
         end
       end
     end

@@ -59,8 +59,6 @@ module Alchemy
       end
 
       context "with param layout set to a custom layout" do
-        render_views
-
         before do
           @custom_layout = Rails.root.join('app/views/layouts', 'custom.html.erb')
           File.open(@custom_layout, 'w') do |custom_layout|
@@ -70,7 +68,7 @@ module Alchemy
 
         it "should render the custom layout" do
           get :show, :urlname => default_language_root.urlname, :layout => 'custom'
-          response.body.should have_content('I am a custom layout')
+          response.body.should render_template(layout: 'custom')
         end
 
         after do
