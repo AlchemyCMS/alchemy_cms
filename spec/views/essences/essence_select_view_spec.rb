@@ -5,7 +5,7 @@ describe 'alchemy/essences/_essence_select_view' do
   let(:essence) { Alchemy::EssenceSelect.new(ingredient: 'blue') }
 
   it "renders the ingredient" do
-    render content
+    render content, content: content
     expect(rendered).to have_content('blue')
   end
 

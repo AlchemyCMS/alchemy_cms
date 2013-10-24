@@ -7,7 +7,7 @@ describe 'alchemy/essences/_essence_boolean_view' do
     before { view.stub(:_t).and_return('true') }
 
     it "renders true" do
-      render content
+      render content, content: content
       expect(rendered).to have_content('true')
     end
   end
@@ -17,7 +17,7 @@ describe 'alchemy/essences/_essence_boolean_view' do
     before { view.stub(:_t).and_return('false') }
 
     it "renders false" do
-      render content
+      render content, content: content
       expect(rendered).to have_content('false')
     end
   end
