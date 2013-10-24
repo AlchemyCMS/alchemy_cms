@@ -5,14 +5,8 @@ module Alchemy
 
       # Returns a string for the id attribute of a html element for the given content
       def content_dom_id(content)
-        return "" if content.nil?
-        if content.class == String
-          c = Content.find_by_name(content)
-          return "" if c.nil?
-        else
-          c = content
-        end
-        "#{c.essence_type.demodulize.underscore}_#{c.id}"
+        return if content.nil?
+        "#{content.essence_partial_name}_#{content.id}"
       end
 
       # Returns a jquery selector string of form field ids from given contents
@@ -20,11 +14,16 @@ module Alchemy
         contents.collect { |c| "##{c.form_field_id}" }.join(', ')
       end
 
-      # Renders the name of elements content or the default name defined in elements.yml
+      # Renders the name of elements content.
+      #
+      # Displays a warning icon if content is missing its description.
+      #
+      # Displays a mandatory field indicator, if the content has validations.
+      #
       def render_content_name(content)
         if content.blank?
-          warning('Element is nil')
-          return ""
+          warning('Content is nil')
+          return
         else
           content_name = content.name_for_label
         end
@@ -33,7 +32,11 @@ module Alchemy
           title = _t(:content_description_missing)
           content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;#{content_name}).html_safe
         end
-        content.has_validations? ? "#{content_name}<span class='validation_indicator'>*</span>".html_safe : content_name
+        if content.has_validations?
+          "#{content_name}<span class='validation_indicator'>*</span>".html_safe
+        else
+          content_name
+        end
       end
 
       # Renders a link to show the new content overlay that lets you add additional contents.
