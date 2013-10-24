@@ -84,24 +84,21 @@ module Alchemy
     #
     # This Hash is available as +options+ local variable.
     #
-    #   :for_view => {}
-    #   :for_editor => {}
+    #   for_view: {}
+    #   for_editor: {}
     #
     def render_essence(content, part = :view, options = {}, html_options = {})
-      options = {:for_view => {}, :for_editor => {}}.update(options)
+      options = {for_view: {}, for_editor: {}}.update(options)
       if content.nil?
         return part == :view ? "" : warning('Content is nil', _t(:content_not_found))
       elsif content.essence.nil?
         return part == :view ? "" : warning('Essence is nil', _t(:content_essence_not_found))
       end
-      render(
-        :partial => "alchemy/essences/#{content.essence_partial_name}_#{part.to_s}",
-        :locals => {
-          :content => content,
-          :options => options["for_#{part}".to_sym],
-          :html_options => html_options
-        }
-      )
+      render partial: "alchemy/essences/#{content.essence_partial_name}_#{part}", locals: {
+        content: content,
+        options: options["for_#{part}".to_sym],
+        html_options: html_options
+      }
     end
 
     # Renders the +Esssence+ view partial for given +Content+.

@@ -1,8 +1,8 @@
-<% cache(essence_richtext_view) do %>
+<% cache(content) do %>
 <% options = local_assigns.fetch(:options, {}) %>
 <%- if options[:shorten_to].blank? -%>
-<%= raw essence_richtext_view.essence.send(options[:plain_text] ? :stripped_body : :body) %>
+<%= raw content.essence.send(options[:plain_text] ? :stripped_body : :body) %>
 <%- else -%>
-<%= raw essence_richtext_view.essence.send(options[:plain_text] ? :stripped_body : :body).split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…') %>
+<%= raw content.essence.send(options[:plain_text] ? :stripped_body : :body).split(" ").first(options[:shorten_to]).join(" ") + (options[:shorten_suffix] || '…') %>
 <%- end -%>
 <% end %>

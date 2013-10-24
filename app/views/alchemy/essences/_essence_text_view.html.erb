@@ -1,16 +1,16 @@
-<% cache(essence_text_view) do %>
+<% cache(content) do %>
 <% options = local_assigns.fetch(:options, {}) %>
 <% html_options = local_assigns.fetch(:html_options, {}) %>
-<%- if essence_text_view.essence.link.blank? || options[:disable_link] -%>
-<%= essence_text_view.ingredient -%>
+<%- if content.essence.link.blank? || options[:disable_link] -%>
+<%= content.ingredient -%>
 <%- else -%>
 <%= link_to(
-  essence_text_view.ingredient,
-  url_for(essence_text_view.essence.link),
+  content.ingredient,
+  url_for(content.essence.link),
   {
-    title: essence_text_view.essence.link_title,
-    target: (essence_text_view.essence.link_target == "blank" ? "_blank" : nil),
-    'data-link-target' => essence_text_view.essence.link_target
+    title: content.essence.link_title,
+    target: (content.essence.link_target == "blank" ? "_blank" : nil),
+    'data-link-target' => content.essence.link_target
   }.merge(html_options)
 ) %>
 <%- end -%>
