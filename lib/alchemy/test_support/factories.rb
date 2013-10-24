@@ -64,7 +64,7 @@ FactoryGirl.define do
 
   factory :cell, :class => 'Alchemy::Cell' do
     page { Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page) }
-    name "A Cell"
+    name "a_cell"
   end
 
   factory :element, :class => 'Alchemy::Element' do
