@@ -275,7 +275,7 @@ module Alchemy
 
     # Gets the language_root page for page
     def get_language_root
-      self_and_ancestors.where(:language_root => true).first
+      self_and_ancestors.find_by(language_root: true)
     end
 
     def copy_children_to(new_parent)

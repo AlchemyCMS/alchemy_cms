@@ -9,7 +9,7 @@ module Alchemy
     let(:language)      { Language.get_default }
     let(:klingonian)    { FactoryGirl.create(:klingonian) }
     let(:language_root) { FactoryGirl.create(:language_root_page) }
-    let(:page)          { mock_model(:page, :page_layout => 'foo') }
+    let(:page)          { mock_model(Page, :page_layout => 'foo') }
     let(:public_page)   { FactoryGirl.create(:public_page) }
     let(:news_page)     { FactoryGirl.create(:public_page, :page_layout => 'news', :do_not_autogenerate => false) }
 
@@ -877,6 +877,14 @@ module Alchemy
             end
           end
         end
+      end
+    end
+
+    describe '#get_language_root' do
+      subject { public_page.get_language_root }
+
+      it "returns the language root page" do
+        should eq language_root
       end
     end
 
