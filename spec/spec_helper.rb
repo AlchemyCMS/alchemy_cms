@@ -34,6 +34,14 @@ require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
 require_relative "support/test_tweaks.rb"
 
+# Temporay fix for mavericks phantomjs bug
+if RUBY_PLATFORM =~ /darwin/
+  require_relative "support/phantomjs_mavericks_fix.rb"
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Alchemy::WarningSuppressor)
+  end
+end
+
 # Configure capybara for integration testing
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
