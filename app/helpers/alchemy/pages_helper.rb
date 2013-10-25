@@ -49,12 +49,17 @@ module Alchemy
       language_links(options)
     end
 
-    # Renders the layout from @page.page_layout. File resists in /app/views/page_layouts/_LAYOUT-NAME.html.erb
-    def render_page_layout(options={})
-      render :partial => "alchemy/page_layouts/#{@page.page_layout.downcase}"
+    # Renders the layout for current page.
+    #
+    # Page layout files belongs in +/app/views/alchemy/page_layouts/+
+    #
+    # Falls back to +/app/views/alchemy/page_layouts/standard+ if the page_layout partial is not found.
+    #
+    def render_page_layout
+      render @page
     rescue ActionView::MissingTemplate
       warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
-      render :partial => "alchemy/page_layouts/standard"
+      render 'alchemy/page_layouts/standard'
     end
 
     # Renders a partial for current site

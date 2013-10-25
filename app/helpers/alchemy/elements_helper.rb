@@ -357,7 +357,7 @@ module Alchemy
       elements.each_with_index do |element, i|
         buff << render_element(element, :view, options, i + 1)
       end
-      buff.join(options[:separator])
+      buff.join(options[:separator]).html_safe
     end
 
   end
