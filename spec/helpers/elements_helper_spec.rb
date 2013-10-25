@@ -1,225 +1,269 @@
 require 'spec_helper'
-
 include Alchemy::BaseHelper
 
 module Alchemy
   describe ElementsHelper do
+    let(:page)    { build_stubbed(:public_page) }
+    let(:element) { build_stubbed(:element, page: page) }
 
-    before(:each) do
-      @page = FactoryGirl.create(:public_page)
-      @element = FactoryGirl.create(:element, :page => @page)
-      session[:language_id] = @page.language_id
+    before do
+      assign(:page, page)
+      Element.any_instance.stub(store_page: true)
     end
 
-    it "should render an element view partial" do
-      helper.render_element(@element).should match(/id="#{@element.name}_#{@element.id}"/)
+    describe '#render_element' do
+      subject { helper.render_element(element) }
+
+      it "should render an element view partial" do
+        should have_selector("##{element.name}_#{element.id}")
+      end
     end
 
-    it "should render a unique dom id for element" do
-      helper.element_dom_id(@element).should == "#{@element.name}_#{@element.id}"
+    describe '#element_dom_id' do
+      subject { helper.element_dom_id(element) }
+
+      it "should render a unique dom id for element" do
+        should == "#{element.name}_#{element.id}"
+      end
     end
 
     describe "#render_elements" do
+      subject { helper.render_elements(options) }
 
-      before(:each) do
-        helper.stub(:configuration).and_return(true)
-      end
+      let(:another_element) { build_stubbed(:element, page: page) }
+      let(:elements)        { [element, another_element] }
 
-      context "with no certain option given" do
-        it "should render all elements from @page" do
-          @another_element = FactoryGirl.create(:element, :page => @page)
-          # m for regex means line breaks are like every character
-          helper.render_elements.should match(/id="#{@element.name}_#{@element.id.to_s}.*id="#{@another_element.name}_#{@another_element.id.to_s}"/m)
+      context 'without any options' do
+        let(:options) { {} }
+
+        before do
+          page.should_receive(:find_elements).and_return(elements)
         end
 
-        it "should not render elements that are in a cell" do
-          cell = FactoryGirl.create(:cell)
-          @another_element = FactoryGirl.create(:element, :page => @page, :cell_id => cell.id)
-          helper.render_elements.should_not match(/id="#{@another_element.name}_#{@another_element.id}"/)
-        end
-      end
-
-      context "with except option" do
-        it "should render all elements except a certain one" do
-          @another_element = FactoryGirl.create(:element, :page => @page)
-          helper.render_elements(:except => @another_element.name).should_not match(/id="#{@another_element.name}_\d*"/)
-        end
-      end
-
-      context "with only option" do
-        it "should render one certain element" do
-          @another_element = FactoryGirl.create(:element, :name => 'headline', :page => @page)
-          helper.render_elements(:only => @element.name).should_not match(/id="#{@another_element.name}_\d*"/)
+        it "should render all elements from page." do
+          should have_selector("##{element.name}_#{element.id}")
+          should have_selector("##{another_element.name}_#{another_element.id}")
         end
       end
 
       context "with from_page option" do
-        it "should render all elements from a certain page" do
-          @another_page = FactoryGirl.create(:public_page)
-          @element_on_other_page = FactoryGirl.create(:element, :name => 'headline', :page => @another_page)
-          helper.render_elements(:from_page => @another_page).should match(/id="#{@element_on_other_page.name}_\d*"/)
-        end
+        context 'is a page object' do
+          let(:another_page) { build_stubbed(:public_page) }
+          let(:options)      { {from_page: another_page} }
 
-        it "should not render any elements in a cell from the given page" do
-          @another_page = FactoryGirl.create(:public_page)
-          @cell = FactoryGirl.create(:cell, :name => "Celltest", :page => @another_page)
-          @element_not_in_cell = FactoryGirl.create(:element, :name => 'headline', :page => @another_page)
-          @element_in_cell = FactoryGirl.create(:element, :name => 'article', :cell => @cell, :page => @another_page)
-          helper.render_elements(:from_page => @another_page).should_not match(/id="#{@element_in_cell.name}_#{@element_in_cell.id}*"/)
-        end
+          before do
+            another_page.should_receive(:find_elements).and_return(elements)
+          end
 
-        context "and from_cell option" do
-          it "should render all elements from the page's cell" do
-            @another_page = FactoryGirl.create(:public_page)
-            @cell = FactoryGirl.create(:cell, :name => "Celltest", :page => @another_page)
-            @element_not_in_cell = FactoryGirl.create(:element, :name => 'headline', :page => @another_page)
-            @element_in_cell = FactoryGirl.create(:element, :name => 'article', :cell => @cell, :page => @another_page)
-            helper.render_elements(:from_page => @another_page, :from_cell => "Celltest").should match(/id="#{@element_in_cell.name}_#{@element_in_cell.id}*"/)
+          it "should render all elements from that page." do
+            should have_selector("##{element.name}_#{element.id}")
+            should have_selector("##{another_element.name}_#{another_element.id}")
           end
         end
 
-      end
+        context 'is a string' do
+          let(:another_page)    { build_stubbed(:public_page) }
+          let(:another_element) { build_stubbed(:element, page: another_page) }
+          let(:other_elements)  { [another_element] }
+          let(:options)         { {from_page: 'news'} }
 
-      context "with from_cell option" do
-        it "should render all elements from a certain cell" do
-          cell = FactoryGirl.create(:cell)
-          @another_element = FactoryGirl.create(:element, :page => @page, :cell_id => cell.id)
-          helper.render_elements(:from_cell => cell).should match(/id="#{@another_element.name}_#{@another_element.id}"/)
-        end
+          before do
+            array = double
+            array.should_receive(:to_a).and_return(pages)
+            Page.should_receive(:where).and_return(array)
+            another_page.should_receive(:find_elements).and_return(other_elements)
+          end
 
-        context "with from_cell and only option" do
-          it "should render certain elements from a certain cell" do
-            cell = FactoryGirl.create(:cell)
-            @another_element = FactoryGirl.create(:element, :page => @page, :cell_id => cell.id)
-            @another_element2 = FactoryGirl.create(:element, :page => @page)
-            helper.render_elements(:from_cell => cell, :only => @another_element.name).should_not match(/id="#{@another_element2.name}_#{@another_element2.id}"/)
+          context 'and one page can be found by page layout' do
+            let(:pages) { [another_page] }
+
+            it "it renders all elements from that page." do
+              should have_selector("##{another_element.name}_#{another_element.id}")
+            end
+          end
+
+          context 'and an array of pages has been found' do
+            let(:pages)           { [page, another_page] }
+
+            before do
+              page.should_receive(:find_elements).and_return(elements)
+            end
+
+            it 'renders elements from these pages' do
+              should have_selector("##{element.name}_#{element.id}")
+              should have_selector("##{another_element.name}_#{another_element.id}")
+            end
           end
         end
-
-        context "with from_cell and except option" do
-          it "should render all elements except certain ones from a certain cell" do
-            cell = FactoryGirl.create(:cell)
-            @another_element = FactoryGirl.create(:element, :page => @page, :cell_id => cell.id)
-            @another_element2 = FactoryGirl.create(:element, :page => @page, :cell_id => cell.id)
-            helper.render_elements(:from_cell => cell, :except => @another_element.name).should_not match(/id="#{@another_element.name}_#{@another_element.id}"/)
-          end
-        end
-
       end
 
-      context "with count option" do
-        it "should render just one element because of the count option" do
-          @page.elements.delete_all
-          @another_element_1 = FactoryGirl.create(:element, :page => @page)
-          @another_element_2 = FactoryGirl.create(:element, :page => @page)
-          @another_element_3 = FactoryGirl.create(:element, :page => @page)
-          helper.render_elements(:count => 1).should match(/id="#{@another_element_1.name}_#{@another_element_1.id}"/)
-        end
+      context 'if page is nil' do
+        let(:options) { {from_page: nil} }
+        it { should be_blank }
       end
 
-      context "with offset option" do
-        it "should render all elements beginning with the second." do
-          @page.elements.delete_all
-          @another_page = FactoryGirl.create(:public_page)
-          @another_element_1 = FactoryGirl.create(:element, :page => @page)
-          @another_element_2 = FactoryGirl.create(:element, :page => @page)
-          @another_element_3 = FactoryGirl.create(:element, :page => @page)
-          helper.render_elements(:offset => 1).should_not match(/id="#{@another_element_1.name}_#{@another_element_1.id}"/)
+      context 'with sort_by option given' do
+        let(:options)         { {sort_by: 'title'} }
+        let(:sorted_elements) { [another_element, element] }
+
+        before do
+          elements.should_receive(:sort_by).and_return(sorted_elements)
+          page.should_receive(:find_elements).and_return(elements)
+        end
+
+        it "renders the elements in the order of given content name" do
+          should_not be_blank
         end
       end
 
       context "with option fallback" do
-        before do
-          @another_page = FactoryGirl.create(:public_page, :name => 'Another Page', :page_layout => 'news')
-          @another_element_1 = FactoryGirl.create(:element, :page => @another_page, :name => 'news')
+        let(:another_page)    { build_stubbed(:public_page, name: 'Another Page', page_layout: 'news') }
+        let(:another_element) { build_stubbed(:element, page: another_page, name: 'news') }
+        let(:elements)        { [another_element] }
+
+        context 'with string given as :fallback_from' do
+          let(:options) { {fallback: {for: 'higgs', with: 'news', from: 'news'}} }
+
+          before do
+            Page.should_receive(:find_by).and_return(another_page)
+            another_page.stub_chain(:elements, :named).and_return(elements)
+          end
+
+          it "renders the fallback element" do
+            should have_selector("#news_#{another_element.id}")
+          end
         end
 
-        it "should render the fallback element, when no element with the given name is found" do
-          helper.render_elements(
-            :fallback => {:for => 'higgs', :with => 'news', :from => 'news'}
-          ).should match(/id="news_#{@another_element_1.id}"/)
-        end
+        context 'with page given as :fallback_from' do
+          let(:options) { {fallback: {for: 'higgs', with: 'news', from: another_page}} }
 
-        it "should also take a page object as fallback from" do
-          helper.render_elements(
-            :fallback => {:for => 'higgs', :with => 'news', :from => @another_page}
-          ).should match(/id="news_#{@another_element_1.id}"/)
+          before do
+            another_page.stub_chain(:elements, :named).and_return(elements)
+          end
+
+          it "renders the fallback element" do
+            should have_selector("#news_#{another_element.id}")
+          end
         end
       end
 
+      context 'with option separator given' do
+        let(:options) { {separator: '<hr>'} }
+
+        before do
+          page.should_receive(:find_elements).and_return(elements)
+        end
+
+        it "joins element partials with given string" do
+          should have_selector('hr')
+        end
+      end
     end
 
     describe "#render_cell_elements" do
-      it "should render elements for a cell" do
-        cell = FactoryGirl.create(:cell)
-        @element_in_cell = FactoryGirl.create(:element, :cell_id => cell.id)
-        helper.stub(:configuration).and_return(true)
-        helper.render_cell_elements(cell).should match(/id="#{@element_in_cell.name}_#{@element_in_cell.id}"/)
+      subject { helper.render_cell_elements(cell) }
+
+      context 'with cell given' do
+        let(:cell)            { build_stubbed(:cell) }
+        let(:element_in_cell) { build_stubbed(:element, cell: cell) }
+
+        before do
+          page.should_receive(:find_elements).and_return([element_in_cell])
+        end
+
+        it "renders elements from cell." do
+          should have_selector("##{element_in_cell.name}_#{element_in_cell.id}")
+        end
+      end
+
+      context 'if cell is nil' do
+        let(:cell) { nil }
+        it { should be_blank }
       end
     end
 
-    context "in preview mode" do
-      describe '#element_preview_code_attributes' do
-        it "should return the data-alchemy-element HTML attribute for element" do
-          @preview_mode = true
-          helper.element_preview_code_attributes(@element).should == {:'data-alchemy-element' => @element.id}
-        end
+    describe '#element_preview_code_attributes' do
+      subject { helper.element_preview_code_attributes(element) }
 
-        it "should return an empty hash if not in preview_mode" do
-          helper.element_preview_code_attributes(@element).should == {}
+      context 'in preview_mode' do
+        before { assign(:preview_mode, true) }
+
+        it "should return the data-alchemy-element HTML attribute for element" do
+          should == {:'data-alchemy-element' => element.id}
         end
       end
 
-      describe '#element_preview_code' do
-        it "should return the data-alchemy-element HTML attribute for element" do
-          assign(:preview_mode, true)
-          helper.element_preview_code(@element).should == " data-alchemy-element=\"#{@element.id}\""
+      context 'not in preview_mode' do
+        it "should return an empty hash" do
+          should == {}
         end
+      end
+    end
 
-        it "should not return the data-alchemy-element HTML attribute if not in preview_mode" do
-          helper.element_preview_code(@element).should_not == " data-alchemy-element=\"#{@element.id}\""
+    describe '#element_preview_code' do
+      subject { helper.element_preview_code(element) }
+
+      context 'in preview_mode' do
+        before { assign(:preview_mode, true) }
+
+        it "should return the data-alchemy-element HTML attribute for element" do
+          should == " data-alchemy-element=\"#{element.id}\""
+        end
+      end
+
+      context 'not in preview_mode' do
+        it "should not return the data-alchemy-element HTML attribute" do
+          should_not == " data-alchemy-element=\"#{element.id}\""
         end
       end
     end
 
     describe '#element_tags' do
+      subject { helper.element_tags(element, options) }
+
+      let(:options) { {} }
 
       context "element having tags" do
-        before { @element.tag_list = "peter, lustig"; @element.save! }
+        before { element.tag_list = "peter, lustig" }
 
         context "with no formatter lambda given" do
           it "should return tag list as HTML data attribute" do
-            helper.element_tags(@element).should == " data-element-tags=\"peter lustig\""
+            should == " data-element-tags=\"peter lustig\""
           end
         end
 
         context "with a formatter lambda given" do
+          let(:options) { {formatter: ->(tags) { tags.join ", " }} }
+
           it "should return a properly formatted HTML data attribute" do
-            helper.element_tags(@element, :formatter => lambda { |tags| tags.join ", " }).
-              should == " data-element-tags=\"peter, lustig\""
+            should == " data-element-tags=\"peter, lustig\""
           end
         end
       end
 
       context "element not having tags" do
-        it "should return empty string" do
-          helper.element_tags(@element).should be_blank
-        end
+        it { should be_blank }
       end
-
     end
 
     describe '#all_elements_by_name' do
-      let(:page) { mock_model('Page') }
-      let(:element) { mock_model('Element') }
+      subject { helper.all_elements_by_name(name, options) }
 
-      it "should return all public elements found by name" do
-        Element.stub_chain(:published, :where, :limit).and_return([element])
-        expect(helper.all_elements_by_name('el_name')).to eq([element])
+      let(:page)    { mock_model('Page', language_id: 1) }
+      let(:element) { mock_model('Element') }
+      let(:name)    { 'el_name' }
+      let(:options) { {} }
+
+      context 'found by name' do
+        it "should return all public elements" do
+          Element.stub_chain(:published, :where, :limit).and_return([element])
+          should eq([element])
+        end
       end
 
-      it "should return an empty collection if element not found" do
-        expect(helper.all_elements_by_name('not_existing_name')).to eq([])
+      context 'if element not found' do
+        let(:name) { 'not_existing_name' }
+        it { should be_empty }
       end
 
       context "options[:from_page] is passed" do
@@ -229,21 +273,27 @@ module Alchemy
         end
 
         context "as a String" do
+          let(:options) { {from_page: 'layout_name'} }
+
           it "should return all elements associated with the page found by the given layout name" do
-            expect(helper.all_elements_by_name('el_name', from_page: 'layout_name')).to eq([element])
+            should eq([element])
           end
         end
 
         context "as a Page object" do
+          let(:options) { {from_page: page} }
+
           it "should return all elements associated with this given page" do
-            expect(helper.all_elements_by_name('el_name', from_page: page)).to eq([element])
+            should eq([element])
           end
         end
       end
     end
 
     describe '#element_from_page' do
-      let(:page) { mock_model('Page', urlname: 'page-1') }
+      subject { helper.element_from_page(options) }
+
+      let(:page)    { mock_model('Page', urlname: 'page-1', language_id: 1) }
       let(:element) { mock_model('Element', name: 'el_name') }
 
       before do
@@ -251,22 +301,74 @@ module Alchemy
       end
 
       context "options[:page_urlname] and options[:element_name] is passed" do
+        let(:options) { {element_name: element.name, page_urlname: page.urlname} }
+
         before do
           Page.stub_chain(:published, :find_by_urlname).and_return(page)
         end
 
         it "should return the element with the given name" do
-          expect(helper.element_from_page(element_name: element.name, page_urlname: page.urlname)).to eq(element)
+          should eq(element)
         end
       end
 
       context "options[:page_id] and options[:element_name] is passed" do
+        let(:options) { {element_name: element.name, page_id: page.id} }
+
         before do
           Page.stub_chain(:published, :find_by_id).and_return(page)
         end
 
         it "should return the element with the given name" do
-          expect(helper.element_from_page(element_name: element.name, page_id: page.id)).to eq(element)
+          should eq(element)
+        end
+      end
+    end
+
+    describe '#sort_elements_by_content' do
+      subject { sort_elements_by_content(elements, 'headline') }
+
+      let(:element_1)    { build_stubbed(:element) }
+      let(:element_2)    { build_stubbed(:element) }
+      let(:element_3)    { build_stubbed(:element) }
+      let(:ingredient_a) { double(ingredient: 'a') }
+      let(:ingredient_b) { double(ingredient: 'b') }
+      let(:ingredient_c) { double(ingredient: 'c') }
+      let(:elements)     { [element_1, element_2, element_3] }
+
+      before do
+        element_1.should_receive(:content_by_name).and_return(ingredient_b)
+        element_2.should_receive(:content_by_name).and_return(ingredient_c)
+        element_3.should_receive(:content_by_name).and_return(ingredient_a)
+      end
+
+      it "sorts the elements by content" do
+        should eq [element_3, element_1, element_2]
+      end
+
+      context 'with element not having this content' do
+        let(:element_4) { build_stubbed(:element) }
+        let(:elements)  { [element_1, element_2, element_3, element_4] }
+
+        before do
+          element_4.should_receive(:content_by_name).and_return(nil)
+        end
+
+        it "puts it at first place" do
+          should eq [element_4, element_3, element_1, element_2]
+        end
+      end
+
+      context 'with element having content with nil as ingredient' do
+        let(:element_4) { build_stubbed(:element) }
+        let(:elements)  { [element_1, element_2, element_3, element_4] }
+
+        before do
+          element_4.should_receive(:content_by_name).and_return(double(ingredient: nil))
+        end
+
+        it "puts it at first place" do
+          should eq [element_4, element_3, element_1, element_2]
         end
       end
     end

@@ -74,54 +74,25 @@ module Alchemy
     #   A string that will be used to join the element partials. Default nil
     #
     def render_elements(options = {})
-      default_options = {
-        :except => [],
-        :only => [],
-        :from_page => @page,
-        :from_cell => nil,
-        :count => nil,
-        :offset => nil,
-        :locals => {},
-        :render_format => "html",
-        :fallback => nil
-      }
-      options = default_options.merge(options)
-      if options[:from_page].class == Page
-        page = options[:from_page]
-      else
-        page = Page.where(:page_layout => options[:from_page]).with_language(session[:language_id]).to_a
+      options = {
+        from_page: @page,
+        render_format: 'html'
+      }.update(options)
+
+      pages = pages_holding_elements(options.delete(:from_page))
+
+      if pages.blank?
+        warning('No page to get elements from was found')
+        return
       end
-      if page.blank?
-        warning('Page is nil')
-        return ""
-      else
-        if page.class == Array
-          all_elements = page.collect { |p| p.find_elements(options) }.flatten
-        else
-          all_elements = page.find_elements(options)
-        end
-        if options[:sort_by].present?
-          all_elements = all_elements.sort_by { |e| e.contents.detect { |c| c.name == options[:sort_by] }.ingredient }
-        end
-        element_string = ""
-        if options[:fallback]
-          if all_elements.detect { |e| e.name == options[:fallback][:for] }.blank?
-            if options[:fallback][:from].class.name == 'Alchemy::Page'
-              from = options[:fallback][:from]
-            else
-              from = Page.not_restricted.where(:page_layout => options[:fallback][:from]).with_language(session[:language_id]).first
-            end
-            if from
-              all_elements += from.elements.named(options[:fallback][:with].blank? ? options[:fallback][:for] : options[:fallback][:with])
-            end
-          end
-        end
-        element_string = []
-        all_elements.each_with_index do |element, i|
-          element_string << render_element(element, :view, options, i+1)
-        end
-        element_string.join(options[:separator]).html_safe
+
+      elements = collect_elements_from_pages(pages, options)
+
+      if options[:sort_by].present?
+        elements = sort_elements_by_content(elements, options.delete(:sort_by))
       end
+
+      render_element_view_partials(elements, options)
     end
 
     # This helper renders a {Alchemy::Element} partial.
@@ -262,9 +233,10 @@ module Alchemy
     end
 
     # Renders all element partials from given cell.
+    #
     def render_cell_elements(cell)
       return warning("No cell given.") if cell.blank?
-      render_elements({:from_cell => cell})
+      render_elements(from_cell: cell)
     end
 
     # Returns a string for the id attribute of a html element for the given element
@@ -319,6 +291,72 @@ module Alchemy
 
       return {} if !element.taggable? || element.tag_list.blank?
       { :'data-element-tags' => options[:formatter].call(element.tag_list) }
+    end
+
+    # Sort given elements by content.
+    #
+    # @param [Array] elements - The elements you want to sort
+    # @param [String] content_name - The name of the content you want to sort by
+    #
+    # @return [Array]
+    #
+    def sort_elements_by_content(elements, content_name)
+      elements.sort_by do |element|
+        content = element.content_by_name(content_name)
+        content ? content.ingredient.to_s : ''
+      end
+    end
+
+    private
+
+    def pages_holding_elements(page)
+      case page
+      when String
+        Page.where(
+          page_layout: page,
+          restricted: false,
+          language_id: session[:language_id]
+        ).to_a
+      when Page
+        page
+      end
+    end
+
+    def collect_elements_from_pages(page, options)
+      if page.is_a? Array
+        elements = page.collect { |p| p.find_elements(options) }.flatten
+      else
+        elements = page.find_elements(options)
+      end
+      if fallback_required?(elements, options)
+        elements += fallback_elements(options)
+      end
+      elements
+    end
+
+    def fallback_required?(elements, options)
+      options[:fallback] && elements.detect { |e| e.name == options[:fallback][:for] }.nil?
+    end
+
+    def fallback_elements(options)
+      fallback_options = options.delete(:fallback)
+      case fallback_options[:from]
+      when String
+        page = Page.find_by page_layout: fallback_options[:from],
+          restricted: false, language_id: session[:language_id]
+      when Page
+        page = fallback_options[:from]
+      end
+      return [] if page.blank?
+      page.elements.named(fallback_options[:with].blank? ? fallback_options[:for] : fallback_options[:with])
+    end
+
+    def render_element_view_partials(elements, options = {})
+      buff = []
+      elements.each_with_index do |element, i|
+        buff << render_element(element, :view, options, i + 1)
+      end
+      buff.join(options[:separator])
     end
 
   end
