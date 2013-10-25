@@ -4,7 +4,7 @@ include Alchemy::BaseHelper
 module Alchemy
   describe ElementsHelper do
     let(:page)    { build_stubbed(:public_page) }
-    let(:element) { build_stubbed(:element, page: page) }
+    let(:element) { build_stubbed(:element, name: 'headline', page: page) }
 
     before do
       assign(:page, page)
@@ -12,10 +12,46 @@ module Alchemy
     end
 
     describe '#render_element' do
-      subject { helper.render_element(element) }
+      subject { render_element(element, part) }
 
-      it "should render an element view partial" do
-        should have_selector("##{element.name}_#{element.id}")
+      context 'with nil element' do
+        let(:element) { nil }
+        let(:part)    { :view }
+        it { should be_nil }
+      end
+
+      context 'with no part given' do
+        let(:part) {:view}
+
+        it "renders the element's view partial" do
+          should have_selector("##{element.name}_#{element.id}")
+        end
+
+        context 'with element view partial not found' do
+          let(:element) { build_stubbed(:element, name: 'not_present')}
+
+          it "renders the view not found partial" do
+            should match(/Missing view for not_present element/)
+          end
+        end
+      end
+
+      context 'with editor as part given' do
+        let(:part) {:editor}
+
+        it "renders the element's editor partial" do
+          helper.should_receive(:render_essence_editor_by_name)
+          subject
+        end
+
+        context 'with element editor partial not found' do
+          let(:element) { build_stubbed(:element, name: 'not_present')}
+
+          it "renders the editor not found partial" do
+            should have_selector('div.error')
+            should have_content('Element editor partial not found')
+          end
+        end
       end
     end
 
@@ -219,8 +255,9 @@ module Alchemy
     end
 
     describe '#element_tags' do
-      subject { helper.element_tags(element, options) }
+      subject { element_tags(element, options) }
 
+      let(:element) { build_stubbed(:element) }
       let(:options) { {} }
 
       context "element having tags" do
@@ -370,6 +407,16 @@ module Alchemy
         it "puts it at first place" do
           should eq [element_4, element_3, element_1, element_2]
         end
+      end
+    end
+
+    describe '#full_url_for_element' do
+      subject { full_url_for_element(element) }
+
+      let(:current_server) { '' }
+
+      it "returns the url to this element" do
+        should == "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
       end
     end
 

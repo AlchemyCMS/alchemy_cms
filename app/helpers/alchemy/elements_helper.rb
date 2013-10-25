@@ -142,32 +142,33 @@ module Alchemy
     # @param [Number] counter
     #   a counter
     #
-    # @note If the view partial is not found <tt>alchemy/elements/_view_not_found.html.erb</tt> or <tt>alchemy/elements/_editor_not_found.html.erb</tt> gets rendered.
+    # @note If the view partial is not found <tt>alchemy/elements/_view_not_found.html.erb</tt>
+    #   or <tt>alchemy/elements/_editor_not_found.html.erb</tt> gets rendered.
     #
     def render_element(element, part = :view, options = {}, counter = 1)
-      begin
-        if element.blank?
-          warning('Element is nil')
-          render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => 'nil'}
-        else
-          element.store_page(@page) if part == :view
-          locals = options.delete(:locals)
-          render(
-            :partial => "alchemy/elements/#{element.name.underscore}_#{part}",
-            :locals => {
-              :element => element,
-              :counter => counter,
-              :options => options
-            }.merge(locals || {})
-          )
-        end
-      rescue ActionView::MissingTemplate => e
-        warning(%(
-          Element #{part} partial not found for #{element.name}.\n
-          #{e}
-        ))
-        render :partial => "alchemy/elements/#{part}_not_found", :locals => {:name => element.name, :error => "Element #{part} partial not found.<br>Use <code>rails generate alchemy:elements</code> to generate it."}
+      if element.nil?
+        warning('Element is nil')
+        render "alchemy/elements/#{part}_not_found", {name: 'nil'}
+        return
       end
+
+      element.store_page(@page) if part.to_sym == :view
+
+      render "alchemy/elements/#{element.name}_#{part}", {
+        element: element,
+        counter: counter,
+        options: options
+      }.merge(options.delete(:locals) || {})
+
+    rescue ActionView::MissingTemplate => e
+      warning(%(
+        Element #{part} partial not found for #{element.name}.\n
+        #{e}
+      ))
+      render "alchemy/elements/#{part}_not_found", {
+        name: element.name,
+        error: "Element #{part} partial not found.<br>Use <code>rails generate alchemy:elements</code> to generate it."
+      }
     end
 
     # This helper returns all published elements with the given name.
