@@ -16,7 +16,7 @@
           <%= f.check_box :restricted %>
           <%= f.object.class.human_attribute_name :restricted %>
         </label>
-      <% if configuration(:sitemap)[:show_flag] %>
+      <% if configuration(:sitemap)['show_flag'] %>
         <label class="checkbox">
           <%= f.check_box :sitemap %>
           <%= f.object.class.human_attribute_name :sitemap %>
