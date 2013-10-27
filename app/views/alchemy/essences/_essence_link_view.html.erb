@@ -1,5 +1,7 @@
 <% cache(content) do %>
+<% if content.ingredient %>
 <%- options[:text] ||= content.ingredient %>
 <%- html_options = { target: content.essence.link_target == "blank" ? "_blank" : nil }.merge(html_options) %>
-<%= link_to options[:text], content.ingredient, html_options %>
+<%= link_to options[:text], content.ingredient, html_options -%>
+<% end %>
 <% end %>

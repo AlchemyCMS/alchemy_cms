@@ -25,7 +25,7 @@ module Alchemy
       )
     end
 
-  private
+    private
 
     def load_attachment
       @attachment = Attachment.find(params[:id])
