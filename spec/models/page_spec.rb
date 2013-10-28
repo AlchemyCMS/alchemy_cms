@@ -449,6 +449,37 @@ module Alchemy
       end
     end
 
+    describe '.find_or_create_layout_root_for' do
+      subject { Page.find_or_create_layout_root_for(language_id) }
+
+      let(:language)    { mock_model('Language', name: 'English') }
+      let(:language_id) { language.id }
+
+      before { Language.stub(:find).and_return(language) }
+
+      context 'if no layout root page for given language id could be found' do
+        before do
+          Page.should_receive(:create!).and_return(page)
+        end
+
+        it "creates one" do
+          should eq(page)
+        end
+      end
+
+      context 'if layout root page for given language id could be found' do
+        let(:page) { mock_model('Page') }
+
+        before do
+          Page.should_receive(:layout_root_for).and_return(page)
+        end
+
+        it "returns layout root page" do
+          should eq(page)
+        end
+      end
+    end
+
     describe '.language_roots' do
       it "should return 1 language_root" do
         FactoryGirl.create(:public_page, :name => 'First Public Child', :parent_id => language_root.id, :language => language)
