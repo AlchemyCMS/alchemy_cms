@@ -31,19 +31,14 @@ module Alchemy
     end
 
     # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
-    # So the whole path is stored as urlname in tha database.
+    # So the whole path is stored as urlname in the database.
     def update_urlname!
       names = ancestors.visible.contentpages.where(language_root: nil).map(&:slug).compact
       new_urlname = (names << slug).join('/')
-      # update without callbacks
-      if new_record?
-        write_attribute :urlname, new_urlname
-      else
-        if urlname != new_urlname
-          legacy_urls.create(:urlname => urlname)
-        end
-        update_column :urlname, new_urlname
+      if urlname != new_urlname
+        legacy_urls.create(urlname: urlname)
       end
+      update_column(:urlname, new_urlname)
     end
 
     # Returns always the last part of a urlname path
