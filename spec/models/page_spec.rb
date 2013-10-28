@@ -1230,7 +1230,7 @@ module Alchemy
       let(:page) { Page.new }
 
       context 'with user class having a name accessor' do
-        let(:user) { Alchemy.user_class_name = double(name: 'Paul Page') }
+        let(:user) { double(name: 'Paul Page') }
 
         describe '#creator_name' do
           before { page.stub(:creator).and_return(user) }
