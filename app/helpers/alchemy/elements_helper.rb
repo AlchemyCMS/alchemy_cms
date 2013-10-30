@@ -70,6 +70,8 @@ module Alchemy
     #   Reverse the rendering order
     # @option options [String] :sort_by
     #   The name of a {Alchemy::Content} to sort the elements by
+    # @option options [String] :separator
+    #   A string that will be used to join the element partials. Default nil
     #
     def render_elements(options = {})
       default_options = {
@@ -114,10 +116,11 @@ module Alchemy
             end
           end
         end
+        element_string = []
         all_elements.each_with_index do |element, i|
-          element_string += render_element(element, :view, options, i+1)
+          element_string << render_element(element, :view, options, i+1)
         end
-        element_string.html_safe
+        element_string.join(options[:separator]).html_safe
       end
     end
 
