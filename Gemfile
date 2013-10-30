@@ -29,9 +29,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :development do
+group :development, :test do
   unless ENV['CI']
-    gem 'debugger'
+    gem 'pry'
     gem 'quiet_assets' # Mute assets loggin
     gem 'thin' # Get rid off 'Could not determine content-length of response body' Warning. Start with 'rails s thin'
   end
