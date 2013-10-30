@@ -38,7 +38,7 @@
   box-shadow: $shadow;
 }
 
-@mixin box-sizing($box-sizing-type: content-box) {
+@mixin box-sizing($box-sizing-type: border-box) {
   -webkit-box-sizing: $box-sizing-type;
   -moz-box-sizing: $box-sizing-type;
   box-sizing: $box-sizing-type;
@@ -47,8 +47,8 @@
 #alchemy_menubar {
   position: fixed;
   top: 0;
-  left: -353px;
-  width: 346px;
+  left: -356px;
+  width: 400px;
   z-index: 10000;
   background: $light-gray;
   @include transition;
@@ -58,7 +58,7 @@
   @include box-sizing;
   border-right: $default-border;
   border-bottom: $default-border;
-  height: 8 * $default-padding + 2px;
+  height: 44px;
   padding: 4px 40px 4px 8px;
   overflow: hidden;
   font: $default-font-style;
@@ -90,15 +90,21 @@
     height: auto;
 
     li {
+      width: 32%;
       height: 35px;
-      margin: 0 $default-padding 0 0;
+      margin: 0 $default-margin 0 0;
       padding: 0;
       @include inline-block;
       list-style-type: none;
+      text-align: center;
 
       a, button {
-        line-height: 14px;
         @extend %button-defaults;
+        padding-left: $default-padding;
+        padding-right: $default-padding;
+        width: 100%;
+        display: block;
+        line-height: 14px;
         font-weight: normal;
         text-decoration: none !important;
         color: $text-color !important;
