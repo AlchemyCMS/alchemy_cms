@@ -62,7 +62,7 @@ module Alchemy
           @page.set_language_from_parent_or_default_language
         end
         if @page.save
-          redirect_path = params[:redirect_to] || edit_admin_page_path(@page)
+          redirect_path = redirect_path_after_page_create
         else
           # TODO: Make a rollback, because the page is already persisted here.
           redirect_path = admin_pages_path
@@ -238,7 +238,7 @@ module Alchemy
         end
       end
 
-    private
+      private
 
       def load_page
         @page = Page.find(params[:id])
@@ -256,6 +256,14 @@ module Alchemy
           prevchild.nil? ? childitem.move_to_child_of(dbitem) : childitem.move_to_right_of(prevchild)
           sort_children(child, childitem) unless child['children'].nil?
           prevchild = childitem
+        end
+      end
+
+      def redirect_path_after_page_create
+        if @page.redirects_to_external?
+          admin_pages_path
+        else
+          params[:redirect_to] || edit_admin_page_path(@page)
         end
       end
 

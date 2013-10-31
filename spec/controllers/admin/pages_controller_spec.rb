@@ -73,19 +73,26 @@ module Alchemy
       let(:language) { mock_model('Language', code: 'kl') }
       let(:parent) { mock_model('Page', language: language) }
       let(:page_params) do
-        {parent_id: parent.id, name: 'new Page'} 
+        {parent_id: parent.id, name: 'new Page'}
       end
 
       context "" do
         before do
           Page.any_instance.stub(:set_language_from_parent_or_default_language)
-          Page.any_instance.stub(:save).and_return(true)
+          Page.any_instance.stub(save: true)
         end
 
         it "nests a new page under given parent" do
           controller.stub!(:edit_admin_page_path).and_return('bla')
           post :create, {page: page_params, format: :js}
           expect(assigns(:page).parent_id).to eq(parent.id)
+        end
+
+        it "redirects to edit page template" do
+          page = mock_model('Page')
+          controller.should_receive(:edit_admin_page_path).and_return('bla')
+          post :create, page: page_params
+          response.should redirect_to('bla')
         end
 
         context "if new page can not be saved" do
@@ -114,6 +121,14 @@ module Alchemy
             end
           end
         end
+
+        context 'with page redirecting to external' do
+          it "redirects to sitemap" do
+            Page.any_instance.should_receive(:redirects_to_external?).and_return(true)
+            post :create, page: page_params
+            response.should redirect_to(admin_pages_path)
+          end
+        end
       end
 
       context "with paste_from_clipboard in parameters" do
@@ -130,13 +145,11 @@ module Alchemy
             parent,
             'pasted Page'
           ).and_return(
-            mock_model('Page', save: true, name: 'pasted Page')
+            mock_model('Page', save: true, name: 'pasted Page', redirects_to_external?: false)
           )
           post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}, format: :js}
         end
-
       end
-
     end
 
     describe '#copy_language_tree' do
@@ -283,7 +296,7 @@ module Alchemy
           end
         end
       end
-      
+
     end
 
   end
