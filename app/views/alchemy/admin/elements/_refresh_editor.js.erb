@@ -1,10 +1,8 @@
-<%- rtfs = element.contents.essence_richtexts -%>
+<%- rtfs = element.richtext_contents_ids -%>
 (function() {
   var $element = $('.element_content', '#element_<%= element.id %>');
-  <% rtfs.each do |content| %>
-  tinymce.get('contents_content_<%= content.id %>_body').remove();
-  <% end %>
+  Alchemy.Tinymce.remove(<%= rtfs.to_json %>);
   $element.html('<%= escape_javascript render_editor(element) %>');
   Alchemy.GUI.init($element);
-  Alchemy.Tinymce.addEditor('<%= contents_form_field_ids_string(rtfs) %>');
+  Alchemy.Tinymce.init(<%= rtfs.to_json %>);
 })();

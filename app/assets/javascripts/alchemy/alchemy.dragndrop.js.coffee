@@ -2,8 +2,16 @@ window.Alchemy = {} if typeof (window.Alchemy) is "undefined"
 
 $.extend Alchemy,
 
-  SortableElements: (page_id, form_token, selector) ->
-    selector = "#element_area .sortable_cell"  if typeof (selector) is "undefined"
+  SortableElements: (page_id, form_token, selector = '#element_area .sortable_cell') ->
+
+    getTinymceIDs = (ui) ->
+      ids = []
+      $textareas = ui.item.find('textarea.default_tinymce, textarea.custom_tinymce')
+      $($textareas).each ->
+        id = this.id.replace(/tinymce_/, '')
+        ids.push parseInt(id, 10)
+      return ids
+
     $(selector).sortable
       items: "div.element_editor"
       handle: ".element_handle"
@@ -37,12 +45,10 @@ $.extend Alchemy,
             Alchemy.TrashWindow.refresh page_id
 
       start: (event, ui) ->
-        $textareas = ui.item.find("textarea.default_tinymce, textarea.custom_tinymce")
-        Alchemy.Tinymce.removeEditor $textareas
+        Alchemy.Tinymce.remove getTinymceIDs(ui)
 
       stop: (event, ui) ->
-        $textareas = ui.item.find("textarea.default_tinymce, textarea.custom_tinymce")
-        Alchemy.Tinymce.addEditor $textareas
+        Alchemy.Tinymce.init getTinymceIDs(ui)
 
   SortableContents: (selector, token) ->
     $(selector).sortable

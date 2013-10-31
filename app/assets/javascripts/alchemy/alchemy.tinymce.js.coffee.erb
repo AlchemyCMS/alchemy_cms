@@ -21,71 +21,70 @@ window.Alchemy.Tinymce =
   #
   customConfigs: {}
 
-  # Returns default config for tinymce editors.
+  # Returns default config for a tinymce editor.
   #
-  getDefaultConfig: ->
+  getDefaultConfig: (id) ->
     config = @defaults
     config.language = Alchemy.locale
-    config.mode = "specific_textareas"
-    config.editor_selector = "default_tinymce"
-    config.init_instance_callback = (inst) ->
-      $this = $("##{inst.editorId}")
-      parent = $this.parents('.element_editor')
-      parent.find('.spinner').remove()
-      inst.onChange.add ->
-        Alchemy.setElementDirty(parent)
+    config.mode = 'exact'
+    config.elements = "tinymce_#{id}"
+    config.init_instance_callback = @initInstanceCallback
     return config
 
   # Returns configuration for given custom tinymce editor selector.
   #
   # It uses the +.getDefaultConfig+ and merges the custom parts.
   #
-  getCustomConfig: (editor) ->
-    if editor_config = @customConfigs[editor]
-      config = $.extend({}, @getDefaultConfig(), editor_config)
-      config.mode = 'specific_textareas'
-      config.editor_selector = new RegExp("custom_tinymce #{editor}")
-      return config
+  getCustomConfig: (id, selector) ->
+    editor_config = @customConfigs[selector]
+    if editor_config
+      $.extend({}, @getDefaultConfig(id), editor_config)
 
-  # Initializes all default TinyMCE instances
+  # Initializes all TinyMCE editors with given ids
   #
-  init: ->
-    spinner = Alchemy.Spinner.small()
-    $('.tinymce_container').prepend spinner.spin().el
-    tinymce.init @getDefaultConfig()
+  # @param ids [Array]
+  #   - Editor ids that should be initialized.
+  #
+  init: (ids) ->
+    for id in ids
+      @initEditor(id)
 
-  # Initializes all tinymce editors with custom configuration.
+  # Initializes one specific TinyMCE editor
   #
-  # @param editors [Array]
-  #   - Editor selectors that should be initialized. The selector has to be in format of:
-  #     "element_name_content_name"
+  # @param id [Number]
+  #   - Editor id that should be initialized.
   #
-  initCustomEditors: (editors) ->
-    return if not editors
-    for editor in editors
-      if custom_editor_config = @getCustomConfig(editor)
-        tinymce.init custom_editor_config
-
-  # Adds a TinyMCE editor to given dom elements.
-  #
-  # Checks if element has custom tinymce config and uses this to init editor.
-  # Otherwise it uses the default config.
-  #
-  addEditor: (elements) ->
-    self = Alchemy.Tinymce
-    $(elements).each ->
-      if custom_editor = this.classList[1]
-        config = self.getCustomConfig(custom_editor)
-      else
-        config = self.getDefaultConfig()
+  initEditor: (id) ->
+    textarea = $("textarea#tinymce_#{id}")
+    return if textarea.length == 0
+    if selector = textarea[0].classList[1]
+      config = @getCustomConfig(id, selector)
+    else
+      config = @getDefaultConfig(id)
+    if config
+      spinner = Alchemy.Spinner.small()
+      textarea.parents('.tinymce_container').prepend spinner.spin().el
       tinymce.init(config)
-      tinymce.execCommand('mceAddControl', true, this.id)
+    else
+      Alchemy.debug('No tinymce configuration found for', id)
 
-  # Removes the TinyMCE editor from given dom elements.
+  # Gets called after an editor instance gets intialized
   #
-  removeEditor: (elements) ->
-    $(elements).each ->
-      tinymce.get(this.id).remove()
+  initInstanceCallback: (inst) ->
+    console.log('init tinymce for', inst)
+    $this = $("##{inst.editorId}")
+    parent = $this.parents('.element_editor')
+    parent.find('.spinner').remove()
+    inst.onChange.add ->
+      Alchemy.setElementDirty(parent)
+
+  # Removes the TinyMCE editor from given dom ids.
+  #
+  remove: (ids) ->
+    for id in ids
+      editor = tinymce.get("tinymce_#{id}")
+      if editor
+        editor.remove()
 
 # Populate custom tinymce configurations
 <% Alchemy::Tinymce.custom_config_contents.each do |content| %>

@@ -7,17 +7,6 @@ describe Alchemy::Admin::ContentsHelper do
     helper.content_dom_id(element.content_by_type('EssenceText')).should match(/essence_text_\d{1,}/)
   end
 
-  describe '#contents_form_field_ids_string' do
-    let(:content_1) { double('Alchemy::Content', form_field_id: 'contents_content_1_body') }
-    let(:content_2) { double('Alchemy::Content', form_field_id: 'contents_content_2_body') }
-
-    it "renders a jquery selector string of form field ids from given contents" do
-      expect(
-        helper.contents_form_field_ids_string([content_1, content_2])
-      ).to eq('#contents_content_1_body, #contents_content_2_body')
-    end
-  end
-
   it "should render the content name" do
     helper.render_content_name(element.content_by_type('EssenceText')).should == "Intro"
   end

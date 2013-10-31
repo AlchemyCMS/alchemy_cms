@@ -358,6 +358,12 @@ module Alchemy
     end
     alias_method :richtext_contents, :rtf_contents
 
+    # Returns an array of all EssenceRichtext contents ids
+    #
+    def richtext_contents_ids
+      contents.essence_richtexts.pluck('alchemy_contents.id')
+    end
+
     # The names of all cells from given page this element could be placed in.
     def belonging_cellnames(page)
       cellnames = page.cells.select { |c| c.available_elements.include?(self.name) }.collect(&:name).flatten.uniq
