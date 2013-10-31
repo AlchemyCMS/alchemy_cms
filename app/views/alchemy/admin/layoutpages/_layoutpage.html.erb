@@ -1,7 +1,7 @@
 <li class="page_level_<%= layoutpage.level %>" id="page_<%= layoutpage.id %>">
-  <div class="sitemap_page">
+  <div class="sitemap_page<%= layoutpage.locked ? ' locked' : '' %>">
     <div class="sitemap_left_images">
-      <span class="site_status <%= layoutpage.locked ? ' locked' : '' %>" ></span>
+      <span class="site_status"></span>
     </div>
     <div class="sitemap_right_tools">
       <%- permitted_to?(:configure, :alchemy_admin_pages) do -%>
