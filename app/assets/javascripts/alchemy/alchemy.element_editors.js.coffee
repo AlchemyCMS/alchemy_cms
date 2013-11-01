@@ -44,8 +44,13 @@ Alchemy.ElementEditors =
     $("#element_area .element_editor").removeClass "selected"
     $element.addClass "selected"
     self.scrollToElement this
+    self.selectElementInPreview id
+
+  # Selcts and scrolls to element with given id in the preview window.
+  #
+  selectElementInPreview: (id) ->
     $frame_elements = document.getElementById("alchemyPreviewWindow").contentWindow.jQuery("[data-alchemy-element]")
-    $selected_element = $frame_elements.closest("[data-alchemy-element=\"" + id + "\"]")
+    $selected_element = $frame_elements.closest("[data-alchemy-element='#{id}']")
     $selected_element.trigger "Alchemy.SelectElement"
 
   # Binds the custom 'Alchemy.SelectElementEditor' event.
