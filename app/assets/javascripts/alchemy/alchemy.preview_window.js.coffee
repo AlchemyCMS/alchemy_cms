@@ -43,15 +43,17 @@ Alchemy.PreviewWindow =
     else
       $("#alchemyPreviewWindow").dialog "open"
 
-  refresh: ->
+  refresh: (callback) ->
     $iframe = $("#alchemyPreviewWindow")
     $spinner = $(".preview-refresh-spinner")
     $refresh = $('.ui-dialog-titlebar-refresh')
     $spinner.show()
     $refresh.hide()
-    $iframe.load ->
+    $iframe.load (e) ->
       $spinner.hide()
       $refresh.show()
+      if callback
+        callback.call(e, $iframe)
     $iframe.attr("src", $iframe.attr("src"))
     true
 
