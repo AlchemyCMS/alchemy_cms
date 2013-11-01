@@ -147,6 +147,6 @@ As next you should to read about:
 
 * "Alchemy's architecture":architecture.html
 * "The Standard Set":standard_set.html
-* Customizing "page layouts":creating_page_layouts.html and "elements":creating_elements.html.
+* Customizing "page layouts":create_page_layouts.html and "elements":create_elements.html.
 
 &nbsp;
