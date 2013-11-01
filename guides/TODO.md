@@ -1,0 +1,1 @@
+http://guides.alchemy-cms.com/page_layouts.html mit http://guides.alchemy-cms.com/create_page_layouts.html zusammenlegen
