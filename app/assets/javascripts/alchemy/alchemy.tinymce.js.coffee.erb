@@ -71,7 +71,6 @@ window.Alchemy.Tinymce =
   # Gets called after an editor instance gets intialized
   #
   initInstanceCallback: (inst) ->
-    console.log('init tinymce for', inst)
     $this = $("##{inst.editorId}")
     parent = $this.parents('.element_editor')
     parent.find('.spinner').remove()
