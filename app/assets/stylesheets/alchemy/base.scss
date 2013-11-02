@@ -424,6 +424,13 @@ p.foot_note {
     position: relative;
   }
 
+  .info.message {
+    float: right;
+    width: 134px;
+    margin-left: 8px;
+    padding: 0 8px 0 32px;
+  }
+
   .jcrop-holder { @include inline-block }
 
   img {
@@ -433,13 +440,19 @@ p.foot_note {
 
   form {
     padding: 0;
-    text-align: right;
     position: absolute;
-    width: 800px;
     bottom: 2 * $default-padding;
-    left: 2 * $default-padding;
+    right: 2 * $default-padding;
+    width: 176px;
+    margin-left: 8px;
 
-    .button.with_icon { float: left }
+    .reset_mask, button {
+      display: block;
+      margin-bottom: 0;
+      text-align: center;
+    }
+    .reset_mask { padding-top: 4px }
+    button { width: 100% }
   }
 }
 

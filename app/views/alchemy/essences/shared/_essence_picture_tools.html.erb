@@ -1,14 +1,15 @@
 <% if options[:crop] && content.ingredient %>
 <%= link_to_overlay_window(
   render_icon('crop'),
-  alchemy.crop_admin_essence_picture_path(content.essence, :options => options.to_json),
+  alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json),
   {
-    :size => "816x754",
-    :title => _t('Edit Picturemask'),
-    :image_loader => false
+    size: "1000x653",
+    title: _t('Edit Picturemask'),
+    image_loader: false,
+    modal: false
   },
   {
-    :title => _t('Edit Picturemask')
+    title: _t('Edit Picturemask')
   }
 ) %>
 <%- else -%>

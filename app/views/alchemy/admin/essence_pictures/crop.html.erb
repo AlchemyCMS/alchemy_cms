@@ -5,7 +5,7 @@
   <% end %>
 <% else %>
   <%= render_message do %>
-    <%= _t('explain cropping') %>
+    <%= simple_format _t(:explain_cropping) %>
   <% end %>
   <div class="thumbnail_background">
     <%= image_tag(
@@ -22,11 +22,11 @@
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
     <%= hidden_field_tag :content_id, @content.id %>
-    <%= link_to(render_icon('delete-small') + _t('Reset Imagemask'), '#', {
+    <%= f.button render_icon(:true) + _t(:apply), 'with_icon' %>
+    <%= link_to _t('Reset Imagemask'), '#', {
       onclick: 'Alchemy.ImageCropper.reset()',
-      class: 'button with_icon'
-    }) %>
-    <%= f.button _t(:apply), class: 'button' %>
+      class: 'reset_mask'
+    } %>
   <% end %>
 </div>
 <% end %>
