@@ -13,10 +13,10 @@ Alchemy.PreviewWindow =
       Alchemy.PreviewWindow.currentWindow = $iframe.dialog(
         modal: false
         title: title
-        width: $(window).width() - 502
-        height: $(window).height() - 76
-        minWidth: 600
+        minWidth: 320
         minHeight: 300
+        width: $(window).width() - 482
+        height: $(window).height() - 76
         show: "fade"
         hide: "fade"
         position: [70, 84]

@@ -31,7 +31,7 @@ Alchemy.ElementsWindow =
     $('#main_content').append($dialog)
     self.currentWindow = $dialog.dialog
       modal: false
-      minWidth: 420
+      minWidth: 400
       minHeight: 300
       height: $(window).height() - 88
       title: options.texts.title
