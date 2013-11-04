@@ -295,15 +295,13 @@ module Alchemy
     #
     # Sets +public+ to true and the +published_at+ value to current time.
     #
-    # The +published_at+ attribute is used for +cache_key+.
+    # The +published_at+ attribute is used as +cache_key+.
     #
     def publish!
-      self.public = true
-      self.published_at = Time.now
-      self.save!
+      update_columns(published_at: Time.now, public: true)
     end
 
-  private
+    private
 
     # Returns the next or previous page on the same level or nil.
     #

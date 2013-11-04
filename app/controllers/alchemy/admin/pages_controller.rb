@@ -164,7 +164,8 @@ module Alchemy
         redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
       end
 
-      # Sets the page public
+      # Sets the page public and updates the published_at attribute that is used as cache_key
+      #
       def publish
         # fetching page via before filter
         @page.publish!
@@ -219,7 +220,7 @@ module Alchemy
 
       def flush
         Page.with_language(session[:language_id]).flushables.each do |page|
-          expire_action(page.cache_key)
+          page.publish!
         end
         respond_to do |format|
           format.js

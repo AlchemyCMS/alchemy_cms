@@ -17,9 +17,17 @@ module Alchemy
     end
 
     describe "#flush" do
+      let(:page_1) { build_stubbed(:page) }
+      let(:page_2) { build_stubbed(:page) }
+
+      before do
+        Page.stub_chain(:with_language, :flushables).and_return([page_1, page_2])
+      end
+
       it "should remove the cache of all pages" do
+        page_1.should_receive(:publish!)
+        page_2.should_receive(:publish!)
         post :flush, format: :js
-        response.status.should == 200
       end
     end
 

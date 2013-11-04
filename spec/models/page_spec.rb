@@ -1047,7 +1047,6 @@ module Alchemy
       before do
         current_time
         Time.stub(:now).and_return(current_time)
-        page.stub(:save!).and_return(true)
         page.publish!
       end
 
