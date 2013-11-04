@@ -11,9 +11,6 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page
 
-      cache_sweeper Alchemy::ContentSweeper,
-        only: [:create, :update, :destroy]
-
       def index
         @page_root = Page.language_root_for(session[:language_id])
         @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
