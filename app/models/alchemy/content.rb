@@ -8,7 +8,7 @@ module Alchemy
     include Factory
 
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
-    belongs_to :element
+    belongs_to :element, touch: true
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -108,10 +108,10 @@ module Alchemy
     #
     # Adds errors to self.base if essence validation fails.
     #
-    def update_essence(params={})
+    def update_essence(params = {})
       raise EssenceMissingError if essence.nil?
       if essence.update_attributes(params)
-        return true
+        save
       else
         errors.add(:essence, :validation_failed)
         return false

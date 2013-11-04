@@ -40,24 +40,43 @@ module Alchemy
     end
 
     describe '#update_essence' do
-      it "should update the attributes of related essence and return true" do
-        @element = FactoryGirl.create(:element, :name => 'text', :create_contents_after_create => true)
-        @content = @element.contents.first
-        @content.update_essence(:body => 'Mikes Petshop')
-        @content.ingredient.should == "Mikes Petshop"
+      subject { content.update_essence(params) }
+
+      let(:element) { create(:element, name: 'text', create_contents_after_create: true) }
+      let(:content) { element.contents.first }
+      let(:params)  { {} }
+
+      context 'with params given' do
+        let(:params) { {body: 'Mikes Petshop'} }
+
+        it "updates the attributes of related essence and return true" do
+          should be_true
+          content.ingredient.should == "Mikes Petshop"
+        end
+
+        it "saves itself after updating related essence" do
+          content.should_receive(:save).and_return(true)
+          should be_true
+        end
       end
 
-      it "should add error messages if save fails and return false" do
-        @element = FactoryGirl.create(:element, :name => 'contactform', :create_contents_after_create => true)
-        @content = @element.contents.first
-        @content.update_essence
-        @content.errors[:essence].should have(1).item
+      context 'with validations and without params given' do
+        let(:element) { create(:element, name: 'contactform', create_contents_after_create: true) }
+
+        it "should add error messages if save fails and return false" do
+          should be_false
+          content.errors[:essence].should have(1).item
+        end
       end
 
-      it "should raise error if essence is missing" do
-        @element = FactoryGirl.create(:element, :name => 'text', :create_contents_after_create => true)
-        @content = @element.contents.first
-        @content.update_essence
+      context 'if essence is missing' do
+        before do
+          content.stub(essence: nil)
+        end
+
+        it "should raise error" do
+          expect { subject }.to raise_error
+        end
       end
     end
 
