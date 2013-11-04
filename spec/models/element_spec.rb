@@ -372,9 +372,48 @@ module Alchemy
     end
 
     describe '#update_contents' do
-      let(:element) { build_stubbed(:element) }
+      subject { element.update_contents(params) }
+
+      let(:page)    { build_stubbed(:page) }
+      let(:element) { build_stubbed(:element, page: page) }
       let(:content) { double(:content) }
 
+      context "with attributes hash is nil" do
+        let(:params) { nil }
+        it { should be_true }
+      end
+
+      context "with valid attributes hash" do
+        let(:params) { {1 => {body: 'Title'}} }
+
+        before do
+          element.contents.should_receive(:find).with(1).and_return(content)
+        end
+
+        context 'with passing validations' do
+          before do
+            content.should_receive(:update_essence).with({body: 'Title'}).and_return(true)
+          end
+
+          it { should be_true }
+
+          it "updates timestamps" do
+            element.should_receive(:touch)
+            should be_true
+          end
+        end
+
+        context 'with failing validations' do
+          it "adds error and returns false" do
+            content.should_receive(:update_essence).with({body: 'Title'}).and_return(false)
+            should be_false
+            element.errors.should_not be_empty
+          end
+        end
+      end
+    end
+
+    describe '#save' do
       context 'touch page' do
         let(:time)    { Time.now }
         let(:locker)  { mock_model('User') }
@@ -393,29 +432,6 @@ module Alchemy
           element.save
           page.reload
           page.updater_id.should eq(locker.id)
-        end
-      end
-
-      context "with attributes hash is nil" do
-        it "returns true" do
-          element.update_contents(nil).should be_true
-        end
-      end
-
-      context "with valid attributes hash" do
-        before { element.contents.should_receive(:find).with(1).and_return(content) }
-
-        it "updates essence and returns true" do
-          content.should_receive(:update_essence).with({body: 'Title'}).and_return(true)
-          element.update_contents({1 => {body: 'Title'}}).should be_true
-        end
-
-        context 'with failing validations' do
-          it "adds error and returns false" do
-            content.should_receive(:update_essence).with({body: 'Title'}).and_return(false)
-            element.update_contents({1 => {body: 'Title'}}).should be_false
-            element.errors.should_not be_empty
-          end
         end
       end
     end

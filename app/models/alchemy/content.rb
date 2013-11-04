@@ -3,6 +3,7 @@ require 'acts_as_list'
 module Alchemy
   class Content < ActiveRecord::Base
     include Logger
+    include Touching
 
     # Concerns
     include Factory
@@ -111,7 +112,8 @@ module Alchemy
     def update_essence(params = {})
       raise EssenceMissingError if essence.nil?
       if essence.update_attributes(params)
-        save
+        touch # update timestamp so that the cache expires
+        return true
       else
         errors.add(:essence, :validation_failed)
         return false

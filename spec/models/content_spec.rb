@@ -54,8 +54,8 @@ module Alchemy
           content.ingredient.should == "Mikes Petshop"
         end
 
-        it "saves itself after updating related essence" do
-          content.should_receive(:save).and_return(true)
+        it "updates timestamp after updating related essence" do
+          content.should_receive(:touch)
           should be_true
         end
       end

@@ -34,6 +34,7 @@ require 'alchemy/permissions'
 require 'alchemy/picture_attributes'
 require 'alchemy/resource'
 require 'alchemy/tinymce'
+require 'alchemy/touching'
 
 # Require hacks
 require 'alchemy/kaminari/scoped_pagination_url_helper'

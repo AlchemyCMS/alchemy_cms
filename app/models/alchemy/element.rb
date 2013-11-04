@@ -4,6 +4,7 @@ require 'acts_as_list'
 module Alchemy
   class Element < ActiveRecord::Base
     include Logger
+    include Touching
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable hint)
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id position folded created_at updated_at creator_id updater_id cached_tag_list)
@@ -246,7 +247,9 @@ module Alchemy
       return true if contents_attributes.nil?
       contents_attributes.each do |id, essence_attributes|
         content = self.contents.find(id)
-        unless content.update_essence(essence_attributes)
+        if content.update_essence(essence_attributes)
+          touch # update timestamp so that the cache expires
+        else
           errors.add(:base, :essence_validation_failed)
         end
       end

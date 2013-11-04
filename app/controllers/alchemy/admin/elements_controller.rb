@@ -66,6 +66,7 @@ module Alchemy
       def update
         if @element.update_contents(contents_params)
           @page = @element.page
+          @page.touch
           @element_validated = @element.update_attributes!(element_params)
         else
           @element_validated = false

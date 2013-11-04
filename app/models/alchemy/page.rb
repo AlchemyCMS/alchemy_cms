@@ -61,6 +61,7 @@ module Alchemy
     include Users
     include Cells
     include Elements
+    include Touching
 
     # Class methods
     #
@@ -189,11 +190,6 @@ module Alchemy
 
     # Instance methods
     #
-
-    # Touches the timestamps and userstamps
-    def touch
-      Page.where(id: self.id).update_all(updated_at: Time.now, updater_id: Alchemy.user_class.try(:stamper))
-    end
 
     # The page's view partial is dependent from its page layout
     #

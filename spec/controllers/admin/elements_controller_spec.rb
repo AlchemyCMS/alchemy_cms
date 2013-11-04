@@ -220,28 +220,36 @@ module Alchemy
     end
 
     describe '#update' do
-      let(:element) { build_stubbed(:element) }
+      let(:page)    { build_stubbed(:page) }
+      let(:element) { build_stubbed(:element, page: page) }
       let(:contents_parameters) { ActionController::Parameters.new(1 => {ingredient: 'Title'}) }
       let(:element_parameters) { ActionController::Parameters.new(tag_list: 'Tag 1', public: false) }
-      before { Element.stub(:find).and_return element }
+
+      before do
+        Element.stub(:find).and_return element
+        controller.should_receive(:contents_params).and_return(contents_parameters)
+      end
 
       it "updates all contents in element" do
-        controller.should_receive(:contents_params).and_return(contents_parameters)
         element.should_receive(:update_contents).with(contents_parameters)
         put :update, {id: element.id}
       end
 
       it "updates the element" do
-        controller.should_receive(:contents_params).and_return(contents_parameters)
         controller.should_receive(:element_params).and_return(element_parameters)
         element.should_receive(:update_contents).and_return(true)
         element.should_receive(:update_attributes!).with(element_parameters)
         put :update, {id: element.id}
       end
 
+      it "updates timestamps of page" do
+        element.should_receive(:update_contents).and_return(true)
+        page.should_receive(:touch)
+        put :update, {id: element.id}
+      end
+
       context "failed validations" do
         it "displays validation failed notice" do
-          controller.should_receive(:contents_params).and_return(contents_parameters)
           element.should_receive(:update_contents).and_return(false)
           put :update, {id: element.id}
           assigns(:element_validated).should be_false
