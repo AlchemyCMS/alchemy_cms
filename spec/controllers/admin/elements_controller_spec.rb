@@ -248,6 +248,19 @@ module Alchemy
         put :update, {id: element.id}
       end
 
+      context 'with to_be_sweeped_pages' do
+        let(:page_1) { build_stubbed(:page) }
+        let(:page_2) { build_stubbed(:page) }
+
+        it "updates timestamps of page" do
+          element.should_receive(:update_contents).and_return(true)
+          element.should_receive(:to_be_sweeped_pages).and_return([page_1, page_2])
+          page_1.should_receive(:touch)
+          page_2.should_receive(:touch)
+          put :update, {id: element.id}
+        end
+      end
+
       context "failed validations" do
         it "displays validation failed notice" do
           element.should_receive(:update_contents).and_return(false)

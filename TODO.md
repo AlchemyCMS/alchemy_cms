@@ -10,12 +10,6 @@
 
 ## Caching-Redux
 
-* Cache element views and touch all pages that have this element on if element gets published
-  => (pages_sweeper#pages_to_be_sweeped)
 * Rack::Cache for pictures?
-* Remove sweepers
 * Benchmark disk usage of local file system cache
 * Refactor Pages#flush. Use page.publish! ?
-* Don't cache in to preview window!
-  * Maybe we need a element view helper that handles caching in the preview mode
-  * And the preview mode code (data-alchemy-element attr)

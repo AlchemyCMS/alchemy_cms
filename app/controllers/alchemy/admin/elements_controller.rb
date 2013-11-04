@@ -66,7 +66,7 @@ module Alchemy
       def update
         if @element.update_contents(contents_params)
           @page = @element.page
-          @page.touch
+          touch_pages
           @element_validated = @element.update_attributes!(element_params)
         else
           @element_validated = false
@@ -99,7 +99,7 @@ module Alchemy
         @element.save
       end
 
-    private
+      private
 
       def load_element
         @element = Element.find(params[:id])
@@ -151,6 +151,13 @@ module Alchemy
 
       def element_params
         params.require(:element).permit(:public, :tag_list)
+      end
+
+      def touch_pages
+        @element.page.touch
+        @element.to_be_sweeped_pages.each do |page|
+          page.touch
+        end
       end
 
     end
