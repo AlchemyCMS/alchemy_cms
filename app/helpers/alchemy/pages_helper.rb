@@ -56,7 +56,7 @@ module Alchemy
     # Falls back to +/app/views/alchemy/page_layouts/standard+ if the page_layout partial is not found.
     #
     def render_page_layout
-      render @page
+      render @page, page: @page
     rescue ActionView::MissingTemplate
       warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
       render 'alchemy/page_layouts/standard'
