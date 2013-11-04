@@ -30,6 +30,7 @@ module Alchemy
       #
       def show
         @preview_mode = true
+        Page.current_preview = @page
         @root_page = Page.language_root_for(session[:language_id])
         # Setting the locale to pages language. so the page content has its correct translation
         ::I18n.locale = @page.language_code

@@ -69,6 +69,18 @@ module Alchemy
 
       alias_method :rootpage, :root
 
+      # Used to store the current page previewed in the edit page template.
+      #
+      def current_preview=(page)
+        Thread.current[:alchemy_current_preview] = page
+      end
+
+      # Returns the current page previewed in the edit page template.
+      #
+      def current_preview
+        Thread.current[:alchemy_current_preview]
+      end
+
       # @return the language root page for given language id.
       # @param language_id [Fixnum]
       #
@@ -236,7 +248,9 @@ module Alchemy
     # Unlocks the page without updating the timestamps
     #
     def unlock!
-      self.update_columns(locked: false, locked_by: nil)
+      if self.update_columns(locked: false, locked_by: nil)
+        Page.current_preview = nil
+      end
     end
 
     def fold!(user_id, status)

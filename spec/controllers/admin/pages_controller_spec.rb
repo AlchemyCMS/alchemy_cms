@@ -50,6 +50,12 @@ module Alchemy
         expect(assigns(:preview_mode)).to eq(true)
       end
 
+      it "should store page as current preview" do
+        Page.current_preview = nil
+        get :show, id: page.id
+        Page.current_preview.should == page
+      end
+
       it "should set the I18n locale to the pages language code" do
         get :show, id: page.id
         expect(::I18n.locale).to eq(:nl)

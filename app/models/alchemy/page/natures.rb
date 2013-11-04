@@ -83,10 +83,16 @@ module Alchemy
 
     # Returns the key that's taken for cache path.
     #
-    # Uses the +published_at+ value, that's updated when the user publishes the page.
+    # Uses the +published_at+ value that's updated when the user publishes the page.
+    #
+    # If the page is the current preview it uses the updated_at value as cache key.
     #
     def cache_key
-      "alchemy/pages/#{id}-#{published_at}"
+      if Page.current_preview == self
+        "alchemy/pages/#{id}-#{updated_at}"
+      else
+        "alchemy/pages/#{id}-#{published_at}"
+      end
     end
 
   end

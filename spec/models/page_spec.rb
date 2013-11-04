@@ -1138,6 +1138,12 @@ module Alchemy
         page.reload
         page.locked_by.should == nil
       end
+
+      it "sets current preview to nil" do
+        Page.current_preview = page
+        page.unlock!
+        Page.current_preview.should be_nil
+      end
     end
 
     context 'urlname updating' do
