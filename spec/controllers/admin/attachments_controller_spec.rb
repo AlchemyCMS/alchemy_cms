@@ -24,12 +24,10 @@ module Alchemy
       end
 
       context "when params[:content_id]" do
-        render_views
-
         context "is set" do
           it "should render the archive_overlay partial" do
             Content.stub(:find).with('1', {:select => 'id'}).and_return(mock_model(Content))
-            get :index, {content_id: 1, format: :html}
+            get :index, {content_id: 1}
             expect(response).to render_template(partial: '_archive_overlay')
           end
         end

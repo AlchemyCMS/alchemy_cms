@@ -18,10 +18,10 @@ describe Alchemy::Admin::NavigationHelper do
 
   let(:event_module) { {
     'navigation' => {
-      'controller' => 'admin/events',
+      'controller' => '/admin/events',
       'action' => 'index',
       'sub_navigation' => [{
-        'controller' => 'admin/events',
+        'controller' => '/admin/events',
         'action' => 'index'
       }]
     }
@@ -184,28 +184,37 @@ describe Alchemy::Admin::NavigationHelper do
   end
 
   describe '#url_for_module_sub_navigation' do
-    context "with module within an engine" do
-      let(:navigation) { alchemy_module['navigation']['sub_navigation'].first }
+    subject { helper.url_for_module_sub_navigation(navigation) }
 
-      before {
-        helper.stub(:module_definition_for).and_return(alchemy_module)
-      }
+    let(:current_module) { alchemy_module }
+    let(:navigation)     { current_module['navigation']['sub_navigation'].first }
+
+    before do
+      helper.stub(module_definition_for: current_module)
+    end
+
+    context "with module within an engine" do
+      let(:current_module) { alchemy_module }
 
       it "returns correct url string" do
-        helper.url_for_module_sub_navigation(navigation).should == '/admin/layoutpages'
+        should == '/admin/layoutpages'
       end
     end
 
     context "with module within host app" do
-      let(:navigation) { event_module['navigation']['sub_navigation'].first }
-
-      before {
-        helper.stub(:module_definition_for).and_return(event_module)
-      }
+      let(:current_module) { event_module }
 
       it "returns correct url string" do
-        helper.url_for_module_sub_navigation(navigation).should == '/admin/events'
+        should == '/admin/events'
       end
+    end
+
+    context 'without module found' do
+      before do
+        helper.stub(module_definition_for: nil)
+      end
+
+      it { should be_nil }
     end
   end
 

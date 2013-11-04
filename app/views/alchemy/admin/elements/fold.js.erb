@@ -1,5 +1,3 @@
-<% rtfs = @element.contents.essence_richtexts %>
-
 (function($) {
   var $el = $('.element_editor[data-element-id="<%= @element.id %>"]');
 
@@ -16,21 +14,13 @@
 
 <% if @element.folded %>
 
-<% if rtfs.any? %>
-
-  Alchemy.Tinymce.removeEditor('<%= contents_form_field_ids_string(rtfs) %>');
-
-<% end %>
+  Alchemy.Tinymce.remove(<%= @element.richtext_contents_ids.to_json %>);
 
 <% else %>
 
   $el.trigger('Alchemy.SelectElementEditor');
   Alchemy.SelectBox($el);
-
-<% if rtfs.any? %>
-  Alchemy.Tinymce.addEditor('<%= contents_form_field_ids_string(rtfs) %>');
-<% end %>
-
+  Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.GUI.initElement($el);
 
 <% end %>

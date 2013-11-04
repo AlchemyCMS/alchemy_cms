@@ -66,7 +66,7 @@ module Alchemy
         end
         if @page.save
           flash[:notice] = _t("Page created", :name => @page.name)
-          do_redirect_to(redirect_path_for_create_language)
+          do_redirect_to(redirect_path_after_create_page)
         else
           @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
           @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
@@ -261,7 +261,7 @@ module Alchemy
         end
       end
 
-      def redirect_path_for_create_language
+      def redirect_path_after_create_page
         if @page.redirects_to_external?
           admin_pages_path
         else

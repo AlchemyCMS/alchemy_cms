@@ -3,7 +3,10 @@
   <%= f.input :language_code, placeholder: _t(:language_code_placeholder) %>
   <%= f.input :country_code, as: 'string', placeholder: _t(:country_code_placeholder), hint: _t(:country_code_foot_note) %>
   <%= f.input :frontpage_name %>
-  <%= f.input :page_layout %>
+  <%= f.input :page_layout, 
+    collection: Alchemy::PageLayout.all, 
+    label_method: ->(p) { Alchemy::PageLayout.human_layout_name(p['name']) },
+    value_method: ->(p) { p['name'] } %>
   <%= f.input :public %>
   <%= f.input :default %>
   <%= f.submit _t(:save) %>

@@ -166,14 +166,13 @@ module Alchemy
       elements.named(definition['feed_elements'])
     end
 
-    # Returns an array of selectors for all contents with custom tinymce config.
-    def custom_tinymce_contents_selectors
-      Tinymce.page_custom_config_contents(self).collect do |c|
-        "#{c['element']}_#{c['name']}"
-      end
+    # Returns an array of all EssenceRichtext contents ids
+    #
+    def richtext_contents_ids
+      contents.essence_richtexts.pluck('alchemy_contents.id')
     end
 
-  private
+    private
 
     # Looks in the page_layout descripion, if there are elements to autogenerate.
     #

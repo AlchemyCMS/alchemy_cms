@@ -196,7 +196,7 @@ module Alchemy
     #   :submenu => true                                 # Shows the nested children
     #   :level => 2                                      # Normally there is no need to change the level parameter, just in a few special cases
     #
-    def render_subnavigation(options = {})
+    def render_subnavigation(options = {}, html_options = {})
       default_options = {
         :from_page => @page,
         :submenu => true,
@@ -207,7 +207,7 @@ module Alchemy
         while options[:from_page].level > options[:level] do
           options[:from_page] = options[:from_page].parent
         end
-        render_navigation(options)
+        render_navigation(options, html_options)
       else
         return nil
       end

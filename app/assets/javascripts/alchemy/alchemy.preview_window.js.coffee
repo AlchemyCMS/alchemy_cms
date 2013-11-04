@@ -13,10 +13,10 @@ Alchemy.PreviewWindow =
       Alchemy.PreviewWindow.currentWindow = $iframe.dialog(
         modal: false
         title: title
-        width: $(window).width() - 502
-        height: $(window).height() - 76
-        minWidth: 600
+        minWidth: 320
         minHeight: 300
+        width: $(window).width() - 482
+        height: $(window).height() - 76
         show: "fade"
         hide: "fade"
         position: [70, 84]
@@ -43,15 +43,17 @@ Alchemy.PreviewWindow =
     else
       $("#alchemyPreviewWindow").dialog "open"
 
-  refresh: ->
+  refresh: (callback) ->
     $iframe = $("#alchemyPreviewWindow")
     $spinner = $(".preview-refresh-spinner")
     $refresh = $('.ui-dialog-titlebar-refresh')
     $spinner.show()
     $refresh.hide()
-    $iframe.load ->
+    $iframe.load (e) ->
       $spinner.hide()
       $refresh.show()
+      if callback
+        callback.call(e, $iframe)
     $iframe.attr("src", $iframe.attr("src"))
     true
 

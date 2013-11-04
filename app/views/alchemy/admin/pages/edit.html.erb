@@ -165,8 +165,7 @@
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element_editor');
-      Alchemy.Tinymce.init();
-      Alchemy.Tinymce.initCustomEditors(<%= raw @page.custom_tinymce_contents_selectors.to_json %>);
+      Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
       jQuery('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
@@ -201,6 +200,7 @@
         width = Alchemy.PreviewWindow.currentWidth;
       }
       Alchemy.PreviewWindow.currentWindow.dialog('widget').css('width', width);
+      Alchemy.PreviewWindow.currentWindow.dialog('moveToTop');
     });
   });
 

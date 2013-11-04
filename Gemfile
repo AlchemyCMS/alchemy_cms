@@ -21,15 +21,12 @@ group :test do
   end
 end
 
-group :development do
+group :development, :test do
   unless ENV['CI']
-    gem 'debugger'
+    gem 'pry'
     gem 'bumpy'
     gem 'yard'
     gem 'redcarpet'
   end
-end
-
-group :development, :test do
   gem 'jasmine-rails', github: 'searls/jasmine-rails'
 end

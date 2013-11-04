@@ -121,7 +121,7 @@ td, th {
   &.center, &.boolean {
     text-align: center;
 
-    .icon {
+    .icon.false {
       @extend .false;
     }
 

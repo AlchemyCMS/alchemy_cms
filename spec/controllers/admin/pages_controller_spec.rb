@@ -71,8 +71,8 @@ module Alchemy
     end
 
     describe '#create' do
-      let(:language) { mock_model('Language', code: 'kl') }
-      let(:parent) { mock_model(Alchemy::Page, language: language) }
+      let(:language)    { mock_model('Language', code: 'kl') }
+      let(:parent)      { mock_model('Page', language: language) }
       let(:page_params) { {parent_id: parent.id, name: 'new Page'} }
 
       context "a language root page" do
@@ -82,7 +82,7 @@ module Alchemy
       context "a new page" do
         before do
           Page.any_instance.stub(:set_language_from_parent_or_default)
-          Page.any_instance.stub(:save).and_return(true)
+          Page.any_instance.stub(save: true)
         end
 
         it "is nested under given parent" do
@@ -91,13 +91,18 @@ module Alchemy
           expect(assigns(:page).parent_id).to eq(parent.id)
         end
 
-        context "not saved" do
-          render_views
+        it "redirects to edit page template" do
+          page = mock_model('Page')
+          controller.should_receive(:edit_admin_page_path).and_return('bla')
+          post :create, page: page_params
+          response.should redirect_to('bla')
+        end
 
-          it "show render the `new` template" do
+        context "if new page can not be saved" do
+          it "renders the create form" do
             Page.any_instance.stub(:save).and_return(false)
-            xhr :post, :create, page: {name: 'page'}
-            response.body.should match /form.+action=\"\/admin\/pages\"/
+            post :create, page: {name: 'page'}
+            response.should render_template('new')
           end
         end
 
@@ -121,6 +126,14 @@ module Alchemy
             end
           end
         end
+
+        context 'with page redirecting to external' do
+          it "redirects to sitemap" do
+            Page.any_instance.should_receive(:redirects_to_external?).and_return(true)
+            post :create, page: page_params
+            response.should redirect_to(admin_pages_path)
+          end
+        end
       end
 
       context "with paste_from_clipboard in parameters" do
@@ -137,7 +150,7 @@ module Alchemy
             parent,
             'pasted Page'
           ).and_return(
-            mock_model(Alchemy::Page, save: true, name: 'pasted Page')
+            mock_model('Page', save: true, name: 'pasted Page', redirects_to_external?: false)
           )
           post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}, format: :js}
         end

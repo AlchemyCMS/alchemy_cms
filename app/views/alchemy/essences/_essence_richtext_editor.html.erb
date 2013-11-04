@@ -5,7 +5,8 @@
     <%= text_area_tag(
       content.form_field_name,
       content.ingredient || '',
-      class: content.tinymce_class_name
+      class: content.tinymce_class_name,
+      id: "tinymce_#{content.id}"
     ) %>
   </div>
 </div>
