@@ -4,8 +4,6 @@ module Alchemy
       protect_from_forgery :except => [:create]
       helper 'alchemy/admin/tags'
 
-      cache_sweeper Alchemy::PicturesSweeper, :only => [:update, :destroy]
-
       respond_to :html, :js
 
       before_action :load_picture,

@@ -4,6 +4,7 @@ require 'dragonfly'
 module Alchemy
   class Picture < ActiveRecord::Base
     include NameConversions
+    include Sweeping
 
     has_many :essence_pictures, :class_name => 'Alchemy::EssencePicture', :foreign_key => 'picture_id'
     has_many :contents, :through => :essence_pictures
