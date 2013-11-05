@@ -28,6 +28,21 @@ h4. Element settings
 
 See the "element example":#an-example-element for syntax and usage of this options.
 
+h4. Render simple text
+
+The following sequence defines an element containing a headline and a description.
+
+<pre>
+  - name: headline
+    contents:
+    - name: headline
+      type: EssenceText
+    - name: description
+      type: EssenceRichtext
+</pre>
+
+NOTE: <b>Please ensure to restart the server after editing the elements.yml .</b>
+
 h4. Render a picture gallery
 
 Alchemy has a nice picture gallery editor, that makes it easy to manage large picture galleries. It offers a nice drag'n'drop

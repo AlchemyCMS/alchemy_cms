@@ -69,6 +69,8 @@ We also want to autogenerate the headline and the contactform element after the 
   autogenerate: [headline, contactform]
 </pre>
 
+NOTE: <b>Please ensure to restart the server after editing page_layouts.yml.</b>
+
 h3. Generate the views
 
 Every page layout defined in the <code>page_layouts.yml</code> file should have a view partial located in <code>app/views/alchemy/page_layouts/</code>.
