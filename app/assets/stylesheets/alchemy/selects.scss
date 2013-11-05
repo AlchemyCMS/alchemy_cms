@@ -6,7 +6,37 @@ select {
   padding: 0.4em 0.6em;
 }
 
-.select2-container {
+.select2-container.alchemy_selectbox {
+  text-shadow: #FFF 0px 1px 0px;
+
+  .select2-choice {
+    height: 27px;
+    line-height: 27px;
+    @include background(linear-gradient(#FFF, #EDEDED 50%, #D3D3D3));
+    text-align: left;
+
+    .select2-arrow {
+      top: 2px;
+      width: 20px;
+      height: 23px;
+      line-height: 23px;
+      background: transparent;
+      border-left: 1px solid #CACACA;
+
+      b {
+        @extend .icon-menu;
+        width: 18px;
+        line-height: 23px;
+        background-image: none;
+      }
+    }
+  }
+
+  &.select2-dropdown-open {
+    .select2-choice .select2-arrow b {
+      background-position: -17px 0px;
+    }
+  }
 
   &.tiny {
 
@@ -14,16 +44,27 @@ select {
       height: 18px;
       line-height: 18px;
 
-      .select2-arrow b {
-        background-position: 0 -3px;
+      .select2-arrow {
+        width: 14px;
+        height: 14px;
+
+        b {
+          line-height: 4px;
+          width: 12px;
+          font-size: 10px;
+        }
       }
     }
 
     &.select2-dropdown-open {
       .select2-choice .select2-arrow b {
-        background-position: -18px -3px;
+        background-position: -20px -5px;
       }
     }
+  }
+
+  &.medium {
+    width: 90px;
   }
 
   &.select2-container-active {
@@ -36,13 +77,17 @@ select {
 
 .select2-drop {
 
+  .select2-search {
+    margin: $default-margin 0;
+  }
+
   .select2-results {
     padding: 0;
     margin: 0;
 
     .select2-result {
       margin: 0;
-      padding: 4px;
+      padding: 4px 0;
 
       &.select2-highlighted {
         background: $button-hover-bg-color;
@@ -55,12 +100,16 @@ select {
     }
 
     .select2-no-results {
-      padding: 4px;
+      padding: 8px;
       margin: 0;
     }
 
     .select2-result-label {
       padding: 4px 8px;
+    }
+
+    ul.select2-result-sub > li .select2-result-label {
+      padding-left: 16px;
     }
   }
 
