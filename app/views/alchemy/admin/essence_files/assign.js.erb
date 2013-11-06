@@ -1,5 +1,4 @@
 (function($) {
-  var $el = $('#element_<%= @content.element.id %>');
   $('#<%= content_dom_id(@content) %>').replaceWith('<%= escape_javascript(
     render partial: "alchemy/essences/essence_file_editor",
       formats: [:html],
@@ -10,6 +9,6 @@
   ) %>');
   Alchemy.closeCurrentWindow();
   Alchemy.reloadPreview();
-  Alchemy.setElementDirty($el);
-  Alchemy.overlayObserver($el);
+  Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));
+  Alchemy.overlayObserver($('#<%= content_dom_id(@content) %>'));
 })(jQuery);

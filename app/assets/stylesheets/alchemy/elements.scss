@@ -488,50 +488,54 @@ div.file_icon {
   float: left;
   height: 24px;
   width: 24px;
+
+  span.icon {
+    margin: $default-margin;
+  }
+
+  a.assign_file {
+    display: block;
+    height: 16px;
+    background: image-url('alchemy/icons.png') no-repeat -480px -40px;
+    width: 16px;
+    margin: $default-margin;
+  }
 }
 
-div.file_icon span.icon {
-  margin: $default-margin;
+.content_editor.essence_file {
+
+  .file_name {
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+    max-width: 80%;
+    line-height: 25px;
+    font-size: 10px;
+    text-overflow: ellipsis;
+  }
 }
 
-div.file_icon a.assign_file {
-  display: block;
-  height: 16px;
-  background: image-url('alchemy/icons.png') no-repeat -480px -40px;
-  width: 16px;
-  margin: $default-margin;
-}
-
-div.file_name {
-  white-space: nowrap;
-  overflow: hidden;
-  float: left;
-  width: 293px;
-  line-height: 25px;
-  font-size: 10px;
-}
-
-div.essence_file_tools {
+.essence_file_tools {
   height: 24px;
   float: right;
   background-color: white;
   width: 48px;
-}
 
-div.essence_file_tools a {
-  text-decoration: none;
-  width: 16px;
-  height: 16px;
-  margin: $default-margin;
-  float: left;
-}
+  a {
+    text-decoration: none;
+    width: 16px;
+    height: 16px;
+    margin: $default-margin;
+    float: left;
 
-div.essence_file_tools a.assign_file {
-  background: image-url('alchemy/icons.png') -512px -40px;
-}
+    &.assign_file {
+      background: image-url('alchemy/icons.png') -512px -40px;
+    }
 
-div.essence_file_tools a.edit_file {
-  background: image-url('alchemy/icons.png') -160px -167px;
+    &.edit_file {
+      background: image-url('alchemy/icons.png') -160px -167px;
+    }
+  }
 }
 
 a.new_content_link {
