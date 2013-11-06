@@ -44,7 +44,7 @@
 }
 
 %button-defaults {
-  @include sassy-button('shiny', $sb-border-radius, $sb-font-size, $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
+  @include sassy-button('simple', $sb-border-radius, $sb-font-size, $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
   border-color: $button-border-color;
   margin: $default-form-field-margin;
 }
@@ -98,7 +98,6 @@
 
 %gradiated-toolbar {
   background: $medium-gray;
-  @include background(linear-gradient(top, $medium-gray 85%, darken($medium-gray, 10) 100%));
 }
 
 %progressbar {

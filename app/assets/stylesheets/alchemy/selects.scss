@@ -12,8 +12,10 @@ select {
   .select2-choice {
     height: 27px;
     line-height: 27px;
-    @include background(linear-gradient(#FFF, #EDEDED 50%, #D3D3D3));
+    @include sassy-button-gradient('simple', $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states);
+    border-color: $button-border-color;
     text-align: left;
+    border-radius: $default-border-radius;
 
     .select2-arrow {
       top: 2px;
