@@ -64,14 +64,5 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
 .autocomplete_tag_list {
   position: relative;
 
-  label {
-    position: absolute;
-    top: 12px;
-    left: 4px;
-  }
-
-  input[data-autocomplete] {
-    width: 100%;
-    padding-left: 24px;
-  }
+  label { position: absolute }
 }

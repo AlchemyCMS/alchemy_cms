@@ -12,6 +12,7 @@ Alchemy.GUI =
     Alchemy.Hotkeys(scope)
     Alchemy.ListFilter(scope)
     Alchemy.Spinner.watch(scope)
+    Alchemy.Autocomplete.tags(scope)
 
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)

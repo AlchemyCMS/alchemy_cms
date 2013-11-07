@@ -100,3 +100,21 @@
   -moz-box-sizing: $box-sizing-type;
   box-sizing: $box-sizing-type;
 }
+
+@mixin tag-base($margin: 2*$default-margin 0, $padding: $default-padding 4*$default-padding $default-padding 6*$default-padding) {
+  padding: $padding;
+  margin: $margin;
+  background-color: $medium-gray;
+  overflow: hidden;
+  position: relative;
+  @extend .rounded-border;
+
+  &:before {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-family: 'Alchemy Icons';
+    @extend .icon-tag:before;
+    line-height: 8px;
+  }
+}

@@ -276,24 +276,10 @@ div#filter_bar {
     overflow-y: auto;
 
     li {
+      @include tag-base;
       display: block;
-      padding: $default-padding 4*$default-padding $default-padding 6*$default-padding ;
-      margin: 2*$default-margin 0;
-      background-color: $medium-gray;
-      @extend .rounded-border;
-      overflow: hidden;
-      position: relative;
 
       &:first-child { margin-top: 0 }
-
-      &:before {
-        position: absolute;
-        left: 8px;
-        top: 8px;
-        font-family: 'Alchemy Icons';
-        @extend .icon-tag:before;
-        line-height: 8px;
-      }
 
       a {
         text-decoration: none;

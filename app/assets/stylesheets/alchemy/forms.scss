@@ -26,6 +26,13 @@ form {
       float: right;
     }
 
+    .autocomplete_tag_list {
+
+      .select2-container, .select2-choices {
+        width: 100%;
+      }
+    }
+
     ::-webkit-input-placeholder {
       line-height: 16px;
     }

@@ -12,7 +12,10 @@
       </p>
       <% end %>
       <% if element.taggable? %>
-        <%= render 'alchemy/admin/partials/autocomplete_tag_list', :f => f, :object => element %>
+      <div class="autocomplete_tag_list">
+        <%= f.label :tag_list %>
+        <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+      </div>
       <% end %>
       <%= render :partial => 'alchemy/admin/elements/element_foot', :locals => {:element => element, :f => f} %>
     <% end %>

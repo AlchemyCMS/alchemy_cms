@@ -45,11 +45,11 @@ module Alchemy
       end
 
       def autocomplete
-        items = ActsAsTaggableOn::Tag.where(['LOWER(name) LIKE ?', "#{params[:term].downcase}%"])
-        render :json => json_for_autocomplete(items, :name)
+        items = tags_from_term(params[:term])
+        render json: json_for_autocomplete(items, :name)
       end
 
-    private
+      private
 
       def load_tag
         @tag = ActsAsTaggableOn::Tag.find(params[:id])
@@ -57,6 +57,18 @@ module Alchemy
 
       def tag_params
         @tag_params ||= params.require(:tag).permit(:name, :merge_to)
+      end
+
+      def tags_from_term(term)
+        return [] if term.blank?
+        ActsAsTaggableOn::Tag.where(['LOWER(name) LIKE ?', "#{term.downcase}%"])
+      end
+
+      def json_for_autocomplete(items, attribute)
+        items.map do |item|
+          value = item.send(attribute)
+          {id: value, text: value}
+        end
       end
 
     end

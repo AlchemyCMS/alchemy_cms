@@ -217,16 +217,25 @@ div#element_area {
     background-color: #e5dcca;
     margin: 0 -8px 1px -8px;
     padding: 2*$default-padding;
+    padding-left: 38px;
 
     label {
-      top: 20px;
-      left: 16px;
+      top: 21px;
+      left: 8px;
+      font-size: 10px;
+      z-index: 1;
     }
 
-    input[data-autocomplete] {
-      padding-left: 25px;
+    .select2-container {
       width: 100%;
-      background-color: #F1EAD9;
+
+      .select2-choices {
+        background-color: #F1EAD9;
+
+        .select2-search-choice {
+          background-color: #e5dcca;
+        }
+      }
     }
   }
 }

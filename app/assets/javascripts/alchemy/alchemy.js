@@ -3,7 +3,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery.ui.autocomplete
 //= require jquery.ui.datepicker
 //= require jquery.ui.dialog
 //= require jquery.ui.effect-drop
@@ -11,7 +10,6 @@
 //= require jquery.ui.resizable
 //= require jquery.ui.sortable
 //= require jquery.ui.tabs
-//= require autocomplete-rails
 //= require tiny_mce/tiny_mce
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/
@@ -21,6 +19,7 @@
 //= require select2_locale_de
 //= require alchemy/alchemy.routes
 //= require alchemy/alchemy.base
+//= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
 //= require alchemy/alchemy.datepicker
