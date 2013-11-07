@@ -39,16 +39,6 @@ module Alchemy
       )
     end
 
-    def language_switches(options={})
-      ActiveSupport::Deprecation.warn("Used deprecated language_switches helper. Please use language_links instead.")
-      language_links(options)
-    end
-
-    def language_switcher(options={})
-      ActiveSupport::Deprecation.warn("Used deprecated language_switcher helper. Please use language_links instead.")
-      language_links(options)
-    end
-
     # Renders the layout for current page.
     #
     # Page layout files belongs in +/app/views/alchemy/page_layouts/+

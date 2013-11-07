@@ -87,13 +87,6 @@ module Alchemy
 
       end
 
-      describe "#page_path_for" do
-        it "is deprecated" do
-          ActiveSupport::Deprecation.should_receive(:warn)
-          helper.page_path_for
-        end
-      end
-
       describe "#show_alchemy_page_url" do
 
         context "when multi_language" do
