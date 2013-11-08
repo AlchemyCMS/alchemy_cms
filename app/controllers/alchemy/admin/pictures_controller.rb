@@ -26,15 +26,9 @@ module Alchemy
 
       def new
         @picture = Picture.new
-        @while_assigning = params[:while_assigning] == 'true'
-        @size = params[:size] || 'medium'
+        set_size_or_default
         if in_overlay?
-          @while_assigning = true
-          @content = Content.select('id').find_by_id(params[:content_id])
-          @element = Element.select('id').find_by_id(params[:element_id])
-          @options = options_from_params
-          @page = params[:page]
-          @per_page = params[:per_page]
+          set_instance_variables
         end
       end
 
@@ -45,14 +39,9 @@ module Alchemy
         )
         @picture.name = @picture.humanized_name
         @picture.save!
-        @size = params[:size] || 'medium'
+        set_size_or_default
         if in_overlay?
-          @while_assigning = true
-          @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
-          @element = Element.find(params[:element_id], :select => 'id')
-          @options = options_from_params
-          @page = params[:page] || 1
-          @per_page = pictures_per_page_for_size(@size)
+          set_instance_variables
         end
         @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
         @message = _t('Picture uploaded succesfully', :name => @picture.name)
@@ -64,15 +53,6 @@ module Alchemy
           # Or the mutliple file uploader?
           render # create.js.erb template
         end
-      end
-
-      def show
-      end
-
-      def info
-      end
-
-      def edit
       end
 
       def edit_multiple
@@ -138,12 +118,11 @@ module Alchemy
       end
 
       def flush
-        # FileUtils.rm_rf only takes arrays of folders...
-        FileUtils.rm_rf Dir.glob(Rails.root.join('public', Alchemy::MountPoint.get, 'pictures', '*'))
+        FileUtils.rm_rf Rails.root.join('public', Alchemy::MountPoint.get, 'pictures')
         @notice = _t('Picture cache flushed')
       end
 
-    private
+      private
 
       def load_picture
         @picture = Picture.find(params[:id])
@@ -180,17 +159,29 @@ module Alchemy
       end
 
       def redirect_to_index
-        redirect_to(
-          :action => :index,
-          :query => params[:query],
-          :tagged_with => params[:tagged_with],
-          :size => params[:size],
-          :filter => params[:filter]
+        redirect_to admin_pictures_path(
+          query: params[:query],
+          tagged_with: params[:tagged_with],
+          size: params[:size],
+          filter: params[:filter]
         )
       end
 
       def picture_params
         params.require(:picture).permit(:name, :tag_list)
+      end
+
+      def set_size_or_default
+        @size = params[:size] || 'medium'
+      end
+
+      def set_instance_variables
+        @while_assigning = true
+        @content = Content.select('id').find_by_id(params[:content_id])
+        @element = Element.select('id').find_by_id(params[:element_id])
+        @options = options_from_params
+        @page = params[:page] || 1
+        @per_page = pictures_per_page_for_size(@size)
       end
 
     end
