@@ -331,15 +331,5 @@ module Alchemy
       end
     end
 
-    describe '#full_url_for_element' do
-      subject { full_url_for_element(element) }
-
-      let(:current_server) { '' }
-
-      it "returns the url to this element" do
-        should == "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
-      end
-    end
-
   end
 end

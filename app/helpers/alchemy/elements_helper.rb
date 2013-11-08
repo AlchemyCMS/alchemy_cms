@@ -195,11 +195,6 @@ module Alchemy
       { :'data-alchemy-element' => element.id }
     end
 
-    # Returns the full url containing host, page and anchor for the given element
-    def full_url_for_element(element)
-      "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
-    end
-
     # Returns the element's tags information as a string. Parameters and options
     # are equivalent to {#element_tags_attributes}.
     #
