@@ -171,68 +171,6 @@ module Alchemy
       }
     end
 
-    # This helper returns all published elements with the given name.
-    #
-    # @param [Hash] options
-    #   Additional options.
-    #
-    # @option options [Number] :count
-    #   The amount of elements to be returned.
-    #
-    # @option options [Alchemy::Page/String] :from_page
-    #   Only elements associated with this page are returned.
-    #
-    # @note When passing a String for options :from_page, it must be a page_layout name.
-    #
-    def all_elements_by_name(name, options = {})
-      warning('options[:language] option not allowed any more in all_elements_by_name helper') unless options[:language].blank?
-      options = {
-        count: :all,
-        from_page: :all
-      }.merge(options)
-
-      case options[:from_page]
-      when :all
-        return Element.published.where(name: name).limit(options[:count] == :all ? nil : options[:count])
-      when String
-        page = Page.with_language(session[:language_id]).find_by_page_layout(options[:from_page])
-      else
-        page = options[:from_page]
-      end
-
-      return [] if page.blank?
-      page.elements.published.where(name: name).limit(options[:count] == :all ? nil : options[:count])
-    end
-
-    # This helper returns a published element found by the given name and the given published Page, either by Page.id or by Page.urlname
-    #
-    # @param [Hash] options
-    #   Additional options.
-    #
-    # @option options [String] :page_urlname
-    #   The urlname of the Page the element is associated with
-    #
-    # @option options [Integer] :page_id
-    #   The id of the Page the element is associated with
-    #
-    def element_from_page(options = {})
-      default_options = {
-        page_urlname: "",
-        page_id: nil,
-        element_name: ""
-      }.merge(options)
-
-      page = case options[:page_id]
-      when nil
-        Page.published.find_by_urlname(options[:page_urlname])
-      else
-        Page.published.find_by_id(options[:page_id])
-      end
-
-      return "" if page.blank?
-      page.elements.published.find_by_name(options[:element_name])
-    end
-
     # Renders all element partials from given cell.
     #
     def render_cell_elements(cell)
