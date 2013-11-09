@@ -10,7 +10,7 @@
 //= require jquery.ui.resizable
 //= require jquery.ui.sortable
 //= require jquery.ui.tabs
-//= require tiny_mce/tiny_mce
+//= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require_tree ../../../../vendor/assets/javascripts/swfupload/
 //= require spin.min

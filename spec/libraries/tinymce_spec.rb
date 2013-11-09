@@ -43,18 +43,6 @@ module Alchemy
           it { should eq([]) }
         end
       end
-
-      describe '.page_custom_config_contents' do
-        let(:page) { FactoryGirl.build_stubbed(:page) }
-        subject { Tinymce.page_custom_config_contents(page) }
-
-        before { page.stub(:element_definitions).and_return([element_definition]) }
-
-        it "returns an array of content definitions that contain custom tinymce config for page" do
-          should be_an(Array)
-          should include({'element' => element_definition['name']}.merge(content_definition))
-        end
-      end
     end
 
   end

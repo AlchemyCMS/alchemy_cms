@@ -111,7 +111,7 @@
         if ((link.className == '') || link.className == 'internal')
           internal_anchor = link.hash.split('#')[1]
           internal_urlname = link.pathname
-          $('#overlay_tabs').tabs("select", '#overlay_tab_internal_link')
+          $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_internal_link')
           $('#internal_urlname').val(internal_urlname)
           $sitemap_line = $('.sitemap_sitename').closest('[name="'+internal_urlname+'"]')
           if ($sitemap_line.length > 0)
@@ -129,12 +129,12 @@
 
         # Handling an external link.
         if (link.className == 'external')
-          $('#overlay_tabs').tabs("select", '#overlay_tab_external_link')
+          $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_external_link')
           $('#external_url').val(link.href)
 
         # Handling a file link.
         if (link.className == 'file')
-          $('#overlay_tabs').tabs("select", '#overlay_tab_file_link')
+          $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_file_link')
           $('#public_filename').val(link.pathname + link.search)
 
         # Handling a contactform link.
@@ -144,7 +144,7 @@
           link_subject = link_params.split('&')[0]
           link_mailto = link_params.split('&')[1]
           link_body = link_params.split('&')[2]
-          $('#overlay_tabs').tabs("select", '#overlay_tab_contactform_link')
+          $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_contactform_link')
           $('#contactform_url').val(link_url)
           $('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')).replace(/\?/, ''))
           $('#contactform_body').val(unescape(link_body.replace(/body=/, '')).replace(/\?/, ''))

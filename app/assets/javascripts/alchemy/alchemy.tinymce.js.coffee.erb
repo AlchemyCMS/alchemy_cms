@@ -9,9 +9,6 @@ window.Alchemy.Tinymce =
     <% Alchemy::Tinymce.init.each do |k, v| %>
     <%= k %>: <%= v.to_json %>
     <% end %>
-    <% if Alchemy::Tinymce.setup %>
-    setup: <%= Alchemy::Tinymce.setup %>
-    <% end %>
 
   # Holds custom tinymce configurations
   #
@@ -26,8 +23,7 @@ window.Alchemy.Tinymce =
   getDefaultConfig: (id) ->
     config = @defaults
     config.language = Alchemy.locale
-    config.mode = 'exact'
-    config.elements = "tinymce_#{id}"
+    config.selector = "textarea#tinymce_#{id}"
     config.init_instance_callback = @initInstanceCallback
     return config
 
@@ -71,10 +67,10 @@ window.Alchemy.Tinymce =
   # Gets called after an editor instance gets intialized
   #
   initInstanceCallback: (inst) ->
-    $this = $("##{inst.editorId}")
+    $this = $("##{inst.id}")
     parent = $this.parents('.element_editor')
     parent.find('.spinner').remove()
-    inst.onChange.add ->
+    inst.on 'change', (e) ->
       Alchemy.setElementDirty(parent)
 
   # Removes the TinyMCE editor from given dom ids.
