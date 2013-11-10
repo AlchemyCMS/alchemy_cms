@@ -8,6 +8,7 @@ body {
   color: $text-color;
   font: $default-font-style;
   margin: 0 2*$default-margin;
+  padding-bottom: $default-padding !important;
 }
 
 td,th {

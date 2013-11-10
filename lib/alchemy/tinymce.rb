@@ -6,13 +6,14 @@ module Alchemy
     @@languages = ['en', 'de']
     @@init = {
       content_css: '/assets/alchemy/tinymce_content.css',
+      skin: 'alchemy',
       width: '100%',
       resize: false,
-      autoresize_min_height: '135',
+      autoresize_min_height: '105',
       menubar: false,
       statusbar: false,
-      toolbar1: 'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | alchemy_link unlink | removeformat | fullscreen',
-      toolbar2: 'undo redo | pastetext charmap code',
+      toolbar1: 'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
+      toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink',
       fix_list_elements: true,
       convert_urls: false,
       entity_encoding: 'raw'
