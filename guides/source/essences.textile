@@ -102,6 +102,6 @@ h3. EssenceLink
 Stores a url in the database. Useful for linking things, where the user should not set the linked value itself. (Like in the EssenceText with <code>linkable: true</code> option)
 
 INFO: It is easy to add your own essence types to Alchemy.
-Read more about it in "this guide":creating_own_essence_types.html
+Read more about it in "this guide":create_essences.html
 
 &nbsp;

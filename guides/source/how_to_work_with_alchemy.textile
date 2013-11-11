@@ -20,21 +20,19 @@ Elements are containers for essences (called contents) and can be rendered on pa
 A content is the smallest part in Alchemy and refers to one of the essence-types Alchemy CMS provides (EssenceText, EssencePicure, EssenceRichtext, ...).
 "More about Essences »":essences.html
 
-h3. Rendering your own contents
+h3. Examples
 
-h4. Using elements
+h4. Create Blog template
 
-INFO: under construction
+Websites often contain blog pages. If you like to find out how to create a blog page using Alchemy, visit "Best Practice - Create Blog Template":best_practice_create_blog_template.html
 
-Read more about "on how to create elements":creating_elements.html.
+h4. Create form (contact)
 
-h4. Using cells
+"Best Practice - Create form":best_practice_create_form.html
 
-INFO: under construction
+h4. Create image-slider
 
-h4. Using the navigation helper
-
-INFO: under construction
+"Best Practice - Create Image-slider":best_practice_create_slider.html
 
 h4. Using the implemented fulltext search
 

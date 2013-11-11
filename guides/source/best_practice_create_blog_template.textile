@@ -1,0 +1,40 @@
+h2. Create blog template
+
+
+h3. Conceptual page and content structuring
+
+Imagine you like to have a simple blog template on your website. First of all as mentioned in "How to work with Alchemy":how_to_work_with_alchemy.html you should identify required components of your blog layout. Common components are a headline, a blog post itself and sidebar blocks for category overview and featured posts.
+
+Following the steps you will create
+
+endprologue.
+
+h4.
+
+
+
+
+
+
+
+h3. Rendering your own contents
+
+h4. Using elements
+
+INFO: under construction
+
+Read more about "on how to create elements":creating_elements.html.
+
+h4. Using cells
+
+INFO: under construction
+
+h4. Using the navigation helper
+
+INFO: under construction
+
+h4. Using the implemented fulltext search
+
+INFO: under construction
+
+&nbsp;

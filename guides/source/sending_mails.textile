@@ -19,6 +19,7 @@ mailer:
   validate_fields: [lastname, email]
 </pre>
 
+
 * <code>page_layout_name</code><code>String</code><br>
   (Optional) A Alchemy::PageLayout name. Used for rendering the contact form.
 * <code>forward_to_page</code><code>Boolean</code><br>
@@ -90,6 +91,11 @@ h5. The contact form view
 Open <code>app/views/alchemy/elements/_contactform_view.html.erb</code> in your text editor.
 
 We are using the great <code>simple_form</code> gem in this example.
+If this gem is not already installed, you have to add
+<pre>
+  gem 'simple_form'
+</pre>
+to your Gemfile and afterwards use <shell>bundle </shell> command to install <code>simple_form</code>.
 
 <pre>
 <%= simple_form_for(@message ||= Alchemy::Message.new) do |form| %>
@@ -102,6 +108,8 @@ We are using the great <code>simple_form</code> gem in this example.
 </pre>
 
 NOTE: See the hidden field? This is important, or the messages mailer can't do all the magic for you.
+
+If you use different or additional input symbols like 'company' , 'age' etc. make sure to adapt the fields in the mailer configuration (<code>config/alchemy/config.yml</code>).
 
 INFO: Please have a look at the "simple form documentation":https://github.com/plataformatec/simple_form#readme for further infos about the various config options.
 
@@ -133,3 +141,24 @@ de:
         firstname: Vorname
         lastname: Nachname
 </pre>
+
+INFO: If you like to use same vocabulary in different context:
+
+e.g in the <code>app/views/alchemy/elements/_contactform_view.html.erb </code>
+
+<pre>
+  <%= form.input ... %>
+  <%= form.input :firstname , label: t(:sender, scope: 'my_forms.contactform') %>
+  <%= form.input ...  %>
+</pre>
+
+Your language yml should look like this: (<code>config/locales/de.yml</code>)
+
+<pre>
+my_forms:
+  contactform:
+    sender: Sender
+</pre>
+
+Now you can reuse the label by using the <code> t</code> function while defining label.
+
