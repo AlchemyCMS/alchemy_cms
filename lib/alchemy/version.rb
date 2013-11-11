@@ -1,5 +1,5 @@
 module Alchemy
-  VERSION = "3.0.0.dev".freeze
+  VERSION = "3.0.0.alpha"
 
   def self.version
     VERSION
