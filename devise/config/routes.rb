@@ -5,9 +5,7 @@ Alchemy::Engine.routes.draw do
       sessions: 'alchemy/user_sessions'
     },
     skip: [:sessions, :passwords]
-end
 
-Alchemy::Engine.routes.prepend do
   resources :users, only: [:create]
 
   devise_scope :user do
