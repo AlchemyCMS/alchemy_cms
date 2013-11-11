@@ -1,0 +1,7 @@
+h2. What is Alchemy CMS?
+
+Alchemy is not a common CMS. Alchemy is rather a CMS framework. It enables you to build your own CMS.
+
+
+
+endprologue.

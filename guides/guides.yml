@@ -17,14 +17,15 @@ authors:
       description: Marc is the newest member of the Alchemy core team.
 
 index:
-  1.) Start here:
+  1.) First steps:
+    - title: What is Alchemy CMS
+      url: what_is_alchemy
+      text: General information about alchemy purposes (including field of application and target audience)
     - title: Getting Started
       url: getting_started
       text: Everything you need to know to install and create your first Alchemy CMS project.
 
-    - title: How to work with Alchemy CMS
-      url: how_to_work_with_alchemy
-      text: Best practises for working on individual projects with Alchemy CMS
+  2.) Basics:
 
     - title: Alchemy´s Architecture
       text: How Alchemy CMS is working.
@@ -50,11 +51,28 @@ index:
       url: essences
       text: What are essences and how do they work.
 
+  3.) How to work with Alchemy:
+    - title: The Alchemy approach
+      url: how_to_work_with_alchemy
+      text: Best practises for working on individual projects with Alchemy CMS
+
+    - title: How to create blog template
+      url: best_practice_create_blog_template
+      text: Best practice in creating an editable blog template.
+
+    - title: How to create form
+      url: best_practice_create_form
+      text: Best practice in creating (contact) form.
+
+    - title: How to create image slider
+      url: best_practice_create_image_slider
+      text: Best Practice in creating image slider.
+
     - title: Configure Alchemy
       url: configuration
       text: How to change Alchemy´s configuration options and what do they mean.
 
-  3.) Customization guides:
+  4.) Customization guides:
     - title: Create Page Layouts
       url: create_page_layouts
       text: How to create page layouts.
@@ -83,12 +101,12 @@ index:
       url: sending_mails
       text: How to use the build-in messages mailer to send emails via a contact form.
 
-  4.) Deployment:
+  5.) Deployment:
     - title: Deploying on RailsHoster
       url: deploy_on_railshoster
       text: How to deploy your Alchems site on RailsHoster.
 
-  5.) Management:
+  6.) Management:
     - title: Upgrading Alchemy
       url: upgrading
       text: Learn how to upgrade Alchemy to newest version
