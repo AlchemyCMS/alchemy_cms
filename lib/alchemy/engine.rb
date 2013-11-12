@@ -13,6 +13,7 @@ require 'simple_form'
 require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
+require 'non-stupid-digest-assets'
 
 # Require globally used Alchemy mixins
 require 'alchemy/auth_accessors'
