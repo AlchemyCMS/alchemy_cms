@@ -62,13 +62,6 @@ module Alchemy
         )
       end
 
-      # Used for language selector in Alchemy cockpit sitemap. So the user can select the language branche of the page.
-      def language_codes_for_select
-        configuration(:languages).collect { |language|
-          language[:language_code]
-        }
-      end
-
       # Used for translations selector in Alchemy cockpit user settings.
       def translations_for_select
         Alchemy::I18n.available_locales.map do |locale|
