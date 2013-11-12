@@ -84,6 +84,20 @@ FactoryGirl.define do
     upload_hash Time.now.hash
   end
 
+  factory :content, :class => 'Alchemy::Content' do
+    name "text"
+    essence_type "Alchemy::EssenceText"
+    association :essence, :factory => :essence_text
+  end
+
+  factory :essence_text, :class => 'Alchemy::EssenceText' do
+    body ''
+  end
+
+  factory :essence_picture, :class => 'Alchemy::EssencePicture' do
+    picture
+  end
+
   factory :attachment, :class => 'Alchemy::Attachment' do
     file File.new(File.expand_path('../../../../spec/fixtures/image.png', __FILE__))
     name 'image'
