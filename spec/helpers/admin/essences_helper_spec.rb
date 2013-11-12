@@ -68,4 +68,19 @@ describe Alchemy::Admin::EssencesHelper do
     end
   end
 
+  describe '#essence_picture_thumbnail' do
+    let(:content) { build_stubbed(:content, essence: build_stubbed(:essence_picture)) }
+
+    it "should return an image tag" do
+      expect(helper.essence_picture_thumbnail(content, {})).to have_selector('img[src]')
+    end
+
+    context 'when given content has no ingredient' do
+      before { content.stub(:ingredient).and_return(nil) }
+      it "should return nil" do
+        expect(helper.essence_picture_thumbnail(content, {})).to eq(nil)
+      end
+    end
+  end
+
 end
