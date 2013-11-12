@@ -57,7 +57,6 @@ module Alchemy
         "alchemy/menubar.css",
         "alchemy/menubar.js",
         "alchemy/print.css",
-        "alchemy/tinymce_content.css",
         "tinymce/*"
       ]
     end

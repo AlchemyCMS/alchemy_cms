@@ -5,7 +5,6 @@ module Alchemy
     @@plugins = %w(alchemy_link autoresize charmap code directionality fullscreen link paste tabfocus table)
     @@languages = ['en', 'de']
     @@init = {
-      content_css: '/assets/alchemy/tinymce_content.css',
       skin: 'alchemy',
       width: '100%',
       resize: false,
