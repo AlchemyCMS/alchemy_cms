@@ -3,7 +3,7 @@ require 'spec_helper'
 module Alchemy
   describe "ActsAsEssence" do
     #let(:element) { FactoryGirl.create(:element, :name => 'headline', :create_contents_after_create => true) }
-    let(:essence) { Alchemy::EssenceText.new }
+    let(:essence) { build_stubbed(:essence_text) }
 
     describe '#ingredient=' do
       it 'should set the value to ingredient column' do
@@ -31,6 +31,22 @@ module Alchemy
             expect(subject).to eq(false)
           end
         end
+      end
+    end
+
+    describe '#page' do
+      let(:page) { build_stubbed(:page) }
+      let(:element) { build_stubbed(:element, page: page) }
+
+      context 'essence has no element' do
+        it "should return nil" do
+          expect(essence.page).to eq(nil)
+        end
+      end
+
+      it "should return the page the essence is placed on" do
+        essence.stub(:element).and_return(element)
+        expect(essence.page).to eq(page)
       end
     end
 
