@@ -105,8 +105,8 @@ en:
 
     # == Translated language names for translation select
     translations:
-      de: 'German'
-      en: 'English'
+      de: 'DE'
+      en: 'EN'
 
     # == User roles translations
     user_roles:
