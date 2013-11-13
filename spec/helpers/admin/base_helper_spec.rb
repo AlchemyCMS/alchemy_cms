@@ -145,5 +145,12 @@ module Alchemy
       end
     end
 
+    describe "#translations_for_select" do
+      it "should return an Array of Arrays with available locales" do
+        Alchemy::I18n.stub(:available_locales).and_return([:de, :en, :cz, :it])
+        expect(helper.translations_for_select).to have(4).items
+      end
+    end
+
   end
 end
