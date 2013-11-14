@@ -138,9 +138,16 @@ module Alchemy
         Content.should_receive(:find).and_return(content)
       end
 
+      let(:attributes) { {render_size: '1x1', alt_tag: 'Alt Tag', caption: 'Caption', css_class: 'CSS Class', title: 'Title'} }
+
       it "updates the essence attributes" do
         essence.should_receive(:update_attributes).and_return(true)
-        xhr :put, :update, id: 1, essence_picture: {render_size: '1x1'}
+        xhr :put, :update, id: 1, essence_picture: attributes
+      end
+
+      it "saves the cropping mask" do
+        essence.should_receive(:update_attributes).and_return(true)
+        xhr :put, :update, id: 1, essence_picture: {render_size: '1x1', crop_from: '0x0', crop_size: '100x100'}
       end
     end
 
