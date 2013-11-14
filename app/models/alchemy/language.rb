@@ -38,7 +38,7 @@ module Alchemy
       end
 
       def get_default
-        where(default: true).first
+        find_by(default: true)
       end
 
     end
@@ -53,7 +53,7 @@ module Alchemy
 
     include Code
 
-  private
+    private
 
     def publicity_of_default_language
       if self.default? && !self.public?
