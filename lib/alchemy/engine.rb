@@ -75,6 +75,10 @@ module Alchemy
       end
     end
 
+    initializer 'alchemy.non_digest_assets' do |app|
+      NonStupidDigestAssets.whitelist = ['tinymce/']
+    end
+
     config.after_initialize do
       require 'alchemy/userstamp'
       # We need to reload the routes, because alchemy extensions (i.e. alchemy-devise) prepends routes.

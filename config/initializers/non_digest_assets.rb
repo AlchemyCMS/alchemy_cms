@@ -1,1 +1,0 @@
-NonStupidDigestAssets.whitelist = ['tinymce/']

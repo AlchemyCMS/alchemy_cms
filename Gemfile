@@ -2,7 +2,8 @@ source 'http://rubygems.org'
 
 gemspec
 
-gem 'rails', github: 'rails/rails', branch: '4-0-stable'
+# Remove this after the new version (1.0.2) was released https://github.com/alexspeller/non-stupid-digest-assets/pull/6
+gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
 
 # Code coverage plattform
 gem 'coveralls', require: false
