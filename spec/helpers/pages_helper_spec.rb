@@ -241,9 +241,9 @@ module Alchemy
         helper.render_breadcrumb(page: page).should have_selector(".active.last[contains('#{page.name}')]")
       end
 
-      context "with options[:seperator] given" do
-        it "should render a breadcrumb with an alternative seperator" do
-          helper.render_breadcrumb(page: page, seperator: '<span>###</span>').should have_selector('span[contains("###")]')
+      context "with options[:separator] given" do
+        it "should render a breadcrumb with an alternative separator" do
+          helper.render_breadcrumb(page: page, separator: '<span>###</span>').should have_selector('span[contains("###")]')
         end
       end
 
@@ -317,8 +317,8 @@ module Alchemy
         helper.render_title_tag.should match /<title>A Public Page<\/title>/
       end
 
-      it "should render a title tag for current page with a prefix and a seperator" do
-        helper.render_title_tag(prefix: 'Peters Petshop', seperator: ' ### ').should match /<title>Peters Petshop ### A Public Page<\/title>/
+      it "should render a title tag for current page with a prefix and a separator" do
+        helper.render_title_tag(prefix: 'Peters Petshop', separator: ' ### ').should match /<title>Peters Petshop ### A Public Page<\/title>/
       end
     end
 

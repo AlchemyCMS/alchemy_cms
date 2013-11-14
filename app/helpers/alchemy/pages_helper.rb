@@ -96,7 +96,7 @@ module Alchemy
     #
     # ==== Example:
     #
-    #   <%= render_navigation({from_page => 'subnavi'}, {:class => 'navigation', :id => 'subnavigation'}) %>
+    #   <%= render_navigation({from_page: 'subnavi'}, {class: 'navigation', id: 'subnavigation'}) %>
     #
     #
     # @option options submenu [Boolean] (false)
@@ -171,12 +171,10 @@ module Alchemy
       if options[:reverse]
         pages.reverse!
       end
-      render(
-        options[:navigation_partial],
+      render options[:navigation_partial],
         options: options,
         pages: pages,
         html_options: html_options
-      )
     end
 
     # Renders navigation the children and all siblings of the given page (standard is the current page).
@@ -187,15 +185,15 @@ module Alchemy
     #
     # === Options:
     #
-    #   :from_page => @page                              # The page to render the navigation from
-    #   :submenu => true                                 # Shows the nested children
-    #   :level => 2                                      # Normally there is no need to change the level parameter, just in a few special cases
+    #   from_page: @page                              # The page to render the navigation from
+    #   submenu: true                                 # Shows the nested children
+    #   level: 2                                      # Normally there is no need to change the level parameter, just in a few special cases
     #
     def render_subnavigation(options = {}, html_options = {})
       default_options = {
-        :from_page => @page,
-        :submenu => true,
-        :level => 2
+        from_page: @page,
+        submenu: true,
+        level: 2
       }
       options = default_options.merge(options)
       if !options[:from_page].nil?
@@ -224,19 +222,19 @@ module Alchemy
     #
     # === Options:
     #
-    #   :seperator => %(<span class="seperator">></span>)      # Maybe you don't want this seperator. Pass another one.
-    #   :page => @page                                         # Pass a different Page instead of the default (@page).
-    #   :without => nil                                        # Pass Page object or array of Pages that must not be displayed.
-    #   :restricted_only => false                              # Pass boolean for displaying restricted pages only.
-    #   :reverse => false                                      # Pass boolean for displaying breadcrumb in reversed reversed.
+    #   separator: %(<span class="separator">></span>)      # Maybe you don't want this separator. Pass another one.
+    #   page: @page                                         # Pass a different Page instead of the default (@page).
+    #   without: nil                                        # Pass Page object or array of Pages that must not be displayed.
+    #   restricted_only: false                              # Pass boolean for displaying restricted pages only.
+    #   reverse: false                                      # Pass boolean for displaying breadcrumb in reversed reversed.
     #
     def render_breadcrumb(options={})
       options = {
-        :seperator => %(<span class="seperator">&gt;</span>),
-        :page => @page,
-        :restricted_only => false,
-        :reverse => false,
-        :link_active_page => false
+        separator: %(<span class="separator">&gt;</span>),
+        page: @page,
+        restricted_only: false,
+        reverse: false,
+        link_active_page: false
       }.merge(options)
       pages = breadcrumb(options[:page]).accessible_by(current_ability, :see)
       pages = pages.restricted if options.delete(:restricted_only)
@@ -260,22 +258,27 @@ module Alchemy
     #
     # === Options:
     #
-    #   :prefix => ""                 # Prefix
-    #   :seperator => ""              # Seperating prefix and title
+    #   prefix: ""                 # Prefix
+    #   separator: ""              # Separating prefix and title
     #
     # === Webdevelopers
     #
     # Please use the render_meta_data() helper instead. There all important meta information gets rendered in one helper.
     # So you dont have to worry about anything.
     #
-    def render_page_title(options={})
+    def render_page_title(options = {})
       return "" if @page.title.blank?
-      default_options = {
-        :prefix => "",
-        :seperator => ""
-      }
-      default_options.update(options)
-      [default_options[:prefix], response.status == 200 ? @page.title : response.status].join(default_options[:seperator])
+      options = {
+        prefix: "",
+        separator: ""
+      }.update(options)
+      title_parts = [options[:prefix]]
+      if response.status == 200
+        title_parts << @page.title
+      else
+        title_parts << response.status
+      end
+      title_parts.join(options[:separator])
     end
 
     # Returns a complete html <title> tag for the <head> part of the html document.
@@ -287,14 +290,14 @@ module Alchemy
     #
     def render_title_tag(options={})
       default_options = {
-        :prefix => "",
-        :seperator => ""
+        prefix: "",
+        separator: ""
       }
       options = default_options.merge(options)
       %(<title>#{render_page_title(options)}</title>).html_safe
     end
 
-    # Renders a html <meta> tag for :name => "" and :content => ""
+    # Renders a html <meta> tag for name: "" and content: ""
     #
     # === Webdevelopers:
     #
@@ -303,9 +306,9 @@ module Alchemy
     #
     def render_meta_tag(options={})
       default_options = {
-        :name => "",
-        :default_language => "de",
-        :content => ""
+        name: "",
+        default_language: "de",
+        content: ""
       }
       options = default_options.merge(options)
       lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
@@ -322,7 +325,7 @@ module Alchemy
     # Description = Your page description
     # Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
     #
-    # Then placing +render_meta_data(:title_prefix => "Company", :title_seperator => "-")+ into the <head> part of the +pages.html.erb+ layout produces:
+    # Then placing +render_meta_data(title_prefix: "Company", title_separator: "-")+ into the <head> part of the +pages.html.erb+ layout produces:
     #
     #   <meta charset="UTF-8">
     #   <title>Company - #{@page.title}</title>
@@ -337,9 +340,9 @@ module Alchemy
         return nil
       end
       default_options = {
-        :title_prefix => "",
-        :title_seperator => "",
-        :default_lang => "de"
+        title_prefix: "",
+        title_separator: "",
+        default_lang: "de"
       }
       options = default_options.merge(options)
       #render meta description of the root page from language if the current meta description is empty
@@ -357,15 +360,15 @@ module Alchemy
       robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
       meta_string = %(
         <meta charset="UTF-8">
-        #{render_title_tag(:prefix => options[:title_prefix], :seperator => options[:title_seperator])}
-        #{render_meta_tag(:name => "description", :content => description)}
-        #{render_meta_tag(:name => "keywords", :content => keywords)}
+        #{render_title_tag(prefix: options[:title_prefix], separator: options[:title_separator])}
+        #{render_meta_tag(name: "description", content: description)}
+        #{render_meta_tag(name: "keywords", content: keywords)}
         <meta name="created" content="#{@page.updated_at}">
         <meta name="robots" content="#{robot}">
       )
       if @page.contains_feed?
         meta_string += %(
-          <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, :protocol => 'feed', :format => :rss)}">
+          <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, protocol: 'feed', format: :rss)}">
         )
       end
       return meta_string.html_safe
@@ -376,18 +379,18 @@ module Alchemy
     #
     # === Options are:
     #
-    #   :from_page => Alchemy::Page     # Alchemy::Page object from which the elements are rendered from.
-    #   :locals => Hash                 # Hash of variables that will be available in the partial. Example: {:user => var1, :product => var2}
+    #   from_page: Alchemy::Page     # Alchemy::Page object from which the elements are rendered from.
+    #   locals: Hash                 # Hash of variables that will be available in the partial. Example: {user: var1, product: var2}
     #
     def render_cell(name, options={})
       default_options = {
-        :from_page => @page,
-        :locals => {}
+        from_page: @page,
+        locals: {}
       }
       options = default_options.merge(options)
       cell = options[:from_page].cells.find_by_name(name)
       return "" if cell.blank?
-      render :partial => "alchemy/cells/#{name}", :locals => {:cell => cell}.merge(options[:locals])
+      render partial: "alchemy/cells/#{name}", locals: {cell: cell}.merge(options[:locals])
     end
 
     # Returns true or false if no elements are in the cell found by name.
