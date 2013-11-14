@@ -21,15 +21,15 @@ module Alchemy
           @content.essence.picture_id = params[:picture_id]
           @content.essence.save
           @contents_of_this_type = @element.contents.gallery_pictures
-          @dragable = @contents_of_this_type.length > 1
-          @options = @options.merge(:dragable => @dragable)
+          @dragable = @contents_of_this_type.size > 1
+          @options = @options.merge(dragable: @dragable)
         else
           @content_dom_id = "#add_content_for_element_#{@element.id}"
         end
         @locals = {
-          :content => @content,
-          :options => @options.symbolize_keys,
-          :html_options => @html_options.symbolize_keys
+          content: @content,
+          options: @options.symbolize_keys,
+          html_options: @html_options.symbolize_keys
         }
       end
 
@@ -49,11 +49,11 @@ module Alchemy
       def destroy
         @content = Content.find(params[:id])
         @content_dup = @content.clone
-        @notice = _t("Successfully deleted content", :content => @content.name_for_label)
+        @notice = _t("Successfully deleted content", content: @content.name_for_label)
         @content.destroy
       end
 
-    private
+      private
 
       def content_params
         params.require(:content).permit(:element_id, :name, :ingredient, :essence_type)
