@@ -131,9 +131,21 @@ select {
     margin: $default-margin 0;
   }
 
+  &.select2-with-searchbox .select2-results > .select2-result:first-child {
+    @include border-top-radius(0);
+  }
+
   .select2-results {
     padding: 0;
     margin: 0;
+
+    > .select2-result:first-child {
+      @include border-top-radius($default-border-radius);
+    }
+
+    &:last-child {
+      @include border-bottom-radius($default-border-radius);
+    }
 
     .select2-result {
       margin: 0;
@@ -164,7 +176,8 @@ select {
   }
 
   &.select2-drop-active {
-    border-color: $blue;
+    @include border-radius($default-border-radius);
+    border: 1px solid $blue;
   }
 }
 

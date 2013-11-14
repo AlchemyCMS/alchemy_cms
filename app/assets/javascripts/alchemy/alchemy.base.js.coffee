@@ -79,6 +79,7 @@ $.extend Alchemy,
   SelectBox: (scope) ->
     $("select.alchemy_selectbox", scope).select2
       minimumResultsForSearch: 7
+      dropdownAutoWidth: true
     return
 
   Buttons: (options) ->
