@@ -14,18 +14,6 @@ Gem::Specification.new do |s|
   s.requirements         << 'ImageMagick (libmagick), v6.6 or greater.'
   s.required_ruby_version = '>= 1.9.3'
   s.license               = 'BSD New'
-  s.post_install_message  = <<-POST_INSTALL
-
- If you are installing Alchemy the first time
- ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-  $ bundle exec rake alchemy:install
-
-
- If you are upgrading an existing Alchemy installation
- ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-  $ bundle exec rake alchemy:upgrade
-
-POST_INSTALL
 
   s.files                 = `git ls-files`.split("\n")
   s.test_files            = `git ls-files -- {test,spec,features}/*`.split("\n")
