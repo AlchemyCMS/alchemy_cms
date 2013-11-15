@@ -57,8 +57,7 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user)         { member_user }
-    let(:another_user) { member_user }
+    let(:user) { member_user }
 
     it "can download all attachments" do
       should be_able_to(:download, attachment)
@@ -94,15 +93,6 @@ describe Alchemy::Permissions do
     it "can see public restricted elements" do
       should be_able_to(:show, published_element)
       should be_able_to(:show, restricted_element)
-    end
-
-    it "can only update its own user record" do
-      should be_able_to(:update, user)
-      should_not be_able_to(:update, another_user)
-    end
-
-    it "can see all user records" do
-      should be_able_to(:read, user)
     end
   end
 
@@ -189,10 +179,6 @@ describe Alchemy::Permissions do
       should be_able_to(:manage, Alchemy::Picture)
     end
 
-    it "can see all users" do
-      should be_able_to(:read, Alchemy.user_class)
-    end
-
     it "can manage tags" do
       should be_able_to(:manage, Alchemy::Tag)
     end
@@ -203,10 +189,6 @@ describe Alchemy::Permissions do
 
     it "can check for alchemy updates" do
       should be_able_to(:update_check, :alchemy_admin_dashboard)
-    end
-
-    it "can manage users" do
-      should be_able_to(:manage, Alchemy.user_class)
     end
 
     it "can manage languages" do
