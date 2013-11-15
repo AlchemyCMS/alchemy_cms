@@ -87,7 +87,6 @@ module Alchemy
 
       context "when alchemy_resource_relations defined as class-method in the model" do
         before do
-          ::ActiveSupport::Deprecation.silenced = true
           Event.class_eval do
             def self.alchemy_resource_relations
               {
@@ -128,7 +127,6 @@ module Alchemy
         end
 
         after do
-          ::ActiveSupport::Deprecation.silenced = false
           Event.class_eval do
             class << self
               undef :alchemy_resource_relations

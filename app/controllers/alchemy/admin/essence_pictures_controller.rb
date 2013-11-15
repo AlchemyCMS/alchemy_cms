@@ -12,9 +12,6 @@ module Alchemy
       helper 'alchemy/url'
 
       def edit
-        if @options[:image_float_selector]
-          ActiveSupport::Deprecation.warn('The `image_float_selector` option for EssencePicture editor partials is deprecated. You can safely remove the option from your editor partial, the selector is shown anyway.')
-        end
       end
 
       def crop
@@ -53,7 +50,7 @@ module Alchemy
         @essence_pictures = @element.contents.essence_pictures
       end
 
-    private
+      private
 
       def load_options
         @options = options_from_params
