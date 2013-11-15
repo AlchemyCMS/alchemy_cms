@@ -1,0 +1,1 @@
+Alchemy.register_ability Ability

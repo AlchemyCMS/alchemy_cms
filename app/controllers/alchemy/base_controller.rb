@@ -78,17 +78,17 @@ module Alchemy
 
     # Ensures usage of Alchemy's permissions class.
     #
-    # Also merges existing abilities.
+    # If you have own CanCan abilities you want to add to Alchemy you must register them first.
+    #
+    #     Alchemy.register_ability MyCustom::Ability
     #
     def current_ability
       @current_ability ||= begin
         alchemy_permissions = ::Alchemy::Permissions.new(current_alchemy_user)
-        # Ruby, ruby, ruby...... o.O
-        if (Object.const_get('Ability') rescue false)
-          alchemy_permissions.merge(Ability.new(current_alchemy_user))
-        else
-          alchemy_permissions
+        Alchemy.registered_abilities.each do |klass|
+          alchemy_permissions.merge(klass.new(current_alchemy_user))
         end
+        alchemy_permissions
       end
     end
 

@@ -22,6 +22,12 @@
 # If you don't have your own user model or don't want to provide one,
 # add the `alchemy-devise` gem into your App's Gemfile.
 #
+# == Adding your own CanCan abilities
+#
+# If your app or your engine has own CanCan abilities you must register them:
+#
+#     Alchemy.register_ability MyCustom::Ability
+#
 module Alchemy
   mattr_accessor :user_class_name, :login_path, :logout_path
 
@@ -51,4 +57,18 @@ module Alchemy
       end
     end
   end
+
+  # Register a CanCan Ability class
+  #
+  def self.register_ability(klass)
+    @abilities ||= []
+    @abilities << klass
+  end
+
+  # All CanCan Ability classes registered to Alchemy
+  #
+  def self.registered_abilities
+    @abilities ||= []
+  end
+
 end
