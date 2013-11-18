@@ -369,6 +369,7 @@ en:
     searchresults_editor_info: "This element displays the search and the searchresults."
     small_thumbnails: "Small thumbnails"
     successfully_added_element: "Succesfully added new element."
+    successfully_restored_element: "Element restored succesfully."
     successfully_saved_element_position: "Element position updated succesfully."
     swap_image: "Change image"
     "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
