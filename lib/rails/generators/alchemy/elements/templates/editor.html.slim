@@ -1,15 +1,14 @@
-<%- if @element['contents'].present? -%>
+<%- if @element['contents'].present? || @element['available_contents'].present? -%>
 = element_editor_for(element) do |el|
 <%- if @element['picture_gallery'] -%>
-  = render_picture_gallery_editor(element, :max_images => nil, :crop => true)
+  = render_picture_gallery_editor(element, max_images: nil, crop: true)
 <%- end -%>
 <% @contents.each do |content| -%>
   = el.edit :<%= content["name"] %>
 <% end -%>
 <%- if @element['available_contents'] -%>
-  - element.contents.where(:name => ['<%= @available_contents_names.join("', '") %>']).each do |content|
+  - element.contents.where(name: ['<%= @available_contents_names.join("', '") %>']).each do |content|
     = render_essence_editor content
-
-  p= render_new_content_link(element)
+  p = render_new_content_link(element)
 <% end -%>
 <%- end -%>
