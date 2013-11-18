@@ -563,6 +563,7 @@ de:
     subject: "Betreff"
     successfully_added_element: "Element wurde hinzugefügt."
     successfully_deleted_tag: "Das Tag wurde gelöscht"
+    successfully_restored_element: "Das Element wurde wieder hergestellt."
     successfully_saved_element_position: "Die Elementposition wurde gespeichert."
     successfully_updated_tag: "Das Tag wurde gespeichert"
     swap_image: "Bild tauschen"

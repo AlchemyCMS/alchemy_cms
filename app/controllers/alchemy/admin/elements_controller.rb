@@ -83,12 +83,14 @@ module Alchemy
       end
 
       def order
+        @trashed_elements = []
         params[:element_ids].each do |element_id|
           element = Element.find(element_id)
           if element.trashed?
             element.page_id = params[:page_id]
             element.cell_id = params[:cell_id]
             element.insert_at
+            @trashed_elements << element
           end
           element.move_to_bottom
         end
@@ -101,7 +103,7 @@ module Alchemy
         @element.save
       end
 
-    private
+      private
 
       # Returns the cell for element name in params.
       # Creates the cell if necessary.

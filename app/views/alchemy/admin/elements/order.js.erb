@@ -1,7 +1,12 @@
-(function($) {
-
-  Alchemy.growl('<%= _t(:successfully_saved_element_position) -%>');
-  $('#element_area .ajax_folder').show();
-  Alchemy.PreviewWindow.refresh();
-
-})(jQuery);
+$('#element_area .ajax_folder').show();
+Alchemy.PreviewWindow.refresh();
+<% if @trashed_elements.any? %>
+Alchemy.growl('<%= _t(:successfully_restored_element) -%>');
+<% element_ids = @trashed_elements.collect { |e| ".dragged[data-element-id=\"#{e.id}\"]" }.join(", ").html_safe %>
+<% @trashed_elements.each do |element| %>
+$('<%= element_ids %>').each(function() { this.id = 'element_' + <%= element.id %> });
+<% end %>
+Alchemy.ElementEditors.reinit('<%= element_ids %>');
+<% else %>
+Alchemy.growl('<%= _t(:successfully_saved_element_position) -%>');
+<% end %>

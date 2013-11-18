@@ -28,11 +28,10 @@ $.extend Alchemy,
         params_string = ""
         cell_id = $(this).attr("data-cell-id")
         # Is the trash window open?
-        if $("#alchemyTrashWindow").length > 0
-          # updating the trash icon
+        if Alchemy.TrashWindow.current
+          # update the trash icon
           if $("#trash_items div.element_editor").not(".dragged").length is 0
             $("#element_trash_button .icon").removeClass "full"
-            $("#trash_empty_notice").show()
         $(event.target).css "cursor", "progress"
         params_string = "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param(element_ids: ids)
         params_string += "&cell_id=" + cell_id  if cell_id
