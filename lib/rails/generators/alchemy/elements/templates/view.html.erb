@@ -1,4 +1,4 @@
-<%- if @element['contents'].present? -%>
+<%- if @element['contents'].present? || @element['available_contents'].present? -%>
 <%%- cache(<%= @element_name %>_view) do -%>
   <%%= element_view_for(<%= @element_name %>_view) do |el| -%>
   <%- if @element["picture_gallery"] -%>
