@@ -6,7 +6,7 @@ if ENV['CI']
 else
   SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
 end
-SimpleCov.start 'alchemy'
+SimpleCov.start 'rails'
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
