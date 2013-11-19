@@ -278,7 +278,6 @@ de:
     "Successfully added content": "%{content} wurde hinzugefügt"
     "Successfully deleted content": "%{content} wurde gelöscht"
     "Successfully saved content position": "Die Position wurde gespeichert."
-    "Successfully signup admin user": "Admin Benutzer wurde erfolgreich eingerichtet."
     "Switch to Flash® Uploader": "Auf den Flash® Uploader wechseln"
     sitemap_editor_info: "Die Sitemap wird automatisch generiert"
     searchresults_editor_info: "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
@@ -306,8 +305,6 @@ de:
     "You may upload files with following extensions": "Sie können %{file_types_description} mit folgenden Endungen hochladen: %{file_types}"
     "You may upload any file": "Sie können jede Art von Datei hochladen."
     "Your last login was on %{time}": "Sie waren zuletzt angemeldet am %{time}."
-    "Your user credentials": "Ihre Zugangsdaten"
-    "Your Alchemy Login": "Ihre Alchemy Zugangsdaten"
     "Your last updated pages": "Ihre zuletzt bearbeiteten Seiten"
     "Your trash is empty": "Der Papierkorb ist leer"
     above: "darüber"
@@ -340,7 +337,6 @@ de:
     confirm_to_delete_images_from_server: "Wollen Sie diese Bilder wirklich vom Server löschen?"
     confirm_to_delete_language: "Wollen Sie diese Sprache wirklich löschen?<br/>ACHTUNG! Alle zugehörigen Seiten werden ebenfalls gelöscht!"
     confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte gehen dabei unwiderruflich verloren!"
-    confirm_to_delete_user: "Wollen Sie diesen Benutzer wirklich löschen?"
     contactform_body: "Nachrichten Vorlage"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
@@ -357,7 +353,6 @@ de:
     "Create site": "Eine neue Website erstellen"
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
     create_page: "Eine Unterseite anlegen"
-    create_user: "Einen Benutzer anlegen"
     currently_edited_by: "Wird bearbeitet von"
     cut_element: "Element ausschneiden"
     delete_file: "Datei vom Server löschen"
@@ -365,7 +360,6 @@ de:
     delete_language: "Sprache löschen"
     delete_page: "Seite löschen"
     delete_tag: 'Tag löschen'
-    delete_user: "Benutzer löschen"
     document: "Dokument"
     documents: "Dateien"
     download_csv: "CSV runterladen"
@@ -378,7 +372,6 @@ de:
     edit_page: "Seite bearbeiten"
     edit_page_properties: "Seiteneigenschaften bearbeiten"
     edit_tag: 'Tag bearbeiten'
-    edit_user: "Benutzer bearbeiten"
     edit_selected_pictures: "Selektierte Bilder:"
     element_editor_not_found: "Bei diesem Element ist ein Fehler aufgetreten"
     element_of_type: "Element"
@@ -439,7 +432,6 @@ de:
     meta_description: "Meta Beschreibung"
     meta_keywords: "Meta Tags"
     modules:
-      user_sessions: "Anmeldung"
       attachments: "Dateien"
       dashboard: "Dashboard"
       pictures: "Bilder"
@@ -447,7 +439,6 @@ de:
       layoutpages: "Globale Seiten"
       library: "Bibliothek"
       pages: "Seiten"
-      users: "Benutzer"
       tags: "Tags"
       sites: "Websites"
     name: "Name"
@@ -570,7 +561,6 @@ de:
     upload_file: "Datei(en) hochladen"
     upload_image: "Bild(er) hochladen"
     url_name: "URL-Name"
-    username: "Benutzername"
     visible: "sichtbar"
     want_to_create_new_language: "Wollen Sie einen neuen leeren Sprachbaum erstellen?"
     want_to_make_copy_of_existing_language: "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
@@ -596,8 +586,6 @@ de:
     "Succesfully created": "Erfolgreich erstellt"
     "Succesfully updated": "Erfolgreich aktualisiert"
     "Succesfully removed": "Erfolgreich gelöscht"
-    "You are already logged in": "Sie sind bereits angemeldet."
-    "No users found": "Keine Benutzer gefunden."
     "Nothing found": "Keine Einträge gefunden."
     "Or drag files over here": "Oder ziehen Sie die Dateien hier rauf"
     "Now drop the files": "Lassen Sie die Dateien nun los"
@@ -774,14 +762,6 @@ de:
         attributes:
           image_file:
             blank: "Bitte fügen Sie ein Bild an."
-      alchemy/user:
-        attributes:
-          login:
-            invalid: "darf nur aus Buchstaben, Zahlen, Leerzeichen und .-_@ bestehen."
-          email:
-            invalid: "entspricht nicht dem Format einer E-Mail-Adresse"
-          roles:
-            blank: "mindestens eine Rolle muss angegeben sein"
 
   activemodel:
 
@@ -832,10 +812,6 @@ de:
       alchemy/picture:
         one: Bild
         other: Bilder
-
-      alchemy/user:
-        one: Benutzer
-        other: Benutzer
 
       alchemy/site:
         one: Website
@@ -915,21 +891,6 @@ de:
         image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Tags
-
-      alchemy/user:
-        email: "E-Mail"
-        firstname: "Vorname"
-        gender: "Anrede"
-        language: "Sprache"
-        lastname: "Nachname"
-        last_sign_in_at: "letzter Login am"
-        login: "Benutzername"
-        name: "Name"
-        password: "Passwort"
-        password_confirmation: "Passwort Bestätigung"
-        roles: "Benutzerrollen"
-        tag_list: Tags
-        send_credentials: "Sende Benutzerdaten per E-Mail"
 
       alchemy/site:
         name: "Bezeichnung"
