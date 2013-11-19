@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: alchemy_contents
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  essence_type :string(255)
+#  essence_id   :integer
+#  element_id   :integer
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  creator_id   :integer
+#  updater_id   :integer
+#
+
 require 'acts_as_list'
 
 module Alchemy

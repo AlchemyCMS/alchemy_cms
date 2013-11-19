@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: tags
+#
+#  id   :integer          not null, primary key
+#  name :string(255)
+#
+
 # Just holds some useful tag methods.
 # The original Tag model is ActsAsTaggableOn::Tag
 module Alchemy

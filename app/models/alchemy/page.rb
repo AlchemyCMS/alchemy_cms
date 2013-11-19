@@ -1,3 +1,37 @@
+# == Schema Information
+#
+# Table name: alchemy_pages
+#
+#  id               :integer          not null, primary key
+#  name             :string(255)
+#  urlname          :string(255)
+#  title            :string(255)
+#  language_code    :string(255)
+#  language_root    :boolean
+#  page_layout      :string(255)
+#  meta_keywords    :text
+#  meta_description :text
+#  lft              :integer
+#  rgt              :integer
+#  parent_id        :integer
+#  depth            :integer
+#  visible          :boolean          default(FALSE)
+#  public           :boolean          default(FALSE)
+#  locked           :boolean          default(FALSE)
+#  locked_by        :integer
+#  restricted       :boolean          default(FALSE)
+#  robot_index      :boolean          default(TRUE)
+#  robot_follow     :boolean          default(TRUE)
+#  sitemap          :boolean          default(TRUE)
+#  layoutpage       :boolean          default(FALSE)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  creator_id       :integer
+#  updater_id       :integer
+#  language_id      :integer
+#  cached_tag_list  :text
+#
+
 require 'acts-as-taggable-on'
 require 'awesome_nested_set'
 

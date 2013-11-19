@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: alchemy_essence_pictures
+#
+#  id              :integer          not null, primary key
+#  picture_id      :integer
+#  caption         :string(255)
+#  title           :string(255)
+#  alt_tag         :string(255)
+#  link            :string(255)
+#  link_class_name :string(255)
+#  link_title      :string(255)
+#  css_class       :string(255)
+#  link_target     :string(255)
+#  creator_id      :integer
+#  updater_id      :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  crop_from       :string(255)
+#  crop_size       :string(255)
+#  render_size     :string(255)
+#
+
 module Alchemy
   class EssencePicture < ActiveRecord::Base
     acts_as_essence ingredient_column: 'picture'

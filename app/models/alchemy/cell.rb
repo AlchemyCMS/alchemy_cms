@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: alchemy_cells
+#
+#  id         :integer          not null, primary key
+#  page_id    :integer
+#  name       :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 # A cell is a group of elements that are rendered inside a specific area on your page_layout.
 # Think of it like a column, or section in your layout. I.e. a header or right column.
 #

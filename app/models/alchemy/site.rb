@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: alchemy_sites
+#
+#  id                       :integer          not null, primary key
+#  host                     :string(255)
+#  name                     :string(255)
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  public                   :boolean          default(FALSE)
+#  aliases                  :text
+#  redirect_to_primary_host :boolean
+#
+
 module Alchemy
   class Site < ActiveRecord::Base
     # validations

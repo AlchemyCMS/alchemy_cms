@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: alchemy_languages
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  language_code  :string(255)
+#  frontpage_name :string(255)
+#  page_layout    :string(255)      default("intro")
+#  public         :boolean          default(FALSE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  creator_id     :integer
+#  updater_id     :integer
+#  default        :boolean          default(FALSE)
+#  country_code   :string(255)      default(""), not null
+#  site_id        :integer
+#
+
 module Alchemy
   class Language < ActiveRecord::Base
     validates_presence_of :name

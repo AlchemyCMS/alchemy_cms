@@ -22,6 +22,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'annotate'
   unless ENV['CI']
     gem 'pry'
     gem 'bumpy'

@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: alchemy_pictures
+#
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  image_file_name   :string(255)
+#  image_file_width  :integer
+#  image_file_height :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  creator_id        :integer
+#  updater_id        :integer
+#  upload_hash       :string(255)
+#  cached_tag_list   :text
+#  image_file_uid    :string(255)
+#  image_file_size   :integer
+#
+
 require 'acts-as-taggable-on'
 require 'dragonfly'
 
@@ -65,6 +84,16 @@ module Alchemy
     end
 
     # Instance methods
+
+    def to_jq_upload
+      {
+        "name" => read_attribute(:upload_file_name),
+        "size" => read_attribute(:upload_file_size),
+        "url" => upload.url(:original),
+        "delete_url" => upload_path(self),
+        "delete_type" => "DELETE"
+      }
+    end
 
     def urlname
       if self.name.blank?

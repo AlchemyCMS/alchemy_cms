@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: alchemy_essence_files
+#
+#  id            :integer          not null, primary key
+#  attachment_id :integer
+#  title         :string(255)
+#  css_class     :string(255)
+#  creator_id    :integer
+#  updater_id    :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 module Alchemy
   class EssenceFile < ActiveRecord::Base
     belongs_to :attachment

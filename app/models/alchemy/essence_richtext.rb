@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: alchemy_essence_richtexts
+#
+#  id            :integer          not null, primary key
+#  body          :text
+#  stripped_body :text
+#  public        :boolean
+#  creator_id    :integer
+#  updater_id    :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 module Alchemy
   class EssenceRichtext < ActiveRecord::Base
     acts_as_essence preview_text_column: 'stripped_body'
