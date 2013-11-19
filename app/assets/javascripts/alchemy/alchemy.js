@@ -12,7 +12,6 @@
 //= require jquery.ui.tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
-//= require_tree ../../../../vendor/assets/javascripts/swfupload/
 //= require spin.min
 //= require keymage.min
 //= require select2
@@ -37,11 +36,9 @@
 //= require alchemy/alchemy.initializer
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader
-//= require alchemy/alchemy.file_progress
 //= require alchemy/alchemy.preview_window
 //= require alchemy/alchemy.sitemap
 //= require alchemy/alchemy.spinner
-//= require alchemy/alchemy.swf_upload
 //= require alchemy/alchemy.tinymce
 //= require alchemy/alchemy.translations
 //= require alchemy/alchemy.windows

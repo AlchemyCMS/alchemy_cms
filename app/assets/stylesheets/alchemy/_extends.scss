@@ -99,7 +99,3 @@
 %gradiated-toolbar {
   background: $medium-gray;
 }
-
-%progressbar {
-  @include background-image(linear-gradient(top, rgba(lighten($light-gray, 10), .5) 5%, rgba($light-gray, 0.5) 65%, rgba(darken($medium-gray, 10), 0.5) 90%));
-}

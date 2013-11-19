@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class PicturesController < Alchemy::Admin::BaseController
-      protect_from_forgery :except => [:create]
       helper 'alchemy/admin/tags'
 
       respond_to :html, :js
@@ -33,25 +32,18 @@ module Alchemy
       end
 
       def create
-        @picture = Picture.new(
-          :image_file => params[:Filedata],
-          :upload_hash => params[:upload_hash]
-        )
+        @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
-        @picture.save!
-        set_size_or_default
-        if in_overlay?
-          set_instance_variables
-        end
-        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
-        @message = _t('Picture uploaded succesfully', :name => @picture.name)
-        # Are we using the single file uploader?
-        if params[Rails.application.config.session_options[:key]].blank?
-          flash[:notice] = @message
-          redirect_to admin_pictures_path(:filter => 'last_upload')
+        if @picture.save
+          set_size_or_default
+          if in_overlay?
+            set_instance_variables
+          end
+          message = _t('Picture uploaded succesfully', name: @picture.name)
+          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
         else
-          # Or the mutliple file uploader?
-          render # create.js.erb template
+          message = _t('Picture validation error', name: @picture.name)
+          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :unprocessable_entity
         end
       end
 
@@ -168,7 +160,7 @@ module Alchemy
       end
 
       def picture_params
-        params.require(:picture).permit(:name, :tag_list)
+        params.require(:picture).permit(:image_file, :upload_hash, :name, :tag_list)
       end
 
       def set_size_or_default

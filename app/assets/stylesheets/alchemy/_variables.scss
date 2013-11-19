@@ -1,9 +1,9 @@
 $text-color: #333333;
-$light-blue: #C6DBE7;
+$light-blue: #c6dbe7;
 $blue: darken($light-blue, 15%);
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #EDEDED;
-$medium-gray: #E3E3E3;
+$light-gray: #ededed;
+$medium-gray: #e3e3e3;
 $dark-gray: #666666;
 $light_yellow: #ffffdc;
 $linked-color: #ffd77a;
@@ -17,15 +17,15 @@ $mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Te
 $default-font-size: 12px;
 $default-font-style: $default-font-size $default-font-face;
 
-$default-border-color: #AFAFAF;
+$default-border-color: #afafaf;
 $default-border-width: 1px;
 $default-border-style: solid;
 $default-border: $default-border-width $default-border-style $default-border-color;
 $default-border-radius: 3px;
 
-$button-bg-color: #F7F7F7;
+$button-bg-color: #f7f7f7;
 $button-hover-bg-color: #e6f0f5;
-$button-border-color: #9A9A9A;
+$button-border-color: #9a9a9a;
 $button-hover-border-color: #888888;
 $button-text-shadow: $white 1px 1px 0;
 
@@ -36,8 +36,20 @@ $sb-text-color:      $text-color;
 $sb-ie-support:      true;
 $default-form-field-margin: $default-padding 0;
 
+$success_border_color: #9cc4a1;
+$success_text_color: #2e5934;
+$success_background_color: #e2efd3;
+
+$info_border_color: #8392b5;
+$info_text_color: #233772;
+$info_background_color: #cadbf3;
+
+$warning_border_color: #c4c19c;
+$warning_text_color: #726d23;
+$warning_background_color: #f3f0c1;
+
 $error_border_color: #c49c9c;
-$error_text_color: #A23434; // #592e2e;
+$error_text_color: #a23434;
 $error_background_color: #efd3d3;
 
 $form-left-width: 35%;

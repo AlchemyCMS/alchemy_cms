@@ -199,9 +199,9 @@ de:
     "Element trashed": "Das Element wurde in den Papierkorb gelegt"
     "Error with the Flash® Uploader!": "Fehler mit dem Flash® Uploader!"
     "Excerpt": "Auszug"
-    "File %{name} uploaded succesfully": "Datei %{name} wurde hochgeladen"
+    "File uploaded succesfully": "Datei %{name} wurde hochgeladen"
     "File successfully updated": "Datei wurde erfolgreich gespeichert."
-    "File upload error: %{error}": "Datei konnte nicht hochgeladen werden: %{error}"
+    "File upload error": "Datei konnte nicht hochgeladen werden: %{error}"
     "File: '%{name}' deleted successfully": "%{name} wurde gelöscht"
     "Filter by tag": "Nach Tag filtern"
     "Flush page cache": "Seitencache löschen"
@@ -243,6 +243,7 @@ de:
     "Paste from clipboard": "Aus Zwischenablage"
     "Picture infos": "Bild Informationen"
     "Picture uploaded succesfully": "Bild %{name} wurde hochgeladen"
+    "Picture validation error": "Bild %{name} konnte nicht hochgeladen werden"
     "Picture renamed successfully": "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
     "Picture deleted successfully": "%{name} wurde gelöscht"
     "Pictures deleted successfully": "Die Bilder %{names} wurden gelöscht"
@@ -545,8 +546,6 @@ de:
     successfully_updated_tag: "Das Tag wurde gespeichert"
     swap_image: "Bild tauschen"
     insert_image: "Bild einfügen"
-    swfupload:
-      cancel_uploads: "Hochladen abbrechen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: 'Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
     this_picture_is_not_used_on_any_page: "Dieses Bild wird auf keiner Seite benutzt."

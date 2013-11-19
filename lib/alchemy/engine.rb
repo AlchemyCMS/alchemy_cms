@@ -39,9 +39,6 @@ require 'alchemy/touching'
 require 'alchemy/kaminari/scoped_pagination_url_helper'
 require File.join(File.dirname(__FILE__), '../extensions/action_view')
 
-# Require middleware
-require File.join(File.dirname(__FILE__), '../middleware/flash_session_cookie')
-
 module Alchemy
   class Engine < Rails::Engine
     isolate_namespace Alchemy
@@ -59,14 +56,6 @@ module Alchemy
         "alchemy/print.css",
         "tinymce/*"
       ]
-    end
-
-    initializer 'alchemy.flash_cookie' do |config|
-      config.middleware.insert_after(
-        'ActionDispatch::Cookies',
-        Alchemy::Middleware::FlashSessionCookie,
-        ::Rails.configuration.session_options[:key]
-      )
     end
 
     initializer 'alchemy.dependency_tracker' do |app|
