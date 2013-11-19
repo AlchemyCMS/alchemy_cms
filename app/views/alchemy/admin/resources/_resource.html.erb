@@ -2,7 +2,7 @@
 <% resource_handler.attributes.each do |attribute| %>
   <td class="<%= attribute[:type] %> <%= attribute[:name] %>">
   <% if attribute[:type] == :boolean %>
-    <%= render_icon render_attribute(resource, attribute) %>
+    <%= render_icon !!resource.send(attribute[:name]) %>
   <% else %>
     <%= render_attribute(resource, attribute) %>
   <% end %>
