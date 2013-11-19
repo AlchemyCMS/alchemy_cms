@@ -70,13 +70,19 @@ form {
       input[type="text"],
       input[type="email"],
       input[type="password"],
-      textarea {
+      textarea,
+      .select2-choices {
         @extend %field-with-error
       }
 
-      .selectboxit, .selectboxit-arrow {
+      .select2-choice, .select2-choices {
         border-color: $error_border_color;
         color: $error_text_color;
+        margin-bottom: 4px;
+
+        input[type="text"] {
+          @include box-shadow(none);
+        }
       }
 
       label { color: $error_text_color }
