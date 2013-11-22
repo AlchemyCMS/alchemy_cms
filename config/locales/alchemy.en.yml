@@ -235,6 +235,8 @@ en:
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
+    "File uploaded succesfully": "File %{name} succesfully uploaded"
+    "File upload error": "File upload error: %{error}"
     from_at: "from %{by} at %{at}"
     height: "Height"
     hide_element_content: "Hide this elements content."
@@ -320,6 +322,7 @@ en:
     password: "Password"
     picture_gallery_editor: 'Pictures'
     "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
+    "Picture validation error": "Error while uploading %{name}"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} successfully deleted"
     picture_updated_successfully: "Picture %{name} successfully updated"
@@ -367,8 +370,6 @@ en:
     swap_image: "Change image"
     "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
     insert_image: "Insert image"
-    swfupload:
-      cancel_uploads: "Cancel uploads"
     title: "Title"
     "trash element": "Put element into trash"
     use_alternative_uploader_instead: "Please use this alternative uploader instead."

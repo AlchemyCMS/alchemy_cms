@@ -7,79 +7,60 @@
     <li id="explain_step3"><%= _t('explain_upload.step3') %></li>
     <li id="explain_drag_n_drop"><%= _t('explain_upload.dragndrop', name: item_type) %></li>
   </ol>
-  <%- unless file_types.first == '*' -%>
-    <p><%= _t('You may upload files with following extensions', file_types_description: file_types_description, file_types: file_types.to_sentence) %>.</p>
-  <%- end -%>
+  <% unless file_types.first == '*' %>
+  <p>
+    <%= _t('You may upload files with following extensions',
+      file_types_description: file_types_description,
+      file_types: file_types.to_sentence) %>.
+  </p>
+  <% end %>
   <small>*<%= _t('explain_upload.footnote', name: item_type) %></small>
 </div>
 
-<%= render 'alchemy/admin/partials/flash_upload' %>
-
-<div class="browse">
-  <%= label_tag :multiple, _t(:browse), style: 'display:none;' %>
-  <input name="Filedata" id="multiple" type="file" multiple value="<%= _t(:browse) %>">
-  <a href="#" class="button no-spinner" id="cancelHTML5Queue" style="display: none">
-    <%= _t("swfupload.cancel_uploads") %>
-  </a>
+<div class="upload-container">
+  <%= label_tag :fileupload, _t(:browse) %>
+  <input name="<%= model_name %>[<%= file_attribute %>]" id="fileupload" type="file" multiple value="<%= _t(:browse) %>">
+  <div id="dropbox"><%= _t('Or drag files over here') %></div>
 </div>
 
-<div id="dropbox"><%= _t('Or drag files over here') %></div>
-
-<div class="flash notice" style="display: none; margin: 8px 0" id="upload_info_container">
-  <%= render_icon('tick') %>
-  <span id="upload_info"></span>
+<div class="overall-upload">
+  <div class="progress">
+    <span class="progress-status">0%</span>
+    (<span class="uploaded-files-count">0</span>/<span class="total-files-count">0</span>)
+  </div>
 </div>
 
 <div id="uploadProgressContainer"></div>
 
-<%- post_params = {
-  while_assigning: @while_assigning ? "true" : "false",
-  content_id: @content.blank? ? nil : @content.id,
-  element_id: @element.blank? ? nil : @element.id,
-  size: @size,
-  upload_hash: Time.now.hash,
-  options: @options.to_json
-}.delete_if { |k, v| v.nil? }.to_json -%>
+<%- post_params = [
+  {name: 'while_assigning', value: !!@while_assigning},
+  {name: 'content_id', value: @content.blank? ? nil : @content.id},
+  {name: 'element_id', value: @element.blank? ? nil : @element.id},
+  {name: 'size', value: @size},
+  {name: "#{model_name}[upload_hash]", value: model_name == 'picture' ? Time.now.hash : nil},
+  {name: 'options', value: @options ? @options.to_json : nil}
+].delete_if { |h| !h.detect { |k, v| v.blank? }.nil? }.to_json -%>
 
 <script type='text/javascript'>
-
-  (function() {
+  $(function() {
     var options = {
-      upload_url: '<%= new_asset_path_with_session_information(model_name) %>',
       post_params: <%= post_params.html_safe %>,
       file_size_limit: <%= configuration(:uploader)['file_size_limit'] || 100 -%>,
-      file_types: '<%= file_types.map{ |f| "*.#{f}" }.join(";") %>',
+      file_types: '<%= file_types.join("|") %>',
       file_types_description: "<%= file_types_description %>",
       file_upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>,
       locale: "<%= ::I18n.locale || 'en' %>",
-      onQueueComplete: function() {
-        // While assigning picture in page edit mode
-        <% if @while_assigning && model_name == 'picture' %>
-        var url = '<%= alchemy.admin_pictures_path(size: params[:size], filter: "last_upload", element_id: @element.id, content_id: @content ? @content.id : nil, options: @options.to_json).html_safe %>';
+      complete: function() {
+        var url = '<%= redirect_url.html_safe %>';
+      <% if @while_assigning %>
         $.get(url, null, null, 'script');
-        // While uploading picture in library
-        <% elsif controller.class.name == 'Alchemy::Admin::PicturesController' %>
-        var url = '<%= alchemy.admin_pictures_path(size: params[:size], filter: "last_upload").html_safe %>';
+        Alchemy.closeCurrentWindow();
+      <% else %>
         Alchemy.pleaseWaitOverlay();
-        window.location = url;
-        <% end %>
+        window.location.href = url;
+      <% end %>
       }
     };
-
-    Alchemy.Uploader.init(options);
-  })();
-
-  (function($) {
-    $('#uploadswitcher').click(function() {
-      $('#choose_alternative_uploader').hide();
-      $('#alternativeUpload').show();
-      $('#swf_upload_container').hide();
-    });
-    $('#switch_to_flash_uploader').click(function() {
-      $('#choose_alternative_uploader').show();
-      $('#alternativeUpload').hide();
-      $('#swf_upload_container').show();
-    });
-  })(jQuery);
-
+    Alchemy.Uploader(options);
+  });
 </script>

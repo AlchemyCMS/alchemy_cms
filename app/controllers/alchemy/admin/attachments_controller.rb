@@ -3,8 +3,6 @@ module Alchemy
     class AttachmentsController < ResourcesController
       helper 'alchemy/admin/tags'
 
-      protect_from_forgery :except => [:create]
-
       def index
         @attachments = Attachment.all
         @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
@@ -12,40 +10,28 @@ module Alchemy
         @options = options_from_params
         if in_overlay?
           archive_overlay
-        else
-          # render index.html.erb
         end
       end
 
       def new
         @attachment = Attachment.new
         if in_overlay?
-          @while_assigning = true
-          @content = Content.find(params[:content_id], :select => 'id')
-          @swap = params[:swap]
-          @options = options_from_params
+          set_instance_variables
         end
       end
 
       def create
-        @attachment = Attachment.create!(:file => params[:Filedata])
-        if in_overlay?
-          @while_assigning = true
-          @content = Content.find(params[:content_id], :select => 'id') if !params[:content_id].blank?
-          @swap = params[:swap]
-          @options = options_from_params
+        @attachment = Attachment.new(attachment_attributes)
+        if @attachment.save
+          if in_overlay?
+            set_instance_variables
+          end
+          message = _t('File uploaded succesfully', name: @attachment.name)
+          render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :created
+        else
+          message = _t('File upload error', error: @attachment.errors[:file].join)
+          render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :unprocessable_entity
         end
-        @attachments = Attachment.find_paginated(params, per_page_value_for_screen_size, sort_order)
-        @message = _t('File %{name} uploaded succesfully', :name => @attachment.name)
-        # Are we using the Flash uploader? Or the plain html file uploader?
-        if params[Rails.application.config.session_options[:key]].blank?
-          flash[:notice] = @message
-          redirect_to :action => :index
-        end
-      end
-
-      def edit
-        @attachment = Attachment.find(params[:id])
       end
 
       def update
@@ -70,41 +56,38 @@ module Alchemy
         flash[:notice] = _t("File: '%{name}' deleted successfully", name: name)
       end
 
-      def show
-        @attachment = Attachment.find(params[:id])
-      end
-
       def download
         @attachment = Attachment.find(params[:id])
-        send_data(
-          @attachment.file.data, {
-            :filename => @attachment.file_name,
-            :type => @attachment.file_mime_type
-          }
-        )
+        send_data @attachment.file.data, {
+          filename: @attachment.file_name,
+          type: @attachment.file_mime_type
+        }
       end
 
-    private
+      private
 
       def in_overlay?
         params[:content_id].present?
       end
 
       def archive_overlay
-        @content = Content.find(params[:content_id], select: 'id')
+        @content = Content.select('id').find_by(id: params[:content_id])
         @options = options_from_params
         respond_to do |format|
-          format.html {
-            render partial: 'archive_overlay'
-          }
-          format.js {
-            render action: 'archive_overlay'
-          }
+          format.html { render partial: 'archive_overlay' }
+          format.js   { render action:  'archive_overlay' }
         end
       end
 
       def attachment_attributes
-        params.require(:attachment).permit(:name, :file_name, :tag_list)
+        params.require(:attachment).permit(:file, :name, :file_name, :tag_list)
+      end
+
+      def set_instance_variables
+        @while_assigning = true
+        @content = Content.select('id').find_by(id: params[:content_id])
+        @swap = params[:swap]
+        @options = options_from_params
       end
 
     end

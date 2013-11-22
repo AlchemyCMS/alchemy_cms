@@ -29,10 +29,18 @@ module Alchemy
 
       context "when params[:content_id]" do
         context "is set" do
-          it "should render the archive_overlay partial" do
+          before do
             Element.stub(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
+          end
+
+          it "for html requests it renders the archive_overlay partial" do
             get :index, {element_id: 1}
             expect(response).to render_template(partial: '_archive_overlay')
+          end
+
+          it "for ajax requests it renders the archive_overlay template" do
+            xhr :get, :index, {element_id: 1}
+            expect(response).to render_template(:archive_overlay)
           end
         end
 
@@ -42,7 +50,6 @@ module Alchemy
             expect(response).to render_template(:index)
           end
         end
-
       end
     end
 
@@ -57,8 +64,8 @@ module Alchemy
         let(:content) { mock_model('Content') }
 
         before do
-          Content.stub_chain(:select, :find_by_id).and_return(content)
-          Element.stub_chain(:select, :find_by_id).and_return(element)
+          Content.stub_chain(:select, :find_by).and_return(content)
+          Element.stub_chain(:select, :find_by).and_return(element)
         end
 
         it "assigns lots of instance variables" do
@@ -88,62 +95,68 @@ module Alchemy
     describe '#create' do
       subject { post :create, params }
 
-      let(:params)  { Hash.new }
-      let(:picture) { mock_model('Picture', humanized_name: 'Cute kittens') }
+      let(:params)  { {picture: {name: ''}} }
+      let(:picture) { mock_model('Picture', humanized_name: 'Cute kittens', to_jq_upload: {}) }
 
-      before do
-        Picture.should_receive(:new).and_return(picture)
-        picture.should_receive(:name=).and_return('Cute kittens')
-        picture.should_receive(:name).and_return('Cute kittens')
-        picture.should_receive(:save!).and_return(true)
-      end
-
-      context 'if inside of archive overlay' do
-        let(:params)  { {element_id: 1, content_id: 1} }
-        let(:element) { mock_model('Element') }
-        let(:content) { mock_model('Content') }
-
+      context 'with passing validations' do
         before do
-          Content.stub_chain(:select, :find_by_id).and_return(content)
-          Element.stub_chain(:select, :find_by_id).and_return(element)
+          Picture.should_receive(:new).and_return(picture)
+          picture.should_receive(:name=).and_return('Cute kittens')
+          picture.should_receive(:name).and_return('Cute kittens')
+          picture.should_receive(:save).and_return(true)
         end
 
-        it "assigns lots of instance variables" do
+        context 'if inside of archive overlay' do
+          let(:params)  { {picture: {name: ''}, element_id: 1} }
+          let(:element) { mock_model('Element') }
+          let(:content) { mock_model('Content') }
+
+          before do
+            Content.stub_chain(:select, :find_by).and_return(content)
+            Element.stub_chain(:select, :find_by).and_return(element)
+          end
+
+          it "assigns lots of instance variables" do
+            subject
+            assigns(:options).should eq({})
+            assigns(:while_assigning).should be_true
+            assigns(:content).should eq(content)
+            assigns(:element).should eq(element)
+            assigns(:page).should eq(1)
+            assigns(:per_page).should eq(9)
+          end
+        end
+
+        context 'with size param given' do
+          let(:params) { {picture: {name: ''}, size: '200x200'} }
+          before { subject }
+          it { assigns(:size).should eq('200x200') }
+        end
+
+        context 'without size param given' do
+          let(:params) { {picture: {name: ''}, size: nil} }
+          before { subject }
+          it { assigns(:size).should eq('medium') }
+        end
+
+        it "renders json response with success message" do
           subject
-          assigns(:options).should eq({})
-          assigns(:while_assigning).should be_true
-          assigns(:content).should eq(content)
-          assigns(:element).should eq(element)
-          assigns(:page).should eq(1)
-          assigns(:per_page).should eq(9)
+          response.content_type.should eq('application/json')
+          response.status.should eq(201)
+          json = JSON.parse(response.body)
+          json.should have_key('growl_message')
+          json.should have_key('files')
         end
       end
 
-      context 'with size param given' do
-        let(:params) { {size: '200x200'} }
-        before { subject }
-        it { assigns(:size).should eq('200x200') }
-      end
-
-      context 'without size param given' do
-        let(:params) { {size: nil} }
-        before { subject }
-        it { assigns(:size).should eq('medium') }
-      end
-
-      context 'without session key in params' do
-        it "redirects to picture archive" do
-          should redirect_to(admin_pictures_path(filter: 'last_upload'))
-        end
-      end
-
-      context 'with session key in params' do
-        let(:params) { {format: 'js'} }
-
-        before { params['_dummy_session'] = 'kjhg' }
-
-        it "renders javascript" do
-          should render_template(:create)
+      context 'without passing validations' do
+        it "renders json response with error message" do
+          subject
+          response.content_type.should eq('application/json')
+          response.status.should eq(422)
+          json = JSON.parse(response.body)
+          json.should have_key('growl_message')
+          json.should have_key('files')
         end
       end
     end
@@ -187,7 +200,7 @@ module Alchemy
           picture.should_receive(:update_attributes).and_return(false)
         end
 
-        it "sets success notice and redirects to index path" do
+        it "sets error notice and redirects to index path" do
           subject
           flash[:error].should_not be_blank
         end
@@ -199,11 +212,12 @@ module Alchemy
     end
 
     describe '#update_multiple' do
-      let(:picture)  { mock_model('Picture') }
+      let(:picture)  { build_stubbed(:picture) }
       let(:pictures) { [picture] }
 
       before do
         Picture.should_receive(:find).and_return(pictures)
+        picture.stub(save: true)
       end
 
       it "loads and assigns pictures" do
@@ -212,7 +226,6 @@ module Alchemy
       end
 
       it "updates each picture" do
-        picture.should_receive(:tag_list=)
         picture.should_receive(:save)
         post :update_multiple
       end
@@ -324,9 +337,29 @@ module Alchemy
     describe '#flush' do
       it "removes the complete pictures cache" do
         FileUtils.should_receive(:rm_rf).with(Rails.root.join('public', '', 'pictures'))
-        post :flush
+        xhr :post, :flush
       end
     end
 
+    describe '#pictures_per_page_for_size' do
+      subject { controller.send(:pictures_per_page_for_size, size) }
+
+      before { controller.stub(in_overlay?: true) }
+
+      context 'with params[:size] set to medium' do
+        let(:size) { 'medium' }
+        it { should eq(9) }
+      end
+
+      context 'with params[:size] set to small' do
+        let(:size) { 'small' }
+        it { should eq(25) }
+      end
+
+      context 'with params[:size] set to large' do
+        let(:size) { 'large' }
+        it { should eq(4) }
+      end
+    end
   end
 end

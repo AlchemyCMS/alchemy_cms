@@ -8,9 +8,9 @@
   @extend .rounded-border;
 
   &.ajax_status_code.warning {
-    border-color: #c4c19c;
-    color: #726d23;
-    background-color: #f3f0c1;
+    border-color: $warning_border_color;
+    color: $warning_text_color;
+    background-color: $warning_background_color;
   }
 
   h2 {
@@ -28,9 +28,9 @@ div#errors, div.errors {
   border-width: 1px;
   border-style: solid;
   @extend .rounded-border;
-  border-color: #c49c9c;
-  color: #592e2e;
-  background-color: #efd3d3;
+  border-color: $error_border_color;
+  color: $error_text_color;
+  background-color: $error_background_color;
   display: none;
 
   ul {

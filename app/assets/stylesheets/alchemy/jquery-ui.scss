@@ -1507,7 +1507,7 @@ button.ui-button::-moz-focus-inner {
 
   &:focus { outline: none }
 
-  div.info, div.message {
+  > div.info, > div.message {
     margin: 8px;
     margin-bottom: 0;
   }

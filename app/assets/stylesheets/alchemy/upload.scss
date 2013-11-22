@@ -2,6 +2,53 @@ a#uploadswitcher, a.underline {
   text-decoration: underline;
 }
 
+.upload-container {
+
+  label {
+    @extend %button-defaults;
+    text-align: center;
+    width: 80px;
+  }
+  input { display: none }
+}
+
+#dropbox {
+  display: inline-block;
+  background: $medium-gray;
+  border: $default-border;
+  @extend .rounded-border;
+  padding: $default-padding 2*$default-padding;
+  text-align: center;
+  line-height: 19px;
+  width: 376px;
+
+  &.dragover {
+    background: $dark-gray;
+    color: $light-gray;
+    border-color: $light-gray;
+  }
+}
+
+.overall-upload {
+  display: none;
+  overflow: hidden;
+  @include border-radius($default-border-radius);
+  background-color: $medium-gray;
+  border: $default-border;
+  margin-bottom: 2*$default-margin;
+
+  .progress {
+    width: 0%;
+    height: 24px;
+    line-height: 24px;
+    color: $text-color;
+    background-color: $success_background_color;
+    text-indent: 2*$default-padding;
+    overflow: visible;
+    white-space: nowrap;
+  }
+}
+
 #uploadProgressContainer {
   overflow-x: hidden;
   overflow-y: auto;
@@ -27,13 +74,12 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressName {
-  text-shadow: 0 1px 2px #FFFFFF;
+  text-shadow: 0 1px 2px #ffffff;
 }
 
 #uploadProgressContainer .progressBarContainer {
-  background-color: #F9F9F9;
-  @include background-image(linear-gradient(top, darken($medium-gray, 10) 5%, $light-gray 35%, lighten($light-gray, 10) 90%));
-  border: 1px solid #9E9E9E;
+  background-color: #f9f9f9;
+  border: 1px solid #9e9e9e;
   @extend .rounded-border;
   height: 16px;
   overflow: hidden;
@@ -41,78 +87,34 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressBarInProgress {
-  background-color: #77AAD5;
-  @extend %progressbar;
+  background-color: $info_background_color;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarComplete {
-  background-color: #00D827;
-  @extend %progressbar;
+  background-color: $success_background_color;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarError {
-  background-color: #F00;
-  @extend %progressbar;
+  background-color: $error_background_color;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressBarCanceled {
-  background-color: #E4E4E4;
-  @extend %progressbar;
+  background-color: #c9c9c9;
   height: 16px;
   width: 0;
 }
 
 #uploadProgressContainer .progressCancel {
-  background: #f1f1f1 image-url('alchemy/icons.png') no-repeat -1px -72px;
-  border: 1px solid #9e9e9e;
-  @extend .rounded-border;
-  width: 15px;
+  @extend .icon-cross;
+  width: 16px;
   height: 16px;
   position: absolute;
   top: 8px;
-  right: 8px;
-}
-
-#swf_upload_container {
-  height: 60px;
-}
-
-#swf_upload_container .button {
-  float: right;
-  margin-top: 4*$default-margin;
-  font-size: 11px;
-}
-
-object.swfupload {
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-
-#dropbox {
-  background: $medium-gray;
-  border: $default-border;
-  @extend .rounded-border;
-  padding: $default-padding;
-  margin-bottom: 2*$default-padding;
-  text-align: center;
-  line-height: 4em;
-  &.dragover {
-    background: $dark-gray;
-    color: $light-gray;
-    border-color: $light-gray;
-  }
-}
-
-div.browse {
-  height: 25px;
-  padding: 2*$default-padding 0;
-  a.button {
-    float: right;
-  }
+  right: 4px;
 }

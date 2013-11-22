@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class PicturesController < Alchemy::Admin::BaseController
-      protect_from_forgery :except => [:create]
       helper 'alchemy/admin/tags'
 
       respond_to :html, :js
@@ -19,8 +18,6 @@ module Alchemy
         @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
         if in_overlay?
           archive_overlay
-        else
-          # render index.html.erb
         end
       end
 
@@ -33,25 +30,18 @@ module Alchemy
       end
 
       def create
-        @picture = Picture.new(
-          :image_file => params[:Filedata],
-          :upload_hash => params[:upload_hash]
-        )
+        @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
-        @picture.save!
-        set_size_or_default
-        if in_overlay?
-          set_instance_variables
-        end
-        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
-        @message = _t('Picture uploaded succesfully', :name => @picture.name)
-        # Are we using the single file uploader?
-        if params[Rails.application.config.session_options[:key]].blank?
-          flash[:notice] = @message
-          redirect_to admin_pictures_path(:filter => 'last_upload')
+        if @picture.save
+          set_size_or_default
+          if in_overlay?
+            set_instance_variables
+          end
+          message = _t('Picture uploaded succesfully', name: @picture.name)
+          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
         else
-          # Or the mutliple file uploader?
-          render # create.js.erb template
+          message = _t('Picture validation error', name: @picture.name)
+          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :unprocessable_entity
         end
       end
 
@@ -145,16 +135,12 @@ module Alchemy
       end
 
       def archive_overlay
-        @content = Content.select('id').find_by_id(params[:content_id])
-        @element = Element.select('id').find_by_id(params[:element_id])
+        @content = Content.select('id').find_by(id: params[:content_id])
+        @element = Element.select('id').find_by(id: params[:element_id])
         @options = options_from_params
         respond_to do |format|
-          format.html {
-            render :partial => 'archive_overlay'
-          }
-          format.js {
-            render :action => 'archive_overlay'
-          }
+          format.html { render partial: 'archive_overlay' }
+          format.js   { render action:  'archive_overlay' }
         end
       end
 
@@ -168,7 +154,7 @@ module Alchemy
       end
 
       def picture_params
-        params.require(:picture).permit(:name, :tag_list)
+        params.require(:picture).permit(:image_file, :upload_hash, :name, :tag_list)
       end
 
       def set_size_or_default
@@ -177,8 +163,8 @@ module Alchemy
 
       def set_instance_variables
         @while_assigning = true
-        @content = Content.select('id').find_by_id(params[:content_id])
-        @element = Element.select('id').find_by_id(params[:element_id])
+        @content = Content.select('id').find_by(id: params[:content_id])
+        @element = Element.select('id').find_by(id: params[:element_id])
         @options = options_from_params
         @page = params[:page] || 1
         @per_page = pictures_per_page_for_size(@size)
