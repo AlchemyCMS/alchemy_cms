@@ -2,15 +2,13 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::AttachmentsController do
-
-    let(:attachment) { mock_model('Attachment', file_name: 'testfile', file_mime_type: 'image/png', file: double('File', data: nil)) }
+    let(:attachment) { build_stubbed(:attachment) }
 
     before do
       sign_in(admin_user)
     end
 
     describe "#index" do
-
       it "should always paginate the records" do
         Attachment.should_receive(:find_paginated)
         get :index
@@ -38,15 +36,11 @@ module Alchemy
             expect(response).to render_template(:index)
           end
         end
-
       end
-
     end
 
     describe "#new" do
-
       context "in overlay" do
-
         before do
           controller.stub(:in_overlay?).and_return(true)
           Content.stub(:find).and_return(mock_model('Content'))
@@ -62,42 +56,103 @@ module Alchemy
           assigns(:swap).should eq('true')
         end
       end
-
     end
 
-    describe "#show" do
-      before do
-        Attachment.stub(:find).with("#{attachment.id}").and_return(attachment)
+    describe '#create' do
+      subject { post :create, params }
+
+      let(:attachment) { mock_model('Attachment', name: 'contract.pdf', to_jq_upload: {}) }
+      let(:params)     { {attachment: {name: ''}} }
+
+      context 'with passing validations' do
+        before do
+          Attachment.should_receive(:new).and_return(attachment)
+          attachment.should_receive(:save).and_return(true)
+        end
+
+        context 'if inside of archive overlay' do
+          let(:params)  { {attachment: {name: ''}, content_id: 1} }
+          let(:content) { mock_model('Content') }
+
+          before do
+            Content.stub_chain(:select, :find_by).and_return(content)
+          end
+
+          it "assigns lots of instance variables" do
+            subject
+            assigns(:options).should eq({})
+            assigns(:while_assigning).should be_true
+            assigns(:content).should eq(content)
+            assigns(:swap).should eq(nil)
+          end
+        end
+
+        it "renders json response with success message" do
+          subject
+          response.content_type.should eq('application/json')
+          response.status.should eq(201)
+          json = JSON.parse(response.body)
+          json.should have_key('growl_message')
+          json.should have_key('files')
+        end
       end
 
-      it "should assign @attachment with Attachment found by id" do
-        get :edit, id: attachment.id
-        expect(assigns(:attachment)).to eq(attachment)
-      end
-
-      context "if xhr request" do
-        it "should render no layout" do
-          xhr :get, :edit, id: attachment.id
-          response.should render_template(layout: nil)
+      context 'without passing validations' do
+        it "renders json response with error message" do
+          subject
+          response.content_type.should eq('application/json')
+          response.status.should eq(422)
+          json = JSON.parse(response.body)
+          json.should have_key('growl_message')
+          json.should have_key('files')
         end
       end
     end
 
-    describe "#edit" do
+    describe '#update' do
+      subject { put :update, attachment: {name: ''} }
+
+      let(:attachment) { build_stubbed(:attachment) }
+
       before do
-        Attachment.stub(:find).with("#{attachment.id}").and_return(attachment)
+        Attachment.stub(find: attachment)
       end
 
-      it "should assign @attachment with Attachment found by id" do
-        get :edit, id: attachment.id
-        expect(assigns(:attachment)).to eq(attachment)
-      end
-
-      context "if xhr request" do
-        it "should render no layout" do
-          xhr :get, :edit, id: attachment.id
-          response.should render_template(layout: nil)
+      context 'with passing validations' do
+        before do
+          attachment.should_receive(:update_attributes).and_return(true)
         end
+
+        it "redirects to index path" do
+          should redirect_to admin_attachments_path
+        end
+      end
+
+      context 'with failing validations' do
+        before do
+          attachment.stub(update_attributes: false)
+          attachment.stub_chain(:errors, :empty?).and_return(false)
+        end
+
+        it "renders edit form" do
+          should render_template(:edit)
+        end
+      end
+    end
+
+    describe '#destroy' do
+      let(:attachment) { build_stubbed(:attachment) }
+
+      before do
+        Attachment.stub(find: attachment)
+      end
+
+      it "destroys the attachment and sets and success message" do
+        attachment.should_receive(:destroy)
+        xhr :delete, :destroy
+        assigns(:attachment).should eq(attachment)
+        assigns(:url).should_not be_blank
+        flash[:notice].should_not be_blank
       end
     end
 
@@ -117,6 +172,5 @@ module Alchemy
         get :download, id: attachment.id
       end
     end
-
   end
 end

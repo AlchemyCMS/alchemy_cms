@@ -3,8 +3,6 @@ module Alchemy
     class AttachmentsController < ResourcesController
       helper 'alchemy/admin/tags'
 
-      protect_from_forgery :except => [:create]
-
       def index
         @attachments = Attachment.all
         @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
@@ -36,10 +34,6 @@ module Alchemy
         end
       end
 
-      def edit
-        @attachment = Attachment.find(params[:id])
-      end
-
       def update
         @attachment = Attachment.find(params[:id])
         @attachment.update_attributes(attachment_attributes)
@@ -60,10 +54,6 @@ module Alchemy
           query: params[:query]
         )
         flash[:notice] = _t("File: '%{name}' deleted successfully", name: name)
-      end
-
-      def show
-        @attachment = Attachment.find(params[:id])
       end
 
       def download
