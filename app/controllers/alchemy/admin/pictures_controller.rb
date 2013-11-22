@@ -18,8 +18,6 @@ module Alchemy
         @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
         if in_overlay?
           archive_overlay
-        else
-          # render index.html.erb
         end
       end
 
@@ -137,16 +135,12 @@ module Alchemy
       end
 
       def archive_overlay
-        @content = Content.select('id').find_by_id(params[:content_id])
-        @element = Element.select('id').find_by_id(params[:element_id])
+        @content = Content.select('id').find_by(id: params[:content_id])
+        @element = Element.select('id').find_by(id: params[:element_id])
         @options = options_from_params
         respond_to do |format|
-          format.html {
-            render :partial => 'archive_overlay'
-          }
-          format.js {
-            render :action => 'archive_overlay'
-          }
+          format.html { render partial: 'archive_overlay' }
+          format.js   { render action:  'archive_overlay' }
         end
       end
 
@@ -169,8 +163,8 @@ module Alchemy
 
       def set_instance_variables
         @while_assigning = true
-        @content = Content.select('id').find_by_id(params[:content_id])
-        @element = Element.select('id').find_by_id(params[:element_id])
+        @content = Content.select('id').find_by(id: params[:content_id])
+        @element = Element.select('id').find_by(id: params[:element_id])
         @options = options_from_params
         @page = params[:page] || 1
         @per_page = pictures_per_page_for_size(@size)
