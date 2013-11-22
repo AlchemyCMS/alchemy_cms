@@ -8,7 +8,6 @@
       }
   ) %>');
   Alchemy.closeCurrentWindow();
-  Alchemy.reloadPreview();
   Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));
   Alchemy.overlayObserver($('#<%= content_dom_id(@content) %>'));
 })(jQuery);

@@ -17,8 +17,8 @@ module Alchemy
       end
 
       def assign
-        @content = Content.find_by_id(params[:id])
-        @attachment = Attachment.find_by_id(params[:attachment_id])
+        @content = Content.find_by(id: params[:content_id])
+        @attachment = Attachment.find_by(id: params[:attachment_id])
         @content.essence.attachment = @attachment
         @options = options_from_params
       end

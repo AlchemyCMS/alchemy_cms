@@ -71,7 +71,7 @@ module Alchemy
       end
 
       def archive_overlay
-        @content = Content.find(params[:content_id], select: 'id')
+        @content = Content.select('id').find_by(id: params[:content_id])
         @options = options_from_params
         respond_to do |format|
           format.html { render partial: 'archive_overlay' }
@@ -85,7 +85,7 @@ module Alchemy
 
       def set_instance_variables
         @while_assigning = true
-        @content = Content.select('id').find_by(id: 1)
+        @content = Content.select('id').find_by(id: params[:content_id])
         @swap = params[:swap]
         @options = options_from_params
       end
