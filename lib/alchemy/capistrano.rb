@@ -1,6 +1,8 @@
 # This recipe contains Capistrano recipes for handling the uploads and picture cache files while deploying your application.
 #
 require 'fileutils'
+require 'alchemy/tasks/helpers'
+include Alchemy::Tasks::Helpers
 
 ::Capistrano::Configuration.instance(:must_exist).load do
 
@@ -127,36 +129,10 @@ EOF
         end
       end
 
-      def database_config
-        raise "database.yml not found!" if !File.exists?("./config/database.yml")
-        @database_config ||= begin
-          config_file = YAML.load_file("./config/database.yml")
-          if config = config_file.fetch(ENV['RAILS_ENV'] || 'development')
-            config
-          else
-            raise "Database configuration for #{ENV['RAILS_ENV'] || 'development'} not found!"
-          end
-        end
-      end
-
       def db_import_cmd(server)
         dump_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
         sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
         "#{sql_stream} | mysql #{mysql_credentials} #{database_config['database']}"
-      end
-
-      def mysql_credentials
-        mysql_credentials = []
-        if database_config['username']
-          mysql_credentials << "--user='#{database_config['username']}'"
-        end
-        if database_config['password']
-          mysql_credentials << "--password='#{database_config['password']}'"
-        end
-        if (host = database_config['host']) && (host != 'localhost')
-          mysql_credentials << "--host='#{host}'"
-        end
-        mysql_credentials.join(' ')
       end
 
     end
