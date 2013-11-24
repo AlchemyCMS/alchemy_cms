@@ -168,42 +168,43 @@ module Alchemy
     end
 
     describe '#copy_language_tree' do
-      subject do
+      let(:params) { {languages: {new_lang_id: '2', old_lang_id: '1'}} }
+      let(:language_root_to_copy_from) { build_stubbed(:language_root_page) }
+      let(:copy_of_language_root) { build_stubbed(:language_root_page) }
+      let(:root_page) { mock_model('Page') }
+
+      before do
+        Page.stub(copy: copy_of_language_root)
+        Page.stub(root: root_page)
+        Page.stub(language_root_for: language_root_to_copy_from)
+        Page.any_instance.stub(:move_to_child_of)
+        Page.any_instance.stub(:copy_children_to)
+        controller.stub(:store_language_in_session)
+        controller.stub(:session).and_return({language_id: 2, language_code: 'it'})
+      end
+
+      it "should copy the language root page over to the other language" do
+        Page.should_receive(:copy).with(language_root_to_copy_from, {language_id: '2', language_code: 'it'})
         post :copy_language_tree, params
       end
 
-      let(:language)      { Language.get_default }
-      let(:new_language)  { FactoryGirl.create(:klingonian) }
-      let(:language_root) { FactoryGirl.create(:language_root_page, language: language) }
-      let(:new_lang_root) { Page.language_root_for(new_language.id) }
-      let(:params)        { {languages: {new_lang_id: new_language.id, old_lang_id: language.id}} }
-
-      before do
-        level_1 = FactoryGirl.create(:public_page, parent_id: language_root.id, visible: true, name: 'Level 1')
-        level_2 = FactoryGirl.create(:public_page, parent_id: level_1.id, visible: true, name: 'Level 2')
-        level_3 = FactoryGirl.create(:public_page, parent_id: level_2.id, visible: true, name: 'Level 3')
-        level_4 = FactoryGirl.create(:public_page, parent_id: level_3.id, visible: true, name: 'Level 4')
-        session[:language_code] = new_language.code
-        session[:language_id] = new_language.id
-        subject
+      it "should move the newly created language-root-page below the absolute root page" do
+        copy_of_language_root.should_receive(:move_to_child_of).with(root_page)
+        post :copy_language_tree, params
       end
 
-      it "should copy all pages" do
-        new_lang_root.should_not be_nil
-        new_lang_root.descendants.count.should == 4
-        new_lang_root.descendants.collect(&:name).should == ["Level 1 (Copy)", "Level 2 (Copy)", "Level 3 (Copy)", "Level 4 (Copy)"]
+      it "should copy all childs of the original page over to the new created one" do
+        controller.stub(language_root_to_copy_from: language_root_to_copy_from)
+        controller.stub(copy_of_language_root: copy_of_language_root)
+        language_root_to_copy_from.should_receive(:copy_children_to).with(copy_of_language_root)
+        post :copy_language_tree, params
       end
 
-      it "should not set layoutpage attribute to nil" do
-        new_lang_root.layoutpage.should_not be_nil
-      end
-
-      it "should not set layoutpage attribute to true" do
-        new_lang_root.layoutpage.should_not be_true
-      end
-
-      it "redirects to sitemap" do
-        should redirect_to admin_pages_path
+      it "should redirect to admin_pages_path" do
+        controller.stub(:copy_of_language_root)
+        controller.stub_chain(:language_root_to_copy_from, :copy_children_to)
+        post :copy_language_tree, params
+        expect(response).to redirect_to(admin_pages_path)
       end
     end
 
