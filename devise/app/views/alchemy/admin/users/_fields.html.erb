@@ -12,7 +12,8 @@
 <% if can? :update_role, @user %>
   <%= f.input :alchemy_roles,
     collection: Alchemy::User::ROLES.map { |role| [Alchemy::User.human_rolename(role), role] },
-    as: 'check_boxes' %>
+    input_html: {multiple: true, class: 'alchemy_selectbox'},
+    as: 'select' %>
 <% end %>
 <% unless @signup %>
   <div class="input tag_list">

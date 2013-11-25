@@ -4,9 +4,9 @@ en:
     create_user: "Create a new user"
     delete_user: "Delete this user"
     edit_user: "Edit the user´s properties."
-      modules:
-        user_sessions: "Login"
-        users: "Users"
+    modules:
+      user_sessions: "Login"
+      users: "Users"
     "No users found": "No users found."
 
   activerecord:
