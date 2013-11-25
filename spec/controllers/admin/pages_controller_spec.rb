@@ -89,10 +89,6 @@ module Alchemy
       let(:parent)      { mock_model('Page', language: language) }
       let(:page_params) { {parent_id: parent.id, name: 'new Page'} }
 
-      context "a language root page" do
-        it "should permit params"
-      end
-
       context "a new page" do
         before do
           Page.any_instance.stub(:set_language_from_parent_or_default)
