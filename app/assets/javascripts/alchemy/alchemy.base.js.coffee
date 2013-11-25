@@ -9,6 +9,11 @@ $.extend Alchemy,
 
   currentPreviewElement: null
 
+  # Returns the currently edited element in the preview window.
+  getCurrentPreviewElement: (content_id) ->
+    if Alchemy.currentPreviewElement
+      Alchemy.currentPreviewElement.find("*[data-alchemy-content-id='#{content_id}']")
+
   # Multiple picture select handler for the picture archive.
   pictureSelector: ->
     $selected_item_tools = $(".selected_item_tools")
