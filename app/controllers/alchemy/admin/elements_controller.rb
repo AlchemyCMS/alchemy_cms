@@ -44,7 +44,8 @@ module Alchemy
             end
             @element.save
           end
-          if @insert_at_top = @page.definition['insert_elements_at'] == 'top'
+          if @page.definition['insert_elements_at'] == 'top'
+            @insert_at_top = true
             @element.move_to_top
           end
         end

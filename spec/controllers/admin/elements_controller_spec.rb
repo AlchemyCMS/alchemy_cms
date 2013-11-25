@@ -37,7 +37,7 @@ module Alchemy
         before { element }
 
         it "should insert the element at bottom of list" do
-          post :create, {element: {name: 'news', page_id: alchemy_page.id}}
+          xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}}
           alchemy_page.elements.count.should == 2
           alchemy_page.elements.last.name.should == 'news'
         end
@@ -52,7 +52,7 @@ module Alchemy
           end
 
           it "should insert the element at top of list" do
-            post :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :format => :js}
+            xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}}
             alchemy_page.elements.count.should == 2
             alchemy_page.elements.first.name.should == 'news'
           end
@@ -232,20 +232,22 @@ module Alchemy
 
       it "updates all contents in element" do
         element.should_receive(:update_contents).with(contents_parameters)
-        put :update, {id: element.id}
+        xhr :put, :update, {id: element.id}
       end
 
       it "updates the element" do
         controller.should_receive(:element_params).and_return(element_parameters)
         element.should_receive(:update_contents).and_return(true)
-        element.should_receive(:update_attributes!).with(element_parameters)
-        put :update, {id: element.id}
+        element.should_receive(:update_attributes!).with(element_parameters).and_return(true)
+        xhr :put, :update, {id: element.id}
       end
 
       it "updates timestamps of page" do
+        controller.should_receive(:element_params).and_return(element_parameters)
         element.should_receive(:update_contents).and_return(true)
+        element.should_receive(:update_attributes!).with(element_parameters).and_return(true)
         page.should_receive(:touch)
-        put :update, {id: element.id}
+        xhr :put, :update, {id: element.id}
       end
 
       context 'with to_be_sweeped_pages' do
@@ -253,18 +255,20 @@ module Alchemy
         let(:page_2) { build_stubbed(:page) }
 
         it "updates timestamps of page" do
+          controller.should_receive(:element_params).and_return(element_parameters)
           element.should_receive(:update_contents).and_return(true)
+          element.should_receive(:update_attributes!).with(element_parameters).and_return(true)
           element.should_receive(:to_be_sweeped_pages).and_return([page_1, page_2])
           page_1.should_receive(:touch)
           page_2.should_receive(:touch)
-          put :update, {id: element.id}
+          xhr :put, :update, {id: element.id}
         end
       end
 
       context "failed validations" do
         it "displays validation failed notice" do
           element.should_receive(:update_contents).and_return(false)
-          put :update, {id: element.id}
+          xhr :put, :update, {id: element.id}
           assigns(:element_validated).should be_false
         end
       end

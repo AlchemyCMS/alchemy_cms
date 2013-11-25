@@ -12,6 +12,8 @@ module Alchemy
       rescue_from Exception do |exception|
         if exception.is_a? CanCan::AccessDenied
           permission_denied(exception)
+        elsif Rails.env.test?
+          raise
         else
           exception_handler(exception)
         end

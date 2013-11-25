@@ -172,10 +172,15 @@ module Alchemy
     end
 
     describe '#copy_language_tree' do
-      let(:language) { Language.get_default }
-      let(:new_language) { FactoryGirl.create(:klingonian) }
+      subject do
+        post :copy_language_tree, params
+      end
+
+      let(:language)      { Language.get_default }
+      let(:new_language)  { FactoryGirl.create(:klingonian) }
       let(:language_root) { FactoryGirl.create(:language_root_page, language: language) }
       let(:new_lang_root) { Page.language_root_for(new_language.id) }
+      let(:params)        { {languages: {new_lang_id: new_language.id, old_lang_id: language.id}} }
 
       before do
         level_1 = FactoryGirl.create(:public_page, parent_id: language_root.id, visible: true, name: 'Level 1')
@@ -184,7 +189,7 @@ module Alchemy
         level_4 = FactoryGirl.create(:public_page, parent_id: level_3.id, visible: true, name: 'Level 4')
         session[:language_code] = new_language.code
         session[:language_id] = new_language.id
-        post :copy_language_tree, {languages: {new_lang_id: new_language.id, old_lang_id: language.id}}
+        subject
       end
 
       it "should copy all pages" do
@@ -201,6 +206,9 @@ module Alchemy
         new_lang_root.layoutpage.should_not be_true
       end
 
+      it "redirects to sitemap" do
+        should redirect_to admin_pages_path
+      end
     end
 
     describe '#destroy' do

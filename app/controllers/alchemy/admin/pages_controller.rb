@@ -188,7 +188,11 @@ module Alchemy
         new_language_root.move_to_child_of Page.root
         original_language_root.copy_children_to(new_language_root)
         flash[:notice] = _t(:language_pages_copied)
-        redirect_to params[:layoutpage] == "true" ? admin_layoutpages_path : :action => :index
+        if params[:layoutpage] == 'true'
+          redirect_to admin_layoutpages_path
+        else
+          redirect_to admin_pages_path
+        end
       end
 
       def sort
