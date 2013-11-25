@@ -65,16 +65,16 @@ Alchemy.ElementEditors =
       true
     rtf = $('.essence_richtext.content_editor textarea', $element)
     rtf_id = rtf.attr('id')
-    rtfUpdateEvent = (ed) ->
-      textarea = $("##{ed.editorId}")
+    rtfUpdateEvent = (e, ed) ->
+      textarea = $("##{ed.id}")
       content_id = textarea.data('alchemy-content-id')
       content = Alchemy.currentPreviewElement.find("*[data-alchemy-content-id='#{content_id}']")
       content.html(ed.getContent())
     if rtf_id and rtf_id not in self.currentBindedRTFEditors
       self.currentBindedRTFEditors.push rtf_id
       ed = tinymce.get(rtf_id)
-      ed.onKeyUp.add (ed, e) -> rtfUpdateEvent(ed)
-      ed.onChange.add (ed, e) -> rtfUpdateEvent(ed)
+      ed.on 'keyup', (e) -> rtfUpdateEvent(e, ed)
+      ed.on 'change', (e) -> rtfUpdateEvent(e, ed)
 
   # Binds events to element editors
   bindEvents: ->
