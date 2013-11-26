@@ -29,8 +29,7 @@ module Alchemy
       def update
         @essence_picture.update(essence_picture_params)
         @element = @content.element
-        pic_opts = @options.dup
-        @preview_url = show_alchemy_picture_path(@essence_picture.picture, {size: pic_opts.delete(:image_size)}.merge(pic_opts))
+        @preview_url = preview_url
       end
 
       # Assigns picture, but does not saves it.
@@ -39,12 +38,12 @@ module Alchemy
       #
       def assign
         @picture = Picture.find_by_id(params[:picture_id])
-        @content.essence.picture = @picture
+        @essence_picture = @content.essence
+        @essence_picture.picture = @picture
         @element = @content.element
         @dragable = @options[:grouped]
         @options = @options.merge(dragable: @dragable)
-        pic_opts = @options.dup
-        @preview_url = show_alchemy_picture_path(@picture, {size: pic_opts.delete(:image_size)}.merge(pic_opts))
+        @preview_url = preview_url
       end
 
       def destroy
@@ -110,6 +109,11 @@ module Alchemy
 
       def essence_picture_params
         params.require(:essence_picture).permit(:alt_tag, :caption, :css_class, :render_size, :title, :crop_from, :crop_size)
+      end
+
+      def preview_url
+        pic_opts = @options.dup
+        show_alchemy_picture_path(@essence_picture.picture, @essence_picture.resize_url_options(pic_opts))
       end
 
     end
