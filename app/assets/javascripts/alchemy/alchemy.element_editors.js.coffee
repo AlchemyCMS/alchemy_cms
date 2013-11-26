@@ -58,8 +58,8 @@ Alchemy.ElementEditors =
       $element = $(this)
       $element.bind "Alchemy.SelectElementEditor", self.selectElement
     self.all.find('.essence_text.content_editor input[type="text"]').focus self.onClickElement
-    self.all.find(".element_head").click self.onClickElement
-    self.all.find(".element_head").dblclick ->
+    self.all.find('.element_head, .edit_images_bottom a').click self.onClickElement
+    self.all.find('.element_head').dblclick ->
       id = $(this).parent().attr("id").replace(/\D/g, "")
       self.toggleFold id
 
