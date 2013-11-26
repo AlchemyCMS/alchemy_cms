@@ -16,7 +16,6 @@ Alchemy.ElementEditors =
     $elements = $("#element_area .element_editor")
     self = Alchemy.ElementEditors
     self.reinit $elements
-    self.currentBindedRTFEditors = []
 
   # Binds events to all given element editors.
   #
@@ -43,7 +42,7 @@ Alchemy.ElementEditors =
     $element.addClass "selected"
     self.scrollToElement this
     self.selectElementInPreview id
-    self.bindUpdate($element)
+    Alchemy.LivePreview.bind($element)
 
   # Selects and scrolls to element with given id in the preview window.
   #
@@ -51,40 +50,6 @@ Alchemy.ElementEditors =
     $frame_elements = document.getElementById("alchemy_preview_window").contentWindow.jQuery("[data-alchemy-element]")
     $selected_element = $frame_elements.closest("[data-alchemy-element='#{id}']")
     $selected_element.trigger "Alchemy.SelectElement"
-
-  # Binds live editing events for given element
-  bindUpdate: ($element) ->
-    self = Alchemy.ElementEditors
-    # unbind keyup events of all other elements
-    $('.essence_text.content_editor input[type="text"]').off 'keyup'
-    # rebind for current element
-    $('.essence_text.content_editor input[type="text"]', $element).on 'keyup', self.textUpdateEvent
-    self.bindUpdateOnRTFs($element)
-
-  # Binds live editing events for all tinymce editors in given element
-  bindUpdateOnRTFs: ($element) ->
-    self = Alchemy.ElementEditors
-    $('.essence_richtext.content_editor textarea', $element).each ->
-      rtf_id = $(this).attr('id')
-      if rtf_id and rtf_id not in self.currentBindedRTFEditors
-        self.currentBindedRTFEditors.push rtf_id
-        ed = tinymce.get(rtf_id)
-        ed.on 'keyup', (e) -> self.rtfUpdateEvent(e, ed)
-        ed.on 'change', (e) -> self.rtfUpdateEvent(e, ed)
-
-  # Updates the content of the currently edited text element in the preview window
-  textUpdateEvent: (e) ->
-    $this = $(this)
-    content = Alchemy.getCurrentPreviewElement $this.data('alchemy-content-id')
-    content.text $this.val()
-    true
-
-  # Updates the content of the currently edited richtext element in the preview window
-  rtfUpdateEvent: (e, ed) ->
-    textarea = $("##{ed.id}")
-    content = Alchemy.getCurrentPreviewElement textarea.data('alchemy-content-id')
-    content.html ed.getContent()
-    true
 
   # Binds events to element editors
   bindEvents: ->
@@ -114,7 +79,7 @@ Alchemy.ElementEditors =
     e.preventDefault()
     $elements.removeClass "selected"
     $element.addClass "selected"
-    self.bindUpdate($element)
+    Alchemy.LivePreview.bind($element)
     if $cells.size() > 0
       $cell = $element.parent(".sortable_cell")
       $("#cells").tabs "option", "active", $cells.index($cell)
