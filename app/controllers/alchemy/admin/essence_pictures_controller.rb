@@ -28,6 +28,9 @@ module Alchemy
 
       def update
         @essence_picture.update(essence_picture_params)
+        @element = @content.element
+        pic_opts = @options.dup
+        @preview_url = show_alchemy_picture_path(@essence_picture.picture, {size: pic_opts.delete(:image_size)}.merge(pic_opts))
       end
 
       # Assigns picture, but does not saves it.
@@ -40,6 +43,8 @@ module Alchemy
         @element = @content.element
         @dragable = @options[:grouped]
         @options = @options.merge(dragable: @dragable)
+        pic_opts = @options.dup
+        @preview_url = show_alchemy_picture_path(@picture, {size: pic_opts.delete(:image_size)}.merge(pic_opts))
       end
 
       def destroy
