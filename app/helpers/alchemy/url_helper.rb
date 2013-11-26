@@ -41,13 +41,12 @@ module Alchemy
 
     # Returns the correct params hash for passing to show_picture_path
     def show_picture_path_params(picture, optional_params={})
-      url_params = {
-        :id => picture.id,
-        :name => picture.urlname,
-        :format => configuration(:image_output_format),
-        :sh => picture.security_token(optional_params)
-      }
-      url_params.update(optional_params.update({:crop => optional_params[:crop] ? 'crop' : nil}))
+      {
+        id: picture.id,
+        name: picture.urlname,
+        format: configuration(:image_output_format),
+        sh: picture.security_token(optional_params)
+      }.update(optional_params)
     end
 
     # Returns the correct params-hash for passing to show_page_path
