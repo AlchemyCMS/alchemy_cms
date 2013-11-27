@@ -4,7 +4,7 @@
   <%= f.input :file_name, input_html: {autofocus: true}, hint: _t(:attachment_filename_notice) %>
   <div class="input string">
     <%= f.label :tag_list %>
-    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @attachment %>
+    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
   </div>
   <%= f.submit _t(:save) %>
 <% end %>

@@ -6,7 +6,7 @@
   <%= f.input :name %>
   <div class="input tag_list">
     <%= f.label :tag_list %>
-    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @picture %>
+    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
     <small class="hint"><%= _t('Please seperate the tags with commata') %></small>
   </div>
   <%= f.submit _t(:save) %>

@@ -50,7 +50,7 @@
   <% if @page.taggable? %>
     <div class="input string">
       <%= f.label :tag_list %>
-      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @page %>
+      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
     </div>
   <% end %>
   <%= f.submit _t(:save) %>
