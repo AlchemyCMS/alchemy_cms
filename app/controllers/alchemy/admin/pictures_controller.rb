@@ -46,7 +46,8 @@ module Alchemy
       end
 
       def edit_multiple
-        @pictures = Picture.find(params[:picture_ids])
+        @pictures = Picture.where(id: params[:picture_ids])
+        @tags = @pictures.collect(&:tag_list).flatten.uniq.join(', ')
       end
 
       def update
@@ -61,10 +62,7 @@ module Alchemy
       def update_multiple
         @pictures = Picture.find(params[:picture_ids])
         @pictures.each do |picture|
-          # Do not delete name from multiple pictures, if the form field is blank!
-          picture.name = params[:pictures_name] if params[:pictures_name].present?
-          picture.tag_list = params[:pictures_tag_list]
-          picture.save
+          picture.update_name_and_tag_list!(params)
         end
         flash[:notice] = _t("Pictures updated successfully")
         redirect_to_index

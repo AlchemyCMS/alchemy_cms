@@ -162,12 +162,17 @@ module Alchemy
     end
 
     describe '#edit_multiple' do
-      let(:pictures) { [mock_model('Picture')] }
-      before { Picture.should_receive(:find).and_return(pictures) }
+      let(:pictures) { [mock_model('Picture', tag_list: 'kitten')] }
+      before { Picture.should_receive(:where).and_return(pictures) }
 
       it 'assigns pictures instance variable' do
         get :edit_multiple
         assigns(:pictures).should eq(pictures)
+      end
+
+      it 'assigns tags instance variable' do
+        get :edit_multiple
+        assigns(:tags).should include('kitten')
       end
     end
 
@@ -226,17 +231,8 @@ module Alchemy
       end
 
       it "updates each picture" do
-        picture.should_receive(:save)
+        picture.should_receive(:update_name_and_tag_list!)
         post :update_multiple
-      end
-
-      context 'with pictures_name given in params' do
-        it "updates each picture's name" do
-          picture.should_receive(:name=).with('Cute kitten')
-          picture.should_receive(:tag_list=)
-          picture.should_receive(:save)
-          post :update_multiple, pictures_name: 'Cute kitten'
-        end
       end
     end
 
