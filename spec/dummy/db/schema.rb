@@ -282,8 +282,8 @@ ActiveRecord::Schema.define(version: 20131015125201) do
 
   create_table "locations", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", force: true do |t|
