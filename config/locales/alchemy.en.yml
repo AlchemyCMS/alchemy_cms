@@ -539,6 +539,8 @@ en:
     models:
       alchemy/content:
         attributes:
+          name:
+            taken: 'is already taken in this element.'
           essence:
             validation_failed: 'Validation failed.'
       alchemy/element:

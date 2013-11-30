@@ -194,6 +194,8 @@ module Alchemy
     end
 
     describe '#ingredient=' do
+      let (:element) { FactoryGirl.create(:element, name: 'headline') }
+
       it "should set the given value to the ingredient column of essence" do
         c = Content.create_from_scratch(element, name: 'headline')
         c.ingredient = "Welcome"

@@ -31,12 +31,14 @@ module Alchemy
 
     acts_as_list
 
+    # ActsAsList scope
     def scope_condition
       "element_id = '#{element_id}' AND essence_type = '#{essence_type}'"
     end
 
-    #validates_uniqueness_of :name, :scope => :element_id
-    validates_uniqueness_of :position, :scope => [:element_id, :essence_type]
+    # Validations
+    validates :name,     uniqueness: {scope: 'element_id'}
+    validates :position, uniqueness: {scope: [:element_id, :essence_type]}
 
     # Essence scopes
     scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }

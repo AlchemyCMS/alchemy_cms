@@ -736,6 +736,8 @@ de:
     models:
       alchemy/content:
         attributes:
+          name:
+            taken: 'gibt es in diesem Element bereits.'
           essence:
             validation_failed: 'Validierung fehlgeschlagen.'
       alchemy/element:
