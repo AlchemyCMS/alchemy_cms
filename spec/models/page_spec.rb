@@ -940,13 +940,13 @@ module Alchemy
       end
     end
 
-    describe '#paste_from_clipboard' do
+    describe '#copy_and_paste' do
       let(:source) { FactoryGirl.build_stubbed(:page) }
       let(:new_parent) { FactoryGirl.build_stubbed(:page) }
       let(:page_name) { "Pagename (pasted)" }
       let(:copied_page) { mock_model('Page') }
 
-      subject { Page.paste_from_clipboard(source, new_parent, page_name) }
+      subject { Page.copy_and_paste(source, new_parent, page_name) }
 
       it "should copy the source page with the given name to the new parent" do
         Page.should_receive(:copy).with(source, {
