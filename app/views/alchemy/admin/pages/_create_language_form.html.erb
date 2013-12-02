@@ -16,7 +16,6 @@
         <%= hidden_field_tag("languages[new_lang_id]", @language.id) %>
       </div>
       <div class="submit">
-        <%= hidden_field_tag("layoutpage", params[:action] == "layoutpages") if params[:action] == "layoutpages" %>
         <%= button_tag _t(:copy) %>
       </div>
     <% end %>

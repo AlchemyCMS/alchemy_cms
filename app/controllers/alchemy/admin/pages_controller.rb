@@ -174,25 +174,9 @@ module Alchemy
       end
 
       def copy_language_tree
-        # copy language root from old to new language
-        if params[:layoutpage]
-          original_language_root = Page.layout_root_for(params[:languages][:old_lang_id])
-        else
-          original_language_root = Page.language_root_for(params[:languages][:old_lang_id])
-        end
-        new_language_root = Page.copy(
-          original_language_root,
-          :language_id => params[:languages][:new_lang_id],
-          :language_code => session[:language_code]
-        )
-        new_language_root.move_to_child_of Page.root
-        original_language_root.copy_children_to(new_language_root)
+        language_root_to_copy_from.copy_children_to(copy_of_language_root)
         flash[:notice] = _t(:language_pages_copied)
-        if params[:layoutpage] == 'true'
-          redirect_to admin_layoutpages_path
-        else
-          redirect_to admin_pages_path
-        end
+        redirect_to admin_pages_path
       end
 
       def sort
@@ -232,6 +216,20 @@ module Alchemy
       end
 
       private
+
+      def copy_of_language_root
+        page_copy = Page.copy(
+          language_root_to_copy_from,
+          :language_id => params[:languages][:new_lang_id],
+          :language_code => session[:language_code]
+        )
+        page_copy.move_to_child_of Page.root
+        page_copy
+      end
+
+      def language_root_to_copy_from
+        Page.language_root_for(params[:languages][:old_lang_id])
+      end
 
       def load_page
         @page = Page.find(params[:id])
