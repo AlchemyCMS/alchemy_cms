@@ -4,7 +4,7 @@ form {
     height: 67px;
   }
 
-  h2 {
+  > h2 {
     @include form-heading;
   }
 
@@ -40,7 +40,7 @@ form {
     &.select, &.grouped_select {
 
       .select2-container {
-        margin-top: 4px;
+        margin: 4px 0;
       }
     }
 
@@ -111,7 +111,10 @@ form {
     margin-left: $form-left-width;
   }
 
-  .submit { text-align: right }
+  .submit {
+    padding: $default-padding 0;
+    text-align: right;
+  }
 }
 
 textarea#essence_picture_caption {

@@ -1,42 +1,34 @@
-<div id="overlay_tab_external_link">
-  <h2><%= _t(:enter_external_link) %></h2>
+<%= form_tag do %>
   <%= render_message do %>
+    <h2><%= _t(:enter_external_link) %></h2>
     <p><%= _t(:external_link_notice_1) %></p>
     <p><%= _t(:external_link_notice_2) %></p>
   <% end %>
   <div id="errors" class="errors">
     <ul></ul>
   </div>
-  <table class="window_form">
-    <tr>
-      <td class="label long">
-        <%= label_tag 'external_url', 'URL', :for => 'external_url' %>
-      </td>
-      <td class="input">
-        <%= text_field_tag 'external_url', '', :class => "thin_border auto_resize" %>
-      </td>
-    </tr>
-    <tr>
-      <td class="label long">
-        <label for="extern_link_title"><%= _t(:link_title) %></label>
-      </td>
-      <td class="input"><%= text_field_tag "extern_link_title", '', :class => 'thin_border auto_resize link_title' %></td>
-    </tr>
-    <tr>
-      <td class="label long">
-        <label for="external_link_target"><%= _t("Open Link in") %>:</label>
-      </td>
-      <td class="select left">
-        <%= select_tag 'external_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="submit" colspan="2">
-        <%= link_to(_t(:apply), '#', {
-          :onclick => "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#external_link_target').val());",
-          :class => 'button'
-        }) %>
-      </td>
-    </tr>
-  </table>
-</div>
+  <div class="input text">
+    <label for="external_url" class="control-label">URL</label>
+    <%= text_field_tag "external_url" %>
+  </div>
+  <div class="input text">
+    <label for="external_link_title" class="control-label">
+      <%= _t(:link_title) %>
+    </label>
+    <%= text_field_tag "external_link_title", '', class: 'link_title' %>
+  </div>
+  <div class="input select">
+    <label for="external_link_target" class="control-label">
+      <%= _t("Open Link in") %>
+    </label>
+    <%= select_tag 'external_link_target',
+      options_for_select(Alchemy::Page.link_target_options),
+      class: 'alchemy_selectbox link_target' %>
+  </div>
+  <div class="submit">
+    <%= link_to(_t(:apply), '#', {
+      onclick: "Alchemy.LinkOverlay.createLink('external', jQuery('#external_url').val(), jQuery('#extern_link_title').val(), jQuery('#external_link_target').val());",
+      class: 'button'
+    }) %>
+  </div>
+<% end %>

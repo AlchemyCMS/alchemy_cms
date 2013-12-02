@@ -7,13 +7,14 @@
     <li><a href="#overlay_tab_contactform_link"><%= _t('link_overlay_tab_label.contactform') %></a></li>
     <%- end -%>
   </ul>
-  <div class="with_padding">
-    <%= render :partial => 'internal_link' %>
-    <%= render :partial => 'external_link' %>
-    <%= render :partial => 'file_link' %>
-    <%- if configuration(:mailer)[:contactform_linking] -%>
-    <%= render :partial => 'contactform_links' %>
-    <%- end -%>
+  <div id="overlay_tab_internal_link">
+    <%= render partial: 'internal_link' %>
+  </div>
+  <div id="overlay_tab_external_link">
+    <%= render partial: 'external_link' %>
+  </div>
+  <div id="overlay_tab_file_link">
+    <%= render partial: 'file_link' %>
   </div>
 </div>
 

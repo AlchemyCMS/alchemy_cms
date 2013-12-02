@@ -1,45 +1,33 @@
-<div id="overlay_tab_file_link">
-  <h2>
-    <%= _t(:choose_file_to_link) %>
-  </h2>
-  <table class="window_form">
-    <tr>
-      <td class="label long">
-        <label for="public_filename"><%= _t(:file) %></label>
-      </td>
-      <td class="select">
-        <%= select_tag(
-          "public_filename",
-          options_for_select(@attachments),
-          :class => "alchemy_selectbox"
-        ) %>
-      </td>
-    </tr>
-    <tr>
-      <td class="label long">
-        <label for="file_link_title">
-          <%= _t(:link_title) %>
-        </label>
-      </td>
-      <td class="input">
-        <%= text_field_tag "file_link_title", '', :class => 'thin_border auto_resize link_title' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="label long">
-        <label for="file_link_target"><%= _t("Open Link in") %>:</label>
-      </td>
-      <td class="select left">
-        <%= select_tag 'file_link_target', options_for_select(Alchemy::Page.link_target_options), :class => 'alchemy_selectbox link_target medium' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="submit" colspan="2">
-        <%= link_to(_t(:apply), '#', {
-          :onclick => "Alchemy.LinkOverlay.createLink('file', jQuery('#public_filename').val(), jQuery('#file_link_title').val(), jQuery('#file_link_target').val()); Alchemy.LinkOverlay.close()",
-          :class => 'button'
-        }) %>
-      </td>
-    </tr>
-  </table>
-</div>
+<%= form_tag do %>
+  <%= render_message do %>
+    <h2><%= _t(:choose_file_to_link) %></h2>
+  <% end %>
+  <div class="input select">
+    <label for="public_filename" class="control-label">
+      <%= _t(:file) %>
+    </label>
+    <%= select_tag "public_filename",
+      options_for_select(@attachments),
+      class: "alchemy_selectbox" %>
+  </div>
+  <div class="input text">
+    <label for="file_link_title" class="control-label">
+      <%= _t(:link_title) %>
+    </label>
+    <%= text_field_tag "file_link_title", '', class: 'link_title' %>
+  </div>
+  <div class="input select">
+    <label for="file_link_target" class="control-label">
+      <%= _t("Open Link in") %>
+    </label>
+    <%= select_tag 'file_link_target',
+      options_for_select(Alchemy::Page.link_target_options),
+      class: 'alchemy_selectbox link_target' %>
+  </div>
+  <div class="submit">
+    <%= link_to(_t(:apply), '#', {
+      onclick: "Alchemy.LinkOverlay.createLink('file', jQuery('#public_filename').val(), jQuery('#file_link_title').val(), jQuery('#file_link_target').val()); Alchemy.LinkOverlay.close()",
+      class: 'button'
+    }) %>
+  </div>
+<% end %>
