@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency %q<uglifier>,                         ['>= 1.3.0']
   s.add_runtime_dependency %q<coffee-rails>,                     ['~> 4.0.0']
   s.add_runtime_dependency %q<compass-rails>,                    ['~> 2.0.alpha.0']
-  s.add_runtime_dependency %q<sassy-buttons>,                    ['~> 0.1.3']
+  s.add_runtime_dependency %q<sassy-buttons>,                    ['~> 0.2.6']
   s.add_runtime_dependency %q<select2-rails>,                    ['~> 3.5.0']
   s.add_runtime_dependency %q<tvdeyen-handles_sortable_columns>, ['~> 0.1.5']
   s.add_runtime_dependency %q<spinner.rb>
