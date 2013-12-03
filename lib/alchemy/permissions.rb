@@ -114,7 +114,7 @@ module Alchemy
       can :manage,                Site
     end
 
-  private
+    private
 
     def user_rules
       return [] if @user.alchemy_roles.nil?

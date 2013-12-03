@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency %q<awesome_nested_set>,               ["~> 3.0.0.rc.1"]
   s.add_runtime_dependency %q<acts-as-taggable-on>,              ["~> 2.4.1"]
   s.add_runtime_dependency %q<cancan>,                           ["~> 1.6.10"]
-  s.add_runtime_dependency %q<dragonfly>,                        ["~> 0.9.14"]
+  s.add_runtime_dependency %q<dragonfly>,                        ["~> 1.0.1"]
   s.add_runtime_dependency %q<kaminari>,                         ["~> 0.14.1"]
   s.add_runtime_dependency %q<acts_as_list>,                     ["~> 0.3.0"]
   s.add_runtime_dependency %q<magiclabs-userstamp>,              ["~> 2.0.2"]

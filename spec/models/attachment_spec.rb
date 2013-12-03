@@ -6,6 +6,13 @@ module Alchemy
     let(:file)       { File.new(File.expand_path('../../fixtures/image with spaces.png', __FILE__)) }
     let(:attachment) { Attachment.new(file: file) }
 
+    describe 'after assign' do
+      it "stores the file mime type into database" do
+        attachment.update(file: file)
+        attachment.file_mime_type.should_not be_blank
+      end
+    end
+
     describe 'after create' do
       before { attachment.save! }
 

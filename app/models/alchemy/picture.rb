@@ -41,7 +41,7 @@ module Alchemy
       raise PictureInUseError, I18n.t(:cannot_delete_picture_notice) % { name: name }
     end
 
-    image_accessor :image_file do
+    dragonfly_accessor :image_file, app: :alchemy_pictures do
       if Config.get(:preprocess_image_resize).present?
         after_assign { |a| a.process!(:resize, "#{Config.get(:preprocess_image_resize)}>") }
       end
@@ -49,7 +49,11 @@ module Alchemy
 
     validates_presence_of :image_file
     validates_size_of :image_file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
-    validates_property :format, of: :image_file, in: Config.get(:uploader)['allowed_filetypes']['pictures'], case_sensitive: false, message: I18n.t("not a valid image")
+    validates_property :format,
+      of: :image_file,
+      in: Config.get(:uploader)['allowed_filetypes']['pictures'],
+      case_sensitive: false,
+      message: I18n.t("not a valid image")
 
     acts_as_taggable
 

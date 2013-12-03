@@ -23,7 +23,11 @@ module Alchemy
     include NameConversions
 
     acts_as_taggable
-    file_accessor :file
+
+    dragonfly_accessor :file, app: :alchemy_attachments do
+      after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
+    end
+
     stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
@@ -33,15 +37,12 @@ module Alchemy
 
     validates_presence_of :file
     validates_format_of :file_name, with: /\A[A-Za-z0-9\.\-_]+\z/, on: :update
-    validates_size_of :file, :maximum => Config.get(:uploader)['file_size_limit'].megabytes
-    validates_property(
-      :format,
-      :of => :file,
-      :in => Config.get(:uploader)['allowed_filetypes']['attachments'],
-      :case_sensitive => false,
-      :message => I18n.t("not a valid file"),
-      :unless => proc { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
-    )
+    validates_size_of :file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
+    validates_property :ext, of: :file,
+      in: Config.get(:uploader)['allowed_filetypes']['attachments'],
+      case_sensitive: false,
+      message: I18n.t("not a valid file"),
+      unless: -> { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
 
     before_create do
       write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
