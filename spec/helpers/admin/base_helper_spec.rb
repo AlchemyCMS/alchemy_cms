@@ -152,7 +152,7 @@ module Alchemy
       end
     end
 
-    describe '#clipboard_select_tag' do
+    describe '#clipboard_select_tag_options' do
       let(:page) { build_stubbed(:page) }
       before { helper.instance_variable_set('@page', page) }
 
@@ -162,14 +162,14 @@ module Alchemy
 
         it "should include select options with the display name and preview text" do
           element.stub(:display_name_with_preview_text).and_return('Name with Preview text')
-          expect(helper.clipboard_select_tag(clipboard_items)).to have_selector('select option', text: 'Name with Preview text')
+          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Name with Preview text')
         end
 
         context "when @page can have cells" do
           before { page.stub(:can_have_cells?).and_return(true) }
           it "should group the elements in the clipboard by cell" do
             helper.should_receive(:grouped_elements_for_select).and_return({})
-            helper.clipboard_select_tag(clipboard_items)
+            helper.clipboard_select_tag_options(clipboard_items)
           end
         end
       end
@@ -179,7 +179,7 @@ module Alchemy
         let(:clipboard_items) { [page_in_clipboard] }
 
         it "should include select options with page names" do
-          expect(helper.clipboard_select_tag(clipboard_items)).to have_selector('select option', text: 'Page name')
+          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Page name')
         end
       end
     end
