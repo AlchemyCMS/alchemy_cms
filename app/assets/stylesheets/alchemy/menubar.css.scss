@@ -11,10 +11,9 @@
   z-index: 10000;
   background: $light-gray;
   @include animate-left;
-  @include bounce;
   @include bottom-right-rounded-border;
   @include drop-shadow;
-  @include box-sizing;
+  @include box-sizing(border-box);
   border-right: $default-border;
   border-bottom: $default-border;
   height: 44px;
@@ -23,24 +22,24 @@
   font: $default-font-style;
 
   * {
-    @include box-sizing;
+    @include box-sizing(border-box);
     margin: 0;
     padding: 0;
   }
 
   &:hover {
     left: 0;
-    @include transition;
   }
 
   &:after {
     content: '';
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     position: absolute;
-    right: 10px;
-    top: 9px;
-    background: image-url('alchemy/icons.png') -240px 0;
+    right: 8px;
+    top: 8px;
+    background: image-url('alchemy/icon.svg') 0 0 no-repeat;
+    background-size: 28px 28px;
   }
 
   ul {
