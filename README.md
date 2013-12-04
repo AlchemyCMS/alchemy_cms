@@ -56,7 +56,7 @@ For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.c
 Installation
 ------------
 
-### As a standalone project.
+### As a standalone project
 
 #### 1. Use the installer:
 
@@ -64,9 +64,22 @@ Installation
     alchemy new my_magicpage
     cd my_magicpage
 
+**Temporarily*** you have to add the following gem into your Gemfile:
+
+    # Remove this after the new version (1.0.3) was released https://github.com/alexspeller/non-stupid-digest-assets/
+    gem 'non-stupid-digest-assets', github: 'alexspeller/non-stupid-digest-assets', branch: 'master'
+
+*) This line can be safely removed, if the new version of the gem `non-stupid-digest-assets` will be released.
+
+Run
+
+    bundle install
+
+to finish installation process.
+
 #### 2. Start the local server:
 
-    rails server
+    bin/rails server
 
 #### 3. Switch to your browser:
 
@@ -76,16 +89,38 @@ Open `http://localhost:3000` and follow the on screen instructions.
 
 #### 1. Add the Alchemy gem:
 
-In your App's Gemfile.
+In your App's Gemfile:
 
     gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+    # Remove this after the new version (1.0.3) was released https://github.com/alexspeller/non-stupid-digest-assets/
+    gem 'non-stupid-digest-assets', github: 'alexspeller/non-stupid-digest-assets', branch: 'master'
 
 #### 2. Install Alchemy into your app:
 
 Run in terminal:
 
     bundle install
-    bundle exec rake alchemy:install
+    bin/rake alchemy:install
+
+### Authentication User Model
+
+With Version 3.0 we extracted the Alchemy user model [into its own gem](https://github.com/magiclabs/alchemy-devise).
+
+In order to get the former Alchemy user model back, add the following gem into your Gemfile:
+
+    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+
+Run in terminal:
+
+    bundle install
+    bin/rake alchemy_devise:install:migrations db:migrate
+
+**In order to use your own user model, you can add e.g.**
+
+    # config/initializers/alchemy.rb
+    Alchemy.user_class_name = 'YourUserClass'
+    Alchemy.login_path = '/your/login/path'
+    Alchemy.logout_path = '/your/logout/path'
 
 
 Upgrading
@@ -95,7 +130,7 @@ After updating the Alchemy gem in your App, you should run the upgrader.
 
 Run in terminal:
 
-    bundle exec rake alchemy:upgrade
+    bin/rake alchemy:upgrade
 
 
 Tipps
