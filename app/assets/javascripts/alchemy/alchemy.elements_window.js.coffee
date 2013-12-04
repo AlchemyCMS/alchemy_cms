@@ -9,7 +9,10 @@ Alchemy.ToolbarButton = (options) ->
   $lnk = $("<a title='#{options.title}' class='icon_button' href='#' />")
   if options.hotkey
     $lnk.attr('data-alchemy-hotkey', options.hotkey)
-  $lnk.click options.onClick
+  $lnk.click (e) ->
+    e.preventDefault()
+    options.onClick(e)
+    false
   $lnk.append "<span class='icon #{options.iconClass}' />"
   $btn.append $lnk
   $btn.append "<br><label>#{options.label}</label>"
