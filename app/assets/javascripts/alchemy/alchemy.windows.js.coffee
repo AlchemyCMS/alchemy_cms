@@ -139,6 +139,7 @@ $.extend Alchemy,
   #   close_on_escape: true  - Should the overlay close on escape key (Boolean)
   #   overflow: true         - Display overflowing content, or show scrollbars (Boolean)
   #   image_loader: true     - Init the image loader after opening the dialog (Boolean)
+  #   complete: null         - Functioned thats gettin called after the dialog window loaded the content (Function)
   #
   openWindow: (url, opts) ->
     options =
@@ -151,6 +152,7 @@ $.extend Alchemy,
       image_loader: true
       close_on_escape: true
       image_loader_color: '#fff'
+      complete: null
     $.extend(options, opts)
     if options.width is "fullscreen"
       options.width = $(window).width() - 50
@@ -186,7 +188,8 @@ $.extend Alchemy,
               if options.height is "auto"
                 widget.css top: ($(window).height() - $dialog.dialog("widget").height()) / 2
               Alchemy.GUI.init(Alchemy.CurrentWindow)
-              $("#overlay_tabs", $dialog).tabs()
+              if options.complete
+                options.complete($dialog)
               if options.image_loader
                 Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
               Alchemy.watchRemoteForms($dialog)

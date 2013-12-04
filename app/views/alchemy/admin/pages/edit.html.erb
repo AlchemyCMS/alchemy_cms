@@ -133,7 +133,10 @@
             Alchemy.openWindow('<%= alchemy.new_admin_element_path(:page_id => @page.id) %>', {
               title: '<%= _t("New Element") %>',
               width: 320,
-              height: 120
+              height: 120,
+              complete: function($dialog) {
+                $("#overlay_tabs", $dialog).tabs();
+              }
             });
           }
         },
