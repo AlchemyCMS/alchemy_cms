@@ -3,8 +3,6 @@
 # Called at jQuery ready event and Turbolinks page change event.
 #
 Alchemy.Initializer = ->
-  # Preloading all background images from CSS files.
-  # $.preloadCssImages()
 
   # We obviously have javascript enabled.
   $('html').removeClass('no-js')
