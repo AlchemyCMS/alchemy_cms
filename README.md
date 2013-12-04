@@ -87,6 +87,26 @@ Run in terminal:
     bundle install
     bundle exec rake alchemy:install
 
+### Note:
+
+You may encounter errors relating to 'uninitialized constant': e.g.
+'Alchemy::Engine::NonStupidDigestAssets' or 'User'. Please add the following lines to your Gemfile:
+
+    gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
+    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+
+The first line is required due to temporary issues with a used gem.
+
+By default Alchemy 3.0 does not contain a predefined **user model**, your are free to add your own **user model*. If you like to use the default user model, you are required to add the line(above) "gem 'alchemy-devise', github: ......" .
+
+Subsequently run in terminal:
+
+    rake alchemy_devise:install:migrations
+    rake db:migrate
+
+Now the default **user model** is used by Alchemy CMS.
+
+If you did not mounted Alchemy on the root route `'/'`, then you have to add Alchemy's view helpers manually to your app.
 
 Upgrading
 ---------
