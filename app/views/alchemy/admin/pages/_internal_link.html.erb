@@ -26,9 +26,6 @@
   <div class="submit">
     <%= hidden_field_tag(:internal_urlname) %>
     <%= hidden_field_tag(:page_anchor) %>
-    <%= link_to(_t(:apply), '#', {
-      onclick: "Alchemy.LinkOverlay.createLink('internal', jQuery('#internal_urlname').val() + jQuery('#page_anchor').val(), jQuery('#internal_link_title').val(), jQuery('#internal_link_target').val()); Alchemy.LinkOverlay.close()",
-      class: 'button'
-    }) %>
+    <%= link_to _t(:apply), '#', class: 'create-link button', 'data-link-type' => 'internal' %>
   </div>
 <% end %>

@@ -25,9 +25,6 @@
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
-    <%= link_to(_t(:apply), '#', {
-      onclick: "Alchemy.LinkOverlay.createLink('file', jQuery('#public_filename').val(), jQuery('#file_link_title').val(), jQuery('#file_link_target').val()); Alchemy.LinkOverlay.close()",
-      class: 'button'
-    }) %>
+    <%= link_to _t(:apply), '#', class: 'create-link button', 'data-link-type' => 'file' %>
   </div>
 <% end %>
