@@ -9,11 +9,6 @@ module Alchemy
         "#{content.essence_partial_name}_#{content.id}"
       end
 
-      # Returns a jquery selector string of form field ids from given contents
-      def contents_form_field_ids_string(contents)
-        contents.collect { |c| "##{c.form_field_id}" }.join(', ')
-      end
-
       # Renders the name of elements content.
       #
       # Displays a warning icon if content is missing its description.
