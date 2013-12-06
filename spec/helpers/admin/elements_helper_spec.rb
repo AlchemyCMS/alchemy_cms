@@ -1,46 +1,39 @@
 require 'spec_helper'
 
 module Alchemy
-
-  include BaseHelper
-
   describe Admin::ElementsHelper do
 
+    let(:page)    { build_stubbed(:public_page) }
+    let(:element) { build_stubbed(:element, page: page) }
+
     context "partial rendering" do
-
-      before do
-        @page = FactoryGirl.create(:public_page)
-        @element = FactoryGirl.create(:element, :page => @page, :create_contents_after_create => true)
-      end
-
       it "should render an element editor partial" do
-        helper.render_editor(@element).should match(/class="essence_text content_editor".+id="essence_text_\d{1,}"/)
+        should_receive(:render_element).with(element, :editor)
+        render_editor(element)
       end
 
       it "should render a picture gallery editor partial" do
-        helper.render_picture_gallery_editor(@element).should match(/class=".+picture_gallery_editor"/)
+        render_picture_gallery_editor(element).should match(/class=".+picture_gallery_editor"/)
       end
-
     end
 
     describe "#grouped_elements_for_select" do
-
-      before do
-        @page = FactoryGirl.create(:public_page)
-      end
-
-      before(:each) do
-        @page.stub(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
-        cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        @elements = [
+      let(:elements) {
+        [
           mock_model('Element', name: '1', display_name: '1'),
           mock_model('Element', name: '2', display_name: '2')
         ]
-        Alchemy::Cell.stub(:definitions).and_return(cell_descriptions)
+      }
+
+      before do
+        page.stub(layout_description: {'name' => "foo", 'cells' => ["foo_cell"]})
+        cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
+        Cell.stub(:definitions).and_return(cell_descriptions)
+        helper.instance_variable_set('@page', page)
       end
 
       it "should return array of elements grouped by cell for select_tag helper" do
-        helper.grouped_elements_for_select(@elements).should include("Foo cell" => [["1", "1#foo_cell"], ["2", "2#foo_cell"]])
+        helper.grouped_elements_for_select(elements).should include("Foo cell" => [["1", "1#foo_cell"], ["2", "2#foo_cell"]])
       end
 
       context "with empty elements array" do
@@ -51,15 +44,13 @@ module Alchemy
 
       context "with empty cell definitions" do
         it "should return an empty string" do
-          @page.stub(:layout_description).and_return({'name' => "foo"})
-          helper.grouped_elements_for_select(@elements).should == ""
+          page.stub(layout_description: {'name' => "foo"})
+          helper.grouped_elements_for_select(elements).should == ""
         end
       end
-
     end
 
     describe "#elements_for_select" do
-
       context "passing element instances" do
         let(:element_objects) do
           [
@@ -93,8 +84,6 @@ module Alchemy
           subject
         end
       end
-
     end
-
   end
 end

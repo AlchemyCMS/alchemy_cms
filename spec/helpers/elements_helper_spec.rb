@@ -20,7 +20,7 @@ module Alchemy
         it { should be_nil }
       end
 
-      context 'with no part given' do
+      context 'with view as part given' do
         let(:part) {:view}
 
         it "renders the element's view partial" do
