@@ -11,38 +11,6 @@ module Alchemy
         render_essence(content, :editor, {:for_editor => options}, html_options)
       end
 
-      # Renders the Content editor partial from essence_type.
-      #
-      # Options are:
-      #   * element (Element) - the Element the contents are in (obligatory)
-      #   * type (String) - the type of Essence (obligatory)
-      #   * options (Hash):
-      #   ** :position (Integer) - The position of the Content inside the Element. I.E. for getting the n-th EssencePicture. Default is 1 (the first)
-      #   ** :all (String) - Pass :all to get all Contents of that name. Default false
-      #   * editor_options (Hash) - Will be passed to the render_essence_editor partial renderer
-      #
-      def render_essence_editor_by_type(element, essence_type, options = {}, editor_options = {})
-        return warning('Element is nil', _t(:no_element_given)) if element.blank?
-        return warning('EssenceType is blank', _t("No EssenceType given")) if essence_type.blank?
-        defaults = {
-          :position => 1,
-          :all => false
-        }
-        options = defaults.merge(options)
-        essence_type = Alchemy::Content.normalize_essence_type(essence_type)
-        return_string = ""
-        if options[:all]
-          contents = element.contents.where(essence_type: essence_type, name: options[:all])
-          contents.each do |content|
-            return_string << render_essence_editor(content, editor_options)
-          end
-        else
-          content = element.contents.where(essence_type: essence_type, position: options[:position]).first
-          return_string = render_essence_editor(content, editor_options)
-        end
-        return_string
-      end
-
       # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
       # For options see -> render_essence
       #
@@ -152,7 +120,7 @@ module Alchemy
         )
       end
 
-    private
+      private
 
       # Returns an Array with page attributes for select options
       #

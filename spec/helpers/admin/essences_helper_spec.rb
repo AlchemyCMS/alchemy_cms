@@ -18,10 +18,6 @@ describe Alchemy::Admin::EssencesHelper do
     it "should render an essence editor by name" do
       helper.render_essence_editor_by_name(element, 'intro').should match(/input.+type="text".+value="hello!/)
     end
-
-    it "should render an essence editor by type" do
-      helper.render_essence_editor_by_type(element, 'EssenceText').should match(/input.+type="text".+value="hello!/)
-    end
   end
 
   describe '#pages_for_select' do
