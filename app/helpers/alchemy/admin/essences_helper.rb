@@ -8,7 +8,7 @@ module Alchemy
       # Renders the Content editor partial from the given Content.
       # For options see -> render_essence
       def render_essence_editor(content, options = {}, html_options = {})
-        render_essence(content, :editor, {:for_editor => options}, html_options)
+        render_essence(content, :editor, {for_editor: options}, html_options)
       end
 
       # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
@@ -60,20 +60,20 @@ module Alchemy
       def essence_picture_thumbnail(content, options)
         return if content.ingredient.blank?
         image_options = {
-          :size => content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
-          :crop_from => content.essence.crop_from.blank? ? nil : content.essence.crop_from,
-          :crop_size => content.essence.crop_size.blank? ? nil : content.essence.crop_size,
-          :crop => content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil
+          size: content.ingredient.cropped_thumbnail_size(content.essence.render_size.blank? ? options[:image_size] : content.essence.render_size),
+          crop_from: content.essence.crop_from.blank? ? nil : content.essence.crop_from,
+          crop_size: content.essence.crop_size.blank? ? nil : content.essence.crop_size,
+          crop: content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil
         }
         image_tag(
           alchemy.thumbnail_path({
-            :id => content.ingredient.id,
-            :name => content.ingredient.urlname,
-            :sh => content.ingredient.security_token(image_options)
+            id: content.ingredient.id,
+            name: content.ingredient.urlname,
+            sh: content.ingredient.security_token(image_options)
           }.merge(image_options)),
-          :alt => content.ingredient.name,
-          :class => 'img_paddingtop',
-          :title => _t(:image_name) + ": #{content.ingredient.name}"
+          alt: content.ingredient.name,
+          class: 'img_paddingtop',
+          title: _t(:image_name) + ": #{content.ingredient.name}"
         )
       end
 
