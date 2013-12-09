@@ -22,7 +22,8 @@ module Alchemy
           return element_templates cell_definition($1)
         when /alchemy\/elements\/_(.+)_view/
           essences = essence_types($1)
-          if element_description($1)['picture_gallery']
+          element = element_description($1)
+          if element && element['picture_gallery']
             essences += ['EssencePicture']
           end
           return essences.map { |name| "alchemy/essences/_#{name.underscore}_view" }.uniq
@@ -31,7 +32,7 @@ module Alchemy
         end
       end
 
-    private
+      private
 
       def element_templates(collection)
         collection.fetch('elements', []).map { |name| "alchemy/elements/_#{name}_view" }
@@ -50,7 +51,8 @@ module Alchemy
       end
 
       def essence_types(name)
-        if element = element_description(name)
+        element = element_description(name)
+        if element
           (element.fetch('contents', []) +
             element.fetch('available_contents', [])).collect { |c| c['type'] }
         else

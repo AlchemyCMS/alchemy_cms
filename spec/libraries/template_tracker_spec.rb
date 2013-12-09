@@ -45,25 +45,36 @@ module Alchemy
         context 'with an element given as name' do
           let(:name) { 'alchemy/elements/_text_view' }
           let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
-          before { Element.stub(:descriptions).and_return(elements) }
 
-          it "returns all essence layout view partial names for that element" do
-            should include('alchemy/essences/_essence_text_view')
-          end
+          context 'that is having a description' do
+            before { Element.stub(:descriptions).and_return(elements) }
 
-          context 'and element has picture_gallery enabled' do
-            let(:elements) { [{'name' => 'text', 'picture_gallery' => true}] }
+            it "returns all essence layout view partial names for that element" do
+              should include('alchemy/essences/_essence_text_view')
+            end
 
-            it "has EssencePicture as template dependency" do
-              should include('alchemy/essences/_essence_picture_view')
+            context 'and element has picture_gallery enabled' do
+              let(:elements) { [{'name' => 'text', 'picture_gallery' => true}] }
+
+              it "has EssencePicture as template dependency" do
+                should include('alchemy/essences/_essence_picture_view')
+              end
+            end
+
+            context 'and element has available_contents defined' do
+              let(:elements) { [{'name' => 'text', 'available_contents' => ['type' => 'EssenceFile']}] }
+
+              it "has these essences as template dependency" do
+                should include('alchemy/essences/_essence_file_view')
+              end
             end
           end
 
-          context 'and element has available_contents defined' do
-            let(:elements) { [{'name' => 'text', 'available_contents' => ['type' => 'EssenceFile']}] }
+          context 'that has no description' do
+            before { Element.stub(:descriptions).and_return([]) }
 
-            it "has these essences as template dependency" do
-              should include('alchemy/essences/_essence_file_view')
+            it "returns empty array" do
+              should be_empty
             end
           end
         end

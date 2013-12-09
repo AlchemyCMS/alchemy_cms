@@ -46,5 +46,22 @@ module Alchemy
         end
       end
     end
+
+    describe '.register_module' do
+      let(:alchemy_module) do
+        {
+          'name' => 'module',
+          'navigation' => {
+            'controller' => 'admin/controller_name',
+            'action' => 'index'
+          }
+        }
+      end
+
+      it "registers a module definition into global list of modules" do
+        Modules.register_module(alchemy_module)
+        Modules.alchemy_modules.should include(alchemy_module)
+      end
+    end
   end
 end
