@@ -416,7 +416,7 @@ module Alchemy
     describe '#save' do
       context 'touch page' do
         let(:time)    { Time.now }
-        let(:locker)  { mock_model('User') }
+        let(:locker)  { mock_model('DummyUser') }
         let(:page)    { create(:page, updated_at: time) }
         let(:element) { create(:element, page: page) }
 

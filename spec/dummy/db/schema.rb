@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015125201) do
+ActiveRecord::Schema.define(version: 20131209225243) do
 
   create_table "alchemy_attachments", force: true do |t|
     t.string   "name"
@@ -266,6 +266,13 @@ ActiveRecord::Schema.define(version: 20131015125201) do
 
   add_index "alchemy_sites", ["host", "public"], name: "alchemy_sites_public_hosts_idx"
   add_index "alchemy_sites", ["host"], name: "index_alchemy_sites_on_host"
+
+  create_table "dummy_users", force: true do |t|
+    t.string "email"
+    t.string "password"
+  end
+
+  add_index "dummy_users", ["email"], name: "index_dummy_users_on_email"
 
   create_table "events", force: true do |t|
     t.string   "name"

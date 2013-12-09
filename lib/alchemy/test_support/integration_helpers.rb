@@ -17,7 +17,7 @@ module Alchemy
           page.driver.headers = { 'Accept-Language' => 'en' }
         end
         if !user
-          user = mock_model('User', alchemy_roles: %w(admin), language: 'en')
+          user = mock_model('DummyUser', alchemy_roles: %w(admin), language: 'en')
         end
         ApplicationController.any_instance.stub(:current_user).and_return(user)
       end

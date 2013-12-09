@@ -430,7 +430,7 @@ module Alchemy
 
         it "should add a user stamper" do
           page = FactoryGirl.create(:page, :name => 'A', :language => language, :parent_id => language_root.id)
-          page.class.stamper_class.to_s.should == 'User'
+          page.class.stamper_class.to_s.should == 'DummyUser'
         end
 
         context "with language given" do
@@ -873,7 +873,7 @@ module Alchemy
     end
 
     context 'folding' do
-      let(:user) { mock_model('User') }
+      let(:user) { mock_model('DummyUser') }
 
       describe '#fold!' do
         context "with folded status set to true" do
@@ -921,7 +921,7 @@ module Alchemy
 
     describe '#lock_to!' do
       let(:page) { create(:page) }
-      let(:user) { mock_model('User') }
+      let(:user) { mock_model('DummyUser') }
 
       it "should set locked to true" do
         page.lock_to!(user)

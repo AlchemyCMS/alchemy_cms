@@ -24,7 +24,7 @@ module Alchemy
 
       context 'with user class having logged_in scope' do
         context 'with other users online' do
-          let(:another_user) { mock_model('User') }
+          let(:another_user) { mock_model('DummyUser') }
 
           before do
             Alchemy.user_class.should_receive(:logged_in).and_return([another_user])
