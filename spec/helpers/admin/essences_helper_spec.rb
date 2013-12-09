@@ -7,16 +7,43 @@ describe Alchemy::Admin::EssencesHelper do
 
   describe 'essence rendering' do
     before do
-      element.content_by_name('intro').essence.update_attributes(:body => 'hello!')
+      if element
+        element.content_by_name('intro').essence.update(body: 'hello!')
+      end
     end
 
-    it "should render an essence editor" do
-      content = element.content_by_name('intro')
-      helper.render_essence_editor(content).should match(/input.+type="text".+value="hello!/)
+    describe '#render_essence_editor' do
+      it "should render an essence editor" do
+        content = element.content_by_name('intro')
+        helper.render_essence_editor(content).should match(/input.+type="text".+value="hello!/)
+      end
     end
 
-    it "should render an essence editor by name" do
-      helper.render_essence_editor_by_name(element, 'intro').should match(/input.+type="text".+value="hello!/)
+    describe '#render_essence_editor_by_name' do
+      subject { render_essence_editor_by_name(element, content) }
+
+      let(:content) { 'intro' }
+
+      it "renders an essence editor by given name" do
+        should match(/input.+type="text".+value="hello!/)
+      end
+
+      context 'when element is nil' do
+        let(:element) { nil }
+
+        it "displays a warning" do
+          should have_selector(".content_editor_error")
+          should have_content("No element given.")
+        end
+      end
+
+      context 'when content is not found on element' do
+        let(:content) { 'sputz' }
+
+        it "displays a warning" do
+          should have_selector(".content_editor.missing")
+        end
+      end
     end
   end
 
