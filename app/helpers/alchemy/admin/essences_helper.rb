@@ -30,49 +30,6 @@ module Alchemy
         end
       end
 
-      # Renders the EssenceSelect editor partial with a form select for storing page ids
-      #
-      # === Options:
-      #
-      #   :only            [Hash]     # Pagelayout names. Only pages with this page_layout will be displayed inside the select.
-      #   :page_attribute  [Symbol]   # The Page attribute which will be stored. Default is id.
-      #   :global          [Boolean]  # Display only global pages. Default is false.
-      #   :order_by        [Symbol]   # Order pages by this attribute.
-      #
-      # NOTE: The +order_by+ option only works if the +only+ or the +global+ option is also set.
-      # Then the default ordering is by :name.
-      # Otherwise the pages are ordered by their position in the nested set.
-      #
-      def page_selector(element, content_name, options = {}, select_options = {})
-        default_options = {
-          :page_attribute => :id,
-          :global => false,
-          :prompt => _t('Choose page'),
-          :order_by => :name
-        }
-        options = default_options.merge(options)
-        content = element.content_by_name(content_name)
-        if options[:global] || options[:only].present?
-          pages = Page.where({
-            :language_id => session[:language_id],
-            :layoutpage => options[:global] == true,
-            :public => options[:global] == false
-          })
-          if options[:only].present?
-            pages = pages.where({:page_layout => options[:only]})
-          end
-          pages_options_tags = pages_for_select(pages.order(options[:order_by]), content ? content.ingredient : nil, options[:prompt], options[:page_attribute])
-        else
-          pages_options_tags = pages_for_select(nil, content ? content.ingredient : nil, options[:prompt], options[:page_attribute])
-        end
-        options.update(:select_values => pages_options_tags)
-        if content.nil?
-          render_missing_content(element, content_name, options)
-        else
-          render_essence_editor(content, options)
-        end
-      end
-
       # Returns all public pages from current language as an option tags string suitable or the Rails +select_tag+ helper.
       #
       # @param [Array]
