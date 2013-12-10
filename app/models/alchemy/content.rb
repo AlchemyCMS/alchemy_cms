@@ -37,7 +37,6 @@ module Alchemy
     end
 
     # Validations
-    validates :name,     uniqueness: {scope: 'element_id'}
     validates :position, uniqueness: {scope: [:element_id, :essence_type]}
 
     # Essence scopes
