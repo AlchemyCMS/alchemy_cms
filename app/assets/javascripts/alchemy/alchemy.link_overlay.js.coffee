@@ -1,12 +1,9 @@
 Alchemy.LinkOverlay =
 
   open: (linked_element) ->
-    self = Alchemy.LinkOverlay
     $dialog = $('<div style="display:none" id="alchemyLinkOverlay"></div>')
-
     $dialog.html(Alchemy.getOverlaySpinner({width: 600, height: 450}))
-
-    self.current = $dialog.dialog
+    @current = $dialog.dialog
       modal: true,
       minWidth: 600,
       minHeight: 450,
@@ -14,38 +11,35 @@ Alchemy.LinkOverlay =
       show: "fade",
       hide: "fade",
       resizable: false,
-      open: (event, ui) ->
+      open: (event, ui) =>
         $.ajax
           url: Alchemy.routes.link_admin_pages_path,
-          success: (data, textStatus, XMLHttpRequest) ->
+          success: (data, status, xhr) =>
             $dialog.html(data)
             Alchemy.SelectBox('#alchemyLinkOverlay')
             $dialog.css overflow: 'visible'
             $dialog.dialog('widget').css overflow: 'visible'
-            self.attachEvents()
+            @attachEvents()
             $('#overlay_tabs').tabs()
-          error: (XMLHttpRequest, textStatus, errorThrown) ->
-            Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
+          error: (xhr, status, errorThrown) ->
+            Alchemy.AjaxErrorHandler($dialog, xhr.status, status, errorThrown)
       close: ->
         $dialog.remove()
-    self.current.linked_element = linked_element
+    @current.linked_element = linked_element
 
   attachEvents: ->
-    self = this
-
-    $('a.sitemap_pagename_link, a.show_elements_to_link', '#alchemyLinkOverlay').click (e) ->
+    $('a.sitemap_pagename_link, a.show_elements_to_link', '#alchemyLinkOverlay').click (e) =>
       e.preventDefault()
-      $this = $(this)
+      $this = $(e.target)
       page_id = $this.data('page-id')
       url = $this.data('url')
-      self.selectPage(page_id, url)
+      @selectPage(page_id, url)
       if $this.is('.show_elements_to_link')
         Alchemy.Spinner.small().spin($this.next()[0])
-      self.showElementsSelect(page_id) if $this.hasClass('show_elements_to_link')
-
-    $('.create-link.button', '#alchemyLinkOverlay').click (e) ->
+      @showElementsSelect(page_id) if $this.hasClass('show_elements_to_link')
+    $('.create-link.button', '#alchemyLinkOverlay').click (e) =>
       e.preventDefault()
-      link_type = $(this).data('link-type')
+      link_type = $(e.target).data('link-type')
       if link_type == 'internal'
         url = $('#internal_urlname').val() + $('#page_anchor').val()
       else if link_type == 'external'
@@ -54,16 +48,16 @@ Alchemy.LinkOverlay =
         url = $('#public_filename').val()
       else
         url = $("##{link_type}_urlname").val()
-      self.createLink link_type,
+      @createLink link_type,
         url: url,
         title: $("##{link_type}_link_title").val(),
         target: $("##{link_type}_link_target").val()
 
-  close : ->
-    Alchemy.LinkOverlay.current.dialog('close')
+  close: ->
+    @current.dialog('close')
     return true
 
-  selectPage : (selected_element, urlname) ->
+  selectPage: (selected_element, urlname) ->
     # We have to remove the Attribute. If not the value does not get updated.
     $('#page_anchor').removeAttr('value')
     $('.elements_for_page').hide().html('')
@@ -71,34 +65,32 @@ Alchemy.LinkOverlay =
     $('#alchemyLinkOverlay #sitemap .selected_page').removeClass('selected_page')
     $('#sitemap_sitename_' + selected_element).addClass('selected_page').attr('name', urlname)
 
-  createLink : (link_type, options) ->
-    self = this
+  createLink: (link_type, options) ->
     if link_type == 'external'
-      if self.validateURLFormat(options.url)
-        self.setLink(options.url, link_type, options.title, options.target)
+      if @validateURLFormat(options.url)
+        @setLink(options.url, link_type, options.title, options.target)
       else
-        return self.showValidationError()
+        return @showValidationError()
     else
-      self.setLink(options.url, link_type, options.title, options.target)
-    self.close()
+      @setLink(options.url, link_type, options.title, options.target)
+    @close()
 
   setLink: (url, link_type, title, target) ->
-    self = Alchemy.LinkOverlay
-    element = Alchemy.LinkOverlay.current.linked_element
+    element = @current.linked_element
     Alchemy.setElementDirty($(element).parents('.element_editor'))
     if (element.editor)
       # aka we are linking text inside of TinyMCE
-      self.executeTinyMCEcommand(url, title, link_type, target)
+      @executeTinyMCEcommand(url, title, link_type, target)
     else
       # aka: we are linking an essence
-      self.linkEssence(url, title, link_type, target)
+      @linkEssence(url, title, link_type, target)
 
   # Selects the tab for kind of link and fills all fields.
-  selectTab : ->
-    linked_element = Alchemy.LinkOverlay.current.linked_element
+  selectTab: ->
+    linked_element = @current.linked_element
     # Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
     if (linked_element.nodeType)
-      link = Alchemy.LinkOverlay.createTempLink(linked_element)
+      link = @createTempLink(linked_element)
     # Restoring the bookmarked selection inside the TinyMCE of an EssenceRichtext.
     else
       if (linked_element.node.nodeName == 'A')
@@ -106,56 +98,40 @@ Alchemy.LinkOverlay =
         linked_element.selection.moveToBookmark(linked_element.bookmark)
       else
         return false
-
     $('#alchemyLinkOverlay .link_title').val(link.title)
     $('#alchemyLinkOverlay .link_target').val($(link).attr('data-link-target'))
-
-    # Checking of what kind the link is (internal, external, file or contact_form).
+    # Checking of what kind the link is (internal, external or file).
     if ($(link).is("a"))
       title = if link.title == null then "" else link.title
-
       # Handling an internal link.
       if ((link.className == '') || link.className == 'internal')
-        internal_anchor = link.hash.split('#')[1]
-        internal_urlname = link.pathname
-        $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_internal_link')
-        $('#internal_urlname').val(internal_urlname)
-        $sitemap_line = $('.sitemap_sitename').closest('[name="'+internal_urlname+'"]')
-        if ($sitemap_line.length > 0)
-          # Select the line where the link was detected in.
-          $sitemap_line.addClass("selected_page")
-          $('#page_selector_container').scrollTo($sitemap_line.parents('li'), {duration: 400, offset: -10})
-          # is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
-          if (internal_anchor)
-            $select_container = $sitemap_line.parent().find('.elements_for_page')
-            $select_container.show()
-            $.get(Alchemy.routes.list_admin_elements_path, {
-              page_urlname: $(internal_urlname.split('/')).last()[0],
-              internal_anchor: internal_anchor
-            })
-
+        @selectInternalLinkTab(link)
       # Handling an external link.
       if (link.className == 'external')
         $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_external_link')
         $('#external_url').val(link.href)
-
       # Handling a file link.
       if (link.className == 'file')
         $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_file_link')
         $('#public_filename').val(link.pathname + link.search)
 
-      # Handling a contactform link.
-      if (link.className == 'contact')
-        link_url = link.pathname
-        link_params = link.search
-        link_subject = link_params.split('&')[0]
-        link_mailto = link_params.split('&')[1]
-        link_body = link_params.split('&')[2]
-        $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_contactform_link')
-        $('#contactform_url').val(link_url)
-        $('#contactform_subject').val(unescape(link_subject.replace(/subject=/, '')).replace(/\?/, ''))
-        $('#contactform_body').val(unescape(link_body.replace(/body=/, '')).replace(/\?/, ''))
-        $('#contactform_mailto').val(link_mailto.replace(/mail_to=/, '').replace(/\?/, ''))
+  selectInternalLinkTab: (link) ->
+    internal_anchor = link.hash.split('#')[1]
+    internal_urlname = link.pathname
+    $('#overlay_tabs').tabs().tabs("select", '#overlay_tab_internal_link')
+    $('#internal_urlname').val(internal_urlname)
+    $sitemap_line = $('.sitemap_sitename').closest('[name="'+internal_urlname+'"]')
+    if ($sitemap_line.length > 0)
+      # Select the line where the link was detected in.
+      $sitemap_line.addClass("selected_page")
+      $('#page_selector_container').scrollTo($sitemap_line.parents('li'), {duration: 400, offset: -10})
+      # is there an anchor in the url? then request the element selector via ajax and select the correct value. yeah!
+      if (internal_anchor)
+        $select_container = $sitemap_line.parent().find('.elements_for_page')
+        $select_container.show()
+        $.get Alchemy.routes.list_admin_elements_path,
+          page_urlname: $(internal_urlname.split('/')).last()[0],
+          internal_anchor: internal_anchor
 
   showElementsSelect: (id) ->
     $('#elements_for_page_' + id).show()
@@ -168,25 +144,25 @@ Alchemy.LinkOverlay =
 
   createTempLink: (linked_element) ->
     $tmp_link = $("<a></a>")
-    content_id = $(linked_element).data('contentId')
-    $tmp_link.attr('href', $('#contents_content_' + content_id + '_link').val())
-    $tmp_link.attr('title', $('#contents_content_' + content_id + '_link_title').val())
-    $tmp_link.attr('data-link-target', $('#contents_content_' + content_id + '_link_target').val())
-    $tmp_link.attr('target', if $('#contents_content_' + content_id + '_link_target').val() == 'blank' then '_blank' else null)
-    $tmp_link.addClass($('#contents_content_' + content_id + '_link_class_name').val())
+    content_id = $(linked_element).data('content-id')
+    $tmp_link.attr('href', $("#contents_#{content_id}_link").val())
+    $tmp_link.attr('title', $("#contents_#{content_id}_link_title").val())
+    $tmp_link.attr('data-link-target', $("#contents_#{content_id}_link_target").val())
+    $tmp_link.attr('target', if $("#contents_#{content_id}_link_target").val() == 'blank' then '_blank' else null)
+    $tmp_link.addClass($("#contents_#{content_id}_link_class_name").val())
     return $tmp_link[0]
 
   removeLink: (link, content_id) ->
     Alchemy.setElementDirty($(link).parents('.element_editor'))
-    $('#contents_content_' + content_id + '_link').val('').change()
-    $('#contents_content_' + content_id + '_link_title').val('')
-    $('#contents_content_' + content_id + '_link_class_name').val('')
-    $('#contents_content_' + content_id + '_link_target').val('')
+    $("#contents_#{content_id}_link").val('').change()
+    $("#contents_#{content_id}_link_title").val('')
+    $("#contents_#{content_id}_link_class_name").val('')
+    $("#contents_#{content_id}_link_target").val('')
     $(link).removeClass('linked').addClass('disabled')
     $('#edit_link_' + content_id).removeClass('linked')
 
   executeTinyMCEcommand: (url, title, link_type, target) ->
-    element = Alchemy.LinkOverlay.current.linked_element
+    element = @current.linked_element
     editor = element.editor
     editor.execCommand('mceInsertLink', false, {
       href: url,
@@ -198,12 +174,12 @@ Alchemy.LinkOverlay =
     editor.selection.collapse()
 
   linkEssence: (url, title, link_type, target) ->
-    element = Alchemy.LinkOverlay.current.linked_element
-    content_id = $(element).data('contentId')
-    $('#contents_content_' + content_id + '_link').val(url).change()
-    $('#contents_content_' + content_id + '_link_title').val(title)
-    $('#contents_content_' + content_id + '_link_class_name').val(link_type)
-    $('#contents_content_' + content_id + '_link_target').val(target)
+    element = @current.linked_element
+    content_id = $(element).data('content-id')
+    $("#contents_#{content_id}_link").val(url).change()
+    $("#contents_#{content_id}_link_title").val(title)
+    $("#contents_#{content_id}_link_class_name").val(link_type)
+    $("#contents_#{content_id}_link_target").val(target)
     $(element).addClass('linked')
     $(element).next().addClass('linked').removeClass('disabled')
 
@@ -214,19 +190,5 @@ Alchemy.LinkOverlay =
       return false
 
   showValidationError: ->
-    self = Alchemy.LinkOverlay
-    $('#errors ul').html("<li>#{self.t('url_validation_failed')}</li>")
+    $('#errors ul').html("<li>#{Alchemy._t('url_validation_failed')}</li>")
     $('#errors').show()
-
-  t: (id) ->
-    self = Alchemy.LinkOverlay
-    translation = self.translations[id]
-    if translation
-      return translation[Alchemy.locale]
-    else
-      return id
-
-  translations:
-    'url_validation_failed':
-      'de': 'Die URL hat kein gültiges Format.'
-      'en': 'The url has no valid format.'

@@ -74,3 +74,6 @@ $.extend Alchemy,
     success_notice:
       de: "x Dateien hochgeladen."
       en: "Uploaded x files."
+    url_validation_failed:
+      de: 'Die URL hat kein gültiges Format.'
+      en: 'The url has no valid format.'
