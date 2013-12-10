@@ -4,15 +4,15 @@
   <label><%= _t('Active Pages') %> &raquo;</label>
   <% @locked_pages.each do |page| %>
   <% if @page == page %>
-  <%= render :partial => 'page_status' %>
+  <%= render partial: 'page_status' %>
   <% else %>
   <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
     <%= link_to alchemy.edit_admin_page_path(page) do %>
     <span class="page_name" title="<%= page.name %>">
-      <%= truncate page.name, :length => 15 %>
+      <%= truncate page.name, length: 15 %>
     </span>
     <% end %>
-    <%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
+    <%= form_tag(alchemy.unlock_admin_page_path(page), remote: true) do %>
       <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
         <%= render_icon('close small') %>
       </button>
@@ -25,7 +25,7 @@
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
   <div class="button_with_label">
-    <%= form_tag alchemy.unlock_admin_page_path(@page, :redirect_to => @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), :id => 'unlock_page_form' do %>
+    <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
       <button class="icon_button" title="<%= _t(:explain_unlocking) %>" data-alchemy-hotkey="alt-x">
         <%= render_icon('close') %>
       </button>
@@ -34,7 +34,7 @@
   </div>
   <% unless @page.layoutpage? %>
   <div class="button_with_label">
-    <%= form_tag alchemy.visit_admin_page_path(@page), :id => 'visit_page_form' do %>
+    <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
       <button class="icon_button" title="<%= _t('Visit page') %>">
         <%= render_icon('visit_page') %>
       </button>
@@ -63,18 +63,18 @@
       render_icon('settings'),
       alchemy.configure_admin_page_path(@page),
       {
-        :title => _t(:edit_page_properties),
-        :size => @page.layoutpage? ? '410x150' : '410x650'
+        title: _t(:edit_page_properties),
+        size: @page.layoutpage? ? '410x150' : '410x650'
       },
-      :class => :icon_button,
-      :title => _t(:edit_page_properties),
+      class: :icon_button,
+      title: _t(:edit_page_properties),
       'data-alchemy-hotkey' => 'alt-e'
     ) %>
     <label><%= _t(:page_properties) %></label>
   </div>
   <% if configuration(:cache_pages) && !@page.layoutpage? %>
   <div class="button_with_label">
-    <%= form_tag alchemy.publish_admin_page_path(@page), :id => 'publish_page_form' do %>
+    <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
       <button class="icon_button" title="<%= _t(:explain_publishing) %>">
         <%= render_icon('publish') %>
       </button>
@@ -90,17 +90,17 @@
 <div class="toolbar_buttons right">
   <div class="button_with_label" id="show_preview_window">
     <%= link_to(render_icon(:preview_window), '#', {
-      :onclick => "Alchemy.openPreviewWindow()",
-      :title => _t('Show Preview Window'),
-      :class => :icon_button
+      onclick: "Alchemy.openPreviewWindow(); return false",
+      title: _t('Show Preview Window'),
+      class: :icon_button
     }) %>
     <label><%= _t('Show Preview Window') %></label>
   </div>
   <div class="button_with_label" id="show_element_window">
     <%= link_to(render_icon(:element_window), '#', {
-      :onclick => "Alchemy.openElementsWindow()",
-      :title => _t('Show Elements Window'),
-      :class => :icon_button
+      onclick: "Alchemy.openElementsWindow(); return false",
+      title: _t('Show Elements Window'),
+      class: :icon_button
     }) %>
     <label><%= _t('Show Elements Window') %></label>
   </div>
@@ -115,7 +115,7 @@
   }
 
   Alchemy.openElementsWindow = function() {
-    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(:page_id => @page.id) %>', {
+    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {
         title: '<%= _t("Elements") %>',
         dirtyTitle: '<%= _t("Warning!") %>',
@@ -130,7 +130,7 @@
           hotkey: 'alt-n',
           iconClass: 'new_element',
           onClick: function() {
-            Alchemy.openWindow('<%= alchemy.new_admin_element_path(:page_id => @page.id) %>', {
+            Alchemy.openWindow('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
               title: '<%= _t("New Element") %>',
               width: 320,
               height: 120,
@@ -146,7 +146,7 @@
           iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
-            Alchemy.openWindow('<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") %>', {
+            Alchemy.openWindow('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
               title :'<%= _t("Clipboard") %>',
               width: 380,
               height: 270

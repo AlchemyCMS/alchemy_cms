@@ -14,18 +14,18 @@
         "",
         _t(:confirm_to_delete_image),
         alchemy.admin_essence_picture_path(
-          :id => content,
-          :options => options
+          id: content,
+          options: options
         ),
         {
-          :title => _t(:delete_image)
+          title: _t(:delete_image)
         }
       ) -%>
       <% else %>
       <%= link_to(
         '',
         '#',
-        :onclick => "Alchemy.removePicture('##{content.form_field_id(:picture_id)}');"
+        onclick: "Alchemy.removePicture('##{content.form_field_id(:picture_id)}'); return false"
       ) %>
       <% end %>
     </span>
@@ -42,15 +42,15 @@
     </div>
     <%- unless options[:css_class].blank? || content.essence.css_class.blank? -%>
     <div class="essence_picture_css_class">
-      <%= _t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", :default => content.essence.css_class.camelcase) %>
+      <%= _t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", default: content.essence.css_class.camelcase) %>
     </div>
     <%- end -%>
     <div class="edit_images_bottom">
       <%= render(
-        :partial => 'alchemy/essences/shared/essence_picture_tools',
-        :locals => {
-          :content => content,
-          :options => options
+        partial: 'alchemy/essences/shared/essence_picture_tools',
+        locals: {
+          content: content,
+          options: options
         }
       ) %>
     </div>

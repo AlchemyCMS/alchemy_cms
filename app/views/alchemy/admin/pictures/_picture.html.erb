@@ -8,15 +8,15 @@
       "",
       _t(:confirm_to_delete_image_from_server),
       alchemy.admin_picture_path(
-        :id => picture,
-        :query => params[:query],
-        :page => params[:page],
-        :tagged_with => params[:tagged_with],
-        :size => params[:size],
-        :filter => params[:filter]
+        id: picture,
+        query: params[:query],
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
       ),
       {
-        :title => _t('Delete image')
+        title: _t('Delete image')
       }
     ) -%>
   </span>
@@ -26,19 +26,19 @@
     <%= link_to_overlay_window(
       "",
       alchemy.edit_admin_picture_path(
-        :id => picture,
-        :query => params[:query],
-        :page => params[:page],
-        :tagged_with => params[:tagged_with],
-        :size => params[:size],
-        :filter => params[:filter]
+        id: picture,
+        query: params[:query],
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
       ),
       {
-        :title => _t('Edit image'),
-        :size => "400x180"
+        title: _t('Edit image'),
+        size: "400x180"
       },
       {
-        :title => _t('Edit image')
+        title: _t('Edit image')
       }
     ) -%>
   </span>
@@ -48,33 +48,33 @@
     <%= link_to_overlay_window(
       "",
       alchemy.info_admin_picture_path(
-        :id => picture,
-        :query => params[:query],
-        :page => params[:page],
-        :tagged_with => params[:tagged_with],
-        :size => params[:size],
-        :filter => params[:filter]
+        id: picture,
+        query: params[:query],
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
       ),
       {
-        :title => _t('Picture infos'),
-        :size => "400x300"
+        title: _t('Picture infos'),
+        size: "400x300"
       },
       {
-        :title => _t('Show picture infos')
+        title: _t('Show picture infos')
       }
     ) -%>
   </span>
   <% end %>
   <%= link_to(
     image_tag(
-      alchemy.thumbnail_path(:id => picture, :size => @size, :sh => picture.security_token(:size => @size)),
-      :alt => picture.name,
-      :title => _t(:zoom_image)
+      alchemy.thumbnail_path(id: picture, size: @size, sh: picture.security_token(size: @size)),
+      alt: picture.name,
+      title: _t(:zoom_image)
     ),
     '#',
-    :onclick => "Alchemy.zoomImage('#{admin_picture_path(:id => picture.id, :sh => picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240})",
-    :class => 'thumbnail_background',
-    :id => 'show_in_window'
+    onclick: "Alchemy.zoomImage('#{admin_picture_path(id: picture.id, sh: picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240}); return false",
+    class: 'thumbnail_background',
+    id: 'show_in_window'
   ) %>
   <span class="picture_name" title="<%= picture.name %>" id="image_picture_<%= picture.id %>_name">
     <%= picture.name %>

@@ -24,7 +24,7 @@
     <%= hidden_field_tag :content_id, @content.id %>
     <%= f.button "#{render_icon(:true)} #{_t(:apply)}".html_safe, class: 'with_icon' %>
     <%= link_to _t('Reset Imagemask'), '#', {
-      onclick: 'Alchemy.ImageCropper.reset()',
+      onclick: 'Alchemy.ImageCropper.reset(); return false',
       class: 'reset_mask'
     } %>
   <% end %>

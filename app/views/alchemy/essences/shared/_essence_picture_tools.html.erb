@@ -19,43 +19,43 @@
 <%= link_to_overlay_window(
   render_icon('swap_picture'),
   alchemy.admin_pictures_path(
-    :element_id => content.element,
-    :content_id => content.id,
-    :swap => true,
-    :options => options.to_json
+    element_id: content.element,
+    content_id: content.id,
+    swap: true,
+    options: options.to_json
   ),
   {
-    :title => (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
-    :size => '780x580',
-    :close_on_escape => false
+    title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
+    size: '780x580',
+    close_on_escape: false
   },
-  :title => (content.ingredient ? _t(:swap_image) : _t(:insert_image))
+  title: (content.ingredient ? _t(:swap_image) : _t(:insert_image))
 ) %>
 
 <%= link_to(render_icon(:link), '#', {
-  :onclick => "Alchemy.LinkOverlay.open(this)",
-  :class => content.linked? ? 'linked' : nil,
-  :title => _t(:link_image),
-  :data => {'content-id' => content.id},
-  :id => "edit_link_#{content.id}"
+  onclick: "Alchemy.LinkOverlay.open(this); return false",
+  class: content.linked? ? 'linked' : nil,
+  title: _t(:link_image),
+  'data-content-id' => content.id,
+  id: "edit_link_#{content.id}"
 }) %>
 
 <%= link_to(render_icon('unlink'), '#', {
-  :onclick => "Alchemy.LinkOverlay.removeLink(this, #{content.id})",
-  :class => content.linked? ? 'linked' : 'disabled',
-  :title => _t(:unlink)
+  onclick: "Alchemy.LinkOverlay.removeLink(this, #{content.id}); return false",
+  class: content.linked? ? 'linked' : 'disabled',
+  title: _t(:unlink)
 }) %>
 
 <%= link_to_overlay_window(
   render_icon('edit'),
   alchemy.edit_admin_essence_picture_path(
-    :id => content.essence.id,
-    :content_id => content.id,
-    :options => options.to_json
+    id: content.essence.id,
+    content_id: content.id,
+    options: options.to_json
   ),
   {
-    :title => _t(:edit_image_properties),
-    :size => (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x240'))
+    title: _t(:edit_image_properties),
+    size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x240'))
   },
-  :title => _t(:edit_image_properties)
+  title: _t(:edit_image_properties)
 ) %>

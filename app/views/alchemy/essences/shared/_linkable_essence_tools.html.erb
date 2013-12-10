@@ -2,18 +2,18 @@
   <%= link_to(
     render_icon(:link),
     '#',
-    :onclick => "Alchemy.LinkOverlay.open(this); return false;",
-    :class => "icon_button#{content.linked? ? ' linked' : ''}",
-    :data => {'content-id' => content.id},
-    :title => _t(:place_link),
-    :id => "edit_link_#{content.id}"
+    onclick: "Alchemy.LinkOverlay.open(this); return false;",
+    class: "icon_button#{content.linked? ? ' linked' : ''}",
+    'data-content-id' => content.id,
+    title: _t(:place_link),
+    id: "edit_link_#{content.id}"
   ) %>
   <%= link_to(
     render_icon(:unlink),
     '#',
-    :onclick => "Alchemy.LinkOverlay.removeLink(this, #{content.id}); return false;",
-    :class => "icon_button unlink #{content.linked? ? 'linked' : 'disabled'}",
-    :data => {'content-id' => content.id},
-    :title => _t(:unlink)
+    onclick: "Alchemy.LinkOverlay.removeLink(this, #{content.id}); return false;",
+    class: "icon_button unlink #{content.linked? ? 'linked' : 'disabled'}",
+    'data-content-id' => content.id,
+    title: _t(:unlink)
   ) %>
 </span>

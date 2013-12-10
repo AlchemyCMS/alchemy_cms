@@ -17,7 +17,7 @@
     ),
     action_url,
     remote: true,
-    onclick: '$(self).attr("href", "#").off("click")',
+    onclick: '$(self).attr("href", "#").off("click"); return false',
     method: action_method,
     title: _t(:assign_image),
     class: 'thumbnail_background'
