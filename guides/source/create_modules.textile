@@ -114,7 +114,7 @@ Alchemy::Modules.register_module({
 })
 </pre>
 
-NOTE: As an alternative to the module icon you can pass: <br><code>image: '/assets/icon_of_your_module.png'</code>
+NOTE: As an alternative to the module icon you can pass: <br><code>image: '/alchemy/icon_of_your_module.png'</code>
 
 h5. Translate your module names:
 
@@ -163,7 +163,7 @@ Alchemy::Modules.register_module({
 })
 
 # Loading authorization rules and register them to auth engine instance
-Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), 'authorization_rules.rb'))
+Alchemy::Auth::Engine.get_instance.load(File.join(File.dirname(__FILE__), 'authorization_rules.rb'))
 </pre>
 
 h3. Get Ready!
