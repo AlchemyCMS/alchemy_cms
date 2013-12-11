@@ -4,7 +4,7 @@ module Alchemy
   module Generators
     class ScaffoldGenerator < ::Rails::Generators::Base
 
-      ALCHEMY_VIEWS = %w(breadcrumb language_links messages navigation notifications search)
+      ALCHEMY_VIEWS = %w(breadcrumb language_links messages navigation)
 
       desc "This generator generates the Alchemy scaffold."
       class_option :copy_views, :default => false, :type => :boolean, :desc => "Copy all Alchemy views into your app.", :aliases => '-v'
