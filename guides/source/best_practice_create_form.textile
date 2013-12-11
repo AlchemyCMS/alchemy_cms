@@ -107,6 +107,7 @@ to your Gemfile and afterwards use <shell>bundle </shell> command to install <co
   <%= form.input :message, :as => :text %>
   <%= form.hidden_field :contact_form_id, :value => element.id %>
   <%= form.button :submit %>
+<% end %>
 </pre>
 
 NOTE: See the hidden field? This is important, or the messages mailer can't do all the magic for you.
@@ -117,7 +118,7 @@ INFO: Please have a look at the "simple form documentation":https://github.com/p
 
 h5. The contact form editor
 
-The <code>app/views/alchemy/elements/_contactform_view.html.erb</code> file should have this layout:
+The <code>app/views/alchemy/elements/_contactform_editor.html.erb</code> file should have this layout:
 
 <pre>
 <%= render_essence_editor_by_name(element, 'mail_from') %>
