@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Alchemy::EssencesHelper do
   let(:element) { build_stubbed(:element) }
-  let(:content) { mock_model('Content', essence_partial_name: 'essence_text', ingredient: 'hello!') }
-  let(:essence) { mock_model('EssenceText', link: nil)}
+  let(:content) { build_stubbed(:content, element: element, ingredient: 'hello!') }
+  let(:essence) { mock_model('EssenceText', link: nil, partial_name: 'essence_text', ingredient: 'hello!')}
 
   before do
     allow_message_expectations_on_nil
@@ -21,7 +21,6 @@ describe Alchemy::EssencesHelper do
       subject { helper.render_essence(content, :editor) }
 
       before do
-        helper.stub(:content_dom_id)
         helper.stub(:label_and_remove_link)
         content.stub(:settings).and_return({})
       end

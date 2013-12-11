@@ -1,4 +1,4 @@
-<div id="<%= content_dom_id(content) %>" class="essence_picture_editor<%= ' dragable_picture' if options[:dragable] %><%= ' content_editor' unless options[:grouped] %>">
+<div id="<%= content.dom_id %>" class="essence_picture_editor<%= ' dragable_picture' if options[:dragable] %><%= ' content_editor' unless options[:grouped] %>">
   <% unless options[:grouped] %>
   <label>
     <% if content.has_hint? %>

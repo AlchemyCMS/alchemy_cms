@@ -1,5 +1,5 @@
 <% cache(content) do %>
-  <div class="content_editor essence_boolean" id="<%= content_dom_id(content) %>">
+  <div class="content_editor essence_boolean" id="<%= content.dom_id %>">
     <input type="hidden" value="0" name="<%= content.form_field_name %>" />
     <%= check_box_tag(content.form_field_name, 1,
       !content.ingredient.nil? ? content.ingredient : options[:default_value],

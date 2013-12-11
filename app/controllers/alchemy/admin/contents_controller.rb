@@ -48,7 +48,7 @@ module Alchemy
 
       def destroy
         @content = Content.find(params[:id])
-        @content_dup = @content.clone
+        @content_dom_id = @content.dom_id
         @notice = _t("Successfully deleted content", content: @content.name_for_label)
         @content.destroy
       end

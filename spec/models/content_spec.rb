@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'ostruct'
 
 module Alchemy
   describe Content do
@@ -218,6 +217,39 @@ module Alchemy
 
         it "should return an empty array" do
           Content.descriptions.should == []
+        end
+      end
+    end
+
+    describe "#dom_id" do
+      let(:content) { build_stubbed(:content) }
+
+      it "returns a dom id string" do
+        content.dom_id.should eq("essence_text_#{content.id}")
+      end
+
+      context "without an essence" do
+        before { content.stub(essence: nil) }
+
+        it "returns empty string" do
+          content.dom_id.should eq('')
+        end
+      end
+    end
+
+    describe "#essence_partial_name" do
+      let(:content) { build_stubbed(:content) }
+
+      it "returns the essence#partial_name" do
+        content.essence.should_receive(:partial_name)
+        content.essence_partial_name
+      end
+
+      context "without an essence" do
+        before { content.stub(essence: nil) }
+
+        it "returns empty string" do
+          content.essence_partial_name.should eq('')
         end
       end
     end

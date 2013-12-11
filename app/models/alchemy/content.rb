@@ -167,6 +167,12 @@ module Alchemy
       "contents_#{self.id}_#{essence_column}"
     end
 
+    # Returns a string used as dom id on html elements.
+    def dom_id
+      return '' if essence.nil?
+      "#{essence_partial_name}_#{id}"
+    end
+
     # Returns the translated name for displaying in labels, etc.
     def name_for_label
       self.class.translated_label_for(self.name, self.element.name)
@@ -188,6 +194,7 @@ module Alchemy
     end
 
     def essence_partial_name
+      return '' if essence.nil?
       essence.partial_name
     end
 

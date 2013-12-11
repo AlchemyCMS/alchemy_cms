@@ -3,12 +3,6 @@ module Alchemy
     module ContentsHelper
       include Alchemy::Admin::BaseHelper
 
-      # Returns a string for the id attribute of a html element for the given content
-      def content_dom_id(content)
-        return if content.nil?
-        "#{content.essence_partial_name}_#{content.id}"
-      end
-
       # Renders the name of elements content.
       #
       # Displays a warning icon if content is missing its description.

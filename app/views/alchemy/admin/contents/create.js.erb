@@ -51,6 +51,6 @@
   Alchemy.reloadPreview();
   Alchemy.closeCurrentWindow();
   Alchemy.SelectBox("#element_<%= @element.id %>");
-  Alchemy.overlayObserver('#<%= content_dom_id(@content) %>');
+  Alchemy.overlayObserver('#<%= @content.dom_id %>');
 
 })()

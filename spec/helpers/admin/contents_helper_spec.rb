@@ -4,19 +4,6 @@ describe Alchemy::Admin::ContentsHelper do
   let(:element) { build_stubbed(:element, name: 'article') }
   let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
 
-  describe 'content_dom_id' do
-    subject { helper.content_dom_id(content) }
-
-    it "returns the content's dom id" do
-      should match(/essence_text_\d{1,}/)
-    end
-
-    context 'if content is nil' do
-      let(:content) { nil }
-      it { should be_nil }
-    end
-  end
-
   describe 'render_content_name' do
     let(:content) do
       mock_model 'Content',

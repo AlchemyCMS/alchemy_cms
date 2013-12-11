@@ -1,5 +1,5 @@
 $('#picture_to_assign_<%= @picture.id %> a').attr('href', '#').off 'click'
-$('#<%= content_dom_id(@content) -%>').replaceWith('<%= escape_javascript(
+$('#<%= @content.dom_id -%>').replaceWith('<%= escape_javascript(
   render(
     :partial => "alchemy/essences/essence_picture_editor",
     :locals => {:content => @content, :options => @options}
@@ -12,4 +12,4 @@ Alchemy.SortableContents '#<%= @content.element.id -%>_contents', '<%= form_auth
 
 Alchemy.closeCurrentWindow()
 Alchemy.setElementDirty '#element_<%= @content.element.id -%>'
-Alchemy.overlayObserver '#<%= content_dom_id(@content) %>'
+Alchemy.overlayObserver '#<%= @content.dom_id %>'
