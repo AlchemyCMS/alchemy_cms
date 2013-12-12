@@ -37,10 +37,6 @@ Alchemy.Initializer = ->
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content')
 
-# jQuery DOM ready
-$ ->
-  Alchemy.Initializer()
-
 # Turbolinks DOM Ready
 $(document).on 'page:change', ->
   Alchemy.Initializer()
