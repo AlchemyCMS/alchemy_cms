@@ -1,3 +1,7 @@
+.rounded-border {
+  @include border-radius($default-border-radius);
+}
+
 %text-overflow {
   white-space: nowrap;
   overflow: hidden;
