@@ -1,4 +1,3 @@
-<%- if @element['contents'].present? || @element['available_contents'].present? -%>
 <%%- cache(element) do -%>
   <%%= element_view_for(element) do |el| -%>
   <%- if @element["picture_gallery"] -%>
@@ -26,4 +25,3 @@
   <%- end -%>
   <%%- end -%>
 <%%- end -%>
-<%- end -%>
