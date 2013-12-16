@@ -16,28 +16,28 @@ require 'userstamp'
 require 'non-stupid-digest-assets'
 
 # Require globally used Alchemy mixins
-require 'alchemy/auth_accessors'
-require 'alchemy/cache_digests/template_tracker'
-require 'alchemy/config'
-require 'alchemy/errors'
-require 'alchemy/essence'
-require 'alchemy/filetypes'
-require "alchemy/forms/builder"
-require 'alchemy/i18n'
-require 'alchemy/logger'
-require 'alchemy/modules'
-require 'alchemy/mount_point'
-require 'alchemy/name_conversions'
-require 'alchemy/page_layout'
-require 'alchemy/permissions'
-require 'alchemy/picture_attributes'
-require 'alchemy/resource'
-require 'alchemy/tinymce'
-require 'alchemy/touching'
+require_relative './auth_accessors'
+require_relative './cache_digests/template_tracker'
+require_relative './config'
+require_relative './errors'
+require_relative './essence'
+require_relative './filetypes'
+require_relative "./forms/builder"
+require_relative './i18n'
+require_relative './logger'
+require_relative './modules'
+require_relative './mount_point'
+require_relative './name_conversions'
+require_relative './page_layout'
+require_relative './permissions'
+require_relative './picture_attributes'
+require_relative './resource'
+require_relative './tinymce'
+require_relative './touching'
 
 # Require hacks
-require 'alchemy/kaminari/scoped_pagination_url_helper'
-require File.join(File.dirname(__FILE__), '../extensions/action_view')
+require_relative './kaminari/scoped_pagination_url_helper'
+require_relative '../extensions/action_view'
 
 module Alchemy
   class Engine < Rails::Engine
@@ -69,7 +69,7 @@ module Alchemy
     end
 
     config.after_initialize do
-      require 'alchemy/userstamp'
+      require_relative './userstamp'
       # We need to reload the routes, because alchemy extensions (i.e. alchemy-devise) prepends routes.
       Rails.application.routes_reloader.reload!
     end
