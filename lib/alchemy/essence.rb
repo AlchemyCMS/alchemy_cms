@@ -154,7 +154,7 @@ module Alchemy #:nodoc:
 
       # Returns the Content Essence is in
       def content
-        Alchemy::Content.find_by_essence_type_and_essence_id(acts_as_essence_class.to_s, self.id)
+        Alchemy::Content.find_by(essence_type: acts_as_essence_class.to_s, essence_id: self.id)
       end
 
       # Returns the Element Essence is in
