@@ -21,24 +21,8 @@ module Alchemy
 
       respond_to do |format|
         format.html
-        format.js { @container_id = params[:container_id] }
-        format.json do
-          render json: @element.to_json(
-            only: [:id, :name, :updated_at],
-            methods: [:tag_list],
-            include: {
-              contents: {
-                only: [:id, :name, :updated_at, :essence_type],
-                methods: [:ingredient],
-                include: {
-                  essence: {
-                    except: [:created_at, :creator_id, :public, :updater_id]
-                  }
-                }
-              }
-            }
-          )
-        end
+        format.js   { @container_id = params[:container_id] }
+        format.json { render json: @element }
       end
     end
 

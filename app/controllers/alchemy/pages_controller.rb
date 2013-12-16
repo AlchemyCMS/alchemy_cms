@@ -30,6 +30,7 @@ module Alchemy
               render xml: {error: 'Not found'}, status: 404
             end
           end
+          format.json { render json: @page }
         end
       end
     end
