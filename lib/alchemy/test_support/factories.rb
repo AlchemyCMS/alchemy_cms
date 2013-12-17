@@ -98,6 +98,10 @@ FactoryGirl.define do
     picture
   end
 
+  factory :essence_file, :class => 'Alchemy::EssenceFile' do
+    attachment
+  end
+
   factory :attachment, :class => 'Alchemy::Attachment' do
     file File.new(File.expand_path('../../../../spec/fixtures/image.png', __FILE__))
     name 'image'
