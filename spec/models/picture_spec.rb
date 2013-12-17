@@ -91,6 +91,16 @@ module Alchemy
         digest = PictureAttributes.secure({id: @pic.id})
         @pic.security_token.should == digest
       end
+
+      it "should remove all not suitable options" do
+        digest = PictureAttributes.secure({id: @pic.id})
+        @pic.security_token({foo: 'baz'}).should == digest
+      end
+
+      it "should remove all option values that have nil values" do
+        digest = PictureAttributes.secure({id: @pic.id})
+        @pic.security_token({crop: nil}).should == digest
+      end
     end
 
     describe '.filtered_by' do

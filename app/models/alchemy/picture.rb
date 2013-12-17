@@ -253,10 +253,12 @@ module Alchemy
     # to sign them.
     #
     def security_token(params = {})
-      @params = params.stringify_keys
-      @params.update({'crop' => @params['crop'] ? 'crop' : nil, 'id' => self.id})
-      @params.delete_if { |k, v| v.nil? }
-      PictureAttributes.secure(@params)
+      params = params.dup.stringify_keys
+      params.update({
+        'crop' => params['crop'] ? 'crop' : nil,
+        'id' => self.id
+      })
+      PictureAttributes.secure(params)
     end
 
   end

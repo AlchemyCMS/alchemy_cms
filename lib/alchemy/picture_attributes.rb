@@ -16,7 +16,7 @@ module Alchemy
         Digest::SHA1.hexdigest(joined_attributes(attributes))[0..15]
       end
 
-    private
+      private
 
       # Takes attributes and joins them with the +security_token+ of your rails app.
       #
