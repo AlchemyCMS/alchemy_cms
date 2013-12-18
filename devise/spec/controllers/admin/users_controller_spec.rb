@@ -14,9 +14,15 @@ module Alchemy
       end
 
       describe '#index' do
+        let(:users) { [] }
+
+        before do
+          users.stub_chain(:page, :per, :order).and_return([user])
+        end
+
         context 'with search query' do
           it "lists all matching users" do
-            User.should_receive(:where).and_return([user])
+            User.should_receive(:where).and_return(users)
             get :index, query: user.email
             assigns(:users).should include(user)
           end
@@ -24,7 +30,7 @@ module Alchemy
 
         context 'without search query' do
           it "lists all users" do
-            User.should_receive(:all).and_return([user])
+            User.should_receive(:all).and_return(users)
             get :index
             assigns(:users).should include(user)
           end
