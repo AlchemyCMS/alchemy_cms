@@ -118,7 +118,6 @@ module Alchemy
         name: picture.urlname,
         format: Config.get(:image_output_format)
       }.merge(options)
-
       if crop_from.present? && crop_size.present?
         params = {
           crop: true,
@@ -126,8 +125,8 @@ module Alchemy
           crop_size: crop_size
         }.merge(params)
       end
-      params.merge!(sh: picture.security_token(params))
-      clean_picture_params(params)
+      params = clean_picture_params(params)
+      params.merge(sh: picture.security_token(params))
     end
 
     # Ensures correct and clean params for show picture path.
@@ -141,7 +140,7 @@ module Alchemy
       end
       secure_attributes = PictureAttributes::SECURE_ATTRIBUTES.dup
       secure_attributes += %w(name format sh)
-      params.delete_if { |k, v | !secure_attributes.include?(k.to_s) || v.blank? }
+      params.delete_if { |k, v| !secure_attributes.include?(k.to_s) || v.blank? }
     end
 
   end
