@@ -4,11 +4,11 @@ module Alchemy
 
     attributes :id,
       :name,
+      :ingredient,
       :element_id,
       :position,
       :created_at,
-      :updated_at,
-      :ingredient
+      :updated_at
 
     has_one :essence, polymorphic: true
 

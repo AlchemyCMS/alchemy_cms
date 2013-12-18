@@ -15,10 +15,14 @@ module Alchemy
       :updated_at,
       :status
 
-    has_many :elements
+    has_many :elements, :cells
 
     def elements
-      object.elements.published
+      if object.has_cells?
+        object.elements.not_in_cell.published
+      else
+        object.elements.published
+      end
     end
 
   end
