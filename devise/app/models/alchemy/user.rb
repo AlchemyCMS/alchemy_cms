@@ -21,6 +21,7 @@ module Alchemy
       :timeoutable, :recoverable
 
     acts_as_taggable
+    acts_as_tagger
 
     attr_accessor :send_credentials
 
