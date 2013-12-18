@@ -50,6 +50,7 @@ module Alchemy
     scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
     scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
     scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
+    scope :named,             ->(name) { where(name: name) }
 
     class << self
       # Returns the translated label for a content name.
