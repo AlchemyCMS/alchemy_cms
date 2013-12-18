@@ -117,30 +117,23 @@ module Alchemy
     # Renders a essence picture
     #
     def render_essence_picture_view(content, options, html_options)
-      options = {:show_caption => true, :disable_link => false}.update(options)
-      return if content.essence.picture.blank?
+      options = {show_caption: true, disable_link: false}.update(options)
+      return if content.ingredient.blank?
       if content.essence.caption.present? && options[:show_caption]
-        caption = content_tag(:figcaption, content.essence.caption, :id => "#{dom_id(content.essence.picture)}_caption", :class => "image_caption")
+        caption = content_tag(:figcaption, content.essence.caption, id: "#{dom_id(content.ingredient)}_caption", class: "image_caption")
       end
       img_tag = image_tag(
-        show_alchemy_picture_path(content.essence.picture,
-          options.merge(
-            :size => options.delete(:image_size),
-            :crop_from => options[:crop] && !content.essence.crop_from.blank? ? content.essence.crop_from : nil,
-            :crop_size => options[:crop] && !content.essence.crop_size.blank? ? content.essence.crop_size : nil
-          ).delete_if { |k, v| v.blank? || k.to_sym == :show_caption || k.to_sym == :disable_link }
-        ),
-        {
-          :alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
-          :title => (content.essence.title.blank? ? nil : content.essence.title),
-          :class => (caption || content.essence.css_class.blank? ? nil : content.essence.css_class)
+        content.essence.picture_url(options), {
+          alt: (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
+          title: (content.essence.title.blank? ? nil : content.essence.title),
+          class: (caption || content.essence.css_class.blank? ? nil : content.essence.css_class)
         }.merge(caption ? {} : html_options)
       )
       output = caption ? img_tag + caption : img_tag
       if content.essence.link.present? && !options[:disable_link]
         output = link_to(url_for(content.essence.link), {
-          :title => content.essence.link_title.blank? ? nil : content.essence.link_title,
-          :target => (content.essence.link_target == "blank" ? "_blank" : nil),
+          title: content.essence.link_title.blank? ? nil : content.essence.link_title,
+          target: (content.essence.link_target == "blank" ? "_blank" : nil),
           'data-link-target' => content.essence.link_target.blank? ? nil : content.essence.link_target
         }) do
           output
