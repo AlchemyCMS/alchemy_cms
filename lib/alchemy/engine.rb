@@ -1,7 +1,7 @@
 # Require globally used external libraries
 require 'actionpack/page_caching'
 require 'action_view/dependency_tracker'
-require 'active_model/serializer'
+require 'active_model_serializers'
 require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
