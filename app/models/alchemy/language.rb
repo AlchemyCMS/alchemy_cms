@@ -47,7 +47,7 @@ module Alchemy
       def all_for_created_language_trees
         # don't use 'find' here as it would clash with our default_scopes
         # in various unholy ways you don't want to find out about.
-        where(id: Page.language_roots.collect(&:language_id))
+        where(id: Page.language_roots.pluck(:language_id))
       end
 
       def get_default
