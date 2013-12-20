@@ -91,13 +91,6 @@ module Alchemy
       end
     end
 
-    describe '.all_codes_for_published' do
-      it "should return all codes of published languages" do
-        Language.stub(:published).and_return([mock_model('Language', code: 'de'), mock_model('Language', code: 'en')])
-        expect(Language.all_codes_for_published).to eq(['de', 'en'])
-      end
-    end
-
     context 'validations' do
       let(:language) { Language.new(default: true, public: false) }
 

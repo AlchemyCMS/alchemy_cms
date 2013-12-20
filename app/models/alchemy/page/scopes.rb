@@ -48,7 +48,7 @@ module Alchemy
       #
       scope :public_language_roots, -> {
         published.language_roots.where(
-          language_code: Language.all_codes_for_published
+          language_code: Language.published.pluck(:code)
         )
       }
 

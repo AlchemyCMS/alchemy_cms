@@ -50,12 +50,6 @@ module Alchemy
         where(id: Page.language_roots.collect(&:language_id))
       end
 
-      def all_codes_for_published
-        published.collect(&:code)
-      rescue
-        []
-      end
-
       def get_default
         find_by(default: true)
       end
