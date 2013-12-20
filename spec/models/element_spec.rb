@@ -23,7 +23,7 @@ module Alchemy
 
       it "should make copies of all contents of source" do
         copy = Element.copy(element)
-        copy.contents.collect(&:id).should_not == element.contents.collect(&:id)
+        copy.contents.pluck(:id).should_not == element.contents.pluck(:id)
       end
 
       it "the copy should include source element tags" do

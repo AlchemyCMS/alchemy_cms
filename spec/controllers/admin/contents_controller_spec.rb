@@ -38,10 +38,10 @@ module Alchemy
     describe "#order" do
       context "with content_ids in params" do
         it "should reorder the contents" do
-          content_ids = element.contents.essence_texts.collect(&:id)
+          content_ids = element.contents.essence_texts.pluck(:id)
           xhr :post, :order, {content_ids: content_ids.reverse}
           response.status.should == 200
-          element.contents.essence_texts.collect(&:id).should == content_ids.reverse
+          element.contents.essence_texts.pluck(:id).should == content_ids.reverse
         end
       end
     end

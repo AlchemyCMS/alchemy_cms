@@ -247,14 +247,14 @@ module Alchemy
         it "all elements not allowed on this page should be trashed" do
           expect(news_page.elements.trashed).to be_empty
           news_page.update_attributes(page_layout: 'standard')
-          trashed = news_page.elements.trashed.collect(&:name)
+          trashed = news_page.elements.trashed.pluck(:name)
           expect(trashed).to eq(['news'])
           expect(trashed).to_not include('article', 'header')
         end
 
         it "should autogenerate elements" do
           news_page.update_attributes(page_layout: 'contact')
-          news_page.elements.collect(&:name).should include('contactform')
+          news_page.elements.pluck(:name).should include('contactform')
         end
       end
     end
@@ -1184,7 +1184,7 @@ module Alchemy
             page.stub(:slug).and_return('foo')
             page.update_urlname!
             page.legacy_urls.should_not be_empty
-            page.legacy_urls.collect(&:urlname).should include('parentparent/parent/page')
+            page.legacy_urls.pluck(:urlname).should include('parentparent/parent/page')
           end
         end
 

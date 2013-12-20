@@ -181,7 +181,7 @@ module Alchemy
     # If the page has cells, it looks if there are elements to generate.
     #
     def autogenerate_elements
-      elements_already_on_page = self.elements.available.collect(&:name)
+      elements_already_on_page = self.elements.available.pluck(:name)
       elements = self.layout_description["autogenerate"]
       if elements.present?
         elements.each do |element|
