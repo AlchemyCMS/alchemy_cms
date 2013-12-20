@@ -12,24 +12,22 @@ group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  unless ENV['FAST_SPECS']
-    gem 'poltergeist'
-    gem 'connection_pool' # https://gist.github.com/mperham/3049152
-    unless ENV['CI']
-      gem 'launchy'
-    end
+  gem 'poltergeist'
+  gem 'connection_pool' # https://gist.github.com/mperham/3049152
+  unless ENV['CI']
+    gem 'launchy'
   end
 end
 
 group :development, :test do
-  gem 'annotate'
   unless ENV['CI']
+    gem 'annotate'
     gem 'pry'
     gem 'bumpy'
     gem 'yard'
     gem 'redcarpet'
+    gem 'pry-rails'
+    # gem 'pry-debugger'
   end
   gem 'jasmine-rails', github: 'searls/jasmine-rails'
-  gem 'pry-rails'
-  gem 'pry-debugger'
 end
