@@ -3,26 +3,23 @@ module Alchemy
     class PagesController < Alchemy::Admin::BaseController
       helper 'alchemy/pages'
 
-      before_filter :set_translation,
+      before_action :set_translation,
         except: [:show]
 
-      before_filter :load_page,
+      before_action :load_page,
         only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
+
+      before_action :set_root_page,
+        only: [:index, :show, :sort, :order]
 
       authorize_resource class: Alchemy::Page
 
       def index
-        @page_root = Page.language_root_for(session[:language_id])
         @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
         if !@page_root
-          if @languages.length == 1
-            @language = @languages.first
-            store_language_in_session(@language)
-          else
-            @language = @languages.find { |language| language.id == session[:language_id] }
-          end
-          @languages_with_page_tree = Language.all_for_created_language_trees if @language
+          @language = Language.current
+          @languages_with_page_tree = Language.with_root_page
         end
       end
 
@@ -31,13 +28,12 @@ module Alchemy
       def show
         @preview_mode = true
         Page.current_preview = @page
-        @root_page = Page.language_root_for(session[:language_id])
-        # Setting the locale to pages language. so the page content has its correct translation
+        # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language_code
-        render :layout => layout_for_page
+        render layout: layout_for_page
       rescue Exception => e
         exception_logger(e)
-        render :file => Rails.root.join('public', '500.html'), :status => 500, :layout => false
+        render file: Rails.root.join('public', '500.html'), status: 500, layout: false
       end
 
       def info
@@ -45,9 +41,9 @@ module Alchemy
       end
 
       def new
-        @page = Page.new(:layoutpage => params[:layoutpage] == 'true', :parent_id => params[:parent_id])
-        @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
-        @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
+        @page = Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
+        @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
+        @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], Language.current.id, @page.layoutpage?)
       end
 
       def create
@@ -59,11 +55,11 @@ module Alchemy
           @page = Page.new(page_params)
         end
         if @page.save
-          flash[:notice] = _t("Page created", :name => @page.name)
+          flash[:notice] = _t("Page created", name: @page.name)
           do_redirect_to(redirect_path_after_create_page)
         else
-          @page_layouts = PageLayout.layouts_for_select(session[:language_id], @page.layoutpage?)
-          @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], session[:language_id], @page.layoutpage?)
+          @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
+          @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], Language.current.id, @page.layoutpage?)
           render :new
         end
       end
@@ -83,7 +79,7 @@ module Alchemy
 
       # Set page configuration like page names, meta tags and states.
       def configure
-        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, session[:language_id], @page.layoutpage?)
+        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, Language.current.id, @page.layoutpage?)
         render @page.redirects_to_external? ? 'configure_external' : 'configure'
       end
 
@@ -108,7 +104,7 @@ module Alchemy
         @page_id = @page.id
         @layoutpage = @page.layoutpage?
         if @page.destroy
-          @page_root = Page.language_root_for(session[:language_id])
+          set_root_page
           @message = _t("Page deleted", :name => name)
           flash[:notice] = @message
           respond_to do |format|
@@ -124,7 +120,7 @@ module Alchemy
         if configuration(:show_real_root)
           @page_root = Page.root
         else
-          @page_root = Page.language_root_for(session[:language_id])
+          set_root_page
         end
         @area_name = params[:area_name]
         @content_id = params[:content_id]
@@ -133,7 +129,7 @@ module Alchemy
           @url_prefix = current_server
         end
         if multi_language?
-          @url_prefix = "#{session[:language_code]}/"
+          @url_prefix = "#{Language.current.code}/"
         end
       end
 
@@ -180,13 +176,10 @@ module Alchemy
       end
 
       def sort
-        @page_root = Page.language_root_for(session[:language_id])
         @sorting = true
       end
 
       def order
-        @page_root = Page.language_root_for(session[:language_id])
-
         # Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
         neworder = JSON.parse(params[:set])
         prev_item = nil
@@ -207,7 +200,7 @@ module Alchemy
       end
 
       def flush
-        Page.with_language(session[:language_id]).flushables.each do |page|
+        Language.current.pages.flushables.each do |page|
           page.publish!
         end
         respond_to do |format|
@@ -220,8 +213,8 @@ module Alchemy
       def copy_of_language_root
         page_copy = Page.copy(
           language_root_to_copy_from,
-          :language_id => params[:languages][:new_lang_id],
-          :language_code => session[:language_code]
+          language_id: params[:languages][:new_lang_id],
+          language_code: Language.current.code
         )
         page_copy.move_to_child_of Page.root
         page_copy
@@ -281,6 +274,10 @@ module Alchemy
       def page_is_locked?
         return if !@page.locker.try(:logged_in?)
         @page.locked? && @page.locker != current_alchemy_user
+      end
+
+      def set_root_page
+        @page_root = Language.current_root_page
       end
 
     end

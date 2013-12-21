@@ -60,7 +60,7 @@ module Alchemy
       else
         # No urlname was given, so just load the language root for the
         # currently active language.
-        Page.language_root_for(@language.id)
+        Language.current_root_page
       end
     end
 
@@ -86,9 +86,9 @@ module Alchemy
       elsif @page.blank?
         raise_not_found_error
       elsif multi_language? && params[:lang].blank?
-        redirect_page(:lang => session[:language_code])
+        redirect_page(lang: Language.current.code)
       elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
-        redirect_page(:lang => params[:lang])
+        redirect_page(lang: params[:lang])
       elsif configuration(:redirect_to_public_child) && !@page.public?
         redirect_to_public_child
       elsif params[:urlname].blank? && configuration(:redirect_index)
@@ -103,7 +103,7 @@ module Alchemy
         if params[:urlname].blank?
           @root_page = @page
         else
-          @root_page = Page.language_root_for(session[:language_id])
+          @root_page = Language.current_root_page
         end
       end
     end
@@ -139,7 +139,7 @@ module Alchemy
     end
 
     def legacy_urls
-      LegacyPageUrl.joins(:page).where(urlname: params[:urlname], alchemy_pages: {language_id: session[:language_id]})
+      LegacyPageUrl.joins(:page).where(urlname: params[:urlname], alchemy_pages: {language_id: Language.current.id})
     end
 
     def last_legacy_url

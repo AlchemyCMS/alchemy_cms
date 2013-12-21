@@ -1,5 +1,5 @@
 <% css_classes = [language.code] %>
-<% css_classes << 'active' if session[:language_id] == language.id %>
+<% css_classes << 'active' if Alchemy::Language.current.id == language.id %>
 <% css_classes << 'first' if languages.first == language %>
 <% css_classes << 'last' if languages.last == language %>
 <% link_title = options[:show_title] ? _t("#{language.code}.title", scope: 'language_links', default: language.name) : nil %>

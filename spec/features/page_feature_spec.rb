@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe 'Page' do
-    let(:default_language)      { Language.get_default }
+    let(:default_language)      { Language.default }
     let(:default_language_root) { FactoryGirl.create(:language_root_page, :language => default_language, :name => 'Home') }
     let(:public_page_1)         { FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1') }
     let(:public_child)          { FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }

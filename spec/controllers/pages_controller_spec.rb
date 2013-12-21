@@ -3,7 +3,7 @@ require 'spec_helper'
 
 module Alchemy
   describe PagesController do
-    let(:default_language)      { Language.get_default }
+    let(:default_language)      { Language.default }
     let(:default_language_root) { FactoryGirl.create(:language_root_page, language: default_language, name: 'Home', public: true) }
     let(:page) { FactoryGirl.create(:public_page, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }
 
@@ -199,12 +199,12 @@ module Alchemy
 
           it "should store defaults language id in the session." do
             get :show, urlname: 'a-public-page'
-            controller.session[:language_id].should == Language.get_default.id
+            controller.session[:alchemy_language_id].should == Language.default.id
           end
 
-          it "should store defaults language code in the session." do
+          it "should store default language as class var." do
             get :show, urlname: 'a-public-page'
-            controller.session[:language_code].should == Language.get_default.code
+            Language.current.should == Language.default
           end
 
         end

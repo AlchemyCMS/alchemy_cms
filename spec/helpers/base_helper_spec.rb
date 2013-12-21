@@ -41,7 +41,7 @@ module Alchemy
     end
 
     describe '#breadcrumb' do
-      let(:lang_root) { Page.language_root_for(Language.get_default.id) }
+      let(:lang_root) { Page.language_root_for(Language.default.id) }
       let(:parent)    { FactoryGirl.create(:public_page) }
       let(:page)      { FactoryGirl.create(:public_page, parent_id: parent.id) }
 
@@ -72,7 +72,7 @@ module Alchemy
 
         context 'of an existing page' do
           it "should return the page object" do
-            session[:language_id] = page.language_id
+            session[:alchemy_language_id] = page.language_id
             expect(helper.page_or_find(page.page_layout)).to eq(page)
           end
         end

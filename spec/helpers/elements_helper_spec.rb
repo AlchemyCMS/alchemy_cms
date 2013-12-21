@@ -104,9 +104,7 @@ module Alchemy
           let(:options)         { {from_page: 'news'} }
 
           before do
-            array = double
-            array.should_receive(:to_a).and_return(pages)
-            Page.should_receive(:where).and_return(array)
+            Language.stub_chain(:current, :pages, :where).and_return(pages)
             another_page.should_receive(:find_elements).and_return(other_elements)
           end
 
@@ -119,7 +117,7 @@ module Alchemy
           end
 
           context 'and an array of pages has been found' do
-            let(:pages)           { [page, another_page] }
+            let(:pages) { [page, another_page] }
 
             before do
               page.should_receive(:find_elements).and_return(elements)
@@ -161,7 +159,7 @@ module Alchemy
           let(:options) { {fallback: {for: 'higgs', with: 'news', from: 'news'}} }
 
           before do
-            Page.should_receive(:find_by).and_return(another_page)
+            Language.stub_chain(:current, :pages, :find_by).and_return(another_page)
             another_page.stub_chain(:elements, :named).and_return(elements)
           end
 

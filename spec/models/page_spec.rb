@@ -6,7 +6,7 @@ module Alchemy
   describe Page do
 
     let(:rootpage)      { Page.root }
-    let(:language)      { Language.get_default }
+    let(:language)      { Language.default }
     let(:klingonian)    { FactoryGirl.create(:klingonian) }
     let(:language_root) { FactoryGirl.create(:language_root_page) }
     let(:page)          { mock_model(Page, :page_layout => 'foo') }
@@ -1081,7 +1081,7 @@ module Alchemy
         let(:parent) { mock_model('Page', language: nil, language_id: nil, language_code: nil) }
 
         before do
-          Language.stub(:get_default).and_return(default_language)
+          Language.stub(:default).and_return(default_language)
           page.send(:set_language_from_parent_or_default)
         end
 

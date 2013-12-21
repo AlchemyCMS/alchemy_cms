@@ -8,7 +8,7 @@ module Alchemy
 
     # Fixtures
     let(:language)                  { mock_model('Language', :code => 'en') }
-    let(:default_language)          { Language.get_default }
+    let(:default_language)          { Language.default }
     let(:language_root)             { FactoryGirl.create(:language_root_page) }
     let(:public_page)               { FactoryGirl.create(:public_page) }
     let(:visible_page)              { FactoryGirl.create(:public_page, :visible => true) }

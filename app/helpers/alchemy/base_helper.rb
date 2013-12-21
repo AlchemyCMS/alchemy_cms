@@ -13,7 +13,7 @@ module Alchemy
 
     def parse_sitemap_name(page)
       if multi_language?
-        pathname = "/#{session[:language_code]}/#{page.urlname}"
+        pathname = "/#{Language.current.code}/#{page.urlname}"
       else
         pathname = "/#{page.urlname}"
       end
@@ -95,7 +95,7 @@ module Alchemy
     # Logs a warning if no page is given.
     def page_or_find(page)
       if page.is_a?(String)
-        page = Page.where(page_layout: page, language_id: session[:language_id]).first
+        page = Language.current.pages.find_by(page_layout: page)
       end
       if page.blank?
         warning("No Page found for #{page.inspect}")

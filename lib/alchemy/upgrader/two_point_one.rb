@@ -27,7 +27,7 @@ module Alchemy
 
     def upgrade_layoutpages
       desc "Setting language of layoutpages"
-      default_language = Alchemy::Language.get_default
+      default_language = Alchemy::Language.default
       raise "No default language found." if default_language.nil?
       layoutpages = Alchemy::Page.layoutpages
       if layoutpages.any?

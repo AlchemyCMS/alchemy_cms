@@ -362,7 +362,7 @@ module Alchemy
     end
 
     def set_language_from_parent_or_default
-      self.language = self.parent.language || Language.get_default
+      self.language = self.parent.language || Language.default
     end
 
     def set_language_code

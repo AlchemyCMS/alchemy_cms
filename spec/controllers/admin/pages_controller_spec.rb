@@ -7,12 +7,32 @@ module Alchemy
     before { sign_in(user) }
 
     describe '#index' do
+      let(:language)      { build_stubbed(:language) }
       let(:language_root) { build_stubbed(:language_root_page) }
 
-      it "assigns @page_root variable" do
-        Page.should_receive(:language_root_for).with(1).and_return(language_root)
-        get :index
-        assigns(:page_root).should be(language_root)
+      context 'with existing language root page' do
+        before do
+          Language.should_receive(:current_root_page).and_return(language_root)
+        end
+
+        it "assigns @page_root variable" do
+          get :index
+          assigns(:page_root).should be(language_root)
+        end
+      end
+
+      context 'without language root page' do
+        before do
+          Language.should_receive(:current_root_page).and_return(nil)
+          Language.stub(find_by: language)
+          Language.stub(all: [language])
+          Language.stub(with_root_page: [language])
+        end
+
+        it "it assigns current language" do
+          get :index
+          assigns(:language).should be(language)
+        end
       end
     end
 
@@ -21,7 +41,7 @@ module Alchemy
       let(:page_2) { build_stubbed(:page) }
 
       before do
-        Page.stub_chain(:with_language, :flushables).and_return([page_1, page_2])
+        Language.stub_chain(:current, :pages, :flushables).and_return([page_1, page_2])
       end
 
       it "should remove the cache of all pages" do
@@ -168,10 +188,10 @@ module Alchemy
     end
 
     describe '#copy_language_tree' do
-      let(:params) { {languages: {new_lang_id: '2', old_lang_id: '1'}} }
+      let(:params)                     { {languages: {new_lang_id: '2', old_lang_id: '1'}} }
       let(:language_root_to_copy_from) { build_stubbed(:language_root_page) }
-      let(:copy_of_language_root) { build_stubbed(:language_root_page) }
-      let(:root_page) { mock_model('Page') }
+      let(:copy_of_language_root)      { build_stubbed(:language_root_page) }
+      let(:root_page)                  { mock_model('Page') }
 
       before do
         Page.stub(copy: copy_of_language_root)
@@ -179,8 +199,8 @@ module Alchemy
         Page.stub(language_root_for: language_root_to_copy_from)
         Page.any_instance.stub(:move_to_child_of)
         Page.any_instance.stub(:copy_children_to)
-        controller.stub(:store_language_in_session)
-        controller.stub(:session).and_return({language_id: 2, language_code: 'it'})
+        controller.stub(:store_current_language)
+        Language.stub(:current).and_return(mock_model('Language', language_code: 'it', code: 'it'))
       end
 
       it "should copy the language root page over to the other language" do
@@ -307,14 +327,15 @@ module Alchemy
     end
 
     describe "#switch_language" do
-      let(:language) { FactoryGirl.build_stubbed(:klingonian)}
-      before {
-        Language.should_receive(:find_by_id).and_return(language)
-      }
+      let(:language) { build_stubbed(:klingonian)}
+
+      before do
+        Language.stub(:find_by).and_return(language)
+      end
 
       it "should store the current language in session" do
         get :switch_language, {language_id: language.id}
-        expect(session[:language_id]).to eq(language.id)
+        expect(session[:alchemy_language_id]).to eq(language.id)
       end
 
       it "should redirect to sitemap" do

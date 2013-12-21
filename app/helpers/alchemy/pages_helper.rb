@@ -29,7 +29,7 @@ module Alchemy
         spacer: '',
         reverse: false
       }.merge(options)
-      languages = Language.published.with_language_root.order("name #{options[:reverse] ? 'DESC' : 'ASC'}")
+      languages = Language.published.with_root_page.order("name #{options[:reverse] ? 'DESC' : 'ASC'}")
       return nil if languages.count < 2
       render(
         partial: "alchemy/language_links/language",
@@ -151,7 +151,7 @@ module Alchemy
       options = {
         submenu: false,
         all_sub_menues: false,
-        from_page: @root_page || Page.language_root_for(session[:language_id]),
+        from_page: @root_page || Language.current_root_page,
         spacer: nil,
         navigation_partial: 'alchemy/navigation/renderer',
         navigation_link_partial: 'alchemy/navigation/link',
@@ -345,15 +345,15 @@ module Alchemy
         default_lang: "de"
       }
       options = default_options.merge(options)
-      #render meta description of the root page from language if the current meta description is empty
+      # render meta description of the root page from language if the current meta description is empty
       if @page.meta_description.blank?
-        description = Page.published.with_language(session[:language_id]).find_by_language_root(true).try(:meta_description)
+        description = Language.current.pages.published.language_roots.try(:meta_description)
       else
         description = @page.meta_description
       end
-      #render meta keywords of the root page from language if the current meta keywords is empty
+      # render meta keywords of the root page from language if the current meta keywords is empty
       if @page.meta_keywords.blank?
-        keywords = Page.published.with_language(session[:language_id]).find_by_language_root(true).try(:meta_keywords)
+        keywords = Language.current.pages.published.language_roots.try(:meta_keywords)
       else
         keywords = @page.meta_keywords
       end

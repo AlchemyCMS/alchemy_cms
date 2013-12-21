@@ -5,14 +5,14 @@ require 'spec_helper'
 #
 RSpec::Matchers.define :include_language_information_for do |expected|
   match do |actual|
-    actual[:language_id] == expected.id && actual[:language_code] == expected.code
+    actual[:alchemy_language_id] == expected.id
   end
 end
 
 module Alchemy
   describe BaseController do
 
-    let(:default_language) { Language.get_default }
+    let(:default_language) { Language.default }
     let(:klingonian) { FactoryGirl.create(:klingonian) }
 
     describe "#set_language" do
@@ -46,15 +46,15 @@ module Alchemy
           assigns(:language).should == default_language
           controller.session.should include_language_information_for(default_language)
         end
-
       end
 
-      context "with language set in the session" do
+      context "with language in the session" do
         before do
-          controller.stub(:session).and_return(language_id: klingonian.id, language_code: klingonian.code)
+          controller.stub(:session).and_return(alchemy_language_id: klingonian.id)
+          Language.stub(current: klingonian)
         end
 
-        it "should use the language set in the session cookie" do
+        it "should use the language from the session" do
           controller.send :set_language
           assigns(:language).should == klingonian
         end
@@ -63,7 +63,7 @@ module Alchemy
       context "with lang param" do
 
         it "should set the language" do
-          controller.stub(:params).and_return(:lang => klingonian.code)
+          controller.stub(:params).and_return(lang: klingonian.code)
           controller.send :set_language
           assigns(:language).should == klingonian
           controller.session.should include_language_information_for(klingonian)
@@ -72,7 +72,7 @@ module Alchemy
         context "for language that does not exist" do
 
           before do
-            controller.stub(:params).and_return(:lang => 'fo')
+            controller.stub(:params).and_return(lang: 'fo')
             controller.send :set_language
           end
 
@@ -88,11 +88,8 @@ module Alchemy
           it "should not set the rails locale to requested locale" do
             ::I18n.locale.should_not == :fo
           end
-
         end
-
       end
-
     end
 
     describe "#layout_for_page" do

@@ -57,7 +57,7 @@ describe Alchemy::Admin::EssencesHelper do
       # to be shure the ordering is alphabetic
       page_b
       page_a
-      helper.session[:language_id] = 1
+      helper.session[:alchemy_language_id] = 1
     end
 
     context "with no arguments given" do

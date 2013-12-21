@@ -60,7 +60,7 @@ module Alchemy
     end
 
     describe '.selectable_layouts' do
-      let(:language) { Language.get_default }
+      let(:language) { Language.default }
       before { language }
       subject { PageLayout.selectable_layouts(language.id) }
 

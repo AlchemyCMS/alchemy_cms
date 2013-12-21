@@ -45,7 +45,7 @@ module Alchemy
         values = [[_t(prompt), ""]]
         pages ||= begin
           nested = true
-          Page.with_language(session[:language_id]).published.order(:lft)
+          Language.current.pages.published.order(:lft)
         end
         values += pages_attributes_for_select(pages, page_attribute, nested)
         options_for_select(values, selected.to_s)

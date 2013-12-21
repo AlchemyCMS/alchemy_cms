@@ -23,7 +23,7 @@ module Alchemy
     validates_presence_of :language_code
     validates_presence_of :page_layout
     validates_presence_of :frontpage_name
-    validates_uniqueness_of :language_code, :scope => [:site_id, :country_code]
+    validates_uniqueness_of :language_code, scope: [:site_id, :country_code]
     validate :presence_of_default_language
     validate :publicity_of_default_language
     has_many :pages
@@ -32,39 +32,58 @@ module Alchemy
     validates_format_of :language_code, with: /\A[a-z]{2}\z/, if: -> { language_code.present? }
     validates_format_of :country_code, with: /\A[a-z]{2}\z/, if: -> { country_code.present? }
     before_destroy :check_for_default
-    after_update :set_pages_language, :if => proc { |m| m.language_code_changed? || m.country_code_changed? }
-    after_update :unpublish_pages, :if => proc { changes[:public] == [true, false] }
-    before_save :remove_old_default, :if => proc { |m| m.default_changed? && m != Language.get_default }
+    after_update :set_pages_language, if: proc { |m| m.language_code_changed? || m.country_code_changed? }
+    after_update :unpublish_pages, if: proc { changes[:public] == [true, false] }
+    before_save :remove_old_default, if: proc { |m| m.default_changed? && m != Language.default }
 
-    scope :published,          -> { where(public: true) }
-    scope :with_language_root, -> { joins(:pages).where('alchemy_pages' => {language_root: true}) }
-    scope :on_site,            ->(s) { s.present? ? where(site_id: s) : all }
+    scope :published,      -> { where(public: true) }
+    scope :with_root_page, -> { joins(:pages).where(alchemy_pages: {language_root: true}) }
+    scope :on_site,        ->(s) { s.present? ? where(site_id: s) : all }
     default_scope { on_site(Site.current) }
 
     class << self
 
-      # Returns all languages for which a language root page exists.
-      def all_for_created_language_trees
-        # don't use 'find' here as it would clash with our default_scopes
-        # in various unholy ways you don't want to find out about.
-        where(id: Page.language_roots.pluck(:language_id))
+      # Store the current language in the current thread.
+      def current=(v)
+        Thread.current[:alchemy_current_language] = v
       end
 
-      def get_default
+      # Current language from current thread or default.
+      def current
+        Thread.current[:alchemy_current_language] || default
+      end
+
+      # The root page of the current language.
+      def current_root_page
+        current.pages.language_roots.first
+      end
+
+      # Default language
+      def default
         find_by(default: true)
       end
-
+      alias_method :get_default, :default
     end
 
     def label(attrib)
       if attrib.to_sym == :code
         self.code
       else
-        I18n.t(self.code, :default => self.name)
+        I18n.t(self.code, default: self.name)
       end
     end
 
     include Code
+
+    # Root page
+    def root_page
+      @root_page ||= pages.language_roots.first
+    end
+
+    # Layout root page
+    def layout_root_page
+      @layout_root_page ||= Page.layout_root_for(id)
+    end
 
     private
 
@@ -78,7 +97,7 @@ module Alchemy
     end
 
     def presence_of_default_language
-      if Language.get_default == self && self.default_changed?
+      if Language.default == self && self.default_changed?
         errors.add(:base, I18n.t("We need at least one default."))
         return false
       else
@@ -87,14 +106,14 @@ module Alchemy
     end
 
     def remove_old_default
-      lang = Language.on_site(site).get_default
+      lang = Language.on_site(site).default
       return true if lang.nil?
       lang.default = false
-      lang.save(:validate => false)
+      lang.save(validate: false)
     end
 
     def set_pages_language
-      pages.update_all :language_code => self.code
+      pages.update_all language_code: self.code
     end
 
     def check_for_default
@@ -102,14 +121,11 @@ module Alchemy
     end
 
     def delete_language_root_page
-      page = Page.language_root_for(id)
-      page.destroy if page
-      layoutroot = Page.layout_root_for(id)
-      layoutroot.destroy if layoutroot
+      root_page.try(:destroy) && layout_root_page.try(:destroy)
     end
 
     def unpublish_pages
-      self.pages.update_all(:public => false)
+      self.pages.update_all(public: false)
     end
 
   end

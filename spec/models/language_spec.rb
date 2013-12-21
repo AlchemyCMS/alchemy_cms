@@ -3,7 +3,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Language do
-    let(:default_language) { Alchemy::Language.get_default }
+    let(:default_language) { Alchemy::Language.default }
     let(:language)         { FactoryGirl.create(:klingonian) }
     let(:page)             { FactoryGirl.create(:page, language: language) }
 
@@ -106,7 +106,7 @@ module Alchemy
       describe 'presence_of_default_language' do
         context 'if no default language would exist anymore' do
           before do
-            Language.stub(:get_default).and_return(language)
+            Language.stub(:default).and_return(language)
             language.stub(:default_changed?).and_return(true)
           end
 

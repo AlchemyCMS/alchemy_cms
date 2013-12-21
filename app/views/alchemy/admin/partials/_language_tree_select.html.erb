@@ -2,7 +2,7 @@
   <%= form_tag switch_language_admin_pages_path, method: 'get' do %>
     <%= select_tag(
       'language_id',
-      options_for_select(@languages.map { |l| [l.name, l.id] }, session[:language_id]),
+      options_for_select(@languages.map { |l| [l.name, l.id] }, Alchemy::Language.current.id),
       class: 'alchemy_selectbox short',
       data: {'auto-submit' => true}
     ) %>

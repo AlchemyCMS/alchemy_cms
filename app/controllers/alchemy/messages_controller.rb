@@ -37,30 +37,30 @@ module Alchemy
   #   <%= render_essence_editor_by_name(element, 'mail_from') %>
   #   <%= render_essence_editor_by_name(element, 'mail_to') %>
   #   <%= render_essence_editor_by_name(element, 'subject') %>
-  #   <%= page_selector(element, 'success_page', :page_attribute => :urlname) %>
+  #   <%= page_selector(element, 'success_page', page_attribute: :urlname) %>
   #
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
   class MessagesController < Alchemy::BaseController
-    before_filter :get_page, :except => :create
+    before_filter :get_page, except: :create
 
     helper 'alchemy/pages'
 
     def index #:nodoc:
-      redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
+      redirect_to show_page_path(urlname: @page.urlname, lang: multi_language? ? @page.language_code : nil)
     end
 
     def new #:nodoc:
       @message = Message.new
-      render :template => 'alchemy/pages/show', :layout => layout_for_page
+      render template: 'alchemy/pages/show', layout: layout_for_page
     end
 
     def create #:nodoc:
       @message = Message.new(params[:message])
       @message.ip = request.remote_ip
-      @element = Element.find_by_id(@message.contact_form_id)
+      @element = Element.find_by(id: @message.contact_form_id)
       if @element.nil?
-        raise ActiveRecord::RecordNotFound, "Contact form id not found. Please pass the :contact_form_id in a hidden field. Example: <%= f.hidden_field :contact_form_id, :value => element.id %>"
+        raise ActiveRecord::RecordNotFound, "Contact form id not found. Please pass the :contact_form_id in a hidden field. Example: <%= f.hidden_field :contact_form_id, value: element.id %>"
       end
       @page = @element.page
       @root_page = @page.get_language_root
@@ -68,11 +68,11 @@ module Alchemy
         Messages.contact_form_mail(@message, mail_to, mail_from, subject).deliver
         redirect_to_success_page
       else
-        render :template => 'alchemy/pages/show', :layout => layout_for_page
+        render template: 'alchemy/pages/show', layout: layout_for_page
       end
     end
 
-  private
+    private
 
     def mailer_config
       Alchemy::Config.get(:mailer)
@@ -91,20 +91,22 @@ module Alchemy
     end
 
     def redirect_to_success_page
-      flash[:notice] = _t(:success, :scope => 'contactform.messages')
+      flash[:notice] = _t(:success, scope: 'contactform.messages')
       if @element.ingredient(:success_page)
         urlname = @element.ingredient(:success_page)
       elsif mailer_config['forward_to_page'] && mailer_config['mail_success_page']
-        urlname = Page.find_by_urlname(mailer_config['mail_success_page']).urlname
+        urlname = Page.find_by(urlname: mailer_config['mail_success_page']).urlname
       else
-        urlname = Page.language_root_for(session[:language_id]).urlname
+        urlname = Language.current_root_page.urlname
       end
-      redirect_to show_page_path(:urlname => urlname, :lang => multi_language? ? session[:language_code] : nil)
+      redirect_to show_page_path(urlname: urlname, lang: multi_language? ? Language.current.code : nil)
     end
 
     def get_page
-      @page = Page.find_by_page_layout_and_language_id(mailer_config['page_layout_name'], session[:language_id])
-      raise "Page for page_layout #{mailer_config['page_layout_name']} not found" if @page.blank?
+      @page = Language.current.pages.find_by(page_layout: mailer_config['page_layout_name'])
+      if @page.blank?
+        raise "Page for page_layout #{mailer_config['page_layout_name']} not found"
+      end
       @root_page = @page.get_language_root
     end
 

@@ -246,10 +246,9 @@ module Alchemy
     def pages_holding_elements(page)
       case page
       when String
-        Page.where(
+        Language.current.pages.where(
           page_layout: page,
-          restricted: false,
-          language_id: session[:language_id]
+          restricted: false
         ).to_a
       when Page
         page
@@ -276,8 +275,10 @@ module Alchemy
       fallback_options = options.delete(:fallback)
       case fallback_options[:from]
       when String
-        page = Page.find_by page_layout: fallback_options[:from],
-          restricted: false, language_id: session[:language_id]
+        page = Language.current.pages.find_by(
+          page_layout: fallback_options[:from],
+          restricted: false
+        )
       when Page
         page = fallback_options[:from]
       end

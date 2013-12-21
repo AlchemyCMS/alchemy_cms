@@ -26,7 +26,7 @@ FactoryGirl.define do
 
   factory :page, :class => 'Alchemy::Page' do
 
-    language { Alchemy::Language.get_default || FactoryGirl.create(:language) }
+    language { Alchemy::Language.default || FactoryGirl.create(:language) }
     sequence(:name) { |n| "A Page #{n}" }
     parent_id { (Alchemy::Page.find_by_language_root(true) || FactoryGirl.create(:language_root_page)).id }
     page_layout "standard"

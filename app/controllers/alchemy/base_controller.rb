@@ -129,18 +129,14 @@ module Alchemy
     #
     def set_language(lang = nil)
       if lang
-        @language = lang.is_a?(Language) ? lang : load_language_from(lang)
+        @language = lang.is_a?(Language) ? lang : load_language_from_id_or_code(lang)
       else
         # find the best language and remember it for later
         @language = load_language_from_params ||
                     load_language_from_session ||
                     load_language_default
       end
-
-      # store language in session
-      store_language_in_session(@language)
-
-      # switch locale to selected language
+      store_current_language(@language)
       ::I18n.locale = @language.code
     end
 
@@ -151,23 +147,28 @@ module Alchemy
     end
 
     def load_language_from_session
-      if session[:language_id].present?
-        Language.find_by_id(session[:language_id])
+      if session[:alchemy_language_id].present?
+        Language.find_by(id: session[:alchemy_language_id])
       end
     end
 
-    def load_language_from(language_code_or_id)
-      Language.find_by_id(language_code_or_id) || Language.find_by_code(language_code_or_id)
+    def load_language_from_id_or_code(id_or_code)
+      Language.find_by(id: id_or_code) ||
+      Language.find_by_code(id_or_code)
     end
 
     def load_language_default
-      Language.get_default || raise(DefaultLanguageNotFoundError)
+      Language.default || raise(DefaultLanguageNotFoundError)
     end
 
-    def store_language_in_session(language)
+    # Stores language's id in the session.
+    #
+    # Also stores language in +Language.current+
+    #
+    def store_current_language(language)
       if language && language.id
-        session[:language_id]   = language.id
-        session[:language_code] = language.code
+        session[:alchemy_language_id] = language.id
+        Language.current = language
       end
     end
 
