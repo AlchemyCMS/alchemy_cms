@@ -20,6 +20,7 @@ require 'non-stupid-digest-assets'
 require_relative './auth_accessors'
 require_relative './cache_digests/template_tracker'
 require_relative './config'
+require_relative './controller_actions'
 require_relative './errors'
 require_relative './essence'
 require_relative './filetypes'
@@ -73,6 +74,9 @@ module Alchemy
       require_relative './userstamp'
       # We need to reload the routes, because alchemy extensions (i.e. alchemy-devise) prepends routes.
       Rails.application.routes_reloader.reload!
+      # In order to have Alchemy's helpers and basic controller methods
+      # available in the host app, we patch the ApplicationController.
+      ApplicationController.send(:include, Alchemy::ControllerActions)
     end
   end
 end

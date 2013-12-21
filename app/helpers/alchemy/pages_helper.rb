@@ -1,6 +1,5 @@
 module Alchemy
   module PagesHelper
-
     include Alchemy::BaseHelper
     include Alchemy::ElementsHelper
 
@@ -65,9 +64,9 @@ module Alchemy
     # renders +app/views/alchemy/site_layouts/_default_site.html.erb+ for the site named "Default Site".
     #
     def render_site_layout
-      render current_site
+      render current_alchemy_site
     rescue ActionView::MissingTemplate
-      warning("Site layout for #{current_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
+      warning("Site layout for #{current_alchemy_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
       return ""
     end
 

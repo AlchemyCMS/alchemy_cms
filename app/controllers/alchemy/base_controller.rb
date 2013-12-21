@@ -1,18 +1,14 @@
 # This is the main Alchemy controller all other controllers inherit from.
+#
 module Alchemy
   class BaseController < ApplicationController
     include Alchemy::Modules
 
     protect_from_forgery
 
-    before_filter :set_current_site
-    before_filter :set_language
-    before_filter :mailer_set_url_options
+    before_action :mailer_set_url_options
 
-    helper_method :current_alchemy_user,
-      :current_site,
-      :multi_site?,
-      :current_server
+    helper_method :multi_site?
 
     helper 'alchemy/admin/form'
 
@@ -25,11 +21,6 @@ module Alchemy
     end
 
     private
-
-    # Returns a host string with the domain the app is running on.
-    def current_server
-     "#{request.protocol}#{request.host_with_port}"
-    end
 
     # Returns the configuratin value of given key.
     #
@@ -56,55 +47,6 @@ module Alchemy
       I18n.t(key, *args)
     end
 
-    # The current authorized user.
-    #
-    # In order to have Alchemy's authorization work, you have to
-    # provide a +current_user+ method in your app's ApplicationController,
-    # that returns the current user.
-    #
-    # If you don't have an App that can provide a +current_user+ object,
-    # you can install the `alchemy-devise` gem that provides everything you need.
-    #
-    def current_alchemy_user
-      raise NoCurrentUserFoundError if !defined?(current_user)
-      current_user
-    end
-
-    # Returns true if a +current_alchemy_user+ is present
-    #
-    def alchemy_user_signed_in?
-      current_alchemy_user.present?
-    end
-
-    # Ensures usage of Alchemy's permissions class.
-    #
-    # If you have own CanCan abilities you want to add to Alchemy you must register them first.
-    #
-    #     Alchemy.register_ability MyCustom::Ability
-    #
-    def current_ability
-      @current_ability ||= begin
-        alchemy_permissions = ::Alchemy::Permissions.new(current_alchemy_user)
-        Alchemy.registered_abilities.each do |klass|
-          alchemy_permissions.merge(klass.new(current_alchemy_user))
-        end
-        alchemy_permissions
-      end
-    end
-
-    # Returns the current site.
-    #
-    def current_site
-      @current_site ||= Site.find_for_host(request.host)
-    end
-
-    # Sets the current site in a cvar so the Language model
-    # can be scoped against it.
-    #
-    def set_current_site
-      Site.current = current_site
-    end
-
     # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
     #
     # Guesses the language from browser locale. If not successful it takes the default.
@@ -122,53 +64,6 @@ module Alchemy
         ::I18n.locale = current_alchemy_user.language
       else
         ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /\A[a-z]{2}/).try(:first) || ::I18n.default_locale
-      end
-    end
-
-    # Sets the language for rendering pages in pages controller.
-    #
-    def set_language(lang = nil)
-      if lang
-        @language = lang.is_a?(Language) ? lang : load_language_from_id_or_code(lang)
-      else
-        # find the best language and remember it for later
-        @language = load_language_from_params ||
-                    load_language_from_session ||
-                    load_language_default
-      end
-      store_current_language(@language)
-      ::I18n.locale = @language.code
-    end
-
-    def load_language_from_params
-      if params[:lang].present?
-        Language.find_by_code(params[:lang])
-      end
-    end
-
-    def load_language_from_session
-      if session[:alchemy_language_id].present?
-        Language.find_by(id: session[:alchemy_language_id])
-      end
-    end
-
-    def load_language_from_id_or_code(id_or_code)
-      Language.find_by(id: id_or_code) ||
-      Language.find_by_code(id_or_code)
-    end
-
-    def load_language_default
-      Language.default || raise(DefaultLanguageNotFoundError)
-    end
-
-    # Stores language's id in the session.
-    #
-    # Also stores language in +Language.current+
-    #
-    def store_current_language(language)
-      if language && language.id
-        session[:alchemy_language_id] = language.id
-        Language.current = language
       end
     end
 

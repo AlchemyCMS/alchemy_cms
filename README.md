@@ -52,41 +52,41 @@ Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0.0).
 
 For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).
 
+
 Installation
 ------------
 
-Use the installer (recommended):
+### As standalone project.
+
+#### 1. Use the installer:
 
     gem install alchemy_cms
     alchemy new my_magicpage
     cd my_magicpage
 
-Start the local server:
+#### 2. Start the local server:
 
     rails server
 
-Then just switch to your browser and open `http://localhost:3000`
+#### 3. Switch to your browser:
 
-Add to existing Rails project
------------------------------
+Open `http://localhost:3000` and follow the on screen instructions.
 
-In your Gemfile:
+### Into an existing Rails project
+
+#### 1. Add Alchemy gem:
+
+In your App's Gemfile.
 
     gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+
+#### 2. Install Alchemy into your app:
 
 Run in terminal:
 
     bundle install
     bundle exec rake alchemy:install
 
-### Note:
-If you did not mounted Alchemy on the root route `'/'`, then you have to add Alchemy's view helpers manually to your app.
-
-Just paste this in your `app/controllers/application_controller.rb`
-
-```
-helper Alchemy::PagesHelper
-```
 
 Upgrading
 ---------

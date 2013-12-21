@@ -15,25 +15,25 @@ module Alchemy
     let(:default_language) { Language.default }
     let(:klingonian) { FactoryGirl.create(:klingonian) }
 
-    describe "#set_language" do
+    describe "#set_alchemy_language" do
 
       context "with a Language argument" do
         it "should set the language to the passed Language instance" do
-          controller.send :set_language, klingonian
+          controller.send :set_alchemy_language, klingonian
           assigns(:language).should == klingonian
         end
       end
 
       context "with a language id argument" do
         it "should set the language to the language specified by the passed id" do
-          controller.send :set_language, klingonian.id
+          controller.send :set_alchemy_language, klingonian.id
           assigns(:language).should == klingonian
         end
       end
 
       context "with a language code argument" do
         it "should set the language to the language specified by the passed code" do
-          controller.send :set_language, klingonian.code
+          controller.send :set_alchemy_language, klingonian.code
           assigns(:language).should == klingonian
         end
       end
@@ -42,7 +42,7 @@ module Alchemy
 
         it "should set the default language" do
           controller.stub(:params).and_return({})
-          controller.send :set_language
+          controller.send :set_alchemy_language
           assigns(:language).should == default_language
           controller.session.should include_language_information_for(default_language)
         end
@@ -55,7 +55,7 @@ module Alchemy
         end
 
         it "should use the language from the session" do
-          controller.send :set_language
+          controller.send :set_alchemy_language
           assigns(:language).should == klingonian
         end
       end
@@ -64,7 +64,7 @@ module Alchemy
 
         it "should set the language" do
           controller.stub(:params).and_return(lang: klingonian.code)
-          controller.send :set_language
+          controller.send :set_alchemy_language
           assigns(:language).should == klingonian
           controller.session.should include_language_information_for(klingonian)
         end
@@ -73,7 +73,7 @@ module Alchemy
 
           before do
             controller.stub(:params).and_return(lang: 'fo')
-            controller.send :set_language
+            controller.send :set_alchemy_language
           end
 
           it "should set the language to default" do

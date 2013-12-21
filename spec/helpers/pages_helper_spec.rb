@@ -36,14 +36,14 @@ module Alchemy
       let(:default_site) { Alchemy::Site.default }
 
       it "renders the partial for current site" do
-        helper.should_receive(:current_site).and_return(default_site)
+        helper.should_receive(:current_alchemy_site).and_return(default_site)
         helper.should_receive(:render).with(default_site)
         helper.render_site_layout
       end
 
       context "with missing partial" do
         it "returns empty string and logges warning" do
-          helper.should_receive(:current_site).twice.and_return(default_site)
+          helper.should_receive(:current_alchemy_site).twice.and_return(default_site)
           expect(helper.render_site_layout).to eq("")
         end
       end

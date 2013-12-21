@@ -66,14 +66,14 @@ module Alchemy
 
     def enforce_primary_host_for_site
       if needs_redirect_to_primary_host?
-        redirect_to url_for(host: current_site.host), :status => 301
+        redirect_to url_for(host: current_alchemy_site.host), :status => 301
       end
     end
 
     def needs_redirect_to_primary_host?
-      current_site.redirect_to_primary_host? &&
-        current_site.host != '*' &&
-        current_site.host != request.host
+      current_alchemy_site.redirect_to_primary_host? &&
+        current_alchemy_site.host != '*' &&
+        current_alchemy_site.host != request.host
     end
 
     def render_page_or_redirect
@@ -99,7 +99,7 @@ module Alchemy
         redirect_to main_app.url_for(@page.controller_and_action)
       else
         # setting the language to page.language to be sure it's correct
-        set_language(@page.language)
+        set_alchemy_language(@page.language)
         if params[:urlname].blank?
           @root_page = @page
         else
