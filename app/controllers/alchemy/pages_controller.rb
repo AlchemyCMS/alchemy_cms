@@ -54,8 +54,8 @@ module Alchemy
         # is not available in that language.
         Page.contentpages.where(
           urlname:       params[:urlname],
-          language_id:   @language.id,
-          language_code: params[:lang] || @language.code
+          language_id:   Language.current.id,
+          language_code: params[:lang] || Language.current.code
         ).first
       else
         # No urlname was given, so just load the language root for the
