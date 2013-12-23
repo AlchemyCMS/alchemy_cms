@@ -14,12 +14,12 @@
   </div>
 
   <div class="input text">
-    <%= label_tag :pictures_name, _t('Name') %>
+    <%= label_tag :pictures_name, _t('Name'), class: 'control-label' %>
     <%= text_field_tag :pictures_name %>
   </div>
 
   <div class="input tag_list">
-    <%= label_tag :pictures_tag_list %>
+    <%= label_tag :pictures_tag_list, _t(:tags), class: 'control-label' %>
     <%= text_field_tag :pictures_tag_list, @tags, data: {autocomplete: alchemy.autocomplete_admin_tags_path} %>
     <small class="hint"><%= _t('Please seperate the tags with commata') %></small>
   </div>

@@ -1,7 +1,7 @@
 module Alchemy
   module Admin
     class TagsController < ResourcesController
-      before_filter :load_tag, :only => [:edit, :update, :destroy]
+      before_filter :load_tag, only: [:edit, :update, :destroy]
 
       def index
         @tags = ActsAsTaggableOn::Tag.where(
@@ -46,7 +46,7 @@ module Alchemy
 
       def autocomplete
         items = tags_from_term(params[:term])
-        render json: json_for_autocomplete(items, :name)
+        render json: json_for_autocomplete(items, :name).to_json
       end
 
       private
