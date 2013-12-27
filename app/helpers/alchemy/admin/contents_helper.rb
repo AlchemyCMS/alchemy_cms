@@ -30,20 +30,20 @@ module Alchemy
 
       # Renders a link to show the new content overlay that lets you add additional contents.
       #
-      # See +render_create_content_link+ helper for exmaples on how to define additional contents.
+      # See +render_create_content_link+ helper for examples on how to define additional contents.
       #
       def render_new_content_link(element)
         link_to_overlay_window(
           render_icon(:create) + _t('add new content'),
           alchemy.new_admin_element_content_path(element),
           {
-            :size => '310x115',
-            :title => _t('Select an content'),
-            :overflow => true
+            size: '310x115',
+            title: _t('Select an content'),
+            overflow: true
           },
           {
-            :id => "add_content_for_element_#{element.id}",
-            :class => 'button with_icon new_content_link'
+            id: "add_content_for_element_#{element.id}",
+            class: 'button with_icon new_content_link'
           }
         )
       end
@@ -69,24 +69,24 @@ module Alchemy
       #
       # Optionally you can pass a label:
       #
-      #   <%= render_create_content_link(element, 'file', :label => 'Add a file') %>
+      #   <%= render_create_content_link(element, 'file', label: 'Add a file') %>
       #
       def render_create_content_link(element, content_name, options = {}, options_for_content = {})
         defaults = {
-          :label => _t('Add %{name}', :name => _t(content_name, :scope => :content_names))
+          label: _t('Add %{name}', name: _t(content_name, scope: :content_names))
         }
         options = defaults.merge(options)
         link_to(render_icon(:create) + options[:label], alchemy.admin_contents_path(
-            :content => {
-              :name => content_name,
-              :element_id => element.id
+            content: {
+              name: content_name,
+              element_id: element.id
             },
-            :options => options_for_content.to_json
+            options: options_for_content.to_json
           ),
-          :method => :post,
-          :remote => true,
-          :id => "add_content_for_element_#{element.id}",
-          :class => 'button with_icon new_content_link'
+          method: :post,
+          remote: true,
+          id: "add_content_for_element_#{element.id}",
+          class: 'button with_icon new_content_link'
         )
       end
 
@@ -96,8 +96,8 @@ module Alchemy
           render_icon('delete-small'),
           _t('Do you really want to delete this content?'),
           alchemy.admin_content_path(content),
-          :class => 'icon_button small',
-          :title => _t('Remove this content')
+          class: 'icon_button small',
+          title: _t('Remove this content')
         ) if content.settings[:deletable]
       end
 
