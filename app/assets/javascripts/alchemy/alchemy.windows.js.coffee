@@ -221,9 +221,12 @@ $.extend Alchemy,
   closeCurrentWindow: (callback) ->
     dialog = Alchemy.CurrentWindow || $(".alchemy_overlay")
     if callback
-      dialog.on "dialogclose", (event, ui) ->
+      if dialog.length > 0
+        dialog.on "dialogclose", (event, ui) ->
+          callback()
+          dialog.remove()
+      else
         callback()
-        dialog.remove()
     Alchemy.CurrentWindow = undefined
     dialog.dialog("close")
     true
