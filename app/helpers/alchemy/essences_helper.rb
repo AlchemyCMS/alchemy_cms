@@ -47,31 +47,6 @@ module Alchemy
       render_essence_view(content, options, html_options)
     end
 
-    # Renders the +Essence+ view partial from given +Element+ and +Essence+ type.
-    #
-    # Pass the type of +Essence+ you want to render from +element+ as second argument.
-    #
-    # By default the first essence gets rendered. You may pass a different position value as third argument.
-    #
-    # == Example:
-    #
-    # This renders the first +Content+ with type of +EssencePicture+ from element.
-    #
-    #   <%= render_essence_view_by_type(element, "EssencePicture", 1, {:image_size => "120x80", :crop => true}) %>
-    #
-    def render_essence_view_by_type(element, type, position = 1, options = {}, html_options = {})
-      if element.blank?
-        warning('Element is nil')
-        return ""
-      end
-      if position == 1
-        content = element.content_by_type(type)
-      else
-        content = element.contents.find_by_essence_type_and_position(Alchemy::Content.normalize_essence_type(type), position)
-      end
-      render_essence_view(content, options, html_options)
-    end
-
     # Renders the +Esssence+ partial for given +Content+.
     #
     # The helper renders the view partial as default.

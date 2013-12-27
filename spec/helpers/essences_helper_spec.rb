@@ -80,11 +80,4 @@ describe Alchemy::EssencesHelper do
       render_essence_view_by_name(element, 'intro').should have_content 'hello!'
     end
   end
-
-  describe 'render_essence_view_by_type' do
-    it "renders an essence view partial by essence type" do
-      element.should_receive(:content_by_type).and_return(content)
-      render_essence_view_by_type(element, 'EssenceText').should have_content 'hello!'
-    end
-  end
 end
