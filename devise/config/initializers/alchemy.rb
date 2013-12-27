@@ -3,6 +3,7 @@ require 'alchemy/devise/ability'
 Alchemy::Modules.register_module({
   name: 'users',
   engine_name: 'alchemy',
+  position: 4.1,
   navigation: {
     name: 'modules.users',
     controller: 'alchemy/admin/users',
