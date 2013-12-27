@@ -160,5 +160,66 @@ module Alchemy
         expect { visit '/%ed' }.to raise_error(ActionController::BadRequest)
       end
     end
+
+    describe "menubar" do
+      context "rendering for guest users" do
+        it "is prohibited" do
+          visit "/#{public_page_1.urlname}"
+          within('body') { page.should_not have_selector('#alchemy_menubar') }
+        end
+      end
+
+      context "rendering for members" do
+        it "is prohibited" do
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(member), language: 'en'))
+          visit "/#{public_page_1.urlname}"
+          within('body') { page.should_not have_selector('#alchemy_menubar') }
+        end
+      end
+
+      context "rendering for authors" do
+        it "is allowed" do
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(author), language: 'en'))
+          visit "/#{public_page_1.urlname}"
+          within('body') { page.should have_selector('#alchemy_menubar') }
+        end
+      end
+
+      context "rendering for editors" do
+        it "is allowed" do
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(editor), language: 'en'))
+          visit "/#{public_page_1.urlname}"
+          within('body') { page.should have_selector('#alchemy_menubar') }
+        end
+      end
+
+      context "rendering for admins" do
+        it "is allowed" do
+          authorize_as_admin
+          visit "/#{public_page_1.urlname}"
+          within('body') { page.should have_selector('#alchemy_menubar') }
+        end
+      end
+
+      context "contains" do
+        before do
+          authorize_as_admin
+          visit "/#{public_page_1.urlname}"
+        end
+
+        it "a link to the admin area" do
+          within('#alchemy_menubar') { page.should have_selector("li a[href='#{alchemy.admin_dashboard_path}']") }
+        end
+
+        it "a link to edit the current page" do
+          within('#alchemy_menubar') { page.should have_selector("li a[href='#{alchemy.edit_admin_page_path(public_page_1)}']") }
+        end
+
+        it "a form and button to logout of alchemy" do
+          within('#alchemy_menubar') { page.should have_selector("li form[action='#{Alchemy.logout_path}'], li button[type='submit']") }
+        end
+      end
+    end
+
   end
 end

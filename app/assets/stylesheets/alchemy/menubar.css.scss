@@ -52,7 +52,7 @@
       height: 35px;
       margin: 0 $default-margin 0 0;
       padding: 0;
-      @include inline-block;
+      float: left;
       list-style-type: none;
       text-align: center;
 

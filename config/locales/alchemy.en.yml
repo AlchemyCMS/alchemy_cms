@@ -371,6 +371,7 @@ en:
     "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
     insert_image: "Insert image"
     title: "Title"
+    to_alchemy: "To Alchemy"
     "trash element": "Put element into trash"
     use_alternative_uploader_instead: "Please use this alternative uploader instead."
     unlink: "Remove link from this image."
