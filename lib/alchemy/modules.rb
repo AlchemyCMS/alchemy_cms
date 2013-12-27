@@ -2,12 +2,10 @@ module Alchemy
   module Modules
     mattr_accessor :alchemy_modules
 
+    @@alchemy_modules = YAML.load_file(File.expand_path('../../../config/alchemy/modules.yml', __FILE__))
+
     def self.included(base)
       base.send :helper_method, :alchemy_modules, :module_definition_for
-    end
-
-    def self.alchemy_modules
-      @@alchemy_modules ||= YAML.load_file(File.expand_path('../../../config/alchemy/modules.yml', __FILE__))
     end
 
     # Register a Alchemy module.
@@ -24,7 +22,6 @@ module Alchemy
     #     }
     #
     def self.register_module(module_definition)
-      @@alchemy_modules ||= alchemy_modules
       @@alchemy_modules << module_definition.stringify_keys
     end
 
