@@ -30,15 +30,15 @@ describe Alchemy::Admin::NavigationHelper do
   let(:navigation) { alchemy_module['navigation'] }
 
   describe '#alchemy_main_navigation_entry' do
-    before {
+    before do
       helper.stub(:url_for_module).and_return('')
       helper.stub(:_t).and_return(alchemy_module['name'])
-    }
+    end
 
     context "with permission" do
-      before {
+      before do
         helper.stub(:can?).and_return(true)
-      }
+      end
 
       it "renders the main navigation entry partial" do
         helper.alchemy_main_navigation_entry(alchemy_module).should match /<a.+class="main_navi_entry/
@@ -46,9 +46,9 @@ describe Alchemy::Admin::NavigationHelper do
     end
 
     context "without permission" do
-      before {
+      before do
         helper.stub(:can?).and_return(false)
-      }
+      end
 
       it "returns empty string" do
         helper.alchemy_main_navigation_entry(alchemy_module).should be_empty
@@ -57,16 +57,16 @@ describe Alchemy::Admin::NavigationHelper do
   end
 
   describe '#admin_subnavigation' do
-    before {
+    before do
       helper.stub(:current_alchemy_module).and_return(alchemy_module)
       helper.stub(:url_for_module_sub_navigation).and_return('')
       helper.stub(:_t).and_return(alchemy_module['name'])
-    }
+    end
 
     context "with permission" do
-      before {
+      before do
         helper.stub(:can?).and_return(true)
-      }
+      end
 
       it "renders the sub navigation for current module" do
         helper.admin_subnavigation.should match /<div.+class="subnavi_tab/
@@ -74,9 +74,9 @@ describe Alchemy::Admin::NavigationHelper do
     end
 
     context "without permission" do
-      before {
+      before do
         helper.stub(:can?).and_return(false)
-      }
+      end
 
       it "renders the sub navigation for current module" do
         helper.admin_subnavigation.should be_empty
@@ -84,9 +84,9 @@ describe Alchemy::Admin::NavigationHelper do
     end
 
     context "without a module present" do
-      before {
+      before do
         helper.stub(:current_alchemy_module).and_return(nil)
-      }
+      end
 
       it "returns nil" do
         helper.admin_subnavigation.should be_nil
@@ -114,9 +114,9 @@ describe Alchemy::Admin::NavigationHelper do
     end
 
     context "with active entry" do
-      before {
+      before do
         helper.stub(:params).and_return({controller: 'alchemy/admin/dashboard', action: 'index'})
-      }
+      end
 
       it "includes active class" do
         helper.main_navigation_css_classes(navigation).should == "main_navi_entry active"
@@ -125,14 +125,14 @@ describe Alchemy::Admin::NavigationHelper do
   end
 
   describe '#entry_active?' do
-    let(:entry) {
+    let(:entry) do
       {'controller' => 'alchemy/admin/dashboard', 'action' => 'index'}
-    }
+    end
 
     context "with active entry" do
-      before {
+      before do
         helper.stub(:params).and_return({controller: 'alchemy/admin/dashboard', action: 'index'})
-      }
+      end
 
       it "returns true" do
         helper.entry_active?(entry).should be_true
@@ -147,10 +147,10 @@ describe Alchemy::Admin::NavigationHelper do
       end
 
       context "but with action listed in nested_actions key" do
-        before {
+        before do
           entry['action'] = nil
           entry['nested_actions'] = %w(index)
-        }
+        end
 
         it "returns true" do
           helper.entry_active?(entry).should be_true
@@ -159,9 +159,9 @@ describe Alchemy::Admin::NavigationHelper do
     end
 
     context "with inactive entry" do
-      before {
+      before do
         helper.stub(:params).and_return({controller: 'alchemy/admin/users', action: 'index'})
-      }
+      end
 
       it "returns false" do
         helper.entry_active?(entry).should be_false
@@ -215,6 +215,33 @@ describe Alchemy::Admin::NavigationHelper do
       end
 
       it { should be_nil }
+    end
+  end
+
+  describe "#sorted_alchemy_modules" do
+    subject { helper.sorted_alchemy_modules }
+
+    context 'with position attribute on modules' do
+      before do
+        alchemy_module['position'] = 1
+        event_module['position'] = 2
+        helper.stub(alchemy_modules: [event_module, alchemy_module])
+      end
+
+      it "returns sorted alchemy modules" do
+        should eq([alchemy_module, event_module])
+      end
+    end
+
+    context 'with no position attribute on one module' do
+      before do
+        event_module['position'] = 2
+        helper.stub(alchemy_modules: [alchemy_module, event_module])
+      end
+
+      it "appends this module at the end" do
+        should eq([event_module, alchemy_module])
+      end
     end
   end
 

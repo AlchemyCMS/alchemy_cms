@@ -110,6 +110,23 @@ module Alchemy
         )
       end
 
+      # Alchemy modules for main navigation.
+      #
+      # Sorted by position attribute, if given.
+      #
+      def sorted_alchemy_modules
+        sorted = []
+        not_sorted = []
+        alchemy_modules.map do |m|
+          if m['position'].blank?
+            not_sorted << m
+          else
+            sorted << m
+          end
+        end
+        sorted.sort_by { |m| m['position'] } + not_sorted
+      end
+
       private
 
       # Calls +url_for+ helper on engine if present or on host app.
