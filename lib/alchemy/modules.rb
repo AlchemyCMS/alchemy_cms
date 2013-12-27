@@ -2,10 +2,30 @@ module Alchemy
   module Modules
     mattr_accessor :alchemy_modules
 
-    @@alchemy_modules = YAML.load_file(File.expand_path('../../../config/alchemy/modules.yml', __FILE__))
-
     def self.included(base)
       base.send :helper_method, :alchemy_modules, :module_definition_for
+    end
+
+    def self.alchemy_modules
+      @@alchemy_modules ||= YAML.load_file(File.expand_path('../../../config/alchemy/modules.yml', __FILE__))
+    end
+
+    # Register a Alchemy module.
+    #
+    # A module is a Hash that must have at least a name and a navigation key
+    # that has a controller and action name.
+    #
+    # == Example:
+    #
+    #     name: 'module',
+    #     navigation: {
+    #       controller: 'admin/controller_name',
+    #       action: 'index'
+    #     }
+    #
+    def self.register_module(module_definition)
+      @@alchemy_modules ||= alchemy_modules
+      @@alchemy_modules << module_definition.stringify_keys
     end
 
     # Get the module definition for given module name
@@ -24,23 +44,6 @@ module Alchemy
       else
         raise "Could not find module definition for #{name}"
       end
-    end
-
-    # Register a Alchemy module.
-    #
-    # A module is a Hash that must have at least a name and a navigation key
-    # that has a controller and action name.
-    #
-    # == Example:
-    #
-    #     name: 'module',
-    #     navigation: {
-    #       controller: 'admin/controller_name',
-    #       action: 'index'
-    #     }
-    #
-    def self.register_module(module_definition)
-      @@alchemy_modules << module_definition.stringify_keys
     end
 
     private

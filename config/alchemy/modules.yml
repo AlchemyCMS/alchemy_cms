@@ -2,6 +2,7 @@
 
 - name: dashboard
   engine_name: alchemy
+  position: 1
   navigation:
     name: 'modules.dashboard'
     controller: 'alchemy/admin/dashboard'
@@ -14,6 +15,7 @@
 
 - name: pages
   engine_name: alchemy
+  position: 2
   navigation:
     name: 'modules.pages'
     controller: 'alchemy/admin/pages'
@@ -32,6 +34,7 @@
 
 - name: languages
   engine_name: alchemy
+  position: 3
   navigation:
     name: 'modules.languages'
     controller: 'alchemy/admin/languages'
@@ -44,6 +47,7 @@
 
 - name: sites
   engine_name: alchemy
+  position: 4
   navigation:
     name: 'modules.sites'
     controller: 'alchemy/admin/sites'
@@ -56,6 +60,7 @@
 
 - name: tags
   engine_name: alchemy
+  position: 5
   navigation:
     name: 'modules.tags'
     controller: 'alchemy/admin/tags'
@@ -68,6 +73,7 @@
 
 - name: archive
   engine_name: alchemy
+  position: 6
   navigation:
     controller: 'alchemy/admin/pictures'
     action: index

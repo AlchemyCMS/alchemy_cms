@@ -37,7 +37,7 @@
     </div>
     <div id="left_menu">
       <div id="main_navi">
-        <% alchemy_modules.each do |alchemy_module| %>
+        <% alchemy_modules.sort_by { |m| m['position'] }.each do |alchemy_module| %>
           <%= alchemy_main_navigation_entry(alchemy_module) %>
         <% end %>
         <%= yield(:alchemy_main_navigation) %>
