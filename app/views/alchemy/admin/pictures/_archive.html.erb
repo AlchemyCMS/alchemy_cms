@@ -47,7 +47,7 @@
     </div>
   <% else %>
     <%= render :partial => 'picture', :collection => @pictures %>
-    <%= paginate @pictures %>
+    <%= paginate @pictures, theme: 'alchemy' %>
   <% end %>
   </div>
 <% end %>

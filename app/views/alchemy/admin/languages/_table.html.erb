@@ -30,4 +30,4 @@
 <p><%= _t('Nothing found') %></p>
 <%- end -%>
 
-<%= render 'alchemy/admin/partials/pagination_links', :items => @languages, :scope => alchemy %>
+<%= paginate @languages, theme: 'alchemy' %>

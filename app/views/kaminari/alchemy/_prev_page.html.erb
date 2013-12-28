@@ -9,5 +9,5 @@
 <% if current_page.first? -%>
 <span class="previous_page disabled">&lsaquo;</span>
 <% else -%>
-<%= link_to '&lsaquo;'.html_safe, url, :rel => 'prev', :remote => remote, :class => 'previous_page button', :title => t('views.pagination.previous_page') -%>
+<%= link_to '&lsaquo;'.html_safe, url, rel: 'prev', remote: remote, class: 'previous_page button', title: t('views.pagination.previous_page') -%>
 <% end -%>

@@ -33,7 +33,7 @@
     <%= render partial: 'tag', collection: @tags %>
   </table>
 
-  <%= render 'alchemy/admin/partials/pagination_links', items: @tags %>
+  <%= paginate @tags, theme: 'alchemy' %>
 
   <% else %>
 

@@ -18,4 +18,4 @@
 <p><%= _t('Nothing found') %></p>
 <% end %>
 
-<%= render 'alchemy/admin/partials/pagination_links', :items => resources_instance_variable, :scope => resource_url_proxy %>
+<%= paginate resources_instance_variable, scope: resource_url_proxy, theme: 'alchemy' %>

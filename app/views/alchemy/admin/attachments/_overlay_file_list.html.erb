@@ -5,7 +5,7 @@
   </div>
 <% else %>
   <ul>
-    <%= render :partial => 'file_to_assign', :collection => @attachments %>
+    <%= render partial: 'file_to_assign', collection: @attachments %>
   </ul>
-  <%= paginate @attachments, :remote => true %>
+  <%= paginate @attachments, theme: 'alchemy', remote: true %>
 <% end %>
