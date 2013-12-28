@@ -45,7 +45,7 @@
     <%= render partial: 'alchemy/admin/users/user', collection: @users %>
   </table>
 
-  <%= paginate @users %>
+  <%= paginate @users, theme: 'alchemy' %>
 
 <% elsif params[:query] %>
 
