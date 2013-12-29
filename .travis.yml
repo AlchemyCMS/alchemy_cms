@@ -10,3 +10,10 @@ script: rake
 env:
   - DB=mysql
   - DB=postgresql
+notifications:
+  irc:
+    on_success: change
+    on_failure: always
+    use_notice: true
+    channels:
+      - "irc.freenode.org#alchemy_cms"
