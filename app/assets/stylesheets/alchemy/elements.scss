@@ -29,17 +29,12 @@ div#element_area {
 
   .sortable_cell {
     min-height: 100px;
-    padding: 8px 8px 2px;
+    padding: 2*$default-padding $default-padding 2px;
   }
 
   textarea {
     width: 100%;
     height: 140px;
-  }
-
-  h2#no_elements_on_page_notice {
-    padding: 2*$default-padding;
-    text-align: center;
   }
 }
 
@@ -49,65 +44,46 @@ div#element_area {
   position: absolute;
   left: 8px;
   top: 9px;
+
+  .element_icon {
+    z-index: 0;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: image-url('alchemy/icons.png') no-repeat -224px -72px;
+  }
+
+  span.icon {
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    &.element_dirty {
+      background-position: -160px -166px;
+    }
+  }
 }
 
 .draggable .element_handle {
   cursor: move;
 }
 
-.element_handle .element_icon {
-  z-index: 0;
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: image-url('alchemy/icons.png') no-repeat -224px -72px;
-}
-
-.element_handle span.icon {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-.element_handle span.icon.element_dirty {
-  background-position: -160px -166px;
-}
-
-.element_head_all {
-  overflow: auto;
-  width: 374px;
-}
-
-.element_head_left {
-  float: left;
-  width: 230px;
-  overflow: auto;
-  padding-bottom: 10px;
-}
-
-.element_head_right {
-  float: left;
-  width: 144px;
-  overflow: auto;
-  margin: 0px;
-  padding: 0px;
-  padding-bottom: 10px;
-}
-
 .add_picture {
   float: left;
   margin: 1px;
-  width: 111px;
-  padding: 4px;
-  background-color: #f0e8d7;
-  border: 1px solid #c2baab;
+  width: 119px;
+  border: 1px solid #c0c0c0;
   @extend .rounded-border;
-  height: 115px;
+  height: 123px;
 
   a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
     text-decoration: none;
     overflow: hidden;
     text-align: center;
@@ -115,47 +91,20 @@ div#element_area {
     line-height: 104px;
     @extend .rounded-border;
     font-size: 40px;
-    display: block;
-    height: 100%;
-    width: 100%;
-    position: relative;
+    background-color: $light-gray;
+
+    &:hover {
+      background-color: $medium-gray;
+    }
 
     .icon {
       font-size: 30px;
       width: 30px;
       height: 30px;
       position: absolute;
-      top: 42px;
-      left: 40px;
+      top: 47px;
+      left: 45px;
     }
-  }
-}
-
-.element_foot {
-  padding: 2 * $default-padding;
-  border-top-style: none;
-  position: relative;
-  background-color: #e5dcca;
-  width: 100%;
-  height: 29px;
-  margin-left: -8px;
-  margin-right: -8px;
-
-  .element_tools {
-    float: left;
-    margin-right: 8px;
-    margin-top: 6px;
-  }
-
-  .element_public {
-    float: left;
-    margin-top: 6px;
-  }
-
-  .button {
-    position: absolute;
-    right: 8px;
-    bottom: 4px;
   }
 }
 
@@ -166,10 +115,10 @@ div#element_area {
 }
 
 .element_editor {
-  border: 1px solid #bba589;
+  border: 1px solid $default-border-color;
   @extend .rounded-border;
-  background-color: #f0e8d7;
-  margin-bottom: 8px;
+  background-color: $light-gray;
+  margin-bottom: 2*$default-margin;
 
   &.not-draggable {
     @include opacity(0.5);
@@ -240,6 +189,47 @@ div#element_area {
   }
 }
 
+.element_head, .element_foot {
+  position: relative;
+}
+
+.element_head {
+  padding: 8px 0 6px;
+  margin-bottom: 0;
+  height: 20px;
+  background-color: $medium-gray;
+  @extend .disable-user-select;
+
+  .spinner {
+    top: 9px;
+    right: 9px;
+  }
+}
+
+.element_foot {
+  padding: $default-padding 2*$default-padding 2*$default-padding;
+  width: 100%;
+  height: 29px;
+  margin-left: -8px;
+  margin-right: -8px;
+
+  .element_tools {
+    float: left;
+    margin-right: 8px;
+    margin-top: 6px;
+  }
+
+  .element_public {
+    float: left;
+    margin-top: 6px;
+  }
+
+  .button {
+    float: right;
+    margin: 0;
+  }
+}
+
 #alchemy .ui-dialog div.element_editor form {
   margin: 0;
   padding: 8px 8px 0 8px;
@@ -272,31 +262,12 @@ a.element_move_button {
   background: image-url('alchemy/icons.png') no-repeat -97px -72px;
 }
 
-.element_head {
-  padding: 8px 0 6px;
-  position: relative;
-  margin-bottom: 0;
-  border-top-color: #e3e3e3;
-  height: 20px;
-  background-color: #e5dcca;
-  @extend .disable-user-select;
-
-  .spinner {
-    top: 9px;
-    right: 9px;
-  }
-}
-
-form.add_gallery_to_index {
-  overflow: auto;
-}
-
 div.picture_gallery_images {
   overflow: hidden;
   margin: $default-margin 0;
-  border: 1px inset #cecece;
+  border: 1px solid $default-border-color;
   @extend .rounded-border;
-  background-color: #e5dcca;
+  background-color: $medium-gray;
   padding: 1px;
 
   .essence_picture_editor {
@@ -371,33 +342,33 @@ a.fold_element {
   left: 5px;
   bottom: 2px;
   width: 111px;
-}
 
-.edit_images_bottom a {
-  float: left;
-  margin-left: 2px;
-  margin-right: 2px;
-  width: 18px;
-  height: 18px;
-}
+  a {
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 18px;
+    height: 18px;
 
-.edit_images_bottom a.linked {
-  position: relative;
-  @extend .rounded-border;
-  background-color: $linked-color;
-  border: 1px solid #9a9a9a;
-  bottom: 1px;
-  margin-right: 2px;
-  width: 18px;
-  height: 18px;
-  margin-left: 0;
+    &.linked {
+      position: relative;
+      @extend .rounded-border;
+      background-color: $linked-color;
+      border: 1px solid $button-border-color;
+      bottom: 1px;
+      margin-right: 2px;
+      width: 18px;
+      height: 18px;
+      margin-left: 0;
 
-  .icon { margin-left: 1px }
-}
+      .icon { margin-left: 1px }
+    }
 
-.edit_images_bottom a.disabled {
-  @include opacity(0.3);
-  cursor: default;
+    &.disabled {
+      @include opacity(0.3);
+      cursor: default;
+    }
+  }
 }
 
 div.content_editor.essence_date {
@@ -465,6 +436,10 @@ div.essence_picture_editor {
 
 .dragable_picture {
   float: left;
+
+  .picture_handle {
+    cursor: move;
+  }
 }
 
 .picture_thumbnail .picture_handle {
@@ -476,10 +451,6 @@ div.essence_picture_editor {
   left: 4px;
   background-color: transparent;
   @extend .disable-user-select;
-}
-
-.dragable_picture .picture_handle {
-  cursor: move;
 }
 
 div.file {
@@ -722,14 +693,6 @@ div.content_editor {
     height: auto;
     @include inline-block;
   }
-}
-
-.o2k7Skin span.alchemy_link {
-  background-position: -500px 0;
-}
-
-.o2k7Skin span.alchemy_unlink {
-  background-position: -640px 0;
 }
 
 .content_rtf_text_area {

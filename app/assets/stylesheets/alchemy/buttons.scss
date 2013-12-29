@@ -128,8 +128,8 @@ button, input[type="submit"], a.button, input.button {
     }
 
     &:hover {
-      background-color: #D3D3D3;
-      border: 1px solid #9a9a9a;
+      background-color: #d3d3d3;
+      border: 1px solid $button-border-color;
       cursor: default;
     }
   }
@@ -206,7 +206,7 @@ div#toolbar label {
     a {
       cursor: default;
       background-color: #f7f7f7;
-      border: 1px solid #9a9a9a;
+      border: 1px solid $button-border-color;
     }
 
     &:before {

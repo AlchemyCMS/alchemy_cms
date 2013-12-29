@@ -1769,6 +1769,7 @@ button.ui-button::-moz-focus-inner {
   position: relative;
   top: 1px;
   margin: 0 .2em 1px 0;
+  border-color: $default-border-color;
   border-bottom: 0 !important;
   @include border-bottom-radius(0);
   padding: 0;
