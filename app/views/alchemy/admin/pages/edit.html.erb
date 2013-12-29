@@ -205,6 +205,26 @@
       Alchemy.PreviewWindow.currentWindow.dialog('widget').css('width', width);
       Alchemy.PreviewWindow.currentWindow.dialog('moveToTop');
     });
+
+    $(window).resize(function() {
+      width = $(window).width() - 482;
+      height = $(window).height() - 90;
+      if (width < 240) {
+        width = 240;
+      }
+      left = $(window).width() - 406;
+      if (left < 316) {
+        left = 316;
+      }
+      Alchemy.PreviewWindow.currentWindow.dialog('widget').css({
+        width: width,
+        height: height
+      });
+      Alchemy.ElementsWindow.currentWindow.dialog('widget').css({
+        left: left,
+        height: height
+      });
+    });
   });
 
 </script>
