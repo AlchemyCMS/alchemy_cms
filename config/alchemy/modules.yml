@@ -7,7 +7,7 @@
     name: 'modules.dashboard'
     controller: 'alchemy/admin/dashboard'
     action: index
-    image: 'alchemy/icon.svg'
+    icon: alchemy
     sub_navigation:
       - name: 'modules.dashboard'
         controller: 'alchemy/admin/dashboard'
@@ -20,7 +20,7 @@
     name: 'modules.pages'
     controller: 'alchemy/admin/pages'
     action: index
-    icon: pages
+    icon: sitemap
     sub_navigation:
       - name: 'modules.pages'
         controller: 'alchemy/admin/pages'
@@ -52,7 +52,7 @@
     name: 'modules.sites'
     controller: 'alchemy/admin/sites'
     action: index
-    icon: sites
+    icon: websites
     sub_navigation:
     - name: 'modules.sites'
       controller: 'alchemy/admin/sites'
@@ -78,7 +78,7 @@
     controller: 'alchemy/admin/pictures'
     action: index
     name: 'modules.library'
-    icon: library
+    icon: archive
     sub_navigation:
       - name: 'modules.pictures'
         controller: 'alchemy/admin/pictures'

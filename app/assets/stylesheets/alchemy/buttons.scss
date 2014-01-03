@@ -36,28 +36,23 @@ button, input[type="submit"], a.button, input.button {
 }
 
 .icon_button {
-  @extend %button-defaults;
-  width: 21px;
-  height: 21px;
-  line-height: 19px;
+  width: 28px;
+  line-height: 29px;
   margin: 0;
-  padding: 3px;
   overflow: hidden;
   text-align: center;
+
+  &:hover {
+    color: black;
+  }
 
   .icon {
     @include inline-block;
     vertical-align: middle;
-  }
-
-  .old_icon {
-    position: relative;
-    background-repeat: no-repeat;
-    width: 22px;
+    font-size: 20px;
+    width: 20px;
     height: 20px;
-    @include inline-block;
-    top: -1px;
-    left: -1px;
+    @include text-shadow(#fff 0 1px 2px);
   }
 
   img {
@@ -88,23 +83,6 @@ button, input[type="submit"], a.button, input.button {
 
       &:before {
         line-height: 10px;
-      }
-
-      &.delete-small {
-        background-position: -4px -76px;
-      }
-    }
-
-    &:hover {
-      border: $default-border-width $default-border-style $button-hover-border-color;
-      @include border-radius($default-border-radius);
-      background: $button-hover-bg-color;
-      top: -1px;
-      right: 0px;
-
-      .icon {
-        left: 0px;
-        top: 2px;
       }
     }
   }
@@ -145,11 +123,6 @@ button, input[type="submit"], a.button, input.button {
   }
 }
 
-button.icon_button {
-  width: 29px;
-  height: 29px;
-}
-
 #new_element button.button {
   float: right;
 }
@@ -170,14 +143,14 @@ div#toolbar label {
     @include default-label-style;
   }
 
-  &.active {
+  .icon_button {
+    border: 0 none;
+    background: transparent;
+    @include box-shadow(none);
+    padding: 0;
+  }
 
-    .icon_button {
-      $second-color: darken($sb-base-color, 10%);
-      @include sassy-button-active-shadow($second-color);
-      background-color: $second-color;
-      @include background(linear-gradient(color-stops(darken($sb-base-color, 2%), $second-color 50%, darken($second-color, 8%))))
-    }
+  &.active {
 
     label {
       color: black;

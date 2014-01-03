@@ -1,13 +1,23 @@
 $text-color: #333333;
-$light-blue: #cddce5; // #c6dbe7
-$blue: darken($light-blue, 15%);
+$light-blue: #cddce5;
+$blue: #8AADC2;
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #ededed;
-$medium-gray: #e3e3e3;
+$light-gray: #E0E4E9;
+$medium-gray: #CDD0D1;
 $dark-gray: #666666;
 $light_yellow: #ffffdc;
 $linked-color: #ffd77a;
 $white: #f2f2f2;
+
+$header-color: $blue;
+$header-text-color: white;
+$header-font-size: 13px;
+
+$main-navi-icon-color: #526D7C;
+$navi-tab-color: darken($header-color, 5%);
+$navi-active-text-shadow: 0 1px 2px #fff;
+
+$top-navi-height: 26px;
 
 $default-padding: 4px;
 $default-margin: $default-padding;
@@ -21,7 +31,7 @@ $default-border-color: #afafaf;
 $default-border-width: 1px;
 $default-border-style: solid;
 $default-border: $default-border-width $default-border-style $default-border-color;
-$default-border-radius: 3px;
+$default-border-radius: 2px;
 
 $button-bg-color: #f7f7f7;
 $button-hover-bg-color: #e6f0f5;
@@ -35,6 +45,11 @@ $sb-font-size:       $default-font-size;
 $sb-text-color:      $text-color;
 $sb-ie-support:      true;
 $default-form-field-margin: $default-padding 0;
+
+$element-visible-color: #3FDF3F;
+$element-hidden-color: #a23434;
+$element-dirty-text-color: #d0c83d;
+$element-dirty-bg-color: #fff8df;
 
 $success_border_color: #9cc4a1;
 $success_text_color: #2e5934;

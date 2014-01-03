@@ -2,6 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= render_alchemy_title %></title>
     <link rel="shortcut icon" href="/assets/alchemy/favicon.ico">
     <%= csrf_meta_tag %>
@@ -45,14 +46,14 @@
       <div id="logout">
         <% if current_alchemy_user %>
           <%= link_to_overlay_window(
-            "<span class='module icon exit'></span><label>#{_t(:leave)}</label>".html_safe,
+            "<span class='module icon icon-exit'></span><label>#{_t(:leave)}</label>".html_safe,
             alchemy.leave_admin_path, {
               :size => "300x105",
               :title => _t("Leave Alchemy")
           }, {'data-alchemy-hotkey' => 'alt+q'}) %>
         <% else %>
           <%= link_to(alchemy.root_path) do %>
-            <span class="module icon exit"></span>
+            <span class="module icon icon-exit"></span>
             <label><%= _t(:leave) %></label>
           <% end %>
         <% end %>

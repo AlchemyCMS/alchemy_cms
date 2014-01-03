@@ -6,7 +6,7 @@
     <div class="sitemap_right_tools">
       <%- if can?(:configure, layoutpage) -%>
       <%= link_to_overlay_window(
-        render_icon('configure_page'),
+        render_icon('gear'),
         alchemy.configure_admin_page_path(layoutpage),
         {
           :title => _t(:edit_page_properties),
@@ -19,7 +19,7 @@
       <span class="sitemap_sitetools">
       <%- if can?(:copy, layoutpage) -%>
         <%= link_to(
-          render_icon("copy_page"),
+          render_icon('copy'),
           alchemy.insert_admin_clipboard_path(
             :remarkable_type => layoutpage.class.name.demodulize.underscore.pluralize,
             :remarkable_id => layoutpage.id
@@ -32,7 +32,7 @@
       <%- end -%>
       <%- if can?(:destroy, layoutpage) -%>
         <%= link_to_confirmation_window(
-          render_icon('delete_page'),
+          render_icon('remove'),
           _t(:confirm_to_delete_page),
           url_for(
             :controller => 'pages',

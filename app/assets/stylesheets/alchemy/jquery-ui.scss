@@ -135,9 +135,10 @@
 
 .ui-widget-header {
   border: 1px none #afafaf;
-  background: $light-blue;
-  color: $text-color;
-  font-weight: bold;
+  background: $header-color;
+  color: $header-text-color;
+  font-weight: normal;
+  font-size: $header-font-size;
   -moz-border-radius-bottomleft: 0 !important;
   -webkit-border-bottom-left-radius: 0 !important;
   -moz-border-radius-bottomright: 0 !important;
@@ -769,14 +770,15 @@
 .ui-icon-closethick {
   background: none !important;
   position: relative;
-  @extend .icon-cross;
+  @extend .icon;
 
   &:before {
+    @extend .icon-close:before;
     text-indent: 0;
     position: absolute;
     left: 1px;
-    top: 3px;
-    font-size: 16px;
+    top: 2px;
+    color: white;
   }
 }
 
@@ -1040,76 +1042,76 @@
 /* Corner radius */
 
 .ui-corner-tl {
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
-  border-top-left-radius: 3px;
+  -moz-border-radius-topleft: $default-border-radius;
+  -webkit-border-top-left-radius: $default-border-radius;
+  border-top-left-radius: $default-border-radius;
 }
 
 .ui-corner-tr {
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  border-top-right-radius: 3px;
+  -moz-border-radius-topright: $default-border-radius;
+  -webkit-border-top-right-radius: $default-border-radius;
+  border-top-right-radius: $default-border-radius;
 }
 
 .ui-corner-bl {
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomleft: $default-border-radius;
+  -webkit-border-bottom-left-radius: $default-border-radius;
+  border-bottom-left-radius: $default-border-radius;
 }
 
 .ui-corner-br {
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomright: $default-border-radius;
+  -webkit-border-bottom-right-radius: $default-border-radius;
+  border-bottom-right-radius: $default-border-radius;
 }
 
 .ui-corner-top {
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
-  border-top-left-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  border-top-right-radius: 3px;
+  -moz-border-radius-topleft: $default-border-radius;
+  -webkit-border-top-left-radius: $default-border-radius;
+  border-top-left-radius: $default-border-radius;
+  -moz-border-radius-topright: $default-border-radius;
+  -webkit-border-top-right-radius: $default-border-radius;
+  border-top-right-radius: $default-border-radius;
 }
 
 .ui-corner-bottom {
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomleft: $default-border-radius;
+  -webkit-border-bottom-left-radius: $default-border-radius;
+  border-bottom-left-radius: $default-border-radius;
+  -moz-border-radius-bottomright: $default-border-radius;
+  -webkit-border-bottom-right-radius: $default-border-radius;
+  border-bottom-right-radius: $default-border-radius;
 }
 
 .ui-corner-right {
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  border-top-right-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: $default-border-radius;
+  -webkit-border-top-right-radius: $default-border-radius;
+  border-top-right-radius: $default-border-radius;
+  -moz-border-radius-bottomright: $default-border-radius;
+  -webkit-border-bottom-right-radius: $default-border-radius;
+  border-bottom-right-radius: $default-border-radius;
 }
 
 .ui-corner-left {
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
-  border-top-left-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: $default-border-radius;
+  -webkit-border-top-left-radius: $default-border-radius;
+  border-top-left-radius: $default-border-radius;
+  -moz-border-radius-bottomleft: $default-border-radius;
+  -webkit-border-bottom-left-radius: $default-border-radius;
+  border-bottom-left-radius: $default-border-radius;
 }
 
 .ui-corner-all {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: $default-border-radius;
+  -webkit-border-radius: $default-border-radius;
+  border-radius: $default-border-radius;
 }
 
 /* Overlays */
 
 .ui-widget-overlay {
-  background-color: rgba(229, 229, 229, 0.4);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #40E5E5E5, endColorstr = #40E5E5E5);
+  background-color: rgba(0, 0, 0, 0.4);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #40000000, endColorstr = #40000000);
 }
 
 .ui-widget-shadow {
@@ -1500,6 +1502,7 @@ button.ui-button::-moz-focus-inner {
   overflow: hidden;
   padding: 0;
   z-index: 10;
+  border: 0 none;
 
   &.alchemy-preview-window, &.alchemy-elements-window {
     z-index: 5;
@@ -1511,6 +1514,11 @@ button.ui-button::-moz-focus-inner {
     margin: 8px;
     margin-bottom: 0;
   }
+}
+
+#alchemyElementWindow {
+  border: $default-border;
+  border-top: 0 none;
 }
 
 .ui-dialog-titlebar {
@@ -1544,8 +1552,9 @@ button.ui-button::-moz-focus-inner {
   &.ui-state-hover {
 
     .ui-icon-closethick:before {
-      right: -1px;
-      top: 3px;
+      left: 1px;
+      top: 2px;
+      color: $dark-gray;
     }
   }
 }
@@ -1780,7 +1789,7 @@ button.ui-button::-moz-focus-inner {
   &.ui-tabs-active {
     background-color: $light-gray;
     margin-bottom: 0px;
-    height: 27px;
+    height: 28px;
 
     a { cursor: default }
   }

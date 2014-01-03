@@ -39,31 +39,37 @@ div#element_area {
 }
 
 .element_handle {
-  width: 18px;
-  height: 18px;
   position: absolute;
   left: 8px;
   top: 9px;
+  width: 18px;
+  height: 18px;
 
   .element_icon {
-    z-index: 0;
-    width: 16px;
-    height: 16px;
     position: absolute;
+    z-index: 0;
     top: 0;
     left: 0;
-    background: image-url('alchemy/icons.png') no-repeat -224px -72px;
+    color: #C9C7C2;
   }
 
-  span.icon {
-    z-index: 1;
+  .element-status {
     position: absolute;
+    z-index: 1;
     right: 0;
     bottom: 0;
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    text-shadow: 0px 0px 1px #fff;
+  }
 
-    &.element_dirty {
-      background-position: -160px -166px;
-    }
+  .icon-ok {
+    color: $element-visible-color;
+  }
+
+  .icon-destroy {
+    color: $element-hidden-color;
   }
 }
 
@@ -125,10 +131,10 @@ div#element_area {
   }
 
   &.dirty {
-    border-color: #d0c83d;
+    border-color: $element-dirty-text-color;
 
     .element_head, .element_foot {
-      background-color: #fff8df;
+      background-color: $element-dirty-bg-color;
     }
   }
 
@@ -250,18 +256,6 @@ span.element_tools_icons {
   margin: 1px 4px 1px 1px;
 }
 
-a.delete_element_button {
-  background: image-url('alchemy/icons.png') no-repeat -63px -72px;
-}
-
-a.element_copy_button {
-  background: image-url('alchemy/icons.png') no-repeat -128px -72px;
-}
-
-a.element_move_button {
-  background: image-url('alchemy/icons.png') no-repeat -97px -72px;
-}
-
 div.picture_gallery_images {
   overflow: hidden;
   margin: $default-margin 0;
@@ -311,22 +305,26 @@ span.linkable_essence_tools {
   }
 }
 
-a.expand_element {
-  background: image-url('alchemy/icons.png') no-repeat -160px -72px;
-  height: 16px;
-  width: 16px;
-  text-decoration: none;
-  display: block;
-  margin: 1px;
+.expand_element, .fold_element {
+  @extend .icon;
 }
 
-a.fold_element {
-  background: image-url('alchemy/icons.png') no-repeat -192px -72px;
-  height: 16px;
-  width: 16px;
-  text-decoration: none;
-  display: block;
-  margin: 1px;
+.ajax_folder {
+
+  .expand_element, .fold_element {
+    text-align: center;
+    font-size: 18px;
+    height: 18px;
+    color: $dark-gray;
+  }
+}
+
+.expand_element:before {
+  @extend .icon-expand;
+}
+
+.fold_element:before {
+  @extend .icon-collapse;
 }
 
 .droppable_element_placeholder {
@@ -384,18 +382,6 @@ div.content_editor.essence_date {
 div.essence_picture_editor {
   position: relative;
 
-  .picture_tool_delete {
-    position: absolute;
-    right: $default-margin;
-    top: $default-margin;
-    padding: 2px 2px 0;
-    z-index: 2;
-  }
-
-  .picture_thumbnail:hover .picture_tool_delete {
-    display: block;
-  }
-
   .picture_thumbnail {
     width: 111px;
     height: 115px;
@@ -412,7 +398,7 @@ div.essence_picture_editor {
   }
 
   .thumbnail_background.missing:before {
-    font-family: 'Alchemy Icons';
+    font-family: 'Alchemy-Icons';
     @extend .icon-pictures:before;
     font-size: 48px;
     color: $medium-gray;

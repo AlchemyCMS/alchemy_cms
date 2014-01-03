@@ -23,7 +23,7 @@
     }.to_json, :class => 'button with_icon' %>
     &nbsp;<%= _t(:or) %>&nbsp;
     <%= link_to(
-      render_icon('delete-small') + _t("Clear selection"),
+      render_icon('delete small') + _t("Clear selection"),
       admin_pictures_path(
         :query => params[:query],
         :tagged_with => params[:tagged_with],

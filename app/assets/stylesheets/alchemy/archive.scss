@@ -168,7 +168,11 @@ div.assign_image_list_image {
     right: 4px;
 
     a {
-      background: image-url('alchemy/icons.png') no-repeat -63px -72px;
+      padding-bottom: 1px;
+
+      &:before {
+        @extend .icon-destroy;
+      }
     }
   }
 
@@ -177,8 +181,8 @@ div.assign_image_list_image {
     right: 4px;
     bottom: 24px;
 
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -160px -167px;
+    a:before {
+      @extend .icon-edit;
     }
   }
 
@@ -187,8 +191,8 @@ div.assign_image_list_image {
     left: 4px;
     bottom: 24px;
 
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -64px -168px;
+    a:before {
+      @extend .icon-info;
     }
   }
 
@@ -197,6 +201,7 @@ div.assign_image_list_image {
     width: 16px;
     height: 16px;
     cursor: pointer;
+    @extend .icon;
   }
 }
 
@@ -419,7 +424,7 @@ div#pictures_page_list {
     position: absolute;
     left: $default-padding;
     top: 2*$default-padding;
-    font-family: 'Alchemy Icons';
+    font-family: 'Alchemy-Icons';
     @extend .icon-tag:before;
     line-height: 6px;
   }

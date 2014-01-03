@@ -24,7 +24,7 @@
   <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
-      render_icon('flush'),
+      render_icon('clear'),
       alchemy.flush_admin_pages_path,
       :remote => true,
       :method => :post,

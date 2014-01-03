@@ -1,7 +1,7 @@
 (function() {
   var $el = $('#element_<%= @element.id %>');
 <%- if @element_validated -%>
-  $('div.element_handle span.icon', $el).removeClass('element_<%= @element.public? ? "draft" : "public" %>').addClass('element_<%= @element.public? ? "public" : "draft" %>');
+  $('.element-status', $el).removeClass('icon-<%= @element.public? ? "destroy" : "ok" %>').addClass('icon-<%= @element.public? ? "ok" : "destroy" %>');
   $('.element_heading .preview_text_element_name', $el).html('<%= @element.display_name %>');
   $('.element_heading .preview_text_quote', $el).html('<%= escape_javascript(@element.preview_text) %>');
   $('div.content_editor').removeClass('validation_failed');

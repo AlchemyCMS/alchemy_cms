@@ -15,11 +15,11 @@ Alchemy.PreviewWindow =
         title: title
         minWidth: 240
         minHeight: 300
-        width: $(window).width() - 482
-        height: $(window).height() - 76
+        width: $(window).width() - 470
+        height: $(window).height() - 77
         show: "fade"
         hide: "fade"
-        position: [70, 84]
+        position: [66, 90]
         autoResize: true
         closeOnEscape: false
         dialogClass: 'alchemy-preview-window'

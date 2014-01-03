@@ -24,22 +24,19 @@ select {
         top: 2px;
         width: 20px;
         height: 23px;
-        line-height: 23px;
+        line-height: 21px;
         background: transparent;
         border-left: 1px solid #CACACA;
 
         b {
-          @extend .icon-menu;
-          width: 18px;
-          line-height: 23px;
+          @extend .icon;
           background-image: none;
-        }
-      }
-    }
+          width: 18px;
 
-    &.select2-dropdown-open {
-      .select2-choice .select2-arrow b {
-        background-position: -17px 0px;
+          &:before {
+            @extend .icon-angle-down:before;
+          }
+        }
       }
     }
 
@@ -52,18 +49,13 @@ select {
         .select2-arrow {
           width: 14px;
           height: 14px;
+          line-height: 12px;
 
           b {
-            line-height: 4px;
             width: 12px;
+            height: 8px;
             font-size: 10px;
           }
-        }
-      }
-
-      &.select2-dropdown-open {
-        .select2-choice .select2-arrow b {
-          background-position: -20px -5px;
         }
       }
     }

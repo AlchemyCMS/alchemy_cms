@@ -627,7 +627,10 @@ div.browse {
 }
 
 #alchemyPreviewWindow {
+  @include box-sizing(border-box);
   width: 100% !important;
+  border: $default-border;
+  border-top: 0 none;
 }
 
 #error_trace {

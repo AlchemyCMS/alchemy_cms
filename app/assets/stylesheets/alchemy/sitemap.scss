@@ -92,8 +92,15 @@ div#sort_panel {
     color: $medium-gray;
   }
 
-  &:hover .sitemap_pagename_link {
-    background-color: $light_yellow;
+  &:hover {
+
+    .site_status:before {
+      @extend .icon-edit:before;
+    }
+
+    .sitemap_pagename_link {
+      background-color: $light_yellow;
+    }
   }
 }
 
@@ -274,18 +281,14 @@ span.page_status {
   float: left;
   width: 16px;
   height: 16px;
-  background: image-url('alchemy/icons.png') no-repeat 0 -40px;
-  position: relative;
-
-  a {
-    display: block;
-    height: 100%;
-    cursor: help;
-  }
 }
 
 .locked .site_status {
-  background-position: -32px -40px;
+  @extend .icon;
+
+  &:before {
+    @extend .icon-edit:before;
+  }
 }
 
 #sitemap.sorting {

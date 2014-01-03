@@ -51,7 +51,7 @@
     <% if can?(:flush, Alchemy::Picture) %>
       <div class="toolbar_spacer"></div>
       <%= toolbar_button(
-        icon: 'flush',
+        icon: 'clear',
         url: alchemy.flush_admin_pictures_path,
         overlay: false,
         link_options: {
@@ -67,7 +67,7 @@
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon('select_all'),
+        render_icon('checkbox'),
         '',
         id: 'select_all_pictures',
         class: 'icon_button',

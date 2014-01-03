@@ -197,7 +197,7 @@ module Alchemy
       # == Example
       #
       #   <%= toolbar_button(
-      #     icon: 'create',
+      #     icon: 'add',
       #     label: 'Create',
       #     url: new_resource_path,
       #     title: 'Create Resource',
@@ -258,7 +258,7 @@ module Alchemy
       #   <% toolbar(
       #     buttons: [
       #       {
-      #         icon: 'create',
+      #         icon: 'add',
       #         label: label_title,
       #         url: new_resource_path,
       #         title: label_title,
@@ -385,7 +385,7 @@ module Alchemy
       def render_hint_for(element)
         return unless element.has_hint?
         link_to '#', :class => 'hint' do
-          render_icon(:hint) + content_tag(:span, element.hint.html_safe, :class => 'bubble')
+          render_icon(:help) + content_tag(:span, element.hint.html_safe, :class => 'bubble')
         end
       end
 

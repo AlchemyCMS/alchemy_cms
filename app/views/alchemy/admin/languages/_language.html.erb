@@ -26,8 +26,8 @@
       '',
       _t("Are you sure?"),
       alchemy.admin_language_path(language),
-      :title => _t("Delete"),
-      :class => "icon destroy"
+      title: _t("Delete"),
+      class: "icon icon-destroy"
     ) -%>
   <%- end -%>
   <%- if can?(:edit, language) -%>
@@ -35,12 +35,12 @@
       '',
       alchemy.edit_admin_language_path(language),
       {
-        :title => _t("Edit"),
-        :size => "450xauto"
+        title: _t("Edit"),
+        size: "450xauto"
       },
       {
-        :class => "icon edit",
-        :title => _t("Edit")
+        class: "icon icon-edit",
+        title: _t("Edit")
       }
     ) -%>
   <%- end -%>

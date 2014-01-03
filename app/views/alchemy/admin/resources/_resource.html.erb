@@ -14,9 +14,9 @@
       '',
       _t("Are you sure?"),
       resource_path(resource),
-      :title => _t("Delete"),
-      :class => "icon destroy",
-      :id => "delete_#{resource_handler.resource_name}_#{resource.id}"
+      title: _t("Delete"),
+      class: "icon icon-destroy",
+      id: "delete_#{resource_handler.resource_name}_#{resource.id}"
     ) %>
     <% end %>
     <% if can?(:edit, resource) %>
@@ -24,12 +24,12 @@
       '',
       edit_resource_path(resource),
       {
-        :title => _t("Edit"),
-        :size => resource_window_size
+        title: _t("Edit"),
+        size: resource_window_size
       },
       {
-        :class => "icon edit",
-        :title => _t("Edit")
+        class: "icon icon-edit",
+        title: _t("Edit")
       }
     ) %>
     <% end %>

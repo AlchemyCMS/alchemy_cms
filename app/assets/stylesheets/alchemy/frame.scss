@@ -2,8 +2,8 @@
   @include box-sizing(border-box);
   position: fixed;
   top: 0;
-  margin-left: 65px;
-  padding-right: 65px;
+  margin-left: 64px;
+  padding-right: 64px;
   z-index: 30;
   width: 100%;
   @extend .disable-user-select;
@@ -16,11 +16,11 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 65px;
+  width: 64px;
   overflow: hidden;
-  border-right: $default-border;
-  background: $light-blue;
+  background: $header-color;
   font-size: 10px;
+  color: $main-navi-icon-color;
   @extend .disable-user-select;
 
   label {
@@ -28,47 +28,35 @@
   }
 
   a {
-    text-shadow: #fff 0 0px 4px;
+    display: block;
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+      color: $text-color;
+      cursor: pointer;
+    }
   }
 }
 
 #main_navi {
-  padding-top: 25px;
-  padding-left: 4px;
+  padding-top: $top-navi-height;
   padding-bottom: 80px;
 
-  a.main_navi_entry {
-    color: #444;
+  .main_navi_entry {
+    color: inherit;
     position: relative;
     text-align: center;
     overflow: hidden;
     display: block;
-    padding-top: 7px;
-    @extend .left-rounded-border;
-    margin-bottom: 1px;
-    margin-top: 1px;
-    border: 1px none #afafaf;
-    border-right-style: none;
-    padding-bottom: 5px;
-    padding-left: 1px;
-    width: 60px;
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: none;
-      color: $text-color;
-    }
+    padding: 2*$default-padding 0;
+    margin: 1px 0;
 
     &.active {
-      background: #baced9;
+      background: $navi-tab-color;
       color: $text-color;
       cursor: default;
-      text-shadow: #fff 0 1px 2px;
-      border: $default-border;
-      padding-left: 0;
-      border-right-style: none;
-      padding-top: 6px;
-      padding-bottom: 4px;
+      padding: 2*$default-padding 0;
     }
 
     img {
@@ -123,18 +111,10 @@ div#overlay_text_box {
   bottom: 0;
   left: 0;
   text-align: center;
-  width: 65px;
+  width: 64px;
   padding-top: 4px;
   padding-bottom: 8px;
-  background: $light-blue;
-
-  a {
-    display: block;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
+  background: $header-color;
 
   img {
     margin-bottom: 4px;
@@ -164,10 +144,10 @@ div#user_info {
   line-height: 27px;
   height: 29px;
   font-size: 11px;
-  right: 65px;
+  right: 64px;
   top: -3px;
   padding: 0 8px;
-  background-color: $light-blue;
+  background-color: $header-color;
 
   .select2-container {
     margin-right: 2 * $default-margin;
@@ -175,12 +155,8 @@ div#user_info {
 }
 
 #sub_navigation {
-  height: 22px;
-  line-height: 21px;
-  padding-left: 5px;
-  background: $light-blue;
-  border-bottom: $default-border;
-  padding-top: 4px;
+  line-height: $top-navi-height;
+  background: $header-color;
   z-index: 5;
   position: relative;
 
@@ -192,18 +168,15 @@ div#user_info {
     }
   }
 
-  span.page_status_and_name {
+  .page_status_and_name {
     padding: 0 8px;
     background-color: $medium-gray;
     text-shadow: 0px 1px 1px #FFFFFF;
     @extend .disable-user-select;
     cursor: default;
-    line-height: 20px;
     float: left;
-    @extend .top-rounded-border;
-    border: $default-border;
     border-bottom-style: none;
-    height: 22px;
+    line-height: $top-navi-height + 1;
     margin-right: 1px;
 
     .page_language {
@@ -220,26 +193,19 @@ div#user_info {
       line-height: 11px;
     }
 
-    span.page_name {
-      position: relative;
+    .page_name {
       margin-right: 16px;
       margin-left: 4px;
-      line-height: 27px;
-      bottom: 2px;
     }
   }
 
-  div.subnavi_tab {
+  .subnavi_tab {
     float: left;
-    padding: 0px 8px;
-    line-height: 19px;
-    height: 21px;
+    padding: 0px 3*$default-padding;
+    line-height: $top-navi-height;
     text-shadow: #fff 0 0px 4px;
-    background: #d6e0e6;
+    background: $navi-tab-color;
     color: #444;
-    @extend .top-rounded-border;
-    border: $default-border;
-    border-bottom-style: none;
     margin-right: 1px;
 
     &.wide {
@@ -249,7 +215,7 @@ div#user_info {
       form {
         position: absolute;
         right: $default-padding;
-        top: $default-padding;
+        top: 7px;
         line-height: 1;
       }
     }
@@ -262,11 +228,10 @@ div#user_info {
     &.active {
       float: left;
       position: relative;
-      padding: 0px 8px;
-      height: 22px;
+      height: $top-navi-height + 1;
       color: $text-color;
       background-color: $medium-gray;
-      text-shadow: #fff 0 1px 2px;
+      @include text-shadow($navi-active-text-shadow);
       @extend .disable-user-select;
       cursor: default;
       z-index: 10;
@@ -275,16 +240,15 @@ div#user_info {
 }
 
 #subnav_additions {
-  height: 23px;
+  height: $top-navi-height + 1;
   overflow: hidden;
 
   label {
     float: left;
     font-size: 10px;
-    line-height: 25px;
-    height: 25px;
+    height: $top-navi-height;
     margin-left: 8px;
-    margin-right: 4px;
+    margin-right: 8px;
   }
 
   img {
