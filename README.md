@@ -35,7 +35,7 @@ Features
 Rails Version
 -------------
 
-**This version of Alchemy CMS runs with Rails 4.0.0 only!**
+**This version of Alchemy CMS runs with Rails 4.0.x only!**
 
 If you are looking for a Rails 3.2 compatible version check the [2.7-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).
 
@@ -56,7 +56,7 @@ For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.c
 Installation
 ------------
 
-### As standalone project.
+### As a standalone project.
 
 #### 1. Use the installer:
 
@@ -74,7 +74,7 @@ Open `http://localhost:3000` and follow the on screen instructions.
 
 ### Into an existing Rails project
 
-#### 1. Add Alchemy gem:
+#### 1. Add the Alchemy gem:
 
 In your App's Gemfile.
 
@@ -91,7 +91,7 @@ Run in terminal:
 Upgrading
 ---------
 
-After updating Alchemy you should run the upgrader.
+After updating the Alchemy gem in your App, you should run the upgrader.
 
 Run in terminal:
 
