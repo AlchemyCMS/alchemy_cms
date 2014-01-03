@@ -17,3 +17,5 @@ notifications:
     use_notice: true
     channels:
       - "irc.freenode.org#alchemy_cms"
+before_install:
+  - gem install bundler -v '= 1.5.1'
