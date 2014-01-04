@@ -1,36 +1,265 @@
 h2. Upgrading Alchemy CMS
 
-This guide describes how to upgrade Alchemy CMS from an older Alchemy version.
+This guide describes how to upgrade Alchemy CMS to version 3.0.0 and assumes that your current Alchemy version is v2.8.x.
+
+You should always upgrade from the next prior Alchemy release (based on your current version).
 
 endprologue.
 
-For every kind of upgrade, the latest Alchemy version should be installed as a gem.
-Since Alchemy is a gem and hosted on "RubyGems.org":http://rubygems.org, you can install it in a very easy way.
+This Alchemy CMS upgrade calls for upgrading Rails from v3.2 to v4.0.
 
-When upgrading, no content will be touched or removed.
+Depending on your App, upgrading Rails to v4.0 might be a bigger challenge. This guide covers the basics for upgrading Alchemy driven Rails apps without any individual routes, controllers and models.
 
-<shell>
-gem install alchemy_cms
-</shell>
+There is a very good <a href="http://railscasts.com/episodes/415-upgrading-to-rails-4" target="_blank">screencast by Ryan Bates that covers the Rails upgrade</a> a bit more detailled. Thank you, Ryan!
 
-h3. Upgrade from version 2.0.x
+Railsdiff shows diffs of Rails versions. There you can look up what exactly changed. <a href="http://railsdiff.org/html/v3.2.16-v4.0.2.html" target="_blank">(Diff of v3.2.16 and 4.0.2.)</a>
 
-Make sure that you dont have a specific old version defined for alchemy_cms gem in the <code>Gemfile</code> of your app.
+h3. Update the dependencies
+
+In order to update the dependencies, the <code>Gemfile</code> needs to be changed first.
+
+* The grouping for the asset related gems is not necessary anymore. That means all the gems in the <code>assets</code> group can be moved to the global area now.
+* Versions of <code>rails</code>, <code>sass-rails</code>, <code>coffee-rails</code> and <code>uglifier</code> needs to be raised.
+* The complete authentication part is extracted from the Alchemy core, so the <code>alchemy-devise</code> gem is necessary now.
+* Currently a fork of the <code>non-stupid-digest-assets</code> gem is needed because the assetpipeline does not compile non-digest assets by default anymore.
+
+That part of your updated Gemfile should look like this:
 
 <pre>
-gem 'alchemy_cms'
+...
+gem 'rails', '~> 4.0.2'
+gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+
+gem 'alchemy_cms', :github => 'magiclabs/alchemy_cms', :branch => 'master'
+gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
+...
 </pre>
 
-You should now install the dependencies via bundler.
+You should now update the dependencies via bundler.
 
 <shell>
-cd my_project && bundle install
+bundle update
 </shell>
+
+h3. File changes for Rails 4 compatibility
+
+h4. config/application.rb
+
+This code needs to be replaced
+
+<pre>
+# Pick the frameworks you want:
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+require "sprockets/railtie"
+require "rails/test_unit/railtie"
+</pre>
+
+With this code
+
+<pre>
+require "active_model/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "sprockets/railtie"
+require "rails/test_unit/railtie"
+</pre>
+
+NOTE: This example requires `test_unit`, but you can also comment that line if you use another testing framework (rspec for example).
+
+
+You also need to change this code
+
+<pre>
+if defined?(Bundler)
+  # If you precompile assets before deploying to production, use this line
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  # If you want your assets lazily compiled in production, use this line
+  # Bundler.require(:default, :assets, Rails.env)
+end
+</pre>
+
+into this nice on-liner
+
+<pre>
+Bundler.require(:default, Rails.env)
+</pre>
+
+With Rails 4 the parameter whitelisting is done by <code>strong_parameters</code> now. So you need to remove the following old line.
+(If you have own models in your App, you also need to update them as described by Ryan Bates in the screencast mentiond on the top)
+
+<pre>
+config.active_record.whitelist_attributes = true
+</pre>
+
+
+h4. config/boot.rb
+
+Remove all the following configurations
+
+<pre>
+# Log error messages when you accidentally call methods on nil.
+config.whiny_nils = true
+</pre>
+
+<pre>
+# Only use best-standards-support built into browsers
+config.action_dispatch.best_standards_support = :builtin
+</pre>
+
+<pre>
+# Raise exception on mass assignment protection for Active Record models
+config.active_record.mass_assignment_sanitizer = :strict
+
+# Log the query plan for queries taking more than this (works
+# with SQLite, MySQL, and PostgreSQL)
+config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+# Do not compress assets
+config.assets.compress = false
+
+# Expands the lines which load the assets
+config.assets.debug = true
+</pre>
+
+And add these configurations instead
+
+<pre>
+# Do not eager load code on boot.
+config.eager_load = false
+
+# Raise an error on page load if there are pending migrations
+config.active_record.migration_error = :page_load
+
+# Debug mode disables concatenation and preprocessing of assets.
+# This option may cause significant delays in view rendering with a large
+# number of complex assets.
+config.assets.debug = true
+</pre>
+
+h4. config/environments/production.rb
+
+Add the following configuration
+
+<pre>
+config.eager_load = true
+</pre>
+
+And replace these lines
+
+<pre>
+# Disable Rails's static asset server (Apache or nginx will already do this)
+config.serve_static_assets = false
+
+# Compress JavaScripts and CSS
+config.assets.compress = true
+</pre>
+
+With these
+
+<pre>
+# Disable Rails's static asset server (Apache or nginx will already do this)
+config.serve_static_assets = true
+
+# Compress JavaScripts and CSS
+config.assets.js_compressor = :uglifier
+</pre>
+
+h4. config/environments/test.rb
+
+Add the <code>eager_load</code> configuration.
+
+<pre>
+config.eager_load = false
+</pre>
+
+And remove these lines
+
+<pre>
+# Log error messages when you accidentally call methods on nil
+config.whiny_nils = true
+</pre>
+
+<pre>
+# Raise exception on mass assignment protection for Active Record models
+config.active_record.mass_assignment_sanitizer = :strict
+</pre>
+
+
+h4. config/initializers/secret_token.rb
+
+With Rails 4 the <code>secret_token</code> is now <code>secret_key_base</code>. It now encrypts all the contents of cookie based sessions.
+
+Both configurations can exists together, so the <code>secret_key_base</code> can detach the secret_token gradually.
+Depending on your App, you can also remove the <code>secret_token</code> immediately if the existing cookies of your users are unimportant.
+
+More information here: http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#action-pack
+
+<pre>
+Myapp::Application.config.secret_token = 'existing secret token'
+Myapp::Application.config.secret_key_base = 'new secret key base'
+</pre>
+
+h3. Installing alchemy-devise migrations
+
+In order to update the user model, the migrations of the alchemy-devise gem need to be copied to the App.
+
+<shell>
+bundle exec rake alchemy_devise:install:migrations
+</shell>
+
+h3. Run the Alchemy Upgrader
 
 Now you can run the upgrade task.
+While upgrading, you will get informations about the process on your screen.
 
 <shell>
-cd my_project && rake alchemy:upgrade
+bundle exec rake alchemy:upgrade
 </shell>
 
-While upgrading, you will get informations about the process on your screen.
+
+h3. Changes for the Alchemy configuration file
+
+The Upgrade task added an up-to-date <code>config.yml.defaults</code> to the <code>config/alchemy</code> folder.
+
+Alchemy v3.0 comes with some config changes that need to be slipped in to the <code>config/alchemy/config.yml</code> file.
+
+h4. Remove the Devise module configuration
+
+<pre>
+# === Devise modules
+#
+# List of Devise modules that should be activated on the user model.
+#
+devise_modules:
+  - :database_authenticatable
+  - :trackable
+  - :validatable
+  - :timeoutable
+  - :recoverable
+  # - :encryptable # Uncomment this if you are upgrading from an Alchemy version < 2.5.0
+</pre>
+
+h4. Adjust the user roles
+
+The old role <code>registered</code> is now <code>member</code>
+
+<pre>
+user_roles: [member, author, editor, admin]
+</pre>
+
+h4. Add the regular expression for verifying email addresses
+
+<pre>
+email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
+</pre>
+
+
+Phew, ready!
