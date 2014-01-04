@@ -3,8 +3,12 @@
   width: 16px;
   height: 16px;
   font-size: 16px;
-  color: $dark-gray;
+  color: $icon-color;
   text-align: center;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &.module {
     width: 24px;
@@ -61,4 +65,10 @@
   &.tag_label {
     @extend .icon-tag;
   }
+}
+
+.small-icon {
+  @extend .icon;
+  font-size: 12px;
+  line-height: 10px;
 }

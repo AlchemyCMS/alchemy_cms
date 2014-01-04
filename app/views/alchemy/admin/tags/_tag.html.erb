@@ -6,25 +6,27 @@
   </td>
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
-    <%= link_to_overlay_window(
-      "",
-      edit_admin_tag_path(tag),
-      {
-        :title => _t(:edit_tag),
-        :size => '360x385',
-        :close_on_escape => false
-      },
-      {
-        :title => _t(:edit_tag),
-        :class => 'icon tag_edit'
-      }
-    ) %>
-    <%= link_to_confirmation_window(
-      '',
+    <% if can?(:destroy, Alchemy::Tag) %>
+    <%= link_to_confirmation_window '',
       _t(:do_you_really_want_to_delete_this_tag?),
       admin_tag_path(tag),
-      :title => _t(:delete_tag),
-      :class => "icon tag_delete"
-    ) %>
+      title: _t(:delete_tag),
+      class: 'icon icon-remove'
+    %>
+    <% end %>
+    <% if can?(:edit, Alchemy::Tag) %>
+    <%= link_to_overlay_window '',
+      edit_admin_tag_path(tag),
+      {
+        title: _t(:edit_tag),
+        size: '360x385',
+        close_on_escape: false
+      },
+      {
+        title: _t(:edit_tag),
+        class: 'icon icon-edit'
+      }
+    %>
+    <% end %>
   </td>
 </tr>

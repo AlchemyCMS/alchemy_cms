@@ -111,10 +111,12 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressCancel {
-  @extend .icon-cross;
-  width: 16px;
-  height: 16px;
+  @extend .icon;
   position: absolute;
   top: 8px;
   right: 4px;
+
+  &:before {
+    @extend .icon-cross:before;
+  }
 }

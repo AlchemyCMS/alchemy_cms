@@ -96,11 +96,15 @@ select {
       }
 
       .select2-search-choice-close {
+        @extend .small-icon;
         left: auto;
         right: 4px;
         top: 6px;
-        background: none;
-        @extend .icon-cross;
+        background-image: none;
+
+        &:before {
+          @extend .icon-close:before;
+        }
 
         &:hover {
           color: $text-color;
