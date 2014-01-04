@@ -5,7 +5,7 @@ module Alchemy
       authorize_resource class: Alchemy::Element
 
       def index
-        @page = Page.find(params[:page_id], :include => {:elements => :contents})
+        @page = Page.find(params[:page_id])
         @cells = @page.cells
         if @cells.blank?
           @elements = @page.elements.not_trashed

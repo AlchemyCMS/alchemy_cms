@@ -2,15 +2,76 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ElementsController do
-    let(:alchemy_page) { create(:page) }
-    let(:element) { FactoryGirl.create(:element, :page_id => alchemy_page.id) }
-    let(:element_in_clipboard) { FactoryGirl.create(:element, :page_id => alchemy_page.id) }
-    let(:clipboard) { session[:clipboard] = Clipboard.new }
+    let(:alchemy_page)         { create(:page) }
+    let(:element)              { create(:element, :page_id => alchemy_page.id) }
+    let(:element_in_clipboard) { create(:element, :page_id => alchemy_page.id) }
+    let(:clipboard)            { session[:clipboard] = Clipboard.new }
 
     before { sign_in(author_user) }
 
+    describe '#index' do
+      let(:alchemy_page) { build_stubbed(:page) }
+
+      before do
+        Page.stub(find: alchemy_page)
+      end
+
+      context 'with cells' do
+        let(:cell) { build_stubbed(:cell, page: alchemy_page) }
+
+        before { alchemy_page.stub(cells: [cell]) }
+
+        it "groups elements by cell" do
+          alchemy_page.should_receive(:elements_grouped_by_cells)
+          get :index, {page_id: alchemy_page.id}
+          assigns(:cells).should eq([cell])
+        end
+      end
+
+      context 'without cells' do
+        before { alchemy_page.stub(cells: []) }
+
+        it "assigns page elements" do
+          alchemy_page.should_receive(:elements).and_return(double(not_trashed: []))
+          get :index, {page_id: alchemy_page.id}
+        end
+      end
+    end
+
+    describe '#list' do
+      let(:alchemy_page) { build_stubbed(:page) }
+
+      before do
+        Page.stub(find: alchemy_page)
+      end
+
+      context 'without page_id, but with page_urlname' do
+        it "loads page from urlname" do
+          Language.should_receive(:current).and_return(double(pages: double(find_by: double(id: 1001))))
+          xhr :get, :list, {page_urlname: 'contact'}
+        end
+
+        describe 'view' do
+          render_views
+
+          it "should return a select tag with elements" do
+            xhr :get, :list, {page_urlname: alchemy_page.urlname}
+            response.body.should match(/select(.*)elements_from_page_selector(.*)option/)
+          end
+        end
+      end
+
+      context 'with page_id' do
+        it "loads page from urlname" do
+          xhr :get, :list, {page_id: alchemy_page.id}
+          assigns(:page_id).should eq(alchemy_page.id.to_s)
+        end
+      end
+    end
+
     describe '#new' do
       let(:alchemy_page) { build_stubbed(:page) }
+
       before { Page.stub(:find_by_id).and_return(alchemy_page) }
 
       it "assign variable for all available element definitions" do
@@ -33,7 +94,6 @@ module Alchemy
 
     describe '#create' do
       describe 'insertion position' do
-        let(:alchemy_page) { create(:page) }
         before { element }
 
         it "should insert the element at bottom of list" do
@@ -62,8 +122,8 @@ module Alchemy
       context "if page has cells" do
         context "" do
           before do
-            @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
-            @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
+            @page = create(:public_page, :do_not_autogenerate => false)
+            @cell = create(:cell, :name => 'header', :page => @page)
             PageLayout.stub(:get).and_return({
               'name' => 'standard',
               'elements' => ['article'],
@@ -90,8 +150,8 @@ module Alchemy
         context "with paste_from_clipboard in parameters" do
           context "" do
             before do
-              @page = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
-              @cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
+              @page = create(:public_page, :do_not_autogenerate => false)
+              @cell = create(:cell, :name => 'header', :page => @page)
               PageLayout.stub(:get).and_return({
                 'name' => 'standard',
                 'elements' => ['article'],
@@ -126,10 +186,10 @@ module Alchemy
           end
 
           context "on a page with a setting for insert_elements_at of top" do
-            let(:alchemy_page)                 { FactoryGirl.create(:public_page, :name => 'News') }
-            let(:element_in_clipboard) { FactoryGirl.create(:element, :page => alchemy_page, :name => 'news') }
+            let(:alchemy_page)         { create(:public_page, :name => 'News') }
+            let(:element_in_clipboard) { create(:element, :page => alchemy_page, :name => 'news') }
             let(:cell)                 { alchemy_page.cells.first }
-            let(:element)              { FactoryGirl.create(:element, :name => 'news', :page => alchemy_page, :cell => cell) }
+            let(:element)              { create(:element, :name => 'news', :page => alchemy_page, :cell => cell) }
 
             before do
               PageLayout.stub(:get).and_return({
@@ -157,20 +217,30 @@ module Alchemy
         render_views
 
         before do
-          clipboard[:elements] = [{:id => element_in_clipboard.id, :action => 'cut'}]
+          clipboard[:elements] = [{id: element_in_clipboard.id, action: 'cut'}]
         end
 
         it "should create an element from clipboard" do
-          post :create, {:paste_from_clipboard => element_in_clipboard.id, :element => {:page_id => alchemy_page.id}, :format => :js}
+          xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id}}
           response.status.should == 200
           response.body.should match(/Succesfully added new element/)
         end
 
         context "and with cut as action parameter" do
           it "should also remove the element id from clipboard" do
-            post :create, {:paste_from_clipboard => element_in_clipboard.id, :element => {:page_id => alchemy_page.id}, :format => :js}
+            xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id}}
             session[:clipboard].contains?(:elements, element_in_clipboard.id).should_not be_true
           end
+        end
+      end
+
+      context 'if element could not be saved' do
+        subject { post :create, {element: {page_id: alchemy_page.id}} }
+
+        before { Element.any_instance.stub(save: false) }
+
+        it "renders the new template" do
+          expect(subject).to render_template(:new)
         end
       end
     end
@@ -183,10 +253,9 @@ module Alchemy
 
       context "with element name and cell name in the params" do
         before do
-          controller.stub(:params).and_return({
-            :element => {:name => 'header#header'}
-          })
+          controller.stub(params: {element: {name: 'header#header'}})
         end
+
         context "with cell not existing" do
           it "should create the cell" do
             expect {
@@ -196,7 +265,9 @@ module Alchemy
         end
 
         context "with the cell already present" do
-          before { FactoryGirl.create(:cell, :page => alchemy_page, :name => 'header') }
+          before do
+            create(:cell, page: alchemy_page, name: 'header')
+          end
 
           it "should load the cell" do
             expect {
@@ -208,13 +279,22 @@ module Alchemy
 
       context "with only the element name in the params" do
         before do
-          controller.stub(:params).and_return({
-            :element => {:name => 'header'}
-          })
+          controller.stub(params: {element: {name: 'header'}})
         end
 
         it "should return nil" do
           controller.send(:find_or_create_cell).should be_nil
+        end
+      end
+
+      context 'with cell definition not found' do
+        before do
+          controller.stub(params: {element: {name: 'header#header'}})
+          Cell.stub(definition_for: nil)
+        end
+
+        it "raises error" do
+          expect { controller.send(:find_or_create_cell) }.to raise_error(CellDefinitionError)
         end
       end
     end
@@ -308,19 +388,51 @@ module Alchemy
       end
     end
 
-    describe '#list' do
-      render_views
+    describe '#trash' do
+      subject { xhr :delete, :trash, {id: element.id} }
 
-      it "should return a select tag with elements" do
-        Alchemy::Element.stub_chain([:published, :where]).and_return([element])
-        xhr :get, :list, {page_urlname: alchemy_page.urlname}
-        response.body.should match(/select(.*)elements_from_page_selector(.*)option/)
+      let(:element) { build_stubbed(:element) }
+
+      before { Element.stub(find: element) }
+
+      it "trashes the element instead of deleting it" do
+        element.should_receive(:trash!).and_return(true)
+        subject
+      end
+    end
+
+    describe '#fold' do
+      subject { xhr :post, :fold, {id: element.id} }
+
+      let(:element) { build_stubbed(:element) }
+
+      before do
+        element.stub(save: true)
+        Element.stub(find: element)
+      end
+
+      context 'if element is folded' do
+        before { element.stub(folded: true) }
+
+        it "sets folded to false." do
+          element.should_receive(:folded=).with(false).and_return(true)
+          subject
+        end
+      end
+
+      context 'if element is not folded' do
+        before { element.stub(folded: false) }
+
+        it "sets folded to true." do
+          element.should_receive(:folded=).with(true).and_return(true)
+          subject
+        end
       end
     end
 
     describe "untrashing" do
       before do
-        @element = FactoryGirl.create(:element, :public => false, :position => nil, :page_id => 58, :cell_id => 32)
+        @element = create(:element, :public => false, :position => nil, :page_id => 58, :cell_id => 32)
         # Because of a before_create filter it can not be created with a nil position and needs to be trashed here
         @element.trash!
       end
