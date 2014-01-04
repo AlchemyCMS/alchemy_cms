@@ -5,7 +5,7 @@ Alchemy.PreviewWindow =
   init: (url, title) ->
     $iframe = $("#alchemyPreviewWindow")
     if $iframe.length is 0
-      $iframe = $("<iframe src=\"#{url}\" id=\"alchemyPreviewWindow\" frameborder=\"0\"/>")
+      $iframe = $("<iframe name=\"alchemyPreviewWindow\" src=\"#{url}\" id=\"alchemyPreviewWindow\" frameborder=\"0\"/>")
       $iframe.load ->
         $(".preview-refresh-spinner").hide()
         $(".ui-dialog-titlebar-refresh").show()

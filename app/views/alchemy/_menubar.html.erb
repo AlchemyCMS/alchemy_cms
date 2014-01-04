@@ -1,0 +1,16 @@
+<% if !@preview_mode && can?(:edit_content, @page) %>
+  <div id="alchemy_menubar" style="display: none">
+    <ul>
+      <li><%= link_to _t(:to_alchemy), alchemy.admin_dashboard_path %></li>
+      <li><%= link_to _t(:edit_page), alchemy.edit_admin_page_path(@page) %></li>
+      <li>
+        <%= form_tag Alchemy.logout_path, method: 'delete' do %>
+          <%= button _t(:logout) %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <%= stylesheet_link_tag("alchemy/menubar") %>
+  <%= javascript_include_tag('alchemy/menubar') %>
+<% end %>

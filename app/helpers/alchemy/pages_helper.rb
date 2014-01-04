@@ -404,31 +404,5 @@ module Alchemy
       javascript_include_tag("alchemy/preview") if @preview_mode
     end
 
-    # Renders a menubar for logged in users that are visiting a page.
-    def alchemy_menu_bar
-      return if @preview_mode
-      if can?(:edit, Alchemy::Page)
-        menu_bar_string = ""
-        menu_bar_string += stylesheet_link_tag("alchemy/menubar")
-        menu_bar_string += javascript_include_tag('alchemy/menubar')
-        menu_bar_string += <<-STR
-          <script type="text/javascript">
-            try {
-              Alchemy.loadAlchemyMenuBar({
-                page_id: #{@page.id},
-                route: '#{Alchemy::MountPoint.get}',
-                locale: '#{current_alchemy_user.language || ::I18n.default_locale}'
-              });
-            } catch(e) {
-              if(console){console.log(e)}
-            }
-          </script>
-        STR
-        menu_bar_string.html_safe
-      else
-        nil
-      end
-    end
-
   end
 end
