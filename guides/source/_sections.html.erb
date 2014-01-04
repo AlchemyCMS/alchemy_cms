@@ -4,28 +4,20 @@
 <%# This content will go in the top navigation area. Leave it blank if you don't want nav %>
 <%= content_for :footer_content do %>
 <div class="column">
-	<div><p>
-	<a href="http://alchemy-cms.com">Alchemy CMS Website</a><br>
-	<a href="https://github.com/magiclabs/alchemy_cms">Sourcecode</a><br>
-	<a href="http://api.alchemy-cms.com">API Documentation</a><br>
-	<a href="https://github.com/magiclabs/alchemy_cms/issues">Issues</a>
-	</p></div>
+  <div><p>
+  <a href="http://alchemy-cms.com">Alchemy CMS Website</a><br>
+  <a href="https://github.com/magiclabs/alchemy_cms">Sourcecode</a><br>
+  <a href="http://api.alchemy-cms.com">API Documentation</a><br>
+  <a href="https://github.com/magiclabs/alchemy_cms/issues">Issues</a>
+  </p></div>
 </div>
 
 <div class="column">
-	<div>
-		<p>
-			Alchemy CMS is developed by magic labs* and <a href="https://github.com/magiclabs/alchemy_cms/graphs/contributors">contributers</a> from the open source community.
-			Its available for commercial use under the terms of the <a href="https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE">New BSD License</a>.
-		</p>
-	</div>
-</div>
-<% end %>
-
-<%# This content will be used when you mark your guides as belonging to an edge release of your project. It defaults
-    to showing a diagonal "edge" badge %>
-<%= content_for :edge do %>
   <div>
-    <img src="images/edge_badge.png" alt="edge-badge" id="edge-badge" />
+    <p>
+      Alchemy CMS is developed by magic labs* and <a href="https://github.com/magiclabs/alchemy_cms/graphs/contributors">contributers</a> from the open source community.
+      Its available for commercial use under the terms of the <a href="https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE">New BSD License</a>.
+    </p>
   </div>
+</div>
 <% end %>
