@@ -1,9 +1,16 @@
 The Alchemy CMS Guidelines
 ==========================
 
+The master branch always covers the current edge version of Alchemy CMS.
+
+Please check out the other branches for older versions.
+
+
+## Contribution
+
 To contribute to the guidelines please fork this project and send pull requests.
 
-You will need the guides gem to preview the guides on your local machine.
+You need the guides gem to preview the guides on your local machine.
 
 `gem install guides`
 
