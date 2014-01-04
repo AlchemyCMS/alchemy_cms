@@ -30,4 +30,5 @@ group :development, :test do
     # gem 'pry-debugger'
   end
   gem 'jasmine-rails', github: 'searls/jasmine-rails'
+  gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
 end
