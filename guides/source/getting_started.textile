@@ -88,22 +88,22 @@ bundle install
 It´s recommended to create the folders Alchemy CMS needs.
 
 <shell>
-rails generate alchemy:scaffold
+bundle exec rails generate alchemy:scaffold
 </shell>
 
 Copy the database migration files to your application.
 <shell>
-rake alchemy:install:migrations
+bundle exec rake alchemy:install:migrations
 </shell>
 
 Migrate the database to get the table structure.
 <shell>
-rake db:migrate
+bundle exec rake db:migrate
 </shell>
 
 Seed the database with initial data.
 <shell>
-rake alchemy:db:seed
+bundle exec rake alchemy:db:seed
 </shell>
 
 INFO: You´re done! Alchemy is now available in your Rails project!
