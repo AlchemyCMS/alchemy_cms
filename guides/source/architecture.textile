@@ -34,7 +34,7 @@ h3. Storing architecture
 
 Alchemy stores content. Period. Really, that's it.
 
-Unlike many other CMS's that store a whole page body with complete html markup from one of these a fancy WYSIWYG editors out there, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only some richtext content in the database. No html markup, no css, no styling, no layout. Just pure content.
+Unlike many other CMS's that store a whole page body with complete html markup from one of these fancy WYSIWYG editors out there, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only some richtext content in the database. No html markup, no css, no styling, no layout. Just pure content.
 
 The webdeveloper is in full control of the markup and styling. The editor just manages the content.
 
@@ -44,13 +44,13 @@ h3. The Rendering Process en Detail
 
 Alchemy strongly uses the Rails partial rendering mechanism. It has no own templating language and no <i>special files</i>.
 
-When rendering a Page the Alchemy renders these files:
+When rendering a Page Alchemy renders these files:
 
 # <code>app/views/layouts/application.html.erb</code>
 # <code>app/views/alchemy/page_layouts/_THE_NAME_OF_THE_PAGES_PAGE_LAYOUT.html.erb</code>
 # <code>app/views/alchemy/elements/_THE_NAME_OF_THE_ELEMENT_view.html.erb</code>
 
-NOTE: Since Alchemy 2.4 you can use Slim and HAML views as well.
+NOTE: Since Alchemy v2.4 you can use Slim and HAML views as well.
 
 INFO: Alchemy comes with tons of useful helpers that render these partials for you. For further information please "have a look into the PagesHelper documentation":http://rdoc.info/github/magiclabs/alchemy_cms/Alchemy/PagesHelper.html
 
@@ -58,9 +58,9 @@ h3. Processing images
 
 Alchemy uses RMagick (the Ruby ImageMagick library) and Dragonfly (a powerful image processing gem) to render images.
 
-Images are stored as master images in the pictury library. The editor just assigns these master images to content elements you provide. You also set the image rendering bounderies. The max width and heigth values, or even the size an image should be cropped to. Alchemy even comes with a fancy Javascript based image cropper tool, so that your customer can define the mask to be used.
+Images are stored as master images in the pictury library. The editor just assigns these master images to elements you provide. You also set the image rendering bounderies. The max width and heigth values, or even the size an image should be cropped to. Alchemy even comes with a fancy Javascript based image cropper tool, so that the editor can define the mask to be used.
 
-"Read more about how can use the powerful image processing tools":render_images.html.
+"Read more about how to use the powerful image processing tools":render_images.html.
 
 h3. Caching
 
@@ -69,8 +69,7 @@ This will cache all "page layout":page_layouts.html partials where "cells":cells
 
 h3. Ressources Controller
 
-Since Alchemy v2.1 there is a ressources controller available. When developing own modules for Alchemy,
-your controller can inherit from that ressources controller (<code>Alchemy::Admin::RessourcesController</code>) and will get all the rails-like CRUD methods.
+Since Alchemy v2.1 there is a ressources controller available. When developing own modules for Alchemy, your controller can inherit from that ressources controller (<code>Alchemy::Admin::RessourcesController</code>) and will get all the rails-like CRUD methods.
 
 The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
