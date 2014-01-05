@@ -16,7 +16,7 @@ This guide is designed for beginners who want to get started with Alchemy CMS fr
 
 * The "Ruby":http://www.ruby-lang.org/en/downloads programming language
 * The dependency manager "Bundler":http://gembundler.com/
-* At least one of these databases: "MySQL":http://www.mysql.com/downloads/mysql, or "SQLite":http://www.sqlite.org/download.html
+* At least one of these databases: "MySQL":http://www.mysql.com/downloads/mysql, "PostgreSQL":http://www.postgresql.org/download/ or "SQLite":http://www.sqlite.org/download.html
 * The image processor "ImageMagick":http://www.imagemagick.org/script/install-source.php
 
 NOTE: Alchemy CMS needs at least version 6.4 of ImageMagick
