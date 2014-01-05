@@ -6,17 +6,17 @@ h3. What are page layouts?
 
 Every page in Alchemy has a page layout.
 
-Think of page layout as types of pages. They are used to define page abilities, like available elements, caching settings, enabling xml feeds, and so on.
+Think of page layouts as types of pages with different settings and markup. They are used to define page abilities like available elements or cells, caching settings, enabling xml feeds, and so on.
 
 Page layouts are defined in the <code>config/alchemy/page_layouts.yml</code> file.
 
 h4. How do they work?
 
-When creating a page the user gets prompted to select a page layout. Depending on that page layouts configuration the user has elements to manage content with.
+When creating a new page the user gets prompted to select a page layout. Depending on its settings (<code>page_layouts.yml</code>) the user has certain elements to manage content with.
 
 h4. Rendering
 
-Page layouts are Rails view partials which are yielded on the template. They are being parsed through ERB, so you can write HTML/CSS and execute Ruby code there.
+Beside the page layout definitions in the <code>page_layouts.yml</code> file, they all have a Rails view partial which is yielded on the Rails layout (for example on <code>app/views/layouts/application.html.erb</code>). They are being parsed through a template engine (ERB, haml or slim) so you can write HTML/CSS and execute Ruby code there.
 
 You can find all page layout partials in the <code>app/views/alchemy/page_layouts</code> folder.
 
@@ -24,19 +24,18 @@ They are named after the page layout's name you defined in the <code>page_layout
 
 If no page layout partial is found, the <code>_standard.html.erb</code> file gets rendered.
 
-INFO: Alchemy comes with generator that creates the partials for you.<br>
+INFO: Alchemy comes with a generator that creates the partials for you.<br>
 Run <code>rails g alchemy:page_layouts --skip</code> inside you terminal.
 
 h4. Caching
 
-If using the caching option (defined in <code>config/alchemy/config.yml</code>), your page layouts will be cached for fast delivering through Rails action caching.
+If using the global caching option (defined in <code>config/alchemy/config.yml</code>) which is enabled by default, your page layouts will be cached for fast delivering through Rails action caching.
 
-INFO: You can disable the caching of a page in the <code>page_layouts.yml</code> file with the<br>
-<code>cache: false</code> option.
+INFO: You can disable caching of certain pages in the <code>page_layouts.yml</code> file by using the <code>cache: false</code> setting.
 
-h3. Creating Page Layouts
+h3. Create page layouts
 
-Follow this guide to learn how to "create page layouts":create_page_layouts.html which than can be chosen by the user while creating a new page.
+Follow this guide to learn how to "create page layouts":create_page_layouts.html which can be chosen by the user when creating a new page.
 
 h4. Defining page layouts
 
