@@ -32,14 +32,14 @@ $.extend Alchemy,
   # To show the "Please wait" overlay.
   # Pass false to hide it.
   pleaseWaitOverlay: (show = true) ->
-    $overlay = $("#overlay")
-    spinner = Alchemy.Spinner.medium()
+    $overlay = $('#overlay')
     if show
-      spinner.spin($("#overlay")[0])
-      $overlay.css "visibility", "visible"
+      spinner = Alchemy.Spinner.medium()
+      $overlay.append(spinner.spin().el)
+      $overlay.show()
     else
-      spinner.stop()
-      $overlay.css "visibility", "hidden"
+      $overlay.find('.spinner').remove()
+      $overlay.hide()
     return
 
   # Shows spinner while loading images and

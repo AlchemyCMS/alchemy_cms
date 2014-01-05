@@ -41,30 +41,31 @@ $.extend Alchemy,
     $(element).hasClass('dirty')
 
   checkPageDirtyness: (element) ->
-    okcallback = undefined
+    callback = undefined
     if $(element).is("form")
-      okcallback = ->
+      callback = ->
         $form = $("<form action=\"#{element.action}\" method=\"POST\" style=\"display: none\" />")
         $form.append $(element).find("input")
         $form.appendTo "body"
-        Alchemy.pleaseWaitOverlay()
         $form.submit()
     else if $(element).is("a")
-      okcallback = ->
-        Alchemy.pleaseWaitOverlay()
-        document.location = element.pathname
+      callback = ->
+        window.location.href = element.pathname
     if Alchemy.isPageDirty()
-      Alchemy.pleaseWaitOverlay(false)
       Alchemy.openConfirmWindow
         title: Alchemy._t('warning')
         message: Alchemy._t('page_dirty_notice')
         okLabel: Alchemy._t('ok')
         cancelLabel: Alchemy._t('cancel')
-        okCallback: okcallback
+        okCallback: ->
+          window.onbeforeunload = undefined
+          Alchemy.pleaseWaitOverlay()
+          callback()
       false
     else
       true
 
   PageLeaveObserver: ->
-    $("#main_navi a").click (event) ->
-      event.preventDefault() unless Alchemy.checkPageDirtyness(event.currentTarget)
+    $('#main_navi a').click (event) ->
+      unless Alchemy.checkPageDirtyness(event.currentTarget)
+        event.preventDefault()
