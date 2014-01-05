@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "alchemy_cms", "3.0.0.alpha"
+  s.add_dependency "alchemy_cms", "~> 3.0.0.beta1"
   s.add_dependency "devise",      "~> 3.0.0"
 
   s.add_development_dependency "rspec-rails"
