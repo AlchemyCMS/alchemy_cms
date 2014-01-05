@@ -32,24 +32,6 @@ Installing Rails on your computer is easy. There are many excellent resources on
 * "Railscasts":http://railscasts.com
 
 
-
-h3. What is Alchemy CMS?
-
-Alchemy CMS is a mayor, full featured Content Management System (CMS).
-It comes with an extreme flexible "content storing architecture":architecture.html#storing-architecture and a gorgeous user interface.
-
-Alchemy CMS is shipped with a production ready website that can be used “out of the box”, 
-but it is mostly used for building individual web-applications that are rich in functionality.
-
-The name is program: Alchemy CMS is a kind of chemical construction kit for developers that 
-want to build professional web-applications in a very short time.
-
-Also content managers are enthusiastic about Alchemy CMS because of its clear and powerful 
-user interface that is very easy to use and intuitive to learn.
-
-
-
-
 h3. Installation
 
 The installing of Alchemy CMS is very easy.

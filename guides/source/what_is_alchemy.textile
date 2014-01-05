@@ -2,6 +2,8 @@ h2. What is Alchemy CMS?
 
 Alchemy is not a common CMS. Alchemy is rather a CMS framework. It enables you to build your own CMS.
 
+The name is program: Alchemy CMS is a kind of chemical construction kit for developers that want to build professional web-applications in a very short time.
 
+Also content managers are enthusiastic about Alchemy CMS because of its clear and powerful user interface that is very easy to use and intuitive to learn.
 
 endprologue.
