@@ -67,7 +67,7 @@ If you already have an existing Rails application, you can require the Alchemy C
 Just add this line to your Gemfile.
 
 <pre>
-gem 'alchemy_cms', '~>2.1'
+gem 'alchemy_cms', '~> 3.0.0'
 </pre>
 
 Since Alchemy CMS is a mountable engine, you need to define the mountpoint in your <code>config/routes.rb</code> file.
