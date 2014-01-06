@@ -72,8 +72,6 @@ module Alchemy
 
     config.after_initialize do
       require_relative './userstamp'
-      # We need to reload the routes, because alchemy extensions (i.e. alchemy-devise) prepends routes.
-      Rails.application.routes_reloader.reload!
     end
 
     config.to_prepare do
