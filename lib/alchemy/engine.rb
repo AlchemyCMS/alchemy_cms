@@ -74,6 +74,9 @@ module Alchemy
       require_relative './userstamp'
       # We need to reload the routes, because alchemy extensions (i.e. alchemy-devise) prepends routes.
       Rails.application.routes_reloader.reload!
+    end
+
+    config.to_prepare do
       # In order to have Alchemy's helpers and basic controller methods
       # available in the host app, we patch the ApplicationController.
       ApplicationController.send(:include, Alchemy::ControllerActions)
