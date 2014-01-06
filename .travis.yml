@@ -10,6 +10,7 @@ script: rake
 env:
   - DB=mysql
   - DB=postgresql
+  - RAILS_VERSION=4.1.0.beta1
 notifications:
   irc:
     on_success: change
@@ -19,3 +20,6 @@ notifications:
       - "irc.freenode.org#alchemy_cms"
 before_install:
   - gem install bundler -v '= 1.5.1'
+matrix:
+  allow_failures:
+    - env: RAILS_VERSION=4.1.0.beta1
