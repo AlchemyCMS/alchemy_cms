@@ -49,7 +49,7 @@ module Alchemy
       def create
         if params[:paste_from_clipboard]
           source = Page.find(params[:paste_from_clipboard])
-          parent = Page.find_by_id(params[:page][:parent_id]) || Page.root
+          parent = Page.find_by(id: params[:page][:parent_id]) || Page.root
           @page = Page.paste_from_clipboard(source, parent, params[:page][:name])
         else
           @page = Page.new(page_params)

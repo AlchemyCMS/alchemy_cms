@@ -134,14 +134,14 @@ module Alchemy
 
           context "and cell name in element name" do
             it "should put the element in the correct cell" do
-              post :create, {:element => {:name => "article#header", :page_id => @page.id}, :format => :js}
+              xhr :post, :create, {:element => {:name => "article#header", :page_id => @page.id}}
               @cell.elements.first.should be_an_instance_of(Element)
             end
           end
 
           context "and no cell name in element name" do
             it "should put the element in the main cell" do
-              post :create, {:element => {:name => "article", :page_id => @page.id}, :format => :js}
+              xhr :post, :create, {:element => {:name => "article", :page_id => @page.id}}
               @page.elements.not_in_cell.first.should be_an_instance_of(Element)
             end
           end
@@ -163,14 +163,14 @@ module Alchemy
 
             context "and cell name in element name" do
               it "should create the element in the correct cell" do
-                post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+                xhr :post, :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}"}
                 @cell.elements.first.should be_an_instance_of(Element)
               end
             end
 
             context "and no cell name in element name" do
               it "should create the element in the nil cell" do
-                post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}", :format => :js}
+                xhr :post, :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}"}
                 @page.elements.first.cell.should == nil
               end
             end
@@ -179,7 +179,7 @@ module Alchemy
               before { @cell.elements.create(:page_id => @page.id, :name => "article", :create_contents_after_create => false) }
 
               it "should set the correct position for the element" do
-                post :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}", :format => :js}
+                xhr :post, :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}"}
                 @cell.elements.last.position.should == @cell.elements.count
               end
             end
@@ -204,7 +204,7 @@ module Alchemy
             end
 
             it "should insert the element at top of list" do
-              post :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{cell.name}", :format => :js}
+              xhr :post, :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{cell.name}"}
               cell.elements.count.should == 2
               cell.elements.first.name.should == 'news'
               cell.elements.first.should_not == element
@@ -438,19 +438,19 @@ module Alchemy
       end
 
       it "should set a new position to the element" do
-        post :order, {:element_ids => ["#{@element.id}"], :format => :js}
+        xhr :post, :order, {:element_ids => ["#{@element.id}"]}
         @element.reload
         @element.position.should_not == nil
       end
 
       it "should assign the (new) page_id to the element" do
-        post :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => nil, :format => :js}
+        xhr :post, :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => nil}
         @element.reload
         @element.page_id.should == 1
       end
 
       it "should assign the (new) cell_id to the element" do
-        post :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => 5, :format => :js}
+        xhr :post, :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => 5}
         @element.reload
         @element.cell_id.should == 5
       end

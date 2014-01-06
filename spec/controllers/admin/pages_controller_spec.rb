@@ -47,7 +47,7 @@ module Alchemy
       it "should remove the cache of all pages" do
         page_1.should_receive(:publish!)
         page_2.should_receive(:publish!)
-        post :flush, format: :js
+        xhr :post, :flush
       end
     end
 
@@ -59,7 +59,7 @@ module Alchemy
         before { clipboard[:pages] = [{id: page.id, action: 'copy'}] }
 
         it "should load all pages from clipboard" do
-          get :new, {page_id: page.id, format: :js}
+          xhr :get, :new, {page_id: page.id}
           assigns(:clipboard_items).should be_kind_of(Array)
         end
       end
@@ -98,7 +98,7 @@ module Alchemy
 
         it "should always show the slug" do
           Page.stub(:find).and_return(page)
-          get :configure, {id: page.id, format: :js}
+          xhr :get, :configure, {id: page.id}
           response.body.should match /value="foobar"/
         end
       end
@@ -117,7 +117,7 @@ module Alchemy
 
         it "is nested under given parent" do
           controller.stub(:edit_admin_page_path).and_return('bla')
-          post :create, {page: page_params, format: :js}
+          xhr :post, :create, {page: page_params}
           expect(assigns(:page).parent_id).to eq(parent.id)
         end
 
@@ -170,8 +170,8 @@ module Alchemy
         let(:page_in_clipboard) { mock_model(Alchemy::Page) }
 
         before do
-          Page.stub(:find_by_id).with(parent.id).and_return(parent)
-          Page.stub(:find).with(page_in_clipboard.id).and_return(page_in_clipboard)
+          Page.stub(:find_by).with(id: "#{parent.id}").and_return(parent)
+          Page.stub(:find).with("#{page_in_clipboard.id}").and_return(page_in_clipboard)
         end
 
         it "should call Page#paste_from_clipboard" do
@@ -182,7 +182,7 @@ module Alchemy
           ).and_return(
             mock_model('Page', save: true, name: 'pasted Page', redirects_to_external?: false)
           )
-          post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}, format: :js}
+          xhr :post, :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}}
         end
       end
     end
@@ -235,7 +235,7 @@ module Alchemy
       before { clipboard[:pages] = [{id: page.id}] }
 
       it "should also remove the page from clipboard" do
-        post :destroy, {id: page.id, _method: :delete, format: 'js'}
+        xhr :post, :destroy, {id: page.id, _method: :delete}
         clipboard[:pages].should be_empty
       end
     end
@@ -277,7 +277,7 @@ module Alchemy
 
         it "should fold the page" do
           page.should_receive(:fold!).with(user.id, true).and_return(true)
-          post :fold, id: page.id, format: :js
+          xhr :post, :fold, id: page.id
         end
       end
 
@@ -286,7 +286,7 @@ module Alchemy
 
         it "should unfold the page" do
           page.should_receive(:fold!).with(user.id, false).and_return(true)
-          post :fold, id: page.id, format: :js
+          xhr :post, :fold, id: page.id
         end
       end
     end
@@ -295,7 +295,7 @@ module Alchemy
       before { Page.stub(:language_root_for).and_return(mock_model(Alchemy::Page)) }
 
       it "should assign @sorting with true" do
-        get :sort, format: :js
+        xhr :get, :sort
         expect(assigns(:sorting)).to eq(true)
       end
     end
@@ -310,7 +310,7 @@ module Alchemy
       end
 
       it "should unlock the page" do
-        post :unlock, id: "#{page.id}", format: :js
+        xhr :post, :unlock, id: "#{page.id}"
       end
 
       context 'requesting for html format' do
