@@ -18,7 +18,7 @@ class Alchemy::PasswordsController < Devise::PasswordsController
   end
 
   def after_resetting_password_path_for(resource)
-    if can? :index, :dashboard
+    if can? :index, :alchemy_admin_dashboard
       alchemy.admin_dashboard_path
     else
       alchemy.root_path
