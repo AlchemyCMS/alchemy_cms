@@ -22,7 +22,7 @@ module Alchemy
       expires_in cache_page? ? 1.month : 0
       if !cache_page? || stale?(etag: @page, last_modified: @page.published_at, public: !@page.restricted)
         respond_to do |format|
-          format.html { render layout: layout_for_page }
+          format.html { render layout: !request.xhr? }
           format.rss do
             if @page.contains_feed?
               render action: 'show', layout: false, handlers: [:builder]

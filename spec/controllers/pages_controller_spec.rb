@@ -32,45 +32,12 @@ module Alchemy
     end
 
     describe "Layout rendering" do
-      context "with param layout set to none" do
+      context "with ajax request" do
         it "should not render a layout" do
-          get :show, urlname: page.urlname, layout: 'none'
-          response.body.should_not match /<head>/
+          xhr :get, :show, urlname: page.urlname
+          response.should render_template(:show)
+          response.should_not render_template(layout: 'application')
         end
-      end
-
-      context "with param layout set to false" do
-        it "should not render a layout" do
-          get :show, urlname: page.urlname, layout: 'false'
-          response.body.should_not match /<head>/
-        end
-      end
-
-      context "with params layout set to not existing layout" do
-        it "should raise ActionView::MissingTemplate" do
-          expect {
-            get :show, urlname: default_language_root.urlname, layout: 'lkuiuk'
-          }.to raise_error(ActionView::MissingTemplate)
-        end
-      end
-
-      context "with param layout set to a custom layout" do
-        before do
-          @custom_layout = Rails.root.join('app/views/layouts', 'custom.html.erb')
-          File.open(@custom_layout, 'w') do |custom_layout|
-            custom_layout.puts "<html>I am a custom layout</html>"
-          end
-        end
-
-        it "should render the custom layout" do
-          get :show, urlname: default_language_root.urlname, layout: 'custom'
-          response.body.should render_template(layout: 'custom')
-        end
-
-        after do
-          FileUtils.rm(@custom_layout)
-        end
-
       end
     end
 

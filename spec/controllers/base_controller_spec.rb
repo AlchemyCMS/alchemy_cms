@@ -92,27 +92,5 @@ module Alchemy
       end
     end
 
-    describe "#layout_for_page" do
-      it "should return false if params[:layout] is set to false" do
-        controller.stub(:params).and_return(layout: 'false')
-        expect(controller.send(:layout_for_page)).to be_false
-      end
-
-      it "should return false if params[:layout] is set to none" do
-        controller.stub(:params).and_return(layout: 'none')
-        expect(controller.send(:layout_for_page)).to be_false
-      end
-
-      it "should return the layout name set through params[:layout]" do
-        controller.stub(:params).and_return(layout: 'my_layout')
-        expect(controller.send(:layout_for_page)).to eq('my_layout')
-      end
-
-      it "should return 'application' if params[:layout] is not set" do
-        controller.stub(:params).and_return({})
-        expect(controller.send(:layout_for_page)).to eq('application')
-      end
-    end
-
   end
 end

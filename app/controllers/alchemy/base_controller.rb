@@ -75,22 +75,6 @@ module Alchemy
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
     end
 
-    # Returns the layout to be used by the current page. This method is being
-    # used in PageController#show's invocation of #render.
-    #
-    # It allows you to request a specific page layout by passing a 'layout' parameter
-    # in a request. If this parameter is set to 'none' or 'false', no layout whatsoever
-    # will be used to render the page; otherwise, a layout by the given name
-    # will be applied.
-    #
-    def layout_for_page
-      if params[:layout] == 'none' || params[:layout] == 'false'
-        false
-      else
-        params[:layout] || 'application'
-      end
-    end
-
     def render_404(exception = nil)
       if exception
         logger.info "Rendering 404: #{exception.message}"

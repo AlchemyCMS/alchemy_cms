@@ -30,7 +30,6 @@ module Alchemy
         Page.current_preview = @page
         # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language_code
-        render layout: layout_for_page
       rescue Exception => e
         exception_logger(e)
         render file: Rails.root.join('public', '500.html'), status: 500, layout: false

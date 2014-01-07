@@ -21,11 +21,6 @@ module Alchemy
         get :new
         expect(get :new).to render_template('alchemy/pages/show')
       end
-
-      it "should call #layout_for_page to render the correct layout" do
-        controller.should_receive(:layout_for_page)
-        get :new
-      end
     end
 
     describe "#create" do

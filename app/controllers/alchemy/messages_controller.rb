@@ -52,7 +52,7 @@ module Alchemy
 
     def new #:nodoc:
       @message = Message.new
-      render template: 'alchemy/pages/show', layout: layout_for_page
+      render template: 'alchemy/pages/show'
     end
 
     def create #:nodoc:
@@ -68,7 +68,7 @@ module Alchemy
         Messages.contact_form_mail(@message, mail_to, mail_from, subject).deliver
         redirect_to_success_page
       else
-        render template: 'alchemy/pages/show', layout: layout_for_page
+        render template: 'alchemy/pages/show'
       end
     end
 
