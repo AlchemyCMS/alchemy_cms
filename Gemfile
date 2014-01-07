@@ -12,6 +12,9 @@ gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', bran
 # Code coverage plattform
 gem 'coveralls', require: false
 
+# Fixes issues with wrong exit codes. See: https://github.com/colszowka/simplecov/issues/269
+gem 'simplecov', '0.7.1'
+
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
@@ -31,7 +34,6 @@ group :development, :test do
     gem 'yard'
     gem 'redcarpet'
     gem 'pry-rails'
-    # gem 'pry-debugger'
   end
   gem 'jasmine-rails', github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
