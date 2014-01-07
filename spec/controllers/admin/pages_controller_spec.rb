@@ -88,6 +88,11 @@ module Alchemy
         get :show, id: page.id
         expect(::I18n.locale).to eq(:nl)
       end
+
+      it "renders the application layout" do
+        get :show, id: page.id
+        expect(response).to render_template(layout: 'application')
+      end
     end
 
     describe "#configure" do
