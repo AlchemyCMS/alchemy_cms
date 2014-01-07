@@ -32,9 +32,6 @@
 #  cached_tag_list  :text
 #
 
-require 'acts-as-taggable-on'
-require 'awesome_nested_set'
-
 module Alchemy
   class Page < ActiveRecord::Base
     DEFAULT_ATTRIBUTES_FOR_COPY = {

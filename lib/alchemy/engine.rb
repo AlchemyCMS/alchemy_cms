@@ -1,20 +1,24 @@
 # Require globally used external libraries
 require 'actionpack/page_caching'
+require 'acts_as_list'
+require 'acts-as-taggable-on'
 require 'action_view/dependency_tracker'
 require 'active_model_serializers'
+require 'awesome_nested_set'
 require 'cancan'
 require 'coffee-rails'
 require 'compass-rails'
+require 'dragonfly'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'kaminari'
+require 'non-stupid-digest-assets'
 require 'sass-rails'
 require 'sassy-buttons'
 require 'simple_form'
 require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
-require 'non-stupid-digest-assets'
 
 # Require globally used Alchemy mixins
 require_relative './auth_accessors'
@@ -24,7 +28,7 @@ require_relative './controller_actions'
 require_relative './errors'
 require_relative './essence'
 require_relative './filetypes'
-require_relative "./forms/builder"
+require_relative './forms/builder'
 require_relative './i18n'
 require_relative './logger'
 require_relative './modules'
@@ -50,13 +54,13 @@ module Alchemy
     # Enabling assets precompiling
     initializer 'alchemy.assets' do |app|
       app.config.assets.precompile += [
-        "alchemy/alchemy.js",
-        "alchemy/preview.js",
-        "alchemy/admin.css",
-        "alchemy/menubar.css",
-        "alchemy/menubar.js",
-        "alchemy/print.css",
-        "tinymce/*"
+        'alchemy/alchemy.js',
+        'alchemy/preview.js',
+        'alchemy/admin.css',
+        'alchemy/menubar.css',
+        'alchemy/menubar.js',
+        'alchemy/print.css',
+        'tinymce/*'
       ]
     end
 

@@ -1,5 +1,3 @@
-require 'dragonfly'
-
 # Alchemy CMS Dragonfly configuration.
 
 # Pictures

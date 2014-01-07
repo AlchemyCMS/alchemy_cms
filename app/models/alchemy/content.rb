@@ -14,8 +14,6 @@
 #  updater_id   :integer
 #
 
-require 'acts_as_list'
-
 module Alchemy
   class Content < ActiveRecord::Base
     include Logger

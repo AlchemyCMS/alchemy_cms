@@ -17,9 +17,6 @@
 #  image_file_size   :integer
 #
 
-require 'acts-as-taggable-on'
-require 'dragonfly'
-
 module Alchemy
   class Picture < ActiveRecord::Base
     include NameConversions

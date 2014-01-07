@@ -15,8 +15,6 @@
 #  file_uid        :string(255)
 #
 
-require 'acts-as-taggable-on'
-
 module Alchemy
   class Attachment < ActiveRecord::Base
     include Filetypes

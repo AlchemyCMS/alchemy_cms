@@ -17,9 +17,6 @@
 #  cached_tag_list :text
 #
 
-require 'acts-as-taggable-on'
-require 'acts_as_list'
-
 module Alchemy
   class Element < ActiveRecord::Base
     include Logger
