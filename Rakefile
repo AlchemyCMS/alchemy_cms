@@ -32,7 +32,7 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => ['alchemy:spec:prepare', :spec, 'app:spec:javascript']
+task :default => ['alchemy:spec:prepare', :spec]
 
 Bundler::GemHelper.install_tasks
 
