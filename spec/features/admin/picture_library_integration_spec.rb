@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Picture Library", :js => true do
+describe "Picture Library", js: true do
 
   before do
     authorize_as_admin
@@ -9,8 +9,8 @@ describe "Picture Library", :js => true do
   describe "Tagging" do
 
     before do
-      picture = FactoryGirl.create(:picture, :tag_list => 'tag1', :name => 'TaggedWith1')
-      picture = FactoryGirl.create(:picture, :tag_list => 'tag2', :name => 'TaggedWith2')
+      picture = FactoryGirl.create(:picture, tag_list: 'tag1', name: 'TaggedWith1')
+      picture = FactoryGirl.create(:picture, tag_list: 'tag2', name: 'TaggedWith2')
     end
 
     it "it should be possible to filter tags by clicking on its name in the tag list" do
@@ -40,7 +40,7 @@ describe "Picture Library", :js => true do
   describe "Filter by tag" do
 
     before do
-      FactoryGirl.create(:picture, :tag_list => 'bla')
+      FactoryGirl.create(:picture, tag_list: 'bla')
     end
 
     it "should list all applied tags" do
