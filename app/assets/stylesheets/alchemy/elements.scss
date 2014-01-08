@@ -309,6 +309,14 @@ span.linkable_essence_tools {
   @extend .icon;
 }
 
+.expand_element:before {
+  @extend .icon-expand:before;
+}
+
+.fold_element:before {
+  @extend .icon-collapse:before;
+}
+
 .ajax_folder {
 
   .expand_element, .fold_element {
@@ -317,14 +325,6 @@ span.linkable_essence_tools {
     height: 18px;
     color: $dark-gray;
   }
-}
-
-.expand_element:before {
-  @extend .icon-expand;
-}
-
-.fold_element:before {
-  @extend .icon-collapse;
 }
 
 .droppable_element_placeholder {

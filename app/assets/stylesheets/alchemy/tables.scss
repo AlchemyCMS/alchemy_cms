@@ -119,15 +119,6 @@ td, th {
 
   &.center, &.boolean {
     text-align: center;
-
-    .icon.false {
-      @extend .false;
-    }
-
-    .icon.true {
-      @extend .icon;
-      @extend .true;
-    }
   }
 
   &.right {

@@ -171,7 +171,7 @@ div.assign_image_list_image {
       padding-bottom: 1px;
 
       &:before {
-        @extend .icon-destroy;
+        @extend .icon-destroy:before;
       }
     }
   }
@@ -182,7 +182,7 @@ div.assign_image_list_image {
     bottom: 24px;
 
     a:before {
-      @extend .icon-edit;
+      @extend .icon-edit:before;
     }
   }
 
@@ -192,14 +192,12 @@ div.assign_image_list_image {
     bottom: 24px;
 
     a:before {
-      @extend .icon-info;
+      @extend .icon-info:before;
     }
   }
 
   a {
     display: block;
-    width: 16px;
-    height: 16px;
     cursor: pointer;
     @extend .icon;
   }

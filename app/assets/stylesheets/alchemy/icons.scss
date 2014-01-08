@@ -30,11 +30,11 @@
   }
 
   &.icon-notice, &.icon-true {
-    @extend .icon-ok;
+    &:before { @extend .icon-ok:before }
   }
 
   &.icon-delete {
-    @extend .icon-remove;
+    &:before { @extend .icon-remove:before };
 
     &.small {
       line-height: 16px;
@@ -43,7 +43,7 @@
   }
 
   &.icon-zoom-equal {
-    @extend .icon-search;
+    &:before { @extend .icon-search:before }
   }
 
   &.blank {
@@ -59,11 +59,11 @@
   }
 
   &.icon-file-image {
-    @extend .icon-file;
+    &:before { @extend .icon-file:before }
   }
 
   &.tag_label {
-    @extend .icon-tag;
+    &:before { @extend .icon-tag:before }
   }
 }
 
