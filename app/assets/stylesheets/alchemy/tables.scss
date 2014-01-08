@@ -90,7 +90,6 @@ td.heading {
 
 .list td.icon, .list th.icon {
   background-color: $light-gray;
-  background-image: none;
   border: 0 none;
   padding: 0;
   border-right: 1px solid $medium-gray;
@@ -100,8 +99,6 @@ td.heading {
 
 .list .tools .icon, .list td.icon .icon {
   @include inline-block;
-  width: 16px;
-  height: 16px;
   @extend .disable-user-select;
   background-repeat: no-repeat;
   margin: 0 $default-margin;

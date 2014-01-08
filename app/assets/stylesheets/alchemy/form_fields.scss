@@ -51,6 +51,7 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
     padding: 3px 24px;
     height: 29px;
     margin: 0;
+    @include transition(width 200ms ease-in-out);
   }
 
   label {

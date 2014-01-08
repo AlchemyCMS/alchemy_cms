@@ -74,8 +74,10 @@
         <%= select_tag 'change_locale',
           options_for_select(translations_for_select, ::I18n.locale),
           class: 'alchemy_selectbox tiny' %>
-        <%= _t('Logged in as') %>
-        <%= current_alchemy_user.try(:name) %>
+        <span class="current_user_name">
+          <%= _t('Logged in as') %>
+          <%= current_alchemy_user.try(:name) %>
+        </span>
       </div>
     </div>
     <% end %>
