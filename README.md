@@ -35,7 +35,7 @@ Features
 Rails Version
 -------------
 
-**This version of Alchemy CMS runs with Rails 4.0.x only!**
+**This version of Alchemy CMS runs with Rails 4 (including 4.1)**
 
 If you are looking for a Rails 3.2 compatible version check the [2.7-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).
 
