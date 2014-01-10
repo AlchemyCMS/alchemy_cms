@@ -1,6 +1,5 @@
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
-
 # Adds buttons into a toolbar inside of overlay windows
 Alchemy.ToolbarButton = (options) ->
   $btn = $('<div class="button_with_label" />')
@@ -86,7 +85,6 @@ Alchemy.ElementsWindow =
       success: (data, textStatus, XMLHttpRequest) ->
         self.dialog.html data
         Alchemy.GUI.init "#alchemyElementWindow"
-        Alchemy.Hotkeys "#overlay_toolbar"
         if self.callback
           self.callback.call()
       error: (XMLHttpRequest, textStatus, errorThrown) ->

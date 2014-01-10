@@ -33,7 +33,6 @@ Alchemy.PreviewWindow =
         open: (event, ui) ->
           $(this).css width: "100%"
           Alchemy.PreviewWindow.button.disable()
-          Alchemy.Hotkeys('.alchemy-preview-window')
       ).dialogExtend
           maximize: true
           dblclick: "maximize"
