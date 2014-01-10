@@ -102,7 +102,7 @@ Run in terminal:
 
 ### Note:
 
-By default alchemy does not contain a **user model**
+Since Version 3.0 Alchemy does not contain a **user model** by default.
 If you've got an **own user model** you are free to add yours. If not you can use the default **user model** by adding the following line to your Gemfile:
 
     gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
