@@ -26,10 +26,6 @@ Alchemy.Hotkeys = (scope) ->
     $search_fields.blur()
   Alchemy.bindedHotkeys.push('esc')
 
-  key 'alt+w', ->
-    Alchemy.CurrentWindow.dialog('close')
-  Alchemy.bindedHotkeys.push('alt+w')
-
   # Binds click events to hotkeys.
   #
   # Simply add a data-alchemy-hotkey attribute to your link.
