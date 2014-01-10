@@ -44,7 +44,7 @@ Alchemy.Sitemap =
       term = $(this).val()
       filter(term.toLowerCase())
     @search_field.on 'focus', ->
-      keymage.setScope('search')
+      key.setScope('search')
     @filter_field_clear.click =>
       @search_field.val('')
       filter('')

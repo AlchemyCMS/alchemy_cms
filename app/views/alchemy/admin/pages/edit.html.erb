@@ -26,7 +26,7 @@
 <div class="toolbar_buttons">
   <div class="button_with_label">
     <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
-      <button class="icon_button" title="<%= _t(:explain_unlocking) %>" data-alchemy-hotkey="alt-x">
+      <button class="icon_button" title="<%= _t(:explain_unlocking) %>" data-alchemy-hotkey="alt+x">
         <%= render_icon('close') %>
       </button>
       <label><%= _t(:unlock_page) %></label>
@@ -53,7 +53,7 @@
       {
         class: 'icon_button',
         title: _t(:page_infos),
-        'data-alchemy-hotkey' => 'alt-i'
+        'data-alchemy-hotkey' => 'alt+i'
       }
     ) %>
     <label><%= _t(:page_infos) %></label>
@@ -68,7 +68,7 @@
       },
       class: :icon_button,
       title: _t(:edit_page_properties),
-      'data-alchemy-hotkey' => 'alt-e'
+      'data-alchemy-hotkey' => 'alt+e'
     ) %>
     <label><%= _t(:page_properties) %></label>
   </div>
@@ -127,7 +127,7 @@
         {
           title: '<%= _t("New Element") %>',
           label: '<%= _t("New Element") %>',
-          hotkey: 'alt-n',
+          hotkey: 'alt+n',
           iconClass: 'new_element',
           onClick: function() {
             Alchemy.openWindow('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {

@@ -38,6 +38,11 @@ Alchemy.Initializer = ->
   # Attaches the image loader on all images
   Alchemy.ImageLoader('#main_content')
 
+  # Override the filter of keymaster.js so we can blur the fields on esc key.
+  key.filter = (event) ->
+    tagName = (event.target || event.srcElement).tagName
+    key.isPressed('esc') || !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA')
+
 # Turbolinks DOM Ready
 $(document).on 'page:change', ->
   Alchemy.Initializer()

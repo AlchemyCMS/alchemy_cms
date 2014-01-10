@@ -4,7 +4,7 @@
       icon: 'upload',
       label: _t(:upload_image),
       url: alchemy.new_admin_picture_path(size: @size),
-      hotkey: 'alt-n',
+      hotkey: 'alt+n',
       overlay_options: {
         title: _t(:upload_image),
         size: '540x590'
@@ -71,7 +71,7 @@
         '',
         id: 'select_all_pictures',
         class: 'icon_button',
-        'data-alchemy-hotkey' => 'alt-a'
+        'data-alchemy-hotkey' => 'alt+a'
       ) %>
       <label><%= _t("Select all") %></label>
     </div>

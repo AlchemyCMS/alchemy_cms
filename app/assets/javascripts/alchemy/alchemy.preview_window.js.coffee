@@ -71,7 +71,7 @@ Alchemy.PreviewWindow =
         Alchemy.PreviewWindow.button.disable()
 
   reloadButton: ->
-    $reload = $('<button class="ui-dialog-titlebar-refresh ui-corner-all ui-state-default" role="button" data-alchemy-hotkey="alt-r" />')
+    $reload = $('<button class="ui-dialog-titlebar-refresh ui-corner-all ui-state-default" role="button" data-alchemy-hotkey="alt+r" />')
     $reload.append('<span class="ui-icon ui-icon-refresh" />')
     $reload.click Alchemy.reloadPreview
     $reload.hover ->

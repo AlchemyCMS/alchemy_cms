@@ -23,8 +23,8 @@ class Alchemy.ListFilterHandler
       e.preventDefault()
       @_clear()
     @filter_field.focus ->
-      keymage.setScope('list_filter')
-    keymage 'list_filter', 'esc', =>
+      key.setScope('list_filter')
+    key 'esc', 'list_filter', =>
       @_clear()
       @filter_field.blur()
 

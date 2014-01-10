@@ -201,7 +201,7 @@ module Alchemy
       #     label: 'Create',
       #     url: new_resource_path,
       #     title: 'Create Resource',
-      #     hotkey: 'alt-n',
+      #     hotkey: 'alt+n',
       #     overlay_options: {
       #       title: 'Create Resource',
       #       size: "430x400"
@@ -262,7 +262,7 @@ module Alchemy
       #         label: label_title,
       #         url: new_resource_path,
       #         title: label_title,
-      #         hotkey: 'alt-n',
+      #         hotkey: 'alt+n',
       #         overlay_options: {
       #           title: label_title,
       #           size: "430x400"

@@ -13,7 +13,7 @@
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require spin.min
-//= require keymage.min
+//= require keymaster
 //= require select2
 //= require select2_locale_de
 //= require alchemy/alchemy.routes
