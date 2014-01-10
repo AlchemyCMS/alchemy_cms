@@ -64,6 +64,17 @@ Installation
     alchemy new my_magicpage
     cd my_magicpage
 
+### Note
+
+Subsequently add the following line to your Gemfile:
+
+    gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
+
+Run
+    bundle install
+
+to finish installation process.
+
 #### 2. Start the local server:
 
     rails server
@@ -79,6 +90,7 @@ Open `http://localhost:3000` and follow the on screen instructions.
 In your App's Gemfile.
 
     gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+    gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
 
 #### 2. Install Alchemy into your app:
 
@@ -87,10 +99,11 @@ Run in terminal:
     bundle install
     bundle exec rake alchemy:install
 
+
 ### Note:
 
-You may encounter errors relating to 'uninitialized constant': e.g.
-'Alchemy::Engine::NonStupidDigestAssets' or 'User'. Please add the following lines to your Gemfile:
+By default alchemy does not contain a **user model**
+If you've got an **own user model** you are free to add yours. If not you can use the default **user model** by adding the following line to your Gemfile:
 
     gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
     gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
