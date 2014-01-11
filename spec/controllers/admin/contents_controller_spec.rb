@@ -24,6 +24,24 @@ module Alchemy
       end
     end
 
+    context 'inside a picture gallery' do
+      let(:attributes) do
+        {content: {element_id: element.id, essence_type: 'Alchemy::EssencePicture'}, options: {grouped: 'true'}}
+      end
+
+      it "adds it into the gallery editor" do
+        xhr :post, :create, attributes
+        assigns(:content_dom_id).should eq("#add_picture_#{element.id}")
+      end
+
+      context 'with picture_id given' do
+        it "assigns the picture" do
+          Content.any_instance.should_receive(:update_essence).with(picture_id: '1')
+          xhr :post, :create, attributes.merge(picture_id: '1')
+        end
+      end
+    end
+
     describe '#update' do
       before do
         Content.stub(find: content)
