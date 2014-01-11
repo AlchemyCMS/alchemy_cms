@@ -4,8 +4,8 @@
 
   $("#element_<%= @element.id %>_content_missing").replaceWith('<%= escape_javascript(
     render(
-      :partial => "alchemy/essences/#{@content.essence_partial_name}_editor",
-      :locals => @locals
+      partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
+      locals: @locals
     )
   ) %>');
 
@@ -13,12 +13,12 @@
 
   $("<%= @content_dom_id %>").before('<%= escape_javascript(
     render(
-      :partial => "alchemy/essences/#{@content.essence_partial_name}_editor",
-      :locals => @locals
+      partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
+      locals: @locals
     )
   ) %>');
   Alchemy.Buttons.enable();
-  Alchemy.growl('<%= _t("Successfully added content") % {:content => @content.name_for_label} %>')
+  Alchemy.growl('<%= _t("Successfully added content") % {content: @content.name_for_label} %>')
 
 <% end %>
 
@@ -28,15 +28,19 @@
   $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
   <% end %>
 
-  <% if @contents_of_this_type.length > 1 %>
+  <% if @gallery_pictures %>
+
+  <% if @gallery_pictures.size > 1 %>
   $('#element_<%= @element.id %>_contents .essence_picture_editor').addClass('dragable_picture');
   <% end %>
 
-  <% if !max_image_count.blank? && @contents_of_this_type.length >= max_image_count %>
+  <% if !max_image_count.blank? && @gallery_pictures.size >= max_image_count %>
   $("#add_picture_<%= @element.id %>").remove();
   <% end %>
 
   Alchemy.SortableContents('#element_<%= @element.id %>_contents', '<%= form_authenticity_token %>');
+
+  <% end %>
 
 <% elsif @content.essence_type == "Alchemy::EssenceDate" %>
 
