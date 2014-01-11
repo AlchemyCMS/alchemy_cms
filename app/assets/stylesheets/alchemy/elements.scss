@@ -519,9 +519,10 @@ div.file_icon {
 }
 
 a.new_content_link {
-  float: none;
-  margin-bottom: 12px !important;
-  margin-top: 4px !important;
+  display: block;
+  text-align: center;
+  margin-bottom: 12px;
+  margin-top: 4px;
 }
 
 div.tinymce_container {
