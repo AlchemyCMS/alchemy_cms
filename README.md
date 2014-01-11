@@ -10,7 +10,7 @@ Alchemy is the most powerful, userfriendly and flexible Rails CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
-**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/2.7.1),
+**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/2.7.2),
 or the [latest stable branch (2.7-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).**
 
 Features
