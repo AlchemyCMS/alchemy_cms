@@ -2,8 +2,46 @@ require 'spec_helper'
 
 module Alchemy
   describe "ActsAsEssence" do
-    #let(:element) { FactoryGirl.create(:element, :name => 'headline', :create_contents_after_create => true) }
+    let(:element) { Element.new }
+    let(:content) { Content.new(name: 'foo') }
     let(:essence) { build_stubbed(:essence_text) }
+    let(:content_description) { {'name' => 'foo'} }
+
+    describe '#description' do
+      subject { essence.description }
+
+      context 'without element' do
+        it { should eq({}) }
+      end
+
+      context 'with element' do
+        before { essence.stub(element: element) }
+
+        context 'but without content descriptions' do
+          it { should eq({}) }
+        end
+
+        context 'and content descriptions' do
+          before do
+            essence.stub(content: content)
+          end
+
+          context 'containing the content name' do
+            before { element.stub(content_descriptions: [content_description]) }
+
+            it "returns the content description" do
+              should eq(content_description)
+            end
+          end
+
+          context 'not containing the content name' do
+            before { element.stub(content_descriptions: []) }
+
+            it { should eq({}) }
+          end
+        end
+      end
+    end
 
     describe '#ingredient=' do
       it 'should set the value to ingredient column' do

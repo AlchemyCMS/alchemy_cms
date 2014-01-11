@@ -149,7 +149,7 @@ module Alchemy #:nodoc:
       # Essence description from config/elements.yml
       def description
         return {} if element.nil? or element.content_descriptions.nil?
-        element.content_descriptions.detect { |c| c['name'] == self.content.name }
+        element.content_descriptions.detect { |c| c['name'] == self.content.name } || {}
       end
 
       # Returns the Content Essence is in
