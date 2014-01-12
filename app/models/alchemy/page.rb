@@ -161,7 +161,7 @@ module Alchemy
         )
       end
 
-      def paste_from_clipboard(source, new_parent, new_name)
+      def copy_and_paste(source, new_parent, new_name)
         page = copy(source, {
           parent_id: new_parent.id,
           language: new_parent.language,

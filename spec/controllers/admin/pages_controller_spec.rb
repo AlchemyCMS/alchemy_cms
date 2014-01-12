@@ -179,8 +179,8 @@ module Alchemy
           Page.stub(:find).with("#{page_in_clipboard.id}").and_return(page_in_clipboard)
         end
 
-        it "should call Page#paste_from_clipboard" do
-          Page.should_receive(:paste_from_clipboard).with(
+        it "should call Page#copy_and_paste" do
+          Page.should_receive(:copy_and_paste).with(
             page_in_clipboard,
             parent,
             'pasted Page'

@@ -47,13 +47,7 @@ module Alchemy
       end
 
       def create
-        if params[:paste_from_clipboard]
-          source = Page.find(params[:paste_from_clipboard])
-          parent = Page.find_by(id: params[:page][:parent_id]) || Page.root
-          @page = Page.paste_from_clipboard(source, parent, params[:page][:name])
-        else
-          @page = Page.new(page_params)
-        end
+        @page = paste_from_clipboard || Page.new(page_params)
         if @page.save
           flash[:notice] = _t("Page created", name: @page.name)
           do_redirect_to(redirect_path_after_create_page)
@@ -274,6 +268,14 @@ module Alchemy
       def page_is_locked?
         return if !@page.locker.try(:logged_in?)
         @page.locked? && @page.locker != current_alchemy_user
+      end
+
+      def paste_from_clipboard
+        if params[:paste_from_clipboard]
+          source = Page.find(params[:paste_from_clipboard])
+          parent = Page.find_by(id: params[:page][:parent_id]) || Page.root
+          Page.copy_and_paste(source, parent, params[:page][:name])
+        end
       end
 
       def set_root_page
