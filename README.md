@@ -56,7 +56,7 @@ For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.c
 Installation
 ------------
 
-### As a standalone project.
+### As a standalone project
 
 #### 1. Use the installer:
 
@@ -64,20 +64,22 @@ Installation
     alchemy new my_magicpage
     cd my_magicpage
 
-### Note
+**Temporarily*** you have to add the following gem into your Gemfile:
 
-Subsequently add the following line to your Gemfile:
+    # Remove this after the new version (1.0.3) was released https://github.com/alexspeller/non-stupid-digest-assets/
+    gem 'non-stupid-digest-assets', github: 'alexspeller/non-stupid-digest-assets', branch: 'master'
 
-    gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
+*) This line can be safely removed, if the new version of the gem `non-stupid-digest-assets` will be released.
 
 Run
+
     bundle install
 
 to finish installation process.
 
 #### 2. Start the local server:
 
-    rails server
+    bin/rails server
 
 #### 3. Switch to your browser:
 
@@ -87,39 +89,39 @@ Open `http://localhost:3000` and follow the on screen instructions.
 
 #### 1. Add the Alchemy gem:
 
-In your App's Gemfile.
+In your App's Gemfile:
 
     gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
-    gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
+    # Remove this after the new version (1.0.3) was released https://github.com/alexspeller/non-stupid-digest-assets/
+    gem 'non-stupid-digest-assets', github: 'alexspeller/non-stupid-digest-assets', branch: 'master'
 
 #### 2. Install Alchemy into your app:
 
 Run in terminal:
 
     bundle install
-    bundle exec rake alchemy:install
+    bin/rake alchemy:install
 
+### Authentication User Model
 
-### Note:
+With Version 3.0 we extracted the Alchemy user model [into its own gem](https://github.com/magiclabs/alchemy-devise).
 
-Since Version 3.0 Alchemy does not contain a **user model** by default.
-If you've got an **own user model** you are free to add yours. If not you can use the default **user model** by adding the following line to your Gemfile:
+In order to get the former Alchemy user model back, add the following gem into your Gemfile:
 
-    gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
     gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
 
-The first line is required due to temporary issues with a used gem.
+Run in terminal:
 
-By default Alchemy 3.0 does not contain a predefined **user model**, your are free to add your own **user model*. If you like to use the default user model, you are required to add the line(above) "gem 'alchemy-devise', github: ......" .
+    bundle install
+    bin/rake alchemy_devise:install:migrations db:migrate
 
-Subsequently run in terminal:
+**In order to use your own user model, you can add e.g.**
 
-    rake alchemy_devise:install:migrations
-    rake db:migrate
+    # config/initializers/alchemy.rb
+    Alchemy.user_class_name = 'YourUserClass'
+    Alchemy.login_path = '/your/login/path'
+    Alchemy.logout_path = '/your/logout/path'
 
-Now the default **user model** is used by Alchemy CMS.
-
-If you did not mounted Alchemy on the root route `'/'`, then you have to add Alchemy's view helpers manually to your app.
 
 Upgrading
 ---------
@@ -128,7 +130,7 @@ After updating the Alchemy gem in your App, you should run the upgrader.
 
 Run in terminal:
 
-    bundle exec rake alchemy:upgrade
+    bin/rake alchemy:upgrade
 
 
 Tipps
