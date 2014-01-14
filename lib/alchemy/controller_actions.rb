@@ -25,14 +25,16 @@ module Alchemy
     #
     # In order to have Alchemy's authorization work, you have to
     # provide a +current_user+ method in your app's ApplicationController,
-    # that returns the current user.
+    # that returns the current user. To change the method +current_alchemy_user+
+    # will call, set +Alchemy.current_user_method+ to a different method name.
     #
     # If you don't have an App that can provide a +current_user+ object,
     # you can install the `alchemy-devise` gem that provides everything you need.
     #
     def current_alchemy_user
-      raise NoCurrentUserFoundError if !defined?(current_user)
-      current_user
+      current_user_method = Alchemy.current_user_method
+      raise NoCurrentUserFoundError if !respond_to?(current_user_method, true)
+      send current_user_method
     end
 
     # Returns true if a +current_alchemy_user+ is present
