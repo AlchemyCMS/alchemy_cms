@@ -29,11 +29,12 @@
 #     Alchemy.register_ability MyCustom::Ability
 #
 module Alchemy
-  mattr_accessor :user_class_name, :login_path, :logout_path
+  mattr_accessor :user_class_name, :current_user_method, :login_path, :logout_path
 
   # Defaults
   #
   @@user_class_name = 'User'
+  @@current_user_method = 'current_user'
   @@login_path = '/login'
   @@logout_path = '/logout'
 
