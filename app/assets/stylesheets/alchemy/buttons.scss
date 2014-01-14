@@ -45,6 +45,11 @@ button, input[type="submit"], a.button, input.button {
   overflow: hidden;
   text-align: center;
 
+  .spinner {
+    left: 50%;
+    top: 50%;
+  }
+
   .icon {
     @include inline-block;
     vertical-align: middle;
@@ -199,23 +204,8 @@ div#toolbar label {
   }
 
   &.disabled {
-    position: relative;
     @include opacity(0.5);
     cursor: default;
-
-    a {
-      cursor: default;
-      background-color: #f7f7f7;
-      border: 1px solid $button-border-color;
-    }
-
-    &:before {
-      content: '';
-      position: absolute;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-    }
   }
 }
 

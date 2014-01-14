@@ -627,7 +627,14 @@ div.browse {
 }
 
 #alchemyPreviewWindow {
-  width: 100% !important;
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 66px;
+  top: 80px;
+  width: auto;
+  height: auto;
+  border: 0 none;
+  background: #fff;
 }
 
 #error_trace {
@@ -636,4 +643,19 @@ div.browse {
   padding: $default-padding;
   overflow: auto;
   @extend %rounded-border;
+}
+
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to   { -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to   { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to   {transform:rotate(360deg);}
 }

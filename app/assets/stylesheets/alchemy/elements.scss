@@ -1,3 +1,29 @@
+#alchemyElementsWindow {
+  @include box-sizing(border-box);
+  position: absolute;
+  right: 0;
+  top: 80px;
+  width: 400px;
+  height: auto;
+  border-left: $default-border;
+}
+
+#element_area {
+  @include box-sizing(border-box);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .sortable_cell {
+    min-height: 100px;
+    padding: 2*$default-padding $default-padding 2px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 140px;
+  }
+}
+
 .element_heading {
   padding: 0;
   z-index: 0;
@@ -20,22 +46,6 @@ span.preview_text_element_name {
   text-shadow: #efefef 1px 1px 1px;
   font-weight: bold;
   line-height: 15px;
-}
-
-div#element_area {
-  padding: 0;
-  margin: 0;
-  min-height: 90%;
-
-  .sortable_cell {
-    min-height: 100px;
-    padding: 2*$default-padding $default-padding 2px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 140px;
-  }
 }
 
 .element_handle {
@@ -137,6 +147,11 @@ div#element_area {
     @include box-shadow(0 0 4px $blue);
   }
 
+  form {
+    margin: 0;
+    padding: 8px 8px 0 8px;
+  }
+
   .validation_notice {
     font-size: 10px;
     margin-top: 1em;
@@ -229,11 +244,6 @@ div#element_area {
     float: right;
     margin: 0;
   }
-}
-
-#alchemy .ui-dialog div.element_editor form {
-  margin: 0;
-  padding: 8px 8px 0 8px;
 }
 
 div.element_tools {

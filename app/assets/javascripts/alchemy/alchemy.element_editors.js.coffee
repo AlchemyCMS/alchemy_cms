@@ -88,7 +88,7 @@ Alchemy.ElementEditors =
   # Scrolls the element window to given element editor dom element.
   #
   scrollToElement: (el) ->
-    $("#alchemyElementWindow").scrollTo el,
+    $("#element_area").scrollTo el,
       duration: 400
       offset: -10
 

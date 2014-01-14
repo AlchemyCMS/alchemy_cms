@@ -1501,10 +1501,6 @@ button.ui-button::-moz-focus-inner {
   padding: 0;
   z-index: 10;
 
-  &.alchemy-preview-window, &.alchemy-elements-window {
-    z-index: 5;
-  }
-
   &:focus { outline: none }
 
   > div.info, > div.message {
@@ -1547,71 +1543,6 @@ button.ui-button::-moz-focus-inner {
       right: -1px;
       top: 3px;
     }
-  }
-}
-
-.preview-refresh-spinner {
-  position: absolute !important; // when will js lib authors stop to add styles to elements.... :/
-  top: 16px;
-  right: 57px;
-}
-
-.ui-dialog .ui-dialog-titlebar-refresh {
-  position: absolute;
-  right: 46px;
-  top: 7px;
-  height: 18px;
-
-  &.ui-state-hover {
-    margin-right: 3px;
-
-    .ui-icon-refresh:before {
-      top: 2px;
-      right: 2px;
-    }
-  }
-}
-
-.ui-dialog .ui-dialog-titlebar-maximize,
-.ui-dialog .ui-dialog-titlebar-restore,
-.ui-dialog .ui-dialog-titlebar-refresh {
-  margin-right: 2px;
-  margin-top: 1px;
-  padding: 0;
-
-  .ui-icon {
-    margin: 0;
-    left: -1px;
-  }
-
-  &.ui-state-default {
-    background: transparent;
-    border: 0;
-    @include text-shadow(none);
-    @include box-shadow(none);
-    width: 18px;
-  }
-
-  &.ui-state-hover {
-    width: 18px;
-    height: 18px;
-    @include box-shadow(none);
-    @include text-shadow(none);
-
-    .ui-icon {
-      margin: 0;
-    }
-  }
-}
-
-.ui-dialog-titlebar-close, .ui-dialog-titlebar-refresh, .ui-dialog-titlebar-maximize, .ui-dialog-titlebar-restore {
-
-  &.ui-state-hover, &.ui-state-focus {
-    border: 1px solid $button-hover-border-color;
-    background: $button-hover-bg-color;
-    font-weight: normal;
-    color: $text-color;
-    padding: 0;
   }
 }
 
@@ -1780,7 +1711,7 @@ button.ui-button::-moz-focus-inner {
   &.ui-tabs-active {
     background-color: $light-gray;
     margin-bottom: 0px;
-    height: 27px;
+    height: 28px;
 
     a { cursor: default }
   }
