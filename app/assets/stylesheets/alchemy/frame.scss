@@ -40,7 +40,7 @@
 }
 
 #main_navi {
-  padding-top: $top-navi-height;
+  padding-top: 30px;
   padding-bottom: 80px;
 
   .main_navi_entry {
@@ -50,7 +50,6 @@
     overflow: hidden;
     display: block;
     padding: 2*$default-padding 0;
-    margin: 1px 0;
 
     &.active {
       background: $navi-tab-color;
