@@ -35,12 +35,12 @@ Alchemy.ElementsWindow =
       modal: false
       minWidth: 400
       minHeight: 300
-      height: $(window).height() - 90
+      height: $(window).height() - 86
       title: options.texts.title
       show: "fade"
       hide: "fade"
       position:
-        my: "right bottom", at: "right-2px bottom-2px"
+        my: "right bottom", at: "right bottom"
       closeOnEscape: false
       dialogClass: 'alchemy-elements-window'
       create: ->

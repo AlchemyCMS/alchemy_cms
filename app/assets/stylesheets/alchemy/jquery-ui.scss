@@ -259,35 +259,35 @@
 .ui-icon {
   width: 16px;
   height: 16px;
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-widget-content .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-widget-header .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-state-default .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-state-active .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-state-highlight .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
-  background-image: image-url('alchemy/ui-icons_666666_256x240.png');
+  background-image: none;
 }
 
 /* positioning */
@@ -1042,69 +1042,69 @@
 /* Corner radius */
 
 .ui-corner-tl {
-  -moz-border-radius-topleft: $default-border-radius;
-  -webkit-border-top-left-radius: $default-border-radius;
-  border-top-left-radius: $default-border-radius;
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .ui-corner-tr {
-  -moz-border-radius-topright: $default-border-radius;
-  -webkit-border-top-right-radius: $default-border-radius;
-  border-top-right-radius: $default-border-radius;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .ui-corner-bl {
-  -moz-border-radius-bottomleft: $default-border-radius;
-  -webkit-border-bottom-left-radius: $default-border-radius;
-  border-bottom-left-radius: $default-border-radius;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .ui-corner-br {
-  -moz-border-radius-bottomright: $default-border-radius;
-  -webkit-border-bottom-right-radius: $default-border-radius;
-  border-bottom-right-radius: $default-border-radius;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .ui-corner-top {
-  -moz-border-radius-topleft: $default-border-radius;
-  -webkit-border-top-left-radius: $default-border-radius;
-  border-top-left-radius: $default-border-radius;
-  -moz-border-radius-topright: $default-border-radius;
-  -webkit-border-top-right-radius: $default-border-radius;
-  border-top-right-radius: $default-border-radius;
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .ui-corner-bottom {
-  -moz-border-radius-bottomleft: $default-border-radius;
-  -webkit-border-bottom-left-radius: $default-border-radius;
-  border-bottom-left-radius: $default-border-radius;
-  -moz-border-radius-bottomright: $default-border-radius;
-  -webkit-border-bottom-right-radius: $default-border-radius;
-  border-bottom-right-radius: $default-border-radius;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .ui-corner-right {
-  -moz-border-radius-topright: $default-border-radius;
-  -webkit-border-top-right-radius: $default-border-radius;
-  border-top-right-radius: $default-border-radius;
-  -moz-border-radius-bottomright: $default-border-radius;
-  -webkit-border-bottom-right-radius: $default-border-radius;
-  border-bottom-right-radius: $default-border-radius;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .ui-corner-left {
-  -moz-border-radius-topleft: $default-border-radius;
-  -webkit-border-top-left-radius: $default-border-radius;
-  border-top-left-radius: $default-border-radius;
-  -moz-border-radius-bottomleft: $default-border-radius;
-  -webkit-border-bottom-left-radius: $default-border-radius;
-  border-bottom-left-radius: $default-border-radius;
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .ui-corner-all {
-  -moz-border-radius: $default-border-radius;
-  -webkit-border-radius: $default-border-radius;
-  border-radius: $default-border-radius;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 
 /* Overlays */
@@ -1556,71 +1556,6 @@ button.ui-button::-moz-focus-inner {
       top: 2px;
       color: $dark-gray;
     }
-  }
-}
-
-.preview-refresh-spinner {
-  position: absolute !important; // when will js lib authors stop to add styles to elements.... :/
-  top: 16px;
-  right: 57px;
-}
-
-.ui-dialog .ui-dialog-titlebar-refresh {
-  position: absolute;
-  right: 46px;
-  top: 7px;
-  height: 18px;
-
-  &.ui-state-hover {
-    margin-right: 3px;
-
-    .ui-icon-refresh:before {
-      top: 2px;
-      right: 2px;
-    }
-  }
-}
-
-.ui-dialog .ui-dialog-titlebar-maximize,
-.ui-dialog .ui-dialog-titlebar-restore,
-.ui-dialog .ui-dialog-titlebar-refresh {
-  margin-right: 2px;
-  margin-top: 1px;
-  padding: 0;
-
-  .ui-icon {
-    margin: 0;
-    left: -1px;
-  }
-
-  &.ui-state-default {
-    background: transparent;
-    border: 0;
-    @include text-shadow(none);
-    @include box-shadow(none);
-    width: 18px;
-  }
-
-  &.ui-state-hover {
-    width: 18px;
-    height: 18px;
-    @include box-shadow(none);
-    @include text-shadow(none);
-
-    .ui-icon {
-      margin: 0;
-    }
-  }
-}
-
-.ui-dialog-titlebar-close, .ui-dialog-titlebar-refresh, .ui-dialog-titlebar-maximize, .ui-dialog-titlebar-restore {
-
-  &.ui-state-hover, &.ui-state-focus {
-    border: 1px solid $button-hover-border-color;
-    background: $button-hover-bg-color;
-    font-weight: normal;
-    color: $text-color;
-    padding: 0;
   }
 }
 

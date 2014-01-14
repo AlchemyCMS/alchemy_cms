@@ -88,20 +88,20 @@
   </div>
 </div>
 <div class="toolbar_buttons right">
-  <div class="button_with_label" id="show_preview_window">
-    <%= link_to(render_icon(:preview_window), '#', {
-      onclick: "Alchemy.openPreviewWindow(); return false",
-      title: _t('Show Preview Window'),
-      class: :icon_button
-    }) %>
-    <label><%= _t('Show Preview Window') %></label>
+  <div class="button_with_label">
+    <%= link_to render_icon(:reload), '#', {
+      title: _t('Reload Preview'),
+      class: 'icon_button spinning',
+      id: 'reload_preview_button'
+    } %>
+    <label><%= _t('Reload Preview') %></label>
   </div>
   <div class="button_with_label" id="show_element_window">
-    <%= link_to(render_icon(:element_window), '#', {
+    <%= link_to render_icon(:element), '#', {
       onclick: "Alchemy.openElementsWindow(); return false",
       title: _t('Show Elements Window'),
-      class: :icon_button
-    }) %>
+      class: 'icon_button'
+    } %>
     <label><%= _t('Show Elements Window') %></label>
   </div>
 </div>
@@ -111,7 +111,7 @@
 <script type="text/javascript" charset="utf-8">
 
   Alchemy.openPreviewWindow = function() {
-    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>', '<%= _t("Page Preview") %>');
+    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>');
   }
 
   Alchemy.openElementsWindow = function() {
@@ -195,31 +195,18 @@
       $('#top_menu').css('z-index', 30);
     });
 
-    Alchemy.PreviewWindow.currentWidth = Alchemy.PreviewWindow.currentWindow.dialog('widget').width();
-
     $('select#preview_size').on('change', function(e) {
       var width = this.value;
       if (this.value === 'auto') {
         width = Alchemy.PreviewWindow.currentWidth;
       }
-      Alchemy.PreviewWindow.currentWindow.dialog('widget').css('width', width);
-      Alchemy.PreviewWindow.currentWindow.dialog('moveToTop');
+      Alchemy.PreviewWindow.currentWindow.css('width', width);
     });
 
     $(window).resize(function() {
-      width = $(window).width() - 470;
-      height = $(window).height() - 90;
-      if (width < 240) {
-        width = 240;
-      }
-      left = $(window).width() - 402;
-      if (left < 316) {
-        left = 316;
-      }
-      Alchemy.PreviewWindow.currentWindow.dialog('widget').css({
-        width: width,
-        height: height
-      });
+      var height = Alchemy.PreviewWindow.resize();
+      var left = $(this).width() - 400;
+      if (left < 316) left = 316;
       Alchemy.ElementsWindow.currentWindow.dialog('widget').css({
         left: left,
         height: height
