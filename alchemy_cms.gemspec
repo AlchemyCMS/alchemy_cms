@@ -41,7 +41,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
   gem.add_runtime_dependency 'spinner.rb'
   gem.add_runtime_dependency 'turbolinks',                       '~> 2.0'
-  gem.add_runtime_dependency 'non-stupid-digest-assets',         '~> 1.0.0'
+  gem.add_runtime_dependency 'non-stupid-digest-assets',         '~> 1.0'
   gem.add_runtime_dependency 'active_model_serializers',         '~> 0.8.1'
 
   gem.add_development_dependency 'rspec-rails'
