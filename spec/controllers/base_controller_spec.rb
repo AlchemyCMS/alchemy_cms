@@ -92,5 +92,45 @@ module Alchemy
       end
     end
 
+    describe "#current_alchemy_user" do
+
+      context "with default current_user_method" do
+
+        it "calls current_user by default" do
+          controller.should_receive :current_user
+          controller.send :current_alchemy_user
+        end
+      end
+
+      context "with custom current_user_method" do
+
+        before do
+          Alchemy.current_user_method = 'current_admin'
+        end
+
+        it "calls the custom method" do
+          controller.should_receive :current_admin
+          controller.send :current_alchemy_user
+        end
+      end
+
+      context "with not implemented current_user_method" do
+
+        before do
+          Alchemy.current_user_method = 'not_implemented_method'
+        end
+
+        after do
+          Alchemy.current_user_method = 'current_user'
+        end
+
+        it "raises an error" do
+          expect{
+            controller.send :current_alchemy_user
+          }.to raise_error(NoCurrentUserFoundError)
+        end
+      end
+    end
+
   end
 end
