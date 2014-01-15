@@ -1465,21 +1465,12 @@ button.ui-button::-moz-focus-inner {
   z-index: 10;
   border: 0 none;
 
-  &.alchemy-preview-window, &.alchemy-elements-window {
-    z-index: 5;
-  }
-
   &:focus { outline: none }
 
   > div.info, > div.message {
     margin: 8px;
     margin-bottom: 0;
   }
-}
-
-#alchemyElementWindow {
-  border: $default-border;
-  border-top: 0 none;
 }
 
 .ui-dialog-titlebar {
@@ -1685,7 +1676,7 @@ button.ui-button::-moz-focus-inner {
   &.ui-tabs-active {
     background-color: $light-gray;
     margin-bottom: 0px;
-    height: 28px;
+    height: 29px;
 
     a { cursor: default }
   }

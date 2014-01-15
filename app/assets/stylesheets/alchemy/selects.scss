@@ -30,7 +30,7 @@ select {
 
         b {
           @extend .icon;
-          background-image: none;
+          background-image: none !important;
           width: 18px;
 
           &:before {
@@ -49,7 +49,7 @@ select {
         .select2-arrow {
           width: 14px;
           height: 14px;
-          line-height: 12px;
+          line-height: 11px;
 
           b {
             width: 12px;

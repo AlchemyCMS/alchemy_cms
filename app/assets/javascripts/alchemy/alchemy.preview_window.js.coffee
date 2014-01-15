@@ -13,14 +13,16 @@ Alchemy.PreviewWindow =
 
   resize: ->
     $window = $(window)
-    width = $window.width() - 464
+    if Alchemy.ElementsWindow.hidden
+      width = $window.width() - 64
+    else
+      width = $window.width() - 464
     height = $window.height() - 86
     width = 240 if width < 240
     @currentWidth = width
     @currentWindow.css
       width: width
       height: height
-    return height
 
   refresh: (callback) ->
     $iframe = $('#alchemyPreviewWindow')

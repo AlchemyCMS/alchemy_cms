@@ -96,13 +96,12 @@
     } %>
     <label><%= _t('Reload Preview') %></label>
   </div>
-  <div class="button_with_label" id="show_element_window">
-    <%= link_to render_icon(:element), '#', {
-      onclick: "Alchemy.openElementsWindow(); return false",
-      title: _t('Show Elements Window'),
+  <div class="button_with_label" id="element_window_button">
+    <%= link_to render_icon(:element), '', {
+      title: _t('Hide Elements'),
       class: 'icon_button'
     } %>
-    <label><%= _t('Show Elements Window') %></label>
+    <label><%= _t('Hide Elements') %></label>
   </div>
 </div>
 <% end %>
@@ -110,18 +109,23 @@
 <% content_for :javascripts do %>
 <script type="text/javascript" charset="utf-8">
 
-  Alchemy.openPreviewWindow = function() {
+  $(function() {
+    $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
+      var not_dirty = Alchemy.checkPageDirtyness(this);
+      if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
+      return not_dirty;
+    });
+    Alchemy.PageLeaveObserver();
     Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>');
-  }
-
-  Alchemy.openElementsWindow = function() {
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {
         title: '<%= _t("Elements") %>',
         dirtyTitle: '<%= _t("Warning!") %>',
         dirtyMessage: '<%= _t(:element_dirty_close_window_notice) %>',
         okLabel: '<%= _t("Yes") %>',
-        cancelLabel: '<%= _t("No") %>'
+        cancelLabel: '<%= _t("No") %>',
+        hideElements: '<%= _t("Hide Elements") %>',
+        showElements: '<%= _t("Show Elements") %>'
       },
       toolbarButtons: [
         {
@@ -169,23 +173,12 @@
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element_editor');
       Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
-      jQuery('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
+      $('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('Alchemy.SelectElementEditor');
       }
     });
-  }
-
-  jQuery(function($) {
-    $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
-      var not_dirty = Alchemy.checkPageDirtyness(this);
-      if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
-      return not_dirty;
-    });
-    Alchemy.PageLeaveObserver();
-    Alchemy.openElementsWindow();
-    Alchemy.openPreviewWindow();
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);
@@ -204,13 +197,8 @@
     });
 
     $(window).resize(function() {
-      var height = Alchemy.PreviewWindow.resize();
-      var left = $(this).width() - 400;
-      if (left < 316) left = 316;
-      Alchemy.ElementsWindow.currentWindow.dialog('widget').css({
-        left: left,
-        height: height
-      });
+      Alchemy.PreviewWindow.resize();
+      Alchemy.ElementsWindow.resize();
     });
   });
 
