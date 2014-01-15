@@ -53,6 +53,10 @@ th {
       @include background(linear-gradient(top, lighten($light-gray, 10) 0%, $very-light-blue 50%, $light-gray 90%, darken($light-gray, 10) 100%));
     }
   }
+
+  &.icon {
+    background: none;
+  }
 }
 
 tr.odd td {

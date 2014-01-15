@@ -564,45 +564,6 @@
   background-position: -48px -80px;
 }
 
-.ui-icon-refresh {
-  background: none !important;
-  @extend .icon-ccw;
-
-  &:before {
-    text-indent: 0;
-    position: absolute;
-    right: 4px;
-    top: 3px;
-  }
-}
-
-.ui-icon-fullscreen {
-  background: none !important;
-  position: relative;
-  @extend .icon-fullscreen;
-
-  &:before {
-    text-indent: 0;
-    position: absolute;
-    right: 2px;
-    top: 2px;
-    font-size: 10px;
-  }
-}
-
-.ui-icon-exit-fullscreen {
-  background: none !important;
-  position: relative;
-  @extend .icon-fullscreen-exit;
-
-  &:before {
-    text-indent: 0;
-    position: absolute;
-    right: 1px;
-    top: 2px;
-  }
-}
-
 .ui-icon-shuffle {
   background-position: -80px -80px;
 }
