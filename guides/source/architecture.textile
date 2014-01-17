@@ -12,8 +12,9 @@ endprologue.
 h3. Rails Engine
 
 Since the Alchemy CMS project started, it is a Rails engine.
-Rails 3.1 brought the possibility for namespacing and mounting of Rails engines.
-Since Alchemy CMS v2.1 it is now a mountable and completely namespaced Rails engine.
+Rails 3.1 brought the namespacing and mounting possibility of Rails engines.
+Alchemy CMS is taking advantage of these features since v2.1.
+You can read more about the "engines in the Rails guides":http://edgeguides.rubyonrails.org/engines.html.
 
 h3. The Core modules
 
@@ -27,14 +28,14 @@ Alchemy CMS comes with six core modules:
 # Library (Pictures & Attachments)
 
 The core modules can be extended by own modules.
-A module should be a Rails engine that registers themself at Alchemy.
+A module should be a Rails engine that registers itself at Alchemy.
 Read more about "creating own modules":creating_modules.html.
 
 h3. Storing architecture
 
 Alchemy stores content. Period. Really, that's it.
 
-Unlike many other CMS's that store a whole page body with complete html markup from one of these fancy WYSIWYG editors out there, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only some richtext content in the database. No html markup, no css, no styling, no layout. Just pure content.
+Unlike many other CMS's that store a whole page body with complete html markup from one of these fancy WYSIWYG editors out there, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only somewhat richtext content in the database. No html markup, no css, no styling, no layout. Just pure content.
 
 The webdeveloper is in full control of the markup and styling. The editor just manages the content.
 
@@ -44,7 +45,7 @@ h3. The Rendering Process en Detail
 
 Alchemy strongly uses the Rails partial rendering mechanism. It has no own templating language and no <i>special files</i>.
 
-When rendering a Page Alchemy renders these files:
+When Alchemy renders a Page, these files will be rendered:
 
 # <code>app/views/layouts/application.html.erb</code>
 # <code>app/views/alchemy/page_layouts/_THE_NAME_OF_THE_PAGES_PAGE_LAYOUT.html.erb</code>
@@ -73,4 +74,4 @@ Since Alchemy v2.1 there is a resources controller available. When developing ow
 
 The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
-Read more details of the resources controller in the "module development":create_modules.html guide.
+Read more details about the resources controller in the "module development":create_modules.html guide.
