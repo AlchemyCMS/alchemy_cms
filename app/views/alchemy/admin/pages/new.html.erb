@@ -13,8 +13,10 @@
     <%= alchemy_form_for [:admin, @page] do |f| %>
       <%= f.hidden_field(:parent_id) %>
       <div class="input select">
-        <label for="paste_from_clipboard"><%= _t("Page") %></label>
-        <%= clipboard_select_tag(@clipboard_items) %>
+        <label for="paste_from_clipboard" class="control-label"><%= _t("Page") %></label>
+        <%= select_tag 'paste_from_clipboard',
+          clipboard_select_tag_options(@clipboard_items),
+          class: 'alchemy_selectbox' %>
       </div>
       <%= f.input :name %>
       <%= f.submit _t(:paste) %>
