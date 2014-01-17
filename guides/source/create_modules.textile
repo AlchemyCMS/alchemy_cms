@@ -35,21 +35,25 @@ After you setting up your routes you have to take care for control access:
 
 h3. Authorization
 
-Rights and roles are set in <code>config/authorization_rules.rb</code>.
+Rights and roles are set in <code>app/models/ability.rb</code>.
 Just create the file if it doesn't exist already.
 
 <pre>
-# config/authorization_rules.rb
-authorization do
+# app/models/ability.rb
+class Ability
+  include CanCan::Ability
 
-  role :admin do
-    has_permission_on :admin_your_resource, :to => [:manage]
+  def initialize(user)
+    if !user.blank? && user.is_admin?
+      can :manage, YourResource
+      can :manage, :admin_your_resource
+    end
   end
 
 end
 </pre>
 
-More information about authorization can be found in the docs of the <code>declarative_authorization</code> gem ("http://rubydoc.info/github/stffn/declarative_authorization/file/README.rdoc":http://rubydoc.info/github/stffn/declarative_authorization/file/README.rdoc#Authorization_Rules)
+More information about authorization can be found in the docs of the <code>cancan</code> gem ("https://github.com/ryanb/cancan/wiki/Defining-Abilities":https://github.com/ryanb/cancan/wiki/Defining-Abilities)
 
 h3. Mounting
 
