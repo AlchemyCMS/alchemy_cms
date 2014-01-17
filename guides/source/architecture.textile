@@ -5,7 +5,7 @@ Alchemy is the most user friendly and flexible Rails based CMS today. In this gu
 * The flexible content storing architecture
 * The image processing magick®
 * Caching
-* The ressources controller
+* The resources controller
 
 endprologue.
 
@@ -67,10 +67,10 @@ h3. Caching
 If not deactivated in the "configuration":configuration.html, Alchemy uses Rails action_caching for fast content delivering.
 This will cache all "page layout":page_layouts.html partials where "cells":cells.html and "elements":elements.html are rendered on.
 
-h3. Ressources Controller
+h3. Resources Controller
 
-Since Alchemy v2.1 there is a ressources controller available. When developing own modules for Alchemy, your controller can inherit from that ressources controller (<code>Alchemy::Admin::RessourcesController</code>) and will get all the rails-like CRUD methods.
+Since Alchemy v2.1 there is a resources controller available. When developing own modules for Alchemy, your controller can inherit from that resources controller (<code>Alchemy::Admin::ResourcesController</code>) and will get all the rails-like CRUD methods.
 
 The standard partials for the backend views are also getting rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
-Read more details of the ressources controller in the "module development":create_modules.html guide.
+Read more details of the resources controller in the "module development":create_modules.html guide.
