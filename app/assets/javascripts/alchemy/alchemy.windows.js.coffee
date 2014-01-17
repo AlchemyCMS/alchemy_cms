@@ -192,6 +192,7 @@ $.extend Alchemy,
                 options.complete($dialog)
               if options.image_loader
                 Alchemy.ImageLoader Alchemy.CurrentWindow, {color: options.image_loader_color}
+              $("#overlay_tabs", $dialog).tabs()
               Alchemy.watchRemoteForms($dialog)
           error: (XMLHttpRequest, textStatus, errorThrown) ->
             Alchemy.AjaxErrorHandler($dialog, XMLHttpRequest.status, textStatus, errorThrown)
