@@ -48,8 +48,8 @@ Alchemy strongly uses the Rails partial rendering mechanism. It has no own templ
 When Alchemy renders a Page, these files will be rendered:
 
 # <code>app/views/layouts/application.html.erb</code>
-# <code>app/views/alchemy/page_layouts/_THE_NAME_OF_THE_PAGES_PAGE_LAYOUT.html.erb</code>
-# <code>app/views/alchemy/elements/_THE_NAME_OF_THE_ELEMENT_view.html.erb</code>
+# <code>app/views/alchemy/page_layouts/_NAME_OF_PAGE_LAYOUT.html.erb</code>
+# <code>app/views/alchemy/elements/_NAME_OF_ELEMENT_view.html.erb</code>
 
 NOTE: Since Alchemy v2.4 you can use Slim and HAML views as well.
 
