@@ -25,7 +25,7 @@ module Alchemy
     #   <%= link_to '&raquo order now', page_path_for(:page_layout => 'orderform', :product_id => element.id) %>
     #
     def page_path_for(options={})
-      ActiveSupport::Deprecation.warn("Used deprecated page_path_for helper. Please use show_alchemy_page_path instead.")
+      ActiveSupport::Deprecation.warn("Used deprecated page_path_for helper. It will be removed in Alchemy v3.0. You can use show_alchemy_page_path instead.")
       return warning("No page_layout, or urlname given. I got #{options.inspect} ") if options[:page_layout].blank? && options[:urlname].blank?
       if options[:urlname].blank?
         page = Page.find_by_page_layout(options[:page_layout])

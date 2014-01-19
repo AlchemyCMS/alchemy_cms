@@ -45,6 +45,7 @@ module Alchemy
       #    Should the window show overflowing content?
       #
       def link_to_overlay_window(content, url, options={}, html_options={})
+        ActiveSupport::Deprecation.warn("Used deprecated link_to_overlay_window helper. It will be removed in Alchemy v3.0. Please build the relevant behavior on your own.")
         default_options = {
           :modal => true,
           :overflow => true,

@@ -33,12 +33,12 @@ module Alchemy
     end
 
     def language_switches(options={})
-      ActiveSupport::Deprecation.warn("Used deprecated language_switches helper. Please use language_links instead.")
+      ActiveSupport::Deprecation.warn("Used deprecated language_switches helper. It will be removed in Alchemy v3.0. You can use language_links instead.")
       language_links(options)
     end
 
     def language_switcher(options={})
-      ActiveSupport::Deprecation.warn("Used deprecated language_switcher helper. Please use language_links instead.")
+      ActiveSupport::Deprecation.warn("Used deprecated language_switcher helper. It will be removed in Alchemy v3.0. You can use language_links instead.")
       language_links(options)
     end
 
@@ -411,6 +411,7 @@ module Alchemy
 
     # Renders a menubar for logged in users that are visiting a page.
     def alchemy_menu_bar
+      ActiveSupport::Deprecation.warn('Used deprecated alchemy_menu_bar helper. It will be removed in Alchemy v3.0. You can use `render "/alchemy/menubar"` instead.')
       return if @preview_mode
       if permitted_to?(:edit, :alchemy_admin_pages)
         menu_bar_string = ""

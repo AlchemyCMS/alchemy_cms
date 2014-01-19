@@ -213,6 +213,7 @@ module Alchemy
     # @note When passing a String for options :from_page, it must be a page_layout name.
     #
     def all_elements_by_name(name, options = {})
+      ActiveSupport::Deprecation.warn("Used deprecated all_elements_by_name helper. It will be removed in Alchemy v3.0. Please build the relevant behavior on your own.")
       warning('options[:language] option not allowed any more in all_elements_by_name helper') unless options[:language].blank?
       options = {
         count: :all,
@@ -244,6 +245,7 @@ module Alchemy
     #   The id of the Page the element is associated with
     #
     def element_from_page(options = {})
+      ActiveSupport::Deprecation.warn("Used deprecated element_from_page helper. It will be removed in Alchemy v3.0. Please build the relevant behavior on your own.")
       default_options = {
         page_urlname: "",
         page_id: nil,
@@ -263,6 +265,7 @@ module Alchemy
 
     # Renders all element partials from given cell.
     def render_cell_elements(cell)
+      ActiveSupport::Deprecation.warn("Used deprecated render_cell_elements helper. It will be removed in Alchemy v3.0. You can use render_elements(from_cell: cell) instead.")
       return warning("No cell given.") if cell.blank?
       render_elements({:from_cell => cell})
     end

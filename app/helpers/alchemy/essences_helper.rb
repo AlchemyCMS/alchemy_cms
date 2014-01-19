@@ -60,6 +60,7 @@ module Alchemy
     #   <%= render_essence_view_by_type(element, "EssencePicture", 1, {:image_size => "120x80", :crop => true}) %>
     #
     def render_essence_view_by_type(element, type, position = 1, options = {}, html_options = {})
+      ActiveSupport::Deprecation.warn("Used deprecated render_essence_view_by_type helper. It will be removed in Alchemy v3.0. You can use render_essence_view_by_name instead.")
       if element.blank?
         warning('Element is nil')
         return ""
