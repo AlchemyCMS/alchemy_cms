@@ -5,7 +5,7 @@
       label: _t(:upload_image),
       url: alchemy.new_admin_picture_path(size: @size),
       hotkey: 'alt+n',
-      overlay_options: {
+      dialog_options: {
         title: _t(:upload_image),
         size: '540x590'
       },
@@ -53,7 +53,7 @@
       <%= toolbar_button(
         icon: 'clear',
         url: alchemy.flush_admin_pictures_path,
-        overlay: false,
+        dialog: false,
         link_options: {
           remote: true,
           method: :post

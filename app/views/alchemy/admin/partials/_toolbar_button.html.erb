@@ -1,9 +1,9 @@
 <div class="button_with_label<%= options[:active] ? ' active' : '' %>">
-<% if options[:overlay] %>
-  <%= link_to_overlay_window(
+<% if options[:dialog] %>
+  <%= link_to_dialog(
     render_icon(options[:icon]),
     options[:url],
-    options[:overlay_options],
+    options[:dialog_options],
     {
       class: 'icon_button',
       title: options[:title],

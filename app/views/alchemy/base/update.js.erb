@@ -1,4 +1,4 @@
-Alchemy.closeCurrentWindow();
+Alchemy.closeCurrentDialog();
 <%- unless flash[:notice].blank? -%>
   Alchemy.growl('<%= flash[:notice] -%>');
 <%- end -%>

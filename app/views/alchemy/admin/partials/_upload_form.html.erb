@@ -54,7 +54,7 @@
         var url = '<%= redirect_url.html_safe %>';
       <% if @while_assigning %>
         $.get(url, null, null, 'script');
-        Alchemy.closeCurrentWindow();
+        Alchemy.closeCurrentDialog();
       <% else %>
         Alchemy.pleaseWaitOverlay();
         window.location.href = url;

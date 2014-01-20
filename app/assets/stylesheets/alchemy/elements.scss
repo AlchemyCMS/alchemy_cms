@@ -543,10 +543,6 @@ select.long {
   padding: 0;
 }
 
-#alchemy .ui-dialog-content div.content_editor input.auto_resize {
-  width: 100%;
-}
-
 div.content_editor {
   margin-bottom: 8px;
   position: relative;
@@ -642,11 +638,6 @@ div.content_editor {
 
   &:hover label a.icon_button.small {
     @include inline-block;
-  }
-
-  input.text_with_icon.auto_resize.thin_border {
-    padding-right: 52px;
-    width: 314px;
   }
 
   select.essence_editor_select {

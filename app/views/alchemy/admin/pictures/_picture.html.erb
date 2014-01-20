@@ -23,7 +23,7 @@
   <% end %>
   <% if can?(:edit, picture) %>
   <span class="picture_tool edit">
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       "",
       alchemy.edit_admin_picture_path(
         id: picture,
@@ -45,7 +45,7 @@
   <% end %>
   <% if can?(:info, picture) %>
   <span class="picture_tool info">
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       "",
       alchemy.info_admin_picture_path(
         id: picture,

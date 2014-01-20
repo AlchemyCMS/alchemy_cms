@@ -270,7 +270,7 @@ span.page_status {
   margin: 2px 2px 0 4px;
 }
 
-.alchemy_overlay .page_status {
+.alchemy-dialog .page_status {
   margin: 4px 4px 0 0;
 }
 
@@ -359,7 +359,7 @@ h2#sitemap_heading {
   padding-left: 4*$default-padding;
 }
 
-.ui-dialog-content ul#sitemap {
+.alchemy-dialog ul#sitemap {
   margin: 0;
   padding: 0 8px 8px 0;
 

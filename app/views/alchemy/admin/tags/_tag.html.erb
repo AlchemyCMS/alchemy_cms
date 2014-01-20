@@ -15,7 +15,7 @@
     %>
     <% end %>
     <% if can?(:edit, Alchemy::Tag) %>
-    <%= link_to_overlay_window '',
+    <%= link_to_dialog '',
       edit_admin_tag_path(tag),
       {
         title: _t(:edit_tag),
