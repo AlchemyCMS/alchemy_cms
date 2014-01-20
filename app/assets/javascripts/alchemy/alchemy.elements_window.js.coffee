@@ -32,7 +32,9 @@ Alchemy.ElementsWindow =
       @hide()
       false
     height = @resize()
-    @element_area.append Alchemy.getOverlaySpinner(width: 400, height: height - 59)
+    window.requestAnimationFrame =>
+      spinner = Alchemy.Spinner.medium()
+      spinner.spin @element_area[0]
     $('#main_content').append(@element_window)
     @reload()
 
