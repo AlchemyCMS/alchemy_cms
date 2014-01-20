@@ -2,13 +2,13 @@
  Jasmine-Ajax : a set of helpers for testing AJAX requests under the Jasmine
  BDD framework for JavaScript.
 
- Supports both Prototype.js and jQuery.
+ Supports jQuery.
 
  http://github.com/pivotal/jasmine-ajax
 
  Jasmine Home page: http://pivotal.github.com/jasmine
 
- Copyright (c) 2008-2010 Pivotal Labs
+ Copyright (c) 2008-2013 Pivotal Labs
 
  Permission is hereby granted, free of charge, to any person obtaining
  a copy of this software and associated documentation files (the
@@ -48,41 +48,61 @@ function clearAjaxRequests() {
 
 // Fake XHR for mocking Ajax Requests & Responses
 function FakeXMLHttpRequest() {
-  var extend = Object.extend || $.extend;
+  var extend = Object.extend || jQuery.extend;
   extend(this, {
-    requestHeaders:{},
+    requestHeaders: {},
 
-    open:function () {
+    open: function() {
       this.method = arguments[0];
       this.url = arguments[1];
+      this.username = arguments[3];
+      this.password = arguments[4];
       this.readyState = 1;
     },
 
-    setRequestHeader:function (header, value) {
+    setRequestHeader: function(header, value) {
       this.requestHeaders[header] = value;
     },
 
-    abort:function () {
+    abort: function() {
       this.readyState = 0;
     },
 
-    readyState:0,
+    readyState: 0,
 
-    onreadystatechange:function (isTimeout) {
+    onload: function() {
     },
 
-    status:null,
+    onreadystatechange: function(isTimeout) {
+    },
 
-    send:function (data) {
+    status: null,
+
+    send: function(data) {
       this.params = data;
       this.readyState = 2;
     },
 
-    getResponseHeader:function (name) {
+    data: function() {
+      var data = {};
+      if (typeof this.params !== 'string') return data;
+      var params = this.params.split('&');
+
+      for (var i = 0; i < params.length; ++i) {
+        var kv = params[i].replace(/\+/g, ' ').split('=');
+        var key = decodeURIComponent(kv[0]);
+        data[key] = data[key] || [];
+        data[key].push(decodeURIComponent(kv[1]));
+        data[key].sort();
+      }
+      return data;
+    },
+
+    getResponseHeader: function(name) {
       return this.responseHeaders[name];
     },
 
-    getAllResponseHeaders:function () {
+    getAllResponseHeaders: function() {
       var responseHeaders = [];
       for (var i in this.responseHeaders) {
         if (this.responseHeaders.hasOwnProperty(i)) {
@@ -92,20 +112,21 @@ function FakeXMLHttpRequest() {
       return responseHeaders.join('\r\n');
     },
 
-    responseText:null,
+    responseText: null,
 
-    response:function (response) {
+    response: function(response) {
       this.status = response.status;
       this.responseText = response.responseText || "";
       this.readyState = 4;
       this.responseHeaders = response.responseHeaders ||
-      {"Content-type":response.contentType || "application/json" };
+      {"Content-type": response.contentType || "application/json" };
       // uncomment for jquery 1.3.x support
       // jasmine.Clock.tick(20);
 
+      this.onload();
       this.onreadystatechange();
     },
-    responseTimeout:function () {
+    responseTimeout: function() {
       this.readyState = 4;
       jasmine.Clock.tick(jQuery.ajaxSettings.timeout || 30000);
       this.onreadystatechange('timeout');
@@ -118,17 +139,17 @@ function FakeXMLHttpRequest() {
 
 jasmine.Ajax = {
 
-  isInstalled:function () {
-    return jasmine.Ajax.installed == true;
+  isInstalled: function() {
+    return jasmine.Ajax.installed === true;
   },
 
-  assertInstalled:function () {
+  assertInstalled: function() {
     if (!jasmine.Ajax.isInstalled()) {
-      throw new Error("Mock ajax is not installed, use jasmine.Ajax.useMock()")
+      throw new Error("Mock ajax is not installed, use jasmine.Ajax.useMock()");
     }
   },
 
-  useMock:function () {
+  useMock: function() {
     if (!jasmine.Ajax.isInstalled()) {
       var spec = jasmine.getEnv().currentSpec;
       spec.after(jasmine.Ajax.uninstallMock);
@@ -137,71 +158,42 @@ jasmine.Ajax = {
     }
   },
 
-  installMock:function () {
+  installMock: function() {
     if (typeof jQuery != 'undefined') {
       jasmine.Ajax.installJquery();
-    } else if (typeof Prototype != 'undefined') {
-      jasmine.Ajax.installPrototype();
     } else {
-      throw new Error("jasmine.Ajax currently only supports jQuery and Prototype");
+      throw new Error("jasmine.Ajax currently only supports jQuery");
     }
     jasmine.Ajax.installed = true;
   },
 
-  installJquery:function () {
+  installJquery: function() {
     jasmine.Ajax.mode = 'jQuery';
     jasmine.Ajax.real = jQuery.ajaxSettings.xhr;
     jQuery.ajaxSettings.xhr = jasmine.Ajax.jQueryMock;
 
   },
 
-  installPrototype:function () {
-    jasmine.Ajax.mode = 'Prototype';
-    jasmine.Ajax.real = Ajax.getTransport;
-
-    Ajax.getTransport = jasmine.Ajax.prototypeMock;
-  },
-
-  uninstallMock:function () {
+  uninstallMock: function() {
     jasmine.Ajax.assertInstalled();
     if (jasmine.Ajax.mode == 'jQuery') {
       jQuery.ajaxSettings.xhr = jasmine.Ajax.real;
-    } else if (jasmine.Ajax.mode == 'Prototype') {
-      Ajax.getTransport = jasmine.Ajax.real;
     }
     jasmine.Ajax.reset();
   },
 
-  reset:function () {
+  reset: function() {
     jasmine.Ajax.installed = false;
     jasmine.Ajax.mode = null;
     jasmine.Ajax.real = null;
   },
 
-  jQueryMock:function () {
+  jQueryMock: function() {
     var newXhr = new FakeXMLHttpRequest();
     ajaxRequests.push(newXhr);
     return newXhr;
   },
 
-  prototypeMock:function () {
-    return new FakeXMLHttpRequest();
-  },
-
-  installed:false,
-  mode:null
-}
-
-
-// Jasmine-Ajax Glue code for Prototype.js
-if (typeof Prototype != 'undefined' && Ajax && Ajax.Request) {
-  Ajax.Request.prototype.originalRequest = Ajax.Request.prototype.request;
-  Ajax.Request.prototype.request = function (url) {
-    this.originalRequest(url);
-    ajaxRequests.push(this);
-  };
-
-  Ajax.Request.prototype.response = function (responseOptions) {
-    return this.transport.response(responseOptions);
-  };
-}
+  installed: false,
+  mode: null
+};

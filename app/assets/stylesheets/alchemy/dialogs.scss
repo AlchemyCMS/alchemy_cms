@@ -1,0 +1,113 @@
+.alchemy-dialog-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  white-space: nowrap;
+  @include opacity(0);
+  @include transition(opacity 200ms linear);
+
+  // vertical aligment
+  &:before {
+    content: '';
+    width: 0;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+
+  &.open {
+    @include opacity(1);
+  }
+}
+
+.alchemy-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &.closable {
+    cursor: pointer;
+  }
+}
+
+.alchemy-dialog {
+  position: relative;
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+  white-space: normal;
+  background-color: $light-gray;
+  margin: 2*$default-margin;
+  @include box-shadow(0 0 0 1px rgba(0,0,0,0.4));
+
+  &.modal {
+    @include box-shadow(none);
+  }
+}
+
+.alchemy-dialog-header {
+  @include box-sizing(border-box);
+  position: relative;
+  height: $dialog-header-height;
+  padding: 0 2*$default-padding;
+  line-height: $dialog-header-height;
+  background: $header-color;
+  color: $header-text-color;
+  font-weight: normal;
+  font-size: $header-font-size;
+}
+
+.alchemy-dialog-close {
+  position: absolute;
+  top: 0;
+  right: 2*$default-padding;
+  color: inherit;
+  cursor: pointer;
+
+  .icon { color: inherit; }
+}
+
+.alchemy-dialog-body {
+  @include box-sizing(border-box);
+  position: relative;
+  color: $text-color;
+
+  &.padded {
+    padding: 4*$default-padding;
+  }
+
+  ul#sitemap ul li span.sitemap_sitename {
+
+    &.selected_page a {
+      font-weight: bold;
+      padding-left: 4px;
+    }
+
+    a:hover {
+      font-weight: bold;
+    }
+  }
+}
+
+.alchemy-dialog-buttons {
+  @include box-sizing(border-box);
+  float: left;
+  clear: both;
+  width: 100%;
+  padding: 4*$default-padding 0;
+  text-align: right;
+
+  .button:first-child {
+    margin-right: 2*$default-margin;
+  }
+}
