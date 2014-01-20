@@ -7,8 +7,8 @@ module Alchemy
     #
     # * {#toolbar}
     # * {#toolbar_button}
-    # * {#link_to_confirmation_window}
     # * {#link_to_dialog}
+    # * {#link_to_confirm_dialog}
     #
     module BaseHelper
       include Alchemy::BaseHelper
@@ -94,27 +94,27 @@ module Alchemy
       #
       # === Example:
       #
-      #   <%= link_to_confirmation_window('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
+      #   <%= link_to_confirm_dialog('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
       #
       # @param [String] link_string
       #   The content inside the <a> tag
       # @param [String] message
-      #   The message that is displayed in the overlay window
+      #   The message that is displayed in the dialog
       # @param [String] url
       #   The url that gets opened after confirmation (Note: This is an Ajax request with a method of DELETE!)
       # @param [Hash] html_options
       #   HTML options get passed to the link
       #
       # @option html_options [String] :title (_t(:please_confirm))
-      #   The overlay title
+      #   The dialog title
       # @option html_options [String] :message (message)
-      #   The message displayed in the overlay
+      #   The message displayed in the dialog
       # @option html_options [String] :ok_label (_t("Yes"))
       #   The label for the ok button
       # @option html_options [String] :cancel_label (_t("No"))
       #   The label for the cancel button
       #
-      def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
+      def link_to_confirm_dialog(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {
@@ -140,7 +140,7 @@ module Alchemy
       # @param [String] url
       #   The url that gets opened after confirmation
       # @param [Hash] options
-      #   Options for the Alchemy confirm overlay (see also +app/assets/javascripts/alchemy/alchemy.window.js#openConfirmWindow+)
+      #   Options for the Alchemy confirm dialog (see also +app/assets/javascripts/alchemy/alchemy.window.js#openConfirmDialog+)
       # @param [Hash] html_options
       #   HTML options that get passed to the +button_tag+ helper.
       #

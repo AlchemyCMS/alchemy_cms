@@ -99,12 +99,12 @@ Alchemy.ElementEditors =
   toggle: (id, text) ->
     el = $("#element_#{id}")
     if Alchemy.isElementDirty(el)
-      Alchemy.openConfirmWindow
+      Alchemy.openConfirmDialog
         title: Alchemy._t('warning')
         message: Alchemy._t('element_dirty_notice')
-        okLabel: Alchemy._t('ok')
-        cancelLabel: Alchemy._t('cancel')
-        okCallback: =>
+        ok_label: Alchemy._t('ok')
+        cancel_label: Alchemy._t('cancel')
+        on_ok: =>
           @toggleFold id
       false
     else

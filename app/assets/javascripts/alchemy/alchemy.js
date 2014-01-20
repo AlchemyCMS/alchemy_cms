@@ -23,6 +23,7 @@
 //= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
 //= require alchemy/alchemy.dialog
+//= require alchemy/alchemy.confirm_dialog
 //= require alchemy/alchemy.datepicker
 //= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop

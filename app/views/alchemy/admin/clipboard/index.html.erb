@@ -16,7 +16,7 @@
       <%- end -%>
     </ul>
     <p>
-      <%= link_to_confirmation_window(_t('clear clipboard'), _t('Do you really want to clear the clipboard?'), alchemy.clear_admin_clipboard_path(:remarkable_type => params[:remarkable_type]), :class => 'button') %>
+      <%= link_to_confirm_dialog(_t('clear clipboard'), _t('Do you really want to clear the clipboard?'), alchemy.clear_admin_clipboard_path(:remarkable_type => params[:remarkable_type]), :class => 'button') %>
     </p>
   </div>
   <%- end -%>

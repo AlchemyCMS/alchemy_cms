@@ -33,7 +33,7 @@
     ) %>
   <% end %>
   <% if can?(:destroy, attachment) %>
-    <%= link_to_confirmation_window(
+    <%= link_to_confirm_dialog(
       "",
       _t(:confirm_to_delete_file),
       alchemy.admin_attachment_path(

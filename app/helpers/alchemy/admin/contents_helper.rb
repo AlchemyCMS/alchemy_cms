@@ -92,7 +92,7 @@ module Alchemy
 
       # Renders a link for removing that content
       def delete_content_link(content)
-        link_to_confirmation_window(
+        link_to_confirm_dialog(
           render_icon('delete small'),
           _t('Do you really want to delete this content?'),
           alchemy.admin_content_path(content),

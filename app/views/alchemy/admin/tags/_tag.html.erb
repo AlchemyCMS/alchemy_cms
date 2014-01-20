@@ -7,7 +7,7 @@
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
     <% if can?(:destroy, Alchemy::Tag) %>
-    <%= link_to_confirmation_window '',
+    <%= link_to_confirm_dialog '',
       _t(:do_you_really_want_to_delete_this_tag?),
       admin_tag_path(tag),
       title: _t(:delete_tag),
