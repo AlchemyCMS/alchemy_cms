@@ -6,7 +6,6 @@
 //= require jquery.ui.datepicker
 //= require jquery.ui.effect-drop
 //= require jquery.ui.effect-fade
-//= require jquery.ui.sortable
 //= require jquery.ui.tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
