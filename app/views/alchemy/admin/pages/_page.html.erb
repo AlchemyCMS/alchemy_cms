@@ -47,7 +47,7 @@
         ) %>
       <%- end -%>
       <%- if can?(:destroy, page) -%>
-        <%= link_to_confirmation_window(
+        <%= link_to_confirm_dialog(
           render_icon('delete_page'),
           _t(:confirm_to_delete_page),
           url_for(

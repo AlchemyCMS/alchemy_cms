@@ -22,7 +22,7 @@
   </td>
   <td class="tools">
   <%- if can?(:destroy, language) -%>
-    <%= link_to_confirmation_window(
+    <%= link_to_confirm_dialog(
       '',
       _t("Are you sure?"),
       alchemy.admin_language_path(language),

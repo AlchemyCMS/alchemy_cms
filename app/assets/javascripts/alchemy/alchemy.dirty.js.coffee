@@ -52,12 +52,12 @@ $.extend Alchemy,
       callback = ->
         window.location.href = element.pathname
     if Alchemy.isPageDirty()
-      Alchemy.openConfirmWindow
+      Alchemy.openConfirmDialog
         title: Alchemy._t('warning')
         message: Alchemy._t('page_dirty_notice')
-        okLabel: Alchemy._t('ok')
-        cancelLabel: Alchemy._t('cancel')
-        okCallback: ->
+        ok_label: Alchemy._t('ok')
+        cancel_label: Alchemy._t('cancel')
+        on_ok: ->
           window.onbeforeunload = undefined
           Alchemy.pleaseWaitOverlay()
           callback()

@@ -10,7 +10,7 @@
 <% end %>
   <td class="tools">
     <% if can?(:destroy, resource) %>
-    <%= link_to_confirmation_window(
+    <%= link_to_confirm_dialog(
       '',
       _t("Are you sure?"),
       resource_path(resource),

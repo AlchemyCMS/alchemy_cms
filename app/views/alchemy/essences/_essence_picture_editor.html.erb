@@ -10,7 +10,7 @@
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
       <% if options[:grouped] %>
-      <%= link_to_confirmation_window(
+      <%= link_to_confirm_dialog(
         "",
         _t(:confirm_to_delete_image),
         alchemy.admin_essence_picture_path(
