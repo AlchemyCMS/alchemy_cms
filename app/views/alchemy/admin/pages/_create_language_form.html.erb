@@ -12,7 +12,7 @@
       <p><%= _t(:want_to_make_copy_of_existing_language) %></p>
       <div class="input select">
         <%= label_tag('languages[old_lang_id]', _t('Language tree'), class: 'control-label') %>
-        <%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), class: "alchemy_selectbox medium_long") %>
+        <%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), class: "alchemy_selectbox") %>
         <%= hidden_field_tag("languages[new_lang_id]", @language.id) %>
       </div>
       <div class="submit">

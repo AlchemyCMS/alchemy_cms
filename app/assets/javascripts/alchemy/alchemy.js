@@ -4,10 +4,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.ui.datepicker
-//= require jquery.ui.dialog
 //= require jquery.ui.effect-drop
 //= require jquery.ui.effect-fade
-//= require jquery.ui.resizable
 //= require jquery.ui.sortable
 //= require jquery.ui.tabs
 //= require tinymce/tinymce.min
