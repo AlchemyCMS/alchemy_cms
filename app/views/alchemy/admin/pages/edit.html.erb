@@ -64,7 +64,7 @@
       alchemy.configure_admin_page_path(@page),
       {
         title: _t(:edit_page_properties),
-        size: @page.layoutpage? ? '410x150' : '410x650'
+        size: @page.layoutpage? ? '410x150' : '410x660'
       },
       class: :icon_button,
       title: _t(:edit_page_properties),
@@ -137,7 +137,7 @@
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
               title: '<%= _t("New Element") %>',
-              size: '320x120'
+              size: '320x125'
             });
           }
         },
@@ -149,7 +149,7 @@
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
               title :'<%= _t("Clipboard") %>',
-              size: '380x270'
+              size: '380x305'
             });
           }
         },

@@ -25,7 +25,7 @@ $.extend Alchemy,
       $this = $(this)
       picture_ids = $("input:checkbox", "#picture_archive").serialize()
       url = $this.attr("href") + "?" + picture_ids
-      Alchemy.openDialog url, {title: $this.attr("title"), size: '400x230'}
+      Alchemy.openDialog url, {title: $this.attr("title"), size: '400x295'}
       false
     return
 
@@ -47,15 +47,15 @@ $.extend Alchemy,
   ImageLoader: (scope = document, options = {color: '#fff'}) ->
     $('img', scope).each ->
       image = $(this).hide()
-      parent = image.parent()
+      $parent = image.parent()
       spinner = Alchemy.Spinner.small options
-      spinner.spin parent[0]
+      spinner.spin $parent[0]
       image.on 'load', ->
-        image.fadeIn 600
         spinner.stop()
+        image.fadeIn 400
       image.on 'error', ->
         spinner.stop()
-        image.parent().html('<span class="icon warn"/>')
+        $parent.html('<span class="icon warn"/>')
 
   removePicture: (selector) ->
     $form_field = $(selector)

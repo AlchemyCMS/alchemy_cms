@@ -3,7 +3,7 @@
   render_icon('crop'),
   alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json),
   {
-    size: "1000x653",
+    size: "1000x615",
     title: _t('Edit Picturemask'),
     image_loader: false,
     padding: false
@@ -26,15 +26,14 @@
   ),
   {
     title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
-    size: '780x580',
-    close_on_escape: false,
+    size: '780x585',
     padding: false
   },
   title: (content.ingredient ? _t(:swap_image) : _t(:insert_image))
 ) %>
 
 <%= link_to(render_icon(:link), '', {
-  onclick: 'o = new Alchemy.LinkDialog(this); o.open(); return false',
+  onclick: 'd = new Alchemy.LinkDialog(this); d.open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: _t(:link_image),
   'data-content-id' => content.id,
@@ -56,7 +55,7 @@
   ),
   {
     title: _t(:edit_image_properties),
-    size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x240'))
+    size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x255'))
   },
   title: _t(:edit_image_properties)
 ) %>

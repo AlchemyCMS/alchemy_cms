@@ -41,18 +41,68 @@
 
 .alchemy-dialog {
   position: relative;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
   display: inline-block;
   vertical-align: middle;
   text-align: left;
   white-space: normal;
   background-color: $light-gray;
   margin: 2*$default-margin;
-  @include border-radius($default-border-radius);
-  @include box-shadow(0 0 0 1px rgba(0,0,0,0.4));
+  @include border-top-radius($default-border-radius);
+  @include box-shadow(0 0 2px rgba(#000,0.8));
+  @include transition(min-height 200ms ease-in-out);
 
   &.modal {
-    @include box-shadow(none);
+    @include box-shadow(0 0 4px #666);
+  }
+
+  div#jscropper {
+    padding: 2 * $default-padding;
+
+    .thumbnail_background {
+      @extend %thumbnail-background;
+      width: 800px;
+      height: 600px;
+      position: relative;
+    }
+
+    .info.message {
+      float: right;
+      width: 134px;
+      margin: 0 0 0 8px;
+      padding: 0 8px 0 32px;
+    }
+
+    .jcrop-holder { @include inline-block }
+
+    img {
+      width: auto;
+      max-height: 600px;
+    }
+
+    .spinner {
+      left: 50% !important;
+    }
+
+    form {
+      padding: 0;
+      position: absolute;
+      bottom: 2 * $default-padding;
+      right: 2 * $default-padding;
+      width: 176px;
+      margin-left: 8px;
+
+      .reset_mask, button {
+        display: block;
+        margin-bottom: 0;
+        text-align: center;
+      }
+
+      .reset_mask { padding-top: 4px }
+
+      button { width: 100% }
+    }
   }
 }
 
@@ -67,18 +117,34 @@
   font-weight: normal;
   font-size: $header-font-size;
   @include border-top-radius($default-border-radius);
+
+  .ui-draggable & {
+    cursor: move;
+  }
+}
+
+.alchemy-dialog-title {
+  font-weight: bold;
+  padding: 0 $default-padding;
+  margin-right: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .alchemy-dialog-close {
   position: absolute;
   top: 0;
   right: 2*$default-padding;
+  z-index: 1;
+  padding: 0 $default-padding;
   color: inherit;
   cursor: pointer;
 
   .icon.close.small {
     line-height: 1;
-    font-size: 14px;
+    font-size: 16px;
+    vertical-align: text-top;
   }
 }
 
@@ -114,5 +180,13 @@
 
   .button:first-child {
     margin-right: 2*$default-margin;
+  }
+}
+
+#overlay_tabs {
+  margin: -4*$default-padding;
+
+  .ui-tabs-panel {
+    padding: 4*$default-padding;
   }
 }

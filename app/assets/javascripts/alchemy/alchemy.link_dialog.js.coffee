@@ -7,7 +7,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @url = Alchemy.routes.link_admin_pages_path
     @$link_object = $(@link_object)
     @options =
-      size: '600x575'
+      size: '600x540'
       title: 'Link'
     super(@url, @options)
 
@@ -164,7 +164,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # The value is stored as anchor and the url gets updated so it includes the anchor link
   showElementsSelect: (show_elements_url, urlname) ->
     dialog = new Alchemy.Dialog show_elements_url,
-      size: '400x200'
+      size: '400x165'
       ready: =>
         $element_select = $('.elements_from_page_selector')
         # check if the urlname is the same as stored,

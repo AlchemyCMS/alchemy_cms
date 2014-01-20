@@ -101,7 +101,14 @@ hr {
 
 .float_left { float: left }
 
-.center { text-align: center }
+.center {
+  text-align: center;
+
+  .spinner {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
 .top-rounded-border {
   @include border-top-radius($default-border-radius);
@@ -202,11 +209,6 @@ div#new_page_from_clipboard input.button {
 div#new_page_from_clipboard span {
   float: left;
   line-height: 25px;
-}
-
-#page_editing_head .site_status {
-  margin: 0 4px 0 0;
-  float: left;
 }
 
 div#page_status_options {
@@ -406,48 +408,6 @@ div#images {
   margin-left: 22px;
 }
 
-.alchemy-dialog div#jscropper {
-  padding: 2 * $default-padding;
-
-  .thumbnail_background {
-    @extend %thumbnail-background;
-    width: 800px;
-    height: 600px;
-    position: relative;
-  }
-
-  .info.message {
-    float: right;
-    width: 134px;
-    margin: 0 0 0 8px;
-    padding: 0 8px 0 32px;
-  }
-
-  .jcrop-holder { @include inline-block }
-
-  img {
-    width: auto;
-    max-height: 600px;
-  }
-
-  form {
-    padding: 0;
-    position: absolute;
-    bottom: 2 * $default-padding;
-    right: 2 * $default-padding;
-    width: 176px;
-    margin-left: 8px;
-
-    .reset_mask, button {
-      display: block;
-      margin-bottom: 0;
-      text-align: center;
-    }
-    .reset_mask { padding-top: 4px }
-    button { width: 100% }
-  }
-}
-
 #page_selector_scroll_container {
   position: relative;
   width: 100%;
@@ -554,9 +514,18 @@ select#url_protocol.medium {
       border: $default-border;
       background-color: white;
       @extend %rounded-border;
+
       &.elements {
-        background-color: #E5DCCA;
-        border: 1px solid #BBA589;
+        background-color: $medium-gray;
+      }
+
+      .icon {
+        vertical-align: text-bottom;
+        margin-right: $default-padding;
+      }
+
+      .float_right .icon {
+        margin-right: 0;
       }
     }
   }
@@ -571,21 +540,6 @@ select#url_protocol.medium {
 
 .mceEditor table {
   border-spacing: 0 !important;
-}
-
-#dropbox {
-  background: $medium-gray;
-  border: $default-border;
-  @extend %rounded-border;
-  padding: $default-padding;
-  margin-bottom: 2*$default-padding;
-  text-align: center;
-  line-height: 6em;
-  &.dragover {
-    background: $dark-gray;
-    color: $light-gray;
-    border-color: $light-gray;
-  }
 }
 
 div.browse {

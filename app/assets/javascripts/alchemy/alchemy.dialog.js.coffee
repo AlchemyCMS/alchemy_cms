@@ -8,8 +8,7 @@ class window.Alchemy.Dialog
     padding: true
     title: ''
     modal: true
-    image_loader: true
-    image_loader_color: '#fff'
+    overflow: 'visible'
     ready: ->
     closed: ->
 
@@ -21,6 +20,7 @@ class window.Alchemy.Dialog
   constructor: (@url, @options = {}) ->
     @options = $.extend({}, @DEFAULTS, @options)
     @$document = $(document)
+    @$window = $(window)
     @$body = $('body')
     size = @options.size.split('x')
     @width = parseInt(size[0], 10)
@@ -33,6 +33,11 @@ class window.Alchemy.Dialog
     @bind_close_events()
     window.requestAnimationFrame =>
       @dialog_container.addClass('open')
+    unless @options.modal
+      @dialog.draggable
+        iframeFix: true
+        handle: '.alchemy-dialog-title'
+        containment: 'parent'
     @load()
     true
 
@@ -44,7 +49,7 @@ class window.Alchemy.Dialog
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
       @dialog_container.remove()
       if @options.closed?
-        @options.closed.call()
+        @options.closed()
     true
 
   # Loads the content via ajax and replaces the Dialog body with server response.
@@ -68,7 +73,7 @@ class window.Alchemy.Dialog
     @dialog_body.html(data)
     @init()
     if @options.ready?
-      @options.ready.call()
+      @options.ready(@dialog_body)
     @dialog_body.show('fade', 200)
     true
 
@@ -157,11 +162,6 @@ class window.Alchemy.Dialog
     @dialog_header.append(@close_button)
     @dialog.append(@dialog_header)
     @dialog.append(@dialog_body)
-    @dialog.css
-      'max-width': @width
-      'min-height': @height
-    @dialog_body.css
-      'min-height': @height - @DEFAULTS.header_height
     if @options.modal
       @overlay = $('<div class="alchemy-dialog-overlay" />')
       @dialog_container.append(@overlay)
@@ -169,7 +169,34 @@ class window.Alchemy.Dialog
     @dialog.addClass('modal') if @options.modal
     @dialog_body.addClass('padded') if @options.padding
     @$body.append(@dialog_container)
+    @resize()
     @dialog
+
+  # Sets the correct size of the dialog
+  # It normalizes the given size, so that it never acceeds the window size.
+  resize: ->
+    padding = 16
+    $doc_width = @$window.width()
+    $doc_height = @$window.height()
+    if @options.size == 'fullscreen'
+      [@width, @height] = [$doc_width, $doc_height]
+    if @width >= $doc_width
+      @width = $doc_width - padding
+    if @height >= $doc_height
+      @height = $doc_height - padding - @DEFAULTS.header_height
+    @dialog.css
+      'width': @width
+      'min-height': @height
+      overflow: @options.overflow
+    if @options.overflow == 'hidden'
+      @dialog_body.css
+        height: @height
+        overflow: 'auto'
+    else
+      @dialog_body.css
+        'min-height': @height
+        overflow: 'visible'
+    return
 
 # Utility function to close the current Dialog
 #

@@ -3,6 +3,7 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
   DEFAULTS:
     header_height: 36
     size: '300x100'
+    padding: true
     modal: true
     title: 'Please confirm'
     ok_label: 'Yes'
@@ -38,10 +39,13 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
 
 # Opens a confirm dialog
 #
+# Arguments:
+#
+# message - The message that will be displayed to the user (String)
+#
 # Options:
 #
 #   title: ''         - The title of the overlay window (String)
-#   message: ''       - The message that will be displayed to the user (String)
 #   cancel_label: ''   - The label of the cancel button (String)
 #   ok_label: ''       - The label of the ok button (String)
 #   on_ok: null  - The function to invoke on confirmation (Function)

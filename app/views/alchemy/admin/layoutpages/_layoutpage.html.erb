@@ -1,7 +1,7 @@
 <li class="page_level_<%= layoutpage.level %>" id="page_<%= layoutpage.id %>">
   <div class="sitemap_page<%= layoutpage.locked ? ' locked' : '' %>">
     <div class="sitemap_left_images">
-      <span class="site_status"></span>
+      <%= render_icon(:page) %>
     </div>
     <div class="sitemap_right_tools">
       <%- if can?(:configure, layoutpage) -%>
@@ -9,11 +9,11 @@
         render_icon('configure_page'),
         alchemy.configure_admin_page_path(layoutpage),
         {
-          :title => _t(:edit_page_properties),
-          :size => '410x150'
+          title: _t(:edit_page_properties),
+          size: '410x170'
         },
-        :class => 'sitemap_tool',
-        :title => _t(:edit_page_properties)
+        class: 'sitemap_tool',
+        title: _t(:edit_page_properties)
       ) -%>
       <%- end -%>
       <span class="sitemap_sitetools">
@@ -21,13 +21,13 @@
         <%= link_to(
           render_icon("copy_page"),
           alchemy.insert_admin_clipboard_path(
-            :remarkable_type => layoutpage.class.name.demodulize.underscore.pluralize,
-            :remarkable_id => layoutpage.id
+            remarkable_type: layoutpage.class.name.demodulize.underscore.pluralize,
+            remarkable_id: layoutpage.id
           ),
-          :remote => true,
-          :method => :post,
-          :class => "sitemap_tool",
-          :title => _t(:copy_page)
+          remote: true,
+          method: 'post',
+          class: "sitemap_tool",
+          title: _t(:copy_page)
         ) %>
       <%- end -%>
       <%- if can?(:destroy, layoutpage) -%>
@@ -35,13 +35,13 @@
           render_icon('delete_page'),
           _t(:confirm_to_delete_page),
           url_for(
-            :controller => 'pages',
-            :action => 'destroy',
-            :id => layoutpage.id
+            controller: 'pages',
+            action: 'destroy',
+            id: layoutpage.id
           ),
           {
-            :class => "sitemap_tool",
-            :title => _t(:delete_page)
+            class: "sitemap_tool",
+            title: _t(:delete_page)
           }
         ) -%>
       <%- end -%>
@@ -51,8 +51,8 @@
       <%= link_to(
         layoutpage.name,
         alchemy.edit_admin_page_path(layoutpage),
-        :title => _t(:edit_page),
-        :class => "sitemap_pagename_link #{cycle('even', 'odd')}"
+        title: _t(:edit_page),
+        class: "sitemap_pagename_link #{cycle('even', 'odd')}"
       ) -%>
     </div>
   </div>

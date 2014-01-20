@@ -357,13 +357,13 @@ module Alchemy
       essence_errors.each do |content_name, errors|
         errors.each do |error|
           messages << I18n.t(
-            "#{name}.#{content_name}.#{error}",
-            :scope => :content_validations,
-            :default => [
+            "#{self.name}.#{content_name}.#{error}",
+            scope: 'content_validations',
+            default: [
               "fields.#{content_name}.#{error}".to_sym,
               "errors.#{error}".to_sym
             ],
-            :field => Content.translated_label_for(content_name)
+            field: Content.translated_label_for(content_name)
           )
         end
       end

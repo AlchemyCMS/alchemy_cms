@@ -123,5 +123,5 @@ Alchemy.ElementEditors =
       @scrollToElement "#element_#{id}"
 
   observeToggler: (scope) ->
-    $('[data-element-dirty]', scope).click ->
-      Alchemy.ElementEditors.toggle $(this).data('element-dirty')
+    $('[data-element-toggle]', scope).click ->
+      Alchemy.ElementEditors.toggle $(this).data('element-toggle')

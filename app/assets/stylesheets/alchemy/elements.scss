@@ -55,14 +55,11 @@ span.preview_text_element_name {
   left: 8px;
   top: 9px;
 
-  .element_icon {
+  .element.icon {
     z-index: 0;
-    width: 16px;
-    height: 16px;
     position: absolute;
     top: 0;
     left: 0;
-    background: image-url('alchemy/icons.png') no-repeat -224px -72px;
   }
 
   span.icon {

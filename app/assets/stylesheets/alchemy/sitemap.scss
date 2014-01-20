@@ -97,10 +97,6 @@ div#sort_panel {
   }
 }
 
-#main_content .sitemap_page:hover .site_status:before {
-  @extend .icon-edit:before;
-}
-
 div.sitemap_left_images {
   width: 16px;
   margin-top: 3px;
@@ -271,45 +267,21 @@ span.page_status {
   margin: 4px 4px 0 0;
 }
 
-.site_status {
-  float: left;
-  width: 16px;
-  height: 16px;
-  background: image-url('alchemy/icons.png') no-repeat 0 -40px;
-  position: relative;
+#sitemap {
 
-  a {
-    display: block;
-    height: 100%;
-    cursor: help;
+  &.sorting {
+
+    .page.icon { cursor: move }
   }
-}
 
-.locked .site_status {
-  background-position: -32px -40px;
-}
+  .page.icon {
+    float: left;
+    position: relative;
+  }
 
-#sitemap.sorting {
-  .site_status { cursor: move }
-}
-
-#sub_navigation span.page_status_and_name span.site_status {
-  float: none;
-  @include inline-block;
-  margin-right: 4px;
-  margin-left: 0;
-  margin-bottom: 0;
-}
-
-#sitemap img.link_arrow {
-  float: right;
-  text-align: right;
-}
-
-ul#sitemap li img {
-  border-width: 0;
-  border-style: none;
-  float: left;
+  .locked .page.icon {
+    background-position: -32px -40px;
+  }
 }
 
 .sitemap_sitestatus {
@@ -364,7 +336,7 @@ h2#sitemap_heading {
   margin: 0;
   padding: 0 8px 8px 0;
 
-  .site_status { cursor: default }
+  .page.icon { cursor: default }
 
   li li.selectboxit-option {
     padding-left: 8px;

@@ -17,7 +17,7 @@ $.extend Alchemy,
     $element = $(element)
     $element
       .addClass('dirty')
-      .find('.element_head .icon')
+      .find('.element_head .icon[class*="element_"]')
       .addClass('element_dirty')
     window.onbeforeunload = @pageUnload
 
@@ -52,9 +52,8 @@ $.extend Alchemy,
       callback = ->
         window.location.href = element.pathname
     if Alchemy.isPageDirty()
-      Alchemy.openConfirmDialog
+      Alchemy.openConfirmDialog Alchemy._t('page_dirty_notice'),
         title: Alchemy._t('warning')
-        message: Alchemy._t('page_dirty_notice')
         ok_label: Alchemy._t('ok')
         cancel_label: Alchemy._t('cancel')
         on_ok: ->

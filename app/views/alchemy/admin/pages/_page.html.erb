@@ -2,7 +2,7 @@
   <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name %>">
     <div class="sitemap_left_images">
       <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
-      <div class="site_status <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
+      <div class="page icon <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
     </div>
     <div class="sitemap_right_tools">
     <%- unless @sorting -%>
@@ -12,7 +12,7 @@
           alchemy.info_admin_page_path(page),
           {
             title: _t(:page_infos),
-            size: '480x320'
+            size: '480x290'
           },
           {
             title: _t(:page_infos),
@@ -25,10 +25,10 @@
           render_icon('configure_page'),
           alchemy.configure_admin_page_path(page),
           {
-            :title => _t(:edit_page_properties),
-            :size => page.redirects_to_external? ? '410x270' : '410x655'
+            title: _t(:edit_page_properties),
+            size: page.redirects_to_external? ? '410x330' : '410x660'
           },
-          :title => _t(:edit_page_properties),
+          title: _t(:edit_page_properties),
           class: 'sitemap_tool'
         ) -%>
       <%- end -%>
@@ -37,12 +37,12 @@
         <%= link_to(
           render_icon("copy_page"),
           alchemy.insert_admin_clipboard_path(
-            :remarkable_type => page.class.name.demodulize.underscore.pluralize,
-            :remarkable_id => page.id
+            remarkable_type: page.class.name.demodulize.underscore.pluralize,
+            remarkable_id: page.id
           ),
-          :remote => true,
-          :method => :post,
-          :title => _t(:copy_page),
+          remote: true,
+          method: 'post',
+          title: _t(:copy_page),
           class: 'sitemap_tool'
         ) %>
       <%- end -%>
@@ -51,12 +51,12 @@
           render_icon('delete_page'),
           _t(:confirm_to_delete_page),
           url_for(
-            :controller => 'pages',
-            :action => 'destroy',
-            :id => page.id
+            controller: 'pages',
+            action: 'destroy',
+            id: page.id
           ),
           {
-            :title => _t(:delete_page),
+            title: _t(:delete_page),
             class: 'sitemap_tool'
           }
         ) -%>
@@ -64,13 +64,13 @@
       <%- if can?(:create, Alchemy::Page) -%>
         <%= link_to_dialog(
           render_icon('add_page'),
-          alchemy.new_admin_page_path(:parent_id => page.id),
+          alchemy.new_admin_page_path(parent_id: page.id),
           {
-            :title => _t(:create_page),
-            :size => '340x200',
-            :overflow => true
+            title: _t(:create_page),
+            size: '340x165',
+            overflow: true
           },
-          :title => _t(:create_page),
+          title: _t(:create_page),
           class: 'sitemap_tool'
         ) -%>
       <%- end -%>
@@ -94,15 +94,15 @@
         @sorting,
         page.name,
         alchemy.edit_admin_page_path(page),
-        :title => _t(:edit_page),
-        :class => "sitemap_pagename_link"
-      ) { content_tag('span', page.name, :class => "sitemap_pagename_link") } -%>
+        title: _t(:edit_page),
+        class: "sitemap_pagename_link"
+      ) { content_tag('span', page.name, class: "sitemap_pagename_link") } -%>
     <%- end -%>
     </div>
   </div>
   <%- if @sorting || (!page.folded?(current_alchemy_user) && !page.children.empty?) -%>
   <ul id="page_<%= page.id %>_children" class="level_<%= page.level %>_children">
-    <%= render :partial => 'page', :collection => page.children %>
+    <%= render partial: 'page', collection: page.children %>
   </ul>
   <%- end -%>
 </li>

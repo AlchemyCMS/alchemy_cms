@@ -1,6 +1,6 @@
 <div class="element_head">
   <div class="element_handle">
-    <span class="element_icon"></span>
+    <%= render_icon(:element) %>
     <% if element.description.blank? %>
     <span class="warning icon" title="<%= _t(:element_description_missing) %>"></span>
     <% else %>
@@ -14,7 +14,7 @@
   <%= render_hint_for(element) unless element.trashed? %>
   <span class="ajax_folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
     <%= link_to '', '#', {
-      'data-element-dirty' => element.id,
+      'data-element-toggle' => element.id,
       class: element.folded? ? 'expand_element' : 'fold_element',
       title: element.folded? ? _t(:show_element_content) : _t(:hide_element_content),
       id: "element_#{element.id}_folder"

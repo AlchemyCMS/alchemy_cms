@@ -1,19 +1,17 @@
 $.extend Alchemy,
 
-  # Opens an image in an overlay
+  # Opens an image in a dialog
   # Used by the picture library
   zoomImage: (url, title, width, height) ->
-    $doc_width = $(window).width()
-    $doc_height = $(window).height()
-    if width > $doc_width
-      width = $doc_width
-    if height > $doc_height
-      height = $doc_height
-    Alchemy.openDialog url,
+    Alchemy.currentDialog = new Alchemy.Dialog url,
       size: "#{width}x#{height}"
       title: title
-      modal: false
-      image_loader_color: '#000'
+      padding: false
+      overflow: 'hidden'
+      ready: (dialog) ->
+        Alchemy.ImageLoader dialog,
+          color: '#000'
+    Alchemy.currentDialog.open()
 
   # Trash window methods
   TrashWindow:
@@ -23,7 +21,7 @@ $.extend Alchemy,
       url = Alchemy.routes.admin_trash_path(page_id)
       Alchemy.TrashWindow.current = new Alchemy.Dialog url,
         title: title,
-        size: '380x490',
+        size: '380x460',
         modal: false
       Alchemy.TrashWindow.current.open()
 
