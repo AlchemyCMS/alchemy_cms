@@ -25,7 +25,7 @@ $.extend Alchemy,
       $this = $(this)
       picture_ids = $("input:checkbox", "#picture_archive").serialize()
       url = $this.attr("href") + "?" + picture_ids
-      Alchemy.openDialog url, {title: $this.attr("title"), size: '400x230'}
+      Alchemy.openDialog url, {title: $this.attr("title"), size: '400x295'}
       false
     return
 

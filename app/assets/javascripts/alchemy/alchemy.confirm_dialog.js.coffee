@@ -3,6 +3,7 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
   DEFAULTS:
     header_height: 36
     size: '300x100'
+    padding: true
     modal: true
     title: 'Please confirm'
     ok_label: 'Yes'

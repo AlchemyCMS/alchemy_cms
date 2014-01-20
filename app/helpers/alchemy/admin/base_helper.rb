@@ -84,7 +84,7 @@ module Alchemy
         }.merge(options)
         content_tag(:div, class: 'js_filter_field_box') do
           concat text_field_tag(nil, nil, options)
-          concat content_tag('span', '', class: 'icon search')
+          concat render_icon(:search)
           concat link_to('', '', class: 'js_filter_field_clear', title: _t(:click_to_show_all))
           concat content_tag(:label, _t(:search), for: options[:id])
         end

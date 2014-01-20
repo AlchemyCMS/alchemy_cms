@@ -101,7 +101,14 @@ hr {
 
 .float_left { float: left }
 
-.center { text-align: center }
+.center {
+  text-align: center;
+
+  .spinner {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
 .top-rounded-border {
   @include border-top-radius($default-border-radius);
@@ -571,21 +578,6 @@ select#url_protocol.medium {
 
 .mceEditor table {
   border-spacing: 0 !important;
-}
-
-#dropbox {
-  background: $medium-gray;
-  border: $default-border;
-  @extend .rounded-border;
-  padding: $default-padding;
-  margin-bottom: 2*$default-padding;
-  text-align: center;
-  line-height: 6em;
-  &.dragover {
-    background: $dark-gray;
-    color: $light-gray;
-    border-color: $light-gray;
-  }
 }
 
 div.browse {

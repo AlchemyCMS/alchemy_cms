@@ -12,7 +12,7 @@ $.extend Alchemy,
     Alchemy.openDialog url,
       size: "#{width}x#{height}"
       title: title
-      modal: false
+      padding: false
       image_loader_color: '#000'
 
   # Trash window methods

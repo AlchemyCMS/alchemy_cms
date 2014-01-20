@@ -111,3 +111,11 @@
     margin-right: 2*$default-margin;
   }
 }
+
+#overlay_tabs {
+  margin: -4*$default-padding;
+
+  .ui-tabs-panel {
+    padding: 4*$default-padding;
+  }
+}
