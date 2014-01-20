@@ -9,13 +9,18 @@ $light_yellow: #ffffdc;
 $linked-color: #ffd77a;
 $white: #f2f2f2;
 
-$default-padding: 4px;
-$default-margin: $default-padding;
-
 $default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 $mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 $default-font-size: 12px;
 $default-font-style: $default-font-size $default-font-face;
+
+$dialog-header-height: 36px;
+$header-color: $light-blue;
+$header-text-color: $text-color;
+$header-font-size: $default-font-size;
+
+$default-padding: 4px;
+$default-margin: $default-padding;
 
 $default-border-color: #afafaf;
 $default-border-width: 1px;

@@ -8,7 +8,7 @@ Alchemy.GUI =
     Alchemy.SelectBox(scope)
     Alchemy.Datepicker(scope)
     Alchemy.Buttons.observe(scope)
-    Alchemy.overlayObserver(scope)
+    Alchemy.watchForDialogs(scope)
     Alchemy.Hotkeys(scope)
     Alchemy.ListFilter(scope)
     Alchemy.Spinner.watch(scope)

@@ -20,7 +20,7 @@
     ) %>
     <% end %>
     <% if can?(:edit, resource) %>
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       '',
       edit_resource_path(resource),
       {

@@ -97,6 +97,10 @@ div#sort_panel {
   }
 }
 
+#main_content .sitemap_page:hover .site_status:before {
+  @extend .icon-edit:before;
+}
+
 div.sitemap_left_images {
   width: 16px;
   margin-top: 3px;
@@ -112,15 +116,12 @@ div.sitemap_left_images {
   float: right;
   width: 120px;
 
-  .show_elements_to_link, .sitemap_tool {
+  .sitemap_tool {
     float: left;
     width: 24px;
-    height: 21px;
+    height: 24px;
+    line-height: 24px;
     text-align: center;
-
-    .icon {
-      vertical-align: middle;
-    }
   }
 
   .icon.blank {
@@ -266,7 +267,7 @@ span.page_status {
   margin: 2px 2px 0 4px;
 }
 
-.alchemy_overlay .page_status {
+.alchemy-dialog .page_status {
   margin: 4px 4px 0 0;
 }
 
@@ -359,7 +360,7 @@ h2#sitemap_heading {
   padding-left: 4*$default-padding;
 }
 
-.ui-dialog-content ul#sitemap {
+.alchemy-dialog ul#sitemap {
   margin: 0;
   padding: 0 8px 8px 0;
 
@@ -387,11 +388,12 @@ h2#sitemap_heading {
 }
 
 .show_elements_to_link {
-  background: image-url('alchemy/icons.png') no-repeat -510px -69px;
+  @extend .icon;
+  @extend .element_window;
 }
 
 .elements_from_page_selector {
-  width: 154px;
+  width: 100%;
 }
 
 .elements_for_page {

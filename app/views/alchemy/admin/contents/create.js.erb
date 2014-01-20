@@ -51,6 +51,6 @@ Alchemy.Tinymce.initEditor(<%= @content.id %>);
 <% end %>
 
 Alchemy.reloadPreview();
-Alchemy.closeCurrentWindow();
+Alchemy.closeCurrentDialog();
 Alchemy.SelectBox("#element_<%= @element.id %>");
-Alchemy.overlayObserver('#<%= @content.dom_id %>');
+Alchemy.watchForDialogs('#<%= @content.dom_id %>');

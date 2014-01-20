@@ -6,6 +6,6 @@ $('#alchemy_window_body').replaceWith('<%= j render("archive_overlay", formats: 
 
 $('#archive_all').html('<%= j render("files_list") %>');
 Alchemy.growl('<%= j @message %>');
-Alchemy.overlayObserver('#archive_all');
+Alchemy.watchForDialogs('#archive_all');
 
 <% end -%>

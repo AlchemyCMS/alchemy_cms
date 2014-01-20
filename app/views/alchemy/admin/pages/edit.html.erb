@@ -43,7 +43,7 @@
   </div>
   <% end %>
   <div class="button_with_label">
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       render_icon('info'),
       alchemy.info_admin_page_path(@page),
       {
@@ -59,7 +59,7 @@
     <label><%= _t(:page_infos) %></label>
   </div>
   <div class="button_with_label">
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       render_icon('settings'),
       alchemy.configure_admin_page_path(@page),
       {
@@ -123,8 +123,8 @@
         title: '<%= _t("Elements") %>',
         dirtyTitle: '<%= _t("Warning!") %>',
         dirtyMessage: '<%= _t(:element_dirty_close_window_notice) %>',
-        okLabel: '<%= _t("Yes") %>',
-        cancelLabel: '<%= _t("No") %>',
+        ok_label: '<%= _t("Yes") %>',
+        cancel_label: '<%= _t("No") %>',
         hideElements: '<%= _t("Hide Elements") %>',
         showElements: '<%= _t("Show Elements") %>'
       },
@@ -135,10 +135,9 @@
           hotkey: 'alt+n',
           iconClass: 'new_element',
           onClick: function() {
-            Alchemy.openWindow('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
+            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
               title: '<%= _t("New Element") %>',
-              width: 320,
-              height: 120
+              size: '320x120'
             });
           }
         },
@@ -148,10 +147,9 @@
           iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
-            Alchemy.openWindow('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
+            Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
               title :'<%= _t("Clipboard") %>',
-              width: 380,
-              height: 270
+              size: '380x270'
             });
           }
         },

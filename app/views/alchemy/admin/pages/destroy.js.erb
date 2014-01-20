@@ -8,7 +8,7 @@ window.location.href = '<%= alchemy.admin_layoutpages_path %>';
 
 $('#sitemap').replaceWith('<%= j render("sitemap") %>');
 Alchemy.growl('<%= j @message %>');
-Alchemy.overlayObserver('#sitemap');
+Alchemy.watchForDialogs('#sitemap');
 
 <% else -%>
 

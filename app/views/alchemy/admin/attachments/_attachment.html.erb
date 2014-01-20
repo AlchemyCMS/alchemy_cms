@@ -4,15 +4,15 @@
   </td>
   <td class="name">
   <% if can?(:show, attachment) && %w(audio image video flash pdf text).include?(attachment.icon_css_class) %>
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       attachment.name,
       alchemy.admin_attachment_path(attachment),
       {
-        :title => attachment.name,
-        :size => "fullscreen"
+        title: attachment.name,
+        size: "fullscreen"
       },
       {
-        :title => _t('View File')
+        title: _t('View File')
       }
     ) %>
   <% else %>
@@ -22,14 +22,14 @@
   <td class="file_name"><%= attachment.file_name %></td>
   <td class="file_type"><%= mime_to_human(attachment.file_mime_type) %></td>
   <td class="file_size"><%= number_to_human_size(attachment.file_size) %></td>
-  <td class="date"><%= l(attachment.created_at, :format => :short) %></td>
+  <td class="date"><%= l(attachment.created_at, format: :short) %></td>
   <td class="tools long">
   <% if can?(:download, attachment) %>
     <%= link_to(
       "",
       alchemy.download_admin_attachment_path(attachment),
-      :title => _t("download_file", :filename => attachment.file_name),
-      :class => "icon file_download"
+      title: _t("download_file", filename: attachment.file_name),
+      class: "icon file_download"
     ) %>
   <% end %>
   <% if can?(:destroy, attachment) %>
@@ -37,26 +37,26 @@
       "",
       _t(:confirm_to_delete_file),
       alchemy.admin_attachment_path(
-        :id => attachment,
-        :query => params[:query],
-        :page => params[:page],
-        :per_page => params[:per_page]
+        id: attachment,
+        query: params[:query],
+        page: params[:page],
+        per_page: params[:per_page]
       ),
       {
-        :class => 'icon file_delete',
-        :title => _t(:delete_file)
+        class: 'icon file_delete',
+        title: _t(:delete_file)
       }
     ) %>
   <% end %>
   <% if can?(:edit, attachment) %>
-    <%= link_to_overlay_window("",
-      alchemy.edit_admin_attachment_path(attachment, :query => params[:query], :page => params[:page]),
+    <%= link_to_dialog("",
+      alchemy.edit_admin_attachment_path(attachment, query: params[:query], page: params[:page]),
       {
-        :title => _t(:rename_file),
-        :size => '380x220'
+        title: _t(:rename_file),
+        size: '380x220'
       },
-      :class => 'icon file_edit',
-      :title => _t(:rename_file)
+      class: 'icon file_edit',
+      title: _t(:rename_file)
     ) %>
   <% end %>
   </td>

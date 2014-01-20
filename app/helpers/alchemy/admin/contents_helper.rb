@@ -33,8 +33,8 @@ module Alchemy
       # See +render_create_content_link+ helper for examples on how to define additional contents.
       #
       def render_new_content_link(element)
-        link_to_overlay_window(
-          render_icon(:create) + _t('add new content'),
+        link_to_dialog(
+          "#{render_icon(:create)} #{_t('add new content')}",
           alchemy.new_admin_element_content_path(element),
           {
             size: '310x115',

@@ -7,7 +7,7 @@
     <div class="sitemap_right_tools">
     <%- unless @sorting -%>
       <%- if can?(:info, page) -%>
-        <%= link_to_overlay_window(
+        <%= link_to_dialog(
           render_icon('info'),
           alchemy.info_admin_page_path(page),
           {
@@ -21,7 +21,7 @@
         ) %>
       <%- end -%>
       <%- if can?(:configure, page) -%>
-        <%= link_to_overlay_window(
+        <%= link_to_dialog(
           render_icon('configure_page'),
           alchemy.configure_admin_page_path(page),
           {
@@ -62,12 +62,12 @@
         ) -%>
       <%- end -%>
       <%- if can?(:create, Alchemy::Page) -%>
-        <%= link_to_overlay_window(
+        <%= link_to_dialog(
           render_icon('add_page'),
           alchemy.new_admin_page_path(:parent_id => page.id),
           {
             :title => _t(:create_page),
-            :size => '340x150',
+            :size => '340x200',
             :overflow => true
           },
           :title => _t(:create_page),

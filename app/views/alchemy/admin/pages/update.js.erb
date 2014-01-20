@@ -17,7 +17,7 @@
 
   $('#page_<%= @page.id %>').replaceWith('<%= j render("page", page: @page) %>');
   $page = $('#page_<%= @page.id %>');
-  Alchemy.overlayObserver($page);
+  Alchemy.watchForDialogs($page);
 
   <% if @page.locked? && @page.locker == current_alchemy_user -%>
     $('#locked_page_<%= @page.id %> > a').html('<%= @page.name %>');
@@ -33,5 +33,5 @@
 
 <% end -%>
 
-  Alchemy.closeCurrentWindow();
+  Alchemy.closeCurrentDialog();
 })()

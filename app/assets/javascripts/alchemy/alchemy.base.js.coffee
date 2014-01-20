@@ -24,8 +24,8 @@ $.extend Alchemy,
     $("a#edit_multiple_pictures").on "click", (e) ->
       $this = $(this)
       picture_ids = $("input:checkbox", "#picture_archive").serialize()
-      e.preventDefault()
-      Alchemy.openWindow $this.attr("href") + "?" + picture_ids, {title: $this.attr("title"), height: 230, overflow: false}
+      url = $this.attr("href") + "?" + picture_ids
+      Alchemy.openDialog url, {title: $this.attr("title"), size: '400x230'}
       false
     return
 

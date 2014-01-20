@@ -1,4 +1,4 @@
 $('#alchemy_window_body').replaceWith('<%= j render("archive_overlay") %>');
 Alchemy.SelectBox('#filter_bar');
-Alchemy.overlayObserver('#alchemy_window_body');
+Alchemy.watchForDialogs('#alchemy_window_body');
 Alchemy.ListFilter('#alchemy_window_body');
