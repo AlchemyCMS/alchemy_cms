@@ -10,6 +10,7 @@ class window.Alchemy.Dialog
     modal: true
     image_loader: true
     image_loader_color: '#fff'
+    ready: ->
 
   # Arguments:
   #  - url: The url to load the content from via ajax
@@ -32,6 +33,7 @@ class window.Alchemy.Dialog
     window.requestAnimationFrame =>
       @dialog_container.addClass('open')
     @load()
+    true
 
   # Closes the Dialog and removes it from the DOM
   close: ->
@@ -41,15 +43,16 @@ class window.Alchemy.Dialog
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
       @dialog_container.remove()
       @dialog.trigger 'Alchemy.DialogClose'
+    true
 
   # Loads the content via ajax and replaces the Dialog body with server response.
   load: ->
-    @dialog.trigger 'Alchemy.DialogLoad'
     @show_spinner()
     $.get @url, (data) =>
       @replace(data)
     .fail (xhr) =>
       @show_error(xhr)
+    true
 
   # Reloads the Dialog content
   reload: ->
@@ -62,7 +65,9 @@ class window.Alchemy.Dialog
     @dialog_body.hide()
     @dialog_body.html(data)
     @init()
+    @options.ready.call()
     @dialog_body.show('fade', 200)
+    true
 
   # Adds a spinner into Dialog body
   show_spinner: ->

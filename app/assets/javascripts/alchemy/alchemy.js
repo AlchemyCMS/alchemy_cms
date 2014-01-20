@@ -4,8 +4,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.ui.datepicker
+//= require jquery.ui.draggable
 //= require jquery.ui.effect-drop
 //= require jquery.ui.effect-fade
+//= require jquery.ui.sortable
 //= require jquery.ui.tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
@@ -31,7 +33,7 @@
 //= require alchemy/alchemy.hotkeys
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.string_extension
-//= require alchemy/alchemy.link_overlay
+//= require alchemy/alchemy.link_dialog
 //= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.initializer
 //= require alchemy/alchemy.page_sorter
