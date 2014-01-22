@@ -129,16 +129,18 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # Checking of what kind the link is (internal, external or file).
     if $link.hasClass('external')
       # Handles an external link.
-      @$overlay_tabs.tabs('select', '#overlay_tab_external_link')
+      tab = $('#overlay_tab_external_link')
       @$external_url.val($link.attr('href'))
     else if $link.hasClass('file')
       # Handles a file link.
-      @$overlay_tabs.tabs('select', '#overlay_tab_file_link')
+      tab = $('#overlay_tab_file_link')
       @$public_filename.select2('val', $link[0].pathname + $link[0].search)
     else
       # Handles an internal link.
-      @$overlay_tabs.tabs('select', '#overlay_tab_internal_link')
+      tab = $('#overlay_tab_internal_link')
       @selectInternalLinkTab($link)
+    # activate the tab jquery ui 1.10 style o.O
+    @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
 
   # Handles actions for internal link tab.
   selectInternalLinkTab: ($link) ->
