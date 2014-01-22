@@ -96,10 +96,10 @@ class window.Alchemy.Dialog
           @dialog_body.html(xhr.responseText)
           @init()
       else
-        @show_error(xhr)
+        @show_error(xhr, status)
 
   # Displays an error message
-  show_error: (xhr) ->
+  show_error: (xhr, status_message) ->
     error_type = "warning"
     switch xhr.status
       when 0
@@ -109,9 +109,13 @@ class window.Alchemy.Dialog
         error_header = "You are not authorized!"
         error_body = "Please close this window."
       else
-        error_header = "#{xhr.statusText} (#{xhr.status})"
-        error_body = "Please check log and try again."
         error_type = "error"
+        if status_message
+          error_header = status_message
+          console.error eval(xhr.responseText)
+        else
+          error_header = "#{xhr.statusText} (#{xhr.status})"
+        error_body = "Please check log and try again."
     $errorDiv = $("<div class=\"message #{error_type}\" />")
     $errorDiv.append '<span class="icon icon-warning"></span>'
     $errorDiv.append "<h1>#{error_header}</h1>"
@@ -170,7 +174,7 @@ class window.Alchemy.Dialog
 #
 window.Alchemy.closeCurrentDialog = (callback) ->
   if Alchemy.currentDialog
-    Alchemy.currentDialog.on('Alchemy.DialogClose', callback)
+    Alchemy.currentDialog.dialog.on('Alchemy.DialogClose', callback)
     Alchemy.currentDialog.close()
 
 # Utility function to open a new Dialog
