@@ -1,6 +1,6 @@
 (function($) {
   Alchemy.ImageCropper.destroy();
-  Alchemy.closeCurrentWindow();
+  Alchemy.closeCurrentDialog();
   Alchemy.setElementDirty('#element_<%= @content.element.id %>');
 <% if @content.ingredient %>
   $('.thumbnail_background img', '#<%= @content.dom_id %>').replaceWith('<%= essence_picture_thumbnail(@content, @options) %>');

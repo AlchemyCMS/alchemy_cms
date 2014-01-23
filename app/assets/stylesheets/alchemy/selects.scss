@@ -24,22 +24,19 @@ select {
         top: 2px;
         width: 20px;
         height: 23px;
-        line-height: 23px;
+        line-height: 21px;
         background: transparent;
         border-left: 1px solid #CACACA;
 
         b {
-          @extend .icon-menu;
+          @extend .icon;
+          background-image: none !important;
           width: 18px;
-          line-height: 23px;
-          background-image: none;
-        }
-      }
-    }
 
-    &.select2-dropdown-open {
-      .select2-choice .select2-arrow b {
-        background-position: -17px 0px;
+          &:before {
+            @extend .icon-angle-down:before;
+          }
+        }
       }
     }
 
@@ -52,18 +49,13 @@ select {
         .select2-arrow {
           width: 14px;
           height: 14px;
+          line-height: 11px;
 
           b {
-            line-height: 4px;
             width: 12px;
+            height: 8px;
             font-size: 10px;
           }
-        }
-      }
-
-      &.select2-dropdown-open {
-        .select2-choice .select2-arrow b {
-          background-position: -20px -5px;
         }
       }
     }
@@ -104,11 +96,15 @@ select {
       }
 
       .select2-search-choice-close {
+        @extend .small-icon;
         left: auto;
         right: 4px;
         top: 6px;
-        background: none;
-        @extend .icon-cross;
+        background-image: none;
+
+        &:before {
+          @extend .icon-close:before;
+        }
 
         &:hover {
           color: $text-color;

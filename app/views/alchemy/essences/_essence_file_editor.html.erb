@@ -6,7 +6,7 @@
   <div class="file" id="file_<%= content.id %>">
     <div class="file_icon">
     <% if content.ingredient.nil? %>
-      <%= link_to_overlay_window("",
+      <%= link_to_dialog("",
         alchemy.admin_attachments_path(
           :content_id => content.id,
           :only => options[:file_assign_show_only],
@@ -31,7 +31,7 @@
     <% unless content.ingredient.nil? %>
     <%= hidden_field_tag content.form_field_name(:attachment_id), content.ingredient.id %>
     <div class="essence_file_tools">
-      <%= link_to_overlay_window("",
+      <%= link_to_dialog("",
         alchemy.admin_attachments_path(
           :content_id => content.id,
           :only => options[:file_assign_show_only],
@@ -46,7 +46,7 @@
         :class => 'assign_file',
         :title => _t(:assign_file)
       ) %>
-      <%= link_to_overlay_window("",
+      <%= link_to_dialog("",
         url_for(
           :controller => 'essence_files',
           :action => 'edit',

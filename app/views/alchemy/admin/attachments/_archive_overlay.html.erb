@@ -1,7 +1,7 @@
 <div id="alchemy_window_body">
   <div id="overlay_toolbar">
     <div class="button_with_label">
-      <%= link_to_overlay_window(
+      <%= link_to_dialog(
           render_icon('upload'),
           alchemy.new_admin_attachment_path(
             content_id: @content.blank? ? nil : @content.id,

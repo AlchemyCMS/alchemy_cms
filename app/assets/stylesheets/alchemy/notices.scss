@@ -19,6 +19,11 @@
     position: absolute;
     left: 8px;
     top: 8px;
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
   }
 
   &.footnote {
@@ -39,19 +44,21 @@
 
 div.info {
   @extend .message;
-  color: $text-color;
-  background-color: #eaf4f9;
-  border-color: #0b5c84;
+  color: $info_text_color;
+  background-color: $info_background_color;
+  border-color: $info_border_color;
 }
 
 div.error {
   @extend .message;
-  background-color: #f1c9ca;
-  color: #931f23;
+  color: $error_text_color;
+  background-color: $error_background_color;
+  border-color: $error_border_color;
 }
 
 div.warning, div.warn {
   @extend .message;
-  background-color: #f7efb8;
-  color: #756f47;
+  color: $warning_text_color;
+  background-color: $warning_background_color;
+  border-color: $warning_border_color;
 }

@@ -122,7 +122,6 @@ textarea#essence_picture_caption {
 }
 
 .resource_info {
-  @extend .with_padding;
 
   h2 {
     @include form-heading;

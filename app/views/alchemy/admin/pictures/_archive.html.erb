@@ -18,12 +18,12 @@
     <%= button_tag render_icon('destroy') + _t("Delete"), 'data-alchemy-confirm' => {
       :title => _t(:please_confirm),
       :message => _t(:confirm_to_delete_images_from_server),
-      :okLabel => _t("Yes"),
-      :cancelLabel => _t("No")
+      :ok_label => _t("Yes"),
+      :cancel_label => _t("No")
     }.to_json, :class => 'button with_icon' %>
     &nbsp;<%= _t(:or) %>&nbsp;
     <%= link_to(
-      render_icon('delete-small') + _t("Clear selection"),
+      render_icon('delete small') + _t("Clear selection"),
       admin_pictures_path(
         :query => params[:query],
         :tagged_with => params[:tagged_with],

@@ -97,6 +97,10 @@ div#sort_panel {
   }
 }
 
+#main_content .sitemap_page:hover .site_status:before {
+  @extend .icon-edit:before;
+}
+
 div.sitemap_left_images {
   width: 16px;
   margin-top: 3px;
@@ -115,12 +119,9 @@ div.sitemap_left_images {
   .show_elements_to_link, .sitemap_tool {
     float: left;
     width: 24px;
-    height: 21px;
+    height: 24px;
+    line-height: 24px;
     text-align: center;
-
-    .icon {
-      vertical-align: middle;
-    }
   }
 
   .icon.blank {
@@ -228,37 +229,34 @@ div.page_infos {
 }
 
 span.page_status {
-  width: 16px;
-  height: 16px;
-  background-image: image-url('alchemy/icons.png');
-  background-repeat: no-repeat;
+  @extend .icon;
   float: left;
 
-  &.restricted {
-    background-position: -258px -39px;
+  &.restricted:before {
+    @extend .icon-lock:before;
   }
 
-  &.not_restricted {
-    background-position: -288px -39px;
-    @include opacity(0.3);
+  &.not_restricted:before {
+    @extend .icon-lock:before;
+    color: lighten($icon-color, 50%);
   }
 
-  &.visible {
-    background-position: -128px -39px;
+  &.visible:before {
+    @extend .icon-eye:before;
   }
 
-  &.not_visible {
-    background-position: -160px -39px;
-    @include opacity(0.3);
+  &.not_visible:before {
+    @extend .icon-eye:before;
+    color: lighten($icon-color, 50%);
   }
 
-  &.public {
-    background-position: -192px -39px;
+  &.public:before {
+    @extend .icon-globe:before;
   }
 
-  &.not_public {
-    background-position: -224px -39px;
-    @include opacity(0.3);
+  &.not_public:before {
+    @extend .icon-globe:before;
+    color: lighten($icon-color, 50%);
   }
 }
 
@@ -266,7 +264,7 @@ span.page_status {
   margin: 2px 2px 0 4px;
 }
 
-.alchemy_overlay .page_status {
+.alchemy-dialog .page_status {
   margin: 4px 4px 0 0;
 }
 
@@ -274,18 +272,14 @@ span.page_status {
   float: left;
   width: 16px;
   height: 16px;
-  background: image-url('alchemy/icons.png') no-repeat 0 -40px;
-  position: relative;
-
-  a {
-    display: block;
-    height: 100%;
-    cursor: help;
-  }
 }
 
 .locked .site_status {
-  background-position: -32px -40px;
+  @extend .icon;
+
+  &:before {
+    @extend .icon-edit:before;
+  }
 }
 
 #sitemap.sorting {
@@ -359,7 +353,7 @@ h2#sitemap_heading {
   padding-left: 4*$default-padding;
 }
 
-.ui-dialog-content ul#sitemap {
+.alchemy-dialog ul#sitemap {
   margin: 0;
   padding: 0 8px 8px 0;
 
@@ -382,16 +376,22 @@ h2#sitemap_heading {
     width: 16px;
     height: 16px;
     cursor: pointer;
-    @extend .icon-cross;
+    @extend .icon;
+
+    &:before {
+      @extend .icon-cross:before;
+    }
   }
 }
 
 .show_elements_to_link {
-  background: image-url('alchemy/icons.png') no-repeat -510px -69px;
+  @extend .icon;
+
+  &:before { @extend .icon-element:before }
 }
 
 .elements_from_page_selector {
-  width: 154px;
+  width: 100%;
 }
 
 .elements_for_page {

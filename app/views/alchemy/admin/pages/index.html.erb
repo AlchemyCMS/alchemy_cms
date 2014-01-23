@@ -24,7 +24,7 @@
   <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
-      render_icon('flush'),
+      render_icon('clear'),
       alchemy.flush_admin_pages_path,
       :remote => true,
       :method => :post,
@@ -49,7 +49,7 @@
   </div>
   <% end %>
   <div class="button_with_label" id="clipboard_button">
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
       alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
       {
@@ -99,22 +99,6 @@
 <% elsif can?(:create, Alchemy::Page) %>
 
   <%= render partial: 'create_language_form' %>
-  <% content_for(:javascripts) do %>
-  <script type="text/javascript">
-    $(function() {
-      Alchemy.CurrentWindow = $('#create_language_tree_form').dialog(
-        {
-          modal: false,
-          width: 360,
-          resizable: false,
-          close: function() {
-            $(this).appendTo('#archive_all').show().removeClass().removeAttr('style');
-          }
-        }
-      );
-    });
-  </script>
-  <% end %>
 
 <% else %>
 

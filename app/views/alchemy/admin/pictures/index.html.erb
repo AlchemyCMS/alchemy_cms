@@ -5,7 +5,7 @@
       label: _t(:upload_image),
       url: alchemy.new_admin_picture_path(size: @size),
       hotkey: 'alt+n',
-      overlay_options: {
+      dialog_options: {
         title: _t(:upload_image),
         size: '540x590'
       },
@@ -51,9 +51,9 @@
     <% if can?(:flush, Alchemy::Picture) %>
       <div class="toolbar_spacer"></div>
       <%= toolbar_button(
-        icon: 'flush',
+        icon: 'clear',
         url: alchemy.flush_admin_pictures_path,
-        overlay: false,
+        dialog: false,
         link_options: {
           remote: true,
           method: :post
@@ -67,7 +67,7 @@
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon('select_all'),
+        render_icon('checkbox'),
         '',
         id: 'select_all_pictures',
         class: 'icon_button',

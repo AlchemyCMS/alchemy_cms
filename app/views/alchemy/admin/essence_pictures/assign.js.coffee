@@ -10,6 +10,6 @@ $('#<%= @content.dom_id -%>').replaceWith('<%= escape_javascript(
 Alchemy.SortableContents '#<%= @content.element.id -%>_contents', '<%= form_authenticity_token -%>'
 <% end %>
 
-Alchemy.closeCurrentWindow()
+Alchemy.closeCurrentDialog()
 Alchemy.setElementDirty '#element_<%= @content.element.id -%>'
-Alchemy.overlayObserver '#<%= @content.dom_id %>'
+Alchemy.watchForDialogs '#<%= @content.dom_id %>'

@@ -33,8 +33,8 @@ module Alchemy
       # See +render_create_content_link+ helper for examples on how to define additional contents.
       #
       def render_new_content_link(element)
-        link_to_overlay_window(
-          render_icon(:create) + _t('add new content'),
+        link_to_dialog(
+          render_icon(:add) + _t('add new content'),
           alchemy.new_admin_element_content_path(element),
           {
             size: '310x115',
@@ -76,7 +76,7 @@ module Alchemy
           label: _t('Add %{name}', name: _t(content_name, scope: :content_names))
         }
         options = defaults.merge(options)
-        link_to(render_icon(:create) + options[:label], alchemy.admin_contents_path(
+        link_to(render_icon(:add) + options[:label], alchemy.admin_contents_path(
             content: {
               name: content_name,
               element_id: element.id
@@ -92,8 +92,8 @@ module Alchemy
 
       # Renders a link for removing that content
       def delete_content_link(content)
-        link_to_confirmation_window(
-          render_icon('delete-small'),
+        link_to_confirm_dialog(
+          render_icon('delete small'),
           _t('Do you really want to delete this content?'),
           alchemy.admin_content_path(content),
           class: 'icon_button small',

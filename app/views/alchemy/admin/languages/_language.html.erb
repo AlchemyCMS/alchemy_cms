@@ -22,25 +22,25 @@
   </td>
   <td class="tools">
   <%- if can?(:destroy, language) -%>
-    <%= link_to_confirmation_window(
+    <%= link_to_confirm_dialog(
       '',
       _t("Are you sure?"),
       alchemy.admin_language_path(language),
-      :title => _t("Delete"),
-      :class => "icon destroy"
+      title: _t("Delete"),
+      class: "icon icon-delete"
     ) -%>
   <%- end -%>
   <%- if can?(:edit, language) -%>
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       '',
       alchemy.edit_admin_language_path(language),
       {
-        :title => _t("Edit"),
-        :size => "450xauto"
+        title: _t("Edit"),
+        size: "430x450"
       },
       {
-        :class => "icon edit",
-        :title => _t("Edit")
+        class: "icon icon-edit",
+        title: _t("Edit")
       }
     ) -%>
   <%- end -%>

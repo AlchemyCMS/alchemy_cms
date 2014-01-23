@@ -10,6 +10,12 @@
     <% end %>
   </div>
   <div class="input text">
+    <label for="internal_urlname" class="control-label">
+      <%= _t(:url) %>
+    </label>
+    <%= text_field_tag(:internal_urlname, '', readonly: true) %>
+  </div>
+  <div class="input text">
     <label for="internal_link_title" class="control-label">
       <%= _t(:link_title) %>
     </label>
@@ -24,8 +30,7 @@
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
-    <%= hidden_field_tag(:internal_urlname) %>
     <%= hidden_field_tag(:page_anchor) %>
-    <%= link_to _t(:apply), '#', class: 'create-link button', 'data-link-type' => 'internal' %>
+    <%= link_to _t(:apply), '', class: 'create-link button', 'data-link-type' => 'internal' %>
   </div>
 <% end %>

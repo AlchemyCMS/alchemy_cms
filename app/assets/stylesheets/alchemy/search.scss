@@ -6,14 +6,16 @@
 
 .search_field_clear, .js_filter_field_clear {
   display: none;
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
-  @extend .icon-cross;
   position: absolute;
   right: 8px;
   top: 7px;
-  text-decoration: none !important;
+  @extend .icon;
+  font-size: 12px;
+  line-height: 16px;
+
+  &:before {
+    @extend .icon-destroy:before;
+  }
 }
 
 #tags_tag_list {

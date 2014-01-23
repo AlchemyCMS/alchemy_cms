@@ -7,7 +7,7 @@
         options: @options
       }
   ) %>');
-  Alchemy.closeCurrentWindow();
+  Alchemy.closeCurrentDialog();
   Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));
-  Alchemy.overlayObserver($('#<%= @content.dom_id %>'));
+  Alchemy.watchForDialogs($('#<%= @content.dom_id %>'));
 })(jQuery);

@@ -20,7 +20,8 @@ a#uploadswitcher, a.underline {
   padding: $default-padding 2*$default-padding;
   text-align: center;
   line-height: 19px;
-  width: 376px;
+  width: 364px;
+  margin-left: 4px;
 
   &.dragover {
     background: $dark-gray;
@@ -111,10 +112,12 @@ a#uploadswitcher, a.underline {
 }
 
 #uploadProgressContainer .progressCancel {
-  @extend .icon-cross;
-  width: 16px;
-  height: 16px;
+  @extend .icon;
   position: absolute;
   top: 8px;
   right: 4px;
+
+  &:before {
+    @extend .icon-cross:before;
+  }
 }

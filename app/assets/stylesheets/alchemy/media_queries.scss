@@ -1,0 +1,58 @@
+@media (max-width: 800px) {
+
+  input#search_input_field,
+  .js_filter_field_box .js_filter_field {
+    width: 80px;
+
+    &:focus {
+      width: 180px;
+    }
+  }
+
+  table.list {
+
+    th.icon,
+    td.icon,
+    th, td {
+      display: none;
+    }
+
+    th.name,
+    td.name,
+    th.login,
+    td.login,
+    th.boolean,
+    td.boolean,
+    th.tools,
+    td.tools {
+      display: table-cell !important;
+    }
+  }
+
+  div#user_info {
+
+    .current_user_name {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+
+  #left_menu {
+    display: none;
+  }
+
+  #top_menu {
+    margin-left: 0;
+    padding-right: 0;
+  }
+
+  #main_content {
+    padding-left: 8px;
+  }
+
+  div#user_info {
+    right: 0;
+  }
+}

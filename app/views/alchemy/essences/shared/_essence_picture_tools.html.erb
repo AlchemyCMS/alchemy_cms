@@ -1,12 +1,12 @@
 <% if options[:crop] && content.ingredient %>
-<%= link_to_overlay_window(
+<%= link_to_dialog(
   render_icon('crop'),
   alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json),
   {
     size: "1000x653",
     title: _t('Edit Picturemask'),
     image_loader: false,
-    modal: false
+    padding: false
   },
   {
     title: _t('Edit Picturemask')
@@ -16,8 +16,8 @@
 <a href="#" class="disabled"><%= render_icon('crop') %></a>
 <%- end -%>
 
-<%= link_to_overlay_window(
-  render_icon('swap_picture'),
+<%= link_to_dialog(
+  render_icon('change'),
   alchemy.admin_pictures_path(
     element_id: content.element,
     content_id: content.id,
@@ -27,26 +27,27 @@
   {
     title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
     size: '780x580',
-    close_on_escape: false
+    close_on_escape: false,
+    padding: false
   },
   title: (content.ingredient ? _t(:swap_image) : _t(:insert_image))
 ) %>
 
-<%= link_to(render_icon(:link), '#', {
-  onclick: "Alchemy.LinkOverlay.open(this); return false",
+<%= link_to(render_icon(:link), '', {
+  onclick: 'o = new Alchemy.LinkDialog(this); o.open(); return false',
   class: content.linked? ? 'linked' : nil,
   title: _t(:link_image),
   'data-content-id' => content.id,
   id: "edit_link_#{content.id}"
 }) %>
 
-<%= link_to(render_icon('unlink'), '#', {
-  onclick: "Alchemy.LinkOverlay.removeLink(this, #{content.id}); return false",
+<%= link_to(render_icon('unlink'), '', {
+  onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
   class: content.linked? ? 'linked' : 'disabled',
   title: _t(:unlink)
 }) %>
 
-<%= link_to_overlay_window(
+<%= link_to_dialog(
   render_icon('edit'),
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,

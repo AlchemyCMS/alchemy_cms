@@ -17,7 +17,7 @@
 
 @mixin default-label-style {
   font-size: 10px;
-  text-shadow: #fff 0 1px 2px;
+  @include text-shadow(#fff 0 1px 2px);
   margin-top: $default-margin;
   display: block;
   line-height: 100%;
@@ -105,7 +105,7 @@
     position: absolute;
     left: 8px;
     top: 8px;
-    font-family: 'Alchemy Icons';
+    font-family: 'Alchemy-Icons';
     @extend .icon-tag:before;
     line-height: 8px;
   }

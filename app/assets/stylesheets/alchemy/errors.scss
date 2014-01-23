@@ -7,12 +7,6 @@
   color: #690001;
   @extend .rounded-border;
 
-  &.ajax_status_code.warning {
-    border-color: $warning_border_color;
-    color: $warning_text_color;
-    background-color: $warning_background_color;
-  }
-
   h2 {
     font-size: 1.2em;
   }

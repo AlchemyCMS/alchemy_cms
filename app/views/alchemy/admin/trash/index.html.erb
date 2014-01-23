@@ -1,24 +1,28 @@
-<div class="with_padding">
-  <%- if @elements.blank? -%>
-  <div id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %> class="info">
-    <%= render_icon('info') %>
-    <%= _t('Your trash is empty') %>
-  </div>
-  <%- else -%>
-  <div class="info">
-    <%= render_icon('info') %>
-    <%= _t('Drag an element over to the element window to restore it') %>
-  </div>
-  <div id="trash_items">
-    <%- @elements.each do |element| -%>
-    <%= render :partial => 'alchemy/admin/elements/element', :object => element, :locals => {:draggable => !@allowed_elements.detect { |e| e['name'] == element.name }.nil? } rescue "" %>
-    <%- end -%>
-  </div>
-  <p>
-    <%= link_to_confirmation_window(_t('clear trash'), _t('Do you really want to clear the trash?'), alchemy.clear_admin_trash_path(:page_id => @page.id), :class => 'button') %>
-  </p>
-  <%- end -%>
+<%- if @elements.blank? -%>
+<div id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %> class="info">
+  <%= render_icon('info') %>
+  <%= _t('Your trash is empty') %>
 </div>
+<%- else -%>
+<%= render_message do %>
+  <%= _t('Drag an element over to the element window to restore it') %>
+<% end %>
+<div id="trash_items">
+<%- @elements.each do |element| -%>
+  <%= render partial: 'alchemy/admin/elements/element',
+    object: element,
+    locals: {
+      draggable: @allowed_elements.any? { |e| e['name'] == element.name }
+    } %>
+<%- end -%>
+</div>
+<p>
+  <%= link_to_confirm_dialog _t('clear trash'),
+    _t('Do you really want to clear the trash?'),
+    alchemy.clear_admin_trash_path(page_id: @page.id),
+    class: 'button' %>
+</p>
+<%- end -%>
 <script type="text/javascript" charset="utf-8">
   Alchemy.DraggableTrashItems(<%= @draggable_trash_items.to_json.html_safe %>);
 </script>

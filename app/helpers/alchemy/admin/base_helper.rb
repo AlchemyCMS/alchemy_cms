@@ -1,65 +1,48 @@
 module Alchemy
   module Admin
 
-    # This module contains helper methods for rendering overlay windows, toolbar buttons and confirmation windows.
+    # This module contains helper methods for rendering dialogs, toolbar buttons and confirmation windows.
     #
     # The most important helpers for module developers are:
     #
     # * {#toolbar}
     # * {#toolbar_button}
-    # * {#link_to_overlay_window}
-    # * {#link_to_confirmation_window}
+    # * {#link_to_dialog}
+    # * {#link_to_confirm_dialog}
     #
     module BaseHelper
       include Alchemy::BaseHelper
       include Alchemy::Admin::NavigationHelper
 
-      # This helper renders the link to an overlay window.
+      # This helper renders the link to an dialog.
       #
-      # We use this for our fancy modal overlay windows in the Alchemy cockpit.
+      # We use this for our fancy modal dialogs in the Alchemy cockpit.
       #
       # == Example
       #
-      #   <%= link_to_overlay_window('Edit', edit_product_path, {size: '200x300'}, {class: 'icon_button'}) %>
+      #   <%= link_to_dialog('Edit', edit_product_path, {size: '200x300'}, {class: 'icon_button'}) %>
       #
       # @param [String] content
       #   The string inside the link tag
       # @param [String or Hash] url
-      #   The url of the action displayed inside the overlay window.
+      #   The url of the action displayed inside the dialog.
       # @param [Hash] options
-      #   options for the overlay window.
+      #   options for the dialog.
       # @param [Hash] html_options
       #   HTML options passed to the <tt>link_to</tt> helper
       #
       # @option options [String] :size
       #    String with format of "WidthxHeight". I.E. ("420x280")
       # @option options [String] :title
-      #    Text for the overlay title bar.
-      # @option options [Boolean] :overflow (false)
-      #    Should the dialog have overlapping content. If not, it shows scrollbars. Good for select boxes.
-      # @option options [Boolean] :resizable (false)
-      #    Is the dialog window resizable?
+      #    Text for the dialog title bar.
       # @option options [Boolean] :modal (true)
       #    Show as modal window.
-      # @option options [Boolean] :overflow (true)
-      #    Should the window show overflowing content?
       #
-      def link_to_overlay_window(content, url, options={}, html_options={})
-        default_options = {
-          :modal => true,
-          :overflow => true,
-          :resizable => false
-        }
+      def link_to_dialog(content, url, options={}, html_options={})
+        default_options = {modal: true}
         options = default_options.merge(options)
-        size = options.delete(:size).to_s.split('x')
-        link_to(content, url,
-          html_options.merge(
-            'data-alchemy-overlay' => options.update(
-              :width => size && size[0] ? size[0] : 'auto',
-              :height => size && size[1] ? size[1] : 'auto',
-            ).to_json
-          )
-        )
+        link_to content, url,
+          html_options.merge('data-alchemy-dialog' => options.to_json)
       end
 
       # Used for translations selector in Alchemy cockpit user settings.
@@ -101,7 +84,7 @@ module Alchemy
         }.merge(options)
         content_tag(:div, class: 'js_filter_field_box') do
           concat text_field_tag(nil, nil, options)
-          concat content_tag('span', '', class: 'icon search')
+          concat render_icon(:search)
           concat link_to('', '', class: 'js_filter_field_clear', title: _t(:click_to_show_all))
           concat content_tag(:label, _t(:search), for: options[:id])
         end
@@ -111,27 +94,27 @@ module Alchemy
       #
       # === Example:
       #
-      #   <%= link_to_confirmation_window('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
+      #   <%= link_to_confirm_dialog('delete', 'Do you really want to delete this comment?', '/admin/comments/1') %>
       #
       # @param [String] link_string
       #   The content inside the <a> tag
       # @param [String] message
-      #   The message that is displayed in the overlay window
+      #   The message that is displayed in the dialog
       # @param [String] url
       #   The url that gets opened after confirmation (Note: This is an Ajax request with a method of DELETE!)
       # @param [Hash] html_options
       #   HTML options get passed to the link
       #
       # @option html_options [String] :title (_t(:please_confirm))
-      #   The overlay title
+      #   The dialog title
       # @option html_options [String] :message (message)
-      #   The message displayed in the overlay
+      #   The message displayed in the dialog
       # @option html_options [String] :ok_label (_t("Yes"))
       #   The label for the ok button
       # @option html_options [String] :cancel_label (_t("No"))
       #   The label for the cancel button
       #
-      def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
+      def link_to_confirm_dialog(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {
@@ -157,7 +140,7 @@ module Alchemy
       # @param [String] url
       #   The url that gets opened after confirmation
       # @param [Hash] options
-      #   Options for the Alchemy confirm overlay (see also +app/assets/javascripts/alchemy/alchemy.window.js#openConfirmWindow+)
+      #   Options for the Alchemy confirm dialog (see also +app/assets/javascripts/alchemy/alchemy.window.js#openConfirmDialog+)
       # @param [Hash] html_options
       #   HTML options that get passed to the +button_tag+ helper.
       #
@@ -197,12 +180,12 @@ module Alchemy
       # == Example
       #
       #   <%= toolbar_button(
-      #     icon: 'create',
+      #     icon: 'add',
       #     label: 'Create',
       #     url: new_resource_path,
       #     title: 'Create Resource',
       #     hotkey: 'alt+n',
-      #     overlay_options: {
+      #     dialog_options: {
       #       title: 'Create Resource',
       #       size: "430x400"
       #     },
@@ -219,24 +202,24 @@ module Alchemy
       #   Text for title tag.
       # @option options [String] :hotkey
       #   Keyboard shortcut for this button. I.E +alt-n+
-      # @option options [Boolean] :overlay (true)
-      #   Open the link in a modal overlay window.
-      # @option options [Hash] :overlay_options
-      #   Overlay options. See link_to_overlay_window helper.
+      # @option options [Boolean] :dialog (true)
+      #   Open the link in a modal dialog.
+      # @option options [Hash] :dialog_options
+      #   Overlay options. See link_to_dialog helper.
       # @option options [Array] :if_permitted_to ([:action, :controller])
       #   Check permission for button. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
       # @option options [Boolean] :skip_permission_check (false)
       #   Skip the permission check. NOT RECOMMENDED!
       # @option options [Boolean] :loading_indicator (true)
-      #   Shows the please wait overlay while loading. Only for buttons not opening an overlay window.
+      #   Shows the please wait dialog while loading. Only for buttons not opening an dialog.
       #
       def toolbar_button(options = {})
         options = {
-          overlay: true,
+          dialog: true,
           skip_permission_check: false,
           active: false,
           link_options: {},
-          overlay_options: {},
+          dialog_options: {},
           loading_indicator: true
         }.merge(options.symbolize_keys)
         button = render(
@@ -258,12 +241,12 @@ module Alchemy
       #   <% toolbar(
       #     buttons: [
       #       {
-      #         icon: 'create',
+      #         icon: 'add',
       #         label: label_title,
       #         url: new_resource_path,
       #         title: label_title,
       #         hotkey: 'alt+n',
-      #         overlay_options: {
+      #         dialog_options: {
       #           title: label_title,
       #           size: "430x400"
       #         },
@@ -385,7 +368,7 @@ module Alchemy
       def render_hint_for(element)
         return unless element.has_hint?
         link_to '#', :class => 'hint' do
-          render_icon(:hint) + content_tag(:span, element.hint.html_safe, :class => 'bubble')
+          render_icon(:help) + content_tag(:span, element.hint.html_safe, :class => 'bubble')
         end
       end
 

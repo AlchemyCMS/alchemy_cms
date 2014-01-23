@@ -13,9 +13,9 @@ div#flash_notices {
       position: absolute;
       right: 2*$default-padding;
       top: 2*$default-padding;
-      @extend .icon-cross:before;
+      @extend .icon-close:before;
       font-size: 14px;
-      font-family: 'Alchemy Icons';
+      font-family: 'Alchemy-Icons';
     }
   }
 }
@@ -33,10 +33,11 @@ div.flash {
   min-height: 1.3em;
   word-break: break-all;
 
-  span.icon {
+  .icon {
     position: absolute;
     top: 8px;
     left: 8px;
+    color: inherit;
   }
 
   &.notice {

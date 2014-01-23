@@ -31,9 +31,24 @@ module Alchemy
       end
     end
 
-    # Returns an icon
-    def render_icon(icon_class)
-      content_tag('span', '', :class => "icon #{icon_class}")
+    # Renders an icon.
+    #
+    # It's actually a span tag with +icon+ class and
+    # the given icon name prefixed with +icon-+
+    #
+    # === Example:
+    #
+    #     <%= render_icon('user') %>
+    #
+    # === Output:
+    #
+    #     <span class="icon icon-user"></span>
+    #
+    # @param icon_name [String]
+    #   - The name of the icon defined in the icon font.
+    #
+    def render_icon(icon_name)
+      content_tag('span', '', class: "icon icon-#{icon_name}")
     end
 
     # Returns a div with an icon and the passed content

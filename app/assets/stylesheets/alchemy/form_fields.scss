@@ -6,18 +6,6 @@ textarea, input[type="text"], input[type="email"], input[type="password"], .thin
   }
 }
 
-#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
-  width: 100%;
-}
-
-#alchemy .ui-dialog-content input.medium_long {
-  width: 139px;
-}
-
-#alchemy .ui-dialog-content input.very_long {
-  width: 310px;
-}
-
 textarea {
   height: auto;
   padding: 4px 8px !important;
@@ -51,6 +39,7 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
     padding: 3px 24px;
     height: 29px;
     margin: 0;
+    @include transition(width 200ms ease-in-out);
   }
 
   label {
