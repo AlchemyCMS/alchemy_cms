@@ -214,7 +214,7 @@ div#user_info {
       border: 1px solid #f0c8d1;
       background-color: #f0c8d1;
       color: #ac3d57;
-      @extend .rounded-border;
+      @extend %rounded-border;
       margin-right: 2px;
       padding: 2px 3px;
       line-height: 11px;

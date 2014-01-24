@@ -388,7 +388,7 @@ div#images {
   padding: $default-padding;
   background-color: $light_yellow;
   border: 1px solid $medium-gray;
-  @extend .rounded-border;
+  @extend %rounded-border;
   display: block;
   clear: both;
 }
@@ -460,7 +460,7 @@ div#images {
   border: 1px inset #e8e8e8;
   overflow: auto;
   padding: 4px 0 0 4px;
-  @extend .rounded-border;
+  @extend %rounded-border;
 }
 
 #alchemyConfirmation .alchemy_window_buttons {
@@ -587,7 +587,7 @@ select#url_protocol.medium {
       padding: 2*$default-padding;
       border: $default-border;
       background-color: white;
-      @extend .rounded-border;
+      @extend %rounded-border;
       &.elements {
         background-color: #E5DCCA;
         border: 1px solid #BBA589;
@@ -610,7 +610,7 @@ select#url_protocol.medium {
 #dropbox {
   background: $medium-gray;
   border: $default-border;
-  @extend .rounded-border;
+  @extend %rounded-border;
   padding: $default-padding;
   margin-bottom: 2*$default-padding;
   text-align: center;
@@ -635,5 +635,5 @@ div.browse {
   width: 80%;
   padding: $default-padding;
   overflow: auto;
-  @extend .rounded-border;
+  @extend %rounded-border;
 }

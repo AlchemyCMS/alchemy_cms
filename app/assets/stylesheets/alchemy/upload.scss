@@ -16,7 +16,7 @@ a#uploadswitcher, a.underline {
   display: inline-block;
   background: $medium-gray;
   border: $default-border;
-  @extend .rounded-border;
+  @extend %rounded-border;
   padding: $default-padding 2*$default-padding;
   text-align: center;
   line-height: 19px;
@@ -61,7 +61,7 @@ a#uploadswitcher, a.underline {
   position: relative;
   margin-bottom: 8px;
   border: 1px solid #9e9e9e;
-  @extend .rounded-border;
+  @extend %rounded-border;
 }
 
 #uploadProgressContainer .progressName,
@@ -80,7 +80,7 @@ a#uploadswitcher, a.underline {
 #uploadProgressContainer .progressBarContainer {
   background-color: #f9f9f9;
   border: 1px solid #9e9e9e;
-  @extend .rounded-border;
+  @extend %rounded-border;
   height: 16px;
   overflow: hidden;
   width: 100%;

@@ -3,7 +3,7 @@
   line-height: 17px;
   border-width: 1px;
   border-style: solid;
-  @extend .rounded-border;
+  @extend %rounded-border;
   position: relative;
   margin-bottom: 8px;
   text-align: left;

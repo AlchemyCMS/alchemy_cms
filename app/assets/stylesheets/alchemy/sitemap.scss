@@ -334,7 +334,7 @@ a.folder_link {
   bottom: 0;
   left: 0;
   right: 0;
-  @extend .rounded-border;
+  @extend %rounded-border;
 }
 
 h2#sitemap_heading {
@@ -405,7 +405,7 @@ h2#sitemap_heading {
   padding: $default-padding;
   border: $default-border;
   @include box-shadow(#9ea09f 0px 0px 4px);
-  @extend .rounded-border;
+  @extend %rounded-border;
 
   .spinner {
     top: 17px !important;

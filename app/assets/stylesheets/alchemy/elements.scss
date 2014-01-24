@@ -76,7 +76,7 @@ div#element_area {
   margin: 1px;
   width: 119px;
   border: 1px solid #c0c0c0;
-  @extend .rounded-border;
+  @extend %rounded-border;
   height: 123px;
 
   a {
@@ -89,7 +89,7 @@ div#element_area {
     text-align: center;
     font-weight: bold;
     line-height: 104px;
-    @extend .rounded-border;
+    @extend %rounded-border;
     font-size: 40px;
     background-color: $light-gray;
 
@@ -116,7 +116,7 @@ div#element_area {
 
 .element_editor {
   border: 1px solid $default-border-color;
-  @extend .rounded-border;
+  @extend %rounded-border;
   background-color: $light-gray;
   margin-bottom: 2*$default-margin;
 
@@ -152,7 +152,7 @@ div#element_area {
     line-height: 21px;
     background-color: #f5dea9;
     margin-top: 4px;
-    @extend .rounded-border;
+    @extend %rounded-border;
 
     span.icon.warning {
       position: relative;
@@ -266,7 +266,7 @@ div.picture_gallery_images {
   overflow: hidden;
   margin: $default-margin 0;
   border: 1px solid $default-border-color;
-  @extend .rounded-border;
+  @extend %rounded-border;
   background-color: $medium-gray;
   padding: 1px;
 
@@ -352,7 +352,7 @@ a.fold_element {
 
     &.linked {
       position: relative;
-      @extend .rounded-border;
+      @extend %rounded-border;
       background-color: $linked-color;
       border: 1px solid $button-border-color;
       bottom: 1px;
@@ -459,7 +459,7 @@ div.file {
   margin-bottom: 4px;
   border: 1px solid #c0c0c0;
   background-color: #f3f3f3;
-  @extend .rounded-border;
+  @extend %rounded-border;
   height: 24px;
 }
 
@@ -563,7 +563,7 @@ div.content_editor {
     padding: 2*$default-padding;
     border: 1px solid #f5b04e;
     background-color: #f5dea9;
-    @extend .rounded-border;
+    @extend %rounded-border;
     font-size: 11px;
 
     span.icon.warning {
@@ -653,7 +653,7 @@ div.content_editor {
   }
 
   select.essence_editor_select {
-    @extend .rounded-border;
+    @extend %rounded-border;
     background: white;
     border: 1px solid $button-border-color;
     font-size: 11px;
@@ -728,7 +728,7 @@ textarea.default_tinymce, textarea.custom_tinymce {
   background-color: $error_background_color;
   padding: 2*$default-padding;
   list-style-type: none;
-  @extend .rounded-border;
+  @extend %rounded-border;
   color: $error_text_color;
   border: 1px solid $error_border_color;
 

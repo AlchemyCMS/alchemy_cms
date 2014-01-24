@@ -1,4 +1,4 @@
-.rounded-border {
+%rounded-border {
   @include border-radius($default-border-radius);
 }
 
@@ -14,7 +14,7 @@
 %tooltip {
   display: none;
   background: $light_yellow;
-  @extend .rounded-border;
+  @extend %rounded-border;
   @include box-shadow(0 4px 24px $dark-gray);
   position: absolute;
   right: -25px;
@@ -75,7 +75,7 @@
 %default-input-style {
   @include box-sizing(border-box);
   $border-inset-color: lighten($default-border-color, 20%);
-  @extend .rounded-border;
+  @extend %rounded-border;
   @include box-shadow(inset 0px 1px 1px $medium-gray);
   font: $default-font-style;
   padding: 1px 2*$default-padding;

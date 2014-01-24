@@ -56,7 +56,7 @@
   line-height: 21px;
   min-height: 29px;
   background: white;
-  @extend .rounded-border;
+  @extend %rounded-border;
   @extend .border-box-sizing;
 }
 
@@ -99,7 +99,7 @@
   background-color: $medium-gray;
   overflow: hidden;
   position: relative;
-  @extend .rounded-border;
+  @extend %rounded-border;
 
   &:before {
     position: absolute;
