@@ -149,7 +149,7 @@ module Alchemy
       end
 
       def contents_params
-        params.require(:contents).permit!
+        params.fetch(:contents, {}).permit!
       end
 
       def element_params
