@@ -322,29 +322,6 @@ module Alchemy
         xhr :put, :update, {id: element.id}
       end
 
-      it "updates timestamps of page" do
-        controller.should_receive(:element_params).and_return(element_parameters)
-        element.should_receive(:update_contents).and_return(true)
-        element.should_receive(:update_attributes!).with(element_parameters).and_return(true)
-        page.should_receive(:touch)
-        xhr :put, :update, {id: element.id}
-      end
-
-      context 'with to_be_sweeped_pages' do
-        let(:page_1) { build_stubbed(:page) }
-        let(:page_2) { build_stubbed(:page) }
-
-        it "updates timestamps of page" do
-          controller.should_receive(:element_params).and_return(element_parameters)
-          element.should_receive(:update_contents).and_return(true)
-          element.should_receive(:update_attributes!).with(element_parameters).and_return(true)
-          element.should_receive(:to_be_sweeped_pages).and_return([page_1, page_2])
-          page_1.should_receive(:touch)
-          page_2.should_receive(:touch)
-          xhr :put, :update, {id: element.id}
-        end
-      end
-
       context "failed validations" do
         it "displays validation failed notice" do
           element.should_receive(:update_contents).and_return(false)
@@ -359,13 +336,13 @@ module Alchemy
         let(:parameters) { ActionController::Parameters.new(contents: {1 => {ingredient: 'Title'}}) }
 
         specify ":contents is required" do
-          controller.params.should_receive(:require).with(:contents).and_return(parameters)
+          controller.params.should_receive(:fetch).and_return(parameters)
           controller.send :contents_params
         end
 
         specify "everything is permitted" do
           controller.should_receive(:params).and_return(parameters)
-          parameters.should_receive(:require).with(:contents).and_return(parameters)
+          parameters.should_receive(:fetch).and_return(parameters)
           parameters.should_receive(:permit!)
           controller.send :contents_params
         end

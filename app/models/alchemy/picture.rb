@@ -21,6 +21,7 @@ module Alchemy
   class Picture < ActiveRecord::Base
     include NameConversions
     include Sweeping
+    include Touching
 
     has_many :essence_pictures, class_name: 'Alchemy::EssencePicture', foreign_key: 'picture_id'
     has_many :contents, through: :essence_pictures
@@ -60,6 +61,8 @@ module Alchemy
     scope :recent,      -> { where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at) }
     scope :deletable,   -> { where('alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)') }
     scope :without_tag, -> { where("cached_tag_list IS NULL OR cached_tag_list = ''") }
+
+    after_update :touch_contents
 
     # Class methods
 

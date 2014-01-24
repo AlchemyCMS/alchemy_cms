@@ -54,8 +54,7 @@ module Alchemy
         end
 
         it "updates timestamp after updating related essence" do
-          content.should_receive(:touch)
-          should be_true
+          expect { subject; content.reload }.to change(content, :updated_at)
         end
       end
 

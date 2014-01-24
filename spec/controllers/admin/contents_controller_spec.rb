@@ -48,7 +48,7 @@ module Alchemy
       end
 
       it "should update a content via ajax" do
-        content.essence.should_receive(:update_attributes).with('ingredient' => 'Peters Petshop')
+        content.essence.should_receive(:update).with('ingredient' => 'Peters Petshop')
         xhr :post, :update, {id: content.id, content: {ingredient: 'Peters Petshop'}}
       end
     end

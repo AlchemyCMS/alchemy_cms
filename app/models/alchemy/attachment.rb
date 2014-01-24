@@ -19,6 +19,7 @@ module Alchemy
   class Attachment < ActiveRecord::Base
     include Filetypes
     include NameConversions
+    include Touching
 
     acts_as_taggable
 
@@ -46,6 +47,8 @@ module Alchemy
       write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
       write_attribute(:file_name, sanitized_filename)
     end
+
+    after_update :touch_contents
 
     # Class methods
 

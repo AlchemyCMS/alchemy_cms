@@ -119,7 +119,7 @@ module Alchemy
       essence.ingredient = value
     end
 
-    # Calls essence.update_attributes.
+    # Updates the essence.
     #
     # Called from +Alchemy::Element#update_contents+
     #
@@ -127,8 +127,7 @@ module Alchemy
     #
     def update_essence(params = {})
       raise EssenceMissingError if essence.nil?
-      if essence.update_attributes(params)
-        touch # update timestamp so that the cache expires
+      if essence.update(params)
         return true
       else
         errors.add(:essence, :validation_failed)

@@ -33,8 +33,10 @@ module Alchemy
 
     has_many :contents, -> { order(:position) }, dependent: :destroy
     belongs_to :cell
-    belongs_to :page, touch: true
-    has_and_belongs_to_many :to_be_sweeped_pages, -> { uniq }, class_name: 'Alchemy::Page', join_table: 'alchemy_elements_alchemy_pages'
+    belongs_to :page
+    has_and_belongs_to_many :touchable_pages, -> { uniq },
+      class_name: 'Alchemy::Page',
+      join_table: 'alchemy_elements_alchemy_pages'
 
     validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
@@ -43,6 +45,7 @@ module Alchemy
     attr_accessor :create_contents_after_create
 
     after_create :create_contents, :unless => proc { |e| e.create_contents_after_create == false }
+    after_update :touch_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
     scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
@@ -141,11 +144,11 @@ module Alchemy
       previous_or_next('<', name)
     end
 
-    # Stores the page into `to_be_sweeped_pages` (Pages that have to be sweeped after updating element).
+    # Stores the page into +touchable_pages+ (Pages that have to be touched after updating the element).
     def store_page(page)
       return true if page.nil?
-      unless self.to_be_sweeped_pages.include? page
-        self.to_be_sweeped_pages << page
+      unless self.touchable_pages.include? page
+        self.touchable_pages << page
         self.save
       end
     end
@@ -264,7 +267,7 @@ module Alchemy
       contents_attributes.each do |id, essence_attributes|
         content = self.contents.find(id)
         if content.update_essence(essence_attributes)
-          touch # update timestamp so that the cache expires
+          true
         else
           errors.add(:base, :essence_validation_failed)
         end

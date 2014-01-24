@@ -27,7 +27,7 @@ module Alchemy
       end
 
       def update
-        @essence_picture.update_attributes(essence_picture_params)
+        @essence_picture.update(essence_picture_params)
       end
 
       # Assigns picture, but does not saves it.

@@ -37,6 +37,8 @@ module Alchemy #:nodoc:
           has_many :elements, :through => :contents
           has_many :pages, :through => :elements
 
+          after_update :touch_content
+
           def acts_as_essence_class
             #{self.name}
           end
@@ -154,19 +156,25 @@ module Alchemy #:nodoc:
 
       # Returns the Content Essence is in
       def content
-        Alchemy::Content.find_by(essence_type: acts_as_essence_class.to_s, essence_id: self.id)
+        @content ||= Alchemy::Content.find_by(essence_type: acts_as_essence_class.to_s, essence_id: self.id)
+      end
+
+      # Touch content. Called after update.
+      def touch_content
+        return nil if content.nil?
+        content.touch
       end
 
       # Returns the Element Essence is in
       def element
         return nil if content.nil?
-        content.element
+        @element ||= content.element
       end
 
       # Returns the Page Essence is on
       def page
         return nil if element.nil?
-        element.page
+        @page ||= element.page
       end
 
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.

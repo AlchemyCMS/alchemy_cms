@@ -396,11 +396,6 @@ module Alchemy
           end
 
           it { should be_true }
-
-          it "updates timestamps" do
-            element.should_receive(:touch)
-            should be_true
-          end
         end
 
         context 'with failing validations' do
@@ -413,19 +408,17 @@ module Alchemy
       end
     end
 
-    describe '#save' do
-      context 'touch page' do
-        let(:time)    { Time.now }
+    describe '.after_update' do
+      context 'with touchable pages' do
         let(:locker)  { mock_model('DummyUser') }
-        let(:page)    { create(:page, updated_at: time) }
+        let(:page)    { create(:page) }
         let(:element) { create(:element, page: page) }
 
         before { Alchemy.user_class.stub(:stamper).and_return(locker.id) }
 
         it "updates page timestamps" do
-          element.save
-          page.reload
-          page.updated_at.should_not eq(time)
+          element.store_page(page)
+          expect { element.save; page.reload }.to change(page, :updated_at)
         end
 
         it "updates page userstamps" do

@@ -28,8 +28,8 @@ module Alchemy
       end
 
       def update
-        content = Content.find(params[:id])
-        content.essence.update_attributes(content_params)
+        @content = Content.find(params[:id])
+        @content.update_essence(content_params)
       end
 
       def order

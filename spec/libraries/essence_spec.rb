@@ -7,6 +7,14 @@ module Alchemy
     let(:essence) { build_stubbed(:essence_text) }
     let(:content_description) { {'name' => 'foo'} }
 
+    it "touches the content after update" do
+      content = create(:content)
+      d = content.updated_at
+      content.essence.update(body: 'Yadada')
+      content.reload
+      content.updated_at.should_not eq(d)
+    end
+
     describe '#description' do
       subject { essence.description }
 
