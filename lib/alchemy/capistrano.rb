@@ -99,6 +99,9 @@ EOF
 
       desc "Imports the database into your local development machine."
       task :database, :roles => [:db], :only => {:primary => true} do
+        unless database_config['adapter'] =~ /mysql/
+          abort "ABORTING: Only MySQL databases are supported right now."
+        end
         require 'spinner'
         server = find_servers_for_task(current_task).first
         spinner = Spinner.new
