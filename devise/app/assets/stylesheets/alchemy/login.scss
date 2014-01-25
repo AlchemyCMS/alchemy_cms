@@ -21,7 +21,7 @@ div.login_signup_box {
   padding: 4*$default-padding;
   border: $default-border;
   background-color: $medium-gray;
-  @extend .rounded-border;
+  @extend %rounded-border;
   margin: 2em auto;
 }
 
