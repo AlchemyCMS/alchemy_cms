@@ -171,13 +171,6 @@ module Alchemy
       }
     end
 
-    # Renders all element partials from given cell.
-    #
-    def render_cell_elements(cell)
-      return warning("No cell given.") if cell.blank?
-      render_elements(from_cell: cell)
-    end
-
     # Returns a string for the id attribute of a html element for the given element
     def element_dom_id(element)
       return "" if element.nil?

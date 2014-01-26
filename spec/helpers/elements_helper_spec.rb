@@ -194,28 +194,6 @@ module Alchemy
       end
     end
 
-    describe "#render_cell_elements" do
-      subject { helper.render_cell_elements(cell) }
-
-      context 'with cell given' do
-        let(:cell)            { build_stubbed(:cell) }
-        let(:element_in_cell) { build_stubbed(:element, cell: cell) }
-
-        before do
-          page.should_receive(:find_elements).and_return([element_in_cell])
-        end
-
-        it "renders elements from cell." do
-          should have_selector("##{element_in_cell.name}_#{element_in_cell.id}")
-        end
-      end
-
-      context 'if cell is nil' do
-        let(:cell) { nil }
-        it { should be_blank }
-      end
-    end
-
     describe '#element_preview_code_attributes' do
       subject { helper.element_preview_code_attributes(element) }
 
