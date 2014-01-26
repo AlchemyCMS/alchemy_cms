@@ -64,13 +64,6 @@ Installation
     alchemy new my_magicpage
     cd my_magicpage
 
-**Temporarily*** you have to add the following gem into your Gemfile:
-
-    # Remove this after the new version (1.0.3) was released https://github.com/alexspeller/non-stupid-digest-assets/
-    gem 'non-stupid-digest-assets', github: 'alexspeller/non-stupid-digest-assets', branch: 'master'
-
-*) This line can be safely removed, if the new version of the gem `non-stupid-digest-assets` will be released.
-
 Run
 
     bundle install
@@ -92,8 +85,6 @@ Open `http://localhost:3000` and follow the on screen instructions.
 In your App's Gemfile:
 
     gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
-    # Remove this after the new version (1.0.3) was released https://github.com/alexspeller/non-stupid-digest-assets/
-    gem 'non-stupid-digest-assets', github: 'alexspeller/non-stupid-digest-assets', branch: 'master'
 
 #### 2. Install Alchemy into your app:
 
