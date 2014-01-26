@@ -1,7 +1,7 @@
 <%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable) do |f| %>
   <% resource_handler.attributes.each do |attribute| %>
     <% if relation = attribute[:relation] %>
-      <%= f.association relation[:name],
+      <%= f.association relation[:name].to_sym,
         label_method: relation[:attr_method],
         include_blank: _t(:blank, scope: 'resources.relation_select'),
         input_html: {class: 'alchemy_selectbox'} %>

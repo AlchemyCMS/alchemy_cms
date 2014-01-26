@@ -38,6 +38,13 @@ describe "Resources" do
       page.should have_selector('textarea#event_description')
       page.should have_selector('input#event_published[type="checkbox"]')
     end
+
+    it "should have a select box for associated models" do
+      visit '/admin/events/new'
+      within('form') do
+        page.should have_selector('select')
+      end
+    end
   end
 
   describe "create resource item" do
