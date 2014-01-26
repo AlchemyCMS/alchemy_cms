@@ -88,7 +88,16 @@ module Alchemy
       can :clear,  :trash
 
       # Resources
-      can :manage, Page
+      can [
+        :copy,
+        :copy_language_tree,
+        :create,
+        :destroy,
+        :flush,
+        :order,
+        :sort,
+        :switch_language
+      ], Page
       can :manage, Picture
       can :manage, Attachment
       can :read,   Alchemy.user_class
@@ -129,7 +138,15 @@ module Alchemy
     end
 
     def set_action_aliases
-      alias_action :read, :edit, :fold, :link, :visit, :unlock, :publish,
+      alias_action :configure,
+        :fold,
+        :info,
+        :link,
+        :publish,
+        :read,
+        :update,
+        :unlock,
+        :visit,
         to: :edit_content
     end
   end

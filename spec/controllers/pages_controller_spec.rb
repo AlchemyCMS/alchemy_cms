@@ -9,6 +9,17 @@ module Alchemy
 
     before { controller.stub(:signup_required?).and_return(false) }
 
+    context 'an author' do
+      let(:unpublic) { create(:page, parent: default_language_root) }
+
+      before { controller.stub(current_alchemy_user: author_user) }
+
+      it "should be able to visit a unpublic page" do
+        get :show, urlname: unpublic.urlname
+        response.status.should == 200
+      end
+    end
+
     context "requested for a page containing a feed" do
       render_views
 
@@ -55,25 +66,20 @@ module Alchemy
       end
 
       context "with correct levelnames in params" do
-
         it "should show the requested page" do
           get :show, {urlname: 'catalog/products/screwdriver'}
           response.status.should == 200
           response.body.should have_content("screwdriver")
         end
-
       end
 
       context "with incorrect levelnames in params" do
-
         it "should render a 404 page" do
           get :show, {urlname: 'catalog/faqs/screwdriver'}
           response.status.should == 404
           response.body.should have_content('The page you were looking for doesn\'t exist')
         end
-
       end
-
     end
 
     context "when a non-existent page is requested" do
@@ -85,47 +91,43 @@ module Alchemy
     end
 
     describe '#redirect_to_public_child' do
-
       let(:root_page)    { FactoryGirl.create(:language_root_page, public: false) }
       let(:page)         { FactoryGirl.create(:page, parent_id: root_page.id) }
       let(:public_page)  { FactoryGirl.create(:public_page, parent_id: page.id) }
 
       before { controller.instance_variable_set("@page", root_page) }
 
-      context "with unpublished and published pages in page tree" do
+      context 'as guest user' do
+        context "with unpublished and published pages in page tree" do
+          before do
+            public_page
+            root_page.reload
+          end
 
-        before do
-          public_page
-          root_page.reload
-        end
-
-        it "should redirect to first public child" do
-          controller.should_receive(:redirect_page)
-          controller.send(:redirect_to_public_child)
-          controller.instance_variable_get('@page').should == public_page
-        end
-
-      end
-
-      context "with only unpublished pages in page tree" do
-
-        before do
-          page
-          root_page.reload
-        end
-
-        it "should raise not found error" do
-          expect {
+          it "should redirect to first public child" do
+            controller.should_receive(:redirect_page)
             controller.send(:redirect_to_public_child)
-          }.to raise_error(ActionController::RoutingError)
+            controller.instance_variable_get('@page').should == public_page
+          end
         end
 
+        context "with only unpublished pages in page tree" do
+          before do
+            page
+            root_page.reload
+          end
+
+          it "should raise not found error" do
+            expect {
+              controller.send(:redirect_to_public_child)
+            }.to raise_error(ActionController::RoutingError)
+          end
+        end
       end
     end
 
     describe 'Redirecting to legacy page urls' do
       context 'Request a page with legacy url' do
-
         let(:page)        { FactoryGirl.create(:public_page, name: 'New page name') }
         let(:second_page) { FactoryGirl.create(:public_page, name: 'Second Page') }
         let(:legacy_page) { FactoryGirl.create(:public_page, name: 'Legacy Url') }
@@ -150,20 +152,16 @@ module Alchemy
           get :show, urlname: legacy_url2.urlname
           response.should redirect_to("/#{second_page.urlname}")
         end
-
       end
     end
 
     describe "while redirecting" do
-
       context "not in multi language mode" do
-
         before do
           PagesController.any_instance.stub(:multi_language?).and_return(false)
         end
 
         context "with no lang parameter present" do
-
           it "should store defaults language id in the session." do
             get :show, urlname: 'a-public-page'
             controller.session[:alchemy_language_id].should == Language.default.id
@@ -173,12 +171,8 @@ module Alchemy
             get :show, urlname: 'a-public-page'
             Language.current.should == Language.default
           end
-
         end
-
       end
-
     end
-
   end
 end

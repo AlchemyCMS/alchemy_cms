@@ -10,8 +10,9 @@ describe Alchemy::Permissions do
   let(:picture)                 { mock_model(Alchemy::Picture, restricted?: false) }
   let(:restricted_picture)      { mock_model(Alchemy::Picture, restricted?: true) }
   let(:public_page)             { build_stubbed(:public_page, restricted: false) }
+  let(:unpublic_page)           { build_stubbed(:page, public: false) }
   let(:visible_page)            { build_stubbed(:page, restricted: false, visible: true) }
-  let(:not_visible_page)        { build_stubbed(:page, restricted: false, visible: false) }
+  let(:not_visible_page)        { build_stubbed(:public_page, restricted: false, visible: false) }
   let(:restricted_page)         { build_stubbed(:public_page, public: true, restricted: true) }
   let(:visible_restricted_page) { build_stubbed(:page, visible: true, restricted: true) }
   let(:published_element)       { mock_model(Alchemy::Element, public: true, page: public_page) }
@@ -86,8 +87,11 @@ describe Alchemy::Permissions do
 
     it "can see visible restricted pages" do
       should be_able_to(:see, visible_page)
-      should_not be_able_to(:see, not_visible_page)
       should be_able_to(:see, visible_restricted_page)
+    end
+
+    it "can not see invisible pages" do
+      should_not be_able_to(:see, not_visible_page)
     end
 
     it "can see public restricted elements" do
@@ -109,9 +113,11 @@ describe Alchemy::Permissions do
     end
 
     it "can edit page content" do
-      should be_able_to(:show, Alchemy::Page)
+      should be_able_to(:show, unpublic_page)
       should be_able_to(:index, Alchemy::Page)
-      should be_able_to(:edit, Alchemy::Page)
+      should be_able_to(:info, Alchemy::Page)
+      should be_able_to(:configure, Alchemy::Page)
+      should be_able_to(:update, Alchemy::Page)
       should be_able_to(:fold, Alchemy::Page)
       should be_able_to(:link, Alchemy::Page)
       should be_able_to(:visit, Alchemy::Page)
@@ -164,7 +170,18 @@ describe Alchemy::Permissions do
     let(:user) { editor_user }
 
     it "can manage pages" do
-      should be_able_to(:manage, Alchemy::Page)
+      should be_able_to(:copy, Alchemy::Page)
+      should be_able_to(:copy_language_tree, Alchemy::Page)
+      should be_able_to(:create, Alchemy::Page)
+      should be_able_to(:destroy, Alchemy::Page)
+      should be_able_to(:flush, Alchemy::Page)
+      should be_able_to(:order, Alchemy::Page)
+      should be_able_to(:sort, Alchemy::Page)
+      should be_able_to(:switch_language, Alchemy::Page)
+    end
+
+    it "can not see invisible pages" do
+      should_not be_able_to(:see, not_visible_page)
     end
 
     it "can clear the trash" do
