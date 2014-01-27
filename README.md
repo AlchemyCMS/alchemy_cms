@@ -48,7 +48,7 @@ If you are looking for a Rails 2.3 compatible version check the [1.6-stable bran
 Ruby Version
 ------------
 
-Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0.0).
+Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0 and 2.1).
 
 For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).
 
@@ -144,7 +144,7 @@ Resources
 ---------
 
 * Homepage: <http://alchemy-cms.com>
-* Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo)
+* Live-Demo: <http://edge-demo.alchemy-cms.com> (user: demo, password: demo123)
 * API Documentation: <http://rubydoc.info/github/magiclabs/alchemy_cms>
 * Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
 * Sourcecode: <https://github.com/magiclabs/alchemy_cms>
