@@ -18,12 +18,15 @@ module Alchemy
 
     context 'validations' do
       context "Creating a normal content page" do
-        let(:contentpage) { FactoryGirl.build(:page) }
+        let(:contentpage)              { FactoryGirl.build(:page) }
+        let(:with_same_urlname)        { FactoryGirl.create(:page, urlname: "existing_twice") }
+        let(:global_with_same_urlname) { FactoryGirl.create(:page, urlname: "existing_twice", layoutpage: true) }
 
         context "when its urlname exists as global page" do
+          before { global_with_same_urlname }
+
           it "it should be possible to save." do
             contentpage.urlname = "existing_twice"
-            global_with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice", :layoutpage => true)
             contentpage.should be_valid
           end
         end
@@ -40,25 +43,30 @@ module Alchemy
           contentpage.should have(1).error_on(:parent_id)
         end
 
-        it "should validate the uniqueness of urlname" do
-          with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice")
-          contentpage.urlname = 'existing_twice'
-          contentpage.should_not be_valid
+        context 'with page having same urlname' do
+          before { with_same_urlname }
+
+          it "should not be valid" do
+            contentpage.urlname = 'existing_twice'
+            contentpage.should_not be_valid
+          end
         end
 
         context "with url_nesting set to true" do
-          before { Config.stub(:get).and_return(true) }
+          let(:other_parent) { FactoryGirl.create(:page, parent_id: Page.root.id) }
+
+          before do
+            Config.stub(:get).and_return(true)
+            with_same_urlname
+          end
 
           it "should only validate urlname dependent of parent" do
-            other_parent = FactoryGirl.create(:page, parent_id: Page.root.id)
-            with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice")
             contentpage.urlname = 'existing_twice'
             contentpage.parent_id = other_parent.id
             contentpage.should be_valid
           end
 
           it "should validate urlname dependent of parent" do
-            with_same_urlname = FactoryGirl.create(:page, :urlname => "existing_twice")
             contentpage.urlname = 'existing_twice'
             contentpage.should_not be_valid
           end
