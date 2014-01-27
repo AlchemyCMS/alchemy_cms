@@ -413,12 +413,18 @@ module Alchemy
         let(:locker)  { mock_model('DummyUser') }
         let(:page)    { create(:page) }
         let(:element) { create(:element, page: page) }
+        let(:now)     { Time.now }
+        let(:pages)   { [page] }
 
-        before { Alchemy.user_class.stub(:stamper).and_return(locker.id) }
+        before do
+          Alchemy.user_class.stub(:stamper).and_return(locker.id)
+          Time.stub(now: now)
+        end
 
         it "updates page timestamps" do
-          element.store_page(page)
-          expect { element.save; page.reload }.to change(page, :updated_at)
+          element.should_receive(:touchable_pages).and_return(pages)
+          pages.should_receive(:update_all).with({updated_at: now, updater_id: locker.id})
+          element.save
         end
 
         it "updates page userstamps" do

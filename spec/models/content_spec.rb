@@ -46,7 +46,10 @@ module Alchemy
       let(:params)  { {} }
 
       context 'with params given' do
-        let(:params) { {body: 'Mikes Petshop'} }
+        let(:params)  { {body: 'Mikes Petshop'} }
+        let(:essence) { content.essence }
+
+        before { essence.stub(content: content) }
 
         it "updates the attributes of related essence and return true" do
           should be_true
@@ -54,7 +57,8 @@ module Alchemy
         end
 
         it "updates timestamp after updating related essence" do
-          expect { subject; content.reload }.to change(content, :updated_at)
+          content.should_receive(:touch)
+          subject
         end
       end
 
