@@ -2,6 +2,10 @@
 #
 require 'fileutils'
 require 'alchemy/tasks/helpers'
+# Loading the current Rails app's env, so we can get the Alchemy mount point.
+require './config/environment.rb'
+require 'alchemy/mount_point'
+
 include Alchemy::Tasks::Helpers
 
 ::Capistrano::Configuration.instance(:must_exist).load do
@@ -14,20 +18,36 @@ include Alchemy::Tasks::Helpers
 
     namespace :shared_folders do
 
-      # This task creates the shared folders for uploads and picture cache while setting up your server.
+      # This task creates the shared folders for uploads, assets and picture cache while setting up your server.
       desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
       task :create, :roles => :app do
         run "mkdir -p #{shared_path}/uploads/pictures"
         run "mkdir -p #{shared_path}/uploads/attachments"
-        run "mkdir -p #{File.join(shared_path, 'cache', Capistrano::CLI.ui.ask("\nWhere is Alchemy CMS mounted at? ('/'): "), 'pictures')}"
+        run "mkdir -p #{shared_picture_cache_path}"
+        run "mkdir -p #{shared_path}/cache/assets"
       end
 
-      # This task sets the symlinks for uploads and picture cache folder.
+      # This task sets the symlinks for uploads, assets and picture cache folder.
       desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:finalize_update"
       task :symlink, :roles => :app do
         run "rm -rf #{release_path}/uploads"
         run "ln -nfs #{shared_path}/uploads #{release_path}/"
-        run "ln -nfs #{shared_path}/cache/* #{release_path}/public/"
+        run "mkdir -p #{public_path_with_mountpoint}"
+        run "ln -nfs #{shared_picture_cache_path} #{public_path_with_mountpoint('pictures')}"
+        run "mkdir -p #{release_path}/tmp/cache"
+        run "ln -nfs #{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
+      end
+
+      def shared_picture_cache_path
+        @shared_picture_cache_path ||= begin
+          File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures')
+        end
+      end
+
+      def public_path_with_mountpoint(suffix = '')
+        @release_picture_cache_path ||= begin
+          File.join(release_path, 'public', Alchemy::MountPoint.get, suffix)
+        end
       end
 
     end
