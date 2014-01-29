@@ -14,7 +14,7 @@ When filing an issue on the Alchemy CMS project, please provide these details:
 In 99% of cases, this information is enough to determine the cause and solution
 to the problem that is being described.
 
-Please remember to format code using triple backticks (\`) so that it is neatly
+Please remember to format code using triple backticks (\`\`\`) so that it is neatly
 formatted when the issue is posted.
 
 ## Pull requests
@@ -66,7 +66,8 @@ Please follow these syntax guides:
 * `a = b` and not `a=b`.
 * `a_method { |block| ... }` and not `a_method { | block | ... }`
 * Follow the conventions you see used in the source already.
-* -> symbol over lambda
+* `->` symbol over lambda
+* This `{a: 'b'}` is a hash, this `{ a + b }` is a block.
 * Ruby 1.9 hash syntax over Ruby 1.8 hash syntax
 
 And in case we didn't emphasize it enough: we love tests!
