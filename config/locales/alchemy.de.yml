@@ -124,6 +124,7 @@ de:
 
     # == User roles translations
     user_roles:
+      registered: "Registriert"
       member: "Mitglied"
       author: "Author"
       editor: "Redakteur"
