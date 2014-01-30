@@ -4,7 +4,7 @@ Alchemy.Spinner =
 
   DEFAULTS:
     lines: 5
-    corners: 0.75
+    corners: 1
     rotate: 54
     trail: 75
     speed: 1.25
@@ -21,7 +21,7 @@ Alchemy.Spinner =
   small: (opts) ->
     defaults = $.extend({}, Alchemy.Spinner.DEFAULTS,
       length: 2
-      width: 3
+      width: 2
       radius: 2
     )
     new Spinner($.extend(defaults, opts))
@@ -29,7 +29,7 @@ Alchemy.Spinner =
   medium: (opts) ->
     defaults = $.extend({}, Alchemy.Spinner.DEFAULTS,
       length: 4
-      width: 6
+      width: 4
       radius: 4
     )
     new Spinner($.extend(defaults, opts))
@@ -37,7 +37,7 @@ Alchemy.Spinner =
   large: (opts) ->
     defaults = $.extend({}, Alchemy.Spinner.DEFAULTS,
       length: 8
-      width: 12
+      width: 10
       radius: 8
     )
     new Spinner($.extend(defaults, opts))
