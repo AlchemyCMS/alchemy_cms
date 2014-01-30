@@ -14,7 +14,7 @@ module Alchemy
 
     describe '.todo' do
       it "should add given string as a todo by delegating to .add_todo" do
-        MyToDoList.should_receive(:add_todo).with("new todo")
+        MyToDoList.should_receive(:add_todo).with(["", "new todo"])
         MyToDoList.todo("new todo")
       end
     end
