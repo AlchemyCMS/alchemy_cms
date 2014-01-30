@@ -6,13 +6,6 @@ module Alchemy
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
     extend ThreePointZero
-    extend TwoPointSix
-    extend TwoPointFive
-    extend TwoPointFour
-    extend TwoPointThree
-    extend TwoPointTwo
-    extend TwoPointOne
-    extend TwoPointZero
 
     class << self
 
@@ -22,7 +15,16 @@ module Alchemy
         upgrade_tasks.each do |task|
           self.send(task)
         end
-        display_todos
+        puts "\n"
+        log "Upgrade done!"
+        if todos.any?
+          display_todos
+          log "\nThere are some follow ups to do", :message
+          log '-------------------------------', :message
+          log "\nPlease follow the TODOs above.", :message
+        else
+          log "\nThat's it.", :message
+        end
       end
 
       # Tasks that should run.
@@ -45,7 +47,7 @@ module Alchemy
         private_methods - Object.private_methods - superclass.private_methods
       end
 
-    private
+      private
 
       # Setup task
       def setup
@@ -67,7 +69,7 @@ module Alchemy
           log "Custom configuration file found."
           FileUtils.cp default_config, Rails.root.join('config/alchemy/config.yml.defaults')
           log "Copied new default configuration file."
-          todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file."
+          todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file.", 'Configuration has changed'
         end
       end
 

@@ -9,14 +9,13 @@ We removed the users model from Alchemy core!
 You have to provide your own user model or
 add the `alchemy-devise` gem to your Gemfile.
 
-In order to provide your own user model,
-you have to be sure to met the API requirements
-mentioned in:
+  # Gemfile
+  gem 'alchemy-devise'
 
-  lib/alchemy/auth_accessors.rb
+  $ bin/rake alchemy_devise:install:migrations db:migrate
 
 NOTE
-      todo notice
+      todo notice, 'Alchemy v3.0'
     end
 
     def rename_registered_role_ro_member

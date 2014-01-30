@@ -13,8 +13,8 @@ module Alchemy
       puts "#{'-' * message.length}\n"
     end
 
-    def todo(todo)
-      add_todo todo
+    def todo(todo, title='')
+      add_todo [title, todo]
     end
 
     # Adds a sentence to the todos Array
@@ -37,11 +37,13 @@ module Alchemy
     #
     def display_todos
       if todos.length > 0
-        log "\nTODOS:", :message
+        log "\nTODOs:", :message
         log "------\n", :message
         todos.each_with_index do |todo, i|
-          log "\n#{i+1}. ", :message
-          log todo, :message
+          title = "\n#{i+1}. #{todo[0]}"
+          log title, :message
+          puts '-' * title.length
+          log todo[1], :message
         end
       end
     end
