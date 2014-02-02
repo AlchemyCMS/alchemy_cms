@@ -1,4 +1,5 @@
-.message {
+// leave this as div, bcz some table columns also have .message
+div.message, p.message {
   padding: 8px 8px 8px 32px;
   line-height: 17px;
   border-width: 1px;
@@ -38,20 +39,20 @@
 }
 
 div.info {
-  @extend .message;
+  @extend div.message;
   color: $text-color;
   background-color: #eaf4f9;
   border-color: #0b5c84;
 }
 
 div.error {
-  @extend .message;
+  @extend div.message;
   background-color: #f1c9ca;
   color: #931f23;
 }
 
 div.warning, div.warn {
-  @extend .message;
+  @extend div.message;
   background-color: #f7efb8;
   color: #756f47;
 }
