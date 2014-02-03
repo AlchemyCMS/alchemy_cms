@@ -34,8 +34,4 @@ h4. Create image-slider
 
 "Best Practice: Create Image-slider":best_practice_create_image_slider.html
 
-h4. Using the implemented fulltext search
-
-INFO: under construction
-
 &nbsp;
