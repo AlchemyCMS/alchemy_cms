@@ -19,6 +19,7 @@ require 'alchemy/essence'
 require 'alchemy/ferret/search'
 require 'alchemy/filetypes'
 require 'alchemy/i18n'
+require 'alchemy/language_helpers'
 require 'alchemy/logger'
 require 'alchemy/modules'
 require 'alchemy/mount_point'
@@ -71,6 +72,10 @@ module Alchemy
 
     initializer "alchemy.add_authorization_rules" do
       Alchemy::Auth::Engine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
+    end
+
+    config.to_prepare do
+      ApplicationController.send(:include, Alchemy::LanguageHelpers)
     end
 
   end
