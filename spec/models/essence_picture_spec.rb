@@ -2,6 +2,10 @@ require 'spec_helper'
 
 module Alchemy
   describe EssencePicture do
+    it_behaves_like "an essence" do
+      let(:essence)          { EssencePicture.new }
+      let(:ingredient_value) { Picture.new }
+    end
 
     it "should not store negative values for crop values" do
       essence = EssencePicture.new(:crop_from => '-1x100', :crop_size => '-20x30')

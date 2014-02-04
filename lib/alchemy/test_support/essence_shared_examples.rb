@@ -1,18 +1,24 @@
 require 'spec_helper'
 
 module Alchemy
-  describe "ActsAsEssence" do
+  shared_examples_for "an essence" do
+
     let(:element) { Element.new }
     let(:content) { Content.new(name: 'foo') }
-    let(:essence) { build_stubbed(:essence_text) }
     let(:content_description) { {'name' => 'foo'} }
 
     it "touches the content after update" do
-      content = create(:content)
+      essence.save
+      content.update(essence: essence, essence_type: essence.class.name)
       d = content.updated_at
-      content.essence.update(body: 'Yadada')
+      content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
       content.reload
       content.updated_at.should_not eq(d)
+    end
+
+    it "should have correct partial path" do
+      underscored_essence = essence.class.name.demodulize.underscore
+      expect(essence.to_partial_path).to eq("alchemy/essences/#{underscored_essence}_view")
     end
 
     describe '#description' do
@@ -53,35 +59,13 @@ module Alchemy
 
     describe '#ingredient=' do
       it 'should set the value to ingredient column' do
-        essence.ingredient = 'Hallo'
-        expect(essence.ingredient).to eq('Hallo')
-      end
-    end
-
-    describe '#open_link_in_new_window?' do
-
-      subject { essence.open_link_in_new_window? }
-
-      context 'essence responds to link_taget' do
-        context 'if link_target attribute is set to "blank"' do
-
-          before { essence.link_target = 'blank' }
-
-          it "should return true" do
-            expect(subject).to eq(true)
-          end
-        end
-
-        context 'if link_target attribute is not "blank"' do
-          it "should return false" do
-            expect(subject).to eq(false)
-          end
-        end
+        essence.ingredient = ingredient_value
+        expect(essence.ingredient).to eq ingredient_value
       end
     end
 
     describe '#page' do
-      let(:page) { build_stubbed(:page) }
+      let(:page)    { build_stubbed(:page) }
       let(:element) { build_stubbed(:element, page: page) }
 
       context 'essence has no element' do
