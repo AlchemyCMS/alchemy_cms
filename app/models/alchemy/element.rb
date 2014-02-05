@@ -21,6 +21,7 @@ module Alchemy
   class Element < ActiveRecord::Base
     include Logger
     include Touching
+    include Hints
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable hint)
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id position folded created_at updated_at creator_id updater_id cached_tag_list)
@@ -421,47 +422,7 @@ module Alchemy
       "alchemy/elements/#{name}_view"
     end
 
-    # Returns the hint for this element
-    #
-    # To add a hint to an element either pass +hint: true+ to the element definition in its element.yml
-    #
-    # Then the hint itself is placed in the locale yml files.
-    #
-    # Alternativly you can pass the hint itself to the hint key.
-    #
-    # == Locale Example:
-    #
-    #   # elements.yml
-    #   - name: headline
-    #     hint: true
-    #
-    #   # config/locales/de.yml
-    #     de:
-    #       element_hints:
-    #         headline: Lorem ipsum
-    #
-    # == Hint Key Example:
-    #
-    #   - name: headline
-    #     hint: "Lorem ipsum"
-    #
-    # @return String
-    #
-    def hint
-      hint = definition['hint']
-      if hint == true
-        I18n.t(name, scope: :element_hints)
-      else
-        hint
-      end
-    end
-
-    # Returns true if the element has a hint
-    def has_hint?
-      hint.present?
-    end
-
-  private
+    private
 
     # creates the contents for this element as described in the elements.yml
     def create_contents

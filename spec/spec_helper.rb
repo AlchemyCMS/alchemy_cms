@@ -34,6 +34,7 @@ require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
 require 'alchemy/test_support/essence_shared_examples'
 require_relative "support/test_tweaks.rb"
+require_relative "support/hint_examples.rb"
 
 # Temporay fix for mavericks phantomjs bug
 if RUBY_PLATFORM =~ /darwin/

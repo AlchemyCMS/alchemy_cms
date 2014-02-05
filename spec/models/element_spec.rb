@@ -491,5 +491,9 @@ module Alchemy
       end
     end
 
+    it_behaves_like "having a hint" do
+      let(:subject) { Element.new }
+    end
+
   end
 end

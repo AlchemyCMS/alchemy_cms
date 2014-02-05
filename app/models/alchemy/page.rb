@@ -34,6 +34,8 @@
 
 module Alchemy
   class Page < ActiveRecord::Base
+    include Hints
+
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
       :do_not_sweep => true,
