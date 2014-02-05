@@ -2,14 +2,9 @@ require 'spec_helper'
 
 module Alchemy
   describe EssenceBoolean do
-
-    it "should act as essence" do
-      expect { EssenceBoolean.new.acts_as_essence? }.to_not raise_error
+    it_behaves_like "an essence" do
+      let(:essence)          { EssenceBoolean.new }
+      let(:ingredient_value) { false }
     end
-
-    it "should have correct partial path" do
-      EssenceBoolean.new.to_partial_path.should == 'alchemy/essences/essence_boolean_view'
-    end
-
   end
 end
