@@ -112,15 +112,6 @@ $.extend Alchemy,
       console.trace()
     return
 
-  # Translates given string
-  #
-  _t: (id) ->
-    translation = Alchemy.translations[id]
-    if (translation)
-      translation[Alchemy.locale]
-    else
-      id
-
   getUrlParam: (name) ->
     results = new RegExp("[\\?&]" + name + "=([^&#]*)").exec(window.location.href)
     results[1] or 0  if results

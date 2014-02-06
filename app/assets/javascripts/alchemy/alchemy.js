@@ -29,6 +29,7 @@
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys
+//= require alchemy/alchemy.i18n
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.string_extension
 //= require alchemy/alchemy.link_overlay
