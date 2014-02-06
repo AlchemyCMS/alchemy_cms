@@ -42,7 +42,7 @@ class AlchemyInstaller < Thor
   end
 
   def rake_cmd
-    "cd #{@application} && bundle exec rake"
+    "cd #{@application} && bin/rake"
   end
 
   def alchemy_template
@@ -59,7 +59,7 @@ class AlchemyInstaller < Thor
 ::                                                                     ::
 :: Start your local Rails server with:                                 ::
 ::                                                                     ::
-:: $ rails server                                                      ::
+:: $ bin/rails server                                                  ::
 ::                                                                     ::
 :: Open your browser and enter the following URL:                      ::
 ::                                                                     ::
