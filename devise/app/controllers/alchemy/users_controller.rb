@@ -1,13 +1,14 @@
 module Alchemy
   class UsersController < BaseController
+    include Locale
+
     before_action { enforce_ssl if ssl_required? && !request.ssl? }
-    before_action :set_translation
     before_action :check_user_count
     before_action :load_genders
 
-    layout 'alchemy/admin'
-
     helper 'Alchemy::Admin::Base'
+
+    layout 'alchemy/admin'
 
     def new
       @signup = true
