@@ -13,6 +13,11 @@ module Alchemy
         end
       end
 
+      # The resources controller renders the edit form as default for show actions.
+      def show
+        render :show
+      end
+
       def new
         @attachment = Attachment.new
         if in_overlay?

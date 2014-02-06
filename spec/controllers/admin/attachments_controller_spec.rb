@@ -42,6 +42,17 @@ module Alchemy
       end
     end
 
+    describe '#show' do
+      before do
+        Attachment.stub(find: attachment)
+      end
+
+      it "renders the show template" do
+        get :show, id: attachment.id
+        expect(response).to render_template(:show)
+      end
+    end
+
     describe "#new" do
       context "in overlay" do
         before do
