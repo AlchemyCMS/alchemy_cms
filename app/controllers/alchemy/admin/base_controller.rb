@@ -2,8 +2,9 @@ module Alchemy
   module Admin
     class BaseController < Alchemy::BaseController
       include Userstamp
+      include Locale
+
       before_filter { enforce_ssl if ssl_required? && !request.ssl? }
-      before_filter :set_translation
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
