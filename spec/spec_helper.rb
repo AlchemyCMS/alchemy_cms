@@ -40,7 +40,14 @@ require_relative "support/hint_examples.rb"
 if RUBY_PLATFORM =~ /darwin/
   require_relative "support/phantomjs_mavericks_fix.rb"
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Alchemy::WarningSuppressor)
+    Capybara::Poltergeist::Driver.new(app, {
+      phantomjs_logger: Alchemy::WarningSuppressor,
+      js_errors: false
+    })
+  end
+else
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, js_errors: false)
   end
 end
 
@@ -48,7 +55,7 @@ end
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.register_driver(:rack_test_translated_header) do |app|
-  Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
+  Capybara::RackTest::Driver.new(app, headers: { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
 end
 Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = false
@@ -59,8 +66,8 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
   config.include Alchemy::TestSupport::AuthHelpers
-  config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
-  config.include Alchemy::TestSupport::IntegrationHelpers, :type => :feature
+  config.include Alchemy::TestSupport::ControllerRequests, type: :controller
+  config.include Alchemy::TestSupport::IntegrationHelpers, type: :feature
   config.include FactoryGirl::Syntax::Methods
 
   config.use_transactional_fixtures = true
