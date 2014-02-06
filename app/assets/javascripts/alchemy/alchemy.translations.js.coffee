@@ -77,3 +77,6 @@ $.extend Alchemy,
     url_validation_failed:
       de: 'Die URL hat kein gültiges Format.'
       en: 'The url has no valid format.'
+    click_to_edit:
+      de: 'Klicken zum Bearbeiten'
+      en: 'click to edit'

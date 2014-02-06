@@ -3,7 +3,7 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      before_filter :set_translation
+      before_action :set_translation
     end
 
     private

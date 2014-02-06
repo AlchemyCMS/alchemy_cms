@@ -1,4 +1,9 @@
-window.Alchemy = {}  if typeof (Alchemy) is "undefined"
+#= require alchemy/alchemy.browser
+#= require alchemy/alchemy.i18n
+#= require alchemy/alchemy.jquery_loader
+
+window.Alchemy = {} if typeof(Alchemy) is 'undefined'
+
 Alchemy.initAlchemyPreviewMode = ($) ->
 
   # Setting jQueryUIs global animation duration
@@ -38,38 +43,38 @@ Alchemy.initAlchemyPreviewMode = ($) ->
           "-moz-outline-radius": "3px"
 
       init: ->
-        self = Alchemy.ElementSelector
         $elements = $("[data-alchemy-element]")
-        $elements.bind "mouseover", (e) ->
-          $(this).attr("title", "Klicken zum bearbeiten")
-          $(this).css(self.getStyle("hover")) unless $(this).hasClass("selected")
-
-        $elements.bind "mouseout", ->
-          $(this).removeAttr("title")
-          $(this).css(self.getStyle("reset")) unless $(this).hasClass("selected")
-
-        $elements.bind("Alchemy.SelectElement", self.selectElement)
-        $elements.bind("click", self.clickElement)
-        self.$previewElements = $elements
+        @$previewElements = $elements
+        $elements.mouseover (e) =>
+          $el = $(e.delegateTarget)
+          $el.attr("title", Alchemy._t('click_to_edit'))
+          $el.css(@getStyle("hover")) unless $el.hasClass("selected")
+        $elements.mouseout (e) =>
+          $el = $(e.delegateTarget)
+          $el.removeAttr("title")
+          $el.css(@getStyle("reset")) unless $el.hasClass("selected")
+        $elements.on "Alchemy.SelectElement", (e) =>
+          @selectElement(e)
+        $elements.click (e) =>
+          @clickElement(e)
 
       selectElement: (e) ->
-        $this = $(this)
-        self = Alchemy.ElementSelector
-        $elements = self.$previewElements
-        offset = self.scrollOffset
+        $el = $(e.delegateTarget)
+        $elements = @$previewElements
+        offset = @scrollOffset
         e.preventDefault()
-        $elements.removeClass("selected").css(self.getStyle("reset"))
-        $this.addClass("selected").css(self.getStyle("selected"))
+        $elements.removeClass("selected").css(@getStyle("reset"))
+        $el.addClass("selected").css(@getStyle("selected"))
         $("html, body").animate
-          scrollTop: $this.offset().top - offset
-          scrollLeft: $this.offset().left - offset
+          scrollTop: $el.offset().top - offset
+          scrollLeft: $el.offset().left - offset
         , 400
         return
 
       clickElement: (e) ->
-        $this = $(this)
+        $el = $(e.delegateTarget)
         parent$ = window.parent.jQuery
-        target_id = $this.data("alchemy-element")
+        target_id = $el.data("alchemy-element")
         $element_editor = parent$("#element_area .element_editor").closest("[id=\"element_" + target_id + "\"]")
         $elementsWindow = parent$("#alchemyElementWindow")
         e.preventDefault()
@@ -79,25 +84,24 @@ Alchemy.initAlchemyPreviewMode = ($) ->
             $elementsWindow.dialog("moveToTop")
           else
             $elementsWindow.dialog "open"
-        $this.trigger("Alchemy.SelectElement")
+        $el.trigger("Alchemy.SelectElement")
         return
 
       getStyle: (state) ->
-        self = Alchemy.ElementSelector
         if state == "reset"
-          self.styles["reset"]
+          @styles["reset"]
         else
-          default_state_style = self.styles["default_#{state}"]
+          default_state_style = @styles["default_#{state}"]
           browser = "webkit" if Alchemy.Browser.isWebKit
           browser = "moz" if Alchemy.Browser.isFirefox
           if browser
-            $.extend(default_state_style, self.styles["#{browser}_#{state}"])
+            $.extend(default_state_style, @styles["#{browser}_#{state}"])
           else
             default_state_style
 
   Alchemy.ElementSelector.init()
 
-if typeof (jQuery) is "undefined"
+if typeof(jQuery) is 'undefined'
   Alchemy.loadjQuery(Alchemy.initAlchemyPreviewMode)
 else
   Alchemy.initAlchemyPreviewMode(jQuery)
