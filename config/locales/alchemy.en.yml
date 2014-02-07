@@ -231,7 +231,7 @@ en:
       step1: "Click the 'browse' button and navigate to your %{name} folder"
       step2: "Select all the %{name} you want to upload"
       step3: "Click the 'open' button. The upload starts!"
-    external_link_notice_1: "Please enter the complete url with http:// or a similiar protocal."
+    external_link_notice_1: "Please enter the complete url with http:// or a similiar protocol."
     external_link_notice_2: "To refer a path from your website url, start with a /."
     female: "Female"
     file: "File"
