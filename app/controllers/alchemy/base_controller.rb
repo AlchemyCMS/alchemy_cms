@@ -2,7 +2,7 @@
 #
 module Alchemy
   class BaseController < ApplicationController
-    include Alchemy::Modules
+    include Modules
 
     protect_from_forgery
 
@@ -47,26 +47,8 @@ module Alchemy
       I18n.t(key, *args)
     end
 
-    # Sets Alchemy's GUI translation to users preffered language and stores it in the session.
-    #
-    # Guesses the language from browser locale. If not successful it takes the default.
-    #
-    # You can set the default translation in your +config/application.rb+ file, via Rails +default_locale+ config option.
-    #
-    # If one passes a locale parameter the locale is set to its value
-    #
-    def set_translation
-      if params[:locale].blank? && session[:current_locale].present?
-        ::I18n.locale = session[:current_locale]
-      elsif params[:locale].present? && ::I18n.available_locales.include?(params[:locale].to_sym)
-        session[:current_locale] = ::I18n.locale = params[:locale]
-      elsif current_alchemy_user && current_alchemy_user.respond_to?(:language) && current_alchemy_user.language.present?
-        ::I18n.locale = current_alchemy_user.language
-      else
-        ::I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /\A[a-z]{2}/).try(:first) || ::I18n.default_locale
-      end
-    end
-
+    # Store current request path into session,
+    # so we can later redirect to it.
     def store_location
       session[:redirect_path] = request.path
     end

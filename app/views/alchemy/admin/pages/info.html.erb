@@ -1,4 +1,9 @@
 <div class="resource_info">
+  <% if @page.has_hint? %>
+  <%= render_message do %>
+    <%= @page.hint %>
+  <% end %>
+  <% end %>
   <div class="value">
     <label><%= _t(:page_type) %></label>
     <p><%= @page.layout_display_name %></p>

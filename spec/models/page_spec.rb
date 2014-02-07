@@ -1344,5 +1344,9 @@ module Alchemy
       end
     end
 
+    it_behaves_like "having a hint" do
+      let(:subject) { Page.new }
+    end
+
   end
 end
