@@ -1,19 +1,19 @@
-$('#locked_page_<%= @page_id -%>').remove();
+$('#locked_page_<%= @page_id %>').remove();
 
-<% if @layoutpage %>
+<% if @layoutpage -%>
 
-window.location.href = '<%= alchemy.admin_layoutpages_path -%>';
+window.location.href = '<%= alchemy.admin_layoutpages_path %>';
 
-<% elsif @page_root %>
+<% elsif @page_root -%>
 
-$('#sitemap').replaceWith('<%= escape_javascript(render(:partial => "sitemap")) -%>');
-Alchemy.growl('<%= @message -%>');
+$('#sitemap').replaceWith('<%= j render("sitemap") %>');
+Alchemy.growl('<%= j @message %>');
 Alchemy.overlayObserver('#sitemap');
 
-<% else %>
+<% else -%>
 
-window.location.href = '<%= alchemy.admin_pages_path -%>';
+window.location.href = '<%= alchemy.admin_pages_path %>';
 
-<% end %>
+<% end -%>
 
 Alchemy.pleaseWaitOverlay(false);

@@ -1,60 +1,56 @@
-(function() {
-
 <% if params[:was_missing] %>
 
-  $("#element_<%= @element.id %>_content_missing").replaceWith('<%= escape_javascript(
-    render(
-      partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
-      locals: @locals
-    )
-  ) %>');
+$("#element_<%= @element.id %>_content_missing").replaceWith('<%= j(
+  render(
+    partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
+    locals: @locals
+  )
+) %>');
 
 <% else %>
 
-  $("<%= @content_dom_id %>").before('<%= escape_javascript(
-    render(
-      partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
-      locals: @locals
-    )
-  ) %>');
-  Alchemy.Buttons.enable();
-  Alchemy.growl('<%= _t("Successfully added content") % {content: @content.name_for_label} %>')
+$("<%= @content_dom_id %>").before('<%= j(
+  render(
+    partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
+    locals: @locals
+  )
+) %>');
+Alchemy.Buttons.enable();
+Alchemy.growl('<%= j _t("Successfully added content") % {content: @content.name_for_label} %>')
 
 <% end %>
 
 <% if @content.essence_type == "Alchemy::EssencePicture" %>
 
-  <% if @content.ingredient %>
-  $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
-  <% end %>
+<% if @content.ingredient %>
+$('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
+<% end %>
 
-  <% if @gallery_pictures %>
+<% if @gallery_pictures %>
 
-  <% if @gallery_pictures.size > 1 %>
-  $('#element_<%= @element.id %>_contents .essence_picture_editor').addClass('dragable_picture');
-  <% end %>
+<% if @gallery_pictures.size > 1 %>
+$('#element_<%= @element.id %>_contents .essence_picture_editor').addClass('dragable_picture');
+<% end %>
 
-  <% if !max_image_count.blank? && @gallery_pictures.size >= max_image_count %>
-  $("#add_picture_<%= @element.id %>").remove();
-  <% end %>
+<% if !max_image_count.blank? && @gallery_pictures.size >= max_image_count %>
+$("#add_picture_<%= @element.id %>").remove();
+<% end %>
 
-  Alchemy.SortableContents('#element_<%= @element.id %>_contents', '<%= form_authenticity_token %>');
-
-  <% end %>
-
-<% elsif @content.essence_type == "Alchemy::EssenceDate" %>
-
-  Alchemy.Datepicker('#element_<%= @element.id %>');
-
-<% elsif @content.essence_type == "Alchemy::EssenceRichtext" %>
-
-  Alchemy.Tinymce.initEditor(<%= @content.id %>);
+Alchemy.SortableContents('#element_<%= @element.id %>_contents', '<%= form_authenticity_token %>');
 
 <% end %>
 
-  Alchemy.reloadPreview();
-  Alchemy.closeCurrentWindow();
-  Alchemy.SelectBox("#element_<%= @element.id %>");
-  Alchemy.overlayObserver('#<%= @content.dom_id %>');
+<% elsif @content.essence_type == "Alchemy::EssenceDate" %>
 
-})()
+Alchemy.Datepicker('#element_<%= @element.id %>');
+
+<% elsif @content.essence_type == "Alchemy::EssenceRichtext" %>
+
+Alchemy.Tinymce.initEditor(<%= @content.id %>);
+
+<% end %>
+
+Alchemy.reloadPreview();
+Alchemy.closeCurrentWindow();
+Alchemy.SelectBox("#element_<%= @element.id %>");
+Alchemy.overlayObserver('#<%= @content.dom_id %>');

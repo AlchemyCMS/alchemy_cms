@@ -1,5 +1,3 @@
-(function($) {
-  $('#page_<%= @page.id -%>').replaceWith('<%= escape_javascript(render(:partial => "page", :locals => {:page => @page})) -%>');
-  Alchemy.overlayObserver('#page_<%= @page.id -%>');
-  Alchemy.Spinner.watch('#page_<%= @page.id -%>');
-})(jQuery);
+$('#page_<%= @page.id -%>').replaceWith('<%= j render("page", page: @page) %>');
+Alchemy.overlayObserver('#page_<%= @page.id %>');
+Alchemy.Spinner.watch('#page_<%= @page.id %>');

@@ -1,3 +1,3 @@
 Alchemy.pleaseWaitOverlay(false);
-jQuery('#archive_all').html('<%= escape_javascript(render(:partial => "archive")) %>');
-jQuery('#filter_bar').replaceWith('<%= escape_javascript(render(:partial => "filter_bar")) %>');
+$('#archive_all').html('<%= j render("archive") %>');
+$('#filter_bar').replaceWith('<%= j render("filter_bar") %>');

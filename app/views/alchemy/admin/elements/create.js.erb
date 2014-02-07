@@ -1,7 +1,7 @@
 (function() {
   var $el;
   var $element_area;
-  var element_html = '<%= escape_javascript render(:partial => "element", :object => @element, :locals => {:draggable => true}) -%>';
+  var element_html = '<%= j render("element", element: @element, draggable: true) %>';
 
 <%- if @cutted_element_id -%>
   $('.element_editor[data-element-id="<%= @cutted_element_id %>"]').remove();
@@ -11,10 +11,10 @@
   if ($('#cells').length == 0) {
     Alchemy.buildTabbedCells('<%= _t(:main_content) %>');
   }
-  Alchemy.selectOrCreateCellTab('<%= @cell_name -%>', '<%= @cell.nil? ? _t(:main_content) : @cell.name_for_label -%>');
+  Alchemy.selectOrCreateCellTab('<%= @cell_name %>', '<%= @cell.nil? ? _t(:main_content) : @cell.name_for_label %>');
 <%- end -%>
 
-  $element_area = $('#cell_<%= @cell_name -%>');
+  $element_area = $('#cell_<%= @cell_name %>');
 
 <%- if @insert_at_top -%>
   $element_area.prepend(element_html);
@@ -28,13 +28,13 @@
     $element_area.sortable('refresh');
   }
 
-  Alchemy.growl('<%= _t(:successfully_added_element) -%>');
+  Alchemy.growl('<%= _t(:successfully_added_element) %>');
   Alchemy.closeCurrentWindow();
   Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.PreviewWindow.refresh();
   Alchemy.ElementEditors.init();
 
-  $el = $('#element_<%= @element.id -%>');
+  $el = $('#element_<%= @element.id %>');
   $el.trigger('Alchemy.SelectElementEditor');
   Alchemy.GUI.initElement($el);
 

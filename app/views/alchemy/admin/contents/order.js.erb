@@ -1,6 +1,3 @@
-Alchemy.growl('<%= escape_javascript(@notice) %>');
-Alchemy.SortableContents(
-  '#element_area .picture_gallery_images',
-  '<%= form_authenticity_token %>'
-);
+Alchemy.growl('<%= j @notice %>');
+Alchemy.SortableContents('#element_area .picture_gallery_images', '<%= form_authenticity_token %>');
 Alchemy.reloadPreview();

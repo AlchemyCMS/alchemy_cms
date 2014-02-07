@@ -1,38 +1,37 @@
 (function() {
+  var $page;
 
-  Alchemy.growl("<%= @notice -%>");
+  Alchemy.growl("<%= j @notice %>");
 
-<% if @old_page_layout != @page.page_layout %>
+<% if @old_page_layout != @page.page_layout -%>
   Alchemy.ElementsWindow.reload();
-  Alchemy.growl('<%= _t(:page_layout_changed_notice) %>');
-<% end %>
+  Alchemy.growl('<%= j _t(:page_layout_changed_notice) %>');
+<% end -%>
 
-<% if @while_page_edit %>
+<% if @while_page_edit -%>
 
   Alchemy.reloadPreview();
-  $('#page_<%= @page.id %>_status').replaceWith('<%= escape_javascript(render(:partial => "page_status")) -%>');
+  $('#page_<%= @page.id %>_status').replaceWith('<%= j render("page_status") %>');
 
-<% else %>
+<% else -%>
 
-  var $page;
-  $('#page_<%= @page.id %>').replaceWith('<%= escape_javascript(render(:partial => "page", :locals => {:page => @page})) -%>');
+  $('#page_<%= @page.id %>').replaceWith('<%= j render("page", page: @page) %>');
   $page = $('#page_<%= @page.id %>');
   Alchemy.overlayObserver($page);
 
-  <% if @page.locked? && @page.locker == current_alchemy_user %>
-    $('#locked_page_<%= @page.id %> > a').html('<%= @page.name -%>');
-  <% end %>
+  <% if @page.locked? && @page.locker == current_alchemy_user -%>
+    $('#locked_page_<%= @page.id %> > a').html('<%= @page.name %>');
+  <% end -%>
 
-  <% if @page.restricted? %>
+  <% if @page.restricted? -%>
     $('.page_status:nth-child(3)', $page).addClass('restricted', 'not_restricted').removeClass('not_restricted');
-  <% elsif @page.redirects_to_external? %>
+  <% elsif @page.redirects_to_external? -%>
     $('span.redirect_url', $page).html('&raquo; <%= _t("Redirects to") %>: <%= h @page.urlname %>');
-  <% else %>
+  <% else -%>
     $('.page_status:nth-child(3)', $page).addClass('not_restricted').removeClass('restricted');
-  <% end %>
+  <% end -%>
 
-<% end %>
+<% end -%>
 
   Alchemy.closeCurrentWindow();
-
 })()
