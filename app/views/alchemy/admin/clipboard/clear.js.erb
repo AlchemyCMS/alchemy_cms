@@ -1,7 +1,3 @@
-(function($) {
-
-  $("#clipboard_items").replaceWith("<p><%= _t('No items in your clipboard') -%></p>");
-  $('#clipboard_button .icon.clipboard').removeClass('full');
-  Alchemy.pleaseWaitOverlay(false);
-
-})(jQuery);
+$("#clipboard_items").replaceWith("<%= j render_message { _t('No items in your clipboard') } -%>");
+$('#clipboard_button .icon.clipboard').removeClass('full');
+Alchemy.pleaseWaitOverlay(false);
