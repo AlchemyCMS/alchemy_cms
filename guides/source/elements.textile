@@ -2,7 +2,7 @@ h2. Elements
 
 Elements are customizable parts of your page. An article that contains a headline, a text block and a picture - this is a typical element.
 
-An element contains mostly one or more contents of a specific essence type.
+An element mostly contains one or more contents of a specific essence type.
 There are "essence types":essences.html for every type of data that can be stored in a database.
 
 endprologue.
