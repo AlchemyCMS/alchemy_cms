@@ -35,17 +35,6 @@ var uiTabsFuncs = {
   option: $.ui.tabs.prototype.option
 };
 
-// DEPRECATED in jQuery UI 1.9
-if ( $.uiBackCompat !== false ) {
-  uiTabsFuncs = $.extend(
-      uiTabsFuncs,
-      {
-        add: $.ui.tabs.prototype.add,
-        remove: $.ui.tabs.prototype.remove
-      }
-  );
-}
-
 $.extend($.ui.tabs.prototype, {
   paging: function(options) {
     var opts = {
@@ -280,46 +269,6 @@ $.extend($.ui.tabs.prototype, {
       }
 
       uiTabsFuncs.refresh.apply(this);
-    }
-
-
-    // DEPRECATED in jQuery UI 1.9
-    if ( $.uiBackCompat !== false )
-    {
-      // temporarily remove paging buttons before adding a tab
-      self.add = function(url, label, index) {
-        if (initialized)
-        {
-          destroy();
-
-          uiTabsFuncs.add.apply(this, [url, label, index]);
-
-          if (opts.activeOnAdd) {
-            if (index == undefined) index = this.tabs.length-1;
-            this.option('active', index);
-          }
-          // re-initialize paging buttons
-          init();
-
-          return this;
-        }
-
-        return uiTabsFuncs.add.apply(this, [url, label, index]);
-      }
-
-      // temporarily remove paging buttons before removing a tab
-      self.remove = function(index) {
-        if (initialized)
-        {
-          destroy();
-          uiTabsFuncs.remove.apply(this, [index]);
-          init();
-
-          return this;
-        }
-
-        return uiTabsFuncs.remove.apply(this, [index]);
-      }
     }
 
 
