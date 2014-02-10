@@ -21,7 +21,7 @@ h4. Element settings
 * <code>name</code> <code>String</code> <strong>required</strong><br>
   A unique name of the element. This name is used in the <code>page_layouts.yml</code> file and in the <code>app/views/alchemy/elements</code> view partials. The name itself is "translatable":#translations. The format has to be <strong>lowercase</strong> and seperated words has to be <strong>underscored</strong>.
 * <code>unique</code> <code>Boolean</code><br>
-  (Default: <code>false</code>) Passing <code>true</code> means, that this element can only be placed once on a page.
+  (Default: <code>false</code>) Passing <code>true</code> means, that this element can be placed only once on a page.
 * <code>contents</code> <code>Array</code><br>
   A collection of contents this element contains. A content has to have a <code>name</code> and a <code>type</code>. See "available essences":essences.html you can use.
 
