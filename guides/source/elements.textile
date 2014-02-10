@@ -243,7 +243,7 @@ As already mentioned, elements get defined in the <code>config/alchemy/elements.
     type: EssenceRichtext
 </pre>
 
-This element is named gallery. It can be placed just once per page and it has three "contents":elements.html from type <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>.
+This element is named gallery. It can be placed only once per page and it has three "contents":elements.html from type <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>.
 
 h3. Assign elements to page layouts
 
