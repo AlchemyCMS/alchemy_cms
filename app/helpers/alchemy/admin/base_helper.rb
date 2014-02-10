@@ -118,16 +118,16 @@ module Alchemy
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {
-              :title => _t(:please_confirm),
-              :message => message,
-              :ok_label => _t("Yes"),
-              :cancel_label => _t("No")
+              title: _t(:please_confirm),
+              message: message,
+              ok_label: _t("Yes"),
+              cancel_label: _t("No")
             }.to_json
           )
         )
       end
 
-      # Returns a form and a button that opens a modal confirm window.
+      # Returns a form and a button that opens a modal confirm dialog.
       #
       # After confirmation it proceeds to send the form's action.
       #
@@ -140,7 +140,7 @@ module Alchemy
       # @param [String] url
       #   The url that gets opened after confirmation
       # @param [Hash] options
-      #   Options for the Alchemy confirm dialog (see also +app/assets/javascripts/alchemy/alchemy.window.js#openConfirmDialog+)
+      #   Options for the Alchemy confirm dialog (see also +app/assets/javascripts/alchemy/alchemy.confirm_dialog.js.coffee+)
       # @param [Hash] html_options
       #   HTML options that get passed to the +button_tag+ helper.
       #
@@ -153,7 +153,7 @@ module Alchemy
           title: _t(:please_confirm),
           cancel_label: _t("No")
         }.merge(options)
-        form_tag url, {method: html_options.delete(:method)} do
+        form_tag url, {method: html_options.delete(:method), class: 'button-with-confirm'} do
           button_tag value, html_options.merge('data-alchemy-confirm' => options.to_json)
         end
       end

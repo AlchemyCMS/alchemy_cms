@@ -6,6 +6,12 @@ form {
     margin: 2em auto;
   }
 
+  &.button-with-confirm {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
   &.edit_page textarea {
     height: 67px;
   }
