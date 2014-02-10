@@ -1,17 +1,16 @@
 h2. Elements
 
-Elements are customizable parts of your page. An article with headline, text block and a picture is a typically element.
+Elements are customizable parts of your page. An article that contains a headline, a text block and a picture - this is a typical element.
 
-An element contains one or more contents of a specific essences type.
+An element contains mostly one or more contents of a specific essence type.
 There are "essence types":essences.html for every type of data that can be stored in a database.
 
 endprologue.
 
 h3. Defining elements
 
-Define elements in a <code>config/alchemy/elements.yml</code> file.
-
-Use the scaffold generator to create this and all the other important files and folders for setting up your website with Alchemy:
+Elements get defined in a <code>config/alchemy/elements.yml</code> file.
+If you dont have created this file yet, use the scaffold generator to create it now. It also creates all the other important folders and files for setting up your website with Alchemy:
 
 <shell>
 rails g alchemy:scaffold
