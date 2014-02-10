@@ -1,5 +1,11 @@
 form {
 
+  #main_content > &.alchemy {
+    max-width: 600px;
+    padding: 2*$default-padding;
+    margin: 2em auto;
+  }
+
   &.edit_page textarea {
     height: 67px;
   }
