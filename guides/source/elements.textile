@@ -228,9 +228,7 @@ de:
 h4. An example element
 
 Lets create an article element for your website.
-The elements get defined in the <code>config/alchemy/elements.yml</code> file.
-
-NOTE: Run <code>rails g alchemy:scaffold</code> to generate the files and folders.
+As already mentioned, elements get defined in the <code>config/alchemy/elements.yml</code> file.
 
 <pre>
 - name: article
