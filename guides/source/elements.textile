@@ -11,7 +11,7 @@ h3. Defining elements
 
 Define elements in a <code>config/alchemy/elements.yml</code> file.
 
-Use the scaffold generator to create it:
+Use the scaffold generator to create this and all the other important files and folders for setting up your website with Alchemy:
 
 <shell>
 rails g alchemy:scaffold
