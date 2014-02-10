@@ -24,7 +24,8 @@ Alchemy.ImageCropper =
     unless Alchemy.ImageCropper.initialized
       Alchemy.ImageCropper.api = $.Jcrop("#imageToCrop", options)
       Alchemy.ImageCropper.initialized = true
-    $(".alchemy-dialog").on 'Alchemy.DialogClose', Alchemy.ImageCropper.destroy
+    Alchemy.currentDialog.options.closed = ->
+      Alchemy.ImageCropper.destroy()
 
   undo: ->
     Alchemy.ImageCropper.api.setSelect Alchemy.ImageCropper.box

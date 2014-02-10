@@ -11,6 +11,7 @@ class window.Alchemy.Dialog
     image_loader: true
     image_loader_color: '#fff'
     ready: ->
+    closed: ->
 
   # Arguments:
   #  - url: The url to load the content from via ajax
@@ -42,7 +43,8 @@ class window.Alchemy.Dialog
     @$document.on 'webkitTransitionEnd transitionend oTransitionEnd', =>
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
       @dialog_container.remove()
-      @dialog.trigger 'Alchemy.DialogClose'
+      if @options.closed?
+        @options.closed.call()
     true
 
   # Loads the content via ajax and replaces the Dialog body with server response.
@@ -65,7 +67,8 @@ class window.Alchemy.Dialog
     @dialog_body.hide()
     @dialog_body.html(data)
     @init()
-    @options.ready.call()
+    if @options.ready?
+      @options.ready.call()
     @dialog_body.show('fade', 200)
     true
 
@@ -174,7 +177,7 @@ class window.Alchemy.Dialog
 #
 window.Alchemy.closeCurrentDialog = (callback) ->
   if Alchemy.currentDialog
-    Alchemy.currentDialog.dialog.on('Alchemy.DialogClose', callback)
+    Alchemy.currentDialog.options.closed = callback
     Alchemy.currentDialog.close()
 
 # Utility function to open a new Dialog
