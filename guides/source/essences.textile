@@ -3,7 +3,7 @@ h2. Essences
 Essences store the actual content of your site.
 
 Alchemy comes with a lot of predefined essences for the regular needs of a website project.
-Combine them like a chemestry kit into "elements":create_elements.html.
+Combine them like a chemestry kit into "elements":elements.html.
 
 Essences are normal Rails models, so it is pretty easy to "add your own":create_essences.html.
 
