@@ -76,11 +76,11 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         parent$ = window.parent.jQuery
         target_id = $el.data("alchemy-element")
         $element_editor = parent$("#element_area .element_editor").closest("[id=\"element_" + target_id + "\"]")
-        $elementsWindow = parent$("#alchemyElementsWindow")
+        elementsWindow = window.parent.Alchemy.ElementsWindow
         e.preventDefault()
         $element_editor.trigger("Alchemy.SelectElementEditor", target_id)
-        if $elementsWindow.hidden
-          $elementsWindow.show()
+        if elementsWindow.hidden
+          elementsWindow.show()
         $el.trigger("Alchemy.SelectElement")
         return
 

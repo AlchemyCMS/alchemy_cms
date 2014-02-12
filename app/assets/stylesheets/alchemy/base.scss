@@ -546,7 +546,7 @@ div.browse {
   margin-bottom: 1em;
 }
 
-#alchemyPreviewWindow {
+#alchemy_preview_window {
   @include box-sizing(border-box);
   position: absolute;
   left: 66px;
@@ -555,6 +555,7 @@ div.browse {
   height: auto;
   border: 0 none;
   background: #fff;
+  @include transition(200ms ease-in-out);
 }
 
 #error_trace {

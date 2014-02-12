@@ -21,7 +21,7 @@ Alchemy.ElementsWindow =
 
   init: (url, options, callback) ->
     @hidden = false
-    @element_window = $('<div id="alchemyElementsWindow"/>')
+    @element_window = $('<div id="alchemy_elements_window"/>')
     @element_area = $('<div id="element_area"/>')
     @url = url
     @options = options
@@ -63,13 +63,13 @@ Alchemy.ElementsWindow =
       Alchemy.AjaxErrorHandler @element_area, xhr.status, status, error
 
   hide: ->
-    @element_window.hide()
+    @element_window.css(right: -400)
     @hidden = true
     @toggleButton()
     Alchemy.PreviewWindow.resize()
 
   show: ->
-    @element_window.show()
+    @element_window.css(right: 0)
     @hidden = false
     @toggleButton()
     Alchemy.PreviewWindow.resize()
