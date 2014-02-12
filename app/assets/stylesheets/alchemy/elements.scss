@@ -1,4 +1,4 @@
-#alchemyElementsWindow {
+#alchemy_elements_window {
   @include box-sizing(border-box);
   position: absolute;
   right: 0;
@@ -6,6 +6,7 @@
   width: 400px;
   height: auto;
   border-left: $default-border;
+  @include transition(200ms ease-in-out);
 }
 
 #element_area {

@@ -3,7 +3,7 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.PreviewWindow =
 
   init: (url) ->
-    $iframe = $("<iframe name=\"alchemyPreviewWindow\" src=\"#{url}\" id=\"alchemyPreviewWindow\" frameborder=\"0\"/>")
+    $iframe = $("<iframe name=\"alchemy_preview_window\" src=\"#{url}\" id=\"alchemy_preview_window\" frameborder=\"0\"/>")
     $reload = $('#reload_preview_button')
     @_showSpinner()
     $iframe.load =>
@@ -27,7 +27,7 @@ Alchemy.PreviewWindow =
       height: height
 
   refresh: (callback) ->
-    $iframe = $('#alchemyPreviewWindow')
+    $iframe = $('#alchemy_preview_window')
     @_showSpinner()
     $iframe.load (e) =>
       @_hideSpinner()

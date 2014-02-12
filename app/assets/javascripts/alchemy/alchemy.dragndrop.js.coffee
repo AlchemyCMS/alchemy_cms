@@ -79,7 +79,7 @@ $.extend Alchemy,
         cell_classes += "." + this + "_cell" + ", "
       $(this).draggable
         helper: "clone"
-        iframeFix: "iframe#alchemyPreviewWindow"
+        iframeFix: "iframe#alchemy_preview_window"
         connectToSortable: cell_classes.replace(/,.$/, "")
         start: (event, ui) ->
           $(this).hide().addClass "dragged"
