@@ -77,6 +77,11 @@ module Alchemy
       def destroy
         resource_instance_variable.destroy
         flash_notice_for_resource_action
+        @url = resource_url_proxy.url_for(action: 'index')
+        respond_to do |format|
+          format.html { redirect_to @url }
+          format.js   { render js: "window.location.href = '#{@url}'" }
+        end
       end
 
       def resource_handler

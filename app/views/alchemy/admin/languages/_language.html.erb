@@ -22,13 +22,7 @@
   </td>
   <td class="tools">
   <%- if can?(:destroy, language) -%>
-    <%= link_to_confirm_dialog(
-      '',
-      _t("Are you sure?"),
-      alchemy.admin_language_path(language),
-      title: _t("Delete"),
-      class: "icon destroy"
-    ) -%>
+    <%= delete_button resource_path(language) %>
   <%- end -%>
   <%- if can?(:edit, language) -%>
     <%= link_to_dialog(

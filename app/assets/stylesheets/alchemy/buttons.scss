@@ -23,6 +23,19 @@ button, input[type="submit"], a.button, input.button {
     }
   }
 
+  &.icon_only {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    @include box-shadow(none);
+    @include background(none);
+    @include border-radius(0);
+
+    .icon {
+      margin: 0;
+    }
+  }
+
   &:focus {
     @extend %blue-focus-style;
   }

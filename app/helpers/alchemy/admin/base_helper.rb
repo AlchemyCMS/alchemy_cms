@@ -158,6 +158,33 @@ module Alchemy
         end
       end
 
+      # A delete button with confirmation window.
+      #
+      # @option title [String]
+      #   The title for the confirm dialog
+      # @option message [String]
+      #   The message for the confirm dialog
+      # @option icon [String]
+      #   The icon class for the button
+      #
+      def delete_button(url, options = {}, html_options = {})
+        options = {
+          title: _t('Delete'),
+          message: _t('Are you sure?'),
+          icon: 'destroy'
+        }.merge(options)
+        button_with_confirm(
+          render_icon(options[:icon]),
+          url, {
+            message: options[:message]
+          }, {
+            method: 'delete',
+            title: options[:title],
+            class: "icon_only #{html_options.delete(:class)}".strip
+          }.merge(html_options)
+        )
+      end
+
       # (internal) Renders translated Module Names for html title element.
       def render_alchemy_title
         if content_for?(:title)
