@@ -21,13 +21,14 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
 
   build_buttons: ->
     $btn_container = $('<div class="alchemy-dialog-buttons" />')
-    @cancel_button = $("<a class=\"cancel button\">#{@options.cancel_label}</a>")
-    @ok_button = $("<a class=\"confirm button\">#{@options.ok_label}</a>")
+    @cancel_button = $("<button class=\"cancel\">#{@options.cancel_label}</button>")
+    @ok_button = $("<button class=\"confirm\">#{@options.ok_label}</button>")
     $btn_container.append(@cancel_button)
     $btn_container.append(@ok_button)
     $btn_container
 
   bind_buttons: ->
+    @cancel_button.focus()
     @cancel_button.click =>
       @close()
       Alchemy.Buttons.enable()
