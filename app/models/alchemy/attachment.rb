@@ -17,9 +17,9 @@
 
 module Alchemy
   class Attachment < ActiveRecord::Base
-    include Filetypes
-    include NameConversions
-    include Touching
+    include Alchemy::Filetypes
+    include Alchemy::NameConversions
+    include Alchemy::Touching
 
     acts_as_taggable
 

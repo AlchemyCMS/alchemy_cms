@@ -34,7 +34,8 @@
 
 module Alchemy
   class Page < ActiveRecord::Base
-    include Hints
+    include Alchemy::Hints
+    include Alchemy::Touching
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
@@ -88,13 +89,12 @@ module Alchemy
     after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
 
     # Concerns
-    include Scopes
-    include Natures
-    include Naming
-    include Users
-    include Cells
-    include Elements
-    include Touching
+    include Alchemy::Page::Scopes
+    include Alchemy::Page::Natures
+    include Alchemy::Page::Naming
+    include Alchemy::Page::Users
+    include Alchemy::Page::Cells
+    include Alchemy::Page::Elements
 
     # Class methods
     #
