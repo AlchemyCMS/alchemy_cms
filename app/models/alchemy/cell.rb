@@ -12,7 +12,7 @@
 #
 module Alchemy
   class Cell < ActiveRecord::Base
-    include Logger
+    include Alchemy::Logger
 
     attr_accessible :page_id, :name
 

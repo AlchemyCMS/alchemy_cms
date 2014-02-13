@@ -5,13 +5,13 @@ module Alchemy
 
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
-    extend TwoPointSix
-    extend TwoPointFive
-    extend TwoPointFour
-    extend TwoPointThree
-    extend TwoPointTwo
-    extend TwoPointOne
-    extend TwoPointZero
+    extend Alchemy::Upgrader::TwoPointSix
+    extend Alchemy::Upgrader::TwoPointFive
+    extend Alchemy::Upgrader::TwoPointFour
+    extend Alchemy::Upgrader::TwoPointThree
+    extend Alchemy::Upgrader::TwoPointTwo
+    extend Alchemy::Upgrader::TwoPointOne
+    extend Alchemy::Upgrader::TwoPointZero
 
     class << self
 

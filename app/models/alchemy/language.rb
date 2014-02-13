@@ -66,7 +66,7 @@ module Alchemy
       end
     end
 
-    include Code
+    include Alchemy::Language::Code
 
   private
 

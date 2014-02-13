@@ -3,7 +3,7 @@ require 'acts_as_list'
 
 module Alchemy
   class Element < ActiveRecord::Base
-    include Logger
+    include Alchemy::Logger
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable hint)
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id position folded created_at updated_at creator_id updater_id cached_tag_list)
@@ -53,8 +53,8 @@ module Alchemy
     #default_scope { from_current_site }
 
     # Concerns
-    include Definitions
-    include Presenters
+    include Alchemy::Element::Definitions
+    include Alchemy::Element::Presenters
 
     # class methods
     class << self

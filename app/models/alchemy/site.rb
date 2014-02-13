@@ -9,10 +9,10 @@ module Alchemy
     # associations
     has_many :languages
 
-    scope :published, where(public: true)
+    scope :published, -> { where(public: true) }
 
     # concerns
-    include Layout
+    include Alchemy::Site::Layout
 
     # Returns true if this site is the current site
     def current?

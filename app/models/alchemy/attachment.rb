@@ -2,8 +2,8 @@ require 'acts-as-taggable-on'
 
 module Alchemy
   class Attachment < ActiveRecord::Base
-    include Filetypes
-    include NameConversions
+    include Alchemy::Filetypes
+    include Alchemy::NameConversions
 
     acts_as_taggable
     file_accessor :file

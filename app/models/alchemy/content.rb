@@ -2,10 +2,10 @@ require 'acts_as_list'
 
 module Alchemy
   class Content < ActiveRecord::Base
-    include Logger
+    include Alchemy::Logger
 
     # Concerns
-    include Factory
+    include Alchemy::Content::Factory
 
     attr_accessible(
       :do_not_index,
