@@ -28,6 +28,8 @@ Rails.logger.level = 4
 # Configure capybara for integration testing
 require "capybara/rails"
 require 'capybara/poltergeist'
+require 'alchemy/test_support/auth_helpers'
+require 'alchemy/test_support/integration_helpers'
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.register_driver(:rack_test_translated_header) do |app|
@@ -45,8 +47,8 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
-  config.include Alchemy::Specs::ControllerHelpers, :type => :controller
-  config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
+  config.include Alchemy::TestSupport::AuthHelpers
+  config.include Alchemy::TestSupport::IntegrationHelpers, type: :feature
   config.use_transactional_fixtures = true
   # Make sure the database is clean and ready for test
   config.before(:suite) do
