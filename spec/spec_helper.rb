@@ -29,6 +29,7 @@ Rails.logger.level = 4
 require "capybara/rails"
 require 'capybara/poltergeist'
 require 'alchemy/test_support/auth_helpers'
+require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
