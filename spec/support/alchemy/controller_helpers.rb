@@ -20,7 +20,7 @@ module Alchemy
       end
 
       def mock_user(roles)
-        mock_model(Alchemy.user_class, alchemy_roles: roles.map(&:to_sym))
+        mock_model(Alchemy.user_class, alchemy_roles: roles.map(&:to_sym), role_symbols: roles.map(&:to_sym))
       end
 
     end

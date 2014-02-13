@@ -6,6 +6,8 @@ class User
   include ::ActiveModel::MassAssignmentSecurity
   attr_accessor :alchemy_roles, :email, :password
 
+  alias_method :role_symbols, :alchemy_roles
+
   def self.logged_in
     []
   end
