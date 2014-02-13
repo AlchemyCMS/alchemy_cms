@@ -62,7 +62,7 @@ module Alchemy
     #
     def current_ability
       @current_ability ||= begin
-        alchemy_permissions = ::Alchemy::Permissions.new(current_alchemy_user)
+        alchemy_permissions = Alchemy::Permissions.new(current_alchemy_user)
         Alchemy.registered_abilities.each do |klass|
           alchemy_permissions.merge(klass.new(current_alchemy_user))
         end

@@ -73,7 +73,7 @@ module Alchemy
       end
     end
 
-    include Code
+    include Alchemy::Language::Code
 
     # Root page
     def root_page

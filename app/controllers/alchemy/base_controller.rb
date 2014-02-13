@@ -2,7 +2,7 @@
 #
 module Alchemy
   class BaseController < ApplicationController
-    include Modules
+    include Alchemy::Modules
 
     protect_from_forgery
 

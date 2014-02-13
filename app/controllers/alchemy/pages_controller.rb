@@ -4,7 +4,7 @@ module Alchemy
     # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
     # Not the best solution, but's working.
     # Anyone with a better idea please provide a patch.
-    include BaseHelper
+    include Alchemy::BaseHelper
 
     rescue_from ActionController::RoutingError, :with => :render_404
 
