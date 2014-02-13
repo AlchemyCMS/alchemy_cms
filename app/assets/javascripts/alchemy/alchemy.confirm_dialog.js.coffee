@@ -52,8 +52,8 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
 #   on_ok: null  - The function to invoke on confirmation (Function)
 #
 window.Alchemy.openConfirmDialog = (message, options = {}) ->
-  Alchemy.currentConfirmDialog = new Alchemy.ConfirmDialog(message, options)
-  Alchemy.currentConfirmDialog.open()
+  Alchemy.currentDialog = new Alchemy.ConfirmDialog(message, options)
+  Alchemy.currentDialog.open()
 
 # Opens a confirm to delete dialog
 #

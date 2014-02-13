@@ -77,18 +77,14 @@ module Alchemy
       def destroy
         resource_instance_variable.destroy
         flash_notice_for_resource_action
-        @url = resource_url_proxy.url_for(action: 'index')
-        respond_to do |format|
-          format.html { redirect_to @url }
-          format.js   { render js: "window.location.href = '#{@url}'" }
-        end
+        do_redirect_to resource_url_proxy.url_for(action: 'index')
       end
 
       def resource_handler
         @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module)
       end
 
-    protected
+      protected
 
       # Returns a translated +flash[:notice]+.
       # The key should look like "Modelname successfully created|updated|destroyed."
