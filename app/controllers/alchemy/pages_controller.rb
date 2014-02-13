@@ -89,7 +89,7 @@ module Alchemy
         redirect_page(lang: Language.current.code)
       elsif multi_language? && params[:urlname].blank? && !params[:lang].blank? && configuration(:redirect_index)
         redirect_page(lang: params[:lang])
-      elsif configuration(:redirect_to_public_child) && cannot?(:show, @page)
+      elsif configuration(:redirect_to_public_child) && !@page.public?
         redirect_to_public_child
       elsif params[:urlname].blank? && configuration(:redirect_index)
         redirect_page
