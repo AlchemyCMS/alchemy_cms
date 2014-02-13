@@ -1,27 +1,5 @@
 FactoryGirl.define do
 
-  factory :user, class: 'User' do
-    email 'john@doe.com'
-    password 's3cr3t'
-
-    factory :admin_user do
-      alchemy_roles 'admin'
-    end
-
-    factory :member_user do
-      alchemy_roles 'member'
-    end
-
-    factory :author_user do
-      alchemy_roles 'author'
-    end
-
-    factory :editor_user do
-      alchemy_roles 'editor'
-    end
-
-  end
-
   factory :language, :class => 'Alchemy::Language' do
     name 'Deutsch'
     code 'de'
