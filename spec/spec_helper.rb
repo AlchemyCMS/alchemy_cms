@@ -31,6 +31,7 @@ require 'capybara/poltergeist'
 require 'alchemy/test_support/auth_helpers'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
+require 'alchemy/test_support/factories'
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.register_driver(:rack_test_translated_header) do |app|
