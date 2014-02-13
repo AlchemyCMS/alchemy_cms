@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Picture renderung security', :js => true do
 
-  let(:picture) { Alchemy::Picture.create(:image_file => File.new(File.expand_path('../../support/image.png', __FILE__))) }
+  let(:picture) { Alchemy::Picture.create(:image_file => File.new(File.expand_path('../../fixtures/image.png', __FILE__))) }
 
   # Prevent the signup view from being rendered.
   before { Alchemy.user_class.stub(:count).and_return 1 }

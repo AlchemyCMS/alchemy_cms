@@ -12,7 +12,7 @@ module Alchemy
     let(:restricted_page)    { FactoryGirl.create(:public_page, :restricted => true) }
     let(:element)            { FactoryGirl.create(:element, :page => public_page, :name => 'bild', :create_contents_after_create => true) }
     let(:restricted_element) { FactoryGirl.create(:element, :page => restricted_page, :name => 'bild', :create_contents_after_create => true) }
-    let(:picture)            { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../support/image.png', __FILE__), 'image/png')) }
+    let(:picture)            { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../fixtures/image.png', __FILE__), 'image/png')) }
 
     context "Requesting a picture that is not assigned with any page" do
       it "should render the picture" do
@@ -71,7 +71,7 @@ module Alchemy
 
       context "with crop and size parameters" do
 
-        let(:big_picture) { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../support/80x60.png', __FILE__), 'image/png')) }
+        let(:big_picture) { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png')) }
 
         it "should return a cropped image." do
           options = {
