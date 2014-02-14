@@ -16,7 +16,7 @@ module Alchemy
       end
 
       it "should raise ActiveRecord::RecordNotFound error for trashed elements" do
-        element.trash
+        element.trash!
         expect { get(:show, :id => element.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
 

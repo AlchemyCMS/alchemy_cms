@@ -111,7 +111,7 @@ module Alchemy
       before(:each) do
         @element = FactoryGirl.create(:element, :public => false, :position => nil, :page_id => 58, :cell_id => 32)
         # Because of a before_create filter it can not be created with a nil position and needs to be trashed here
-        @element.trash
+        @element.trash!
       end
 
       it "should set a new position to the element" do
