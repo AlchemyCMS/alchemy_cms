@@ -17,13 +17,15 @@
 ) %>
 
 <div id="dashboard">
+  <% if current_alchemy_user.respond_to?(:name) %>
   <h1>
     <% if @first_time -%>
-    <%= _t(:welcome_note, name: current_alchemy_user.try(:name)) %>
+    <%= _t(:welcome_note, name: current_alchemy_user.name) %>
     <% else -%>
-    <%= _t(:welcome_back_note, name: current_alchemy_user.try(:name)) %>
+    <%= _t(:welcome_back_note, name: current_alchemy_user.name) %>
     <% end -%>
   </h1>
+  <% end %>
   <% if @last_sign_at %>
   <p>
     <small><%= _t('Your last login was on %{time}', time: l(@last_sign_at)) %></small>
