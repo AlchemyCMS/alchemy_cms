@@ -1,7 +1,7 @@
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.7-stable)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.7-stable)](https://coveralls.io/r/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.8-stable)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.8-stable)](https://coveralls.io/r/magiclabs/alchemy_cms)
 
 About
 -----
@@ -67,7 +67,7 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.7-stable'
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.8-stable'
 
 Run in terminal:
 
@@ -133,4 +133,4 @@ Authors
 License
 -------
 
-* BSD: <https://raw.github.com/magiclabs/alchemy_cms/2.7-stable/LICENSE>
+* BSD: <https://raw.github.com/magiclabs/alchemy_cms/2.8-stable/LICENSE>
