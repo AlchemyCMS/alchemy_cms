@@ -31,7 +31,7 @@ module Alchemy
         end
       end
 
-      context "for registered user" do
+      context "for member user" do
         before do
           sign_in(member_user)
         end
