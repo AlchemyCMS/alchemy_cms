@@ -165,33 +165,48 @@ module Alchemy
 
     protected
 
-    def permission_denied
+    def permission_denied(exception = nil)
+      Rails.logger.debug <<-WARN
+
+/!\\ No permissions to request #{request.path} for:
+#{current_alchemy_user.inspect}
+WARN
       if current_alchemy_user
-        if permitted_to? :index, :alchemy_admin_dashboard
-          if request.referer == alchemy.login_url
-            render :file => Rails.root.join('public/422'), :status => 422
-          elsif request.xhr?
-            respond_to do |format|
-              format.js { render status: 403 }
-              format.html {
-                render :partial => 'alchemy/admin/partials/flash', :locals => {:message => _t('You are not authorized'), :flash_type => 'warning'}
-              }
-            end
-          else
-            flash[:error] = _t('You are not authorized')
-            redirect_to alchemy.admin_dashboard_path
-          end
-        else
-          redirect_to alchemy.root_path
+        handle_redirect_for_user
+      else
+        handle_redirect_for_guest
+      end
+    end
+
+    def handle_redirect_for_user
+      flash[:warning] = _t('You are not authorized')
+      if permitted_to? :index, :alchemy_admin_dashboard
+        redirect_or_render_notice
+      else
+        redirect_to('/')
+      end
+    end
+
+    def redirect_or_render_notice
+      if request.xhr?
+        respond_to do |format|
+          format.js { render status: 403 }
+          format.html {
+            render(partial: 'alchemy/admin/partials/flash', locals: {message: _t('You are not authorized'), flash_type: 'warning'})
+          }
         end
       else
-        flash[:info] = _t('Please log in')
-        if request.xhr?
-          render :action => :permission_denied
-        else
-          store_location
-          redirect_to Alchemy.login_path
-        end
+        redirect_to(alchemy.admin_dashboard_path)
+      end
+    end
+
+    def handle_redirect_for_guest
+      flash[:info] = _t('Please log in')
+      if request.xhr?
+        render :permission_denied
+      else
+        store_location
+        redirect_to Alchemy.login_path
       end
     end
 
