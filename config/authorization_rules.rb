@@ -18,7 +18,7 @@ authorization do
     end
   end
 
-  role :member do
+  role :registered do
     includes :guest
     has_permission_on :alchemy_pages, :to => [:see] do
       if_attribute :visible => true, :restricted => true
@@ -37,7 +37,7 @@ authorization do
   end
 
   role :author do
-    includes :member
+    includes :registered
     has_permission_on :alchemy_admin_dashboard, :to => [:index]
     has_permission_on :alchemy_pictures, :to => [:thumbnail]
     has_permission_on :alchemy_admin_pages, :to => [:index, :info, :fold, :edit_page_content, :link]
