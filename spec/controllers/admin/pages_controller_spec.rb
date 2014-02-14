@@ -274,7 +274,6 @@ module Alchemy
       end
 
       it "should unlock the page" do
-        page.should_receive(:unlock!)
         post :unlock, id: "#{page.id}", format: :js
       end
 
