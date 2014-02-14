@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::Admin::PagesHelper do
 
   describe '#sitemap_folder_link' do
-    let(:user) { mock_model('User', alchemy_roles: %w(admin)) }
+    let(:user) { mock_model('User', alchemy_roles: %w(admin), role_symbols: [:admin]) }
 
     before { helper.stub(:current_alchemy_user).and_return(user) }
 

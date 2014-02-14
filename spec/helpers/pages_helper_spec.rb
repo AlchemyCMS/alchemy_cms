@@ -261,7 +261,7 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
-        before { Authorization.current_user = mock_model('User', alchemy_roles: %w(member)) }
+        before { Authorization.current_user = mock_model('User', alchemy_roles: %w(member), role_symbols: [:member]) }
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
