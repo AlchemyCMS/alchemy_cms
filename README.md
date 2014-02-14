@@ -1,7 +1,7 @@
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.7-stable)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.7-stable)](https://coveralls.io/r/magiclabs/alchemy_cms)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.9-stable)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.9-stable)](https://coveralls.io/r/magiclabs/alchemy_cms)
 
 About
 -----
@@ -67,12 +67,32 @@ Add to existing Rails project
 
 In your Gemfile:
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.7-stable'
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.9-stable'
 
 Run in terminal:
 
     bundle install
     bundle exec rake alchemy:install
+
+### Authentication User Model
+
+With Version 2.9 we extracted the Alchemy user model [into its own gem](https://github.com/magiclabs/alchemy-devise).
+
+In order to get the former Alchemy user model back, add the following gem into your Gemfile:
+
+    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '1.1-stable'
+
+Run in terminal:
+
+    bundle install
+    bin/rake alchemy_devise:install:migrations db:migrate
+
+**In order to use your own user model, you can add e.g.**
+
+    # config/initializers/alchemy.rb
+    Alchemy.user_class_name = 'YourUserClass'
+    Alchemy.login_path = '/your/login/path'
+    Alchemy.logout_path = '/your/logout/path'
 
 ### Note:
 If you did not mounted Alchemy on the root route `'/'`, then you have to add Alchemy's view helpers manually to your app.
@@ -133,4 +153,4 @@ Authors
 License
 -------
 
-* BSD: <https://raw.github.com/magiclabs/alchemy_cms/2.7-stable/LICENSE>
+* BSD: <https://raw.github.com/magiclabs/alchemy_cms/2.9-stable/LICENSE>
