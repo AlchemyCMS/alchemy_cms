@@ -40,6 +40,7 @@ Capybara.register_driver(:rack_test_translated_header) do |app|
   Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
 end
 Capybara.javascript_driver = :poltergeist
+Capybara.ignore_hidden_elements = false
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
