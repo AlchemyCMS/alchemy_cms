@@ -2,6 +2,7 @@
 require File.expand_path('../../../alchemy/version', __FILE__)
 
 gem 'alchemy_cms', "~> #{Alchemy::VERSION}"
+gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '1.1-stable'
 
 if yes?("\nDo you want to use Capistrano for deployment? (y/N)")
   gem 'capistrano', group: 'development'
