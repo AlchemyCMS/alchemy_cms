@@ -1,7 +1,7 @@
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.org/magiclabs/alchemy_cms.svg?branch=master)](https://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=master)
+[![Build Status](https://travis-ci.org/magiclabs/alchemy_cms.svg?branch=3.0-stable)](https://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=3.0-stable)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=3.0-stable)
 
 About
 -----
@@ -9,9 +9,6 @@ About
 Alchemy is the most powerful, userfriendly and flexible Rails CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
-
-**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/2.8.1),
-or the [latest stable branch (2.8-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.8-stable).**
 
 Features
 --------
@@ -84,7 +81,7 @@ Open `http://localhost:3000` and follow the on screen instructions.
 
 In your App's Gemfile:
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '3.0-stable'
 
 #### 2. Install Alchemy into your app:
 
@@ -99,7 +96,7 @@ With Version 3.0 we extracted the Alchemy user model [into its own gem](https://
 
 In order to get the former Alchemy user model back, add the following gem into your Gemfile:
 
-    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '2.0-stable'
 
 Run in terminal:
 
