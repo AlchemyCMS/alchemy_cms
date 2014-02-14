@@ -79,13 +79,9 @@ module Alchemy
       let(:parent) { mock_model(Alchemy::Page, language: language) }
       let(:page_params) { {parent_id: parent.id, name: 'new Page'} }
 
-      context "a language root page" do
-        it "should permit params"
-      end
-
       context "a new page" do
         before do
-          Page.any_instance.stub(:set_language_from_parent_or_default)
+          Page.any_instance.stub(:set_language_from_parent_or_default_language)
           Page.any_instance.stub(:save).and_return(true)
         end
 
@@ -95,13 +91,11 @@ module Alchemy
           expect(assigns(:page).parent_id).to eq(parent.id)
         end
 
-        context "not saved" do
-          render_views
-
-          it "show render the `new` template" do
+        context "if new page can not be saved" do
+          it "should redirect to admin_pages_path" do
             Page.any_instance.stub(:save).and_return(false)
-            xhr :post, :create, page: {name: 'page'}
-            response.body.should match /form.+action=\"\/admin\/pages\"/
+            post :create, page: {}
+            response.should redirect_to(admin_pages_path)
           end
         end
 
@@ -116,12 +110,10 @@ module Alchemy
           end
 
           context "but new page can not be saved" do
-            render_views
-
-            it "should render the `new` template" do
+            it "should redirect to admin_pages_path" do
               Page.any_instance.stub(:save).and_return(false)
-              xhr :post, :create, page: {name: 'page'}, redirect_to: admin_pictures_path
-              response.body.should match /form.+action=\"\/admin\/pages\"/
+              post :create, page: {}, redirect_to: Alchemy.login_path
+              response.should redirect_to(admin_pages_path)
             end
           end
         end
