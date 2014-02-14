@@ -7,7 +7,7 @@ module Alchemy
     before { sign_in(user) }
 
     describe '#index' do
-      let(:language_root) { build_stubbed(:language_root_page) }
+      let(:language_root) { FactoryGirl.build_stubbed(:language_root_page) }
 
       it "assigns @page_root variable" do
         Page.should_receive(:language_root_for).with(1).and_return(language_root)
