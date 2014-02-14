@@ -57,7 +57,7 @@ Installation
 
 #### 1. Use the installer:
 
-    gem install alchemy_cms --pre
+    gem install alchemy_cms
     alchemy new my_magicpage
     cd my_magicpage
 
