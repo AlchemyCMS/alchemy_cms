@@ -267,6 +267,11 @@ module Alchemy
         end
       end
 
+      def page_is_locked?
+        return if !@page.locker.try(:logged_in?)
+        @page.locked? && @page.locker != current_alchemy_user
+      end
+
     end
   end
 end
