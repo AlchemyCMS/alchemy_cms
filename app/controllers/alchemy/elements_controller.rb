@@ -43,7 +43,7 @@ module Alchemy
 
     def load_element
       element = Element.available
-      if !current_user
+      if !current_alchemy_user
         element = element.not_restricted
       end
       @element = element.find(params[:id])
