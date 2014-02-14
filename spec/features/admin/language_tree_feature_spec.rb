@@ -16,7 +16,7 @@ describe 'Language tree feature', js: true do
 
     it "one should be able to switch the language tree" do
       visit('/admin/pages')
-      page.select 'Klingonian', from: 'language_id'
+      page.select 'Klingonian', from: 'language_tree_select'
       page.should have_selector('#sitemap .sitemap_pagename_link', text: 'Klingonian')
     end
   end
@@ -26,7 +26,7 @@ describe 'Language tree feature', js: true do
 
     it "it should display the form for creating language root" do
       visit('/admin/pages')
-      page.select 'Klingonian', from: 'language_id'
+      page.select 'Klingonian', from: 'language_tree_select'
       page.should have_content('This language tree does not exist')
     end
   end
