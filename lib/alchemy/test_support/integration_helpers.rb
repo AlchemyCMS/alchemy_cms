@@ -31,7 +31,7 @@ module Alchemy
       #
       def load_authorization_rules
         instance = Alchemy::Auth::Engine.get_instance
-        instance.load(File.join(File.dirname(__FILE__), 'spec/dummy', 'config/authorization_rules.rb'))
+        instance.load(File.join(File.dirname(__FILE__), '../../../spec/dummy', 'config/authorization_rules.rb'))
       end
     end
 
