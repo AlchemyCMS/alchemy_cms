@@ -75,7 +75,7 @@ module Alchemy
     end
 
     config.after_initialize do
-      require 'alchemy/user'
+      require 'alchemy/userstamp'
     end
 
   end
