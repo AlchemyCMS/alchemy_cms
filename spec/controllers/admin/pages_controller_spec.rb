@@ -141,7 +141,7 @@ module Alchemy
             parent,
             'pasted Page'
           ).and_return(
-            mock_model(Alchemy::Page, save: true, name: 'pasted Page')
+            mock_model('Page', save: true, name: 'pasted Page', redirects_to_external?: false)
           )
           post :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}, format: :js}
         end
