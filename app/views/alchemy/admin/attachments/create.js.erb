@@ -1,9 +1,11 @@
-(function($) {
-<%- if @while_assigning -%>
-    $('#alchemy_window_body').replaceWith('<%= escape_javascript(render(:partial => "archive_overlay", :formats => [:html])) -%>');
-<%- else -%>
-  $('#archive_all').html('<%= escape_javascript(render(:partial => "files_list")) %>');
-  Alchemy.growl('<%= @message %>');
-  Alchemy.overlayObserver('#archive_all');
-<%- end -%>
-})(jQuery);
+<% if @while_assigning -%>
+
+Alchemy.currentDialog.dialog_body.html('<%= j render("archive_overlay", formats: [:html]) %>');
+
+<% else -%>
+
+$('#archive_all').html('<%= j render("files_list") %>');
+Alchemy.growl('<%= j @message %>');
+Alchemy.watchForDialogs('#archive_all');
+
+<% end -%>

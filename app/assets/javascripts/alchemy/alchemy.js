@@ -4,16 +4,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.ui.datepicker
-//= require jquery.ui.dialog
+//= require jquery.ui.draggable
 //= require jquery.ui.effect-drop
 //= require jquery.ui.effect-fade
-//= require jquery.ui.resizable
 //= require jquery.ui.sortable
 //= require jquery.ui.tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require spin.min
 //= require keymaster
+//= require requestAnimationFrame
 //= require select2
 //= require select2_locale_de
 //= require alchemy/alchemy.routes
@@ -21,6 +21,8 @@
 //= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
+//= require alchemy/alchemy.dialog
+//= require alchemy/alchemy.confirm_dialog
 //= require alchemy/alchemy.datepicker
 //= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop
@@ -32,7 +34,7 @@
 //= require alchemy/alchemy.i18n
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.string_extension
-//= require alchemy/alchemy.link_overlay
+//= require alchemy/alchemy.link_dialog
 //= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.initializer
 //= require alchemy/alchemy.page_sorter

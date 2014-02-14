@@ -45,8 +45,6 @@
     display: block;
     padding-top: 7px;
     @extend .left-rounded-border;
-    margin-bottom: 1px;
-    margin-top: 1px;
     border: 1px none #afafaf;
     border-right-style: none;
     padding-bottom: 5px;
@@ -177,7 +175,6 @@ div#user_info {
 #sub_navigation {
   height: 22px;
   line-height: 21px;
-  padding-left: 5px;
   background: $light-blue;
   border-bottom: $default-border;
   padding-top: 4px;

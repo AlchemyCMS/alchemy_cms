@@ -1,21 +1,20 @@
 <li>
   <div class="sitemap_page ">
     <div class="sitemap_left_images">
-      <span class="site_status <%= page_for_links.locked ? ' locked' : '' %>" ></span>
+      <%= render_icon(:page) %>
     </div>
     <div class="sitemap_right_tools">
       <% unless page_for_links.redirects_to_external? %>
-        <%= link_to("",
-          alchemy.list_admin_elements_path(:page_id => page_for_links.id),
-          :remote => true,
-          :data => {
+        <%= link_to '',
+          alchemy.list_admin_elements_path(page_id: page_for_links.id),
+          remote: true,
+          data: {
             'page-id' => page_for_links.id,
-            :url => @url_prefix + page_for_links.urlname
+            url: @url_prefix + page_for_links.urlname
           },
-          :class => "show_elements_to_link",
-          :title => _t(:show_elements_from_page)
-        ) %>
-        <div id="elements_for_page_<%= page_for_links.id %>" style="display: none" class="elements_for_page"></div>
+          class: "show_elements_to_link",
+          title: _t(:show_elements_from_page)
+        %>
       <% end %>
     </div>
     <div class="page_infos">
@@ -28,19 +27,19 @@
         <span class="sitemap_pagename_link inactive"><%= page_for_links.name %></span>
       <% else %>
         <%= link_to(page_for_links.name, '', {
-          :data => {
+          data: {
             'page-id' => page_for_links.id,
-            :url => @url_prefix + page_for_links.urlname
+            url: @url_prefix + page_for_links.urlname
           },
-          :title => _t('page_for_links.choose_page', :name => page_for_links.name),
-          :class => "sitemap_pagename_link"
+          title: _t('page_for_links.choose_page', name: page_for_links.name),
+          class: "sitemap_pagename_link"
         }) %>
       <% end %>
     </div>
   </div>
-  <% if !page_for_links.children.empty? %>
+  <% if page_for_links.children.present? %>
     <ul id="page_<%= page_for_links.id %>_children">
-      <%= render :partial => 'page_for_links', :collection => page_for_links.children, :locals => {:area_name => @area_name} %>
+      <%= render partial: 'page_for_links', collection: page_for_links.children, locals: {area_name: @area_name} %>
     </ul>
   <% end %>
 </li>

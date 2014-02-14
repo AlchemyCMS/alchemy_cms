@@ -101,7 +101,14 @@ hr {
 
 .float_left { float: left }
 
-.center { text-align: center }
+.center {
+  text-align: center;
+
+  .spinner {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
 .top-rounded-border {
   @include border-top-radius($default-border-radius);
@@ -202,11 +209,6 @@ div#new_page_from_clipboard input.button {
 div#new_page_from_clipboard span {
   float: left;
   line-height: 25px;
-}
-
-#page_editing_head .site_status {
-  margin: 0 4px 0 0;
-  float: left;
 }
 
 div#page_status_options {
@@ -406,48 +408,6 @@ div#images {
   margin-left: 22px;
 }
 
-#alchemy .ui-dialog div#jscropper {
-  padding: 2 * $default-padding;
-
-  .thumbnail_background {
-    @extend %thumbnail-background;
-    width: 800px;
-    height: 600px;
-    position: relative;
-  }
-
-  .info.message {
-    float: right;
-    width: 134px;
-    margin: 0 0 0 8px;
-    padding: 0 8px 0 32px;
-  }
-
-  .jcrop-holder { @include inline-block }
-
-  img {
-    width: auto;
-    max-height: 600px;
-  }
-
-  form {
-    padding: 0;
-    position: absolute;
-    bottom: 2 * $default-padding;
-    right: 2 * $default-padding;
-    width: 176px;
-    margin-left: 8px;
-
-    .reset_mask, button {
-      display: block;
-      margin-bottom: 0;
-      text-align: center;
-    }
-    .reset_mask { padding-top: 4px }
-    button { width: 100% }
-  }
-}
-
 #page_selector_scroll_container {
   position: relative;
   width: 100%;
@@ -493,7 +453,7 @@ input.with_border {
   line-height: 19px;
 }
 
-#alchemy .ui-dialog-content a img {
+a img {
   border-style: none;
 }
 
@@ -523,15 +483,6 @@ input#link_to_text {
   float: none;
 }
 
-#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename.selected_page a {
-  font-weight: bold;
-  padding-left: 4px;
-}
-
-#alchemy .ui-dialog-content ul#sitemap ul li span.sitemap_sitename a:hover {
-  font-weight: bold;
-}
-
 #external_link_table .padding_right {
   padding-right: 8px;
 }
@@ -546,31 +497,6 @@ table.window_form td.checkbox {
 
 select#url_protocol.medium {
   margin: 0;
-}
-
-#alchemy .ui-dialog-content td.medium {
-  width: 76px;
-}
-
-#alchemy .ui-dialog .ui-dialog-content .buttons {
-  text-align: right;
-  margin: 0;
-  padding: 0;
-
-  label {
-    float: left;
-    line-height: 36px;
-  }
-}
-
-#alchemy .ui-dialog-content p a.button.small {
-  float: none;
-  @include inline-block;
-  vertical-align: inherit;
-}
-
-#alchemy .ui-dialog #alchemyConfirmation.ui-dialog-content {
-  padding: 2*$default-padding;
 }
 
 #clipboard_items {
@@ -588,9 +514,18 @@ select#url_protocol.medium {
       border: $default-border;
       background-color: white;
       @extend %rounded-border;
+
       &.elements {
-        background-color: #E5DCCA;
-        border: 1px solid #BBA589;
+        background-color: $medium-gray;
+      }
+
+      .icon {
+        vertical-align: text-bottom;
+        margin-right: $default-padding;
+      }
+
+      .float_right .icon {
+        margin-right: 0;
       }
     }
   }
@@ -607,27 +542,20 @@ select#url_protocol.medium {
   border-spacing: 0 !important;
 }
 
-#dropbox {
-  background: $medium-gray;
-  border: $default-border;
-  @extend %rounded-border;
-  padding: $default-padding;
-  margin-bottom: 2*$default-padding;
-  text-align: center;
-  line-height: 6em;
-  &.dragover {
-    background: $dark-gray;
-    color: $light-gray;
-    border-color: $light-gray;
-  }
-}
-
 div.browse {
   margin-bottom: 1em;
 }
 
-#alchemyPreviewWindow {
-  width: 100% !important;
+#alchemy_preview_window {
+  @include box-sizing(border-box);
+  position: absolute;
+  left: 66px;
+  top: 80px;
+  width: auto;
+  height: auto;
+  border: 0 none;
+  background: #fff;
+  @include transition(200ms ease-in-out);
 }
 
 #error_trace {
@@ -636,4 +564,19 @@ div.browse {
   padding: $default-padding;
   overflow: auto;
   @extend %rounded-border;
+}
+
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to   { -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to   { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to   {transform:rotate(360deg);}
 }

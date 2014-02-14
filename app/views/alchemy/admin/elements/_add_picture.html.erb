@@ -1,14 +1,14 @@
 <div class="add_picture" id="add_picture_<%= element.id %>">
-  <%= link_to_overlay_window(
+  <%= link_to_dialog(
     render_icon('add'),
     alchemy.admin_pictures_path(
-      :element_id => element,
-      :options => options
+      element_id: element,
+      options: options
     ),
     {
-      :title => _t(:add_image_to_element),
-      :size => '780x580',
-      :resizable => true
+      title: _t(:add_image_to_element),
+      size: '780x585',
+      padding: false
     }
   ) %>
 </div>

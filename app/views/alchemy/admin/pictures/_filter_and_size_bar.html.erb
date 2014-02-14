@@ -47,7 +47,7 @@
   </div>
   <div class="toolbar_spacer"></div>
   <div class="button_with_label">
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       render_icon('upload'),
       alchemy.new_admin_picture_path(
         element_id: @element.blank? ? nil : @element.id,

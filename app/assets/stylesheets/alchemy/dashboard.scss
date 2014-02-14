@@ -87,5 +87,8 @@ div#license {
   }
 
   & > span { display: none }
-  span.icon { vertical-align: top }
+
+  span.icon {
+    vertical-align: top;
+  }
 }

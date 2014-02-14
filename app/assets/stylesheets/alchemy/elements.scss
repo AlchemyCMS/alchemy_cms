@@ -1,3 +1,30 @@
+#alchemy_elements_window {
+  @include box-sizing(border-box);
+  position: absolute;
+  right: 0;
+  top: 80px;
+  width: 400px;
+  height: auto;
+  border-left: $default-border;
+  @include transition(200ms ease-in-out);
+}
+
+#element_area {
+  @include box-sizing(border-box);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .sortable_cell {
+    min-height: 100px;
+    padding: 2*$default-padding $default-padding 2px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 140px;
+  }
+}
+
 .element_heading {
   padding: 0;
   z-index: 0;
@@ -22,22 +49,6 @@ span.preview_text_element_name {
   line-height: 15px;
 }
 
-div#element_area {
-  padding: 0;
-  margin: 0;
-  min-height: 90%;
-
-  .sortable_cell {
-    min-height: 100px;
-    padding: 2*$default-padding $default-padding 2px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 140px;
-  }
-}
-
 .element_handle {
   width: 18px;
   height: 18px;
@@ -45,14 +56,11 @@ div#element_area {
   left: 8px;
   top: 9px;
 
-  .element_icon {
+  .element.icon {
     z-index: 0;
-    width: 16px;
-    height: 16px;
     position: absolute;
     top: 0;
     left: 0;
-    background: image-url('alchemy/icons.png') no-repeat -224px -72px;
   }
 
   span.icon {
@@ -135,6 +143,11 @@ div#element_area {
   &.selected {
     border-color: $blue;
     @include box-shadow(0 0 4px $blue);
+  }
+
+  form {
+    margin: 0;
+    padding: 8px 8px 0 8px;
   }
 
   .validation_notice {
@@ -229,11 +242,6 @@ div#element_area {
     float: right;
     margin: 0;
   }
-}
-
-#alchemy .ui-dialog div.element_editor form {
-  margin: 0;
-  padding: 8px 8px 0 8px;
 }
 
 div.element_tools {
@@ -547,10 +555,6 @@ select.long {
   padding: 0;
 }
 
-#alchemy .ui-dialog-content div.content_editor input.auto_resize {
-  width: 100%;
-}
-
 div.content_editor {
   margin-bottom: 8px;
   position: relative;
@@ -646,11 +650,6 @@ div.content_editor {
 
   &:hover label a.icon_button.small {
     @include inline-block;
-  }
-
-  input.text_with_icon.auto_resize.thin_border {
-    padding-right: 52px;
-    width: 314px;
   }
 
   select.essence_editor_select {

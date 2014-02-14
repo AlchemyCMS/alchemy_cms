@@ -19,9 +19,9 @@
 
 module Alchemy
   class Element < ActiveRecord::Base
-    include Logger
-    include Touching
-    include Hints
+    include Alchemy::Logger
+    include Alchemy::Touching
+    include Alchemy::Hints
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable hint)
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id position folded created_at updated_at creator_id updater_id cached_tag_list)
@@ -62,8 +62,8 @@ module Alchemy
     delegate :restricted?, to: :page, allow_nil: true
 
     # Concerns
-    include Definitions
-    include Presenters
+    include Alchemy::Element::Definitions
+    include Alchemy::Element::Presenters
 
     # class methods
     class << self
@@ -357,13 +357,13 @@ module Alchemy
       essence_errors.each do |content_name, errors|
         errors.each do |error|
           messages << I18n.t(
-            "#{name}.#{content_name}.#{error}",
-            :scope => :content_validations,
-            :default => [
+            "#{self.name}.#{content_name}.#{error}",
+            scope: 'content_validations',
+            default: [
               "fields.#{content_name}.#{error}".to_sym,
               "errors.#{error}".to_sym
             ],
-            :field => Content.translated_label_for(content_name)
+            field: Content.translated_label_for(content_name)
           )
         end
       end

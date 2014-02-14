@@ -16,12 +16,12 @@
 
 module Alchemy
   class Content < ActiveRecord::Base
-    include Logger
-    include Touching
-    include Hints
+    include Alchemy::Logger
+    include Alchemy::Touching
+    include Alchemy::Hints
 
     # Concerns
-    include Factory
+    include Alchemy::Content::Factory
 
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element, touch: true

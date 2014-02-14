@@ -1,9 +1,0 @@
-<%= select_tag(
-  "element_from_page_#{@page_id}_to_link",
-  options_for_select(@elements.collect{ |m| [m.display_name_with_preview_text.html_safe, "##{m.dom_id}"] }),
-  prompt: _t(:choose_element_to_link),
-  class: "elements_from_page_selector alchemy_selectbox",
-  onchange: "jQuery('#page_anchor').val(value)",
-  title: _t(:choose_element_as_target),
-  autofocus: true
-) %>

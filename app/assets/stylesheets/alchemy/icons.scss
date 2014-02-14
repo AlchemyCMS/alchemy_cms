@@ -93,6 +93,10 @@
     background-position: -160px -168px;
   }
 
+  &.element, &.clipboard_elements {
+    background-position: -224px -72px;
+  }
+
   &.element_draft {
     background-position: 1px -70px;
   }
@@ -189,6 +193,10 @@
     background-position: -224px -105px;
   }
 
+  &.page, &.clipboard_pages {
+    background-position: 0 -40px;
+  }
+
   &.pdf {
     background-position: -161px -136px;
   }
@@ -231,7 +239,7 @@
     background-position: -288px -72px;
   }
 
-  &.sync {
+  &.sync, &.reload {
     background-position: -96px -136px;
   }
 
@@ -260,7 +268,7 @@
     background-position: -448px -136px;
   }
 
-  &.tick, &.true, &.notice {
+  &.tick, &.true, &.notice, &.ok {
     background-position: -32px -73px;
   }
 

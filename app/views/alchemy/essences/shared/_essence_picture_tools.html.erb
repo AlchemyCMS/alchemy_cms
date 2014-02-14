@@ -1,11 +1,12 @@
 <% if options[:crop] && content.ingredient %>
-<%= link_to_overlay_window(
+<%= link_to_dialog(
   render_icon('crop'),
   alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json),
   {
-    size: "1000x653",
+    size: "1000x615",
     title: _t('Edit Picturemask'),
-    image_loader: false
+    image_loader: false,
+    padding: false
   },
   {
     title: _t('Edit Picturemask')
@@ -15,7 +16,7 @@
 <a href="#" class="disabled"><%= render_icon('crop') %></a>
 <%- end -%>
 
-<%= link_to_overlay_window(
+<%= link_to_dialog(
   render_icon('swap_picture'),
   alchemy.admin_pictures_path(
     element_id: content.element,
@@ -25,27 +26,27 @@
   ),
   {
     title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
-    size: '780x580',
-    close_on_escape: false
+    size: '780x585',
+    padding: false
   },
   title: (content.ingredient ? _t(:swap_image) : _t(:insert_image))
 ) %>
 
-<%= link_to(render_icon(:link), '#', {
-  onclick: "Alchemy.LinkOverlay.open(this); return false",
+<%= link_to(render_icon(:link), '', {
+  onclick: 'd = new Alchemy.LinkDialog(this); d.open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: _t(:link_image),
   'data-content-id' => content.id,
   id: "edit_link_#{content.id}"
 }) %>
 
-<%= link_to(render_icon('unlink'), '#', {
-  onclick: "Alchemy.LinkOverlay.removeLink(this, #{content.id}); return false",
+<%= link_to(render_icon('unlink'), '', {
+  onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
   class: content.linked? ? 'linked' : 'disabled',
   title: _t(:unlink)
 }) %>
 
-<%= link_to_overlay_window(
+<%= link_to_dialog(
   render_icon('edit'),
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,
@@ -54,7 +55,7 @@
   ),
   {
     title: _t(:edit_image_properties),
-    size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x240'))
+    size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x255'))
   },
   title: _t(:edit_image_properties)
 ) %>

@@ -1,5 +1,5 @@
-Alchemy.closeCurrentWindow();
-<%- unless flash[:notice].blank? -%>
-  Alchemy.growl('<%= flash[:notice] -%>');
-<%- end -%>
+Alchemy.closeCurrentDialog();
+<% unless flash[:notice].blank? -%>
+Alchemy.growl('<%= j flash[:notice] %>');
+<% end -%>
 Alchemy.reloadPreview();

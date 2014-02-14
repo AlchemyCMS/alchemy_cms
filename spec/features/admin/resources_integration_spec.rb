@@ -105,7 +105,7 @@ describe "Resources" do
     end
   end
 
-  describe "destroying an item", :js => true do
+  describe "destroying an item" do
     before do
       event
       second_event
@@ -113,7 +113,6 @@ describe "Resources" do
       within('tr', :text => 'My second Event') do
         click_on 'Delete'
       end
-      click_on 'Yes'
     end
 
     it "shouldn't be on the list anymore" do

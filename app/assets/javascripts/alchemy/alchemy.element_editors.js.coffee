@@ -49,7 +49,7 @@ Alchemy.ElementEditors =
   # Selcts and scrolls to element with given id in the preview window.
   #
   selectElementInPreview: (id) ->
-    $frame_elements = document.getElementById("alchemyPreviewWindow").contentWindow.jQuery("[data-alchemy-element]")
+    $frame_elements = document.getElementById("alchemy_preview_window").contentWindow.jQuery("[data-alchemy-element]")
     $selected_element = $frame_elements.closest("[data-alchemy-element='#{id}']")
     $selected_element.trigger "Alchemy.SelectElement"
 
@@ -88,7 +88,7 @@ Alchemy.ElementEditors =
   # Scrolls the element window to given element editor dom element.
   #
   scrollToElement: (el) ->
-    $("#alchemyElementWindow").scrollTo el,
+    $("#element_area").scrollTo el,
       duration: 400
       offset: -10
 
@@ -99,12 +99,11 @@ Alchemy.ElementEditors =
   toggle: (id, text) ->
     el = $("#element_#{id}")
     if Alchemy.isElementDirty(el)
-      Alchemy.openConfirmWindow
+      Alchemy.openConfirmDialog Alchemy._t('element_dirty_notice'),
         title: Alchemy._t('warning')
-        message: Alchemy._t('element_dirty_notice')
-        okLabel: Alchemy._t('ok')
-        cancelLabel: Alchemy._t('cancel')
-        okCallback: =>
+        ok_label: Alchemy._t('ok')
+        cancel_label: Alchemy._t('cancel')
+        on_ok: =>
           @toggleFold id
       false
     else
@@ -123,5 +122,5 @@ Alchemy.ElementEditors =
       @scrollToElement "#element_#{id}"
 
   observeToggler: (scope) ->
-    $('[data-element-dirty]', scope).click ->
-      Alchemy.ElementEditors.toggle $(this).data('element-dirty')
+    $('[data-element-toggle]', scope).click ->
+      Alchemy.ElementEditors.toggle $(this).data('element-toggle')

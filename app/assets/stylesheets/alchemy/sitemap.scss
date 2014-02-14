@@ -112,15 +112,12 @@ div.sitemap_left_images {
   float: right;
   width: 120px;
 
-  .show_elements_to_link, .sitemap_tool {
+  .sitemap_tool {
     float: left;
     width: 24px;
-    height: 21px;
+    height: 24px;
+    line-height: 24px;
     text-align: center;
-
-    .icon {
-      vertical-align: middle;
-    }
   }
 
   .icon.blank {
@@ -235,7 +232,7 @@ span.page_status {
   float: left;
 
   &.restricted {
-    background-position: -258px -39px;
+    background-position: -256px -39px;
   }
 
   &.not_restricted {
@@ -266,49 +263,25 @@ span.page_status {
   margin: 2px 2px 0 4px;
 }
 
-.alchemy_overlay .page_status {
+.alchemy-dialog .page_status {
   margin: 4px 4px 0 0;
 }
 
-.site_status {
-  float: left;
-  width: 16px;
-  height: 16px;
-  background: image-url('alchemy/icons.png') no-repeat 0 -40px;
-  position: relative;
+#sitemap {
 
-  a {
-    display: block;
-    height: 100%;
-    cursor: help;
+  &.sorting {
+
+    .page.icon { cursor: move }
   }
-}
 
-.locked .site_status {
-  background-position: -32px -40px;
-}
+  .page.icon {
+    float: left;
+    position: relative;
+  }
 
-#sitemap.sorting {
-  .site_status { cursor: move }
-}
-
-#sub_navigation span.page_status_and_name span.site_status {
-  float: none;
-  @include inline-block;
-  margin-right: 4px;
-  margin-left: 0;
-  margin-bottom: 0;
-}
-
-#sitemap img.link_arrow {
-  float: right;
-  text-align: right;
-}
-
-ul#sitemap li img {
-  border-width: 0;
-  border-style: none;
-  float: left;
+  .locked .page.icon {
+    background-position: -32px -40px;
+  }
 }
 
 .sitemap_sitestatus {
@@ -359,11 +332,11 @@ h2#sitemap_heading {
   padding-left: 4*$default-padding;
 }
 
-.ui-dialog-content ul#sitemap {
+.alchemy-dialog ul#sitemap {
   margin: 0;
   padding: 0 8px 8px 0;
 
-  .site_status { cursor: default }
+  .page.icon { cursor: default }
 
   li li.selectboxit-option {
     padding-left: 8px;
@@ -387,11 +360,12 @@ h2#sitemap_heading {
 }
 
 .show_elements_to_link {
-  background: image-url('alchemy/icons.png') no-repeat -510px -69px;
+  @extend .icon;
+  @extend .element_window;
 }
 
 .elements_from_page_selector {
-  width: 154px;
+  width: 100%;
 }
 
 .elements_for_page {

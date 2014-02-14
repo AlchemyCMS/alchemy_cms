@@ -8,6 +8,7 @@
     </label>
     <%= select_tag "public_filename",
       options_for_select(@attachments),
+      prompt: _t('Please choose'),
       class: "alchemy_selectbox" %>
   </div>
   <div class="input text">

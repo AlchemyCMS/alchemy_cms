@@ -2,7 +2,7 @@ require "alchemy/shell"
 
 module Alchemy
   class Seeder
-    extend Shell
+    extend Alchemy::Shell
 
     class << self
 

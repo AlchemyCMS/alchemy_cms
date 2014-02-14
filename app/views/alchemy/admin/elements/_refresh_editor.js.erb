@@ -2,7 +2,7 @@
 (function() {
   var $element = $('.element_content', '#element_<%= element.id %>');
   Alchemy.Tinymce.remove(<%= rtfs.to_json %>);
-  $element.html('<%= escape_javascript render_editor(element) %>');
+  $element.html('<%= j render_editor(element) %>');
   Alchemy.GUI.init($element);
   Alchemy.Tinymce.init(<%= rtfs.to_json %>);
 })();

@@ -6,18 +6,6 @@ textarea, input[type="text"], input[type="email"], input[type="password"], .thin
   }
 }
 
-#alchemy .ui-dialog-content input.auto_resize, #alchemy .ui-dialog-content textarea.auto_resize {
-  width: 100%;
-}
-
-#alchemy .ui-dialog-content input.medium_long {
-  width: 139px;
-}
-
-#alchemy .ui-dialog-content input.very_long {
-  width: 310px;
-}
-
 textarea {
   height: auto;
   padding: 4px 8px !important;

@@ -184,5 +184,24 @@ module Alchemy
       end
     end
 
+    describe '#button_with_confirm' do
+      subject { button_with_confirm }
+
+      it "renders a button tag with a data attribute for confirm dialog" do
+        should have_selector('button[data-alchemy-confirm]')
+      end
+    end
+
+    describe '#delete_button' do
+      subject { delete_button('/admin/pages') }
+
+      it "renders a button tag" do
+        should have_selector('button')
+      end
+
+      it "returns a form tag with method=delete" do
+        should have_selector('form input[name="_method"][value="delete"]')
+      end
+    end
   end
 end

@@ -2,81 +2,55 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 Alchemy.PreviewWindow =
 
-  init: (url, title) ->
-    $iframe = $("#alchemyPreviewWindow")
-    if $iframe.length is 0
-      $iframe = $("<iframe name=\"alchemyPreviewWindow\" src=\"#{url}\" id=\"alchemyPreviewWindow\" frameborder=\"0\"/>")
-      $iframe.load ->
-        $(".preview-refresh-spinner").hide()
-        $(".ui-dialog-titlebar-refresh").show()
-      $iframe.css "background-color": "#ffffff"
-      Alchemy.PreviewWindow.currentWindow = $iframe.dialog(
-        modal: false
-        title: title
-        minWidth: 240
-        minHeight: 300
-        width: $(window).width() - 482
-        height: $(window).height() - 76
-        show: "fade"
-        hide: "fade"
-        position: [70, 84]
-        autoResize: true
-        closeOnEscape: false
-        dialogClass: 'alchemy-preview-window'
-        create: ->
-          $titlebar = $("#alchemyPreviewWindow").prev()
-          $titlebar.append Alchemy.PreviewWindow.reloadButton()
-          spinner = Alchemy.Spinner.small(className: "preview-refresh-spinner")
-          $titlebar.append spinner.spin().el
-        close: (event, ui) ->
-          Alchemy.PreviewWindow.button.enable()
-        open: (event, ui) ->
-          $(this).css width: "100%"
-          Alchemy.PreviewWindow.button.disable()
-      ).dialogExtend
-          maximize: true
-          dblclick: "maximize"
-          icons:
-            maximize: "ui-icon-fullscreen"
-            restore: "ui-icon-exit-fullscreen"
+  init: (url) ->
+    $iframe = $("<iframe name=\"alchemy_preview_window\" src=\"#{url}\" id=\"alchemy_preview_window\" frameborder=\"0\"/>")
+    $reload = $('#reload_preview_button')
+    @_showSpinner()
+    $iframe.load =>
+      @_hideSpinner()
+    $('body').append($iframe)
+    @currentWindow = $iframe
+    @_bindReloadButton()
+    @resize()
+
+  resize: ->
+    $window = $(window)
+    if Alchemy.ElementsWindow.hidden
+      width = $window.width() - 64
     else
-      $("#alchemyPreviewWindow").dialog "open"
+      width = $window.width() - 466
+    height = $window.height() - 80
+    width = 240 if width < 240
+    @currentWidth = width
+    @currentWindow.css
+      width: width
+      height: height
 
   refresh: (callback) ->
-    $iframe = $("#alchemyPreviewWindow")
-    $spinner = $(".preview-refresh-spinner")
-    $refresh = $('.ui-dialog-titlebar-refresh')
-    $spinner.show()
-    $refresh.hide()
-    $iframe.load (e) ->
-      $spinner.hide()
-      $refresh.show()
+    $iframe = $('#alchemy_preview_window')
+    @_showSpinner()
+    $iframe.load (e) =>
+      @_hideSpinner()
       if callback
         callback.call(e, $iframe)
-    $iframe.attr("src", $iframe.attr("src"))
+    $iframe.attr 'src', $iframe.attr('src')
     true
 
-  button:
-    enable: ->
-      $("div#show_preview_window").removeClass("disabled").find("a").removeAttr "tabindex"
+  _showSpinner: ->
+    @reload = $('#reload_preview_button')
+    @spinner = Alchemy.Spinner.small()
+    @reload.html @spinner.spin().el
 
-    disable: ->
-      $("div#show_preview_window").addClass("disabled").find("a").attr "tabindex", "-1"
+  _hideSpinner: ->
+    @spinner.stop()
+    @reload.html('<span class="icon reload"></span>')
 
-    toggle: ->
-      if $("div#show_preview_window").hasClass("disabled")
-        Alchemy.PreviewWindow.button.enable()
-      else
-        Alchemy.PreviewWindow.button.disable()
-
-  reloadButton: ->
-    $reload = $('<button class="ui-dialog-titlebar-refresh ui-corner-all ui-state-default" role="button" data-alchemy-hotkey="alt+r" />')
-    $reload.append('<span class="ui-icon ui-icon-refresh" />')
-    $reload.click Alchemy.reloadPreview
-    $reload.hover ->
-      $(this).toggleClass "ui-state-hover ui-state-default"
-    $reload.hide()
-    $reload
+  _bindReloadButton: ->
+    $reload = $('#reload_preview_button')
+    key 'alt+r', =>
+      @refresh()
+    $reload.click =>
+      @refresh()
 
 Alchemy.reloadPreview = ->
   Alchemy.PreviewWindow.refresh()

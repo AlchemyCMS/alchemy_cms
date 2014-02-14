@@ -24,8 +24,8 @@ $.extend Alchemy,
     $("a#edit_multiple_pictures").on "click", (e) ->
       $this = $(this)
       picture_ids = $("input:checkbox", "#picture_archive").serialize()
-      e.preventDefault()
-      Alchemy.openWindow $this.attr("href") + "?" + picture_ids, {title: $this.attr("title"), height: 230, overflow: false}
+      url = $this.attr("href") + "?" + picture_ids
+      Alchemy.openDialog url, {title: $this.attr("title"), size: '400x295'}
       false
     return
 
@@ -47,15 +47,15 @@ $.extend Alchemy,
   ImageLoader: (scope = document, options = {color: '#fff'}) ->
     $('img', scope).each ->
       image = $(this).hide()
-      parent = image.parent()
+      $parent = image.parent()
       spinner = Alchemy.Spinner.small options
-      spinner.spin parent[0]
+      spinner.spin $parent[0]
       image.on 'load', ->
-        image.fadeIn 600
         spinner.stop()
+        image.fadeIn 400
       image.on 'error', ->
         spinner.stop()
-        image.parent().html('<span class="icon warn"/>')
+        $parent.html('<span class="icon warn"/>')
 
   removePicture: (selector) ->
     $form_field = $(selector)
@@ -89,18 +89,23 @@ $.extend Alchemy,
   # Selects cell tab for given name.
   # Creates it if it's not present yet.
   selectOrCreateCellTab: (cell_name, label) ->
-    if $("#cell_" + cell_name).size() is 0
-      $("#cells").tabs "add", "#cell_" + cell_name, label
-      $("#cell_" + cell_name).addClass "sortable_cell"
-    $("#cells").tabs "select", "cell_" + cell_name
+    $cells = $('#cells')
+    $tab = $("#cell_#{cell_name}")
+    if $tab.length == 0
+      $("<li><a href=\"#cell_#{cell_name}\">#{label}</a></li>")
+        .appendTo('#cells .ui-tabs-nav')
+      $tab = $("<div id=\"cell_#{cell_name}\" class=\"sortable_cell\"/>")
+      $cells.append($tab)
+      $cells.tabs('refresh')
+    $cells.tabs().tabs('option', 'active', $('#cells > div').index($tab))
     return
 
   # Inits the cell tabs
   buildTabbedCells: (label) ->
-    $cells = $("<div id=\"cells\"/>")
-    $("#cell_for_other_elements").wrap $cells
-    $("#cells").prepend "<ul><li><a href=\"#cell_for_other_elements\">" + label + "</a></li></ul>"
-    $("#cells").tabs().tabs "paging",
+    $cells = $('<div id="cells"/>')
+    $('#cell_for_other_elements').wrap($cells)
+    $('#cells').prepend("<ul><li><a href=\"#cell_for_other_elements\">#{label}</a></li></ul>")
+    .tabs 'paging',
       follow: true
       followOnSelect: true
     return

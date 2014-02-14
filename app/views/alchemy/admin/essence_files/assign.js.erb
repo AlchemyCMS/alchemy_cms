@@ -1,13 +1,9 @@
-(function($) {
-  $('#<%= @content.dom_id %>').replaceWith('<%= escape_javascript(
-    render partial: "alchemy/essences/essence_file_editor",
-      formats: [:html],
-      locals: {
-        content: @content,
-        options: @options
-      }
-  ) %>');
-  Alchemy.closeCurrentWindow();
-  Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));
-  Alchemy.overlayObserver($('#<%= @content.dom_id %>'));
-})(jQuery);
+$('#<%= @content.dom_id %>').replaceWith('<%= j(
+  render "alchemy/essences/essence_file_editor",
+    formats: [:html],
+    content: @content,
+    options: @options
+) %>');
+Alchemy.closeCurrentDialog();
+Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));
+Alchemy.watchForDialogs($('#<%= @content.dom_id %>'));

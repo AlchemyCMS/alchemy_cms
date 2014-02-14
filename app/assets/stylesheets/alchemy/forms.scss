@@ -1,5 +1,17 @@
 form {
 
+  #main_content > &.alchemy {
+    max-width: 600px;
+    padding: 2*$default-padding;
+    margin: 2em auto;
+  }
+
+  &.button-with-confirm {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
   &.edit_page textarea {
     height: 67px;
   }
@@ -122,7 +134,6 @@ textarea#essence_picture_caption {
 }
 
 .resource_info {
-  @extend .with_padding;
 
   h2 {
     @include form-heading;

@@ -19,73 +19,71 @@ Alchemy.ToolbarButton = (options) ->
 
 Alchemy.ElementsWindow =
 
-  init: (path, options, callback) ->
-    self = Alchemy.ElementsWindow
-    $dialog = $('<div style="display: none" id="alchemyElementWindow"></div>')
-    closeCallback = ->
-      $dialog.dialog "destroy"
-      $("#alchemyElementWindow").remove()
-      Alchemy.ElementsWindow.button.enable()
-    self.path = path
-    self.callback = callback
-    $dialog.html Alchemy.getOverlaySpinner(width: 420, height: 300)
-    self.dialog = $dialog
-    $('#main_content').append($dialog)
-    self.currentWindow = $dialog.dialog
-      modal: false
-      minWidth: 400
-      minHeight: 300
-      height: $(window).height() - 88
-      title: options.texts.title
-      show: "fade"
-      hide: "fade"
-      position:
-        my: "right bottom", at: "right-4px bottom-4px"
-      closeOnEscape: false
-      dialogClass: 'alchemy-elements-window'
-      create: ->
-        $dialog.before Alchemy.ElementsWindow.createToolbar(options.toolbarButtons)
-      open: (event, ui) ->
-        Alchemy.ElementsWindow.button.disable()
-        Alchemy.ElementsWindow.reload()
-      beforeClose: ->
-        if Alchemy.isPageDirty()
-          Alchemy.openConfirmWindow
-            title: options.texts.dirtyTitle
-            message: options.texts.dirtyMessage
-            okLabel: options.texts.okLabel
-            cancelLabel: options.texts.cancelLabel
-            okCallback: closeCallback
-          false
-        else
-          true
-      close: closeCallback
-
-  button:
-    enable: ->
-      $("div#show_element_window").removeClass("disabled").find("a").removeAttr "tabindex"
-    disable: ->
-      $("div#show_element_window").addClass("disabled").find("a").attr "tabindex", "-1"
-    toggle: ->
-      if $("div#show_element_window").hasClass("disabled")
-        Alchemy.ElementsWindow.button.enable()
-      else
-        Alchemy.ElementsWindow.button.disable()
+  init: (url, options, callback) ->
+    @hidden = false
+    @element_window = $('<div id="alchemy_elements_window"/>')
+    @element_area = $('<div id="element_area"/>')
+    @url = url
+    @options = options
+    @callback = callback
+    @element_window.append @createToolbar(options.toolbarButtons)
+    @element_window.append @element_area
+    @button = $('#element_window_button')
+    @button.click =>
+      @hide()
+      false
+    height = @resize()
+    window.requestAnimationFrame =>
+      spinner = Alchemy.Spinner.medium()
+      spinner.spin @element_area[0]
+    $('#main_content').append(@element_window)
+    @reload()
 
   createToolbar: (buttons) ->
-    $toolbar = $('<div id="overlay_toolbar"/>')
+    @toolbar = $('<div id="overlay_toolbar"/>')
     for btn in buttons
-      $toolbar.append Alchemy.ToolbarButton(btn)
-    $toolbar
+      @toolbar.append Alchemy.ToolbarButton(btn)
+    @toolbar
+
+  resize: ->
+    height = $(window).height() - 80
+    @element_window.css
+      height: height
+    @element_area.css
+      height: height - 54
+    height
 
   reload: ->
-    self = Alchemy.ElementsWindow
-    $.ajax
-      url: self.path
-      success: (data, textStatus, XMLHttpRequest) ->
-        self.dialog.html data
-        Alchemy.GUI.init "#alchemyElementWindow"
-        if self.callback
-          self.callback.call()
-      error: (XMLHttpRequest, textStatus, errorThrown) ->
-        Alchemy.AjaxErrorHandler $dialog, XMLHttpRequest.status, textStatus, errorThrown
+    $.get @url, (data) =>
+      @element_area.html data
+      Alchemy.GUI.init(@element_area)
+      if @callback
+        @callback.call()
+    .fail (xhr, status, error) =>
+      Alchemy.AjaxErrorHandler @element_area, xhr.status, status, error
+
+  hide: ->
+    @element_window.css(right: -400)
+    @hidden = true
+    @toggleButton()
+    Alchemy.PreviewWindow.resize()
+
+  show: ->
+    @element_window.css(right: 0)
+    @hidden = false
+    @toggleButton()
+    Alchemy.PreviewWindow.resize()
+
+  toggleButton: ->
+    if @hidden
+      @button.find('label').text(@options.texts.showElements)
+      @button.off('click')
+      @button.click =>
+        @show()
+        false
+    else
+      @button.find('label').text(@options.texts.hideElements)
+      @button.off('click')
+      @button.click =>
+        @hide()
+        false

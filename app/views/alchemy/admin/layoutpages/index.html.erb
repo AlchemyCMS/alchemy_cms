@@ -25,9 +25,9 @@
     icon: 'add_page',
     url: alchemy.new_admin_page_path(parent_id: @layout_root.id, layoutpage: true),
     hotkey: 'alt+n',
-    overlay_options: {
+    dialog_options: {
       title: _t('Add global page'),
-      size: '340x150',
+      size: '340x170',
       overflow: true
     },
     title: _t('Add global page'),
@@ -37,7 +37,7 @@
   <%= toolbar_button(
     icon: "clipboard#{clipboard_empty?('pages') ? '' : ' full'}",
     url: alchemy.admin_clipboard_path(remarkable_type: 'pages'),
-    overlay_options: {
+    dialog_options: {
       title: _t('Clipboard'),
       size: '380x270'
     },

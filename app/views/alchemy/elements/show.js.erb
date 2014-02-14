@@ -1,5 +1,1 @@
-(function($) {
-  $('#<%= @container_id -%>').html('<%= escape_javascript(
-    render @element, :element => @element, :options => @options
-  ) -%>');
-})(jQuery);
+$('#<%= @container_id %>').html('<%= j render(@element, element: @element, options: @options) %>');

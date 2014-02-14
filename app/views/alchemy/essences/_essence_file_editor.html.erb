@@ -6,21 +6,21 @@
   <div class="file" id="file_<%= content.id %>">
     <div class="file_icon">
     <% if content.ingredient.nil? %>
-      <%= link_to_overlay_window("",
+      <%= link_to_dialog '',
         alchemy.admin_attachments_path(
-          :content_id => content.id,
-          :only => options[:file_assign_show_only],
-          :except => options[:file_assign_do_not_show],
-          :options => options.to_json
+          content_id: content.id,
+          only: options[:file_assign_show_only],
+          except: options[:file_assign_do_not_show],
+          options: options.to_json
         ),
         {
-          :title => _t(:assign_file),
-          :size => '780x580',
-          :close_on_escape => false
+          title: _t(:assign_file),
+          size: '780x585',
+          padding: false
         },
-        :class => 'assign_file',
-        :title => _t(:assign_file)
-      ) %>
+        class: 'assign_file',
+        title: _t(:assign_file)
+      %>
     <% else %>
       <%= render_icon(content.ingredient.icon_css_class) %>
     <% end %>
@@ -31,35 +31,35 @@
     <% unless content.ingredient.nil? %>
     <%= hidden_field_tag content.form_field_name(:attachment_id), content.ingredient.id %>
     <div class="essence_file_tools">
-      <%= link_to_overlay_window("",
+      <%= link_to_dialog '',
         alchemy.admin_attachments_path(
-          :content_id => content.id,
-          :only => options[:file_assign_show_only],
-          :except => options[:file_assign_do_not_show],
-          :options => options.to_json
+          content_id: content.id,
+          only: options[:file_assign_show_only],
+          except: options[:file_assign_do_not_show],
+          options: options.to_json
         ),
         {
-          :title => _t(:assign_file),
-          :size => '780x580',
-          :close_on_escape => false
+          title: _t(:assign_file),
+          size: '780x585',
+          padding: false
         },
-        :class => 'assign_file',
-        :title => _t(:assign_file)
-      ) %>
-      <%= link_to_overlay_window("",
+        class: 'assign_file',
+        title: _t(:assign_file)
+      %>
+      <%= link_to_dialog '',
         url_for(
-          :controller => 'essence_files',
-          :action => 'edit',
-          :options => options.to_json,
-          :id => content
+          controller: 'essence_files',
+          action: 'edit',
+          options: options.to_json,
+          id: content
         ),
         {
-          :title => _t(:edit_file_properties),
-          :size => '400x150'
+          title: _t(:edit_file_properties),
+          size: '400x165'
         },
-        :class => 'edit_file',
-        :title => _t(:edit_file_properties)
-      ) %>
+        class: 'edit_file',
+        title: _t(:edit_file_properties)
+      %>
     </div>
     <% end %>
   </div>

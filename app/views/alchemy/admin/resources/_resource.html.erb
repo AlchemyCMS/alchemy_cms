@@ -10,26 +10,19 @@
 <% end %>
   <td class="tools">
     <% if can?(:destroy, resource) %>
-    <%= link_to_confirmation_window(
-      '',
-      _t("Are you sure?"),
-      resource_path(resource),
-      :title => _t("Delete"),
-      :class => "icon destroy",
-      :id => "delete_#{resource_handler.resource_name}_#{resource.id}"
-    ) %>
+    <%= delete_button resource_path(resource) %>
     <% end %>
     <% if can?(:edit, resource) %>
-    <%= link_to_overlay_window(
+    <%= link_to_dialog(
       '',
       edit_resource_path(resource),
       {
-        :title => _t("Edit"),
-        :size => resource_window_size
+        title: _t('Edit'),
+        size: resource_window_size
       },
       {
-        :class => "icon edit",
-        :title => _t("Edit")
+        class: 'icon edit',
+        title: _t('Edit')
       }
     ) %>
     <% end %>

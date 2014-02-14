@@ -10,7 +10,6 @@ module Alchemy
 
     def show
       @size = params[:size]
-
       expires_in 1.month, public: !@picture.restricted?
       respond_to { |format| send_image(processed_image, format) }
     end
