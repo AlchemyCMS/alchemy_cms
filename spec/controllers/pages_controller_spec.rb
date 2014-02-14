@@ -14,9 +14,9 @@ module Alchemy
 
       before { controller.stub(current_alchemy_user: author_user) }
 
-      it "should be able to visit a unpublic page" do
+      it "should not be able to visit a unpublic page" do
         get :show, urlname: unpublic.urlname
-        response.status.should == 200
+        response.status.should == 404
       end
     end
 
