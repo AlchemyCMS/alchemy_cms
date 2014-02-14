@@ -78,7 +78,7 @@ module Alchemy
         end
 
         context "as member user" do
-          let(:user) { mock_model('User', alchemy_roles: %w(member)) }
+          let(:user) { mock_model('User', alchemy_roles: %w(member), role_symbols: [:member]) }
 
           before { restricted_page }
 
