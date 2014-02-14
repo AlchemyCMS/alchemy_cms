@@ -10,8 +10,8 @@ module Alchemy
       before do
         Page.stub_chain(:from_current_site, :all_last_edited_from).and_return([])
         Page.stub_chain(:from_current_site, :all_locked).and_return([])
-        User.stub(:logged_in).and_return([controller.current_user])
-        controller.current_user.stub(:sign_in_count).and_return(5)
+        User.stub(:logged_in).and_return([user])
+        user.stub(:sign_in_count).and_return(5)
       end
 
       it "assigns @last_edited_pages" do
@@ -63,7 +63,7 @@ module Alchemy
         expect(assigns(:sites)).to eq(Site.scoped)
       end
     end
-    
+
     describe '#info' do
       it "assigns @alchemy_version with the current Alchemy version" do
         get :info
