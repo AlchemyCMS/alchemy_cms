@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Translation integration" do
   context "in admin backend" do
-    before { authorize_as_admin(mock_model('User', alchemy_roles: %w(admin), language: 'de')) }
+    before { authorize_as_admin(mock_model('User', alchemy_roles: %w(admin), role_symbols: [:admin], language: 'de')) }
 
     it "should be possible to set the locale of the admin backend via params" do
       visit admin_dashboard_path(locale: 'de')
