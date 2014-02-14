@@ -190,7 +190,7 @@ module Alchemy
           render :action => :permission_denied
         else
           store_location
-          redirect_to alchemy.login_path
+          redirect_to Alchemy.login_path
         end
       end
     end
