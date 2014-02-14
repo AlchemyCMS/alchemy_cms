@@ -80,12 +80,19 @@ module Alchemy
         context "as registered user" do
           let(:user) { mock_model('User', alchemy_roles: %w(registered), role_symbols: [:registered]) }
 
-          before { restricted_page }
+          before do
+            restricted_page
+            Authorization.current_user = user
+          end
 
           it "should render also restricted pages" do
             not_restricted_page = FactoryGirl.create(:public_page, restricted: false, visible: true)
             helper.render_navigation.should match(/#{restricted_page.name}/)
             helper.render_navigation.should match(/#{not_restricted_page.name}/)
+          end
+
+          after do
+            Authorization.current_user = nil
           end
         end
 
@@ -261,11 +268,17 @@ module Alchemy
       end
 
       context "with options[:restricted_only] set to true" do
-        before { Authorization.current_user = mock_model('User', alchemy_roles: %w(registered), role_symbols: [:registered]) }
+        before do
+          Authorization.current_user = mock_model('User', alchemy_roles: %w(registered), role_symbols: [:registered])
+        end
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
           helper.render_breadcrumb(page: page, restricted_only: true).strip.should match(/^(<span(.[^>]+)>)A restricted Public Page/)
+        end
+
+        after do
+          Authorization.current_user = nil
         end
       end
 
