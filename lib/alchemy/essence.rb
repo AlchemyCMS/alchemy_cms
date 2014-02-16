@@ -120,7 +120,7 @@ module Alchemy #:nodoc:
             if ingredient.to_s.match(matcher).nil?
               self.validation_errors << :invalid
             end
-          elsif validation == 'uniqueness' && !acts_as_essence_class.send("find_by_#{ingredient_column}", ingredient).blank?
+          elsif validation == 'uniqueness' && acts_as_essence_class.where("#{ingredient_column}" => ingredient).where.not(id: self.id).any?
             self.validation_errors << :taken
           end
         end
