@@ -3,7 +3,7 @@ $.extend Alchemy,
   # Opens an image in a dialog
   # Used by the picture library
   zoomImage: (url, title, width, height) ->
-    Alchemy.currentDialog = new Alchemy.Dialog url,
+    Alchemy.openDialog url,
       size: "#{width}x#{height}"
       title: title
       padding: false
@@ -11,7 +11,6 @@ $.extend Alchemy,
       ready: (dialog) ->
         Alchemy.ImageLoader dialog,
           color: '#000'
-    Alchemy.currentDialog.open()
 
   # Trash window methods
   TrashWindow:
