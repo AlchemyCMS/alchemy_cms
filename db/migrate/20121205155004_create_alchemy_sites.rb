@@ -5,7 +5,7 @@ class CreateAlchemySites < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    add_index :alchemy_sites, :host, uniq: true
+    add_index :alchemy_sites, :host, unique: true
 
     # add Language#site_id
     add_column :alchemy_languages, :site_id, :integer
