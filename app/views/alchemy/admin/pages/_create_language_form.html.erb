@@ -1,9 +1,8 @@
 <% if root = Alchemy::Page.rootpage %>
-<div id="create_language_tree_form" style="display: none">
-  <div class="info">
-    <%= render_icon('info') %>
-    <%= _t(:language_does_not_exist) %>
-  </div>
+<div id="create_language_tree_form">
+  <%= render_message do %>
+    <h2><%= _t(:language_does_not_exist) %></h2>
+  <% end %>
 <%- if @language -%>
 
   <%- if @languages_with_page_tree.size >= 1 -%>
@@ -23,7 +22,7 @@
 
   <%- if params[:action] == "index" -%>
 
-  <%= form_for([:admin, Alchemy::Page.new], remote: true) do |form| %>
+  <%= form_for([:admin, Alchemy::Page.new]) do |form| %>
     <h3><%= _t(:create_language_tree_heading) %></h3>
     <p><%= _t(:want_to_create_new_language) %></p>
     <%= form.hidden_field :name, value: @language.frontpage_name %>
