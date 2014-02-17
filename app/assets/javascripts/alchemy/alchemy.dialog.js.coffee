@@ -38,6 +38,7 @@ class window.Alchemy.Dialog
         iframeFix: true
         handle: '.alchemy-dialog-title'
         containment: 'parent'
+    Alchemy.currentDialogs.push(this)
     @load()
     true
 
@@ -48,6 +49,7 @@ class window.Alchemy.Dialog
     @$document.on 'webkitTransitionEnd transitionend oTransitionEnd', =>
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
       @dialog_container.remove()
+      Alchemy.currentDialogs.pop(this)
       if @options.closed?
         @options.closed()
     true
@@ -198,21 +200,31 @@ class window.Alchemy.Dialog
         overflow: 'visible'
     return
 
+# Collection of all current dialog instances
+window.Alchemy.currentDialogs = []
+
+# Gets the last dialog instantiated, which is the current one.
+window.Alchemy.currentDialog = ->
+  length = Alchemy.currentDialogs.length
+  return if length == 0
+  Alchemy.currentDialogs[length - 1]
+
 # Utility function to close the current Dialog
 #
 # You can pass a callback function, that gets triggered after the Dialog gets closed.
 #
 window.Alchemy.closeCurrentDialog = (callback) ->
-  if Alchemy.currentDialog
-    Alchemy.currentDialog.options.closed = callback
-    Alchemy.currentDialog.close()
+  dialog = Alchemy.currentDialog()
+  if dialog?
+    dialog.options.closed = callback
+    dialog.close()
 
 # Utility function to open a new Dialog
 window.Alchemy.openDialog = (url, options) ->
   if !url
     throw('No url given! Please provide an url.')
-  Alchemy.currentDialog = new Alchemy.Dialog(url, options)
-  Alchemy.currentDialog.open()
+  dialog = new Alchemy.Dialog(url, options)
+  dialog.open()
 
 # Watches elements for Alchemy Dialogs
 #
