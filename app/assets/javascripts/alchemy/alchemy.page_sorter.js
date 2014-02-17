@@ -24,8 +24,6 @@ if (typeof(Alchemy) === 'undefined') {
         toleranceElement: '> div'
       });
       $('#save_page_order').click(function(e) {
-        Alchemy.pleaseWaitOverlay();
-        e.preventDefault();
         var params = {
           set: JSON.stringify($sortables.nestedSortable('toHierarchy'))
         };
