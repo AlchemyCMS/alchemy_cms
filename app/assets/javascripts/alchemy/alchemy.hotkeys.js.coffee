@@ -8,6 +8,7 @@ Alchemy.Hotkeys = (scope) ->
 
   # Unbind all previously registered hotkeys.
   unless scope
+    $(document).off('keypress')
     for hotkey in Alchemy.bindedHotkeys
       key.unbind(hotkey)
 
@@ -25,6 +26,16 @@ Alchemy.Hotkeys = (scope) ->
     $search_fields_clear.click()
     $search_fields.blur()
   Alchemy.bindedHotkeys.push('esc')
+
+  unless scope
+    $(document).on 'keypress', (e) ->
+      if String.fromCharCode(e.which) == '?'
+        Alchemy.openDialog '/admin/help',
+          title: Alchemy._t('help')
+          size: '400x492'
+        false
+      else
+        true
 
   # Binds click events to hotkeys.
   #

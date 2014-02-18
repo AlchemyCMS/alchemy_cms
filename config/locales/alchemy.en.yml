@@ -239,7 +239,22 @@ en:
     "File uploaded succesfully": "File %{name} succesfully uploaded"
     "File upload error": "File upload error: %{error}"
     from_at: "from %{by} at %{at}"
+    'Global shortcuts': 'Global shortcuts'
     height: "Height"
+    help:
+      shortcuts:
+        "Open help window": "Open help window"
+        "Close current dialog": "Close current dialog"
+        "Open logout dialog": "Open logout dialog"
+        "Focus search field": "Focus search field"
+        "Create a new record": "Create a new record"
+        "Show page infos": "Show page infos"
+        "Create new element": "Create new element"
+        "Edit page properties": "Edit page properties"
+        "Reload the preview": "Reload the preview"
+        "Leave the page": "Leave the page"
+        "Open upload form": "Open upload form"
+        "Select all pictures": "Select all pictures"
     hide_element_content: "Hide this elements content."
     dashboard: "Dashboard"
     "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash® uploader you can switch to %{link}"
@@ -256,6 +271,7 @@ en:
     language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree succesfully copied."
+    "Library shortcuts": "Library shortcuts"
     link_image: "Link this image."
     link_overlay_tab_label:
       contactform: "Contactform"
@@ -291,6 +307,7 @@ en:
     no_search_results: "Your search did not return any results."
     "not a valid image": "This is not an valid image."
     "Page created": "Page: '%{name}' created."
+    "Page edit shortcuts": "Page edit shortcuts"
     page_for_links:
       choose_page: "Choose %{name}"
     page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."

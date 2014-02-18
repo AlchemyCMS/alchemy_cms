@@ -12,6 +12,8 @@ Alchemy::Engine.routes.draw do
         :as => :admin_dashboard
   get '/admin/dashboard/info' => 'admin/dashboard#info',
         :as => :dashboard_info
+  get '/admin/help' => 'admin/dashboard#help',
+        :as => :help
   get '/admin/dashboard/update_check' => 'admin/dashboard#update_check',
         :as => :update_check
 
