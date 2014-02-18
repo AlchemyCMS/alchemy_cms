@@ -110,6 +110,16 @@ hr {
   }
 }
 
+kbd {
+  font-family: Courier, monospaced;
+  background: $medium-gray;
+  border: $default-border;
+  padding: 0.25em 0.5em;
+  vertical-align: top;
+  margin-right: 1ex;
+  @extend %rounded-border;
+}
+
 .top-rounded-border {
   @include border-top-radius($default-border-radius);
 }

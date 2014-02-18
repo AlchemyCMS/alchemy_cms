@@ -80,3 +80,6 @@ $.extend Alchemy,
     click_to_edit:
       de: 'Klicken zum Bearbeiten'
       en: 'click to edit'
+    help:
+      de: 'Hilfe'
+      en: 'Help'
