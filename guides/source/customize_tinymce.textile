@@ -37,7 +37,7 @@ NOTE: Overriding options always applies to all richtext editors in all elements 
 
 h3. Custom toolbar buttons
 
-You can customize the TinyMCE toolbar with a lot of buttons. Find them in the "TinyMCE documentation":http://www.tinymce.com/wiki.php/Buttons/controls
+You can customize the TinyMCE toolbar with a lot of buttons. Find them in the "TinyMCE documentation":http://www.tinymce.com/wiki.php/Controls
 
 h4. Adding a format select box
 
