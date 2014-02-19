@@ -54,6 +54,14 @@ module Alchemy
           should be_an(Array)
           should include({'element' => element_definition['name']}.merge(content_definition))
         end
+
+        context 'with element definition having nil as contents value' do
+          let(:element_definition) { {'name' => 'element', 'contents' => nil} }
+
+          it "returns empty array" do
+            should eq([])
+          end
+        end
       end
     end
 
