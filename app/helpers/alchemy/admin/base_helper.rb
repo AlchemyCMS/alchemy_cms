@@ -45,7 +45,7 @@ module Alchemy
       #    Should the window show overflowing content?
       #
       def link_to_overlay_window(content, url, options={}, html_options={})
-        ActiveSupport::Deprecation.warn("Used deprecated link_to_overlay_window helper. It will be removed in Alchemy v3.0. Please build the relevant behavior on your own.")
+        ActiveSupport::Deprecation.warn("Used deprecated link_to_overlay_window helper. It will be removed in Alchemy v3.0. Please use link_to_dialog instead.")
         default_options = {
           :modal => true,
           :overflow => true,
@@ -140,6 +140,7 @@ module Alchemy
       #   The label for the cancel button
       #
       def link_to_confirmation_window(link_string = "", message = "", url = "", html_options = {})
+        ActiveSupport::Deprecation.warn("Used deprecated link_to_confirmation_window helper. It will be removed in Alchemy v3.0. Please use link_to_confirm_dialog instead.")
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {

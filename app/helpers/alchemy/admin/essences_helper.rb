@@ -77,6 +77,7 @@ module Alchemy
       # Otherwise the pages are ordered by their position in the nested set.
       #
       def page_selector(element, content_name, options = {}, select_options = {})
+        ActiveSupport::Deprecation.warn("Used deprecated page_selector helper. It will be removed in Alchemy v3.0. Please use a select_tag with pages_for_select instead.")
         default_options = {
           :page_attribute => :id,
           :global => false,
