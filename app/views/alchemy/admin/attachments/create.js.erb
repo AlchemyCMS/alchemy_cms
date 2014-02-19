@@ -1,6 +1,6 @@
 <% if @while_assigning -%>
 
-Alchemy.currentDialog.dialog_body.html('<%= j render("archive_overlay", formats: [:html]) %>');
+Alchemy.currentDialog().dialog_body.html('<%= j render("archive_overlay", formats: [:html]) %>');
 
 <% else -%>
 

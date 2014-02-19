@@ -56,7 +56,7 @@ module Alchemy
       ]
 
       # Controller actions
-      can :info,                          :alchemy_admin_dashboard
+      can [:info, :help],                 :alchemy_admin_dashboard
       can :index,                         :trash
 
       # Resources

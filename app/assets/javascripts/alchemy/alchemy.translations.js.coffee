@@ -105,3 +105,7 @@ $.extend Alchemy,
       de: 'Klicken zum Bearbeiten'
       en: 'click to edit'
       nl: 'klik om aan te passen'
+    help:
+      de: 'Hilfe'
+      en: 'Help'
+      en: 'Hulp'

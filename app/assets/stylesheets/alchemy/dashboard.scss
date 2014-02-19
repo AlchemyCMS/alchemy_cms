@@ -92,3 +92,13 @@ div#license {
     vertical-align: top;
   }
 }
+
+ul.shortcuts {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 2em;
+
+  li {
+    margin: 1em 0;
+  }
+}
