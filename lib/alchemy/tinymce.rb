@@ -34,7 +34,8 @@ module Alchemy
 
     def self.content_definitions_from_elements(definitions)
       definitions.collect do |el|
-        contents = el.fetch('contents', []).select { |c| c['settings'] && c['settings']['tinymce'].present? }
+        next if el['contents'].blank?
+        contents = el['contents'].select { |c| c['settings'] && c['settings']['tinymce'].present? }
         next if contents.blank?
         contents.map { |c| c.merge('element' => el['name']) }
       end.flatten.compact
