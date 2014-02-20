@@ -34,7 +34,7 @@ module Alchemy
       #
       def render_new_content_link(element)
         link_to_dialog(
-          "#{render_icon(:create)} #{_t('add new content')}",
+          "#{render_icon(:create)} #{_t('add new content')}".html_safe,
           alchemy.new_admin_element_content_path(element),
           {
             size: '310x115',
