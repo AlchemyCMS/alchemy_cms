@@ -96,7 +96,7 @@ $.extend Alchemy,
         .appendTo('#cells .ui-tabs-nav')
       $tab = $("<div id=\"cell_#{cell_name}\" class=\"sortable_cell\"/>")
       $cells.append($tab)
-      $cells.tabs('refresh')
+      $cells.tabs().tabs('refresh')
     $cells.tabs().tabs('option', 'active', $('#cells > div').index($tab))
     return
 
