@@ -42,6 +42,14 @@ module Alchemy
           let(:content_definition) { {'name' => 'text'} }
           it { should eq([]) }
         end
+
+        context 'with element definition having nil as contents value' do
+          let(:element_definition) { {'name' => 'element', 'contents' => nil} }
+
+          it "returns empty array" do
+            should eq([])
+          end
+        end
       end
     end
 

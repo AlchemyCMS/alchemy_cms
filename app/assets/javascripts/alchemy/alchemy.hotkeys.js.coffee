@@ -29,7 +29,7 @@ Alchemy.Hotkeys = (scope) ->
 
   unless scope
     $(document).on 'keypress', (e) ->
-      if String.fromCharCode(e.which) == '?'
+      if !$(e.target).is('input, textarea') && String.fromCharCode(e.which) == '?'
         Alchemy.openDialog '/admin/help',
           title: Alchemy._t('help')
           size: '400x492'
