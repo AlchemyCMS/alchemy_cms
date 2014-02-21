@@ -1,34 +1,34 @@
 en:
   alchemy:
-    confirm_to_delete_user: "Do you really want to delete this user?"
-    create_user: "Create a new user"
-    delete_user: "Delete this user"
-    edit_user: "Edit the user´s properties."
+    confirm_to_delete_user: "Wilt u deze gebruiker zeker verwijderen?"
+    create_user: "Nieuwe gebruiker aanmaken"
+    delete_user: "Deze gebruiker verwijderen"
+    edit_user: "Eigenschappen van de gebruiker aanpassen"
     modules:
-      user_sessions: "Login"
-      users: "Users"
-    "No users found": "No users found."
+      user_sessions: "Aanmelden"
+      users: "Gebruikers"
+    "No users found": "Geen gebruikers gevonden"
 
   activerecord:
     models:
       alchemy/user:
-        one: User
-        other: User
+        one: Gebruiker
+        other: Gebruikers
 
     attributes:
       alchemy/user:
         email: "Email"
-        firstname: "Firstname"
-        gender: "Gender"
-        language: "Language"
-        lastname: "Lastname"
-        last_sign_in_at: "Last Login At"
-        login: "Username"
-        name: "Name"
-        password: "Password"
-        password_confirmation: "Password confirmation"
-        alchemy_roles: "User roles"
-        send_credentials: "Send email with credentials"
+        firstname: "Voornaam"
+        gender: "Geslacht"
+        language: "Taal"
+        lastname: "Achternaam"
+        last_sign_in_at: "Laatst aangemeld op"
+        login: "Gebruikersnaam"
+        name: "Naam"
+        password: "Wachtwoord"
+        password_confirmation: "Bevestiging wachtwoord"
+        alchemy_roles: "Gebruikersrollen"
+        send_credentials: "Email met gegevens versturen"
         tag_list: Tags
 
     errors:
@@ -36,6 +36,6 @@ en:
         alchemy/user:
           attributes:
             email:
-              invalid: "is not a valid email address"
+              invalid: "Is geen valide e-mailadres"
             alchemy_roles:
-              blank: "at least one role must be given"
+              blank: "Er moet tenminste één rol worden geselecteerd."
