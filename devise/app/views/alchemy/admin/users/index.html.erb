@@ -6,9 +6,9 @@
       url: alchemy.new_admin_user_path,
       title: _t(:create_user),
       hotkey: 'alt+n',
-      overlay_options: {
+      dialog_options: {
         title: _t(:create_user),
-        size: "430x580"
+        size: "430x560"
       },
       if_permitted_to: [:create, Alchemy::User]
     }

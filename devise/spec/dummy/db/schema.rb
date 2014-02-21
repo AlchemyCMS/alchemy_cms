@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131018204700) do
+ActiveRecord::Schema.define(version: 20131225232042) do
 
   create_table "alchemy_attachments", force: true do |t|
     t.string   "name"
@@ -272,7 +272,6 @@ ActiveRecord::Schema.define(version: 20131018204700) do
     t.string   "login"
     t.string   "email"
     t.string   "gender"
-    t.string   "alchemy_roles",                      default: "member"
     t.string   "language"
     t.string   "encrypted_password",     limit: 128, default: "",       null: false
     t.string   "password_salt",          limit: 128, default: "",       null: false
@@ -290,6 +289,7 @@ ActiveRecord::Schema.define(version: 20131018204700) do
     t.text     "cached_tag_list"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.string   "alchemy_roles",                      default: "member"
   end
 
   add_index "alchemy_users", ["alchemy_roles"], name: "index_alchemy_users_on_alchemy_roles"

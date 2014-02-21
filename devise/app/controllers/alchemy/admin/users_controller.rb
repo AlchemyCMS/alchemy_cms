@@ -65,7 +65,7 @@ module Alchemy
         do_redirect_to admin_users_path
       end
 
-    private
+      private
 
       def set_roles_and_genders
         @user_roles = User::ROLES.map { |role| [User.human_rolename(role), role] }
