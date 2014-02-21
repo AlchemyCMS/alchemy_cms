@@ -1,6 +1,6 @@
-en:
+nl:
   simple_form:
     labels:
       user:
-        login: Login
-        password: Password
+        login: Gebruikersnaam
+        password: Wachtwoord
