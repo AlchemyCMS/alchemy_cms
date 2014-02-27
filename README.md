@@ -142,7 +142,7 @@ Run in terminal:
     bin/rake alchemy:upgrade
 
 
-Tipps
+Tips
 -----
 
 - Read the guidelines: http://guides.alchemy-cms.com.
