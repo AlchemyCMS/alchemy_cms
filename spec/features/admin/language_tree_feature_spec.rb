@@ -17,7 +17,7 @@ describe 'Language tree feature', js: true do
     it "one should be able to switch the language tree" do
       visit('/admin/pages')
       page.select 'Klingonian', from: 'language_id'
-      page.should have_selector('#sitemap .sitemap_pagename_link', text: 'Klingonian')
+      page.should have_selector('#sitemap', text: 'Klingonian')
     end
   end
 
