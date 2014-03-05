@@ -1,8 +1,28 @@
 module Alchemy
 
-  # Alchemy's permissions
+  # ## Alchemy's permissions
   #
   # These are CanCan abilities, but to prevent any naming collusions we named it permissions.
+  #
+  # Alchemy user rules are modules that can be included in your app's/engine's Ability class.
+  #
+  # ### Example:
+  #
+  #     # app/models/ability.rb
+  #     class Ability
+  #       include CanCan::Ability
+  #       include Alchemy::Permissions::EditorUser
+  #
+  #       def initialize(user)
+  #         return if user.nil?
+  #         @user ||= user
+  #         if @user.has_role?(:demo)
+  #           alchemy_editor_rules # alchemy editor roles
+  #           # your own rules
+  #         end
+  #       end
+  #
+  #     end
   #
   class Permissions
     include CanCan::Ability
@@ -10,122 +30,140 @@ module Alchemy
     def initialize(user)
       set_action_aliases
       @user ||= user
-      @user ? user_rules : guest_user_rules
+      @user ? user_role_rules : alchemy_guest_user_rules
     end
 
-    def guest_user_rules
-      can([:show, :download], Attachment) { |a| !a.restricted? }
-      can :show,              Element,    public: true, page: { restricted: false }
-      can :show,              Page,       restricted: false, public: true
-      can :see,               Page,       restricted: false, visible: true
-      can([:show, :download], Picture)    { |p| !p.restricted? }
+    module GuestUser
+      def alchemy_guest_user_rules
+        can([:show, :download], Alchemy::Attachment) { |a| !a.restricted? }
+        can :show,              Alchemy::Element,    public: true, page: { restricted: false }
+        can :show,              Alchemy::Page,       restricted: false, public: true
+        can :see,               Alchemy::Page,       restricted: false, visible: true
+        can([:show, :download], Alchemy::Picture)    { |p| !p.restricted? }
+      end
     end
 
     # == Member rules
     #
     # Includes guest users rules
     #
-    def member_rules
-      guest_user_rules
+    module MemberUser
+      include Alchemy::Permissions::GuestUser
 
-      # Resources
-      can [:show, :download], Attachment
-      can :show,              Element,   public: true, page: { restricted: true }
-      can :show,              Page,      public: true
-      can :see,               Page,      restricted: true, visible: true
-      can [:show, :download], Picture
-      can [:read, :update],   Alchemy.user_class, id: @user.id
+      def alchemy_member_rules
+        alchemy_guest_user_rules
+
+        # Resources
+        can [:show, :download], Alchemy::Attachment
+        can :show,              Alchemy::Element,   public: true, page: { restricted: true }
+        can :show,              Alchemy::Page,      public: true
+        can :see,               Alchemy::Page,      restricted: true, visible: true
+        can [:show, :download], Alchemy::Picture
+        can [:read, :update],   Alchemy.user_class, id: @user.id
+      end
     end
 
     # == Author rules
     #
     # Includes member users rules
     #
-    def author_rules
-      member_rules
+    module AuthorUser
+      include Alchemy::Permissions::MemberUser
 
-      # Navigation
-      can :index, [
-        :alchemy_admin_attachments,
-        :alchemy_admin_dashboard,
-        :alchemy_admin_layoutpages,
-        :alchemy_admin_pages,
-        :alchemy_admin_pictures,
-        :alchemy_admin_tags,
-        :alchemy_admin_users
-      ]
+      def alchemy_author_rules
+        alchemy_member_rules
 
-      # Controller actions
-      can [:info, :help],                 :alchemy_admin_dashboard
-      can :index,                         :trash
+        # Navigation
+        can :index, [
+          :alchemy_admin_attachments,
+          :alchemy_admin_dashboard,
+          :alchemy_admin_layoutpages,
+          :alchemy_admin_pages,
+          :alchemy_admin_pictures,
+          :alchemy_admin_tags,
+          :alchemy_admin_users
+        ]
 
-      # Resources
-      can [:read, :download],             Attachment
-      can :manage,                        Clipboard
-      can :manage,                        Content
-      can :manage,                        Element
-      can :manage,                        EssenceFile
-      can :manage,                        EssencePicture
-      can :edit_content,                  Page
-      can [:read, :thumbnail, :info],     Picture
-      can [:read, :autocomplete],         Tag
+        # Controller actions
+        can [:info, :help],             :alchemy_admin_dashboard
+        can :index,                     :trash
+
+        # Resources
+        can [:read, :download],         Alchemy::Attachment
+        can :manage,                    Alchemy::Clipboard
+        can :manage,                    Alchemy::Content
+        can :manage,                    Alchemy::Element
+        can :manage,                    Alchemy::EssenceFile
+        can :manage,                    Alchemy::EssencePicture
+        can :edit_content,              Alchemy::Page
+        can [:read, :thumbnail, :info], Alchemy::Picture
+        can [:read, :autocomplete],     Alchemy::Tag
+      end
     end
 
     # == Editor rules
     #
     # Includes author rules
     #
-    def editor_rules
-      author_rules
+    module EditorUser
+      include Alchemy::Permissions::AuthorUser
 
-      # Navigation
-      can :index, [
-        :alchemy_admin_languages,
-        :alchemy_admin_users
-      ]
+      def alchemy_editor_rules
+        alchemy_author_rules
 
-      # Controller actions
-      can :clear,  :trash
+        # Navigation
+        can :index, [
+          :alchemy_admin_languages,
+          :alchemy_admin_users
+        ]
 
-      # Resources
-      can [
-        :copy,
-        :copy_language_tree,
-        :create,
-        :destroy,
-        :flush,
-        :order,
-        :sort,
-        :switch_language
-      ], Page
-      can :manage, Picture
-      can :manage, Attachment
-      can :read,   Alchemy.user_class
-      can :manage, Tag
+        # Controller actions
+        can :clear,  :trash
+
+        # Resources
+        can [
+          :copy,
+          :copy_language_tree,
+          :create,
+          :destroy,
+          :flush,
+          :order,
+          :sort,
+          :switch_language
+        ], Alchemy::Page
+        can :manage, Alchemy::Picture
+        can :manage, Alchemy::Attachment
+        can :read,   Alchemy.user_class
+        can :manage, Alchemy::Tag
+      end
     end
 
     # == Admin rules
     #
     # Includes editor rules
     #
-    def admin_rules
-      editor_rules
+    module AdminUser
+      include Alchemy::Permissions::EditorUser
 
-      # Navigation
-      can :index,                 [:alchemy_admin_sites]
+      def alchemy_admin_rules
+        alchemy_editor_rules
 
-      # Controller actions
-      can [:info, :update_check], :alchemy_admin_dashboard
+        # Navigation
+        can :index,                 [:alchemy_admin_sites]
 
-      # Resources
-      can :manage,                Alchemy.user_class
-      can :manage,                Language
-      can :manage,                Site
+        # Controller actions
+        can [:info, :update_check], :alchemy_admin_dashboard
+
+        # Resources
+        can :manage,                Alchemy.user_class
+        can :manage,                Alchemy::Language
+        can :manage,                Alchemy::Site
+      end
     end
 
     private
 
-    def user_rules
+    def user_role_rules
       return [] if @user.alchemy_roles.nil?
       @user.alchemy_roles.each do |role|
         exec_role_rules(role) if @user.alchemy_roles.include?(role)
@@ -133,7 +171,7 @@ module Alchemy
     end
 
     def exec_role_rules(role)
-      meth = :"#{role}_rules"
+      meth = :"alchemy_#{role}_rules"
       send(meth) if respond_to?(meth)
     end
 
@@ -149,5 +187,13 @@ module Alchemy
         :visit,
         to: :edit_content
     end
+
+    # Include the role specific permissions.
+    include GuestUser
+    include MemberUser
+    include AuthorUser
+    include EditorUser
+    include AdminUser
+
   end
 end
