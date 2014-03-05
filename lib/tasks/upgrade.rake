@@ -209,7 +209,7 @@ namespace :alchemy do
         text.gsub!(/@mail_data\["(\S+)"\]/, '@message.\1')
         text.gsub!(/@mail_data\['(\S+)'\]/, '@message.\1')
         text.gsub!(/\.get_root\("\S+"\)/, '.language_root_for(session[:language_id])')
-        text.gsub!(/\scurrent_page/, ' @page')
+        text.gsub!(/@?current_page/, '@page')
         text.gsub!(/logged_in\?/, 'current_user')
         text.gsub!(/, :css_class => 'text_long'/, '')
         File.open(file_name, "w") { |file| file.puts text }
