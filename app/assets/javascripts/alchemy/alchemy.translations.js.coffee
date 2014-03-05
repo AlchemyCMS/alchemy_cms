@@ -40,7 +40,7 @@ $.extend Alchemy,
     remaining:
       de: " verbleibend."
       en: " remaining."
-      en: " over."
+      nl: " over."
     complete:
       de: "Abgeschlossen"
       en: "Complete"
