@@ -8,6 +8,8 @@ namespace :alchemy do
     Rake::Task['alchemy:migrations:sync'].invoke
     Rake::Task['alchemy:seeder:copy'].invoke
     Rake::Task['alchemy:assets:copy:all'].invoke
+    Rake::Task['db:migrate'].invoke
+    Rake::Task['db:seed'].invoke
   end
 
   namespace 'seeder' do
