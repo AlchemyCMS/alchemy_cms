@@ -3,8 +3,8 @@ class AddLanguageIdToPages < ActiveRecord::Migration
     add_column :pages, :language_id, :integer
     rename_column :pages, :language, :language_code
     rename_column :pages, :language_root_for, :language_root
+    execute("UPDATE pages SET language_root = '1' WHERE language_root IS NOT NULL")
     change_column :pages, :language_root, :boolean
-    execute("UPDATE pages SET language_root = 1 WHERE language_root IS NOT NULL")
     add_index :pages, :language_id
   end
 
