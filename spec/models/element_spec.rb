@@ -376,7 +376,9 @@ module Alchemy
 
       let(:page)    { build_stubbed(:page) }
       let(:element) { build_stubbed(:element, page: page) }
-      let(:content) { double(:content) }
+      let(:content) { double(:content, id: 1) }
+
+      before { element.stub(:contents).and_return([content]) }
 
       context "with attributes hash is nil" do
         let(:params) { nil }
@@ -384,11 +386,7 @@ module Alchemy
       end
 
       context "with valid attributes hash" do
-        let(:params) { {1 => {body: 'Title'}} }
-
-        before do
-          element.contents.should_receive(:find).with(1).and_return(content)
-        end
+        let(:params) { {"#{content.id}" => {body: 'Title'}} }
 
         context 'with passing validations' do
           before do
