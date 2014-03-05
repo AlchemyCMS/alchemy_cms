@@ -12,10 +12,10 @@ namespace :alchemy do
       Rake::Task['alchemy:legacy:create_page_layouts_translations'].invoke
       Rake::Task['alchemy:legacy:convert_views'].invoke
       Rake::Task['alchemy:legacy:convert_models_and_methods'].invoke
+      Rake::Task['alchemy:legacy:copy_config'].invoke
       Alchemy::Seeder.seed!
       Rake::Task['alchemy:legacy:create_languages'].invoke
       Rake::Task['alchemy:legacy:assign_languages_to_layout_pages'].invoke
-      Rake::Task['alchemy:legacy:copy_config'].invoke
     end
 
     desc "Generates a migration file for migrate the database schema from legacy versions to Alchemy."
@@ -128,9 +128,11 @@ namespace :alchemy do
         puts "Configuration file already present."
       else
         puts "Custom configuration file found."
-        FileUtils.cp default_config, 'config/alchemy/config.yml.defaults'
+        FileUtils.mv config_file, 'config/alchemy/config.yml.backup'
+        puts "Backuped configuration file to config/alchemy/config.yml.backup."
+        FileUtils.cp default_config, 'config/alchemy/config.yml'
         puts "Copied new default configuration file."
-        puts "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file."
+        puts "Check the configuration file (./config/alchemy/config.yml) and adopt settings from your old configuration (config/alchemy/config.yml.backup)."
       end
     end
 
