@@ -1,12 +1,12 @@
 # encoding: UTF-8
 class Page < ActiveRecord::Base
-	
+
 	RESERVED_PAGE_LAYOUTS = %w(rootpage)
 	RESERVED_URLNAMES = %w(admin messages)
-  
+
   acts_as_nested_set
   stampable
-  
+
   has_many :folded_pages
   has_many :cells, :dependent => :destroy
   has_many :elements, :dependent => :destroy, :order => :position
@@ -20,13 +20,13 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :urlname, :message => N_("URL-Name already token"), :scope => 'language_id', :if => :urlname_entered?
 	validates :page_layout, :exclusion => { :in => RESERVED_PAGE_LAYOUTS, :message => N_("This page_layout name is reserved.") }, :unless => :rootpage?
 	validates :urlname, :exclusion => { :in => RESERVED_URLNAMES, :message => N_("This urlname is reserved.") }
-  
+
   attr_accessor :do_not_autogenerate
   attr_accessor :do_not_sweep
   attr_accessor :do_not_validate_language
 
   before_save :set_url_name, :unless => Proc.new { |page| page.redirects_to_external? }
-  before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }
+  before_save :set_title, :unless => Proc.new { |page| page.redirects_to_external? }, :if => Proc.new { |page| page.title.blank? }
   before_save :set_language_code
   after_create :autogenerate_elements, :unless => Proc.new { |page| page.do_not_autogenerate }
   after_create :create_cells
@@ -51,23 +51,23 @@ class Page < ActiveRecord::Base
   # Returns all pages that are not locked and public.
   # Used for flushing all page caches at once.
   scope :flushables, public.not_locked
-  
+
   scope :contentpages, where("pages.layoutpage = 0 AND pages.parent_id IS NOT NULL")
-  
+
   # Finds selected elements from page.
-  # 
+  #
   # Options are:
-  # 
+  #
   #     :only => Array of element names    # Returns only elements with given names
   #     :except => Array of element names  # Returns all elements except the ones with given names
   #     :count => Integer                  # Limit the count of returned elements
   #     :offset => Integer                 # Starts with an offset while returning elements
   #     :random => Boolean                 # Returning elements randomly shuffled
 	#     :from_cell => Cell                 # Returning elements from given cell
-  # 
+  #
   # Returns only public elements by default.
   # Pass true as second argument to get all elements.
-  # 
+  #
   def find_selected_elements(options = {}, show_non_public = false)
 		if options[:from_cell].class.name == 'Cell'
 			elements = options[:from_cell].elements
@@ -98,13 +98,13 @@ class Page < ActiveRecord::Base
   end
 
 	# Returns all elements that should be feeded via rss.
-	# 
+	#
 	# Define feedable elements in your +page_layouts.yml+:
-	# 
+	#
 	#   - name: news
 	#     feed: true
 	#     feed_elements: [element_name, element_2_name]
-	# 
+	#
 	def feed_elements
 		elements.find_all_by_name(definition['feed_elements'])
 	end
@@ -115,11 +115,11 @@ class Page < ActiveRecord::Base
     group[Cell.new({:name => 'for_other_elements'})] = elements.not_trashed.where(:cell_id => nil)
     return group
   end
-  
+
   # Finds the previous page on the same structure level. Otherwise it returns nil.
   # Options:
   # => :restricted => boolean (standard: nil) - next restricted page (true), skip restricted pages (false), ignore restriction (nil)
-  # => :public => boolean (standard: true) - next public page (true), skip public pages (false) 
+  # => :public => boolean (standard: true) - next public page (true), skip public pages (false)
   def previous_page(options = {})
     default_options = {
       :restricted => nil,
@@ -314,7 +314,7 @@ class Page < ActiveRecord::Base
 		end
 	end
 	alias_method :definition, :layout_description
-  
+
   # Returns translated name of the pages page_layout value.
   # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
   # Translate the name in your config/locales language yml file.
@@ -366,8 +366,8 @@ class Page < ActiveRecord::Base
 	def self.copy(source, differences = {})
 		attributes = source.attributes.symbolize_keys.merge(differences)
 		attributes.merge!(
-			:do_not_autogenerate => true, 
-			:do_not_sweep => true, 
+			:do_not_autogenerate => true,
+			:do_not_sweep => true,
 			:visible => false,
 			:public => false,
 			:locked => false,
@@ -404,18 +404,18 @@ class Page < ActiveRecord::Base
     end
     return page
   end
-  
+
   def self.layout_root_for(language_id)
     where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1).first
   end
-  
+
   def self.find_or_create_layout_root_for(language_id)
     layoutroot = layout_root_for(language_id)
     return layoutroot if layoutroot
     language = Language.find(language_id)
     layoutroot = Page.new({
       :name => "Layoutroot for #{language.name}",
-      :layoutpage => true, 
+      :layoutpage => true,
       :language => language,
       :do_not_autogenerate => true
     })
@@ -454,7 +454,7 @@ class Page < ActiveRecord::Base
       child.copy_children_to(new_child) unless child.children.blank?
     end
   end
-  
+
   # Returns true or false if the page has a page_layout that has cells.
   def can_have_cells?
     !definition['cells'].blank?
@@ -463,7 +463,7 @@ class Page < ActiveRecord::Base
 	def has_cells?
 		cells.any?
 	end
-  
+
   def self.link_target_options
     options = [
       [I18n.t('default', :scope => 'alchemy.link_target_options'), '']
@@ -474,7 +474,7 @@ class Page < ActiveRecord::Base
     end
     options
   end
-  
+
   def locker_name
     return N_('unknown') if self.locker.nil?
     self.locker.name
@@ -484,11 +484,11 @@ class Page < ActiveRecord::Base
 	def rootpage?
 		(self.page_layout == "rootpage") && self.parent_id.blank?
 	end
-	
+
 	def self.rootpage
 		where(:page_layout => 'rootpage').where(:parent_id => nil).first
 	end
-  
+
 private
 
   def find_next_or_previous_page(direction = "next", options = {})
@@ -509,7 +509,7 @@ private
     end
     return Page.where(conditions).order(order_direction).limit(1)
   end
-  
+
   # Converts the given nbame into an url friendly string
   # Names shorter than 3 will be filled with dashes, so it does not collidate with the language code.
 	def convert_url_name(name)
@@ -517,7 +517,7 @@ private
 		url_name = ('-' * (3 - url_name.length)) + url_name if url_name.length < 3
 		return url_name
 	end
-  
+
   # Looks in the layout_descripion, if there are elements to autogenerate.
   # If so, it generates them.
   def autogenerate_elements
@@ -534,12 +534,12 @@ private
     return false if self.language.blank?
     self.language_code = self.language.code
   end
-  
+
   def create_cells
     return false if !can_have_cells?
     definition['cells'].each do |cellname|
       cells.create({:name => cellname})
     end
   end
-  
+
 end

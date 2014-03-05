@@ -12,10 +12,10 @@ namespace :alchemy do
       Rake::Task['alchemy:legacy:create_page_layouts_translations'].invoke
       Rake::Task['alchemy:legacy:convert_views'].invoke
       Rake::Task['alchemy:legacy:convert_models_and_methods'].invoke
+      Rake::Task['alchemy:legacy:copy_config'].invoke
       Alchemy::Seeder.seed!
       Rake::Task['alchemy:legacy:create_languages'].invoke
       Rake::Task['alchemy:legacy:assign_languages_to_layout_pages'].invoke
-      Rake::Task['alchemy:legacy:copy_config'].invoke
     end
 
     desc "Generates a migration file for migrate the database schema from legacy versions to Alchemy."
@@ -128,9 +128,11 @@ namespace :alchemy do
         puts "Configuration file already present."
       else
         puts "Custom configuration file found."
-        FileUtils.cp default_config, 'config/alchemy/config.yml.defaults'
+        FileUtils.mv config_file, 'config/alchemy/config.yml.backup'
+        puts "Backuped configuration file to config/alchemy/config.yml.backup."
+        FileUtils.cp default_config, 'config/alchemy/config.yml'
         puts "Copied new default configuration file."
-        puts "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file."
+        puts "Check the configuration file (./config/alchemy/config.yml) and adopt settings from your old configuration (config/alchemy/config.yml.backup)."
       end
     end
 
@@ -186,6 +188,7 @@ namespace :alchemy do
         text.gsub!(/render_atom_view\(atom\,/, 'render_essence_view(content,')
         text.gsub!(/render_atom_view/, 'render_essence_view')
         text.gsub!(/render_atom_editor/, 'render_essence_editor')
+        text.gsub!(/(render_essence_view_by_type.*\s)0/, '\11')
         text.gsub!(/atom_type/, 'essence_type')
         text.gsub!(/\|atom\|/, '|content|')
         text.gsub!(/\.atom\.content/, '.ingredient')
@@ -209,7 +212,7 @@ namespace :alchemy do
         text.gsub!(/@mail_data\["(\S+)"\]/, '@message.\1')
         text.gsub!(/@mail_data\['(\S+)'\]/, '@message.\1')
         text.gsub!(/\.get_root\("\S+"\)/, '.language_root_for(session[:language_id])')
-        text.gsub!(/\scurrent_page/, ' @page')
+        text.gsub!(/@?current_page/, '@page')
         text.gsub!(/logged_in\?/, 'current_user')
         text.gsub!(/, :css_class => 'text_long'/, '')
         File.open(file_name, "w") { |file| file.puts text }
