@@ -188,6 +188,7 @@ namespace :alchemy do
         text.gsub!(/render_atom_view\(atom\,/, 'render_essence_view(content,')
         text.gsub!(/render_atom_view/, 'render_essence_view')
         text.gsub!(/render_atom_editor/, 'render_essence_editor')
+        text.gsub!(/(render_essence_view_by_type.*\s)0/, '\11')
         text.gsub!(/atom_type/, 'essence_type')
         text.gsub!(/\|atom\|/, '|content|')
         text.gsub!(/\.atom\.content/, '.ingredient')
