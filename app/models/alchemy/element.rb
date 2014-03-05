@@ -265,15 +265,10 @@ module Alchemy
     #
     def update_contents(contents_attributes)
       return true if contents_attributes.nil?
-      contents_attributes.each do |id, essence_attributes|
-        content = self.contents.find(id)
-        if content.update_essence(essence_attributes)
-          true
-        else
-          errors.add(:base, :essence_validation_failed)
-        end
+      contents.each do |content|
+        content.update_essence(contents_attributes["#{content.id}"]) || errors.add(:base, :essence_validation_failed)
       end
-      return errors.blank?
+      errors.blank?
     end
 
     def essences
