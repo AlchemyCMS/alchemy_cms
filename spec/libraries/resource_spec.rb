@@ -1,4 +1,4 @@
-require 'rspec'
+require 'rspec/core'
 require File.dirname(__FILE__) + '/../../lib/alchemy/resource'
 
 class Event
