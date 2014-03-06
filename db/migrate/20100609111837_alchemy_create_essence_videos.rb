@@ -1,4 +1,4 @@
-class CreateEssenceVideos < ActiveRecord::Migration
+class AlchemyCreateEssenceVideos < ActiveRecord::Migration
   def self.up
     return if table_exists?(:essence_videos)
     create_table :essence_videos do |t|

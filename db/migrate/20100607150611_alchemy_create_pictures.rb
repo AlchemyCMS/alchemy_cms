@@ -1,4 +1,4 @@
-class CreatePictures < ActiveRecord::Migration
+class AlchemyCreatePictures < ActiveRecord::Migration
   def self.up
     return if table_exists?(:pictures)
     create_table :pictures do |t|
