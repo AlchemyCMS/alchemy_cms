@@ -1,4 +1,4 @@
-class CreateUsers < ActiveRecord::Migration
+class AlchemyCreateUsers < ActiveRecord::Migration
   def self.up
     return if table_exists?(:users)
     create_table :users do |t|
