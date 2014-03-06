@@ -80,5 +80,50 @@ module Alchemy
       end
     end
 
+    context 'with ingredient validation for' do
+      describe 'presence' do
+        before do
+          essence.stub(:description).and_return({'validate' => ['presence']})
+        end
+
+        context 'when the ingredient column is empty' do
+          before { essence.update(essence.ingredient_column.to_sym => nil) }
+
+          it 'should not be valid' do
+            expect(essence).to_not be_valid
+          end
+        end
+
+        context 'when the ingredient column is not nil' do
+          before { essence.update(essence.ingredient_column.to_sym => ingredient_value) }
+
+          it 'should be valid' do
+            expect(essence).to be_valid
+          end
+        end
+      end
+
+      describe 'uniqueness' do
+        before do
+          essence.stub(:description).and_return({'validate' => ['uniqueness']})
+          essence.update(essence.ingredient_column.to_sym => ingredient_value)
+        end
+
+        context 'when essence with same ingredient already exists' do
+          before { essence.dup.save }
+
+          it 'should not be valid' do
+            expect(essence).to_not be_valid
+          end
+        end
+
+        context 'when no essence with same ingredient exists' do
+          it 'should be valid' do
+            expect(essence).to be_valid
+          end
+        end
+      end
+    end
+
   end
 end
