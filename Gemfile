@@ -17,6 +17,8 @@ group :assets do
 end
 
 group :development do
+	gem 'nokogiri', '~> 1.5.10' # capybara allows nokogiri 1.6.0, but this breaks ruby 1.8.7 compatibility
+	gem 'rubyzip', '0.9.9'
 	if !ENV["CI"]
 		gem 'debugger', :platform => :ruby_19
 		gem 'ruby-debug', :platform => :ruby_18
