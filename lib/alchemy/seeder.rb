@@ -16,7 +16,7 @@ module Alchemy
     protected
 
       def create_default_site
-        desc "Creating default site"
+        desc "Creating default Alchemy site"
         if Alchemy::Site.count == 0
           site = Alchemy::Site.new(
             name: 'Default Site',
@@ -26,22 +26,22 @@ module Alchemy
             site.languages = Alchemy::Language.all
           end
           site.save!
-          log "Created default site with default language."
+          log "Created default Alchemy site with default language."
         else
-          log "Default site was already present.", :skip
+          log "Default Alchemy site was already present.", :skip
         end
       end
 
       def create_root_page
-        desc "Creating root page"
+        desc "Creating Alchemy root page"
         root = Alchemy::Page.find_or_initialize_by(name: 'Root')
         root.do_not_sweep = true
         if root.new_record?
           if root.save!
-            log "Created page #{root.name}."
+            log "Created Alchemy root page."
           end
         else
-          log "Page #{root.name} was already present.", :skip
+          log "Alchemy root page was already present.", :skip
         end
       end
 
