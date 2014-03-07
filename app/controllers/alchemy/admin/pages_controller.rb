@@ -77,7 +77,7 @@ module Alchemy
           flash[:notice] = _t("This page is locked by %{name}", name: @page.locker_name)
           redirect_to admin_pages_path
         else
-          @page.lock_to!(current_alchemy_user)
+          @page.lock!(current_alchemy_user)
           @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         end
         @layoutpage = @page.layoutpage?
