@@ -98,7 +98,7 @@ module Alchemy
 
     def presence_of_default_language
       if Language.default == self && self.default_changed?
-        errors.add(:base, I18n.t("We need at least one default."))
+        errors.add(:default, I18n.t("We need at least one default."))
         return false
       else
         return true
