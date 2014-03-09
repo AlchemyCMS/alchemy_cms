@@ -112,7 +112,7 @@ module Alchemy
 
           it "should add an error to the object" do
             expect(language.valid?).to eq(false)
-            expect(language.errors.messages).to have_key(:base)
+            expect(language.errors.messages).to have_key(:default)
           end
         end
       end
