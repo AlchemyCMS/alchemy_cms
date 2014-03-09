@@ -89,7 +89,7 @@ module Alchemy
 
     def publicity_of_default_language
       if self.default? && !self.public?
-        errors.add(:base, I18n.t("Default language has to be public"))
+        errors.add(:public, I18n.t("Default language has to be public"))
         return false
       else
         return true
