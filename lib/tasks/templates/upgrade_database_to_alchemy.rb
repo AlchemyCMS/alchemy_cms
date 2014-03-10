@@ -69,6 +69,9 @@ class UpgradeDatabaseToAlchemy < ActiveRecord::Migration
     rename_column_if_exist :pages, :systempage, :layoutpage
     rename_column_if_exist :pages, :layout, :page_layout
 
+    # Change columns
+    change_column_default :elements, :public, true
+
     # Adds indexes
     add_index_unless_exist :contents, [:element_id, :position]
     add_index_unless_exist :elements, [:page_id, :position]
