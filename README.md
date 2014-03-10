@@ -112,6 +112,23 @@ Run in terminal:
     Alchemy.user_class_name = 'YourUserClass'
     Alchemy.login_path = '/your/login/path'
     Alchemy.logout_path = '/your/logout/path'
+    
+The only thing Alchemy needs to know from your user model is the `alchemy_roles` method.
+
+This method has to return an `Array` or `ActiveRecord::Relation` with at least one of the following roles:
+
+* `member`
+* `author`
+* `editor` 
+* `admin`
+
+Example:
+
+    def alchemy_roles
+      self.admin?
+        %w(admin)
+      end
+    end
 
 Deployment
 ----------
