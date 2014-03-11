@@ -16,6 +16,8 @@ namespace :alchemy do
       Alchemy::Seeder.seed!
       Rake::Task['alchemy:legacy:create_languages'].invoke
       Rake::Task['alchemy:legacy:assign_languages_to_layout_pages'].invoke
+      ENV['FLEXIMAGE_CLASS'] = 'Picture'
+      Rake::Task['fleximage:dimensions'].invoke
     end
 
     desc "Generates a migration file for migrate the database schema from legacy versions to Alchemy."
