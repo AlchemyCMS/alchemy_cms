@@ -1,3 +1,19 @@
 # == In this configuration you setup Alchemy´s element layouts.
 #
 # For further informations please see http://guides.alchemy-cms.com/create_elements.html
+
+- name: article
+  hint: true
+  unique: true
+  contents:
+  - name: headline
+    type: EssenceText
+    default: :article_headline
+    hint: true
+  - name: picture
+    type: EssencePicture
+    hint: true
+  - name: text
+    type: EssenceRichtext
+    default: :article_text
+    hint: true

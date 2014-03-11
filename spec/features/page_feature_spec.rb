@@ -77,7 +77,7 @@ module Alchemy
         context "requested url is only the urlname" do
           it "then it should redirect to pages url with nested language." do
             visit '/home'
-            page.current_path.should == '/de/home'
+            page.current_path.should == '/en/home'
           end
         end
 
@@ -90,8 +90,8 @@ module Alchemy
           before { Alchemy.user_class.stub(:admins).and_return([1, 2]) }
 
           it "should render 404 if urlname and lang parameter do not belong to same page" do
-            FactoryGirl.create(:english)
-            visit "/en/#{public_page_1.urlname}"
+            FactoryGirl.create(:klingonian)
+            visit "/kl/#{public_page_1.urlname}"
             page.status_code.should == 404
           end
 
@@ -111,7 +111,7 @@ module Alchemy
         end
 
         it "should redirect from nested language code url to normal url" do
-          visit "/de/#{public_page_1.urlname}"
+          visit "/en/#{public_page_1.urlname}"
           page.current_path.should == "/#{public_page_1.urlname}"
         end
 
@@ -127,7 +127,7 @@ module Alchemy
           end
 
           it "with normal url, if requested url has nested language code and is not public" do
-            visit '/de/not-public'
+            visit '/en/not-public'
             page.current_path.should == '/public-child'
           end
         end

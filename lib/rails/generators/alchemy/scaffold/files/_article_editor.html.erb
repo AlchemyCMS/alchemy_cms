@@ -1,0 +1,5 @@
+<%= element_editor_for(element) do |el| -%>
+  <%= el.edit :headline %>
+  <%= el.edit :picture, crop: true, fixed_ratio: false %>
+  <%= el.edit :text %>
+<%- end -%>

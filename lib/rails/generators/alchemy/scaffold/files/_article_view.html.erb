@@ -1,0 +1,7 @@
+<%- cache(element) do -%>
+  <%= element_view_for(element, tag: 'article') do |el| -%>
+    <h2><%= el.render :headline %></h2>
+    <%= el.render :picture, image_size: '1200x600' %>
+    <%= el.render :text %>
+  <%- end -%>
+<%- end -%>
