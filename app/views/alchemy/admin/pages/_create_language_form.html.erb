@@ -31,7 +31,7 @@
     <%= form.hidden_field :page_layout, value: @language.page_layout %>
     <%= form.hidden_field :language_root, value: true %>
     <%= form.hidden_field :parent_id, value: root.id %>
-    <%= hidden_field_tag :redirect_to, admin_pages_path %>
+    <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
     <div class="submit">
       <%= form.button _t("create_tree_as_new_language", language: @language.name) %>
     </div>

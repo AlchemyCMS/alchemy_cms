@@ -63,7 +63,7 @@ class AlchemyInstaller < Thor
 ::                                                                     ::
 :: Open your browser and enter the following URL:                      ::
 ::                                                                     ::
-:: http://localhost:3000/                                              ::
+:: http://localhost:3000/admin                                         ::
 ::                                                                     ::
 :: and follow the on screen instructions to complete the installation. ::
 ::                                                                     ::

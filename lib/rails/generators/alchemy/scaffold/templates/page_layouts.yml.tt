@@ -1,7 +1,8 @@
-# == This file defines the page_layouts for new pages.
+# == This file defines the page layouts for new pages.
 #
 # For further informations please see http://guides.alchemy-cms.com/create_page_layouts.html
 
 - name: <%= Alchemy::Config.get(:default_language)['page_layout'] %>
   unique: true
-  elements: []
+  elements: [article]
+  autogenerate: [article]
