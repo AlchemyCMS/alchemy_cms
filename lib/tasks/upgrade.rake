@@ -17,6 +17,7 @@ namespace :alchemy do
       Rake::Task['alchemy:legacy:create_languages'].invoke
       Rake::Task['alchemy:legacy:assign_languages_to_layout_pages'].invoke
       ENV['FLEXIMAGE_CLASS'] = 'Picture'
+      Rake::Task['fleximage:convert:to_png'].invoke
       Rake::Task['fleximage:dimensions'].invoke
     end
 
