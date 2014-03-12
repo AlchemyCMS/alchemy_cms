@@ -1,7 +1,32 @@
 namespace :alchemy do
+
+  desc "Upgrades your database to Alchemy 2.0"
+  task :upgrade do
+    Rake::Task['alchemy:migrations:sync'].invoke
+    Rake::Task['db:migrate'].invoke
+    Rake::Task['alchemy:copy_config'].invoke
+    Alchemy::Seeder.seed!
+  end
+
+  desc "Copy configuration file."
+  task :copy_config do
+    config_file = 'config/alchemy/config.yml'
+    default_config = File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml')
+    if FileUtils.identical? default_config, config_file
+      puts "Configuration file already present."
+    else
+      puts "Custom configuration file found."
+      FileUtils.mv config_file, 'config/alchemy/config.yml.backup'
+      puts "Backuped configuration file to config/alchemy/config.yml.backup."
+      FileUtils.cp default_config, 'config/alchemy/config.yml'
+      puts "Copied new default configuration file."
+      puts "Check the configuration file (./config/alchemy/config.yml) and adopt settings from your old configuration (config/alchemy/config.yml.backup)."
+    end
+  end
+
   namespace :legacy do
 
-    desc "Upgrades your database to Alchemy 2.0"
+    desc "Upgrades a washAPP installation to Alchemy 2.0"
     task :upgrade do
       Rake::Task['alchemy:legacy:generate_migration'].invoke
       Rake::Task['alchemy:migrations:sync'].invoke
@@ -12,7 +37,7 @@ namespace :alchemy do
       Rake::Task['alchemy:legacy:create_page_layouts_translations'].invoke
       Rake::Task['alchemy:legacy:convert_views'].invoke
       Rake::Task['alchemy:legacy:convert_models_and_methods'].invoke
-      Rake::Task['alchemy:legacy:copy_config'].invoke
+      Rake::Task['alchemy:copy_config'].invoke
       Alchemy::Seeder.seed!
       Rake::Task['alchemy:legacy:create_languages'].invoke
       Rake::Task['alchemy:legacy:assign_languages_to_layout_pages'].invoke
@@ -120,22 +145,6 @@ namespace :alchemy do
       Page.layoutpages.each do |page|
         page.language = language
         page.save(:validate => false)
-      end
-    end
-
-    desc "Copy configuration file."
-    task :copy_config do
-      config_file = 'config/alchemy/config.yml'
-      default_config = File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml')
-      if FileUtils.identical? default_config, config_file
-        puts "Configuration file already present."
-      else
-        puts "Custom configuration file found."
-        FileUtils.mv config_file, 'config/alchemy/config.yml.backup'
-        puts "Backuped configuration file to config/alchemy/config.yml.backup."
-        FileUtils.cp default_config, 'config/alchemy/config.yml'
-        puts "Copied new default configuration file."
-        puts "Check the configuration file (./config/alchemy/config.yml) and adopt settings from your old configuration (config/alchemy/config.yml.backup)."
       end
     end
 
