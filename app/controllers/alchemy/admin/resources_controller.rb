@@ -161,9 +161,9 @@ module Alchemy
       def search_query(search_terms)
         resource_handler.searchable_attributes.map do |attribute|
           if relation = attribute[:relation]
-            "#{relation[:model_association].klass.table_name}.#{relation[:attr_method]} LIKE #{search_terms}"
+            "LOWER(#{relation[:model_association].klass.table_name}.#{relation[:attr_method]}) LIKE #{search_terms}"
           else
-            "#{resource_handler.model.table_name}.#{attribute[:name]} LIKE #{search_terms}"
+            "LOWER(#{resource_handler.model.table_name}.#{attribute[:name]}) LIKE #{search_terms}"
           end
         end.join(" OR ")
       end
