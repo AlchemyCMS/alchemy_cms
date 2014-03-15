@@ -177,13 +177,15 @@ module Alchemy
               end
 
               context "and mailer_config has no instructions for success_page" do
+                let(:language) { mock_model('Language', code: 'en', pages: double(find_by: build_stubbed(:page))) }
+
                 before do
                   controller.stub(:mailer_config).and_return({})
                   Language.stub_chain(:current_root_page, :urlname).and_return('lang-root')
                 end
 
                 it "should redirect to the language root page" do
-                  Language.stub_chain(:current, :pages, :find_by).and_return(build_stubbed(:page))
+                  Language.stub(current: language)
                   expect(post :create).to redirect_to(show_page_path(urlname: 'lang-root'))
                 end
               end

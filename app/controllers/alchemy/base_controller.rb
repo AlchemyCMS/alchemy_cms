@@ -7,6 +7,7 @@ module Alchemy
     protect_from_forgery
 
     before_action :mailer_set_url_options
+    before_action :set_locale
 
     helper_method :multi_site?
 
@@ -22,7 +23,13 @@ module Alchemy
 
     private
 
-    # Returns the configuratin value of given key.
+    # Sets +I18n.locale+ to current Alchemy language.
+    #
+    def set_locale
+      ::I18n.locale = Language.current.code
+    end
+
+    # Returns the configuration value of given key.
     #
     # Config file is in +config/alchemy/config.yml+
     #

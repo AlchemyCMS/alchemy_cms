@@ -80,7 +80,7 @@ module Alchemy
       Site.current = current_alchemy_site
     end
 
-    # Sets the language for rendering pages in pages controller.
+    # Try to find and stores current language for Alchemy.
     #
     def set_alchemy_language(lang = nil)
       if lang
@@ -92,7 +92,6 @@ module Alchemy
                     load_default_alchemy_language
       end
       store_current_alchemy_language(@language)
-      ::I18n.locale = @language.code
     end
 
     def load_alchemy_language_from_params
