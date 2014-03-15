@@ -37,11 +37,12 @@ module Alchemy
     end
 
     describe "#flush" do
-      let(:page_1) { build_stubbed(:page) }
-      let(:page_2) { build_stubbed(:page) }
+      let(:language) { mock_model('Language', code: 'en', pages: double(flushables: [page_1, page_2])) }
+      let(:page_1)   { build_stubbed(:page) }
+      let(:page_2)   { build_stubbed(:page) }
 
       before do
-        Language.stub_chain(:current, :pages, :flushables).and_return([page_1, page_2])
+        Language.stub(current: language)
       end
 
       it "should remove the cache of all pages" do

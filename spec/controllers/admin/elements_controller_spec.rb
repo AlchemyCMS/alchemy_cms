@@ -47,7 +47,7 @@ module Alchemy
 
       context 'without page_id, but with page_urlname' do
         it "loads page from urlname" do
-          Language.should_receive(:current).and_return(double(pages: double(find_by: double(id: 1001))))
+          Language.stub(:current).and_return(double(code: 'en', pages: double(find_by: double(id: 1001))))
           xhr :get, :list, {page_urlname: 'contact'}
         end
 
