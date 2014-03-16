@@ -80,7 +80,21 @@ module Alchemy
       end
     end
 
-    context 'with ingredient validation for' do
+    describe 'validations' do
+      context 'without essence description in elements.yml' do
+        it 'should return an empty array' do
+          essence.stub(:description).and_return nil
+          expect(essence.validations).to eq([])
+        end
+      end
+
+      context 'without validations defined in essence description in elements.yml' do
+        it 'should return an empty array' do
+          essence.stub(:description).and_return({name: 'test', type: 'EssenceText'})
+          expect(essence.validations).to eq([])
+        end
+      end
+
       describe 'presence' do
         before do
           essence.stub(:description).and_return({'validate' => ['presence']})

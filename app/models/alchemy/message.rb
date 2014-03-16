@@ -42,7 +42,7 @@ module Alchemy
 
       case field.to_sym
       when :email
-        validates_format_of field, with: Alchemy::Config.get(:email_regexp), if: -> { email.present? }
+        validates_format_of field, with: Alchemy::Config.get('format_matchers')['email'], if: -> { email.present? }
       when :email_confirmation
         validates_confirmation_of :email
       end
