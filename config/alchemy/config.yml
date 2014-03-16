@@ -174,4 +174,15 @@ link_target_options: [blank]
 # Should pages that redirect to an external url open the link in a new tab/window?
 open_external_links_in_new_tab: true
 
-email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
+# === Format matchers
+#
+# Named aliases for regular expressions that can be used in various places.
+# The most common use case is the format validation of essences, or attribute validations of your individual models.
+#
+# == Example:
+#
+#   validates_format_of :url, with: Alchemy::Config.get('format_matchers')['url']
+#
+format_matchers:
+  email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
+  url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
