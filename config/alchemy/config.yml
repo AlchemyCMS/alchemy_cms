@@ -35,11 +35,11 @@ cache_pages: true
 
 # === Sitemap
 #
-# Alchemy renders a nice HTML (<ul><li> style) and XML (Google conform!) Sitemap for you.
+# Alchemy creates a XML, Google compatible, sitemap for you.
 #
-# Just place a sitemap element for a page layout in your page_layouts.yml file. Alchemy does the rest.
+# The url is: http://your-domain.tld/sitemap.xml
 #
-# ==== Options:
+# ==== Config Options:
 #
 #   show_root [Boolean] # Show language root page in sitemap?
 #   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibilit of pages in the sitemap.
