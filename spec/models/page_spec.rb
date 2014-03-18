@@ -1348,5 +1348,13 @@ module Alchemy
       let(:subject) { Page.new }
     end
 
+    describe '#layout_partial_name' do
+      let(:page) { Page.new(page_layout: 'Standard Page') }
+
+      it "returns a partial renderer compatible name" do
+        expect(page.layout_partial_name).to eq('standard_page')
+      end
+    end
+
   end
 end

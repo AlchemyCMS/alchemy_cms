@@ -81,6 +81,12 @@ module Alchemy
       I18n.t(self.page_layout, :scope => :page_layout_names)
     end
 
+    # Returns the name for the layout partial
+    #
+    def layout_partial_name
+      page_layout.parameterize.underscore
+    end
+
     # Returns the key that's taken for cache path.
     #
     # Uses the +published_at+ value that's updated when the user publishes the page.

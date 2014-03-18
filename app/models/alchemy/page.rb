@@ -251,7 +251,7 @@ module Alchemy
     # Page layout partials live in +app/views/alchemy/page_layouts+
     #
     def to_partial_path
-      "alchemy/page_layouts/#{page_layout}"
+      "alchemy/page_layouts/#{layout_partial_name}"
     end
 
     # Returns the previous page on the same level or nil.
