@@ -1,0 +1,31 @@
+de:
+  alchemy:
+
+    # Translations for page layout names
+    page_layout_names:
+      index: Startseite
+
+    # Translations for element names
+    element_names:
+      article: Artikel
+
+    # Translations for content names
+    content_names:
+      headline: Überschrift
+      text: Text
+      picture: Bild
+
+    # Default texts for new contents created
+    default_content_texts:
+      article_headline: "Willkommen auf Ihrer Alchemy Seite"
+      article_text: '<p>Als erstes sollte man sich mit der Struktur von Alchemy vertraut machen. <a class="external" href="http://guides.alchemy-cms.com/edge/alchemy_approach.html" target="_blank" data-link-target="blank">Mehr dazu in den Guidelines</a>.</p><p>Die wichtigsten beiden Dinge die man über Alchemy wissen muss sind Elemente und Seitentypen.</p><p><span style="text-decoration: underline;"><strong>Elemente:</strong></span></p><p>Mit Alchemy kann man eine Seite in Inhaltsbereiche aufteilen, Elemente. Diese Elemente werden aus verschiedenen Grundtypen (Essenzen) zusammengesetzt. Die Essenzen sind:</p><ul><li>EssenceText - <em>Eine Zeile Text</em></li><li>EssenceRichtext - <em>Ein TinyMCE basierter formatierter Textblock</em></li><li>EssencePicture - <em>Ein Verweis auf ein Bild</em></li><li>EssenceHtml - <em>HTML Code</em></li><li>EssenceSelect - <em>Eine Auswahl an Werten</em></li><li>EssenceBoolean - <em>Eine Checkbox</em></li></ul><p>Elemente werden in einer YAML Datei definiert: <strong>config/alchemy/elements.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/edge/elements.html" target="_blank" data-link-target="blank">Mehr über Elemente und wie sie definiert werden, kann in den Guidelines nachgelesen werden.</a></p><p><span style="text-decoration: underline;"><strong>Seitentypen:</strong></span></p><p>Es können verschiedene Seitentypen definiert werden. Diesen können Elemente zugewiesen und ihr Verhalten definiert werden.</p><p>Seitentypen werden ein einer YAML Datei definiert: <strong>config/alchemy/page_layouts.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/edge/page_layouts.html" target="_blank" data-link-target="blank">Mehr über das Erstellen von Seitentypen kann in den Guidelines nachgelesen werden.</a></p>'
+
+    # Hint texts for elements
+    element_hints:
+      article: "Dies ist ein Hinweistext für das Artikel Element. Dieser Text kann in der `config/locales/alchemy.de.yml` Datei angepasst werden."
+
+    # Hint texts for contents
+    content_hints:
+      headline: "Dies ist ein einzeiliger unformatierter Text"
+      picture: "Bilder werden in der Bibliothek gespeichert. Ein Bild kann mehrfach einem Element zugewiesen werden. Auch ein Bildauswahlwerkzeug ist in Alchemy integriert."
+      text: "Dies ist ein formatierbarer Textblock. Die Einstellungen des Editors können angepasst werden. Siehe http://guides.alchemy-cms.com/edge/customize_tinymce.html"

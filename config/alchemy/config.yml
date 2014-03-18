@@ -79,12 +79,12 @@ output_image_jpg_quality: 85
 preprocess_image_resize:
 image_output_format: jpg
 
-# This is the default language for the seeder.
+# This is the default language for new sites.
 default_language:
-  code: de
-  name: Deutsch
-  page_layout: intro
-  frontpage_name: Intro
+  code: en
+  name: English
+  page_layout: index
+  frontpage_name: Index
 
 # === Mailer Settings:
 #

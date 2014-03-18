@@ -35,14 +35,14 @@ describe "Translation integration" do
         page.should have_content('Willkommen')
       end
     end
-  end
 
-  context "with translated header" do
-    before { Capybara.current_driver = :rack_test_translated_header }
+    context "with translated header" do
+      before { Capybara.current_driver = :rack_test_translated_header }
 
-    it "should use the browsers language setting if no other parameter is given" do
-      visit root_path
-      ::I18n.locale.should == :de
+      it "should use the browsers language setting if no other parameter is given" do
+        visit admin_dashboard_path
+        page.should have_content('Willkommen')
+      end
     end
   end
 end

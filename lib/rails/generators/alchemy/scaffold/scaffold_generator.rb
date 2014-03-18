@@ -28,24 +28,33 @@ module Alchemy
       end
 
       def copy_files
-        copy_file "#{File.dirname(__FILE__)}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
+        copy_file "#{current_path}/files/elements.yml", "#{Rails.root}/config/alchemy/elements.yml"
         template "page_layouts.yml.tt", "#{Rails.root}/config/alchemy/page_layouts.yml"
-        copy_file "#{File.dirname(__FILE__)}/files/application.html.erb", "#{Rails.root}/app/views/layouts/application.html.erb"
-        copy_file "#{File.dirname(__FILE__)}/files/_standard.html.erb", "#{Rails.root}/app/views/alchemy/page_layouts/_standard.html.erb"
+        copy_file "#{current_path}/files/alchemy.en.yml", "#{Rails.root}/config/locales/alchemy.en.yml"
+        copy_file "#{current_path}/files/alchemy.de.yml", "#{Rails.root}/config/locales/alchemy.de.yml"
+        copy_file "#{current_path}/files/application.html.erb", "#{Rails.root}/app/views/layouts/application.html.erb"
+        copy_file "#{current_path}/files/_standard.html.erb", "#{Rails.root}/app/views/alchemy/page_layouts/_standard.html.erb"
+        copy_file "#{current_path}/files/_article_view.html.erb", "#{Rails.root}/app/views/alchemy/elements/_article_view.html.erb"
+        copy_file "#{current_path}/files/_article_editor.html.erb", "#{Rails.root}/app/views/alchemy/elements/_article_editor.html.erb"
+        copy_file "#{current_path}/files/alchemy.elements.css.scss", "#{Rails.root}/app/assets/stylesheets/alchemy.elements.css.scss"
       end
 
-    private
+      private
 
       def config_path
-        @config_path ||= File.expand_path('../../../../../config/alchemy', File.dirname(__FILE__))
+        @config_path ||= File.expand_path('../../../../../config/alchemy', current_path)
       end
 
       def copy_alchemy_views
         ALCHEMY_VIEWS.each do |dir|
-          src = File.expand_path("../../../../../app/views/alchemy/#{dir}", File.dirname(__FILE__))
+          src = File.expand_path("../../../../../app/views/alchemy/#{dir}", current_path)
           dest = Rails.root.join('app/views/alchemy', dir)
           directory src, dest
         end
+      end
+
+      def current_path
+        @current_path ||= File.dirname(__FILE__)
       end
 
     end
