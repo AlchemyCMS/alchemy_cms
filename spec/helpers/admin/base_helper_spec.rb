@@ -203,5 +203,30 @@ module Alchemy
         should have_selector('form input[name="_method"][value="delete"]')
       end
     end
+
+    describe '#alchemy_datepicker' do
+      subject { alchemy_datepicker(essence, :date, {value: now}) }
+
+      let(:essence) { EssenceDate.new() }
+      let(:now)     { Time.now }
+
+      it "renders a date field" do
+        should have_selector("input[type='date']")
+      end
+
+      it "sets default date as value" do
+        should have_selector("input[value='#{::I18n.l(now, format: :datepicker)}']")
+      end
+
+      context 'with date stored on object' do
+        let(:date)    { Time.parse('1976-10-07 00:00 Z') }
+        let(:essence) { EssenceDate.new(date: date) }
+
+        it "sets this date as value" do
+          should have_selector("input[value='#{::I18n.l(date, format: :datepicker)}']")
+        end
+      end
+    end
+
   end
 end
