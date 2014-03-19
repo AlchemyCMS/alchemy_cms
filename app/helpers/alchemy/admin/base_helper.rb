@@ -357,11 +357,19 @@ module Alchemy
       #   The value the input displays
       #
       def alchemy_datepicker(object, method, html_options={})
-        text_field(object.class.name.underscore.to_sym, method.to_sym, {
-          :type => 'date',
-          :class => 'thin_border date',
-          :value => object.send(method.to_sym).nil? ? nil : l(object.send(method.to_sym), :format => :datepicker)
-        }.merge(html_options))
+        value = nil
+        if object.send(method.to_sym).present?
+          value = l(object.send(method.to_sym), format: :datepicker)
+        elsif html_options[:value].present?
+          date = html_options.delete(:value)
+          date = Time.parse(date) if date.is_a?(String)
+          value = l(date, format: :datepicker)
+        end
+        text_field object.class.name.underscore.to_sym, method.to_sym, html_options.merge({
+          type: 'date',
+          class: 'date',
+          value: value
+        })
       end
 
       # Merges the params-hash with the given hash

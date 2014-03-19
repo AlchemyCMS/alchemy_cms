@@ -2,8 +2,9 @@
   <%= label_and_remove_link(content) %>
   <%= alchemy_datepicker(
     content.essence, :date, {
-      :name => content.form_field_name,
-      :id => content.form_field_id
+      name: content.form_field_name,
+      id: content.form_field_id,
+      value: options[:default_value]
     }
   ) %>
   <label for="<%= content.form_field_id %>" style="cursor: pointer; display: inline; display: inline-block; position: relative; top: 3px; margin: 0;">
