@@ -25,6 +25,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         default_hover:
           outline: "3px solid #F0B437"
           "outline-offset": "4px"
+          cursor: "pointer"
 
         webkit_hover:
           outline: "4px auto #F0B437"
