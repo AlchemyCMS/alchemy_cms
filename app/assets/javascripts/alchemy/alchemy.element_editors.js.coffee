@@ -31,6 +31,7 @@ Alchemy.ElementEditors =
       id = $(this).parent().attr("id").replace(/\D/g, "")
       self.toggle id
     Alchemy.ElementEditors.observeToggler($elements)
+    Alchemy.ElementEditors.missingContentsObserver($elements)
 
   # Click event handler.
   #
@@ -124,3 +125,14 @@ Alchemy.ElementEditors =
   observeToggler: (scope) ->
     $('[data-element-toggle]', scope).click ->
       Alchemy.ElementEditors.toggle $(this).data('element-toggle')
+
+  # Handles the missing content links.
+  # Ensures that the links query string is converted into post body and send
+  # the request via a real ajax post to server, to allow long query strings.
+  missingContentsObserver: (scope) ->
+    $('[data-create-missing-content]', scope).click ->
+      $link = $(this)
+      url = this.pathname
+      querystring = this.search.replace(/\?/, '')
+      $.post url, querystring
+      return false

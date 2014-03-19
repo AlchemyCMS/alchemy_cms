@@ -3,19 +3,17 @@
   <p>
     <%= render_icon('warning') %>
     <%= _t(:content_not_found) %>
-    <%= link_to(
-      _t(:create),
+    <%= link_to _t(:create),
       alchemy.admin_contents_path(
-        :content => {
-          :element_id => element.id,
-          :name => name
+        content: {
+          element_id: element.id,
+          name: name
         },
-        :was_missing => true,
-        :options => options.to_json
+        was_missing: true,
+        options: options.to_json
       ),
-      :method => 'post',
-      :remote => true,
-      :class => 'small button'
-    ) %>
+      'data-create-missing-content' => true,
+      class: 'small button'
+    %>
   </p>
 </div>
