@@ -179,7 +179,7 @@ module Alchemy
 
       context "rendering for authors" do
         it "is allowed" do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(author), language: 'en'))
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(author), language: 'en', cache_key: 'aaa'))
           visit "/#{public_page_1.urlname}"
           within('body') { page.should have_selector('#alchemy_menubar') }
         end
@@ -187,7 +187,7 @@ module Alchemy
 
       context "rendering for editors" do
         it "is allowed" do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(editor), language: 'en'))
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(editor), language: 'en', cache_key: 'aaa'))
           visit "/#{public_page_1.urlname}"
           within('body') { page.should have_selector('#alchemy_menubar') }
         end
@@ -195,7 +195,7 @@ module Alchemy
 
       context "rendering for admins" do
         it "is allowed" do
-          authorize_as_admin
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(admin), language: 'en', cache_key: 'aaa'))
           visit "/#{public_page_1.urlname}"
           within('body') { page.should have_selector('#alchemy_menubar') }
         end
@@ -203,7 +203,7 @@ module Alchemy
 
       context "contains" do
         before do
-          authorize_as_admin
+          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(admin), language: 'en', cache_key: 'aaa'))
           visit "/#{public_page_1.urlname}"
         end
 
