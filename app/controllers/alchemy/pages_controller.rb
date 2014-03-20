@@ -19,8 +19,7 @@ module Alchemy
     # @language fetched via before_filter in alchemy_controller
     # querying for search results if any query is present via before_filter
     def show
-      expires_in cache_page? ? 1.month : 0
-      if !cache_page? || stale?(etag: @page, last_modified: @page.published_at, public: !@page.restricted)
+      if !cache_page? || stale?(etag: page_etag, last_modified: @page.published_at, public: !@page.restricted)
         respond_to do |format|
           format.html { render layout: !request.xhr? }
           format.rss do
@@ -167,6 +166,19 @@ module Alchemy
       return false unless @page && Alchemy::Config.get(:cache_pages)
       pagelayout = PageLayout.get(@page.page_layout)
       pagelayout['cache'] != false && pagelayout['searchresults'] != true
+    end
+
+    # Returns the etag used for response headers.
+    #
+    # If a user is logged in with sufficient rights to see the alchemy menu bar,
+    # we use another etag to prevent caching the menu bar.
+    #
+    def page_etag
+      if can?(:edit_content, @page)
+        @page.cache_key + current_alchemy_user.cache_key
+      else
+        @page.cache_key
+      end
     end
 
   end

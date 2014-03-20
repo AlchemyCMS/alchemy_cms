@@ -174,5 +174,30 @@ module Alchemy
         end
       end
     end
+
+    describe '#page_etag' do
+      subject { controller.send(:page_etag) }
+
+      before do
+        page.stub(cache_key: 'aaa')
+        controller.instance_variable_set('@page', page)
+      end
+
+      it "returns the etag for response headers" do
+        expect(subject).to eq('aaa')
+      end
+
+      context 'with author user logged in' do
+        let(:author_user) { mock_model(Alchemy.user_class, alchemy_roles: [:author], cache_key: 'bbb') }
+
+        before do
+          sign_in(author_user)
+        end
+
+        it "returns another etag for response headers" do
+          expect(subject).to eq('aaabbb')
+        end
+      end
+    end
   end
 end
