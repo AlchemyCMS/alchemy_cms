@@ -175,7 +175,7 @@ module Alchemy
     #
     def page_etag
       if can?(:edit_content, @page)
-        @page.cache_key + current_alchemy_user.cache_key
+        @page.cache_key + current_alchemy_user.try(:cache_key)
       else
         @page.cache_key
       end
