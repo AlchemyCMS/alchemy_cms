@@ -1,6 +1,6 @@
 <% if params[:was_missing] %>
 
-$("#element_<%= @element.id %>_content_missing").replaceWith('<%= j(
+$("[data-element-<%= @element.id %>-missing-content=\"<%= @content.name %>\"]").replaceWith('<%= j(
   render(
     partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
     locals: @locals

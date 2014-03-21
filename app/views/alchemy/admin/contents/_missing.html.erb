@@ -1,4 +1,4 @@
-<div class="content_editor missing" id="element_<%= element.id %>_content_missing">
+<div class="content_editor missing" data-element-<%= element.id %>-missing-content="<%= name %>">
   <label><%= Alchemy::Content.translated_label_for(name, element.name) %></label>
   <p>
     <%= render_icon('warning') %>
