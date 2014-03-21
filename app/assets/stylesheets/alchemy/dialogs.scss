@@ -153,8 +153,16 @@
   position: relative;
   color: $text-color;
 
+  .message {
+    margin: 8px;
+  }
+
   &.padded {
     padding: 4*$default-padding;
+
+    .message {
+      margin: 0 0 8px 0;
+    }
   }
 
   ul#sitemap ul li span.sitemap_sitename {
