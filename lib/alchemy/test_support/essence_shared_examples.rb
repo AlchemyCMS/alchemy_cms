@@ -63,22 +63,6 @@ shared_examples_for "an essence" do
     end
   end
 
-  describe '#page' do
-    let(:page)    { build_stubbed(:page) }
-    let(:element) { build_stubbed(:element, page: page) }
-
-    context 'essence has no element' do
-      it "should return nil" do
-        expect(essence.page).to eq(nil)
-      end
-    end
-
-    it "should return the page the essence is placed on" do
-      essence.stub(:element).and_return(element)
-      expect(essence.page).to eq(page)
-    end
-  end
-
   describe 'validations' do
     context 'without essence description in elements.yml' do
       it 'should return an empty array' do

@@ -33,9 +33,10 @@ module Alchemy #:nodoc:
           include Alchemy::Essence::InstanceMethods
           stampable stamper_class_name: Alchemy.user_class_name
           validate :validate_ingredient, :on => :update, :if => 'validations.any?'
-          has_many :contents, :as => :essence
-          has_many :elements, :through => :contents
-          has_many :pages, :through => :elements
+
+          has_one :content, :as => :essence
+          has_one :element, :through => :content
+          has_one :page,    :through => :element
 
           after_update :touch_content
 
@@ -169,27 +170,10 @@ module Alchemy #:nodoc:
         element.content_descriptions.detect { |c| c['name'] == self.content.name } || {}
       end
 
-      # Returns the Content Essence is in
-      def content
-        @content ||= Alchemy::Content.find_by(essence_type: acts_as_essence_class.to_s, essence_id: self.id)
-      end
-
       # Touch content. Called after update.
       def touch_content
         return nil if content.nil?
         content.touch
-      end
-
-      # Returns the Element Essence is in
-      def element
-        return nil if content.nil?
-        @element ||= content.element
-      end
-
-      # Returns the Page Essence is on
-      def page
-        return nil if element.nil?
-        @page ||= element.page
       end
 
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.
