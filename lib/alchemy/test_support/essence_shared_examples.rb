@@ -102,22 +102,35 @@ shared_examples_for "an essence" do
 
     describe 'uniqueness' do
       before do
+        essence.stub(element: build_stubbed(:element))
         essence.stub(:description).and_return({'validate' => ['uniqueness']})
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 
-      context 'when essence with same ingredient already exists' do
-        before { essence.dup.save }
+      context 'when a duplicate exists' do
+        before { essence.stub(:duplicates).and_return([essence.dup]) }
 
         it 'should not be valid' do
           expect(essence).to_not be_valid
         end
+
+        context 'when validated essence is not public' do
+          before { essence.stub(public?: false) }
+
+          it 'should be valid' do
+            expect(essence).to be_valid
+          end
+        end
       end
 
-      context 'when no essence with same ingredient exists' do
+      context 'when no duplicate exists' do
+        before { essence.stub(:duplicates).and_return([]) }
+
         it 'should be valid' do
           expect(essence).to be_valid
         end
+      end
+    end
 
     describe '#acts_as_essence?' do
       it 'should return true' do
