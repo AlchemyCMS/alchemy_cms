@@ -38,6 +38,11 @@ module Alchemy #:nodoc:
           has_one :element, :through => :content
           has_one :page,    :through => :element
 
+          scope :available,    -> { joins(:element).merge(Element.available) }
+          scope :from_element, ->(name) { joins(:element).where(alchemy_elements: { name: name }) }
+
+          delegate :public?, to: :element
+
           after_update :touch_content
 
           def acts_as_essence_class
@@ -131,7 +136,8 @@ module Alchemy #:nodoc:
       end
 
       def validate_uniqueness
-        if acts_as_essence_class.where("#{ingredient_column}" => ingredient).where.not(id: self.id).any?
+        return if !public?
+        if duplicates.any?
           errors.add(ingredient_column, :taken)
           validation_errors << :taken
         end
@@ -143,6 +149,14 @@ module Alchemy #:nodoc:
           errors.add(ingredient_column, :invalid)
           validation_errors << :invalid
         end
+      end
+
+      def duplicates
+        acts_as_essence_class
+          .available
+          .from_element(element.name)
+          .where("#{ingredient_column}" => ingredient)
+          .where.not(id: self.id)
       end
 
       # Returns the value stored from the database column that is configured as ingredient column.
