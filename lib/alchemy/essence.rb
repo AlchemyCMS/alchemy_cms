@@ -191,7 +191,7 @@ module Alchemy #:nodoc:
       end
 
       def acts_as_essence?
-        !acts_as_essence_class.blank?
+        acts_as_essence_class.present?
       end
 
       def to_partial_path

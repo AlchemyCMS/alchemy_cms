@@ -118,6 +118,10 @@ shared_examples_for "an essence" do
         it 'should be valid' do
           expect(essence).to be_valid
         end
+
+    describe '#acts_as_essence?' do
+      it 'should return true' do
+        expect(essence.acts_as_essence?).to be_true
       end
     end
   end
