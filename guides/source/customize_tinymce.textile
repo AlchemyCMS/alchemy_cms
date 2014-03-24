@@ -26,12 +26,13 @@ Because Alchemy merges the default options and your custom options you just need
 <pre>
 # config/initializers/tinymce.rb
 Alchemy::Tinymce.init = {
-  :theme_advanced_buttons1 => 'bold,italic,underline',
-  :theme_advanced_buttons2 => ''
+  toolbar1: 'bold italic underline',
+  toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
 }
 </pre>
 
-Now only this three basic formatting options are available to your editors.
+Now only this three basic formatting options are available in the first toolbar to your editors.
+In the second toolbar are now the align formatting options available.
 
 NOTE: Overriding options always applies to all richtext editors in all elements in Alchemy.
 
@@ -48,7 +49,7 @@ In the TinyMCE documentation we found our configuration option:
 <pre>
 tinyMCE.init({
   ...
-  theme_advanced_blockformats : "p,div,h1,h2,h3,h4,h5,h6,blockquote,dt,dd,code,samp"
+  block_formats: "Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3"
 });
 </pre>
 
@@ -58,8 +59,8 @@ And we need to insert the format select into the set of buttons.
 <pre>
 # config/initializers/tinymce.rb
 Alchemy::Tinymce.init = {
-  :theme_advanced_buttons2 => 'pastetext,pasteword,formatselect,charmap,code,help',
-  :theme_advanced_blockformats => "p,h2"
+  toolbar2: 'pastetext | formatselect | charmap code | undo redo | alchemy_link unlink',
+  block_formats: "Header 2=h2;Paragraph=p"
 }
 </pre>
 
@@ -77,21 +78,20 @@ h4. Create a css file
 
 Put a <code>tinymce_content.css</code> stylesheet into your <code>app/assets/stylesheets</code> folder.
 
-TIP: A minimal css ruleset that formats the text basics (i.e. <code>p, a, h1, h2, h3, strong</code>) should be enough.
+INFO: Please read more on custom stylesheets in the "TinyMCE documentation":http://www.tinymce.com/wiki.php/Configuration:content_css
 
 h4. Setting the stylesheet
 
 <pre>
 Alchemy::Tinymce.init = {
-  :content_css => "/assets/tinymce_content.css"
+  content_css: "/assets/tinymce_content.css"
 }
 </pre>
 
-h4. Precompile the asset for production
+h4. Compile the asset for production
 
 In production mode (on your server) rails uses compiled assets to speed up the rendering of your page.
-As default rails only precopmiles the <code>application.css</code> stylesheet. But you can tell rails to precompile
-our custom tinymce stylesheet as well.
+As default rails only compiles the <code>application.css</code> stylesheet. But you can tell rails to compile our custom TinyMCE stylesheet as well.
 
 Open the <code>config/environments/production.rb</code> file in your editor and insert this line:
 
@@ -101,7 +101,7 @@ config.assets.precompile += %w( tinymce_content.css )
 
 h3. Per element customization
 
-You can also set tinymce configuration options per element.
+You can also set TinyMCE configuration options per element.
 
 <pre>
 # elements.yml
@@ -111,30 +111,34 @@ You can also set tinymce configuration options per element.
     type: EssenceRichtext
     settings:
       tinymce:
-        theme_advanced_buttons1: 'bold,italic,underline'
-        theme_advanced_buttons2: ''
+        toolbar1: 'bold italic underline',
+        toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
 </pre>
 
 h3. Configuration Syntax
 
-TIP: You can set any "TinyMCE configuration option":http://www.tinymce.com/wiki.php/Configuration. Just rememebr to _convert_ the javascript syntax into ruby.
+TIP: You can set any "TinyMCE configuration option":http://www.tinymce.com/wiki.php/Configuration. Just remember to _convert_ the javascript syntax into ruby.
 
 h4. Convertions Tips
 
+Javascript and Ruby has very similiar syntax. Especially if you use the new Ruby 1.9 Hash syntax. So converting is no big deal.
+
 h5. Object to Hash
 
-<pre>{ "key" : "value" } => { :key => "value" }</pre>
+<pre>{ "key" : "value" } => { key: "value" }</pre>
 
 h5. Array to Array
+
+Arrays have the same syntax. So you can just take them as they are.
 
 <pre>["1", "2", "3", "4"] => ["1", "2", "3", "4"]</pre>
 
 h5. Object with Array as value
 
-<pre>{ "key" : ["value1", "value2"] } => { :key => ["value1", "value2"] }</pre>
+<pre>{ "key" : ["value1", "value2"] } => { key: ["value1", "value2"] }</pre>
 
 h5. Object with Object as value
 
-<pre>{ "key" : { "value" : ["value1", "value2"] } } => { :key => { :value => ["value1", "value2"] } }</pre>
+<pre>{ "key" : { "value" : ["value1", "value2"] } } => { key: { value: ["value1", "value2"] } }</pre>
 
 &nbsp;
