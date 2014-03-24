@@ -1,0 +1,106 @@
+h2. Custom Authentication
+
+Since 3.0 Alchemy has removed it's build in authentication into a separate gem, called <code>alchemy-devise</code>. Now, that this is not in the core anymore it gives you the possibility to add your own custom authentification.
+
+You only have to tell Alchemy about your user class.
+
+endprologue.
+
+h3. Activating your model
+
+Alchemy has some defaults for user model name and login logout path names:
+
+h4. Defaults
+
+* <code>Alchemy.user_class_name</code> defaults to <code>'User'</code>
+* <code>Alchemy.login_path</code> defaults to <code>'/login'</code>
+* <code>Alchemy.logout_path</code> defaults to <code>'/logout'</code>
+
+Anyway, you can tell Alchemy about your authentication model configuration.
+
+h5. Example
+
+<pre>
+# config/initializers/alchemy.rb
+Alchemy.user_class_name = 'Admin'
+Alchemy.login_path = '/auth/login'
+Alchemy.logout_path = '/auth/logout'
+</pre>
+
+h3. Mandatory methods
+
+h4. alchemy_roles
+
+In your app's user class, the only method that Alchemy CMS needs in order to run is <code>alchemy_roles</code>.
+
+This method has to return an array of strings, containing at least one of these roles:
+
+* member
+* author
+* editor
+* admin
+
+h5. Example
+
+<pre>
+def alchemy_roles
+  if admin?
+    %w(admin)
+  end
+end
+</pre>
+
+h3. Optional methods
+
+But, there are still few other attributes that are good to have in your user class which are:
+
+h4. name
+
+This would be used to say <code>"Welcome back #{@user.name}"</code> and is used in the "logged in as" note on the top right corner of the admin interface.
+
+h5. Example
+
+<pre>
+def name
+  # If you don't have a name, you could use the user's email
+  read_attribute(:email)
+end
+</pre>
+
+h4. language
+
+A locale String to set the users preferred translation of the Alchemy GUI.
+
+h5. Example
+
+<pre>
+# Always use dutch as translation
+def language
+  'nl'
+end
+</pre>
+
+h4. Userstamp columns
+
+Alchemy stores updater and creator ids, if the columns are present.
+If you want to track which user updated another user, you can add
+
+`creator_id` and `updater_id` as integer columns to you users table.
+
+h4. Tagging
+
+If you want to tag your users you can add the <code>acts_as_taggable</code> and <code>acts_as_tagger</code> class methods.
+
+h5. Example
+
+<pre>
+class User < ActiveRecord::Base
+  acts_as_taggable
+  acts_as_tagger
+  ...
+end
+</pre>
+
+NOTE: You also need to add a `cached_tag_list` text column to your users table.
+
+&nbsp;

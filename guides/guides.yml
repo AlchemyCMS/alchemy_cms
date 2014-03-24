@@ -97,6 +97,11 @@ index:
       url: create_modules
       text: How to create custom modules.
 
+    - title: Custom Authentication
+      url: custom_authentication
+      text: How to add you own custom authentication.
+
+
   6.) Deployment:
     - title: Deploying on RailsHoster
       url: deploy_on_railshoster
