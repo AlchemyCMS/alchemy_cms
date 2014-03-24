@@ -1,7 +1,7 @@
-![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
+![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=master)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=master)
+[![Build Status](https://travis-ci.org/magiclabs/alchemy_cms.svg?branch=master)](https://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=master)
 
 About
 -----
@@ -112,14 +112,14 @@ Run in terminal:
     Alchemy.user_class_name = 'YourUserClass'
     Alchemy.login_path = '/your/login/path'
     Alchemy.logout_path = '/your/logout/path'
-    
+
 The only thing Alchemy needs to know from your user model is the `alchemy_roles` method.
 
 This method has to return an `Array` or `ActiveRecord::Relation` with at least one of the following roles:
 
 * `member`
 * `author`
-* `editor` 
+* `editor`
 * `admin`
 
 Example:
