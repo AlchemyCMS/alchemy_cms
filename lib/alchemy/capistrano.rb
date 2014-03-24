@@ -1,6 +1,9 @@
 # This recipe contains Capistrano recipes for handling the uploads, ferret index and picture cache files while deploying your application.
 # It also contains a ferret:rebuild_index task to rebuild the index after deploying your application.
 require 'fileutils'
+require 'alchemy/tasks/helpers'
+
+include Alchemy::Tasks::Helpers
 
 ::Capistrano::Configuration.instance(:must_exist).load do
 
@@ -100,7 +103,7 @@ EOF
         database
       end
 
-      desc "Imports the database into your local development machine."
+      desc "Imports the server database into your local development machine."
       task :database, :roles => [:db], :only => {:primary => true} do
         require 'spinner'
         server = find_servers_for_task(current_task).first
@@ -147,23 +150,8 @@ EOF
       def db_import_cmd(server)
         dump_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
         sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
-        "#{sql_stream} | mysql #{mysql_credentials} #{database_config['database']}"
+        "#{sql_stream} | #{database_import_command(database_config['adapter'])} 1>/dev/null 2>&1"
       end
-
-      def mysql_credentials
-        mysql_credentials = []
-        if database_config['username']
-          mysql_credentials << "--user='#{database_config['username']}'"
-        end
-        if database_config['password']
-          mysql_credentials << "--password='#{database_config['password']}'"
-        end
-        if (host = database_config['host']) && (host != 'localhost')
-          mysql_credentials << "--host='#{host}'"
-        end
-        mysql_credentials.join(' ')
-      end
-
     end
 
   end
