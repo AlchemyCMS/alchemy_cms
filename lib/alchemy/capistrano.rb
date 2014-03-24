@@ -117,11 +117,8 @@ EOF
         database
       end
 
-      desc "Imports the database into your local development machine."
+      desc "Imports the server database into your local development machine."
       task :database, :roles => [:db], :only => {:primary => true} do
-        unless database_config['adapter'] =~ /mysql/
-          abort "ABORTING: Only MySQL databases are supported right now."
-        end
         require 'spinner'
         server = find_servers_for_task(current_task).first
         spinner = Spinner.new
@@ -155,9 +152,8 @@ EOF
       def db_import_cmd(server)
         dump_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
         sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
-        "#{sql_stream} | mysql #{mysql_credentials} #{database_config['database']}"
+        "#{sql_stream} | #{database_import_command(database_config['adapter'])} 1>/dev/null 2>&1"
       end
-
     end
 
   end
