@@ -11,17 +11,22 @@ module Alchemy
       end
     end
 
-    describe '#persisted?' do
-      it "should return false" do
-        expect(message.persisted?).to eq(false)
+    it "has attributes writers and getters for all fields defined in mailer config" do
+      Config.get(:mailer)['fields'].each do |field|
+        expect(message).to respond_to(field)
+        expect(message).to respond_to("#{field}=")
       end
     end
 
-    describe '#attributes' do
-      it "should call .attributes" do
-        Message.should_receive(:attributes)
-        message.attributes
+    it "validates attributes defined in mailer config" do
+      Config.get(:mailer)['validate_fields'].each do |field|
+        expect(message).to have(1).error_on(field)
       end
+    end
+
+    it "validates email format" do
+      message.email = 'wrong email format'
+      expect(message.errors_on(:email)).to include("is invalid")
     end
   end
 end
