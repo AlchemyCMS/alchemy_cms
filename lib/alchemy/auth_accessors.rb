@@ -4,7 +4,7 @@
 #
 # +Alchemy.user_class_name+ defaults to +'User'+
 # +Alchemy.login_path defaults to +'/login'+
-# +Alchemy.logout_path defaults to +'/admin/logout'+
+# +Alchemy.logout_path defaults to +'/logout'+
 #
 # Anyway, you can tell Alchemy about your authentication model configuration:
 #
