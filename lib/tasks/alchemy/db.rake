@@ -10,11 +10,11 @@ namespace :alchemy do
       Alchemy::Seeder.seed!
     end
 
-    desc "Dumps the database to STDOUT (Pass DUMP_FILENAME to store the dump into a file). NOTE: This only works with MySQL yet."
+    desc "Dumps the database to STDOUT (Pass DUMP_FILENAME to store the dump into a file)."
     task :dump => :environment do
-      raise "Sorry, but Alchemy only supports MySQL database dumping at the moment." unless database_config['adapter'] =~ /mysql/
       dump_store = ENV['DUMP_FILENAME'] ? " > #{ENV['DUMP_FILENAME']}" : ""
-      system "mysqldump #{mysql_credentials} #{database_config['database']}#{dump_store}"
+      dump_cmd = database_dump_command(database_config['adapter'])
+      system "#{dump_cmd}#{dump_store}"
     end
 
   end
