@@ -385,8 +385,9 @@ module Alchemy
     end
 
     # The names of all cells from given page this element could be placed in.
-    def belonging_cellnames(page)
-      cellnames = page.cells.select { |c| c.available_elements.include?(self.name) }.collect(&:name).flatten.uniq
+    #
+    def available_page_cell_names(page)
+      cellnames = unique_available_page_cell_names(page)
       if cellnames.blank? || !page.has_cells?
         ['for_other_elements']
       else
@@ -442,6 +443,20 @@ module Alchemy
       elements = page.elements.published.where("#{self.class.table_name}.position #{dir} #{position}")
       elements = elements.named(name) if name.present?
       elements.reorder("position #{dir == '>' ? 'ASC' : 'DESC'}").limit(1).first
+    end
+
+    # Returns all cells from given page this element could be placed in.
+    #
+    def available_page_cells(page)
+      page.cells.select do |cell|
+        cell.available_elements.include?(self.name)
+      end
+    end
+
+    # Returns all uniq cell names from given page this element could be placed in.
+    #
+    def unique_available_page_cell_names(page)
+      available_page_cells(page).collect(&:name).uniq
     end
 
   end
