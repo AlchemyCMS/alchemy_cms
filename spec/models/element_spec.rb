@@ -166,11 +166,9 @@ module Alchemy
       end
     end
 
-    describe '#belonging_cellnames' do
-      before do
-        @page = FactoryGirl.create(:public_page)
-        @element = FactoryGirl.create(:element, :page => @page)
-      end
+    describe '#available_page_cell_names' do
+      let(:page)    { FactoryGirl.create(:public_page) }
+      let(:element) { FactoryGirl.create(:element, page: page) }
 
       context "with page having cells defining the correct elements" do
         before do
@@ -182,16 +180,16 @@ module Alchemy
         end
 
         it "should return a list of all cells from given page this element could be placed in" do
-          @header_cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
-          @footer_cell = FactoryGirl.create(:cell, :name => 'footer', :page => @page)
-          @sidebar_cell = FactoryGirl.create(:cell, :name => 'sidebar', :page => @page)
-          @element.belonging_cellnames(@page).should include('header')
-          @element.belonging_cellnames(@page).should include('footer')
+          FactoryGirl.create(:cell, name: 'header', page: page)
+          FactoryGirl.create(:cell, name: 'footer', page: page)
+          FactoryGirl.create(:cell, name: 'sidebar', page: page)
+          element.available_page_cell_names(page).should include('header')
+          element.available_page_cell_names(page).should include('footer')
         end
 
         context "but without any cells" do
           it "should return the 'nil cell'" do
-            @element.belonging_cellnames(@page).should == ['for_other_elements']
+            element.available_page_cell_names(page).should == ['for_other_elements']
           end
         end
 
@@ -207,10 +205,10 @@ module Alchemy
         end
 
         it "should return the 'nil cell'" do
-          @header_cell = FactoryGirl.create(:cell, :name => 'header', :page => @page)
-          @footer_cell = FactoryGirl.create(:cell, :name => 'footer', :page => @page)
-          @sidebar_cell = FactoryGirl.create(:cell, :name => 'sidebar', :page => @page)
-          @element.belonging_cellnames(@page).should == ['for_other_elements']
+          FactoryGirl.create(:cell, name: 'header', page: page)
+          FactoryGirl.create(:cell, name: 'footer', page: page)
+          FactoryGirl.create(:cell, name: 'sidebar', page: page)
+          element.available_page_cell_names(page).should == ['for_other_elements']
         end
       end
     end

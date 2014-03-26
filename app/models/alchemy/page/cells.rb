@@ -58,7 +58,7 @@ module Alchemy
       layout_description['elements'].uniq - element_names_from_cells
     end
 
-  private
+    private
 
     # Creates cells that are defined in page's page_layout definition.
     def create_cells

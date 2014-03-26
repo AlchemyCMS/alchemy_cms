@@ -11,7 +11,9 @@ module Alchemy
         @page = Page.find(params[:page_id])
         @allowed_elements = @page.available_element_definitions
         @draggable_trash_items = {}
-        @elements.each { |e| @draggable_trash_items["element_#{e.id}"] = e.belonging_cellnames(@page) }
+        @elements.each do |element|
+          @draggable_trash_items["element_#{element.id}"] = element.available_page_cell_names(@page)
+        end
       end
 
       def clear
