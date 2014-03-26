@@ -187,8 +187,8 @@ module Alchemy
         expect(subject).to eq('aaa')
       end
 
-      context 'with author user logged in' do
-        let(:author_user) { mock_model(Alchemy.user_class, alchemy_roles: [:author], cache_key: 'bbb') }
+      context 'with user logged in' do
+        let(:author_user) { mock_model(Alchemy.user_class, cache_key: 'bbb') }
 
         before do
           sign_in(author_user)
