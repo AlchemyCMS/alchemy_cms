@@ -411,6 +411,8 @@ nl:
     image_title: "Titel-tag"
     images: "Bilder"
     internal_link_headline: "Kies een pagina om een snelkoppeling naar te maken."
+    internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
+    internal_link_page_anchors_explanation: "Alternativly you can link to an anchor of the actual page."
     "item copied to clipboard": "%{name} naar het klembord gekopieerd"
     "item moved to clipboard": "%{name} naar het klembord verplaatst"
     "item removed from clipboard": "%{name} van het klembord verwijderd"
@@ -692,7 +694,7 @@ nl:
         hour: "Uur"
         day: "Dag"
         month: "Maand"
-        year: "Jaar"	
+        year: "Jaar"
   number:
     format:
       precision: 2
