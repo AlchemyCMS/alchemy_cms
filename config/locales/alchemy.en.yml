@@ -264,6 +264,8 @@ en:
     image_name: "Name"
     image_title: "Title-tag"
     internal_link_headline: "Choose a page to link to."
+    internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
+    internal_link_page_anchors_explanation: "Alternatively you can link to an anchor of the actual page."
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"

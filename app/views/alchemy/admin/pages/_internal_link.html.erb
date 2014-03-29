@@ -1,6 +1,8 @@
 <%= form_tag do %>
   <%= render_message do %>
     <h2><%= _t(:internal_link_headline) %></h2>
+    <p><%= _t(:internal_link_page_elements_explanation) %></p>
+    <p><%= _t(:internal_link_page_anchors_explanation) %></p>
   <% end %>
   <div id="page_selector_container">
     <% if @page_root %>
@@ -9,11 +11,13 @@
     </ul>
     <% end %>
   </div>
-  <div class="input text">
-    <label for="internal_urlname" class="control-label">
-      <%= _t(:url) %>
+  <div class="input select">
+    <label for="internal_anchor" class="control-label">
+      <%= _t(:anchor) %>
     </label>
-    <%= text_field_tag(:internal_urlname) %>
+    <%= select_tag(:internal_anchor,
+      options_for_select([[_t('Please choose'), '']]),
+      class: 'alchemy_selectbox') %>
   </div>
   <div class="input text">
     <label for="internal_link_title" class="control-label">
@@ -30,6 +34,7 @@
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
+    <%= hidden_field_tag(:internal_urlname) %>
     <%= hidden_field_tag(:page_anchor) %>
     <%= link_to _t(:apply), '', class: 'create-link button', 'data-link-type' => 'internal' %>
   </div>
